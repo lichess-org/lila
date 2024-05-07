@@ -27,18 +27,15 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok.page(views.tutor.openingUi.openings(perf, user))
   }
 
-  def opening(username: UserStr, perf: PerfKey, colName: String, opName: String) =
+  def opening(username: UserStr, perf: PerfKey, color: Color, opName: String) =
     TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-      chess.Color
-        .fromName(colName)
-        .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): color =>
-          LilaOpeningFamily
-            .find(opName)
-            .flatMap(perf.openings(color).find)
-            .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
-              env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
-                Ok.page(views.tutor.opening(perf, family, color, user, puzzle))
-              }
+      LilaOpeningFamily
+        .find(opName)
+        .flatMap(perf.openings(color).find)
+        .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
+          env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
+            Ok.page(views.tutor.opening(perf, family, color, user, puzzle))
+          }
     }
 
   def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>

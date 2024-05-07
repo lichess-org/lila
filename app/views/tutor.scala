@@ -10,7 +10,7 @@ val openingUi = lila.tutor.ui.TutorOpening(helpers, bits, perf)
 def opening(
     perfReport: lila.tutor.TutorPerfReport,
     report: lila.tutor.TutorOpeningFamily,
-    as: chess.Color,
+    as: Color,
     user: User,
     puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
 )(using Context) =

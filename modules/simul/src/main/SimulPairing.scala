@@ -7,7 +7,7 @@ final case class SimulPairing(
     gameId: GameId,
     status: chess.Status,
     wins: Option[Boolean],
-    hostColor: chess.Color
+    hostColor: Color
 ):
 
   def finished = status >= chess.Status.Aborted

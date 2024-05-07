@@ -43,12 +43,12 @@ export function set(opts: GroundOpts) {
     orientation: opts.orientation,
     coordinates: true,
     pieceKey: true,
-    turnColor: opts.chess.color(),
+    turnColor: opts.Color(),
     check: check,
     autoCastle: opts.autoCastle,
     movable: {
       free: false,
-      color: opts.chess.color(),
+      color: opts.Color(),
       dests: opts.chess.dests({
         illegal: opts.offerIllegalMove,
       }),

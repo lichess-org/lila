@@ -25,7 +25,7 @@ POST  /api/games/export/_ids           controllers.Game.exportByIds
 GET   /games/export/:username          controllers.Game.exportByUser(username: UserStr)
 
 # Bookmark
-POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId)
+POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId: GameId)
 
 # TV
 GET   /$lang<\w\w\w?>/tv               controllers.Tv.indexLang(lang)
@@ -35,10 +35,10 @@ GET   /tv/channels                     controllers.Main.movedPermanently(to = "/
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey)
 GET   /tv/:chanKey/frame               controllers.Tv.frame(chanKey)
 GET   /tv/:chanKey/feed                controllers.Tv.feed(chanKey)
-GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId, color)
+GET   /tv/$gameId<\w{8}>/:color/sides controllers.Tv.sides(gameId: GameId, color: Color)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey)
-GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey, gameId, exclude: List[String])
+GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey, gameId: GameId, exclude: List[String])
 GET   /api/tv/channels                 controllers.Tv.channels
 GET   /api/tv/feed                     controllers.Tv.feedDefault
 GET   /api/tv/:chanKey/feed            controllers.Tv.feed(chanKey)
@@ -46,14 +46,14 @@ GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey)
 
 # Relation
 GET   /api/rel/following               controllers.Relation.apiFollowing
-POST  /api/rel/follow/:user            controllers.Relation.follow(user)
-POST  /api/rel/unfollow/:user          controllers.Relation.unfollow(user)
+POST  /api/rel/follow/:user            controllers.Relation.follow(user: UserStr)
+POST  /api/rel/unfollow/:user          controllers.Relation.unfollow(user: UserStr)
 # lichobile BC
-POST  /rel/unfollow/:user              controllers.Relation.unfollowBc(user)
-POST  /rel/follow/:user                controllers.Relation.followBc(user)
+POST  /rel/unfollow/:user              controllers.Relation.unfollowBc(user: UserStr)
+POST  /rel/follow/:user                controllers.Relation.followBc(user: UserStr)
 # end lichobile BC
-POST  /rel/block/:userId               controllers.Relation.block(userId)
-POST  /rel/unblock/:userId             controllers.Relation.unblock(userId)
+POST  /rel/block/:userId               controllers.Relation.block(userId: UserStr)
+POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: UserStr)
 GET   /@/:username/following           controllers.Relation.following(username: UserStr, page: Int ?= 1)
 GET   /@/:username/followers           controllers.Relation.followers(username: UserStr, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
@@ -157,18 +157,18 @@ GET   /training/help                   controllers.Puzzle.help
 GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id, theme: Option[String], piece: Option[String])
 GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/openings               controllers.Puzzle.openings(order ?= "popular")
-GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[String] ?= None, page: Int ?= 1)
-GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path = "home", u: Option[String])
-GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path, u: Option[String])
+GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[UserStr] ?= None, page: Int ?= 1)
+GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path = "home", u: Option[UserStr])
+GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path, u: Option[UserStr])
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme)
-GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[String])
+GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[UserStr])
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
 GET   /training/$numericalId<\d{6,}>/load      controllers.Puzzle.mobileBcLoad(numericalId: Long)
 POST  /training/$numericalId<\d{6,}>/vote      controllers.Puzzle.mobileBcVote(numericalId: Long)
 GET   /training/:angleOrId             controllers.Puzzle.show(angleOrId)
-GET   /training/:angle/$color<white|black|random> controllers.Puzzle.angleAndColor(angle, color)
+GET   /training/:angle/$color<white|black|random> controllers.Puzzle.angleAndColor(angle, color: String)
 GET   /training/:angle/$id<\w{5}>      controllers.Puzzle.showWithAngle(angle, id)
 POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id)
@@ -246,7 +246,7 @@ GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
 DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id, chapterId)
-GET   /api/study/by/:user              controllers.Study.apiListByOwner(user)
+GET   /api/study/by/:user              controllers.Study.apiListByOwner(user: UserStr)
 POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id)
 
 # Relay
@@ -255,7 +255,7 @@ GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
 GET   /broadcast/help                         controllers.RelayTour.help
-GET   /broadcast/by/:user                     controllers.RelayTour.by(user, page: Int ?= 1)
+GET   /broadcast/by/:user                     controllers.RelayTour.by(user: UserStr, page: Int ?= 1)
 GET   /broadcast/subscribed                   controllers.RelayTour.subscribed(page: Int ?= 1)
 GET   /broadcast/all-private                  controllers.RelayTour.allPrivate(page: Int ?= 1)
 GET   /broadcast/:ts/$id<\w{8}>               controllers.RelayTour.show(ts, id)
@@ -338,32 +338,32 @@ GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: U
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 
 # Round
-GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId, color = "white")
-GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId, color)
-GET   /$fullId<\w{12}>                           controllers.Round.player(fullId)
-GET   /$gameId<\w{8}>/$color<white|black>/sides  controllers.Round.sides(gameId, color)
-GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId, mode)
-GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId)
-POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId)
-GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId, color = "white")
-GET   /$gameId<\w{8}>/$color<white|black>/mini   controllers.Round.mini(gameId, color)
-GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId)
-GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId)
-GET   /$gameId<\w{8}>/$color<white|black>/analysis controllers.UserAnalysis.game(gameId, color)
-POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId)
-POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId, uci)
-POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId)
+GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
+GET   /$gameId<\w{8}>/:color        controllers.Round.watcher(gameId: GameId, color: Color)
+GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: GameFullId)
+GET   /$gameId<\w{8}>/:color/sides  controllers.Round.sides(gameId: GameId, color: Color)
+GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: GameId, mode)
+GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: GameId)
+POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: GameId)
+GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: GameId, color: Color = Color.white)
+GET   /$gameId<\w{8}>/:color/mini   controllers.Round.mini(gameId: GameId, color: Color)
+GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: GameFullId)
+GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: GameId)
+GET   /$gameId<\w{8}>/:color/analysis controllers.UserAnalysis.game(gameId: GameId, color: Color)
+POST  /$fullId<\w{12}>/forecasts                  controllers.UserAnalysis.forecasts(fullId: GameFullId)
+POST  /$fullId<\w{12}>/forecasts/:uci            controllers.UserAnalysis.forecastsOnMyTurn(fullId: GameFullId, uci)
+POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId: GameFullId)
 
-GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId, color = "white")
-GET   /embed/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embed(gameId, color)
+GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: GameId, color: Color = Color.white)
+GET   /embed/$gameId<\w{8}>/:color  controllers.Analyse.embed(gameId: GameId, color: Color)
 
-GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId, color = "white")
-GET   /embed/game/$gameId<\w{8}>/$color<white|black>  controllers.Analyse.embedReplayGame(gameId, color)
+GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId: GameId, color: Color = Color.white)
+GET   /embed/game/$gameId<\w{8}>/:color  controllers.Analyse.embedReplayGame(gameId: GameId, color: Color)
 
-POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId)
+POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: GameId)
 
-GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId)
-GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId)
+GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: GameId)
+GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: GameFullId)
 GET   /round/help                                controllers.Round.help
 
 # Tournament
@@ -379,10 +379,10 @@ GET   /tournament/history                     controllers.Tournament.history(fre
 GET   /tournament/history/:freq               controllers.Tournament.history(freq, page: Int ?= 1)
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id)
 GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id, page: Int)
-GET   /tournament/$id<\w{8}>/page-of/:userId  controllers.Tournament.pageOf(id, userId)
+GET   /tournament/$id<\w{8}>/page-of/:user    controllers.Tournament.pageOf(id, user: UserStr)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.pause(id)
-GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id, user)
+GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id, user: UserStr)
 GET   /tournament/$id<\w{8}>/team/:team       controllers.Tournament.teamInfo(id, team)
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id)
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id)
@@ -413,8 +413,8 @@ GET   /swiss/$id<\w{8}>/edit                  controllers.Swiss.edit(id)
 POST  /swiss/$id<\w{8}>/edit                  controllers.Swiss.update(id)
 POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id)
 GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id, page: Int)
-GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id, user)
-GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id, user)
+GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id, user: UserStr)
+GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id, user: UserStr)
 POST  /api/swiss/$id<\w{8}>/schedule-next-round controllers.Swiss.scheduleNextRound(id)
 GET   /$lang<\w\w\w?>/swiss                   controllers.Swiss.homeLang(lang)
 
@@ -427,8 +427,8 @@ GET   /simul/$id<\w{8}>                       controllers.Simul.show(id)
 GET   /simul/$id<\w{8}>/edit                  controllers.Simul.edit(id)
 POST  /simul/$id<\w{8}>/edit                  controllers.Simul.update(id)
 POST  /simul/$id<\w{8}>/host-ping             controllers.Simul.hostPing(id)
-POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id, user)
-POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id, user)
+POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id, user: UserStr)
+POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id, user: UserStr)
 POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id)
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id, variant)
@@ -444,19 +444,19 @@ GET   /api/team/:id/users                     controllers.TeamApi.users(id)
 GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id)
 GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id)
 GET   /api/team/:id/requests                  controllers.TeamApi.requests(id)
-POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess(id, userId, decision)
-POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id, user)
+POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess(id, userId: UserStr, decision)
+POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id, user: UserStr)
 
 # Analyse
-POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId)
+POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: GameId)
 
-GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId)
-GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId)
-GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId, theme: Option[String], piece: Option[String])
-GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId, theme: Option[String], piece: Option[String])
-GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId, color = "white", theme: Option[String], piece: Option[String])
-GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId, color, theme: Option[String], piece: Option[String])
-GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color ?= "white", lastMove: Option[String], variant: Option[String], theme: Option[String], piece: Option[String])
+GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: GameAnyId)
+GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: GameAnyId)
+GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
+GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
+GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: GameId, color: Color = Color.white, theme: Option[String], piece: Option[String])
+GET   /game/export/gif/:color/$gameId<\w{8}>.gif controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
+GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Color ?= Color.white, lastMove: Option[String], variant: Option[String], theme: Option[String], piece: Option[String])
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
@@ -474,7 +474,7 @@ POST  /account/preferences/notification       controllers.Pref.notifyFormApply
 # Setup
 POST  /setup/ai                        controllers.Setup.ai
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
-POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri, gameId)
+POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri, gameId: GameId)
 POST  /setup/hook/:sri                 controllers.Setup.hook(sri)
 GET   /setup/filter                    controllers.Setup.filterForm
 GET   /setup/validate-fen              controllers.Setup.validateFen
@@ -632,7 +632,7 @@ GET   /$lang<\w\w\w?>/coach            controllers.Coach.homeLang(lang)
 # Paste
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
-GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id, color)
+GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: GameId, color: Color)
 
 # Edit
 GET   /editor.json                     controllers.Editor.data
@@ -656,15 +656,15 @@ GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int
 GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id)
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
 POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
-GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name, status: List[Int])
-GET   /api/user/:name                  controllers.Api.user(name)
-GET   /api/user/:name/activity         controllers.Api.activity(name)
-GET   /api/user/:name/note             controllers.User.apiReadNote(name)
-POST  /api/user/:name/note             controllers.User.apiWriteNote(name)
-GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name)
-GET   /api/user/:name/current-game     controllers.User.tvExport(name)
-GET   /api/user/:name/perf/:perfKey    controllers.Api.perfStat(name, perfKey: PerfKey)
-GET   /api/user/:name/mod-log          controllers.Mod.apiUserLog(name)
+GET   /api/user/:user/tournament/created controllers.Api.tournamentsByOwner(user: UserStr, status: List[Int])
+GET   /api/user/:user                  controllers.Api.user(user: UserStr)
+GET   /api/user/:user/activity         controllers.Api.activity(user: UserStr)
+GET   /api/user/:user/note             controllers.User.apiReadNote(user: UserStr)
+POST  /api/user/:user/note             controllers.User.apiWriteNote(user: UserStr)
+GET   /api/user/:user/rating-history   controllers.User.ratingHistory(user: UserStr)
+GET   /api/user/:user/current-game     controllers.User.tvExport(user: UserStr)
+GET   /api/user/:user/perf/:perfKey    controllers.Api.perfStat(user: UserStr, perfKey: PerfKey)
+GET   /api/user/:user/mod-log          controllers.Mod.apiUserLog(user: UserStr)
 GET   /api/game/:id                    controllers.Api.game(id)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/$id<\w{8}>            controllers.Api.tournament(id)
@@ -704,7 +704,7 @@ POST  /api/account/preferences/:name   controllers.Pref.apiSet(name)
 GET   /api/challenge                   controllers.Challenge.apiList
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
-POST  /api/challenge/:user             controllers.Challenge.apiCreate(user)
+POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: UserStr)
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id)
 POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id)
@@ -783,7 +783,7 @@ POST  /tutor/:username/refresh         controllers.Tutor.refresh(username: UserS
 GET   /tutor/:username/:perf           controllers.Tutor.perf(username: UserStr, perf: PerfKey)
 GET   /tutor/:username/:perf/skill     controllers.Tutor.skills(username: UserStr, perf: PerfKey)
 GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: UserStr, perf: PerfKey)
-GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: UserStr, perf: PerfKey, color, opening)
+GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: UserStr, perf: PerfKey, color: Color, opening)
 GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: UserStr, perf: PerfKey)
 GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: UserStr, perf: PerfKey)
 

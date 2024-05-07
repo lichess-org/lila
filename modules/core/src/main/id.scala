@@ -26,6 +26,8 @@ object id:
   // Either a GameId or a GameFullId
   opaque type GameAnyId = String
   object GameAnyId extends OpaqueString[GameAnyId]:
+    given Conversion[GameId, GameAnyId]     = _.value
+    given Conversion[GameFullId, GameAnyId] = _.value
     extension (e: GameAnyId)
       def gameId: GameId                 = GameId.take(e)
       def fullId: Option[GameFullId]     = if e.length == GameFullId.size then Some(e) else None

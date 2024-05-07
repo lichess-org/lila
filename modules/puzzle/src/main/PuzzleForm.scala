@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import chess.Color
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*

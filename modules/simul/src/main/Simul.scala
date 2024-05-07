@@ -127,9 +127,9 @@ case class Simul(
 
   def playingPairings = pairings.filterNot(_.finished)
 
-  def hostColor: Option[Color] = color.flatMap(chess.Color.fromName)
+  def hostColor: Option[Color] = color.flatMap(Color.fromName)
 
-  def setPairingHostColor(gameId: GameId, hostColor: chess.Color) =
+  def setPairingHostColor(gameId: GameId, hostColor: Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
   private def Created(s: => Simul): Simul = if isCreated then s else this

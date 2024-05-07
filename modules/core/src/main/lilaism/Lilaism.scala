@@ -2,6 +2,7 @@ package lila.core.lilaism
 
 object Lilaism extends LilaLibraryExtensions:
 
+  export chess.Color
   export lila.core.id.{
     GameId,
     ChatId,

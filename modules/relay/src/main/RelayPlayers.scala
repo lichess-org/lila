@@ -93,7 +93,7 @@ private class RelayPlayersTextarea(val text: String):
     game.copy(tags = update(game.tags))
 
   private def update(tags: Tags): Tags =
-    chess.Color.all.foldLeft(tags): (tags, color) =>
+    Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
         tags
           .names(color)

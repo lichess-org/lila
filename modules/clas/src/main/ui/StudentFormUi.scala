@@ -182,7 +182,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       )
 
   def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
-    ClasPage(s.user.username, Left(clas.withStudents(students)), s.student.some)(
+    ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit"
     ):
       frag(
@@ -223,7 +223,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       )
 
   def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
-    ClasPage(s.user.username, Left(clas.withStudents(students)), s.student.some)(
+    ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit"
     ):
       frag(
@@ -251,7 +251,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       )
 
   def close(clas: Clas, students: List[Student], s: Student.WithUser)(using Context) =
-    ClasPage(s.user.username, Left(clas.withStudents(students)), s.student.some)(
+    ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit"
     ):
       frag(

@@ -3,13 +3,12 @@ package views.analyse
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 import chess.variant.Crazyhouse
-
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.UiEnv.{ *, given }
-
-import bits.dataPanel
+import lila.common.Json.given
+import views.analyse.bits.dataPanel
 import lila.game.GameExt.analysable
 import lila.round.RoundGame.secondsSinceCreation
 
@@ -45,7 +44,7 @@ object replay:
     val imageLinks = frag(
       copyMeLink(
         cdnUrl(
-          routes.Export.gif(pov.gameId, pov.color.name, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+          routes.Export.gif(pov.gameId, pov.color, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
         ),
         trans.site.gameAsGIF()
       )(cls := "game-gif"),
@@ -54,7 +53,7 @@ object replay:
           routes.Export
             .fenThumbnail(
               Fen.write(pov.game.situation).value,
-              pov.color.name,
+              pov.color,
               None,
               pov.game.variant.key.some,
               ctx.pref.theme.some,
@@ -68,7 +67,7 @@ object replay:
 
     val shareLinks = frag(
       a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
-      copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color.name)}")
+      copyMeInput(s"${netBaseUrl}${routes.Round.watcher(pov.gameId, pov.color)}")
     )
     val pgnLinks = frag(
       copyMeLink(s"${routes.Game.exportOne(game.id)}?literate=1", trans.site.downloadAnnotated()),

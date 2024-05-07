@@ -164,13 +164,13 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
       title := confirm
     )(content)
 
-  def hidden(field: Field, value: Option[String] = None): Tag =
-    hidden(field.name, ~value.orElse(field.value))
+  def hidden[Value: Show](field: Field, value: Option[Value] = None): Tag =
+    hidden(field.name, ~value.map(_.show).orElse(field.value))
 
-  def hidden(name: String, value: String): Tag =
+  def hidden[Value: Show](name: String, value: Value): Tag =
     st.input(
       st.name  := name,
-      st.value := value,
+      st.value := value.show,
       tpe      := "hidden"
     )
 

@@ -1,5 +1,6 @@
 package controllers
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.http.ContentTypes
 import play.api.libs.EventSource
@@ -7,17 +8,14 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalatags.Text.Frag
 
-import scala.language.existentials
-import scala.util.chaining.*
-
 import lila.game.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.mod.UserWithModlog
 import lila.security.UserLogins
 import lila.user.WithPerfsAndEmails
-
 import lila.rating.PerfType
 import lila.core.net.IpAddress
 import lila.core.user.LightPerf

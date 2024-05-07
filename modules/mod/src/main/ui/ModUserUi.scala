@@ -315,7 +315,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                 b(e.showAction),
                 " ",
                 e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
-                  a(href := s"${routes.Round.watcher(gameId, "white").url}?pov=${e.user.so(_.value)}")(
+                  a(href := s"${routes.Round.watcher(gameId, Color.white).url}?pov=${e.user.so(_.value)}")(
                     e.details.orZero: String
                   )
                 },
@@ -336,7 +336,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           reports.by.isEmpty.option(": nothing to show.")
         ),
         reports.by.map: r =>
-          r.atomBy(lila.report.ReporterId(u.id))
+          r.atomBy(u.id.into(lila.report.ReporterId))
             .map: atom =>
               postForm(action := routes.Report.inquiry(r.id))(
                 reportSubmitButton(r),
@@ -460,7 +460,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             .map: result =>
               tr(
                 td(
-                  a(href := routes.Round.watcher(result.gameId, result.color.name)):
+                  a(href := routes.Round.watcher(result.gameId, result.color)):
                     pag
                       .pov(result)
                       .fold[Frag](result.gameId): p =>
@@ -470,7 +470,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                   pag
                     .pov(result)
                     .map: p =>
-                      a(href := routes.Round.watcher(p.gameId, p.color.name))(
+                      a(href := routes.Round.watcher(p.gameId, p.color))(
                         p.game.isTournament.option(iconTag(Icon.Trophy)),
                         iconTag(p.game.perfKey.perfIcon)(cls := "text"),
                         shortClockName(p.game.clock.map(_.config))
@@ -500,7 +500,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                   pag
                     .pov(result)
                     .map: p =>
-                      a(href := routes.Round.watcher(p.gameId, p.color.name), cls := "glpt")(
+                      a(href := routes.Round.watcher(p.gameId, p.color), cls := "glpt")(
                         momentFromNowServerText(p.game.movedAt)
                       )
                 ),

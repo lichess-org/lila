@@ -37,7 +37,7 @@ private class RelayTeamsTextarea(val text: String):
     game.copy(tags = update(game.tags))
 
   private def update(tags: Tags): Tags =
-    chess.Color.all.foldLeft(tags): (tags, color) =>
+    Color.all.foldLeft(tags): (tags, color) =>
       val found = tags
         .fideIds(color)
         .flatMap(findMatching)

@@ -152,7 +152,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     } else {
       ground.select(dest);
       if (!inScenario) {
-        chess.color(blueprint.color);
+        Color(blueprint.color);
         ground.color(blueprint.color, makeChessDests());
       }
     }
@@ -200,7 +200,7 @@ export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
     scenario: scenario,
     start: function () {
       sound.levelStart();
-      if (chess.color() !== blueprint.color) timeouts.setTimeout(scenario.opponent, 1000);
+      if (Color() !== blueprint.color) timeouts.setTimeout(scenario.opponent, 1000);
     },
     onComplete: opts.onComplete,
   };

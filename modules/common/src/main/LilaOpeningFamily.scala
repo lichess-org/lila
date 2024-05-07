@@ -1,6 +1,5 @@
 package lila.common
 
-import chess.Color
 import chess.opening.{ Opening, OpeningDb, OpeningFamily }
 
 // Includes synthetic families without a concrete opening

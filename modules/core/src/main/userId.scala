@@ -71,8 +71,9 @@ object userId:
     given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
     // these conversions are using when generating routes containing UserStr
     // so we can give them usernames and userIds
-    given Conversion[UserName, UserStr] = _.value
-    given Conversion[UserId, UserStr]   = _.value
+    given Conversion[UserName, UserStr]                 = _.value
+    given Conversion[Option[UserName], Option[UserStr]] = _.map(_.value)
+    given Conversion[UserId, UserStr]                   = _.value
     def read(str: String): Option[UserStr] =
       val clean = str.trim.takeWhile(' ' !=)
       Option.when(UserName.historicalRegex.matches(clean))(UserStr(clean))

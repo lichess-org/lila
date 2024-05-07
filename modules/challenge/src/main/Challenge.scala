@@ -23,7 +23,7 @@ case class Challenge(
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
-    finalColor: chess.Color,
+    finalColor: Color,
     challenger: Challenge.Challenger,
     destUser: Option[Challenge.Challenger.Registered],
     rematchOf: Option[GameId],
@@ -37,6 +37,8 @@ case class Challenge(
 ) extends hub.Challenge:
 
   import Challenge.*
+
+  def gameId = id.into(GameId)
 
   def challengerUserId = challengerUser.map(_.id)
   def challengerIsOpen = challenger match
@@ -158,7 +160,7 @@ object Challenge:
   def toRegistered(u: WithPerf): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perf.intRating, u.perf.provisional))
 
-  def randomColor = chess.Color.fromWhite(ThreadLocalRandom.nextBoolean())
+  def randomColor = Color.fromWhite(ThreadLocalRandom.nextBoolean())
 
   def makeTimeControl(clock: Option[chess.Clock.Config], days: Option[Days]): TimeControl =
     clock

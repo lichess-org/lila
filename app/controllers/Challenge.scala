@@ -57,7 +57,7 @@ final class Challenge(
         val json = env.challenge.jsonView.show(c, version, direction)
         negotiate(
           html =
-            val color = get("color").flatMap(chess.Color.fromName)
+            val color = get("color").flatMap(Color.fromName)
             if mine then
               ctx.userId
                 .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
@@ -90,19 +90,19 @@ final class Challenge(
 
   def accept(id: ChallengeId, color: Option[String]) = Open:
     Found(api.byId(id)): c =>
-      val cc = color.flatMap(chess.Color.fromName)
+      val cc = color.flatMap(Color.fromName)
       isForMe(c).so(
         api
           .accept(c, ctx.req.sid, cc)
           .flatMap:
             case Right(Some(pov)) =>
               negotiateApi(
-                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
+                html = Redirect(routes.Round.watcher(pov.gameId, cc | Color.white)),
                 api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map { Ok(_) }
               ).flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
             case invalid =>
               negotiate(
-                Redirect(routes.Round.watcher(c.id.value, cc.fold("white")(_.name))),
+                Redirect(routes.Round.watcher(c.gameId, cc | Color.white)),
                 notFoundJson(invalid match
                   case Left(err) => err
                   case _         => "The challenge has already been accepted"

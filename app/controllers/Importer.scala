@@ -55,10 +55,10 @@ final class Importer(env: Env) extends LilaController(env):
                         )
                         .void
                     }
-                    .inject(Redirect(routes.Round.watcher(game.id, "white"))),
+                    .inject(Redirect(routes.Round.watcher(game.id, Color.white))),
                   json =
                     if HTTPRequest.isLichobile(ctx.req)
-                    then Redirect(routes.Round.watcher(game.id, "white"))
+                    then Redirect(routes.Round.watcher(game.id, Color.white))
                     else
                       JsonOk:
                         Json.obj(
@@ -74,7 +74,7 @@ final class Importer(env: Env) extends LilaController(env):
             }
     )
 
-  def masterGame(id: GameId, orientation: String) = Open:
+  def masterGame(id: GameId, orientation: Color) = Open:
     Found(env.explorer.importer(id)): game =>
       val url      = routes.Round.watcher(game.id, orientation).url
       val fenParam = get("fen").so(f => s"?fen=$f")

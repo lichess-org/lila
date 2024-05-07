@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import lila.app.{ *, given }
 import lila.core.net.IpAddress
 import lila.forum.ForumCateg.diagnosticId
+import lila.common.Json.given
 import lila.core.id.{ ForumCategId, ForumTopicId }
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
@@ -82,7 +83,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     for
       userIds   <- postApi.allUserIds(topicId)
       usernames <- env.user.repo.usernamesByIds(userIds)
-    yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
+    yield Ok(Json.toJson(usernames.sortBy(_.value.toLowerCase)))
   }
 
   def diagnostic = AuthBody { ctx ?=> me ?=>

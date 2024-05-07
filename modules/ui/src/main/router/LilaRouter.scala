@@ -22,21 +22,41 @@ object LilaRouter:
   ): QueryStringBindable[T] =
     bindable.transform(sr.apply, rs.apply)
 
-  given PathBindable[UserStr] = new:
-    def bind(key: String, value: String)    = UserStr.read(value).toRight("Invalid Lichess username")
-    def unbind(key: String, value: UserStr) = value.value
+  private def strPath[A](
+      parse: String => Option[A],
+      error: => String,
+      write: A => String = (_: A).toString
+  ): PathBindable[A] = new:
+    def bind(_key: String, value: String) = parse(value).toRight(error)
+    def unbind(_key: String, value: A)    = write(value)
 
-  given PathBindable[PerfKey] = new:
-    def bind(key: String, value: String)    = PerfKey(value).toRight("Invalid Lichess performance key")
-    def unbind(key: String, value: PerfKey) = value.value
+  given PathBindable[UserStr] = strPath[UserStr](UserStr.read, "Invalid Lichess username")
+  given PathBindable[PerfKey] = strPath[PerfKey](PerfKey.apply, "Invalid Lichess performance key")
+  given PathBindable[Color] =
+    strPath[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
+
+  private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
+
+  private def strQueryString[A](
+      parse: String => Option[A],
+      error: => String,
+      write: A => String = (_: A).toString
+  ): QueryStringBindable[A] = new:
+    def bind(key: String, params: Map[String, Seq[String]]) =
+      params
+        .get(key)
+        .flatMap(_.headOption)
+        .map: value =>
+          parse(value).toRight(error)
+    def unbind(key: String, value: A) = s"${urlEncode(key)}=${urlEncode(write(value))}"
+
+  given QueryStringBindable[Color] =
+    strQueryString[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
 
   object conversions:
     given Conversion[GameId, String]                                         = _.value
     given Conversion[GameFullId, String]                                     = _.value
     given Conversion[GameAnyId, String]                                      = _.value
-    given Conversion[UserId, String]                                         = _.value
-    given Conversion[UserName, String]                                       = _.value
-    given Conversion[Option[UserName], Option[String]]                       = UserName.raw(_)
     given reportIdConv: Conversion[ReportId, String]                         = _.value
     given Conversion[UblogPostId, String]                                    = _.value
     given Conversion[lila.core.i18n.Language, String]                        = _.value

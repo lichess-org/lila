@@ -2,6 +2,7 @@
 
 package routes:
 
+  export chess.Color
   export lila.core.id.*
   export lila.core.userId.UserStr
   export lila.core.perf.PerfKey
@@ -16,6 +17,7 @@ package router:
 
 package router.router:
 
+  export chess.Color
   export lila.core.id.*
   export lila.core.userId.UserStr
   export lila.core.perf.PerfKey

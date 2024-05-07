@@ -1,7 +1,5 @@
 package lila.tutor
 
-import chess.Color
-
 import lila.db.dsl.{ *, given }
 import lila.insight.{
   Answer as InsightAnswer,

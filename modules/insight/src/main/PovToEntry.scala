@@ -172,7 +172,7 @@ final private class PovToEntry(
   private def queenTrade(from: RichPov) = QueenTrade:
     from.division.end.map(_.value).fold(from.situations.last.some)(from.situations.toList.lift) match
       case Some(situation) =>
-        chess.Color.all.forall { color =>
+        Color.all.forall { color =>
           !situation.board.isOccupied(chess.Piece(color, chess.Queen))
         }
       case _ =>

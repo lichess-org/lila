@@ -12,7 +12,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   def show(clas: Clas, students: List[Student], s: Student.WithUserAndManagingClas, activities: Frag)(using
       ctx: Context
   ) =
-    ClasPage(s.user.username, Left(clas.withStudents(students)), s.student.some)(cls := "student-show"):
+    ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(cls := "student-show"):
       frag(
         top(clas, s.withUser),
         div(cls := "box__pad")(
