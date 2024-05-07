@@ -1,5 +1,5 @@
-import * as util from '../util';
-import * as stages from '../stage/list';
+import * as util from './util';
+import * as stages from './stage/list';
 import { SnabbdomSideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';

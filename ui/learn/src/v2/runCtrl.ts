@@ -1,10 +1,10 @@
-import * as sound from '../sound';
-import * as stages from '../stage/list';
+import * as sound from './sound';
+import * as stages from './stage/list';
 import { Prop, prop } from 'common';
 import { LearnProgress, SnabbdomLearnOpts } from '../learn';
-import { Stage } from '../stage/list';
+import { Stage } from './stage/list';
 import { LearnCtrl } from './ctrl';
-import { clearTimeouts } from '../timeouts';
+import { clearTimeouts } from './timeouts';
 import { LevelCtrl } from './levelCtrl';
 
 const RESTARTING_KEY = 'learn.restarting';

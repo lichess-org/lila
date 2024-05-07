@@ -1,5 +1,5 @@
-import * as scoring from '../score';
-import { Level } from '../stage/list';
+import * as scoring from './score';
+import { Level } from './stage/list';
 import { h } from 'snabbdom';
 import { hashHref } from './hashRouting';
 import { RunCtrl } from './runCtrl';

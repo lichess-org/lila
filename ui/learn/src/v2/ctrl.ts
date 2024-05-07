@@ -1,9 +1,9 @@
 import { LearnProgress, SnabbdomLearnOpts } from '../learn';
-import { Stage } from '../stage/list';
-import * as stages from '../stage/list';
-import * as scoring from '../score';
+import { Stage } from './stage/list';
+import * as stages from './stage/list';
+import * as scoring from './score';
 import { SnabbdomSideCtrl } from './sideCtrl';
-import { clearTimeouts } from '../timeouts';
+import { clearTimeouts } from './timeouts';
 import { extractHashParameters } from './hashRouting';
 import { RunCtrl } from './runCtrl';
 

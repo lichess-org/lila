@@ -1,8 +1,8 @@
 // import * as util from '../util';
-// import { ctrl as makeItems, view as itemView } from '../item';
+// import { ctrl as makeItems, view as itemView } from './item';
 // import * as stages from '../stage/list';
-import { Level } from '../stage/list';
-import * as scoring from '../score';
+import { Level } from './stage/list';
+import * as scoring from './score';
 // import { Prop } from 'common';
 // import { LearnProgress, SnabbdomLearnOpts } from '../learn';
 // import { ctrl as makeProgress, Progress } from '../progress';
@@ -11,8 +11,10 @@ import * as scoring from '../score';
 // import { clearTimeouts } from '../timeouts';
 // import { RunCtrl } from './runCtrl';
 // import { Scenario } from '../scenario';
-import * as timeouts from '../timeouts';
-import * as sound from '../sound';
+import * as timeouts from './timeouts';
+import * as sound from './sound';
+import { ChessCtrl } from './chess';
+import { Scenario } from './scenario';
 // import * as promotion from '../promotion';
 
 export interface LevelVm {
@@ -31,8 +33,8 @@ export interface LevelOpts {
 }
 
 export interface AssertData {
-  // scenario: Scenario;
-  // chess: ChessCtrl;
+  scenario: Scenario;
+  chess: ChessCtrl;
   vm: LevelVm;
 }
 

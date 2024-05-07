@@ -1,9 +1,9 @@
 // import * as util from '../util';
-import * as stages from '../stage/list';
-import * as scoring from '../score';
+import * as stages from './stage/list';
+import * as scoring from './score';
 import { Prop, prop } from 'common';
 import { LearnProgress, SnabbdomLearnOpts } from '../learn';
-import { Stage } from '../stage/list';
+import { Stage } from './stage/list';
 import { LearnCtrl } from './ctrl';
 
 export class SnabbdomSideCtrl {

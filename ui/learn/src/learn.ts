@@ -9,9 +9,10 @@ import {
 import { LearnCtrl } from './v2/ctrl';
 import { view } from './v2/view';
 
-import { MNode } from './mithrilFix';
-import { SideCtrl } from './map/mapSide';
-import storage, { Storage } from './storage';
+import type { MNode } from './mithrilFix';
+import type { SideCtrl } from './map/mapSide';
+import storage, { Storage } from './v2/storage';
+import * as oldStorage from './storage';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 
@@ -26,7 +27,7 @@ export interface StageProgress {
 
 export interface LearnOpts {
   i18n: I18nDict;
-  storage: Storage;
+  storage: oldStorage.Storage;
   side: {
     ctrl: SideCtrl;
     view(): MNode;
