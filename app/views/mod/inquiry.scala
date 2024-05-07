@@ -4,7 +4,7 @@ import lila.app.UiEnv.{ *, given }
 
 import lila.common.String.html.richText
 import lila.report.{ Reason, Report }
-import lila.core.id.ForumCategId
+import lila.core.id.ForumPostId
 
 object inquiry:
 
@@ -22,7 +22,7 @@ object inquiry:
             case "relay"      => routes.RelayRound.show("-", "-", id).url
             case "tournament" => routes.Tournament.show(TourId(id)).url
             case "swiss"      => routes.Swiss.show(SwissId(id)).url
-            case "forum"      => routes.ForumPost.redirect(ForumCategId(id)).url
+            case "forum"      => routes.ForumPost.redirect(ForumPostId(id)).url
             case _            => s"/$tpe/$id"
           a(href := path)(path).some -> text
         case text => None -> text
