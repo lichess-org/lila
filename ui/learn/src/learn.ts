@@ -59,46 +59,17 @@ export function initModule({ data, i18n }: LearnServerOpts) {
 
   const ctrl = new LearnCtrl(snabbdomOpts, redraw);
 
-  const snabbdomElement = document.getElementById('learn-app-snabbdom')!;
-  snabbdomElement.innerHTML = '';
-  let vnode = patch(snabbdomElement, view(ctrl));
+  const element = document.getElementById('learn-app')!;
+  element.innerHTML = '';
+  const inner = document.createElement('div');
+  element.appendChild(inner);
+  let vnode = patch(inner, view(ctrl));
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
 
   redraw();
-
-  // TODO: remove/refactor
-  // const element = document.getElementById('learn-app')!;
-
-  // const opts: LearnOpts = {
-  //   i18n,
-  //   storage: _storage,
-  //   // Uninitialized because we need to call mapSide to initialize opts.side,
-  //   // and we need opts to call mapSide.
-  //   side: 'uninitialized' as any,
-  //   stageId: null,
-  // };
-
-  // m.route.mode = 'hash';
-
-  // const trans = site.trans(opts.i18n);
-  // const side = mapSide(opts, trans);
-  // const sideCtrl = side.controller();
-
-  // opts.side = {
-  //   ctrl: sideCtrl,
-  //   view: function () {
-  //     return side.view(sideCtrl);
-  //   },
-  // };
-
-  // m.route(element, '/', {
-  //   '/': map(opts, trans),
-  //   '/:stage/:level': run(opts, trans),
-  //   '/:stage': run(opts, trans),
-  // } as _mithril.MithrilRoutes<any>);
 
   return {};
 }

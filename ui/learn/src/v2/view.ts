@@ -12,7 +12,7 @@ import { runView } from './runView';
 
 // TODO: top level div styling issues
 export const view = (ctrl: LearnCtrl) => {
-  return h('div', ctrl.inStage() ? runView(ctrl) : mapView(ctrl));
+  return ctrl.inStage() ? runView(ctrl) : mapView(ctrl);
 };
 
 const mapView = (ctrl: LearnCtrl) => {
