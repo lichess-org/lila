@@ -8,4 +8,4 @@ POST  /report/:id/inquiry              controllers.report.Report.inquiry(id: Str
 POST  /report/:id/process              controllers.report.Report.process(id: String)
 POST  /report/:id/xfiles               controllers.report.Report.xfiles(id: String)
 POST  /report/:id/snooze/:dur          controllers.report.Report.snooze(id: String, dur: String)
-GET   /report/:username/cheat-inquiry  controllers.report.Report.currentCheatInquiry(username: String)
+GET   /report/:user/cheat-inquiry  controllers.report.Report.currentCheatInquiry(user: UserStr)

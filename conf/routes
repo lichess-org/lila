@@ -112,7 +112,7 @@ GET   /api/player                      controllers.User.apiList
 GET   /fide                            controllers.Fide.index(page: Int ?= 1, q: Option[String] ?= None)
 GET   /fide/federation                 controllers.Fide.federations(page: Int ?= 1)
 GET   /fide/federation/:name           controllers.Fide.federation(name, page: Int ?= 1)
-GET   /fide/:fideId/:name              controllers.Fide.show(fideId: Int, name, page: Int ?= 1)
+GET   /fide/:fideId/:name              controllers.Fide.show(fideId: chess.FideId, name, page: Int ?= 1)
 
 GET   /dasher                          controllers.Dasher.get
 
@@ -474,8 +474,8 @@ POST  /account/preferences/notification       controllers.Pref.notifyFormApply
 # Setup
 POST  /setup/ai                        controllers.Setup.ai
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
-POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri, gameId: GameId)
-POST  /setup/hook/:sri                 controllers.Setup.hook(sri)
+POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: Sri, gameId: GameId)
+POST  /setup/hook/:sri                 controllers.Setup.hook(sri: Sri)
 GET   /setup/filter                    controllers.Setup.filterForm
 GET   /setup/validate-fen              controllers.Setup.validateFen
 
@@ -688,7 +688,7 @@ GET   /api/swiss/$id<\w{8}>/results    controllers.Api.swissResults(id: SwissId)
 GET   /api/simul                       controllers.Simul.apiList
 GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
-GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1, u2)
+GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: UserStr, u2: UserStr)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
 POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId)
 POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId)
