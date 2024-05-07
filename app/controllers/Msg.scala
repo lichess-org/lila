@@ -18,7 +18,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def convo(username: UserStr, before: Option[Long] = None) = Auth { _ ?=> me ?=>
     if username.value == "new"
-    then Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
+    then Redirect(getUserStr("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
       env.msg.api.convoWithMe(username, before).flatMap {
         case None => negotiate(Redirect(routes.Msg.home), notFoundJson())

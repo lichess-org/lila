@@ -38,7 +38,7 @@ final class User(
   def tv(username: UserStr) = Open:
     Found(meOrFetch(username)): user =>
       currentlyPlaying(user).orElse(lastPlayed(user)).flatMap {
-        _.fold(fuccess(Redirect(routes.User.show(username.value)))): pov =>
+        _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
           ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
             case Some(mine) => Redirect(routes.Round.player(mine.fullId))
             case _          => roundC.watch(pov, userTv = user.some)

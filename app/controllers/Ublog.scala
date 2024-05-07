@@ -302,7 +302,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def historicalBlogPost(id: String, slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>
-      Redirect(routes.Ublog.post("lichess", post.slug, post.id), MOVED_PERMANENTLY)
+      Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 

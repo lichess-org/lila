@@ -22,7 +22,7 @@ GET   /games/search                    controllers.Search.index(page: Int ?= 1)
 # Game export
 POST  /games/export/_ids               controllers.Game.exportByIds
 POST  /api/games/export/_ids           controllers.Game.exportByIds
-GET   /games/export/:username          controllers.Game.exportByUser(username)
+GET   /games/export/:username          controllers.Game.exportByUser(username: UserStr)
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId)
@@ -54,28 +54,28 @@ POST  /rel/follow/:user                controllers.Relation.followBc(user)
 # end lichobile BC
 POST  /rel/block/:userId               controllers.Relation.block(userId)
 POST  /rel/unblock/:userId             controllers.Relation.unblock(userId)
-GET   /@/:username/following           controllers.Relation.following(username, page: Int ?= 1)
-GET   /@/:username/followers           controllers.Relation.followers(username, page: Int ?= 1)
+GET   /@/:username/following           controllers.Relation.following(username: UserStr, page: Int ?= 1)
+GET   /@/:username/followers           controllers.Relation.followers(username: UserStr, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
 
 # Insight
-POST  /insights/refresh/:username      controllers.Insight.refresh(username)
-POST  /insights/data/:username         controllers.Insight.json(username)
-GET   /insights/:username              controllers.Insight.index(username)
-GET   /insights/:username/:metric/:dimension controllers.Insight.path(username, metric, dimension, filters = "")
-GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username, metric, dimension, filters)
+POST  /insights/refresh/:username      controllers.Insight.refresh(username: UserStr)
+POST  /insights/data/:username         controllers.Insight.json(username: UserStr)
+GET   /insights/:username              controllers.Insight.index(username: UserStr)
+GET   /insights/:username/:metric/:dimension controllers.Insight.path(username: UserStr, metric, dimension, filters = "")
+GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username: UserStr, metric, dimension, filters)
 
 # User subpages
-GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username, path, page: Int ?= 1)
-GET   /@/:username/simuls/hosted       controllers.Simul.byUser(username, page: Int ?= 1)
+GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: UserStr, path, page: Int ?= 1)
+GET   /@/:username/simuls/hosted       controllers.Simul.byUser(username: UserStr, page: Int ?= 1)
 
 # User blog
-GET   /@/:username/blog                controllers.Ublog.index(username, page: Int ?= 1)
-GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username, slug, id)
-GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username, page: Int ?= 1)
-GET   /@/:username/blog/new            controllers.Ublog.form(username)
-POST  /@/:username/blog/new            controllers.Ublog.create(username)
-GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username)
+GET   /@/:username/blog                controllers.Ublog.index(username: UserStr, page: Int ?= 1)
+GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id)
+GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
+GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
+POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
+GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username: UserStr)
 GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id)
@@ -87,17 +87,17 @@ POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.rankAdjust(id)
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id)
 
 # User
-GET   /api/stream/:username/mod        controllers.User.mod(username)
-POST  /@/:username/note                controllers.User.writeNote(username)
+GET   /api/stream/:username/mod        controllers.User.mod(username: UserStr)
+POST  /@/:username/note                controllers.User.writeNote(username: UserStr)
 POST  /note/delete/:id                 controllers.User.deleteNote(id)
 POST  /note/setDox/:id/:v              controllers.User.setDoxNote(id, v: Boolean)
-GET   /@/:username/mini                controllers.User.showMini(username)
-GET   /@/:username/tv                  controllers.User.tv(username)
-GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username, perfKey: PerfKey)
-GET   /@/:username/all                 controllers.User.gamesAll(username, page: Int ?= 1)
-GET   /@/:username/download            controllers.User.download(username)
-GET   /@/:username/:filterName         controllers.User.games(username, filterName, page: Int ?= 1)
-GET   /@/:username                     controllers.User.show(username)
+GET   /@/:username/mini                controllers.User.showMini(username: UserStr)
+GET   /@/:username/tv                  controllers.User.tv(username: UserStr)
+GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: UserStr, perfKey: PerfKey)
+GET   /@/:username/all                 controllers.User.gamesAll(username: UserStr, page: Int ?= 1)
+GET   /@/:username/download            controllers.User.download(username: UserStr)
+GET   /@/:username/:filterName         controllers.User.games(username: UserStr, filterName, page: Int ?= 1)
+GET   /@/:username                     controllers.User.show(username: UserStr)
 GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
 GET   /player                          controllers.User.list
@@ -189,9 +189,9 @@ GET   /$lang<\w\w\w?>/streak            controllers.Puzzle.streakLang(lang)
 GET   /storm                            controllers.Storm.home
 POST  /storm                            controllers.Storm.record
 GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?= 1)
-GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username, page: Int ?= 1)
+GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username: UserStr, page: Int ?= 1)
 GET   /api/storm                        controllers.Storm.apiGet
-GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username, days: Int ?= 30)
+GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username: UserStr, days: Int ?= 30)
 GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang)
 
 # Puzzle Racer
@@ -218,9 +218,9 @@ GET   /study/member/:order             controllers.Study.mineMember(order, page:
 GET   /study/public/:order             controllers.Study.minePublic(order, page: Int ?= 1)
 GET   /study/private/:order            controllers.Study.minePrivate(order, page: Int ?= 1)
 GET   /study/likes/:order              controllers.Study.mineLikes(order, page: Int ?= 1)
-GET   /study/by/:username              controllers.Study.byOwnerDefault(username, page: Int ?= 1)
-GET   /study/by/:username/export.pgn   controllers.Study.exportPgn(username)
-GET   /study/by/:username/:order       controllers.Study.byOwner(username, order, page: Int ?= 1)
+GET   /study/by/:username              controllers.Study.byOwnerDefault(username: UserStr, page: Int ?= 1)
+GET   /study/by/:username/export.pgn   controllers.Study.exportPgn(username: UserStr)
+GET   /study/by/:username/:order       controllers.Study.byOwner(username: UserStr, order, page: Int ?= 1)
 GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1)
 GET   /study/$id<\w{8}>                controllers.Study.show(id)
 POST  /study                           controllers.Study.create
@@ -331,11 +331,11 @@ GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
-POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer, set: Boolean ?= true)
+POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer: UserStr, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
-GET   /streamer/:username              controllers.Streamer.show(username)
-GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)
-POST  /streamer/:username/check        controllers.Streamer.checkOnline(username)
+GET   /streamer/:username              controllers.Streamer.show(username: UserStr)
+GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: UserStr)
+POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId, color = "white")
@@ -438,7 +438,7 @@ GET   /$lang<\w\w\w?>/simul                   controllers.Simul.homeLang(lang)
 # Team API
 GET   /api/team/all                           controllers.TeamApi.all(page: Int ?= 1)
 GET   /api/team/search                        controllers.TeamApi.search(text ?= "", page: Int ?= 1)
-GET   /api/team/of/:username                  controllers.TeamApi.teamsOf(username)
+GET   /api/team/of/:username                  controllers.TeamApi.teamsOf(username: UserStr)
 GET   /api/team/:id                           controllers.TeamApi.show(id)
 GET   /api/team/:id/users                     controllers.TeamApi.users(id)
 GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id)
@@ -528,36 +528,36 @@ GET   /auth/magic-link/sent            controllers.Auth.magicLinkSent
 GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token)
 
 # Mod
-POST  /mod/:username/alt/:v            controllers.Mod.alt(username, v: Boolean)
+POST  /mod/:username/alt/:v            controllers.Mod.alt(username: UserStr, v: Boolean)
 POST  /mod/alt-many                    controllers.Mod.altMany
-POST  /mod/:username/engine/:v         controllers.Mod.engine(username, v: Boolean)
-POST  /mod/:username/booster/:v        controllers.Mod.booster(username, v: Boolean)
-POST  /mod/:username/troll/:v          controllers.Mod.troll(username, v: Boolean)
-POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username)
-POST  /mod/:username/warn              controllers.Mod.warn(username, subject)
-POST  /mod/:username/kid               controllers.Mod.kid(username)
-POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username)
-POST  /mod/:username/close             controllers.Mod.closeAccount(username)
-POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username)
-POST  /mod/:username/title             controllers.Mod.setTitle(username)
-POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(username)
-GET   /mod/:username/communication     controllers.Mod.communicationPublic(username)
-GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username)
-POST   /mod/:username/communication/full-comms-export controllers.Mod.fullCommsExport(username)
-POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username, v: Boolean)
-POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username, v: Boolean)
-POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username, v: Boolean)
-POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username, v: Boolean)
-POST  /mod/:username/impersonate       controllers.Mod.impersonate(username)
-GET   /mod/:username/games             controllers.GameMod.index(username)
-POST  /mod/:username/games             controllers.GameMod.post(username)
+POST  /mod/:username/engine/:v         controllers.Mod.engine(username: UserStr, v: Boolean)
+POST  /mod/:username/booster/:v        controllers.Mod.booster(username: UserStr, v: Boolean)
+POST  /mod/:username/troll/:v          controllers.Mod.troll(username: UserStr, v: Boolean)
+POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: UserStr)
+POST  /mod/:username/warn              controllers.Mod.warn(username: UserStr, subject)
+POST  /mod/:username/kid               controllers.Mod.kid(username: UserStr)
+POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: UserStr)
+POST  /mod/:username/close             controllers.Mod.closeAccount(username: UserStr)
+POST  /mod/:username/reopen            controllers.Mod.reopenAccount(username: UserStr)
+POST  /mod/:username/title             controllers.Mod.setTitle(username: UserStr)
+POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(username: UserStr)
+GET   /mod/:username/communication     controllers.Mod.communicationPublic(username: UserStr)
+GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username: UserStr)
+POST   /mod/:username/communication/full-comms-export controllers.Mod.fullCommsExport(username: UserStr)
+POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username: UserStr, v: Boolean)
+POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username: UserStr, v: Boolean)
+POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username: UserStr, v: Boolean)
+POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username: UserStr, v: Boolean)
+POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: UserStr)
+GET   /mod/:username/games             controllers.GameMod.index(username: UserStr)
+POST  /mod/:username/games             controllers.GameMod.post(username: UserStr)
 GET   /mod/table                       controllers.Mod.table
 GET   /mod/log                         controllers.Mod.log
-POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username)
-POST  /mod/:username/email             controllers.Mod.setEmail(username)
+POST  /mod/:username/refreshUserAssess controllers.Mod.refreshUserAssess(username: UserStr)
+POST  /mod/:username/email             controllers.Mod.setEmail(username: UserStr)
 POST  /mod/inquiry-to-zulip            controllers.Mod.inquiryToZulip
-POST  /mod/:username/create-name-close-vote controllers.Mod.createNameCloseVote(username)
-POST  /mod/:username/ask-usertable-check controllers.Mod.askUsertableCheck(username)
+POST  /mod/:username/create-name-close-vote controllers.Mod.createNameCloseVote(username: UserStr)
+POST  /mod/:username/ask-usertable-check controllers.Mod.askUsertableCheck(username: UserStr)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period)
 GET   /mod/activity                    controllers.Mod.activity
@@ -565,10 +565,10 @@ GET   /mod/activity/:who/:period       controllers.Mod.activityOf(who, period)
 GET   /mod/queues/:period              controllers.Mod.queues(period)
 GET   /mod/search                      controllers.Mod.search
 GET   /mod/notes                       controllers.Mod.notes(page: Int ?= 1, q ?= "")
-GET   /mod/chat-user/:username         controllers.Mod.chatUser(username)
-GET   /mod/:username/permissions       controllers.Mod.permissions(username)
-POST  /mod/:username/permissions       controllers.Mod.savePermissions(username)
-POST  /mod/:username/gdpr-erase        controllers.Mod.gdprErase(username)
+GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: UserStr)
+GET   /mod/:username/permissions       controllers.Mod.permissions(username: UserStr)
+POST  /mod/:username/permissions       controllers.Mod.savePermissions(username: UserStr)
+POST  /mod/:username/gdpr-erase        controllers.Mod.gdprErase(username: UserStr)
 GET   /mod/public-chat                 controllers.Mod.publicChat
 POST  /mod/public-chat/timeout         controllers.Mod.publicChatTimeout
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
@@ -614,18 +614,18 @@ POST  /inbox/new                       controllers.Msg.compatCreate
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q)
 GET   /inbox/unread-count              controllers.Msg.unreadCount
-GET   /inbox/:username                 controllers.Msg.convo(username, before: Option[Long] ?= None)
-DELETE /inbox/:username                controllers.Msg.convoDelete(username)
+GET   /inbox/:username                 controllers.Msg.convo(username: UserStr, before: Option[Long] ?= None)
+DELETE /inbox/:username                controllers.Msg.convoDelete(username: UserStr)
 # Msg API/compat
-POST  /inbox/:username                 controllers.Msg.apiPost(username)
-POST /inbox/:username/delete           controllers.Msg.convoDelete(username)
+POST  /inbox/:username                 controllers.Msg.apiPost(username: UserStr)
+POST /inbox/:username/delete           controllers.Msg.convoDelete(username: UserStr)
 
 # Coach
 GET   /coach                           controllers.Coach.all(page: Int ?= 1)
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 POST  /upload/image/coach              controllers.Coach.pictureApply
-GET   /coach/:username                 controllers.Coach.show(username)
+GET   /coach/:username                 controllers.Coach.show(username: UserStr)
 GET   /coach/:lang/:country/:order     controllers.Coach.search(lang, order, country, page: Int ?= 1)
 GET   /$lang<\w\w\w?>/coach            controllers.Coach.homeLang(lang)
 
@@ -718,7 +718,7 @@ GET   /api/bulk-pairing/:id            controllers.BulkPairing.show(id)
 DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id)
 POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id)
 
-GET   /api/games/user/:username        controllers.Game.apiExportByUser(username)
+GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: UserStr)
 GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedGames()
 
 # Lichess Mobile
@@ -778,8 +778,8 @@ POST  /account/signout/:sessionId      controllers.Account.signout(sessionId)
 GET   /account/now-playing             controllers.Account.nowPlaying
 
 GET   /tutor                           controllers.Tutor.home()
-GET   /tutor/:username                 controllers.Tutor.user(username)
-POST  /tutor/:username/refresh         controllers.Tutor.refresh(username)
+GET   /tutor/:username                 controllers.Tutor.user(username: UserStr)
+POST  /tutor/:username/refresh         controllers.Tutor.refresh(username: UserStr)
 GET   /tutor/:username/:perf           controllers.Tutor.perf(username: UserStr, perf: PerfKey)
 GET   /tutor/:username/:perf/skill     controllers.Tutor.skills(username: UserStr, perf: PerfKey)
 GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: UserStr, perf: PerfKey)
@@ -884,4 +884,4 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
-GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username)
+GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: UserStr)
