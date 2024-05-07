@@ -34,7 +34,7 @@ given Conversion[String, lila.cms.CmsPage.Key]                           = lila.
 given Conversion[String, Sri]                                            = Sri(_)
 given Conversion[Int, chess.FideId]                                      = chess.FideId(_)
 given challengeId: Conversion[String, ChallengeId]                       = ChallengeId(_)
-given appealId: Conversion[String, AppealId]                            = AppealId(_)
+given appealId: Conversion[String, AppealId]                             = AppealId(_)
 given reportId: Conversion[String, ReportId]                             = ReportId(_)
 given clasId: Conversion[String, ClasId]                                 = ClasId(_)
 given clasInviteId: Conversion[String, ClasInviteId]                     = ClasInviteId(_)
@@ -50,7 +50,7 @@ given uciOpt: Conversion[Option[String], Option[chess.format.Uci]]       = _.fla
 // Used when constructing URLs from routes
 // TODO actually use the types in the routes
 object ReverseRouterConversions:
-  given appealIdConv: Conversion[AppealId, String]            = _.value
+  given appealIdConv: Conversion[AppealId, String]             = _.value
   given clasIdConv: Conversion[ClasId, String]                 = _.value
   given clasInviteIdConv: Conversion[ClasInviteId, String]     = _.value
   given localDateConv: Conversion[java.time.LocalDate, String] = _.toString
