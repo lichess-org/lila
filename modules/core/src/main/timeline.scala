@@ -37,9 +37,7 @@ case class PlanStart(userId: UserId) extends Atom("planStart", true):
   def userIds = List(userId)
 case class PlanRenew(userId: UserId, months: Int) extends Atom("planRenew", true):
   def userIds = List(userId)
-case class BlogPost(id: String, slug: String, title: String) extends Atom("blogPost", true):
-  def userIds = Nil
-case class UblogPostLike(userId: UserId, id: String, title: String) extends Atom("ublogPostLike", false):
+case class UblogPostLike(userId: UserId, id: UblogPostId, title: String) extends Atom("ublogPostLike", false):
   def userIds = List(userId)
 case class StreamStart(id: UserId, name: String) extends Atom("streamStart", false):
   def userIds = List(id)

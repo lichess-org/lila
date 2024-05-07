@@ -132,7 +132,7 @@ final private class ForumTopicApi(
       slug: String,
       name: String,
       url: String,
-      ublogId: String,
+      ublogId: UblogPostId,
       authorId: UserId
   ): Funit =
     categRepo.byId(ForumCateg.ublogId).flatMapz { categ =>

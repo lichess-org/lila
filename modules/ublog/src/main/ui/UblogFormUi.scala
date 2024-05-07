@@ -61,7 +61,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
   )(using Context) =
     postForm(
       cls    := "form3 ublog-post-form__main",
-      action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id.value))
+      action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id))
     )(
       form3.globalError(form),
       post.toOption.map { p =>

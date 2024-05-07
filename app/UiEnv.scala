@@ -17,7 +17,6 @@ object UiEnv
   export lila.common.String.html.richText
   export lila.ui.{ Page, Nonce, OpenGraph, PageModule, EsmList, Icon }
   export lila.api.Context.{ ctxToTranslate as _, *, given }
-  export lila.api.PageData
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = envVar = Some(e)
