@@ -234,7 +234,7 @@ final class Round(
         case _ =>
           game.hasChat.so:
             for
-              chat  <- env.chat.api.playerChat.findIf(ChatId(game.id), !game.justCreated)
+              chat  <- env.chat.api.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
               lines <- lila.chat.JsonView.asyncLines(chat)
             yield Chat
               .GameOrEvent:

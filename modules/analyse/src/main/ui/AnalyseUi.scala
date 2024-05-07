@@ -43,7 +43,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
                   a(
                     dataIcon := iconByVariant(v),
                     cls      := (pov.game.variant == v).option("current"),
-                    href     := routes.UserAnalysis.parseArg(v.key)
+                    href     := routes.UserAnalysis.parseArg(v.key.value)
                   )(v.name)
                 }
               ),

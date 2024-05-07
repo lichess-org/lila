@@ -1,15 +1,14 @@
 package controllers
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import scala.util.chaining.*
-
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.net.IpAddress
 import lila.core.chess.MultiPv

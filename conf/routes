@@ -431,7 +431,7 @@ POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id, user:
 POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id, user: UserStr)
 POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id)
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id)
-POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id, variant)
+POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id, variant: chess.variant.Variant.LilaKey)
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id)
 GET   /$lang<\w\w\w?>/simul                   controllers.Simul.homeLang(lang)
 
@@ -450,13 +450,13 @@ POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id, u
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: GameId)
 
-GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: GameAnyId)
-GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: GameAnyId)
+GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: GameId)
+GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: GameId)
 GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: GameId, color: Color = Color.white, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/:color/$gameId<\w{8}>.gif controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
-GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Color ?= Color.white, lastMove: Option[String], variant: Option[String], theme: Option[String], piece: Option[String])
+GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Color ?= Color.white, lastMove: Option[String], variant: Option[chess.variant.Variant.LilaKey], theme: Option[String], piece: Option[String])
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
@@ -486,7 +486,7 @@ POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id, color: O
 POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id)
 POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id)
 POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id)
-POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.offerRematchForGame(id)
+POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.offerRematchForGame(id: GameId)
 
 # Notify
 GET  /notify                           controllers.Notify.recent(page: Int ?= 1)
@@ -665,7 +665,7 @@ GET   /api/user/:user/rating-history   controllers.User.ratingHistory(user: User
 GET   /api/user/:user/current-game     controllers.User.tvExport(user: UserStr)
 GET   /api/user/:user/perf/:perfKey    controllers.Api.perfStat(user: UserStr, perfKey: PerfKey)
 GET   /api/user/:user/mod-log          controllers.Mod.apiUserLog(user: UserStr)
-GET   /api/game/:id                    controllers.Api.game(id)
+GET   /api/game/:id                    controllers.Api.game(id: GameId)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/$id<\w{8}>            controllers.Api.tournament(id)
 GET   /api/tournament/$id<\w{8}>/games      controllers.Api.tournamentGames(id)
@@ -693,7 +693,7 @@ POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
 POST  /api/stream/games/:streamId      controllers.Api.gamesByIdsStream(streamId)
 POST  /api/stream/games/:streamId/add  controllers.Api.gamesByIdsStreamAddIds(streamId)
 GET   /api/stream/event                controllers.Api.eventStream
-GET   /api/stream/game/:id             controllers.Api.moveStream(id)
+GET   /api/stream/game/:id             controllers.Api.moveStream(id: GameId)
 GET   /api/account                     controllers.Account.apiMe
 GET   /api/account/playing             controllers.Account.apiNowPlaying
 GET   /api/account/email               controllers.Account.apiEmail
@@ -708,8 +708,8 @@ POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: Use
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id)
 POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id)
-POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id)
-POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id, seconds: Int)
+POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: GameId)
+POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: GameId, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
 POST  /api/import                      controllers.Importer.apiSendGame
 GET   /api/bulk-pairing                controllers.BulkPairing.list
@@ -732,16 +732,16 @@ PUT   /api/external-engine/:id         controllers.Analyse.externalEngineUpdate(
 DELETE /api/external-engine/:id        controllers.Analyse.externalEngineDelete(id)
 
 # Bot API
-GET   /api/bot/game/stream/:id         controllers.PlayApi.botGameStream(id)
-POST  /api/bot/game/:id/move/:uci      controllers.PlayApi.botMove(id, uci, offeringDraw: Option[Boolean] ?= None)
+GET   /api/bot/game/stream/:id         controllers.PlayApi.botGameStream(id: GameId)
+POST  /api/bot/game/:id/move/:uci      controllers.PlayApi.botMove(id: GameId, uci, offeringDraw: Option[Boolean] ?= None)
 GET   /api/bot/online                  controllers.PlayApi.botOnlineApi
 POST  /api/bot/*cmd                    controllers.PlayApi.botCommand(cmd)
 GET   /api/bot/*cmd                    controllers.PlayApi.botCommandGet(cmd)
 GET   /player/bots                     controllers.PlayApi.botOnline
 
 # Board API
-GET   /api/board/game/stream/:id        controllers.PlayApi.boardGameStream(id)
-POST  /api/board/game/:id/move/:uci     controllers.PlayApi.boardMove(id, uci, offeringDraw: Option[Boolean] ?= None)
+GET   /api/board/game/stream/:id        controllers.PlayApi.boardGameStream(id: GameId)
+POST  /api/board/game/:id/move/:uci     controllers.PlayApi.boardMove(id: GameId, uci, offeringDraw: Option[Boolean] ?= None)
 POST  /api/board/seek                   controllers.Setup.boardApiHook
 DELETE /api/board/seek                  controllers.Setup.boardApiHookCancel
 POST  /api/board/*cmd                   controllers.PlayApi.boardCommandPost(cmd)
@@ -833,7 +833,7 @@ POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 POST  /github/secret-scanning          controllers.Main.githubSecretScanning
 
 # Technical
-GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id)
+GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id: GameId)
 GET   /run/temporarily-disabled        controllers.Main.temporarilyDisabled(path = "")
 GET   /run/temporarily-disabled/*path  controllers.Main.temporarilyDisabled(path)
 GET   /run/external-link/:tag          controllers.Main.externalLink(tag)
@@ -876,7 +876,7 @@ GET   /dgt/play                        controllers.DgtCtrl.play
 GET   /dgt/config                      controllers.DgtCtrl.config
 POST  /dgt/config/token                controllers.DgtCtrl.generateToken
 
-POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
+POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: GameFullId)
 
 GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, path="public", file)
 GET   /assets/*file                    controllers.ExternalAssets.at(path="public", file)

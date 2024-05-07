@@ -1,14 +1,14 @@
 package controllers
 
+import scala.util.{ Either, Left, Right }
 import chess.ErrorStr
 import chess.format.pgn.PgnStr
 import play.api.libs.json.Json
 import play.api.mvc.*
 
-import scala.util.{ Either, Left, Right }
-
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.net.IpAddress
 import lila.game.GameExt.analysable
 
