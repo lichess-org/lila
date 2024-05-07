@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json.*
 
 import lila.app.*
+import lila.common.Json.given
 import lila.challenge.ChallengeBulkSetup
 
 final class BulkPairing(env: Env) extends LilaController(env):

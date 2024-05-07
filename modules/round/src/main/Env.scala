@@ -68,7 +68,7 @@ final class Env(
   private val goneWeightsFor: Game => Fu[(Float, Float)] = (game: Game) =>
     if !game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1) then fuccess(1f -> 1f)
     else
-      def of(color: chess.Color): Fu[Float] =
+      def of(color: Color): Fu[Float] =
         def rageSitGoneWeight(sit: lila.core.playban.RageSit): Float =
           import scala.math.{ log10, sqrt }
           import lila.playban.RageSit.extensions.*

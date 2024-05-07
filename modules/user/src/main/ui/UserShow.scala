@@ -39,7 +39,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         div(cls := "upt__info__top")(
           userLink(u, withPowerTip = false),
           flag.map: c =>
-            val titleNameSize      = u.title.fold(0)(_.value.length + 1) + u.username.length
+            val titleNameSize      = u.title.fold(0)(_.value.length + 1) + u.username.value.length
             val hasRoomForNameText = titleNameSize + c.shortName.length < 21
             span(
               cls   := "upt__info__top__flag",

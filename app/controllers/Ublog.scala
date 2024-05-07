@@ -184,8 +184,8 @@ final class Ublog(env: Env) extends LilaController(env):
       )
   }
 
-  def rankAdjust(postId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
-    Found(env.ublog.api.getPost(UblogPostId(postId))): post =>
+  def rankAdjust(postId: UblogPostId) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
+    Found(env.ublog.api.getPost(postId)): post =>
       bindForm(lila.ublog.UblogForm.adjust)(
         _ => Redirect(urlOfPost(post)).flashFailure,
         (pinned, tier, rankAdjustDays) =>
@@ -302,7 +302,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def historicalBlogPost(id: String, slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>
-      Redirect(routes.Ublog.post("lichess", post.slug, post.id), MOVED_PERMANENTLY)
+      Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 

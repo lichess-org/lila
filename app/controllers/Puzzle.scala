@@ -1,6 +1,5 @@
 package controllers
 
-import chess.Color
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*

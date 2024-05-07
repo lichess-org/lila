@@ -1,9 +1,11 @@
 package lila.clas
 
-import scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
+
+import lila.core.id.ClasId
 
 case class Clas(
-    _id: Clas.Id,
+    @Key("_id") id: ClasId,
     name: String,
     desc: String,
     wall: Markdown = Markdown(""),
@@ -12,9 +14,6 @@ case class Clas(
     viewedAt: Instant,
     archived: Option[Clas.Recorded]
 ):
-
-  inline def id = _id
-
   def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 
   def isArchived = archived.isDefined
@@ -26,7 +25,7 @@ object Clas:
 
   def make(teacher: User, name: String, desc: String) =
     Clas(
-      _id = Id(ThreadLocalRandom.nextString(8)),
+      id = ClasId(scalalib.ThreadLocalRandom.nextString(8)),
       name = name,
       desc = desc,
       teachers = NonEmptyList.one(teacher.id),
@@ -34,9 +33,6 @@ object Clas:
       viewedAt = nowInstant,
       archived = none
     )
-
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
 
   case class Recorded(by: UserId, at: Instant)
 

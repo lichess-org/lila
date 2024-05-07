@@ -19,7 +19,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, none, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, Color.white, none, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = "Chess openings",
           url = s"$netBaseUrl${routes.Opening.index()}",
@@ -68,7 +68,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
         OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, Color.white, page.query.uci.lastOption.map(_.uci), None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${bits.queryUrl(page.query)}",

@@ -102,9 +102,6 @@ final class TimelineUi(helpers: Helpers)(
         case PlanRenew(userId, months) =>
           trans.patron.xIsPatronForNbMonths
             .plural(months, userLink(userId), months)
-        case BlogPost(id, slug, title) =>
-          a(cls := "text", dataIcon := Icon.InkQuill, href := routes.Ublog.historicalBlogPost(id, slug)):
-            title
         case UblogPostLike(userId, postId, postTitle) =>
           trans.site.xLikesY(
             userLink(userId),

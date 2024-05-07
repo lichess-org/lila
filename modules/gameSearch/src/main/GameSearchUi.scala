@@ -162,7 +162,7 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
       data(s"req-$f") := form("players")(f).value.orZero
 
   def colors(hide: Boolean) =
-    chess.Color.all.map: color =>
+    Color.all.map: color =>
       tr(cls := List(s"${color.name}User user-row" -> true, "none" -> hide))(
         th(
           label(`for` := form3.id(form("players")(color.name)))(

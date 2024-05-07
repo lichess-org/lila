@@ -430,7 +430,7 @@ final class TournamentApi(
             )
           }
           .andDo(game.whitePlayer.userId.foreach: whiteUserId =>
-            colorHistoryApi.inc(player.id, chess.Color.fromWhite(player.is(whiteUserId))))
+            colorHistoryApi.inc(player.id, Color.fromWhite(player.is(whiteUserId))))
       }
     }
 

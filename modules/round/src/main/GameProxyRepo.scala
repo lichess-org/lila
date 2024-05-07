@@ -15,7 +15,7 @@ final class GameProxyRepo(
   def pov[U: UserIdOf](gameId: GameId, user: U): Fu[Option[Pov]] =
     game(gameId).dmap { _.flatMap { Pov(_, user) } }
 
-  def pov(gameId: GameId, color: chess.Color): Fu[Option[Pov]] =
+  def pov(gameId: GameId, color: Color): Fu[Option[Pov]] =
     game(gameId).dmap2 { Pov(_, color) }
 
   def pov(fullId: GameFullId): Fu[Option[Pov]] = pov(PlayerRef(fullId))
@@ -36,7 +36,7 @@ final class GameProxyRepo(
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]] =
     games.map(upgradeIfPresent).parallel
 
-  def povIfPresent(gameId: GameId, color: chess.Color): Fu[Option[Pov]] =
+  def povIfPresent(gameId: GameId, color: Color): Fu[Option[Pov]] =
     gameIfPresent(gameId).dmap2 { Pov(_, color) }
 
   def povIfPresent(fullId: GameFullId): Fu[Option[Pov]] = povIfPresent(PlayerRef(fullId))

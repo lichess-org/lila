@@ -1,7 +1,6 @@
 package lila.tutor
 package ui
 
-import chess.Color
 import chess.format.pgn.PgnStr
 
 import lila.ui.*
@@ -18,7 +17,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
       perfReport.openings(as).families.map { family =>
         a(
           href := routes.Tutor
-            .opening(user.username, perfReport.perf.key, as.name, family.family.key.value),
+            .opening(user.username, perfReport.perf.key, as, family.family.key.value),
           cls := family.family.key.value.active(report.family.key.value)
         )(family.family.name.value)
       }
@@ -112,14 +111,14 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
         bits.mascotSays(
           report.openingHighlights(3).map(compare.show)
         ),
-        div(cls := "tutor__openings__colors tutor__pad")(chess.Color.all.map { color =>
+        div(cls := "tutor__openings__colors tutor__pad")(Color.all.map { color =>
           st.section(cls := "tutor__openings__color")(
             h2("Your ", color.name, " openings"),
             div(cls := "tutor__openings__color__openings")(report.openings(color).families.map { fam =>
               div(
                 cls := "tutor__openings__opening tutor-card tutor-card--link",
                 dataHref := routes.Tutor
-                  .opening(user.username, report.perf.key, color.name, fam.family.key.value)
+                  .opening(user.username, report.perf.key, color, fam.family.key.value)
               )(
                 div(cls := "tutor-card__top")(
                   div(cls := "no-square")(pieceTag(cls := s"pawn ${color.name}")),

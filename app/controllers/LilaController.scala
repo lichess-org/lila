@@ -27,8 +27,7 @@ abstract private[controllers] class LilaController(val env: Env)
     with http.RequestContext(using env.executor)
     with lila.web.CtrlErrors:
 
-  export lila.ui.ReverseRouterConversions.given
-  export _root_.router.ReverseRouterConversions.given
+  export lila.ui.LilaRouter.conversions.given
 
   def controllerComponents                           = env.controllerComponents
   given Executor                                     = env.executor

@@ -39,10 +39,11 @@ final class ErrorHandler(
     }
 
   override def onClientError(req: RequestHeader, statusCode: Int, msg: String): Fu[Result] =
+    def msgOpt = Option(msg).filter(_.nonEmpty)
     statusCode match
-      case 404 if canShowErrorPage(req) => mainC.handlerNotFound(using req)
-      case 404                          => fuccess(NotFound("404 - Resource not found"))
-      case 403                          => lobbyC.handleStatus(Results.Forbidden)(using req)
+      case 400 | 404 if canShowErrorPage(req) => mainC.handlerNotFound(msgOpt)(using req)
+      case 400 | 404                          => fuccess(NotFound(s"404 - ${msgOpt | "Resource not found"}"))
+      case 403                                => lobbyC.handleStatus(Results.Forbidden)(using req)
       case _ if req.attrs.contains(request.RequestAttrKey.Session) =>
         lobbyC.handleStatus(Results.BadRequest)(using req)
       case _ =>

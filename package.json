@@ -19,7 +19,7 @@
   "homepage": "https://lichess.org",
   "engines": {
     "node": ">=14",
-    "pnpm": "^8.7"
+    "pnpm": ">=8.7"
   },
   "lint-staged": {
     "*.{js,ts,md,json,scss}": "prettier --write"

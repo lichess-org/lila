@@ -1,6 +1,5 @@
 package lila.tournament
 
-import chess.Color
 import chess.variant.*
 import scalalib.ThreadLocalRandom
 

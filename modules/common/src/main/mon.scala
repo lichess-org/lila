@@ -5,6 +5,7 @@ import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 
 import lila.core.net.*
+import lila.core.id.*
 
 object mon:
 
@@ -446,7 +447,7 @@ object mon:
       tags("verdict" -> verdict, "isNew" -> isNew, "multi" -> multi)
     )
     def teamBulk(teamId: String) = histogram("msg.bulk.team").withTag("id", teamId)
-    def clasBulk(clasId: String) = histogram("msg.bulk.clas").withTag("id", clasId)
+    def clasBulk(clasId: ClasId) = histogram("msg.bulk.clas").withTag("id", clasId.value)
   object puzzle:
     object selector:
       object user:

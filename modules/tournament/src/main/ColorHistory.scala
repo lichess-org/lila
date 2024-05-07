@@ -1,7 +1,5 @@
 package lila.tournament
 
-import chess.Color
-
 import lila.memo.CacheApi
 
 // positive strike -> user played straight strike games by white pieces

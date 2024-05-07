@@ -7,7 +7,7 @@ import lila.common.LilaOpeningFamily
 
 import lila.rating.PerfType
 import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
-import lila.core.perf.{ UserWithPerfs, PerfKeyStr }
+import lila.core.perf.UserWithPerfs
 
 final class Tutor(env: Env) extends LilaController(env):
 
@@ -19,39 +19,34 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok.page(views.tutor.home(av, user))
   }
 
-  def perf(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) {
-    _ ?=> user => full => perf =>
-      Ok.page(views.tutor.perf(full.report, perf, user))
+  def perf(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+    Ok.page(views.tutor.perf(full.report, perf, user))
   }
 
-  def openings(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) {
-    _ ?=> user => _ => perf =>
-      Ok.page(views.tutor.openingUi.openings(perf, user))
+  def openings(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+    Ok.page(views.tutor.openingUi.openings(perf, user))
   }
 
-  def opening(username: UserStr, perf: PerfKeyStr, colName: String, opName: String) =
+  def opening(username: UserStr, perf: PerfKey, color: Color, opName: String) =
     TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-      chess.Color
-        .fromName(colName)
-        .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): color =>
-          LilaOpeningFamily
-            .find(opName)
-            .flatMap(perf.openings(color).find)
-            .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
-              env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
-                Ok.page(views.tutor.opening(perf, family, color, user, puzzle))
-              }
+      LilaOpeningFamily
+        .find(opName)
+        .flatMap(perf.openings(color).find)
+        .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
+          env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
+            Ok.page(views.tutor.opening(perf, family, color, user, puzzle))
+          }
     }
 
-  def skills(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.tutor.perf.skills(perf, user))
   }
 
-  def phases(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.tutor.perf.phases(perf, user))
   }
 
-  def time(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.tutor.perf.time(perf, user))
   }
 
@@ -91,17 +86,14 @@ final class Tutor(env: Env) extends LilaController(env):
         case available: TutorFullReport.Available => f(user)(available)
     }
 
-  private def TutorPerfPage(username: UserStr, perf: PerfKeyStr)(
+  private def TutorPerfPage(username: UserStr, perf: PerfKey)(
       f: Context ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
   ): EssentialAction =
     TutorPage(username) { _ ?=> user => availability =>
-      PerfKey
-        .read(perf)
-        .fold(redirHome(user).toFuccess): perf =>
-          availability match
-            case full @ TutorFullReport.Available(report, _) =>
-              report(perf).fold(redirHome(user).toFuccess):
-                f(user)(full)
+      availability match
+        case full @ TutorFullReport.Available(report, _) =>
+          report(perf).fold(redirHome(user).toFuccess):
+            f(user)(full)
     }
 
   private def redirHome(user: UserModel) = Redirect(routes.Tutor.user(user.username))

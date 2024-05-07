@@ -76,7 +76,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           ),
           (s.streamer.youTube.isDefined && s.stream.isEmpty && (isMe || isMod)).option(
             form(
-              action := routes.Streamer.checkOnline(s.streamer.id.value).url,
+              action := routes.Streamer.checkOnline(s.streamer.userId).url,
               method := "post"
             )(input(cls := "button online-check", tpe := "submit", value := "force online check"))
           )
@@ -107,7 +107,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
       a(cls := active.active("index"), href := routes.Streamer.index())(trs.allStreamers()),
       s.map { st =>
         frag(
-          a(cls := active.active("show"), href := routes.Streamer.show(st.streamer.id.value))(
+          a(cls := active.active("show"), href := routes.Streamer.show(st.streamer.userId))(
             st.streamer.name
           ),
           (ctx.is(st.user) || Granter.opt(_.Streamers)).option(
@@ -137,8 +137,8 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
 
   def redirectLink(username: UserStr, isStreaming: Option[Boolean] = None): Tag =
     isStreaming match
-      case Some(false) => a(href := routes.Streamer.show(username.value))
-      case _           => a(href := routes.Streamer.redirect(username.value), targetBlank, noFollow)
+      case Some(false) => a(href := routes.Streamer.show(username))
+      case _           => a(href := routes.Streamer.redirect(username), targetBlank, noFollow)
 
   def liveStreams(l: LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>

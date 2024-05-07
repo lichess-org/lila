@@ -41,7 +41,7 @@ final class SetupUi(helpers: Helpers):
             td(
               setupCheckboxes(
                 form("variant"),
-                translatedVariantChoicesWithVariants(_.key)
+                translatedVariantChoicesWithVariants(_.key.value)
               )
             )
           ),

@@ -19,7 +19,7 @@ case class ForumTopic(
     closed: Boolean,
     sticky: Option[Boolean],
     userId: Option[UserId] = None, // only since SB mutes
-    ublogId: Option[String] = None
+    ublogId: Option[UblogPostId] = None
 ):
   def updatedAt(forUser: Option[User]): Instant =
     if forUser.exists(_.marks.troll) then updatedAtTroll else updatedAt
@@ -75,7 +75,7 @@ object ForumTopic:
       name: String,
       userId: UserId,
       troll: Boolean = false,
-      ublogId: Option[String] = None
+      ublogId: Option[UblogPostId] = None
   ): ForumTopic = ForumTopic(
     id = ForumTopicId(ThreadLocalRandom.nextString(idSize)),
     categId = categId,

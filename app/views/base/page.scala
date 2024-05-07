@@ -60,7 +60,7 @@ object page:
           st.headTitle:
             val prodTitle = p.fullTitle | s"${p.title} • $siteName"
             if netConfig.isProd then prodTitle
-            else s"${ctx.me.so(_.username + " ")} $prodTitle"
+            else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
           cssTag("theme-all"),
           cssTag("site"),
@@ -163,12 +163,11 @@ object page:
             )
           )(p.transform(p.body)),
           bottomHtml,
-          div(id := "inline-scripts")(
-            frag(ctx.needsFp.option(views.auth.fingerprintTag), ctx.nonce.map(inlineJs.apply)),
-            modulesInit(p.modules ++ p.pageModule.so(module => jsPageModule(module.name))),
-            p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
-            p.pageModule.map { mod => frag(jsonScript(mod.data)) }
-          )
+          ctx.needsFp.option(views.auth.fingerprintTag),
+          ctx.nonce.map(inlineJs.apply),
+          modulesInit(p.modules ++ p.pageModule.so(module => jsPageModule(module.name))),
+          p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
+          p.pageModule.map { mod => frag(jsonScript(mod.data)) }
         )
       )
     )

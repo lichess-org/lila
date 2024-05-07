@@ -112,32 +112,28 @@ final class Round(
           case None =>
             Redirect(currentGame.simulId match
               case Some(simulId) => routes.Simul.show(simulId)
-              case None          => routes.Round.watcher(gameId, "white")
+              case None          => routes.Round.watcher(gameId, Color.white)
             )
   }
 
-  def watcher(gameId: GameId, color: String) = Open:
-    proxyPov(gameId, color).flatMap:
-      case Some(pov) =>
-        getUserStr("pov")
-          .map(_.id)
-          .fold(watch(pov)): requestedPov =>
-            (pov.player.userId, pov.opponent.userId) match
-              case (Some(_), Some(opponent)) if opponent == requestedPov =>
-                Redirect(routes.Round.watcher(gameId, (!pov.color).name))
-              case (Some(player), Some(_)) if player == requestedPov =>
-                Redirect(routes.Round.watcher(gameId, pov.color.name))
-              case _ => Redirect(routes.Round.watcher(gameId, "white"))
-      case None =>
-        userC
-          .tryRedirect(gameId.into(UserStr))
-          .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
-
-  private def proxyPov(gameId: GameId, color: String): Fu[Option[Pov]] =
-    chess.Color
-      .fromName(color)
-      .so:
-        env.round.proxyRepo.pov(gameId, _)
+  def watcher(gameId: GameId, color: Color) = Open:
+    env.round.proxyRepo
+      .pov(gameId, color)
+      .flatMap:
+        case Some(pov) =>
+          getUserStr("pov")
+            .map(_.id)
+            .fold(watch(pov)): requestedPov =>
+              (pov.player.userId, pov.opponent.userId) match
+                case (Some(_), Some(opponent)) if opponent == requestedPov =>
+                  Redirect(routes.Round.watcher(gameId, !pov.color))
+                case (Some(player), Some(_)) if player == requestedPov =>
+                  Redirect(routes.Round.watcher(gameId, pov.color))
+                case _ => Redirect(routes.Round.watcher(gameId, Color.white))
+        case None =>
+          userC
+            .tryRedirect(gameId.into(UserStr))
+            .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
 
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
@@ -146,7 +142,7 @@ final class Round(
       case Some(player) if userTv.isEmpty => renderPlayer(pov.withColor(player.color))
       case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
         if userTv.isDefined then watch(!pov, userTv)
-        else Redirect(routes.Round.watcher(pov.gameId, "white"))
+        else Redirect(routes.Round.watcher(pov.gameId, Color.white))
       case _ =>
         negotiateApi(
           html =
@@ -179,7 +175,7 @@ final class Round(
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
                 pgn <- env.api
                   .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
-                page <- renderPage(views.round.watcher.crawler(pov, initialFen, pgn))
+                page <- renderPage(views.round.crawler(pov, initialFen, pgn))
               yield Ok(page)
           ,
           api = _ =>
@@ -238,7 +234,7 @@ final class Round(
         case _ =>
           game.hasChat.so:
             for
-              chat  <- env.chat.api.playerChat.findIf(ChatId(game.id), !game.justCreated)
+              chat  <- env.chat.api.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
               lines <- lila.chat.JsonView.asyncLines(chat)
             yield Chat
               .GameOrEvent:
@@ -246,8 +242,8 @@ final class Round(
                   Chat.Restricted(chat, lines, restricted = game.sourceIs(_.Lobby) && ctx.isAnon)
               .some
 
-  def sides(gameId: GameId, color: String) = Open:
-    FoundSnip(proxyPov(gameId, color)): pov =>
+  def sides(gameId: GameId, color: Color) = Open:
+    FoundSnip(env.round.proxyRepo.pov(gameId, color)): pov =>
       (
         env.tournament.api.gameView.withTeamVs(pov.game),
         pov.game.simulId.so(env.simul.repo.find),
@@ -287,11 +283,10 @@ final class Round(
         env.round.resign(pov)
         akka.pattern.after(500.millis, env.system.scheduler)(redirection)
 
-  def mini(gameId: GameId, color: String) = Open:
+  def mini(gameId: GameId, color: Color) = Open:
     FoundSnip(
-      chess.Color
-        .fromName(color)
-        .so(env.round.proxyRepo.povIfPresent(gameId, _))
+      env.round.proxyRepo
+        .povIfPresent(gameId, color)
         .orElse(env.game.gameRepo.pov(gameId, color))
     )(pov => Snippet(views.game.mini(pov)))
 

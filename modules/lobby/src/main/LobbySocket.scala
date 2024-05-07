@@ -291,7 +291,7 @@ private object LobbySocket:
       def pairings(pairings: List[lila.core.pool.Pairing]) =
         val redirs = for
           pairing <- pairings
-          color   <- chess.Color.all
+          color   <- Color.all
           sri    = pairing.players(color)._1
           fullId = pairing.players(color)._2
         yield s"$sri:$fullId"

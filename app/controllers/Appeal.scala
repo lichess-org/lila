@@ -81,7 +81,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
                 env.report.api.inquiries
                   .toggle(Right(appeal.userId))
                   .inject(Redirect(routes.Appeal.queue()))
-              else Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions").toFuccess
+              else Redirect(s"${routes.Appeal.show(username)}#appeal-actions").toFuccess
           yield result
       )
   }

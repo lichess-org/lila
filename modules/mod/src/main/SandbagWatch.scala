@@ -1,6 +1,5 @@
 package lila.mod
 
-import chess.Color
 import com.github.blemale.scaffeine.Cache
 
 import lila.game.Game

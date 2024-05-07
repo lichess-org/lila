@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.UiEnv.{ *, given }
+import lila.common.Json.given
 
 def index(
     u: User,

@@ -218,7 +218,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     case Some(r) =>
       div(
         h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
-        a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientInstant(r.at))
+        a(cls := "glpt", href := routes.Round.watcher(r.gameId, Color.white))(absClientInstant(r.at))
       )
     case None => div(h2(title(emptyFrag)), " ", span(tps.notEnoughGames()))
 
@@ -236,10 +236,10 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     s.from match
       case Some(from) =>
         tps.fromXToY(
-          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientInstant(from.at)),
+          a(cls := "glpt", href := routes.Round.watcher(from.gameId, Color.white))(absClientInstant(from.at)),
           s.to match
             case Some(to) =>
-              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientInstant(to.at))
+              a(cls := "glpt", href := routes.Round.watcher(to.gameId, Color.white))(absClientInstant(to.at))
             case None => tps.now()
         )
       case None => nbsp
@@ -283,7 +283,10 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             tr(
               td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td:
-                a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.username}"):
+                a(
+                  cls  := "glpt",
+                  href := s"${routes.Round.watcher(r.gameId, Color.white)}?pov=${user.username}"
+                ):
                   absClientInstant(r.at)
             )
       )

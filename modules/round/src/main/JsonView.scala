@@ -254,7 +254,7 @@ final class JsonView(
       pov: Pov,
       pref: Pref,
       initialFen: Option[Fen.Full],
-      orientation: chess.Color,
+      orientation: Color,
       owner: Boolean,
       division: Option[chess.Division] = None
   ) =

@@ -30,7 +30,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       JsonOk:
         featured.live.streams.map: s =>
           Json.obj(
-            "url"    -> routes.Streamer.redirect(s.streamer.id.value).absoluteURL(),
+            "url"    -> routes.Streamer.redirect(s.streamer.userId).absoluteURL(),
             "status" -> s.status,
             "user" -> Json
               .obj(
@@ -65,7 +65,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     Found(api.forSubscriber(username)): s =>
       WithVisibleStreamer(s):
         env.streamer.liveStreamApi.of(s).map { sws =>
-          Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username.value).url)
+          Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username).url)
         }
 
   def create = AuthBody { _ ?=> me ?=>

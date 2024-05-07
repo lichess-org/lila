@@ -17,7 +17,7 @@ object inquiry:
       val (link, text) = line match
         case commFlagRegex(tpe, id, text) =>
           val path = tpe match
-            case "game"       => routes.Round.watcher(id, "white").url
+            case "game"       => routes.Round.watcher(GameId(id), Color.white).url
             case "relay"      => routes.RelayRound.show("-", "-", id).url
             case "tournament" => routes.Tournament.show(id).url
             case "swiss"      => routes.Swiss.show(id).url

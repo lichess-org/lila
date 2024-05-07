@@ -7,6 +7,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 

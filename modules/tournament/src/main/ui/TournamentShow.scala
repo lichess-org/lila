@@ -8,6 +8,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
 import lila.common.String.html.markdownLinksOrRichText
+import lila.common.Json.given
 import lila.core.config.NetDomain
 import lila.gathering.ui.GatheringUi
 
