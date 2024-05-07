@@ -185,7 +185,7 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   def rankAdjust(postId: UblogPostId) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
-    Found(env.ublog.api.getPost(UblogPostId(postId))): post =>
+    Found(env.ublog.api.getPost(postId)): post =>
       bindForm(lila.ublog.UblogForm.adjust)(
         _ => Redirect(urlOfPost(post)).flashFailure,
         (pinned, tier, rankAdjustDays) =>

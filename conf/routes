@@ -71,7 +71,7 @@ GET   /@/:username/simuls/hosted       controllers.Simul.byUser(username: UserSt
 
 # User blog
 GET   /@/:username/blog                controllers.Ublog.index(username: UserStr, page: Int ?= 1)
-GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id)
+GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username: UserStr, slug, id: UblogPostId)
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username: UserStr, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username: UserStr)
 POST  /@/:username/blog/new            controllers.Ublog.create(username: UserStr)
