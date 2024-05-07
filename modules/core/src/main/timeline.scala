@@ -22,7 +22,7 @@ case class ForumPost(userId: UserId, topicId: ForumTopicId, topicName: String, p
 case class UblogPost(userId: UserId, id: UblogPostId, slug: String, title: String)
     extends Atom(s"ublog:$id", false):
   def userIds = List(userId)
-case class TourJoin(userId: UserId, tourId: String, tourName: String) extends Atom("tournament", true):
+case class TourJoin(userId: UserId, tourId: TourId, tourName: String) extends Atom("tournament", true):
   def userIds = List(userId)
 case class GameEnd(fullId: GameFullId, opponent: Option[UserId], win: Option[Boolean], perf: PerfKey)
     extends Atom("gameEnd", true):

@@ -68,7 +68,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     members <- paginator.teamMembers(team.team, page)
     log     <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
-    chat <- hasChat.soFu(env.chat.api.userChat.cached.findMine(ChatId(team.id)))
+    chat <- hasChat.soFu(env.chat.api.userChat.cached.findMine(team.id.into(ChatId)))
     _ <- env.user.lightUserApi.preloadMany:
       info.publicLeaders.map(_.user) ::: info.userIds
     version <- hasChat.soFu(env.team.version(team.id))

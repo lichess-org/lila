@@ -446,7 +446,7 @@ object mon:
     def post(verdict: String, isNew: Boolean, multi: Boolean) = counter("msg.post").withTags(
       tags("verdict" -> verdict, "isNew" -> isNew, "multi" -> multi)
     )
-    def teamBulk(teamId: String) = histogram("msg.bulk.team").withTag("id", teamId)
+    def teamBulk(teamId: TeamId) = histogram("msg.bulk.team").withTag("id", teamId.value)
     def clasBulk(clasId: ClasId) = histogram("msg.bulk.clas").withTag("id", clasId.value)
   object puzzle:
     object selector:

@@ -3,6 +3,7 @@ package lila.msg
 import lila.core.LightUser
 import lila.core.config.BaseUrl
 import lila.core.team.LightTeam
+import lila.core.id.ForumCategId
 
 object MsgPreset:
 
@@ -29,7 +30,7 @@ Thank you for your understanding."""
 
     def byModerator = compose("A moderator")
 
-    def byTeamLeader(teamSlug: String) = compose(s"A team leader of https://lichess.org/forum/$teamSlug")
+    def byTeamLeader(forumId: ForumCategId) = compose(s"A team leader of https://lichess.org/forum/$forumId")
 
     def byBlogAuthor(user: UserName) = compose(by = s"The community blog author $user")
 
