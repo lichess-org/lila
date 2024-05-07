@@ -4,6 +4,7 @@ package ui
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.id.ForumCategId
+import lila.core.id.CmsPageKey
 
 final class SitePages(helpers: Helpers):
   import helpers.{ *, given }
@@ -30,7 +31,7 @@ final class SitePages(helpers: Helpers):
       sep,
       a(activeCls("source"), href := routes.Cms.source)(trans.site.sourceCode()),
       a(activeCls("help"), href := routes.Cms.help)(trans.site.contribute()),
-      a(activeCls("changelog"), href := routes.Cms.menuPage("changelog"))("Changelog"),
+      a(activeCls("changelog"), href := routes.Cms.menuPage(CmsPageKey("changelog")))("Changelog"),
       a(activeCls("thanks"), href := "/thanks")(trans.site.thankYou()),
       sep,
       a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.site.webmasters()),

@@ -26,7 +26,7 @@ final class ChallengeUi(helpers: Helpers):
         PageModule(
           "bits.challengePage",
           Json.obj(
-            "xhrUrl" -> routes.Challenge.show(c.id, color.map(_.name)).url,
+            "xhrUrl" -> routes.Challenge.show(c.id, color).url,
             "owner"  -> owner,
             "data"   -> json
           )
@@ -225,7 +225,7 @@ final class ChallengeUi(helpers: Helpers):
                 frag(
                   (c.mode.rated && c.unlimited)
                     .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
-                  postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
+                  postForm(cls := "accept", action := routes.Challenge.accept(c.id, color))(
                     submitButton(cls := "text button button-fat", dataIcon := Icon.PlayTriangle)(
                       trans.site.joinTheGame()
                     )

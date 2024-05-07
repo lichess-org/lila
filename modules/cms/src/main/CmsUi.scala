@@ -10,9 +10,6 @@ import ScalatagsTemplate.{ *, given }
 final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ *, given }
 
-  private given cmsPageIdConv: Conversion[CmsPage.Id, String]   = _.value
-  private given cmsPageKeyConv: Conversion[CmsPage.Key, String] = _.value
-
   def render(page: CmsPage.Render)(using Context) =
     if !page.live && !Granter.opt(_.Pages)
     then p("Oops, looks like there will be something here soon... but not yet!")

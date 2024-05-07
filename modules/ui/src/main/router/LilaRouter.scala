@@ -5,6 +5,7 @@ import scalalib.newtypes.SameRuntime
 
 import lila.core.id.*
 import chess.variant.Variant
+import chess.format.Uci
 
 object LilaRouter:
 
@@ -32,9 +33,10 @@ object LilaRouter:
 
   given PathBindable[UserStr] = strPath[UserStr](UserStr.read, "Invalid Lichess username")
   given PathBindable[PerfKey] = strPath[PerfKey](PerfKey.apply, "Invalid Lichess performance key")
+  given PathBindable[GameId]  = summon[PathBindable[GameAnyId]].transform(_.gameId, _.into(GameAnyId))
   given PathBindable[Color] =
     strPath[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
-  given PathBindable[GameId] = summon[PathBindable[GameAnyId]].transform(_.gameId, _.into(GameAnyId))
+  given PathBindable[Uci] = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
 
@@ -53,12 +55,7 @@ object LilaRouter:
 
   given QueryStringBindable[Color] =
     strQueryString[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
+  given QueryStringBindable[Uci] = strQueryString[Uci](Uci.apply, "Invalid UCI move", _.uci)
 
   object conversions:
-    given reportIdConv: Conversion[ReportId, String]       = _.value
-    given Conversion[lila.core.i18n.Language, String]      = _.value
-    given Conversion[RelayRoundId, String]                 = _.value
-    given Conversion[chess.opening.OpeningKey, String]     = _.value
-    given Conversion[chess.format.Uci, String]             = _.uci
-    given relayTourIdConv: Conversion[RelayTourId, String] = _.value
-    given challengeIdConv: Conversion[ChallengeId, String] = _.value
+    given Conversion[lila.core.i18n.Language, String] = _.value

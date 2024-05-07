@@ -5,7 +5,7 @@ GET   /report/thanks                   controllers.report.Report.thanks
 GET   /report/list                     controllers.report.Report.list
 GET   /report/list/:room               controllers.report.Report.listWithFilter(room: String)
 POST  /report/:id/inquiry              controllers.report.Report.inquiry(id: String)
-POST  /report/:id/process              controllers.report.Report.process(id: String)
-POST  /report/:id/xfiles               controllers.report.Report.xfiles(id: String)
-POST  /report/:id/snooze/:dur          controllers.report.Report.snooze(id: String, dur: String)
+POST  /report/:id/process              controllers.report.Report.process(id: ReportId)
+POST  /report/:id/xfiles               controllers.report.Report.xfiles(id: ReportId)
+POST  /report/:id/snooze/:dur          controllers.report.Report.snooze(id: ReportId, dur: String)
 GET   /report/:user/cheat-inquiry  controllers.report.Report.currentCheatInquiry(user: UserStr)

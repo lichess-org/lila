@@ -16,7 +16,7 @@ object page:
   def lone(p: CmsPage.Render)(using ctx: Context) =
     Page(p.title)
       .css("page")
-      .js((p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+      .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })"""))):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))

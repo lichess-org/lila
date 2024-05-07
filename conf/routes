@@ -258,30 +258,30 @@ GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user: UserStr, page: Int ?= 1)
 GET   /broadcast/subscribed                   controllers.RelayTour.subscribed(page: Int ?= 1)
 GET   /broadcast/all-private                  controllers.RelayTour.allPrivate(page: Int ?= 1)
-GET   /broadcast/:ts/$id<\w{8}>               controllers.RelayTour.show(ts, id)
-GET   /api/broadcast/$id<\w{8}>               controllers.RelayTour.apiShow(id)
-GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
-GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
-POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
-POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId)
-POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id, tag: Option[String] ?= None)
-POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId)
-POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId, set: Boolean)
-GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
-POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId, embed: Option[String] ?= None)
-GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId, chapterId: StudyChapterId, embed: Option[String] ?= None)
-GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId)
-POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId)
-POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId)
-POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId)
-POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId)
+GET   /broadcast/:ts/$id<\w{8}>               controllers.RelayTour.show(ts, id: RelayTourId)
+GET   /api/broadcast/$id<\w{8}>               controllers.RelayTour.apiShow(id: RelayTourId)
+GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId: RelayTourId)
+GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: RelayTourId)
+POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: RelayTourId)
+POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId: RelayTourId)
+POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id: RelayTourId, tag: Option[String] ?= None)
+POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId: RelayTourId)
+POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId: RelayTourId, set: Boolean)
+GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: RelayTourId)
+POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: RelayTourId)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId: RelayRoundId, embed: Option[UserStr] ?= None)
+GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId: RelayRoundId)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId: RelayRoundId, chapterId: StudyChapterId, embed: Option[UserStr] ?= None)
+GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId: RelayRoundId)
+POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: RelayRoundId)
+POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: RelayRoundId)
+POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId: RelayRoundId)
+POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId: RelayRoundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId: StudyId)
-GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId)
-GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardView(tourId)
+GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId: RelayRoundId)
+GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardView(tourId: RelayTourId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: StudyId)
-GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
+GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: RelayRoundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
 GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang)
@@ -338,14 +338,14 @@ GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: U
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 
 # Round
-GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
+GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color ?= Color.white)
 GET   /$gameId<\w{8}>/:color        controllers.Round.watcher(gameId: GameId, color: Color)
 GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: GameFullId)
 GET   /$gameId<\w{8}>/:color/sides  controllers.Round.sides(gameId: GameId, color: Color)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: GameId, mode)
 GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: GameId)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: GameId)
-GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: GameId, color: Color = Color.white)
+GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: GameId, color: Color ?= Color.white)
 GET   /$gameId<\w{8}>/:color/mini   controllers.Round.mini(gameId: GameId, color: Color)
 GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: GameFullId)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: GameId)
@@ -357,7 +357,7 @@ POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId
 GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: GameId, color: Color = Color.white)
 GET   /embed/$gameId<\w{8}>/:color  controllers.Analyse.embed(gameId: GameId, color: Color)
 
-GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId: GameId, color: Color = Color.white)
+GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId: GameId, color: Color ?= Color.white)
 GET   /embed/game/$gameId<\w{8}>/:color  controllers.Analyse.embedReplayGame(gameId: GameId, color: Color)
 
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: GameId)
@@ -456,7 +456,7 @@ GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: GameId, color: Color = Color.white, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/:color/$gameId<\w{8}>.gif controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
-GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Color ?= Color.white, lastMove: Option[String], variant: Option[chess.variant.Variant.LilaKey], theme: Option[String], piece: Option[String])
+GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Color ?= Color.white, lastMove: Option[Uci], variant: Option[chess.variant.Variant.LilaKey], theme: Option[String], piece: Option[String])
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
@@ -473,7 +473,7 @@ POST  /account/preferences/notification       controllers.Pref.notifyFormApply
 
 # Setup
 POST  /setup/ai                        controllers.Setup.ai
-POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
+POST  /setup/friend                    controllers.Setup.friend(user: Option[UserStr] ?= None)
 POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: Sri, gameId: GameId)
 POST  /setup/hook/:sri                 controllers.Setup.hook(sri: Sri)
 GET   /setup/filter                    controllers.Setup.filterForm
@@ -481,11 +481,11 @@ GET   /setup/validate-fen              controllers.Setup.validateFen
 
 # Challenge
 GET   /challenge                       controllers.Challenge.all
-GET   /challenge/$id<\w{8}>            controllers.Challenge.show(id, color: Option[String] ?= None)
-POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id, color: Option[String] ?= None)
-POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id)
-POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id)
-POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id)
+GET   /challenge/$id<\w{8}>            controllers.Challenge.show(id: ChallengeId, color: Option[Color] ?= None)
+POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id: ChallengeId, color: Option[Color] ?= None)
+POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: ChallengeId)
+POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: ChallengeId)
+POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id: ChallengeId)
 POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.offerRematchForGame(id: GameId)
 
 # Notify
@@ -705,9 +705,9 @@ GET   /api/challenge                   controllers.Challenge.apiList
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: UserStr)
-POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id)
-POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id)
-POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id)
+POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: ChallengeId)
+POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: ChallengeId)
+POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: ChallengeId)
 POST  /api/challenge/$id<\w{8}>/start-clocks  controllers.Challenge.apiStartClocks(id: GameId)
 POST  /api/round/$id<\w{8}>/add-time/:seconds controllers.Round.apiAddTime(id: GameId, seconds: Int)
 GET   /api/cloud-eval                  controllers.Api.cloudEval
@@ -814,9 +814,9 @@ POST  /event/manager                   controllers.Event.create
 GET   /cms                            controllers.Cms.index
 GET   /cms/new                        controllers.Cms.createForm
 POST  /cms/new                        controllers.Cms.create
-GET   /cms/:id/edit                   controllers.Cms.edit(id)
-POST  /cms/:id/edit                   controllers.Cms.update(id)
-POST  /cms/:id/delete                 controllers.Cms.delete(id)
+GET   /cms/:id/edit                   controllers.Cms.edit(id: CmsPageId)
+POST  /cms/:id/edit                   controllers.Cms.update(id: CmsPageId)
+POST  /cms/:id/delete                 controllers.Cms.delete(id: CmsPageId)
 
 # Misc
 GET   /developers                      controllers.Main.webmasters
@@ -853,13 +853,13 @@ POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /terms-of-service                controllers.Cms.tos
-GET   /$key<privacy|thanks|about|ads|changelog> controllers.Cms.menuPage(key)
+GET   /$key<privacy|thanks|about|ads|changelog> controllers.Cms.menuPage(key: CmsPageKey)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Cms.source
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
-GET   /how-to-cheat                    controllers.Cms.lonePage(key = "how-to-cheat")
-GET   /page/:key                       controllers.Cms.lonePage(key)
+GET   /how-to-cheat                    controllers.Cms.lonePage(key: CmsPageKey ?= CmsPageKey("how-to-cheat"))
+GET   /page/:key                       controllers.Cms.lonePage(key: CmsPageKey)
 
 # Variants
 GET   /variant                         controllers.Cms.variantHome

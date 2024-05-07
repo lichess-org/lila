@@ -8,6 +8,7 @@ import scalalib.paginator.Paginator
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
+import lila.core.id.CmsPageKey
 
 final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag,
@@ -43,7 +44,11 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             ,
             p:
               trans.site.makeSureToRead:
-                strong(a(href := routes.Cms.lonePage("forum-etiquette"))(trans.site.theForumEtiquette()))
+                strong(
+                  a(href := routes.Cms.lonePage(CmsPageKey("forum-etiquette")))(
+                    trans.site.theForumEtiquette()
+                  )
+                )
           ),
           postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
@@ -177,7 +182,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 help = a(
                   dataIcon := Icon.InfoCircle,
                   cls      := "text",
-                  href     := routes.Cms.lonePage("forum-etiquette")
+                  href     := routes.Cms.lonePage(CmsPageKey("forum-etiquette"))
                 )(
                   "Forum etiquette"
                 ).some

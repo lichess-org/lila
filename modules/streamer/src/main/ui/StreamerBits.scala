@@ -6,6 +6,7 @@ import play.api.data.Form
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.id.ImageId
+import lila.core.id.CmsPageKey
 
 final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }
@@ -167,9 +168,11 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
         li(trs.rule1()),
         li(trs.rule2()),
         li(
-          trs.rule4(a(href := routes.Cms.lonePage("streaming-fairplay-faq"))(trs.streamingFairplayFAQ()))
+          trs.rule4(
+            a(href := routes.Cms.lonePage(CmsPageKey("streaming-fairplay-faq")))(trs.streamingFairplayFAQ())
+          )
         ),
-        li(a(href := routes.Cms.lonePage("streamer-page-activation"))(trs.rule3()))
+        li(a(href := routes.Cms.lonePage(CmsPageKey("streamer-page-activation")))(trs.rule3()))
       ),
       h2(trs.perks()),
       ul(

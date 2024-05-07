@@ -338,7 +338,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         reports.by.map: r =>
           r.atomBy(u.id.into(lila.report.ReporterId))
             .map: atom =>
-              postForm(action := routes.Report.inquiry(r.id))(
+              postForm(action := routes.Report.inquiry(r.id.value))(
                 reportSubmitButton(r),
                 " ",
                 userIdLink(r.user.some),
@@ -354,7 +354,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           reports.about.isEmpty.option(": nothing to show.")
         ),
         reports.about.map: r =>
-          postForm(action := routes.Report.inquiry(r.id))(
+          postForm(action := routes.Report.inquiry(r.id.value))(
             reportSubmitButton(r),
             div(cls := "atoms")(
               r.bestAtoms(3).map { atom =>

@@ -3,6 +3,8 @@
 package routes:
 
   export chess.Color
+  export chess.format.Uci
+  export chess.opening.OpeningKey
   export lila.core.id.*
   export lila.core.userId.UserStr
   export lila.core.perf.PerfKey
@@ -12,6 +14,8 @@ package routes:
 package router.router:
 
   export chess.Color
+  export chess.format.Uci
+  export chess.opening.OpeningKey
   export lila.core.id.*
   export lila.core.userId.UserStr
   export lila.core.perf.PerfKey
@@ -39,4 +43,5 @@ package router.appeal:
 package router.report:
 
   export lila.core.userId.UserStr
+  export lila.core.id.ReportId
   export lila.ui.LilaRouter.given

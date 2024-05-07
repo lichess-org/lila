@@ -6,12 +6,13 @@ import play.api.data.validation.Constraints
 
 import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, into, slugConstraint }
 import lila.core.i18n.{ LangList, Language }
+import lila.core.id.{ CmsPageId, CmsPageKey }
 
 final class CmsForm(langList: LangList):
 
   val create = Form:
     mapping(
-      "key" -> cleanNonEmptyText(minLength = 3, maxLength = 120).verifying(slugConstraint).into[CmsPage.Key],
+      "key"   -> cleanNonEmptyText(minLength = 3, maxLength = 120).verifying(slugConstraint).into[CmsPageKey],
       "title" -> cleanNonEmptyText(minLength = 3, maxLength = 150),
       "markdown" -> cleanTextWithSymbols
         .verifying(Constraints.minLength(0), Constraints.maxLength(1000_000))
@@ -34,7 +35,7 @@ final class CmsForm(langList: LangList):
 
 object CmsForm:
   case class CmsPageData(
-      key: CmsPage.Key,
+      key: CmsPageKey,
       title: String,
       markdown: Markdown,
       language: Language,
@@ -43,7 +44,7 @@ object CmsForm:
   ):
     def create(user: UserId) =
       CmsPage(
-        id = CmsPage.Id.random,
+        id = CmsPageId(scalalib.ThreadLocalRandom.nextString(6)),
         key = key,
         title = title,
         markdown = markdown,
