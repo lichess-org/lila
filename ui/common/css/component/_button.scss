@@ -107,6 +107,7 @@
 
   &.button-metal {
     @extend %metal;
+    background-color: transparent;
 
     &,
     &:hover {
