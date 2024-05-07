@@ -35,9 +35,3 @@ given Conversion[String, UserStr]                                   = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]          = UserStr.from(_)
 given puzzleKey: Conversion[String, PuzzleTheme.Key]                = PuzzleTheme.Key(_)
 given uciOpt: Conversion[Option[String], Option[chess.format.Uci]]  = _.flatMap(chess.format.Uci(_))
-
-// Used when constructing URLs from routes
-// TODO actually use the types in the routes
-object ReverseRouterConversions:
-  given appealIdConv: Conversion[AppealId, String]             = _.value
-  given localDateConv: Conversion[java.time.LocalDate, String] = _.toString
