@@ -371,7 +371,7 @@ GET   /tournament                             controllers.Tournament.home
 GET   /tournament/featured                    controllers.Tournament.featured
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.webCreate
-GET   /tournament/team-battle/new/:teamId     controllers.Tournament.teamBattleForm(teamId)
+GET   /tournament/team-battle/new/:teamId     controllers.Tournament.teamBattleForm(teamId: TeamId)
 GET   /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleEdit(id: TourId)
 POST  /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleUpdate(id: TourId)
 GET   /tournament/calendar                    controllers.Tournament.calendar
@@ -383,7 +383,7 @@ GET   /tournament/$id<\w{8}>/page-of/:user    controllers.Tournament.pageOf(id: 
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: TourId)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.pause(id: TourId)
 GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: TourId, user: UserStr)
-GET   /tournament/$id<\w{8}>/team/:team       controllers.Tournament.teamInfo(id: TourId, team)
+GET   /tournament/$id<\w{8}>/team/:team       controllers.Tournament.teamInfo(id: TourId, team: TeamId)
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: TourId)
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id: TourId)
 POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id: TourId)
@@ -404,8 +404,8 @@ POST  /tournament/manager                     controllers.TournamentCrud.create
 
 # Swiss
 GET   /swiss                                  controllers.Swiss.home
-GET   /swiss/new/:teamId                      controllers.Swiss.form(teamId)
-POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId)
+GET   /swiss/new/:teamId                      controllers.Swiss.form(teamId: TeamId)
+POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId: TeamId)
 GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id: SwissId)
 GET   /swiss/$id<\w{8}>/round/:round          controllers.Swiss.round(id: SwissId, round: Int)
 GET   /swiss/$id<\w{8}>.trf                   controllers.Swiss.exportTrf(id: SwissId)
@@ -439,13 +439,13 @@ GET   /$lang<\w\w\w?>/simul                   controllers.Simul.homeLang(lang)
 GET   /api/team/all                           controllers.TeamApi.all(page: Int ?= 1)
 GET   /api/team/search                        controllers.TeamApi.search(text ?= "", page: Int ?= 1)
 GET   /api/team/of/:username                  controllers.TeamApi.teamsOf(username: UserStr)
-GET   /api/team/:id                           controllers.TeamApi.show(id)
-GET   /api/team/:id/users                     controllers.TeamApi.users(id)
-GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id)
-GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id)
-GET   /api/team/:id/requests                  controllers.TeamApi.requests(id)
-POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess(id, userId: UserStr, decision)
-POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id, user: UserStr)
+GET   /api/team/:id                           controllers.TeamApi.show(id: TeamId)
+GET   /api/team/:id/users                     controllers.TeamApi.users(id: TeamId)
+GET   /api/team/:id/arena                     controllers.Tournament.byTeam(id: TeamId)
+GET   /api/team/:id/swiss                     controllers.Swiss.byTeam(id: TeamId)
+GET   /api/team/:id/requests                  controllers.TeamApi.requests(id: TeamId)
+POST  /api/team/:id/request/:userId/:decision controllers.TeamApi.requestProcess(id: TeamId, userId: UserStr, decision)
+POST  /api/team/:id/kick/:user                controllers.TeamApi.kickUser(id: TeamId, user: UserStr)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: GameId)
@@ -593,18 +593,18 @@ GET   /kaladin                         controllers.Irwin.kaladin
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/search                    controllers.ForumPost.search(text ?= "", page: Int ?= 1)
-GET   /forum/:slug                     controllers.ForumCateg.show(slug, page: Int ?= 1)
-GET   /forum/:categSlug/form           controllers.ForumTopic.form(categSlug)
-POST  /forum/:categSlug/new            controllers.ForumTopic.create(categSlug)
-GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId)
-GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug, slug, page: Int ?= 1)
-POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug, slug)
-POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug, slug)
-POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug, slug, page: Int ?= 1)
-POST  /forum/delete/:id                controllers.ForumPost.delete(id)
-POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug, id, reaction, v: Boolean)
-POST  /forum/post/:id                  controllers.ForumPost.edit(id)
-GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id)
+GET   /forum/:categId                     controllers.ForumCateg.show(categId: ForumCategId, page: Int ?= 1)
+GET   /forum/:categId/form           controllers.ForumTopic.form(categId: ForumCategId)
+POST  /forum/:categId/new            controllers.ForumTopic.create(categId: ForumCategId)
+GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: ForumTopicId)
+GET   /forum/:categId/:slug          controllers.ForumTopic.show(categId: ForumCategId, slug, page: Int ?= 1)
+POST  /forum/:categId/:slug/close    controllers.ForumTopic.close(categId: ForumCategId, slug)
+POST  /forum/:categId/:slug/sticky   controllers.ForumTopic.sticky(categId: ForumCategId, slug)
+POST  /forum/:categId/:slug/new      controllers.ForumPost.create(categId: ForumCategId, slug, page: Int ?= 1)
+POST  /forum/delete/:id                controllers.ForumPost.delete(id: ForumPostId)
+POST  /forum/:categId/react/:id/:reaction/:v controllers.ForumPost.react(categId: ForumCategId, id: ForumPostId, reaction, v: Boolean)
+POST  /forum/post/:id                  controllers.ForumPost.edit(id: ForumPostId)
+GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: ForumPostId)
 POST  /diagnostic                      controllers.ForumTopic.diagnostic
 POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug)
 
@@ -677,7 +677,7 @@ POST  /api/tournament/$id<\w{8}>/join       controllers.Tournament.apiJoin(id: T
 POST  /api/tournament/$id<\w{8}>/withdraw   controllers.Tournament.apiWithdraw(id: TourId)
 POST  /api/tournament/$id<\w{8}>/terminate  controllers.Tournament.apiTerminate(id: TourId)
 POST  /api/tournament/team-battle/:id  controllers.Tournament.apiTeamBattleUpdate(id: TourId)
-POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId)
+POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId: TeamId)
 POST  /api/swiss/$id<\w{8}>/edit       controllers.Swiss.apiUpdate(id: SwissId)
 POST  /api/swiss/$id<\w{8}>/join       controllers.Swiss.join(id: SwissId)
 POST  /api/swiss/$id<\w{8}>/withdraw   controllers.Swiss.withdraw(id: SwissId)

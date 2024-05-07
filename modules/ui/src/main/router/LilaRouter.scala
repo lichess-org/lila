@@ -57,13 +57,9 @@ object LilaRouter:
   object conversions:
     given reportIdConv: Conversion[ReportId, String]       = _.value
     given Conversion[lila.core.i18n.Language, String]      = _.value
-    given Conversion[TeamId, String]                       = _.value
     given Conversion[RelayRoundId, String]                 = _.value
     given Conversion[chess.opening.OpeningKey, String]     = _.value
     given Conversion[chess.format.Uci, String]             = _.uci
-    given postIdConv: Conversion[ForumPostId, String]      = _.value
-    given Conversion[ForumCategId, String]                 = _.value
-    given Conversion[ForumTopicId, String]                 = _.value
     given relayTourIdConv: Conversion[RelayTourId, String] = _.value
     given Conversion[chess.FideId, Int]                    = _.value
     given challengeIdConv: Conversion[ChallengeId, String] = _.value

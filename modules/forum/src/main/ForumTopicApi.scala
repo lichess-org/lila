@@ -87,7 +87,7 @@ final private class ForumTopicApi(
   )(using me: Me): Fu[ForumTopic] =
     topicRepo.nextSlug(categ, data.name).zip(detectLanguage(data.post.text)).flatMap { (slug, lang) =>
       val topic = ForumTopic.make(
-        categId = categ.slug,
+        categId = categ.id,
         slug = slug,
         name = noShouting(data.name),
         userId = me,
@@ -137,7 +137,7 @@ final private class ForumTopicApi(
   ): Funit =
     categRepo.byId(ForumCateg.ublogId).flatMapz { categ =>
       val topic = ForumTopic.make(
-        categId = categ.slug,
+        categId = categ.id,
         slug = slug,
         name = name,
         userId = authorId,

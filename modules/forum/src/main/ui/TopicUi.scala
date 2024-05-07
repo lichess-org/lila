@@ -23,7 +23,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(
             h1(
-              a(href := routes.ForumCateg.show(categ.slug), dataIcon := Icon.LessThan, cls := "text"),
+              a(href := routes.ForumCateg.show(categ.id), dataIcon := Icon.LessThan, cls := "text"),
               categ.name
             )
           ),
@@ -45,14 +45,14 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
               trans.site.makeSureToRead:
                 strong(a(href := routes.Cms.lonePage("forum-etiquette"))(trans.site.theForumEtiquette()))
           ),
-          postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
+          postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
             form3.group(form("post")("text"), trans.site.message())(
               form3.textarea(_, klass = "post-text-area")(rows := 10)
             ),
             renderCaptcha(form("post"), captcha),
             form3.actions(
-              a(href := routes.ForumCateg.show(categ.slug))(trans.site.cancel()),
+              a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
               Granter
                 .opt(_.PublicMod)
                 .option(
@@ -82,11 +82,11 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val backUrl =
       if isDiagnostic && !canModCateg then routes.ForumCateg.index.url
       else
-        topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}"): id =>
+        topic.ublogId.fold(s"${routes.ForumCateg.show(categ.id)}"): id =>
           routes.Ublog.redirect(id).url
 
     val teamOnly = categ.team.filterNot(isMyTeamSync)
-    val pager = paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
+    val pager    = paginationByQuery(routes.ForumTopic.show(categ.id, topic.slug, 1), posts, showPost = true)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}")
       .css("forum")
       .csp(_.withInlineIconFont.withTwitter)
@@ -94,7 +94,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       .graph(
         OpenGraph(
           title = topic.name,
-          url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
+          url = s"$netBaseUrl${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage).url}",
           description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
         )
       ):
@@ -114,7 +114,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 categ,
                 topic,
                 p,
-                s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.post.number}",
+                s"${routes.ForumTopic.show(categ.id, topic.slug, posts.currentPage)}#${p.post.number}",
                 canReply = formWithCaptcha.isDefined,
                 canModCateg = canModCateg,
                 canReact = teamOnly.isEmpty
@@ -149,14 +149,14 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                     trans.site.unsubscribe()
                 ),
               (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
-                postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
+                postForm(action := routes.ForumTopic.close(categ.id, topic.slug))(
                   button(cls := "button button-empty button-red")(
                     if topic.closed then "Reopen" else "Close"
                   )
                 )
               ),
               canModCateg.option(
-                postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
+                postForm(action := routes.ForumTopic.sticky(categ.id, topic.slug))(
                   button(cls := "button button-empty button-brag")(
                     if topic.isSticky then "Unsticky" else "Sticky"
                   )
@@ -168,7 +168,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           formWithCaptcha.map: (form, captcha) =>
             postForm(
               cls    := "form3 reply",
-              action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
+              action := s"${routes.ForumPost.create(categ.id, topic.slug, posts.currentPage)}#reply",
               novalidate
             )(
               form3.group(
@@ -187,7 +187,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                 ),
               renderCaptcha(form, captcha),
               form3.actions(
-                a(href := routes.ForumCateg.show(categ.slug))(trans.site.cancel()),
+                a(href := routes.ForumCateg.show(categ.id))(trans.site.cancel()),
                 (Granter.opt(_.PublicMod) || Granter.opt(_.SeeReport)).option(
                   form3.submit(
                     frag(s"Reply as a mod ${(!Granter.opt(_.PublicMod)).so("(anonymously)")}"),
@@ -215,7 +215,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
             p("Describe your issue above the report. Unsolicited diagnostics will be ignored."),
             p("Only you and the Lichess moderators can see this forum.")
           ),
-          postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
+          postForm(cls := "form3", action := routes.ForumTopic.create(categ.id))(
             form3.group(form("post")("text"), trans.site.message())(
               form3.textarea(_, klass = "post-text-area")(rows := 10, autofocus := "")(
                 "\n\n\n" +

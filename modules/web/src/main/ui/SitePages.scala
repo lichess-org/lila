@@ -3,6 +3,7 @@ package ui
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
+import lila.core.id.ForumCategId
 
 final class SitePages(helpers: Helpers):
   import helpers.{ *, given }
@@ -275,7 +276,7 @@ final class SitePages(helpers: Helpers):
               // Contact email, because Slack requires a support channel without
               // mandatory registration.
               "Give us feedback or ask questions ",
-              a(href := routes.ForumCateg.show("lichess-feedback"))(
+              a(href := routes.ForumCateg.show(ForumCategId("lichess-feedback")))(
                 "in the forum"
               ),
               ". The source code is available at ",

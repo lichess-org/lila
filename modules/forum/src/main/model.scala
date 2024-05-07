@@ -5,15 +5,12 @@ case class CategView(
     lastPost: Option[(ForumTopic, ForumPost, Int)],
     forUser: Option[User]
 ):
+  export categ.{ id as slug, name, desc }
 
   def nbTopics       = categ.nbTopics(forUser)
   def nbPosts        = categ.nbPosts(forUser)
   def lastPostId     = categ.lastPostId(forUser)
   def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
-
-  def slug = categ.slug
-  def name = categ.name
-  def desc = categ.desc
 
 case class TopicView(
     categ: ForumCateg,

@@ -1,8 +1,6 @@
 package router
 
 import lila.app.*
-import lila.appeal.Appeal
-import lila.challenge.Challenge
 import lila.puzzle.PuzzleTheme
 import lila.report.Report
 import lila.core.socket.Sri
@@ -11,11 +9,7 @@ import lila.core.id.*
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
 given Conversion[String, lila.study.Order]                          = lila.study.Order(_)
-given Conversion[String, TeamId]                                    = TeamId(_)
 given Conversion[String, RelayRoundId]                              = RelayRoundId(_)
-given Conversion[String, ForumCategId]                              = ForumCategId(_)
-given Conversion[String, ForumTopicId]                              = ForumTopicId(_)
-given Conversion[String, ForumPostId]                               = ForumPostId(_)
 given Conversion[String, lila.cms.CmsPage.Id]                       = lila.cms.CmsPage.Id(_)
 given Conversion[String, lila.cms.CmsPage.Key]                      = lila.cms.CmsPage.Key(_)
 given Conversion[String, Sri]                                       = Sri(_)
