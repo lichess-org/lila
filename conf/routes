@@ -154,7 +154,7 @@ GET   /training                        controllers.Puzzle.home
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/help                   controllers.Puzzle.help
-GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id, theme: Option[String], piece: Option[String])
+GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: PuzzleId, theme: Option[String], piece: Option[String])
 GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/openings               controllers.Puzzle.openings(order ?= "popular")
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[UserStr] ?= None, page: Int ?= 1)
@@ -169,11 +169,11 @@ GET   /training/$numericalId<\d{6,}>/load      controllers.Puzzle.mobileBcLoad(n
 POST  /training/$numericalId<\d{6,}>/vote      controllers.Puzzle.mobileBcVote(numericalId: Long)
 GET   /training/:angleOrId             controllers.Puzzle.show(angleOrId)
 GET   /training/:angle/$color<white|black|random> controllers.Puzzle.angleAndColor(angle, color: String)
-GET   /training/:angle/$id<\w{5}>      controllers.Puzzle.showWithAngle(angle, id)
+GET   /training/:angle/$id<\w{5}>      controllers.Puzzle.showWithAngle(angle, id: PuzzleId)
 POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
-POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id)
-POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id, theme)
-POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme, id)
+POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: PuzzleId)
+POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: PuzzleId, theme)
+POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme, id: PuzzleId)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme)
 GET   /$lang<\w\w\w?>/training            controllers.Puzzle.homeLang(lang)
 GET   /$lang<\w\w\w?>/training/themes     controllers.Puzzle.themesLang(lang)
@@ -372,22 +372,22 @@ GET   /tournament/featured                    controllers.Tournament.featured
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.webCreate
 GET   /tournament/team-battle/new/:teamId     controllers.Tournament.teamBattleForm(teamId)
-GET   /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleEdit(id)
-POST  /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleUpdate(id)
+GET   /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleEdit(id: TourId)
+POST  /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleUpdate(id: TourId)
 GET   /tournament/calendar                    controllers.Tournament.calendar
 GET   /tournament/history                     controllers.Tournament.history(freq = "unique", page: Int ?= 1)
 GET   /tournament/history/:freq               controllers.Tournament.history(freq, page: Int ?= 1)
-GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id)
-GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id, page: Int)
-GET   /tournament/$id<\w{8}>/page-of/:user    controllers.Tournament.pageOf(id, user: UserStr)
-POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id)
-POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.pause(id)
-GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id, user: UserStr)
-GET   /tournament/$id<\w{8}>/team/:team       controllers.Tournament.teamInfo(id, team)
-POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id)
-GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id)
-POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id)
-GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id)
+GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: TourId)
+GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id: TourId, page: Int)
+GET   /tournament/$id<\w{8}>/page-of/:user    controllers.Tournament.pageOf(id: TourId, user: UserStr)
+POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: TourId)
+POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.pause(id: TourId)
+GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: TourId, user: UserStr)
+GET   /tournament/$id<\w{8}>/team/:team       controllers.Tournament.teamInfo(id: TourId, team)
+POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: TourId)
+GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id: TourId)
+POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id: TourId)
+GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id: TourId)
 GET   /tournament/help                        controllers.Tournament.help
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
@@ -396,9 +396,9 @@ GET   /$lang<\w\w\w?>/tournament              controllers.Tournament.homeLang(la
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
-GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.cloneT(id)
-GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id)
-POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id)
+GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.cloneT(id: TourId)
+GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: TourId)
+POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: TourId)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form
 POST  /tournament/manager                     controllers.TournamentCrud.create
 
@@ -406,16 +406,16 @@ POST  /tournament/manager                     controllers.TournamentCrud.create
 GET   /swiss                                  controllers.Swiss.home
 GET   /swiss/new/:teamId                      controllers.Swiss.form(teamId)
 POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId)
-GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id)
-GET   /swiss/$id<\w{8}>/round/:round          controllers.Swiss.round(id, round: Int)
-GET   /swiss/$id<\w{8}>.trf                   controllers.Swiss.exportTrf(id)
-GET   /swiss/$id<\w{8}>/edit                  controllers.Swiss.edit(id)
-POST  /swiss/$id<\w{8}>/edit                  controllers.Swiss.update(id)
-POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id)
-GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id, page: Int)
-GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id, user: UserStr)
-GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id, user: UserStr)
-POST  /api/swiss/$id<\w{8}>/schedule-next-round controllers.Swiss.scheduleNextRound(id)
+GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id: SwissId)
+GET   /swiss/$id<\w{8}>/round/:round          controllers.Swiss.round(id: SwissId, round: Int)
+GET   /swiss/$id<\w{8}>.trf                   controllers.Swiss.exportTrf(id: SwissId)
+GET   /swiss/$id<\w{8}>/edit                  controllers.Swiss.edit(id: SwissId)
+POST  /swiss/$id<\w{8}>/edit                  controllers.Swiss.update(id: SwissId)
+POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id: SwissId)
+GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id: SwissId, page: Int)
+GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id: SwissId, user: UserStr)
+GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id: SwissId, user: UserStr)
+POST  /api/swiss/$id<\w{8}>/schedule-next-round controllers.Swiss.scheduleNextRound(id: SwissId)
 GET   /$lang<\w\w\w?>/swiss                   controllers.Swiss.homeLang(lang)
 
 # Simul
@@ -423,16 +423,16 @@ GET   /simul                                  controllers.Simul.home
 GET   /simul/new                              controllers.Simul.form
 POST  /simul/new                              controllers.Simul.create
 GET   /simul/reload                           controllers.Simul.homeReload
-GET   /simul/$id<\w{8}>                       controllers.Simul.show(id)
-GET   /simul/$id<\w{8}>/edit                  controllers.Simul.edit(id)
-POST  /simul/$id<\w{8}>/edit                  controllers.Simul.update(id)
-POST  /simul/$id<\w{8}>/host-ping             controllers.Simul.hostPing(id)
-POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id, user: UserStr)
-POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id, user: UserStr)
-POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id)
-POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id)
-POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id, variant: chess.variant.Variant.LilaKey)
-POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id)
+GET   /simul/$id<\w{8}>                       controllers.Simul.show(id: SimulId)
+GET   /simul/$id<\w{8}>/edit                  controllers.Simul.edit(id: SimulId)
+POST  /simul/$id<\w{8}>/edit                  controllers.Simul.update(id: SimulId)
+POST  /simul/$id<\w{8}>/host-ping             controllers.Simul.hostPing(id: SimulId)
+POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id: SimulId, user: UserStr)
+POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id: SimulId, user: UserStr)
+POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: SimulId)
+POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: SimulId)
+POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: SimulId, variant: chess.variant.Variant.LilaKey)
+POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: SimulId)
 GET   /$lang<\w\w\w?>/simul                   controllers.Simul.homeLang(lang)
 
 # Team API
@@ -653,7 +653,7 @@ POST  /api/users                       controllers.Api.usersByIds
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
 GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
-GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id)
+GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id: PuzzleId)
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
 POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
 GET   /api/user/:user/tournament/created controllers.Api.tournamentsByOwner(user: UserStr, status: List[Int])
@@ -667,24 +667,24 @@ GET   /api/user/:user/perf/:perfKey    controllers.Api.perfStat(user: UserStr, p
 GET   /api/user/:user/mod-log          controllers.Mod.apiUserLog(user: UserStr)
 GET   /api/game/:id                    controllers.Api.game(id: GameId)
 GET   /api/tournament                  controllers.Api.currentTournaments
-GET   /api/tournament/$id<\w{8}>            controllers.Api.tournament(id)
-GET   /api/tournament/$id<\w{8}>/games      controllers.Api.tournamentGames(id)
-GET   /api/tournament/$id<\w{8}>/results    controllers.Api.tournamentResults(id)
-GET   /api/tournament/$id<\w{8}>/teams      controllers.Api.tournamentTeams(id)
+GET   /api/tournament/$id<\w{8}>            controllers.Api.tournament(id: TourId)
+GET   /api/tournament/$id<\w{8}>/games      controllers.Api.tournamentGames(id: TourId)
+GET   /api/tournament/$id<\w{8}>/results    controllers.Api.tournamentResults(id: TourId)
+GET   /api/tournament/$id<\w{8}>/teams      controllers.Api.tournamentTeams(id: TourId)
 POST  /api/tournament                       controllers.Tournament.apiCreate
-POST  /api/tournament/$id<\w{8}>            controllers.Tournament.apiUpdate(id)
-POST  /api/tournament/$id<\w{8}>/join       controllers.Tournament.apiJoin(id)
-POST  /api/tournament/$id<\w{8}>/withdraw   controllers.Tournament.apiWithdraw(id)
-POST  /api/tournament/$id<\w{8}>/terminate  controllers.Tournament.apiTerminate(id)
-POST  /api/tournament/team-battle/:id  controllers.Tournament.apiTeamBattleUpdate(id)
+POST  /api/tournament/$id<\w{8}>            controllers.Tournament.apiUpdate(id: TourId)
+POST  /api/tournament/$id<\w{8}>/join       controllers.Tournament.apiJoin(id: TourId)
+POST  /api/tournament/$id<\w{8}>/withdraw   controllers.Tournament.apiWithdraw(id: TourId)
+POST  /api/tournament/$id<\w{8}>/terminate  controllers.Tournament.apiTerminate(id: TourId)
+POST  /api/tournament/team-battle/:id  controllers.Tournament.apiTeamBattleUpdate(id: TourId)
 POST  /api/swiss/new/:teamId           controllers.Swiss.apiCreate(teamId)
-POST  /api/swiss/$id<\w{8}>/edit       controllers.Swiss.apiUpdate(id)
-POST  /api/swiss/$id<\w{8}>/join       controllers.Swiss.join(id)
-POST  /api/swiss/$id<\w{8}>/withdraw   controllers.Swiss.withdraw(id)
-POST  /api/swiss/$id<\w{8}>/terminate  controllers.Swiss.apiTerminate(id)
-GET   /api/swiss/$id<\w{8}>            controllers.Swiss.apiShow(id)
-GET   /api/swiss/$id<\w{8}>/games      controllers.Api.swissGames(id)
-GET   /api/swiss/$id<\w{8}>/results    controllers.Api.swissResults(id)
+POST  /api/swiss/$id<\w{8}>/edit       controllers.Swiss.apiUpdate(id: SwissId)
+POST  /api/swiss/$id<\w{8}>/join       controllers.Swiss.join(id: SwissId)
+POST  /api/swiss/$id<\w{8}>/withdraw   controllers.Swiss.withdraw(id: SwissId)
+POST  /api/swiss/$id<\w{8}>/terminate  controllers.Swiss.apiTerminate(id: SwissId)
+GET   /api/swiss/$id<\w{8}>            controllers.Swiss.apiShow(id: SwissId)
+GET   /api/swiss/$id<\w{8}>/games      controllers.Api.swissGames(id: SwissId)
+GET   /api/swiss/$id<\w{8}>/results    controllers.Api.swissResults(id: SwissId)
 GET   /api/simul                       controllers.Simul.apiList
 GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus

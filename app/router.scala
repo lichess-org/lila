@@ -11,10 +11,6 @@ import lila.core.id.*
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
 given Conversion[String, lila.study.Order]                          = lila.study.Order(_)
-given Conversion[String, PuzzleId]                                  = PuzzleId(_)
-given Conversion[String, SimulId]                                   = SimulId(_)
-given Conversion[String, SwissId]                                   = SwissId(_)
-given Conversion[String, TourId]                                    = TourId(_)
 given Conversion[String, TeamId]                                    = TeamId(_)
 given Conversion[String, RelayRoundId]                              = RelayRoundId(_)
 given Conversion[String, ForumCategId]                              = ForumCategId(_)

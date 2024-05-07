@@ -68,7 +68,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       def loadChat(tour: Tour, json: JsObject): Fu[Option[lila.chat.UserChat.Mine]] =
         canHaveChat(tour, json.some).soFu(
           env.chat.api.userChat.cached
-            .findMine(ChatId(tour.id))
+            .findMine(tour.id.into(ChatId))
             .map:
               _.copy(locked = !env.api.chatFreshness.of(tour))
         )

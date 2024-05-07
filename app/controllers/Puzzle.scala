@@ -106,9 +106,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def complete(angleStr: String, id: PuzzleId) = OpenBody:
     NoBot:
-      Puz.toId(id).so { pid =>
-        onComplete(env.puzzle.forms.round)(pid, PuzzleAngle.findOrMix(angleStr), mobileBc = false)
-      }
+      onComplete(env.puzzle.forms.round)(id, PuzzleAngle.findOrMix(angleStr), mobileBc = false)
 
   def mobileBcRound(nid: Long) = OpenBody:
     Puz.numericalId(nid).so {
@@ -327,7 +325,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
               .so(env.puzzle.api.puzzle.find)
               .map {
                 case None      => Redirect(routes.Puzzle.home)
-                case Some(puz) => Redirect(routes.Puzzle.show(puz.id))
+                case Some(puz) => Redirect(routes.Puzzle.show(puz.id.value))
               }
 
   def showWithAngle(angleKey: String, id: PuzzleId) = Open:
@@ -335,7 +333,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       val angle = PuzzleAngle.findOrMix(angleKey)
       Found(env.puzzle.api.puzzle.find(id)): puzzle =>
         if angle.asTheme.exists(theme => !puzzle.themes.contains(theme))
-        then Redirect(routes.Puzzle.show(puzzle.id))
+        then Redirect(routes.Puzzle.show(puzzle.id.value))
         else
           ctx.me.so { env.puzzle.api.casual.setCasualIfNotYetPlayed(_, puzzle) } >>
             renderShow(puzzle, angle)
