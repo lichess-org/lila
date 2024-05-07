@@ -68,8 +68,11 @@ object userId:
     extension (e: UserStr)
       def couldBeUsername: Boolean   = UserId.noGhost(e.id) && UserName.historicalRegex.matches(e)
       def validateId: Option[UserId] = Option.when(couldBeUsername)(e.id)
-    given UserIdOf[UserStr]             = n => UserId(n.value.toLowerCase)
+    given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
+    // these conversions are using when generating routes containing UserStr
+    // so we can give them usernames and userIds
     given Conversion[UserName, UserStr] = _.value
+    given Conversion[UserId, UserStr]   = _.value
     def read(str: String): Option[UserStr] =
       val clean = str.trim.takeWhile(' ' !=)
       Option.when(clean.lengthIs > 1)(UserStr(clean))

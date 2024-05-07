@@ -542,7 +542,7 @@ final class User(
       yield Ok(page)
   }
 
-  def perfStat(username: UserStr, perfKey: PerfKeyStr) = Open:
+  def perfStat(username: UserStr, perfKey: PerfKey) = Open:
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
         Ok.async:

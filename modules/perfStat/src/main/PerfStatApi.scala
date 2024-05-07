@@ -32,30 +32,27 @@ final class PerfStatApi(
 )(using Executor)
     extends lila.core.perf.PerfStatApi:
 
-  def data(name: UserStr, perfKey: PerfKeyStr)(using me: Option[Me]): Fu[Option[PerfStatData]] =
-    PerfKey
-      .read(perfKey)
-      .so: perfKey =>
-        userApi.withPerfs(name.id).flatMap {
-          _.filter: u =>
-            (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
-          .filter: u =>
-            !u.isBot || (perfKey != PerfKey.ultraBullet)
-          .soFu: u =>
-            for
-              oldPerfStat <- get(u.user.id, perfKey)
-              perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-              distribution <- u
-                .perfs(perfKey)
-                .established
-                .soFu(weeklyRatingDistribution(perfKey))
-              percentile     = calcPercentile(distribution, u.perfs(perfKey).intRating)
-              percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
-              percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
-              _              = lightUserApi.preloadUser(u.user)
-              _ <- lightUserApi.preloadMany(perfStat.userIds)
-            yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
-        }
+  def data(name: UserStr, perfKey: PerfKey)(using me: Option[Me]): Fu[Option[PerfStatData]] =
+    userApi.withPerfs(name.id).flatMap {
+      _.filter: u =>
+        (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
+      .filter: u =>
+        !u.isBot || (perfKey != PerfKey.ultraBullet)
+      .soFu: u =>
+        for
+          oldPerfStat <- get(u.user.id, perfKey)
+          perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
+          distribution <- u
+            .perfs(perfKey)
+            .established
+            .soFu(weeklyRatingDistribution(perfKey))
+          percentile     = calcPercentile(distribution, u.perfs(perfKey).intRating)
+          percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
+          percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
+          _              = lightUserApi.preloadUser(u.user)
+          _ <- lightUserApi.preloadMany(perfStat.userIds)
+        yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
+    }
 
   private def calcPercentile(wrd: Option[List[Int]], intRating: IntRating): Option[Double] =
     wrd.map: distrib =>

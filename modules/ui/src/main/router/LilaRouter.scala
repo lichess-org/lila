@@ -31,15 +31,12 @@ object LilaRouter:
     def unbind(key: String, value: PerfKey) = value.value
 
   object conversions:
-    given Conversion[GameId, String]                   = _.value
-    given Conversion[GameFullId, String]               = _.value
-    given Conversion[GameAnyId, String]                = _.value
-    given Conversion[UserId, String]                   = _.value
-    given Conversion[UserName, String]                 = _.value
-    given Conversion[Option[UserName], Option[String]] = UserName.raw(_)
-    // where a UserStr is accepted, we can pass a UserName or UserId
-    given Conversion[UserName, UserStr]                                      = _.into(UserStr)
-    given Conversion[UserId, UserStr]                                        = _.into(UserStr)
+    given Conversion[GameId, String]                                         = _.value
+    given Conversion[GameFullId, String]                                     = _.value
+    given Conversion[GameAnyId, String]                                      = _.value
+    given Conversion[UserId, String]                                         = _.value
+    given Conversion[UserName, String]                                       = _.value
+    given Conversion[Option[UserName], Option[String]]                       = UserName.raw(_)
     given reportIdConv: Conversion[ReportId, String]                         = _.value
     given Conversion[UblogPostId, String]                                    = _.value
     given Conversion[lila.core.i18n.Language, String]                        = _.value

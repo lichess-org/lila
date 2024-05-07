@@ -322,7 +322,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: PerfKeyStr) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:
