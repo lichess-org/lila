@@ -51,23 +51,27 @@ export class RunCtrl {
         return newLevelId;
       })();
 
-    this.level = new LevelCtrl(stage.levels[Number(levelId) - 1], {
-      onCompleteImmediate: () => {
-        opts.storage.saveScore(stage, this.level.blueprint, this.level.vm.score);
-      },
-      onComplete: () => {
-        if (this.level.blueprint.id < stage.levels.length) {
-          // TODO:
-          // m.route('/' + stage.id + '/' + (this.level.blueprint.id + 1));
-        } else if (this.vm.stageCompleted()) return;
-        else {
-          this.vm.stageCompleted(true);
-          sound.stageEnd();
-        }
+    this.level = new LevelCtrl(
+      stage.levels[Number(levelId) - 1],
+      {
+        onCompleteImmediate: () => {
+          opts.storage.saveScore(stage, this.level.blueprint, this.level.vm.score);
+        },
+        onComplete: () => {
+          if (this.level.blueprint.id < stage.levels.length) {
+            // TODO:
+            // m.route('/' + stage.id + '/' + (this.level.blueprint.id + 1));
+          } else if (this.vm.stageCompleted()) return;
+          else {
+            this.vm.stageCompleted(true);
+            sound.stageEnd();
+          }
 
-        ctrl.redraw();
+          ctrl.redraw();
+        },
       },
-    });
+      this,
+    );
 
     const isRestarting = site.tempStorage.boolean(RESTARTING_KEY);
     this.vm = {

@@ -1,5 +1,5 @@
 import { PromotionRole } from './util';
-import { ctrl as makeItems, view as itemView } from './item';
+import { ctrl as makeItems } from './item';
 import * as ground from './ground';
 import { Level } from './stage/list';
 import * as scoring from './score';
@@ -9,6 +9,7 @@ import makeChess, { ChessCtrl } from './chess';
 import makeScenario, { Scenario } from './scenario';
 import * as promotion from './promotion';
 import type { Square as Key } from 'chess.js';
+import { RunCtrl } from './run/runCtrl';
 
 export interface LevelVm {
   score: number;
@@ -47,6 +48,7 @@ export class LevelCtrl {
   constructor(
     readonly blueprint: Level,
     readonly opts: LevelOpts,
+    readonly ctrl: RunCtrl,
   ) {
     const items = makeItems({
       apples: blueprint.apples,
@@ -127,7 +129,7 @@ export class LevelCtrl {
             ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
           }, 600);
       } else {
-        ground.select(dest);
+        // ground.select(dest);
         if (!inScenario) {
           chess.color(blueprint.color);
           ground.color(blueprint.color, makeChessDests());
@@ -136,16 +138,17 @@ export class LevelCtrl {
       // TODO:
       // m.redraw();
     };
+    sendMove; // TODO:
     const makeChessDests = function () {
       return chess.dests({
         illegal: blueprint.offerIllegalMove,
       });
     };
-    const onMove = function (orig: Key, dest: Key) {
-      const piece = ground.get(dest);
-      if (!piece || piece.color !== blueprint.color) return;
-      if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
-    };
+    // const onMove = function (orig: Key, dest: Key) {
+    //   const piece = ground.get(dest);
+    //   if (!piece || piece.color !== blueprint.color) return;
+    //   if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
+    // };
     const chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : items.appleKeys());
     this.chess = chess;
     const scenario = makeScenario(blueprint.scenario, {
@@ -153,21 +156,21 @@ export class LevelCtrl {
       makeChessDests: makeChessDests,
     });
     promotion.reset();
-    ground.set({
-      chess: chess,
-      offerIllegalMove: blueprint.offerIllegalMove,
-      autoCastle: blueprint.autoCastle,
-      orientation: blueprint.color,
-      onMove: onMove,
-      items: {
-        render: function (_pos: unknown, key: Key) {
-          // TODO:
-          console.log('rendering item, known to be broken');
-          return items.withItem(key, itemView);
-        },
-      },
-      shapes: blueprint.shapes,
-    });
+    // ground.set({
+    //   chess: chess,
+    //   offerIllegalMove: blueprint.offerIllegalMove,
+    //   autoCastle: blueprint.autoCastle,
+    //   orientation: blueprint.color,
+    //   onMove: onMove,
+    //   items: {
+    //     render: function (_pos: unknown, key: Key) {
+    //       // TODO:
+    //       console.log('rendering item, known to be broken');
+    //       return items.withItem(key, itemView);
+    //     },
+    //   },
+    //   shapes: blueprint.shapes,
+    // });
   }
 
   start = () => {
@@ -189,7 +192,8 @@ export class LevelCtrl {
         // m.redraw();
         if (!this.blueprint.nextButton) timeouts.setTimeout(this.opts.onComplete, 1200);
       },
-      ground.data().stats.dragged ? 1 : 250,
+      // ground.data().stats.dragged ? 1 : 250,
+      250,
     );
   };
 

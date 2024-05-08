@@ -1,12 +1,17 @@
-import chessground from 'chessground';
 import * as ground from './ground';
 import type { Square as Key } from 'chess.js';
 import { LevelCtrl } from './levelCtrl';
 import { RunCtrl } from './run/runCtrl';
 import { PromotionRole } from './util';
 import { h } from 'snabbdom';
-const opposite = chessground.util.opposite;
-const key2pos = chessground.util.key2pos;
+
+// TODO: makes sure new implementation works
+// const opposite = chessground.util.opposite;
+// const opposite = (color: Color) => (color === 'white' ? 'black' : 'white');
+
+// TODO: needs implementation
+// const key2pos = chessground.util.key2pos;
+const key2pos = (key: Key) => [key && 0, 0];
 
 let promoting:
   | false
@@ -19,7 +24,7 @@ let promoting:
 type PromotionCallback = (orig: Key, dest: Key, role: PromotionRole) => void;
 
 export function start(orig: Key, dest: Key, callback: PromotionCallback) {
-  const piece = ground.pieces()[dest];
+  const piece = null as any; // TODO:  ground.pieces()[dest];
   if (
     piece &&
     piece.role == 'pawn' &&
@@ -99,8 +104,8 @@ export function view(ctrl: RunCtrl, stage: LevelCtrl) {
     ctrl,
     promoting.dest,
     pieces,
-    opposite(ground.data().turnColor),
-    ground.data().orientation,
+    'white', // opposite(ground.data().turnColor),
+    'white', // ground.data().orientation,
     !!stage.blueprint.explainPromotion,
   );
 }

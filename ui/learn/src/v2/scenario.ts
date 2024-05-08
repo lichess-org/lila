@@ -47,10 +47,11 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
     const res = opts.chess.move(move[0], move[1], move[2]);
     if (!res) return fail();
     it++;
-    ground.fen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
+    // TODO:
+    // ground.fen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
     if (step.shapes)
       timeouts.setTimeout(function () {
-        ground.setShapes(step.shapes);
+        // ground.setShapes(step.shapes);
       }, 500);
     return;
   };
@@ -68,7 +69,7 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
       if (!step) return false;
       if (step.move !== move) return fail();
       it++;
-      if (step.shapes) ground.setShapes(step.shapes);
+      // if (step.shapes) ground.setShapes(step.shapes);
       timeouts.setTimeout(opponent, 1000);
       return true;
     },

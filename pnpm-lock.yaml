@@ -409,9 +409,6 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
-      mithril:
-        specifier: github:ornicar/mithril.js#lila-1
-        version: github.com/ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
@@ -4844,10 +4841,4 @@ packages:
     resolution: {tarball: https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249}
     name: chess.js
     version: 0.10.2
-    dev: false
-
-  github.com/ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb:
-    resolution: {tarball: https://codeload.github.com/ornicar/mithril.js/tar.gz/dd92827aec63f921149ca9a3460ccd981e7025bb}
-    name: mithril
-    version: 0.2.1-lila
     dev: false

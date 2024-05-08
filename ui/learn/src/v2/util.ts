@@ -1,7 +1,7 @@
 import type { Square as Key } from 'chess.js';
-import type chessground from 'chessground';
 import { Level, LevelPartial } from './stage/list';
 import { h } from 'snabbdom';
+import * as cg from 'chessground/types';
 
 export function toLevel(l: LevelPartial, it: number): Level {
   if (l.fen.split(' ').length === 4) l.fen += ' 0 1';
@@ -32,7 +32,7 @@ export function isRole(str: PromotionChar | PromotionRole): str is PromotionRole
   return str.length > 1;
 }
 
-export function arrow(vector: Uci, brush?: chessground.BrushName) {
+export function arrow(vector: Uci, brush?: cg.BrushColor) {
   return {
     brush: brush || 'paleGreen',
     orig: vector.slice(0, 2) as Key,
@@ -40,7 +40,7 @@ export function arrow(vector: Uci, brush?: chessground.BrushName) {
   };
 }
 
-export function circle(key: Key, brush?: chessground.BrushName) {
+export function circle(key: Key, brush?: cg.BrushColor) {
   return {
     brush: brush || 'green',
     orig: key,
