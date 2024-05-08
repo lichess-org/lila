@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import chess.Color
 import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.*

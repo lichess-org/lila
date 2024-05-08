@@ -51,7 +51,7 @@ def games(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Ch
     .js(EsmInit("bits.tvGames")):
       main(
         cls     := "page-menu tv-games",
-        dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, "gameId", Nil)}"
+        dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil)}"
       )(
         st.aside(cls := "page-menu__menu")(
           side.channels(channel, champions, "/games")

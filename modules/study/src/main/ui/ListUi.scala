@@ -7,6 +7,7 @@ import scalalib.paginator.Paginator
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.study.Study.WithChaptersAndLiked
+import lila.core.study.Order
 
 final class ListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
@@ -99,7 +100,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       .css("study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
-          menu("search", Order.default),
+          menu("search", Orders.default),
           main(cls := "page-menu__content study-index box")(
             div(cls := "box__top")(
               searchForm(trans.search.search.txt(), text),
@@ -114,7 +115,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       active: String,
       order: Order,
       pag: Paginator[WithChaptersAndLiked],
-      url: String => Call,
+      url: Order => Call,
       searchFilter: String,
       topics: Option[StudyTopics] = None
   )(using Context): Page =
@@ -131,8 +132,8 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
               bits.newForm()
             ),
             topics.map: ts =>
-              div(cls := "box__pad")(topic.topicsList(ts, Order.Mine)),
-            paginate(pag, url(order.key))
+              div(cls := "box__pad")(topic.topicsList(ts, Order.mine)),
+            paginate(pag, url(order))
           )
         )
 
@@ -151,15 +152,15 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       )
 
   def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(using ctx: Context) =
-    val nonMineOrder = if order == Order.Mine then Order.Hot else order
+    val nonMineOrder = if order == Order.mine then Order.hot else order
     lila.ui.bits.pageMenuSubnav(
-      a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trs.allStudies()),
+      a(cls := active.active("all"), href := routes.Study.all(nonMineOrder))(trs.allStudies()),
       ctx.isAuth.option(bits.authLinks(active, nonMineOrder)),
       a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics):
         trs.topics()
       ,
       topics.map: topic =>
-        a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order.key))(
+        a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order))(
           topic.value
         ),
       a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
@@ -179,10 +180,10 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
 
   object topic:
 
-    def topicsList(topics: StudyTopics, order: Order = Order.default) =
+    def topicsList(topics: StudyTopics, order: Order = Orders.default) =
       div(cls := "topic-list")(
         topics.value.map: t =>
-          a(href := routes.Study.byTopic(t.value, order.key))(t.value)
+          a(href := routes.Study.byTopic(t.value, order))(t.value)
       )
 
     def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using Context) =
@@ -190,7 +191,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
         .css("study.index", "form3", "tagify")
         .js(EsmInit("analyse.study.topic.form")):
           main(cls := "page-menu")(
-            menu("topic", Order.Mine, mine.so(_.value)),
+            menu("topic", Order.mine, mine.so(_.value)),
             main(cls := "page-menu__content study-topics box box-pad")(
               h1(cls := "box__top")(trans.study.topics()),
               myForm.map { form =>
@@ -214,7 +215,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
         myTopics: Option[StudyTopics]
     )(using Context) =
       val active = s"topic:$topic"
-      val url    = (o: String) => routes.Study.byTopic(topic.value, o)
+      val url    = (o: Order) => routes.Study.byTopic(topic.value, o)
       Page(topic.value)
         .css("study.index")
         .js(infiniteScrollEsmInit):
@@ -226,11 +227,11 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
                 bits.orderSelect(order, active, url),
                 bits.newForm()
               ),
-              myTopics.ifTrue(order == Order.Mine).map { ts =>
+              myTopics.ifTrue(order == Order.mine).map { ts =>
                 div(cls := "box__pad")(
-                  topicsList(ts, Order.Mine)
+                  topicsList(ts, Order.mine)
                 )
               },
-              paginate(pag, url(order.key))
+              paginate(pag, url(order))
             )
           )

@@ -160,7 +160,7 @@ export function view(ctrl: StudyShare): VNode {
                     color: ctrl.bottomColor(),
                     lastMove: ctrl.currentNode().uci,
                     variant: ctrl.variantKey,
-                    theme: document.body.dataset.boardTheme,
+                    theme: document.body.dataset.board,
                     piece: document.body.dataset.pieceSet,
                   }),
                   download: true,
@@ -174,7 +174,7 @@ export function view(ctrl: StudyShare): VNode {
                 attrs: {
                   ...dataIcon(licon.Download),
                   href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
-                    theme: document.body.dataset.boardTheme,
+                    theme: document.body.dataset.board,
                     piece: document.body.dataset.pieceSet,
                   }),
                   download: true,

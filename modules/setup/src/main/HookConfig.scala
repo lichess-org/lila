@@ -2,12 +2,11 @@ package lila.setup
 
 import chess.variant.Variant
 import chess.{ Clock, Mode }
-
 import scalalib.model.Days
-import lila.lobby.{ Color, Hook, Seek }
+
+import lila.lobby.{ TriColor, Hook, Seek }
 import lila.rating.{ Perf }
 import lila.rating.RatingRange.withinLimits
-
 import lila.core.rating.RatingRange
 import lila.core.perf.UserWithPerfs
 
@@ -18,7 +17,7 @@ case class HookConfig(
     increment: Clock.IncrementSeconds,
     days: Days,
     mode: Mode,
-    color: Color,
+    color: TriColor,
     ratingRange: RatingRange
 ) extends HumanConfig:
 
@@ -30,8 +29,8 @@ case class HookConfig(
     color =
       if mode == Mode.Rated &&
         variantsWhereWhiteIsBetter(variant) &&
-        color != Color.Random
-      then Color.Random
+        color != TriColor.Random
+      then TriColor.Random
       else color
   )
 
@@ -115,7 +114,7 @@ object HookConfig extends BaseHumanConfig:
       days = d,
       mode = realMode,
       ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
-      color = Color(c).err(s"Invalid color $c")
+      color = TriColor(c).err(s"Invalid color $c")
     )
 
   def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))
@@ -128,7 +127,7 @@ object HookConfig extends BaseHumanConfig:
     days = Days(2),
     mode = Mode.default,
     ratingRange = RatingRange.default,
-    color = Color.default
+    color = TriColor.default
   )
 
   import lila.db.BSON
@@ -144,7 +143,7 @@ object HookConfig extends BaseHumanConfig:
         increment = r.get("i"),
         days = r.get("d"),
         mode = Mode.orDefault(r.int("m")),
-        color = Color.Random,
+        color = TriColor.Random,
         ratingRange = r.strO("e").flatMap(RatingRange.parse).getOrElse(RatingRange.default)
       )
 

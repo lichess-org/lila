@@ -4,20 +4,21 @@ package ui
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.common.String.removeMultibyteSymbols
+import lila.core.study.Order
 
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
 
-  def orderSelect(order: Order, active: String, url: String => Call)(using Context) =
+  def orderSelect(order: Order, active: String, url: Order => Call)(using Context) =
     val orders =
-      if active == "all" then Order.withoutSelector
-      else if active.startsWith("topic") then Order.list
-      else Order.withoutMine
+      if active == "all" then Orders.withoutSelector
+      else if active.startsWith("topic") then Orders.list
+      else Orders.withoutMine
     lila.ui.bits.mselect(
       "orders",
-      span(order.name()),
+      span(Orders.name(order)()),
       orders.map: o =>
-        a(href := url(o.key), cls := (order == o).option("current"))(o.name())
+        a(href := url(o), cls := (order == o).option("current"))(Orders.name(o)())
     )
 
   def newForm()(using Context) =
@@ -32,15 +33,15 @@ final class StudyBits(helpers: Helpers):
   def authLinks(active: String, order: Order)(using Context) =
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
-      a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),
-      a(activeCls("mineMember"), href := routes.Study.mineMember(order.key))(
+      a(activeCls("mine"), href := routes.Study.mine(order))(trans.study.myStudies()),
+      a(activeCls("mineMember"), href := routes.Study.mineMember(order))(
         trans.study.studiesIContributeTo()
       ),
-      a(activeCls("minePublic"), href := routes.Study.minePublic(order.key))(trans.study.myPublicStudies()),
-      a(activeCls("minePrivate"), href := routes.Study.minePrivate(order.key))(
+      a(activeCls("minePublic"), href := routes.Study.minePublic(order))(trans.study.myPublicStudies()),
+      a(activeCls("minePrivate"), href := routes.Study.minePrivate(order))(
         trans.study.myPrivateStudies()
       ),
-      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies())
+      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order))(trans.study.myFavoriteStudies())
     )
 
   def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: Context) =

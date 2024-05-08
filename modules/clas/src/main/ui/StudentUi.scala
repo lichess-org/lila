@@ -12,7 +12,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   def show(clas: Clas, students: List[Student], s: Student.WithUserAndManagingClas, activities: Frag)(using
       ctx: Context
   ) =
-    ClasPage(s.user.username, Left(clas.withStudents(students)), s.student.some)(cls := "student-show"):
+    ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(cls := "student-show"):
       frag(
         top(clas, s.withUser),
         div(cls := "box__pad")(
@@ -108,14 +108,14 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
             cls  := "button button-empty"
           )(trans.site.profile()),
           a(
-            href := routes.Puzzle.dashboard(7, "home", s.user.username.value.some),
+            href := routes.Puzzle.dashboard(7, "home", s.user.username.some),
             cls  := "button button-empty"
           )(trans.puzzle.puzzleDashboard()),
           Granter
             .opt(_.Beta)
             .option(
               a(
-                href := routes.Tutor.user(s.user.username.value),
+                href := routes.Tutor.user(s.user.username),
                 cls  := "button button-empty"
               )("Tutor")
             )

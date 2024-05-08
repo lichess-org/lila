@@ -29,7 +29,7 @@ def userAnalysis(
       )
     )
 
-private def miniOrientation(pov: Pov): chess.Color =
+private def miniOrientation(pov: Pov): Color =
   if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color
 
 def mini(pov: Pov)(using ctx: Context): Tag => Tag =
@@ -41,7 +41,7 @@ def mini(pov: Pov)(using ctx: Context): Tag => Tag =
     pov.game.history.lastMove
   )
 
-def miniSpan(fen: BoardFen, color: chess.Color = chess.White, lastMove: Option[Uci] = None) =
+def miniSpan(fen: BoardFen, color: Color = chess.White, lastMove: Option[Uci] = None) =
   chessgroundMini(fen, color, lastMove)(span)
 
 private def explorerConfig(using ctx: Context) = Json.obj(

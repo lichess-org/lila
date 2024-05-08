@@ -15,7 +15,8 @@ case class Modlog(
   def notable      = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess
 
-  def gameId = details.ifTrue(action == Modlog.cheatDetected).so(_.split(' ').lift(1))
+  def gameId: Option[GameId] = GameId.from:
+    details.ifTrue(action == Modlog.cheatDetected).so(_.split(' ').lift(1))
 
   def indexAs(i: String) = copy(index = i.some)
 

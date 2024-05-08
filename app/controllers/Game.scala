@@ -27,7 +27,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           _ <- env.analyse.analysisRepo.remove(game.id)
           _ <- env.game.cached.clearNbImportedByCache(me)
         yield Redirect(routes.User.show(me.username))
-      else Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
+      else Redirect(routes.Round.watcher(game.id, game.naturalOrientation))
   }
 
   def exportOne(id: GameAnyId) = AnonOrScoped():
@@ -81,7 +81,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                 max = getIntAs[Max]("max").map(_.atLeast(1)),
                 rated = getBoolOpt("rated"),
                 perfKey = get("perfType").orZero.split(",").flatMap { PerfKey(_) }.toSet,
-                color = get("color").flatMap(chess.Color.fromName),
+                color = get("color").flatMap(Color.fromName),
                 analysed = getBoolOpt("analysed"),
                 flags = requestPgnFlags(extended = false),
                 sort =

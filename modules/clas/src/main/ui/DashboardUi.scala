@@ -189,7 +189,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                       else td(dataSort := prog.millis)(lila.core.i18n.translateDuration(prog.duration)),
                       td(
                         if progress.isPuzzle then
-                          a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
+                          a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.some))(
                             trans.puzzle.puzzleDashboard()
                           )
                         else

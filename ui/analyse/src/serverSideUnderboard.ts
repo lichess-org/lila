@@ -27,11 +27,11 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       color: ctrl.bottomColor(),
       lastMove: ctrl.node.uci,
       variant: ctrl.data.game.variant.key,
-      theme: ds.boardTheme,
+      theme: ds.board,
       piece: ds.pieceSet,
     });
     gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
-      theme: ds.boardTheme,
+      theme: ds.board,
       piece: ds.pieceSet,
     });
   };

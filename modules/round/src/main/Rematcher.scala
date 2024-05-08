@@ -147,7 +147,7 @@ object Rematcher:
       case Chess960                                 => Situation(Chess960)
       case variant                                  => prevSituation.fold(Situation(variant))(_.situation)
     val ply   = prevSituation.fold(Ply.initial)(_.ply)
-    val color = prevSituation.fold[chess.Color](White)(_.situation.color)
+    val color = prevSituation.fold[Color](White)(_.situation.color)
     ChessGame(
       situation = newSituation.copy(color = color),
       clock = clock.map(c => Clock(c.config)),

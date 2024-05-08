@@ -9,6 +9,7 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, config }
 import lila.i18n.LangPicker
+import lila.core.i18n.Language
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.core.perm.Permission
 import lila.core.perf.UserWithPerfs
@@ -26,9 +27,6 @@ abstract private[controllers] class LilaController(val env: Env)
     with http.CtrlPage(using env.executor)
     with http.RequestContext(using env.executor)
     with lila.web.CtrlErrors:
-
-  export lila.ui.LilaRouter.conversions.given
-  export _root_.router.ReverseRouterConversions.given
 
   def controllerComponents                           = env.controllerComponents
   given Executor                                     = env.executor
@@ -318,14 +316,14 @@ abstract private[controllers] class LilaController(val env: Env)
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment()
 
-  def LangPage(call: Call)(f: Context ?=> Fu[Result])(langCode: String): EssentialAction =
-    LangPage(call.url)(f)(langCode)
-  def LangPage(path: String)(f: Context ?=> Fu[Result])(langCode: String): EssentialAction = Open:
+  def LangPage(call: Call)(f: Context ?=> Fu[Result])(language: Language): EssentialAction =
+    LangPage(call.url)(f)(language)
+  def LangPage(path: String)(f: Context ?=> Fu[Result])(language: Language): EssentialAction = Open:
     if ctx.isAuth
     then redirectWithQueryString(path)
     else
       import LangPicker.ByHref
-      LangPicker.byHref(langCode, ctx.req) match
+      LangPicker.byHref(language, ctx.req).pp(language) match
         case ByHref.NotFound => notFound(using ctx)
         case ByHref.Redir(code) =>
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")

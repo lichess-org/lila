@@ -86,7 +86,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                   href := addQueryParams(
                     routes.Report.form.url,
                     Map(
-                      "username" -> user.username,
+                      "username" -> user.username.value,
                       "postUrl"  -> s"$netBaseUrl${ui.urlOfPost(post)}",
                       "reason"   -> "comm"
                     )

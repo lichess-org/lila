@@ -29,7 +29,7 @@ final class SwissFormUi(helpers: Helpers)(
                 a(
                   dataIcon := Icon.InfoCircle,
                   cls      := "text",
-                  href     := routes.Cms.lonePage("event-tips")
+                  href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("event-tips"))
                 )(
                   trans.site.ourEventTips()
                 )

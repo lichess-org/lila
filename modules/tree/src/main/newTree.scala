@@ -9,7 +9,7 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.opening.Opening
 import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
-import chess.Color
+
 import play.api.libs.json.*
 import scalalib.json.Json.{ *, given }
 import chess.json.Json.given

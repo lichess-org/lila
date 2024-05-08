@@ -20,8 +20,8 @@ trait UserHelper:
 
   given Conversion[UserWithPerfs, User] = _.user
 
-  def usernameOrId(userId: UserId): String  = lightUserSync(userId).fold(userId.value)(_.name.value)
-  def titleNameOrId(userId: UserId): String = lightUserSync(userId).fold(userId.value)(_.titleName)
+  def usernameOrId(userId: UserId): UserName = lightUserSync(userId).fold(userId.into(UserName))(_.name)
+  def titleNameOrId(userId: UserId): String  = lightUserSync(userId).fold(userId.value)(_.titleName)
   def titleNameOrAnon(userId: Option[UserId]): String =
     userId.flatMap(lightUserSync).fold(UserName.anonymous.value)(_.titleName)
 

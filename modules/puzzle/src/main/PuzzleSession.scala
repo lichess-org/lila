@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import chess.Color
 import scala.util.chaining.*
 
 import lila.memo.CacheApi

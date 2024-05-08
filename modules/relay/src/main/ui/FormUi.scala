@@ -49,7 +49,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 em(trb.deleteAllGamesOfThisRound())
               )
             ),
-            postForm(action := routes.Study.delete(rt.round.id))(
+            postForm(action := routes.Study.delete(rt.round.studyId))(
               submitButton(
                 cls := "button button-red button-empty confirm"
               )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))

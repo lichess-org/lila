@@ -8,7 +8,6 @@ import play.api.data.Form
 import lila.app.{ *, given }
 import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite
-import lila.core.perf.PerfKeyStr
 import lila.core.security.ClearPassword
 import lila.core.id.{ ClasId, ClasInviteId }
 
@@ -205,17 +204,16 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
-  def progress(id: ClasId, perfKey: PerfKeyStr, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
+  def progress(id: ClasId, perfKey: PerfKey, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
-      Found(PerfKey.read(perfKey)): perfKey =>
-        env.clas.api.student.activeWithUsers(clas).flatMap { students =>
-          Reasonable(clas, students, "progress"):
-            for
-              progress <- env.clas.progressApi(perfKey, days, students)
-              students <- env.clas.api.student.withPerf(students, perfKey)
-              page     <- renderPage(views.clas.teacherDashboard.progress(clas, students, progress))
-            yield Ok(page)
-        }
+      env.clas.api.student.activeWithUsers(clas).flatMap { students =>
+        Reasonable(clas, students, "progress"):
+          for
+            progress <- env.clas.progressApi(perfKey, days, students)
+            students <- env.clas.api.student.withPerf(students, perfKey)
+            page     <- renderPage(views.clas.teacherDashboard.progress(clas, students, progress))
+          yield Ok(page)
+      }
   }
 
   def learn(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>

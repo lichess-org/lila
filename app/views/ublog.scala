@@ -22,9 +22,9 @@ lazy val form = lila.ublog.ui.UblogFormUi(helpers, ui)(
 )
 
 def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: Context) =
-  val langSelections: List[(String, String)] = ("all", "All languages") ::
+  val langSelections: List[(Language, String)] = (Language("all"), "All languages") ::
     lila.i18n.LangPicker
       .sortFor(LangList.popularNoRegion, ctx.req)
       .map: l =>
-        l.language -> LangList.name(l)
+        Language(l) -> LangList.name(l)
   ui.community(language, posts, langSelections)

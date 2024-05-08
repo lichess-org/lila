@@ -4,6 +4,7 @@ import play.api.mvc.*
 
 import lila.app.*
 import lila.cms.CmsPage
+import lila.core.id.{ CmsPageId, CmsPageKey }
 
 final class Cms(env: Env) extends LilaController(env):
 
@@ -26,16 +27,16 @@ final class Cms(env: Env) extends LilaController(env):
       err => BadRequest.async(views.cms.create(err)),
       data =>
         val page = data.create(me)
-        api.create(page).inject(Redirect(routes.Cms.edit(page.id.value)).flashSuccess)
+        api.create(page).inject(Redirect(routes.Cms.edit(page.id)).flashSuccess)
     )
   }
 
-  def edit(id: CmsPage.Id) = Secure(_.Pages) { _ ?=> _ ?=>
+  def edit(id: CmsPageId) = Secure(_.Pages) { _ ?=> _ ?=>
     Found(api.withAlternatives(id)): pages =>
       Ok.async(views.cms.edit(env.cms.form.edit(pages.head), pages.head, pages.tail))
   }
 
-  def update(id: CmsPage.Id) = SecureBody(_.Pages) { _ ?=> me ?=>
+  def update(id: CmsPageId) = SecureBody(_.Pages) { _ ?=> me ?=>
     Found(api.withAlternatives(id)): pages =>
       bindForm(env.cms.form.edit(pages.head))(
         err => BadRequest.async(views.cms.edit(err, pages.head, pages.tail)),
@@ -43,28 +44,28 @@ final class Cms(env: Env) extends LilaController(env):
           api
             .update(pages.head, data)
             .map: page =>
-              Redirect(routes.Cms.edit(page.id.value)).flashSuccess
+              Redirect(routes.Cms.edit(page.id)).flashSuccess
       )
   }
 
-  def delete(id: CmsPage.Id) = Secure(_.Pages) { _ ?=> _ ?=>
+  def delete(id: CmsPageId) = Secure(_.Pages) { _ ?=> _ ?=>
     Found(api.get(id)): up =>
       api.delete(up.id).inject(Redirect(routes.Cms.index).flashSuccess)
   }
 
   // pages
 
-  val help   = menuPage(CmsPage.Key("help"))
-  val tos    = menuPage(CmsPage.Key("tos"))
-  val master = menuPage(CmsPage.Key("master"))
+  val help   = menuPage(CmsPageKey("help"))
+  val tos    = menuPage(CmsPageKey("tos"))
+  val master = menuPage(CmsPageKey("master"))
 
-  def page(key: CmsPage.Key, active: Option[String])(using Context) =
+  def page(key: CmsPageKey, active: Option[String])(using Context) =
     FoundPage(env.api.cmsRender(key)): p =>
       active match
         case None       => views.site.page.lone(p)
         case Some(name) => views.site.page.withMenu(name, p)
 
-  def lonePage(key: CmsPage.Key) = Open:
+  def lonePage(key: CmsPageKey) = Open:
     Found(env.api.cmsRender(key)): p =>
       p.canonicalPath.filter(_ != req.path && req.path == s"/page/$key") match
         case Some(path) => Redirect(path)
@@ -72,7 +73,7 @@ final class Cms(env: Env) extends LilaController(env):
           pageHit
           Ok.async(views.site.page.lone(p))
 
-  def menuPage(key: CmsPage.Key) = Open:
+  def menuPage(key: CmsPageKey) = Open:
     pageHit
     FoundPage(env.api.cmsRender(key)):
       views.site.page.withMenu(key.value, _)

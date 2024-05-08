@@ -5,6 +5,7 @@ import play.api.mvc.*
 
 import lila.app.*
 import lila.common.Json.given
+import lila.core.i18n.Language
 
 final class Lobby(env: Env) extends LilaController(env):
 
@@ -33,8 +34,8 @@ final class Lobby(env: Env) extends LilaController(env):
           Ok(html).withCanonical("").noCache
       .map(env.security.lilaCookie.ensure(ctx.req))
 
-  def homeLang(lang: String) =
-    staticRedirect(lang).map(Action.async(_)).getOrElse(LangPage("/")(serveHtmlHome)(lang))
+  def homeLang(lang: Language) =
+    staticRedirect(lang.value).map(Action.async(_)).getOrElse(LangPage("/")(serveHtmlHome)(lang))
 
   def handleStatus(status: Results.Status)(using RequestHeader): Fu[Result] =
     makeContext.flatMap: ctx =>

@@ -105,14 +105,15 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   def community(
       language: Option[Language],
       posts: Paginator[UblogPost.PreviewPost],
-      langSelections: List[(String, String)]
+      langSelections: List[(Language, String)]
   )(using ctx: Context) =
+    def languageOrAll = language | Language("all")
     Page("Community blogs")
       .css("ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit))
       .copy(
         atomLinkTag = link(
-          href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
+          href     := routes.Ublog.communityAtom(languageOrAll),
           st.title := "Lichess community blogs"
         ).some
       )
@@ -130,13 +131,13 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
                     .map: (languageSel, name) =>
                       a(
                         href := {
-                          if languageSel == "all" then routes.Ublog.communityAll()
+                          if languageSel == Language("all") then routes.Ublog.communityAll()
                           else routes.Ublog.communityLang(languageSel)
                         },
-                        cls := (languageSel == language.fold("all")(_.value)).option("current")
+                        cls := (languageSel == languageOrAll).option("current")
                       )(name)
                 ),
-                atomUi.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
+                atomUi.atomLink(routes.Ublog.communityAtom(languageOrAll))
               )
             ),
             if posts.nbResults > 0 then
@@ -306,7 +307,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         .ifTrue(ctx.kid.no)
         .map: me =>
           a(cls := mine.option("active"), href := routes.Ublog.index(me.username))("My blog"),
-      a(cls := lichess.option("active"), href := routes.Ublog.index("Lichess"))("Lichess blog")
+      a(cls := lichess.option("active"), href := routes.Ublog.index(UserName.lichess))("Lichess blog")
     )
 
   object atom:
@@ -323,11 +324,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       ): post =>
         renderPost(post, authorOfBlog(post.blog))
 
-    def community(code: String, posts: Seq[UblogPost.PreviewPost]) =
+    def community(language: Language, posts: Seq[UblogPost.PreviewPost]) =
       atomUi.feed(
         elems = posts,
-        htmlCall = routes.Ublog.communityLang(code),
-        atomCall = routes.Ublog.communityAtom(code),
+        htmlCall = routes.Ublog.communityLang(language),
+        atomCall = routes.Ublog.communityAtom(language),
         title = "Lichess community blogs",
         updated = posts.headOption.flatMap(_.lived).map(_.at)
       ) { post =>

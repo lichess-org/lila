@@ -168,7 +168,7 @@ trait GameHelper:
     val owner = ownerLink.so(ctx.me.flatMap(game.player))
     if tv then routes.Tv.index
     else
-      owner.fold(routes.Round.watcher(game.id, color.name)): o =>
+      owner.fold(routes.Round.watcher(game.id, color)): o =>
         routes.Round.player(game.fullIdOf(o.color))
   }.toString
 

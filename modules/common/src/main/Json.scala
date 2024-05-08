@@ -18,6 +18,9 @@ object Json:
 
   given Writes[PerfKey] = pk => JsString(PerfKey.value(pk))
 
+  given [A](using Show[A]): KeyWrites[A] with
+    def writeKey(key: A) = key.show
+
   given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily]: f =>
     f.get[String]("key")
       .flatMap(LilaOpeningFamily.find)
