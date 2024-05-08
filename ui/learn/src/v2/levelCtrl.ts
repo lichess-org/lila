@@ -161,6 +161,8 @@ export class LevelCtrl {
       onMove: onMove,
       items: {
         render: function (_pos: unknown, key: Key) {
+          // TODO:
+          console.log('rendering item, known to be broken');
           return items.withItem(key, itemView);
         },
       },

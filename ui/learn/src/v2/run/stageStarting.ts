@@ -6,6 +6,7 @@ export default function (ctrl: RunCtrl) {
   return h(
     'div.learn__screen-overlay',
     {
+      // TODO:
       onclick: ctrl.hideStartingPane,
     },
     h('div.learn__screen', [
@@ -17,6 +18,7 @@ export default function (ctrl: RunCtrl) {
         h(
           'a.next',
           {
+            // TODO:
             onclick: ctrl.hideStartingPane,
           },
           ctrl.trans.noarg('letsGo'),

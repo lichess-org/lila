@@ -17,6 +17,7 @@ export default function (ctrl: RunCtrl) {
   return h(
     'div.learn__screen-overlay',
     {
+      // TODO:
       onclick: function (e: MouseEvent) {
         if ((e.target as HTMLElement).classList?.contains('learn__screen-overlay')) m.route('/');
       },
@@ -31,6 +32,7 @@ export default function (ctrl: RunCtrl) {
           h(
             'span',
             {
+              // TODO:
               config: function (el: HTMLElement, isUpdate: boolean) {
                 if (!isUpdate)
                   setTimeout(function () {
@@ -48,9 +50,11 @@ export default function (ctrl: RunCtrl) {
           ? h(
               'a.next',
               {
-                href: '/' + next.id,
-                // TODO:
-                // config: m.route,
+                attrs: {
+                  href: '/' + next.id,
+                  // TODO:
+                  // config: m.route,
+                },
               },
               [ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ', h('i[data-icon=]')],
             )
@@ -58,9 +62,11 @@ export default function (ctrl: RunCtrl) {
         h(
           'a.back.text[data-icon=]',
           {
-            href: '/',
-            // TODO:
-            // config: m.route,
+            attrs: {
+              href: '/',
+              // TODO:
+              // config: m.route,
+            },
           },
           ctrl.trans.noarg('backToMenu'),
         ),

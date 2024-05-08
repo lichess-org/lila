@@ -175,18 +175,10 @@ export function showCheckmate(chess: ChessCtrl) {
   chess.instance.load(fen);
   const kingKey = chess.kingKey(turn === 'w' ? 'black' : 'white');
   const shapes = chess.instance
-    .moves({
-      verbose: true,
-    })
-    .filter(function (m) {
-      return m.to === kingKey;
-    })
-    .map(function (m) {
-      return arrow(m.from + m.to, 'red');
-    });
-  cg.set({
-    check: shapes.length ? kingKey : null,
-  });
+    .moves({ verbose: true })
+    .filter(m => m.to === kingKey)
+    .map(m => arrow(m.from + m.to, 'red'));
+  cg.set({ check: shapes.length ? kingKey : null });
   cg.setShapes(shapes);
 }
 

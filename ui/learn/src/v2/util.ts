@@ -60,17 +60,11 @@ export function pieceImg(role: string) {
 }
 
 export function roundSvg(url: string) {
-  return h(
-    'div.round-svg',
-    h('img', {
-      src: url,
-    }),
-  );
+  return h('div.round-svg', h('img', { attrs: { src: url } }));
 }
 
 export function withLinebreaks(text: string) {
-  // TODO: below was wrapped with call to m.trust()
-  return site.escapeHtml(text).replace(/\n/g, '<br>');
+  return text.split(/(\n)/g).map(part => (part === '\n' ? h('br') : part));
 }
 
 export function decomposeUci(uci: string) {

@@ -58,15 +58,14 @@ export const runView = (ctrl: LearnCtrl) => {
       h('div.learn__main.main-board', [
         runCtrl.vm.stageStarting() ? stageStarting(runCtrl) : null,
         runCtrl.vm.stageCompleted() ? stageComplete(runCtrl) : null,
+        // TODO:
         chessground.view(ground.instance),
         renderPromotion(runCtrl, level),
       ]),
       h('div.learn__table', [
         h('div.wrap', [
           h('div.title', [
-            h('img', {
-              src: stage.image,
-            }),
+            h('img', { attrs: { src: stage.image } }),
             h('div.text', [
               h('h2', ctrl.trans.noarg(stage.title)),
               h('p.subtitle', ctrl.trans.noarg(stage.subtitle)),
