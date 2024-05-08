@@ -204,8 +204,10 @@
   <string name="email">ইমেল</string>
   <string name="passwordReset">পাসওয়ার্ড পরিবর্তন</string>
   <string name="forgotPassword">পাসওয়ার্ড ভুলে গেছেন?</string>
+  <string name="blankedPassword">আপনি অন্য সাইটে একই পাসওয়ার্ড ব্যবহার করেছেন এবং সেই সাইট ডাটা হ্যাক করা হয়েছে. আপনার Lichess অ্যাকাউন্টের নিরাপত্তা নিশ্চিত করতে, আপনাকে একটি নতুন পাসওয়ার্ড সেট করতে হবে. বোঝার জন্য আপনাকে ধন্যবাদ.</string>
   <string name="youAreLeavingLichess">আপনি লিচেস ছেড়ে যাচ্ছেন</string>
   <string name="neverTypeYourPassword">লিচেসে ব্যবহৃত পাসওয়ার্ড অন্য কোনো ওয়েবসাইটে টাইপ/ব্যবহার করবেন না!</string>
+  <string name="proceedToX">%s এ এগিয়ে যান</string>
   <string name="passwordSuggestion">অন্য কারো প্রস্তাবিত পাসওয়ার্ড ব্যবহার করবেন না, কারন আপনার অ্যাকাউন্ট অন্য কারো দ্বারা চুরি/ব্যাবহার হওয়ার সম্ভাবনা রয়েছে</string>
   <string name="emailSuggestion">অন্য কারো প্রস্তাবিত ই-মেইল ব্যবহার করবেন না, কারন আপনার অ্যাকাউন্ট অন্য কারো দ্বারা চুরি/ব্যাবহার হওয়ার সম্ভাবনা রয়েছে</string>
   <string name="emailConfirmHelp">ইমেল নিশ্চিতকরণের মাধ্যমে সাহায্য</string>
@@ -216,6 +218,14 @@
   <string name="emailSent">%s ঠিকানায় আমরা ইমেইল পাঠিয়েছি</string>
   <string name="emailCanTakeSomeTime">পৌঁছাতে কিছু সময় লাগতে পারে।.</string>
   <string name="refreshInboxAfterFiveMinutes">৫ মিনিট অপেক্ষা করে ইমেইলবক্স রিফ্রেশ করুন.</string>
+  <string name="checkSpamFolder">এছাড়াও আপনার স্প্যাম ফোল্ডার চেক করুন, এটি সেখানে থাকতে পারে। যদি তাই হয়, এটি স্প্যাম নয় হিসাবে চিহ্নিত করুন.</string>
+  <string name="emailForSignupHelp">অন্য সব কিছু ব্যর্থ হলে, আমাদের এই ইমেল পাঠান:</string>
+  <string name="copyTextToEmail">উপরের লেখাটি কপি করে পেস্ট করুন এবং %s এ পাঠান</string>
+  <string name="waitForSignupHelp">আপনাকে আপনার সাইনআপ সম্পূর্ণ করতে সাহায্য করার জন্য আমরা শীঘ্রই আপনার কাছে ফিরে আসব.</string>
+  <string name="accountCanLogin">আপনি এখন %s হিসাবে লগইন করতে পারেন.</string>
+  <string name="accountConfirmationEmailNotNeeded">আপনার নিশ্চিতকরণ ইমেল এর প্রয়োজন নেই.</string>
+  <string name="accountClosed">%s একাউন্টটি বন্ধ করা হয়েছে.</string>
+  <string name="accountRegisteredWithoutEmail">%s একাউন্টটি একটি ইমেল ছাড়াই রেজিস্টার করা হয়েছিল.</string>
   <string name="rank">মর্যাদাক্রম</string>
   <string name="rankX">অনুপাত: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -250,6 +260,7 @@
   <string name="abortGame">খেলা বন্ধ করুন</string>
   <string name="gameAborted">খেলা বন্ধ করা হয়েছে</string>
   <string name="standard">আদর্শ</string>
+  <string name="customPosition">পছন্দসই পজিশন</string>
   <string name="unlimited">সীমাহীন সময়</string>
   <string name="mode">ধরন</string>
   <string name="casual">সাধারণ</string>
@@ -329,6 +340,7 @@
   </plurals>
   <string name="viewTournament">টুর্নামেন্ট দেখুন</string>
   <string name="backToTournament">টুর্নামেন্ট এ ফিরে যান</string>
+  <string name="noDrawBeforeSwissLimit">একটি সুইস টুর্নামেন্টে 30টি চাল খেলার আগে আপনি ড্র করতে পারবেন না.</string>
   <string name="thematic">ধাতুসংক্রান্ত</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s খেলার অনুপাত</item>
@@ -645,6 +657,7 @@
   <string name="simulClockHint">ফিশার ঘড়ি বিন্যাস. একবারে অনেক খেলোয়াড় নিলে, হয়তো আপনার অনেক সময় প্রয়োজন হবে.</string>
   <string name="simulAddExtraTime">আপনি হয়তো অতিরিক্ত সময় যোগ করে আপনার ঘড়ি সিমুলের সাথে মোকাবেলা করতে পারবেন.</string>
   <string name="simulHostExtraTime">অতিরিক্ত ঘড়ির সময়ের স্বাগতিক</string>
+  <string name="simulAddExtraTimePerPlayer">সিমুলে যোগদানকারী প্রতিটি খেলোয়াড়ের জন্য আপনার ঘড়িতে ইনিশিয়াল সময় যোগ করুন.</string>
   <string name="lichessTournaments">দাবা ক্রীড়া-প্রতিযোগিতা</string>
   <string name="tournamentFAQ">কর্মক্ষেত্র প্রতিযোগিতার প্রশ্নবলী</string>
   <string name="timeBeforeTournamentStarts">সময়ের পূর্বে প্রতিযোগিতা শুরু</string>
@@ -739,7 +752,14 @@
   <string name="light">আলো</string>
   <string name="dark">অন্ধকার</string>
   <string name="transparent">স্বচ্ছ</string>
+  <string name="deviceTheme">ডিভাইস থিম</string>
   <string name="backgroundImageUrl">পটভূমি ছবির URL:</string>
+  <string name="board" comment="Allows you to change the appearance of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">বোর্ড</string>
+  <string name="size" comment="Allows you to change the size of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">সাইজ</string>
+  <string name="opacity" comment="Allows you to change how transparent your chessboard appears. This option only appears when using a custom (picture) background. You can make the board more transparent so you can view more of the background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">অসস্বচছলতা</string>
+  <string name="brightness" comment="Allows you to change the brightness of the chessboard and pieces on it. This option only appears when using a light or dark background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">ব্রাইটনেস</string>
+  <string name="hue" comment="Allows you to change the hue of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">হিউ</string>
+  <string name="boardReset" comment="Allows you to reset any changes made to colours. Will appear if you change any colour settings.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">ডিফল্টে রং রিসেট করুন</string>
   <string name="pieceSet">টুকরা সেট</string>
   <string name="embedInYourWebsite">আপনার ওয়েবসাইটে বসান</string>
   <string name="usernameAlreadyUsed">এই ব্যবহারকারীর নাম ইতিমধ্যে ব্যবহার করা হয়েছে, দয়া করে অন্য একটি চেষ্টা করুন.</string>
@@ -754,6 +774,7 @@
   <string name="invalidFen">অকার্যকর FEN</string>
   <string name="custom">স্বনির্ধারিত</string>
   <string name="notifications">বিজ্ঞাপন</string>
+  <string name="notificationsX">নোটিফিকেশন: %1$s</string>
   <string name="perfRatingX">অনুপাত: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s সেকেন্ডে খেলার প্রথম চাল</item>
@@ -764,6 +785,7 @@
   <string name="bestWasX">সেরা ছিল %s</string>
   <string name="youBrowsedAway">আপনি যতদূর ব্রাউজ করেছেন</string>
   <string name="resumePractice">পুনারয় অনুশীলন</string>
+  <string name="drawByFiftyMoves">খেলাটি পঞ্চাশ চালের নিয়মে ড্র হয়েছে.</string>
   <string name="theGameIsADraw">খেলাটি হয় সমান.</string>
   <string name="computerThinking">কম্পিউটারের চিন্তা ...</string>
   <string name="seeBestMove">দেখুন সেরা চাল</string>
@@ -809,6 +831,8 @@
     <item quantity="one">এবং সংরক্ষন %s পুনারয়চাল রেখা</item>
     <item quantity="other">এবং সংরক্ষন %s পুনারয়চাল রেখা</item>
   </plurals>
+  <string name="showUnreadLichessMessage">আপনি Lichess থেকে একটি ব্যক্তিগত বার্তা পেয়েছেন.</string>
+  <string name="clickHereToReadIt">পড়তে এখানে ক্লিক করুন</string>
   <string name="sorry">দুঃখিত :(</string>
   <string name="weHadToTimeYouOutForAWhile">আমাদের কিছুক্ষণের জন্য আপনাকে বিরতি হল।</string>
   <string name="why">কেন</string>
@@ -830,6 +854,8 @@
   <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>
   <string name="searchOrStartNewDiscussion">খুজুন অথবা নতুন মেসেজ কনভার্সনে যান</string>
   <string name="edit">এডিট বা সম্পাদন করুন</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">বুলেট</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ব্লিজ</string>
   <string name="rapid">র‍্যাপিড</string>
   <string name="classical">ক্লাসিক্যাল</string>
   <string name="ultraBulletDesc">অত্যন্ত দ্রুত গেমস: 30 সেকেন্ডেরও কম</string>
@@ -846,6 +872,8 @@
   <string name="useTheReportForm">এই রিপোর্ট ফোরাম ব্যাবহার করুন</string>
   <string name="toRequestSupport">সমর্থনের জন্য অনুরোধ করতে, %1$s</string>
   <string name="tryTheContactPage">যোগাযোগ পেজে যেয়ে দেখতে পারেন</string>
+  <string name="makeSureToRead">অনুগ্রহ করে %1$s পড়ুন</string>
+  <string name="theForumEtiquette">ফোরাম শিষ্টাচার</string>
   <string name="thisTopicIsArchived">এই টপিক বা বিষয়টি সংরক্ষণাগারভুক্ত করা হয়েছে সুতরাং এর জবাব আর দেওয়া যাবে না.</string>
   <string name="joinTheTeamXToPost">যুক্ত হোন %1$s, এই ফোরামে পোষ্ট করার জন্য</string>
   <string name="teamNamedX">%1$s দল</string>
@@ -879,11 +907,16 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="minimumRatedGames">সর্বনিম্ন রেটেড খেলার সংখ্যা</string>
   <string name="minimumRating">সর্বনিম্ন রেটিং</string>
   <string name="maximumWeeklyRating">সর্বোচ্চ সাপ্তাহিক রেটিং</string>
+  <string name="positionInputHelp">একটি প্রদত্ত অবস্থান থেকে প্রতিটি খেলা শুরু করতে একটি বৈধ FEN পেস্ট করুন. এটি শুধুমাত্র স্ট্যান্ডার্ড গেমের জন্য কাজ করে, ভেরিয়েন্টের সাথে নয়. আপনি একটি FEN তৈরি করতে %s ব্যবহার করতে পারেন, তারপর এটি এখানে পেস্ট করুন. স্বাভাবিক প্রাথমিক অবস্থান থেকে গেম শুরু করতে খালি ছেড়ে দিন.</string>
   <string name="cancelSimul">একত্রে খেলা বাতিল করুন</string>
   <string name="simulHostcolor">স্বাগতিক খেলোয়াড়ের ঘুটি/ piece এর রঙ</string>
   <string name="estimatedStart">আনুমানিক খেলা শুরুর সময়</string>
   <string name="simulFeatured">দেখানো হবে %s</string>
+  <string name="simulFeaturedHelp">%s-এ সবার কাছে আপনার সিমুল দেখান। ব্যক্তিগত সিমুল জন্য নিষ্ক্রিয় করুন.</string>
+  <string name="simulDescription">সিমুল বর্ণনা</string>
   <string name="simulDescriptionHelp">আপনি অংশগ্রহণকারীদের কিছু বলতে চান?</string>
+  <string name="markdownAvailable">%s আরও উচ্চতর সিনট্যাক্সের জন্য উপলব্ধ.</string>
+  <string name="embedsAvailable">এম্বেড করতে একটি গেম URL বা একটি স্টাডি চ্যাপটার URL পেস্ট করুন.</string>
   <string name="inYourLocalTimezone">আপনার স্থানীয় সময়</string>
   <string name="tournChat">টুর্নামেন্ট চ্যাট</string>
   <string name="noChat">কোনো চ্যাট নয়</string>
@@ -894,6 +927,9 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="toggleLocalAnalysis">ব্যক্তিগত কম্পিউটার বিশ্লেষণ অন/অফ</string>
   <string name="toggleAllAnalysis">সব কম্পিউটার বিশ্লেষণ অন/অফ</string>
   <string name="playComputerMove">কম্পিউটারের সেরা চাল</string>
+  <string name="analysisOptions">আনাল্যসিস অপশনস</string>
+  <string name="focusChat">ফোকাস চ্যাট</string>
+  <string name="showHelpDialog">এই হেল্প ডায়ালগ দেখান</string>
   <string name="reopenYourAccount">আপনার একাউন্ট পুনরায় খুলুন</string>
   <string name="closedAccountChangedMind">আপনি যদি আপনার একাউন্ট বন্ধ করে থাকেন, কিন্তু পরবর্তীতে মন পরিবর্তন করেন, সেক্ষেত্রে একাউন্ট ফেরত পাওয়ার জন্য আপনাকে একবার সুযোগ দেয়া হবে।</string>
   <string name="onlyWorksOnce">এটি শুধুমাত্র একবার কাজ করবে।</string>
@@ -911,6 +947,10 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="lichessDbExplanation">লিচেস এর সকল খেলোয়াড়দের রেটেড খেলা থেকে সংগ্রহকৃত</string>
   <string name="switchSides">পক্ষ পরিবর্তন করুন</string>
   <string name="closingAccountWithdrawAppeal">একাউন্ট বন্ধ করলে আপনার আপিল প্রত্যাহার হয়ে যাবে</string>
+  <string name="ourEventTips">ইভেন্ট আয়োজনের জন্য আমাদের টিপস</string>
+  <string name="instructions">নির্দেশাবলী</string>
+  <string name="showMeEverything">সবকিছু দেখানো হোক</string>
   <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
 সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
+  <string name="nothingToSeeHere">এই মুহূর্তে এখানে দেখার কিছু নেই.</string>
 </resources>
