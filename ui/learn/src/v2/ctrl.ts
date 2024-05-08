@@ -20,12 +20,14 @@ export class LearnCtrl {
   ) {
     clearTimeouts();
 
+    this.setStageLevelFromHash();
+
     this.sideCtrl = new SnabbdomSideCtrl(this, opts);
     this.runCtrl = new RunCtrl(this, opts);
 
-    this.setStageLevelFromHash();
     window.addEventListener('hashchange', () => {
       this.setStageLevelFromHash();
+      this.runCtrl = new RunCtrl(this, opts);
       this.redraw();
     });
   }
