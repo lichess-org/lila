@@ -45,6 +45,58 @@
     }
   }
 
+  &__header {
+    .dropdown {
+      position: relative;
+      font-size: x-large;
+      > a {
+        color: $c-font-page;
+        float: right;
+        padding-left: 0.5em;
+      }
+
+      .dropdown-window {
+        visibility: hidden;
+        background: $c-bg-header-dropdown;
+        border-radius: 3px 0 3px 3px;
+        box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+        position: absolute;
+        top: 1.45em;
+        right: 0;
+        a {
+          width: 16em;
+          font-size: small;
+          display: block;
+          padding: 0.6rem 1rem;
+          color: $c-header-dropdown;
+          &:first-child {
+            border-radius: 3px 0 0 0;
+          }
+          &:last-child {
+            border-radius: 0 0 3px 3px;
+          }
+          &:hover {
+            background: $c-primary;
+            &,
+            &::after {
+              color: $c-over;
+            }
+          }
+        }
+      }
+    }
+
+    .dropdown:hover {
+      > a {
+        background: $c-bg-header-dropdown;
+        box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+      }
+      .dropdown-window {
+        visibility: visible;
+      }
+    }
+  }
+
   .claim-title {
     @extend %box-padding;
 
