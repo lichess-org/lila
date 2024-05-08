@@ -406,9 +406,6 @@ importers:
       chess.js:
         specifier: github:ornicar/chess.js#learn
         version: github.com/ornicar/chess.js/ad0709c0b07773d9d0da8e4605a9a2a28f00d249
-      chessground:
-        specifier: 4.4.2
-        version: 4.4.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -2183,13 +2180,6 @@ packages:
       hammerjs: 2.0.8
     dev: false
 
-  /chessground@4.4.2:
-    resolution: {integrity: sha512-cCAaTjsnE30hkWSPQRBOr2vlWSmxHS1hzz2kBM+b1VwLjvZRj5bohWtfZsznIgegfZUxZMOvtHsyde8/hhazLg==}
-    dependencies:
-      merge: 1.2.0
-      mithril: github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4
-    dev: false
-
   /chessground@9.0.4:
     resolution: {integrity: sha512-KeZd/kcXSKQOGO6LOKu/3bAyVSMh7hgPPharMF15HMfNlHfcBpIVZIDAQRO2PNaNMzPWl0LKc05uFHt0D+lZGA==}
     dev: false
@@ -3795,10 +3785,6 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /merge@1.2.0:
-    resolution: {integrity: sha512-3GGUnRRpmQMsRpuMbW26z/raenVYeYXcGR1qBGvlHmPq5jaXqL1Zqgdh/0bRw+mTE6F2oTjCj8Tb/wUOy61/CA==}
-    dev: false
-
   /micromatch@4.0.5:
     resolution: {integrity: sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==}
     engines: {node: '>=8.6'}
@@ -4858,12 +4844,6 @@ packages:
     resolution: {tarball: https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249}
     name: chess.js
     version: 0.10.2
-    dev: false
-
-  github.com/ornicar/mithril.js/d99d36d445fad1b22f4b285963ea065291d99ad4:
-    resolution: {tarball: https://codeload.github.com/ornicar/mithril.js/tar.gz/d99d36d445fad1b22f4b285963ea065291d99ad4}
-    name: mithril
-    version: 0.2.1
     dev: false
 
   github.com/ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb:

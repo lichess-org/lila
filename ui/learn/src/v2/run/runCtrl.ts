@@ -1,7 +1,7 @@
 import * as sound from '../sound';
 import * as stages from '../stage/list';
 import { Prop, prop } from 'common';
-import { LearnProgress, SnabbdomLearnOpts } from '../../learn';
+import { LearnProgress, LearnOpts } from '../../learn';
 import { Stage } from '../stage/list';
 import { LearnCtrl } from '../ctrl';
 import { clearTimeouts } from '../timeouts';
@@ -18,12 +18,14 @@ export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
   trans: Trans;
 
+  chessground: CgApi | undefined;
+
   level: LevelCtrl;
   vm: Vm;
 
   constructor(
     ctrl: LearnCtrl,
-    readonly opts: SnabbdomLearnOpts,
+    readonly opts: LearnOpts,
   ) {
     clearTimeouts();
 

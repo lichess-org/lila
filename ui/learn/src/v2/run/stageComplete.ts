@@ -19,7 +19,10 @@ export default function (ctrl: RunCtrl) {
     {
       // TODO:
       onclick: function (e: MouseEvent) {
-        if ((e.target as HTMLElement).classList?.contains('learn__screen-overlay')) m.route('/');
+        if ((e.target as HTMLElement).classList?.contains('learn__screen-overlay')) {
+          // TODO:
+          // m.route('/');
+        }
       },
     },
     h('div.learn__screen', [

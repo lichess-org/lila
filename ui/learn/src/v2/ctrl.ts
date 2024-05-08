@@ -1,4 +1,4 @@
-import { LearnProgress, SnabbdomLearnOpts } from '../learn';
+import { LearnProgress, LearnOpts } from '../learn';
 import { Stage } from './stage/list';
 import * as stages from './stage/list';
 import * as scoring from './score';
@@ -15,7 +15,7 @@ export class LearnCtrl {
   runCtrl: RunCtrl;
 
   constructor(
-    readonly opts: SnabbdomLearnOpts,
+    readonly opts: LearnOpts,
     readonly redraw: () => void,
   ) {
     clearTimeouts();

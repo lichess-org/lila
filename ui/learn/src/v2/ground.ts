@@ -12,8 +12,6 @@ export type CgMove = {
   dest: Key;
 };
 
-export const instance = cg;
-
 export interface Shape {
   orig: Key;
   dest?: Key;

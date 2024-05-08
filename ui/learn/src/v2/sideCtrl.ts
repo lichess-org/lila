@@ -2,18 +2,18 @@
 import * as stages from './stage/list';
 import * as scoring from './score';
 import { Prop, prop } from 'common';
-import { LearnProgress, SnabbdomLearnOpts } from '../learn';
+import { LearnProgress, LearnOpts } from '../learn';
 import { Stage } from './stage/list';
 import { LearnCtrl } from './ctrl';
 
 export class SnabbdomSideCtrl {
-  opts: SnabbdomLearnOpts;
+  opts: LearnOpts;
   trans: Trans;
   data: LearnProgress;
 
   categId: Prop<number> = prop(0);
 
-  constructor(ctrl: LearnCtrl, opts: SnabbdomLearnOpts) {
+  constructor(ctrl: LearnCtrl, opts: LearnOpts) {
     this.opts = opts;
     this.trans = ctrl.trans;
     this.data = ctrl.data;

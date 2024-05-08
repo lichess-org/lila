@@ -1,6 +1,5 @@
 import * as util from '../util';
-import chessground from 'chessground';
-import * as ground from '../ground';
+import chessground from '../chessground';
 import congrats from './congrats';
 import stageStarting from './stageStarting';
 import stageComplete from './stageComplete';
@@ -59,7 +58,8 @@ export const runView = (ctrl: LearnCtrl) => {
         runCtrl.vm.stageStarting() ? stageStarting(runCtrl) : null,
         runCtrl.vm.stageCompleted() ? stageComplete(runCtrl) : null,
         // TODO:
-        chessground.view(ground.instance),
+        // chessground.view(ground.instance),
+        chessground(ctrl.runCtrl),
         renderPromotion(runCtrl, level),
       ]),
       h('div.learn__table', [

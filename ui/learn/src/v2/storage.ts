@@ -14,24 +14,28 @@ const defaultValue: LearnProgress = {
 };
 
 function xhrSaveScore(stageKey: string, levelId: number, score: number) {
+  stageKey;
+  levelId;
+  score;
   // TODO:
-  return m.request({
-    method: 'POST',
-    url: '/learn/score',
-    data: {
-      stage: stageKey,
-      level: levelId,
-      score: score,
-    },
-  });
+  // return m.request({
+  //   method: 'POST',
+  //   url: '/learn/score',
+  //   data: {
+  //     stage: stageKey,
+  //     level: levelId,
+  //     score: score,
+  //   },
+  // });
 }
 
 function xhrReset() {
   // TODO:
-  return m.request({
-    method: 'POST',
-    url: '/learn/reset',
-  });
+  // return m.request({
+  //   method: 'POST',
+  //   url: '/learn/reset',
+  // });
+  return Promise.resolve();
 }
 
 export default function (d?: LearnProgress): Storage {
