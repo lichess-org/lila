@@ -7,10 +7,6 @@ import scala.jdk.CollectionConverters.*
 import scala.reflect.Typeable
 
 object NamedBus:
-  object fishnet:
-    import lila.core.fishnet.*
-    def analyseGame(gameId: GameId): Unit                   = Bus.publish(GameRequest(gameId), "fishnet")
-    def analyseStudyChapter(req: StudyChapterRequest): Unit = Bus.publish(req, "fishnet")
   object timeline:
     import lila.core.timeline.*
     def apply(propagate: Propagate): Unit = Bus.publish(propagate, "timeline")

@@ -5,7 +5,6 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
 import lila.db.dsl.bsonWriteOpt
-import lila.core.fishnet.StudyChapterRequest
 import lila.core.perm.Granter
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
@@ -30,8 +29,8 @@ object ServerEval:
               fuccess(userId.is(UserId.lichess)) >>|
               userApi.me(userId).map(_.soUse(Granter.opt(_.Relay)))
             _ <- chapterRepo.startServerEval(chapter)
-          yield lila.common.Bus.named.fishnet.analyseStudyChapter(
-            StudyChapterRequest(
+          yield lila.common.Bus.pub(
+            lila.core.fishnet.Bus.StudyChapterRequest(
               studyId = study.id,
               chapterId = chapter.id,
               initialFen = chapter.root.fen.some,
