@@ -108,3 +108,9 @@ object id:
 
   opaque type AppealId = String
   object AppealId extends lila.core.userId.OpaqueUserId[AppealId]
+
+  opaque type CmsPageId = String
+  object CmsPageId extends OpaqueString[CmsPageId]
+
+  opaque type CmsPageKey = String
+  object CmsPageKey extends OpaqueString[CmsPageKey]

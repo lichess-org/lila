@@ -4,6 +4,7 @@ import lila.app.UiEnv.{ *, given }
 
 import lila.common.String.html.richText
 import lila.report.{ Reason, Report }
+import lila.core.id.{ ForumPostId, RelayRoundId }
 
 object inquiry:
 
@@ -18,10 +19,10 @@ object inquiry:
         case commFlagRegex(tpe, id, text) =>
           val path = tpe match
             case "game"       => routes.Round.watcher(GameId(id), Color.white).url
-            case "relay"      => routes.RelayRound.show("-", "-", id).url
-            case "tournament" => routes.Tournament.show(id).url
-            case "swiss"      => routes.Swiss.show(id).url
-            case "forum"      => routes.ForumPost.redirect(id).url
+            case "relay"      => routes.RelayRound.show("-", "-", RelayRoundId(id)).url
+            case "tournament" => routes.Tournament.show(TourId(id)).url
+            case "swiss"      => routes.Swiss.show(SwissId(id)).url
+            case "forum"      => routes.ForumPost.redirect(ForumPostId(id)).url
             case _            => s"/$tpe/$id"
           a(href := path)(path).some -> text
         case text => None -> text
@@ -183,7 +184,7 @@ object inquiry:
           ui.autoNextInput
         ),
         postForm(
-          action := routes.Report.inquiry(in.report.id),
+          action := routes.Report.inquiry(in.report.id.value),
           title  := "Cancel the inquiry, re-instore the report",
           cls    := "cancel"
         )(

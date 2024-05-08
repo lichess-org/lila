@@ -123,7 +123,7 @@ object side:
           .orElse:
             game.swissId.map: swissId =>
               st.section(cls := "game__tournament-link"):
-                views.swiss.ui.link(SwissId(swissId))
+                views.swiss.ui.link(swissId)
           .orElse:
             simul.map: sim =>
               st.section(cls := "game__simul-link"):

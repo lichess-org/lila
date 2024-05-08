@@ -3,6 +3,7 @@ package lila.cms
 import lila.common.{ Markdown, MarkdownRender, MarkdownToastUi }
 import lila.core.config
 import lila.memo.CacheApi
+import lila.core.id.CmsPageId
 
 final class CmsMarkup(
     baseUrl: config.BaseUrl,
@@ -22,12 +23,12 @@ final class CmsMarkup(
 
   def apply(page: CmsPage): Fu[Html] = cache.get((page.id, page.markdown))
 
-  private val cache = cacheApi[(CmsPage.Id, Markdown), Html](64, "cms.markup"):
+  private val cache = cacheApi[(CmsPageId, Markdown), Html](64, "cms.markup"):
     _.expireAfterWrite(15 minutes)
       .buildAsyncFuture: (id, markdown) =>
         fuccess(process(id)(markdown))
 
-  private def process(id: CmsPage.Id): Markdown => Html =
+  private def process(id: CmsPageId): Markdown => Html =
     MarkdownToastUi.unescapeAtUsername.apply
       .andThen(renderer(s"cms:$id"))
       .andThen(MarkdownToastUi.imageParagraph)

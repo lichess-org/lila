@@ -82,7 +82,7 @@ final class Analyser(
         apply(game, sender)
     }
 
-  def study(req: lila.core.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
+  def study(req: lila.core.fishnet.Bus.StudyChapterRequest): Fu[Analyser.Result] =
     analysisRepo.chapterExists(req.chapterId).flatMap {
       if _ then fuccess(Analyser.Result.NoChapter)
       else

@@ -64,5 +64,5 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
       else fuccess(slug)
     }
 
-  def byCategQuery(categ: ForumCateg)          = $doc("categId" -> categ.slug) ++ trollFilter
+  def byCategQuery(categ: ForumCateg)          = $doc("categId" -> categ.id) ++ trollFilter
   def byCategNotStickyQuery(categ: ForumCateg) = byCategQuery(categ) ++ notStickyQuery

@@ -5,6 +5,8 @@ import scalalib.newtypes.SameRuntime
 
 import lila.core.id.*
 import chess.variant.Variant
+import chess.format.Uci
+import lila.core.study.{ Order as StudyOrder }
 
 object LilaRouter:
 
@@ -32,9 +34,14 @@ object LilaRouter:
 
   given PathBindable[UserStr] = strPath[UserStr](UserStr.read, "Invalid Lichess username")
   given PathBindable[PerfKey] = strPath[PerfKey](PerfKey.apply, "Invalid Lichess performance key")
+  given PathBindable[GameId]  = summon[PathBindable[GameAnyId]].transform(_.gameId, _.into(GameAnyId))
   given PathBindable[Color] =
     strPath[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
-  given PathBindable[GameId] = summon[PathBindable[GameAnyId]].transform(_.gameId, _.into(GameAnyId))
+  given PathBindable[Uci] = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
+  given PathBindable[StudyOrder] = strPath[StudyOrder](
+    s => scala.util.Try(StudyOrder.valueOf(s).some).getOrElse(None),
+    "Invalid study order"
+  )
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
 
@@ -53,23 +60,4 @@ object LilaRouter:
 
   given QueryStringBindable[Color] =
     strQueryString[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
-
-  object conversions:
-    given reportIdConv: Conversion[ReportId, String]       = _.value
-    given Conversion[lila.core.i18n.Language, String]      = _.value
-    given Conversion[StudyId, String]                      = _.value
-    given Conversion[StudyChapterId, String]               = _.value
-    given Conversion[PuzzleId, String]                     = _.value
-    given Conversion[SimulId, String]                      = _.value
-    given Conversion[SwissId, String]                      = _.value
-    given Conversion[TourId, String]                       = _.value
-    given Conversion[TeamId, String]                       = _.value
-    given Conversion[RelayRoundId, String]                 = _.value
-    given Conversion[chess.opening.OpeningKey, String]     = _.value
-    given Conversion[chess.format.Uci, String]             = _.uci
-    given postIdConv: Conversion[ForumPostId, String]      = _.value
-    given Conversion[ForumCategId, String]                 = _.value
-    given Conversion[ForumTopicId, String]                 = _.value
-    given relayTourIdConv: Conversion[RelayTourId, String] = _.value
-    given Conversion[chess.FideId, Int]                    = _.value
-    given challengeIdConv: Conversion[ChallengeId, String] = _.value
+  given QueryStringBindable[Uci] = strQueryString[Uci](Uci.apply, "Invalid UCI move", _.uci)

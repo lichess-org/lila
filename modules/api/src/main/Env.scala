@@ -9,6 +9,7 @@ import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.common.config.*
 import lila.core.misc.lpv.*
+import lila.core.id.CmsPageKey
 
 @Module
 final class Env(
@@ -98,9 +99,9 @@ final class Env(
   lazy val chatFreshness     = wire[ChatFreshness]
 
   import lila.cms.CmsPage
-  def cmsRender(key: CmsPage.Key)(using ctx: Context): Fu[Option[CmsPage.Render]] =
+  def cmsRender(key: CmsPageKey)(using ctx: Context): Fu[Option[CmsPage.Render]] =
     cmsApi.render(key)(ctx.req, ctx.lang)
-  def cmsRenderKey(key: String)(using Context) = cmsRender(CmsPage.Key(key))
+  def cmsRenderKey(key: String)(using Context) = cmsRender(CmsPageKey(key))
 
   Bus.subscribeFuns(
     "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>

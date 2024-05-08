@@ -114,6 +114,7 @@ private object DisposableEmailDomain:
       "lavabit.com",
       "love.com" /* AOL */,
       "outlook.com",
+      "outlook.com.au",
       "pobox.com",
       "rocketmail.com" /* Yahoo */,
       "safe-mail.net",

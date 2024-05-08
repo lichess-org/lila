@@ -110,13 +110,15 @@ final class Env(
         repo.toKey(key).flatMap { repo.enableClient(_, v = true) }.inject("done!")
       case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
 
-  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban", "fishnet"):
+  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
     case lila.core.mod.MarkCheater(userId, true) => disable(userId.value)
     case lila.core.mod.MarkBooster(userId)       => disable(userId.value)
     case lila.core.mod.Shadowban(userId, true)   => disable(userId.value)
-    case lila.core.fishnet.GameRequest(id) =>
+
+  Bus.sub[lila.core.fishnet.Bus]:
+    case lila.core.fishnet.Bus.GameRequest(id) =>
       analyser(id, Work.Sender(userId = UserId.lichess, ip = none, mod = false, system = true))
-    case req: lila.core.fishnet.StudyChapterRequest => analyser.study(req)
+    case req: lila.core.fishnet.Bus.StudyChapterRequest => analyser.study(req)
 
   Bus.subscribeFun("fishnetPlay"):
     case game: Game => player(game)

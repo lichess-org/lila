@@ -4,6 +4,7 @@ import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.core.i18n.I18nKey
+import lila.core.study.Order
 
 final class StudyPager(
     studyRepo: StudyRepo,
@@ -74,7 +75,7 @@ final class StudyPager(
     )
 
   def byTopic(topic: StudyTopic, order: Order, page: Int)(using me: Option[Me]) =
-    val onlyMine = me.ifTrue(order == Order.Mine)
+    val onlyMine = me.ifTrue(order == Order.mine)
     paginator(
       selectTopic(topic) ++ onlyMine.fold(accessSelect)(selectMemberId(_)),
       order,
@@ -100,14 +101,14 @@ final class StudyPager(
       selector = selector,
       projection = studyRepo.projection.some,
       sort = order match
-        case Order.Hot          => $sort.desc("rank")
-        case Order.Newest       => $sort.desc("createdAt")
-        case Order.Oldest       => $sort.asc("createdAt")
-        case Order.Updated      => $sort.desc("updatedAt")
-        case Order.Popular      => $sort.desc("likes")
-        case Order.Alphabetical => $sort.asc("name")
+        case Order.hot          => $sort.desc("rank")
+        case Order.newest       => $sort.desc("createdAt")
+        case Order.oldest       => $sort.asc("createdAt")
+        case Order.updated      => $sort.desc("updatedAt")
+        case Order.popular      => $sort.desc("likes")
+        case Order.alphabetical => $sort.asc("name")
         // mine filter for topic view
-        case Order.Mine => $sort.desc("rank")
+        case Order.mine => $sort.desc("rank")
       ,
       hint = hint
     ).mapFutureList(withChaptersAndLiking(me))
@@ -145,20 +146,19 @@ final class StudyPager(
       }
     }
 
-enum Order(val key: String, val name: I18nKey):
-
-  case Hot          extends Order("hot", I18nKey.study.hot)
-  case Newest       extends Order("newest", I18nKey.study.dateAddedNewest)
-  case Oldest       extends Order("oldest", I18nKey.study.dateAddedOldest)
-  case Updated      extends Order("updated", I18nKey.study.recentlyUpdated)
-  case Popular      extends Order("popular", I18nKey.study.mostPopular)
-  case Alphabetical extends Order("alphabetical", I18nKey.study.alphabetical)
-  case Mine         extends Order("mine", I18nKey.study.myStudies)
-
-object Order:
-  val default                   = Hot
-  val list                      = values.toList
-  val withoutMine               = list.filterNot(_ == Mine)
-  val withoutSelector           = withoutMine.filter(o => o != Oldest && o != Alphabetical)
-  private val byKey             = list.mapBy(_.key)
+object Orders:
+  import lila.core.study.Order
+  val default                   = Order.hot
+  val list                      = Order.values.toList
+  val withoutMine               = list.filterNot(_ == Order.mine)
+  val withoutSelector           = withoutMine.filter(o => o != Order.oldest && o != Order.alphabetical)
+  private val byKey             = list.mapBy(_.toString)
   def apply(key: String): Order = byKey.getOrElse(key, default)
+  val name: Order => I18nKey =
+    case Order.hot          => I18nKey.study.hot
+    case Order.newest       => I18nKey.study.dateAddedNewest
+    case Order.oldest       => I18nKey.study.dateAddedOldest
+    case Order.updated      => I18nKey.study.recentlyUpdated
+    case Order.popular      => I18nKey.study.mostPopular
+    case Order.alphabetical => I18nKey.study.alphabetical
+    case Order.mine         => I18nKey.study.myStudies

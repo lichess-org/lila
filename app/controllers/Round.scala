@@ -218,14 +218,14 @@ final class Round(
           val hasChat = ctx.isAuth && tour.forall(tournamentC.canHaveChat(_, none))
           hasChat.so(
             env.chat.api.userChat.cached
-              .findMine(ChatId(tid))
+              .findMine(tid.into(ChatId))
               .dmap(toEventChat(s"tournament/$tid"))
           )
         case (_, Some(sid), _) =>
           env.chat.api.userChat.cached.findMine(sid.into(ChatId)).dmap(toEventChat(s"simul/$sid"))
         case (_, _, Some(sid)) =>
           env.swiss.api
-            .roundInfo(SwissId(sid))
+            .roundInfo(sid)
             .flatMapz(swissC.canHaveChat)
             .flatMapz:
               env.chat.api.userChat.cached

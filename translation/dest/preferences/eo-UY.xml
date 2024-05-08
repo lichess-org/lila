@@ -34,10 +34,10 @@
   <string name="premovesPlayingDuringOpponentTurn">Antaŭmovoj (ludi dum la vico de kontraŭulo)</string>
   <string name="takebacksWithOpponentApproval">Reprenoj (kun konsento de kontraŭulo)</string>
   <string name="inCasualGamesOnly">Nur ĉe amikaj ludoj</string>
-  <string name="promoteToQueenAutomatically">Aŭtomata ŝanĝo (de peonoj) al Damoj</string>
-  <string name="explainPromoteToQueenAutomatically">Premu la &lt;ctrl&gt; klavon dum promocio por dumtempe malebligi aŭtomatan promocion</string>
+  <string name="promoteToQueenAutomatically">Memage rangaltigi soldatojn al damoj</string>
+  <string name="explainPromoteToQueenAutomatically">Premu la &lt;ctrl&gt; klavon dum rangaltigo por momente malŝalti memagan rangaltiĝon</string>
   <string name="whenPremoving">Ĉe antaŭmovoj</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Aŭtomate postuli egalvenkon post trifoja ripetado</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Memage postuli egalvenkon post trifoja ripetado</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kiam restas malpli ol 30 sekundoj</string>
   <string name="moveConfirmation">Konfirmo de movo</string>
   <string name="explainCanThenBeTemporarilyDisabled">Povas esti malebligita dum ludo kun la tabulo menuo</string>

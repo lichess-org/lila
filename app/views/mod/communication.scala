@@ -123,7 +123,7 @@ def communication(
                   case PublicSource.Watcher(id) =>
                     a(href := routes.Round.watcher(id, Color.white))("Game #", id)
                   case PublicSource.Study(id) => a(href := routes.Study.show(id))("Study #", id)
-                  case PublicSource.Swiss(id) => views.swiss.ui.link(SwissId(id))
+                  case PublicSource.Swiss(id) => views.swiss.ui.link(id)
                   case PublicSource.Forum(id) => a(href := routes.ForumPost.redirect(id))("Forum #", id)
                   case PublicSource.Ublog(id) => a(href := routes.Ublog.redirect(id))("User blog #", id)
                 ,
