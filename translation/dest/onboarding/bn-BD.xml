@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">স্বাগতম!</string>
+  <string name="learnChessRules">দাবার নিয়ম শিখুন</string>
+  <string name="exploreTheSiteAndHaveFun">সাইটটি অন্বেষণ করুন এবং উপভোগ করুন :)</string>
+</resources>
