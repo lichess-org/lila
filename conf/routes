@@ -38,7 +38,7 @@ GET   /tv/:chanKey/feed                controllers.Tv.feed(chanKey)
 GET   /tv/$gameId<\w{8}>/:color/sides controllers.Tv.sides(gameId: GameId, color: Color)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey)
-GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey, gameId: GameId, exclude: List[String])
+GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey, gameId: GameId, exclude: List[GameId])
 GET   /api/tv/channels                 controllers.Tv.channels
 GET   /api/tv/feed                     controllers.Tv.feedDefault
 GET   /api/tv/:chanKey/feed            controllers.Tv.feed(chanKey)
