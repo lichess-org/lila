@@ -3,4 +3,11 @@
   <string name="isLichessLagging">Lichess কি বেঁধে যাচ্ছে?</string>
   <string name="measurementInProgressThreeDot">মাপা হচ্ছে...</string>
   <string name="noAndYourNetworkIsGood">না। আপনার নেটওয়ার্ক ভাল আছে।</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">না। আর আপনার নেটওয়ার্ক খারাপ.</string>
+  <string name="yesItWillBeFixedSoon">হ্যাঁ. এটা শীঘ্রই ঠিক করা হবে!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">এবং এখন, দীর্ঘ উত্তর! গেম ল্যাগ দুটি সম্পর্কহীন মান দিয়ে গঠিত (নিম্ন হলে ভাল):</string>
+  <string name="lichessServerLatency">Lichess সার্ভার লেটেন্সি</string>
+  <string name="networkBetweenLichessAndYou">Lichess এবং আপনার মধ্যে নেটওয়ার্ক</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">উপরের বারে আপনার নামে ক্লিক করে আপনি যেকোনো সময় এই দুটি মান খুঁজে পেতে পারেন.</string>
+  <string name="lagCompensation">ল্যাগ ক্ষতিপূরণ</string>
 </resources>
