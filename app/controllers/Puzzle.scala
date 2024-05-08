@@ -22,6 +22,7 @@ import lila.puzzle.{
 import lila.rating.PerfType
 import lila.core.i18n.Translate
 import lila.core.user.WithPerf
+import lila.core.i18n.Language
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -303,8 +304,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           )
 
   def show(angleOrId: String) = Open(serveShow(angleOrId))
-  def showLang(lang: String, angleOrId: String) =
-    LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId))(lang)
+  def showLang(language: Language, angleOrId: String) =
+    LangPage(routes.Puzzle.show(angleOrId).url)(serveShow(angleOrId))(language)
 
   private def serveShow(angleOrId: String)(using ctx: Context) = NoBot:
     val langPath = LangPath(routes.Puzzle.show(angleOrId)).some

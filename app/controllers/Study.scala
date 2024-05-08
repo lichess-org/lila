@@ -567,9 +567,7 @@ final class Study(
         env.study.findConnectedUsersIn(studyId)(env.streamer.liveStreamApi.streamerUserIds)
 
   def glyphs(lang: String) = Anon:
-    play.api.i18n.Lang
-      .get(lang)
-      .so: lang =>
-        JsonOk:
-          lila.study.JsonView.glyphs(using env.translator.to(lang))
-        .withHeaders(CACHE_CONTROL -> "max-age=3600")
+    Found(play.api.i18n.Lang.get(lang)): lang =>
+      JsonOk:
+        lila.study.JsonView.glyphs(using env.translator.to(lang))
+      .withHeaders(CACHE_CONTROL -> "max-age=3600")

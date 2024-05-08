@@ -6,7 +6,7 @@ GET   /lobby/seeks                     controllers.Lobby.seeks
 
 # 2-letter routes, then lang route
 GET   /tv                              controllers.Tv.index
-GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang)
+GET   /$lang<\w\w>                     controllers.Lobby.homeLang(lang: Language)
 
 # Highest hit count
 GET   /account/info                    controllers.Account.info
@@ -28,7 +28,7 @@ GET   /games/export/:username          controllers.Game.exportByUser(username: U
 POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId: GameId)
 
 # TV
-GET   /$lang<\w\w\w?>/tv               controllers.Tv.indexLang(lang)
+GET   /$lang<\w\w\w?>/tv               controllers.Tv.indexLang(lang: Language)
 GET   /tv/frame                        controllers.Tv.frameDefault
 GET   /tv/feed                         controllers.Tv.feedDefault
 GET   /tv/channels                     controllers.Main.movedPermanently(to = "/api/tv/channels")
@@ -124,9 +124,9 @@ GET   /blog.atom                       controllers.Main.movedPermanently(to = "/
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.communityAll(page: Int ?= 1)
-GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang, page: Int ?= 1)
-GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
-GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
+GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang: Language, page: Int ?= 1)
+GET   /blog/community.atom             controllers.Ublog.communityAtom(lang: Language ?= Language("all"))
+GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang: Language)
 GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
 
 GET   /feed                            controllers.Feed.index(page: Int ?= 1)
@@ -147,7 +147,7 @@ GET   /opening/:key/:moves             controllers.Opening.byKeyAndMoves(key, mo
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
 POST  /training/coordinate/score       controllers.Coordinate.score
-GET   /$lang<\w\w\w?>/training/coordinate controllers.Coordinate.homeLang(lang)
+GET   /$lang<\w\w\w?>/training/coordinate controllers.Coordinate.homeLang(lang: Language)
 
 # Training - Puzzle
 GET   /training                        controllers.Puzzle.home
@@ -175,15 +175,15 @@ POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: PuzzleId)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: PuzzleId, theme)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme, id: PuzzleId)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme)
-GET   /$lang<\w\w\w?>/training            controllers.Puzzle.homeLang(lang)
-GET   /$lang<\w\w\w?>/training/themes     controllers.Puzzle.themesLang(lang)
-GET   /$lang<\w\w\w?>/training/:angleOrId controllers.Puzzle.showLang(lang, angleOrId)
+GET   /$lang<\w\w\w?>/training            controllers.Puzzle.homeLang(lang: Language)
+GET   /$lang<\w\w\w?>/training/themes     controllers.Puzzle.themesLang(lang: Language)
+GET   /$lang<\w\w\w?>/training/:angleOrId controllers.Puzzle.showLang(lang: Language, angleOrId)
 
 # Puzzle Streak
 GET   /streak                           controllers.Puzzle.streak
 GET   /api/streak                       controllers.Puzzle.apiStreak
 POST  /api/streak/:score                controllers.Puzzle.apiStreakResult(score: Int)
-GET   /$lang<\w\w\w?>/streak            controllers.Puzzle.streakLang(lang)
+GET   /$lang<\w\w\w?>/streak            controllers.Puzzle.streakLang(lang: Language)
 
 # Puzzle Storm
 GET   /storm                            controllers.Storm.home
@@ -192,7 +192,7 @@ GET   /storm/dashboard                  controllers.Storm.dashboard(page: Int ?=
 GET   /storm/dashboard/:username        controllers.Storm.dashboardOf(username: UserStr, page: Int ?= 1)
 GET   /api/storm                        controllers.Storm.apiGet
 GET   /api/storm/dashboard/:username    controllers.Storm.apiDashboardOf(username: UserStr, days: Int ?= 30)
-GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang)
+GET   /$lang<\w\w\w?>/storm             controllers.Storm.homeLang(lang: Language)
 
 # Puzzle Racer
 GET   /racer                            controllers.Racer.home
@@ -201,7 +201,7 @@ POST  /api/racer                        controllers.Racer.apiCreate
 GET   /racer/:id                        controllers.Racer.show(id)
 GET   /racer/:id/rematch                controllers.Racer.rematch(id)
 POST  /racer/lobby                      controllers.Racer.lobby
-GET   /$lang<\w\w\w?>/racer             controllers.Racer.homeLang(lang)
+GET   /$lang<\w\w\w?>/racer             controllers.Racer.homeLang(lang: Language)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
@@ -241,8 +241,8 @@ GET   /study/topic                     controllers.Study.topics
 POST  /study/topic                     controllers.Study.setTopics
 GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic, order: StudyOrder, page: Int ?= 1)
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
-GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang)
-GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
+GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang: String)
+GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang: Language)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id: StudyId)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id: StudyId, chapterId: StudyChapterId)
 DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id: StudyId, chapterId: StudyChapterId)
@@ -284,13 +284,13 @@ GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(rou
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: RelayRoundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
-GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang)
+GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang: Language)
 
 # Learn
 GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
-GET   /$lang<\w\w\w?>/learn            controllers.Learn.indexLang(lang)
+GET   /$lang<\w\w\w?>/learn            controllers.Learn.indexLang(lang: Language)
 
 # Patron
 GET   /patron                          controllers.Plan.index
@@ -392,7 +392,7 @@ GET   /tournament/help                        controllers.Tournament.help
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
 GET   /tournament/shields/:categ              controllers.Tournament.categShields(categ)
-GET   /$lang<\w\w\w?>/tournament              controllers.Tournament.homeLang(lang)
+GET   /$lang<\w\w\w?>/tournament              controllers.Tournament.homeLang(lang: Language)
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
@@ -416,7 +416,7 @@ GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id: Swi
 GET   /swiss/$id<\w{8}>/page-of/:user         controllers.Swiss.pageOf(id: SwissId, user: UserStr)
 GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id: SwissId, user: UserStr)
 POST  /api/swiss/$id<\w{8}>/schedule-next-round controllers.Swiss.scheduleNextRound(id: SwissId)
-GET   /$lang<\w\w\w?>/swiss                   controllers.Swiss.homeLang(lang)
+GET   /$lang<\w\w\w?>/swiss                   controllers.Swiss.homeLang(lang: Language)
 
 # Simul
 GET   /simul                                  controllers.Simul.home
@@ -433,7 +433,7 @@ POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: SimulI
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: SimulId)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: SimulId, variant: chess.variant.Variant.LilaKey)
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: SimulId)
-GET   /$lang<\w\w\w?>/simul                   controllers.Simul.homeLang(lang)
+GET   /$lang<\w\w\w?>/simul                   controllers.Simul.homeLang(lang: Language)
 
 # Team API
 GET   /api/team/all                           controllers.TeamApi.all(page: Int ?= 1)
@@ -504,12 +504,12 @@ POST  /translation/select              controllers.I18n.select
 # Authentication
 GET   /login                           controllers.Auth.login
 POST  /login                           controllers.Auth.authenticate
-GET   /$lang<\w\w\w?>/login            controllers.Auth.loginLang(lang)
+GET   /$lang<\w\w\w?>/login            controllers.Auth.loginLang(lang: Language)
 GET   /logout                          controllers.Auth.logoutGet
 POST  /logout                          controllers.Auth.logout
 GET   /signup                          controllers.Auth.signup
 POST  /signup                          controllers.Auth.signupPost
-GET   /$lang<\w\w\w?>/signup           controllers.Auth.signupLang(lang)
+GET   /$lang<\w\w\w?>/signup           controllers.Auth.signupLang(lang: Language)
 GET   /signup/check-your-email         controllers.Auth.checkYourEmail
 POST  /signup/fix-email                controllers.Auth.fixEmail
 GET   /signup/confirm/:token           controllers.Auth.signupConfirmEmail(token)
@@ -626,8 +626,8 @@ GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 POST  /upload/image/coach              controllers.Coach.pictureApply
 GET   /coach/:username                 controllers.Coach.show(username: UserStr)
-GET   /coach/:lang/:country/:order     controllers.Coach.search(lang, order, country, page: Int ?= 1)
-GET   /$lang<\w\w\w?>/coach            controllers.Coach.homeLang(lang)
+GET   /coach/:lang/:country/:order     controllers.Coach.search(lang: String, order, country, page: Int ?= 1)
+GET   /$lang<\w\w\w?>/coach            controllers.Coach.homeLang(lang: Language)
 
 # Paste
 GET   /paste                           controllers.Importer.importGame
@@ -822,7 +822,7 @@ POST  /cms/:id/delete                 controllers.Cms.delete(id: CmsPageId)
 GET   /developers                      controllers.Main.webmasters
 GET   /mobile                          controllers.Main.mobile
 GET   /app-store                       controllers.Main.redirectToAppStore
-GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang)
+GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang: Language)
 GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs

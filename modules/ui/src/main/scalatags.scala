@@ -115,7 +115,6 @@ object ScalatagsTemplate extends ScalatagsTemplate
 trait ScalatagsExtensions:
 
   export Context.ctxMe
-  export LilaRouter.conversions.given
   export lila.core.perm.Granter
 
   given Render[Icon] = _.value
