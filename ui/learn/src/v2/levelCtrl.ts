@@ -32,7 +32,6 @@ export interface AssertData {
 }
 
 export class LevelCtrl {
-  blueprint: Level;
   vm: LevelVm = {
     lastStep: false,
     completed: false,
@@ -46,7 +45,7 @@ export class LevelCtrl {
   chess: ChessCtrl;
 
   constructor(
-    blueprint: Level,
+    readonly blueprint: Level,
     readonly opts: LevelOpts,
   ) {
     const items = makeItems({
@@ -90,7 +89,9 @@ export class LevelCtrl {
         this.vm.failed = true;
         ground.showCheckmate(chess);
         sound.failure();
-        return m.redraw();
+        // TODO:
+        // return m.redraw();
+        return;
       }
       let took = false,
         inScenario,
@@ -132,7 +133,8 @@ export class LevelCtrl {
           ground.color(blueprint.color, makeChessDests());
         }
       }
-      m.redraw();
+      // TODO:
+      // m.redraw();
     };
     const makeChessDests = function () {
       return chess.dests({
@@ -181,7 +183,8 @@ export class LevelCtrl {
         this.vm.completed = true;
         sound.levelEnd();
         ground.stop();
-        m.redraw();
+        // TODO:
+        // m.redraw();
         if (!this.blueprint.nextButton) timeouts.setTimeout(this.opts.onComplete, 1200);
       },
       ground.data().stats.dragged ? 1 : 250,

@@ -5,7 +5,7 @@ import * as scoring from './score';
 import { SnabbdomSideCtrl } from './sideCtrl';
 import { clearTimeouts } from './timeouts';
 import { extractHashParameters } from './hashRouting';
-import { RunCtrl } from './runCtrl';
+import { RunCtrl } from './run/runCtrl';
 
 export class LearnCtrl {
   data: LearnProgress = this.opts.storage.data;

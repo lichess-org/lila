@@ -1,11 +1,11 @@
-import * as sound from './sound';
-import * as stages from './stage/list';
+import * as sound from '../sound';
+import * as stages from '../stage/list';
 import { Prop, prop } from 'common';
-import { LearnProgress, SnabbdomLearnOpts } from '../learn';
-import { Stage } from './stage/list';
-import { LearnCtrl } from './ctrl';
-import { clearTimeouts } from './timeouts';
-import { LevelCtrl } from './levelCtrl';
+import { LearnProgress, SnabbdomLearnOpts } from '../../learn';
+import { Stage } from '../stage/list';
+import { LearnCtrl } from '../ctrl';
+import { clearTimeouts } from '../timeouts';
+import { LevelCtrl } from '../levelCtrl';
 
 const RESTARTING_KEY = 'learn.restarting';
 
@@ -29,9 +29,10 @@ export class RunCtrl {
 
     this.trans = ctrl.trans;
 
-    const stage = stages.byId[opts.stageId ?? -1];
+    const stage = stages.byId[opts.stageId ?? 1];
     if (!stage) {
       // TODO:
+      console.log('exiting early');
       return;
     }
     ctrl.sideCtrl.setStage(stage);
@@ -43,8 +44,9 @@ export class RunCtrl {
         let it = 0;
         if (result) while (result.scores[it]) it++;
         if (it >= stage.levels.length) it = 0;
-        return it + 1;
-        // TODO: also set levelId on opts?
+        const newLevelId = it + 1;
+        opts.levelId = newLevelId;
+        return newLevelId;
       })();
 
     this.level = new LevelCtrl(stage.levels[Number(levelId) - 1], {
@@ -52,31 +54,33 @@ export class RunCtrl {
         opts.storage.saveScore(stage, this.level.blueprint, this.level.vm.score);
       },
       onComplete: () => {
-        if (this.level.blueprint.id < stage.levels.length)
-          m.route('/' + stage.id + '/' + (this.level.blueprint.id + 1));
-        else if (vm.stageCompleted()) return;
+        if (this.level.blueprint.id < stage.levels.length) {
+          // TODO:
+          // m.route('/' + stage.id + '/' + (this.level.blueprint.id + 1));
+        } else if (this.vm.stageCompleted()) return;
         else {
-          vm.stageCompleted(true);
+          this.vm.stageCompleted(true);
           sound.stageEnd();
         }
-        m.redraw();
+
+        ctrl.redraw();
       },
     });
 
     const isRestarting = site.tempStorage.boolean(RESTARTING_KEY);
-    const vm = {
+    this.vm = {
       stageStarting: prop(this.level.blueprint.id === 1 && this.stageScore() === 0 && !isRestarting.get()),
       stageCompleted: prop(false),
     };
 
     isRestarting.set(false);
 
-    if (vm.stageStarting()) sound.stageStart();
+    if (this.vm.stageStarting()) sound.stageStart();
     else this.level.start();
   }
 
   get stage(): Stage {
-    return stages.byId[this.opts.stageId ?? 0]!;
+    return stages.byId[this.opts.stageId ?? 1]!;
   }
 
   stageScore = () => {

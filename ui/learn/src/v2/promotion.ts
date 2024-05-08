@@ -2,7 +2,7 @@ import chessground from 'chessground';
 import * as ground from './ground';
 import type { Square as Key } from 'chess.js';
 import { LevelCtrl } from './levelCtrl';
-import { RunCtrl } from './runCtrl';
+import { RunCtrl } from './run/runCtrl';
 import { PromotionRole } from './util';
 import { h } from 'snabbdom';
 const opposite = chessground.util.opposite;
@@ -30,7 +30,8 @@ export function start(orig: Key, dest: Key, callback: PromotionCallback) {
       dest: dest,
       callback: callback,
     };
-    m.redraw();
+    // TODO:
+    // m.redraw();
     return true;
   }
   return false;
