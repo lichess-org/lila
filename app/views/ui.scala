@@ -86,6 +86,8 @@ val auth = lila.web.ui.AuthUi(helpers)
 
 val storm = lila.storm.ui.StormUi(helpers)
 
+val racer = lila.racer.ui.RacerUi(helpers)
+
 val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
 val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
