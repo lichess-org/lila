@@ -791,12 +791,12 @@
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Mit Gerät synchronisieren</string>
   <string name="backgroundImageUrl">Hintergrundbild-URL:</string>
-  <string name="board">Brett</string>
-  <string name="size">Größe</string>
-  <string name="opacity">Transparenz</string>
-  <string name="brightness">Helligkeit</string>
-  <string name="hue">Farbton</string>
-  <string name="boardReset">Farben auf Standardwerte zurücksetzen</string>
+  <string name="board" comment="Allows you to change the appearance of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Brett</string>
+  <string name="size" comment="Allows you to change the size of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Größe</string>
+  <string name="opacity" comment="Allows you to change how transparent your chessboard appears. This option only appears when using a custom (picture) background. You can make the board more transparent so you can view more of the background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Transparenz</string>
+  <string name="brightness" comment="Allows you to change the brightness of the chessboard and pieces on it. This option only appears when using a light or dark background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Helligkeit</string>
+  <string name="hue" comment="Allows you to change the hue of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Farbton</string>
+  <string name="boardReset" comment="Allows you to reset any changes made to colours. Will appear if you change any colour settings.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Farben auf Standardwerte zurücksetzen</string>
   <string name="pieceSet">Figurenstil</string>
   <string name="embedInYourWebsite">In Webseite einbetten</string>
   <string name="usernameAlreadyUsed">Dieser Benutzername ist bereits vergeben. Bitte versuche es mit einem anderen.</string>

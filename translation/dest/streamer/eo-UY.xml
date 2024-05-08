@@ -17,7 +17,7 @@
   <string name="rules">Filmprezentistaj reguloj</string>
   <string name="rule1">Inkluzivu la ŝlosilvorton \"lichess.org\" en via elsenda titolo kaj uzu la kategorion \"Chess\" kiam vi elsendi ĉe Lichess.</string>
   <string name="rule2">Forigi la ŝlosilvorton kiam vi elsendi ne-Lichess-ajn aferojn.</string>
-  <string name="rule3">Lichess aŭtomate detektos via elsendo kaj ebligi la sekvajn bonaĵojn:</string>
+  <string name="rule3">Lichess memage rimarkos vian elsendon kaj ŝaltos la sekvajn bonaĵojn:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Legi nian %s por certigi honestan ludon por ĉiuj dum via elsendo.</string>
   <string name="streamingFairplayFAQ">elsendada honestluda POD</string>
   <string name="perks">Avantaĝoj de elsendas kun la ŝlosilvorto</string>

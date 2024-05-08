@@ -528,7 +528,7 @@
     <item quantity="one">%s aktivaj ludoj</item>
     <item quantity="other">%s aktivaj ludoj</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Aŭtomate iri al la sekvanta ludo post movi</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Memage iri al sekvanta ludo post via movo</string>
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
   <string name="puzzles">Puzloj</string>
   <string name="name">Nomo</string>

@@ -41,23 +41,23 @@ salti ĉirkaŭe!</string>
   <string name="knightsCanJumpOverObstacles">Ĉevaloj povas salti super obstakloj!
 Eskapu kaj venku la stelojn!</string>
   <string name="knightComplete">Gratulon! Vi regis la ĉevalon.</string>
-  <string name="thePawn">La peono</string>
+  <string name="thePawn">La soldato</string>
   <string name="itMovesForwardOnly">Ĝi nur moviĝas antaŭe</string>
-  <string name="pawnIntro">Peonoj estas malfortaj, sed ili havas multe da potencialo.</string>
-  <string name="pawnsMoveOneSquareOnly">Peonoj povas moviĝi nur unu spaco. Sed Kiam, ili atingas la alian flankon de la tabulo, ili fariĝas pli forta peco!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Plejparto de la tempo promocii damon estas la plej bona.
-Sed foje ĉevalo povas esti oportuna!</string>
+  <string name="pawnIntro">Soldatoj estas malfortaj, sed ili havas multe da potencialo.</string>
+  <string name="pawnsMoveOneSquareOnly">Soldatoj povas moviĝi nur unu spaco. Sed atinginte la malan flankon de la tabulo, ili fariĝas pli fortaj pecoj!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Plejofte, rangaltigi al reĝino estas plej taŭga.
+Sed foje, ĉevalo povas esti oportuna!</string>
   <string name="pawnsMoveForward">Peonoj moviĝas antaŭe, sed kaptas oblikve!</string>
-  <string name="captureThenPromote">Kaptu, poste promocii!</string>
-  <string name="useAllThePawns">Uzu ĉiujn peonojn!
-Ne necesas promocii.</string>
-  <string name="aPawnOnTheSecondRank">Peono en la dua vico povas movi 2 kvadratojn samtempe!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Grabu ĉiujn stelojn!
-Ne necesas promocii.</string>
-  <string name="pawnComplete">Gratulon! Peonoj ne havas sekretojn por vi.</string>
-  <string name="pawnPromotion">Promocio de peono</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Via peono atingis la fino de la tabulo!</string>
-  <string name="itNowPromotesToAStrongerPiece">Ĝi nun promocias al pli forta peco.</string>
+  <string name="captureThenPromote">Kaptu, poste rangaltigu!</string>
+  <string name="useAllThePawns">Uzu ĉiujn soldatojn!
+Ne necesas rangaltigi.</string>
+  <string name="aPawnOnTheSecondRank">Soldato en la dua vico povas moviĝi 2 kvadratojn dum unu vico!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Prenu ĉiujn stelojn!
+Ne necesas rangaltigi.</string>
+  <string name="pawnComplete">Gratulon! Soldatoj kaŝas nenion al vi.</string>
+  <string name="pawnPromotion">Rangaltigo de soldato</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Via soldato atingis la finon de la tabulo!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ĝi nun rangaltiĝas al pli forta peco.</string>
   <string name="selectThePieceYouWant">Elektu la pecojn, kiujn vi volas!</string>
   <string name="fundamentals">Fundamentoj</string>
   <string name="capture">Kapti</string>
@@ -123,8 +123,8 @@ Ili iras apud la ĉevaloj.</string>
 Ŝi iras sur sian propran koloron.</string>
   <string name="placeTheKing">Metu la reĝon!
 Ĝuste apud sia damo.</string>
-  <string name="pawnsFormTheFrontLine">Peonoj de la antaŭa linio.
-Faru iun movon por daŭrigi.</string>
+  <string name="pawnsFormTheFrontLine">La antaŭa linio fariĝas el soldatoj.
+Faru ajnan movon por daŭrigi.</string>
   <string name="boardSetupComplete">Gratulojn! Vi scias kiel starigi la ŝakan tabulon.</string>
   <string name="castling">Aroki</string>
   <string name="theSpecialKingMove">La speciala reĝo moviĝas</string>
@@ -146,18 +146,19 @@ Bloku la ŝakon, poste aroku!</string>
   <string name="findAWayToCastleKingSide">Aroku reĝflanke iele!</string>
   <string name="findAWayToCastleQueenSide">Aroku damflanke iele!</string>
   <string name="castlingComplete">Gratulon! Vi devas preskaŭ ĉiam aroki dum ajna ludu.</string>
-  <string name="enPassant">Sur paso</string>
-  <string name="theSpecialPawnMove">La aparta movo de la peono</string>
-  <string name="enPassantIntro">Kiam la kontraŭa peono moviĝis 2 kvadratojn, vi povas kapti ĝin kvazaŭ ĝi movus 1 kvadraton.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">La nigrulo ĵus movis la peonon du kvadratojn!
-Prenu ĝin pasante.</string>
-  <string name="enPassantOnlyWorksImmediately">Preni pasante funkcias nur
-tuj post la koncernata peonmovo 
+  <string name="enPassant">Preterpasa preno</string>
+  <string name="theSpecialPawnMove">La aparta movo de la soldato</string>
+  <string name="enPassantIntro">Kiam la kontraŭa soldato moviĝis 2 kvadratojn, vi povas kapti ĝin kvazaŭ ĝi movus 1 kvadraton.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">La nigrulo ĵus movis la soldaton
+je du kvadratoj!
+Preterpase prenu ĝin.</string>
+  <string name="enPassantOnlyWorksImmediately">Preterpasa preno sole
+fareblas post soldatomovo
 de la kontraŭulo.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Preni pasante funkcias nur
-se via peono staras en kvina vico.</string>
-  <string name="takeAllThePawnsEnPassant">Kaptu ĉiujn peonojn pasante!</string>
-  <string name="enPassantComplete">Gratulojn! Vi nun povas kapti pasante.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Preterpasa preno sole fareblas
+se via soldato staras en la 5-a vico.</string>
+  <string name="takeAllThePawnsEnPassant">Preterpase prenu ĉiujn soldatojn!</string>
+  <string name="enPassantComplete">Gratulojn! Vi nun scipovas preterpase preni.</string>
   <string name="stalemate">Pato</string>
   <string name="theGameIsADraw">La ludo estas egalvenko</string>
   <string name="stalemateIntro">Kiam ludanto ne ŝakas kaj ne ekzistas permesebla movo, estas pato. La ludo estas remio: neniu venkas, neniu malvenkas.</string>
@@ -173,8 +174,8 @@ Damo = 9
 Turo = 5
 Kuriero = 3
 Ĉevalo = 3
-Peono = 1
-La reĝo estas senvalora! Perdi ĝin signifas perdi la ludon.</string>
+Soldato = 1
+La reĝo elstare valoregas! Kiu perdas lin, perdas la ludon.</string>
   <string name="queenOverBishop">Prenu la pecon
 kun la plej alta valoro!
 Damo &gt; Kuriero</string>
@@ -186,13 +187,12 @@ kun la plej alta valoro!
 Certiĝu, ke via movo estas laŭleĝa!</string>
   <string name="takeThePieceWithTheHighestValue">Prenu la pecon
 kun la plej alta valoro!</string>
-  <string name="pieceValueComplete">Pecoj kun alta movebleco havas pli altan valoron!
+  <string name="pieceValueComplete">Gratulon! Vi nun konas la valoron de materio!
 Damo = 9
 Turo = 5
 Kuriero = 3
 Ĉevalo = 3
-Peono = 1
-La reĝo estas senvalora! Perdi ĝin signifas perdi la ludon</string>
+Soldato = 1</string>
   <string name="checkInTwo">Ŝaku du</string>
   <string name="twoMovesToGiveCheck">Du movoj por doni ŝakon</string>
   <string name="checkInTwoIntro">Trovu la ĝustan kombinon de du movoj, kiuj ŝakas la reĝon de la kontraŭulo!</string>
