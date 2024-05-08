@@ -24,4 +24,6 @@
   <string name="highscores">হাইস্কোর</string>
   <string name="runs">চালান</string>
   <string name="skip">এড়িয়ে যান</string>
+  <string name="thisMonth">এই মাসে</string>
+  <string name="clickToReload">পুনঃলোড করতে ক্লিক করুন</string>
 </resources>
