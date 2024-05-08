@@ -81,7 +81,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
                 code(page.key)
               ),
               td(shorten(page.markdown.value, 140)),
-              td(cls := "lang")(page.language.toUpperCase),
+              td(cls := "lang")(page.language.value.toUpperCase),
               td(
                 if page.live then goodTag(iconTag(Icon.Checkmark))
                 else badTag(iconTag(Icon.X))

@@ -14,11 +14,12 @@ import lila.core.socket.Sri
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
-import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
+import lila.study.{ Chapter, Settings, Orders, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.net.IpAddress
 import lila.core.id.RelayRoundId
+import lila.core.study.Order
 
 final class Study(
     env: Env,
@@ -33,10 +34,10 @@ final class Study(
     Reasonable(page):
       if text.trim.isEmpty then
         env.study.pager
-          .all(Order.default, page)
+          .all(Orders.default, page)
           .flatMap: pag =>
             preloadMembers(pag) >> negotiate(
-              Ok.page(views.study.list.all(pag, Order.default)),
+              Ok.page(views.study.list.all(pag, Orders.default)),
               apiStudies(pag)
             )
       else
@@ -48,9 +49,9 @@ final class Study(
               apiStudies(pag)
             )
 
-  def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.Hot, 1))
+  def homeLang = LangPage(routes.Study.allDefault())(allResults(Order.hot, 1))
 
-  def allDefault(page: Int) = all(Order.Hot, page)
+  def allDefault(page: Int) = all(Order.hot, page)
 
   def all(order: Order, page: Int) = Open:
     allResults(order, page)
@@ -58,7 +59,7 @@ final class Study(
   private def allResults(order: Order, page: Int)(using ctx: Context) =
     Reasonable(page):
       order match
-        case order if !Order.withoutSelector.contains(order) =>
+        case order if !Orders.withoutSelector.contains(order) =>
           Redirect(routes.Study.allDefault(page))
         case order =>
           env.study.pager
@@ -69,7 +70,7 @@ final class Study(
                 apiStudies(pag)
               )
 
-  def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default, page)
+  def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Orders.default, page)
 
   def byOwner(username: UserStr, order: Order, page: Int) = Open:
     Found(meOrFetch(username)): owner =>
@@ -304,7 +305,7 @@ final class Study(
       env.study.api.delete(study) >> env.relay.api
         .deleteRound(id.into(RelayRoundId))
         .map:
-          case None       => Redirect(routes.Study.mine("hot"))
+          case None       => Redirect(routes.Study.mine(Order.hot))
           case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
@@ -566,9 +567,7 @@ final class Study(
         env.study.findConnectedUsersIn(studyId)(env.streamer.liveStreamApi.streamerUserIds)
 
   def glyphs(lang: String) = Anon:
-    play.api.i18n.Lang
-      .get(lang)
-      .so: lang =>
-        JsonOk:
-          lila.study.JsonView.glyphs(using env.translator.to(lang))
-        .withHeaders(CACHE_CONTROL -> "max-age=3600")
+    Found(play.api.i18n.Lang.get(lang)): lang =>
+      JsonOk:
+        lila.study.JsonView.glyphs(using env.translator.to(lang))
+      .withHeaders(CACHE_CONTROL -> "max-age=3600")

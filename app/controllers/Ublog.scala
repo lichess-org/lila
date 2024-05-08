@@ -228,12 +228,12 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
 
-  def communityLang(langStr: String, page: Int = 1) = Open:
+  def communityLang(language: Language, page: Int = 1) = Open:
     import LangPicker.ByHref
-    LangPicker.byHref(langStr, ctx.req) match
-      case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page))
-      case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page))
-      case ByHref.Refused(lang) => communityIndex(lang.some, page)
+    LangPicker.byHref(language, ctx.req) match
+      case ByHref.NotFound        => Redirect(routes.Ublog.communityAll(page))
+      case ByHref.Redir(language) => Redirect(routes.Ublog.communityLang(language, page))
+      case ByHref.Refused(lang)   => communityIndex(lang.some, page)
       case ByHref.Found(lang) =>
         if ctx.isAuth then communityIndex(lang.some, page)
         else communityIndex(lang.some, page)(using ctx.withLang(lang))
@@ -252,10 +252,10 @@ final class Ublog(env: Env) extends LilaController(env):
             .map:
               views.ublog.community(language, _)
 
-  def communityAtom(language: String) = Anon:
-    val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
+  def communityAtom(language: Language) = Anon:
+    val found: Option[Lang] = LangList.popularNoRegion.find(l => Language(l) == language)
     env.ublog.paginator
-      .liveByCommunity(l.map(Language.apply), page = 1)
+      .liveByCommunity(found.map(Language.apply), page = 1)
       .map: posts =>
         Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
 
