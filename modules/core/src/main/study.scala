@@ -34,3 +34,6 @@ trait StudyApi:
 
 case class StartStudy(studyId: StudyId)
 case class RemoveStudy(studyId: StudyId)
+
+enum Order:
+  case hot, newest, oldest, updated, popular, alphabetical, mine

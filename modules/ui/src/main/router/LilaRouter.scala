@@ -6,6 +6,7 @@ import scalalib.newtypes.SameRuntime
 import lila.core.id.*
 import chess.variant.Variant
 import chess.format.Uci
+import lila.core.study.{ Order as StudyOrder }
 
 object LilaRouter:
 
@@ -37,6 +38,10 @@ object LilaRouter:
   given PathBindable[Color] =
     strPath[Color](Color.fromName, "Invalid chess color, should be white or black", _.name)
   given PathBindable[Uci] = strPath[Uci](Uci.apply, "Invalid UCI move", _.uci)
+  given PathBindable[StudyOrder] = strPath[StudyOrder](
+    s => scala.util.Try(StudyOrder.valueOf(s).some).getOrElse(None),
+    "Invalid study order"
+  )
 
   private def urlEncode(str: String) = java.net.URLEncoder.encode(str, "utf-8")
 

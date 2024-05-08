@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 import chess.format.pgn.PgnStr
 
 import lila.app.UiEnv.{ *, given }
-import lila.core.study.IdName
+import lila.core.study.{ IdName, Order }
 import lila.core.socket.SocketVersion
 import lila.common.Json.given
 
@@ -15,7 +15,7 @@ lazy val list = lila.study.ui.ListUi(helpers, bits)
 def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
   Page(p.title).css("study.index", "page"):
     main(cls := "page-menu")(
-      list.menu("staffPicks", lila.study.Order.Mine, Nil),
+      list.menu("staffPicks", Order.mine, Nil),
       main(cls := "page-menu__content box box-pad page"):
         views.site.page.pageContent(p)
     )
