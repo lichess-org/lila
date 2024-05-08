@@ -791,6 +791,12 @@
   <string name="transparent">Gjennomsiktig</string>
   <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilde:</string>
+  <string name="board" comment="Allows you to change the appearance of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Brett</string>
+  <string name="size" comment="Allows you to change the size of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Størrelse</string>
+  <string name="opacity" comment="Allows you to change how transparent your chessboard appears. This option only appears when using a custom (picture) background. You can make the board more transparent so you can view more of the background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Ugjennomsiktighet</string>
+  <string name="brightness" comment="Allows you to change the brightness of the chessboard and pieces on it. This option only appears when using a light or dark background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Lysstyrke</string>
+  <string name="hue" comment="Allows you to change the hue of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Fargetone</string>
+  <string name="boardReset" comment="Allows you to reset any changes made to colours. Will appear if you change any colour settings.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Tilbake til standardfarger</string>
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Bygg inn på nettstedet ditt</string>
   <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>
