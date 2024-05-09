@@ -6,18 +6,20 @@ coords {
 }
 
 /** Alternating colors in rank/file/square labels */
-.cg-wrap coords:nth-child(odd) coord:nth-child(odd),
-.cg-wrap coords.squares:nth-child(even) coord:nth-child(even),
-.cg-wrap.orientation-white coords.ranks:nth-child(odd) coord:nth-child(even),
-.cg-wrap.orientation-black coords.files:nth-child(even) coord:nth-child(even),
-.cg-wrap coords.files:nth-child(even) coord:nth-child(odd) {
+.cg-wrap.orientation-white coords.ranks coord:nth-child(even),
+.cg-wrap.orientation-white coords.files coord:nth-child(odd),
+.cg-wrap.orientation-black coords.ranks coord:nth-child(odd),
+.cg-wrap.orientation-black coords.files coord:nth-child(even),
+.cg-wrap coords.squares:nth-of-type(odd) coord:nth-child(odd),
+.cg-wrap coords.squares:nth-of-type(even) coord:nth-child(even) {
   color: var(---cg-ccw, $coord-color-default);
 }
 
-.cg-wrap coords:nth-child(odd) coord:nth-child(even),
-.cg-wrap coords.squares:nth-child(even) coord:nth-child(odd),
-.cg-wrap.orientation-white coords.ranks:nth-child(odd) coord:nth-child(odd),
-.cg-wrap.orientation-black coords.files:nth-child(even) coord:nth-child(odd),
-.cg-wrap coords.files:nth-child(even) coord:nth-child(even) {
+.cg-wrap.orientation-white coords.ranks coord:nth-child(odd),
+.cg-wrap.orientation-white coords.files coord:nth-child(even),
+.cg-wrap.orientation-black coords.ranks coord:nth-child(even),
+.cg-wrap.orientation-black coords.files coord:nth-child(odd),
+.cg-wrap coords.squares:nth-of-type(odd) coord:nth-child(even),
+.cg-wrap coords.squares:nth-of-type(even) coord:nth-child(odd) {
   color: var(---cg-ccb, $coord-color-default);
 }
