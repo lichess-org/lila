@@ -18,7 +18,7 @@ $pocket-height: 60px;
 }
 
 .analyse.variant-crazyhouse {
-  grid-template-rows: $pocket-col1-height auto $pocket-col1-height auto minmax(20em, 30vh);
+  grid-template-rows: $pocket-col1-height auto $pocket-col1-height auto auto minmax(20em, 30vh);
   grid-template-areas:
     'pocket-top'
     'board'
