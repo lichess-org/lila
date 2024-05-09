@@ -226,7 +226,8 @@ final class Study(
           division = division
         )
       )
-      studyJson <- env.study.jsonView(study, previews, chapter, fedNames.some, withMembers = !study.isRelay)
+      withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin)
+      studyJson <- env.study.jsonView(study, previews, chapter, fedNames.some, withMembers = withMembers)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
