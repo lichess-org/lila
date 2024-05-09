@@ -1,6 +1,5 @@
 package lila.timeline
 
-import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
@@ -49,9 +48,7 @@ final class Env(
 
   private val api = wire[TimelineApi]
 
-  lila.common.Bus.subscribeFuns(
-    "shadowban" -> { case lila.core.mod.Shadowban(userId, true) =>
-      entryApi.removeRecentFollowsBy(userId)
-    },
-    "timeline" -> { case propagate: lila.core.timeline.Propagate => api(propagate) }
-  )
+  lila.common.Bus.subscribeFun("shadowban"):
+    case lila.core.mod.Shadowban(userId, true) => entryApi.removeRecentFollowsBy(userId)
+
+  lila.common.Bus.sub[lila.core.timeline.Propagate](api(_))

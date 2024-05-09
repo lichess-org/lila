@@ -34,7 +34,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
-  const scrollable = $as<Element>('<div class="scrollable">');
+  const scrollable = $as<Element>(`<div class="${o.noScrollable ? 'not-' : ''}scrollable">`);
   scrollable.appendChild(view);
   dialog.appendChild(scrollable);
 
@@ -66,7 +66,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
           h('button.close-button', { attrs: { 'data-icon': licon.X, 'aria-label': 'Close' } }),
         ),
       h(
-        'div.scrollable',
+        `div.${o.noScrollable ? 'not-' : ''}scrollable`,
         h(
           'div.dialog-content' +
             (o.class

@@ -178,7 +178,7 @@ final class AssessApi(
       game.playerBlurPercent(player.color) >= 70
 
     def winnerGreatProgress(player: Player): Boolean =
-      game.winner.has(player) && players(player.color).perf.progress >= 90
+      game.winner.has(player) && players(player.color).perf.progress >= 80
 
     def noFastCoefVariation(player: Player): Option[Float] =
       Statistics.noFastMoves(Pov(game, player)).so(Statistics.moveTimeCoefVariation(Pov(game, player)))
@@ -186,18 +186,16 @@ final class AssessApi(
     def winnerUserOption = game.winnerColor.map(players(_))
     def winnerNbGames    = winnerUserOption.map(_.perf.nb)
 
-    def suspCoefVariation(c: Color) =
+    def suspCoefVariation(c: Color): Boolean =
       val x = noFastCoefVariation(game.player(c))
-      x.filter(_ < 0.45f).orElse(x.filter(_ < 0.5f).ifTrue(ThreadLocalRandom.nextBoolean()))
-    lazy val whiteSuspCoefVariation = suspCoefVariation(chess.White)
-    lazy val blackSuspCoefVariation = suspCoefVariation(chess.Black)
+      x.exists(_ < 0.47f) || (x.exists(_ < 0.53f) && ThreadLocalRandom.nextBoolean())
 
     def isUpset = ~(for
       winner <- game.winner
       loser  <- game.loser
-      wR     <- winner.stableRating
+      wR     <- winner.rating
       lR     <- loser.stableRating
-    yield wR <= lR - 300)
+    yield wR <= lR - 250)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if !gameApi.analysable(game) then fuccess(none)
@@ -216,9 +214,9 @@ final class AssessApi(
       else if game.createdAt.isBefore(bottomDate) then fuccess(none)
       else if isUpset then fuccess(Upset.some)
       // white has consistent move times
-      else if whiteSuspCoefVariation.isDefined then fuccess(WhiteMoveTime.some)
+      else if suspCoefVariation(White) then fuccess(WhiteMoveTime.some)
       // black has consistent move times
-      else if blackSuspCoefVariation.isDefined then fuccess(BlackMoveTime.some)
+      else if suspCoefVariation(Black) then fuccess(BlackMoveTime.some)
       else
         // someone is using a bot
         gameRepo.holdAlert.game(game).map { holdAlerts =>
@@ -232,7 +230,7 @@ final class AssessApi(
           // analyse some tourney games
           // else if (game.isTournament) randomPercent(20) option "Tourney random"
           /// analyse new player games
-          else if winnerNbGames.so(40 >) && randomPercent(75) then NewPlayerWin.some
+          else if winnerNbGames.so(_ < 40) && randomPercent(75) then NewPlayerWin.some
           else none
         }
 

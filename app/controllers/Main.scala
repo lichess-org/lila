@@ -144,18 +144,10 @@ final class Main(
 
   def githubSecretScanning =
     AnonBodyOf(parse.json):
-      _.asOpt[List[JsObject]]
-        .map:
-          _.flatMap: obj =>
-            for
-              token <- (obj \ "token").asOpt[String]
-              url   <- (obj \ "url").asOpt[String]
-            yield Bearer(token) -> url
-          .toMap
-        .so: tokensMap =>
-          env.oAuth.tokenApi
-            .secretScanning(tokensMap)
-            .flatMap:
-              _.traverse: (token, url) =>
-                env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
-            .as(NoContent)
+      _.asOpt[List[lila.oauth.AccessTokenApi.GithubSecretScan]].so: scans =>
+        env.oAuth.tokenApi
+          .secretScanning(scans)
+          .flatMap:
+            _.traverse: (token, url) =>
+              env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
+          .as(NoContent)

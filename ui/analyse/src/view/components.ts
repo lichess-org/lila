@@ -49,7 +49,6 @@ export interface ViewContext {
   allowVideo?: boolean;
   concealOf?: ConcealOf;
   showCevalPvs: boolean;
-  menuIsOpen: boolean;
   gamebookPlayView?: VNode;
   playerBars: VNode[] | undefined;
   playerStrips: [VNode, VNode] | undefined;
@@ -77,7 +76,6 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     relay: ctrl.study?.relay,
     concealOf: makeConcealOf(ctrl),
     showCevalPvs: !ctrl.retro?.isSolving() && !ctrl.practice,
-    menuIsOpen: ctrl.actionMenu(),
     gamebookPlayView: ctrl.study?.gamebookPlay && deps?.gbPlay.render(ctrl.study.gamebookPlay),
     playerBars,
     playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),

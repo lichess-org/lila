@@ -97,7 +97,6 @@ export default function <Result>(opts: Opts<Result>) {
   const renderResults = (results: Result[]) => {
     $container.empty();
     if (results[0]) {
-      console.log(results[0], opts.render(results[0]));
       results.forEach(result =>
         $(opts.render(result))
           /* can't use click because blur fires first and removes the click target */

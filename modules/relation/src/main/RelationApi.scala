@@ -118,7 +118,7 @@ final class RelationApi(
           case _ =>
             (repo.follow(u1, u2) >> limitFollow(u1)).andDo {
               countFollowingCache.update(u1, prev => (prev + 1).atMost(config.maxFollow.value))
-              lila.common.Bus.named.timeline(Propagate(FollowUser(u1, u2)).toFriendsOf(u1))
+              lila.common.Bus.pub(Propagate(FollowUser(u1, u2)).toFriendsOf(u1))
               Bus.publish(lila.core.relation.Follow(u1, u2), "relation")
               lila.mon.relation.follow.increment()
             }
