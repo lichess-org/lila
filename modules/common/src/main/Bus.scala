@@ -6,13 +6,6 @@ import lila.core.bus.{ Channel, WithChannel }
 import scala.jdk.CollectionConverters.*
 import scala.reflect.Typeable
 
-final class BusChannel(channel: Channel):
-  def apply(msg: Bus.Payload): Unit                       = Bus.publish(msg, channel)
-  def subscribe(subscriber: Bus.SubscriberFunction): Unit = Bus.subscribeFun(channel)(subscriber)
-
-object BusChannel:
-  val forumPost = BusChannel("forumPost")
-
 trait Tellable extends Any:
   def !(msg: Matchable): Unit
 
