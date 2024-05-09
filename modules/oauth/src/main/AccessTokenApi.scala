@@ -216,14 +216,14 @@ final class AccessTokenApi(
   def secretScanning(scans: List[AccessTokenApi.GithubSecretScan]): Fu[List[(AccessToken, String)]] = for
     found <- test(scans.map(_.token))
     res <- scans.traverse: scan =>
-      found.get(scan.token).flatten match
+      val compromised = found.get(scan.token).flatten
+      lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined)
+      compromised match
         case Some(token) =>
           logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
-          lila.mon.security.secretScanning.hit(scan.`type`, scan.source)
           revoke(token.plain).inject((token, scan.url).some)
         case None =>
           logger.branch("github").info(s"ignoring token ${scan.token}")
-          lila.mon.security.secretScanning.miss(scan.`type`, scan.source)
           fuccess(none)
   yield res.flatten
 
