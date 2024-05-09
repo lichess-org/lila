@@ -228,14 +228,13 @@ final private class StudySocket(
           for
             w        <- who
             username <- o.get[UserStr]("d")
-          yield InviteLimitPerUser.zero(w.u, cost = 1):
-            api.invite(
-              w.u,
-              studyId,
-              username,
-              isPresent = userId => isPresent(studyId, userId),
-              onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err)))
-            )
+          yield api.invite(
+            w.u,
+            studyId,
+            username,
+            isPresent = userId => isPresent(studyId, userId),
+            onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err)))
+          )
 
         case "relaySync" =>
           applyWho: w =>
