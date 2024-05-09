@@ -16,6 +16,7 @@ object page:
   def lone(p: CmsPage.Render)(using ctx: Context) =
     Page(p.title)
       .css("page")
+      .js(EsmInit("bits.expandText"))
       .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })"""))):
@@ -30,7 +31,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
 
   def pageContent(p: CmsPage.Render)(using Context) = frag(
     h1(cls := "box__top")(p.title),
-    div(cls := "body")(views.cms.render(p))
+    div(cls := "body expand-text")(views.cms.render(p))
   )
 
   def contact(using Context) =
