@@ -46,7 +46,7 @@ final class PerfUi(helpers: Helpers, bits: TutorBits):
             frag(report.perf.trans, " openings"),
             routes.Tutor.openings(user.username, report.perf.key).some
           )(
-            chess.Color.all.map: color =>
+            Color.all.map: color =>
               report.openings(color).families.headOption.map { fam =>
                 grade.peerGrade(concept.adhoc(s"${fam.family.name} as $color"), fam.mix, h4)
               }

@@ -305,7 +305,7 @@ final class Mod(
     Redirect(userUrl(username, mod))
 
   protected[controllers] def userUrl(username: UserStr, mod: Boolean = true) =
-    s"${routes.User.show(username.value).url}${mod.so("?mod")}"
+    s"${routes.User.show(username).url}${mod.so("?mod")}"
 
   def refreshUserAssess(username: UserStr) = Secure(_.MarkEngine) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
@@ -374,7 +374,7 @@ final class Mod(
   }
 
   def gdprErase(username: UserStr) = Secure(_.GdprErase) { _ ?=> me ?=>
-    val res = Redirect(routes.User.show(username.value))
+    val res = Redirect(routes.User.show(username))
     env.api.accountClosure
       .closeThenErase(username)
       .map:
@@ -457,7 +457,7 @@ final class Mod(
               .ofDbKeys(permissions)
               .exists(_.grants(Permission.SeeReport))
               .so(env.plan.api.setLifetime(user))
-          }).inject(Redirect(routes.Mod.permissions(user.username.value)).flashSuccess)
+          }).inject(Redirect(routes.Mod.permissions(user.username)).flashSuccess)
       )
   }
 

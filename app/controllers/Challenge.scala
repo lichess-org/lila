@@ -34,7 +34,7 @@ final class Challenge(
     }
   }
 
-  def show(id: ChallengeId, _color: Option[String]) = Open:
+  def show(id: ChallengeId, _color: Option[Color]) = Open:
     showId(id)
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
@@ -57,7 +57,7 @@ final class Challenge(
         val json = env.challenge.jsonView.show(c, version, direction)
         negotiate(
           html =
-            val color = get("color").flatMap(chess.Color.fromName)
+            val color = get("color").flatMap(Color.fromName)
             if mine then
               ctx.userId
                 .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
@@ -88,21 +88,20 @@ final class Challenge(
     challenge.destUserId.forall(dest => me.exists(_.is(dest))) &&
       !challenge.challengerUserId.so(orig => me.exists(_.is(orig)))
 
-  def accept(id: ChallengeId, color: Option[String]) = Open:
+  def accept(id: ChallengeId, color: Option[Color]) = Open:
     Found(api.byId(id)): c =>
-      val cc = color.flatMap(chess.Color.fromName)
       isForMe(c).so(
         api
-          .accept(c, ctx.req.sid, cc)
+          .accept(c, ctx.req.sid, color)
           .flatMap:
             case Right(Some(pov)) =>
               negotiateApi(
-                html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
+                html = Redirect(routes.Round.watcher(pov.gameId, color | Color.white)),
                 api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map { Ok(_) }
               ).flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
             case invalid =>
               negotiate(
-                Redirect(routes.Round.watcher(c.id.value, cc.fold("white")(_.name))),
+                Redirect(routes.Round.watcher(c.gameId, color | Color.white)),
                 notFoundJson(invalid match
                   case Left(err) => err
                   case _         => "The challenge has already been accepted"

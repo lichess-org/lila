@@ -19,7 +19,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
-      FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key("appeal-landing"))):
+      FoundPage(env.api.cmsRender(lila.core.id.CmsPageKey("appeal-landing"))):
         views.site.page.lone
     else notFound
   }
@@ -81,7 +81,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
                 env.report.api.inquiries
                   .toggle(Right(appeal.userId))
                   .inject(Redirect(routes.Appeal.queue()))
-              else Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions").toFuccess
+              else Redirect(s"${routes.Appeal.show(username)}#appeal-actions").toFuccess
           yield result
       )
   }

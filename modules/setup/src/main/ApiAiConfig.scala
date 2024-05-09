@@ -5,7 +5,7 @@ import chess.variant.{ FromPosition, Variant }
 import chess.{ ByColor, Clock }
 
 import scalalib.model.Days
-import lila.lobby.Color
+import lila.lobby.TriColor
 import lila.rating.PerfType
 import lila.core.user.GameUser
 import lila.core.game.{ IdGenerator, Source }
@@ -15,7 +15,7 @@ final case class ApiAiConfig(
     variant: Variant,
     clock: Option[Clock.Config],
     daysO: Option[Days],
-    color: Color,
+    color: TriColor,
     level: Int,
     fen: Option[Fen.Full] = None
 ) extends Config
@@ -72,7 +72,7 @@ object ApiAiConfig extends BaseConfig:
       variant = Variant.orDefault(v),
       clock = cl,
       daysO = d,
-      color = Color.orDefault(~c),
+      color = TriColor.orDefault(~c),
       level = l,
       fen = pos
     ).autoVariant

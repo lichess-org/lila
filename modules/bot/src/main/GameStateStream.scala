@@ -26,7 +26,7 @@ final class GameStateStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(init: WithInitialFen, as: chess.Color)(using
+  def apply(init: WithInitialFen, as: Color)(using
       lang: Lang,
       req: RequestHeader,
       me: Me
@@ -50,7 +50,7 @@ final class GameStateStream(
 
   private def mkActor(
       init: WithInitialFen,
-      as: chess.Color,
+      as: Color,
       user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
   )(using Lang, RequestHeader): Actor = new:

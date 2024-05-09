@@ -156,7 +156,7 @@ final private[api] class RoundApi(
       pov: Pov,
       pref: Pref,
       initialFen: Option[Fen.Full],
-      orientation: chess.Color,
+      orientation: Color,
       owner: Boolean,
       me: Option[User]
   ) =

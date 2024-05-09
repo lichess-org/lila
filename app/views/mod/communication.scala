@@ -20,7 +20,7 @@ def communication(
     appeals: List[lila.appeal.Appeal],
     priv: Boolean
 )(using ctx: Context, renderIp: RenderIp) =
-  Page(u.username + " communications")
+  Page(s"${u.username} communications")
     .css("mod.communication")
     .css(isGranted(_.UserModView).option("mod.user"))
     .js(isGranted(_.UserModView).option(EsmInit("mod.user"))):
@@ -120,11 +120,12 @@ def communication(
                   case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)
                   case PublicSource.Simul(id)      => views.simul.ui.link(id)
                   case PublicSource.Team(id)       => teamLink(id)
-                  case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
-                  case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
-                  case PublicSource.Swiss(id)   => views.swiss.ui.link(SwissId(id))
-                  case PublicSource.Forum(id)   => a(href := routes.ForumPost.redirect(id))("Forum #", id)
-                  case PublicSource.Ublog(id)   => a(href := routes.Ublog.redirect(id))("User blog #", id)
+                  case PublicSource.Watcher(id) =>
+                    a(href := routes.Round.watcher(id, Color.white))("Game #", id)
+                  case PublicSource.Study(id) => a(href := routes.Study.show(id))("Study #", id)
+                  case PublicSource.Swiss(id) => views.swiss.ui.link(id)
+                  case PublicSource.Forum(id) => a(href := routes.ForumPost.redirect(id))("Forum #", id)
+                  case PublicSource.Ublog(id) => a(href := routes.Ublog.redirect(id))("User blog #", id)
                 ,
                 nbsp,
                 span(cls := "message")(Analyser.highlightBad(line.text))

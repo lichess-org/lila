@@ -129,14 +129,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       details = s"$categ/$topic id: $postId ${text.take(400)}".some
     )
 
-  def deleteTeam(id: String, explain: String)(using MyId) = add:
+  def deleteTeam(id: TeamId, explain: String)(using MyId) = add:
     Modlog(
       none,
       Modlog.deleteTeam,
       details = s"$id: ${explain.take(200)}".some
     ).indexAs("team")
 
-  def toggleTeam(id: String, closing: Boolean, explain: String)(using MyId) = add:
+  def toggleTeam(id: TeamId, closing: Boolean, explain: String)(using MyId) = add:
     Modlog(
       none,
       if closing then Modlog.disableTeam else Modlog.enableTeam,

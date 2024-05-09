@@ -39,7 +39,7 @@ final class Analyser(
       sender: Sender,
       originOpt: Option[Origin] = none
   ): Fu[Analyser.Result] =
-    game.metadata.analysed.so(analysisRepo.exists(game.id.value)).flatMap {
+    game.metadata.analysed.so(analysisRepo.exists(game.id)).flatMap {
       if _ then fuccess(Analyser.Result.AlreadyAnalysed)
       else if !gameApi.analysable(game) then fuccess(Analyser.Result.NotAnalysable)
       else
@@ -82,8 +82,8 @@ final class Analyser(
         apply(game, sender)
     }
 
-  def study(req: lila.core.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
-    analysisRepo.exists(req.chapterId.value).flatMap {
+  def study(req: lila.core.fishnet.Bus.StudyChapterRequest): Fu[Analyser.Result] =
+    analysisRepo.chapterExists(req.chapterId).flatMap {
       if _ then fuccess(Analyser.Result.NoChapter)
       else
         import req.*

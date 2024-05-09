@@ -9,6 +9,7 @@ import lila.core.pref.Pref
 import lila.core.user.KidMode
 import lila.core.notify.UnreadCount
 
+/* Data available in every HTTP request */
 trait Context:
   val req: RequestHeader
   val lang: Lang
@@ -37,11 +38,11 @@ trait Context:
 object Context:
   given ctxMe(using ctx: Context): Option[Me] = ctx.me
 
+/* data necessary to render the lichess website layout */
 trait PageContext extends Context:
   val me: Option[Me]
   val needsFp: Boolean
   val impersonatedBy: Option[User]
-  // val oauth: Option[TokenScopes]
   def teamNbRequests: Int
   def nbChallenges: Int
   def nbNotifications: UnreadCount

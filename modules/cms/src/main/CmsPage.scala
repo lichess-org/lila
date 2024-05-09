@@ -3,10 +3,11 @@ package lila.cms
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
+import lila.core.id.{ CmsPageId, CmsPageKey }
 
 case class CmsPage(
-    @Key("_id") id: CmsPage.Id,
-    key: CmsPage.Key,
+    @Key("_id") id: CmsPageId,
+    key: CmsPageKey,
     title: String,
     markdown: Markdown,
     language: Language,
@@ -18,10 +19,6 @@ case class CmsPage(
   override def toString = s"CmsPage($id, $key, $language, $title)"
 
 object CmsPage:
-
-  opaque type Id = String
-  object Id extends OpaqueString[Id]:
-    def random = Id(scalalib.ThreadLocalRandom.nextString(6))
 
   opaque type Key = String
   object Key extends OpaqueString[Key]

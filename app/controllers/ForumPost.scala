@@ -31,7 +31,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         else if topic.isOld then BadRequest("This topic is archived")
         else
           for
-            canModCateg  <- access.isGrantedMod(categ.slug)
+            canModCateg  <- access.isGrantedMod(categ.id)
             replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
             res <-
               if replyBlocked then BadRequest.snip(trans.ublog.youBlockedByBlogAuthor()).toFuccess
@@ -42,7 +42,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       CategGrantWrite(categId, tryingToPostAsMod = true):
                         for
                           unsub       <- env.timeline.status(s"forum:${topic.id}")
-                          canModCateg <- access.isGrantedMod(categ.slug)
+                          canModCateg <- access.isGrantedMod(categ.id)
                           page <- renderPage:
                             views.forum.topic
                               .show(
@@ -87,7 +87,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       val post = view.post
       if post.userId.exists(_.is(me)) && !post.erased then
         if view.topic.nbPosts == 1 then
-          env.forum.delete.deleteTopic(view).inject(Redirect(routes.ForumCateg.show(view.categ.slug)))
+          env.forum.delete.deleteTopic(view).inject(Redirect(routes.ForumCateg.show(view.categ.id)))
         else postApi.erasePost(post).inject(Redirect(routes.ForumPost.redirect(id)))
       else
         TopicGrantModById(post.categId, post.topicId):

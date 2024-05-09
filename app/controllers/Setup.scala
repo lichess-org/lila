@@ -82,7 +82,7 @@ final class Setup(
                         .flatMap:
                           if _ then
                             negotiate(
-                              Redirect(routes.Round.watcher(challenge.id, "white")),
+                              Redirect(routes.Round.watcher(challenge.gameId, Color.white)),
                               challengeC.showChallenge(challenge, justCreated = true)
                             )
                           else
@@ -222,7 +222,7 @@ final class Setup(
   }
 
   private[controllers] def redirectPov(pov: Pov)(using ctx: Context) =
-    val redir = Redirect(routes.Round.watcher(pov.gameId.value, "white"))
+    val redir = Redirect(routes.Round.watcher(pov.gameId, Color.white))
     if ctx.isAuth then redir
     else
       redir.withCookies(

@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import lila.app.{ *, given }
 import lila.core.net.IpAddress
 import lila.forum.ForumCateg.diagnosticId
+import lila.common.Json.given
 import lila.core.id.{ ForumCategId, ForumTopicId }
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
@@ -28,7 +29,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               data =>
                 limit.forumTopic(ctx.ip, rateLimited):
                   topicApi.makeTopic(categ, data).map { topic =>
-                    Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
+                    Redirect(routes.ForumTopic.show(categ.id, topic.slug, 1))
                   }
             )
           }
@@ -42,9 +43,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         else
           for
             unsub        <- ctx.me.soUse(env.timeline.status(s"forum:${topic.id}"))
-            canRead      <- access.isGrantedRead(categ.slug)
-            canWrite     <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
-            canModCateg  <- access.isGrantedMod(categ.slug)
+            canRead      <- access.isGrantedRead(categ.id)
+            canWrite     <- access.isGrantedWrite(categ.id, tryingToPostAsMod = true)
+            canModCateg  <- access.isGrantedMod(categ.id)
             replyBlocked <- ctx.me.soUse(access.isReplyBlockedOnUBlog(topic, canModCateg))
             inOwnTeam    <- ~(categ.team, ctx.me).mapN(env.team.api.isLeader(_, _))
             form = ctx.me
@@ -56,7 +57,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               if canRead then
                 Ok.page(
                   views.forum.topic.show(categ, topic, posts, form, unsub, canModCateg, None, replyBlocked)
-                ).map(_.withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page)))
+                ).map(_.withCanonical(routes.ForumTopic.show(categ.id, topic.slug, page)))
               else notFound
           yield res
 
@@ -82,7 +83,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     for
       userIds   <- postApi.allUserIds(topicId)
       usernames <- env.user.repo.usernamesByIds(userIds)
-    yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
+    yield Ok(Json.toJson(usernames.sortBy(_.value.toLowerCase)))
   }
 
   def diagnostic = AuthBody { ctx ?=> me ?=>

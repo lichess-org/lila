@@ -43,7 +43,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
                   a(
                     dataIcon := iconByVariant(v),
                     cls      := (pov.game.variant == v).option("current"),
-                    href     := routes.UserAnalysis.parseArg(v.key)
+                    href     := routes.UserAnalysis.parseArg(v.key.value)
                   )(v.name)
                 }
               ),
@@ -67,7 +67,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
 
   object embed:
 
-    def lpvJs(orientation: Option[chess.Color], getPgn: Boolean)(using Translate): WithNonce[Frag] =
+    def lpvJs(orientation: Option[Color], getPgn: Boolean)(using Translate): WithNonce[Frag] =
       lpvJs(lpvConfig(orientation, getPgn))
 
     def lpvJs(lpvConfig: JsObject)(using Translate): WithNonce[Frag] =
@@ -77,7 +77,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
           )
         )})})""")
 
-    def lpvConfig(orientation: Option[chess.Color], getPgn: Boolean) = Json
+    def lpvConfig(orientation: Option[Color], getPgn: Boolean) = Json
       .obj(
         "menu" -> Json.obj(
           "getPgn" -> Json.obj("enabled" -> getPgn)

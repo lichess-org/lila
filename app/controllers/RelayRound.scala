@@ -29,7 +29,7 @@ final class RelayRound(
       WithTourAndRoundsCanUpdate(tourId): trs =>
         val tour = trs.tour
         def whenRateLimited = negotiate(
-          Redirect(routes.RelayTour.show(tour.slug, tour.id.value)),
+          Redirect(routes.RelayTour.show(tour.slug, tour.id)),
           rateLimited
         )
         bindForm(env.relay.roundForm.create(trs))(
@@ -168,12 +168,12 @@ final class RelayRound(
       then Redirect(rt.path)
       else f(rt)
 
-  private def WithTour(id: String)(
+  private def WithTour(id: RelayTourId)(
       f: TourModel => Fu[Result]
   )(using Context): Fu[Result] =
-    Found(env.relay.api.tourById(RelayTourId(id)))(f)
+    Found(env.relay.api.tourById(id))(f)
 
-  private def WithTourAndRoundsCanUpdate(id: String)(
+  private def WithTourAndRoundsCanUpdate(id: RelayTourId)(
       f: TourModel.WithRounds => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>

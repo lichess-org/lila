@@ -10,6 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.core.msg.MsgApi
 import lila.rating.{ Perf, UserPerfs }
 import lila.rating.PerfType
+import lila.core.id.{ ClasId, StudentId, ClasInviteId }
 
 final class ClasApi(
     colls: ClasColls,
@@ -28,7 +29,7 @@ final class ClasApi(
 
     val coll = colls.clas
 
-    def byId(id: Clas.Id) = coll.byId[Clas](id.value)
+    def byId(id: ClasId) = coll.byId[Clas](id.value)
 
     def of(teacher: User): Fu[List[Clas]] =
       coll
@@ -40,7 +41,7 @@ final class ClasApi(
     def countOf(teacher: User): Fu[Int] =
       coll.countSel($doc("teachers" -> teacher.id))
 
-    def byIds(clasIds: List[Clas.Id]): Fu[List[Clas]] =
+    def byIds(clasIds: List[ClasId]): Fu[List[Clas]] =
       coll
         .find($inIds(clasIds))
         .sort($sort.desc("createdAt"))
@@ -63,7 +64,7 @@ final class ClasApi(
     def updateWall(clas: Clas, text: Markdown): Funit =
       coll.updateField($id(clas.id), "wall", text).void
 
-    def getAndView(id: Clas.Id)(using teacher: Me): Fu[Option[Clas]] =
+    def getAndView(id: ClasId)(using teacher: Me): Fu[Option[Clas]] =
       coll
         .findAndUpdateSimplified[Clas](
           selector = $id(id) ++ $doc("teachers" -> teacher.userId),
@@ -74,7 +75,7 @@ final class ClasApi(
     def teachers(clas: Clas): Fu[List[User]] =
       userRepo.byOrderedIds(clas.teachers.toList, readPref = _.sec)
 
-    def isTeacherOf(teacher: User, clasId: Clas.Id): Fu[Boolean] =
+    def isTeacherOf(teacher: User, clasId: ClasId): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
 
     def areKidsInSameClass(kid1: UserId, kid2: UserId): Fu[Boolean] =
@@ -180,10 +181,10 @@ final class ClasApi(
         .cursor[Student]()
         .list(500)
 
-    def clasIdsOfUser(userId: UserId): Fu[List[Clas.Id]] =
-      coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
+    def clasIdsOfUser(userId: UserId): Fu[List[ClasId]] =
+      coll.distinctEasy[ClasId, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
 
-    def count(clasId: Clas.Id): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
+    def count(clasId: ClasId): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
 
     def isManaged(user: User): Fu[Boolean] =
       coll.exists($doc("userId" -> user.id, "managed" -> true))
@@ -235,7 +236,7 @@ final class ClasApi(
         data: ClasForm.CreateStudent,
         teacher: User
     ): Fu[Student.WithPassword] =
-      val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
+      val email    = EmailAddress(s"noreply.class.${ClasId}.${data.username}@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.student.create(teacher.id.value).increment()
       userRepo
@@ -278,7 +279,7 @@ final class ClasApi(
       val password = Student.password.generate
       authenticator.setPassword(s.userId, password).inject(password)
 
-    def archive(sId: Student.Id, v: Boolean)(using me: Me): Fu[Option[Student]] =
+    def archive(sId: StudentId, v: Boolean)(using me: Me): Fu[Option[Student]] =
       coll
         .findAndUpdateSimplified[Student](
           selector = $id(sId),
@@ -299,7 +300,7 @@ final class ClasApi(
           dest = student.id,
           text = s"""${lila.core.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
 
-$baseUrl/class/${clas.id}
+$baseUrl/class/${ClasId}
 
 ${clas.desc}""",
           multi = true
@@ -326,14 +327,14 @@ ${clas.desc}""",
               lila.db.recoverDuplicateKey(_ => Found)
         }
 
-    def get(id: ClasInvite.Id) = colls.invite.one[ClasInvite]($id(id))
+    def get(id: ClasInviteId) = colls.invite.one[ClasInvite]($id(id))
 
-    def view(id: ClasInvite.Id, user: User): Fu[Option[(ClasInvite, Clas)]] =
+    def view(id: ClasInviteId, user: User): Fu[Option[(ClasInvite, Clas)]] =
       colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)).flatMapz { invite =>
         colls.clas.byId[Clas](invite.clasId.value).map2 { invite -> _ }
       }
 
-    def accept(id: ClasInvite.Id, user: User): Fu[Option[Student]] =
+    def accept(id: ClasInviteId, user: User): Fu[Option[Student]] =
       colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)).flatMapz { invite =>
         colls.clas.one[Clas]($id(invite.clasId)).flatMapz { clas =>
           studentCache.addStudent(user.id)
@@ -348,7 +349,7 @@ ${clas.desc}""",
         }
       }
 
-    def decline(id: ClasInvite.Id): Fu[Option[ClasInvite]] =
+    def decline(id: ClasInviteId): Fu[Option[ClasInvite]] =
       colls.invite
         .findAndUpdateSimplified[ClasInvite](
           selector = $id(id),
@@ -362,7 +363,7 @@ ${clas.desc}""",
         .cursor[ClasInvite]()
         .list(100)
 
-    def delete(id: ClasInvite.Id): Funit =
+    def delete(id: ClasInviteId): Funit =
       colls.invite.delete.one($id(id)).void
 
     private def sendInviteMessage(
@@ -371,7 +372,7 @@ ${clas.desc}""",
         clas: Clas,
         invite: ClasInvite
     ): Fu[ClasInvite.Feedback] =
-      val url = s"$baseUrl/class/invitation/${invite._id}"
+      val url = s"$baseUrl/class/invitation/${invite.id}"
       if student.kid then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
         import lila.core.i18n.I18nKey.clas.*

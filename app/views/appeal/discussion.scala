@@ -41,7 +41,7 @@ object discussion:
         div(cls := "appeal__actions", id := "appeal-actions")(
           modData.inquiry match
             case None =>
-              postForm(action := routes.Mod.spontaneousInquiry(appeal.id))(
+              postForm(action := routes.Mod.spontaneousInquiry(appeal.userId))(
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId.has(mod) =>
@@ -84,7 +84,7 @@ object discussion:
           div(cls := "actions")(
             a(
               cls  := "button button-empty mod-zone-toggle",
-              href := routes.User.mod(appeal.id),
+              href := routes.User.mod(appeal.userId),
               titleOrText("Mod zone (Hotkey: m)"),
               dataIcon := Icon.Agent
             )
@@ -126,7 +126,7 @@ object discussion:
               renderForm(
                 textForm,
                 action =
-                  if as.isLeft then routes.Appeal.reply(appeal.id).url
+                  if as.isLeft then routes.Appeal.reply(appeal.userId).url
                   else routes.Appeal.post.url,
                 isNew = false,
                 presets = as.left.toOption.map(_.presets)

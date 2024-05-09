@@ -65,7 +65,7 @@ final class RelayLeaderboardApi(
     players = tags.foldLeft(
       Map.empty[PlayerName, (Double, Int, Option[Elo], Option[PlayerTitle], Option[FideId])]
     ): (lead, game) =>
-      chess.Color.all.foldLeft(lead): (lead, color) =>
+      Color.all.foldLeft(lead): (lead, color) =>
         game
           .names(color)
           .fold(lead): name =>

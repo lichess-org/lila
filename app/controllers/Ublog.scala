@@ -60,7 +60,7 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       import lila.forum.ForumCateg.ublogId
       val topicSlug = s"ublog-${id}"
-      val redirect  = Redirect(routes.ForumTopic.show(ublogId.value, topicSlug))
+      val redirect  = Redirect(routes.ForumTopic.show(ublogId, topicSlug))
       env.forum.topicRepo.existsByTree(ublogId, topicSlug).flatMap {
         if _ then redirect
         else
@@ -184,8 +184,8 @@ final class Ublog(env: Env) extends LilaController(env):
       )
   }
 
-  def rankAdjust(postId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
-    Found(env.ublog.api.getPost(UblogPostId(postId))): post =>
+  def rankAdjust(postId: UblogPostId) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
+    Found(env.ublog.api.getPost(postId)): post =>
       bindForm(lila.ublog.UblogForm.adjust)(
         _ => Redirect(urlOfPost(post)).flashFailure,
         (pinned, tier, rankAdjustDays) =>
@@ -228,12 +228,12 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
 
-  def communityLang(langStr: String, page: Int = 1) = Open:
+  def communityLang(language: Language, page: Int = 1) = Open:
     import LangPicker.ByHref
-    LangPicker.byHref(langStr, ctx.req) match
-      case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page))
-      case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page))
-      case ByHref.Refused(lang) => communityIndex(lang.some, page)
+    LangPicker.byHref(language, ctx.req) match
+      case ByHref.NotFound        => Redirect(routes.Ublog.communityAll(page))
+      case ByHref.Redir(language) => Redirect(routes.Ublog.communityLang(language, page))
+      case ByHref.Refused(lang)   => communityIndex(lang.some, page)
       case ByHref.Found(lang) =>
         if ctx.isAuth then communityIndex(lang.some, page)
         else communityIndex(lang.some, page)(using ctx.withLang(lang))
@@ -252,10 +252,10 @@ final class Ublog(env: Env) extends LilaController(env):
             .map:
               views.ublog.community(language, _)
 
-  def communityAtom(language: String) = Anon:
-    val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
+  def communityAtom(language: Language) = Anon:
+    val found: Option[Lang] = LangList.popularNoRegion.find(l => Language(l) == language)
     env.ublog.paginator
-      .liveByCommunity(l.map(Language.apply), page = 1)
+      .liveByCommunity(found.map(Language.apply), page = 1)
       .map: posts =>
         Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
 
@@ -302,7 +302,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def historicalBlogPost(id: String, slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>
-      Redirect(routes.Ublog.post("lichess", post.slug, post.id), MOVED_PERMANENTLY)
+      Redirect(routes.Ublog.post(UserName.lichess, post.slug, post.id), MOVED_PERMANENTLY)
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 

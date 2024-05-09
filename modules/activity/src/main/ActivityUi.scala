@@ -170,7 +170,7 @@ final class ActivityUi(helpers: Helpers)(
         subTag(
           povs.map: pov =>
             frag(
-              a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))("Game"),
+              a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))("Game"),
               " vs ",
               lightPlayerLink(
                 pov.opponent,
@@ -195,7 +195,7 @@ final class ActivityUi(helpers: Helpers)(
         subTag(
           povs.map: pov =>
             frag(
-              a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))(
+              a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))(
                 pov.game.win.map(_ == pov.color) match
                   case Some(true)  => trans.site.victory()
                   case Some(false) => trans.site.defeat()

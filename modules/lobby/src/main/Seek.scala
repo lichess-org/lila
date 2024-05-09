@@ -26,7 +26,7 @@ case class Seek(
 
   inline def id = _id
 
-  val realColor = Color.orDefault(color)
+  val realColor = TriColor.orDefault(color)
 
   val realVariant = Variant.orDefault(variant)
 
@@ -59,7 +59,7 @@ case class Seek(
         "variant"  -> Json.obj("key" -> realVariant.key),
         "perf"     -> Json.obj("key" -> perfType.key),
         "mode"     -> realMode.id,
-        "color"    -> (chess.Color.fromName(color).so(_.name): String)
+        "color"    -> (Color.fromName(color).so(_.name): String)
       )
       .add("days" -> daysPerTurn)
       .add("provisional" -> perf.provisional.yes)

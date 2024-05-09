@@ -63,13 +63,13 @@ def list(
                 r.inquiry match
                   case None =>
                     if r.done.isDefined then
-                      postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
+                      postForm(action := routes.Report.inquiry(r.id.value), cls := "reopen")(
                         submitButton(dataIcon := Icon.PlayTriangle, cls := "text button button-metal")(
                           "Reopen"
                         )
                       )
                     else
-                      postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
+                      postForm(action := routes.Report.inquiry(r.id.value), cls := "inquiry")(
                         submitButton(dataIcon := Icon.PlayTriangle, cls := "button button-metal")
                       )
                   case Some(inquiry) =>
@@ -165,7 +165,7 @@ def form(form: Form[?], reqUser: Option[User] = None)(using ctx: Context) =
           div(cls := "form-group")(
             p(
               a(
-                href     := routes.Cms.lonePage("report-faq"),
+                href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
                 dataIcon := Icon.InfoCircle,
                 cls      := "text"
               ):

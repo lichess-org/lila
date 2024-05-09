@@ -104,7 +104,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def usernameById(id: UserId): Fu[Option[UserName]] =
     coll.primitiveOne[UserName]($id(id), F.username)
 
-  def usernamesByIds(ids: List[UserId]) =
+  def usernamesByIds(ids: List[UserId]): Fu[List[UserName]] =
     coll.distinctEasy[UserName, List](F.username, $inIds(ids), _.sec)
 
   def createdAtById(id: UserId): Fu[Option[Instant]] =

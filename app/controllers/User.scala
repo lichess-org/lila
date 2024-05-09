@@ -1,5 +1,6 @@
 package controllers
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.http.ContentTypes
 import play.api.libs.EventSource
@@ -7,23 +8,19 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalatags.Text.Frag
 
-import scala.language.existentials
-import scala.util.chaining.*
-
 import lila.game.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.mod.UserWithModlog
 import lila.security.UserLogins
 import lila.user.WithPerfsAndEmails
-
 import lila.rating.PerfType
 import lila.core.net.IpAddress
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
 import lila.rating.UserPerfsExt.best8Perfs
-import lila.core.perf.PerfKeyStr
 
 final class User(
     override val env: Env,
@@ -39,7 +36,7 @@ final class User(
   def tv(username: UserStr) = Open:
     Found(meOrFetch(username)): user =>
       currentlyPlaying(user).orElse(lastPlayed(user)).flatMap {
-        _.fold(fuccess(Redirect(routes.User.show(username.value)))): pov =>
+        _.fold(fuccess(Redirect(routes.User.show(username)))): pov =>
           ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
             case Some(mine) => Redirect(routes.Round.player(mine.fullId))
             case _          => roundC.watch(pov, userTv = user.some)
@@ -270,29 +267,26 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  def topNb(nb: Int, perfKey: PerfKeyStr) = Open:
-    Found(topNbUsers(nb, perfKey)): (users, perfType) =>
+  def topNb(nb: Int, perfKey: PerfKey) = Open:
+    topNbUsers(nb, perfKey).flatMap: (users, perfType) =>
       negotiate(
         (nb == 200).so(Ok.page(views.user.list.top(perfType, users))),
         topNbJson(users)
       )
 
-  def topNbApi(nb: Int, perfKey: PerfKeyStr) = Anon:
-    if nb == 1 && perfKey == PerfKeyStr("standard") then
+  def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
+    if nb == 1 && perfKey == PerfKey.standard then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
         JsonOk(leaderboards)
       }
-    else Found(topNbUsers(nb, perfKey)) { users => topNbJson(users._1) }
+    else topNbUsers(nb, perfKey).flatMap { users => topNbJson(users._1) }
 
-  private def topNbUsers(nb: Int, perfKey: PerfKeyStr) =
-    PerfKey
-      .read(perfKey)
-      .soFu: perfKey =>
-        env.user.cached.top200Perf.get(PerfType(perfKey).id).dmap {
-          _.take(nb.atLeast(1).atMost(200)) -> PerfType(perfKey)
-        }
+  private def topNbUsers(nb: Int, perfKey: PerfKey): Fu[(List[LightPerf], PerfType)] =
+    env.user.cached.top200Perf.get(perfKey.id).dmap {
+      _.take(nb.atLeast(1).atMost(200)) -> PerfType(perfKey)
+    }
 
   private def topNbJson(users: List[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
@@ -542,7 +536,7 @@ final class User(
       yield Ok(page)
   }
 
-  def perfStat(username: UserStr, perfKey: PerfKeyStr) = Open:
+  def perfStat(username: UserStr, perfKey: PerfKey) = Open:
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
         Ok.async:
@@ -605,8 +599,8 @@ final class User(
             else fuccess(Json.toJson(userIds))
           }.map(JsonOk)
 
-  def ratingDistribution(perfKey: PerfKeyStr, username: Option[UserStr] = None) = Open:
-    Found(PerfKey.read(perfKey).filter(lila.rating.PerfType.isLeaderboardable)): perfKey =>
+  def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
+    Found(perfKey.some.filter(lila.rating.PerfType.isLeaderboardable)): perfKey =>
       env.perfStat.api
         .weeklyRatingDistribution(perfKey)
         .flatMap: data =>

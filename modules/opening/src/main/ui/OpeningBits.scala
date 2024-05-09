@@ -89,7 +89,7 @@ final class OpeningBits(helpers: Helpers):
   def queryUrl(q: OpeningQuery.Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.so(_.value.replace(" ", "_")))
   def openingUrl(o: Opening)         = openingKeyUrl(o.key)
-  def openingKeyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
+  def openingKeyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key.value, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 

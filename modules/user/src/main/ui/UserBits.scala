@@ -12,7 +12,7 @@ final class UserBits(helpers: Helpers):
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.site.leaderboard()),
       a(
         cls  := active.active("ratings"),
-        href := routes.User.ratingDistribution("blitz")
+        href := routes.User.ratingDistribution(PerfKey.blitz)
       )(
         trans.site.ratingStats()
       ),

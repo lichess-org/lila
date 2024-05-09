@@ -1,21 +1,19 @@
 package controllers
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import scala.util.chaining.*
-
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.net.IpAddress
 import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
-import lila.core.perf.PerfKeyStr
 
 final class Api(
     env: Env,
@@ -322,7 +320,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: PerfKeyStr) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:

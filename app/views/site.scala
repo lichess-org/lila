@@ -16,7 +16,7 @@ object page:
   def lone(p: CmsPage.Render)(using ctx: Context) =
     Page(p.title)
       .css("page")
-      .js((p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+      .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })"""))):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
@@ -85,7 +85,11 @@ object variant:
           lila.rating.PerfType.variants.map: pk =>
             val variant = lila.rating.PerfType.variantOf(pk)
             val pt      = lila.rating.PerfType(pk)
-            a(cls := "variant text box__pad", href := routes.Cms.variant(pk), dataIcon := pt.icon):
+            a(
+              cls      := "variant text box__pad",
+              href     := routes.Cms.variant(variant.key),
+              dataIcon := pt.icon
+            ):
               span(
                 h2(variant.name),
                 h3(cls := "headline")(variant.title)
@@ -101,9 +105,10 @@ object variant:
         main(cls := "page-menu")(
           lila.ui.bits.pageMenuSubnav(
             lila.rating.PerfType.variants.map: pk =>
+              val variant = lila.rating.PerfType.variantOf(pk)
               a(
                 cls      := List("text" -> true, "active" -> active.contains(pk)),
-                href     := routes.Cms.variant(pk),
+                href     := routes.Cms.variant(variant.key),
                 dataIcon := pk.perfIcon
               )(pk.perfTrans)
           ),

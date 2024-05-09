@@ -42,7 +42,13 @@ private class RelayPlayersTextarea(val text: String):
 
   // With tokenized player names
   private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
-    players.mapKeys(umlautify.andThen(_.value).andThen(tokenize.apply))
+    umlautifyPlayers(players).mapKeys(name => tokenize(name.value))
+
+  // duplicated PlayerName with it's umlautified version
+  private def umlautifyPlayers(players: Map[PlayerName, RelayPlayer]): Map[PlayerName, RelayPlayer] =
+    players.foldLeft(players):
+      case (map, (name, player)) =>
+        map + (umlautify(name) -> player)
 
   private def umlautify: PlayerName => PlayerName =
     diacritics.foldLeft(_):
@@ -93,7 +99,7 @@ private class RelayPlayersTextarea(val text: String):
     game.copy(tags = update(game.tags))
 
   private def update(tags: Tags): Tags =
-    chess.Color.all.foldLeft(tags): (tags, color) =>
+    Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
         tags
           .names(color)

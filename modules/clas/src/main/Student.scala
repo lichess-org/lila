@@ -1,16 +1,15 @@
 package lila.clas
 
-import scalalib.SecureRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.perf.UserPerfs
-import lila.core.perf.UserWithPerfs
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.security.ClearPassword
+import lila.core.id.{ ClasId, StudentId }
 
 case class Student(
-    @Key("_id") id: Student.Id, // userId:clasId
+    @Key("_id") id: StudentId, // userId:clasId
     userId: UserId,
-    clasId: Clas.Id,
+    clasId: ClasId,
     realName: String,
     notes: String,
     managed: Boolean, // created for the class by the teacher
@@ -26,10 +25,7 @@ object Student:
 
   given UserIdOf[Student] = _.userId
 
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
-
-  def makeId(userId: UserId, clasId: Clas.Id) = Id(s"$userId:$clasId")
+  def makeId(userId: UserId, clasId: ClasId) = StudentId(s"$userId:$clasId")
 
   def make(user: User, clas: Clas, teacherId: UserId, realName: String, managed: Boolean) =
     Student(
@@ -63,7 +59,7 @@ object Student:
 
     private val chars      = ('2' to '9') ++ (('a' to 'z').toSet - 'l') mkString
     private val nbChars    = chars.length
-    private def secureChar = chars(SecureRandom.nextInt(nbChars))
+    private def secureChar = chars(scalalib.SecureRandom.nextInt(nbChars))
 
     def generate = ClearPassword:
       String(Array.fill(7)(secureChar))

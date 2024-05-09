@@ -2,7 +2,7 @@ package controllers
 
 import akka.stream.scaladsl.*
 import akka.util.ByteString
-import chess.Color
+
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.mvc.Result
@@ -21,15 +21,10 @@ final class Export(env: Env) extends LilaController(env):
     Found(fetch): res =>
       limit.exportImage(((), req.ipAddress), rateLimited)(convert(res))
 
-  def gif(id: GameId, color: String, theme: Option[String], piece: Option[String]) =
+  def gif(id: GameId, color: Color, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo.gameWithInitialFen(id)) { g =>
       env.game.gifExport
-        .fromPov(
-          Pov(g.game, Color.fromName(color) | Color.white),
-          g.fen,
-          Theme(theme).name,
-          PieceSet.get(piece).name
-        )
+        .fromPov(Pov(g.game, color), g.fen, Theme(theme).name, PieceSet.get(piece).name)
         .pipe(stream(cacheSeconds = if g.game.finishedOrAborted then 3600 * 24 else 10))
     }
 
@@ -59,7 +54,7 @@ final class Export(env: Env) extends LilaController(env):
 
   def fenThumbnail(
       fen: String,
-      color: String,
+      color: Color,
       lastMove: Option[Uci],
       variant: Option[Variant.LilaKey],
       theme: Option[String],
@@ -70,7 +65,7 @@ final class Export(env: Env) extends LilaController(env):
         .thumbnail(
           situation = situation,
           lastMove = lastMove,
-          orientation = Color.fromName(color) | Color.White,
+          orientation = color,
           theme = Theme(theme).name,
           piece = PieceSet.get(piece).name,
           description = s"fenThumbnail $fen"

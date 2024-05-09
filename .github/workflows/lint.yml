@@ -19,7 +19,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
           run_install: true
       - uses: github/codeql-action/init@v3
         with:
