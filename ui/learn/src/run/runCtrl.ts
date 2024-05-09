@@ -6,6 +6,7 @@ import { Stage } from '../stage/list';
 import { LearnCtrl } from '../ctrl';
 import { clearTimeouts } from '../timeouts';
 import { LevelCtrl } from '../levelCtrl';
+import { hashNavigate } from '../hashRouting';
 
 const RESTARTING_KEY = 'learn.restarting';
 
@@ -56,8 +57,7 @@ export class RunCtrl {
         },
         onComplete: () => {
           if (this.levelCtrl!.blueprint.id < this.stage.levels.length) {
-            // TODO:
-            // m.route('/' + stage.id + '/' + (this.level.blueprint.id + 1));
+            hashNavigate(this.stage.id, this.levelCtrl.blueprint.id + 1);
           } else if (this.stageCompleted()) return;
           else {
             this.stageCompleted(true);
@@ -100,7 +100,6 @@ export class RunCtrl {
   };
   restart = () => {
     site.tempStorage.boolean(RESTARTING_KEY).set(true);
-    // TODO:
-    // m.route('/' + stage.id + '/' + level.blueprint.id);
+    hashNavigate(this.stage.id, this.levelCtrl?.blueprint.id);
   };
 }

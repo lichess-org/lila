@@ -1,5 +1,12 @@
 export const BASE_LEARN_PATH = '/learn';
 
+export const hashNavigate = (stageId?: number, levelId?: number) => {
+  let hashPath = '';
+  if (typeof stageId === 'number') hashPath += `/${stageId}`;
+  if (typeof levelId === 'number') hashPath += `/${levelId}`;
+  window.location.hash = hashPath;
+};
+
 export const hashHref = (stageId?: number, levelId?: number) => {
   let href = BASE_LEARN_PATH;
   if (typeof stageId === 'number') {

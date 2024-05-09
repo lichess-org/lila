@@ -4,6 +4,7 @@ import { numberSpread } from 'common/number';
 import { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
+import { hashNavigate } from '../hashRouting';
 
 function makeStars(rank: number) {
   const stars = [];
@@ -18,12 +19,11 @@ export default function (ctrl: RunCtrl) {
   return h(
     'div.learn__screen-overlay',
     {
-      hook: bind('click', (e: MouseEvent) => {
-        if ((e.target as HTMLElement).classList?.contains('learn__screen-overlay')) {
-          // TODO:
-          // m.route('/');
-        }
-      }),
+      hook: bind(
+        'click',
+        (e: MouseEvent) =>
+          (e.target as HTMLElement).classList?.contains('learn__screen-overlay') && hashNavigate(),
+      ),
     },
     h('div.learn__screen', [
       h('div.stars', makeStars(scoring.getStageRank(stage, score))),
@@ -35,12 +35,8 @@ export default function (ctrl: RunCtrl) {
           h(
             'span',
             {
-              // TODO:
-              config: function (el: HTMLElement, isUpdate: boolean) {
-                if (!isUpdate)
-                  setTimeout(function () {
-                    numberSpread(el, 50, 3000, 0)(score);
-                  }, 300);
+              config: (el: HTMLElement, isUpdate: boolean) => {
+                if (!isUpdate) setTimeout(() => numberSpread(el, 50, 3000, 0)(score), 300);
               },
             },
             '0',
@@ -50,27 +46,14 @@ export default function (ctrl: RunCtrl) {
       h('p', util.withLinebreaks(ctrl.trans.noarg(stage.complete))),
       h('div.buttons', [
         next
-          ? h(
-              'a.next',
-              {
-                attrs: {
-                  href: '/' + next.id,
-                  // TODO:
-                  // config: m.route,
-                },
-              },
-              [ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ', h('i[data-icon=]')],
-            )
+          ? h('a.next', { hook: bind('click', () => hashNavigate(next.id)) }, [
+              ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ',
+              h('i[data-icon=]'),
+            ])
           : null,
         h(
           'a.back.text[data-icon=]',
-          {
-            attrs: {
-              href: '/',
-              // TODO:
-              // config: m.route,
-            },
-          },
+          { hook: bind('click', () => hashNavigate()) },
           ctrl.trans.noarg('backToMenu'),
         ),
       ]),
