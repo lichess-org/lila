@@ -1,9 +1,10 @@
+import * as cg from 'chessground/types';
 import { Chess, Piece, Square as Key, Move, ChessInstance, PieceType } from 'chess.js';
-import { CgMove, Dests } from './ground';
+import { CgMove } from './chessground';
 import { isRole, PromotionChar, PromotionRole, roleToSan, setFenTurn } from './util';
 
 export interface ChessCtrl {
-  dests(opts?: { illegal?: boolean }): Partial<Record<Key, Key[]>>;
+  dests(opts?: { illegal?: boolean }): cg.Dests;
   color(c: Color): void;
   color(): Color;
   fen(): string;
@@ -82,17 +83,18 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
 
   return {
     dests: function (opts?: { illegal?: boolean }) {
-      const dests: Dests = {};
-      chess.SQUARES.forEach(function (s) {
+      const dests: cg.Dests = new Map();
+      chess.SQUARES.forEach(s => {
         const ms = chess.moves({
           square: s,
           verbose: true,
           legal: !opts?.illegal,
         });
         if (ms.length)
-          dests[s] = ms.map(function (m) {
-            return m.to;
-          });
+          dests.set(
+            s,
+            ms.map(m => m.to),
+          );
       });
       return dests;
     },

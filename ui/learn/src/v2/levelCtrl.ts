@@ -1,6 +1,5 @@
 import { PromotionRole } from './util';
 import { Items, ctrl as makeItems } from './item';
-import * as ground from './ground';
 import { Level } from './stage/list';
 import * as scoring from './score';
 import * as timeouts from './timeouts';
@@ -10,7 +9,7 @@ import makeScenario, { Scenario } from './scenario';
 import * as promotion from './promotion';
 import type { Square as Key } from 'chess.js';
 import { RunCtrl } from './run/runCtrl';
-import { getPiece, setChessground } from './chessground';
+import { setCheck, setChessground, setColorDests, setFen, showCapture, showCheckmate } from './chessground';
 
 export interface LevelVm {
   score: number;
@@ -71,6 +70,7 @@ export class LevelCtrl {
 
   initializeWithCg = () => {
     const { items, scenario, chess, blueprint, vm, redraw, ctrl } = this;
+    const ground = ctrl.chessground;
 
     const assertData = (): AssertData => ({
       scenario: scenario,
@@ -92,8 +92,8 @@ export class LevelCtrl {
       const move = chess[fun]();
       if (!move) return false;
       vm.failed = true;
-      ground.stop();
-      ground.showCapture(move);
+      ground?.stop();
+      showCapture(ctrl, move);
       sound.failure();
       return true;
     };
@@ -101,11 +101,11 @@ export class LevelCtrl {
     const sendMove = (orig: Key, dest: Key, prom?: PromotionRole) => {
       vm.nbMoves++;
       const move = chess.move(orig, dest, prom);
-      if (move) ground.fen(chess.fen(), blueprint.color, {});
+      if (move) setFen(ctrl, chess.fen(), blueprint.color, new Map());
       else {
         // moving into check
         vm.failed = true;
-        ground.showCheckmate(chess);
+        showCheckmate(ctrl, chess);
         sound.failure();
         redraw();
         return;
@@ -123,7 +123,7 @@ export class LevelCtrl {
         else vm.score += scoring.capture;
         took = true;
       }
-      ground.check(chess);
+      setCheck(ctrl, chess);
       if (scenario.player(move.from + move.to + (move.promotion || ''))) {
         vm.score += scoring.scenario;
         inScenario = true;
@@ -141,14 +141,13 @@ export class LevelCtrl {
           timeouts.setTimeout(function () {
             const rm = chess.playRandomMove();
             if (!rm) return;
-            ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
+            setFen(ctrl, chess.fen(), blueprint.color, new Map(), [rm.orig, rm.dest]);
           }, 600);
       } else {
-        // TODO:
-        // ground.select(dest);
+        this.ctrl.chessground?.selectSquare(dest);
         if (!inScenario) {
           chess.color(blueprint.color);
-          ground.color(blueprint.color, this.makeChessDests());
+          setColorDests(ctrl, blueprint.color, this.makeChessDests());
         }
       }
       redraw();
@@ -160,7 +159,7 @@ export class LevelCtrl {
       autoCastle: blueprint.autoCastle,
       orientation: blueprint.color,
       onMove: (orig: Key, dest: Key) => {
-        const piece = getPiece(ctrl, dest);
+        const piece = ctrl.chessground?.state.pieces.get(dest);
         if (!piece || piece.color !== blueprint.color) return;
         if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
       },
@@ -191,7 +190,7 @@ export class LevelCtrl {
         this.vm.lastStep = false;
         this.vm.completed = true;
         sound.levelEnd();
-        ground.stop();
+        this.ctrl.chessground?.stop();
         this.redraw();
         if (!this.blueprint.nextButton) timeouts.setTimeout(this.opts.onComplete, 1200);
       },

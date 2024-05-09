@@ -2,6 +2,7 @@ import * as util from './util';
 import * as ground from './ground';
 import * as timeouts from './timeouts';
 import { ChessCtrl } from './chess';
+import * as cg from 'chessground/types';
 
 export interface Scenario {
   isComplete(): boolean;
@@ -20,7 +21,7 @@ export type ScenarioLevel = (
 
 interface ScenarioOpts {
   chess: ChessCtrl;
-  makeChessDests(): ground.Dests;
+  makeChessDests(): cg.Dests;
 }
 
 export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpts): Scenario {
