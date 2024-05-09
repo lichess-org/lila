@@ -8,6 +8,7 @@ coords {
 /** Alternating colors in rank/file/square labels */
 .cg-wrap coords:nth-child(odd) coord:nth-child(odd),
 .cg-wrap coords.squares:nth-child(even) coord:nth-child(even),
+.cg-wrap.orientation-white coords.ranks:nth-child(odd) coord:nth-child(even),
 .cg-wrap.orientation-black coords.files:nth-child(even) coord:nth-child(even),
 .cg-wrap coords.files:nth-child(even) coord:nth-child(odd) {
   color: var(---cg-ccw, $coord-color-default);
@@ -15,6 +16,7 @@ coords {
 
 .cg-wrap coords:nth-child(odd) coord:nth-child(even),
 .cg-wrap coords.squares:nth-child(even) coord:nth-child(odd),
+.cg-wrap.orientation-white coords.ranks:nth-child(odd) coord:nth-child(odd),
 .cg-wrap.orientation-black coords.files:nth-child(even) coord:nth-child(odd),
 .cg-wrap coords.files:nth-child(even) coord:nth-child(even) {
   color: var(---cg-ccb, $coord-color-default);
