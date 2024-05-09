@@ -13,13 +13,10 @@ import { bind } from 'common/snabbdom';
 import { makeStars, progressView } from '../progressView';
 
 function renderFailed(ctrl: RunCtrl) {
-  return h(
-    'div.result.failed',
-    {
-      hook: bind('click', ctrl.restart),
-    },
-    [h('h2', ctrl.trans.noarg('puzzleFailed')), h('button', ctrl.trans.noarg('retry'))],
-  );
+  return h('div.result.failed', { hook: bind('click', ctrl.restart) }, [
+    h('h2', ctrl.trans.noarg('puzzleFailed')),
+    h('button', ctrl.trans.noarg('retry')),
+  ]);
 }
 
 function renderCompleted(ctrl: RunCtrl, level: LevelCtrl) {

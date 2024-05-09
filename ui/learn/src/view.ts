@@ -10,7 +10,6 @@ import { mapSideView } from './mapSideView';
 import { hashHref } from './hashRouting';
 import { runView } from './run/runView';
 
-// TODO: top level div styling issues
 export const view = (ctrl: LearnCtrl) => {
   return ctrl.inStage() ? runView(ctrl) : mapView(ctrl);
 };
