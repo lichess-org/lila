@@ -67,8 +67,7 @@ final class SimulApi(
     _ <- repo.create(simul)
   yield
     publish()
-    lila.common.Bus.named
-      .timeline(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
+    lila.common.Bus.pub(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
     simul
 
   def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] =
@@ -111,9 +110,8 @@ final class SimulApi(
                       val player   = SimulPlayer.make(user, variant)
                       val newSimul = simul.addApplicant(SimulApplicant(player, accepted = false))
                       repo.update(newSimul).andDo {
-                        lila.common.Bus.named.timeline(
+                        lila.common.Bus.pub:
                           Propagate(SimulJoin(me.userId, simul.id, simul.fullName)).toFollowersOf(user.id)
-                        )
                         socket.reload(newSimul.id)
                         publish()
                       }

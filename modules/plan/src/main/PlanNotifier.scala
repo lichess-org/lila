@@ -29,4 +29,4 @@ final private[plan] class PlanNotifier(using ec: Executor, scheduler: Scheduler)
     Bus.publish(lila.core.misc.plan.PlanGift(from.id, to.id, isLifetime), "planStart")
 
   private def pushTimeline(user: User)(f: UserId => Atom): Unit =
-    lila.common.Bus.named.timeline(Propagate(f(user.id)).toFollowersOf(user.id))
+    lila.common.Bus.pub(Propagate(f(user.id)).toFollowersOf(user.id))

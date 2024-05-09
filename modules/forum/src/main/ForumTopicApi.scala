@@ -116,11 +116,10 @@ final private class ForumTopicApi(
             if post.isTeam then shutupApi.teamForumMessage(me, text)
             else shutupApi.publicText(me, text, PublicSource.Forum(post.id))
             if !post.troll && !categ.quiet then
-              lila.common.Bus.named.timeline(
+              lila.common.Bus.pub:
                 Propagate(TimelinePost(me, topic.id, topic.name, post.id))
                   .toFollowersOf(me)
                   .withTeam(categ.team)
-              )
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.pub(CreatePost(post.mini))

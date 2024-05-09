@@ -1,7 +1,5 @@
 package lila.forum
 
-import scala.util.chaining.*
-
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
@@ -60,12 +58,15 @@ final class ForumPostApi(
             if anonMod
             then logAnonPost(post, edit = false)
             else if !post.troll && !categ.quiet then
-              lila.common.Bus.named.timeline(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
-                _.toFollowersOf(me).toUsers(topicUserIds).exceptUser(me).withTeam(categ.team)
-              })
+              lila.common.Bus.pub:
+                Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toFollowersOf(me)
+                  .toUsers(topicUserIds)
+                  .exceptUser(me)
+                  .withTeam(categ.team)
             else if categ.id == ForumCateg.diagnosticId then
-              lila.common.Bus.named
-                .timeline(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
+              lila.common.Bus.pub:
+                Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds)
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.pub(BusForum.CreatePost(post.mini))

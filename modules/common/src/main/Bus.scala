@@ -6,11 +6,6 @@ import lila.core.bus.{ Channel, WithChannel }
 import scala.jdk.CollectionConverters.*
 import scala.reflect.Typeable
 
-object NamedBus:
-  object timeline:
-    import lila.core.timeline.*
-    def apply(propagate: Propagate): Unit = Bus.publish(propagate, "timeline")
-
 final class BusChannel(channel: Channel):
   def apply(msg: Bus.Payload): Unit                       = Bus.publish(msg, channel)
   def subscribe(subscriber: Bus.SubscriberFunction): Unit = Bus.subscribeFun(channel)(subscriber)
@@ -35,8 +30,6 @@ object Bus:
 
   type Payload            = Matchable
   type SubscriberFunction = PartialFunction[Payload, Unit]
-
-  val named = NamedBus
 
   def pub[T <: Payload](payload: T)(using wc: WithChannel[T]) =
     publish(payload, wc.channel)
