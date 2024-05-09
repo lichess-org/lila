@@ -63,6 +63,8 @@ export class LevelCtrl {
       makeChessDests: this.makeChessDests,
     });
     promotion.reset();
+
+    if (ctrl.chessground) this.initializeWithCg();
   }
 
   makeChessDests = () => this.chess.dests({ illegal: this.blueprint.offerIllegalMove });
@@ -178,7 +180,6 @@ export class LevelCtrl {
   start = () => {
     sound.levelStart();
     if (this.chess.color() !== this.blueprint.color) timeouts.setTimeout(this.scenario.opponent, 1000);
-    this.redraw();
   };
 
   complete = () => {

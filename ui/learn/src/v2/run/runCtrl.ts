@@ -9,19 +9,15 @@ import { LevelCtrl } from '../levelCtrl';
 
 const RESTARTING_KEY = 'learn.restarting';
 
-export interface Vm {
-  stageStarting: Prop<boolean>;
-  stageCompleted: Prop<boolean>;
-}
-
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
   trans: Trans;
 
   chessground: CgApi | undefined;
-
   levelCtrl: LevelCtrl;
-  vm: Vm;
+
+  stageStarting: Prop<boolean> = prop(false);
+  stageCompleted: Prop<boolean> = prop(false);
 
   get stage(): Stage {
     return stages.byId[this.opts.stageId ?? 1]!;
@@ -36,6 +32,10 @@ export class RunCtrl {
 
     this.trans = ctrl.trans;
 
+    this.initializeLevel();
+  }
+
+  initializeLevel = () => {
     const levelId =
       this.opts.levelId ||
       (() => {
@@ -58,12 +58,11 @@ export class RunCtrl {
           if (this.levelCtrl!.blueprint.id < this.stage.levels.length) {
             // TODO:
             // m.route('/' + stage.id + '/' + (this.level.blueprint.id + 1));
-          } else if (this.vm.stageCompleted()) return;
+          } else if (this.stageCompleted()) return;
           else {
-            this.vm.stageCompleted(true);
+            this.stageCompleted(true);
             sound.stageEnd();
           }
-
           this.redraw();
         },
       },
@@ -72,18 +71,12 @@ export class RunCtrl {
     );
 
     const isRestarting = site.tempStorage.boolean(RESTARTING_KEY);
-    this.vm = {
-      stageStarting: prop(
-        this.levelCtrl.blueprint.id === 1 && this.stageScore() === 0 && !isRestarting.get(),
-      ),
-      stageCompleted: prop(false),
-    };
-
+    this.stageStarting(this.levelCtrl.blueprint.id === 1 && this.stageScore() === 0 && !isRestarting.get());
     isRestarting.set(false);
 
-    if (this.vm.stageStarting()) sound.stageStart();
+    if (this.stageStarting()) sound.stageStart();
     else this.levelCtrl.start();
-  }
+  };
 
   setChessground = (chessground: CgApi) => {
     this.chessground = chessground;
@@ -100,9 +93,10 @@ export class RunCtrl {
   };
   getNext = () => stages.byId[this.stage.id + 1];
   hideStartingPane = () => {
-    if (!this.vm.stageStarting()) return;
-    this.vm.stageStarting(false);
+    if (!this.stageStarting()) return;
+    this.stageStarting(false);
     this.levelCtrl?.start();
+    this.redraw();
   };
   restart = () => {
     site.tempStorage.boolean(RESTARTING_KEY).set(true);

@@ -56,8 +56,8 @@ export const runView = (ctrl: LearnCtrl) => {
     [
       h('div.learn__side', mapSideView(ctrl)),
       h('div.learn__main.main-board', [
-        runCtrl.vm.stageStarting() ? stageStarting(runCtrl) : null,
-        runCtrl.vm.stageCompleted() ? stageComplete(runCtrl) : null,
+        runCtrl.stageStarting() ? stageStarting(runCtrl) : null,
+        runCtrl.stageCompleted() ? stageComplete(runCtrl) : null,
         chessground(ctrl.runCtrl),
         renderPromotion(runCtrl, level),
       ]),
