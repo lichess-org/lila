@@ -213,7 +213,7 @@ html.transp body:not(.simple-board) cg-board {
   }
 }
 
-.cg-wrap coords.squares {
+coords.squares {
   bottom: 0;
   left: 0;
   text-transform: uppercase;
@@ -221,44 +221,44 @@ html.transp body:not(.simple-board) cg-board {
   flex-flow: column-reverse;
   height: 100%;
   width: 12.5%;
-}
 
-.cg-wrap coords.squares.black {
-  flex-flow: column;
-}
+  &.black {
+    flex-flow: column;
+  }
 
-.cg-wrap coords.squares.left {
-  text-align: left;
-}
+  &.left {
+    text-align: left;
+  }
 
-.cg-wrap coords.squares coord {
-  padding: 6% 4%;
-}
+  coord {
+    padding: 6% 4%;
+  }
 
-.cg-wrap coords.squares.rank2 {
-  transform: translateX(100%);
-}
+  &.rank2 {
+    transform: translateX(100%);
+  }
 
-.cg-wrap coords.squares.rank3 {
-  transform: translateX(200%);
-}
+  &.rank3 {
+    transform: translateX(200%);
+  }
 
-.cg-wrap coords.squares.rank4 {
-  transform: translateX(300%);
-}
+  &.rank4 {
+    transform: translateX(300%);
+  }
 
-.cg-wrap coords.squares.rank5 {
-  transform: translateX(400%);
-}
+  &.rank5 {
+    transform: translateX(400%);
+  }
 
-.cg-wrap coords.squares.rank6 {
-  transform: translateX(500%);
-}
+  &.rank6 {
+    transform: translateX(500%);
+  }
 
-.cg-wrap coords.squares.rank7 {
-  transform: translateX(600%);
-}
+  &.rank7 {
+    transform: translateX(600%);
+  }
 
-.cg-wrap coords.squares.rank8 {
-  transform: translateX(700%);
+  &.rank8 {
+    transform: translateX(700%);
+  }
 }
