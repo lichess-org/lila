@@ -91,7 +91,9 @@ final class AuthUi(helpers: Helpers):
                 ),
                 br,
                 trans.site.readAboutOur(
-                  a(href := routes.Cms.menuPage("privacy"))(trans.site.privacyPolicy())
+                  a(href := routes.Cms.menuPage(lila.core.id.CmsPageKey("privacy")))(
+                    trans.site.privacyPolicy()
+                  )
                 ),
                 br
               )

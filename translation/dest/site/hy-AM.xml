@@ -768,9 +768,6 @@
   <string name="transparent">Թափանցիկ</string>
   <string name="deviceTheme">Սարքի թեման</string>
   <string name="backgroundImageUrl">Հետնաշերտի պատկերի հղում`</string>
-  <string name="boardGeometry">Խաղատախտակի տեսքն ու չափսը</string>
-  <string name="boardTheme">Խաղատախտակի ձևավորումը</string>
-  <string name="boardSize">Խաղատախտակի չափսը</string>
   <string name="pieceSet">Խաղաքարերի ձևավորումը</string>
   <string name="embedInYourWebsite">Ստանալ կոդ՝ կայքում տեղադրելու համար</string>
   <string name="usernameAlreadyUsed">Մասնակցային այս անունն արդեն զբաղված է։ Խնդրում ենք փորձել ուրիշը</string>

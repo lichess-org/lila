@@ -10,6 +10,7 @@ import lila.core.team.LightTeam
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.ui.GatheringUi
 import lila.common.String.html.markdownLinksOrRichText
+import lila.common.Json.given
 import lila.core.config.NetDomain
 
 final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)(using NetDomain):
@@ -81,7 +82,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
           table(cls := "slist slist-pad")(
             pairings.currentPageResults.map: p =>
               tr(cls := "paginated")(
-                td(a(href := routes.Round.watcher(p.gameId, "white"), cls := "glpt")(s"#${p.gameId}")),
+                td(a(href := routes.Round.watcher(p.gameId, Color.white), cls := "glpt")(s"#${p.gameId}")),
                 td(userIdLink(p.white.some)),
                 td(p.strResultOf(chess.White)),
                 td(p.strResultOf(chess.Black)),

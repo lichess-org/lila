@@ -27,7 +27,6 @@ jobs:
           submodules: recursive
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
           run_install: true
       - uses: actions/checkout@v4
         with:

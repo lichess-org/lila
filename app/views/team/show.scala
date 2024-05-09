@@ -82,7 +82,7 @@ object show:
                   info.ledByMe.option(
                     a(
                       dataIcon := Icon.InfoCircle,
-                      href     := routes.Cms.lonePage("team-etiquette"),
+                      href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("team-etiquette")),
                       cls      := "text"
                     )("Team Etiquette")
                   )

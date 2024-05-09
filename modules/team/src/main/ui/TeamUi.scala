@@ -322,7 +322,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
   private def joinButton(t: Team)(using Context) =
     t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
-      case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
+      case "ecf"                   => joinAt(routes.Team.show(TeamId("english-chess-players")).url)
       case _ =>
         postForm(cls := "inline", action := routes.Team.join(t.id))(
           submitButton(cls := "button button-green")(trt.joinTeam())

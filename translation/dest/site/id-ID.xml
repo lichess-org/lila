@@ -738,9 +738,6 @@
   <string name="transparent">Tembus pandang</string>
   <string name="deviceTheme">Tema perangkat</string>
   <string name="backgroundImageUrl">URL gambar latar belakang:</string>
-  <string name="boardGeometry">Geometri Papan</string>
-  <string name="boardTheme">Tema Papan</string>
-  <string name="boardSize">Ukuran Papan</string>
   <string name="pieceSet">Susunan buah catur</string>
   <string name="embedInYourWebsite">Salin dalam website Anda</string>
   <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan, coba yang lain.</string>

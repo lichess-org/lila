@@ -21,7 +21,7 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
     OpenGraph(
       image = cdnUrl(routes.Export.gameThumbnail(pov.gameId, None, None).url).some,
       title = titleGame(pov.game),
-      url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
+      url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color).url}",
       description = describePov(pov)
     )
 

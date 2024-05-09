@@ -803,8 +803,7 @@ final class StudyApi(
       if v then
         studyRepo.byId(studyId).foreach {
           _.filter(_.isPublic).foreach { study =>
-            lila.common.Bus.named
-              .timeline(Propagate(StudyLike(who.u, study.id, study.name)).toFollowersOf(who.u))
+            lila.common.Bus.pub(Propagate(StudyLike(who.u, study.id, study.name)).toFollowersOf(who.u))
           }
         }
     }

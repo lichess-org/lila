@@ -1,7 +1,7 @@
 package views.analyse
 
 import play.api.libs.json.{ Json, JsObject }
-import chess.Color
+
 import chess.format.pgn.PgnStr
 
 import lila.app.UiEnv.{ *, given }

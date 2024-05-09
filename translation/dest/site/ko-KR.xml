@@ -741,9 +741,6 @@
   <string name="transparent">투명하게</string>
   <string name="deviceTheme">기기 테마</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
-  <string name="boardGeometry">보드 모양</string>
-  <string name="boardTheme">보드 테마</string>
-  <string name="boardSize">보드 크기</string>
   <string name="pieceSet">기물 세트</string>
   <string name="embedInYourWebsite">웹사이트에 공유하기</string>
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>

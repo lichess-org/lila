@@ -36,7 +36,7 @@ final class Messenger(api: ChatApi):
         (!text.startsWith("/")).so: // mistyped command?
           api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.round)
 
-  def owner(game: Game, anonColor: chess.Color, text: String): Funit =
+  def owner(game: Game, anonColor: Color, text: String): Funit =
     (game.sourceIs(_.Friend) || presets.contains(text))
       .so(api.playerChat.write(game.id.into(ChatId), anonColor, text, _.round))
 

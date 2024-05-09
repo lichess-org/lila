@@ -7,6 +7,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 
@@ -67,7 +68,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     members <- paginator.teamMembers(team.team, page)
     log     <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
-    chat <- hasChat.soFu(env.chat.api.userChat.cached.findMine(ChatId(team.id)))
+    chat <- hasChat.soFu(env.chat.api.userChat.cached.findMine(team.id.into(ChatId)))
     _ <- env.user.lightUserApi.preloadMany:
       info.publicLeaders.map(_.user) ::: info.userIds
     version <- hasChat.soFu(env.team.version(team.id))
@@ -116,13 +117,10 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def update(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Settings): team =>
-      forms
-        .edit(team)
-        .bindFromRequest()
-        .fold(
-          err => BadRequest.async(renderEdit(team, err)),
-          data => api.update(team, data).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
-        )
+      bindForm(forms.edit(team))(
+        err => BadRequest.async(renderEdit(team, err)),
+        data => api.update(team, data).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
+      )
   }
 
   def kickForm(id: TeamId) = Auth { ctx ?=> _ ?=>
@@ -164,29 +162,26 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       api
         .withLeaders(team)
         .flatMap: team =>
-          env.team.security.form
-            .permissions(team)
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.page(leadersPage(team, None, err.some)),
-              data =>
-                env.team.security
-                  .setPermissions(team, data)
-                  .flatMap:
-                    _.filter(_.user.isnt(me))
-                      .traverse: change =>
-                        env.msg.api.systemPost(
-                          change.user,
-                          lila.msg.MsgPreset.newPermissions(
-                            if asMod then LightUser.fallback(UserName.lichess) else me.light,
-                            team.team.light,
-                            change.perms.map(_.name),
-                            env.net.baseUrl
-                          )
+          bindForm(env.team.security.form.permissions(team))(
+            err => BadRequest.page(leadersPage(team, None, err.some)),
+            data =>
+              env.team.security
+                .setPermissions(team, data)
+                .flatMap:
+                  _.filter(_.user.isnt(me))
+                    .traverse: change =>
+                      env.msg.api.systemPost(
+                        change.user,
+                        lila.msg.MsgPreset.newPermissions(
+                          if asMod then LightUser.fallback(UserName.lichess) else me.light,
+                          team.team.light,
+                          change.perms.map(_.name),
+                          env.net.baseUrl
                         )
-                      .inject:
-                        Redirect(routes.Team.leaders(team.id)).flashSuccess
-            )
+                      )
+                    .inject:
+                      Redirect(routes.Team.leaders(team.id)).flashSuccess
+          )
   }
 
   def addLeader(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -194,16 +189,13 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       api
         .withLeaders(team)
         .flatMap: team =>
-          env.team.security.form
-            .addLeader(team)
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.page(leadersPage(team, err.some, None)),
-              name =>
-                env.team.security
-                  .addLeader(team, name)
-                  .inject(Redirect(routes.Team.leaders(team.id)).flashSuccess)
-            )
+          bindForm(env.team.security.form.addLeader(team))(
+            err => BadRequest.page(leadersPage(team, err.some, None)),
+            name =>
+              env.team.security
+                .addLeader(team, name)
+                .inject(Redirect(routes.Team.leaders(team.id)).flashSuccess)
+          )
   }
 
   private def leadersPage(
@@ -218,28 +210,24 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
     Found(api.team(id)): team =>
-      forms.explain
-        .bindFromRequest()
-        .fold(
-          _ => funit,
-          explain =>
-            api.delete(team, me.value, explain) >>
-              env.mod.logApi.deleteTeam(team.id, explain)
-        )
+      bindForm(forms.explain)(
+        _ => funit,
+        explain =>
+          api.delete(team, me.value, explain) >>
+            env.mod.logApi.deleteTeam(team.id, explain)
+      )
         .inject(Redirect(routes.Team.all(1)).flashSuccess)
   }
 
   def disable(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Admin): team =>
       val redirect = Redirect(routes.Team.show(id))
-      forms.explain
-        .bindFromRequest()
-        .fold(
-          _ => redirect.flashFailure,
-          explain =>
-            (api.toggleEnabled(team, explain) >>
-              env.mod.logApi.toggleTeam(team.id, team.enabled, explain)).inject(redirect.flashSuccess)
-        )
+      bindForm(forms.explain)(
+        _ => redirect.flashFailure,
+        explain =>
+          (api.toggleEnabled(team, explain) >>
+            env.mod.logApi.toggleTeam(team.id, team.enabled, explain)).inject(redirect.flashSuccess)
+      )
   }
 
   private def LimitPerWeek[A <: Result](a: => Fu[A])(using ctx: Context, me: Me): Fu[Result] =
@@ -267,15 +255,13 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     OneAtATime(me, rateLimited):
       LimitPerWeek:
         JoinLimit(tooManyTeamsHtml):
-          forms.create
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
-              data =>
-                api.create(data, me).map { team =>
-                  Redirect(routes.Team.show(team.id))
-                }
-            )
+          bindForm(forms.create)(
+            err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
+            data =>
+              api.create(data, me).map { team =>
+                Redirect(routes.Team.show(team.id))
+              }
+          )
   }
 
   def mine = Auth { ctx ?=> me ?=>
@@ -305,28 +291,23 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         JoinLimit(negotiate(tooManyTeamsHtml, tooManyTeamsJson)):
           negotiate(
             html = webJoin(team, request = none, password = none),
-            json = forms
-              .apiRequest(team)
-              .bindFromRequest()
-              .fold(
-                jsonFormError,
-                setup =>
-                  api
-                    .join(team, setup.message, setup.password)
-                    .flatMap:
-                      case Requesting.Joined      => jsonOkResult
-                      case Requesting.NeedRequest => BadRequest(jsonError("This team requires confirmation."))
-                      case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
-                      case Requesting.Blocklist    => BadRequest(jsonError("You cannot join this team."))
-              )
+            json = bindForm(forms.apiRequest(team))(
+              jsonFormError,
+              setup =>
+                api
+                  .join(team, setup.message, setup.password)
+                  .flatMap:
+                    case Requesting.Joined       => jsonOkResult
+                    case Requesting.NeedRequest  => BadRequest(jsonError("This team requires confirmation."))
+                    case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
+                    case Requesting.Blocklist    => BadRequest(jsonError("You cannot join this team."))
+            )
           )
   }
 
   def subscribe(teamId: TeamId) =
     AuthOrScopedBody(_.Team.Write) { _ ?=> me ?=>
-      env.team.forms.subscribe
-        .bindFromRequest()
-        .fold(_ => funit, v => api.subscribe(teamId, me, ~v))
+      bindForm(env.team.forms.subscribe)(_ => funit, v => api.subscribe(teamId, me, ~v))
         .inject(jsonOkResult)
     }
 
@@ -346,17 +327,14 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     Found(api.requestable(id)): team =>
       OneAtATime(me, rateLimited):
         JoinLimit(tooManyTeamsHtml):
-          forms
-            .request(team)
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.page(views.team.request.requestForm(team, err)),
-              setup =>
-                if team.open then webJoin(team, request = none, password = setup.password)
-                else
-                  setup.message.so: msg =>
-                    api.createRequest(team, msg).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
-            )
+          bindForm(forms.request(team))(
+            err => BadRequest.page(views.team.request.requestForm(team, err)),
+            setup =>
+              if team.open then webJoin(team, request = none, password = setup.password)
+              else
+                setup.message.so: msg =>
+                  api.createRequest(team, msg).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
+          )
   }
 
   private def webJoin(team: TeamModel, request: Option[String], password: Option[String])(using Me) =
@@ -375,26 +353,22 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       isGranted <- teamOption.so: team =>
         api.isGranted(team.id, me, _.Request)
     yield (teamOption.ifTrue(isGranted), requestOption).tupled): (team, request) =>
-      forms.processRequest
-        .bindFromRequest()
-        .fold(
-          _ => Redirect(routes.Team.show(team.id)),
-          (decision, url) => api.processRequest(team, request, decision).inject(Redirect(url))
-        )
+      bindForm(forms.processRequest)(
+        _ => Redirect(routes.Team.show(team.id)),
+        (decision, url) => api.processRequest(team, request, decision).inject(Redirect(url))
+      )
   }
 
   def declinedRequests(id: TeamId, page: Int) = AuthBody { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.Request): team =>
-      forms.searchDeclinedForm
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest(""),
-          userQuery =>
-            Ok.async:
-              paginator.declinedRequests(team, page, userQuery).map {
-                views.team.request.declined(team, _, userQuery)
-              }
-        )
+      bindForm(forms.searchDeclinedForm)(
+        _ => BadRequest(""),
+        userQuery =>
+          Ok.async:
+            paginator.declinedRequests(team, page, userQuery).map {
+              views.team.request.declined(team, _, userQuery)
+            }
+      )
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
@@ -449,33 +423,31 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.PmAll): team =>
       import lila.memo.RateLimit.Result
-      forms.pmAll
-        .bindFromRequest()
-        .fold(
-          Left(_),
-          msg =>
-            if env.teamInfo.pmAll.dedup(team.id, msg) then
-              Right:
-                env.teamInfo.pmAll.limiter[Result](
-                  team.id,
-                  if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
-                ) {
-                  val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
-                  val full = s"""$msg
+      bindForm(forms.pmAll)(
+        Left(_),
+        msg =>
+          if env.teamInfo.pmAll.dedup(team.id, msg) then
+            Right:
+              env.teamInfo.pmAll.limiter[Result](
+                team.id,
+                if me.isVerifiedOrAdmin then 1 else mashup.TeamInfo.pmAllCost
+              ) {
+                val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+                val full = s"""$msg
   ---
   You received this because you are subscribed to messages of the team $url."""
-                  env.msg.api
-                    .multiPost(
-                      env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
-                      full
-                    )
-                    .addEffect: nb =>
-                      lila.mon.msg.teamBulk(team.id).record(nb)
-                  // we don't wait for the stream to complete, it would make lichess time out
-                  fuccess(Result.Through)
-                }(Result.Limited)
-            else Left(forms.pmAll.withError("duplicate", "You already sent this message recently"))
-        )
+                env.msg.api
+                  .multiPost(
+                    env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
+                    full
+                  )
+                  .addEffect: nb =>
+                    lila.mon.msg.teamBulk(team.id).record(nb)
+                // we don't wait for the stream to complete, it would make lichess time out
+                fuccess(Result.Through)
+              }(Result.Limited)
+          else Left(forms.pmAll.withError("duplicate", "You already sent this message recently"))
+      )
         .fold(
           err => negotiate(renderPmAll(team, err), BadRequest(errorsAsJson(err))),
           _.flatMap: res =>

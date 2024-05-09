@@ -27,7 +27,7 @@ object Dependencies {
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.109.Final").classifier(s"$os-$arch")
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-RC1" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
+  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.17.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
@@ -84,7 +84,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.18"
-    val json        = "org.playframework" %% "play-json"         % "3.0.2"
+    val json        = "org.playframework" %% "play-json"         % "3.0.3"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
@@ -93,7 +93,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.6"
+    val version = "2.2.7"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)

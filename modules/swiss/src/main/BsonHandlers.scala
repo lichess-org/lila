@@ -1,6 +1,5 @@
 package lila.swiss
 
-import chess.Color
 import chess.format.Fen
 import reactivemongo.api.bson.*
 

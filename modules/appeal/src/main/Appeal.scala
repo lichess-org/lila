@@ -4,9 +4,10 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.ui.Icon
 import lila.core.user.UserMark
+import lila.core.id.AppealId
 
 case class Appeal(
-    @Key("_id") id: Appeal.Id,
+    @Key("_id") id: AppealId,
     msgs: Vector[AppealMsg],
     status: Appeal.Status, // from the moderators POV
     createdAt: Instant,
@@ -15,11 +16,10 @@ case class Appeal(
     // https://github.com/lichess-org/lila/issues/7564
     firstUnrepliedAt: Instant
 ):
-
-  def userId   = id.userId
-  def isRead   = status == Appeal.Status.Read
-  def isMuted  = status == Appeal.Status.Muted
-  def isUnread = status == Appeal.Status.Unread
+  def userId: UserId = id.into(UserId)
+  def isRead         = status == Appeal.Status.Read
+  def isMuted        = status == Appeal.Status.Muted
+  def isUnread       = status == Appeal.Status.Unread
 
   def isAbout(userId: UserId) = id.is(userId)
 
@@ -54,9 +54,6 @@ case class Appeal(
 
 object Appeal:
 
-  opaque type Id = String
-  object Id extends lila.core.userId.OpaqueUserId[Id]
-
   given UserIdOf[Appeal] = _.id.userId
 
   enum Status:
@@ -82,7 +79,7 @@ object Appeal:
       "process" -> boolean
     )
 
-  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: Appeal.Id)
+  private[appeal] case class SnoozeKey(snoozerId: UserId, appealId: AppealId)
   private[appeal] given UserIdOf[SnoozeKey] = _.snoozerId
 
   opaque type Filter = Option[UserMark]

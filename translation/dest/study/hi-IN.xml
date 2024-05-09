@@ -63,7 +63,6 @@
   <string name="downloadAllGames">सभी खेल नीचे लादें</string>
   <string name="chapterPgn">अध्याय PGN</string>
   <string name="copyChapterPgn">पीजीएन की नकल लें</string>
-  <string name="copyChapterPgnDescription">पीजीएन की नकल क्लिपबोर्ड पर लें</string>
   <string name="downloadGame">खेल नीचे लादें</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
@@ -84,7 +83,7 @@
   <string name="pinnedChapterComment">अध्याय पर की गयी महत्वपूर्ण टिप्पणी</string>
   <string name="saveChapter">अध्याय सहेजें</string>
   <string name="clearAnnotations">टिप्पणी मिटाएँ</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">विविधताओं को मिटाये</string>
+  <string name="clearVariations">विविधताओं को मिटाये</string>
   <string name="deleteChapter">अध्याय हटाएं</string>
   <string name="deleteThisChapter">इस अध्याय को हटाएं? हटाने के पश्चात वापसी नहीं होगी!</string>
   <string name="clearAllCommentsInThisChapter">इस अध्याय में सभी टिप्पणियाँ, प्रतीक, और आकृतियाँ साफ़ करें?</string>

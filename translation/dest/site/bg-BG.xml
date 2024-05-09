@@ -777,9 +777,6 @@
   <string name="transparent">Прозрачен</string>
   <string name="deviceTheme">Тема на устройството</string>
   <string name="backgroundImageUrl">URL адрес на фоновия образ:</string>
-  <string name="boardGeometry">Геометрия на дъската</string>
-  <string name="boardTheme">Дизайн на дъската</string>
-  <string name="boardSize">Големина на дъската</string>
   <string name="pieceSet">Дизайн на фигури</string>
   <string name="embedInYourWebsite">Вграждане в уебсайта ви</string>
   <string name="usernameAlreadyUsed">Потребителското име е заето. Опитайте с друго име.</string>

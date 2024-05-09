@@ -456,9 +456,6 @@
   <string name="dark">Тӗттӗм</string>
   <string name="transparent">Витӗр курӑнакан</string>
   <string name="backgroundImageUrl">Хыҫай ӳкерчӗкӗн каҫҫи:</string>
-  <string name="boardGeometry">Хӑма геометрийӗ</string>
-  <string name="boardTheme">Тӗс майлашӑвӗ</string>
-  <string name="boardSize">Хӑма калӑпӑшӗ</string>
   <string name="pieceSet">Кӗлетке пуххи</string>
   <string name="playChessInStyle">Шахматла стиллӗ пулса выльа</string>
   <string name="chessBasics">Шахмат никӗсӗсем</string>

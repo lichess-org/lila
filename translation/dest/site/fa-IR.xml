@@ -696,7 +696,7 @@
   <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
   <string name="keyShowOrHideComments">نمایش/ پنهان کردن نظرات</string>
   <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
-  <string name="keyRequestComputerAnalysis">یک تحلیل کامپیوتری درخواست کنید، از اشتباهات خود درس بگیرید</string>
+  <string name="keyRequestComputerAnalysis">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
   <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباهات خود درس بگیرید)</string>
   <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
   <string name="keyNextMistake">اشتباه بعدی</string>
@@ -791,9 +791,12 @@
   <string name="transparent">شفاف</string>
   <string name="deviceTheme">طرح زمینه دستگاه</string>
   <string name="backgroundImageUrl">لینک تصویر پس زمینه:</string>
-  <string name="boardGeometry">نَمای صفحه بازی</string>
-  <string name="boardTheme">طرح‌بندی صفحه بازی</string>
-  <string name="boardSize">اندازه صفحه بازی</string>
+  <string name="board" comment="Allows you to change the appearance of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">صفحه شطرنج</string>
+  <string name="size" comment="Allows you to change the size of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">اندازه</string>
+  <string name="opacity" comment="Allows you to change how transparent your chessboard appears. This option only appears when using a custom (picture) background. You can make the board more transparent so you can view more of the background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">کدری</string>
+  <string name="brightness" comment="Allows you to change the brightness of the chessboard and pieces on it. This option only appears when using a light or dark background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">درخشندگی</string>
+  <string name="hue" comment="Allows you to change the hue of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">فام</string>
+  <string name="boardReset" comment="Allows you to reset any changes made to colours. Will appear if you change any colour settings.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">بازنشاندن به رنگ‌های پیش‌فرض</string>
   <string name="pieceSet">نوع مهره</string>
   <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
   <string name="usernameAlreadyUsed">این نام کاربری در حال حاضر انتخاب شده است.لطفا نام دیگری انتخاب کنید.</string>

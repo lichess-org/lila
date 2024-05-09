@@ -32,9 +32,6 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       )
       .hrefLangs(LangPath(routes.Tournament.home))
       .fullScreen
-      .copy(
-        wrapClass = "full-screen-force"
-      )
       .graph(
         url = s"$netBaseUrl${routes.Tournament.home.url}",
         title = trans.site.tournamentHomeTitle.txt(),
@@ -266,9 +263,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       )
       Page("Tournament leaderboard")
         .css("tournament.leaderboard")
-        .copy(
-          wrapClass = "full-screen-force"
-        ):
+        .fullScreen:
           main(cls := "page-menu")(
             communityMenu,
             div(cls := "page-menu__content box box-pad")(
@@ -298,7 +293,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     def apply(history: TournamentShield.History)(using Context) =
       Page("Tournament shields")
         .css("tournament.leaderboard")
-        .copy(wrapClass = "full-screen-force"):
+        .fullScreen:
           main(cls := "page-menu")(
             shieldMenu,
             div(cls := "page-menu__content box box-pad")(

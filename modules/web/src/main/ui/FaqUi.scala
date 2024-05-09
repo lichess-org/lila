@@ -13,6 +13,8 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
   import helpers.{ given, * }
   import trans.{ faq as trf }
 
+  private def cmsPageUrl(key: String) = routes.Cms.lonePage(lila.core.id.CmsPageKey(key))
+
   private def question(id: String, title: String, answer: Frag*) =
     div(
       st.id := id,
@@ -116,7 +118,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.youCanUseOpeningBookNoEngine()
             ),
             p(
-              trf.pleaseReadFairPlayPage(a(href := routes.Cms.lonePage("fair-play"))(trf.fairPlayPage()))
+              trf.pleaseReadFairPlayPage(a(href := cmsPageUrl("fair-play"))(trf.fairPlayPage()))
             )
           ),
           h2(trf.gameplay()),
@@ -279,7 +281,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.ratingSystemUsedByLichess()
             ),
             p(
-              a(href := routes.Cms.lonePage("rating-systems"))("More about rating systems")
+              a(href := cmsPageUrl("rating-systems"))("More about rating systems")
             )
           ),
           question(
@@ -330,7 +332,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.whyAreRatingHigherExplanation()
             ),
             p(
-              a(href := routes.Cms.lonePage("rating-systems"))("More about rating systems")
+              a(href := cmsPageUrl("rating-systems"))("More about rating systems")
             )
           ),
           question(

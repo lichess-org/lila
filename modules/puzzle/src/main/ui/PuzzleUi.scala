@@ -53,7 +53,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
           title =
             if isStreak then "Puzzle Streak"
             else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
           description =
             if isStreak then trans.puzzle.streakDescription.txt()
             else
@@ -255,7 +255,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
                             )(
                               a(
                                 cls  := s"puzzle-of-player__puzzle__board",
-                                href := routes.Puzzle.show(puzzle.id)
+                                href := routes.Puzzle.show(puzzle.id.value)
                               )
                             ),
                             span(cls := "puzzle-of-player__puzzle__meta")(
@@ -305,7 +305,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       )
 
     private def renderRound(r: SessionRound)(using Context) =
-      a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id))(
+      a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id.value))(
         chessgroundMini(r.puzzle.fenAfterInitialMove.board, r.puzzle.color, r.puzzle.line.head.some)(
           span(cls := "puzzle-history__round__puzzle")
         ),

@@ -9,10 +9,10 @@ final private class RoundNotifier(
     notifyApi: NotifyApi
 )(using Executor):
 
-  def gameEnd(game: Game)(color: chess.Color) =
+  def gameEnd(game: Game)(color: Color) =
     if !game.aborted then
       game.player(color).userId.foreach { userId =>
-        lila.common.Bus.named.timeline(
+        lila.common.Bus.pub:
           Propagate(
             TLGameEnd(
               fullId = game.fullIdOf(color),
@@ -21,7 +21,6 @@ final private class RoundNotifier(
               perf = game.perfKey
             )
           ).toUser(userId)
-        )
         isUserPresent(game, userId).foreach:
           case false =>
             notifyApi.notifyOne(

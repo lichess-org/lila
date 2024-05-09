@@ -654,9 +654,6 @@
   <string name="dark">Obscur</string>
   <string name="transparent">Transparente</string>
   <string name="backgroundImageUrl">Ligamine URL del imagine de fundo:</string>
-  <string name="boardGeometry">Geometria del tabuliero</string>
-  <string name="boardTheme">Thema del tabuliero</string>
-  <string name="boardSize">Dimension del tabuliero</string>
   <string name="pieceSet">Stilo del pecias</string>
   <string name="embedInYourWebsite">Incorpora in tu sito web</string>
   <string name="usernameAlreadyUsed">Iste nomine de usator ja es usate, per favor, selectiona un altere.</string>

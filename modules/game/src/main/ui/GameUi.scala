@@ -30,7 +30,7 @@ final class GameUi(helpers: Helpers):
 
     def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
       val link = if tv then channelKey.fold(routes.Tv.index) { routes.Tv.onChannel }
-      else routes.Round.watcher(pov.gameId, pov.color.name)
+      else routes.Round.watcher(pov.gameId, pov.color)
       renderMini(pov, link.url.some)(using transDefault, None)
 
     def renderState(pov: Pov)(using me: Option[Me]) =
@@ -75,7 +75,7 @@ final class GameUi(helpers: Helpers):
         pov.game.winnerColor.fold("½"): c =>
           if c == pov.color then "1" else "0"
 
-    private def renderClock(clock: chess.Clock, color: chess.Color) =
+    private def renderClock(clock: chess.Clock, color: Color) =
       val s = clock.remainingTime(color).roundSeconds
       span(
         cls      := s"mini-game__clock mini-game__clock--${color.name}",
@@ -162,7 +162,7 @@ final class GameUi(helpers: Helpers):
                 case Some(w) if w == u.id => "glpt win"  -> "1"
                 case None                 => "glpt"      -> "½"
                 case _                    => "glpt loss" -> "0"
-              a(href := s"""${routes.Round.watcher(r.gameId, "white")}?pov=${u.id}""", cls := linkClass)(
+              a(href := s"""${routes.Round.watcher(r.gameId, Color.white)}?pov=${u.id}""", cls := linkClass)(
                 text
               )
         ,

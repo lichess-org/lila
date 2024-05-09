@@ -1,7 +1,5 @@
 package lila.chat
 
-import chess.Color
-
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
 import lila.core.config.NetDomain

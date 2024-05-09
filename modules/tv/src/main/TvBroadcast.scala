@@ -111,7 +111,7 @@ object TvBroadcast:
     def dataWithFen = data ++ Json.obj("fen" -> fen)
     def socketMsg   = makeMessage("featured", dataWithFen)
 
-  case class Connect(fromLichess: Boolean)
+  case class Connect(bc: Boolean)
   case class Client(queue: Queue, fromLichess: Boolean)
 
   case class Add(c: Client)

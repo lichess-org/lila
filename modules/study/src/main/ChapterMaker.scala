@@ -1,6 +1,5 @@
 package lila.study
 
-import chess.Color
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant

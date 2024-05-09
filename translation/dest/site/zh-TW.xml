@@ -746,9 +746,6 @@
   <string name="transparent">透明度</string>
   <string name="deviceTheme">設備主題</string>
   <string name="backgroundImageUrl">背景圖片網址:</string>
-  <string name="boardGeometry">棋盤幾何性質</string>
-  <string name="boardTheme">棋盤主題</string>
-  <string name="boardSize">棋盤大小</string>
   <string name="pieceSet">棋子外觀設定</string>
   <string name="embedInYourWebsite">嵌入您的網站</string>
   <string name="usernameAlreadyUsed">此用戶名已經有人在使用，請嘗試使用別的</string>

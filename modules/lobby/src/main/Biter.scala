@@ -56,20 +56,20 @@ final private class Biter(
       rememberIfFixedColor(seek.realColor, game)
       JoinSeek(joiner.id, seek, game, ownerColor)
 
-  private def rememberIfFixedColor(color: Color, game: Game) =
-    if color != Color.Random
+  private def rememberIfFixedColor(color: TriColor, game: Game) =
+    if color != TriColor.Random
     then fixedColor.put(game.id)
 
   private def assignCreatorColor(
       creatorUser: Option[WithPerf],
       joinerUser: Option[WithPerf],
-      color: Color
-  ): Fu[chess.Color] =
+      color: TriColor
+  ): Fu[Color] =
     color match
-      case Color.Random =>
-        userApi.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { chess.Color.fromWhite(_) }
-      case Color.White => fuccess(chess.White)
-      case Color.Black => fuccess(chess.Black)
+      case TriColor.Random =>
+        userApi.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { Color.fromWhite(_) }
+      case TriColor.White => fuccess(chess.White)
+      case TriColor.Black => fuccess(chess.Black)
 
   private def makeGame(hook: Hook, users: GameUsers) = lila.core.game
     .newGame(

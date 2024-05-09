@@ -18,7 +18,7 @@
   <string name="removedStudents">Forigita</string>
   <string name="inviteTheStudentBack">Denove inviti la lernanton</string>
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
-  <string name="aLinkToTheClassWillBeAdded">Ligilo al la klaso aŭtomate aldoniĝos ĉe la fino de la mesaĝo, do vi ne bezonas inkludi ĝin mem.</string>
+  <string name="aLinkToTheClassWillBeAdded">Ligilo al la klaso memage aldoniĝos ĉe la fino de la mesaĝo, do vi ne devas enmeti ĝin vi mem.</string>
   <string name="className">Nomo de la leciono</string>
   <string name="classDescription">Priskribo de la leciono</string>
   <string name="visibleByBothStudentsAndTeachers">Videbla por instruistoj kaj lernantoj de la klaso</string>

@@ -553,9 +553,6 @@
   <string name="cumulative">Æдæппæт</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="background">Бындурон хуыз</string>
-  <string name="boardGeometry">Фæйнæджы хуыз æмæ бæрц</string>
-  <string name="boardTheme">Фæйнæджы бакаст</string>
-  <string name="boardSize">Фæйнæджы бæрц</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <string name="xMentionedYouInY">%1$s дæ ской кодта «%2$s»-ы.</string>
   <string name="refundXpointsTimeControlY">Раздæхт: %1$s %2$s рейтинг очкоты.</string>

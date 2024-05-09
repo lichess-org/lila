@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">অ্যারেনা</string>
   <string name="arenaTournaments">অ্যারিনা টুর্ণামনেন্টসমূহ</string>
   <string name="isItRated">মূল্যায়িত হয়েছে?</string>
   <string name="willBeNotified">আপনাকে জানানো হবে যখন প্রতিযোগিতা শুরু হবে, তো অপেক্ষার সময় অন্য টেবে খেলা এটা হয় নিরাপদ.</string>
@@ -52,4 +53,7 @@
   <string name="allowChatHelp">খেলোয়ারদের চ্যাট-রুমে আলোচনা করতে দিন</string>
   <string name="arenaStreaks">এরিনায় ধারাবাহিক জয়</string>
   <string name="arenaStreaksHelp">২টি জয়ের পর প্রতি ধারাবাহিক জয়ের জন্য ২ পয়েন্টের বদলে ৪ পয়েন্ট দেয়া হবে।</string>
+  <string name="pickYourTeam">আপনার দল বাছাই করুন</string>
+  <string name="total">মোট</string>
+  <string name="onlyTitled">শুধুমাত্র খেতাবধারী দাবাড়ুগণ</string>
 </resources>

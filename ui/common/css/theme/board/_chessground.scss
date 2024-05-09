@@ -197,20 +197,18 @@ cg-auto-pieces {
 }
 
 html:not(.transp) body:not(.simple-board) {
-  ---bright-factor: calc(0.3 + 0.0059 * min(120, var(---board-brightness)));
-
-  &.coords-in coord {
-    filter: brightness(var(---bright-factor));
-  }
-
-  cg-board piece {
-    filter: brightness(var(---bright-factor));
+  &.coords-in coord,
+  cg-board piece,
+  cg-board square {
+    filter: brightness(calc(0.3 + 0.0059 * min(120, var(---board-brightness))));
+    //hue-rotate(calc(var(---board-hue) * 3.6deg));
   }
 }
 
-html.transp body:not(.simple-board) {
-  cg-board piece {
+html.transp body:not(.simple-board) cg-board {
+  piece,
+  square {
     opacity: calc(min(1, 0.5 + var(---board-opacity) / 100));
-    filter: unset;
+    //filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
   }
 }

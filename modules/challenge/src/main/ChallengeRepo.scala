@@ -47,7 +47,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
     )
   yield realTime ::: corres
 
-  def setChallenger(c: Challenge, color: Option[chess.Color]) =
+  def setChallenger(c: Challenge, color: Option[Color]) =
     coll.update
       .one(
         $id(c.id),

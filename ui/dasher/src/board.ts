@@ -124,6 +124,7 @@ export class BoardCtrl extends PaneCtrl {
   }, 1000);
 
   private set3d = async (v: boolean) => {
+    if (this.is3d === v) return;
     this.data.is3d = v;
     xhr
       .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
@@ -141,7 +142,7 @@ export class BoardCtrl extends PaneCtrl {
   private apply = (t: Board = this.current) => {
     this.current = t;
     document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
-    site.pubsub.emit('theme.change');
+    site.pubsub.emit('board.change', this.is3d);
     this.root?.piece.apply();
   };
 

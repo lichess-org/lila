@@ -6,6 +6,7 @@ import scala.util.chaining.*
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey as trans }
+import lila.core.id.ForumCategId
 
 object contact:
 
@@ -36,7 +37,7 @@ object contact:
     frag(
       ul(
         li(
-          a(href := routes.ForumCateg.show("lichess-feedback"))(reportBugInForum())
+          a(href := routes.ForumCateg.show(ForumCategId("lichess-feedback")))(reportBugInForum())
         ),
         li(
           a(href := "https://github.com/lichess-org/lila/issues")(reportWebsiteIssue())

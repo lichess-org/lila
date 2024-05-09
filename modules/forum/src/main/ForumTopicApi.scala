@@ -87,7 +87,7 @@ final private class ForumTopicApi(
   )(using me: Me): Fu[ForumTopic] =
     topicRepo.nextSlug(categ, data.name).zip(detectLanguage(data.post.text)).flatMap { (slug, lang) =>
       val topic = ForumTopic.make(
-        categId = categ.slug,
+        categId = categ.id,
         slug = slug,
         name = noShouting(data.name),
         userId = me,
@@ -116,11 +116,10 @@ final private class ForumTopicApi(
             if post.isTeam then shutupApi.teamForumMessage(me, text)
             else shutupApi.publicText(me, text, PublicSource.Forum(post.id))
             if !post.troll && !categ.quiet then
-              lila.common.Bus.named.timeline(
+              lila.common.Bus.pub:
                 Propagate(TimelinePost(me, topic.id, topic.name, post.id))
                   .toFollowersOf(me)
                   .withTeam(categ.team)
-              )
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.pub(CreatePost(post.mini))
@@ -132,12 +131,12 @@ final private class ForumTopicApi(
       slug: String,
       name: String,
       url: String,
-      ublogId: String,
+      ublogId: UblogPostId,
       authorId: UserId
   ): Funit =
     categRepo.byId(ForumCateg.ublogId).flatMapz { categ =>
       val topic = ForumTopic.make(
-        categId = categ.slug,
+        categId = categ.id,
         slug = slug,
         name = name,
         userId = authorId,

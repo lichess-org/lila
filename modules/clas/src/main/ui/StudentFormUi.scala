@@ -71,7 +71,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
                   trans.clas.inviteDesc4()
                 )
               ),
-              postForm(cls := "form3", action := routes.Clas.studentInvite(clas.id.value))(
+              postForm(cls := "form3", action := routes.Clas.studentInvite(clas.id))(
                 form3.group(invite("username"), trans.clas.lichessUsername())(field =>
                   div(cls := "complete-parent")(
                     form3.input(field, klass = "user-autocomplete")(created.isEmpty.option(autofocus))(
@@ -92,11 +92,11 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
                 p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4()),
                 badTag(strong(trans.clas.createStudentWarning()))
               ),
-              postForm(cls := "form3", action := routes.Clas.studentCreate(clas.id.value))(
+              postForm(cls := "form3", action := routes.Clas.studentCreate(clas.id))(
                 form3.group(
                   create("create-username"),
                   trans.clas.lichessUsername(),
-                  help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(clas.id.value)}?gen=1")(
+                  help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(clas.id)}?gen=1")(
                     trans.clas.generateANewUsername()
                   ).some
                 )(
@@ -111,7 +111,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
               div(cls := "info")(
                 h2(trans.clas.createMultipleAccounts()),
                 trans.clas.multipleAccsFormDescription(
-                  a(href := routes.Clas.studentManyForm(clas.id.value))(
+                  a(href := routes.Clas.studentManyForm(clas.id))(
                     trans.clas.useThisForm()
                   )
                 )
@@ -166,7 +166,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
         (nbStudents < Clas.maxStudents).option(
           frag(
             p(badTag(strong(trans.clas.createStudentWarning()))),
-            postForm(cls := "form3", action := routes.Clas.studentManyCreate(clas.id.value))(
+            postForm(cls := "form3", action := routes.Clas.studentManyCreate(clas.id))(
               form3.globalError(form),
               form3.group(
                 form("realNames"),
@@ -182,21 +182,21 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       )
 
   def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
-    ClasPage(s.user.username, Left(clas.withStudents(students)), s.student.some)(
+    ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit"
     ):
       frag(
         studentUi.top(clas, s),
         div(cls := "box__pad")(
           standardFlash,
-          postForm(cls := "form3", action := routes.Clas.studentUpdate(clas.id.value, s.user.username))(
+          postForm(cls := "form3", action := routes.Clas.studentUpdate(clas.id, s.user.username))(
             form3.globalError(form),
             realNameField(form),
             form3.group(form("notes"), trans.site.notes(), help = trans.clas.onlyVisibleToTeachers().some)(
               form3.textarea(_)(autofocus, rows := 15)
             ),
             form3.actions(
-              a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.site.cancel()),
+              a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
               form3.submit(trans.site.apply())
             )
           ),
@@ -204,7 +204,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
           div(cls := "student-show__other-actions")(
             s.student.isActive.option(
               postForm(
-                action := routes.Clas.studentArchive(clas.id.value, s.user.username, v = true)
+                action := routes.Clas.studentArchive(clas.id, s.user.username, v = true)
               )(
                 form3.submit(trans.clas.removeStudent(), icon = none)(
                   cls := "confirm button-red button-empty"
@@ -213,7 +213,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
             ),
             s.student.managed.option(
               a(
-                href  := routes.Clas.studentClose(clas.id.value, s.user.username),
+                href  := routes.Clas.studentClose(clas.id, s.user.username),
                 cls   := "button button-empty button-red",
                 title := trans.clas.closeDesc1.txt()
               )(trans.clas.closeStudent())
@@ -223,7 +223,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       )
 
   def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
-    ClasPage(s.user.username, Left(clas.withStudents(students)), s.student.some)(
+    ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit"
     ):
       frag(
@@ -235,7 +235,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
             br,
             trans.clas.releaseDesc2()
           ),
-          postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id.value, s.user.username))(
+          postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id, s.user.username))(
             form3.globalError(form),
             form3.group(
               form("email"),
@@ -243,7 +243,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
               help = trans.clas.realUniqueEmail().some
             )(form3.input(_, typ = "email")(autofocus, required)),
             form3.actions(
-              a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.site.cancel()),
+              a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
               form3.submit(trans.site.apply())
             )
           )
@@ -251,7 +251,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       )
 
   def close(clas: Clas, students: List[Student], s: Student.WithUser)(using Context) =
-    ClasPage(s.user.username, Left(clas.withStudents(students)), s.student.some)(
+    ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit"
     ):
       frag(
@@ -260,11 +260,11 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
           h2(trans.clas.closeTheAccount()),
           p(strong(badTag(trans.clas.closeDesc1()))),
           p(
-            a(href := routes.Clas.studentRelease(clas.id.value, s.user.username))(trans.clas.closeDesc2())
+            a(href := routes.Clas.studentRelease(clas.id, s.user.username))(trans.clas.closeDesc2())
           ),
-          postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id.value, s.user.username))(
+          postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id, s.user.username))(
             form3.actions(
-              a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.site.cancel()),
+              a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
               form3.submit(trans.clas.closeTheAccount(), icon = Icon.CautionCircle.some)(
                 cls := "button-red confirm"
               )

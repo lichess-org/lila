@@ -27,17 +27,17 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       color: ctrl.bottomColor(),
       lastMove: ctrl.node.uci,
       variant: ctrl.data.game.variant.key,
-      theme: ds.boardTheme,
+      theme: ds.board,
       piece: ds.pieceSet,
     });
     gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
-      theme: ds.boardTheme,
+      theme: ds.board,
       piece: ds.pieceSet,
     });
   };
 
   if (!site.blindMode) {
-    site.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
+    site.pubsub.on('board.change', () => updateGifLinks(inputFen.value));
     site.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);

@@ -45,27 +45,23 @@ final class Pref(env: Env) extends LilaController(env):
     def onSuccess(data: lila.pref.PrefForm.PrefData) =
       api.setPref(data(ctx.pref)).inject(Ok("saved"))
     val form = forms.pref(lichobile = HTTPRequest.isLichobile(req))
-    form
-      .bindFromRequest()
-      .fold(
-        _ =>
-          form
-            .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
-            .fold(
-              err => BadRequest(err.toString).toFuccess,
-              onSuccess
-            ),
-        onSuccess
-      )
+    bindForm(form)(
+      _ =>
+        form
+          .bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body))
+          .fold(
+            err => BadRequest(err.toString).toFuccess,
+            onSuccess
+          ),
+      onSuccess
+    )
   }
 
   def notifyFormApply = AuthBody { ctx ?=> me ?=>
-    NotificationPref.form.form
-      .bindFromRequest()
-      .fold(
-        err => BadRequest(err.toString).toFuccess,
-        data => env.notifyM.api.prefs.set(me, data).inject(Ok("saved"))
-      )
+    bindForm(NotificationPref.form.form)(
+      err => BadRequest(err.toString).toFuccess,
+      data => env.notifyM.api.prefs.set(me, data).inject(Ok("saved"))
+    )
   }
 
   def set(name: String) = OpenBody:
@@ -79,26 +75,22 @@ final class Pref(env: Env) extends LilaController(env):
       lila.pref.PrefSingleChange.changes
         .get(name)
         .so: change =>
-          change.form
-            .bindFromRequest()
-            .fold(
-              form => fuccess(BadRequest(form.errors.flatMap(_.messages).mkString("\n"))),
-              v =>
-                ctx.me
-                  .so(api.setPref(_, change.update(v)))
-                  .inject(env.security.lilaCookie.session(name, v.toString))
-                  .map: cookie =>
-                    Ok(()).withCookies(cookie)
-            )
+          bindForm(change.form)(
+            form => fuccess(BadRequest(form.errors.flatMap(_.messages).mkString("\n"))),
+            v =>
+              ctx.me
+                .so(api.setPref(_, change.update(v)))
+                .inject(env.security.lilaCookie.session(name, v.toString))
+                .map: cookie =>
+                  Ok(()).withCookies(cookie)
+          )
 
   def apiSet(name: String) = ScopedBody(_.Web.Mobile) { ctx ?=> me ?=>
     lila.pref.PrefSingleChange.changes
       .get(name)
       .so: change =>
-        change.form
-          .bindFromRequest()
-          .fold(
-            jsonFormError,
-            v => api.setPref(me, change.update(v)).inject(NoContent)
-          )
+        bindForm(change.form)(
+          jsonFormError,
+          v => api.setPref(me, change.update(v)).inject(NoContent)
+        )
   }

@@ -1,21 +1,19 @@
 package controllers
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import scala.util.chaining.*
-
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.net.IpAddress
 import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
-import lila.core.perf.PerfKeyStr
 
 final class Api(
     env: Env,
@@ -56,18 +54,10 @@ final class Api(
   private[controllers] def userWithFollows(using req: RequestHeader) =
     HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows")
 
-  private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
-    key = "users.api.ip",
-    enforce = env.net.rateLimit.value
-  )(
-    ("fast", 2000, 10.minutes),
-    ("slow", 30000, 1.day)
-  )
-
   def usersByIds = AnonBodyOf(parse.tolerantText): body =>
     val usernames = body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
     val cost      = usernames.size / 4
-    UsersRateLimitPerIP(req.ipAddress, rateLimited, cost = cost):
+    limit.apiUsers(req.ipAddress, rateLimited, cost = cost):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
         .listWithPerfs(usernames)
@@ -113,14 +103,8 @@ final class Api(
   def game(id: GameId) = ApiRequest:
     gameApi.one(id, gameFlagsFromRequest).map(toApiResult)
 
-  private val CrosstableRateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 30,
-    duration = 10.minutes,
-    key = "crosstable.api.ip"
-  )
-
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
-    CrosstableRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
+    limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       val (u1, u2) = (name1.id, name2.id)
       env.game.crosstableApi(u1, u2).flatMap { ct =>
         (ct.results.nonEmpty && getBool("matchup"))
@@ -297,11 +281,10 @@ final class Api(
             )
 
   val eventStream =
-    val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.stream.event.user")
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
-      rateLimit(me, limited):
+      limit.eventStream(me, limited):
         env.round.proxyRepo
           .urgentGames(me)
           .flatMap: povs =>
@@ -311,14 +294,8 @@ final class Api(
                 jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges))
     }
 
-  private val UserActivityRateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 15,
-    duration = 2.minutes,
-    key = "user_activity.api.ip"
-  )
-
   def activity(name: UserStr) = ApiRequest:
-    UserActivityRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
+    limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.activity.increment(1)
       meOrFetch(name)
         .flatMapz { user =>
@@ -343,7 +320,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: PerfKeyStr) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:

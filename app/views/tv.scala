@@ -35,7 +35,7 @@ def index(
         ),
         views.round.ui.roundAppPreload(pov),
         div(cls := "round__underboard")(
-          views.round.bits.crosstable(cross, pov.game),
+          views.round.crosstable(cross, pov.game),
           div(cls := "tv-history")(
             h2(trans.site.previouslyOnLichessTV()),
             div(cls := "now-playing")(
@@ -51,7 +51,7 @@ def games(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Ch
     .js(EsmInit("bits.tvGames")):
       main(
         cls     := "page-menu tv-games",
-        dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, "gameId", Nil)}"
+        dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil)}"
       )(
         st.aside(cls := "page-menu__menu")(
           side.channels(channel, champions, "/games")

@@ -21,13 +21,10 @@ final class Event(env: Env) extends LilaController(env):
 
   def update(id: String) = SecureBody(_.ManageEvent) { ctx ?=> me ?=>
     Found(api.one(id)): event =>
-      api
-        .editForm(event)
-        .bindFromRequest()
-        .fold(
-          err => BadRequest.page(views.event.edit(event, err)),
-          data => api.update(event, data).inject(Redirect(routes.Event.edit(id)).flashSuccess)
-        )
+      bindForm(api.editForm(event))(
+        err => BadRequest.page(views.event.edit(event, err)),
+        data => api.update(event, data).inject(Redirect(routes.Event.edit(id)).flashSuccess)
+      )
   }
 
   def form = Secure(_.ManageEvent) { ctx ?=> _ ?=>
@@ -36,15 +33,13 @@ final class Event(env: Env) extends LilaController(env):
   }
 
   def create = SecureBody(_.ManageEvent) { ctx ?=> me ?=>
-    api.createForm
-      .bindFromRequest()
-      .fold(
-        err => BadRequest.page(views.event.create(err)),
-        data =>
-          api.create(data).map { event =>
-            Redirect(routes.Event.edit(event.id)).flashSuccess
-          }
-      )
+    bindForm(api.createForm)(
+      err => BadRequest.page(views.event.create(err)),
+      data =>
+        api.create(data).map { event =>
+          Redirect(routes.Event.edit(event.id)).flashSuccess
+        }
+    )
   }
 
   def cloneE(id: String) = Secure(_.ManageEvent) { ctx ?=> _ ?=>

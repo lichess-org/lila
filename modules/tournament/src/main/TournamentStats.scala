@@ -1,6 +1,5 @@
 package lila.tournament
 
-import chess.Color
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.*

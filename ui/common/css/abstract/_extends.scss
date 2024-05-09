@@ -61,12 +61,12 @@
 }
 
 %metal {
-  background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
+  background: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
   text-shadow: 0 1px 0 $c-font-shadow;
 }
 
 %metal-hover {
-  background-image: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
+  background: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
   text-shadow: 0 1px 0 $c-font-shadow;
 }
 

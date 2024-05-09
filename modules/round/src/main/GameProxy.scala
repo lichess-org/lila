@@ -2,7 +2,6 @@ package lila.round
 
 import akka.actor.{ Cancellable, Scheduler }
 import scala.util.Success
-import chess.Color
 
 import lila.game.{ GameRepo, Progress }
 import lila.game.GameExt.*

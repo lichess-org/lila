@@ -742,9 +742,6 @@
   <string name="dark">Qaranlıq</string>
   <string name="transparent">Şəffaf</string>
   <string name="backgroundImageUrl">Arxa fon rəsm URL-i:</string>
-  <string name="boardGeometry">Lövhə geometriyası</string>
-  <string name="boardTheme">Lövhə teması</string>
-  <string name="boardSize">Lövhə ölçüsü</string>
   <string name="pieceSet">Fiqur seti</string>
   <string name="embedInYourWebsite">Saytınıza yerləşdirin</string>
   <string name="usernameAlreadyUsed">Bu istifadəçi adı artıq istifadə olunur, lütfən başqasını sınayın.</string>

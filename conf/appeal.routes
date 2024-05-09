@@ -2,8 +2,8 @@ GET   /appeal                          controllers.appeal.Appeal.home
 POST  /appeal                          controllers.appeal.Appeal.post
 GET   /appeal/landing                  controllers.appeal.Appeal.landing
 GET   /appeal/queue                    controllers.appeal.Appeal.queue(filter: Option[String] ?= None)
-GET   /appeal/:username                controllers.appeal.Appeal.show(username: String)
-POST  /appeal/:username                controllers.appeal.Appeal.reply(username: String)
-POST  /appeal/:username/mute           controllers.appeal.Appeal.mute(username: String)
-POST  /appeal/:username/snooze/:dur    controllers.appeal.Appeal.snooze(username: String, dur: String)
-POST  /appeal/:username/send-to-zulip  controllers.appeal.Appeal.sendToZulip(username: String)
+GET   /appeal/:username                controllers.appeal.Appeal.show(username: UserStr)
+POST  /appeal/:username                controllers.appeal.Appeal.reply(username: UserStr)
+POST  /appeal/:username/mute           controllers.appeal.Appeal.mute(username: UserStr)
+POST  /appeal/:username/snooze/:dur    controllers.appeal.Appeal.snooze(username: UserStr, dur: String)
+POST  /appeal/:username/send-to-zulip  controllers.appeal.Appeal.sendToZulip(username: UserStr)

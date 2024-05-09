@@ -52,13 +52,10 @@ final class Coach(env: Env) extends LilaController(env):
 
   def editApply = SecureBody(_.Coach) { ctx ?=> me ?=>
     Found(api.findOrInit): c =>
-      CoachProfileForm
-        .edit(c.coach)
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest,
-          data => api.update(c, data).inject(Ok)
-        )
+      bindForm(CoachProfileForm.edit(c.coach))(
+        _ => BadRequest,
+        data => api.update(c, data).inject(Ok)
+      )
   }
 
   def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>

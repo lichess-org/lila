@@ -51,7 +51,7 @@ object queue:
                   p(shorten(msg.text, 200))
                 )),
               td(
-                a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
+                a(href := routes.Appeal.show(appeal.userId), cls := "button button-empty")("View"),
                 inquiries.get(appeal.userId).map { i =>
                   frag(userIdLink(i.mod.some), nbsp, "is handling this")
                 }

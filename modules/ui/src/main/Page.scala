@@ -30,7 +30,7 @@ case class Page(
     zoomable: Boolean = false,
     zenable: Boolean = false,
     csp: Option[Update[ContentSecurityPolicy]] = None,
-    wrapClass: String = "",
+    fullScreenClass: Boolean = false,
     atomLinkTag: Option[Tag] = None,
     withHrefLangs: Option[LangPath] = None,
     transform: Update[Frag] = identity
@@ -52,7 +52,7 @@ case class Page(
   def csp(up: Update[ContentSecurityPolicy]): Page                 = copy(csp = csp.fold(up)(up.compose).some)
   def hrefLangs(path: Option[LangPath]): Page                      = copy(withHrefLangs = path)
   def hrefLangs(path: LangPath): Page                              = copy(withHrefLangs = path.some)
-  def fullScreen: Page                                             = copy(wrapClass = "full-screen-force")
+  def fullScreen: Page                                             = copy(fullScreenClass = true)
   def noRobot: Page                                                = robots(false)
   def zoom                                                         = copy(zoomable = true)
   def zen                                                          = copy(zenable = true)

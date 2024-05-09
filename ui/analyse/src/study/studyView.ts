@@ -169,8 +169,7 @@ export function side(ctrl: StudyCtrl, withSearch: boolean): VNode {
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     chaptersTab,
-    (ctrl.members.canContribute() || ctrl.data.admin) &&
-      makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size())),
+    ctrl.members.size() > 0 && makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size())),
     withSearch &&
       h('span.search.narrow', {
         attrs: { ...dataIcon(licon.Search), title: 'Search' },
