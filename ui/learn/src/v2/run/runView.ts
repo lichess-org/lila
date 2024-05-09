@@ -40,7 +40,7 @@ function renderCompleted(ctrl: RunCtrl, level: LevelCtrl) {
 export const runView = (ctrl: LearnCtrl) => {
   const runCtrl = ctrl.runCtrl;
   const stage = runCtrl.stage;
-  const level = runCtrl.level;
+  const level = runCtrl.levelCtrl;
 
   return h(
     `div.learn.learn--run.${stage.cssClass}.${level.blueprint.cssClass}`,
@@ -57,8 +57,6 @@ export const runView = (ctrl: LearnCtrl) => {
       h('div.learn__main.main-board', [
         runCtrl.vm.stageStarting() ? stageStarting(runCtrl) : null,
         runCtrl.vm.stageCompleted() ? stageComplete(runCtrl) : null,
-        // TODO:
-        // chessground.view(ground.instance),
         chessground(ctrl.runCtrl),
         renderPromotion(runCtrl, level),
       ]),

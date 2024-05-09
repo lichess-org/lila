@@ -1,5 +1,5 @@
 import { PromotionRole } from './util';
-import { ctrl as makeItems } from './item';
+import { Items, ctrl as makeItems } from './item';
 import * as ground from './ground';
 import { Level } from './stage/list';
 import * as scoring from './score';
@@ -10,6 +10,7 @@ import makeScenario, { Scenario } from './scenario';
 import * as promotion from './promotion';
 import type { Square as Key } from 'chess.js';
 import { RunCtrl } from './run/runCtrl';
+import { getPiece, setChessground } from './chessground';
 
 export interface LevelVm {
   score: number;
@@ -42,25 +43,37 @@ export class LevelCtrl {
     nbMoves: 0,
   };
 
-  scenario: Scenario;
+  items: Items<'apple'>;
   chess: ChessCtrl;
+  scenario: Scenario;
 
   constructor(
     readonly blueprint: Level,
     readonly opts: LevelOpts,
     readonly ctrl: RunCtrl,
+    readonly redraw: () => void,
   ) {
-    const items = makeItems({
-      apples: blueprint.apples,
-    });
-
     // cheat
     // site.mousetrap.bind(['shift+enter'], this.complete);
+
+    this.items = makeItems({ apples: blueprint.apples });
+    this.chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : this.items.appleKeys());
+    this.scenario = makeScenario(blueprint.scenario, {
+      chess: this.chess,
+      makeChessDests: this.makeChessDests,
+    });
+    promotion.reset();
+  }
+
+  makeChessDests = () => this.chess.dests({ illegal: this.blueprint.offerIllegalMove });
+
+  initializeWithCg = () => {
+    const { items, scenario, chess, blueprint, vm, redraw, ctrl } = this;
 
     const assertData = (): AssertData => ({
       scenario: scenario,
       chess: chess,
-      vm: this.vm,
+      vm: vm,
     });
     const detectFailure = function () {
       const failed = blueprint.failure && blueprint.failure(assertData());
@@ -76,52 +89,52 @@ export class LevelCtrl {
       const fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
       const move = chess[fun]();
       if (!move) return false;
-      this.vm.failed = true;
+      vm.failed = true;
       ground.stop();
       ground.showCapture(move);
       sound.failure();
       return true;
     };
+
     const sendMove = (orig: Key, dest: Key, prom?: PromotionRole) => {
-      this.vm.nbMoves++;
+      vm.nbMoves++;
       const move = chess.move(orig, dest, prom);
       if (move) ground.fen(chess.fen(), blueprint.color, {});
       else {
         // moving into check
-        this.vm.failed = true;
+        vm.failed = true;
         ground.showCheckmate(chess);
         sound.failure();
-        // TODO:
-        // return m.redraw();
+        redraw();
         return;
       }
       let took = false,
         inScenario,
         captured = false;
       items.withItem(move.to, () => {
-        this.vm.score += scoring.apple;
+        vm.score += scoring.apple;
         items.remove(move.to);
         took = true;
       });
       if (!took && move.captured && blueprint.pointsForCapture) {
-        if (blueprint.showPieceValues) this.vm.score += scoring.pieceValue(move.captured);
-        else this.vm.score += scoring.capture;
+        if (blueprint.showPieceValues) vm.score += scoring.pieceValue(move.captured);
+        else vm.score += scoring.capture;
         took = true;
       }
       ground.check(chess);
       if (scenario.player(move.from + move.to + (move.promotion || ''))) {
-        this.vm.score += scoring.scenario;
+        vm.score += scoring.scenario;
         inScenario = true;
       } else {
         captured = detectCapture();
-        this.vm.failed = this.vm.failed || captured || detectFailure();
+        vm.failed = vm.failed || captured || detectFailure();
       }
-      if (!this.vm.failed && detectSuccess()) this.complete();
-      if (this.vm.willComplete) return;
+      if (!vm.failed && detectSuccess()) this.complete();
+      if (vm.willComplete) return;
       if (took) sound.take();
       else if (inScenario) sound.take();
       else sound.move();
-      if (this.vm.failed) {
+      if (vm.failed) {
         if (blueprint.showFailureFollowUp && !captured)
           timeouts.setTimeout(function () {
             const rm = chess.playRandomMove();
@@ -129,49 +142,38 @@ export class LevelCtrl {
             ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
           }, 600);
       } else {
+        // TODO:
         // ground.select(dest);
         if (!inScenario) {
           chess.color(blueprint.color);
-          ground.color(blueprint.color, makeChessDests());
+          ground.color(blueprint.color, this.makeChessDests());
         }
       }
-      // TODO:
-      // m.redraw();
+      redraw();
     };
-    sendMove; // TODO:
-    const makeChessDests = function () {
-      return chess.dests({
-        illegal: blueprint.offerIllegalMove,
-      });
-    };
-    // const onMove = function (orig: Key, dest: Key) {
-    //   const piece = ground.get(dest);
-    //   if (!piece || piece.color !== blueprint.color) return;
-    //   if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
-    // };
-    const chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : items.appleKeys());
-    this.chess = chess;
-    const scenario = makeScenario(blueprint.scenario, {
+
+    setChessground(ctrl, {
       chess: chess,
-      makeChessDests: makeChessDests,
+      offerIllegalMove: blueprint.offerIllegalMove,
+      autoCastle: blueprint.autoCastle,
+      orientation: blueprint.color,
+      onMove: (orig: Key, dest: Key) => {
+        const piece = getPiece(ctrl, dest);
+        if (!piece || piece.color !== blueprint.color) return;
+        if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
+      },
+      items: {
+        render: function (_pos: unknown, key: Key) {
+          // TODO:
+          key;
+          console.log('rendering item, known to be broken');
+          // return items.withItem(key, itemView);
+          return undefined;
+        },
+      },
+      shapes: blueprint.shapes,
     });
-    promotion.reset();
-    // ground.set({
-    //   chess: chess,
-    //   offerIllegalMove: blueprint.offerIllegalMove,
-    //   autoCastle: blueprint.autoCastle,
-    //   orientation: blueprint.color,
-    //   onMove: onMove,
-    //   items: {
-    //     render: function (_pos: unknown, key: Key) {
-    //       // TODO:
-    //       console.log('rendering item, known to be broken');
-    //       return items.withItem(key, itemView);
-    //     },
-    //   },
-    //   shapes: blueprint.shapes,
-    // });
-  }
+  };
 
   start = () => {
     sound.levelStart();
@@ -188,10 +190,10 @@ export class LevelCtrl {
         this.vm.completed = true;
         sound.levelEnd();
         ground.stop();
-        // TODO:
-        // m.redraw();
+        this.redraw();
         if (!this.blueprint.nextButton) timeouts.setTimeout(this.opts.onComplete, 1200);
       },
+      // TODO:
       // ground.data().stats.dragged ? 1 : 250,
       250,
     );

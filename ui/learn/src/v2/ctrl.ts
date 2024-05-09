@@ -23,11 +23,11 @@ export class LearnCtrl {
     this.setStageLevelFromHash();
 
     this.sideCtrl = new SnabbdomSideCtrl(this, opts);
-    this.runCtrl = new RunCtrl(this, opts);
+    this.runCtrl = new RunCtrl(this, opts, redraw);
 
     window.addEventListener('hashchange', () => {
       this.setStageLevelFromHash();
-      this.runCtrl = new RunCtrl(this, opts);
+      this.runCtrl = new RunCtrl(this, opts, redraw);
       this.redraw();
     });
   }

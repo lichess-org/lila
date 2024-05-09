@@ -18,18 +18,6 @@ export interface Shape {
 
 export type Dests = Partial<Record<Key, Key[]>>;
 
-// interface GroundOpts {
-//   chess: ChessCtrl;
-//   offerIllegalMove?: boolean;
-//   autoCastle?: boolean;
-//   orientation: Color;
-//   onMove(orig: Key, dest: Key): void;
-//   items: {
-//     render(pos: unknown, key: Key): VNode | undefined;
-//   };
-//   shapes?: Shape[];
-// }
-
 // export function set(opts: GroundOpts) {
 //   const check = opts.chess.instance.in_check();
 //   cg.set({
@@ -156,10 +144,6 @@ export function promote(key: Key, role: PromotionRole) {
 
 // export function pieces() {
 //   return cg.data.pieces;
-// }
-
-// export function get(key: Key) {
-//   return cg.data.pieces[key];
 // }
 
 export function showCapture(move: CgMove) {

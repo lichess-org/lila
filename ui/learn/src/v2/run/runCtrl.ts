@@ -20,45 +20,42 @@ export class RunCtrl {
 
   chessground: CgApi | undefined;
 
-  level: LevelCtrl;
+  levelCtrl: LevelCtrl;
   vm: Vm;
+
+  get stage(): Stage {
+    return stages.byId[this.opts.stageId ?? 1]!;
+  }
 
   constructor(
     ctrl: LearnCtrl,
     readonly opts: LearnOpts,
+    readonly redraw: () => void,
   ) {
     clearTimeouts();
 
     this.trans = ctrl.trans;
 
-    const stage = stages.byId[opts.stageId ?? 1];
-    if (!stage) {
-      // TODO:
-      console.log('exiting early');
-      return;
-    }
-    ctrl.sideCtrl.setStage(stage);
-
     const levelId =
-      opts.levelId ||
+      this.opts.levelId ||
       (() => {
-        const result = this.data.stages[stage.key];
+        const result = this.data.stages[this.stage.key];
         let it = 0;
         if (result) while (result.scores[it]) it++;
-        if (it >= stage.levels.length) it = 0;
+        if (it >= this.stage.levels.length) it = 0;
         const newLevelId = it + 1;
-        opts.levelId = newLevelId;
+        this.opts.levelId = newLevelId;
         return newLevelId;
       })();
 
-    this.level = new LevelCtrl(
-      stage.levels[Number(levelId) - 1],
+    this.levelCtrl = new LevelCtrl(
+      this.stage.levels[Number(levelId) - 1],
       {
         onCompleteImmediate: () => {
-          opts.storage.saveScore(stage, this.level.blueprint, this.level.vm.score);
+          this.opts.storage.saveScore(this.stage, this.levelCtrl!.blueprint, this.levelCtrl!.vm.score);
         },
         onComplete: () => {
-          if (this.level.blueprint.id < stage.levels.length) {
+          if (this.levelCtrl!.blueprint.id < this.stage.levels.length) {
             // TODO:
             // m.route('/' + stage.id + '/' + (this.level.blueprint.id + 1));
           } else if (this.vm.stageCompleted()) return;
@@ -67,27 +64,31 @@ export class RunCtrl {
             sound.stageEnd();
           }
 
-          ctrl.redraw();
+          this.redraw();
         },
       },
       this,
+      this.redraw,
     );
 
     const isRestarting = site.tempStorage.boolean(RESTARTING_KEY);
     this.vm = {
-      stageStarting: prop(this.level.blueprint.id === 1 && this.stageScore() === 0 && !isRestarting.get()),
+      stageStarting: prop(
+        this.levelCtrl.blueprint.id === 1 && this.stageScore() === 0 && !isRestarting.get(),
+      ),
       stageCompleted: prop(false),
     };
 
     isRestarting.set(false);
 
     if (this.vm.stageStarting()) sound.stageStart();
-    else this.level.start();
+    else this.levelCtrl.start();
   }
 
-  get stage(): Stage {
-    return stages.byId[this.opts.stageId ?? 1]!;
-  }
+  setChessground = (chessground: CgApi) => {
+    this.chessground = chessground;
+    this.levelCtrl.initializeWithCg();
+  };
 
   stageScore = () => {
     const res = this.data.stages[this.stage.key];
@@ -101,7 +102,7 @@ export class RunCtrl {
   hideStartingPane = () => {
     if (!this.vm.stageStarting()) return;
     this.vm.stageStarting(false);
-    this.level.start();
+    this.levelCtrl?.start();
   };
   restart = () => {
     site.tempStorage.boolean(RESTARTING_KEY).set(true);
