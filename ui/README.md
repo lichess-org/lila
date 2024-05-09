@@ -29,15 +29,6 @@ cd ui/
 pnpm test
 ```
 
-### VSCode
-
-The Jest extension is your friend. You will want to configure the following in your `settings.json`:
-
-```
-"jest.rootPath": "ui",
-"jest.jestCommandLine": "node_modules/.bin/jest --config jest.config.js",
-```
-
 ## CSS
 
 The structure of a CSS module is as follows:

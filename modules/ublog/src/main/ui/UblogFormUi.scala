@@ -5,6 +5,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
 import lila.core.captcha.Captcha
+import lila.core.id.CmsPageKey
 
 final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     renderCaptcha: (Form[?], Option[Captcha]) => Context ?=> Frag
@@ -12,7 +13,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
   import helpers.{ *, given }
 
   private def FormPage(title: String)(using Context) =
-    Page(title).cssTag("ublog.form", "tagify").js(EsmInit("bits.ublogForm"))
+    Page(title).css("ublog.form", "tagify").js(EsmInit("bits.ublogForm"))
 
   def create(user: User, f: Form[UblogForm.UblogPostData], captcha: Captcha)(using Context) =
     FormPage(s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}")
@@ -61,7 +62,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
   )(using Context) =
     postForm(
       cls    := "form3 ublog-post-form__main",
-      action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id.value))
+      action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id))
     )(
       form3.globalError(form),
       post.toOption.map { p =>
@@ -177,7 +178,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       p(
         a(
           dataIcon := Icon.InfoCircle,
-          href     := routes.Cms.lonePage("blog-etiquette"),
+          href     := routes.Cms.lonePage(CmsPageKey("blog-etiquette")),
           cls      := "text",
           targetBlank
         )("Ranking your blog")
@@ -187,7 +188,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
 
   def tips(using Translate) = a(
     dataIcon := Icon.InfoCircle,
-    href     := routes.Cms.lonePage("blog-tips"),
+    href     := routes.Cms.lonePage(CmsPageKey("blog-tips")),
     cls      := "text",
     targetBlank
   )(trans.ublog.blogTips())

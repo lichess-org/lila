@@ -768,9 +768,6 @@
   <string name="transparent">გამჭვირვალე</string>
   <string name="deviceTheme">მოწყობილობის თემა</string>
   <string name="backgroundImageUrl">ფონის სურათის მისამართი:</string>
-  <string name="boardGeometry">საჭადრაკო დაფის გეომეტრია</string>
-  <string name="boardTheme">ჭადრაკის დაფის ფონი</string>
-  <string name="boardSize">ჭადრაკის დაფის ზომა</string>
   <string name="pieceSet">ფიგურების კომპლექტი</string>
   <string name="embedInYourWebsite">ჩააშენეთ თქვენს საიტში</string>
   <string name="usernameAlreadyUsed">ეს მომხმარებლის სახელი უკვე მოხმარებაშია, გთხოვთ სცადეთ სხვა სახელი.</string>

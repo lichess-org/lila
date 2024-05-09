@@ -857,9 +857,12 @@
   <string name="transparent">Priehľadné</string>
   <string name="deviceTheme">Motív zariadenia</string>
   <string name="backgroundImageUrl">URL obrázka na pozadí:</string>
-  <string name="boardGeometry">Typ šachovnice</string>
-  <string name="boardTheme">Vzhľad šachovnice</string>
-  <string name="boardSize">Veľkosť šachovnice</string>
+  <string name="board" comment="Part of the appearance configuration; allows you to change the appearance of your chessboard. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Šachovnica</string>
+  <string name="size" comment="Part of the appearance configuration; allow you to change the size of the chessboard. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Veľkosť</string>
+  <string name="opacity">Priehľadnosť</string>
+  <string name="brightness">Jas</string>
+  <string name="hue">Odtieň</string>
+  <string name="boardReset">Obnoviť farby na predvolené hodnoty</string>
   <string name="pieceSet">Vzhľad figúr</string>
   <string name="embedInYourWebsite">Vložiť na web</string>
   <string name="usernameAlreadyUsed">Toto užívateľské meno už existuje. Zvoľte si, prosím, iné.</string>

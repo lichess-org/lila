@@ -20,15 +20,12 @@ final class Feed(env: Env) extends LilaController(env):
   }
 
   def create = SecureBody(_.Feed) { _ ?=> _ ?=>
-    api
-      .form(none)
-      .bindFromRequest()
-      .fold(
-        err => BadRequest.async(views.feed.create(err)),
-        data =>
-          val up = data.toUpdate(none)
-          api.set(up).inject(Redirect(routes.Feed.edit(up.id)).flashSuccess)
-      )
+    bindForm(api.form(none))(
+      err => BadRequest.async(views.feed.create(err)),
+      data =>
+        val up = data.toUpdate(none)
+        api.set(up).inject(Redirect(routes.Feed.edit(up.id)).flashSuccess)
+    )
   }
 
   def edit(id: String) = Secure(_.Feed) { _ ?=> _ ?=>
@@ -38,14 +35,10 @@ final class Feed(env: Env) extends LilaController(env):
 
   def update(id: String) = SecureBody(_.Feed) { _ ?=> _ ?=>
     Found(api.get(id)): from =>
-      api
-        .form(from.some)
-        .bindFromRequest()
-        .fold(
-          err => BadRequest.async(views.feed.edit(err, from)),
-          data =>
-            api.set(data.toUpdate(from.id.some)).inject(Redirect(routes.Feed.edit(from.id)).flashSuccess)
-        )
+      bindForm(api.form(from.some))(
+        err => BadRequest.async(views.feed.edit(err, from)),
+        data => api.set(data.toUpdate(from.id.some)).inject(Redirect(routes.Feed.edit(from.id)).flashSuccess)
+      )
   }
 
   def delete(id: String) = Secure(_.Feed) { _ ?=> _ ?=>

@@ -112,7 +112,7 @@
   <string name="delete">Läschen</string>
   <string name="deleteThisImportedGame">Importéiert Partie läschen?</string>
   <string name="replayMode">Replay-Modus</string>
-  <string name="realtimeReplay">Realzäit</string>
+  <string name="realtimeReplay">Echtzäit</string>
   <string name="byCPL">No CPL</string>
   <string name="openStudy">Studie opmaachen</string>
   <string name="enable">Aktivéieren</string>
@@ -185,7 +185,7 @@
   <string name="variant">Variant</string>
   <string name="variants">Varianten</string>
   <string name="timeControl">Zäitkontroll</string>
-  <string name="realTime">Realzäit</string>
+  <string name="realTime">Echtzäit</string>
   <string name="correspondence">Korrespondenz</string>
   <string name="daysPerTurn">Deeg pro Zuch</string>
   <string name="oneDay">Een Dag</string>
@@ -301,7 +301,7 @@
   <string name="composeMessage">Message schreiwen</string>
   <string name="subject">Betreff</string>
   <string name="send">Schécken</string>
-  <string name="incrementInSeconds">Inkrement an Sekonnen</string>
+  <string name="incrementInSeconds">Inkrement a Sekonnen</string>
   <string name="freeOnlineChess">Gratis Online Schach</string>
   <plurals name="nbRated">
     <item quantity="one">%s gewäert</item>
@@ -575,7 +575,7 @@
   <string name="newPasswordsDontMatch">Déi nei Passwierder sinn net identesch</string>
   <string name="newPasswordStrength">Passwuert Stäerkt</string>
   <string name="clockInitialTime">Auer Initial Zäit</string>
-  <string name="clockIncrement">Auer Inkrement</string>
+  <string name="clockIncrement">Auer-Inkrement</string>
   <string name="privacy">Privatsphär</string>
   <string name="privacyPolicy">Datenschutzbestëmmung</string>
   <string name="letOtherPlayersFollowYou">Anerer kënnen dir followen</string>
@@ -776,9 +776,6 @@
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Mam Gerät synchroniséieren</string>
   <string name="backgroundImageUrl">URL vum Hannergrondbild:</string>
-  <string name="boardGeometry">Briet Geometrie</string>
-  <string name="boardTheme">Brietdesign</string>
-  <string name="boardSize">Briet Gréisst</string>
   <string name="pieceSet">Figurestil</string>
   <string name="embedInYourWebsite">An Websäit anbetten</string>
   <string name="usernameAlreadyUsed">Dësen Benotzernumm gëtt schonn benotzt, wiel wannechgelift een aneren.</string>

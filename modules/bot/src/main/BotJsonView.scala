@@ -7,7 +7,6 @@ import lila.game.JsonView.given
 import lila.core.game.{ Game, GameRepo, Pov, WithInitialFen }
 import lila.core.i18n.Translate
 import lila.game.GameExt.perfType
-import chess.Color
 
 final class BotJsonView(
     lightUserApi: lila.core.user.LightUserApi,

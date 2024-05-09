@@ -18,7 +18,6 @@ trait ResponseBuilder(using Executor)
   export scalatags.Text.Frag
 
   given Conversion[Result, Fu[Result]] = fuccess(_)
-  // given Conversion[Frag, Fu[Frag]]     = fuccess(_)
 
   val rateLimitedMsg  = "Too many requests. Try again later."
   val rateLimitedJson = TooManyRequests(jsonError(rateLimitedMsg))

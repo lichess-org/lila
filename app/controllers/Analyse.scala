@@ -91,11 +91,11 @@ final class Analyse(
                 ).map(_.enforceCrossSiteIsolation)
       yield res
 
-  def embed(gameId: GameId, color: String) = embedReplayGame(gameId, color)
+  def embed(gameId: GameId, color: Color) = embedReplayGame(gameId, color)
 
   val AcceptsPgn = Accepting("application/x-chess-pgn")
 
-  def embedReplayGame(gameId: GameId, color: String) = Anon:
+  def embedReplayGame(gameId: GameId, color: Color) = Anon:
     InEmbedContext:
       env.api.textLpvExpand.getPgn(gameId).map {
         case Some(LpvEmbed.PublicPgn(pgn)) =>
@@ -103,7 +103,7 @@ final class Analyse(
             case AcceptsPgn() => Ok(pgn)
             case _ =>
               Ok.snip:
-                views.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true)
+                views.analyse.embed.lpv(pgn, color.some, getPgn = true)
         case _ =>
           render:
             case AcceptsPgn() => NotFound("*")
@@ -114,7 +114,7 @@ final class Analyse(
       Context
   ): Fu[Result] =
     (get("fen").map(Fen.Full.clean): Option[Fen.Full]).fold(or): atFen =>
-      val url = routes.Round.watcher(pov.gameId, pov.color.name)
+      val url = routes.Round.watcher(pov.gameId, pov.color)
       chess.Replay
         .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)
         .fold(
@@ -155,29 +155,25 @@ final class Analyse(
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
     HTTPRequest.bearer(ctx.req).so { bearer =>
       val tokenId = AccessToken.Id.from(bearer)
-      lila.analyse.ExternalEngine.form
-        .bindFromRequest()
-        .fold(
-          jsonFormError,
-          data =>
-            env.analyse.externalEngine.create(me, data, tokenId.value).map { engine =>
-              Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-            }
-        )
+      bindForm(lila.analyse.ExternalEngine.form)(
+        jsonFormError,
+        data =>
+          env.analyse.externalEngine.create(me, data, tokenId.value).map { engine =>
+            Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+          }
+      )
     }
   }
 
   def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
     Found(env.analyse.externalEngine.find(me, id)): engine =>
-      lila.analyse.ExternalEngine.form
-        .bindFromRequest()
-        .fold(
-          jsonFormError,
-          data =>
-            env.analyse.externalEngine.update(engine, data).map { engine =>
-              JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-            }
-        )
+      bindForm(lila.analyse.ExternalEngine.form)(
+        jsonFormError,
+        data =>
+          env.analyse.externalEngine.update(engine, data).map { engine =>
+            JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+          }
+      )
   }
 
   def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>

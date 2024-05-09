@@ -25,10 +25,10 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
   )(using ctx: Context) =
     val isStreak = data.value.contains("streak")
     Page(if isStreak then "Puzzle Streak" else trans.site.puzzles.txt())
-      .cssTag("puzzle")
-      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-      .cssTag(ctx.pref.hasVoice.option("voice"))
-      .cssTag(ctx.blind.option("round.nvui"))
+      .css("puzzle")
+      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .css(ctx.pref.hasVoice.option("voice"))
+      .css(ctx.blind.option("round.nvui"))
       .js(ctx.blind.option(EsmInit("puzzle.nvui")))
       .js(
         PageModule(
@@ -53,7 +53,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
           title =
             if isStreak then "Puzzle Streak"
             else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
           description =
             if isStreak then trans.puzzle.streakDescription.txt()
             else
@@ -71,7 +71,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
 
   def themes(all: PuzzleAngle.All)(using ctx: Context) =
     Page(trans.puzzle.puzzleThemes.txt())
-      .cssTag("puzzle.page")
+      .css("puzzle.page")
       .hrefLangs(lila.ui.LangPath(routes.Puzzle.themes)):
         main(cls := "page-menu")(
           bits.pageMenu("themes", ctx.me),
@@ -141,7 +141,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         using ctx: Context
     ) =
       Page(trans.puzzle.puzzlesByOpenings.txt())
-        .cssTag("puzzle.page")
+        .css("puzzle.page")
         .js(EsmInit("puzzle.opening")):
           main(cls := "page-menu")(
             bits.pageMenu("openings", ctx.me),
@@ -217,7 +217,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
 
   def ofPlayer(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(using ctx: Context) =
     Page(user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)))
-      .cssTag("puzzle.page")
+      .css("puzzle.page")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           bits.pageMenu("player", user),
@@ -255,7 +255,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
                             )(
                               a(
                                 cls  := s"puzzle-of-player__puzzle__board",
-                                href := routes.Puzzle.show(puzzle.id)
+                                href := routes.Puzzle.show(puzzle.id.value)
                               )
                             ),
                             span(cls := "puzzle-of-player__puzzle__meta")(
@@ -280,7 +280,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         if ctx.is(user) then trans.puzzle.history.txt()
         else s"${user.username} ${trans.puzzle.history.txt()}"
       Page(title)
-        .cssTag("puzzle.dashboard")
+        .css("puzzle.dashboard")
         .js(infiniteScrollEsmInit):
           main(cls := "page-menu")(
             bits.pageMenu("history", user.some),
@@ -305,7 +305,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       )
 
     private def renderRound(r: SessionRound)(using Context) =
-      a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id))(
+      a(cls := "puzzle-history__round", href := routes.Puzzle.show(r.puzzle.id.value))(
         chessgroundMini(r.puzzle.fenAfterInitialMove.board, r.puzzle.color, r.puzzle.line.head.some)(
           span(cls := "puzzle-history__round__puzzle")
         ),

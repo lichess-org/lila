@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">بەخێربێن!</string>
+  <string name="welcomeToLichess">بەخێربێن بۆ lichess.org!</string>
+  <string name="thisIsYourProfilePage">ئەمە پەڕەی پڕۆفایلی ئێوەیە.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">ئایا منداڵ ئەم ئەکاونتە بەکاردەهێنێت؟ لەوانەیە بتەوێت %s چالاک بکەیت.</string>
+  <string name="whatNowSuggestions">ئێستا چی? لێرەدا چەند پێشنیارێک دەخەینەڕوو:</string>
+  <string name="learnChessRules">یاساکانی شەترنج فێربە</string>
+  <string name="improveWithChessTacticsPuzzles">بە مەتەڵە تاکتیکیەکان بەهێزتربە.</string>
+  <string name="playTheArtificialIntelligence">یاری لەگەڵ زیرەکی دەستکرد بکە.</string>
+  <string name="playOpponentsFromAroundTheWorld">یاری دژی رکابەرەکانت بکە لە سەرانسەری جیهان.</string>
+  <string name="followYourFriendsOnLichess">فۆڵۆوی هاوڕێکانتان بکەن لە لیچێس.</string>
+  <string name="playInTournaments">لە پاڵەوانێتییەکان یاری بکە.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">لە %1$s و %2$s فێربە.</string>
+  <string name="configureLichess">Lichess بە ئارەزووی خۆت ڕێکبخە.</string>
+  <string name="exploreTheSiteAndHaveFun">سایتەکە بگەڕێ و کاتێکی خۆش بەسەر بەرە :)</string>
+</resources>

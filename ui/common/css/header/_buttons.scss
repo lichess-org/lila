@@ -16,7 +16,11 @@
     }
 
     font-size: 1.1rem;
-    padding: 0 0.7rem;
+    padding: 0 20px;
+
+    body[data-user] & {
+      padding: 0 0.7rem;
+    }
 
     &:hover {
       color: $c-font-clearer !important;

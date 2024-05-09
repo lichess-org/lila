@@ -21,7 +21,14 @@ final class Env(
     poolApi: lila.core.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
     socketKit: lila.core.socket.SocketKit
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.game.IdGenerator, IsClockCompatible):
+)(using
+    Executor,
+    akka.actor.ActorSystem,
+    Scheduler,
+    lila.core.game.IdGenerator,
+    IsClockCompatible,
+    lila.core.config.RateLimit
+):
 
   private lazy val seekApiConfig = new SeekApi.Config(
     coll = db(CollName("seek")),

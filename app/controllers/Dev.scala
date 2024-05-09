@@ -41,16 +41,14 @@ final class Dev(env: Env) extends LilaController(env):
 
   def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
     settingsList.find(_.id == id).so { setting =>
-      setting.form
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest.page(views.dev.settings(settingsList)),
-          v =>
-            lila
-              .log("setting")
-              .info(s"${me.username} changes $id from ${setting.get()} to ${v.toString}")
-            setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
-        )
+      bindForm(setting.form)(
+        _ => BadRequest.page(views.dev.settings(settingsList)),
+        v =>
+          lila
+            .log("setting")
+            .info(s"${me.username} changes $id from ${setting.get()} to ${v.toString}")
+          setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
+      )
     }
   }
 
@@ -60,15 +58,13 @@ final class Dev(env: Env) extends LilaController(env):
   }
 
   def cliPost = SecureBody(_.Cli) { _ ?=> me ?=>
-    env.api.cli.form
-      .bindFromRequest()
-      .fold(
-        err => BadRequest.page(views.dev.cli(err, "Invalid command".some)),
-        command =>
-          Ok.async:
-            runCommand(command).map: res =>
-              views.dev.cli(env.api.cli.form.fill(command), s"$command\n\n$res".some)
-      )
+    bindForm(env.api.cli.form)(
+      err => BadRequest.page(views.dev.cli(err, "Invalid command".some)),
+      command =>
+        Ok.async:
+          runCommand(command).map: res =>
+            views.dev.cli(env.api.cli.form.fill(command), s"$command\n\n$res".some)
+    )
   }
 
   def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> _ ?=>

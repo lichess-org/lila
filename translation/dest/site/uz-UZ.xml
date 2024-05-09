@@ -767,9 +767,6 @@
   <string name="transparent">Shaffof</string>
   <string name="deviceTheme">Qurilma mavzusi</string>
   <string name="backgroundImageUrl">Orqa fon URL:</string>
-  <string name="boardGeometry">Doska geometriyasi</string>
-  <string name="boardTheme">Doska mavzusi</string>
-  <string name="boardSize">Doska o\'lchami</string>
   <string name="pieceSet">Sipohlarni sozlash</string>
   <string name="embedInYourWebsite">O\'z saytingizga joylashtirish</string>
   <string name="usernameAlreadyUsed">Ushbu foydalanuvchi nomi ishlatilayabdi, boshqasini ko\'ring.</string>

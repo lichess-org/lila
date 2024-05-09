@@ -19,7 +19,7 @@ def index(
       s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}"
     )
     .js(PageModule("round", Json.obj("data" -> data, "i18n" -> views.round.jsI18n(pov.game))))
-    .cssTag("tv.single")
+    .css("tv.single")
     .graph(
       title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
       description =
@@ -35,7 +35,7 @@ def index(
         ),
         views.round.ui.roundAppPreload(pov),
         div(cls := "round__underboard")(
-          views.round.bits.crosstable(cross, pov.game),
+          views.round.crosstable(cross, pov.game),
           div(cls := "tv-history")(
             h2(trans.site.previouslyOnLichessTV()),
             div(cls := "now-playing")(
@@ -47,11 +47,11 @@ def index(
 
 def games(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Champions)(using ctx: Context) =
   Page(s"${channel.name} • ${trans.site.currentGames.txt()}")
-    .cssTag("tv.games")
+    .css("tv.games")
     .js(EsmInit("bits.tvGames")):
       main(
         cls     := "page-menu tv-games",
-        dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, "gameId", Nil)}"
+        dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil)}"
       )(
         st.aside(cls := "page-menu__menu")(
           side.channels(channel, champions, "/games")

@@ -234,9 +234,9 @@ final class SimulApi(
   private def makeGame(simul: Simul, host: UserWithPerfs)(
       pairing: SimulPairing,
       number: Int
-  ): Fu[(Game, chess.Color)] = for
+  ): Fu[(Game, Color)] = for
     user <- userApi.withPerfs(pairing.player.user).orFail(s"No user with id ${pairing.player.user}")
-    hostColor = simul.hostColor | chess.Color.fromWhite(number % 2 == 0)
+    hostColor = simul.hostColor | Color.fromWhite(number % 2 == 0)
     us        = ByColor(host, user)
     users     = hostColor.fold(us, us.swap)
     clock     = simul.clock.chessClockOf(hostColor)

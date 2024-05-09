@@ -7,7 +7,14 @@
   <string name="prizeBanned">ئەکاونتەکەت لە پاڵەوانێتییەکان قەدەغە کراوە کە خەڵاتی ڕاستەقینەیان تێدایە.</string>
   <string name="boosterMarked">ئەکاونتەکەت بۆ دەستکاریکردنی هەڵسەنگاندن نیشانە کراوە.</string>
   <string name="boosterMarkedInfo">ئێمە ئەمە بەم شێوەیە پێناسە دەکەین کە بە ئەنقەست دەستکاریکردنی ڕیتینگ بکەیت بە دۆڕاندنی یارییەکان بە مەبەست، یان بە یاریکردن بەرامبەر بە ئەکاونتێکی تر کە بە ئەنقەست یارییەکان دەدۆڕێت.</string>
-  <string name="accountMuted">ئەکاونتەکەت وەستێنراوە.</string>
-  <string name="accountMutedInfo">%s ی ئێمە بخوێنەرەوە. جێبەجێنەکردنی ڕێنماییەکانی پەیوەندیکردن دەتوانێت ببێتە هۆی ڕاگرتنی ئەکاونتەکان.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">ئەکاونتەکەت وەستێنراوە.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">%s ی ئێمە بخوێنەرەوە. جێبەجێنەکردنی ڕێنماییەکانی پەیوەندیکردن دەتوانێت ببێتە هۆی ڕاگرتنی ئەکاونتەکان.</string>
   <string name="excludedFromLeaderboards">ئەکاونتەکەت لە بوون بە بەرێوەبەری بۆردەکان دوور خراوەتەوە.</string>
+  <string name="excludedFromLeaderboardsInfo">ئێمە ئەمە بە بەکارهێنانی هەر ڕێگەیەکی نادادپەروەرانە بۆ چوونە سەر لیدەربۆرد پێناسە دەکەین.</string>
+  <string name="closedByModerators">هەژمارەکەت لەلایەن بەڕێوەبەرانەوە داخراوە.</string>
+  <string name="hiddenBlog">بلۆگەکانتان لەلایەن بەڕێوەبەرانەوە شاراونەتەوە.</string>
+  <string name="hiddenBlogInfo">دڵنیابە جارێکی تر %s ەکانمان بخوێنیتەوە.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">ڕێنماییەکانی پەیوەندیکردن</string>
+  <string name="blogRules">یاساکانی بلۆگ</string>
+  <string name="fairPlay">یاریەکی دادپەروەرانە</string>
 </resources>

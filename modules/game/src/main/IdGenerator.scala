@@ -1,6 +1,5 @@
 package lila.game
 
-import chess.Color
 import scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.db.dsl.{ *, given }

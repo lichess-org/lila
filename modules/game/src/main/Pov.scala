@@ -1,7 +1,5 @@
 package lila.game
 
-import chess.Color
-
 import lila.core.game.*
 
 object Pov:

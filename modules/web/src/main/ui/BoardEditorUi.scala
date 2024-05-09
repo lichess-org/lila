@@ -23,7 +23,7 @@ final class BoardEditorUi(helpers: Helpers):
           jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
         )
       )
-      .cssTag("editor")
+      .css("editor")
       .zoom
       .graph(
         title = "Chess board editor",

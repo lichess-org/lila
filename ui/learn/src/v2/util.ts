@@ -56,7 +56,7 @@ export function setFenTurn(fen: string, turn: 'b' | 'w') {
 }
 
 export function pieceImg(role: string) {
-  return h('div.is2d.no-square', h('piece.white.' + role));
+  return h('div.no-square', h('piece.white.' + role));
 }
 
 export function roundSvg(url: string) {

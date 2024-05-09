@@ -1,24 +1,24 @@
 package lila.clas
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
+import lila.core.id.{ ClasId, ClasInviteId }
+
 case class ClasInvite(
-    _id: ClasInvite.Id, // random
+    @Key("_id") id: ClasInviteId, // random
     userId: UserId,
     realName: String,
-    clasId: Clas.Id,
+    clasId: ClasId,
     created: Clas.Recorded,
     accepted: Option[Boolean] = None
 )
 
 object ClasInvite:
 
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
-
   def make(clas: Clas, user: User, realName: String)(using teacher: Me) =
     ClasInvite(
-      _id = Id(ThreadLocalRandom.nextString(8)),
+      id = ClasInviteId(ThreadLocalRandom.nextString(8)),
       userId = user.id,
       realName = realName,
       clasId = clas.id,

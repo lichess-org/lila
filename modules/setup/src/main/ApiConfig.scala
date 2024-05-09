@@ -7,7 +7,7 @@ import scalalib.model.Days
 
 import lila.core.data.Template
 import lila.core.game.GameRule
-import lila.lobby.Color
+import lila.lobby.TriColor
 import lila.rating.PerfType
 
 final case class ApiConfig(
@@ -15,7 +15,7 @@ final case class ApiConfig(
     clock: Option[Clock.Config],
     days: Option[Days],
     rated: Boolean,
-    color: Color,
+    color: TriColor,
     position: Option[Fen.Full] = None,
     message: Option[Template],
     keepAliveStream: Boolean,
@@ -60,7 +60,7 @@ object ApiConfig extends BaseHumanConfig:
       clock = cl,
       days = d,
       rated = r,
-      color = Color.orDefault(~c),
+      color = TriColor.orDefault(~c),
       position = pos,
       message = msg.map(Template.apply),
       keepAliveStream = ~keepAliveStream,

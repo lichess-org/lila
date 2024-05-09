@@ -25,7 +25,7 @@ final class SimulShow(helpers: Helpers, ui: SimulUi, gathering: GatheringUi):
   )(using ctx: Context) =
     val userIsHost = ctx.is(sim.hostId)
     Page(sim.fullName)
-      .cssTag("simul.show")
+      .css("simul.show")
       .js(
         PageModule(
           "simul",

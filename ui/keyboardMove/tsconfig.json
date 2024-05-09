@@ -9,5 +9,9 @@
     "composite": true
   },
   "isolatedModules": true,
-  "references": [{ "path": "../common/tsconfig.json" }]
+  "references": [
+    { "path": "../common/tsconfig.json" },
+    { "path": "../chess/tsconfig.json" },
+    { "path": "../game/tsconfig.json" }
+  ]
 }

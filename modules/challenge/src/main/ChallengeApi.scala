@@ -116,7 +116,7 @@ final class ChallengeApi(
   def accept(
       c: Challenge,
       sid: Option[String],
-      requestedColor: Option[chess.Color] = None
+      requestedColor: Option[Color] = None
   )(using me: Option[Me]): Fu[Either[String, Option[Pov]]] =
     acceptQueue:
       def withPerf = me.map(_.value).soFu(userApi.withPerf(_, c.perfType))
@@ -133,7 +133,7 @@ final class ChallengeApi(
           me      <- me
           open    <- c.open
           userIds <- open.userIds
-        yield chess.Color.fromWhite(me.is(userIds._1))
+        yield Color.fromWhite(me.is(userIds._1))
         val color = openFixedColor.orElse(requestedColor)
         if c.challengerIsOpen
         then

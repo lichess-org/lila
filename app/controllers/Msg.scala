@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json.*
 
 import lila.app.{ *, given }
+import lila.common.Json.given
 
 final class Msg(env: Env) extends LilaController(env):
 
@@ -18,7 +19,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def convo(username: UserStr, before: Option[Long] = None) = Auth { _ ?=> me ?=>
     if username.value == "new"
-    then Redirect(get("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
+    then Redirect(getUserStr("user").fold(routes.Msg.home)(routes.Msg.convo(_)))
     else
       env.msg.api.convoWithMe(username, before).flatMap {
         case None => negotiate(Redirect(routes.Msg.home), notFoundJson())
@@ -72,18 +73,16 @@ final class Msg(env: Env) extends LilaController(env):
         .fold(doubleJsonFormError, _.inject(Ok(Json.obj("ok" -> true, "id" -> userId))))
     else // new API: create/reply
       (ctx.kid.no && me.isnt(userId)).so:
-        env.msg.textForm
-          .bindFromRequest()
-          .fold(
-            doubleJsonFormError,
-            text =>
-              env.msg.api
-                .post(me, userId, text)
-                .flatMap:
-                  case lila.core.msg.PostResult.Success => jsonOkResult
-                  case lila.core.msg.PostResult.Limited => rateLimited
-                  case _                                => BadRequest(jsonError("The message was rejected"))
-          )
+        bindForm(env.msg.textForm)(
+          doubleJsonFormError,
+          text =>
+            env.msg.api
+              .post(me, userId, text)
+              .flatMap:
+                case lila.core.msg.PostResult.Success => jsonOkResult
+                case lila.core.msg.PostResult.Limited => rateLimited
+                case _                                => BadRequest(jsonError("The message was rejected"))
+        )
   }
 
   private def inboxJson(using me: Me) =

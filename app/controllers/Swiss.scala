@@ -118,18 +118,15 @@ final class Swiss(
   def create(teamId: TeamId) = AuthBody { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
-        env.swiss.forms
-          .create(me)
-          .bindFromRequest()
-          .fold(
-            err => BadRequest.page(views.swiss.form.create(err, teamId)),
-            data =>
-              tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
-                env.swiss.api
-                  .create(data, teamId)
-                  .map: swiss =>
-                    Redirect(routes.Swiss.show(swiss.id))
-          )
+        bindForm(env.swiss.forms.create(me))(
+          err => BadRequest.page(views.swiss.form.create(err, teamId)),
+          data =>
+            tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
+              env.swiss.api
+                .create(data, teamId)
+                .map: swiss =>
+                  Redirect(routes.Swiss.show(swiss.id))
+        )
   }
 
   def apiCreate(teamId: TeamId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
@@ -137,15 +134,12 @@ final class Swiss(
     else
       env.team.api.isGranted(teamId, me, _.Tour).flatMap {
         if _ then
-          env.swiss.forms
-            .create(me)
-            .bindFromRequest()
-            .fold(
-              doubleJsonFormError,
-              data =>
-                tourC.rateLimitCreation(isPrivate = true, rateLimited):
-                  env.swiss.api.create(data, teamId).flatMap(env.swiss.json.api).map(JsonOk)
-            )
+          bindForm(env.swiss.forms.create(me))(
+            doubleJsonFormError,
+            data =>
+              tourC.rateLimitCreation(isPrivate = true, rateLimited):
+                env.swiss.api.create(data, teamId).flatMap(env.swiss.json.api).map(JsonOk)
+          )
         else notFoundJson("You're not a leader of that team")
 
       }
@@ -166,7 +160,7 @@ final class Swiss(
   }
 
   private def bodyPassword(using Request[?]) =
-    SwissForm.joinForm.bindFromRequest().fold(_ => none, identity)
+    bindForm(SwissForm.joinForm)(_ => none, identity)
 
   private def doJoin(id: SwissId, password: Option[String])(using me: Me) =
     env.team.cached.teamIds(me).flatMap { teamIds =>
@@ -191,39 +185,31 @@ final class Swiss(
 
   def update(id: SwissId) = AuthBody { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      env.swiss.forms
-        .edit(me, swiss)
-        .bindFromRequest()
-        .fold(
-          err => BadRequest.page(views.swiss.form.edit(swiss, err)),
-          data => env.swiss.api.update(swiss.id, data) >> Redirect(routes.Swiss.show(id))
-        )
+      bindForm(env.swiss.forms.edit(me, swiss))(
+        err => BadRequest.page(views.swiss.form.edit(swiss, err)),
+        data => env.swiss.api.update(swiss.id, data) >> Redirect(routes.Swiss.show(id))
+      )
   }
 
   def apiUpdate(id: SwissId) = ScopedBody(_.Tournament.Write) { req ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      env.swiss.forms
-        .edit(me, swiss)
-        .bindFromRequest()
-        .fold(
-          err => jsonFormError(err),
-          data =>
-            env.swiss.api.update(swiss.id, data) >>
-              FoundOk(env.swiss.api.update(swiss.id, data))(env.swiss.json.api)
-        )
+      bindForm(env.swiss.forms.edit(me, swiss))(
+        err => jsonFormError(err),
+        data =>
+          env.swiss.api.update(swiss.id, data) >>
+            FoundOk(env.swiss.api.update(swiss.id, data))(env.swiss.json.api)
+      )
   }
 
   def scheduleNextRound(id: SwissId) =
     AuthOrScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
       WithEditableSwiss(id): swiss =>
-        env.swiss.forms.nextRound
-          .bindFromRequest()
-          .fold(
-            err => negotiate(Redirect(routes.Swiss.show(id)), jsonFormError(err)),
-            date =>
-              env.swiss.api.scheduleNextRound(swiss, date) >>
-                negotiate(Redirect(routes.Swiss.show(id)), NoContent)
-          )
+        bindForm(env.swiss.forms.nextRound)(
+          err => negotiate(Redirect(routes.Swiss.show(id)), jsonFormError(err)),
+          date =>
+            env.swiss.api.scheduleNextRound(swiss, date) >>
+              negotiate(Redirect(routes.Swiss.show(id)), NoContent)
+        )
     }
 
   def terminate(id: SwissId) = Auth { _ ?=> me ?=>

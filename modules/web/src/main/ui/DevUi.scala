@@ -11,7 +11,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
 
   def settings(settings: List[lila.memo.SettingStore[?]])(using Context) =
     val title = "Settings"
-    Page(title).cssTag("mod.misc"):
+    Page(title).css("mod.misc"):
       main(cls := "page-menu")(
         modMenu("setting"),
         div(id := "settings", cls := "page-menu__content box box-pad")(
@@ -32,8 +32,8 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
   def cli(form: Form[?], res: Option[String])(using Context) =
     val title = "Command Line Interface"
     Page(title)
-      .cssTag("mod.misc")
-      .cssTag("form3"):
+      .css("mod.misc")
+      .css("form3"):
         main(cls := "page-menu")(
           modMenu("cli"),
           div(id := "dev-cli", cls := "page-menu__content box box-pad")(

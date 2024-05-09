@@ -13,7 +13,7 @@ final class TutorBits(helpers: Helpers)(
       mods: AttrPair*
   )(using Context) =
     Page(title)
-      .cssTag("tutor")
+      .css("tutor")
       .js(EsmInit("tutor"))
       .csp(_.withInlineIconFont)
       .wrap: body =>

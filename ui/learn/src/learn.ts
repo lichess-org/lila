@@ -58,5 +58,9 @@ export function initModule({ data, i18n }: LearnServerOpts) {
 
   redraw();
 
+  const was3d = document.head.querySelector(`link[data-css-key='board-3d']`) !== null;
+  site.pubsub.on('board.change', (is3d: boolean) => {
+    if (is3d !== was3d) setTimeout(site.reload, 200);
+  });
   return {};
 }

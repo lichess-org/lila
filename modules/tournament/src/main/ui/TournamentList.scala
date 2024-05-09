@@ -22,7 +22,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       json: JsObject
   )(using ctx: Context) =
     Page(trans.site.tournaments.txt())
-      .cssTag("tournament.home")
+      .css("tournament.home")
       .js(infiniteScrollEsmInit)
       .js(
         PageModule(
@@ -32,9 +32,6 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       )
       .hrefLangs(LangPath(routes.Tournament.home))
       .fullScreen
-      .copy(
-        wrapClass = "full-screen-force"
-      )
       .graph(
         url = s"$netBaseUrl${routes.Tournament.home.url}",
         title = trans.site.tournamentHomeTitle.txt(),
@@ -110,7 +107,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
   def history(freq: Freq, pager: Paginator[Tournament])(using Context) =
     Page("Tournament history")
       .js(infiniteScrollEsmInit)
-      .cssTag("tournament.history"):
+      .css("tournament.history"):
         main(cls := "page-menu arena-history")(
           lila.ui.bits.pageMenuSubnav(
             allFreqs.map { f =>
@@ -135,7 +132,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
   def calendar(json: play.api.libs.json.JsObject)(using Context) =
     Page("Tournament calendar")
       .js(PageModule("tournament.calendar", Json.obj("data" -> json)))
-      .cssTag("tournament.calendar"):
+      .css("tournament.calendar"):
         main(cls := "box")(
           h1(cls := "box__top")(trans.site.tournamentCalendar()),
           div(id := "tournament-calendar")
@@ -265,10 +262,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
         )
       )
       Page("Tournament leaderboard")
-        .cssTag("tournament.leaderboard")
-        .copy(
-          wrapClass = "full-screen-force"
-        ):
+        .css("tournament.leaderboard")
+        .fullScreen:
           main(cls := "page-menu")(
             communityMenu,
             div(cls := "page-menu__content box box-pad")(
@@ -297,8 +292,8 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     def apply(history: TournamentShield.History)(using Context) =
       Page("Tournament shields")
-        .cssTag("tournament.leaderboard")
-        .copy(wrapClass = "full-screen-force"):
+        .css("tournament.leaderboard")
+        .fullScreen:
           main(cls := "page-menu")(
             shieldMenu,
             div(cls := "page-menu__content box box-pad")(
@@ -326,7 +321,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
     def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using Context) =
       Page("Tournament shields")
-        .cssTag("tournament.leaderboard", "slist"):
+        .css("tournament.leaderboard", "slist"):
           main(cls := "page-menu page-small tournament-categ-shields")(
             shieldMenu,
             div(cls := "page-menu__content box")(

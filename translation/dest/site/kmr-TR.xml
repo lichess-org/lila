@@ -684,9 +684,6 @@
   <string name="dark">Tarî</string>
   <string name="transparent">Şefaf</string>
   <string name="backgroundImageUrl">URLya wêneya piştzemînê:</string>
-  <string name="boardGeometry">Geometriya texteyê</string>
-  <string name="boardTheme">Rûkara texteyê</string>
-  <string name="boardSize">Mezinahiya texteyê</string>
   <string name="pieceSet">Seta kabikan</string>
   <string name="embedInYourWebsite">Wek ser malpera xwe hedimandî parve bike</string>
   <string name="usernameAlreadyUsed">Ev navê bikarhêneriyê jixwe li kar e, xêra xwe yeke din biceribîne.</string>

@@ -676,8 +676,6 @@
   <string name="dark">Dökkur</string>
   <string name="transparent">Gegnsær</string>
   <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
-  <string name="boardTheme">Borðþema</string>
-  <string name="boardSize">Borðstærð</string>
   <string name="usernameAlreadyUsed">Þetta notandanafn er þegar í notkun, vinsamlegast veldu annað notandanafn.</string>
   <string name="usernamePrefixInvalid">Notandanafnið verður að byrja á bókstaf.</string>
   <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>

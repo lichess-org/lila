@@ -14,7 +14,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
 
   private def page(title: String, css: String = "mod.misc")(using Context) =
     Page(title)
-      .cssTag(css)
+      .css(css)
       .js(EsmInit("bits.flatpickr"))
       .wrap: body =>
         main(cls := "page-menu")(modMenu, body)
@@ -53,7 +53,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
 
   def show(e: Event)(using Context) =
     Page(e.title)
-      .cssTag("event")
+      .css("event")
       .js(EsmInit("bits.eventCountdown")):
         main(cls := "page-small event box box-pad")(
           boxTop(

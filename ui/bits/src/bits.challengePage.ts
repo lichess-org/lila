@@ -29,7 +29,8 @@ export function initModule(opts: ChallengeOpts) {
   function init() {
     if (!accepting)
       $('#challenge-redirect').each(function (this: HTMLAnchorElement) {
-        location.href = this.href;
+        console.log('challenge-redirect');
+        // location.href = this.href;
       });
     $(selector)
       .find('form.accept')

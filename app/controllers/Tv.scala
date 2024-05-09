@@ -1,14 +1,13 @@
 package controllers
 
+import scala.util.chaining.*
 import play.api.http.ContentTypes
 import play.api.libs.json.*
 import play.api.mvc.Result
-
-import scala.util.chaining.*
+import play.api.libs.EventSource
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-
 import lila.tv.Tv.Channel
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
@@ -23,8 +22,8 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   private def serveChannel(chanKey: String)(using Context) =
     Channel.byKey.get(chanKey).so(lichessTv)
 
-  def sides(gameId: GameId, color: String) = Open:
-    Found(chess.Color.fromName(color).so { env.round.proxyRepo.pov(gameId, _) }): pov =>
+  def sides(gameId: GameId, color: Color) = Open:
+    Found(env.round.proxyRepo.pov(gameId, color)): pov =>
       env.game.crosstableApi.withMatchup(pov.game).flatMap { ct =>
         Ok.snip(views.tv.side.sides(pov, ct))
       }
@@ -69,13 +68,13 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       }
     }
 
-  def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[String]) = Open:
+  def gameChannelReplacement(chanKey: String, gameId: GameId, exclude: List[GameId]) = Open:
     val gameFu = Channel.byKey.get(chanKey).so { channel =>
-      env.tv.tv.getReplacementGame(channel, gameId, exclude.map { GameId(_) })
+      env.tv.tv.getReplacementGame(channel, gameId, exclude)
     }
     Found(gameFu): game =>
       JsonOk:
-        play.api.libs.json.Json.obj(
+        Json.obj(
           "id"   -> game.id,
           "html" -> views.game.mini(Pov.naturalOrientation(game)).toString
         )
@@ -101,22 +100,16 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     Channel.byKey.get(chanKey).so(serveFeedFromChannel)
 
   private def serveFeedFromChannel(channel: Channel)(using Context): Fu[Result] =
-    given timeout: akka.util.Timeout = akka.util.Timeout(1 second)
-    import akka.pattern.ask
-    import play.api.libs.EventSource
-    import lila.tv.TvBroadcast
-    val bc   = getBool("bc")
-    val ctag = summon[scala.reflect.ClassTag[TvBroadcast.SourceType]]
-    env.tv.channelBroadcasts
-      .get(channel)
-      .so: actor =>
-        (actor ? TvBroadcast.Connect(bc)).mapTo(ctag).map { source =>
+    val bc = getBool("bc")
+    env.tv
+      .channelSource(channel, bc)
+      .so:
+        _.map: source =>
           if bc then
             Ok.chunked(source.via(EventSource.flow).log("Tv.feed"))
               .as(ContentTypes.EVENT_STREAM)
               .pipe(noProxyBuffer)
           else jsToNdJson(source)
-        }
 
   def frameDefault = Anon:
     serveFrameFromChannel(Channel.Best)

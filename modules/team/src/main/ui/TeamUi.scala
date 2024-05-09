@@ -12,7 +12,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }
   import trans.{ team as trt }
 
-  def TeamPage(title: String) = Page(title).cssTag("team").js(infiniteScrollEsmInit)
+  def TeamPage(title: String) = Page(title).css("team").js(infiniteScrollEsmInit)
 
   object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
@@ -322,7 +322,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
   private def joinButton(t: Team)(using Context) =
     t.id.value match
       case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
-      case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
+      case "ecf"                   => joinAt(routes.Team.show(TeamId("english-chess-players")).url)
       case _ =>
         postForm(cls := "inline", action := routes.Team.join(t.id))(
           submitButton(cls := "button button-green")(trt.joinTeam())

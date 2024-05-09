@@ -54,4 +54,13 @@
     <item quantity="one">%s বছর আগে</item>
     <item quantity="other">%s বছর আগে</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s মিনিট বাকি</item>
+    <item quantity="other">%s মিনিট বাকি</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s ঘন্টা বাকি</item>
+    <item quantity="other">%s ঘন্টা বাকি</item>
+  </plurals>
+  <string name="completed">সম্পন্ন হয়েছে</string>
 </resources>

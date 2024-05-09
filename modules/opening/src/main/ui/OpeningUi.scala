@@ -13,13 +13,13 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   def index(page: OpeningPage, wikiMissing: List[Opening])(using ctx: Context) =
     Page(trans.site.opening.txt())
-      .cssTag("opening")
+      .css("opening")
       .js(bits.pageModule(page.some))
       .graph(
         OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, none, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, Color.white, none, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = "Chess openings",
           url = s"$netBaseUrl${routes.Opening.index()}",
@@ -43,7 +43,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   def tree(root: OpeningTree, config: OpeningConfig)(using Context) =
     Page(trans.site.opening.txt())
-      .cssTag("opening")
+      .css("opening")
       .js(bits.pageModule(none)):
         main(cls := "page box box-pad opening opening--tree")(
           searchAndConfig(config, "", "tree"),
@@ -62,13 +62,13 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   def show(page: OpeningPage, puzzleKey: Option[String])(using ctx: Context) =
     Page(s"${trans.site.opening.txt()} • ${page.name}")
-      .cssTag("opening")
+      .css("opening")
       .js(bits.pageModule(page.some))
       .graph(
         OpenGraph(
           `type` = "article",
           image = cdnUrl(
-            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+            s"${routes.Export.fenThumbnail(page.query.fen.value, Color.white, page.query.uci.lastOption, None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
           ).some,
           title = page.name,
           url = s"$netBaseUrl${bits.queryUrl(page.query)}",
@@ -156,7 +156,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using Context) =
     Page(s"${trans.site.opening.txt()} • $q")
-      .cssTag("opening")
+      .css("opening")
       .js(bits.pageModule(none))
       .csp(_.withInlineIconFont):
         main(cls := "page box box-pad opening opening--search")(

@@ -4,6 +4,8 @@ import akka.actor.{ ActorRef, ActorSystem, Props }
 import com.softwaremill.macwire.*
 
 import lila.tv.Tv.Channel
+import play.api.libs.json.JsValue
+import akka.stream.scaladsl.Source
 
 @Module
 final class Env(
@@ -23,6 +25,16 @@ final class Env(
   val channelBroadcasts: Map[Channel, ActorRef] = Tv.Channel.values.map { c =>
     c -> system.actorOf(Props(wire[TvBroadcast]))
   }.toMap
+
+  def channelSource(channel: Channel, bc: Boolean): Option[Fu[TvBroadcast.SourceType]] =
+    given timeout: akka.util.Timeout = akka.util.Timeout(1 second)
+    import akka.pattern.ask
+    import lila.tv.TvBroadcast
+    val ctag = summon[scala.reflect.ClassTag[TvBroadcast.SourceType]]
+    channelBroadcasts
+      .get(channel)
+      .map: actor =>
+        (actor ? TvBroadcast.Connect(bc)).mapTo(ctag)
 
   system.scheduler.scheduleWithFixedDelay(12 seconds, 3 seconds): () =>
     tvSyncActor ! TvSyncActor.Select

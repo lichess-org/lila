@@ -15,8 +15,8 @@ object page:
 
   def lone(p: CmsPage.Render)(using ctx: Context) =
     Page(p.title)
-      .cssTag("page")
-      .js((p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+      .css("page")
+      .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })"""))):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
@@ -26,7 +26,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       title = p.title,
       active = active,
       contentCls = "page box box-pad force-ltr"
-    ).cssTag("page")(pageContent(p))
+    ).css("page")(pageContent(p))
 
   def pageContent(p: CmsPage.Render)(using Context) = frag(
     h1(cls := "box__top")(p.title),
@@ -38,7 +38,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       title = trans.contact.contact.txt(),
       active = "contact",
       contentCls = "page box box-pad"
-    ).cssTag("contact")
+    ).css("contact")
       .js(EsmInit("bits.contact"))(lila.web.ui.contact(netConfig.email))
 
   def source(p: CmsPage.Render)(using ctx: Context) =
@@ -85,7 +85,11 @@ object variant:
           lila.rating.PerfType.variants.map: pk =>
             val variant = lila.rating.PerfType.variantOf(pk)
             val pt      = lila.rating.PerfType(pk)
-            a(cls := "variant text box__pad", href := routes.Cms.variant(pk), dataIcon := pt.icon):
+            a(
+              cls      := "variant text box__pad",
+              href     := routes.Cms.variant(variant.key),
+              dataIcon := pt.icon
+            ):
               span(
                 h2(variant.name),
                 h3(cls := "headline")(variant.title)
@@ -95,15 +99,16 @@ object variant:
 
   private def page(title: String, klass: String, active: Option[PerfKey] = None)(using Context) =
     Page(title)
-      .cssTag("variant")
+      .css("variant")
       .js(EsmInit("bits.expandText"))
       .wrap: body =>
         main(cls := "page-menu")(
           lila.ui.bits.pageMenuSubnav(
             lila.rating.PerfType.variants.map: pk =>
+              val variant = lila.rating.PerfType.variantOf(pk)
               a(
                 cls      := List("text" -> true, "active" -> active.contains(pk)),
-                href     := routes.Cms.variant(pk),
+                href     := routes.Cms.variant(variant.key),
                 dataIcon := pk.perfIcon
               )(pk.perfTrans)
           ),

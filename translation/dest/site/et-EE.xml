@@ -748,9 +748,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="transparent">Läbipaistev</string>
   <string name="deviceTheme">Seadme teema</string>
   <string name="backgroundImageUrl">Taustapildi URL:</string>
-  <string name="boardGeometry">Laua geomeetria</string>
-  <string name="boardTheme">Laua kujundus</string>
-  <string name="boardSize">Laua suurus</string>
   <string name="pieceSet">Malendite kujundus</string>
   <string name="embedInYourWebsite">Sängita oma veebilehel</string>
   <string name="usernameAlreadyUsed">See kasutajanimi on juba olemas, proovi midagi muud.</string>

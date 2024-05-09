@@ -2,6 +2,7 @@ package lila.core.lilaism
 
 object Lilaism extends LilaLibraryExtensions:
 
+  export chess.Color
   export lila.core.id.{
     GameId,
     ChatId,
@@ -31,11 +32,14 @@ object Lilaism extends LilaLibraryExtensions:
     override def toString = value
   given cats.Show[StringValue] = cats.Show.show(_.value)
 
+  // gets ambiguous because Show[String] also exists
+  // given scalalib.Render[String] = identity
+
   // move somewhere else when we have more Eqs
   given cats.Eq[play.api.i18n.Lang] = cats.Eq.fromUniversalEquals
 
   import play.api.Mode
   extension (mode: Mode)
-    def isDev   = mode == Mode.Dev
-    def isProd  = mode == Mode.Prod
-    def notProd = mode != Mode.Prod
+    inline def isDev   = mode == Mode.Dev
+    inline def isProd  = mode == Mode.Prod
+    inline def notProd = mode != Mode.Prod

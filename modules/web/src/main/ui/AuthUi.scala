@@ -16,7 +16,7 @@ final class AuthUi(helpers: Helpers):
     def addReferrer(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
     Page(trans.site.signIn.txt())
       .js(jsModuleInit("bits.login", "login"))
-      .cssTag("auth")
+      .css("auth")
       .hrefLangs(lila.ui.LangPath(routes.Auth.login)):
         main(cls := "auth auth-login box box-pad")(
           h1(cls := "box__top")(trans.site.signIn()),
@@ -64,7 +64,7 @@ final class AuthUi(helpers: Helpers):
       .js(jsModuleInit("bits.login", "signup"))
       .js(hcaptchaScript(form))
       .iife(fingerprintTag)
-      .cssTag("auth")
+      .css("auth")
       .csp(_.withHcaptcha)
       .hrefLangs(lila.ui.LangPath(routes.Auth.signup)):
         main(cls := "auth auth-signup box box-pad")(
@@ -91,7 +91,9 @@ final class AuthUi(helpers: Helpers):
                 ),
                 br,
                 trans.site.readAboutOur(
-                  a(href := routes.Cms.menuPage("privacy"))(trans.site.privacyPolicy())
+                  a(href := routes.Cms.menuPage(lila.core.id.CmsPageKey("privacy")))(
+                    trans.site.privacyPolicy()
+                  )
                 ),
                 br
               )
@@ -107,7 +109,7 @@ final class AuthUi(helpers: Helpers):
       form: Option[Form[?]] = None
   )(using ctx: Context) =
     Page("Check your email")
-      .cssTag("email-confirm")
+      .css("email-confirm")
       .js(embedJsUnsafeLoadThen("""
 var email = document.getElementById("new-email");
 var currentError = "This is already your current email.";
@@ -164,7 +166,7 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
 
   def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using Context) =
     Page(trans.site.passwordReset.txt())
-      .cssTag("auth")
+      .css("auth")
       .js(hcaptchaScript(form))
       .csp(_.withHcaptcha):
         main(cls := "auth auth-signup box box-pad")(
@@ -195,7 +197,7 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
       Context
   )(using me: Me) =
     Page(s"${me.username} - ${trans.site.changePassword.txt()}")
-      .cssTag("form3")
+      .css("form3")
       .js(jsModuleInit("bits.passwordComplexity")):
         main(cls := "page-small box box-pad")(
           boxTop(
@@ -226,7 +228,7 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
 
   def magicLink(form: HcaptchaForm[?], fail: Boolean)(using Context) =
     Page("Log in by email")
-      .cssTag("auth")
+      .css("auth")
       .js(hcaptchaScript(form))
       .csp(_.withHcaptcha):
         main(cls := "auth auth-signup box box-pad")(
@@ -255,7 +257,7 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
       )
 
   def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using Context) =
-    Page(s"Log in as ${user.username}").cssTag("form3"):
+    Page(s"Log in as ${user.username}").css("form3"):
       main(cls := "page-small box box-pad")(
         boxTop(h1("Log in as ", userLink(user))),
         postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(

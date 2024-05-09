@@ -35,8 +35,8 @@ object page:
       )
       .js(pageModule(info))
       .js(esModules(info))
-      .cssTag("user.show")
-      .cssTag(isGranted(_.UserModView).option("mod.user"))
+      .css("user.show")
+      .css(isGranted(_.UserModView).option("mod.user"))
       .robots(u.count.game >= 10):
         main(cls := "page-menu", ui.dataUsername := u.username)(
           st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
@@ -60,9 +60,9 @@ object page:
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
       .js(esModules(info, filters.current.name == "search"))
-      .cssTag("user.show")
-      .cssTag((filters.current.name == "search").option("user.show.search"))
-      .cssTag(isGranted(_.UserModView).option("mod.user"))
+      .css("user.show")
+      .css((filters.current.name == "search").option("user.show.search"))
+      .css(isGranted(_.UserModView).option("mod.user"))
       .robots(u.count.game >= 10):
         main(cls := "page-menu", ui.dataUsername := u.username)(
           st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
@@ -86,7 +86,7 @@ object page:
       PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
   def disabled(u: User)(using Context) =
-    Page(u.username).robots(false):
+    Page(u.username.value).robots(false):
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())

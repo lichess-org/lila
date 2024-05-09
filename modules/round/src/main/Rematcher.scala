@@ -19,7 +19,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: lila.core.game.OnStart,
     rematches: Rematches
-)(using Executor, Translator)(using idGenerator: IdGenerator):
+)(using Executor, Translator, lila.core.config.RateLimit)(using idGenerator: IdGenerator):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -147,7 +147,7 @@ object Rematcher:
       case Chess960                                 => Situation(Chess960)
       case variant                                  => prevSituation.fold(Situation(variant))(_.situation)
     val ply   = prevSituation.fold(Ply.initial)(_.ply)
-    val color = prevSituation.fold[chess.Color](White)(_.situation.color)
+    val color = prevSituation.fold[Color](White)(_.situation.color)
     ChessGame(
       situation = newSituation.copy(color = color),
       clock = clock.map(c => Clock(c.config)),

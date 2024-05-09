@@ -11,7 +11,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
 
   def home(using Context) =
     Page(trans.clas.lichessClasses.txt())
-      .cssTag("page", "clas"):
+      .css("page", "clas"):
         main(cls := "page-small box box-pad page clas-home")(
           h1(cls := "box__top")(trans.clas.lichessClasses()),
           div(cls := "clas-home__doc body")(
@@ -73,7 +73,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
           dataIcon := Icon.Group
         )(
-          a(cls := "overlay", href := routes.Clas.show(clas.id.value)),
+          a(cls := "overlay", href := routes.Clas.show(clas.id)),
           div(
             h3(clas.name),
             p(clas.desc)
@@ -103,17 +103,17 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
   ) =
     dashUi.teacher.TeacherPage(c, students, "edit")()(
       div(cls := "box-pad")(
-        postForm(cls := "form3", action := routes.Clas.update(c.id.value))(
+        postForm(cls := "form3", action := routes.Clas.update(c.id))(
           clasForm(form, c.some),
           form3.actions(
-            a(href := routes.Clas.show(c.id.value))(trans.site.cancel()),
+            a(href := routes.Clas.show(c.id))(trans.site.cancel()),
             form3.submit(trans.site.apply())
           )
         ),
         hr,
         c.isActive.option(
           postForm(
-            action := routes.Clas.archive(c.id.value, v = true),
+            action := routes.Clas.archive(c.id, v = true),
             cls    := "clas-edit__archive"
           )(
             form3.submit(trans.clas.closeClass(), icon = none)(
