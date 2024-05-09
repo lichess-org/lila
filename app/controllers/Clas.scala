@@ -187,8 +187,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               val full = if text.contains(url) then text else s"$text\n\n${env.net.baseUrl}$url"
               env.msg.api
                 .multiPost(Source(students.map(_.user.id)), full)
-                .addEffect: nb =>
-                  lila.mon.msg.clasBulk(clas.id).record(nb)
+                .addEffect(lila.mon.msg.clasBulk(clas.id).record(_))
                 .inject(redirectTo(clas).flashSuccess)
           }
       )
@@ -311,11 +310,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               _.split(' ') match
                 case Array(u, p) => (UserId(u), p).some
                 case _           => none
-            .map: (u, p) =>
+            .traverse: (u, p) =>
               env.clas.api.student
                 .get(clas, u)
                 .map2(lila.clas.Student.WithPassword(_, ClearPassword(p)))
-            .parallel
             .map(_.flatten)
         }
         nbStudents <- env.clas.api.student.count(clas.id)

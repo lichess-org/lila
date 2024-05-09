@@ -444,9 +444,8 @@ object StudySocket:
 
       def reading[A](o: JsValue)(f: A => Unit)(using reader: Reads[A]): Unit =
         o.obj("d")
-          .flatMap { d =>
+          .flatMap: d =>
             reader.reads(d).asOpt
-          }
           .foreach(f)
 
       case class AtPosition(path: UciPath, chapterId: StudyChapterId):
