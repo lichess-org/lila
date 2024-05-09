@@ -6,10 +6,10 @@ import {
   propsModule,
   styleModule,
 } from 'snabbdom';
-import { LearnCtrl } from './v2/ctrl';
-import { view } from './v2/view';
+import { LearnCtrl } from './ctrl';
+import { view } from './view';
 
-import storage, { Storage } from './v2/storage';
+import storage, { Storage } from './storage';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 

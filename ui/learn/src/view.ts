@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 import { LearnCtrl } from './ctrl';
 import { Stage } from './stage/list';
 import * as stages from './stage/list';
-import { StageProgress } from '../learn';
+import { StageProgress } from './learn';
 import * as scoring from './score';
 import * as util from './util';
 import { mapSideView } from './mapSideView';

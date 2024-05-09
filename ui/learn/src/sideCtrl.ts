@@ -2,7 +2,7 @@
 import * as stages from './stage/list';
 import * as scoring from './score';
 import { Prop, prop } from 'common';
-import { LearnProgress, LearnOpts } from '../learn';
+import { LearnProgress, LearnOpts } from './learn';
 import { Stage } from './stage/list';
 import { LearnCtrl } from './ctrl';
 

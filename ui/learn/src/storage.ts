@@ -1,4 +1,4 @@
-import type { LearnProgress } from '../learn';
+import type { LearnProgress } from './learn';
 import { Stage } from './stage/list';
 
 export interface Storage {

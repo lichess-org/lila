@@ -57,7 +57,6 @@ export const setChessground = (ctrl: RunCtrl, opts: GroundOpts) => {
   // TODO:
   const ground = ctrl.chessground!;
   const check = opts.chess.instance.in_check();
-  console.log('movable', opts.chess.color(), opts.chess.dests({ illegal: opts.offerIllegalMove }));
   ground.set({
     fen: opts.chess.fen(),
     lastMove: undefined,
