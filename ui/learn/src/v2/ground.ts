@@ -18,57 +18,6 @@ export interface Shape {
 
 export type Dests = Partial<Record<Key, Key[]>>;
 
-// export function set(opts: GroundOpts) {
-//   const check = opts.chess.instance.in_check();
-//   cg.set({
-//     fen: opts.chess.fen(),
-//     lastMove: null,
-//     selected: null,
-//     orientation: opts.orientation,
-//     coordinates: true,
-//     pieceKey: true,
-//     turnColor: opts.chess.color(),
-//     check: check,
-//     autoCastle: opts.autoCastle,
-//     movable: {
-//       free: false,
-//       color: opts.chess.color(),
-//       dests: opts.chess.dests({
-//         illegal: opts.offerIllegalMove,
-//       }),
-//     },
-//     events: {
-//       move: opts.onMove,
-//     },
-//     items: opts.items,
-//     premovable: {
-//       enabled: true,
-//     },
-//     drawable: {
-//       enabled: true,
-//       eraseOnClick: true,
-//     },
-//     highlight: {
-//       lastMove: true,
-//       dragOver: true,
-//     },
-//     animation: {
-//       enabled: false, // prevent piece animation during transition
-//       duration: 200,
-//     },
-//     disableContextMenu: true,
-//   });
-//   setTimeout(function () {
-//     cg.set({
-//       animation: {
-//         enabled: true,
-//       },
-//     });
-//   }, 200);
-//   if (opts.shapes) cg.setShapes(opts.shapes.slice(0));
-//   return cg;
-// }
-
 export const stop = () => {
   // TODO:
   // cg.stop();

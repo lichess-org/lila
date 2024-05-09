@@ -1,7 +1,5 @@
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
-import * as cg from 'chessground/types';
-import resizeHandle from 'common/resize';
 import { RunCtrl } from './run/runCtrl';
 import { ChessCtrl } from './chess';
 
@@ -10,31 +8,23 @@ export default function (ctrl: RunCtrl): VNode {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.setChessground(site.makeChessground(el, makeConfig(ctrl)));
+        ctrl.setChessground(site.makeChessground(el, makeConfig()));
       },
       destroy: () => ctrl.chessground!.destroy(),
     },
   });
 }
 
-const makeConfig = (ctrl: RunCtrl): CgConfig => ({
+const makeConfig = (): CgConfig => ({
   fen: '8/8/8/8/8/8/8/8',
   blockTouchScroll: true,
-  coordinates: false,
-  // TODO: below are from coordinate trainer
-  // addPieceZIndex: ctrl.config.is3d,
+  coordinates: true,
   movable: { free: false, color: undefined },
   drawable: { enabled: false },
   draggable: { enabled: false },
   selectable: { enabled: false },
-  events: {
-    insert(elements: cg.Elements) {
-      resizeHandle(elements, 0, 0);
-      ctrl;
-      // resizeHandle(elements, ctrl.config.resizePref, ctrl.playing ? 2 : 0);
-    },
-    // select: ctrl.onChessgroundSelect,
-  },
+  // TODO:
+  // addPieceZIndex: ctrl.config.is3d,
 });
 
 export interface Shape {
