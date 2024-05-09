@@ -2,6 +2,7 @@ import * as util from './util';
 import * as stages from './stage/list';
 import { SnabbdomSideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
 import { LearnCtrl } from './ctrl';
 
@@ -30,15 +31,7 @@ function renderInStage(ctrl: SnabbdomSideCtrl) {
             class: { active: categId == ctrl.categId() },
           },
           [
-            h(
-              'h2',
-              {
-                onclick: () => {
-                  ctrl.categId(categId);
-                },
-              },
-              ctrl.trans.noarg(categ.name),
-            ),
+            h('h2', { hook: bind('click', () => ctrl.categId(categId)) }, ctrl.trans.noarg(categ.name)),
             h(
               'div.categ_stages',
               categ.stages.map(function (s) {
@@ -79,10 +72,10 @@ function renderHome(ctrl: SnabbdomSideCtrl) {
         ? h(
             'a.confirm',
             {
-              onclick: () => {
-                // TODO:
-                if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
-              },
+              hook: bind(
+                'click',
+                () => confirm(ctrl.trans.noarg('youWillLoseAllYourProgress')) && ctrl.reset(),
+              ),
             },
             ctrl.trans.noarg('resetMyProgress'),
           )

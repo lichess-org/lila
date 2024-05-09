@@ -4,6 +4,7 @@ import { LevelCtrl } from './levelCtrl';
 import { RunCtrl } from './run/runCtrl';
 import { PromotionRole } from './util';
 import { h } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 
 // TODO: makes sure new implementation works
 // const opposite = chessground.util.opposite;
@@ -75,10 +76,10 @@ function renderPromotion(
         {
           // TODO:
           // style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
-          onclick: function (e: Event) {
+          hook: bind('click', (e: Event) => {
             e.stopPropagation();
             finish(serverRole);
-          },
+          }),
         },
         h('piece.' + serverRole + '.' + color),
       );

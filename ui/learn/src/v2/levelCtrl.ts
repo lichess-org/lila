@@ -178,6 +178,7 @@ export class LevelCtrl {
   start = () => {
     sound.levelStart();
     if (this.chess.color() !== this.blueprint.color) timeouts.setTimeout(this.scenario.opponent, 1000);
+    this.redraw();
   };
 
   complete = () => {

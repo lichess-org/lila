@@ -3,6 +3,7 @@ import * as scoring from '../score';
 import { numberSpread } from 'common/number';
 import { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 
 function makeStars(rank: number) {
   const stars = [];
@@ -17,13 +18,12 @@ export default function (ctrl: RunCtrl) {
   return h(
     'div.learn__screen-overlay',
     {
-      // TODO:
-      onclick: function (e: MouseEvent) {
+      hook: bind('click', (e: MouseEvent) => {
         if ((e.target as HTMLElement).classList?.contains('learn__screen-overlay')) {
           // TODO:
           // m.route('/');
         }
-      },
+      }),
     },
     h('div.learn__screen', [
       h('div.stars', makeStars(scoring.getStageRank(stage, score))),

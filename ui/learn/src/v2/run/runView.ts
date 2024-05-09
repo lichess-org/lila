@@ -9,13 +9,14 @@ import { RunCtrl } from './runCtrl';
 import { mapSideView } from '../mapSideView';
 import { LearnCtrl } from '../ctrl';
 import { h } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 import { makeStars, progressView } from '../progressView';
 
 function renderFailed(ctrl: RunCtrl) {
   return h(
     'div.result.failed',
     {
-      onclick: ctrl.restart,
+      hook: bind('click', ctrl.restart),
     },
     [h('h2', ctrl.trans.noarg('puzzleFailed')), h('button', ctrl.trans.noarg('retry'))],
   );
@@ -26,7 +27,7 @@ function renderCompleted(ctrl: RunCtrl, level: LevelCtrl) {
     'div.result.completed',
     {
       class: { next: !!level.blueprint.nextButton },
-      onclick: level.onComplete,
+      hook: bind('click', level.onComplete),
     },
     [
       h('h2', ctrl.trans.noarg(congrats())),
