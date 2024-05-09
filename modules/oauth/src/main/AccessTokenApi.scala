@@ -217,7 +217,7 @@ final class AccessTokenApi(
     found <- test(scans.map(_.token))
     res <- scans.traverse: scan =>
       val compromised = found.get(scan.token).flatten
-      lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined)
+      lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined).increment()
       compromised match
         case Some(token) =>
           logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
