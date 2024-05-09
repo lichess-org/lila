@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import lila.core.net.Bearer
 import lila.db.dsl.{ *, given }
 import lila.core.misc.oauth.TokenRevoke
+import lila.common.Json.given
 
 final class AccessTokenApi(
     coll: Coll,
@@ -212,26 +213,19 @@ final class AccessTokenApi(
           bearers.zip(openTokens).toMap
         }
 
-  def secretScanning(
-      tokens: Map[Bearer, (String, String, String)]
-  ): Fu[List[(AccessToken, String)]] =
-    test(tokens.keys.toList)
-      .flatMap:
-        _.toList.traverse: (bearer, token) =>
-          tokens.get(bearer) match
-            case Some((tokenType, source, url)) =>
-              token match
-                case Some(token) =>
-                  logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
-                  lila.mon.security.secretScanning.hit(tokenType, source)
-                  revoke(token.plain).inject((token, url).some)
-                case None =>
-                  logger.branch("github").info(s"ignoring token $bearer")
-                  lila.mon.security.secretScanning.miss(tokenType, source)
-                  fuccess(none)
-            case None =>
-              fuccess(none)
-      .map(_.flatten)
+  def secretScanning(scans: List[AccessTokenApi.GithubSecretScan]): Fu[List[(AccessToken, String)]] = for
+    found <- test(scans.map(_.token))
+    res <- scans.traverse: scan =>
+      found.get(scan.token).flatten match
+        case Some(token) =>
+          logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
+          lila.mon.security.secretScanning.hit(scan.`type`, scan.source)
+          revoke(token.plain).inject((token, scan.url).some)
+        case None =>
+          logger.branch("github").info(s"ignoring token ${scan.token}")
+          lila.mon.security.secretScanning.miss(scan.`type`, scan.source)
+          fuccess(none)
+  yield res.flatten
 
   private val accessTokenCache =
     cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token"):
@@ -250,3 +244,6 @@ final class AccessTokenApi(
 
 object AccessTokenApi:
   case class Client(origin: String, usedAt: Option[Instant], scopes: List[OAuthScope])
+
+  case class GithubSecretScan(token: Bearer, `type`: String, url: String, source: String)
+  given Reads[GithubSecretScan] = Json.reads[GithubSecretScan]
