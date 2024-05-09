@@ -5,16 +5,17 @@ coords {
   text-shadow: var(---cg-cs, $coord-shadow-default);
 }
 
-.orientation-white .files coord:nth-child(2n + 1),
-.orientation-white .ranks coord:nth-child(2n),
-.orientation-black .files coord:nth-child(2n),
-.orientation-black .ranks coord:nth-child(2n + 1) {
+/** Alternating colors in rank/file/square labels */
+.cg-wrap coords:nth-child(odd) coord:nth-child(odd),
+.cg-wrap coords.squares:nth-child(even) coord:nth-child(even),
+.cg-wrap.orientation-black coords.files:nth-child(even) coord:nth-child(even),
+.cg-wrap coords.files:nth-child(even) coord:nth-child(odd) {
   color: var(---cg-ccw, $coord-color-default);
 }
 
-.orientation-white .files coord:nth-child(2n),
-.orientation-white .ranks coord:nth-child(2n + 1),
-.orientation-black .files coord:nth-child(2n + 1),
-.orientation-black .ranks coord:nth-child(2n) {
+.cg-wrap coords:nth-child(odd) coord:nth-child(even),
+.cg-wrap coords.squares:nth-child(even) coord:nth-child(odd),
+.cg-wrap.orientation-black coords.files:nth-child(even) coord:nth-child(odd),
+.cg-wrap coords.files:nth-child(even) coord:nth-child(even) {
   color: var(---cg-ccb, $coord-color-default);
 }
