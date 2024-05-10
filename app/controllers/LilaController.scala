@@ -323,7 +323,7 @@ abstract private[controllers] class LilaController(val env: Env)
     then redirectWithQueryString(path)
     else
       import LangPicker.ByHref
-      LangPicker.byHref(language, ctx.req).pp(language) match
+      LangPicker.byHref(language, ctx.req) match
         case ByHref.NotFound => notFound(using ctx)
         case ByHref.Redir(code) =>
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
