@@ -6,7 +6,7 @@ import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, Prop, Toggle, toggle, constrain } from 'common';
+import { prop, Prop, Toggle, toggle, clamp } from 'common';
 import { Result } from '@badrap/result';
 import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';
@@ -206,13 +206,13 @@ export default class CevalCtrl {
   get threads() {
     const stored = site.storage.get('ceval.threads');
     const desired = stored ? parseInt(stored) : this.recommendedThreads;
-    return constrain(desired, { min: this.engines.active?.minThreads ?? 1, max: this.maxThreads });
+    return clamp(desired, { min: this.engines.active?.minThreads ?? 1, max: this.maxThreads });
   }
 
   get recommendedThreads() {
     return (
       this.engines.external?.maxThreads ??
-      constrain(navigator.hardwareConcurrency - (navigator.hardwareConcurrency % 2 ? 0 : 1), {
+      clamp(navigator.hardwareConcurrency - (navigator.hardwareConcurrency % 2 ? 0 : 1), {
         min: this.engines.active?.minThreads ?? 1,
         max: this.maxThreads,
       })
