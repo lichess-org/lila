@@ -164,7 +164,6 @@ export default class AnalyseCtrl {
 
     this.showGround();
     this.onToggleComputer();
-    //this.startCeval();
     this.explorer.setNode();
     this.study =
       opts.study && makeStudy
