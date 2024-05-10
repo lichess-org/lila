@@ -6,7 +6,8 @@ import lila.app.UiEnv.{ *, given }
 import lila.puzzle.{ Puzzle, PuzzleOpening, DailyPuzzle }
 
 lazy val bits = lila.puzzle.ui.PuzzleBits(helpers)(views.userAnalysisI18n.cevalTranslations)
-lazy val ui   = lila.puzzle.ui.PuzzleUi(helpers, bits)(views.analyse.ui.csp)
+lazy val ui =
+  lila.puzzle.ui.PuzzleUi(helpers, bits)(views.analyse.ui.csp, lila.app.UiEnv.externalEngineEndpoint)
 
 def embed(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
   views.base.embed(
