@@ -259,6 +259,7 @@
   <string name="abortGame">खेल रद्द गरौ</string>
   <string name="gameAborted">खेल रद्द गरियो</string>
   <string name="standard">सामान्य</string>
+  <string name="customPosition">कस्टम पोजिसन् </string>
   <string name="unlimited">असीमित</string>
   <string name="mode">मोड</string>
   <string name="casual">अनौपचारिक</string>
@@ -363,6 +364,7 @@
   <string name="siteDescription">निःशुल्क अनलाईन बुद्धिचाल सर्भर। अहिल्यै एउटा सफा इन्टरफेसमा बुद्धिचाल खेलौं: कुनै दर्ता नगरी, कुनै बिज्ञापन नहेरी, कुनै प्लगइन बिना। कम्प्युटर संग, मित्रहरुसँग वा संसारभरका अरु खेलाडीहरुसँग।</string>
   <string name="xJoinedTeamY">%1$s %2$sटोलीमा सामेल हुनुभयो</string>
   <string name="xCreatedTeamY">%1$s ले %2$s टोलीमा स्थापना गर्नुभयो</string>
+  <string name="startedStreaming">ले स्ट्रिम गर्न शुरु गर्नुभयो</string>
   <string name="xStartedStreaming">%s ले स्ट्रिम गर्न शुरु गर्नुभयो</string>
   <string name="averageElo">औसत रेटिङ</string>
   <string name="location">ठेगाना</string>
@@ -371,8 +373,11 @@
   <string name="apply">पेश</string>
   <string name="save">सुरक्षित गर्नुहोस्</string>
   <string name="leaderboard">सर्वोत्कृष्ट खेलाडीहरु</string>
+  <string name="screenshotCurrentPosition">अहिलेको पोजिशनको स्क्रिनसट निकाल्नुहोस् ।</string>
+  <string name="gameAsGIF">GIF को रूपमा सेभ गर्नुहोस्</string>
   <string name="pasteTheFenStringHere">FEN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
   <string name="pasteThePgnStringHere">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
+  <string name="orUploadPgnFile">PGN फाईल अपलोड गर्नुहोस् ।</string>
   <string name="fromPosition">पोजिसन बाट</string>
   <string name="continueFromHere">अगाडि खेलौ</string>
   <string name="toStudy">अध्ययन</string>
@@ -487,7 +492,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">चाल चलेपछि स्वत: अर्को खेलमा जाऔ</string>
   <string name="autoSwitch">आफै खेल बदल्ने</string>
-  <string name="puzzles">प्रशिक्षण</string>
+  <string name="puzzles">पजल </string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
   <string name="no">हुदैन</string>
