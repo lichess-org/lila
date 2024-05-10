@@ -4,6 +4,8 @@ import { Feature } from 'common/device';
 import CevalCtrl from './ctrl';
 
 export type WinningChances = number;
+export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
+export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
 
 export interface Work {
   variant: VariantKey;
@@ -21,10 +23,6 @@ export interface Work {
   moves: string[];
   emit: (ev: Tree.LocalEval) => void;
 }
-
-// movetime capped at 1 day prior to dispatch
-export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
-export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
 
 export interface EngineInfo {
   id: string;
