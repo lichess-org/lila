@@ -338,14 +338,14 @@ GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: U
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 
 # Round
-GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color ?= Color.white)
+GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)
 GET   /$gameId<\w{8}>/:color        controllers.Round.watcher(gameId: GameId, color: Color)
 GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: GameFullId)
 GET   /$gameId<\w{8}>/:color/sides  controllers.Round.sides(gameId: GameId, color: Color)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: GameId, mode)
 GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: GameId)
 POST  /$gameId<\w{8}>/note                       controllers.Round.writeNote(gameId: GameId)
-GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: GameId, color: Color ?= Color.white)
+GET   /$gameId<\w{8}>/mini                       controllers.Round.mini(gameId: GameId, color: Color = Color.white)
 GET   /$gameId<\w{8}>/:color/mini   controllers.Round.mini(gameId: GameId, color: Color)
 GET   /$fullId<\w{12}>/mini                      controllers.Round.miniFullId(fullId: GameFullId)
 GET   /$gameId<\w{8}>/edit                       controllers.Editor.game(gameId: GameId)
@@ -357,7 +357,7 @@ POST  /$fullId<\w{12}>/resign                    controllers.Round.resign(fullId
 GET   /embed/$gameId<\w{8}>                      controllers.Analyse.embed(gameId: GameId, color: Color = Color.white)
 GET   /embed/$gameId<\w{8}>/:color  controllers.Analyse.embed(gameId: GameId, color: Color)
 
-GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId: GameId, color: Color ?= Color.white)
+GET   /embed/game/$gameId<\w{8}>                      controllers.Analyse.embedReplayGame(gameId: GameId, color: Color = Color.white)
 GET   /embed/game/$gameId<\w{8}>/:color  controllers.Analyse.embedReplayGame(gameId: GameId, color: Color)
 
 POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId: GameId)
@@ -456,7 +456,7 @@ GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export
 GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: GameId, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: GameId, color: Color = Color.white, theme: Option[String], piece: Option[String])
 GET   /game/export/gif/:color/$gameId<\w{8}>.gif controllers.Export.gif(gameId: GameId, color: Color, theme: Option[String], piece: Option[String])
-GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Color ?= Color.white, lastMove: Option[Uci], variant: Option[chess.variant.Variant.LilaKey], theme: Option[String], piece: Option[String])
+GET   /export/fen.gif                                         controllers.Export.fenThumbnail(fen, color: Option[Color], lastMove: Option[Uci], variant: Option[chess.variant.Variant.LilaKey], theme: Option[String], piece: Option[String])
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
