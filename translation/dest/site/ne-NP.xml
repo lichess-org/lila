@@ -220,6 +220,11 @@
   <string name="usernameCanBeUsedForNewAccount">यो प्रयोगकर्ता-नाम प्रयोग गरेर नयाँ खाता खोल्न सक्नुहुन्छ ।</string>
   <string name="emailSent">हामिले %sमा एउटा इमेल पठाएका छौँ ।</string>
   <string name="emailCanTakeSomeTime">इमेल आउन केहि समय लाग्न सक्छ।</string>
+  <string name="refreshInboxAfterFiveMinutes">५ मिनेट कुर्नुहोस् र इमेल इनबक्स रिफ्रेस गर्नुहोस्</string>
+  <string name="checkSpamFolder">स्पाम (spam) फोल्डर पनि हेर्नुहोस्, त्यता परेको हुन सक्छ । त्यस्तो छ भने स्पाम हैन भनेर मार्क गर्नुहोस् ।</string>
+  <string name="emailForSignupHelp">सबै कुरा विफल भए, हामीलाई यो इमेल पठाउनुहोस् । </string>
+  <string name="copyTextToEmail">माथि को टेक्स्ट कपि पेस्ट गरेर %s लाई पठाउनुहोस् । </string>
+  <string name="accountCanLogin">अब तपाई %s भएर लगइन गर्न सक्नुहुनेछ ।</string>
   <string name="rank">स्थान</string>
   <string name="rankX">स्थान: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -236,6 +241,8 @@
     <item quantity="other">तपाइसँग खेलिएका %s खेलहरु</item>
   </plurals>
   <string name="cancel">रद्द गर्नुहोस्</string>
+  <string name="whiteTimeOut">सेतोको समय सक्कियो ।</string>
+  <string name="blackTimeOut">कालोको समय सक्कियो ।</string>
   <string name="drawOfferSent">बराबरीको प्रस्ताव पठाइयो</string>
   <string name="drawOfferAccepted">बराबरीको प्रस्ताव स्वीकृत भयो</string>
   <string name="drawOfferCanceled">बराबरीको प्रस्ताव रद्द भयो</string>
