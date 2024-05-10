@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">पजलहरू</string>
+  <string name="puzzleThemes">पजल थिम</string>
+  <string name="advanced">उन्नत</string>
+  <string name="toGetPersonalizedPuzzles">आफू अनकुल पजलहरू पाउनुहोस</string>
+  <string name="puzzlesByOpenings">प्रारम्भिक खेल अनुसारका पजलहरू। </string>
+  <string name="searchPuzzles">पजलहरू खोज्नुहोस् ।</string>
+</resources>
