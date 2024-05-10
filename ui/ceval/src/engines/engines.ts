@@ -200,7 +200,7 @@ export class Engines {
             minThreads: 1,
             maxThreads: 1,
             requires: [],
-            //obsoletedBy: 'wasm',
+            obsoletedBy: 'wasm',
             assets: {
               version: 'a022fa',
               root: 'npm/stockfish.js',
@@ -235,10 +235,6 @@ export class Engines {
 
   get external() {
     return this.active && 'endpoint' in this.active ? this.active : undefined;
-  }
-
-  get maxMovetime() {
-    return this.external ? 30 * 1000 : Number.POSITIVE_INFINITY; // broker timeouts prevent long search
   }
 
   async deleteExternal(id: string) {

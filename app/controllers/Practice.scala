@@ -71,11 +71,10 @@ final class Practice(
 
   private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] = us match
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
-      for
-        studyJson <- env.study.jsonView(study, chapters, chapter, none, withMembers = false)
-        initialFen = chapter.root.fen.some
-        pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
-        baseData = env.round.jsonView
+      env.study.jsonView(study, chapters, chapter, none, withMembers = false).map { studyJson =>
+        val initialFen = chapter.root.fen.some
+        val pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
+        val baseData = env.round.jsonView
           .userAnalysisJson(
             pov,
             ctx.pref,
@@ -83,14 +82,14 @@ final class Practice(
             chapter.setup.orientation,
             owner = false
           )
-        analysis = baseData ++ Json.obj(
+        val analysis = baseData ++ Json.obj(
           "treeParts" -> partitionTreeJsonWriter.writes {
             lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
           },
           "practiceGoal" -> lila.practice.PracticeGoal(chapter)
         )
-        analysisJson <- env.analyse.externalEngine.withExternalEngines(ctx.me, analysis)
-      yield (analysisJson, studyJson)
+        (analysis, studyJson)
+      }
 
   def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>
     api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)).inject(NoContent)

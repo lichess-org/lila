@@ -61,11 +61,12 @@ export class ExternalEngine implements CevalEngine {
             sessionId: this.sessionId,
             threads: work.threads,
             hash: work.hashSize || 16,
+            infinite: true,
+            movetime: work.searchMs === Number.POSITIVE_INFINITY ? 24 * 3600 * 1000 : work.searchMs,
             multiPv: work.multiPv,
             variant: work.variant,
             initialFen: work.initialFen,
             moves: work.moves,
-            ...work.search,
           },
         }),
       });

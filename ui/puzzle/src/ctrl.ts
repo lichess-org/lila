@@ -458,11 +458,6 @@ export default class PuzzleCtrl implements ParentCtrl {
         name: 'Standard',
         key: 'standard',
       },
-      externalEngines:
-        this.data.externalEngines?.map(engine => ({
-          ...engine,
-          endpoint: this.opts.externalEngineEndpoint,
-        })) || [],
       initialFen: undefined, // always standard starting position
       possible: true,
       emit: (ev, work) => {

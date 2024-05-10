@@ -12,7 +12,7 @@ export interface Work {
   stopRequested: boolean;
 
   path: string;
-  search: SearchBy;
+  searchMs: number;
   multiPv: number;
   ply: number;
   threatMode: boolean;
@@ -21,10 +21,6 @@ export interface Work {
   moves: string[];
   emit: (ev: Tree.LocalEval) => void;
 }
-
-// movetime capped at 1 day prior to dispatch
-export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
-export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
 
 export interface EngineInfo {
   id: string;
@@ -89,7 +85,7 @@ export interface CevalOpts {
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: Redraw;
-  search?: Search;
+  search?: { searchMs?: number; multiPv?: number };
   onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfo[];
 }

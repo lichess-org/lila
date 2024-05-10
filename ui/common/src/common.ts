@@ -10,10 +10,7 @@ export const clamp = (value: number, bounds: { min: number; max: number }): numb
   Math.max(bounds.min, Math.min(value, bounds.max));
 
 export const constrain = (value: number, constraints: { min?: number; max?: number }): number =>
-  clamp(value, {
-    min: constraints.min ?? Math.min(value, constraints.max ?? value),
-    max: constraints.max ?? Math.max(value, constraints.min ?? value),
-  });
+  clamp(value, { min: constraints.min ?? value, max: constraints.max ?? value });
 
 export function as<T>(v: T, f: () => void): () => T {
   return () => {
@@ -37,7 +34,7 @@ export const prop = <A>(initialValue: A): Prop<A> => {
   };
 };
 
-/*export const readonlyProp = <A>(initialValue: A): Prop<A> => {
+export const readonlyProp = <A>(initialValue: A): Prop<A> => {
   const value = initialValue;
   return () => value;
 };
@@ -45,7 +42,7 @@ export const prop = <A>(initialValue: A): Prop<A> => {
 // Checking that the prop doesn't take an argument
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length
 export const isReadonlyProp = <A>(prop: Prop<A>) => prop.length === 0;
-*/
+
 export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): PropWithEffect<A> => {
   let value = initialValue;
   return (v?: A) => {

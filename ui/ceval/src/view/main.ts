@@ -25,7 +25,7 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
 
 function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(),
-    state = ceval.state,
+    state = ceval.getState(),
     trans = ctrl.trans;
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
@@ -35,7 +35,7 @@ function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string>
   }
 
   const t: Array<VNode | string> = [];
-  if (ceval.canGoDeeper)
+  if (ceval.canGoDeeper())
     t.push(
       h('a.deeper', {
         attrs: { title: trans.noarg('goDeeper'), 'data-icon': licon.PlusButton },
@@ -45,9 +45,9 @@ function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string>
   const { depthText, npsText } = localInfo(ctrl, evs.client);
 
   t.push(depthText);
-  if (evs.client.cloud && !ceval.isComputing)
+  if (evs.client.cloud && !ceval.computing())
     t.push(h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud'));
-  if (ceval.isInfinite) t.push(h('span.infinite', { attrs: { title: trans('infiniteAnalysis') } }, '∞'));
+  if (ceval.infinite()) t.push(h('span.infinite', { attrs: { title: trans('infiniteAnalysis') } }, '∞'));
   if (npsText) t.push(' · ' + npsText);
   return t;
 }
@@ -58,18 +58,14 @@ function threatInfo(ctrl: ParentCtrl, threat?: Tree.LocalEval | false): string {
 }
 
 function localInfo(ctrl: ParentCtrl, ev?: Tree.ClientEval | false): EvalInfo {
-  const info = {
-    npsText: '',
-    knps: 0,
-    depthText: ctrl.trans.noarg('calculatingMoves'),
-  };
+  const info = { npsText: '', knps: 0, depthText: ctrl.trans.noarg('calculatingMoves') };
 
   if (!ev) return info;
 
   const ceval = ctrl.getCeval();
-  info.depthText = ctrl.trans('depthX', ev.depth || 0) + (ceval.isDeeper() || ceval.isInfinite ? '/99' : '');
+  info.depthText = ctrl.trans('depthX', ev.depth || 0) + (ceval.isDeeper() || ceval.infinite() ? '/99' : '');
 
-  if (!ceval.isComputing) return info;
+  if (!ceval.computing()) return info;
 
   const knps = ev.nodes / (ev?.millis ?? Number.POSITIVE_INFINITY);
 
@@ -163,18 +159,14 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
     threatMode = ctrl.threatMode(),
     threat = threatMode ? ctrl.getNode().threat : undefined,
     bestEv = threat || getBestEval(evs),
-    search = ceval.search,
     download = ceval.download;
   let pearl: VNode | string,
     percent = 0;
 
   if (evs.client) {
     if (evs.client.cloud && !threatMode) percent = 100;
-    else if (ceval.isDeeper() || ceval.isInfinite) percent = Math.min(100, (100 * evs.client.depth) / 99);
-    else if ('movetime' in search.by)
-      percent = Math.min(100, (100 * ((threat ?? evs.client)?.millis ?? 0)) / search.by.movetime);
-    else if ('depth' in search.by) percent = Math.min(100, (100 * evs.client.depth) / search.by.depth);
-    else if ('nodes' in search.by) percent = Math.min(100, (100 * evs.client.nodes) / search.by.nodes);
+    else if (ceval.isDeeper() || ceval.infinite()) percent = Math.min(100, (100 * evs.client.depth) / 99);
+    else percent = Math.min(100, (100 * ((threat ?? evs.client)?.millis ?? 0)) / ceval.searchMs());
   }
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
@@ -184,13 +176,12 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
   } else {
     if (!enabled) pearl = h('i');
     else if (ctrl.outcome() || ctrl.getNode().threefold) pearl = '-';
-    else if (ceval.state === CevalState.Failed)
+    else if (ceval.getState() === CevalState.Failed)
       pearl = h('i.is-red', { attrs: { 'data-icon': licon.CautionCircle } });
     else pearl = h('i.ddloader');
     percent = 0;
   }
   if (download) percent = Math.min(100, Math.round((100 * download.bytes) / download.total));
-  else if (ceval.search.indeterminate || (percent > 0 && !ceval.isComputing)) percent = 100;
 
   const progressBar: VNode | undefined =
     (enabled || download) &&
@@ -265,7 +256,7 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
   });
 
   return [
-    h('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.isComputing } }, [
+    h('div.ceval' + (enabled ? '.enabled' : ''), { class: { computing: ceval.computing() } }, [
       switchButton,
       ...body,
       threatButton(ctrl),
@@ -318,7 +309,7 @@ function checkHover(el: HTMLElement, ceval: CevalCtrl): void {
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const ceval = ctrl.getCeval();
   if (!ceval.allowed() || !ceval.possible || !ceval.enabled()) return;
-  const multiPv = ceval.search.multiPv,
+  const multiPv = ceval.multiPv(),
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[],
