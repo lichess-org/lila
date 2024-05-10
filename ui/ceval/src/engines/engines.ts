@@ -200,7 +200,7 @@ export class Engines {
             minThreads: 1,
             maxThreads: 1,
             requires: [],
-            //obsoletedBy: 'wasm',
+            obsoletedBy: 'wasm',
             assets: {
               version: 'a022fa',
               root: 'npm/stockfish.js',
