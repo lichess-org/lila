@@ -201,7 +201,7 @@ lazy val history = module("history",
 
 lazy val search = module("search",
   Seq(common),
-  playWs.bundle ++ Seq(lilaSearch)
+  Seq(playWs.ahc, lilaSearch)
 )
 
 lazy val chat = module("chat",

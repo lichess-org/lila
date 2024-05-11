@@ -4,7 +4,6 @@ import chess.Status
 
 import java.time.LocalDate
 
-import lila.common.Json.given
 import lila.core.rating.RatingRange
 import lila.search.Range
 import lila.core.i18n.Translate
@@ -97,13 +96,8 @@ case class Query(
 object Query:
 
   import lila.common.Form.*
-  import play.api.libs.json.*
   import lila.core.i18n.{ Translate, I18nKey as trans }
 
-  import Range.given
-  private given Writes[Sorting]  = Json.writes
-  private given Writes[Clocking] = Json.writes
-  given Writes[Query]            = Json.writes
 
   def durations(using Translate): List[(Int, String)] =
     ((30, trans.site.nbSeconds.pluralSameTxt(30)) ::

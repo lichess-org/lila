@@ -22,6 +22,4 @@ final class Env(
 
   private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
 
-  private def makeHttp(index: Index): ESClientHttp = wire[ESClientHttp]
-
   val client = if config.enabled then SearchClient.play(ws, config.endpoint) else SearchClient.noop
