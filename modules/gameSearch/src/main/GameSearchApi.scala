@@ -4,11 +4,11 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.search.*
-import lila.search.client.PlayClient
+import lila.search.client.SearchClient
 import smithy4s.Timestamp
 
 final class GameSearchApi(
-    client: PlayClient,
+    client: SearchClient,
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi
 )(using Executor, Scheduler)

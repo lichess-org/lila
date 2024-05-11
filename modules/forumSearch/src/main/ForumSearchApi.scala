@@ -7,13 +7,14 @@ import lila.common.Json.given
 import lila.search.*
 import lila.core.forum.{ ForumPostApi, ForumPostMini, ForumPostMiniView }
 import lila.core.id.ForumPostId
-import lila.search.client.PlayClient
+import lila.search.client.SearchClient
+import lila.search.client.SearchClient.*
 import lila.search.spec.Query as SQuery
 import lila.search.spec.ForumSource
 import smithy4s.Timestamp
 
 final class ForumSearchApi(
-    client: PlayClient,
+    client: SearchClient,
     postApi: ForumPostApi
 )(using Executor, akka.stream.Materializer)
     extends SearchReadApi[ForumPostId, Query]:

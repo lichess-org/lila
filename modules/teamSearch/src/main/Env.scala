@@ -6,10 +6,10 @@ import com.softwaremill.macwire.*
 import scalalib.paginator.Paginator
 import lila.search.*
 import lila.core.config.ConfigName
-import lila.search.client.PlayClient
+import lila.search.client.SearchClient
 
 final class Env(
-    client: PlayClient,
+    client: SearchClient,
     teamApi: lila.core.team.TeamApi
 )(using Executor, akka.stream.Materializer):
 

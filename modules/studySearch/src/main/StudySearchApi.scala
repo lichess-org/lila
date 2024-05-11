@@ -13,10 +13,10 @@ import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }
 import lila.tree.Node
 import lila.tree.Node.Comments
-import lila.search.client.PlayClient
+import lila.search.client.SearchClient
 
 final class StudySearchApi(
-    client: PlayClient,
+    client: SearchClient,
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo

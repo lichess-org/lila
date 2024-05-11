@@ -9,13 +9,13 @@ import lila.common.LateMultiThrottler
 import lila.core.study.RemoveStudy
 import lila.search.*
 import lila.study.Study
-import lila.search.client.PlayClient
+import lila.search.client.SearchClient
 
 final class Env(
     studyRepo: lila.study.StudyRepo,
     chapterRepo: lila.study.ChapterRepo,
     pager: lila.study.StudyPager,
-    client: PlayClient
+    client: SearchClient
 )(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
 
   private val indexThrottler = LateMultiThrottler(executionTimeout = 3.seconds.some, logger = logger)

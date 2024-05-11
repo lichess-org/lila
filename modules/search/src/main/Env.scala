@@ -3,7 +3,7 @@ package lila.search
 import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
-import lila.search.client.PlayClient
+import lila.search.client.SearchClient
 
 import lila.common.autoconfig.*
 
@@ -24,8 +24,4 @@ final class Env(
 
   private def makeHttp(index: Index): ESClientHttp = wire[ESClientHttp]
 
-  val makeClient = (index: Index) =>
-    if config.enabled then makeHttp(index)
-    else wire[ESClientStub]
-
-  val client = PlayClient(ws, config.endpoint)
+  val client = if config.enabled then SearchClient.play(ws, config.endpoint) else SearchClient.noop

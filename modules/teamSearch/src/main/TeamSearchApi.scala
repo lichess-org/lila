@@ -5,11 +5,11 @@ import play.api.libs.json.*
 
 import lila.search.*
 import lila.core.team.TeamData
-import lila.search.client.PlayClient
+import lila.search.client.SearchClient
 import lila.search.spec.TeamSource
 
 final class TeamSearchApi(
-    client: PlayClient,
+    client: SearchClient,
     teamApi: lila.core.team.TeamApi
 )(using Executor, akka.stream.Materializer)
     extends SearchReadApi[TeamId, Query]:

@@ -9,7 +9,7 @@ import lila.core.forum.BusForum
 import BusForum.*
 import lila.core.config.ConfigName
 import lila.core.id.ForumPostId
-import lila.search.client.PlayClient
+import lila.search.client.SearchClient
 
 @Module
 private class ForumSearchConfig(
@@ -19,7 +19,7 @@ private class ForumSearchConfig(
 final class Env(
     appConfig: Configuration,
     postApi: lila.core.forum.ForumPostApi,
-    client: PlayClient
+    client: SearchClient
 )(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
