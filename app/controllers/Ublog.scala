@@ -37,14 +37,14 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open:
     Found(env.ublog.api.getPost(id)): post =>
-      if slug == post.slug && username.id == post.created.by then handlePost(post)
+      if slug == post.slug && username.is(post.created.by) then handlePost(post)
       else Redirect(urlOfPost(post))
 
   private def handlePost(post: UblogPost)(using Context) =
     val createdBy = post.created.by
     NotForKidsUnlessOfficial(createdBy):
       WithBlogOf(createdBy): (user, blog) =>
-        if canViewPost(user, blog)(post) then
+        canViewPost(user, blog)(post).so:
           for
             others         <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
             liked          <- ctx.user.so(env.ublog.rank.liked(post))
@@ -57,7 +57,6 @@ final class Ublog(env: Env) extends LilaController(env):
             page <- renderPage:
               views.ublog.post.page(user, blog, viewedPost, markup, others, liked, followable, followed)
           yield Ok(page)
-        else notFound
 
   def discuss(id: UblogPostId) = Open:
     NotForKids:
@@ -315,5 +314,5 @@ final class Ublog(env: Env) extends LilaController(env):
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGrantedOpt(_.ModerateBlog) || isBlogVisible(user, blog)
 
-  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: Context) =
+  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using Context) =
     canViewBlogOf(user, blog) && post.canView
