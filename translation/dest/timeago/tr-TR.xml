@@ -54,5 +54,13 @@
     <item quantity="one">%s yıl önce</item>
     <item quantity="other">%s yıl önce</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s dakika kaldı</item>
+    <item quantity="other">%s dakika kaldı</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s saat kaldı</item>
+    <item quantity="other">%s saat kaldı</item>
+  </plurals>
   <string name="completed">tamamlanmış</string>
 </resources>
