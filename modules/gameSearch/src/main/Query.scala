@@ -98,7 +98,6 @@ object Query:
   import lila.common.Form.*
   import lila.core.i18n.{ Translate, I18nKey as trans }
 
-
   def durations(using Translate): List[(Int, String)] =
     ((30, trans.site.nbSeconds.pluralSameTxt(30)) ::
       options(

@@ -20,7 +20,7 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi,
-    client: SearchClient,
+    client: SearchClient
 )(using Executor, Scheduler, lila.core.i18n.Translator):
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
