@@ -8,6 +8,8 @@ import lila.common.Json.given
 import lila.core.rating.RatingRange
 import lila.search.Range
 import lila.core.i18n.Translate
+import lila.search.spec.{ Sorting as SpecSorting, Clocking as SpecClocking, IntRange, DateRange }
+import smithy4s.Timestamp
 
 case class Query(
     user1: Option[UserId] = None,
@@ -52,6 +54,45 @@ case class Query(
       duration.nonEmpty ||
       clock.nonEmpty ||
       analysed.nonEmpty
+
+  def transform: lila.search.spec.Query.Game =
+    lila.search.spec.Query.game(
+      user1 = user1.map(_.value),
+      user2 = user2.map(_.value),
+      winner = winner.map(_.value),
+      loser = loser.map(_.value),
+      winnerColor = winnerColor,
+      perf = perf,
+      source = source,
+      status = status,
+      turns = transform(turns).some,
+      averageRating = transform(averageRating).some,
+      hasAi = hasAi,
+      aiLevel = transform(aiLevel).some,
+      rated = rated,
+      date = transform(date).some,
+      duration = transform(duration).some,
+      clock = transform(clock).some,
+      sorting = transform(sorting).some,
+      analysed = analysed,
+      whiteUser = whiteUser.map(_.value),
+      blackUser = blackUser.map(_.value)
+    )
+
+  def transform(r: Range[Int]): IntRange        = IntRange(r.a, r.b)
+  def transform(r: Range[LocalDate]): DateRange = DateRange(r.a.map(transform), r.b.map(transform))
+  def transform(l: LocalDate): Timestamp        = Timestamp(l.getYear, l.getMonthValue, l.getDayOfMonth)
+  def transform(c: Clocking): SpecClocking = SpecClocking(
+    initMin = c.initMin,
+    initMax = c.initMax,
+    incMin = c.incMin,
+    incMax = c.incMax
+  )
+
+  def transform(s: Sorting): SpecSorting = SpecSorting(
+    f = s.f,
+    order = s.order
+  )
 
 object Query:
 

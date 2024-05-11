@@ -7,6 +7,7 @@ import lila.common.autoconfig.{ *, given }
 import lila.core.game.{ FinishGame, InsertGame }
 import lila.search.*
 import lila.core.config.ConfigName
+import lila.search.client.PlayClient
 
 @Module
 private class GameSearchConfig(
@@ -19,12 +20,10 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi,
-    makeClient: Index => ESClient
+    client: PlayClient,
 )(using Executor, Scheduler, lila.core.i18n.Translator):
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
-
-  private lazy val client = makeClient(Index(config.indexName))
 
   lazy val api = wire[GameSearchApi]
 
