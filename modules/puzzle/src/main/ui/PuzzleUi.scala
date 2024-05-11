@@ -12,7 +12,8 @@ import lila.common.Json.given
 import lila.core.i18n.I18nKey
 
 final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
-    analyseCsp: Update[ContentSecurityPolicy]
+    analyseCsp: Update[ContentSecurityPolicy],
+    externalEngineEndpoint: String
 ):
   import helpers.{ *, given }
 
@@ -39,7 +40,8 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
               "pref"        -> pref,
               "i18n"        -> bits.jsI18n(streak = isStreak),
               "showRatings" -> ctx.pref.showRatings,
-              "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
+              "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color),
+              "externalEngineEndpoint" -> externalEngineEndpoint
             )
             .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
         )

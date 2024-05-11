@@ -5,7 +5,7 @@ import scalalib.SecureRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
-import play.api.mvc.RequestHeader
+import play.api.mvc.{ Session, RequestHeader }
 import reactivemongo.api.bson.*
 
 import lila.common.Form.into
@@ -189,7 +189,12 @@ final class SecurityApi(
   val sessionIdKey = "sessionId"
 
   def reqSessionId(req: RequestHeader): Option[String] =
-    req.session.get(sessionIdKey).orElse(req.headers.get(sessionIdKey))
+    import play.api.mvc.request.{ Cell, RequestAttrKey }
+    req.attrs.get[Cell[Session]](RequestAttrKey.Session) match
+      case Some(session) => session.value.get(sessionIdKey).orElse(req.headers.get(sessionIdKey))
+      case None =>
+        logger.warn(s"No session in request attrs: ${lila.common.HTTPRequest.print(req)}")
+        none
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 

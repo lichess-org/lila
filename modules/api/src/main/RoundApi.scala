@@ -114,7 +114,7 @@ final private[api] class RoundApi(
       initialFen: Option[Fen.Full],
       withFlags: ExportOptions,
       owner: Boolean = false
-  )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
+  )(using ctx: Context): Fu[JsObject] =
     given Translate = ctx.translate
     (
       jsonView.watcherJson(
@@ -149,19 +149,19 @@ final private[api] class RoundApi(
           .compose(withForecast(pov, owner, fco))
           .compose(withPuzzleOpening(puzzleOpening))
       )(json)
-  }
-    .mon(_.round.api.watcher)
+    .flatMap(externalEngineApi.withExternalEngines)
+      .mon(_.round.api.watcher)
 
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
       initialFen: Option[Fen.Full],
       orientation: Color,
-      owner: Boolean,
-      me: Option[User]
-  ) =
-    withExternalEngines(me) {
-      owner.so(forecastApi.loadForDisplay(pov)).map { fco =>
+      owner: Boolean
+  )(using Option[Me]) =
+    owner
+      .so(forecastApi.loadForDisplay(pov))
+      .map: fco =>
         withForecast(pov, owner, fco) {
           withTree(pov, analysis = none, initialFen, ExportOptions(opening = true)) {
             jsonView.userAnalysisJson(
@@ -173,8 +173,7 @@ final private[api] class RoundApi(
             )
           }
         }
-      }
-    }
+      .flatMap(externalEngineApi.withExternalEngines)
 
   private def withTree(
       pov: Pov,
@@ -248,14 +247,6 @@ final private[api] class RoundApi(
       "analysis",
       o.map { analysisJson.bothPlayers(g.startedAtPly, _) }
     )
-
-  private def withExternalEngines(me: Option[User])(jsonFu: Fu[JsObject]): Fu[JsObject] =
-    jsonFu.flatMap { withExternalEngines(me, _) }
-
-  def withExternalEngines(me: Option[User], json: JsObject): Fu[JsObject] =
-    me.so(u => externalEngineApi.list(u.id))
-      .map: engines =>
-        json.add("externalEngines", engines.nonEmpty.option(engines))
 
   def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using Translate) =
     json.add("tournament" -> viewO.map { v =>

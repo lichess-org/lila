@@ -237,6 +237,10 @@ export class Engines {
     return this.active && 'endpoint' in this.active ? this.active : undefined;
   }
 
+  get maxMovetime() {
+    return this.external ? 30 * 1000 : Number.POSITIVE_INFINITY; // broker timeouts prevent long search
+  }
+
   async deleteExternal(id: string) {
     if (this.externalEngines.every(e => e.id !== id)) return false;
     const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });

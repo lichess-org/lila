@@ -215,8 +215,7 @@ final class Study(
         .exists(_.done)
         .so(env.analyse.analyser.byId(Analysis.Id(study.id, chapter.id)))
       division = analysis.isDefined.option(env.study.serverEvalMerger.divisionOf(chapter))
-      baseData <- env.api.roundApi.withExternalEngines(
-        ctx.me,
+      baseData <- env.analyse.externalEngine.withExternalEngines(
         env.round.jsonView.userAnalysisJson(
           pov,
           ctx.pref,

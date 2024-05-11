@@ -1,5 +1,6 @@
 package controllers
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import akka.util.ByteString
 
@@ -7,11 +8,8 @@ import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.mvc.Result
 
-import scala.util.chaining.*
-
 import lila.app.*
 import lila.core.net.IpAddress
-
 import lila.pref.{ PieceSet, Theme }
 import lila.core.id.PuzzleId
 
@@ -54,7 +52,7 @@ final class Export(env: Env) extends LilaController(env):
 
   def fenThumbnail(
       fen: String,
-      color: Color,
+      color: Option[Color],
       lastMove: Option[Uci],
       variant: Option[Variant.LilaKey],
       theme: Option[String],
@@ -65,7 +63,7 @@ final class Export(env: Env) extends LilaController(env):
         .thumbnail(
           situation = situation,
           lastMove = lastMove,
-          orientation = color,
+          orientation = color | Color.white,
           theme = Theme(theme).name,
           piece = PieceSet.get(piece).name,
           description = s"fenThumbnail $fen"
