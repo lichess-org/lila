@@ -2105,7 +2105,7 @@ object I18nKey:
     val `stopMyselfFromPlaying`: I18nKey = "faq:stopMyselfFromPlaying"
     val `mentalHealthCondition`: I18nKey = "faq:mentalHealthCondition"
     val `lichessUserstyles`: I18nKey = "faq:lichessUserstyles"
-    val `lessLobbyPools`: I18nKey = "faq:lessLobbyPools"
+    val `fewerLobbyPools`: I18nKey = "faq:fewerLobbyPools"
     val `adviceOnMitigatingAddiction`: I18nKey = "faq:adviceOnMitigatingAddiction"
 
   object lag:
