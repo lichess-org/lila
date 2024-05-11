@@ -50,6 +50,7 @@ export class RunCtrl {
       })();
 
     this.levelCtrl = new LevelCtrl(
+      this.withGround,
       this.stage.levels[Number(levelId) - 1],
       {
         onCompleteImmediate: () => {
@@ -66,7 +67,6 @@ export class RunCtrl {
           this.redraw();
         },
       },
-      this,
       this.redraw,
     );
 
@@ -80,8 +80,11 @@ export class RunCtrl {
 
   setChessground = (chessground: CgApi) => {
     this.chessground = chessground;
-    this.levelCtrl.initializeWithCg();
+    this.withGround(this.levelCtrl.initializeWithGround);
   };
+
+  withGround = <A>(f: (cg: CgApi) => A): A | undefined =>
+    this.chessground ? f(this.chessground) : undefined;
 
   stageScore = () => {
     const res = this.data.stages[this.stage.key];

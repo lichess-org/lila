@@ -1,10 +1,8 @@
+import * as cg from 'chessground/types';
 import * as util from './util';
 import * as ground from './ground';
 import * as timeouts from './timeouts';
 import { ChessCtrl } from './chess';
-import * as cg from 'chessground/types';
-import { RunCtrl } from './run/runCtrl';
-import { setFen } from './chessground';
 
 export interface Scenario {
   isComplete(): boolean;
@@ -22,12 +20,16 @@ export type ScenarioLevel = (
 )[];
 
 interface ScenarioOpts {
-  runCtrl: RunCtrl;
   chess: ChessCtrl;
   makeChessDests(): cg.Dests;
+  setFen(fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key, ...unknown[]]): void;
 }
 
-export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpts): Scenario {
+export default function (
+  blueprint: ScenarioLevel | undefined,
+  withGround: <A>(f: (cg: CgApi) => A) => A | false | undefined,
+  opts: ScenarioOpts,
+): Scenario {
   const steps = (blueprint || []).map(step => (typeof step !== 'string' ? step : { move: step, shapes: [] }));
 
   let it = 0;
@@ -38,6 +40,8 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
     return false;
   };
 
+  const setShapes = (shapes: ground.Shape[]) => withGround(g => g.setShapes(shapes));
+
   const opponent = () => {
     const step = steps[it];
     if (!step) return;
@@ -45,8 +49,8 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
     const res = opts.chess.move(move[0], move[1], move[2]);
     if (!res) return fail();
     it++;
-    setFen(opts.runCtrl, opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
-    if (step.shapes) timeouts.setTimeout(() => opts.runCtrl.chessground?.setShapes(step.shapes), 500);
+    opts.setFen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
+    if (step.shapes) timeouts.setTimeout(() => setShapes(step.shapes), 500);
     return;
   };
 
@@ -59,7 +63,7 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
       if (!step) return false;
       if (step.move !== move) return fail();
       it++;
-      if (step.shapes) opts.runCtrl.chessground?.setShapes(step.shapes);
+      if (step.shapes) setShapes(step.shapes);
       timeouts.setTimeout(opponent, 1000);
       return true;
     },
