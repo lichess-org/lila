@@ -89,7 +89,7 @@ final class Practice(
           },
           "practiceGoal" -> lila.practice.PracticeGoal(chapter)
         )
-        analysisJson <- env.analyse.externalEngine.withExternalEngines(ctx.me, analysis)
+        analysisJson <- env.analyse.externalEngine.withExternalEngines(analysis)
       yield (analysisJson, studyJson)
 
   def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>

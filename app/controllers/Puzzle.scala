@@ -41,7 +41,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
         then env.puzzle.jsonView.bc(puzzle)
         else env.puzzle.jsonView(puzzle, angle.some, replay)
-      analysisJson <- env.analyse.externalEngine.withExternalEngines(me, puzzleJson)
+      analysisJson <- env.analyse.externalEngine.withExternalEngines(puzzleJson)
     yield analysisJson
 
   private def renderShow(

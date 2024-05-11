@@ -115,8 +115,8 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
       result.n > 0
     }
 
-  def withExternalEngines(me: Option[User], json: JsObject): Fu[JsObject] =
-    me.so(u => list(u.id))
+  def withExternalEngines(json: JsObject)(using me: Option[Me]): Fu[JsObject] =
+    me.so(u => list(u.userId))
       .map: engines =>
         json.add("externalEngines", engines.nonEmpty.option(engines))
 
