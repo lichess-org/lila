@@ -88,16 +88,18 @@ export class RunCtrl {
     return res?.scores.reduce((a, b) => a + b) ?? 0;
   };
 
-  score = (level: stages.Level) => {
-    return this.data.stages[this.stage.key] ? this.data.stages[this.stage.key].scores[level.id - 1] : 0;
-  };
+  score = (level: stages.Level) =>
+    this.data.stages[this.stage.key] ? this.data.stages[this.stage.key].scores[level.id - 1] : 0;
+
   getNext = () => stages.byId[this.stage.id + 1];
+
   hideStartingPane = () => {
     if (!this.stageStarting()) return;
     this.stageStarting(false);
     this.levelCtrl?.start();
     this.redraw();
   };
+
   restart = () => {
     site.tempStorage.boolean(RESTARTING_KEY).set(true);
     hashNavigate(this.stage.id, this.levelCtrl?.blueprint.id);

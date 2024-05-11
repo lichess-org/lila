@@ -58,6 +58,7 @@ export class LevelCtrl {
     this.items = makeItems({ apples: blueprint.apples });
     this.chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : this.items.appleKeys());
     this.scenario = makeScenario(blueprint.scenario, {
+      runCtrl: ctrl,
       chess: this.chess,
       makeChessDests: this.makeChessDests,
     });
