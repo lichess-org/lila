@@ -46,6 +46,7 @@ export class PromotionCtrl {
       this.promoting.callback(this.promoting.orig, this.promoting.dest, role);
     }
     this.promoting = false;
+    this.redraw();
   };
 
   promote = (key: Key, role: PromotionRole) =>

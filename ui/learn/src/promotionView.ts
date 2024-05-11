@@ -2,13 +2,9 @@ import { RunCtrl } from './run/runCtrl';
 import { PromotionRole } from './util';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
-import { opposite } from 'chessground/util';
+import { opposite, key2pos } from 'chessground/util';
 
 const pieces: PromotionRole[] = ['queen', 'knight', 'rook', 'bishop'];
-
-// TODO: needs implementation
-// const key2pos = chessground.util.key2pos;
-const key2pos = (key: Key) => [key && 0, 0];
 
 export function promotionView(ctrl: RunCtrl) {
   const { promotionCtrl } = ctrl.levelCtrl;
@@ -20,31 +16,35 @@ export function promotionView(ctrl: RunCtrl) {
   const orientation = ground.state.orientation;
   const vertical = color === orientation ? 'top' : 'bottom';
 
-  let left = (8 - key2pos(promoting.dest)[0]) * 12.5;
-  if (orientation === 'white') left = 87.5 - left;
+  let left = key2pos(promoting.dest)[0] * 12.5;
+  if (orientation === 'black') left = 87.5 - left;
 
   const explain = !!ctrl.levelCtrl.blueprint.explainPromotion;
+  const bounds = ground.state.dom.bounds();
 
-  return h('div#promotion-choice.' + vertical, [
-    ...pieces.map((serverRole, i) => {
-      // TODO:
-      i;
-      left;
-      return h(
-        'square',
-        {
-          // TODO:
-          // style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
-          hook: bind('click', (e: Event) => {
-            e.stopPropagation();
-            promotionCtrl.finish(serverRole);
-          }),
-        },
-        h('piece.' + serverRole + '.' + color),
-      );
-    }),
-    explain ? renderExplanation(ctrl) : null,
-  ]);
+  return h(
+    'div#promotion-choice.' + vertical,
+    {
+      // a hack for now... not sure how else to fix at the moment
+      style: { width: `${bounds.width}px`, height: `${bounds.height}px` },
+    },
+    [
+      ...pieces.map((role, i) =>
+        h(
+          'square',
+          {
+            style: { [vertical]: `${i * 12.5}%`, left: `${left}%` },
+            hook: bind('click', (e: Event) => {
+              e.stopPropagation();
+              promotionCtrl.finish(role);
+            }),
+          },
+          h('piece.' + role + '.' + color),
+        ),
+      ),
+      explain ? renderExplanation(ctrl) : null,
+    ],
+  );
 }
 
 function renderExplanation(ctrl: RunCtrl) {

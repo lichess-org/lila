@@ -150,6 +150,8 @@
     content: '1';
   }
 }
+
+// TODO:
 // Workaround for chessground 4.4 used in `ui/learn` page.
 // This selector has no effect for chessground 7.11.0 used in other pages.
 cg-container > cg-board > svg {
