@@ -4,6 +4,8 @@ import { Feature } from 'common/device';
 import CevalCtrl from './ctrl';
 
 export type WinningChances = number;
+export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
+export type Search = { by: SearchBy; multiPv: number; indeterminate?: boolean };
 
 export interface Work {
   variant: VariantKey;
@@ -12,7 +14,7 @@ export interface Work {
   stopRequested: boolean;
 
   path: string;
-  searchMs: number;
+  search: SearchBy;
   multiPv: number;
   ply: number;
   threatMode: boolean;
@@ -85,7 +87,7 @@ export interface CevalOpts {
   emit: (ev: Tree.LocalEval, meta: EvalMeta) => void;
   setAutoShapes: () => void;
   redraw: Redraw;
-  search?: { searchMs?: number; multiPv?: number };
+  search?: Search;
   onSelectEngine?: () => void;
   externalEngines?: ExternalEngineInfo[];
 }

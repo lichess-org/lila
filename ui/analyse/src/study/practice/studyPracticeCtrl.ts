@@ -47,10 +47,7 @@ export default class StudyPractice {
       if (gamebook.state.feedback === 'end') this.onVictory();
       return;
     }
-    if (!this.root.study?.data.chapter.practice) {
-      return this.saveNbMoves();
-    }
-    if (this.success() !== null) return;
+    if (this.success() !== null || !this.root.practice || !this.root.study?.data.chapter.practice) return;
     this.nbMoves(this.computeNbMoves());
     const res = this.success(makeSuccess(this.root, this.goal(), this.nbMoves()));
     if (res) this.onVictory();

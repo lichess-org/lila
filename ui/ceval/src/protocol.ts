@@ -138,7 +138,7 @@ export class Protocol {
 
       if (multiPv === this.expectedPvs && this.currentEval) {
         this.work.emit(this.currentEval);
-        if (depth >= 99 || millis >= this.work.searchMs) this.stop();
+        if (depth >= 99) this.stop();
       }
     } else if (command && !['Stockfish', 'id', 'option', 'info'].includes(parts[0])) {
       // some think it's a bug when they see these in console
@@ -170,7 +170,8 @@ export class Protocol {
       this.setOption('MultiPV', Math.max(1, this.work.multiPv));
 
       this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
-      this.send(`go depth 99`);
+      const [by, value] = Object.entries(this.work.search)[0];
+      this.send(`go ${by} ${value}`);
     }
   }
 
