@@ -42,7 +42,7 @@ export interface ExternalEngineInfo extends EngineInfo {
 
 export interface BrowserEngineInfo extends EngineInfo {
   minMem?: number;
-  assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string };
+  assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Requires[];
   obsoletedBy?: Feature;
 }
