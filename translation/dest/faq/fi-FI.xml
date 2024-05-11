@@ -163,4 +163,12 @@ Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voi
 3. Valitse Evästeet ja sivuston käyttöoikeudet
 4. Vieritä alas ja valitse Median automaattinen toisto
 4. Lisää lichess.org listalle \"Salli\"</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Haluatko lopettaa pelaamisen?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">mielenterveystekijä</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichessin käyttäjäkohtaiset tyylit</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Saamme säännöllisesti viestejä käyttäjiltä, jotka pyytävät meitä auttamaan estämään heitä pelaamasta liikaa.
+
+Vaikka Lichess ei estä pelaajia muuten kuin käyttöehtojen rikkomisesta, suosittelemme käyttämään kolmannen osapuolen työkaluja liiallisen pelaamisen rajoittamiseksi. Joitakin yleisiä ehdotuksia sivuston estäjille ovat %1$s, %2$s ja %3$s. Jos haluat käyttää sivustoa, mutta estää pikapelit, saatat olla kiinnostunut työkalusta %4$s tai %5$s.
+
+Jotkut pelaajat saattavat kokea pelikäyttäytymisensä muuttuvan riippuvuudeksi. Itse asiassa WHO on antanut pelihäiriölle luokituksen %6$s, merkittävinä ominaisuuksina olevan 1) heikentynyt hallinta pelaamista, 2) pelaamisen ensisijaisuuden lisääminen ja 3) pelaamisen lisääntyminen kielteisistä seurauksista huolimatta. Jos luulet, että shakinpeluusi seuraa tätä mallia, rohkaisemme sinua puhumaan siitä ystävän tai perheenjäsenen kanssa ja/tai ammattilaisen kanssa.</string>
 </resources>
