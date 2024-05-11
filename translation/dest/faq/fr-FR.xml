@@ -166,4 +166,7 @@ Nous affichons l\'icône rouge pour vous avertir lorsque cela se produit. Souven
 3. Cliquez sur Cookies et Autorisations du site
 4. Faites défiler la page vers le bas et cliquez sur Lecture automatique du support
 5. Ajoutez lichess.org pour autoriser</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Arrêter de jouer?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">problème de santé mentale distinct</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Styles utilisateur de Lichess</string>
 </resources>
