@@ -69,26 +69,28 @@ final class Api(
 
   def usersStatus = ApiRequest:
     val ids = get("ids").so(_.split(',').take(100).toList.flatMap(UserStr.read).map(_.id))
-    env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
-      val streamingIds = env.streamer.liveStreamApi.userIds
-      def toJson(u: LightUser) =
-        lila.common.Json.lightUser
-          .write(u)
-          .add("online" -> env.socket.isOnline(u.id))
-          .add("playing" -> env.round.playing(u.id))
-          .add("streaming" -> streamingIds(u.id))
-      if getBool("withGameIds")
-      then
-        users
-          .traverse: u =>
-            env.round
-              .playing(u.id)
-              .so(env.game.cached.lastPlayedPlayingId(u.id))
-              .map: gameId =>
-                toJson(u).add("playingId", gameId)
-          .map(toApiResult)
-      else fuccess(toApiResult(users.map(toJson)))
-    }
+    if ids.isEmpty then fuccess(ApiResult.ClientError("No user ids provided"))
+    else
+      env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
+        val streamingIds = env.streamer.liveStreamApi.userIds
+        def toJson(u: LightUser) =
+          lila.common.Json.lightUser
+            .write(u)
+            .add("online" -> env.socket.isOnline(u.id))
+            .add("playing" -> env.round.playing(u.id))
+            .add("streaming" -> streamingIds(u.id))
+        if getBool("withGameIds")
+        then
+          users
+            .traverse: u =>
+              env.round
+                .playing(u.id)
+                .so(env.game.cached.lastPlayedPlayingId(u.id))
+                .map: gameId =>
+                  toJson(u).add("playingId", gameId)
+            .map(toApiResult)
+        else fuccess(toApiResult(users.map(toJson)))
+      }
 
   private def gameFlagsFromRequest(using RequestHeader) =
     lila.api.GameApi.WithFlags(
