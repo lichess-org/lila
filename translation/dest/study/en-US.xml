@@ -31,7 +31,7 @@
     <item quantity="other">%s Members</item>
   </plurals>
   <string name="inviteToTheStudy">Invite to the study</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Please only invite people you know, and who actively want to join this study.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Please only invite people who know you, and who actively want to join this study.</string>
   <string name="searchByUsername">Search by username</string>
   <string name="spectator">Spectator</string>
   <string name="contributor">Contributor</string>

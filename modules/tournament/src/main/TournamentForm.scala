@@ -9,6 +9,7 @@ import play.api.data.Forms.*
 import lila.common.Form.{ *, given }
 import lila.gathering.GatheringClock
 import lila.core.team.LightTeam
+import lila.core.perm.Granter
 
 final class TournamentForm:
 
@@ -78,12 +79,14 @@ final class TournamentForm:
           )
 
   private def makeMapping(leaderTeams: List[LightTeam], prev: Option[Tournament])(using me: Me) =
+    val manager       = Granter.opt(_.ManageTournament)
+    val nameMaxLength = if me.isVerifiedOrAdmin then 35 else 30
     mapping(
-      "name"           -> optional(eventName(2, 30, me.isVerifiedOrAdmin)),
+      "name"           -> optional(eventName(2, nameMaxLength, manager || me.isVerified)),
       "clockTime"      -> numberInDouble(timeChoices),
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes" -> {
-        if lila.core.perm.Granter(_.ManageTournament) then number
+        if manager then number
         else numberIn(minuteChoicesKeepingCustom(prev))
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),

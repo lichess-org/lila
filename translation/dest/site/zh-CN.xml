@@ -752,6 +752,12 @@
   <string name="transparent">透明</string>
   <string name="deviceTheme">设备主题</string>
   <string name="backgroundImageUrl">背景图片网址：</string>
+  <string name="board" comment="Allows you to change the appearance of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">棋盘</string>
+  <string name="size" comment="Allows you to change the size of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">大小</string>
+  <string name="opacity" comment="Allows you to change how transparent your chessboard appears. This option only appears when using a custom (picture) background. You can make the board more transparent so you can view more of the background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">不透明度</string>
+  <string name="brightness" comment="Allows you to change the brightness of the chessboard and pieces on it. This option only appears when using a light or dark background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">亮度</string>
+  <string name="hue" comment="Allows you to change the hue of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">色调</string>
+  <string name="boardReset" comment="Allows you to reset any changes made to colours. Will appear if you change any colour settings.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">重置颜色设置</string>
   <string name="pieceSet">棋子设定</string>
   <string name="embedInYourWebsite">嵌入到你的网站上</string>
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
