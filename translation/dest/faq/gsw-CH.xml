@@ -168,8 +168,13 @@ Das roti Symbol macht dich druf ufmerksam, dass das passiert. Oft chann mer lich
 3. Klick \"Cookies and Site Permissions\"
 4. Scroll abwärts und klick \"Media autoplay\"
 5. \"Lichess.org\" zum Erlaube bi-füege</string>
-  <string name="stopMyselfFromPlaying">Mich sälber vum Schpille abhalte?</string>
-  <string name="mentalHealthCondition">eigene, geischtige G\'sundheitszueschtand</string>
-  <string name="lichessUserstyles">Lichess Benutzerstil</string>
-  <string name="fewerLobbyPools">weniger Lobby-Pools</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Mich sälber vum Schpille abhalte?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">eigene, geischtige G\'sundheitszueschtand</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess Benutzerstil</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">weniger Lobby-Pools</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Es chömed regelmässig Nachrichte, wo eus Benutzer um Hilf bitted, sie vum übermässige Schpille ab z\'halte.
+
+Obwohl Lichess kei Schpiller schperrt oder blockiert, usser bi Verschtöss gäge d\'Nutzigsbedingige, empfehled mir d\'Verwändig vu externe Werchzüg, um exzessivs Schpielverhalte i\'zschränke. Einigi, gängigi Vorschläg für Website-Blocker sind %1$s, %2$s und %3$s. Wänn Du eusi Website witer nutze wotsch, aber nöd dur schnälli Zitkontrolle i Versuechig g\'rate wottsch, chasch Du au a %4$s intressiert si. Da isch eini mit %5$s.
+
+Mäng Schpiller händ s\'Gfühl, dass sich ihres Schpielverhalte zunere Sucht entwicklet. Tatsächlich stuft d\'WHO die Schpielschtörig als %6$s i, mit folgende wesentliche Merkmal: 1) beiträchtigti Kontrolle übers Schpille, 2) e wachsendi Priorität vum Schpille und 3) Eskalation vum Schpille, trotz negative Konsequenze. Wänn Du findsch, dass Dis Schpielverhalte dem Muschter entspricht, empfehled mir Dir, mit eme Fründ oder Familiemitglied und/oder mit eme Fachmaa d\'rüber z\'rede.</string>
 </resources>
