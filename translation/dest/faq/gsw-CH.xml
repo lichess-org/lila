@@ -168,4 +168,8 @@ Das roti Symbol macht dich druf ufmerksam, dass das passiert. Oft chann mer lich
 3. Klick \"Cookies and Site Permissions\"
 4. Scroll abwärts und klick \"Media autoplay\"
 5. \"Lichess.org\" zum Erlaube bi-füege</string>
+  <string name="stopMyselfFromPlaying">Mich sälber vum Schpille abhalte?</string>
+  <string name="mentalHealthCondition">eigene, geischtige G\'sundheitszueschtand</string>
+  <string name="lichessUserstyles">Lichess Benutzerstil</string>
+  <string name="fewerLobbyPools">weniger Lobby-Pools</string>
 </resources>
