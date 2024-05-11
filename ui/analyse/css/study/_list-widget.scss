@@ -71,14 +71,12 @@
         color: $c-font-dim;
       }
 
-      &::before {
+      .study__icon {
         color: $m-primary_bg--mix-80;
-        font-size: 4em;
+        font-size: 3em;
         margin-inline-end: 0.2em;
-
-        @include transition;
-        @media (max-width: at-most($xx-small)) {
-          display: none;
+        .uflair {
+          margin: 0;
         }
       }
 
