@@ -1,4 +1,4 @@
-import { PromotionRole, arrow } from './util';
+import { PromotionRole, WithGround, arrow } from './util';
 import { Items, ctrl as makeItems } from './item';
 import { Level } from './stage/list';
 import * as scoring from './score';
@@ -6,10 +6,10 @@ import * as timeouts from './timeouts';
 import * as sound from './sound';
 import makeChess, { ChessCtrl } from './chess';
 import makeScenario, { Scenario } from './scenario';
-import * as promotion from './promotion';
 import type { Square as Key } from 'chess.js';
 import { CgMove } from './chessground';
 import * as cg from 'chessground/types';
+import { PromotionCtrl } from './promotionCtrl';
 
 export interface LevelVm {
   score: number;
@@ -45,9 +45,10 @@ export class LevelCtrl {
   items: Items<'apple'>;
   chess: ChessCtrl;
   scenario: Scenario;
+  promotionCtrl: PromotionCtrl;
 
   constructor(
-    readonly withGround: <A>(f: (cg: CgApi) => A) => A | false | undefined,
+    readonly withGround: WithGround,
     readonly blueprint: Level,
     readonly opts: LevelOpts,
     readonly redraw: () => void,
@@ -62,7 +63,7 @@ export class LevelCtrl {
       chess: this.chess,
       makeChessDests: this.makeChessDests,
     });
-    promotion.reset();
+    this.promotionCtrl = new PromotionCtrl(withGround, redraw);
 
     // if chessground is available at this time, initialize with it
     withGround(this.initializeWithGround);
@@ -174,7 +175,7 @@ export class LevelCtrl {
         move: (orig: Key, dest: Key) => {
           const piece = ground.state.pieces.get(dest);
           if (!piece || piece.color !== blueprint.color) return;
-          if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
+          if (!this.promotionCtrl.start(orig, dest, sendMove)) sendMove(orig, dest);
         },
       },
       // items: {

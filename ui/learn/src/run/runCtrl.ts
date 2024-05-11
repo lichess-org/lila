@@ -7,6 +7,7 @@ import { LearnCtrl } from '../ctrl';
 import { clearTimeouts } from '../timeouts';
 import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
+import { WithGround } from '../util';
 
 const RESTARTING_KEY = 'learn.restarting';
 
@@ -83,7 +84,7 @@ export class RunCtrl {
     this.withGround(this.levelCtrl.initializeWithGround);
   };
 
-  withGround = <A>(f: (cg: CgApi) => A): A | undefined =>
+  withGround: WithGround = <A>(f: (cg: CgApi) => A): A | undefined =>
     this.chessground ? f(this.chessground) : undefined;
 
   stageScore = () => {

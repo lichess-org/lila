@@ -1,8 +1,8 @@
 import * as cg from 'chessground/types';
-import * as util from './util';
 import * as ground from './ground';
 import * as timeouts from './timeouts';
 import { ChessCtrl } from './chess';
+import { WithGround, decomposeUci } from './util';
 
 export interface Scenario {
   isComplete(): boolean;
@@ -27,7 +27,7 @@ interface ScenarioOpts {
 
 export default function (
   blueprint: ScenarioLevel | undefined,
-  withGround: <A>(f: (cg: CgApi) => A) => A | false | undefined,
+  withGround: WithGround,
   opts: ScenarioOpts,
 ): Scenario {
   const steps = (blueprint || []).map(step => (typeof step !== 'string' ? step : { move: step, shapes: [] }));
@@ -45,7 +45,7 @@ export default function (
   const opponent = () => {
     const step = steps[it];
     if (!step) return;
-    const move = util.decomposeUci(step.move);
+    const move = decomposeUci(step.move);
     const res = opts.chess.move(move[0], move[1], move[2]);
     if (!res) return fail();
     it++;

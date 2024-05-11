@@ -3,6 +3,8 @@ import { Level, LevelPartial } from './stage/list';
 import { h } from 'snabbdom';
 import * as cg from 'chessground/types';
 
+export type WithGround = <A>(f: (cg: CgApi) => A) => A | false | undefined;
+
 export function toLevel(l: LevelPartial, it: number): Level {
   if (l.fen.split(' ').length === 4) l.fen += ' 0 1';
 

@@ -3,7 +3,6 @@ import chessground from '../chessground';
 import congrats from './congrats';
 import stageStarting from './stageStarting';
 import stageComplete from './stageComplete';
-import { view as renderPromotion } from '../promotion';
 import { LevelCtrl } from '../levelCtrl';
 import { RunCtrl } from './runCtrl';
 import { mapSideView } from '../mapSideView';
@@ -11,6 +10,7 @@ import { LearnCtrl } from '../ctrl';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { makeStars, progressView } from '../progressView';
+import { promotionView } from '../promotionView';
 
 function renderFailed(ctrl: RunCtrl) {
   return h('div.result.failed', { hook: bind('click', ctrl.restart) }, [
@@ -37,17 +37,15 @@ function renderCompleted(ctrl: RunCtrl, level: LevelCtrl) {
 
 export const runView = (ctrl: LearnCtrl) => {
   const runCtrl = ctrl.runCtrl;
-  const stage = runCtrl.stage;
-  const level = runCtrl.levelCtrl;
-
+  const { stage, levelCtrl } = runCtrl;
   return h(
-    `div.learn.learn--run.${stage.cssClass}.${level.blueprint.cssClass}`,
+    `div.learn.learn--run.${stage.cssClass}.${levelCtrl.blueprint.cssClass}`,
     {
       class: {
-        starting: !!level.vm.starting,
-        completed: level.vm.completed && !level.blueprint.nextButton,
-        'last-step': !!level.vm.lastStep,
-        'piece-values': !!level.blueprint.showPieceValues,
+        starting: !!levelCtrl.vm.starting,
+        completed: levelCtrl.vm.completed && !levelCtrl.blueprint.nextButton,
+        'last-step': !!levelCtrl.vm.lastStep,
+        'piece-values': !!levelCtrl.blueprint.showPieceValues,
       },
     },
     [
@@ -56,7 +54,7 @@ export const runView = (ctrl: LearnCtrl) => {
         runCtrl.stageStarting() ? stageStarting(runCtrl) : null,
         runCtrl.stageCompleted() ? stageComplete(runCtrl) : null,
         chessground(ctrl.runCtrl),
-        renderPromotion(runCtrl, level),
+        promotionView(ctrl.runCtrl),
       ]),
       h('div.learn__table', [
         h('div.wrap', [
@@ -67,11 +65,11 @@ export const runView = (ctrl: LearnCtrl) => {
               h('p.subtitle', ctrl.trans.noarg(stage.subtitle)),
             ]),
           ]),
-          level.vm.failed
+          levelCtrl.vm.failed
             ? renderFailed(runCtrl)
-            : level.vm.completed
-            ? renderCompleted(runCtrl, level)
-            : h('div.goal', util.withLinebreaks(ctrl.trans.noarg(level.blueprint.goal))),
+            : levelCtrl.vm.completed
+            ? renderCompleted(runCtrl, levelCtrl)
+            : h('div.goal', util.withLinebreaks(ctrl.trans.noarg(levelCtrl.blueprint.goal))),
           progressView(runCtrl),
         ]),
       ]),
