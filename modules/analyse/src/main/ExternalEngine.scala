@@ -5,7 +5,7 @@ import com.roundeights.hasher.Algo
 import scalalib.{ SecureRandom, ThreadLocalRandom }
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.libs.json.{ Json, OWrites }
+import play.api.libs.json.{ Json, OWrites, JsObject }
 
 import lila.common.Form.{ *, given }
 import lila.common.Json.given
@@ -19,7 +19,6 @@ case class ExternalEngine(
     name: String,
     maxThreads: Int,
     maxHash: Int,
-    defaultDepth: Int,
     variants: List[Variant.UciKey],
     officialStockfish: Boolean, // Admissible for cloud evals
     providerSelector: String, // Hash of random secret chosen by the provider, possibly shared between registrations
@@ -34,18 +33,17 @@ object ExternalEngine:
       name: String,
       maxThreads: Int,
       maxHash: Int,
-      defaultDepth: Int,
       variants: Option[List[Variant.UciKey]],
       officialStockfish: Option[Boolean],
       providerSecret: String,
-      providerData: Option[String]
+      providerData: Option[String],
+      defaultDepth: Option[Int] // ignored for compatibility
   ):
     def make(userId: UserId) = ExternalEngine(
       _id = s"eei_${ThreadLocalRandom.nextString(12)}",
       name = name,
       maxThreads = maxThreads,
       maxHash = maxHash,
-      defaultDepth = defaultDepth,
       variants = variants.filter(_.nonEmpty) | List(Variant.default.uciKey),
       officialStockfish = ~officialStockfish,
       providerSelector = Algo.sha256("providerSecret:" + providerSecret).hex,
@@ -63,11 +61,11 @@ object ExternalEngine:
       "name"              -> cleanNonEmptyText(1, 200),
       "maxThreads"        -> number(1, 65_536),
       "maxHash"           -> number(1, 1_048_576),
-      "defaultDepth"      -> number(0, 246),
       "variants"          -> optional(list(typeIn(Variant.list.all.map(_.uciKey).toSet))),
       "officialStockfish" -> optional(boolean),
       "providerSecret"    -> nonEmptyText(16, 1024),
-      "providerData"      -> optional(text(maxLength = 8192))
+      "providerData"      -> optional(text(maxLength = 8192)),
+      "defaultDepth"      -> optional(number)
     )(FormData.apply)(lila.common.unapply)
   )
 
@@ -79,7 +77,6 @@ object ExternalEngine:
         "userId"       -> e.userId,
         "maxThreads"   -> e.maxThreads,
         "maxHash"      -> e.maxHash,
-        "defaultDepth" -> e.defaultDepth,
         "variants"     -> e.variants,
         "providerData" -> e.providerData,
         "clientSecret" -> e.clientSecret
@@ -117,6 +114,11 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
       reloadCache(by.id)
       result.n > 0
     }
+
+  def withExternalEngines(json: JsObject)(using me: Option[Me]): Fu[JsObject] =
+    me.so(u => list(u.userId))
+      .map: engines =>
+        json.add("externalEngines", engines.nonEmpty.option(engines))
 
   private[analyse] def onTokenRevoke(id: String) =
     coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId").flatMapz { userId =>

@@ -6,11 +6,8 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
-export const clamp = (value: number, bounds: { min: number; max: number }): number =>
-  Math.max(bounds.min, Math.min(value, bounds.max));
-
-export const constrain = (value: number, constraints: { min?: number; max?: number }): number =>
-  clamp(value, { min: constraints.min ?? value, max: constraints.max ?? value });
+export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
+  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
 
 export function as<T>(v: T, f: () => void): () => T {
   return () => {
@@ -33,15 +30,6 @@ export const prop = <A>(initialValue: A): Prop<A> => {
     return value;
   };
 };
-
-export const readonlyProp = <A>(initialValue: A): Prop<A> => {
-  const value = initialValue;
-  return () => value;
-};
-
-// Checking that the prop doesn't take an argument
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length
-export const isReadonlyProp = <A>(prop: Prop<A>) => prop.length === 0;
 
 export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): PropWithEffect<A> => {
   let value = initialValue;

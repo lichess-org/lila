@@ -39,7 +39,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         then maps = readMaps(Json.parse(Files.newInputStream(pathname)))
       catch
         case e: Throwable =>
-          logger.error(s"Error reading $pathname", e)
+          logger.warn(s"Error reading $pathname")
 
   private val keyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
   private def keyOf(fullName: String): String =
