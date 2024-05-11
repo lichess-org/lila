@@ -47,11 +47,6 @@
     background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
   }
 
-  .cg-board square.move-dest.drag-over,
-  .cg-board square.move-dest:hover {
-    background: rgba(20, 85, 30, 0.3);
-  }
-
   @keyframes slideIn {
     0% {
       opacity: 0;

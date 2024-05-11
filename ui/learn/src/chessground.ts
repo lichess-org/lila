@@ -24,8 +24,8 @@ const makeConfig = (): CgConfig => ({
   coordinates: true,
   movable: { free: false, color: undefined },
   drawable: { enabled: false },
-  // draggable: { enabled: false },
-  // selectable: { enabled: false },
+  draggable: { enabled: true },
+  selectable: { enabled: true },
   // TODO:
   // addPieceZIndex: ctrl.config.is3d,
 });
@@ -54,7 +54,7 @@ interface GroundOpts {
 }
 
 export const setChessground = (ctrl: RunCtrl, opts: GroundOpts) => {
-  // TODO:
+  // TODO: check this copy pasta
   const ground = ctrl.chessground!;
   const check = opts.chess.instance.in_check();
   ground.set({
@@ -63,7 +63,6 @@ export const setChessground = (ctrl: RunCtrl, opts: GroundOpts) => {
     selected: undefined,
     orientation: opts.orientation,
     coordinates: true,
-    // pieceKey: true,
     turnColor: opts.chess.color(),
     check: check,
     autoCastle: opts.autoCastle,
@@ -85,23 +84,16 @@ export const setChessground = (ctrl: RunCtrl, opts: GroundOpts) => {
     },
     highlight: {
       lastMove: true,
-      // dragOver: true,
     },
     animation: {
       enabled: false, // prevent piece animation during transition
       duration: 200,
     },
+    // TODO: doesn't seem to be working
     disableContextMenu: true,
   });
-  setTimeout(function () {
-    ground.set({
-      animation: {
-        enabled: true,
-      },
-    });
-  }, 200);
+  setTimeout(() => ground.set({ animation: { enabled: true } }), 200);
   if (opts.shapes) ground.setShapes(opts.shapes.slice(0));
-  return ground;
 };
 
 export function setFen(
@@ -111,24 +103,24 @@ export function setFen(
   dests: cg.Dests,
   lastMove?: [Key, Key, ...unknown[]],
 ) {
-  const config = {
+  ctrl.chessground?.set({
     turnColor: color,
     fen: fen,
     movable: {
       color: color,
       dests: dests,
     },
+    // TODO:
     // Casting here instead of declaring lastMove as [Key, Key] right away
     // allows the fen function to accept [orig, dest, promotion] values
     // for lastMove as well.
     lastMove: lastMove as [Key, Key],
-  };
-  config;
-  ctrl.chessground?.set(config);
+  });
 }
 
 export function showCapture(ctrl: RunCtrl, move: CgMove) {
   requestAnimationFrame(() => {
+    // TODO: the data-key attribute is no longer available
     const $square = $('#learn-app piece[data-key=' + move.orig + ']');
     $square.addClass('wriggle');
     timeouts.setTimeout(function () {
