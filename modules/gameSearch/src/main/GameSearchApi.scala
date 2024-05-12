@@ -1,11 +1,7 @@
 package lila.gameSearch
 
-import play.api.libs.json.*
-
-import lila.common.Json.given
 import lila.search.*
 import lila.search.client.SearchClient
-import smithy4s.Timestamp
 
 final class GameSearchApi(
     client: SearchClient,
@@ -56,7 +52,7 @@ final class GameSearchApi(
       winnerColor = game.winner.fold(3)(_.color.fold(1, 2)),
       averageRating = game.averageUsersRating,
       ai = game.aiLevel,
-      date = Timestamp.fromInstant(game.movedAt),
+      date = lila.search.spec.SearchDateTime.fromInstant(game.movedAt),
       duration = game.durationSeconds, // for realtime games only
       clockInit = game.clock.map(_.limitSeconds.value),
       clockInc = game.clock.map(_.incrementSeconds.value),
