@@ -2,7 +2,7 @@ import { LearnProgress, LearnOpts } from './learn';
 import { Stage } from './stage/list';
 import * as stages from './stage/list';
 import * as scoring from './score';
-import { SnabbdomSideCtrl } from './sideCtrl';
+import { SideCtrl } from './sideCtrl';
 import { clearTimeouts } from './timeouts';
 import { extractHashParameters } from './hashRouting';
 import { RunCtrl } from './run/runCtrl';
@@ -11,7 +11,7 @@ export class LearnCtrl {
   data: LearnProgress = this.opts.storage.data;
   trans: Trans = site.trans(this.opts.i18n);
 
-  sideCtrl: SnabbdomSideCtrl;
+  sideCtrl: SideCtrl;
   runCtrl: RunCtrl;
 
   constructor(
@@ -22,11 +22,12 @@ export class LearnCtrl {
 
     this.setStageLevelFromHash();
 
-    this.sideCtrl = new SnabbdomSideCtrl(this, opts);
+    this.sideCtrl = new SideCtrl(this, opts);
     this.runCtrl = new RunCtrl(this, opts, redraw);
 
     window.addEventListener('hashchange', () => {
       this.setStageLevelFromHash();
+      this.sideCtrl.updateCategId();
       this.runCtrl.initializeLevel();
       this.redraw();
     });

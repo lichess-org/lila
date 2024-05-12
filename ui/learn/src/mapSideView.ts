@@ -1,6 +1,6 @@
 import * as util from './util';
 import * as stages from './stage/list';
-import { SnabbdomSideCtrl } from './sideCtrl';
+import { SideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
@@ -11,7 +11,7 @@ export function mapSideView(ctrl: LearnCtrl) {
   else return renderHome(ctrl.sideCtrl);
 }
 
-function renderInStage(ctrl: SnabbdomSideCtrl) {
+function renderInStage(ctrl: SideCtrl) {
   return h('div.learn__side-map', [
     h('div.stages', [
       h(
@@ -24,8 +24,8 @@ function renderInStage(ctrl: SnabbdomSideCtrl) {
           ctrl.trans.noarg('menu'),
         ],
       ),
-      ...stages.categs.map(function (categ, categId) {
-        return h(
+      ...stages.categs.map((categ, categId) =>
+        h(
           'div.categ',
           {
             class: { active: categId == ctrl.categId() },
@@ -47,13 +47,13 @@ function renderInStage(ctrl: SnabbdomSideCtrl) {
               }),
             ),
           ],
-        );
-      }),
+        ),
+      ),
     ]),
   ]);
 }
 
-function renderHome(ctrl: SnabbdomSideCtrl) {
+function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
   return h('div.learn__side-home', [
     h('i.fat'),
