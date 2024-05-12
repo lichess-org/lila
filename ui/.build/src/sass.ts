@@ -45,7 +45,7 @@ export async function sass(): Promise<void> {
       sassWatch.push(watcher);
     }
   }
-  compile(sources, false);
+  compile(sources, env.building.length !== env.modules.size);
   if (!sources.length) env.done(0, 'sass');
 }
 
@@ -53,6 +53,58 @@ export async function allSources() {
   return [
     ...new Set((await globArray('./*/css/**/[^_]*.scss', { abs: false })).filter(x => !x.includes('/gen/'))),
   ];
+}
+
+async function unbuiltSources() {
+  return (await allSources()).filter(
+    src => !fs.existsSync(path.join(env.cssTempDir, `${path.basename(src, '.scss')}.css`)),
+  );
+}
+
+// compile an array of concrete scss files to ui/.build/dist/css/*.css (css temp dir prior to hashMove)
+function compile(sources: string[], tellTheWorld = true) {
+  if (!sources.length) return;
+  if (tellTheWorld) {
+    for (const srcFile of sources) {
+      env.log(`Building '${c.cyan(srcFile)}'`, { ctx: 'sass' });
+    }
+  } else env.log(`Building css with ${ps.platform}-${ps.arch}/sass`, { ctx: 'sass' });
+
+  const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
+  const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+  sassPs?.removeAllListeners();
+  sassPs = cps.spawn(
+    sassExec,
+    sassArgs.concat(
+      env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
+      sources.map(
+        (src: string) =>
+          `${src}:${path.join(env.cssTempDir, path.basename(src).replace(/(.*)scss$/, '$1css'))}`,
+      ),
+    ),
+  );
+
+  sassPs.stdout?.on('data', (buf: Buffer) => {
+    const txts = lines(buf.toString('utf8'));
+    for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
+  });
+  sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
+  sassPs.on('close', async (code: number) => {
+    if (code !== 0) {
+      env.done(code, 'sass');
+      return;
+    }
+    if (!builder?.allBuilt && env.modules.size === env.building.length) {
+      const unbuilt = await unbuiltSources();
+      if (unbuilt.length) compile(unbuilt, false);
+      else {
+        if (!builder) return;
+        builder.allBuilt = true;
+        cssManifest();
+      }
+    } else cssManifest();
+    env.done(code, 'sass');
+  });
 }
 
 // recursively parse scss file and its imports to build dependency and color maps
@@ -170,40 +222,6 @@ async function buildColorWrap() {
   await fs.promises.writeFile(wrapFile, scssWrap);
 }
 
-// compile an array of concrete scss files to ui/.build/dist/css/*.css (css temp dir prior to hashMove)
-function compile(sources: string[], tellTheWorld = true) {
-  if (!sources.length) return;
-  if (tellTheWorld) {
-    for (const srcFile of sources) {
-      env.log(`Building '${c.cyan(srcFile)}'`, { ctx: 'sass' });
-    }
-  } else env.log(`Building css with ${ps.platform}-${ps.arch}/sass`, { ctx: 'sass' });
-
-  const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
-  const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
-  sassPs?.removeAllListeners();
-  sassPs = cps.spawn(
-    sassExec,
-    sassArgs.concat(
-      env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
-      sources.map(
-        (src: string) =>
-          `${src}:${path.join(env.cssTempDir, path.basename(src).replace(/(.*)scss$/, '$1css'))}`,
-      ),
-    ),
-  );
-
-  sassPs.stdout?.on('data', (buf: Buffer) => {
-    const txts = lines(buf.toString('utf8'));
-    for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
-  });
-  sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
-  sassPs.on('close', (code: number) => {
-    if (code === 0) cssManifest();
-    env.done(code, 'sass');
-  });
-}
-
 function parseColor(colorMix: string) {
   const [clrs, opval] = colorMix.split('--');
   const [c1, c2] = clrs.split('_');
@@ -245,6 +263,7 @@ function importersOf(srcFile: string, bset = new Set<string>()): Set<string> {
 }
 
 class BuildTimer {
+  allBuilt = false;
   dependencies = new Set<string>();
   touched = new Set<string>();
   timeout: NodeJS.Timeout | undefined;
