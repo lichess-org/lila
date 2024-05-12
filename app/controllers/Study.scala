@@ -144,9 +144,17 @@ final class Study(
     Found(lila.study.StudyTopic.fromStr(name)): topic =>
       for
         pag    <- env.study.pager.byTopic(topic, order, page)
-        topics <- ctx.userId.soFu(env.study.topicApi.userTopics)
         _      <- preloadMembers(pag)
-        res    <- Ok.page(views.study.list.topic.show(topic, pag, order, topics))
+        topics <- ctx.userId.soFu(env.study.topicApi.userTopics)
+        res <- negotiate(
+          Ok.async:
+            ctx.userId
+              .soFu(env.study.topicApi.userTopics)
+              .map:
+                views.study.list.topic.show(topic, pag, order, _)
+          ,
+          apiStudies(pag)
+        )
       yield res
 
   private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
