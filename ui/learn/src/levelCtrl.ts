@@ -72,6 +72,50 @@ export class LevelCtrl {
   makeChessDests = () => this.chess.dests({ illegal: this.blueprint.offerIllegalMove });
 
   initializeWithGround = (ground: CgApi) => {
+    const { chess, blueprint } = this;
+    const sendMove = this.makeSendMove(ground);
+    ground.set({
+      fen: chess.fen(),
+      lastMove: undefined,
+      selected: undefined,
+      orientation: blueprint.color,
+      coordinates: true,
+      turnColor: chess.color(),
+      check: chess.instance.in_check(),
+      autoCastle: blueprint.autoCastle,
+      movable: {
+        free: false,
+        color: chess.color(),
+        dests: chess.dests({ illegal: blueprint.offerIllegalMove }),
+      },
+      events: {
+        move: (orig: Key, dest: Key) => {
+          const piece = ground.state.pieces.get(dest);
+          if (!piece || piece.color !== blueprint.color) return;
+          if (!this.promotionCtrl.start(orig, dest, sendMove)) sendMove(orig, dest);
+        },
+      },
+      // items: {
+      //   render: function (_pos: unknown, key: Key) {
+      //     // TODO:
+      //     return items.withItem(key, itemView);
+      //   },
+      // },
+      premovable: { enabled: true },
+      drawable: { enabled: true, eraseOnClick: true },
+      highlight: { lastMove: true },
+      animation: {
+        enabled: false, // prevent piece animation during transition
+        duration: 200,
+      },
+      // TODO: doesn't seem to be working
+      disableContextMenu: true,
+    });
+    setTimeout(() => ground.set({ animation: { enabled: true } }), 200);
+    if (blueprint.shapes) ground.setShapes(blueprint.shapes.slice(0));
+  };
+
+  makeSendMove = (ground: CgApi) => {
     const { items, scenario, chess, blueprint, vm, redraw } = this;
 
     const assertData = (): AssertData => ({
@@ -100,7 +144,7 @@ export class LevelCtrl {
       return true;
     };
 
-    const sendMove = (orig: Key, dest: Key, prom?: PromotionRole) => {
+    return (orig: Key, dest: Key, prom?: PromotionRole) => {
       vm.nbMoves++;
       const move = chess.move(orig, dest, prom);
       if (move) this.setFen(chess.fen(), blueprint.color, new Map());
@@ -154,48 +198,6 @@ export class LevelCtrl {
       }
       redraw();
     };
-
-    // TODO: check this copy pasta
-    const check = chess.instance.in_check();
-    ground.set({
-      fen: chess.fen(),
-      lastMove: undefined,
-      selected: undefined,
-      orientation: blueprint.color,
-      coordinates: true,
-      turnColor: chess.color(),
-      check: check,
-      autoCastle: blueprint.autoCastle,
-      movable: {
-        free: false,
-        color: chess.color(),
-        dests: chess.dests({ illegal: blueprint.offerIllegalMove }),
-      },
-      events: {
-        move: (orig: Key, dest: Key) => {
-          const piece = ground.state.pieces.get(dest);
-          if (!piece || piece.color !== blueprint.color) return;
-          if (!this.promotionCtrl.start(orig, dest, sendMove)) sendMove(orig, dest);
-        },
-      },
-      // items: {
-      //   render: function (_pos: unknown, key: Key) {
-      //     // TODO:
-      //     return items.withItem(key, itemView);
-      //   },
-      // },
-      premovable: { enabled: true },
-      drawable: { enabled: true, eraseOnClick: true },
-      highlight: { lastMove: true },
-      animation: {
-        enabled: false, // prevent piece animation during transition
-        duration: 200,
-      },
-      // TODO: doesn't seem to be working
-      disableContextMenu: true,
-    });
-    setTimeout(() => ground.set({ animation: { enabled: true } }), 200);
-    if (blueprint.shapes) ground.setShapes(blueprint.shapes.slice(0));
   };
 
   setFen = (fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key, ...unknown[]]) =>

@@ -84,8 +84,7 @@ export class RunCtrl {
     this.withGround(this.levelCtrl.initializeWithGround);
   };
 
-  withGround: WithGround = <A>(f: (cg: CgApi) => A): A | undefined =>
-    this.chessground ? f(this.chessground) : undefined;
+  withGround: WithGround = f => (this.chessground ? f(this.chessground) : undefined);
 
   stageScore = () => {
     const res = this.data.stages[this.stage.key];
