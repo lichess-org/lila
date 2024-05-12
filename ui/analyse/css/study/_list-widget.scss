@@ -49,6 +49,7 @@
 
     .top {
       @extend %flex-center-nowrap, %break-word, %roboto;
+      gap: 1rem;
 
       .study-name {
         @extend %nowrap-ellipsis;
@@ -72,9 +73,9 @@
       }
 
       .study__icon {
+        flex: 0 0 auto;
         color: $m-primary_bg--mix-80;
         font-size: 3em;
-        margin-inline-end: 0.2em;
         .uflair {
           margin: 0;
         }

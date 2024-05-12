@@ -11,9 +11,9 @@ import lila.core.userId.UserSearch
 import lila.core.chess.Rank
 import lila.core.user.WithPerf
 
-final class PlayerRepo(coll: Coll)(using Executor):
+final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
 
-  private def selectTour(tourId: TourId) = $doc("tid" -> tourId)
+  def selectTour(tourId: TourId) = $doc("tid" -> tourId)
   private def selectTourUser(tourId: TourId, userId: UserId) =
     $doc(
       "tid" -> tourId,
@@ -240,7 +240,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
   // to save serverside perfs
   private[tournament] def computeRanking(tourId: TourId): Fu[FullRanking] =
     coll
-      .aggregateWith[Bdoc]() { framework =>
+      .aggregateWith[Bdoc](): framework =>
         import framework.*
         List(
           Match(selectTour(tourId)),
@@ -251,11 +251,10 @@ final class PlayerRepo(coll: Coll)(using Executor):
             )
           )
         )
-      }
       .headOption
-      .map {
+      .map:
         _.flatMap(_.getAsOpt[BSONArray]("all"))
-          .fold(FullRanking(Map.empty, Array.empty)) { all =>
+          .fold(FullRanking(Map.empty, Array.empty)): all =>
             // mutable optimized implementation
             val playerIndex = new Array[TourPlayerId](all.size)
             val ranking     = Map.newBuilder[UserId, Rank]
@@ -267,8 +266,6 @@ final class PlayerRepo(coll: Coll)(using Executor):
               ranking += (userId -> Rank(r))
               r = r + 1
             FullRanking(ranking.result(), playerIndex)
-          }
-      }
 
   def computeRankOf(player: Player): Fu[Rank] =
     Rank.from(coll.countSel(selectTour(player.tourId) ++ $doc("m".$gt(player.magicScore))))
@@ -276,22 +273,19 @@ final class PlayerRepo(coll: Coll)(using Executor):
   // expensive, cache it
   private[tournament] def averageRating(tourId: TourId): Fu[Int] =
     coll
-      .aggregateWith[Bdoc]() { framework =>
+      .aggregateWith[Bdoc](): framework =>
         import framework.*
         List(Match(selectTour(tourId)), Group(BSONNull)("rating" -> AvgField("r")))
-      }
       .headOption
-      .map {
+      .map:
         ~_.flatMap(_.double("rating").map(_.toInt))
-      }
 
   def byTourAndUserIds(tourId: TourId, userIds: Iterable[UserId]): Fu[List[Player]] =
     coll
       .list[Player](selectTour(tourId) ++ $doc("uid".$in(userIds)))
       .chronometer
-      .logIfSlow(200, logger) { players =>
+      .logIfSlow(200, logger): players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
-      }
       .result
 
   def pairByTourAndUserIds(tourId: TourId, id1: UserId, id2: UserId): Fu[Option[(Player, Player)]] =
@@ -306,9 +300,8 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players
-      .flatMap { p =>
-        ranking.get(p.userId).map { RankedPlayer(_, p) }
-      }
+      .flatMap: p =>
+        ranking.get(p.userId).map(RankedPlayer(_, p))
       .sortBy(_.rank)(using intOrdering)
 
   def rankedByTourAndUserIds(
@@ -317,11 +310,10 @@ final class PlayerRepo(coll: Coll)(using Executor):
       ranking: Ranking
   ): Fu[RankedPlayers] =
     byTourAndUserIds(tourId, userIds)
-      .map { rankPlayers(_, ranking) }
+      .map(rankPlayers(_, ranking))
       .chronometer
-      .logIfSlow(200, logger) { players =>
+      .logIfSlow(200, logger): players =>
         s"PlayerRepo.rankedByTourAndUserIds $tourId ${userIds.size} user IDs, ${ranking.size} ranking, ${players.size} players"
-      }
       .result
 
   def searchPlayers(tourId: TourId, term: UserSearch, nb: Int): Fu[List[UserId]] =

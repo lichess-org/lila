@@ -118,12 +118,12 @@ object RelayRoundForm:
 
     def gameIds = syncUrl.flatMap(toGameIds)
 
-    def update(relay: RelayRound)(using me: Me) =
+    def update(official: Boolean)(relay: RelayRound)(using me: Me) =
       relay.copy(
         name = name,
         caption = caption,
         sync = makeSync(me).pipe: sync =>
-          if relay.sync.playing then sync.play else sync,
+          if relay.sync.playing then sync.play(official) else sync,
         startsAt = startsAt,
         finished = ~finished
       )

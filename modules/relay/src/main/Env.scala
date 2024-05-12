@@ -128,7 +128,7 @@ final class Env(
       api.becomeStudyAdmin(studyId, me)
     },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
-      promise.completeWith(api.isOfficial(studyId))
+      promise.completeWith(api.isOfficial(studyId.into(RelayRoundId)))
     }
   )
 

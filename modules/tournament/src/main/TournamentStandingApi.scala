@@ -46,18 +46,14 @@ final class TournamentStandingApi(
     else if page > 50 && tour.isCreated then createdCache.get(tour.id -> page)
     else compute(tour, page, withScores)
 
-  private val first = cacheApi[TourId, JsObject](64, "tournament.page.first") {
-    _.expireAfterWrite(1 second)
-      .buildAsyncFuture { compute(_, 1, withScores = true) }
-  }
+  private val first = cacheApi[TourId, JsObject](64, "tournament.page.first"):
+    _.expireAfterWrite(1 second).buildAsyncFuture:
+      compute(_, 1, withScores = true)
 
   // useful for highly anticipated, highly populated tournaments
-  private val createdCache = cacheApi[(TourId, Int), JsObject](64, "tournament.page.createdCache") {
-    _.expireAfterWrite(15 second)
-      .buildAsyncFuture { case (tourId, page) =>
-        compute(tourId, page, withScores = true)
-      }
-  }
+  private val createdCache = cacheApi[(TourId, Int), JsObject](64, "tournament.page.createdCache"):
+    _.expireAfterWrite(15 second).buildAsyncFuture: (tourId, page) =>
+      compute(tourId, page, withScores = true)
 
   def clearCache(tour: Tournament): Unit =
     first.invalidate(tour.id)
@@ -77,9 +73,8 @@ final class TournamentStandingApi(
         if page < 10 then playerRepo.bestByTourWithRankByPage(tour.id, perPage, page)
         else playerIdsOnPage(tour, page).flatMap { playerRepo.byPlayerIdsOnPage(_, page) }
       sheets <- rankedPlayers
-        .map { p =>
+        .map: p =>
           cached.sheet(tour, p.player.userId).dmap { p.player.userId -> _ }
-        }
         .parallel
         .dmap(_.toMap)
       players <- rankedPlayers

@@ -5,7 +5,7 @@ import scalalib.ThreadLocalRandom
 import lila.core.LightUser
 import lila.core.user.WithPerf
 
-private[tournament] case class Player(
+case class Player(
     _id: TourPlayerId, // random
     tourId: TourId,
     userId: UserId,
@@ -33,7 +33,9 @@ private[tournament] case class Player(
 
   def performanceOption = (performance > 0).option(performance)
 
-private[tournament] object Player:
+  def showRating = s"$rating${provisional.yes.so("?")}"
+
+object Player:
 
   case class WithUser(player: Player, user: User)
 

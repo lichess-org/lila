@@ -130,22 +130,32 @@ final class Study(
   }
 
   def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager
-      .mineLikes(order, page)
-      .flatMap: pag =>
-        preloadMembers(pag) >> negotiate(
-          Ok.page(views.study.list.mineLikes(pag, order)),
-          apiStudies(pag)
-        )
+    for
+      pag <- env.study.pager.mineLikes(order, page)
+      _   <- preloadMembers(pag)
+      res <- negotiate(
+        Ok.page(views.study.list.mineLikes(pag, order)),
+        apiStudies(pag)
+      )
+    yield res
   }
 
   def byTopic(name: String, order: Order, page: Int) = Open:
     Found(lila.study.StudyTopic.fromStr(name)): topic =>
-      env.study.pager
-        .byTopic(topic, order, page)
-        .zip(ctx.userId.soFu(env.study.topicApi.userTopics))
-        .flatMap: (pag, topics) =>
-          preloadMembers(pag) >> Ok.page(views.study.list.topic.show(topic, pag, order, topics))
+      for
+        pag    <- env.study.pager.byTopic(topic, order, page)
+        _      <- preloadMembers(pag)
+        topics <- ctx.userId.soFu(env.study.topicApi.userTopics)
+        res <- negotiate(
+          Ok.async:
+            ctx.userId
+              .soFu(env.study.topicApi.userTopics)
+              .map:
+                views.study.list.topic.show(topic, pag, order, _)
+          ,
+          apiStudies(pag)
+        )
+      yield res
 
   private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
     env.user.lightUserApi.preloadMany(
