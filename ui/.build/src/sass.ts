@@ -94,7 +94,7 @@ function compile(sources: string[], tellTheWorld = true) {
       env.done(code, 'sass');
       return;
     }
-    if (!builder?.allBuilt && env.modules.size === env.building.length) {
+    if (env.watch && !builder?.allBuilt && env.modules.size === env.building.length) {
       const unbuilt = await unbuiltSources();
       if (unbuilt.length) compile(unbuilt, false);
       else {
