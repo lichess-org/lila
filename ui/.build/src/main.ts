@@ -178,6 +178,9 @@ class Env {
   get typesDir(): string {
     return path.join(this.uiDir, '@types');
   }
+  get manifestFile(): string {
+    return path.join(this.jsDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
+  }
   warn(d: any, ctx = 'build') {
     this.log(d, { ctx: ctx, warn: true });
   }

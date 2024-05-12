@@ -16,10 +16,9 @@ export async function init() {
   if (env.building.length === env.modules.size) return;
   // we're building a subset of modules. if possible reuse the previously built full manifest to give us
   // a shot at changes viewable in the browser, otherwise punt.
-  const existing = path.join(env.jsDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`);
-  if (!fs.existsSync(existing)) return;
+  if (!fs.existsSync(env.manifestFile)) return;
   if (Object.keys(current.js).length && Object.keys(current.css).length) return;
-  const manifest = JSON.parse(await fs.promises.readFile(existing, 'utf-8'));
+  const manifest = JSON.parse(await fs.promises.readFile(env.manifestFile, 'utf-8'));
   delete manifest.js.manifest;
   current.js = manifest.js;
   current.css = manifest.css;
@@ -54,7 +53,7 @@ export async function js(meta: es.Metafile) {
     }
     newJsManifest[out.name].imports = imports;
   }
-  if (isEquivalent(newJsManifest, current.js)) return;
+  if (isEquivalent(newJsManifest, current.js) && fs.existsSync(env.manifestFile)) return;
   current.js = shallowSort({ ...current.js, ...newJsManifest });
   clearTimeout(writeTimer);
   writeTimer = setTimeout(write, 500);
