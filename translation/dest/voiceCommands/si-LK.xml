@@ -3,5 +3,5 @@
   <string name="voiceCommands">හඬ විධාන</string>
   <string name="watchTheVideoTutorial">වීඩියෝ නිබන්ධනය බලන්න</string>
   <string name="instructions1">හඬ හඳුනාගැනීම ටොගල කිරීමට %1$s බොත්තම, මෙම උදවු සංවාදය විවෘත කිරීමට %2$s බොත්තම සහ කථන සැකසීම් වෙනස් කිරීමට %3$s මෙනුව භාවිත කරන්න.</string>
-  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">අපට විශ්වාස නැති විට අපි බහු චලනයන් සඳහා ඊතල පෙන්වමු. එය තේරීමට චලනය ඊතලයක වර්ණය හෝ අංකය කථා කරන්න.</string>
+  <string name="instructions2">අපට විශ්වාස නැති විට අපි බහු චලනයන් සඳහා ඊතල පෙන්වමු. එය තේරීමට චලනය ඊතලයක වර්ණය හෝ අංකය කථා කරන්න.</string>
 </resources>
