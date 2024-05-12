@@ -29,12 +29,13 @@ export class StockfishWebEngine implements CevalEngine {
 
   async boot() {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
-    const makeModule = await import(site.asset.url(`${root}/${js}`, { version }));
+    const makeModule = await import(site.asset.url(`${root}/${js}`, { version, documentOrigin: true }));
     const module: StockfishWeb = await new Promise((resolve, reject) => {
       makeModule
         .default({
           wasmMemory: sharedWasmMemory(this.info.minMem!),
           onError: (msg: string) => reject(new Error(msg)),
+          locateFile: (file: string) => site.asset.url(`${root}/${file}`, { version }),
         })
         .then(resolve)
         .catch(reject);
