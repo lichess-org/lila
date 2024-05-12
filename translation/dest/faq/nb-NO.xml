@@ -168,5 +168,12 @@ Vi viser det røde ikonet for å varsle deg når dette skjer. Ofte kan du ekspli
 4. Rull ned og klikk på Automatisk avspilling av medier
 5. Legg til lichess.org under Tillat</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Stoppe meg selv fra å spille?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">egen psykisk helsetilstand</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess-brukerstiler</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">færre lobbypuljer</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Vi mottar regelmessig meldinger fra brukere som ber oss om hjelp til å stoppe dem fra å spille for mye.
+
+Lichess utestenger eller blokkerer spillere kun for brudd på tjenestevilkårene. Vi anbefaler heller bruk av eksterne verktøy for å begrense overdreven spilleatferd. Noen vanlige forslag til nettstedblokkere inkluderer %1$s, %2$s og %3$s. Hvis du ønsker å fortsette å bruke nettstedet, men ikke vil bli fristet av raske tidskontroller, kan du være interessert i %4$s; her er en med %5$s.
+
+Noen spillere kan føle at spilleatferden utvikler seg til en avhengighet. Faktisk klassifiserer WHO dataspillavhengighet som en %6$s, med vesentlige kjennetegn som 1) nedsatt kontroll over spilling, 2) økende prioritet gitt til spilling, og 3) eskalering av spilling til tross for negative konsekvenser. Hvis du tror at din sjakkspillatferd følger dette mønsteret, oppfordrer vi deg til å snakke om det med en venn eller et familiemedlem og/eller med en fagperson.</string>
 </resources>
