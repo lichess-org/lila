@@ -110,11 +110,10 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       .css("tournament.history"):
         main(cls := "page-menu arena-history")(
           lila.ui.bits.pageMenuSubnav(
-            allFreqs.map { f =>
+            allFreqs.map: f =>
               a(cls := freq.name.active(f.name), href := routes.Tournament.history(f.name))(
                 nameOf(f)
               )
-            }
           ),
           div(cls := "page-menu__content box")(
             boxTop(h1(nameOf(freq), " tournaments")),
