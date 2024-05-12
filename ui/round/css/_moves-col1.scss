@@ -68,10 +68,6 @@
     }
   }
 
-  .buttons {
-    display: none;
-  }
-
   .result {
     margin: 0;
     font-weight: bold;
@@ -104,5 +100,9 @@
 
   .status {
     display: none;
+  }
+
+  .fbt {
+    line-height: 2.3rem;
   }
 }
