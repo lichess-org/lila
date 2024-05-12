@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-commit=dcf0daa20e4e1f58c6aec6c09f643c7ba3b21d11
+commit=389d8b7d977ca040036ef725632efe2ef2c897ec
 origin=https://github.com/lichess-org/lifat
 
 deploy_dir="${LIFAT_DIR:-lifat}"
