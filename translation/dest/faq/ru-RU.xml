@@ -167,4 +167,6 @@
 3. Щелкните Cookies и разрешения сайта
 4. Прокрутите вниз и щёлкните автовоспроизведение Media
 5. Добавьте lichess.org для разрешения</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Как воздерживаться от игр?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">автономное психическое расстройство</string>
 </resources>
