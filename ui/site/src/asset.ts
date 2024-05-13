@@ -7,7 +7,7 @@ const version = memoize(() => document.body.getAttribute('data-asset-version'));
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
-  const base = opts.sameDomain ? '' : baseUrl(),
+  const base = opts.documentOrigin ? window.location.origin : opts.sameDomain ? '' : baseUrl(),
     v = opts.version || version();
   return `${base}/assets${opts.noVersion ? '' : '/_' + v}/${path}`;
 };

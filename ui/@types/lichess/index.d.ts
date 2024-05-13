@@ -189,6 +189,7 @@ interface Cookie {
 }
 
 interface AssetUrlOpts {
+  documentOrigin?: boolean;
   sameDomain?: boolean;
   noVersion?: boolean;
   version?: string;
