@@ -3,9 +3,9 @@ package lila.setup
 import chess.format.Fen
 import chess.variant.Variant
 import chess.{ Clock, Mode }
-
 import scalalib.model.Days
-import lila.lobby.Color
+
+import lila.lobby.TriColor
 
 case class FriendConfig(
     variant: chess.variant.Variant,
@@ -14,7 +14,7 @@ case class FriendConfig(
     increment: Clock.IncrementSeconds,
     days: Days,
     mode: Mode,
-    color: Color,
+    color: TriColor,
     fen: Option[Fen.Full] = None
 ) extends HumanConfig
     with Positional:
@@ -44,7 +44,7 @@ object FriendConfig extends BaseHumanConfig:
       increment = i,
       days = d,
       mode = m.fold(Mode.default)(Mode.orDefault),
-      color = Color(c).err("Invalid color " + c),
+      color = TriColor(c).err("Invalid color " + c),
       fen = fen
     )
 
@@ -55,7 +55,7 @@ object FriendConfig extends BaseHumanConfig:
     increment = Clock.IncrementSeconds(8),
     days = Days(2),
     mode = Mode.default,
-    color = Color.default
+    color = TriColor.default
   )
 
   import lila.db.BSON
@@ -71,7 +71,7 @@ object FriendConfig extends BaseHumanConfig:
         increment = r.get("i"),
         days = r.get("d"),
         mode = Mode.orDefault(r.int("m")),
-        color = Color.White,
+        color = TriColor.White,
         fen = r.getO[Fen.Full]("f").filter(_.value.nonEmpty)
       )
 

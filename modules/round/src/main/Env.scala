@@ -56,7 +56,8 @@ final class Env(
     FlairGetMap,
     Executor,
     akka.stream.Materializer,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
@@ -67,7 +68,7 @@ final class Env(
   private val goneWeightsFor: Game => Fu[(Float, Float)] = (game: Game) =>
     if !game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1) then fuccess(1f -> 1f)
     else
-      def of(color: chess.Color): Fu[Float] =
+      def of(color: Color): Fu[Float] =
         def rageSitGoneWeight(sit: lila.core.playban.RageSit): Float =
           import scala.math.{ log10, sqrt }
           import lila.playban.RageSit.extensions.*

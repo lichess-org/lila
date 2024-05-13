@@ -7,7 +7,7 @@
     @extend %flex-center;
 
     h1 {
-      font-size: 7em;
+      font-size: 10em;
       color: $c-font-dimmer;
       margin: 0 2rem 0 0;
     }
@@ -15,9 +15,18 @@
     strong {
       text-transform: uppercase;
       color: $c-font-dimmer;
-      font-size: 2em;
-      margin: 10px 0;
+      font-size: 3em;
+      margin-bottom: 1rem;
       display: block;
+    }
+
+    em {
+      color: $c-font-dim;
+      font-size: 1.5em;
+      font-style: italic;
+      text-decoration: underline;
+      display: block;
+      margin: -1rem 0 1rem 0;
     }
   }
 
@@ -35,7 +44,7 @@
 
     @media (hover: hover) {
       @media (min-width: at-least($small)) {
-        display: block;
+        display: inline-block;
       }
     }
   }

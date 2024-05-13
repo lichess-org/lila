@@ -639,9 +639,6 @@
   <string name="dark">Караңгы</string>
   <string name="transparent">Үтә күренмәле</string>
   <string name="backgroundImageUrl">Арткы караныш рәсеме URL:</string>
-  <string name="boardGeometry">Такта һәнсәдәсе</string>
-  <string name="boardTheme">Такта бизәге</string>
-  <string name="boardSize">Такта зурлыгы</string>
   <string name="pieceSet">Эйберлэр</string>
   <string name="embedInYourWebsite">Веб-сайтыгызга җайлаштырылган</string>
   <string name="usernameAlreadyUsed">Ошбу кулланучынәми әлләкайчан ишләтелгән, фадлыйк башкасын сынап карыйк.</string>

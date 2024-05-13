@@ -6,13 +6,14 @@ import play.api.libs.json.*
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
+import lila.core.id.CmsPageKey
 
 final class StormUi(helpers: Helpers):
   import helpers.{ *, given }
 
   def home(data: JsObject, high: Option[StormHigh])(using Context) =
     Page("Puzzle Storm")
-      .cssTag("storm")
+      .css("storm")
       .js(PageModule("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))))
       .zoom
       .zen
@@ -34,7 +35,7 @@ final class StormUi(helpers: Helpers):
             )
           },
           div(cls := "storm__about__link")(
-            a(href := routes.Cms.lonePage("storm"))(trans.site.aboutX("Puzzle Storm"))
+            a(href := routes.Cms.lonePage(CmsPageKey("storm")))(trans.site.aboutX("Puzzle Storm"))
           )
         )
 
@@ -56,7 +57,7 @@ final class StormUi(helpers: Helpers):
 
   def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(using ctx: Context) =
     Page(s"${user.username} Puzzle Storm")
-      .cssTag("storm.dashboard")
+      .css("storm.dashboard")
       .js(infiniteScrollEsmInit):
         main(cls := "storm-dashboard page-small")(
           div(cls := "storm-dashboard__high box box-pad")(

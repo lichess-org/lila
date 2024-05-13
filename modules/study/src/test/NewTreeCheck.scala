@@ -19,6 +19,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
 import lila.study.BSONHandlers.given
+import play.api.libs.json.Json
 
 @munit.IgnoreSuite
 class NewTreeCheck extends munit.ScalaCheckSuite:
@@ -196,3 +197,28 @@ class NewTreeCheck extends munit.ScalaCheckSuite:
         val tree = oTree.get.withoutVariations
         root.toRoot.addChild(tree.toBranch).toNewRoot.size == root.addChild(tree).size
       }
+
+  //
+  // JSON
+  //
+
+  test("defaultJsonString"):
+    forAll: (root: NewRoot) =>
+      val oldRoot = root.toRoot
+      val x       = Node.defaultNodeJsonWriter.writes(oldRoot)
+      val y       = NewRoot.defaultNodeJsonWriter.writes(root)
+      assertEquals(x, y)
+
+  test("minimalNodeJsonWriter"):
+    forAll: (root: NewRoot) =>
+      val oldRoot = root.toRoot
+      val x       = Node.minimalNodeJsonWriter.writes(oldRoot)
+      val y       = NewRoot.minimalNodeJsonWriter.writes(root)
+      assertEquals(x, y)
+
+  test("partitionTreeJsonWriter"):
+    forAll: (root: NewRoot) =>
+      val oldRoot = root.toRoot
+      val x       = Node.partitionTreeJsonWriter.writes(oldRoot)
+      val y       = NewRoot.partitionTreeJsonWriter.writes(root)
+      assertEquals(x, y)

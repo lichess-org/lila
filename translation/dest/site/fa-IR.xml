@@ -696,7 +696,7 @@
   <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
   <string name="keyShowOrHideComments">نمایش/ پنهان کردن نظرات</string>
   <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
-  <string name="keyRequestComputerAnalysis">یک تحلیل کامپیوتری درخواست کنید، از اشتباهات خود درس بگیرید</string>
+  <string name="keyRequestComputerAnalysis">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
   <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباهات خود درس بگیرید)</string>
   <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
   <string name="keyNextMistake">اشتباه بعدی</string>
@@ -791,9 +791,12 @@
   <string name="transparent">شفاف</string>
   <string name="deviceTheme">طرح زمینه دستگاه</string>
   <string name="backgroundImageUrl">لینک تصویر پس زمینه:</string>
-  <string name="boardGeometry">نَمای صفحه بازی</string>
-  <string name="boardTheme">طرح‌بندی صفحه بازی</string>
-  <string name="boardSize">اندازه صفحه بازی</string>
+  <string name="board">صفحه شطرنج</string>
+  <string name="size">اندازه</string>
+  <string name="opacity">کدری</string>
+  <string name="brightness">درخشندگی</string>
+  <string name="hue">فام</string>
+  <string name="boardReset">بازنشاندن به رنگ‌های پیش‌فرض</string>
   <string name="pieceSet">نوع مهره</string>
   <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
   <string name="usernameAlreadyUsed">این نام کاربری در حال حاضر انتخاب شده است.لطفا نام دیگری انتخاب کنید.</string>

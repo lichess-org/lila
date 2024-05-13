@@ -43,7 +43,7 @@ final class Editor(env: Env) extends LilaController(env):
     Found(env.game.gameRepo.game(id)): game =>
       Redirect:
         if game.playable
-        then routes.Round.watcher(game.id, "white").url
+        then routes.Round.watcher(game.id, Color.white).url
         else editorUrl(get("fen").fold(Fen.write(game.chess))(Fen.Full.clean), game.variant)
 
   private[controllers] def editorUrl(fen: Fen.Full, variant: Variant): String =

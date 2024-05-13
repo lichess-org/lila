@@ -1,21 +1,20 @@
 package controllers
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import scala.util.chaining.*
-
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.net.IpAddress
 import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
-import lila.core.perf.PerfKeyStr
+import lila.core.id
 
 final class Api(
     env: Env,
@@ -56,49 +55,68 @@ final class Api(
   private[controllers] def userWithFollows(using req: RequestHeader) =
     HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows")
 
-  private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
-    key = "users.api.ip",
-    enforce = env.net.rateLimit.value
-  )(
-    ("fast", 2000, 10.minutes),
-    ("slow", 30000, 1.day)
-  )
-
   def usersByIds = AnonBodyOf(parse.tolerantText): body =>
     val usernames = body.replace("\n", "").split(',').take(300).flatMap(UserStr.read).toList
     val cost      = usernames.size / 4
-    UsersRateLimitPerIP(req.ipAddress, rateLimited, cost = cost):
+    limit.apiUsers(req.ipAddress, rateLimited, cost = cost):
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
         .listWithPerfs(usernames)
-        .map {
+        .map:
           _.map { u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true) }
-        }
         .map(toApiResult)
         .map(toHttp)
 
   def usersStatus = ApiRequest:
     val ids = get("ids").so(_.split(',').take(100).toList.flatMap(UserStr.read).map(_.id))
-    env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
-      val streamingIds = env.streamer.liveStreamApi.userIds
-      def toJson(u: LightUser) =
-        lila.common.Json.lightUser
-          .write(u)
-          .add("online" -> env.socket.isOnline(u.id))
-          .add("playing" -> env.round.playing(u.id))
-          .add("streaming" -> streamingIds(u.id))
-      if getBool("withGameIds")
-      then
-        users
-          .traverse: u =>
-            env.round
-              .playing(u.id)
-              .so(env.game.cached.lastPlayedPlayingId(u.id))
-              .map: gameId =>
-                toJson(u).add("playingId", gameId)
+    if ids.isEmpty then fuccess(ApiResult.ClientError("No user ids provided"))
+    else
+      val withSignal = getBool("withSignal")
+      env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
+        val streamingIds = env.streamer.liveStreamApi.userIds
+        def toJson(u: LightUser) =
+          lila.common.Json.lightUser
+            .write(u)
+            .add("online", env.socket.isOnline(u.id))
+            .add("playing", env.round.playing(u.id))
+            .add("streaming", streamingIds(u.id))
+            .add("signal", withSignal.so(env.socket.getLagRating(u.id)))
+        def gameIds: Fu[List[Option[id.GameId]]] = users.traverse: u =>
+          env.round.playing(u.id).so(env.game.cached.lastPlayedPlayingId(u.id))
+        val extensions: Option[Fu[List[Update[JsObject]]]] =
+          if getBool("withGameIds")
+          then
+            gameIds
+              .map:
+                _.map: gameId =>
+                  (_: JsObject).add("playingId", gameId)
+              .some
+          else if getBool("withGameMetas")
+          then
+            gameIds
+              .flatMap:
+                _.traverse(_.so(env.round.proxyRepo.gameIfPresent))
+              .map:
+                _.map: game =>
+                  (_: JsObject).add(
+                    "playing",
+                    game.map: g =>
+                      Json
+                        .obj("id" -> g.id)
+                        .add("clock", g.clock.map(_.config.show))
+                        .add("variant", g.variant.exotic.option(g.variant.key))
+                  )
+              .some
+          else none
+        extensions
+          .fold(fuccess(users.map(toJson))):
+            _.map: exts =>
+              users
+                .zip(exts)
+                .map: (u, ext) =>
+                  ext(toJson(u))
           .map(toApiResult)
-      else fuccess(toApiResult(users.map(toJson)))
-    }
+      }
 
   private def gameFlagsFromRequest(using RequestHeader) =
     lila.api.GameApi.WithFlags(
@@ -113,14 +131,8 @@ final class Api(
   def game(id: GameId) = ApiRequest:
     gameApi.one(id, gameFlagsFromRequest).map(toApiResult)
 
-  private val CrosstableRateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 30,
-    duration = 10.minutes,
-    key = "crosstable.api.ip"
-  )
-
   def crosstable(name1: UserStr, name2: UserStr) = ApiRequest:
-    CrosstableRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
+    limit.crosstable(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       val (u1, u2) = (name1.id, name2.id)
       env.game.crosstableApi(u1, u2).flatMap { ct =>
         (ct.results.nonEmpty && getBool("matchup"))
@@ -297,11 +309,10 @@ final class Api(
             )
 
   val eventStream =
-    val rateLimit = lila.memo.RateLimit[UserId](30, 10.minutes, "api.stream.event.user")
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
-      rateLimit(me, limited):
+      limit.eventStream(me, limited):
         env.round.proxyRepo
           .urgentGames(me)
           .flatMap: povs =>
@@ -311,14 +322,8 @@ final class Api(
                 jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges))
     }
 
-  private val UserActivityRateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 15,
-    duration = 2.minutes,
-    key = "user_activity.api.ip"
-  )
-
   def activity(name: UserStr) = ApiRequest:
-    UserActivityRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
+    limit.userActivity(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.activity.increment(1)
       meOrFetch(name)
         .flatMapz { user =>
@@ -343,7 +348,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: PerfKeyStr) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: PerfKey) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:

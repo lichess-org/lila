@@ -23,6 +23,7 @@ final class AnalysisRepo(val coll: Coll)(using Executor):
         game -> analysis
       }
 
-  def remove(id: String) = coll.delete.one($id(id))
+  def remove(id: GameId) = coll.delete.one($id(Analysis.Id(id).value))
 
-  def exists(id: String) = coll.exists($id(id))
+  def exists(id: GameId)                = coll.exists($id(id.value))
+  def chapterExists(id: StudyChapterId) = coll.exists($id(id.value))

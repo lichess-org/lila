@@ -42,24 +42,22 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
 
   def post(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> me ?=>
     Found(meOrFetch(username)): user =>
-      actionForm
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(err.toString),
-          {
-            case (gameIds, Some("pgn")) => downloadPgn(user, gameIds)
-            case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
-              multipleAnalysis(me, gameIds)
-            case _ => notFound
-          }
-        )
+      bindForm(actionForm)(
+        err => BadRequest(err.toString),
+        {
+          case (gameIds, Some("pgn")) => downloadPgn(user, gameIds)
+          case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
+            multipleAnalysis(me, gameIds)
+          case _ => notFound
+        }
+      )
   }
 
   private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using Context) =
     env.game.gameRepo
       .unanalysedGames(gameIds)
       .flatMap { games =>
-        games.map { game =>
+        games.traverse_ { game =>
           env.fishnet
             .analyser(
               game,
@@ -68,10 +66,11 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
                 ip = ctx.ip.some,
                 mod = true,
                 system = false
-              )
+              ),
+              lila.fishnet.Work.Origin.autoHunter.some
             )
             .void
-        }.parallel >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
+        } >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
       }
       .inject(NoContent)
 

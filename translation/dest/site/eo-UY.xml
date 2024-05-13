@@ -528,7 +528,7 @@
     <item quantity="one">%s aktivaj ludoj</item>
     <item quantity="other">%s aktivaj ludoj</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Aŭtomate iri al la sekvanta ludo post movi</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Memage iri al sekvanta ludo post via movo</string>
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
   <string name="puzzles">Puzloj</string>
   <string name="name">Nomo</string>
@@ -788,9 +788,6 @@
   <string name="transparent">Travidebla</string>
   <string name="deviceTheme">Ila etoso</string>
   <string name="backgroundImageUrl">Malantaŭografikaĵo URL:</string>
-  <string name="boardGeometry">Tabula geometrio</string>
-  <string name="boardTheme">Tabula temo</string>
-  <string name="boardSize">Tabula grandeco</string>
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
   <string name="usernameAlreadyUsed">Oni jam uzas tiun salutnomon. Bonvolu provi alian.</string>

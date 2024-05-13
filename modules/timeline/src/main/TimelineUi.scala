@@ -18,7 +18,7 @@ final class TimelineUi(helpers: Helpers)(
 
   def more(entries: Vector[Entry])(using Context) =
     Page(trans.site.timeline.txt())
-      .cssTag("slist"):
+      .css("slist"):
         main(cls := "timeline page-small box")(
           h1(cls := "box__top")(trans.site.timeline()),
           table(cls := "slist slist-pad"):
@@ -102,9 +102,6 @@ final class TimelineUi(helpers: Helpers)(
         case PlanRenew(userId, months) =>
           trans.patron.xIsPatronForNbMonths
             .plural(months, userLink(userId), months)
-        case BlogPost(id, slug, title) =>
-          a(cls := "text", dataIcon := Icon.InkQuill, href := routes.Ublog.historicalBlogPost(id, slug)):
-            title
         case UblogPostLike(userId, postId, postTitle) =>
           trans.site.xLikesY(
             userLink(userId),

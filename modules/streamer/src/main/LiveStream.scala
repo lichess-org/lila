@@ -1,6 +1,7 @@
 package lila.streamer
 import lila.core.i18n.Language
 import lila.memo.CacheApi.*
+import lila.core.userId
 
 case class LiveStreams(streams: List[Stream]):
 
@@ -96,6 +97,12 @@ final class LiveStreamApi(
   //       )
   //     )
   //   )
+
+  def streamerUserIds(within: Iterable[UserId]): Fu[List[UserId]] =
+    all.map:
+      _.streams
+        .collect:
+          case s if within.exists(s.streamer.is(_)) => s.streamer.userId
 
   def of(s: Streamer.WithContext): Fu[Streamer.WithUserAndStream] = all.map: live =>
     Streamer.WithUserAndStream(s.streamer, s.user, live.get(s.streamer), s.subscribed)

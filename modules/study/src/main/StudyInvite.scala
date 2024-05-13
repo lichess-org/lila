@@ -11,12 +11,18 @@ final private class StudyInvite(
     notifyApi: NotifyApi,
     prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi
-)(using Executor):
+)(using Executor, lila.core.config.RateLimit):
 
-  private val notifyRateLimit = lila.memo.RateLimit[UserId](
-    credits = 500,
+  private val inviteLimit = lila.memo.RateLimit[UserId](
+    credits = 400,
     duration = 1 day,
     key = "study.invite.user"
+  )
+
+  private val notifyRateLimit = lila.memo.RateLimit[UserId](
+    credits = 100,
+    duration = 1 day,
+    key = "study.invite.notify.user"
   )
 
   private val maxMembers = 30
@@ -52,13 +58,16 @@ final private class StudyInvite(
             case lila.core.pref.StudyInvite.FRIEND =>
               if relation.has(Follow) then funit
               else fufail("This user only accept study invitations from friends")
-    _ <- studyRepo.addMember(study, StudyMember.make(invited))
     shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
-      if Granter(_.StudyAdmin) then 1
-      else if relation.has(Follow) then 5
-      else if inviter.hasTitle then 10
-      else 100
+      if Granter(_.StudyAdmin) then 0
+      else if relation.has(Follow) then 1
+      else if inviter.hasTitle then 2
+      else if invited.hasTitle then 20
+      else 10
+    _ <- (!inviteLimit.zero(inviter.userId, rateLimitCost)(true))
+      .so(fufail[Unit]("You have reach the study invite quota for the day"))
+    _ <- studyRepo.addMember(study, StudyMember.make(invited))
     _ <- shouldNotify.so(notifyRateLimit.zero(inviter.userId, rateLimitCost):
       notifyApi.notifyOne(
         invited,

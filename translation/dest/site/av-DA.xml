@@ -760,9 +760,6 @@
   <string name="transparent">Гъорлъан канлъи бихьулеб</string>
   <string name="deviceTheme">Девайсалъул куц</string>
   <string name="backgroundImageUrl">НахъабакӀалъул сураталъул URL:</string>
-  <string name="boardGeometry">Хъорщол куцги кӀодолъиги</string>
-  <string name="boardTheme">Хъорщол куц</string>
-  <string name="boardSize">Хъорщол кӀодолъи</string>
   <string name="pieceSet">Кескил куц</string>
   <string name="embedInYourWebsite">Дур сайталда лъезе</string>
   <string name="usernameAlreadyUsed">Гьеб хӀалтӀизабулесда цӀар ккун буго, хӀалбихье цогидаб.</string>

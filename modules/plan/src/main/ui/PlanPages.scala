@@ -21,7 +21,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
     def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
     val title                        = "Lichess features"
     Page(title)
-      .cssTag("feature")
+      .css("feature")
       .graph(
         title = title,
         url = s"$netBaseUrl${routes.Plan.features.url}",
@@ -204,63 +204,61 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
       gift: Option[Patron]
   )(using ctx: Context) =
     Page(trans.patron.thankYou.txt())
-      .cssTag("page"):
+      .css("page"):
         main(cls := "page-small page box box-pad")(
           boxTop(h1(cls := "text", dataIcon := patronIconChar)(trp.thankYou())),
-          div(cls := "body")(
-            p(trp.tyvm()),
-            p(trp.transactionCompleted()),
-            (gift, patron) match
-              case (Some(gift), _) =>
-                p(
-                  userIdLink(gift.userId.some),
-                  " ",
-                  if gift.isLifetime then "is now a lifetime Lichess Patron"
-                  else "is now a Lichess Patron for one month",
-                  ", thanks to you!"
-                )
-              case (_, Some(pat)) =>
-                if pat.payPal.exists(_.renew) ||
-                  pat.payPalCheckout.exists(_.renew) ||
-                  stripeCustomer.exists(_.renew)
-                then
-                  ctx.me.map { me =>
+          p(trp.tyvm()),
+          p(trp.transactionCompleted()),
+          (gift, patron) match
+            case (Some(gift), _) =>
+              p(
+                userIdLink(gift.userId.some),
+                " ",
+                if gift.isLifetime then "is now a lifetime Lichess Patron"
+                else "is now a Lichess Patron for one month",
+                ", thanks to you!"
+              )
+            case (_, Some(pat)) =>
+              if pat.payPal.exists(_.renew) ||
+                pat.payPalCheckout.exists(_.renew) ||
+                stripeCustomer.exists(_.renew)
+              then
+                ctx.me.map { me =>
+                  p(
+                    trp.permanentPatron(),
+                    br,
+                    a(href := routes.User.show(me.username))(trp.checkOutProfile())
+                  )
+                }
+              else
+                frag(
+                  if pat.isLifetime then
                     p(
-                      trp.permanentPatron(),
+                      trp.nowLifetime(),
                       br,
-                      a(href := routes.User.show(me.username))(trp.checkOutProfile())
+                      ctx.me.map { me =>
+                        a(href := routes.User.show(me.username))(trp.checkOutProfile())
+                      }
                     )
-                  }
-                else
-                  frag(
-                    if pat.isLifetime then
+                  else
+                    frag(
                       p(
-                        trp.nowLifetime(),
+                        trp.nowOneMonth(),
                         br,
                         ctx.me.map { me =>
                           a(href := routes.User.show(me.username))(trp.checkOutProfile())
                         }
-                      )
-                    else
-                      frag(
-                        p(
-                          trp.nowOneMonth(),
-                          br,
-                          ctx.me.map { me =>
-                            a(href := routes.User.show(me.username))(trp.checkOutProfile())
-                          }
-                        ),
-                        p(trp.downgradeNextMonth())
-                      )
-                  )
-              case _ => emptyFrag
-            ,
-            br,
-            br,
-            br,
-            br,
-            br,
-            br,
-            a(href := s"${routes.Plan.list}?dest=gift")(trp.makeAdditionalDonation())
-          )
+                      ),
+                      p(trp.downgradeNextMonth())
+                    )
+                )
+            case _ => emptyFrag
+          ,
+          br,
+          br,
+          br,
+          br,
+          br,
+          br,
+          a(href := s"${routes.Plan.list}?dest=gift")(trp.makeAdditionalDonation())
         )

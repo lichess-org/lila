@@ -39,7 +39,8 @@ final class Env(
     Scheduler,
     akka.stream.Materializer,
     play.api.Mode,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
@@ -86,6 +87,18 @@ final class Env(
   lazy val pgnDump = wire[PgnDump]
 
   lazy val gifExport = GifExport(ws, appConfig.get[String]("game.gifUrl"))
+
+  def findConnectedUsersIn(studyId: StudyId)(filter: Iterable[UserId] => Fu[List[UserId]]): Fu[List[UserId]] =
+    studyRepo
+      .membersById(studyId)
+      .flatMap:
+        _.map(_.members.keys)
+          .filter(_.nonEmpty)
+          .so: members =>
+            filter(members).flatMap:
+              _.traverse: streamer =>
+                isConnected(studyId, streamer).dmap(_.option(streamer))
+              .dmap(_.flatten)
 
   def cli: lila.common.Cli = new:
     def process = { case "study" :: "rank" :: "reset" :: Nil =>

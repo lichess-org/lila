@@ -31,7 +31,7 @@
     <item quantity="other">%s Members</item>
   </plurals>
   <string name="inviteToTheStudy">Invite to the study</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Please only invite people you know, and who actively want to join this study.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Please only invite people who know you, and who actively want to join this study.</string>
   <string name="searchByUsername">Search by username</string>
   <string name="spectator">Spectator</string>
   <string name="contributor">Contributor</string>
@@ -64,7 +64,6 @@
   <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">Chapter PGN</string>
   <string name="copyChapterPgn">Copy PGN</string>
-  <string name="copyChapterPgnDescription">Copy chapter PGN to clipboard.</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">Pinned chapter comment</string>
   <string name="saveChapter">Save chapter</string>
   <string name="clearAnnotations">Clear annotations</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Clear variations</string>
+  <string name="clearVariations">Clear variations</string>
   <string name="deleteChapter">Delete chapter</string>
   <string name="deleteThisChapter">Delete this chapter? There is no going back!</string>
   <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter?</string>

@@ -6,8 +6,10 @@ import lila.common.HTTPRequest
 import lila.core.net.IpAddress
 import lila.core.security.{ IsProxy, Ip2ProxyApi }
 
-final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)(using Executor):
-
+final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)(using
+    Executor,
+    lila.core.config.RateLimit
+):
   import IpTrust.*
 
   private[security] def isSuspicious(ip: IpAddress): Fu[Boolean] =

@@ -1,7 +1,7 @@
 package lila.game
 
 import scalalib.model.Days
-import chess.Color.{ Black, White }
+import Color.{ Black, White }
 import chess.MoveOrDrop.{ color, fold }
 import chess.format.pgn.SanStr
 import chess.format.{ Fen, Uci }

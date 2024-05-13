@@ -7,7 +7,7 @@ const version = memoize(() => document.body.getAttribute('data-asset-version'));
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
   opts = opts || {};
-  const base = opts.sameDomain ? '' : baseUrl(),
+  const base = opts.documentOrigin ? window.location.origin : opts.sameDomain ? '' : baseUrl(),
     v = opts.version || version();
   return `${base}/assets${opts.noVersion ? '' : '/_' + v}/${path}`;
 };
@@ -15,31 +15,26 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 // bump flairs version if a flair is changed only (not added or removed)
 export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
 
-const safeClassNameRegex = /[ .#:\[\]\{\},>+~*;!'"\\]/g; // modules/common/src/main/String.scala
-const safeClassName = (name: string) => name.replace(safeClassNameRegex, '-');
-
-export const loadCss = (href: string, key?: string): Promise<void> =>
-  new Promise(resolve => {
+export const loadCss = (href: string, key?: string): Promise<void> => {
+  return new Promise(resolve => {
     href = url(href, { noVersion: true });
-    if (key) removeCssPath(key);
-    else if (document.querySelector(`head > link[href="${href}"]`)) return resolve();
+    if (document.head.querySelector(`link[href="${href}"]`)) return resolve();
 
     const el = document.createElement('link');
-    if (key) el.className = `css-${safeClassName(key)}`;
+    if (key) el.setAttribute('data-css-key', key);
     el.rel = 'stylesheet';
     el.href = href;
     el.onload = () => resolve();
     document.head.append(el);
   });
+};
 
 export const loadCssPath = async (key: string): Promise<void> => {
   const hash = site.manifest.css[key];
   await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
 };
 
-export const removeCssPath = (key: string) => {
-  $(`head > link.css-${safeClassName(key)}`).remove();
-};
+export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 
 export const jsModule = (name: string) => {
   if (name.endsWith('.js')) name = name.slice(0, -3);

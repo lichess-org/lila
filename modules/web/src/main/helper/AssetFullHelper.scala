@@ -5,7 +5,6 @@ import play.api.libs.json.{ JsValue, Json, Writes }
 import lila.ui.ScalatagsTemplate.*
 import lila.core.data.SafeJsonStr
 import lila.web.ui.*
-import lila.common.String.html.safeClassName
 import lila.core.config.NetConfig
 import lila.ui.{ Nonce, Optionce, WithNonce, ContentSecurityPolicy, EsmList, Context }
 
@@ -34,11 +33,12 @@ trait AssetFullHelper:
 
   def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
 
+  private val dataCssKey = attr("data-css-key")
   def cssTag(key: String): Frag =
     link(
-      cls  := s"css-${safeClassName(key)}",
-      href := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"),
-      rel  := "stylesheet"
+      dataCssKey := key,
+      href       := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"),
+      rel        := "stylesheet"
     )
 
   def jsonScript(json: JsValue | SafeJsonStr) =

@@ -149,7 +149,7 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
 Kun selaimesi estää lichess.org-sivun äänten toiston, näytetään punainen mykistyskuvake. Tavallisesti rajoitus poistuu, kun klikkaat jotain. Joissakin mobiiliselaimissa nappulan siirtoa vetämällä ei lasketa klikkaukseksi. Tässä tapauksessa voit pelin alkaessa napauttaa lautaa salliaksesi äänet.
 
 Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voit nimenomaisesti sallia sen, että lichess.org toistaa äänet. Ohessa ovat ohjeet äänten sallimiseksi joidenkin suosituimpien selainten viimeaikaisia versioita varten.</string>
-  <string name="desktop">työpöytä</string>
+  <string name="desktop">tietokone</string>
   <string name="enableAutoplayForSoundsFirefox">1. Mene osoitteeseen lichess.org
 2. Paina Ctrl-i Linuxissa/Windowsissa tai cmd-i MacOS:ssa
 3. Klikkaa käyttöoikeusvälilehteä
@@ -158,4 +158,18 @@ Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voi
 2. Klikkaa lukituskuvaketta osoitepalkissa
 3. Valitse Sivuston asetukset
 4. Salli ääni</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Napsauta kolmea pistettä oikessa yläkulmassa
+2. Valitse Asetukset
+3. Valitse Evästeet ja sivuston käyttöoikeudet
+4. Vieritä alas ja valitse Median automaattinen toisto
+4. Lisää lichess.org listalle \"Salli\"</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Estää itseäni pelaamasta?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">erilliseksi mielenterveyshäiriöksi</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichessin käyttäjäkohtaiset tyylit</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">aulassa vähemmän pelivaihtoehtoja</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Saamme käyttäjiltä säännöllisesti viestejä, joissa meitä pyydetään auttamaan heitä liiallisen pelaamisen estämisessä.
+
+Vaikka Lichess ei estä pelaajia muuten kuin käyttöehtojen rikkomisesta, suosittelemme käyttämään Lichessin ulkopuolisia työkaluja liiallisen pelaamisen rajoittamiseksi. Verkkosivujen esto-ohjelmiksi yleisiä ehdotuksia ovat mm. %1$s, %2$s ja %3$s. Jos haluat jatkaa sivustomme käyttöä, mutta vastustaa kiusausta pelata nopeilla siirtoajoilla, %4$s saattavat kiinnostaa sinua – tässä on yksi tyyli, jossa on %5$s.
+
+Joistakin pelaajista saattaa tuntua, että heidän pelaamiskäyttäytymisensä on muuttumassa riippuvuudeksi. Itse asiassa WHO on luokitellut ongelmapelaamisen %6$s, jonka keskeisiä piirteitä ovat 1) heikentynyt pelaamisen hallinta, 2) pelaamisen yhä tärkeämpi painoarvo ja 3) pelaamisen kärjistyminen kielteisistä seurauksista huolimatta. Jos arvioit shakinpeluusi noudattavan tätä kaavaa, kehotamme sinua keskustelemaan asiasta ystävän tai perheenjäsenen ja/tai ammattilaisen kanssa.</string>
 </resources>

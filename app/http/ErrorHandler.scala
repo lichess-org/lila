@@ -39,15 +39,15 @@ final class ErrorHandler(
     }
 
   override def onClientError(req: RequestHeader, statusCode: Int, msg: String): Fu[Result] =
+    def msgOpt = Option(msg).filter(_.nonEmpty)
     statusCode match
-      case 404 if canShowErrorPage(req) => mainC.handlerNotFound(using req)
-      case 404                          => fuccess(NotFound("404 - Resource not found"))
-      case 403                          => lobbyC.handleStatus(Results.Forbidden)(using req)
-      case _ if req.attrs.contains(request.RequestAttrKey.Session) =>
-        lobbyC.handleStatus(Results.BadRequest)(using req)
-      case _ =>
-        fuccess:
-          Results.BadRequest("Sorry, the request could not be processed")
+      case 400 | 404 if canShowErrorPage(req) => mainC.handlerNotFound(msgOpt)(using req)
+      case 400 | 404                  => fuccess(NotFound(s"$statusCode - ${msgOpt | "Resource not found"}"))
+      case 403                        => lobbyC.handleStatus(Results.Forbidden)(using req)
+      case _ if canShowErrorPage(req) => lobbyC.handleStatus(Results.BadRequest)(using req)
+      case _ => fuccess(Results.BadRequest("Sorry, the request could not be processed"))
 
   private def canShowErrorPage(req: RequestHeader): Boolean =
-    HTTPRequest.isSynchronousHttp(req) && !HTTPRequest.hasFileExtension(req)
+    HTTPRequest.isSynchronousHttp(req) &&
+      !HTTPRequest.hasFileExtension(req) &&
+      req.attrs.contains(request.RequestAttrKey.Session)

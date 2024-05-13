@@ -768,9 +768,6 @@
   <string name="transparent">Áttetsző</string>
   <string name="deviceTheme">Operációs rendszer</string>
   <string name="backgroundImageUrl">Háttérkép URL címe:</string>
-  <string name="boardGeometry">Tábla geometria</string>
-  <string name="boardTheme">Tábla szín</string>
-  <string name="boardSize">Tábla mérete</string>
   <string name="pieceSet">Figurakészlet</string>
   <string name="embedInYourWebsite">Beágyazás weboldalba</string>
   <string name="usernameAlreadyUsed">Ez a felhasználónév már foglalt, kérjük válassz másikat.</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Antaŭenigita peono</string>
-  <string name="advancedPawnDescription">Unu de viaj peonoj estas avancita en kontraŭula pozicio, ĝi eble minacas promocii.</string>
+  <string name="advancedPawn">Altnivela soldato</string>
+  <string name="advancedPawnDescription">Unu el viaj soldatoj profundas en la kontraŭa flanko, kaj ĝia ebla rangaltiĝo minacas.</string>
   <string name="advantage">Avantaĝo</string>
   <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Profitu viajn ŝancojn por havi decida avantaĝo. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia ŝakmato</string>
@@ -9,13 +9,13 @@
   <string name="arabianMate">Araba ŝakmato</string>
   <string name="arabianMateDescription">Ĉevalo kaj turo laboras kune por kapti la kontraŭa reĝo en angulo de la tabulo.</string>
   <string name="attackingF2F7">Atako al f2 aŭ f7</string>
-  <string name="attackingF2F7Description">Atako fokusiĝas sur la f2 aŭ f7 peono, kiel en la fritita hepataĵa malfermo.</string>
+  <string name="attackingF2F7Description">Atako fokusata al la soldatojn ĉe f2 kaj f7, samkiel la malfermo ·«fritita hepataĵa».</string>
   <string name="attraction">Altiro</string>
   <string name="attractionDescription">Interŝanĝo aŭ ofero kiu instigas aŭ trudas kontraŭulan ŝakpecon al kvadrato ke ebligas taktikon.</string>
   <string name="backRankMate">Malantaŭvico mato</string>
   <string name="backRankMateDescription">Ŝakmati la reĝo sur la hejmrango, kiam ĝi estas kaptita per ĝiaj propraj ŝakpecoj.</string>
   <string name="bishopEndgame">Kuriera finaĵo</string>
-  <string name="bishopEndgameDescription">Finaĵo nur kun kurieroj kaj peonoj.</string>
+  <string name="bishopEndgameDescription">Finaĵo nur kun kurieroj kaj soldatoj.</string>
   <string name="bodenMate">Boden ŝakmato</string>
   <string name="bodenMateDescription">Du kontraŭaj kurieroj sur interkruciĝantaj diagonaloj liveras maton al reĝo ĉirkaŭbarita per amikaj ŝakpecoj.</string>
   <string name="castling">Aroko</string>
@@ -44,7 +44,7 @@
   <string name="doubleCheckDescription">Ŝakanta per du ŝakpecoj samtempe, kiel rezulto de malkovrita atako, kie kaj la moviĝa ŝakpeco kaj la malvualita ŝakpeco ataki la reĝo de la kontraŭulo.</string>
   <string name="endgame">Finaĵo</string>
   <string name="endgameDescription">Taktiko dum la lasta fazo de la ludo.</string>
-  <string name="enPassantDescription">Taktiko temas pri la preterpasa prena regulo, kie peono povas kapti kontraŭulan peonon, kiu preterpasis ĝin dum sia komenca du-ĉela movo.</string>
+  <string name="enPassantDescription">Taktiko kiu temas pri la preterpasa prena regulo, per kiu soldato povas kapti kontraŭan soldaton kiu preterpasis ĝin dum sia komenca du-ĉela movo.</string>
   <string name="exposedKing">Neprotektita reĝo</string>
   <string name="exposedKingDescription">Taktiko temas pri reĝo kun iometaj defendantoj ĉirkaŭ ĝin, ofte kondukanta al ŝakmato.</string>
   <string name="fork">Forko</string>
@@ -52,13 +52,13 @@
   <string name="hangingPiece">Pendanta ŝakpeco</string>
   <string name="hangingPieceDescription">Taktiko temas pri kontraŭa ŝakpeco, kiu estas nedefendita aŭ malsufiĉe defendita kaj libera por kapti.</string>
   <string name="hookMate">Hoka ŝakmato</string>
-  <string name="hookMateDescription">Ŝakmato per turo, ĉevalo, kaj peono plus unu kontraŭa peono por limigi la eskapon de la kontraŭa reĝo.</string>
+  <string name="hookMateDescription">Ŝakmato per turo, ĉevalo, kaj soldato plus unu kontraŭa soldato por limigi la fuĝon de la kontraŭa reĝo.</string>
   <string name="interference">Interfero</string>
   <string name="interferenceDescription">Movo de peco inter du kontraŭaj pecoj por lasi unu aŭ ambaŭ kontraŭaj pecoj sendefenda, kiel ĉevalo sur defendita ĉelo inter du turoj.</string>
   <string name="intermezzo">Intermeza movo</string>
   <string name="intermezzoDescription">Anstataŭ ludo de la atendita movo, unue intermetu alian movon, kiu faras tujan minacon, al kiu via kontraŭulo devas respondi.</string>
   <string name="knightEndgame">Ĉevala finaĵo</string>
-  <string name="knightEndgameDescription">Finaĵo nur kun ĉevaloj kaj peonoj.</string>
+  <string name="knightEndgameDescription">Finaĵo nur kun ĉevaloj kaj soldatoj.</string>
   <string name="long">Longa puzlo</string>
   <string name="longDescription">Tri movoj por venki.</string>
   <string name="master">Majstraj ludoj</string>
@@ -84,21 +84,21 @@
   <string name="opening">Malfermo</string>
   <string name="openingDescription">Taktiko dum la unua fazo de la ludo.</string>
   <string name="pawnEndgame">Peona finaĵo</string>
-  <string name="pawnEndgameDescription">Finaĵo nur kun peonoj.</string>
+  <string name="pawnEndgameDescription">Finaĵo nur kun soldatoj.</string>
   <string name="pin">Alpinglo</string>
   <string name="pinDescription">Taktiko temas pri alpingloj, kie ŝakpeco ne povas movi sen malkovri atakon sur pli valora ŝakpeco.</string>
   <string name="promotion">Damigo</string>
-  <string name="promotionDescription">Damigi unu el viaj peonoj al damo, ĉevalo, kuriero aŭ turo.</string>
+  <string name="promotionDescription">Rangaltigi soldaton al damo aŭ malpli grava peco.</string>
   <string name="queenEndgame">Dama finaĵo</string>
-  <string name="queenEndgameDescription">Finaĵo nur kun damoj kaj peonoj.</string>
+  <string name="queenEndgameDescription">Finaĵo nur kun damoj kaj soldatoj.</string>
   <string name="queenRookEndgame">Damo kaj Turo</string>
-  <string name="queenRookEndgameDescription">Finaĵo nur kun damoj, turoj kaj peonoj.</string>
+  <string name="queenRookEndgameDescription">Finaĵo nur kun damoj, turoj kaj soldatoj.</string>
   <string name="queensideAttack">Atako al la dama flanko</string>
   <string name="queensideAttackDescription">Atako al la kontraŭula reĝo, post kiam ri arokis damflanke.</string>
   <string name="quietMove">Trankvila movo</string>
   <string name="quietMoveDescription">Movo, ke nek faras ŝako aŭ kapto, nek subita minaco de kapto, sed preparas pli kaŝita neevitebla minaco por posta movo.</string>
   <string name="rookEndgame">Tura finaĵo</string>
-  <string name="rookEndgameDescription">Finaĵo nur kun turoj kaj peonoj.</string>
+  <string name="rookEndgameDescription">Finaĵo nur kun turoj kaj soldatoj.</string>
   <string name="sacrifice">Ofero</string>
   <string name="sacrificeDescription">Taktiko temas pri cedo de materialo dum la mallongtempo, por regajni avantaĝon dum devigita vico de movoj.</string>
   <string name="short">Mallonga puzlo</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">ধাঁধা</string>
-  <string name="puzzleThemes">ধাঁধার বিশয়বস্তু</string>
+  <string name="puzzles">পাজল</string>
+  <string name="puzzleThemes">পাজল থিম</string>
   <string name="recommended">প্রস্তাবিত</string>
   <string name="phases">পর্যায়</string>
   <string name="motifs">বিষয়বস্তু</string>
@@ -20,7 +20,7 @@
   <string name="findTheBestMoveForBlack">কালোর জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
   <string name="toGetPersonalizedPuzzles">আপনার ব্যাক্তিগত পাজল পেতে:</string>
   <string name="puzzleId">ধাঁধা %s</string>
-  <string name="puzzleOfTheDay">আজকের দিনের সেরা ধাঁধা</string>
+  <string name="puzzleOfTheDay">আজকের পাজল</string>
   <string name="dailyPuzzle">দৈনিক ধাঁধা</string>
   <string name="clickToSolve">সমাধানের জন্য ক্লিক করুন</string>
   <string name="goodMove">ভালো মানের মুভ</string>

@@ -9,7 +9,7 @@ final class SwissHomeUi(helpers: Helpers):
 
   def page(featured: FeaturedSwisses)(using Context) =
     Page(trans.swiss.swissTournaments.txt())
-      .cssTag("swiss.home")
+      .css("swiss.home")
       .hrefLangs(lila.ui.LangPath(routes.Swiss.home)):
         main(cls := "page-small box box-pad page swiss-home")(
           h1(cls := "box__top")(trans.swiss.swissTournaments()),

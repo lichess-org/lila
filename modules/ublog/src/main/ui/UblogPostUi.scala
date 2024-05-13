@@ -22,7 +22,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
       followed: Boolean
   )(using ctx: Context) =
     Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
-      .cssTag("ublog")
+      .css("ublog")
       .js(EsmInit("bits.expandText") ++ ctx.isAuth.so(EsmInit("bits.ublog")))
       .graph(
         OpenGraph(
@@ -86,7 +86,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                   href := addQueryParams(
                     routes.Report.form.url,
                     Map(
-                      "username" -> user.username,
+                      "username" -> user.username.value,
                       "postUrl"  -> s"$netBaseUrl${ui.urlOfPost(post)}",
                       "reason"   -> "comm"
                     )

@@ -13,9 +13,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
-    inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
-    gameGifLink = document.querySelector('.game-gif') as HTMLAnchorElement,
-    positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement;
+    inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement,
+    gameGifLink = document.querySelector('.game-gif a') as HTMLAnchorElement,
+    positionGifLink = document.querySelector('.position-gif a') as HTMLAnchorElement;
   let lastInputHash: string;
   let advChart: AcplChart;
   let timeChartLoaded = false;
@@ -27,17 +27,17 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       color: ctrl.bottomColor(),
       lastMove: ctrl.node.uci,
       variant: ctrl.data.game.variant.key,
-      theme: ds.boardTheme,
+      theme: ds.board,
       piece: ds.pieceSet,
     });
     gameGifLink.href = xhrUrl(ds.assetUrl + `/game/export/gif/${ctrl.bottomColor()}/${data.game.id}.gif`, {
-      theme: ds.boardTheme,
+      theme: ds.board,
       piece: ds.pieceSet,
     });
   };
 
   if (!site.blindMode) {
-    site.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
+    site.pubsub.on('board.change', () => updateGifLinks(inputFen.value));
     site.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);

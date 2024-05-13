@@ -19,7 +19,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
-      FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key("appeal-landing"))):
+      FoundPage(env.api.cmsRender(lila.core.id.CmsPageKey("appeal-landing"))):
         views.site.page.lone
     else notFound
   }
@@ -38,12 +38,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   }
 
   def post = AuthBody { ctx ?=> me ?=>
-    userForm
-      .bindFromRequest()
-      .fold(
-        err => BadRequest.async(renderAppealOrTree(err.some)),
-        text => env.appeal.api.post(text).inject(Redirect(routes.Appeal.home).flashSuccess)
-      )
+    bindForm(userForm)(
+      err => BadRequest.async(renderAppealOrTree(err.some)),
+      text => env.appeal.api.post(text).inject(Redirect(routes.Appeal.home).flashSuccess)
+    )
   }
 
   def queue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
@@ -68,26 +66,24 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def reply(username: UserStr) = SecureBody(_.Appeals) { ctx ?=> me ?=>
     asMod(username): (appeal, suspect) =>
-      modForm
-        .bindFromRequest()
-        .fold(
-          err =>
-            getModData(suspect).flatMap: modData =>
-              BadRequest.page(views.appeal.discussion.show(appeal, err, modData)),
-          (text, process) =>
-            for
-              _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-              preset = getPresets.findLike(text)
-              _ <- env.appeal.api.reply(text, appeal, preset.map(_.name))
-              _ <- env.mod.logApi.appealPost(suspect.user.id)
-              result <-
-                if process then
-                  env.report.api.inquiries
-                    .toggle(Right(appeal.userId))
-                    .inject(Redirect(routes.Appeal.queue()))
-                else Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions").toFuccess
-            yield result
-        )
+      bindForm(modForm)(
+        err =>
+          getModData(suspect).flatMap: modData =>
+            BadRequest.page(views.appeal.discussion.show(appeal, err, modData)),
+        (text, process) =>
+          for
+            _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
+            preset = getPresets.findLike(text)
+            _ <- env.appeal.api.reply(text, appeal, preset.map(_.name))
+            _ <- env.mod.logApi.appealPost(suspect.user.id)
+            result <-
+              if process then
+                env.report.api.inquiries
+                  .toggle(Right(appeal.userId))
+                  .inject(Redirect(routes.Appeal.queue()))
+              else Redirect(s"${routes.Appeal.show(username)}#appeal-actions").toFuccess
+          yield result
+      )
   }
 
   private def getModData(suspect: Suspect)(using Context)(using me: Me) =

@@ -17,18 +17,16 @@ final class Main(
 ) extends LilaController(env):
 
   def toggleBlindMode = OpenBody:
-    WebForms.blind
-      .bindFromRequest()
-      .fold(
-        _ => BadRequest,
-        (enable, redirect) =>
-          Redirect(redirect).withCookies:
-            lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
-      )
+    bindForm(WebForms.blind)(
+      _ => BadRequest,
+      (enable, redirect) =>
+        Redirect(redirect).withCookies:
+          lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
+    )
 
-  def handlerNotFound(using RequestHeader) =
+  def handlerNotFound(msg: Option[String])(using RequestHeader) =
     makeContext.flatMap:
-      keyPages.notFound(using _)
+      keyPages.notFound(msg)(using _)
 
   def captchaCheck(id: GameId) = Open:
     env.game.captcha.validate(id, ~get("solution")).map { valid =>
@@ -134,36 +132,22 @@ final class Main(
         then lila.mon.link.external(tag, ctx.isAuth).increment()
         Redirect(url)
 
-  lila.memo.RateLimit.composite[lila.core.net.IpAddress](
-    key = "image.upload.ip"
-  )(
-    ("fast", 10, 2.minutes),
-    ("slow", 60, 1.day)
-  )
-
   def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     ctx.body.body.file("image") match
       case Some(image) =>
-        env.memo.picfitApi.bodyImage
-          .upload(rel = rel, image = image, me = me, ip = ctx.ip)
-          .map(url => JsonOk(Json.obj("imageUrl" -> url)))
+        limit.imageUpload(ctx.ip, rateLimited):
+          env.memo.picfitApi.bodyImage
+            .upload(rel = rel, image = image, me = me, ip = ctx.ip)
+            .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }
 
   def githubSecretScanning =
     AnonBodyOf(parse.json):
-      _.asOpt[List[JsObject]]
-        .map:
-          _.flatMap: obj =>
-            for
-              token <- (obj \ "token").asOpt[String]
-              url   <- (obj \ "url").asOpt[String]
-            yield Bearer(token) -> url
-          .toMap
-        .so: tokensMap =>
-          env.oAuth.tokenApi
-            .secretScanning(tokensMap)
-            .flatMap:
-              _.traverse: (token, url) =>
-                env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
-            .as(NoContent)
+      _.asOpt[List[lila.oauth.AccessTokenApi.GithubSecretScan]].so: scans =>
+        env.oAuth.tokenApi
+          .secretScanning(scans)
+          .flatMap:
+            _.traverse: (token, url) =>
+              env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
+          .as(NoContent)

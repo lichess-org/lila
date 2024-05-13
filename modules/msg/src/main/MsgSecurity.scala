@@ -22,7 +22,7 @@ final private class MsgSecurity(
     spam: lila.core.security.SpamApi,
     chatPanicAllowed: lila.core.chat.panic.IsAllowed,
     textAnalyser: TextAnalyser
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, lila.core.config.RateLimit):
 
   import MsgSecurity.*
 

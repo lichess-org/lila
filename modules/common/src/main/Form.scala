@@ -1,6 +1,5 @@
 package lila.common
 
-import chess.Color
 import chess.format.Fen
 import play.api.data.Forms.*
 import play.api.data.format.Formats.*

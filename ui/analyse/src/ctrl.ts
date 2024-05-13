@@ -53,6 +53,7 @@ import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
 import { ArrowKey, KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
+import { PgnError } from 'chessops/pgn';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -114,6 +115,7 @@ export default class AnalyseCtrl {
   // underboard inputs
   fenInput?: string;
   pgnInput?: string;
+  pgnError?: string;
 
   // other paths
   initialPath: Tree.Path;
@@ -162,7 +164,6 @@ export default class AnalyseCtrl {
 
     this.showGround();
     this.onToggleComputer();
-    this.startCeval();
     this.explorer.setNode();
     this.study =
       opts.study && makeStudy
@@ -173,7 +174,7 @@ export default class AnalyseCtrl {
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
       this.togglePractice();
     else if (location.hash === '#menu') site.requestIdleCallback(this.actionMenu.toggle, 500);
-
+    this.startCeval();
     keyboard.bind(this);
 
     const urlEngine = new URLSearchParams(location.search).get('engine');
@@ -199,7 +200,7 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-    site.pubsub.on('theme.change', redraw);
+    site.pubsub.on('board.change', redraw);
     this.persistence?.merge();
   }
 
@@ -378,6 +379,10 @@ export default class AnalyseCtrl {
     this.setAutoShapes();
     if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
+    site.pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
+    });
   };
 
   private onChange: () => void = throttle(300, () => {
@@ -468,6 +473,7 @@ export default class AnalyseCtrl {
   }
 
   changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
+    this.pgnError = '';
     try {
       const data: AnalyseData = {
         ...pgnImport(pgn),
@@ -482,7 +488,8 @@ export default class AnalyseCtrl {
       }
       return data;
     } catch (err) {
-      console.log(err);
+      this.pgnError = (err as PgnError).message;
+      this.redraw();
     }
     return undefined;
   }
@@ -700,7 +707,7 @@ export default class AnalyseCtrl {
         this.configureCeval();
         this.redraw();
       },
-      search: this.practice?.getSearch(),
+      search: this.practice?.search,
     };
     if (this.ceval) this.ceval.configure(opts);
     else this.ceval = new CevalCtrl(opts);
@@ -728,7 +735,7 @@ export default class AnalyseCtrl {
     if (this.ceval?.enabled()) {
       if (this.canUseCeval()) {
         this.ceval.start(this.path, this.nodeList, this.threatMode());
-        this.evalCache.fetch(this.path, this.ceval.multiPv());
+        this.evalCache.fetch(this.path, this.ceval.search.multiPv);
       } else this.ceval.stop();
     }
   });
@@ -924,7 +931,7 @@ export default class AnalyseCtrl {
       canGet: this.canEvalGet,
       canPut: () =>
         !!(
-          this.ceval?.cacheable() &&
+          this.ceval?.isCacheable &&
           this.canEvalGet() &&
           // if not in study, only put decent opening moves
           (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
@@ -971,7 +978,7 @@ export default class AnalyseCtrl {
       });
       this.setAutoShapes();
     }
-    this.ceval?.setSearch(this.practice?.getSearch());
+    this.ceval.customSearch = this.practice?.search;
   };
 
   restartPractice() {

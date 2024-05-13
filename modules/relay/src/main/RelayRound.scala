@@ -35,10 +35,10 @@ case class RelayRound(
       sync = sync.pause
     )
 
-  def resume =
+  def resume(official: Boolean) =
     copy(
       finished = false,
-      sync = sync.play
+      sync = sync.play(official)
     )
 
   def ensureStarted     = copy(startedAt = startedAt.orElse(nowInstant.some))
@@ -75,17 +75,16 @@ object RelayRound:
       delay: Option[Seconds],          // add delay between the source and the study
       log: SyncLog
   ):
-
     def hasUpstream = upstream.isDefined
 
-    def renew =
-      if hasUpstream then copy(until = nowInstant.plusHours(1).some)
+    def renew(official: Boolean) =
+      if hasUpstream then copy(until = nowInstant.plusHours(if official then 3 else 1).some)
       else pause
 
     def ongoing = until.so(nowInstant.isBefore)
 
-    def play =
-      if hasUpstream then renew.copy(nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some))
+    def play(official: Boolean) =
+      if hasUpstream then renew(official).copy(nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some))
       else pause
 
     def pause =

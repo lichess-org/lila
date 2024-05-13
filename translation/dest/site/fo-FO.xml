@@ -693,9 +693,6 @@
   <string name="dark">Myrkt</string>
   <string name="transparent">Gjøgnumskygt</string>
   <string name="backgroundImageUrl">Bakgrundsmynd URL:</string>
-  <string name="boardGeometry">Borðgeometri</string>
-  <string name="boardTheme">Talvborðssnið</string>
-  <string name="boardSize">Borðstødd</string>
   <string name="pieceSet">Snið á talvfólki</string>
   <string name="embedInYourWebsite">Fell inn í heimasíðu tína</string>
   <string name="usernameAlreadyUsed">Hetta brúkaranavnið verður longu nýtt. Royn vinaliga eitt annað.</string>

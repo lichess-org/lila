@@ -8,6 +8,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
 import lila.common.String.html.markdownLinksOrRichText
+import lila.common.Json.given
 import lila.core.config.NetDomain
 import lila.gathering.ui.GatheringUi
 
@@ -39,7 +40,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
           )
         )
       )
-      .cssTag(
+      .css(
         if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
       )
@@ -98,7 +99,18 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
                     iconTag(Icon.Gear)
                   )
                 )
-              )
+              ),
+              Granter
+                .opt(_.GamesModView)
+                .option(
+                  frag(
+                    " ",
+                    a(
+                      href  := routes.Tournament.moderation(tour.id, "recentlyCreated"),
+                      title := "Moderation"
+                    )(iconTag(Icon.Agent))
+                  )
+                )
             )
           ),
           tour.teamBattle.map(teamBattle(tour)),
@@ -163,7 +175,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
     import trans.{ arena as tra }
 
     def page(using Context) =
-      Page(trans.site.tournamentFAQ.txt()).cssTag("page")(pageContent)
+      Page(trans.site.tournamentFAQ.txt()).css("page")(pageContent)
 
     def pageContent(using Context) =
       main(cls := "page-small box box-pad page")(
@@ -176,12 +188,12 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
         div(cls := "body")(apply())
       )
 
-    def apply(rated: Option[Boolean] = None, privateId: Option[String] = None)(using Context) =
+    def apply(rated: Option[Boolean] = None, privateId: Option[TourId] = None)(using Context) =
       frag(
         privateId.map: id =>
           frag(
             h2(trans.arena.thisIsPrivate()),
-            p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}")) // XXX
+            p(trans.arena.shareUrl(s"$netBaseUrl${routes.Tournament.show(id)}"))
           ),
         p(trans.arena.willBeNotified()),
         h2(trans.arena.isItRated()),

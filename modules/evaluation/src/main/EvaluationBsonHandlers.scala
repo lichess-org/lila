@@ -38,7 +38,7 @@ object EvaluationBsonHandlers:
       _id = r.str("_id"),
       gameId = r.get[GameId]("gameId"),
       userId = r.get[UserId]("userId"),
-      color = chess.Color.fromWhite(r.bool("white")),
+      color = Color.fromWhite(r.bool("white")),
       assessment = r.get[GameAssessment]("assessment"),
       date = r.date("date"),
       basics = PlayerAssessment.Basics(

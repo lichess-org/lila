@@ -741,9 +741,12 @@
   <string name="transparent">투명하게</string>
   <string name="deviceTheme">기기 테마</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
-  <string name="boardGeometry">보드 모양</string>
-  <string name="boardTheme">보드 테마</string>
-  <string name="boardSize">보드 크기</string>
+  <string name="board">보드</string>
+  <string name="size">크기</string>
+  <string name="opacity">투명도</string>
+  <string name="brightness">명도</string>
+  <string name="hue">색상</string>
+  <string name="boardReset">기본 색상으로 되돌리기</string>
   <string name="pieceSet">기물 세트</string>
   <string name="embedInYourWebsite">웹사이트에 공유하기</string>
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>
@@ -936,4 +939,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="showMeEverything">모두 보기</string>
   <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
+  <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
 </resources>

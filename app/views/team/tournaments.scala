@@ -5,6 +5,7 @@ import play.api.i18n.Lang
 import lila.app.mashup.TeamInfo
 import lila.app.UiEnv.{ *, given }
 
+// both arena and swiss
 object tournaments:
 
   def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using Context) =
@@ -14,7 +15,7 @@ object tournaments:
         url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
         description = shorten(t.description.value, 152)
       )
-      .cssTag("team")
+      .css("team")
       .fullScreen:
         main(
           div(cls := "box")(

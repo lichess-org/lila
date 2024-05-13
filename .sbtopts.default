@@ -1,2 +1,6 @@
--J-Xms2G
--J-Xmx4G
+-J-Xms2g
+-J-Xmx6g
+-J-Xss2m
+-J-XX:+UseG1GC
+-J-XX:InitialCodeCacheSize=512m
+-J-XX:ReservedCodeCacheSize=512m

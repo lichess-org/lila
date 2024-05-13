@@ -90,12 +90,10 @@ final class Simul(env: Env) extends LilaController(env):
 
   def setText(simulId: SimulId) = OpenBody:
     AsHost(simulId): simul =>
-      forms.setText
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest,
-          text => env.simul.api.setText(simul.id, text).inject(jsonOkResult)
-        )
+      bindForm(forms.setText)(
+        _ => BadRequest,
+        text => env.simul.api.setText(simul.id, text).inject(jsonOkResult)
+      )
 
   def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:
@@ -111,16 +109,13 @@ final class Simul(env: Env) extends LilaController(env):
       env.team.api
         .lightsByTourLeader(me)
         .flatMap: teams =>
-          forms
-            .create(teams)
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.page(views.simul.form.create(err, teams)),
-              setup =>
-                env.simul.api.create(setup, teams).map { simul =>
-                  Redirect(routes.Simul.show(simul.id))
-                }
-            )
+          bindForm(forms.create(teams))(
+            err => BadRequest.page(views.simul.form.create(err, teams)),
+            setup =>
+              env.simul.api.create(setup, teams).map { simul =>
+                Redirect(routes.Simul.show(simul.id))
+              }
+          )
   }
 
   def join(id: SimulId, variant: chess.variant.Variant.LilaKey) = Auth { ctx ?=> me ?=>
@@ -154,13 +149,10 @@ final class Simul(env: Env) extends LilaController(env):
       env.team.api
         .lightsByTourLeader(me)
         .flatMap: teams =>
-          forms
-            .edit(teams, simul)
-            .bindFromRequest()
-            .fold(
-              err => BadRequest.page(views.simul.form.edit(err, teams, simul)),
-              data => env.simul.api.update(simul, data, teams).inject(Redirect(routes.Simul.show(id)))
-            )
+          bindForm(forms.edit(teams, simul))(
+            err => BadRequest.page(views.simul.form.edit(err, teams, simul)),
+            data => env.simul.api.update(simul, data, teams).inject(Redirect(routes.Simul.show(id)))
+          )
   }
 
   def byUser(username: UserStr, page: Int) = Open:

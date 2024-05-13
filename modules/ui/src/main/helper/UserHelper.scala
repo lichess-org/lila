@@ -20,8 +20,8 @@ trait UserHelper:
 
   given Conversion[UserWithPerfs, User] = _.user
 
-  def usernameOrId(userId: UserId): String  = lightUserSync(userId).fold(userId.value)(_.name.value)
-  def titleNameOrId(userId: UserId): String = lightUserSync(userId).fold(userId.value)(_.titleName)
+  def usernameOrId(userId: UserId): UserName = lightUserSync(userId).fold(userId.into(UserName))(_.name)
+  def titleNameOrId(userId: UserId): String  = lightUserSync(userId).fold(userId.value)(_.titleName)
   def titleNameOrAnon(userId: Option[UserId]): String =
     userId.flatMap(lightUserSync).fold(UserName.anonymous.value)(_.titleName)
 
@@ -30,8 +30,9 @@ trait UserHelper:
       frag(userTitleTag(t), nbsp)
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
 
-  def userFlair(user: User): Option[Tag] = user.flair.map(userFlair)
-  def userFlair(flair: Flair): Tag       = img(cls := "uflair", src := flairSrc(flair))
+  def userFlair(user: User): Option[Tag]         = user.flair.map(userFlair)
+  def userFlair(flair: Flair): Tag               = img(cls := "uflair", src := flairSrc(flair))
+  def userFlairSync(userId: UserId): Option[Tag] = lightUserSync(userId).flatMap(_.flair).map(userFlair)
 
   def renderRating(perf: Perf): Frag = frag(" (", perf.intRating, perf.provisional.yes.option("?"), ")")
 

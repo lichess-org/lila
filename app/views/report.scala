@@ -63,13 +63,13 @@ def list(
                 r.inquiry match
                   case None =>
                     if r.done.isDefined then
-                      postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
+                      postForm(action := routes.Report.inquiry(r.id.value), cls := "reopen")(
                         submitButton(dataIcon := Icon.PlayTriangle, cls := "text button button-metal")(
                           "Reopen"
                         )
                       )
                     else
-                      postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
+                      postForm(action := routes.Report.inquiry(r.id.value), cls := "inquiry")(
                         submitButton(dataIcon := Icon.PlayTriangle, cls := "button button-metal")
                       )
                   case Some(inquiry) =>
@@ -89,7 +89,7 @@ private val scoreTag = tag("score")
 
 def layout(filter: String, scores: Room.Scores, streamers: Int, appeals: Int)(using ctx: Context) =
   Page("Reports")
-    .cssTag("mod.report")
+    .css("mod.report")
     .wrap: body =>
       main(cls := "page-menu")(
         views.mod.ui.menu("report"),
@@ -147,7 +147,7 @@ def layout(filter: String, scores: Room.Scores, streamers: Int, appeals: Int)(us
 
 def form(form: Form[?], reqUser: Option[User] = None)(using ctx: Context) =
   Page(trans.site.reportAUser.txt())
-    .cssTag("form3")
+    .css("form3")
     .js(
       embedJsUnsafeLoadThen(
         """$('#form3-reason').on('change', function() {
@@ -165,7 +165,7 @@ def form(form: Form[?], reqUser: Option[User] = None)(using ctx: Context) =
           div(cls := "form-group")(
             p(
               a(
-                href     := routes.Cms.lonePage("report-faq"),
+                href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
                 dataIcon := Icon.InfoCircle,
                 cls      := "text"
               ):

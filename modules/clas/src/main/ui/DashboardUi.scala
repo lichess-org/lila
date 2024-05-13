@@ -32,14 +32,14 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         div(cls := "clas-show__top")(
           h1(dataIcon := Icon.Group, cls := "text")(c.name),
           st.nav(cls := "dashboard-nav")(
-            a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))(trans.clas.overview()),
-            a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))(trans.clas.news()),
+            a(cls := active.active("overview"), href := routes.Clas.show(c.id))(trans.clas.overview()),
+            a(cls := active.active("wall"), href := routes.Clas.wall(c.id))(trans.clas.news()),
             a(
               cls  := active.active("progress"),
-              href := routes.Clas.progress(c.id.value, PerfKey.blitz, 7)
+              href := routes.Clas.progress(c.id, PerfKey.blitz, 7)
             )(trans.clas.progress()),
-            a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.site.edit()),
-            a(cls := active.active("students"), href := routes.Clas.students(c.id.value))(
+            a(cls := active.active("edit"), href := routes.Clas.edit(c.id))(trans.site.edit()),
+            a(cls := active.active("students"), href := routes.Clas.students(c.id))(
               trans.clas.students()
             )
           )
@@ -48,7 +48,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         c.archived.map: archived =>
           div(cls := "clas-show__archived archived")(
             ui.showArchived(archived),
-            postForm(action := routes.Clas.archive(c.id.value, v = false)):
+            postForm(action := routes.Clas.archive(c.id, v = false)):
               form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
           )
       )
@@ -61,14 +61,14 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             div(cls := "clas-wall__actions")(
               a(
                 dataIcon := Icon.Pencil,
-                href     := routes.Clas.wallEdit(c.id.value),
+                href     := routes.Clas.wallEdit(c.id),
                 cls      := "button button-clas text"
               )(
                 trans.clas.editNews()
               ),
               a(
                 dataIcon := Icon.Envelope,
-                href     := routes.Clas.notifyStudents(c.id.value),
+                href     := routes.Clas.notifyStudents(c.id),
                 cls      := "button button-clas text"
               )(
                 trans.clas.notifyAllStudents()
@@ -91,14 +91,14 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                   li(markdownAvailable)
                 )
               ),
-              postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id.value))(
+              postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id))(
                 form3.globalError(form),
                 form3.group(
                   form("wall"),
                   trans.clas.classNews()
                 )(form3.textarea(_)(rows := 20)),
                 form3.actions(
-                  a(href := routes.Clas.wall(c.id.value))(trans.site.cancel()),
+                  a(href := routes.Clas.wall(c.id))(trans.site.cancel()),
                   form3.submit(trans.site.apply())
                 )
               )
@@ -113,7 +113,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             div(cls := "clas-show__overview__manage")(
               ui.teachers(c),
               a(
-                href     := routes.Clas.studentForm(c.id.value),
+                href     := routes.Clas.studentForm(c.id),
                 cls      := "button button-clas text",
                 dataIcon := Icon.PlusButton
               )(trans.clas.addStudent())
@@ -142,7 +142,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                       td(if i.accepted.has(false) then "Declined" else "Pending"),
                       td(momentFromNow(i.created.at)),
                       td:
-                        postForm(action := routes.Clas.invitationRevoke(i._id.value)):
+                        postForm(action := routes.Clas.invitationRevoke(i.id)):
                           submitButton(cls := "button button-red button-empty")("Revoke")
                     )
             )
@@ -189,7 +189,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                       else td(dataSort := prog.millis)(lila.core.i18n.translateDuration(prog.duration)),
                       td(
                         if progress.isPuzzle then
-                          a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
+                          a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.some))(
                             trans.puzzle.puzzleDashboard()
                           )
                         else
@@ -266,10 +266,10 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             ).map { pk =>
               a(
                 cls  := progress.map(_.perfType.key.value.active(pk.value)),
-                href := routes.Clas.progress(c.id.value, pk, progress.fold(7)(_.days))
+                href := routes.Clas.progress(c.id, pk, progress.fold(7)(_.days))
               )(pk.perfTrans)
             },
-            a(cls := progress.isEmpty.option("active"), href := routes.Clas.learn(c.id.value))(
+            a(cls := progress.isEmpty.option("active"), href := routes.Clas.learn(c.id))(
               trans.site.learnMenu()
             )
           )
@@ -281,7 +281,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
                 a(
                   cls  := p.days.toString.active(days.toString),
-                  href := routes.Clas.progress(c.id.value, p.perfType.key, days)
+                  href := routes.Clas.progress(c.id, p.perfType.key, days)
                 )(days)
               }
             )
@@ -296,14 +296,14 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             br,
             trans.clas.aLinkToTheClassWillBeAdded()
           ),
-          postForm(cls := "form3", action := routes.Clas.notifyPost(c.id.value))(
+          postForm(cls := "form3", action := routes.Clas.notifyPost(c.id))(
             form3.globalError(form),
             form3.group(
               form("text"),
               frag(trans.site.message())
             )(form3.textarea(_)(rows := 3)),
             form3.actions(
-              a(href := routes.Clas.wall(c.id.value))(trans.site.cancel()),
+              a(href := routes.Clas.wall(c.id))(trans.site.cancel()),
               form3.submit(trans.site.send())
             )
           )
@@ -357,7 +357,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
       )
 
     private def studentTd(c: Clas, s: Student.WithUserLike)(using Context) = td:
-      a(href := routes.Clas.studentShow(c.id.value, s.user.username)):
+      a(href := routes.Clas.studentShow(c.id, s.user.username)):
         userSpan(
           s.user,
           name = span(s.user.username, em(s.student.realName)).some,

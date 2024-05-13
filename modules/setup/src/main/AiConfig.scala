@@ -6,7 +6,7 @@ import chess.{ ByColor, Clock }
 
 import scalalib.model.Days
 import lila.core.game.{ IdGenerator, Player, NewPlayer }
-import lila.lobby.Color
+import lila.lobby.TriColor
 import lila.rating.PerfType
 import lila.core.user.GameUser
 import lila.core.game.Source
@@ -18,7 +18,7 @@ case class AiConfig(
     increment: Clock.IncrementSeconds,
     days: Days,
     level: Int,
-    color: Color,
+    color: TriColor,
     fen: Option[Fen.Full] = None
 ) extends Config
     with Positional:
@@ -69,7 +69,7 @@ object AiConfig extends BaseConfig:
       increment = i,
       days = d,
       level = level,
-      color = Color(c).err("Invalid color " + c),
+      color = TriColor(c).err("Invalid color " + c),
       fen = fen
     )
 
@@ -80,7 +80,7 @@ object AiConfig extends BaseConfig:
     increment = Clock.IncrementSeconds(8),
     days = Days(2),
     level = 1,
-    color = Color.default
+    color = TriColor.default
   )
 
   val levels = (1 to 8).toList
@@ -102,7 +102,7 @@ object AiConfig extends BaseConfig:
         increment = r.get("i"),
         days = r.get("d"),
         level = r.int("l"),
-        color = Color.White,
+        color = TriColor.White,
         fen = r.getO[Fen.Full]("f").filter(_.value.nonEmpty)
       )
 

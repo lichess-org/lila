@@ -31,7 +31,7 @@
     <item quantity="other">%s membres</item>
   </plurals>
   <string name="inviteToTheStudy">Inviter à l\'étude</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Veuillez n\'inviter que des personnes que vous connaissez et qui souhaitent activement participer à cette étude.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Veuillez n\'inviter que des personnes qui vous connaissent et qui souhaitent activement participer à cette étude.</string>
   <string name="searchByUsername">Rechercher par nom d\'utilisateur</string>
   <string name="spectator">Spectateur</string>
   <string name="contributor">Contributeur</string>
@@ -64,7 +64,6 @@
   <string name="downloadAllGames">Télécharger toutes les parties</string>
   <string name="chapterPgn">PGN du chapitre</string>
   <string name="copyChapterPgn">Copier le fichier PGN</string>
-  <string name="copyChapterPgnDescription">Copier le fichier PGN du chapitre dans le presse-papiers.</string>
   <string name="downloadGame">Télécharger la partie</string>
   <string name="studyUrl">URL de l\'étude</string>
   <string name="currentChapterUrl">URL du chapitre actuel</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">Commentaire du chapitre épinglé</string>
   <string name="saveChapter">Enregistrer le chapitre</string>
   <string name="clearAnnotations">Effacer les annotations</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Supprimer les variantes</string>
+  <string name="clearVariations">Supprimer les variantes</string>
   <string name="deleteChapter">Supprimer le chapitre</string>
   <string name="deleteThisChapter">Supprimer ce chapitre ? Cette action est irréversible !</string>
   <string name="clearAllCommentsInThisChapter">Effacer tous les commentaires et annotations dans ce chapitre ?</string>

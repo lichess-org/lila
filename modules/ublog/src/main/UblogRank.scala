@@ -136,10 +136,7 @@ final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materialize
                 )
                 .andDo {
                   if res.nModified > 0 && v && tier >= Tier.LOW
-                  then
-                    lila.common.Bus.named.timeline(
-                      Propagate(UblogPostLike(me, id.value, title)).toFollowersOf(me)
-                    )
+                  then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
                 }
                 .inject(likes)
 

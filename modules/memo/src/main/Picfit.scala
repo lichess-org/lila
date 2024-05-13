@@ -30,7 +30,8 @@ object PicfitImage:
   given BSONDocumentHandler[PicfitImage] = Macros.handler
 
 final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, config: PicfitConfig)(using
-    Executor
+    Executor,
+    lila.core.config.RateLimit
 ):
 
   import PicfitApi.*

@@ -95,7 +95,7 @@ final class TeamInfoApi(
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
     tourApi.visibleByTeam(team.id, nbPast, nbSoon).zip(swissApi.visibleByTeam(team.id, nbPast, nbSoon)).map {
-      case (tours, swisses) =>
+      (tours, swisses) =>
         PastAndNext(
           past = {
             tours.past.map(AnyTour(_)) ::: swisses.past.map(AnyTour(_))

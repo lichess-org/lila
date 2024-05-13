@@ -25,7 +25,7 @@ case class Hook(
     boardApi: Boolean
 ):
 
-  val realColor = Color.orDefault(color)
+  val realColor: TriColor = TriColor.orDefault(color)
 
   val realVariant = Variant.orDefault(variant)
 
@@ -80,7 +80,7 @@ case class Hook(
     .add("rating" -> rating)
     .add("variant" -> realVariant.exotic.option(realVariant.key))
     .add("ra" -> realMode.rated.option(1))
-    .add("c" -> chess.Color.fromName(color).map(_.name))
+    .add("c" -> Color.fromName(color).map(_.name))
 
   def randomColor = color == "random"
 

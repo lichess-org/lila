@@ -753,9 +753,12 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="transparent">Trong suốt</string>
   <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
-  <string name="boardGeometry">Hình dáng bàn cờ</string>
-  <string name="boardTheme">Chủ đề bàn cờ</string>
-  <string name="boardSize">Kích cỡ bàn cờ</string>
+  <string name="board">Bàn cờ</string>
+  <string name="size">Kích cỡ</string>
+  <string name="opacity">Độ trong suốt</string>
+  <string name="brightness">Độ sáng</string>
+  <string name="hue">Màu gốc</string>
+  <string name="boardReset">Đặt lại màu về mặc định</string>
   <string name="pieceSet">Bộ cờ</string>
   <string name="embedInYourWebsite">Nhúng vào trang web của bạn</string>
   <string name="usernameAlreadyUsed">Tên người dùng này đã được sử dụng, hãy chọn tên khác.</string>

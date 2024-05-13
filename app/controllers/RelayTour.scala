@@ -62,7 +62,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   private def page(key: String, menu: String) = Open:
     pageHit
-    FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key(key))): p =>
+    FoundPage(env.api.cmsRender(lila.core.id.CmsPageKey(key))): p =>
       views.relay.tour.page(p.title, views.cms.render(p), menu)
 
   def form = Auth { ctx ?=> _ ?=>
@@ -73,23 +73,21 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def create = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
       def whenRateLimited = negotiate(Redirect(routes.RelayTour.index()), rateLimited)
-      env.relay.tourForm.create
-        .bindFromRequest()
-        .fold(
-          err =>
-            negotiate(
-              BadRequest.page(views.relay.form.tour.create(err)),
-              jsonFormError(err)
-            ),
-          setup =>
-            rateLimitCreation(whenRateLimited):
-              env.relay.api.tourCreate(setup).flatMap { tour =>
-                negotiate(
-                  Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
-                  JsonOk(env.relay.jsonView(tour.withRounds(Nil), withUrls = true))
-                )
-              }
-        )
+      bindForm(env.relay.tourForm.create)(
+        err =>
+          negotiate(
+            BadRequest.page(views.relay.form.tour.create(err)),
+            jsonFormError(err)
+          ),
+        setup =>
+          rateLimitCreation(whenRateLimited):
+            env.relay.api.tourCreate(setup).flatMap { tour =>
+              negotiate(
+                Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
+                JsonOk(env.relay.jsonView(tour.withRounds(Nil), withUrls = true))
+              )
+            }
+      )
   }
 
   def edit(id: RelayTourId) = Auth { ctx ?=> _ ?=>
@@ -100,22 +98,19 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def update(id: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     WithTourCanUpdate(id): tg =>
-      env.relay.tourForm
-        .edit(tg)
-        .bindFromRequest()
-        .fold(
-          err =>
+      bindForm(env.relay.tourForm.edit(tg))(
+        err =>
+          negotiate(
+            BadRequest.page(views.relay.form.tour.edit(tg, err)),
+            jsonFormError(err)
+          ),
+        setup =>
+          env.relay.api.tourUpdate(tg.tour, setup) >>
             negotiate(
-              BadRequest.page(views.relay.form.tour.edit(tg, err)),
-              jsonFormError(err)
-            ),
-          setup =>
-            env.relay.api.tourUpdate(tg.tour, setup) >>
-              negotiate(
-                Redirect(routes.RelayTour.show(tg.tour.slug, tg.tour.id)),
-                jsonOkResult
-              )
-        )
+              Redirect(routes.RelayTour.show(tg.tour.slug, tg.tour.id)),
+              jsonOkResult
+            )
+      )
   }
 
   def delete(id: RelayTourId) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
@@ -123,18 +118,11 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.api.deleteTourIfOwner(tour).inject(Redirect(routes.RelayTour.by(me.username)).flashSuccess)
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[IpAddress](
-    key = "relay.image.ip"
-  )(
-    ("fast", 10, 2.minutes),
-    ("slow", 60, 1.day)
-  )
-
   def image(id: RelayTourId, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     WithTourCanUpdate(id): tg =>
       ctx.body.body.file("image") match
         case Some(image) =>
-          ImageRateLimitPerIp(ctx.ip, rateLimited):
+          limit.imageUpload(ctx.ip, rateLimited):
             (env.relay.api.image.upload(me, tg.tour, image, tag) >> {
               Ok
             }).recover { case e: Exception =>
@@ -210,18 +198,6 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         .elseNotFound:
           env.relay.api.withTours.addTo(tour).flatMap(f)
 
-  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 10 * 10,
-    duration = 24.hour,
-    key = "broadcast.tournament.user"
-  )
-
-  private val CreateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 10 * 10,
-    duration = 24.hour,
-    key = "broadcast.tournament.ip"
-  )
-
   private[controllers] def rateLimitCreation(
       fail: => Fu[Result]
   )(create: => Fu[Result])(using req: RequestHeader, me: Me): Fu[Result] =
@@ -230,6 +206,4 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me, fail, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail, cost = cost):
-        create
+    limit.relayTour(me.userId -> req.ipAddress, fail, cost = cost)(create)

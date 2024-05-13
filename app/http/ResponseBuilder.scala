@@ -68,15 +68,20 @@ trait ResponseBuilder(using Executor)
     then json.dmap(_.withHeaders(VARY -> "Accept").as(JSON))
     else html.dmap(_.withHeaders(VARY -> "Accept"))
 
-  def negotiateJson(result: => Fu[Result])(using Context) = negotiate(notFound, result)
+  def negotiateJson(result: => Fu[Result])(using Context) =
+    negotiate(
+      notFound("This endpoint only returns JSON, add the header `Accept: application/json`".some),
+      result
+    )
 
-  def notFound(using ctx: Context): Fu[Result] =
+  def notFound(using ctx: Context): Fu[Result] = notFound(none)
+  def notFound(msg: Option[String])(using ctx: Context): Fu[Result] =
     negotiate(
       html =
         if HTTPRequest.isSynchronousHttp(ctx.req)
-        then keyPages.notFound
-        else notFoundText(),
-      json = notFoundJson()
+        then keyPages.notFound(msg)
+        else msg.fold(notFoundText())(notFoundText),
+      json = msg.fold(notFoundJson())(notFoundJson)
     )
 
   def authenticationFailed(using ctx: Context): Fu[Result] =

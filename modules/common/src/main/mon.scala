@@ -5,6 +5,7 @@ import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 
 import lila.core.net.*
+import lila.core.id.*
 
 object mon:
 
@@ -341,6 +342,10 @@ object mon:
         counter("security.login.attempt").withTags:
           tags("by" -> (if byEmail then "email" else "name"), "stuffing" -> stuffing, "result" -> result)
       def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
+    def secretScanning(tokenType: String, source: String, hit: Boolean) =
+      counter("security.githubSecretScanning.hit").withTags(
+        tags("type" -> tokenType, "source" -> source, "hit" -> hit)
+      )
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:
@@ -445,8 +450,8 @@ object mon:
     def post(verdict: String, isNew: Boolean, multi: Boolean) = counter("msg.post").withTags(
       tags("verdict" -> verdict, "isNew" -> isNew, "multi" -> multi)
     )
-    def teamBulk(teamId: String) = histogram("msg.bulk.team").withTag("id", teamId)
-    def clasBulk(clasId: String) = histogram("msg.bulk.clas").withTag("id", clasId)
+    def teamBulk(teamId: TeamId) = histogram("msg.bulk.team").withTag("id", teamId.value)
+    def clasBulk(clasId: ClasId) = histogram("msg.bulk.clas").withTag("id", clasId.value)
   object puzzle:
     object selector:
       object user:

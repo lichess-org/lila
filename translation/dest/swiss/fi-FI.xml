@@ -39,6 +39,14 @@
   <string name="roundInterval">Kierrosten välinen aika</string>
   <string name="forbiddenPairings">Kielletyt parit</string>
   <string name="forbiddenPairingsHelp">Määritä pelaajat, joiden ei tule pelata toisiaan vastaan (esim. sisarukset). Kirjoita kullekin riville kaksi käyttäjätunnusta välilyönnillä erotettuna.</string>
+  <string name="manualPairings">Peliparien määritys käsin seuraavalla kierroksella</string>
+  <string name="manualPairingsHelp">Määritä seuraavan kierroksen kaikki peliparit käsin. Yksi pelipari riviä kohti. Esimerkki:
+PelaajaA PelaajaB
+PelaajaC PelaajaD
+Voit antaa (1 pisteen arvoisen) huilivuoron pelaajalle lisää seuraavanlaisen rivin:
+PelaajaE 1
+Puuttuvat pelaajat katsotaan poissaoleviksi, ja he saavat nolla pistettä.
+Jätä tämä kenttä tyhjäksi, jos haluat Lichessin määrittävän peliparit automaattisesti.</string>
   <string name="mustHavePlayedTheirLastSwissGame">Viimeisin sveitsiläisturnauspeli täytyy olla pelattu</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">Anna vain niiden pelaajien liittyä, jotka pelasivat edellisen pelinsä sveitsiläisessä turnauksessa. Jos he eivät tulleet pelaamaan edeltävään sveitsiläiseen turnaukseen, he eivät myöskään pysty liittymään sinun turnaukseesi. Tällä tavoin sveitsiläisten turnausten pelikokemus on parempi niille pelaajille, jotka ilmoittauduttuaan myös tulevat pelaamaan.</string>
   <string name="newSwiss">Uusi sveitsiläinen turnaus</string>
@@ -116,6 +124,7 @@ Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauk
   <string name="predefinedUsers">Vain ennalta valitut pelaajat saavat osallistua</string>
   <string name="forbiddedUsers">Jos lista ei ole tyhjä, turnaukseen ei voi osallistua kukaan muu kuin listalla luetellut pelaajat. Yksi käyttäjätunnus riviä kohden.</string>
   <string name="playYourGames">Pelaa enemmän pelejä</string>
+  <string name="byes">Huilivuorot</string>
   <string name="absences">Poisjäännit</string>
   <string name="tieBreak">Vertailu</string>
 </resources>

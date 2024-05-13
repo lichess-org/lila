@@ -2,7 +2,6 @@ package lila.challenge
 package ui
 
 import play.api.libs.json.{ JsObject, Json }
-import chess.Color
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
@@ -20,20 +19,20 @@ final class ChallengeUi(helpers: Helpers):
     Page(title)
       .graph(
         title = title,
-        url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",
+        url = s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white).url}",
         description = "Join the challenge or watch the game here."
       )
       .js(
         PageModule(
           "bits.challengePage",
           Json.obj(
-            "xhrUrl" -> routes.Challenge.show(c.id, color.map(_.name)).url,
+            "xhrUrl" -> routes.Challenge.show(c.id, color).url,
             "owner"  -> owner,
             "data"   -> json
           )
         )
       )
-      .cssTag("challenge.page")
+      .css("challenge.page")
 
   private def challengeTitle(c: Challenge)(using ctx: Context) =
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
@@ -49,7 +48,7 @@ final class ChallengeUi(helpers: Helpers):
           s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings.so(s" (${dest.rating.show})")}"
     s"$speed$variant ${c.mode.name} Chess • $players"
 
-  private def details(c: Challenge, requestedColor: Option[chess.Color])(using ctx: Context) =
+  private def details(c: Challenge, requestedColor: Option[Color])(using ctx: Context) =
     div(cls := "details")(
       div(
         cls      := "variant",
@@ -86,7 +85,7 @@ final class ChallengeUi(helpers: Helpers):
         submitButton(cls := "button button-red text", dataIcon := Icon.X)(trans.site.cancel())
 
     page(c, json, owner = true):
-      val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
+      val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white)}"
       main(cls := s"page-small challenge-page box box-pad challenge--${c.status.name}")(
         c.status match
           case Status.Created | Status.Offline =>
@@ -117,22 +116,8 @@ final class ChallengeUi(helpers: Helpers):
                       div(
                         h2(cls := "ninja-title", trans.site.toInviteSomeoneToPlayGiveThisUrl()),
                         br,
-                        p(cls := "challenge-id-form")(
-                          input(
-                            id         := "challenge-id",
-                            cls        := "copyable autoselect",
-                            spellcheck := "false",
-                            readonly,
-                            value := challengeLink,
-                            size  := challengeLink.length
-                          ),
-                          button(
-                            title    := "Copy URL",
-                            cls      := "copy button",
-                            dataRel  := "challenge-id",
-                            dataIcon := Icon.Link
-                          )
-                        ),
+                        copyMeInput(challengeLink),
+                        br,
                         p(trans.site.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                       ),
                       ctx.isAuth.option(
@@ -189,7 +174,11 @@ final class ChallengeUi(helpers: Helpers):
             div(cls := "follow-up")(
               h1(cls := "box__top")(trans.challenge.challengeAccepted()),
               details(c, color),
-              a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat"):
+              a(
+                id   := "challenge-redirect",
+                href := routes.Round.watcher(c.gameId, Color.white),
+                cls  := "button button-fat"
+              ):
                 trans.site.joinTheGame()
             )
           case Status.Canceled =>
@@ -200,7 +189,7 @@ final class ChallengeUi(helpers: Helpers):
             )
       )
 
-  def theirs(c: Challenge, json: JsObject, user: Option[WithPerf], color: Option[chess.Color])(using
+  def theirs(c: Challenge, json: JsObject, user: Option[WithPerf], color: Option[Color])(using
       ctx: Context
   ) =
     page(c, json, owner = false, color):
@@ -236,7 +225,7 @@ final class ChallengeUi(helpers: Helpers):
                 frag(
                   (c.mode.rated && c.unlimited)
                     .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
-                  postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
+                  postForm(cls := "accept", action := routes.Challenge.accept(c.id, color))(
                     submitButton(cls := "text button button-fat", dataIcon := Icon.PlayTriangle)(
                       trans.site.joinTheGame()
                     )
@@ -249,7 +238,7 @@ final class ChallengeUi(helpers: Helpers):
                     p(trans.site.thisGameIsRated()),
                     a(
                       cls  := "button",
-                      href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
+                      href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.gameId, Color.white)}"
                     )(trans.site.signIn())
                   )
                 )
@@ -266,7 +255,7 @@ final class ChallengeUi(helpers: Helpers):
               details(c, color),
               a(
                 id   := "challenge-redirect",
-                href := routes.Round.watcher(c.id, "white"),
+                href := routes.Round.watcher(c.gameId, Color.white),
                 cls  := "button button-fat"
               )(
                 trans.site.joinTheGame()

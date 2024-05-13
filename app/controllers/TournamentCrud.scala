@@ -21,13 +21,10 @@ final class TournamentCrud(env: Env) extends LilaController(env):
 
   def update(id: TourId) = SecureBody(_.ManageTournament) { ctx ?=> _ ?=>
     Found(crud.one(id)): tour =>
-      crud
-        .editForm(tour)
-        .bindFromRequest()
-        .fold(
-          err => BadRequest.page(crudView.edit(tour, err)),
-          data => crud.update(tour, data).inject(Redirect(routes.TournamentCrud.edit(id)).flashSuccess)
-        )
+      bindForm(crud.editForm(tour))(
+        err => BadRequest.page(crudView.edit(tour, err)),
+        data => crud.update(tour, data).inject(Redirect(routes.TournamentCrud.edit(id)).flashSuccess)
+      )
   }
 
   def form = Secure(_.ManageTournament) { ctx ?=> _ ?=>
@@ -35,18 +32,16 @@ final class TournamentCrud(env: Env) extends LilaController(env):
   }
 
   def create = SecureBody(_.ManageTournament) { ctx ?=> me ?=>
-    crud.createForm
-      .bindFromRequest()
-      .fold(
-        err => BadRequest.page(crudView.create(err)),
-        data =>
-          crud.create(data).map { tour =>
-            Redirect {
-              if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
-              else routes.TournamentCrud.edit(tour.id)
-            }.flashSuccess
-          }
-      )
+    bindForm(crud.createForm)(
+      err => BadRequest.page(crudView.create(err)),
+      data =>
+        crud.create(data).map { tour =>
+          Redirect {
+            if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
+            else routes.TournamentCrud.edit(tour.id)
+          }.flashSuccess
+        }
+    )
   }
 
   def cloneT(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ ?=>

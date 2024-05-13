@@ -46,8 +46,6 @@ case class ForumCateg(
       lastPostIdTroll = lastPostIdTroll
     )
 
-  def slug = id
-
 object ForumCateg:
 
   export lila.core.forum.ForumCateg.*

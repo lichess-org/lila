@@ -186,7 +186,7 @@ final class GameApiV2(
         config.format match
           case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis, teams, none)
           case Format.JSON =>
-            def addBerserk(color: chess.Color)(json: JsObject) =
+            def addBerserk(color: Color)(json: JsObject) =
               if pairing.berserkOf(color) then
                 json.deepMerge(
                   Json.obj(
@@ -368,7 +368,7 @@ object GameApiV2:
       rated: Option[Boolean] = None,
       perfKey: Set[PerfKey],
       analysed: Option[Boolean] = None,
-      color: Option[chess.Color],
+      color: Option[Color],
       flags: WithFlags,
       sort: GameSort,
       perSecond: MaxPerSecond,

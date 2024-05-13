@@ -9,6 +9,7 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, config }
 import lila.i18n.LangPicker
+import lila.core.i18n.Language
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.core.perm.Permission
 import lila.core.perf.UserWithPerfs
@@ -27,9 +28,6 @@ abstract private[controllers] class LilaController(val env: Env)
     with http.RequestContext(using env.executor)
     with lila.web.CtrlErrors:
 
-  export lila.ui.ReverseRouterConversions.given
-  export _root_.router.ReverseRouterConversions.given
-
   def controllerComponents                           = env.controllerComponents
   given Executor                                     = env.executor
   given Scheduler                                    = env.scheduler
@@ -40,8 +38,6 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using codec: Codec, pc: PageContext): Writeable[Page] =
     Writeable(page => codec.encode(views.base.page(page).html))
 
-  // given (using PageContext): Conversion[Page, Frag]     = views.base.page(_)
-  // given (using PageContext): Conversion[Page, Fu[Frag]] = page => fuccess(views.base.page(page))
   given Conversion[Page, Fu[Page]]       = fuccess(_)
   given Conversion[Snippet, Fu[Snippet]] = fuccess(_)
 
@@ -49,6 +45,8 @@ abstract private[controllers] class LilaController(val env: Env)
 
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
+
+  val limit = new lila.web.Limiters(using env.executor, env.net.rateLimit)
 
   /* Anonymous requests */
   def Anon(f: Context ?=> Fu[Result]): EssentialAction =
@@ -306,12 +304,10 @@ abstract private[controllers] class LilaController(val env: Env)
   def FormFuResult[A, B: Writeable](
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using Request[?]): Fu[Result] =
-    form
-      .bindFromRequest()
-      .fold(
-        form => err(form).dmap { BadRequest(_) },
-        op
-      )
+    bindForm(form)(
+      form => err(form).dmap { BadRequest(_) },
+      op
+    )
 
   def HeadLastModifiedAt(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
     if req.method == "HEAD" then NoContent.withDateHeaders(lastModified(updatedAt))
@@ -320,14 +316,14 @@ abstract private[controllers] class LilaController(val env: Env)
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment()
 
-  def LangPage(call: Call)(f: Context ?=> Fu[Result])(langCode: String): EssentialAction =
-    LangPage(call.url)(f)(langCode)
-  def LangPage(path: String)(f: Context ?=> Fu[Result])(langCode: String): EssentialAction = Open:
+  def LangPage(call: Call)(f: Context ?=> Fu[Result])(language: Language): EssentialAction =
+    LangPage(call.url)(f)(language)
+  def LangPage(path: String)(f: Context ?=> Fu[Result])(language: Language): EssentialAction = Open:
     if ctx.isAuth
     then redirectWithQueryString(path)
     else
       import LangPicker.ByHref
-      LangPicker.byHref(langCode, ctx.req) match
+      LangPicker.byHref(language, ctx.req) match
         case ByHref.NotFound => notFound(using ctx)
         case ByHref.Redir(code) =>
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
@@ -354,3 +350,6 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   def anyCaptcha = env.game.captcha.any
+
+  def bindForm[T, R](form: Form[T])(error: Form[T] => R, success: T => R)(using Request[?], FormBinding): R =
+    form.bindFromRequest().fold(error, success)

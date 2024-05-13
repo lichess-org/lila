@@ -10,7 +10,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
 
   def index(categs: List[CategView])(using Context) =
     Page(trans.site.forum.txt())
-      .cssTag("forum")
+      .css("forum")
       .csp(_.withInlineIconFont)
       .graph(
         title = "Lichess community forum",
@@ -42,7 +42,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
 
     val newTopicButton = canWrite.option(
       a(
-        href     := routes.ForumTopic.form(categ.slug),
+        href     := routes.ForumTopic.form(categ.id),
         cls      := "button button-empty button-green text",
         dataIcon := Icon.Pencil
       ):
@@ -52,13 +52,13 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
     def showTopic(sticky: Boolean)(topic: TopicView) =
       tr(cls := List("sticky" -> sticky))(
         td(cls := "subject")(
-          a(href := routes.ForumTopic.show(categ.slug, topic.slug))(topic.name)
+          a(href := routes.ForumTopic.show(categ.id, topic.slug))(topic.name)
         ),
         td(cls := "right")(topic.nbReplies.localize),
         td(
           topic.lastPost.map: post =>
             frag(
-              a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, topic.lastPage)}#${post.number}")(
+              a(href := s"${routes.ForumTopic.show(categ.id, topic.slug, topic.lastPage)}#${post.number}")(
                 momentFromNow(post.createdAt)
               ),
               br,
@@ -68,12 +68,12 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
       )
 
     Page(categ.name)
-      .cssTag("forum")
+      .css("forum")
       .csp(_.withInlineIconFont)
       .js(infiniteScrollEsmInit)
       .graph(
         title = s"Forum: ${categ.name}",
-        url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
+        url = s"$netBaseUrl${routes.ForumCateg.show(categ.id).url}",
         description = categ.desc
       ):
         main(cls := "forum forum-categ box")(
@@ -100,7 +100,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
             tbody(cls := "infinite-scroll")(
               stickyPosts.map(showTopic(sticky = true)),
               topics.currentPageResults.map(showTopic(sticky = false)),
-              pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
+              pagerNextTable(topics, n => routes.ForumCateg.show(categ.id, n).url)
             )
           )
         )

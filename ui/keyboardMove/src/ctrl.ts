@@ -1,4 +1,5 @@
 import * as cg from 'chessground/types';
+import { SanToUci } from 'chess';
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
@@ -24,6 +25,7 @@ export interface KeyboardMove {
   hasSelected(): cg.Key | undefined;
   confirmMove(): void;
   usedSan: boolean;
+  legalSans: SanToUci | null;
   arrowNavigate(arrowKey: ArrowKey): void;
   justSelected(): boolean;
   draw(): void;
@@ -128,6 +130,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     hasSelected: () => cg.state.selected,
     confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
     usedSan,
+    legalSans: null,
     arrowNavigate(arrowKey: ArrowKey) {
       if (root.handleArrowKey) {
         root.handleArrowKey?.(arrowKey);

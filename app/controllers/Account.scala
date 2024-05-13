@@ -29,29 +29,27 @@ final class Account(
   }
 
   def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
-    env.user.forms.profile
-      .bindFromRequest()
-      .fold(
-        err =>
-          negotiate(
-            BadRequest.page(pages.profile(me, err)),
-            jsonFormError(err)
-          ),
-        profile =>
-          for
-            _ <- profile.bio
-              .exists(env.security.spam.detect)
-              .option("profile.bio" -> ~profile.bio)
-              .orElse:
-                profile.links.exists(env.security.spam.detect).option("profile.links" -> ~profile.links)
-              .so: (resource, text) =>
-                env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
-            _ <- env.user.repo.setProfile(me, profile)
-            _ <- env.user.forms.flair.bindFromRequest().fold(_ => funit, env.user.repo.setFlair(me, _))
-          yield
-            env.user.lightUserApi.invalidate(me)
-            Redirect(routes.User.show(me.username)).flashSuccess
-      )
+    bindForm(env.user.forms.profile)(
+      err =>
+        negotiate(
+          BadRequest.page(pages.profile(me, err)),
+          jsonFormError(err)
+        ),
+      profile =>
+        for
+          _ <- profile.bio
+            .exists(env.security.spam.detect)
+            .option("profile.bio" -> ~profile.bio)
+            .orElse:
+              profile.links.exists(env.security.spam.detect).option("profile.links" -> ~profile.links)
+            .so: (resource, text) =>
+              env.report.api.autoCommFlag(lila.report.Suspect(me).id, resource, text)
+          _ <- env.user.repo.setProfile(me, profile)
+          _ <- bindForm(env.user.forms.flair)(_ => funit, env.user.repo.setFlair(me, _))
+        yield
+          env.user.lightUserApi.invalidate(me)
+          Redirect(routes.User.show(me.username)).flashSuccess
+    )
   }
 
   def usernameApply = AuthBody { _ ?=> me ?=>
@@ -92,14 +90,13 @@ final class Account(
   }
 
   val apiMe =
-    val rateLimit = lila.memo.RateLimit[UserId](30, 5.minutes, "api.account.user")
     Scoped() { ctx ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
       val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
       if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
       else
-        rateLimit(me, limited):
+        limit.apiMe(me, limited):
           env.api.userApi
             .extended(
               me.value,
@@ -205,14 +202,12 @@ final class Account(
       case None if get("username").isEmpty =>
         Ok.page(views.account.security.emailConfirmHelp(helpForm, none))
       case None =>
-        helpForm
-          .bindFromRequest()
-          .fold(
-            err => BadRequest.page(views.account.security.emailConfirmHelp(err, none)),
-            username =>
-              getStatus(env.user.api, env.user.repo, username).flatMap: status =>
-                Ok.page(views.account.security.emailConfirmHelp(helpForm.fill(username), status.some))
-          )
+        bindForm(helpForm)(
+          err => BadRequest.page(views.account.security.emailConfirmHelp(err, none)),
+          username =>
+            getStatus(env.user.api, env.user.repo, username).flatMap: status =>
+              Ok.page(views.account.security.emailConfirmHelp(helpForm.fill(username), status.some))
+        )
 
   def twoFactor = Auth { _ ?=> me ?=>
     if me.totpSecret.isDefined
@@ -277,21 +272,19 @@ final class Account(
   def kidPost = AuthBody { ctx ?=> me ?=>
     NotManaged:
       env.security.forms.toggleKid.flatMap: form =>
-        form
-          .bindFromRequest()
-          .fold(
-            err =>
+        bindForm(form)(
+          err =>
+            negotiate(
+              BadRequest.page(pages.kid(me, err, managed = false)),
+              BadRequest(errorsAsJson(err))
+            ),
+          _ =>
+            env.user.repo.setKid(me, getBool("v")) >>
               negotiate(
-                BadRequest.page(pages.kid(me, err, managed = false)),
-                BadRequest(errorsAsJson(err))
-              ),
-            _ =>
-              env.user.repo.setKid(me, getBool("v")) >>
-                negotiate(
-                  Redirect(routes.Account.kid).flashSuccess,
-                  jsonOkResult
-                )
-          )
+                Redirect(routes.Account.kid).flashSuccess,
+                jsonOkResult
+              )
+        )
   }
 
   def apiKidPost = Scoped(_.Preference.Write) { ctx ?=> me ?=>

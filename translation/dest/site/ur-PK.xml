@@ -668,9 +668,6 @@
   <string name="dark">ڈارک</string>
   <string name="transparent">شفاف</string>
   <string name="backgroundImageUrl">پس منظر کی تصویر URL:</string>
-  <string name="boardGeometry">بساط کی جیومیٹری</string>
-  <string name="boardTheme">بساط کا ڈیزائن</string>
-  <string name="boardSize">بساط کی جسامت</string>
   <string name="pieceSet">مہروں کا ڈیزائن</string>
   <string name="embedInYourWebsite">اپنی ویب سائٹ پرایمبیڈ کریں</string>
   <string name="usernameAlreadyUsed">یہ نام پہلے سے استعمال شدہ ہے، کوئی اور استعمال کریں.</string>

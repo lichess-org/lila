@@ -31,10 +31,8 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   failed: Error;
   protocol: Protocol;
   loaded = () => {};
-  isLoaded = new Promise<void>(resolve => {
-    this.loaded = resolve;
-  });
-  moduleProxy?: { postMessage: (msg: string) => void; listen: (cb: (msg: string) => void) => void };
+  load = new Promise<void>(resolve => (this.loaded = resolve));
+  moduleProxy?: { uci: (msg: string) => void; listen: (cb: (msg: string) => void) => void };
 
   constructor(
     readonly info: BrowserEngineInfo,
@@ -48,9 +46,6 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
 
   get module() {
     return this.moduleProxy;
-  }
-  load(): Promise<void> {
-    return this.isLoaded;
   }
 
   onError = (err: Error) => {
@@ -132,7 +127,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
     } else {
       let oldListener: (msg: string) => void;
       this.moduleProxy = {
-        postMessage: (msg: string) => sf.postMessage(msg),
+        uci: (msg: string) => sf.postMessage(msg),
         listen: (cb: (msg: string) => void) => {
           if (oldListener) sf.removeMessageListener(oldListener);
           sf.addMessageListener((oldListener = cb));
@@ -152,7 +147,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
   }
 
   destroy() {
-    this.module?.postMessage('quit');
+    this.moduleProxy?.uci('quit');
     this.moduleProxy = undefined;
   }
 }

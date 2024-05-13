@@ -1,7 +1,5 @@
 package lila.forum
 
-import scala.util.chaining.*
-
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
@@ -60,12 +58,17 @@ final class ForumPostApi(
             if anonMod
             then logAnonPost(post, edit = false)
             else if !post.troll && !categ.quiet then
-              lila.common.Bus.named.timeline(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
-                _.toFollowersOf(me).toUsers(topicUserIds).exceptUser(me).withTeam(categ.team)
-              })
+              lila.common.Bus.pub:
+                Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toFollowersOf(me)
+                  .toUsers(topicUserIds)
+                  .exceptUser(me)
+                  .withTeam(categ.team)
             else if categ.id == ForumCateg.diagnosticId then
-              lila.common.Bus.named
-                .timeline(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
+              lila.common.Bus.pub:
+                Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toUsers(topicUserIds)
+                  .exceptUser(me)
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.pub(BusForum.CreatePost(post.mini))
@@ -108,7 +111,7 @@ final class ForumPostApi(
     postRepo.coll.byId[ForumPost](postId)
 
   def react(
-      categSlug: String,
+      categId: ForumCategId,
       postId: ForumPostId,
       reactionStr: String,
       v: Boolean
@@ -117,7 +120,7 @@ final class ForumPostApi(
       if v then lila.mon.forum.reaction(reaction.key).increment()
       postRepo.coll
         .findAndUpdateSimplified[ForumPost](
-          selector = $id(postId) ++ $doc("categId" -> categSlug, "userId".$ne(me.userId)),
+          selector = $id(postId) ++ $doc("categId" -> categId, "userId".$ne(me.userId)),
           update =
             if v then $addToSet(s"reactions.$reaction" -> me.userId)
             else $pull(s"reactions.$reaction"          -> me.userId),
@@ -126,7 +129,7 @@ final class ForumPostApi(
         .andDo:
           if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
             scheduler.scheduleOnce(5 minutes):
-              react(categSlug, postId, reaction.key, false)
+              react(categId, postId, reaction.key, false)
     }
 
   def views(posts: List[ForumPost]): Fu[List[PostView]] =

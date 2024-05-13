@@ -13,6 +13,8 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
   import helpers.{ given, * }
   import trans.{ faq as trf }
 
+  private def cmsPageUrl(key: String) = routes.Cms.lonePage(lila.core.id.CmsPageKey(key))
+
   private def question(id: String, title: String, answer: Frag*) =
     div(
       st.id := id,
@@ -28,7 +30,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
         title = "Frequently Asked Questions",
         active = "faq"
       )
-      .cssTag("faq"):
+      .css("faq"):
         div(cls := "faq box box-pad")(
           h1(cls := "box__top")(trf.frequentlyAskedQuestions()),
           h2("Lichess"),
@@ -116,7 +118,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.youCanUseOpeningBookNoEngine()
             ),
             p(
-              trf.pleaseReadFairPlayPage(a(href := routes.Cms.lonePage("fair-play"))(trf.fairPlayPage()))
+              trf.pleaseReadFairPlayPage(a(href := cmsPageUrl("fair-play"))(trf.fairPlayPage()))
             )
           ),
           h2(trf.gameplay()),
@@ -279,7 +281,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.ratingSystemUsedByLichess()
             ),
             p(
-              a(href := routes.Cms.lonePage("rating-systems"))("More about rating systems")
+              a(href := cmsPageUrl("rating-systems"))("More about rating systems")
             )
           ),
           question(
@@ -330,7 +332,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               trf.whyAreRatingHigherExplanation()
             ),
             p(
-              a(href := routes.Cms.lonePage("rating-systems"))("More about rating systems")
+              a(href := cmsPageUrl("rating-systems"))("More about rating systems")
             )
           ),
           question(
@@ -388,6 +390,22 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
                 "this blog post"
               ),
               "."
+            )
+          ),
+          question(
+            "stop-chess-addiction",
+            trf.stopMyselfFromPlaying.txt(),
+            p(
+              trf.adviceOnMitigatingAddiction(
+                a(href := "https://getcoldturkey.com")("ColdTurkey"),
+                a(href := "https://freedom.to")("Freedom"),
+                a(href := "https://www.proginosko.com/leechblock")("LeechBlock"),
+                a(href := "https://lichess.org/page/userstyles")(trf.lichessUserstyles()),
+                a(href := "https://github.com/ornicar/userstyles/blob/master/lichess.fewer-pools.user.css")(
+                  trf.fewerLobbyPools()
+                ),
+                a(href := "https://icd.who.int/browse/2024-01/mms/en#1448597234")(trf.mentalHealthCondition())
+              )
             )
           )
         )

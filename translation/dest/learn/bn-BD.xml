@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">দাবা দক্ষতা অর্জন করুন</string>
+  <string name="learnChess">দাবা খেলা শিখুন</string>
   <string name="byPlaying">খেলার দ্বারা!</string>
   <string name="menu">মেনু</string>
   <string name="progressX">অগ্রগতি: %s</string>
-  <string name="resetMyProgress">আমার অগ্রগতি পুনারয় বসান</string>
+  <string name="resetMyProgress">আমার অগ্রগতি রিসেট হোক</string>
   <string name="youWillLoseAllYourProgress">আপনি আপনার সকল অগ্রগতি হারাবেন!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">খেলুন!</string>
   <string name="chessPieces">দাবার টুকরা</string>
-  <string name="theRook">দাবার নৌকা</string>
+  <string name="theRook">নৌকা</string>
   <string name="itMovesInStraightLines">এটা সোজা রেখা গুলোতে সরান</string>
   <string name="rookIntro">দাবার নৌকা হয় একটি শক্তিশালী টুকরা. এটাকে নির্দেশ দিতে আপনি কি প্রস্তুত?</string>
   <string name="rookGoal">তারায় নিয়ে আসতে নৌকায় ক্লিক করুন!</string>

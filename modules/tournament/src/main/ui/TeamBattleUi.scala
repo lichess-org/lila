@@ -14,7 +14,7 @@ final class TeamBattleUi(helpers: Helpers):
 
   def edit(tour: Tournament, form: Form[?])(using Context) =
     Page(tour.name())
-      .cssTag("tournament.form")
+      .css("tournament.form")
       .js(EsmInit("bits.teamBattleForm")):
         main(cls := "page-small")(
           div(cls := "tour__form box box-pad")(
@@ -45,7 +45,7 @@ final class TeamBattleUi(helpers: Helpers):
 
   def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(using Context) =
     Page(tour.name())
-      .cssTag("tournament.show.team-battle"):
+      .css("tournament.show.team-battle"):
         main(cls := "box")(
           h1(cls := "box__top")(a(href := routes.Tournament.show(tour.id))(tour.name())),
           table(cls := "slist slist-pad tour__team-standing tour__team-standing--full")(
@@ -72,7 +72,7 @@ final class TeamBattleUi(helpers: Helpers):
 
   def teamInfo(tour: Tournament, team: LightTeam, info: TeamBattle.TeamInfo)(using ctx: Context) =
     Page(s"${tour.name()} • ${team.name}")
-      .cssTag("tournament.show.team-battle"):
+      .css("tournament.show.team-battle"):
         main(cls := "box")(
           boxTop(
             h1(

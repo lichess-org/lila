@@ -10,6 +10,7 @@ import lila.core.team.LightTeam
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.ui.GatheringUi
 import lila.common.String.html.markdownLinksOrRichText
+import lila.common.Json.given
 import lila.core.config.NetDomain
 
 final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)(using NetDomain):
@@ -44,8 +45,8 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
             .add("schedule" -> hasScheduleInput)
         )
       )
-      .cssTag("swiss.show")
-      .cssTag(hasScheduleInput.option("flatpickr"))
+      .css("swiss.show")
+      .css(hasScheduleInput.option("flatpickr"))
       .graph(
         OpenGraph(
           title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
@@ -68,7 +69,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
       Context
   ) =
     Page(s"${fullName(s, team)} • Round $r/${s.round}")
-      .cssTag("swiss.show"):
+      .css("swiss.show"):
         val pager = pagination(p => routes.Swiss.round(s.id, p).url, r.value, s.round.value, showPost = true)
         main(cls := "box swiss__round")(
           boxTop(
@@ -81,7 +82,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
           table(cls := "slist slist-pad")(
             pairings.currentPageResults.map: p =>
               tr(cls := "paginated")(
-                td(a(href := routes.Round.watcher(p.gameId, "white"), cls := "glpt")(s"#${p.gameId}")),
+                td(a(href := routes.Round.watcher(p.gameId, Color.white), cls := "glpt")(s"#${p.gameId}")),
                 td(userIdLink(p.white.some)),
                 td(p.strResultOf(chess.White)),
                 td(p.strResultOf(chess.Black)),

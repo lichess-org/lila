@@ -72,7 +72,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                             cls := "mod report button button-empty",
                             href := addQueryParams(
                               routes.Report.form.url,
-                              Map("username" -> userId, "postUrl" -> postUrl, "reason" -> "comm")
+                              Map("username" -> userId.value, "postUrl" -> postUrl, "reason" -> "comm")
                             ),
                             dataIcon := Icon.CautionTriangle
                           )
@@ -161,7 +161,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
   def search(text: String, pager: Paginator[PostView.WithReadPerm])(using Context) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     Page(title)
-      .cssTag("forum")
+      .css("forum")
       .js(infiniteScrollEsmInit):
         main(cls := "box search")(
           boxTop(

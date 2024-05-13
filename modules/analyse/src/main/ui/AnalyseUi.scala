@@ -16,11 +16,11 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
       withForecast: Boolean = false
   )(using ctx: Context) =
     Page(trans.site.analysis.txt())
-      .cssTag("analyse.free")
-      .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))
-      .cssTag(withForecast.option("analyse.forecast"))
-      .cssTag(ctx.blind.option("round.nvui"))
-      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .css("analyse.free")
+      .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
+      .css(withForecast.option("analyse.forecast"))
+      .css(ctx.blind.option("round.nvui"))
+      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .csp(csp.compose(_.withExternalAnalysisApis))
       .graph(
         title = "Chess analysis board",
@@ -43,7 +43,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
                   a(
                     dataIcon := iconByVariant(v),
                     cls      := (pov.game.variant == v).option("current"),
-                    href     := routes.UserAnalysis.parseArg(v.key)
+                    href     := routes.UserAnalysis.parseArg(v.key.value)
                   )(v.name)
                 }
               ),
@@ -67,7 +67,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
 
   object embed:
 
-    def lpvJs(orientation: Option[chess.Color], getPgn: Boolean)(using Translate): WithNonce[Frag] =
+    def lpvJs(orientation: Option[Color], getPgn: Boolean)(using Translate): WithNonce[Frag] =
       lpvJs(lpvConfig(orientation, getPgn))
 
     def lpvJs(lpvConfig: JsObject)(using Translate): WithNonce[Frag] =
@@ -77,7 +77,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
           )
         )})})""")
 
-    def lpvConfig(orientation: Option[chess.Color], getPgn: Boolean) = Json
+    def lpvConfig(orientation: Option[Color], getPgn: Boolean) = Json
       .obj(
         "menu" -> Json.obj(
           "getPgn" -> Json.obj("enabled" -> getPgn)

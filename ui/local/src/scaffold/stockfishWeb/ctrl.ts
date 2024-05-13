@@ -109,11 +109,7 @@ export class StockfishWebCtrl implements CgHost {
     if (this.bots.black?.info.id !== this.ids.black) {
       this.bots.black = this.engines.makeBot(this.ids.black);
     }
-    const [nextKey] = await Promise.all([
-      this.results.count(),
-      this.bots.white.load(),
-      this.bots.black.load(),
-    ]);
+    const [nextKey] = await Promise.all([this.results.count(), this.bots.white.load, this.bots.black.load]);
     this.key = nextKey;
     if (numGames) this.totals.gamesLeft = numGames;
     this.fiftyMovePly = 0;

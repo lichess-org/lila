@@ -3,6 +3,8 @@ package ui
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
+import lila.core.id.ForumCategId
+import lila.core.id.CmsPageKey
 
 final class SitePages(helpers: Helpers):
   import helpers.{ *, given }
@@ -29,7 +31,7 @@ final class SitePages(helpers: Helpers):
       sep,
       a(activeCls("source"), href := routes.Cms.source)(trans.site.sourceCode()),
       a(activeCls("help"), href := routes.Cms.help)(trans.site.contribute()),
-      a(activeCls("changelog"), href := routes.Cms.menuPage("changelog"))("Changelog"),
+      a(activeCls("changelog"), href := routes.Cms.menuPage(CmsPageKey("changelog")))("Changelog"),
       a(activeCls("thanks"), href := "/thanks")(trans.site.thankYou()),
       sep,
       a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.site.webmasters()),
@@ -46,7 +48,7 @@ final class SitePages(helpers: Helpers):
       title = "Webmasters",
       active = "webmasters",
       contentCls = "page force-ltr"
-    ).cssTag("page"):
+    ).css("page"):
       frag(
         st.section(cls := "box box-pad developers")(
           h1(cls := "box__top")("HTTP API"),
@@ -64,38 +66,14 @@ final class SitePages(helpers: Helpers):
             div(cls := "body")(
               div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
               p("Add the following HTML to your site:"),
-              p(cls := "copy-zone")(
-                input(
-                  id    := "tv-embed-src",
-                  cls   := "copyable autoselect",
-                  value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
-                ),
-                button(
-                  st.title := "Copy code",
-                  cls      := "copy button",
-                  dataRel  := "tv-embed-src",
-                  dataIcon := Icon.Link
-                )
-              ),
+              copyMeInput(s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""),
               parameters,
               p(
                 "You can also show the channel for a specific variant or time control by adding the channel key to the URL, corresponding to the channels available at ",
                 a(href := "/tv")("lichess.org/tv"),
                 ". If not included, the top rated game will be shown."
               ),
-              p(cls := "copy-zone")(
-                input(
-                  id    := "tv-channel-embed-src",
-                  cls   := "copyable autoselect",
-                  value := s"""<iframe src="$netBaseUrl/tv/rapid/frame?theme=brown&bg=dark" $args></iframe>"""
-                ),
-                button(
-                  st.title := "Copy code",
-                  cls      := "copy button",
-                  dataRel  := "tv-channel-embed-src",
-                  dataIcon := Icon.Link
-                )
-              )
+              copyMeInput(s"""<iframe src="$netBaseUrl/tv/rapid/frame?theme=brown&bg=dark" $args></iframe>""")
             )
           )
         },
@@ -109,18 +87,8 @@ final class SitePages(helpers: Helpers):
                 raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
               ),
               p("Add the following HTML to your site:"),
-              p(cls := "copy-zone")(
-                input(
-                  id    := "puzzle-embed-src",
-                  cls   := "copyable autoselect",
-                  value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
-                ),
-                button(
-                  st.title := "Copy code",
-                  cls      := "copy button",
-                  dataRel  := "puzzle-embed-src",
-                  dataIcon := Icon.Link
-                )
+              copyMeInput(
+                s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               parameters,
               p("The text is automatically translated to your visitor's language."),
@@ -178,7 +146,7 @@ final class SitePages(helpers: Helpers):
       using Context
   ) =
     SitePage(title = title, active = "source", contentCls = "page force-ltr")
-      .cssTag("source")
+      .css("source")
       .js(
         embedJsUnsafeLoadThen:
           """$('#asset-version-date').text(site.info.date);
@@ -220,7 +188,7 @@ final class SitePages(helpers: Helpers):
   def lag(using Context) =
     import trans.{ lag as trl }
     SitePage(title = "Is Lichess lagging?", active = "lag")
-      .cssTag("lag")
+      .css("lag")
       .js(jsModuleInit("chart.lag")):
         div(cls := "box box-pad lag")(
           h1(cls := "box__top")(
@@ -260,7 +228,7 @@ final class SitePages(helpers: Helpers):
 
   def dailyPuzzleSlackApp(using Context) =
     Page("Daily Chess Puzzle by Lichess (Slack App)")
-      .cssTag("page"):
+      .css("page"):
         main(cls := "page page-small box box-pad")(
           h1(cls := "box__top")("Daily Chess Puzzle by Lichess (Slack App)"),
           div(cls := "body")(
@@ -309,7 +277,7 @@ final class SitePages(helpers: Helpers):
               // Contact email, because Slack requires a support channel without
               // mandatory registration.
               "Give us feedback or ask questions ",
-              a(href := routes.ForumCateg.show("lichess-feedback"))(
+              a(href := routes.ForumCateg.show(ForumCategId("lichess-feedback")))(
                 "in the forum"
               ),
               ". The source code is available at ",
@@ -345,7 +313,7 @@ final class SitePages(helpers: Helpers):
 
   def ghost(using Context) =
     Page("Deleted user")
-      .cssTag("ghost"):
+      .css("ghost"):
         main(cls := "page-small box box-pad page")(
           h1(cls := "box__top")("Deleted user"),
           div(

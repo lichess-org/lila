@@ -50,10 +50,10 @@ export class Engines {
         requires: ['simd', 'allowLsfw'],
         variants: [key],
         assets: {
-          version: 'sfw003',
+          version: 'sfw004',
           root: 'npm/lila-stockfish-web',
-          nnue: `${variantMap(key)}-${nnue}.nnue`,
-          js: 'fsf.js',
+          nnue: [`${variantMap(key)}-${nnue}.nnue`],
+          js: 'fsf14.js',
         },
       },
       make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status, variantMap),
@@ -78,9 +78,9 @@ export class Engines {
             requires: ['simd', 'allowLsfw'],
             minMem: 1536,
             assets: {
-              version: 'sfw003',
+              version: 'sfw004',
               root: 'npm/lila-stockfish-web',
-              js: 'linrock-nnue-7.js',
+              js: 'sf16-7.js',
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
@@ -94,9 +94,25 @@ export class Engines {
             requires: ['simd', 'allowLsfw'],
             minMem: 2048,
             assets: {
-              version: 'sfw003',
+              version: 'sfw004',
               root: 'npm/lila-stockfish-web',
-              js: 'sf-nnue-40.js',
+              js: 'sf16-40.js',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
+        },
+        {
+          info: {
+            id: '__sf161nnue70',
+            name: 'Stockfish 16.1 NNUE · 70MB',
+            short: 'SF 16.1 · 70MB',
+            tech: 'NNUE',
+            requires: ['simd', 'allowLsfw'],
+            minMem: 2560,
+            assets: {
+              version: 'sfw004',
+              root: 'npm/lila-stockfish-web',
+              js: 'sf161-70.js',
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
@@ -128,9 +144,9 @@ export class Engines {
             requires: ['simd', 'allowLsfw'],
             variants: variants.map(v => v[0]),
             assets: {
-              version: 'sfw003',
+              version: 'sfw004',
               root: 'npm/lila-stockfish-web',
-              js: 'fsf.js',
+              js: 'fsf14.js',
             },
           },
           make: (e: BrowserEngineInfo) =>
@@ -253,6 +269,10 @@ export class Engines {
 
   get external() {
     return this.active && 'endpoint' in this.active ? this.active : undefined;
+  }
+
+  get maxMovetime() {
+    return this.external ? 30 * 1000 : Number.POSITIVE_INFINITY; // broker timeouts prevent long search
   }
 
   async deleteExternal(id: string) {
