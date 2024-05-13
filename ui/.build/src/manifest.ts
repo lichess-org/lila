@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import * as fs from 'node:fs';
 import * as crypto from 'node:crypto';
 import * as es from 'esbuild';
-import { env, colors as c } from './main';
+import { env, colors as c, warnMark } from './main';
 import { globArray } from './parse';
 import { allSources } from './sass';
 
@@ -139,14 +139,14 @@ async function isComplete() {
   for (const bundle of [...env.modules.values()].map(x => x.bundles ?? []).flat()) {
     const name = path.basename(bundle, '.ts');
     if (!current.js[name]) {
-      env.log(`Missing entry point '${c.cyan(name)}'. No manifest written.`);
+      env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.ts')}'`);
       return false;
     }
   }
   for (const css of await allSources()) {
     const name = path.basename(css, '.scss');
     if (!current.css[name]) {
-      env.log(`Missing css '${c.cyan(name)}'. No manifest written.`);
+      env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.scss')}'`);
       return false;
     }
   }
