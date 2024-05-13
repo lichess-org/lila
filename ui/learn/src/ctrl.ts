@@ -36,7 +36,7 @@ export class LearnCtrl {
   setStageLevelFromHash = () => {
     const { stageId, levelId } = extractHashParameters();
     this.opts.stageId = stageId;
-    this.opts.levelId = levelId;
+    this.opts.levelId = levelId || 1;
   };
 
   inStage = () => this.opts.stageId !== null;

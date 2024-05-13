@@ -58,7 +58,7 @@ export class RunCtrl {
           this.opts.storage.saveScore(this.stage, this.levelCtrl!.blueprint, this.levelCtrl!.vm.score);
         },
         onComplete: () => {
-          if (this.levelCtrl!.blueprint.id < this.stage.levels.length) {
+          if (this.levelCtrl.blueprint.id < this.stage.levels.length) {
             hashNavigate(this.stage.id, this.levelCtrl.blueprint.id + 1);
           } else if (this.stageCompleted()) return;
           else {
@@ -73,8 +73,10 @@ export class RunCtrl {
 
     const isRestarting = site.tempStorage.boolean(RESTARTING_KEY);
     this.stageStarting(this.levelCtrl.blueprint.id === 1 && this.stageScore() === 0 && !isRestarting.get());
+    this.stageCompleted(false);
     isRestarting.set(false);
 
+    if (!this.opts.stageId) return;
     if (this.stageStarting()) sound.stageStart();
     else this.levelCtrl.start();
   };
@@ -99,7 +101,7 @@ export class RunCtrl {
   hideStartingPane = () => {
     if (!this.stageStarting()) return;
     this.stageStarting(false);
-    this.levelCtrl?.start();
+    this.levelCtrl.start();
     this.redraw();
   };
 

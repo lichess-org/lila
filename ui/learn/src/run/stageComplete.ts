@@ -35,8 +35,11 @@ export default function (ctrl: RunCtrl) {
           h(
             'span',
             {
-              config: (el: HTMLElement, isUpdate: boolean) => {
-                if (!isUpdate) setTimeout(() => numberSpread(el, 50, 3000, 0)(score), 300);
+              hook: {
+                insert: vnode => {
+                  const el = vnode.elm as HTMLElement;
+                  setTimeout(() => numberSpread(el, 50, 3000, 0)(score), 300);
+                },
               },
             },
             '0',
@@ -48,7 +51,7 @@ export default function (ctrl: RunCtrl) {
         next
           ? h('a.next', { hook: bind('click', () => hashNavigate(next.id)) }, [
               ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ',
-              h('i[data-icon=]'),
+              h('i', { attrs: { 'data-icon': '' } }),
             ])
           : null,
         h(

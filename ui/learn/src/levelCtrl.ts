@@ -53,9 +53,6 @@ export class LevelCtrl {
     readonly opts: LevelOpts,
     readonly redraw: () => void,
   ) {
-    // cheat
-    // site.mousetrap.bind(['shift+enter'], this.complete);
-
     this.items = makeItems({ apples: blueprint.apples });
     this.chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : this.items.appleKeys());
     this.scenario = makeScenario(blueprint.scenario, withGround, {
