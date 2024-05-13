@@ -37,7 +37,7 @@ def list(
                 userLink(sus.user, params = "?mod"),
                 br,
                 p(cls := "perfs")(sus.perfs.bestPerfs(2).map(showPerfRating)),
-                views.mod.user.userMarks(sus.user, none)
+                views.mod.user.userMarks(sus.user, none, false)
               ),
               td(cls := "atoms")(
                 r.bestAtoms(3).map { atom =>

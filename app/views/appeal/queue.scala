@@ -41,7 +41,7 @@ object queue:
                       cls      := "marked-by-me text"
                     )("My mark")
                   ),
-                views.mod.user.userMarks(user, None)
+                views.mod.user.userMarks(user, None, true)
               ),
               td(appeal.msgs.lastOption.map: msg =>
                 frag(

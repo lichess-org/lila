@@ -97,7 +97,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
               " ",
               momentFromNowOnce(u.createdAt)
             ),
-            (u.lameOrTroll || u.enabled.no)
+            (u.lameOrTroll || u.enabled.no || u.marks.rankban)
               .option(span(cls := "upt__mod__marks")(userMarks))
           )
         ),

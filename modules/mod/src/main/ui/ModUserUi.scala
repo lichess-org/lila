@@ -23,6 +23,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   val clean: Frag     = iconTag(Icon.User)
   val reportban       = iconTag(Icon.CautionTriangle)
   val notesText       = iconTag(Icon.Pencil)
+  val rankban         = i("R")
 
   def mzSection(key: String) =
     div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
@@ -589,7 +590,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       }
     )(lila.report.ui.ReportUi.reportScore(r.score), " ", strong(r.reason.name))
 
-  def userMarks(o: User, playbans: Option[Int]) =
+  def userMarks(o: User, playbans: Option[Int], showRankban: Boolean) =
     div(cls := "user_marks")(
       playbans.map: nb =>
         playban(nb),
@@ -597,5 +598,6 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       o.marks.boost.option(boosting),
       o.marks.engine.option(engine),
       o.enabled.no.option(closed),
-      o.marks.reportban.option(reportban)
+      o.marks.reportban.option(reportban),
+      showRankban.option(o.marks.rankban.option(rankban))
     )
