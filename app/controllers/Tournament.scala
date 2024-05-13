@@ -427,6 +427,14 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
             env.team.cached.preloadMany(standing.map(_.teamId)) >>
               Ok.page(views.tournament.teamBattle.standing(tour, standing))
 
+  def moderation(id: TourId, view: String) = Secure(_.GamesModView) { ctx ?=> me ?=>
+    Found(cachedTour(id)): tour =>
+      env.tournament
+        .moderation(tour.id, view)
+        .flatMap: (view, players) =>
+          Ok.page(views.tournament.moderation.page(tour, view, players))
+  }
+
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]
   )(using ctx: Context, me: Me): Fu[Result] =

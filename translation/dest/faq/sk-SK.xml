@@ -145,4 +145,13 @@ Najlepšie je považovať rating za „relatívne“ čísla (na rozdiel od „a
 Kliknite na ikonu zámku vedľa adresy lichess.org v paneli URL vášho prehliadača.
 
 Potom vyberte, či chcete povoliť alebo blokovať upozornenia od Lichess.</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Ako mám prestať hrať?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">samostatný stav duševného zdravia</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Používateľské štýly Lichess</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">menej prednastavených partií na domovskej stránke</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Pravidelne dostávame správy od používateľov, ktorí nás žiadajú o pomoc, aby sme im zabránili hrať príliš veľa.
+
+Hoci spoločnosť Lichess nebanuje ani neblokuje hráčov s výnimkou porušenia podmienok služby, odporúčame používať externé nástroje na obmedzenie nadmerného správania pri hraní. Medzi bežné návrhy blokátorov webových stránok patria %1$s, %2$s a %3$s. Ak chcete naďalej používať stránku, ale nechcete sa nechať zlákať partiami s malými časovými dotáciami, mohli by vás tiež zaujímať %4$s, tu je jeden s %5$s.
+
+Niektorí hráči môžu mať pocit, že sa ich správanie pri hraní mení na závislosť. WHO totiž klasifikuje poruchu hrania ako %6$s, pričom základnými znakmi sú: 1) narušená kontrola nad hraním, 2) zvyšujúca sa priorita venovaná hraniu a 3) stupňovanie hrania napriek negatívnym dôsledkom. Ak si myslíte, že vaše správanie pri hraní šachu zodpovedá tomuto vzoru, odporúčame vám, aby ste sa o tom porozprávali s priateľom alebo členom rodiny a/alebo s odborníkom.</string>
 </resources>

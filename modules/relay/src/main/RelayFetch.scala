@@ -76,7 +76,7 @@ final private class RelayFetch(
   // this can take a long time if the source is slow
   private def processRelay(rt: RelayRound.WithTour): Fu[Updating[RelayRound]] =
     val updating = Updating(rt.round)
-    if !rt.round.sync.playing then fuccess(updating(_.withSync(_.play)))
+    if !rt.round.sync.playing then fuccess(updating(_.withSync(_.play(rt.tour.official))))
     else
       fetchGames(rt)
         .map(games => rt.tour.players.fold(games)(_.update(games)))
@@ -121,7 +121,7 @@ final private class RelayFetch(
         lila.mon.relay.moves(tour.official, round.slug).increment(result.nbMoves)
         if !round.hasStarted && !tour.official then
           irc.broadcastStart(round.id, round.withTour(tour).fullName)
-        continueRelay(tour, updating(_.ensureStarted.resume))
+        continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
       case _ => continueRelay(tour, updating)
 
   private def continueRelay(tour: RelayTour, updating: Updating[RelayRound]): Updating[RelayRound] =
