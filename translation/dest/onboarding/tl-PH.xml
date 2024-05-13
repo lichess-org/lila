@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="thisIsYourProfilePage">Ito ang iyong profile page.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Isang bata ba ang gagamit ng account na ito? Baka gusto mong paganahin ang%s.</string>
+  <string name="playInTournaments">Maglaro sa mga paligsahan.</string>
+</resources>

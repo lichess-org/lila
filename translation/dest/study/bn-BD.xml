@@ -36,8 +36,13 @@
   <string name="spectator">দর্শক</string>
   <string name="contributor">অবদানকারী</string>
   <string name="kick">লাথি দিয়ে বের করুন</string>
+  <string name="youAreNowASpectator">আপনি এখন দর্শক</string>
+  <string name="pgnTags">PGN ট্যাগ</string>
   <string name="like">পছন্দ করা</string>
   <string name="unlike">পছন্দ নয়</string>
+  <string name="newTag">নতুন ট্যাগ</string>
+  <string name="theChapterIsTooShortToBeAnalysed">এনালাইসিস করার জন্য চ্যাপ্টারটা খুব ছোট</string>
+  <string name="onlyContributorsCanRequestAnalysis">শুধুমাত্র স্টাডি\'টার কন্ট্রিবিউটররাই কম্পিউটার এনালাইসিস এর রিকোয়েস্ট করতে পারবে।</string>
   <string name="playing">খেলছে</string>
   <string name="first">সর্ব প্রথম</string>
   <string name="previous">আগের ধাপ</string>

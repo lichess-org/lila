@@ -99,7 +99,18 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
                     iconTag(Icon.Gear)
                   )
                 )
-              )
+              ),
+              Granter
+                .opt(_.GamesModView)
+                .option(
+                  frag(
+                    " ",
+                    a(
+                      href  := routes.Tournament.moderation(tour.id, "recentlyCreated"),
+                      title := "Moderation"
+                    )(iconTag(Icon.Agent))
+                  )
+                )
             )
           ),
           tour.teamBattle.map(teamBattle(tour)),

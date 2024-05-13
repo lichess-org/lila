@@ -88,19 +88,15 @@ final class UserShow(helpers: Helpers, bits: UserBits):
           ),
           crosstable(myId)
         ),
-      Granter
-        .opt(_.UserModView)
-        .option(
-          div(cls := "upt__mod")(
-            span(
-              trans.site.nbGames.plural(u.count.game, u.count.game.localize),
-              " ",
-              momentFromNowOnce(u.createdAt)
-            ),
-            (u.lameOrTroll || u.enabled.no || u.marks.rankban)
-              .option(span(cls := "upt__mod__marks")(userMarks))
-          )
+      div(cls := "upt__details")(
+        span(
+          trans.site.nbGames.plural(u.count.game, u.count.game.localize),
+          " ",
+          momentFromNowOnce(u.createdAt)
         ),
+        (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
+          .option(span(cls := "upt__details__marks")(userMarks))
+      ),
       playing
     )
 

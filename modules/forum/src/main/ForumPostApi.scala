@@ -66,7 +66,9 @@ final class ForumPostApi(
                   .withTeam(categ.team)
             else if categ.id == ForumCateg.diagnosticId then
               lila.common.Bus.pub:
-                Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds)
+                Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toUsers(topicUserIds)
+                  .exceptUser(me)
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.pub(BusForum.CreatePost(post.mini))

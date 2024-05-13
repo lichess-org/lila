@@ -388,6 +388,7 @@ POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(i
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id: TourId)
 POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id: TourId)
 GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id: TourId)
+GET   /tournament/$id<\w{8}>/mod/:view        controllers.Tournament.moderation(id: TourId, view: String)
 GET   /tournament/help                        controllers.Tournament.help
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields

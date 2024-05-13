@@ -391,5 +391,21 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
               ),
               "."
             )
+          ),
+          question(
+            "stop-chess-addiction",
+            trf.stopMyselfFromPlaying.txt(),
+            p(
+              trf.adviceOnMitigatingAddiction(
+                a(href := "https://getcoldturkey.com")("ColdTurkey"),
+                a(href := "https://freedom.to")("Freedom"),
+                a(href := "https://www.proginosko.com/leechblock")("LeechBlock"),
+                a(href := "https://lichess.org/page/userstyles")(trf.lichessUserstyles()),
+                a(href := "https://github.com/ornicar/userstyles/blob/master/lichess.fewer-pools.user.css")(
+                  trf.fewerLobbyPools()
+                ),
+                a(href := "https://icd.who.int/browse/2024-01/mms/en#1448597234")(trf.mentalHealthCondition())
+              )
+            )
           )
         )

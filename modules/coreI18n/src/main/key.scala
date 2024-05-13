@@ -2102,6 +2102,11 @@ object I18nKey:
     val `enableAutoplayForSoundsChrome`: I18nKey = "faq:enableAutoplayForSoundsChrome"
     val `enableAutoplayForSoundsSafari`: I18nKey = "faq:enableAutoplayForSoundsSafari"
     val `enableAutoplayForSoundsMicrosoftEdge`: I18nKey = "faq:enableAutoplayForSoundsMicrosoftEdge"
+    val `stopMyselfFromPlaying`: I18nKey = "faq:stopMyselfFromPlaying"
+    val `mentalHealthCondition`: I18nKey = "faq:mentalHealthCondition"
+    val `lichessUserstyles`: I18nKey = "faq:lichessUserstyles"
+    val `fewerLobbyPools`: I18nKey = "faq:fewerLobbyPools"
+    val `adviceOnMitigatingAddiction`: I18nKey = "faq:adviceOnMitigatingAddiction"
 
   object lag:
     val `isLichessLagging`: I18nKey = "lag:isLichessLagging"

@@ -234,10 +234,11 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           frag(
             postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
               st.input(
-                tpe         := "email",
-                value       := emails.current.so(_.value),
-                name        := "email",
-                placeholder := "Email address"
+                tpe          := "email",
+                value        := emails.current.so(_.value),
+                name         := "email",
+                placeholder  := "Email address",
+                autocomplete := "off"
               ),
               submitButton(cls := "button", dataIcon := Icon.Checkmark)
             ),

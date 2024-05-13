@@ -45,8 +45,7 @@ final class UserAnalysis(
         ctx.pref,
         decodedFen,
         orientation,
-        owner = false,
-        me = ctx.me
+        owner = false
       )
       page <- renderPage(views.board.userAnalysis(data, pov))
     yield Ok(page)
@@ -58,10 +57,9 @@ final class UserAnalysis(
     val orientation = get("color").flatMap(Color.fromName) | pov.color
     Ok.async:
       env.api.roundApi
-        .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me)
-        .map { data =>
+        .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false)
+        .map: data =>
           views.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)
-        }
     .map(_.enforceCrossSiteIsolation)
 
   private[controllers] def makePov(fen: Option[Fen.Full], variant: Variant): Pov =
@@ -101,7 +99,7 @@ final class UserAnalysis(
                 initialFen <- env.game.gameRepo.initialFen(game.id)
                 data <-
                   env.api.roundApi
-                    .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner, me = ctx.me)
+                    .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner)
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
                   views.board.userAnalysis(data, pov, withForecast = withForecast)

@@ -399,7 +399,7 @@
   <string name="orUploadPgnFile">অথবা PGN আপলোড করুন</string>
   <string name="fromPosition">অবস্থা থেকে</string>
   <string name="continueFromHere">এখান থেকে আবার শুরু করুন</string>
-  <string name="toStudy">অধ্যায়ন</string>
+  <string name="toStudy">স্টাডি</string>
   <string name="importGame">খেলা আমদানী</string>
   <string name="importGameExplanation">যখন একটি খেলার PGN যোগ করবেন আপনি পাবেন একটি ব্রাউজাবেল উত্তর,
 একটি কম্পিউটার বিশ্লেষণ, একটি খেলা আলাপ এবং একটি ভাগাভাগি করার URL.</string>
@@ -425,7 +425,7 @@
   <string name="follow">অনুসরণ</string>
   <string name="following">অনুসরণ করছেন</string>
   <string name="unfollow">আর অনুসরণ নয়</string>
-  <string name="followX">%sকে অননুসরণ করুন</string>
+  <string name="followX">%s-কে ফলো করুন</string>
   <string name="unfollowX">%sকে অননুসরণ করুন</string>
   <string name="block">বাধা দিন</string>
   <string name="blocked">বাধাগ্রস্ত</string>
@@ -631,7 +631,7 @@
   <string name="error.minLength">পাসওয়ার্ড অন্তত %s বর্ণ/চিহ্ন দীর্ঘ হতে হবে</string>
   <string name="error.maxLength">পাসওয়ার্ড সর্বোচ্চ %s বর্ণ/চিহ্ন দীর্ঘ হতে পারবে</string>
   <string name="error.min">অবশ্যই %s দীর্ঘ হতে হবে।</string>
-  <string name="error.max">অবশ্যই %s দীর্ঘ হতে হবে।</string>
+  <string name="error.max">অবশ্যই %s এর মধ্যে হতে হবে।</string>
   <string name="ifRatingIsPlusMinusX">যদি অনুপাত হয় ± %s</string>
   <string name="ifRegistered">নিবন্ধিত</string>
   <string name="onlyExistingConversations">বিদ্যমান কথোপকথন</string>
@@ -784,12 +784,12 @@
   <string name="transparent">স্বচ্ছ</string>
   <string name="deviceTheme">ডিভাইস থিম</string>
   <string name="backgroundImageUrl">পটভূমি ছবির URL:</string>
-  <string name="board" comment="Allows you to change the appearance of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">বোর্ড</string>
-  <string name="size" comment="Allows you to change the size of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">সাইজ</string>
-  <string name="opacity" comment="Allows you to change how transparent your chessboard appears. This option only appears when using a custom (picture) background. You can make the board more transparent so you can view more of the background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">অসস্বচছলতা</string>
-  <string name="brightness" comment="Allows you to change the brightness of the chessboard and pieces on it. This option only appears when using a light or dark background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">ব্রাইটনেস</string>
-  <string name="hue" comment="Allows you to change the hue of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">হিউ</string>
-  <string name="boardReset" comment="Allows you to reset any changes made to colours. Will appear if you change any colour settings.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">ডিফল্টে রং রিসেট করুন</string>
+  <string name="board">বোর্ড</string>
+  <string name="size">সাইজ</string>
+  <string name="opacity">অসস্বচছলতা</string>
+  <string name="brightness">ব্রাইটনেস</string>
+  <string name="hue">হিউ</string>
+  <string name="boardReset">ডিফল্টে রং রিসেট করুন</string>
   <string name="pieceSet">টুকরা সেট</string>
   <string name="embedInYourWebsite">আপনার ওয়েবসাইটে বসান</string>
   <string name="usernameAlreadyUsed">এই ব্যবহারকারীর নাম ইতিমধ্যে ব্যবহার করা হয়েছে, দয়া করে অন্য একটি চেষ্টা করুন.</string>

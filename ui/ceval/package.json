@@ -19,7 +19,7 @@
     "chessops": "^0.14.1",
     "common": "workspace:*",
     "idb-keyval": "^6.2.1",
-    "lila-stockfish-web": "0.0.3",
+    "lila-stockfish-web": "0.0.4",
     "snabbdom": "3.5.1",
     "stockfish-mv.wasm": "^0.6.1",
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
