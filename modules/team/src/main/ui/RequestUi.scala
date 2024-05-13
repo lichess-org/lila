@@ -56,11 +56,11 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
       tbody(
         requests.map: request =>
           tr(
-            if t.isEmpty then td(userLink(request.user), " ", teamLink(request.team))
-            else td(userLink(request.user)),
-            td(request.message),
-            td(momentFromNow(request.date)),
-            td(cls := "process")(
+            if t.isEmpty then td(cls := "table-row")(userLink(request.user), " ", teamLink(request.team))
+            else td(cls := "table-row")(userLink(request.user)),
+            td(cls := "table-row")(request.message),
+            td(cls := "table-row")(momentFromNow(request.date)),
+            td(cls := "table-row process")(
               postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
                 input(
                   tpe   := "hidden",
