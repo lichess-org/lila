@@ -167,4 +167,11 @@ Wij laten het rode icoon zien om je te waarschuwen wanneer dit gebeurt. Vaak kun
 3. Klik op Cookies en Siterechten
 4. Scroll naar beneden en klik op Media autoplay
 5. Voeg lichess.org toe aan Toestaan</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess gebruikersstijlen</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">minder lobby pools</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">We ontvangen regelmatig berichten van gebruikers die ons om hulp vragen om te voorkomen dat ze te veel spelen.
+
+Hoewel Lichess geen spelers in de ban doet of blokkeert behalve voor het schenden van de gebruiksvoorwaarden, raden we het gebruik af van externe middelen om excessief speelgedrag te beperken. Enkele eenvoudige suggesties voor website-blockers zijn %1$s, %2$s en %3$s. Als je de site wilt blijven gebruiken, maar niet in de verleiding wilt komen van snelle speeltempo\'s, zou %4$s interessant kunnen zijn, hier is er een met %5$s.
+
+Sommige spelers kunnen het gevoel hebben dat hun speelgedrag verandert in een verslaving. In feite classificeert de WHO gokstoornis als een %6$s, waarbij essentiële functies 1) verminderde controle over gaming, 2) het vergroten van de prioriteit aan gokken en 3) het escaleren van gokken, ondanks de negatieve gevolgen. Als je denkt dat je schaakgedrag dit patroon volgt, raden we je aan hierover te praten met een vriend of familielid en/of met een professional.</string>
 </resources>
