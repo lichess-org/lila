@@ -1,15 +1,15 @@
 #!/bin/bash -e
 
-commit=389d8b7d977ca040036ef725632efe2ef2c897ec
+commit=master
 origin=https://github.com/lichess-org/lifat
 
 deploy_dir="${LIFAT_DIR:-lifat}"
 mkdir -p "$deploy_dir"
 cd "$deploy_dir"
 if [ ! -d "$deploy_dir/.git" ]; then
-    git init
-    git remote add origin $origin
-    git fetch origin
+	git init
+	git remote add origin $origin
+	git fetch origin
 fi
 
 echo "Checking out lifat commit: $commit"
