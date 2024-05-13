@@ -133,7 +133,7 @@ final class Mod(
   }(actionResult(username))
 
   def impersonate(username: UserStr) = Auth { _ ?=> me ?=>
-    if username == UserName("-") && env.mod.impersonate.isImpersonated(me) then
+    if env.mod.impersonate.isImpersonated(me) then
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
     else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
