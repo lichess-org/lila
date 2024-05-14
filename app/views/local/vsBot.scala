@@ -24,10 +24,10 @@ object vsBot:
         )
       )
       .js(EsmInit("round"))
-      .cssTag("vs-bot")
-      .cssTag("round")
-      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-      .cssTag(ctx.pref.hasVoice.option("voice"))
+      .css("vs-bot")
+      .css("round")
+      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .css(ctx.pref.hasVoice.option("voice"))
       .csp(_.withWebAssembly)
       .graph(
         OpenGraph(

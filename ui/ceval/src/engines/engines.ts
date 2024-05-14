@@ -154,6 +154,22 @@ export class Engines {
         },
         {
           info: {
+            id: '__sfhce',
+            name: 'Stockfish Classical',
+            short: 'SF Classical',
+            tech: 'HCE',
+            requires: ['sharedMem'],
+            minThreads: 1,
+            assets: {
+              version: 'sfw004',
+              root: 'npm/lila-stockfish-web',
+              js: 'sfhce.js',
+            },
+          },
+          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
+        },
+        {
+          info: {
             id: '__sf11mv',
             name: 'Stockfish 11 Multi-Variant',
             short: 'SF 11 MV',

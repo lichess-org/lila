@@ -1,6 +1,6 @@
 import { LocalPlayOpts } from './interfaces';
 import { type LibotCtrl } from 'libot';
-import { makeVsBotSocket } from './vsBotSocket';
+import { makeSocket } from './socket';
 //import { makeRound } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
@@ -25,7 +25,7 @@ export class VsBotCtrl {
     readonly opts: LocalPlayOpts,
     readonly redraw: () => void,
   ) {
-    this.socket = makeVsBotSocket(this);
+    this.socket = makeSocket(this);
     this.i18n = opts.i18n;
     this.loaded = site.asset.loadEsm<LibotCtrl>('libot').then(libot => {
       this.libot = libot;

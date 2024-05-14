@@ -422,7 +422,7 @@ importers:
         specifier: ^0.14.0
         version: 0.14.1
       zerofish:
-        specifier: ^0.0.18
+        specifier: latest
         version: 0.0.18
 
   ui/lobby:

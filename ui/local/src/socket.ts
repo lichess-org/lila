@@ -3,7 +3,7 @@ import { VsBotCtrl } from './vsBotCtrl';
 import { ApiMove } from 'game';
 import { RoundSocket } from 'round';
 
-export function makeVsBotSocket(/*send: SocketSend, */ ctrl: VsBotCtrl): RoundSocket {
+export function makeSocket(/*send: SocketSend, */ ctrl: VsBotCtrl): RoundSocket {
   const handlers: SocketHandlers = {
     move: (m: ApiMove) => {
       ctrl.round?.apiMove?.(m);

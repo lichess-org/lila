@@ -7,7 +7,7 @@
   "typings": "dist/libot.d.ts",
   "dependencies": {
     "chessops": "^0.14.0",
-    "zerofish": "^0.0.18"
+    "zerofish": "latest"
   },
   "lichess": {
     "bundles": "src/libot.ts",

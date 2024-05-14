@@ -11,7 +11,7 @@ object botVsBot:
     Page("")
       .copy(fullTitle = s"$siteName • Play vs Bots".some)
       .js(jsModuleInit("local.botVsBot"))
-      .cssTag("bot-vs-bot")
+      .css("bot-vs-bot")
       .csp(_.withWebAssembly)
       .graph(
         OpenGraph(
