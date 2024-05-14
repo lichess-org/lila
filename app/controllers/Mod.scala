@@ -133,13 +133,17 @@ final class Mod(
   }(actionResult(username))
 
   def impersonate(username: UserStr) = Auth { _ ?=> me ?=>
-    if env.mod.impersonate.isImpersonated(me) then
-      env.mod.impersonate.stop(me)
-      Redirect(routes.User.show(me.username))
-    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
+    if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
       Found(env.user.repo.byId(username)): user =>
         env.mod.impersonate.start(me, user)
         Redirect(routes.User.show(user.username))
+    else notFound
+  }
+
+  def impersonateStop = Auth { _ ?=> me ?=>
+    if env.mod.impersonate.isImpersonated(me) then
+      env.mod.impersonate.stop(me)
+      Redirect(routes.User.show(me.username))
     else notFound
   }
 

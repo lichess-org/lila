@@ -550,6 +550,7 @@ POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username: UserSt
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username: UserStr, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username: UserStr, v: Boolean)
 POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: UserStr)
+POST  /mod/impersonate-stop            controllers.Mod.impersonateStop
 GET   /mod/:username/games             controllers.GameMod.index(username: UserStr)
 POST  /mod/:username/games             controllers.GameMod.post(username: UserStr)
 GET   /mod/table                       controllers.Mod.table
