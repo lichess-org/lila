@@ -14,6 +14,7 @@ import lila.core.net.IpAddress
 import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
+import lila.core.id
 
 final class Api(
     env: Env,
@@ -61,34 +62,61 @@ final class Api(
       lila.mon.api.users.increment(cost.toLong)
       env.user.api
         .listWithPerfs(usernames)
-        .map {
+        .map:
           _.map { u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true) }
-        }
         .map(toApiResult)
         .map(toHttp)
 
   def usersStatus = ApiRequest:
     val ids = get("ids").so(_.split(',').take(100).toList.flatMap(UserStr.read).map(_.id))
-    env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
-      val streamingIds = env.streamer.liveStreamApi.userIds
-      def toJson(u: LightUser) =
-        lila.common.Json.lightUser
-          .write(u)
-          .add("online" -> env.socket.isOnline(u.id))
-          .add("playing" -> env.round.playing(u.id))
-          .add("streaming" -> streamingIds(u.id))
-      if getBool("withGameIds")
-      then
-        users
-          .traverse: u =>
-            env.round
-              .playing(u.id)
-              .so(env.game.cached.lastPlayedPlayingId(u.id))
-              .map: gameId =>
-                toJson(u).add("playingId", gameId)
+    if ids.isEmpty then fuccess(ApiResult.ClientError("No user ids provided"))
+    else
+      val withSignal = getBool("withSignal")
+      env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
+        val streamingIds = env.streamer.liveStreamApi.userIds
+        def toJson(u: LightUser) =
+          lila.common.Json.lightUser
+            .write(u)
+            .add("online", env.socket.isOnline(u.id))
+            .add("playing", env.round.playing(u.id))
+            .add("streaming", streamingIds(u.id))
+            .add("signal", withSignal.so(env.socket.getLagRating(u.id)))
+        def gameIds: Fu[List[Option[id.GameId]]] = users.traverse: u =>
+          env.round.playing(u.id).so(env.game.cached.lastPlayedPlayingId(u.id))
+        val extensions: Option[Fu[List[Update[JsObject]]]] =
+          if getBool("withGameIds")
+          then
+            gameIds
+              .map:
+                _.map: gameId =>
+                  (_: JsObject).add("playingId", gameId)
+              .some
+          else if getBool("withGameMetas")
+          then
+            gameIds
+              .flatMap:
+                _.traverse(_.so(env.round.proxyRepo.gameIfPresent))
+              .map:
+                _.map: game =>
+                  (_: JsObject).add(
+                    "playing",
+                    game.map: g =>
+                      Json
+                        .obj("id" -> g.id)
+                        .add("clock", g.clock.map(_.config.show))
+                        .add("variant", g.variant.exotic.option(g.variant.key))
+                  )
+              .some
+          else none
+        extensions
+          .fold(fuccess(users.map(toJson))):
+            _.map: exts =>
+              users
+                .zip(exts)
+                .map: (u, ext) =>
+                  ext(toJson(u))
           .map(toApiResult)
-      else fuccess(toApiResult(users.map(toJson)))
-    }
+      }
 
   private def gameFlagsFromRequest(using RequestHeader) =
     lila.api.GameApi.WithFlags(

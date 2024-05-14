@@ -752,6 +752,12 @@
   <string name="transparent">透明</string>
   <string name="deviceTheme">设备主题</string>
   <string name="backgroundImageUrl">背景图片网址：</string>
+  <string name="board">棋盘</string>
+  <string name="size">大小</string>
+  <string name="opacity">不透明度</string>
+  <string name="brightness">亮度</string>
+  <string name="hue">色调</string>
+  <string name="boardReset">重置颜色设置</string>
   <string name="pieceSet">棋子设定</string>
   <string name="embedInYourWebsite">嵌入到你的网站上</string>
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>

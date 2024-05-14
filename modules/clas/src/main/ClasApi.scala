@@ -236,7 +236,7 @@ final class ClasApi(
         data: ClasForm.CreateStudent,
         teacher: User
     ): Fu[Student.WithPassword] =
-      val email    = EmailAddress(s"noreply.class.${ClasId}.${data.username}@lichess.org")
+      val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.student.create(teacher.id.value).increment()
       userRepo
@@ -300,7 +300,7 @@ final class ClasApi(
           dest = student.id,
           text = s"""${lila.core.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
 
-$baseUrl/class/${ClasId}
+$baseUrl/class/${clas.id}
 
 ${clas.desc}""",
           multi = true

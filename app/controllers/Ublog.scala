@@ -36,25 +36,27 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open:
-    NotForKidsUnlessOfficial(username):
-      WithBlogOf(username): (user, blog) =>
-        env.ublog.api.findByIdAndBlog(id, blog.id).flatMap {
-          _.filter(canViewPost(user, blog)).so: post =>
-            if slug != post.slug then Redirect(urlOfPost(post))
-            else
-              for
-                others         <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
-                liked          <- ctx.user.so(env.ublog.rank.liked(post))
-                followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
-                prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
-                blocked        <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
-                followable = prefFollowable && !blocked
-                markup <- env.ublog.markup(post)
-                viewedPost = env.ublog.viewCounter(post, ctx.ip)
-                page <- renderPage:
-                  views.ublog.post.page(user, blog, viewedPost, markup, others, liked, followable, followed)
-              yield Ok(page)
-        }
+    Found(env.ublog.api.getPost(id)): post =>
+      if slug == post.slug && username.is(post.created.by) then handlePost(post)
+      else Redirect(urlOfPost(post))
+
+  private def handlePost(post: UblogPost)(using Context) =
+    val createdBy = post.created.by
+    NotForKidsUnlessOfficial(createdBy):
+      WithBlogOf(createdBy): (user, blog) =>
+        canViewPost(user, blog)(post).so:
+          for
+            others         <- env.ublog.api.otherPosts(UblogBlog.Id.User(user.id), post)
+            liked          <- ctx.user.so(env.ublog.rank.liked(post))
+            followed       <- ctx.userId.so(env.relation.api.fetchFollows(_, user.id))
+            prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
+            blocked        <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
+            followable = prefFollowable && !blocked
+            markup <- env.ublog.markup(post)
+            viewedPost = env.ublog.viewCounter(post, ctx.ip)
+            page <- renderPage:
+              views.ublog.post.page(user, blog, viewedPost, markup, others, liked, followable, followed)
+          yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
     NotForKids:
@@ -312,5 +314,5 @@ final class Ublog(env: Env) extends LilaController(env):
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGrantedOpt(_.ModerateBlog) || isBlogVisible(user, blog)
 
-  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using ctx: Context) =
+  private def canViewPost(user: UserModel, blog: UblogBlog)(post: UblogPost)(using Context) =
     canViewBlogOf(user, blog) && post.canView

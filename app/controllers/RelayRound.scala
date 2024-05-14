@@ -63,7 +63,7 @@ final class RelayRound(
           err => fuccess(Left(rt -> err)),
           data =>
             env.relay.api
-              .update(rt.round)(data.update)
+              .update(rt.round)(data.update(rt.tour.official))
               .dmap(_.withTour(rt.tour))
               .dmap(Right(_))
         )

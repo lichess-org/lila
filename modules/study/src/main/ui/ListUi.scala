@@ -167,9 +167,8 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       a(
         cls      := "text",
         dataIcon := Icon.InfoCircle,
-        href     := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way"
-      ):
-        trs.whatAreStudies()
+        href     := "/@/lichess/blog/study-chess-the-lichess-way/V0KrLSkA"
+      )(trs.whatAreStudies())
     )
 
   def searchForm(placeholder: String, value: String) =

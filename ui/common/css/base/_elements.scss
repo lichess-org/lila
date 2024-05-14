@@ -59,6 +59,9 @@ time {
   font-size: 90%;
   opacity: 0.9;
 
+  /* might cause issues: */
+  white-space: nowrap;
+
   /* don't use c-color-dim, it overrides too hard */
   unicode-bidi: plaintext;
 }

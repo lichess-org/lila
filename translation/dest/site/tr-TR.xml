@@ -790,6 +790,12 @@
   <string name="transparent">Şeffaf</string>
   <string name="deviceTheme">Cihaz teması</string>
   <string name="backgroundImageUrl">Arka plan resim linki:</string>
+  <string name="board">Tahta</string>
+  <string name="size">Boyut</string>
+  <string name="opacity">Opaklık</string>
+  <string name="brightness">Parlaklık</string>
+  <string name="hue">Ton</string>
+  <string name="boardReset">Renkleri varsayılana döndür</string>
   <string name="pieceSet">Taş seti</string>
   <string name="embedInYourWebsite">İnternet sitenizde gömülü olarak paylaşın</string>
   <string name="usernameAlreadyUsed">Bu kullanıcı adı zaten kullanılıyor, lütfen başka bir kullanıcı adı deneyin.</string>

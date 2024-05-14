@@ -51,7 +51,7 @@ def replay(
         routes.Export
           .fenThumbnail(
             Fen.write(pov.game.situation).value,
-            pov.color,
+            pov.color.some,
             None,
             pov.game.variant.key.some,
             ctx.pref.theme.some,

@@ -166,4 +166,13 @@ Wir zeigen das rote Symbol an, um darauf aufmerksam zu machen, wenn dies geschie
 3. Klicke auf Cookies und Website-Berechtigungen
 4. Scrolle nach unten und klicke auf Medien-Autoplay
 5. Füge lichess.org hinzu, um die Erlaubnis zu erteilen</string>
+  <string name="stopMyselfFromPlaying">Mich selbst vom Spielen abhalten?</string>
+  <string name="mentalHealthCondition">alleinstehende psychische Gesundheit</string>
+  <string name="lichessUserstyles">Lichess Benutzerstile</string>
+  <string name="fewerLobbyPools">weniger Lobbypools</string>
+  <string name="adviceOnMitigatingAddiction">Wir erhalten regelmäßig Nachrichten von Benutzern, die uns um Hilfe bitten, um zu verhindern, dass sie zu viel spielen.
+
+Während Lichess Spieler - außer bei Verstößen gegen die Nutzungsbedingungen - nicht bannt oder blockiert, empfehlen wir die Verwendung externer Tools, um übermäßiges Spielverhalten einzuschränken. Einige gängige Vorschläge für Website-Blocker sind %1$s, %2$s und %3$s. Wenn du die Seite weiterhin benutzen möchtest, aber nicht durch kurze Zeitkontrollen in Versuchung geführt werden möchtest, interessierest du dich vielleicht auch für %4$s, hier ist eins mit %5$s.
+
+Einige Spieler können das Gefühl haben, dass sich ihr Spielverhalten in eine Sucht wandelt. In der Tat klassifiziert die WHO zwanghaftes Spielen als %6$s, wobei die wesentlichen Merkmale die folgenden sind 1) fehlende Kontrolle über das Spielverhalten 2) Erhöhte Priorisierung des Spiels und 3) Eskalation des Spiels trotz negativer Folgen. Wenn du denkst, dass dein Spielverhalten beim Schach diesem Muster folgt, empfehlen wir, sich mit einem Freund oder Familienmitglied darüber auszutauschen und/oder sich professionelle Hilfe zu suchen.</string>
 </resources>
