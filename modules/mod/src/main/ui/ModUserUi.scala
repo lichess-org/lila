@@ -591,7 +591,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       }
     )(lila.report.ui.ReportUi.reportScore(r.score), " ", strong(r.reason.name))
 
-  def userMarks(o: User, playbans: Option[Int], showRankban: Boolean) =
+  def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(
       playbans.map: nb =>
         playban(nb),
@@ -600,5 +600,5 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       o.marks.engine.option(engine),
       o.enabled.no.option(closed),
       o.marks.reportban.option(reportban),
-      showRankban.option(o.marks.rankban.option(rankban))
+      o.marks.rankban.option(rankban)
     )
