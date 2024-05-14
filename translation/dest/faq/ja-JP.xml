@@ -149,5 +149,13 @@
 3. 「Cookie とサイトのアクセス許可」をクリック
 4. スクロールして「メディアの自動再生」をクリック
 5. 「許可」に lichess.org を追加</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">チェスのやりすぎを止めるには？</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">独立した疾病</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess ユーザースタイル</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">ロビーのプール数を減らせます</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Lichess には、チェスのやりすぎを止めるにはどうすればいいか、という相談がよく寄せられます。
+
+Lichess がユーザーを追放やブロックするのは規約違反の時だけなので、やりすぎを防ぐには外部ツールの利用をおすすめします。ウェブサイトブロッカーとして %1$s、%2$s、%3$s などがよく使われます。また Lichess は続けたいが短い持時間は避けたいという場合は %4$s を使うこともできます。一例として %5$s。
+
+チェスのやりすぎが依存症にまでなっていると感じる人もいます。WHO（世界保健機関）ではすでに「ゲーム障害」を%6$sと認定しています。その主な症状は 1) ゲーム活動をコントロールできない、2) 生活の中でゲーム活動の比重が高まっていく、3) 悪い影響が出ているのにゲーム活動がエスカレートしていく、です。あなたのチェスがこういうパターンにはまっていると思うなら、友だちや家族、専門家に相談することをおすすめします。</string>
 </resources>
