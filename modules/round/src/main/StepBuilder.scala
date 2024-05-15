@@ -38,16 +38,15 @@ object Step:
       .add(
         "dests",
         dests.map {
-          _.map { case (orig, dests) =>
+          _.map { (orig, dests) =>
             s"${orig.asChar}${dests.map(_.asChar).mkString}"
           }.mkString(" ")
         }
       )
       .add(
         "drops",
-        drops.map { drops =>
+        drops.map: drops =>
           JsString(drops.map(_.key).mkString)
-        }
       )
       .add("crazy", crazyData)
 
