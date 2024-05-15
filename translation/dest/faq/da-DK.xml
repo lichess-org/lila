@@ -167,4 +167,13 @@ Vi viser det røde ikon for at advare dig, når dette sker. Ofte kan du udtrykke
 3. Klik på Cookies og Website-tilladelser
 4. Rul ned og klik på Media autoplay
 5. Tilføj lichess.org til Tillad</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Forhindre mig selv i at spille?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">selvstændig psykisk lidelse</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess-brugerstile</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">færre lobby-puljer</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Vi modtager jævnligt beskeder fra brugere, der beder os om hjælp til at forhindre dem i at spille for meget.
+
+Selv om Lichess ikke udelukker eller blokerer spillere undtagen for overtrædelser af servicevilkårene, anbefaler vi brugen af eksterne værktøjer til at begrænse overdreven spilleadfærd. Nogle almindelige forslag til blokering af hjemmesider omfatter %1$s, %2$s og %3$s. Hvis du gerne vil blive ved med at bruge sitet, men ikke lade dig friste af hurtige tidskontroller, kan du måske også være interesseret i %4$s, her er en med %5$s.
+
+Nogle spillere føler måske, at deres spilleadfærd er ved at udvikle sig til en afhængighed. Faktisk klassificerer WHO spilafhængighed som en %6$s, med følgende væsentlige kendetegn: 1) nedsat kontrol over spilleriet, 2) stigende prioritering af spilleriet og 3) optrapning af spilleriet på trods af negative konsekvenser. Hvis du mener, at din skakspilsadfærd følger dette mønster, opfordrer vi dig til at tale om det med en ven eller et familiemedlem og/eller med en professionel.</string>
 </resources>

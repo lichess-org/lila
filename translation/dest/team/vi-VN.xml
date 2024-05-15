@@ -6,17 +6,17 @@
     <item quantity="other">%s thành viên</item>
   </plurals>
   <string name="allTeams">Tất cả đội</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Trưởng đội</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Chỉ huy đội</string>
   <string name="newTeam">Đội mới</string>
   <string name="myTeams">Đội của tôi</string>
   <string name="noTeamFound">Không tìm thấy đội nào</string>
   <string name="joinTeam">Tham gia đội</string>
-  <string name="onlyLeaderLeavesTeam">Vui lòng thêm một đội trưởng mới trước khi rời đi hoặc giải tán đội.</string>
+  <string name="onlyLeaderLeavesTeam">Vui lòng thêm một chỉ huy mới trước khi rời đi hoặc giải tán đội.</string>
   <string name="quitTeam">Rời đội</string>
   <string name="manuallyReviewAdmissionRequests">Yêu cầu xét duyệt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Nếu chọn, kỳ thủ sẽ cần viết một yêu cầu gia nhập đội, bạn có thể từ chối hoặc chấp nhận.</string>
   <plurals name="teamLeaders">
-    <item quantity="other">Đội trưởng</item>
+    <item quantity="other">Chỉ huy</item>
   </plurals>
   <string name="teamRecentMembers">Thành viên Đội gần đây</string>
   <string name="kickSomeone">Đuổi ai đó ra khỏi đội</string>
@@ -24,9 +24,9 @@
   <plurals name="xJoinRequests">
     <item quantity="other">%s yêu cầu tham gia</item>
   </plurals>
-  <string name="willBeReviewed">Yêu cầu gia nhập của bạn sẽ được xem xét bởi đội trưởng.</string>
-  <string name="beingReviewed">Yêu cầu gia nhập của bạn đang được đội trưởng xem xét.</string>
-  <string name="requestDeclined">Yêu cầu gia nhập của bạn đã bị từ chối bởi một đội trưởng.</string>
+  <string name="willBeReviewed">Yêu cầu gia nhập của bạn sẽ được xem xét bởi chỉ huy.</string>
+  <string name="beingReviewed">Yêu cầu gia nhập của bạn đang được chỉ huy xem xét.</string>
+  <string name="requestDeclined">Yêu cầu gia nhập của bạn đã bị từ chối bởi một chỉ huy.</string>
   <string name="subToTeamMessages">Đăng kí nhận tin nhắn của đội</string>
   <string name="teamBattle">Giải đa đội</string>
   <string name="teamBattleOverview">Một trận đấu giữa nhiều đội, mỗi người chơi ghi điểm cho đội của họ</string>
@@ -38,9 +38,9 @@
   <string name="messageAllMembersLongDescription">Gửi tin nhắn riêng tới TẤT CẢ các thành viên của đội.
 Bạn có thể dùng chức năng này để gọi các kỳ thủ đến tham gia một giải đấu hoặc giải đa đội.
 Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ rời khỏi đội.</string>
-  <string name="teamsIlead">Tôi làm đội trưởng của những đội</string>
+  <string name="teamsIlead">Tôi làm chỉ huy của những đội</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn đường dẫn tới một trong những giải đấu sắp tới?</string>
-  <string name="leadersChat">Trò chuyện của các đội trưởng</string>
+  <string name="leadersChat">Chỉ huy trò chuyện</string>
   <string name="closeTeam">Giải tán đội</string>
   <string name="closeTeamDescription">Giải tán đội vĩnh viễn.</string>
   <string name="entryCode">Mã vào đội</string>
@@ -58,13 +58,13 @@ Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ r�
   <string name="oneTeamPerLineHelp">Bạn có thể sao chép danh sách từ giải đấu này dán sang giải đấu khác!
 
 Bạn không thể xóa một đội nếu một kỳ thủ đã tham gia giải đấu với đội đó.</string>
-  <string name="numberOfLeadsPerTeam">Số đội trưởng mỗi đội. Tổng số điểm của họ là điểm của đội đó.</string>
+  <string name="numberOfLeadsPerTeam">Số chỉ huy mỗi đội. Tổng số điểm của họ là điểm của đội đó.</string>
   <string name="numberOfLeadsPerTeamHelp">Bạn thực sự không nên thay đổi giá trị này sau khi giải đấu đã bắt đầu!</string>
   <string name="innerTeam">Giải nội bộ</string>
   <plurals name="battleOfNbTeams">
     <item quantity="other">Trận chiến giữa %s đội</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
-    <item quantity="other">mỗi đội %s đội trưởng</item>
+    <item quantity="other">mỗi đội %s chỉ huy</item>
   </plurals>
 </resources>
