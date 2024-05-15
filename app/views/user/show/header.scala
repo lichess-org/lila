@@ -39,7 +39,7 @@ object header:
             )(patronIconChar)
           )
         ),
-        u.enabled.no.option(span(cls := "closed")("CLOSED")),
+        u.enabled.no.option(span(cls := "closed")("CLOSED"))
       ),
       div(cls := "user-show__social")(
         div(cls := "number-menu")(

@@ -83,14 +83,14 @@ final class RelationUi(helpers: Helpers):
                     frag(
                       (followable && !blocked).option(
                         a(
-                          cls  := "text relation-button",
-                          href := routes.Relation.follow(user.name),
+                          cls      := "text relation-button",
+                          href     := routes.Relation.follow(user.name),
                           dataIcon := Icon.ThumbsUp
                         )(trans.site.follow.txt())
                       ),
                       a(
-                        cls  := "text relation-button",
-                        href := routes.Relation.block(user.name),
+                        cls      := "text relation-button",
+                        href     := routes.Relation.block(user.name),
                         dataIcon := Icon.NotAllowed
                       )(trans.site.block.txt())
                     )
