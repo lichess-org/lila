@@ -11,7 +11,12 @@ export async function initModule(stubs = false) {
     bots: {},
   };
 
-  const zfAsync = !stubs ? makeZerofish({ root: site.asset.url('npm') }) : Promise.resolve(undefined);
+  const zfAsync = !stubs
+    ? makeZerofish({
+        root: site.asset.url('npm', { documentOrigin: true }),
+        wasm: site.asset.url('npm/zerofishEngine.wasm'),
+      })
+    : Promise.resolve(undefined);
 
   const botsAsync = fetch(site.asset.url('bots.json')).then(x => x.json());
 

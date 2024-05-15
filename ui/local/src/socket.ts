@@ -1,9 +1,9 @@
 import throttle from 'common/throttle';
-import { VsBotCtrl } from './vsBotCtrl';
+import { LocalCtrl } from './ctrl';
 import { ApiMove } from 'game';
 import { RoundSocket } from 'round';
 
-export function makeSocket(/*send: SocketSend, */ ctrl: VsBotCtrl): RoundSocket {
+export function makeSocket(/*send: SocketSend, */ ctrl: LocalCtrl): RoundSocket {
   const handlers: SocketHandlers = {
     move: (m: ApiMove) => {
       ctrl.round?.apiMove?.(m);

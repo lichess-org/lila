@@ -1,5 +1,5 @@
 import { LocalPlayOpts } from './interfaces';
-import { type LibotCtrl } from 'libot';
+import { type LibotCtrl } from './bots/libot';
 import { makeSocket } from './socket';
 //import { makeRound } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
@@ -9,7 +9,7 @@ import { RoundSocket, RoundOpts, RoundData } from 'round';
 import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 
-export class VsBotCtrl {
+export class LocalCtrl {
   libot: LibotCtrl;
   chess = Chess.default();
   socket: RoundSocket;
@@ -136,6 +136,11 @@ export class VsBotCtrl {
 
   get ply() {
     return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
+  }
+
+  setPlayer(color: Color, name: string) {
+    color;
+    name;
   }
 
   player(color: Color, name: string): RoundData['player'] {

@@ -17,9 +17,9 @@ export default function table(ctrl: LobbyController) {
         [
           ['hook', 'createAGame', hookDisabled],
           ['friend', 'playWithAFriend', hasOngoingRealTimeGame],
-          //['ai', 'playWithTheMachine', hasOngoingRealTimeGame],
-          ['local', 'playWithTheMachine', hasOngoingRealTimeGame],
-        ].map(([gameType, transKey, disabled]: [GameType, string, boolean]) =>
+          ['ai', 'playWithTheMachine', hasOngoingRealTimeGame],
+          ['local', 'playOffline', false],
+        ].map(([gameType, transKey, disabled]: [GameType | 'local', string, boolean]) =>
           h(
             `button.button.button-metal.config_${gameType}`,
             {
@@ -29,7 +29,10 @@ export default function table(ctrl: LobbyController) {
                 ? {}
                 : bind(
                     site.blindMode ? 'click' : 'mousedown',
-                    () => ctrl.showSetupModal(gameType),
+                    () => {
+                      if (gameType === 'local') site.asset.loadEsm('local.modal');
+                      else ctrl.showSetupModal(gameType);
+                    },
                     ctrl.redraw,
                   ),
             },

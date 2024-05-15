@@ -1,0 +1,89 @@
+dialog .local-setup {
+  width: 96vw;
+
+  @media (min-width: at-least($x-small)) {
+    width: 80vw;
+  }
+  @media (min-width: at-least($large)) {
+    width: 60vw;
+  }
+
+  h2 {
+    flex: initial;
+  }
+
+  .vs {
+    display: grid;
+    width: 100%;
+    height: 24vh;
+    max-height: 240px;
+    grid-template-columns: 1fr 48px 1fr;
+  }
+
+  .player {
+    @extend %flex-column;
+    padding: 2em;
+    width: 100%;
+    height: 100%;
+    outline: 1px solid $c-border;
+    outline-offset: -2em;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    &.drag-over {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+    img {
+    }
+    .details {
+      display: block;
+    }
+  }
+
+  .actions {
+    @extend %flex-column;
+    justify-content: space-around;
+  }
+
+  .local-view {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    max-height: 400px;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
+  .chin {
+    height: 30px;
+  }
+
+  .card {
+    position: absolute;
+    top: 0;
+    width: 128px;
+    height: 192px;
+    border-radius: 6px;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s;
+    img {
+      width: 128px;
+    }
+    label {
+      font-weight: bold;
+      font-size: 1.3em;
+      text-align: center;
+      position: absolute;
+      top: -1.5em;
+      left: 0;
+      right: 0;
+      display: none;
+    }
+    &.pull label {
+      display: block;
+    }
+  }
+}

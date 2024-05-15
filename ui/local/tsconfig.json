@@ -1,19 +1,21 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "noEmit": true,
+    "outDir": "./dist",
+    "rootDir": "src",
+    //"esModuleInterop": true,
+    "emitDeclarationOnly": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "allowUnreachableCode": true
+    "allowUnreachableCode": true,
+    "composite": true
   },
+  "isolatedModules": true,
   "references": [
     { "path": "../common/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },
     { "path": "../game/tsconfig.json" },
     { "path": "../ceval/tsconfig.json" },
-    { "path": "../libot/tsconfig.json" },
     { "path": "../round/tsconfig.json" }
-  ],
-  "isolatedModules": true
+  ]
 }

@@ -24,7 +24,7 @@ export async function initModule() {
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
   const dlg = await site.dialog.dom({
     class: 'diagnostic',
-    css: [{ themed: 'diagnosticDialog' }],
+    css: [{ hashed: 'diagnosticDialog' }],
     htmlText: `
       <h2>Diagnostics</h2>${flash}
       <pre tabindex="0" class="err">${escaped}</pre>

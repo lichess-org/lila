@@ -1,4 +1,4 @@
-import { MaybeVNode } from 'common/snabbdom';
+import { VNode } from 'common/snabbdom';
 import { SetupCtrl } from '../ctrl';
 import hookContent from './hookContent';
 import friendContent from './friendContent';
@@ -12,7 +12,7 @@ const gameTypeToRenderer = {
   local: localContent,
 };
 
-export default function setupModal(ctrl: SetupCtrl): MaybeVNode {
+export default function setupModal(ctrl: SetupCtrl): VNode {
   if (!ctrl.gameType) return null;
   const renderContent = gameTypeToRenderer[ctrl.gameType];
   return site.dialog.snab({

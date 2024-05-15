@@ -44,10 +44,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
         {
           hook: bind(
             'click',
-            () => {
-              ctrl.leavePool();
-              ctrl.showSetupModal('hook', { variant: 'standard', timeMode: 'correspondence' });
-            },
+            () => ctrl.setupCtrl.initModal('hook', { variant: 'standard', timeMode: 'correspondence' }),
             ctrl.redraw,
           ),
         },

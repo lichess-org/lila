@@ -30,7 +30,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   }
 
   const view = $as<HTMLElement>('<div class="dialog-content">');
-  if (o.class) view.classList.add(...o.class.split('/[. ]/').filter(x => x));
+  if (o.class) view.classList.add(...o.class.split(/[. ]/).filter(x => x));
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
@@ -190,7 +190,7 @@ class DialogWrapper implements Dialog {
 
 function assets(o: DialogOpts) {
   const cssPromises = (o.css ?? []).map(css => {
-    if ('themed' in css) return site.asset.loadCssPath(css.themed);
+    if ('hashed' in css) return site.asset.loadCssPath(css.hashed);
     else if ('url' in css) return site.asset.loadCss(css.url);
     else return Promise.resolve();
   });

@@ -416,15 +416,6 @@ importers:
         specifier: github:schlawg/zerofish#master
         version: https://codeload.github.com/schlawg/zerofish/tar.gz/eb1bdc83325179056585f05d6d6ccb4cdbcca2a5
 
-  ui/libot:
-    dependencies:
-      chessops:
-        specifier: ^0.14.0
-        version: 0.14.1
-      zerofish:
-        specifier: latest
-        version: 0.0.18
-
   ui/lobby:
     dependencies:
       '@types/debounce-promise':
@@ -439,9 +430,6 @@ importers:
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
-      setup:
-        specifier: workspace:*
-        version: link:../setup
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
@@ -458,7 +446,7 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.14.1
+        specifier: ^0.14.0
         version: 0.14.1
       common:
         specifier: workspace:*
@@ -466,15 +454,15 @@ importers:
       game:
         specifier: workspace:*
         version: link:../game
-      libot:
-        specifier: workspace:*
-        version: link:../libot
       round:
         specifier: workspace:*
         version: link:../round
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
+      zerofish:
+        specifier: link:../../../zerofish
+        version: link:../../../zerofish
 
   ui/mod:
     dependencies:
@@ -673,18 +661,6 @@ importers:
       types-serviceworker:
         specifier: ^0.0.1
         version: 0.0.1
-
-  ui/setup:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-      libot:
-        specifier: workspace:*
-        version: link:../libot
-      snabbdom:
-        specifier: 3.5.1
-        version: 3.5.1
 
   ui/simul:
     dependencies:
@@ -2789,9 +2765,6 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-
-  zerofish@0.0.18:
-    resolution: {integrity: sha512-+qGrvl3XIvwP4LHuHyVgaT4FnK24DoylZWvS6gyWt/jrOpZTCKzb0dsVBzsAD4Ybe7w38RkhF4M0RmR23JB5ag==}
 
   zerofish@https://codeload.github.com/schlawg/zerofish/tar.gz/eb1bdc83325179056585f05d6d6ccb4cdbcca2a5:
     resolution: {tarball: https://codeload.github.com/schlawg/zerofish/tar.gz/eb1bdc83325179056585f05d6d6ccb4cdbcca2a5}
@@ -5072,14 +5045,6 @@ snapshots:
       yargs-parser: 21.1.1
 
   yocto-queue@0.1.0: {}
-
-  zerofish@0.0.18:
-    dependencies:
-      '@types/emscripten': 1.39.11
-      '@types/node': 20.12.11
-      '@types/web': 0.0.119
-      prettier: 3.1.0
-      typescript: 5.4.5
 
   zerofish@https://codeload.github.com/schlawg/zerofish/tar.gz/eb1bdc83325179056585f05d6d6ccb4cdbcca2a5:
     dependencies:

@@ -138,3 +138,35 @@ export interface SetupStore {
   increment: number;
   days: number;
 }
+
+export interface ForceSetupOptions {
+  variant?: VariantKey;
+  fen?: string;
+  timeMode?: TimeMode;
+}
+
+export interface SetupConstraints {
+  variant?: VariantKey;
+  fen?: string;
+  timeMode?: TimeMode;
+}
+
+export interface GameSetup {
+  id: string;
+  gameType: GameType | null;
+  color: Color | 'random';
+  variant: VariantKey;
+  timeMode: TimeMode;
+  gameMode: GameMode;
+  range: string;
+}
+
+export interface ParentCtrl {
+  readonly user?: string;
+  readonly ratingMap?: Record<Perf, RatingWithProvisional>;
+
+  redraw: () => void;
+  acquire?: (candidate: GameSetup) => boolean;
+  trans: Trans;
+  opts: { showRatings: boolean };
+}

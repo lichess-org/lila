@@ -12,7 +12,7 @@ interface Dialog {
 
 interface DialogOpts {
   class?: string; // zero or more classes for your view div
-  css?: ({ url: string } | { themed: string })[]; // fetches themed or full url css
+  css?: ({ url: string } | { hashed: string })[]; // fetches hashed or full url css
   htmlText?: string; // content, text will be used as-is
   cash?: Cash; // content, overrides htmlText, will be cloned and any 'none' class removed
   htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd

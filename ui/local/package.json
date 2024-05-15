@@ -7,17 +7,22 @@
     "@types/lichess": "workspace:*",
     "ceval": "workspace:*",
     "chess": "workspace:*",
-    "chessops": "^0.14.1",
+    "chessops": "^0.14.0",
     "common": "workspace:*",
     "game": "workspace:*",
-    "libot": "workspace:*",
     "round": "workspace:*",
-    "snabbdom": "3.5.1"
+    "snabbdom": "3.5.1",
+    "zerofish": "link:../../../zerofish"
   },
   "lichess": {
     "bundles": [
-      "src/local.vsBot.ts",
+      "src/local.modal.ts",
+      "src/local.ts",
       "src/scaffold/local.botVsBot.ts"
-    ]
+    ],
+    "sync": {
+      "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",
+      "defs/bots.json": "public"
+    }
   }
 }

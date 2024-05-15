@@ -5,8 +5,23 @@ import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember, LobbyMe } from './interfaces';
-import { ParentCtrl, SetupConstraints, GameType, GameSetup, SetupCtrl } from 'setup';
+import {
+  ParentCtrl,
+  LobbyOpts,
+  LobbyData,
+  Tab,
+  Mode,
+  Sort,
+  Hook,
+  Seek,
+  Pool,
+  PoolMember,
+  GameType,
+  GameSetup,
+  SetupConstraints,
+  LobbyMe,
+} from './interfaces';
+import { SetupCtrl } from './setupCtrl';
 import LobbySocket from './socket';
 import Filter from './filter';
 
@@ -26,7 +41,7 @@ export default class LobbyController implements ParentCtrl {
   trans: Trans;
   pools: Pool[];
   filter: Filter;
-  setupCtrl: SetupCtrl;
+  setupCtrl = new SetupCtrl(this);
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -81,15 +96,17 @@ export default class LobbyController implements ParentCtrl {
       }, 10 * 1000);
       this.joinPoolFromLocationHash();
     }
-
+    //this.setupCtrl = new SetupCtrl(this);
     site.pubsub.on('socket.open', () => {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
     });
+
     window.addEventListener('beforeunload', () => this.leavePool());
   }
+
   spreadPlayersNumber?: (nb: number) => void;
   spreadGamesNumber?: (nb: number) => void;
   initNumberSpreader = (elm: HTMLAnchorElement, nbSteps: number, initialCount: number) => {
@@ -274,9 +291,8 @@ export default class LobbyController implements ParentCtrl {
   hasPool = (id: string) => this.pools.some(p => p.id === id);
 
   showSetupModal = async (gameType: GameType, opts?: SetupConstraints, friendUser?: string) => {
-    if (!this.setupCtrl) this.setupCtrl = await site.asset.loadEsm<SetupCtrl>('setup', { init: this });
     this.leavePool();
-    this.setupCtrl.openModal(gameType, opts, friendUser);
+    this.setupCtrl.initModal(gameType, opts, friendUser);
     this.redraw();
   };
 
