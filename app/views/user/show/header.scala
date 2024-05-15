@@ -40,6 +40,56 @@ object header:
           )
         ),
         u.enabled.no.option(span(cls := "closed")("CLOSED")),
+      ),
+      div(cls := "user-show__social")(
+        div(cls := "number-menu")(
+          u.noBot.option(
+            a(
+              href       := routes.UserTournament.path(u.username, "recent"),
+              cls        := "nm-item",
+              dataToints := u.toints
+            )(
+              splitNumber(trans.site.nbTournamentPoints.pluralSame(u.toints))
+            )
+          ),
+          (info.nbSimuls > 0).option(
+            a(
+              href := routes.Simul.byUser(u.username),
+              cls  := "nm-item"
+            )(
+              splitNumber(trans.site.nbSimuls.pluralSame(info.nbSimuls))
+            )
+          ),
+          (info.nbRelays > 0).option(
+            a(
+              href := routes.RelayTour.by(u.username),
+              cls  := "nm-item"
+            )(
+              splitNumber(trans.broadcast.nbBroadcasts.pluralSame(info.nbRelays))
+            )
+          ),
+          a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
+            splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
+          ),
+          ctx.kid.no.option(
+            a(
+              cls  := "nm-item",
+              href := routes.ForumPost.search("user:" + u.username, 1).url
+            )(
+              splitNumber(trans.site.nbForumPosts.pluralSame(info.nbForumPosts))
+            )
+          ),
+          (ctx.kid.no && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u))).option(
+            a(
+              cls  := "nm-item",
+              href := routes.Ublog.index(u.username)
+            )(
+              splitNumber(s"${info.ublog.so(_.nbPosts)} blog posts")
+            )
+          ),
+          (ctx.isAuth && ctx.isnt(u))
+            .option(a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes")))
+        ),
         div(cls := "user-actions dropdown")(
           a(
             cls      := "text",
@@ -102,56 +152,6 @@ object header:
               )(trans.site.reportXToModerators.txt(u.username))
             )
           )
-        )
-      ),
-      div(cls := "user-show__social")(
-        div(cls := "number-menu")(
-          u.noBot.option(
-            a(
-              href       := routes.UserTournament.path(u.username, "recent"),
-              cls        := "nm-item",
-              dataToints := u.toints
-            )(
-              splitNumber(trans.site.nbTournamentPoints.pluralSame(u.toints))
-            )
-          ),
-          (info.nbSimuls > 0).option(
-            a(
-              href := routes.Simul.byUser(u.username),
-              cls  := "nm-item"
-            )(
-              splitNumber(trans.site.nbSimuls.pluralSame(info.nbSimuls))
-            )
-          ),
-          (info.nbRelays > 0).option(
-            a(
-              href := routes.RelayTour.by(u.username),
-              cls  := "nm-item"
-            )(
-              splitNumber(trans.broadcast.nbBroadcasts.pluralSame(info.nbRelays))
-            )
-          ),
-          a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
-            splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
-          ),
-          ctx.kid.no.option(
-            a(
-              cls  := "nm-item",
-              href := routes.ForumPost.search("user:" + u.username, 1).url
-            )(
-              splitNumber(trans.site.nbForumPosts.pluralSame(info.nbForumPosts))
-            )
-          ),
-          (ctx.kid.no && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u))).option(
-            a(
-              cls  := "nm-item",
-              href := routes.Ublog.index(u.username)
-            )(
-              splitNumber(s"${info.ublog.so(_.nbPosts)} blog posts")
-            )
-          ),
-          (ctx.isAuth && ctx.isnt(u))
-            .option(a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes")))
         )
       ),
       ctx.isnt(u).option(noteUi.zone(u, social.notes)),

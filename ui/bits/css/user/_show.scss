@@ -38,14 +38,6 @@
       }
     }
 
-    .relation-actions {
-      @extend %flex-center-nowrap;
-
-      border-inline-end: $border;
-    }
-  }
-
-  &__header {
     .dropdown {
       position: relative;
       font-size: x-large;
