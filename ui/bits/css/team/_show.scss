@@ -122,6 +122,12 @@ $section-margin-more: 5vh;
     td {
       padding: 0.5rem 0.7rem;
     }
+
+    @include mq-subnav-top {
+      td {
+        display: block;
+      }
+    }
   }
 
   h2 {
@@ -150,11 +156,5 @@ $section-margin-more: 5vh;
 
   &__log {
     margin-bottom: 2em;
-  }
-
-  @media (max-width: 1200px) {
-    .table-row {
-      display: block;
-    }
   }
 }

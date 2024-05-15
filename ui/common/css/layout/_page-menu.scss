@@ -28,10 +28,11 @@
   &__content.box {
     /* ensure the content is as high as the menu */
     min-height: 100%;
-  }
-  @media (max-width: 767px) {
-    .table-row {
-      display: block;
+
+    @include mq-subnav-top {
+      .requests td {
+        display: block;
+      }
     }
   }
 }
