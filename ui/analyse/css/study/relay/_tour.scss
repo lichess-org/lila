@@ -97,6 +97,13 @@ $hover-bg: $m-primary_bg--mix-30;
       background: $m-accent_bg--mix-10;
       color: $c-accent;
     }
+
+    &-select__name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 0.1rem;
+    }
   }
 
   &__header {
@@ -221,11 +228,26 @@ $hover-bg: $m-primary_bg--mix-30;
     }
     .name {
       padding: 0.3em 1em;
+      a {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        max-width: 25rem;
+        @include mq-subnav-top {
+          width: 100%;
+          max-width: 15rem;
+        }
+      }
     }
     .time,
     .status {
       font-size: 0.9rem;
       color: $c-font-dim;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .time {
       @extend %roboto;
