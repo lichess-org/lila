@@ -9,8 +9,6 @@ import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
 import { WithGround } from '../util';
 
-const restartingKey = 'learn.restarting';
-
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
   trans: Trans;
@@ -40,7 +38,7 @@ export class RunCtrl {
     // site.mousetrap.bind(['shift+enter'], this.levelCtrl.complete);
   }
 
-  initializeLevel = () => {
+  initializeLevel = (restarting = false) => {
     this.levelCtrl = new LevelCtrl(
       this.withGround,
       this.stage.levels[Number(this.opts.levelId) - 1],
@@ -62,10 +60,8 @@ export class RunCtrl {
       this.redraw,
     );
 
-    const isRestarting = site.tempStorage.boolean(restartingKey);
-    this.stageStarting(this.levelCtrl.blueprint.id === 1 && this.stageScore() === 0 && !isRestarting.get());
+    this.stageStarting(this.levelCtrl.blueprint.id === 1 && this.stageScore() === 0 && !restarting);
     this.stageCompleted(false);
-    isRestarting.set(false);
 
     if (!this.opts.stageId) return;
     if (this.stageStarting()) sound.stageStart();
@@ -97,7 +93,7 @@ export class RunCtrl {
   };
 
   restart = () => {
-    site.tempStorage.boolean(restartingKey).set(true);
-    hashNavigate(this.stage.id, this.levelCtrl?.blueprint.id);
+    this.initializeLevel(true);
+    this.redraw();
   };
 }
