@@ -32,22 +32,14 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
     const color = chess.turn() === 'w' ? 'b' : 'w';
-    appleKeys.forEach(function (key) {
-      chess.put(
-        {
-          type: 'p',
-          color: color,
-        },
-        key,
-      );
+    appleKeys.forEach(key => {
+      chess.put({ type: 'p', color: color }, key);
     });
   }
 
-  function getColor() {
-    return chess.turn() == 'w' ? 'white' : 'black';
-  }
+  const getColor = () => (chess.turn() == 'w' ? 'white' : 'black');
 
-  function setColor(c: Color) {
+  const setColor = (c: Color) => {
     const turn = c === 'white' ? 'w' : 'b';
     let newFen = setFenTurn(chess.fen(), turn);
     chess.load(newFen);
@@ -56,33 +48,22 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
       newFen = newFen.replace(/ (w|b) ([kKqQ-]{1,4}) \w\d /, ' ' + turn + ' $2 - ');
       chess.load(newFen);
     }
-  }
-
-  const findCaptures = function () {
-    return chess
-      .moves({
-        verbose: true,
-      })
-      .filter(function (move) {
-        return move.captured;
-      })
-      .map(function (move) {
-        return {
-          orig: move.from,
-          dest: move.to,
-        };
-      });
   };
+
+  const findCaptures = () =>
+    chess
+      .moves({ verbose: true })
+      .filter(move => move.captured)
+      .map(move => ({ orig: move.from, dest: move.to }));
 
   function color(): Color;
   function color(c: Color): void;
   function color(c?: Color) {
-    if (c) return setColor(c);
-    else return getColor();
+    return c ? setColor(c) : getColor();
   }
 
   return {
-    dests: function (opts?: { illegal?: boolean }) {
+    dests: (opts?: { illegal?: boolean }) => {
       const dests: cg.Dests = new Map();
       chess.SQUARES.forEach(s => {
         const ms = chess.moves({
@@ -100,76 +81,52 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
     },
     color,
     fen: chess.fen,
-    move: function (orig: Key, dest: Key, prom?: PromotionChar | PromotionRole | '') {
-      return chess.move({
+    move: (orig: Key, dest: Key, prom?: PromotionChar | PromotionRole | '') =>
+      chess.move({
         from: orig,
         to: dest,
         promotion: prom ? (isRole(prom) ? roleToSan[prom] : prom) : undefined,
-      });
-    },
-    occupation: function () {
+      }),
+    occupation: () => {
       const map: Partial<Record<Key, Piece>> = {};
-      chess.SQUARES.forEach(function (s) {
+      chess.SQUARES.forEach(s => {
         const p = chess.get(s);
         if (p) map[s] = p;
       });
       return map;
     },
-    kingKey: function (color: Color) {
+    kingKey: (color: Color) => {
       for (const i in chess.SQUARES) {
         const p = chess.get(chess.SQUARES[i]);
         if (p && p.type === 'k' && p.color === (color === 'white' ? 'w' : 'b')) return chess.SQUARES[i];
       }
       return undefined;
     },
-    findCapture: function () {
-      return findCaptures()[0];
-    },
-    findUnprotectedCapture: function () {
-      return findCaptures().find(function (capture) {
+    findCapture: () => findCaptures()[0],
+    findUnprotectedCapture: () =>
+      findCaptures().find(capture => {
         const clone = new Chess(chess.fen());
         clone.move({ from: capture.orig, to: capture.dest });
-        return !clone
-          .moves({
-            verbose: true,
-          })
-          .some(function (m) {
-            return m.captured && m.to === capture.dest;
-          });
-      });
-    },
-    checks: function () {
+        return !clone.moves({ verbose: true }).some(m => m.captured && m.to === capture.dest);
+      }),
+    checks: () => {
       if (!chess.in_check()) return null;
       const color = getColor();
       setColor(color === 'white' ? 'black' : 'white');
       const checks = chess
-        .moves({
-          verbose: true,
-        })
-        .filter(function (move) {
-          return (move.captured as PieceType) === 'k';
-        })
-        .map(function (move) {
-          return {
-            orig: move.from,
-            dest: move.to,
-          };
-        });
+        .moves({ verbose: true })
+        .filter(move => (move.captured as PieceType) === 'k')
+        .map(move => ({ orig: move.from, dest: move.to }));
       setColor(color);
       if (checks.length === 0) return null;
       return checks;
     },
-    playRandomMove: function () {
-      const moves = chess.moves({
-        verbose: true,
-      });
+    playRandomMove: () => {
+      const moves = chess.moves({ verbose: true });
       if (moves.length) {
         const move = moves[Math.floor(Math.random() * moves.length)];
         chess.move(move);
-        return {
-          orig: move.from,
-          dest: move.to,
-        };
+        return { orig: move.from, dest: move.to };
       }
       return undefined;
     },
