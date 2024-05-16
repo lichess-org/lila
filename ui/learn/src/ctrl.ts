@@ -36,7 +36,24 @@ export class LearnCtrl {
   setStageLevelFromHash = () => {
     const { stageId, levelId } = extractHashParameters();
     this.opts.stageId = stageId;
-    this.opts.levelId = levelId || 1;
+    this.opts.levelId =
+      // used the level id from the hash path if it exists
+      levelId ||
+      // otherwise find a level id based on the last completed level
+      (() => {
+        if (!stageId) return;
+        const stage = stages.byId[stageId];
+        if (!stage) return;
+        const result = this.data.stages[stage.key];
+        let it = 0;
+        if (result) while (result.scores[it]) it++;
+        if (it >= stage.levels.length) it = 0;
+        const newLevelId = it + 1;
+        this.opts.levelId = newLevelId;
+        return newLevelId;
+      })() ||
+      // finally, fallback to a level id of 1
+      1;
   };
 
   inStage = () => this.opts.stageId !== null;

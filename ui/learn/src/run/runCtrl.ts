@@ -35,24 +35,15 @@ export class RunCtrl {
     this.trans = ctrl.trans;
 
     this.initializeLevel();
+
+    // Helpful for debugging:
+    // site.mousetrap.bind(['shift+enter'], this.levelCtrl.complete);
   }
 
   initializeLevel = () => {
-    const levelId =
-      this.opts.levelId ||
-      (() => {
-        const result = this.data.stages[this.stage.key];
-        let it = 0;
-        if (result) while (result.scores[it]) it++;
-        if (it >= this.stage.levels.length) it = 0;
-        const newLevelId = it + 1;
-        this.opts.levelId = newLevelId;
-        return newLevelId;
-      })();
-
     this.levelCtrl = new LevelCtrl(
       this.withGround,
-      this.stage.levels[Number(levelId) - 1],
+      this.stage.levels[Number(this.opts.levelId) - 1],
       {
         onCompleteImmediate: () => {
           this.opts.storage.saveScore(this.stage, this.levelCtrl!.blueprint, this.levelCtrl!.vm.score);
