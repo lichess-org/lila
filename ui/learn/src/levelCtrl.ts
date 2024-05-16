@@ -115,11 +115,7 @@ export class LevelCtrl {
   makeSendMove = (ground: CgApi) => {
     const { items, scenario, chess, blueprint, vm, redraw } = this;
 
-    const assertData = (): AssertData => ({
-      scenario: scenario,
-      chess: chess,
-      vm: vm,
-    });
+    const assertData = (): AssertData => ({ scenario, chess, vm });
     const detectFailure = () => {
       const failed = blueprint.failure && blueprint.failure(assertData());
       if (failed) sound.failure();
@@ -135,7 +131,7 @@ export class LevelCtrl {
       const move = chess[fun]();
       if (!move) return false;
       vm.failed = true;
-      ground?.stop();
+      ground.stop();
       this.showCapture(move);
       sound.failure();
       return true;
@@ -211,17 +207,12 @@ export class LevelCtrl {
       }),
     );
 
-  showCapture = (move: CgMove) =>
-    requestAnimationFrame(() => {
-      // TODO: the data-key attribute is no longer available
-      const $square = $('#learn-app piece[data-key=' + move.orig + ']');
-      $square.addClass('wriggle');
+  showCapture = ({ orig, dest }: CgMove) =>
+    this.withGround(g => {
+      g.setShapes([{ orig, label: { text: '!', fill: '#af0000' } }]);
       timeouts.setTimeout(() => {
-        $square.removeClass('wriggle');
-        this.withGround(g => {
-          g.setShapes([]);
-          g.move(move.orig, move.dest);
-        });
+        g.setShapes([]);
+        g.move(orig, dest);
       }, 600);
     });
 

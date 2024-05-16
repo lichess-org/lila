@@ -66,9 +66,9 @@
     }
   }
 
-  .highlight-2nd-rank & .cg-board::after,
-  .highlight-5th-rank & .cg-board::after,
-  .highlight-7th-rank & .cg-board::after {
+  .highlight-2nd-rank & cg-board::after,
+  .highlight-5th-rank & cg-board::after,
+  .highlight-7th-rank & cg-board::after {
     width: 100%;
     height: 12.5%;
     content: '';
@@ -80,11 +80,11 @@
     animation: 1s rankGlow ease-in-out infinite;
   }
 
-  .highlight-7th-rank & .cg-board::after {
+  .highlight-7th-rank & cg-board::after {
     top: 12.5%;
   }
 
-  .highlight-5th-rank & .cg-board::after {
+  .highlight-5th-rank & cg-board::after {
     top: 37.5%;
   }
 
@@ -109,19 +109,7 @@
     }
   }
 
-  .cg-board piece.wriggle::after {
-    content: '!';
-  }
-
-  .cg-board piece.wriggle::after {
-    content: '!';
-    font-size: 40px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: rgba(0, 0, 0, 0.8) 0 0 3px;
-  }
-
-  .piece-values .cg-board piece::before {
+  .piece-values cg-board piece::before {
     position: absolute;
     top: 14px;
     @include inline-end(4px);
@@ -133,20 +121,20 @@
     font-weight: bold;
   }
 
-  .piece-values .cg-board piece.queen::before {
+  .piece-values cg-board piece.queen::before {
     content: '9';
   }
 
-  .piece-values .cg-board piece.rook::before {
+  .piece-values cg-board piece.rook::before {
     content: '5';
   }
 
-  .piece-values .cg-board piece.bishop::before,
-  .piece-values .cg-board piece.knight::before {
+  .piece-values cg-board piece.bishop::before,
+  .piece-values cg-board piece.knight::before {
     content: '3';
   }
 
-  .piece-values .cg-board piece.pawn::before {
+  .piece-values cg-board piece.pawn::before {
     content: '1';
   }
 }
