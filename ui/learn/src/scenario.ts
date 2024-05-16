@@ -1,8 +1,8 @@
 import * as cg from 'chessground/types';
-import * as ground from './ground';
 import * as timeouts from './timeouts';
 import { ChessCtrl } from './chess';
 import { WithGround, decomposeUci } from './util';
+import { Shape } from './chessground';
 
 export interface Scenario {
   isComplete(): boolean;
@@ -15,7 +15,7 @@ export type ScenarioLevel = (
   | Uci
   | {
       move: Uci;
-      shapes: ground.Shape[];
+      shapes: Shape[];
     }
 )[];
 
@@ -40,7 +40,7 @@ export default function (
     return false;
   };
 
-  const setShapes = (shapes: ground.Shape[]) => withGround(g => g.setShapes(shapes));
+  const setShapes = (shapes: Shape[]) => withGround(g => g.setShapes(shapes));
 
   const opponent = () => {
     const step = steps[it];

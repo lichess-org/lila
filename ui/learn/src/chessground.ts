@@ -2,6 +2,12 @@ import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
 import { RunCtrl } from './run/runCtrl';
 
+export interface Shape {
+  orig: Key;
+  dest?: Key;
+  color?: string;
+}
+
 export type CgMove = {
   orig: Key;
   dest: Key;

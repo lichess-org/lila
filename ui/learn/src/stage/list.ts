@@ -16,11 +16,11 @@ import enpassant from './enpassant';
 import stalemate from './stalemate';
 import value from './value';
 import check2 from './check2';
-import { Shape } from '../ground';
 import { AssertData } from '../levelCtrl';
 import { ScenarioLevel } from '../scenario';
 import type { Square as Key } from 'chess.js';
 import { VNode } from 'snabbdom';
+import { Shape } from '../chessground';
 
 export type Level = LevelBase & LevelDefaults;
 export type LevelPartial = LevelBase & Partial<LevelDefaults>;
