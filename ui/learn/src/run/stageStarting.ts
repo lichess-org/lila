@@ -13,7 +13,14 @@ export default function (ctrl: RunCtrl) {
       h('p', util.withLinebreaks(ctrl.trans.noarg(ctrl.stage.intro))),
       h(
         'div.buttons',
-        h('a.next', { hook: bind('click', ctrl.hideStartingPane) }, ctrl.trans.noarg('letsGo')),
+        h(
+          'a.next',
+          {
+            key: ctrl.stage.id,
+            hook: bind('click', ctrl.hideStartingPane),
+          },
+          ctrl.trans.noarg('letsGo'),
+        ),
       ),
     ]),
   );

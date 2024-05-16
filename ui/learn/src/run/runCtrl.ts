@@ -9,7 +9,7 @@ import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
 import { WithGround } from '../util';
 
-const RESTARTING_KEY = 'learn.restarting';
+const restartingKey = 'learn.restarting';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
@@ -71,7 +71,7 @@ export class RunCtrl {
       this.redraw,
     );
 
-    const isRestarting = site.tempStorage.boolean(RESTARTING_KEY);
+    const isRestarting = site.tempStorage.boolean(restartingKey);
     this.stageStarting(this.levelCtrl.blueprint.id === 1 && this.stageScore() === 0 && !isRestarting.get());
     this.stageCompleted(false);
     isRestarting.set(false);
@@ -106,7 +106,7 @@ export class RunCtrl {
   };
 
   restart = () => {
-    site.tempStorage.boolean(RESTARTING_KEY).set(true);
+    site.tempStorage.boolean(restartingKey).set(true);
     hashNavigate(this.stage.id, this.levelCtrl?.blueprint.id);
   };
 }
