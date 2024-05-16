@@ -94,9 +94,7 @@ export class LevelCtrl {
       },
       // TODO:
       // items: {
-      //   render: function (_pos: unknown, key: Key) {
-      //     return items.withItem(key, itemView);
-      //   },
+      //   render: (_pos: unknown, key: Key) => items.withItem(key, itemView),
       // },
       premovable: { enabled: true },
       drawable: { enabled: true, eraseOnClick: true },
