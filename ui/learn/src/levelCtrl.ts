@@ -92,9 +92,9 @@ export class LevelCtrl {
           if (!this.promotionCtrl.start(orig, dest, sendMove)) sendMove(orig, dest);
         },
       },
+      // TODO:
       // items: {
       //   render: function (_pos: unknown, key: Key) {
-      //     // TODO:
       //     return items.withItem(key, itemView);
       //   },
       // },
@@ -199,9 +199,8 @@ export class LevelCtrl {
         turnColor: color,
         fen,
         movable: { color, dests },
-        // TODO:
         // Casting here instead of declaring lastMove as [Key, Key] right away
-        // allows the fen function to accept [orig, dest, promotion] values
+        // allows the setFen function to accept [orig, dest, promotion] values
         // for lastMove as well.
         lastMove: lastMove as [Key, Key],
       }),
