@@ -20,7 +20,8 @@ class UserTest extends munit.FunSuite:
   test("username regex bad prefix: can login") {
     assert(couldBeUsername("000"))
     assert(couldBeUsername("0foo"))
-    assert(!couldBeUsername("_foo"))
+    assert(couldBeUsername("_foo"))
+    assert(couldBeUsername("__foo"))
     assert(!couldBeUsername("-foo"))
   }
 
