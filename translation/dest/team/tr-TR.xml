@@ -50,8 +50,26 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="entryCodeDescriptionForLeader">(İsteğe bağlı) Takıma yeni katılan üyelerin bu kodu bilmesi gerekir.</string>
   <string name="incorrectEntryCode">Giriş kodu yanlış.</string>
   <string name="teamAlreadyExists">Böyle bir takım zaten mevcut.</string>
+  <string name="upcomingTournaments">Yaklaşan turnuvalar</string>
   <string name="completedTourns">Tamamlanan turnuvalar</string>
   <string name="declinedRequests">Geri çevrilen istekler</string>
   <string name="joinLichessVariantTeam">Haber ve etkinlikler için resmî %s takımına katılın</string>
   <string name="teamPage">Takım sayfası</string>
+  <string name="thisTeamBattleIsOver">Bu turnuva sona erdi ve takımlar artık güncellenemez.</string>
+  <string name="listTheTeamsThatWillCompete">Bu savaşta yarışacak takımları listeleyin.</string>
+  <string name="oneTeamPerLine">Her satırda bir takım kullanın. Otomatik tamamlayıcıyı kullanabilirsiniz.</string>
+  <string name="oneTeamPerLineHelp">Bu listedeki takımları bir turnuvadan diğerine kopyalayabilirsiniz!
+
+Bir oyuncu zaten bu takımlardan birine katıldıysa, takımı kaldıramazsınız.</string>
+  <string name="numberOfLeadsPerTeam">Her takımdaki liderlerin sayısı. Onların puanlarının toplamı takımın puanıdır.</string>
+  <string name="numberOfLeadsPerTeamHelp">Turnuva başladıktan sonra bu değeri değiştirmemeniz daha iyi olur!</string>
+  <string name="innerTeam">İçerideki takım</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s takımın savaşı</item>
+    <item quantity="other">%s takımın savaşı</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Her takımda bir lider</item>
+    <item quantity="other">%s lider takım başına</item>
+  </plurals>
 </resources>
