@@ -21,11 +21,6 @@ object Json:
   given [A](using Show[A]): KeyWrites[A] with
     def writeKey(key: A) = key.show
 
-  given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily]: f =>
-    f.get[String]("key")
-      .flatMap(LilaOpeningFamily.find)
-      .fold[JsResult[LilaOpeningFamily]](JsError(Nil))(JsSuccess(_))
-
   given NoJsonHandler[chess.Square] with {}
 
   import lila.core.LightUser
