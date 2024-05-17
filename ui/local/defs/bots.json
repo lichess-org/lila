@@ -1,148 +1,113 @@
 [
   {
-    "uid": "#babyhoward",
-    "name": "Baby Howard",
-    "description": "Baby Howard just learned how the pieces move. Now he wants blood.",
-    "image": "baby-howard.webp",
-    "netName": "maia-1100.pb"
-  },
-  {
-    "uid": "#coral",
-    "name": "Coral",
-    "description": "Coral may slither like a snake, but she's actually a sweetheart.",
-    "image": "coral.webp",
-    "netName": "maia-1100.pb"
-  },
-  {
-    "uid": "#beatrice",
-    "name": "Beatrice",
-    "description": "If you dip your pieces in honey, Beatrice will be a problem.",
-    "image": "beatrice.webp",
-    "netName": "maia-1200.pb"
-  },
-  {
-    "uid": "#nacho",
-    "name": "Nacho",
-    "description": "Nacho is a verified feline grandmaster. If he tries to eat your head, do not let him.",
-    "image": "nacho.webp",
-    "netName": "maia-1200.pb"
-  },
-  {
-    "uid": "#louise",
-    "name": "Louise",
-    "description": "",
-    "image": "louise.webp",
-    "netName": "maia-1300.pb"
+    "uid": "#tbone",
+    "name": "T-Bone",
+    "description": "T-Bone Duplexus is a retired\nprofessional alligator wrestler.\nHe's not very good at chess.",
+    "image": "t-bone.webp",
+    "netName": "maia-1900.pb"
   },
   {
     "uid": "#terrence",
     "name": "Terrence",
-    "description": "",
+    "description": "Terrence just learned\nhow the pieces move.\nNow he wants blood.",
     "image": "terrence.webp",
     "netName": "maia-1400.pb"
   },
   {
-    "uid": "#elsiezero",
-    "name": "Elsie Zero",
-    "description": "Elsie Zero is a bot that plays random moves.",
-    "image": "baby-robot.webp",
-    "netName": "maia-1300.pb"
-  },
-  {
-    "uid": "#henry",
-    "name": "Henry",
-    "description": "",
-    "image": "henry.webp",
-    "netName": "maia-1400.pb"
-  },
-  {
-    "uid": "#greta",
-    "name": "Greta",
-    "description": "",
-    "image": "greta.webp",
-    "netName": "maia-1700.pb"
-  },
-  {
-    "uid": "#ronald",
-    "name": "Ronald",
-    "description": "",
-    "image": "shark.webp",
-    "netName": "maia-1500.pb"
+    "uid": "#nacho",
+    "name": "Nacho",
+    "description": "Nacho is a feline grandmaster.\nIf he tries to eat your head,\ndo not let him.",
+    "image": "nacho.webp",
+    "netName": "maia-1200.pb"
   },
   {
     "uid": "#marco",
     "name": "Marco",
-    "description": "",
+    "description": "They never asked Marco\nto star in a video game.\nHe's not happy about it.",
     "image": "marco.webp",
     "netName": "maia-1600.pb"
   },
   {
-    "uid": "#ivanka",
-    "name": "Ivanka",
-    "description": "",
-    "image": "larry.webp",
-    "netName": "maia-1500.pb"
-  },
-  {
-    "uid": "#dansby",
-    "name": "Dansby",
-    "description": "",
-    "image": "dansby.webp",
-    "netName": "maia-1500.pb"
-  },
-  {
-    "uid": "#agatha",
-    "name": "Agatha",
-    "description": "",
-    "image": "witch1.webp",
-    "netName": "maia-1600.pb"
-  },
-  {
-    "uid": "#grunt",
-    "name": "Grunt",
-    "description": "",
-    "image": "grunt.webp",
-    "netName": "maia-1700.pb"
-  },
-  {
-    "uid": "#helena",
-    "name": "Helena",
-    "description": "",
-    "image": "helena.webp",
-    "netName": "maia-1700.pb"
-  },
-  {
     "uid": "#ghost",
     "name": "Ghost",
-    "description": "",
-    "image": "specops-lady.webp",
+    "description": "Ghost was kidnapped as a child\nand raised by intermediates.",
+    "image": "ghost.webp",
     "netName": "maia-1900.pb"
   },
   {
-    "uid": "#mitsoko",
-    "name": "Mitsoko",
-    "description": "",
-    "image": "mitsoko.webp",
-    "netName": "maia-1800.pb"
+    "uid": "#greta",
+    "name": "Greta",
+    "description": "Greta was once a queen herself.\nNow she lives in the woods\nand plays chess with squirrels.",
+    "image": "greta.webp",
+    "netName": "maia-1200.pb"
   },
   {
     "uid": "#maia",
     "name": "Maia",
-    "description": "",
+    "description": "Maia was a famous author\nbefore she became a model\nfor Elle c0.",
     "image": "maia.webp",
     "netName": "maia-1900.pb"
   },
   {
+    "uid": "#gerard",
+    "name": "Gerard",
+    "description": "Gerard brought a sword to a chess match.\nAnd he swings it hard.",
+    "image": "gerard.webp",
+    "netName": "maia-1900.pb"
+  },
+  {
+    "uid": "#bionica",
+    "name": "Bionica",
+    "description": "Bionica was programmed\nwith a full range of emotions.\nBut she prefers contempt.",
+    "image": "bionica.webp",
+    "netName": "maia-1700.pb"
+  },
+  {
+    "uid": "#mitsoko",
+    "name": "Mitsoko",
+    "description": "Mitsoko, like most women in anime,\nis an inexplicably powerful warrior.",
+    "image": "mitsoko.webp",
+    "netName": "maia-1800.pb"
+  },
+  {
     "uid": "#spectre",
     "name": "Spectre",
-    "description": "",
-    "image": "soldier-torso.webp",
+    "description": "Spectre may strike without warning.\nYou have been warned.",
+    "image": "spectre.webp",
+    "netName": "maia-1800.pb"
+  },
+  {
+    "uid": "#aurora",
+    "name": "Aurora",
+    "description": "They say Aurora can see the future.\nShe says she can see your defeat.",
+    "image": "aurora.webp",
+    "netName": "maia-1900.pb"
+  },
+  {
+    "uid": "#nullzo",
+    "name": "Null-Zo",
+    "description": "Null-Zo will not rest\nuntil he has defeated you.\nThen he will rest.",
+    "image": "nullzo.webp",
+    "netName": "maia-1900.pb"
+  },
+  {
+    "uid": "#eliza",
+    "name": "Eliza",
+    "description": "Eliza plays masterfully.\nSome say she's a machine.\nThey're right.",
+    "image": "eliza.webp",
+    "netName": "maia-1900.pb"
+  },
+  {
+    "uid": "#thinman",
+    "name": "ThinMan",
+    "description": "ThinMan is not your friend.\nIt's why he's pointing\na laser gun at your face.",
+    "image": "thinman.webp",
     "netName": "maia-1800.pb"
   },
   {
     "uid": "#listress",
     "name": "Listress",
-    "description": "",
+    "description": "You are a wretched, pitiful worm.\nListress will not be merciful.\nYou may still beg.",
     "image": "listress.webp",
     "netName": "maia-1900.pb"
   }

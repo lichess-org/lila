@@ -18,6 +18,7 @@ export interface ZfParam {
 export interface BotInfo {
   readonly name: string;
   readonly uid: string;
+  readonly domClass: string;
   readonly description: string;
   readonly image: string;
   readonly netName?: string;

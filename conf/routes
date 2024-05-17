@@ -338,7 +338,7 @@ GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: U
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 
 # LocalPlay
-GET   /local/vsbot                     controllers.Local.vsBot
+GET   /local                     controllers.Local.index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String])
 GET   /local/setup                     controllers.Local.setup
 GET   /local/botvsbot                  controllers.Local.botVsBot
 

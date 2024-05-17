@@ -1,4 +1,4 @@
-import { LocalDialog } from './view/modal';
+import { LocalDialog } from './view/setupDialog';
 import { Libots } from './bots/interfaces';
 
 interface LocalModalOpts {}

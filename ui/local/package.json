@@ -16,7 +16,7 @@
   },
   "lichess": {
     "bundles": [
-      "src/local.modal.ts",
+      "src/local.setupDialog.ts",
       "src/local.ts",
       "src/scaffold/local.botVsBot.ts"
     ],

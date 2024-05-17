@@ -16,7 +16,7 @@ interface DialogOpts {
   htmlText?: string; // content, text will be used as-is
   cash?: Cash; // content, overrides htmlText, will be cloned and any 'none' class removed
   htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
-  append?: { node: HTMLElement; selector?: string }[]; // appended to view or selected parents
+  append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default 'child'
   attrs?: { dialog?: _Snabbdom.Attrs; view?: _Snabbdom.Attrs }; // optional attrs for dialog and view div
   action?: Action | Action[]; // if present, add handlers to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes

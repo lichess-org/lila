@@ -132,3 +132,4 @@ export const OneHalf = ''; // e076
 export const Mute = ''; // e077
 export const AccountCircle = ''; // e078
 export const Logo = ''; // e079
+export const Switch = ''; // e07a

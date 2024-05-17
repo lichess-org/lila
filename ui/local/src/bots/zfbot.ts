@@ -15,6 +15,10 @@ export class ZfBot implements Libot {
   ordinal: number;
   zf: Zerofish;
 
+  get domClass() {
+    return this.uid.slice(1) + '_zf-bot';
+  }
+
   get imageUrl() {
     return site.asset.url(`lifat/bots/images/${this.image}`, { noVersion: true });
   }

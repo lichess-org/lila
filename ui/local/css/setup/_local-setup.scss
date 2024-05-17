@@ -1,76 +1,151 @@
 dialog .local-setup {
-  width: 96vw;
+  @extend %flex-column;
+  width: 100vw;
+  height: 80vh;
+  background-color: $c-body-gradient;
+  border-radius: 5px;
 
-  @media (min-width: at-least($x-small)) {
-    width: 80vw;
+  @include if-transp {
+    //@include back-blur();
+    background-color: unset; //#ffffff48;
   }
-  @media (min-width: at-least($large)) {
-    width: 60vw;
+
+  @media (orientation: landscape) {
+    max-width: 1200px;
+    max-height: 800px;
   }
 
   h2 {
-    flex: initial;
+    //flex: initial;
+    //@media (orientation: landscape) and (max-height: 600px) {
+    display: none;
+    //}
+  }
+
+  .local-view {
+    ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp');
+    ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp');
+    position: relative;
+    padding: 2em 2em 0;
+    flex-grow: 1;
+    overflow: hidden;
   }
 
   .vs {
     display: grid;
     width: 100%;
-    height: 24vh;
-    max-height: 240px;
-    grid-template-columns: 1fr 48px 1fr;
+    height: calc(100% - 220px);
+    gap: 1em;
+    @media (orientation: portrait) {
+      grid-template-rows: 1fr auto 1fr;
+    }
+    @media (orientation: landscape) {
+      grid-template-columns: 1fr auto 1fr;
+    }
   }
 
   .player {
-    @extend %flex-column;
-    padding: 2em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    outline: 1px solid $c-border;
-    outline-offset: -2em;
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    &::before {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
+    /*&:hover {
+      border: 1px dashed $c-border;
+    }*/
 
     &.drag-over {
-      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px dashed $c-border;
     }
-    img {
+    &.white {
+      background-color: hsl(37, 12%, 92%);
+      &::before {
+        background-image: var(---white-image-url);
+      }
     }
-    .details {
-      display: block;
+    &.black {
+      background-color: hsl(37, 5%, 23%); // #333;
+      &::before {
+        background-image: var(---black-image-url);
+      }
     }
+  }
+  .placard {
+    position: absolute;
+    white-space: pre;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min-content; //calc(100% - 64px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1.2em;
+    opacity: 0.87;
+    border-radius: 5px;
+    background-color: #242424;
+    border: 1px solid #444;
+    color: white;
+    &.white {
+      background-color: $c-body-gradient;
+      color: $c-font-clearer;
+      border: 1px solid $c-border;
+    }
+    // }
   }
 
   .actions {
-    @extend %flex-column;
-    justify-content: space-around;
-  }
-
-  .local-view {
-    position: relative;
-    width: 100%;
-    height: 40vh;
-    max-height: 400px;
-    flex-grow: 1;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    @media (orientation: portrait) {
+      flex-direction: row;
+    }
+    justify-content: center;
+    gap: 20px;
+    font-size: 32px;
+    button {
+      padding: 6px;
+      color: $c-font;
+      &:hover {
+        color: $c-font-clear;
+      }
+    }
   }
 
   .chin {
-    height: 30px;
+    height: 120px;
+    border-radius: 5px;
+    border-top: 1px solid $c-border;
+    background-color: $c-bg-zebra2;
   }
 
   .card {
     position: absolute;
     top: 0;
-    width: 128px;
-    height: 192px;
+    width: 192px;
+    height: 192x;
     border-radius: 6px;
-    background-color: white;
-    border: 1px solid black;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: #f0f0f0;
+    border: 1px solid $c-border;
+    //box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s;
     img {
-      width: 128px;
+      width: 192px;
+    }
+    .undercard {
+      height: 64px;
+      background-color: gray;
     }
     label {
       font-weight: bold;
@@ -85,5 +160,9 @@ dialog .local-setup {
     &.pull label {
       display: block;
     }
+  }
+
+  .dragging .card {
+    transition: none;
   }
 }

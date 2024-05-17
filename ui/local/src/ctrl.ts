@@ -1,6 +1,7 @@
-import { LocalPlayOpts } from './interfaces';
+import { LocalPlayOpts, GameSetup } from './interfaces';
 import { type LibotCtrl } from './bots/libot';
 import { makeSocket } from './socket';
+import { objectStorage } from 'common/objectStorage';
 //import { makeRound } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
@@ -20,16 +21,18 @@ export class LocalCtrl {
   i18n: { [key: string]: string };
   white: RoundData['player'];
   black: RoundData['player'];
-
+  setup: GameSetup;
   constructor(
     readonly opts: LocalPlayOpts,
     readonly redraw: () => void,
   ) {
     this.socket = makeSocket(this);
+    this.setup = { fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', ...opts.setup };
     this.i18n = opts.i18n;
+
     this.loaded = site.asset.loadEsm<LibotCtrl>('libot').then(libot => {
       this.libot = libot;
-      this.libot.setBot('listress');
+      if (this.setup.black) this.libot.setBot(this.setup.black);
       this.black = {
         ...this.player('black', this.libot.bot().name),
         image: this.libot.bot().imageUrl,

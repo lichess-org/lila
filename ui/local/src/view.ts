@@ -5,6 +5,29 @@ import { type Libot } from './bots/libot';
 import { LocalCtrl } from './ctrl';
 
 export default function (ctrl: LocalCtrl): VNode {
+  /*
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            st.section(id := "bot-view")(
+              div(id := "bot-content")
+            )
+          ),
+          // bits.roundAppPreload(pov),
+          div(cls := "round__app")(
+            div(cls := "round__app__board main-board")(),
+            div(cls := "col1-rmoves-preload")
+          ),
+          div(cls := "round__underboard")(
+            // bits.crosstable(cross, pov.game),
+            // (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
+            div(
+              cls := "round__now-playing"
+            )
+          ),
+          div(cls := "round__underchat")()
+        )
+
+  */
   return h('section#bot-view', {}, [
     h('div#bot-tabs', { attrs: { role: 'tablist' } }),
     h(

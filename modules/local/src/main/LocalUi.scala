@@ -1,25 +1,35 @@
-package views.local
+package lila.local
+package ui
 
 import play.api.libs.json.{ JsObject, Json }
 import play.api.i18n.Lang
 
-import lila.app.UiEnv.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 import lila.core.i18n.{ I18nKey as trans }
 import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
-object vsBot:
-  def index(using ctx: Context) =
+final class LocalUi(helpers: Helpers):
+  import helpers.{ *, given }
+
+  def index(setup: GameSetup)(using ctx: Context) =
     Page("")
       .copy(fullTitle = s"$siteName • Play vs Bots".some)
       .js(
         PageModule(
-          "local.vsBot",
+          "local",
           Json.obj(
-            "mode" -> "vsBot",
             "pref" -> lila.pref.JsonView.write(ctx.pref, false),
-            "i18n" -> i18n
+            "i18n" -> i18nJsObject(i18nKeys),
+            "setup" -> Json.obj(
+              "white" -> setup.white,
+              "black" -> setup.black,
+              "fen"   -> setup.fen,
+              "time"  -> setup.time
+            )
           )
         )
       )
@@ -37,28 +47,11 @@ object vsBot:
         )
       )
       .hrefLangs(lila.ui.LangPath("/")) {
-        main(cls := "round")(
-          st.aside(cls := "round__side")(
-            st.section(id := "bot-view")(
-              div(id := "bot-content")
-            )
-          ),
-          // bits.roundAppPreload(pov),
-          div(cls := "round__app")(
-            div(cls := "round__app__board main-board")(),
-            div(cls := "col1-rmoves-preload")
-          ),
-          div(cls := "round__underboard")(
-            // bits.crosstable(cross, pov.game),
-            // (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
-            div(
-              cls := "round__now-playing"
-            )
-          ),
-          div(cls := "round__underchat")()
-        )
+        emptyFrag
       }
-  def i18n(using Translate) = i18nJsObject(i18nKeys)
+
+//def i18n(using Translate) = i18nJsObject(i18nKeys)
+
   private val i18nKeys = Vector(
     trans.site.oneDay,
     trans.site.nbDays,

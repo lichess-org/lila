@@ -196,7 +196,7 @@ class Env {
   }
   log(d: any, { ctx = 'build', error = false, warn = false } = {}) {
     let text: string =
-      typeof !d || d === 'string' || d instanceof Buffer
+      !d || typeof d === 'string' || d instanceof Buffer
         ? String(d)
         : Array.isArray(d)
         ? d.join('\n')

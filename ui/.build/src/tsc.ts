@@ -62,9 +62,8 @@ export async function tsc(): Promise<void> {
     tscPs.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
     tscPs.addListener('close', code => {
       env.done(code || 0, 'tsc');
-      if (code) {
-        env.done(code, 'esbuild'); // fail both
-      } else resolve();
+      if (code) env.done(code, 'esbuild'); // fail both
+      else resolve();
     });
   });
 }
@@ -76,7 +75,6 @@ function tscLog(text: string): void {
   if (text.match(/Found (\d+) errors?/)) {
     if (env.watch) env.done(1, 'tsc');
   } else env.log(text, { ctx: 'tsc' });
-  //env.log(text.replace('. Watching for file changes.', ` - ${c.grey('Watching')}...`), { ctx: 'tsc' });
 }
 
 const fixTscError = (text: string) =>
