@@ -37,7 +37,7 @@ export class LearnCtrl {
     const { stageId, levelId } = extractHashParameters();
     this.opts.stageId = stageId;
     this.opts.levelId =
-      // used the level id from the hash path if it exists
+      // use the level id from the hash path if it exists
       levelId ||
       // otherwise find a level id based on the last completed level
       (() => {

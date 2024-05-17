@@ -16,14 +16,14 @@ export class SideCtrl {
     this.trans = ctrl.trans;
     this.data = ctrl.data;
 
-    this.categId = propWithEffect(this.getCategIdFromStageId(), ctrl.redraw);
+    this.categId = propWithEffect(this.getCategIdFromStageId() || 1, ctrl.redraw);
   }
 
   reset = () => this.opts.storage.reset();
 
   activeStageId = () => this.opts.stageId || 1;
-  getCategIdFromStageId = () => stages.stageIdToCategId(this.activeStageId()) || this.categId();
-  updateCategId = () => this.categId(this.getCategIdFromStageId());
+  getCategIdFromStageId = () => stages.stageIdToCategId(this.activeStageId());
+  updateCategId = () => this.categId(this.getCategIdFromStageId() || this.categId());
 
   progress = () => {
     const max = stages.list.length * 10;

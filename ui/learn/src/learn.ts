@@ -37,14 +37,13 @@ interface LearnServerOpts {
 
 export function initModule({ data, i18n }: LearnServerOpts) {
   const _storage = storage(data);
-  const snabbdomOpts: LearnOpts = {
+  const opts: LearnOpts = {
     i18n,
     storage: _storage,
     stageId: null,
     levelId: null,
   };
-
-  const ctrl = new LearnCtrl(snabbdomOpts, redraw);
+  const ctrl = new LearnCtrl(opts, redraw);
 
   const element = document.getElementById('learn-app')!;
   element.innerHTML = '';
