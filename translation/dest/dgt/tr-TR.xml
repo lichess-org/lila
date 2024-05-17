@@ -2,6 +2,7 @@
 <resources>
   <string name="dgtBoard">DGT tahtası</string>
   <string name="lichessAndDgt">Lichess ve DGT</string>
+  <string name="dgtBoardRequirements">DGT Tahta Gereksinimleri</string>
   <string name="downloadHere">Programı indirmek için tıklayın: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Eğer %1$s bilgisayarınızda çalışıyorsa, kontrol etmek için %2$s.</string>
   <string name="openingThisLink">bu bağlantıyı açın</string>
