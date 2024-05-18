@@ -1,6 +1,5 @@
 import type { Square as Key } from 'chess.js';
 import * as util from './util';
-import { h } from 'snabbdom';
 
 export interface Items<T> {
   get(key: Key): T | undefined;
@@ -33,8 +32,4 @@ export function ctrl(blueprint: { apples: string | Key[] }): Items<'apple'> {
       return keys;
     },
   };
-}
-
-export function view(item: string) {
-  return h('item.' + item);
 }

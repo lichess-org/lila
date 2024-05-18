@@ -13,7 +13,7 @@
 
   @keyframes soft-hue {
     50% {
-      filter: hue-rotate(-20deg);
+      filter: hue-rotate(-10deg);
     }
   }
 
@@ -33,14 +33,6 @@
       opacity: 1;
       transform: scale(1) rotate(0);
     }
-  }
-
-  .apple {
-    background-image: url(../images/learn/star.png);
-    animation:
-      0.6s ease-in-out 0s 1 forwards apple-appear,
-      1.7s ease-in-out 0.7s infinite none soft-grow,
-      0.7s ease-in-out 0.7s infinite none soft-hue;
   }
 
   square.has-item.move-dest {
@@ -156,4 +148,13 @@ cg-container > cg-board > svg {
   image {
     opacity: 0.5;
   }
+}
+
+.apples .cg-wrap piece.pawn.black {
+  // TODO: give attribution https://www.svgrepo.com/svg/434273/star
+  background-image: url('../images/learn/star.svg');
+  // animation:
+  //   0.6s ease-in-out 0s 1 forwards apple-appear,
+  //   1.7s ease-in-out 0.7s infinite none soft-grow,
+  //   0.7s ease-in-out 0.7s infinite none soft-hue;
 }

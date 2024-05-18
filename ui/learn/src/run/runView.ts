@@ -50,7 +50,7 @@ export const runView = (ctrl: LearnCtrl) => {
     },
     [
       h('div.learn__side', mapSideView(ctrl)),
-      h('div.learn__main.main-board', [
+      h('div.learn__main.main-board', { class: { apples: levelCtrl.isAppleLevel() } }, [
         runCtrl.stageStarting() ? stageStarting(runCtrl) : null,
         runCtrl.stageCompleted() ? stageComplete(runCtrl) : null,
         chessground(ctrl.runCtrl),

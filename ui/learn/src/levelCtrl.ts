@@ -10,6 +10,7 @@ import type { Square as Key } from 'chess.js';
 import { CgMove } from './chessground';
 import * as cg from 'chessground/types';
 import { PromotionCtrl } from './promotionCtrl';
+import { Prop, prop } from 'common';
 
 export interface LevelVm {
   score: number;
@@ -42,6 +43,7 @@ export class LevelCtrl {
     nbMoves: 0,
   };
 
+  isAppleLevel: Prop<boolean>;
   items: Items<'apple'>;
   chess: ChessCtrl;
   scenario: Scenario;
@@ -53,6 +55,7 @@ export class LevelCtrl {
     readonly opts: LevelOpts,
     readonly redraw: () => void,
   ) {
+    this.isAppleLevel = prop(blueprint.apples?.length > 0);
     this.items = makeItems({ apples: blueprint.apples });
     this.chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : this.items.appleKeys());
     this.scenario = makeScenario(blueprint.scenario, withGround, {
@@ -92,10 +95,6 @@ export class LevelCtrl {
           if (!this.promotionCtrl.start(orig, dest, sendMove)) sendMove(orig, dest);
         },
       },
-      // TODO:
-      // items: {
-      //   render: (_pos: unknown, key: Key) => items.withItem(key, itemView),
-      // },
       premovable: { enabled: true },
       drawable: { enabled: true, eraseOnClick: true },
       highlight: { lastMove: true },
@@ -107,7 +106,7 @@ export class LevelCtrl {
       disableContextMenu: true,
     });
     setTimeout(() => ground.set({ animation: { enabled: true } }), 200);
-    if (blueprint.shapes) ground.setShapes(blueprint.shapes.slice(0));
+    ground.setShapes(blueprint.shapes ?? []);
   };
 
   makeSendMove = (ground: CgApi) => {
@@ -115,14 +114,12 @@ export class LevelCtrl {
 
     const assertData = (): AssertData => ({ scenario, chess, vm });
     const detectFailure = () => {
-      const failed = blueprint.failure && blueprint.failure(assertData());
+      const failed = !!blueprint.failure?.(assertData());
       if (failed) sound.failure();
-      return !!failed;
+      return failed;
     };
-    const detectSuccess = () => {
-      if (blueprint.success) return blueprint.success(assertData());
-      else return !items.hasItem('apple');
-    };
+    const detectSuccess = () =>
+      blueprint.success ? blueprint.success(assertData()) : !items.hasItem('apple');
     const detectCapture = () => {
       if (!blueprint.detectCapture) return false;
       const fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
@@ -205,11 +202,11 @@ export class LevelCtrl {
     );
 
   showCapture = ({ orig, dest }: CgMove) =>
-    this.withGround(g => {
-      g.setShapes([{ orig, label: { text: '!', fill: '#af0000' } }]);
+    this.withGround(ground => {
+      ground.setShapes([{ orig, label: { text: '!', fill: '#af0000' } }]);
       timeouts.setTimeout(() => {
-        g.setShapes([]);
-        g.move(orig, dest);
+        ground.setShapes([]);
+        ground.move(orig, dest);
       }, 600);
     });
 

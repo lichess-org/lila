@@ -2,6 +2,7 @@ import type { Square as Key } from 'chess.js';
 import { Level, LevelPartial } from './stage/list';
 import { h } from 'snabbdom';
 import * as cg from 'chessground/types';
+import { DrawShape } from 'chessground/draw';
 
 export type WithGround = <A>(f: (cg: CgApi) => A) => A | false | undefined;
 
@@ -34,7 +35,7 @@ export function isRole(str: PromotionChar | PromotionRole): str is PromotionRole
   return str.length > 1;
 }
 
-export function arrow(vector: Uci, brush?: cg.BrushColor) {
+export function arrow(vector: Uci, brush?: cg.BrushColor): DrawShape {
   return {
     brush: brush || 'paleGreen',
     orig: vector.slice(0, 2) as Key,
@@ -42,7 +43,7 @@ export function arrow(vector: Uci, brush?: cg.BrushColor) {
   };
 }
 
-export function circle(key: Key, brush?: cg.BrushColor) {
+export function circle(key: Key, brush?: cg.BrushColor): DrawShape {
   return {
     brush: brush || 'green',
     orig: key,
