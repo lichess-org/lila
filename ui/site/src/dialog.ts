@@ -5,7 +5,7 @@ import * as licon from 'common/licon';
 
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
-// for usage see file://./../../../@types/lichess/dialog.d.ts
+// for usage see file://./../../@types/lichess/dialog.d.ts
 
 export const ready = site.load.then(async () => {
   window.addEventListener('resize', onResize);
@@ -134,9 +134,7 @@ class DialogWrapper implements Dialog {
     }
     if (o.action)
       for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
-        console.log(a.selector, view.querySelector(a.selector));
         view.querySelector(a.selector)?.addEventListener('click', () => {
-          console.log('click');
           if (!a.action || typeof a.action === 'string') this.close(a.action);
           else a.action(this, a);
         });

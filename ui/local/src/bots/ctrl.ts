@@ -6,20 +6,18 @@ export interface Ctrl {
   bots: { [id: string]: Libot };
   bot: () => Libot;
   setBot(name: string): Promise<void>;
-  sort(): Libot[];
   move(fen: string): Promise<string>;
 }
 
-export async function makeCtrl(libots: Libots, zf: Zerofish): Promise<Ctrl> {
+export async function makeCtrl(bots: Libots, zf: Zerofish): Promise<Ctrl> {
   const nets = new Map<string, Uint8Array>();
   let bot: Libot;
   return {
     zf,
-    sort: libots.sort,
+    bots,
     bot: () => bot,
-    bots: libots.bots,
     async setBot(id: string) {
-      bot = libots.bots[id];
+      bot = bots[id];
       if (bot.netName && zf.netName !== bot.netName) {
         if (!nets.has(bot.netName)) {
           nets.set(bot.netName, await fetchNet(bot.netName));

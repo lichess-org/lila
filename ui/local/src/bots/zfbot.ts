@@ -2,8 +2,6 @@ import { type Zerofish, type Score } from 'zerofish';
 import * as Chops from 'chessops';
 import { Libot, BotInfo, ZfBotConfig } from './interfaces';
 
-let ordinal = 0;
-
 export class ZfBot implements Libot {
   readonly name: string;
   readonly uid: string;
@@ -12,7 +10,6 @@ export class ZfBot implements Libot {
   readonly ctx: ZfBotConfig;
   readonly netName?: string;
   ratings = new Map();
-  ordinal: number;
   zf: Zerofish;
 
   get domClass() {
@@ -20,7 +17,7 @@ export class ZfBot implements Libot {
   }
 
   get imageUrl() {
-    return site.asset.url(`lifat/bots/images/${this.image}`, { noVersion: true });
+    return site.asset.url(`lifat/bots/images/${this.image}`, { version: 'bot000' });
   }
 
   constructor(info: BotInfo, zf: Zerofish) {
@@ -28,7 +25,6 @@ export class ZfBot implements Libot {
     Object.assign(this, info);
     this.ctx = infoCfg ? Object.assign({}, defaultCfg, infoCfg) : defaultCfg;
     this.zf = zf;
-    this.ordinal = ordinal++;
   }
 
   async move(fen: string) {

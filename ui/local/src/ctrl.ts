@@ -1,5 +1,6 @@
 import { LocalPlayOpts, GameSetup } from './interfaces';
-import { type LibotCtrl } from './bots/libot';
+import { type Ctrl as LibotCtrl } from './bots/ctrl';
+import { LocalDialog } from './setupDialog';
 import { makeSocket } from './socket';
 import { objectStorage } from 'common/objectStorage';
 //import { makeRound } from './data';
@@ -11,11 +12,9 @@ import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 
 export class LocalCtrl {
-  libot: LibotCtrl;
   chess = Chess.default();
   socket: RoundSocket;
   fiftyMovePly = 0;
-  loaded: Promise<void>;
   threefoldFens: Map<string, number> = new Map();
   round: MoveRootCtrl;
   i18n: { [key: string]: string };
@@ -24,21 +23,26 @@ export class LocalCtrl {
   setup: GameSetup;
   constructor(
     readonly opts: LocalPlayOpts,
+    readonly libotCtrl: LibotCtrl,
     readonly redraw: () => void,
   ) {
     this.socket = makeSocket(this);
     this.setup = { fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', ...opts.setup };
     this.i18n = opts.i18n;
 
-    this.loaded = site.asset.loadEsm<LibotCtrl>('libot').then(libot => {
+    /*this.loaded = site.asset.loadEsm<LibotCtrl>('libot').then(libot => {
       this.libot = libot;
       if (this.setup.black) this.libot.setBot(this.setup.black);
       this.black = {
         ...this.player('black', this.libot.bot().name),
         image: this.libot.bot().imageUrl,
       };
-    });
+    });*/
     this.white = this.player('white', 'Anonymous');
+    if (!this.setup.time) {
+      console.log(libotCtrl.bots);
+      new LocalDialog(libotCtrl.bots);
+    }
   }
 
   reset(/*fen: string*/) {
@@ -92,8 +96,8 @@ export class LocalCtrl {
   }
 
   async botMove() {
-    console.log('bot move', this.libot, this.fen);
-    const uci = await this.libot!.move(this.fen);
+    console.log('bot move', this.libotCtrl, this.fen);
+    const uci = await this.libotCtrl!.move(this.fen);
     console.log('got bot move', uci);
     this.move(uci);
   }

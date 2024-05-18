@@ -1,5 +1,5 @@
-import type { Libot, Libots } from '../bots/libot';
-import type { GameSetup } from '../interfaces';
+import type { Libot, Libots } from './bots/interfaces';
+import type { GameSetup } from './interfaces';
 import { isTouchDevice } from 'common/device';
 //import { clamp } from 'common';
 import * as licon from 'common/licon';
@@ -34,7 +34,7 @@ export class LocalDialog {
         <div class="player black"><div class="placard black">Human</div></div>
       </div>
     </div>`);
-    this.bots.sort().forEach(bot => this.cards.push(this.createCard(bot)));
+    Object.values(this.bots).forEach(bot => this.cards.push(this.createCard(bot)));
     this.cards.reverse().forEach(card => this.view.appendChild(card));
     this.show();
     this.white = this.view.querySelector('.white')!;
@@ -43,8 +43,8 @@ export class LocalDialog {
   }
 
   createCard(bot: Libot) {
-    const card = $as<HTMLDivElement>(`
-    <div id="${bot.uid.slice(1)}" class="card"><img src="${bot.imageUrl}"><label>${bot.name}</label></div>`);
+    const card = $as<HTMLDivElement>(`<div id="${bot.uid.slice(1)}" class="card">
+      <img src="${bot.imageUrl}"><label>${bot.name}</label></div>`);
     card.addEventListener('pointerdown', e => this.startDrag(e));
     card.addEventListener('pointermove', e => this.duringDrag(e));
     card.addEventListener('pointerup', e => this.endDrag(e));
@@ -217,7 +217,7 @@ export class LocalDialog {
   }
 
   select(color: 'white' | 'black', player?: string) {
-    const bot = player ? this.bots.bots[player] : undefined;
+    const bot = player ? this.bots[player] : undefined;
     const placard = this.view.querySelector(`.${color} .placard`);
     const card = this.selectedCard;
     if (bot && card) {

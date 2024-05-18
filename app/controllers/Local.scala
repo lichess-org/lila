@@ -14,5 +14,9 @@ final class Local(env: Env) extends LilaController(env):
 
   def index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String]) = Open:
     NoBot:
-      Ok.page(views.local.index(lila.local.GameSetup(white, black, fen, time)))
-        .map(_.enforceCrossSiteIsolation)
+      Ok.page(
+        views.local.index(
+          Json.obj("pref" -> lila.pref.JsonView.write(ctx.pref, false)),
+          lila.local.GameSetup(white, black, fen, time)
+        )
+      ).map(_.enforceCrossSiteIsolation)

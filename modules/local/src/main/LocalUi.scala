@@ -10,19 +10,17 @@ import scalalib.paginator.Paginator
 import lila.core.i18n.{ I18nKey as trans }
 import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
-import lila.game.Pov
 
 final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def index(setup: GameSetup)(using ctx: Context) =
+  def index(data: JsObject, setup: lila.local.GameSetup)(using ctx: Context) =
     Page("")
-      .copy(fullTitle = s"$siteName • Play vs Bots".some)
+      .copy(fullTitle = s"Play vs Bots".some)
       .js(
         PageModule(
           "local",
-          Json.obj(
-            "pref" -> lila.pref.JsonView.write(ctx.pref, false),
+          data ++ Json.obj(
             "i18n" -> i18nJsObject(i18nKeys),
             "setup" -> Json.obj(
               "white" -> setup.white,

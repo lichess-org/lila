@@ -67,7 +67,7 @@ export async function initModule(o?: CropOpts) {
 <div class="crop-view"></div>
 <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
 <button class="button submit">submit</button></span>`,
-    append: [{ selector: '.crop-view', node: container }],
+    append: [{ where: '.crop-view', node: container }],
     action: [
       { selector: '.dialog-actions > .cancel', action: d => d.close() },
       { selector: '.dialog-actions > .submit', action: crop },
