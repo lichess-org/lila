@@ -84,4 +84,5 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="changeCurrency">Para birimini değiştir</string>
   <string name="paymentDetails">Ödeme detayları</string>
   <string name="updatePaymentMethod">Ödeme yöntemini değiştir</string>
+  <string name="stripeManageSub">Aboneliğinizi yönetin ve faturalarınızı ve makbuzlarınızı indirin</string>
 </resources>
