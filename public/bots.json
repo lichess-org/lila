@@ -107,7 +107,7 @@
   {
     "uid": "#listress",
     "name": "Listress",
-    "description": "You are a wretched, pitiful worm.\nListress will not be merciful.\nYou may still beg.",
+    "description": "You are a wretched, pitiful worm.\nListress will not be merciful.",
     "image": "listress.webp",
     "netName": "maia-1900.pb"
   }

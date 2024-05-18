@@ -18,6 +18,7 @@ export class LocalDialog {
   dragAngle: number = 0;
   frame: number = 0;
   killAnimation = 0;
+  scaleFactor = 1;
   rect: DOMRect;
   selectedCard: HTMLDivElement | null = null;
   setup: GameSetup = {};
@@ -27,8 +28,8 @@ export class LocalDialog {
       <div class="vs">
         <div class="player white"><div class="placard white">Human</div></div>
         <div class="actions">
-          <button class="button button-empty switch" data-icon="${licon.Switch}"></button>
           <button class="button button-empty random" data-icon="${licon.DieSix}"></button>
+          <button class="button button-empty switch" data-icon="${licon.Switch}"></button>
           <button class="button button-empty fight" data-icon="${licon.Swords}"></button>
         </div>
         <div class="player black"><div class="placard black">Human</div></div>
@@ -57,7 +58,10 @@ export class LocalDialog {
   resize = () => {
     const newRect = this.view.getBoundingClientRect();
     if (this.rect && newRect.width === this.rect.width && newRect.height === this.rect.height) return;
-    const h2 = 192 - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
+    this.scaleFactor = parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue('---scale-factor'),
+    );
+    const h2 = 192 * this.scaleFactor - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
     this.rect = newRect;
     this.userMidX = this.view.offsetWidth / 2;
     this.userMidY = this.view.offsetHeight + Math.sqrt(3 / 4) * this.fanRadius - h2;
@@ -70,7 +74,7 @@ export class LocalDialog {
     const hovered = $as<HTMLElement>($('.card.pull'));
     const hoveredIndex = this.cards.findIndex(x => x == hovered);
     for (const [i, card] of this.cards.entries()) {
-      const pull = !hovered || i <= hoveredIndex ? 0 : -(Math.PI / 2) / visibleCards;
+      const pull = !hovered || i <= hoveredIndex ? 0 : (-(Math.PI / 2) * this.scaleFactor) / visibleCards;
       const fanout = ((Math.PI / 4) * (this.cards.length - i - 0.5)) / visibleCards;
       this.transform(card, -Math.PI / 8 + pull + this.dragAngle + fanout);
     }
@@ -78,7 +82,8 @@ export class LocalDialog {
 
   transform(card: HTMLDivElement, angle: number) {
     const hovered = card.classList.contains('pull');
-    const mag = 15 + this.view.offsetWidth + (hovered ? 40 + this.dragMag - this.startMag : 0);
+    const mag =
+      15 + this.view.offsetWidth + (hovered ? 40 * this.scaleFactor + this.dragMag - this.startMag : 0);
     const x = this.userMidX + mag * Math.sin(angle) - 64;
     const y = this.userMidY - mag * Math.cos(angle);
     if (hovered) angle += Math.PI / 12;
@@ -200,9 +205,7 @@ export class LocalDialog {
       .dom({
         class: 'game-setup.local-setup',
         css: [{ hashed: 'local.setup' }],
-        htmlText: `
-          <h2>Select Players</h2>
-          <div class="chin"></div>`,
+        htmlText: `<div class="chin"></div>`,
         append: [{ node: this.view, where: '.chin', how: 'before' }],
         action: [
           { selector: '.fight', action: dlg => this.fight(dlg) },
