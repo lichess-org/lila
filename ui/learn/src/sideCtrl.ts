@@ -16,7 +16,7 @@ export class SideCtrl {
     this.trans = ctrl.trans;
     this.data = ctrl.data;
 
-    this.categId = propWithEffect(this.getCategIdFromStageId() || 1, ctrl.redraw);
+    this.categId = propWithEffect(this.getCategIdFromStageId() ?? 0, ctrl.redraw);
   }
 
   reset = () => this.opts.storage.reset();

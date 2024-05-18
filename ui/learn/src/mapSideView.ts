@@ -34,7 +34,7 @@ function renderInStage(ctrl: SideCtrl) {
             h('h2', { hook: bind('click', () => ctrl.categId(categId)) }, ctrl.trans.noarg(categ.name)),
             h(
               'div.categ_stages',
-              categ.stages.map(function (s) {
+              categ.stages.map(s => {
                 const result = ctrl.data.stages[s.key];
                 const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
                 return h(
