@@ -16,6 +16,7 @@
   "dependencies": {
     "@types/webrtc": "^0.0.33",
     "common": "workspace:*",
+    "peerjs": "^1.5.4",
     "snabbdom": "3.5.1"
   },
   "lichess": {

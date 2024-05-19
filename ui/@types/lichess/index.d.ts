@@ -312,7 +312,6 @@ interface Window {
   readonly Textcomplete: any;
   readonly UserComplete: any;
   readonly Sortable: any;
-  readonly Peer: any;
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;
