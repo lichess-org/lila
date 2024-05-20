@@ -167,7 +167,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true, init: false }).then(s => {
+      site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
         vData.sortable = s.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,

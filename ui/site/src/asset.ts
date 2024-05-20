@@ -48,15 +48,12 @@ export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {
   return scriptCache.get(u)!;
 };
 
-export async function loadEsm<T>(
-  name: string,
-  opts: { init?: any | false; url?: AssetUrlOpts; npm?: boolean } = {},
-): Promise<T> {
-  const urlOpts = { ...opts.url, version: opts.url?.version ?? false };
+export async function loadEsm<T>(name: string, opts: EsmModuleOpts = {}): Promise<T> {
+  opts = { ...opts, version: opts.version ?? false };
 
-  const module = await import(url(opts.npm ? jsModule(name, 'npm/') : jsModule(name), urlOpts));
+  const module = await import(url(opts.npm ? jsModule(name, 'npm/') : jsModule(name), opts));
   const initializer = module.initModule ?? module.default;
-  return opts.init === false ? initializer : initializer(opts.init);
+  return opts.npm && !opts.init ? initializer : initializer(opts.init);
 }
 
 export const loadPageEsm = async (name: string) => {
