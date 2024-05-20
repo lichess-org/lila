@@ -24,8 +24,8 @@
   <string name="createAGame">Erstell eng Partie</string>
   <string name="whiteIsVictorious">Wäiss gewënnt</string>
   <string name="blackIsVictorious">Schwaarz gewënnt</string>
-  <string name="youPlayTheWhitePieces">Du spills déi wäiss Figuren</string>
-  <string name="youPlayTheBlackPieces">Du spills déi schwaarz Figuren</string>
+  <string name="youPlayTheWhitePieces">Du spills mat de wäisse Figuren</string>
+  <string name="youPlayTheBlackPieces">Du spills mat de schwaarze Figuren</string>
   <string name="itsYourTurn">Et ass un dir!</string>
   <string name="cheatDetected">Bedruch erkannt</string>
   <string name="kingInTheCenter">Kinnek am Zentrum</string>
