@@ -195,7 +195,7 @@ interface Cookie {
 
 interface AssetUrlOpts {
   documentOrigin?: boolean;
-  relative?: boolean;
+  pathOnly?: boolean;
   version?: false | string;
 }
 
