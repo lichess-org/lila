@@ -256,7 +256,7 @@ interface LichessAnnouncement {
 }
 
 interface LichessEditor {
-  getFen(): CgFEN;
+  getFen(): Cg.FEN;
   setOrientation(o: Color): void;
 }
 
@@ -409,7 +409,7 @@ interface EvalScore {
 }
 
 interface MiniGameUpdateData {
-  fen: CgFEN;
+  fen: Cg.FEN;
   lm: Uci;
   wc?: number;
   bc?: number;

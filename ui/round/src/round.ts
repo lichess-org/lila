@@ -41,10 +41,6 @@ async function app(opts: RoundOpts): Promise<RoundController> {
 
   let vnode = patch(el, blueprint);
 
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
-
   window.addEventListener('resize', redraw); // col1 / col2+ transition
 
   if (ctrl.isPlaying()) menuHover();
@@ -52,4 +48,8 @@ async function app(opts: RoundOpts): Promise<RoundController> {
   site.sound.preloadBoardSounds();
 
   return ctrl;
+
+  function redraw() {
+    vnode = patch(vnode, view(ctrl));
+  }
 }

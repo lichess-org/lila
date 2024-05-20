@@ -10,7 +10,6 @@ export class ZfBot implements Libot {
   readonly ctx: ZfBotConfig;
   readonly netName?: string;
   ratings = new Map();
-  zf: Zerofish;
 
   get domClass() {
     return this.uid.slice(1) + '_zf-bot';
@@ -20,20 +19,26 @@ export class ZfBot implements Libot {
     return site.asset.url(`lifat/bots/images/${this.image}`, { version: 'bot000' });
   }
 
-  constructor(info: BotInfo, zf: Zerofish) {
+  constructor(info: BotInfo) {
     const infoCfg = info.zfcfg;
     Object.assign(this, info);
     this.ctx = infoCfg ? Object.assign({}, defaultCfg, infoCfg) : defaultCfg;
-    this.zf = zf;
+    //console.log(this);
   }
 
-  async move(fen: string) {
+  async move(fen: string, zf: Zerofish) {
     const ctx = this.ctx;
-    const chess = Chops.Chess.fromSetup(Chops.fen.parseFen(fen).unwrap()).unwrap();
-    const p = { ply: chess.halfmoves, material: Chops.Material.fromBoard(chess.board) };
-    const zeroMove = this.netName ? this.zf.goZero(fen) : Promise.resolve(undefined);
-    if (chance(ctx.zeroChance(p))) return (await zeroMove) ?? '0000';
-    const fishMove = this.zf.goFish(fen, {
+    //const chess = Chops.Chess.fromSetup(Chops.fen.parseFen(fen).unwrap()).unwrap();
+    //const p = { ply: chess.halfmoves, material: Chops.Material.fromBoard(chess.board) };
+    //const zeroMove = this.netName ? zf.goZero(fen) : Promise.resolve(undefined);
+    //if (this.netName) return (await zeroMove) ?? '0000';
+    if (this.netName) return await zf.goZero(fen);
+    else if (this.ctx.fishOnlyElo !== undefined || this.ctx.fishOnlyLevel !== undefined) {
+      const mv = await zf.goFish(fen, { elo: this.ctx.fishOnlyElo, level: this.ctx.fishOnlyLevel });
+      return mv[0][mv[0].length - 1].moves[0];
+    }
+    return '0000';
+    /*const fishMove = zf.goFish(fen, {
       depth: this.ctx.searchDepth?.(p) ?? 12,
       pvs: this.ctx.searchWidth(p),
     });
@@ -52,20 +57,20 @@ export class ZfBot implements Libot {
     const zeroIndex = aggression.findIndex(([_, pv]) => pv.moves[0] === zero);
     const zeroDestruction = zeroIndex >= 0 ? aggression[zeroIndex]?.[0] : -0.1;
     console.log(zeroDestruction, aggression);
-    return aggression[0]?.[1]?.moves[0] ?? zero;
+    return aggression[0]?.[1]?.moves[0] ?? zero;*/
   }
 }
 
 const defaultCfg: ZfBotConfig = {
   // if no opening book moves are selected, these parameters govern how a zerobot chooses a move
-  zeroChance: constant(0), // [0 computed, 1 always lc0]
+  /*zeroChance: constant(1), // [0 computed, 1 always lc0]
   zeroCpDefault: constant(-20),
   // first, if chance(zeroChance) then the lc0 move is chosen and we are done
   cpThreshold: constant(50), // a limiter for the number of centipawns we can lose vs fish[0][max]
   searchDepth: constant(8), // how deep to go
   scoreDepth: constant(1), // prefer scores at this depth
   searchWidth: constant(16), // multiPV
-  aggression: constant(1), // [0 passive, 1 aggressive]
+  aggression: constant(1), // [0 passive, 1 aggressive]*/
 };
 
 function constant(x: number) {

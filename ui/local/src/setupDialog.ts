@@ -1,5 +1,5 @@
 import type { Libot, Libots } from './bots/interfaces';
-import type { GameSetup } from './interfaces';
+import type { LocalSetup } from './interfaces';
 import { isTouchDevice } from 'common/device';
 //import { clamp } from 'common';
 import * as licon from 'common/licon';
@@ -21,9 +21,14 @@ export class LocalDialog {
   scaleFactor = 1;
   rect: DOMRect;
   selectedCard: HTMLDivElement | null = null;
-  setup: GameSetup = {};
+  setup: LocalSetup = {};
 
-  constructor(readonly bots: Libots) {
+  constructor(
+    readonly bots: Libots,
+    setup: LocalSetup = {},
+    readonly noClose = false,
+  ) {
+    this.setup = { ...setup };
     this.view = $as<HTMLDivElement>(`<div class="local-view">
       <div class="vs">
         <div class="player white"><div class="placard white">Human</div></div>
@@ -59,7 +64,7 @@ export class LocalDialog {
     const newRect = this.view.getBoundingClientRect();
     if (this.rect && newRect.width === this.rect.width && newRect.height === this.rect.height) return;
     this.scaleFactor = parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue('---scale-factor'),
+      window.getComputedStyle(document.documentElement).getPropertyValue('---scale-factor'),
     );
     const h2 = 192 * this.scaleFactor - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
     this.rect = newRect;
@@ -205,13 +210,18 @@ export class LocalDialog {
       .dom({
         class: 'game-setup.local-setup',
         css: [{ hashed: 'local.setup' }],
-        htmlText: `<div class="chin"></div>`,
+        htmlText: `<div class="chin">
+            <input type="checkbox" id="bot-dev" checked>
+            <label for="bot-dev">Dev UI</label>
+          </div>`,
         append: [{ node: this.view, where: '.chin', how: 'before' }],
         action: [
           { selector: '.fight', action: dlg => this.fight(dlg) },
           { selector: '.switch', action: dlg => this.switch(dlg) },
           { selector: '.random', action: dlg => this.random(dlg) },
         ],
+        noCloseButton: this.noClose,
+        noClickAway: this.noClose,
       })
       .then(dlg => {
         dlg.showModal();
@@ -231,16 +241,23 @@ export class LocalDialog {
     this.setup[color] = bot?.uid;
   }
 
-  fight = (dlg: Dialog) => {
-    site.asset.loadEsm('local', { init: this.setup });
-    dlg.close();
+  fight = async (dlg: Dialog) => {
+    this.setup.time = 'yesplease';
+    const form = $as<HTMLFormElement>(
+      `<form method="POST" action="/local?testUi=${$as<HTMLInputElement>('#bot-dev').checked}">`,
+    );
+    for (const [k, v] of Object.entries(this.setup)) {
+      form.appendChild($as<HTMLInputElement>(`<input name="${k}" type="hidden" value="${v}">`));
+    }
+    document.body.appendChild(form);
+    form.submit();
+    form.remove();
   };
 
   switch = (dlg: Dialog) => {
-    const white = this.white.querySelector('.placard')!.textContent;
-    const black = this.black.querySelector('.placard')!.textContent;
-    this.white.querySelector('.placard')!.textContent = black;
-    this.black.querySelector('.placard')!.textContent = white;
+    const newBlack = this.setup.white;
+    this.select('white', this.setup.black);
+    this.select('black', newBlack);
   };
 
   random = (dlg: Dialog) => {};

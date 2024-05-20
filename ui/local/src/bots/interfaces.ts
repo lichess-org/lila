@@ -1,13 +1,17 @@
 import { Material } from 'chessops/setup';
+import { type Zerofish } from 'zerofish';
 
 export interface ZfBotConfig {
-  zeroChance: (p?: ZfParam) => number;
+  fishOnlyElo?: number;
+  fishOnlyLevel?: number;
+
+  /*zeroChance: (p?: ZfParam) => number;
   zeroCpDefault: (p?: ZfParam) => number; // default cp offset for an lc0 move not found in stockfish search
   cpThreshold: (p?: ZfParam) => number;
   searchDepth?: (p?: ZfParam) => number;
   scoreDepth?: (p?: ZfParam) => number;
   searchWidth: (p?: ZfParam) => number;
-  aggression: (p?: ZfParam) => number; // [0 passive, 1 aggressive] .5 noop
+  aggression: (p?: ZfParam) => number; // [0 passive, 1 aggressive] .5 noop*/
 }
 
 export interface ZfParam {
@@ -29,9 +33,7 @@ export interface Libot extends BotInfo {
   readonly imageUrl: string;
   readonly ratings: Map<string, number>;
 
-  move: (fen: string) => Promise<Uci>;
+  move: (fen: string, zf: Zerofish) => Promise<Uci>;
 }
 
-export interface Libots {
-  [id: string]: Libot;
-}
+export type Libots = { [id: string]: Libot };

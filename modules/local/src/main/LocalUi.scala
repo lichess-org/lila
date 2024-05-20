@@ -10,11 +10,12 @@ import scalalib.paginator.Paginator
 import lila.core.i18n.{ I18nKey as trans }
 import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
+import lila.local.GameSetup
 
 final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def index(data: JsObject, setup: lila.local.GameSetup)(using ctx: Context) =
+  def game(data: JsObject, setup: GameSetup, testUi: Boolean)(using ctx: Context) =
     Page("")
       .copy(fullTitle = s"Play vs Bots".some)
       .js(
@@ -27,7 +28,8 @@ final class LocalUi(helpers: Helpers):
               "black" -> setup.black,
               "fen"   -> setup.fen,
               "time"  -> setup.time
-            )
+            ),
+            "testUi" -> testUi
           )
         )
       )
@@ -44,6 +46,7 @@ final class LocalUi(helpers: Helpers):
           url = netBaseUrl.value
         )
       )
+      .zoom
       .hrefLangs(lila.ui.LangPath("/")) {
         emptyFrag
       }

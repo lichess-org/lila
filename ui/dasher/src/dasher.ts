@@ -31,9 +31,8 @@ export default async function initModule() {
   ctrl = new DasherCtrl(data, redraw);
   redraw();
 
-  new MutationObserver(e => {
+  new MutationObserver(() => {
     site.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'));
-    console.trace('got one', e);
   }).observe(toggle, {
     attributes: true,
   });

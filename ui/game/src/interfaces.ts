@@ -261,6 +261,7 @@ export interface MoveRootCtrl {
   blindfold?: (v?: boolean) => boolean;
   speakClock?: () => void;
   goBerserk?: () => void;
+  cg?: CgApi;
 }
 
 export interface MoveUpdate {

@@ -30,7 +30,7 @@ export default function table(ctrl: LobbyController) {
                 : bind(
                     site.blindMode ? 'click' : 'mousedown',
                     () => {
-                      if (gameType === 'local') site.asset.loadEsm('local.setupDialog');
+                      if (gameType === 'local') site.asset.loadEsm('local.setup');
                       else ctrl.showSetupModal(gameType);
                     },
                     ctrl.redraw,

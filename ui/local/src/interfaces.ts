@@ -2,16 +2,21 @@ import { RoundData } from 'round';
 import { Libot } from './bots/interfaces';
 
 export interface LocalPlayOpts {
-  mode: 'vsBot' | 'botVsBot';
   pref: any;
   i18n: any;
   data: RoundData;
-  setup?: GameSetup;
+  setup?: LocalSetup;
+  testUi?: boolean;
 }
 
-export interface GameSetup {
+export interface LocalSetup {
   white?: string;
   black?: string;
   fen?: string;
+  nfold?: number;
   time?: string;
+}
+
+export interface GameObserver {
+  onGameEnd: (result: 'white' | 'black' | 'draw', reason: string) => void;
 }

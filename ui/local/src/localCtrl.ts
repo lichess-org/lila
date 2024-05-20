@@ -1,5 +1,6 @@
-import { LocalPlayOpts, GameSetup } from './interfaces';
-import { type Ctrl as LibotCtrl } from './bots/ctrl';
+import { LocalPlayOpts, LocalSetup, GameObserver } from './interfaces';
+import { Libot } from './bots/interfaces';
+import { type BotCtrl } from './bots/botCtrl';
 import { LocalDialog } from './setupDialog';
 import { makeSocket } from './socket';
 import { objectStorage } from 'common/objectStorage';
@@ -18,37 +19,34 @@ export class LocalCtrl {
   threefoldFens: Map<string, number> = new Map();
   round: MoveRootCtrl;
   i18n: { [key: string]: string };
-  white: RoundData['player'];
-  black: RoundData['player'];
-  setup: GameSetup;
+  setup: LocalSetup;
+  moves: Uci[] = [];
+  key = 0;
+  roundData: RoundData;
+  observer?: GameObserver;
+
   constructor(
     readonly opts: LocalPlayOpts,
-    readonly libotCtrl: LibotCtrl,
+    readonly botCtrl: BotCtrl,
     readonly redraw: () => void,
   ) {
     this.socket = makeSocket(this);
-    this.setup = { fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', ...opts.setup };
+    this.setup = { fen: Chops.fen.INITIAL_FEN, ...opts.setup };
     this.i18n = opts.i18n;
-
-    /*this.loaded = site.asset.loadEsm<LibotCtrl>('libot').then(libot => {
-      this.libot = libot;
-      if (this.setup.black) this.libot.setBot(this.setup.black);
-      this.black = {
-        ...this.player('black', this.libot.bot().name),
-        image: this.libot.bot().imageUrl,
-      };
-    });*/
-    this.white = this.player('white', 'Anonymous');
-    if (!this.setup.time) {
-      console.log(libotCtrl.bots);
-      new LocalDialog(libotCtrl.bots);
-    }
+    this.roundData = this.makeRoundData(this.setup.fen);
   }
 
-  reset(/*fen: string*/) {
+  reset(fen?: string) {
     this.fiftyMovePly = 0;
     this.threefoldFens.clear();
-    this.chess.reset();
+    this.chess = Chess.fromSetup(Chops.fen.parseFen(fen ?? this.fen).unwrap()).unwrap();
+    this.round.cg?.set({
+      fen: fen ?? this.fen,
+      turnColor: this.chess.turn,
+      lastMove: undefined,
+      movable: { color: this.chess.turn, dests: this.cgDests },
+    });
+    this.roundData = this.makeRoundData(fen);
   }
 
   checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): {
@@ -73,34 +71,51 @@ export class LocalCtrl {
 
   doGameOver(result: string, reason: string) {
     console.log(`game over ${result} ${reason}`);
-
+    this.observer?.onGameEnd(result as 'white' | 'black' | 'draw', reason);
+    this.reset();
     // blah blah do outcome stuff
   }
 
-  move(uci: Uci) {
-    console.log('move', uci);
-    const move = Chops.parseUci(uci);
-    if (!move || !this.chess.isLegal(move)) throw new Error(`illegal move ${uci}, ${this.fen}}`);
+  move(uci: Uci): boolean {
+    const move = Chops.parseUci(uci) as Chops.NormalMove;
+    this.moves.push(uci);
+    if (!move || !this.chess.isLegal(move)) {
+      this.doGameOver(
+        'error',
+        `${this.botCtrl.players[this.chess.turn]?.name} made illegal move ${uci} at ${makeFen(
+          this.chess.toSetup(),
+        )}`,
+      );
+      return false;
+    }
     const san = makeSanAndPlay(this.chess, move);
     this.fifty(move);
     this.threefold('update');
-    const { end, result, reason } = this.checkGameOver();
-    if (end) this.doGameOver(result!, reason!);
     this.socket.receive('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
-    //this.tellRound('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
+    this.updateRoundData();
+    if (move.promotion)
+      this.round.cg?.setPieces(
+        new Map([
+          [
+            uci.slice(2, 4) as Cg.Key,
+            { color: Chops.opposite(this.chess.turn), role: move.promotion, promoted: true },
+          ],
+        ]),
+      );
+    const { end, result, reason } = this.checkGameOver();
+    if (end) {
+      this.doGameOver(result!, reason!);
+      this.redraw();
+      return false;
+    }
+    this.redraw();
+    if (this.botCtrl.players[this.chess.turn]) this.botMove();
+    return true;
   }
 
-  userMove(uci: Uci) {
-    this.move(uci);
-    this.botMove();
-  }
-
-  async botMove() {
-    console.log('bot move', this.libotCtrl, this.fen);
-    const uci = await this.libotCtrl!.move(this.fen);
-    console.log('got bot move', uci);
-    this.move(uci);
-  }
+  botMove = async () => {
+    this.move(await this.botCtrl.move(this.fen, this.chess.turn));
+  };
 
   fifty(move?: Chops.Move) {
     if (move)
@@ -116,9 +131,9 @@ export class LocalCtrl {
 
   threefold(update: 'update' | false = false) {
     const boardFen = this.fen.split('-')[0];
-    const fenCount = (this.threefoldFens.get(boardFen) ?? 0) + 1;
-    if (update) this.threefoldFens.set(boardFen, fenCount);
-    return fenCount >= 3;
+    let fenCount = this.threefoldFens.get(boardFen) ?? 0;
+    if (update) this.threefoldFens.set(boardFen, ++fenCount);
+    return fenCount >= (this.setup.nfold !== undefined ? this.setup.nfold : 3); // TODO fixme
   }
 
   isPromotion(move: Chops.Move) {
@@ -136,6 +151,13 @@ export class LocalCtrl {
       .forEach(([s, ds]) => (dests[Chops.makeSquare(s)] = [...ds].map(Chops.makeSquare).join('')));
     return dests;
   }
+  get cgDests() {
+    const dec = new Map();
+    const dests = this.dests;
+    if (!dests) return dec;
+    for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as Cg.Key[]);
+    return dec;
+  }
 
   get fen() {
     return makeFen(this.chess.toSetup());
@@ -143,11 +165,6 @@ export class LocalCtrl {
 
   get ply() {
     return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
-  }
-
-  setPlayer(color: Color, name: string) {
-    color;
-    name;
   }
 
   player(color: Color, name: string): RoundData['player'] {
@@ -181,24 +198,42 @@ export class LocalCtrl {
       player: 'white',
     };
   }
+  updateRoundData() {
+    this.roundData.player = this.player(
+      this.chess.turn,
+      this.botCtrl.players[this.chess.turn]?.name ?? 'You',
+    );
+    this.roundData.opponent = this.player(
+      Chops.opposite(this.chess.turn),
+      this.botCtrl.players[Chops.opposite(this.chess.turn)]?.name ?? 'You',
+    );
+    this.roundData.game.player = this.chess.turn;
+    this.round.cg?.set({ movable: { color: this.chess.turn, dests: this.cgDests } });
+  }
 
+  makeRoundData(fen?: string): RoundData {
+    const opponent: 'black' | 'white' = this.chess.turn === 'white' ? 'black' : 'white';
+    return {
+      game: this.game,
+      player: this.player(this.chess.turn, this.botCtrl.players[this.chess.turn]?.name ?? 'You'),
+      opponent: this.player(opponent, this.botCtrl.players[opponent]?.name ?? 'You'),
+      pref: this.opts.pref,
+      steps: [{ ply: 0, san: '', uci: '', fen: fen ?? Chops.fen.INITIAL_FEN }],
+      takebackable: true,
+      moretimeable: true,
+      possibleMoves: this.dests,
+    };
+  }
   get roundOpts(): RoundOpts {
     return {
-      data: {
-        game: this.game,
-        player: this.white,
-        opponent: this.black,
-        pref: this.opts.pref,
-        steps: [
-          { ply: 0, san: '', uci: '', fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' },
-        ],
-        takebackable: true,
-        moretimeable: true,
-        possibleMoves: this.dests,
-      },
+      data: this.roundData,
       i18n: this.opts.i18n,
       local: this.socket,
       onChange: (d: RoundData) => {}, //console.log(d),
     };
   }
+}
+
+function splitUci(uci: Uci): { from: Key; to: Key; role?: any } {
+  return { from: uci.slice(0, 2) as Key, to: uci.slice(2, 4) as Key, role: Chops.charToRole(uci.slice(4)) };
 }

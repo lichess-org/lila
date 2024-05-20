@@ -338,7 +338,7 @@ GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: U
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 
 # LocalPlay
-GET   /local                     controllers.Local.index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String])
+POST  /local                           controllers.Local.game(testUi: Boolean ?= false)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)

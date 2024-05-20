@@ -95,7 +95,6 @@ export default class RoundController implements MoveRootCtrl {
   preDrop?: cg.Role;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
-  //zerofish?: Zerofish;
   blindfoldStorage: LichessBooleanStorage;
 
   constructor(
@@ -169,20 +168,7 @@ export default class RoundController implements MoveRootCtrl {
     });
 
     if (!this.opts.noab && this.isPlaying()) ab.init(this);
-
-    //makeZerofish({ pbUrl: '/assets/lifat/bots/weights/maia-1900.pb' }).then(zf => (this.zerofish = zf));
   }
-
-  /*private async updateZero(fen: string) {
-    if (this.ply !== this.lastPly() || this.data.player.color !== (this.ply % 2 === 0 ? 'white' : 'black'))
-      return;
-    if (fen.split(' ')[0] === fen) fen += this.ply % 2 === 0 ? ' w' : ' b';
-    const uci = await this.zerofish?.goZero(fen);
-    if (uci)
-      this.sendMove(uci?.slice(0, 2) as Key, uci?.slice(2, 4) as Key, Ch.charRole(uci!.slice(4)), {
-        premove: false,
-      });
-  }*/
 
   private showExpiration = () => {
     if (!this.data.expiration) return;
@@ -293,7 +279,6 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
-    //this.updateZero(s.fen);
     this.pluginUpdate(s.fen);
     site.pubsub.emit('ply', ply);
     return true;
@@ -516,7 +501,6 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.autoScroll();
     this.onChange();
-    //this.updateZero(step.fen); //, playedColor != d.player.color);
     this.pluginUpdate(step.fen);
     site.sound.move({ ...o, filter: 'music' });
     site.sound.saySan(step.san);
@@ -932,4 +916,7 @@ export default class RoundController implements MoveRootCtrl {
       this.onChange();
     }, 800);
   };
+  get cg() {
+    return this.chessground;
+  }
 }

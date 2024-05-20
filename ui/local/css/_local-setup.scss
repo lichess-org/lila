@@ -1,5 +1,5 @@
-@mixin if-compressed {
-  @media (orientation: portrait) and (max-width: 500px), (orientation: landscape) and (max-height: 500px) {
+@mixin if-constrained($max: 500px) {
+  @media (orientation: portrait) and (max-width: $max), (orientation: landscape) and (max-height: $max) {
     @content;
   }
 }
@@ -8,8 +8,11 @@
   ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp');
   ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp');
   ---scale-factor: 1;
-  @include if-compressed {
+  @include if-constrained(400px) {
     ---scale-factor: 0.5;
+  }
+  @include if-constrained() {
+    ---scale-factor: 0.7;
   }
 }
 
@@ -62,7 +65,7 @@ dialog .local-setup {
     display: flex;
     flex-direction: column;
     width: 100%;
-    @include if-compressed {
+    @include if-constrained {
       aspect-ratio: 3/4;
     }
     //height: 100%;
@@ -75,7 +78,7 @@ dialog .local-setup {
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      @include if-compressed {
+      @include if-constrained {
         background-position: top;
       }
     }
@@ -149,9 +152,13 @@ dialog .local-setup {
 
   .chin {
     //height: 120px;
+    padding: 1em;
     border-radius: 5px;
     border-top: 1px solid $c-border;
     background-color: $c-bg-zebra2;
+    // label {
+    //   padding: 1em;
+    // }
   }
 
   .card {

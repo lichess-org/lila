@@ -16,9 +16,8 @@
   },
   "lichess": {
     "bundles": [
-      "src/local.setupDialog.ts",
-      "src/local.ts",
-      "src/scaffold/local.botVsBot.ts"
+      "src/local.setup.ts",
+      "src/local.ts"
     ],
     "sync": {
       "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",

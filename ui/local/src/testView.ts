@@ -1,11 +1,9 @@
-import { Chessground } from 'chessground';
 import { h, VNode } from 'snabbdom';
-import { makeConfig } from '../chessground';
 import * as Chops from 'chessops';
 import { onInsert, bind } from 'common/snabbdom';
 import { rangeConfig } from 'common/controls';
 import { hasFeature } from 'common/device';
-import { StockfishWebCtrl } from './ctrl';
+import { TestCtrl, TestParams } from './testCtrl';
 
 const searchTicks: [number, string][] = [
   [100, '100ms'],
@@ -19,24 +17,23 @@ const searchTicks: [number, string][] = [
   [10000, '10s'],
 ];
 
-export default function render(ctrl: StockfishWebCtrl): VNode {
-  return h('div#local-play', [
-    h('div.puz-board.main-board', [chessground(ctrl)]),
-    h('div.puz-side', [
-      results(ctrl),
-      h('hr'),
-      h('div', bot(ctrl, 'black')),
-      h('div.spacer'),
-      startingFen(ctrl),
-      renderSettings(ctrl),
-      h('hr'),
-      controls(ctrl),
-      h('div.spacer'),
-      h('div', [bot(ctrl, 'white')]),
-    ]),
+site.asset.loadCssPath('bot-vs-bot');
+
+export function renderTestView(ctrl: TestCtrl): VNode {
+  return h('div.test-side', [
+    results(ctrl),
+    h('hr'),
+    h('div', bot(ctrl, 'black')),
+    h('div.spacer'),
+    startingFen(ctrl),
+    renderSettings(ctrl),
+    h('hr'),
+    controls(ctrl),
+    h('div.spacer'),
+    h('div', [bot(ctrl, 'white')]),
   ]);
 }
-function startingFen(ctrl: StockfishWebCtrl): VNode {
+function startingFen(ctrl: TestCtrl): VNode {
   return h('input.starting-fen', {
     attrs: { placeholder: Chops.fen.INITIAL_BOARD_FEN, spellcheck: 'false' },
     hook: bind('input', e => {
@@ -60,19 +57,12 @@ function startingFen(ctrl: StockfishWebCtrl): VNode {
     },
   });
 }
-function chessground(ctrl: StockfishWebCtrl): VNode {
-  return h('div.cg-wrap', {
-    hook: {
-      insert: vnode => (ctrl.cg = Chessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-    },
-  });
+
+function bot(ctrl: TestCtrl, color: Color): VNode {
+  return h(`div.${color}.puz-bot`, [botSelection(ctrl, color), h('span.totals', ctrl.resultsText(color))]);
 }
 
-function bot(ctrl: StockfishWebCtrl, color: Color): VNode {
-  return h(`div.${color}.puz-bot`, [engineSelection(ctrl, color), h('span.totals', ctrl.resultsText(color))]);
-}
-
-function controls(ctrl: StockfishWebCtrl) {
+function controls(ctrl: TestCtrl) {
   return h('span', [
     h('input#num-games', {
       attrs: { type: 'number', min: '1', max: '1000', value: '1' },
@@ -81,7 +71,9 @@ function controls(ctrl: StockfishWebCtrl) {
       'button#go.button',
       {
         hook: onInsert(el =>
-          el.addEventListener('click', () => ctrl.go(parseInt($('#num-games').val() as string) || 1)),
+          el.addEventListener('click', () =>
+            ctrl.go({ iterations: parseInt($('#num-games').val() as string) || 1 }),
+          ),
         ),
       },
       'GO',
@@ -89,7 +81,7 @@ function controls(ctrl: StockfishWebCtrl) {
   ]);
 }
 
-function results(ctrl: StockfishWebCtrl) {
+function results(ctrl: TestCtrl) {
   return h('span', [
     h(
       'button#results.button-link',
@@ -107,10 +99,10 @@ function results(ctrl: StockfishWebCtrl) {
     ),
   ]);
 }
-async function downloadResults(ctrl: StockfishWebCtrl) {
+async function downloadResults(ctrl: TestCtrl) {
   const results = [];
-  for (const key of await ctrl.results.list()) {
-    const result = await ctrl.results.get(key);
+  for (const key of await ctrl.store.list()) {
+    const result = await ctrl.store.get(key);
     results.push(result);
     console.log(result);
   }
@@ -124,27 +116,27 @@ async function downloadResults(ctrl: StockfishWebCtrl) {
   URL.revokeObjectURL(url);
 }
 
-function clearResults(ctrl: StockfishWebCtrl) {
+function clearResults(ctrl: TestCtrl) {
   if (!confirm('Clear all results?')) return;
-  ctrl.results.clear();
+  ctrl.store.clear();
   ctrl.totals.white = ctrl.totals.black = ctrl.totals.draw = 0;
   ctrl.redraw();
 }
-const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
+//const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 
-function renderSettings(ctrl: StockfishWebCtrl): VNode | null {
-  const noarg = (text: string) => text,
-    engCtrl = ctrl.engines;
+function renderSettings(ctrl: TestCtrl): VNode | null {
+  // const noarg = (text: string) => text,
+  //   engCtrl = ctrl.engines;
 
-  function searchTick() {
-    return Math.max(
-      0,
-      searchTicks.findIndex(([tickMs]) => tickMs >= ctrl.params.movetime),
-    );
-  }
+  // function searchTick() {
+  //   return Math.max(
+  //     0,
+  //     searchTicks.findIndex(([tickMs]) => tickMs >= ctrl.params.movetime),
+  //   );
+  // }
 
   return h('div.bot-settings', [
-    (id => {
+    /*(id => {
       return h('div.setting', [
         h('label', 'Move time'),
         h('input#' + id, {
@@ -157,14 +149,14 @@ function renderSettings(ctrl: StockfishWebCtrl): VNode | null {
         }),
         h('div.range_value', searchTicks[searchTick()][1]),
       ]);
-    })('engine-search-ms'),
+    })('engine-search-ms'),*/
     (id => {
       return h('div.setting', [
         h('label', 'N-fold draw'),
         h('input#' + id, {
           attrs: { type: 'range', min: 0, max: 12, step: 3 },
           hook: rangeConfig(
-            () => ctrl.params.nfold,
+            () => ctrl.params.nfold ?? 3,
             x => {
               ctrl.params.nfold = x;
               ctrl.storeParams();
@@ -172,9 +164,9 @@ function renderSettings(ctrl: StockfishWebCtrl): VNode | null {
             },
           ),
         }),
-        h('div.range_value', ctrl.params.nfold === 0 ? 'no draw' : `${ctrl.params.nfold} moves`),
+        h('div.range_value', ctrl.params.nfold === 0 ? 'no draw' : `${ctrl.params.nfold ?? 3} moves`),
       ]);
-    })('draw-after'),
+    })('draw-after') /*
     hasFeature('sharedMem')
       ? (id => {
           return h('div.setting', [
@@ -221,39 +213,40 @@ function renderSettings(ctrl: StockfishWebCtrl): VNode | null {
           ),
         }),
         h('div.range_value', formatHashSize(ctrl.params.hash)),
-      ]))('analyse-memory'),
+      ]))('analyse-memory'),*/,
   ]);
 }
 
-function engineSelection(ctrl: StockfishWebCtrl, color: Color): VNode {
-  const engines = ctrl.engines.supporting('standard');
+function botSelection(ctrl: TestCtrl, color: Color): VNode {
+  const bots = ctrl.root.botCtrl.bots;
+  const players = ctrl.root.botCtrl.players;
   return h(
-    'select.select-engine',
+    'select.select-bot',
     {
       hook: bind('change', e => {
-        if (ctrl.ids[color] === (e.target as HTMLSelectElement).value) return;
+        const value = (e.target as HTMLSelectElement).value;
+        if (players[color]?.uid === value || (!value && !players[color])) return;
         ctrl.totals = { gamesLeft: ctrl.totals?.gamesLeft ?? 1, white: 0, black: 0, draw: 0, error: 0 };
-        ctrl.ids[color] = (e.target as HTMLSelectElement).value;
+        ctrl.root.botCtrl.setBot(color, !value ? undefined : value);
         ctrl.storeParams();
         ctrl.redraw();
       }),
       props: {
-        value: ctrl.ids[color],
+        value: ctrl.root.botCtrl.players[color]?.uid,
       },
     },
     [
-      ...engines.map(engine => {
-        console.log(color, ctrl.ids[color], engine.id, engine.name);
-
+      h('option', { attrs: { value: '', selected: players[color] === undefined } }, 'You'),
+      ...Object.values(bots).map(bot => {
         return h(
           'option',
           {
             attrs: {
-              value: engine.id,
-              selected: ctrl.ids[color] === engine.id,
+              value: bot.uid,
+              selected: ctrl.root.botCtrl.players[color]?.uid === bot.uid,
             },
           },
-          engine.name,
+          bot.name,
         );
       }),
     ],

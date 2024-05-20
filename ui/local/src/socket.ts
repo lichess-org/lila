@@ -1,5 +1,5 @@
 import throttle from 'common/throttle';
-import { LocalCtrl } from './ctrl';
+import { LocalCtrl } from './localCtrl';
 import { ApiMove } from 'game';
 import { RoundSocket } from 'round';
 
@@ -13,7 +13,7 @@ export function makeSocket(/*send: SocketSend, */ ctrl: LocalCtrl): RoundSocket 
   const send = (t: string, d?: any) => {
     if (t === 'move') {
       console.log('movin on up', t, d);
-      ctrl.userMove(d.u);
+      ctrl.move(d.u);
     } else if (handlers[t]) handlers[t]?.(d);
     else console.log('no handler for', t, d);
   };
