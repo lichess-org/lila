@@ -311,7 +311,6 @@ interface Window {
   readonly Stripe: any;
   readonly Textcomplete: any;
   readonly UserComplete: any;
-  readonly Peer: any;
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;

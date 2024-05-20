@@ -40,6 +40,9 @@
   }
 
   &__players {
+    @include mq-is-col1 {
+      display: none;
+    }
     margin-top: 0.3rem;
     font-size: 90%;
 

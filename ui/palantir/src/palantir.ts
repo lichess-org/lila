@@ -1,5 +1,6 @@
 import type * as snabbdom from 'snabbdom';
 import * as licon from 'common/licon';
+import Peer from 'peerjs';
 
 type State =
   | 'off'
@@ -34,7 +35,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
 
   function start() {
     setState('opening');
-    peer = new window.Peer(peerIdOf(opts.uid))
+    peer = new Peer(peerIdOf(opts.uid))
       .on('open', () => {
         setState('getting-media');
         devices
@@ -58,9 +59,6 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
           startCall(call);
           call.answer(myStream);
         }
-      })
-      .on('stream', s => {
-        console.log('stream', s);
       })
       .on('connection', c => {
         log('Connected to: ' + c.peer);
