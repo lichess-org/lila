@@ -74,6 +74,9 @@
     &__table {
       display: none;
     }
+    .ricons {
+      margin: 1em 0;
+    }
   }
 
   @include mq-at-least-col2 {
