@@ -124,6 +124,7 @@ object mod:
             thSortNumber(shadowban)(cls              := "i", title := "Shadowban"),
             thSortNumber(boosting)(cls               := "i", title := "Boosting"),
             thSortNumber(engine)(cls                 := "i", title := "Engine"),
+            thSortNumber(rankban)(cls                := "i", title := "Rankban"),
             thSortNumber(closed)(cls                 := "i", title := "Closed"),
             thSortNumber(reportban)(cls              := "i", title := "Reportban"),
             thSortNumber(notesText)(cls              := "i", title := "Notes"),
@@ -166,6 +167,7 @@ object mod:
               markTd(o.marks.troll.so(1), shadowban, log.dateOf(_.troll)),
               markTd(o.marks.boost.so(1), boosting, log.dateOf(_.booster)),
               markTd(o.marks.engine.so(1), engine, log.dateOf(_.engine)),
+              markTd(o.marks.rankban.so(1), rankban, log.dateOf(_.rankban)),
               markTd(o.enabled.no.so(1), closed, log.dateOf(_.closeAccount)),
               markTd(o.marks.reportban.so(1), reportban, log.dateOf(_.reportban)),
               userNotes.nonEmpty

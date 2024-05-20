@@ -94,7 +94,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
           " Joined ",
           momentFromNowOnce(u.createdAt)
         ),
-        (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no))
+        (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
           .option(span(cls := "upt__details__marks")(userMarks))
       ),
       playing
