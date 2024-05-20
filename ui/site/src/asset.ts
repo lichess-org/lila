@@ -3,13 +3,12 @@ import { memoize } from 'common';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 
-const version = memoize(() => document.body.getAttribute('data-asset-version'));
+const assetVersion = memoize(() => document.body.getAttribute('data-asset-version'));
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
-  opts = opts || {};
-  const base = opts.documentOrigin ? window.location.origin : opts.sameDomain ? '' : baseUrl(),
-    v = opts.version || version();
-  return `${base}/assets${opts.noVersion ? '' : '/_' + v}/${path}`;
+  const base = opts.documentOrigin ? window.location.origin : opts.relative ? '' : baseUrl();
+  const version = opts.version === false ? '' : opts.version ? '/_' + opts.version : '/_' + assetVersion();
+  return `${base}/assets${version}/${path}`;
 };
 
 // bump flairs version if a flair is changed only (not added or removed)
@@ -17,7 +16,7 @@ export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { versi
 
 export const loadCss = (href: string, key?: string): Promise<void> => {
   return new Promise(resolve => {
-    href = url(href, { noVersion: true });
+    href = url(href, { version: false });
     if (document.head.querySelector(`link[href="${href}"]`)) return resolve();
 
     const el = document.createElement('link');
@@ -36,10 +35,10 @@ export const loadCssPath = async (key: string): Promise<void> => {
 
 export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 
-export const jsModule = (name: string) => {
+export const jsModule = (name: string, prefix: string = 'compiled/') => {
   if (name.endsWith('.js')) name = name.slice(0, -3);
   const hash = site.manifest.js[name];
-  return `compiled/${name}${hash ? `.${hash}` : ''}.js`;
+  return `${prefix}${name}${hash ? `.${hash}` : ''}.js`;
 };
 
 const scriptCache = new Map<string, Promise<void>>();
@@ -49,17 +48,19 @@ export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {
   return scriptCache.get(u)!;
 };
 
-export async function loadEsm<T, ModuleOpts = any>(
+export async function loadEsm<T>(
   name: string,
-  opts?: { init?: ModuleOpts; url?: AssetUrlOpts },
+  opts: { init?: any | false; url?: AssetUrlOpts; npm?: boolean } = {},
 ): Promise<T> {
-  const urlOpts = opts?.url?.version ? opts?.url : { ...opts?.url, noVersion: true };
-  const module = await import(url(jsModule(name), urlOpts));
-  return module.initModule ? module.initModule(opts?.init) : module.default(opts?.init);
+  const urlOpts = { ...opts.url, version: opts.url?.version ?? false };
+
+  const module = await import(url(opts.npm ? jsModule(name, 'npm/') : jsModule(name), urlOpts));
+  const initializer = module.initModule ?? module.default;
+  return opts.init === false ? initializer : initializer(opts.init);
 }
 
 export const loadPageEsm = async (name: string) => {
-  const modulePromise = import(url(jsModule(name), { noVersion: true }));
+  const modulePromise = import(url(jsModule(name), { version: false }));
   const dataScript = document.getElementById('page-init-data');
   const opts = dataScript && JSON.parse(dataScript.innerHTML);
   dataScript?.remove();

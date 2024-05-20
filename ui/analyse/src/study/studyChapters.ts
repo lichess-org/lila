@@ -23,7 +23,7 @@ import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';
-import Sortable from 'sortablejs';
+import type Sortable from 'sortablejs';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -167,7 +167,7 @@ export function view(ctrl: StudyCtrl): VNode {
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      site.asset.loadEsm<typeof Sortable>('sortable').then(s => {
+      site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true, init: false }).then(s => {
         vData.sortable = s.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
