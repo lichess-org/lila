@@ -90,7 +90,7 @@ interface Site {
 }
 
 interface EsmModuleOpts extends AssetUrlOpts {
-  init?: any | false; // false means don't call the module's init function
+  init?: any;
   npm?: boolean;
 }
 
