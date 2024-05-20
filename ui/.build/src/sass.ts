@@ -108,7 +108,7 @@ async function parseScss(src: string) {
       }
       colorMixMap.set(str, mix);
     }
-    for (const match of text.matchAll(/@(?:import|use)\s+['"](.*)['"]/g)) {
+    for (const match of text.matchAll(/^@(?:import|use)\s+['"](.*)['"]/gm)) {
       if (match.length !== 2) continue;
 
       const absDep = fs.existsSync(path.resolve(path.dirname(src), match[1]) + '.scss')

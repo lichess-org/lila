@@ -8,12 +8,15 @@
   </plurals>
   <string name="liveBroadcasts">Canlı Turnuva Yayınları</string>
   <string name="newBroadcast">Canlı Turnuva Ekle</string>
+  <string name="subscribedBroadcasts">Abone olduğunuz yayınlar</string>
   <string name="aboutBroadcasts">Canlı Turnuvalar hakkında</string>
   <string name="howToUseLichessBroadcasts">Lichess Canlı Turnuvaları nasıl kullanılır.</string>
+  <string name="theNewRoundHelp">Yeni tur, önceki turdaki üyeler ve katkıda bulunanlarla aynı olacak.</string>
   <string name="addRound">Bir tur ekle</string>
   <string name="ongoing">Devam eden turnuvalar</string>
   <string name="upcoming">Yaklaşan turnuvalar</string>
   <string name="completed">Tamamlanan turnuvalar</string>
+  <string name="completedHelp">Lichess, tur tamamlanmasını kaynak oyunlara dayanarak algılar. Kaynak yoksa bu anahtarı kullanın.</string>
   <string name="roundName">Tur ismi</string>
   <string name="roundNumber">Tur sayısı</string>
   <string name="tournamentName">Turnuva ismi</string>
@@ -37,4 +40,9 @@
   <string name="editRoundStudy">Tur çalışmasını düzenle</string>
   <string name="deleteTournament">Bu turnuvayı sil</string>
   <string name="definitivelyDeleteTournament">Bütün turnuvayı, turlarını ve oyunlarını kalıcı olarak sil.</string>
+  <string name="automaticLeaderboard">Otomatik liderlik tablosu</string>
+  <string name="automaticLeaderboardHelp">Oyun sonuçlarına dayalı basit bir liderlik tablosu hesaplayın ve görüntüleyin</string>
+  <string name="replacePlayerTags">İsteğe bağlı: Oyuncu adlarını, derecelendirmelerini ve unvanlarını değiştirin</string>
+  <string name="periodInSeconds">Saniye cinsinden dönem</string>
+  <string name="periodInSecondsHelp">İsteğe bağlı olarak, istekler arasında beklenmesi gereken süreyi belirtin. Minimum 2 saniye, maksimum 60 saniye. Varsayılan değer, izleyici sayısına göre otomatik olarak belirlenir.</string>
 </resources>

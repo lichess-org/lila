@@ -202,7 +202,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           )
         },
         (Granter.opt(_.Impersonate) || (Granter.opt(_.Admin) && u.id == UserId.lichess)).option {
-          postForm(action := routes.Mod.impersonate(u.username))(
+          postForm(action := routes.Mod.impersonate(u.username.value))(
             submitButton(cls := "btn-rack__btn")("Impersonate")
           )
         }
