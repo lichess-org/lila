@@ -56,16 +56,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       preload(staticAssetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
     )
   )
-  val lichessFontFaceCss =
-    raw(
-      s"""<style>@font-face {
-        font-family: 'lichess';
-        font-display: block;
-        src:
-          url('${assetUrl("font/lichess.woff2")}') format('woff2'),
-          url('${assetUrl("font/lichess.woff")}') format('woff');
-      }</style>"""
-    )
 
   def allNotifications(challenges: Int, notifs: Int)(using Translate) =
     val challengeTitle = trans.challenge.challengesX.txt(challenges)
@@ -222,6 +212,15 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   private val spaceRegex      = """\s{2,}+""".r
   def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
+
+  val lichessFontFaceCss = spaceless:
+    s"""<style>@font-face {
+        font-family: 'lichess';
+        font-display: block;
+        src:
+          url('${assetUrl("font/lichess.woff2")}') format('woff2'),
+          url('${assetUrl("font/lichess.woff")}') format('woff');
+      }</style>"""
 
   def bottomHtml(using ctx: Context) = frag(
     ctx.me
