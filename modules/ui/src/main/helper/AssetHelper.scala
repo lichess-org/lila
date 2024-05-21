@@ -25,16 +25,16 @@ trait AssetHelper:
     def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
 
   def jsModuleInit(key: String): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${manifest.jsName(key)}')"))
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('$key')"))
   def jsModuleInit(key: String, json: SafeJsonStr): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${manifest.jsName(key)}',{init:$json})"))
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('$key',{init:$json})"))
   def jsModuleInit[A: Writes](key: String, value: A): EsmInit =
     jsModuleInit(key, safeJsonValue(Json.toJson(value)))
   def jsPageModule(key: String): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${manifest.jsName(key)}')"))
+    EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$key')"))
 
   // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
+  def iifeModule(path: String): Frag = script(deferAttr, src := staticAssetUrl(path))
 
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:
