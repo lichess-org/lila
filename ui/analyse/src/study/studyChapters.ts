@@ -23,6 +23,7 @@ import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';
+import type Sortable from 'sortablejs';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -166,15 +167,13 @@ export function view(ctrl: StudyCtrl): VNode {
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      const makeSortable = () => {
-        vData.sortable = window.Sortable.create(el, {
+      site.asset.loadEsm<typeof Sortable>('sortable.esm', { npm: true }).then(s => {
+        vData.sortable = s.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
           onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
         });
-      };
-      if (window.Sortable) makeSortable();
-      else site.asset.loadIife('javascripts/vendor/Sortable.min.js').then(makeSortable);
+      });
     }
   }
 
@@ -201,7 +200,7 @@ export function view(ctrl: StudyCtrl): VNode {
           update(vnode);
         },
         destroy: vnode => {
-          const sortable = vnode.data!.li!.sortable;
+          const sortable: Sortable = vnode.data!.li!.sortable;
           if (sortable) sortable.destroy();
         },
       },
