@@ -90,7 +90,6 @@ object page:
           fontPreload,
           boardPreload,
           manifests,
-          jsLicense,
           p.withHrefLangs.map(hrefLangs),
           sitePreload(
             p.modules ++ p.pageModule.so(module => jsPageModule(module.name)),

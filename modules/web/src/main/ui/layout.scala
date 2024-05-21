@@ -112,8 +112,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val manifests = raw:
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
 
-  val jsLicense = raw("""<link rel="jslicense" href="/source">""")
-
   val favicons = raw:
     List(512, 256, 192, 128, 64)
       .map: px =>
