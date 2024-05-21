@@ -208,7 +208,7 @@ export const mic = new (class implements Voice.Microphone {
     }
     this.broadcast('Loading...');
 
-    const modelUrl = site.asset.url(models.get(this.lang)!, { noVersion: true });
+    const modelUrl = site.asset.url(models.get(this.lang)!, { version: false });
     const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
     const audioAsync = this.initAudio();
 
@@ -263,7 +263,7 @@ export const mic = new (class implements Voice.Microphone {
     if ((await voskStore.count(`${emscriptenPath}/extracted.ok`)) > 0) return;
     const modelBlob: ArrayBuffer | undefined = await new Promise((resolve, reject) => {
       this.download = new XMLHttpRequest();
-      this.download.open('GET', site.asset.url(models.get(this.lang)!, { noVersion: true }), true);
+      this.download.open('GET', site.asset.url(models.get(this.lang)!, { version: false }), true);
       this.download.responseType = 'arraybuffer';
       this.download.onerror = _ => reject('Failed. See console');
       this.download.onabort = _ => reject('Aborted');

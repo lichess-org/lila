@@ -52,17 +52,17 @@ final class JsonView(
       .add("ongoing" -> (r.hasStarted && !r.finished))
       .add("startsAt" -> r.startsAt.orElse(r.startedAt))
 
-  def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
+  def apply(trs: RelayTour.WithRounds): JsObject =
     Json
       .obj(
         "tour" -> Json
           .toJsObject(trs.tour)
           .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
-          .add("url" -> withUrls.option(s"$baseUrl${trs.tour.path}"))
+          .add("url" -> s"$baseUrl${trs.tour.path}".some)
           .add("teamTable" -> trs.tour.teamTable)
           .add("leaderboard" -> trs.tour.autoLeaderboard),
         "rounds" -> trs.rounds.map: round =>
-          if withUrls then withUrl(round.withTour(trs.tour), withTour = false) else apply(round)
+          withUrl(round.withTour(trs.tour), withTour = false)
       )
 
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
