@@ -82,7 +82,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
         if (storedBuffer && storedBuffer.byteLength > 128 * 1024) return storedBuffer;
         const req = new XMLHttpRequest();
 
-        req.open('get', site.asset.url(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
+        req.open('get', site.asset.url(`lifat/nnue/${nnueFilename}`, { version: false }), true);
         req.responseType = 'arraybuffer';
         req.onprogress = e => this.status?.({ download: { bytes: e.loaded, total: e.total } });
 

@@ -118,7 +118,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
       printErr: (msg: string) => this.onError(new Error(msg)),
       onError: this.onError,
       locateFile: (path: string) =>
-        site.asset.url(`${root}/${path}`, { version, sameDomain: path.endsWith('.worker.js') }),
+        site.asset.url(`${root}/${path}`, { version, pathOnly: path.endsWith('.worker.js') }),
       wasmMemory: sharedWasmMemory(this.info.minMem!),
     });
     if (!this.info.isBot) {
