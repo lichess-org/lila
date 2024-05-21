@@ -52,7 +52,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     Page(trc.liveBroadcasts.txt())
       .css("relay.index")
       .js(infiniteScrollEsmInit):
-        main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body))
+        main(cls := "relay-index page-menu")(menu, div(cls := "page-menu__content box box-pad")(body))
 
   def search(pager: Paginator[WithLastRound], query: String)(using Context) =
     listLayout(trc.liveBroadcasts.txt(), pageMenu("index"))(
