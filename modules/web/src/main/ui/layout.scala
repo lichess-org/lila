@@ -117,7 +117,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val favicons = raw:
     List(512, 256, 192, 128, 64)
       .map: px =>
-        s"""<link rel="icon" type="image/png" href="$assetBaseUrl/assets/flogo/lichess-favicon-$px.png" sizes="${px}x$px">"""
+        s"""<link rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-$px.png" sizes="${px}x$px">"""
       .mkString(
         "",
         "",
