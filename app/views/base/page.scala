@@ -24,10 +24,10 @@ object page:
     raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
-    preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
+    preload(staticAssetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d.option(
       preload(
-        assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
+        staticAssetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
         "image",
         crossorigin = false
       )
@@ -74,7 +74,7 @@ object page:
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name    := "description"
           ),
-          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
+          link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
           (!p.robots || !netConfig.crawlable).option:
             raw("""<meta content="noindex, nofollow" name="robots">""")
@@ -90,12 +90,12 @@ object page:
           fontPreload,
           boardPreload,
           manifests,
-          jsLicense,
           p.withHrefLangs.map(hrefLangs),
           sitePreload(
             p.modules ++ p.pageModule.so(module => jsPageModule(module.name)),
             isInquiry = ctx.data.inquiry.isDefined
           ),
+          lichessFontFaceCss,
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),
         st.body(

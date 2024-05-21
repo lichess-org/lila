@@ -109,7 +109,7 @@ object mod:
           tr(
             th(
               pluralize("linked user", userLogins.otherUsers.size),
-              (max < 1000 || othersWithEmail.others.sizeIs >= max).option(
+              (max < 1000 || othersPartiallyLoaded).option(
                 frag(
                   nbsp,
                   a(cls := "more-others")("Load more")
@@ -211,7 +211,10 @@ object mod:
       case email                        => frag(email)
     }
 
-  def identification(logins: UserLogins)(using ctx: Context, renderIp: RenderIp): Frag =
+  def identification(logins: UserLogins, othersPartiallyLoaded: Boolean)(using
+      ctx: Context,
+      renderIp: RenderIp
+  ): Frag =
     val canIpBan  = Granter.opt(_.IpBan)
     val canFpBan  = Granter.opt(_.PrintBan)
     val canLocate = Granter.opt(_.Admin)
@@ -301,7 +304,7 @@ object mod:
                     button(
                       cls := List(
                         "button button-empty" -> true,
-                        "button-discouraging" -> (ip.alts.cleans > 0)
+                        "button-discouraging" -> (ip.alts.cleans > 0 || othersPartiallyLoaded)
                       ),
                       href := routes.Mod.singleIpBan(!ip.blocked, ip.ip.value.value)
                     )("BAN")
@@ -335,7 +338,7 @@ object mod:
                     button(
                       cls := List(
                         "button button-empty" -> true,
-                        "button-discouraging" -> (fp.alts.cleans > 0)
+                        "button-discouraging" -> (fp.alts.cleans > 0 || othersPartiallyLoaded)
                       ),
                       href := routes.Mod.printBan(!fp.banned, fp.fp.value.value)
                     )("BAN")
