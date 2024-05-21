@@ -35,7 +35,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )(nonce)
   def pieceSprite(name: String): Frag =
     link(id := "piece-sprite", href := assetUrl(s"piece-css/$name.css"), rel := "stylesheet")
-
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
@@ -46,13 +45,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def fontPreload(using ctx: Context) = frag(
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(
-      assetUrl("font/noto-sans-v14-latin-regular.woff2"),
+      staticAssetUrl("font/noto-sans-v14-latin-regular.woff2"),
       "font",
       crossorigin = true,
       "font/woff2".some
     ),
     (!ctx.pref.pieceNotationIsLetter).option(
-      preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
+      preload(staticAssetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
     )
   )
 
@@ -93,7 +92,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def botImage =
     img(
-      src   := assetUrl("images/icons/bot.png"),
+      src   := staticAssetUrl("images/icons/bot.png"),
       title := "Robot chess",
       style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
@@ -104,15 +103,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val favicons = raw:
     List(512, 256, 192, 128, 64)
       .map: px =>
-        s"""<link rel="icon" type="image/png" href="${assetUrl(
-            s"logo/lichess-favicon-$px.png"
-          )}" sizes="${px}x$px">"""
+        s"""<link rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-$px.png" sizes="${px}x$px">"""
       .mkString(
         "",
         "",
-        s"""<link id="favicon" rel="icon" type="image/png" href="${assetUrl(
-            "logo/lichess-favicon-32.png"
-          )}" sizes="32x32">"""
+        s"""<link id="favicon" rel="icon" type="image/png" href="$assetBaseUrl/assets/logo/lichess-favicon-32.png" sizes="32x32">"""
       )
   def blindModeForm(using ctx: Context) = raw:
     s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${
@@ -215,6 +210,15 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   private val spaceRegex      = """\s{2,}+""".r
   def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
+
+  val lichessFontFaceCss = spaceless:
+    s"""<style>@font-face {
+        font-family: 'lichess';
+        font-display: block;
+        src:
+          url('${assetUrl("font/lichess.woff2")}') format('woff2'),
+          url('${assetUrl("font/lichess.woff")}') format('woff');
+      }</style>"""
 
   def bottomHtml(using ctx: Context) = frag(
     ctx.me
