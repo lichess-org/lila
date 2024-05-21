@@ -14,7 +14,7 @@
       flex-flow: row nowrap;
       align-items: center;
       gap: 3px;
-      overflow-y: scroll;
+      overflow-x: scroll;
       &::-webkit-scrollbar {
         display: none;
         width: 0 !important;
