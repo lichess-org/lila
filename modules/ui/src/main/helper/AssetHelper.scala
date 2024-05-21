@@ -34,7 +34,7 @@ trait AssetHelper:
     EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$key')"))
 
   // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
+  def iifeModule(path: String): Frag = script(deferAttr, src := staticAssetUrl(path))
 
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:
