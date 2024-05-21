@@ -34,7 +34,7 @@ export class BotCtrl {
 }
 
 async function fetchNet(netName: string): Promise<Uint8Array> {
-  return fetch(site.asset.url(`lifat/bots/weights/${netName}`, { noVersion: true }))
+  return fetch(site.asset.url(`lifat/bots/weights/${netName}`, { version: false }))
     .then(res => res.arrayBuffer())
     .then(buf => new Uint8Array(buf));
 }
