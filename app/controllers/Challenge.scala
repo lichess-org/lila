@@ -278,6 +278,8 @@ final class Challenge(
               limit.challenge(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
                 env.user.repo.enabledById(username).flatMap {
                   case None => JsonBadRequest(jsonError(s"No such user: $username"))
+                  case Some(destUser) if destUser.isBot && !config.rules.isEmpty =>
+                    JsonBadRequest(jsonError("Rules not applicable for bots"))
                   case Some(destUser) =>
                     val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
                     limit.challengeBot(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
