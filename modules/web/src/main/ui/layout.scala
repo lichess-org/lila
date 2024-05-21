@@ -34,7 +34,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         "document.documentElement.classList.add('light');"
     )(nonce)
   def pieceSprite(name: String): Frag =
-    link(id := "piece-sprite", href := staticAssetUrl(s"piece-css/$name.css"), rel := "stylesheet")
+    link(id := "piece-sprite", href := assetUrl(s"piece-css/$name.css"), rel := "stylesheet")
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
@@ -43,8 +43,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""
 
   def fontPreload(using ctx: Context) = frag(
-    // preload & serve lichess.woff2 with the cache buster as it changes from time to time
-    // TODO: hash that sucker
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(
       staticAssetUrl("font/noto-sans-v14-latin-regular.woff2"),

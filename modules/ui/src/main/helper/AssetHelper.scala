@@ -35,7 +35,7 @@ trait AssetHelper:
   val captchaEsmInit: EsmInit        = EsmInit("bits.captcha")
 
   // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := staticAssetUrl(path))
+  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:
