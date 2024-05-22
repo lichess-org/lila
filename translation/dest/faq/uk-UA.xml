@@ -167,4 +167,9 @@
 5. Додайте lichess.org до Дозволів (Дозволених)</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Як припинити грати надміру?</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">самостійне психологічне захворювання</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Ми часто отримуємо повідомлення від користувачів, які просять нас допомогти їм припинити грати надміру.
+
+Lichess блокує гравців лише за порушення умов користування, тому ми радимо таким гравцям використовувати зовнішні інструменти, які обмежуватимуть надмірну гру. Загальні пропозиції для блокування вебсайтів уключають %1$s, %2$s та %3$s. Якщо ж ви не бажаєте обмежувати сайт, а втримуватися від швидких ігор, вас можуть зацікавити %4$s, а ось із %5$s.
+
+Деякі гравці відчувають, що їхня надмірна гра перетворюється в залежність. ВООЗ класифікує ігрові розлади як %6$s. Основні симптоми: 1) ослаблений контроль над іграми, 2) підвищення пріоритету ігор, 3) збільшення ігрового часу попри негативні наслідки. Якщо ви вважаєте, що у вас є ці симптоми, ми заохочуємо вас поговорити зі своїми родичами й друзями, або ж із професіоналом.</string>
 </resources>
