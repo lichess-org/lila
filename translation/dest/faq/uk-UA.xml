@@ -165,4 +165,6 @@
 3. Натисніть на Куки та Дозволи сайту
 4. Прокрутіть донизу та оберіть Авто-Програвання медіа
 5. Додайте lichess.org до Дозволів (Дозволених)</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Як припинити грати надміру?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">самостійне психологічне захворювання</string>
 </resources>
