@@ -284,11 +284,8 @@ export function renderControls(ctrl: AnalyseCtrl) {
           else if (action === 'explorer') ctrl.toggleExplorer();
           else if (action === 'practice') ctrl.togglePractice();
           else if (action === 'menu') ctrl.actionMenu.toggle();
-          else if (action === 'analysis' && ctrl.studyPractice) {
-            if (!window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener')) {
-              window.location.href = ctrl.studyPractice.analysisUrl(); //safari
-            }
-          }
+          else if (action === 'analysis' && ctrl.studyPractice)
+            window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
         }, ctrl.redraw),
       ),
     },

@@ -9,10 +9,6 @@
       font-size: 1.4em;
       opacity: 0.6;
     }
-
-    input {
-      text-indent: 23px;
-    }
   }
 
   .page-menu__menu {
@@ -210,6 +206,7 @@
         @include mq-subnav-top {
           background: $c-accent;
           color: $c-over;
+          text-shadow: none;
         }
       }
 
@@ -250,8 +247,7 @@
 
       em {
         font-weight: bold;
-        opacity: 0.6;
-        color: $c-brag;
+        color: $c-accent;
       }
     }
   }

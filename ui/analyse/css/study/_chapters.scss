@@ -46,10 +46,8 @@ $span-width: 1.7em;
   }
 
   .sortable-ghost {
-    opacity: 0.7;
-
     &,
-    .status {
+    span {
       background: $c-secondary !important;
       color: $c-over !important;
     }
