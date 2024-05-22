@@ -44,7 +44,7 @@ import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudySocketSendParams } from '../socket';
-import { storedMap, storedBooleanProp } from 'common/storage';
+import { storedMap } from 'common/storage';
 import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
@@ -83,7 +83,7 @@ interface Handlers {
 // data.position.path represents the server state
 // ctrl.path is the client state
 export default class StudyCtrl {
-  relayRecProp = storedBooleanProp('analyse.relay.rec', true);
+  relayRecProp = prop(false);
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
   data: StudyData;
