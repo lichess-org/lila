@@ -173,4 +173,5 @@ Pokazujemy czerwoną ikonę, aby Cię ostrzec, kiedy to się wydarzy. W wielu pr
 3. Kliknij Ciasteczka i uprawnienia witryny
 4. Przewiń w dół i kliknij przycisk Autoplay Media
 5. Dodaj lichess.org do uprawnionych</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Jak nie uzależnić się od gry w szachy?</string>
 </resources>
