@@ -26,15 +26,15 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.109.Final").classifier(s"$os-$arch")
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-RC1" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.17.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
   val kittens     = "org.typelevel"              %% "kittens"       % "3.3.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0"    % Test
-  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0-RC1" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0" % Test
+  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0"  % Test
 
   object tests {
     val bundle = Seq(munit)
