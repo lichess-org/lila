@@ -658,6 +658,7 @@ export default class StudyCtrl {
       if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
       this.ctrl.tree.promoteAt(position.path, d.toMainline);
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
+      else if (this.relay) this.ctrl.jump(d.p.path);
       this.ctrl.treeVersion++;
       this.redraw();
     },
