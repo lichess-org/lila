@@ -31,7 +31,7 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
         NoContent
       case None => BadRequest(jsonError("JSON does not match expected format"))
 
-  val checkSignature = parse.using { req =>
+  val checkSignature: BodyParser[JsValue] = parse.using { req =>
     req.pp
     req.headers.pp
 
