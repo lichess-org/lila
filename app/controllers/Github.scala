@@ -2,6 +2,7 @@ package controllers
 
 import play.api.data.*
 import play.api.libs.json.*
+import play.api.libs.streams.Accumulator
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*
@@ -16,7 +17,6 @@ import java.nio.charset.StandardCharsets
 import java.security.*
 import java.security.spec.*
 import java.util.Base64
-import play.api.libs.streams.Accumulator
 
 final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaController(env):
 
@@ -31,45 +31,28 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
         NoContent
       case None => BadRequest(jsonError("JSON does not match expected format"))
 
-  val checkSignature: BodyParser[JsValue] = parse.using { req =>
-    req.pp
-    req.headers.pp
-
-    parse.raw.validateM { raw =>
-      val body = raw.asBytes().map(_.utf8String).getOrElse("")
-
+  private val checkSignature: BodyParser[JsValue] = parse.using: req =>
+    parse.raw.validateM: raw =>
+      val body       = raw.asBytes().map(_.utf8String).getOrElse("")
       val identifier = req.headers.get("Github-Public-Key-Identifier").getOrElse("")
       val signature  = req.headers.get("Github-Public-Key-Signature").getOrElse("")
 
-      lila.log("github").info(s"Identifier: $identifier")
-      lila.log("github").info(s"Signature: $signature")
-      lila.log("github").info(s"Body: $body")
-
-      if !env.net.isProd && false then Future.successful(Json.parse(body).asRight) // todo handle exception
-      else
-        githubPublicKeys.get {}.flatMap {
+      githubPublicKeys
+        .get {}
+        .flatMap:
           case Some(keys) =>
             keys("public_keys")
               .as[List[JsObject]]
               .find(_("key_identifier").as[String] == identifier) match
               case Some(key) =>
-                val keyStr = key("key").as[String]
-                keyStr.pp
-                val publicKey        = getPublicKeyFromPEM(keyStr)
-                val isSignatureValid = verifySignature(body, signature, publicKey)
-
-                lila.log("github").info(s"Signature verification result: ${isSignatureValid}")
-
-                if isSignatureValid then Future.successful(Json.parse(body).asRight) // todo handle exception
-                else Future.successful(BadRequest(jsonError("Signature verification failed")).asLeft)
-              case None => Future.successful(BadRequest(jsonError("Public key not found")).asLeft)
-          case None => Future.successful(BadRequest(jsonError("Failed to fetch public keys")).asLeft)
-        }
-    }
-  }
+                if verifySignature(body, signature, getPublicKeyFromPEM(key("key").as[String])) then
+                  fuccess(Json.parse(body).asRight)
+                else fuccess(BadRequest(jsonError("Signature verification failed")).asLeft)
+              case None => fuccess(BadRequest(jsonError("Public key not found")).asLeft)
+          case None => fuccess(BadRequest(jsonError("Failed to fetch public keys")).asLeft)
 
   private lazy val githubPublicKeys = env.memo.cacheApi.unit[Option[JsValue]]:
-    _.refreshAfterWrite(1.minute).buildAsyncFuture: _ =>
+    _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
       ws.url("https://api.github.com/meta/public_keys/secret_scanning")
         .get()
         .map:
@@ -77,7 +60,7 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
           case _                        => none
         .recoverDefault
 
-  def getPublicKeyFromPEM(pem: String): PublicKey =
+  private def getPublicKeyFromPEM(pem: String): PublicKey =
     val publicKeyPEM = pem
       .replace("-----BEGIN PUBLIC KEY-----", "")
       .replace("-----END PUBLIC KEY-----", "")
@@ -87,7 +70,7 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
     val keyFactory = KeyFactory.getInstance("EC")
     keyFactory.generatePublic(keySpec)
 
-  def verifySignature(body: String, signature: String, publicKey: PublicKey): Boolean =
+  private def verifySignature(body: String, signature: String, publicKey: PublicKey): Boolean =
     val sig = Signature.getInstance("SHA256withECDSA")
     sig.initVerify(publicKey)
     sig.update(body.getBytes(StandardCharsets.UTF_8))
