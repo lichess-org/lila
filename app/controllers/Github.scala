@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets
 import java.security.*
 import java.security.spec.*
 import java.util.Base64
+import play.api.libs.streams.Accumulator
 
 final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaController(env):
 
@@ -62,8 +63,8 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
           lila.log("github").info(s"Signature verification result: ${isSignatureValid}")
 
           if isSignatureValid then parse.json
-          else BadRequest(jsonError("Signature verification failed"))
-        case None => BadRequest(jsonError("Public key not found"))
+          else _ => Accumulator.done(BadRequest(jsonError("Signature verification failed")).asLeft)
+        case None => _ => Accumulator.done(BadRequest(jsonError("Public key not found")).asLeft)
   }
 
   private lazy val githubPublicKeys = env.memo.cacheApi.unit[Option[JsValue]]:
