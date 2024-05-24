@@ -45,7 +45,6 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
       lila.log("github").info(s"Signature: $signature")
       lila.log("github").info(s"Body: $body")
 
-      val keys: JsObject = ???
       if !env.net.isProd && false then Future.successful(Json.parse(body).asRight) // todo handle exception
       else
         githubPublicKeys.get {}.flatMap {
@@ -57,7 +56,6 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
                 val keyStr = key("key").as[String]
                 keyStr.pp
                 val publicKey        = getPublicKeyFromPEM(keyStr)
-                val body: String = ???
                 val isSignatureValid = verifySignature(body, signature, publicKey)
 
                 lila.log("github").info(s"Signature verification result: ${isSignatureValid}")
