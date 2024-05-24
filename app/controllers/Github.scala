@@ -35,36 +35,39 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
     req.pp
     req.headers.pp
 
-    val body = parse.raw.map { raw =>
+    parse.raw.validateM { raw =>
       val body = raw.asBytes().map(_.utf8String).getOrElse("")
-      body // "foo"
+
+      val identifier = req.headers.get("Github-Public-Key-Identifier").getOrElse("")
+      val signature  = req.headers.get("Github-Public-Key-Signature").getOrElse("")
+
+      lila.log("github").info(s"Identifier: $identifier")
+      lila.log("github").info(s"Signature: $signature")
+      lila.log("github").info(s"Body: $body")
+
+      val keys: JsObject = ???
+      if !env.net.isProd && false then Future.successful(Json.parse(body).asRight) // todo handle exception
+      else
+        githubPublicKeys.get {}.flatMap {
+          case Some(keys) =>
+            keys("public_keys")
+              .as[List[JsObject]]
+              .find(_("key_identifier").as[String] == identifier) match
+              case Some(key) =>
+                val keyStr = key("key").as[String]
+                keyStr.pp
+                val publicKey        = getPublicKeyFromPEM(keyStr)
+                val body: String = ???
+                val isSignatureValid = verifySignature(body, signature, publicKey)
+
+                lila.log("github").info(s"Signature verification result: ${isSignatureValid}")
+
+                if isSignatureValid then Future.successful(Json.parse(body).asRight) // todo handle exception
+                else Future.successful(BadRequest(jsonError("Signature verification failed")).asLeft)
+              case None => Future.successful(BadRequest(jsonError("Public key not found")).asLeft)
+          case None => Future.successful(BadRequest(jsonError("Failed to fetch public keys")).asLeft)
+        }
     }
-
-    val identifier = req.headers.get("Github-Public-Key-Identifier").getOrElse("")
-    val signature  = req.headers.get("Github-Public-Key-Signature").getOrElse("")
-
-    lila.log("github").info(s"Identifier: $identifier")
-    lila.log("github").info(s"Signature: $signature")
-    lila.log("github").info(s"Body: $body")
-
-    val keys: JsObject = ???
-    if !env.net.isProd && false then parse.json
-    else
-      keys("public_keys")
-        .as[List[JsObject]]
-        .find(_("key_identifier").as[String] == identifier) match
-        case Some(key) =>
-          val keyStr = key("key").as[String]
-          keyStr.pp
-          val publicKey        = getPublicKeyFromPEM(keyStr)
-          val body: String = ???
-          val isSignatureValid = verifySignature(body, signature, publicKey)
-
-          lila.log("github").info(s"Signature verification result: ${isSignatureValid}")
-
-          if isSignatureValid then parse.json
-          else _ => Accumulator.done(BadRequest(jsonError("Signature verification failed")).asLeft)
-        case None => _ => Accumulator.done(BadRequest(jsonError("Public key not found")).asLeft)
   }
 
   private lazy val githubPublicKeys = env.memo.cacheApi.unit[Option[JsValue]]:
