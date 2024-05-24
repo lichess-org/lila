@@ -57,6 +57,7 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
               val keyStr = key("key").as[String]
               keyStr.pp
               val publicKey        = getPublicKeyFromPEM(keyStr)
+              val body: String = ???
               val isSignatureValid = verifySignature(body, signature, publicKey)
 
               lila.log("github").info(s"Signature verification result: ${isSignatureValid}")
