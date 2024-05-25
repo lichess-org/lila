@@ -71,8 +71,12 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
     keyFactory.generatePublic(keySpec)
 
   private def verifySignature(body: String, signature: String, publicKey: PublicKey): Boolean =
-    val sig = Signature.getInstance("SHA256withECDSA")
-    sig.initVerify(publicKey)
-    sig.update(body.getBytes(StandardCharsets.UTF_8))
-    val signatureBytes = Base64.getDecoder.decode(signature)
-    sig.verify(signatureBytes)
+    try
+      val sig = Signature.getInstance("SHA256withECDSA")
+      sig.initVerify(publicKey)
+      sig.update(body.getBytes(StandardCharsets.UTF_8))
+      val signatureBytes = Base64.getDecoder.decode(signature)
+      sig.verify(signatureBytes)
+    catch case e: Exception =>
+      lila.log("github").warn(s"Failed to verify signature: $signature, publicKey: $publicKey, body: $body", e)
+      false
