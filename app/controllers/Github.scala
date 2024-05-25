@@ -33,13 +33,19 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
 
   private val checkSignature: BodyParser[JsValue] = parse.using: req =>
     parse.raw.validateM: raw =>
-      val body       = raw.asBytes().map(_.utf8String).getOrElse("")
-      val identifier = req.headers.get("Github-Public-Key-Identifier").getOrElse("")
-      val signature  = req.headers.get("Github-Public-Key-Signature").getOrElse("")
+      val body       = raw.asBytes().map(_.utf8String)
+      val identifier = req.headers.get("Github-Public-Key-Identifier")
+      val signature  = req.headers.get("Github-Public-Key-Signature")
 
-      verify(body, signature, identifier).flatMap:
-        case true  => fuccess(Json.parse(body).asRight)
-        case false => fuccess(BadRequest(jsonError("Signature verification failed")).asLeft)
+      (body, identifier, signature)
+        .mapN: (b, i, s) =>
+          verify(b, s, i).map:
+            case true  => Json.parse(b).asRight
+            case false => badRequest("Signature verification failed").asLeft
+        .fold(fuccess(badRequest("missing data").asLeft))(identity)
+
+  private def badRequest(msg: String): Result =
+    BadRequest(Json.obj("error" -> msg))
 
   private def verify(body: String, signature: String, identifier: String): Future[Boolean] =
     githubPublicKeys
