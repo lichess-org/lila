@@ -29,7 +29,7 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
             _.traverse: (token, url) =>
               env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
         NoContent
-      case None => BadRequest(jsonError("JSON does not match expected format"))
+      case None => badRequest("JSON does not match expected format")
 
   private val checkSignature: BodyParser[JsValue] = parse.using: req =>
     parse.raw.validateM: raw =>
@@ -45,7 +45,7 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
         .fold(fuccess(badRequest("missing data").asLeft))(identity)
 
   private def badRequest(msg: String): Result =
-    BadRequest(Json.obj("error" -> msg))
+    BadRequest(jsonError(msg))
 
   private def verify(body: String, signature: String, identifier: String): Future[Boolean] =
     githubPublicKeys
