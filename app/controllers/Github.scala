@@ -42,7 +42,7 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
           verify(b, s, i).map:
             case true  => Json.parse(b).asRight
             case false => badRequest("Signature verification failed").asLeft
-        .fold(fuccess(badRequest("missing data").asLeft))(identity)
+        .fold(fuccess(badRequest("Missing headers for signature verification").asLeft))(identity)
 
   private def badRequest(msg: String): Result =
     BadRequest(jsonError(msg))
