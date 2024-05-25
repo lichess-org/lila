@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
   <string name="waitingForOpponent">Laukiama varžovo</string>
+  <string name="orLetYourOpponentScanQrCode">Arba leiskite priešininkui nuskanuoti šį QR kodą</string>
   <string name="waiting">Laukiama</string>
   <string name="yourTurn">Jūsų ėjimas</string>
   <string name="aiNameLevelAiLevel">%1$s lygis Nr. %2$s</string>
@@ -305,6 +306,7 @@
   <string name="abortGame">Nutraukti partiją</string>
   <string name="gameAborted">Partija nutraukta</string>
   <string name="standard">Standartinis</string>
+  <string name="customPosition">Pasirinkta pozicija</string>
   <string name="unlimited">Neribota</string>
   <string name="mode">Tipas</string>
   <string name="casual">Nevertinamas</string>
