@@ -37,19 +37,22 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
       val identifier = req.headers.get("Github-Public-Key-Identifier").getOrElse("")
       val signature  = req.headers.get("Github-Public-Key-Signature").getOrElse("")
 
-      githubPublicKeys
-        .get {}
-        .flatMap:
-          case Some(keys) =>
-            keys("public_keys")
-              .as[List[JsObject]]
-              .find(_("key_identifier").as[String] == identifier) match
-              case Some(key) =>
-                if verifySignature(body, signature, getPublicKeyFromPEM(key("key").as[String])) then
-                  fuccess(Json.parse(body).asRight)
-                else fuccess(BadRequest(jsonError("Signature verification failed")).asLeft)
-              case None => fuccess(BadRequest(jsonError("Public key not found")).asLeft)
-          case None => fuccess(BadRequest(jsonError("Failed to fetch public keys")).asLeft)
+      verify(body, signature, identifier).flatMap:
+        case true  => fuccess(Json.parse(body).asRight)
+        case false => fuccess(BadRequest(jsonError("Signature verification failed")).asLeft)
+
+  private def verify(body: String, signature: String, identifier: String): Future[Boolean] =
+    githubPublicKeys
+      .get {}
+      .map:
+        case Some(keys) =>
+          keys("public_keys")
+            .as[List[JsObject]]
+            .find(_("key_identifier").as[String] == identifier) match
+            case Some(key) =>
+              verifySignature(body, signature, getPublicKeyFromPEM(key("key").as[String]))
+            case None => false
+        case None => false
 
   private lazy val githubPublicKeys = env.memo.cacheApi.unit[Option[JsValue]]:
     _.refreshAfterWrite(1.day).buildAsyncFuture: _ =>
@@ -77,6 +80,9 @@ final class Github(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
       sig.update(body.getBytes(StandardCharsets.UTF_8))
       val signatureBytes = Base64.getDecoder.decode(signature)
       sig.verify(signatureBytes)
-    catch case e: Exception =>
-      lila.log("github").warn(s"Failed to verify signature: $signature, publicKey: $publicKey, body: $body", e)
-      false
+    catch
+      case e: Exception =>
+        lila
+          .log("github")
+          .warn(s"Failed to verify signature: $signature, publicKey: $publicKey, body: $body", e)
+        false
