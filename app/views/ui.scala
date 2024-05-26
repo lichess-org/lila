@@ -30,7 +30,7 @@ val dgt = lila.web.ui.DgtUi(helpers)
 val relation = lila.relation.ui.RelationUi(helpers)
 
 object oAuth:
-  val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage)
+  val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage, env.mode)
   val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
 
 val plan      = lila.plan.ui.PlanUi(helpers)(netConfig.email)

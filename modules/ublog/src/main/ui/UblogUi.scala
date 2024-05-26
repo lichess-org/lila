@@ -80,7 +80,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
               h1(trans.ublog.xBlog(userLink(user))),
               div(cls := "box__top__actions")(
                 blog.allows.moderate.option(tierForm(blog)),
-                blog.allows.create.option(
+                blog.allows.draft.option(
                   frag(
                     a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
                     newPostLink(user)
@@ -155,7 +155,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         )
 
-  def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using Context) =
+  def drafts(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: Context) =
     Page(trans.ublog.drafts.txt())
       .css("ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
@@ -163,15 +163,19 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-index")(
             boxTop(
-              h1(trans.ublog.drafts()),
+              h1(
+                ctx.isnt(user).option(frag(userLink(user), "'s ")),
+                trans.ublog.drafts()
+              ),
               div(cls := "box__top__actions")(
                 a(href := routes.Ublog.index(user.username))(trans.ublog.published()),
                 newPostLink(user)
               )
             ),
             if posts.nbResults > 0 then
+              val url = if blog.allows.edit then editUrlOfPost else urlOfPost
               div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
-                posts.currentPageResults.map { card(_, editUrlOfPost) },
+                posts.currentPageResults.map { card(_, url) },
                 pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
               )
             else

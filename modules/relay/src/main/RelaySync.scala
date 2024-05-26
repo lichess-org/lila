@@ -140,8 +140,6 @@ final private class RelaySync(
               )(by)
               .inject(position + n)
           .inject:
-            // if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
-            //   studyApi.reloadChapters(study)
             node.mainline.size
     yield nbMoves
 
