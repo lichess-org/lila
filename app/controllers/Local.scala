@@ -20,19 +20,37 @@ final class Local(env: Env) extends LilaController(env):
         "white" -> optional(nonEmptyText),
         "black" -> optional(nonEmptyText),
         "fen"   -> optional(nonEmptyText),
-        "time"  -> optional(nonEmptyText)
+        "time"  -> optional(nonEmptyText),
+        "go"    -> play.api.data.Forms.boolean,
       )(GameSetup.apply)(unapply)
 
-  def game(testUi: Boolean = false) = OpenBody:
+  def index(testUi: Option[String]) = OpenBody:
+    NoBot:
+      Ok.page(indexPage(none, optTrue(testUi))).map(_.enforceCrossSiteIsolation)
+
+  def newGame(
+      white: Option[String],
+      black: Option[String],
+      fen: Option[String],
+      time: Option[String],
+      go: Option[String],
+      testUi: Option[String]
+  ) = OpenBody:
+    NoBot:
+      Ok.page(indexPage(GameSetup(white, black, fen, time, optTrue(go)).some, optTrue(testUi))).map(_.enforceCrossSiteIsolation)
+
+  def newGameForm(testUi: Option[String]) = OpenBody:
     NoBot:
       bindForm(setupForm)(
         err => jsonFormError(err),
-        setup =>
-          Ok.page(
-            views.local.game(
-              Json.obj("pref" -> lila.pref.JsonView.write(ctx.pref, false)),
-              setup,
-              testUi
-            )
-          ).map(_.enforceCrossSiteIsolation)
+        setup => Ok.page(indexPage(setup.some, optTrue(testUi))).map(_.enforceCrossSiteIsolation)
       )
+
+  private def indexPage(setup: Option[GameSetup], testUi: Boolean = false)(using ctx: Context) =
+    given setupFormat: Format[GameSetup] = Json.format[GameSetup]
+      views.local.index(
+        Json.obj("pref" -> lila.pref.JsonView.write(ctx.pref, false), "testUi" -> testUi).add("setup", setup)
+        )
+
+  private def optTrue(s: Option[String]) = 
+    s.exists(v => v == "" || v == "1" || v == "true")

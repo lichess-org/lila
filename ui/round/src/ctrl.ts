@@ -35,9 +35,6 @@ import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { endGameView } from './view/main';
 
-//import makeZerofish, { Zerofish } from 'zerofish';
-//import * as Ch from 'chess';
-
 import {
   RoundOpts,
   RoundData,
@@ -257,6 +254,13 @@ export default class RoundController implements MoveRootCtrl {
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
+  reset = (fen: string) => {
+    this.data.game.fen = fen;
+    this.data.steps = [{ ply: 0, san: '', uci: '', fen }];
+    this.ply = 0;
+    this.redraw();
+  };
+
   jump = (ply: Ply): boolean => {
     ply = Math.max(round.firstPly(this.data), Math.min(this.lastPly(), ply));
     const isForwardStep = ply === this.ply + 1;
@@ -305,6 +309,7 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip),
     });
+    site.pubsub.emit('flip', this.flip);
     this.redraw();
   };
 
@@ -894,12 +899,6 @@ export default class RoundController implements MoveRootCtrl {
 
       if (!this.nvui) keyboard.init(this);
       if (this.isPlaying() && d.steps.length === 1) {
-        if (site.storage.get('blindfold') === 'true') {
-          // TODO - delete this if block & storage.set once a few weeks pass
-          site.storage.remove('blindfold');
-          this.blindfoldStorage.set(true);
-        }
-
         this.blindfold(this.blindfoldStorage.get());
       }
       wakeLock.request();

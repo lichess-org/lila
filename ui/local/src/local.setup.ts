@@ -1,5 +1,5 @@
 import { LocalDialog } from './setupDialog';
-import { Libots } from './bots/interfaces';
+import { Libots } from './interfaces';
 
 interface LocalModalOpts {}
 
@@ -9,7 +9,7 @@ export default async function initModule(opts: LocalModalOpts) {
   const bots = await fetch(site.asset.url('bots.json')).then(x => x.json());
   const libots: Libots = {};
   for (const bot of bots) {
-    libots[bot.uid.slice(1)] = {
+    libots[bot.uid] = {
       ...bot,
       imageUrl: site.asset.url(`lifat/bots/images/${bot.image}`, { version: 'bot000' }),
     };

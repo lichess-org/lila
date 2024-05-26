@@ -1,5 +1,11 @@
-.bot-settings {
-  @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+@import 'setup-dialog';
+
+:root {
+  ---image-url: url('/assets/lifat/bots/images/black-torso.webp');
+}
+
+.bot-edit {
+  @extend %flex-column, %box-radius-bottom;
   //border-top: 2px solid $c-primary;
   z-index: z(mz-menu);
   width: 100%;

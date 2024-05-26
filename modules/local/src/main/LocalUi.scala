@@ -1,7 +1,7 @@
 package lila.local
 package ui
 
-import play.api.libs.json.{ JsObject, Json }
+import play.api.libs.json.*
 import play.api.i18n.Lang
 
 import lila.ui.*
@@ -15,26 +15,12 @@ import lila.local.GameSetup
 final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def game(data: JsObject, setup: GameSetup, testUi: Boolean)(using ctx: Context) =
+  def index(data: JsObject)(using ctx: Context) =
     Page("")
       .copy(fullTitle = s"Play vs Bots".some)
-      .js(
-        PageModule(
-          "local",
-          data ++ Json.obj(
-            "i18n" -> i18nJsObject(i18nKeys),
-            "setup" -> Json.obj(
-              "white" -> setup.white,
-              "black" -> setup.black,
-              "fen"   -> setup.fen,
-              "time"  -> setup.time
-            ),
-            "testUi" -> testUi
-          )
-        )
-      )
+      .js(PageModule("local", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))))
       .js(EsmInit("round"))
-      .css("vs-bot")
+      .css("local")
       .css("round")
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))

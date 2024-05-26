@@ -13,11 +13,9 @@ trait AssetHelper:
   def manifest: AssetManifest
   def assetBaseUrl: AssetBaseUrl
   def assetUrl(path: String): String
-  def infiniteScrollEsmInit: EsmInit
-  def captchaEsmInit: EsmInit
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
 
-  val load = "site.asset.loadEsm"
+  private val load = "site.asset.loadEsm"
 
   given Conversion[EsmInit, EsmList] with
     def apply(esmInit: EsmInit): EsmList = List(Some(esmInit))
@@ -33,8 +31,11 @@ trait AssetHelper:
   def jsPageModule(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$key')"))
 
+  val infiniteScrollEsmInit: EsmInit = jsModuleInit("bits.infiniteScroll")
+  val captchaEsmInit: EsmInit        = EsmInit("bits.captcha")
+
   // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := staticAssetUrl(path))
+  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:

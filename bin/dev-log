@@ -1,6 +1,0 @@
-#!/bin/bash
-
-tmux new-session -d -s muxlog \
-  'journalctl --user -fu lila -o cat | grep -E -v fishnet & ui/build -cdr & wait; exec bash' \; \
-  attach-session -d -t muxlog \; \
-  if-shell -b '[ $(tmux list-sessions 2>/dev/null | grep -c muxlog) -ne 1 ]' 'tmux kill-session -t muxlog'

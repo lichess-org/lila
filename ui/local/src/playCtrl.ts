@@ -1,18 +1,23 @@
-import { LocalPlayOpts, LocalSetup, GameObserver } from './interfaces';
-import { Libot } from './bots/interfaces';
-import { type BotCtrl } from './bots/botCtrl';
-import { LocalDialog } from './setupDialog';
+import { LocalPlayOpts, LocalSetup, Automator } from './interfaces';
+import { type BotCtrl } from './botCtrl';
 import { makeSocket } from './socket';
-import { objectStorage } from 'common/objectStorage';
-//import { makeRound } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { MoveRootCtrl } from 'game';
 import { RoundSocket, RoundOpts, RoundData } from 'round';
+import { Database } from './database';
 import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 
-export class LocalCtrl {
+export interface GameState {
+  fen: string;
+  threefoldFens: Map<string, number>;
+  fiftyMovePly: number;
+  white: string | undefined;
+  black: string | undefined;
+}
+
+export class PlayCtrl {
   chess = Chess.default();
   socket: RoundSocket;
   fiftyMovePly = 0;
@@ -21,9 +26,8 @@ export class LocalCtrl {
   i18n: { [key: string]: string };
   setup: LocalSetup;
   moves: Uci[] = [];
-  key = 0;
   roundData: RoundData;
-  observer?: GameObserver;
+  private automator?: Automator;
 
   constructor(
     readonly opts: LocalPlayOpts,
@@ -31,22 +35,61 @@ export class LocalCtrl {
     readonly redraw: () => void,
   ) {
     this.socket = makeSocket(this);
-    this.setup = { fen: Chops.fen.INITIAL_FEN, ...opts.setup };
     this.i18n = opts.i18n;
+    if (opts.setup) {
+      this.setup = Object.fromEntries(
+        Object.entries({ ...opts.setup }).map(([k, v]) => [k, v === null ? undefined : v]),
+      );
+    } else {
+      this.state = opts.state;
+      this.setup = { white: this.state.white, black: this.state.black, fen: this.state.fen };
+    }
     this.roundData = this.makeRoundData(this.setup.fen);
+  }
+  get db(): Database {
+    return this.botCtrl.db;
+  }
+
+  get state(): GameState {
+    return {
+      fen: this.fen,
+      threefoldFens: this.threefoldFens,
+      fiftyMovePly: this.fiftyMovePly,
+      white: this.setup?.white,
+      black: this.setup?.black,
+    };
+  }
+
+  set state(state: GameState | undefined) {
+    if (!state) return;
+    this.setup.white = state.white;
+    this.setup.black = state.black;
+    this.reset(state.fen); // it is a "from positon" for now
+    this.fiftyMovePly = state.fiftyMovePly;
+    this.threefoldFens = new Map(state.threefoldFens);
+  }
+
+  setAutomator(automator: Automator) {
+    this.automator = automator;
   }
 
   reset(fen?: string) {
+    //console.trace('reset');
+    if (fen) this.setup.fen = fen;
     this.fiftyMovePly = 0;
+    this.moves = [];
     this.threefoldFens.clear();
-    this.chess = Chess.fromSetup(Chops.fen.parseFen(fen ?? this.fen).unwrap()).unwrap();
+    this.chess = Chess.fromSetup(
+      Chops.fen.parseFen(this.setup.fen ?? Chops.fen.INITIAL_FEN).unwrap(),
+    ).unwrap();
     this.round.cg?.set({
-      fen: fen ?? this.fen,
+      fen: this.fen,
       turnColor: this.chess.turn,
       lastMove: undefined,
       movable: { color: this.chess.turn, dests: this.cgDests },
     });
-    this.roundData = this.makeRoundData(fen);
+    this.updateRound();
+    this.automator?.onReset?.();
   }
 
   checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): {
@@ -60,7 +103,7 @@ export class LocalCtrl {
     else if (this.chess.isInsufficientMaterial()) reason = 'insufficient';
     else if (this.chess.isStalemate()) reason = 'stalemate';
     else if (this.fifty()) reason = 'fifty';
-    else if (this.threefold()) reason = 'threefold';
+    else if (this.isThreefold) reason = 'threefold';
     else if (userEnd) {
       if (userEnd !== 'mutualDraw') reason = 'resign';
       if (userEnd === 'whiteResign') result = 'black';
@@ -70,9 +113,11 @@ export class LocalCtrl {
   }
 
   doGameOver(result: string, reason: string) {
-    console.log(`game over ${result} ${reason}`);
-    this.observer?.onGameEnd(result as 'white' | 'black' | 'draw', reason);
-    this.reset();
+    setTimeout(() => {
+      this.automator?.onGameEnd(result as 'white' | 'black' | 'draw', reason);
+      this.db.putState(this.state);
+      this.redraw();
+    });
     // blah blah do outcome stuff
   }
 
@@ -90,9 +135,9 @@ export class LocalCtrl {
     }
     const san = makeSanAndPlay(this.chess, move);
     this.fifty(move);
-    this.threefold('update');
+    this.updateThreefold();
     this.socket.receive('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
-    this.updateRoundData();
+    this.updateTurn();
     if (move.promotion)
       this.round.cg?.setPieces(
         new Map([
@@ -114,7 +159,8 @@ export class LocalCtrl {
   }
 
   botMove = async () => {
-    this.move(await this.botCtrl.move(this.fen, this.chess.turn));
+    if (!this.automator?.isStopped)
+      this.move(await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess.turn));
   };
 
   fifty(move?: Chops.Move) {
@@ -129,11 +175,15 @@ export class LocalCtrl {
     return this.fiftyMovePly >= 100;
   }
 
-  threefold(update: 'update' | false = false) {
+  updateThreefold() {
     const boardFen = this.fen.split('-')[0];
     let fenCount = this.threefoldFens.get(boardFen) ?? 0;
-    if (update) this.threefoldFens.set(boardFen, ++fenCount);
-    return fenCount >= (this.setup.nfold !== undefined ? this.setup.nfold : 3); // TODO fixme
+    this.threefoldFens.set(boardFen, ++fenCount);
+    return fenCount >= 3; // TODO fixme
+  }
+
+  get isThreefold() {
+    return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3; // TODO fixme
   }
 
   isPromotion(move: Chops.Move) {
@@ -144,6 +194,10 @@ export class LocalCtrl {
     );
   }
 
+  get isUserTurn() {
+    return !this.botCtrl.players[this.chess.turn];
+  }
+
   get dests() {
     const dests: { [from: string]: string } = {};
     [...this.chess.allDests()]
@@ -151,6 +205,7 @@ export class LocalCtrl {
       .forEach(([s, ds]) => (dests[Chops.makeSquare(s)] = [...ds].map(Chops.makeSquare).join('')));
     return dests;
   }
+
   get cgDests() {
     const dec = new Map();
     const dests = this.dests;
@@ -177,6 +232,7 @@ export class LocalCtrl {
         perfs: {},
       },
       id: '',
+      image: this.botCtrl.players[color]?.imageUrl,
       isGone: false,
       name,
       onGame: true,
@@ -198,25 +254,34 @@ export class LocalCtrl {
       player: 'white',
     };
   }
-  updateRoundData() {
-    this.roundData.player = this.player(
+
+  updateRound() {
+    this.roundData.game.fen = this.fen;
+    this.roundData.possibleMoves = this.dests;
+    this.round.reset?.(this.fen ?? Chops.fen.INITIAL_FEN);
+    console.log(this.fen);
+    /*this.roundData.player = this.player(
       this.chess.turn,
       this.botCtrl.players[this.chess.turn]?.name ?? 'You',
     );
     this.roundData.opponent = this.player(
       Chops.opposite(this.chess.turn),
       this.botCtrl.players[Chops.opposite(this.chess.turn)]?.name ?? 'You',
-    );
+    );*/
+  }
+
+  updateTurn() {
     this.roundData.game.player = this.chess.turn;
     this.round.cg?.set({ movable: { color: this.chess.turn, dests: this.cgDests } });
   }
 
   makeRoundData(fen?: string): RoundData {
-    const opponent: 'black' | 'white' = this.chess.turn === 'white' ? 'black' : 'white';
+    const bottom = !this.setup.white ? 'white' : !this.setup.black ? 'black' : 'white';
+    const top = Chops.opposite(bottom);
     return {
       game: this.game,
-      player: this.player(this.chess.turn, this.botCtrl.players[this.chess.turn]?.name ?? 'You'),
-      opponent: this.player(opponent, this.botCtrl.players[opponent]?.name ?? 'You'),
+      player: this.player(bottom, this.botCtrl.players[bottom]?.name ?? 'Player'),
+      opponent: this.player(top, this.botCtrl.players[top]?.name ?? 'Player'),
       pref: this.opts.pref,
       steps: [{ ply: 0, san: '', uci: '', fen: fen ?? Chops.fen.INITIAL_FEN }],
       takebackable: true,
@@ -224,6 +289,7 @@ export class LocalCtrl {
       possibleMoves: this.dests,
     };
   }
+
   get roundOpts(): RoundOpts {
     return {
       data: this.roundData,

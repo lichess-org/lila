@@ -15,8 +15,7 @@
     "chess.js": "github:ornicar/chess.js#learn",
     "chessground": "4.4.2",
     "common": "workspace:*",
-    "mithril": "github:ornicar/mithril.js#lila-1",
-    "zerofish": "github:schlawg/zerofish#master"
+    "mithril": "github:ornicar/mithril.js#lila-1"
   },
   "lichess": {
     "bundles": "src/learn.ts"

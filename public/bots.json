@@ -4,117 +4,111 @@
     "name": "Terrence",
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
-    "zfcfg": {
-      "fishOnlyLevel": 0,
-      "zeroChance": 0
-    }
+    "zero": { "netName": "maia-1100.pb" }
   },
   {
     "uid": "#tbone",
     "name": "T-Bone",
     "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
     "image": "t-bone.webp",
-    "zfcfg": {
-      "fishOnlyLevel": 4,
-      "zeroChance": 0
-    }
+    "zero": { "netName": "maia-1200.pb" }
   },
   {
     "uid": "#nacho",
     "name": "Nacho",
     "description": "Nacho is a feline grandmaster. But he can be distracted with a belly rub.",
     "image": "nacho.webp",
-    "netName": "maia-1100.pb"
+    "zero": { "netName": "maia-1300.pb" }
   },
   {
     "uid": "#marco",
     "name": "Marco",
     "description": "They never asked Marco to star in a video game. He's not happy about it.",
     "image": "marco.webp",
-    "netName": "maia-1600.pb"
+    "zero": { "netName": "maia-1400.pb" }
   },
   {
     "uid": "#ghost",
     "name": "Ghost",
-    "description": "Ghost was kidnapped as a child and raised by intermediates.",
+    "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
     "image": "ghost.webp",
-    "netName": "maia-1900.pb"
+    "fish": { "search": { "level": 4 } }
   },
   {
     "uid": "#greta",
     "name": "Greta",
-    "description": "Greta was once a queen herself. Now she lives in the woods and plays chess with squirrels.",
+    "description": "Greta lives in the woods and plays chess with squirrels.",
     "image": "greta.webp",
-    "netName": "maia-1200.pb"
+    "fish": { "search": { "level": 5 } }
   },
   {
     "uid": "#maia",
     "name": "Maia",
     "description": "Maia was a famous author before she became a model for Elle c0.",
     "image": "maia.webp",
-    "netName": "maia-1900.pb"
+    "fish": { "search": { "level": 6 } }
   },
   {
     "uid": "#gerard",
     "name": "Gerard",
     "description": "Gerard brought a sword to a chess match. And he swings it hard.",
     "image": "gerard.webp",
-    "netName": "maia-1900.pb"
+    "fish": { "search": { "level": 7 } }
   },
   {
     "uid": "#bionica",
     "name": "Bionica",
     "description": "Bionica was programmed with a full range of emotions. But she prefers contempt.",
     "image": "bionica.webp",
-    "netName": "maia-1700.pb"
+    "fish": { "search": { "level": 8 } }
   },
   {
     "uid": "#mitsoko",
     "name": "Mitsoko",
     "description": "Mitsoko, like most women in anime, is an inexplicably powerful warrior.",
     "image": "mitsoko.webp",
-    "netName": "maia-1800.pb"
+    "fish": { "search": { "level": 9 } }
   },
   {
     "uid": "#spectre",
     "name": "Spectre",
     "description": "Spectre may strike without warning. You have been warned.",
     "image": "spectre.webp",
-    "netName": "maia-1800.pb"
+    "fish": { "search": { "level": 10 } }
   },
   {
     "uid": "#aurora",
     "name": "Aurora",
     "description": "They say Aurora can see the future. She says she can see your defeat.",
     "image": "aurora.webp",
-    "netName": "maia-1900.pb"
+    "fish": { "search": { "level": 11 } }
   },
   {
     "uid": "#nullzo",
     "name": "Null-Zo",
     "description": "Null-Zo will not rest until he has defeated you. Then he will rest.",
     "image": "nullzo.webp",
-    "netName": "maia-1900.pb"
+    "fish": { "search": { "level": 12 } }
   },
   {
     "uid": "#eliza",
     "name": "Eliza",
     "description": "Eliza plays masterfully. Some say she's a machine. They're right.",
     "image": "eliza.webp",
-    "netName": "maia-1900.pb"
+    "fish": { "search": { "level": 13 } }
   },
   {
     "uid": "#thinman",
     "name": "ThinMan",
     "description": "ThinMan is not your friend. It's why he's pointing a laser gun at your face.",
     "image": "thinman.webp",
-    "netName": "maia-1800.pb"
+    "fish": { "search": { "level": 14 } }
   },
   {
     "uid": "#listress",
     "name": "Listress",
     "description": "You are a wretched, pitiful worm. Listress is not merciful.",
     "image": "listress.webp",
-    "netName": "maia-1900.pb"
+    "fish": { "search": { "level": 15 } }
   }
 ]

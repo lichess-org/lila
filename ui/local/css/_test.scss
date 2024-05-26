@@ -1,0 +1,160 @@
+.test-side {
+  display: flex;
+  height: 100%;
+  flex-flow: column;
+  justify-content: stretch;
+  .player {
+    @extend %flex-between;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid $c-border;
+    align-content: center;
+    width: 360px;
+    font-size: 1em;
+    &:hover {
+      border-color: $c-primary;
+      cursor: pointer;
+    }
+    &.white {
+      background-color: #f0f0f0;
+      color: #333;
+      &:hover {
+        background-color: white;
+      }
+    }
+    &.black {
+      background-color: #333;
+      color: white;
+      &:hover {
+        background-color: #444;
+      }
+    }
+    .select-bot {
+      width: 60%;
+    }
+    .totals {
+      font-size: large;
+      text-align: center;
+    }
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .starting-fen {
+    &::placeholder {
+      font-family: monospace;
+      color: #888;
+    }
+    width: 100%;
+  }
+  #controls {
+    @extend %flex-column;
+    gap: 1em;
+  }
+  #pgn {
+    flex: 1 1 auto;
+  }
+  #num-games {
+    width: 80px;
+  }
+  span {
+    @extend %flex-between;
+    gap: 1em;
+    flex-wrap: nowrap;
+    * {
+      //margin: 0 15px;
+    }
+  }
+  #results {
+    flex: auto;
+  }
+  #clear {
+    flex: auto;
+  }
+  #reset::before {
+    @extend %data-icon;
+    content: $licon-Reload;
+    color: $c-font;
+    &:hover {
+      color: $c-font-clearer;
+    }
+  }
+  #go {
+    flex: auto;
+    &.play::before {
+      @extend %data-icon;
+      color: $c-secondary;
+      content: $licon-PlayTriangle;
+      &:hover {
+        color: $m-secondary--lighten-4;
+      }
+    }
+    &.pause::before {
+      @extend %data-icon;
+      color: $c-bad;
+      content: $licon-Pause;
+      &:hover {
+        color: $m-bad--lighten-11;
+      }
+    }
+  }
+}
+
+.bot-settings {
+  @extend %flex-column, %box-radius-bottom;
+  //border-top: 2px solid $c-primary;
+  z-index: z(mz-menu);
+  width: 100%;
+  background: $c-bg-high;
+  gap: 1.5em;
+  padding: 2em 1.5em;
+
+  > hr {
+    margin: 5px;
+  }
+
+  .setting {
+    @extend %flex-center-nowrap;
+
+    * {
+      white-space: nowrap;
+    }
+
+    label {
+      flex: 4 1 auto;
+      cursor: pointer;
+    }
+
+    .switch + label {
+      margin-inline-start: 1ch;
+    }
+
+    input[type='range'] {
+      cursor: pointer;
+      flex: 1 4 auto;
+      padding: 0;
+      height: 1.6em;
+      width: 100%;
+      margin: 0 1ch;
+    }
+
+    select {
+      flex: 1 4 auto;
+      min-width: 0;
+      margin-inline-start: 1ch;
+      padding: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .select-engine {
+      padding: 0.5em;
+    }
+
+    .range_value {
+      direction: ltr;
+      flex: 0 0 15%;
+      text-align: left;
+    }
+  }
+}

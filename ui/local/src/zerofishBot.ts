@@ -1,43 +1,48 @@
-import { type Zerofish, type Score } from 'zerofish';
+import type { Zerofish, ZeroSearch, FishSearch, Position } from 'zerofish';
 import * as Chops from 'chessops';
 import { Libot, BotInfo, ZfBotConfig } from './interfaces';
-
-export class ZfBot implements Libot {
+import { Database } from './database';
+export class ZerofishBot implements Libot {
   readonly name: string;
   readonly uid: string;
   readonly description: string;
   readonly image: string;
-  readonly ctx: ZfBotConfig;
-  readonly netName?: string;
+  readonly zero?: { netName: string; depth?: number };
+  readonly fish?: { search?: FishSearch };
   ratings = new Map();
-
-  get domClass() {
-    return this.uid.slice(1) + '_zf-bot';
-  }
 
   get imageUrl() {
     return site.asset.url(`lifat/bots/images/${this.image}`, { version: 'bot000' });
   }
 
-  constructor(info: BotInfo) {
-    const infoCfg = info.zfcfg;
+  constructor(
+    info: BotInfo,
+    readonly db: Database,
+    readonly zf: Zerofish,
+  ) {
     Object.assign(this, info);
-    this.ctx = infoCfg ? Object.assign({}, defaultCfg, infoCfg) : defaultCfg;
-    //console.log(this);
   }
 
-  async move(fen: string, zf: Zerofish) {
-    const ctx = this.ctx;
-    //const chess = Chops.Chess.fromSetup(Chops.fen.parseFen(fen).unwrap()).unwrap();
-    //const p = { ply: chess.halfmoves, material: Chops.Material.fromBoard(chess.board) };
-    //const zeroMove = this.netName ? zf.goZero(fen) : Promise.resolve(undefined);
-    //if (this.netName) return (await zeroMove) ?? '0000';
-    if (this.netName) return await zf.goZero(fen);
-    else if (this.ctx.fishOnlyElo !== undefined || this.ctx.fishOnlyLevel !== undefined) {
-      const mv = await zf.goFish(fen, { elo: this.ctx.fishOnlyElo, level: this.ctx.fishOnlyLevel });
-      return mv[0][mv[0].length - 1].moves[0];
+  async move(pos: Position) {
+    const promises = [];
+    if (this.zero) {
+      promises.push(
+        this.zf.goZero(pos, {
+          depth: this.zero.depth,
+          net: { name: this.zero.netName, fetch: this.db.getNet },
+        }),
+      );
     }
-    return '0000';
+    if (this.fish) {
+      promises.push(await this.zf.goFish(pos, this.fish.search));
+    }
+    const movers = await Promise.all(promises);
+    if (movers.length === 0) return '0000';
+    else if (movers.length === 1) return movers[0].bestmove;
+    else {
+      const [zeroResult, fishResult] = movers;
+      return this.chooseMove(pos.fen!, zeroResult, fishResult);
+    }
     /*const fishMove = zf.goFish(fen, {
       depth: this.ctx.searchDepth?.(p) ?? 12,
       pvs: this.ctx.searchWidth(p),
@@ -51,6 +56,26 @@ export class ZfBot implements Libot {
     if (!chance(ctx.aggression(p))) {
       const mv = filtered[Math.floor(Math.random() * filtered.length)]?.moves[0] ?? zero;
       console.log('returning ', mv, 'from', filtered);
+    }
+    const aggression = byDestruction(fish, fen);
+    aggression.sort((a, b) => b[0] - a[0]);
+    const zeroIndex = aggression.findIndex(([_, pv]) => pv.moves[0] === zero);
+    const zeroDestruction = zeroIndex >= 0 ? aggression[zeroIndex]?.[0] : -0.1;
+    console.log(zeroDestruction, aggression);
+    return aggression[0]?.[1]?.moves[0] ?? zero;*/
+  }
+
+  chooseMove(fen: string, zeroResult: any, fishResult: any) {
+    return zeroResult.bestmove;
+    /*const zero = zeroResult.bestmove;
+    const fish = fishResult.pvs;
+    const biasCp = biasScore(fish, { move: zero, bias: 0, depth: 1 });
+    const threshold = 50;
+    const filtered = filter(fish, biasCp, threshold);
+    if (!chance(1)) {
+      const mv = filtered[Math.floor(Math.random() * filtered.length)]?.moves[0] ?? zero;
+      console.log('returning ', mv, 'from', filtered);
+      return mv;
     }
     const aggression = byDestruction(fish, fen);
     aggression.sort((a, b) => b[0] - a[0]);
@@ -73,6 +98,7 @@ const defaultCfg: ZfBotConfig = {
   aggression: constant(1), // [0 passive, 1 aggressive]*/
 };
 
+/*
 function constant(x: number) {
   return () => x;
 }

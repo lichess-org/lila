@@ -1,111 +1,132 @@
 import { h, VNode } from 'snabbdom';
 import * as Chops from 'chessops';
 import { onInsert, bind } from 'common/snabbdom';
-import { rangeConfig } from 'common/controls';
-import { hasFeature } from 'common/device';
-import { TestCtrl, TestParams } from './testCtrl';
+import { LocalDialog } from './setupDialog';
+import { TestCtrl } from './testCtrl';
 
-const searchTicks: [number, string][] = [
-  [100, '100ms'],
-  [200, '200ms'],
-  [400, '400ms'],
-  [600, '600ms'],
-  [800, '800ms'],
-  [1000, '1s'],
-  [3000, '3s'],
-  [5000, '5s'],
-  [10000, '10s'],
-];
-
-site.asset.loadCssPath('bot-vs-bot');
+site.asset.loadCssPath('local.test');
 
 export function renderTestView(ctrl: TestCtrl): VNode {
   return h('div.test-side', [
     results(ctrl),
     h('hr'),
-    h('div', bot(ctrl, 'black')),
+    h('div', player(ctrl, Chops.opposite(ctrl.bottomPlayer))),
     h('div.spacer'),
     startingFen(ctrl),
-    renderSettings(ctrl),
-    h('hr'),
-    controls(ctrl),
+    h('div.bot-settings', controls(ctrl)),
     h('div.spacer'),
-    h('div', [bot(ctrl, 'white')]),
+    h('div', [player(ctrl, ctrl.bottomPlayer)]),
   ]);
 }
-function startingFen(ctrl: TestCtrl): VNode {
-  return h('input.starting-fen', {
-    attrs: { placeholder: Chops.fen.INITIAL_BOARD_FEN, spellcheck: 'false' },
-    hook: bind('input', e => {
-      const el = e.target as HTMLInputElement;
-      if (!el.value) {
-        console.log('wiping', ctrl.params.startingFen);
-        ctrl.params.startingFen = '';
-        ctrl.storeParams();
-        return;
-      }
-      const text = Chops.fen.parseFen(el.value);
-      if (text.isOk) {
-        el.style.backgroundColor = '';
-        ctrl.params.startingFen = el.value;
-        ctrl.storeParams();
-        ctrl.redraw();
-      } else el.style.backgroundColor = 'red';
-    }),
-    props: {
-      value: ctrl.params.startingFen,
-    },
-  });
-}
 
-function bot(ctrl: TestCtrl, color: Color): VNode {
-  return h(`div.${color}.puz-bot`, [botSelection(ctrl, color), h('span.totals', ctrl.resultsText(color))]);
+function player(ctrl: TestCtrl, color: Color): VNode {
+  const players = ctrl.root.botCtrl.players;
+  const imgUrl = players[color]?.imageUrl ?? `/assets/lifat/bots/images/${color}-torso.webp`;
+  return h(`div.${color}.player`, [
+    //botSelection(ctrl, color),
+    h('img', { attrs: { src: imgUrl, width: 120, height: 120 } }),
+    h('span.totals', ctrl.resultsText(color)),
+  ]);
 }
 
 function controls(ctrl: TestCtrl) {
-  return h('span', [
-    h('input#num-games', {
-      attrs: { type: 'number', min: '1', max: '1000', value: '1' },
-    }),
-    h(
-      'button#go.button',
-      {
+  const players = ctrl.root.botCtrl.players;
+  const hasUser = !players.white || !players.black;
+  const stopped = ctrl.stopped;
+  const inProgress = ctrl.inProgress;
+  return [
+    h('span', [
+      h(`button#reset.button.button-metal`, {
         hook: onInsert(el =>
-          el.addEventListener('click', () =>
-            ctrl.go({ iterations: parseInt($('#num-games').val() as string) || 1 }),
-          ),
+          el.addEventListener('click', () => {
+            ctrl.stop();
+            ctrl.root.reset();
+            ctrl.root.redraw();
+          }),
         ),
-      },
-      'GO',
-    ),
-  ]);
+      }),
+      h(
+        'button#new.button.button-metal',
+        {
+          hook: onInsert(el =>
+            el.addEventListener('click', () => {
+              const setup = { white: players.white?.uid, black: players.black?.uid };
+              new LocalDialog(ctrl.root.botCtrl.bots, setup);
+            }),
+          ),
+        },
+        'New',
+      ),
+      h('input#num-games', { attrs: { type: 'number', min: '1', max: '1000', value: '1' } }),
+      h(
+        `button#go.button.button-empty${
+          hasUser ? '.play.disabled' : inProgress && !stopped ? '.pause' : '.play'
+        }`,
+        { hook: onInsert(el => el.addEventListener('click', () => clickPlayPause(ctrl))) },
+      ),
+    ]),
+    h('span', [
+      h(
+        'button.button.button-metal',
+        {
+          hook: onInsert(el =>
+            el.addEventListener('click', () => {
+              ctrl.play({
+                type: 'roundRobin',
+                players: Object.values(ctrl.root.botCtrl.bots).map(p => p.uid),
+                iterations: 1,
+                nfold: 3,
+                time: '1+0',
+              });
+            }),
+          ),
+        },
+        'Tournament',
+      ),
+    ]),
+  ];
+}
+
+function clickPlayPause(ctrl: TestCtrl) {
+  const players = ctrl.root.botCtrl.players;
+  if (!ctrl.stopped) {
+    ctrl.stop();
+  } else {
+    if (ctrl.inProgress) ctrl.play();
+    else
+      ctrl.play({
+        type: 'matchup',
+        players: [players.white?.uid ?? '#terrence', players.black?.uid ?? '#terrence'],
+        iterations: parseInt($('#num-games').val() as string) || 1,
+        nfold: 3,
+        time: '1+0',
+      });
+  }
+  ctrl.root.redraw();
 }
 
 function results(ctrl: TestCtrl) {
   return h('span', [
     h(
       'button#results.button-link',
-      {
-        hook: onInsert(el => el.addEventListener('click', () => downloadResults(ctrl))),
-      },
+      { hook: onInsert(el => el.addEventListener('click', () => downloadResults(ctrl))) },
       'Download results',
     ),
     h(
       'button#clear.button-link',
-      {
-        hook: onInsert(el => el.addEventListener('click', () => clearResults(ctrl))),
-      },
+      { hook: onInsert(el => el.addEventListener('click', () => clearResults(ctrl))) },
       'Clear results',
     ),
   ]);
 }
+
 async function downloadResults(ctrl: TestCtrl) {
-  const results = [];
-  for (const key of await ctrl.store.list()) {
+  const results = [{}];
+  /*for (const key of await ctrl.store.list()) {
     const result = await ctrl.store.get(key);
     results.push(result);
     console.log(result);
-  }
+  }*/
 
   const blob = new Blob([JSON.stringify(results)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -118,10 +139,34 @@ async function downloadResults(ctrl: TestCtrl) {
 
 function clearResults(ctrl: TestCtrl) {
   if (!confirm('Clear all results?')) return;
-  ctrl.store.clear();
+  //ctrl.store.clear();
   ctrl.totals.white = ctrl.totals.black = ctrl.totals.draw = 0;
   ctrl.redraw();
 }
+
+function startingFen(ctrl: TestCtrl): VNode {
+  return h('input.starting-fen', {
+    attrs: { placeholder: Chops.fen.INITIAL_BOARD_FEN, spellcheck: 'false' },
+    hook: bind('input', e => {
+      const el = e.target as HTMLInputElement;
+      if (!el.value) ctrl.startingFen = Chops.fen.INITIAL_FEN;
+      else if (Chops.fen.parseFen(el.value).isOk) ctrl.startingFen = el.value;
+      else {
+        el.style.backgroundColor = 'red';
+        return;
+      }
+      el.style.backgroundColor = '';
+      ctrl.root.reset(ctrl.startingFen);
+      if (!ctrl.isStopped && !ctrl.root.isUserTurn) ctrl.root.botMove();
+      ctrl.storeParams();
+      ctrl.redraw();
+    }),
+    props: {
+      value: ctrl.startingFen,
+    },
+  });
+}
+
 //const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
 
 function renderSettings(ctrl: TestCtrl): VNode | null {
@@ -150,13 +195,13 @@ function renderSettings(ctrl: TestCtrl): VNode | null {
         h('div.range_value', searchTicks[searchTick()][1]),
       ]);
     })('engine-search-ms'),*/
-    (id => {
+    /*(id => {
       return h('div.setting', [
         h('label', 'N-fold draw'),
         h('input#' + id, {
           attrs: { type: 'range', min: 0, max: 12, step: 3 },
           hook: rangeConfig(
-            () => ctrl.params.nfold ?? 3,
+            () => ctrl.script.nfold ?? 3,
             x => {
               ctrl.params.nfold = x;
               ctrl.storeParams();
@@ -166,7 +211,7 @@ function renderSettings(ctrl: TestCtrl): VNode | null {
         }),
         h('div.range_value', ctrl.params.nfold === 0 ? 'no draw' : `${ctrl.params.nfold ?? 3} moves`),
       ]);
-    })('draw-after') /*
+    })('draw-after') */ /*
     hasFeature('sharedMem')
       ? (id => {
           return h('div.setting', [
@@ -213,11 +258,12 @@ function renderSettings(ctrl: TestCtrl): VNode | null {
           ),
         }),
         h('div.range_value', formatHashSize(ctrl.params.hash)),
-      ]))('analyse-memory'),*/,
+      ]))('analyse-memory'),*/
+    ...controls(ctrl),
   ]);
 }
 
-function botSelection(ctrl: TestCtrl, color: Color): VNode {
+/*function botSelection(ctrl: TestCtrl, color: Color): VNode {
   const bots = ctrl.root.botCtrl.bots;
   const players = ctrl.root.botCtrl.players;
   return h(
@@ -232,18 +278,19 @@ function botSelection(ctrl: TestCtrl, color: Color): VNode {
         ctrl.redraw();
       }),
       props: {
-        value: ctrl.root.botCtrl.players[color]?.uid,
+        value: players[color]?.uid,
       },
     },
     [
       h('option', { attrs: { value: '', selected: players[color] === undefined } }, 'You'),
       ...Object.values(bots).map(bot => {
+        //console.log(color, players[color]?.uid, '==', bot.uid);
         return h(
           'option',
           {
             attrs: {
               value: bot.uid,
-              selected: ctrl.root.botCtrl.players[color]?.uid === bot.uid,
+              selected: players[color]?.uid === bot.uid,
             },
           },
           bot.name,
@@ -252,3 +299,4 @@ function botSelection(ctrl: TestCtrl, color: Color): VNode {
     ],
   );
 }
+*/

@@ -14,10 +14,10 @@ html.transp {
   --c-bg-input: #{$c-bg-low};
   --c-bg-variation: hsla(0, 0%, 0%, 0.25);
   --c-bg-header-dropdown: hsla(0, 0%, 0%, 0.75);
-  --c-metal-top: hsla(0, 0%, 0%, 0.4);
-  --c-metal-bottom: hsla(0, 0%, 0%, 0.5);
-  --c-metal-top-hover: hsla(0, 0%, 0%, 0.45);
-  --c-metal-bottom-hover: hsla(0, 0%, 0%, 0.55);
+  --c-metal-top: hsla(0, 0%, 30%, 0.4);
+  --c-metal-bottom: hsla(0, 0%, 30%, 0.5);
+  --c-metal-top-hover: hsla(0, 0%, 50%, 0.45);
+  --c-metal-bottom-hover: hsla(0, 0%, 50%, 0.55);
 
   --c-font-dim: #{change-color($c-font, $lightness: 69%)};
   --c-font-dimmer: #{change-color($c-font, $lightness: 48%)};

@@ -34,7 +34,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         "document.documentElement.classList.add('light');"
     )(nonce)
   def pieceSprite(name: String): Frag =
-    link(id := "piece-sprite", href := staticAssetUrl(s"piece-css/$name.css"), rel := "stylesheet")
+    link(id := "piece-sprite", href := assetUrl(s"piece-css/$name.css"), rel := "stylesheet")
   val noTranslate = raw("""<meta name="google" content="notranslate">""")
 
   def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
@@ -43,8 +43,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""
 
   def fontPreload(using ctx: Context) = frag(
-    // preload & serve lichess.woff2 with the cache buster as it changes from time to time
-    // TODO: hash that sucker
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(
       staticAssetUrl("font/noto-sans-v14-latin-regular.woff2"),
@@ -56,16 +54,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       preload(staticAssetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
     )
   )
-  val lichessFontFaceCss =
-    raw(
-      s"""<style>@font-face {
-        font-family: 'lichess';
-        font-display: block;
-        src:
-          url('${assetUrl("font/lichess.woff2")}') format('woff2'),
-          url('${assetUrl("font/lichess.woff")}') format('woff');
-      }</style>"""
-    )
 
   def allNotifications(challenges: Int, notifs: Int)(using Translate) =
     val challengeTitle = trans.challenge.challengesX.txt(challenges)
@@ -111,8 +99,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   val manifests = raw:
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
-
-  val jsLicense = raw("""<link rel="jslicense" href="/source">""")
 
   val favicons = raw:
     List(512, 256, 192, 128, 64)
@@ -224,6 +210,15 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   private val spaceRegex      = """\s{2,}+""".r
   def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
+
+  val lichessFontFaceCss = spaceless:
+    s"""<style>@font-face {
+        font-family: 'lichess';
+        font-display: block;
+        src:
+          url('${assetUrl("font/lichess.woff2")}') format('woff2'),
+          url('${assetUrl("font/lichess.woff")}') format('woff');
+      }</style>"""
 
   def bottomHtml(using ctx: Context) = frag(
     ctx.me
