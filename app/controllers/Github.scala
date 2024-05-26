@@ -2,16 +2,11 @@ package controllers
 
 import play.api.data.*
 import play.api.libs.json.*
-import play.api.libs.streams.Accumulator
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.HTTPRequest
-
-import lila.core.net.Bearer
-import lila.web.{ WebForms, StaticContent }
 
 import java.nio.charset.StandardCharsets
 import java.security.*
