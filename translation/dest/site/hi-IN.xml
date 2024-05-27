@@ -705,6 +705,7 @@
   <string name="yourPerfTypeRatingIsRating">आपकी %1$s रेटिंग %2$s है</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">आप %1$s खेलने वालो से बेहतर हो, %2$s मे</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेलने वालों से बेहतर है</string>
+  <string name="betterThanPercentPlayers">आप %1$s %2$s खिलाडी से बेहतर है</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपके पास स्थापित %s रेटिंग नहीं है</string>
   <string name="yourRating">आपकी रेटिंग</string>
   <string name="cumulative">संचयी</string>
