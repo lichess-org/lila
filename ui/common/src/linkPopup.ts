@@ -1,7 +1,10 @@
-export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector = 'a[href^="http"]') =>
-  $(dom).on('click', selector, function (this: HTMLLinkElement) {
-    return onClick(this, trans);
-  });
+export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector = 'a[href^="http"]') => {
+  const $el = $(dom);
+  if (!$el.hasClass('link-popup-ready'))
+    $el.addClass('link-popup-ready').on('click', selector, function (this: HTMLLinkElement) {
+      return onClick(this, trans);
+    });
+};
 
 export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   const url = new URL(a.href);

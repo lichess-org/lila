@@ -39,7 +39,7 @@ interface Site {
     removeCssPath(path: string): void;
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
-    loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
+    loadEsm<T>(name: string, opts?: EsmModuleOpts): Promise<T>;
     userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
@@ -87,6 +87,11 @@ interface Site {
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
   manifest: { css: Record<string, string>; js: Record<string, string> };
+}
+
+interface EsmModuleOpts extends AssetUrlOpts {
+  init?: any;
+  npm?: boolean;
 }
 
 interface LichessLog {
@@ -189,9 +194,9 @@ interface Cookie {
 }
 
 interface AssetUrlOpts {
-  sameDomain?: boolean;
-  noVersion?: boolean;
-  version?: string;
+  documentOrigin?: boolean;
+  pathOnly?: boolean;
+  version?: false | string;
 }
 
 type Timeout = ReturnType<typeof setTimeout>;
@@ -310,8 +315,6 @@ interface Window {
   readonly Stripe: any;
   readonly Textcomplete: any;
   readonly UserComplete: any;
-  readonly Sortable: any;
-  readonly Peer: any;
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;

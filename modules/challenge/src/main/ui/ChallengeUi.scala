@@ -177,7 +177,7 @@ final class ChallengeUi(helpers: Helpers):
               a(
                 id   := "challenge-redirect",
                 href := routes.Round.watcher(c.gameId, Color.white),
-                cls  := "button-fat"
+                cls  := "button button-fat"
               ):
                 trans.site.joinTheGame()
             )

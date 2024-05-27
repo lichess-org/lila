@@ -388,6 +388,7 @@ POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(i
 GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id: TourId)
 POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id: TourId)
 GET   /tournament/$id<\w{8}>/teams            controllers.Tournament.battleTeams(id: TourId)
+GET   /tournament/$id<\w{8}>/mod/:view        controllers.Tournament.moderation(id: TourId, view: String)
 GET   /tournament/help                        controllers.Tournament.help
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
@@ -548,7 +549,7 @@ POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username: UserStr
 POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username: UserStr, v: Boolean)
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username: UserStr, v: Boolean)
 POST  /mod/:username/reportban/:v      controllers.Mod.reportban(username: UserStr, v: Boolean)
-POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: UserStr)
+POST  /mod/:username/impersonate       controllers.Mod.impersonate(username: String)
 GET   /mod/:username/games             controllers.GameMod.index(username: UserStr)
 POST  /mod/:username/games             controllers.GameMod.post(username: UserStr)
 GET   /mod/table                       controllers.Mod.table

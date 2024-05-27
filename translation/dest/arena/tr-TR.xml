@@ -70,12 +70,15 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="bestResults">En iyi sonuçlar</string>
   <string name="stats">İstatistikler</string>
   <string name="tournamentStats">Turnuva istatistikleri</string>
+  <string name="rankAvgHelp">Sıralama ortalaması, sıralamanızın yüzdesidir. Daha düşük olması daha iyidir.
+
+Örneğin, 100 oyunculu bir turnuvada 3. sırada olmak = %3. 1000 oyunculu bir turnuvada 10. sırada olmak = %1.</string>
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">ortancadır</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Bu sayfadaki tüm ortalamalar %s.</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Bu sayfadaki tüm değerler %s.</string>
   <string name="total">Toplam</string>
   <string name="pointsAvg">Puan ortalaması</string>
-  <string name="pointsSum">Puan toplamı</string>
-  <string name="rankAvg">Sıralama ortalaması</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Puan toplamı</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Sıralama ortalaması</string>
   <string name="tournamentWinners">Turnuva şampiyonları</string>
   <string name="tournamentShields">Turnuva kalkanları</string>
   <string name="onlyTitled">Sadece unvanlı oyuncular</string>

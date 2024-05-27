@@ -36,8 +36,6 @@ object UserPerfsExt:
       PerfKey.puzzle         -> p.puzzle
     )
 
-    def keyed(pk: PerfKey) = KeyedPerf(pk, p(pk))
-
     def best8Perfs: List[PerfKey]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 4)
     def best6Perfs: List[PerfKey]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 2)
     def best4Perfs: List[PerfKey]    = UserPerfs.firstRow

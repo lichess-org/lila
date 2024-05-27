@@ -6,6 +6,7 @@ import play.api.mvc.RequestHeader
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.net.IpAddress
 import lila.core.security.UserSignup
+import lila.core.lilaism.LilaNoStackTrace
 
 // codename UGC
 final class GarbageCollector(
@@ -46,7 +47,7 @@ final class GarbageCollector(
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userLogins.userHasPrint(data.user).flatMap {
-      case false => fufail(s"never got a print for ${data.user.username}")
+      case false => fufail(LilaNoStackTrace(s"never got a print for ${data.user.username}"))
       case _     => funit
     }
 

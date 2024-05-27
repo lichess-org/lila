@@ -40,6 +40,15 @@
   <string name="forbiddenPairings">Abbinamenti non consentiti</string>
   <string name="forbiddenPairingsHelp">I nomi utente dei giocatori che non devono giocare insieme (fratelli, ad esempio). Due nomi utente per riga, separati da uno spazio.</string>
   <string name="manualPairings">Abbinamenti manuali nel turno successivo</string>
+  <string name="manualPairingsHelp">Specificare tutti gli accoppiamenti del prossimo turno manualmente. Una coppia di giocatori per riga. Esempio:
+GiocatoreA GiocatoreB
+GiocatoreC GiocatoreD
+Per assegnare un bye (1 punto) ad un giocatore invece di accoppiarlo, aggiungere una riga come segue:
+GiocatoreE 1
+I giocatori mancanti verrano considerati come assenti e otterrann zero punti.
+Lasciare questo campo vuoto per far creare le coppie a lichess in maniera automatica.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Devono aver giocato la loro ultima partita nel sistema svizzero</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Lascia accedere i giocatori solo se hanno già giocato la loro ultima partita del sistema svizzero. Se non sono riusciti a presentarsi in un recente evento a sistema svizzero, non saranno abilitati ad accedere al tuo. Questo comporta un esperienza migliorata con il sitema svizzero per i giocatori che effettivamente vi accedono.</string>
   <string name="newSwiss">Nuovo torneo svizzero</string>
   <string name="swissVsArenaQ">Quando usare i tornei svizzeri invece delle arene?</string>
   <string name="swissVsArenaA">In un torneo svizzero, tutti i partecipanti giocano lo stesso numero di partite e possono giocare l\'uno contro l\'altro solo una volta.
@@ -115,6 +124,7 @@ Un modo per simulare un Round Robin online è giocare un torneo svizzero con un 
   <string name="predefinedUsers">Permetti solo a degli utenti prefissati di partecipare</string>
   <string name="forbiddedUsers">Se questa lista non è vuota, gli utenti che non compaiono in questa lista non potranno partecipare. Un nome utente per ogni linea.</string>
   <string name="playYourGames">Gioca le tue partite</string>
+  <string name="byes">Byes</string>
   <string name="absences">Assenza</string>
   <string name="tieBreak">Spareggio</string>
 </resources>

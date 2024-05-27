@@ -753,12 +753,12 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="transparent">Trong suốt</string>
   <string name="deviceTheme">Giao diện thiết bị</string>
   <string name="backgroundImageUrl">URL ảnh nền:</string>
-  <string name="board" comment="Allows you to change the appearance of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Bàn cờ</string>
-  <string name="size" comment="Allows you to change the size of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Kích cỡ</string>
-  <string name="opacity" comment="Allows you to change how transparent your chessboard appears. This option only appears when using a custom (picture) background. You can make the board more transparent so you can view more of the background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Độ trong suốt</string>
-  <string name="brightness" comment="Allows you to change the brightness of the chessboard and pieces on it. This option only appears when using a light or dark background.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Độ sáng</string>
-  <string name="hue" comment="Allows you to change the hue of your chessboard.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Màu gốc</string>
-  <string name="boardReset" comment="Allows you to reset any changes made to colours. Will appear if you change any colour settings.&#10;&#10;Part of the appearance configuration. This appears in the top-right menu for configuration on the website, or the Preferences menu in the mobile app.">Đặt lại màu về mặc định</string>
+  <string name="board">Bàn cờ</string>
+  <string name="size">Kích cỡ</string>
+  <string name="opacity">Độ trong suốt</string>
+  <string name="brightness">Độ sáng</string>
+  <string name="hue">Màu gốc</string>
+  <string name="boardReset">Đặt lại màu về mặc định</string>
   <string name="pieceSet">Bộ cờ</string>
   <string name="embedInYourWebsite">Nhúng vào trang web của bạn</string>
   <string name="usernameAlreadyUsed">Tên người dùng này đã được sử dụng, hãy chọn tên khác.</string>
@@ -918,7 +918,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="inYourLocalTimezone">Tại múi giờ địa phương của bạn</string>
   <string name="tournChat">Trò chuyện trong giải đấu</string>
   <string name="noChat">Không trò chuyện</string>
-  <string name="onlyTeamLeaders">Chỉ các đội trưởng</string>
+  <string name="onlyTeamLeaders">Chỉ các chỉ huy</string>
   <string name="onlyTeamMembers">Chỉ thành viên đội</string>
   <string name="navigateMoveTree">Điều hướng tìm nước đi</string>
   <string name="mouseTricks">Mẹo sử dụng chuột</string>

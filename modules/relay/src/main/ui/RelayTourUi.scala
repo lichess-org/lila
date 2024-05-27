@@ -52,7 +52,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     Page(trc.liveBroadcasts.txt())
       .css("relay.index")
       .js(infiniteScrollEsmInit):
-        main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body))
+        main(cls := "relay-index page-menu")(menu, div(cls := "page-menu__content box box-pad")(body))
 
   def search(pager: Paginator[WithLastRound], query: String)(using Context) =
     listLayout(trc.liveBroadcasts.txt(), pageMenu("index"))(
@@ -74,13 +74,13 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     listLayout(trc.subscribedBroadcasts.txt(), pageMenu("subscribed"))(
       boxTop(h1(trc.subscribedBroadcasts())),
       standardFlash,
-      renderPager(pager)
+      renderPager(pager)(routes.RelayTour.subscribed)
     )
 
   def allPrivate(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout("Private Broadcasts", pageMenu("allPrivate"))(
       boxTop(h1("Private Broadcasts")),
-      renderPager(pager)
+      renderPager(pager)(routes.RelayTour.allPrivate)
     )
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using Context) =

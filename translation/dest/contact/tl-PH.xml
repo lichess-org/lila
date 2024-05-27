@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="wantReopen">Gusto kong buksan muli ang aking account</string>
+  <string name="reopenOnThisPage">Maaari mong mabuksan ang iyong account sa page na ito. Isang beses lang ito gumagana.</string>
+  <string name="wantChangeUsername">Gusto kong baguhin ang aking username</string>
+  <string name="illegalCastling">Iligal o imposibleng castling</string>
+  <string name="castlingPrevented">Ang castling ay napipigilan lang pag ang hari ay pupunta sa isang kontroladong tatsulok.</string>
+</resources>

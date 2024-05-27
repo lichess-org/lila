@@ -167,4 +167,13 @@ O ícone serve para você saber quando isso acontece. Você também pode alterar
 3. Clique em Cookies e permissões de site
 4. Clique em Reprodução automática
 5. Adicione lichess.org a Permitir</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Como parar de jogar?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">distúrbio mental</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">temas de site do Lichess</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">menos opções de partidas</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Frequentemente recebemos mensagens de usuários pedindo ajuda para parar de jogar em excesso.
+
+Apesar de o Lichess só banir ou bloquear usuários por violações aos Termos de Serviço, recomendamos algumas ferramentas para limitar o tempo excessivo de jogo. Sugerimos alguns softwares conhecidos, como %1$s, %2$s e %3$s. Se não quiser ser incomodado por controles de tempo muito rápidos, talvez se interesse pelos %4$s. Por exemplo, este tem %5$s.
+
+Alguns jogadores podem pensar que estão ficando viciados. De fato, a OMS classifica o vício em jogos como um %6$s, cujos principais aspectos são: 1) vontade de jogar incontrolável; 2) maior prioridade dada aos jogos; e 3) aumento do tempo de jogo apesar das consequências negativas. Se você acredita que seu comportamento segue esses padrões, recomendamos que converse com alguém próximo e/ou com um profissional.</string>
 </resources>
