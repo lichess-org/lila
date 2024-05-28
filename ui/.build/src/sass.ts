@@ -59,10 +59,12 @@ async function unbuiltSources(): Promise<string[]> {
 function compile(sources: string[], logAll = true) {
   if (!sources.length) return sources.length;
 
-  if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, { ctx: 'sass' }));
-  else env.log(`Building css with ${ps.platform}-${ps.arch}/sass`, { ctx: 'sass' });
+  const sassExec =
+    process.env.SASS_PATH || path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
 
-  const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
+  if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, { ctx: 'sass' }));
+  else env.log(`Building css with ${sassExec}`, { ctx: 'sass' });
+
   const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
   sassPs?.removeAllListeners();
   sassPs = cps.spawn(
