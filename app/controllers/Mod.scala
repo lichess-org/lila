@@ -77,6 +77,14 @@ final class Mod(
       yield suspect.some
   }(reportC.onModAction)
 
+  def isolate(username: UserStr, v: Boolean) = OAuthModBody(_.Shadowban) { me ?=>
+    withSuspect(username): prev =>
+      for
+        suspect <- modApi.setIsolate(prev, v)
+        _       <- env.relation.api.removeAllFollowers(suspect.user.id)
+      yield suspect.some
+  }(reportC.onModAction)
+
   def warn(username: UserStr, subject: String) = OAuthModBody(_.ModMessage) { me ?=>
     env.mod.presets.getPmPresets.named(subject).so { preset =>
       withSuspect(username): suspect =>

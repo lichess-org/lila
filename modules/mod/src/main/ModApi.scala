@@ -15,6 +15,7 @@ final class ModApi(
     logApi: ModlogApi,
     reportApi: lila.report.ReportApi,
     noteApi: lila.user.NoteApi,
+    prefApi: lila.core.pref.PrefApi,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
@@ -90,6 +91,22 @@ final class ModApi(
     setTroll(sus, true) >>
       noteApi.lichessWrite(sus.user, note)
       >> reportApi.autoProcess(sus, Set(Room.Comm))
+
+  def setIsolate(prev: Suspect, value: Boolean)(using me: MyId): Fu[Suspect] =
+    if value && !prev.user.marks.troll
+    then setTroll(prev, value).flatMap(setIsolate(_, value))
+    else
+      val changed = value != prev.user.marks.isolate
+      val sus     = prev.set(_.withMarks(_.set(_.isolate, value)))
+      changed
+        .so:
+          for
+            _ <- userRepo.setIsolate(sus.user.id, value)
+            _ <- prefApi.isolate(sus.user)
+          yield logApi.isolate(sus)
+        .andDo:
+          if value then notifier.reporters(me.modId, sus)
+        .inject(sus)
 
   def garbageCollect(userId: UserId): Funit =
     given MyId = UserId.lichessAsMe

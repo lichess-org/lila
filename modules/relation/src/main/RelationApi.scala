@@ -39,7 +39,9 @@ final class RelationApi(
     blocking as fetchBlocking,
     following as fetchFollowing,
     freshFollowersFromSecondary,
-    filterBlocked
+    filterBlocked,
+    unfollowAll,
+    removeAllFollowers
   }
 
   def fetchFriends(userId: UserId): Fu[Set[UserId]] =
@@ -172,8 +174,6 @@ final class RelationApi(
         lila.mon.relation.unfollow.increment()
       }
     })
-
-  def unfollowAll(u1: UserId): Funit = repo.unfollowAll(u1)
 
   def unblock(u1: UserId, u2: UserId): Funit =
     (u1 != u2).so(fetchBlocks(u1, u2).flatMap {
