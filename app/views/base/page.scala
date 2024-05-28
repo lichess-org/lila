@@ -92,7 +92,9 @@ object page:
           manifests,
           p.withHrefLangs.map(hrefLangs),
           sitePreload(
-            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)),
+            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)) ++ Option.when(
+              !netConfig.isProd
+            )(Option(jsPageModule("site.devMode"))),
             isInquiry = ctx.data.inquiry.isDefined
           ),
           lichessFontFaceCss,
