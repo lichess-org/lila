@@ -33,7 +33,8 @@ body.clinput #top {
   }
 
   @media (max-width: at-most($x-small)) {
-    .site-title {
+    .site-title,
+    .site-title-nav__donate {
       display: none;
     }
   }
