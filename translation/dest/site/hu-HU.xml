@@ -974,6 +974,8 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="switchSides">Oldal megfordítása</string>
   <string name="closingAccountWithdrawAppeal">A fiókod lezárása visszavonja a fellebbezésed</string>
   <string name="ourEventTips">Tippjeink események szervezéséhez</string>
+  <string name="instructions">Használati útmutató</string>
+  <string name="showMeEverything">Az összes parancs megjelenítése</string>
   <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
 </resources>
