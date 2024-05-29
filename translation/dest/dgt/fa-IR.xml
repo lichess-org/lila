@@ -2,5 +2,6 @@
 <resources>
   <string name="reloadThisPage">بارگذاری مجدد صفحه</string>
   <string name="lichessConnectivity">اتصال به لیچس</string>
+  <string name="useWebSocketUrl">از «%1$s» استفاده کنید، مگر اینکه %2$s روی دستگاه یا درگاه دیگری اجرا می‌شود.</string>
   <string name="textToSpeech">متن به گفتار</string>
 </resources>
