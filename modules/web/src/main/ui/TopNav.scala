@@ -95,5 +95,15 @@ final class TopNav(helpers: Helpers):
           a(href := routes.Importer.importGame)(trans.site.importGame()),
           a(href := routes.Search.index())(trans.search.advancedSearch())
         )
+      ),
+      st.section(
+        linkTitle("/about", "Charity"),
+        div(role := "group")(
+          a(href := "/about")(trans.site.aboutX("Lichess")),
+          a(href := "/page/board")("Board"),
+          a(href := "/page/mission-and-vision")("Mission & Vision"),
+          a(href := "/page/story")("Story"),
+          a(href := "/page/finances")("Finances")
+        )
       )
     )
