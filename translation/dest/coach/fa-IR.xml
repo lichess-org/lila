@@ -9,7 +9,7 @@
   <string name="location">موقعیت مکانی</string>
   <string name="languages">زبان ها</string>
   <string name="rating">درجه‌بندی</string>
-  <string name="hourlyRate">حق‌التدریس هر ساعت</string>
+  <string name="hourlyRate">نرخ ساعتی</string>
   <string name="availability">دسترس‌پذیری</string>
   <string name="accepting">دانشجوها را قبول می‌کنم</string>
   <string name="notAccepting">در حال حاضر پذیرای دانشجویان نیستم</string>
