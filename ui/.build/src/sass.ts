@@ -188,7 +188,10 @@ async function buildColorWrap() {
 
   for (const file of await globArray(path.join(env.themeDir, '_*.scss'))) {
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
-      if (line.startsWith('//') || !/--[cm]/.test(line)) continue;
+      if (line.indexOf('--') === -1) continue;
+      const commentIndex = line.indexOf('//');
+      if (commentIndex !== -1 && commentIndex < line.indexOf(':')) continue;
+      if (!/--[cm]/.test(line)) continue;
       cssVars.add(line.split(':')[0].trim().replace('--', ''));
     }
   }

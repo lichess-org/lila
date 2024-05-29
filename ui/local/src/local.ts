@@ -4,7 +4,7 @@ import { MoveRootCtrl } from 'game';
 import { PlayCtrl } from './playCtrl';
 import { TestCtrl } from './testCtrl';
 import { renderTestView } from './testView';
-import { LocalPlayOpts } from './interfaces';
+import { LocalPlayOpts, Libot } from './interfaces';
 import { BotCtrl } from './botCtrl';
 import { LocalDialog } from './setupDialog';
 import makeZerofish from 'zerofish';
@@ -21,16 +21,15 @@ export async function initModule(opts: LocalPlayOpts) {
     makeZerofish({
       root: site.asset.url('npm', { documentOrigin: true }),
       wasm: site.asset.url('npm/zerofishEngine.wasm'),
-      maxZeros: 2,
     }),
     fetch(site.asset.url('bots.json')).then(x => x.json()),
     makeDatabase(2),
   ]);
 
-  const botCtrl = new BotCtrl(bots, zf, db);
+  const botCtrl = new BotCtrl(withCards(bots), zf, db);
   if (opts.setup) {
     if (!opts.setup.go) {
-      new LocalDialog(bots, opts.setup, true);
+      new LocalDialog(botCtrl.bots, opts.setup, true);
       return;
     }
     botCtrl.setBot('white', opts.setup.white);
@@ -52,6 +51,26 @@ export async function initModule(opts: LocalPlayOpts) {
     vnode = patch(vnode, view(ctrl, renderSide()));
     ctrl.round.redraw();
   }
+}
+
+export function withCards(bots: any) {
+  console.log(bots);
+  const withCards: Libot[] = [];
+  for (const bot of bots) {
+    const imageUrl =
+      bot.imageUrl ??
+      (bot.image ? site.asset.url(`lifat/bots/images/${bot.image}`, { version: 'bot000' }) : undefined);
+    withCards.push({
+      imageUrl,
+      card: {
+        label: bot.name,
+        domId: bot.uid.startsWith('#') ? bot.uid.slice(1) : bot.uid,
+        imageUrl,
+      },
+      ...bot,
+    });
+  }
+  return withCards;
 }
 
 // async stuff that must be serialized is done so here

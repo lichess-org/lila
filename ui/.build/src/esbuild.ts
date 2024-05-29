@@ -51,7 +51,7 @@ export async function esbuild(): Promise<void> {
 }
 
 const onEndPlugin = {
-  name: 'lichessOnEnd',
+  name: 'onEnd',
   setup(build: es.PluginBuild) {
     build.onEnd((result: es.BuildResult) => {
       for (const err of result.errors) esbuildMessage(err, true);

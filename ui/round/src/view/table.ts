@@ -17,8 +17,6 @@ function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
   return ctrl.nvui
     ? undefined
-    : player.image
-    ? renderUser.botHtml(ctrl, player, position)
     : player.ai
     ? h('div.user-link.online.ruser.ruser-' + position, [
         h('i.line'),

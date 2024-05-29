@@ -7,12 +7,12 @@ export function makeSocket(/*send: SocketSend, */ ctrl: PlayCtrl): RoundSocket {
   const handlers: SocketHandlers = {
     move: (m: ApiMove) => {
       ctrl.round?.apiMove?.(m);
-      console.log('apiMove', m);
+      //console.log('apiMove', m);
     },
   };
   const send = (t: string, d?: any) => {
     if (t === 'move') {
-      console.log('movin on up', t, d);
+      //console.log('movin on up', t, d);
       ctrl.move(d.u);
     } else if (handlers[t]) handlers[t]?.(d);
     else console.log('no handler for', t, d);

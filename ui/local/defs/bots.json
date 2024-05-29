@@ -4,105 +4,105 @@
     "name": "Terrence",
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
-    "zero": { "netName": "maia-1100.pb" }
+    "fish": { "search": { "level": 0, "depth": 1 } }
   },
   {
     "uid": "#tbone",
     "name": "T-Bone",
     "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
     "image": "t-bone.webp",
-    "zero": { "netName": "maia-1200.pb" }
+    "fish": { "search": { "level": 5, "depth": 1 } }
   },
   {
     "uid": "#nacho",
     "name": "Nacho",
-    "description": "Nacho is a feline grandmaster. But he can be distracted with a belly rub.",
+    "description": "Nacho is cute, but he wonders what your head tastes like.",
     "image": "nacho.webp",
-    "zero": { "netName": "maia-1300.pb" }
+    "fish": { "search": { "level": 10, "depth": 1 } }
   },
   {
     "uid": "#marco",
     "name": "Marco",
     "description": "They never asked Marco to star in a video game. He's not happy about it.",
     "image": "marco.webp",
-    "zero": { "netName": "maia-1400.pb" }
+    "fish": { "search": { "level": 15, "depth": 6 } }
   },
   {
     "uid": "#ghost",
     "name": "Ghost",
     "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
     "image": "ghost.webp",
-    "fish": { "search": { "level": 4 } }
+    "fish": { "search": { "level": 20, "depth": 11 } }
   },
   {
     "uid": "#greta",
     "name": "Greta",
     "description": "Greta lives in the woods and plays chess with squirrels.",
     "image": "greta.webp",
-    "fish": { "search": { "level": 5 } }
+    "fish": { "search": { "level": 25, "depth": 16 } }
   },
   {
     "uid": "#maia",
     "name": "Maia",
-    "description": "Maia was a famous author before she became a model for Elle c0.",
+    "description": "Maia was a famous author before she began modeling for Elle c0.",
     "image": "maia.webp",
-    "fish": { "search": { "level": 6 } }
+    "fish": { "search": { "level": 29, "depth": 20 } }
   },
   {
     "uid": "#gerard",
     "name": "Gerard",
     "description": "Gerard brought a sword to a chess match. And he swings it hard.",
     "image": "gerard.webp",
-    "fish": { "search": { "level": 7 } }
+    "zero": { "netName": "maia-1700.pb" }
   },
   {
     "uid": "#bionica",
     "name": "Bionica",
     "description": "Bionica was programmed with a full range of emotions. But she prefers contempt.",
     "image": "bionica.webp",
-    "fish": { "search": { "level": 8 } }
+    "zero": { "netName": "maia-1800.pb" }
   },
   {
     "uid": "#mitsoko",
     "name": "Mitsoko",
     "description": "Mitsoko, like most women in anime, is an inexplicably powerful warrior.",
     "image": "mitsoko.webp",
-    "fish": { "search": { "level": 9 } }
+    "zero": { "netName": "maia-1900.pb" }
   },
   {
     "uid": "#spectre",
     "name": "Spectre",
     "description": "Spectre may strike without warning. You have been warned.",
     "image": "spectre.webp",
-    "fish": { "search": { "level": 10 } }
+    "zero": { "netName": "evilgyal-6.pb" }
   },
   {
     "uid": "#aurora",
     "name": "Aurora",
     "description": "They say Aurora can see the future. She says she can see your defeat.",
     "image": "aurora.webp",
-    "fish": { "search": { "level": 11 } }
+    "zero": { "netName": "goodgyal-5.pb" }
   },
   {
     "uid": "#nullzo",
     "name": "Null-Zo",
     "description": "Null-Zo will not rest until he has defeated you. Then he will rest.",
     "image": "nullzo.webp",
-    "fish": { "search": { "level": 12 } }
+    "zero": { "netName": "evilgyal-6.pb" }
   },
   {
     "uid": "#eliza",
     "name": "Eliza",
     "description": "Eliza plays masterfully. Some say she's a machine. They're right.",
     "image": "eliza.webp",
-    "fish": { "search": { "level": 13 } }
+    "fish": { "search": { "level": 5 } }
   },
   {
     "uid": "#thinman",
     "name": "ThinMan",
     "description": "ThinMan is not your friend. It's why he's pointing a laser gun at your face.",
     "image": "thinman.webp",
-    "fish": { "search": { "level": 14 } }
+    "fish": { "search": { "level": 30 } }
   },
   {
     "uid": "#listress",

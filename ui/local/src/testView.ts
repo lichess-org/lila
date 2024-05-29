@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
-import * as Chops from 'chessops';
-import { onInsert, bind } from 'common/snabbdom';
+import * as co from 'chessops';
+import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
 import { LocalDialog } from './setupDialog';
+import { EditBotDialog } from './editBotDialog';
 import { TestCtrl } from './testCtrl';
 
 site.asset.loadCssPath('local.test');
@@ -10,22 +10,61 @@ export function renderTestView(ctrl: TestCtrl): VNode {
   return h('div.test-side', [
     results(ctrl),
     h('hr'),
-    h('div', player(ctrl, Chops.opposite(ctrl.bottomPlayer))),
+    h('div', player(ctrl, co.opposite(ctrl.bottomColor))),
     h('div.spacer'),
     startingFen(ctrl),
     h('div.bot-settings', controls(ctrl)),
     h('div.spacer'),
-    h('div', [player(ctrl, ctrl.bottomPlayer)]),
+    h('div', [player(ctrl, ctrl.bottomColor)]),
   ]);
 }
 
 function player(ctrl: TestCtrl, color: Color): VNode {
   const players = ctrl.root.botCtrl.players;
   const imgUrl = players[color]?.imageUrl ?? `/assets/lifat/bots/images/${color}-torso.webp`;
+  const isLight = document.documentElement.classList.contains('light');
+  const buttonClass = {
+    white: isLight ? '.button-metal' : '.button-inverse',
+    black: isLight ? '.button-inverse' : '.button-metal',
+  };
   return h(`div.${color}.player`, [
-    //botSelection(ctrl, color),
     h('img', { attrs: { src: imgUrl, width: 120, height: 120 } }),
-    h('span.totals', ctrl.resultsText(color)),
+    players[color] &&
+      !ctrl.root.botCtrl.isRankBot(players[color]?.uid) &&
+      h('div.bot-actions', [
+        h(
+          'button.button' + buttonClass[color],
+          {
+            hook: onInsert(el =>
+              el.addEventListener('click', () => {
+                new EditBotDialog(ctrl.root.botCtrl.bots, players[color]?.uid);
+              }),
+            ),
+          },
+          'Edit',
+        ),
+        h(
+          'button.button' + buttonClass[color],
+          {
+            hook: onInsert(el =>
+              el.addEventListener('click', () => {
+                ctrl.play({
+                  type: 'rank',
+                  players: [players[color]!.uid],
+                  iterations: 1, //parseInt($('#num-games').val() as string) || 1,
+                  time: '1+0',
+                });
+              }),
+            ),
+          },
+          'Rank',
+        ),
+      ]),
+    h('div.stats', [
+      h('span.totals.strong', players[color]?.name ?? 'Player'),
+      //h('span.totals', players[color]?.ratings.get('classical') ?? '0'),
+      h('span.totals', ctrl.resultsText(color)),
+    ]),
   ]);
 }
 
@@ -33,14 +72,14 @@ function controls(ctrl: TestCtrl) {
   const players = ctrl.root.botCtrl.players;
   const hasUser = !players.white || !players.black;
   const stopped = ctrl.stopped;
-  const inProgress = ctrl.inProgress;
+  const matchInProgress = ctrl.matchInProgress;
   return [
     h('span', [
       h(`button#reset.button.button-metal`, {
         hook: onInsert(el =>
           el.addEventListener('click', () => {
             ctrl.stop();
-            ctrl.root.reset();
+            ctrl.root.resetToSetup();
             ctrl.root.redraw();
           }),
         ),
@@ -60,7 +99,7 @@ function controls(ctrl: TestCtrl) {
       h('input#num-games', { attrs: { type: 'number', min: '1', max: '1000', value: '1' } }),
       h(
         `button#go.button.button-empty${
-          hasUser ? '.play.disabled' : inProgress && !stopped ? '.pause' : '.play'
+          hasUser ? '.play.disabled' : matchInProgress && !stopped ? '.pause' : '.play'
         }`,
         { hook: onInsert(el => el.addEventListener('click', () => clickPlayPause(ctrl))) },
       ),
@@ -75,7 +114,6 @@ function controls(ctrl: TestCtrl) {
                 type: 'roundRobin',
                 players: Object.values(ctrl.root.botCtrl.bots).map(p => p.uid),
                 iterations: 1,
-                nfold: 3,
                 time: '1+0',
               });
             }),
@@ -92,13 +130,12 @@ function clickPlayPause(ctrl: TestCtrl) {
   if (!ctrl.stopped) {
     ctrl.stop();
   } else {
-    if (ctrl.inProgress) ctrl.play();
+    if (ctrl.gameInProgress) ctrl.play();
     else
       ctrl.play({
         type: 'matchup',
         players: [players.white?.uid ?? '#terrence', players.black?.uid ?? '#terrence'],
         iterations: parseInt($('#num-games').val() as string) || 1,
-        nfold: 3,
         time: '1+0',
       });
   }
@@ -140,30 +177,26 @@ async function downloadResults(ctrl: TestCtrl) {
 function clearResults(ctrl: TestCtrl) {
   if (!confirm('Clear all results?')) return;
   //ctrl.store.clear();
-  ctrl.totals.white = ctrl.totals.black = ctrl.totals.draw = 0;
   ctrl.redraw();
 }
 
 function startingFen(ctrl: TestCtrl): VNode {
   return h('input.starting-fen', {
-    attrs: { placeholder: Chops.fen.INITIAL_BOARD_FEN, spellcheck: 'false' },
+    attrs: { placeholder: co.fen.INITIAL_BOARD_FEN, spellcheck: 'false' },
     hook: bind('input', e => {
       const el = e.target as HTMLInputElement;
-      if (!el.value) ctrl.startingFen = Chops.fen.INITIAL_FEN;
-      else if (Chops.fen.parseFen(el.value).isOk) ctrl.startingFen = el.value;
+      if (!el.value) ctrl.startingFen = co.fen.INITIAL_FEN;
+      else if (co.fen.parseFen(el.value).isOk) ctrl.startingFen = el.value;
       else {
         el.style.backgroundColor = 'red';
         return;
       }
       el.style.backgroundColor = '';
-      ctrl.root.reset(ctrl.startingFen);
+      ctrl.root.resetBoard(ctrl.startingFen);
       if (!ctrl.isStopped && !ctrl.root.isUserTurn) ctrl.root.botMove();
-      ctrl.storeParams();
       ctrl.redraw();
     }),
-    props: {
-      value: ctrl.startingFen,
-    },
+    props: { value: ctrl.startingFen },
   });
 }
 

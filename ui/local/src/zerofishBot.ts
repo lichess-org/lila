@@ -1,6 +1,6 @@
 import type { Zerofish, ZeroSearch, FishSearch, Position } from 'zerofish';
-import * as Chops from 'chessops';
-import { Libot, BotInfo, ZfBotConfig } from './interfaces';
+import * as co from 'chessops';
+import { Libot, ZfBotConfig, CardData } from './interfaces';
 import { Database } from './database';
 export class ZerofishBot implements Libot {
   readonly name: string;
@@ -9,18 +9,16 @@ export class ZerofishBot implements Libot {
   readonly image: string;
   readonly zero?: { netName: string; depth?: number };
   readonly fish?: { search?: FishSearch };
+  readonly card?: CardData;
   ratings = new Map();
 
-  get imageUrl() {
-    return site.asset.url(`lifat/bots/images/${this.image}`, { version: 'bot000' });
-  }
-
   constructor(
-    info: BotInfo,
+    info: Libot,
     readonly db: Database,
     readonly zf: Zerofish,
   ) {
     Object.assign(this, info);
+    console.log(this);
   }
 
   async move(pos: Position) {
@@ -131,17 +129,17 @@ function biasScore(pvs: Score[][], evalCriteria?: { move?: string; bias?: number
 }
 
 function byDestruction(lines: Score[][], fen: string, mutual = false) {
-  const chess = Chops.Chess.fromSetup(Chops.fen.parseFen(fen).unwrap()).unwrap();
-  const beforeMaterial = Chops.Material.fromBoard(chess.board);
-  const opponent = Chops.opposite(chess.turn);
+  const chess = co.Chess.fromSetup(co.fen.parseFen(fen).unwrap()).unwrap();
+  const beforeMaterial = co.Material.fromBoard(chess.board);
+  const opponent = co.opposite(chess.turn);
   const before = weigh(mutual ? beforeMaterial : beforeMaterial[opponent]);
   const aggression: [number, Score][] = [];
   for (const history of lines) {
     for (const pv of history) {
       try {
         const pvChess = chess.clone();
-        for (const move of pv.moves) pvChess.play(Chops.parseUci(move)!);
-        const afterMaterial = Chops.Material.fromBoard(pvChess.board);
+        for (const move of pv.moves) pvChess.play(co.parseUci(move)!);
+        const afterMaterial = co.Material.fromBoard(pvChess.board);
         const destruction =
           (before - weigh(mutual ? afterMaterial : afterMaterial[opponent])) / pv.moves.length;
         if (destruction > 0) aggression.push([destruction, pv]);
@@ -153,7 +151,7 @@ function byDestruction(lines: Score[][], fen: string, mutual = false) {
   return aggression;
 }
 
-const prices: { [role in Chops.Role]?: number } = {
+const prices: { [role in co.Role]?: number } = {
   pawn: 1,
   knight: 2.8,
   bishop: 3,
@@ -161,9 +159,9 @@ const prices: { [role in Chops.Role]?: number } = {
   queen: 9,
 };
 
-function weigh(material: Chops.Material | Chops.MaterialSide) {
+function weigh(material: co.Material | co.MaterialSide) {
   let score = 0;
-  for (const [role, price] of Object.entries(prices) as [Chops.Role, number][]) {
+  for (const [role, price] of Object.entries(prices) as [co.Role, number][]) {
     score += price * ('white' in material ? material.count(role) : material[role]);
   }
   return score;

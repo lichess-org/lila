@@ -7,7 +7,7 @@ import { MoveRootCtrl } from 'game';
 import { RoundSocket, RoundOpts, RoundData } from 'round';
 import { Database } from './database';
 import { Chess } from 'chessops';
-import * as Chops from 'chessops';
+import * as co from 'chessops';
 
 export interface GameState {
   fen: string;
@@ -64,7 +64,7 @@ export class PlayCtrl {
     if (!state) return;
     this.setup.white = state.white;
     this.setup.black = state.black;
-    this.reset(state.fen); // it is a "from positon" for now
+    this.resetBoard(state.fen); // it is a "from positon" for now
     this.fiftyMovePly = state.fiftyMovePly;
     this.threefoldFens = new Map(state.threefoldFens);
   }
@@ -73,14 +73,22 @@ export class PlayCtrl {
     this.automator = automator;
   }
 
-  reset(fen?: string) {
+  /*setup() {
+    this.round = site.asset.loadEsm<MoveRootCtrl>('round', { init: this.roundOpts });
+  }*/
+  resetToSetup() {
+    this.botCtrl.setBot('white', this.setup.white);
+    this.botCtrl.setBot('black', this.setup.black);
+    this.resetBoard();
+  }
+
+  resetBoard(fen?: string) {
     //console.trace('reset');
-    if (fen) this.setup.fen = fen;
     this.fiftyMovePly = 0;
     this.moves = [];
     this.threefoldFens.clear();
     this.chess = Chess.fromSetup(
-      Chops.fen.parseFen(this.setup.fen ?? Chops.fen.INITIAL_FEN).unwrap(),
+      co.fen.parseFen(fen ?? this.setup.fen ?? co.fen.INITIAL_FEN).unwrap(),
     ).unwrap();
     this.round.cg?.set({
       fen: this.fen,
@@ -89,6 +97,7 @@ export class PlayCtrl {
       movable: { color: this.chess.turn, dests: this.cgDests },
     });
     this.updateRound();
+    this.botCtrl.zf.reset();
     this.automator?.onReset?.();
   }
 
@@ -99,7 +108,7 @@ export class PlayCtrl {
   } {
     let result = 'draw',
       reason = userEnd ?? 'checkmate';
-    if (this.chess.isCheckmate()) result = Chops.opposite(this.chess.turn);
+    if (this.chess.isCheckmate()) result = co.opposite(this.chess.turn);
     else if (this.chess.isInsufficientMaterial()) reason = 'insufficient';
     else if (this.chess.isStalemate()) reason = 'stalemate';
     else if (this.fifty()) reason = 'fifty';
@@ -113,6 +122,7 @@ export class PlayCtrl {
   }
 
   doGameOver(result: string, reason: string) {
+    this.botCtrl.zf.reset();
     setTimeout(() => {
       this.automator?.onGameEnd(result as 'white' | 'black' | 'draw', reason);
       this.db.putState(this.state);
@@ -122,7 +132,7 @@ export class PlayCtrl {
   }
 
   move(uci: Uci): boolean {
-    const move = Chops.parseUci(uci) as Chops.NormalMove;
+    const move = co.parseUci(uci) as co.NormalMove;
     this.moves.push(uci);
     if (!move || !this.chess.isLegal(move)) {
       this.doGameOver(
@@ -143,7 +153,7 @@ export class PlayCtrl {
         new Map([
           [
             uci.slice(2, 4) as Cg.Key,
-            { color: Chops.opposite(this.chess.turn), role: move.promotion, promoted: true },
+            { color: co.opposite(this.chess.turn), role: move.promotion, promoted: true },
           ],
         ]),
       );
@@ -163,7 +173,7 @@ export class PlayCtrl {
       this.move(await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess.turn));
   };
 
-  fifty(move?: Chops.Move) {
+  fifty(move?: co.Move) {
     if (move)
       if (
         !('from' in move) ||
@@ -186,10 +196,10 @@ export class PlayCtrl {
     return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3; // TODO fixme
   }
 
-  isPromotion(move: Chops.Move) {
+  isPromotion(move: co.Move) {
     return (
       'from' in move &&
-      Chops.squareRank(move.to) === (this.chess.turn === 'white' ? 7 : 0) &&
+      co.squareRank(move.to) === (this.chess.turn === 'white' ? 7 : 0) &&
       this.chess.board.getRole(move.from) === 'pawn'
     );
   }
@@ -202,7 +212,7 @@ export class PlayCtrl {
     const dests: { [from: string]: string } = {};
     [...this.chess.allDests()]
       .filter(([, to]) => !to.isEmpty())
-      .forEach(([s, ds]) => (dests[Chops.makeSquare(s)] = [...ds].map(Chops.makeSquare).join('')));
+      .forEach(([s, ds]) => (dests[co.makeSquare(s)] = [...ds].map(co.makeSquare).join('')));
     return dests;
   }
 
@@ -258,16 +268,7 @@ export class PlayCtrl {
   updateRound() {
     this.roundData.game.fen = this.fen;
     this.roundData.possibleMoves = this.dests;
-    this.round.reset?.(this.fen ?? Chops.fen.INITIAL_FEN);
-    console.log(this.fen);
-    /*this.roundData.player = this.player(
-      this.chess.turn,
-      this.botCtrl.players[this.chess.turn]?.name ?? 'You',
-    );
-    this.roundData.opponent = this.player(
-      Chops.opposite(this.chess.turn),
-      this.botCtrl.players[Chops.opposite(this.chess.turn)]?.name ?? 'You',
-    );*/
+    this.round.reset?.(this.fen ?? co.fen.INITIAL_FEN);
   }
 
   updateTurn() {
@@ -277,13 +278,13 @@ export class PlayCtrl {
 
   makeRoundData(fen?: string): RoundData {
     const bottom = !this.setup.white ? 'white' : !this.setup.black ? 'black' : 'white';
-    const top = Chops.opposite(bottom);
+    const top = co.opposite(bottom);
     return {
       game: this.game,
       player: this.player(bottom, this.botCtrl.players[bottom]?.name ?? 'Player'),
       opponent: this.player(top, this.botCtrl.players[top]?.name ?? 'Player'),
       pref: this.opts.pref,
-      steps: [{ ply: 0, san: '', uci: '', fen: fen ?? Chops.fen.INITIAL_FEN }],
+      steps: [{ ply: 0, san: '', uci: '', fen: fen ?? co.fen.INITIAL_FEN }],
       takebackable: true,
       moretimeable: true,
       possibleMoves: this.dests,
@@ -301,5 +302,5 @@ export class PlayCtrl {
 }
 
 function splitUci(uci: Uci): { from: Key; to: Key; role?: any } {
-  return { from: uci.slice(0, 2) as Key, to: uci.slice(2, 4) as Key, role: Chops.charToRole(uci.slice(4)) };
+  return { from: uci.slice(0, 2) as Key, to: uci.slice(2, 4) as Key, role: co.charToRole(uci.slice(4)) };
 }

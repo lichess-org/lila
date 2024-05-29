@@ -118,6 +118,14 @@
     }
   }
 
+  &.button-inverse {
+    @extend %metal-inverse;
+
+    &:not(.disabled):hover {
+      @extend %metal-inverse-hover;
+    }
+  }
+
   &.disabled {
     opacity: 0.5;
     cursor: not-allowed;

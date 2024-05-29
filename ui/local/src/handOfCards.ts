@@ -1,14 +1,13 @@
-import type { Libot, Libots } from './interfaces';
 import { isTouchDevice } from 'common/device';
-//import { clamp } from 'common';
-import * as licon from 'common/licon';
-//import { ratingView } from './components/ratingView';
 
-export class TestDialog {
-  cards: HTMLDivElement[] = [];
-  view: HTMLDivElement;
-  bot: Libot | undefined;
-  botEl: HTMLDivElement;
+export interface CardData {
+  readonly imageUrl: string;
+  readonly label: string;
+  readonly domId: string;
+}
+
+export class HandOfCards {
+  cards: HTMLElement[] = [];
   userMidX: number;
   userMidY: number;
   startAngle = 0;
@@ -19,35 +18,24 @@ export class TestDialog {
   killAnimation = 0;
   scaleFactor = 1;
   rect: DOMRect;
-  selectedCard: HTMLDivElement | null = null;
+  selectedCard: HTMLElement | null = null;
 
   constructor(
-    readonly bots: Libots,
-    botId?: string,
-    readonly noClose = false,
+    readonly view: HTMLElement,
+    readonly drops: HTMLElement[],
+    readonly cardData: Iterable<CardData>,
+    readonly select: (target: HTMLElement, domId?: string) => void,
   ) {
-    this.view = $as<HTMLDivElement>(`<div class="local-view">
-      <div class="vs">
-        <div class="player black"><div class="placard">Human</div></div>
-        <div class="bot-edit">
-        </div>
-        </div>
-    </div>`);
-    Object.values(this.bots).forEach(bot => this.cards.push(this.createCard(bot)));
+    for (const c of cardData) this.cards.push(this.createCard(c));
     this.cards.reverse().forEach(card => this.view.appendChild(card));
-    this.show();
-    this.botEl = this.view.querySelector('.player')!;
-    this.select(botId);
     window.addEventListener('resize', this.resize);
   }
 
-  createCard(bot: Libot) {
-    const card = $as<HTMLDivElement>(
-      `<div id="${bot.uid.slice(1)}" class="card">
-        <img src="${bot.imageUrl}">
-        <label>${bot.name}</label>
-      </div>`,
-    );
+  createCard(c: CardData) {
+    const card = $as<HTMLElement>(`<div id="${c.domId}" class="card">
+      <img src="${c.imageUrl}">
+      <label>${c.label}</label>
+    </div>`);
     card.addEventListener('pointerdown', e => this.startDrag(e));
     card.addEventListener('pointermove', e => this.duringDrag(e));
     card.addEventListener('pointerup', e => this.endDrag(e));
@@ -63,6 +51,7 @@ export class TestDialog {
     this.scaleFactor = parseFloat(
       window.getComputedStyle(document.documentElement).getPropertyValue('---scale-factor'),
     );
+    if (isNaN(this.scaleFactor)) this.scaleFactor = 1;
     const h2 = 192 * this.scaleFactor - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
     this.rect = newRect;
     this.userMidX = this.view.offsetWidth / 2;
@@ -82,7 +71,7 @@ export class TestDialog {
     }
   }
 
-  transform(card: HTMLDivElement, angle: number) {
+  transform(card: HTMLElement, angle: number) {
     const hovered = card.classList.contains('pull');
     const mag =
       15 + this.view.offsetWidth + (hovered ? 40 * this.scaleFactor + this.dragMag - this.startMag : 0);
@@ -128,7 +117,7 @@ export class TestDialog {
     this.startAngle = this.getAngle([e.clientX, e.clientY]) - this.dragAngle;
     this.dragMag = this.startMag = this.getMag([e.clientX, e.clientY]);
     this.view.classList.add('dragging');
-    this.selectedCard = e.currentTarget as HTMLDivElement;
+    this.selectedCard = e.currentTarget as HTMLElement;
     if (isTouchDevice()) {
       $('.card').removeClass('pull');
       this.selectedCard.classList.add('pull');
@@ -141,7 +130,7 @@ export class TestDialog {
   duringDrag(e: PointerEvent): void {
     e.preventDefault();
     if (!this.selectedCard) return;
-    $('.player').removeClass('drag-over');
+    for (const drop of this.drops) drop.classList.remove('drag-over');
     this.dropTarget(e)?.classList.add('drag-over');
     const newAngle = this.getAngle([e.clientX, e.clientY]);
 
@@ -152,22 +141,14 @@ export class TestDialog {
   }
 
   endDrag(e: PointerEvent): void {
-    $('.player').removeClass('drag-over');
+    for (const drop of this.drops) drop.classList.remove('drag-over');
     $('.card').removeClass('pull');
     this.view.classList.remove('dragging');
     if (this.selectedCard) {
       this.selectedCard.style.transition = '';
       this.selectedCard.releasePointerCapture(e.pointerId);
       const target = this.dropTarget(e);
-      if (target) {
-        this.select(this.selectedCard.id);
-      }
-      /*if (this.dragMag - this.startMag > 20) {
-        console.log(this.selectedCard);
-        //this.select(this.bots.bots[this.selectedCard!]);
-
-        // do sommeeat
-      }*/
+      if (target) this.select(target, this.selectedCard.id);
     }
     this.startMag = this.dragMag = this.startAngle = /*this.dragAngle =*/ 0;
     this.selectedCard = null;
@@ -175,15 +156,17 @@ export class TestDialog {
     this.resetIdleTimer();
   }
 
-  dropTarget(e: PointerEvent): HTMLDivElement | undefined {
-    const r = this.botEl.getBoundingClientRect();
-    return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom
-      ? this.botEl
-      : undefined;
+  dropTarget(e: PointerEvent): HTMLElement | undefined {
+    for (const drop of this.drops) {
+      const r = drop.getBoundingClientRect();
+      if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom)
+        return drop;
+    }
+    return undefined;
   }
 
   animate = () => {
-    if (document.querySelector('.game-setup.local-setup')) this.placeCards();
+    if (document.contains(this.view)) this.placeCards();
     this.frame = requestAnimationFrame(this.animate);
   };
 
@@ -194,36 +177,6 @@ export class TestDialog {
       cancelAnimationFrame(this.frame);
       this.frame = 0;
     }, 300);
-  }
-
-  show() {
-    site.dialog
-      .dom({
-        class: 'game-setup.local-setup',
-        css: [{ hashed: 'local.setup' }],
-        htmlText: `<div class="chin">
-          </div>`,
-        append: [{ node: this.view, where: '.chin', how: 'before' }],
-        action: [],
-        noCloseButton: this.noClose,
-        noClickAway: this.noClose,
-      })
-      .then(dlg => {
-        dlg.showModal();
-        this.resize();
-      });
-  }
-
-  select(botId?: string) {
-    const bot = botId ? this.bots[botId] : undefined;
-    const placard = this.view.querySelector(` .placard`);
-    const card = this.selectedCard;
-    if (bot && card) {
-      this.view.style.setProperty(`---image-url`, `url(${card.querySelector('img')!.src})`);
-      $(`.placard`).text(bot.description);
-      placard!.textContent = bot.description;
-    }
-    this.bot = bot;
   }
 
   get fanRadius() {

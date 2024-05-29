@@ -35,6 +35,13 @@
     .totals {
       font-size: large;
       text-align: center;
+      &.strong {
+        font-size: larger;
+      }
+    }
+    .bot-actions {
+      @extend %flex-column;
+      gap: 1em;
     }
   }
   .spacer {

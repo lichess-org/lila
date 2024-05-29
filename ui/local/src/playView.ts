@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { looseH as h, VNode } from 'common/snabbdom';
 //import * as licon from 'common/licon';
 //import { bind } from 'common/snabbdom';
 import { type Libot } from './interfaces';
@@ -27,7 +27,7 @@ export default function (ctrl?: PlayCtrl, side?: VNode): VNode {
 
 function botView(ctrl: PlayCtrl, bot: Libot): VNode {
   return h('div.fancy-bot', [
-    h('img', { attrs: { src: bot.imageUrl } }),
+    bot.imageUrl && h('img', { attrs: { src: bot.imageUrl } }),
     h('div.overview', [h('h2', bot.name), h('p', bot.description)]),
   ]);
 }
