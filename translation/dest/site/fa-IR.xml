@@ -45,7 +45,7 @@
   <string name="forceResignation">ادعای برد</string>
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این وب‌نشانی آید با شما بازی خواهد کرد.</string>
   <string name="whiteResigned">سفید تسلیم شد</string>
   <string name="blackResigned">سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">سفید بازی را ترک کرد</string>
@@ -404,12 +404,12 @@
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
-  <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
+  <string name="importGameExplanation">برای دریافت بازپخش مرورپذیر، واکاوی رایانه‌ای، گپ‌های بازی، و وب‌نشانی همگانی همرسانی‌پذیر، PGN یک بازی را جای‌گذاری کنید.</string>
   <string name="importGameCaveat">تغییرات پاک خواهند شد. برای حفظ آنها، PGN را از طریق مطالعه وارد کنید.</string>
   <string name="importGameDataPrivacyWarning">این PGN برای عموم در دسترس است، برای وارد کردن یک بازی خصوصی، از *مطالعه* استفاده کنید.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s بارگزاری شده</item>
-    <item quantity="other">%s بارگزاری شده</item>
+    <item quantity="one">%s بارگذاری شده</item>
+    <item quantity="other">%s بارگذاری شده</item>
   </plurals>
   <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
@@ -595,7 +595,7 @@
   <string name="onSlowGames">در بازی های آرام</string>
   <string name="always">همیشه</string>
   <string name="never">هرگز</string>
-  <string name="xCompetesInY">%1$s در تورنمت %2$s رقابت می کند</string>
+  <string name="xCompetesInY">%1$s در %2$s رقابت می‌کند.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
   <string name="victoryVsYInZ">%1$s مقابل %2$s در %3$s</string>
@@ -790,7 +790,7 @@
   <string name="dark">تیره</string>
   <string name="transparent">شفاف</string>
   <string name="deviceTheme">طرح زمینه دستگاه</string>
-  <string name="backgroundImageUrl">لینک تصویر پس زمینه:</string>
+  <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
   <string name="board">صفحه شطرنج</string>
   <string name="size">اندازه</string>
   <string name="opacity">کدری</string>
@@ -936,7 +936,8 @@
   <string name="streamerManager">مدیریت پخش</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
-  <string name="tournDescriptionHelp">نکته خاصی را می خواهید با شرکت کنندگان در میان بگذارید؟ سعی کنید کوتاه باشد. لینک های علامت گذاری موجود هستند: [name] (https://url)</string>
+  <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌کنندگان گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
+[name](https://url)</string>
   <string name="ratedFormHelp">بازی‌ها رسمی هستند
 و روی درجه‌بندی بازیکنان تاثیر می‌گذارند</string>
   <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
@@ -951,12 +952,12 @@
   <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>
   <string name="estimatedStart">زمان تقریبی شروع بازی</string>
-  <string name="simulFeatured">نمایش بازی هم‌زمان روی لینک %s</string>
+  <string name="simulFeatured">نمایش در %s</string>
   <string name="simulFeaturedHelp">بازی هم‌زمان خود را برای همه بر روی لینک %s نشان بدهید. برای دسترسی خصوصی آن را غیرفعال نمایید.</string>
   <string name="simulDescription">توصیف بازی هم‌زمان</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
   <string name="markdownAvailable">%s برای کُدهای دستوری پیچیده‌تر در دسترس است.</string>
-  <string name="embedsAvailable">برای قرار دادن یک بخش جهت مطالعه یا یک بازی، پیوند آن را در زیر بنویسید (لینک مربوط به آن را کپی و پیست نمایید).</string>
+  <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی فصل مطالعه را برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
   <string name="noChat">بدون چت</string>
