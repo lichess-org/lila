@@ -885,4 +885,4 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
-GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: UserStr)
+GET   /*path                           controllers.User.redirect(path)

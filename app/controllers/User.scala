@@ -621,9 +621,9 @@ final class User(
     Redirect(routes.User.show(me.username))
   }
 
-  def redirect(username: UserStr) = Open:
-    staticRedirect(username.value) |
-      tryRedirect(username).getOrElse(notFound)
+  def redirect(path: String) = Open:
+    staticRedirect(path) |
+      UserStr.read(path).so(tryRedirect).getOrElse(notFound)
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
     meOrFetch(username).map:
