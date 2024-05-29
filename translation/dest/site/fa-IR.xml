@@ -151,7 +151,7 @@
     <item quantity="other">%s نفر بازیکن آنلاین</item>
   </plurals>
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
-  <string name="fiftyMovesWithoutProgress">persian</string>
+  <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>
   <string name="currentGames">بازی های در جریان</string>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
