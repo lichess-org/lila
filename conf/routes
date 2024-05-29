@@ -860,7 +860,6 @@ GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Cms.source
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
-GET   /how-to-cheat                    controllers.Cms.lonePage(key: CmsPageKey ?= CmsPageKey("how-to-cheat"))
 GET   /page/:key                       controllers.Cms.lonePage(key: CmsPageKey)
 
 # Variants
