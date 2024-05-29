@@ -1,14 +1,14 @@
-import type { Libot, Libots, LocalSetup } from './interfaces';
+import type { Libot, Libots } from './interfaces';
 import { isTouchDevice } from 'common/device';
 //import { clamp } from 'common';
 import * as licon from 'common/licon';
 //import { ratingView } from './components/ratingView';
 
-export class LocalDialog {
+export class TestDialog {
   cards: HTMLDivElement[] = [];
   view: HTMLDivElement;
-  white: HTMLDivElement;
-  black: HTMLDivElement;
+  bot: Libot | undefined;
+  botEl: HTMLDivElement;
   userMidX: number;
   userMidY: number;
   startAngle = 0;
@@ -20,40 +20,34 @@ export class LocalDialog {
   scaleFactor = 1;
   rect: DOMRect;
   selectedCard: HTMLDivElement | null = null;
-  setup: LocalSetup = {};
 
   constructor(
     readonly bots: Libots,
-    setup: LocalSetup = {},
+    botId?: string,
     readonly noClose = false,
   ) {
-    this.setup = { ...setup };
-    const player = (color: 'white' | 'black') =>
-      `<div class="player ${color}"><img class="remove" src="${site.asset.flairSrc(
-        'symbols.cancel',
-      )}"><div class="placard ${color}">Player</div></div>`;
     this.view = $as<HTMLDivElement>(`<div class="local-view">
       <div class="vs">
-        ${player('white')}
-        <div class="actions">
-          <button class="button button-empty switch" data-icon="${licon.Switch}"></button>
-          <button class="button button-empty random" data-icon="${licon.DieSix}"></button>
-          <button class="button button-empty fight" data-icon="${licon.Swords}"></button>
+        <div class="player black"><div class="placard">Human</div></div>
+        <div class="bot-edit">
         </div>
-        ${player('black')}
-      </div>
+        </div>
     </div>`);
-    Object.values(this.bots).forEach(bot => bot.image && this.cards.push(this.createCard(bot)));
+    Object.values(this.bots).forEach(bot => this.cards.push(this.createCard(bot)));
     this.cards.reverse().forEach(card => this.view.appendChild(card));
     this.show();
-    this.white = this.view.querySelector('.white')!;
-    this.black = this.view.querySelector('.black')!;
+    this.botEl = this.view.querySelector('.player')!;
+    this.select(botId);
     window.addEventListener('resize', this.resize);
   }
 
   createCard(bot: Libot) {
-    const card = $as<HTMLDivElement>(`<div id="${bot.uid.slice(1)}" class="card">
-      <img src="${bot.imageUrl}"><label>${bot.name}</label></div>`);
+    const card = $as<HTMLDivElement>(
+      `<div id="${bot.uid.slice(1)}" class="card">
+        <img src="${bot.imageUrl}">
+        <label>${bot.name}</label>
+      </div>`,
+    );
     card.addEventListener('pointerdown', e => this.startDrag(e));
     card.addEventListener('pointermove', e => this.duringDrag(e));
     card.addEventListener('pointerup', e => this.endDrag(e));
@@ -148,7 +142,7 @@ export class LocalDialog {
     e.preventDefault();
     if (!this.selectedCard) return;
     $('.player').removeClass('drag-over');
-    this.dropTarget(e)?.el.classList.add('drag-over');
+    this.dropTarget(e)?.classList.add('drag-over');
     const newAngle = this.getAngle([e.clientX, e.clientY]);
 
     this.dragMag = this.getMag([e.clientX, e.clientY]);
@@ -166,7 +160,7 @@ export class LocalDialog {
       this.selectedCard.releasePointerCapture(e.pointerId);
       const target = this.dropTarget(e);
       if (target) {
-        this.select(target.color as 'white' | 'black', `#${this.selectedCard.id}`);
+        this.select(this.selectedCard.id);
       }
       /*if (this.dragMag - this.startMag > 20) {
         console.log(this.selectedCard);
@@ -181,14 +175,11 @@ export class LocalDialog {
     this.resetIdleTimer();
   }
 
-  dropTarget(e: PointerEvent): { el: HTMLDivElement; color: Color } | undefined {
-    for (const color of ['white', 'black'] as Color[]) {
-      const r = this[color].getBoundingClientRect();
-      if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
-        return { el: this[color], color };
-      }
-    }
-    return undefined;
+  dropTarget(e: PointerEvent): HTMLDivElement | undefined {
+    const r = this.botEl.getBoundingClientRect();
+    return e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom
+      ? this.botEl
+      : undefined;
   }
 
   animate = () => {
@@ -211,61 +202,29 @@ export class LocalDialog {
         class: 'game-setup.local-setup',
         css: [{ hashed: 'local.setup' }],
         htmlText: `<div class="chin">
-            <input type="checkbox" id="bot-dev" checked>
-            <label for="bot-dev">Dev UI</label>
           </div>`,
         append: [{ node: this.view, where: '.chin', how: 'before' }],
-        action: [
-          { selector: '.fight', action: dlg => this.fight(dlg) },
-          { selector: '.switch', action: dlg => this.switch(dlg) },
-          { selector: '.random', action: dlg => this.random(dlg) },
-          { selector: '.white > img.remove', action: () => this.select('white') },
-          { selector: '.black > img.remove', action: () => this.select('black') },
-        ],
+        action: [],
         noCloseButton: this.noClose,
         noClickAway: this.noClose,
       })
       .then(dlg => {
-        if (this.setup.white) this.select('white', this.setup.white);
-        if (this.setup.black) this.select('black', this.setup.black);
         dlg.showModal();
         this.resize();
       });
   }
 
-  select(color: 'white' | 'black', player?: string) {
-    console.log(color, player, this.bots);
-    const bot = player ? this.bots[player] : undefined;
-    this.view.style.setProperty(`---${color}-image-url`, bot ? `url(${bot.imageUrl})` : null);
-    this.view.querySelector(`.${color} .placard`)!.textContent = bot ? bot.description : 'Player';
-    this.setup[color] = bot?.uid;
-    this[color].querySelector(`img.remove`)!.classList.toggle('show', !!bot);
-  }
-
-  fight = async (dlg: Dialog) => {
-    this.setup.time = 'unlimited';
-    this.setup.go = true;
-    const form = $as<HTMLFormElement>(
-      `<form method="POST" action="/local?testUi=${$as<HTMLInputElement>('#bot-dev').checked}">`,
-    );
-    for (const [k, v] of Object.entries(this.setup)) {
-      form.appendChild($as<HTMLInputElement>(`<input name="${k}" type="hidden" value="${v}">`));
+  select(botId?: string) {
+    const bot = botId ? this.bots[botId] : undefined;
+    const placard = this.view.querySelector(` .placard`);
+    const card = this.selectedCard;
+    if (bot && card) {
+      this.view.style.setProperty(`---image-url`, `url(${card.querySelector('img')!.src})`);
+      $(`.placard`).text(bot.description);
+      placard!.textContent = bot.description;
     }
-    document.body.appendChild(form);
-    form.submit();
-    form.remove();
-  };
-
-  switch = (dlg: Dialog) => {
-    const newBlack = this.setup.white;
-    this.select('white', this.setup.black);
-    this.select('black', newBlack);
-  };
-
-  random = (dlg: Dialog) => {
-    if (Math.random() < 0.5) this.switch(dlg);
-    this.fight(dlg);
-  };
+    this.bot = bot;
+  }
 
   get fanRadius() {
     return this.view.offsetWidth;
