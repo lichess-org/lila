@@ -44,7 +44,7 @@
   <string name="unlike">نمی پسندم</string>
   <string name="newTag">برچسب جدید</string>
   <string name="commentThisPosition">نظر دادن به این پوزیسیون</string>
-  <string name="commentThisMove">نظر دادن به این حرکت</string>
+  <string name="commentThisMove">قرار دادن توضیحات برای این حرکت</string>
   <string name="annotateWithGlyphs">حرکت‌نویسی به‌همراه علائم</string>
   <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
   <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
