@@ -23,7 +23,7 @@
   <string name="puzzleOfTheDay">معمای روز</string>
   <string name="dailyPuzzle">معمای روزانه</string>
   <string name="clickToSolve">برای حل کلیک کنید</string>
-  <string name="goodMove">حرکتِ خوب</string>
+  <string name="goodMove">حرکت خوب</string>
   <string name="bestMove">بهترین حرکت!</string>
   <string name="keepGoing">ادامه دهید…</string>
   <string name="puzzleSuccess">موفق شدید!</string>
@@ -68,10 +68,10 @@
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
   <string name="streakDescription">به تدریج معماهای سخت‌تری را حل کنید و یک دنباله بُرد بسازید. محدویت زمانی وجود ندارد، پس عجله نکنید. با یک حرکت اشتباه، بازی تمام می‌شود! در هر دور، می‌توانید یک حرکت را رَد کنید.</string>
-  <string name="yourStreakX">دنباله بُردهایتان: %s</string>
-  <string name="streakSkipExplanation">از این حرکت چشم‌پوشی کنید تا توالی خود را حفظ نمایید! فقط یک بار در هر اجرا کار می‌کند.</string>
+  <string name="yourStreakX">رکورد شما: %s</string>
+  <string name="streakSkipExplanation">این حرکت را رد کنید تا رکورد خود را حفظ کنید! فقط یک بار در هر دور امکان‌پذیر است.</string>
   <string name="continueTheStreak">توالی را ادامه دهید</string>
-  <string name="newStreak">برد متوالی جدید</string>
+  <string name="newStreak">رکورد جدید</string>
   <string name="fromMyGames">از بازی های من</string>
   <string name="lookupOfPlayer">به دنبال معماهای برگرفته‌شده از بازی‌های یک بازیکن مشخص، بگردید</string>
   <string name="fromXGames">معماهای برگرفته‌شده از بازی‌های %s</string>
@@ -90,7 +90,7 @@
     <item quantity="other">%s مورد برای بازبینی</item>
   </plurals>
   <string name="percentSolved">%s حل شده</string>
-  <string name="noPuzzlesToShow">هیچ موردی برای نمایش وجود ندارد، بروید و نخست چند معما حل کنید!</string>
-  <string name="improvementAreasDescription">اینها را یاد بگیرید تا پیش‌رفت خود را بهینه کنید!</string>
+  <string name="noPuzzlesToShow">هیچ موردی برای نمایش وجود ندارد، بروید و ابتدا چند معما حل کنید!</string>
+  <string name="improvementAreasDescription">این‌ها را تمرین کنید تا روند پیشرفت خود را بهبود ببخشید!</string>
   <string name="strengthDescription">شما در این زمینه‌ها بهترین عملکرد را دارید</string>
 </resources>
