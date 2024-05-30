@@ -482,7 +482,7 @@
   <string name="resume">ادامه دادن</string>
   <string name="youArePlaying">شما بازی میکنید!</string>
   <string name="winRate">درصد برد</string>
-  <string name="berserkRate">درصد برزرک</string>
+  <string name="berserkRate">میزان جنون</string>
   <string name="performance">عملکرد</string>
   <string name="tournamentComplete">مسابقات به پایان رسید</string>
   <string name="movesPlayed">حرکات انجام شده</string>
