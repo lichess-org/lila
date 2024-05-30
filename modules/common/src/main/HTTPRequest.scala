@@ -30,6 +30,7 @@ object HTTPRequest {
     "http://localhost",      // android
     "http://192.168.1.154",
     "http://localhost:8080", // local dev
+    "http://localhost:8100", // local dev
     "file://"                // old app
   )
 

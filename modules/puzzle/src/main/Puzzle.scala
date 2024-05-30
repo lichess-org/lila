@@ -1,7 +1,6 @@
 package lila.puzzle
 
 import cats.data.NonEmptyList
-import cats.implicits._
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.Usi
 
@@ -61,44 +60,6 @@ object Puzzle {
 
   // idk - tweak it later
   def glickoDefault(nbMoves: Int) = Glicko(600d + nbMoves * 150d, 500d, 0.08d)
-
-  /* The mobile app requires numerical IDs.
-   * We convert string ids from and to Longs using base 62
-   */
-  object numericalId {
-
-    private val powers: List[Long] =
-      (0 until idSize).toList.map(m => Math.pow(62, m).toLong)
-
-    def apply(id: Id): Long = id.value.toList
-      .zip(powers)
-      .foldLeft(0L) { case (l, (char, pow)) =>
-        l + charToInt(char) * pow
-      }
-
-    def apply(l: Long): Option[Id] = (l > 130_000) ?? {
-      val str = powers.reverse
-        .foldLeft(("", l)) { case ((id, rest), pow) =>
-          val frac = rest / pow
-          (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
-        }
-        ._1
-      (str.sizeIs == idSize) option Id(str)
-    }
-
-    private def charToInt(c: Char) = {
-      val i = c.toInt
-      if (i > 96) i - 71
-      else if (i > 64) i - 65
-      else i + 4
-    }
-
-    private def intToChar(i: Int): Char = {
-      if (i < 26) i + 65
-      else if (i < 52) i + 71
-      else i - 4
-    }.toChar
-  }
 
   case class UserResult(
       puzzleId: Id,

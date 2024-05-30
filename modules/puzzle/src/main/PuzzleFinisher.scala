@@ -29,6 +29,23 @@ final private[puzzle] class PuzzleFinisher(
       name = "puzzle.finish"
     )
 
+  def batch(
+      theme: PuzzleTheme.Key,
+      user: User,
+      solutions: List[PuzzleForm.mobile.Solution]
+  ): Fu[List[(PuzzleRound, IntRatingDiff)]] = {
+    solutions.foldM((user.perfs.puzzle, List.empty[(PuzzleRound, IntRatingDiff)])) {
+      case ((perf, rounds), sol) =>
+        apply(Puzzle.Id(sol.id), theme, user, Result(sol.win)) map {
+          case Some((round, newPerf)) => {
+            val rDiff = IntRatingDiff(newPerf.intRating - perf.intRating)
+            (newPerf, (round, rDiff) :: rounds)
+          }
+          case None => (perf, rounds)
+        }
+    } map { case (_, rounds) => rounds.reverse }
+  }
+
   def apply(
       id: Puzzle.Id,
       theme: PuzzleTheme.Key,
@@ -173,6 +190,9 @@ final private[puzzle] class PuzzleFinisher(
 
   def incPuzzlePlays(puzzleId: Puzzle.Id): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
+
+  def batchIncPuzzlePlays(puzzleIds: List[Puzzle.Id]): Funit =
+    puzzleIds.map(incPuzzlePlays).sequenceFu.void
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()

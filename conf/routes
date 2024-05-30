@@ -88,17 +88,11 @@ GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, p
 GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path: String)
 GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme: String)
 GET   /training/history                controllers.Puzzle.history(page: Int ?= 1)
-# GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
-# POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
-GET   /training/new                    controllers.Puzzle.mobileBcNew
 GET   /training/upload                 controllers.Puzzle.newPuzzlesForm
 POST  /training/upload                 controllers.Puzzle.addPuzzles
 GET   /training/submitted              controllers.Puzzle.submitted(name: Option[String] ?= None, page: Int ?= 1)
-GET   /training/$numericalId<\d{6,}>/load      controllers.Puzzle.mobileBcLoad(numericalId: Long)
-POST  /training/$numericalId<\d{6,}>/vote      controllers.Puzzle.mobileBcVote(numericalId: Long)
 GET   /training/:themeOrId             controllers.Puzzle.show(themeOrId: String)
 GET   /training/:theme/$id<\w{5}>      controllers.Puzzle.showWithTheme(theme: String, id: String)
-POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)

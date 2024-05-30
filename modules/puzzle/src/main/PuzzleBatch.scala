@@ -5,24 +5,24 @@ import scala.concurrent.ExecutionContext
 import lila.db.dsl._
 import lila.user.User
 
-// mobile app BC
+// mobile app
 final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(implicit
     ec: ExecutionContext
 ) {
 
   import BsonHandlers._
 
-  def nextFor(user: Option[User], nb: Int): Fu[Vector[Puzzle]] = (nb > 0) ?? {
+  def nextFor(user: Option[User], theme: PuzzleTheme, nb: Int): Fu[Vector[Puzzle]] = (nb > 0) ?? {
     user match {
       case None => anonApi.getBatchFor(nb)
       case Some(user) =>
         {
           val tier =
-            if (user.perfs.puzzle.nb > 5000) PuzzleTier.Good
+            if (user.perfs.puzzle.nb > 500) PuzzleTier.Good
             else PuzzleTier.Top
           pathApi.nextFor(
             user,
-            PuzzleTheme.mix.key,
+            theme.key,
             tier,
             PuzzleDifficulty.Normal,
             Set.empty

@@ -14,13 +14,19 @@ final class Learn(env: Env) extends LilaController(env) {
   def index =
     Open { implicit ctx =>
       pageHit
-      ctx.me
-        .?? { me =>
-          env.learn.api.get(me) map { Json.toJson(_) } map some
-        }
-        .map { progress =>
-          Ok(html.learn.index(progress, ctx.pref))
-        }
+      negotiate(
+        html = ctx.me
+          .?? { me =>
+            env.learn.api.get(me) map { Json.toJson(_) } map some
+          }
+          .map { progress =>
+            Ok(html.learn.index(progress, ctx.pref))
+          },
+        api = _ =>
+          ctx.me.fold(BadRequest("Not logged in").fuccess) { me =>
+            env.learn.api.get(me) map { Json.toJson(_) } dmap { JsonOk(_) }
+          }
+      )
     }
 
   private val scoreForm = Form(
@@ -28,7 +34,7 @@ final class Learn(env: Env) extends LilaController(env) {
       "stage" -> nonEmptyText,
       "level" -> number,
       "score" -> number
-    )(Tuple3.apply)(Tuple3.unapply)
+    )(lila.learn.ScoreEntry.apply)(lila.learn.ScoreEntry.unapply)
   )
 
   def score =
@@ -38,10 +44,30 @@ final class Learn(env: Env) extends LilaController(env) {
         .bindFromRequest()
         .fold(
           _ => BadRequest.fuccess,
-          { case (stage, level, s) =>
-            val score = lila.learn.StageProgress.Score(s)
-            env.learn.api.setScore(me, stage, level, score) inject Ok(Json.obj("ok" -> true))
-          }
+          scores => env.learn.api.setScore(me, scores) inject Ok(Json.obj("ok" -> true))
+        )
+    }
+
+  private val scoresForm = Form(
+    mapping(
+      "scores" -> list(
+        mapping(
+          "stage" -> nonEmptyText,
+          "level" -> number,
+          "score" -> number
+        )(lila.learn.ScoreEntry.apply)(lila.learn.ScoreEntry.unapply)
+      )
+    )(identity)(Some(_))
+  )
+
+  def scores =
+    AuthBody { implicit ctx => me =>
+      implicit val body = ctx.body
+      scoresForm
+        .bindFromRequest()
+        .fold(
+          _ => BadRequest.fuccess,
+          scores => env.learn.api.setScores(me, scores) inject Ok(Json.obj("ok" -> true))
         )
     }
 

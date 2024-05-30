@@ -23,11 +23,15 @@ final class Auth(
   private def forms = env.security.forms
 
   private def mobileUserOk(u: UserModel, sessionId: String): Fu[Result] =
-    env.round.proxyRepo urgentGames u map { povs =>
+    env.pref.api.getPref(u) map { prefs =>
+      import lila.pref.JsonView._
       Ok {
-        env.user.jsonView(u) ++ Json.obj(
-          "nowPlaying" -> JsArray(povs take 20 map env.api.lobbyApi.nowPlaying),
-          "sessionId"  -> sessionId
+        Json.obj(
+          "session" -> Json.obj(
+            "sessionId" -> sessionId,
+            "username"  -> u.username
+          ),
+          "prefs" -> prefs
         )
       }
     }

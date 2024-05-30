@@ -16,9 +16,17 @@ final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
   private def save(p: LearnProgress): Funit =
     coll.update.one($id(p.id), p, upsert = true).void.recover(lila.db.ignoreDuplicateKey)
 
-  def setScore(user: User, stage: String, level: Int, score: StageProgress.Score) =
+  def setScore(user: User, score: ScoreEntry) =
     get(user) flatMap { prog =>
-      save(prog.withScore(stage, level, score))
+      save(prog.withScore(score))
+    }
+
+  def setScores(user: User, scores: List[ScoreEntry]) =
+    get(user) flatMap { prog =>
+      val updatedProg = scores.foldLeft(prog) { (acc, score) =>
+        acc.withScore(score)
+      }
+      save(updatedProg)
     }
 
   def reset(user: User) =

@@ -13,4 +13,7 @@ package puzzle {
     def loss   = !win
     def glicko = if (win) Glicko.Result.Win else Glicko.Result.Loss
   }
+
+  case class IntRatingDiff(value: Int) extends AnyVal
+
 }

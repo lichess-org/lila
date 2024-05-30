@@ -11,10 +11,12 @@ case class LearnProgress(
 
   def id = _id
 
-  def withScore(stage: String, level: Int, s: StageProgress.Score) =
+  def withScore(score: ScoreEntry) =
     copy(
       stages = stages + (
-        stage -> stages.getOrElse(stage, StageProgress.empty).withScore(level, s)
+        score.stage -> stages
+          .getOrElse(score.stage, StageProgress.empty)
+          .withScore(score.level, StageProgress.Score(score.score))
       ),
       updatedAt = DateTime.now
     )

@@ -38,19 +38,9 @@ object PuzzleForm {
     )(Tuple2.apply)(Tuple2.unapply)
   )
 
-  object bc {
+  object mobile {
 
-    val round = Form(
-      mapping(
-        "win" -> text
-      )(w => RoundData(w == "1" || w == "true", none))(_ => none)
-    )
-
-    val vote = Form(
-      single("vote" -> numberIn(Set(0, 1)))
-    )
-
-    case class Solution(id: Long, win: Boolean)
+    case class Solution(id: String, win: Boolean)
     case class SolveData(solutions: List[Solution])
 
     implicit val SolutionReads  = Json.reads[Solution]
