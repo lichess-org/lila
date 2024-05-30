@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">معماها</string>
-  <string name="puzzleThemes">موضوعات معما</string>
-  <string name="recommended">توصیه</string>
+  <string name="puzzleThemes">معماهای دسته‌بندی شده</string>
+  <string name="recommended">توصیه شده</string>
   <string name="phases">مرحله‌ها</string>
-  <string name="motifs">موضوع</string>
+  <string name="motifs">موضوعات</string>
   <string name="advanced">پیشرفته</string>
   <string name="lengths">تعداد حرکات</string>
   <string name="mates">مات‌ها</string>
@@ -58,7 +58,7 @@
     <item quantity="other">%s امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
   </plurals>
   <string name="example">مثال</string>
-  <string name="addAnotherTheme">افزودن موضوع دیگری</string>
+  <string name="addAnotherTheme">افزودن موضوعی دیگر</string>
   <string name="nextPuzzle">معمای بعدی</string>
   <string name="jumpToNextPuzzleImmediately">فوراً به معمای بعدی بروید</string>
   <string name="puzzleDashboard">پیشخوان معماها</string>
@@ -80,13 +80,13 @@
 
 بازی‌های سریع و مرسوم را انجام دهید تا بَختِتان را برای اضافه کردن یک معما از خودتان افزایش دهید!</string>
   <string name="fromXGamesFound">%1$s معما در بازی‌های %2$s پیدا شد</string>
-  <string name="puzzleDashboardDescription">آموزش، تحلیل، پیشرفت</string>
+  <string name="puzzleDashboardDescription">تمرین کن، تحلیل کن، پیشرفت کن</string>
   <plurals name="nbPlayed">
-    <item quantity="one">%s نفر بازی کردند</item>
+    <item quantity="one">%s بررسی شده</item>
     <item quantity="other">%s نفر بازی کردند</item>
   </plurals>
   <plurals name="nbToReplay">
-    <item quantity="one">%s مورد برای بازبینی</item>
+    <item quantity="one">%s برای بازبینی</item>
     <item quantity="other">%s مورد برای بازبینی</item>
   </plurals>
   <string name="percentSolved">%s حل شده</string>
