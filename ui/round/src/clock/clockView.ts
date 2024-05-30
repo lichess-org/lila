@@ -72,9 +72,6 @@ function pad2(num: number): string {
   return (num < 10 ? '0' : '') + num;
 }
 
-const sepHigh = '<sep>:</sep>';
-const sepLow = '<sep class="low">:</sep>';
-
 function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk: boolean = false) {
   const perStr = periods > 1 ? `(${periods}x)` : '';
   return h(
@@ -83,6 +80,9 @@ function renderByoyomiTime(byoyomi: Seconds, periods: number, berserk: boolean =
     !berserk && byoyomi && periods ? [h('span', '|'), `${byoyomi}s${perStr}`] : ''
   );
 }
+
+const sepHigh = '<sep>:</sep>';
+const sepLow = '<sep class="low">:</sep>';
 
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
   const date = new Date(time);

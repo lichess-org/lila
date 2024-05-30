@@ -73,8 +73,6 @@ export class ClockController {
   showTenths: (millis: Millis, color: Color) => boolean;
   times: Times;
 
-  barTime: number;
-  timeRatioDivisor: number;
   emergMs: Millis;
   byoEmergeS: Seconds;
 
@@ -115,9 +113,6 @@ export class ClockController {
     this.goneBerserk[d.player.color] = !!d.player.berserk;
     this.goneBerserk[d.opponent.color] = !!d.opponent.berserk;
 
-    this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
-    this.timeRatioDivisor = 1 / this.barTime;
-
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * 0.125));
     this.byoEmergeS = cdata.clockCountdown ?? 3;
 
@@ -125,8 +120,6 @@ export class ClockController {
   }
 
   isUsingByo = (color: Color): boolean => this.byoyomi > 0 && (this.curPeriods[color] > 0 || this.initial === 0);
-
-  timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
   setClock = (d: RoundData, sente: Seconds, gote: Seconds, sPer: number, gPer: number, delay: Centis = 0) => {
     const isClockRunning = game.playable(d) && (game.playedPlies(d) > 1 || d.clock!.running),
@@ -189,11 +182,12 @@ export class ClockController {
     const color = this.times.activeColor;
     if (color === undefined) return;
 
-    const now = performance.now();
-    const millis = Math.max(0, this.times[color] - this.elapsed(now));
+    const now = performance.now(),
+      millis = Math.max(0, this.times[color] - this.elapsed(now)),
+      curPeriod = this.curPeriods[color];
 
     this.scheduleTick(millis, color, 0);
-    if (millis === 0 && !this.goneBerserk[color] && this.byoyomi > 0 && this.curPeriods[color] < this.totalPeriods) {
+    if (millis === 0 && !this.goneBerserk[color] && this.byoyomi > 0 && curPeriod < this.totalPeriods) {
       this.nextPeriod(color);
       this.opts.redraw();
     } else if (millis === 0) this.opts.onFlag();
@@ -201,7 +195,7 @@ export class ClockController {
 
     if (this.opts.soundColor === color) {
       if (this.emergSound.playable[color]) {
-        if (millis < this.emergMs && !(now < this.emergSound.next!) && this.curPeriods[color] === 0) {
+        if (millis < this.emergMs && !(now < this.emergSound.next!) && curPeriod === 0) {
           this.emergSound.lowtime();
           this.emergSound.next = now + this.emergSound.delay;
           this.emergSound.playable[color] = false;
