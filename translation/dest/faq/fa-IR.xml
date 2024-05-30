@@ -28,6 +28,7 @@
   <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
   <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
+  <string name="youCanUseOpeningBookNoEngine">در لیچس، تفاوت اصلی در قوانین شطرنج مکاتبه‌ای این است که کتاب‌های شروع بازی مجاز است. استفاده از انجین همچنان ممنوع است و منجر به علامت گذاری برای کمک گرفتن از انجین خواهد شد. اگر چه ICCF اجازه استفاده از انجین را در بازی‌های مکاتبه‌ای می‌دهد، لیچس این کار را نمی‌کند.</string>
   <string name="gameplay">روند بازی</string>
   <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
   <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
@@ -65,7 +66,8 @@
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
   <string name="usernamesCannotBeChanged">خیر، نام کاربری به دلایل فنی و عملی قابل تغییر نیست. نام‌های کاربری در جاهای مختلف ثبت شده اند: پایگاه‌های داده، گزارش‌ها و در نظر مردم. می توانید یک بار حروف بزرگ را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
-  <string name="aHourlyBulletTournament">مسابقه گلوله‌ای یک‌ساعته</string>
+  <string name="wayOfBerserkExplanation">برای به دست آوردنش، hiimgosu خود را به چالش کشید تا تمام بازی های %s با استفاده از جنون برنده شود.</string>
+  <string name="aHourlyBulletTournament">یک مسابقه گلوله‌ای ساعتی</string>
   <string name="lichessRatings">درجه‌بندی در Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess از چه شیوه درجه‌بندی‌ای استفاده می‌کند؟</string>
   <string name="ratingSystemUsedByLichess">درجه‌بندی‌ها با استفاده از شیوه درجه‌بندی Glicko-2 که به‌دست مارک گلیکمن ایجاد شده است، محاسبه می‌شوند. این شیوه درجه‌بندی بسیار محبوب است و تعداد قابل توجهی از نهادهای شطرنج از آن استفاده می‌کنند (FIDE یک مثال نقض قابل‌توجه است، زیرا آنها هنوز از شیوه درجه‌بندی ازمُدافتاده Elo استفاده می‌کنند).
