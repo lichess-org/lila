@@ -54,8 +54,7 @@ object mine {
                           cls        := "copyable autoselect",
                           spellcheck := "false",
                           readonly,
-                          value := challengeLink,
-                          size  := challengeLink.size
+                          value := challengeLink
                         ),
                         button(
                           title    := "Copy URL",

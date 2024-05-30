@@ -2,7 +2,12 @@ $c-challenge: $c-secondary;
 
 .challenge-page {
   .challenge-id-form {
-    white-space: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+    & > input {
+      width: 32ch;
+      max-width: 80%;
+    }
   }
   .invite {
     display: flex;
