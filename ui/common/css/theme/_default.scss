@@ -15,7 +15,7 @@ $site-hue: 37;
 /* top level $c-variables must be valid css format (rgba, hsla, hex) and are mixable by ui/build
 */
 
-$c-bg: hsl(37, 7%, 14%); // alias for $c-bg-high
+$c-bg: hsl(37, 7%, 14%); // $c-bg-high
 $c-bg-page: hsl(37, 10%, 8%);
 $c-bg-low: hsl(37, 7%, 22%);
 $c-bg-zebra: hsl(37, 5%, 18%);
