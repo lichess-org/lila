@@ -13,7 +13,7 @@
   <string name="strength">قدرت</string>
   <string name="toggleTheChat">گپ روشن/خاموش</string>
   <string name="chat">گپ</string>
-  <string name="resign">تسلیم شوید</string>
+  <string name="resign">تسلیم شدن</string>
   <string name="checkmate">کیش و مات</string>
   <string name="stalemate">پات</string>
   <string name="white">سفید</string>
@@ -42,7 +42,7 @@
     <item quantity="other">رقیب شما بازی را ترک کرده است. شما میتوانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
   </plurals>
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
-  <string name="forceResignation">ادعای برد</string>
+  <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این وب‌نشانی آید با شما بازی خواهد کرد.</string>
@@ -469,7 +469,7 @@
   <string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
   <string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
   <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
-  <string name="join">وارد شدن</string>
+  <string name="join">ملحق شدن</string>
   <string name="withdraw">منصرف شدن</string>
   <string name="points">امتیازها</string>
   <string name="wins">بردها</string>
@@ -781,7 +781,7 @@
   <string name="xJoinsY">%1$s وارد می شود %2$s</string>
   <string name="xLikesY">%1$s می پسندد %2$s</string>
   <string name="quickPairing">رویارویی سریع</string>
-  <string name="lobby">سرسرا</string>
+  <string name="lobby">بازی های ایجادشده</string>
   <string name="anonymous">ناشناس</string>
   <string name="yourScore">امتیاز شما:%s</string>
   <string name="language">زبان</string>
