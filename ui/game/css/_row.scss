@@ -24,6 +24,9 @@
     &:has(.v-chushogi) {
       display: flex;
       align-items: center;
+      @include breakpoint($mq-not-small) {
+        display: none;
+      }
     }
   }
   &__infos {
