@@ -20,14 +20,14 @@ object Dependencies {
   val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
   val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.22"
   val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.20.0"
+  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "1.23.0"
   val galimatias  = "io.mola.galimatias"    % "galimatias"                      % "0.2.1"
-  val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.3.1.RELEASE"
-  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.106.Final" classifier "linux-x86_64"
+  val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.13.1"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.3.2.RELEASE"
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.110.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
-  val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.2.17" % Test
-  val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.16.0"
+  val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.2.18" % Test
+  val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.17.0"
 
   object flexmark {
     val version = "0.50.50"
@@ -54,9 +54,9 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.9.1"
+    val version = "2.9.3"
     val api     = "com.typesafe.play" %% "play"      % version
-    val json    = "com.typesafe.play" %% "play-json" % "2.10.4"
+    val json    = "com.typesafe.play" %% "play-json" % "2.10.5"
   }
   object kamon {
     val version    = "2.2.3"
