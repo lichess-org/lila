@@ -22,8 +22,9 @@ private case class Contact(
   def isLichess              = id.is(UserId.lichess)
 
 private case class Contacts(orig: Contact, dest: Contact):
-  def hasKid  = orig.isKid || dest.isKid
-  def userIds = List(orig.id, dest.id)
+  def hasKid                     = orig.isKid || dest.isKid
+  def userIds                    = List(orig.id, dest.id)
+  def any(f: Contact => Boolean) = f(orig) || f(dest)
 
 private final class ContactApi(userColl: Coll)(using Executor):
 

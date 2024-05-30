@@ -103,24 +103,38 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.boost))("Booster")
           )
         },
-        Granter.opt(_.Shadowban).option {
-          postForm(
-            action := routes.Mod.troll(u.username, !u.marks.troll),
-            title  := "Enable/disable communication features for this user.",
-            cls    := "xhr"
-          )(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll))("Shadowban")
-          )
-        },
-        (u.marks.troll && Granter.opt(_.Shadowban)).option {
-          postForm(
-            action := routes.Mod.deletePmsAndChats(u.username),
-            title  := "Delete all PMs and public chat messages",
-            cls    := "xhr"
-          )(
-            submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
-          )
-        },
+        Granter
+          .opt(_.Shadowban)
+          .option:
+            frag(
+              postForm(
+                action := routes.Mod.troll(u.username, !u.marks.troll),
+                title  := "Enable/disable communication features for this user.",
+                cls    := "xhr"
+              )(
+                submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll))("Shadowban")
+              ),
+              u.marks.troll.option:
+                frag(
+                  postForm(
+                    action := routes.Mod.deletePmsAndChats(u.username),
+                    title  := "Delete all PMs and public chat messages",
+                    cls    := "xhr"
+                  )(
+                    submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
+                  ),
+                  postForm(
+                    action := routes.Mod.isolate(u.username, !u.marks.isolate),
+                    title  := "Isolate user by preventing all PMs, follows and challenges",
+                    cls    := "xhr"
+                  )(
+                    submitButton(cls := List("btn-rack__btn confirm" -> true, "active" -> u.marks.isolate))(
+                      "Isolate"
+                    )
+                  )
+                )
+            )
+        ,
         Granter.opt(_.SetKidMode).option {
           postForm(
             action := routes.Mod.kid(u.username),

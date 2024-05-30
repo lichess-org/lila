@@ -100,11 +100,15 @@ final class PrefApi(
   def mentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
     unmentionableIds(userIds).map(userIds.diff)
 
-  def setPref(pref: Pref): Funit =
-    coll.update.one($id(pref.id), pref, upsert = true).void.andDo(cache.put(pref.id, fuccess(pref.some)))
+  def setPref(user: User, pre: Pref): Funit =
+    val pref = pre.isolate(user.marks.isolate)
+    for _ <- coll.update.one($id(pref.id), pref, upsert = true)
+    yield cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =
-    get(user).map(change).flatMap(setPref)
+    get(user).map(change).flatMap(setPref(user, _))
+
+  def isolate(user: User) = setPref(user, identity[Pref])
 
   def agree(user: User): Funit =
     coll.update
@@ -123,4 +127,4 @@ final class PrefApi(
 
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
     val reqPref = RequestPref.fromRequest(req)
-    (reqPref != Pref.default).so(setPref(reqPref.copy(id = user.id)))
+    (reqPref != Pref.default).so(setPref(user, reqPref.copy(id = user.id)))

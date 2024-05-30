@@ -245,6 +245,7 @@ object user:
     case boost
     case engine
     case troll
+    case isolate
     case reportban
     case rankban
     case arenaban
@@ -265,6 +266,7 @@ object user:
       def boost: Boolean                   = hasMark(UserMark.boost)
       def engine: Boolean                  = hasMark(UserMark.engine)
       def troll: Boolean                   = hasMark(UserMark.troll)
+      def isolate: Boolean                 = hasMark(UserMark.isolate)
       def reportban: Boolean               = hasMark(UserMark.reportban)
       def rankban: Boolean                 = hasMark(UserMark.rankban)
       def prizeban: Boolean                = hasMark(UserMark.prizeban)

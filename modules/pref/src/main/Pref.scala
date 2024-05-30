@@ -112,6 +112,15 @@ case class Pref(
       highlight &&
       coords == Coords.OUTSIDE
 
+  def isolate(value: Boolean) =
+    if !value then this
+    else
+      copy(
+        follow = false,
+        message = lila.core.pref.Message.FRIEND,
+        studyInvite = lila.core.pref.StudyInvite.NEVER
+      )
+
   def simpleBoard =
     board.hue == 0 && board.brightness == 100 && (board.opacity == 100 || bg != Bg.TRANSPARENT)
 

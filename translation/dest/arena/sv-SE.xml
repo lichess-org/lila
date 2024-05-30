@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena-turneringar</string>
   <string name="isItRated">Är det rankat?</string>
   <string name="willBeNotified">Du får ett meddelande när turneringen startar, så du kan utan problem spela i en annan flik medan du väntar.</string>
@@ -53,4 +54,5 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="averagePerformance">Genomsnittlig prestanda</string>
   <string name="averageScore">Medelpoäng</string>
   <string name="myTournaments">Mina turneringar</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Försvarare</string>
 </resources>

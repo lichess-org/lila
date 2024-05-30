@@ -30,6 +30,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     notifyApi: lila.core.notify.NotifyApi,
     historyApi: lila.core.history.HistoryApi,
+    prefApi: lila.core.pref.PrefApi,
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
