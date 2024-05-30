@@ -31,6 +31,9 @@
   <string name="youCanUseOpeningBookNoEngine">در لیچس، تفاوت اصلی در قوانین شطرنج مکاتبه‌ای این است که کتاب‌های شروع بازی مجاز است. استفاده از انجین همچنان ممنوع است و منجر به علامت گذاری برای کمک گرفتن از انجین خواهد شد. اگر چه ICCF اجازه استفاده از انجین را در بازی‌های مکاتبه‌ای می‌دهد، لیچس این کار را نمی‌کند.</string>
   <string name="gameplay">روند بازی</string>
   <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
+  <string name="basedOnGameDuration">کنترل زمانی لیچس بر اساس مدت زمان تخمینی بازی است = %1$s
+برای مثال، مدت زمان تخمینی یک بازی 3+5:
+ثانیه 420 = 40 × 3 + 60 × 5</string>
   <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
