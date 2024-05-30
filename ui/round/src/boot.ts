@@ -92,6 +92,8 @@ export default function (opts: RoundOpts): void {
       return true;
     });
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0) history.replaceState(null, '', '/' + data.game.id);
+  if (location.pathname.length === 9 && data.player.id)
+    history.replaceState(null, '', '/' + data.game.id + data.player.id);
   $('#zentog').click(() => li.pubsub.emit('zen'));
   li.storage.make('reload-round-tabs').listen(li.reload);
 }
