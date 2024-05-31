@@ -117,7 +117,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
         {
           hook: bindSubmit(e => {
             const obj: FormData = {};
-            'name visibility computer explorer cloneable chat sticky description'.split(' ').forEach(n => {
+            'name visibility computer cloneable chat sticky description'.split(' ').forEach(n => {
               const el = (e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement;
               if (el) obj[n] = el.value;
             });
@@ -170,15 +170,6 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 name: ctrl.trans.noarg('computerAnalysis'),
                 choices: userSelectionChoices.map(c => [c[0], c[1]]),
                 selected: data.settings.computer,
-              })
-            ),
-            h(
-              'div.form-group.form-half.none',
-              select({
-                key: 'explorer',
-                name: ctrl.trans.noarg('openingExplorer'),
-                choices: userSelectionChoices,
-                selected: data.settings.explorer,
               })
             ),
           ]),

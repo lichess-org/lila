@@ -63,7 +63,7 @@ object embed {
                 Json.obj(
                   "data"  -> data,
                   "embed" -> true,
-                  "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
+                  "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false)
                 )
               )})""",
             config.nonce

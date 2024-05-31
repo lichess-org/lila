@@ -109,13 +109,6 @@ export function bind(ctrl: AnalyseCtrl): void {
     })
   );
   kbd.bind('x', preventing(ctrl.toggleThreatMode));
-  // kbd.bind(
-  //   'e',
-  //   preventing(() => {
-  //     ctrl.toggleExplorer();
-  //     ctrl.redraw();
-  //   })
-  // );
   if (ctrl.study) {
     const keyToMousedown = (key: string, selector: string) => {
       kbd.bind(

@@ -17,7 +17,6 @@ import { view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import explorerView from './explorer/explorerView';
 import forecastView from './forecast/forecastView';
 import { view as forkView } from './fork';
 import * as gridHacks from './gridHacks';
@@ -241,7 +240,6 @@ function controls(ctrl: AnalyseCtrl) {
             if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
-            else if (action === 'explorer') ctrl.toggleExplorer();
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
           },
@@ -266,18 +264,6 @@ function controls(ctrl: AnalyseCtrl) {
                   }),
                 ]
               : [
-                  //h("button.fbt", {
-                  //  attrs: {
-                  //    title: noarg("openingExplorerAndTablebase"),
-                  //    "data-act": "explorer",
-                  //    "data-icon": "]",
-                  //  },
-                  //  class: {
-                  //    hidden:
-                  //      menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-                  //    active: ctrl.explorer.enabled(),
-                  //  },
-                  //}),
                   !ctrl.synthetic ? studyAdvancedButton(ctrl, menuIsOpen) : null,
                   h('button.fbt', {
                     attrs: {
@@ -407,7 +393,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                 showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                 renderAnalyse(ctrl, concealOf),
                 gamebookEditView || forkView(ctrl, concealOf),
-                retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
+                retroView(ctrl) || practiceView(ctrl),
               ]),
         ]),
       gamebookPlayView ? null : controls(ctrl),

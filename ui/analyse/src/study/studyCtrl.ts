@@ -179,8 +179,6 @@ export default function (
     const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
-    if (!data.chapter.features.explorer) ctrl.explorer.disable();
-    ctrl.explorer.allowed(data.chapter.features.explorer);
   }
   configureAnalysis();
 
@@ -662,9 +660,6 @@ export default function (
       if (!o) xhrReload();
     },
     mutateSgConfig,
-    explorerGame(gameId: string, insert: boolean) {
-      makeChange('explorerGame', withPosition({ gameId, insert }));
-    },
     onPremoveSet() {
       if (gamebookPlay) gamebookPlay.onPremoveSet();
     },

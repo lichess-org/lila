@@ -510,7 +510,6 @@ GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: 
 # Paste
 GET   /paste                           controllers.Importer.importGame
 POST  /import                          controllers.Importer.sendGame
-GET   /import/master/$id<\w{8}>/:color controllers.Importer.masterGame(id: String, color: String)
 
 # Edit
 GET   /editor.json                     controllers.Editor.data

@@ -50,7 +50,7 @@ final class Puzzle(
         OptionFuResult(env.puzzle.daily.get) { daily =>
           negotiate(
             html = renderShow(daily.puzzle, PuzzleTheme.mix),
-            api  = _ => renderJson(daily.puzzle, PuzzleTheme.mix) dmap { Ok(_) }
+            api = _ => renderJson(daily.puzzle, PuzzleTheme.mix) dmap { Ok(_) }
           ) dmap (_.noCache)
         }
       }

@@ -25,11 +25,7 @@ object show {
               "practice" -> data.practice,
               "study"    -> data.study,
               "data"     -> data.analysis,
-              "i18n"     -> board.userAnalysisI18n(),
-              "explorer" -> Json.obj(
-                "endpoint"          -> explorerEndpoint,
-                "tablebaseEndpoint" -> tablebaseEndpoint
-              )
+              "i18n"     -> board.userAnalysisI18n()
             )
           )}""")
       ),

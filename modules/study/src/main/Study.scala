@@ -155,7 +155,6 @@ object Study {
       name: String,
       visibility: String,
       computer: String,
-      explorer: String,
       cloneable: String,
       chat: String,
       sticky: String,
@@ -166,12 +165,11 @@ object Study {
     def settings =
       for {
         comp <- UserSelection.byKey get computer
-        expl <- UserSelection.byKey get explorer
         clon <- UserSelection.byKey get cloneable
         chat <- UserSelection.byKey get chat
         stic = sticky == "true"
         desc = description == "true"
-      } yield Settings(comp, expl, clon, chat, stic, desc)
+      } yield Settings(comp, clon, chat, stic, desc)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)

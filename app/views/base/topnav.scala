@@ -94,7 +94,6 @@ object topnav {
           linkTitle(analysisUrl, trans.tools()),
           div(role := "group")(
             a(href := analysisUrl)(trans.analysis()),
-            // a(href := s"${routes.UserAnalysis.index}#explorer")(trans.openingExplorer()),
             a(href := langHref(routes.Editor.index))(trans.boardEditor()),
             a(href := langHref(routes.Importer.importGame))(trans.importGame()),
             a(href := routes.Search.index())(trans.search.advancedSearch())

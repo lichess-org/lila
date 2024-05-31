@@ -43,9 +43,6 @@ object Environment
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
-  lazy val explorerEndpoint  = env.explorerEndpoint
-  lazy val tablebaseEndpoint = env.tablebaseEndpoint
-
   lazy val insightsEndpoint = env.insightsEndpoint
   lazy val insightsSecret   = env.insightsSecret
 

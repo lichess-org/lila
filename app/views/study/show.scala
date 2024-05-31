@@ -43,10 +43,6 @@ object show {
                   localMod = ctx.userId exists sc.study.canContribute
                 )
               },
-              "explorer" -> Json.obj(
-                "endpoint"          -> explorerEndpoint,
-                "tablebaseEndpoint" -> tablebaseEndpoint
-              ),
               "socketUrl"     -> socketUrl(sc.study.id.value),
               "socketVersion" -> socketVersion.value
             )

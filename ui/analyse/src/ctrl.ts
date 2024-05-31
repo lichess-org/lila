@@ -30,8 +30,6 @@ import { Ctrl as ActionMenuCtrl } from './actionMenu';
 import { compute as computeAutoShapes } from './autoShape';
 import { Autoplay, AutoplayDelay } from './autoplay';
 import { EvalCache, make as makeEvalCache } from './evalCache';
-import explorerCtrl from './explorer/explorerCtrl';
-import { ExplorerCtrl } from './explorer/interfaces';
 import { make as makeForecast } from './forecast/forecastCtrl';
 import { ForecastCtrl } from './forecast/interfaces';
 import { ForkCtrl, make as makeFork } from './fork';
@@ -73,7 +71,6 @@ export default class AnalyseCtrl {
   // sub controllers
   actionMenu: ActionMenuCtrl;
   autoplay: Autoplay;
-  explorer: ExplorerCtrl;
   forecast?: ForecastCtrl;
   retro?: RetroCtrl;
   fork: ForkCtrl;
@@ -161,7 +158,6 @@ export default class AnalyseCtrl {
     this.shogiground = Shogiground();
     this.onToggleComputer();
     this.startCeval();
-    this.explorer.setNode();
     this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : undefined;
     this.setOrientation();
     this.studyPractice = this.study ? this.study.practice : undefined;
@@ -213,7 +209,6 @@ export default class AnalyseCtrl {
     this.actionMenu = new ActionMenuCtrl();
     this.autoplay = new Autoplay(this);
     if (!this.socket) this.socket = makeSocket(this.opts.socketSend, this);
-    this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath =
       this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
@@ -393,7 +388,6 @@ export default class AnalyseCtrl {
       speech.node(this.node);
     }
     this.justPlayedUsi = undefined;
-    this.explorer.setNode();
     this.updateHref();
     this.autoScroll();
     if (pathChanged) {
@@ -889,11 +883,6 @@ export default class AnalyseCtrl {
     if (firstUsi) this.playUsi(firstUsi, this.pvUsiQueue);
   }
 
-  explorerMove(usi: Usi) {
-    this.playUsi(usi);
-    this.explorer.loading(true);
-  }
-
   playBestMove() {
     const usi = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
     if (usi) this.playUsi(usi);
@@ -934,21 +923,14 @@ export default class AnalyseCtrl {
     else {
       this.retro = makeRetro(this, this.bottomColor());
       if (this.practice) this.togglePractice();
-      if (this.explorer.enabled()) this.toggleExplorer();
     }
     this.setAutoShapes();
-  };
-
-  toggleExplorer = (): void => {
-    if (this.practice) this.togglePractice();
-    if (this.explorer.enabled() || this.explorer.allowed()) this.explorer.toggle();
   };
 
   togglePractice = () => {
     if (this.practice || !this.ceval.possible) this.practice = undefined;
     else {
       if (this.retro) this.toggleRetro();
-      if (this.explorer.enabled()) this.toggleExplorer();
       this.practice = makePractice(this, () => {
         // push to 20 to store AI moves in the cloud
         // lower to 18 after task completion (or failure)
@@ -974,7 +956,7 @@ export default class AnalyseCtrl {
   // so instead of sending both
   // let's just count the offset
   plyOffset = (): number => {
-    return this.data.game.startedAtPly - (this.data.game.startedAtMove - 1);
+    return this.data.game.startedAtPly - (this.data.game.startedAtStep - 1);
   };
 
   // Ideally we would just use node.clock

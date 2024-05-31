@@ -9,7 +9,6 @@ object userAnalysisI18n {
 
   def apply(
       withCeval: Boolean = true,
-      withExplorer: Boolean = true,
       withForecast: Boolean = false,
       withAdvantageChart: Boolean = false,
       withNvui: Boolean = false
@@ -17,8 +16,6 @@ object userAnalysisI18n {
     i18nJsObject(
       baseTranslations ++ {
         withCeval ?? cevalTranslations
-      } ++ {
-        withExplorer ?? Vector.empty // explorerTranslations
       } ++ {
         withForecast ?? forecastTranslations
       } ++ {
@@ -142,34 +139,6 @@ object userAnalysisI18n {
     trans.cpus,
     trans.memory
   ).map(_.key)
-
-  // private val explorerTranslations: Vector[MessageKey] = Vector(
-  // also uses gameOver, checkmate, stalemate, draw, variantEnding
-  // trans.openingExplorerAndTablebase,
-  // trans.openingExplorer,
-  // trans.xOpeningExplorer,
-  // trans.move,
-  // trans.games,
-  // trans.variantLoss,
-  // trans.variantWin,
-  // trans.insufficientMaterial,
-  // trans.capture,
-  // trans.pawnMove,
-  // trans.close,
-  // trans.winning,
-  // trans.unknown,
-  // trans.losing,
-  // trans.drawn,
-  // trans.timeControl,
-  // trans.averageElo,
-  // trans.database,
-  // trans.recentGames,
-  // trans.topGames,
-  // trans.averageRatingX,
-  // trans.noGameFound,
-  // trans.maybeIncludeMoreGamesFromThePreferencesMenu,
-  // trans.allSet
-  // ).map(_.key)
 
   private val forecastTranslations: Vector[MessageKey] = Vector(
     trans.conditionalPremoves,

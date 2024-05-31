@@ -1,7 +1,6 @@
 import { Eval, winningChances } from 'ceval';
 import { Prop, prop } from 'common/common';
 import { path as treePath } from 'tree';
-//import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { detectFourfold } from '../nodeFinder';
@@ -46,8 +45,7 @@ export interface PracticeCtrl {
 }
 
 export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
-  const //variant = root.data.game.variant.key,
-    running = prop(true),
+  const running = prop(true),
     comment = prop<Comment | null>(null),
     hovering = prop<any>(null),
     hinting = prop<Hinting | null>(null),
@@ -131,7 +129,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       return root.redraw();
     }
-    //if (tablebaseGuaranteed(variant, node.sfen) && !defined(node.tbhit)) return;
     ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
@@ -163,28 +160,12 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     }
   }
 
-  function checkCevalOrTablebase() {
-    //if (tablebaseGuaranteed(variant, root.node.sfen))
-    //  root.explorer.fetchTablebaseHit(root.node.sfen).then(
-    //    hit => {
-    //      if (hit && root.node.sfen === hit.sfen) root.node.tbhit = hit;
-    //      checkCeval();
-    //    },
-    //    () => {
-    //      if (!defined(root.node.tbhit)) root.node.tbhit = null;
-    //      checkCeval();
-    //    }
-    //  );
-    //else
+  function resume() {
+    running(true);
     checkCeval();
   }
 
-  function resume() {
-    running(true);
-    checkCevalOrTablebase();
-  }
-
-  window.lishogi.requestIdleCallback(checkCevalOrTablebase);
+  window.lishogi.requestIdleCallback(checkCeval);
 
   return {
     onCeval: checkCeval,
@@ -192,7 +173,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       played(false);
       hinting(null);
       detectFourfold(root.nodeList, root.node);
-      checkCevalOrTablebase();
+      checkCeval();
     },
     isMyTurn,
     comment,

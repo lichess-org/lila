@@ -166,12 +166,6 @@ object mon {
       val mins  = histogram("playban.ban.mins").withoutTags()
     }
   }
-  object explorer {
-    object index {
-      def count(success: Boolean) = counter("explorer.index.count").withTag("success", successTag(success))
-      val time                    = timer("explorer.index.time").withoutTags()
-    }
-  }
   object timeline {
     val notification = counter("timeline.notification").withoutTags()
   }

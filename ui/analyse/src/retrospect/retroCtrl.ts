@@ -3,7 +3,6 @@ import { isEmpty, prop } from 'common/common';
 import { opposite } from 'shogiground/util';
 import { path as treePath } from 'tree';
 import AnalyseCtrl from '../ctrl';
-import { OpeningData } from '../explorer/interfaces';
 import { evalSwings } from '../nodeFinder';
 
 export interface RetroCtrl {
@@ -63,27 +62,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       },
       openingUsis: [],
     });
-    // fetch opening explorer moves
-    if (
-      game.variant.key === 'standard' &&
-      game.division &&
-      (!game.division.middle || fault.node.ply < game.division.middle)
-    ) {
-      root.explorer.fetchMasterOpening(prev.node.sfen).then((res: OpeningData) => {
-        const cur = current();
-        const usis: Usi[] = [];
-        res!.moves.forEach(m => {
-          if (m.sente + m.draws + m.gote > 1) usis.push(m.usi);
-        });
-        if (usis.includes(fault.node.usi!)) {
-          explorerCancelPlies.push(fault.node.ply);
-          setTimeout(jumpToNext, 100);
-        } else {
-          cur.openingUsis = usis;
-          current(cur);
-        }
-      });
-    }
     root.userJump(prev.path);
     redraw();
   }

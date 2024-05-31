@@ -4,7 +4,6 @@ import lila.user.User
 
 case class Settings(
     computer: Settings.UserSelection,
-    explorer: Settings.UserSelection,
     cloneable: Settings.UserSelection,
     chat: Settings.UserSelection,
     sticky: Boolean,
@@ -15,7 +14,6 @@ object Settings {
 
   val init = Settings(
     computer = UserSelection.Everyone,
-    explorer = UserSelection.Everyone,
     cloneable = UserSelection.Everyone,
     chat = UserSelection.Member,
     sticky = true,

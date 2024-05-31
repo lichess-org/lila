@@ -66,7 +66,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
     return [];
   }
   const instance = ctrl.getCeval();
-  const hovering = ctrl.explorer.hovering() || instance.hovering();
+  const hovering = instance.hovering();
   const { eval: nEval = {}, sfen: nSfen, ceval: nCeval, threat: nThreat } = ctrl.node;
 
   let shapes: DrawShape[] = [];

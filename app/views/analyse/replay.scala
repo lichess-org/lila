@@ -119,10 +119,6 @@ object replay {
               "i18n"   -> jsI18n(),
               "userId" -> ctx.userId,
               "chat"   -> chatJson,
-              "explorer" -> Json.obj(
-                "endpoint"          -> explorerEndpoint,
-                "tablebaseEndpoint" -> tablebaseEndpoint
-              ),
               "hunter" -> isGranted(_.Hunter)
             )
           )}""")

@@ -50,8 +50,7 @@ final class JsonView(
               "tags"        -> currentChapter.tags,
               "initialSfen" -> currentChapter.root.sfen,
               "features" -> Json.obj(
-                "computer" -> allowed(study.settings.computer),
-                "explorer" -> allowed(study.settings.explorer)
+                "computer" -> allowed(study.settings.computer)
               )
             )
             .add("description", currentChapter.description)

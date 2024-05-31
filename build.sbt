@@ -44,7 +44,7 @@ lazy val modules = Seq(
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push, appeal,
   playban, perfStat, quote, challenge,
-  study, studySearch, fishnet, explorer, learn, plan,
+  study, studySearch, fishnet, learn, plan,
   event, coach, practice, evalCache,
   activity, streamer, bot, clas, storm
 )
@@ -272,7 +272,7 @@ lazy val challenge = module("challenge",
 )
 
 lazy val study = module("study",
-  Seq(common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n, room),
+  Seq(common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, i18n, room),
   Seq(scalatags, lettuce, specs2) ++ reactivemongo.bundle
 )
 
@@ -363,11 +363,6 @@ lazy val report = module("report",
 
 lazy val appeal = module("appeal",
   Seq(common, db, user),
-  reactivemongo.bundle
-)
-
-lazy val explorer = module("explorer",
-  Seq(common, db, game, importer),
   reactivemongo.bundle
 )
 

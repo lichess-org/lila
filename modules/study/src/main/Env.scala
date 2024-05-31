@@ -17,7 +17,6 @@ final class Env(
     divider: lila.game.Divider,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    explorerImporter: lila.explorer.ExplorerImporter,
     notifyApi: lila.notify.NotifyApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
@@ -56,8 +55,6 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   private lazy val chapterMaker = wire[ChapterMaker]
-
-  private lazy val explorerGame = wire[ExplorerGame]
 
   private lazy val studyMaker = wire[StudyMaker]
 

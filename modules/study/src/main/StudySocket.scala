@@ -189,10 +189,6 @@ final private class StudySocket(
           o strs "d" foreach { topics =>
             who foreach api.setTopics(studyId, topics)
           }
-        case "explorerGame" =>
-          reading[actorApi.ExplorerGame](o) { data =>
-            who foreach api.explorerGame(studyId, data)
-          }
         case "requestAnalysis" =>
           o.get[Chapter.Id]("d") foreach { chapterId =>
             user foreach { api.analysisRequest(studyId, chapterId, _) }
@@ -458,7 +454,6 @@ object StudySocket {
         implicit val StudyDataReader: Reads[Study.Data]                  = Json.reads[Study.Data]
         implicit val setTagReader: Reads[actorApi.SetTag]                = Json.reads[actorApi.SetTag]
         implicit val gamebookReader: Reads[Gamebook]                     = Json.reads[Gamebook]
-        implicit val explorerGame: Reads[actorApi.ExplorerGame]          = Json.reads[actorApi.ExplorerGame]
       }
     }
 

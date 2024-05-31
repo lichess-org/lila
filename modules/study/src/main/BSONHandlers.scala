@@ -379,7 +379,6 @@ object BSONHandlers {
     def reads(r: Reader) =
       Settings(
         computer = r.get[UserSelection]("computer"),
-        explorer = r.get[UserSelection]("explorer"),
         cloneable = r.getO[UserSelection]("cloneable") | Settings.init.cloneable,
         chat = r.getO[UserSelection]("chat") | Settings.init.chat,
         sticky = r.getO[Boolean]("sticky") | Settings.init.sticky,

@@ -22,7 +22,6 @@ final class StudyApi(
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
-    explorerGameHandler: ExplorerGame,
     topicApi: StudyTopicApi,
     lightUserApi: lila.user.LightUserApi,
     scheduler: akka.actor.Scheduler,
@@ -555,30 +554,6 @@ final class StudyApi(
             fufail(s"Invalid setGamebook $studyId $position") >>-
               reloadSriBecauseOf(study, who.sri, chapter.id)
         }
-      }
-    }
-
-  def explorerGame(studyId: Study.Id, data: actorApi.ExplorerGame)(who: Who) =
-    sequenceStudyWithChapter(studyId, data.position.chapterId) { case Study.WithChapter(study, chapter) =>
-      Contribute(who.u, study) {
-        if (data.insert)
-          explorerGameHandler.insert(study, Position(chapter, data.position.path), data.gameId) flatMap {
-            case None =>
-              fufail(s"Invalid explorerGame insert $studyId $data") >>-
-                reloadSriBecauseOf(study, who.sri, chapter.id)
-            case Some((chapter, path)) =>
-              studyRepo.updateNow(study)
-              chapter.root.nodeAt(path) ?? { parent =>
-                chapterRepo.setChildren(parent.children)(chapter, path) >>-
-                  sendTo(study.id)(_.reloadAll)
-              }
-          }
-        else
-          explorerGameHandler.quote(data.gameId) flatMap {
-            _ ?? {
-              doSetComment(study, Position(chapter, data.position.path), _, who)
-            }
-          }
       }
     }
 

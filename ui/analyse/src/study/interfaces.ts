@@ -56,7 +56,6 @@ export interface StudyCtrl {
   mutateSgConfig(config: any): void;
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;
-  explorerGame(gameId: string, insert: boolean): void;
   onPremoveSet(): void;
   redraw: Redraw;
   trans: Trans;
@@ -121,7 +120,6 @@ type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';
 
 export interface StudySettings {
   computer: UserSelection;
-  explorer: UserSelection;
   cloneable: UserSelection;
   chat: UserSelection;
   sticky: Boolean;
@@ -190,7 +188,6 @@ interface StudyChapterSetup {
 
 interface StudyChapterFeatures {
   computer: boolean;
-  explorer: boolean;
 }
 
 export type StudyMember = {

@@ -57,7 +57,6 @@ final class Env(
     val push: lila.push.Env,
     val perfStat: lila.perfStat.Env,
     val challenge: lila.challenge.Env,
-    val explorer: lila.explorer.Env,
     val fishnet: lila.fishnet.Env,
     val study: lila.study.Env,
     val studySearch: lila.studySearch.Env,
@@ -84,11 +83,9 @@ final class Env(
 
   def net = common.netConfig
 
-  val isProd            = mode == Mode.Prod && net.isProd
-  val isDev             = mode == Mode.Dev
-  val isStage           = mode == Mode.Prod && !net.isProd
-  val explorerEndpoint  = config.get[String]("explorer.endpoint")
-  val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
+  val isProd  = mode == Mode.Prod && net.isProd
+  val isDev   = mode == Mode.Dev
+  val isStage = mode == Mode.Prod && !net.isProd
 
   val insightsEndpoint = config.get[String]("insights.endpoint")
   val insightsSecret   = config.get[String]("insights.secret")
@@ -233,7 +230,6 @@ final class EnvBoot(
   lazy val push: lila.push.Env               = wire[lila.push.Env]
   lazy val perfStat: lila.perfStat.Env       = wire[lila.perfStat.Env]
   lazy val challenge: lila.challenge.Env     = wire[lila.challenge.Env]
-  lazy val explorer: lila.explorer.Env       = wire[lila.explorer.Env]
   lazy val fishnet: lila.fishnet.Env         = wire[lila.fishnet.Env]
   lazy val study: lila.study.Env             = wire[lila.study.Env]
   lazy val studySearch: lila.studySearch.Env = wire[lila.studySearch.Env]

@@ -56,7 +56,7 @@ export interface Game {
   player: Color;
   plies: number;
   startedAtPly: number;
-  startedAtMove: number;
+  startedAtStep: number;
   source: Source;
   speed: Speed;
   variant: Variant;
@@ -101,7 +101,6 @@ export interface AnalyseOpts {
   userId: string | null;
   hunter: boolean;
   embed: boolean;
-  explorer: boolean;
   socketSend: SocketSend;
   trans: Trans;
   study?: any;

@@ -39,7 +39,6 @@ object help {
           row(frag(k("a")), "Computer arrows"),
           row(frag(k("space")), "Play computer best move"),
           row(frag(k("x")), "Show threat"),
-          // row(frag(k("e")), "Opening/endgame explorer"),
           row(frag(k("f")), trans.flipBoard()),
           row(frag(k("c")), "Focus chat"),
           row(frag(k("shift"), k("C")), trans.keyShowOrHideComments()),

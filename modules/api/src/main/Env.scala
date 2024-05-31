@@ -18,7 +18,6 @@ final class Env(
     forumSearchEnv: lila.forumSearch.Env,
     teamEnv: lila.team.Env,
     puzzleEnv: lila.puzzle.Env,
-    explorerEnv: lila.explorer.Env,
     fishnetEnv: lila.fishnet.Env,
     studyEnv: lila.study.Env,
     studySearchEnv: lila.studySearch.Env,

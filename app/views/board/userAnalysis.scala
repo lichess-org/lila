@@ -28,11 +28,7 @@ object userAnalysis {
         embedJsUnsafe(s"""lishogi=lishogi||{};lishogi.user_analysis=${safeJsonValue(
             Json.obj(
               "data" -> data,
-              "i18n" -> userAnalysisI18n(withForecast = withForecast, withNvui = ctx.blind),
-              "explorer" -> Json.obj(
-                "endpoint"          -> explorerEndpoint,
-                "tablebaseEndpoint" -> tablebaseEndpoint
-              )
+              "i18n" -> userAnalysisI18n(withForecast = withForecast, withNvui = ctx.blind)
             )
           )}""")
       ),
