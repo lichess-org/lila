@@ -88,19 +88,6 @@ final class Main(
       NoContent
     }
 
-  private lazy val glyphsResult: Result = {
-    import shogi.format.Glyph
-    import lila.tree.Node.glyphWriter
-    Ok(
-      Json.obj(
-        "move"        -> (Glyph.MoveAssessment.display: List[Glyph]),
-        "position"    -> (Glyph.PositionAssessment.display: List[Glyph]),
-        "observation" -> (Glyph.Observation.display: List[Glyph])
-      )
-    ) as JSON
-  }
-  val glyphs = Action(glyphsResult)
-
   def image(id: String, @nowarn("cat=unused") hash: String, @nowarn("cat=unused") name: String) =
     Action.async {
       env.imageRepo
