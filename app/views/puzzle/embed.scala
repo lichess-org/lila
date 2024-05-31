@@ -10,8 +10,6 @@ import lila.puzzle.DailyPuzzle
 
 object embed {
 
-  import EmbedConfig.implicits._
-
   def apply(daily: DailyPuzzle.WithHtml)(implicit config: EmbedConfig) =
     views.html.base.embed(
       title = "lishogi.org shogi puzzle",

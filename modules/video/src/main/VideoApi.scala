@@ -16,7 +16,6 @@ final private[video] class VideoApi(
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.api.bson.Macros
   implicit private val YoutubeBSONHandler = {
     import Youtube.Metadata

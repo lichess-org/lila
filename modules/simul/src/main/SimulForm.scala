@@ -1,6 +1,5 @@
 package lila.simul
 
-import cats.implicits._
 import shogi.format.forsyth.Sfen
 
 import org.joda.time.DateTime

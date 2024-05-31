@@ -1,6 +1,5 @@
 package lila.report
 
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import reactivemongo.api.bson._
 

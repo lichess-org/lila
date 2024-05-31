@@ -11,7 +11,6 @@ import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
 
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.{ User, UserRepo }

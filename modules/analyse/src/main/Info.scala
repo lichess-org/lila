@@ -1,6 +1,5 @@
 package lila.analyse
 
-import cats.implicits._
 import shogi.Color
 import shogi.format.usi.Usi
 

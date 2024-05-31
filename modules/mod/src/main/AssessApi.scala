@@ -1,7 +1,6 @@
 package lila.mod
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.evaluation.Statistics
 import lila.evaluation.{

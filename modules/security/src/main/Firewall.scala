@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
 
 import lila.common.IpAddress
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
 final class Firewall(

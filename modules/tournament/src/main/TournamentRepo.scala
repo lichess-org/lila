@@ -7,7 +7,6 @@ import reactivemongo.api.ReadPreference
 
 import BSONHandlers._
 import lila.common.config.CollName
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.game.Game
 import lila.hub.LightTeam.TeamID

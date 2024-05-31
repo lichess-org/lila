@@ -11,7 +11,6 @@ final class ModlogApi(repo: ModlogRepo)(implicit
 
   private def coll = repo.coll
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
   implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
 
   def streamerDecline(mod: Mod, streamerId: User.ID) =

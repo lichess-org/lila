@@ -6,7 +6,6 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import CacheApi._
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
 /**

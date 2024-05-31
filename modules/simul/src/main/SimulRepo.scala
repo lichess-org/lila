@@ -6,7 +6,6 @@ import reactivemongo.api.bson._
 import shogi.Status
 import shogi.variant.Variant
 import lila.db.BSON
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.User
 

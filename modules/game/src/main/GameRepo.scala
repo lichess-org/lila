@@ -9,7 +9,6 @@ import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.WriteConcern
 
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.db.isDuplicateKey
 import lila.user.User

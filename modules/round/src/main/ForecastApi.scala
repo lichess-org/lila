@@ -2,7 +2,6 @@ package lila.round
 
 import reactivemongo.api.bson._
 
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import org.joda.time.DateTime
 import scala.concurrent.Promise

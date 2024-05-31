@@ -21,7 +21,6 @@ final class PlaybanApi(
     messenger: MsgApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.api.bson.Macros
   implicit private val OutcomeBSONHandler = tryHandler[Outcome](
     { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },

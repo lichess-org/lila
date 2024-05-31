@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "3.0"
-  val globalScalaVersion = "2.13.12"
+  val globalScalaVersion = "2.13.14"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")
@@ -24,8 +24,6 @@ object BuildSettings {
       Compile / packageSrc / publishArtifact := false,
       Compile / run / fork                   := true,
       javaOptions ++= Seq("-Xms64m", "-Xmx256m"),
-      // com.typesafe.play:play-ahc-ws-standalone_2.13:2.1.3 brings in 0.9.0, but we want 1.0.0:
-      libraryDependencySchemes += "org.scala-lang.modules" %% "scala-java8-compat" % "always"
     )
 
   def defaultLibs: Seq[ModuleID] =

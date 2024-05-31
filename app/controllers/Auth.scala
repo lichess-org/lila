@@ -22,9 +22,9 @@ final class Auth(
   private def api   = env.security.api
   private def forms = env.security.forms
 
+  import lila.pref.JsonView._
   private def mobileUserOk(u: UserModel, sessionId: String): Fu[Result] =
     env.pref.api.getPref(u) map { prefs =>
-      import lila.pref.JsonView._
       Ok {
         Json.obj(
           "session" -> Json.obj(
