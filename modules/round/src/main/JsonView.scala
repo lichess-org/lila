@@ -227,7 +227,7 @@ final class JsonView(
             "player"        -> game.turnColor.name,
             "status"        -> game.status,
             "source"        -> game.source,
-            "startedAtMove" -> game.shogi.startedAtMove,
+            "startedAtStep" -> game.shogi.startedAtStep,
             "startedAtPly"  -> game.shogi.startedAtPly
           )
           .add("division", division)

@@ -18,7 +18,7 @@ lishogi.movetimeChart = function (data, trans) {
             var tree = data.treeParts;
             var ply = 0;
             var max = 0;
-            var plyOffset = ((data.game.startedAtPly || 0) - ((data.game.moveNumber || 1) - 1)) % 2;
+            var plyOffset = ((data.game.startedAtPly || 0) - ((data.game.startedAtStep || 1) - 1)) % 2;
 
             var logC = Math.pow(Math.log(3), 2);
 

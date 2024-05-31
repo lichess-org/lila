@@ -19,7 +19,7 @@ export interface Game {
   player: Color;
   plies: number;
   startedAtPly?: number;
-  startedAtMove?: number;
+  startedAtStep?: number;
   source: Source;
   speed: Speed;
   variant: Variant;

@@ -15,7 +15,7 @@ case class StormPuzzle(
 ) {
   // ply after "initial move" when we start solving
   def initialPly: Int =
-    sfen.moveNumber ?? { mn =>
+    sfen.stepNumber ?? { mn =>
       mn - 1
     }
 

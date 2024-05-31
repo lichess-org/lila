@@ -51,9 +51,9 @@ object BSONHandlers {
       val light = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
 
       val initialSfen    = r.getO[Sfen](F.initialSfen)
-      val startedAtMove  = initialSfen.flatMap(_.moveNumber) | 1
+      val startedAtStep  = initialSfen.flatMap(_.stepNumber) | 1
       val startedAtColor = initialSfen.flatMap(_.color) | Sente
-      val startedAtPly   = startedAtMove - (if ((startedAtMove % 2 == 1) == startedAtColor.sente) 1 else 0)
+      val startedAtPly   = startedAtStep - (if ((startedAtStep % 2 == 1) == startedAtColor.sente) 1 else 0)
 
       val gameVariant = Variant(r intD F.variant) | shogi.variant.Standard
 
@@ -98,7 +98,7 @@ object BSONHandlers {
         } map (_(clockColor)),
         plies = plies,
         startedAtPly = startedAtPly,
-        startedAtMove = startedAtMove
+        startedAtStep = startedAtStep
       )
 
       val senteClockHistory = r bytesO F.senteClockHistory

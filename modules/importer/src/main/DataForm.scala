@@ -78,7 +78,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
     parseNotation map { parsed =>
       Reader.fromParsedNotation(
         parsed,
-        parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies)
+        parsedSteps => parsedSteps.copy(value = parsedSteps.value take maxPlies)
       ) pipe evenIncomplete pipe { case replay @ Replay(init, game) =>
         val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase))
 

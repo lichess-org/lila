@@ -15,11 +15,11 @@ object BinaryFormat {
   object usi {
     def write(usis: Usis, variant: Variant): ByteArray =
       ByteArray {
-        shogi.format.usi.Binary.encodeMoves(usis, variant)
+        shogi.format.usi.Binary.encode(usis, variant)
       }
 
     def read(ba: ByteArray, variant: Variant): Usis =
-      shogi.format.usi.Binary.decodeMoves(ba.value.toList, variant, Game.maxPlies(variant))
+      shogi.format.usi.Binary.decode(ba.value.toList, variant, Game.maxPlies(variant))
 
   }
 

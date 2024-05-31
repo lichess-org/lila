@@ -11,7 +11,7 @@ lishogi.advantageChart = function (data, trans, el) {
 
         var blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
         if (data.player.color === 'sente') blurs.reverse();
-        var plyOffset = ((data.game.startedAtPly || 0) - ((data.game.moveNumber || 1) - 1)) % 2;
+        var plyOffset = ((data.game.startedAtPly || 0) - ((data.game.startedAtStep || 1) - 1)) % 2;
 
         var makeSerieData = function (d) {
           var partial = !d.analysis || d.analysis.partial;

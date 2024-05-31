@@ -4,7 +4,7 @@ import shogi.Replay
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
 import shogi.format.usi.Usi
-import shogi.format.{ Notation, NotationMove, Tag, Tags }
+import shogi.format.{ Notation, NotationStep, Tag, Tags }
 import shogi.{ Centis, Color }
 
 import lila.common.config.BaseUrl
@@ -52,7 +52,7 @@ final class NotationDump(
         )
         makeMoveList(
           flags keepDelayIf game.playable applyDelay extendedMoves,
-          game.shogi.startedAtMove,
+          game.shogi.startedAtStep,
           clockOffset,
           clocksSpent,
           clocksTotal
@@ -60,14 +60,14 @@ final class NotationDump(
       }
       val terminationMove =
         if (flags.csa && game.variant.standard)
-          Csa.createTerminationMove(
+          Csa.createTerminationStep(
             game.status,
             game.winnerColor.fold(false)(_ == game.turnColor),
             game.winnerColor
           )
         else if (game.drawn && game.variant.chushogi) "引き分け".some
         else
-          Kif.createTerminationMove(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
+          Kif.createTerminationStep(game.status, game.winnerColor.fold(false)(_ == game.turnColor))
       val notation =
         if (flags.csa && game.variant.standard)
           Csa(moves, game.initialSfen, shogi.format.Initial.empty, ts)
@@ -147,13 +147,13 @@ final class NotationDump(
 
   private def makeMoveList(
       extendedMoves: List[Usi.WithRole],
-      startedAtMove: Int,
+      startedAtStep: Int,
       clockOffset: Int,
       clocksSpent: Vector[Centis],
       clocksTotal: Vector[Centis]
-  ): List[NotationMove] = extendedMoves.zipWithIndex.map { case (usiWithRole, index) =>
-    NotationMove(
-      moveNumber = index + startedAtMove,
+  ): List[NotationStep] = extendedMoves.zipWithIndex.map { case (usiWithRole, index) =>
+    NotationStep(
+      stepNumber = index + startedAtStep,
       usiWithRole = usiWithRole,
       secondsSpent = clocksSpent lift (index - clockOffset) map (_.roundSeconds),
       secondsTotal = clocksTotal lift (index - clockOffset) map (_.roundSeconds)

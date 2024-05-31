@@ -5,7 +5,7 @@ import shogi.{ Piece, Pos, Role }
 import shogi.format.forsyth.Sfen
 import shogi.format.kif.Kif
 import shogi.format.csa.Csa
-import shogi.format.{ Glyphs, Initial, NotationMove, Tag, Tags }
+import shogi.format.{ Glyphs, Initial, NotationStep, Tag, Tags }
 import shogi.variant.Variant
 import org.joda.time.format.DateTimeFormat
 
@@ -152,7 +152,7 @@ object NotationDump {
     comments.list.map(c => s"${showAuthors ?? s"${getName(c.by)}"}${c.text.value}")
   }
 
-  def toMoves(root: Node.Root, variant: Variant)(implicit flags: WithFlags): Vector[NotationMove] =
+  def toMoves(root: Node.Root, variant: Variant)(implicit flags: WithFlags): Vector[NotationStep] =
     toMoves(
       root.mainline,
       root.sfen,
@@ -167,13 +167,13 @@ object NotationDump {
       variant: Variant,
       variations: Variations,
       showAuthors: Boolean
-  )(implicit flags: WithFlags): Vector[NotationMove] = {
+  )(implicit flags: WithFlags): Vector[NotationStep] = {
     val enriched = shogi.Replay.usiWithRoleWhilePossible(line.map(_.usi), initialSfen.some, variant)
     line
       .zip(enriched)
-      .foldLeft(Vector.empty[NotationMove]) { case (moves, (node, usiWithRole)) =>
-        NotationMove(
-          moveNumber = node.ply,
+      .foldLeft(Vector.empty[NotationStep]) { case (moves, (node, usiWithRole)) =>
+        NotationStep(
+          stepNumber = node.ply,
           usiWithRole = usiWithRole,
           glyphs = if (flags.comments) node.glyphs else Glyphs.empty,
           comments = flags.comments ?? {

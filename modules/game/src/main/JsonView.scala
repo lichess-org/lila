@@ -22,7 +22,7 @@ final class JsonView(rematches: Rematches) {
         "sfen"          -> game.shogi.toSfen,
         "player"        -> game.turnColor,
         "plies"         -> game.plies,
-        "startedAtMove" -> game.shogi.startedAtMove,
+        "startedAtStep" -> game.shogi.startedAtStep,
         "startedAtPly"  -> game.shogi.startedAtPly,
         "source"        -> game.source,
         "status"        -> game.status,

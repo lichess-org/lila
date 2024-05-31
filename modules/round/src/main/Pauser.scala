@@ -61,8 +61,8 @@ final private[round] class Pauser(
       case _ => fuccess(List(Event.ReloadOwner))
     }
 
-  private def timestampMessage(str: String, moveNumber: Int): String =
-    s"[${dateTimeFormatter print DateTime.now} ($moveNumber. move)]${str.toLowerCase.capitalize}"
+  private def timestampMessage(str: String, stepNumber: Int): String =
+    s"[${dateTimeFormatter print DateTime.now} ($stepNumber. move)]${str.toLowerCase.capitalize}"
 
   private val resumeOffers: Cache[Game.ID, Pauser.ResumeOffers] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(3 minutes)

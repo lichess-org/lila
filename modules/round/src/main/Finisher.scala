@@ -71,7 +71,7 @@ final private class Finisher(
       player <- clock.players.all
       lt    = player.lag
       stats = lt.lagStats
-      moves = lt.moves if moves > 4
+      steps = lt.steps if steps > 4
       sd <- stats.stdDev
       mean        = stats.mean if mean > 0
       uncompStats = lt.uncompStats
@@ -84,7 +84,7 @@ final private class Finisher(
       lRec.mean.record(Math.round(10 * mean))
       lRec.stdDev.record(Math.round(10 * sd))
       // wikipedia.org/wiki/Coefficient_of_variation#Estimation
-      lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
+      lRec.coefVar.record(Math.round((1000f + 250f / steps) * sd / mean))
       lRec.uncomped(quotaStr).record(uncompAvg)
       uncompStats.stdDev foreach { v =>
         lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
@@ -93,7 +93,7 @@ final private class Finisher(
         case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
       }
       lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
-      lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
+      lRec.compEstOverErr.record(Math.round(10f * compEstOvers / steps))
     }
 
   private def apply(

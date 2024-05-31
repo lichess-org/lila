@@ -2,7 +2,7 @@ package lila.study
 
 import cats.data.Validated
 
-import shogi.format.{ Glyphs, ParsedMove, ParsedNotation, Tags }
+import shogi.format.{ Glyphs, ParsedNotation, ParsedStep, Tags }
 import shogi.format.usi.UsiCharPair
 
 import lila.common.LightUser
@@ -36,10 +36,10 @@ object NotationImport {
               clock = parsedNotation.tags.clockConfig.map(_.limit),
               gameMainline = none,
               children = Node.Children {
-                val variations = makeVariations(parsedNotation.parsedMoves.value, replay.setup, annotator)
+                val variations = makeVariations(parsedNotation.parsedSteps.value, replay.setup, annotator)
                 makeNode(
                   prev = replay.setup,
-                  parsedMoves = parsedNotation.parsedMoves.value,
+                  parsedSteps = parsedNotation.parsedSteps.value,
                   annotator = annotator
                 ).fold(variations)(_ :: variations).toVector
               }
@@ -75,10 +75,10 @@ object NotationImport {
               clock = parsedNotation.tags.clockConfig.map(_.limit),
               gameMainline = none,
               children = Node.Children {
-                val variations = makeVariations(parsedNotation.parsedMoves.value, replay.setup, annotator)
+                val variations = makeVariations(parsedNotation.parsedSteps.value, replay.setup, annotator)
                 makeNode(
                   prev = replay.setup,
-                  parsedMoves = parsedNotation.parsedMoves.value,
+                  parsedSteps = parsedNotation.parsedSteps.value,
                   annotator = annotator
                 ).fold(variations)(_ :: variations).toVector
               }
@@ -98,11 +98,11 @@ object NotationImport {
     }
 
   private def makeVariations(
-      parsedMoves: List[ParsedMove],
+      parsedSteps: List[ParsedStep],
       game: shogi.Game,
       annotator: Option[Comment.Author]
   ) =
-    parsedMoves.headOption.?? {
+    parsedSteps.headOption.?? {
       _.metas.variations.flatMap { variation =>
         makeNode(game, variation.value, annotator)
       }
@@ -128,18 +128,18 @@ object NotationImport {
 
   private def makeNode(
       prev: shogi.Game,
-      parsedMoves: List[ParsedMove],
+      parsedSteps: List[ParsedStep],
       annotator: Option[Comment.Author]
   ): Option[Node] =
     try {
-      parsedMoves match {
+      parsedSteps match {
         case Nil => none
-        case parsedMove :: rest =>
-          prev(parsedMove).fold(
-            _ => none, // illegal move; stop here.
+        case parsedStep :: rest =>
+          prev(parsedStep).fold(
+            _ => none, // illegal step; stop here.
             game =>
               game.history.lastUsi flatMap { usi =>
-                parseComments(parsedMove.metas.comments, annotator) match {
+                parseComments(parsedStep.metas.comments, annotator) match {
                   case (shapes, comments) =>
                     Node(
                       id = UsiCharPair(usi, game.variant),
@@ -149,11 +149,11 @@ object NotationImport {
                       check = game.situation.check,
                       shapes = shapes,
                       comments = comments,
-                      glyphs = parsedMove.metas.glyphs,
+                      glyphs = parsedStep.metas.glyphs,
                       // Normally we store time remaining after turn,
                       // which is pretty useless with byo...
-                      // for imports we are gonna store time spent on this move
-                      clock = parsedMove.metas.timeSpent,
+                      // for imports we are gonna store time spent on this step
+                      clock = parsedStep.metas.timeSpent,
                       children = removeDuplicatedChildrenFirstNode {
                         val variations = makeVariations(rest, game, annotator)
                         Node.Children {

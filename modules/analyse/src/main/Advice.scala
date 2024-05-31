@@ -25,7 +25,7 @@ sealed trait Advice {
       }) + "." + {
         withBestMove ?? {
           info.variation.headOption ?? { usi =>
-            s" Best move was [usi:${ply - 1}.$usi]"
+            s" Best ${if (usi.contains("*")) "drop" else "move"} was [usi:${ply - 1}.$usi]"
           }
         }
       }
@@ -43,9 +43,9 @@ object Advice {
     def isBlunder         = this == Judgement.Blunder
   }
   object Judgement {
-    object Inaccuracy extends Judgement(Glyph.MoveAssessment.dubious, "Inaccuracy")
-    object Mistake    extends Judgement(Glyph.MoveAssessment.mistake, "Mistake")
-    object Blunder    extends Judgement(Glyph.MoveAssessment.blunder, "Blunder")
+    object Inaccuracy extends Judgement(Glyph.MoveOrDropAssessment.dubious, "Inaccuracy")
+    object Mistake    extends Judgement(Glyph.MoveOrDropAssessment.mistake, "Mistake")
+    object Blunder    extends Judgement(Glyph.MoveOrDropAssessment.blunder, "Blunder")
     val all = List(Inaccuracy, Mistake, Blunder)
   }
 

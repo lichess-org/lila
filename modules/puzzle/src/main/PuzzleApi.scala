@@ -221,7 +221,7 @@ final class PuzzleApi(
           gameId =>
             puzzle
               .fromGame(gameId)
-              .map(_.exists(p => Math.abs(~p.sfen.moveNumber - ~validSfen.moveNumber) >= 10))
+              .map(_.exists(p => Math.abs(~p.sfen.stepNumber - ~validSfen.stepNumber) >= 10))
         )
         _  <- similarExists ?? fufail[Unit](s"Similar puzzle exists (~${source.map(_.toString)})")
         id <- makeId

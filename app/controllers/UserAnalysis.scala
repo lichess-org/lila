@@ -70,7 +70,7 @@ final class UserAnalysis(
             situation = from.situation,
             plies = from.plies,
             startedAtPly = from.plies,
-            startedAtMove = from.moveNumber
+            startedAtStep = from.stepNumber
           ),
           initialSfen = Some(from.toSfen),
           sentePlayer = lila.game.Player.make(shogi.Sente, none),
