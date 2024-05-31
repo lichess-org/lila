@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.game.Pov
+import lila.game.{ Game, Pov }
 
 import controllers.routes
 
@@ -45,7 +45,7 @@ object replay {
     }
     val exportLinks = div(
       ctx.noBlind option frag(
-        pov.game.variant.standard option a(
+        Game.gifVariants.contains(pov.game.variant) option a(
           dataIcon := "$",
           cls      := "text",
           target   := "_blank",

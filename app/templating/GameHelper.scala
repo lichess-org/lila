@@ -33,7 +33,7 @@ trait GameHelper {
     )
 
   def gameThumbnail(p: Pov) =
-    p.game.variant.standard option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
+    Game.gifVariants.contains(p.game.variant) option cdnUrl(routes.Export.gameThumbnail(p.gameId).url)
 
   // Rapid Shogi - Dalliard vs Smith
   // Chushogi - PeterFile vs FilePeter

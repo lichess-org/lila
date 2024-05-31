@@ -707,6 +707,9 @@ object Game {
     shogi.variant.Checkshogi
   )
 
+  val gifVariants: Set[Variant] =
+    Set(shogi.variant.Standard, shogi.variant.Checkshogi)
+
   def allowRated(initialSfen: Option[Sfen], clock: Option[Clock.Config], variant: Variant) =
     initialSfen.filterNot(_.initialOf(variant)).isEmpty && clock.fold(true) { c =>
       c.periodsTotal <= 1 && (!c.hasByoyomi || !c.hasIncrement) && (!variant.chushogi || c.estimateTotalSeconds >= 250)
