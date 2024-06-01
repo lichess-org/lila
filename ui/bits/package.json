@@ -64,7 +64,6 @@
       "src/bits.hcaptcha.ts",
       "src/bits.importer.ts",
       "src/bits.infiniteScroll.ts",
-      "src/bits.insightRefresh.ts",
       "src/bits.login.ts",
       "src/bits.lpv.ts",
       "src/bits.passwordComplexity.ts",
