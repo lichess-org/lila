@@ -158,7 +158,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
   return site.dialog.snab({
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
-    css: [{ themed: 'voiceMove.help' }],
+    css: [{ themed: 'voice.move.help' }],
     onClose: () => ctrl.showHelp(false),
     onInsert: async dlg => {
       if (ctrl.showHelp() === 'list') {

@@ -19,7 +19,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
 
   private def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
     Page(title)
-      .css("fide")
+      .css("bits.fide")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           menu(active),

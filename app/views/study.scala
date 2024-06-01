@@ -13,7 +13,7 @@ lazy val ui   = lila.study.ui.StudyUi(helpers, bits)
 lazy val list = lila.study.ui.ListUi(helpers, bits)
 
 def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
-  Page(p.title).css("study.index", "page"):
+  Page(p.title).css("analyse.study.index", "bits.page"):
     main(cls := "page-menu")(
       list.menu("staffPicks", Order.mine, Nil),
       main(cls := "page-menu__content box box-pad page"):
@@ -45,7 +45,7 @@ def create(
       icon = Some(Icon.StudyBoard),
       back = backUrl
     )
-    .css("study.create")(ui.create(data, owner, contrib, backUrl))
+    .css("analyse.study.create")(ui.create(data, owner, contrib, backUrl))
 
 def show(
     s: lila.study.Study,
@@ -122,7 +122,7 @@ object embed:
     val canGetPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
     views.base.embed(
       title = s"${s.name} ${chapter.name}",
-      cssModule = "lpv.embed",
+      cssModule = "bits.lpv.embed",
       modules = EsmInit("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
@@ -135,5 +135,5 @@ object embed:
     )
 
   def notFound(using EmbedContext) =
-    views.base.embed(title = s"404 - ${trans.study.studyNotFound.txt()}", cssModule = "lpv.embed"):
+    views.base.embed(title = s"404 - ${trans.study.studyNotFound.txt()}", cssModule = "bits.lpv.embed"):
       div(cls := "not-found")(h1(trans.study.studyNotFound()))

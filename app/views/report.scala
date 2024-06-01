@@ -147,7 +147,7 @@ def layout(filter: String, scores: Room.Scores, streamers: Int, appeals: Int)(us
 
 def form(form: Form[?], reqUser: Option[User] = None)(using ctx: Context) =
   Page(trans.site.reportAUser.txt())
-    .css("form3")
+    .css("bits.form3")
     .js(
       embedJsUnsafeLoadThen(
         """$('#form3-reason').on('change', function() {

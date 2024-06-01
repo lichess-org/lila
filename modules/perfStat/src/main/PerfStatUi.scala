@@ -28,7 +28,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
           SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
         )
       })
-      .css("perf-stat"):
+      .css("bits.perf-stat"):
         main(cls := s"page-menu")(
           st.aside(cls := "page-menu__menu")(side),
           div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
@@ -354,7 +354,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   ) =
     val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
     Page(trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
-      .css("user.rating.stats")
+      .css("bits.user.rating.stats")
       .fullScreen
       .js(
         PageModule(

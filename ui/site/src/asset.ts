@@ -68,7 +68,7 @@ export const loadPageEsm = async (name: string) => {
 export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete> => {
   const [userComplete] = await Promise.all([
     loadEsm('bits.userComplete', { init: opts }),
-    loadCssPath('complete'),
+    loadCssPath('bits.complete'),
   ]);
   return userComplete as UserComplete;
 };

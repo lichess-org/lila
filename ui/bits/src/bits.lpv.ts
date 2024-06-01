@@ -11,7 +11,7 @@ function autostart() {
   $('.lpv--autostart').each(function (this: HTMLElement) {
     const pgn = this.dataset['pgn']!.replace(/<br>/g, '\n');
     const gamebook = pgn.includes('[ChapterMode "gamebook"]');
-    site.asset.loadCssPath('lpv').then(() => {
+    site.asset.loadCssPath('bits.lpv').then(() => {
       const config: Partial<LpvOpts> = {
         pgn,
         orientation: this.dataset['orientation'] as Color | undefined,
@@ -35,7 +35,7 @@ function autostart() {
 }
 
 async function loadPgnAndStart(el: HTMLElement, url: string, opts: LpvOpts) {
-  await site.asset.loadCssPath('lpv');
+  await site.asset.loadCssPath('bits.lpv');
   const pgn = await xhrText(url, {
     headers: {
       Accept: 'application/x-chess-pgn',

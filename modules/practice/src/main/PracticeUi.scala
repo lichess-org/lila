@@ -36,7 +36,7 @@ final class PracticeUi(helpers: Helpers)(
 
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
     Page("Practice chess positions")
-      .css("practice.index")
+      .css("bits.practice.index")
       .js(embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""))

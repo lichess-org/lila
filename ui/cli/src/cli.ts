@@ -54,7 +54,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   site.dialog.dom({
-    css: [{ themed: 'clinput.help' }],
+    css: [{ themed: 'cli.help' }],
     class: 'clinput-help',
     show: 'modal',
     htmlText:

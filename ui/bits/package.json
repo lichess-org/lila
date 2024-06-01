@@ -36,6 +36,7 @@
     "lichess-pgn-viewer": "^2.1.0",
     "prop-types": "^15.8.1",
     "qrcode": "^1.5.3",
+    "shepherd.js": "^11.2.0",
     "tablesort": "^5.3.0",
     "zxcvbn": "^4.4.2"
   },
