@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc.*
 
+import scalalib.Json.given
 import lila.app.{ *, given }
 import lila.core.net.IpAddress
 import lila.relay.RelayTour as TourModel
@@ -45,9 +46,10 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def apiBy(owner: UserStr, page: Int) = Open:
     Reasonable(page, Max(20)):
       Found(env.user.lightUser(owner.id)): owner =>
-        apiC.jsonDownload:
-          env.relay.tourStream
-            .userTourStream(MaxPerSecond(20), owner.id, Max(getInt("nb") | 20).atMost(100), page)
+        env.relay.pager
+          .byOwner(owner.id, page)
+          .map(_.mapResults(env.relay.jsonView(_)))
+          .map(JsonOk(_))
 
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
@@ -91,7 +93,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
             env.relay.api.tourCreate(setup).flatMap { tour =>
               negotiate(
                 Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
-                JsonOk(env.relay.jsonView(tour.withRounds(Nil)))
+                JsonOk(env.relay.jsonView.fullTourWithRounds(tour.withRounds(Nil)))
               )
             }
       )
@@ -177,7 +179,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.api
         .withRounds(tour)
         .map: trs =>
-          Ok(env.relay.jsonView(trs))
+          Ok(env.relay.jsonView.fullTourWithRounds(trs))
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>

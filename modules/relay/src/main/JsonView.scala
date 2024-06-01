@@ -52,18 +52,31 @@ final class JsonView(
       .add("ongoing" -> (r.hasStarted && !r.finished))
       .add("startsAt" -> r.startsAt.orElse(r.startedAt))
 
-  def apply(trs: RelayTour.WithRounds): JsObject =
+  def fullTour(tour: RelayTour): JsObject =
+    Json
+      .toJsObject(tour)
+      .add("markup" -> tour.markup.map(markup(tour)))
+      .add("url" -> s"$baseUrl${tour.path}".some)
+      .add("teamTable" -> tour.teamTable)
+      .add("leaderboard" -> tour.autoLeaderboard)
+
+  def fullTourWithRounds(trs: RelayTour.WithRounds): JsObject =
     Json
       .obj(
-        "tour" -> Json
-          .toJsObject(trs.tour)
-          .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
-          .add("url" -> s"$baseUrl${trs.tour.path}".some)
-          .add("teamTable" -> trs.tour.teamTable)
-          .add("leaderboard" -> trs.tour.autoLeaderboard),
+        "tour" -> fullTour(trs.tour),
         "rounds" -> trs.rounds.map: round =>
           withUrl(round.withTour(trs.tour), withTour = false)
       )
+
+  def apply(t: RelayTour | RelayTour.WithLastRound): JsObject = t match
+    case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
+    case tr: RelayTour.WithLastRound =>
+      Json
+        .obj(
+          "tour"      -> fullTour(tr.tour),
+          "lastRound" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
+        )
+        .add("group" -> tr.group)
 
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
 
@@ -99,7 +112,7 @@ final class JsonView(
       pinned: Option[(UserId, String, Option[ImageId])]
   ) =
     JsonView.JsData(
-      relay = apply(trs)
+      relay = fullTourWithRounds(trs)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
         .add("group" -> group)
         .add("isSubscribed" -> isSubscribed)
