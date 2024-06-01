@@ -9,15 +9,14 @@ import lila.common.LateMultiThrottler
 import lila.core.study.RemoveStudy
 import lila.search.*
 import lila.study.Study
+import lila.search.client.SearchClient
 
 final class Env(
     studyRepo: lila.study.StudyRepo,
     chapterRepo: lila.study.ChapterRepo,
     pager: lila.study.StudyPager,
-    makeClient: Index => ESClient
+    client: SearchClient
 )(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
-
-  private val client = makeClient(Index("study"))
 
   private val indexThrottler = LateMultiThrottler(executionTimeout = 3.seconds.some, logger = logger)
 
@@ -41,4 +40,4 @@ final class Env(
 
   Bus.subscribeFun("study"):
     case lila.study.actorApi.SaveStudy(study) => api.store(study)
-    case RemoveStudy(id)                      => client.deleteById(id.into(Id))
+    case RemoveStudy(id)                      => client.deleteById(index, id.value)

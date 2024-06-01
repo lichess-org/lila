@@ -1,10 +1,8 @@
 package lila.search
 
-import play.api.libs.json.Writes
-
 import scalalib.paginator.*
 
-final class PaginatorBuilder[A, Q: Writes](
+final class PaginatorBuilder[A, Q](
     searchApi: SearchReadApi[A, Q],
     maxPerPage: MaxPerPage
 )(using Executor):
