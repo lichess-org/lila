@@ -68,7 +68,7 @@ main.is-relay.has-relay-tour {
 
 /* game page */
 main.analyse.is-relay:not(.has-relay-tour) {
-  grid-template-rows: auto auto minmax(5em, 15vh) 1em minmax(5em, 20vh);
+  grid-template-rows: auto auto minmax(5em, 30vh) 1em minmax(5em, 30vh);
   grid-template-areas:
     'board'
     'controls'
