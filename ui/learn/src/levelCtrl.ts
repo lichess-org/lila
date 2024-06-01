@@ -8,9 +8,12 @@ import makeChess, { ChessCtrl } from './chess';
 import makeScenario, { Scenario } from './scenario';
 import type { Square as Key } from 'chess.js';
 import { CgMove } from './chessground';
+// import { DrawShape } from 'chessground/draw';
 import * as cg from 'chessground/types';
 import { PromotionCtrl } from './promotionCtrl';
 import { Prop, prop } from 'common';
+import { DrawShape } from 'chessground/draw';
+import { makeAppleShape } from './apple';
 
 export interface LevelVm {
   score: number;
@@ -58,8 +61,9 @@ export class LevelCtrl {
     this.isAppleLevel = prop(blueprint.apples?.length > 0);
     this.items = makeItems({ apples: blueprint.apples });
     this.chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : this.items.appleKeys());
-    this.scenario = makeScenario(blueprint.scenario, withGround, {
+    this.scenario = makeScenario(blueprint.scenario, {
       setFen: this.setFen,
+      setShapes: this.setShapes,
       chess: this.chess,
       makeChessDests: this.makeChessDests,
     });
@@ -106,7 +110,7 @@ export class LevelCtrl {
       disableContextMenu: true,
     });
     setTimeout(() => ground.set({ animation: { enabled: true } }), 200);
-    ground.setShapes(blueprint.shapes ?? []);
+    this.setShapes(blueprint.shapes);
   };
 
   makeSendMove = (ground: CgApi) => {
@@ -165,6 +169,7 @@ export class LevelCtrl {
         captured = detectCapture();
         vm.failed = vm.failed || captured || detectFailure();
       }
+      this.setShapes();
       if (!vm.failed && detectSuccess()) this.complete();
       if (vm.willComplete) return;
       if (took) sound.take();
@@ -201,11 +206,18 @@ export class LevelCtrl {
       }),
     );
 
+  setShapes = (shapes: DrawShape[] = []) =>
+    this.withGround(ground => {
+      const appleShapes = this.items.appleKeys().map(makeAppleShape);
+      ground.setAutoShapes(appleShapes);
+      ground.setShapes(shapes);
+    });
+
   showCapture = ({ orig, dest }: CgMove) =>
     this.withGround(ground => {
-      ground.setShapes([{ orig, label: { text: '!', fill: '#af0000' } }]);
+      this.setShapes([{ orig, label: { text: '!', fill: '#af0000' } }]);
       timeouts.setTimeout(() => {
-        ground.setShapes([]);
+        this.setShapes([]);
         ground.move(orig, dest);
       }, 600);
     });
@@ -221,7 +233,7 @@ export class LevelCtrl {
         .filter(m => m.to === kingKey)
         .map(m => arrow(m.from + m.to, 'red'));
       ground.set({ check: turn === 'w' ? 'black' : 'white' });
-      ground.setShapes(shapes);
+      this.setShapes(shapes);
     });
 
   setCheck = () =>
@@ -229,7 +241,7 @@ export class LevelCtrl {
       const checks = this.chess.checks();
       const turn = this.chess.instance.turn() === 'w' ? 'white' : 'black';
       ground.set({ check: !!checks && turn });
-      if (checks) ground.setShapes(checks.map(move => arrow(move.orig + move.dest, 'yellow')));
+      if (checks) this.setShapes(checks.map(move => arrow(move.orig + move.dest, 'yellow')));
     });
 
   setColorDests = (color: Color, dests: cg.Dests) =>

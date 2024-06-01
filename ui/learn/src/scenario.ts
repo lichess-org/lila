@@ -1,7 +1,7 @@
 import * as cg from 'chessground/types';
 import * as timeouts from './timeouts';
 import { ChessCtrl } from './chess';
-import { WithGround, decomposeUci } from './util';
+import { decomposeUci } from './util';
 import { Shape } from './chessground';
 
 export interface Scenario {
@@ -23,13 +23,10 @@ interface ScenarioOpts {
   chess: ChessCtrl;
   makeChessDests(): cg.Dests;
   setFen(fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key, ...unknown[]]): void;
+  setShapes(shapes: Shape[]): void;
 }
 
-export default function (
-  blueprint: ScenarioLevel | undefined,
-  withGround: WithGround,
-  opts: ScenarioOpts,
-): Scenario {
+export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpts): Scenario {
   const steps = (blueprint || []).map(step => (typeof step !== 'string' ? step : { move: step, shapes: [] }));
 
   let it = 0;
@@ -40,8 +37,6 @@ export default function (
     return false;
   };
 
-  const setShapes = (shapes: Shape[]) => withGround(g => g.setShapes(shapes));
-
   const opponent = () => {
     const step = steps[it];
     if (!step) return;
@@ -50,7 +45,7 @@ export default function (
     if (!res) return fail();
     it++;
     opts.setFen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
-    if (step.shapes) timeouts.setTimeout(() => setShapes(step.shapes), 500);
+    if (step.shapes) timeouts.setTimeout(() => opts.setShapes(step.shapes), 500);
     return;
   };
 
@@ -63,7 +58,7 @@ export default function (
       if (!step) return false;
       if (step.move !== move) return fail();
       it++;
-      if (step.shapes) setShapes(step.shapes);
+      if (step.shapes) opts.setShapes(step.shapes);
       timeouts.setTimeout(opponent, 1000);
       return true;
     },
