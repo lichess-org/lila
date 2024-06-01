@@ -956,7 +956,7 @@ export default class AnalyseCtrl {
   // so instead of sending both
   // let's just count the offset
   plyOffset = (): number => {
-    return this.data.game.startedAtPly - (this.data.game.startedAtStep - 1);
+    return this.data.game.startedAtPly - ((this.data.game.startedAtStep ?? 1) - 1);
   };
 
   // Ideally we would just use node.clock
