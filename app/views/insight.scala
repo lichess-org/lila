@@ -15,7 +15,7 @@ def index(
     stale: Boolean
 )(using ctx: Context) =
   Page(trans.insight.xChessInsights.txt(u.username))
-    .iife(iifeModule("javascripts/insight-refresh.js"))
+    .js(EsmInit("bits.insightRefresh"))
     .js(
       PageModule(
         "insight",
@@ -38,7 +38,7 @@ def index(
 
 def empty(u: User)(using Context) =
   Page(trans.insight.xChessInsights.txt(u.username))
-    .iife(iifeModule("javascripts/insight-refresh.js"))
+    .js(EsmInit("bits.insightRefresh"))
     .css("insight"):
       main(cls := "box box-pad page-small")(
         boxTop(h1(cls := "text", dataIcon := Icon.Target)(trans.insight.xChessInsights(u.username))),
