@@ -41,9 +41,9 @@ final class Pref(env: Env) extends LilaController(env):
             case Some(categ) => Ok.page(views.account.pref(me, forms.prefOf(ctx.pref), categ))
         }
 
-  def formApply = AuthBody { ctx ?=> _ ?=>
+  def formApply = AuthBody { ctx ?=> me ?=>
     def onSuccess(data: lila.pref.PrefForm.PrefData) =
-      api.setPref(data(ctx.pref)).inject(Ok("saved"))
+      api.setPref(me, data(ctx.pref)).inject(Ok("saved"))
     val form = forms.pref(lichobile = HTTPRequest.isLichobile(req))
     bindForm(form)(
       _ =>

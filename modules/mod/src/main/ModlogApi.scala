@@ -53,6 +53,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def troll(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, if sus.user.marks.troll then Modlog.troll else Modlog.untroll)
 
+  def isolate(sus: Suspect)(using MyId) = add:
+    Modlog.make(sus, if sus.user.marks.isolate then Modlog.isolate else Modlog.unisolate)
+
   def fullCommExport(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, Modlog.fullCommsExport)
 
@@ -324,15 +327,16 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     import lila.mod.{ Modlog as M }
     given MyId = m.mod.into(MyId)
     val icon = m.action match
-      case M.alt | M.arenaBan | M.engine | M.booster | M.troll | M.closeAccount            => "thorhammer"
-      case M.unalt | M.unArenaBan | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
-      case M.deletePost | M.deleteTeam | M.terminateTournament                             => "x"
-      case M.chatTimeout                                    => "hourglass_flowing_sand"
-      case M.closeTopic | M.disableTeam                     => "locked"
-      case M.openTopic | M.enableTeam                       => "unlocked"
-      case M.modMessage | M.postAsAnonMod | M.editAsAnonMod => "left_speech_bubble"
-      case M.blogTier | M.blogPostEdit                      => "note"
-      case _                                                => "gear"
+      case M.alt | M.arenaBan | M.engine | M.booster | M.troll | M.isolate | M.closeAccount => "thorhammer"
+      case M.unalt | M.unArenaBan | M.unengine | M.unbooster | M.untroll | M.unisolate | M.reopenAccount =>
+        "blue_circle"
+      case M.deletePost | M.deleteTeam | M.terminateTournament => "x"
+      case M.chatTimeout                                       => "hourglass_flowing_sand"
+      case M.closeTopic | M.disableTeam                        => "locked"
+      case M.openTopic | M.enableTeam                          => "unlocked"
+      case M.modMessage | M.postAsAnonMod | M.editAsAnonMod    => "left_speech_bubble"
+      case M.blogTier | M.blogPostEdit                         => "note"
+      case _                                                   => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
     userRepo.getRoles(m.mod).map(Permission.ofDbKeys(_)).flatMap { permissions =>
       import lila.core.irc.{ ModDomain as domain }
@@ -341,8 +345,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>
           Some(domain.Cheat)
         case M.booster | M.unbooster | M.arenaBan | M.unArenaBan => Some(domain.Boost)
-        case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam | M.enableTeam |
-            M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
+        case M.troll | M.untroll | M.isolate | M.unisolate | M.chatTimeout |
+            M.closeTopic | M.openTopic | M.disableTeam | M.enableTeam | M.setKidMode | M.deletePost |
+            M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
           Some(domain.Comm)
         case _ => Some(domain.Other)
       import Permission.*

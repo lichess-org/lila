@@ -534,6 +534,7 @@ POST  /mod/alt-many                    controllers.Mod.altMany
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username: UserStr, v: Boolean)
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username: UserStr, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: UserStr, v: Boolean)
+POST  /mod/:username/isolate/:v        controllers.Mod.isolate(username: UserStr, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: UserStr)
 POST  /mod/:username/warn              controllers.Mod.warn(username: UserStr, subject)
 POST  /mod/:username/kid               controllers.Mod.kid(username: UserStr)
@@ -859,7 +860,6 @@ GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Cms.source
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
-GET   /how-to-cheat                    controllers.Cms.lonePage(key: CmsPageKey ?= CmsPageKey("how-to-cheat"))
 GET   /page/:key                       controllers.Cms.lonePage(key: CmsPageKey)
 
 # Variants
@@ -885,4 +885,4 @@ GET   /assets/*file                    controllers.ExternalAssets.at(path="publi
 GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
-GET   /$username<[\w-]{2,30}>          controllers.User.redirect(username: UserStr)
+GET   /*path                           controllers.User.redirect(path)

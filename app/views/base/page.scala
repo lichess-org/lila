@@ -83,16 +83,16 @@ object page:
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
-            raw:
-              s"""<style id="bg-data">html.transp::before{background-image:url("${escapeHtmlRaw(img)
-                  .replace("&amp;", "&")}");}</style>"""
+            val url = escapeHtmlRaw(img).replace("&amp;", "&")
+            raw(s"""<style id="bg-data">html.transp::before{background-image:url("$url");}</style>""")
           },
           fontPreload,
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
           sitePreload(
-            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)),
+            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)) ++
+              Option.when(!netConfig.isProd)(Option(jsPageModule("site.devMode"))),
             isInquiry = ctx.data.inquiry.isDefined
           ),
           lichessFontFaceCss,

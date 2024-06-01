@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. در واقع سایت های متن باز از %1$s و %2$s و %3$s لیچس استفاده میکنند.</string>
   <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
-  <string name="keyboardShortcutsExplanation">برخی از صفحات Lichess دارای میانبرهای صفحه‌کلید هستند که می‌توانید از آنها استفاده کنید. برای دیدن فهرست میانبرهای صفحه‌کلید، درون صفحات مطالعه، تجزیه و تحلیل، معما یا بازی، کلید «؟» را بزنید.</string>
+  <string name="keyboardShortcutsExplanation">برخی از صفحات Lichess دارای کلیدهای میانبر هستند که می‌توانید از آنها استفاده کنید. برای مشاهده کلیدهای میانبر موجود در صفحات مطالعه، تجزیه و تحلیل، معما یا بازی، کلید «؟» را فشار دهید.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی برای پس‌گیری خودکار درجه‌بندی‌ام از تقلب‌کارها، واجد شرایط‌ هستم؟</string>
   <string name="ratingRefundExplanation">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
@@ -28,8 +28,12 @@
   <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
   <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
+  <string name="youCanUseOpeningBookNoEngine">در لیچس، تفاوت اصلی در قوانین شطرنج مکاتبه‌ای این است که کتاب‌های شروع بازی مجاز است. استفاده از انجین همچنان ممنوع است و منجر به علامت گذاری برای کمک گرفتن از انجین خواهد شد. اگر چه ICCF اجازه استفاده از انجین را در بازی‌های مکاتبه‌ای می‌دهد، لیچس این کار را نمی‌کند.</string>
   <string name="gameplay">روند بازی</string>
   <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
+  <string name="basedOnGameDuration">کنترل زمانی لیچس بر اساس مدت زمان تخمینی بازی است = %1$s
+برای مثال، مدت زمان تخمینی یک بازی 3+5:
+ثانیه 420 = 40 × 3 + 60 × 5</string>
   <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
@@ -65,7 +69,8 @@
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
   <string name="usernamesCannotBeChanged">خیر، نام کاربری به دلایل فنی و عملی قابل تغییر نیست. نام‌های کاربری در جاهای مختلف ثبت شده اند: پایگاه‌های داده، گزارش‌ها و در نظر مردم. می توانید یک بار حروف بزرگ را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
-  <string name="aHourlyBulletTournament">یک مسابقه چندجانبه گلوله‌ای یک‌ساعته</string>
+  <string name="wayOfBerserkExplanation">برای به دست آوردنش، hiimgosu خود را به چالش کشید تا تمام بازی های %s با استفاده از جنون برنده شود.</string>
+  <string name="aHourlyBulletTournament">یک مسابقه گلوله‌ای ساعتی</string>
   <string name="lichessRatings">درجه‌بندی در Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess از چه شیوه درجه‌بندی‌ای استفاده می‌کند؟</string>
   <string name="ratingSystemUsedByLichess">درجه‌بندی‌ها با استفاده از شیوه درجه‌بندی Glicko-2 که به‌دست مارک گلیکمن ایجاد شده است، محاسبه می‌شوند. این شیوه درجه‌بندی بسیار محبوب است و تعداد قابل توجهی از نهادهای شطرنج از آن استفاده می‌کنند (FIDE یک مثال نقض قابل‌توجه است، زیرا آنها هنوز از شیوه درجه‌بندی ازمُدافتاده Elo استفاده می‌کنند).
@@ -101,12 +106,14 @@
   <string name="howToThreeDots">چگونه...</string>
   <string name="enableDisableNotificationPopUps">فعال یا غیرفعال سازی اعلان‌های بالاپَر؟</string>
   <string name="viewSiteInformationPopUp">دیدن بالاپَر اطلاعات وبگاه</string>
-  <string name="lichessCanOptionnalySendPopUps">لیچس میتواند در صورتی بخواهید اعلان ارسال کند، برای مثال وقتی که نوبت حرکت شماست و یا پیام خصوصی دریافت کرده اید. 
-برای نماد قفل در کنار ادرس lichess.org در نوار URL مرورگر کلیک کنید. 
-سپس انتخاب کنید که آیا میخواهید اعلان های لایچس مجاز باشند و یا مسدود شوند.</string>
+  <string name="lichessCanOptionnalySendPopUps">وبگاه Lichess می‌تواند بااختیار اعلان‌های بالاپَر بفرستد، برای مثال زمانی که نوبت‌تان است یا پیام خصوصی دریافت کرده‌اید.
+
+روی نقشک پس از قفل، در آغاز نشانی lichess.org در نوار URL مرورگرتان بزنید.
+
+سپس برگزینید که آیا اعلان‌های Lichess مجاز یا مسدود شوند.</string>
   <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
   <string name="desktop">رایانه</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">چگونه خودم را از بازی، بازدارم؟</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">چگونه خودم را از بازی، بازدارم؟</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">وضعیت سلامت روانی خوداتکا</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">سبک‌های کاربری Lichess</string>
   <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">جَرگه‌های سَرسَرای کمتر</string>

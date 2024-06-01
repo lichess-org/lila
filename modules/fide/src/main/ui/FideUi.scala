@@ -171,10 +171,12 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           player.fed.map: fed =>
             card(
               "Federation",
-              a(cls := "fide-player__federation", href := routes.Fide.federation(Federation.idToSlug(fed)))(
-                federation.flag(fed, none),
-                Federation.name(fed)
-              )
+              if fed == Federation.idNone then "None"
+              else
+                a(cls := "fide-player__federation", href := routes.Fide.federation(Federation.idToSlug(fed)))(
+                  federation.flag(fed, none),
+                  Federation.name(fed)
+                )
             ),
           card(
             "FIDE profile",
