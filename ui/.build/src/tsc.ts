@@ -7,13 +7,12 @@ import JSON5 from 'json5';
 let tscPs: cps.ChildProcessWithoutNullStreams | undefined;
 
 export function stopTsc() {
-  tscPs?.removeAllListeners();
   tscPs?.kill();
   tscPs = undefined;
 }
 
 export async function tsc(): Promise<void> {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve, reject) => {
     if (!env.tsc) return resolve();
 
     const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
@@ -40,15 +39,15 @@ export async function tsc(): Promise<void> {
     }
 
     await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
-    tscPs = cps.spawn('.build/node_modules/.bin/tsc', [
+    const thisPs = (tscPs = cps.spawn('.build/node_modules/.bin/tsc', [
       '-b',
       cfgPath,
       ...(env.watch ? ['-w', '--preserveWatchOutput'] : ['--incremental']),
-    ]);
+    ]));
 
     env.log(`Compiling typescript`, { ctx: 'tsc' });
 
-    tscPs.stdout?.on('data', (buf: Buffer) => {
+    thisPs.stdout?.on('data', (buf: Buffer) => {
       const txts = lines(buf.toString('utf8'));
       for (const txt of txts) {
         if (txt.includes('Found 0 errors')) {
@@ -59,11 +58,12 @@ export async function tsc(): Promise<void> {
         }
       }
     });
-    tscPs.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
-    tscPs.addListener('close', code => {
-      env.done(code || 0, 'tsc');
-      if (code) env.done(code, 'esbuild'); // fail both
-      else resolve();
+    thisPs.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
+    thisPs.addListener('close', code => {
+      thisPs.removeAllListeners();
+      if (code !== null) env.done(code, 'tsc');
+      if (code === 0) resolve();
+      else reject();
     });
   });
 }

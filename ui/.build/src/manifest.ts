@@ -12,7 +12,7 @@ type Manifest = { [key: string]: { hash?: string; imports?: string[] } };
 const current: { js: Manifest; css: Manifest } = { js: {}, css: {} };
 let writeTimer: NodeJS.Timeout;
 
-export async function init() {
+export async function initManifest() {
   if (env.building.length === env.modules.size) return;
   // we're building a subset of modules. if possible reuse the previously built full manifest to give us
   // a shot at changes viewable in the browser, otherwise punt.
