@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Váš účet není označen ani omezen. Vše je v pořádku!</string>
+  <string name="engineMarked">Váš účet je označen za cizí pomoc při hraní.</string>
+  <string name="engineMarkedInfo">Definujeme to jako využití jakékoli vnější pomoci k posílení Vašich znalostí a/nebo výpočetních schopností za účelem získání nespravedlivé výhody oproti Vašemu soupeři. Pro více informací se podívejte na stránku %s.</string>
+  <string name="arenaBanned">Připojování k arénám je u Vašeho účtu zakázáno.</string>
+  <string name="prizeBanned">Turnaje s reálnými cenami jsou u Vašeho účtu zakázány.</string>
+  <string name="boosterMarked">Váš účet je označen za manipulování s ratingem.</string>
+</resources>
