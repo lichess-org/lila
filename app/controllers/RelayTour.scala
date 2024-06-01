@@ -42,6 +42,13 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
           .map:
             views.relay.tour.byOwner(_, owner)
 
+  def apiBy(owner: UserStr, page: Int) = Open:
+    Reasonable(page, Max(20)):
+      Found(env.user.lightUser(owner.id)): owner =>
+        apiC.jsonDownload:
+          env.relay.tourStream
+            .userTourStream(MaxPerSecond(20), owner.id, Max(getInt("nb") | 20).atMost(100), page)
+
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
       env.relay.pager
