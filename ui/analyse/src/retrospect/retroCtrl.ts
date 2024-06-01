@@ -17,7 +17,6 @@ export interface RetroCtrl {
 type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
 
 export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
-  const game = root.data.game;
   let candidateNodes: Tree.Node[] = [];
   const explorerCancelPlies: number[] = [];
   let solvedPlies: number[] = [];
