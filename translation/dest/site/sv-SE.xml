@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Svart gör schackmatt på ett drag</string>
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s vän inloggad</item>
     <item quantity="other">%s vänner inloggade</item>
@@ -530,6 +531,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Fortsätt automatiskt till nästa parti efter att du gjort ett drag</string>
   <string name="autoSwitch">Automatiskt partibyte</string>
   <string name="puzzles">Schackproblem</string>
+  <string name="onlineBots">Online-bottar</string>
   <string name="name">Namn</string>
   <string name="description">Beskrivning</string>
   <string name="descPrivate">Privat beskrivning</string>
