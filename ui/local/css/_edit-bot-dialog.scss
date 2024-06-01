@@ -1,0 +1,93 @@
+dialog .dialog-content {
+  padding: 0;
+}
+.edit-bot {
+  @extend %flex-column, %box-radius-bottom;
+  @include above-cards;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas: 'a b c' 'd e e';
+
+  .player {
+    grid-area: a;
+    aspect-ratio: 1/1;
+    // height: 80%;
+  }
+  .settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+    padding: 1em;
+    overflow: auto;
+  }
+  .name {
+    grid-area: d;
+    height: 100%;
+  }
+  .description {
+    grid-area: e;
+    textarea {
+      white-space: pre-wrap;
+      width: 95%;
+      resize: none;
+    }
+  }
+  .col1 {
+    grid-area: b;
+  }
+  .col2 {
+    grid-area: c;
+  }
+  .fish {
+  }
+  .zero {
+  }
+  .setting {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1em;
+    align-items: center;
+    label {
+      max-width: 30%;
+      flex: 0 0 initial;
+    }
+    input {
+      width: 100%;
+    }
+  }
+  /*.setting {
+    @extend %flex-nowrap;
+
+    * {
+      white-space: nowrap;
+    }
+    label {
+      flex: 4 1 auto;
+      cursor: pointer;
+    }
+
+    .switch + label {
+      margin-inline-start: 1ch;
+    }
+
+    input[type='range'] {
+      cursor: pointer;
+      flex: 1 4 auto;
+      padding: 0;
+      height: 1.6em;
+      width: 100%;
+      margin: 0 1ch;
+    }
+
+    select {
+      flex: 1 4 auto;
+      min-width: 0;
+      margin-inline-start: 1ch;
+      padding: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }*/
+}

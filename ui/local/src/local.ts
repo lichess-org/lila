@@ -4,36 +4,22 @@ import { MoveRootCtrl } from 'game';
 import { PlayCtrl } from './playCtrl';
 import { TestCtrl } from './testCtrl';
 import { renderTestView } from './testView';
-import { LocalPlayOpts, Libot } from './interfaces';
+import { LocalPlayOpts, Libot } from './types';
 import { BotCtrl } from './botCtrl';
 import { LocalDialog } from './setupDialog';
-import makeZerofish from 'zerofish';
-import { makeDatabase, Database } from './database';
-//import { objectStorage } from 'common/objectStorage';
 import view from './playView';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts) {
-  //const db: Database = await makeDatabase(2);
-
-  const [zf, bots, db] = await Promise.all([
-    makeZerofish({
-      root: site.asset.url('npm', { documentOrigin: true }),
-      wasm: site.asset.url('npm/zerofishEngine.wasm'),
-    }),
-    fetch(site.asset.url('bots.json')).then(x => x.json()),
-    makeDatabase(2),
-  ]);
-
-  const botCtrl = new BotCtrl(withCards(bots), zf, db);
+  const botCtrl = await new BotCtrl().init();
   if (opts.setup) {
     if (!opts.setup.go) {
       new LocalDialog(botCtrl.bots, opts.setup, true);
       return;
     }
-    botCtrl.setBot('white', opts.setup.white);
-    botCtrl.setBot('black', opts.setup.black);
+    botCtrl.setPlayer('white', opts.setup.white);
+    botCtrl.setPlayer('black', opts.setup.black);
   }
 
   const ctrl = new PlayCtrl(opts, botCtrl, redraw);
@@ -51,26 +37,6 @@ export async function initModule(opts: LocalPlayOpts) {
     vnode = patch(vnode, view(ctrl, renderSide()));
     ctrl.round.redraw();
   }
-}
-
-export function withCards(bots: any) {
-  console.log(bots);
-  const withCards: Libot[] = [];
-  for (const bot of bots) {
-    const imageUrl =
-      bot.imageUrl ??
-      (bot.image ? site.asset.url(`lifat/bots/images/${bot.image}`, { version: 'bot000' }) : undefined);
-    withCards.push({
-      imageUrl,
-      card: {
-        label: bot.name,
-        domId: bot.uid.startsWith('#') ? bot.uid.slice(1) : bot.uid,
-        imageUrl,
-      },
-      ...bot,
-    });
-  }
-  return withCards;
 }
 
 // async stuff that must be serialized is done so here

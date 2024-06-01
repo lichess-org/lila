@@ -1,7 +1,7 @@
 import { looseH as h, VNode } from 'common/snabbdom';
 //import * as licon from 'common/licon';
 //import { bind } from 'common/snabbdom';
-import { type Libot } from './interfaces';
+import { type Libot } from './types';
 import { PlayCtrl } from './playCtrl';
 
 export default function (ctrl?: PlayCtrl, side?: VNode): VNode {

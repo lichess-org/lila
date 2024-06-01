@@ -1,4 +1,4 @@
-import type { Libot, Libots, LocalSetup } from './interfaces';
+import type { Libot, Libots, LocalSetup } from './types';
 import { isTouchDevice } from 'common/device';
 import { HandOfCards } from './handOfCards';
 //import { clamp } from 'common';
@@ -23,7 +23,7 @@ export class LocalDialog {
       `<div class="player ${color}"><img class="remove" src="${site.asset.flairSrc(
         'symbols.cancel',
       )}"><div class="placard ${color}">Player</div></div>`;
-    this.view = $as<HTMLElement>(`<div class="local-view">
+    this.view = $as<HTMLElement>(`<div class="with-hand-of-cards">
       <div class="vs">
         ${player('white')}
         <div class="actions">
@@ -53,11 +53,11 @@ export class LocalDialog {
           </div>`,
         append: [{ node: this.view, where: '.chin', how: 'before' }],
         action: [
-          { selector: '.fight', action: dlg => this.fight(dlg) },
-          { selector: '.switch', action: dlg => this.switch(dlg) },
-          { selector: '.random', action: dlg => this.random(dlg) },
-          { selector: '.white > img.remove', action: () => this.select('white') },
-          { selector: '.black > img.remove', action: () => this.select('black') },
+          { selector: '.fight', result: dlg => this.fight(dlg) },
+          { selector: '.switch', result: dlg => this.switch(dlg) },
+          { selector: '.random', result: dlg => this.random(dlg) },
+          { selector: '.white > img.remove', result: () => this.select('white') },
+          { selector: '.black > img.remove', result: () => this.select('black') },
         ],
         noCloseButton: this.noClose,
         noClickAway: this.noClose,

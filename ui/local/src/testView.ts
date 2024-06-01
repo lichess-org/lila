@@ -2,6 +2,7 @@ import * as co from 'chessops';
 import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
 import { LocalDialog } from './setupDialog';
 import { EditBotDialog } from './editBotDialog';
+import { ZerofishBot } from './zerofishBot';
 import { TestCtrl } from './testCtrl';
 
 site.asset.loadCssPath('local.test');
@@ -21,7 +22,8 @@ export function renderTestView(ctrl: TestCtrl): VNode {
 
 function player(ctrl: TestCtrl, color: Color): VNode {
   const players = ctrl.root.botCtrl.players;
-  const imgUrl = players[color]?.imageUrl ?? `/assets/lifat/bots/images/${color}-torso.webp`;
+  const p = players[color];
+  const imgUrl = p?.imageUrl ?? site.asset.url(`lifat/bots/images/${color}-torso.webp`);
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
@@ -29,20 +31,21 @@ function player(ctrl: TestCtrl, color: Color): VNode {
   };
   return h(`div.${color}.player`, [
     h('img', { attrs: { src: imgUrl, width: 120, height: 120 } }),
-    players[color] &&
-      !ctrl.root.botCtrl.isRankBot(players[color]?.uid) &&
+    p &&
+      !p?.isRankBot &&
       h('div.bot-actions', [
-        h(
-          'button.button' + buttonClass[color],
-          {
-            hook: onInsert(el =>
-              el.addEventListener('click', () => {
-                new EditBotDialog(ctrl.root.botCtrl.bots, players[color]?.uid);
-              }),
-            ),
-          },
-          'Edit',
-        ),
+        p instanceof ZerofishBot &&
+          h(
+            'button.button' + buttonClass[color],
+            {
+              hook: onInsert(el =>
+                el.addEventListener('click', () => {
+                  new EditBotDialog(ctrl.root.botCtrl.zerofishBots, color, p.uid);
+                }),
+              ),
+            },
+            'Edit',
+          ),
         h(
           'button.button' + buttonClass[color],
           {
@@ -50,7 +53,7 @@ function player(ctrl: TestCtrl, color: Color): VNode {
               el.addEventListener('click', () => {
                 ctrl.play({
                   type: 'rank',
-                  players: [players[color]!.uid],
+                  players: [p.uid],
                   iterations: 1, //parseInt($('#num-games').val() as string) || 1,
                   time: '1+0',
                 });
@@ -61,7 +64,7 @@ function player(ctrl: TestCtrl, color: Color): VNode {
         ),
       ]),
     h('div.stats', [
-      h('span.totals.strong', players[color]?.name ?? 'Player'),
+      h('span.totals.strong', p?.name ? p.name + (p?.rating ? ` ${p.rating}` : '') : `${color} Player`),
       //h('span.totals', players[color]?.ratings.get('classical') ?? '0'),
       h('span.totals', ctrl.resultsText(color)),
     ]),

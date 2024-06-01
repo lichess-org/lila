@@ -14,8 +14,13 @@ export async function stopEsbuild() {
   return proof;
 }
 
-export async function esbuild(): Promise<void> {
+export async function esbuild(tsc?: Promise<void>): Promise<void> {
   if (!env.esbuild) return;
+  try {
+    await tsc;
+  } catch (_) {
+    return; // killed
+  }
 
   const entryPoints = [];
   for (const mod of env.building) {

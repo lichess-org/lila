@@ -1,0 +1,36 @@
+.with-hand-of-cards {
+  position: relative;
+  padding: calc(2em * var(---scale-factor));
+  padding-bottom: 0;
+  flex-grow: 1;
+  overflow: hidden;
+
+  .card {
+    position: absolute;
+    top: 0;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    border: 1px solid $c-border;
+    transition: transform 0.3s;
+    img {
+      width: calc(192px * var(---scale-factor));
+    }
+    label {
+      font-weight: bold;
+      font-size: 1.3em;
+      text-align: center;
+      position: absolute;
+      top: -1.5em;
+      left: 0;
+      right: 0;
+      display: none;
+    }
+    &.pull label {
+      display: block;
+    }
+  }
+
+  .dragging .card {
+    transition: none;
+  }
+}

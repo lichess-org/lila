@@ -1,4 +1,4 @@
-import { LocalPlayOpts, LocalSetup, Automator } from './interfaces';
+import { LocalPlayOpts, LocalSetup, Automator } from './types';
 import { type BotCtrl } from './botCtrl';
 import { makeSocket } from './socket';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
@@ -46,9 +46,9 @@ export class PlayCtrl {
     }
     this.roundData = this.makeRoundData(this.setup.fen);
   }
-  get db(): Database {
+  /*get db(): Database {
     return this.botCtrl.db;
-  }
+  }*/
 
   get state(): GameState {
     return {
@@ -77,8 +77,8 @@ export class PlayCtrl {
     this.round = site.asset.loadEsm<MoveRootCtrl>('round', { init: this.roundOpts });
   }*/
   resetToSetup() {
-    this.botCtrl.setBot('white', this.setup.white);
-    this.botCtrl.setBot('black', this.setup.black);
+    this.botCtrl.setPlayer('white', this.setup.white);
+    this.botCtrl.setPlayer('black', this.setup.black);
     this.resetBoard();
   }
 
@@ -125,7 +125,7 @@ export class PlayCtrl {
     this.botCtrl.zf.reset();
     setTimeout(() => {
       this.automator?.onGameEnd(result as 'white' | 'black' | 'draw', reason);
-      this.db.putState(this.state);
+      //this.db.putState(this.state);
       this.redraw();
     });
     // blah blah do outcome stuff
@@ -242,7 +242,7 @@ export class PlayCtrl {
         perfs: {},
       },
       id: '',
-      image: this.botCtrl.players[color]?.imageUrl,
+      //image: this.botCtrl.players[color]?.imageUrl,
       isGone: false,
       name,
       onGame: true,

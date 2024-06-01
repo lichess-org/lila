@@ -1,42 +1,9 @@
-@import 'common';
-
-:root {
-  ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp');
-  ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp');
-}
-
-dialog .local-setup {
-  @extend %flex-column;
-  width: 100vw;
-  height: 80vh;
-  background-color: $c-body-gradient;
-  border-radius: 5px;
-
-  @include if-transp {
-    background-color: unset; //#ffffff48;
-  }
-
-  @media (orientation: landscape) {
-    max-width: 1200px;
-    max-height: 800px;
-  }
-
-  .local-view {
-    position: relative;
-    padding: calc(2em * var(---scale-factor));
-    padding-bottom: 0;
-    flex-grow: 1;
-    overflow: hidden;
-  }
-
+.local-setup {
   .vs {
+    @include above-cards;
     display: grid;
-    width: 100%;
-    height: calc(100% - (32px + 192px * var(---scale-factor)));
-
-    gap: 1em;
     @media (orientation: portrait) {
-      grid-template-rows: 1fr auto;
+      grid-template-rows: min-content auto;
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
         'w b'
@@ -48,96 +15,12 @@ dialog .local-setup {
       grid-template-areas: 'w a b';
     }
   }
-
-  .player {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    @include if-constrained {
-      aspect-ratio: 3/4;
-    }
-    //height: 100%;
-    border-radius: 10px;
-    &::before {
-      position: absolute;
-      content: '';
-      width: 100%;
-      height: 100%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      @include if-constrained {
-        background-position: top;
-      }
-    }
-    /*&:hover {
-      border: 1px dashed $c-border;
-    }*/
-
-    &.drag-over {
-      outline: 2px dashed $c-primary;
-    }
-
-    &.white {
-      grid-area: w;
-      background-color: hsl(37, 12%, 92%);
-      &::before {
-        background-image: var(---white-image-url);
-      }
-    }
-    &.black {
-      grid-area: b;
-      background-color: hsl(37, 5%, 23%);
-      &::before {
-        background-image: var(---black-image-url);
-      }
-    }
-    .remove {
-      display: none;
-      position: absolute;
-      height: 20px;
-      width: 20px;
-      top: 5px;
-      right: 5px;
-      cursor: pointer;
-      filter: grayscale(1);
-      &.show {
-        display: block;
-      }
-      &:hover {
-        filter: saturate(1);
-        //filter: brightness(1.4);
-      }
-    }
+  .player.white {
+    grid-area: w;
   }
-
-  .placard {
-    position: absolute;
-    //white-space: pre;
-    bottom: calc(40px * var(---scale-factor) * var(---scale-factor)); // not typo
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content; //calc(100% - 64px);
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: calc(10px * var(---scale-factor)) calc(20px * var(---scale-factor) * var(---scale-factor));
-    text-align: center;
-    font-size: calc(0.4em + 0.8em * var(---scale-factor));
-    opacity: 0.87;
-    border-radius: 5px;
-    background-color: #242424;
-    border: 1px solid #444;
-    color: white;
-    &.white {
-      background-color: $c-body-gradient;
-      color: $c-font-clearer;
-      border: 1px solid $c-border;
-    }
-    // }
+  .player.black {
+    grid-area: b;
   }
-
   .actions {
     grid-area: a;
     display: flex;
@@ -146,6 +29,7 @@ dialog .local-setup {
     @media (orientation: portrait) {
       flex-direction: row;
       justify-content: space-around;
+      align-items: start;
     }
     gap: calc(20px * var(---scale-factor));
     font-size: calc(32px * var(---scale-factor));
@@ -167,37 +51,5 @@ dialog .local-setup {
     // label {
     //   padding: 1em;
     // }
-  }
-
-  .card {
-    position: absolute;
-    top: 0;
-    //width: 192px;
-    //height: 192x;
-    border-radius: 6px;
-    background-color: #f0f0f0;
-    border: 1px solid $c-border;
-    //box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s;
-    img {
-      width: calc(192px * var(---scale-factor));
-    }
-    label {
-      font-weight: bold;
-      font-size: 1.3em;
-      text-align: center;
-      position: absolute;
-      top: -1.5em;
-      left: 0;
-      right: 0;
-      display: none;
-    }
-    &.pull label {
-      display: block;
-    }
-  }
-
-  .dragging .card {
-    transition: none;
   }
 }

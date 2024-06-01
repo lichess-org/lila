@@ -1,9 +1,9 @@
 import { isTouchDevice } from 'common/device';
 
 export interface CardData {
-  readonly imageUrl: string;
-  readonly label: string;
-  readonly domId: string;
+  imageUrl: string;
+  label: string;
+  domId: string;
 }
 
 export class HandOfCards {

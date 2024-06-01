@@ -1,14 +1,10 @@
 import { LocalDialog } from './setupDialog';
-import { withCards } from './local';
-import { Libots } from './interfaces';
+import { BotCtrl } from './botCtrl';
+import { Libots } from './types';
 
 interface LocalModalOpts {}
 
 export default async function initModule(opts: LocalModalOpts) {
   opts;
-
-  const bots = await fetch(site.asset.url('bots.json')).then(x => x.json());
-  const libots: Libots = {};
-  for (const bot of withCards(bots)) libots[bot.uid] = bot;
-  return new LocalDialog(libots);
+  return new LocalDialog(await new BotCtrl().fetchLibots());
 }

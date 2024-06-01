@@ -4,12 +4,8 @@
   }
 }
 
-:root {
-  ---scale-factor: 1;
-  @include if-constrained(400px) {
-    ---scale-factor: 0.5;
-  }
-  @include if-constrained() {
-    ---scale-factor: 0.7;
-  }
+@mixin above-cards {
+  width: 100%;
+  height: calc(100% - (32px + 192px * var(---scale-factor))); // leave room for cards at bottom
+  gap: 1em;
 }

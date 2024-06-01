@@ -1,0 +1,110 @@
+dialog .dialog-content {
+  ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp');
+  ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp');
+  ---scale-factor: 1;
+
+  @include if-constrained(400px) {
+    ---scale-factor: 0.5;
+  }
+  @include if-constrained() {
+    ---scale-factor: 0.7;
+  }
+
+  @extend %flex-column;
+  width: 100vw;
+  height: 80vh;
+  background-color: $c-body-gradient;
+  border-radius: 5px;
+
+  @include if-transp {
+    background-color: unset;
+  }
+
+  @media (orientation: landscape) {
+    max-width: 1200px;
+    max-height: 800px;
+  }
+
+  .player {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    @include if-constrained {
+      aspect-ratio: 3/4;
+    }
+    border-radius: 10px;
+    &::before {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      @include if-constrained {
+        background-position: top;
+      }
+    }
+    /*&:hover {
+      border: 1px dashed $c-border;
+    }*/
+
+    &.drag-over {
+      outline: 2px dashed $c-primary;
+    }
+
+    &.white {
+      background-color: hsl(37, 12%, 92%);
+      &::before {
+        background-image: var(---white-image-url);
+      }
+    }
+    &.black {
+      background-color: hsl(37, 5%, 23%);
+      &::before {
+        background-image: var(---black-image-url);
+      }
+    }
+    .remove {
+      display: none;
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      filter: grayscale(1);
+      &.show {
+        display: block;
+      }
+      &:hover {
+        filter: saturate(1);
+      }
+    }
+  }
+
+  .placard {
+    position: absolute;
+    bottom: calc(40px * var(---scale-factor) * var(---scale-factor));
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: calc(10px * var(---scale-factor)) calc(20px * var(---scale-factor) * var(---scale-factor));
+    text-align: center;
+    font-size: calc(0.4em + 0.8em * var(---scale-factor));
+    opacity: 0.87;
+    border-radius: 5px;
+    background-color: #242424;
+    border: 1px solid #444;
+    color: white;
+    &.white {
+      background-color: $c-body-gradient;
+      color: $c-font-clearer;
+      border: 1px solid $c-border;
+    }
+  }
+}

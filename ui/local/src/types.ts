@@ -21,17 +21,19 @@ export interface ZfParam {
 }
 
 export interface Libot {
-  readonly name: string;
   readonly uid: string;
-  readonly description: string;
-  readonly ratings: Map<Speed, number>;
-  readonly image?: string;
   readonly imageUrl?: string;
   readonly level?: number;
+  readonly isRankBot?: boolean;
+  name: string;
+  description: string;
+  image?: { lifat?: string; url?: string };
+  rating?: number;
   zero?: { netName: string; depth?: number };
   fish?: { search?: FishSearch };
   card?: CardData;
 
+  updateRating?: (rating: number) => number;
   move: (pos: Position) => Promise<Uci>;
 }
 

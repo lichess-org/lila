@@ -1,7 +1,8 @@
 import * as co from 'chessops';
 //import { ObjectStorage, objectStorage } from 'common/objectStorage';
 import { PlayCtrl } from './playCtrl';
-import { Automator, Libot, Result, Matchup } from './interfaces';
+import { rateAndNext, rateMatchup } from './rankBots';
+import { Automator, Libot, Result, Matchup } from './types';
 import { Database } from './database';
 import { clamp } from 'common';
 //import { Libot } from './interfaces';
@@ -51,9 +52,9 @@ export class TestCtrl implements Automator {
     return this.root.botCtrl;
   }
 
-  get db(): Database {
+  /*get db(): Database {
     return this.root.db;
-  }
+  }*/
 
   get bottomColor(): Color {
     const o = { top: this.black, bottom: this.white };
@@ -75,8 +76,8 @@ export class TestCtrl implements Automator {
   async play(test?: Test) {
     if (test) {
       this.script = { ...test, games: this.matchups(test), results: [] };
-      this.botCtrl.setBot('white', this.script.games[0].white);
-      this.botCtrl.setBot('black', this.script.games[0].black);
+      this.botCtrl.setPlayer('white', this.script.games[0].white);
+      this.botCtrl.setPlayer('black', this.script.games[0].black);
     }
     if (test || this.root.checkGameOver().end) this.root.resetBoard(this.startingFen);
     this.stopped = false;
@@ -121,15 +122,15 @@ export class TestCtrl implements Automator {
     });
     if (this.script.results.length >= this.script.games.length) {
       if (this.script.type === 'rank') {
-        const { matchup, rating } = this.botCtrl.rankNext(this.script.results);
+        const { matchup } = rateAndNext(this.botCtrl, this.script.results);
         if (matchup) this.script.games.push(matchup);
         else this.stopped = true;
       } else this.stopped = true;
     }
     if (this.isStopped) return;
     const game = this.script.games[this.script.results.length];
-    this.botCtrl.setBot('white', game.white);
-    this.botCtrl.setBot('black', game.black);
+    this.botCtrl.setPlayer('white', game.white);
+    this.botCtrl.setPlayer('black', game.black);
     this.root.resetBoard(this.startingFen);
     this.play();
   }
@@ -137,7 +138,7 @@ export class TestCtrl implements Automator {
   matchups(test: Test): Matchup[] {
     const players = test.players;
     const games: Matchup[] = [];
-    if (test.type === 'rank') return [this.botCtrl.rankMatchup(15, this.botCtrl.getBot(players[0]))];
+    if (test.type === 'rank') return [rateMatchup(15, this.botCtrl.bot(players[0])!)];
     for (let it = 0; it < test.iterations; it++) {
       if (test.type === 'roundRobin') {
         for (let i = 0; i < players.length; i++) {

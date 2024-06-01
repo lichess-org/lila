@@ -38,11 +38,12 @@ interface SnabDialogOpts extends DialogOpts {
 
 // Action can be any "clickable" client button, usually to dismiss the dialog
 interface Action {
-  selector: string; // selector, click handler will be installed
-  action?: string | ((dialog: Dialog, action: Action) => void);
-  // if action not provided, just close
-  // if string, given value will set dialog.returnValue and dialog is closed on click
-  // if function, it will be called on click and YOU must close the dialog
+  selector: string; // selector
+  event?: string; // if not specified, 'click' handler will be installed
+  result?: string | ((dialog: Dialog, action: Action, e: Event) => void);
+  // if result handler not provided, just close
+  // if string, given value will set dialog.returnValue and dialog is closed on event
+  // if function, it will be called on event. dialog is not closed.
 }
 
 declare namespace _Snabbdom {

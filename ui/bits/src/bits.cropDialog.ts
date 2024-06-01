@@ -69,8 +69,8 @@ export async function initModule(o?: CropOpts) {
 <button class="button submit">submit</button></span>`,
     append: [{ where: '.crop-view', node: container }],
     action: [
-      { selector: '.dialog-actions > .cancel', action: d => d.close() },
-      { selector: '.dialog-actions > .submit', action: crop },
+      { selector: '.dialog-actions > .cancel', result: d => d.close() },
+      { selector: '.dialog-actions > .submit', result: crop },
     ],
     onClose: () => {
       URL.revokeObjectURL(url);

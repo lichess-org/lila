@@ -256,15 +256,25 @@ class SassWatch {
   touched = new Set<string>();
   timeout: NodeJS.Timeout | undefined;
   watchers: fs.FSWatcher[] = [];
-
+  watchDirs = new Set<string>();
   constructor() {
-    if (env.watch) {
-      for (const dir of [...importMap.keys()].map(path.dirname)) {
-        const fsWatcher = fs.watch(dir);
-        fsWatcher.on('change', (event: string, srcFile: string) => this.onChange(dir, event, srcFile));
-        fsWatcher.on('error', (err: Error) => env.error(err, 'sass'));
-        this.watchers.push(fsWatcher);
-      }
+    this.watch();
+  }
+
+  async watch() {
+    if (!env.watch) return;
+    const watchDirs = new Set<string>([...importMap.keys()].map(path.dirname));
+    (await allSources()).forEach(s => watchDirs.add(path.dirname(s)));
+    if (this.watchDirs.size === watchDirs.size || [...watchDirs].every(d => this.watchDirs.has(d))) return;
+    if (this.watchDirs.size) env.log('Rebuilding watchers...', { ctx: 'sass' });
+    for (const x of this.watchers) x.close();
+    this.watchers.length = 0;
+    this.watchDirs = watchDirs;
+    for (const dir of this.watchDirs) {
+      const fsWatcher = fs.watch(dir);
+      fsWatcher.on('change', (event: string, srcFile: string) => this.onChange(dir, event, srcFile));
+      fsWatcher.on('error', (err: Error) => env.error(err, 'sass'));
+      this.watchers.push(fsWatcher);
     }
   }
 
@@ -287,7 +297,11 @@ class SassWatch {
     if (files.every(f => this.touched.has(f))) return false;
     files.forEach(src => {
       this.touched.add(src);
-      importersOf(src).forEach(dest => this.dependencies.add(dest));
+      console.log(src);
+      if (!/[^_].*\.scss/.test(path.basename(src))) {
+        console.log('matched', src);
+        this.dependencies.add(src);
+      } else importersOf(src).forEach(dest => this.dependencies.add(dest));
     });
     return true;
   }
@@ -308,7 +322,7 @@ class SassWatch {
     const sources = [...this.dependencies].filter(src => /\/[^_][^/]+\.scss$/.test(src));
     const touched = [...this.touched];
     this.clear();
-
+    this.watch(); // experimental
     let rebuildColors = false;
 
     for (const src of touched) {

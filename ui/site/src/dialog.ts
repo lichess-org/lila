@@ -134,9 +134,9 @@ class DialogWrapper implements Dialog {
     }
     if (o.action)
       for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
-        view.querySelector(a.selector)?.addEventListener('click', () => {
-          if (!a.action || typeof a.action === 'string') this.close(a.action);
-          else a.action(this, a);
+        view.querySelector(a.selector)?.addEventListener(a.event ?? 'click', e => {
+          if (!a.result || typeof a.result === 'string') this.close(a.result);
+          else a.result(this, a, e);
         });
       }
   }
