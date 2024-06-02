@@ -11,6 +11,7 @@ import lila.search.client.SearchClient
 import lila.search.spec.Query as SQuery
 import lila.search.spec.ForumSource
 import smithy4s.Timestamp
+import lila.search.client.SearchError
 
 final class ForumSearchApi(
     client: SearchClient,
@@ -23,9 +24,19 @@ final class ForumSearchApi(
       .search(query.transform, from.value, size.value)
       .map: res =>
         res.hitIds.map(ForumPostId.apply)
+      .handleError:
+        case e: SearchError =>
+          logger.warn(s"Search error: query={$query}, from={$from}, size={$size}", e)
+          Nil
 
   def count(query: Query) =
-    client.count(query.transform).dmap(_.count)
+    client
+      .count(query.transform)
+      .dmap(_.count)
+      .handleError:
+        case e: SearchError =>
+          logger.warn(s"Count error: query={$query}", e)
+          0
 
   def store(post: ForumPostMini) =
     postApi

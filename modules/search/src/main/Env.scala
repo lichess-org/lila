@@ -22,4 +22,5 @@ final class Env(
 
   private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
 
-  val client = if config.enabled then SearchClient.play(ws, s"${config.endpoint}/api") else SearchClient.noop
+  val client: SearchClient =
+    if config.enabled then SearchClient.play(ws, s"${config.endpoint}/api") else SearchClient.noop
