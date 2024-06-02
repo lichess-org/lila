@@ -107,7 +107,7 @@
   {
     "uid": "#listress",
     "name": "Listress",
-    "description": "You are a wretched, pitiful worm. Listress is not merciful.",
+    "description": "You are a wretched, pitiful worm. Listress will not be merciful.",
     "image": "listress.webp",
     "fish": { "search": { "level": 15 } }
   }

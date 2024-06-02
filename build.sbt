@@ -16,7 +16,7 @@ lazy val root = Project("lila", file("."))
 organization         := "org.lichess"
 Compile / run / fork := true
 javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.dev.xml")
-//ThisBuild / usePipelining := true
+ThisBuild / usePipelining := false
 // shorter prod classpath
 scriptClasspath             := Seq("*")
 Compile / resourceDirectory := baseDirectory.value / "conf"
@@ -207,7 +207,7 @@ lazy val history = module("history",
 
 lazy val search = module("search",
   Seq(common),
-  playWs.bundle
+  Seq(playWs.ahc, lilaSearch)
 )
 
 lazy val chat = module("chat",

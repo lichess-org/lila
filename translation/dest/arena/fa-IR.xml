@@ -13,14 +13,14 @@
 بازی های بعدی هم ارزش امتیازی دو برابر را حفظ خواهند کرد تا زمانی که نتوانید در یک بازی پیروز شوید.
 یعنی در حالت شعله، ارزش هر برد 4 امتیاز، هر مساوی 2 امتیاز، و هر باخت باز هم هیچ امتیازی ندارد.
 برای مثال، دو برد و سپس یک مساوی ارزشش 6 امتیاز می‌شود: (1×2)+2+2</string>
-  <string name="berserk">حالت برزرک</string>
-  <string name="berserkAnswer">وقتی یک بازیکن در اول بازی بر روی دکمه berserk کلیک میکند، نصف زمانش را از دست میدهد، اما بردش یک امیتاز دیگر را هم به همراه دارد.
+  <string name="berserk">جنون در میدان مسابقات</string>
+  <string name="berserkAnswer">وقتی یک بازیکن در ابتدای بازی بر روی دکمه جنون کلیک میکند، نصف زمانش را از دست میدهد، اما بردش یک امتیاز بیشتر به همراه دارد.
 
-برزرک کردن در بازی هایی که زمان اضافه میشود اضافه کردن زمان را لغو میکند. (2+1 یک استثنا است، آن را به 0+1 تبدیل میکند)
+جنون در بازی هایی که پاداش زمانی دارد، پاداش زمانی را لغو میکند. (2+1 یک استثنا است، که به 0+1 تبدیل می‌شود.)
 
-برزرک کردن برای بازی هایی با زمان اولیه صفر امکان پذیر نمیباشد( 1+0، 2+0).
+جنون برای بازی‌هایی با زمان اولیه صفر امکان پذیر نیست( 1+0، 2+0).
 
-برزرک فقط در حالتی یک امتیاز اضافه میدهد که حداقل 7 حرکت بازی کنید.</string>
+جنون تنها در صورتی یک امتیاز اضافی میدهد که حداقل 7 حرکت بازی کنید.</string>
   <string name="howIsTheWinnerDecided">برنده چگونه انتخاب میشود؟</string>
   <string name="howIsTheWinnerDecidedAnswer">بازیکن(ها) با بیشترین امتیاز در پایان زمان مسابقه به عنوان برنده(برندگان) اعلام خواهند شد.
 زمانی که دو یا چند بازیکن تعداد امتیازات یکسانی داشته باشند، ملاک سنجش عملکرد مسابقه به وقت اضافه است.</string>
@@ -37,10 +37,10 @@
     <item quantity="other">در صورت تساوی بازی در %s حرکت اول، به هیچکدام از بازیکنان امتیازی نخواهد رسید.</item>
   </plurals>
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
-  <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
+  <string name="shareUrl">این وب‌نشانی را برای پیوستن دیگران به اشتراک گذارید: %s</string>
   <string name="drawStreakStandard">سلسله تساوی: وقتی یک بازیکن در Arena چند تساوی پشت سر هم بدست بیاورد، تنها اولین تساوی یا تساوی‌هایی با حداقل %s حرکت، دارای امتیاز خواهند بود. سلسله تساوی تنها با برد شکسته خواهد شد، نه با باخت یا تساوی.</string>
   <string name="drawStreakVariants">حداقل طول بازی برای بازی های قرعه کشی شده برای کسب امتیاز بر اساس نوع بازی متفاوت است. جدول زیر آستانه انواع مختلف را فهرست می کند.</string>
-  <string name="variant">گونه</string>
+  <string name="variant">انواع دیگر</string>
   <string name="minimumGameLength">حداقل طول بازی</string>
   <string name="history">تاریخچه مسابقات</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
@@ -50,12 +50,12 @@
   <string name="newTeamBattle">مبارزه تیمی جدید</string>
   <string name="customStartDate">تنظیم تاریخ شروع</string>
   <string name="customStartDateHelp">در منطقه زمانی محلی خودتان. تنظیمات \"زمان قبل شروع شدن مسابقه\" را نادیده می گیرد</string>
-  <string name="allowBerserk">مجاز کردن برسرک</string>
-  <string name="allowBerserkHelp">به بازیکنان اجازه دهید تا زمان خود را نصف کنند تا یک امتیاز اضافی بگیرند</string>
+  <string name="allowBerserk">مجاز کردن جنون</string>
+  <string name="allowBerserkHelp">به بازیکنان اجازه دهید زمان خود را نصف کنند تا یک امتیاز بیشتر بگیرند</string>
   <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
   <string name="arenaStreaks">آرنا استریکز</string>
   <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی به‌جای 2 امتیاز 4 امتیاز می دهند.</string>
-  <string name="noBerserkAllowed">برزرک مجاز نیست</string>
+  <string name="noBerserkAllowed">جنون مجاز نیست</string>
   <string name="noArenaStreaks">سلسله برد ناموجود</string>
   <string name="averagePerformance">میانگین عملکرد</string>
   <string name="averageScore">میانگین امتیاز</string>
@@ -78,8 +78,8 @@
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">همه میانگین ها در این صفحه %s هستند.</string>
   <string name="total">همه</string>
   <string name="pointsAvg">میانگین امتیازات</string>
-  <string name="pointsSum">جمع امتیازات</string>
-  <string name="rankAvg">میانگین رتبه بندی</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">جمع امتیازات</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">میانگین رتبه بندی</string>
   <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="tournamentShields">مسابقات سپرها</string>
   <string name="onlyTitled">تنها بازیکنان عنوان دار</string>

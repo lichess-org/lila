@@ -13,9 +13,10 @@ import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }
 import lila.tree.Node
 import lila.tree.Node.Comments
+import lila.search.client.SearchClient
 
 final class StudySearchApi(
-    client: ESClient,
+    client: SearchClient,
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
@@ -23,11 +24,11 @@ final class StudySearchApi(
     extends SearchReadApi[Study, Query]:
 
   def search(query: Query, from: From, size: Size) =
-    client.search(query, from, size).flatMap { res =>
-      studyRepo.byOrderedIds(res.ids.map { StudyId(_) })
+    client.search(query.transform, from.value, size.value).flatMap { res =>
+      studyRepo.byOrderedIds(res.hitIds.map(StudyId(_)))
     }
 
-  def count(query: Query) = client.count(query).dmap(_.value)
+  def count(query: Query) = client.count(query.transform).dmap(_.count)
 
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(
@@ -40,29 +41,28 @@ final class StudySearchApi(
   private def doStore(study: Study) =
     getChapters(study)
       .flatMap { s =>
-        client.store(s.study.id.into(Id), toDoc(s))
+        client.storeStudy(s.study.id.value, toDoc(s))
       }
       .prefixFailure(study.id.value)
 
-  private def toDoc(s: Study.WithActualChapters) =
-    Json.obj(
-      Fields.name    -> s.study.name,
-      Fields.owner   -> s.study.ownerId,
-      Fields.members -> s.study.members.ids,
-      Fields.chapterNames ->
-        s.chapters
-          .collect { case c if !Chapter.isDefaultName(c.name) => c.name }
-          .mkString(" "),
-      Fields.chapterTexts -> noMultiSpace {
+  private def toDoc(s: Study.WithActualChapters): lila.search.spec.StudySource =
+    lila.search.spec.StudySource(
+      name = s.study.name.value,
+      owner = s.study.ownerId.value,
+      members = s.study.members.ids.map(_.value).toList,
+      chapterNames = s.chapters
+        .collect { case c if !Chapter.isDefaultName(c.name) => c.name }
+        .mkString(" "),
+      chapterTexts = noMultiSpace {
         noKeyword {
           (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
         }
       },
-      Fields.topics -> s.study.topicsOrEmpty.value,
-      // Fields.createdAt -> study.createdAt)
-      // Fields.updatedAt -> study.updatedAt,
-      Fields.likes  -> s.study.likes.value,
-      Fields.public -> s.study.isPublic
+      topics = s.study.topicsOrEmpty.value.map(_.value),
+      // createdAt = study.createdAt,
+      // updatedAt = study.updatedAt,
+      likes = s.study.likes.value,
+      public = s.study.isPublic
     )
 
   private val relevantPgnTags: Set[chess.format.pgn.TagType] = Set(
@@ -105,40 +105,36 @@ final class StudySearchApi(
   private val keywordRegex               = """@@\w+@@""".r
   private def noKeyword(text: String)    = keywordRegex.replaceAllIn(text, "")
 
-  def reset(sinceStr: String) =
-    client match
-      case c: ESClientHttp =>
-        {
-          val sinceOption: Either[Unit, Option[LocalDate]] =
-            if sinceStr == "reset" then Left(()) else Right(parseDate(sinceStr))
-          val since = sinceOption match
-            case Right(None) => sys.error("Missing since date argument")
-            case Right(Some(date)) =>
-              logger.info(s"Resume since $date")
-              date
-            case _ =>
-              logger.info("Reset study index")
-              c.putMapping.await(10.seconds, "studyMapping")
-              parseDate("2011-01-01").get
-          logger.info(s"Index to ${c.index} since $since")
-          val retryLogger = logger.branch("index")
-          import lila.db.dsl.*
-          Source
-            .futureSource {
-              studyRepo
-                .sortedCursor(
-                  $doc("createdAt".$gte(since)),
-                  sort = $sort.asc("createdAt")
-                )
-                .map(_.documentSource())
-            }
-            .via(lila.common.LilaStream.logRate[Study]("study index")(logger))
-            .mapAsyncUnordered(8) { study =>
-              lila.common.LilaFuture.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
-            }
-            .runWith(Sink.ignore)
-        } >> client.refresh
-      case _ => funit
+  def reset(sinceStr: String) = {
+    val sinceOption: Either[Unit, Option[LocalDate]] =
+      if sinceStr == "reset" then Left(()) else Right(parseDate(sinceStr))
+    val since = sinceOption match
+      case Right(None) => sys.error("Missing since date argument")
+      case Right(Some(date)) =>
+        logger.info(s"Resume since $date")
+        date
+      case _ =>
+        logger.info("Reset study index")
+        client.mapping(index).await(10.seconds, "studyMapping")
+        parseDate("2011-01-01").get
+    logger.info(s"Index to ${index} since $since")
+    val retryLogger = logger.branch("index")
+    import lila.db.dsl.*
+    Source
+      .futureSource {
+        studyRepo
+          .sortedCursor(
+            $doc("createdAt".$gte(since)),
+            sort = $sort.asc("createdAt")
+          )
+          .map(_.documentSource())
+      }
+      .via(lila.common.LilaStream.logRate[Study]("study index")(logger))
+      .mapAsyncUnordered(8) { study =>
+        lila.common.LilaFuture.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
+      }
+      .runWith(Sink.ignore)
+  } >> client.refresh(index)
 
   private def parseDate(str: String): Option[LocalDate] =
     val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")

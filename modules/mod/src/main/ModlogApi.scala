@@ -21,7 +21,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   private given BSONDocumentHandler[Modlog.UserEntry] = Macros.handler
   private given Conversion[Me, ModId]                 = _.modId
 
-  private val markActions = List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll)
+  private val markActions =
+    List(Modlog.alt, Modlog.booster, Modlog.closeAccount, Modlog.engine, Modlog.troll, Modlog.rankban)
 
   def streamerDecline(streamerId: UserId)(using MyId) = add:
     Modlog(streamerId.some, Modlog.streamerDecline)

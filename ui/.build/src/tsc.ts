@@ -61,15 +61,9 @@ export async function tsc(): Promise<void> {
     thisPs.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
     thisPs.addListener('close', code => {
       thisPs.removeAllListeners();
-      if (code === null) {
-        console.log('here we goes!');
-        return reject();
-      }
-      env.done(code, 'tsc');
-      if (code) {
-        env.done(code, 'esbuild'); // fail both
-        reject();
-      } else resolve();
+      if (code !== null) env.done(code, 'tsc');
+      if (code === 0) resolve();
+      else reject();
     });
   });
 }

@@ -167,4 +167,13 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 3. 点击“Cookie 和网站权限”
 4. 向下滑动页面，点击“媒体自动播放”
 5. 添加 lichess.org 至允许列表</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">防止自己过度沉迷于游戏？</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">独立的精神健康状况</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess 用户样式</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">更少的大厅游戏池</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">我们经常收到用户的信息，要求我们帮助他们阻止过度沉迷于游戏。
+
+除了违反服务条款的情况外，Lichess不会封禁或屏蔽玩家，但我们建议使用外部工具来限制过度游戏行为。一些常见的网站屏蔽工具包括 %1$s、%2$s 和 %3$s。如果您想继续使用网站，但又不想受到快速时间控制的诱惑，您可能会对 %4$s 感兴趣，这里有一种 %5$s 的用户风格。
+
+有些玩家可能会觉得自己的游戏行为已经成瘾。事实上，世界卫生组织将游戏障碍归类为一种 %6$s，其基本特征是：1) 对游戏的控制能力受损；2）对游戏的重视程度不断提高；3）即便知道这种行为会导致负面后果，仍然持续或增加游戏行为。如果您认为自己的下棋行为符合这种模式，我们鼓励您与朋友或家人以及专业人士讨论一下。</string>
 </resources>

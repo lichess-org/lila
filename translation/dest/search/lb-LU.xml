@@ -10,7 +10,7 @@
     <item quantity="one">Eng Partie fonnt</item>
     <item quantity="other">%s Partien fonnt</item>
   </plurals>
-  <string name="opponentName">Géigner Numm</string>
+  <string name="opponentName">Numm vum Géigner</string>
   <string name="loser">Verléierer</string>
   <string name="from">Vun</string>
   <string name="to">Bis</string>

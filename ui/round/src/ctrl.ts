@@ -745,6 +745,10 @@ export default class RoundController implements MoveRootCtrl {
       site.sound.play('confirmation');
     } else this.jump(this.ply);
     this.cancelMove();
+    //cancel premove when you cancel move
+    if (!v && toSubmit) {
+      this.chessground.cancelPremove();
+    }
     if (toSubmit) this.setLoading(true, 300);
   };
 

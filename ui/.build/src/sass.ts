@@ -297,9 +297,7 @@ class SassWatch {
     if (files.every(f => this.touched.has(f))) return false;
     files.forEach(src => {
       this.touched.add(src);
-      console.log(src);
       if (!/[^_].*\.scss/.test(path.basename(src))) {
-        console.log('matched', src);
         this.dependencies.add(src);
       } else importersOf(src).forEach(dest => this.dependencies.add(dest));
     });

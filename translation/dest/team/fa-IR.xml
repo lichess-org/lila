@@ -7,7 +7,7 @@
     <item quantity="other">%s عضو</item>
   </plurals>
   <string name="allTeams">همه تیم‌ ها</string>
-  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">تیم‌های رهبر</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">تیم هایی که رهبری می‌کنی</string>
   <string name="newTeam">تیم جدید</string>
   <string name="myTeams">تیم‌های من</string>
   <string name="noTeamFound">تیمی پیدا نشد</string>
@@ -50,8 +50,25 @@
   <string name="entryCodeDescriptionForLeader">کدی است که اعضای جدید برای ورود به تیم باید بدانند(اختیاری).</string>
   <string name="incorrectEntryCode">کد ورودی اشتباه است.</string>
   <string name="teamAlreadyExists">این تیم هم‌اکنون وجود دارد.</string>
+  <string name="upcomingTournaments">مسابقات پیش رو</string>
   <string name="completedTourns">مسابقاتِ کامل شده</string>
   <string name="declinedRequests">درخواست‌های رد شده</string>
   <string name="joinLichessVariantTeam">برای دسترسی به اخبار و رویداد ها در تیم رسمی %s عضو شوید</string>
   <string name="teamPage">صفحه تیم ها</string>
+  <string name="listTheTeamsThatWillCompete">تیم‌هایی که در این نبرد با یکدیگر رقابت خواهند کرد را لیست کنید.</string>
+  <string name="oneTeamPerLine">هر تیم در یک خط. از تکمیل خودکار استفاده کنید.</string>
+  <string name="oneTeamPerLineHelp">می‌توانید این لیست را از یک مسابقه به مسابقات دیگر کپی کنید!
+
+اگر در حال حاضر یک بازیکن از یک تیم، به مسابقه ملحق شده است، نمی‌توانید آن تیم را حذف کنید.</string>
+  <string name="numberOfLeadsPerTeam">تعداد رهبران در هر تیم. مجموع امتیاز آنها امتیاز تیم است.</string>
+  <string name="numberOfLeadsPerTeamHelp">واقعا نباید این مقدار را پس از شروع مسابقه تغییر دهید!</string>
+  <string name="innerTeam">تیم داخلی</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">نبرد یک تیم</item>
+    <item quantity="other">نبرد %s تیم</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">یک رهبر از هر تیم</item>
+    <item quantity="other">%s رهبر از هر تیم</item>
+  </plurals>
 </resources>
