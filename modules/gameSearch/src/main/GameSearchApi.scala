@@ -2,7 +2,6 @@ package lila.gameSearch
 
 import lila.search.*
 import lila.search.client.SearchClient
-import lila.search.client.SearchError
 
 final class GameSearchApi(
     client: SearchClient,
@@ -12,22 +11,12 @@ final class GameSearchApi(
     extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size): Fu[List[Game]] =
-    client
-      .search(query.transform, from.value, size.value)
-      .flatMap(res => gameRepo.gamesFromSecondary(res.hitIds.map(GameId.apply)))
-      .handleError:
-        case e: SearchError =>
-          logger.warn(s"Search error: query={$query}, from={$from}, size={$size}", e)
-          Nil
+    client.search(query.transform, from.value, size.value).flatMap { res =>
+      gameRepo.gamesFromSecondary(res.hitIds.map(GameId.apply))
+    }
 
   def count(query: Query) =
-    client
-      .count(query.transform)
-      .dmap(_.count)
-      .handleError:
-        case e: SearchError =>
-          logger.warn(s"Count error: query={$query}", e)
-          0
+    client.count(query.transform).dmap(_.count)
 
   def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
     fuccess(forMod) >>| userApi.containsDisabled(query.userIds).not

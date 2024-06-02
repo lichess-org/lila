@@ -14,7 +14,6 @@ import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }
 import lila.tree.Node
 import lila.tree.Node.Comments
 import lila.search.client.SearchClient
-import lila.search.client.SearchError
 
 final class StudySearchApi(
     client: SearchClient,
@@ -24,23 +23,12 @@ final class StudySearchApi(
 )(using Executor, Scheduler, akka.stream.Materializer)
     extends SearchReadApi[Study, Query]:
 
-  def search(query: Query, from: From, size: Size): Future[List[Study]] =
-    client
-      .search(query.transform, from.value, size.value)
-      .flatMap(res => studyRepo.byOrderedIds(res.hitIds.map(StudyId(_))))
-      .handleError:
-        case e: SearchError =>
-          logger.warn(s"Search error: query={$query}, from={$from}, size={$size}", e)
-          Nil
+  def search(query: Query, from: From, size: Size) =
+    client.search(query.transform, from.value, size.value).flatMap { res =>
+      studyRepo.byOrderedIds(res.hitIds.map(StudyId(_)))
+    }
 
-  def count(query: Query) =
-    client
-      .count(query.transform)
-      .dmap(_.count)
-      .handleError:
-        case e: SearchError =>
-          logger.warn(s"Count error: query={$query}", e)
-          0
+  def count(query: Query) = client.count(query.transform).dmap(_.count)
 
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(

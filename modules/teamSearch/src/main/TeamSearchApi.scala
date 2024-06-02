@@ -7,7 +7,6 @@ import lila.search.*
 import lila.core.team.TeamData
 import lila.search.client.SearchClient
 import lila.search.spec.TeamSource
-import lila.search.client.SearchError
 
 final class TeamSearchApi(
     client: SearchClient,
@@ -20,19 +19,8 @@ final class TeamSearchApi(
       .search(query.transform, from.value, size.value)
       .map: res =>
         res.hitIds.map(TeamId.apply)
-      .handleError:
-        case e: SearchError =>
-          logger.warn(s"Search error: query={$query}, from={$from}, size={$size}", e)
-          Nil
 
-  def count(query: Query) =
-    client
-      .count(query.transform)
-      .dmap(_.count)
-      .handleError:
-        case e: SearchError =>
-          logger.warn(s"Count error: query={$query}", e)
-          0
+  def count(query: Query) = client.count(query.transform).dmap(_.count)
 
   def store(team: TeamData) = client.storeTeam(team.id.value, toDoc(team))
 
