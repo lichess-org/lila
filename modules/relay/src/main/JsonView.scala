@@ -29,6 +29,7 @@ final class JsonView(
         "description" -> t.description,
         "createdAt"   -> t.createdAt
       )
+      .add("url" -> s"$baseUrl${t.path}".some)
       .add("tier" -> t.tier)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
@@ -56,7 +57,6 @@ final class JsonView(
     Json
       .toJsObject(tour)
       .add("markup" -> tour.markup.map(markup(tour)))
-      .add("url" -> s"$baseUrl${tour.path}".some)
       .add("teamTable" -> tour.teamTable)
       .add("leaderboard" -> tour.autoLeaderboard)
 
