@@ -18,7 +18,8 @@ class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClien
     client.storeBulkForum(sources)
 
   override def store(id: String, source: Source): Future[Unit] =
-    client.store(id, source)
+    monitor("store", source.index):
+      client.store(id, source)
 
   override def refresh(index: Index): Future[Unit] =
     client.refresh(index)
@@ -33,17 +34,36 @@ class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClien
     client.deleteByIds(index, ids)
 
   override def count(query: Query): Future[CountOutput] =
-    client
-      .count(query)
-      .handleError:
-        case e: SearchError =>
-          logger.warn(s"Count error: query={$query}", e)
-          CountOutput(0)
+    monitor("count", query.index):
+      client
+        .count(query)
+        .handleError:
+          case e: SearchError =>
+            logger.warn(s"Count error: query={$query}", e)
+            CountOutput(0)
 
   override def search(query: Query, from: Int, size: Int): Future[SearchOutput] =
-    client
-      .search(query, from, size)
-      .handleError:
-        case e: SearchError =>
-          logger.warn(s"Search error: query={$query}, from={$from}, size={$size}", e)
-          SearchOutput(Nil)
+    monitor("search", query.index):
+      client
+        .search(query, from, size)
+        .handleError:
+          case e: SearchError =>
+            logger.warn(s"Search error: query={$query}, from={$from}, size={$size}", e)
+            SearchOutput(Nil)
+
+  private def monitor[A](op: String, index: String)(f: Fu[A]) =
+    f.monTry(res => _.search.time(op, index, res.isSuccess))
+
+  extension (query: Query)
+    def index: String = query match
+      case q: Query.Forum => "forum"
+      case q: Query.Game  => "game"
+      case q: Query.Study => "study"
+      case q: Query.Team  => "team"
+
+  extension (source: Source)
+    def index = source match
+      case s: Source.ForumCase => "forum"
+      case s: Source.GameCase  => "game"
+      case s: Source.StudyCase => "study"
+      case s: Source.TeamCase  => "team"
