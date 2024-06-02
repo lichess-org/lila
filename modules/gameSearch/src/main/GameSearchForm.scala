@@ -71,7 +71,7 @@ private[gameSearch] case class SearchData(
     aiLevelMax: Option[Int] = None,
     durationMin: Option[Int] = None,
     durationMax: Option[Int] = None,
-    clock: SearchClock = SearchClock(),
+    clock: SearchClock = SearchClock.empty,
     dateMin: Option[LocalDate] = None,
     dateMax: Option[LocalDate] = None,
     status: Option[Int] = None,
@@ -132,9 +132,23 @@ private[gameSearch] case class SearchSort(
     order: String = Sorting.default.order
 )
 
-private[gameSearch] case class SearchClock(
-    initMin: Option[Int] = None,
-    initMax: Option[Int] = None,
-    incMin: Option[Int] = None,
-    incMax: Option[Int] = None
+private[gameSearch] case class SearchClock private (
+    initMin: Option[Int],
+    initMax: Option[Int],
+    incMin: Option[Int],
+    incMax: Option[Int]
 )
+
+private[gameSearch] object SearchClock:
+  def empty = new SearchClock(None, None, None, None)
+  def apply(
+      initMin: Option[Int] = None,
+      initMax: Option[Int] = None,
+      incMin: Option[Int] = None,
+      incMax: Option[Int] = None
+  ): SearchClock =
+    inline def isValid =
+      (initMin, initMax).mapN(_ > _).getOrElse(true) || (incMin, incMax).mapN(_ > _).getOrElse(true)
+    if isValid
+    then empty
+    else SearchClock(initMin, initMax, incMin, incMax)
