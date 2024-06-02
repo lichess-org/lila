@@ -140,7 +140,9 @@ private[gameSearch] case class SearchClock private (
 )
 
 private[gameSearch] object SearchClock:
+
   def empty = new SearchClock(None, None, None, None)
+
   def apply(
       initMin: Option[Int] = None,
       initMax: Option[Int] = None,
@@ -148,7 +150,7 @@ private[gameSearch] object SearchClock:
       incMax: Option[Int] = None
   ): SearchClock =
     inline def isValid =
-      (initMin, initMax).mapN(_ > _).getOrElse(true) || (incMin, incMax).mapN(_ > _).getOrElse(true)
+      (initMin, initMax).mapN(_ < _).getOrElse(true) && (incMin, incMax).mapN(_ < _).getOrElse(true)
     if isValid
-    then empty
-    else SearchClock(initMin, initMax, incMin, incMax)
+    then new SearchClock(initMin, initMax, incMin, incMax)
+    else empty

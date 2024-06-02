@@ -242,8 +242,9 @@ lazy val game = module("game",
 
 lazy val gameSearch = module("gameSearch",
   Seq(coreI18n, search, ui),
-  Seq()
+  tests.bundle
 )
+
  // good dep to game
 lazy val tv = module("tv",
   Seq(game),
