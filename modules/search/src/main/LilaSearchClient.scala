@@ -3,7 +3,7 @@ package lila.search
 import lila.search.spec.*
 import lila.search.client.{ SearchError, SearchClient }
 
-class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClient:
+class LilaSearchClient(client: SearchClient, writeable: Boolean)(using Executor) extends SearchClient:
 
   override def storeBulkTeam(sources: List[TeamSourceWithId]): Future[Unit] =
     client.storeBulkTeam(sources)
@@ -18,8 +18,9 @@ class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClien
     client.storeBulkForum(sources)
 
   override def store(id: String, source: Source): Future[Unit] =
-    monitor("store", source.index):
-      client.store(id, source)
+    writeable.so:
+      monitor("store", source.index):
+        client.store(id, source)
 
   override def refresh(index: Index): Future[Unit] =
     client.refresh(index)
@@ -28,10 +29,10 @@ class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClien
     client.mapping(index)
 
   override def deleteById(index: Index, id: String): Future[Unit] =
-    client.deleteById(index, id)
+    writeable.so(client.deleteById(index, id))
 
   override def deleteByIds(index: Index, ids: List[String]): Future[Unit] =
-    client.deleteByIds(index, ids)
+    writeable.so(client.deleteByIds(index, ids))
 
   override def count(query: Query): Future[CountOutput] =
     monitor("count", query.index):

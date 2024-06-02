@@ -23,5 +23,6 @@ final class Env(
   private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
 
   val client: SearchClient =
-    LilaSearchClient:
+    val _client =
       if config.enabled then SearchClient.play(ws, s"${config.endpoint}/api") else SearchClient.noop
+    LilaSearchClient(_client, config.writeable)
