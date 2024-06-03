@@ -107,7 +107,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
       .void
 
   def setAllPerms(teamId: TeamId, data: Seq[TeamSecurity.LeaderData]): Funit =
-    data.traverse_ { l =>
+    data.sequentiallyVoid { l =>
       setPerms(teamId, l.name, l.perms)
     }
 

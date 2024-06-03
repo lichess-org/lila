@@ -89,7 +89,7 @@ final class KaladinApi(
         .flatMap: docs =>
           docs.nonEmpty.so:
             coll.update.one($inIds(docs.map(_.id)), $set("response.read" -> true), multi = true) >>
-              docs.traverse_(readResponse)
+              docs.sequentiallyVoid(readResponse)
         .void
 
   private def readResponse(user: KaladinUser): Funit = user.response.so: res =>
@@ -143,7 +143,7 @@ final class KaladinApi(
     private[KaladinApi] def apply(user: KaladinUser): Funit =
       subs.get(user.suspectId).so { modIds =>
         subs = subs - user.suspectId
-        modIds.toSeq.traverse_ { modId =>
+        modIds.toSeq.sequentiallyVoid { modId =>
           notifyApi.notifyOne(modId, lila.core.notify.KaladinDone(user.suspectId.value))
         }
       }
@@ -205,10 +205,10 @@ final class KaladinApi(
     request(user, requester)
 
   private[irwin] def tournamentLeaders(suspects: List[Suspect]): Funit =
-    suspects.traverse_(autoRequest(KaladinUser.Requester.TournamentLeader))
+    suspects.sequentiallyVoid(autoRequest(KaladinUser.Requester.TournamentLeader))
 
   private[irwin] def topOnline(suspects: List[Suspect]): Funit =
-    suspects.traverse_(autoRequest(KaladinUser.Requester.TopOnline))
+    suspects.sequentiallyVoid(autoRequest(KaladinUser.Requester.TopOnline))
 
   private def getSuspect(suspectId: UserId) =
     userApi.byId(suspectId).orFail(s"suspect $suspectId not found").dmap(Suspect.apply)

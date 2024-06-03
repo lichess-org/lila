@@ -72,8 +72,8 @@ final class Syncache[K, V](
   def preloadOne(k: K): Funit = async(k).void
 
   // maybe optimize later with cache batching
-  def preloadMany(ks: Seq[K]): Funit = ks.distinct.traverse_(preloadOne)
-  def preloadSet(ks: Set[K]): Funit  = ks.toSeq.traverse_(preloadOne)
+  def preloadMany(ks: Seq[K]): Funit = ks.distinct.parallel(preloadOne).void
+  def preloadSet(ks: Set[K]): Funit  = ks.toSeq.parallel(preloadOne).void
 
   def set(k: K, v: V): Unit = cache.put(k, fuccess(v))
 

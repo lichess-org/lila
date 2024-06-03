@@ -21,12 +21,11 @@ final class JsonView(
   def apply(simul: Simul, verdicts: WithVerdicts): Fu[JsObject] = for
     games      <- fetchGames(simul)
     lightHost  <- getLightUser(simul.hostId)
-    applicants <- simul.applicants.sortBy(-_.player.rating.value).map(applicantJson).parallel
+    applicants <- simul.applicants.sortBy(-_.player.rating.value).traverse(applicantJson)
     pairingOptions <-
       simul.pairings
         .sortBy(-_.player.rating.value)
-        .map(pairingJson(games, simul.hostId))
-        .parallel
+        .traverse(pairingJson(games, simul.hostId))
     pairings = pairingOptions.flatten
   yield baseSimul(simul, lightHost) ++ Json
     .obj(

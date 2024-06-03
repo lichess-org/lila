@@ -47,8 +47,6 @@ ThisBuild / libraryDependencySchemes ++= Seq(
   "org.typelevel" %% "cats-parse" % VersionScheme.Always
 )
 
-dependencyOverrides += cats
-
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
   play.json, play.logback, compression, hasher,

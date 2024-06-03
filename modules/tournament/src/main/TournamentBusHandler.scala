@@ -41,7 +41,7 @@ final private class TournamentBusHandler(
 
   private def ejectFromEnterable(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable").flatMap {
-      _.traverse_ {
+      _.sequentiallyVoid {
         api.ejectLameFromEnterable(_, userId)
       }
     }

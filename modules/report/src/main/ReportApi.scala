@@ -349,7 +349,7 @@ final class ReportApi(
   private val maxScoreCache = cacheApi.unit[Room.Scores]:
     _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
       Room.allButXfiles
-        .map: room =>
+        .traverse: room =>
           coll // hits the best_open partial index
             .primitiveOne[Float](
               selectOpenAvailableInRoom(room.some, Nil),
@@ -357,7 +357,6 @@ final class ReportApi(
               "score"
             )
             .dmap(room -> _)
-        .parallel
         .dmap: scores =>
           Room.Scores:
             scores

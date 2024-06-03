@@ -26,7 +26,7 @@ final private class GameStarter(
         val userIds = couples.flatMap(_.userIds)
         for
           (perfs, ids) <- userApi.perfOf(userIds, pool.perfKey).zip(idGenerator.games(couples.size))
-          pairings     <- couples.zip(ids).map((one(pool, perfs)).tupled).parallel
+          pairings     <- couples.zip(ids).parallel((one(pool, perfs)).tupled)
         yield lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
 
   private def one(pool: PoolConfig, perfs: Map[UserId, Perf])(

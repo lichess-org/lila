@@ -32,11 +32,10 @@ final class PerfStatIndexer(
 
   def addGame(game: Game): Funit =
     game.players
-      .flatMap: player =>
-        player.userId.map: userId =>
+      .sequentiallyVoid { player =>
+        player.userId.so: userId =>
           addPov(Pov(game, player), userId)
-      .parallel
-      .void
+      }
 
   private def addPov(pov: Pov, userId: UserId): Funit =
     storage

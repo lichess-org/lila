@@ -252,7 +252,7 @@ final class TeamApi(
     teamIds <- cached.teamIdsList(userId)
     _       <- memberRepo.removeByUser(userId)
     _       <- requestRepo.removeByUser(userId)
-    _       <- teamIds.map { teamRepo.incMembers(_, -1) }.parallel
+    _       <- teamIds.sequentially(teamRepo.incMembers(_, -1))
     _ = cached.invalidateTeamIds(userId)
   yield teamIds
 
@@ -287,7 +287,7 @@ final class TeamApi(
     val client = lila.common.HTTPRequest.printClient(req)
     logger.info:
       s"kick members ${users.size} by ${me.username} from lichess.org/team/${team.slug} $client | ${users.map(_.id).mkString(" ")}"
-    users.traverse_(kick(team, _))
+    users.sequentiallyVoid(kick(team, _))
 
   object blocklist:
     def set(team: Team, list: String): Funit =

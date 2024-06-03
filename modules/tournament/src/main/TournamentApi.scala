@@ -91,7 +91,7 @@ final class TournamentApi(
 
   private def ejectPlayersNonLongerOnAllowList(old: Tournament, tour: Tournament): Funit =
     tour.isCreated.so:
-      tour.conditions.removedFromAllowList(old.conditions).toList.traverse_ {
+      tour.conditions.removedFromAllowList(old.conditions).toList.sequentiallyVoid {
         withdraw(tour.id, _, false, false)
       }
 
@@ -237,7 +237,7 @@ final class TournamentApi(
       playerRepo
         .bestByTourWithRank(tour.id, 500)
         .flatMap:
-          _.traverse_ :
+          _.sequentiallyVoid :
             case rp if rp.rank.value == 1 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
             case rp if rp.rank <= 10 =>
@@ -368,7 +368,7 @@ final class TournamentApi(
 
   def withdrawAll(user: User): Funit =
     tournamentRepo.withdrawableIds(user.id, reason = "withdrawAll").flatMap {
-      _.traverse_ {
+      _.sequentiallyVoid {
         withdraw(_, user.id, isPause = false, isStalling = false)
       }
     }
@@ -450,7 +450,7 @@ final class TournamentApi(
 
   def pausePlaybanned(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "pausePlaybanned").flatMap {
-      _.traverse_(playerRepo.withdraw(_, userId))
+      _.sequentiallyVoid(playerRepo.withdraw(_, userId))
     }
 
   private[tournament] def kickFromTeam(teamId: TeamId, userId: UserId): Funit =
@@ -476,7 +476,7 @@ final class TournamentApi(
                 roundApi.tell(currentPairing.gameId, AbortForce)
             } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
               pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-                uids.toList.traverse_(recomputePlayerAndSheet(tour))
+                uids.toList.sequentiallyVoid(recomputePlayerAndSheet(tour))
             }
         } >>
           updateNbPlayers(tour.id)).andDo(socket.reload(tour.id)).andDo(publish())

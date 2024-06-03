@@ -132,7 +132,7 @@ final class SimulApi(
             .withPerfs(started.hostId)
             .orFail(s"No such host: ${simul.hostId}")
             .flatMap: host =>
-              started.pairings.mapWithIndex(makeGame(started, host)).parallel.map { games =>
+              started.pairings.traverseWithIndexM(makeGame(started, host)).map { games =>
                 games.headOption.foreach: (game, _) =>
                   socket.startSimul(simul, game)
                 games.foldLeft(started):

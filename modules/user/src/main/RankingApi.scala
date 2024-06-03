@@ -62,7 +62,7 @@ final class RankingApi(
             .cursor[Ranking]()
             .list(nb)
             .flatMap:
-              _.map: r =>
+              _.parallel: r =>
                 lightUser(r.user).map2: light =>
                   LightPerf(
                     user = light,
@@ -70,7 +70,7 @@ final class RankingApi(
                     rating = r.rating,
                     progress = ~r.prog
                   )
-              .parallel.dmap(_.flatten)
+              .dmap(_.flatten)
 
   private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =
     for
