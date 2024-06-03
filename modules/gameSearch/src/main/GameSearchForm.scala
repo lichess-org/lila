@@ -150,7 +150,7 @@ private[gameSearch] object SearchClock:
       incMax: Option[Int] = None
   ): SearchClock =
     inline def isValid =
-      (initMin, initMax).mapN(_ < _).getOrElse(true) && (incMin, incMax).mapN(_ < _).getOrElse(true)
+      (initMin, initMax).mapN(_ <= _).getOrElse(true) && (incMin, incMax).mapN(_ <= _).getOrElse(true)
     if isValid
     then new SearchClock(initMin, initMax, incMin, incMax)
     else empty
