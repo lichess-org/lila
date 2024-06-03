@@ -237,7 +237,7 @@ final class TournamentApi(
       playerRepo
         .bestByTourWithRank(tour.id, 500)
         .flatMap:
-          _.sequentiallyVoid :
+          _.sequentiallyVoid:
             case rp if rp.rank.value == 1 =>
               trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
             case rp if rp.rank <= 10 =>
@@ -455,13 +455,12 @@ final class TournamentApi(
 
   private[tournament] def kickFromTeam(teamId: TeamId, userId: UserId): Funit =
     tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam").flatMap {
-      _.traverse: tourId =>
+      _.sequentiallyVoid: tourId =>
         Parallel(tourId, "kickFromTeam")(tournamentRepo.byId): tour =>
           val fu =
             if tour.isCreated then playerRepo.remove(tour.id, userId)
             else playerRepo.withdraw(tour.id, userId)
           (fu >> updateNbPlayers(tourId)).andDo(socket.reload(tourId))
-      .void
     }
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
@@ -613,7 +612,7 @@ final class TournamentApi(
 
   def allCurrentLeadersInStandard: Fu[Map[lila.core.tournament.Tournament, List[UserId]]] =
     tournamentRepo.standardPublicStartedFromSecondary.flatMap:
-      _.traverse: tour =>
+      _.sequentially: tour =>
         tournamentTop(tour.id).dmap(tour -> _.value.map(_.userId))
       .dmap(_.toMap)
 

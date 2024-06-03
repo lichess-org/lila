@@ -195,11 +195,11 @@ final class TeamApi(
   }.addEffect: _ =>
     cached.nbRequests.invalidate(team.createdBy)
 
-  def deleteRequestsByUserId(userId: UserId) =
+  def deleteRequestsByUserId(userId: UserId): Funit =
     requestRepo
       .getByUserId(userId)
       .flatMap:
-        _.traverse: request =>
+        _.sequentiallyVoid: request =>
           requestRepo.remove(request.id) >>
             memberRepo
               .leaders(request.team, Some(_.Request))
@@ -217,9 +217,9 @@ final class TeamApi(
     }
   }.recover(lila.db.ignoreDuplicateKey)
 
-  private[team] def addMembers(team: Team, userIds: Seq[UserId]): Funit =
+  private[team] def addMembers(team: Team, userIds: List[UserId]): Funit =
     userIds
-      .traverse: userId =>
+      .sequentially: userId =>
         userApi
           .enabledById(userId)
           .flatMapz: user =>

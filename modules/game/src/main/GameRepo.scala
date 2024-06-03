@@ -472,7 +472,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     initialFen(game).dmap { WithInitialFen(game, _) }
 
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Full])]] =
-    games.traverse: game =>
+    games.parallel: game =>
       initialFen(game).dmap { game -> _ }
 
   def count(query: Query.type => Bdoc): Fu[Int]    = coll.countSel(query(Query))

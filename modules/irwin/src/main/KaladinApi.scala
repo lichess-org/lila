@@ -143,9 +143,8 @@ final class KaladinApi(
     private[KaladinApi] def apply(user: KaladinUser): Funit =
       subs.get(user.suspectId).so { modIds =>
         subs = subs - user.suspectId
-        modIds.toSeq.sequentiallyVoid { modId =>
+        modIds.toList.sequentiallyVoid: modId =>
           notifyApi.notifyOne(modId, lila.core.notify.KaladinDone(user.suspectId.value))
-        }
       }
 
   private[irwin] def monitorQueued: Funit =

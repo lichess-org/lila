@@ -134,7 +134,7 @@ final class SwissApi(
     ranking <- rankingApi(swiss)
     perfs   <- userApi.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
-    elements <- perfs.toSeq.traverse: (userId, perf) =>
+    elements <- perfs.parallel: (userId, perf) =>
       update.element(
         q = $id(SwissPlayer.makeId(swiss.id, userId)),
         u = $set(
@@ -364,7 +364,7 @@ final class SwissApi(
         )
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
 
-  private def kickFromSwissIds(userId: UserId, swissIds: Seq[SwissId], forfeit: Boolean = false): Funit =
+  private def kickFromSwissIds(userId: UserId, swissIds: List[SwissId], forfeit: Boolean = false): Funit =
     swissIds.sequentiallyVoid(withdraw(_, userId, forfeit))
 
   def withdraw(id: SwissId, userId: UserId, forfeit: Boolean = false): Funit =
@@ -526,7 +526,7 @@ final class SwissApi(
       .list(10)
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
-        _.sequentiallyVoid : id =>
+        _.sequentiallyVoid: id =>
           Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
             if swiss.round.value >= swiss.settings.nbRounds then doFinish(swiss)
             else if swiss.nbPlayers >= 2 then

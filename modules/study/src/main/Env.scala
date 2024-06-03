@@ -96,7 +96,7 @@ final class Env(
           .filter(_.nonEmpty)
           .so: members =>
             filter(members).flatMap:
-              _.traverse: streamer =>
+              _.parallel: streamer =>
                 isConnected(studyId, streamer).dmap(_.option(streamer))
               .dmap(_.flatten)
 

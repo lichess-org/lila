@@ -245,7 +245,7 @@ final class MsgApi(
           msgs    <- doc.getAsOpt[List[Msg]]("msgs")
           contact <- doc.getAsOpt[User]("contact")
         yield (contact, msgs)
-        convos.traverse: (contact, msgs) =>
+        convos.sequentially: (contact, msgs) =>
           relationApi.fetchRelation(contact.id, user.id).map { relation =>
             ModMsgConvo(contact, msgs.take(10), Relations(relation, none), msgs.length == 11)
           }

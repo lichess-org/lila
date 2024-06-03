@@ -267,7 +267,7 @@ final class ClasApi(
       count(clas.id).flatMap: nbCurrentStudents =>
         data.realNames
           .take(Clas.maxStudents - nbCurrentStudents)
-          .traverse: realName =>
+          .sequentially: realName =>
             nameGenerator().flatMap: username =>
               val data = ClasForm.CreateStudent(
                 username = username | UserName(ThreadLocalRandom.nextString(10)),

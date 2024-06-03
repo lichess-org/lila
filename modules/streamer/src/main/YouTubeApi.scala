@@ -33,7 +33,7 @@ final private class YouTubeApi(
       .grouped(maxResults)
     cfg.googleApiKey.value.nonEmpty
       .so:
-        idPages.toList.traverse: idPage =>
+        idPages.toList.sequentially: idPage =>
           ws.url("https://youtube.googleapis.com/youtube/v3/videos")
             .withQueryStringParameters(
               "part"       -> "snippet",
@@ -152,7 +152,7 @@ final private class YouTubeApi(
   private def syncDb(tubers: List[Tuber], results: List[YouTube.Stream]): Funit =
     val bulk = coll.update(ordered = false)
     tubers
-      .traverse { tuber =>
+      .parallel: tuber =>
         val liveVid = results.find(_.channelId == tuber.youTube.channelId)
         bulk.element(
           q = $id(tuber.streamer.id),
@@ -162,7 +162,6 @@ final private class YouTubeApi(
               case None    => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
           )
         )
-      }
       .map(bulk many _)
 
   private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty.so {

@@ -17,7 +17,7 @@ object SimulCondition:
 
     def withVerdicts(pt: PerfType)(using Me, Perf, GetMyTeamIds, GetMaxRating, Executor): Fu[WithVerdicts] =
       list
-        .traverse:
+        .parallel:
           case c: MaxRating  => c(pt).map(c.withVerdict)
           case c: TeamMember => c.apply.map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(pt)))

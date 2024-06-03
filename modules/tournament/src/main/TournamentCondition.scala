@@ -28,7 +28,7 @@ object TournamentCondition:
         GetMyTeamIds
     ): Fu[WithVerdicts] =
       list
-        .traverse:
+        .parallel:
           case c: MaxRating  => c(perfType).map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
@@ -40,7 +40,7 @@ object TournamentCondition:
         getMyTeamIds: GetMyTeamIds
     ): Fu[WithVerdicts] =
       list
-        .traverse:
+        .parallel:
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
           case c             => fuccess(WithVerdict(c, Accepted))
         .dmap(WithVerdicts.apply)

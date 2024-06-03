@@ -529,7 +529,7 @@ final class User(
         relateds <-
           ops
             .zip(followables)
-            .traverse { case ((u, nb), followable) =>
+            .sequentially { case ((u, nb), followable) =>
               relationApi
                 .fetchRelation(user.id, u.id)
                 .map:
