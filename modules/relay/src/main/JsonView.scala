@@ -27,9 +27,9 @@ final class JsonView(
         "name"        -> t.name,
         "slug"        -> t.slug,
         "description" -> t.description,
-        "createdAt"   -> t.createdAt
+        "createdAt"   -> t.createdAt,
+        "url"         -> s"$baseUrl${t.path}"
       )
-      .add("url" -> s"$baseUrl${t.path}".some)
       .add("tier" -> t.tier)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
