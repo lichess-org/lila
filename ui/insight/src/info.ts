@@ -4,6 +4,7 @@ import { numberFormat } from 'common/number';
 import { userLink } from 'common/userLink';
 import { h } from 'snabbdom';
 import Ctrl from './ctrl';
+import { registerFormHandler } from './insight';
 
 const shareStates = ['nobody', 'friends only', 'everybody'];
 
@@ -42,7 +43,7 @@ export default function (ctrl: Ctrl) {
                   action: `/insights/refresh/${ctrl.env.user.id}`,
                   method: 'post',
                 },
-                hook: onInsert(_el => site.refreshInsightForm()),
+                hook: onInsert(_el => registerFormHandler()),
               },
               [
                 h('button.button.text', { attrs: { 'data-icon': licon.Checkmark } }, 'Update insights'),
