@@ -237,14 +237,31 @@ export function view(ctrl: StudyChapterNewForm): VNode {
           activeTab === 'fen' &&
             h('div.form-group', [
               h('input#chapter-fen.form-control', {
-                attrs: { value: ctrl.root.node.fen, placeholder: noarg('loadAPositionFromFen') },
+                attrs: {
+                  value: ctrl.root.node.fen,
+                  placeholder: noarg('loadAPositionFromFen'),
+                  spellcheck: 'false',
+                },
                 hook: onInsert((el: HTMLInputElement) => {
                   el.addEventListener('change', () => el.reportValidity());
-                  el.addEventListener('input', _ =>
-                    el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN'),
-                  );
+                  el.addEventListener('input', _ => {
+                    if (parseFen(el.value.trim()).isOk) {
+                      el.setCustomValidity('');
+                      ctrl.root.node.fen = el.value;
+                    } else el.setCustomValidity('Invalid FEN');
+                  });
                 }),
               }),
+              h(
+                'a.preview-in-editor',
+                {
+                  hook: bind('click', () => {
+                    ctrl.tab('edit');
+                    ctrl.root.redraw();
+                  }),
+                },
+                [h('i', { attrs: { 'data-icon': licon.Eye } }), h('span', noarg('editor'))],
+              ),
             ]),
           activeTab === 'pgn' &&
             h('div.form-group', [
