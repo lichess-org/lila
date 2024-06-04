@@ -19,6 +19,9 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "bundles": "src/insight.ts"
+    "bundles": [
+      "src/insight.ts",
+      "src/insight.refresh.ts"
+    ]
   }
 }

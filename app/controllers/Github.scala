@@ -13,7 +13,7 @@ final class Github(env: Env) extends LilaController(env):
         env.oAuth.tokenApi
           .secretScanning(scans)
           .flatMap:
-            _.traverse: (token, url) =>
+            _.sequentially: (token, url) =>
               env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
         NoContent
       case None => badRequest("JSON does not match expected format")

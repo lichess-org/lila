@@ -178,7 +178,7 @@ final class ChallengeApi(
     Bus.publish(lila.core.challenge.Event.Create(challenge), "challenge")
 
   def removeByUserId(userId: UserId): Funit =
-    repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void
+    repo.allWithUserId(userId).flatMap(_.sequentiallyVoid(remove))
 
   def removeByGameId(gameId: GameId): Funit =
     repo.byId(gameId.into(ChallengeId)).flatMap(_.so(remove))
@@ -186,17 +186,14 @@ final class ChallengeApi(
   private def isLimitedByMaxPlaying(c: Challenge) =
     if c.clock.isEmpty then fuFalse
     else
-      c.userIds
-        .map: userId =>
-          gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
-        .parallel
-        .dmap(_.exists(identity))
+      c.userIds.existsM: userId =>
+        gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
 
   private[challenge] def sweep: Funit =
     repo
       .realTimeUnseenSince(nowInstant.minusSeconds(20), max = 50)
-      .flatMap(_.traverse_(offline)) >>
-      repo.expired(50).flatMap(_.traverse_(remove))
+      .flatMap(_.sequentiallyVoid(offline)) >>
+      repo.expired(50).flatMap(_.sequentiallyVoid(remove))
 
   private def remove(c: Challenge) =
     repo.remove(c.id).andDo(uncacheAndNotify(c))

@@ -27,7 +27,7 @@ final private class SwissBoardApi(
 
   def apply(id: SwissId): Fu[List[SwissBoard.WithGame]] =
     boardsCache.getIfPresent(id).so {
-      _.traverse { board =>
+      _.parallel { board =>
         gameProxy.game(board.gameId).map2 {
           SwissBoard.WithGame(board, _)
         }

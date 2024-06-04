@@ -85,7 +85,10 @@ Per esempio, essere classificato in 3ª posizione in un torneo di 100 giocatori 
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Tutte le medie in questa pagina sono %s.</string>
   <string name="total">Totale</string>
   <string name="pointsAvg">Media punti</string>
-  <string name="pointsSum">Somma punti</string>
-  <string name="rankAvg">Media del piazzamento</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Somma punti</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Media del piazzamento</string>
   <string name="tournamentWinners">Vincitori torneo</string>
+  <string name="tournamentShields">Scudi torneo</string>
+  <string name="onlyTitled">Solo giocatori intitolati</string>
+  <string name="onlyTitledHelp">Richiedi un titolo ufficiale per partecipare al torneo</string>
 </resources>

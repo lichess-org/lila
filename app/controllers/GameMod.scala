@@ -54,25 +54,22 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
   }
 
   private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using Context) =
-    env.game.gameRepo
-      .unanalysedGames(gameIds)
-      .flatMap { games =>
-        games.traverse_ { game =>
-          env.fishnet
-            .analyser(
-              game,
-              lila.fishnet.Work.Sender(
-                userId = me,
-                ip = ctx.ip.some,
-                mod = true,
-                system = false
-              ),
-              lila.fishnet.Work.Origin.autoHunter.some
-            )
-            .void
-        } >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
-      }
-      .inject(NoContent)
+    for
+      games <- env.game.gameRepo.unanalysedGames(gameIds)
+      _ <- games.sequentiallyVoid: game =>
+        env.fishnet
+          .analyser(
+            game,
+            lila.fishnet.Work.Sender(
+              userId = me,
+              ip = ctx.ip.some,
+              mod = true,
+              system = false
+            ),
+            lila.fishnet.Work.Origin.autoHunter.some
+          )
+      _ <- env.fishnet.awaiter(games.map(_.id), 2 minutes)
+    yield NoContent
 
   private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Context) =
     val res = Ok.chunked {

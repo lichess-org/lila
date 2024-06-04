@@ -51,12 +51,12 @@ final class RoundSocket(
         if g.isEmpty then finishRound(gameId)
 
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
-    gameIds.traverse: id =>
+    gameIds.parallel: id =>
       rounds.getOrMake(id).getGame.dmap { id -> _ }
 
   def getMany(gameIds: List[GameId]): Fu[List[GameAndSocketStatus]] =
     gameIds
-      .traverse: id =>
+      .sequentially: id =>
         gameAndStatusIfPresent(id).orElse:
           roundDependencies.gameRepo
             .game(id)
