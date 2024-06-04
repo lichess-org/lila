@@ -49,4 +49,4 @@ trait ForumPostApi:
   def miniViews(postIds: List[ForumPostId]): Fu[List[ForumPostMiniView]]
   def toMiniView(post: ForumPostMini): Fu[Option[ForumPostMiniView]]
   def toMiniViews(posts: List[ForumPostMini]): Fu[List[ForumPostMiniView]]
-  def nonGhostCursor: reactivemongo.akkastream.AkkaStreamCursor[ForumPostMini]
+  def nonGhostCursor(since: Option[Instant]): reactivemongo.akkastream.AkkaStreamCursor[ForumPostMini]
