@@ -36,7 +36,7 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
   def langHref(call: Call)(implicit ctx: lila.api.Context): String = langHref(call.url)
   def langHref(url: String)(implicit ctx: lila.api.Context): String =
     if (ctx.isAuth || ctx.lang.language == "en") url
-    else urlWithLangQuery(url, lila.i18n.fixJavaLanguageCode(ctx.lang))
+    else urlWithLangQuery(url, lila.i18n.languageCode(ctx.lang))
 
   def langHrefJP(call: Call)(implicit ctx: lila.api.Context): String =
     langHrefJP(call.url)

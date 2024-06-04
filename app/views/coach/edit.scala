@@ -16,7 +16,7 @@ object edit {
   private val dataTab = attr("data-tab")
 
   private lazy val jsonLanguages = safeJsonValue {
-    Json toJson LangList.popularNoRegion.map { l =>
+    Json toJson LangList.popular.map { l =>
       Json.obj(
         "code"  -> l.code,
         "value" -> LangList.name(l),

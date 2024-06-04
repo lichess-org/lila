@@ -32,15 +32,17 @@ object I18nLangPicker {
   }
 
   private val defaultByLanguage: Map[String, Lang] =
-    LangList.all.keys.foldLeft(Map.empty[String, Lang]) { case (acc, lang) =>
-      acc + (lang.language -> lang)
-    }
+    LangList.all.keys
+      .foldLeft(Map.empty[String, Lang]) { case (acc, lang) =>
+        acc + (lang.language -> lang)
+      }
 
   def findCloser(to: Lang): Option[Lang] =
     if (LangList.all.keySet contains to) Some(to)
-    else
-      defaultByLanguage.get(to.language) orElse
-        lishogiCodes.get(to.language)
+    else if (to.language == "zh") {
+      if (List("TW", "HK", "MO").contains(to.country) || to.script == "Hant") Lang.get("zh-TW")
+      else Lang.get("zh-CN")
+    } else defaultByLanguage.get(to.language)
 
   def byQuery(code: String): Option[Lang] = byStr(code)
 

@@ -12,20 +12,16 @@ package object i18n extends PackageObject {
 
   private[i18n] def logger = lila.log("i18n")
 
-  private[i18n] val lishogiCodes: Map[String, Lang] = Map(
-    "fp" -> Lang("frp", "IT"),
-    "jb" -> Lang("jbo", "EN"),
-    "kb" -> Lang("kab", "DZ"),
-    "tc" -> Lang("zh", "CN")
-  )
-
   val enLang      = Lang("en", "GB")
   val defaultLang = enLang
 
-  // ffs
-  def fixJavaLanguageCode(lang: Lang) = {
-    val code = lang.language
-    if (code == "in") "id"
-    else code
+  // just language if possible, script code for chinese
+  // don't bother with pt-BR for now
+  def languageCode(lang: Lang) = {
+    val lcode = lang.language
+    if (lcode == "zh") {
+      if (lang.country == "TW") "zh-Hant"
+      else "zh-Hans"
+    } else lcode
   }
 }

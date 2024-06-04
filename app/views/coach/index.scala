@@ -30,7 +30,7 @@ object index {
       // maybe someday - withHrefLangs = lila.i18n.LangList.All.some
     ) {
       val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
-        .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)
+        .sortFor(LangList.popular.filter(l => langCodes(l.code)), ctx.req)
         .map { l =>
           l.code -> LangList.name(l)
         }

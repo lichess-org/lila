@@ -152,20 +152,10 @@ object LangList {
     all.keys.toList.sortBy(l => langs.getOrElse(l, Int.MaxValue))
   }
 
-  lazy val popularNoRegion: List[Lang] = popular.collect {
-    case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
-  }
-
-  val defaultRegions = Map[String, Lang](
-    "en" -> Lang("en", "US"),
-    "pt" -> Lang("pt", "BR"),
-    "zh" -> Lang("zh", "CN")
-  )
-
   // based on https://crowdin.com/project/lishogi
-  // at least 80%, no en, order doesn't matter
+  // at least 80%, en not included
   private val fullyTranslated =
-    List(
+    Set(
       "be-BY",
       "zh-CN",
       "cs-CZ",
@@ -187,8 +177,8 @@ object LangList {
   case object All                                  extends AlternativeLangs
   case class Custom(langPath: Map[String, String]) extends AlternativeLangs
 
-  lazy val alternativeLangCodes: List[String] =
-    popularNoRegion.withFilter(l => fullyTranslated.contains(l.code)).map(fixJavaLanguageCode).take(15)
+  lazy val hrefLangCodes: List[String] =
+    popular.withFilter(l => fullyTranslated.contains(l.code)).map(languageCode).take(15)
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)

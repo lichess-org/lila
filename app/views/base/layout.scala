@@ -19,7 +19,7 @@ object layout {
 
   object bits {
     val doctype                      = raw("<!DOCTYPE html>")
-    def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
+    def htmlTag(implicit lang: Lang) = html(st.lang := lila.i18n.languageCode(lang))
     val topComment = raw("""<!-- Lishogi is open source! See https://lishogi.org/source -->""")
     val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw(
@@ -179,7 +179,7 @@ object layout {
       .flatMap(lila.i18n.I18nLangPicker.byQuery)
       .filterNot(_.language == "en")
       .fold("") { l =>
-        s"?lang=${lila.i18n.fixJavaLanguageCode(l)}"
+        s"?lang=${lila.i18n.languageCode(l)}"
       }
     s"""<link rel="canonical" href="$netBaseUrl${canonicalPath.value}$langQuery" />"""
   }
@@ -196,7 +196,7 @@ object layout {
       case lila.i18n.LangList.EnglishJapanese =>
         defaultWithEnHrefLang(path) + hrefLang("ja", s"$path?lang=ja")
       case lila.i18n.LangList.All =>
-        defaultWithEnHrefLang(path) + (lila.i18n.LangList.alternativeLangCodes.map { langCode =>
+        defaultWithEnHrefLang(path) + (lila.i18n.LangList.hrefLangCodes.map { langCode =>
           hrefLang(langCode, s"$path?lang=$langCode")
         }).mkString
       case lila.i18n.LangList.Custom(langPathMap) =>
