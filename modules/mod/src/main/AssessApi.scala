@@ -70,16 +70,12 @@ final class AssessApi(
             .idsMap[Analysis, GameId](missing)(x => GameId(x.id.value))
             .flatMap { ans =>
               povs
-                .flatMap { pov =>
+                .flatMap: pov =>
                   ans.get(pov.gameId).map { pov -> _ }
-                }
-                .map { case (pov, analysis) =>
+                .parallelVoid: (pov, analysis) =>
                   gameRepo.holdAlert.game(pov.game).flatMap { holdAlerts =>
                     createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
                   }
-                }
-                .parallel
-                .void
             }
         )
       }
@@ -113,12 +109,10 @@ final class AssessApi(
   def refreshAssessOf(user: User): Funit =
     (!user.isBot).so:
       gameRepo.gamesForAssessment(user.id, 100).flatMap { gs =>
-        gs.map: g =>
+        gs.parallelVoid: g =>
           analysisRepo.byGame(g).flatMapz {
             onAnalysisReady(g, _, thenAssessUser = false)
           }
-        .parallel
-          .void
       } >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =

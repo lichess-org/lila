@@ -390,9 +390,8 @@ final class SwissApi(
         .list[SwissPairing]($doc(F.swissId -> swiss.id, F.players -> userId))
         .flatMap:
           _.filter(p => p.isDraw || userId.is(p.winner))
-            .parallel: pairing =>
+            .parallelVoid: pairing =>
               mongo.pairing.update.one($id(pairing.id), pairing.forfeit(userId))
-            .void
 
   private[swiss] def finishGame(game: Game): Funit =
     game.swissId.so: swissId =>

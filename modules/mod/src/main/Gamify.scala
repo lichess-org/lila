@@ -61,12 +61,9 @@ final class Gamify(
       .toList
       .parallel
       .map(_.flatten)
-      .flatMap {
-        _.map { month =>
+      .flatMap:
+        _.parallelVoid: month =>
           historyRepo.coll.update.one($doc("_id" -> month._id), month, upsert = true).void
-        }.parallel
-      }
-      .void
 
   def leaderboards = leaderboardsCache.getUnit
 

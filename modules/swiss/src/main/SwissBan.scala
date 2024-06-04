@@ -18,13 +18,9 @@ final class SwissBanApi(mongo: SwissMongo)(using Executor):
   def get(user: UserId): Fu[Option[SwissBan]] = mongo.ban.byId[SwissBan](user)
 
   def onGameFinish(game: Game) =
-    game.userIds
-      .map { userId =>
-        if game.playerWhoDidNotMove.exists(_.userId.has(userId)) then onStall(userId)
-        else onGoodGame(userId)
-      }
-      .parallel
-      .void
+    game.userIds.parallelVoid: userId =>
+      if game.playerWhoDidNotMove.exists(_.userId.has(userId)) then onStall(userId)
+      else onGoodGame(userId)
 
   private def onStall(user: UserId): Funit = get(user).flatMap { prev =>
     val hours: Int = prev
