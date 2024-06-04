@@ -44,21 +44,16 @@ final class ForumSearchApi(
     )
 
   def reset =
-    client.mapping(index) >> {
-      postApi
-        .nonGhostCursor(none)
-        .documentSource()
-        .via(lila.common.LilaStream.logRate("forum index")(logger))
-        .grouped(200)
-        .mapAsync(1)(posts => postApi.toMiniViews(posts.toList))
-        .map(_.map(v => v.post.id.value -> toDoc(v)))
-        .mapAsyncUnordered(2)(client.storeBulkForum)
-        .runWith(Sink.ignore)
-    } >> client.refresh(index)
+    client.mapping(index) >>
+      readAndIndexPosts(none) >>
+      client.refresh(index)
 
-  def storeBulk(from: Instant) =
+  def backfill(since: Instant) =
+    readAndIndexPosts(since.some)
+
+  private def readAndIndexPosts(since: Option[Instant]) =
     postApi
-      .nonGhostCursor(from.some)
+      .nonGhostCursor(since)
       .documentSource()
       .via(lila.common.LilaStream.logRate("forum index")(logger))
       .grouped(200)

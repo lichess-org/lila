@@ -37,7 +37,7 @@ final class Env(
           .catchNonFatal(java.lang.Long.parseLong(epochSeconds))
           .fold(
             e => fufail(s"Invalid epochSeconds: $e"),
-            since => api.storeBulk(java.time.Instant.ofEpochSecond(since)).inject("done")
+            since => api.backfill(java.time.Instant.ofEpochSecond(since)).inject("done")
           )
     }
 
