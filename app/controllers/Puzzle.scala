@@ -376,7 +376,6 @@ final class Puzzle(
                     env.puzzle.finisher.batchIncPuzzlePlays(
                       data.solutions.flatMap(sol => Puz.toId(sol.id))
                     ) inject { jsonOkResult }
-                  // .map(id => env.puzzle.finisher.incPuzzlePlays(id)).sequenceFu.inject(Nil)
                 }
             )
         }

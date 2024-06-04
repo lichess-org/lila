@@ -97,6 +97,8 @@ POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
+GET   /training/batch/:theme           controllers.Puzzle.mobileBatch(theme: String)
+POST  /training/batch/:theme           controllers.Puzzle.mobileBatchSolve(theme: String)
 
 # Puzzle Storm
 GET   /storm                            controllers.Storm.home
