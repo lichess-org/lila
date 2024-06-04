@@ -40,7 +40,7 @@ final class ForumSearchApi(
       author = view.post.userId.map(_.value),
       topicId = view.topic.id.value,
       troll = view.post.troll,
-      date = lila.search.spec.SearchDateTime.fromInstant(view.post.createdAt)
+      date = Timestamp.fromInstant(view.post.createdAt)
     )
 
   def reset =
