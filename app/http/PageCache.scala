@@ -10,7 +10,7 @@ import lila.api.Context
 final class PageCache(cacheApi: lila.memo.CacheApi) {
 
   private val cache = cacheApi.notLoading[String, Result](16, "pageCache") {
-    _.expireAfterWrite(1.seconds).buildAsync()
+    _.expireAfterWrite(2.seconds).buildAsync()
   }
 
   def apply(compute: () => Fu[Result])(implicit ctx: Context): Fu[Result] =
