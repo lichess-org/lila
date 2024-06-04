@@ -1,7 +1,7 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop, toggle } from 'common';
 import * as licon from 'common/licon';
-import { bind, bindSubmit, onInsert, looseH as h } from 'common/snabbdom';
+import { bind, bindSubmit, onInsert, looseH as h, dataIcon } from 'common/snabbdom';
 import { storedProp } from 'common/storage';
 import * as xhr from 'common/xhr';
 import { VNode } from 'snabbdom';
@@ -255,12 +255,9 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h(
                 'a.preview-in-editor',
                 {
-                  hook: bind('click', () => {
-                    ctrl.tab('edit');
-                    ctrl.root.redraw();
-                  }),
+                  hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [h('i', { attrs: { 'data-icon': licon.Eye } }), h('span', noarg('editor'))],
+                [h('i.text', { attrs: dataIcon(licon.Eye) }), noarg('editor')],
               ),
             ]),
           activeTab === 'pgn' &&
