@@ -18,7 +18,7 @@ object page:
   lazy val side = lila.user.ui.UserShowSide(helpers)
 
   def activity(
-      activities: Vector[lila.activity.ActivityView],
+      activities: Seq[lila.activity.ActivityView],
       info: UserInfo,
       social: UserInfo.Social
   )(using Context) =

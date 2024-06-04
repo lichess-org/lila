@@ -62,7 +62,7 @@ final class RankingApi(
             .cursor[Ranking]()
             .list(nb)
             .flatMap:
-              _.map: r =>
+              _.parallel: r =>
                 lightUser(r.user).map2: light =>
                   LightPerf(
                     user = light,
@@ -70,7 +70,7 @@ final class RankingApi(
                     rating = r.rating,
                     progress = ~r.prog
                   )
-              .parallel.dmap(_.flatten)
+              .dmap(_.flatten)
 
   private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =
     for
@@ -117,7 +117,7 @@ final class RankingApi(
     private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
       _.refreshAfterWrite(15 minutes).buildAsyncFuture: _ =>
         lila.rating.PerfType.leaderboardable
-          .traverse: pt =>
+          .sequentially: pt =>
             compute(pt).dmap(pt -> _)
           .map(_.toMap)
           .chronometer

@@ -23,7 +23,7 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
       .cursor[Swiss]()
       .list(5)
       .flatMap:
-        _.traverse_ { swiss =>
+        _.sequentiallyVoid { swiss =>
           doneMemo.put(swiss.id)
           SwissPlayer.fields: f =>
             mongo.player

@@ -310,7 +310,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               _.split(' ') match
                 case Array(u, p) => (UserId(u), p).some
                 case _           => none
-            .traverse: (u, p) =>
+            .sequentially: (u, p) =>
               env.clas.api.student
                 .get(clas, u)
                 .map2(lila.clas.Student.WithPassword(_, ClearPassword(p)))

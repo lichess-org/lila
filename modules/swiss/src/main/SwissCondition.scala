@@ -32,7 +32,7 @@ object SwissCondition:
         getBannedUntil: GetBannedUntil
     )(using me: LightUser.Me)(using Perf, Executor, GetMaxRating): Fu[WithVerdicts] =
       list
-        .traverse:
+        .parallel:
           case PlayYourGames => getBannedUntil(me.userId).map(PlayYourGames.withBan)
           case c: MaxRating  => c(perfType).map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))

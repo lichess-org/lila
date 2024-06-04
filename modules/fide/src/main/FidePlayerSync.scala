@@ -94,7 +94,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
           .zipWithIndex
           .map: (fed, index) =>
             fed.stats(tc).modify(_.copy(rank = index + 1))
-      _ <- ranked.traverse(repo.federation.upsert)
+      _ <- ranked.sequentially(repo.federation.upsert)
     yield ()
 
   private object playersFromHttpFile:
@@ -157,7 +157,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     private def upsert(ps: Seq[FidePlayer]) =
       val update = repo.playerColl.update(ordered = false)
       for
-        elements <- ps.traverse: p =>
+        elements <- ps.toList.sequentially: p =>
           update.element(
             q = $id(p.id),
             u = repo.player.handler.writeOpt(p).get,

@@ -452,7 +452,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .flatMapz:
             env.streamer.liveStreamApi.all.flatMap:
               _.streams
-                .traverse: stream =>
+                .sequentially: stream =>
                   env.tournament
                     .hasUser(tourId, stream.streamer.userId)
                     .dmap(_.option(stream.streamer.userId))

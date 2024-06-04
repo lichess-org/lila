@@ -68,8 +68,8 @@ final class ActivityWriteApi(
   def practice(prog: lila.core.practice.OnComplete) = update(prog.userId): a =>
     $doc(ActivityFields.practice -> { ~a.practice + prog.studyId })
 
-  def simul(simul: Simul) =
-    (simul.hostId :: simul.playerIds).traverse_(simulParticipant(simul, _))
+  def simul(simul: Simul): Funit =
+    (simul.hostId :: simul.playerIds).sequentiallyVoid(simulParticipant(simul, _))
 
   def corresMove(gameId: GameId, userId: UserId) = update(userId): a =>
     $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
@@ -92,12 +92,11 @@ final class ActivityWriteApi(
           val all = following ++ extra
           all.nonEmpty.so:
             logger.info(s"${from.id} unfollow ${all.size} users")
-            all.toSeq.traverse_ { userId =>
+            all.toList.sequentiallyVoid: userId =>
               coll.update.one(
                 regexId(userId) ++ $doc("f.i.ids" -> from.id),
                 $pull("f.i.ids" -> from.id)
               )
-            }
 
   def study(id: StudyId) =
     studyApi
@@ -120,7 +119,7 @@ final class ActivityWriteApi(
       $doc(ActivityFields.stream -> true)
 
   def swiss(id: SwissId, ranking: lila.core.swiss.Ranking) =
-    ranking.toList.traverse_ : (userId, rank) =>
+    ranking.toList.sequentiallyVoid: (userId, rank) =>
       update(userId): a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
 

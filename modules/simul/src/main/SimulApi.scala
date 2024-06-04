@@ -132,7 +132,7 @@ final class SimulApi(
             .withPerfs(started.hostId)
             .orFail(s"No such host: ${simul.hostId}")
             .flatMap: host =>
-              started.pairings.mapWithIndex(makeGame(started, host)).parallel.map { games =>
+              started.pairings.traverseWithIndexM(makeGame(started, host)).map { games =>
                 games.headOption.foreach: (game, _) =>
                   socket.startSimul(simul, game)
                 games.foldLeft(started):
@@ -274,7 +274,7 @@ final class SimulApi(
       .filter(_.startedAt.exists(_.isBefore(nowInstant.minusHours(1))))
       // only test some random simuls, no need to test all of them all the time
       .filter(_.startedAt.exists(_.getEpochSecond % sampling == (nowSeconds % sampling)))
-      .traverse: simul =>
+      .sequentiallyVoid: simul =>
         gameRepo.light
           .gamesFromPrimary(simul.ongoingGameIds)
           .flatMap: games =>
@@ -283,10 +283,9 @@ final class SimulApi(
                 case None => (gameId, Status.UnknownFinish, none).some // the game is not in DB!!
                 case Some(g) if g.finished => (gameId, g.status, g.winnerUserId).some // DB game is finished
                 case _                     => none
-            dirty.traverse: (id, status, winner) =>
+            dirty.sequentiallyVoid: (id, status, winner) =>
               logger.info(s"Simul ${simul.id} game $id is dirty, finishing with $status")
               finishGame(simul.id, id, status, winner)
-      .void
 
   private def update(simul: Simul): Funit =
     repo.update(simul).andDo(socket.reload(simul.id)).andDo(publish())

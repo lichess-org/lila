@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Švýcarský</string>
   <string name="swissTournaments">Švýcarské turnaje</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Zobrazit kolo</item>
@@ -52,6 +53,7 @@
   <string name="roundInterval">Interval mezi koly</string>
   <string name="forbiddenPairings">Tato možnost zabraňuje párování určitých hráčů</string>
   <string name="forbiddenPairingsHelp">Jména hráčů, kteří nesmí spolu hrát (například sourozenci). Dvě jména na řádek, oddělená mezerou.</string>
+  <string name="manualPairings">Manuální párování v příštím kole</string>
   <string name="newSwiss">Nový Švýcarský turnaj</string>
   <string name="swissVsArenaQ">Kdy hrát švýcarský turnaj místo arény?</string>
   <string name="swissVsArenaA">Ve švýcarském turnaji hrají všichni účastníci stejný počet kol a mohou spolu hrát jen jednou. Tato možnost je dobrá pro kluby a oficiální turnaje.</string>
