@@ -23,8 +23,7 @@ final class PublicChat(
     all.flatMap: (tours, swisses) =>
       (tours.map(_._2) ::: swisses.map(_._2))
         .filter(_.hasLinesOf(suspect.user))
-        .map(chatApi.userChat.delete(_, suspect.user, _.global))
-        .parallelVoid
+        .parallelVoid(chatApi.userChat.delete(_, suspect.user, _.global))
 
   private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchModable.flatMap: tours =>

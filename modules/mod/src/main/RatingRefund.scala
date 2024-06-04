@@ -70,7 +70,7 @@ final private class RatingRefund(
             }
           }
 
-        lastGames.map(makeRefunds).flatMap(_.all.map(applyRefund).parallelVoid)
+        lastGames.map(makeRefunds).flatMap(_.all.parallelVoid(applyRefund))
     }
 
 private object RatingRefund:
