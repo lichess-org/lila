@@ -100,7 +100,6 @@ private object jsI18n {
     trans.forceVariation,
     // practice (also uses checkmate, draw)
     trans.practiceWithComputer,
-    trans.goodMove,
     trans.inaccuracy,
     trans.mistake,
     trans.blunder,
