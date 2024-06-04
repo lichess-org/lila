@@ -25,7 +25,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           card.render(_, ongoing = _.ongoing)
       )
     Page(trc.liveBroadcasts.txt())
-      .css("relay.index")
+      .css("bits.relay.index")
       .js(infiniteScrollEsmInit)
       .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):
         main(cls := "relay-index page-menu")(
@@ -50,7 +50,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
     Page(trc.liveBroadcasts.txt())
-      .css("relay.index")
+      .css("bits.relay.index")
       .js(infiniteScrollEsmInit):
         main(cls := "relay-index page-menu")(menu, div(cls := "page-menu__content box box-pad")(body))
 
@@ -84,7 +84,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     )
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using Context) =
-    Page(t.name.value).css("page"):
+    Page(t.name.value).css("bits.page"):
       main(cls := "relay-tour page-menu")(
         pageMenu("by", owner),
         div(cls := "page-menu__content box box-pad page")(
@@ -103,7 +103,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
 
   def page(title: String, pageBody: Frag, active: String)(using Context): Page =
     Page(title)
-      .css("page")
+      .css("bits.page")
       .wrap: body =>
         main(cls := "page-small page-menu")(
           pageMenu(active),

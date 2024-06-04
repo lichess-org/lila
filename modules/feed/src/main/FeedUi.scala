@@ -20,7 +20,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
 
   private def page(title: String, edit: Boolean = false)(using Context): Page =
     sitePage(title)
-      .css("dailyFeed")
+      .css("bits.dailyFeed")
       .js(infiniteScrollEsmInit)
       .js(edit.option(EsmInit("bits.flatpickr")))
       .js(edit.option(EsmInit("bits.dailyFeed")))

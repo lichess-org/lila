@@ -33,7 +33,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
     val title = "Command Line Interface"
     Page(title)
       .css("mod.misc")
-      .css("form3"):
+      .css("bits.form3"):
         main(cls := "page-menu")(
           modMenu("cli"),
           div(id := "dev-cli", cls := "page-menu__content box box-pad")(

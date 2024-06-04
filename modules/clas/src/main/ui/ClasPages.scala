@@ -11,7 +11,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
 
   def home(using Context) =
     Page(trans.clas.lichessClasses.txt())
-      .css("page", "clas"):
+      .css("bits.page", "bits.clas"):
         main(cls := "page-small box box-pad page clas-home")(
           h1(cls := "box__top")(trans.clas.lichessClasses()),
           div(cls := "clas-home__doc body")(

@@ -190,7 +190,7 @@ final class GameUi(helpers: Helpers):
 
     def apply(form: play.api.data.Form[?])(using ctx: Context) =
       Page(trans.site.importGame.txt())
-        .css("importer")
+        .css("bits.importer")
         .js(EsmInit("bits.importer"))
         .graph(
           title = "Paste PGN chess game",

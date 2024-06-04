@@ -207,7 +207,7 @@ final class DgtUi(helpers: Helpers):
 
   private def layout(path: String, token: Option[String] = None)(using Context) =
     Page(trd.playWithDgtBoard.txt())
-      .css("dgt")
+      .css("bits.dgt")
       .js(token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)))
       .csp(_.withAnyWs)
       .wrap: body =>

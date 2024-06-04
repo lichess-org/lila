@@ -18,7 +18,7 @@ final class TimelineUi(helpers: Helpers)(
 
   def more(entries: Vector[Entry])(using Context) =
     Page(trans.site.timeline.txt())
-      .css("slist"):
+      .css("bits.slist"):
         main(cls := "timeline page-small box")(
           h1(cls := "box__top")(trans.site.timeline()),
           table(cls := "slist slist-pad"):

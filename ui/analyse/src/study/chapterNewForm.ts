@@ -80,7 +80,7 @@ export class StudyChapterNewForm {
   startTour = async () => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
-      site.asset.loadCssPath('shepherd'),
+      site.asset.loadCssPath('bits.shepherd'),
     ]);
 
     tour.chapter(tab => {

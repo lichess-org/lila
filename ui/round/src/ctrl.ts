@@ -600,7 +600,7 @@ export default class RoundController implements MoveRootCtrl {
       setTimeout(async () => {
         const [tour] = await Promise.all([
           site.asset.loadEsm<RoundTour>('round.tour'),
-          site.asset.loadCssPath('shepherd'),
+          site.asset.loadCssPath('bits.shepherd'),
         ]);
         tour.corresRematchOffline();
       }, 1000);
