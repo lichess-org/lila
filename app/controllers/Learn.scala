@@ -2,14 +2,13 @@ package controllers
 
 import lila.app._
 
-import play.api.data._
-import play.api.data.Forms._
 import play.api.libs.json._
 import views.html
 
 final class Learn(env: Env) extends LilaController(env) {
 
   import lila.learn.JSONHandlers._
+  import lila.learn.LearnForm._
 
   def index =
     Open { implicit ctx =>
@@ -29,14 +28,6 @@ final class Learn(env: Env) extends LilaController(env) {
       )
     }
 
-  private val scoreForm = Form(
-    mapping(
-      "stage" -> nonEmptyText,
-      "level" -> number,
-      "score" -> number
-    )(lila.learn.ScoreEntry.apply)(lila.learn.ScoreEntry.unapply)
-  )
-
   def score =
     AuthBody { implicit ctx => me =>
       implicit val body = ctx.body
@@ -47,18 +38,6 @@ final class Learn(env: Env) extends LilaController(env) {
           scores => env.learn.api.setScore(me, scores) inject Ok(Json.obj("ok" -> true))
         )
     }
-
-  private val scoresForm = Form(
-    mapping(
-      "scores" -> list(
-        mapping(
-          "stage" -> nonEmptyText,
-          "level" -> number,
-          "score" -> number
-        )(lila.learn.ScoreEntry.apply)(lila.learn.ScoreEntry.unapply)
-      )
-    )(identity)(Some(_))
-  )
 
   def scores =
     AuthBody { implicit ctx => me =>
