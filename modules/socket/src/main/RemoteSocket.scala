@@ -152,9 +152,7 @@ final class RemoteSocket(
     subscribe(channel, reader)(handler) >> {
       // and subscribe to subchannels
       (0 to parallelism)
-        .parallel: index =>
-          subscribe(s"$channel:$index", reader)(handler)
-        .void
+        .parallelVoid(index => subscribe(s"$channel:$index", reader)(handler))
     }
 
   private def connectAndSubscribe(channel: Channel)(f: String => Unit): Funit =
