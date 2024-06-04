@@ -155,7 +155,7 @@ final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materialize
       .cursor[Bdoc](ReadPref.sec)
       .list(500)
       .flatMap:
-        _.sequentiallyVoid : doc =>
+        _.sequentiallyVoid: doc =>
           ~(for
             id       <- doc.string("_id")
             likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
