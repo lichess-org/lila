@@ -106,10 +106,9 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
       .one(teamQuery(teamId) ++ selectAnyPerm, $unset("perms"), multi = true)
       .void
 
-  def setAllPerms(teamId: TeamId, data: Seq[TeamSecurity.LeaderData]): Funit =
-    data.traverse_ { l =>
+  def setAllPerms(teamId: TeamId, data: List[TeamSecurity.LeaderData]): Funit =
+    data.sequentiallyVoid: l =>
       setPerms(teamId, l.name, l.perms)
-    }
 
   def addPublicLeaderIds(teams: Seq[Team]): Fu[List[Team.WithPublicLeaderIds]] =
     coll

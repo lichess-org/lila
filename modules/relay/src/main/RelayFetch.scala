@@ -175,7 +175,7 @@ final private class RelayFetch(
               val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
               given play.api.i18n.Lang = lila.core.i18n.defaultLang
               games
-                .traverse: (game, fen) =>
+                .sequentially: (game, fen) =>
                   pgnDump(game, fen, pgnFlags).dmap(_.render)
                 .dmap(MultiPgn.apply)
             else

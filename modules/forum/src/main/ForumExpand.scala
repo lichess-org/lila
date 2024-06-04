@@ -17,10 +17,10 @@ final class ForumTextExpand(using Executor, Scheduler):
           }.value
 
   def manyPosts(posts: Seq[ForumPost])(using NetDomain): Fu[Seq[ForumPost.WithFrag]] =
-    posts
+    posts.view
       .map(_.text)
-      .traverse(one)
+      .toList
+      .sequentially(one)
       .map:
-        _.zip(posts).map { (body, post) =>
+        _.zip(posts).map: (body, post) =>
           ForumPost.WithFrag(post, body)
-        }

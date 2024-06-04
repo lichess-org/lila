@@ -47,7 +47,7 @@ final private class PushApi(
   def finish(game: Game): Funit =
     if !game.isCorrespondence || game.hasAi then funit
     else
-      game.userIds.traverse_ { userId =>
+      game.userIds.sequentiallyVoid { userId =>
         Pov(game, userId).so: pov =>
           val data = LazyFu: () =>
             for
@@ -84,7 +84,7 @@ final private class PushApi(
         .flatMap:
           _.filter(_.playable).so: game =>
             game.sans.lastOption.so: sanMove =>
-              game.povs.traverse_ { pov =>
+              game.povs.toList.sequentiallyVoid: pov =>
                 pov.player.userId.so: userId =>
                   val data = LazyFu: () =>
                     for
@@ -109,7 +109,6 @@ final private class PushApi(
                       IfAway(pov)(maybePushNotif(userId, _.move, PrefEvent.gameEvent, data))
                     _ <- alwaysPushFirebaseData(userId, _.move, data)
                   yield ()
-              }
 
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
@@ -287,7 +286,7 @@ final private class PushApi(
             )
 
   def tourSoon(tour: TourSoon): Funit =
-    tour.userIds.toList.traverse_ : userId =>
+    tour.userIds.toList.sequentiallyVoid: userId =>
       maybePushNotif(
         userId,
         _.tourSoon,

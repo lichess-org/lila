@@ -69,7 +69,7 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
           coll.insert.one(newGroup).inject(newGroup.id.some)
       // make sure the tours of this group are not in other groups
       _ <- curId.so: id =>
-        data.tours.map(_.id).traverse_ { tourId =>
+        data.tours.map(_.id).sequentiallyVoid { tourId =>
           coll.update.one($doc("_id".$ne(id), "tours" -> tourId), $pull("tours" -> tourId), multi = true)
         }
     yield ()

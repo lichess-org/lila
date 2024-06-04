@@ -116,7 +116,9 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
       _.sec
     )
 
-  private[forum] def nonGhostCursor: AkkaStreamCursor[ForumPostMini] =
+  private[forum] def nonGhostCursor(since: Option[Instant]): AkkaStreamCursor[ForumPostMini] =
+    val noGhost = $doc("userId".$ne(UserId.ghost))
+    val filter  = since.fold(noGhost)(instant => $and(noGhost, $doc("createdAt".$gt(instant))))
     coll
-      .find($doc("userId".$ne(UserId.ghost)), miniProjection.some)
+      .find(filter, miniProjection.some)
       .cursor[ForumPostMini](ReadPref.sec)

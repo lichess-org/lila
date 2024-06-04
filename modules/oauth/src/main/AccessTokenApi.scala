@@ -76,7 +76,7 @@ final class AccessTokenApi(
       .flatMap: users =>
         val scope = OAuthScope.Challenge.Write
         users
-          .traverse: user =>
+          .sequentially: user =>
             coll
               .one[AccessToken]:
                 $doc(
@@ -215,7 +215,7 @@ final class AccessTokenApi(
 
   def secretScanning(scans: List[AccessTokenApi.GithubSecretScan]): Fu[List[(AccessToken, String)]] = for
     found <- test(scans.map(_.token))
-    res <- scans.traverse: scan =>
+    res <- scans.sequentially: scan =>
       val compromised = found.get(scan.token).flatten
       lila.mon.security.secretScanning(scan.`type`, scan.source, compromised.isDefined).increment()
       compromised match

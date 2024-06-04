@@ -162,7 +162,7 @@ final private class ForumTopicApi(
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ).flatMap { topics =>
-      topics.traverse: topic =>
+      topics.sequentially: topic =>
         postRepo.coll.byId[ForumPost](topic.lastPostId(forUser)).map { post =>
           TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), forUser)
         }

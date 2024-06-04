@@ -590,7 +590,7 @@ final class StudyApi(
   ): Fu[List[Chapter]] =
     data.manyGames match
       case Some(datas) =>
-        datas.traverse(addChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
+        datas.sequentially(addChapter(studyId, _, sticky, withRatings)(who)).map(_.flatten)
       case _ =>
         sequenceStudy(studyId): study =>
           Contribute(who.u, study):
@@ -624,7 +624,7 @@ final class StudyApi(
   def importPgns(studyId: StudyId, datas: List[ChapterMaker.Data], sticky: Boolean, withRatings: Boolean)(
       who: Who
   ): Future[List[Chapter]] = datas
-    .traverse:
+    .sequentially:
       addChapter(studyId, _, sticky, withRatings)(who)
     .map(_.flatten)
 

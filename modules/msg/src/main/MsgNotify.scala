@@ -34,7 +34,7 @@ final private class MsgNotify(
         .void
 
   def deleteAllBy(threads: List[MsgThread], user: User): Funit =
-    threads.traverse_ { thread =>
+    threads.sequentiallyVoid { thread =>
       cancel(thread.id)
       notifyApi.remove(thread.other(user.id), $doc("content.user" -> user.id)).void
     }

@@ -134,7 +134,7 @@ final class SwissApi(
     ranking <- rankingApi(swiss)
     perfs   <- userApi.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
-    elements <- perfs.toSeq.traverse: (userId, perf) =>
+    elements <- perfs.parallel: (userId, perf) =>
       update.element(
         q = $id(SwissPlayer.makeId(swiss.id, userId)),
         u = $set(
@@ -364,8 +364,8 @@ final class SwissApi(
         )
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
 
-  private def kickFromSwissIds(userId: UserId, swissIds: Seq[SwissId], forfeit: Boolean = false): Funit =
-    swissIds.traverse_(withdraw(_, userId, forfeit))
+  private def kickFromSwissIds(userId: UserId, swissIds: List[SwissId], forfeit: Boolean = false): Funit =
+    swissIds.sequentiallyVoid(withdraw(_, userId, forfeit))
 
   def withdraw(id: SwissId, userId: UserId, forfeit: Boolean = false): Funit =
     Sequencing(id)(cache.swissCache.notFinishedById): swiss =>
@@ -390,9 +390,8 @@ final class SwissApi(
         .list[SwissPairing]($doc(F.swissId -> swiss.id, F.players -> userId))
         .flatMap:
           _.filter(p => p.isDraw || userId.is(p.winner))
-            .map: pairing =>
+            .parallel: pairing =>
               mongo.pairing.update.one($id(pairing.id), pairing.forfeit(userId))
-            .parallel
             .void
 
   private[swiss] def finishGame(game: Game): Funit =
@@ -527,7 +526,7 @@ final class SwissApi(
       .list(10)
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
-        _.traverse_ : id =>
+        _.sequentiallyVoid: id =>
           Sequencing(id)(cache.swissCache.notFinishedById) { swiss =>
             if swiss.round.value >= swiss.settings.nbRounds then doFinish(swiss)
             else if swiss.nbPlayers >= 2 then
@@ -585,7 +584,7 @@ final class SwissApi(
             gameIds <- doc.getAsOpt[List[GameId]]("ids")
           yield swissId -> gameIds
       .flatMap:
-        _.traverse_ { (swissId, gameIds) =>
+        _.sequentiallyVoid { (swissId, gameIds) =>
           Sequencing[List[Game]](swissId)(cache.swissCache.byId) { _ =>
             roundApi
               .getGames(gameIds)
@@ -606,7 +605,7 @@ final class SwissApi(
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
                 finished
           }.flatMap:
-            _.traverse_(finishGame)
+            _.sequentiallyVoid(finishGame)
         }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
@@ -641,7 +640,7 @@ final class SwissApi(
         )
       .map(_.flatMap(_.getAsOpt[SwissId]("_id")))
       .flatMap:
-        _.traverse_ { withdraw(_, user.id) }
+        _.sequentiallyVoid { withdraw(_, user.id) }
 
   def isUnfinished(id: SwissId): Fu[Boolean] =
     mongo.swiss.exists($id(id) ++ $doc("finishedAt".$exists(false)))

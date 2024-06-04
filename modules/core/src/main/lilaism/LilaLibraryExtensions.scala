@@ -3,10 +3,10 @@ package lila.core.lilaism
 import alleycats.Zero
 import com.typesafe.config.Config
 import scalalib.extensions.*
-
 import java.util.Base64
 import java.util.concurrent.TimeUnit
-import scala.concurrent.{ ExecutionContext as EC }
+import scala.concurrent.{ Future, ExecutionContext as EC }
+import scala.collection.BuildFrom
 import scala.util.Try
 import scalalib.future.FutureAfter
 
@@ -75,14 +75,31 @@ trait LilaLibraryExtensions extends CoreExports:
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
     def next(a: A): Option[A]     = indexOption(a).flatMap(i => list.lift(i + 1))
 
-  extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
+    def sequentially[B](f: A => Fu[B])(using Executor): Fu[List[B]] =
+      list
+        .foldLeft(fuccess(List.empty[B])): (acc, a) =>
+          acc.flatMap: bs =>
+            f(a).map(_ :: bs)
+        .map(_.reverse)
+    def sequentiallyVoid(f: A => Fu[?])(using Executor): Funit =
+      list
+        .foldLeft(funit): (acc, a) =>
+          acc.flatMap: _ =>
+            f(a).void
 
-  // run a collection of futures in parallel
+  extension [A, M[A] <: IterableOnce[A]](list: M[A])
+    def parallel[B](f: A => Fu[B])(using Executor, BuildFrom[M[A], B, M[B]]): Fu[M[B]] =
+      Future.traverse(list)(f)
+
+  // these futures have already started running in parallel.
+  // just change the return type from M[Fu[A]] to Fu[M[A]].
   extension [A](list: List[Fu[A]]) def parallel(using Executor): Fu[List[A]]         = Future.sequence(list)
   extension [A](vec: Vector[Fu[A]]) def parallel(using Executor): Fu[Vector[A]]      = Future.sequence(vec)
   extension [A](seq: Seq[Fu[A]]) def parallel(using Executor): Fu[Seq[A]]            = Future.sequence(seq)
   extension [A](iter: Iterable[Fu[A]]) def parallel(using Executor): Fu[Iterable[A]] = Future.sequence(iter)
   extension [A](iter: Iterator[Fu[A]]) def parallel(using Executor): Fu[Iterator[A]] = Future.sequence(iter)
+
+  extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
 
   extension [A](fua: Fu[A])
 

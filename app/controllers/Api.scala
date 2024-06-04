@@ -81,7 +81,7 @@ final class Api(
             .add("playing", env.round.playing(u.id))
             .add("streaming", streamingIds(u.id))
             .add("signal", withSignal.so(env.socket.getLagRating(u.id)))
-        def gameIds: Fu[List[Option[id.GameId]]] = users.traverse: u =>
+        def gameIds: Fu[List[Option[id.GameId]]] = users.sequentially: u =>
           env.round.playing(u.id).so(env.game.cached.lastPlayedPlayingId(u.id))
         val extensions: Option[Fu[List[Update[JsObject]]]] =
           if getBool("withGameIds")
@@ -95,7 +95,7 @@ final class Api(
           then
             gameIds
               .flatMap:
-                _.traverse(_.so(env.round.proxyRepo.gameIfPresent))
+                _.sequentially(_.so(env.round.proxyRepo.gameIfPresent))
               .map:
                 _.map: game =>
                   (_: JsObject).add(
@@ -330,7 +330,7 @@ final class Api(
           env.activity.read
             .recentAndPreload(user)
             .flatMap:
-              _.traverse(env.activity.jsonView(_, user))
+              _.sequentially(env.activity.jsonView(_, user))
         }
         .map(toApiResult)
 
