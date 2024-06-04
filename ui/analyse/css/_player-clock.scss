@@ -20,16 +20,16 @@ $clock-height: 20px;
 }
 
 .analyse__clock {
-  @extend %metal;
-
   position: absolute;
   right: 0;
-  padding: 0 0.5em;
+  padding: 0 0.5em 0 0.75em;
 
   height: $clock-height;
 
   font-weight: bold;
   text-align: center;
+
+  border-right: 5px solid transparent;
 
   &.top {
     @extend %box-radius-top;
@@ -37,11 +37,20 @@ $clock-height: 20px;
     z-index: 2; // over the board coords
   }
   &.bottom {
+    @extend %box-shadow;
     @extend %box-radius-bottom;
     bottom: #{-$clock-height};
   }
+  &.sente {
+    background: $c-bg-sente;
+    color: $c-font-sente;
+  }
+  &.gote {
+    background: $c-bg-gote;
+    color: $c-font-gote;
+  }
   &.active {
-    background: mix($c-primary, $c-bg-box, 30%);
+    border-color: $c-good;
   }
   tenths {
     font-size: 80%;

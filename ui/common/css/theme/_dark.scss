@@ -103,3 +103,9 @@ $text-shadow: none;
 
 @mixin theme-style {
 }
+
+$c-bg-sente: $c-bg-zebra;
+$c-font-sente: $c-font;
+
+$c-bg-gote: $c-font;
+$c-font-gote: $c-bg-zebra;

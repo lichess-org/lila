@@ -18,8 +18,8 @@ export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VN
   if (!defined(clock) || ctrl.imported) {
     if (showNames && sentePlayer && gotePlayer && (!ctrl.synthetic || ctrl.imported))
       return [
-        renderOnlyName(sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top'),
-        renderOnlyName(gotePlayer, !isSenteTurn, sentePov ? 'top' : 'bottom'),
+        renderOnlyName('sente', sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top'),
+        renderOnlyName('gote', gotePlayer, !isSenteTurn, sentePov ? 'top' : 'bottom'),
       ];
     return;
   }
@@ -32,12 +32,13 @@ export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VN
   const showTenths = true; // let's see
 
   return [
-    renderClock(centis[0], sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top', showTenths),
-    renderClock(centis[1], gotePlayer, !isSenteTurn, sentePov ? 'top' : 'bottom', showTenths),
+    renderClock('sente', centis[0], sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top', showTenths),
+    renderClock('gote', centis[1], gotePlayer, !isSenteTurn, sentePov ? 'top' : 'bottom', showTenths),
   ];
 }
 
 function renderClock(
+  color: Color,
   centis: number | undefined,
   player: game.Player | undefined,
   active: boolean,
@@ -45,11 +46,11 @@ function renderClock(
   showTenths: boolean
 ): VNode {
   return h(
-    'div.analyse__clock.' + cls,
+    `div.analyse__clock.${color}.${cls}`,
     {
       class: { active },
     },
-    [h('span', {}, playerName(player, true)), h('span', {}, clockContent(centis, showTenths))]
+    [h('span', playerName(player, true)), h('span', {}, clockContent(centis, showTenths))]
   );
 }
 
@@ -89,12 +90,12 @@ function playerName(player: game.Player | undefined, showSeparator: boolean): st
   );
 }
 
-function renderOnlyName(player: game.Player, active: boolean, cls: string) {
+function renderOnlyName(color: Color, player: game.Player, active: boolean, cls: string) {
   return h(
-    'div.analyse__clock.' + cls,
+    `div.analyse__clock.${color}.${cls}`,
     {
       class: { active },
     },
-    [playerName(player, false)]
+    playerName(player, false)
   );
 }
