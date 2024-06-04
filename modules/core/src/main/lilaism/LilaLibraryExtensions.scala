@@ -91,6 +91,15 @@ trait LilaLibraryExtensions extends CoreExports:
     def parallel[B](f: A => Fu[B])(using Executor, BuildFrom[M[A], B, M[B]]): Fu[M[B]] =
       Future.traverse(list)(f)
 
+    def parallelVoid[B](f: A => Fu[B])(using Executor): Fu[Unit] =
+      list.iterator
+        .foldLeft(fuccess(()))((fr, a) => fr.zipWith(f(a))((_, _) => ()))
+
+  extension [A, M[A] <: IterableOnce[A]](list: M[Fu[A]])
+    def parallelVoid(using Executor): Fu[Unit] =
+      list.iterator
+        .foldLeft(fuccess(()))((fr, fa) => fr.zipWith(fa)((_, _) => ()))
+
   // these futures have already started running in parallel.
   // just change the return type from M[Fu[A]] to Fu[M[A]].
   extension [A](list: List[Fu[A]]) def parallel(using Executor): Fu[List[A]]         = Future.sequence(list)

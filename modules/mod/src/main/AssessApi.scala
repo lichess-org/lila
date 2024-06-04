@@ -78,8 +78,7 @@ final class AssessApi(
                     createPlayerAssessment(PlayerAssessment.make(pov, analysis, holdAlerts(pov.color)))
                   }
                 }
-                .parallel
-                .void
+                .parallelVoid
             }
         )
       }
@@ -117,8 +116,7 @@ final class AssessApi(
           analysisRepo.byGame(g).flatMapz {
             onAnalysisReady(g, _, thenAssessUser = false)
           }
-        .parallel
-          .void
+        .parallelVoid
       } >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =

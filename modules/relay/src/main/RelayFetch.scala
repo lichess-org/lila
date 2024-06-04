@@ -69,8 +69,7 @@ final private class RelayFetch(
               if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
               api.update(rt.round)(_.finish)
             else funit
-          .parallel
-          .void
+          .parallelVoid
 
   // no writing the relay; only reading!
   // this can take a long time if the source is slow

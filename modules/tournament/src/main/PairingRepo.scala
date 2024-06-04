@@ -117,9 +117,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
               )
             )
           }
-          .parallel
+          .parallelVoid
       }
-      .void
 
   def count(tourId: TourId): Fu[Int] =
     coll.countSel(selectTour(tourId))

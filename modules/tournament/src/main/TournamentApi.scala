@@ -142,8 +142,7 @@ final class TournamentApi(
                       autoPairing(tour, pairing, ranking.ranking)
                         .mon(_.tournament.pairing.createAutoPairing)
                         .map { socket.startGame(tour.id, _) }
-                    .parallel
-                    .void
+                    .parallelVoid
                     .mon(_.tournament.pairing.createInserts)
                     .andDo:
                       lila.mon.tournament.pairing.batchSize.record(pairings.size)
@@ -398,7 +397,7 @@ final class TournamentApi(
           Parallel(tourId, "finishGame")(cached.tourCache.started): tour =>
             pairingOpt
               .so { pairing =>
-                game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).parallel.void
+                game.userIds.map(updatePlayerAfterGame(tour, game, pairing)).parallelVoid
               }
               .andDo {
                 duelStore.remove(game)

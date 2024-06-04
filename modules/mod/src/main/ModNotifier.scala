@@ -14,8 +14,7 @@ final private class ModNotifier(
       _.filterNot(_.is(mod))
         .map: reporterId =>
           notifyApi.notifyOne(reporterId, ReportedBanned)
-        .parallel
-        .void
+        .parallelVoid
     }
 
   def refund(user: User, pt: PerfType, points: Int): Funit =
