@@ -20,20 +20,18 @@ final class DgtUi(helpers: Helpers):
         p(trd.thisPageAllowsConnectingDgtBoard()),
         br,
         br,
-        st.section(
-          h2(trd.dgtBoardRequirements()),
-          br,
-          p(trd.toConnectTheDgtBoard(s"LiveChess $liveChessVersion")),
-          p(
-            trd.downloadHere(
-              a(href := "https://www.livechesscloud.com/software/")(s"LiveChess $liveChessVersion")
-            )
-          ),
-          p(
-            trd.ifLiveChessRunningOnThisComputer(
-              "LiveChess",
-              a(href := "http://localhost:1982/doc/index.html")(trd.openingThisLink())
-            )
+        h2(trd.dgtBoardRequirements()),
+        br,
+        p(trd.toConnectTheDgtBoard(s"LiveChess $liveChessVersion")),
+        p(
+          trd.downloadHere(
+            a(href := "https://www.livechesscloud.com/software/")(s"LiveChess $liveChessVersion")
+          )
+        ),
+        p(
+          trd.ifLiveChessRunningOnThisComputer(
+            "LiveChess",
+            a(href := "http://localhost:1982/doc/index.html")(trd.openingThisLink())
           )
         ),
         p(
