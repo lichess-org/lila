@@ -20,37 +20,43 @@ $clock-height: 20px;
 }
 
 .analyse__clock {
+  @extend %metal;
+
+  display: flex;
   position: absolute;
   right: 0;
-  padding: 0 0.5em 0 0.75em;
 
   height: $clock-height;
 
   font-weight: bold;
   text-align: center;
 
-  border-right: 5px solid transparent;
-
   &.top {
     @extend %box-radius-top;
     top: #{-$clock-height};
     z-index: 2; // over the board coords
+    .time {
+      border-top-right-radius: 3px;
+    }
   }
   &.bottom {
     @extend %box-shadow;
     @extend %box-radius-bottom;
     bottom: #{-$clock-height};
+    .time {
+      border-bottom-right-radius: 3px;
+    }
   }
-  &.sente {
-    background: $c-bg-sente;
-    color: $c-font-sente;
+  & > div {
+    padding: 0 0.8rem;
   }
-  &.gote {
-    background: $c-bg-gote;
-    color: $c-font-gote;
+  .name i {
+    margin-right: 0.4em;
   }
-  &.active {
-    border-color: $c-good;
+
+  &.active .time {
+    background: $c-secondary;
+    color: $c-secondary-over;
   }
   tenths {
     font-size: 80%;

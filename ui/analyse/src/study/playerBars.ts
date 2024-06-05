@@ -45,6 +45,7 @@ function renderPlayer(
     [
       h('div.left', [
         h('span.info', [
+          h('i.color-icon.' + color),
           title && h('span.title', title + ' '),
           h('span.name', playerNames[color]),
           elo && h('span.elo', elo),

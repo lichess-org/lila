@@ -46,11 +46,11 @@ function renderClock(
   showTenths: boolean
 ): VNode {
   return h(
-    `div.analyse__clock.${color}.${cls}`,
+    `div.analyse__clock.${cls}`,
     {
       class: { active },
     },
-    [h('span', playerName(player, true)), h('span', {}, clockContent(centis, showTenths))]
+    [playerName(color, player), h('div.time', clockContent(centis, showTenths))]
   );
 }
 
@@ -76,26 +76,25 @@ function pad2(num: number): string {
   return (num < 10 ? '0' : '') + num;
 }
 
-function playerName(player: game.Player | undefined, showSeparator: boolean): string {
-  if (!player) return '';
-  const sep = ' - ';
-  return (
-    (player.user
+function playerName(color: Color, player: game.Player | undefined): VNode {
+  const name = !player
+    ? ''
+    : player.user
       ? player.user.username
       : player.ai
         ? engineNameFromCode(player.aiCode)
         : player.name && player.name !== '?'
           ? player.name
-          : 'Anonymous') + (showSeparator ? sep : '')
-  );
+          : 'Anonymous';
+  return h('div.name', [h('i.color-icon.' + color), name]);
 }
 
 function renderOnlyName(color: Color, player: game.Player, active: boolean, cls: string) {
   return h(
-    `div.analyse__clock.${color}.${cls}`,
+    `div.analyse__clock.${cls}`,
     {
       class: { active },
     },
-    playerName(player, false)
+    playerName(color, player)
   );
 }
