@@ -87,7 +87,7 @@ final class TeamApi(
     yield
       cached.forumAccess.invalidate(team.id)
       cached.lightCache.invalidate(team.id)
-      publish(TeamUpdate(team.data))
+      publish(TeamUpdate(team.data, byMod = !isLeader))
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
     cached.teamIdsList(me).flatMap(teamRepo.byIdsSortPopular).flatMap(memberRepo.addMyLeadership)
@@ -327,7 +327,11 @@ final class TeamApi(
             _ = users.foreach(cached.invalidateTeamIds)
             _ <- requestRepo.removeByTeam(team.id)
           yield publish(TeamDisable(team.id))
-        else teamRepo.enable(team).void.andDo(Bus.publish(TeamUpdate(team.data), "team"))
+        else
+          teamRepo
+            .enable(team)
+            .andDo:
+              Bus.publish(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)), "team")
       else memberRepo.setPerms(team.id, me, Set.empty)
 
   def idAndLeaderIds(teamId: TeamId): Fu[Option[Team.IdAndLeaderIds]] =

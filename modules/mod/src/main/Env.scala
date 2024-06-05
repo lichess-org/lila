@@ -113,7 +113,7 @@ final class Env(
     "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
     "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) },
     "team" -> {
-      case t: lila.core.team.TeamUpdate =>
+      case t: lila.core.team.TeamUpdate if t.byMod =>
         logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
       case t: lila.core.team.KickFromTeam =>
         logApi.teamKick(t.userId, t.teamName)(using t.me)
