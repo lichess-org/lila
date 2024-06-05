@@ -212,6 +212,13 @@ $hover-bg: $m-primary_bg--mix-30;
       overflow-x: hidden;
       overflow-y: auto;
       max-height: 50vh;
+      @media (max-width: at-most($medium)) {
+        position: fixed;
+        top: 10vh;
+        left: 5vw !important;
+        right: 5vw !important;
+        min-width: unset;
+      }
     }
     tr {
       display: table-row;
