@@ -114,11 +114,8 @@ final class TokenUi(helpers: Helpers)(
                   } || {
                     me.isBot && scope == OAuthScope.Board.Play
                   }
-                  val hidden =
-                    scope == OAuthScope.Web.Mod && !(
-                      Granter.opt(_.Shusher) || Granter.opt(_.BoostHunter) || Granter.opt(_.CheatHunter)
-                    )
-                  val id = s"oauth-scope-${scope.key.replace(":", "_")}"
+                  val hidden = scope == OAuthScope.Web.Mod && !OAuthScope.canUseWebMod
+                  val id     = s"oauth-scope-${scope.key.replace(":", "_")}"
                   (!hidden).option(
                     div(cls := List("danger" -> OAuthScope.dangerList.has(scope)))(
                       span(
