@@ -1,10 +1,6 @@
 @import 'card';
 
 .relay-index {
-  .box__top {
-    flex-flow: row nowrap;
-  }
-
   .new::before {
     font-size: 3em;
   }
