@@ -41,7 +41,7 @@ object discussion:
         div(cls := "appeal__actions", id := "appeal-actions")(
           modData.inquiry match
             case None =>
-              postForm(action := routes.Mod.spontaneousInquiry(appeal.userId))(
+              postForm(action := s"${routes.Mod.spontaneousInquiry(appeal.userId)}?appeal=1")(
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId.has(mod) =>
