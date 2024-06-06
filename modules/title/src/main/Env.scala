@@ -11,3 +11,6 @@ final class Env(cacheApi: lila.memo.CacheApi, db: lila.db.Db, flairApi: lila.cor
 ):
 
   private val requestColl = db(CollName("title_request"))
+
+  lazy val api  = wire[TitleApi]
+  lazy val form = wire[TitleForm]

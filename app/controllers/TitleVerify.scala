@@ -12,3 +12,11 @@ final class TitleVerify(env: Env) extends LilaController(env):
     Found(env.api.cmsRender(CmsPageKey("title-verify-index"))): p =>
       Ok.async(views.site.page.lone(p))
   }
+
+  def form = Auth { _ ?=> _ ?=>
+    Ok.async(views.title.create(env.title.form.create))
+  }
+
+  def create = AuthBody { _ ?=> _ ?=>
+    ???
+  }

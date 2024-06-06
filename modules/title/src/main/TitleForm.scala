@@ -7,7 +7,7 @@ import chess.FideId
 import lila.common.Form.{ cleanNonEmptyText, playerTitle, fideId, into, url }
 import lila.core.id.ImageId
 
-final class TitleRequestForm:
+final class TitleForm:
 
   val create = Form:
     mapping(
