@@ -10,6 +10,7 @@ import play.api.data.{ Field, Form as PlayForm, FormError, Mapping, validation a
 import java.lang
 import java.time.LocalDate
 import scala.util.Try
+import play.api.data.FieldMapping
 
 object Form:
 
@@ -224,6 +225,30 @@ object Form:
       Constraints.pattern(regex = UserName.historicalRegex)
     )
     val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
+
+  object playerTitle:
+    import chess.PlayerTitle
+    given Formatter[PlayerTitle] with
+      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).flatMap { str =>
+        PlayerTitle.get(str).toRight(Seq(FormError(key, "Invalid title", Nil)))
+      }
+      def unbind(key: String, title: PlayerTitle) = stringFormat.unbind(key, title.toString)
+    val field = of[PlayerTitle]
+
+  object fideId:
+    import chess.FideId
+    given Formatter[FideId] with
+      val urlRegex = """(?:lichess\.org/fide|fide\.com/profile)/(\d+)$""".r
+      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).flatMap { any =>
+        any.toIntOption match
+          case Some(i) => Right(FideId(i))
+          case None =>
+            any match
+              case urlRegex(id) => Right(FideId(id.toInt))
+              case _            => Left(Seq(FormError(key, "Invalid FIDE ID", Nil)))
+      }
+      def unbind(key: String, id: FideId) = stringFormat.unbind(key, id.value.toString)
+    val field = of[FideId]
 
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],

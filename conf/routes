@@ -829,11 +829,12 @@ GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang: Languag
 GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
-GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 POST  /github/secret-scanning          controllers.Github.secretScanning
+
+GET   /verify-title                    controllers.TitleVerify.index
 
 # Technical
 GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id: GameId)
