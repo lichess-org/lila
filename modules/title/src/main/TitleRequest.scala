@@ -5,14 +5,13 @@ import chess.{ PlayerTitle, FideId }
 import scalalib.ThreadLocalRandom
 
 import lila.core.id.ImageId
-import java.time.Instant
 import io.mola.galimatias.URL
 
 case class TitleRequest(
     @Key("_id") id: String,
     userId: UserId,
     data: TitleRequest.FormData,
-    status: TitleRequest.Status,
+    history: NonEmptyList[TitleRequest.Status], // latest first
     createdAt: Instant
 )
 
@@ -30,10 +29,10 @@ object TitleRequest:
       comment: Option[String]
   )
   enum Status:
-    case Pending
-    case Approved
-    case Feedback(val text: String)
-    case Rejected
+    case pending
+    case approved
+    case feedback(val text: String)
+    case rejected
 
   def make(
       userId: UserId,
@@ -43,6 +42,6 @@ object TitleRequest:
       id = ThreadLocalRandom.nextString(6),
       userId = userId,
       data = data,
-      status = Status.Pending,
-      createdAt = Instant.now
+      history = NonEmptyList.one(Status.pending),
+      createdAt = nowInstant
     )
