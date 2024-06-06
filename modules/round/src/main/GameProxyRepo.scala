@@ -48,7 +48,7 @@ final class GameProxyRepo(
     gameRepo
       .urgentPovsUnsorted(user)
       .flatMap:
-        _.traverse: pov =>
+        _.parallel: pov =>
           gameIfPresent(pov.gameId).dmap { _.fold(pov)(pov.withGame) }
         .map: povs =>
           try povs.sortWith(lila.game.Pov.priority)

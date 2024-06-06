@@ -53,7 +53,7 @@ final class Env(
       case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
         for
           team <- teamRepo.byId(TeamId(teamId)).orFail(s"Team $teamId not found")
-          userIds = members.split(',').flatMap(UserStr.read).map(_.id).toIndexedSeq
+          userIds = members.split(',').flatMap(UserStr.read).map(_.id).toList
           _ <- api.addMembers(team, userIds)
         yield s"Added ${userIds.size} members to team ${team.name}"
 

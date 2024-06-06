@@ -27,7 +27,7 @@ final class Env(
     }
 
   lila.common.Bus.subscribeFun("team"):
-    case lila.core.team.TeamCreate(team) => api.store(team)
-    case lila.core.team.TeamUpdate(team) => api.store(team)
-    case lila.core.team.TeamDelete(id)   => client.deleteById(index, id.value)
-    case lila.core.team.TeamDisable(id)  => client.deleteById(index, id.value)
+    case lila.core.team.TeamCreate(team)    => api.store(team)
+    case lila.core.team.TeamUpdate(team, _) => api.store(team)
+    case lila.core.team.TeamDelete(id)      => client.deleteById(index, id.value)
+    case lila.core.team.TeamDisable(id)     => client.deleteById(index, id.value)

@@ -7,6 +7,10 @@ cg-board {
   left: 0;
   user-select: none;
   line-height: 0;
+
+  .manipulable & {
+    cursor: pointer;
+  }
 }
 
 cg-board::before {
@@ -125,14 +129,10 @@ piece {
   background-size: cover;
   z-index: z('cg__piece');
   will-change: transform;
-
-  .manipulable & {
-    cursor: pointer;
-    cursor: grab;
-  }
+  pointer-events: none;
 
   &.dragging {
-    cursor: grabbing;
+    cursor: move;
     z-index: z('cg__piece.dragging') !important;
   }
 

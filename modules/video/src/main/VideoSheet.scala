@@ -9,7 +9,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
   def fetchAll: Fu[Int] =
     fetch.flatMap: entries =>
       entries
-        .traverse: entry =>
+        .sequentially: entry =>
           api.video
             .find(entry.youtubeId)
             .flatMap {

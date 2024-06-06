@@ -11,7 +11,7 @@ lazy val ui   = lila.puzzle.ui.PuzzleUi(helpers, bits)(views.analyse.ui.csp, ext
 def embed(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
   views.base.embed(
     title = "lichess.org chess puzzle",
-    cssModule = "tv.embed",
+    cssModule = "bits.tv.embed",
     modules = EsmInit("site.puzzleEmbed")
   )(
     bits.dailyLink(daily)(using config.translate)(

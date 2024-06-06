@@ -73,8 +73,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       ids
         .mapWithIndex: (id, index) =>
           c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
-        .parallel
-        .void
+        .parallelVoid
 
   def nextOrderByStudy(studyId: StudyId): Fu[Int] =
     coll(_.primitiveOne[Int]($studyId(studyId), $sort.desc("order"), "order")).dmap { ~_ + 1 }

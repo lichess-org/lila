@@ -36,7 +36,7 @@ final class TutorApi(
 
   private def pollQueue = queue.next.flatMap: items =>
     lila.mon.tutor.parallelism.update(items.size)
-    items.traverse_ : next =>
+    items.sequentiallyVoid: next =>
       next.startedAt.fold(buildThenRemoveFromQueue(next.userId)) { started =>
         val expired =
           started.isBefore(nowInstant.minusSeconds(builder.maxTime.toSeconds.toInt)) ||

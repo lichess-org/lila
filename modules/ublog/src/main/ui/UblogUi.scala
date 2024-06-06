@@ -69,7 +69,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   def blogPage(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: Context) =
     val title = trans.ublog.xBlog.txt(user.username)
     Page(title)
-      .css("ublog")
+      .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(EsmInit("bits.ublog")))
       .copy(atomLinkTag = link(href := routes.Ublog.userAtom(user.username), st.title := title).some)
       .robots(blog.listed):
@@ -109,7 +109,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   )(using ctx: Context) =
     def languageOrAll = language | Language("all")
     Page("Community blogs")
-      .css("ublog")
+      .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit))
       .copy(
         atomLinkTag = link(
@@ -157,7 +157,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
   def drafts(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: Context) =
     Page(trans.ublog.drafts.txt())
-      .css("ublog")
+      .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
         main(cls := "page-menu")(
           menu(Left(user.id)),
@@ -219,7 +219,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       byDate: Option[Boolean] = None
   )(using Context) =
     Page(title)
-      .css("ublog")
+      .css("bits.ublog")
       .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
         main(cls := "page-menu")(
           menu(Right(menuItem)),
@@ -245,7 +245,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
         )
 
   def topics(tops: List[UblogTopic.WithPosts])(using Context) =
-    Page("All blog topics").css("ublog"):
+    Page("All blog topics").css("bits.ublog"):
       main(cls := "page-menu")(
         menu(Right("topics")),
         div(cls := "page-menu__content box")(

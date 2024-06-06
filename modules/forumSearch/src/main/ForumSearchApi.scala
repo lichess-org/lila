@@ -40,17 +40,24 @@ final class ForumSearchApi(
       author = view.post.userId.map(_.value),
       topicId = view.topic.id.value,
       troll = view.post.troll,
-      date = lila.search.spec.SearchDateTime.fromInstant(view.post.createdAt)
+      date = Timestamp.fromInstant(view.post.createdAt)
     )
 
   def reset =
-    client.mapping(index) >> {
-      postApi.nonGhostCursor
-        .documentSource()
-        .via(lila.common.LilaStream.logRate("forum index")(logger))
-        .grouped(200)
-        .mapAsync(1)(posts => postApi.toMiniViews(posts.toList))
-        .map(_.map(v => v.post.id.value -> toDoc(v)))
-        .mapAsyncUnordered(2)(client.storeBulkForum)
-        .runWith(Sink.ignore)
-    } >> client.refresh(index)
+    client.mapping(index) >>
+      readAndIndexPosts(none) >>
+      client.refresh(index)
+
+  def backfill(since: Instant) =
+    readAndIndexPosts(since.some)
+
+  private def readAndIndexPosts(since: Option[Instant]) =
+    postApi
+      .nonGhostCursor(since)
+      .documentSource()
+      .via(lila.common.LilaStream.logRate("forum index")(logger))
+      .grouped(200)
+      .mapAsync(1)(posts => postApi.toMiniViews(posts.toList))
+      .map(_.map(v => v.post.id.value -> toDoc(v)))
+      .mapAsyncUnordered(2)(client.storeBulkForum)
+      .runWith(Sink.ignore)

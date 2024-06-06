@@ -47,7 +47,7 @@ final class Cached(
     _.refreshAfterWrite(10 minutes).buildAsyncFuture:
       loader: _ =>
         PerfType.leaderboardable
-          .traverse: perf =>
+          .sequentially: perf =>
             rankingApi.topPerf(PerfType(perf).id, 1)
           .dmap(_.flatten)
 

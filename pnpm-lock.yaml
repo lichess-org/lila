@@ -187,6 +187,9 @@ importers:
       qrcode:
         specifier: ^1.5.3
         version: 1.5.3
+      shepherd.js:
+        specifier: ^11.2.0
+        version: 11.2.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0

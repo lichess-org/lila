@@ -188,14 +188,13 @@ final class ForumPostApi(
       categs     <- categRepo.visibleWithTeams(teams, isMod)
       diagnostic <- if isMod then fuccess(none) else forUser.so(diagnosticForUser)
       views <- categs
-        .map: categ =>
+        .parallel: categ =>
           get(categ.lastPostId(forUser)).map: topicPost =>
             CategView(
               categ,
               topicPost.map { case (topic, post) => (topic, post, topic.lastPage(config.postMaxPerPage)) },
               forUser
             )
-        .parallel
     yield views ++ diagnostic.toList
 
   private def diagnosticForUser(user: User): Fu[Option[CategView]] = // CategView with user's topic/post

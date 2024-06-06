@@ -150,6 +150,7 @@ $hover-bg: $m-primary_bg--mix-30;
     &__selectors {
       @extend %flex-center;
       gap: 1em;
+      position: relative;
     }
 
     .setting {
@@ -165,6 +166,7 @@ $hover-bg: $m-primary_bg--mix-30;
 
   &__mselect {
     @extend %ellipsis;
+    position: unset;
     flex: auto;
     @include fluid-size('font-size', 12px, 20px);
     &.mselect__active {
@@ -210,6 +212,13 @@ $hover-bg: $m-primary_bg--mix-30;
       overflow-x: hidden;
       overflow-y: auto;
       max-height: 50vh;
+      @media (max-width: at-most($medium)) {
+        position: fixed;
+        top: 10vh;
+        left: 5vw !important;
+        right: 5vw !important;
+        min-width: unset;
+      }
     }
     tr {
       display: table-row;

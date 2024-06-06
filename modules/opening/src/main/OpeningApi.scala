@@ -53,9 +53,8 @@ final class OpeningApi(
       stats      <- (useExplorer.so(explorer.stats(query.uci, query.config, crawler)))
       allHistory <- allGamesHistory.get(query.config)
       games      <- gameRepo.gamesFromSecondary(stats.so(_.games).map(_.id))
-      withPgn <- games.map { g =>
+      withPgn <- games.traverse: g =>
         pgnDump(g, None, PgnDump.WithFlags(evals = false)).dmap { GameWithPgn(g, _) }
-      }.parallel
       history    = stats.so(_.popularityHistory)
       relHistory = query.uci.nonEmpty.so(historyPercent(history, allHistory))
     yield OpeningPage(query, stats, withPgn, relHistory, wiki).some

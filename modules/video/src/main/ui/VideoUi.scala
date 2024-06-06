@@ -14,7 +14,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
 
   private def page(title: String, control: UserControl)(using Context) =
     Page(title)
-      .css("video")
+      .css("bits.video")
       .js(infiniteScrollEsmInit)
       .fullScreen
       .wrap: body =>

@@ -35,12 +35,11 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
     else if currency == EUR then fuccess(eurPricing.some)
     else
       for
-        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).parallel.map(_.sequence)
-        suggestions = allSuggestions.map(_.distinct)
-        min      <- convertAndRound(usdPricing.min, currency)
-        max      <- convertAndRound(usdPricing.max, currency)
-        lifetime <- convertAndRound(usdPricing.lifetime, currency)
-      yield (suggestions, min, max, lifetime).mapN(PlanPricing.apply)
+        allSuggestions <- usdPricing.suggestions.parallel(convertAndRound(_, currency))
+        min            <- convertAndRound(usdPricing.min, currency)
+        max            <- convertAndRound(usdPricing.max, currency)
+        lifetime       <- convertAndRound(usdPricing.lifetime, currency)
+      yield (allSuggestions.sequence, min, max, lifetime).mapN(PlanPricing.apply)
 
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 

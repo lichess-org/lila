@@ -329,7 +329,7 @@ final class Mod(
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      (isGranted(_.Appeals).so(env.appeal.api.exists(user))).flatMap { isAppeal =>
+      (getBool("appeal") && isGranted(_.Appeals)).so(env.appeal.api.exists(user)).flatMap { isAppeal =>
         isAppeal.so(env.report.api.inquiries.ongoingAppealOf(user.id)).flatMap {
           case Some(ongoing) if ongoing.mod != me.id =>
             env.user.lightUserApi

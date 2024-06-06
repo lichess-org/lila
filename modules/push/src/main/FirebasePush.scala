@@ -33,7 +33,7 @@ final private class FirebasePush(
     deviceApi
       .findLastManyByUserId("firebase", 3)(userId)
       .flatMap:
-        _.traverse_ { device =>
+        _.sequentiallyVoid { device =>
           val config = if device.isMobile then configs.mobile else configs.lichobile
           config.googleCredentials.so: creds =>
             for
