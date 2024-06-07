@@ -40,8 +40,12 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
     val req = TitleRequest.make(me.userId, data)
     coll.insert.one(req).inject(req)
 
-  def update(req: TitleRequest, data: FormData)(using me: Me): Funit =
-    coll.update.one($id(req.id), req.update(data)).void
+  def update(req: TitleRequest, data: FormData)(using me: Me): Fu[TitleRequest] =
+    val newReq = req.update(data)
+    coll.update.one($id(req.id), newReq).inject(newReq)
+
+  def delete(req: TitleRequest): Funit =
+    coll.delete.one($id(req.id)).void
 
   object image:
     def rel(req: TitleRequest, tag: String) =

@@ -9,9 +9,11 @@ import lila.core.id.{ TitleRequestId, CmsPageKey }
 
 final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
 
+  private def api = env.title.api
+
   def index = Auth { _ ?=> me ?=>
     cmsC.orCreateOrNotFound(CmsPageKey("title-verify-index")): page =>
-      env.title.api.getCurrent.flatMap:
+      api.getCurrent.flatMap:
         case Some(req) => Redirect(routes.TitleVerify.show(req.id))
         case None      => Ok.async(views.title.index(page.title, views.site.page.pageContent(page)))
   }
@@ -24,7 +26,7 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
     bindForm(env.title.form.create)(
       err => BadRequest.async(views.title.create(err)),
       data =>
-        env.title.api
+        api
           .create(data)
           .map: req =>
             Redirect(routes.TitleVerify.show(req.id)).flashSuccess
@@ -32,32 +34,42 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
   }
 
   def show(id: TitleRequestId) = Auth { _ ?=> _ ?=>
-    Found(env.title.api.getForMe(id)): req =>
+    Found(api.getForMe(id)): req =>
       Ok.async(views.title.edit(env.title.form.edit(req.data), req))
   }
 
   def update(id: TitleRequestId) = SecureBody(_.Pages) { _ ?=> me ?=>
-    Found(env.title.api.getForMe(id)): req =>
+    Found(api.getForMe(id)): req =>
       bindForm(env.title.form.create)(
         err => BadRequest.async(views.title.edit(err, req)),
         data =>
-          env.title.api
+          api
             .update(req, data)
-            .inject:
-              Redirect(routes.TitleVerify.show(req.id)).flashSuccess
+            .map: req =>
+              val redir = Redirect(routes.TitleVerify.show(req.id))
+              if req.status == TitleRequest.Status.building then redir
+              else redir.flashSuccess
       )
   }
 
+  def cancel(id: TitleRequestId) = SecureBody(_.Pages) { _ ?=> me ?=>
+    Found(api.getForMe(id)): req =>
+      api
+        .delete(req)
+        .inject:
+          Redirect(routes.TitleVerify.index).flashSuccess
+  }
+
   def image(id: TitleRequestId, tag: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
-    Found(env.title.api.getForMe(id)): req =>
+    Found(api.getForMe(id)): req =>
       ctx.body.body.file("image") match
         case Some(image) =>
           limit.imageUpload(ctx.ip, rateLimited):
-            env.title.api.image
+            api.image
               .upload(req, image, tag)
               .inject(Ok)
               .recover { case e: Exception =>
                 BadRequest(e.getMessage)
               }
-        case None => env.title.api.image.delete(req, tag) >> Ok
+        case None => api.image.delete(req, tag) >> Ok
   }
