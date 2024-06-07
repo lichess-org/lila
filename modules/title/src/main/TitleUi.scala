@@ -7,14 +7,15 @@ import chess.PlayerTitle
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
+import lila.core.id.TitleRequestId
 import lila.core.id.ImageId
 
-final class TitleUi(helpers: Helpers):
+final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }
 
   private def layout(title: String = "Title verification")(using Context) =
     Page(title)
-      .css("bits.form3")
+      .css("bits.titleRequest")
       .wrap: body =>
         main(cls := "page-small box box-pad page")(body)
 
@@ -39,16 +40,18 @@ final class TitleUi(helpers: Helpers):
 
   def edit(form: Form[TitleRequest.FormData], req: TitleRequest)(using Context) =
     val title = "Your title verification"
-    layout(title):
-      frag(
-        h1(cls := "box__top")(title),
-        standardFlash,
-        dataForm(form)
-      )
+    layout(title)
+      .js(EsmInit("bits.titleRequest")):
+        frag(
+          h1(cls := "box__top")(title),
+          standardFlash,
+          div(cls := "title__images")(selfieImage(req)),
+          dataForm(form)
+        )
 
   private def dataForm(form: Form[TitleRequest.FormData])(using Context) =
     postForm(cls := "form3", action := routes.TitleVerify.create)(
-      form3.globalError(form).pp(form),
+      form3.globalError(form),
       form3.group(
         form("realName"),
         "Full real name",
@@ -106,19 +109,23 @@ final class TitleUi(helpers: Helpers):
       form3.action(form3.submit("Send"))
     )
 
-  // private def image(t: RelayTour)(using ctx: Context) =
-  //   div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
-  //     ui.thumbnail(t.image, _.Size.Small)(
-  //       cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
-  //       attr("draggable") := "true"
-  //     ),
-  //     div(
-  //       p("Upload a beautiful image to represent your tournament."),
-  //       p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
-  //       p(
-  //         "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
-  //       ),
-  //       p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-  //       form3.file.selectImage()
-  //     )
-  //   )
+  private def selfieImage(t: TitleRequest)(using ctx: Context) =
+    val image = t.selfie
+    div(cls := "title-image-edit", data("post-url") := routes.TitleVerify.image(t.id, "selfie"))(
+      thumbnail(image)(
+        cls               := List("drop-target" -> true, "user-image" -> image.isDefined),
+        attr("draggable") := "true"
+      ),
+      div(
+        p("Upload a photo of you holding your ID document."),
+        p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
+        form3.file.selectImage()
+      )
+    )
+
+  private object thumbnail:
+    def apply(image: Option[ImageId]): Tag =
+      image.fold(fallback): id =>
+        img(cls := "relay-image", src := url(id))
+    def fallback         = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
+    def url(id: ImageId) = picfitUrl.thumbnail(id, 800, 800)

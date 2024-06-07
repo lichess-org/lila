@@ -114,3 +114,6 @@ object id:
 
   opaque type CmsPageKey = String
   object CmsPageKey extends OpaqueString[CmsPageKey]
+
+  opaque type TitleRequestId = String
+  object TitleRequestId extends OpaqueString[TitleRequestId]

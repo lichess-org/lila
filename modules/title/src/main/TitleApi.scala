@@ -4,8 +4,10 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
+import lila.core.id.TitleRequestId
+import lila.memo.PicfitApi
 
-final class TitleApi(coll: Coll)(using Executor):
+final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
 
   import TitleRequest.*
 
@@ -25,7 +27,7 @@ final class TitleApi(coll: Coll)(using Executor):
   private given BSONDocumentHandler[StatusAt]     = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
 
-  def getForMe(id: String)(using me: Me): Fu[Option[TitleRequest]] =
+  def getForMe(id: TitleRequestId)(using me: Me): Fu[Option[TitleRequest]] =
     coll
       .byId[TitleRequest](id)
       .map:
@@ -37,3 +39,20 @@ final class TitleApi(coll: Coll)(using Executor):
 
   def update(req: TitleRequest, data: FormData)(using me: Me): Funit =
     coll.update.one($id(req.id), TitleRequest.update(req, data)).void
+
+  object image:
+    def rel(req: TitleRequest, tag: String) =
+      s"title-request.$tag:${req.id}"
+
+    def upload(req: TitleRequest, picture: PicfitApi.FilePart, tag: String)(using me: Me): Fu[TitleRequest] =
+      if !Set("idDocument", "selfie").contains(tag) then fufail(s"Invalid tag $tag")
+      else
+        for
+          image <- picfitApi.uploadFile(rel(req, tag), picture, userId = me.userId)
+          _     <- coll.updateField($id(req.id), tag, image.id)
+        yield req.focusImage(tag).replace(image.id.some)
+
+    def delete(req: TitleRequest, tag: String): Fu[TitleRequest] = for
+      _ <- picfitApi.deleteByRel(rel(req, tag))
+      _ <- coll.unsetField($id(req.id), tag)
+    yield req.focusImage(tag).replace(none)

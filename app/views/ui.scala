@@ -93,11 +93,7 @@ val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
 val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
 
-object title:
-  val ui = lila.title.ui.TitleUi(helpers)
-  export ui.{ create, edit }
-  def index(p: CmsPage.Render)(using Context) =
-    ui.index(p.page.title, site.page.pageContent(p))
+val title = lila.title.ui.TitleUi(helpers)(picfitUrl)
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))

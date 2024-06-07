@@ -3,19 +3,26 @@ package lila.title
 import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.{ PlayerTitle, FideId }
 import scalalib.ThreadLocalRandom
+import monocle.syntax.all.*
 
 import lila.core.id.ImageId
 import io.mola.galimatias.URL
+import lila.core.id.TitleRequestId
 
 case class TitleRequest(
-    @Key("_id") id: String,
+    @Key("_id") id: TitleRequestId,
     userId: UserId,
     data: TitleRequest.FormData,
     idDocument: Option[ImageId],
     selfie: Option[ImageId],
     history: NonEmptyList[TitleRequest.StatusAt], // latest first
     createdAt: Instant
-)
+):
+
+  def focusImage(tag: String) =
+    if tag == "idDocument" then this.focus(_.idDocument)
+    else if tag == "selfie" then this.focus(_.selfie)
+    else sys.error(s"Invalid image tag $tag")
 
 object TitleRequest:
 
@@ -40,7 +47,7 @@ object TitleRequest:
 
   def make(userId: UserId, data: FormData): TitleRequest =
     TitleRequest(
-      id = ThreadLocalRandom.nextString(6),
+      id = TitleRequestId(ThreadLocalRandom.nextString(6)),
       userId = userId,
       data = data,
       idDocument = none,

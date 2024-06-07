@@ -1,0 +1,14 @@
+.title__images {
+  padding: 4vh var(---box-padding) 0;
+  background: $c-bg-zebra;
+  margin-bottom: 2em;
+}
+.title-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.title-image-edit {
+  @extend %image-preview-and-upload, %box-neat;
+  margin-bottom: 2em;
+}
