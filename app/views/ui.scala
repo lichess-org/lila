@@ -96,8 +96,8 @@ val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
 object title:
   val ui = lila.title.ui.TitleUi(helpers)
   export ui.create
-  def index(p: CmsPage.RenderOpt)(using Context) =
-    ui.index(cms.render(p))
+  def index(p: CmsPage.Render)(using Context) =
+    ui.index(p.page.title, site.page.pageContent(p))
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))

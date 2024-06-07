@@ -10,12 +10,28 @@ import ScalatagsTemplate.{ *, given }
 final class TitleUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  private def layout(title: String)(using Context) =
-    Page(title).css("bits.form3")
+  private def layout(title: String = "Title verification")(using Context) =
+    Page(title)
+      .css("bits.form3")
+      .wrap: body =>
+        main(cls := "page-small box box-pad page")(body)
+
+  def index(title: String, intro: Frag)(using Context) =
+    layout(title).css("bits.page"):
+      div(cls := "content_box_content")(
+        intro,
+        br,
+        br,
+        br,
+        div(style := "text-align: center;")(
+          a(cls := "button button-fat", href := routes.TitleVerify.form)("Verify your title")
+        )
+      )
 
   def create(form: Form[?])(using Context) =
-    layout("Chess title verification"):
-      main(cls := "page-small box box-pad page")(
+    layout():
+      div(cls := "content_box")(
+        h1("Verify your title"),
         postForm(cls := "content_box_content form3", action := routes.TitleVerify.create)(
           form3.group(
             form("realName"),
