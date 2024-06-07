@@ -13,7 +13,7 @@ object page:
     variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
   )
 
-  def lone(p: CmsPage.Render)(using ctx: Context) =
+  def lone(p: CmsPage.Render)(using ctx: Context): Page =
     Page(p.title)
       .css("bits.page")
       .js(EsmInit("bits.expandText"))

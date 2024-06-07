@@ -9,8 +9,10 @@ import lila.core.id.CmsPageKey
 final class TitleVerify(env: Env) extends LilaController(env):
 
   def index = Auth { _ ?=> me ?=>
-    Found(env.api.cmsRender(CmsPageKey("title-verify-index"))): p =>
-      Ok.async(views.site.page.lone(p))
+    env.cms.api
+      .renderOpt(CmsPageKey("title-verify-index"))
+      .flatMap: p =>
+        Ok.async(views.title.index(p))
   }
 
   def form = Auth { _ ?=> _ ?=>

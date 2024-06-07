@@ -66,12 +66,20 @@ final class Cms(env: Env) extends LilaController(env):
         case Some(name) => views.site.page.withMenu(name, p)
 
   def lonePage(key: CmsPageKey) = Open:
-    Found(env.cms.render(key)): p =>
-      p.canonicalPath.filter(_ != req.path && req.path == s"/page/$key") match
-        case Some(path) => Redirect(path)
+    env.cms
+      .render(key)
+      .flatMap:
         case None =>
-          pageHit
-          Ok.async(views.site.page.lone(p))
+          import lila.ui.Context.ctxMe // no idea why this is needed here
+          if isGrantedOpt(_.Pages)
+          then Ok.async(views.cms.create(env.cms.form.create, key.some))
+          else notFound
+        case Some(page) =>
+          page.canonicalPath.filter(_ != req.path && req.path == s"/page/$key") match
+            case Some(path) => Redirect(path)
+            case None =>
+              pageHit
+              Ok.async(views.site.page.lone(page))
 
   def menuPage(key: CmsPageKey) = Open:
     pageHit

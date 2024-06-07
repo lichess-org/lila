@@ -815,7 +815,7 @@ GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
 GET   /cms                            controllers.Cms.index
-GET   /cms/new                        controllers.Cms.createForm
+GET   /cms/new                        controllers.Cms.createForm(key: Option[CmsPageKey])
 POST  /cms/new                        controllers.Cms.create
 GET   /cms/:id/edit                   controllers.Cms.edit(id: CmsPageId)
 POST  /cms/:id/edit                   controllers.Cms.update(id: CmsPageId)

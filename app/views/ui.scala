@@ -1,6 +1,7 @@
 package views
 
 import lila.app.UiEnv.{ *, given }
+import lila.cms.CmsPage
 
 export lila.web.ui.bits
 
@@ -92,7 +93,11 @@ val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
 val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
 
-val title = lila.title.ui.TitleUi(helpers)
+object title:
+  val ui = lila.title.ui.TitleUi(helpers)
+  export ui.create
+  def index(p: CmsPage.RenderOpt)(using Context) =
+    ui.index(cms.render(p))
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))
