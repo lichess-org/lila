@@ -18,7 +18,7 @@ final class TitleUi(helpers: Helpers):
 
   def index(title: String, intro: Frag)(using Context) =
     layout(title).css("bits.page"):
-      div(cls := "content_box_content")(
+      frag(
         intro,
         br,
         br,
@@ -30,9 +30,9 @@ final class TitleUi(helpers: Helpers):
 
   def create(form: Form[?])(using Context) =
     layout():
-      div(cls := "content_box")(
-        h1("Verify your title"),
-        postForm(cls := "content_box_content form3", action := routes.TitleVerify.create)(
+      frag(
+        h1(cls := "box__top")("Verify your title"),
+        postForm(cls := "form3", action := routes.TitleVerify.create)(
           form3.group(
             form("realName"),
             "Full real name",

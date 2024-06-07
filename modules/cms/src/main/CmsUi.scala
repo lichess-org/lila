@@ -116,7 +116,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
     layout("Lichess pages: New")(cls := "box-pad"):
       frag(
         boxTop(h1(a(href := routes.Cms.index)("Lichess pages"), " • ", "New page!")),
-        postForm(cls := "content_box_content form3", action := routes.Cms.create):
+        postForm(cls := "form3", action := routes.Cms.create):
           inForm(form, key)
       )
 
@@ -140,7 +140,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
             br
           )
         ),
-        postForm(cls := "content_box_content form3", action := routes.Cms.update(page.id)):
+        postForm(cls := "form3", action := routes.Cms.update(page.id)):
           inForm(form, none)
         ,
         postForm(action := routes.Cms.delete(page.id))(cls := "cms__delete"):
