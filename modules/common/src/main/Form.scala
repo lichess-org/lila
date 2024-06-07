@@ -170,6 +170,17 @@ object Form:
         to(str).toRight(Seq(FormError(key, s"Invalid value: $str", Nil)))
       }
       def unbind(key: String, value: A) = strBase.unbind(key, from(value))
+    def stringTryFormatter[A](
+        from: String => Either[String, A],
+        to: A => String = (a: A) => a.toString
+    ): Formatter[A] =
+      new:
+        def bind(key: String, data: Map[String, String]) = strBase
+          .bind(key, data)
+          .flatMap: bound =>
+            from(bound).left.map: err =>
+              Seq(FormError(key, err, Nil))
+        def unbind(key: String, value: A) = strBase.unbind(key, to(value))
     def int[A <: Int](to: Int => A): Formatter[A]                   = intBase.transform(to, identity)
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = intBase.transform(to, from)
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean]:
@@ -208,14 +219,12 @@ object Form:
   object url:
     import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
     private val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
-    given Formatter[URL] with
-      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).flatMap { url =>
-        Try(URL.parse(parser, url)).fold(
-          err => Left(Seq(FormError(key, s"Invalid URL: ${err.getMessage}", Nil))),
-          Right(_)
-        )
-      }
-      def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
+    given Formatter[URL] = formatter.stringTryFormatter(s =>
+      Try(URL.parse(parser, s)).fold(
+        err => Left(s"Invalid URL: ${err.getMessage}"),
+        Right(_)
+      )
+    )
     val field = of[URL]
 
   object username:
@@ -228,26 +237,22 @@ object Form:
 
   object playerTitle:
     import chess.PlayerTitle
-    given Formatter[PlayerTitle] with
-      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).flatMap { str =>
-        PlayerTitle.get(str).toRight(Seq(FormError(key, "Invalid title", Nil)))
-      }
-      def unbind(key: String, title: PlayerTitle) = stringFormat.unbind(key, title.toString)
+    given Formatter[PlayerTitle] =
+      formatter.stringTryFormatter(s => PlayerTitle.get(s).toRight("Invalid title"))
     val field = of[PlayerTitle]
 
   object fideId:
     import chess.FideId
-    given Formatter[FideId] with
+    given Formatter[FideId] =
       val urlRegex = """(?:lichess\.org/fide|fide\.com/profile)/(\d+)""".r.unanchored
-      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).flatMap { any =>
-        any.toIntOption match
+      formatter.stringTryFormatter(s =>
+        s.toIntOption match
           case Some(i) => Right(FideId(i))
           case None =>
-            any match
+            s match
               case urlRegex(id) => Right(FideId(id.toInt))
-              case _            => Left(Seq(FormError(key, "Invalid FIDE ID", Nil)))
-      }
-      def unbind(key: String, id: FideId) = stringFormat.unbind(key, id.value.toString)
+              case _            => Left("Invalid FIDE ID")
+      )
     val field = of[FideId]
 
   given autoFormat[A, T](using
@@ -314,7 +319,7 @@ object Form:
           instant <- Try(millisToInstant(long)).toEither
         yield instant
       }.left.map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
-      def unbind(key: String, value: Instant) = Map(key -> value.toMillis.toString)
+      def unbind(key: String, value: Instant) = stringFormat.unbind(key, value.toMillis.toString)
     val mapping: Mapping[Instant] = of[Instant](format)
   object ISODateOrTimestamp:
     val format: Formatter[LocalDate] = new:
