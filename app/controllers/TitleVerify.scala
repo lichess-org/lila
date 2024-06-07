@@ -11,7 +11,9 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
 
   def index = Auth { _ ?=> me ?=>
     cmsC.orCreateOrNotFound(CmsPageKey("title-verify-index")): page =>
-      Ok.async(views.title.index(page.title, views.site.page.pageContent(page)))
+      env.title.api.getCurrent.flatMap:
+        case Some(req) => Redirect(routes.TitleVerify.show(req.id))
+        case None      => Ok.async(views.title.index(page.title, views.site.page.pageContent(page)))
   }
 
   def form = Auth { _ ?=> _ ?=>
@@ -51,10 +53,11 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
       ctx.body.body.file("image") match
         case Some(image) =>
           limit.imageUpload(ctx.ip, rateLimited):
-            (env.title.api.image.upload(req, image, tag) >> {
-              Ok
-            }).recover { case e: Exception =>
-              BadRequest(e.getMessage)
-            }
+            env.title.api.image
+              .upload(req, image, tag)
+              .inject(Ok)
+              .recover { case e: Exception =>
+                BadRequest(e.getMessage)
+              }
         case None => env.title.api.image.delete(req, tag) >> Ok
   }

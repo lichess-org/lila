@@ -1,14 +1,49 @@
 .title__images {
-  padding: 4vh var(---box-padding) 0;
-  background: $c-bg-zebra;
+  display: grid;
+  gap: $block-gap;
+  grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
   margin-bottom: 2em;
-}
-.title-image {
-  max-width: 100%;
-  height: auto;
+  gap: 2em;
 }
 
 .title-image-edit {
-  @extend %image-preview-and-upload, %box-neat;
+  @extend %flex-column, %box-neat;
+  padding: 2em;
+  gap: 2em;
+  background: $c-bg-zebra;
+
   margin-bottom: 2em;
+  h2 {
+    align-self: flex-start;
+    width: auto;
+    text-align: center;
+  }
+}
+
+.title__status {
+  @extend %flex-center-nowrap, %box-neat;
+  margin: 1em 0 2em 0;
+  padding: 2em 2em;
+  background: $c-bg-zebra;
+
+  &::before {
+    @extend %data-icon;
+
+    content: $licon-InfoCircle;
+    @include margin-inline-end(2rem);
+    font-size: 3em;
+  }
+}
+
+.title-image {
+  width: auto;
+  max-width: 100%;
+  margin: auto;
+  cursor: pointer;
+}
+.title-image--fallback {
+  padding: 3rem;
+  text-align: center;
+  font-size: 3em;
+  cursor: pointer;
 }

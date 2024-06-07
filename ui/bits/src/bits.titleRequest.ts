@@ -1,9 +1,11 @@
 import { wireCropDialog } from './load/crop';
 
 site.load.then(() => {
-  wireCropDialog({
-    post: { url: $('.title-image-edit').attr('data-post-url')!, field: 'image' },
-    selectClicks: $('.select-image, .drop-target'),
-    selectDrags: $('.drop-target'),
+  $('.title-image-edit').each(function (this: HTMLElement) {
+    wireCropDialog({
+      post: { url: $(this).attr('data-post-url')!, field: 'image' },
+      selectClicks: $(this).find('.drop-target'),
+      selectDrags: $(this).find('.drop-target'),
+    });
   });
 });

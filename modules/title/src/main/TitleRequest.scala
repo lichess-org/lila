@@ -15,9 +15,27 @@ case class TitleRequest(
     data: TitleRequest.FormData,
     idDocument: Option[ImageId],
     selfie: Option[ImageId],
-    history: NonEmptyList[TitleRequest.StatusAt], // latest first
+    history: NonEmptyList[TitleRequest.StatusAt], // newest first
     createdAt: Instant
 ):
+  import TitleRequest.*
+
+  def status = history.head.status
+
+  def pushStatus(s: TitleRequest.Status): TitleRequest = copy(
+    history =
+      if status != s then s.now :: history
+      else history.copy(head = s.now)
+  )
+
+  def update(data: FormData): TitleRequest =
+    copy(data = data).pushStatus:
+      if hasImages then
+        if status == Status.building then Status.pending
+        else status
+      else Status.building
+
+  def hasImages = idDocument.isDefined && selfie.isDefined
 
   def focusImage(tag: String) =
     if tag == "idDocument" then this.focus(_.idDocument)
@@ -54,10 +72,4 @@ object TitleRequest:
       selfie = none,
       history = NonEmptyList.one(Status.building.now),
       createdAt = nowInstant
-    )
-
-  def update(req: TitleRequest, data: FormData): TitleRequest =
-    req.copy(
-      data = data,
-      history = NonEmptyList.one(Status.building.now)
     )

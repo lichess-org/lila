@@ -43,9 +43,10 @@ export async function initModule(o?: CropOpts) {
   const container = document.createElement('div');
   container.appendChild(image);
 
+  // https://github.com/fengyuanchen/cropperjs/blob/main/README.md#options
   const cropper = new Cropper(image, {
     aspectRatio: opts.aspectRatio,
-    viewMode: 3,
+    viewMode: defined(opts.aspectRatio) ? 3 : 0,
     guides: false,
     responsive: false,
     restore: false,

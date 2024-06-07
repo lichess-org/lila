@@ -27,6 +27,9 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
   private given BSONDocumentHandler[StatusAt]     = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
 
+  def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
+    coll.one[TitleRequest]($doc("userId" -> me.userId))
+
   def getForMe(id: TitleRequestId)(using me: Me): Fu[Option[TitleRequest]] =
     coll
       .byId[TitleRequest](id)
@@ -38,7 +41,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
     coll.insert.one(req).inject(req)
 
   def update(req: TitleRequest, data: FormData)(using me: Me): Funit =
-    coll.update.one($id(req.id), TitleRequest.update(req, data)).void
+    coll.update.one($id(req.id), req.update(data)).void
 
   object image:
     def rel(req: TitleRequest, tag: String) =
