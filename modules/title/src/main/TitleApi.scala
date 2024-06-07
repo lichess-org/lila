@@ -22,6 +22,7 @@ final class TitleApi(coll: Coll)(using Executor):
       s match
         case Status.feedback(t) => $doc("n" -> "feedback", "t" -> t)
         case status             => $doc("n" -> status.toString)
+  private given BSONDocumentHandler[StatusAt]     = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
 
   def getForMe(id: String)(using me: Me): Fu[Option[TitleRequest]] =
@@ -33,3 +34,6 @@ final class TitleApi(coll: Coll)(using Executor):
   def create(data: FormData)(using me: Me): Fu[TitleRequest] =
     val req = TitleRequest.make(me.userId, data)
     coll.insert.one(req).inject(req)
+
+  def update(req: TitleRequest, data: FormData)(using me: Me): Funit =
+    coll.update.one($id(req.id), TitleRequest.update(req, data)).void

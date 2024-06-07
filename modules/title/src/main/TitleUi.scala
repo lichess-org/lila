@@ -30,17 +30,23 @@ final class TitleUi(helpers: Helpers):
         )
       )
 
-  private val availableTitles = PlayerTitle.acronyms.filter: t =>
-    t != PlayerTitle.LM && t != PlayerTitle.BOT
-
   def create(form: Form[TitleRequest.FormData])(using Context) =
     layout():
       frag(
         h1(cls := "box__top")("Verify your title"),
-        dataForm(form, none)
+        dataForm(form)
       )
 
-  private def dataForm(form: Form[TitleRequest.FormData], req: Option[TitleRequest])(using Context) =
+  def edit(form: Form[TitleRequest.FormData], req: TitleRequest)(using Context) =
+    val title = "Your title verification"
+    layout(title):
+      frag(
+        h1(cls := "box__top")(title),
+        standardFlash,
+        dataForm(form)
+      )
+
+  private def dataForm(form: Form[TitleRequest.FormData])(using Context) =
     postForm(cls := "form3", action := routes.TitleVerify.create)(
       form3.globalError(form).pp(form),
       form3.group(

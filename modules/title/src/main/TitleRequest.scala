@@ -13,7 +13,7 @@ case class TitleRequest(
     data: TitleRequest.FormData,
     idDocument: Option[ImageId],
     selfie: Option[ImageId],
-    history: NonEmptyList[TitleRequest.Status], // latest first
+    history: NonEmptyList[TitleRequest.StatusAt], // latest first
     createdAt: Instant
 )
 
@@ -34,6 +34,9 @@ object TitleRequest:
     case approved
     case feedback(val text: String)
     case rejected
+    def now: StatusAt = StatusAt(this, nowInstant)
+
+  case class StatusAt(status: Status, at: Instant)
 
   def make(userId: UserId, data: FormData): TitleRequest =
     TitleRequest(
@@ -42,6 +45,12 @@ object TitleRequest:
       data = data,
       idDocument = none,
       selfie = none,
-      history = NonEmptyList.one(Status.building),
+      history = NonEmptyList.one(Status.building.now),
       createdAt = nowInstant
+    )
+
+  def update(req: TitleRequest, data: FormData): TitleRequest =
+    req.copy(
+      data = data,
+      history = NonEmptyList.one(Status.building.now)
     )
