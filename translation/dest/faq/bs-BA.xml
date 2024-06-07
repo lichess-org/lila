@@ -143,4 +143,5 @@ Najbolje je misliti o rejtinzima kao o \"relativnim\" brojkama (u kontrastu prem
 Kliknite na ikonu katanca pored adrese lichess.org u URL traci vašeg pretraživača.
 
 Zatim odaberite hoćete li dopustiti ili blokirati obavijesti od Lichess-a.</string>
+  <string name="enableAutoplayForSoundsQ">Dozvoliti automatsko izvođenje zvukova?</string>
 </resources>
