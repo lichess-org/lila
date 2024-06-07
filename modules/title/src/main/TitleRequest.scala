@@ -23,7 +23,7 @@ object TitleRequest:
       realName: String,
       title: PlayerTitle,
       fideId: Option[FideId],
-      nationalFederationUrl: Option[URL],
+      federationUrl: Option[URL],
       public: Boolean,
       coach: Boolean,
       comment: Option[String]

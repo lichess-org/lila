@@ -65,7 +65,7 @@ final class TitleUi(helpers: Helpers):
           half = true
         )(form3.input(_)),
         form3.group(
-          form("nationalFederationUrl"),
+          form("federationUrl"),
           "Your national federation profile URL",
           help = frag("If you have one.").some,
           half = true
