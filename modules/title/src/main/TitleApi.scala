@@ -22,6 +22,6 @@ final class TitleApi(coll: Coll)(using Executor):
         case status             => $doc("n" -> status.toString)
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
 
-  def create(userId: UserId, data: FormData): Fu[TitleRequest] =
-    val req = TitleRequest.make(userId, data)
+  def create(data: FormData)(using me: Me): Fu[TitleRequest] =
+    val req = TitleRequest.make(me.userId, data)
     coll.insert.one(req).inject(req)

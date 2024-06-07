@@ -21,5 +21,13 @@ final class TitleForm:
       "coach"                 -> boolean,
       "comment"               -> optional(cleanNonEmptyText)
     )(TitleRequest.FormData.apply)(unapply)
+      .verifying(
+        "Missing FIDE ID or federation URL.",
+        d => d.fideId.isDefined || d.nationalFederationUrl.isDefined
+      )
+      .verifying(
+        "The coach profile requires a public title.",
+        d => !d.coach || d.public
+      )
 
   def edit(data: TitleRequest.FormData) = create.fill(data)

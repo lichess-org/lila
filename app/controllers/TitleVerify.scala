@@ -18,5 +18,16 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
   }
 
   def create = AuthBody { _ ?=> _ ?=>
+    bindForm(env.title.form.create)(
+      err => BadRequest.async(views.title.create(err)),
+      data =>
+        env.title.api
+          .create(data)
+          .map: req =>
+            Redirect(routes.TitleVerify.show(req.id)).flashSuccess
+    )
+  }
+
+  def show(id: String) = Auth { _ ?=> _ ?=>
     ???
   }

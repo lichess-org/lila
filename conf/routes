@@ -837,6 +837,7 @@ POST  /github/secret-scanning          controllers.Github.secretScanning
 GET   /verify-title                    controllers.TitleVerify.index
 GET   /verify-title/form               controllers.TitleVerify.form
 POST  /verify-title/form               controllers.TitleVerify.create
+GET   /verify-title/:id                controllers.TitleVerify.show(id)
 
 # Technical
 GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id: GameId)

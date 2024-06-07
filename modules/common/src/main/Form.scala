@@ -211,7 +211,7 @@ object Form:
     given Formatter[URL] with
       def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).flatMap { url =>
         Try(URL.parse(parser, url)).fold(
-          err => Left(Seq(FormError(key, s"Invalid URL: $err", Nil))),
+          err => Left(Seq(FormError(key, s"Invalid URL: ${err.getMessage}", Nil))),
           Right(_)
         )
       }

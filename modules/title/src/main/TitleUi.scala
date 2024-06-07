@@ -3,6 +3,7 @@ package ui
 
 import play.api.data.Form
 import play.api.libs.json.*
+import chess.PlayerTitle
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
@@ -28,11 +29,15 @@ final class TitleUi(helpers: Helpers):
         )
       )
 
+  private val availableTitles = PlayerTitle.acronyms.filter: t =>
+    t != PlayerTitle.LM && t != PlayerTitle.BOT
+
   def create(form: Form[?])(using Context) =
     layout():
       frag(
         h1(cls := "box__top")("Verify your title"),
         postForm(cls := "form3", action := routes.TitleVerify.create)(
+          form3.globalError(form).pp(form),
           form3.group(
             form("realName"),
             "Full real name",
@@ -41,12 +46,52 @@ final class TitleUi(helpers: Helpers):
           form3.group(
             form("title"),
             "Title"
-          )(field =>
+          ): field =>
             form3.select(
               field,
-              chess.PlayerTitle.acronyms.map(t => t -> t.value)
+              availableTitles.map(t => t -> t.value),
+              default = "Select your title".some
+            ),
+          form3.split(
+            form3.group(
+              form("fideId"),
+              "Your FIDE ID or profile URL",
+              help = frag("If you have one.").some,
+              half = true
+            )(form3.input(_)),
+            form3.group(
+              form("nationalFederationUrl"),
+              "Your national federation profile URL",
+              help = frag("If you have one.").some,
+              half = true
+            )(form3.input(_))
+          ),
+          form3.split(
+            form3.checkbox(
+              form("public").copy(value = "true".some),
+              frag("Publish my title"),
+              help = frag(
+                "Recommended. Your title is visible on your profile page. Your real name is NOT published."
+              ).some,
+              half = true
+            ),
+            form3.checkbox(
+              form("coach"),
+              frag("Create a coach profile"),
+              help = frag(
+                "Offer your services as a coach, and appear in the ",
+                a(href := routes.Coach.all())("coach directory"),
+                "."
+              ).some,
+              half = true
             )
           ),
+          form3.group(
+            form("comment"),
+            "Comment",
+            help = frag("Optional additional information for the moderators.").some,
+            half = true
+          )(form3.textarea(_)(rows := 8)),
           form3.action(form3.submit("Send"))
         )
       )
