@@ -111,7 +111,11 @@ export async function initModule(o?: CropOpts) {
       formData.append(opts.post.field ?? 'picture', cropped);
       const rsp = await fetch(opts.post.url, { method: 'POST', body: formData });
       if (rsp.status / 100 == 3) redirect = rsp.headers.get('Location')!;
-      else if (!rsp.ok) cropped = false;
+      else if (!rsp.ok) {
+        cropped = false;
+        const body = await rsp.text();
+        console.error('Crop submit failed:', rsp.status, body);
+      }
     }
     opts.onCropped?.(cropped, err);
     opts.onCropped = undefined;
