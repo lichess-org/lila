@@ -18,13 +18,13 @@ final class Cms(env: Env) extends LilaController(env):
       renderedPage <- renderPage(views.cms.index(pages))
     yield Ok(renderedPage)
 
-  def createForm = Secure(_.Pages) { _ ?=> _ ?=>
-    Ok.async(views.cms.create(env.cms.form.create))
+  def createForm(key: Option[CmsPageKey]) = Secure(_.Pages) { _ ?=> _ ?=>
+    Ok.async(views.cms.create(env.cms.form.create, key))
   }
 
   def create = SecureBody(_.Pages) { _ ?=> me ?=>
     bindForm(env.cms.form.create)(
-      err => BadRequest.async(views.cms.create(err)),
+      err => BadRequest.async(views.cms.create(err, none)),
       data =>
         val page = data.create(me)
         api.create(page).inject(Redirect(routes.Cms.edit(page.id)).flashSuccess)
@@ -60,13 +60,13 @@ final class Cms(env: Env) extends LilaController(env):
   val master = menuPage(CmsPageKey("master"))
 
   def page(key: CmsPageKey, active: Option[String])(using Context) =
-    FoundPage(env.api.cmsRender(key)): p =>
+    FoundPage(env.cms.render(key)): p =>
       active match
         case None       => views.site.page.lone(p)
         case Some(name) => views.site.page.withMenu(name, p)
 
   def lonePage(key: CmsPageKey) = Open:
-    Found(env.api.cmsRender(key)): p =>
+    Found(env.cms.render(key)): p =>
       p.canonicalPath.filter(_ != req.path && req.path == s"/page/$key") match
         case Some(path) => Redirect(path)
         case None =>
@@ -75,12 +75,12 @@ final class Cms(env: Env) extends LilaController(env):
 
   def menuPage(key: CmsPageKey) = Open:
     pageHit
-    FoundPage(env.api.cmsRender(key)):
+    FoundPage(env.cms.render(key)):
       views.site.page.withMenu(key.value, _)
 
   def source = Open:
     pageHit
-    FoundPage(env.api.cmsRenderKey("source")):
+    FoundPage(env.cms.renderKey("source")):
       views.site.page.source
 
   def variantHome = Open:
@@ -94,5 +94,5 @@ final class Cms(env: Env) extends LilaController(env):
     (for
       variant <- Variant(key)
       perfKey <- PerfKey.byVariant(variant)
-    yield FoundPage(env.api.cmsRenderKey(s"variant-${variant.key}")): p =>
+    yield FoundPage(env.cms.renderKey(s"variant-${variant.key}")): p =>
       views.site.variant.show(p, variant, perfKey)) | notFound

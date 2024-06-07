@@ -19,7 +19,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
-      FoundPage(env.api.cmsRender(lila.core.id.CmsPageKey("appeal-landing"))):
+      FoundPage(env.cms.renderKey("appeal-landing")):
         views.site.page.lone
     else notFound
   }

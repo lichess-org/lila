@@ -98,11 +98,6 @@ final class Env(
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness     = wire[ChatFreshness]
 
-  import lila.cms.CmsPage
-  def cmsRender(key: CmsPageKey)(using ctx: Context): Fu[Option[CmsPage.Render]] =
-    cmsApi.render(key)(ctx.req, ctx.lang)
-  def cmsRenderKey(key: String)(using Context) = cmsRender(CmsPageKey(key))
-
   Bus.subscribeFuns(
     "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>
       promise.completeWith(linkCheck(line, source))

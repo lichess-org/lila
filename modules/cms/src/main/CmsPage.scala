@@ -25,3 +25,5 @@ object CmsPage:
 
   case class Render(page: CmsPage, html: Html):
     export page.*
+
+  case class RenderOpt(key: CmsPageKey, render: Option[Render])

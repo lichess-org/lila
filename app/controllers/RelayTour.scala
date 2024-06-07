@@ -71,7 +71,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   private def page(key: String, menu: String) = Open:
     pageHit
-    FoundPage(env.api.cmsRender(lila.core.id.CmsPageKey(key))): p =>
+    FoundPage(env.cms.renderKey(key)): p =>
       views.relay.tour.page(p.title, views.cms.render(p), menu)
 
   def form = Auth { ctx ?=> _ ?=>
