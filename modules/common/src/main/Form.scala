@@ -238,7 +238,7 @@ object Form:
   object fideId:
     import chess.FideId
     given Formatter[FideId] with
-      val urlRegex = """(?:lichess\.org/fide|fide\.com/profile)/(\d+)$""".r
+      val urlRegex = """(?:lichess\.org/fide|fide\.com/profile)/(\d+)""".r.unanchored
       def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).flatMap { any =>
         any.toIntOption match
           case Some(i) => Right(FideId(i))

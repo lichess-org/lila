@@ -29,5 +29,18 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
   }
 
   def show(id: String) = Auth { _ ?=> _ ?=>
-    ???
+    Found(env.title.api.getForMe(id)): req =>
+      Ok.async(views.title.edit(req, env.title.form.edit(req)))
+  }
+
+  def update(id: String) = SecureBody(_.Pages) { _ ?=> me ?=>
+    Found(env.title.api.getForMe(id)): req =>
+      bindForm(env.title.form.create)(
+        err => BadRequest.async(views.title.edit(req, err)),
+        data =>
+          env.title.api
+            .update(req, data)
+            .map: req =>
+              Redirect(routes.TitleVerify.show(req.id)).flashSuccess
+      )
   }

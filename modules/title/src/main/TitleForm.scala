@@ -15,8 +15,6 @@ final class TitleForm:
       "title"                 -> playerTitle.field,
       "fideId"                -> optional(fideId.field),
       "nationalFederationUrl" -> optional(url.field),
-      "idDocument"            -> text.into[ImageId],
-      "selfie"                -> text.into[ImageId],
       "public"                -> boolean,
       "coach"                 -> boolean,
       "comment"               -> optional(cleanNonEmptyText)
