@@ -34,12 +34,14 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report) exten
     )
   }
 
-  def show(id: TitleRequestId) = Auth { _ ?=> _ ?=>
+  def show(id: TitleRequestId) = Auth { _ ?=> me ?=>
     Found(api.getForMe(id)): req =>
-      Ok.async(ui.edit(env.title.form.edit(req.data), req))
+      if req.userId.is(me)
+      then Ok.async(ui.edit(env.title.form.edit(req.data), req))
+      else Ok.async(views.title.mod.show(req))
   }
 
-  def update(id: TitleRequestId) = SecureBody(_.Pages) { _ ?=> me ?=>
+  def update(id: TitleRequestId) = AuthBody { _ ?=> me ?=>
     Found(api.getForMe(id)): req =>
       bindForm(env.title.form.create)(
         err => BadRequest.async(ui.edit(err, req)),
@@ -53,7 +55,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report) exten
       )
   }
 
-  def cancel(id: TitleRequestId) = SecureBody(_.Pages) { _ ?=> me ?=>
+  def cancel(id: TitleRequestId) = Auth { _ ?=> me ?=>
     Found(api.getForMe(id)): req =>
       api
         .delete(req)

@@ -17,7 +17,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
     Page(title)
       .css("bits.titleRequest")
       .wrap: body =>
-        main(cls := "page-small box box-pad page")(body)
+        main(cls := "box box-pad page")(body)
 
   def index(title: String, intro: Frag)(using Context) =
     layout(title).css("bits.page"):
