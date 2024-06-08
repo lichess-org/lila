@@ -29,7 +29,7 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
         api
           .create(data)
           .map: req =>
-            Redirect(routes.TitleVerify.show(req.id)).flashSuccess
+            Redirect(routes.TitleVerify.show(req.id))
     )
   }
 
