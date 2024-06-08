@@ -1,7 +1,7 @@
 package lila.relay
 
 import play.api.libs.json.*
-import scalalib.Json.paginatorWrite
+import scalalib.Json.paginatorWriteNoNbResults
 
 import lila.common.Json.given
 import lila.core.config.BaseUrl
@@ -152,7 +152,7 @@ final class JsonView(
     Json.obj(
       "active"   -> active.map(apply(_)),
       "upcoming" -> upcoming.map(apply(_)),
-      "past"     -> past.map(apply(_))
+      "past"     -> paginatorWriteNoNbResults.writes(past.map(apply(_)))
     )
 
 object JsonView:
