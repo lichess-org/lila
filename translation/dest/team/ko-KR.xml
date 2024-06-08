@@ -53,4 +53,7 @@
   <string name="thisTeamBattleIsOver">이 토너먼트는 종료되었으며 더 이상 팀을 수정할 수 없습니다.</string>
   <string name="listTheTeamsThatWillCompete">이 배틀에서 경쟁할 팀을 나열하세요.</string>
   <string name="oneTeamPerLine">한 줄에 한 팀이 들어가야 합니다. 자동 완성을 사용하세요.</string>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="other">팀당 리더 %s명</item>
+  </plurals>
 </resources>
