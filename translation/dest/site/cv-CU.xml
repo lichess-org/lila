@@ -51,6 +51,7 @@
   <string name="computerAnalysis">Компйутӑр тишкерӗвӗ</string>
   <string name="analysis">Тишкерӳ хӑми</string>
   <string name="deleteFromHere">Кунтан пуҫласа катерт</string>
+  <string name="move">Ҫӳрени</string>
   <string name="insufficientMaterial">Материал хӗсӗклӗхӗ</string>
   <string name="capture">Тытса илни</string>
   <string name="close">Хуп</string>
@@ -60,6 +61,7 @@
   <string name="averageRatingX">Вӑтамри рейтинг: %s</string>
   <string name="recentGames">Паҫӑрхи вӑйӑсем</string>
   <string name="noGameFound">Пӗр вӑйӑ та тупӑнман</string>
+  <string name="openings">Пуҫӑнни</string>
   <string name="allSet">Пурне те лартнӑ!</string>
   <string name="delete">Катерт</string>
   <string name="enable">Пултар</string>
@@ -272,7 +274,7 @@
   <string name="draws">Парма-пар</string>
   <string name="nextXTournament">Тепӗр %s турнир:</string>
   <string name="boardEditor">Хӑма хайласси</string>
-  <string name="popularOpenings">Сарӑлнӑ пуҫламӑш</string>
+  <string name="popularOpenings">Сарӑлнӑ пуҫӑнни</string>
   <string name="endgamePositions">Ендшпил тӑрӑмӗ</string>
   <string name="startPosition">Пуҫламӑш тӑрӑм</string>
   <string name="clearBoard">Хӑмана тасат</string>
@@ -476,6 +478,7 @@
   <plurals name="nbSeconds">
     <item quantity="other">%s ҫеккунт</item>
   </plurals>
+  <string name="opening">Пуҫӑнни</string>
   <string name="endgame">Ендшпил</string>
   <string name="sorry">Каҫар :(</string>
   <string name="edit">Тӳрлет</string>
@@ -484,6 +487,8 @@
   <string name="teamNamedX">%1$s ушкӑн</string>
   <string name="subscribe">Ҫырӑн</string>
   <string name="unsubscribe">Ҫырӑнма пӑрах</string>
+  <string name="mentionedYouInX">сана \"%1$s\"-ра аса илнӗ.</string>
+  <string name="xMentionedYouInY">%1$s сана \"%2$s\"-ра аса илнӗ.</string>
   <string name="invitedYouToX">сана \"%1$s\" чӗннӗ.</string>
   <string name="xInvitedYouToY">%1$s сана \"%2$s\" чӗннӗ.</string>
   <string name="youHaveJoinedTeamX">Эсӗ \"%1$s\" хутшӑннӑ.</string>

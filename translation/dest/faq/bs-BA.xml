@@ -30,11 +30,11 @@
   <string name="pleaseReadFairPlayPage">Za više informacija pogledajte %s</string>
   <string name="fairPlayPage">stranica za fer-plej</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichessu, glavna razlika u pravilima za dopisni šah jest da je dozvoljeno upotrebljavati knjige o šahovskim otvaranjima i baze podataka o njima. Upotreba šahovskih programa i dalje je zabranjena i rezultirat će time da igrač bude označen zbog nje. Iako ICCF dozvoljava upotrebu programa u dopisnom šahu, to nije slučaj s Lichessom.</string>
-  <string name="gameplay">Tip igre</string>
-  <string name="howBulletBlitzEtcDecided">Kako se određuju kontrole vremena za Metak, Blic i druge šahovske varijante?</string>
+  <string name="gameplay">Igra</string>
+  <string name="howBulletBlitzEtcDecided">Kako se razlučuju Metak-šah, munjeviti šah i druge šahovske varijante?</string>
   <string name="basedOnGameDuration">Lichess vremenske kontrole temelje se na procijenjenoj trajanju igre = %1$s. 
 Primjerice, procijenjeno trajanje igre 5+3 je 5 × 60 + 40 × 3 = 420 sekundi.</string>
-  <string name="durationFormula">(početno vrijeme) + 40 × (bonus vrijeme)</string>
+  <string name="durationFormula">(početno vrijeme u sekundama) + 40 × ( uvećanja sata)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Koje varijante šaha mogu igrati na Lichessu?</string>
@@ -143,4 +143,36 @@ Najbolje je misliti o rejtinzima kao o \"relativnim\" brojkama (u kontrastu prem
 Kliknite na ikonu katanca pored adrese lichess.org u URL traci vašeg pretraživača.
 
 Zatim odaberite hoćete li dopustiti ili blokirati obavijesti od Lichess-a.</string>
+  <string name="enableAutoplayForSoundsQ">Dozvoliti automatsko izvođenje zvukova?</string>
+  <string name="enableAutoplayForSoundsA">Većina pretraživača može spriječiti izvođenje zvuka na svježe-otvorenoj stranici u svrhu zaštite korisnika. Zamislite kad bi svaka web-stranica mogla odmah bombardovati Vas sa audio reklamama.
+
+U slučaju kada pretraživač spriječi lichess.org u izvođenju zvuka, prikazat će se crvena ikona za utišenje. Najčešće ova restrikcija će biti uklonjena nakon što kliknete negdje. Na nekim mobilnim pretraživačima, povlačenje dodirom figure se ne računa kao klik. U tom slučaju mora te dodirnuti ploču da bi dozvolili zvuk na početku svakog meča. 
+Prikazat ćemo Vam spomenutu crvenu ikonu kada se ovo desi. Često možete eksplicitno dozvoliti lichess.org-u da reproducira zvukove. Upute kako to uraditi na novijim verzijama od nekih popularnijih pretraživača možete pronaći ovdje.</string>
+  <string name="desktop">desktop</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Posjetite lichess.org stranicu
+2. Pritisnite CRTL+i dugme na Linux-u/Windows-u ili CMD-i na Mac-OS-u
+3. Kliknite Tab za ovlaštenja
+4. Dozvolite audio i video za lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Posjetite lichess.org stranicu
+2. Kliknite katanac ikonu u polju adrese web-stranice
+3. Kliknite na Postavke stranice
+4. Dozvolite zvuk</string>
+  <string name="enableAutoplayForSoundsSafari">1. Posjetite lichess.org stranicu
+2. Kliknite Safari u izborniku 
+3. Kliknite Postavke za lichess.org ...
+4. Dopustite Sva automatska izvođenja</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Kliknite na tri tačke u gornjem desnom uglu
+2. Kliknite na Postavke
+3. Kliknite na Kolačići i ovlaštenja stranice
+4. Spustite se kotačićem miša i kliknite Automatsko izvođenje medija
+5. Dodajte lichess.org u Dozvoli</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Zaustavi se sam od igranja?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">zasebno mentalno oboljenje</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess korisnički stilovi</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">manje brzih soba</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Redovno dobijamo poruke poruke od korisnika u kojima traže pomoć pri zaustavljanju od previše igranja.
+
+Dok Lichess ne bana ili blokira igrače osim u slučaju prekrašaja Uslova korištenja, preporučujemo korištenje eksternih alata koji ograničavaju ponašanja pretjeranog igranja. Uobičajnij prijedlozi za blokere stranica uključuju %1$s, %2$s i %3$s. Ukoliko želite idalje koristiti stranicu ali ne želite biti iskušani sa brzim vremenskim kontrolama, onda biste možda bili zainteresirani za %4$s, ovdje možete pronaći %5$s. 
+
+Neki igrači mogu osjetiti da se njihovo igranje prelazi u ovisnost. Štoviše, SZO klasificira poremećaj igrica kao %6$s, sa ključnim karakteristikama poput 1) ograničena kontrola nad igranjem, 2) sve češće prioritiziranje igranja i 3) eskalacija igranja unatoč negativnim posljedicama. Ako mislite da vaše ponašanje pri igranju šaha prati ovaj obrazac, preporučujemo Vam da porazgovarate o tome sa prijateljem ili članom familije i/ili doktorom.</string>
 </resources>

@@ -18,9 +18,6 @@
       piece {
         opacity: 0.8;
       }
-      cg-board {
-        background-color: none;
-      }
     }
     &__title {
       @extend %flex-between-nowrap;
@@ -74,11 +71,6 @@
         padding-right: 0.5em;
         font-size: 0.8em;
         text-align: right;
-      }
-    }
-    &:hover {
-      &__popularity span {
-        background: $c-primary;
       }
     }
   }

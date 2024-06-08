@@ -46,6 +46,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("gioco"),
     PieceSet("tatiana"),
     PieceSet("staunty"),
+    PieceSet("cooke"),
     PieceSet("governor"),
     PieceSet("dubrovny"),
     PieceSet("icpieces"),

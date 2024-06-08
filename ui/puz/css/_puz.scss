@@ -27,9 +27,3 @@
     grid-area: history;
   }
 }
-
-.puz-board {
-  @include mq-is-col2-squeeze {
-    width: 40vw;
-  }
-}
