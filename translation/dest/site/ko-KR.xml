@@ -246,12 +246,12 @@
   <string name="whiteTimeOut">백색 시간 초과</string>
   <string name="blackTimeOut">흑색 시간 초과</string>
   <string name="drawOfferSent">무승부를 요청했습니다</string>
-  <string name="drawOfferAccepted">무승부 요청이 승낙 됐습니다</string>
+  <string name="drawOfferAccepted">무승부 요청이 승낙됐습니다</string>
   <string name="drawOfferCanceled">무승부 요청을 취소했습니다</string>
-  <string name="whiteOffersDraw">흰색이 무승부를 제안했습니다</string>
-  <string name="blackOffersDraw">검은색이 무승부를 제안했습니다</string>
-  <string name="whiteDeclinesDraw">흰색이 무승부 제안을 거절했습니다</string>
-  <string name="blackDeclinesDraw">검은색이 무승부 제안을 거절했습니다</string>
+  <string name="whiteOffersDraw">백이 무승부를 제안했습니다</string>
+  <string name="blackOffersDraw">흑이 무승부를 제안했습니다</string>
+  <string name="whiteDeclinesDraw">백이 무승부 제안을 거절했습니다</string>
+  <string name="blackDeclinesDraw">흑이 무승부 제안을 거절했습니다</string>
   <string name="yourOpponentOffersADraw">상대가 무승부를 요청했습니다</string>
   <string name="accept">승낙</string>
   <string name="decline">거절</string>
@@ -450,7 +450,7 @@
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="berserkRate">버서크율</string>
-  <string name="performance">레이팅 점수</string>
+  <string name="performance">퍼포먼스 레이팅</string>
   <string name="tournamentComplete">대회 종료</string>
   <string name="movesPlayed">말 이동 횟수</string>
   <string name="whiteWins">하얀 말로 우승</string>
