@@ -115,7 +115,7 @@
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CBT</string>
   <string name="openStudy">Åben studie</string>
-  <string name="enable">Aktiver</string>
+  <string name="enable">Aktivér</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="showVariationArrows">Vis variantpile</string>
   <string name="evaluationGauge">Evalueringsindikator</string>
@@ -786,8 +786,8 @@
   <string name="yourScore">Din score: %s</string>
   <string name="language">Sprog</string>
   <string name="background">Baggrund</string>
-  <string name="light">Lyst</string>
-  <string name="dark">Mørkt</string>
+  <string name="light">Lys</string>
+  <string name="dark">Mørk</string>
   <string name="transparent">Gennemsigtigt</string>
   <string name="deviceTheme">Enhedstema</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
