@@ -6,5 +6,6 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Ditt konto är tystat.</string>
   <string name="excludedFromLeaderboardsInfo">Vi definierar detta som att använda något orättvist sätt att komma på topplistan.</string>
   <string name="closedByModerators">Ditt konto stängdes av moderatorer.</string>
+  <string name="hiddenBlogInfo">Se till att läsa igen vår %s.</string>
   <string name="blogRules">blogg regler</string>
 </resources>

@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Vaš korisnički račun nije označen ili ograničen. Sve u redu!</string>
+  <string name="engineMarked">Vaš korisnički račun je označen za korištenje eksternih pomagala u igrama.</string>
+  <string name="engineMarkedInfo">Mi ovo definišemo kao korištenje bilo kakve eksterne pomoći kako biste očvrsnuli vaše znanje i/ili kalkulacijske vještine u svrhu dobijanja nefer prednosti nad vašim protivnikom. Vidite %s stranicu za više detalja.</string>
+  <string name="arenaBanned">Vašem korisničkom računu je zabranjeno pridruživanje arenama.</string>
+  <string name="prizeBanned">Vašem korisničkom računu je zabranjeno turnirima sa stvarnim nagradama.</string>
+  <string name="boosterMarked">Vaš korisnički račun je označen za manipulaciju ranga.</string>
+  <string name="boosterMarkedInfo">Ovo definišemo kao namjerno manipulisanje ranga namjernim gubljenjem igara ili igranjem protiv drugog korisničkog računa koji namjerno gubi igre.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Vaš račun je utišan.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Pročitajte naš %s. Nepoštivanje naših komunikacijskih smjernica može rezultirati utišavanjem Vašeg korisničkog računa.</string>
+  <string name="excludedFromLeaderboards">Vaš račun je isključen iz rang lista.</string>
+  <string name="excludedFromLeaderboardsInfo">Ovo definišemo kao korištenje nefer načina za ulazak na rang liste.</string>
+  <string name="closedByModerators">Vaš račun je zatvoren od strane moderatora.</string>
+  <string name="hiddenBlog">Vaši blogovi su sakriveni od strane moderatora.</string>
+  <string name="hiddenBlogInfo">Pročitajte %s ponovo.</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Imate timeout za igranje.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">komunikacijska upustva</string>
+  <string name="blogRules">blog pravila</string>
+  <string name="fairPlay">Fer-plej</string>
+</resources>
