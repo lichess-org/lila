@@ -8,6 +8,7 @@ import lila.memo.CacheApi.*
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
 import lila.core.id.ReportId
+import lila.report.Room.Scores
 
 final class ReportApi(
     val coll: Coll,
@@ -366,7 +367,7 @@ final class ReportApi(
         .addEffect: scores =>
           lila.mon.mod.report.highest.update(scores.highest)
 
-  def maxScores = maxScoreCache.getUnit
+  def maxScores: Fu[Scores] = maxScoreCache.getUnit
 
   def recent(
       suspect: Suspect,

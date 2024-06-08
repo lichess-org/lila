@@ -80,7 +80,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
     import TitleRequest.Status
     div(cls := "title__status"):
       req.status match
-        case Status.building => frag("Please upload the required document to confirm your identity.")
+        case Status.building => frag("Please upload the required documents to confirm your identity.")
         case Status.pending =>
           div(
             strong("All set! Your request is pending."),

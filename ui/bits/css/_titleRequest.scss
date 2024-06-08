@@ -22,7 +22,7 @@
 
 .title__status {
   @extend %flex-center-nowrap, %box-neat;
-  margin: 1em 0 2em 0;
+  margin-bottom: 2em;
   padding: 2em 2em;
   background: $c-bg-zebra;
 

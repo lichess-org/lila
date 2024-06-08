@@ -7,24 +7,25 @@ import lila.common.Json.given
 import lila.title.TitleRequest
 import lila.core.id.{ TitleRequestId, CmsPageKey }
 
-final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
+final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report) extends LilaController(env):
 
   private def api = env.title.api
+  private def ui  = views.title.ui
 
   def index = Auth { _ ?=> me ?=>
     cmsC.orCreateOrNotFound(CmsPageKey("title-verify-index")): page =>
       api.getCurrent.flatMap:
         case Some(req) => Redirect(routes.TitleVerify.show(req.id))
-        case None      => Ok.async(views.title.index(page.title, views.site.page.pageContent(page)))
+        case None      => Ok.async(ui.index(page.title, views.site.page.pageContent(page)))
   }
 
   def form = Auth { _ ?=> _ ?=>
-    Ok.async(views.title.create(env.title.form.create))
+    Ok.async(ui.create(env.title.form.create))
   }
 
   def create = AuthBody { _ ?=> _ ?=>
     bindForm(env.title.form.create)(
-      err => BadRequest.async(views.title.create(err)),
+      err => BadRequest.async(ui.create(err)),
       data =>
         api
           .create(data)
@@ -35,13 +36,13 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
 
   def show(id: TitleRequestId) = Auth { _ ?=> _ ?=>
     Found(api.getForMe(id)): req =>
-      Ok.async(views.title.edit(env.title.form.edit(req.data), req))
+      Ok.async(ui.edit(env.title.form.edit(req.data), req))
   }
 
   def update(id: TitleRequestId) = SecureBody(_.Pages) { _ ?=> me ?=>
     Found(api.getForMe(id)): req =>
       bindForm(env.title.form.create)(
-        err => BadRequest.async(views.title.edit(err, req)),
+        err => BadRequest.async(ui.edit(err, req)),
         data =>
           api
             .update(req, data)
@@ -72,4 +73,12 @@ final class TitleVerify(env: Env, cmsC: => Cms) extends LilaController(env):
                 BadRequest(e.getMessage)
               }
         case None => api.image.delete(req, tag) >> Ok
+  }
+
+  def queue = Secure(_.SetTitle) { ctx ?=> me ?=>
+    for
+      reqs              <- api.queue
+      (scores, pending) <- reportC.getScores
+      page              <- renderPage(views.title.queue(reqs, scores, pending))
+    yield Ok(page)
   }

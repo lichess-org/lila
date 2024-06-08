@@ -26,6 +26,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
         case status             => $doc("n" -> status.toString)
   private given BSONDocumentHandler[StatusAt]     = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
+  private val statusField                         = "history.0.status"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
     coll.one[TitleRequest]($doc("userId" -> me.userId))
@@ -46,6 +47,16 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
 
   def delete(req: TitleRequest): Funit =
     coll.delete.one($id(req.id)).void
+
+  def countPending: Fu[Int] =
+    coll.countSel($doc(s"$statusField.n" -> Status.pending.toString))
+
+  def queue: Fu[List[TitleRequest]] =
+    coll
+      .find($doc(s"$statusField.n" -> Status.pending.toString))
+      .sort($sort.asc(s"$statusField.at"))
+      .cursor[TitleRequest]()
+      .list(30)
 
   object image:
     def rel(req: TitleRequest, tag: String) =

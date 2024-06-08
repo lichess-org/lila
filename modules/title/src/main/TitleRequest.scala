@@ -55,7 +55,7 @@ object TitleRequest:
   )
   enum Status:
     case building // until idDocument and selfie are uploaded
-    case pending
+    case pending  // needs moderator review
     case approved
     case feedback(val text: String)
     case rejected
