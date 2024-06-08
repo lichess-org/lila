@@ -26,10 +26,8 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
                 views.relay.tour.search(pager, query)
         case None =>
           for
-            active   <- (page == 1).so(env.relay.listing.active.get({}))
-            upcoming <- (page == 1).so(env.relay.listing.upcoming.get({}))
-            past     <- env.relay.pager.inactive(page)
-            res      <- Ok.async(views.relay.tour.index(active, upcoming, past))
+            (active, upcoming, past) <- env.relay.top(page)
+            res                      <- Ok.async(views.relay.tour.index(active, upcoming, past))
           yield res
 
   def calendar = page("broadcast-calendar", "calendar")
@@ -194,6 +192,13 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
     apiC.jsonDownload:
       env.relay.tourStream
         .officialTourStream(MaxPerSecond(20), Max(getInt("nb") | 20).atMost(100))
+
+  def apiTop(page: Int) = Anon:
+    Reasonable(page, Max(20)):
+      for
+        (active, upcoming, past) <- env.relay.top(page)
+        res                      <- JsonOk(env.relay.jsonView.top(active, upcoming, past))
+      yield res
 
   private def WithTour(id: RelayTourId)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api.tourById(id))(f)

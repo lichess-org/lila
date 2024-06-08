@@ -81,8 +81,8 @@ object RelayTour:
 
   case class ActiveWithSomeRounds(
       tour: RelayTour,
-      display: RelayRound,
-      link: RelayRound,
+      display: RelayRound, // which round to show on the tour link
+      link: RelayRound,    // which round to actually link to
       group: Option[RelayGroup.Name]
   ) extends RelayRound.AndTourAndGroup:
     export display.{ hasStarted as ongoing }

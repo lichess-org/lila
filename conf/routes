@@ -284,6 +284,7 @@ GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardV
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: StudyId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: RelayRoundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
+GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
 GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang: Language)
 

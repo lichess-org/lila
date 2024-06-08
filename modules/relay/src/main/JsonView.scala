@@ -1,12 +1,16 @@
 package lila.relay
 
 import play.api.libs.json.*
+import scalalib.Json.paginatorWrite
 
 import lila.common.Json.given
 import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.study.ChapterPreview
 import lila.core.id.ImageId
+import lila.relay.RelayTour.{ WithRounds, WithLastRound, ActiveWithSomeRounds }
+import scalalib.paginator.Paginator
+import geny.Generator.Action
 
 final class JsonView(
     baseUrl: BaseUrl,
@@ -60,7 +64,7 @@ final class JsonView(
       .add("teamTable" -> tour.teamTable)
       .add("leaderboard" -> tour.autoLeaderboard)
 
-  def fullTourWithRounds(trs: RelayTour.WithRounds): JsObject =
+  def fullTourWithRounds(trs: WithRounds): JsObject =
     Json
       .obj(
         "tour" -> fullTour(trs.tour),
@@ -68,13 +72,20 @@ final class JsonView(
           withUrl(round.withTour(trs.tour), withTour = false)
       )
 
-  def apply(t: RelayTour | RelayTour.WithLastRound): JsObject = t match
+  def apply(t: RelayTour | WithLastRound | ActiveWithSomeRounds): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
-    case tr: RelayTour.WithLastRound =>
+    case tr: WithLastRound =>
       Json
         .obj(
           "tour"      -> fullTour(tr.tour),
           "lastRound" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
+        )
+        .add("group" -> tr.group)
+    case tr: ActiveWithSomeRounds =>
+      Json
+        .obj(
+          "tour"      -> fullTour(tr.tour),
+          "lastRound" -> withUrl(tr)
         )
         .add("group" -> tr.group)
 
@@ -84,6 +95,10 @@ final class JsonView(
     apply(rt.round) ++ Json
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
+
+  def withUrl(tr: ActiveWithSomeRounds): JsObject =
+    val linkRound = tr.link.withTour(tr.tour)
+    apply(tr.display) ++ Json.obj("url" -> s"$baseUrl${linkRound.path}")
 
   def withUrlAndPreviews(rt: RelayRound.WithTourAndStudy, previews: ChapterPreview.AsJsons)(using
       Option[Me]
@@ -127,6 +142,17 @@ final class JsonView(
       study = studyData.study,
       analysis = studyData.analysis,
       group = group.map(_.group.name)
+    )
+
+  def top(
+      active: List[ActiveWithSomeRounds],
+      upcoming: List[WithLastRound],
+      past: Paginator[WithLastRound]
+  ) =
+    Json.obj(
+      "active"   -> active.map(apply(_)),
+      "upcoming" -> upcoming.map(apply(_)),
+      "past"     -> past.map(apply(_))
     )
 
 object JsonView:
