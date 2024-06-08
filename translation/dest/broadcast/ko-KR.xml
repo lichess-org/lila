@@ -8,6 +8,8 @@
   <string name="liveBroadcasts">실시간 대회 방송</string>
   <string name="newBroadcast">새 실시간 방송</string>
   <string name="subscribedBroadcasts">구독 중인 방송</string>
+  <string name="aboutBroadcasts">방송에 대해서</string>
+  <string name="howToUseLichessBroadcasts">리체스 방송을 사용하는 법.</string>
   <string name="addRound">라운드 추가</string>
   <string name="ongoing">진행중</string>
   <string name="upcoming">방영 예정</string>
