@@ -668,6 +668,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">الإنتقال تلقائيًا للمباراة التالية بعد النقل</string>
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">الألغاز</string>
+  <string name="onlineBots">الروبوتات المتصلة</string>
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
   <string name="descPrivate">وصف خاص</string>
