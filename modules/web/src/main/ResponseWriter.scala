@@ -55,6 +55,9 @@ trait ResponseWriter extends ContentTypes:
       source.map: o =>
         Json.stringify(o) + "\n"
 
+    def jsToString(source: Iterable[JsValue]): String =
+      source.map(Json.stringify).mkString("\n")
+
     def jsOptToString(source: Source[Option[JsValue], ?]) =
       source.map:
         _.so(Json.stringify) + "\n"
