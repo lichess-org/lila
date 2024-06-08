@@ -130,6 +130,7 @@
 
   position: relative;
   height: $col3-uniboard-controls;
+  margin-top: calc(0px - #{$puzzle-block-gap});
 
   @include mq-is-col1 {
     height: $col1-uniboard-controls;
