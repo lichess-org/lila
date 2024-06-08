@@ -35,6 +35,25 @@
   }
 }
 
+.title-mod .mod-zone {
+  margin: 0;
+}
+
+.title-mod__history,
+.title-mod__data,
+.title-mod__actions {
+  margin-top: 4em;
+  h2 {
+    line-height: 3;
+  }
+}
+
+.title-mod__actions {
+  @extend %box-neat;
+  background: $c-bg-zebra;
+  padding: 2em;
+}
+
 .title-image {
   width: auto;
   max-width: 100%;

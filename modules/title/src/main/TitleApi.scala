@@ -58,6 +58,10 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
       .cursor[TitleRequest]()
       .list(30)
 
+  def process(req: TitleRequest, data: TitleForm.ProcessData)(using me: Me): Fu[TitleRequest] =
+    val newReq = req.pushStatus(data.status)
+    coll.update.one($id(req.id), newReq).inject(newReq)
+
   object image:
     def rel(req: TitleRequest, tag: String) =
       s"title-request.$tag:${req.id}"

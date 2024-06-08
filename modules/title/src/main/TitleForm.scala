@@ -4,10 +4,10 @@ import play.api.data.*
 import play.api.data.Forms.*
 import chess.FideId
 
-import lila.common.Form.{ cleanNonEmptyText, playerTitle, fideId, into, url }
+import lila.common.Form.{ cleanNonEmptyText, playerTitle, fideId, into, url, stringIn }
 import lila.core.id.ImageId
 
-final class TitleForm:
+object TitleForm:
 
   val create = Form:
     mapping(
@@ -29,3 +29,17 @@ final class TitleForm:
       )
 
   def edit(data: TitleRequest.FormData) = create.fill(data)
+
+  val process = Form:
+    mapping(
+      "text"   -> optional(nonEmptyText(maxLength = 2000)),
+      "action" -> stringIn(Set("approve", "reject", "feedback"))
+    )(ProcessData.apply)(unapply)
+
+  case class ProcessData(text: Option[String], action: String):
+    def status =
+      import TitleRequest.Status
+      action match
+        case "approve" => Status.approved
+        case "reject"  => Status.rejected
+        case _         => text.fold(Status.pending)(Status.feedback.apply)

@@ -7,7 +7,7 @@ import lila.common.Json.given
 import lila.title.TitleRequest
 import lila.core.id.{ TitleRequestId, CmsPageKey }
 
-final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC: User)
+final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC: => User, modC: => Mod)
     extends LilaController(env):
 
   private def api = env.title.api
@@ -102,4 +102,16 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
       (scores, pending) <- reportC.getScores
       page              <- renderPage(views.title.mod.queue(reqs, scores, pending))
     yield Ok(page)
+  }
+
+  def process(id: TitleRequestId) = SecureBody(_.SetTitle) { ctx ?=> me ?=>
+    Found(api.getForMe(id)): req =>
+      bindForm(env.title.form.process)(
+        err => Redirect(routes.TitleVerify.show(req.id)).flashFailure(err.toString),
+        data =>
+          for
+            req <- api.process(req, data)
+            _   <- req.approved.so(modC.doSetTitle(req.userId, req.data.title.some))
+          yield Redirect(routes.TitleVerify.show(req.id)).flashSuccess
+      )
   }

@@ -12,5 +12,6 @@ final class Env(cacheApi: lila.memo.CacheApi, db: lila.db.Db, picfitApi: lila.me
 
   private val requestColl = db(CollName("title_request"))
 
-  lazy val api  = wire[TitleApi]
-  lazy val form = wire[TitleForm]
+  val api = wire[TitleApi]
+
+  val form = TitleForm

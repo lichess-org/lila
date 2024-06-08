@@ -22,6 +22,8 @@ case class TitleRequest(
 
   def status = history.head.status
 
+  def approved = status == Status.approved
+
   def pushStatus(s: TitleRequest.Status): TitleRequest = copy(
     history =
       if status != s then s.now :: history

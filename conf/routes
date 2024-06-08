@@ -842,6 +842,7 @@ GET   /verify-title/queue              controllers.TitleVerify.queue
 GET   /verify-title/:id                controllers.TitleVerify.show(id: TitleRequestId)
 POST  /verify-title/:id                controllers.TitleVerify.update(id: TitleRequestId)
 POST  /verify-title/:id/cancel         controllers.TitleVerify.cancel(id: TitleRequestId)
+POST  /verify-title/:id/process        controllers.TitleVerify.process(id: TitleRequestId)
 POST  /upload/image/verify-title/:id   controllers.TitleVerify.image(id: TitleRequestId, tag: String)
 
 # Technical

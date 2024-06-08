@@ -26,8 +26,10 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
   def show(req: TitleRequest, user: User, fide: Option[Frag], modZone: Frag)(using Context) =
     def picture(id: ImageId) = a(href := ui.thumbnail.raw(id))(ui.thumbnail(id.some, 500))
     Page(s"${user.username}'s title verification")
-      .css("bits.titleRequest"):
-        main(cls := "box box-pad page")(
+      .css("bits.titleRequest")
+      .css(Granter.opt(_.UserModView).option("mod.user"))
+      .js(EsmInit("bits.titleRequest") ++ Granter.opt(_.UserModView).so(EsmInit("mod.user"))):
+        main(cls := "box box-pad page title-mod")(
           div(cls := "box__top")(
             h1("Title verification by ", userLink(user)),
             div(cls := "box__top__actions")(
@@ -40,8 +42,21 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
             )
           ),
           standardFlash,
-          div(cls := "title-mod__data")(
+          modZone,
+          div(cls := "title-mod__history")(
+            h2("History"),
             table(cls := "slist")(
+              req.history.toList.reverse.map: h =>
+                tr(
+                  td(showInstant(h.at)),
+                  td(h.status.toString)
+                )
+            )
+          ),
+          div(cls := "title-mod__data")(
+            h2("Application"),
+            table(cls := "slist")(
+              tr(th("Status"), td(req.status.toString)),
               tr(th("Requested title"), td(userTitleTag(req.data.title))),
               tr(th("Real name"), td(req.data.realName)),
               tr(
@@ -58,7 +73,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
               tr(
                 th("National federation"),
                 td(req.data.federationUrl match
-                  case Some(url) => a(href := url.toString)(url.toString)
+                  case Some(url) => a(href := url.toString, targetBlank)(url.toString)
                   case None      => "None"
                 )
               ),
@@ -71,6 +86,26 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
                 td(req.selfie.map(picture))
               ),
               tr(th("Comment"), td(req.data.comment.map(richText(_))))
+            )
+          ),
+          div(cls := "title-mod__actions")(
+            postForm(action := routes.TitleVerify.process(req.id))(
+              form3
+                .group(
+                  lila.title.TitleForm.process("text"),
+                  "Ask for modifications"
+                )(form3.textarea(_)(rows := 2)),
+              form3.actions(
+                submitButton(cls := "button button-red button-empty", name := "action", value := "reject")(
+                  "Reject request"
+                ),
+                submitButton(cls := "button button-blue", name := "action", value := "feedback")(
+                  "Ask for modifications"
+                ),
+                submitButton(cls := "button button-green", name := "action", value := "approve")(
+                  "Approve request"
+                )
+              )
             )
           )
         )
