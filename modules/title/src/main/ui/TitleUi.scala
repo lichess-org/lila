@@ -157,7 +157,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
     val image = t.focusImage(tag).get
     div(cls := "title-image-edit", data("post-url") := routes.TitleVerify.image(t.id, tag))(
       h2(name),
-      thumbnail(image)(
+      thumbnail(image, 200)(
         cls               := List("drop-target" -> true, "user-image" -> image.isDefined),
         attr("draggable") := "true"
       ),
@@ -167,9 +167,10 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
       )
     )
 
-  private object thumbnail:
-    def apply(image: Option[ImageId]): Tag =
+  object thumbnail:
+    def apply(image: Option[ImageId], height: Int): Tag =
       image.fold(fallback): id =>
-        img(cls := "title-image", src := url(id))
-    def fallback         = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
-    def url(id: ImageId) = picfitUrl.resize(id, Right(200))
+        img(cls := "title-image", src := url(id, height))
+    def fallback                      = iconTag(Icon.UploadCloud)(cls := "title-image--fallback")
+    def url(id: ImageId, height: Int) = picfitUrl.resize(id, Right(height))
+    def raw(id: ImageId)              = picfitUrl.raw(id)

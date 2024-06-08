@@ -17,7 +17,7 @@ final class TitleForm:
       "federationUrl" -> optional(url.field),
       "public"        -> boolean,
       "coach"         -> boolean,
-      "comment"       -> optional(cleanNonEmptyText)
+      "comment"       -> optional(cleanNonEmptyText(maxLength = 2000))
     )(TitleRequest.FormData.apply)(unapply)
       .verifying(
         "Missing FIDE ID or federation URL.",

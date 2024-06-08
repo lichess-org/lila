@@ -93,16 +93,5 @@ val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
 val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
 
-object title:
-  val ui  = lila.title.ui.TitleUi(helpers)(picfitUrl)
-  val mod = lila.title.ui.TitleModUi(helpers)(ui, picfitUrl)
-  def queue(
-      reqs: List[lila.title.TitleRequest],
-      scores: lila.report.Room.Scores,
-      pending: lila.mod.ui.PendingCounts
-  )(using Context) =
-    views.report.layout("title", scores, pending):
-      mod.queue(reqs)
-
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))
