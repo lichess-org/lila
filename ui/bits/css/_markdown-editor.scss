@@ -46,6 +46,9 @@
         margin: 0 0 -1px 0;
       }
     }
+    &-popup {
+      margin-left: 0;
+    }
     &-ww-container,
     &-md-container {
       border: 1px solid $c-border;
