@@ -89,15 +89,8 @@ final class UserShow(helpers: Helpers, bits: UserBits):
           crosstable(myId)
         ),
       div(cls := "upt__details")(
-        span(
-          trans.site.nbGames.plural(u.count.game, u.count.game.localize)
-        ),
-        span(
-          small(
-            "joined ",
-            momentFromNowServerText(u.createdAt)
-          )
-        ),
+        span(trans.site.nbGames.plural(u.count.game, u.count.game.localize)),
+        span("joined ", momentFromNowServerText(u.createdAt)),
         (Granter.opt(_.UserModView) && (u.lameOrTroll || u.enabled.no || u.marks.rankban))
           .option(span(cls := "upt__details__marks")(userMarks))
       ),
