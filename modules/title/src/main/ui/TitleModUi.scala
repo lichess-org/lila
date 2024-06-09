@@ -99,9 +99,12 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
                   "Ask for modifications"
                 )(form3.textarea(_)(rows := 2)),
               form3.actions(
-                submitButton(cls := "button button-red button-empty", name := "action", value := "reject")(
-                  "Reject request"
-                ),
+                submitButton(
+                  cls      := "button button-red button-empty",
+                  name     := "action",
+                  value    := "reject",
+                  disabled := req.status.is(_.rejected)
+                )("Reject request"),
                 submitButton(cls := "button button-blue", name := "action", value := "feedback")(
                   "Ask for modifications"
                 ),

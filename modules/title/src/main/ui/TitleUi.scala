@@ -49,7 +49,9 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           h1(cls := "box__top")(title),
           standardFlash,
           showStatus(req),
-          if req.status.is(_.approved) || req.status.is(_.rejected)
+          if req.status.is(_.approved)
+          then a(href := routes.TitleVerify.form)("Make a new title request")
+          else if req.status.is(_.rejected)
           then emptyFrag
           else showForms(req, form)
         )
@@ -94,7 +96,8 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
             br,
             "A moderator will review it shortly. You will receive a Lichess message once it is processed."
           )
-        case Status.approved    => frag("Your request has been approved.")
+        case Status.approved =>
+          frag("Your ", nbsp, userTitleTag(req.data.title), nbsp, " title has been confirmed!")
         case Status.rejected    => frag("Your request has been rejected.")
         case Status.feedback(t) => div("Moderator feedback:", br, br, strong(t))
 
