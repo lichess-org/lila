@@ -8,12 +8,4 @@ site.load.then(() => {
       selectDrags: $(this).find('.drop-target'),
     });
   });
-
-  $('.title-mod__actions form').on('submit', function (ev) {
-    if (ev.submitter.value == 'feedback' && new FormData(ev.target).get('text')?.toString().trim() == '') {
-      ev.preventDefault();
-      alert('Please enter feedback text.');
-      return false;
-    }
-  });
 });

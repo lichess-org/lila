@@ -97,7 +97,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
                 .group(
                   lila.title.TitleForm.process("text"),
                   "Ask for modifications"
-                )(form3.textarea(_)(rows := 2)),
+                )(form3.textarea(_)(rows := 2, required)),
               form3.actions(
                 submitButton(
                   cls      := "button button-red button-empty",
@@ -108,7 +108,12 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
                 submitButton(cls := "button button-blue", name := "action", value := "feedback")(
                   "Ask for modifications"
                 ),
-                submitButton(cls := "button button-green", name := "action", value := "approve")(
+                submitButton(
+                  cls   := "button button-green",
+                  name  := "action",
+                  value := "approve",
+                  attr("formnovalidate").empty
+                )(
                   "Approve request"
                 )
               )
