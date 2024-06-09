@@ -8,6 +8,7 @@ import lila.core.i18n.{ I18nKey, Translate }
 
 import lila.rating.PerfType
 import lila.core.LightUser
+import lila.core.user.UserApi
 
 object SwissCondition:
 
@@ -23,31 +24,38 @@ object SwissCondition:
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
       titled: Option[Titled.type],
+      accountAge: Option[AccountAge],
       allowList: Option[AllowList],
       playYourGames: Option[PlayYourGames.type]
-  ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, allowList, playYourGames)):
+  ) extends ConditionList(
+        List(nbRatedGame, maxRating, minRating, titled, accountAge, allowList, playYourGames)
+      ):
 
     def withVerdicts(
         perfType: PerfType,
         getBannedUntil: GetBannedUntil
-    )(using me: LightUser.Me)(using Perf, Executor, GetMaxRating): Fu[WithVerdicts] =
+    )(using me: LightUser.Me)(using Perf, Executor, GetMaxRating, GetAge): Fu[WithVerdicts] =
       list
         .parallel:
           case PlayYourGames => getBannedUntil(me.userId).map(PlayYourGames.withBan)
           case c: MaxRating  => c(perfType).map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
+          case c: AccountAge => c.apply.map { c.withVerdict(_) }
         .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled
 
   object All:
-    val empty       = All(none, none, none, none, none, PlayYourGames.some)
+    val empty       = All(none, none, none, none, none, none, PlayYourGames.some)
     given Zero[All] = Zero(empty)
 
-  final class Verify(historyApi: lila.core.history.HistoryApi, banApi: SwissBanApi):
-    def apply(swiss: Swiss)(using me: LightUser.Me)(using Perf, Executor): Fu[WithVerdicts] =
+  final class Verify(historyApi: lila.core.history.HistoryApi, banApi: SwissBanApi, userApi: UserApi)(using
+      Executor
+  ):
+    def apply(swiss: Swiss)(using me: LightUser.Me)(using Perf): Fu[WithVerdicts] =
       val getBan: GetBannedUntil = banApi.bannedUntil
       given GetMaxRating         = historyApi.lastWeekTopRating(me.userId, _)
+      given GetAge               = me => userApi.accountAge(me.userId)
       swiss.settings.conditions.withVerdicts(swiss.perfType, getBan)
 
   object form:
@@ -60,6 +68,7 @@ object SwissCondition:
         "maxRating"   -> maxRating,
         "minRating"   -> minRating,
         "titled"      -> titled,
+        "accountAge"  -> accountAge,
         "allowList"   -> allowList,
         "playYourGames" -> optional(boolean)
           .transform(_.contains(true).option(PlayYourGames), _.isDefined.option(true))

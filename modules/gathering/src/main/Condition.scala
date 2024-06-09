@@ -4,6 +4,7 @@ import lila.core.team.LightTeam.TeamName
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.rating.PerfType
 import lila.core.LightUser.Me
+import scalalib.model.Days
 
 trait Condition:
 
@@ -18,6 +19,7 @@ object Condition:
 
   type GetMaxRating = PerfType => Fu[IntRating]
   type GetMyTeamIds = Me => Fu[List[TeamId]]
+  type GetAge       = Me => Fu[Days]
 
   enum Verdict(val accepted: Boolean, val reason: Option[Translate => String]):
     case Accepted                              extends Verdict(true, none)
@@ -43,6 +45,15 @@ object Condition:
           trans.site.needNbMorePerfGames.pluralTxt(missing, missing, pt.trans)
     def name(pt: PerfType)(using Translate) =
       trans.site.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
+
+  case class AccountAge(days: Days) extends Condition:
+    def name(perf: PerfType)(using Translate): String = s"${days.value} days old account"
+    def apply(using getAge: GetAge)(using Me, Executor): Fu[Verdict] =
+      if summon[Me].title.isDefined then fuccess(Accepted)
+      else
+        getAge(summon[Me]).map:
+          case age if age.value >= days.value => Accepted
+          case age => Refused(_ => s"Your account is too young, by ${days.value - age.value} days.")
 
   abstract trait RatingCondition:
     val rating: IntRating
