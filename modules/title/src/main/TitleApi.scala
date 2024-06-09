@@ -29,6 +29,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
   private given BSONDocumentHandler[StatusAt]     = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
   private val statusField                         = "history.0.status"
+  private val updatedAtField                      = "history.0.at"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
     coll.one[TitleRequest]($doc("userId" -> me.userId))
@@ -56,7 +57,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
   def queue: Fu[List[TitleRequest]] =
     coll
       .find($doc(s"$statusField.n" -> Status.pending.toString))
-      .sort($sort.asc(s"$statusField.at"))
+      .sort($sort.asc(updatedAtField))
       .cursor[TitleRequest]()
       .list(30)
 
@@ -94,3 +95,18 @@ ${summon[BaseUrl]}/verify-title
       _ <- picfitApi.deleteByRel(rel(req, tag))
       _ <- coll.unsetField($id(req.id), tag)
     yield req.focusImage(tag).replace(none)
+
+  private[title] def cleanupOldPics: Funit = for
+    oldPics <- coll
+      .find(
+        $doc(
+          updatedAtField -> $lt(nowInstant.minusMonths(1)),
+          $or("idDocument".$exists(true), "selfie".$exists(true))
+        )
+      )
+      .sort($sort.asc(updatedAtField))
+      .cursor[TitleRequest]()
+      .list(20)
+    _ <- oldPics.sequentiallyVoid(image.delete(_, "idDocument"))
+    _ <- oldPics.sequentiallyVoid(image.delete(_, "selfie"))
+  yield ()
