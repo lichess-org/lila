@@ -163,6 +163,10 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
       height: Int
   ): String = display(id, "thumbnail")(width, height)
 
+  def raw(id: ImageId): String =
+    val queryString = s"op=noop&path=$id"
+    s"${config.endpointGet}/display?${signQueryString(queryString)}"
+
   private def display(id: ImageId, operation: String)(
       width: Int,
       height: Int

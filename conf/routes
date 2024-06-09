@@ -816,7 +816,7 @@ GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
 GET   /cms                            controllers.Cms.index
-GET   /cms/new                        controllers.Cms.createForm
+GET   /cms/new                        controllers.Cms.createForm(key: Option[CmsPageKey])
 POST  /cms/new                        controllers.Cms.create
 GET   /cms/:id/edit                   controllers.Cms.edit(id: CmsPageId)
 POST  /cms/:id/edit                   controllers.Cms.update(id: CmsPageId)
@@ -830,11 +830,20 @@ GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang: Languag
 GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
-GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 POST  /github/secret-scanning          controllers.Github.secretScanning
+
+GET   /verify-title                    controllers.TitleVerify.index
+GET   /verify-title/form               controllers.TitleVerify.form
+POST  /verify-title/form               controllers.TitleVerify.create
+GET   /verify-title/queue              controllers.TitleVerify.queue
+GET   /verify-title/:id                controllers.TitleVerify.show(id: TitleRequestId)
+POST  /verify-title/:id                controllers.TitleVerify.update(id: TitleRequestId)
+POST  /verify-title/:id/cancel         controllers.TitleVerify.cancel(id: TitleRequestId)
+POST  /verify-title/:id/process        controllers.TitleVerify.process(id: TitleRequestId)
+POST  /upload/image/verify-title/:id   controllers.TitleVerify.image(id: TitleRequestId, tag: String)
 
 # Technical
 GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id: GameId)

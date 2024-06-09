@@ -73,8 +73,6 @@ object user:
 
     def isPatron = plan.active
 
-    def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
-
     def isBot = title.contains(PlayerTitle.BOT)
     def noBot = !isBot
 

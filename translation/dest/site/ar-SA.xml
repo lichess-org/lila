@@ -668,6 +668,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">الإنتقال تلقائيًا للمباراة التالية بعد النقل</string>
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">الألغاز</string>
+  <string name="onlineBots">الروبوتات المتصلة</string>
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
   <string name="descPrivate">وصف خاص</string>
@@ -945,6 +946,12 @@
   <string name="transparent">شفّاف</string>
   <string name="deviceTheme">مظهر الجهاز</string>
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
+  <string name="board">اللوحة</string>
+  <string name="size">الحجم</string>
+  <string name="opacity">الشفافيّة</string>
+  <string name="brightness">السطوع</string>
+  <string name="hue">التدرج اللوني</string>
+  <string name="boardReset">إعادة تعيين الألوان إلى الافتراضي</string>
   <string name="pieceSet">مجموعة القطع</string>
   <string name="embedInYourWebsite">تضمين في موقع الويب الخاص بك</string>
   <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>

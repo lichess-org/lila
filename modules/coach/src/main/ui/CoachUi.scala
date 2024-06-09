@@ -217,7 +217,7 @@ final class CoachUi(helpers: Helpers)(
             p(
               trc.areYouCoach(a(href := "https://lichess.org/help/master")(trc.nmOrFideTitle())),
               br,
-              if !ctx.me.exists(_.hasTitle) then a(href := routes.Main.verifyTitle)(trc.confirmTitle())
+              if !ctx.me.exists(_.hasTitle) then a(href := routes.TitleVerify.index)(trc.confirmTitle())
               else trc.sendApplication(a(href := s"mailto:${contactEmail.value}")(contactEmail.value))
             )
           ),

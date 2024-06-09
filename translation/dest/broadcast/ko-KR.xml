@@ -8,6 +8,8 @@
   <string name="liveBroadcasts">실시간 대회 방송</string>
   <string name="newBroadcast">새 실시간 방송</string>
   <string name="subscribedBroadcasts">구독 중인 방송</string>
+  <string name="aboutBroadcasts">방송에 대해서</string>
+  <string name="howToUseLichessBroadcasts">리체스 방송을 사용하는 법.</string>
   <string name="addRound">라운드 추가</string>
   <string name="ongoing">진행중</string>
   <string name="upcoming">방영 예정</string>
@@ -35,4 +37,5 @@
   <string name="deleteTournament">이 토너먼트 삭제</string>
   <string name="definitivelyDeleteTournament">토너먼트 전체의 모든 라운드와 게임을 완전히 삭제합니다.</string>
   <string name="automaticLeaderboard">자동 순위표</string>
+  <string name="replacePlayerTags">선택 사항: 플레이어 이름, 레이팅 및 타이틀 바꾸기</string>
 </resources>
