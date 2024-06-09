@@ -3,7 +3,6 @@ package controllers
 import play.api.libs.json.*
 
 import lila.app.{ *, given }
-import lila.common.Json.given
 import lila.title.TitleRequest
 import lila.core.id.{ TitleRequestId, CmsPageKey }
 
@@ -98,7 +97,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
 
   def queue = Secure(_.SetTitle) { ctx ?=> me ?=>
     for
-      reqs              <- api.queue
+      reqs              <- api.queue(30)
       (scores, pending) <- reportC.getScores
       page              <- renderPage(views.title.mod.queue(reqs, scores, pending))
     yield Ok(page)
@@ -110,9 +109,10 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
         err => Redirect(routes.TitleVerify.show(req.id)).flashFailure(err.toString),
         data =>
           for
-            req <- api.process(req, data)
-            _   <- req.approved.so(onApproved(req))
-          yield Redirect(routes.TitleVerify.show(req.id)).flashSuccess
+            req  <- api.process(req, data)
+            _    <- req.approved.so(onApproved(req))
+            next <- api.queue(1).map(_.headOption)
+          yield Redirect(routes.TitleVerify.show((next | req).id)).flashSuccess
       )
   }
 

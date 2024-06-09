@@ -54,12 +54,12 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
   def countPending: Fu[Int] =
     coll.countSel($doc(s"$statusField.n" -> Status.pending.toString))
 
-  def queue: Fu[List[TitleRequest]] =
+  def queue(nb: Int): Fu[List[TitleRequest]] =
     coll
       .find($doc(s"$statusField.n" -> Status.pending.toString))
       .sort($sort.asc(updatedAtField))
       .cursor[TitleRequest]()
-      .list(30)
+      .list(nb)
 
   def process(req: TitleRequest, data: TitleForm.ProcessData)(using me: Me): Fu[TitleRequest] =
     val newReq = req.pushStatus(data.status)
