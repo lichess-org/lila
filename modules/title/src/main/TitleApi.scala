@@ -6,8 +6,10 @@ import lila.db.dsl.{ *, given }
 import lila.core.perm.Granter
 import lila.core.id.TitleRequestId
 import lila.memo.PicfitApi
+import lila.core.msg.SystemMsg
+import lila.core.config.BaseUrl
 
-final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
+final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
 
   import TitleRequest.*
 
@@ -60,7 +62,21 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
 
   def process(req: TitleRequest, data: TitleForm.ProcessData)(using me: Me): Fu[TitleRequest] =
     val newReq = req.pushStatus(data.status)
+    newReq.status match
+      case Status.feedback(feedback) => sendFeedback(req.userId, feedback)
+      case _                         =>
     coll.update.one($id(req.id), newReq).inject(newReq)
+
+  private def sendFeedback(to: UserId, feedback: String): Unit =
+    val pm = s"""
+Your title request has been reviewed by the Lichess team.
+Here is the feedback provided:
+
+$feedback
+
+${summon[BaseUrl]}/verify-title
+"""
+    lila.common.Bus.publish(SystemMsg(to, pm), "msgSystemSend")
 
   object image:
     def rel(req: TitleRequest, tag: String) =

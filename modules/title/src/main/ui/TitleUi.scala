@@ -72,7 +72,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
       ),
       postForm(cls := "form3", action := routes.TitleVerify.update(req.id))(
         dataForm(form),
-        form3.action(form3.submit("Update"))
+        form3.action(form3.submit("Update and send for review"))
       ),
       postForm(cls := "form3", action := routes.TitleVerify.cancel(req.id))(
         form3.action(
