@@ -39,7 +39,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
             ),
             div(cls := "form-group")(trt.scanTheCode()),
             qrcode(
-              s"otpauth://totp/${domain}:${me.id}?secret=${secret}&issuer=${domain}"
+              s"otpauth://totp/${domain}:${me.userId}?secret=${secret}&issuer=${domain}"
             ),
             div(cls := "form-group"):
               trt.ifYouCannotScanEnterX:
