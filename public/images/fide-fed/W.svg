@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg id="svg8" viewBox="0 0 640 480" height="480px" width="640px" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-  <rect width="640" height="480" fill="#0000CC"/>
-  <circle cx="320" cy="240" r="210" fill="none" stroke-width="22" stroke="#fff"/>
-  <rect x="117" y="228" width="404" height="23"/>
-  <rect x="308" y="38" width="23" height="402"/>
-  <g transform="matrix(0.417737, 0, 0, 0.417737, 110, 30)" fill="none" stroke-width="52" stroke="#fff">
-    <g stroke-linecap="square">
-      <path d="M 173.268 842.335 C 377.127 724.638 628.29 724.638 832.148 842.335"/>
-      <path d="M 832.148 163.081 C 628.29 280.778 377.127 280.778 173.268 163.081"/>
-    </g>
-    <path d="M 501.568 1003.702 C 344.008 884.972 251.354 699.138 251.354 501.851 C 251.354 304.564 344.008 118.73 501.568 0"/>
-    <path d="M 752.923 1003.702 C 595.363 884.972 502.709 699.138 502.709 501.851 C 502.709 304.564 595.363 118.73 752.923 0" style="transform-box: fill-box; transform-origin: 50% 50%;" transform="matrix(-1, 0, 0, -1, 0.0001, 0.000045)"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 640 480"><path fill="#00C" d="M0 0H640V480H0z"/><circle cx="320" cy="240" r="210" fill="none" stroke="#fff" stroke-width="22"/><path d="M117 228H521V251H117z"/><path d="M308 38H331V440H308z"/><g fill="none" stroke="#fff" stroke-width="52" transform="matrix(.41774 0 0 .41774 110 30)"><g stroke-linecap="square"><path d="M173 842C377 725 628 725 832 842M832 163C628 281 377 281 173 163"/></g><path d="M 501.568 1003.702 C 344.008 884.972 251.354 699.138 251.354 501.851 C 251.354 304.564 344.008 118.73 501.568 0"/><path d="M 752.923 1003.702 C 595.363 884.972 502.709 699.138 502.709 501.851 C 502.709 304.564 595.363 118.73 752.923 0" style="transform-box:fill-box" transform="rotate(180 0 0)" transform-origin="50% 50%"/></g></svg>

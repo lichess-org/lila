@@ -82,7 +82,8 @@
       "src/bits.ublogForm.ts",
       "src/bits.user.ts",
       "src/bits.userComplete.ts",
-      "src/bits.userGamesDownload.ts"
+      "src/bits.userGamesDownload.ts",
+      "src/bits.titleRequest.ts"
     ],
     "sync": {
       "node_modules/cropperjs/dist/cropper.min.css": "public/npm",

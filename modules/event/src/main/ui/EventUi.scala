@@ -23,7 +23,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
     page(title = "New event", css = "mod.form"):
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New event"),
-        postForm(cls := "content_box_content form3", action := routes.Event.create)(inForm(form))
+        postForm(cls := "form3", action := routes.Event.create)(inForm(form))
       )
 
   def edit(event: Event, form: Form[?])(using Context) =
@@ -42,7 +42,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
           )
         ),
         standardFlash,
-        postForm(cls := "content_box_content form3", action := routes.Event.update(event.id))(inForm(form))
+        postForm(cls := "form3", action := routes.Event.update(event.id))(inForm(form))
       )
 
   def iconOf(e: Event) =
