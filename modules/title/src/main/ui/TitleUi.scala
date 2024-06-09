@@ -49,48 +49,54 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           h1(cls := "box__top")(title),
           standardFlash,
           showStatus(req),
-          div(cls := "title__images")(
-            imageByTag(
-              req,
-              "idDocument",
-              name = "Identity document",
-              help = frag("ID card, passport, driver's license, etc.")
-            ),
-            imageByTag(
-              req,
-              "selfie",
-              name = "Your picture",
-              help = frag("A picture of you holding your ID document.")
-            )
-          ),
-          postForm(cls := "form3", action := routes.TitleVerify.update(req.id))(
-            dataForm(form),
-            form3.action(form3.submit("Update"))
-          ),
-          postForm(cls := "form3", action := routes.TitleVerify.cancel(req.id))(
-            form3.action(
-              form3.submit("Cancel request and delete form data", icon = Icon.Trash.some)(
-                cls := "button-red button-empty confirm"
-              )
-            )(cls := "title__cancel")
-          )
+          if req.status.is(_.approved) || req.status.is(_.rejected)
+          then emptyFrag
+          else showForms(req, form)
         )
+
+  private def showForms(req: TitleRequest, form: Form[TitleRequest.FormData])(using Context) =
+    frag(
+      div(cls := "title__images")(
+        imageByTag(
+          req,
+          "idDocument",
+          name = "Identity document",
+          help = frag("ID card, passport, driver's license, etc.")
+        ),
+        imageByTag(
+          req,
+          "selfie",
+          name = "Your picture",
+          help = frag("A picture of you holding your ID document.")
+        )
+      ),
+      postForm(cls := "form3", action := routes.TitleVerify.update(req.id))(
+        dataForm(form),
+        form3.action(form3.submit("Update"))
+      ),
+      postForm(cls := "form3", action := routes.TitleVerify.cancel(req.id))(
+        form3.action(
+          form3.submit("Cancel request and delete form data", icon = Icon.Trash.some)(
+            cls := "button-red button-empty confirm"
+          )
+        )(cls := "title__cancel")
+      )
+    )
 
   private def showStatus(req: TitleRequest)(using Context) =
     import TitleRequest.Status
-    div(cls := "title__status"):
+    div(cls := "title__status-full"):
       req.status match
         case Status.building => frag("Please upload the required documents to confirm your identity.")
-        case Status.pending =>
+        case Status.pending(_) =>
           div(
             strong("All set! Your request is pending."),
             br,
             "A moderator will review it shortly. You will receive a Lichess message once it is processed."
           )
-        case Status.approved => frag("Your request has been approved.")
-        case Status.rejected => frag("Your request has been rejected.")
-        case Status.feedback(t) =>
-          p("Your request has been rejected with feedback: ", t)
+        case Status.approved    => frag("Your request has been approved.")
+        case Status.rejected    => frag("Your request has been rejected.")
+        case Status.feedback(t) => div("Moderator feedback:", br, br, strong(t))
 
   private def dataForm(form: Form[TitleRequest.FormData])(using Context) =
     frag(

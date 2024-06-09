@@ -15,15 +15,15 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor):
   given lila.db.BSON[Status] with
     def reads(r: lila.db.BSON.Reader) =
       r.str("n") match
-        case "pending"  => Status.pending
+        case "pending"  => Status.pending(r.strD("t"))
         case "approved" => Status.approved
         case "rejected" => Status.rejected
         case "feedback" => Status.feedback(r.str("t"))
         case _          => Status.building
     def writes(w: lila.db.BSON.Writer, s: Status) =
-      s match
-        case Status.feedback(t) => $doc("n" -> "feedback", "t" -> t)
-        case status             => $doc("n" -> status.toString)
+      s.textOpt match
+        case Some(t) => $doc("n" -> s.name, "t" -> t)
+        case None    => $doc("n" -> s.name)
   private given BSONDocumentHandler[StatusAt]     = Macros.handler
   private given BSONDocumentHandler[TitleRequest] = Macros.handler
   private val statusField                         = "history.0.status"

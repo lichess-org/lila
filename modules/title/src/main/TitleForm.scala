@@ -42,4 +42,4 @@ object TitleForm:
       action match
         case "approve" => Status.approved
         case "reject"  => Status.rejected
-        case _         => text.fold(Status.pending)(Status.feedback.apply)
+        case _         => Status.feedback(text | "?")

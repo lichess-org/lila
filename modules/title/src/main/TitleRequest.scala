@@ -32,10 +32,9 @@ case class TitleRequest(
 
   def update(data: FormData): TitleRequest =
     copy(data = data).pushStatus:
-      if hasImages then
-        if status == Status.building then Status.pending
-        else status
-      else Status.building
+      if !hasImages then Status.building
+      else if status.is(_.building) || status.isFeedback then Status.pending(data.comment | "")
+      else status
 
   def hasImages = idDocument.isDefined && selfie.isDefined
 
@@ -56,12 +55,23 @@ object TitleRequest:
       comment: Option[String]
   )
   enum Status:
-    case building // until idDocument and selfie are uploaded
-    case pending  // needs moderator review
+    case building                     // until idDocument and selfie are uploaded
+    case pending(val comment: String) // needs moderator review
     case approved
     case feedback(val text: String)
     case rejected
-    def now: StatusAt = StatusAt(this, nowInstant)
+    def name = this match
+      case pending(_)  => "pending"
+      case feedback(_) => "feedback"
+      case s           => s.toString
+    def now: StatusAt                = StatusAt(this, nowInstant)
+    def is(s: Status.type => Status) = this == s(Status)
+    def isPending                    = name == "pending"
+    def isFeedback                   = name == "feedback"
+    def textOpt = this match
+      case pending(t)  => t.some
+      case feedback(t) => t.some
+      case _           => none
 
   case class StatusAt(status: Status, at: Instant)
 

@@ -17,7 +17,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
           tr(
             td(userIdLink(r.userId.some, params = "?mod")),
             td(userTitleTag(r.data.title), " ", r.data.realName),
-            td(showDate(r.history.head.at)),
+            td(momentFromNow(r.history.head.at)),
             td(a(href := routes.TitleVerify.show(r.id), cls := "button button-empty")("View"))
           )
       )
@@ -31,7 +31,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
       .js(EsmInit("bits.titleRequest") ++ Granter.opt(_.UserModView).so(EsmInit("mod.user"))):
         main(cls := "box box-pad page title-mod")(
           div(cls := "box__top")(
-            h1("Title verification by ", userLink(user)),
+            h1("Title verification by ", userLink(user), " ", showStatus(req.status)),
             div(cls := "box__top__actions")(
               a(
                 cls  := "button button-empty mod-zone-toggle",
@@ -48,15 +48,16 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
             table(cls := "slist")(
               req.history.toList.reverse.map: h =>
                 tr(
-                  td(showInstant(h.at)),
-                  td(h.status.toString)
+                  td(momentFromNow(h.at)),
+                  td(showStatus(h.status)),
+                  td(h.status.textOpt)
                 )
             )
           ),
           div(cls := "title-mod__data")(
             h2("Application"),
             table(cls := "slist")(
-              tr(th("Status"), td(req.status.toString)),
+              tr(th("Status"), td(showStatus(req.status))),
               tr(th("Requested title"), td(userTitleTag(req.data.title))),
               tr(th("Real name"), td(req.data.realName)),
               tr(
@@ -109,3 +110,6 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
             )
           )
         )
+
+  private def showStatus(status: TitleRequest.Status)(using Context) =
+    span(cls := s"title__status title__status--${status.name}")(status.name)

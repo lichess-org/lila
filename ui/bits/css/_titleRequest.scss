@@ -21,10 +21,33 @@
 }
 
 .title__status {
+  @extend %box-neat;
+  padding: 0.3em 0.7em;
+  background: $c-accent;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  &--building {
+    background: $c-bg-zebra;
+  }
+  &--approved {
+    background: $c-good;
+  }
+  &--rejected {
+    background: $c-bad;
+  }
+  &--feedback {
+    background: $c-primary;
+  }
+}
+
+.title__status-full {
   @extend %flex-center-nowrap, %box-neat;
   margin-bottom: 2em;
   padding: 2em 2em;
   background: $c-bg-zebra;
+  font-size: 1.2em;
 
   &::before {
     @extend %data-icon;
@@ -37,6 +60,9 @@
 
 .title-mod .mod-zone {
   margin: 0;
+}
+.title-mod > .mod-zone {
+  max-height: 250px;
 }
 
 .title-mod__history,
