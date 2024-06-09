@@ -63,13 +63,15 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           req,
           "idDocument",
           name = "Identity document",
-          help = frag("ID card, passport, driver's license, etc.")
+          help = frag("ID card, passport or driver's license.")
         ),
         imageByTag(
           req,
           "selfie",
           name = "Your picture",
-          help = frag("A picture of you holding your ID document.")
+          help = frag(
+            """A picture of yourself holding up a piece of paper with today's date and "lichess.org" written on it"""
+          )
         )
       ),
       postForm(cls := "form3", action := routes.TitleVerify.update(req.id))(
@@ -87,19 +89,30 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
 
   private def showStatus(req: TitleRequest)(using Context) =
     import TitleRequest.Status
-    div(cls := "title__status-full"):
-      req.status match
-        case Status.building => frag("Please upload the required documents to confirm your identity.")
-        case Status.pending(_) =>
-          div(
-            strong("All set! Your request is pending."),
-            br,
-            "A moderator will review it shortly. You will receive a Lichess message once it is processed."
-          )
-        case Status.approved =>
-          frag("Your ", nbsp, userTitleTag(req.data.title), nbsp, " title has been confirmed!")
-        case Status.rejected    => frag("Your request has been rejected.")
-        case Status.feedback(t) => div("Moderator feedback:", br, br, strong(t))
+    div(cls := "title__status-full")(
+      statusFlair(req),
+      div(cls := "title__status__body")(
+        req.status match
+          case Status.building => frag("Please upload the required documents to confirm your identity.")
+          case Status.pending(_) =>
+            frag(
+              h2("All set! Your request is pending."),
+              "A moderator will review it shortly. You will receive a Lichess message once it is processed."
+            )
+          case Status.approved =>
+            h2("Your ", nbsp, userTitleTag(req.data.title), nbsp, " title has been confirmed!")
+          case Status.rejected    => h2("Your request has been rejected.")
+          case Status.feedback(t) => frag("Moderator feedback:", br, br, strong(t))
+      )
+    )
+
+  def statusFlair(req: TitleRequest)(using Context) = iconFlair:
+    import TitleRequest.Status
+    req.status.name match
+      case "approved" => "activity.sparkles"
+      case "rejected" => "symbols.cross-mark"
+      case "feedback" => "symbols.speech-balloon"
+      case _          => "objects.hourglass-not-done"
 
   private def dataForm(form: Form[TitleRequest.FormData])(using Context) =
     frag(
