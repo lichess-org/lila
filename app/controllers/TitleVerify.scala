@@ -95,7 +95,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
         case None => api.image.delete(req, tag) >> Ok
   }
 
-  def queue = Secure(_.SetTitle) { ctx ?=> me ?=>
+  def queue = Secure(_.TitleRequest) { ctx ?=> me ?=>
     for
       reqs              <- api.queue(30)
       (scores, pending) <- reportC.getScores
@@ -103,7 +103,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
     yield Ok(page)
   }
 
-  def process(id: TitleRequestId) = SecureBody(_.SetTitle) { ctx ?=> me ?=>
+  def process(id: TitleRequestId) = SecureBody(_.TitleRequest) { ctx ?=> me ?=>
     Found(api.getForMe(id)): req =>
       bindForm(env.title.form.process)(
         err => Redirect(routes.TitleVerify.show(req.id)).flashFailure(err.toString),

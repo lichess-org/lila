@@ -34,6 +34,7 @@ object Permission:
       CloseAccount,
       GdprErase,
       SetTitle,
+      TitleRequest,
       SetEmail
     ),
     "Misc mod" -> List(
