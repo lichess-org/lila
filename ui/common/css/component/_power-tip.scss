@@ -104,9 +104,6 @@
 
   &__details {
     @extend %flex-between;
-
-    display: flex;
-    justify-content: space-between;
     white-space: nowrap;
 
     &__marks {
