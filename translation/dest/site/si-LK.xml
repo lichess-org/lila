@@ -633,4 +633,5 @@ You are playing chess.</string>
   <string name="simulHostExtraTime">අතිරේක ආරම්භක ඔරලෝසු කාලය සත්කාරකත්වය</string>
   <string name="simulAddExtraTimePerPlayer">සිමියුලයට සම්බන්ධ වන එක් එක් ක්‍රීඩකයා සඳහා ඔබේ ඔරලෝසුවට ආරම්භක වේලාව එක් කරන්න.</string>
   <string name="simulHostExtraTimePerPlayer">සත්කාරකයාට​ බැගින් ලැබෙන​ එක් ක්‍රීඩකයෙකුට අමතර ඔරලෝසු කාලය</string>
+  <string name="keyGoToStartOrEnd">පටන් ගැනීමට/අවසානයට යන්න</string>
 </resources>
