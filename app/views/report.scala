@@ -7,6 +7,7 @@ import lila.report.ui.ReportUi.*
 import lila.report.Room
 import lila.report.Report.WithSuspect
 import lila.rating.UserPerfsExt.bestPerfs
+import lila.mod.ui.PendingCounts
 
 val ui = lila.report.ui.ReportUi(helpers)
 
@@ -14,10 +15,9 @@ def list(
     reports: List[lila.report.Report.WithSuspect],
     filter: String,
     scores: Room.Scores,
-    streamers: Int,
-    appeals: Int
+    pending: PendingCounts
 )(using Context) =
-  layout(filter, scores, streamers, appeals)(
+  layout(filter, scores, pending)(
     table(cls := "slist slist-pad see")(
       thead(
         tr(
@@ -87,7 +87,9 @@ def list(
 
 private val scoreTag = tag("score")
 
-def layout(filter: String, scores: Room.Scores, streamers: Int, appeals: Int)(using ctx: Context) =
+def layout(filter: String, scores: Room.Scores, pending: PendingCounts)(using
+    ctx: Context
+) =
   Page("Reports")
     .css("mod.report")
     .wrap: body =>
@@ -121,7 +123,7 @@ def layout(filter: String, scores: Room.Scores, streamers: Int, appeals: Int)(us
                   }
                   .toList
               }: List[Frag],
-              (appeals > 0 && isGranted(_.Appeals)).option(
+              (isGranted(_.Appeals)).option(
                 a(
                   href := routes.Appeal.queue(),
                   cls := List(
@@ -129,14 +131,26 @@ def layout(filter: String, scores: Room.Scores, streamers: Int, appeals: Int)(us
                     "active" -> (filter == "appeal")
                   )
                 )(
-                  countTag(appeals),
+                  countTag(pending.appeals),
                   "Appeals"
                 )
               ),
-              (isGranted(_.Streamers) && streamers > 0).option(
+              (isGranted(_.Streamers)).option(
                 a(href := s"${routes.Streamer.index()}?requests=1", cls := "new")(
-                  countTag(streamers),
+                  countTag(pending.streamers),
                   "Streamers"
+                )
+              ),
+              isGranted(_.SetTitle).option(
+                a(
+                  href := routes.TitleVerify.queue,
+                  cls := List(
+                    "new"    -> true,
+                    "active" -> (filter == "title")
+                  )
+                )(
+                  countTag(pending.titles),
+                  "Titles"
                 )
               )
             )

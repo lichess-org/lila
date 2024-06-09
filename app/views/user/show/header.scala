@@ -4,7 +4,6 @@ package show
 import lila.app.mashup.UserInfo
 import lila.app.UiEnv.{ *, given }
 
-import lila.common.String.html.richText
 import lila.user.Plan.sinceDate
 import lila.user.Profile.*
 import lila.user.PlayTime.*

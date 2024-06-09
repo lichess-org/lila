@@ -1,6 +1,7 @@
 package views
 
 import lila.app.UiEnv.{ *, given }
+import lila.cms.CmsPage
 
 export lila.web.ui.bits
 

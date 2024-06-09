@@ -539,7 +539,7 @@ final class Study(
 
   def staffPicks = Open:
     pageHit
-    FoundPage(env.api.cmsRenderKey("studies-staff-picks")):
+    FoundPage(env.cms.renderKey("studies-staff-picks")):
       views.study.staffPicks
 
   def privateUnauthorizedText = Unauthorized("This study is now private")

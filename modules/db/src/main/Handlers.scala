@@ -222,6 +222,14 @@ trait Handlers:
     t => BSONString(t.value)
   )
 
+  given BSONHandler[io.mola.galimatias.URL] =
+    import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+    val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
+    tryHandler(
+      { case BSONString(url) => Try(URL.parse(parser, url)) },
+      t => BSONString(t.toString)
+    )
+
   import lila.core.user.UserMark
   given markHandler: BSONHandler[UserMark] = valueMapHandler(UserMark.byKey)(_.key)
 

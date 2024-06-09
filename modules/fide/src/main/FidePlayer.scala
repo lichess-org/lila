@@ -29,6 +29,14 @@ case class FidePlayer(
 
   def age: Option[Int] = year.map(nowInstant.date.getYear - _)
 
+  def ratingsStr = List(
+    "Standard" -> standard,
+    "Rapid"    -> rapid,
+    "Blitz"    -> blitz
+  ).map: (name, rating) =>
+    s"$name: ${rating.fold("—")(_.toString)}"
+  .mkString(", ")
+
 object FidePlayer:
 
   val tokenize: Tokenize =

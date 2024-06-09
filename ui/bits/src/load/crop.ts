@@ -3,7 +3,7 @@ import { type CropOpts as Params } from '../bits.cropDialog';
 export { type CropOpts } from '../bits.cropDialog';
 
 export function wireCropDialog(args?: {
-  aspectRatio: number;
+  aspectRatio?: number;
   selectClicks?: Cash;
   selectDrags?: Cash;
   max?: { megabytes?: number; pixels?: number };

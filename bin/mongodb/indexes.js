@@ -307,3 +307,5 @@ db.study_chapter_flat.createIndex(
   { 'relay.fideIds': 1 },
   { partialFilterExpression: { 'relay.fideIds': { $exists: true } } },
 );
+db.title_request.createIndex({ userId: 1 });
+db.title_request.createIndex({ 'history.0.status.n': 1, 'history.0.at': 1 });
