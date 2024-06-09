@@ -11,9 +11,9 @@ import lila.mod.ModActivity.{ Period, Who }
 import lila.core.perf.UserWithPerfs
 import play.api.libs.json.Json
 
-final class ModUi(helpers: Helpers)(
-    isChatPanic: () => Boolean
-):
+case class PendingCounts(streamers: Int, appeals: Int, titles: Int)
+
+final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
   import helpers.{ *, given }
 
   def impersonate(user: User)(using Translate) =

@@ -300,6 +300,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def getRoles[U: UserIdOf](u: U): Fu[List[String]] =
     coll.primitiveOne[List[String]]($id(u), BSONFields.roles).dmap(_.orZero)
 
+  def addPermission(id: UserId, perm: lila.core.perm.Permission): Funit =
+    coll.update.one($id(id), $push(F.roles -> perm.dbKey)).void
+
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 
   def setupTwoFactor(id: UserId, totp: TotpSecret): Funit =

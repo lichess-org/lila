@@ -224,7 +224,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             ),
             p(
               trf.showYourTitle(
-                a(href := routes.Main.verifyTitle)(trf.verificationForm()),
+                a(href := routes.TitleVerify.index)(trf.verificationForm()),
                 a(href := "#lm")("Lichess Master (LM)")
               )
             )
