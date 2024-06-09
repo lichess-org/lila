@@ -111,7 +111,17 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
         data =>
           for
             req <- api.process(req, data)
-            _   <- req.approved.so(modC.doSetTitle(req.userId, req.data.title.some))
+            _   <- req.approved.so(onApproved(req))
           yield Redirect(routes.TitleVerify.show(req.id)).flashSuccess
       )
   }
+
+  private def onApproved(req: TitleRequest)(using Context, Me) =
+    for
+      user <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
+      _    <- modC.doSetTitle(user.id, req.data.title.some)
+      _ <- req.data.coach.so:
+        env.user.repo.addPermission(user.id, lila.core.perm.Permission.Coach)
+      _ <- req.data.coach.so:
+        env.mailer.automaticEmail.onBecomeCoach(user)
+    yield ()

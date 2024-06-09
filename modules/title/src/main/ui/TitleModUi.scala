@@ -59,6 +59,8 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
             table(cls := "slist")(
               tr(th("Status"), td(showStatus(req.status))),
               tr(th("Requested title"), td(userTitleTag(req.data.title))),
+              tr(th("Public"), td(if req.data.public then goodTag("Yes") else badTag("No"))),
+              tr(th("Coach"), td(if req.data.coach then goodTag("Yes") else badTag("No"))),
               tr(th("Real name"), td(req.data.realName)),
               tr(
                 th("FIDE profile"),
