@@ -12,6 +12,7 @@ $(function () {
       var dests = new Map();
       for (var k in destsJson) dests.set(k, destsJson[k].match(/.{2}/g));
       sg.set({
+        activeColor: sg.state.orientation,
         turnColor: sg.state.orientation,
         movable: {
           free: false,
