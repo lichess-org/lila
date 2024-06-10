@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="26mm"
-   height="30mm"
-   viewBox="0 0 26 30"
+   width="30mm"
+   height="34mm"
+   viewBox="0 0 30 34"
    version="1.1"
    id="svg1"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -33,9 +33,9 @@
     </clipPath>
     <linearGradient
        xlink:href="#linearGradient22"
-       id="linearGradient30"
+       id="linearGradient54"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-5034.3301,-212.60334)"
+       gradientTransform="translate(-2279.0557,-212.60334)"
        x1="289.06915"
        y1="220.19536"
        x2="289.06967"
@@ -47,9 +47,9 @@
     <g
        id="path68"
        clip-path="url(#clipPath1306)"
-       transform="matrix(-0.35277776,0,0,0.35277776,976.97698,25.799674)">
+       transform="matrix(-0.35277776,0,0,0.35277776,978.97698,27.799674)">
       <path
-         style="color:#000000;fill:url(#linearGradient30);stroke-miterlimit:10;-inkscape-stroke:none"
+         style="color:#000000;fill:url(#linearGradient54);stroke-miterlimit:10;-inkscape-stroke:none"
          d="m 0,0 -22.28,7.578 c -0.3,0.102 -0.625,0.102 -0.924,0 L -45.484,0 c -0.502,-0.171 -0.868,-0.604 -0.949,-1.125 l -10.308,-66.12 c -0.134,-0.86 0.535,-1.636 1.411,-1.636 h 32.588 32.588 c 0.875,0 1.545,0.776 1.41,1.636 L 0.948,-1.125 C 0.867,-0.604 0.502,-0.171 0,0"
          id="path91" />
       <path
@@ -59,29 +59,24 @@
     </g>
     <path
        style="stroke-width:0.352777"
-       d="m -988.17482,-22.956092 v -0.727605 h 6.41615 v 0.727605 h -2.87735 v 2.017449 h 2.51355 v 0.760677 h -2.51355 v 2.282032 h 3.34037 v 0.79375 h -7.40834 v -0.79375 h 3.27422 v -2.282032 h -2.38125 v -0.760677 h 2.38125 v -2.017449 z"
+       d="m 990.17482,24.956092 v 0.727605 h -6.41615 v -0.727605 h 2.87735 v -2.017449 h -2.51355 v -0.760677 h 2.51355 v -2.282032 h -3.34037 v -0.79375 h 7.40834 v 0.79375 h -3.27422 v 2.282032 h 2.38125 v 0.760677 h -2.38125 v 2.017449 z"
        id="text68"
-       transform="scale(-1)"
        aria-label="王" />
     <path
-       style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
-       d="M -0.63867187,0 V 25.511719 H 0.63867187 V 0 Z"
-       id="path69"
-       transform="matrix(-0.35277776,0,0,0.35277776,984.99988,4.5000289)" />
+       style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
+       d="m 987.22519,6.5000283 v 8.9999677 h -0.45062 V 6.5000283 Z"
+       id="path69" />
     <path
-       style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
-       d="M -25.511719,-0.63867187 V 0.63867187 H 0 v -1.27734374 z"
-       id="path70"
-       transform="matrix(-0.35277776,0,0,0.35277776,980.49989,9.0000349)" />
+       style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
+       d="m 991.49986,10.774725 v 0.450619 h -8.99997 v -0.450619 z"
+       id="path70" />
     <path
-       style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
-       d="M -0.45117188,-0.45117188 -18.490234,17.587891 -17.589844,18.490234 0.45117188,0.45117188 Z"
-       id="path71"
-       transform="matrix(-0.35277776,0,0,0.35277776,981.81793,5.8180499)" />
+       style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
+       d="m 983.97709,7.6588859 6.36378,6.3637801 -0.31764,0.318327 -6.36446,-6.3637803 z"
+       id="path71" />
     <path
-       style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
-       d="m -17.589844,-18.490234 -0.90039,0.902343 18.03906212,18.03906288 0.90234376,-0.90234376 z"
-       id="path72"
-       transform="matrix(-0.35277776,0,0,0.35277776,981.81793,12.181994)" />
+       style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
+       d="m 990.02323,7.65905 0.31764,0.3183266 -6.36378,6.3637804 -0.31832,-0.318327 z"
+       id="path72" />
   </g>
 </svg>

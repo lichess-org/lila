@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="26mm"
-   height="30mm"
-   viewBox="0 0 26 30"
+   width="30mm"
+   height="34mm"
+   viewBox="0 0 30 34"
    version="1.1"
    id="svg1"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -33,9 +33,9 @@
     </clipPath>
     <linearGradient
        xlink:href="#linearGradient22"
-       id="linearGradient29"
+       id="linearGradient55"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(374.17219,-212.60334)"
+       gradientTransform="translate(-2279.0557,-212.60334)"
        x1="289.06915"
        y1="220.19536"
        x2="289.06967"
@@ -47,9 +47,9 @@
     <g
        id="path1305"
        clip-path="url(#clipPath1306)"
-       transform="matrix(0.35277776,0,0,-0.35277776,957.023,4.2003262)">
+       transform="matrix(0.35277776,0,0,-0.35277776,959.0232,6.2004563)">
       <path
-         style="color:#000000;fill:url(#linearGradient29);stroke-miterlimit:10;-inkscape-stroke:none"
+         style="color:#000000;fill:url(#linearGradient55);stroke-miterlimit:10;-inkscape-stroke:none"
          d="m 0,0 -22.28,7.578 c -0.3,0.102 -0.625,0.102 -0.924,0 L -45.484,0 c -0.502,-0.171 -0.868,-0.604 -0.949,-1.125 l -10.308,-66.12 c -0.134,-0.86 0.535,-1.636 1.411,-1.636 h 32.588 32.588 c 0.875,0 1.545,0.776 1.41,1.636 L 0.948,-1.125 C 0.867,-0.604 0.502,-0.171 0,0"
          id="path93" />
       <path
@@ -59,28 +59,24 @@
     </g>
     <path
        style="stroke-width:0.352777"
-       d="M 945.82518,7.0439079 V 6.3163034 h 6.41615 v 0.7276045 h -2.87735 v 2.0174487 h 2.51355 V 9.822034 h -2.51355 v 2.282032 h 3.34037 v 0.79375 h -7.40834 v -0.79375 h 3.27422 V 9.822034 h -2.38125 V 9.0613566 h 2.38125 V 7.0439079 Z"
+       d="M 947.82538,9.044038 V 8.3164335 h 6.41615 V 9.044038 h -2.87735 v 2.017449 h 2.51355 v 0.760677 h -2.51355 v 2.282032 h 3.34037 v 0.79375 h -7.40834 v -0.79375 h 3.27422 v -2.282032 h -2.38125 v -0.760677 h 2.38125 V 9.044038 Z"
        id="text1306"
        aria-label="王" />
     <path
-       style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
-       d="M -0.63867187,0 V 25.511719 H 0.63867187 V 0 Z"
-       id="path1307"
-       transform="matrix(0.35277776,0,0,-0.35277776,949.0001,25.499971)" />
+       style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
+       d="m 950.77499,27.500101 v -8.999967 h 0.45062 v 8.999967 z"
+       id="path1307" />
     <path
-       style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
-       d="M -25.511719,-0.63867187 V 0.63867187 H 0 v -1.27734374 z"
-       id="path1309"
-       transform="matrix(0.35277776,0,0,-0.35277776,953.50009,20.999965)" />
+       style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
+       d="m 946.50032,23.225404 v -0.450618 h 8.99997 v 0.450618 z"
+       id="path1309" />
     <path
-       style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
-       d="M -0.45117188,-0.45117188 -18.490234,17.587891 -17.589844,18.490234 0.45117188,0.45117188 Z"
-       id="path1311"
-       transform="matrix(0.35277776,0,0,-0.35277776,952.18205,24.18195)" />
+       style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
+       d="m 954.02309,26.341243 -6.36378,-6.36378 0.31764,-0.318326 6.36446,6.36378 z"
+       id="path1311" />
     <path
-       style="color:#000000;fill:#000000;stroke-miterlimit:10;-inkscape-stroke:none"
-       d="m -17.589844,-18.490234 -0.90039,0.902343 18.03906212,18.03906288 0.90234376,-0.90234376 z"
-       id="path1313"
-       transform="matrix(0.35277776,0,0,-0.35277776,952.18205,17.818006)" />
+       style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
+       d="m 947.97695,26.341079 -0.31764,-0.318326 6.36378,-6.36378 0.31832,0.318326 z"
+       id="path1313" />
   </g>
 </svg>
