@@ -57,7 +57,7 @@ object account:
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.csp,
-  translations = userAnalysisI18n.vector(),
+  translations = userAnalysisI18n.vector() ++ views.study.bits.gamebookPlayKeys,
   board.explorerAndCevalConfig,
   modMenu = mod.ui.menu("practice")
 )
