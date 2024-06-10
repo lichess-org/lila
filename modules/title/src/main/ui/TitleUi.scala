@@ -70,7 +70,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           "selfie",
           name = "Your picture",
           help = frag(
-            """A picture of yourself holding up a piece of paper with today's date and "lichess.org" written on it"""
+            """A picture of yourself holding up a piece of paper, with today's date and your Lichess username written on it."""
           )
         )
       ),
