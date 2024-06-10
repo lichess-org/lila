@@ -47,7 +47,10 @@ object Condition:
       trans.site.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
 
   case class AccountAge(days: Days) extends Condition:
-    def name(perf: PerfType)(using Translate): String = s"${days.value} days old account"
+    def name(perf: PerfType)(using Translate): String =
+      if days < 30 then s"${days.value} days old account"
+      else if days < 365 then s"${days.value / 30} months old account"
+      else s"${days.value / 365} years old account"
     def apply(using getAge: GetAge)(using Me, Executor): Fu[Verdict] =
       if summon[Me].title.isDefined then fuccess(Accepted)
       else
