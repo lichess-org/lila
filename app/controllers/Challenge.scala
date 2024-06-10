@@ -11,6 +11,8 @@ import lila.game.{ AnonCookie }
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 import lila.core.socket.SocketVersion
+import lila.challenge.Direction
+import lila.common.Json.given
 
 final class Challenge(
     env: Env,
@@ -38,7 +40,18 @@ final class Challenge(
     showId(id)
 
   def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read) { _ ?=> _ ?=>
-    showId(id)
+    Found(api.byId(id)): c =>
+      val direction: Option[Direction] =
+        if isMine(c) then Direction.Out.some
+        else if isForMe(c) then Direction.In.some
+        else none
+      direction.so: dir =>
+        val json = env.challenge.jsonView(dir.some)(c)
+        c.accepted
+          .so:
+            env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir))
+          .map: fullId =>
+            JsonOk(json.add("fullId", fullId))
   }
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
@@ -53,7 +66,6 @@ final class Challenge(
       .version(c.id)
       .flatMap { version =>
         val mine = justCreated || isMine(c)
-        import lila.challenge.Direction
         val direction: Option[Direction] =
           if mine then Direction.Out.some
           else if isForMe(c) then Direction.In.some
