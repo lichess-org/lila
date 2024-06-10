@@ -112,7 +112,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
             req  <- api.process(req, data)
             _    <- req.approved.so(onApproved(req))
             next <- api.queue(1).map(_.headOption)
-          yield Redirect(routes.TitleVerify.show((next | req).id)).flashSuccess
+          yield Redirect(next.fold(routes.TitleVerify.queue)(r => routes.TitleVerify.show(r.id))).flashSuccess
       )
   }
 
