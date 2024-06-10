@@ -32,7 +32,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
   private val updatedAtField                      = "history.0.at"
 
   def getCurrent(using me: Me): Fu[Option[TitleRequest]] =
-    coll.one[TitleRequest]($doc("userId" -> me.userId))
+    coll.find($doc("userId" -> me.userId)).sort($sort.desc(updatedAtField)).one[TitleRequest]
 
   def getForMe(id: TitleRequestId)(using me: Me): Fu[Option[TitleRequest]] =
     coll

@@ -149,7 +149,9 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
       ),
       form3.split(
         form3.checkbox(
-          form("public").copy(value = "true".some),
+          if form("public").value.isDefined || form.hasErrors
+          then form("public")
+          else form("public").copy(value = "true".some),
           frag("Publish my title"),
           help = frag(
             "Recommended. Your title is visible on your profile page. Your real name is NOT published."
