@@ -32,8 +32,11 @@ $section-margin-more: 5vh;
     @include breakpoint($mq-small) {
       display: flex;
       &__col1 {
-        flex: 0 0 30%;
+        flex: 0 0 35%;
         margin-right: var(--box-padding);
+      }
+      &__col2 {
+        flex: 1;
       }
     }
   }
