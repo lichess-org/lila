@@ -37,6 +37,10 @@ final class Challenge(
   def show(id: ChallengeId, _color: Option[Color]) = Open:
     showId(id)
 
+  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read) { _ ?=> _ ?=>
+    showId(id)
+  }
+
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
     Found(api.byId(id))(showChallenge(_))
 
