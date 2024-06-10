@@ -25,11 +25,12 @@
   padding: 0.3em 0.7em;
   background: $c-accent;
   color: white;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   text-transform: uppercase;
   &--building {
     background: $c-bg-zebra;
+    color: $c-font;
   }
   &--approved {
     background: $c-good;
