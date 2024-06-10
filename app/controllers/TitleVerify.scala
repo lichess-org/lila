@@ -95,7 +95,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
         case None => api.image.delete(req, tag) >> Ok
   }
 
-  def queue = Secure(_.SetTitle) { ctx ?=> me ?=>
+  def queue = Secure(_.TitleRequest) { ctx ?=> me ?=>
     for
       reqs              <- api.queue(30)
       (scores, pending) <- reportC.getScores
@@ -103,7 +103,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
     yield Ok(page)
   }
 
-  def process(id: TitleRequestId) = SecureBody(_.SetTitle) { ctx ?=> me ?=>
+  def process(id: TitleRequestId) = SecureBody(_.TitleRequest) { ctx ?=> me ?=>
     Found(api.getForMe(id)): req =>
       bindForm(env.title.form.process)(
         err => Redirect(routes.TitleVerify.show(req.id)).flashFailure(err.toString),
@@ -112,14 +112,14 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
             req  <- api.process(req, data)
             _    <- req.approved.so(onApproved(req))
             next <- api.queue(1).map(_.headOption)
-          yield Redirect(routes.TitleVerify.show((next | req).id)).flashSuccess
+          yield Redirect(next.fold(routes.TitleVerify.queue)(r => routes.TitleVerify.show(r.id))).flashSuccess
       )
   }
 
   private def onApproved(req: TitleRequest)(using Context, Me) =
     for
       user <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
-      _    <- modC.doSetTitle(user.id, req.data.title.some)
+      _    <- modC.doSetTitle(user.id, req.data.title.some, req.data.public)
       url  = s"${env.net.baseUrl}${routes.TitleVerify.show(req.id)}"
       note = s"Title verified: ${req.data.title}. Public: ${if req.data.public then "Yes" else "No"}. $url"
       _ <- env.user.noteApi.write(user.id, note, modOnly = true, dox = false)

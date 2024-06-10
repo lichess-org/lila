@@ -8,6 +8,8 @@ import lila.core.history.HistoryApi
 import lila.core.team.LightTeam
 
 import lila.rating.PerfType
+import lila.core.user.UserApi
+import scalalib.model.Days
 
 object TournamentCondition:
 
@@ -17,21 +19,24 @@ object TournamentCondition:
       minRating: Option[MinRating],
       titled: Option[Titled.type],
       teamMember: Option[TeamMember],
+      accountAge: Option[AccountAge],
       allowList: Option[AllowList]
-  ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, teamMember, allowList)):
+  ) extends ConditionList(List(nbRatedGame, maxRating, minRating, titled, teamMember, accountAge, allowList)):
 
     def withVerdicts(perfType: PerfType)(using
         Me,
         Perf,
         Executor,
         GetMaxRating,
-        GetMyTeamIds
+        GetMyTeamIds,
+        GetAge
     ): Fu[WithVerdicts] =
       list
         .parallel:
           case c: MaxRating  => c(perfType).map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
+          case c: AccountAge => c.apply.map { c.withVerdict(_) }
         .dmap(WithVerdicts.apply)
 
     def withRejoinVerdicts(using
@@ -57,7 +62,7 @@ object TournamentCondition:
           prev.allowList.so(_.userIds.diff(current))
 
   object All:
-    val empty             = All(none, none, none, none, none, none)
+    val empty             = All(none, none, none, none, none, none, none)
     given zero: Zero[All] = Zero(empty)
 
   object form:
@@ -70,13 +75,15 @@ object TournamentCondition:
         "minRating"   -> minRating,
         "titled"      -> titled,
         "teamMember"  -> teamMember(leaderTeams),
+        "accountAge"  -> accountAge,
         "allowList"   -> allowList
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
-  final class Verify(historyApi: HistoryApi)(using Executor):
+  final class Verify(historyApi: HistoryApi, userApi: UserApi)(using Executor):
 
     def apply(all: All, perfType: PerfType)(using me: Me)(using GetMyTeamIds, Perf): Fu[WithVerdicts] =
       given GetMaxRating = historyApi.lastWeekTopRating(me.userId, _)
+      given GetAge       = me => userApi.accountAge(me.userId)
       all.withVerdicts(perfType)
 
     def rejoin(all: All)(using Me)(using GetMyTeamIds): Fu[WithVerdicts] =

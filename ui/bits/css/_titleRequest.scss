@@ -49,19 +49,19 @@
   background: $c-bg-zebra;
   font-size: 1.2em;
 
-  &::before {
-    @extend %data-icon;
-
-    content: $licon-InfoCircle;
+  .icon-flair {
     @include margin-inline-end(2rem);
-    font-size: 3em;
+    max-height: 60px;
+  }
+  h2 {
+    margin-bottom: 1rem;
   }
 }
 
 .title-mod .mod-zone {
   margin: 0;
 }
-.title-mod > .mod-zone {
+.title-mod > .mz-section {
   max-height: 250px;
 }
 

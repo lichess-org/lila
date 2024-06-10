@@ -99,13 +99,15 @@ def layout(filter: String, scores: Room.Scores, pending: PendingCounts)(using
           div(cls := "header")(
             i(cls := "icon"),
             span(cls := "tabs")(
-              a(
-                href := routes.Report.listWithFilter("all"),
-                cls  := List("active" -> (filter == "all"))
-              )(
-                "All",
-                scoreTag(scores.highest)
-              ),
+              isGranted(_.SeeReport).option:
+                a(
+                  href := routes.Report.listWithFilter("all"),
+                  cls  := List("active" -> (filter == "all"))
+                )(
+                  "All",
+                  scoreTag(scores.highest)
+                )
+              ,
               ctx.me.soUse {
                 Room.values
                   .filter(Room.isGranted)

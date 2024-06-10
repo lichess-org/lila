@@ -4,7 +4,9 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import reactivemongo.api.bson.collection.BSONCollection
 import play.api.i18n.Lang
+import play.api.libs.json.JsObject
 import _root_.chess.{ ByColor, PlayerTitle }
+import scalalib.model.Days
 
 import lila.core.perf.Perf
 import lila.core.rating.data.{ IntRating, IntRatingDiff }
@@ -13,7 +15,6 @@ import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
 import lila.core.rating.Glicko
-import play.api.libs.json.JsObject
 import lila.core.perf.KeyedPerf
 
 object user:
@@ -220,6 +221,7 @@ object user:
     def setPlan(user: User, plan: Option[Plan]): Funit
     def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]]
     def isCreatedSince(id: UserId, since: Instant): Fu[Boolean]
+    def accountAge(id: UserId): Fu[Days]
 
   trait LightUserApiMinimal:
     val async: LightUser.Getter
