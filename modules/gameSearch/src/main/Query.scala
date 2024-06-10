@@ -26,7 +26,6 @@ case class Query(
     rated: Option[Boolean] = None,
     date: Range[LocalDate] = Range.none,
     duration: Range[Int] = Range.none,
-    clock: Clocking = Clocking(),
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None,
     whiteUser: Option[UserId] = None,
@@ -53,7 +52,6 @@ case class Query(
       rated.nonEmpty ||
       date.nonEmpty ||
       duration.nonEmpty ||
-      clock.nonEmpty ||
       analysed.nonEmpty ||
       clockInit.nonEmpty ||
       clockInc.nonEmpty
@@ -75,7 +73,6 @@ case class Query(
       rated = rated,
       date = transform(date).some,
       duration = transform(duration).some,
-      clock = transform(clock).some,
       sorting = transform(sorting).some,
       analysed = analysed,
       whiteUser = whiteUser.map(_.value),
@@ -87,12 +84,6 @@ case class Query(
   def transform(r: Range[Int]): IntRange        = IntRange(r.a, r.b)
   def transform(r: Range[LocalDate]): DateRange = DateRange(r.a.map(transform), r.b.map(transform))
   def transform(l: LocalDate): Timestamp        = Timestamp(l.getYear, l.getMonthValue, l.getDayOfMonth)
-  def transform(c: Clocking): SpecClocking = SpecClocking(
-    initMin = c.initMin,
-    initMax = c.initMax,
-    incMin = c.incMin,
-    incMax = c.incMax
-  )
 
   def transform(s: Sorting): SpecSorting = SpecSorting(
     f = s.f,
