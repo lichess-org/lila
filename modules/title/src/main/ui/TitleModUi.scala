@@ -23,7 +23,9 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
       )
     )
 
-  def show(req: TitleRequest, user: User, fide: Option[Frag], modZone: Frag)(using Context) =
+  def show(req: TitleRequest, user: User, fide: Option[Frag], similar: List[TitleRequest], modZone: Frag)(
+      using Context
+  ) =
     def picture(id: ImageId) = a(href := ui.thumbnail.raw(id))(ui.thumbnail(id.some, 500))
     Page(s"${user.username}'s title verification")
       .css("bits.titleRequest")
@@ -51,6 +53,18 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
                   td(momentFromNow(h.at)),
                   td(showStatus(h.status)),
                   td(h.status.textOpt)
+                )
+            )
+          ),
+          div(cls := "title-mod__similar")(
+            h2("Similar requests"),
+            table(cls := "slist")(
+              similar.map: r =>
+                tr(
+                  td(userIdLink(r.userId.some, params = "?mod")),
+                  td(userTitleTag(r.data.title), " ", r.data.realName),
+                  td(showStatus(r.status), nbsp, momentFromNow(r.history.head.at)),
+                  td(a(href := routes.TitleVerify.show(r.id), cls := "button button-empty")("View request"))
                 )
             )
           ),

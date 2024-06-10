@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import lila.app.{ *, given }
 import lila.title.TitleRequest
 import lila.core.id.{ TitleRequestId, CmsPageKey }
+import org.checkerframework.checker.units.qual.s
 
 final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC: => User, modC: => Mod)
     extends LilaController(env):
@@ -40,8 +41,9 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
       then Ok.async(ui.edit(env.title.form.edit(req.data), req))
       else
         for
-          data <- getModData(req)
-          page <- renderPage(views.title.mod.show(req, data))
+          data    <- getModData(req)
+          similar <- api.findSimilar(req)
+          page    <- renderPage(views.title.mod.show(req, similar, data))
         yield Ok(page)
   }
 

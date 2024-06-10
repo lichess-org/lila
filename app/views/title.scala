@@ -16,7 +16,7 @@ object mod:
     views.report.layout("title", scores, pending):
       modUi.queue(reqs)
 
-  def show(req: TitleRequest, data: ModData)(using Context)(using me: Me) =
+  def show(req: TitleRequest, similar: List[TitleRequest], data: ModData)(using Context)(using me: Me) =
     val modZone =
       given RenderIp = data.renderIp
       frag(
@@ -36,7 +36,7 @@ object mod:
         ),
         p(player.ratingsStr)
       )
-    modUi.show(req, data.user, fide, modZone)
+    modUi.show(req, data.user, fide, similar, modZone)
 
   case class ModData(
       mod: Me,

@@ -40,6 +40,18 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
       .map:
         _.filter(_.userId.is(me) || Granter(_.SetTitle))
 
+  def findSimilar(req: TitleRequest): Fu[List[TitleRequest]] =
+    val search = List(
+      ("data.realName" -> BSONString(req.data.realName)).some,
+      req.data.fideId.map(id => "data.fideId" -> BSONInteger(id.value))
+    ).flatten.map: (k, v) =>
+      $doc(k -> v)
+    coll
+      .find($or(search*) ++ $doc("userId".$ne(req.userId), statusField -> $nin(Status.building)))
+      .sort($sort.desc(updatedAtField))
+      .cursor[TitleRequest]()
+      .list(30)
+
   def create(data: FormData)(using me: Me): Fu[TitleRequest] =
     val req = TitleRequest.make(me.userId, data)
     coll.insert.one(req).inject(req)
