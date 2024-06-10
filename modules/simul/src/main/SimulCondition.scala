@@ -12,7 +12,8 @@ object SimulCondition:
   case class All(
       maxRating: Option[MaxRating],
       minRating: Option[MinRating],
-      teamMember: Option[TeamMember]
+      teamMember: Option[TeamMember],
+      accountAge: Option[AccountAge]
   ) extends ConditionList(List(maxRating, minRating, teamMember)):
 
     def withVerdicts(pt: PerfType)(using Me, Perf, GetMyTeamIds, GetMaxRating, Executor): Fu[WithVerdicts] =
@@ -24,16 +25,17 @@ object SimulCondition:
         .dmap(WithVerdicts.apply)
 
   object All:
-    val empty = All(none, none, none)
+    val empty = All(None, None, None, None)
 
   object form:
     import play.api.data.Forms.*
     import lila.gathering.ConditionForm.*
     def all(leaderTeams: List[LightTeam]) =
       mapping(
-        "maxRating" -> maxRating,
-        "minRating" -> minRating,
-        "team"      -> teamMember(leaderTeams)
+        "maxRating"  -> maxRating,
+        "minRating"  -> minRating,
+        "team"       -> teamMember(leaderTeams),
+        "accountAge" -> accountAge
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   import reactivemongo.api.bson.*
