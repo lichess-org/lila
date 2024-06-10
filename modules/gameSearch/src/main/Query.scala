@@ -30,7 +30,9 @@ case class Query(
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None,
     whiteUser: Option[UserId] = None,
-    blackUser: Option[UserId] = None
+    blackUser: Option[UserId] = None,
+    clockInit: Option[Int] = None,
+    clockInc: Option[Int] = None
 ):
 
   def userIds: Set[UserId] = Set(user1, user2, winner, loser, whiteUser, blackUser).flatten
@@ -52,7 +54,9 @@ case class Query(
       date.nonEmpty ||
       duration.nonEmpty ||
       clock.nonEmpty ||
-      analysed.nonEmpty
+      analysed.nonEmpty ||
+      clockInit.nonEmpty ||
+      clockInc.nonEmpty
 
   def transform: lila.search.spec.Query.Game =
     lila.search.spec.Query.game(
@@ -75,7 +79,9 @@ case class Query(
       sorting = transform(sorting).some,
       analysed = analysed,
       whiteUser = whiteUser.map(_.value),
-      blackUser = blackUser.map(_.value)
+      blackUser = blackUser.map(_.value),
+      clockInit = clockInit,
+      clockInc = clockInc
     )
 
   def transform(r: Range[Int]): IntRange        = IntRange(r.a, r.b)

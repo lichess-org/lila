@@ -104,7 +104,9 @@ private[gameSearch] case class SearchData(
       analysed = analysed.map(_ == 1),
       whiteUser = players.cleanWhite,
       blackUser = players.cleanBlack,
-      sorting = Sorting(sortOrDefault.field, sortOrDefault.order)
+      sorting = Sorting(sortOrDefault.field, sortOrDefault.order),
+      clockInit = none,
+      clockInc = none
     )
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
