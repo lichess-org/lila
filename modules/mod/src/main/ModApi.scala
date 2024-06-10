@@ -137,8 +137,10 @@ final class ModApi(
     withUser(username): user =>
       title match
         case None =>
-          (userRepo.removeTitle(user.id) >>
-            logApi.removeTitle(user.id)).andDo(lightUserApi.invalidate(user.id))
+          for
+            _ <- userRepo.removeTitle(user.id)
+            _ <- logApi.removeTitle(user.id)
+          yield lightUserApi.invalidate(user.id)
         case Some(t) =>
           PlayerTitle.names.get(t).so { tFull =>
             for
