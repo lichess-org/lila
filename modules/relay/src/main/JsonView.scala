@@ -64,13 +64,14 @@ final class JsonView(
       .add("teamTable" -> tour.teamTable)
       .add("leaderboard" -> tour.autoLeaderboard)
 
-  def fullTourWithRounds(trs: WithRounds): JsObject =
+  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours]): JsObject =
     Json
       .obj(
         "tour" -> fullTour(trs.tour),
         "rounds" -> trs.rounds.map: round =>
           withUrl(round.withTour(trs.tour), withTour = false)
       )
+      .add("group" -> group)
 
   def apply(t: RelayTour | WithLastRound | ActiveWithSomeRounds): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
@@ -127,9 +128,8 @@ final class JsonView(
       pinned: Option[(UserId, String, Option[ImageId])]
   ) =
     JsonView.JsData(
-      relay = fullTourWithRounds(trs)
+      relay = fullTourWithRounds(trs, group)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
-        .add("group" -> group)
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
         .add("pinned" -> pinned.map: (id, name, image) =>

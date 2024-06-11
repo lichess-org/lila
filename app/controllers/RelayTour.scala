@@ -91,7 +91,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
             env.relay.api.tourCreate(setup).flatMap { tour =>
               negotiate(
                 Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
-                JsonOk(env.relay.jsonView.fullTourWithRounds(tour.withRounds(Nil)))
+                JsonOk(env.relay.jsonView.fullTourWithRounds(tour.withRounds(Nil), group = none))
               )
             }
       )
@@ -174,10 +174,10 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiShow(id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
-      env.relay.api
-        .withRounds(tour)
-        .map: trs =>
-          Ok(env.relay.jsonView.fullTourWithRounds(trs))
+      for
+        trs   <- env.relay.api.withRounds(tour)
+        group <- env.relay.api.withTours.get(tour.id)
+      yield Ok(env.relay.jsonView.fullTourWithRounds(trs, group))
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>

@@ -55,4 +55,4 @@ final class RelayTourStream(
           .toList
       .throttle(perSecond.value, 1 second)
       .take(nb.value)
-      .map(jsonView.fullTourWithRounds(_))
+      .map(jsonView.fullTourWithRounds(_, group = none))
