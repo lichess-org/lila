@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Tes 30 segundos para marcar correctamente tantas casas do taboleiro como sexa posible!</string>
   <string name="goAsLongAsYouWant">Tes o tempo que queiras, non hai límite de tempo!</string>
   <string name="showCoordinates">Amosar as coordenadas</string>
+  <string name="showCoordsOnAllSquares">Coordenadas en cada casa</string>
   <string name="showPieces">Amosar as pezas</string>
   <string name="startTraining">Comezar adestramento</string>
   <string name="findSquare">Buscar a casa</string>
