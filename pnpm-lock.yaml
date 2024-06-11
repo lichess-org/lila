@@ -4518,7 +4518,7 @@ snapshots:
   lichess-pgn-viewer@2.1.0:
     dependencies:
       '@types/node': 20.12.2
-      chessground: 9.0.5
+      chessground: 9.1.1
       chessops: 0.12.7
       snabbdom: 3.5.1
 
