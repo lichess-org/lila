@@ -181,7 +181,7 @@ final class RelationUi(helpers: Helpers):
 
   private def page(title: String)(using Context) =
     Page(title)
-      .css("relation")
+      .css("bits.relation")
       .js(infiniteScrollEsmInit)
       .wrap: body =>
         main(cls := "box page-small")(body)
@@ -196,6 +196,8 @@ final class RelationUi(helpers: Helpers):
               td(userLink(r.user)),
               ctx.pref.showRatings.option(td(showBestPerf(r.user.perfs))),
               td(trans.site.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
+              td(r.user.seenAt.map: seen =>
+                trans.site.lastSeenActive(momentFromNow(seen))),
               td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             ),
           pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))

@@ -65,19 +65,6 @@ export function boot() {
       return false;
     });
 
-    $('.mselect .button').on('click', function (this: HTMLElement) {
-      const $p = $(this).parent();
-      $p.toggleClass('shown');
-      requestIdleCallback(() => {
-        const handler = (e: Event) => {
-          if ($p[0]!.contains(e.target as HTMLElement)) return;
-          $p.removeClass('shown');
-          $('html').off('click', handler);
-        };
-        $('html').on('click', handler);
-      }, 200);
-    });
-
     powertip.watchMouse();
 
     setTimeout(() => {

@@ -4,6 +4,7 @@ import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
 import PuzzleCtrl from './ctrl';
 import { FEN } from 'chessground/types';
+import { ExternalEngineInfo } from 'ceval';
 
 export type PuzzleId = string;
 
@@ -36,6 +37,7 @@ export interface PuzzleOpts {
     static: string;
   };
   showRatings: boolean;
+  externalEngineEndpoint: string;
 }
 
 export interface PuzzlePrefs {
@@ -71,6 +73,7 @@ export interface PuzzleData {
   user: PuzzleUser | undefined;
   replay?: PuzzleReplay;
   streak?: string;
+  externalEngines?: ExternalEngineInfo[];
 }
 
 export interface PuzzleReplay {

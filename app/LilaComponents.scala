@@ -119,6 +119,7 @@ final class LilaComponents(
   lazy val forumPost: ForumPost           = wire[ForumPost]
   lazy val forumTopic: ForumTopic         = wire[ForumTopic]
   lazy val game: Game                     = wire[Game]
+  lazy val github: Github                 = wire[Github]
   lazy val i18n: I18n                     = wire[I18n]
   lazy val importer: Importer             = wire[Importer]
   lazy val insight: Insight               = wire[Insight]
@@ -167,6 +168,7 @@ final class LilaComponents(
   lazy val opening: Opening               = wire[Opening]
   lazy val cms: Cms                       = wire[Cms]
   lazy val fide: Fide                     = wire[Fide]
+  lazy val titleVerify: TitleVerify       = wire[TitleVerify]
 
   // eagerly wire up all controllers
   private val appealRouter: _root_.router.appeal.Routes = wire[_root_.router.appeal.Routes]

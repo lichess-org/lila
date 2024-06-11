@@ -18,6 +18,7 @@ object ConditionHandlers:
     given BSONDocumentHandler[MaxRating]   = Macros.handler
     given BSONDocumentHandler[MinRating]   = Macros.handler
     given BSONHandler[Titled.type]         = ifPresentHandler(Titled)
+    given BSONHandler[AccountAge]          = Macros.handler
     given BSONDocumentHandler[TeamMember]  = Macros.handler
     given BSONDocumentHandler[AllowList]   = Macros.handler
 

@@ -166,4 +166,13 @@ Nous affichons l\'icône rouge pour vous avertir lorsque cela se produit. Souven
 3. Cliquez sur Cookies et Autorisations du site
 4. Faites défiler la page vers le bas et cliquez sur Lecture automatique du support
 5. Ajoutez lichess.org pour autoriser</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Devrais-je arrêter de jouer?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">problème de santé mentale distinct</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">styles utilisateur de Lichess</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">moins d\'options d\'appariement rapide</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Dépendance au jeu – Des utilisateurs nous demandent régulièrement de les aider à moins jouer.
+
+Lichess ne suspend ou ne bloque un compte d\'utilisateur qu\'en cas de violation des conditions d\'utilisation. Mais nous recommandons d\'utiliser des ressources externes pour limiter les problèmes de dépendance au jeu. Parmi les bloqueurs de site Web suggérés, il y a par exemple %1$s, %2$s, et %3$s. Vous souhaitez continuer d\'utiliser le site, mais voulez éviter les contrôles de temps rapides? Vous pourriez considérer les %4$s; par exemple celui-ci avec %5$s.
+
+Certains utilisateurs peuvent avoir l\'impression qu\'ils sont devenus des joueur compulsifs. En fait, l\'OMS classifie les troubles liés au jeu comme un %6$s, dont les caractéristiques essentielles sont : 1) une absence de contrôle, 2) une priorité croissante accordée au jeu, et 3) une tendance à jouer de plus en plus malgré des conséquences négatives. Si vous pensez être un joueur compulsif, nous vous encourageons à en parler avec un ami, un membre de votre famille ou un professionnel.</string>
 </resources>

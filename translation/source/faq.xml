@@ -166,4 +166,13 @@ We show the red icon to alert you when this happens. Often you can explicitly al
 3. Click Cookies and Site Permissions
 4. Scroll down and click Media autoplay
 5. Add lichess.org to Allow</string>
+<string name="stopMyselfFromPlaying">Stop myself from playing?</string>
+<string name="mentalHealthCondition">stand-alone mental health condition</string>
+<string name="lichessUserstyles">Lichess userstyles</string>
+<string name="fewerLobbyPools">fewer lobby pools</string>
+<string name="adviceOnMitigatingAddiction">We regularly receive messages from users asking us for help to stop them from playing too much.
+
+While Lichess doesn’t ban or block players except for Terms of Service violations, we recommend the use of external tools to limit excessive playing behavior. Some common suggestions for website blockers include %1$s, %2$s, and %3$s. If you want to keep using the site but not get tempted by fast time controls, you might also be interested in %4$s, here is one with %5$s.
+
+Some players may feel like their playing behavior is turning into an addiction. In fact, the WHO classifies gaming disorder as a %6$s, with essential features being 1) impaired control over gaming, 2) increasing priority given to gaming, and 3) escalation of gaming despite negative consequences. If you think that your chess playing behavior follows this pattern, we encourage you to speak about it with a friend or family member and/or with a professional.</string>
 </resources>

@@ -404,6 +404,7 @@
   <string name="toStudy">पढ़े</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
   <string name="importGameExplanation">जब एक खेल PGN चिपकाने आप एक ब्राउसेबल पुनरावृत्ति, एक कंप्यूटर विश्लेषण, एक खेल चैट और एक साझा यूआरएल मिलता है ।</string>
+  <string name="importGameCaveat">विविधताएं मिट जाएंगी. उन्हें रखने के लिए, एक अध्ययन के माध्यम से PGN आयात करें।</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s खेल आयत (इम्पोर्ट) किये गए</item>
     <item quantity="other">%s खेल आयत (इम्पोर्ट) किये गए</item>
@@ -505,6 +506,7 @@
   <string name="editProfile">प्रोफ़ाइल संपादित करें</string>
   <string name="firstName">प्रथम नाम</string>
   <string name="lastName">अंतिम नाम</string>
+  <string name="youCanHideFlair">संपूर्ण साइट पर सभी उपयोगकर्ता विशेषताओं को छिपाने के लिए एक सेटिंग है</string>
   <string name="biography">जीवनी</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
@@ -559,6 +561,7 @@
   <string name="blog">ब्लॉग</string>
   <string name="notes">टिप्पणियाँ</string>
   <string name="typePrivateNotesHere">निजी टिप्पणियाँ यहाँ लिखें</string>
+  <string name="noNoteYet">अभी तक कोई नोट नहीं</string>
   <string name="invalidUsernameOrPassword">अमान्य यूज़र का नाम या पासवर्ड</string>
   <string name="incorrectPassword">गलत पासवर्ड</string>
   <string name="invalidAuthenticationCode">अवैध प्रमाणीकरण कोड</string>
@@ -702,6 +705,7 @@
   <string name="yourPerfTypeRatingIsRating">आपकी %1$s रेटिंग %2$s है</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">आप %1$s खेलने वालो से बेहतर हो, %2$s मे</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेलने वालों से बेहतर है</string>
+  <string name="betterThanPercentPlayers">आप %1$s %2$s खिलाडी से बेहतर है</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपके पास स्थापित %s रेटिंग नहीं है</string>
   <string name="yourRating">आपकी रेटिंग</string>
   <string name="cumulative">संचयी</string>
@@ -728,6 +732,7 @@
   <string name="withFriends">दोस्तों के साथ</string>
   <string name="withEverybody">सभी के साथ</string>
   <string name="kidMode">बच्चा मोड</string>
+  <string name="kidModeIsEnabled">किड मोड सक्षम है</string>
   <string name="kidModeExplanation">यह सुरक्षा के बारे में है। बच्चे मोड में, सभी साइट संचार अक्षम हैं। यह अपने बच्चों के लिए सक्षम और स्कूल के छात्रों उन्हें अन्य इंटरनेट उपयोगकर्ताओं से सुरक्षित करने के लिए।</string>
   <string name="inKidModeTheLichessLogoGetsIconX">बच्चे के मोड में, lichess लोगो को %s आइकन मिलता है, इसलिए आप जानते हैं कि आपके बच्चे सुरक्षित हैं</string>
   <string name="enableKidMode">बच्चे मोड को सक्षम करें</string>

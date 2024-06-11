@@ -49,7 +49,6 @@ export interface ViewContext {
   allowVideo?: boolean;
   concealOf?: ConcealOf;
   showCevalPvs: boolean;
-  menuIsOpen: boolean;
   gamebookPlayView?: VNode;
   playerBars: VNode[] | undefined;
   playerStrips: [VNode, VNode] | undefined;
@@ -77,7 +76,6 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     relay: ctrl.study?.relay,
     concealOf: makeConcealOf(ctrl),
     showCevalPvs: !ctrl.retro?.isSolving() && !ctrl.practice,
-    menuIsOpen: ctrl.actionMenu(),
     gamebookPlayView: ctrl.study?.gamebookPlay && deps?.gbPlay.render(ctrl.study.gamebookPlay),
     playerBars,
     playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),
@@ -286,11 +284,8 @@ export function renderControls(ctrl: AnalyseCtrl) {
           else if (action === 'explorer') ctrl.toggleExplorer();
           else if (action === 'practice') ctrl.togglePractice();
           else if (action === 'menu') ctrl.actionMenu.toggle();
-          else if (action === 'analysis' && ctrl.studyPractice) {
-            if (!window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener')) {
-              window.location.href = ctrl.studyPractice.analysisUrl(); //safari
-            }
-          }
+          else if (action === 'analysis' && ctrl.studyPractice)
+            window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
         }, ctrl.redraw),
       ),
     },

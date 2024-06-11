@@ -7,6 +7,7 @@
   <string name="enterPassword">Kurulumu tamamlamak için şifrenizi ve uygulama tarafından oluşturulan kimlik doğrulama kodunu girin. Her oturum açtığınızda bir kimlik doğrulama koduna ihtiyacınız olacak.</string>
   <string name="ifYouCannotScanEnterX">Kodu taratmanız mümkün değilse, uygulamanıza süper gizli %s kodunu girin.</string>
   <string name="authenticationCode">Kimlik doğrulama kodu</string>
+  <string name="ifYouLoseAccessTwoFactor">Not: İki faktörlü kimlik doğrulama kodlarına erişimi kaybederseniz, e-posta aracılığıyla %s yapabilirsiniz.</string>
   <string name="enableTwoFactor">İki faktörlü kimlik doğrulamayı etkinleştir</string>
   <string name="disableTwoFactor">İki faktörlü kimlik doğrulamayı devre dışı bırak</string>
   <string name="twoFactorEnabled">İki faktörlü kimlik doğrulama etkinleştirildi</string>

@@ -99,7 +99,18 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
                     iconTag(Icon.Gear)
                   )
                 )
-              )
+              ),
+              Granter
+                .opt(_.GamesModView)
+                .option(
+                  frag(
+                    " ",
+                    a(
+                      href  := routes.Tournament.moderation(tour.id, "recentlyCreated"),
+                      title := "Moderation"
+                    )(iconTag(Icon.Agent))
+                  )
+                )
             )
           ),
           tour.teamBattle.map(teamBattle(tour)),
@@ -164,7 +175,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
     import trans.{ arena as tra }
 
     def page(using Context) =
-      Page(trans.site.tournamentFAQ.txt()).css("page")(pageContent)
+      Page(trans.site.tournamentFAQ.txt()).css("bits.page")(pageContent)
 
     def pageContent(using Context) =
       main(cls := "page-small box box-pad page")(

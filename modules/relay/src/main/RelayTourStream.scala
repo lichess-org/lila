@@ -14,22 +14,22 @@ final class RelayTourStream(
 )(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.given
+  import RelayTourRepo.selectors
+
+  private val roundLookup = $lookup.pipeline(
+    from = colls.round,
+    as = "rounds",
+    local = "_id",
+    foreign = "tourId",
+    pipe = List($doc("$sort" -> RelayRoundRepo.sort.start))
+  )
 
   def officialTourStream(perSecond: MaxPerSecond, nb: Max): Source[JsObject, ?] =
-
-    val roundLookup = $lookup.pipeline(
-      from = colls.round,
-      as = "rounds",
-      local = "_id",
-      foreign = "tourId",
-      pipe = List($doc("$sort" -> RelayRoundRepo.sort.start))
-    )
-
     val activeStream = colls.tour
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match(RelayTourRepo.selectors.officialActive),
+          Match(selectors.officialActive),
           Sort(Descending("tier")),
           PipelineOperator(roundLookup)
         )
@@ -39,7 +39,7 @@ final class RelayTourStream(
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match(RelayTourRepo.selectors.officialInactive),
+          Match(selectors.officialInactive),
           Sort(Descending("syncedAt")),
           PipelineOperator(roundLookup)
         )
@@ -55,5 +55,4 @@ final class RelayTourStream(
           .toList
       .throttle(perSecond.value, 1 second)
       .take(nb.value)
-      .map(jsonView(_))
-  end officialTourStream
+      .map(jsonView.fullTourWithRounds(_, group = none))

@@ -141,7 +141,7 @@ final private class MsgSecurity(
       contactApi.contacts(orig, dest).flatMapz { post(_, isNew) }
 
     def post(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
-      fuccess(!contacts.dest.isLichess) >>& {
+      fuccess(!contacts.dest.isLichess && !contacts.any(_.marks.exists(_.isolate))) >>& {
         fuccess(Granter.ofDbKeys(_.PublicMod, ~contacts.orig.roles)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&

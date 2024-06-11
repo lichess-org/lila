@@ -183,6 +183,16 @@ export default class CoordinateTrainerCtrl {
     this.chessground?.redrawAll();
   };
 
+  showCoordsOnAllSquares = withEffect<boolean>(
+    storedBooleanProp('coordinateTrainer.showCoordsOnAllSquares', document.body.classList.contains('kid')),
+    (show: boolean) => this.onShowCoordsOnAllSquaresChange(show),
+  );
+
+  onShowCoordsOnAllSquaresChange = (show: boolean) => {
+    this.chessground?.set({ coordinatesOnSquares: show });
+    this.chessground?.redrawAll();
+  };
+
   showPieces = withEffect<boolean>(storedBooleanProp('coordinateTrainer.showPieces', true), () =>
     this.onShowPiecesChange(),
   );

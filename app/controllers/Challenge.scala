@@ -11,6 +11,8 @@ import lila.game.{ AnonCookie }
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 import lila.core.socket.SocketVersion
+import lila.challenge.Direction
+import lila.common.Json.given
 
 final class Challenge(
     env: Env,
@@ -37,6 +39,21 @@ final class Challenge(
   def show(id: ChallengeId, _color: Option[Color]) = Open:
     showId(id)
 
+  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read) { _ ?=> _ ?=>
+    Found(api.byId(id)): c =>
+      val direction: Option[Direction] =
+        if isMine(c) then Direction.Out.some
+        else if isForMe(c) then Direction.In.some
+        else none
+      direction.so: dir =>
+        val json = env.challenge.jsonView(dir.some)(c)
+        c.accepted
+          .so:
+            env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir))
+          .map: fullId =>
+            JsonOk(json.add("fullId", fullId))
+  }
+
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
     Found(api.byId(id))(showChallenge(_))
 
@@ -49,7 +66,6 @@ final class Challenge(
       .version(c.id)
       .flatMap { version =>
         val mine = justCreated || isMine(c)
-        import lila.challenge.Direction
         val direction: Option[Direction] =
           if mine then Direction.Out.some
           else if isForMe(c) then Direction.In.some
@@ -278,6 +294,8 @@ final class Challenge(
               limit.challenge(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
                 env.user.repo.enabledById(username).flatMap {
                   case None => JsonBadRequest(jsonError(s"No such user: $username"))
+                  case Some(destUser) if destUser.isBot && !config.rules.isEmpty =>
+                    JsonBadRequest(jsonError("Rules not applicable for bots"))
                   case Some(destUser) =>
                     val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
                     limit.challengeBot(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):

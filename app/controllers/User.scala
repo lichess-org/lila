@@ -57,7 +57,7 @@ final class User(
     }
 
   private[controllers] val userShowRateLimit =
-    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(2))
+    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(3))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -388,14 +388,17 @@ final class User(
         }
 
         val userLoginsFu = env.security.userLogins(user, nbOthers)
-        val others = for
+        val othersAndLogins = for
           userLogins <- userLoginsFu
           appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
           data       <- loginsTableData(user, userLogins, nbOthers)
-        yield views.user.mod.otherUsers(me, user, data, appeals)
+        yield (views.user.mod.otherUsers(me, user, data, appeals), data)
 
-        val identification = userLoginsFu.map: logins =>
-          isGranted(_.ViewPrintNoIP).so(views.user.mod.identification(logins))
+        val identification = isGranted(_.ViewPrintNoIP).so:
+          for
+            logins <- userLoginsFu
+            others <- othersAndLogins
+          yield views.user.mod.identification(logins, others._2.othersPartiallyLoaded)
 
         val kaladin = isGranted(_.MarkEngine).so(env.irwin.kaladinApi.get(user).map {
           _.flatMap(_.response).so(views.irwin.kaladin.report)
@@ -426,7 +429,7 @@ final class User(
             .merge(modZoneSegment(reportLog, "reportLog", user))
             .merge(modZoneSegment(prefs, "prefs", user))
             .merge(modZoneSegment(rageSit, "rageSit", user))
-            .merge(modZoneSegment(others, "others", user))
+            .merge(modZoneSegment(othersAndLogins.map(_._1), "others", user))
             .merge(modZoneSegment(identification, "identification", user))
             .merge(modZoneSegment(kaladin, "kaladin", user))
             .merge(modZoneSegment(irwin, "irwin", user))
@@ -526,7 +529,7 @@ final class User(
         relateds <-
           ops
             .zip(followables)
-            .traverse { case ((u, nb), followable) =>
+            .sequentially { case ((u, nb), followable) =>
               relationApi
                 .fetchRelation(user.id, u.id)
                 .map:
@@ -618,9 +621,9 @@ final class User(
     Redirect(routes.User.show(me.username))
   }
 
-  def redirect(username: UserStr) = Open:
-    staticRedirect(username.value) |
-      tryRedirect(username).getOrElse(notFound)
+  def redirect(path: String) = Open:
+    staticRedirect(path) |
+      UserStr.read(path).so(tryRedirect).getOrElse(notFound)
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
     meOrFetch(username).map:

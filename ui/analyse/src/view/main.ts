@@ -31,16 +31,16 @@ export default function (deps?: typeof studyDeps) {
 
 function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
-  const { study, menuIsOpen, gamebookPlayView, gaugeOn } = ctx;
+  const { study, gamebookPlayView, gaugeOn } = ctx;
 
   return renderMain(ctx, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     study && deps?.studyView.overboard(study),
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
-    !menuIsOpen && crazyView(ctrl, ctrl.topColor(), 'top'),
+    crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || renderTools(ctx),
-    !menuIsOpen && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+    crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     !gamebookPlayView && renderControls(ctrl),
     renderUnderboard(ctx),
     ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),

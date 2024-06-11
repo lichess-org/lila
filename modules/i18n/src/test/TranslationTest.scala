@@ -74,6 +74,8 @@ Voir les link3 sur ce coup pour vous entraîner."""
 
   private def argsForKey(k: String): List[String] =
     if k.contains("%s") then List("arg1")
+    else if k.contains("%6$s") then List("arg1", "arg2", "arg3", "arg4", "arg5", "arg6")
+    else if k.contains("%5$s") then List("arg1", "arg2", "arg3", "arg4", "arg5")
     else if k.contains("%4$s") then List("arg1", "arg2", "arg3", "arg4")
     else if k.contains("%3$s") then List("arg1", "arg2", "arg3")
     else if k.contains("%2$s") then List("arg1", "arg2")

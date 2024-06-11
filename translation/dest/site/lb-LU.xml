@@ -24,8 +24,8 @@
   <string name="createAGame">Erstell eng Partie</string>
   <string name="whiteIsVictorious">Wäiss gewënnt</string>
   <string name="blackIsVictorious">Schwaarz gewënnt</string>
-  <string name="youPlayTheWhitePieces">Du spills déi wäiss Figuren</string>
-  <string name="youPlayTheBlackPieces">Du spills déi schwaarz Figuren</string>
+  <string name="youPlayTheWhitePieces">Du spills mat de wäisse Figuren</string>
+  <string name="youPlayTheBlackPieces">Du spills mat de schwaarze Figuren</string>
   <string name="itsYourTurn">Et ass un dir!</string>
   <string name="cheatDetected">Bedruch erkannt</string>
   <string name="kingInTheCenter">Kinnek am Zentrum</string>
@@ -326,8 +326,8 @@
   <string name="exportGames">Partien exportéieren</string>
   <string name="ratingRange">Wäertungsberäich</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dem Géigner %s Sekonn ginn</item>
-    <item quantity="other">Dem Géigner %s Sekonnen ginn</item>
+    <item quantity="one">Dem Géigner %s Sekonn bäiginn</item>
+    <item quantity="other">Dem Géigner %s Sekonne bäiginn</item>
   </plurals>
   <string name="thisAccountViolatedTos">Dësen Konto huet géint d\'Lichess-Notzungsbedingungen verstouss</string>
   <string name="openingExplorerAndTablebase">Eröffnungsdatenbank &amp; Tablebase</string>
@@ -423,7 +423,7 @@
     <item quantity="one">%s Kolleeg online</item>
     <item quantity="other">%s Kolleegen online</item>
   </plurals>
-  <string name="favoriteOpponents">Lieblingsgéigner</string>
+  <string name="favoriteOpponents">Liblingsgéigner</string>
   <string name="follow">Followen</string>
   <string name="following">Folgend</string>
   <string name="unfollow">Unfollowen</string>
@@ -490,7 +490,7 @@
   <string name="drawRate">Remisquot</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
-  <string name="averageOpponent">Duerschnëttlechen Géigner</string>
+  <string name="averageOpponent">Duerchschnëttleche Géigner</string>
   <string name="boardEditor">Briet-Editor</string>
   <string name="setTheBoard">Briet opbauen</string>
   <string name="popularOpenings">Beléift Erëffnungen</string>
@@ -776,6 +776,12 @@
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Mam Gerät synchroniséieren</string>
   <string name="backgroundImageUrl">URL vum Hannergrondbild:</string>
+  <string name="board">Briet</string>
+  <string name="size">Gréisst</string>
+  <string name="opacity">Transparenz</string>
+  <string name="brightness">Hellegkeet</string>
+  <string name="hue">Faarftoun</string>
+  <string name="boardReset">Faarwen op de Standard zerécksetzen</string>
   <string name="pieceSet">Figurestil</string>
   <string name="embedInYourWebsite">An Websäit anbetten</string>
   <string name="usernameAlreadyUsed">Dësen Benotzernumm gëtt schonn benotzt, wiel wannechgelift een aneren.</string>
@@ -793,8 +799,8 @@
   <string name="notificationsX">Notifikatiounen: %1$s</string>
   <string name="perfRatingX">Wäertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s Sekonn fir den éischten Zuch ze spillen</item>
-    <item quantity="other">%s Sekonnen fir den éischten Zuch ze spillen</item>
+    <item quantity="one">%s Sekonn fir den éischten Zuch ze maachen</item>
+    <item quantity="other">%s Sekonne fir den éischten Zuch ze maachen</item>
   </plurals>
   <string name="practiceWithComputer">Mam Computer üben</string>
   <string name="anotherWasX">En aneren war %s</string>
@@ -874,7 +880,7 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassesch</string>
-  <string name="ultraBulletDesc">Immens schnell Partien: manner wéi 30 Sekonnen</string>
+  <string name="ultraBulletDesc">Immens séier Partien: Manner wéi 30 Sekonnen</string>
   <string name="bulletDesc">Ganz schnell Partien: manner wéi 3 Minutten</string>
   <string name="blitzDesc">Schnell Partien: 3 bis 8 Minutten</string>
   <string name="rapidDesc">Rapid Partien: 8 bis 25 Minutten</string>

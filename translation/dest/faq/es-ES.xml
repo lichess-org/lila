@@ -167,4 +167,13 @@ Mostramos el icono rojo para avisarte cuando esto suceda. A menudo, puedes permi
 3. Haz clic en Cookies y permisos del sitio
 4. Desplázate hacia abajo y haz clic en Reproducción automática
 5. Añade a lichess.org en Habilitar</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">¿Parar de jugar?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">condición de salud mental independiente</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Estilos de usuario de Lichess</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">menos casillas de emparejamiento</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Solemos recibir mensajes de gente que nos pide ayuda para no jugar tanto.
+
+Aunque Lichess no prohibe ni bloquea a los jugadores, excepto si se trata de violaciones de los Terminos de Servicio, recomendamos el uso de herramientas de terceros para limitar el comportamiento de juego excesivo. Algunas sugerencias de bloqueadores de sitios web son %1$s, %2$s, y %3$s. Si lo que deseas es seguir usando el sitio, pero no los controles de tiempo más rápidos, te podría interesar %4$s y %5$s.
+
+Algunos jugadores pueden pensar que su comportamiento de juego se acerca a una adicción. De hecho, la OMS califica como desorden de juego a %6$s, cuyas características principales son: 1) control deficiente sobre el juego, 2) aumento de la prioridad del juego, y 3) mayor aumento del juego, a pesar de consecuencias negativas. Si piensas que tu comportamiento en el juego de ajedrez se parece a este patrón, te aconsejamos que hables de ello con algún familiar o amigo, o con un profesional dedicado, si es necesario.</string>
 </resources>

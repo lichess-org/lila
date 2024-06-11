@@ -26,7 +26,7 @@ final class Env(
 
   export net.{ domain, baseUrl, assetBaseUrlInternal }
 
-  given Mode                       = environment.mode
+  given mode: Mode                 = environment.mode
   given translator: Translator     = lila.i18n.Translator
   given scheduler: Scheduler       = system.scheduler
   given lila.core.config.RateLimit = net.rateLimit
@@ -82,6 +82,7 @@ final class Env(
   val challenge: lila.challenge.Env     = wire[lila.challenge.Env]
   val explorer: lila.explorer.Env       = wire[lila.explorer.Env]
   val fide: lila.fide.Env               = wire[lila.fide.Env]
+  val title: lila.title.Env             = wire[lila.title.Env]
   val study: lila.study.Env             = wire[lila.study.Env]
   val studySearch: lila.studySearch.Env = wire[lila.studySearch.Env]
   val learn: lila.learn.Env             = wire[lila.learn.Env]

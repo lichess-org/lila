@@ -43,7 +43,7 @@
   <string name="waitForRematch">برای بازی مجدد منتظر بمانید</string>
   <string name="nextRace">مسابقه بعدی</string>
   <string name="joinRematch">پیوستن به بازی مجدد</string>
-  <string name="waitingToStart">انتظار برای شروع</string>
+  <string name="waitingToStart">در انتظار آغاز</string>
   <string name="createNewGame">ایجاد مسابقه جدید</string>
   <string name="joinPublicRace">به یک مسابقه عمومی بپیوندید</string>
   <string name="raceYourFriends">با دوستان خود مسابقه دهید</string>

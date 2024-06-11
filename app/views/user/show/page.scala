@@ -18,7 +18,7 @@ object page:
   lazy val side = lila.user.ui.UserShowSide(helpers)
 
   def activity(
-      activities: Vector[lila.activity.ActivityView],
+      activities: Seq[lila.activity.ActivityView],
       info: UserInfo,
       social: UserInfo.Social
   )(using Context) =
@@ -26,8 +26,8 @@ object page:
     Page(s"${u.username} : ${trans.activity.activity.txt()}")
       .graph(
         OpenGraph(
-          image = assetUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = assetUrl("logo/lichess-tile.png").some,
+          image = staticAssetUrl("logo/lichess-tile-wide.png").some,
+          twitterImage = staticAssetUrl("logo/lichess-tile.png").some,
           title = u.titleUsernameWithBestRating,
           url = s"$netBaseUrl${routes.User.show(u.username).url}",
           description = ui.describeUser(u)
@@ -35,7 +35,7 @@ object page:
       )
       .js(pageModule(info))
       .js(esModules(info))
-      .css("user.show")
+      .css("bits.user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .robots(u.count.game >= 10):
         main(cls := "page-menu", ui.dataUsername := u.username)(
@@ -60,8 +60,8 @@ object page:
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
       .js(esModules(info, filters.current.name == "search"))
-      .css("user.show")
-      .css((filters.current.name == "search").option("user.show.search"))
+      .css("bits.user.show")
+      .css((filters.current.name == "search").option("bits.user.show.search"))
       .css(isGranted(_.UserModView).option("mod.user"))
       .robots(u.count.game >= 10):
         main(cls := "page-menu", ui.dataUsername := u.username)(

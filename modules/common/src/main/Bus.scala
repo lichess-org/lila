@@ -1,22 +1,13 @@
 package lila.common
 
 import akka.actor.{ ActorRef, Scheduler }
-import lila.core.bus.{ Payload, Channel, Tellable, WithChannel }
+import lila.core.bus.{ Channel, WithChannel }
 
 import scala.jdk.CollectionConverters.*
 import scala.reflect.Typeable
 
-object NamedBus:
-  object timeline:
-    import lila.core.timeline.*
-    def apply(propagate: Propagate): Unit = Bus.publish(propagate, "timeline")
-
-final class BusChannel(channel: Channel):
-  def apply(msg: Payload): Unit                           = Bus.publish(msg, channel)
-  def subscribe(subscriber: Bus.SubscriberFunction): Unit = Bus.subscribeFun(channel)(subscriber)
-
-object BusChannel:
-  val forumPost = BusChannel("forumPost")
+trait Tellable extends Any:
+  def !(msg: Matchable): Unit
 
 object Tellable:
   case class Actor(ref: akka.actor.ActorRef) extends Tellable:
@@ -30,9 +21,8 @@ object Tellable:
 
 object Bus:
 
+  type Payload            = Matchable
   type SubscriberFunction = PartialFunction[Payload, Unit]
-
-  val named = NamedBus
 
   def pub[T <: Payload](payload: T)(using wc: WithChannel[T]) =
     publish(payload, wc.channel)

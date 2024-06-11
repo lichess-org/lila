@@ -14,7 +14,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
 
   private def page(title: String, control: UserControl)(using Context) =
     Page(title)
-      .css("video")
+      .css("bits.video")
       .js(infiniteScrollEsmInit)
       .fullScreen
       .wrap: body =>
@@ -220,7 +220,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           ts.sortBy(_.tag).map { t =>
             a(cls := "tag", href := s"${routes.Video.index}?tags=${t.tag}")(
               t.tag.capitalize,
-              em(t.nb)
+              em(" " + t.nb)
             )
           }
         )

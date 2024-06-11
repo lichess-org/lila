@@ -144,7 +144,7 @@ export class BackgroundCtrl extends PaneCtrl {
 
     const gallery = this.data.gallery!;
     const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
-    const montageUrl = site.asset.url(gallery[`montage${cols}`], { noVersion: true });
+    const montageUrl = site.asset.url(gallery[`montage${cols}`], { version: false });
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 
@@ -154,7 +154,7 @@ export class BackgroundCtrl extends PaneCtrl {
           'div#images-grid',
           { attrs: { style: `background-image: url(${montageUrl});` } },
           gallery.images.map(img => {
-            const assetUrl = site.asset.url(img, { noVersion: true });
+            const assetUrl = site.asset.url(img, { version: false });
             const divClass = this.data.image.endsWith(assetUrl) ? '.selected' : '';
             return h(`div#${urlId(assetUrl)}${divClass}`, { hook: bind('click', () => setImg(assetUrl)) });
           }),

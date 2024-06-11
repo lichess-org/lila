@@ -6,12 +6,12 @@ import lila.app.UiEnv.{ *, given }
 import lila.puzzle.{ Puzzle, PuzzleOpening, DailyPuzzle }
 
 lazy val bits = lila.puzzle.ui.PuzzleBits(helpers)(views.userAnalysisI18n.cevalTranslations)
-lazy val ui   = lila.puzzle.ui.PuzzleUi(helpers, bits)(views.analyse.ui.csp)
+lazy val ui   = lila.puzzle.ui.PuzzleUi(helpers, bits)(views.analyse.ui.csp, externalEngineEndpoint)
 
 def embed(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
   views.base.embed(
     title = "lichess.org chess puzzle",
-    cssModule = "tv.embed",
+    cssModule = "bits.tv.embed",
     modules = EsmInit("site.puzzleEmbed")
   )(
     bits.dailyLink(daily)(using config.translate)(

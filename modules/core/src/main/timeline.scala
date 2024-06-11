@@ -5,6 +5,7 @@ import lila.core.id.*
 import lila.core.study.data.StudyName
 import lila.core.userId.UserId
 import lila.core.perf.PerfKey
+import lila.core.bus.WithChannel
 
 case class ReloadTimelines(userIds: List[UserId])
 
@@ -61,3 +62,6 @@ case class Propagate(data: Atom, propagations: List[Propagation] = Nil):
   def exceptUser(id: UserId)           = add(ExceptUser(id))
   def modsOnly(value: Boolean)         = add(ModsOnly(value))
   private def add(p: Propagation)      = copy(propagations = p :: propagations)
+
+object Propagate:
+  given WithChannel[Propagate] = WithChannel("timeline")

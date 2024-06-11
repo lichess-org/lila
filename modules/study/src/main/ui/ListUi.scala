@@ -97,7 +97,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(using Context) =
     Page(text)
-      .css("study.index")
+      .css("analyse.study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           menu("search", Orders.default),
@@ -120,7 +120,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       topics: Option[StudyTopics] = None
   )(using Context): Page =
     Page(title)
-      .css("study.index")
+      .css("analyse.study.index")
       .js(infiniteScrollEsmInit)
       .wrap: body =>
         main(cls := "page-menu")(
@@ -167,9 +167,8 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       a(
         cls      := "text",
         dataIcon := Icon.InfoCircle,
-        href     := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way"
-      ):
-        trs.whatAreStudies()
+        href     := "/@/lichess/blog/study-chess-the-lichess-way/V0KrLSkA"
+      )(trs.whatAreStudies())
     )
 
   def searchForm(placeholder: String, value: String) =
@@ -188,7 +187,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
 
     def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using Context) =
       Page(trans.study.topics.txt())
-        .css("study.index", "form3", "tagify")
+        .css("analyse.study.index", "bits.form3", "bits.tagify")
         .js(EsmInit("analyse.study.topic.form")):
           main(cls := "page-menu")(
             menu("topic", Order.mine, mine.so(_.value)),
@@ -217,7 +216,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       val active = s"topic:$topic"
       val url    = (o: Order) => routes.Study.byTopic(topic.value, o)
       Page(topic.value)
-        .css("study.index")
+        .css("analyse.study.index")
         .js(infiniteScrollEsmInit):
           main(cls := "page-menu")(
             menu(active, order, myTopics.so(_.value)),

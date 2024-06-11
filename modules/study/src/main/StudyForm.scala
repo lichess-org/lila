@@ -84,7 +84,7 @@ object StudyForm:
     ):
 
       def toChapterDatas: List[ChapterMaker.Data] =
-        val pgns = MultiPgn.split(pgn, max = Max(32)).value
+        val pgns = MultiPgn.split(pgn, max = Study.maxChapters).value
         pgns.mapWithIndex: (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named

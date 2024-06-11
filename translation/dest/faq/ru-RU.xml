@@ -167,4 +167,13 @@
 3. Щелкните Cookies и разрешения сайта
 4. Прокрутите вниз и щёлкните автовоспроизведение Media
 5. Добавьте lichess.org для разрешения</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Как воздерживаться от игр?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">отдельное психическое расстройство</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">пользовательские CSS-стили Lichess</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">меньшее количество вариантов в Зале ожидания</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Мы часто получаем сообщения от игроков с просьбами помочь им перестать играть.
+
+Хотя Lichess не запрещает или не блокирует игроков, кроме как на основании условий предоставления услуг, мы рекомендуем использовать внешние инструменты для ограничения чрезмерного увлечения игрой. Некоторые общие предложения для блокировщиков веб-сайтов включают %1$s, %2$sи %3$s. Если вы хотите продолжать пользоваться сайтом, но не соблазняться быстрым контролем времени, вас могут заинтересовать %4$s, а также %5$s.
+
+Некоторые игроки могут чувствовать, что их поведение превращается в зависимость. На самом деле ВОЗ классифицирует игровое расстройство как %6$s, основными особенностями которого являются: 1) ослабление контроля над игрой, 2) повышение приоритета игры и 3) увеличение игрового времени, несмотря на негативные последствия. Если вы считаете, что ваше поведение в шахматах соответствует этому шаблону, мы рекомендуем вам поговорить об этом с надёжным другом или членом семьи, или даже с профессиональным психологом.</string>
 </resources>

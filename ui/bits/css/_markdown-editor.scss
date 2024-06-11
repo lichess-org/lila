@@ -3,7 +3,6 @@
 
 .markdown-editor {
   height: 60vh;
-  margin-bottom: -1em;
   .tab-item {
     background: $c-bg-box;
     &.active {
@@ -18,6 +17,7 @@
         border-radius: 3px 3px 0 0 !important;
         border: 1px solid $c-border;
         border-width: 1px 1px 0 1px;
+        flex-flow: row wrap;
       }
     }
     &-toolbar {
@@ -29,6 +29,22 @@
           }
           &.active {
             background-color: $c-bg-zebra;
+          }
+        }
+      }
+    }
+    &-dropdown {
+      &-toolbar {
+        display: flex;
+        flex-flow: column;
+        border: 0;
+        .toastui-editor {
+          &-toolbar {
+            &-group {
+              border-radius: 2px;
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+              background-color: #f7f9fc;
+            }
           }
         }
       }
@@ -45,6 +61,9 @@
         line-height: 2em;
         margin: 0 0 -1px 0;
       }
+    }
+    &-popup {
+      margin-left: 0;
     }
     &-ww-container,
     &-md-container {

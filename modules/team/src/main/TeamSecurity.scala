@@ -22,7 +22,7 @@ object TeamSecurity:
     val byKey = values.mapBy(_.key)
 
   case class LeaderData(name: UserStr, perms: Set[Permission])
-  def tableStr(data: Seq[LeaderData]) =
+  def tableStr(data: List[LeaderData]) =
     data.map(d => s"${d.name} (${d.perms.map(_.key).mkString(" ")})").mkString("\n")
 
   case class NewPermissions(user: UserId, perms: Set[Permission])
@@ -33,7 +33,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
 
   import TeamSecurity.*
 
-  def setPermissions(t: Team.WithLeaders, data: Seq[LeaderData])(using by: Me): Fu[List[NewPermissions]] =
+  def setPermissions(t: Team.WithLeaders, data: List[LeaderData])(using by: Me): Fu[List[NewPermissions]] =
     for
       _ <- memberRepo.unsetAllPerms(t.id)
       _ <- memberRepo.setAllPerms(t.id, data)
@@ -81,12 +81,12 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
       "perms" -> seq(nonEmptyText)
         .transform[Set[Permission]](
           _.flatMap(Permission.byKey.get).toSet,
-          _.toSeq.map(_.key)
+          _.toList.map(_.key)
         )
     )(LeaderData.apply)(unapply)
 
-    def permissions(t: Team.WithLeaders)(using me: Me): Form[Seq[LeaderData]] = Form(
-      single("leaders" -> seq(permissionsForm))
+    def permissions(t: Team.WithLeaders)(using me: Me): Form[List[LeaderData]] = Form(
+      single("leaders" -> list(permissionsForm))
         .verifying(
           "You can't make Lichess a leader",
           Granter(_.ManageTeam) ||

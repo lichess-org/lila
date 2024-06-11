@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Svart gör schackmatt på ett drag</string>
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s vän inloggad</item>
     <item quantity="other">%s vänner inloggade</item>
@@ -530,6 +531,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Fortsätt automatiskt till nästa parti efter att du gjort ett drag</string>
   <string name="autoSwitch">Automatiskt partibyte</string>
   <string name="puzzles">Schackproblem</string>
+  <string name="onlineBots">Online-bottar</string>
   <string name="name">Namn</string>
   <string name="description">Beskrivning</string>
   <string name="descPrivate">Privat beskrivning</string>
@@ -787,6 +789,11 @@
   <string name="transparent">Genomskinlig</string>
   <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">Bakgrundsbild URL:</string>
+  <string name="board">Bräde</string>
+  <string name="size">Storlek</string>
+  <string name="opacity">Genomskinlighet</string>
+  <string name="brightness">Ljusstyrka</string>
+  <string name="hue">Nyans</string>
   <string name="pieceSet">Pjäsuppsättning</string>
   <string name="embedInYourWebsite">Integrera i din webbplats</string>
   <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>

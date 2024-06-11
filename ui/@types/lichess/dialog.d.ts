@@ -22,6 +22,7 @@ interface DialogOpts {
   onClose?: (dialog: Dialog) => void; // called when dialog closes
   noCloseButton?: boolean; // if true, no upper right corner close button
   noClickAway?: boolean; // if true, no click-away-to-close
+  noScrollable?: boolean; // if true, no scrollable div container. Fixes dialogs containing an auto-completer
 }
 
 interface DomDialogOpts extends DialogOpts {

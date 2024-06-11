@@ -48,7 +48,7 @@ final class Main(
 
   private def serveMobile(using Context) =
     pageHit
-    FoundPage(env.api.cmsRenderKey("mobile-apk"))(views.mobile)
+    FoundPage(env.cms.renderKey("mobile-apk"))(views.mobile)
 
   def dailyPuzzleSlackApp = Open:
     Ok.page(views.site.ui.dailyPuzzleSlackApp)
@@ -141,21 +141,3 @@ final class Main(
             .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }
-
-  def githubSecretScanning =
-    AnonBodyOf(parse.json):
-      _.asOpt[List[JsObject]]
-        .map:
-          _.flatMap: obj =>
-            for
-              token <- (obj \ "token").asOpt[String]
-              url   <- (obj \ "url").asOpt[String]
-            yield Bearer(token) -> url
-          .toMap
-        .so: tokensMap =>
-          env.oAuth.tokenApi
-            .secretScanning(tokensMap)
-            .flatMap:
-              _.traverse: (token, url) =>
-                env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
-            .as(NoContent)

@@ -55,7 +55,7 @@ case class TeamData(
     userId: UserId
 )
 case class TeamCreate(team: TeamData)
-case class TeamUpdate(team: TeamData)(using val me: MyId)
+case class TeamUpdate(team: TeamData, byMod: Boolean)(using val me: MyId)
 case class TeamDelete(id: TeamId)
 case class TeamDisable(id: TeamId)
 case class JoinTeam(id: TeamId, userId: UserId)

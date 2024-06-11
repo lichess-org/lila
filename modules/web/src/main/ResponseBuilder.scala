@@ -62,10 +62,12 @@ trait ResponseBuilder(using Executor)
     "swag" -> "https://shop.spreadshirt.com/lichess-org",
     "yt"   -> "https://www.youtube.com/c/LichessDotOrg",
     "dmca" -> "https://docs.google.com/forms/d/e/1FAIpQLSdRVaJ6Wk2KHcrLcY0BxM7lTwYSQHDsY2DsGwbYoLUBo3ngfQ/viewform",
-    "fishnet" -> "https://github.com/lichess-org/fishnet",
-    "qa"      -> "/faq",
-    "help"    -> "/contact",
-    "support" -> "/contact",
-    "donate"  -> "/patron"
+    "fishnet"      -> "https://github.com/lichess-org/fishnet",
+    "qa"           -> "/faq",
+    "help"         -> "/contact",
+    "support"      -> "/contact",
+    "donate"       -> "/patron",
+    "how-to-cheat" -> "/page/how-to-cheat",
+    "help/master"  -> "/verify-title"
   )
   def staticRedirect(key: String): Option[Fu[Result]] = movedMap.get(key).map { MovedPermanently(_) }

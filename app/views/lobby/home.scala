@@ -33,8 +33,8 @@ object home:
       .css("lobby")
       .graph(
         OpenGraph(
-          image = assetUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = assetUrl("logo/lichess-tile.png").some,
+          image = staticAssetUrl("logo/lichess-tile-wide.png").some,
+          twitterImage = staticAssetUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl.value,
           description = trans.site.siteDescription.txt()

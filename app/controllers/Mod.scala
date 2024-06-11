@@ -77,6 +77,14 @@ final class Mod(
       yield suspect.some
   }(reportC.onModAction)
 
+  def isolate(username: UserStr, v: Boolean) = OAuthModBody(_.Shadowban) { me ?=>
+    withSuspect(username): prev =>
+      for
+        suspect <- modApi.setIsolate(prev, v)
+        _       <- env.relation.api.removeAllFollowers(suspect.user.id)
+      yield suspect.some
+  }(reportC.onModAction)
+
   def warn(username: UserStr, subject: String) = OAuthModBody(_.ModMessage) { me ?=>
     env.mod.presets.getPmPresets.named(subject).so { preset =>
       withSuspect(username): suspect =>
@@ -132,29 +140,36 @@ final class Mod(
       modApi.setPrizeban(sus, v).map(some)
   }(actionResult(username))
 
-  def impersonate(username: UserStr) = Auth { _ ?=> me ?=>
-    if username == UserName("-") && env.mod.impersonate.isImpersonated(me) then
+  def impersonate(username: String) = Auth { _ ?=> me ?=>
+    if env.mod.impersonate.isImpersonated(me) then
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
-    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
-      Found(env.user.repo.byId(username)): user =>
-        env.mod.impersonate.start(me, user)
-        Redirect(routes.User.show(user.username))
-    else notFound
+    else
+      UserStr
+        .read(username)
+        .so: username =>
+          if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
+            Found(env.user.repo.byId(username)): user =>
+              env.mod.impersonate.start(me, user)
+              Redirect(routes.User.show(user.username))
+          else notFound
   }
 
   def setTitle(username: UserStr) = SecureBody(_.SetTitle) { ctx ?=> me ?=>
     bindForm(lila.user.UserForm.title)(
       _ => redirect(username, mod = true),
       title =>
-        for
-          _ <- modApi.setTitle(username, title)
-          _ <- title.isDefined.so(env.mailer.automaticEmail.onTitleSet(username))
-        yield
-          env.user.lightUserApi.invalidate(username.id)
+        doSetTitle(username.id, title, public = true).inject:
           redirect(username, mod = false)
     )
   }
+
+  protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle], public: Boolean)(
+      using Me
+  ) = for
+    _ <- (public || title.isEmpty).so(modApi.setTitle(userId, title))
+    _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _, public))
+  yield ()
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
@@ -317,7 +332,7 @@ final class Mod(
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      (isGranted(_.Appeals).so(env.appeal.api.exists(user))).flatMap { isAppeal =>
+      (getBool("appeal") && isGranted(_.Appeals)).so(env.appeal.api.exists(user)).flatMap { isAppeal =>
         isAppeal.so(env.report.api.inquiries.ongoingAppealOf(user.id)).flatMap {
           case Some(ongoing) if ongoing.mod != me.id =>
             env.user.lightUserApi

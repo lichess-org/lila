@@ -47,8 +47,8 @@
   display: grid;
 
   @include mq-is-col1 {
-    grid-template-rows: auto auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto;
-    grid-template-areas: 'moves' 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'kb-move' 'controls' 'voice';
+    grid-template-rows: auto $col1-user-height $col1-mat-height auto auto $col1-mat-height $col1-user-height auto auto auto auto 0;
+    grid-template-areas: 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'moves' 'controls' 'voice' 'kb-move';
 
     // Put clocks and players in the same grid cell.
     // This allows having a single cell column, instead of
@@ -56,11 +56,11 @@
     // This is required to display the overflowable horizontal move list,
     // so that it can be contain within the grid parent.
     .rclock-top {
-      grid-area: 3 / 1 / 5 / 2;
+      grid-area: 2 / 1 / 4 / 2;
     }
 
     .rclock-bottom {
-      grid-area: 7 / 1 / 9 / 2;
+      grid-area: 6 / 1 / 8 / 2;
     }
 
     cg-board {
@@ -74,11 +74,32 @@
     &__table {
       display: none;
     }
+    .ricons {
+      margin: 1em 0;
+    }
+    .keyboard-move {
+      display: none;
+    }
   }
 
   @include mq-at-least-col2 {
-    grid-template-areas: 'board voice' 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .' 'kb-move .';
+    grid-template-areas:
+      'board voice'
+      'board .'
+      'board mat-top'
+      'board clock-top'
+      'board expi-top'
+      'board user-top'
+      'board moves'
+      'board controls'
+      'board user-bot'
+      'board expi-bot'
+      'board clock-bot'
+      'board mat-bot'
+      'board .'
+      'kb-move .';
     grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
+    grid-template-rows: 0 auto; // 0 to prevent `voice` from moving the table off center
     grid-column-gap: $block-gap;
 
     &__table {

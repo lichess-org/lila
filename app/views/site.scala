@@ -13,9 +13,10 @@ object page:
     variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
   )
 
-  def lone(p: CmsPage.Render)(using ctx: Context) =
+  def lone(p: CmsPage.Render)(using ctx: Context): Page =
     Page(p.title)
-      .css("page")
+      .css("bits.page")
+      .js(EsmInit("bits.expandText"))
       .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })"""))):
@@ -26,11 +27,11 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       title = p.title,
       active = active,
       contentCls = "page box box-pad force-ltr"
-    ).css("page")(pageContent(p))
+    ).css("bits.page")(pageContent(p))
 
   def pageContent(p: CmsPage.Render)(using Context) = frag(
     h1(cls := "box__top")(p.title),
-    div(cls := "body")(views.cms.render(p))
+    div(cls := "body expand-text")(views.cms.render(p))
   )
 
   def contact(using Context) =
@@ -38,7 +39,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       title = trans.contact.contact.txt(),
       active = "contact",
       contentCls = "page box box-pad"
-    ).css("contact")
+    ).css("bits.contact")
       .js(EsmInit("bits.contact"))(lila.web.ui.contact(netConfig.email))
 
   def source(p: CmsPage.Render)(using ctx: Context) =
@@ -99,7 +100,7 @@ object variant:
 
   private def page(title: String, klass: String, active: Option[PerfKey] = None)(using Context) =
     Page(title)
-      .css("variant")
+      .css("bits.variant")
       .js(EsmInit("bits.expandText"))
       .wrap: body =>
         main(cls := "page-menu")(

@@ -10,6 +10,9 @@ import scala.util.matching.Regex
 import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
+import lila.relay.RelayTour.ActiveWithSomeRounds
+import scalalib.paginator.Paginator
+import lila.relay.RelayTour.WithLastRound
 
 @Module
 final class Env(
@@ -74,6 +77,12 @@ final class Env(
 
   lazy val playerTour = wire[RelayPlayerTour]
 
+  def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
+    active   <- (page == 1).so(listing.active.get({}))
+    upcoming <- (page == 1).so(listing.upcoming.get({}))
+    past     <- pager.inactive(page)
+  yield (active, upcoming, past)
+
   private lazy val sync = wire[RelaySync]
 
   private lazy val formatApi = wire[RelayFormatApi]
@@ -128,7 +137,7 @@ final class Env(
       api.becomeStudyAdmin(studyId, me)
     },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
-      promise.completeWith(api.isOfficial(studyId))
+      promise.completeWith(api.isOfficial(studyId.into(RelayRoundId)))
     }
   )
 

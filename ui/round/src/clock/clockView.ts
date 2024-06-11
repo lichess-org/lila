@@ -89,8 +89,13 @@ function showBar(ctrl: RoundController, color: Color) {
       const remaining = clock.millisOf(color);
       anim.currentTime = clock.barTime - remaining;
       if (color === clock.times.activeColor) {
-        // Calling play after animations finishes restarts anim
-        if (remaining > 0) anim.play();
+        if (remaining > clock.barTime) {
+          // Player was given more time than the duration of the animation. So we update the duration to reflect this.
+          el.style.animationDuration = String(remaining / 1000) + 's';
+        } else if (remaining > 0) {
+          // Calling play after animations finishes restarts anim
+          anim.play();
+        }
       } else anim.pause();
     } else {
       clock.elements[color].bar = el;

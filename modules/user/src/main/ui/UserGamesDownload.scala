@@ -9,7 +9,7 @@ final class UserGamesDownload(helpers: Helpers):
 
   def apply(user: User)(using ctx: Context) =
     Page(s"${user.username} • ${trans.site.exportGames.txt()}")
-      .css("search")
+      .css("bits.search")
       .js(EsmInit("bits.userGamesDownload")):
         main(cls := "box page-small search")(
           boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),

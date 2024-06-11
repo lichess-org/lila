@@ -63,7 +63,7 @@ final class RelayRound(
           err => fuccess(Left(rt -> err)),
           data =>
             env.relay.api
-              .update(rt.round)(data.update)
+              .update(rt.round)(data.update(rt.tour.official))
               .dmap(_.withTour(rt.tour))
               .dmap(Right(_))
         )
@@ -107,10 +107,10 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTour(id)): rt =>
       Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
         studyC.CanView(study)(
-          env.study.preview
-            .jsonList(study.id)
-            .map: previews =>
-              JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews))
+          for
+            group    <- env.relay.api.withTours.get(rt.tour.id)
+            previews <- env.study.preview.jsonList(study.id)
+          yield JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group))
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)

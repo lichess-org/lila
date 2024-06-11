@@ -20,7 +20,7 @@
 खेलको गति बनाउनुहोस् । </string>
   <string name="rookComplete">बधाई छ! तपाइले हाती चाल्न सिक्नु भयो । </string>
   <string name="theBishop">उँट (कर्नेल)</string>
-  <string name="itMovesDiagonally">उठ छड्के चल्छ</string>
+  <string name="itMovesDiagonally">उँट छड्के चल्छ</string>
   <string name="bishopIntro">अब हामि उँट चलाउन सिक्ने छौ!</string>
   <string name="youNeedBothBishops">एउटा हलुका कोठामा चल्ने उठ,
 एउटा गाढा कोठामा चल्ने उठ।
@@ -110,7 +110,7 @@
   <string name="mateInOneIntro">जब तपाईँको विपक्षी चेक बाट जोगिन सक्दैन, तब तपाई जित्नु हुन्छ ।</string>
   <string name="attackYourOpponentsKing">विपक्षिको राजा जोगिन नसक्ने गरि हमाला गर्नुहोस् ।</string>
   <string name="mateInOneComplete">बधाई छ! चेसका खेलहरू यसरी जितिन्छन् । </string>
-  <string name="intermediate">मध्यम तह</string>
+  <string name="intermediate">माध्यमिक</string>
   <string name="boardSetup">बोर्ड मिलाउने तरिका</string>
   <string name="howTheGameStarts">खेल कसरि सुरु हुन्छ</string>
   <string name="boardSetupIntro">दुई सेनाहरू, आमने सामने, युद्धको लागी तयार </string>
@@ -174,7 +174,7 @@
 - कालो कतै चल्न सक्दैन 
  - कालो माथी चेक छेन </string>
   <string name="stalemateComplete">बधाई छ! चेकमेट खानु भन्दा स्टेलमेट खाको राम्रो</string>
-  <string name="advanced">अघि बढेको</string>
+  <string name="advanced">उन्नत</string>
   <string name="pieceValue">गट्टीको मुल्य</string>
   <string name="evaluatePieceStrength">गट्टीको शक्ति मुल्याङ्कन गर्नु होस् ।</string>
   <string name="pieceValueIntro">धेरै चल्ने गोटीहरु को मुल्य पनि धेरै हुन्छ!

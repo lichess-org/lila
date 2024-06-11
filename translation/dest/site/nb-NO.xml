@@ -791,6 +791,12 @@
   <string name="transparent">Gjennomsiktig</string>
   <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilde:</string>
+  <string name="board">Brett</string>
+  <string name="size">Størrelse</string>
+  <string name="opacity">Ugjennomsiktighet</string>
+  <string name="brightness">Lysstyrke</string>
+  <string name="hue">Fargetone</string>
+  <string name="boardReset">Tilbake til standardfarger</string>
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Bygg inn på nettstedet ditt</string>
   <string name="usernameAlreadyUsed">Brukernavnet er allerede i bruk, prøv et annet et.</string>

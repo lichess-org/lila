@@ -71,7 +71,7 @@ final class RelayApi(
 
   def kickBroadcast(userId: UserId, tourId: RelayTourId, who: MyId): Funit =
     roundIdsById(tourId).flatMap:
-      _.traverse_(studyApi.kick(_, userId, who))
+      _.sequentiallyVoid(studyApi.kick(_, userId, who))
 
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
@@ -85,7 +85,7 @@ final class RelayApi(
       _.expireAfterWrite(5.minutes).buildAsyncFuture(tourRepo.countByOwner(_, false))
     export cache.get
 
-  def isOfficial(id: StudyId): Fu[Boolean] =
+  def isOfficial(id: RelayRoundId): Fu[Boolean] =
     roundRepo.coll
       .aggregateOne(): framework =>
         import framework.*
@@ -227,9 +227,12 @@ final class RelayApi(
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id): relay =>
       relay.sync.upstream.flatMap(_.asUrl).map(_.withRound).foreach(formatApi.refresh)
-      update(relay): r =>
-        if v then r.withSync(_.play) else r.withSync(_.pause)
-      .void
+      isOfficial(relay.id).flatMap: official =>
+        update(relay): r =>
+          if v
+          then r.withSync(_.play(official))
+          else r.withSync(_.pause)
+        .void
 
   def reFetchAndUpdate(round: RelayRound)(f: Update[RelayRound]): Fu[RelayRound] =
     byId(round.id).orFail(s"Relay round ${round.id} not found").flatMap(update(_)(f))
@@ -276,7 +279,7 @@ final class RelayApi(
           _      <- tourRepo.delete(tour)
           rounds <- roundRepo.idsByTourOrdered(tour)
           _      <- roundRepo.deleteByTour(tour)
-          _      <- rounds.map(_.into(StudyId)).traverse_(studyApi.deleteById)
+          _      <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
         yield true
 
   def getOngoing(id: RelayRoundId): Fu[Option[WithTour]] =
@@ -377,7 +380,7 @@ final class RelayApi(
         )
       )
       .flatMap:
-        _.traverse_ { relay =>
+        _.sequentiallyVoid { relay =>
           logger.info(s"Automatically start $relay")
           requestPlay(relay.id, v = true)
         }
@@ -395,7 +398,7 @@ final class RelayApi(
           )
         )
       .flatMap:
-        _.traverse_ { relay =>
+        _.sequentiallyVoid { relay =>
           logger.info(s"Automatically finish $relay")
           update(relay)(_.finish)
         }

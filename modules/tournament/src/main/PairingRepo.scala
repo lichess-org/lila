@@ -109,17 +109,15 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       .list[Pairing](selectTourUser(tourId, userId))
       .flatMap {
         _.withFilter(_.notLostBy(userId))
-          .map { p =>
+          .map: p =>
             coll.update.one(
               $id(p.id),
               $set(
                 "w" -> p.colorOf(userId).map(_.black)
               )
             )
-          }
-          .parallel
+          .parallelVoid
       }
-      .void
 
   def count(tourId: TourId): Fu[Int] =
     coll.countSel(selectTour(tourId))

@@ -130,8 +130,8 @@ export class BoardCtrl extends PaneCtrl {
       .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
       .catch(() => site.announce({ msg: 'Failed to save preference' }));
 
-    if (v) await site.asset.loadCssPath('board-3d');
-    else site.asset.removeCssPath('board-3d');
+    if (v) await site.asset.loadCssPath('common.board-3d');
+    else site.asset.removeCssPath('common.board-3d');
     $('#main-wrap')
       .removeClass(v ? 'is2d' : 'is3d')
       .addClass(v ? 'is3d' : 'is2d');

@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import * as fs from 'node:fs';
 import * as crypto from 'node:crypto';
 import * as es from 'esbuild';
-import { env, colors as c } from './main';
+import { env, colors as c, warnMark } from './main';
 import { globArray } from './parse';
 import { allSources } from './sass';
 
@@ -12,14 +12,13 @@ type Manifest = { [key: string]: { hash?: string; imports?: string[] } };
 const current: { js: Manifest; css: Manifest } = { js: {}, css: {} };
 let writeTimer: NodeJS.Timeout;
 
-export async function init() {
+export async function initManifest() {
   if (env.building.length === env.modules.size) return;
   // we're building a subset of modules. if possible reuse the previously built full manifest to give us
   // a shot at changes viewable in the browser, otherwise punt.
-  const existing = path.join(env.jsDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`);
-  if (!fs.existsSync(existing)) return;
+  if (!fs.existsSync(env.manifestFile)) return;
   if (Object.keys(current.js).length && Object.keys(current.css).length) return;
-  const manifest = JSON.parse(await fs.promises.readFile(existing, 'utf-8'));
+  const manifest = JSON.parse(await fs.promises.readFile(env.manifestFile, 'utf-8'));
   delete manifest.js.manifest;
   current.js = manifest.js;
   current.css = manifest.css;
@@ -54,7 +53,7 @@ export async function js(meta: es.Metafile) {
     }
     newJsManifest[out.name].imports = imports;
   }
-  if (isEquivalent(newJsManifest, current.js)) return;
+  if (isEquivalent(newJsManifest, current.js) && fs.existsSync(env.manifestFile)) return;
   current.js = shallowSort({ ...current.js, ...newJsManifest });
   clearTimeout(writeTimer);
   writeTimer = setTimeout(write, 500);
@@ -140,14 +139,14 @@ async function isComplete() {
   for (const bundle of [...env.modules.values()].map(x => x.bundles ?? []).flat()) {
     const name = path.basename(bundle, '.ts');
     if (!current.js[name]) {
-      env.log(`Missing entry point '${c.cyan(name)}'. No manifest written.`);
+      env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.ts')}'`);
       return false;
     }
   }
   for (const css of await allSources()) {
     const name = path.basename(css, '.scss');
     if (!current.css[name]) {
-      env.log(`Missing css '${c.cyan(name)}'. No manifest written.`);
+      env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.scss')}'`);
       return false;
     }
   }

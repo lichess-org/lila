@@ -36,10 +36,13 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       apiVersion: Option[ApiVersion] = None
   )(using ctx: Context): Fu[JsObject] =
     given me: Option[Me] = newMe.orElse(ctx.me)
-    WithPuzzlePerf:
-      if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
-      then env.puzzle.jsonView.bc(puzzle)
-      else env.puzzle.jsonView(puzzle, angle.some, replay)
+    for
+      puzzleJson <- WithPuzzlePerf:
+        if apiVersion.exists(v => !ApiVersion.puzzleV2(v))
+        then env.puzzle.jsonView.bc(puzzle)
+        else env.puzzle.jsonView(puzzle, angle.some, replay)
+      analysisJson <- env.analyse.externalEngine.withExternalEngines(puzzleJson)
+    yield analysisJson
 
   private def renderShow(
       puzzle: Puz,
@@ -426,7 +429,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                     _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
                   }
               case None =>
-                data.solutions.traverse_ { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.inject(Nil)
+                data.solutions
+                  .sequentiallyVoid { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }
+                  .inject(Nil)
             given Option[Me] <- ctx.me.so(env.user.repo.me)
             nextPuzzles <- WithPuzzlePerf:
               batchSelect(angle, reqDifficulty, ~getInt("nb"))

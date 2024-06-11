@@ -1177,6 +1177,7 @@ object I18nKey:
     val `youHaveThirtySeconds`: I18nKey = "coordinates:youHaveThirtySeconds"
     val `goAsLongAsYouWant`: I18nKey = "coordinates:goAsLongAsYouWant"
     val `showCoordinates`: I18nKey = "coordinates:showCoordinates"
+    val `showCoordsOnAllSquares`: I18nKey = "coordinates:showCoordsOnAllSquares"
     val `showPieces`: I18nKey = "coordinates:showPieces"
     val `startTraining`: I18nKey = "coordinates:startTraining"
     val `findSquare`: I18nKey = "coordinates:findSquare"
@@ -2102,6 +2103,11 @@ object I18nKey:
     val `enableAutoplayForSoundsChrome`: I18nKey = "faq:enableAutoplayForSoundsChrome"
     val `enableAutoplayForSoundsSafari`: I18nKey = "faq:enableAutoplayForSoundsSafari"
     val `enableAutoplayForSoundsMicrosoftEdge`: I18nKey = "faq:enableAutoplayForSoundsMicrosoftEdge"
+    val `stopMyselfFromPlaying`: I18nKey = "faq:stopMyselfFromPlaying"
+    val `mentalHealthCondition`: I18nKey = "faq:mentalHealthCondition"
+    val `lichessUserstyles`: I18nKey = "faq:lichessUserstyles"
+    val `fewerLobbyPools`: I18nKey = "faq:fewerLobbyPools"
+    val `adviceOnMitigatingAddiction`: I18nKey = "faq:adviceOnMitigatingAddiction"
 
   object lag:
     val `isLichessLagging`: I18nKey = "lag:isLichessLagging"

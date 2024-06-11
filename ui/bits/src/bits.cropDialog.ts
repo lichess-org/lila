@@ -43,9 +43,10 @@ export async function initModule(o?: CropOpts) {
   const container = document.createElement('div');
   container.appendChild(image);
 
+  // https://github.com/fengyuanchen/cropperjs/blob/main/README.md#options
   const cropper = new Cropper(image, {
     aspectRatio: opts.aspectRatio,
-    viewMode: 3,
+    viewMode: defined(opts.aspectRatio) ? 3 : 0,
     guides: false,
     responsive: false,
     restore: false,
@@ -62,7 +63,7 @@ export async function initModule(o?: CropOpts) {
 
   const dlg = await site.dialog.dom({
     class: 'crop-viewer',
-    css: [{ themed: 'cropDialog' }, { url: 'npm/cropper.min.css' }],
+    css: [{ themed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
     htmlText: `<h2>Crop image to desired shape</h2>
 <div class="crop-view"></div>
 <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
@@ -111,7 +112,11 @@ export async function initModule(o?: CropOpts) {
       formData.append(opts.post.field ?? 'picture', cropped);
       const rsp = await fetch(opts.post.url, { method: 'POST', body: formData });
       if (rsp.status / 100 == 3) redirect = rsp.headers.get('Location')!;
-      else if (!rsp.ok) cropped = false;
+      else if (!rsp.ok) {
+        cropped = false;
+        const body = await rsp.text();
+        console.error('Crop submit failed:', rsp.status, body);
+      }
     }
     opts.onCropped?.(cropped, err);
     opts.onCropped = undefined;

@@ -680,6 +680,8 @@ final class PlanApi(
 
   def userPatron(user: User): Fu[Option[Patron]] = mongo.patron.one[Patron]($id(user.id))
 
+  extension (u: User) def mapPlan(f: Update[lila.core.user.Plan]) = u.copy(plan = f(u.plan))
+
 object PlanApi:
 
   enum SyncResult:

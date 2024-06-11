@@ -50,8 +50,12 @@ Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.
   <string name="entryCodeDescriptionForLeader">(Valfritt) En inträdeskod som nya medlemmar måste veta för att gå med i detta lag.</string>
   <string name="incorrectEntryCode">Felaktig kod.</string>
   <string name="teamAlreadyExists">Det här lagnamnet finns redan.</string>
+  <string name="upcomingTournaments">Kommande turneringar</string>
   <string name="completedTourns">Avslutade turneringar</string>
   <string name="declinedRequests">Avvisa förfrågningar</string>
   <string name="joinLichessVariantTeam">Gå med i det officiella %s -laget för nyheter och evenemang</string>
   <string name="teamPage">Lagsida</string>
+  <string name="thisTeamBattleIsOver">Denna turnering är slut, och lagen kan inte längre uppdateras.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du borde verkligen inte ändra detta värde efter att turneringen har börjat!</string>
+  <string name="innerTeam">Inre lag</string>
 </resources>

@@ -14,6 +14,7 @@ import lila.core.game.GameRule
 import lila.rating.PerfType
 import lila.core.user.WithPerf
 import lila.core.user.GameUser
+import lila.core.id.GameFullId
 
 case class Challenge(
     @Key("_id") id: ChallengeId,
@@ -89,6 +90,10 @@ case class Challenge(
   def isBotCompatible: Boolean   = speed >= Speed.Bullet
 
   def nonEmptyRules = rules.nonEmpty.option(rules)
+
+  def fullIdOf(game: lila.core.game.Game, direction: Direction): GameFullId =
+    game.fullIdOf:
+      if direction == Direction.Out then finalColor else !finalColor
 
 object Challenge:
 

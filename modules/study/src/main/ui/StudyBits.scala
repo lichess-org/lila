@@ -47,7 +47,10 @@ final class StudyBits(helpers: Helpers):
   def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: Context) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
-      div(cls := "top", dataIcon := Icon.StudyBoard)(
+      div(cls := "top")(
+        div(cls := "study__icon")(
+          userFlairSync(s.study.ownerId) | iconTag(Icon.StudyBoard)
+        ),
         div(
           tag(cls := "study-name")(s.study.name),
           span(
@@ -69,21 +72,19 @@ final class StudyBits(helpers: Helpers):
       ),
       div(cls := "body")(
         ol(cls := "chapters")(
-          s.chapters.map { name =>
+          s.chapters.map: name =>
             li(cls := "text", dataIcon := Icon.DiscBigOutline)(
               if ctx.userId.exists(s.study.isMember) then name
               else removeMultibyteSymbols(name.value)
             )
-          }
         ),
         ol(cls := "members")(
           s.study.members.members.values
             .take(Study.previewNbMembers)
-            .map { m =>
+            .map: m =>
               li(cls := "text", dataIcon := (if m.canContribute then Icon.RadioTower else Icon.Eye))(
                 titleNameOrId(m.id)
               )
-            }
             .toList
         )
       )

@@ -246,12 +246,12 @@
   <string name="whiteTimeOut">백색 시간 초과</string>
   <string name="blackTimeOut">흑색 시간 초과</string>
   <string name="drawOfferSent">무승부를 요청했습니다</string>
-  <string name="drawOfferAccepted">무승부 요청이 승낙 됐습니다</string>
+  <string name="drawOfferAccepted">무승부 요청이 승낙됐습니다</string>
   <string name="drawOfferCanceled">무승부 요청을 취소했습니다</string>
-  <string name="whiteOffersDraw">흰색이 무승부를 제안했습니다</string>
-  <string name="blackOffersDraw">검은색이 무승부를 제안했습니다</string>
-  <string name="whiteDeclinesDraw">흰색이 무승부 제안을 거절했습니다</string>
-  <string name="blackDeclinesDraw">검은색이 무승부 제안을 거절했습니다</string>
+  <string name="whiteOffersDraw">백이 무승부를 제안했습니다</string>
+  <string name="blackOffersDraw">흑이 무승부를 제안했습니다</string>
+  <string name="whiteDeclinesDraw">백이 무승부 제안을 거절했습니다</string>
+  <string name="blackDeclinesDraw">흑이 무승부 제안을 거절했습니다</string>
   <string name="yourOpponentOffersADraw">상대가 무승부를 요청했습니다</string>
   <string name="accept">승낙</string>
   <string name="decline">거절</string>
@@ -450,7 +450,7 @@
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
   <string name="berserkRate">버서크율</string>
-  <string name="performance">레이팅 점수</string>
+  <string name="performance">퍼포먼스 레이팅</string>
   <string name="tournamentComplete">대회 종료</string>
   <string name="movesPlayed">말 이동 횟수</string>
   <string name="whiteWins">하얀 말로 우승</string>
@@ -741,6 +741,12 @@
   <string name="transparent">투명하게</string>
   <string name="deviceTheme">기기 테마</string>
   <string name="backgroundImageUrl">배경 이미지 URL:</string>
+  <string name="board">보드</string>
+  <string name="size">크기</string>
+  <string name="opacity">투명도</string>
+  <string name="brightness">명도</string>
+  <string name="hue">색상</string>
+  <string name="boardReset">기본 색상으로 되돌리기</string>
   <string name="pieceSet">기물 세트</string>
   <string name="embedInYourWebsite">웹사이트에 공유하기</string>
   <string name="usernameAlreadyUsed">이미 사용중인 사용자 이름입니다. 다른 이름을 사용해주세요.</string>
@@ -933,4 +939,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="showMeEverything">모두 보기</string>
   <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
+  <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
 </resources>

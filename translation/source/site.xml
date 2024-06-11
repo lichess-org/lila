@@ -796,7 +796,7 @@
   <string name="opacity">Opacity</string>
   <string name="brightness">Brightness</string>
   <string name="hue">Hue</string>
-  <string name="boardReset">Reset colors to default</string>
+  <string name="boardReset">Reset colours to default</string>
   <string name="pieceSet">Piece set</string>
   <string name="embedInYourWebsite">Embed in your website</string>
   <string name="usernameAlreadyUsed">This username is already in use, please try another one.</string>
@@ -949,7 +949,7 @@ It only works for standard games, not with variants.
 You can use the %s to generate a FEN position, then paste it here.
 Leave empty to start games from the normal initial position.</string>
   <string name="cancelSimul">Cancel the simul</string>
-  <string name="simulHostcolor">Host color for each game</string>
+  <string name="simulHostcolor">Host colour for each game</string>
   <string name="estimatedStart">Estimated start time</string>
   <string name="simulFeatured">Feature on %s</string>
   <string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>

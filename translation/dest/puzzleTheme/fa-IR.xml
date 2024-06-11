@@ -95,7 +95,7 @@
   <string name="queenRookEndgameDescription">آخربازی، تنها با وزیرها، رُخ‌ها و پیاده‌ها.</string>
   <string name="queensideAttack">حمله به جناه وزیر</string>
   <string name="queensideAttackDescription">یک حمله به شاه حریف، زمانی که در جناه وزیر قلعه رفته است.</string>
-  <string name="quietMove">حرکت طبیعی</string>
+  <string name="quietMove">حرکت آرام</string>
   <string name="quietMoveDescription">حرکتی که نه کیش ایجاد می کند و نه مهره ای را می گیرد و نه تهدید فوری را در پی دارد اما یک تهدید غیر قابل پیشگیری را در حرکات بعد به همراه دارد.</string>
   <string name="rookEndgame">آخربازی رخ</string>
   <string name="rookEndgameDescription">آخربازی، تنها با رخ‌ها و پیاده‌ها.</string>

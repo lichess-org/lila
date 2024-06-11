@@ -25,6 +25,6 @@ object student:
       clas: Clas,
       students: List[Student],
       s: Student.WithUserAndManagingClas,
-      activities: Vector[lila.activity.ActivityView]
+      activities: Seq[lila.activity.ActivityView]
   )(using ctx: Context) =
     ui.show(clas, students, s, views.activity(s.withPerfs, activities))

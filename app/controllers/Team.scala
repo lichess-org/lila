@@ -169,7 +169,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
                 .setPermissions(team, data)
                 .flatMap:
                   _.filter(_.user.isnt(me))
-                    .traverse: change =>
+                    .sequentially: change =>
                       env.msg.api.systemPost(
                         change.user,
                         lila.msg.MsgPreset.newPermissions(
@@ -201,7 +201,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   private def leadersPage(
       team: TeamModel.WithLeaders,
       addLeader: Option[Form[UserStr]] = None,
-      permissions: Option[Form[Seq[TeamSecurity.LeaderData]]] = None
+      permissions: Option[Form[List[TeamSecurity.LeaderData]]] = None
   )(using Context, Me) = views.team.admin.leaders(
     team,
     addLeader | env.team.security.form.addLeader(team),
