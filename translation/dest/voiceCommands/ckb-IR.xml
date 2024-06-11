@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">فەرمانە دەنگییەکان</string>
+  <string name="watchTheVideoTutorial">بینەری فێرکاری ڤیدیۆکە بن</string>
+  <string name="instructions1">دوگمەی %1$s بەکاربهێنە بۆ گۆڕینی ناسینەوەی دەنگ، دوگمەی %2$s بۆ کردنەوەی ئەم دیالۆگە یاریدەدەرە، و مینیوی %3$s بۆ گۆڕینی ڕێکخستنەکانی قسەکردن.</string>
+  <string name="instructions2">ئێمە تیرەکان بۆ چەندین جوڵە نیشان دەدەین کاتێک دڵنیا نین. بە فەرمانی دەنگی ڕەنگ یان ژمارەی تیرێکی جوڵە هەڵبژێرە.</string>
+  <string name="instructions3">ئەگەر تیرێک ڕادارێکی ڕژێنەر پیشان بدات، ئەوا ئەو جوڵەیە لە دوای تەواوبوونی بازنەکە دەکرێت. لەم ماوەیەدا، ڕەنگە تەنها بڵێیت %1$s بۆ ئەوەی دەستبەجێ جوڵەکە یاری پێبکەیت، %2$s بۆ هەڵوەشاندنەوە، یان ڕەنگ/ژمارەی تیرێکی جیاواز بڵێیت. ئەم تایمەرە دەتوانرێت لە ڕێکخستنەکاندا ڕێکبخرێت یان بکوژێنرێتەوە.</string>
+  <string name="instructions4">%s لە بوونی ژاوەژاودا لە دەوروبەرت چالاک بکە. لەکاتی قسەکردنی فەرمانەکاندا shift ڕابگرە کاتێک ئەمە داگیرساوە.</string>
+  <string name="instructions5">ئەلفوبێی فۆنێتیک بەکاربهێنە بۆ باشترکردنی ناسینەوەی ئاراستەکانی تەختەی شەترەنج. </string>
+  <string name="instructions6">%s ڕێکخستنەکانی جوڵەی دەنگ بە وردی ڕوون دەکاتەوە.</string>
+  <string name="thisBlogPost">ئەم بڵاوکراوەیەی بلۆگەکە</string>
+  <string name="moveToE4OrSelectE4Piece">بچۆ بۆ e4 یان داشی e4 هەڵبژێرە</string>
+  <string name="selectOrCaptureABishop">فیلێک هەڵبژێرە یان بیگرە</string>
+  <string name="takeRookWithQueen">بە شاژن داشی رۆک ببە</string>
+  <string name="castle">ماڵکردن (هەر لایەک)</string>
+</resources>
