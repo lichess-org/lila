@@ -8,7 +8,6 @@ import makeChess, { ChessCtrl } from './chess';
 import makeScenario, { Scenario } from './scenario';
 import type { Square as Key } from 'chess.js';
 import { CgMove } from './chessground';
-// import { DrawShape } from 'chessground/draw';
 import * as cg from 'chessground/types';
 import { PromotionCtrl } from './promotionCtrl';
 import { Prop, prop } from 'common';
@@ -169,7 +168,7 @@ export class LevelCtrl {
         captured = detectCapture();
         vm.failed = vm.failed || captured || detectFailure();
       }
-      this.setShapes();
+      if (this.isAppleLevel()) this.setShapes();
       if (!vm.failed && detectSuccess()) this.complete();
       if (vm.willComplete) return;
       if (took) sound.take();
