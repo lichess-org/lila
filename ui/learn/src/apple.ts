@@ -1,6 +1,5 @@
 import { DrawShape } from 'chessground/draw';
 
-// TODO: give attribution (CC0) https://www.svgrepo.com/svg/434273/star
 export const makeAppleShape = (orig: Key): DrawShape => {
   return {
     orig,
