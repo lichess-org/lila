@@ -60,12 +60,28 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="averagePerformance">Átlagos teljesítmény</string>
   <string name="averageScore">Átlagos pontszám</string>
   <string name="myTournaments">Versenyeim</string>
+  <string name="editTournament">Verseny módosítása</string>
+  <string name="editTeamBattle">Csapat csata módosítása</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Védő</string>
   <string name="pickYourTeam">Válaszd ki a csapatodat</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Melyik csapatot fogod reprezentálni ebben a versenyben?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Csatlakozz az egyik csapathoz hogy részt vehess!</string>
+  <string name="created">Létrehozva</string>
   <string name="recentlyPlayed">Nemrég játszott</string>
   <string name="bestResults">Legjobb eredmények</string>
   <string name="stats">Statisztika</string>
-  <string name="pointsSum">Összes pont</string>
-  <string name="rankAvg">Átlag helyezés</string>
+  <string name="tournamentStats">Verseny statisztikák</string>
+  <string name="rankAvgHelp">A helyezés átlag az egy százaléka a helyezésednek. Alacsonyabb jobb.
+
+Például ha 3. helyezett lettél egy versenyen 100 játékos közül, az 3%. Ha 10. lettél egy versenyen 1000 játékosból, az 1%.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medián</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Összes átlag az oldalon %s.</string>
+  <string name="total">Összesen</string>
+  <string name="pointsAvg">Pontok átlaga</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Összes pont</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Átlag helyezés</string>
+  <string name="tournamentWinners">Verseny győztesei</string>
+  <string name="tournamentShields">Verseny pajzsok</string>
+  <string name="onlyTitled">Csak címmel rendelkező játékosok</string>
+  <string name="onlyTitledHelp">A részvétel feltétele a hivatalos cím megléte</string>
 </resources>
