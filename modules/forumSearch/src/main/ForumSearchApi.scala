@@ -8,8 +8,7 @@ import lila.search.*
 import lila.core.forum.{ ForumPostApi, ForumPostMini, ForumPostMiniView }
 import lila.core.id.ForumPostId
 import lila.search.client.SearchClient
-import lila.search.spec.Query as SQuery
-import lila.search.spec.ForumSource
+import lila.search.spec.{ ForumSource, Query }
 import smithy4s.Timestamp
 
 final class ForumSearchApi(
@@ -20,12 +19,12 @@ final class ForumSearchApi(
 
   def search(query: Query, from: From, size: Size) =
     client
-      .search(query.transform, from.value, size.value)
+      .search(query, from.value, size.value)
       .map: res =>
         res.hitIds.map(ForumPostId.apply)
 
   def count(query: Query) =
-    client.count(query.transform).dmap(_.count)
+    client.count(query).dmap(_.count)
 
   def store(post: ForumPostMini) =
     postApi
