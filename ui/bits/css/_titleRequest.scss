@@ -41,6 +41,9 @@
   &--feedback {
     background: $c-primary;
   }
+  &--imported {
+    background: $c-fancy;
+  }
 }
 
 .title__status-full {

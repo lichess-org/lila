@@ -60,6 +60,7 @@ object TitleRequest:
     case approved
     case feedback(val text: String)
     case rejected
+    case imported
     def name = this match
       case pending(_)  => "pending"
       case feedback(_) => "feedback"

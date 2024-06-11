@@ -101,6 +101,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           case Status.approved =>
             h2("Your ", nbsp, userTitleTag(req.data.title), nbsp, " title has been confirmed!")
           case Status.rejected    => h2("Your request has been rejected.")
+          case Status.imported    => h2("Your request has been archived.")
           case Status.feedback(t) => frag("Moderator feedback:", br, br, strong(t))
       )
     )
@@ -112,6 +113,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
         case "approved" => "activity.sparkles"
         case "rejected" => "symbols.cross-mark"
         case "feedback" => "symbols.speech-balloon"
+        case "imported" => "objects.books"
         case _          => "objects.hourglass-not-done"
 
   private def dataForm(form: Form[TitleRequest.FormData])(using Context) =
