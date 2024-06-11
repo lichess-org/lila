@@ -25,6 +25,7 @@
   "dependencies": {
     "chess": "workspace:*",
     "chessops": "^0.14.1",
+    "common": "workspace:*",
     "snabbdom": "3.5.1"
   }
 }

@@ -47,7 +47,7 @@ import {
   NvuiPlugin,
   RoundTour,
 } from './interfaces';
-import { defined, Toggle, toggle } from 'common';
+import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
 
 interface GoneBerserk {
@@ -391,6 +391,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   showYourMoveNotification = () => {
+    if (this.opts.local) return;
     const d = this.data;
     const opponent = $('body').hasClass('zen') ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
     const joined = `${opponent}\njoined the game.`;
@@ -606,7 +607,7 @@ export default class RoundController implements MoveRootCtrl {
       setTimeout(async () => {
         const [tour] = await Promise.all([
           site.asset.loadEsm<RoundTour>('round.tour'),
-          site.asset.loadCssPath('shepherd'),
+          site.asset.loadCssPath('bits.shepherd'),
         ]);
         tour.corresRematchOffline();
       }, 1000);
@@ -871,7 +872,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private delayedInit = () => {
-    site.requestIdleCallback(() => {
+    requestIdleCallback(() => {
       const d = this.data;
       if (this.isPlaying()) {
         if (!d.simul) blur.init(d.steps.length > 2);

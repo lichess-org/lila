@@ -96,6 +96,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 class DialogWrapper implements Dialog {
   private restore?: { focus: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
+  private eventCleanup: { el: Element; type: string; listener: EventListener }[] = [];
   private observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
@@ -132,13 +133,7 @@ class DialogWrapper implements Dialog {
       else if (app.how === 'after') where.after(app.node);
       else where.appendChild(app.node);
     }
-    if (o.action)
-      for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
-        view.querySelector(a.selector)?.addEventListener(a.event ?? 'click', e => {
-          if (!a.result || typeof a.result === 'string') this.close(a.result);
-          else a.result(this, a, e);
-        });
-      }
+    this.refresh();
   }
 
   get open() {
@@ -152,6 +147,28 @@ class DialogWrapper implements Dialog {
   set returnValue(v: string) {
     this.dialog.returnValue = v;
   }
+
+  // sometimes we want to mess with the dom and need the listeners to be reattached
+  refresh = () => {
+    const o = this.o;
+    if (!o.action) return;
+    for (const { el, type, listener } of this.eventCleanup) {
+      el.removeEventListener(type, listener);
+    }
+    this.eventCleanup = [];
+    for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
+      for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
+        for (const el of this.view.querySelectorAll(a.selector)) {
+          const listener = (e: Event) => {
+            if (!a.result || typeof a.result === 'string') this.close(a.result);
+            else a.result(this, a, e);
+          };
+          this.eventCleanup.push({ el, type: event, listener });
+          el.addEventListener(event, listener);
+        }
+      }
+    }
+  };
 
   show = (): Promise<Dialog> => {
     this.returnValue = '';
@@ -188,6 +205,8 @@ class DialogWrapper implements Dialog {
     this.resolve?.(this);
     this.o.onClose?.(this);
     this.dialog.remove();
+    for (const css of this.o.css ?? [])
+      'hashed' in css && site.asset.removeCssPath(css.hashed), 'url' in css && site.asset.removeCss(css.url);
   };
 }
 

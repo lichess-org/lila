@@ -1,4 +1,4 @@
-import { LocalPlayOpts, LocalSetup, Automator } from './types';
+import { LocalPlayOpts, LocalSetup, Automator, Outcome } from './types';
 import { type BotCtrl } from './botCtrl';
 import { makeSocket } from './socket';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
@@ -10,14 +10,14 @@ import { Chess } from 'chessops';
 import * as co from 'chessops';
 
 export interface GameState {
-  fen: string;
-  threefoldFens: Map<string, number>;
-  fiftyMovePly: number;
+  fen?: string;
+  threefoldFens?: Map<string, number>;
+  fiftyMovePly?: number;
   white: string | undefined;
   black: string | undefined;
 }
 
-export class PlayCtrl {
+export class GameCtrl {
   chess = Chess.default();
   socket: RoundSocket;
   fiftyMovePly = 0;
@@ -41,8 +41,8 @@ export class PlayCtrl {
         Object.entries({ ...opts.setup }).map(([k, v]) => [k, v === null ? undefined : v]),
       );
     } else {
-      this.state = opts.state;
-      this.setup = { white: this.state.white, black: this.state.black, fen: this.state.fen };
+      //this.state = opts.state;
+      this.setup = {}; // white: this.state.white, black: this.state.black, fen: this.state.fen };
     }
     this.roundData = this.makeRoundData(this.setup.fen);
   }
@@ -50,7 +50,7 @@ export class PlayCtrl {
     return this.botCtrl.db;
   }*/
 
-  get state(): GameState {
+  /*get state(): GameState {
     return {
       fen: this.fen,
       threefoldFens: this.threefoldFens,
@@ -58,16 +58,16 @@ export class PlayCtrl {
       white: this.setup?.white,
       black: this.setup?.black,
     };
-  }
+  }*/
 
-  set state(state: GameState | undefined) {
+  /*set state(state: GameState | undefined) {
     if (!state) return;
     this.setup.white = state.white;
     this.setup.black = state.black;
     this.resetBoard(state.fen); // it is a "from positon" for now
     this.fiftyMovePly = state.fiftyMovePly;
     this.threefoldFens = new Map(state.threefoldFens);
-  }
+  }*/
 
   setAutomator(automator: Automator) {
     this.automator = automator;
@@ -82,8 +82,15 @@ export class PlayCtrl {
     this.resetBoard();
   }
 
+  reset({ white, black, fen }: GameState) {
+    this.botCtrl.setPlayer('white', white);
+    this.botCtrl.setPlayer('black', black);
+    this.resetBoard(fen);
+  }
+
   resetBoard(fen?: string) {
     //console.trace('reset');
+    if (fen) this.setup.fen = fen;
     this.fiftyMovePly = 0;
     this.moves = [];
     this.threefoldFens.clear();
@@ -97,16 +104,17 @@ export class PlayCtrl {
       movable: { color: this.chess.turn, dests: this.cgDests },
     });
     this.updateRound();
+    this.updateTurn();
     this.botCtrl.zf.reset();
     this.automator?.onReset?.();
   }
 
   checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): {
     end: boolean;
-    result?: string;
+    result?: Outcome | 'error';
     reason?: string;
   } {
-    let result = 'draw',
+    let result: Outcome | 'error' = 'draw',
       reason = userEnd ?? 'checkmate';
     if (this.chess.isCheckmate()) result = co.opposite(this.chess.turn);
     else if (this.chess.isInsufficientMaterial()) reason = 'insufficient';
@@ -137,9 +145,7 @@ export class PlayCtrl {
     if (!move || !this.chess.isLegal(move)) {
       this.doGameOver(
         'error',
-        `${this.botCtrl.players[this.chess.turn]?.name} made illegal move ${uci} at ${makeFen(
-          this.chess.toSetup(),
-        )}`,
+        `${this.botCtrl[this.chess.turn]?.name} made illegal move ${uci} at ${makeFen(this.chess.toSetup())}`,
       );
       return false;
     }
@@ -164,13 +170,13 @@ export class PlayCtrl {
       return false;
     }
     this.redraw();
-    if (this.botCtrl.players[this.chess.turn]) this.botMove();
+    if (this.botCtrl[this.chess.turn]) this.botMove();
     return true;
   }
 
   botMove = async () => {
     if (!this.automator?.isStopped)
-      this.move(await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess.turn));
+      this.move(await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess));
   };
 
   fifty(move?: co.Move) {
@@ -196,6 +202,10 @@ export class PlayCtrl {
     return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3; // TODO fixme
   }
 
+  get inProgress() {
+    return !this.checkGameOver().end && this.moves.length > 0;
+  }
+
   isPromotion(move: co.Move) {
     return (
       'from' in move &&
@@ -205,7 +215,7 @@ export class PlayCtrl {
   }
 
   get isUserTurn() {
-    return !this.botCtrl.players[this.chess.turn];
+    return !this.botCtrl[this.chess.turn];
   }
 
   get dests() {
@@ -281,8 +291,8 @@ export class PlayCtrl {
     const top = co.opposite(bottom);
     return {
       game: this.game,
-      player: this.player(bottom, this.botCtrl.players[bottom]?.name ?? 'Player'),
-      opponent: this.player(top, this.botCtrl.players[top]?.name ?? 'Player'),
+      player: this.player(bottom, this.botCtrl[bottom]?.name ?? 'Player'),
+      opponent: this.player(top, this.botCtrl[top]?.name ?? 'Player'),
       pref: this.opts.pref,
       steps: [{ ply: 0, san: '', uci: '', fen: fen ?? co.fen.INITIAL_FEN }],
       takebackable: true,

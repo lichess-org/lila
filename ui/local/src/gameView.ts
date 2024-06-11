@@ -2,9 +2,9 @@ import { looseH as h, VNode } from 'common/snabbdom';
 //import * as licon from 'common/licon';
 //import { bind } from 'common/snabbdom';
 import { type Libot } from './types';
-import { PlayCtrl } from './playCtrl';
+import { GameCtrl } from './gameCtrl';
 
-export default function (ctrl?: PlayCtrl, side?: VNode): VNode {
+export default function (ctrl?: GameCtrl, side?: VNode): VNode {
   return h('main.round', [
     h(
       'aside.round__side',
@@ -25,7 +25,7 @@ export default function (ctrl?: PlayCtrl, side?: VNode): VNode {
   ]);
 }
 
-function botView(ctrl: PlayCtrl, bot: Libot): VNode {
+function botView(ctrl: GameCtrl, bot: Libot): VNode {
   return h('div.fancy-bot', [
     bot.imageUrl && h('img', { attrs: { src: bot.imageUrl } }),
     h('div.overview', [h('h2', bot.name), h('p', bot.description)]),

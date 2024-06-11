@@ -31,10 +31,10 @@
       justify-content: space-around;
       align-items: start;
     }
-    gap: calc(20px * var(---scale-factor));
-    font-size: calc(32px * var(---scale-factor));
+    gap: calc(20px * $scale-factor);
+    font-size: calc(32px * $scale-factor);
     button {
-      padding: calc(6px * var(---scale-factor));
+      padding: calc(6px * $scale-factor);
       color: $c-font;
       &:hover {
         color: $c-font-clear;

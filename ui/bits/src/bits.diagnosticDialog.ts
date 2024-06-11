@@ -1,5 +1,6 @@
 import { isTouchDevice } from 'common/device';
 import * as licon from 'common/licon';
+import { escapeHtml } from 'common';
 
 export async function initModule() {
   const ops = processQueryParams();
@@ -13,7 +14,7 @@ export async function initModule() {
     `Engine: ${site.storage.get('ceval.engine')}, ` +
     `Threads: ${site.storage.get('ceval.threads')}` +
     (logs ? `\n\n${logs}` : '');
-  const escaped = site.escapeHtml(text);
+  const escaped = escapeHtml(text);
   const flash = ops > 0 ? `<p class="good">Changes applied</p>` : '';
   const submit = document.body.dataset.user
     ? `<form method="post" action="/diagnostic">
@@ -24,7 +25,7 @@ export async function initModule() {
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
   const dlg = await site.dialog.dom({
     class: 'diagnostic',
-    css: [{ hashed: 'diagnosticDialog' }],
+    css: [{ hashed: 'bits.diagnosticDialog' }],
     htmlText: `
       <h2>Diagnostics</h2>${flash}
       <pre tabindex="0" class="err">${escaped}</pre>

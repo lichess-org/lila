@@ -47,24 +47,19 @@
   .spacer {
     flex: 1 1 auto;
   }
-  .starting-fen {
+  .fen {
     &::placeholder {
       font-family: monospace;
       color: #888;
     }
     width: 100%;
   }
-  #controls {
-    @extend %flex-column;
-    gap: 1em;
-  }
-  #pgn {
-    flex: 1 1 auto;
-  }
-  #num-games {
+  .num-games {
+    margin-inline-start: auto;
     width: 80px;
   }
-  span {
+  span,
+  h3 {
     @extend %flex-between;
     gap: 1em;
     flex-wrap: nowrap;
@@ -72,13 +67,10 @@
       //margin: 0 15px;
     }
   }
-  #results {
+  .results-action {
     flex: auto;
   }
-  #clear {
-    flex: auto;
-  }
-  #reset::before {
+  .refresh::before {
     @extend %data-icon;
     content: $licon-Reload;
     color: $c-font;
@@ -86,8 +78,17 @@
       color: $c-font-clearer;
     }
   }
-  #go {
-    flex: auto;
+  .reset::before {
+    @extend %data-icon;
+    content: $licon-X;
+    color: $c-bad;
+    &:hover {
+      color: $m-bad--lighten-11;
+    }
+  }
+  .play-pause {
+    //flex: auto;
+    margin-inline-start: auto;
     &.play::before {
       @extend %data-icon;
       color: $c-secondary;
@@ -107,7 +108,42 @@
   }
 }
 
-.bot-settings {
+.tournament-dialog {
+  @extend %flex-column;
+  gap: 1em;
+  ul {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(200px, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 2px;
+  }
+  li {
+    justify-self: start;
+  }
+  input[type='checkbox'] {
+    margin-inline-end: 0.5em;
+  }
+}
+.test-progress {
+  padding: 0.5em;
+  width: 100%;
+  background: $c-bg-high;
+
+  .results {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(120px, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 2px;
+    font-size: smaller;
+    font-family: monospace;
+    > div {
+      justify-self: start;
+    }
+  }
+}
+.test-dashboard {
   @extend %flex-column, %box-radius-bottom;
   //border-top: 2px solid $c-primary;
   z-index: z(mz-menu);

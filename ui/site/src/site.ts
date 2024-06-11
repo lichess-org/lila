@@ -1,7 +1,6 @@
 import StrongSocket from './socket';
 import { boot } from './boot';
 import Mousetrap from './mousetrap';
-import { requestIdleCallback, escapeHtml } from './functions';
 import once from './once';
 import { spinnerHtml } from 'common/spinner';
 import sri from './sri';
@@ -31,7 +30,6 @@ window.$as = <T>(cashOrHtml: Cash | string) =>
 const s = window.site;
 s.StrongSocket = StrongSocket;
 s.mousetrap = new Mousetrap(document);
-s.requestIdleCallback = requestIdleCallback;
 s.sri = sri;
 s.storage = storage;
 s.tempStorage = tempStorage;
@@ -46,7 +44,6 @@ s.unload = unload;
 s.redirect = redirect;
 s.reload = reload;
 s.watchers = watchers;
-s.escapeHtml = escapeHtml;
 s.announce = announce;
 s.trans = trans;
 s.sound = sound;
@@ -58,10 +55,7 @@ s.dateFormat = dateFormat;
 s.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
 s.blindMode = document.body.classList.contains('blind-mode');
 s.makeChat = data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
-s.makeChessground = (element: HTMLElement, config?: CgConfig) => {
-  console.log('makeChessground', element, config);
-  return Chessground(element, config);
-};
+s.makeChessground = (element: HTMLElement, config?: CgConfig) => Chessground(element, config);
 s.log = makeLog();
 (s.dialog as any) = { ready };
 ready.then(() => {

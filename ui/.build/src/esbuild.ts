@@ -37,7 +37,7 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
     treeShaking: true,
     splitting: true,
     format: 'esm',
-    target: 'es2018',
+    target: 'es2020',
     logLevel: 'silent',
     sourcemap: !env.prod,
     minify: env.prod,

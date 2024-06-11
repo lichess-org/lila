@@ -13,7 +13,7 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   site.dialog
     .dom({
       class: 'link-popup',
-      css: [{ hashed: 'linkPopup' }],
+      css: [{ hashed: 'bits.linkPopup' }],
       htmlText: `
       <div class="link-popup__content">
         <div class="link-popup__content__title">

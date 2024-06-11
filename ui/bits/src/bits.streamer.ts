@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { wireCropDialog } from './load/crop';
+import { wireCropDialog } from './exports/crop';
 
 site.load.then(() => {
   $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {

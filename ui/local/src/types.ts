@@ -1,40 +1,54 @@
 import { RoundData } from 'round';
 import { Material } from 'chessops/setup';
-import { type Zerofish, type FishSearch, type Position } from 'zerofish';
+import type { Search, Position } from 'zerofish';
 import { CardData } from './handOfCards';
-import { GameState } from './playCtrl';
+import { GameState } from './gameCtrl';
+import { Chess } from 'chessops';
 
 export { type CardData };
-export interface ZfBotConfig {
-  /*zeroChance: (p?: ZfParam) => number;
-  zeroCpDefault: (p?: ZfParam) => number; // default cp offset for an lc0 move not found in stockfish search
-  cpThreshold: (p?: ZfParam) => number;
-  searchDepth?: (p?: ZfParam) => number;
-  scoreDepth?: (p?: ZfParam) => number;
-  searchWidth: (p?: ZfParam) => number;
-  aggression: (p?: ZfParam) => number; // [0 passive, 1 aggressive] .5 noop*/
+
+export interface Quirks {
+  takebacks?: number; // 0 to 1 is the chance of asking for a takeback at mistake or below
 }
 
-export interface ZfParam {
-  ply: number;
-  material: Material;
+export type AssetLoc = { lifat: string; url: undefined } | { url: string; lifat: undefined };
+
+export type Point = { readonly x: number; readonly y: number };
+
+export interface Mapping {
+  by: 'score' | 'moves';
+  data: Point[];
+  scale: { minY: number; maxY: number };
 }
 
-export interface Libot {
+export interface BotInfo {
   readonly uid: string;
-  readonly imageUrl?: string;
-  readonly level?: number;
-  readonly isRankBot?: boolean;
-  name: string;
-  description: string;
-  image?: { lifat?: string; url?: string };
-  rating?: number;
-  zero?: { netName: string; depth?: number };
-  fish?: { search?: FishSearch };
-  card?: CardData;
+  readonly name: string;
+  readonly image?: AssetLoc;
+  readonly book?: AssetLoc;
+  readonly description: string;
+  readonly glicko?: { r: number; rd: number };
+  readonly zero?: { netName: string; search?: Search };
+  readonly fish?: { multipv?: number; search: Search };
+  readonly quirks?: Quirks;
+  readonly searchMix?: Mapping;
+}
 
-  updateRating?: (rating: number) => number;
-  move: (pos: Position) => Promise<Uci>;
+export type BotInfos = { [id: string]: BotInfo };
+
+type Writable<T> = {
+  -readonly [P in keyof T]: T[P];
+};
+
+export interface Libot extends Writable<BotInfo> {
+  readonly level?: number; // for rank bots
+  readonly isRankBot?: boolean;
+  readonly ratingText: string;
+  readonly imageUrl: string;
+  readonly card?: CardData;
+
+  updateRating?: (opponent: { r: number; rd: number } | undefined, score: number) => void;
+  move: (pos: Position, chess?: Chess) => Promise<Uci>;
 }
 
 export type Libots = { [id: string]: Libot };
@@ -56,14 +70,17 @@ export interface LocalSetup {
   go?: boolean;
 }
 
+export type Outcome = 'white' | 'black' | 'draw';
+
 export interface Automator {
-  onGameEnd: (result: 'white' | 'black' | 'draw', reason: string) => void;
+  onGameEnd: (outcome: Outcome, reason: string) => void;
+  onMove?: (fen: string) => void;
   onReset?: () => void;
   isStopped?: boolean;
 }
 
 export interface Result {
-  result: Color | 'draw' | undefined;
+  outcome: Outcome;
   white?: string;
   black?: string;
   reason: string;

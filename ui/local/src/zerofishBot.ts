@@ -1,76 +1,102 @@
-import type { Zerofish, ZeroSearch, FishSearch, Position } from 'zerofish';
-import { Libot, ZfBotConfig, CardData } from './types';
-import { BotCtrl } from './botCtrl';
+import type { Zerofish, SearchResult, Search, FishSearch, Position } from 'zerofish';
+import { Libot, AssetLoc, CardData, BotInfo, Point, Mapping } from './types';
+import { PolyglotBook } from 'bits/types';
+import { BotCtrl, lifatBotAsset } from './botCtrl';
+import { interpolate, normalize } from './mapping';
+import * as co from 'chessops';
 
 export type ZerofishBots = { [id: string]: ZerofishBot };
 
 export class ZerofishBot implements Libot {
   name: string;
   readonly uid: string;
+  readonly card: CardData;
   description: string;
-  image: { lifat?: string; url?: string };
-  zero?: { netName: string; depth?: number };
-  fish?: { search?: FishSearch };
-  card?: CardData;
-  rating?: number;
-  ctrl: BotCtrl;
+  image: AssetLoc;
+  book?: AssetLoc;
+  zero?: { netName: string; search?: Search };
+  fish?: FishSearch;
+  glicko: { r: number; rd: number };
+  searchMix?: Mapping;
+  private ctrl: BotCtrl;
+  private openings: Promise<PolyglotBook | undefined>;
 
   constructor(info: Libot, ctrl: BotCtrl) {
     Object.assign(this, info);
-    if (!this.card)
-      this.card = {
+    Object.defineProperty(this, 'ctrl', {
+      enumerable: false,
+      value: ctrl,
+    });
+    Object.defineProperty(this, 'openings', {
+      enumerable: false,
+      get: () => ctrl.getBook(this.book),
+    });
+    Object.defineProperty(this, 'card', {
+      enumerable: false,
+      get: () => ({
         label: this.name,
         domId: this.uid.startsWith('#') ? this.uid.slice(1) : this.uid,
         imageUrl: this.imageUrl,
-      };
-    Object.defineProperty(this, 'ctrl', {
-      value: ctrl,
-      enumerable: false,
+      }),
     });
+    if (this.searchMix) normalize(this.searchMix);
   }
 
   get imageUrl() {
-    return this.image?.url ?? site.asset.url(`lifat/bots/images/${this.image.lifat}`, { version: 'bot000' });
+    return this.image?.url ?? lifatBotAsset(`images/${this.image.lifat}`);
   }
 
-  set imageUrl(url: string) {
-    this.image = { url };
-    if (this.card) this.card.imageUrl = url;
-  }
-
-  async move(pos: Position) {
-    const promises = [];
-    if (this.zero) {
+  async move(pos: Position, chess: co.Chess) {
+    const promises: Promise<SearchResult>[] = [];
+    const openings = (await this.openings)?.(chess);
+    let chance = Math.random();
+    for (const { uci, weight } of openings ?? []) {
+      chance -= weight;
+      if (chance <= 0) return uci;
+    }
+    if (this.zero)
       promises.push(
         this.ctrl.zf.goZero(pos, {
-          depth: this.zero.depth,
+          search: this.zero.search,
           net: { name: this.zero.netName, fetch: this.ctrl.getNet },
         }),
       );
-    }
-    if (this.fish) {
-      promises.push(await this.ctrl.zf.goFish(pos, this.fish.search));
-    }
+    if (this.fish) promises.push(this.ctrl.zf.goFish(pos, this.fish));
     const movers = await Promise.all(promises);
     if (movers.length === 0) return '0000';
     else if (movers.length === 1) return movers[0].bestmove;
     else {
       const [zeroResult, fishResult] = movers;
-      return this.chooseMove(pos.fen!, zeroResult, fishResult);
+      return this.chooseMove(chess, zeroResult, fishResult);
     }
   }
 
-  updateRating(rating: number) {
-    this.rating = Math.round(rating / 10) * 10;
-    this.ctrl.update(this);
-    return rating;
+  updateRating(opp: { r: number; rd: number } = { r: 1500, rd: 350 }, score: number) {
+    const q = Math.log(10) / 400;
+    this.glicko ??= { r: 1500, rd: 350 };
+    const expected = 1 / (1 + 10 ** ((opp.r - this.glicko.r) / 400));
+    const g = 1 / Math.sqrt(1 + (3 * q ** 2 * opp.rd ** 2) / Math.PI ** 2);
+    const dSquared = 1 / (q ** 2 * g ** 2 * expected * (1 - expected));
+    const deltaR = (q * g * (score - expected)) / (1 / dSquared + 1 / this.glicko.rd ** 2);
+    this.glicko = {
+      r: Math.round(this.glicko.r + deltaR),
+      rd: Math.max(30, Math.sqrt(1 / (1 / this.glicko.rd ** 2 + 1 / dSquared))),
+    };
+  }
+
+  get ratingText() {
+    return `${this.glicko?.r ?? 1500}${(this.glicko?.rd ?? 350) > 80 ? '?' : ''}`;
   }
 
   update() {
     this.ctrl.update(this);
   }
 
-  chooseMove(fen: string, zeroResult: any, fishResult: any) {
+  chooseMove(chess: co.Chess, zeroResult: any, fishResult: any) {
+    if (this.searchMix && this.searchMix.by === 'moves') {
+      const fishMix = interpolate(this.searchMix, chess.fullmoves);
+      return Math.random() < (fishMix ?? 0) ? fishResult.bestmove : zeroResult.bestmove;
+    }
     return zeroResult.bestmove;
   }
 }

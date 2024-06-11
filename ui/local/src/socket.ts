@@ -1,9 +1,9 @@
 import throttle from 'common/throttle';
-import { PlayCtrl } from './playCtrl';
+import { GameCtrl } from './gameCtrl';
 import { ApiMove } from 'game';
 import { RoundSocket } from 'round';
 
-export function makeSocket(/*send: SocketSend, */ ctrl: PlayCtrl): RoundSocket {
+export function makeSocket(/*send: SocketSend, */ ctrl: GameCtrl): RoundSocket {
   const handlers: SocketHandlers = {
     move: (m: ApiMove) => {
       ctrl.round?.apiMove?.(m);

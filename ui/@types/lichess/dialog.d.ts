@@ -1,4 +1,4 @@
-// implementation: file://./../../site/src/component/dialog.ts
+// implementation: file://./../../site/src/dialog.ts
 
 interface Dialog {
   readonly open: boolean; // is visible?
@@ -7,6 +7,7 @@ interface Dialog {
 
   showModal(): Promise<Dialog>; // resolves on close
   show(): Promise<Dialog>; // resolves on close
+  refresh(): void; // reattach action handlers (if necessary)
   close(): void;
 }
 
@@ -39,7 +40,7 @@ interface SnabDialogOpts extends DialogOpts {
 // Action can be any "clickable" client button, usually to dismiss the dialog
 interface Action {
   selector: string; // selector
-  event?: string; // if not specified, 'click' handler will be installed
+  event?: string | string[]; // if not specified, 'click' handler will be installed
   result?: string | ((dialog: Dialog, action: Action, e: Event) => void);
   // if result handler not provided, just close
   // if string, given value will set dialog.returnValue and dialog is closed on event

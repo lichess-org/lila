@@ -1,4 +1,3 @@
-/// <reference types="../types/tablesort" />
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
 import * as xhr from 'common/xhr';

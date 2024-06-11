@@ -37,8 +37,12 @@ export class LocalDialog {
     this.white = this.view.querySelector('.white')!;
     this.black = this.view.querySelector('.black')!;
     const cardData = [...Object.values(this.bots).map(b => b.card)].filter(defined);
-    console.log(this.bots, cardData);
-    this.hand = new HandOfCards(this.view, [this.white, this.black], cardData, this.dropSelect);
+    this.hand = new HandOfCards({
+      view: () => this.view,
+      drops: () => [this.white, this.black],
+      cardData: () => cardData,
+      select: this.dropSelect,
+    });
     this.show();
   }
 

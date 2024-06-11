@@ -1,11 +1,17 @@
+$card-height: calc(192px * var(---scale-factor));
+$chin-height: 32px;
+$scale-factor: var(---scale-factor);
+
 @mixin if-constrained($max: 500px) {
   @media (orientation: portrait) and (max-width: $max), (orientation: landscape) and (max-height: $max) {
     @content;
   }
 }
-
+@mixin edit-height {
+  height: calc(100% - ($chin-height + $card-height)); // leave room for cards at bottom
+}
 @mixin above-cards {
   width: 100%;
-  height: calc(100% - (32px + 192px * var(---scale-factor))); // leave room for cards at bottom
+  height: calc(100% - ($chin-height + $card-height)); // leave room for cards at bottom
   gap: 1em;
 }

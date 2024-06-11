@@ -3,6 +3,7 @@ import AnalyseCtrl from '../../ctrl';
 import * as licon from 'common/licon';
 import throttle from 'common/throttle';
 import { iconTag, bind, MaybeVNodes } from 'common/snabbdom';
+import { requestIdleCallback } from 'common';
 import { h, Hooks, VNode } from 'snabbdom';
 
 export function running(ctrl: AnalyseCtrl): boolean {
@@ -27,7 +28,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     () => {
       study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
       study.vm.toolTab('comments');
-      site.requestIdleCallback(
+      requestIdleCallback(
         () =>
           $('#comment-text').each(function (this: HTMLTextAreaElement) {
             this.focus();

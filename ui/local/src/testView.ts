@@ -1,28 +1,47 @@
 import * as co from 'chessops';
 import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
 import { LocalDialog } from './setupDialog';
+import { storedBooleanProp } from 'common/storage';
 import { EditBotDialog } from './editBotDialog';
 import { ZerofishBot } from './zerofishBot';
+import { BotCtrl } from './botCtrl';
 import { TestCtrl } from './testCtrl';
+import { GameCtrl } from './gameCtrl';
+import { Libot } from './types';
+import { playerResults, playersWithResults } from './testUtil';
 
 site.asset.loadCssPath('local.test');
 
-export function renderTestView(ctrl: TestCtrl): VNode {
+interface TestContext {
+  testCtrl: TestCtrl;
+  botCtrl: BotCtrl;
+  gameCtrl: GameCtrl;
+}
+
+function testContext(testCtrl: TestCtrl): TestContext {
+  return {
+    testCtrl,
+    botCtrl: testCtrl.botCtrl,
+    gameCtrl: testCtrl.gameCtrl,
+  };
+}
+export function renderTestView(testCtrl: TestCtrl): VNode {
+  const ctx = testContext(testCtrl);
   return h('div.test-side', [
-    results(ctrl),
+    results(ctx),
     h('hr'),
-    h('div', player(ctrl, co.opposite(ctrl.bottomColor))),
+    h('div', player(ctx, co.opposite(testCtrl.bottomColor))),
     h('div.spacer'),
-    startingFen(ctrl),
-    h('div.bot-settings', controls(ctrl)),
+    fen(ctx),
+    testCtrl.script.type !== 'matchup' ? progress(ctx) : dashboard(ctx),
     h('div.spacer'),
-    h('div', [player(ctrl, ctrl.bottomColor)]),
+    h('div', [player(ctx, testCtrl.bottomColor)]),
   ]);
 }
 
-function player(ctrl: TestCtrl, color: Color): VNode {
-  const players = ctrl.root.botCtrl.players;
-  const p = players[color];
+function player(ctx: TestContext, color: Color): VNode {
+  const { testCtrl, botCtrl } = ctx;
+  const p = botCtrl[color];
   const imgUrl = p?.imageUrl ?? site.asset.url(`lifat/bots/images/${color}-torso.webp`);
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
@@ -37,53 +56,59 @@ function player(ctrl: TestCtrl, color: Color): VNode {
         p instanceof ZerofishBot &&
           h(
             'button.button' + buttonClass[color],
+            { hook: onInsert(el => el.addEventListener('click', () => editBot(ctx, color))) },
+            'Edit',
+          ),
+        (p.glicko?.rd ?? 350) > 60 &&
+          h(
+            'button.button' + buttonClass[color],
             {
               hook: onInsert(el =>
                 el.addEventListener('click', () => {
-                  new EditBotDialog(ctrl.root.botCtrl.zerofishBots, color, p.uid);
+                  testCtrl.run({
+                    type: 'rank',
+                    players: [p.uid, ...botCtrl.rankBots.map(b => b.uid)],
+                    time: '1+0',
+                  });
                 }),
               ),
             },
-            'Edit',
+            'Rank',
           ),
-        h(
-          'button.button' + buttonClass[color],
-          {
-            hook: onInsert(el =>
-              el.addEventListener('click', () => {
-                ctrl.play({
-                  type: 'rank',
-                  players: [p.uid],
-                  iterations: 1, //parseInt($('#num-games').val() as string) || 1,
-                  time: '1+0',
-                });
-              }),
-            ),
-          },
-          'Rank',
-        ),
       ]),
     h('div.stats', [
-      h('span.totals.strong', p?.name ? p.name + (p?.rating ? ` ${p.rating}` : '') : `${color} Player`),
-      //h('span.totals', players[color]?.ratings.get('classical') ?? '0'),
-      h('span.totals', ctrl.resultsText(color)),
+      h('span.totals.strong', p?.name ? `${p.name} ${p.ratingText}` : `Player ${color}`),
+      h('span.totals', playerResults(testCtrl.script.results, botCtrl[color]?.uid)),
     ]),
   ]);
 }
 
-function controls(ctrl: TestCtrl) {
-  const players = ctrl.root.botCtrl.players;
-  const hasUser = !players.white || !players.black;
-  const stopped = ctrl.stopped;
-  const matchInProgress = ctrl.matchInProgress;
-  return [
+function editBot({ testCtrl, botCtrl }: TestContext, color: Color) {
+  let selected = botCtrl[color]?.uid;
+  if (!selected) return;
+  new EditBotDialog(botCtrl, testCtrl.gameCtrl, color, (uid: string) => {
+    // if (selected !== botCtrl[color]?.uid) return;
+    // selected = uid;
+    // botCtrl[color] = botCtrl.bot(uid);
+    // testCtrl.gameCtrl.setup[color] = uid;
+    // testCtrl.reset(false);
+    console.log('bot changed', color, uid, testCtrl.script, testCtrl.gameCtrl.setup);
+    testCtrl.redraw();
+  })
+    .show()
+    .then(testCtrl.redraw);
+}
+
+function dashboard(ctx: TestContext) {
+  const { testCtrl, botCtrl } = ctx;
+  return h('div.test-dashboard', [
     h('span', [
-      h(`button#reset.button.button-metal`, {
+      h(`button.refresh.button.button-metal`, {
         hook: onInsert(el =>
           el.addEventListener('click', () => {
-            ctrl.stop();
-            ctrl.root.resetToSetup();
-            ctrl.root.redraw();
+            testCtrl.stop();
+            testCtrl.gameCtrl.resetToSetup();
+            testCtrl.gameCtrl.redraw();
           }),
         ),
       }),
@@ -92,78 +117,95 @@ function controls(ctrl: TestCtrl) {
         {
           hook: onInsert(el =>
             el.addEventListener('click', () => {
-              const setup = { white: players.white?.uid, black: players.black?.uid };
-              new LocalDialog(ctrl.root.botCtrl.bots, setup);
+              const setup = { white: botCtrl.white?.uid, black: botCtrl.black?.uid };
+              new LocalDialog(botCtrl.bots, setup);
             }),
           ),
         },
-        'New',
+        'setup',
       ),
-      h('input#num-games', { attrs: { type: 'number', min: '1', max: '1000', value: '1' } }),
-      h(
-        `button#go.button.button-empty${
-          hasUser ? '.play.disabled' : matchInProgress && !stopped ? '.pause' : '.play'
-        }`,
-        { hook: onInsert(el => el.addEventListener('click', () => clickPlayPause(ctrl))) },
-      ),
+      h('input.num-games', { attrs: { type: 'number', min: '1', max: '1000', value: '1' } }),
+      renderPlayPause(ctx),
     ]),
     h('span', [
       h(
         'button.button.button-metal',
-        {
-          hook: onInsert(el =>
-            el.addEventListener('click', () => {
-              ctrl.play({
-                type: 'roundRobin',
-                players: Object.values(ctrl.root.botCtrl.bots).map(p => p.uid),
-                iterations: 1,
-                time: '1+0',
-              });
-            }),
-          ),
-        },
-        'Tournament',
+        { hook: onInsert(el => el.addEventListener('click', () => roundRobin(ctx))) },
+        'round robin',
       ),
     ]),
-  ];
+  ]);
 }
 
-function clickPlayPause(ctrl: TestCtrl) {
-  const players = ctrl.root.botCtrl.players;
-  if (!ctrl.stopped) {
-    ctrl.stop();
-  } else {
-    if (ctrl.gameInProgress) ctrl.play();
+function progress(ctx: TestContext) {
+  const { testCtrl, botCtrl } = ctx;
+  return h('div.test-progress', [
+    h('h3', [
+      testCtrl.script.type === 'rank'
+        ? 'Ranking...'
+        : `Game ${testCtrl.script.results.length + 1} of ${testCtrl.script.games.length}`,
+      renderPlayPause(ctx),
+      h(`button.button.reset.button-metal`, {
+        hook: onInsert(el => el.addEventListener('click', () => testCtrl.reset())),
+      }),
+    ]),
+    h(
+      'div.results',
+      playersWithResults(testCtrl.script).map(p => {
+        const bot = botCtrl.bot(p)!;
+        return h('div', `${bot?.name ?? p} ${playerResults(testCtrl.script.results, p)} ${bot.ratingText}`);
+      }),
+    ),
+  ]);
+}
+
+function renderPlayPause(ctx: TestContext): VNode {
+  const { testCtrl } = ctx;
+  return h(
+    `button.play-pause.button.button-metal${
+      testCtrl.hasUser
+        ? '.play.disabled'
+        : testCtrl.testInProgress && !testCtrl.isStopped
+        ? '.pause'
+        : '.play'
+    }`,
+    { hook: onInsert(el => el.addEventListener('click', () => clickPlayPause(ctx))) },
+  );
+}
+
+function clickPlayPause({ testCtrl }: TestContext) {
+  if (testCtrl.hasUser) return;
+  if (!testCtrl.isStopped) testCtrl.stop();
+  else {
+    if (testCtrl.gameInProgress) testCtrl.run();
     else
-      ctrl.play({
-        type: 'matchup',
-        players: [players.white?.uid ?? '#terrence', players.black?.uid ?? '#terrence'],
-        iterations: parseInt($('#num-games').val() as string) || 1,
-        time: '1+0',
-      });
+      testCtrl.run(
+        { type: 'matchup', players: [testCtrl.white.uid, testCtrl.black.uid], time: '1+0' },
+        parseInt($('.num-games').val() as string) || 1,
+      );
   }
-  ctrl.root.redraw();
+  testCtrl.gameCtrl.redraw();
 }
 
-function results(ctrl: TestCtrl) {
+function results(ctx: TestContext) {
   return h('span', [
     h(
-      'button#results.button-link',
-      { hook: onInsert(el => el.addEventListener('click', () => downloadResults(ctrl))) },
+      'button.results-action.button-link',
+      { hook: onInsert(el => el.addEventListener('click', () => downloadResults(ctx))) },
       'Download results',
     ),
     h(
-      'button#clear.button-link',
-      { hook: onInsert(el => el.addEventListener('click', () => clearResults(ctrl))) },
+      'button.results-action.button-link',
+      { hook: onInsert(el => el.addEventListener('click', () => clearResults(ctx))) },
       'Clear results',
     ),
   ]);
 }
 
-async function downloadResults(ctrl: TestCtrl) {
+async function downloadResults(ctx: TestContext) {
   const results = [{}];
-  /*for (const key of await ctrl.store.list()) {
-    const result = await ctrl.store.get(key);
+  /*for (const key of await testCtrl.store.list()) {
+    const result = await testCtrl.store.get(key);
     results.push(result);
     console.log(result);
   }*/
@@ -177,162 +219,73 @@ async function downloadResults(ctrl: TestCtrl) {
   URL.revokeObjectURL(url);
 }
 
-function clearResults(ctrl: TestCtrl) {
+function clearResults({ testCtrl }: TestContext) {
   if (!confirm('Clear all results?')) return;
-  //ctrl.store.clear();
-  ctrl.redraw();
+  //testCtrl.store.clear();
+  testCtrl.redraw();
 }
 
-function startingFen(ctrl: TestCtrl): VNode {
-  return h('input.starting-fen', {
-    attrs: { placeholder: co.fen.INITIAL_BOARD_FEN, spellcheck: 'false' },
+function fen({ testCtrl, gameCtrl }: TestContext): VNode {
+  return h('input.fen', {
+    attrs: { value: gameCtrl.fen, spellcheck: 'false' },
     hook: bind('input', e => {
+      let fen = co.fen.INITIAL_FEN;
       const el = e.target as HTMLInputElement;
-      if (!el.value) ctrl.startingFen = co.fen.INITIAL_FEN;
-      else if (co.fen.parseFen(el.value).isOk) ctrl.startingFen = el.value;
+      if (!el.value || co.fen.parseFen(el.value).isOk) fen = el.value || co.fen.INITIAL_FEN;
       else {
         el.style.backgroundColor = 'red';
         return;
       }
       el.style.backgroundColor = '';
-      ctrl.root.resetBoard(ctrl.startingFen);
-      if (!ctrl.isStopped && !ctrl.root.isUserTurn) ctrl.root.botMove();
-      ctrl.redraw();
+      if (fen) {
+        gameCtrl.resetBoard(fen);
+        if (!testCtrl.isStopped && !gameCtrl.isUserTurn) gameCtrl.botMove();
+        testCtrl.redraw();
+      }
     }),
-    props: { value: ctrl.startingFen },
+    props: { value: testCtrl.startingFen },
   });
 }
 
-//const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(v / 1024) + 'GB');
-
-function renderSettings(ctrl: TestCtrl): VNode | null {
-  // const noarg = (text: string) => text,
-  //   engCtrl = ctrl.engines;
-
-  // function searchTick() {
-  //   return Math.max(
-  //     0,
-  //     searchTicks.findIndex(([tickMs]) => tickMs >= ctrl.params.movetime),
-  //   );
-  // }
-
-  return h('div.bot-settings', [
-    /*(id => {
-      return h('div.setting', [
-        h('label', 'Move time'),
-        h('input#' + id, {
-          attrs: { type: 'range', min: 0, max: searchTicks.length - 1, step: 1 },
-          hook: rangeConfig(searchTick, n => {
-            ctrl.params.movetime = searchTicks[n][0];
-            ctrl.storeParams();
-            ctrl.redraw();
-          }),
-        }),
-        h('div.range_value', searchTicks[searchTick()][1]),
-      ]);
-    })('engine-search-ms'),*/
-    /*(id => {
-      return h('div.setting', [
-        h('label', 'N-fold draw'),
-        h('input#' + id, {
-          attrs: { type: 'range', min: 0, max: 12, step: 3 },
-          hook: rangeConfig(
-            () => ctrl.script.nfold ?? 3,
-            x => {
-              ctrl.params.nfold = x;
-              ctrl.storeParams();
-              ctrl.redraw();
-            },
-          ),
-        }),
-        h('div.range_value', ctrl.params.nfold === 0 ? 'no draw' : `${ctrl.params.nfold ?? 3} moves`),
-      ]);
-    })('draw-after') */ /*
-    hasFeature('sharedMem')
-      ? (id => {
-          return h('div.setting', [
-            h('label', { attrs: { for: id } }, noarg('Threads')),
-            h('input#' + id, {
-              attrs: {
-                type: 'range',
-                min: 1,
-                max: navigator.hardwareConcurrency,
-                step: 1,
-              },
-              hook: rangeConfig(
-                () => Math.min(ctrl.params.threads, navigator.hardwareConcurrency),
-                x => {
-                  ctrl.params.threads = x;
-                  ctrl.storeParams();
-                  ctrl.redraw();
-                },
-              ),
-            }),
-            h('div.range_value', `${ctrl.params.threads} / ${navigator.hardwareConcurrency}`),
-          ]);
-        })('analyse-threads')
-      : null,
-    (id =>
-      h('div.setting', [
-        h('label', { attrs: { for: id } }, noarg('Memory')),
-        h('input#' + id, {
-          attrs: {
-            type: 'range',
-            min: 4,
-            max: Math.floor(Math.log2(engCtrl.active?.maxHash ?? 4)),
-            step: 1,
-          },
-          hook: rangeConfig(
-            () => {
-              return Math.floor(Math.log2(ctrl.params.hash));
-            },
-            v => {
-              ctrl.params.hash = Math.pow(2, v);
-              ctrl.storeParams();
-              ctrl.redraw();
-            },
-          ),
-        }),
-        h('div.range_value', formatHashSize(ctrl.params.hash)),
-      ]))('analyse-memory'),*/
-    ...controls(ctrl),
-  ]);
-}
-
-/*function botSelection(ctrl: TestCtrl, color: Color): VNode {
-  const bots = ctrl.root.botCtrl.bots;
-  const players = ctrl.root.botCtrl.players;
-  return h(
-    'select.select-bot',
-    {
-      hook: bind('change', e => {
-        const value = (e.target as HTMLSelectElement).value;
-        if (players[color]?.uid === value || (!value && !players[color])) return;
-        ctrl.totals = { gamesLeft: ctrl.totals?.gamesLeft ?? 1, white: 0, black: 0, draw: 0, error: 0 };
-        ctrl.root.botCtrl.setBot(color, !value ? undefined : value);
-        ctrl.storeParams();
-        ctrl.redraw();
-      }),
-      props: {
-        value: players[color]?.uid,
+function roundRobin({ testCtrl, botCtrl }: TestContext) {
+  site.dialog.dom({
+    class: 'tournament-dialog',
+    htmlText: `<h2>Round robin</h2><h3>Select participants</h3>
+    <ul>${Object.values(botCtrl.bots)
+      .map(p => {
+        const checked = storedBooleanProp(`local.test.tournament-${p.uid.slice(1)}`, true)();
+        return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
+          p.uid
+        }">
+        <label for='${p.uid.slice(1)}'>${p.name}</label></li>`;
+      })
+      .join('')}</ul>
+    <button class="button" id="start-tournament">Start</button>`,
+    action: [
+      {
+        selector: '#start-tournament',
+        result: dlg => {
+          const participants = Array.from(dlg.view.querySelectorAll('input:checked')).map(
+            (el: HTMLInputElement) => el.value,
+          );
+          if (participants.length < 2) return;
+          testCtrl.run({
+            type: 'roundRobin',
+            players: participants,
+            time: '1+0',
+          });
+          dlg.close();
+        },
       },
-    },
-    [
-      h('option', { attrs: { value: '', selected: players[color] === undefined } }, 'You'),
-      ...Object.values(bots).map(bot => {
-        //console.log(color, players[color]?.uid, '==', bot.uid);
-        return h(
-          'option',
-          {
-            attrs: {
-              value: bot.uid,
-              selected: players[color]?.uid === bot.uid,
-            },
-          },
-          bot.name,
-        );
-      }),
+      {
+        selector: 'input[type="checkbox"]',
+        event: 'change',
+        result: (_, __, e) => {
+          const el = e.target as HTMLInputElement;
+          storedBooleanProp(`local.test.tournament-${el.value.slice(1)}`, true)(el.checked);
+        },
+      },
     ],
-  );
+    show: 'modal',
+  });
 }
-*/

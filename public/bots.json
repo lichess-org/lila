@@ -3,112 +3,122 @@
     "uid": "#terrence",
     "name": "Terrence",
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
-    "image": "terrence.webp",
-    "fish": { "search": { "level": 0, "depth": 1 } }
+    "image": { "lifat": "terrence.webp" },
+    "zero": { "netName": "maia-1100.pb" },
+    "fish": { "multipv": 1, "search": { "depth": 12 } },
+    "mix": {
+      "type": "moves",
+      "scale": { "minY": 0, "maxY": 1 },
+      "data": [
+        { "x": 1, "y": 1 },
+        { "x": 12, "y": 0.5 }
+      ]
+    }
   },
   {
     "uid": "#tbone",
     "name": "T-Bone",
     "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
-    "image": "t-bone.webp",
-    "fish": { "search": { "level": 5, "depth": 1 } }
+    "image": { "lifat": "t-bone.webp" },
+    "book": { "lifat": "gm2600.bin" },
+    "zero": { "netName": "maia-1100.pb" }
   },
   {
     "uid": "#nacho",
     "name": "Nacho",
-    "description": "Nacho is cute, but he wonders what your head tastes like.",
-    "image": "nacho.webp",
-    "fish": { "search": { "level": 10, "depth": 1 } }
+    "description": "Nacho is cute, but he wonders what your face tastes like.",
+    "image": { "lifat": "nacho.webp" },
+    "fish": { "level": 12, "search": { "depth": 1 } }
   },
   {
     "uid": "#marco",
     "name": "Marco",
     "description": "They never asked Marco to star in a video game. He's not happy about it.",
-    "image": "marco.webp",
-    "fish": { "search": { "level": 15, "depth": 6 } }
+    "image": { "lifat": "marco.webp" },
+    "zero": { "netName": "maia-1400.pb" }
   },
   {
     "uid": "#ghost",
     "name": "Ghost",
     "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
-    "image": "ghost.webp",
-    "fish": { "search": { "level": 20, "depth": 11 } }
+    "image": { "lifat": "ghost.webp" },
+    "fish": { "level": 18, "search": { "depth": 1 } }
   },
   {
     "uid": "#greta",
     "name": "Greta",
     "description": "Greta lives in the woods and plays chess with squirrels.",
-    "image": "greta.webp",
-    "fish": { "search": { "level": 25, "depth": 16 } }
+    "image": { "lifat": "greta.webp" },
+    "zero": { "netName": "maia-1600.pb" }
   },
   {
     "uid": "#maia",
     "name": "Maia",
     "description": "Maia was a famous author before she began modeling for Elle c0.",
-    "image": "maia.webp",
-    "fish": { "search": { "level": 29, "depth": 20 } }
+    "image": { "lifat": "maia.webp" },
+    "fish": { "level": 25, "search": { "depth": 12 } }
   },
   {
     "uid": "#gerard",
     "name": "Gerard",
     "description": "Gerard brought a sword to a chess match. And he swings it hard.",
-    "image": "gerard.webp",
-    "zero": { "netName": "maia-1700.pb" }
+    "image": { "lifat": "gerard.webp" },
+    "zero": { "netName": "maia-1800.pb" }
   },
   {
     "uid": "#bionica",
     "name": "Bionica",
     "description": "Bionica was programmed with a full range of emotions. But she prefers contempt.",
-    "image": "bionica.webp",
-    "zero": { "netName": "maia-1800.pb" }
+    "image": { "lifat": "bionica.webp" },
+    "zero": { "netName": "maia-1900.pb" }
   },
   {
     "uid": "#mitsoko",
     "name": "Mitsoko",
-    "description": "Mitsoko, like most women in anime, is an inexplicably powerful warrior.",
-    "image": "mitsoko.webp",
-    "zero": { "netName": "maia-1900.pb" }
+    "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
+    "image": { "lifat": "mitsoko.webp" },
+    "zero": { "netName": "tinygyal-8.pb", "search": { "depth": 2 } }
   },
   {
     "uid": "#spectre",
     "name": "Spectre",
-    "description": "Spectre may strike without warning. You have been warned.",
-    "image": "spectre.webp",
-    "zero": { "netName": "evilgyal-6.pb" }
+    "description": "Spectre will strike without warning. You have been warned.",
+    "image": { "lifat": "spectre.webp" },
+    "zero": { "netName": "goodgyal-5.pb", "search": { "depth": 2 } }
   },
   {
     "uid": "#aurora",
     "name": "Aurora",
-    "description": "They say Aurora can see the future. She says she can see your defeat.",
-    "image": "aurora.webp",
-    "zero": { "netName": "goodgyal-5.pb" }
+    "description": "They say Aurora can see the future. She sees your defeat.",
+    "image": { "lifat": "aurora.webp" },
+    "zero": { "netName": "goodgyal-5.pb", "search": { "depth": 2 } }
   },
   {
-    "uid": "#nullzo",
-    "name": "Null-Zo",
-    "description": "Null-Zo will not rest until he has defeated you. Then he will rest.",
-    "image": "nullzo.webp",
-    "zero": { "netName": "evilgyal-6.pb" }
+    "uid": "#hanzo",
+    "name": "Hanzo",
+    "description": "Hanzo will not rest until he has defeated you. But then he will rest.",
+    "image": { "lifat": "nullzo.webp" },
+    "zero": { "netName": "badgyal-8.pb", "search": { "depth": 2 } }
   },
   {
     "uid": "#eliza",
     "name": "Eliza",
     "description": "Eliza plays masterfully. Some say she's a machine. They're right.",
-    "image": "eliza.webp",
-    "fish": { "search": { "level": 5 } }
+    "image": { "lifat": "eliza.webp" },
+    "zero": { "netName": "badgyal-8.pb", "search": { "depth": 3 } }
   },
   {
     "uid": "#thinman",
-    "name": "ThinMan",
-    "description": "ThinMan is not your friend. It's why he's pointing a laser gun at your face.",
-    "image": "thinman.webp",
-    "fish": { "search": { "level": 30 } }
+    "name": "Thinman",
+    "description": "Thinman is not your friend. It's why he's pointing a laser gun at your face.",
+    "image": { "lifat": "thinman.webp" },
+    "zero": { "netName": "evilgyal-6.pb", "search": { "depth": 3 } }
   },
   {
     "uid": "#listress",
     "name": "Listress",
     "description": "You are a wretched, pitiful worm. Listress will not be merciful.",
-    "image": "listress.webp",
-    "fish": { "search": { "level": 15 } }
+    "image": { "lifat": "listress.webp" },
+    "zero": { "netName": "evilgyal-6.pb", "search": { "depth": 4 } }
   }
 ]

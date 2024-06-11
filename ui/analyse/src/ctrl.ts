@@ -25,7 +25,7 @@ import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
 import { TreeView } from './treeView/treeView';
-import { defined, prop, Prop, toggle, Toggle } from 'common';
+import { defined, prop, Prop, toggle, Toggle, requestIdleCallback } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
 import EvalCache from './evalCache';
@@ -173,7 +173,7 @@ export default class AnalyseCtrl {
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
       this.togglePractice();
-    else if (location.hash === '#menu') site.requestIdleCallback(this.actionMenu.toggle, 500);
+    else if (location.hash === '#menu') requestIdleCallback(this.actionMenu.toggle, 500);
     this.startCeval();
     keyboard.bind(this);
 

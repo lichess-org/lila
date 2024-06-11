@@ -1,23 +1,41 @@
 dialog .dialog-content {
   padding: 0;
+
+  @media (orientation: landscape) {
+    height: min-content;
+    max-height: unset;
+    max-width: min(1600px, 90vw);
+    .edit-bot {
+      height: calc(min(33vh, 25vw) + 80px + $card-height + $chin-height);
+      .player {
+        max-width: 25vw;
+      }
+    }
+  }
 }
 .edit-bot {
   @extend %flex-column, %box-radius-bottom;
-  @include above-cards;
+  //@include above-cards;
+  //width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: min-content 1fr;
+  grid-template-columns: auto auto 1fr;
+  grid-template-rows: min(33vh, 25vw) 1fr;
   grid-template-areas: 'a b c' 'd e e';
+  gap: 1em;
 
   .player {
     grid-area: a;
     aspect-ratio: 1/1;
-    // height: 80%;
   }
   .settings {
+    grid-area: b;
+    border: 1px solid $c-border;
+    padding: 1em;
+    border-radius: 10px;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     gap: 1em;
     padding: 1em;
     overflow: auto;
@@ -34,28 +52,56 @@ dialog .dialog-content {
       resize: none;
     }
   }
-  .col1 {
-    grid-area: b;
-  }
-  .col2 {
-    grid-area: c;
-  }
   .fish {
+    //break-inside: avoid;
   }
   .zero {
+    //break-inside: avoid;
+  }
+  fieldset {
+    border: 1px solid $c-border;
+    border-radius: 5px;
+    padding: 1em 0;
+    legend {
+      font-weight: bold;
+    }
   }
   .setting {
+    padding: 0 1em;
     display: flex;
+    width: 100%;
     flex-flow: row nowrap;
     gap: 1em;
     align-items: center;
-    label {
+    > label {
       max-width: 30%;
       flex: 0 0 initial;
     }
-    input {
-      width: 100%;
+    input[data-type] {
+      flex: auto;
     }
+    &.hasPanel {
+      &.selected {
+        background-color: $m-bg_primary--mix-60;
+      }
+      &:hover {
+        background-color: $m-bg_primary--mix-80;
+      }
+    }
+    &.disabled {
+      > input[data-type],
+      > label {
+        opacity: 0.5;
+      }
+    }
+  }
+  .edit-panel {
+    position: relative;
+    min-width: 0; // chart.js hack
+    grid-area: c;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: beige;
   }
   /*.setting {
     @extend %flex-nowrap;
@@ -90,4 +136,9 @@ dialog .dialog-content {
       text-overflow: ellipsis;
     }
   }*/
+}
+.chin {
+  padding: 0.5em;
+  display: flex;
+  justify-content: center;
 }

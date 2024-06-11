@@ -19,7 +19,7 @@ export class PieceCtrl extends PaneCtrl {
 
   render(): VNode {
     const maxHeight = window.innerHeight - 150; // safari vh brokenness
-    const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / 3;
+    const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / 4;
     const pieceImage = (t: Piece) =>
       this.is3d
         ? `images/staunton/piece/${t}/White-Knight${t == 'Staunton' ? '-Preview' : ''}.png`

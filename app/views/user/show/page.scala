@@ -35,7 +35,7 @@ object page:
       )
       .js(pageModule(info))
       .js(esModules(info))
-      .css("user.show")
+      .css("bits.user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .robots(u.count.game >= 10):
         main(cls := "page-menu", ui.dataUsername := u.username)(
@@ -60,8 +60,8 @@ object page:
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
       .js(esModules(info, filters.current.name == "search"))
-      .css("user.show")
-      .css((filters.current.name == "search").option("user.show.search"))
+      .css("bits.user.show")
+      .css((filters.current.name == "search").option("bits.user.show.search"))
       .css(isGranted(_.UserModView).option("mod.user"))
       .robots(u.count.game >= 10):
         main(cls := "page-menu", ui.dataUsername := u.username)(

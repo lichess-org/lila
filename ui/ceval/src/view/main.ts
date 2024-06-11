@@ -2,7 +2,7 @@ import * as winningChances from '../winningChances';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
 import { onInsert, bind, LooseVNodes, looseH as h } from 'common/snabbdom';
-import { defined, notNull } from 'common';
+import { defined, notNull, requestIdleCallback } from 'common';
 import { ParentCtrl, NodeEvals, CevalState } from '../types';
 import { VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
@@ -309,7 +309,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
 }
 
 function checkHover(el: HTMLElement, ceval: CevalCtrl): void {
-  site.requestIdleCallback(
+  requestIdleCallback(
     () => ceval.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
     500,
   );

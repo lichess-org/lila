@@ -3,7 +3,7 @@ import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
-import { wireCropDialog } from './load/crop';
+import { wireCropDialog } from './exports/crop';
 
 site.load.then(() => {
   $('.markdown-editor').each(function (this: HTMLTextAreaElement) {

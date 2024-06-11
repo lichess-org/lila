@@ -1,4 +1,4 @@
-import { escapeHtml } from './functions';
+import { escapeHtml } from 'common';
 
 let timeout: Timeout | undefined;
 

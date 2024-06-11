@@ -21,7 +21,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
     def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
     val title                        = "Lichess features"
     Page(title)
-      .css("feature")
+      .css("bits.feature")
       .graph(
         title = title,
         url = s"$netBaseUrl${routes.Plan.features.url}",
@@ -204,7 +204,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
       gift: Option[Patron]
   )(using ctx: Context) =
     Page(trans.patron.thankYou.txt())
-      .css("page"):
+      .css("bits.page"):
         main(cls := "page-small page box box-pad")(
           boxTop(h1(cls := "text", dataIcon := patronIconChar)(trp.thankYou())),
           p(trp.tyvm()),

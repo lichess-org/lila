@@ -1,5 +1,5 @@
 import { isMobile } from 'common/device';
-import { memoize } from 'common/common';
+import { memoize, escapeHtml } from 'common';
 
 export function isEvalBetter(a: Tree.ClientEval, b: Tree.ClientEval): boolean {
   return a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);
@@ -39,11 +39,11 @@ export function showEngineError(engine: string, error: string) {
     .dom({
       class: 'engine-error',
       htmlText:
-        `<h2>${site.escapeHtml(engine)} <bad>error</bad></h2>` +
+        `<h2>${escapeHtml(engine)} <bad>error</bad></h2>` +
         (error.includes('Status 503')
           ? `<p>Your external engine does not appear to be connected.</p>
           <p>Please check the network and restart your provider if possible.</p>`
-          : `${site.escapeHtml(error)}</pre><h2>Things to try</h2><ul>
+          : `${escapeHtml(error)}</pre><h2>Things to try</h2><ul>
           <li>Decrease memory slider in engine settings</li>
           <li>Clear site settings for lichess.org</li>
           <li>Select another engine</li><li>Update your browser</li></ul>`),

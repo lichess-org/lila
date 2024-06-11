@@ -6,12 +6,12 @@
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "exports": {
-    "./*": "./dist/load/*.js"
+    "./*": "./dist/exports/*.js"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "dist/load/*"
+        "dist/exports/*"
       ]
     }
   },
@@ -28,6 +28,7 @@
     "@yaireo/tagify": "4.17.9",
     "chat": "workspace:*",
     "chess": "workspace:*",
+    "chessops": "^0.14.1",
     "common": "workspace:*",
     "cropperjs": "^1.6.1",
     "debounce-promise": "^3.1.2",
@@ -36,6 +37,7 @@
     "lichess-pgn-viewer": "^2.1.0",
     "prop-types": "^15.8.1",
     "qrcode": "^1.5.3",
+    "shepherd.js": "^11.2.0",
     "tablesort": "^5.3.0",
     "zxcvbn": "^4.4.2"
   },
@@ -82,7 +84,8 @@
       "src/bits.ublogForm.ts",
       "src/bits.user.ts",
       "src/bits.userComplete.ts",
-      "src/bits.userGamesDownload.ts"
+      "src/bits.userGamesDownload.ts",
+      "src/bits.polyglot.ts"
     ],
     "sync": {
       "node_modules/cropperjs/dist/cropper.min.css": "public/npm",

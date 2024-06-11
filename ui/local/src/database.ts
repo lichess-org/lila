@@ -1,5 +1,5 @@
 import { ObjectStorage, objectStorage } from 'common/objectStorage';
-import { GameState } from './playCtrl';
+import { GameState } from './gameCtrl';
 import { Libot } from './types';
 
 export async function makeDatabase(netCacheSize: number): Promise<Database> {

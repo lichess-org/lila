@@ -5,6 +5,7 @@ import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 import { ChartGame, AcplChart } from 'chart';
 import { stockfishName } from 'common/spinner';
+import { escapeHtml } from 'common';
 import { FEN } from 'chessground/types';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
@@ -154,7 +155,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         $(this).html() +
         '</strong><br /><br />' +
         '<pre>' +
-        site.escapeHtml(iframe) +
+        escapeHtml(iframe) +
         '</pre><br />' +
         iframe +
         '<br /><br />' +

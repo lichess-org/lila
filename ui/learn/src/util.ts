@@ -2,6 +2,7 @@ import type { Square as Key } from 'chess.js';
 import type chessground from 'chessground';
 import m from './mithrilFix';
 import { Level, LevelPartial } from './stage/list';
+import { escapeHtml } from 'common';
 
 export function toLevel(l: LevelPartial, it: number): Level {
   if (l.fen.split(' ').length === 4) l.fen += ' 0 1';
@@ -69,7 +70,7 @@ export function roundSvg(url: string) {
 }
 
 export function withLinebreaks(text: string) {
-  return m.trust(site.escapeHtml(text).replace(/\n/g, '<br>'));
+  return m.trust(escapeHtml(text).replace(/\n/g, '<br>'));
 }
 
 export function decomposeUci(uci: string) {

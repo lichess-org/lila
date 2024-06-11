@@ -28,6 +28,10 @@ export const loadCss = (href: string, key?: string): Promise<void> => {
   });
 };
 
+export const removeCss = (href: string) => {
+  $(`head > link[href="${href}"]`).remove();
+};
+
 export const loadCssPath = async (key: string): Promise<void> => {
   const hash = site.manifest.css[key];
   await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
@@ -68,7 +72,7 @@ export const loadPageEsm = async (name: string) => {
 export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete> => {
   const [userComplete] = await Promise.all([
     loadEsm('bits.userComplete', { init: opts }),
-    loadCssPath('complete'),
+    loadCssPath('bits.complete'),
   ]);
   return userComplete as UserComplete;
 };

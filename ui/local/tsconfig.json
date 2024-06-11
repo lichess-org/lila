@@ -12,6 +12,7 @@
   },
   "isolatedModules": true,
   "references": [
+    { "path": "../bits/tsconfig.json" },
     { "path": "../common/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },
     { "path": "../game/tsconfig.json" },

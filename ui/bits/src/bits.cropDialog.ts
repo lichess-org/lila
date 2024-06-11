@@ -62,7 +62,7 @@ export async function initModule(o?: CropOpts) {
 
   const dlg = await site.dialog.dom({
     class: 'crop-viewer',
-    css: [{ hashed: 'cropDialog' }, { url: 'npm/cropper.min.css' }],
+    css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
     htmlText: `<h2>Crop image to desired shape</h2>
 <div class="crop-view"></div>
 <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>

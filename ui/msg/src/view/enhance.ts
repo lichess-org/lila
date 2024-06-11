@@ -1,7 +1,7 @@
 import { scroller } from './scroller';
 import * as licon from 'common/licon';
 import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'common/richText';
-
+import { escapeHtml } from 'common';
 export { isMoreThanText } from 'common/richText';
 
 const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
@@ -50,10 +50,7 @@ const expandTeamMessage = (html: string) =>
   );
 
 export const enhance = (str: string) =>
-  expandTeamMessage(expandGameIds(expandMentions(expandUrls(site.escapeHtml(str))))).replace(
-    newLineRegex,
-    '<br>',
-  );
+  expandTeamMessage(expandGameIds(expandMentions(expandUrls(escapeHtml(str))))).replace(newLineRegex, '<br>');
 
 interface Expandable {
   element: HTMLElement;

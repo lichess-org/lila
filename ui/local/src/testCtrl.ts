@@ -1,15 +1,15 @@
 import * as co from 'chessops';
 //import { ObjectStorage, objectStorage } from 'common/objectStorage';
-import { PlayCtrl } from './playCtrl';
-import { rateAndNext, rateMatchup } from './rankBots';
-import { Automator, Libot, Result, Matchup } from './types';
+import { GameCtrl } from './gameCtrl';
+import { rankBotMatchup } from './rankBot';
+import { Automator, Libot, Result, Matchup, Outcome } from './types';
 import { Database } from './database';
 import { clamp } from 'common';
+import * as u from './testUtil';
 //import { Libot } from './interfaces';
 
 export interface Test {
   type: 'matchup' | 'roundRobin' | 'rank';
-  iterations: number;
   players: string[];
   time: string;
   startingFen?: string;
@@ -21,39 +21,36 @@ export interface Script extends Test {
 }
 
 export class TestCtrl implements Automator {
-  stopped = true;
+  private stopped = true;
   flipped = false;
-  startingFen = co.fen.INITIAL_FEN;
-  script: Script = {
-    type: 'matchup',
-    iterations: 1,
-    players: [],
-    time: 'classical',
-    games: [],
-    results: [],
-  };
+  script: Script;
 
   constructor(
-    readonly root: PlayCtrl,
+    readonly gameCtrl: GameCtrl,
     readonly redraw: () => void,
   ) {
-    root.setAutomator(this);
+    gameCtrl.setAutomator(this);
     site.pubsub.on('flip', (flipped: boolean) => {
       this.flipped = flipped;
       this.redraw();
     });
-    if (root.setup.white && root.setup.black) {
-      this.script.players = [root.setup.white, root.setup.black];
-      this.script.games = this.matchups(this.script);
-    }
+    this.reset(false);
+  }
+
+  get startingFen() {
+    return this.gameCtrl.setup.fen ?? co.fen.INITIAL_FEN;
+  }
+
+  set startingFen(fen: string) {
+    this.gameCtrl.setup.fen = fen;
   }
 
   get botCtrl() {
-    return this.root.botCtrl;
+    return this.gameCtrl.botCtrl;
   }
 
   /*get db(): Database {
-    return this.root.db;
+    return this.gameCtrl.db;
   }*/
 
   get bottomColor(): Color {
@@ -62,84 +59,95 @@ export class TestCtrl implements Automator {
     const bi = this.script.players.indexOf(this.black?.uid);
     if (bi < wi) [o.top, o.bottom] = [o.bottom, o.top];
     if (this.flipped) [o.top, o.bottom] = [o.bottom, o.top];
-    return o.bottom === this.botCtrl.players.white ? 'white' : 'black';
+    return o.bottom === this.white ? 'white' : 'black';
   }
 
   onReset() {
     const bottom = this.bottomColor;
     const top = co.opposite(bottom);
-    this.root.roundData.player = this.root.player(bottom, this.botCtrl.players[bottom]?.name ?? 'Player');
-    this.root.roundData.opponent = this.root.player(top, this.botCtrl.players[top]?.name ?? 'Player');
-    this.root.round.cg?.set({ orientation: this.bottomColor });
+    this.gameCtrl.roundData.player = this.gameCtrl.player(bottom, this[bottom]?.name ?? 'Player');
+    this.gameCtrl.roundData.opponent = this.gameCtrl.player(top, this[top]?.name ?? 'Player');
+    this.gameCtrl.round.cg?.set({ orientation: this.bottomColor });
   }
 
-  async play(test?: Test) {
+  onMove(fen: string) {}
+
+  async run(test?: Test, iterations = 1) {
     if (test) {
-      this.script = { ...test, games: this.matchups(test), results: [] };
-      this.botCtrl.setPlayer('white', this.script.games[0].white);
-      this.botCtrl.setPlayer('black', this.script.games[0].black);
+      const index = this.script.results.length;
+      this.script = { ...this.script, ...test };
+      this.script.games = this.script.games.slice(0, index);
+      this.script.games.push(...this.matchups(test, iterations));
+      if (this.script.games.length > index) {
+        this.botCtrl.setPlayer('white', this.script.games[index].white);
+        this.botCtrl.setPlayer('black', this.script.games[index].black);
+      }
     }
-    if (test || this.root.checkGameOver().end) this.root.resetBoard(this.startingFen);
+    if (test || this.gameCtrl.checkGameOver().end) this.gameCtrl.resetBoard();
     this.stopped = false;
-    this.root.botMove();
+    this.gameCtrl.botMove();
     this.redraw();
   }
 
   stop() {
+    if (this.stopped) return;
     this.stopped = true;
     this.botCtrl.stop();
     this.redraw();
   }
 
-  get canPlay() {
-    return !this.root.isUserTurn;
-  }
-
   get isStopped() {
-    return this.botCtrl.players.white && this.botCtrl.players.black && this.stopped;
+    return this.white && this.black && this.stopped;
   }
 
-  get matchInProgress() {
+  get hasUser() {
+    return !(this.white && this.black);
+  }
+
+  get testInProgress() {
     return this.script.results.length < this.script.games.length;
   }
 
   get gameInProgress() {
-    return this.root.roundData.steps.length > 1 && !this.root.checkGameOver().end;
+    return this.gameCtrl.roundData.steps.length > 1 && !this.gameCtrl.checkGameOver().end;
   }
 
-  onGameEnd(result: string, reason: string) {
-    if (false)
-      console.log(
+  onGameEnd(outcome: Outcome | 'error', reason: string) {
+    if (outcome === 'error') {
+      console.error(
         `${this.white?.name ?? 'Player'} (white) vs ${
           this.black?.name ?? 'Player'
-        } (black) - ${result} ${reason} - ${this.startingFen} ${this.root.moves.join(' ')}`,
+        } (black) - ${outcome} ${reason} - ${this.gameCtrl.fen} ${this.gameCtrl.moves.join(' ')}`,
+        JSON.stringify(this.gameCtrl.chess),
       );
-    this.script.results.push({
-      result: result as Color | 'draw',
-      reason,
-      white: this.white?.uid,
-      black: this.black?.uid,
-    });
-    if (this.script.results.length >= this.script.games.length) {
-      if (this.script.type === 'rank') {
-        const { matchup } = rateAndNext(this.botCtrl, this.script.results);
-        if (matchup) this.script.games.push(matchup);
-        else this.stopped = true;
-      } else this.stopped = true;
+      return;
     }
+    const last = { outcome: outcome, reason, white: this.white?.uid, black: this.black?.uid };
+    this.script.results.push(last);
+
+    const whiteRating = { r: this.white.glicko?.r ?? 1500, rd: this.white.glicko?.rd ?? 350 };
+    this.white.updateRating?.(this.black.glicko, u.score(outcome, 'white'));
+    this.black.updateRating?.(whiteRating, u.score(outcome, 'black'));
+
+    if (this.script.type === 'rank')
+      this.script.games.push(...rankBotMatchup(this.botCtrl.bot(this.script.players[0])!, last));
+
+    this.stopped = !this.testInProgress;
     if (this.isStopped) return;
+
     const game = this.script.games[this.script.results.length];
     this.botCtrl.setPlayer('white', game.white);
     this.botCtrl.setPlayer('black', game.black);
-    this.root.resetBoard(this.startingFen);
-    this.play();
+    this.gameCtrl.reset({ white: game.white, black: game.black });
+    this.run();
   }
 
-  matchups(test: Test): Matchup[] {
+  matchups(test: Test, iterations = 1): Matchup[] {
     const players = test.players;
+    if (players.length < 2) return [];
+    if (test.type === 'rank') return rankBotMatchup(this.botCtrl.bot(players[0])!);
     const games: Matchup[] = [];
-    if (test.type === 'rank') return [rateMatchup(15, this.botCtrl.bot(players[0])!)];
-    for (let it = 0; it < test.iterations; it++) {
+    for (let it = 0; it < iterations; it++) {
       if (test.type === 'roundRobin') {
         for (let i = 0; i < players.length; i++) {
           for (let j = i + 1; j < players.length; j++) {
@@ -152,6 +160,25 @@ export class TestCtrl implements Automator {
     return games;
   }
 
+  reset = (full = true) => {
+    if (full) {
+      this.stop();
+      this.gameCtrl.resetToSetup();
+    }
+    this.script = {
+      type: 'matchup',
+      players: [],
+      time: 'classical',
+      games: [],
+      results: [],
+    };
+    if (this.gameCtrl.setup.white && this.gameCtrl.setup.black) {
+      this.script.players = [this.gameCtrl.setup.white, this.gameCtrl.setup.black];
+      //this.script.games = this.matchups(this.script);
+    }
+    if (full) this.gameCtrl.redraw();
+  };
+
   get scriptCopy() {
     return {
       ...this.script,
@@ -162,27 +189,11 @@ export class TestCtrl implements Automator {
   }
 
   get white() {
-    return this.botCtrl.players.white!;
+    return this.botCtrl.white!;
   }
 
   get black() {
-    return this.botCtrl.players.black!;
-  }
-
-  resultsText(color: Color) {
-    const players = this.botCtrl.players;
-    const player = players[color]?.uid;
-    const winner = (r: Result, uid?: string) =>
-      (r.result === 'white' || r.result === 'black') && r[r.result] === uid;
-    const loser = (r: Result, uid?: string) =>
-      (r.result === 'white' || r.result === 'black') && r[co.opposite(r.result)] === uid;
-    const draw = (r: Result, uid?: string) => r.result === 'draw' && (r.white === uid || r.black === uid);
-    const results = this.script.results;
-
-    const wins = results.filter(r => winner(r, player)).length;
-    const losses = results.filter(r => loser(r, player)).length;
-    const draws = results.filter(r => draw(r, player)).length;
-    return `${wins}W / ${draws}D / ${losses}L`;
+    return this.botCtrl.black!;
   }
 
   swapColors() {
@@ -194,8 +205,8 @@ export class TestCtrl implements Automator {
       error: this.totals.error,
     };
     this.botCtrl.swap();
-    const cg = this.root.round.cg!;
+    const cg = this.gameCtrl.round.cg!;
     cg.set({ orientation: cg.state.orientation === 'white' ? 'black' : 'white' });
-    this.root.reset(this.startingFen);*/
+    this.gameCtrl.reset(this.startingFen);*/
   }
 }

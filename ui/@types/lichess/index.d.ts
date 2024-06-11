@@ -21,7 +21,6 @@ interface Site {
     defaultParams: Record<string, any>;
   };
   mousetrap: LichessMousetrap; // file://./../../site/src/mousetrap.ts
-  requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;
@@ -30,11 +29,12 @@ interface Site {
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   asset: {
-    // file://./../../site/src/assets.ts
+    // file://./../../site/src/asset.ts
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
-    loadCss(path: string): Promise<void>;
+    loadCss(url: string): Promise<void>;
+    removeCss(url: string): void;
     loadCssPath(path: string): Promise<void>;
     removeCssPath(path: string): void;
     jsModule(name: string): string;
@@ -48,7 +48,6 @@ interface Site {
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(): void;
   watchers(el: HTMLElement): void;
-  escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
   trans(i18n: I18nDict): Trans;
   sound: SoundI; // file://./../../site/src/sound.ts

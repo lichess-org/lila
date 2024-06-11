@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import { requestIdleCallback } from 'common';
 
 type Notification = {
   text: string;
@@ -15,7 +16,7 @@ export class Notify {
     // make sure it's different from previous, so it gets read again
     if (this.notification && this.notification.text == msg) msg += ' ';
     this.notification = { text: msg, date: new Date() };
-    site.requestIdleCallback(() => this.redraw && this.redraw(), 500);
+    requestIdleCallback(() => this.redraw && this.redraw(), 500);
   };
 
   currentText = () =>

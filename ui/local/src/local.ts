@@ -1,13 +1,13 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 //import { RoundOpts, RoundData, RoundSocket } from 'round';
 import { MoveRootCtrl } from 'game';
-import { PlayCtrl } from './playCtrl';
+import { GameCtrl } from './gameCtrl';
 import { TestCtrl } from './testCtrl';
 import { renderTestView } from './testView';
 import { LocalPlayOpts, Libot } from './types';
 import { BotCtrl } from './botCtrl';
 import { LocalDialog } from './setupDialog';
-import view from './playView';
+import view from './gameView';
 
 const patch = init([classModule, attributesModule]);
 
@@ -22,7 +22,7 @@ export async function initModule(opts: LocalPlayOpts) {
     botCtrl.setPlayer('black', opts.setup.black);
   }
 
-  const ctrl = new PlayCtrl(opts, botCtrl, redraw);
+  const ctrl = new GameCtrl(opts, botCtrl, redraw);
   const testCtrl = opts.testUi && new TestCtrl(ctrl, redraw);
   const el = document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);

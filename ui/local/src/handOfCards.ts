@@ -6,6 +6,14 @@ export interface CardData {
   domId: string;
 }
 
+export interface HandOwner {
+  view: () => HTMLElement;
+  drops: () => HTMLElement[];
+  cardData: () => Iterable<CardData>;
+  select: (drop: HTMLElement, domId?: string) => void;
+  autoResize?: boolean;
+}
+
 export class HandOfCards {
   cards: HTMLElement[] = [];
   userMidX: number;
@@ -20,15 +28,20 @@ export class HandOfCards {
   rect: DOMRect;
   selectedCard: HTMLElement | null = null;
 
-  constructor(
-    readonly view: HTMLElement,
-    readonly drops: HTMLElement[],
-    readonly cardData: Iterable<CardData>,
-    readonly select: (target: HTMLElement, domId?: string) => void,
-  ) {
-    for (const c of cardData) this.cards.push(this.createCard(c));
+  constructor(readonly owner: HandOwner) {
+    for (const c of owner.cardData()) this.cards.push(this.createCard(c));
     this.cards.reverse().forEach(card => this.view.appendChild(card));
-    window.addEventListener('resize', this.resize);
+    if (owner.autoResize) window.addEventListener('resize', this.resize);
+  }
+
+  get drops() {
+    return this.owner.drops();
+  }
+  get view() {
+    return this.owner.view();
+  }
+  get select() {
+    return this.owner.select;
   }
 
   createCard(c: CardData) {

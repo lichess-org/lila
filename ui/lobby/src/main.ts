@@ -1,4 +1,5 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
+import { requestIdleCallback } from 'common';
 import { LobbyOpts } from './interfaces';
 import makeCtrl from './ctrl';
 import appView from './view/main';
@@ -19,7 +20,7 @@ export default function main(opts: LobbyOpts) {
     tableVNode = patch(tableVNode, tableView(ctrl));
   }
 
-  site.requestIdleCallback(() => {
+  requestIdleCallback(() => {
     layoutHacks();
     window.addEventListener('resize', layoutHacks);
   });

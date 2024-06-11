@@ -86,16 +86,16 @@ dialog .dialog-content {
 
   .placard {
     position: absolute;
-    bottom: calc(40px * var(---scale-factor) * var(---scale-factor));
+    bottom: calc(40px * $scale-factor * $scale-factor);
     left: 50%;
     transform: translateX(-50%);
     width: max-content;
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
-    padding: calc(10px * var(---scale-factor)) calc(20px * var(---scale-factor) * var(---scale-factor));
+    padding: calc(10px * $scale-factor) calc(20px * $scale-factor * $scale-factor);
     text-align: center;
-    font-size: calc(0.4em + 0.8em * var(---scale-factor));
+    font-size: calc(0.4em + 0.8em * $scale-factor);
     opacity: 0.87;
     border-radius: 5px;
     background-color: #242424;

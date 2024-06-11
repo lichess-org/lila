@@ -163,6 +163,9 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
+      chessops:
+        specifier: ^0.14.1
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -187,6 +190,9 @@ importers:
       qrcode:
         specifier: ^1.5.3
         version: 1.5.3
+      shepherd.js:
+        specifier: ^11.2.0
+        version: 11.2.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -448,9 +454,24 @@ importers:
       '@types/lichess':
         specifier: workspace:*
         version: link:../@types/lichess
+      bits:
+        specifier: workspace:*
+        version: link:../bits
       ceval:
         specifier: workspace:*
         version: link:../ceval
+      chart.js:
+        specifier: '=4.4.0'
+        version: 4.4.0
+      chartjs-adapter-dayjs-4:
+        specifier: ^1.0.4
+        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.11)
+      chartjs-plugin-datalabels:
+        specifier: ^2.2.0
+        version: 2.2.0(chart.js@4.4.0)
+      chartjs-plugin-zoom:
+        specifier: ^2.0.1
+        version: 2.0.1(chart.js@4.4.0)
       chess:
         specifier: workspace:*
         version: link:../chess
@@ -526,6 +547,9 @@ importers:
       chessops:
         specifier: ^0.14.1
         version: 0.14.1
+      common:
+        specifier: workspace:*
+        version: link:../common
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1

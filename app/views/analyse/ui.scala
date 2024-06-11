@@ -26,7 +26,7 @@ object embed:
   def lpv(pgn: PgnStr, orientation: Option[Color], getPgn: Boolean)(using ctx: EmbedContext) =
     views.base.embed(
       title = "Lichess PGN viewer",
-      cssModule = "lpv.embed",
+      cssModule = "bits.lpv.embed",
       modules = EsmInit("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
@@ -36,6 +36,6 @@ object embed:
   def notFound(using EmbedContext) =
     views.base.embed(
       title = "404 - Game not found",
-      cssModule = "lpv.embed"
+      cssModule = "bits.lpv.embed"
     ):
       div(cls := "not-found")(h1("Game not found"))
