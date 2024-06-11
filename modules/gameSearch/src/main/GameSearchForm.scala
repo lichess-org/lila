@@ -34,16 +34,12 @@ final private[gameSearch] class GameSearchForm:
       "aiLevelMax"  -> optional(numberIn(Query.aiLevels)),
       "durationMin" -> optional(numberIn(Query.durations)),
       "durationMax" -> optional(numberIn(Query.durations)),
-      "clock" -> mapping(
-        "initMin" -> optional(numberIn(Query.clockInits)),
-        "initMax" -> optional(numberIn(Query.clockInits)),
-        "incMin"  -> optional(numberIn(Query.clockIncs)),
-        "incMax"  -> optional(numberIn(Query.clockIncs))
-      )(SearchClock.apply)(unapply),
-      "dateMin"  -> GameSearchForm.dateField,
-      "dateMax"  -> GameSearchForm.dateField,
-      "status"   -> optional(numberIn(Query.statuses)),
-      "analysed" -> optional(number),
+      "clockInit"   -> optional(numberIn(Query.clockInits)),
+      "clockInc"    -> optional(numberIn(Query.clockIncs)),
+      "dateMin"     -> GameSearchForm.dateField,
+      "dateMax"     -> GameSearchForm.dateField,
+      "status"      -> optional(numberIn(Query.statuses)),
+      "analysed"    -> optional(number),
       "sort" -> optional(
         mapping(
           "field" -> stringIn(Sorting.fields),
@@ -71,7 +67,8 @@ private[gameSearch] case class SearchData(
     aiLevelMax: Option[Int] = None,
     durationMin: Option[Int] = None,
     durationMax: Option[Int] = None,
-    clock: SearchClock = SearchClock.empty,
+    clockInit: Option[Int] = None,
+    clockInc: Option[Int] = None,
     dateMin: Option[LocalDate] = None,
     dateMax: Option[LocalDate] = None,
     status: Option[Int] = None,
@@ -98,13 +95,14 @@ private[gameSearch] case class SearchData(
       hasAi = hasAi.map(_ == 1),
       aiLevel = Range(aiLevelMin, aiLevelMax),
       duration = Range(durationMin, durationMax),
-      clock = Clocking(clock.initMin, clock.initMax, clock.incMin, clock.incMax),
       date = Range(dateMin, dateMax),
       status = status,
       analysed = analysed.map(_ == 1),
       whiteUser = players.cleanWhite,
       blackUser = players.cleanBlack,
-      sorting = Sorting(sortOrDefault.field, sortOrDefault.order)
+      sorting = Sorting(sortOrDefault.field, sortOrDefault.order),
+      clockInit = clockInit,
+      clockInc = clockInc
     )
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
@@ -131,26 +129,3 @@ private[gameSearch] case class SearchSort(
     field: String = Sorting.default.f,
     order: String = Sorting.default.order
 )
-
-private[gameSearch] case class SearchClock private (
-    initMin: Option[Int],
-    initMax: Option[Int],
-    incMin: Option[Int],
-    incMax: Option[Int]
-)
-
-private[gameSearch] object SearchClock:
-
-  def empty = new SearchClock(None, None, None, None)
-
-  def apply(
-      initMin: Option[Int] = None,
-      initMax: Option[Int] = None,
-      incMin: Option[Int] = None,
-      incMax: Option[Int] = None
-  ): SearchClock =
-    inline def isValid =
-      (initMin, initMax).mapN(_ <= _).getOrElse(true) && (incMin, incMax).mapN(_ <= _).getOrElse(true)
-    if isValid
-    then new SearchClock(initMin, initMax, incMin, incMax)
-    else empty
