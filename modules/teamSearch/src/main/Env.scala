@@ -4,9 +4,9 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import scalalib.paginator.Paginator
-import lila.search.*
 import lila.core.config.ConfigName
 import lila.search.client.SearchClient
+import lila.search.spec.Query
 
 final class Env(
     client: SearchClient,
@@ -19,7 +19,7 @@ final class Env(
 
   lazy val api: TeamSearchApi = wire[TeamSearchApi]
 
-  def apply(text: String, page: Int): Fu[Paginator[TeamId]] = paginatorBuilder(Query(text), page)
+  def apply(text: String, page: Int): Fu[Paginator[TeamId]] = paginatorBuilder(Query.team(text), page)
 
   def cli: lila.common.Cli = new:
     def process = { case "team" :: "search" :: "reset" :: Nil =>

@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import lila.search.*
 import lila.core.team.TeamData
 import lila.search.client.SearchClient
-import lila.search.spec.TeamSource
+import lila.search.spec.{Query, TeamSource}
 
 final class TeamSearchApi(
     client: SearchClient,
@@ -16,11 +16,11 @@ final class TeamSearchApi(
 
   def search(query: Query, from: From, size: Size) =
     client
-      .search(query.transform, from.value, size.value)
+      .search(query, from.value, size.value)
       .map: res =>
         res.hitIds.map(TeamId.apply)
 
-  def count(query: Query) = client.count(query.transform).dmap(_.count)
+  def count(query: Query) = client.count(query).dmap(_.count)
 
   def store(team: TeamData) = client.storeTeam(team.id.value, toDoc(team))
 
