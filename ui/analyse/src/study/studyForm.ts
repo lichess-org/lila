@@ -116,37 +116,41 @@ export function view(ctrl: StudyForm): VNode {
           }, ctrl.redraw),
         },
         [
-          h('div.form-group' + (ctrl.relay ? '.none' : ''), [
-            h('label.form-label', { attrs: { for: 'study-name' } }, ctrl.trans.noarg('name')),
-            h('input#study-name.form-control', {
-              attrs: { minlength: 3, maxlength: 100 },
-              hook: {
-                insert: vnode => updateName(vnode, false),
-                postpatch: (_, vnode) => updateName(vnode, true),
-              },
-            }),
-          ]),
-          h('div.form-group', [
-            h(
-              'details.form-control.emoji-details',
-              {
-                hook: onInsert(el => flairPicker(el)),
-              },
-              [
-                h('summary.button.button-metal.button-no-upper', [
-                  'Flair: ',
-                  h('span.flair-container', [
-                    h('img.icon-flair', {
-                      attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' },
-                    }),
+          h('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
+            h('div.form-group', [
+              h('label.form-label', 'Flair'),
+              h(
+                'details.form-control.emoji-details',
+                {
+                  hook: onInsert(el => flairPicker(el)),
+                },
+                [
+                  h('summary.button.button-metal.button-no-upper', [
+                    h('span.flair-container', [
+                      h('img.uflair', {
+                        attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' },
+                      }),
+                    ]),
                   ]),
-                ]),
-                h('input#study-flair', { attrs: { type: 'hidden', name: 'flair', value: data.flair || '' } }),
-                h('div.flair-picker', {
-                  attrs: { 'data-except-emojis': 'activity.lichess' },
-                }),
-              ],
-            ),
+                  h('input#study-flair', {
+                    attrs: { type: 'hidden', name: 'flair', value: data.flair || '' },
+                  }),
+                  h('div.flair-picker', {
+                    attrs: { 'data-except-emojis': 'activity.lichess' },
+                  }),
+                ],
+              ),
+            ]),
+            h('div.form-group', [
+              h('label.form-label', { attrs: { for: 'study-name' } }, ctrl.trans.noarg('name')),
+              h('input#study-name.form-control', {
+                attrs: { minlength: 3, maxlength: 100 },
+                hook: {
+                  insert: vnode => updateName(vnode, false),
+                  postpatch: (_, vnode) => updateName(vnode, true),
+                },
+              }),
+            ]),
           ]),
           h('div.form-split', [
             select({

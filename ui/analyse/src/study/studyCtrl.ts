@@ -328,6 +328,7 @@ export default class StudyCtrl {
     if (this.vm.mode.sticky) this.vm.behind = 0;
     this.data.position = s.position;
     this.data.name = s.name;
+    this.data.flair = s.flair;
     this.data.visibility = s.visibility;
     this.data.features = s.features;
     this.data.settings = s.settings;
