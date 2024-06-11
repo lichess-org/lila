@@ -4,7 +4,7 @@ import chess.Status
 import lila.core.rating.RatingRange
 import lila.core.i18n.Translate
 
-object Query:
+object FormHelpers:
 
   import lila.common.Form.*
   import lila.core.i18n.{ Translate, I18nKey as trans }
