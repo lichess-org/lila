@@ -1,26 +1,25 @@
 package lila.teamSearch
 
 import akka.stream.scaladsl.*
-import play.api.libs.json.*
 
-import lila.search.*
 import lila.core.team.TeamData
+import lila.search.*
 import lila.search.client.SearchClient
-import lila.search.spec.{Query, TeamSource}
+import lila.search.spec.{ Query, TeamSource }
 
 final class TeamSearchApi(
     client: SearchClient,
     teamApi: lila.core.team.TeamApi
 )(using Executor, akka.stream.Materializer)
-    extends SearchReadApi[TeamId, Query]:
+    extends SearchReadApi[TeamId, Query.Team]:
 
-  def search(query: Query, from: From, size: Size) =
+  def search(query: Query.Team, from: From, size: Size) =
     client
       .search(query, from.value, size.value)
       .map: res =>
         res.hitIds.map(TeamId.apply)
 
-  def count(query: Query) = client.count(query).dmap(_.count)
+  def count(query: Query.Team) = client.count(query).dmap(_.count)
 
   def store(team: TeamData) = client.storeTeam(team.id.value, toDoc(team))
 

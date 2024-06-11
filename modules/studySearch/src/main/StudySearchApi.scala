@@ -3,11 +3,9 @@ package lila.studySearch
 import akka.actor.*
 import akka.stream.scaladsl.*
 import chess.format.pgn.Tag
-import play.api.libs.json.*
 
 import java.time.LocalDate
 
-import lila.common.Json.given
 import lila.common.LateMultiThrottler
 import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }
@@ -22,14 +20,14 @@ final class StudySearchApi(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
 )(using Executor, Scheduler, akka.stream.Materializer)
-    extends SearchReadApi[Study, Query]:
+    extends SearchReadApi[Study, Query.Study]:
 
-  def search(query: Query, from: From, size: Size) =
+  def search(query: Query.Study, from: From, size: Size) =
     client.search(query, from.value, size.value).flatMap { res =>
       studyRepo.byOrderedIds(res.hitIds.map(StudyId(_)))
     }
 
-  def count(query: Query) = client.count(query).dmap(_.count)
+  def count(query: Query.Study) = client.count(query).dmap(_.count)
 
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(
