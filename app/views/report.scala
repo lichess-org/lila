@@ -143,7 +143,7 @@ def layout(filter: String, scores: Room.Scores, pending: PendingCounts)(using
                   "Streamers"
                 )
               ),
-              isGranted(_.SetTitle).option(
+              isGranted(_.TitleRequest).option(
                 a(
                   href := routes.TitleVerify.queue,
                   cls := List(
