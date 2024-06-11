@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">You have 30 seconds to correctly map as many squares as possible!</string>
   <string name="goAsLongAsYouWant">Go as long as you want, there is no time limit!</string>
   <string name="showCoordinates">Show coordinates</string>
+  <string name="showCoordsOnAllSquares">Coordinates on every square</string>
   <string name="showPieces">Show pieces</string>
   <string name="startTraining">Start training</string>
   <string name="findSquare">Find square</string>
