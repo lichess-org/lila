@@ -49,8 +49,8 @@ final class Challenge(
         val json = env.challenge.jsonView(dir.some)(c)
         for
           fullId        <- c.accepted.so(env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir)))
-          socketVersion <- ctx.isMobileOauth.so(env.challenge.version(c.id))
-        yield JsonOk(json.add("fullId", fullId).add("socketVersion", socketVersion.some))
+          socketVersion <- ctx.isMobileOauth.so(env.challenge.version(c.id).dmap(some))
+        yield JsonOk(json.add("fullId", fullId).add("socketVersion", socketVersion))
   }
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
