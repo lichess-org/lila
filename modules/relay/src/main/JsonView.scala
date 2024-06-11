@@ -101,10 +101,14 @@ final class JsonView(
     val linkRound = tr.link.withTour(tr.tour)
     apply(tr.display) ++ Json.obj("url" -> s"$baseUrl${linkRound.path}")
 
-  def withUrlAndPreviews(rt: RelayRound.WithTourAndStudy, previews: ChapterPreview.AsJsons)(using
+  def withUrlAndPreviews(
+      rt: RelayRound.WithTourAndStudy,
+      previews: ChapterPreview.AsJsons,
+      group: Option[RelayGroup.WithTours]
+  )(using
       Option[Me]
   ): JsObject =
-    myRound(rt) ++ Json.obj("games" -> previews)
+    myRound(rt) ++ Json.obj("games" -> previews).add("group" -> group)
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
