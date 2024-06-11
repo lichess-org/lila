@@ -150,7 +150,7 @@ final class JsonView(
       past: Paginator[WithLastRound]
   ) =
     Json.obj(
-      "active"   -> active.map(apply(_)),
+      "active"   -> active.sortBy(t => -(~t.tour.tier)).map(apply(_)),
       "upcoming" -> upcoming.map(apply(_)),
       "past"     -> paginatorWriteNoNbResults.writes(past.map(apply(_)))
     )
