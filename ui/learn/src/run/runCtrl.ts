@@ -1,113 +1,99 @@
-import m from '../mithrilFix';
-import * as stages from '../stage/list';
-import makeLevel, { LevelCtrl } from '../level';
-import { ctrl as makeProgress, Progress } from '../progress';
 import * as sound from '../sound';
-import * as timeouts from '../timeouts';
-import { LearnOpts } from '../learn';
+import * as stages from '../stage/list';
+import { Prop, prop } from 'common';
+import { LearnProgress, LearnOpts } from '../learn';
+import { Stage } from '../stage/list';
+import { LearnCtrl } from '../ctrl';
+import { clearTimeouts } from '../timeouts';
+import { LevelCtrl } from '../levelCtrl';
+import { hashNavigate } from '../hashRouting';
+import { WithGround } from '../util';
 
-export interface Ctrl {
-  opts: LearnOpts;
-  stage: stages.Stage;
-  level: LevelCtrl;
-  vm: Vm;
-  progress: Progress;
-  stageScore(): number;
-  getNext(): stages.Stage;
-  hideStartingPane(): void;
-  restart(): void;
+export class RunCtrl {
+  data: LearnProgress = this.opts.storage.data;
   trans: Trans;
-}
 
-export interface Vm {
-  stageStarting: _mithril.MithrilBasicProperty<boolean>;
-  stageCompleted: _mithril.MithrilBasicProperty<boolean>;
-}
+  chessground: CgApi | undefined;
+  levelCtrl: LevelCtrl;
 
-export default function (opts: LearnOpts, trans: Trans): Ctrl {
-  timeouts.clearTimeouts();
+  stageStarting: Prop<boolean> = prop(false);
+  stageCompleted: Prop<boolean> = prop(false);
 
-  const stage = stages.byId[Number(m.route.param('stage'))];
-  if (!stage) m.route('/');
-  opts.side.ctrl.setStage(stage);
+  get stage(): Stage {
+    return stages.byId[this.opts.stageId ?? 1]!;
+  }
 
-  const levelId =
-    m.route.param('level') ||
-    (function () {
-      const result = opts.storage.data.stages[stage.key];
-      let it = 0;
-      if (result) while (result.scores[it]) it++;
-      if (it >= stage.levels.length) it = 0;
-      return it + 1;
-    })();
+  constructor(
+    ctrl: LearnCtrl,
+    readonly opts: LearnOpts,
+    readonly redraw: () => void,
+  ) {
+    clearTimeouts();
 
-  const level = makeLevel(stage.levels[Number(levelId) - 1], {
-    onCompleteImmediate() {
-      opts.storage.saveScore(stage, level.blueprint, level.vm.score);
-    },
-    onComplete() {
-      if (level.blueprint.id < stage.levels.length) m.route('/' + stage.id + '/' + (level.blueprint.id + 1));
-      else if (vm.stageCompleted()) return;
-      else {
-        vm.stageCompleted(true);
-        sound.stageEnd();
-      }
-      m.redraw();
-    },
-  });
+    this.trans = ctrl.trans;
 
-  const stageScore = function () {
-    const res = opts.storage.data.stages[stage.key];
-    return res
-      ? res.scores.reduce(function (a, b) {
-          return a + b;
-        })
-      : 0;
+    this.initializeLevel();
+
+    // Helpful for debugging:
+    // site.mousetrap.bind(['shift+enter'], this.levelCtrl.complete);
+  }
+
+  initializeLevel = (restarting = false) => {
+    this.levelCtrl = new LevelCtrl(
+      this.withGround,
+      this.stage.levels[Number(this.opts.levelId) - 1],
+      {
+        onCompleteImmediate: () => {
+          this.opts.storage.saveScore(this.stage, this.levelCtrl!.blueprint, this.levelCtrl!.vm.score);
+        },
+        onComplete: () => {
+          if (this.levelCtrl.blueprint.id < this.stage.levels.length) {
+            hashNavigate(this.stage.id, this.levelCtrl.blueprint.id + 1);
+          } else if (this.stageCompleted()) return;
+          else {
+            this.stageCompleted(true);
+            sound.stageEnd();
+          }
+          this.redraw();
+        },
+      },
+      this.redraw,
+    );
+
+    this.stageStarting(this.levelCtrl.blueprint.id === 1 && this.stageScore() === 0 && !restarting);
+    this.stageCompleted(false);
+
+    if (!this.opts.stageId) return;
+    if (this.stageStarting()) sound.stageStart();
+    else this.levelCtrl.start();
   };
 
-  opts.route = 'run';
-  opts.stageId = stage.id;
-
-  const isRestarting = site.tempStorage.boolean('learn.restarting');
-
-  const vm = {
-    stageStarting: m.prop(level.blueprint.id === 1 && stageScore() === 0 && !isRestarting.get()),
-    stageCompleted: m.prop(false),
+  setChessground = (chessground: CgApi) => {
+    this.chessground = chessground;
+    this.withGround(this.levelCtrl.initializeWithGround);
   };
 
-  isRestarting.set(false);
+  withGround: WithGround = f => (this.chessground ? f(this.chessground) : undefined);
 
-  const getNext = function () {
-    return stages.byId[stage.id + 1];
+  stageScore = () => {
+    const res = this.data.stages[this.stage.key];
+    return res?.scores.reduce((a, b) => a + b) ?? 0;
   };
-  if (vm.stageStarting()) sound.stageStart();
-  else level.start();
 
-  // setTimeout(function() {
-  //   if (level.blueprint.id < stage.levels.length)
-  //     m.route('/' + stage.id + '/' + (level.blueprint.id + 1));
-  //   else if (getNext()) m.route('/' + (getNext().id));
-  // }, 1500);
+  score = (level: stages.Level) =>
+    this.data.stages[this.stage.key] ? this.data.stages[this.stage.key].scores[level.id - 1] : 0;
 
-  m.redraw.strategy('diff');
+  getNext = () => stages.byId[this.stage.id + 1];
 
-  return {
-    opts: opts,
-    stage: stage,
-    level: level,
-    vm: vm,
-    progress: makeProgress(stage, level, opts.storage.data),
-    stageScore: stageScore,
-    getNext: getNext,
-    hideStartingPane: function () {
-      if (!vm.stageStarting()) return;
-      vm.stageStarting(false);
-      level.start();
-    },
-    restart: function () {
-      isRestarting.set(true);
-      m.route('/' + stage.id + '/' + level.blueprint.id);
-    },
-    trans: trans,
+  hideStartingPane = () => {
+    if (!this.stageStarting()) return;
+    this.stageStarting(false);
+    this.levelCtrl.start();
+    this.redraw();
+  };
+
+  restart = () => {
+    this.initializeLevel(true);
+    this.redraw();
   };
 }

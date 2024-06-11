@@ -17,6 +17,18 @@
   max-height: 100%;
   overflow: auto;
 
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      filter: blur(15px);
+    }
+
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
+
   > :nth-child(1) {
     animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
   }

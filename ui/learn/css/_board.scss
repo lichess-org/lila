@@ -1,67 +1,43 @@
 .learn__main {
-  item {
-    width: 70%;
-    height: 70%;
-    bottom: 15%;
-    @include inline-start(15%);
-    background-size: cover;
-    position: absolute;
-    transform: translate3d(0, 0, 0);
-    z-index: 1;
-    transition: all 1s;
-  }
-
   @keyframes soft-hue {
     50% {
-      filter: hue-rotate(-20deg);
+      filter: hue-rotate(-10deg);
     }
   }
 
   @keyframes soft-grow {
+    0% {
+      scale: 1;
+    }
     50% {
-      transform: scale(1.08);
+      scale: 1.08;
     }
   }
 
   @keyframes apple-appear {
     0% {
       opacity: 0.5;
-      transform: scale(0) rotate(-360deg);
+      scale: 0;
+      rotate: -360deg;
     }
 
     100% {
       opacity: 1;
-      transform: scale(1) rotate(0);
+      scale: 1;
+      rotate: 0;
     }
   }
 
   .apple {
-    background-image: url(../images/learn/star.png);
     animation:
       0.6s ease-in-out 0s 1 forwards apple-appear,
       1.7s ease-in-out 0.7s infinite none soft-grow,
       0.7s ease-in-out 0.7s infinite none soft-hue;
   }
 
-  square.has-item.move-dest {
-    background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 85, 0, 0.3) 80%);
-  }
-
-  .cg-board square.move-dest.drag-over,
-  .cg-board square.move-dest:hover {
-    background: rgba(20, 85, 30, 0.3);
-  }
-
-  @keyframes slideIn {
-    0% {
-      opacity: 0;
-      filter: blur(15px);
-    }
-
-    100% {
-      opacity: 1;
-      filter: blur(0px);
-    }
+  &.apples .cg-wrap piece.pawn.black {
+    // if the level has apples, we hide the black pawns that are used to represent them
+    background-image: none;
   }
 
   @keyframes rankGlow {
@@ -71,9 +47,9 @@
     }
   }
 
-  .highlight-2nd-rank & .cg-board::after,
-  .highlight-5th-rank & .cg-board::after,
-  .highlight-7th-rank & .cg-board::after {
+  .highlight-2nd-rank & cg-board::after,
+  .highlight-5th-rank & cg-board::after,
+  .highlight-7th-rank & cg-board::after {
     width: 100%;
     height: 12.5%;
     content: '';
@@ -85,11 +61,11 @@
     animation: 1s rankGlow ease-in-out infinite;
   }
 
-  .highlight-7th-rank & .cg-board::after {
+  .highlight-7th-rank & cg-board::after {
     top: 12.5%;
   }
 
-  .highlight-5th-rank & .cg-board::after {
+  .highlight-5th-rank & cg-board::after {
     top: 37.5%;
   }
 
@@ -114,19 +90,7 @@
     }
   }
 
-  .cg-board piece.wriggle::after {
-    content: '!';
-  }
-
-  .cg-board piece.wriggle::after {
-    content: '!';
-    font-size: 40px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: rgba(0, 0, 0, 0.8) 0 0 3px;
-  }
-
-  .piece-values .cg-board piece::before {
+  .piece-values cg-board piece::before {
     position: absolute;
     top: 14px;
     @include inline-end(4px);
@@ -138,37 +102,20 @@
     font-weight: bold;
   }
 
-  .piece-values .cg-board piece.queen::before {
+  .piece-values cg-board piece.queen::before {
     content: '9';
   }
 
-  .piece-values .cg-board piece.rook::before {
+  .piece-values cg-board piece.rook::before {
     content: '5';
   }
 
-  .piece-values .cg-board piece.bishop::before,
-  .piece-values .cg-board piece.knight::before {
+  .piece-values cg-board piece.bishop::before,
+  .piece-values cg-board piece.knight::before {
     content: '3';
   }
 
-  .piece-values .cg-board piece.pawn::before {
+  .piece-values cg-board piece.pawn::before {
     content: '1';
-  }
-}
-// Workaround for chessground 4.4 used in `ui/learn` page.
-// This selector has no effect for chessground 7.11.0 used in other pages.
-cg-container > cg-board > svg {
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  @include inline-start(0);
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: z('cg__svg.cg-shapes');
-  opacity: 0.6;
-
-  image {
-    opacity: 0.5;
   }
 }

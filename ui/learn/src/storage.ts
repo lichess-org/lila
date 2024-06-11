@@ -1,5 +1,5 @@
-import { LearnProgress } from './learn';
-import m from './mithrilFix';
+import * as xhr from 'common/xhr';
+import type { LearnProgress } from './learn';
 import { Stage } from './stage/list';
 
 export interface Storage {
@@ -15,22 +15,18 @@ const defaultValue: LearnProgress = {
 };
 
 function xhrSaveScore(stageKey: string, levelId: number, score: number) {
-  return m.request({
+  return xhr.jsonAnyResponse('/learn/score', {
     method: 'POST',
-    url: '/learn/score',
-    data: {
+    body: xhr.form({
       stage: stageKey,
       level: levelId,
       score: score,
-    },
+    }),
   });
 }
 
 function xhrReset() {
-  return m.request({
-    method: 'POST',
-    url: '/learn/reset',
-  });
+  return xhr.jsonAnyResponse('/learn/reset', { method: 'POST' });
 }
 
 export default function (d?: LearnProgress): Storage {
@@ -38,7 +34,7 @@ export default function (d?: LearnProgress): Storage {
 
   return {
     data: data,
-    saveScore: function (stage: Stage, level: { id: number }, score: number) {
+    saveScore: (stage: Stage, level: { id: number }, score: number) => {
       if (!data.stages[stage.key])
         data.stages[stage.key] = {
           scores: [],
@@ -48,12 +44,9 @@ export default function (d?: LearnProgress): Storage {
       if (data._id) xhrSaveScore(stage.key, level.id, score);
       else site.storage.set(key, JSON.stringify(data));
     },
-    reset: function () {
+    reset: () => {
       data.stages = {};
-      if (data._id)
-        xhrReset().then(function () {
-          location.reload();
-        });
+      if (data._id) xhrReset().then(() => location.reload());
       else {
         site.storage.remove(key);
         location.reload();
