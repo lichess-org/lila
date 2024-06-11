@@ -1,24 +1,25 @@
 package lila.gameSearch
 
-import lila.search.*
+import lila.search.{ SearchReadApi, From, Size }
 import lila.search.client.SearchClient
+import lila.search.spec.Query
 
 final class GameSearchApi(
     client: SearchClient,
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi
 )(using Executor, Scheduler)
-    extends SearchReadApi[Game, Query]:
+    extends SearchReadApi[Game, Query.Game]:
 
-  def search(query: Query, from: From, size: Size): Fu[List[Game]] =
-    client.search(query.transform, from.value, size.value).flatMap { res =>
+  def search(query: Query.Game, from: From, size: Size): Fu[List[Game]] =
+    client.search(query, from.value, size.value).flatMap { res =>
       gameRepo.gamesFromSecondary(res.hitIds.map(GameId.apply))
     }
 
-  def count(query: Query) =
-    client.count(query.transform).dmap(_.count)
+  def count(query: Query.Game) =
+    client.count(query).dmap(_.count)
 
-  def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
+  def validateAccounts(query: Query.Game, forMod: Boolean): Fu[Boolean] =
     fuccess(forMod) >>| userApi.containsDisabled(query.userIds).not
 
   def store(game: Game) =

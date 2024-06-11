@@ -1,31 +1,28 @@
 package lila.forumSearch
 
 import akka.stream.scaladsl.*
-import play.api.libs.json.*
 
-import lila.common.Json.given
 import lila.search.*
 import lila.core.forum.{ ForumPostApi, ForumPostMini, ForumPostMiniView }
 import lila.core.id.ForumPostId
 import lila.search.client.SearchClient
-import lila.search.spec.Query as SQuery
-import lila.search.spec.ForumSource
+import lila.search.spec.{ ForumSource, Query }
 import smithy4s.Timestamp
 
 final class ForumSearchApi(
     client: SearchClient,
     postApi: ForumPostApi
 )(using Executor, akka.stream.Materializer)
-    extends SearchReadApi[ForumPostId, Query]:
+    extends SearchReadApi[ForumPostId, Query.Forum]:
 
-  def search(query: Query, from: From, size: Size) =
+  def search(query: Query.Forum, from: From, size: Size) =
     client
-      .search(query.transform, from.value, size.value)
+      .search(query, from.value, size.value)
       .map: res =>
         res.hitIds.map(ForumPostId.apply)
 
-  def count(query: Query) =
-    client.count(query.transform).dmap(_.count)
+  def count(query: Query.Forum) =
+    client.count(query).dmap(_.count)
 
   def store(post: ForumPostMini) =
     postApi
