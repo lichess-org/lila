@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import lila.app.{ *, given }
 import lila.title.TitleRequest
 import lila.core.id.{ TitleRequestId, CmsPageKey }
+import org.checkerframework.checker.units.qual.s
 
 final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC: => User, modC: => Mod)
     extends LilaController(env):
@@ -40,8 +41,9 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
       then Ok.async(ui.edit(env.title.form.edit(req.data), req))
       else
         for
-          data <- getModData(req)
-          page <- renderPage(views.title.mod.show(req, data))
+          data    <- getModData(req)
+          similar <- api.findSimilar(req)
+          page    <- renderPage(views.title.mod.show(req, similar, data))
         yield Ok(page)
   }
 
@@ -112,14 +114,14 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
             req  <- api.process(req, data)
             _    <- req.approved.so(onApproved(req))
             next <- api.queue(1).map(_.headOption)
-          yield Redirect(routes.TitleVerify.show((next | req).id)).flashSuccess
+          yield Redirect(next.fold(routes.TitleVerify.queue)(r => routes.TitleVerify.show(r.id))).flashSuccess
       )
   }
 
   private def onApproved(req: TitleRequest)(using Context, Me) =
     for
       user <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
-      _    <- modC.doSetTitle(user.id, req.data.title.some)
+      _    <- modC.doSetTitle(user.id, req.data.title.some, req.data.public)
       url  = s"${env.net.baseUrl}${routes.TitleVerify.show(req.id)}"
       note = s"Title verified: ${req.data.title}. Public: ${if req.data.public then "Yes" else "No"}. $url"
       _ <- env.user.noteApi.write(user.id, note, modOnly = true, dox = false)

@@ -199,7 +199,7 @@ const renderUser = (player: ChapterPreviewPlayer): VNode =>
   h('span.mini-game__user', [
     playerFed(player.fed),
     h('span.name', [userTitle(player), player.name || '?']),
-    player.rating && h('span.rating', player.rating.toString()),
+    player.rating ? h('span.rating', player.rating.toString()) : undefined,
   ]);
 
 export const renderClock = (chapter: ChapterPreview, color: Color) => {

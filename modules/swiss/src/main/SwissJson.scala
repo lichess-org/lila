@@ -19,15 +19,17 @@ final class SwissJson(
     statsApi: SwissStatsApi,
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
   import SwissJson.{ *, given }
   import BsonHandlers.given
+  import lila.gathering.ConditionHandlers.JSONHandlers.{ *, given }
 
-  def api(swiss: Swiss) = statsApi(swiss).map { stats =>
+  def api(swiss: Swiss, verdicts: WithVerdicts)(using lang: Lang) = statsApi(swiss).map { stats =>
     swissJsonBase(swiss) ++ Json.obj(
-      "stats" -> stats,
-      "rated" -> swiss.settings.rated
+      "verdicts" -> verdictsFor(verdicts, swiss.perfType),
+      "stats"    -> stats,
+      "rated"    -> swiss.settings.rated
     )
   }
 

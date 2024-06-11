@@ -153,7 +153,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       ),
       form3.split(
         gatheringFormUi.minRating(form.prefix("conditions.minRating.rating")),
-        gatheringFormUi.minRating(form.prefix("conditions.maxRating.rating"))
+        gatheringFormUi.maxRating(form.prefix("conditions.maxRating.rating"))
       ),
       form3.split(
         gatheringFormUi.allowList(form.prefix("conditions.allowList"))

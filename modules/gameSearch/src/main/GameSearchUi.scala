@@ -50,8 +50,7 @@ final class GameSearchUi(helpers: Helpers)(
               f.mode,
               f.turns,
               f.duration,
-              f.clockTime,
-              f.clockIncrement,
+              f.clock,
               f.status,
               f.winnerColor,
               f.date,
@@ -118,8 +117,7 @@ final class GameSearchUi(helpers: Helpers)(
         f.rating,
         f.turns,
         f.duration,
-        f.clockTime,
-        f.clockIncrement,
+        f.clock,
         f.source,
         f.perf,
         f.mode
@@ -284,25 +282,16 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
       )
     )
 
-  def clockTime =
+  def clock =
     tr(
-      th(label(trans.site.clockInitialTime())),
+      th(label(trans.site.clock())),
       td(cls := "two-columns")(
         div(
-          trs.from(),
+          trans.site.clockInitialTime(),
           " ",
-          form3.select(form("clock")("initMin"), Query.clockInits, "".some)
+          form3.select(form("clockInit"), Query.clockInits, "".some)
         ),
-        div(trs.to(), " ", form3.select(form("clock")("initMax"), Query.clockInits, "".some))
-      )
-    )
-
-  def clockIncrement =
-    tr(
-      th(label(trans.site.clockIncrement())),
-      td(cls := "two-columns")(
-        div(trs.from(), " ", form3.select(form("clock")("incMin"), Query.clockIncs, "".some)),
-        div(trs.to(), " ", form3.select(form("clock")("incMax"), Query.clockIncs, "".some))
+        div(trans.site.clockIncrement(), " ", form3.select(form("clockInc"), Query.clockIncs, "".some))
       )
     )
 
