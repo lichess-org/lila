@@ -8,7 +8,7 @@ import scalalib.paginator.*
 import lila.common.LateMultiThrottler
 import lila.core.study.RemoveStudy
 import lila.study.Study
-import lila.search.{From, Size}
+import lila.search.{ From, Size }
 import lila.search.client.SearchClient
 import lila.search.spec.Query
 

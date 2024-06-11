@@ -6,8 +6,9 @@ import play.api.data.Forms.*
 import java.time.LocalDate
 
 import lila.common.Form.*
-import lila.search.Range
 import lila.core.i18n.Translate
+import lila.search.spec.{ Sorting as SpecSorting, Clocking as SpecClocking, IntRange, DateRange }
+import smithy4s.Timestamp
 
 final private[gameSearch] class GameSearchForm:
 
@@ -78,32 +79,34 @@ private[gameSearch] case class SearchData(
 
   def sortOrDefault = sort | SearchSort()
 
-  def query =
-    Query(
-      user1 = players.cleanA,
-      user2 = players.cleanB,
-      winner = players.cleanWinner,
-      loser = players.cleanLoser,
+  def query: lila.search.spec.Query.Game =
+    lila.search.spec.Query.game(
+      user1 = players.cleanA.map(_.value),
+      user2 = players.cleanB.map(_.value),
+      winner = players.cleanWinner.map(_.value),
+      loser = players.cleanLoser.map(_.value),
       winnerColor = winnerColor,
       perf =
         if perf.exists(_ == 5) then List(1, 2, 3, 4, 6)
         else perf.toList, // 1,2,3,4,6 are the perf types for standard games
       source = source,
       rated = mode.flatMap(Mode.apply).map(_.rated),
-      turns = Range(turnsMin, turnsMax),
-      averageRating = Range(ratingMin, ratingMax),
-      hasAi = hasAi.map(_ == 1),
-      aiLevel = Range(aiLevelMin, aiLevelMax),
-      duration = Range(durationMin, durationMax),
-      date = Range(dateMin, dateMax),
       status = status,
+      turns = IntRange(turnsMin, turnsMax).some,
+      averageRating = IntRange(ratingMin, ratingMax).some,
+      hasAi = hasAi.map(_ == 1),
+      aiLevel = IntRange(aiLevelMin, aiLevelMax).some,
+      date = DateRange(dateMin.map(transform), dateMax.map(transform)).some,
+      duration = IntRange(durationMin, durationMax).some,
       analysed = analysed.map(_ == 1),
-      whiteUser = players.cleanWhite,
-      blackUser = players.cleanBlack,
-      sorting = Sorting(sortOrDefault.field, sortOrDefault.order),
+      whiteUser = players.cleanWhite.map(_.value),
+      blackUser = players.cleanBlack.map(_.value),
+      sorting = SpecSorting(sortOrDefault.field, sortOrDefault.order).some,
       clockInit = clockInit,
       clockInc = clockInc
     )
+
+  def transform(l: LocalDate): Timestamp = Timestamp(l.getYear, l.getMonthValue, l.getDayOfMonth)
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
 

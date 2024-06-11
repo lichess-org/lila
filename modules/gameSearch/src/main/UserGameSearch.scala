@@ -3,10 +3,11 @@ package lila.gameSearch
 import play.api.data.FormBinding
 import play.api.i18n.Lang
 import play.api.mvc.Request
+import lila.search.spec.Query
 
 final class UserGameSearch(
     forms: GameSearchForm,
-    paginator: lila.search.PaginatorBuilder[Game, Query]
+    paginator: lila.search.PaginatorBuilder[Game, Query.Game]
 )(using lila.core.i18n.Translator):
 
   def apply(user: User, page: Int)(using Request[?], FormBinding, Lang) =
