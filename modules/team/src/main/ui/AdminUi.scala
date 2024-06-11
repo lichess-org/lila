@@ -15,7 +15,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
   def leaders(
       t: Team.WithLeaders,
       addLeaderForm: Form[UserStr],
-      permsForm: Form[Seq[TeamSecurity.LeaderData]]
+      permsForm: Form[List[TeamSecurity.LeaderData]]
   )(using Context) =
     TeamPage(s"${t.name} • ${trans.team.teamLeaders.txt()}")
       .js(EsmInit("mod.teamAdmin"))

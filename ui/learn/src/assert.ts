@@ -1,5 +1,5 @@
 import type { Piece, Square as Key } from 'chess.js';
-import { AssertData } from './level';
+import { AssertData } from './levelCtrl';
 import { readKeys } from './util';
 
 interface Matcher {

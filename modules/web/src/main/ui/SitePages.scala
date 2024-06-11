@@ -27,7 +27,7 @@ final class SitePages(helpers: Helpers):
       a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
       a(activeCls("tos"), href := routes.Cms.tos)(trans.site.termsOfService()),
       a(activeCls("privacy"), href := "/privacy")(trans.site.privacy()),
-      a(activeCls("master"), href := routes.Cms.master)("Title verification"),
+      a(activeCls("title"), href := routes.TitleVerify.index)("Title verification"),
       sep,
       a(activeCls("source"), href := routes.Cms.source)(trans.site.sourceCode()),
       a(activeCls("help"), href := routes.Cms.help)(trans.site.contribute()),
@@ -312,12 +312,11 @@ final class SitePages(helpers: Helpers):
       )
 
   def ghost(using Context) =
-    Page("Deleted user")
-      .css("ghost"):
-        main(cls := "page-small box box-pad page")(
-          h1(cls := "box__top")("Deleted user"),
-          div(
-            p("This player account is gone!"),
-            p("Nothing to see here, move along.")
-          )
+    Page("Deleted user"):
+      main(cls := "page-small box box-pad page")(
+        h1(cls := "box__top")("Deleted user"),
+        div(
+          p("This player account is gone!"),
+          p("Nothing to see here, move along.")
         )
+      )

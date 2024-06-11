@@ -57,7 +57,7 @@ final class User(
     }
 
   private[controllers] val userShowRateLimit =
-    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(2))
+    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(3))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>
@@ -529,7 +529,7 @@ final class User(
         relateds <-
           ops
             .zip(followables)
-            .traverse { case ((u, nb), followable) =>
+            .sequentially { case ((u, nb), followable) =>
               relationApi
                 .fetchRelation(user.id, u.id)
                 .map:

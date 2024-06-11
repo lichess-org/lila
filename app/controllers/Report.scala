@@ -8,6 +8,8 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.ReportId
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
+import lila.report.Room.Scores
+import lila.mod.ui.PendingCounts
 
 final class Report(env: Env, userC: => User, modC: => Mod) extends LilaController(env):
 
@@ -28,16 +30,20 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     else notFound
   }
 
-  protected[controllers] def getScores =
-    api.maxScores.zip(env.streamer.api.approval.countRequests).zip(env.appeal.api.countUnread)
+  protected[controllers] def getScores: Future[(Scores, PendingCounts)] = (
+    api.maxScores,
+    env.streamer.api.approval.countRequests,
+    env.appeal.api.countUnread,
+    env.title.api.countPending
+  ).mapN: (scores, streamers, appeals, titles) =>
+    (scores, PendingCounts(streamers, appeals, titles))
 
   private def renderList(room: String)(using Context, Me) =
-    api.openAndRecentWithFilter(12, Room(room)).zip(getScores).flatMap {
-      case (reports, ((scores, streamers), appeals)) =>
-        env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) >>
-          Ok.page:
-            val filteredReports = reports.filter(r => lila.report.Reason.isGranted(r.report.reason))
-            views.report.list(filteredReports, room, scores, streamers, appeals)
+    api.openAndRecentWithFilter(12, Room(room)).zip(getScores).flatMap { case (reports, (scores, pending)) =>
+      env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) >>
+        Ok.page:
+          val filteredReports = reports.filter(r => lila.report.Reason.isGranted(r.report.reason))
+          views.report.list(filteredReports, room, scores, pending)
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>

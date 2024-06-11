@@ -588,7 +588,11 @@ export default class AnalyseCtrl {
       console.log("Can't addNode", node, path);
       return this.redraw();
     }
-    this.jump(newPath);
+
+    const relayPath = this.study?.data.chapter.relayPath;
+    if (relayPath && relayPath != newPath) this.forceVariation(newPath, true);
+    else this.jump(newPath);
+
     this.redraw();
     const queuedUci = this.pvUciQueue.shift();
     if (queuedUci) this.playUci(queuedUci, this.pvUciQueue);

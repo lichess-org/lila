@@ -7,6 +7,10 @@ cg-board {
   left: 0;
   user-select: none;
   line-height: 0;
+
+  .manipulable & {
+    cursor: pointer;
+  }
 }
 
 cg-board::before {
@@ -125,14 +129,10 @@ piece {
   background-size: cover;
   z-index: z('cg__piece');
   will-change: transform;
-
-  .manipulable & {
-    cursor: pointer;
-    cursor: grab;
-  }
+  pointer-events: none;
 
   &.dragging {
-    cursor: grabbing;
+    cursor: move;
     z-index: z('cg__piece.dragging') !important;
   }
 
@@ -210,5 +210,53 @@ html.transp body:not(.simple-board) cg-board {
   square {
     opacity: calc(min(1, 0.5 + var(---board-opacity) / 100));
     //filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
+  }
+}
+
+coords.squares {
+  text-transform: uppercase;
+  text-align: right;
+  flex-flow: column-reverse;
+  height: 100%;
+  width: 12.5%;
+
+  &.black {
+    flex-flow: column;
+  }
+
+  &.left {
+    text-align: left;
+  }
+
+  coord {
+    padding: 6% 4%;
+  }
+
+  &.rank2 {
+    transform: translateX(100%);
+  }
+
+  &.rank3 {
+    transform: translateX(200%);
+  }
+
+  &.rank4 {
+    transform: translateX(300%);
+  }
+
+  &.rank5 {
+    transform: translateX(400%);
+  }
+
+  &.rank6 {
+    transform: translateX(500%);
+  }
+
+  &.rank7 {
+    transform: translateX(600%);
+  }
+
+  &.rank8 {
+    transform: translateX(700%);
   }
 }

@@ -22,6 +22,7 @@ final class ChallengeUi(helpers: Helpers):
         url = s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white).url}",
         description = "Join the challenge or watch the game here."
       )
+      .js(EsmInit("bits.qrcode"))
       .js(
         PageModule(
           "bits.challengePage",
@@ -146,10 +147,7 @@ final class ChallengeUi(helpers: Helpers):
                       ),
                       div(cls := "invite__qrcode")(
                         h2(cls := "ninja-title", trans.site.orLetYourOpponentScanQrCode()),
-                        img(
-                          src := s"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$challengeLink",
-                          alt := "QR Code"
-                        )
+                        qrcode(challengeLink, width = 150)
                       )
                     )
                 },

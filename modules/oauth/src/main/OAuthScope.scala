@@ -154,6 +154,10 @@ object OAuthScope:
     OAuthScopes(selectors.map(_(OAuthScope)).toList)
   def select(selectors: Selector*): OAuthScopes = select(selectors)
 
+  def canUseWebMod(using Option[Me]) =
+    import lila.core.perm.*
+    List[Permission.Selector](_.Shusher, _.BoostHunter, _.CheatHunter, _.StudyAdmin).exists(Granter.opt)
+
   import reactivemongo.api.bson.*
   import lila.db.dsl.*
   private[oauth] given BSONHandler[OAuthScope] = tryHandler[OAuthScope](

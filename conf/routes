@@ -284,6 +284,7 @@ GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardV
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: StudyId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: RelayRoundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
+GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
 GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang: Language)
 
@@ -714,6 +715,7 @@ GET   /api/challenge                   controllers.Challenge.apiList
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: UserStr)
+GET   /api/challenge/$id<\w{8}>/show   controllers.Challenge.apiShow(id: ChallengeId)
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: ChallengeId)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: ChallengeId)
 POST  /api/challenge/$id<\w{8}>/cancel controllers.Challenge.apiCancel(id: ChallengeId)
@@ -821,7 +823,7 @@ GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
 GET   /cms                            controllers.Cms.index
-GET   /cms/new                        controllers.Cms.createForm
+GET   /cms/new                        controllers.Cms.createForm(key: Option[CmsPageKey])
 POST  /cms/new                        controllers.Cms.create
 GET   /cms/:id/edit                   controllers.Cms.edit(id: CmsPageId)
 POST  /cms/:id/edit                   controllers.Cms.update(id: CmsPageId)
@@ -835,11 +837,20 @@ GET   /$lang<\w\w\w?>/mobile           controllers.Main.mobileLang(lang: Languag
 GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
-GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 POST  /github/secret-scanning          controllers.Github.secretScanning
+
+GET   /verify-title                    controllers.TitleVerify.index
+GET   /verify-title/form               controllers.TitleVerify.form
+POST  /verify-title/form               controllers.TitleVerify.create
+GET   /verify-title/queue              controllers.TitleVerify.queue
+GET   /verify-title/:id                controllers.TitleVerify.show(id: TitleRequestId)
+POST  /verify-title/:id                controllers.TitleVerify.update(id: TitleRequestId)
+POST  /verify-title/:id/cancel         controllers.TitleVerify.cancel(id: TitleRequestId)
+POST  /verify-title/:id/process        controllers.TitleVerify.process(id: TitleRequestId)
+POST  /upload/image/verify-title/:id   controllers.TitleVerify.image(id: TitleRequestId, tag: String)
 
 # Technical
 GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id: GameId)
@@ -875,7 +886,6 @@ GET   /variant/:key                    controllers.Cms.variant(key: chess.varian
 
 # Help
 GET   /help/contribute                 controllers.Cms.help
-GET   /help/master                     controllers.Cms.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

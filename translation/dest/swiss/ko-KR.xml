@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">스위스</string>
   <string name="swissTournaments">스위스 토너먼트</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">총 %s 라운드 보기</item>
@@ -107,4 +108,5 @@
   <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
   <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
   <string name="playYourGames">더 많은 게임을 시작하세요.</string>
+  <string name="tieBreak">타이 브레이크</string>
 </resources>

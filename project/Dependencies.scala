@@ -26,7 +26,7 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.110.Final").classifier(s"$os-$arch")
-  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.0-RC5"
+  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.0-RC7"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.17.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
@@ -50,7 +50,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.2.0"
+    val version  = "11.2.2"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
@@ -101,7 +101,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.7.2"
+    val version    = "2.7.3"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

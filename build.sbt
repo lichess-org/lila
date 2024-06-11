@@ -77,7 +77,7 @@ lazy val modules = Seq(
   swiss, insight, fishnet, tutor, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
-  setup, video, fide, push,
+  setup, video, fide, title, push,
   // and then the smaller ones
   pool, lobby, relation, tv, coordinate, feed, history,
   shutup, appeal, irc, explorer, learn, event, coach,
@@ -247,8 +247,9 @@ lazy val game = module("game",
 
 lazy val gameSearch = module("gameSearch",
   Seq(coreI18n, search, ui),
-  Seq()
+  tests.bundle
 )
+
  // good dep to game
 lazy val tv = module("tv",
   Seq(game),
@@ -356,6 +357,11 @@ lazy val challenge = module("challenge",
 )
 
 lazy val fide = module("fide",
+  Seq(memo, ui),
+  Seq()
+)
+
+lazy val title = module("title",
   Seq(memo, ui),
   Seq()
 )

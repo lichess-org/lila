@@ -8,6 +8,7 @@ import lila.core.game.{ FinishGame, InsertGame }
 import lila.search.*
 import lila.core.config.ConfigName
 import lila.search.client.SearchClient
+import lila.search.spec.Query
 
 @Module
 private class GameSearchConfig(
@@ -27,7 +28,7 @@ final class Env(
 
   lazy val api = wire[GameSearchApi]
 
-  lazy val paginator = PaginatorBuilder[Game, Query](api, config.paginatorMaxPerPage)
+  lazy val paginator = PaginatorBuilder[Game, Query.Game](api, config.paginatorMaxPerPage)
 
   lazy val forms = wire[GameSearchForm]
 

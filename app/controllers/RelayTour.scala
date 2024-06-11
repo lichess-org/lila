@@ -26,10 +26,8 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
                 views.relay.tour.search(pager, query)
         case None =>
           for
-            active   <- (page == 1).so(env.relay.listing.active.get({}))
-            upcoming <- (page == 1).so(env.relay.listing.upcoming.get({}))
-            past     <- env.relay.pager.inactive(page)
-            res      <- Ok.async(views.relay.tour.index(active, upcoming, past))
+            (active, upcoming, past) <- env.relay.top(page)
+            res                      <- Ok.async(views.relay.tour.index(active, upcoming, past))
           yield res
 
   def calendar = page("broadcast-calendar", "calendar")
@@ -71,7 +69,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   private def page(key: String, menu: String) = Open:
     pageHit
-    FoundPage(env.api.cmsRender(lila.core.id.CmsPageKey(key))): p =>
+    FoundPage(env.cms.renderKey(key)): p =>
       views.relay.tour.page(p.title, views.cms.render(p), menu)
 
   def form = Auth { ctx ?=> _ ?=>
@@ -93,7 +91,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
             env.relay.api.tourCreate(setup).flatMap { tour =>
               negotiate(
                 Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
-                JsonOk(env.relay.jsonView.fullTourWithRounds(tour.withRounds(Nil)))
+                JsonOk(env.relay.jsonView.fullTourWithRounds(tour.withRounds(Nil), group = none))
               )
             }
       )
@@ -176,10 +174,10 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiShow(id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
-      env.relay.api
-        .withRounds(tour)
-        .map: trs =>
-          Ok(env.relay.jsonView.fullTourWithRounds(trs))
+      for
+        trs   <- env.relay.api.withRounds(tour)
+        group <- env.relay.api.withTours.get(tour.id)
+      yield Ok(env.relay.jsonView.fullTourWithRounds(trs, group))
 
   def pgn(id: RelayTourId) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>
@@ -194,6 +192,13 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
     apiC.jsonDownload:
       env.relay.tourStream
         .officialTourStream(MaxPerSecond(20), Max(getInt("nb") | 20).atMost(100))
+
+  def apiTop(page: Int) = Anon:
+    Reasonable(page, Max(20)):
+      for
+        (active, upcoming, past) <- env.relay.top(page)
+        res                      <- JsonOk(env.relay.jsonView.top(active, upcoming, past))
+      yield res
 
   private def WithTour(id: RelayTourId)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api.tourById(id))(f)

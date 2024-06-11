@@ -225,7 +225,7 @@ const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
   h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${ctrl.trans('back')}`));
 
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
-  const { trans, redraw, showCoordinates, showPieces } = ctrl;
+  const { trans, redraw, showCoordinates, showCoordsOnAllSquares, showPieces } = ctrl;
   return h('div.settings', [
     ctrl.mode() === 'findSquare'
       ? toggle(
@@ -242,6 +242,17 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
     ...filesAndRanksSelection(ctrl),
     toggle(
       { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
+      trans,
+      redraw,
+    ),
+    toggle(
+      {
+        name: 'showCoordsOnAllSquares',
+        id: 'showCoordsOnAllSquares',
+        checked: showCoordsOnAllSquares(),
+        change: showCoordsOnAllSquares,
+        disabled: !ctrl.showCoordinates(),
+      },
       trans,
       redraw,
     ),
@@ -264,9 +275,9 @@ const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
 };
 
 const side = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h('div.side', [
-    h('div.box', h('h1', ctrl.trans('coordinates'))),
-    ...(ctrl.playing
+  h(
+    'div.side',
+    ctrl.playing
       ? [
           scoreBox(ctrl),
           !ctrl.timeDisabled() ? timeBox(ctrl) : null,
@@ -279,7 +290,7 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode =>
           ...configurationButtons(ctrl),
           ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
           settings(ctrl),
-        ]),
-  ]);
+        ],
+  );
 
 export default side;

@@ -10,6 +10,7 @@ import BusForum.*
 import lila.core.config.ConfigName
 import lila.core.id.ForumPostId
 import lila.search.client.SearchClient
+import lila.search.spec.Query
 
 @Module
 private class ForumSearchConfig(
@@ -27,11 +28,18 @@ final class Env(
   lazy val api: ForumSearchApi = wire[ForumSearchApi]
 
   def apply(text: String, page: Int, troll: Boolean) =
-    paginatorBuilder(Query(text.take(100), troll), page)
+    paginatorBuilder(Query.forum(text.take(100), troll), page)
 
   def cli: lila.common.Cli = new:
-    def process = { case "forum" :: "search" :: "reset" :: Nil =>
-      api.reset.inject("done")
+    def process = {
+      case "forum" :: "search" :: "reset" :: Nil => api.reset.inject("done")
+      case "forum" :: "search" :: "backfill" :: epochSeconds :: Nil =>
+        Either
+          .catchNonFatal(java.lang.Long.parseLong(epochSeconds))
+          .fold(
+            e => fufail(s"Invalid epochSeconds: $e"),
+            since => api.backfill(java.time.Instant.ofEpochSecond(since)).inject("done")
+          )
     }
 
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)

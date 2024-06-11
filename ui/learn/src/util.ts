@@ -1,8 +1,11 @@
 import type { Square as Key } from 'chess.js';
-import type chessground from 'chessground';
-import m from './mithrilFix';
 import { Level, LevelPartial } from './stage/list';
 import { escapeHtml } from 'common';
+import { h } from 'snabbdom';
+import * as cg from 'chessground/types';
+import { DrawShape } from 'chessground/draw';
+
+export type WithGround = <A>(f: (cg: CgApi) => A) => A | false | undefined;
 
 export function toLevel(l: LevelPartial, it: number): Level {
   if (l.fen.split(' ').length === 4) l.fen += ' 0 1';
@@ -33,7 +36,7 @@ export function isRole(str: PromotionChar | PromotionRole): str is PromotionRole
   return str.length > 1;
 }
 
-export function arrow(vector: Uci, brush?: chessground.BrushName) {
+export function arrow(vector: Uci, brush?: cg.BrushColor): DrawShape {
   return {
     brush: brush || 'paleGreen',
     orig: vector.slice(0, 2) as Key,
@@ -41,7 +44,7 @@ export function arrow(vector: Uci, brush?: chessground.BrushName) {
   };
 }
 
-export function circle(key: Key, brush?: chessground.BrushName) {
+export function circle(key: Key, brush?: cg.BrushColor): DrawShape {
   return {
     brush: brush || 'green',
     orig: key,
@@ -57,20 +60,15 @@ export function setFenTurn(fen: string, turn: 'b' | 'w') {
 }
 
 export function pieceImg(role: string) {
-  return m('div.no-square', m('piece.white.' + role));
+  return h('div.no-square', h('piece.white.' + role));
 }
 
 export function roundSvg(url: string) {
-  return m(
-    'div.round-svg',
-    m('img', {
-      src: url,
-    }),
-  );
+  return h('div.round-svg', h('img', { attrs: { src: url } }));
 }
 
 export function withLinebreaks(text: string) {
-  return m.trust(escapeHtml(text).replace(/\n/g, '<br>'));
+  return text.split(/(\n)/g).map(part => (part === '\n' ? h('br') : part));
 }
 
 export function decomposeUci(uci: string) {

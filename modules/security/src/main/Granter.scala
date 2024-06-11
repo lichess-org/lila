@@ -12,3 +12,5 @@ object Granter:
       (opt(_.BoostHunter) && user.marks.boost) ||
       (opt(_.Shusher) && user.marks.troll)
     }
+
+  def canFullyLogin(u: User) = u.enabled.yes || !(u.lameOrTroll || u.marks.alt)

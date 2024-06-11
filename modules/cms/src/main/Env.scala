@@ -4,6 +4,7 @@ import com.softwaremill.macwire.*
 
 import lila.core.config.{ AssetBaseUrl, BaseUrl, CollName }
 import lila.memo.CacheApi
+import lila.core.id.CmsPageKey
 
 @Module
 final class Env(
@@ -20,5 +21,8 @@ final class Env(
   private val markup = wire[CmsMarkup]
 
   lazy val api = wire[CmsApi]
+
+  export api.render
+  def renderKey(key: String)(using lila.ui.Context) = api.render(CmsPageKey(key))
 
   val form = wire[CmsForm]

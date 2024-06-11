@@ -273,3 +273,39 @@ db.game5.createIndex({ 'pgni.h': 1 }, { sparse: true, background: true });
 db.security.createIndex({ user: 1 });
 db.security.createIndex({ ip: 1 });
 db.security.createIndex({ fp: 1 }, { sparse: 1, background: 1 });
+db.study.createIndex({ ownerId: 1, createdAt: -1 });
+db.study.createIndex({ likes: 1, createdAt: -1 });
+db.study.createIndex({ ownerId: 1, updatedAt: -1 });
+db.study.createIndex({ likes: 1, updatedAt: -1 });
+db.study.createIndex({ rank: -1 });
+db.study.createIndex({ createdAt: -1 });
+db.study.createIndex({ updatedAt: -1 });
+db.study.createIndex({ likers: 1 });
+db.study.createIndex({ uids: 1 }, { background: true });
+db.study.createIndex(
+  { topics: 1, rank: -1 },
+  { partialFilterExpression: { topics: { $exists: 1 } }, background: 1 },
+);
+db.study.createIndex(
+  { topics: 1, createdAt: -1 },
+  { partialFilterExpression: { topics: { $exists: 1 } }, background: 1 },
+);
+db.study.createIndex(
+  { topics: 1, updatedAt: -1 },
+  { partialFilterExpression: { topics: { $exists: 1 } }, background: 1 },
+);
+db.study.createIndex(
+  { topics: 1, likes: -1 },
+  { partialFilterExpression: { topics: { $exists: 1 } }, background: 1 },
+);
+db.study.createIndex(
+  { uids: 1, rank: -1 },
+  { partialFilterExpression: { topics: { $exists: 1 } }, background: 1 },
+);
+db.study_chapter_flat.createIndex({ studyId: 1, order: 1 });
+db.study_chapter_flat.createIndex(
+  { 'relay.fideIds': 1 },
+  { partialFilterExpression: { 'relay.fideIds': { $exists: true } } },
+);
+db.title_request.createIndex({ userId: 1 });
+db.title_request.createIndex({ 'history.0.status.n': 1, 'history.0.at': 1 });

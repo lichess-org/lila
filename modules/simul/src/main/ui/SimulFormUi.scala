@@ -8,6 +8,7 @@ import ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
 import lila.core.i18n.Translate
 import lila.gathering.ConditionForm
+import lila.gathering.ui.GatheringFormUi
 
 final class SimulFormUi(helpers: Helpers)(
     setupCheckboxes: (Field, Seq[(Any, String, Option[String])], Set[String]) => Frag,
@@ -53,6 +54,8 @@ final class SimulFormUi(helpers: Helpers)(
             )
           )
         )
+
+  private val gatheringFormUi = GatheringFormUi(helpers)
 
   private def formContent(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Option[Simul])(using
       ctx: Context
@@ -136,15 +139,12 @@ final class SimulFormUi(helpers: Helpers)(
             form3.group(form("conditions.team.teamId"), trans.site.onlyMembersOfTeam(), half = true)(
               form3.select(_, List(("", trans.site.noRestriction.txt())) ::: teams.map(_.pair))
             )
-          )
+          ),
+          gatheringFormUi.accountAge(form("conditions.accountAge"))
         ),
         form3.split(
-          form3.group(form("conditions.minRating.rating"), trans.site.minimumRating(), half = true)(
-            form3.select(_, ConditionForm.minRatingChoices)
-          ),
-          form3.group(form("conditions.maxRating.rating"), trans.site.maximumWeeklyRating(), half = true)(
-            form3.select(_, ConditionForm.maxRatingChoices)
-          )
+          gatheringFormUi.minRating(form("conditions.minRating.rating")),
+          gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
         )
       ),
       form3.group(

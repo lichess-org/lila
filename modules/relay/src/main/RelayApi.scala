@@ -71,7 +71,7 @@ final class RelayApi(
 
   def kickBroadcast(userId: UserId, tourId: RelayTourId, who: MyId): Funit =
     roundIdsById(tourId).flatMap:
-      _.traverse_(studyApi.kick(_, userId, who))
+      _.sequentiallyVoid(studyApi.kick(_, userId, who))
 
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
@@ -279,7 +279,7 @@ final class RelayApi(
           _      <- tourRepo.delete(tour)
           rounds <- roundRepo.idsByTourOrdered(tour)
           _      <- roundRepo.deleteByTour(tour)
-          _      <- rounds.map(_.into(StudyId)).traverse_(studyApi.deleteById)
+          _      <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
         yield true
 
   def getOngoing(id: RelayRoundId): Fu[Option[WithTour]] =
@@ -380,7 +380,7 @@ final class RelayApi(
         )
       )
       .flatMap:
-        _.traverse_ { relay =>
+        _.sequentiallyVoid { relay =>
           logger.info(s"Automatically start $relay")
           requestPlay(relay.id, v = true)
         }
@@ -398,7 +398,7 @@ final class RelayApi(
           )
         )
       .flatMap:
-        _.traverse_ { relay =>
+        _.sequentiallyVoid { relay =>
           logger.info(s"Automatically finish $relay")
           update(relay)(_.finish)
         }

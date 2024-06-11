@@ -58,11 +58,13 @@ public/piece/anarcandy | [caderek](https://github.com/caderek) | [CC BY-NC-SA 4.
 public/piece/disguised | danegraphics | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/kiwen-suwi | [neverRare](https://github.com/neverRare) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 public/piece/mpchess | [Maxime Chupin](https://github.com/chupinmaxime) | [GPL3v3+](https://www.gnu.org/licenses/quick-guide-gplv3.en.html)
+public/piece/cooke | [fejfar](https://github.com/fejfar) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/sfx | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/lisp | [EdinburghCollective](http://lichess.org/@/EdinburghCollective) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+SVG in ui/learn/src/apple.ts | [Sensa](https://www.svgrepo.com/svg/434273/star) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.en)
 
 ## Exceptions (non-free)
 

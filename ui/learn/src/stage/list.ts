@@ -16,11 +16,11 @@ import enpassant from './enpassant';
 import stalemate from './stalemate';
 import value from './value';
 import check2 from './check2';
-import { MNode } from '../mithrilFix';
-import { Shape } from '../ground';
-import { AssertData } from '../level';
+import { AssertData } from '../levelCtrl';
 import { ScenarioLevel } from '../scenario';
 import type { Square as Key } from 'chess.js';
+import { VNode } from 'snabbdom';
+import { Shape } from '../chessground';
 
 export type Level = LevelBase & LevelDefaults;
 export type LevelPartial = LevelBase & Partial<LevelDefaults>;
@@ -62,7 +62,7 @@ export interface Stage {
   image: string;
   intro: string;
   complete: string;
-  illustration: MNode;
+  illustration: VNode;
   levels: Level[];
   cssClass?: string;
 }
@@ -110,8 +110,8 @@ const rawCategs: RawCateg[] = [
 let stageId = 1;
 const stages: Stage[] = [];
 
-export const categs: Categ[] = rawCategs.map(function (c) {
-  c.stages = c.stages.map(function (frozenStage) {
+export const categs: Categ[] = rawCategs.map(c => {
+  c.stages = c.stages.map(frozenStage => {
     // Module exports get frozen, so we copy them to be able to mutate them
     const stage = { ...frozenStage, id: stageId++ };
     stages.push(stage);
@@ -121,12 +121,12 @@ export const categs: Categ[] = rawCategs.map(function (c) {
 });
 
 const stagesByKey: { [K in string]: Stage } = {};
-stages.forEach(function (s) {
+stages.forEach(s => {
   stagesByKey[s.key] = s;
 });
 
 const stagesById: { [K in number]: Stage } = {};
-stages.forEach(function (s) {
+stages.forEach(s => {
   stagesById[s.id] = s;
 });
 
@@ -136,12 +136,8 @@ export const byKey = stagesByKey;
 
 export function stageIdToCategId(stageId: number): number | undefined {
   const stage = stagesById[stageId];
-  for (let id = 0; id < categs.length; id++)
-    if (
-      categs[id].stages.some(function (s) {
-        return s.key === stage.key;
-      })
-    )
-      return id;
+  for (let id = 0; id < categs.length; id++) {
+    if (categs[id].stages.some(s => s.key === stage.key)) return id;
+  }
   return;
 }

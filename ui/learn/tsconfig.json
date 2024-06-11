@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "paths": { "chessground": ["./@types/chessground"], "mithril": ["./@types/mithril.d.ts"] },
     "types": ["lichess", "web"],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,

@@ -61,7 +61,7 @@ final class StreamerApi(
   def setLangLiveNow(streams: List[Stream]): Funit =
     val update: coll.UpdateBuilder = coll.update(ordered = false)
     for
-      elements <- streams.traverse: s =>
+      elements <- streams.parallel: s =>
         update.element(
           q = $id(s.streamer.id),
           u = $set(

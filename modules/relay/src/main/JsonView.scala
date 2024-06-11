@@ -1,12 +1,16 @@
 package lila.relay
 
 import play.api.libs.json.*
+import scalalib.Json.paginatorWriteNoNbResults
 
 import lila.common.Json.given
 import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.study.ChapterPreview
 import lila.core.id.ImageId
+import lila.relay.RelayTour.{ WithRounds, WithLastRound, ActiveWithSomeRounds }
+import scalalib.paginator.Paginator
+import geny.Generator.Action
 
 final class JsonView(
     baseUrl: BaseUrl,
@@ -27,7 +31,8 @@ final class JsonView(
         "name"        -> t.name,
         "slug"        -> t.slug,
         "description" -> t.description,
-        "createdAt"   -> t.createdAt
+        "createdAt"   -> t.createdAt,
+        "url"         -> s"$baseUrl${t.path}"
       )
       .add("tier" -> t.tier)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
@@ -56,25 +61,32 @@ final class JsonView(
     Json
       .toJsObject(tour)
       .add("markup" -> tour.markup.map(markup(tour)))
-      .add("url" -> s"$baseUrl${tour.path}".some)
       .add("teamTable" -> tour.teamTable)
       .add("leaderboard" -> tour.autoLeaderboard)
 
-  def fullTourWithRounds(trs: RelayTour.WithRounds): JsObject =
+  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours]): JsObject =
     Json
       .obj(
         "tour" -> fullTour(trs.tour),
         "rounds" -> trs.rounds.map: round =>
           withUrl(round.withTour(trs.tour), withTour = false)
       )
+      .add("group" -> group)
 
-  def apply(t: RelayTour | RelayTour.WithLastRound): JsObject = t match
+  def apply(t: RelayTour | WithLastRound | ActiveWithSomeRounds): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
-    case tr: RelayTour.WithLastRound =>
+    case tr: WithLastRound =>
       Json
         .obj(
           "tour"      -> fullTour(tr.tour),
           "lastRound" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
+        )
+        .add("group" -> tr.group)
+    case tr: ActiveWithSomeRounds =>
+      Json
+        .obj(
+          "tour"      -> fullTour(tr.tour),
+          "lastRound" -> withUrl(tr)
         )
         .add("group" -> tr.group)
 
@@ -85,10 +97,18 @@ final class JsonView(
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
 
-  def withUrlAndPreviews(rt: RelayRound.WithTourAndStudy, previews: ChapterPreview.AsJsons)(using
+  def withUrl(tr: ActiveWithSomeRounds): JsObject =
+    val linkRound = tr.link.withTour(tr.tour)
+    apply(tr.display) ++ Json.obj("url" -> s"$baseUrl${linkRound.path}")
+
+  def withUrlAndPreviews(
+      rt: RelayRound.WithTourAndStudy,
+      previews: ChapterPreview.AsJsons,
+      group: Option[RelayGroup.WithTours]
+  )(using
       Option[Me]
   ): JsObject =
-    myRound(rt) ++ Json.obj("games" -> previews)
+    myRound(rt) ++ Json.obj("games" -> previews).add("group" -> group)
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
@@ -112,9 +132,8 @@ final class JsonView(
       pinned: Option[(UserId, String, Option[ImageId])]
   ) =
     JsonView.JsData(
-      relay = fullTourWithRounds(trs)
+      relay = fullTourWithRounds(trs, group)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
-        .add("group" -> group)
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
         .add("pinned" -> pinned.map: (id, name, image) =>
@@ -127,6 +146,17 @@ final class JsonView(
       study = studyData.study,
       analysis = studyData.analysis,
       group = group.map(_.group.name)
+    )
+
+  def top(
+      active: List[ActiveWithSomeRounds],
+      upcoming: List[WithLastRound],
+      past: Paginator[WithLastRound]
+  ) =
+    Json.obj(
+      "active"   -> active.sortBy(t => -(~t.tour.tier)).map(apply(_)),
+      "upcoming" -> upcoming.map(apply(_)),
+      "past"     -> paginatorWriteNoNbResults.writes(past.map(apply(_)))
     )
 
 object JsonView:

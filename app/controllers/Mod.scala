@@ -159,14 +159,17 @@ final class Mod(
     bindForm(lila.user.UserForm.title)(
       _ => redirect(username, mod = true),
       title =>
-        for
-          _ <- modApi.setTitle(username, title)
-          _ <- title.isDefined.so(env.mailer.automaticEmail.onTitleSet(username))
-        yield
-          env.user.lightUserApi.invalidate(username.id)
+        doSetTitle(username.id, title, public = true).inject:
           redirect(username, mod = false)
     )
   }
+
+  protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle], public: Boolean)(
+      using Me
+  ) = for
+    _ <- (public || title.isEmpty).so(modApi.setTitle(userId, title))
+    _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _, public))
+  yield ()
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
@@ -329,7 +332,7 @@ final class Mod(
 
   def spontaneousInquiry(username: UserStr) = Secure(_.SeeReport) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      (isGranted(_.Appeals).so(env.appeal.api.exists(user))).flatMap { isAppeal =>
+      (getBool("appeal") && isGranted(_.Appeals)).so(env.appeal.api.exists(user)).flatMap { isAppeal =>
         isAppeal.so(env.report.api.inquiries.ongoingAppealOf(user.id)).flatMap {
           case Some(ongoing) if ongoing.mod != me.id =>
             env.user.lightUserApi
