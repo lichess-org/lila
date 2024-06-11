@@ -30,7 +30,7 @@
   <string name="variantEnding">Уйрӑм вӗҫленни</string>
   <string name="newOpponent">Ҫӗнӗ ӑмӑртуҫӑ</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Ӑмӑртуҫу санпа тепӗр хут выльасшӑн</string>
-  <string name="joinTheGame">Вӑййа хутшӑн</string>
+  <string name="joinTheGame">Вӑййине хутшӑн</string>
   <string name="whitePlays">Шуррисем ҫӳремелле</string>
   <string name="blackPlays">Хурисем ҫӳремелле</string>
   <plurals name="opponentLeftCounter">
@@ -147,8 +147,8 @@
   <string name="decline">Сир</string>
   <string name="playingRightNow">Халлех пыракан</string>
   <string name="finished">Вӗҫленнисем</string>
-  <string name="abortGame">Вӑййине пӑрахӑҫла</string>
-  <string name="gameAborted">Вӑййине пӑрахӑҫланӑ</string>
+  <string name="abortGame">Вӑййа пӑрахӑҫла</string>
+  <string name="gameAborted">Вӑййа пӑрахӑҫланӑ</string>
   <string name="standard">Стандартла</string>
   <string name="unlimited">Чикӗсӗр</string>
   <string name="mode">Сӑсӑк</string>
@@ -171,7 +171,7 @@
   <string name="composeMessage">Ҫыру ҫыр</string>
   <string name="subject">Ҫыру ӑшӗ</string>
   <string name="send">Йар</string>
-  <string name="incrementInSeconds">Ҫеккунт инкременчӗ</string>
+  <string name="incrementInSeconds">Вӑхӑт хушӑнни, ҫек</string>
   <string name="freeOnlineChess">Тӳлевсӗр Онлайн Шахмат</string>
   <plurals name="nbWins">
     <item quantity="other">%s ҫӗнтерӳ</item>
@@ -203,7 +203,7 @@
   <string name="tournamentPoints">Турнирти пӑнчӑ</string>
   <string name="viewTournament">Туринира сӑна</string>
   <string name="backToTournament">Турнира тавӑрӑн</string>
-  <string name="backToGame">Вӑййине тавӑрӑн</string>
+  <string name="backToGame">Вӑййа тавӑрӑн</string>
   <string name="siteDescription">Шахматла выљамалли тӳлевсӗр сервер. Рекламӑсӑр, плагинсӗр, ӑнлануллӑ интерфейс. Регистратсисӗр выљама май килни. Компйутӑрпа, тусупа йе ӑнсӑрт ӑмӑртуҫӑпа шахматла выљасси.</string>
   <string name="xJoinedTeamY">%1$s -> %2$s ушкӑна хутшӑннӑ</string>
   <string name="xCreatedTeamY">%1$s усӑҫ %2$s ушкӑн йӗркеленӗ</string>
@@ -252,7 +252,7 @@
   <string name="list">Тапӑл</string>
   <string name="graph">Графӗк</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="other">%s минутран сахал</item>
+    <item quantity="other">%s минутран сахалтарах</item>
   </plurals>
   <string name="required">Тивӗҫлӗ.</string>
   <string name="openTournaments">Уҫӑ турнирсем</string>
@@ -332,6 +332,7 @@
   <string name="currentPassword">Хальхи кӗме сӑмах</string>
   <string name="newPassword">Ҫӗнӗ кӗме сӑмах</string>
   <string name="newPasswordAgain">Ҫӗнӗ кӗме сӑмах (тепӗр хут)</string>
+  <string name="clockIncrement">Вӑхӑт хушӑнни</string>
   <string name="privacy">Вӑрттӑнлӑх</string>
   <string name="letOtherPlayersFollowYou">Ытти вӑйӑҫ ман ҫине ҫырӑнасси</string>
   <string name="letOtherPlayersChallengeYou">Ытти вӑйӑҫ мана выљатасси</string>
@@ -366,7 +367,7 @@
   <string name="practice">Практикаласси</string>
   <string name="community">Пӗрлешӳ</string>
   <string name="tools">Мехел</string>
-  <string name="increment">Инкремент</string>
+  <string name="increment">Хушӑнни</string>
   <string name="error.required">Тивӗҫлӗ ани</string>
   <string name="ifRatingIsPlusMinusX">Рейтингӗ ± %s пулсан</string>
   <string name="onlyFriends">Тус кӑна</string>
