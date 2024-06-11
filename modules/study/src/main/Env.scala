@@ -18,6 +18,7 @@ final class Env(
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
     userApi: lila.core.user.UserApi,
+    flairApi: lila.core.user.FlairApi,
     explorer: lila.core.game.Explorer,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,

@@ -1,7 +1,7 @@
 import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { prop } from 'common';
-import { bindSubmit, bindNonPassive, looseH as h } from 'common/snabbdom';
+import { bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
 import { StudyData } from './interfaces';
 import { Redraw } from '../interfaces';
@@ -9,6 +9,7 @@ import RelayCtrl from './relay/relayCtrl';
 
 export interface FormData {
   name: string;
+  flair?: string;
   visibility: string;
   computer: string;
   explorer: string;
@@ -100,6 +101,7 @@ export function view(ctrl: StudyForm): VNode {
             ctrl.save(
               {
                 name: getVal('name'),
+                flair: getVal('flair'),
                 visibility: getVal('visibility'),
                 computer: getVal('computer'),
                 explorer: getVal('explorer'),
@@ -123,6 +125,28 @@ export function view(ctrl: StudyForm): VNode {
                 postpatch: (_, vnode) => updateName(vnode, true),
               },
             }),
+          ]),
+          h('div.form-group', [
+            h(
+              'details.form-control.emoji-details',
+              {
+                hook: onInsert(el => flairPicker(el)),
+              },
+              [
+                h('summary.button.button-metal.button-no-upper', [
+                  'Flair: ',
+                  h('span.flair-container', [
+                    h('img.icon-flair', {
+                      attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' },
+                    }),
+                  ]),
+                ]),
+                h('input#study-flair', { attrs: { type: 'hidden', name: 'flair', value: data.flair || '' } }),
+                h('div.flair-picker', {
+                  attrs: { 'data-except-emojis': 'activity.lichess' },
+                }),
+              ],
+            ),
           ]),
           h('div.form-split', [
             select({
@@ -241,4 +265,31 @@ export function view(ctrl: StudyForm): VNode {
       ),
     ],
   });
+}
+
+// TODO FIXME
+// copied from ui/bits/src/load/flairPicker.ts
+function flairPicker(element: HTMLElement) {
+  const parent = $(element).parent();
+  const close = () => element.removeAttribute('open');
+  const onEmojiSelect = (i?: { id: string; src: string }) => {
+    parent.find('input[name="flair"]').val(i?.id ?? '');
+    parent.find('.uflair').remove();
+    if (i) parent.find('.flair-container').append('<img class="uflair" src="' + i.src + '" />');
+    close();
+  };
+  parent.find('.emoji-remove').on('click', e => {
+    e.preventDefault();
+    onEmojiSelect();
+    $(e.target).remove();
+  });
+  $(element).on('toggle', () =>
+    site.asset.loadEsm('bits.flairPicker', {
+      init: {
+        element: element.querySelector('.flair-picker')!,
+        close,
+        onEmojiSelect,
+      },
+    }),
+  );
 }

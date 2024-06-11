@@ -106,12 +106,13 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
     )
 
   def statusFlair(req: TitleRequest)(using Context) = iconFlair:
-    import TitleRequest.Status
-    req.status.name match
-      case "approved" => "activity.sparkles"
-      case "rejected" => "symbols.cross-mark"
-      case "feedback" => "symbols.speech-balloon"
-      case _          => "objects.hourglass-not-done"
+    Flair:
+      import TitleRequest.Status
+      req.status.name match
+        case "approved" => "activity.sparkles"
+        case "rejected" => "symbols.cross-mark"
+        case "feedback" => "symbols.speech-balloon"
+        case _          => "objects.hourglass-not-done"
 
   private def dataForm(form: Form[TitleRequest.FormData])(using Context) =
     frag(
