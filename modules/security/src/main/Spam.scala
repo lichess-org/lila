@@ -13,8 +13,6 @@ final class Spam(spamKeywords: () => lila.core.data.Strings) extends lila.core.s
       /* While links to other chess websites are welcome,
        * refer links grant the referrer money or advantages,
        * effectively inducing spam */
-      "chess24.com?ref=",
-      "chess24.com/?ref=",
       "chess.com/register?refId=",
       "chess.com/register?ref_id=",
       "chess.com/membership?refId=",
@@ -42,7 +40,6 @@ final class Spam(spamKeywords: () => lila.core.data.Strings) extends lila.core.s
 
   /* Keep the link to the website but remove the referrer ID */
   private val replacements = List(
-    """chess24.com/?\?ref=[\w-]+""".r                      -> "chess24.com",
     """chess.com/(register|membership)\?refId=[\w-]+""".r  -> "chess.com",
     """chess.com/(register|membership)\?ref_id=[\w-]+""".r -> "chess.com",
     """go.chess.com/[\w-]+""".r                            -> "chess.com",

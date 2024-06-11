@@ -113,7 +113,7 @@ object Chart:
       }
 
     povs
-      .map { pov =>
+      .sequentially { pov =>
         for
           user1 <- gameUserJson(pov.player)
           user2 <- gameUserJson(pov.opponent)
@@ -126,7 +126,6 @@ object Chart:
           "user2"    -> user2
         )
       }
-      .parallel
       .map { games =>
         Chart(
           question = JsonQuestion.fromQuestion(question),

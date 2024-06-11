@@ -61,7 +61,7 @@ final class RelayListing(
             0 - ~round.crowd,                              // then by viewers
             round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
-        active <- sorted.traverse: (tour, round, group) =>
+        active <- sorted.parallel: (tour, round, group) =>
           defaultRoundToShow
             .get(tour.id)
             .map: link =>

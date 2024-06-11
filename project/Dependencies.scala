@@ -13,8 +13,8 @@ object Dependencies {
   val lilaMaven = "lila-maven".at("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
   val sonashots = "sonashots".at("https://oss.sonatype.org/content/repositories/snapshots")
 
-  val cats        = "org.typelevel"                %% "cats-core"                       % "2.10.0"
-  val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
+  val cats        = "org.typelevel"                %% "cats-core"                       % "2.12.0"
+  val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.12.0"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
@@ -25,16 +25,17 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.109.Final").classifier(s"$os-$arch")
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-RC1" % Test
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.110.Final").classifier(s"$os-$arch")
+  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.0-RC7"
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.17.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
   val kittens     = "org.typelevel"              %% "kittens"       % "3.3.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0"    % Test
-  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0-RC1" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0" % Test
+  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0"  % Test
 
   object tests {
     val bundle = Seq(munit)
@@ -49,7 +50,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.1.7"
+    val version  = "11.2.2"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
@@ -100,7 +101,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.7.1"
+    val version    = "2.7.3"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

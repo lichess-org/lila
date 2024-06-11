@@ -7,6 +7,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.core.i18n.{ LangPicker, LangList, Language, defaultLanguage }
 import lila.core.id.{ CmsPageId, CmsPageKey }
+import lila.ui.Context
 
 final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker: LangPicker)(using Executor):
 
@@ -29,10 +30,13 @@ final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker
       .list[CmsPage]($doc("key" -> key))
       .map(_.sortLike(langList.popularLanguages.toVector, _.language))
 
-  def render(key: CmsPageKey)(req: RequestHeader, prefLang: Lang): Fu[Option[Render]] =
-    getBestFor(key)(req, prefLang).flatMapz: page =>
+  def render(key: CmsPageKey)(using Context): Fu[Option[Render]] =
+    getBestFor(key).flatMapz: page =>
       markup(page).map: html =>
         Render(page, html).some
+
+  def renderOpt(key: CmsPageKey)(using Context): Fu[RenderOpt] =
+    render(key).map(RenderOpt(key, _))
 
   def list: Fu[List[CmsPage]] = coll.list[CmsPage]($empty)
 
@@ -44,8 +48,8 @@ final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker
 
   def delete(id: CmsPageId): Funit = coll.delete.one($id(id)).void
 
-  private def getBestFor(key: CmsPageKey)(req: RequestHeader, prefLang: Lang): Fu[Option[CmsPage]] =
-    val prefered = langPicker.preferedLanguages(req, prefLang) :+ defaultLanguage
+  private def getBestFor(key: CmsPageKey)(using ctx: Context): Fu[Option[CmsPage]] =
+    val prefered = langPicker.preferedLanguages(ctx.req, ctx.lang) :+ defaultLanguage
     coll
       .list[CmsPage]($doc("key" -> key, "language".$in(prefered)))
       .map: pages =>

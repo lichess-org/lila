@@ -166,4 +166,13 @@ Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi 
 3. Nhấn vào Cookie và Quyền của trang web
 4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)
 5. Thêm lichess.org vào Cho phép</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Hạn chế bản thân chơi quá nhiều?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">tình trạng sức khỏe tâm thần độc lập</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Phong cách người dùng Lichess</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">ít kiểu thời lượng ván ở phòng chờ hơn</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Chúng tôi thường xuyên nhận được tin nhắn từ nhiều người dùng yêu cầu chúng tôi giúp đỡ để ngăn họ chơi quá nhiều.
+
+Mặc dù Lichess không cấm hoặc chặn người chơi ngoại trừ các vi phạm Điều khoản Dịch vụ, chúng tôi khuyên bạn nên sử dụng các công cụ bên ngoài để hạn chế hành vi chơi quá mức. Một số đề xuất phổ biến cho trình chặn trang web bao gồm %1$s, %2$s và %3$s. Nếu bạn muốn tiếp tục sử dụng trang web nhưng không bị cám dỗ bởi các kiểu thời gian ván đấu nhanh, bạn cũng có thể quan tâm đến %4$s, đây là một kiểu có %5$s.
+
+Một số người chơi có thể cảm thấy như hành vi chơi của họ đang biến thành nghiện. Trên thực tế, WHO phân loại rối loạn chơi game là %6$s, với các đặc điểm cơ bản như là 1) giảm khả năng kiểm soát chơi game, 2) tăng ưu tiên cho chơi game và 3) không ngừng chơi game bất chấp hậu quả tiêu cực. Nếu bạn nghĩ rằng hành vi chơi cờ của bạn theo mô hình này, chúng tôi khuyến khích bạn nói điều đó với một người bạn hoặc thành viên gia đình và/hoặc với một chuyên gia.</string>
 </resources>

@@ -13,7 +13,7 @@ final class RacerUi(helpers: Helpers):
 
   def home(using Context) =
     Page("Puzzle Racer")
-      .css("racer-home")
+      .css("racer.home")
       .hrefLangs(LangPath(routes.Racer.home)):
         main(cls := "page page-small racer-home box box-pad")(
           h1(cls := "box__top")("Puzzle Racer"),

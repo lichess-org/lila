@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Za poziv na igru, pošalji ovaj URL</string>
   <string name="gameOver">Igra gotova</string>
   <string name="waitingForOpponent">Čekam protivnika</string>
+  <string name="orLetYourOpponentScanQrCode">Ili dopusti da tvoj protivnik skenira QR kod</string>
   <string name="waiting">Čekanje</string>
   <string name="yourTurn">Tvoj potez</string>
   <string name="aiNameLevelAiLevel">%1$s razina %2$s</string>
@@ -71,6 +72,7 @@
   <string name="makeMainLine">Napravi glavnu liniju</string>
   <string name="deleteFromHere">Obriši s popisa</string>
   <string name="forceVariation">Promakni varijaciju</string>
+  <string name="copyVariationPgn">Kopiraj varijaciju PGN-a</string>
   <string name="move">Potez</string>
   <string name="variantLoss">Poraz varijante</string>
   <string name="variantWin">Pobjeda varijante</string>
@@ -101,6 +103,7 @@
   <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="openingEndgameExplorer">Proučavanje otvaranja i završnica</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Odigraj prvo otvaranje/završnički-istraživački potez</string>
   <string name="winPreventedBy50MoveRule">Pobjeda spriječena na bazi pravila o 50 poteza</string>
   <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
   <string name="winOr50MovesByPriorMistake">Pobjeda ili 50 poteza prethodnom greškom</string>
@@ -116,12 +119,14 @@
   <string name="openStudy">Otvori studiju</string>
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
+  <string name="showVariationArrows">Pokaži strelice varijacija</string>
   <string name="evaluationGauge">Mjerilo evaluacije</string>
   <string name="multipleLines">Višestrukih varijanti</string>
   <string name="cpus">Procesora</string>
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
+  <string name="engineManager">Upravitelj enginea</string>
   <string name="blunder">Gruba greška</string>
   <string name="mistake">Greška</string>
   <string name="inaccuracy">Nepreciznost</string>

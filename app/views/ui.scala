@@ -1,6 +1,7 @@
 package views
 
 import lila.app.UiEnv.{ *, given }
+import lila.cms.CmsPage
 
 export lila.web.ui.bits
 
@@ -30,7 +31,7 @@ val dgt = lila.web.ui.DgtUi(helpers)
 val relation = lila.relation.ui.RelationUi(helpers)
 
 object oAuth:
-  val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage)
+  val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage, env.mode)
   val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
 
 val plan      = lila.plan.ui.PlanUi(helpers)(netConfig.email)
@@ -51,12 +52,12 @@ object account:
   val ui        = lila.pref.ui.AccountUi(helpers)
   val pages     = lila.pref.ui.AccountPages(helpers, ui, flagApi)
   val pref      = lila.pref.ui.AccountPref(helpers, prefHelper, ui)
-  val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)
+  val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)(netConfig.domain)
   val security  = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.csp,
-  translations = userAnalysisI18n.vector(),
+  translations = userAnalysisI18n.vector() ++ views.study.bits.gamebookPlayKeys,
   board.explorerAndCevalConfig,
   modMenu = mod.ui.menu("practice")
 )

@@ -56,7 +56,7 @@ final private class RelayFetch(
       .flatMap: relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
         relays
-          .map: rt =>
+          .parallelVoid: rt =>
             if rt.round.sync.ongoing then
               processRelay(rt).flatMap: updating =>
                 api.reFetchAndUpdate(rt.round)(updating.reRun)
@@ -69,8 +69,6 @@ final private class RelayFetch(
               if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
               api.update(rt.round)(_.finish)
             else funit
-          .parallel
-          .void
 
   // no writing the relay; only reading!
   // this can take a long time if the source is slow
@@ -175,7 +173,7 @@ final private class RelayFetch(
               val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
               given play.api.i18n.Lang = lila.core.i18n.defaultLang
               games
-                .traverse: (game, fen) =>
+                .sequentially: (game, fen) =>
                   pgnDump(game, fen, pgnFlags).dmap(_.render)
                 .dmap(MultiPgn.apply)
             else

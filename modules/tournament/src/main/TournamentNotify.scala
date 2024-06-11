@@ -14,7 +14,7 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
     repo
       .soonStarting(nowInstant.plusMinutes(10), nowInstant.plusMinutes(11), doneMemo.keys)
       .flatMap:
-        _.traverse_ { tour =>
+        _.sequentiallyVoid { tour =>
           lila.mon.tournament.notifier.tournaments.increment()
           doneMemo.put(tour.id)
           cached.ranking(tour).map { ranking =>

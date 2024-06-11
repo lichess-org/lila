@@ -44,7 +44,7 @@
   <string name="unlike">نمی پسندم</string>
   <string name="newTag">برچسب جدید</string>
   <string name="commentThisPosition">نظر دادن به این پوزیسیون</string>
-  <string name="commentThisMove">نظر دادن به این حرکت</string>
+  <string name="commentThisMove">قرار دادن توضیحات برای این حرکت</string>
   <string name="annotateWithGlyphs">حرکت‌نویسی به‌همراه علائم</string>
   <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
   <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
@@ -65,8 +65,8 @@
   <string name="chapterPgn">PGN فصل</string>
   <string name="copyChapterPgn">کپی کردن PGN</string>
   <string name="downloadGame">بارگیری بازی</string>
-  <string name="studyUrl">URL درس</string>
-  <string name="currentChapterUrl">URL فصل فعلی</string>
+  <string name="studyUrl">وب‌نشانی مطالعه</string>
+  <string name="currentChapterUrl">وب‌نشانی فصل جاری</string>
   <string name="youCanPasteThisInTheForumToEmbed">برای جاسازی این نوشته، این کد را در تالار گفت و گو قرار دهید</string>
   <string name="startAtInitialPosition">در موقعیت آغازین شروع نمایید</string>
   <string name="startAtX">شروع از %s</string>
@@ -98,7 +98,7 @@
   <string name="startFromInitialPosition">از موقعیت ابتدایی شروع نمایید</string>
   <string name="editor">ویرایشگر</string>
   <string name="startFromCustomPosition">از موقعیت دلخواه شروع نمایید</string>
-  <string name="loadAGameByUrl">بارگزاری بازی با استفاده از URL</string>
+  <string name="loadAGameByUrl">بارگذاری بازی از وب‌نشانی‌ها</string>
   <string name="loadAPositionFromFen">از FEN یک موقعیت را بارگیری کنید</string>
   <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
@@ -106,7 +106,7 @@
     <item quantity="one">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
     <item quantity="other">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>
   </plurals>
-  <string name="urlOfTheGame">آدرس اینترنتی بازی، یکی در هر خط</string>
+  <string name="urlOfTheGame">وب‌نشانی بازی‌ها، یکی در هر خط</string>
   <string name="loadAGameFromXOrY">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
   <string name="createChapter">ساخت فصل</string>
   <string name="createStudy">مطالعه ایجاد کنید</string>

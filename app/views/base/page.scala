@@ -24,10 +24,10 @@ object page:
     raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
-    preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
+    preload(staticAssetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d.option(
       preload(
-        assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
+        staticAssetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
         "image",
         crossorigin = false
       )
@@ -62,19 +62,19 @@ object page:
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username.value + " ")} $prodTitle"
           ,
-          cssTag("theme-all"),
+          cssTag("common.theme.all"),
           cssTag("site"),
-          pref.is3d.option(cssTag("board-3d")),
+          pref.is3d.option(cssTag("common.board-3d")),
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
-          ctx.blind.option(cssTag("blind")),
+          ctx.blind.option(cssTag("bits.blind")),
           p.cssKeys.map(cssTag),
           pieceSprite(ctx.pref.currentPieceSet.name),
           meta(
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name    := "description"
           ),
-          link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
+          link(rel := "mask-icon", href := staticAssetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
           (!p.robots || !netConfig.crawlable).option:
             raw("""<meta content="noindex, nofollow" name="robots">""")
@@ -83,19 +83,19 @@ object page:
           p.openGraph.map(lila.web.ui.openGraph),
           p.atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
-            raw:
-              s"""<style id="bg-data">html.transp::before{background-image:url("${escapeHtmlRaw(img)
-                  .replace("&amp;", "&")}");}</style>"""
+            val url = escapeHtmlRaw(img).replace("&amp;", "&")
+            raw(s"""<style id="bg-data">html.transp::before{background-image:url("$url");}</style>""")
           },
           fontPreload,
           boardPreload,
           manifests,
-          jsLicense,
           p.withHrefLangs.map(hrefLangs),
           sitePreload(
-            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)),
+            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)) ++
+              Option.when(!netConfig.isProd)(Option(jsPageModule("site.devMode"))),
             isInquiry = ctx.data.inquiry.isDefined
           ),
+          lichessFontFaceCss,
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),
         st.body(

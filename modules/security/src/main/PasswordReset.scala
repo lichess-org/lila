@@ -44,7 +44,7 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[Me]] =
-    tokener.read(token).flatMapz(userRepo.me).map(_.filter(canFullyLogin))
+    tokener.read(token).flatMapz(userRepo.me).map(_.filter(Granter.canFullyLogin))
 
   private val tokener = StringToken[UserId](
     secret = tokenerSecret,

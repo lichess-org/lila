@@ -21,18 +21,19 @@ final class Ublog(env: Env) extends LilaController(env):
         env.ublog.api
           .getUserBlog(user)
           .flatMap: blog =>
-            (canViewBlogOf(user, blog).so(env.ublog.paginator.byUser(user, true, page))).map {
-              views.ublog.ui.blogPage(user, blog, _)
-            }
+            canViewBlogOf(user, blog)
+              .so(env.ublog.paginator.byUser(user, true, page))
+              .map:
+                views.ublog.ui.blogPage(user, blog, _)
 
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
-      WithBlogOf(username, _.edit): (user, blog) =>
+      WithBlogOf(username, _.draft): (user, blog) =>
         Ok.async:
           env.ublog.paginator
             .byBlog(blog.id, false, page)
             .map:
-              views.ublog.ui.drafts(user, _)
+              views.ublog.ui.drafts(user, blog, _)
   }
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open:
@@ -103,13 +104,13 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def form(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
-      WithBlogOf(username, _.create): (user, blog) =>
+      WithBlogOf(username, _.edit): (user, blog) =>
         Ok.page(views.ublog.form.create(user, env.ublog.form.create, anyCaptcha))
   }
 
   def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      WithBlogOf(username, _.create): (user, blog) =>
+      WithBlogOf(username, _.edit): (user, blog) =>
         bindForm(env.ublog.form.create)(
           err => BadRequest.page(views.ublog.form.create(user, err, anyCaptcha)),
           data =>

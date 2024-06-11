@@ -10,6 +10,7 @@ import lila.common.Form.{
   cleanText,
   cleanNoSymbolsText,
   cleanNoSymbolsAndNonEmptyText,
+  playerTitle,
   into,
   trim,
   given
@@ -79,4 +80,4 @@ object UserForm:
   case class NoteData(text: String, mod: Boolean, dox: Boolean)
 
   val title = Form:
-    single("title" -> of[String].transform[Option[PlayerTitle]](PlayerTitle.get, _.so(_.value)))
+    single("title" -> optional(playerTitle.field))

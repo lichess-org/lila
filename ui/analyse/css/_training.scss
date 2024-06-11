@@ -34,7 +34,7 @@
   .player {
     display: flex;
     align-items: center;
-    margin-inline-start: 10px;
+    margin: 0 1em;
   }
 
   .no-square {
@@ -65,8 +65,9 @@
     text-align: center;
   }
 
-  .instruction > * {
-    display: block;
+  .instruction {
+    @extend %flex-column;
+    flex: 1;
   }
 
   .instruction > strong {
@@ -75,6 +76,7 @@
   }
 
   .choices {
+    @extend %flex-between;
     line-height: 1.6em;
     margin: 5px 0 -5px 0;
   }

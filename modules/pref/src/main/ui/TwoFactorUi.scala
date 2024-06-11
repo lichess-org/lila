@@ -6,18 +6,17 @@ import play.api.data.Form
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
-final class TwoFactorUi(helpers: Helpers, ui: AccountUi):
+final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
+    domain: lila.core.config.NetDomain
+):
   import helpers.{ *, given }
   import trans.{ tfa as trt }
   import ui.AccountPage
 
-  private val qrCode = raw:
-    """<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>"""
-
   def setup(form: Form[?])(using Context)(using me: Me) =
+    val secret = form("secret").value.orZero
     ui.AccountPage(s"${me.username} - ${trt.twoFactorAuth.txt()}", "twofactor")
-      .iife(iifeModule("javascripts/vendor/qrcode.min.js"))
-      .iife(iifeModule("javascripts/twofactor.form.js")):
+      .js(EsmInit("bits.qrcode")):
         div(cls := "twofactor box box-pad")(
           h1(cls := "box__top")(trt.twoFactorAuth()),
           standardFlash,
@@ -39,10 +38,12 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi):
               p(strong("iOS"), " : ", a(href := "https://2fas.com/")("2FAS"))
             ),
             div(cls := "form-group")(trt.scanTheCode()),
-            qrCode,
+            qrcode(
+              s"otpauth://totp/${domain}:${me.userId}?secret=${secret}&issuer=${domain}"
+            ),
             div(cls := "form-group"):
               trt.ifYouCannotScanEnterX:
-                span(style := "background:black;color:black;")(form("secret").value.orZero: String)
+                span(cls := "redacted")(secret)
             ,
             div(cls := "form-group explanation")(trt.enterPassword()),
             form3.hidden(form("secret")),

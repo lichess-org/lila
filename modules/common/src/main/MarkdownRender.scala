@@ -134,6 +134,7 @@ object MarkdownRender:
         "i.postimg.cc",
         "xkcd.com",
         "image.lichess1.org",
+        "pic.lichess.org",
         "127.0.0.1"
       )
 

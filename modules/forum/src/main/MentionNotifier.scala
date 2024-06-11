@@ -14,7 +14,7 @@ final class MentionNotifier(
     post.userId.ifFalse(post.troll).so { author =>
       filterValidUsers(extractMentionedUsers(post), author).flatMap { mentionedUsers =>
         mentionedUsers
-          .traverse_ { user =>
+          .sequentiallyVoid { user =>
             notifyApi.notifyOne(
               user,
               MentionedInThread(

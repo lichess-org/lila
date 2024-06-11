@@ -2,6 +2,7 @@ package lila.core
 package pref
 
 import lila.core.userId.UserId
+import lila.core.user.User
 
 trait Pref:
   val id: UserId
@@ -33,6 +34,7 @@ trait PrefApi:
   def getInsightShare(userId: UserId): Future[Int]
   def getChallenge(userId: UserId): Future[Int]
   def getStudyInvite(userId: UserId): Future[Int]
+  def isolate(user: User): Funit
 
 object Message:
   val NEVER  = 1

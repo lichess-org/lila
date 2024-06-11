@@ -42,9 +42,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
                       f.score       -> player.score
                     )
                   )
-                  .void
-              .parallel
-              .void
+              .parallelVoid
         yield SwissScoring
           .Result(
             swiss,

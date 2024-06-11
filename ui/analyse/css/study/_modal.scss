@@ -73,5 +73,9 @@
       @extend %break-word-hard, %ellipsis;
       max-width: 100%;
     }
+    .preview-in-editor {
+      float: right;
+      margin-top: 0.2em;
+    }
   }
 }

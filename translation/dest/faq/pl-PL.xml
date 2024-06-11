@@ -173,4 +173,13 @@ Pokazujemy czerwoną ikonę, aby Cię ostrzec, kiedy to się wydarzy. W wielu pr
 3. Kliknij Ciasteczka i uprawnienia witryny
 4. Przewiń w dół i kliknij przycisk Autoplay Media
 5. Dodaj lichess.org do uprawnionych</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Jak nie uzależnić się od gry w szachy?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">uzależnienie behawioralne</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess userstyles</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">fewer lobby pools</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Regularnie otrzymujemy wiadomości od użytkowników, którzy proszą nas o pomoc, aby powstrzymać ich przed zbyt częstym graniem.
+
+Lichess nikomu nie zakazuje ani nie blokuje możliwości gry z wyjątkiem przypadków naruszenia Warunków użytkowania. W celu ograniczenia czasu spędzanego na grze w szachy zalecamy użycie zewnętrznych narzędzi takich jak %1$s, %2$s i %3$s. Jeśli chcesz nadal korzystać z witryny, ale nie ulegać pokusie rozgrywania kolejnych szybkich partii, może Cię również zainteresować możliwość modyfikacji naszych stron za pomocą stylów CSS: %4$s, oto jeden z przydatnych stylów, który możesz zastosować: %5$s.
+
+Niektórzy gracze mogą mieć wrażenie, że ich zachowanie staje się uzależnieniem. I rzeczywiście, WHO klasyfikuje uzależnienie od gier komputerowych jako %6$s, którego istotnymi objawami są 1) nadmierne zaabsorbowanie grami komputerowymi, 2) ciągły wzrost zaangażowania w gry komputerowe i 3) dalsze granie w gry mimo wiedzy o szkodliwości tej czynności. Jeśli uważasz, że Twoje zachowania pasują do tego wzorca, zachęcamy Cię do rozmowy na ten temat z przyjacielem lub członkiem rodziny i/lub specjalistą.</string>
 </resources>

@@ -54,7 +54,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     incToints,
     setPlan,
     filterByEnabledPatrons,
-    isCreatedSince
+    isCreatedSince,
+    accountAge
   }
   export perfsRepo.{
     perfOf,

@@ -2,6 +2,7 @@ package lila.gathering
 
 import play.api.data.Forms.*
 import play.api.data.Mapping
+import scalalib.model.Days
 
 import lila.common.Form.{ *, given }
 import lila.gathering.Condition.*
@@ -40,6 +41,21 @@ object ConditionForm:
 
   val titled: Mapping[Option[Titled.type]] =
     optional(boolean).transform(_.contains(true).option(Titled), _.isDefined.option(true))
+
+  val accountAges = List(1, 3, 7, 14, 30, 60, 90, 180, 365, 365 * 2, 365 * 3)
+
+  val accountAgeChoices =
+    def pluralize(s: String, n: Int) = s"$n $s${if n != 1 then "s" else ""}"
+    ("", "No restriction") :: options(
+      accountAges,
+      format = days =>
+        if days < 30 then pluralize("day", days)
+        else if days < 365 then pluralize("month", days / 30)
+        else pluralize("year", days / 365)
+    ).toList
+
+  val accountAge: Mapping[Option[AccountAge]] = optional:
+    numberIn(accountAges).into[Days].transform(AccountAge.apply, _.days)
 
   def teamMember(leaderTeams: List[LightTeam]): Mapping[Option[TeamMember]] = optional:
     mapping(

@@ -108,75 +108,90 @@ const overview = (ctx: RelayViewContext) => [
 ];
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
-  const clickHook = { hook: bind('click', relay.groupSelectShow.toggle, relay.redraw) };
-  return h('div.mselect.relay-tour__mselect.relay-tour__group-select', [
-    h(
-      'label.mselect__label',
-      clickHook,
-      group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
-    ),
-    ...(relay.groupSelectShow()
-      ? [
-          h('label.fullscreen-mask', clickHook),
-          h(
-            'nav.mselect__list',
-            group.tours.map(tour =>
-              h(
-                `a.mselect__item${tour.id == relay.data.tour.id ? '.current' : ''}`,
-                { attrs: { href: `/broadcast/-/${tour.id}` } },
-                tour.name,
-              ),
-            ),
-          ),
-        ]
-      : []),
-  ]);
-};
-
-const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
-  const clickHook = { hook: bind('click', relay.roundSelectShow.toggle, relay.redraw) };
-  const round = relay.currentRound();
-  const icon = roundStateIcon(round, true);
-  return h('div.mselect.relay-tour__mselect.relay-tour__round-select', [
-    h('label.mselect__label.relay-tour__round-select__label', clickHook, [
-      h('span.relay-tour__round-select__name', round.name),
+  const toggle = relay.groupSelectShow;
+  const clickHook = { hook: bind('click', toggle.toggle, relay.redraw) };
+  return h(
+    'div.mselect.relay-tour__mselect.relay-tour__group-select',
+    {
+      class: { mselect__active: toggle() },
+    },
+    [
       h(
-        'span.relay-tour__round-select__status',
-        icon || [round.startsAt ? site.timeago(round.startsAt) : undefined],
+        'label.mselect__label',
+        clickHook,
+        group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
       ),
-    ]),
-    ...(relay.roundSelectShow()
-      ? [
-          h('label.fullscreen-mask', clickHook),
-          h(
-            'div.relay-tour__round-select__list.mselect__list',
+      ...(toggle()
+        ? [
+            h('label.fullscreen-mask', clickHook),
             h(
-              'table',
-              h(
-                'tbody',
-                {
-                  hook: bind('click', (e: MouseEvent) => {
-                    const target = e.target as HTMLElement;
-                    if (target.tagName != 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
-                  }),
-                },
-                relay.data.rounds.map(round =>
-                  h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
-                    h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
-                    h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
-                    h(
-                      'td.status',
-                      roundStateIcon(round, false) ||
-                        (round.startsAt ? site.timeago(round.startsAt) : undefined),
-                    ),
-                  ]),
+              'nav.mselect__list',
+              group.tours.map(tour =>
+                h(
+                  `a.mselect__item${tour.id == relay.data.tour.id ? '.current' : ''}`,
+                  { attrs: { href: `/broadcast/-/${tour.id}` } },
+                  tour.name,
                 ),
               ),
             ),
-          ),
-        ]
-      : []),
-  ]);
+          ]
+        : []),
+    ],
+  );
+};
+
+const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
+  const toggle = relay.roundSelectShow;
+  const clickHook = { hook: bind('click', toggle.toggle, relay.redraw) };
+  const round = relay.currentRound();
+  const icon = roundStateIcon(round, true);
+  return h(
+    'div.mselect.relay-tour__mselect.relay-tour__round-select',
+    {
+      class: { mselect__active: toggle() },
+    },
+    [
+      h('label.mselect__label.relay-tour__round-select__label', clickHook, [
+        h('span.relay-tour__round-select__name', round.name),
+        h(
+          'span.relay-tour__round-select__status',
+          icon || [round.startsAt ? site.timeago(round.startsAt) : undefined],
+        ),
+      ]),
+      ...(toggle()
+        ? [
+            h('label.fullscreen-mask', clickHook),
+            h(
+              'div.relay-tour__round-select__list.mselect__list',
+              h(
+                'table',
+                h(
+                  'tbody',
+                  {
+                    hook: bind('click', (e: MouseEvent) => {
+                      const target = e.target as HTMLElement;
+                      if (target.tagName != 'A')
+                        site.redirect($(target).parents('tr').find('a').attr('href')!);
+                    }),
+                  },
+                  relay.data.rounds.map(round =>
+                    h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
+                      h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
+                      h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+                      h(
+                        'td.status',
+                        roundStateIcon(round, false) ||
+                          (round.startsAt ? site.timeago(round.startsAt) : undefined),
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+            ),
+          ]
+        : []),
+    ],
+  );
 };
 
 const games = (ctx: RelayViewContext) => [

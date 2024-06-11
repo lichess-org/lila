@@ -59,8 +59,8 @@
     <item quantity="other">در %s مسابقه آرنا رقابت کرد</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">رتبه #%1$s (%2$s %% برتر) را در %4$s با %3$s بازی به دست آورد</item>
-    <item quantity="other">رتبه #%1$s (%2$s %% برتر) را در %4$s با %3$s بازی به دست آورد</item>
+    <item quantity="one">رتبه #%1$s (%2$s%% برتر) با %3$s بازی در %4$s</item>
+    <item quantity="other">رتبه #%1$s (%2$s%% برتر) با %3$s بازی در %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">در %s مسابقه سوئیسی رقابت کرد</item>

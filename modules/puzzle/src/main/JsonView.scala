@@ -108,14 +108,14 @@ final class JsonView(
 
   def batch(puzzles: Seq[Puzzle])(using me: Option[Me], perf: Perf): Fu[JsObject] = for
     games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
-    jsons <- (puzzles
-      .zip(games))
-      .collect { case (puzzle, Some(game)) =>
-        gameJson.noCache(game, puzzle.initialPly).map {
-          puzzleAndGamejson(puzzle, _)
+    jsons <- Future.sequence:
+      puzzles
+        .zip(games)
+        .collect { case (puzzle, Some(game)) =>
+          gameJson.noCache(game, puzzle.initialPly).map {
+            puzzleAndGamejson(puzzle, _)
+          }
         }
-      }
-      .parallel
   yield
     import lila.rating.Glicko.glickoWrites
     Json.obj("puzzles" -> jsons).add("glicko" -> me.map(_ => perf.glicko))
@@ -133,17 +133,17 @@ final class JsonView(
 
     def batch(puzzles: Seq[Puzzle])(using me: Option[Me], perf: Perf): Fu[JsObject] = for
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
-      jsons <- (puzzles
-        .zip(games))
-        .collect { case (puzzle, Some(game)) =>
-          gameJson.noCacheBc(game, puzzle.initialPly).map { gameJson =>
-            Json.obj(
-              "game"   -> gameJson,
-              "puzzle" -> puzzleJson(puzzle)
-            )
+      jsons <- Future.sequence:
+        puzzles
+          .zip(games)
+          .collect { case (puzzle, Some(game)) =>
+            gameJson.noCacheBc(game, puzzle.initialPly).map { gameJson =>
+              Json.obj(
+                "game"   -> gameJson,
+                "puzzle" -> puzzleJson(puzzle)
+              )
+            }
           }
-        }
-        .parallel
     yield Json
       .obj("puzzles" -> jsons)
       .add("user" -> me.map(_ => perf.intRating).map(userJson))

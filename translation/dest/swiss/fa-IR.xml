@@ -106,12 +106,13 @@
   <string name="lateJoinUntil">بله تا زمانی که بیش از نیمی از دور شروع نشده باشد</string>
   <string name="pause">درنگ</string>
   <string name="pauseSwiss">بله، اما ممکن است تعداد دورها را کاهش دهد</string>
-  <string name="streaksAndBerserk">پیروزی های پی در پی و برسرک</string>
+  <string name="streaksAndBerserk">توالی و جنون</string>
   <string name="similarToOTB">مشابه مسابقات بر روی تخته</string>
   <string name="unlimitedAndFree">بدون محدودیت و رایگان</string>
   <string name="predefinedUsers">تنها کاربران از پیش تعریف شده اجازه ورود دارند</string>
   <string name="forbiddedUsers">اگر این لیست خالی نیست، بنابراین کاربرانی که در لیست نیستند امکان ورود ندارند. یک نام کاربری در هر خط.</string>
   <string name="playYourGames">بازی‌های خود را بازی کنید</string>
+  <string name="byes">استراحت</string>
   <string name="absences">غيبت ها</string>
   <string name="tieBreak">تساوی‌شکنی</string>
 </resources>

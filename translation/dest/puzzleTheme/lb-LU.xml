@@ -30,7 +30,7 @@
   <string name="dovetailMateDescription">Eng Damm setzt e niewestohende Kinnek matt, deem seng eenzeg zwee Fluchtfelder duerch seng eegen Figuren behënnert sinn.</string>
   <string name="equality">Egalitéit</string>
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Komm aus enger verluerener Positioun zeréck a sécher dir e Remis oder ausgeglache Positioun. (eval ≤ 200cp)</string>
-  <string name="kingsideAttack">Ugrëff op der Kinnekssäit</string>
+  <string name="kingsideAttack">Ugrëff um Kinneksfligel</string>
   <string name="kingsideAttackDescription">En Ugrëff op den géigneresche Kinnek, nodeem en op der Kinnekssäit rochéiert huet.</string>
   <string name="clearance">Räumung</string>
   <string name="clearanceDescription">En Zuch, meeschtens mat Tempo, deen de Wee ob e Feld, eng Linn oder eng Diagonal fräi mëscht an eng Folgetaktik erlaabt.</string>
@@ -93,7 +93,7 @@
   <string name="queenEndgameDescription">En Endspill mat just Dammen a Baueren.</string>
   <string name="queenRookEndgame">Damm an Tuerm</string>
   <string name="queenRookEndgameDescription">En Endspill nëmmen mat Dammen, Tierm a Baueren.</string>
-  <string name="queensideAttack">Ugrëff op der Dammesäit</string>
+  <string name="queensideAttack">Ugrëff um Dammefligel</string>
   <string name="queensideAttackDescription">En Ugrëff op de géigneresche Kinnek, nodeem en op der Dammesäit rochéiert huet.</string>
   <string name="quietMove">Rouegen Zuch</string>
   <string name="quietMoveDescription">En Zuch dee weder e Schach oder Schlagzuch ass oder eng direkt Drohung kréiert, mee eng verstoppte méi grouss Drohung virbereet.</string>

@@ -19,7 +19,7 @@ def index(
       s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}"
     )
     .js(PageModule("round", Json.obj("data" -> data, "i18n" -> views.round.jsI18n(pov.game))))
-    .css("tv.single")
+    .css("bits.tv.single")
     .graph(
       title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
       description =
@@ -47,7 +47,7 @@ def index(
 
 def games(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Champions)(using ctx: Context) =
   Page(s"${channel.name} • ${trans.site.currentGames.txt()}")
-    .css("tv.games")
+    .css("bits.tv.games")
     .js(EsmInit("bits.tvGames")):
       main(
         cls     := "page-menu tv-games",
@@ -65,7 +65,7 @@ def embed(pov: Pov, channelKey: Option[String])(using EmbedContext) =
   val dataStreamUrl = channelKey.fold("/tv/feed?bc=1")(key => s"/tv/${key}/feed?bc=1")
   views.base.embed(
     title = "lichess.org chess TV",
-    cssModule = "tv.embed",
+    cssModule = "bits.tv.embed",
     modules = EsmInit("site.tvEmbed")
   )(
     attr("data-stream-url") := dataStreamUrl,

@@ -44,7 +44,7 @@ import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudySocketSendParams } from '../socket';
-import { storedMap, storedBooleanProp } from 'common/storage';
+import { storedMap } from 'common/storage';
 import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
@@ -83,7 +83,7 @@ interface Handlers {
 // data.position.path represents the server state
 // ctrl.path is the client state
 export default class StudyCtrl {
-  relayRecProp = storedBooleanProp('analyse.relay.rec', true);
+  relayRecProp = prop(false);
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
   data: StudyData;
@@ -262,7 +262,7 @@ export default class StudyCtrl {
   startTour = async () => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
-      site.asset.loadCssPath('shepherd'),
+      site.asset.loadCssPath('bits.shepherd'),
     ]);
 
     tour.study(this.ctrl);
@@ -629,6 +629,8 @@ export default class StudyCtrl {
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
       this.ctrl.tree.addDests(d.d, newPath);
+      if (d.relayPath && !this.ctrl.tree.pathIsMainline(d.relayPath))
+        this.ctrl.tree.promoteAt(d.relayPath, true);
       if (sticky) this.data.position.path = newPath;
       if (
         (sticky && this.vm.mode.sticky) ||
@@ -658,6 +660,7 @@ export default class StudyCtrl {
       if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
       this.ctrl.tree.promoteAt(position.path, d.toMainline);
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
+      else if (this.relay) this.ctrl.jump(d.p.path);
       this.ctrl.treeVersion++;
       this.redraw();
     },

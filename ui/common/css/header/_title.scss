@@ -35,6 +35,10 @@
     display: none;
   }
 
+  @media (max-width: at-least($xx-small)) {
+    display: none;
+  }
+
   @media (min-width: at-least($xx-small)) {
     .site-icon {
       display: block;

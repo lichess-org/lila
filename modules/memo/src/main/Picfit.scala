@@ -67,12 +67,10 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
               coll.insert.one(image).inject(image)
 
   def deleteByIdsAndUser(ids: Seq[ImageId], user: UserId): Funit =
-    ids.nonEmpty.so(ids.traverse_ { id =>
+    ids.toList.sequentiallyVoid: id =>
       coll
         .findAndRemove($id(id) ++ $doc("user" -> user))
         .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
-        .void
-    })
 
   def deleteByRel(rel: String): Funit =
     coll
@@ -164,6 +162,10 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
       width: Int,
       height: Int
   ): String = display(id, "thumbnail")(width, height)
+
+  def raw(id: ImageId): String =
+    val queryString = s"op=noop&path=$id"
+    s"${config.endpointGet}/display?${signQueryString(queryString)}"
 
   private def display(id: ImageId, operation: String)(
       width: Int,

@@ -13,7 +13,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
   import helpers.{ *, given }
 
   private def FormPage(title: String)(using Context) =
-    Page(title).css("ublog.form", "tagify").js(EsmInit("bits.ublogForm"))
+    Page(title).css("bits.ublog.form", "bits.tagify").js(EsmInit("bits.ublogForm"))
 
   def create(user: User, f: Form[UblogForm.UblogPostData], captcha: Captcha)(using Context) =
     FormPage(s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}")

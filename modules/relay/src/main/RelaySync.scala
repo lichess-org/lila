@@ -21,7 +21,8 @@ final private class RelaySync(
     chapters       <- chapterRepo.orderedByStudyLoadingAllInMemory(study.id)
     sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
     nbGames = sanitizedGames.size
-    chapterUpdates <- sanitizedGames.traverse(createOrUpdateChapter(_, rt, study, chapters, nbGames))
+    chapterUpdates <- sanitizedGames.toList.sequentially:
+      createOrUpdateChapter(_, rt, study, chapters, nbGames)
     result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
     _      = lila.common.Bus.publish(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
@@ -140,8 +141,6 @@ final private class RelaySync(
               )(by)
               .inject(position + n)
           .inject:
-            // if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
-            //   studyApi.reloadChapters(study)
             node.mainline.size
     yield nbMoves
 

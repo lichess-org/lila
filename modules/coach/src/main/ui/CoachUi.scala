@@ -122,7 +122,7 @@ final class CoachUi(helpers: Helpers)(
     val coachName = s"${c.user.title.so(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = trc.xCoachesStudents.txt(coachName)
     Page(title)
-      .css("coach")
+      .css("bits.coach")
       .graph(
         OpenGraph(
           title = title,
@@ -207,7 +207,7 @@ final class CoachUi(helpers: Helpers)(
       country: Option[Flag]
   )(using ctx: Context) =
     Page(trc.lichessCoaches.txt())
-      .css("coach")
+      .css("bits.coach")
       .js(infiniteScrollEsmInit)
       .hrefLangs(lila.ui.LangPath(routes.Coach.all(1))):
         val langSelections = ("all", "All languages") :: languages(langCodes).map: l =>
@@ -217,7 +217,7 @@ final class CoachUi(helpers: Helpers)(
             p(
               trc.areYouCoach(a(href := "https://lichess.org/help/master")(trc.nmOrFideTitle())),
               br,
-              if !ctx.me.exists(_.hasTitle) then a(href := routes.Main.verifyTitle)(trc.confirmTitle())
+              if !ctx.me.exists(_.hasTitle) then a(href := routes.TitleVerify.index)(trc.confirmTitle())
               else trc.sendApplication(a(href := s"mailto:${contactEmail.value}")(contactEmail.value))
             )
           ),

@@ -9,38 +9,44 @@ import lila.core.forum.BusForum
 import BusForum.*
 import lila.core.config.ConfigName
 import lila.core.id.ForumPostId
+import lila.search.client.SearchClient
+import lila.search.spec.Query
 
 @Module
 private class ForumSearchConfig(
-    @ConfigName("index") val indexName: String,
     @ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage
 )
 
 final class Env(
     appConfig: Configuration,
-    makeClient: Index => ESClient,
-    postApi: lila.core.forum.ForumPostApi
+    postApi: lila.core.forum.ForumPostApi,
+    client: SearchClient
 )(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
 
-  private lazy val client = makeClient(Index(config.indexName))
-
   lazy val api: ForumSearchApi = wire[ForumSearchApi]
 
   def apply(text: String, page: Int, troll: Boolean) =
-    paginatorBuilder(Query(text.take(100), troll), page)
+    paginatorBuilder(Query.forum(text.take(100), troll), page)
 
   def cli: lila.common.Cli = new:
-    def process = { case "forum" :: "search" :: "reset" :: Nil =>
-      api.reset.inject("done")
+    def process = {
+      case "forum" :: "search" :: "reset" :: Nil => api.reset.inject("done")
+      case "forum" :: "search" :: "backfill" :: epochSeconds :: Nil =>
+        Either
+          .catchNonFatal(java.lang.Long.parseLong(epochSeconds))
+          .fold(
+            e => fufail(s"Invalid epochSeconds: $e"),
+            since => api.backfill(java.time.Instant.ofEpochSecond(since)).inject("done")
+          )
     }
 
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
   lila.common.Bus.sub[BusForum]:
     case CreatePost(post)        => api.store(post)
-    case RemovePost(id, _, _, _) => client.deleteById(id.into(Id))
-    case RemovePosts(ids)        => client.deleteByIds(Id.from[List, ForumPostId](ids))
-    case ErasePost(id)           => client.deleteById(id.into(Id))
-    case ErasePosts(ids)         => client.deleteByIds(Id.from[List, ForumPostId](ids))
+    case RemovePost(id, _, _, _) => client.deleteById(index, id.value)
+    case RemovePosts(ids)        => client.deleteByIds(index, ids.map(_.value))
+    case ErasePost(id)           => client.deleteById(index, id.value)
+    case ErasePosts(ids)         => client.deleteByIds(index, ids.map(_.value))

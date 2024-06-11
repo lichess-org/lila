@@ -8,6 +8,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Translate
 import lila.gathering.{ ConditionForm, GatheringClock }
+import lila.gathering.ui.GatheringFormUi
 import lila.core.team.LightTeam
 import lila.tournament.crud.CrudForm
 
@@ -124,6 +125,8 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
       )
     )
 
+  private val gatheringFormUi = GatheringFormUi(helpers)
+
   def conditionFields(
       form: Form[?],
       fields: TourFields,
@@ -145,33 +148,19 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
         }
       ),
       form3.split(
-        form3.group(form.prefix("conditions.nbRatedGame.nb"), trans.site.minimumRatedGames(), half = true):
-          form3.select(_, ConditionForm.nbRatedGameChoices)
+        gatheringFormUi.nbRatedGame(form.prefix("conditions.nbRatedGame.nb")),
+        gatheringFormUi.accountAge(form.prefix("conditions.accountAge"))
       ),
       form3.split(
-        form3.group(form.prefix("conditions.minRating.rating"), trans.site.minimumRating(), half = true):
-          form3.select(_, ConditionForm.minRatingChoices)
-        ,
-        form3
-          .group(form.prefix("conditions.maxRating.rating"), trans.site.maximumWeeklyRating(), half = true):
-            form3.select(_, ConditionForm.maxRatingChoices)
+        gatheringFormUi.minRating(form.prefix("conditions.minRating.rating")),
+        gatheringFormUi.maxRating(form.prefix("conditions.maxRating.rating"))
       ),
       form3.split(
-        form3.group(
-          form.prefix("conditions.allowList"),
-          trans.swiss.predefinedUsers(),
-          help = trans.swiss.forbiddedUsers().some,
-          half = true
-        )(form3.textarea(_)(rows := 4))
+        gatheringFormUi.allowList(form.prefix("conditions.allowList"))
       ),
       form3.split(
         (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).so {
-          form3.checkbox(
-            form.prefix("conditions.titled"),
-            trans.arena.onlyTitled(),
-            help = trans.arena.onlyTitledHelp().some,
-            half = true
-          )
+          gatheringFormUi.titled(form.prefix("conditions.titled"))
         },
         form3.checkbox(
           form.prefix("berserkable"),

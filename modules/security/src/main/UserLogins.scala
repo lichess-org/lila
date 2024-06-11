@@ -249,3 +249,4 @@ object UserLogins:
     def withUsers[V: UserIdOf](users: List[V]) = copy(
       othersWithEmail = othersWithEmail.withUsers(users)
     )
+    def othersPartiallyLoaded = othersWithEmail.others.sizeIs >= max

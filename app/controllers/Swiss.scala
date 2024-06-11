@@ -82,8 +82,14 @@ final class Swiss(
     env.swiss.cache.swissCache
       .byId(id)
       .flatMap:
-        case Some(swiss) => env.swiss.json.api(swiss).map(JsonOk)
+        case Some(swiss) => JsonOk(apiJson(swiss))
         case _           => notFoundJson()
+
+  private def apiJson(swiss: SwissModel)(using Context) =
+    for
+      verdicts <- env.swiss.api.verdicts(swiss)
+      json     <- env.swiss.json.api(swiss, verdicts)
+    yield json
 
   private def isUserInTheTeam(teamId: lila.team.TeamId)(user: UserId) =
     env.team.cached.teamIds(user).dmap(_.contains(teamId))
@@ -138,7 +144,7 @@ final class Swiss(
             doubleJsonFormError,
             data =>
               tourC.rateLimitCreation(isPrivate = true, rateLimited):
-                env.swiss.api.create(data, teamId).flatMap(env.swiss.json.api).map(JsonOk)
+                JsonOk(env.swiss.api.create(data, teamId).flatMap(apiJson))
           )
         else notFoundJson("You're not a leader of that team")
 
@@ -197,7 +203,7 @@ final class Swiss(
         err => jsonFormError(err),
         data =>
           env.swiss.api.update(swiss.id, data) >>
-            FoundOk(env.swiss.api.update(swiss.id, data))(env.swiss.json.api)
+            FoundOk(env.swiss.api.update(swiss.id, data))(apiJson)
       )
   }
 
@@ -246,7 +252,7 @@ final class Swiss(
       env.swiss.api
         .byTeamCursor(id)
         .documentSource(getInt("max") | 100)
-        .mapAsync(4)(env.swiss.json.api)
+        .mapAsync(4)(apiJson)
         .throttle(20, 1.second)
 
   private def WithSwiss(id: SwissId)(f: SwissModel => Fu[Result])(using Context): Fu[Result] =

@@ -16,7 +16,7 @@ def embed(title: String, cssModule: String, modules: EsmList = Nil)(body: Modifi
         st.headTitle(title),
         (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
         page.ui.pieceSprite(ctx.pieceSet.name),
-        cssTag("theme-light"), // includes both light & dark colors
+        cssTag("common.theme.embed"), // includes both light & dark colors
         cssTag(cssModule),
         page.ui.scriptsPreload(modules.flatMap(_.map(_.key)))
       ),

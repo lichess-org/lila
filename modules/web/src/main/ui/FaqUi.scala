@@ -30,7 +30,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
         title = "Frequently Asked Questions",
         active = "faq"
       )
-      .css("faq"):
+      .css("bits.faq"):
         div(cls := "faq box box-pad")(
           h1(cls := "box__top")(trf.frequentlyAskedQuestions()),
           h2("Lichess"),
@@ -224,7 +224,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             ),
             p(
               trf.showYourTitle(
-                a(href := routes.Main.verifyTitle)(trf.verificationForm()),
+                a(href := routes.TitleVerify.index)(trf.verificationForm()),
                 a(href := "#lm")("Lichess Master (LM)")
               )
             )

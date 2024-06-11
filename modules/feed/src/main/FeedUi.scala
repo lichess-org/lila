@@ -20,7 +20,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
 
   private def page(title: String, edit: Boolean = false)(using Context): Page =
     sitePage(title)
-      .css("dailyFeed")
+      .css("bits.dailyFeed")
       .js(infiniteScrollEsmInit)
       .js(edit.option(EsmInit("bits.flatpickr")))
       .js(edit.option(EsmInit("bits.dailyFeed")))
@@ -77,7 +77,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
             "New update!"
           )
         ),
-        postForm(cls := "content_box_content form3", action := routes.Feed.create):
+        postForm(cls := "form3", action := routes.Feed.create):
           inForm(form)
       )
 
@@ -93,7 +93,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
             )
           ),
           standardFlash,
-          postForm(cls := "content_box_content form3", action := routes.Feed.update(update.id)):
+          postForm(cls := "form3", action := routes.Feed.update(update.id)):
             inForm(form)
           ,
           postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete"):
