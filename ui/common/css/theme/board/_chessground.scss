@@ -212,3 +212,51 @@ html.transp body:not(.simple-board) cg-board {
     //filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
   }
 }
+
+coords.squares {
+  text-transform: uppercase;
+  text-align: right;
+  flex-flow: column-reverse;
+  height: 100%;
+  width: 12.5%;
+
+  &.black {
+    flex-flow: column;
+  }
+
+  &.left {
+    text-align: left;
+  }
+
+  coord {
+    padding: 6% 4%;
+  }
+
+  &.rank2 {
+    transform: translateX(100%);
+  }
+
+  &.rank3 {
+    transform: translateX(200%);
+  }
+
+  &.rank4 {
+    transform: translateX(300%);
+  }
+
+  &.rank5 {
+    transform: translateX(400%);
+  }
+
+  &.rank6 {
+    transform: translateX(500%);
+  }
+
+  &.rank7 {
+    transform: translateX(600%);
+  }
+
+  &.rank8 {
+    transform: translateX(700%);
+  }
+}

@@ -71,6 +71,7 @@ final class CoordinateUi(helpers: Helpers):
     trans.coordinates.findSquare,
     trans.coordinates.nameSquare,
     trans.coordinates.showCoordinates,
+    trans.coordinates.showCoordsOnAllSquares,
     trans.coordinates.showPieces,
     trans.storm.score,
     trans.study.back,

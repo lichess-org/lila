@@ -1177,6 +1177,7 @@ object I18nKey:
     val `youHaveThirtySeconds`: I18nKey = "coordinates:youHaveThirtySeconds"
     val `goAsLongAsYouWant`: I18nKey = "coordinates:goAsLongAsYouWant"
     val `showCoordinates`: I18nKey = "coordinates:showCoordinates"
+    val `showCoordsOnAllSquares`: I18nKey = "coordinates:showCoordsOnAllSquares"
     val `showPieces`: I18nKey = "coordinates:showPieces"
     val `startTraining`: I18nKey = "coordinates:startTraining"
     val `findSquare`: I18nKey = "coordinates:findSquare"
