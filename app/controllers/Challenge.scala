@@ -39,7 +39,7 @@ final class Challenge(
   def show(id: ChallengeId, _color: Option[Color]) = Open:
     showId(id)
 
-  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read) { _ ?=> _ ?=>
+  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read) { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>
       val direction: Option[Direction] =
         if isMine(c) then Direction.Out.some
@@ -47,11 +47,10 @@ final class Challenge(
         else none
       direction.so: dir =>
         val json = env.challenge.jsonView(dir.some)(c)
-        c.accepted
-          .so:
-            env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir))
-          .map: fullId =>
-            JsonOk(json.add("fullId", fullId))
+        for
+          fullId        <- c.accepted.so(env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir)))
+          socketVersion <- ctx.isMobileOauth.so(env.challenge.version(c.id))
+        yield JsonOk(json.add("fullId", fullId).add("socketVersion", socketVersion.some))
   }
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
