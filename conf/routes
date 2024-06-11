@@ -880,7 +880,6 @@ GET   /variant/:key                    controllers.Cms.variant(key: chess.varian
 
 # Help
 GET   /help/contribute                 controllers.Cms.help
-GET   /help/master                     controllers.Cms.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

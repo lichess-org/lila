@@ -19,8 +19,8 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
       .wrap: body =>
         main(cls := "box box-pad page")(body)
 
-  def index(title: String, intro: Frag)(using Context) =
-    layout(title).css("bits.page"):
+  def index(page: Page, intro: Frag)(using Context) =
+    page.css("bits.page"):
       frag(
         intro,
         br,
@@ -31,22 +31,21 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
         )
       )
 
-  def create(form: Form[TitleRequest.FormData])(using Context) =
-    layout():
+  def create(page: Page, form: Form[TitleRequest.FormData])(using Context) =
+    page:
       frag(
-        h1(cls := "box__top")("Verify your title"),
+        h1(cls := "box__top")(page.title),
         postForm(cls := "form3", action := routes.TitleVerify.create)(
           dataForm(form),
           form3.action(form3.submit("Next"))
         )
       )
 
-  def edit(form: Form[TitleRequest.FormData], req: TitleRequest)(using Context) =
-    val title = "Your title verification"
-    layout(title)
+  def edit(page: Page, form: Form[TitleRequest.FormData], req: TitleRequest)(using Context) =
+    page
       .js(EsmInit("bits.titleRequest")):
         frag(
-          h1(cls := "box__top")(title),
+          h1(cls := "box__top")(page.title),
           standardFlash,
           showStatus(req),
           if req.status.is(_.approved)
