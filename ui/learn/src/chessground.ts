@@ -18,6 +18,7 @@ export default function (ctrl: RunCtrl): VNode {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
+        el.addEventListener('contextmenu', e => e.preventDefault());
         ctrl.setChessground(site.makeChessground(el, makeConfig()));
       },
       destroy: () => ctrl.chessground!.destroy(),

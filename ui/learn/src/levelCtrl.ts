@@ -105,7 +105,6 @@ export class LevelCtrl {
         enabled: false, // prevent piece animation during transition
         duration: 200,
       },
-      // TODO: doesn't seem to be working
       disableContextMenu: true,
     });
     setTimeout(() => ground.set({ animation: { enabled: true } }), 200);
