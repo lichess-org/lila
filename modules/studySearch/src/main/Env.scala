@@ -7,9 +7,10 @@ import lila.common.Bus
 import scalalib.paginator.*
 import lila.common.LateMultiThrottler
 import lila.core.study.RemoveStudy
-import lila.search.*
 import lila.study.Study
+import lila.search.{From, Size}
 import lila.search.client.SearchClient
+import lila.search.spec.Query
 
 final class Env(
     studyRepo: lila.study.StudyRepo,
@@ -25,7 +26,7 @@ final class Env(
   def apply(me: Option[User])(text: String, page: Int) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
-        def query                           = Query(text.take(100), me.map(_.id))
+        def query                           = Query.study(text.take(100), me.map(_.id.value))
         def nbResults                       = api.count(query)
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       .mapFutureList(pager.withChaptersAndLiking(me)),
