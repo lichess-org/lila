@@ -855,6 +855,7 @@ export type I18nKey =
 'blocks'|
 'nbForumPosts'|
 'nbPerfTypePlayersThisWeek'|
+'nbPerfTypePlayersThisMonth'|
 'availableInNbLanguages'|
 'nbSecondsToPlayTheFirstMove'|
 'nbSeconds'|

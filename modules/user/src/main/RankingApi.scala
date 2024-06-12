@@ -34,7 +34,7 @@ final class RankingApi(
           "rating"    -> perf.intRating,
           "prog"      -> perf.progress,
           "stable"    -> perf.rankable(PerfType variantOf perfType),
-          "expiresAt" -> DateTime.now.plusDays(7)
+          "expiresAt" -> DateTime.now.plusMonths(1)
         ),
         upsert = true
       )
@@ -152,7 +152,7 @@ final class RankingApi(
         .map(_._2.result())
   }
 
-  object weeklyRatingDistribution {
+  object monthlyRatingDistribution {
 
     private type NbUsers = Int
 

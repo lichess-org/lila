@@ -9,7 +9,7 @@ final class Stat(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       lila.rating.PerfType(perfKey).filter(lila.rating.PerfType.leaderboardable.has) match {
         case Some(perfType) =>
-          env.user.rankingApi.weeklyRatingDistribution(perfType) dmap { data =>
+          env.user.rankingApi.monthlyRatingDistribution(perfType) dmap { data =>
             Ok(html.stat.ratingDistribution(perfType, data))
           }
         case _ => notFound
