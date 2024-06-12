@@ -40,7 +40,7 @@ class LilaSearchClient(client: SearchClient, writeable: Boolean)(using Executor)
         .count(query)
         .handleError:
           case e: SearchError =>
-            logger.warn(s"Count error: query={$query}", e)
+            logger.info(s"Count error: query={$query}", e)
             CountOutput(0)
 
   override def search(query: Query, from: Int, size: Int): Future[SearchOutput] =
@@ -49,7 +49,7 @@ class LilaSearchClient(client: SearchClient, writeable: Boolean)(using Executor)
         .search(query, from, size)
         .handleError:
           case e: SearchError =>
-            logger.warn(s"Search error: query={$query}, from={$from}, size={$size}", e)
+            logger.info(s"Search error: query={$query}, from={$from}, size={$size}", e)
             SearchOutput(Nil)
 
   private def monitor[A](op: String, index: String)(f: Fu[A]) =
