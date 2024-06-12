@@ -95,6 +95,7 @@ final class JsonView(
       .add("secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish))
       .add("secondsToStart" -> tour.isCreated.option(tour.secondsToStart))
       .add("me" -> myInfo.map(myInfoJson(me, pauseDelay)))
+      .add("isBot" -> me.map(_.isBot))
       .add("featured" -> data.featured)
       .add("podium" -> data.podium)
       .add("playerInfo" -> playerInfoJson)
