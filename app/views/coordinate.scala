@@ -76,11 +76,11 @@ object coordinate {
             p(trans.coordinates.aSquareNameAppears())
           ),
           div(cls := "box current-status")(
-            h1(trans.storm.score()),
+            h2(trans.storm.score()),
             div(cls := "coord-trainer__score")(0)
           ),
           div(cls := "box current-status")(
-            h1(trans.time()),
+            h2(trans.time()),
             div(cls := "coord-trainer__timer")(30.0)
           )
         ),

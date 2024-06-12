@@ -17,7 +17,7 @@ $mq-picture: $mq-medium;
     @include breakpoint($mq-subnav-top) {
       overflow-x: hidden;
     }
-    h1 {
+    h2 {
       @extend %roboto;
       margin-bottom: 0.7em;
       @include fluid-size('font-size', 23px, 40px);

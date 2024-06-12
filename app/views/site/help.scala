@@ -45,7 +45,9 @@ $('#asset-version-message').text(lishogi.info.message);"""
         ),
         br,
         st.section(cls := "box")(
-          h1("lila version"),
+          div(cls := "box__top")(
+            h2("lila version")
+          ),
           table(cls := "slist slist-pad")(
             env.appVersionDate zip env.appVersionCommit zip env.appVersionMessage map {
               case ((date, commit), message) =>
