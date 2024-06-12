@@ -27,6 +27,7 @@ export interface TreeWrapper {
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
   setCollapsedAt(path: Tree.Path, collapsed: boolean): MaybeNode;
+  setCollapsedRecursive(path: Tree.Path, collapsed: boolean): void;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
   forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
@@ -108,6 +109,13 @@ export function build(root: Tree.Node): TreeWrapper {
       return node;
     }
     return;
+  }
+
+  function updateRecursive(path: Tree.Path, update: (node: Tree.Node) => void): void {
+    const node = nodeAtPathOrNull(path);
+    if (node) {
+      ops.updateAll(node, update);
+    }
   }
 
   // returns new path
@@ -215,6 +223,11 @@ export function build(root: Tree.Node): TreeWrapper {
     },
     setCollapsedAt(path: Tree.Path, collapsed: boolean) {
       return updateAt(path, function (node) {
+        node.collapsed = collapsed;
+      });
+    },
+    setCollapsedRecursive(path: Tree.Path, collapsed: boolean) {
+      return updateRecursive(path, function (node) {
         node.collapsed = collapsed;
       });
     },

@@ -641,6 +641,14 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
+  setAllCollapsed(path: Tree.Path, collapsed: boolean): void {
+    // Also update parent
+    const parentPath = treePath.init(path);
+    this.tree.setCollapsedAt(parentPath, collapsed);
+    this.tree.setCollapsedRecursive(path, collapsed);
+    this.redraw();
+  }
+
   forceVariation(path: Tree.Path, force: boolean): void {
     this.tree.forceVariationAt(path, force);
     this.jump(path);
