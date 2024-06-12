@@ -36,15 +36,15 @@
   <plurals name="opponentLeftCounter">
     <item quantity="other">Ӑмӑртуҫу вӑййинчен тухнӑ. %s ҫеккунтран ҫӗнтерӳ ҫинчен пӗлтерме пултаратӑн.</item>
   </plurals>
-  <string name="opponentLeftChoices">Тепӗр вӑйӑҫ вӑййинчен тухнӑ пек турӗ. Ҫӗнтерӳ, парма-пар ҫинчен пӗлтер йе кӗтсе тӑр.</string>
+  <string name="opponentLeftChoices">Ӑмӑртуҫу вӑййинчен тухнӑ. Ҫӗнтерӳ йе парма-пар ҫинчен пӗлтер, йе кӗтсе тӑр.</string>
   <string name="forceResignation">Ҫӗнтерӳ ҫинчен пӗлтер</string>
-  <string name="forceDraw">Парма-пар пирки чӗн</string>
+  <string name="forceDraw">Парма-пар</string>
   <string name="talkInChat">Калаҫура сӑпайлӑ пул!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Ҫак каҫҫипе пӗрремӗш килекен ҫын санпа вылӗ.</string>
   <string name="whiteResigned">Шуррисем парӑннӑ</string>
   <string name="blackResigned">Хурисем парӑннӑ</string>
-  <string name="whiteLeftTheGame">Шуррисем вӑййинчен тухрӗҫ</string>
-  <string name="blackLeftTheGame">Хурисем вӑййинчен тухрӗҫ</string>
+  <string name="whiteLeftTheGame">Шуррисем вӑййинчен тухнӑ</string>
+  <string name="blackLeftTheGame">Хурисем вӑййинчен тухнӑ</string>
   <string name="whiteDidntMove">Шуррисем ҫӳремен</string>
   <string name="blackDidntMove">Хурисем ҫӳремен</string>
   <string name="requestAComputerAnalysis">Компйутӑр тишкервне ыйт</string>

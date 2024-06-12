@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Du har 30 sekunder til at kortlægge så mange felter som muligt!</string>
   <string name="goAsLongAsYouWant">Fortsæt så længe du ønsker, der er ingen tidsbegrænsning!</string>
   <string name="showCoordinates">Vis koordinater</string>
+  <string name="showCoordsOnAllSquares">Koordinater på hvert felt</string>
   <string name="showPieces">Vis brikker</string>
   <string name="startTraining">Start træning</string>
   <string name="findSquare">Find felt</string>

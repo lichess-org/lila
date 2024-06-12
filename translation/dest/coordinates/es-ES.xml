@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">¡Tienes 30 segundos para marcar correctamente tantas casillas como sea posible!</string>
   <string name="goAsLongAsYouWant">¡Tómate todo el tiempo que quieras, no hay límite de tiempo!</string>
   <string name="showCoordinates">Mostrar coordenadas</string>
+  <string name="showCoordsOnAllSquares">Coordenadas en cada casilla</string>
   <string name="showPieces">Mostrar piezas</string>
   <string name="startTraining">Comenzar entrenamiento</string>
   <string name="findSquare">Encontrar casilla</string>
