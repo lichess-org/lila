@@ -68,15 +68,15 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
     nodes.map(n => {
       return (
         retroLine(ctx, n) ||
-        h(
-          'line',
-          renderMoveAndChildrenOf(ctx, n, {
+        h('line', [
+          h('branch'),
+          ...renderMoveAndChildrenOf(ctx, n, {
             parentPath: opts.parentPath,
             isMainline: false,
             withIndex: true,
             truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
           }),
-        )
+        ])
       );
     }),
   );
