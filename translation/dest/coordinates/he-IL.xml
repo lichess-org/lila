@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">יש לך 30 שניות למקם נכונה כמה שיותר משבצות!</string>
   <string name="goAsLongAsYouWant">פתרו כפי יכולתכם, אין מגבלת זמן!</string>
   <string name="showCoordinates">הצגת קואורדינטות (נקודות ציון)</string>
+  <string name="showCoordsOnAllSquares">קואורדינטות על כל משבצת</string>
   <string name="showPieces">הצגת הכלים</string>
   <string name="startTraining">התחילו להתאמן</string>
   <string name="findSquare">מצא/י את המשבצת</string>

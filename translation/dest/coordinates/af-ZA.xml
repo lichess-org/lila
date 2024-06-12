@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Jy het 30 sekondes om soveel blokkies moontlik te merk!</string>
   <string name="goAsLongAsYouWant">Neem so lank as wat jy wil, daar is geen tydsbeperking nie!</string>
   <string name="showCoordinates">Vertoon koördinate</string>
+  <string name="showCoordsOnAllSquares">Koördinate op elke blokkie</string>
   <string name="showPieces">Vertoon stukke</string>
   <string name="startTraining">Begin die oefening</string>
   <string name="findSquare">Vind die blokkie</string>

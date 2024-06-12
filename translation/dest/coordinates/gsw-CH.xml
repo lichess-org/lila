@@ -17,6 +17,7 @@ wänn me d\'Koordinate schnäll gseht.</string>
   <string name="youHaveThirtySeconds">Du häsch 30 Sekunde, zum soviel Fälder wie möglich, korrekt z\'bezeichne!</string>
   <string name="goAsLongAsYouWant">Mach so lang wie du wottsch, es git keis Zitlimitt!</string>
   <string name="showCoordinates">Koordinate azeige</string>
+  <string name="showCoordsOnAllSquares">Koordinate uf jedem Fäld azeige</string>
   <string name="showPieces">Figure azeige</string>
   <string name="startTraining">Training schtarte</string>
   <string name="findSquare">Fäld finde</string>
