@@ -43,7 +43,7 @@ case class RelayRound(
 
   def ensureStarted     = copy(startedAt = startedAt.orElse(nowInstant.some))
   def hasStarted        = startedAt.isDefined
-  def hasStartedEarly   = hasStarted && startsAt.exists(_.isAfter(nowInstant))
+  def hasStartedEarly   = startedAt.exists(at => startsAt.exists(_.isAfter(at)))
   def shouldHaveStarted = hasStarted || startsAt.exists(_.isBefore(nowInstant))
 
   def shouldGiveUp =
