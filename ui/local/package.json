@@ -17,7 +17,7 @@
     "game": "workspace:*",
     "round": "workspace:*",
     "snabbdom": "3.5.1",
-    "zerofish": "link:../../../zerofish"
+    "zerofish": "0.0.23"
   },
   "lichess": {
     "bundles": [

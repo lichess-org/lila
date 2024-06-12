@@ -1,6 +1,5 @@
 import type { Square as Key } from 'chess.js';
 import { Level, LevelPartial } from './stage/list';
-import { escapeHtml } from 'common';
 import { h } from 'snabbdom';
 import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';

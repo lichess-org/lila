@@ -4,8 +4,9 @@ import { BotCtrl } from './botCtrl';
 import { HandOfCards } from './handOfCards';
 import { defined, escapeHtml } from 'common';
 import { GameCtrl } from './gameCtrl';
-import { settingHtml } from './editSetting';
+import { makeEditView, SettingElement } from './editBotSetting';
 import { renderMapping } from './mappingView';
+import { setSchemaBookChoices, setSchemaNetChoices, getSchemaDefault, Filter } from './editBotSchema';
 import * as licon from 'common/licon';
 
 interface ZerofishBotEditor extends ZerofishBot {
@@ -25,8 +26,12 @@ export class EditBotDialog {
   hand: HandOfCards;
   bots: ZerofishBots;
   uid: string;
-  botEl: HTMLElement;
+  els: { [id: string]: SettingElement } = {};
+  groups: { [radioGroup: string]: SettingElement } = {};
+  panel: HTMLElement;
   dlg: Dialog;
+  //lifatBooks: string[] = lifatBooks;
+  //lifatNets: { [name: string]: number } = lifatNets;
 
   constructor(
     readonly botCtrl: BotCtrl,
@@ -34,12 +39,14 @@ export class EditBotDialog {
     readonly color: Color,
     readonly setBot: (uid: string) => void,
   ) {
+    setSchemaBookChoices(lifatBooks);
+    setSchemaNetChoices(lifatNets);
     this.bots = botCtrl.zerofishBots;
     this.view = $as<HTMLElement>(`<div class="with-hand-of-cards"><div class="edit-bot"></div></div>`);
     this.selectBot();
     this.hand = new HandOfCards({
       view: () => this.view,
-      drops: () => [this.botEl],
+      drops: () => [this.playerEl],
       cardData: () =>
         Object.values(this.bots)
           .map(b => b.card)
@@ -64,19 +71,7 @@ export class EditBotDialog {
           </div>`,
           append: [{ node: this.view, where: '.chin', how: 'before' }],
           action: [
-            {
-              selector: '[data-type]',
-              event: ['input', 'change'],
-              result: (_, __, e) => {
-                const setting = e.target as ValueElement;
-                const id = setting.parentElement!.id;
-                this.setEnabled(setting, true);
-                if (setting.dataset.type === 'number') this.setProperty(id, +setting.value);
-                else if (setting.dataset.type === 'string') this.setProperty(id, setting.value);
-                else this.setProperty(id, 'GO BUTTER!');
-                this.bot.update();
-              },
-            },
+            { selector: '[data-type]', event: ['input', 'change'], result: this.valueChange },
             { selector: '.toggle-enabled', event: 'change', result: this.radioToggle },
             { selector: '.hasPanel', result: this.showPanel },
             { selector: '.bot-json-one', result: () => this.showJson([this.bot.uid]) },
@@ -118,7 +113,7 @@ export class EditBotDialog {
       return;
     }
     if (editPanel.dataset.panelShowing === div.id) return;
-    const mapping = (this.getProperty(div.id) as Mapping) ?? this.getDefault(div.id);
+    const mapping = this.getProperty(div.id) as Mapping;
     if (!('data' in mapping && 'scale' in mapping)) throw new Error(`error on ${div.id}`);
     editPanel.dataset.panelShowing = div.id;
     const canvas = $as<HTMLCanvasElement>(`<canvas id="poop"></canvas>`);
@@ -131,17 +126,14 @@ export class EditBotDialog {
     return this.bots[this.uid];
   }
 
-  get default(): BotInfoReader {
-    return this.botCtrl.default;
-  }
-
   get selected(): string[] {
     return this.view.querySelector('.hasPanel.selected')?.id.split('_') ?? [];
   }
 
   updateView = (force: boolean = false) => {
     if (force) {
-      this.view.querySelector('.edit-bot')!.outerHTML = this.editViewHtml();
+      this.els = {};
+      this.view.querySelector('.edit-bot')?.replaceWith(makeEditView(this));
       this.dlg?.refresh();
     }
     //renderMapping(this.view.querySelector('.edit-panel canvas') as HTMLCanvasElement, this.bot.mix!);
@@ -151,143 +143,36 @@ export class EditBotDialog {
   selectBot(uid = this.botCtrl[this.color]!.uid) {
     this.uid = uid;
     this.view.style.setProperty(`---${this.color}-image-url`, `url(${this.bot.imageUrl})`);
-    this.view.querySelector('.edit-bot')!.outerHTML = this.editViewHtml();
-    this.view.querySelector(`.${this.color} .placard`)!.textContent = this.bot.description;
-    this.botEl = this.view.querySelector('.player') as HTMLElement;
+    this.view.querySelector('.edit-bot')?.replaceWith(makeEditView(this));
+    this.placardEl.textContent = this.bot.description;
     this.dlg?.refresh();
     this.setBot(this.uid);
   }
 
   setProperty = (id: string, value?: string | number) => {
-    const path = id.split('_');
-    console.log(this.bot, path, value);
+    const path = objectPath(id);
     if (value === undefined) removePath({ obj: this.bot, path });
     else setPath({ obj: this.bot, path, value: value });
   };
 
   getProperty = (id: string) => {
-    const path = id.split('_');
-    return path.reduce((obj, key) => {
-      return obj[key];
+    return objectPath(id)?.reduce((obj, key) => {
+      return obj?.[key];
     }, this.bot);
   };
 
-  getDefault = (id: string) => {
-    const path = id.split('_');
-    return structuredClone(
-      path.reduce((obj, key) => {
-        return obj[key];
-      }, this.default),
-    );
-  };
-
-  editViewHtml() {
-    return `<div class="edit-bot">
-        <div class="player ${this.color}"><div class="placard ${this.color}">Player</div></div>
-        <div class="name">
-          ${settingHtml({
-            label: 'Name',
-            id: 'name',
-            type: 'text',
-            value: this.bot.name,
-            required: true,
-          })}
-        </div>
-        <div class="description">
-          ${settingHtml({
-            label: 'Description',
-            id: 'description',
-            type: 'textarea',
-            value: this.bot.description,
-            required: true,
-          })}
-        </div>
-        <div class="settings">
-          ${settingHtml({
-            label: 'book',
-            id: 'book_lifat',
-            type: 'select',
-            value: this.bot.book?.lifat ?? '',
-            choices: lifatBooks,
-          })}
-          <fieldset class="zero"><legend>Lc0</legend>${this.zeroHtml()}</fieldset>
-          <fieldset class="fish"><legend>Stockfish</legend>${this.fishHtml()}</fieldset>
-          <fieldset class="mix"><legend>Search Mix</legend>${this.searchMixHtml()}</fieldset>
-        </div>
-        <div class="edit-panel"></div>
-      </div>`;
+  get playerEl() {
+    return this.view.querySelector('.player') as HTMLElement;
   }
 
-  searchMixHtml() {
-    return `${settingHtml({
-      label: 'search mix',
-      id: 'searchMix',
-      type: 'range',
-      value: String(this.bot.mix ?? 0),
-      min: 0,
-      max: 1,
-      step: 0.01,
-      hasPanel: true,
-    })}`;
-  }
-
-  zeroHtml() {
-    const maxDepth = (this.bot.zero && lifatNets[this.bot.zero.netName]) || 0;
-    return `${settingHtml({
-      label: 'model',
-      id: 'zero_netName',
-      type: 'select',
-      value: this.bot.zero?.netName ?? 'maia-1100.pb',
-      choices: ['none', ...Object.keys(lifatNets)],
-    })}
-    ${maxDepth > 0 ? this.searchHtml('zero') : ''}`;
-  }
-
-  fishHtml() {
-    return `${settingHtml({
-      label: 'multipv',
-      id: 'fish_multipv',
-      type: 'number',
-      value: String(this.bot.fish?.multipv ?? ''),
-      min: 1,
-      max: 50,
-    })}
-    ${this.searchHtml('fish')}`;
-  }
-
-  searchHtml(engine: 'zero' | 'fish') {
-    return `${settingHtml({
-      label: 'depth',
-      id: `${engine}_search_depth`,
-      type: 'number',
-      value: String(this.bot[engine]?.search?.depth ?? ''),
-      min: 1,
-      max: engine === 'fish' ? 24 : 3,
-      radioGroup: `${engine}_search`,
-    })}
-    ${settingHtml({
-      label: 'nodes',
-      id: `${engine}_search_nodes`,
-      type: 'number',
-      value: String(this.bot[engine]?.search?.nodes ?? ''),
-      min: 1,
-      max: 1000000,
-      radioGroup: `${engine}_search`,
-    })}
-    ${settingHtml({
-      label: 'movetime',
-      id: `${engine}_search_movetime`,
-      type: 'number',
-      value: String(this.bot[engine]?.search?.movetime ?? ''),
-      min: 1,
-      max: 10000,
-      radioGroup: `${engine}_search`,
-    })}`;
+  get placardEl() {
+    return this.view.querySelector('.placard') as HTMLElement;
   }
 
   radioToggle = (dlg: Dialog, action: Action, e: Event) => {
     const cbox = e.target as HTMLInputElement;
-    this.setEnabled(cbox.nextElementSibling as HTMLInputElement, cbox.checked);
+    const setting = this.els[cbox.parentElement!.id];
+    this.setEnabled(setting, cbox.checked);
     this.bot.update();
   };
 
@@ -295,18 +180,33 @@ export class EditBotDialog {
     return input.parentElement!.classList.contains('disabled') ? undefined : input.value;
   };
 
-  setEnabled = (input: ValueElement, enabled: boolean) => {
-    const setting = input.parentElement!;
-    const settings = setting.dataset.radioGroup
-      ? [...this.view.querySelectorAll(`[data-radio-group="${setting.dataset.radioGroup}"]`)]
-      : [setting];
-    settings.forEach((div: HTMLDivElement) => {
-      const toggle = div.querySelector('.toggle-enabled') as HTMLInputElement;
-      toggle.checked = div === setting && enabled;
-      div.classList.toggle('disabled', !enabled);
-      const input = div.querySelector('[data-type]') as ValueElement;
-      this.setProperty(div.id, toggle.checked ? input.value : undefined);
+  valueChange = (dlg: Dialog, action: Action, e: Event) => {
+    const id = (e.target as HTMLElement).parentElement!.id;
+    const setting = this.els[id];
+    this.setProperty(id, String(setting.value));
+    setting.update();
+    this.setEnabled(setting, true);
+    //this.bot.update();
+  };
+
+  setEnabled = (setting: SettingElement, enabled: boolean) => {
+    const settingDivs = setting.div.dataset.radioGroup
+      ? [...this.view.querySelectorAll(`[data-radio-group="${setting.div.dataset.radioGroup}"]`)]
+      : [setting.div];
+    settingDivs.forEach((div: HTMLDivElement) => {
+      this.els[div.id].enabled = div === setting.div && enabled;
+      if (div !== setting.div) this.setProperty(div.id, undefined);
     });
+    if (!enabled && setting.value) setting.value = '';
+    /*console.log(' hoo hoa', setting, enabled);
+    for (const thing of Object.keys(this.els)) {
+      const schemaInclude = getSchemaDefault(thing)?.include;
+      console.log('got one', thing.info);
+      if (typeof schemaInclude === 'function') {
+        if (schemaInclude(this.bot)) thing.div.classList.remove('none');
+        else thing.div.classList.add('none');
+      }
+    }*/
     this.bot.update();
   };
 
@@ -358,6 +258,10 @@ export class EditBotDialog {
   };
 }
 
+function objectPath(id: string) {
+  return id.split('_').slice(1);
+}
+
 function removePath({ obj, path }: { obj: any; path: string[] }) {
   if (!obj) return;
   if (path.length > 1) removePath({ obj: obj[path[0]], path: path.slice(1) });
@@ -371,22 +275,23 @@ function setPath({ obj, path, value }: { obj: any; path: string[]; value: any })
   setPath({ obj: obj[path[0]], path: path.slice(1), value });
 }
 
-const lifatNets: { [name: string]: number | undefined } = {
+// TODO - fetch these from the server
+const lifatNets: { [name: string]: number } = {
   'badgyal-8.pb': 3,
   'evilgyal-6.pb': 3,
   'goodgyal-5.pb': 3,
   'tinygyal-8.pb': 4,
-  'naise700.pb': undefined,
-  'nocap2000.pb': undefined,
-  'maia-1100.pb': undefined,
-  'maia-1200.pb': undefined,
-  'maia-1300.pb': undefined,
-  'maia-1400.pb': undefined,
-  'maia-1500.pb': undefined,
-  'maia-1600.pb': undefined,
-  'maia-1700.pb': undefined,
-  'maia-1800.pb': undefined,
-  'maia-1900.pb': undefined,
+  'naise700.pb': 0,
+  'nocap2000.pb': 0,
+  'maia-1100.pb': 0,
+  'maia-1200.pb': 0,
+  'maia-1300.pb': 0,
+  'maia-1400.pb': 0,
+  'maia-1500.pb': 0,
+  'maia-1600.pb': 0,
+  'maia-1700.pb': 0,
+  'maia-1800.pb': 0,
+  'maia-1900.pb': 0,
 };
 
 const lifatBooks = [

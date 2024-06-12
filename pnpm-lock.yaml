@@ -488,8 +488,8 @@ importers:
         specifier: 3.5.1
         version: 3.5.1
       zerofish:
-        specifier: link:../../../zerofish
-        version: link:../../../zerofish
+        specifier: 0.0.23
+        version: 0.0.23
 
   ui/mod:
     dependencies:
@@ -1214,6 +1214,9 @@ packages:
   '@types/dragscroll@0.0.0':
     resolution: {integrity: sha512-rWr/ryzOUi9r/zUA2GK2qLWGBIBmDeIojBQXuvR76pulHUoEGMJ2A7NWShUaA5AE90ha+l9tlsyGz2UioQE9cg==}
 
+  '@types/emscripten@1.39.13':
+    resolution: {integrity: sha512-cFq+fO/isvhvmuP/+Sl4K4jtU6E23DoivtbO4r50e3odaxAiVdbfSYRDdJ4gCdxx+3aRjhphS5ZMwIH4hFy/Cw==}
+
   '@types/fnando__sparkline@0.3.7':
     resolution: {integrity: sha512-irYrS2clNGbnKBBIBAulPH6hDZ/HlBkNsDbYPfO8B2obcxtC9UzKFS5IBSzrUtfKbwf8U01xHj+5iEJ7TtY04Q==}
 
@@ -1252,6 +1255,9 @@ packages:
 
   '@types/web@0.0.143':
     resolution: {integrity: sha512-TazK16/OqeeqfQRB/Tv/NwzJagHbLi/w5g26FLbiFte/8LpPq6BuTyXHO/cpgwJpE6KGgFSNYb6Ap05Tz9XvCA==}
+
+  '@types/web@0.0.147':
+    resolution: {integrity: sha512-HubXF+XiMsQBdwhMC9w1aZuSOZ6CvcBR01MA4UdQCbWABkcrSBbMGQ0VnqTJlEU1b78WCx8quv8pznnDXSiUtQ==}
 
   '@types/webrtc@0.0.42':
     resolution: {integrity: sha512-YyrG3yzw/JvZs0q3f9SY+AiJr0FJw1qhBjvoQJEUy07udiyakAax2A87BHpB3qnaxsm2ExCvhyUvjTxdsn+qSw==}
@@ -2853,6 +2859,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zerofish@0.0.23:
+    resolution: {integrity: sha512-VoyXgBy4lL/tNliB/JC/EAgIBNSCEqJZsmdWUbQGvjGfGWs7qk9AqGSW7Yte2xXfZ65FhESaskcq7TndYVAYYQ==}
+
   zxcvbn@4.4.2:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
 
@@ -3387,6 +3396,8 @@ snapshots:
 
   '@types/dragscroll@0.0.0': {}
 
+  '@types/emscripten@1.39.13': {}
+
   '@types/fnando__sparkline@0.3.7': {}
 
   '@types/graceful-fs@4.1.9':
@@ -3428,6 +3439,8 @@ snapshots:
   '@types/stack-utils@2.0.3': {}
 
   '@types/web@0.0.143': {}
+
+  '@types/web@0.0.147': {}
 
   '@types/webrtc@0.0.42': {}
 
@@ -5190,5 +5203,13 @@ snapshots:
       yargs-parser: 21.1.1
 
   yocto-queue@0.1.0: {}
+
+  zerofish@0.0.23:
+    dependencies:
+      '@types/emscripten': 1.39.13
+      '@types/node': 20.12.12
+      '@types/web': 0.0.147
+      prettier: 3.0.2
+      typescript: 5.4.5
 
   zxcvbn@4.4.2: {}

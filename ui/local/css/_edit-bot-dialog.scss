@@ -1,12 +1,12 @@
 dialog .dialog-content {
   padding: 0;
-
+  background-color: $c-bg-zebra;
   @media (orientation: landscape) {
     height: min-content;
     max-height: unset;
     max-width: min(1600px, 90vw);
     .edit-bot {
-      height: calc(min(33vh, 25vw) + 80px + $card-height + $chin-height);
+      height: calc(max(33vh, 400px) + $card-height + $chin-height);
       .player {
         max-width: 25vw;
       }
@@ -18,14 +18,35 @@ dialog .dialog-content {
   //@include above-cards;
   //width: 100%;
   display: grid;
-  grid-template-columns: auto auto 1fr;
-  grid-template-rows: min(33vh, 25vw) 1fr;
-  grid-template-areas: 'a b c' 'd e e';
+  grid-template-columns: 320px max(320px, 33vh) 1fr;
+  grid-template-rows: max(320px, 33vh) 1fr;
+  grid-template-areas: 'a b c' '. . .';
   gap: 1em;
 
-  .player {
+  #bot_name,
+  #bot_description {
+    padding: 0;
+  }
+  input,
+  textarea {
+    padding: 0.5em;
+  }
+  textarea {
+    white-space: pre-wrap;
+    width: 100%;
+    resize: none;
+  }
+  .player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border-radius: 10px;
+    width: 320px;
     grid-area: a;
-    aspect-ratio: 1/1;
+    > .player {
+      aspect-ratio: 1/1;
+      ---scale-factor: 0.7;
+    }
   }
   .settings {
     grid-area: b;
@@ -39,18 +60,6 @@ dialog .dialog-content {
     gap: 1em;
     padding: 1em;
     overflow: auto;
-  }
-  .name {
-    grid-area: d;
-    height: 100%;
-  }
-  .description {
-    grid-area: e;
-    textarea {
-      white-space: pre-wrap;
-      width: 95%;
-      resize: none;
-    }
   }
   .fish {
     //break-inside: avoid;
@@ -67,6 +76,7 @@ dialog .dialog-content {
     }
   }
   .setting {
+    display: flex;
     padding: 0 1em;
     display: flex;
     width: 100%;

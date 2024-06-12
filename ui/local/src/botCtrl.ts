@@ -32,6 +32,7 @@ export class BotCtrl {
       makeZerofish({
         root: site.asset.url('npm', { documentOrigin: true }),
         wasm: site.asset.url('npm/zerofishEngine.wasm'),
+        dev: true,
       }),
       objectStorage<Uint8Array>({ store: 'local.nets' }),
       this.initLibots(),
