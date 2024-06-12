@@ -298,7 +298,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               )(form3.select(_, RelayTour.Tier.options))
             )
           )
-        else form3.hidden(form("tier")),
+        else frag(form3.hidden(form("tier")), div(cls := "form-group")(ui.infoHowToMakeOfficial)),
         Granter
           .opt(_.StudyAdmin)
           .option(
