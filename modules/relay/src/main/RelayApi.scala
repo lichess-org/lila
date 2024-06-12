@@ -268,8 +268,10 @@ final class RelayApi(
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
     byIdWithTour(roundId).flatMapz: rt =>
-      (roundRepo.coll.delete.one($id(rt.round.id)) >>
-        denormalizeTourActive(rt.tour.id)).inject(rt.tour.some)
+      for
+        _ <- roundRepo.coll.delete.one($id(rt.round.id))
+        _ <- denormalizeTourActive(rt.tour.id)
+      yield rt.tour.some
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
     tour.ownerId
