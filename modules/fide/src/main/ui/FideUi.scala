@@ -187,7 +187,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             player.age
           ),
           tcTrans.map: (tc, name) =>
-            card(name(), player.ratingOf(tc).fold("-")(n => if n == 0 then "No Rated" else n.toString)),
+            card(name(), player.ratingOf(tc).fold("Unrated")(_.toString)),
           tours.map: tours =>
             div(cls := "fide-player__tours")(h2("Recent tournaments"), tours)
         )
