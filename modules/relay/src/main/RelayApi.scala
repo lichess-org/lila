@@ -25,7 +25,7 @@ final class RelayApi(
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi,
     picfitApi: PicfitApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer, play.api.Mode):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given
@@ -260,16 +260,17 @@ final class RelayApi(
       for
         _ <- studyApi.deleteAllChapters(relay.studyId, me)
         _ <- old.hasStartedEarly.so:
-          roundRepo.coll.update
-            .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
-            .void
+          roundRepo.coll.update.one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt")).void
+        _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
       yield leaderboard.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
     byIdWithTour(roundId).flatMapz: rt =>
-      (roundRepo.coll.delete.one($id(rt.round.id)) >>
-        denormalizeTourActive(rt.tour.id)).inject(rt.tour.some)
+      for
+        _ <- roundRepo.coll.delete.one($id(rt.round.id))
+        _ <- denormalizeTourActive(rt.tour.id)
+      yield rt.tour.some
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
     tour.ownerId

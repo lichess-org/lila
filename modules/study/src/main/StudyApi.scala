@@ -27,7 +27,8 @@ final class StudyApi(
     lightUserApi: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
-    preview: ChapterPreviewApi
+    preview: ChapterPreviewApi,
+    flairApi: lila.core.user.FlairApi
 )(using Executor, akka.stream.Materializer)
     extends lila.core.study.StudyApi:
 
@@ -775,6 +776,7 @@ final class StudyApi(
         asOwner.option(data.settings).so { settings =>
           val newStudy = study.copy(
             name = Study.toName(data.name),
+            flair = data.flair.flatMap(flairApi.find),
             settings = settings,
             visibility = data.vis,
             description = settings.description.option {

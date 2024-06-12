@@ -309,6 +309,7 @@ object user:
     given flairsOf: FlairGetMap
     val adminFlairs: Set[Flair]
     def formField(anyFlair: Boolean = false, asAdmin: Boolean = false): play.api.data.Mapping[Option[Flair]]
+    def find(name: String): Option[Flair]
 
   /* User who is currently logged in */
   opaque type Me = User

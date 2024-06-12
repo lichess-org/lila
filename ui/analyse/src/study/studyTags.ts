@@ -50,21 +50,25 @@ const editable = (value: string, submit: (v: string, el: HTMLInputElement) => vo
     }),
   });
 
-const fixed = (text: string) => h('span', text);
-
 type TagRow = (string | VNode)[];
+
+const fixed = ([key, value]: [string, string]) =>
+  key.endsWith('FideId') ? h('a', { attrs: { href: `/fide/${value}/redirect` } }, value) : fixedValue(value);
+
+const fixedValue = (value: string) => h('span', value);
 
 function renderPgnTags(tags: TagsForm, trans: Trans, showRatings: boolean): VNode {
   let rows: TagRow[] = [];
   const chapter = tags.getChapter();
-  if (chapter.setup.variant.key !== 'standard') rows.push(['Variant', fixed(chapter.setup.variant.name)]);
+  if (chapter.setup.variant.key !== 'standard')
+    rows.push(['Variant', fixedValue(chapter.setup.variant.name)]);
   rows = rows.concat(
     chapter.tags
       .filter(
         tag =>
           showRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags),
       )
-      .map(tag => [tag[0], tags.editable() ? editable(tag[1], tags.submit(tag[0])) : fixed(tag[1])]),
+      .map(tag => [tag[0], tags.editable() ? editable(tag[1], tags.submit(tag[0])) : fixed(tag)]),
   );
   if (tags.editable()) {
     const existingTypes = chapter.tags.map(t => t[0]);
@@ -108,7 +112,7 @@ function renderPgnTags(tags: TagsForm, trans: Trans, showRatings: boolean): VNod
     'table.study__tags.slist',
     h(
       'tbody',
-      rows.map(r => h('tr', { key: '' + r[0] }, [h('th', [r[0]]), h('td', [r[1]])])),
+      rows.map(r => h('tr', { key: r[0].toString() }, [h('th', r[0]), h('td', r[1])])),
     ),
   );
 }

@@ -9,6 +9,9 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
   def currency     = min.currency
   def currencyCode = currency.getCurrencyCode
 
+  def payPalSupportsCurrency = CurrencyApi.payPalCurrencies.contains(currency)
+  def stripeSupportsCurrency = CurrencyApi.stripeCurrencies.contains(currency)
+
   def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
   def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
 

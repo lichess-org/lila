@@ -21,6 +21,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
         case "approved" => Status.approved
         case "rejected" => Status.rejected
         case "feedback" => Status.feedback(r.str("t"))
+        case "imported" => Status.imported
         case _          => Status.building
     def writes(w: lila.db.BSON.Writer, s: Status) =
       s.textOpt match

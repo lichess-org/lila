@@ -210,10 +210,15 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       div(cls := "buttons")(
                         if ctx.isAuth then
                           frag(
-                            button(cls := "stripe button")(trp.donate()),
-                            div(cls := "paypal paypal--order"),
-                            div(cls := "paypal paypal--subscription"),
-                            button(cls := "button disabled paypal--disabled")("PAYPAL")
+                            pricing.stripeSupportsCurrency.option:
+                              button(cls := "stripe button")(trp.donate())
+                            ,
+                            pricing.payPalSupportsCurrency.option:
+                              frag(
+                                div(cls := "paypal paypal--order"),
+                                div(cls := "paypal paypal--subscription"),
+                                button(cls := "button disabled paypal--disabled")("PAYPAL")
+                              )
                           )
                         else
                           a(
@@ -232,12 +237,11 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
                       ),
                       form(cls := "currency none", action := routes.Plan.list)(
                         select(name := "currency")(
-                          CurrencyApi.currencyList.map { cur =>
+                          CurrencyApi.currencyList.map: cur =>
                             st.option(
                               value := cur.getCurrencyCode,
                               (pricing.currencyCode == cur.getCurrencyCode).option(selected)
                             )(showCurrency(cur))
-                          }
                         )
                       )
                     )
@@ -250,9 +254,8 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               div(cls := "best_patrons")(
                 h2(trp.celebratedPatrons()),
                 div(cls := "list")(
-                  bestIds.map { userId =>
+                  bestIds.map: userId =>
                     div(userIdLink(userId.some))
-                  }
                 )
               )
             )

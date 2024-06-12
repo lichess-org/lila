@@ -121,6 +121,7 @@ final class JsonView(
         "likes"              -> s.likes
       )
       .add("isNew" -> s.isNew)
+      .add("flair" -> s.flair)
 
 object JsonView:
 

@@ -55,4 +55,16 @@
   <string name="averageScore">تێکڕای خاڵ</string>
   <string name="myTournaments">پاڵەوانێتیەکانم</string>
   <string name="editTournament">دەستکاریکردنی پاڵەوانێتی</string>
+  <string name="editTeamBattle">دەستکاریکردنی شەڕی تیم</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">بەرگریکار</string>
+  <string name="pickYourTeam">تیمەکەت هەڵبژێرە</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">لەم شەڕەدا نوێنەرایەتی کامە تیم دەکەیت?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">پێویستە لە یەکێک لەم تیمانەدا بیت بۆ بەشداریکردن!</string>
+  <string name="created">دروستکراوە</string>
+  <string name="recentlyPlayed">بەم دواییە یاری کردووە</string>
+  <string name="bestResults">باشترین ئەنجام</string>
+  <string name="stats">ئامارەکان</string>
+  <string name="tournamentStats">ئاماری پاڵەوانیەتیەکە</string>
+  <string name="rankAvgHelp">تێکڕای پلە یەک لەسەدی ڕیزبەندییەکەتە. نزمتر باشترە.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">مامناوەندەکان</string>
 </resources>

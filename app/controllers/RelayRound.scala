@@ -56,9 +56,10 @@ final class RelayRound(
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    given play.api.Mode = env.mode
     env.relay.api
       .byIdAndContributor(id)
-      .flatMapz { rt =>
+      .flatMapz: rt =>
         bindForm(env.relay.roundForm.edit(rt.round))(
           err => fuccess(Left(rt -> err)),
           data =>
@@ -66,9 +67,7 @@ final class RelayRound(
               .update(rt.round)(data.update(rt.tour.official))
               .dmap(_.withTour(rt.tour))
               .dmap(Right(_))
-        )
-          .dmap(some)
-      }
+        ).dmap(some)
       .orNotFound:
         _.fold(
           (old, err) =>

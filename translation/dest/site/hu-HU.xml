@@ -509,6 +509,9 @@
   <string name="editProfile">Profil szerkesztése</string>
   <string name="firstName">Keresztnév</string>
   <string name="lastName">Vezetéknév</string>
+  <string name="setFlair">Állítsd be az ikonod</string>
+  <string name="flair">Ikon</string>
+  <string name="youCanHideFlair">Van egy beállítás amivel elrejtheted az összes felhasználói ikont az egész oldalon.</string>
   <string name="biography">Bemutatkozás</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Országod vagy régiód:</string>
   <string name="thankYou">Köszönjük!</string>
@@ -740,6 +743,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="withFriends">Barátokkal</string>
   <string name="withEverybody">Mindenkivel</string>
   <string name="kidMode">Gyereküzemmód</string>
+  <string name="kidModeIsEnabled">Gyermek mód aktiválva van.</string>
   <string name="kidModeExplanation">A Gyereküzemmód a biztonságról szól. A mód bekapcsolásával az összes kommunikáció megszűnik a többi játékossal, így megvédheted a gyermekeid vagy a diákjaid a többi felhasználó elől.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Gyereküzemmódban a Lichess logón megjelenik egy %s ikon, így tudhatod, hogy gyermekeid biztonságos felületen játszanak.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">A felhasználói fiókodat a tanárod felügyeli. Kérd meg, hogy inaktiválja a gyerek módot.</string>
@@ -857,6 +861,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
     <item quantity="other">és %s változat mentése</item>
   </plurals>
   <string name="showUnreadLichessMessage">Üzeneted jött Lichesstől!</string>
+  <string name="clickHereToReadIt">Katt ide az olvasáshoz</string>
   <string name="sorry">Sajnáljuk</string>
   <string name="weHadToTimeYouOutForAWhile">Kénytelenek vagyunk egy kis időre visszatartani.</string>
   <string name="why">Miért?</string>
@@ -978,4 +983,5 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="showMeEverything">Az összes parancs megjelenítése</string>
   <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
+  <string name="nothingToSeeHere">Itt nincs semmi látnivaló jelenleg.</string>
 </resources>

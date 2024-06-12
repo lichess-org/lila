@@ -67,7 +67,7 @@ final class CurrencyApi(
 
   def currencyByCountryCodeOrLang(countryCode: Option[String], lang: Lang): Currency =
     countryCode
-      .flatMap { code => scala.util.Try(new Locale.Builder().setRegion(code).build()).toOption }
+      .flatMap { code => Try(new Locale.Builder().setRegion(code).build()).toOption }
       .flatMap(currencyOption)
       .orElse(currencyOption(lang.locale))
       .getOrElse(USD)
@@ -77,9 +77,9 @@ object CurrencyApi:
   case class Config(appId: Secret)
   given ConfigLoader[Config] = AutoConfig.loader
 
-  val acceptableCurrencies: Set[Currency] = payPalCurrencies.intersect(stripeCurrencies)
+  private lazy val acceptableCurrencies: Set[Currency] = payPalCurrencies.concat(stripeCurrencies)
 
-  val currencyList: List[Currency] = acceptableCurrencies.toList.sortBy(_.getCurrencyCode)
+  lazy val currencyList: List[Currency] = acceptableCurrencies.toList.sortBy(_.getCurrencyCode)
 
   def currencyOption(code: String) = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
   def currencyOption(locale: Locale) =
@@ -105,7 +105,7 @@ object CurrencyApi:
   ).flatMap(anyCurrencyOption)
 
   // https://developer.paypal.com/docs/reports/reference/paypal-supported-currencies/
-  private def payPalCurrencies: Set[Currency] = Set(
+  val payPalCurrencies: Set[Currency] = Set(
     "AUD",
     "BRL",
     "CAD",
@@ -133,7 +133,7 @@ object CurrencyApi:
     "USD"
   ).flatMap(anyCurrencyOption)
 
-  private def stripeCurrencies: Set[Currency] = Set(
+  val stripeCurrencies: Set[Currency] = Set(
     "USD",
     "AED",
     "AFN",

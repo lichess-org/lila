@@ -49,7 +49,10 @@ final class StudyBits(helpers: Helpers):
       a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
       div(cls := "top")(
         div(cls := "study__icon")(
-          userFlairSync(s.study.ownerId) | iconTag(Icon.StudyBoard)
+          s.study.flair
+            .map(iconFlair)
+            .orElse(userFlairSync(s.study.ownerId))
+            .getOrElse(iconTag(Icon.StudyBoard))
         ),
         div(
           tag(cls := "study-name")(s.study.name),

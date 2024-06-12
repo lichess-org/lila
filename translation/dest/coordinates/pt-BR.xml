@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Você tem 30 segundos para localizar corretamente o máximo de casas possível!</string>
   <string name="goAsLongAsYouWant">Vá até quando quiser, não há limite de tempo!</string>
   <string name="showCoordinates">Mostrar coordenadas</string>
+  <string name="showCoordsOnAllSquares">Coordenadas em cada casa</string>
   <string name="showPieces">Mostrar as peças</string>
   <string name="startTraining">Começar treino</string>
   <string name="findSquare">Ache a casa</string>
