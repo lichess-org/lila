@@ -24,7 +24,7 @@ object Dependencies {
   val galimatias  = "io.mola.galimatias"    % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "6.3.2.RELEASE"
-  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.110.Final" classifier "linux-x86_64"
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.111.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.2.18" % Test
   val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.17.0"
@@ -45,11 +45,11 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.1.0-RC12"
+    val version = "1.0.10"
 
     val driver     = "org.reactivemongo" %% "reactivemongo"               % version
     val stream     = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
-    val epoll      = "org.reactivemongo"  % "reactivemongo-shaded-native-linux-x86-64" % version
+    val epoll      = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
     def bundle     = Seq(driver, stream)
   }
 
