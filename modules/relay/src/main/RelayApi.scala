@@ -260,9 +260,8 @@ final class RelayApi(
       for
         _ <- studyApi.deleteAllChapters(relay.studyId, me)
         _ <- old.hasStartedEarly.so:
-          roundRepo.coll.update
-            .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
-            .void
+          roundRepo.coll.update.one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt")).void
+        _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
       yield leaderboard.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
 

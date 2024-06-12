@@ -96,7 +96,7 @@ object RelayRound:
     def seconds: Option[Int] = until
       .map: u =>
         (u.toSeconds - nowSeconds).toInt
-      .filter(0 <)
+      .filter(0 < _)
 
     def playing = nextAt.isDefined
     def paused  = !playing
@@ -104,8 +104,8 @@ object RelayRound:
     def addLog(event: SyncLog.Event) = copy(log = log.add(event))
     def clearLog                     = copy(log = SyncLog.empty)
 
-    def hasDelay      = delay.exists(_.value > 0)
     def nonEmptyDelay = delay.filter(_.value > 0)
+    def hasDelay      = nonEmptyDelay.isDefined
 
     override def toString = upstream.toString
 
