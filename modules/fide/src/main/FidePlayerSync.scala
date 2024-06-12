@@ -131,6 +131,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     private def parseLine(line: String): Option[FidePlayer] =
       def string(start: Int, end: Int) = line.substring(start, end).trim.some.filter(_.nonEmpty)
       def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
+      def rating(start: Int, end: Int) = number(start, end).filter(_ >= 1000)
       for
         id    <- number(0, 15)
         name1 <- string(15, 76)
@@ -146,9 +147,9 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         token = FidePlayer.tokenize(name),
         fed = Federation.Id.from(string(76, 79)),
         title = PlayerTitle.mostValuable(title, wTitle),
-        standard = number(113, 117),
-        rapid = number(126, 132),
-        blitz = number(139, 145),
+        standard = rating(113, 117),
+        rapid = rating(126, 132),
+        blitz = rating(139, 145),
         year = year,
         inactive = flags.isDefined.some,
         fetchedAt = nowInstant
