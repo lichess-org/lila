@@ -55,7 +55,8 @@
   }
 
   input,
-  span {
+  span,
+  a {
     display: block;
     @include padding-direction(0.6em, 1em, 0.6em, 0.7em);
     line-height: 1.7;
