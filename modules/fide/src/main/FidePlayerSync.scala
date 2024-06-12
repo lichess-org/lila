@@ -131,7 +131,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     private def parseLine(line: String): Option[FidePlayer] =
       def string(start: Int, end: Int) = line.substring(start, end).trim.some.filter(_.nonEmpty)
       def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
-      def rating(start: Int, end: Int) = number(start, end).filter(_ >= 1000)
+      def rating(start: Int, end: Int) = number(start, end).filter(_ >= 1400)
       for
         id    <- number(0, 15)
         name1 <- string(15, 76)
