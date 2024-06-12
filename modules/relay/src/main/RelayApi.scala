@@ -25,7 +25,7 @@ final class RelayApi(
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi,
     picfitApi: PicfitApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer, play.api.Mode):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given
