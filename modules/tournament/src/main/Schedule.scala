@@ -341,9 +341,11 @@ object Schedule {
         case (Hourly | Daily | Eastern, SuperBlitz | Blitz)   => 0
         case (Hourly | Daily | Eastern, HyperRapid | Rapid)   => 0
 
-        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet) => 1
-        case (Weekly | Weekend | Monthly | Shield, SuperBlitz | Blitz)   => 1
-        case (Weekly | Weekend | Monthly | Shield, HyperRapid | Rapid)   => 1
+        case (Weekly | Weekend | Monthly, HyperBullet | Bullet) => 1
+        case (Weekly | Weekend | Monthly, SuperBlitz | Blitz)   => 1
+        case (Weekly | Weekend | Monthly, HyperRapid | Rapid)   => 1
+
+        case (Shield, _) => 3
 
         case _ => 0
       }
