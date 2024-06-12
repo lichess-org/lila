@@ -91,6 +91,8 @@ final class AnalyseI18n(helpers: Helpers):
     site.promoteVariation,
     site.makeMainLine,
     site.deleteFromHere,
+    site.collapseVariations,
+    site.expandVariations,
     site.forceVariation,
     site.copyVariationPgn,
     // practice (also uses checkmate, draw)

@@ -636,6 +636,11 @@ export default class AnalyseCtrl {
     this.treeVersion++;
   }
 
+  setCollapsed(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedAt(path, collapsed);
+    this.redraw();
+  }
+
   forceVariation(path: Tree.Path, force: boolean): void {
     this.tree.forceVariationAt(path, force);
     this.jump(path);

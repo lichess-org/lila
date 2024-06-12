@@ -82,6 +82,10 @@ function view(opts: Opts, coords: Coords): VNode {
 
       action(licon.Trash, trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
 
+      action(licon.PlusButton, trans('expandVariations'), () => ctrl.setCollapsed(opts.path, false)),
+
+      action(licon.MinusButton, trans('collapseVariations'), () => ctrl.setCollapsed(opts.path, true)),
+
       ...(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []),
 
       onMainline &&

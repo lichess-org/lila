@@ -26,6 +26,7 @@ export interface TreeWrapper {
   lastMainlineNode(path: Tree.Path): Tree.Node;
   pathExists(path: Tree.Path): boolean;
   deleteNodeAt(path: Tree.Path): void;
+  setCollapsedAt(path: Tree.Path, collapsed: boolean): MaybeNode;
   promoteAt(path: Tree.Path, toMainline: boolean): void;
   forceVariationAt(path: Tree.Path, force: boolean): MaybeNode;
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
@@ -210,6 +211,11 @@ export function build(root: Tree.Node): TreeWrapper {
     setClockAt(clock: Tree.Clock | undefined, path: Tree.Path) {
       return updateAt(path, function (node) {
         node.clock = clock;
+      });
+    },
+    setCollapsedAt(path: Tree.Path, collapsed: boolean) {
+      return updateAt(path, function (node) {
+        node.collapsed = collapsed;
       });
     },
     pathIsMainline,

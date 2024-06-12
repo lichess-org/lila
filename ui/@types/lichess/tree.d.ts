@@ -72,6 +72,7 @@ declare namespace Tree {
   }
   export interface Node extends NodeBase {
     children: Node[];
+    collapsed?: boolean;
   }
 
   export interface NodeCrazy {

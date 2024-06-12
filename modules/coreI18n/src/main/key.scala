@@ -86,6 +86,8 @@ object I18nKey:
     val `promoteVariation`: I18nKey = "promoteVariation"
     val `makeMainLine`: I18nKey = "makeMainLine"
     val `deleteFromHere`: I18nKey = "deleteFromHere"
+    val `collapseVariations`: I18nKey = "collapseVariations"
+    val `expandVariations`: I18nKey = "expandVariations"
     val `forceVariation`: I18nKey = "forceVariation"
     val `copyVariationPgn`: I18nKey = "copyVariationPgn"
     val `move`: I18nKey = "move"
