@@ -253,6 +253,9 @@ export default class AnalyseCtrl {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
+    for (let i = 0; i < this.nodeList.length; i++) {
+      this.nodeList[i].collapsed = false;
+    }
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
