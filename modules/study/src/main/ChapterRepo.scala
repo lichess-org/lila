@@ -85,7 +85,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll(_.unsetField($id(chapterId), "conceal")).void
 
   def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
-    coll(_.updateField($id(chapterId), "relay.path", path)).void
+    coll(_.updateField($id(chapterId) ++ $doc("relay.lastMoveAt".$exists(true)), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void
