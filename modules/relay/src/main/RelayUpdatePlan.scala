@@ -50,7 +50,7 @@ object RelayUpdatePlan:
     // contains all chapter ids
     val reorder: Option[List[StudyChapterId]] =
       val ids = updates.map(_._1.id)
-      Option.when(ids.size == chapters.size && ids != chapters.map(_.id).pp(ids))(ids)
+      Option.when(ids.size == chapters.size && ids != chapters.map(_.id))(ids)
 
     val output = Output(
       reorder = reorder,
