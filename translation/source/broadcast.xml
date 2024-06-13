@@ -11,7 +11,7 @@
   <string name="subscribedBroadcasts">Subscribed broadcasts</string>
   <string name="aboutBroadcasts">About broadcasts</string>
   <string name="howToUseLichessBroadcasts">How to use Lichess Broadcasts.</string>
-  <string name="IfYouWantToMakeOfficialLichessBroadcasts">If you want your broadcast to be featured on the official Lichess broadcast page, click here.</string>
+  <string name="howToFeature">How to feature a broadcast on the Lichess homepage.</string>
   <string name="theNewRoundHelp">The new round will have the same members and contributors as the previous one.</string>
   <string name="addRound">Add a round</string>
   <string name="ongoing">Ongoing</string>

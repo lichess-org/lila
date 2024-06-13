@@ -210,7 +210,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 
     private def inner(form: Form[RelayTourForm.Data], tg: Option[RelayTour.WithGroupTours])(using Context) =
       frag(
-        div(cls := "form-group")(ui.howToUse),
+        div(cls := "form-group")(ul(li(ui.howToUse), li(ui.howToFeature))),
         form3.globalError(form),
         form3.split(
           form3.group(form("name"), trb.tournamentName(), half = true)(form3.input(_)(autofocus)),
@@ -286,19 +286,21 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             half = true
           )(form3.textarea(_)(rows := 3))
         ),
-        if Granter.opt(_.Relay) then
-          frag(
-            tg.isDefined.option(grouping(form)),
-            form3.split(
-              form3.group(
-                form("tier"),
-                raw("Official Lichess broadcast tier"),
-                help = raw("Feature on /broadcast - for admins only").some,
-                half = true
-              )(form3.select(_, RelayTour.Tier.options))
+        Granter
+          .opt(_.Relay)
+          .option(
+            frag(
+              tg.isDefined.option(grouping(form)),
+              form3.split(
+                form3.group(
+                  form("tier"),
+                  raw("Official Lichess broadcast tier"),
+                  help = raw("Feature on /broadcast - for admins only").some,
+                  half = true
+                )(form3.select(_, RelayTour.Tier.options))
+              )
             )
-          )
-        else frag(form3.hidden(form("tier")), div(cls := "form-group")(ui.infoHowToMakeOfficial)),
+          ),
         Granter
           .opt(_.StudyAdmin)
           .option(

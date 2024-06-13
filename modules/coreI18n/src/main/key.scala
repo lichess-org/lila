@@ -1651,7 +1651,7 @@ object I18nKey:
     val `subscribedBroadcasts`: I18nKey = "broadcast:subscribedBroadcasts"
     val `aboutBroadcasts`: I18nKey = "broadcast:aboutBroadcasts"
     val `howToUseLichessBroadcasts`: I18nKey = "broadcast:howToUseLichessBroadcasts"
-    val `IfYouWantToMakeOfficialLichessBroadcasts`: I18nKey = "broadcast:IfYouWantToMakeOfficialLichessBroadcasts"
+    val `howToFeature`: I18nKey = "broadcast:howToFeature"
     val `theNewRoundHelp`: I18nKey = "broadcast:theNewRoundHelp"
     val `addRound`: I18nKey = "broadcast:addRound"
     val `ongoing`: I18nKey = "broadcast:ongoing"

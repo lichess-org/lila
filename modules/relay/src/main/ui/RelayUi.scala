@@ -113,9 +113,9 @@ final class RelayUi(helpers: Helpers)(
       trans.broadcast.howToUseLichessBroadcasts()
     )
 
-  def infoHowToMakeOfficial(using Translate) =
+  def howToFeature(using Translate) =
     a(dataIcon := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
-      trans.broadcast.IfYouWantToMakeOfficialLichessBroadcasts()
+      trans.broadcast.howToFeature()
     )
 
   def jsI18n(using Translate) =
