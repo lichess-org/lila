@@ -53,7 +53,7 @@ object ratingDistribution {
                 case (under, sum) =>
                   div(
                     trans
-                      .nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
+                      .nbPerfTypePlayersThisMonth(strong(sum.localize), perfType.trans),
                     br,
                     trans.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
                     br,
@@ -64,7 +64,7 @@ object ratingDistribution {
                   )
               }
             } getOrElse div(
-              trans.nbPerfTypePlayersThisWeek
+              trans.nbPerfTypePlayersThisMonth
                 .plural(data.sum, strong(data.sum.localize), perfType.trans),
               br,
               trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans)
