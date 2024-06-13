@@ -63,7 +63,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       _.find($studyId(studyId))
         .sort($sortOrder)
         .cursor[Chapter]()
-        .list(300)
+        .list(256)
 
   def studyIdsByRelayFideId(fideId: chess.FideId): Fu[List[StudyId]] =
     coll(_.distinctEasy[StudyId, List]("studyId", $doc("relay.fideIds" -> fideId)))

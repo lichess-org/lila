@@ -86,7 +86,7 @@ case class Chapter(
       .openingSensibleVariants(setup.variant)
       .so(OpeningDb.searchInFens(root.mainline.map(_.fen.opening)))
 
-  def isEmptyInitial = order == 1 && root.children.isEmpty
+  def isEmptyInitial = order == 1 && root.children.isEmpty && tags.value.isEmpty
 
   def cloneFor(study: Study) =
     copy(
@@ -139,13 +139,11 @@ object Chapter:
     def isFromFen = ~fromFen
 
   case class Relay(
-      index: Option[Int], // game index in the source URL, none to always match tags
       path: UciPath,
       lastMoveAt: Instant,
       fideIds: Option[PairOf[Option[chess.FideId]]]
   ):
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.toSeconds).toInt
-    def isPush                    = index.isEmpty
 
   case class ServerEval(path: UciPath, done: Boolean)
 

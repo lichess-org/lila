@@ -16,62 +16,20 @@ final private class RelaySync(
     notifier: RelayNotifier
 )(using Executor):
 
-  def updateStudyChapters(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
-    study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
-    chapters       <- chapterRepo.orderedByStudyLoadingAllInMemory(study.id)
-    sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
-    nbGames = sanitizedGames.size
-    chapterUpdates <- sanitizedGames.toList.sequentially:
-      createOrUpdateChapter(_, rt, study, chapters, nbGames)
-    result = SyncResult.Ok(chapterUpdates.toList.flatten, games)
+  def updateStudyChapters(rt: RelayRound.WithTour, rawGames: RelayGames): Fu[SyncResult.Ok] = for
+    study    <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
+    chapters <- chapterRepo.orderedByStudyLoadingAllInMemory(study.id)
+    games = RelayInputSanity.fixGames(rawGames)
+    plan  = RelayUpdatePlan(chapters, games).output
+    _ <- plan.reorder.so(chapterRepo.sort(study, _))
+    updates <- plan.update.sequentially: (chapter, game) =>
+      updateChapter(rt.tour, study, game, chapter)
+    appends <- plan.append.toList.sequentially: game =>
+      createChapter(rt, study, game)
+    result = SyncResult.Ok(updates ::: appends.flatten, games)
     _      = lila.common.Bus.publish(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
   yield result
-
-  private def createOrUpdateChapter(
-      game: RelayGame,
-      rt: RelayRound.WithTour,
-      study: Study,
-      chapters: List[Chapter],
-      nbGames: Int
-  ): Fu[Option[SyncResult.ChapterResult]] =
-    findCorrespondingChapter(game, chapters, nbGames)
-      .map(updateChapter(rt.tour, study, game, _).dmap(_.some))
-      .getOrElse:
-        chapterRepo
-          .countByStudyId(study.id)
-          .flatMap:
-            case nb if RelayFetch.maxChapters <= nb => fuccess(none)
-            case _ =>
-              createChapter(study, game)(using rt.tour).flatMap: chapter =>
-                chapters
-                  .find(_.isEmptyInitial)
-                  .ifTrue(chapter.order == 2)
-                  .so { initial =>
-                    studyApi.deleteChapter(study.id, initial.id)(who(study.ownerId))
-                  }
-                  .inject(
-                    SyncResult
-                      .ChapterResult(chapter.id, true, chapter.root.mainline.size)
-                      .some
-                  )
-      .flatMapz: result =>
-        ((result.newMoves > 0).so(notifier.roundBegin(rt))).inject(result.some)
-
-  /* If push or single game, use the player tags (and site) to match with the study chapter.
-   * Otherwise match using the game's multipgn index.
-   *
-   * So the TCEC style - one game per file, reusing the file for all games - is supported.
-   * lichess will create a new chapter when the game player tags differ.
-   */
-  private def findCorrespondingChapter(
-      game: RelayGame,
-      chapters: List[Chapter],
-      nbGames: Int
-  ): Option[Chapter] =
-    if game.isPush || nbGames == 1 || game.looksLikeLichess
-    then chapters.find(c => game.staticTagsMatch(c.tags))
-    else chapters.find(_.relay.exists(_.index == game.index))
 
   private def updateChapter(
       tour: RelayTour,
@@ -83,6 +41,20 @@ final private class RelaySync(
     tagUpdate <- updateChapterTags(tour, study, chapter, game)
     nbMoves   <- updateChapterTree(study, chapter, game)(using tour)
   yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
+
+  private def createChapter(
+      rt: RelayRound.WithTour,
+      study: Study,
+      game: RelayGame
+  ): Fu[Option[SyncResult.ChapterResult]] =
+    chapterRepo
+      .countByStudyId(study.id)
+      .flatMap: nb =>
+        (RelayFetch.maxChapters > nb).so:
+          createChapter(study, game)(using rt.tour).map: chapter =>
+            SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
+      .flatMapz: result =>
+        ((result.newMoves > 0).so(notifier.roundBegin(rt))).inject(result.some)
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
     if game.root.mainline.sizeIs > 1 || game.root.fen == chapter.root.fen
@@ -126,7 +98,6 @@ final private class RelaySync(
         node.mainline
           .foldM(Position(chapter, path).ref): (position, n) =>
             val relay = Chapter.Relay(
-              index = game.index,
               path = position.path + n.id,
               lastMoveAt = nowInstant,
               fideIds = game.fideIdsPair
@@ -169,7 +140,7 @@ final private class RelaySync(
           studyId = study.id,
           chapterId = chapter.id,
           tags = chapterNewTags,
-          newName = Option.when(newName != chapter.name)(newName)
+          newName = newName.filter(_ != chapter.name)
         )(who(chapter.ownerId))
         newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
         _ <- newEnd.so(onChapterEnd(tour, study, chapter))
@@ -192,29 +163,26 @@ final private class RelaySync(
 
   private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =
     Chapter.Relay(
-      index = game.index,
       path = path,
       lastMoveAt = nowInstant,
       fideIds = tour.official.so(game.fideIdsPair)
     )
 
-  private def chapterName(game: RelayGame) = StudyChapterName:
-    game.tags.names
-      .mapN((w, b) => s"$w - $b")
-      .orElse(game.tags("board"))
-      .orElse(game.index.map(i => (i + 1).toString))
-      .getOrElse("?")
+  private def chapterName(game: RelayGame): Option[StudyChapterName] =
+    StudyChapterName.from:
+      game.tags.names
+        .mapN((w, b) => s"$w - $b")
+        .orElse(game.tags.boardNumber.map(b => s"Board $b"))
+
+  private def chapterName(game: RelayGame, order: Chapter.Order): StudyChapterName =
+    chapterName(game) | StudyChapterName(s"Board $order")
 
   private def createChapter(study: Study, game: RelayGame)(using RelayTour): Fu[Chapter] = for
     order <- chapterRepo.nextOrderByStudy(study.id)
     chapter = Chapter.make(
       studyId = study.id,
-      name = chapterName(game),
-      setup = Chapter.Setup(
-        none,
-        game.variant,
-        Color.White
-      ),
+      name = chapterName(game, order),
+      setup = Chapter.Setup(none, game.variant, Color.White),
       root = game.root,
       tags = game.tags,
       order = order,
@@ -241,7 +209,7 @@ final private class RelaySync(
   private def vs(tags: Tags) = s"${tags(_.White) | "?"} - ${tags(_.Black) | "?"}"
 
   private def showSC(study: Study, chapter: Chapter) =
-    s"#${study.id} chapter[${chapter.relay.fold("?")(_.index.toString)}]"
+    s"#${study.id} ${chapter.name}"
 
 sealed trait SyncResult:
   val reportKey: String

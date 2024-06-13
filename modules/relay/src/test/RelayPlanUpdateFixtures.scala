@@ -21,6 +21,8 @@ private object RelayPlanUpdateFixtures:
       createdAt = nowInstant
     )
 
+  val initialChapter = mkChapter(1, Tags.empty)
+
   lazy val chapters: List[Chapter] = games.zipWithIndex.toList.map: (game, i) =>
     mkChapter(i + 1, game.tags)
 

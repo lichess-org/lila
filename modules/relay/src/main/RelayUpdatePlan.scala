@@ -6,11 +6,20 @@ import lila.study.Chapter.Order
 object RelayUpdatePlan:
 
   case class Input(chapters: List[Chapter], games: RelayGames)
-  case class Output(reorder: List[StudyChapterId], update: List[(Chapter, RelayGame)], append: RelayGames)
+  case class Output(
+      reorder: Option[List[StudyChapterId]],
+      update: List[(Chapter, RelayGame)],
+      append: RelayGames,
+      delete: List[StudyChapterId]
+  )
   case class Plan(input: Input, output: Output)
+
+  def apply(chapters: List[Chapter], games: RelayGames): Plan =
+    apply(Input(chapters, games))
 
   def apply(input: Input): Plan =
     import input.*
+
     val tagMatches: List[(RelayGame, Chapter)] =
       games
         .flatMap: game =>
@@ -32,9 +41,16 @@ object RelayUpdatePlan:
       val ids = updates.map(_._1.id)
       Option.when(ids.size == chapters.size && ids != chapters.map(_.id))(ids)
 
+    val deletes: List[StudyChapterId] =
+      (updates.isEmpty && appends.nonEmpty).so:
+        chapters match
+          case List(only) if only.isEmptyInitial => List(only.id)
+          case _                                 => Nil
+
     val output = Output(
-      reorder = ~reorder,
+      reorder = reorder,
       update = updates,
-      append = appends
+      append = appends,
+      delete = deletes
     )
     Plan(input, output)
