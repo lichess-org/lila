@@ -377,6 +377,10 @@
     color: var(--c-font-dim);
   }
 
+  line.expand > a:hover {
+    color: var(--c-font);
+  }
+
   inline {
     display: inline;
     font-style: italic;
