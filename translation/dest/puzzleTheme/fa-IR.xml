@@ -16,7 +16,7 @@
   <string name="backRankMateDescription">به دام انداختن شاه حریف در عرض اولیه خود زمانی که با مهره های خودی به دام افتاده است.</string>
   <string name="bishopEndgame">آخربازی فیل</string>
   <string name="bishopEndgameDescription">آخربازی، تنها با فیل‌ها و پیاده‌ها.</string>
-  <string name="bodenMate">مات Boden</string>
+  <string name="bodenMate">مات بودِن یا دوشمشیر</string>
   <string name="bodenMateDescription">دو فیل به حالت ضربدری که به گوشه زمین حمله می کنند یک شاه که راهش با مهره های خودش سد شده را مات می کنند.</string>
   <string name="castling">قلعه رفتن</string>
   <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
@@ -51,7 +51,7 @@
   <string name="forkDescription">حرکتی که در آن مهره ای که حرکت می کند دو مهره حریف را به صورت همزمان مورد حمله قرار می دهد.</string>
   <string name="hangingPiece">مهره بی دفاع</string>
   <string name="hangingPieceDescription">تاکتیکی که در آن مهره های حریف برای گرفتن، بدون دفاع یا با دفاع ناکافی است.</string>
-  <string name="hookMate">مات Hook</string>
+  <string name="hookMate">مات قُلاب</string>
   <string name="hookMateDescription">مات با یک رخ، اسب و یک پیاده در برابر یک پیاده حریف برای محدود کردن راه های فرار شاه دشمن.</string>
   <string name="interference">چنگال</string>
   <string name="interferenceDescription">حرکت دادن یک مهره و حمله کردن به دو مهره هم زمان که بتوان یکی از مهره ها را گرفت، مانند حمله یک اسب به به دو تا رخ بصورت هم زمان.</string>
@@ -61,9 +61,9 @@
   <string name="knightEndgameDescription">آخربازی، تنها با اسب‌ها و پیاده‌ها.</string>
   <string name="long">معمای طولانی</string>
   <string name="longDescription">سه حرکت برای پیروزی.</string>
-  <string name="master">بازی‌های اساتید</string>
+  <string name="master">بازی‌های استادان</string>
   <string name="masterDescription">معماهای برگرفته‌شده از بازی‌های بازیکنان عنوان‌دار.</string>
-  <string name="masterVsMaster">بازی‌های اساتید در برابر هم</string>
+  <string name="masterVsMaster">بازی‌های استادان برابر هم</string>
   <string name="masterVsMasterDescription">معماهای برگرفته‌شده از بازی‌های بین دو بازیکن عنوان‌دار.</string>
   <string name="mate">کیش و مات</string>
   <string name="mateDescription">بازی را با سبک خاصی ببرید.</string>

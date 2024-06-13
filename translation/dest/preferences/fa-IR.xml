@@ -6,7 +6,7 @@
   <string name="notifications">اعلانات</string>
   <string name="pieceAnimation">حرکت مهره ها</string>
   <string name="materialDifference">تفاوت مُهره‌ها</string>
-  <string name="boardHighlights">نشان دادن اتفاقات صفحه(حرکت قبلی و کیش)</string>
+  <string name="boardHighlights">رنگ‌نمایی صفحه (آخرین حرکت و کیش)</string>
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
   <string name="moveListWhilePlaying">لیست حرکات هنگام بازی کردن</string>

@@ -25,11 +25,11 @@ export function search(q: string): Promise<SearchResult> {
 }
 
 export function block(u: string) {
-  return json(`/rel/block/${u}`, { method: 'post' });
+  return json(`/api/rel/block/${u}`, { method: 'post' });
 }
 
 export function unblock(u: string) {
-  return json(`/rel/unblock/${u}`, { method: 'post' });
+  return json(`/api/rel/unblock/${u}`, { method: 'post' });
 }
 
 export function del(u: string): Promise<MsgData> {
