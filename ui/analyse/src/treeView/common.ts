@@ -164,6 +164,7 @@ export interface Ctx {
 export interface Opts {
   parentPath: Tree.Path;
   isMainline: boolean;
+  depth: number;
   inline?: Tree.Node;
   withIndex?: boolean;
   truncate?: number;

@@ -49,13 +49,28 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
     if (!cs[1] && isEmpty(commentTags) && !main.forceVariation)
       return [
         isWhite && moveView.renderIndex(main.ply, false),
-        ...renderMoveAndChildrenOf(ctx, main, { parentPath: opts.parentPath, isMainline: true, conceal }),
+        ...renderMoveAndChildrenOf(ctx, main, {
+          parentPath: opts.parentPath,
+          isMainline: true,
+          depth: opts.depth,
+          conceal,
+        }),
       ];
     const mainChildren =
       !main.forceVariation &&
-      renderChildrenOf(ctx, main, { parentPath: opts.parentPath + main.id, isMainline: true, conceal });
+      renderChildrenOf(ctx, main, {
+        parentPath: opts.parentPath + main.id,
+        isMainline: true,
+        depth: opts.depth,
+        conceal,
+      });
 
-    const passOpts = { parentPath: opts.parentPath, isMainline: !main.forceVariation, conceal };
+    const passOpts = {
+      parentPath: opts.parentPath,
+      isMainline: !main.forceVariation,
+      depth: opts.depth,
+      conceal,
+    };
 
     return [
       isWhite && moveView.renderIndex(main.ply, false),
@@ -67,6 +82,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVNodes | 
           renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
             parentPath: opts.parentPath,
             isMainline: passOpts.isMainline,
+            depth: opts.depth,
             conceal,
             noConceal: !conceal,
           }),
@@ -89,14 +105,17 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): LooseVNodes | 
   return renderMoveAndChildrenOf(ctx, nodes[0], {
     parentPath: opts.parentPath,
     isMainline: false,
+    depth: opts.depth,
     noConceal: opts.noConceal,
     inline: nodes[1],
   });
 }
 
 function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: Opts): VNode {
-  return h('lines', { class: { single: !nodes[1], collapsed: parentNode.collapsed || false } }, [
-    parentNode.collapsed
+  const collapsed =
+    parentNode.collapsed === undefined ? opts.depth >= 2 && opts.depth % 2 === 0 : parentNode.collapsed;
+  return h('lines', { class: { single: !nodes[1], collapsed } }, [
+    collapsed
       ? h('line', { class: { expand: true } }, [
           h('branch'),
           h('a', {
@@ -113,6 +132,7 @@ function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: 
           ...renderMoveAndChildrenOf(ctx, n, {
             parentPath: opts.parentPath,
             isMainline: false,
+            depth: opts.depth + 1,
             withIndex: true,
             noConceal: opts.noConceal,
             truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
@@ -154,6 +174,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): LooseVN
     ...(renderChildrenOf(ctx, node, {
       parentPath: path,
       isMainline: opts.isMainline,
+      depth: opts.depth,
       noConceal: opts.noConceal,
       truncate: opts.truncate ? opts.truncate - 1 : undefined,
     }) || []),
@@ -167,6 +188,7 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       withIndex: true,
       parentPath: opts.parentPath,
       isMainline: false,
+      depth: opts.depth,
       noConceal: opts.noConceal,
       truncate: opts.truncate,
     }),
@@ -209,6 +231,6 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     !isEmpty(commentTags) && h('interrupt', commentTags),
     blackStarts && moveView.renderIndex(root.ply, false),
     blackStarts && emptyMove(),
-    ...(renderChildrenOf(ctx, root, { parentPath: '', isMainline: true }) || []),
+    ...(renderChildrenOf(ctx, root, { parentPath: '', isMainline: true, depth: 0 }) || []),
   ]);
 }
