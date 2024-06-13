@@ -21,7 +21,7 @@ case class RelayGame(
         round == chapterRound && board == chapterBoard
       .has(true)
 
-  def staticTagsMatch(chapterTags: Tags): Boolean =
+  private def staticTagsMatch(chapterTags: Tags): Boolean =
     allSame(chapterTags, RelayGame.roundTags) && playerTagsMatch(chapterTags)
 
   private def playerTagsMatch(chapterTags: Tags): Boolean =
@@ -42,10 +42,6 @@ case class RelayGame(
 
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
     tags.fideIds.some.filter(_.forall(_.isDefined)).map(_.toPair)
-
-  lazy val looksLikeLichess = tags(_.Site).exists: site =>
-    RelayGame.lichessDomains.exists: domain =>
-      site.startsWith(s"https://$domain/")
 
 private object RelayGame:
 

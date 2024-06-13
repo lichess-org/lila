@@ -21,7 +21,7 @@ final private class RelaySync(
     chapters <- chapterRepo.orderedByStudyLoadingAllInMemory(study.id)
     games = RelayInputSanity.fixGames(rawGames)
     plan  = RelayUpdatePlan(chapters, games).output
-    _ <- plan.reorder.so(chapterRepo.sort(study, _))
+    _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
       updateChapter(rt.tour, study, game, chapter)
     appends <- plan.append.toList.sequentially: game =>

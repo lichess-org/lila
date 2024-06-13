@@ -5,13 +5,18 @@ import lila.study.Chapter.Order
 
 object RelayUpdatePlan:
 
-  case class Input(chapters: List[Chapter], games: RelayGames)
+  case class Input(chapters: List[Chapter], games: RelayGames):
+    override def toString: String =
+      s"Input(chapters = ${chapters.map(_.name)}, games = ${games.map(_.tags.names)})"
+
   case class Output(
       reorder: Option[List[StudyChapterId]],
       update: List[(Chapter, RelayGame)],
-      append: RelayGames,
-      delete: List[StudyChapterId]
-  )
+      append: RelayGames
+  ):
+    override def toString: String =
+      s"Output(reorder = $reorder, update = ${update.map(_._1.name)}, append = ${append.map(_.tags.names)})"
+
   case class Plan(input: Input, output: Output)
 
   def apply(chapters: List[Chapter], games: RelayGames): Plan =
@@ -24,33 +29,32 @@ object RelayUpdatePlan:
       games
         .flatMap: game =>
           chapters.collect:
-            case chapter if game.staticTagsMatch(chapter.tags) => game -> chapter
+            case chapter if game.isSameGame(chapter.tags) => game -> chapter
         .toList
 
-    val updates: List[(Chapter, RelayGame)] = tagMatches.map(_.swap)
+    val replaceInitialChapter: Option[(RelayGame, Chapter)] =
+      chapters match
+        case List(only) if only.isEmptyInitial =>
+          // tagMatches should be empty
+          games.headOption.map(_ -> only)
+        case _ => none
 
-    val appends = games.filterNot: g =>
-      tagMatches.exists(_._1 == g)
+    val updates: List[(Chapter, RelayGame)] = replaceInitialChapter match
+      case Some(initial) => List(initial.swap)
+      case None          => tagMatches.map(_.swap)
 
-    // chapters:  A B C D
-    // games:     C B
-    // reorder:   ???
+    val appends: Vector[RelayGame] = games.filterNot: g =>
+      updates.exists(_._2 == g)
+
     // requires all chapters to be updated
     // contains all chapter ids
     val reorder: Option[List[StudyChapterId]] =
       val ids = updates.map(_._1.id)
-      Option.when(ids.size == chapters.size && ids != chapters.map(_.id))(ids)
-
-    val deletes: List[StudyChapterId] =
-      (updates.isEmpty && appends.nonEmpty).so:
-        chapters match
-          case List(only) if only.isEmptyInitial => List(only.id)
-          case _                                 => Nil
+      Option.when(ids.size == chapters.size && ids != chapters.map(_.id).pp(ids))(ids)
 
     val output = Output(
       reorder = reorder,
       update = updates,
-      append = appends,
-      delete = deletes
+      append = appends
     )
     Plan(input, output)
