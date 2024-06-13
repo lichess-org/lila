@@ -84,7 +84,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   private[tournament] def notableFinished(limit: Int): Fu[List[Tournament]] =
     coll.ext
-      .find(finishedSelect ++ scheduledSelect)
+      .find(finishedSelect)
       .sort($sort desc "startsAt")
       .cursor[Tournament]()
       .list(limit)
@@ -193,11 +193,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     createdSelect ++
       $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
 
-  def scheduledCreated(aheadMinutes: Int): Fu[List[Tournament]] =
-    coll.list[Tournament](startingSoonSelect(aheadMinutes) ++ scheduledSelect)
+  def created(aheadMinutes: Int, limit: Int = Int.MaxValue): Fu[List[Tournament]] =
+    coll.list[Tournament](startingSoonSelect(aheadMinutes), limit)
 
-  def scheduledStarted: Fu[List[Tournament]] =
-    coll.list[Tournament](startedSelect ++ scheduledSelect)
+  def started: Fu[List[Tournament]] =
+    coll.list[Tournament](startedSelect)
 
   def visibleForTeams(teamIds: Seq[TeamID], aheadMinutes: Int) =
     coll.list[Tournament](
@@ -215,36 +215,20 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .batchSize(1)
       .cursor[Tournament]()
 
-  private def scheduledStillWorthEntering: Fu[List[Tournament]] =
-    coll.list[Tournament](startedSelect ++ scheduledSelect) dmap {
+  private def startedStillWorthEntering: Fu[List[Tournament]] =
+    coll.list[Tournament](startedSelect) dmap {
       _.filter(_.isStillWorthEntering)
     }
 
-  private def canShowOnHomepage(tour: Tournament): Boolean =
-    tour.schedule exists { schedule =>
-      tour.startsAt isBefore DateTime.now.plusMinutes {
-        import Schedule.Freq._
-        val base = schedule.freq match {
-          case Unique                     => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60 *)
-          case Unique | Yearly | Marathon => 48 * 60
-          case Monthly | Shield           => 8 * 60
-          case Weekly | Weekend           => 4 * 60
-          case Daily                      => 2 * 60
-          case _                          => 30
-        }
-        if (!tour.variant.standard) base / 2 else base
-      }
-    }
-
   private[tournament] def onHomepage: Fu[List[Tournament]] =
-    scheduledStillWorthEntering zip scheduledCreated(crud.CrudForm.maxHomepageHours * 60) map {
+    startedStillWorthEntering zip created(crud.CrudForm.maxHomepageHours * 60) map {
       case (started, created) =>
         (started ::: created)
           .sortBy(_.startsAt.getSeconds)
           .foldLeft(List.empty[Tournament]) {
-            case (acc, tour) if !canShowOnHomepage(tour)     => acc
-            case (acc, tour) if acc.exists(_ similarTo tour) => acc
-            case (acc, tour)                                 => tour :: acc
+            case (acc, tour) if tour.schedule.isEmpty && !tour.popular => acc
+            case (acc, tour) if acc.exists(_ similarTo tour)           => acc
+            case (acc, tour)                                           => tour :: acc
           }
           .reverse
     }

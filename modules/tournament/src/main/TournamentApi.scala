@@ -622,18 +622,18 @@ final class TournamentApi(
 
   def notableFinished = cached.notableFinishedCache.get {}
 
-  private def scheduledCreatedAndStarted =
-    tournamentRepo.scheduledCreated(6 * 60) zip tournamentRepo.scheduledStarted
+  private def createdAndStarted =
+    tournamentRepo.created(8 * 60) zip tournamentRepo.started
 
   // when loading /tournament
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
-    scheduledCreatedAndStarted zip notableFinished map { case ((created, started), finished) =>
+    createdAndStarted zip notableFinished map { case ((created, started), finished) =>
       VisibleTournaments(created, started, finished)
     }
 
   // when updating /tournament
   def fetchUpdateTournaments: Fu[VisibleTournaments] =
-    scheduledCreatedAndStarted dmap { case (created, started) =>
+    createdAndStarted dmap { case (created, started) =>
       VisibleTournaments(created, started, Nil)
     }
 

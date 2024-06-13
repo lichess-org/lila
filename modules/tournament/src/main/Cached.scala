@@ -19,7 +19,7 @@ final private[tournament] class Cached(
 
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
     name = "tournament.name",
-    initialCapacity = 8192,
+    initialCapacity = 4096,
     compute = { case (id, lang) =>
       tournamentRepo byId id dmap2 { _.name()(lang) }
     },
@@ -29,7 +29,7 @@ final private[tournament] class Cached(
   )
 
   val onHomepage = cacheApi.unit[List[Tournament]] {
-    _.refreshAfterWrite(2 seconds)
+    _.refreshAfterWrite(10 seconds)
       .buildAsyncFuture(_ => tournamentRepo.onHomepage)
   }
 

@@ -106,6 +106,8 @@ case class Tournament(
       case _                                       => false
     }
 
+  def popular = nbPlayers > 3
+
   def speed = Speed(clock)
 
   def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
