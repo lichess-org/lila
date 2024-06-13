@@ -17,7 +17,7 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with:
           run_install: true
       - uses: github/codeql-action/init@v3

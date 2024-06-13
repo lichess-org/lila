@@ -245,7 +245,7 @@ function cssCoordinates(): Coords {
 
 class DisplayController {
   scoped: { [key: string]: any } = {};
-  hoverTimer?: number;
+  hoverTimer?: Timeout;
   el: WithTooltip;
 
   constructor(

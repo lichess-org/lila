@@ -1,6 +1,6 @@
-import { jest, beforeEach, describe, expect, test } from '@jest/globals';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { Prop, propWithEffect } from 'common';
-import { makeSubmit } from './keyboardSubmit';
+import { makeSubmit } from '../src/keyboardSubmit';
 import { Dests, destsToUcis, sanWriter } from 'chess';
 
 // Tips for working with this file:
@@ -42,24 +42,18 @@ const defaultCtrl = {
 };
 const defaultClear = unexpectedErrorThrower('clear');
 
-// we don't have access to DOM elements in jest (testEnvironment: 'node'), so we need to mock this
-const input = {
-  value: '',
-  classList: { contains: () => false, toggle: () => {} },
-} as unknown as HTMLInputElement;
-
 describe('keyboardSubmit', () => {
-  let mockClear = jest.fn();
+  let mockClear = vi.fn();
 
   beforeEach(() => {
-    mockClear = jest.fn();
+    mockClear = vi.fn();
   });
 
   test('resigns game', () => {
-    const mockResign = jest.fn();
+    const mockResign = vi.fn();
     const submit = makeSubmit(
       {
-        input,
+        input: document.createElement('input'),
         ctrl: {
           ...defaultCtrl,
           resign: mockResign,
@@ -75,10 +69,10 @@ describe('keyboardSubmit', () => {
   });
 
   test('draws game', () => {
-    const mockDraw = jest.fn();
+    const mockDraw = vi.fn();
     const submit = makeSubmit(
       {
-        input,
+        input: document.createElement('input'),
         ctrl: {
           ...defaultCtrl,
           draw: mockDraw,
@@ -94,10 +88,10 @@ describe('keyboardSubmit', () => {
   });
 
   test('goes to next puzzle', () => {
-    const mockNext = jest.fn();
+    const mockNext = vi.fn();
     const submit = makeSubmit(
       {
-        input,
+        input: document.createElement('input'),
         ctrl: {
           ...defaultCtrl,
           next: mockNext,
@@ -113,10 +107,10 @@ describe('keyboardSubmit', () => {
   });
 
   test('up votes puzzle', () => {
-    const mockVote = jest.fn();
+    const mockVote = vi.fn();
     const submit = makeSubmit(
       {
-        input,
+        input: document.createElement('input'),
         ctrl: {
           ...defaultCtrl,
           vote: mockVote,
@@ -133,10 +127,10 @@ describe('keyboardSubmit', () => {
   });
 
   test('down votes puzzle', () => {
-    const mockVote = jest.fn();
+    const mockVote = vi.fn();
     const submit = makeSubmit(
       {
-        input,
+        input: document.createElement('input'),
         ctrl: {
           ...defaultCtrl,
           vote: mockVote,
@@ -153,10 +147,10 @@ describe('keyboardSubmit', () => {
   });
 
   test('reads out clock', () => {
-    const mockSpeakClock = jest.fn();
+    const mockSpeakClock = vi.fn();
     const submit = makeSubmit(
       {
-        input,
+        input: document.createElement('input'),
         ctrl: {
           ...defaultCtrl,
           speakClock: mockSpeakClock,
@@ -172,10 +166,10 @@ describe('keyboardSubmit', () => {
   });
 
   test('berserks a game', () => {
-    const mockGoBerserk = jest.fn();
+    const mockGoBerserk = vi.fn();
     const submit = makeSubmit(
       {
-        input,
+        input: document.createElement('input'),
         ctrl: {
           ...defaultCtrl,
           goBerserk: mockGoBerserk,
@@ -190,11 +184,30 @@ describe('keyboardSubmit', () => {
     expect(mockClear).toHaveBeenCalledTimes(1);
   });
 
-  test('opens help modal with ?', () => {
-    const mockSetHelpModalOpen = jest.fn();
+  test('speaks opponent name', () => {
+    vi.stubGlobal('site', { sound: { say: vi.fn() } });
+
     const submit = makeSubmit(
       {
-        input,
+        input: document.createElement('input'),
+        ctrl: {
+          ...defaultCtrl,
+          opponent: 'opponent-name',
+        },
+      },
+      mockClear,
+    );
+
+    submit('who', { isTrusted: true });
+    expect(site.sound.say).toHaveBeenCalledTimes(1);
+    expect(site.sound.say).toBeCalledWith('opponent-name', false, true);
+  });
+
+  test('opens help modal with ?', () => {
+    const mockSetHelpModalOpen = vi.fn();
+    const submit = makeSubmit(
+      {
+        input: document.createElement('input'),
         ctrl: {
           ...defaultCtrl,
           helpModalOpen: mockSetHelpModalOpen as Prop<boolean>,
@@ -212,10 +225,10 @@ describe('keyboardSubmit', () => {
 
   describe('from starting position', () => {
     test('plays e4 via SAN', () => {
-      const mockSan = jest.fn();
+      const mockSan = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
@@ -233,10 +246,10 @@ describe('keyboardSubmit', () => {
     });
 
     test('selects e2 via UCI', () => {
-      const mockSelect = jest.fn();
+      const mockSelect = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
@@ -254,11 +267,11 @@ describe('keyboardSubmit', () => {
     });
 
     test('with e2 selected, plays e4 via UCI', () => {
-      const mockSan = jest.fn();
-      const mockSelect = jest.fn();
+      const mockSan = vi.fn();
+      const mockSelect = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
@@ -281,10 +294,10 @@ describe('keyboardSubmit', () => {
     });
 
     test('selects e2 via ICCF', () => {
-      const mockSelect = jest.fn();
+      const mockSelect = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
@@ -302,11 +315,11 @@ describe('keyboardSubmit', () => {
     });
 
     test('with e2 selected, plays e4 via ICCF', () => {
-      const mockSan = jest.fn();
-      const mockSelect = jest.fn();
+      const mockSan = vi.fn();
+      const mockSelect = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
@@ -333,10 +346,10 @@ describe('keyboardSubmit', () => {
     const ambiguousPawnBishopCapture = '4k3/8/8/8/8/2r5/1P1B4/4K3 w - - 0 1';
 
     test('does pawn capture', () => {
-      const mockSan = jest.fn();
+      const mockSan = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(ambiguousPawnBishopCapture, { b2: ['c3'], d2: ['c3'] }),
@@ -355,10 +368,10 @@ describe('keyboardSubmit', () => {
     });
 
     test('does bishop capture', () => {
-      const mockSan = jest.fn();
+      const mockSan = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(ambiguousPawnBishopCapture, { b2: ['c3'], d2: ['c3'] }),
@@ -382,7 +395,7 @@ describe('keyboardSubmit', () => {
     test('does not castle short', () => {
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(ambiguousCastlingFen, { e1: ['c1', 'g1'] }),
@@ -397,10 +410,10 @@ describe('keyboardSubmit', () => {
     });
 
     test('does castle long', () => {
-      const mockSan = jest.fn();
+      const mockSan = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(ambiguousCastlingFen, { e1: ['c1', 'g1'] }),
@@ -422,10 +435,10 @@ describe('keyboardSubmit', () => {
     const promotablePawnFen = 'r3k3/1P6/8/8/8/8/8/4K3 w - - 0 1';
 
     test('with no piece specified does not promote by advancing', () => {
-      const mockPromote = jest.fn();
+      const mockPromote = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
@@ -442,10 +455,10 @@ describe('keyboardSubmit', () => {
     });
 
     test('with piece specified does promote by advancing', () => {
-      const mockPromote = jest.fn();
+      const mockPromote = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
@@ -462,10 +475,10 @@ describe('keyboardSubmit', () => {
     });
 
     test('with no piece specified does not promote by capturing', () => {
-      const mockPromote = jest.fn();
+      const mockPromote = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
@@ -482,10 +495,10 @@ describe('keyboardSubmit', () => {
     });
 
     test('with piece specified does promote by capturing', () => {
-      const mockPromote = jest.fn();
+      const mockPromote = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
@@ -503,10 +516,10 @@ describe('keyboardSubmit', () => {
 
     describe('with pawn selected', () => {
       test('with no piece specified does not promote by advancing', () => {
-        const mockPromote = jest.fn();
+        const mockPromote = vi.fn();
         const submit = makeSubmit(
           {
-            input,
+            input: document.createElement('input'),
             ctrl: {
               ...defaultCtrl,
               legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
@@ -524,10 +537,10 @@ describe('keyboardSubmit', () => {
       });
 
       test('with piece specified does promote by advancing', () => {
-        const mockPromote = jest.fn();
+        const mockPromote = vi.fn();
         const submit = makeSubmit(
           {
-            input,
+            input: document.createElement('input'),
             ctrl: {
               ...defaultCtrl,
               legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
@@ -545,10 +558,10 @@ describe('keyboardSubmit', () => {
       });
 
       test('with no piece specified does not promote by capturing', () => {
-        const mockPromote = jest.fn();
+        const mockPromote = vi.fn();
         const submit = makeSubmit(
           {
-            input,
+            input: document.createElement('input'),
             ctrl: {
               ...defaultCtrl,
               legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
@@ -566,10 +579,10 @@ describe('keyboardSubmit', () => {
       });
 
       test('with piece specified does promote by capturing', () => {
-        const mockPromote = jest.fn();
+        const mockPromote = vi.fn();
         const submit = makeSubmit(
           {
-            input,
+            input: document.createElement('input'),
             ctrl: {
               ...defaultCtrl,
               legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
@@ -590,10 +603,10 @@ describe('keyboardSubmit', () => {
 
   describe('in crazyhouse variant', () => {
     test('with incomplete crazyhouse entry does nothing', () => {
-      const mockDrop = jest.fn();
+      const mockDrop = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
@@ -610,10 +623,10 @@ describe('keyboardSubmit', () => {
     });
 
     test('with complete crazyhouse entry does a drop', () => {
-      const mockDrop = jest.fn();
+      const mockDrop = vi.fn();
       const submit = makeSubmit(
         {
-          input,
+          input: document.createElement('input'),
           ctrl: {
             ...defaultCtrl,
             legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
@@ -631,8 +644,9 @@ describe('keyboardSubmit', () => {
   });
 
   test('with incorrect entry marks it wrong', () => {
-    input.classList.toggle = jest.fn() as any;
-    site.sound = { play: jest.fn() } as any;
+    vi.stubGlobal('site', { sound: { play: vi.fn() } });
+
+    const input = document.createElement('input');
     const submit = makeSubmit(
       {
         input,
@@ -646,8 +660,8 @@ describe('keyboardSubmit', () => {
 
     submit('j4', { isTrusted: true });
 
-    expect(input.classList.toggle).toHaveBeenCalledTimes(1);
-    expect(input.classList.toggle).toBeCalledWith('wrong', true);
+    expect(input.classList.contains('wrong')).toBe(true);
     expect(site.sound.play).toHaveBeenCalledTimes(1);
+    expect(site.sound.play).toBeCalledWith('error');
   });
 });
