@@ -9,14 +9,22 @@ case class RelayGame(
     tags: Tags,
     variant: chess.variant.Variant,
     root: Root,
-    ending: Option[StudyPgnImport.End],
-    index: Option[Int] = none
+    ending: Option[StudyPgnImport.End]
 ):
 
-  def staticTagsMatch(chapterTags: Tags): Boolean =
+  def isSameGame(chapterTags: Tags): Boolean =
+    matchExistingRoundAndBoard(chapterTags) || staticTagsMatch(chapterTags)
+
+  private def matchExistingRoundAndBoard(chapterTags: Tags): Boolean =
+    (tags(_.Round), tags.boardNumber, chapterTags(_.Round), chapterTags.boardNumber)
+      .mapN: (round, board, chapterRound, chapterBoard) =>
+        round == chapterRound && board == chapterBoard
+      .has(true)
+
+  private def staticTagsMatch(chapterTags: Tags): Boolean =
     allSame(chapterTags, RelayGame.roundTags) && playerTagsMatch(chapterTags)
 
-  def playerTagsMatch(chapterTags: Tags): Boolean =
+  private def playerTagsMatch(chapterTags: Tags): Boolean =
     if RelayGame.fideIdTags.forall(id => chapterTags.exists(id) && tags.exists(id))
     then allSame(chapterTags, RelayGame.fideIdTags)
     else allSame(chapterTags, RelayGame.nameTags)
@@ -25,7 +33,6 @@ case class RelayGame(
     chapterTags(tag) == tags(tag)
 
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
-  def isPush  = index.isEmpty
 
   def resetToSetup = copy(
     root = root.withoutChildren,
@@ -35,10 +42,6 @@ case class RelayGame(
 
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
     tags.fideIds.some.filter(_.forall(_.isDefined)).map(_.toPair)
-
-  lazy val looksLikeLichess = tags(_.Site).exists: site =>
-    RelayGame.lichessDomains.exists: domain =>
-      site.startsWith(s"https://$domain/")
 
 private object RelayGame:
 

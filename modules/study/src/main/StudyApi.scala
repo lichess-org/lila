@@ -735,7 +735,7 @@ final class StudyApi(
           } >> chapterRepo.delete(chapter.id).andDo(reloadChapters(study))
         }
 
-  def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who) =
+  def sortChapters(studyId: StudyId, chapterIds: List[StudyChapterId])(who: Who): Funit =
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
         chapterRepo.sort(study, chapterIds).andDo(reloadChapters(study))
