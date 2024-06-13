@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">您有30秒时间正确配对尽可能多的棋格。</string>
   <string name="goAsLongAsYouWant">没有时间限制，尽情练习吧！</string>
   <string name="showCoordinates">显示坐标</string>
+  <string name="showCoordsOnAllSquares">在每个格子上显示坐标</string>
   <string name="showPieces">显示棋子</string>
   <string name="startTraining">开始训练</string>
   <string name="findSquare">找格子</string>
