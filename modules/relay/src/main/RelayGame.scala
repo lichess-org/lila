@@ -12,25 +12,20 @@ case class RelayGame(
     ending: Option[StudyPgnImport.End]
 ):
 
-  def isSameGame(chapterTags: Tags): Boolean =
-    matchExistingRoundAndBoard(chapterTags) || staticTagsMatch(chapterTags)
+  // We don't use tags.boardNumber.
+  // Organizers change it at any time while reordering the boards.
+  def isSameGame(otherTags: Tags): Boolean =
+    allSame(otherTags, RelayGame.eventTags) &&
+      otherTags.roundNumber == tags.roundNumber &&
+      playerTagsMatch(otherTags)
 
-  private def matchExistingRoundAndBoard(chapterTags: Tags): Boolean =
-    (tags(_.Round), tags.boardNumber, chapterTags(_.Round), chapterTags.boardNumber)
-      .mapN: (round, board, chapterRound, chapterBoard) =>
-        round == chapterRound && board == chapterBoard
-      .has(true)
+  private def playerTagsMatch(otherTags: Tags): Boolean =
+    if RelayGame.fideIdTags.forall(id => otherTags.exists(id) && tags.exists(id))
+    then allSame(otherTags, RelayGame.fideIdTags)
+    else allSame(otherTags, RelayGame.nameTags)
 
-  private def staticTagsMatch(chapterTags: Tags): Boolean =
-    allSame(chapterTags, RelayGame.roundTags) && playerTagsMatch(chapterTags)
-
-  private def playerTagsMatch(chapterTags: Tags): Boolean =
-    if RelayGame.fideIdTags.forall(id => chapterTags.exists(id) && tags.exists(id))
-    then allSame(chapterTags, RelayGame.fideIdTags)
-    else allSame(chapterTags, RelayGame.nameTags)
-
-  private def allSame(chapterTags: Tags, tagNames: RelayGame.TagNames) = tagNames.forall: tag =>
-    chapterTags(tag) == tags(tag)
+  private def allSame(otherTags: Tags, tagNames: RelayGame.TagNames) = tagNames.forall: tag =>
+    otherTags(tag) == tags(tag)
 
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
 
@@ -48,7 +43,7 @@ private object RelayGame:
   val lichessDomains = List("lichess.org", "lichess.dev")
 
   type TagNames = List[Tag.type => TagType]
-  val roundTags: TagNames  = List(_.Round, _.Event, _.Site)
+  val eventTags: TagNames  = List(_.Event, _.Site)
   val nameTags: TagNames   = List(_.White, _.Black)
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
 
