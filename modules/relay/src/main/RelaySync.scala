@@ -86,7 +86,7 @@ final private class RelaySync(
             path -> none
       case (found, _) => found
     for
-      _ <- (!path.isMainline(chapter.root)).so {
+      _ <- (chapter.root.children.nonEmpty && !path.isMainline(chapter.root)).so {
         logger.info(s"Change mainline ${showSC(study, chapter)} $path")
         studyApi.promote(
           studyId = study.id,
