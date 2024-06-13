@@ -79,7 +79,7 @@ final class Auth(
 
   private def serveLogin(using ctx: Context) = NoBot:
     val referrer = get("referrer").flatMap(env.web.referrerRedirect.valid)
-    val switch   = get("switch")
+    val switch   = get("switch").orElse(get("as"))
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in
       case None =>
