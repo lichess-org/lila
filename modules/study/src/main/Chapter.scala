@@ -17,7 +17,7 @@ case class Chapter(
     setup: Chapter.Setup,
     root: Root,
     tags: Tags,
-    order: Int,
+    order: Chapter.Order,
     ownerId: UserId,
     conceal: Option[Ply] = None,
     practice: Option[Boolean] = None,
@@ -119,6 +119,8 @@ case class Chapter(
 
 object Chapter:
 
+  type Order = Int
+
   // I've seen chapters with 35,000 nodes on prod.
   // It works but could be used for DoS.
   val maxNodes = 3000
@@ -155,7 +157,7 @@ object Chapter:
 
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
-  def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
+  def defaultName(order: Order) = StudyChapterName(s"Chapter $order")
 
   private val defaultNameRegex           = """Chapter \d+""".r
   def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)

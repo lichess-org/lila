@@ -75,8 +75,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
           c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
         .parallelVoid
 
-  def nextOrderByStudy(studyId: StudyId): Fu[Int] =
-    coll(_.primitiveOne[Int]($studyId(studyId), $sort.desc("order"), "order")).dmap { ~_ + 1 }
+  def nextOrderByStudy(studyId: StudyId): Fu[Chapter.Order] =
+    coll(_.primitiveOne[Chapter.Order]($studyId(studyId), $sort.desc("order"), "order")).dmap { ~_ + 1 }
 
   def setConceal(chapterId: StudyChapterId, conceal: chess.Ply) =
     coll(_.updateField($id(chapterId), "conceal", conceal)).void
