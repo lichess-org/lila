@@ -374,11 +374,11 @@
   }
 
   line.expand > a {
-    color: var(--c-font-dim);
+    color: $c-font-dim;
   }
 
   line.expand > a:hover {
-    color: var(--c-font);
+    color: $c-font;
   }
 
   inline {
