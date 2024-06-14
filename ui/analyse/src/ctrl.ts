@@ -253,6 +253,9 @@ export default class AnalyseCtrl {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
+    for (let i = 0; i < this.nodeList.length; i++) {
+      this.nodeList[i].collapsed = false;
+    }
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
@@ -634,6 +637,19 @@ export default class AnalyseCtrl {
     this.jump(path);
     if (this.study) this.study.promote(path, toMainline);
     this.treeVersion++;
+  }
+
+  setCollapsed(path: Tree.Path, collapsed: boolean): void {
+    this.tree.setCollapsedAt(path, collapsed);
+    this.redraw();
+  }
+
+  setAllCollapsed(path: Tree.Path, collapsed: boolean): void {
+    // Also update parent
+    const parentPath = treePath.init(path);
+    this.tree.setCollapsedAt(parentPath, collapsed);
+    this.tree.setCollapsedRecursive(path, collapsed);
+    this.redraw();
   }
 
   forceVariation(path: Tree.Path, force: boolean): void {

@@ -3,6 +3,7 @@ import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../view/moveView';
 import AnalyseCtrl from '../ctrl';
+import * as licon from 'common/licon';
 import { MaybeVNodes } from 'common/snabbdom';
 import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine, Ctx, Opts, renderingCtx } from './common';
 
@@ -15,6 +16,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
       return renderMoveAndChildrenOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true,
+        depth: opts.depth,
         withIndex: opts.withIndex,
       });
     return (
@@ -25,15 +27,17 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
               renderMoveOf(ctx, main, {
                 parentPath: opts.parentPath,
                 isMainline: true,
+                depth: opts.depth,
                 withIndex: opts.withIndex,
               }),
               ...renderInlineCommentsOf(ctx, main, opts.parentPath),
             ]),
         h(
           'interrupt',
-          renderLines(ctx, main.forceVariation ? cs : cs.slice(1), {
+          renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
             parentPath: opts.parentPath,
             isMainline: true,
+            depth: opts.depth,
           }),
         ),
         ...(main.forceVariation
@@ -41,13 +45,14 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
           : renderChildrenOf(ctx, main, {
               parentPath: opts.parentPath + main.id,
               isMainline: true,
+              depth: opts.depth,
               withIndex: true,
             }) || []),
       ]
     );
   }
   if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
-  return renderInlined(ctx, cs, opts) || [renderLines(ctx, cs, opts)];
+  return renderInlined(ctx, cs, opts) || [renderLines(ctx, node, cs, opts)];
 }
 
 function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | undefined {
@@ -58,27 +63,40 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): MaybeVNodes | 
   return renderMoveAndChildrenOf(ctx, nodes[0], {
     parentPath: opts.parentPath,
     isMainline: opts.isMainline,
+    depth: opts.depth,
     inline: nodes[1],
   });
 }
 
-function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: Opts): VNode {
+function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: Opts): VNode {
+  const collapsed =
+    parentNode.collapsed === undefined ? opts.depth >= 2 && opts.depth % 2 === 0 : parentNode.collapsed;
   return h(
     'lines',
-    nodes.map(n => {
-      return (
-        retroLine(ctx, n) ||
-        h(
-          'line',
-          renderMoveAndChildrenOf(ctx, n, {
-            parentPath: opts.parentPath,
-            isMainline: false,
-            withIndex: true,
-            truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
+    { class: { collapsed } },
+    collapsed
+      ? h('line', { class: { expand: true } }, [
+          h('branch'),
+          h('a', {
+            attrs: { 'data-icon': licon.PlusButton, title: ctx.ctrl.trans.noarg('expandVariations') },
+            on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
           }),
-        )
-      );
-    }),
+        ])
+      : nodes.map(n => {
+          return (
+            retroLine(ctx, n) ||
+            h('line', [
+              h('branch'),
+              ...renderMoveAndChildrenOf(ctx, n, {
+                parentPath: opts.parentPath,
+                isMainline: false,
+                depth: opts.depth + 1,
+                withIndex: true,
+                truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
+              }),
+            ])
+          );
+        }),
   );
 }
 
@@ -93,6 +111,7 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
       renderChildrenOf(ctx, node, {
         parentPath: path,
         isMainline: opts.isMainline,
+        depth: opts.depth,
         truncate: opts.truncate ? opts.truncate - 1 : undefined,
         withIndex: !!comments[0],
       }) || [],
@@ -104,7 +123,12 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   if (retro) return h('interrupt', h('lines', retro));
   return h(
     'inline',
-    renderMoveAndChildrenOf(ctx, node, { withIndex: true, parentPath: opts.parentPath, isMainline: false }),
+    renderMoveAndChildrenOf(ctx, node, {
+      withIndex: true,
+      parentPath: opts.parentPath,
+      isMainline: false,
+      depth: opts.depth,
+    }),
   );
 }
 
@@ -125,6 +149,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     ...(renderChildrenOf(ctx, ctrl.tree.root, {
       parentPath: '',
       isMainline: true,
+      depth: 0,
     }) || []),
   ]);
 }
