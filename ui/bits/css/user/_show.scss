@@ -22,16 +22,19 @@
   }
 
   &__social {
-    @extend %flex-between;
+    @extend %flex-between-nowrap;
 
     background: $c-bg-zebra;
 
     .number-menu {
+      flex: 0 1 auto;
+      overflow: hidden;
       margin: 0 0 0.2em 1em;
     }
 
     .user-actions {
-      margin: 1em;
+      flex: 0 0 auto;
+      margin: 1em 1em 1em 0.3em;
 
       form {
         display: inline;
@@ -40,24 +43,26 @@
 
     .dropdown {
       position: relative;
-      font-size: x-large;
+      font-size: 2em;
       > a {
+        display: block;
+        height: 1.5em;
         color: $c-font-page;
-        float: right;
         padding-left: 0.5em;
       }
 
       .dropdown-window {
+        @extend %dropdown-shadow;
+        z-index: z('link-overlay');
         visibility: hidden;
         background: $c-bg-header-dropdown;
         border-radius: 3px 0 3px 3px;
-        box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
         position: absolute;
-        top: 1.45em;
+        top: 1.5em;
         right: 0;
         a {
           width: 16em;
-          font-size: small;
+          font-size: 1rem;
           display: block;
           padding: 0.6rem 1rem;
           color: $c-header-dropdown;
@@ -76,15 +81,15 @@
           }
         }
       }
-    }
-
-    .dropdown:hover {
-      > a {
-        background: $c-bg-header-dropdown;
-        box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
-      }
-      .dropdown-window {
-        visibility: visible;
+      &:hover {
+        > a {
+          border-radius: 3px 3px 0 0;
+          background: $c-bg-header-dropdown;
+          box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+        }
+        .dropdown-window {
+          visibility: visible;
+        }
       }
     }
   }
