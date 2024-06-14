@@ -70,6 +70,8 @@
   <string name="promoteVariation">Promovoni variacion</string>
   <string name="makeMainLine">Bëje variantin kryesor</string>
   <string name="deleteFromHere">Fshije nga këtu</string>
+  <string name="collapseVariations">Tkurri variantet</string>
+  <string name="expandVariations">Shfaqi variantet</string>
   <string name="forceVariation">Detyro variant</string>
   <string name="copyVariationPgn">Kopjo PGN varianti</string>
   <string name="move">Lëvizje</string>
