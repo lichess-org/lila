@@ -109,20 +109,36 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
-    forSelector($text(query) ++ selectors.officialPublic, page)
+    val day = 1000L * 3600 * 24
+    forSelector(
+      selector = $text(query) ++ selectors.officialPublic,
+      page = page,
+      onlyKeepGroupFirst = false,
+      addFields = $doc(
+        "searchDate" -> $doc(
+          "$add" -> $arr(
+            $doc("$ifNull"   -> $arr("$syncedAt", "$createdAt")),
+            $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.NORMAL)), 60 * day)),
+            $doc("$multiply" -> $arr($doc("$meta" -> "textScore"), 30 * day))
+          )
+        )
+      ).some,
+      sortFields = List("searchDate")
+    )
 
   def byIds(ids: List[RelayTourId], page: Int): Fu[Paginator[WithLastRound]] =
     forSelector(
       $inIds(ids) ++ selectors.officialPublic,
-      page,
+      page = page,
       onlyKeepGroupFirst = false,
-      List("syncedAt")
+      sortFields = List("syncedAt")
     )
 
   private def forSelector(
       selector: Bdoc,
       page: Int,
       onlyKeepGroupFirst: Boolean = true,
+      addFields: Option[Bdoc] = None,
       sortFields: List[String] = List("tier", "syncedAt", "createdAt")
   ): Fu[Paginator[WithLastRound]] =
     Paginator(
@@ -133,7 +149,8 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
-                List(Sort(sortFields.map(Descending(_))*)) :::
+                addFields.map(AddFields(_)).toList :::
+                  List(Sort(sortFields.map(Descending(_))*)) :::
                   aggregateRoundAndUnwind(framework, onlyKeepGroupFirst) :::
                   List(Skip(offset), Limit(length))
               }
