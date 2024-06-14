@@ -7,7 +7,7 @@ import { sass, stopSass } from './sass';
 import { esbuild, stopEsbuild } from './esbuild';
 import { copies, stopCopies } from './copies';
 import { startMonitor, stopMonitor } from './monitor';
-import { init as initManifest } from './manifest';
+import { initManifest } from './manifest';
 import { clean } from './clean';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
@@ -37,11 +37,8 @@ export async function build(mods: string[]) {
   ]);
 
   await initManifest();
-  sass();
-  await tsc();
-  await copies();
-  await esbuild();
   startMonitor(mods);
+  await Promise.all([sass(), copies(), esbuild(tsc())]);
 }
 
 export async function stop() {

@@ -1,6 +1,6 @@
 import { GameData } from './interfaces';
 
-// https://github.com/lichess-org/scalachess/blob/master/src/main/scala/Status.scala
+// https://github.com/lichess-org/scalachess/blob/master/core/src/main/scala/Status.scala
 
 export const ids = {
   created: 10,

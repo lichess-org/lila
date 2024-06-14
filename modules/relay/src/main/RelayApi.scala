@@ -25,7 +25,7 @@ final class RelayApi(
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi,
     picfitApi: PicfitApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer, play.api.Mode):
 
   import BSONHandlers.{ readRoundWithTour, given }
   import JsonView.given
@@ -71,7 +71,7 @@ final class RelayApi(
 
   def kickBroadcast(userId: UserId, tourId: RelayTourId, who: MyId): Funit =
     roundIdsById(tourId).flatMap:
-      _.traverse_(studyApi.kick(_, userId, who))
+      _.sequentiallyVoid(studyApi.kick(_, userId, who))
 
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
@@ -260,16 +260,17 @@ final class RelayApi(
       for
         _ <- studyApi.deleteAllChapters(relay.studyId, me)
         _ <- old.hasStartedEarly.so:
-          roundRepo.coll.update
-            .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
-            .void
+          roundRepo.coll.update.one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt")).void
+        _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
       yield leaderboard.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
     byIdWithTour(roundId).flatMapz: rt =>
-      (roundRepo.coll.delete.one($id(rt.round.id)) >>
-        denormalizeTourActive(rt.tour.id)).inject(rt.tour.some)
+      for
+        _ <- roundRepo.coll.delete.one($id(rt.round.id))
+        _ <- denormalizeTourActive(rt.tour.id)
+      yield rt.tour.some
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
     tour.ownerId
@@ -279,7 +280,7 @@ final class RelayApi(
           _      <- tourRepo.delete(tour)
           rounds <- roundRepo.idsByTourOrdered(tour)
           _      <- roundRepo.deleteByTour(tour)
-          _      <- rounds.map(_.into(StudyId)).traverse_(studyApi.deleteById)
+          _      <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
         yield true
 
   def getOngoing(id: RelayRoundId): Fu[Option[WithTour]] =
@@ -380,7 +381,7 @@ final class RelayApi(
         )
       )
       .flatMap:
-        _.traverse_ { relay =>
+        _.sequentiallyVoid { relay =>
           logger.info(s"Automatically start $relay")
           requestPlay(relay.id, v = true)
         }
@@ -398,7 +399,7 @@ final class RelayApi(
           )
         )
       .flatMap:
-        _.traverse_ { relay =>
+        _.sequentiallyVoid { relay =>
           logger.info(s"Automatically finish $relay")
           update(relay)(_.finish)
         }

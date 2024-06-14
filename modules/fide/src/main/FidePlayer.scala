@@ -4,7 +4,7 @@ import chess.{ FideId, PlayerName, PlayerTitle }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.text.Normalizer
-import lila.core.fide.{ FideTC, PlayerToken, Tokenize }
+import lila.core.fide.{ FideTC, PlayerToken, Tokenize, diacritics }
 
 case class FidePlayer(
     @Key("_id") id: FideId,
@@ -29,6 +29,14 @@ case class FidePlayer(
 
   def age: Option[Int] = year.map(nowInstant.date.getYear - _)
 
+  def ratingsStr = List(
+    "Standard" -> standard,
+    "Rapid"    -> rapid,
+    "Blitz"    -> blitz
+  ).map: (name, rating) =>
+    s"$name: ${rating.fold("—")(_.toString)}"
+  .mkString(", ")
+
 object FidePlayer:
 
   val tokenize: Tokenize =
@@ -38,7 +46,7 @@ object FidePlayer:
       splitRegex
         .split:
           Normalizer
-            .normalize(str.trim, Normalizer.Form.NFD)
+            .normalize(diacritics.remove(str.trim), Normalizer.Form.NFD)
             .replaceAllIn(nonLetterRegex, "")
             .toLowerCase
         .toList

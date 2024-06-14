@@ -52,11 +52,9 @@ trait AssetFullHelper:
     manifest.deps(keys).map { dep =>
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
     }
-  def roundNvuiTag(using ctx: Context)    = ctx.blind.option(EsmInit("round.nvui"))
-  lazy val infiniteScrollEsmInit: EsmInit = jsModuleInit("bits.infiniteScroll")
-  lazy val captchaEsmInit: EsmInit        = EsmInit("bits.captcha")
-  lazy val cashTag: Frag                  = iifeModule("javascripts/vendor/cash.min.js")
-  lazy val chessgroundTag: Frag           = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
+  def roundNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("round.nvui"))
+  lazy val cashTag: Frag               = iifeModule("javascripts/vendor/cash.min.js")
+  lazy val chessgroundTag: Frag        = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }

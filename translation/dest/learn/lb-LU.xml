@@ -82,13 +82,13 @@ onverdeedegt Figuren huelen!</string>
   <string name="combatIntro">E gudde Kämpfer kennt souwuel Ugrëff wéi och Defense!</string>
   <string name="combatComplete">Felicitatioun! Du wees wéi een mat Schachfiguren kämpft!</string>
   <string name="checkInOne">Schach an 1</string>
-  <string name="attackTheOpponentsKing">Gräif dem Géigner säin Kinnek un</string>
+  <string name="attackTheOpponentsKing">Gräif dem Géigner säi Kinnek un</string>
   <string name="checkInOneIntro">Fir en Schach ze ginn, gräif säin Kinnek un. Hien muss en verdeedegen!</string>
   <string name="checkInOneGoal">Ziel an engem Zuch 
 op dem Géigner säin Kinnek!</string>
   <string name="checkInOneComplete">Felicitatioun! Du hues dem Géigner e Schach ginn an hien forcéiert, säin Kinnek ze verdeedegen!</string>
   <string name="outOfCheck">Aus dem Schach</string>
-  <string name="defendYourKing">Verdeedeg däin Kinnek</string>
+  <string name="defendYourKing">Verdeedeg däi Kinnek</string>
   <string name="outOfCheckIntro">Du bass am Schach! Du muss dem Ugrëff entkommen oder en blocken.</string>
   <string name="escapeWithTheKing">Entkomm mat dengem Kinnek!</string>
   <string name="theKingCannotEscapeButBlock">De Kinnek kann net entkommen,

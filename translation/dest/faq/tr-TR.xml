@@ -161,9 +161,22 @@ Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlu
 2. Adres çubuğundaki kilit simgesine tıklayın
 3. Site ayarlarına tıklayın
 4. Sese izin verin</string>
+  <string name="enableAutoplayForSoundsSafari">1. lichess.org\'a gidin
+2. Menü çubuğunda Safari\'ye tıklayın
+3. lichess.org için Ayarlar\'a tıklayın...
+4. Tüm Otomatik Oynatmayı İzin Ver\'e tıklayın</string>
   <string name="enableAutoplayForSoundsMicrosoftEdge">1. Sağ üst köşedeki üç noktaya tıklayın
 2. Ayarlara tıklayın
 3. Sol taraftan Tanılama bilgileri ve site izinlerine tıklayın
 4. Aşağıya inin ve Medya otomatik yürütmeye tıklayın
 5. İzin Ver listesine lichess.org\'u ekleyin</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Kendimi oynamaktan alıkoymak?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">kendine özgü bir ruh sağlığı durumu</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess kullanıcı stilleri</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">daha az lobisi havuzu</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Düzenli olarak, kullanıcılardan fazla oynamayı durdurma konusunda yardım isteyen mesajlar alıyoruz.
+
+Lichess, Kullanım Koşulları ihlalleri dışında oyuncuları yasaklamaz veya engellemez, ancak aşırı oynama davranışını sınırlamak için harici araçların kullanılmasını öneririz. Web sitesi engelleyiciler için yaygın önerilerden bazıları %1$s, %2$s ve %3$s içerir. Siteyi kullanmaya devam etmek istiyorsanız ancak hızlı zaman kontrolleriyle kendi kendinizi kandırmak istemiyorsanız, %4$s sizin için de ilginç olabilir, işte %5$s\'li bir örnek.
+
+Bazı oyuncular, oynama davranışlarının bağımlılığa dönüştüğünü hissedebilir. Aslında, Dünya Sağlık Örgütü, oyun bozukluğunu %6$s olarak sınıflandırır; esas özellikler 1) oyun üzerinde kontrol kaybı, 2) oyun verilen artan öncelik ve 3) olumsuz sonuçlara rağmen oyunun artan düzeyde devam etmesidir. Eğer satranç oynama davranışınızın bu desene uyduğunu düşünüyorsanız, bunun hakkında bir arkadaş veya aile üyesi ve/veya bir profesyonelle konuşmanızı öneririz.</string>
 </resources>

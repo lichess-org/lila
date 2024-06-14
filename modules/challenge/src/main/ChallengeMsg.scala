@@ -14,10 +14,9 @@ final class ChallengeMsg(msgApi: lila.core.msg.MsgApi)(using Executor):
   ): Funit =
     List(users, users.swap)
       .map(_.toPair)
-      .map: (u1, u2) =>
+      .sequentiallyVoid { (u1, u2) =>
         sendGameMessage(gameId, u1, u2, managedById, template)
-      .parallel
-      .void
+      }
 
   private def sendGameMessage(
       gameId: GameId,

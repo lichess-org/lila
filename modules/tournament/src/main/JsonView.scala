@@ -310,7 +310,7 @@ final class JsonView(
         .obj("rating" -> rating)
         .add("berserk" -> berserk)
 
-  private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](32, "tournament.podiumJson") {
+  private val podiumJsonCache = cacheApi[TourId, Option[JsArray]](128, "tournament.podiumJson") {
     _.expireAfterAccess(15 seconds)
       .expireAfterWrite(1 minute)
       .maximumSize(256)
@@ -327,7 +327,7 @@ final class JsonView(
                   .filter(w => tour.winnerId.forall(w !=))
                   .foreach:
                     tournamentRepo.setWinnerId(tour.id, _)
-                top3.traverse: rp =>
+                top3.sequentially: rp =>
                   for
                     sheet <- cached.sheet(tour, rp.player.userId)
                     json <- playerJson(

@@ -79,9 +79,9 @@ body {
 
   grid-template-rows: auto auto auto minmax(20em, 30vh);
   grid-template-areas:
-    'kb-move'
     'board'
     'controls'
+    'kb-move'
     'tools'
     'side'
     'round-training'

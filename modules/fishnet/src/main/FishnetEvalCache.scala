@@ -47,10 +47,9 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
       )
       .fold(
         _ => fuccess(Nil),
-        _.mapWithIndex: (sit, index) =>
+        _.traverseWithIndexM: (sit, index) =>
           getSinglePvEval(game.variant, Fen.write(sit)).dmap2 { index -> _ }
-        .parallel
-          .map(_.flatten)
+        .map(_.flatten)
       )
 
 object FishnetEvalCache:

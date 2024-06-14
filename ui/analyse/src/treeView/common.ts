@@ -59,7 +59,8 @@ const autoScroll = throttle(200, (ctrl: AnalyseCtrl, el: HTMLElement) => {
     cont.scrollTop = ctrl.path ? 99999 : 0;
     return;
   }
-  cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+  const targetOffset = target.getBoundingClientRect().y - el.getBoundingClientRect().y;
+  cont.scrollTop = targetOffset - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
 export interface NodeClasses {
@@ -164,6 +165,7 @@ export interface Ctx {
 export interface Opts {
   parentPath: Tree.Path;
   isMainline: boolean;
+  depth: number;
   inline?: Tree.Node;
   withIndex?: boolean;
   truncate?: number;

@@ -29,3 +29,17 @@ type PlayerToken = String
 type GuessPlayer = (Option[FideId], Option[PlayerName], Option[PlayerTitle]) => Fu[Option[Player]]
 
 type Tokenize = String => PlayerToken
+
+// FIDE's weird way of not supporting unicode
+object diacritics:
+  private val replacements = List(
+    "ö" -> "oe",
+    "ø" -> "o",
+    "ä" -> "ae",
+    "ü" -> "ue",
+    "ß" -> "ss"
+  )
+  def remove(name: String): String =
+    replacements.foldLeft(name):
+      case (name, (k, v)) =>
+        if name.contains(k) then name.replaceAll(k, v) else name

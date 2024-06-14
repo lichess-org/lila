@@ -11,8 +11,8 @@ lazy val bits       = lila.streamer.ui.StreamerBits(helpers)(picfitUrl)
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)
 export ui.index
 
-def show(s: Streamer.WithUserAndStream, perfs: UserPerfs, activities: Vector[lila.activity.ActivityView])(
-    using Context
+def show(s: Streamer.WithUserAndStream, perfs: UserPerfs, activities: Seq[lila.activity.ActivityView])(using
+    Context
 ) =
   ui.show(
     s,
@@ -26,7 +26,7 @@ def create(using Context) =
       title = trans.streamer.becomeStreamer.txt(),
       icon = Some(Icon.Mic)
     )
-    .css("streamer.form")(bits.create)
+    .css("bits.streamer.form")(bits.create)
 
 object edit:
 

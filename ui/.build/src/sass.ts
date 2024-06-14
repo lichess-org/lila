@@ -59,10 +59,12 @@ async function unbuiltSources(): Promise<string[]> {
 function compile(sources: string[], logAll = true) {
   if (!sources.length) return sources.length;
 
-  if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, { ctx: 'sass' }));
-  else env.log(`Building css with ${ps.platform}-${ps.arch}/sass`, { ctx: 'sass' });
+  const sassExec =
+    process.env.SASS_PATH || path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
 
-  const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
+  if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, { ctx: 'sass' }));
+  else env.log(`Building css with ${sassExec}`, { ctx: 'sass' });
+
   const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
   sassPs?.removeAllListeners();
   sassPs = cps.spawn(
@@ -188,7 +190,10 @@ async function buildColorWrap() {
 
   for (const file of await globArray(path.join(env.themeDir, '_*.scss'))) {
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
-      if (line.startsWith('//') || !/--[cm]/.test(line)) continue;
+      if (line.indexOf('--') === -1) continue;
+      const commentIndex = line.indexOf('//');
+      if (commentIndex !== -1 && commentIndex < line.indexOf(':')) continue;
+      if (!/--[cm]/.test(line)) continue;
       cssVars.add(line.split(':')[0].trim().replace('--', ''));
     }
   }
@@ -251,15 +256,25 @@ class SassWatch {
   touched = new Set<string>();
   timeout: NodeJS.Timeout | undefined;
   watchers: fs.FSWatcher[] = [];
-
+  watchDirs = new Set<string>();
   constructor() {
-    if (env.watch) {
-      for (const dir of [...importMap.keys()].map(path.dirname)) {
-        const fsWatcher = fs.watch(dir);
-        fsWatcher.on('change', (event: string, srcFile: string) => this.onChange(dir, event, srcFile));
-        fsWatcher.on('error', (err: Error) => env.error(err, 'sass'));
-        this.watchers.push(fsWatcher);
-      }
+    this.watch();
+  }
+
+  async watch() {
+    if (!env.watch) return;
+    const watchDirs = new Set<string>([...importMap.keys()].map(path.dirname));
+    (await allSources()).forEach(s => watchDirs.add(path.dirname(s)));
+    if (this.watchDirs.size === watchDirs.size || [...watchDirs].every(d => this.watchDirs.has(d))) return;
+    if (this.watchDirs.size) env.log('Rebuilding watchers...', { ctx: 'sass' });
+    for (const x of this.watchers) x.close();
+    this.watchers.length = 0;
+    this.watchDirs = watchDirs;
+    for (const dir of this.watchDirs) {
+      const fsWatcher = fs.watch(dir);
+      fsWatcher.on('change', (event: string, srcFile: string) => this.onChange(dir, event, srcFile));
+      fsWatcher.on('error', (err: Error) => env.error(err, 'sass'));
+      this.watchers.push(fsWatcher);
     }
   }
 
@@ -282,7 +297,9 @@ class SassWatch {
     if (files.every(f => this.touched.has(f))) return false;
     files.forEach(src => {
       this.touched.add(src);
-      importersOf(src).forEach(dest => this.dependencies.add(dest));
+      if (!/[^_].*\.scss/.test(path.basename(src))) {
+        this.dependencies.add(src);
+      } else importersOf(src).forEach(dest => this.dependencies.add(dest));
     });
     return true;
   }
@@ -303,7 +320,7 @@ class SassWatch {
     const sources = [...this.dependencies].filter(src => /\/[^_][^/]+\.scss$/.test(src));
     const touched = [...this.touched];
     this.clear();
-
+    this.watch(); // experimental
     let rebuildColors = false;
 
     for (const src of touched) {

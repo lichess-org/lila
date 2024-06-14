@@ -211,6 +211,7 @@
   <string name="forgotPassword">परवलीचा शब्द विसरलात?</string>
   <string name="youAreLeavingLichess">तुमही लिचेस सोडून जात आहात</string>
   <string name="proceedToX">%s कडे जा</string>
+  <string name="whatSignupUsername">तू कुठला उसरनेम वापरला साईन अप करायला?</string>
   <string name="accountClosed">खाते %s बंद झाले आहे.</string>
   <string name="rank">मानांकन</string>
   <string name="rankX">मानांकन: %s</string>

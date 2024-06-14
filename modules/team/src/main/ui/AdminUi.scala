@@ -15,11 +15,11 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
   def leaders(
       t: Team.WithLeaders,
       addLeaderForm: Form[UserStr],
-      permsForm: Form[Seq[TeamSecurity.LeaderData]]
+      permsForm: Form[List[TeamSecurity.LeaderData]]
   )(using Context) =
     TeamPage(s"${t.name} • ${trans.team.teamLeaders.txt()}")
       .js(EsmInit("mod.teamAdmin"))
-      .css("tagify"):
+      .css("bits.tagify"):
         val dataLabel = attrData("label")
         main(cls := "page-menu")(
           menu(none),
@@ -79,7 +79,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
   def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using Context) =
     TeamPage(s"${t.name} • ${trans.team.kickSomeone.txt()}")
       .js(EsmInit("mod.teamAdmin"))
-      .css("tagify"):
+      .css("bits.tagify"):
         main(cls := "page-menu page-small")(
           menu(none),
           div(cls := "page-menu__content")(

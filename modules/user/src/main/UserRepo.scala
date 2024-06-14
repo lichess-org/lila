@@ -13,6 +13,7 @@ import lila.db.dsl.{ *, given }
 import lila.core.userId.UserSearch
 import lila.core.user.{ Profile, PlayTime, TotpSecret, Plan, UserMark }
 import lila.core.security.HashedPassword
+import scalalib.model.Days
 
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
@@ -265,6 +266,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setEngine    = setMark(UserMark.engine)
   def setBoost     = setMark(UserMark.boost)
   def setTroll     = setMark(UserMark.troll)
+  def setIsolate   = setMark(UserMark.isolate)
   def setReportban = setMark(UserMark.reportban)
   def setRankban   = setMark(UserMark.rankban)
   def setArenaBan  = setMark(UserMark.arenaban)
@@ -298,6 +300,16 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def getRoles[U: UserIdOf](u: U): Fu[List[String]] =
     coll.primitiveOne[List[String]]($id(u), BSONFields.roles).dmap(_.orZero)
+
+  def addPermission(id: UserId, perm: lila.core.perm.Permission): Funit =
+    coll.update.one($id(id), $push(F.roles -> perm.dbKey)).void
+
+  def accountAge(id: UserId): Fu[Days] =
+    coll
+      .primitiveOne[Instant]($id(id), F.createdAt)
+      .map:
+        _.fold(Days(0)): date =>
+          Days(scalalib.time.daysBetween(date.withTimeAtStartOfDay, nowInstant.withTimeAtStartOfDay))
 
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 

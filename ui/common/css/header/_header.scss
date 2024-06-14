@@ -63,6 +63,13 @@ body > header {
   }
 }
 
+body.zen {
+  @include topnav-unsticky;
+  header::before {
+    display: none;
+  }
+}
+
 #topnav .community-patron {
   @extend %flex-center;
   &::after {

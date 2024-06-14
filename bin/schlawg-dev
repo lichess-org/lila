@@ -1,0 +1,7 @@
+#!/bin/bash
+cd "$(dirname "${BASH_SOURCE:-$0}")/.."
+
+trap 'tmux kill-session -t muxlog1234 2>/dev/null' EXIT
+tmux new-session -d -s muxlog1234 \
+  'journalctl --user -fu lila -o cat | grep -E -v fishnet & ui/build -cdr & wait; exec bash' \; \
+  attach-session -d -t muxlog1234 \;

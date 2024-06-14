@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">İsviçre Sistemi</string>
   <string name="swissTournaments">İsviçre Sistemi Turnuvaları</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Turu görüntüleyin</item>
@@ -38,6 +39,16 @@
   <string name="roundInterval">Turlar arası süre</string>
   <string name="forbiddenPairings">Yasaklı eşleşmeler</string>
   <string name="forbiddenPairingsHelp">Karşı karşıya gelmemesi gereken (aynı evdeki kardeşler gibi) oyuncuların kullanıcı adları. Her satıra aralarında bir boşluk bulunan iki kullanıcı ismi girin.</string>
+  <string name="manualPairings">Sonraki turda manuel eşleştirmeler</string>
+  <string name="manualPairingsHelp">Sonraki turun tüm eşleştirmelerini manuel olarak belirtin. Her satırda bir oyuncu çifti. Örnek:
+OyuncuA OyuncuB
+OyuncuC OyuncuD
+Bir oyuncuya (1 puan) bay geçmek için bir satır ekleyin:
+OyuncuE 1
+Eksik oyuncular yok sayılacak ve sıfır puan alacak.
+Eşleştirmeleri otomatik olarak oluşturmak için bu alanı boş bırakın.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Son İsviçre oyunlarını oynamış olmalıdırlar</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Sadece son İsviçre oyunlarını oynamış olan oyuncuların katılmasına izin verin. Yakın zamanda bir İsviçre etkinliğine katılmayanlar, sizinkine giremeyecekler. Bu, gerçekten katılan oyuncular için daha iyi bir İsviçre deneyimi sağlar.</string>
   <string name="newSwiss">İsviçre Sistemi turnuvası oluştur</string>
   <string name="swissVsArenaQ">İsviçre sistemi turnuvaları ne zaman arena turnuvaları yerine kullanmalıyım?</string>
   <string name="swissVsArenaA">İsviçre sistemi turnuvalarda bütün oyuncular eşit sayıda maç yapar ve birbirleriyle yalnızca bir kez karşı karşıya gelir. Satranç kulüpleri ve resmî turnuvalar için iyi bir seçenek olabilir.</string>
@@ -106,4 +117,7 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="predefinedUsers">Sadece önceden belirlenen oyuncular katılabilir</string>
   <string name="forbiddedUsers">Eğer bu liste boş değilse, listede adı yer almayan kullanıcıların katılması yasaklanacaktır. Her satır için bir kullanıcı adı.</string>
   <string name="playYourGames">Oyunlarınızı oynayın</string>
+  <string name="byes">Hoşça kal</string>
+  <string name="absences">Devamsızlıklar</string>
+  <string name="tieBreak">Beraberlik Kırıcı</string>
 </resources>

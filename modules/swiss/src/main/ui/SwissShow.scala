@@ -46,7 +46,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
         )
       )
       .css("swiss.show")
-      .css(hasScheduleInput.option("flatpickr"))
+      .css(hasScheduleInput.option("bits.flatpickr"))
       .graph(
         OpenGraph(
           title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",

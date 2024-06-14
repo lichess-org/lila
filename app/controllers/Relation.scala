@@ -67,12 +67,12 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   }
   def unfollowBc = unfollow
 
-  def block(username: UserStr) = Auth { ctx ?=> me ?=>
+  def block(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.block(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
   }
 
-  def unblock(username: UserStr) = Auth { ctx ?=> me ?=>
+  def unblock(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.unblock(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
   }
@@ -133,7 +133,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related[UserWithPerfs]]] = for
     users       <- env.user.api.listWithPerfs(userIds.toList)
     followables <- ctx.isAuth.so(env.pref.api.followableIds(users.map(_.id)))
-    rels <- users.traverse: u =>
+    rels <- users.sequentially: u =>
       ctx.userId
         .so(api.fetchRelation(_, u.id))
         .map: rel =>

@@ -7,6 +7,8 @@ import lila.common.autoconfig.{ *, given }
 import lila.core.game.{ FinishGame, InsertGame }
 import lila.search.*
 import lila.core.config.ConfigName
+import lila.search.client.SearchClient
+import lila.search.spec.Query
 
 @Module
 private class GameSearchConfig(
@@ -19,16 +21,14 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi,
-    makeClient: Index => ESClient
+    client: SearchClient
 )(using Executor, Scheduler, lila.core.i18n.Translator):
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
 
-  private lazy val client = makeClient(Index(config.indexName))
-
   lazy val api = wire[GameSearchApi]
 
-  lazy val paginator = PaginatorBuilder[Game, Query](api, config.paginatorMaxPerPage)
+  lazy val paginator = PaginatorBuilder[Game, Query.Game](api, config.paginatorMaxPerPage)
 
   lazy val forms = wire[GameSearchForm]
 

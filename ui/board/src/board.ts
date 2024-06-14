@@ -6,13 +6,6 @@ import { MaybeVNode, MaybeVNodes, dataIcon, onInsert } from 'common/snabbdom';
 import { Redraw } from 'chessground/types';
 import * as controls from 'common/controls';
 
-export const toggleButton = (toggle: Toggle, title: string) =>
-  h('button.fbt.board-menu-toggle', {
-    class: { active: toggle() },
-    attrs: { title, 'data-icon': licon.Hamburger },
-    hook: onInsert(bindMobileMousedown(toggle.toggle)),
-  });
-
 export const menu = (
   trans: Trans,
   redraw: Redraw,

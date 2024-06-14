@@ -63,7 +63,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       _.find($studyId(studyId))
         .sort($sortOrder)
         .cursor[Chapter]()
-        .list(300)
+        .list(256)
 
   def studyIdsByRelayFideId(fideId: chess.FideId): Fu[List[StudyId]] =
     coll(_.distinctEasy[StudyId, List]("studyId", $doc("relay.fideIds" -> fideId)))
@@ -73,11 +73,10 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       ids
         .mapWithIndex: (id, index) =>
           c.updateField($studyId(study.id) ++ $id(id), "order", index + 1)
-        .parallel
-        .void
+        .parallelVoid
 
-  def nextOrderByStudy(studyId: StudyId): Fu[Int] =
-    coll(_.primitiveOne[Int]($studyId(studyId), $sort.desc("order"), "order")).dmap { ~_ + 1 }
+  def nextOrderByStudy(studyId: StudyId): Fu[Chapter.Order] =
+    coll(_.primitiveOne[Chapter.Order]($studyId(studyId), $sort.desc("order"), "order")).dmap { ~_ + 1 }
 
   def setConceal(chapterId: StudyChapterId, conceal: chess.Ply) =
     coll(_.updateField($id(chapterId), "conceal", conceal)).void
@@ -86,7 +85,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll(_.unsetField($id(chapterId), "conceal")).void
 
   def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
-    coll(_.updateField($id(chapterId), "relay.path", path)).void
+    coll(_.updateField($id(chapterId) ++ $doc("relay.lastMoveAt".$exists(true)), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void

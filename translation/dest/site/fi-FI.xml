@@ -668,6 +668,7 @@
   <string name="yourPendingSimuls">Odottavat simultaanisi</string>
   <string name="createdSimuls">Äskettäin luodut simultaanit</string>
   <string name="hostANewSimul">Pidä uusi simultaani</string>
+  <string name="signUpToHostOrJoinASimul">Kirjaudu niin voit antaa simultaanin tai liittyä sellaiseen</string>
   <string name="noSimulFound">Simultaania ei löydy</string>
   <string name="noSimulExplanation">Tätä simultaania ei ole olemassa.</string>
   <string name="returnToSimulHomepage">Palaa simultaanin kotisivulle</string>

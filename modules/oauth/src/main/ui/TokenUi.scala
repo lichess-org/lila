@@ -7,7 +7,8 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class TokenUi(helpers: Helpers)(
-    AccountPage: (String, String) => Context ?=> Page
+    AccountPage: (String, String) => Context ?=> Page,
+    mode: play.api.Mode
 ):
   import helpers.{ *, given }
 
@@ -66,7 +67,8 @@ final class TokenUi(helpers: Helpers)(
               td(
                 strong(t.description | "Unnamed"),
                 br,
-                em(t.scopes.value.map(_.name.txt()).mkString(", "))
+                em(t.scopes.value.map(_.name.txt()).mkString(", ")),
+                mode.isDev.option(frag(br, em("Visible in DEV mode: "), code(t.plain.value)))
               ),
               td(cls := "date")(
                 t.createdAt.map: created =>
@@ -112,11 +114,8 @@ final class TokenUi(helpers: Helpers)(
                   } || {
                     me.isBot && scope == OAuthScope.Board.Play
                   }
-                  val hidden =
-                    scope == OAuthScope.Web.Mod && !(
-                      Granter.opt(_.Shusher) || Granter.opt(_.BoostHunter) || Granter.opt(_.CheatHunter)
-                    )
-                  val id = s"oauth-scope-${scope.key.replace(":", "_")}"
+                  val hidden = scope == OAuthScope.Web.Mod && !OAuthScope.canUseWebMod
+                  val id     = s"oauth-scope-${scope.key.replace(":", "_")}"
                   (!hidden).option(
                     div(cls := List("danger" -> OAuthScope.dangerList.has(scope)))(
                       span(

@@ -19,7 +19,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
-      FoundPage(env.api.cmsRender(lila.core.id.CmsPageKey("appeal-landing"))):
+      FoundPage(env.cms.renderKey("appeal-landing")):
         views.site.page.lone
     else notFound
   }
@@ -47,14 +47,12 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def queue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
     val filter = env.appeal.api.modFilter.fromQuery(filterStr)
     for
-      appeals                          <- env.appeal.api.myQueue(filter)
-      inquiries                        <- env.report.api.inquiries.allBySuspect
-      ((scores, streamers), nbAppeals) <- reportC.getScores
-      _                                <- env.user.lightUserApi.preloadMany(appeals.map(_.user.id))
-      markedByMap                      <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
-      page <- renderPage(
-        views.appeal.queue(appeals, inquiries, filter, markedByMap, scores, streamers, nbAppeals)
-      )
+      appeals           <- env.appeal.api.myQueue(filter)
+      inquiries         <- env.report.api.inquiries.allBySuspect
+      (scores, pending) <- reportC.getScores
+      _                 <- env.user.lightUserApi.preloadMany(appeals.map(_.user.id))
+      markedByMap       <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
+      page <- renderPage(views.appeal.queue(appeals, inquiries, filter, markedByMap, scores, pending))
     yield Ok(page)
   }
 

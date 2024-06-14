@@ -63,4 +63,5 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
 Non puoi rimuovere una squadra se un giocatore ha già aderito al torneo.</string>
   <string name="numberOfLeadsPerTeam">Numero di leader per squadra. La somma del loro punteggio è il punteggio della squadra.</string>
   <string name="numberOfLeadsPerTeamHelp">Una volta che il torneo è iniziato non dovresti proprio cambiare questo valore!</string>
+  <string name="innerTeam">Squadra interna</string>
 </resources>

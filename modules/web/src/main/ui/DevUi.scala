@@ -33,7 +33,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
     val title = "Command Line Interface"
     Page(title)
       .css("mod.misc")
-      .css("form3"):
+      .css("bits.form3"):
         main(cls := "page-menu")(
           modMenu("cli"),
           div(id := "dev-cli", cls := "page-menu__content box box-pad")(
@@ -71,6 +71,7 @@ msg multi {sender} {recipient1,recipient2} {message}
 team members add {teamId} {username1,username2,username3}
 notify url users {username1,username2,username3} {url} {link title} | {link description}
 notify url titled {url} {link title} | {link description}
+notify url titled-arena {url} {link title} | {link description}
 patron lifetime {username}
 patron month {username}
 patron remove {username}

@@ -3,6 +3,7 @@ package lila.relay
 import io.mola.galimatias.URL
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.Mode
 
 import scala.util.Try
 import scala.util.chaining.*
@@ -13,7 +14,7 @@ import lila.core.perm.Granter
 
 import lila.relay.RelayRound.Sync
 
-final class RelayRoundForm(using mode: play.api.Mode):
+final class RelayRoundForm(using mode: Mode):
 
   import RelayRoundForm.*
   import lila.common.Form.ISOInstantOrTimestamp
@@ -61,16 +62,16 @@ object RelayRoundForm:
     val list = ids.split(' ').view.flatMap(i => GameId.from(i.trim)).toList
     (list.sizeIs > 0 && list.sizeIs <= RelayFetch.maxChapters.value).option(GameIds(list))
 
-  private def validSource(source: String): Boolean =
+  private def validSource(source: String)(using mode: Mode): Boolean =
     cleanUrl(source).isDefined || toGameIds(source).isDefined
 
-  private def cleanUrl(source: String): Option[String] =
+  private def cleanUrl(source: String)(using mode: Mode): Option[String] =
     for
       url <- Try(URL.parse(source)).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       // prevent common mistakes (not for security)
-      if !blocklist.exists(subdomain(host, _))
+      if mode.notProd || !blocklist.exists(subdomain(host, _))
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
     yield url.toString.stripSuffix("/")
 
@@ -118,7 +119,7 @@ object RelayRoundForm:
 
     def gameIds = syncUrl.flatMap(toGameIds)
 
-    def update(official: Boolean)(relay: RelayRound)(using me: Me) =
+    def update(official: Boolean)(relay: RelayRound)(using me: Me)(using mode: Mode) =
       relay.copy(
         name = name,
         caption = caption,
@@ -128,7 +129,7 @@ object RelayRoundForm:
         finished = ~finished
       )
 
-    private def makeSync(user: User): Sync =
+    private def makeSync(user: User)(using mode: Mode): Sync =
       RelayRound.Sync(
         upstream = syncUrl
           .flatMap(cleanUrl)
@@ -145,7 +146,7 @@ object RelayRoundForm:
         log = SyncLog.empty
       )
 
-    def make(user: User, tour: RelayTour) =
+    def make(user: User, tour: RelayTour)(using mode: Mode) =
       RelayRound(
         id = RelayRound.makeId,
         tourId = tour.id,

@@ -160,13 +160,10 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
     yield Ok(page)
 
   def botOnlineApi = Anon:
-    import akka.stream.scaladsl.*
-    apiC.jsonDownload:
-      Source
-        .futureSource:
-          getInt("nb")
-            .foldLeft(botsCache.get({}))((users, nb) => users.map(_.take(nb)))
-            .map(Source(_))
-        .map: u =>
-          env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
-        .throttle(50, 1.second)
+    botsCache
+      .get({})
+      .map: users =>
+        val jsons = users
+          .take(getInt("nb") | 200)
+          .map(u => env.user.jsonView.full(u.user, u.perfs.some, withProfile = true))
+        Ok(ndJson.jsToString(jsons)).as(ndJson.contentType)

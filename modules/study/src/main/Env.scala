@@ -18,6 +18,7 @@ final class Env(
     gameRepo: lila.core.game.GameRepo,
     namer: lila.core.game.Namer,
     userApi: lila.core.user.UserApi,
+    flairApi: lila.core.user.FlairApi,
     explorer: lila.core.game.Explorer,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
@@ -96,7 +97,7 @@ final class Env(
           .filter(_.nonEmpty)
           .so: members =>
             filter(members).flatMap:
-              _.traverse: streamer =>
+              _.parallel: streamer =>
                 isConnected(studyId, streamer).dmap(_.option(streamer))
               .dmap(_.flatten)
 

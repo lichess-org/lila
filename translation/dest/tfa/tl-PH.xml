@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="enterPassword">Ilagay ang iyong password at ang authentication code na ginawa ng app para makumpleto ang setup. Kakailanganin mo ng authentication code sa bawat oras na papasok ka.</string>
+</resources>

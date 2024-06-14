@@ -127,7 +127,10 @@ function metadata(ctrl: StudyCtrl): VNode {
     title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', { attrs: { title } }, title),
+      h('span.name', { attrs: { title } }, [
+        d.flair && h('img.icon-flair', { attrs: { src: site.asset.flairSrc(d.flair) } }),
+        title,
+      ]),
       h(
         'span.liking.text',
         {

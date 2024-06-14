@@ -27,6 +27,8 @@ case class Federation(
 // all=[];$('#federations_table').find('tbody tr').each(function(){all.push([$(this).find('img').attr('src').slice(5,8),$(this).find('a,strong').text().trim()])})
 object Federation:
 
+  val idNone = Id("NON")
+
   def nameToSlug(name: Name) = FidePlayer.slugify(chess.PlayerName(name))
 
   def idToSlug(id: Id): String = nameToSlug(name(id))

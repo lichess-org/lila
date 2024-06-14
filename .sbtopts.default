@@ -1,5 +1,5 @@
 -J-Xms2g
--J-Xmx6g
+-J-Xmx8g
 -J-Xss2m
 -J-XX:+UseG1GC
 -J-XX:InitialCodeCacheSize=512m

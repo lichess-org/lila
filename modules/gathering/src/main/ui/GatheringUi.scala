@@ -54,3 +54,51 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
         )
       )
     )
+
+final class GatheringFormUi(helpers: Helpers):
+  import helpers.{ *, given }
+  import play.api.data.Field
+
+  val titleBypass = frag("Titled players bypass this restriction.")
+
+  def nbRatedGame(field: Field)(using Translate) =
+    form3.group(
+      field,
+      trans.site.minimumRatedGames(),
+      help = titleBypass.some,
+      half = true
+    ):
+      form3.select(_, ConditionForm.nbRatedGameChoices)
+
+  def minRating(field: Field)(using Translate) =
+    form3.group(field, trans.site.minimumRating(), half = true):
+      form3.select(_, ConditionForm.minRatingChoices)
+
+  def maxRating(field: Field)(using Translate) =
+    form3.group(field, trans.site.maximumWeeklyRating(), half = true):
+      form3.select(_, ConditionForm.maxRatingChoices)
+
+  def accountAge(field: Field)(using Translate) =
+    form3.group(
+      field,
+      "Minimum account age",
+      help = titleBypass.some,
+      half = true
+    ):
+      form3.select(_, ConditionForm.accountAgeChoices)
+
+  def allowList(field: Field)(using Translate) =
+    form3.group(
+      field,
+      trans.swiss.predefinedUsers(),
+      help = trans.swiss.forbiddedUsers().some,
+      half = true
+    )(form3.textarea(_)(rows := 4))
+
+  def titled(field: Field)(using Translate) =
+    form3.checkbox(
+      field,
+      trans.arena.onlyTitled(),
+      help = trans.arena.onlyTitledHelp().some,
+      half = true
+    )

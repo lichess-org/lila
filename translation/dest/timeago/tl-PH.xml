@@ -1,2 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="justNow">ngayon lang</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">sa loob ng %s segundo</item>
+    <item quantity="other">sa loob ng %s segundo</item>
+  </plurals>
+  <plurals name="inNbMinutes">
+    <item quantity="one">sa loob ng %s minuto</item>
+    <item quantity="other">sa loob ng %s minuto</item>
+  </plurals>
+  <plurals name="inNbHours">
+    <item quantity="one">sa loob ng %s oras</item>
+    <item quantity="other">sa loob ng %s oras</item>
+  </plurals>
+  <plurals name="inNbDays">
+    <item quantity="one">sa loob ng %s araw</item>
+    <item quantity="other">sa loob ng %s araw</item>
+  </plurals>
+  <plurals name="inNbWeeks">
+    <item quantity="one">sa loob ng %s linggo</item>
+    <item quantity="other">sa loob ng %s linggo</item>
+  </plurals>
+  <plurals name="inNbMonths">
+    <item quantity="one">sa loob ng %s buwan</item>
+    <item quantity="other">sa loob ng %s buwan</item>
+  </plurals>
+  <plurals name="inNbYears">
+    <item quantity="one">sa loob ng %s taon</item>
+    <item quantity="other">sa loob ng %s taon</item>
+  </plurals>
+  <string name="rightNow">ngayon mismo</string>
+  <plurals name="nbMinutesAgo">
+    <item quantity="one">%s minuto na ang nakalipas</item>
+    <item quantity="other">%s isang minuto na ang nakalipas</item>
+  </plurals>
+  <plurals name="nbHoursAgo">
+    <item quantity="one">%s oras na ang nakalipas</item>
+    <item quantity="other">%s oras na ang nakalipas</item>
+  </plurals>
+  <plurals name="nbDaysAgo">
+    <item quantity="one">%s araw na ang nakalipas</item>
+    <item quantity="other">%s na ang nakalipas</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="one">%s linggo na ang nakalipas</item>
+    <item quantity="other">%s linggo na ang nakalipas</item>
+  </plurals>
+  <plurals name="nbMonthsAgo">
+    <item quantity="one">%s buwan na ang nakalipas</item>
+    <item quantity="other">%s buwan na ang nakalipas</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="one">%s taon na ang nakalipas</item>
+    <item quantity="other">%s taon na ang nakalipas</item>
+  </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minuto na lang ang natitira</item>
+    <item quantity="other">%s minuto na lang ang natitira</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s oras na lang ang natitira</item>
+    <item quantity="other">%s oras na lang ang natitira</item>
+  </plurals>
+  <string name="completed">tapos na</string>
+</resources>

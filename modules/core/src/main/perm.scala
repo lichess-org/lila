@@ -56,34 +56,35 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case CloseAccount     extends Permission("CLOSE_ACCOUNT", List(UserModView), "Close/reopen account")
   case GdprErase        extends Permission("GDPR_ERASE", List(CloseAccount), "GDPR erase account")
   case SetTitle         extends Permission("SET_TITLE", List(UserModView), "Set/unset title")
-  case SetEmail         extends Permission("SET_EMAIL", "Set email address")
-  case SeeReport        extends Permission("SEE_REPORT", "See reports")
-  case Appeals          extends Permission("APPEAL", "Handle appeals")
-  case Presets          extends Permission("PRESET", "Edit mod presets")
-  case ModLog           extends Permission("MOD_LOG", "See mod log")
-  case SeeInsight       extends Permission("SEE_INSIGHT", "View player insights")
-  case PracticeConfig   extends Permission("PRACTICE_CONFIG", "Configure practice")
-  case PuzzleCurator    extends Permission("PUZZLE_CURATOR", "Classify puzzles")
-  case OpeningWiki      extends Permission("OPENING_WIKI", "Opening wiki")
-  case Beta             extends Permission("BETA", "Beta features")
-  case UserSearch       extends Permission("USER_SEARCH", "Mod user search")
-  case ManageTeam       extends Permission("MANAGE_TEAM", "Manage teams")
-  case ManageTournament extends Permission("MANAGE_TOURNAMENT", "Manage tournaments")
-  case ManageEvent      extends Permission("MANAGE_EVENT", "Manage events")
-  case ManageSimul      extends Permission("MANAGE_SIMUL", "Manage simuls")
-  case ChangePermission extends Permission("CHANGE_PERMISSION", "Change permissions")
-  case PublicMod        extends Permission("PUBLIC_MOD", "Mod badge")
-  case Developer        extends Permission("DEVELOPER", "Developer badge")
-  case ContentTeam      extends Permission("CONTENT_TEAM", "Content Team badge")
-  case Coach            extends Permission("COACH", "Is a coach")
-  case Teacher          extends Permission("TEACHER", "Is a class teacher")
-  case ModNote          extends Permission("MOD_NOTE", "Mod notes")
-  case RemoveRanking    extends Permission("REMOVE_RANKING", "Remove from ranking")
-  case ReportBan        extends Permission("REPORT_BAN", "Report ban")
-  case ArenaBan         extends Permission("ARENA_BAN", "Ban from arenas")
-  case PrizeBan         extends Permission("PRIZE_BAN", "Ban from prized tournaments")
-  case ModMessage       extends Permission("MOD_MESSAGE", "Send mod messages")
-  case Impersonate      extends Permission("IMPERSONATE", "Impersonate")
+  case TitleRequest extends Permission("TITLE_REQUEST", List(UserModView, SetTitle), "Process title requests")
+  case SetEmail     extends Permission("SET_EMAIL", "Set email address")
+  case SeeReport    extends Permission("SEE_REPORT", "See reports")
+  case Appeals      extends Permission("APPEAL", "Handle appeals")
+  case Presets      extends Permission("PRESET", "Edit mod presets")
+  case ModLog       extends Permission("MOD_LOG", "See mod log")
+  case SeeInsight   extends Permission("SEE_INSIGHT", "View player insights")
+  case PracticeConfig        extends Permission("PRACTICE_CONFIG", "Configure practice")
+  case PuzzleCurator         extends Permission("PUZZLE_CURATOR", "Classify puzzles")
+  case OpeningWiki           extends Permission("OPENING_WIKI", "Opening wiki")
+  case Beta                  extends Permission("BETA", "Beta features")
+  case UserSearch            extends Permission("USER_SEARCH", "Mod user search")
+  case ManageTeam            extends Permission("MANAGE_TEAM", "Manage teams")
+  case ManageTournament      extends Permission("MANAGE_TOURNAMENT", "Manage tournaments")
+  case ManageEvent           extends Permission("MANAGE_EVENT", "Manage events")
+  case ManageSimul           extends Permission("MANAGE_SIMUL", "Manage simuls")
+  case ChangePermission      extends Permission("CHANGE_PERMISSION", "Change permissions")
+  case PublicMod             extends Permission("PUBLIC_MOD", "Mod badge")
+  case Developer             extends Permission("DEVELOPER", "Developer badge")
+  case ContentTeam           extends Permission("CONTENT_TEAM", "Content Team badge")
+  case Coach                 extends Permission("COACH", "Is a coach")
+  case Teacher               extends Permission("TEACHER", "Is a class teacher")
+  case ModNote               extends Permission("MOD_NOTE", "Mod notes")
+  case RemoveRanking         extends Permission("REMOVE_RANKING", "Remove from ranking")
+  case ReportBan             extends Permission("REPORT_BAN", "Report ban")
+  case ArenaBan              extends Permission("ARENA_BAN", "Ban from arenas")
+  case PrizeBan              extends Permission("PRIZE_BAN", "Ban from prized tournaments")
+  case ModMessage            extends Permission("MOD_MESSAGE", "Send mod messages")
+  case Impersonate           extends Permission("IMPERSONATE", "Impersonate")
   case DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case PayPal                extends Permission("PAYPAL", "PayPal")
   // Set the tier of own broadcasts, making them official. Group own broadcasts.
@@ -102,7 +103,11 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
   case LichessTeam       extends Permission("LICHESS_TEAM", Nil, "Lichess team")
   case TimeoutMod
-      extends Permission("TIMEOUT_MOD", List(ChatTimeout, PublicChatView, GamifyView), "Timeout mod")
+      extends Permission(
+        "TIMEOUT_MOD",
+        List(LichessTeam, ChatTimeout, PublicChatView, GamifyView),
+        "Timeout mod"
+      )
   case BoostHunter
       extends Permission(
         "BOOST_HUNTER",
@@ -223,7 +228,8 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           FullCommsExport,
           PayPal,
           Cli,
-          Settings
+          Settings,
+          TitleRequest
         ),
         "Super Admin"
       )

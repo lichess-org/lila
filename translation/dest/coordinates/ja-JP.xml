@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">30 秒の間にできるだけ多くのマスを正しくクリック！</string>
   <string name="goAsLongAsYouWant">じっくりどうぞ、時間制限なしです！</string>
   <string name="showCoordinates">座標を表示</string>
+  <string name="showCoordsOnAllSquares">すべてのマスに座標を表示</string>
   <string name="showPieces">駒を表示</string>
   <string name="startTraining">トレーニングを開始</string>
   <string name="findSquare">マスを探す</string>

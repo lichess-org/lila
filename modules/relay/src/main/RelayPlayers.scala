@@ -4,7 +4,7 @@ import chess.format.pgn.{ Tag, Tags }
 import chess.{ Elo, FideId, PlayerName, PlayerTitle }
 import play.api.data.Forms.*
 
-import lila.core.fide.{ Player, PlayerToken }
+import lila.core.fide.{ Player, PlayerToken, diacritics }
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(
@@ -48,19 +48,7 @@ private class RelayPlayersTextarea(val text: String):
   private def umlautifyPlayers(players: Map[PlayerName, RelayPlayer]): Map[PlayerName, RelayPlayer] =
     players.foldLeft(players):
       case (map, (name, player)) =>
-        map + (umlautify(name) -> player)
-
-  private def umlautify: PlayerName => PlayerName =
-    diacritics.foldLeft(_):
-      case (name, (k, v)) =>
-        if name.value.contains(k) then PlayerName(name.value.replaceAll(k, v)) else name
-
-  private val diacritics = List(
-    "ö" -> "oe",
-    "ä" -> "ae",
-    "ü" -> "ue",
-    "ß" -> "ss"
-  )
+        map + (name.map(diacritics.remove) -> player)
 
   // With player names combinations.
   // For example, if the tokenized player name is "A B C D", the combinations will be:

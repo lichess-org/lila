@@ -57,7 +57,7 @@ Wer schnäll schpillt und sofort zrugg id Turnierübersicht gaht, hät meh Schpi
   <string name="allowChatHelp">Lass d\'Schpiller ime Chatruum diskutiere</string>
   <string name="arenaStreaks">Arena Sieges Serie</string>
   <string name="arenaStreaksHelp">Nach 2 Sieg in Serie gits 4 Pünkt anstatt 2.</string>
-  <string name="noBerserkAllowed">Berserk nöd möglich</string>
+  <string name="noBerserkAllowed">Berserk nöd erlaubt</string>
   <string name="noArenaStreaks">Kei Arena-Serie</string>
   <string name="averagePerformance">Durchschnittlichi Leischtig</string>
   <string name="averageScore">Durchschnittlichi Punktzahl</string>
@@ -80,8 +80,8 @@ Bischpil: Rang 3 ime Turnier mit 100 Schpiler = 3% oder Rang 10 bi 1000 Schpiler
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">All Durchschnittswert uf dere Site sind %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Punktedurchschnitt</string>
-  <string name="pointsSum">Azahl Pünkt</string>
-  <string name="rankAvg">Rang - Durchschnitt</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Azahl Pünkt</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Rang - Durchschnitt</string>
   <string name="tournamentWinners">Turnier - Sieger</string>
   <string name="tournamentShields">Turnier - Schilder</string>
   <string name="onlyTitled">Nur Schpiler mit Titel</string>

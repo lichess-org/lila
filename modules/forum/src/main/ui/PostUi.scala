@@ -153,7 +153,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
             else r.key
           }
         )(
-          img(src := assetUrl(s"images/emoji/$r.png"), alt := r.key),
+          img(src := staticAssetUrl(s"images/emoji/$r.png"), alt := r.key),
           (size > 0).option(size)
         )
     )
@@ -161,7 +161,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
   def search(text: String, pager: Paginator[PostView.WithReadPerm])(using Context) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     Page(title)
-      .css("forum")
+      .css("bits.forum")
       .js(infiniteScrollEsmInit):
         main(cls := "box search")(
           boxTop(

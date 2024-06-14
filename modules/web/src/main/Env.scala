@@ -23,6 +23,8 @@ final class Env(
 
   val referrerRedirect = wire[ReferrerRedirect]
 
+  val github = wire[GitHub]
+
   private lazy val influxEvent = new InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,

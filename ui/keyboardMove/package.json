@@ -14,7 +14,6 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@jest/globals": "^29.7.0",
     "chess": "workspace:*",
     "common": "workspace:*",
     "game": "workspace:*",

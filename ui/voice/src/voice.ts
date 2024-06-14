@@ -9,6 +9,16 @@ export { makeVoiceMove } from './move/voice.move';
 export { renderVoiceBar } from './view';
 
 export const supportedLangs = [['en', 'English']];
+if (site.debug)
+  supportedLangs.push(
+    ['fr', 'Français'],
+    ['de', 'Deutsch'],
+    ['tr', 'Türkçe'],
+    ['vi', 'Tiếng Việt'],
+    ['ru', 'Русский'],
+    ['it', 'Italiano'],
+    ['sv', 'Svenska'],
+  );
 
 export function makeCtrl(opts: {
   redraw: () => void;

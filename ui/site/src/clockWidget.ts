@@ -14,7 +14,7 @@ export default function (el: HTMLElement, opts: Opts) {
 
 class ClockWidget {
   target: number;
-  interval: number;
+  interval: Timeout;
   constructor(
     readonly el: HTMLElement,
     private opts: Opts,

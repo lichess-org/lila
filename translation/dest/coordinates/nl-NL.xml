@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Je hebt 30 seconden om zoveel mogelijk velden correct te benoemen!</string>
   <string name="goAsLongAsYouWant">Speel zolang als je wilt, er is geen tijdslimiet!</string>
   <string name="showCoordinates">Coördinaten tonen</string>
+  <string name="showCoordsOnAllSquares">Coördinaten op elk veld</string>
   <string name="showPieces">Stukken weergeven</string>
   <string name="startTraining">Start de training</string>
   <string name="findSquare">Velden zoeken</string>

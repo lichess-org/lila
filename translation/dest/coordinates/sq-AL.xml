@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Keni 30 sekonda për të përshoqëruar saktësisht sa më tepër kuti që mundet!</string>
   <string name="goAsLongAsYouWant">Vazhdoni për sa kohë doni, s’ka kufi kohor!</string>
   <string name="showCoordinates">Shfaq koordinata</string>
+  <string name="showCoordsOnAllSquares">Koordinata në çdo katror</string>
   <string name="showPieces">Shfaq gurë</string>
   <string name="startTraining">Filloni trajnimin</string>
   <string name="findSquare">Gjeni kuadrat</string>

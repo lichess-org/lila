@@ -8,6 +8,8 @@ object FlairApi:
 
   def exists(flair: Flair): Boolean = db.isEmpty || db(flair)
 
+  def find(name: String): Option[Flair] = Flair(name).some.filter(exists)
+
   def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]] =
     import play.api.data.Forms.*
     import lila.common.Form.into
@@ -26,7 +28,7 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
     extends lila.core.user.FlairApi:
 
   import FlairApi.*
-  export FlairApi.{ formField, adminFlairs }
+  export FlairApi.{ find, formField, adminFlairs }
 
   given flairOf: FlairGet = id => lightUserApi.async(id).dmap(_.flatMap(_.flair))
 

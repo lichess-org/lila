@@ -13,7 +13,7 @@
   <string name="strength">قدرت</string>
   <string name="toggleTheChat">گپ روشن/خاموش</string>
   <string name="chat">گپ</string>
-  <string name="resign">تسلیم شوید</string>
+  <string name="resign">تسلیم شدن</string>
   <string name="checkmate">کیش و مات</string>
   <string name="stalemate">پات</string>
   <string name="white">سفید</string>
@@ -42,10 +42,10 @@
     <item quantity="other">رقیب شما بازی را ترک کرده است. شما میتوانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
   </plurals>
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
-  <string name="forceResignation">ادعای برد</string>
+  <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این وب‌نشانی آید با شما بازی خواهد کرد.</string>
   <string name="whiteResigned">سفید تسلیم شد</string>
   <string name="blackResigned">سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">سفید بازی را ترک کرد</string>
@@ -147,11 +147,11 @@
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s نفر بازیکن آنلاین</item>
-    <item quantity="other">%s نفر بازیکن آنلاین</item>
+    <item quantity="one">%s بازیکن</item>
+    <item quantity="other">%s بازیکن</item>
   </plurals>
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
-  <string name="fiftyMovesWithoutProgress">persian</string>
+  <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>
   <string name="currentGames">بازی های در جریان</string>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
@@ -290,7 +290,7 @@
   <string name="rematchOfferCanceled">پیشنهاد بازی دوباره لغو شد</string>
   <string name="rematchOfferDeclined">پیشنهاد بازی دوباره رد شد</string>
   <string name="cancelRematchOffer">لغو کردن پیشنهاد بازی دوباره</string>
-  <string name="viewRematch">تماشای مجدد بازی</string>
+  <string name="viewRematch">بازتماشای بازی</string>
   <string name="confirmMove">تایید حرکت</string>
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
@@ -404,12 +404,12 @@
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
-  <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
+  <string name="importGameExplanation">برای دریافت بازپخش مرورپذیر، واکاوی رایانه‌ای، گپ‌های بازی، و وب‌نشانی همگانی همرسانی‌پذیر، PGN یک بازی را جای‌گذاری کنید.</string>
   <string name="importGameCaveat">تغییرات پاک خواهند شد. برای حفظ آنها، PGN را از طریق مطالعه وارد کنید.</string>
   <string name="importGameDataPrivacyWarning">این PGN برای عموم در دسترس است، برای وارد کردن یک بازی خصوصی، از *مطالعه* استفاده کنید.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s بارگزاری شده</item>
-    <item quantity="other">%s بارگزاری شده</item>
+    <item quantity="one">%s بارگذاری شده</item>
+    <item quantity="other">%s بارگذاری شده</item>
   </plurals>
   <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
@@ -469,7 +469,7 @@
   <string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
   <string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
   <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
-  <string name="join">وارد شدن</string>
+  <string name="join">ملحق شدن</string>
   <string name="withdraw">منصرف شدن</string>
   <string name="points">امتیازها</string>
   <string name="wins">بردها</string>
@@ -482,7 +482,7 @@
   <string name="resume">ادامه دادن</string>
   <string name="youArePlaying">شما بازی میکنید!</string>
   <string name="winRate">درصد برد</string>
-  <string name="berserkRate">درصد برزرک</string>
+  <string name="berserkRate">میزان جنون</string>
   <string name="performance">عملکرد</string>
   <string name="tournamentComplete">مسابقات به پایان رسید</string>
   <string name="movesPlayed">حرکات انجام شده</string>
@@ -520,7 +520,7 @@
   <string name="inlineNotation">نشانه‌گذاری خطی</string>
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
-  <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
+  <string name="previouslyOnLichessTV">بازی پیشین در Lichess</string>
   <string name="onlinePlayers">بازیکنان بَرخط</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
@@ -595,7 +595,7 @@
   <string name="onSlowGames">در بازی های آرام</string>
   <string name="always">همیشه</string>
   <string name="never">هرگز</string>
-  <string name="xCompetesInY">%1$s در تورنمت %2$s رقابت می کند</string>
+  <string name="xCompetesInY">%1$s در %2$s رقابت می‌کند.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
   <string name="victoryVsYInZ">%1$s مقابل %2$s در %3$s</string>
@@ -630,7 +630,7 @@
   <string name="error.email">آدرس ایمیل غیر معتبر است</string>
   <string name="error.email_acceptable">این آدرس ایمیل قابل قبول نیست. لطفا آدرس وارد شده را چک کنید و دوباره امتحان کنید.</string>
   <string name="error.email_unique">آدرس ایمیل نامعتبر است یا قبلا در سیستم ثبت شده است</string>
-  <string name="error.email_different">این آدرس ایمیل همان آدرس ایمیل قبلی شما است</string>
+  <string name="error.email_different">اکنون، این نشانی رایانامه‌تان شما است</string>
   <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
   <string name="error.maxLength">باید حداقل دارای %s حرف باشد</string>
   <string name="error.min">باید حداقل %s باشد</string>
@@ -701,10 +701,10 @@
   <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
   <string name="keyNextMistake">اشتباه بعدی</string>
   <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
-  <string name="keyPreviousBranch">شاخه قبلی</string>
+  <string name="keyPreviousBranch">شاخه پیشین</string>
   <string name="keyNextBranch">شاخه بعدی</string>
   <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
-  <string name="cyclePreviousOrNextVariation">چرخه قبلی/بعدی شاخه اصلی</string>
+  <string name="cyclePreviousOrNextVariation">چرخه پیشین/پسین شاخه اصلی</string>
   <string name="toggleGlyphAnnotations">کلید علائم حرکت‌نویسی</string>
   <string name="togglePositionAnnotations">تغییر علائم حرکت‌نویسی</string>
   <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
@@ -740,7 +740,7 @@
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
   <string name="downloadRaw">دانلود خام</string>
   <string name="downloadImported">دانلود جایگذاری شده</string>
-  <string name="crosstable">نتایج رودررو</string>
+  <string name="crosstable">رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
@@ -781,7 +781,7 @@
   <string name="xJoinsY">%1$s وارد می شود %2$s</string>
   <string name="xLikesY">%1$s می پسندد %2$s</string>
   <string name="quickPairing">رویارویی سریع</string>
-  <string name="lobby">سرسرا</string>
+  <string name="lobby">بازی های ایجادشده</string>
   <string name="anonymous">ناشناس</string>
   <string name="yourScore">امتیاز شما:%s</string>
   <string name="language">زبان</string>
@@ -790,7 +790,7 @@
   <string name="dark">تیره</string>
   <string name="transparent">شفاف</string>
   <string name="deviceTheme">طرح زمینه دستگاه</string>
-  <string name="backgroundImageUrl">لینک تصویر پس زمینه:</string>
+  <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
   <string name="board">صفحه شطرنج</string>
   <string name="size">اندازه</string>
   <string name="opacity">کدری</string>
@@ -936,7 +936,8 @@
   <string name="streamerManager">مدیریت پخش</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
-  <string name="tournDescriptionHelp">نکته خاصی را می خواهید با شرکت کنندگان در میان بگذارید؟ سعی کنید کوتاه باشد. لینک های علامت گذاری موجود هستند: [name] (https://url)</string>
+  <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌کنندگان گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
+[name](https://url)</string>
   <string name="ratedFormHelp">بازی‌ها رسمی هستند
 و روی درجه‌بندی بازیکنان تاثیر می‌گذارند</string>
   <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
@@ -951,12 +952,12 @@
   <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>
   <string name="estimatedStart">زمان تقریبی شروع بازی</string>
-  <string name="simulFeatured">نمایش بازی هم‌زمان روی لینک %s</string>
+  <string name="simulFeatured">نمایش در %s</string>
   <string name="simulFeaturedHelp">بازی هم‌زمان خود را برای همه بر روی لینک %s نشان بدهید. برای دسترسی خصوصی آن را غیرفعال نمایید.</string>
   <string name="simulDescription">توصیف بازی هم‌زمان</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
   <string name="markdownAvailable">%s برای کُدهای دستوری پیچیده‌تر در دسترس است.</string>
-  <string name="embedsAvailable">برای قرار دادن یک بخش جهت مطالعه یا یک بازی، پیوند آن را در زیر بنویسید (لینک مربوط به آن را کپی و پیست نمایید).</string>
+  <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی فصل مطالعه را برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
   <string name="noChat">بدون چت</string>

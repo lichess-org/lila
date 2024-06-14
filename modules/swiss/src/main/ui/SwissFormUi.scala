@@ -8,6 +8,7 @@ import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Translate
 import lila.gathering.{ ConditionForm, GatheringClock }
 import chess.variant.Variant
+import lila.gathering.ui.GatheringFormUi
 
 final class SwissFormUi(helpers: Helpers)(
     translatedVariantChoicesWithVariants: (
@@ -57,28 +58,22 @@ final class SwissFormUi(helpers: Helpers)(
   private def advancedSettings(settings: Frag*)(using Context) =
     details(summary(trans.site.advancedSettings()), settings)
 
+  private val gatheringFormUi = GatheringFormUi(helpers)
+
   private def condition(form: Form[SwissForm.SwissData])(using ctx: Context) =
     frag(
       form3.split(
-        form3.group(form("conditions.nbRatedGame.nb"), trans.site.minimumRatedGames(), half = true)(
-          form3.select(_, ConditionForm.nbRatedGameChoices)
-        ),
-        (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).so {
-          form3.checkbox(
-            form("conditions.titled"),
-            trans.arena.onlyTitled(),
-            help = trans.arena.onlyTitledHelp().some,
-            half = true
-          )
-        }
+        gatheringFormUi.nbRatedGame(form("conditions.nbRatedGame.nb")),
+        gatheringFormUi.accountAge(form("conditions.accountAge"))
       ),
-      form3.split(
-        form3.group(form("conditions.minRating.rating"), trans.site.minimumRating(), half = true)(
-          form3.select(_, ConditionForm.minRatingChoices)
-        ),
-        form3.group(form("conditions.maxRating.rating"), trans.site.maximumWeeklyRating(), half = true)(
-          form3.select(_, ConditionForm.maxRatingChoices)
+      (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).option {
+        form3.split(
+          gatheringFormUi.titled(form("conditions.titled"))
         )
+      },
+      form3.split(
+        gatheringFormUi.minRating(form("conditions.minRating.rating")),
+        gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
       )
     )
 

@@ -240,13 +240,15 @@ final class MsgApi(
         )
       .flatMap: docs =>
         import userRepo.userHandler
-        (for
+        val convos = for
           doc     <- docs
           msgs    <- doc.getAsOpt[List[Msg]]("msgs")
           contact <- doc.getAsOpt[User]("contact")
-        yield relationApi.fetchRelation(contact.id, user.id).map { relation =>
-          ModMsgConvo(contact, msgs.take(10), Relations(relation, none), msgs.length == 11)
-        }).parallel
+        yield (contact, msgs)
+        convos.sequentially: (contact, msgs) =>
+          relationApi.fetchRelation(contact.id, user.id).map { relation =>
+            ModMsgConvo(contact, msgs.take(10), Relations(relation, none), msgs.length == 11)
+          }
 
   def deleteAllBy(user: User): Funit = for
     threads <- colls.thread.list[MsgThread]($doc("users" -> user.id))

@@ -3,7 +3,7 @@ package views.base
 import lila.app.UiEnv.{ *, given }
 
 def notFound(msg: Option[String])(using Context) =
-  Page(msg | "Page not found").css("not-found"):
+  Page(msg | "Page not found").css("bits.not-found"):
     main(cls := "not-found page-small box box-pad")(
       header(
         h1("404"),
@@ -19,7 +19,7 @@ def notFound(msg: Option[String])(using Context) =
       ),
       div(cls := "game")(
         iframe(
-          src            := assetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
+          src            := staticAssetUrl(s"vendor/ChessPursuit/bin-release/index.html"),
           st.frameborder := 0,
           widthA         := 400,
           heightA        := 500,

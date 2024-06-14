@@ -13,11 +13,9 @@ trait AssetHelper:
   def manifest: AssetManifest
   def assetBaseUrl: AssetBaseUrl
   def assetUrl(path: String): String
-  def infiniteScrollEsmInit: EsmInit
-  def captchaEsmInit: EsmInit
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
 
-  val load = "site.asset.loadEsm"
+  private val load = "site.asset.loadEsm"
 
   given Conversion[EsmInit, EsmList] with
     def apply(esmInit: EsmInit): EsmList = List(Some(esmInit))
@@ -25,13 +23,16 @@ trait AssetHelper:
     def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
 
   def jsModuleInit(key: String): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${manifest.jsName(key)}')"))
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('$key')"))
   def jsModuleInit(key: String, json: SafeJsonStr): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${manifest.jsName(key)}',{init:$json})"))
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('$key',{init:$json})"))
   def jsModuleInit[A: Writes](key: String, value: A): EsmInit =
     jsModuleInit(key, safeJsonValue(Json.toJson(value)))
   def jsPageModule(key: String): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${manifest.jsName(key)}')"))
+    EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$key')"))
+
+  val infiniteScrollEsmInit: EsmInit = jsModuleInit("bits.infiniteScroll")
+  val captchaEsmInit: EsmInit        = EsmInit("bits.captcha")
 
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
@@ -51,6 +52,8 @@ trait AssetHelper:
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
   def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+
+  def iconFlair(flair: Flair): Tag = img(cls := "icon-flair", src := flairSrc(flair))
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
     re.enabled.so(jsModuleInit("bits.hcaptcha"))

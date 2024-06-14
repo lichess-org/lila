@@ -270,7 +270,7 @@
   <string name="accept">ஏல்</string>
   <string name="decline">மறு</string>
   <string name="playingRightNow">இப்பொழுது ஆடுகின்றது</string>
-  <string name="eventInProgress">இப்பொழுது ஓடிக்கொண்டிருக்கின்றன</string>
+  <string name="eventInProgress">இப்பொழுது விளையாடுவோர்</string>
   <string name="finished">முடிந்தது</string>
   <string name="abortGame">ஆட்டத்தைக் கலை</string>
   <string name="gameAborted">ஆட்டம் கலைந்தது</string>
@@ -318,7 +318,7 @@
     <item quantity="other">%s இழுபறிகள்</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s விளையாடிண்டிருக்கிறார்கள்</item>
+    <item quantity="one">%s விளையாடிக்கொண்டிருப்பது</item>
     <item quantity="other">%s விளையாடிண்டிருக்கிறார்கள்</item>
   </plurals>
   <string name="exportGames">ஆட்டங்களை வெளியேற்று</string>
