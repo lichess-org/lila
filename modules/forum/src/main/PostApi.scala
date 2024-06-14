@@ -51,9 +51,7 @@ final class PostApi(
           case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
           case _ =>
             env.postRepo.coll.insert.one(post) >>
-              env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
-                shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, true)
-              } >>
+              env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >>
               env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
               (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
               (!categ.quiet ?? env.recent.invalidate()) >>-
@@ -86,16 +84,6 @@ final class PostApi(
         case (_, post) =>
           val newPost = post.editPost(DateTime.now, spam replace newText)
           env.postRepo.coll.update.one($id(post.id), newPost) inject newPost
-      }
-    }
-
-  private val quickHideCategs = Set("lishogi-feedback", "off-topic-discussion")
-
-  private def shouldHideOnPost(topic: Topic) =
-    topic.visibleOnHome && {
-      (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
-        topic.nbPosts == maxPerPage.value ||
-        topic.createdAt.isBefore(DateTime.now minusDays 5)
       }
     }
 
