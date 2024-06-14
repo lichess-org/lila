@@ -90,10 +90,7 @@ object header:
             .option(a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes")))
         ),
         div(cls := "user-actions dropdown")(
-          a(
-            cls      := "text",
-            dataIcon := Icon.List
-          ),
+          a(cls := "text", dataIcon := Icon.Hamburger),
           div(cls := "dropdown-window")(
             (ctx
               .is(u))
