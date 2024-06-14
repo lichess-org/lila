@@ -57,7 +57,7 @@ final class User(
     }
 
   private[controllers] val userShowRateLimit =
-    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(2))
+    env.security.ipTrust.rateLimit(10_000, 1.day, "user.show.ip", _.proxyMultiplier(3))
 
   def show(username: UserStr) = OpenBody:
     EnabledUser(username): u =>

@@ -17,7 +17,7 @@ case class Chapter(
     setup: Chapter.Setup,
     root: Root,
     tags: Tags,
-    order: Int,
+    order: Chapter.Order,
     ownerId: UserId,
     conceal: Option[Ply] = None,
     practice: Option[Boolean] = None,
@@ -86,7 +86,7 @@ case class Chapter(
       .openingSensibleVariants(setup.variant)
       .so(OpeningDb.searchInFens(root.mainline.map(_.fen.opening)))
 
-  def isEmptyInitial = order == 1 && root.children.isEmpty
+  def isEmptyInitial = order == 1 && root.children.isEmpty && tags.value.isEmpty
 
   def cloneFor(study: Study) =
     copy(
@@ -119,6 +119,8 @@ case class Chapter(
 
 object Chapter:
 
+  type Order = Int
+
   // I've seen chapters with 35,000 nodes on prod.
   // It works but could be used for DoS.
   val maxNodes = 3000
@@ -137,13 +139,11 @@ object Chapter:
     def isFromFen = ~fromFen
 
   case class Relay(
-      index: Option[Int], // game index in the source URL, none to always match tags
       path: UciPath,
       lastMoveAt: Instant,
       fideIds: Option[PairOf[Option[chess.FideId]]]
   ):
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.toSeconds).toInt
-    def isPush                    = index.isEmpty
 
   case class ServerEval(path: UciPath, done: Boolean)
 
@@ -155,7 +155,7 @@ object Chapter:
 
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
-  def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
+  def defaultName(order: Order) = StudyChapterName(s"Chapter $order")
 
   private val defaultNameRegex           = """Chapter \d+""".r
   def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)

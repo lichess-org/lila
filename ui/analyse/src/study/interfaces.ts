@@ -42,6 +42,7 @@ export type Federations = { [key: string]: string };
 export interface StudyData {
   id: string;
   name: string;
+  flair?: Flair;
   members: StudyMemberMap;
   position: Position;
   ownerId: string;

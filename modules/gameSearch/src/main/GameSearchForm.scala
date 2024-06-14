@@ -6,8 +6,9 @@ import play.api.data.Forms.*
 import java.time.LocalDate
 
 import lila.common.Form.*
-import lila.search.Range
 import lila.core.i18n.Translate
+import lila.search.spec.{ Sorting as SpecSorting, Clocking, IntRange, DateRange, Query }
+import smithy4s.Timestamp
 
 final private[gameSearch] class GameSearchForm:
 
@@ -21,29 +22,25 @@ final private[gameSearch] class GameSearchForm:
         "white"  -> optional(username.historicalField),
         "black"  -> optional(username.historicalField)
       )(SearchPlayer.apply)(unapply),
-      "winnerColor" -> optional(numberIn(Query.winnerColors)),
+      "winnerColor" -> optional(numberIn(FormHelpers.winnerColors)),
       "perf"        -> optional(numberIn((PerfKey.all - PerfKey.puzzle).map(_.id.value))),
-      "source"      -> optional(numberIn(Query.sources)),
-      "mode"        -> optional(numberIn(Query.modes)),
-      "turnsMin"    -> optional(numberIn(Query.turns)),
-      "turnsMax"    -> optional(numberIn(Query.turns)),
-      "ratingMin"   -> optional(numberIn(Query.averageRatings)),
-      "ratingMax"   -> optional(numberIn(Query.averageRatings)),
-      "hasAi"       -> optional(numberIn(Query.hasAis)),
-      "aiLevelMin"  -> optional(numberIn(Query.aiLevels)),
-      "aiLevelMax"  -> optional(numberIn(Query.aiLevels)),
-      "durationMin" -> optional(numberIn(Query.durations)),
-      "durationMax" -> optional(numberIn(Query.durations)),
-      "clock" -> mapping(
-        "initMin" -> optional(numberIn(Query.clockInits)),
-        "initMax" -> optional(numberIn(Query.clockInits)),
-        "incMin"  -> optional(numberIn(Query.clockIncs)),
-        "incMax"  -> optional(numberIn(Query.clockIncs))
-      )(SearchClock.apply)(unapply),
-      "dateMin"  -> GameSearchForm.dateField,
-      "dateMax"  -> GameSearchForm.dateField,
-      "status"   -> optional(numberIn(Query.statuses)),
-      "analysed" -> optional(number),
+      "source"      -> optional(numberIn(FormHelpers.sources)),
+      "mode"        -> optional(numberIn(FormHelpers.modes)),
+      "turnsMin"    -> optional(numberIn(FormHelpers.turns)),
+      "turnsMax"    -> optional(numberIn(FormHelpers.turns)),
+      "ratingMin"   -> optional(numberIn(FormHelpers.averageRatings)),
+      "ratingMax"   -> optional(numberIn(FormHelpers.averageRatings)),
+      "hasAi"       -> optional(numberIn(FormHelpers.hasAis)),
+      "aiLevelMin"  -> optional(numberIn(FormHelpers.aiLevels)),
+      "aiLevelMax"  -> optional(numberIn(FormHelpers.aiLevels)),
+      "durationMin" -> optional(numberIn(FormHelpers.durations)),
+      "durationMax" -> optional(numberIn(FormHelpers.durations)),
+      "clockInit"   -> optional(numberIn(FormHelpers.clockInits)),
+      "clockInc"    -> optional(numberIn(FormHelpers.clockIncs)),
+      "dateMin"     -> GameSearchForm.dateField,
+      "dateMax"     -> GameSearchForm.dateField,
+      "status"      -> optional(numberIn(FormHelpers.statuses)),
+      "analysed"    -> optional(number),
       "sort" -> optional(
         mapping(
           "field" -> stringIn(Sorting.fields),
@@ -71,7 +68,8 @@ private[gameSearch] case class SearchData(
     aiLevelMax: Option[Int] = None,
     durationMin: Option[Int] = None,
     durationMax: Option[Int] = None,
-    clock: SearchClock = SearchClock.empty,
+    clockInit: Option[Int] = None,
+    clockInc: Option[Int] = None,
     dateMin: Option[LocalDate] = None,
     dateMax: Option[LocalDate] = None,
     status: Option[Int] = None,
@@ -81,33 +79,35 @@ private[gameSearch] case class SearchData(
 
   def sortOrDefault = sort | SearchSort()
 
-  def query =
-    Query(
-      user1 = players.cleanA,
-      user2 = players.cleanB,
-      winner = players.cleanWinner,
-      loser = players.cleanLoser,
-      winnerColor = winnerColor,
-      perf =
-        if perf.exists(_ == 5) then List(1, 2, 3, 4, 6)
-        else perf.toList, // 1,2,3,4,6 are the perf types for standard games
-      source = source,
-      rated = mode.flatMap(Mode.apply).map(_.rated),
-      turns = Range(turnsMin, turnsMax),
-      averageRating = Range(ratingMin, ratingMax),
-      hasAi = hasAi.map(_ == 1),
-      aiLevel = Range(aiLevelMin, aiLevelMax),
-      duration = Range(durationMin, durationMax),
-      clock = Clocking(clock.initMin, clock.initMax, clock.incMin, clock.incMax),
-      date = Range(dateMin, dateMax),
-      status = status,
-      analysed = analysed.map(_ == 1),
-      whiteUser = players.cleanWhite,
-      blackUser = players.cleanBlack,
-      sorting = Sorting(sortOrDefault.field, sortOrDefault.order)
-    )
+  def query: Query.Game = Query.game(
+    user1 = players.cleanA.map(_.value),
+    user2 = players.cleanB.map(_.value),
+    winner = players.cleanWinner.map(_.value),
+    loser = players.cleanLoser.map(_.value),
+    winnerColor = winnerColor,
+    perf =
+      if perf.exists(_ == 5) then List(1, 2, 3, 4, 6)
+      else perf.toList, // 1,2,3,4,6 are the perf types for standard games
+    source = source,
+    rated = mode.flatMap(Mode.apply).map(_.rated),
+    status = status,
+    turns = IntRange(turnsMin, turnsMax).some,
+    averageRating = IntRange(ratingMin, ratingMax).some,
+    hasAi = hasAi.map(_ == 1),
+    aiLevel = IntRange(aiLevelMin, aiLevelMax).some,
+    date = DateRange(dateMin.map(transform), dateMax.map(transform)).some,
+    duration = IntRange(durationMin, durationMax).some,
+    analysed = analysed.map(_ == 1),
+    whiteUser = players.cleanWhite.map(_.value),
+    blackUser = players.cleanBlack.map(_.value),
+    sorting = SpecSorting(sortOrDefault.field, sortOrDefault.order).some,
+    clockInit = clockInit,
+    clockInc = clockInc
+  )
 
-  def nonEmptyQuery = Some(query).filter(_.nonEmpty)
+  def transform(l: LocalDate): Timestamp = Timestamp(l.getYear, l.getMonthValue, l.getDayOfMonth)
+
+  def nonEmptyQuery: Option[Query.Game] = query.some.filter(_.nonEmpty)
 
 private[gameSearch] case class SearchPlayer(
     a: Option[UserStr] = None,
@@ -131,26 +131,3 @@ private[gameSearch] case class SearchSort(
     field: String = Sorting.default.f,
     order: String = Sorting.default.order
 )
-
-private[gameSearch] case class SearchClock private (
-    initMin: Option[Int],
-    initMax: Option[Int],
-    incMin: Option[Int],
-    incMax: Option[Int]
-)
-
-private[gameSearch] object SearchClock:
-
-  def empty = new SearchClock(None, None, None, None)
-
-  def apply(
-      initMin: Option[Int] = None,
-      initMax: Option[Int] = None,
-      incMin: Option[Int] = None,
-      incMax: Option[Int] = None
-  ): SearchClock =
-    inline def isValid =
-      (initMin, initMax).mapN(_ <= _).getOrElse(true) && (incMin, incMax).mapN(_ <= _).getOrElse(true)
-    if isValid
-    then new SearchClock(initMin, initMax, incMin, incMax)
-    else empty

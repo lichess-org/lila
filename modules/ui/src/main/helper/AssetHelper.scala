@@ -53,7 +53,7 @@ trait AssetHelper:
 
   def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
-  def iconFlair(name: String): Tag = img(cls := "icon-flair", src := flairSrc(Flair(name)))
+  def iconFlair(flair: Flair): Tag = img(cls := "icon-flair", src := flairSrc(flair))
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
     re.enabled.so(jsModuleInit("bits.hcaptcha"))

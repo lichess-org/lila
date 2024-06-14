@@ -13,9 +13,8 @@
   "dependencies": {
     "@types/chess.js": "0.10.1",
     "chess.js": "github:ornicar/chess.js#learn",
-    "chessground": "4.4.2",
     "common": "workspace:*",
-    "mithril": "github:ornicar/mithril.js#lila-1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "bundles": "src/learn.ts"

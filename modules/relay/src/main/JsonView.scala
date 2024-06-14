@@ -64,13 +64,14 @@ final class JsonView(
       .add("teamTable" -> tour.teamTable)
       .add("leaderboard" -> tour.autoLeaderboard)
 
-  def fullTourWithRounds(trs: WithRounds): JsObject =
+  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours]): JsObject =
     Json
       .obj(
         "tour" -> fullTour(trs.tour),
         "rounds" -> trs.rounds.map: round =>
           withUrl(round.withTour(trs.tour), withTour = false)
       )
+      .add("group" -> group)
 
   def apply(t: RelayTour | WithLastRound | ActiveWithSomeRounds): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
@@ -100,10 +101,14 @@ final class JsonView(
     val linkRound = tr.link.withTour(tr.tour)
     apply(tr.display) ++ Json.obj("url" -> s"$baseUrl${linkRound.path}")
 
-  def withUrlAndPreviews(rt: RelayRound.WithTourAndStudy, previews: ChapterPreview.AsJsons)(using
+  def withUrlAndPreviews(
+      rt: RelayRound.WithTourAndStudy,
+      previews: ChapterPreview.AsJsons,
+      group: Option[RelayGroup.WithTours]
+  )(using
       Option[Me]
   ): JsObject =
-    myRound(rt) ++ Json.obj("games" -> previews)
+    myRound(rt) ++ Json.obj("games" -> previews).add("group" -> group)
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
@@ -127,9 +132,8 @@ final class JsonView(
       pinned: Option[(UserId, String, Option[ImageId])]
   ) =
     JsonView.JsData(
-      relay = fullTourWithRounds(trs)
+      relay = fullTourWithRounds(trs, group)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
-        .add("group" -> group)
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
         .add("pinned" -> pinned.map: (id, name, image) =>
@@ -150,7 +154,7 @@ final class JsonView(
       past: Paginator[WithLastRound]
   ) =
     Json.obj(
-      "active"   -> active.map(apply(_)),
+      "active"   -> active.sortBy(t => -(~t.tour.tier)).map(apply(_)),
       "upcoming" -> upcoming.map(apply(_)),
       "past"     -> paginatorWriteNoNbResults.writes(past.map(apply(_)))
     )

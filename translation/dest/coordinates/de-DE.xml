@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Du hast 30 Sekunden, um so viele Felder wie möglich korrekt zu benennen!</string>
   <string name="goAsLongAsYouWant">Spiele so lange du willst, es gibt keine Zeitbegrenzung!</string>
   <string name="showCoordinates">Koordinaten anzeigen</string>
+  <string name="showCoordsOnAllSquares">Koordinaten auf jedem Feld</string>
   <string name="showPieces">Figuren anzeigen</string>
   <string name="startTraining">Training beginnen</string>
   <string name="findSquare">Feld finden</string>

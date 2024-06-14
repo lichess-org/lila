@@ -56,9 +56,10 @@ final class RelayRound(
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+    given play.api.Mode = env.mode
     env.relay.api
       .byIdAndContributor(id)
-      .flatMapz { rt =>
+      .flatMapz: rt =>
         bindForm(env.relay.roundForm.edit(rt.round))(
           err => fuccess(Left(rt -> err)),
           data =>
@@ -66,9 +67,7 @@ final class RelayRound(
               .update(rt.round)(data.update(rt.tour.official))
               .dmap(_.withTour(rt.tour))
               .dmap(Right(_))
-        )
-          .dmap(some)
-      }
+        ).dmap(some)
       .orNotFound:
         _.fold(
           (old, err) =>
@@ -107,10 +106,10 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTour(id)): rt =>
       Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
         studyC.CanView(study)(
-          env.study.preview
-            .jsonList(study.id)
-            .map: previews =>
-              JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews))
+          for
+            group    <- env.relay.api.withTours.get(rt.tour.id)
+            previews <- env.study.preview.jsonList(study.id)
+          yield JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group))
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)

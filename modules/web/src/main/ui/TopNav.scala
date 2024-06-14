@@ -39,6 +39,7 @@ final class TopNav(helpers: Helpers):
           linkTitle(puzzleUrl, trans.site.puzzles()),
           div(role := "group")(
             a(href := puzzleUrl)(trans.site.puzzles()),
+            a(href := langHref(routes.Puzzle.themes))("Puzzle Themes"),
             a(href := routes.Puzzle.dashboard(30, "home", none))(trans.puzzle.puzzleDashboard()),
             a(href := langHref(routes.Puzzle.streak))("Puzzle Streak"),
             a(href := langHref(routes.Storm.home))("Puzzle Storm"),

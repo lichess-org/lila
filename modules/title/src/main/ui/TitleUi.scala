@@ -19,8 +19,8 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
       .wrap: body =>
         main(cls := "box box-pad page")(body)
 
-  def index(title: String, intro: Frag)(using Context) =
-    layout(title).css("bits.page"):
+  def index(page: Page, intro: Frag)(using Context) =
+    page.css("bits.page"):
       frag(
         intro,
         br,
@@ -31,22 +31,21 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
         )
       )
 
-  def create(form: Form[TitleRequest.FormData])(using Context) =
-    layout():
+  def create(page: Page, form: Form[TitleRequest.FormData])(using Context) =
+    page:
       frag(
-        h1(cls := "box__top")("Verify your title"),
+        h1(cls := "box__top")(page.title),
         postForm(cls := "form3", action := routes.TitleVerify.create)(
           dataForm(form),
           form3.action(form3.submit("Next"))
         )
       )
 
-  def edit(form: Form[TitleRequest.FormData], req: TitleRequest)(using Context) =
-    val title = "Your title verification"
-    layout(title)
+  def edit(page: Page, form: Form[TitleRequest.FormData], req: TitleRequest)(using Context) =
+    page
       .js(EsmInit("bits.titleRequest")):
         frag(
-          h1(cls := "box__top")(title),
+          h1(cls := "box__top")(page.title),
           standardFlash,
           showStatus(req),
           if req.status.is(_.approved)
@@ -102,17 +101,20 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           case Status.approved =>
             h2("Your ", nbsp, userTitleTag(req.data.title), nbsp, " title has been confirmed!")
           case Status.rejected    => h2("Your request has been rejected.")
+          case Status.imported    => h2("Your request has been archived.")
           case Status.feedback(t) => frag("Moderator feedback:", br, br, strong(t))
       )
     )
 
   def statusFlair(req: TitleRequest)(using Context) = iconFlair:
-    import TitleRequest.Status
-    req.status.name match
-      case "approved" => "activity.sparkles"
-      case "rejected" => "symbols.cross-mark"
-      case "feedback" => "symbols.speech-balloon"
-      case _          => "objects.hourglass-not-done"
+    Flair:
+      import TitleRequest.Status
+      req.status.name match
+        case "approved" => "activity.sparkles"
+        case "rejected" => "symbols.cross-mark"
+        case "feedback" => "symbols.speech-balloon"
+        case "imported" => "objects.books"
+        case _          => "objects.hourglass-not-done"
 
   private def dataForm(form: Form[TitleRequest.FormData])(using Context) =
     frag(

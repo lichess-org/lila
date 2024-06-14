@@ -43,7 +43,7 @@ case class RelayRound(
 
   def ensureStarted     = copy(startedAt = startedAt.orElse(nowInstant.some))
   def hasStarted        = startedAt.isDefined
-  def hasStartedEarly   = hasStarted && startsAt.exists(_.isAfter(nowInstant))
+  def hasStartedEarly   = startedAt.exists(at => startsAt.exists(_.isAfter(at)))
   def shouldHaveStarted = hasStarted || startsAt.exists(_.isBefore(nowInstant))
 
   def shouldGiveUp =
@@ -96,7 +96,7 @@ object RelayRound:
     def seconds: Option[Int] = until
       .map: u =>
         (u.toSeconds - nowSeconds).toInt
-      .filter(0 <)
+      .filter(0 < _)
 
     def playing = nextAt.isDefined
     def paused  = !playing
@@ -104,8 +104,8 @@ object RelayRound:
     def addLog(event: SyncLog.Event) = copy(log = log.add(event))
     def clearLog                     = copy(log = SyncLog.empty)
 
-    def hasDelay      = delay.exists(_.value > 0)
     def nonEmptyDelay = delay.filter(_.value > 0)
+    def hasDelay      = nonEmptyDelay.isDefined
 
     override def toString = upstream.toString
 
@@ -123,7 +123,7 @@ object RelayRound:
       def isLcc: Boolean = UpstreamUrl.LccRegex.matches(url)
     object UpstreamUrl:
       case class WithRound(url: String, round: Option[Int])
-      val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
+      val LccRegex = """.*view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r
     case class UpstreamIds(ids: List[GameId]) extends Upstream
 
   trait AndTour:

@@ -12,21 +12,23 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
 
   private def api = env.title.api
   private def ui  = views.title.ui
+  private def inSiteMenu(title: String = "Your title verification")(using Context) =
+    views.site.ui.SitePage(title, "title", "page box box-pad force-ltr").css("bits.titleRequest")
 
   def index = Auth { _ ?=> me ?=>
     cmsC.orCreateOrNotFound(CmsPageKey("title-verify-index")): page =>
       api.getCurrent.flatMap:
         case Some(req) => Redirect(routes.TitleVerify.show(req.id))
-        case None      => Ok.async(ui.index(page.title, views.site.page.pageContent(page)))
+        case None      => Ok.async(ui.index(inSiteMenu(page.title), views.site.page.pageContent(page)))
   }
 
   def form = Auth { _ ?=> _ ?=>
-    Ok.async(ui.create(env.title.form.create))
+    Ok.async(ui.create(inSiteMenu(), env.title.form.create))
   }
 
   def create = AuthBody { _ ?=> _ ?=>
     bindForm(env.title.form.create)(
-      err => BadRequest.async(ui.create(err)),
+      err => BadRequest.async(ui.create(inSiteMenu(), err)),
       data =>
         api
           .create(data)
@@ -38,7 +40,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
   def show(id: TitleRequestId) = Auth { _ ?=> me ?=>
     Found(api.getForMe(id)): req =>
       if req.userId.is(me)
-      then Ok.async(ui.edit(env.title.form.edit(req.data), req))
+      then Ok.async(ui.edit(inSiteMenu(), env.title.form.edit(req.data), req))
       else
         for
           data    <- getModData(req)
@@ -64,7 +66,7 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
   def update(id: TitleRequestId) = AuthBody { _ ?=> me ?=>
     Found(api.getForMe(id)): req =>
       bindForm(env.title.form.create)(
-        err => BadRequest.async(ui.edit(err, req)),
+        err => BadRequest.async(ui.edit(inSiteMenu(), err, req)),
         data =>
           api
             .update(req, data)

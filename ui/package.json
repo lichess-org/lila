@@ -9,10 +9,11 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/jest": "^29.5.12",
-    "jest": "^29.7.0"
+    "jsdom": "^24.1.0",
+    "vitest": "^1.6.0"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "vitest run",
+    "test:watch": "vitest"
   }
 }

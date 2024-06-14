@@ -48,12 +48,12 @@ GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey)
 GET   /api/rel/following               controllers.Relation.apiFollowing
 POST  /api/rel/follow/:user            controllers.Relation.follow(user: UserStr)
 POST  /api/rel/unfollow/:user          controllers.Relation.unfollow(user: UserStr)
+POST  /api/rel/block/:userId           controllers.Relation.block(userId: UserStr)
+POST  /api/rel/unblock/:userId         controllers.Relation.unblock(userId: UserStr)
 # lichobile BC
 POST  /rel/unfollow/:user              controllers.Relation.unfollowBc(user: UserStr)
 POST  /rel/follow/:user                controllers.Relation.followBc(user: UserStr)
 # end lichobile BC
-POST  /rel/block/:userId               controllers.Relation.block(userId: UserStr)
-POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: UserStr)
 GET   /@/:username/following           controllers.Relation.following(username: UserStr, page: Int ?= 1)
 GET   /@/:username/followers           controllers.Relation.followers(username: UserStr, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
@@ -880,7 +880,6 @@ GET   /variant/:key                    controllers.Cms.variant(key: chess.varian
 
 # Help
 GET   /help/contribute                 controllers.Cms.help
-GET   /help/master                     controllers.Cms.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

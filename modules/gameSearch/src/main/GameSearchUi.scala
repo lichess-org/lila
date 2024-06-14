@@ -50,8 +50,7 @@ final class GameSearchUi(helpers: Helpers)(
               f.mode,
               f.turns,
               f.duration,
-              f.clockTime,
-              f.clockIncrement,
+              f.clock,
               f.status,
               f.winnerColor,
               f.date,
@@ -118,8 +117,7 @@ final class GameSearchUi(helpers: Helpers)(
         f.rating,
         f.turns,
         f.duration,
-        f.clockTime,
-        f.clockIncrement,
+        f.clock,
         f.source,
         f.perf,
         f.mode
@@ -211,8 +209,8 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
         )
       ),
       td(cls := "two-columns")(
-        div(trs.from(), " ", form3.select(form("ratingMin"), Query.averageRatings, "".some)),
-        div(trs.to(), " ", form3.select(form("ratingMax"), Query.averageRatings, "".some))
+        div(trs.from(), " ", form3.select(form("ratingMin"), FormHelpers.averageRatings, "".some)),
+        div(trs.to(), " ", form3.select(form("ratingMax"), FormHelpers.averageRatings, "".some))
       )
     )
 
@@ -225,22 +223,22 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
           span(cls := "help", title := trs.humanOrComputer.txt())("(?)")
         )
       ),
-      td(cls := "opponent")(form3.select(form("hasAi"), Query.hasAis, "".some))
+      td(cls := "opponent")(form3.select(form("hasAi"), FormHelpers.hasAis, "".some))
     )
 
   def aiLevel =
     tr(cls := "aiLevel none")(
       th(label(trans.search.aiLevel())),
       td(cls := "two-columns")(
-        div(trs.from(), " ", form3.select(form("aiLevelMin"), Query.aiLevels, "".some)),
-        div(trs.to(), " ", form3.select(form("aiLevelMax"), Query.aiLevels, "".some))
+        div(trs.from(), " ", form3.select(form("aiLevelMin"), FormHelpers.aiLevels, "".some)),
+        div(trs.to(), " ", form3.select(form("aiLevelMax"), FormHelpers.aiLevels, "".some))
       )
     )
 
   def source =
     tr(
       th(label(`for` := form3.id(form("source")))(trans.search.source())),
-      td(form3.select(form("source"), Query.sources, "".some))
+      td(form3.select(form("source"), FormHelpers.sources, "".some))
     )
 
   private lazy val perfKeys = PerfKey.all.filter(_ != PerfKey.puzzle)
@@ -261,15 +259,15 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
   def mode =
     tr(
       th(label(`for` := form3.id(form("mode")))(trans.site.mode())),
-      td(form3.select(form("mode"), Query.modes, "".some))
+      td(form3.select(form("mode"), FormHelpers.modes, "".some))
     )
 
   def turns =
     tr(
       th(label(trs.nbTurns())),
       td(cls := "two-columns")(
-        div(trs.from(), " ", form3.select(form("turnsMin"), Query.turns, "".some)),
-        div(trs.to(), " ", form3.select(form("turnsMax"), Query.turns, "".some))
+        div(trs.from(), " ", form3.select(form("turnsMin"), FormHelpers.turns, "".some)),
+        div(trs.to(), " ", form3.select(form("turnsMax"), FormHelpers.turns, "".some))
       )
     )
 
@@ -278,44 +276,35 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
       tr(
         th(label(trans.site.duration())),
         td(cls := "two-columns")(
-          div(trs.from(), " ", form3.select(form("durationMin"), Query.durations, "".some)),
-          div(trs.to(), " ", form3.select(form("durationMax"), Query.durations, "".some))
+          div(trs.from(), " ", form3.select(form("durationMin"), FormHelpers.durations, "".some)),
+          div(trs.to(), " ", form3.select(form("durationMax"), FormHelpers.durations, "".some))
         )
       )
     )
 
-  def clockTime =
+  def clock =
     tr(
-      th(label(trans.site.clockInitialTime())),
+      th(label(trans.site.clock())),
       td(cls := "two-columns")(
         div(
-          trs.from(),
+          trans.site.clockInitialTime(),
           " ",
-          form3.select(form("clock")("initMin"), Query.clockInits, "".some)
+          form3.select(form("clockInit"), FormHelpers.clockInits, "".some)
         ),
-        div(trs.to(), " ", form3.select(form("clock")("initMax"), Query.clockInits, "".some))
-      )
-    )
-
-  def clockIncrement =
-    tr(
-      th(label(trans.site.clockIncrement())),
-      td(cls := "two-columns")(
-        div(trs.from(), " ", form3.select(form("clock")("incMin"), Query.clockIncs, "".some)),
-        div(trs.to(), " ", form3.select(form("clock")("incMax"), Query.clockIncs, "".some))
+        div(trans.site.clockIncrement(), " ", form3.select(form("clockInc"), FormHelpers.clockIncs, "".some))
       )
     )
 
   def status =
     tr(
       th(label(`for` := form3.id(form("status")))(trs.result())),
-      td(form3.select(form("status"), Query.statuses, "".some))
+      td(form3.select(form("status"), FormHelpers.statuses, "".some))
     )
 
   def winnerColor =
     tr(
       th(label(`for` := form3.id(form("winnerColor")))(trans.search.winnerColor())),
-      td(form3.select(form("winnerColor"), Query.winnerColors, "".some))
+      td(form3.select(form("winnerColor"), FormHelpers.winnerColors, "".some))
     )
 
   def date =

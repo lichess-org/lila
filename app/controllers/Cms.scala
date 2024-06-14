@@ -55,9 +55,8 @@ final class Cms(env: Env) extends LilaController(env):
 
   // pages
 
-  val help   = menuPage(CmsPageKey("help"))
-  val tos    = menuPage(CmsPageKey("tos"))
-  val master = menuPage(CmsPageKey("master"))
+  val help = menuPage(CmsPageKey("help"))
+  val tos  = menuPage(CmsPageKey("tos"))
 
   def page(key: CmsPageKey, active: Option[String])(using Context) =
     FoundPage(env.cms.render(key)): p =>

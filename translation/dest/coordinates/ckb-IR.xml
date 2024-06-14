@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">30 چرکەت هەیە بۆ ئەوەی زۆرترین چوارگۆشە بە دروستی بزانیت!</string>
   <string name="goAsLongAsYouWant">تا ئەو کاتەی دەتەوێت بڕۆ، هیچ سنوورێکی کاتیی نییە!</string>
   <string name="showCoordinates">ناوی خانەکان پیشان بدە</string>
+  <string name="showCoordsOnAllSquares">رێکخستن لەسەر هەموو چوارگۆشەیەک دەکات</string>
   <string name="showPieces">پیشاندانی پارچە</string>
   <string name="startTraining">دەست بە ڕاهێنان بکە</string>
   <string name="findSquare">چوارگۆشەکە بدۆزەوە</string>
