@@ -26,7 +26,7 @@ final class Challenge(
       api.allFor(me).map(env.challenge.jsonView.apply).map(JsonOk)
   }
 
-  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me ?=>
+  def apiList = ScopedBody(_.Challenge.Read, _.Web.Mobile) { ctx ?=> me ?=>
     api.allFor(me, 300).map { all =>
       JsonOk:
         Json.obj(
@@ -39,7 +39,7 @@ final class Challenge(
   def show(id: ChallengeId, _color: Option[Color]) = Open:
     showId(id)
 
-  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read) { ctx ?=> _ ?=>
+  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read, _.Web.Mobile) { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>
       val direction: Option[Direction] =
         if isMine(c) then Direction.Out.some
@@ -125,7 +125,7 @@ final class Challenge(
       )
 
   def apiAccept(id: ChallengeId) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me ?=>
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=> me ?=>
       def tryRematch =
         env.bot.player.rematchAccept(id.into(GameId)).flatMap {
           if _ then jsonOkResult
@@ -173,7 +173,7 @@ final class Challenge(
           )
           .inject(NoContent)
   }
-  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
+  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
     api.activeByIdFor(id, me).flatMap {
       case None =>
         env.bot.player.rematchDecline(id.into(GameId)).flatMap {
@@ -195,7 +195,7 @@ final class Challenge(
         then api.cancel(c).inject(NoContent)
         else notFound
 
-  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
+  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
     api.activeByIdBy(id, me).flatMap {
       case Some(c) => api.cancel(c).inject(jsonOkResult)
       case None =>
