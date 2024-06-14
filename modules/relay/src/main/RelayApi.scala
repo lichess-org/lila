@@ -110,16 +110,16 @@ final class RelayApi(
       get(tour.id).map(RelayTour.WithGroupTours(tour, _))
     def invalidate(id: RelayTourId) = cache.underlying.synchronous.invalidate(id)
 
-  private def toSyncSelect = $doc(
+  private def toSyncSelect(onlyIds: Option[List[RelayTourId]]) = $doc(
     "sync.until".$exists(true),
     "sync.nextAt".$lt(nowInstant)
-  )
+  ) ++ onlyIds.so(ids => $doc("tourId".$in(ids)))
 
-  private[relay] def toSyncOfficial(max: Max): Fu[List[WithTour]] =
+  private[relay] def toSyncOfficial(max: Max, onlyIds: Option[List[RelayTourId]]): Fu[List[WithTour]] =
     roundRepo.coll
       .aggregateList(max.value, _.pri): framework =>
         import framework.*
-        Match(toSyncSelect) -> List(
+        Match(toSyncSelect(onlyIds)) -> List(
           PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour"),
           Match($doc("tour.tier".$exists(true))),
@@ -128,11 +128,15 @@ final class RelayApi(
         )
       .map(_.flatMap(readRoundWithTour))
 
-  private[relay] def toSyncUser(max: Max, maxPerUser: Max = Max(5)): Fu[List[WithTour]] =
+  private[relay] def toSyncUser(
+      max: Max,
+      onlyIds: Option[List[RelayTourId]],
+      maxPerUser: Max = Max(5)
+  ): Fu[List[WithTour]] =
     roundRepo.coll
       .aggregateList(max.value, _.pri): framework =>
         import framework.*
-        Match(toSyncSelect) -> List(
+        Match(toSyncSelect(onlyIds)) -> List(
           PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour"),
           Match($doc("tour.tier".$exists(false))),

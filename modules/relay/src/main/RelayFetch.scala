@@ -27,7 +27,8 @@ final private class RelayFetch(
     fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
-    gameProxy: lila.core.game.GameProxy
+    gameProxy: lila.core.game.GameProxy,
+    onlyIds: Option[List[RelayTourId]] = None
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*
@@ -51,7 +52,9 @@ final private class RelayFetch(
   private val maxRelaysToSync = Max(50)
 
   private def syncRelays(official: Boolean): Funit =
-    val relays = if official then api.toSyncOfficial(maxRelaysToSync) else api.toSyncUser(maxRelaysToSync)
+    val relays =
+      if official then api.toSyncOfficial(maxRelaysToSync, onlyIds)
+      else api.toSyncUser(maxRelaysToSync, onlyIds)
     relays
       .flatMap: relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
