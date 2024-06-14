@@ -148,7 +148,8 @@ final class CoachUi(helpers: Helpers)(
                 cls      := "text button button-empty",
                 dataIcon := Icon.BubbleSpeech,
                 href     := s"${routes.Msg.convo(c.user.username)}"
-              )(trc.sendPM()),
+              )(trc.sendPM())
+            ,
           ),
           div(cls := "coach-show__main coach-main box")(
             div(cls := "coach-widget")(widget(c, link = false)),

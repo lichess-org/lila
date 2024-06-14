@@ -56,8 +56,8 @@ final class TournamentStandingApi(
       compute(tourId, page, withScores = true)
 
   def clearCache(tour: Tournament): Unit =
-    first.invalidate(tour.id)
-    // no need to invalidate createdCache, these are only cached when tour.isCreated
+  first.invalidate(tour.id)
+  // no need to invalidate createdCache, these are only cached when tour.isCreated
 
   private def compute(id: TourId, page: Int, withScores: Boolean): Fu[JsObject] =
     cached.tourCache.byId(id).orFail(s"No such tournament: $id").flatMap { compute(_, page, withScores) }

@@ -42,9 +42,9 @@ private object BsonHandlers:
     )
 
   def writeThread(thread: MsgThread, delBy: List[UserId]): Bdoc =
-    threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)
-      ++ $doc("maskWith" -> $doc("date" -> thread.lastMsg.date))
-    // looks weird, but maybe.. it is the way
+  threadHandler.writeTry(thread).get ++ $doc("del" -> delBy)
+    ++ $doc("maskWith" -> $doc("date" -> thread.lastMsg.date))
+  // looks weird, but maybe.. it is the way
 
   def selectNotDeleted(using me: Me) =
     if UserId.lichess.is(me) then $empty // using "del" is too expensive

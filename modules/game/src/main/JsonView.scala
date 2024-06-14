@@ -13,31 +13,31 @@ final class JsonView(rematches: Rematches):
   import JsonView.given
 
   def base(game: Game, initialFen: Option[Fen.Full]) =
-    Json
-      .obj(
-        "id"        -> game.id,
-        "variant"   -> game.variant,
-        "speed"     -> game.speed.key,
-        "perf"      -> game.perfKey,
-        "rated"     -> game.rated,
-        "fen"       -> Fen.write(game.chess),
-        "turns"     -> game.ply,
-        "source"    -> game.source,
-        "status"    -> game.status,
-        "createdAt" -> game.createdAt
-      )
-      .add("startedAtTurn" -> game.chess.startedAtPly.some.filter(_ > 0))
-      .add("initialFen" -> initialFen)
-      .add("threefold" -> game.history.threefoldRepetition)
-      .add("boosted" -> game.boosted)
-      .add("tournamentId" -> game.tournamentId)
-      .add("swissId" -> game.swissId)
-      .add("winner" -> game.winnerColor)
-      .add("rematch" -> rematches.getAcceptedId(game.id))
-      .add("rules" -> game.metadata.nonEmptyRules)
-      .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
+  Json
+    .obj(
+      "id"        -> game.id,
+      "variant"   -> game.variant,
+      "speed"     -> game.speed.key,
+      "perf"      -> game.perfKey,
+      "rated"     -> game.rated,
+      "fen"       -> Fen.write(game.chess),
+      "turns"     -> game.ply,
+      "source"    -> game.source,
+      "status"    -> game.status,
+      "createdAt" -> game.createdAt
+    )
+    .add("startedAtTurn" -> game.chess.startedAtPly.some.filter(_ > 0))
+    .add("initialFen" -> initialFen)
+    .add("threefold" -> game.history.threefoldRepetition)
+    .add("boosted" -> game.boosted)
+    .add("tournamentId" -> game.tournamentId)
+    .add("swissId" -> game.swissId)
+    .add("winner" -> game.winnerColor)
+    .add("rematch" -> rematches.getAcceptedId(game.id))
+    .add("rules" -> game.metadata.nonEmptyRules)
+    .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
 
-    // adds fields that could be computed by the client instead
+  // adds fields that could be computed by the client instead
   def baseWithChessDenorm(game: Game, initialFen: Option[Fen.Full]) =
     base(game, initialFen) ++ Json
       .obj(
