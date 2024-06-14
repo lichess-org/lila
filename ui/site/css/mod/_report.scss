@@ -5,7 +5,7 @@ $c-report-high-over: white;
 #report_list {
   .header {
     @extend %flex-between-stretch;
-    height: 4rem;
+    min-height: 4rem;
   }
   .header .icon {
     flex: 1 1 auto;
