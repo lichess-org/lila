@@ -72,7 +72,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   private val featurableSelect = $doc("featurable" -> true)
 
   def allCreatedFeaturable: Fu[List[Simul]] =
-    simulColl.ext
+    simulColl
       .find(
         // hits partial index hostSeenAt_-1
         createdSelect ++ featurableSelect ++ $doc(
@@ -81,11 +81,15 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       )
       .sort(createdSort)
       .cursor[Simul]()
-      .list() map {
+      .list(10) map {
       _.foldLeft(List.empty[Simul]) {
-        case (acc, sim) if acc.exists(_.hostId == sim.hostId) => acc
-        case (acc, sim)                                       => sim :: acc
-      }.reverse
+        case (acc, sim)
+            if !acc.exists(_.hostId == sim.hostId) && (sim.popular || sim.createdAt.isAfter(
+              DateTime.now.minusHours(4)
+            )) =>
+          sim :: acc
+        case (acc, _) => acc
+      }.sortBy(_.nbAccepted)
     }
 
   def hostId(id: Simul.ID): Fu[Option[User.ID]] =
