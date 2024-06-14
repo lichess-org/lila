@@ -27,8 +27,8 @@ object bits {
     }
 
   def homepageSpotlight(s: lila.simul.Simul)(implicit ctx: Context) =
-    a(href    := routes.Simul.show(s.id), cls := "tour-spotlight little id_@s.id")(
-      img(cls := "img icon", src              := staticUrl("images/fire-silhouette.svg")),
+    a(href             := routes.Simul.show(s.id), cls := "tour-spotlight little id_@s.id")(
+      iconTag("f")(cls := "img"),
       span(cls := "content")(
         span(cls := "name")(s.name, " simul"),
         span(cls := "more")(
@@ -37,18 +37,6 @@ object bits {
           trans.join()
         )
       )
-    )
-
-  def allCreated(simuls: List[lila.simul.Simul])(implicit lang: play.api.i18n.Lang) =
-    table(
-      simuls map { simul =>
-        tr(
-          td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
-          td(userIdLink(simul.hostId.some)),
-          td(cls := "text", dataIcon := "p")(simul.clock.config.show),
-          td(cls := "text", dataIcon := "r")(simul.applicants.size)
-        )
-      }
     )
 
   private[simul] def setup(sim: lila.simul.Simul)(implicit lang: play.api.i18n.Lang) =

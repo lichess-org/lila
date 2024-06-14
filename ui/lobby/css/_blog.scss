@@ -1,28 +1,33 @@
 .lobby__blog {
-  .post {
-    @extend %flex-between;
-    color: $c-font;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    padding: 0 0.5em 0 0;
-    border-top: $border;
-    &:hover {
-      background: $c-bg-zebra;
-    }
-    .text {
-      flex: 1 1 100%;
-    }
-    strong {
-      display: block;
-    }
-    img {
-      height: 5.5em;
-      width: 5.5em;
-      margin-right: 0.8em;
-    }
-    time {
-      color: $c-font-dim;
-      white-space: nowrap;
+  height: calc(6em * 3 + 3px + 2.6em);
+  .lobby__box__content {
+    display: flex;
+    flex-direction: column;
+    .post {
+      @extend %flex-between;
+      color: $c-font;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      padding: 0 0.5em 0 0;
+      border-top: $border;
+      flex: 1;
+      &:hover {
+        background: $c-bg-zebra;
+      }
+      .text {
+        flex: 1 1 100%;
+      }
+      strong {
+        display: block;
+      }
+      img {
+        height: 100%;
+        margin-right: 0.8em;
+      }
+      time {
+        color: $c-font-dim;
+        white-space: nowrap;
+      }
     }
   }
 }

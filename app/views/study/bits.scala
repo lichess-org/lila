@@ -94,4 +94,19 @@ object bits {
         views.html.streamer.bits.contextual(s.streamer.userId)
       }
     )
+
+  def home(studies: List[lila.study.Study.MiniStudy]) =
+    table(cls := "studies")(
+      studies map { s =>
+        tr(
+          td(cls := "name")(
+            a(cls := "text", href := routes.Study.show(s.id.value))(
+              s.name
+            )
+          ),
+          td(momentFromNow(s.createdAt)),
+          td(dataIcon := "", cls := "text")(s.likes.value)
+        )
+      }
+    )
 }

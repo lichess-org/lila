@@ -1,11 +1,44 @@
 .lobby__forum {
-  li {
-    margin: 0.6em 0;
-    padding-left: 9px;
-    line-height: 14px;
-    white-space: nowrap;
-  }
-  .extract {
-    @extend %roboto;
+  ol {
+    li {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+
+      a.post_link {
+        display: flex;
+        align-items: center;
+        padding: 0.5em 9px;
+        min-width: 0;
+        flex: 1;
+      }
+
+      .post_topic {
+        font-weight: bold;
+        color: $c-link;
+        padding-right: 0.5rem;
+      }
+
+      span[data-icon] {
+        color: $c-link;
+      }
+
+      .post_text {
+        @extend %roboto;
+        @extend %nowrap-ellipsis;
+      }
+
+      .user-link {
+        padding-right: 0.5rem;
+        opacity: 0.8;
+      }
+
+      &:hover {
+        background: $c-bg-zebra;
+        .user-link {
+          opacity: 1;
+        }
+      }
+    }
   }
 }

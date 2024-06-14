@@ -16,6 +16,7 @@ final class StudyPager(
 
   import BSONHandlers._
   import studyRepo.{
+    postGameStudy,
     selectLiker,
     selectMemberId,
     selectOwnerId,
@@ -107,8 +108,6 @@ final class StudyPager(
       hint = onlyMine.isDefined option $doc("uids" -> 1, "rank" -> -1)
     )
   }
-
-  private def postGameStudy(exists: Boolean) = $doc("postGameStudy" $exists exists)
 
   private def accessSelect(me: Option[User]) =
     me.fold(selectPublic) { u =>

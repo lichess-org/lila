@@ -1,26 +1,20 @@
 package lila.simul
 
-import akka.actor._
-import akka.pattern.ask
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import shogi.variant.Variant
-import lila.common.{ Bus, Debouncer }
+import lila.common.Bus
 import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi._
-import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
-import makeTimeout.short
 
 final class SimulApi(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     onGameStart: lila.round.OnStart,
     socket: SimulSocket,
-    renderer: lila.hub.actors.Renderer,
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     cacheApi: lila.memo.CacheApi
@@ -62,7 +56,7 @@ final class SimulApi(
       estimatedStartAt = setup.estimatedStartAt,
       team = setup.team
     )
-    repo.create(simul, me.hasGames) >>- publish() >>- {
+    repo.create(simul, me.hasGames) >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
   }
@@ -78,7 +72,7 @@ final class SimulApi(
       estimatedStartAt = setup.estimatedStartAt,
       team = setup.team
     )
-    repo.update(simul) >>- publish() inject simul
+    repo.update(simul) inject simul
   }
 
   def addApplicant(simulId: Simul.ID, user: User, variantKey: String): Funit =
@@ -145,7 +139,7 @@ final class SimulApi(
     workQueue(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
-          (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
+          (repo remove simul) >>- socket.aborted(simul.id)
         }
       }
     }
@@ -251,7 +245,7 @@ final class SimulApi(
     }
 
   private def update(simul: Simul) =
-    repo.update(simul) >>- socket.reload(simul.id) >>- publish()
+    repo.update(simul) >>- socket.reload(simul.id)
 
   private def WithSimul(
       finding: Simul.ID => Fu[Option[Simul]],
@@ -264,25 +258,5 @@ final class SimulApi(
         }
       }
     }
-  }
-
-  private object publish {
-    private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer = system.actorOf(
-      Props(
-        new Debouncer(
-          5 seconds,
-          { (_: Debouncer.Nothing) =>
-            Bus.publish(siteMessage, "sendToFlag")
-            repo.allCreatedFeaturable foreach { simuls =>
-              renderer.actor ? actorApi.SimulTable(simuls) map { case view: String =>
-                Bus.publish(ReloadSimuls(view), "lobbySocket")
-              }
-            }
-          }
-        )
-      )
-    )
-    def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
 }

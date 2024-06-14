@@ -7,9 +7,9 @@
     @extend %roboto;
     a {
       @extend %base-font, %page-font;
-    }
-    &:hover a {
-      color: $c-link;
+      &:hover {
+        color: $c-link;
+      }
     }
     &::after {
       content: '';

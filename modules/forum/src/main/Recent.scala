@@ -12,14 +12,12 @@ final class Recent(
     categIds: List[String]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val nb: Int = 10
-
   private type GetTeamIds = String => Fu[List[String]]
 
   def apply(user: Option[User], getTeams: GetTeamIds): Fu[List[MiniForumPost]] =
     userCacheKey(user, getTeams) flatMap cache.get
 
-  private val teamCache = cacheApi[String, List[MiniForumPost]](512, "forum.team.recent") {
+  private val teamCache = cacheApi[String, List[MiniForumPost]](128, "forum.team.recent") {
     _.expireAfterWrite(1 hour)
       .buildAsyncFuture { id =>
         postRepo.recentInCateg(teamSlug(id), 6) flatMap postApi.miniPosts
@@ -54,9 +52,10 @@ final class Recent(
 
   private def parseLangs(langStr: String) = langStr.split(",").toList.filter(_.nonEmpty)
 
+  private val nb: Int = 10
   private def fetch(key: String): Fu[List[MiniForumPost]] =
     (key.split(";").toList match {
       case langs :: categs => postRepo.recentInCategs(nb)(categs, parseLangs(langs))
-      case categs          => postRepo.recentInCategs(nb)(categs, parseLangs("en"))
+      case categs          => postRepo.recentInCategs(nb)(categs, parseLangs(defaultLang))
     }) flatMap postApi.miniPosts
 }

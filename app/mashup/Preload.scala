@@ -8,6 +8,7 @@ import lila.game.{ Game, Pov }
 import lila.playban.TempBan
 import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams
+import lila.study.Study.MiniStudy
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.tv.Tv
@@ -39,6 +40,7 @@ final class Preload(
       tours: Fu[List[Tournament]],
       events: Fu[List[Event]],
       simuls: Fu[List[Simul]],
+      studies: Fu[List[MiniStudy]],
       streamerSpots: Int
   )(implicit ctx: Context): Fu[Homepage] =
     lobbyApi(ctx).mon(_.lobby segment "lobbyApi") zip
@@ -46,6 +48,7 @@ final class Preload(
       tours.mon(_.lobby segment "tours") zip
       events.mon(_.lobby segment "events") zip
       simuls.mon(_.lobby segment "simuls") zip
+      studies.mon(_.lobby segment "studies") zip
       tv.getBestGame.mon(_.lobby segment "tvBestGame") zip
       (ctx.userId ?? timelineApi.userEntries).mon(_.lobby segment "timeline") zip
       userCached.topWeek.mon(_.lobby segment "userTopWeek") zip
@@ -57,7 +60,7 @@ final class Preload(
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {
         // format: off
-        case (((((((((((((data, povs), posts), tours), events), simuls), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames) =>
+        case ((((((((((((((data, povs), posts), tours), events), simuls), studies), feat), entries), lead), tWinners), puzzle), streams), playban), blindGames) =>
         // format: on
           (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _)
             .mon(_.lobby segment "currentGame") zip
@@ -73,6 +76,7 @@ final class Preload(
                 tours,
                 events,
                 simuls,
+                studies,
                 feat,
                 lead,
                 tWinners,
@@ -124,6 +128,7 @@ object Preload {
       tours: List[Tournament],
       events: List[Event],
       simuls: List[Simul],
+      studies: List[MiniStudy],
       featured: Option[Game],
       leaderboard: List[User.LightPerf],
       tournamentWinners: List[Winner],

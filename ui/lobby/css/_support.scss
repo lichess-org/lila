@@ -1,13 +1,14 @@
 $c-support: $c-brag;
 
 .lobby__support {
+  margin-top: auto;
   a {
     @extend %flex-center-nowrap, %box-neat;
     background: $c-bg-box;
     font-size: 1.3em;
-    margin-bottom: $block-gap;
     padding: 0.6em 0.5em;
-    border: 1px solid $c-support;
+    outline: 1px solid $c-support;
+    outline-offset: -1px;
     @include transition();
     &:hover {
       background: $c-support;

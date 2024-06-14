@@ -69,34 +69,28 @@ body {
   }
 }
 
-.lobby__description #shogi_description p {
-  margin: 0.5rem 0.75rem;
+.lobby__studies .studies {
+  td.text {
+    text-align: right;
+    padding-right: 2rem;
+    opacity: 0.8;
+  }
 }
 
-.lobby__variants #variants_list {
-  display: flex;
-  flex-wrap: wrap;
-  .variants_item {
-    padding: 0.7rem 0;
-    width: 50%;
-    text-align: center;
-    &:hover {
-      background: $c-bg-zebra;
-    }
-    h3 {
-      font-size: 1.2rem;
-      color: $c-font;
-      &::before {
-        float: left;
-        padding-left: 0.75rem;
-        color: $c-primary;
-      }
-    }
-    &:nth-child(odd) {
-      border-right: $border;
-    }
-    &:nth-child(n + 1):not(:nth-last-child(-n + 1)) {
-      border-bottom: $border;
+.lobby__tournaments .tournaments {
+  td.text {
+    opacity: 0.8;
+  }
+}
+
+.lobby__description {
+  .lobby__box__content {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    p {
+      line-height: 1.5;
+      margin: 0.5rem 0.75rem;
     }
   }
 }

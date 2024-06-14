@@ -16,17 +16,18 @@ object post {
       posts map { p =>
         li(
           a(
-            dataIcon := p.isTeam.option("f"),
-            cls      := "post_link text",
-            href     := routes.ForumPost.redirect(p.postId),
-            title    := p.topicName
+            cls   := "post_link",
+            href  := routes.ForumPost.redirect(p.postId),
+            title := p.topicName
           )(
-            shorten(p.topicName, 30)
+            p.isTeam option span(
+              cls      := "text",
+              dataIcon := "f"
+            ),
+            span(cls := "post_topic")(shorten(p.topicName, 30)),
+            span(cls := "post_text")(shorten(p.text, 70))
           ),
-          " ",
-          userIdLink(p.userId, withOnline = false),
-          " ",
-          span(cls := "extract")(shorten(p.text, 70))
+          userIdLink(p.userId, withOnline = false)
         )
       }
     )

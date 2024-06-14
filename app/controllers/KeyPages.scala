@@ -24,6 +24,7 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         tours = env.tournament.cached.onHomepage.getUnit.nevermind,
         events = env.event.api.promoteTo(ctx.req).nevermind,
         simuls = env.simul.allCreatedFeaturable.get {}.nevermind,
+        studies = env.study.hotFeaturable.getUnit.nevermind,
         streamerSpots = env.streamer.homepageMaxSetting.get()
       )
       .mon(_.lobby segment "preloader.total")

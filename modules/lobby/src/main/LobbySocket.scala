@@ -63,8 +63,6 @@ final class LobbySocket(
 
       case ReloadTournaments(html) => tellActive(makeMessage("tournaments", html))
 
-      case ReloadSimuls(html) => tellActive(makeMessage("simuls", html))
-
       case ReloadTimelines(users) => send(Out.tellLobbyUsers(users, makeMessage("reload_timeline")))
 
       case AddHook(hook) =>

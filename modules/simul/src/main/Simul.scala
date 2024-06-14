@@ -77,6 +77,10 @@ case class Simul(
 
   def startable = isCreated && nbAccepted > 1
 
+  def popular = nbAccepted >= 3
+
+  def veryPopular = nbAccepted >= 8
+
   def start =
     startable option copy(
       status = SimulStatus.Started,

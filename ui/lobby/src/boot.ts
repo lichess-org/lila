@@ -45,13 +45,6 @@ export default function boot(cfg, element) {
         $('#enterable_tournaments').html(data);
         window.lishogi.pubsub.emit('content_loaded');
       },
-      simuls: function (data) {
-        $('#enterable_simuls')
-          .html(data)
-          .parent()
-          .toggle($('#enterable_simuls tr').length > 0);
-        window.lishogi.pubsub.emit('content_loaded');
-      },
       sfen: function (e) {
         window.lishogi.StrongSocket.defaults.events.sfen(e);
         lobby.gameActivity(e.id);

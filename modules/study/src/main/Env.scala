@@ -3,6 +3,7 @@ package lila.study
 import com.softwaremill.macwire._
 import play.api.Configuration
 import play.api.libs.ws.WSClient
+import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.socket.Socket.{ GetVersion, SocketVersion }
@@ -79,6 +80,12 @@ final class Env(
   lazy val notationDump = wire[NotationDump]
 
   lazy val gifExport = new GifExport(ws, appConfig.get[String]("game.gifUrl"))
+
+  val maxHot = 6
+  lazy val hotFeaturable = cacheApi.unit[List[Study.MiniStudy]] {
+    _.refreshAfterWrite(2 minutes)
+      .buildAsyncFuture(_ => studyRepo.hot(maxHot))
+  }
 
   def cli =
     new lila.common.Cli {

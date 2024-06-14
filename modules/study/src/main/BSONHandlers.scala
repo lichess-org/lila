@@ -393,7 +393,9 @@ object BSONHandlers {
   import Study.Rank
   implicit private[study] val RankBSONHandler = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
 
-  // implicit val StudyBSONHandler = BSON.LoggingHandler(logger)(Macros.handler[Study])
+  import Study.MiniStudy
+  implicit val StudyMiniBSONHandler = Macros.handler[MiniStudy]
+
   implicit val StudyBSONHandler = Macros.handler[Study]
 
   implicit val lightStudyBSONReader = new BSONDocumentReader[Study.LightStudy] {

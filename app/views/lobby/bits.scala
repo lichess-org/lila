@@ -6,8 +6,6 @@ import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
 
-import shogi.variant._
-
 object bits {
 
   val lobbyApp = div(cls := "lobby__app")(
@@ -15,9 +13,22 @@ object bits {
     div(cls := "lobby__app__content")
   )
 
-  def underboards(
-      tours: List[lila.tournament.Tournament],
+  def spotlights(
+      events: List[lila.event.Event],
       simuls: List[lila.simul.Simul],
+      tours: List[lila.tournament.Tournament]
+  )(implicit ctx: Context) = {
+    val max            = 3 - events.size
+    val toursSelected  = lila.tournament.Spotlight.select(tours, ctx.me, max - events.size)
+    val simulsSelected = simuls.take((max - toursSelected.size) atLeast 1)
+    frag(
+      events.map(bits.eventSpotlight),
+      simulsSelected map views.html.simul.bits.homepageSpotlight,
+      toursSelected map views.html.tournament.homepageSpotlight.apply
+    )
+  }
+
+  def rankings(
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
   )(implicit ctx: Context) =
@@ -64,24 +75,32 @@ object bits {
             )
           )
         )
+      )
+    )
+
+  def tournaments(
+      tours: List[lila.tournament.Tournament]
+  )(implicit ctx: Context) =
+    div(cls := "lobby__tournaments lobby__box")(
+      a(cls := "lobby__box__top", href := langHref(routes.Tournament.home))(
+        h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
+        span(cls := "more")(trans.more(), " »")
       ),
-      div(cls := "lobby__tournaments lobby__box")(
-        a(cls := "lobby__box__top", href := langHref(routes.Tournament.home))(
-          h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
-          span(cls := "more")(trans.more(), " »")
-        ),
-        div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
-          views.html.tournament.bits.enterable(tours)
-        )
+      div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
+        views.html.tournament.bits.enterable(tours)
+      )
+    )
+
+  def studies(
+      studies: List[lila.study.Study.MiniStudy]
+  )(implicit ctx: Context) =
+    div(cls := "lobby__studies lobby__box")(
+      a(cls := "lobby__box__top", href := langHref(routes.Study.allDefault(1)))(
+        h2(cls := "title text", dataIcon := "4")(trans.studyMenu()),
+        span(cls := "more")(trans.more(), " »")
       ),
-      div(cls := "lobby__simuls lobby__box")(
-        a(cls := "lobby__box__top", href := langHref(routes.Simul.home))(
-          h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
-          span(cls := "more")(trans.more(), " »")
-        ),
-        div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
-          views.html.simul.bits.allCreated(simuls)
-        )
+      div(cls := "lobby__box__content")(
+        views.html.study.bits.home(studies)
       )
     )
 
@@ -91,7 +110,7 @@ object bits {
         h2(cls := "title text", dataIcon := "C")(trans.shogi()),
         span(cls := "more")(trans.more(), " »")
       ),
-      div(id := "shogi_description", cls := "lobby__box__content")(
+      div(cls := "lobby__box__content")(
         p(
           trans.siteDescription(),
           br,
@@ -102,22 +121,15 @@ object bits {
       )
     )
 
-  def variants(implicit ctx: Context): Frag =
-    div(cls := "lobby__variants lobby__box")(
-      a(cls := "lobby__box__top", href := routes.Page.variantHome)(
-        h2(cls := "title text", dataIcon := "]")(trans.variants()),
+  def forumRecent(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context): Frag =
+    div(cls := "lobby__forum lobby__box")(
+      a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
+        h2(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
         span(cls := "more")(trans.more(), " »")
       ),
-      div(id := "variants_list", cls := "lobby__box__content")(
-        Variant.all.withFilter(!_.standard).map { v =>
-          a(cls := "variants_item", href := routes.Page.variant(v.key))(variantNameTag(v))
-        }
+      ctx.noKid option div(cls := "lobby__box__content")(
+        views.html.forum.post recent posts
       )
-    )
-
-  private def variantNameTag(variant: Variant)(implicit ctx: Context): Frag =
-    h3(dataIcon := variantIcon(variant))(
-      variantName(variant)
     )
 
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Frag =
@@ -199,7 +211,7 @@ object bits {
       )
     )
 
-  def spotlight(e: lila.event.Event)(implicit ctx: Context) =
+  private def eventSpotlight(e: lila.event.Event)(implicit ctx: Context) =
     a(
       href := (if (e.isNow) e.url else routes.Event.show(e.id).url),
       cls := List(

@@ -30,12 +30,10 @@ $mq-not-col3: $mq-not-small;
     'puzzle'
     'leader'
     'winner'
-    'desc'
-    'vars'
     'tours'
-    'simuls'
+    'studies'
+    'desc'
     'forum'
-    'support'
     'about'
     '.';
   grid-gap: $block-gap;
@@ -54,30 +52,27 @@ $mq-not-col3: $mq-not-small;
       'tv     puzzle'
       'blog   blog'
       'desc   desc'
-      'vars   vars'
       'leader winner'
       'tours  tours'
-      'simuls simuls'
+      'studies studies'
       'forum  forum'
-      'about  support';
+      'about  about';
   }
 
   @include breakpoint($mq-col3) {
     grid-template-columns: repeat(3, 1fr);
 
-    grid-template-rows: 12em repeat(2, fit-content(0));
+    grid-template-rows: 12em repeat(5, fit-content(0)) min-content 1fr;
 
     grid-template-areas:
       'table   app     app'
       'side    app     app'
       'tv      leader  winner'
       'puzzle  tours   tours'
-      'puzzle  simuls  simuls'
-      'support blog    blog '
-      'about   blog    blog '
-      'about   desc    desc'
-      '.       vars    vars'
-      '. forum forum ';
+      'puzzle  studies  studies'
+      'desc   blog    blog'
+      'desc   forum forum'
+      'about forum forum ';
 
     &__start {
       flex-flow: column;
@@ -95,21 +90,25 @@ $mq-not-col3: $mq-not-small;
   @include breakpoint($mq-col4) {
     grid-template-columns: repeat(4, 1fr);
 
-    grid-template-rows: repeat(2, fit-content(0));
+    grid-template-rows:
+      fit-content(0)
+      fit-content(0)
+      min-content // desc blog
+      fit-content(0) // tours blog
+      fit-content(0) // tours forum
+      max-content; // studies forum
 
     grid-template-areas:
       'side   app     app    table'
       'tv     leader  winner puzzle'
-      'about  blog    blog   support'
-      '.      desc    desc   .'
-      '.      vars    vars   .'
-      '.      tours   tours  .'
-      '.      simuls  simuls .'
-      '.      forum   forum  .';
+      'desc desc    blog  blog'
+      'tours tours    blog  blog'
+      'tours tours    forum forum'
+      'studies studies    forum forum'
+      'about about about about';
 
-    &__tournaments,
-    &__simuls {
-      max-height: 20em;
+    &__forum {
+      height: 26.5em;
     }
     &__side {
       margin-top: 2em;
@@ -135,9 +134,6 @@ $mq-not-col3: $mq-not-small;
   &__description {
     grid-area: desc;
   }
-  &__variants {
-    grid-area: vars;
-  }
   &__leaderboard {
     grid-area: leader;
   }
@@ -150,17 +146,14 @@ $mq-not-col3: $mq-not-small;
   &__tournaments {
     grid-area: tours;
   }
-  &__simuls {
-    grid-area: simuls;
+  &__studies {
+    grid-area: studies;
   }
   &__forum {
     grid-area: forum;
   }
   &__blog {
     grid-area: blog;
-  }
-  &__support {
-    grid-area: support;
   }
   &__about {
     grid-area: about;

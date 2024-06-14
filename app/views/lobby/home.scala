@@ -122,32 +122,33 @@ object home {
               " »"
             )
           ),
-          div(cls := "lobby__spotlights")(
-            events.map(bits.spotlight),
-            !ctx.isBot option frag(
-              lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map {
-                views.html.tournament.homepageSpotlight(_)
-              },
-              simuls.filter(isFeaturable) map views.html.simul.bits.homepageSpotlight
-            )
-          ),
-          if (ctx.isAuth)
-            div(cls := "timeline")(
-              ctx.blind option h2("Timeline"),
-              views.html.timeline entries userTimeline,
-              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
-                trans.more(),
-                " »"
+          div(cls := "lobby__spotlights")(bits.spotlights(events, simuls, tours)),
+          (if (ctx.isAuth)
+             div(cls := "timeline")(
+               ctx.blind option h2("Timeline"),
+               views.html.timeline entries userTimeline,
+               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
+                 trans.more(),
+                 " »"
+               )
+             )
+           else
+             div(cls := "about-side")(
+               ctx.blind option h2("About"),
+               trans.xIsAFreeYLibreOpenSourceShogiServer(
+                 "Lishogi",
+                 a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
+               )
+             )),
+          ctx.me.fold(true)(!_.isPatron) option div(cls := "lobby__support")(
+            a(href := langHref(routes.Plan.index))(
+              iconTag(patronIconChar),
+              span(cls := "lobby__support__text")(
+                strong(trans.patron.donate()),
+                span(trans.patron.becomePatron())
               )
             )
-          else
-            div(cls := "about-side")(
-              ctx.blind option h2("About"),
-              trans.xIsAFreeYLibreOpenSourceShogiServer(
-                "Lishogi",
-                a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
-              )
-            )
+          )
         ),
         featured map { g =>
           a(cls := "lobby__tv", href := routes.Tv.index)(
@@ -158,28 +159,12 @@ object home {
         puzzle map { p =>
           views.html.puzzle.embed.dailyLink(p)(ctx.lang)(cls := "lobby__puzzle")
         },
-        ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
-        ctx.noKid option div(cls := "lobby__forum lobby__box")(
-          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
-            h2(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
-            span(cls := "more")(trans.more(), " »")
-          ),
-          div(cls := "lobby__box__content")(
-            views.html.forum.post recent forumRecent
-          )
-        ),
-        bits.lastPosts(lastPost),
+        bits.rankings(leaderboard, tournamentWinners),
         bits.shogiDescription,
-        bits.variants,
-        div(cls := "lobby__support")(
-          a(href := langHref(routes.Plan.index))(
-            iconTag(patronIconChar),
-            span(cls := "lobby__support__text")(
-              strong(trans.patron.donate()),
-              span(trans.patron.becomePatron())
-            )
-          )
-        ),
+        bits.lastPosts(lastPost),
+        bits.tournaments(tours),
+        bits.studies(studies),
+        bits.forumRecent(forumRecent),
         div(cls := "lobby__about")(
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("Lishogi")),
@@ -189,6 +174,7 @@ object home {
           ctx.noKid option a(href := routes.Page.resources)(trans.shogiResources()),
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := routes.Page.privacy)(trans.privacy()),
+          a(href := routes.Plan.index)(trans.patron.donate()),
           a(href := routes.Page.source)(trans.sourceCode()),
           views.html.base.bits.connectLinks
         )

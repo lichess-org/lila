@@ -65,6 +65,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
       $doc("ownerId" $ne userId) ++
       $doc(s"members.$userId.role" -> "w")
   private[study] def selectTopic(topic: StudyTopic) = $doc(F.topics -> topic)
+  private[study] def postGameStudy(exists: Boolean) = $doc("postGameStudy" $exists exists)
 
   def countByOwner(ownerId: User.ID) = coll(_.countSel(selectOwnerId(ownerId)))
 
@@ -189,6 +190,22 @@ final class StudyRepo(private[study] val coll: AsyncColl)(implicit ec: scala.con
         .sort($sort desc "updatedAt")
         .cursor[Study.IdName](readPref)
         .list(nb)
+    }
+
+  private val miniStudyProjection = $doc(
+    "name"      -> true,
+    "ownerId"   -> true,
+    "likes"     -> true,
+    "createdAt" -> true
+  )
+  def hot(nb: Int) =
+    coll {
+      _.find(selectPublic ++ postGameStudy(false), miniStudyProjection.some)
+        .sort($sort desc "rank")
+        .cursor[Study.MiniStudy](readPref)
+        .list(nb) map {
+        _.filter(_.likes.value > 1)
+      }
     }
 
   def isContributor(studyId: Study.Id, userId: User.ID) =

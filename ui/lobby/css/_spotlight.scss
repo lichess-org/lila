@@ -7,16 +7,9 @@
   padding: 0.3em;
   margin: 3px 0;
   @include transition();
-  text-shadow: $text-shadow;
   color: $c-font-dim;
-  &.invert,
-  &.event-spotlight,
   &:hover {
-    text-shadow: none;
-  }
-  &:hover {
-    @extend %metal-hover;
-    color: $c-link;
+    color: $c-font;
   }
   .img {
     flex: 0 0 50px;
@@ -30,7 +23,6 @@
     margin: 0 5px 0 0;
   }
   i.img::before {
-    color: $c-font-dim;
     font-size: 50px;
   }
   .name {
@@ -47,6 +39,11 @@
     font-size: 0.85em;
     time {
       margin-left: 3px;
+    }
+  }
+  &.Yearly {
+    .img {
+      color: $c-brag;
     }
   }
   &.little {
