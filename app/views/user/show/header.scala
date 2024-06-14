@@ -92,8 +92,8 @@ object header:
         div(cls := "user-actions dropdown")(
           a(cls := "text", dataIcon := Icon.Hamburger),
           div(cls := "dropdown-window")(
-            (ctx
-              .is(u))
+            ctx
+              .is(u)
               .option(
                 frag(
                   a(
