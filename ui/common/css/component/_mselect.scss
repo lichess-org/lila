@@ -1,3 +1,5 @@
+@import '../base/scrollbar';
+
 $c-mselect: $c-primary;
 
 .mselect {
@@ -53,7 +55,7 @@ $c-mselect: $c-primary;
     > * {
       white-space: nowrap;
       display: block;
-      padding: 0.3em 1em;
+      padding: 0.5em 1em;
       @include transition();
       color: $c-mselect;
       &:not(.current):hover {
