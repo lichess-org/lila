@@ -6,7 +6,7 @@
 
     white-space: nowrap;
 
-    @include transition;
+    @include transition(background);
 
     &.empty {
       opacity: 0.5;
@@ -17,7 +17,9 @@
       opacity: 0.5;
       margin-inline-end: 0.2em;
 
-      @include transition;
+      transition:
+        opacity $transition-duration,
+        color $transition-duration;
     }
 
     &[href=''] {
