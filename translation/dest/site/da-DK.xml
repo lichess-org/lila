@@ -70,8 +70,8 @@
   <string name="promoteVariation">Forfrem variant</string>
   <string name="makeMainLine">Gør til hovedlinjen</string>
   <string name="deleteFromHere">Slet herfra</string>
-  <string name="collapseVariations">Fold variationer sammen</string>
-  <string name="expandVariations">Udvid variationer</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">Fold variationer sammen</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Udvid variationer</string>
   <string name="forceVariation">Gennemtving variation</string>
   <string name="copyVariationPgn">Kopiér variant-PGN</string>
   <string name="move">Træk</string>
@@ -801,7 +801,7 @@
   <string name="boardReset">Nulstil farver til standard</string>
   <string name="pieceSet">Brikker</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside</string>
-  <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
+  <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg et andet og prøv igen.</string>
   <string name="usernamePrefixInvalid">Brugernavnet skal begynde med et bogstav.</string>
   <string name="usernameSuffixInvalid">Brugernavnet skal afsluttes med et bogstav eller et tal.</string>
   <string name="usernameCharsInvalid">Brugernavnet må kun indeholde bogstaver, tal, underscore og bindestreger.</string>
