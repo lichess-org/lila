@@ -72,6 +72,8 @@
   <string name="promoteVariation">Promoviraj variacijo</string>
   <string name="makeMainLine">Nastavite kot glavno varianto</string>
   <string name="deleteFromHere">Izbriši od tukaj</string>
+  <string name="collapseVariations">Strni različice</string>
+  <string name="expandVariations">Razširite različice</string>
   <string name="forceVariation">Vsili varianto</string>
   <string name="copyVariationPgn">Kopiraj različico PGN</string>
   <string name="move">Poteza</string>
