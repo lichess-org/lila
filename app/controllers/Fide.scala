@@ -22,13 +22,17 @@ final class Fide(env: Env) extends LilaController(env):
             yield Ok(renderedPage)
 
   def show(id: chess.FideId, slug: String, page: Int) = Open:
-    Found(env.fide.repo.player.fetch(id)): player =>
-      if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
-      else
-        for
-          tours    <- env.relay.playerTour.playerTours(player, page)
-          rendered <- renderPage(views.fide.player.show(player, tours))
-        yield Ok(rendered)
+    env.fide.repo.player
+      .fetch(id)
+      .flatMap:
+        case None => NotFound.page(views.fide.player.notFound(id))
+        case Some(player) =>
+          if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
+          else
+            for
+              tours    <- env.relay.playerTour.playerTours(player, page)
+              rendered <- renderPage(views.fide.player.show(player, tours))
+            yield Ok(rendered)
 
   def federations(page: Int) = Open:
     for
