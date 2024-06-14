@@ -72,6 +72,8 @@
   <string name="promoteVariation">Povýšiť variant</string>
   <string name="makeMainLine">Povýšiť na hlavnú variantu</string>
   <string name="deleteFromHere">Vymazať odtiaľto</string>
+  <string name="collapseVariations">Skryť varianty</string>
+  <string name="expandVariations">Ukázať varianty</string>
   <string name="forceVariation">Povýšiť variant</string>
   <string name="copyVariationPgn">Kopírovať PGN variantu</string>
   <string name="move">Ťah</string>
