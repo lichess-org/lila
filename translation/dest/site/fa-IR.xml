@@ -70,6 +70,8 @@
   <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
+  <string name="collapseVariations">بستن شاخه‌ها</string>
+  <string name="expandVariations">باز کردن شاخه‌ها</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
