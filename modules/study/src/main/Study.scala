@@ -126,7 +126,7 @@ object Study {
       }
     private def likesToHours(likes: Likes): Int =
       if (likes.value < 1) 0
-      else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24
+      else (10 * math.log(likes.value) + 1).toInt * 24 * 10
   }
 
   case class GamePlayer(playerId: lila.game.Player.ID, userId: lila.game.Player.UserId)
