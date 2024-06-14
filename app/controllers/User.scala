@@ -473,7 +473,7 @@ final class User(
               oldPerfStat <- env.perfStat.get(u, perfType)
               perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
               distribution <- u.perfs(perfType).established ?? {
-                env.user.rankingApi.weeklyRatingDistribution(perfType) dmap some
+                env.user.rankingApi.monthlyRatingDistribution(perfType) dmap some
               }
               percentile = distribution.map { distrib =>
                 lila.user.Stat.percentile(distrib, u.perfs(perfType).intRating) match {
