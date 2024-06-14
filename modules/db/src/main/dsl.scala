@@ -339,7 +339,7 @@ object dsl extends dsl with Handlers:
 
     // like headOption, but with stopOnError defaulting to false
     def uno: Fu[Option[A]] =
-    c.collect[Iterable](1, Cursor.ContOnError[Iterable[A]]()).map(_.headOption)
+      c.collect[Iterable](1, Cursor.ContOnError[Iterable[A]]()).map(_.headOption)
 
     // extension [A](cursor: Cursor.WithOps[A])(using Executor)
 
