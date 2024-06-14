@@ -365,14 +365,6 @@
     margin-bottom: 0;
   }
 
-  lines.collapsed > * {
-    display: none;
-  }
-
-  lines.collapsed > line.expand {
-    display: block;
-  }
-
   line.expand > a {
     color: $c-font-dim;
   }

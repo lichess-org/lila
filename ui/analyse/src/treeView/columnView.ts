@@ -114,7 +114,9 @@ function renderInlined(ctx: Ctx, nodes: Tree.Node[], opts: Opts): LooseVNodes | 
 function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: Opts): VNode {
   const collapsed =
     parentNode.collapsed === undefined ? opts.depth >= 2 && opts.depth % 2 === 0 : parentNode.collapsed;
-  return h('lines', { class: { single: !nodes[1], collapsed } }, [
+  return h(
+    'lines',
+    { class: { single: !nodes[1], collapsed } },
     collapsed
       ? h('line', { class: { expand: true } }, [
           h('branch'),
@@ -123,24 +125,23 @@ function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: 
             on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
           }),
         ])
-      : null,
-    ...nodes.map(n => {
-      return (
-        retroLine(ctx, n) ||
-        h('line', [
-          h('branch'),
-          ...renderMoveAndChildrenOf(ctx, n, {
-            parentPath: opts.parentPath,
-            isMainline: false,
-            depth: opts.depth + 1,
-            withIndex: true,
-            noConceal: opts.noConceal,
-            truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
-          }),
-        ])
-      );
-    }),
-  ]);
+      : nodes.map(n => {
+          return (
+            retroLine(ctx, n) ||
+            h('line', [
+              h('branch'),
+              ...renderMoveAndChildrenOf(ctx, n, {
+                parentPath: opts.parentPath,
+                isMainline: false,
+                depth: opts.depth + 1,
+                withIndex: true,
+                noConceal: opts.noConceal,
+                truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
+              }),
+            ])
+          );
+        }),
+  );
 }
 
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
