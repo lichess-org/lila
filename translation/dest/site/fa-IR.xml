@@ -147,8 +147,8 @@
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s نفر بازیکن آنلاین</item>
-    <item quantity="other">%s نفر بازیکن آنلاین</item>
+    <item quantity="one">%s بازیکن</item>
+    <item quantity="other">%s بازیکن</item>
   </plurals>
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
   <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>

@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">У вас есть 30 секунд на то, чтобы правильно отметить как можно больше полей!</string>
   <string name="goAsLongAsYouWant">Продвиньтесь так далеко, как сможете. Время не ограничено!</string>
   <string name="showCoordinates">Показывать координаты</string>
+  <string name="showCoordsOnAllSquares">Координаты на каждом поле</string>
   <string name="showPieces">Показывать фигуры</string>
   <string name="startTraining">Начать тренировку</string>
   <string name="findSquare">Найти поле</string>
