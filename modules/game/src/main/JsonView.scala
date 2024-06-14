@@ -37,7 +37,7 @@ final class JsonView(rematches: Rematches):
       .add("rules" -> game.metadata.nonEmptyRules)
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
 
-    // adds fields that could be computed by the client instead
+  // adds fields that could be computed by the client instead
   def baseWithChessDenorm(game: Game, initialFen: Option[Fen.Full]) =
     base(game, initialFen) ++ Json
       .obj(

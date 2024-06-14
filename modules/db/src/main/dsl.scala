@@ -341,19 +341,19 @@ object dsl extends dsl with Handlers:
     def uno: Fu[Option[A]] =
       c.collect[Iterable](1, Cursor.ContOnError[Iterable[A]]()).map(_.headOption)
 
-      // extension [A](cursor: Cursor.WithOps[A])(using Executor)
+    // extension [A](cursor: Cursor.WithOps[A])(using Executor)
 
-      //   def gather[M[_]](upTo: Int)(using Factory[A, M[A]]): Fu[M[A]] =
-      //     cursor.collect[M](upTo, Cursor.ContOnError[M[A]]())
+    //   def gather[M[_]](upTo: Int)(using Factory[A, M[A]]): Fu[M[A]] =
+    //     cursor.collect[M](upTo, Cursor.ContOnError[M[A]]())
 
-      //   def list(): Fu[List[A]] =
-      //     gather[List](Int.MaxValue)
+    //   def list(): Fu[List[A]] =
+    //     gather[List](Int.MaxValue)
 
-      //   def list(limit: Int): Fu[List[A]] =
-      //     gather[List](limit)
+    //   def list(limit: Int): Fu[List[A]] =
+    //     gather[List](limit)
 
-      //   def list(limit: Option[Int]): Fu[List[A]] =
-      //     gather[List](limit | Int.MaxValue)
+    //   def list(limit: Option[Int]): Fu[List[A]] =
+    //     gather[List](limit | Int.MaxValue)
 
     def vector(limit: Int): Fu[Vector[A]] = gather[Vector](limit)
 
