@@ -95,7 +95,7 @@ tags:
   \n### Restrictions\n\
   \ - Bots can only play challenge games: tournaments are off-limits\n\
   \n### Integrations\n\
-  \ - [Python3 lishogi-bot](https://github.com/ThrYoBots/Lishogi-Bot) (official)\n\
+  \ - [Python3 lishogi-bot](https://github.com/TheYoBots/Lishogi-Bot) (official)\n\
   \ - Yours? Please make [an issue or pull request](https://github.com/lishogi-org/api).\n\
   \n### Links\n\
   \ - Join the [Lishogi Bots team](https://lishogi.org/team/lishogi-bots) with your bot account\n\
