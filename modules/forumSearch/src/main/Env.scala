@@ -13,15 +13,13 @@ import lila.search.client.SearchClient
 import lila.search.spec.Query
 
 @Module
-private class ForumSearchConfig(
-    @ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage
-)
+private class ForumSearchConfig(@ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage)
 
 final class Env(
     appConfig: Configuration,
     postApi: lila.core.forum.ForumPostApi,
     client: SearchClient
-)(using Executor, akka.stream.Materializer):
+)(using Executor):
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
 
