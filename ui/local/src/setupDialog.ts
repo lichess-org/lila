@@ -39,7 +39,7 @@ export class LocalDialog {
     const cardData = [...Object.values(this.bots).map(b => b.card)].filter(defined);
     this.hand = new HandOfCards({
       view: () => this.view,
-      drops: () => [this.white, this.black],
+      drops: () => [{ el: this.white }, { el: this.black }],
       cardData: () => cardData,
       select: this.dropSelect,
     });

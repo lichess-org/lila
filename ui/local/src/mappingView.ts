@@ -42,8 +42,8 @@ export function renderMapping(canvas: HTMLCanvasElement, m: Mapping) {
         },
         y: {
           beginAtZero: true,
-          min: m.scale.minY,
-          max: m.scale.maxY,
+          min: m.range.min,
+          max: m.range.max,
           title: {
             display: true,
             text: 'Eval',

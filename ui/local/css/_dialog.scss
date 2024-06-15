@@ -1,6 +1,10 @@
+dialog {
+  z-index: $z-dialog-11;
+}
+
 dialog .dialog-content {
-  ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp');
-  ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp');
+  ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp'); // TODO - set from botCtrl/js
+  ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp'); // TODO - set from botCtrl/js
   ---scale-factor: 1;
 
   @include if-constrained(400px) {
@@ -27,6 +31,7 @@ dialog .dialog-content {
 
   .player {
     position: relative;
+    z-index: $z-above-dialog-12;
     display: flex;
     flex-direction: column;
     width: 100%;

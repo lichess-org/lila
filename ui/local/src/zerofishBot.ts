@@ -1,7 +1,7 @@
-import type { Zerofish, SearchResult, Search, FishSearch, Position } from 'zerofish';
-import { Libot, AssetLoc, CardData, BotInfo, Point, Mapping } from './types';
+import type { Zerofish, SearchResult, Search, Position } from 'zerofish';
+import { Libot, AssetLoc, CardData, Point, Mapping } from './types';
 import { PolyglotBook } from 'bits/types';
-import { BotCtrl, lifatBotAsset } from './botCtrl';
+import { BotCtrl, botAssetUrl } from './botCtrl';
 import { interpolate, normalize } from './mapping';
 import * as co from 'chessops';
 
@@ -14,8 +14,8 @@ export class ZerofishBot implements Libot {
   description: string;
   image: AssetLoc;
   book?: AssetLoc;
-  zero?: { netName: string; search?: Search };
-  fish?: FishSearch;
+  zero?: { netName: string; search: Search };
+  fish?: { multipv: number; search: Search };
   glicko: { r: number; rd: number };
   searchMix?: Mapping;
   private ctrl: BotCtrl;
@@ -43,7 +43,7 @@ export class ZerofishBot implements Libot {
   }
 
   get imageUrl() {
-    return this.image?.url ?? lifatBotAsset(`images/${this.image.lifat}`);
+    return this.image?.url ?? botAssetUrl(`images/${this.image.lichess}`);
   }
 
   async move(pos: Position, chess: co.Chess) {

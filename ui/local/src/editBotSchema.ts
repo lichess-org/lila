@@ -1,20 +1,23 @@
-import { Libot } from './types';
+import { BotInfo } from './types';
+import { EditBotDialog } from './editBotDialog';
+import { buildSetting } from './editBotSetting';
 
 export const botSchema: BotSchema = {
   bot_name: {
     label: 'name',
     type: 'text',
     value: 'bot name',
-    include: true,
+    require: true,
   },
   bot_description: {
     type: 'textarea',
     rows: 3,
+    class: ['placard'],
     value: 'short description',
-    include: true,
+    require: true,
   },
   bot: {
-    class: 'settings',
+    class: ['settings'],
     book: {
       label: 'book',
       type: 'select',
@@ -30,30 +33,34 @@ export const botSchema: BotSchema = {
         choices: [],
       },
       search: {
-        include: (b: Libot) => b.zero?.netName !== undefined && !b.zero.netName.startsWith('maia'),
-        depth: {
-          label: 'depth',
-          type: 'number',
-          value: 1,
-          min: 1,
-          max: 20,
-          radioGroup: 'zeroSearch',
-        },
         nodes: {
           label: 'nodes',
           type: 'number',
-          value: '100000',
+          value: 1,
           min: 1,
-          max: 1000000,
+          max: 99999,
           radioGroup: 'zeroSearch',
+          require: ['bot_zero_netName'],
+        },
+        depth: {
+          label: 'depth',
+          type: 'range',
+          value: 1,
+          min: 1,
+          max: 5,
+          step: 1,
+          radioGroup: 'zeroSearch',
+          require: ['bot_zero_netName'],
         },
         movetime: {
           label: 'movetime',
-          type: 'number',
-          value: '100',
+          type: 'range',
+          value: 100,
           min: 1,
-          max: 1000,
+          max: 999,
+          step: 10,
           radioGroup: 'zeroSearch',
+          require: ['bot_zero_netName'],
         },
       },
     },
@@ -62,36 +69,40 @@ export const botSchema: BotSchema = {
       multipv: {
         label: 'multipv',
         type: 'range',
-        value: '12',
+        value: 12,
         min: 1,
         max: 50,
         step: 1,
       },
       search: {
-        include: (b: Libot) => b.fish?.multipv !== undefined,
-        depth: {
-          label: 'depth',
-          type: 'number',
-          value: '12',
-          min: 1,
-          max: 20,
-          radioGroup: 'fishSearch',
-        },
         nodes: {
           label: 'nodes',
           type: 'number',
-          value: '100000',
+          value: 1,
           min: 1,
-          max: 1000000,
+          max: 999999,
           radioGroup: 'fishSearch',
+          require: ['bot_fish_multipv'],
+        },
+        depth: {
+          label: 'depth',
+          type: 'range',
+          value: 12,
+          min: 1,
+          max: 20,
+          step: 1,
+          radioGroup: 'fishSearch',
+          require: ['bot_fish_multipv'],
         },
         movetime: {
           label: 'movetime',
-          type: 'number',
-          value: '100',
+          type: 'range',
+          value: 100,
           min: 1,
-          max: 1000,
+          max: 999,
+          step: 10,
           radioGroup: 'fishSearch',
+          require: ['bot_fish_multipv'],
         },
       },
     },
@@ -99,13 +110,13 @@ export const botSchema: BotSchema = {
 };
 
 export function getSchemaDefault(id: string) {
-  const setting = id.split('_').reduce((obj, key) => obj[key], botSchema) as SettingBaseInfo;
-  return setting.value;
+  const setting = botSchema[id] ?? id.split('_').reduce((obj, key) => obj[key], botSchema);
+  return (setting as BaseInfo)?.value;
 }
 
-export function setSchemaBookChoices(books: string[]) {
+export function setSchemaBookChoices(books: { name: string; value: any }[]) {
   const prop = (botSchema as any).bot.book;
-  prop.choices = books.map(book => ({ name: book, value: book }));
+  prop.choices = books.map(book => ({ name: book.name, value: JSON.stringify(book.value) }));
   prop.value = books[0];
 }
 
@@ -115,18 +126,78 @@ export function setSchemaNetChoices(nets: { [name: string]: number }) {
   prop.value = Object.keys(nets)[0];
 }
 
-export function dataTypeOf(type: SettingType): DataType {
-  return type === 'number' || type === 'range' ? 'number' : 'string';
-}
-
-export type SettingInfo = SelectInfo | TextInfo | TextareaInfo | RangeInfo | NumberInfo;
-
-export type Filter = (b: Libot) => boolean;
-
 export interface BotSchema extends BaseInfo {
-  [key: string]: SettingInfo | BotSchema | PropertyVal;
+  [key: string]: SelectInfo | TextInfo | TextareaInfo | RangeInfo | NumberInfo | BotSchema | PropertyVal;
   type?: undefined;
 }
+
+type PropertyVal = string | number | boolean | any[] | undefined; // TODO fix any[]
+
+export interface BaseInfo {
+  type?: 'select' | 'text' | 'textarea' | 'range' | 'number';
+  id?: string;
+  class?: string[];
+  label?: string;
+  title?: string;
+  require?: string[] | boolean;
+  radioGroup?: string;
+  hasPanel?: boolean;
+  value?: string | number | boolean;
+}
+
+export interface SelectInfo extends BaseInfo {
+  type: 'select';
+  value: string | undefined;
+  choices: { name: string; value: string }[];
+}
+
+interface TextInfo extends BaseInfo {
+  type: 'text';
+  value: string;
+}
+
+export interface TextareaInfo extends BaseInfo {
+  type: 'textarea';
+  value: string;
+  rows?: number;
+}
+
+export interface RangeInfo extends BaseInfo {
+  type: 'range';
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+}
+
+export interface NumberInfo extends BaseInfo {
+  type: 'number';
+  value: number;
+  min: number;
+  max: number;
+}
+
+export function buildFromSchema(dlg: EditBotDialog, path: string[] = []) {
+  const iter = path.reduce<any>((acc, key) => acc[key], botSchema);
+  const s = buildSetting({ id: path.join('_'), ...iter }, dlg);
+  if (iter?.type) return s;
+  for (const key of Object.keys(iter).filter(k => !reserved.includes(k as keyof BaseInfo))) {
+    s.div.appendChild(buildFromSchema(dlg, [...path, key]).div);
+  }
+  return s;
+}
+
+const reserved: (keyof BaseInfo)[] = [
+  'type',
+  'id',
+  'class',
+  'label',
+  'title',
+  'require',
+  'radioGroup',
+  'hasPanel',
+  'value',
+];
 
 function deepFreeze(obj: any) {
   for (const prop of Object.values(obj)) {
@@ -135,98 +206,4 @@ function deepFreeze(obj: any) {
   return Object.freeze(obj);
 }
 
-type SettingType = 'select' | 'text' | 'textarea' | 'range' | 'number';
-type DataType = 'string' | 'number';
-type PropertyVal = Filter | string | number | boolean | any[] | undefined;
-
-interface BaseInfo {
-  class?: string;
-  label?: string;
-  title?: string;
-  include?: boolean | ((bot: Libot) => boolean);
-}
-
-interface SettingBaseInfo extends BaseInfo {
-  type: SettingType;
-  id?: string;
-  hasPanel?: boolean;
-  radioGroup?: string;
-  value?: string | number | boolean;
-}
-
-interface SelectInfo extends SettingBaseInfo {
-  type: 'select';
-  value: string | undefined;
-  choices: (string | { name: string; value: string })[];
-}
-
-interface TextInfo extends SettingBaseInfo {
-  type: 'text';
-}
-
-interface TextareaInfo extends SettingBaseInfo {
-  type: 'textarea';
-  rows?: number;
-}
-
-interface RangeInfo extends SettingBaseInfo {
-  type: 'range';
-  min: number;
-  max: number;
-  step: number;
-}
-
-interface NumberInfo extends SettingBaseInfo {
-  type: 'number';
-  min: number;
-  max: number;
-}
-
 deepFreeze(botSchema);
-/*
-function makeGroup(info: BaseInfo) {
-  return new Group(info);
-}
-class Group {
-  div: HTMLElement;
-  label?: HTMLElement;
-  //toggle?: HTMLInputElement;
-  constructor(readonly info: BaseInfo) {
-    this.div = $as<HTMLElement>(info.label ? `<fieldset>` : `<div>`);
-    if (info.class) this.div.classList.add(info.class);
-    if (info.title) this.div.title = info.title;
-    if (info.label) this.div.appendChild((this.label = $as<HTMLElement>(`<label>${info.label}`)));
-    /*if (info.include === undefined) {
-      this.toggle = $as<HTMLInputElement>(`<input type="checkbox" class="toggle-enabled" title="Enabled">`);
-      this.div.appendChild(this.toggle);
-    }
-  }
-}
-
-class Select extends Group {
-  input: HTMLSelectElement;
-  toggle?: HTMLInputElement;
-  constructor(info: SelectInfo) {
-    super(info);
-    this.input = $as<HTMLSelectElement>(`<select>`);
-    for (const c of info.choices) {
-      const option = document.createElement('option');
-      option.value = typeof c === 'string' ? c : c.name;
-      option.textContent = typeof c === 'string' ? c : c.name;
-      if (option.value === info.value) option.selected = true;
-      this.input.appendChild(option);
-    }
-    this.div.appendChild(this.input);
-  }
-}
-
-class Text extends Group {
-  input: HTMLInputElement;
-  constructor(info: TextInfo) {
-    super(info);
-    this.input = $as<HTMLInputElement>(`<input type="text">`);
-    this.input.value = info.value ? String(info.value) : '';
-    this.div.appendChild(this.input);
-  }
-}
-  */

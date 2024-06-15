@@ -46,3 +46,6 @@ $z-indexes: (
 @function z($layer) {
   @return map-get($z-indexes, $layer);
 }
+
+$z-dialog-11: 11;
+$z-above-dialog-12: 12;

@@ -21,7 +21,7 @@ export function updateMapping(m: Mapping, op: { add: Point } | { remove: number 
 export function asChartJsData(m: Mapping) {
   const pts = m.data.slice() as any[];
   const xs = domain(m);
-  const yMid = (m.scale.maxY - m.scale.minY) / 2;
+  const yMid = (m.range.max - m.range.min) / 2;
   if (pts.length === 0)
     return [
       { x: xs.min, y: yMid, radius: 0 },

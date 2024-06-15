@@ -43,9 +43,15 @@ dialog .dialog-content {
     border-radius: 10px;
     width: 320px;
     grid-area: a;
-    > .player {
-      aspect-ratio: 1/1;
-      ---scale-factor: 0.7;
+  }
+  .player {
+    aspect-ratio: 1/1;
+    ---scale-factor: 0.7;
+    > .placard {
+      width: 90%;
+    }
+    textarea {
+      text-align: center;
     }
   }
   .settings {
@@ -89,8 +95,11 @@ dialog .dialog-content {
     }
     input[data-type] {
       flex: auto;
+      &.invalid {
+        background-color: $m-bg_bad--mix-60;
+      }
     }
-    &.hasPanel {
+    &.has-panel {
       &.selected {
         background-color: $m-bg_primary--mix-60;
       }

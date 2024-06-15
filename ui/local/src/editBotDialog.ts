@@ -4,16 +4,16 @@ import { BotCtrl } from './botCtrl';
 import { HandOfCards } from './handOfCards';
 import { defined, escapeHtml } from 'common';
 import { GameCtrl } from './gameCtrl';
-import { makeEditView, SettingElement } from './editBotSetting';
 import { renderMapping } from './mappingView';
-import { setSchemaBookChoices, setSchemaNetChoices, getSchemaDefault, Filter } from './editBotSchema';
+import { Settings } from './editBotSetting';
+import { setSchemaBookChoices, setSchemaNetChoices, buildFromSchema } from './editBotSchema';
 import * as licon from 'common/licon';
 
 interface ZerofishBotEditor extends ZerofishBot {
   [key: string]: any;
 }
 
-interface BotInfoReader extends BotInfo {
+export interface BotInfoReader extends BotInfo {
   readonly [key: string]: any;
 }
 
@@ -26,12 +26,11 @@ export class EditBotDialog {
   hand: HandOfCards;
   bots: ZerofishBots;
   uid: string;
-  els: { [id: string]: SettingElement } = {};
-  groups: { [radioGroup: string]: SettingElement } = {};
+  settings: Settings;
+  // radios: { [radioGroup: string]: string[] } = {};
+  // requires: { [id: string]: string[] } = {};
   panel: HTMLElement;
   dlg: Dialog;
-  //lifatBooks: string[] = lifatBooks;
-  //lifatNets: { [name: string]: number } = lifatNets;
 
   constructor(
     readonly botCtrl: BotCtrl,
@@ -39,14 +38,14 @@ export class EditBotDialog {
     readonly color: Color,
     readonly setBot: (uid: string) => void,
   ) {
-    setSchemaBookChoices(lifatBooks);
-    setSchemaNetChoices(lifatNets);
+    setSchemaBookChoices(lifatBooks); // TODO - not here
+    setSchemaNetChoices(lifatNets); // TODO - not here
     this.bots = botCtrl.zerofishBots;
     this.view = $as<HTMLElement>(`<div class="with-hand-of-cards"><div class="edit-bot"></div></div>`);
     this.selectBot();
     this.hand = new HandOfCards({
       view: () => this.view,
-      drops: () => [this.playerEl],
+      drops: () => [{ el: this.playerEl, selected: this.bot.uid }],
       cardData: () =>
         Object.values(this.bots)
           .map(b => b.card)
@@ -72,8 +71,8 @@ export class EditBotDialog {
           append: [{ node: this.view, where: '.chin', how: 'before' }],
           action: [
             { selector: '[data-type]', event: ['input', 'change'], result: this.valueChange },
-            { selector: '.toggle-enabled', event: 'change', result: this.radioToggle },
-            { selector: '.hasPanel', result: this.showPanel },
+            { selector: '.toggle-enabled', event: 'change', result: this.toggleEnabled },
+            //{ selector: '.has-panel', result: this.showPanel },
             { selector: '.bot-json-one', result: () => this.showJson([this.bot.uid]) },
             { selector: '.bot-json-all', result: () => this.showJson() },
             { selector: '.bot-unrate-one', result: () => this.clearRatings([this.bot.uid]) },
@@ -95,14 +94,48 @@ export class EditBotDialog {
     });
   }
 
-  resize = () => {
-    this.hand.resize();
+  makeEditView() {
+    this.settings = new Settings();
+    // this.radios = {};
+    // this.requires = {};
+    const el = $as<HTMLElement>(`<div class="edit-bot">`);
+    const playerInfo = $as<HTMLElement>(`<div class="player-info">`);
+    playerInfo.appendChild(buildFromSchema(this, ['bot_name']).div);
+    const player = $as<HTMLElement>(`<div class="player ${this.color}">`);
+    player.appendChild(buildFromSchema(this, ['bot_description']).div);
+    playerInfo.appendChild(player);
+    el.appendChild(playerInfo);
+    el.appendChild(buildFromSchema(this, ['bot']).div);
+    el.appendChild($as<HTMLElement>('<div class="edit-panel"><canvas></canvas></div>'));
+    // for (const [id, deps] of Object.entries(this.requires)) {
+    //   deps.forEach(dep => this.els[dep].setVisibility());
+    // }
+    this.setVisibility();
+    return el;
+  }
+
+  resize = () => this.hand.resize();
+
+  toggleEnabled = (dlg: Dialog, action: Action, e: Event) => {
+    const cbox = e.target as HTMLInputElement;
+    //const setting = this.els[cbox.parentElement!.id];
+    this.settings.byEl(cbox)?.setEnabled(cbox.checked);
+    this.bot.update();
   };
 
+  valueChange = (dlg: Dialog, action: Action, e: Event) => {
+    const setting = this.settings.byEvent(e);
+    setting!.update();
+    setting!.setEnabled();
+    this.bot.update();
+  };
+
+  setVisibility = () => this.settings.forEach(el => el.setVisibility());
+
   showPanel = (dlg: Dialog, action: Action, e: Event) => {
-    let div = e.target as HTMLElement;
+    /*let div = e.target as HTMLElement;
     while (!div.id) div = div.parentElement!;
-    $('.hasPanel', this.view).each((_, el) =>
+    $('.has-panel', this.view).each((_, el) =>
       el === div ? el.classList.toggle('selected') : el.classList.remove('selected'),
     );
     const showing = div.classList.contains('selected');
@@ -119,21 +152,23 @@ export class EditBotDialog {
     const canvas = $as<HTMLCanvasElement>(`<canvas id="poop"></canvas>`);
     editPanel.innerHTML = '';
     editPanel.appendChild(canvas);
-    renderMapping(canvas, mapping);
+    renderMapping(canvas, mapping);*/
   };
 
   get bot(): ZerofishBotEditor {
     return this.bots[this.uid];
   }
 
+  get botDefault(): BotInfoReader {
+    return this.botCtrl.botDefaults[this.uid];
+  }
   get selected(): string[] {
-    return this.view.querySelector('.hasPanel.selected')?.id.split('_') ?? [];
+    return this.view.querySelector('.has-panel.selected')?.id.split('_') ?? [];
   }
 
   updateView = (force: boolean = false) => {
     if (force) {
-      this.els = {};
-      this.view.querySelector('.edit-bot')?.replaceWith(makeEditView(this));
+      this.view.querySelector('.edit-bot')?.replaceWith(this.makeEditView());
       this.dlg?.refresh();
     }
     //renderMapping(this.view.querySelector('.edit-panel canvas') as HTMLCanvasElement, this.bot.mix!);
@@ -143,12 +178,12 @@ export class EditBotDialog {
   selectBot(uid = this.botCtrl[this.color]!.uid) {
     this.uid = uid;
     this.view.style.setProperty(`---${this.color}-image-url`, `url(${this.bot.imageUrl})`);
-    this.view.querySelector('.edit-bot')?.replaceWith(makeEditView(this));
-    this.placardEl.textContent = this.bot.description;
+    this.view.querySelector('.edit-bot')?.replaceWith(this.makeEditView());
+    //this.placardEl.textContent = this.bot.description;
     this.dlg?.refresh();
     this.setBot(this.uid);
   }
-
+  /*
   setProperty = (id: string, value?: string | number) => {
     const path = objectPath(id);
     if (value === undefined) removePath({ obj: this.bot, path });
@@ -160,7 +195,7 @@ export class EditBotDialog {
       return obj?.[key];
     }, this.bot);
   };
-
+*/
   get playerEl() {
     return this.view.querySelector('.player') as HTMLElement;
   }
@@ -169,52 +204,11 @@ export class EditBotDialog {
     return this.view.querySelector('.placard') as HTMLElement;
   }
 
-  radioToggle = (dlg: Dialog, action: Action, e: Event) => {
-    const cbox = e.target as HTMLInputElement;
-    const setting = this.els[cbox.parentElement!.id];
-    this.setEnabled(setting, cbox.checked);
-    this.bot.update();
-  };
-
-  isEnabled = (input: HTMLInputElement) => {
-    return input.parentElement!.classList.contains('disabled') ? undefined : input.value;
-  };
-
-  valueChange = (dlg: Dialog, action: Action, e: Event) => {
-    const id = (e.target as HTMLElement).parentElement!.id;
-    const setting = this.els[id];
-    this.setProperty(id, String(setting.value));
-    setting.update();
-    this.setEnabled(setting, true);
-    //this.bot.update();
-  };
-
-  setEnabled = (setting: SettingElement, enabled: boolean) => {
-    const settingDivs = setting.div.dataset.radioGroup
-      ? [...this.view.querySelectorAll(`[data-radio-group="${setting.div.dataset.radioGroup}"]`)]
-      : [setting.div];
-    settingDivs.forEach((div: HTMLDivElement) => {
-      this.els[div.id].enabled = div === setting.div && enabled;
-      if (div !== setting.div) this.setProperty(div.id, undefined);
-    });
-    if (!enabled && setting.value) setting.value = '';
-    /*console.log(' hoo hoa', setting, enabled);
-    for (const thing of Object.keys(this.els)) {
-      const schemaInclude = getSchemaDefault(thing)?.include;
-      console.log('got one', thing.info);
-      if (typeof schemaInclude === 'function') {
-        if (schemaInclude(this.bot)) thing.div.classList.remove('none');
-        else thing.div.classList.add('none');
-      }
-    }*/
-    this.bot.update();
-  };
-
   clearBots = async (uids?: string[]) => {
     await this.botCtrl.clearLocalBots(uids);
     this.bots = this.botCtrl.zerofishBots;
     this.selectBot(this.bot.uid in this.bots ? this.bot.uid : Object.keys(this.bots)[0]);
-    alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared');
+    alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // make a flash for this stuff
   };
 
   clearRatings = (uids?: string[]) => {
@@ -258,22 +252,22 @@ export class EditBotDialog {
   };
 }
 
-function objectPath(id: string) {
-  return id.split('_').slice(1);
-}
+// function objectPath(id: string) {
+//   return id.split('_').slice(1);
+// }
 
-function removePath({ obj, path }: { obj: any; path: string[] }) {
-  if (!obj) return;
-  if (path.length > 1) removePath({ obj: obj[path[0]], path: path.slice(1) });
-  if (typeof obj[path[0]] !== 'object' || Object.keys(obj[path[0]].length === 0)) delete obj[path[0]];
-}
+// function removePath({ obj, path }: { obj: any; path: string[] }) {
+//   if (!obj) return;
+//   if (path.length > 1) removePath({ obj: obj[path[0]], path: path.slice(1) });
+//   if (typeof obj[path[0]] !== 'object' || Object.keys(obj[path[0]].length === 0)) delete obj[path[0]];
+// }
 
-function setPath({ obj, path, value }: { obj: any; path: string[]; value: any }) {
-  if (path.length === 0) return;
-  if (path.length === 1) obj[path[0]] = value;
-  else if (!(path[0] in obj)) obj[path[0]] = {};
-  setPath({ obj: obj[path[0]], path: path.slice(1), value });
-}
+// function setPath({ obj, path, value }: { obj: any; path: string[]; value: any }) {
+//   if (path.length === 0) return;
+//   if (path.length === 1) obj[path[0]] = value;
+//   else if (!(path[0] in obj)) obj[path[0]] = {};
+//   setPath({ obj: obj[path[0]], path: path.slice(1), value });
+// }
 
 // TODO - fetch these from the server
 const lifatNets: { [name: string]: number } = {
@@ -295,16 +289,16 @@ const lifatNets: { [name: string]: number } = {
 };
 
 const lifatBooks = [
-  'Book.bin',
-  'codekiddy.bin',
-  'DCbook_large.bin',
-  'Elo2400.bin',
-  'final-book.bin',
-  'gavibook.bin',
-  'gavibook-small.bin',
-  'gm2600.bin',
-  'komodo.bin',
-  'KomodoVariety.bin',
-  'Performance.bin',
-  'varied.bin',
+  { name: 'Book.bin', value: { lichess: 'Book.bin', url: undefined } },
+  { name: 'codekiddy.bin', value: { lichess: 'codekiddy.bin', url: undefined } },
+  { name: 'DCbook_large.bin', value: { lichess: 'DCbook_large.bin', url: undefined } },
+  { name: 'Elo2400.bin', value: { lichess: 'Elo2400.bin', url: undefined } },
+  { name: 'final-book.bin', value: { lichess: 'final-book.bin', url: undefined } },
+  { name: 'gavibook.bin', value: { lichess: 'gavibook.bin', url: undefined } },
+  { name: 'gavibook-small.bin', value: { lichess: 'gavibook-small.bin', url: undefined } },
+  { name: 'gm2600.bin', value: { lichess: 'gm2600.bin', url: undefined } },
+  { name: 'komodo.bin', value: { lichess: 'komodo.bin', url: undefined } },
+  { name: 'KomodoVariety.bin', value: { lichess: 'KomodoVariety.bin', url: undefined } },
+  { name: 'Performance.bin', value: { lichess: 'Performance.bin', url: undefined } },
+  { name: 'varied.bin', value: { lichess: 'varied.bin', url: undefined } },
 ];

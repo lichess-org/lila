@@ -16,6 +16,7 @@ export type Net = {
 
 export class BotCtrl {
   readonly default: BotInfo = defaultZerofishBot as BotInfo;
+  botDefaults: BotInfos;
   bots: Libots;
   rankBots: RankBot[] = [];
   net: { store?: ObjectStorage<Uint8Array>; recent: Net[] } = { recent: [] };
@@ -96,7 +97,7 @@ export class BotCtrl {
     if (cached) return cached.data;
     const netData =
       (await this.net.store?.get(netName)) ??
-      (await fetch(site.asset.url(`lifat/bots/weights/${netName}`, { version: false }))
+      (await fetch(botAssetUrl(`weights/${netName}`, false))
         .then(res => res.arrayBuffer())
         .then(buf => new Uint8Array(buf)));
     this.net.store?.put(netName, netData!);
@@ -109,7 +110,7 @@ export class BotCtrl {
 
   getBook = async (book: AssetLoc | undefined) => {
     if (!book) return;
-    const url = book?.url ?? lifatBotAsset(`openings/${book.lifat}`);
+    const url = book?.url ?? botAssetUrl(`openings/${book.lichess}`);
     if (this.books.has(url)) return this.books.get(url)!;
     const openings = await fetch(url)
       .then(res => res.arrayBuffer())
@@ -123,6 +124,8 @@ export class BotCtrl {
       fetch(site.asset.url('bots.json')).then(x => x.json()),
       this.getLocalOverrides(),
     ]);
+    this.botDefaults = {};
+    jsonBots.forEach((b: BotInfo) => (this.botDefaults[b.uid] = b));
     this.bots = {};
     [...jsonBots, ...overrides].forEach((b: Libot) => (this.bots[b.uid] = new ZerofishBot(b, this)));
     this.white = this.white ? this.bots[this.white.uid] : undefined;
@@ -145,18 +148,19 @@ export class BotCtrl {
   }
 }
 
-export function lifatBotAsset(name: string) {
-  return site.asset.url(`lifat/bots/${name}`, { version: 'bot000' });
+export function botAssetUrl(name: string, version: string | false = 'bot000') {
+  console.log(name, version);
+  return site.asset.url(`lifat/bots/${name}`, { version });
 }
 
 const defaultZerofishBot: BotInfo = {
   uid: `#${Math.random().toString(36).slice(2)}`,
   name: 'Name',
   description: 'Description',
-  image: { lifat: 'gray-torso.webp', url: undefined },
-  book: { lifat: 'Book.bin', url: undefined },
+  image: { lichess: 'gray-torso.webp', url: undefined },
+  book: { lichess: 'gm2600.bin', url: undefined },
   glicko: { r: 1500, rd: 350 },
-  zero: { netName: 'maia-1100.pb' },
-  fish: { multipv: 12, search: { depth: 12, nodes: 500000, movetime: 200 } },
-  searchMix: { by: 'moves', data: [], scale: { minY: 0, maxY: 1 } },
+  zero: { netName: 'maia-1100.pb', search: { nodes: 1 } },
+  fish: { multipv: 12, search: { depth: 12 } },
+  searchMix: { by: 'moves', data: [], range: { min: 0, max: 1 } },
 };

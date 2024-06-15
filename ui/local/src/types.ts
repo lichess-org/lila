@@ -11,14 +11,14 @@ export interface Quirks {
   takebacks?: number; // 0 to 1 is the chance of asking for a takeback at mistake or below
 }
 
-export type AssetLoc = { lifat: string; url: undefined } | { url: string; lifat: undefined };
+export type AssetLoc = { lichess: string; url: undefined } | { url: string; lichess: undefined };
 
 export type Point = { readonly x: number; readonly y: number };
 
 export interface Mapping {
   by: 'score' | 'moves';
   data: Point[];
-  scale: { minY: number; maxY: number };
+  range: { min: number; max: number };
 }
 
 export interface BotInfo {
@@ -28,8 +28,8 @@ export interface BotInfo {
   readonly book?: AssetLoc;
   readonly description: string;
   readonly glicko?: { r: number; rd: number };
-  readonly zero?: { netName: string; search?: Search };
-  readonly fish?: { multipv?: number; search: Search };
+  readonly zero?: { netName: string; search: Search };
+  readonly fish?: { multipv: number; search: Search };
   readonly quirks?: Quirks;
   readonly searchMix?: Mapping;
 }
