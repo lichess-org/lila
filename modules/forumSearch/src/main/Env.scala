@@ -30,18 +30,6 @@ final class Env(
   def apply(text: String, page: Int, troll: Boolean) =
     paginatorBuilder(Query.forum(text.take(100), troll), page)
 
-  def cli: lila.common.Cli = new:
-    def process = {
-      case "forum" :: "search" :: "reset" :: Nil => api.reset.inject("done")
-      case "forum" :: "search" :: "backfill" :: epochSeconds :: Nil =>
-        Either
-          .catchNonFatal(java.lang.Long.parseLong(epochSeconds))
-          .fold(
-            e => fufail(s"Invalid epochSeconds: $e"),
-            since => api.backfill(java.time.Instant.ofEpochSecond(since)).inject("done")
-          )
-    }
-
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
   lila.common.Bus.sub[BusForum]:

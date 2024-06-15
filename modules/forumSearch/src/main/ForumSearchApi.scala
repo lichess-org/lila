@@ -22,38 +22,3 @@ final class ForumSearchApi(
 
   def count(query: Query.Forum) =
     client.count(query).dmap(_.count)
-
-  def store(post: ForumPostMini) =
-    postApi
-      .toMiniView(post)
-      .flatMapz: view =>
-        client.storeForum(view.post.id.value, toDoc(view))
-
-  private def toDoc(view: ForumPostMiniView) =
-    ForumSource(
-      body = view.post.text.take(10000),
-      topic = view.topic.name,
-      author = view.post.userId.map(_.value),
-      topicId = view.topic.id.value,
-      troll = view.post.troll,
-      date = view.post.createdAt.toEpochMilli()
-    )
-
-  def reset =
-    client.mapping(index) >>
-      readAndIndexPosts(none) >>
-      client.refresh(index)
-
-  def backfill(since: Instant) =
-    readAndIndexPosts(since.some)
-
-  private def readAndIndexPosts(since: Option[Instant]) =
-    postApi
-      .nonGhostCursor(since)
-      .documentSource()
-      .via(lila.common.LilaStream.logRate("forum index")(logger))
-      .grouped(200)
-      .mapAsync(1)(posts => postApi.toMiniViews(posts.toList))
-      .map(_.map(v => v.post.id.value -> toDoc(v)))
-      .mapAsyncUnordered(2)(client.storeBulkForum)
-      .runWith(Sink.ignore)
