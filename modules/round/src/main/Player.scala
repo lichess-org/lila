@@ -50,7 +50,7 @@ final private class Player(
 
   private[round] def bot(usi: Usi, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
-      case Pov(game, _) if game.playedPlies > Game.maxBotPlies =>
+      case Pov(game, _) if game.playedPlies > Game.maxPlies(game.variant) =>
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
