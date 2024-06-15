@@ -9,7 +9,7 @@ $clock-height: 20px;
 
   &.top {
     top: #{-$clock-height};
-    z-index: z('above-site-header');
+    z-index: $z-above-site-header-107;
 
     .is3d & {
       top: #{-$clock-height - 35px};

@@ -9,7 +9,7 @@ dialog {
   @include if-rtl {
     transform: translate(50%, -50%);
   }
-  z-index: z('modal');
+  z-index: $z-modal-111;
   padding: 0;
   border: none;
   background: $c-bg-high;
@@ -38,7 +38,7 @@ dialog {
     @include inline-end(4px);
     width: 40px; // bigger for phones
     height: 40px;
-    z-index: z('modal') + 1;
+    z-index: $z-modal-111 + 1;
     background: $c-bg-high;
     color: $c-font;
     border-radius: 6px;

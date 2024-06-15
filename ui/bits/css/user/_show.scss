@@ -53,7 +53,7 @@
 
       .dropdown-window {
         @extend %dropdown-shadow;
-        z-index: z('link-overlay');
+        z-index: $z-link-overlay-2;
         visibility: hidden;
         background: $c-bg-header-dropdown;
         border-radius: 3px 0 3px 3px;
