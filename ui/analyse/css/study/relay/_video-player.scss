@@ -1,5 +1,5 @@
 #video-player {
-  z-index: z('video-player');
+  z-index: $z-video-player-100;
   display: none;
   position: absolute;
   border: 0;
@@ -11,7 +11,7 @@
 }
 
 img.video-player-close {
-  z-index: z('video-player-controls');
+  z-index: $z-video-player-controls-101;
   position: absolute;
   height: 20px;
   width: 20px;

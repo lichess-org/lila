@@ -127,21 +127,21 @@ piece {
   width: 12.5%;
   height: 12.5%;
   background-size: cover;
-  z-index: z('cg__piece');
+  z-index: $z-cg__piece-2;
   will-change: transform;
   pointer-events: none;
 
   &.dragging {
     cursor: move;
-    z-index: z('cg__piece.dragging') !important;
+    z-index: $z-cg__piece_dragging-204 !important;
   }
 
   &.anim {
-    z-index: z('cg__piece.anim');
+    z-index: $z-cg__piece_anim-3;
   }
 
   &.fading {
-    z-index: z('cg__piece.fading');
+    z-index: $z-cg__piece_fading-1;
     opacity: 0.5;
   }
 
@@ -173,11 +173,11 @@ cg-auto-pieces {
 
 cg-container .cg-shapes {
   opacity: 0.6;
-  z-index: z('cg__svg.cg-shapes');
+  z-index: $z-cg__svg_cg-shapes-2;
 }
 
 cg-container .cg-custom-svgs {
-  z-index: z('cg__svg.cg-custom-svgs');
+  z-index: $z-cg__svg_cg-custom-svgs-4;
 }
 
 cg-container .cg-shapes {
@@ -189,7 +189,7 @@ cg-container .cg-custom-svgs svg {
 }
 
 cg-auto-pieces {
-  z-index: z('cg__cg-auto-pieces');
+  z-index: $z-cg__cg-auto-pieces-2;
 
   piece {
     opacity: 0.3;

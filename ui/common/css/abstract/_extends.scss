@@ -255,7 +255,7 @@
   width: 100vw; // escape from bounding box of any fixed position parent
   height: 100vh;
   background: $c-page-mask;
-  z-index: z('fullscreen-mask');
+  z-index: $z-fullscreen-mask-110;
 }
 
 %link-overlay {
@@ -264,7 +264,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: z('link-overlay');
+  z-index: $z-link-overlay-2;
 }
 
 %abs-100 {
