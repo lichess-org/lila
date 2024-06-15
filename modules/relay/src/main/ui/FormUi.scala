@@ -320,38 +320,41 @@ Team Dogs ; Scooby Doo"""),
                   form3.select(_, langList.popularLanguagesForm.choices)
               ),
               tg.map: t =>
-                div(
-                  cls              := "relay-pinned-streamer-edit",
-                  data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                )(
+                details(
+                  summary("Pinned streamer"),
                   div(
-                    form3.group(
-                      form("pinnedStreamer"),
-                      "Pinned streamer",
-                      help = frag(
-                        p("The pinned streamer is featured even when they're not watching the broadcast."),
-                        p("An optional placeholder image will embed their stream when clicked."),
-                        p(
-                          "To upload one, you must first submit this form with a pinned streamer. "
-                            + "Then return to this page and choose an image."
-                        )
-                      ).some
-                    )(form3.input(_)),
-                    span(
-                      button(tpe := "button", cls := "button streamer-select-image")("select image"),
-                      button(
-                        tpe              := "button",
-                        cls              := "button button-empty button-red streamer-delete-image",
-                        data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                      )("delete image")
-                    )
-                  ),
-                  ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
-                    cls := List(
-                      "streamer-drop-target" -> true,
-                      "user-image"           -> t.tour.pinnedStreamerImage.isDefined
+                    cls              := "relay-pinned-streamer-edit",
+                    data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+                  )(
+                    div(
+                      form3.group(
+                        form("pinnedStreamer"),
+                        "Pinned streamer",
+                        help = frag(
+                          p("The pinned streamer is featured even when they're not watching the broadcast."),
+                          p("An optional placeholder image will embed their stream when clicked."),
+                          p(
+                            "To upload one, you must first submit this form with a pinned streamer. "
+                              + "Then return to this page and choose an image."
+                          )
+                        ).some
+                      )(form3.input(_)),
+                      span(
+                        button(tpe := "button", cls := "button streamer-select-image")("select image"),
+                        button(
+                          tpe              := "button",
+                          cls              := "button button-empty button-red streamer-delete-image",
+                          data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+                        )("delete image")
+                      )
                     ),
-                    attr("draggable") := "true"
+                    ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
+                      cls := List(
+                        "streamer-drop-target" -> true,
+                        "user-image"           -> t.tour.pinnedStreamerImage.isDefined
+                      ),
+                      attr("draggable") := "true"
+                    )
                   )
                 )
             )
