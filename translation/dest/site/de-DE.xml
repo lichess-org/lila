@@ -70,6 +70,8 @@
   <string name="promoteVariation">Variante aufwerten</string>
   <string name="makeMainLine">Zur Hauptvariante machen</string>
   <string name="deleteFromHere">Ab hier löschen</string>
+  <string name="collapseVariations">Varianten einklappen</string>
+  <string name="expandVariations">Varianten ausklappen</string>
   <string name="forceVariation">Variante erzwingen</string>
   <string name="copyVariationPgn">PGN-Variante kopieren</string>
   <string name="move">Zug</string>

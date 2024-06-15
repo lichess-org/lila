@@ -70,6 +70,8 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Transformar em linha principal</string>
   <string name="deleteFromHere">Excluir a partir daqui</string>
+  <string name="collapseVariations">Esconder variantes</string>
+  <string name="expandVariations">Mostrar variantes</string>
   <string name="forceVariation">Variante forçada</string>
   <string name="copyVariationPgn">Copiar PGN da variante</string>
   <string name="move">Movimentos</string>
