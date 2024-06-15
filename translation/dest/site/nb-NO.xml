@@ -332,7 +332,7 @@
     <item quantity="other">Gi %s sekunder</item>
   </plurals>
   <string name="thisAccountViolatedTos">Denne kontoen brøt vilkårene for å bruke Lichess</string>
-  <string name="openingExplorerAndTablebase">Åpningsutforsker &amp; tabellbase</string>
+  <string name="openingExplorerAndTablebase">Åpningsutforsker og tabellbase</string>
   <string name="takeback">Angre</string>
   <string name="proposeATakeback">Foreslå å angre</string>
   <string name="takebackPropositionSent">Angreforslag sendt</string>
