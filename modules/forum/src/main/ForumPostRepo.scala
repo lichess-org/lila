@@ -121,4 +121,4 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     val filter  = since.fold(noGhost)(instant => $and(noGhost, $doc("createdAt".$gt(instant))))
     coll
       .find(filter, miniProjection.some)
-      .cursor[ForumPostMini](ReadPref.sec)
+      .cursor[ForumPostMini](ReadPref.priTemp)
