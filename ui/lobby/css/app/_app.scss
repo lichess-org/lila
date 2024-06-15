@@ -35,7 +35,7 @@
   }
 
   .lredir {
-    background: $c-bg-box;
+    background: $c-bg-box !important;
     display: flex;
 
     .spinner {
