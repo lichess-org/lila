@@ -268,7 +268,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               pre("player name / rating / title / new name"),
               "All values are optional. Example:",
               pre("""Magnus Carlsen / 2863 / GM
-  YouGotLittUp / 1890 / / Louis Litt""")
+YouGotLittUp / 1890 / / Louis Litt""")
             ).some,
             half = true
           )(form3.textarea(_)(rows := 3)),
@@ -280,7 +280,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               pre("Team name; Fide Id or Player name"),
               "Example:",
               pre("""Team Cats ; 3408230
-  Team Dogs ; Scooby Doo"""),
+Team Dogs ; Scooby Doo"""),
               "By default the PGN tags WhiteTeam and BlackTeam are used."
             ).some,
             half = true
@@ -320,38 +320,41 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                   form3.select(_, langList.popularLanguagesForm.choices)
               ),
               tg.map: t =>
-                div(
-                  cls              := "relay-pinned-streamer-edit",
-                  data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                )(
+                details(
+                  summary("Pinned streamer"),
                   div(
-                    form3.group(
-                      form("pinnedStreamer"),
-                      "Pinned streamer",
-                      help = frag(
-                        p("The pinned streamer is featured even when they're not watching the broadcast."),
-                        p("An optional placeholder image will embed their stream when clicked."),
-                        p(
-                          "To upload one, you must first submit this form with a pinned streamer. "
-                            + "Then return to this page and choose an image."
-                        )
-                      ).some
-                    )(form3.input(_)),
-                    span(
-                      button(tpe := "button", cls := "button streamer-select-image")("select image"),
-                      button(
-                        tpe              := "button",
-                        cls              := "button button-empty button-red streamer-delete-image",
-                        data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                      )("delete image")
-                    )
-                  ),
-                  ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
-                    cls := List(
-                      "streamer-drop-target" -> true,
-                      "user-image"           -> t.tour.pinnedStreamerImage.isDefined
+                    cls              := "relay-pinned-streamer-edit",
+                    data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+                  )(
+                    div(
+                      form3.group(
+                        form("pinnedStreamer"),
+                        "Pinned streamer",
+                        help = frag(
+                          p("The pinned streamer is featured even when they're not watching the broadcast."),
+                          p("An optional placeholder image will embed their stream when clicked."),
+                          p(
+                            "To upload one, you must first submit this form with a pinned streamer. "
+                              + "Then return to this page and choose an image."
+                          )
+                        ).some
+                      )(form3.input(_)),
+                      span(
+                        button(tpe := "button", cls := "button streamer-select-image")("select image"),
+                        button(
+                          tpe              := "button",
+                          cls              := "button button-empty button-red streamer-delete-image",
+                          data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+                        )("delete image")
+                      )
                     ),
-                    attr("draggable") := "true"
+                    ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
+                      cls := List(
+                        "streamer-drop-target" -> true,
+                        "user-image"           -> t.tour.pinnedStreamerImage.isDefined
+                      ),
+                      attr("draggable") := "true"
+                    )
                   )
                 )
             )
@@ -389,8 +392,8 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           br,
           "Example:",
           pre("""Youth Championship 2024
-  tour1-id Youth Championship 2024 | G20
-  tour2-id Youth Championship 2024 | G16
-  """)
+tour1-id Youth Championship 2024 | G20
+tour2-id Youth Championship 2024 | G16
+""")
         )
       )

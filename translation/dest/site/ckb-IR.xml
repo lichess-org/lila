@@ -70,6 +70,8 @@
   <string name="promoteVariation">برەوپێدانی جۆراوجۆر</string>
   <string name="makeMainLine">کردن بە رستەی سەرەکی</string>
   <string name="deleteFromHere">لێرە بیسڕەوە</string>
+  <string name="collapseVariations">تێکدانی لایەنەکانی دیکە</string>
+  <string name="expandVariations">درێژکردنەوەی لایەنەکانی دیکە</string>
   <string name="forceVariation">هێزی جۆراوجۆر</string>
   <string name="copyVariationPgn">کۆپی گۆڕانکاری PGN</string>
   <string name="move">جوڵە</string>

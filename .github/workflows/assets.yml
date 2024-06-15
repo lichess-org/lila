@@ -25,7 +25,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-      - uses: pnpm/action-setup@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
         with:
           run_install: true
       - uses: actions/checkout@v4
@@ -39,7 +42,8 @@ jobs:
       - run: pnpm link "$GITHUB_WORKSPACE/ab"
         if: steps.ab.outcome == 'success'
       - run: ./ui/build --no-install -p
-      - run: cd ui && pnpm run test && cd -
+      - run: pnpm test
+        working-directory: ui
       - run: mkdir assets && mv public assets/ && cp -p bin/download-lifat LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
       - run: cd assets && tar --zstd -cvpf ../assets.tar.zst . && cd -
       - uses: actions/upload-artifact@v4

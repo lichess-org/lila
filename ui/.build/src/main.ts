@@ -174,6 +174,9 @@ class Env {
   get jsDir(): string {
     return path.join(this.outDir, 'compiled');
   }
+  get jsonDir(): string {
+    return path.join(this.outDir, 'json');
+  }
   get buildDir(): string {
     return path.join(this.uiDir, '.build');
   }

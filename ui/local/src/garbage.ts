@@ -7,7 +7,7 @@ export class ZerofishBot2 implements Libot {
   readonly uid: string;
   readonly description: string;
   readonly image: string;
-  readonly zero?: { netName: string; depth?: number };
+  readonly zero?: { net: string; depth?: number };
   readonly fish?: { search?: FishSearch };
   readonly card?: CardData;
   elo?: number;
@@ -30,7 +30,7 @@ export class ZerofishBot2 implements Libot {
       promises.push(
         this.zf.goZero(pos, {
           depth: this.zero.depth,
-          net: { name: this.zero.netName, fetch: this.db.getNet },
+          net: { name: this.zero.net, fetch: this.db.getNet },
         }),
       );
     }

@@ -72,6 +72,8 @@
   <string name="promoteVariation">העדפת וריאנט</string>
   <string name="makeMainLine">קביעה כוריאנט הראשי</string>
   <string name="deleteFromHere">מחיקה מכאן והלאה</string>
+  <string name="collapseVariations">הסתרת מהלכים חלופיים</string>
+  <string name="expandVariations">הצגת מהלכים חלופיים</string>
   <string name="forceVariation">וריאנט יחיד</string>
   <string name="copyVariationPgn">העתקת ה-PGN של הוריאנט</string>
   <string name="move">מסע</string>

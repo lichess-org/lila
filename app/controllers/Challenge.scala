@@ -26,7 +26,7 @@ final class Challenge(
       api.allFor(me).map(env.challenge.jsonView.apply).map(JsonOk)
   }
 
-  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me ?=>
+  def apiList = ScopedBody(_.Challenge.Read, _.Web.Mobile) { ctx ?=> me ?=>
     api.allFor(me, 300).map { all =>
       JsonOk:
         Json.obj(
@@ -39,7 +39,7 @@ final class Challenge(
   def show(id: ChallengeId, _color: Option[Color]) = Open:
     showId(id)
 
-  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read) { ctx ?=> _ ?=>
+  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read, _.Web.Mobile) { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>
       val direction: Option[Direction] =
         if isMine(c) then Direction.Out.some
@@ -125,7 +125,7 @@ final class Challenge(
       )
 
   def apiAccept(id: ChallengeId) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me ?=>
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=> me ?=>
       def tryRematch =
         env.bot.player.rematchAccept(id.into(GameId)).flatMap {
           if _ then jsonOkResult
@@ -173,19 +173,20 @@ final class Challenge(
           )
           .inject(NoContent)
   }
-  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
-    api.activeByIdFor(id, me).flatMap {
-      case None =>
-        env.bot.player.rematchDecline(id.into(GameId)).flatMap {
-          if _ then jsonOkResult
-          else notFoundJson()
-        }
-      case Some(c) =>
-        bindForm(env.challenge.forms.decline)(
-          jsonFormError,
-          data => api.decline(c, data.realReason).inject(jsonOkResult)
-        )
-    }
+  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) {
+    ctx ?=> me ?=>
+      api.activeByIdFor(id, me).flatMap {
+        case None =>
+          env.bot.player.rematchDecline(id.into(GameId)).flatMap {
+            if _ then jsonOkResult
+            else notFoundJson()
+          }
+        case Some(c) =>
+          bindForm(env.challenge.forms.decline)(
+            jsonFormError,
+            data => api.decline(c, data.realReason).inject(jsonOkResult)
+          )
+      }
   }
 
   def cancel(id: ChallengeId) =
@@ -195,49 +196,50 @@ final class Challenge(
         then api.cancel(c).inject(NoContent)
         else notFound
 
-  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
-    api.activeByIdBy(id, me).flatMap {
-      case Some(c) => api.cancel(c).inject(jsonOkResult)
-      case None =>
-        api.activeByIdFor(id, me).flatMap {
-          case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
-          case None =>
-            import lila.core.misc.map.Tell
-            import lila.core.round.Abort
-            import lila.core.round.AbortForce
-            env.game.gameRepo
-              .game(id.into(GameId))
-              .dmap {
-                _.flatMap { Pov(_, me) }
-              }
-              .flatMapz { p =>
-                env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
-              }
-              .flatMap {
-                case Some(pov) if pov.game.abortableByUser =>
-                  lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
-                  jsonOkResult
-                case Some(pov) if pov.game.playable =>
-                  Bearer.from(get("opponentToken")) match
-                    case Some(bearer) =>
-                      val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
-                      env.oAuth.server.auth(bearer, required, ctx.req.some).map {
-                        case Right(access) if pov.opponent.isUser(access.me) =>
+  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) {
+    ctx ?=> me ?=>
+      api.activeByIdBy(id, me).flatMap {
+        case Some(c) => api.cancel(c).inject(jsonOkResult)
+        case None =>
+          api.activeByIdFor(id, me).flatMap {
+            case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
+            case None =>
+              import lila.core.misc.map.Tell
+              import lila.core.round.Abort
+              import lila.core.round.AbortForce
+              env.game.gameRepo
+                .game(id.into(GameId))
+                .dmap {
+                  _.flatMap { Pov(_, me) }
+                }
+                .flatMapz { p =>
+                  env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
+                }
+                .flatMap {
+                  case Some(pov) if pov.game.abortableByUser =>
+                    lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
+                    jsonOkResult
+                  case Some(pov) if pov.game.playable =>
+                    Bearer.from(get("opponentToken")) match
+                      case Some(bearer) =>
+                        val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
+                        env.oAuth.server.auth(bearer, required, ctx.req.some).map {
+                          case Right(access) if pov.opponent.isUser(access.me) =>
+                            lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
+                            jsonOkResult
+                          case Right(_)  => BadRequest(jsonError("Not the opponent token"))
+                          case Left(err) => BadRequest(jsonError(err.message))
+                        }
+                      case None if api.isOpenBy(id, me) =>
+                        if pov.game.abortable then
                           lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                           jsonOkResult
-                        case Right(_)  => BadRequest(jsonError("Not the opponent token"))
-                        case Left(err) => BadRequest(jsonError(err.message))
-                      }
-                    case None if api.isOpenBy(id, me) =>
-                      if pov.game.abortable then
-                        lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
-                        jsonOkResult
-                      else BadRequest(jsonError("The game can no longer be aborted"))
-                    case None => BadRequest(jsonError("Missing opponentToken"))
-                case _ => notFoundJson()
-              }
-        }
-    }
+                        else BadRequest(jsonError("The game can no longer be aborted"))
+                      case None => BadRequest(jsonError("Missing opponentToken"))
+                  case _ => notFoundJson()
+                }
+          }
+      }
   }
 
   def apiStartClocks(id: GameId) = Anon:

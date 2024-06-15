@@ -14,7 +14,7 @@
     border: 1px solid $c-border;
     transition:
       transform 0.3s,
-      opacity 0.3s;
+      background-color 0.3s;
     img {
       width: calc(192px * var(---scale-factor));
     }
@@ -31,9 +31,12 @@
     &.pull label {
       display: block;
     }
-  }
-
-  .dragging .card {
-    transition: none;
+    &.dragging {
+      transition: none;
+    }
+    &.selected {
+      pointer-events: none;
+      border: none;
+    }
   }
 }

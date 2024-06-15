@@ -19,7 +19,10 @@ export class BotCtrl {
   botDefaults: BotInfos;
   bots: Libots;
   rankBots: RankBot[] = [];
-  net: { store?: ObjectStorage<Uint8Array>; recent: Net[] } = { recent: [] };
+  nets: { locs: { [name: string]: AssetLoc }; store?: ObjectStorage<Uint8Array>; recent: Net[] } = {
+    locs: {},
+    recent: [],
+  };
   books = new Map<string, PolyglotBook>();
   white?: Libot;
   black?: Libot;
@@ -29,7 +32,7 @@ export class BotCtrl {
   constructor() {}
 
   async init() {
-    [this.zf, this.net.store, this.bots] = await Promise.all([
+    [this.zf, this.nets.store, this.bots, this.nets.locs] = await Promise.all([
       makeZerofish({
         root: site.asset.url('npm', { documentOrigin: true }),
         wasm: site.asset.url('npm/zerofishEngine.wasm'),
@@ -37,7 +40,9 @@ export class BotCtrl {
       }),
       objectStorage<Uint8Array>({ store: 'local.nets' }),
       this.initLibots(),
+      fetch(botAssetUrl('json/local.nets.json')).then(x => x.json()),
     ]);
+
     for (let i = 0; i <= RankBot.MAX_LEVEL; i++) {
       this.rankBots.push(new RankBot(this.zf, i));
     }
@@ -93,19 +98,20 @@ export class BotCtrl {
   }
 
   getNet = async (netName: string): Promise<Uint8Array> => {
-    const cached = this.net.recent.find(n => n.name === netName);
+    const cached = this.nets.recent.find(n => n.name === netName);
     if (cached) return cached.data;
+    console.log(netName);
+    const loc = this.nets.locs[netName];
     const netData =
-      (await this.net.store?.get(netName)) ??
-      (await fetch(botAssetUrl(`weights/${netName}`, false))
+      (await this.nets.store?.get(netName)) ??
+      (await fetch(loc.url ?? botAssetUrl(`weights/${loc.lichess}`, false))
         .then(res => res.arrayBuffer())
         .then(buf => new Uint8Array(buf)));
-    this.net.store?.put(netName, netData!);
-
-    const net = { name: netName, data: netData! };
-    this.net.recent.push(net);
-    if (this.net.recent.length > NET_CACHE_SIZE) this.net.recent.shift();
-    return net.data;
+    if (!netData) throw new Error(`error ${netName} {$JSON.stringify(loc)}`);
+    this.nets.store?.put(netName, netData);
+    this.nets.recent.push({ name: netName, data: netData! });
+    if (this.nets.recent.length > NET_CACHE_SIZE) this.nets.recent.shift();
+    return netData;
   };
 
   getBook = async (book: AssetLoc | undefined) => {
@@ -121,13 +127,17 @@ export class BotCtrl {
 
   private async resetBots() {
     const [jsonBots, overrides] = await Promise.all([
-      fetch(site.asset.url('bots.json')).then(x => x.json()),
+      fetch(site.asset.url('json/local.bots.json')).then(x => x.json()),
       this.getLocalOverrides(),
     ]);
     this.botDefaults = {};
     jsonBots.forEach((b: BotInfo) => (this.botDefaults[b.uid] = b));
     this.bots = {};
     [...jsonBots, ...overrides].forEach((b: Libot) => (this.bots[b.uid] = new ZerofishBot(b, this)));
+    Object.values(this.bots).forEach(b => {
+      if (b.zero?.net) this.nets.locs[b.zero.net.lichess ?? b.zero.net.url] = b.zero.net;
+    });
+    console.log(this.nets.locs);
     this.white = this.white ? this.bots[this.white.uid] : undefined;
     this.black = this.black ? this.bots[this.black.uid] : undefined;
   }
@@ -160,7 +170,7 @@ const defaultZerofishBot: BotInfo = {
   image: { lichess: 'gray-torso.webp', url: undefined },
   book: { lichess: 'gm2600.bin', url: undefined },
   glicko: { r: 1500, rd: 350 },
-  zero: { netName: 'maia-1100.pb', search: { nodes: 1 } },
+  zero: { net: { lichess: 'maia-1100.pb', url: undefined }, search: { nodes: 1 } },
   fish: { multipv: 12, search: { depth: 12 } },
   searchMix: { by: 'moves', data: [], range: { min: 0, max: 1 } },
 };

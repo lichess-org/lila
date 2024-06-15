@@ -5,7 +5,7 @@ export const skip = (txt: string) => (suspLink(txt) || followMe(txt)) && !isKnow
 export const selfReport = (txt: string) => {
   if (isKnownSpammer()) return;
   const hasSuspLink = suspLink(txt);
-  if (hasSuspLink) xhr.text(`/jslog/${window.location.href.substr(-12)}?n=spam`, { method: 'post' });
+  if (hasSuspLink) xhr.text(`/jslog/${window.location.href.slice(-12)}?n=spam`, { method: 'post' });
   if (hasSuspLink || followMe(txt)) site.storage.set('chat-spam', '1');
 };
 

@@ -1,5 +1,7 @@
 import { isTouchDevice } from 'common/device';
 
+const BASE_CARD_SIZE = 192;
+
 export interface CardData {
   imageUrl: string;
   label: string;
@@ -27,7 +29,7 @@ export class HandOfCards {
   scaleFactor = 1;
   pointerDownTime?: number;
   rect: DOMRect;
-  draggingCard: HTMLElement | null = null;
+  dragCard: HTMLElement | null = null;
 
   constructor(readonly owner: HandOwner) {
     for (const c of owner.cardData()) this.cards.push(this.createCard(c));
@@ -57,12 +59,9 @@ export class HandOfCards {
       <img src="${c.imageUrl}">
       <label>${c.label}</label>
     </div>`);
-    //if (this.drops.length > 1) {
     card.addEventListener('pointerdown', this.pointerDown);
     card.addEventListener('pointermove', this.pointerMove);
     card.addEventListener('pointerup', this.pointerUp);
-    //}
-    //card.addEventListener('click', e => this.click(e));
     card.addEventListener('mouseenter', this.mouseEnter);
     card.addEventListener('mouseleave', this.mouseLeave);
     card.addEventListener('dragstart', e => e.preventDefault());
@@ -76,7 +75,7 @@ export class HandOfCards {
       window.getComputedStyle(document.documentElement).getPropertyValue('---scale-factor'),
     );
     if (isNaN(this.scaleFactor)) this.scaleFactor = 1;
-    const h2 = 192 * this.scaleFactor - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
+    const h2 = BASE_CARD_SIZE * this.scaleFactor - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
     this.rect = newRect;
     this.userMidX = this.view.offsetWidth / 2;
     this.userMidY = this.view.offsetHeight + Math.sqrt(3 / 4) * this.fanRadius - h2;
@@ -89,8 +88,8 @@ export class HandOfCards {
     const hovered = $as<HTMLElement>($('.card.pull'));
     const hoveredIndex = this.cards.findIndex(x => x == hovered);
     for (const [i, card] of this.cards.entries()) {
-      if (this.transformSelect(card) || card === this.draggingCard) continue;
-      card.style.opacity = '1';
+      if (this.transformSelect(card) || card === this.dragCard) continue;
+      card.style.backgroundColor = '';
       const pull = !hovered || i <= hoveredIndex ? 0 : (-(Math.PI / 2) * this.scaleFactor) / visibleCards;
       const fanout = ((Math.PI / 4) * (this.cards.length - i - 0.5)) / visibleCards;
       this.transform(card, -Math.PI / 8 + pull + this.dragAngle + fanout);
@@ -101,7 +100,7 @@ export class HandOfCards {
     const hovered = card.classList.contains('pull');
     const mag =
       15 + this.view.offsetWidth + (hovered ? 40 * this.scaleFactor + this.dragMag - this.startMag : 0);
-    const x = this.userMidX + mag * Math.sin(angle) - 96 * this.scaleFactor;
+    const x = this.userMidX + mag * Math.sin(angle) - (BASE_CARD_SIZE * this.scaleFactor) / 2;
     const y = this.userMidY - mag * Math.cos(angle);
     if (hovered) angle += Math.PI / 12;
     card.style.transform = `translate(${x}px, ${y}px) rotate(${angle}rad)`;
@@ -109,13 +108,14 @@ export class HandOfCards {
 
   transformSelect(card: HTMLElement) {
     const dindex = this.drops.findIndex(x => x.selected?.slice(1) === card.id);
+    card.classList.toggle('selected', dindex >= 0);
     if (dindex < 0) return false;
     const to = this.drops[dindex].el;
-    const scale = to.offsetWidth / card.offsetWidth;
+    const scale = to.offsetHeight / card.offsetHeight;
     const x = to.offsetLeft - card.offsetLeft + (to.offsetWidth - card.offsetWidth) / 2;
     const y = to.offsetTop - card.offsetTop + (to.offsetHeight - card.offsetHeight) / 2;
     card.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    card.style.opacity = '0';
+    card.style.backgroundColor = window.getComputedStyle(to).backgroundColor;
     return true;
   }
 
@@ -160,22 +160,20 @@ export class HandOfCards {
   pointerDown = (e: PointerEvent) => {
     this.resetIdleTimer();
     this.pointerDownTime = Date.now();
-    if (!this.draggingCard) {
-      this.view.classList.add('dragging');
-      this.draggingCard = e.currentTarget as HTMLElement;
-      this.draggingCard.setPointerCapture(e.pointerId);
-      //this.draggingCard.style.transition = 'none';
-    }
+    this.dragCard?.releasePointerCapture(e.pointerId);
+    this.dragCard = e.currentTarget as HTMLElement;
+    this.dragCard.setPointerCapture(e.pointerId);
   };
 
   pointerMove = (e: PointerEvent) => {
-    if (!this.pointerDownTime || !this.draggingCard) return;
+    if (!this.pointerDownTime || !this.dragCard) return;
     e.preventDefault();
-    this.draggingCard.style.transition = 'none';
+    this.dragCard.classList.add('dragging');
     const viewPt = this.clientToView([e.clientX, e.clientY]);
-    const viewX = viewPt[0] - 96 * this.scaleFactor;
-    const viewY = viewPt[1] - 96 * this.scaleFactor;
-    this.draggingCard.style.transform = `translate(${viewX}px, ${viewY}px)`;
+    const viewX = viewPt[0] - (BASE_CARD_SIZE * this.scaleFactor) / 2;
+    const viewY = viewPt[1] - (BASE_CARD_SIZE * this.scaleFactor) / 2;
+    const newAngle = this.getAngle([e.clientX, e.clientY]);
+    this.dragCard.style.transform = `translate(${viewX}px, ${viewY}px) rotate(${newAngle}rad)`;
     for (const drop of this.drops) drop.el?.classList.remove('drag-over');
     this.dropTarget(e)?.classList.add('drag-over');
     this.resetIdleTimer();
@@ -183,76 +181,20 @@ export class HandOfCards {
 
   pointerUp = (e: PointerEvent) => {
     for (const drop of this.drops) drop.el?.classList.remove('drag-over');
-    this.view.classList.remove('dragging');
-    if (this.draggingCard) {
-      //this.draggingCard.style.transition = '';
-      this.draggingCard.releasePointerCapture(e.pointerId);
-      const target = this.dropTarget(e);
-      if (target) this.select(target, this.draggingCard.id);
-    }
-    this.draggingCard = null;
+    this.view.querySelectorAll('.dragging')?.forEach(x => x.classList.remove('dragging'));
+    if (!this.dragCard) return;
+    this.dragCard.classList.remove('pull');
+    this.dragCard.releasePointerCapture(e.pointerId);
+    const target =
+      this.dropTarget(e) ||
+      (this.pointerDownTime &&
+        Date.now() - this.pointerDownTime < 500 &&
+        this.drops[this.drops.length - 1].el);
+    if (target) this.select(target, this.dragCard.id);
+    this.dragCard = null;
     this.resetIdleTimer();
-    if (this.pointerDownTime && Date.now() - this.pointerDownTime < 500) this.click(e);
     this.pointerDownTime = undefined;
   };
-  /* v0.0.1
-  startDrag(e: PointerEvent): void {
-    this.startAngle = this.getAngle([e.clientX, e.clientY]) - this.dragAngle;
-    this.dragMag = this.startMag = this.getMag([e.clientX, e.clientY]);
-    this.view.classList.add('dragging');
-    this.draggingCard = e.currentTarget as HTMLElement;
-    if (isTouchDevice()) {
-      $('.card').removeClass('pull');
-      this.draggingCard.classList.add('pull');
-    }
-    this.draggingCard.setPointerCapture(e.pointerId);
-    this.draggingCard.style.transition = 'none';
-    this.resetIdleTimer();
-  }
-
-  duringDrag(e: PointerEvent): void {
-    e.preventDefault();
-    if (!this.draggingCard) return;
-    for (const drop of this.drops) drop.el?.classList.remove('drag-over');
-    this.dropTarget(e)?.classList.add('drag-over');
-    const newAngle = this.getAngle([e.clientX, e.clientY]);
-
-    this.dragMag = this.getMag([e.clientX, e.clientY]);
-    this.dragAngle = newAngle - this.startAngle;
-    this.placeCards();
-    this.resetIdleTimer();
-  }
-
-  endDrag(e: PointerEvent): void {
-    for (const drop of this.drops) drop.el?.classList.remove('drag-over');
-    $('.card').removeClass('pull');
-    this.view.classList.remove('dragging');
-    if (this.draggingCard) {
-      this.draggingCard.style.transition = '';
-      this.draggingCard.releasePointerCapture(e.pointerId);
-      const target = this.dropTarget(e);
-      if (target) this.select(target, this.draggingCard.id);
-    }
-    //this.startMag = this.dragMag = this.startAngle = this.dragAngle = 0;
-    this.startMag = this.dragMag = this.startAngle = 0;
-    this.draggingCard = null;
-    this.placeCards();
-    this.resetIdleTimer();
-  }
-  */
-  click(e: PointerEvent) {
-    console.log('click');
-    let el = e.target as HTMLElement;
-    while (el && !el.id) el = el.parentElement!;
-    if (el?.id) {
-      const drop = this.drops.find(x => !x.selected) || this.drops[this.drops.length - 1];
-      drop.selected = el.id;
-      //this.transformSelect(drop.el, el);
-      el.classList.remove('pull');
-      this.select(drop.el, el.id);
-      this.resetIdleTimer();
-    }
-  }
 
   dropTarget(e: PointerEvent): HTMLElement | undefined {
     for (const drop of this.drops) {
@@ -281,3 +223,49 @@ export class HandOfCards {
     return this.view.offsetWidth;
   }
 }
+
+/* v0.0.1
+  startDrag(e: PointerEvent): void {
+    this.startAngle = this.getAngle([e.clientX, e.clientY]) - this.dragAngle;
+    this.dragMag = this.startMag = this.getMag([e.clientX, e.clientY]);
+    this.view.classList.add('dragging');
+    this.dragCard = e.currentTarget as HTMLElement;
+    if (isTouchDevice()) {
+      $('.card').removeClass('pull');
+      this.dragCard.classList.add('pull');
+    }
+    this.dragCard.setPointerCapture(e.pointerId);
+    this.dragCard.style.transition = 'none';
+    this.resetIdleTimer();
+  }
+
+  duringDrag(e: PointerEvent): void {
+    e.preventDefault();
+    if (!this.dragCard) return;
+    for (const drop of this.drops) drop.el?.classList.remove('drag-over');
+    this.dropTarget(e)?.classList.add('drag-over');
+    const newAngle = this.getAngle([e.clientX, e.clientY]);
+
+    this.dragMag = this.getMag([e.clientX, e.clientY]);
+    this.dragAngle = newAngle - this.startAngle;
+    this.placeCards();
+    this.resetIdleTimer();
+  }
+
+  endDrag(e: PointerEvent): void {
+    for (const drop of this.drops) drop.el?.classList.remove('drag-over');
+    $('.card').removeClass('pull');
+    this.view.classList.remove('dragging');
+    if (this.dragCard) {
+      this.dragCard.style.transition = '';
+      this.dragCard.releasePointerCapture(e.pointerId);
+      const target = this.dropTarget(e);
+      if (target) this.select(target, this.dragCard.id);
+    }
+    //this.startMag = this.dragMag = this.startAngle = this.dragAngle = 0;
+    this.startMag = this.dragMag = this.startAngle = 0;
+    this.dragCard = null;
+    this.placeCards();
+    this.resetIdleTimer();
+  }
+  */

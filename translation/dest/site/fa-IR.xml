@@ -70,6 +70,8 @@
   <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
+  <string name="collapseVariations">بستن شاخه‌ها</string>
+  <string name="expandVariations">باز کردن شاخه‌ها</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
@@ -147,8 +149,8 @@
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s نفر بازیکن آنلاین</item>
-    <item quantity="other">%s نفر بازیکن آنلاین</item>
+    <item quantity="one">%s بازیکن</item>
+    <item quantity="other">%s بازیکن</item>
   </plurals>
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
   <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>
@@ -520,7 +522,7 @@
   <string name="inlineNotation">نشانه‌گذاری خطی</string>
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
-  <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
+  <string name="previouslyOnLichessTV">بازی پیشین در Lichess</string>
   <string name="onlinePlayers">بازیکنان بَرخط</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
@@ -630,7 +632,7 @@
   <string name="error.email">آدرس ایمیل غیر معتبر است</string>
   <string name="error.email_acceptable">این آدرس ایمیل قابل قبول نیست. لطفا آدرس وارد شده را چک کنید و دوباره امتحان کنید.</string>
   <string name="error.email_unique">آدرس ایمیل نامعتبر است یا قبلا در سیستم ثبت شده است</string>
-  <string name="error.email_different">این آدرس ایمیل همان آدرس ایمیل قبلی شما است</string>
+  <string name="error.email_different">اکنون، این نشانی رایانامه‌تان شما است</string>
   <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
   <string name="error.maxLength">باید حداقل دارای %s حرف باشد</string>
   <string name="error.min">باید حداقل %s باشد</string>
@@ -701,10 +703,10 @@
   <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
   <string name="keyNextMistake">اشتباه بعدی</string>
   <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
-  <string name="keyPreviousBranch">شاخه قبلی</string>
+  <string name="keyPreviousBranch">شاخه پیشین</string>
   <string name="keyNextBranch">شاخه بعدی</string>
   <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
-  <string name="cyclePreviousOrNextVariation">چرخه قبلی/بعدی شاخه اصلی</string>
+  <string name="cyclePreviousOrNextVariation">چرخه پیشین/پسین شاخه اصلی</string>
   <string name="toggleGlyphAnnotations">کلید علائم حرکت‌نویسی</string>
   <string name="togglePositionAnnotations">تغییر علائم حرکت‌نویسی</string>
   <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
@@ -740,7 +742,7 @@
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
   <string name="downloadRaw">دانلود خام</string>
   <string name="downloadImported">دانلود جایگذاری شده</string>
-  <string name="crosstable">نتایج رودررو</string>
+  <string name="crosstable">رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>

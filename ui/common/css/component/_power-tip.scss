@@ -8,7 +8,7 @@
   background: $c-bg-popup;
   display: none;
   position: absolute;
-  z-index: z('powertip');
+  z-index: $z-powertip-120;
 
   .mini-game__player {
     @include padding-direction(3px, 0.5em, 0.3em, 0.7em);

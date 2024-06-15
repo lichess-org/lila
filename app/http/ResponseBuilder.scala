@@ -88,8 +88,11 @@ trait ResponseBuilder(using Executor)
     negotiate(
       html = Redirect(
         if HTTPRequest.isClosedLoginPath(ctx.req)
-        then routes.Auth.login
-        else routes.Auth.signup
+        then routes.Auth.login.url
+        else
+          HTTPRequest.queryStringGet(ctx.req, "login") match
+            case Some(login) => s"${routes.Auth.login.url}?as=$login"
+            case _           => routes.Auth.signup.url
       ).withCookies(env.security.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)),
       json = env.security.lilaCookie.ensure(ctx.req):
         Unauthorized(jsonError("Login required"))

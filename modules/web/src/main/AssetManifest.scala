@@ -32,7 +32,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         _.foreach: manifestJson =>
           maps = readMaps(manifestJson)
     else
-      val pathname = environment.getFile(s"public/compiled/$filename").toPath
+      val pathname = environment.getFile(s"public/json/$filename").toPath
       try
         val current = Files.getLastModifiedTime(pathname).toInstant
         if current.isAfter(maps.modified)
@@ -85,7 +85,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
     AssetMaps(js, css, nowInstant)
 
   private def fetchManifestJson(filename: String) =
-    val resource = s"${net.assetBaseUrlInternal}/assets/compiled/$filename"
+    val resource = s"${net.assetBaseUrlInternal}/assets/json/$filename"
     ws.url(resource)
       .get()
       .map:

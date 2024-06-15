@@ -35,12 +35,12 @@
 
   .team__quit {
     opacity: 0;
-    @include transition(0.1s);
+    transition: opacity 0.1s;
   }
 
   tr:hover .team__quit {
     opacity: 1;
-    @include transition(0.6s);
+    transition: opacity 0.6s;
   }
 
   .info {

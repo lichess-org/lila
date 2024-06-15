@@ -16,6 +16,7 @@ import lila.relay.RelayTour.WithLastRound
 
 @Module
 final class Env(
+    config: play.api.Configuration,
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
@@ -113,6 +114,9 @@ final class Env(
   ).taggedWith[ProxyDomainRegex]
 
   private val relayFidePlayerApi = wire[RelayFidePlayerApi]
+
+  import lila.common.config.given
+  private val syncOnlyIds = config.getOptional[List[String]]("relay.syncOnlyIds").map(RelayTourId.from)
 
   // start the sync scheduler
   wire[RelayFetch]

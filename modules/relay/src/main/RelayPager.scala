@@ -109,18 +109,36 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
-    forSelector($text(query) ++ selectors.officialPublic, page)
+    val day = 1000L * 3600 * 24
+    forSelector(
+      selector = $text(query) ++ selectors.officialPublic,
+      page = page,
+      onlyKeepGroupFirst = false,
+      addFields = $doc(
+        "searchDate" -> $doc(
+          "$add" -> $arr(
+            $doc("$ifNull"   -> $arr("$syncedAt", "$createdAt")),
+            $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.NORMAL)), 60 * day)),
+            $doc("$multiply" -> $arr($doc("$meta" -> "textScore"), 30 * day))
+          )
+        )
+      ).some,
+      sortFields = List("searchDate")
+    )
 
   def byIds(ids: List[RelayTourId], page: Int): Fu[Paginator[WithLastRound]] =
     forSelector(
       $inIds(ids) ++ selectors.officialPublic,
-      page,
-      List("syncedAt")
+      page = page,
+      onlyKeepGroupFirst = false,
+      sortFields = List("syncedAt")
     )
 
   private def forSelector(
       selector: Bdoc,
       page: Int,
+      onlyKeepGroupFirst: Boolean = true,
+      addFields: Option[Bdoc] = None,
       sortFields: List[String] = List("tier", "syncedAt", "createdAt")
   ): Fu[Paginator[WithLastRound]] =
     Paginator(
@@ -131,8 +149,9 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
-                List(Sort(sortFields.map(Descending(_))*)) :::
-                  aggregateRoundAndUnwind(framework) :::
+                addFields.map(AddFields(_)).toList :::
+                  List(Sort(sortFields.map(Descending(_))*)) :::
+                  aggregateRoundAndUnwind(framework, onlyKeepGroupFirst) :::
                   List(Skip(offset), Limit(length))
               }
             .map(readToursWithRound)
@@ -141,26 +160,36 @@ final class RelayPager(
       maxPerPage = maxPerPage
     )
 
-  private def aggregateRoundAndUnwind(framework: tourRepo.coll.AggregationFramework.type) =
-    aggregateRound(framework) ::: List(framework.UnwindField("round"))
+  private def aggregateRoundAndUnwind(
+      framework: tourRepo.coll.AggregationFramework.type,
+      onlyKeepGroupFirst: Boolean = true
+  ) =
+    aggregateRound(framework, onlyKeepGroupFirst) ::: List(framework.UnwindField("round"))
 
-  private def aggregateRound(framework: tourRepo.coll.AggregationFramework.type) = List(
-    framework.PipelineOperator(RelayListing.group.lookup(colls.group)),
-    framework.Match(RelayListing.group.filter),
-    framework.PipelineOperator(
-      $lookup.pipeline(
-        from = roundRepo.coll,
-        as = "round",
-        local = "_id",
-        foreign = "tourId",
-        pipe = List(
-          $doc("$sort"      -> RelayRoundRepo.sort.start),
-          $doc("$limit"     -> 1),
-          $doc("$addFields" -> $doc("sync.log" -> $arr()))
+  private def aggregateRound(
+      framework: tourRepo.coll.AggregationFramework.type,
+      onlyKeepGroupFirst: Boolean = true
+  ) =
+    onlyKeepGroupFirst.so(
+      List(
+        framework.PipelineOperator(RelayListing.group.lookup(colls.group)),
+        framework.Match(RelayListing.group.filter)
+      )
+    ) ::: List(
+      framework.PipelineOperator(
+        $lookup.pipeline(
+          from = roundRepo.coll,
+          as = "round",
+          local = "_id",
+          foreign = "tourId",
+          pipe = List(
+            $doc("$sort"      -> RelayRoundRepo.sort.start),
+            $doc("$limit"     -> 1),
+            $doc("$addFields" -> $doc("sync.log" -> $arr()))
+          )
         )
       )
     )
-  )
 
   private def readToursWithRound(docs: List[Bdoc]): List[WithLastRound] = for
     doc   <- docs

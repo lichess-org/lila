@@ -28,7 +28,7 @@ export interface BotInfo {
   readonly book?: AssetLoc;
   readonly description: string;
   readonly glicko?: { r: number; rd: number };
-  readonly zero?: { netName: string; search: Search };
+  readonly zero?: { net: AssetLoc; search: Search };
   readonly fish?: { multipv: number; search: Search };
   readonly quirks?: Quirks;
   readonly searchMix?: Mapping;

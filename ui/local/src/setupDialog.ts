@@ -37,9 +37,13 @@ export class LocalDialog {
     this.white = this.view.querySelector('.white')!;
     this.black = this.view.querySelector('.black')!;
     const cardData = [...Object.values(this.bots).map(b => b.card)].filter(defined);
+    //const drops = ;
     this.hand = new HandOfCards({
       view: () => this.view,
-      drops: () => [{ el: this.white }, { el: this.black }],
+      drops: () => [
+        { el: this.white, selected: this.setup.white },
+        { el: this.black, selected: this.setup.black },
+      ],
       cardData: () => cardData,
       select: this.dropSelect,
     });
@@ -82,7 +86,7 @@ export class LocalDialog {
   select(color: 'white' | 'black', selection?: string) {
     console.log(color, selection, this.bots);
     const bot = selection ? this.bots[selection] : undefined;
-    this.view.style.setProperty(`---${color}-image-url`, bot ? `url(${bot.imageUrl})` : null);
+    //this.view.style.setProperty(`---${color}-image-url`, bot ? `url(${bot.imageUrl})` : null);
     this.view.querySelector(`.${color} .placard`)!.textContent = bot ? bot.description : 'Player';
     this.setup[color] = bot?.uid;
     this[color].querySelector(`img.remove`)!.classList.toggle('show', !!bot);

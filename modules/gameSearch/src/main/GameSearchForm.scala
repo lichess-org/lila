@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 import lila.common.Form.*
 import lila.core.i18n.Translate
-import lila.search.spec.{ Sorting as SpecSorting, Clocking, IntRange, DateRange, Query }
+import lila.search.spec.{ Sorting as SpecSorting, IntRange, DateRange, Query }
 import smithy4s.Timestamp
 
 final private[gameSearch] class GameSearchForm:

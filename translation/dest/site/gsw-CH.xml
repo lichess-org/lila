@@ -70,6 +70,8 @@
   <string name="promoteVariation">Variante ufwerte</string>
   <string name="makeMainLine">Zur Hauptvariante mache</string>
   <string name="deleteFromHere">Ab da lösche</string>
+  <string name="collapseVariations">Variante kollabiere</string>
+  <string name="expandVariations">Variante erwitere</string>
   <string name="forceVariation">Variante erzwinge</string>
   <string name="copyVariationPgn">PGN Variante kopiere</string>
   <string name="move">Zug</string>

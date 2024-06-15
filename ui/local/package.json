@@ -26,7 +26,9 @@
     ],
     "sync": {
       "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",
-      "defs/bots.json": "public"
+      "defs/local.bots.json": "public/json",
+      "defs/local.openings.json": "public/json",
+      "defs/local.nets.json": "public/json"
     }
   }
 }

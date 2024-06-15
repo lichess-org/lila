@@ -107,7 +107,7 @@
 
   .status {
     opacity: 0;
-    @include transition();
+    @include transition;
     text-align: center;
     color: $c-good;
   }

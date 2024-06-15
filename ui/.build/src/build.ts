@@ -31,6 +31,7 @@ export async function build(mods: string[]) {
 
   await Promise.allSettled([
     fs.promises.mkdir(env.jsDir),
+    fs.promises.mkdir(env.jsonDir),
     fs.promises.mkdir(env.cssDir),
     fs.promises.mkdir(env.themeGenDir),
     fs.promises.mkdir(env.cssTempDir),

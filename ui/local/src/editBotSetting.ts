@@ -1,4 +1,5 @@
 import { EditBotDialog } from './editBotDialog';
+import { escapeHtml } from 'common';
 import { BaseInfo, SelectInfo, TextareaInfo, NumberInfo, RangeInfo, getSchemaDefault } from './editBotSchema';
 
 type BaseParams = { info: BaseInfo; dlg: EditBotDialog };
@@ -74,7 +75,12 @@ export class SettingNode {
       //if (this.info.radioGroup) (this.dlg.radios[this.info.radioGroup] ??= []).push(this.id);
     }
 
-    this.input.value = String(this.getProperty() ?? this.getProperty(this.dlg.botDefault) ?? '');
+    console.log(
+      'init tryna set',
+      JSON.stringify(this.getProperty() ?? this.getProperty(this.dlg.botDefault)) ?? '',
+    );
+    this.input.value = this.getStringProperty() || this.getStringProperty(this.dlg.botDefault);
+    console.log('init', this.id, 'getProperty', this.getProperty(), 'input.value', this.input.value);
     this.setEnabled();
     this.div.appendChild(this.input);
   }
@@ -85,16 +91,8 @@ export class SettingNode {
     if (enabled === !this.div.classList.contains('disabled')) return;
     if (enabled === undefined) enabled = this.enabled;
     this.div.classList.toggle('disabled', !enabled);
+    if (enabled && !this.input.value) this.input.value = this.stringPropertyOrDefault;
     this.setProperty(enabled ? this.input.value : undefined);
-    // if (!enabled) {
-    //   const latentEnabled = requires.find(dep => this.dlg.els[dep].enabled);
-    //   if (latentEnabled) {
-    //     this.dlg.els[latentEnabled].setEnabled(false);
-    //     requires.splice(requires.indexOf(latentEnabled), 1);
-    //     requires.push(latentEnabled);
-    //   }
-    // }
-    //this.dlg.requires[this.id]?.forEach(id => this.dlg.els[id].setVisibility());
     settings.forEach(el => el.setVisibility());
     if (this.toggle) this.toggle.checked = enabled;
     if (this.info.radioGroup && enabled)
@@ -124,14 +122,16 @@ export class SettingNode {
     return this.info.id!;
   }
 
-  /*get require() {
-    return typeof this.info.require === 'boolean'
-      ? this.info.require
-      : this.info.require?.every(id => this.dlg.els[id].getProperty()) || true;
-  }*/
-
   get enabled() {
     return this.getProperty() !== undefined;
+  }
+
+  get stringPropertyOrDefault() {
+    return (
+      this.getStringProperty() ||
+      this.getStringProperty(this.dlg.botDefault) ||
+      (JSON.stringify(getSchemaDefault(this.id)) ?? '')
+    );
   }
 
   setProperty(value: string | number | undefined) {
@@ -143,6 +143,11 @@ export class SettingNode {
   getProperty(of = this.dlg.bot as any) {
     return objectPath(this.id)?.reduce((obj, key) => obj?.[key], of);
   }
+
+  getStringProperty(of = this.dlg.bot as any) {
+    const prop = this.getProperty(of);
+    return typeof prop === 'object' ? JSON.stringify(prop) : prop ? String(prop) : '';
+  }
 }
 
 class SelectSetting extends SettingNode {
@@ -150,23 +155,21 @@ class SelectSetting extends SettingNode {
   info: SelectInfo;
   constructor(p: BaseParams) {
     super(p);
-    this.init();
     for (const c of this.info.choices) {
       const option = document.createElement('option');
-      option.value = c.value; //JSON.stringify(c.value);
+      option.value = typeof c.value === 'object' ? JSON.stringify(c.value) ?? '' : c.value ?? '';
       option.textContent = c.name;
-      if (option.value === this.getProperty()) option.selected = true;
+      if (option.value === this.getStringProperty()) option.selected = true;
       this.input.appendChild(option);
     }
+    this.init();
   }
   get inputValue(): string {
     return this.input.value;
   }
-  getProperty(of = this.dlg.bot as any) {
-    return JSON.stringify(super.getProperty(of));
-  }
   setProperty(value: string | undefined) {
     super.setProperty(value ? JSON.parse(value) : undefined);
+    if (!value) this.input.value = '';
   }
 }
 
@@ -242,7 +245,8 @@ function objectPath(id: string) {
 function removePath({ obj, path }: { obj: any; path: string[] }) {
   if (!obj) return;
   if (path.length > 1) removePath({ obj: obj[path[0]], path: path.slice(1) });
-  if (typeof obj[path[0]] !== 'object' || Object.keys(obj[path[0]]).length === 0) delete obj[path[0]];
+  if (typeof obj[path[0]] !== 'object' || path.length === 1 || Object.keys(obj[path[0]]).length === 0)
+    delete obj[path[0]];
 }
 
 function setPath({ obj, path, value }: { obj: any; path: string[]; value: any }) {

@@ -88,7 +88,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await xhr.jsonSimple(site.asset.url(`compiled/grammar/move-${ui.lang()}.json`));
+    const g = await xhr.jsonSimple(site.asset.url(`json/grammar/move-${ui.lang()}.json`));
     byWord.clear();
     byTok.clear();
     byVal.clear();

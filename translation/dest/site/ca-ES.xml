@@ -70,6 +70,8 @@
   <string name="promoteVariation">Promoure variant</string>
   <string name="makeMainLine">Convertir en línia principal</string>
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
+  <string name="collapseVariations">Amagar variacions</string>
+  <string name="expandVariations">Expandir variacions</string>
   <string name="forceVariation">Forçar variant</string>
   <string name="copyVariationPgn">Copia el PGN de la variació</string>
   <string name="move">Moviment</string>

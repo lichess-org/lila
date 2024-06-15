@@ -14,7 +14,7 @@ export class ZerofishBot implements Libot {
   description: string;
   image: AssetLoc;
   book?: AssetLoc;
-  zero?: { netName: string; search: Search };
+  zero?: { net: AssetLoc; search: Search };
   fish?: { multipv: number; search: Search };
   glicko: { r: number; rd: number };
   searchMix?: Mapping;
@@ -58,7 +58,7 @@ export class ZerofishBot implements Libot {
       promises.push(
         this.ctrl.zf.goZero(pos, {
           search: this.zero.search,
-          net: { name: this.zero.netName, fetch: this.ctrl.getNet },
+          net: { name: this.zero.net.lichess ?? this.zero.net.url, fetch: this.ctrl.getNet },
         }),
       );
     if (this.fish) promises.push(this.ctrl.zf.goFish(pos, this.fish));

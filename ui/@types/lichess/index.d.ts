@@ -13,7 +13,11 @@
 // file://./../../site/src/site.ts
 interface Site {
   debug: boolean;
-  info: any;
+  info: {
+    commit: string;
+    message: string;
+    date: string;
+  };
   StrongSocket: {
     // file://./../../site/src/socket.ts
     new (url: string, version: number | false, cfg?: any): any;

@@ -27,7 +27,8 @@ final private class RelayFetch(
     fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
-    gameProxy: lila.core.game.GameProxy
+    gameProxy: lila.core.game.GameProxy,
+    onlyIds: Option[List[RelayTourId]] = None
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*
@@ -51,7 +52,9 @@ final private class RelayFetch(
   private val maxRelaysToSync = Max(50)
 
   private def syncRelays(official: Boolean): Funit =
-    val relays = if official then api.toSyncOfficial(maxRelaysToSync) else api.toSyncUser(maxRelaysToSync)
+    val relays =
+      if official then api.toSyncOfficial(maxRelaysToSync, onlyIds)
+      else api.toSyncUser(maxRelaysToSync, onlyIds)
     relays
       .flatMap: relays =>
         lila.mon.relay.ongoing(official).update(relays.size)
@@ -302,35 +305,32 @@ private object RelayFetch:
           case ((acc, index), pgn) =>
             pgnCache
               .get(pgn)
-              .flatMap: f =>
-                val game = f(index)
+              .flatMap: game =>
                 if game.isEmpty then LilaInvalid(s"Found an empty PGN at index $index").asLeft
                 else (acc :+ game, index + 1).asRight[LilaInvalid]
         .map(_._1)
 
-    private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, Int => RelayGame]] =
+    private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, RelayGame]] =
       CacheApi
         .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
         .expireAfterAccess(2 minutes)
         .maximumSize(512)
         .build(compute)
 
-    private def compute(pgn: PgnStr): Either[LilaInvalid, Int => RelayGame] =
+    private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
       StudyPgnImport(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
         .map: res =>
-          index =>
-            val fixedTags = // remove wrong ongoing result tag if the board has a mate on it
-              if res.end.isDefined && res.tags(_.Result).has("*") then
-                Tags(res.tags.value.filter(_ != Tag(_.Result, "*")))
-              else res.tags
-            RelayGame(
-              index = index.some,
-              tags = fixedTags,
-              variant = res.variant,
-              root = res.root.copy(
-                comments = Comments.empty,
-                children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
-              ),
-              ending = res.end
-            )
+          val fixedTags = // remove wrong ongoing result tag if the board has a mate on it
+            if res.end.isDefined && res.tags(_.Result).has("*") then
+              Tags(res.tags.value.filter(_ != Tag(_.Result, "*")))
+            else res.tags
+          RelayGame(
+            tags = fixedTags,
+            variant = res.variant,
+            root = res.root.copy(
+              comments = Comments.empty,
+              children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
+            ),
+            ending = res.end
+          )

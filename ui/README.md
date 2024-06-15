@@ -6,7 +6,7 @@ Client builds are performed by the ui/build script. Stick to `ui/build -w` and l
 
 Usage examples:
 
-```
+```bash
   ui/build                     # builds all client assets in dev mode
   ui/build -w                  # builds all client assets and watches for changes
   ui/build -p                  # builds minified client assets (prod builds)
@@ -22,11 +22,14 @@ Usage examples:
 
 ## Testing
 
-The frontend uses the Jest testing framework.
+The frontend uses the [Vitest](https://vitest.dev/) testing framework.
 
-```
-cd ui/
+```bash
+cd ui
+
 pnpm test
+## or
+pnpm test:watch
 ```
 
 ## CSS

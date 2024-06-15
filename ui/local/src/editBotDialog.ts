@@ -6,7 +6,7 @@ import { defined, escapeHtml } from 'common';
 import { GameCtrl } from './gameCtrl';
 import { renderMapping } from './mappingView';
 import { Settings } from './editBotSetting';
-import { setSchemaBookChoices, setSchemaNetChoices, buildFromSchema } from './editBotSchema';
+import { buildFromSchema } from './editBotSchema';
 import * as licon from 'common/licon';
 
 interface ZerofishBotEditor extends ZerofishBot {
@@ -38,8 +38,6 @@ export class EditBotDialog {
     readonly color: Color,
     readonly setBot: (uid: string) => void,
   ) {
-    setSchemaBookChoices(lifatBooks); // TODO - not here
-    setSchemaNetChoices(lifatNets); // TODO - not here
     this.bots = botCtrl.zerofishBots;
     this.view = $as<HTMLElement>(`<div class="with-hand-of-cards"><div class="edit-bot"></div></div>`);
     this.selectBot();
@@ -110,6 +108,10 @@ export class EditBotDialog {
     // for (const [id, deps] of Object.entries(this.requires)) {
     //   deps.forEach(dep => this.els[dep].setVisibility());
     // }
+    console.log('bot_zero_net prop', this.settings.byId['bot_zero_net'].getProperty());
+    console.log('bot_zero_net', this.settings.byId['bot_zero_net'].input?.value);
+    console.log('bot_zero_search_nodes', this.settings.byId['bot_zero_search_nodes'].getProperty());
+    console.log('bot_zero_search_depth', this.settings.byId['bot_zero_search_depth'].getProperty());
     this.setVisibility();
     return el;
   }
@@ -118,7 +120,6 @@ export class EditBotDialog {
 
   toggleEnabled = (dlg: Dialog, action: Action, e: Event) => {
     const cbox = e.target as HTMLInputElement;
-    //const setting = this.els[cbox.parentElement!.id];
     this.settings.byEl(cbox)?.setEnabled(cbox.checked);
     this.bot.update();
   };
@@ -177,7 +178,7 @@ export class EditBotDialog {
 
   selectBot(uid = this.botCtrl[this.color]!.uid) {
     this.uid = uid;
-    this.view.style.setProperty(`---${this.color}-image-url`, `url(${this.bot.imageUrl})`);
+    //this.view.style.setProperty(`---${this.color}-image-url`, `url(${this.bot.imageUrl})`);
     this.view.querySelector('.edit-bot')?.replaceWith(this.makeEditView());
     //this.placardEl.textContent = this.bot.description;
     this.dlg?.refresh();
@@ -251,54 +252,3 @@ export class EditBotDialog {
     dlg.showModal();
   };
 }
-
-// function objectPath(id: string) {
-//   return id.split('_').slice(1);
-// }
-
-// function removePath({ obj, path }: { obj: any; path: string[] }) {
-//   if (!obj) return;
-//   if (path.length > 1) removePath({ obj: obj[path[0]], path: path.slice(1) });
-//   if (typeof obj[path[0]] !== 'object' || Object.keys(obj[path[0]].length === 0)) delete obj[path[0]];
-// }
-
-// function setPath({ obj, path, value }: { obj: any; path: string[]; value: any }) {
-//   if (path.length === 0) return;
-//   if (path.length === 1) obj[path[0]] = value;
-//   else if (!(path[0] in obj)) obj[path[0]] = {};
-//   setPath({ obj: obj[path[0]], path: path.slice(1), value });
-// }
-
-// TODO - fetch these from the server
-const lifatNets: { [name: string]: number } = {
-  'badgyal-8.pb': 3,
-  'evilgyal-6.pb': 3,
-  'goodgyal-5.pb': 3,
-  'tinygyal-8.pb': 4,
-  'naise700.pb': 0,
-  'nocap2000.pb': 0,
-  'maia-1100.pb': 0,
-  'maia-1200.pb': 0,
-  'maia-1300.pb': 0,
-  'maia-1400.pb': 0,
-  'maia-1500.pb': 0,
-  'maia-1600.pb': 0,
-  'maia-1700.pb': 0,
-  'maia-1800.pb': 0,
-  'maia-1900.pb': 0,
-};
-
-const lifatBooks = [
-  { name: 'Book.bin', value: { lichess: 'Book.bin', url: undefined } },
-  { name: 'codekiddy.bin', value: { lichess: 'codekiddy.bin', url: undefined } },
-  { name: 'DCbook_large.bin', value: { lichess: 'DCbook_large.bin', url: undefined } },
-  { name: 'Elo2400.bin', value: { lichess: 'Elo2400.bin', url: undefined } },
-  { name: 'final-book.bin', value: { lichess: 'final-book.bin', url: undefined } },
-  { name: 'gavibook.bin', value: { lichess: 'gavibook.bin', url: undefined } },
-  { name: 'gavibook-small.bin', value: { lichess: 'gavibook-small.bin', url: undefined } },
-  { name: 'gm2600.bin', value: { lichess: 'gm2600.bin', url: undefined } },
-  { name: 'komodo.bin', value: { lichess: 'komodo.bin', url: undefined } },
-  { name: 'KomodoVariety.bin', value: { lichess: 'KomodoVariety.bin', url: undefined } },
-  { name: 'Performance.bin', value: { lichess: 'Performance.bin', url: undefined } },
-  { name: 'varied.bin', value: { lichess: 'varied.bin', url: undefined } },
-];

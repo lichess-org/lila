@@ -26,7 +26,7 @@ export const botSchema: BotSchema = {
     },
     zero: {
       label: 'Lc0',
-      netName: {
+      net: {
         label: 'model',
         type: 'select',
         value: undefined,
@@ -40,7 +40,7 @@ export const botSchema: BotSchema = {
           min: 1,
           max: 99999,
           radioGroup: 'zeroSearch',
-          require: ['bot_zero_netName'],
+          require: ['bot_zero_net'],
         },
         depth: {
           label: 'depth',
@@ -50,7 +50,7 @@ export const botSchema: BotSchema = {
           max: 5,
           step: 1,
           radioGroup: 'zeroSearch',
-          require: ['bot_zero_netName'],
+          require: ['bot_zero_net'],
         },
         movetime: {
           label: 'movetime',
@@ -60,7 +60,7 @@ export const botSchema: BotSchema = {
           max: 999,
           step: 10,
           radioGroup: 'zeroSearch',
-          require: ['bot_zero_netName'],
+          require: ['bot_zero_net'],
         },
       },
     },
@@ -112,18 +112,6 @@ export const botSchema: BotSchema = {
 export function getSchemaDefault(id: string) {
   const setting = botSchema[id] ?? id.split('_').reduce((obj, key) => obj[key], botSchema);
   return (setting as BaseInfo)?.value;
-}
-
-export function setSchemaBookChoices(books: { name: string; value: any }[]) {
-  const prop = (botSchema as any).bot.book;
-  prop.choices = books.map(book => ({ name: book.name, value: JSON.stringify(book.value) }));
-  prop.value = books[0];
-}
-
-export function setSchemaNetChoices(nets: { [name: string]: number }) {
-  const prop = (botSchema as any).bot.zero.netName;
-  prop.choices = Object.entries(nets).map(([name, value]) => ({ name, value }));
-  prop.value = Object.keys(nets)[0];
 }
 
 export interface BotSchema extends BaseInfo {
@@ -207,3 +195,31 @@ function deepFreeze(obj: any) {
 }
 
 deepFreeze(botSchema);
+
+Promise.all([
+  fetch(site.asset.url('json/local.openings.json')).then(x => x.json()),
+  fetch(site.asset.url('json/local.nets.json')).then(x => x.json()),
+]).then(([openings, nets]) => {
+  //const mapper = (arr: any[]) => arr.map((b: any) => ({ name: b.name, value: JSON.stringify(b.value) }));
+  const book = (botSchema as any).bot.book;
+  book.choices = openings; //mapper(openings);
+  book.value = book.choices[0].value;
+  const net = (botSchema as any).bot.zero.net;
+  net.choices = nets; //mapper(nets);
+  net.value = net.choices[0].value;
+});
+/*
+export function setSchemaOpenings(books: { name: string; value: any }[]) {
+  const prop = (botSchema as any).bot.book;
+  prop.choices = books.map(book => ({ name: book.name, value: JSON.stringify(book.value) }));
+  prop.value = books[0];
+  //deepFreeze(prop);
+}
+
+export function setSchemaNets(nets: { [name: string]: number }) {
+  const prop = (botSchema as any).bot.zero.net;
+  prop.choices = Object.entries(nets).map(([name, value]) => ({ name, value }));
+  prop.value = Object.keys(nets)[0];
+  //deepFreeze(prop);
+}
+*/

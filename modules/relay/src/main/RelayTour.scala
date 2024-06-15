@@ -60,7 +60,7 @@ object RelayTour:
       NORMAL.toString  -> "Official: normal tier",
       HIGH.toString    -> "Official: high tier",
       BEST.toString    -> "Official: best tier",
-      PRIVATE.toString -> "Official: Private"
+      PRIVATE.toString -> "Private"
     )
     def name(tier: Tier) = options.collectFirst {
       case (t, n) if t == tier.toString => n

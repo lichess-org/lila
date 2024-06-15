@@ -33,7 +33,7 @@ object GameDiff:
       val vb = getter(b)
       if getter(a) != vb then
         if vb == None || vb == null || vb == "" then unsetBuilder += (name -> bTrue)
-        else setBuilder += name                                            -> toBson(vb)
+        else setBuilder += name -> toBson(vb)
 
     def dOpt[A](name: String, getter: Game => A, toBson: A => Option[BSONValue]): Unit =
       val vb = getter(b)
@@ -42,7 +42,7 @@ object GameDiff:
         else
           toBson(vb) match
             case None    => unsetBuilder += (name -> bTrue)
-            case Some(x) => setBuilder += name    -> x
+            case Some(x) => setBuilder += name -> x
 
     def dTry[A](name: String, getter: Game => A, toBson: A => Try[BSONValue]): Unit =
       d[A](name, getter, a => toBson(a).get)
