@@ -7,7 +7,6 @@ import lila.core.forum.{ ForumPostApi, ForumPostMini, ForumPostMiniView }
 import lila.core.id.ForumPostId
 import lila.search.client.SearchClient
 import lila.search.spec.{ ForumSource, Query }
-import smithy4s.Timestamp
 
 final class ForumSearchApi(
     client: SearchClient,
@@ -37,7 +36,7 @@ final class ForumSearchApi(
       author = view.post.userId.map(_.value),
       topicId = view.topic.id.value,
       troll = view.post.troll,
-      date = Timestamp.fromInstant(view.post.createdAt)
+      date = view.post.createdAt.toEpochMilli()
     )
 
   def reset =
