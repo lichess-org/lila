@@ -6,6 +6,7 @@ import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.relay.RelayTour.WithLastRound
 import lila.core.LightUser
+import play.api.libs.json.Json
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   import helpers.{ *, given }
@@ -100,6 +101,22 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             )
         )
       )
+
+  def stats(t: RelayTour, graph: RelayStats.Graph)(using Context) =
+    Page(s"${t.name.value} - Stats")
+      .css("bits.relay.index")
+      .js(
+        PageModule(
+          "bits.relayStats",
+          Json
+            .obj("points" -> graph.map: (minute, crowd) =>
+              Json.arr(minute * 60, crowd))
+        )
+      ):
+        main(cls := "relay-tour page box box-pad")(
+          boxTop(h1(a(href := routes.RelayTour.show(t.slug, t.id).url)(t.name), " - Stats")),
+          "Here, a graph shows the number of viewers over time."
+        )
 
   def page(title: String, pageBody: Frag, active: String)(using Context): Page =
     Page(title)

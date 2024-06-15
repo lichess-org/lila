@@ -408,11 +408,6 @@ final class RelayApi(
           update(relay)(_.finish)
         }
 
-  private[relay] def monitorCrowd: Funit =
-    roundRepo.tourCrowds.map: crowds =>
-      crowds.foreach: (tourId, crowd) =>
-        lila.mon.relay.tourCrowd(tourId).update(crowd)
-
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
     byId(id).flatMapz(f)
 

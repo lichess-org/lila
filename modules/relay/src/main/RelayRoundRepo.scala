@@ -53,8 +53,8 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
     coll
       .aggregateList(maxDocs = 500, _.sec): framework =>
         import framework.*
-        Match($doc("sync.until" -> $exists(true))) ->
-          List(GroupField("_id")("crowd" -> SumField("crowd")))
+        Match($doc("sync.until" -> $exists(true), "crowd".$gt(0))) ->
+          List(GroupField("tourId")("crowd" -> SumField("crowd")))
       .map: docs =>
         for
           doc   <- docs
