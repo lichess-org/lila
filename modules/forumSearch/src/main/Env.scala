@@ -45,8 +45,4 @@ final class Env(
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
   lila.common.Bus.sub[BusForum]:
-    case CreatePost(post)        => api.store(post)
-    case RemovePost(id, _, _, _) => client.deleteById(index, id.value)
-    case RemovePosts(ids)        => client.deleteByIds(index, ids.map(_.value))
-    case ErasePost(id)           => client.deleteById(index, id.value)
-    case ErasePosts(ids)         => client.deleteByIds(index, ids.map(_.value))
+    case ErasePosts(ids) => client.deleteByIds(index, ids.map(_.value))
