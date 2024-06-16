@@ -67,4 +67,12 @@
   <string name="declinedRequests">الطلبات المرفوضة</string>
   <string name="joinLichessVariantTeam">انضم إلى فريق %s الرسمي للأخبار والأحداث</string>
   <string name="teamPage">صفحة الفريق</string>
+  <string name="thisTeamBattleIsOver">انتهت هذه البطولة، ولم يعد من الممكن تحديث الفريق.</string>
+  <string name="oneTeamPerLine">فريق واحد لكل سطر. استخدم الإكمال التلقائي.</string>
+  <string name="oneTeamPerLineHelp">يمكنك نسخ ولصق هذه القائمة من بطولة إلى أخرى!
+
+لا يمكنك إزالة فريق إذا كان اللاعب قد انضم فعلًا إلى البطولة معه.</string>
+  <string name="numberOfLeadsPerTeam">عدد القادة لكل فريق. مجموع درجاتهم هو نتيجة الفريق.</string>
+  <string name="numberOfLeadsPerTeamHelp">لا يجب عليك تغيير هذه القيمة بعد بدء البطولة!</string>
+  <string name="innerTeam">الفريق الداخلي</string>
 </resources>
