@@ -6,7 +6,7 @@ import { VNode, Hooks } from 'snabbdom';
 export const linkRegex =
   /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 export const newLineRegex = /\n/g;
-export const userPattern = /(^|[^\w@#/])@([a-zA-Z0-9_-]{2,30})/gi;
+export const userPattern = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 
 // looks like it has a @mention or #gameid or a url.tld
 export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
