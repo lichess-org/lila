@@ -82,7 +82,7 @@ object RelayTourForm:
         ownerId = me,
         tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
-        ongoing = false,
+        ongoing = none,
         createdAt = nowInstant,
         syncedAt = none,
         autoLeaderboard = autoLeaderboard,
