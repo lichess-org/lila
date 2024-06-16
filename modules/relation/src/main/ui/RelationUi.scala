@@ -51,8 +51,9 @@ final class RelationUi(helpers: Helpers):
       blocked: Boolean,
       signup: Boolean = false
   )(using ctx: Context) =
+    val blocks = relation.contains(Relation.Block)
     div(cls := "relation-actions")(
-      (ctx.isnt(user) && !blocked).option(
+      (ctx.isnt(user) && !blocked && !blocks).option(
         a(
           cls      := "text",
           href     := s"${routes.Lobby.home}?user=${user.name}#friend",
@@ -64,14 +65,14 @@ final class RelationUi(helpers: Helpers):
           (!user.is(myId))
             .so(
               frag(
-                (!blocked && !user.isBot).option(
+                (!blocked && !blocks && !user.isBot).option(
                   a(
                     cls      := "text",
                     href     := routes.Msg.convo(user.name),
                     dataIcon := Icon.BubbleSpeech
                   )(trans.site.composeMessage.txt())
                 ),
-                (!blocked && !user.isPatron).option(
+                (!blocked && !blocks && !user.isPatron).option(
                   a(
                     cls      := "text",
                     href     := s"${routes.Plan.list}?dest=gift&giftUsername=${user.name}",
