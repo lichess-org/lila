@@ -43,7 +43,7 @@ final class RelayListing(
             ) -> List(
               Sort(Descending("tier")),
               PipelineOperator(group.lookup(colls.group)),
-              Match(group.filter),
+              // Match(group.filter),
               PipelineOperator(roundLookup),
               UnwindField("round"),
               Limit(max)
@@ -149,18 +149,29 @@ private object RelayListing:
     def lookup(groupColl: Coll) = $lookup.pipelineFull(
       from = groupColl.name,
       as = "group",
-      let = $doc("id" -> "$_id"),
+      let = $doc("tourId" -> "$_id"),
       pipe = List(
-        $doc("$match" -> $doc("$expr" -> $doc("$in" -> $arr("$$id", "$tours")))),
+        $doc("$match" -> $doc("$expr" -> $doc("$in" -> $arr("$$tourId", "$tours")))),
         $doc:
           "$project" -> $doc(
-            "_id"   -> false,
-            "name"  -> true,
-            "first" -> $doc("$eq" -> $arr("$$id", $doc("$first" -> "$tours")))
+            "_id"     -> false,
+            "name"    -> true,
+            "isFirst" -> $doc("$eq" -> $arr("$$tourId", $doc("$first" -> "$tours")))
           )
       )
     )
-    val filter = $doc("group.0.first".$ne(false))
+    val filter = $doc("group.0.isFirst".$ne(false))
+
+    def groupOngoingTourLookup(tourColl: Coll) = $lookup.pipelineFull(
+      from = tourColl.name,
+      as = "ongoingTour",
+      let = $doc("tourIds" -> "$tours"),
+      pipe = List(
+        $doc("$match"   -> $doc("$expr" -> $doc("$in" -> $arr("_id", "$$tourIds")))),
+        $doc("$match"   -> $doc("ongoing" -> true)),
+        $doc("$project" -> $doc("_id" -> false, "id" -> true))
+      )
+    )
 
     def readFrom(doc: Bdoc): Option[RelayGroup.Name] = for
       garr <- doc.getAsOpt[Barr]("group")

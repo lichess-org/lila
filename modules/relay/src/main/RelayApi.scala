@@ -76,9 +76,12 @@ final class RelayApi(
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTourId): Funit =
-    roundRepo.coll.exists(RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)).flatMap {
-      tourRepo.setActive(tourId, _)
-    }
+    val unfinished = RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)
+    for
+      active  <- roundRepo.coll.exists(unfinished)
+      ongoing <- active.so(roundRepo.coll.exists(unfinished ++ $doc("startedAt".$exists(true))))
+      _       <- tourRepo.setActive(tourId, active, ongoing)
+    yield ()
 
   object countOwnedByUser:
     private val cache = cacheApi[UserId, Int](16_384, "relay.nb.owned"):
@@ -251,7 +254,7 @@ final class RelayApi(
         _ <- roundRepo.coll.update.one($id(round.id), round).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
-        _ <- (round.finished != from.finished).so(denormalizeTourActive(round.tourId))
+        _ <- (round.stateHash != from.stateHash).so(denormalizeTourActive(round.tourId))
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
