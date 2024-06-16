@@ -78,9 +78,9 @@ final class RelayApi(
   def denormalizeTourActive(tourId: RelayTourId): Funit =
     val unfinished = RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)
     for
-      active  <- roundRepo.coll.exists(unfinished)
-      ongoing <- active.so(roundRepo.coll.exists(unfinished ++ $doc("startedAt".$exists(true))))
-      _       <- tourRepo.setActive(tourId, active, ongoing)
+      active <- roundRepo.coll.exists(unfinished)
+      live   <- active.so(roundRepo.coll.exists(unfinished ++ $doc("startedAt".$exists(true))))
+      _      <- tourRepo.setActive(tourId, active, live)
     yield ()
 
   object countOwnedByUser:

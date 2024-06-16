@@ -56,7 +56,7 @@ final class RelayListing(
         yield (tour, round, group)
         sorted = tours.sortBy: (tour, round, _) =>
           (
-            !round.startedAt.isDefined,                    // ongoing tournaments first
+            !round.hasStarted,                             // ongoing tournaments first
             0 - ~tour.tier,                                // then by tier
             0 - ~round.crowd,                              // then by viewers
             round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
@@ -162,13 +162,13 @@ private object RelayListing:
     )
     val filter = $doc("group.0.isFirst".$ne(false))
 
-    def groupOngoingTourLookup(tourColl: Coll) = $lookup.pipelineFull(
+    def groupliveTourLookup(tourColl: Coll) = $lookup.pipelineFull(
       from = tourColl.name,
-      as = "ongoingTour",
+      as = "liveTour",
       let = $doc("tourIds" -> "$tours"),
       pipe = List(
         $doc("$match"   -> $doc("$expr" -> $doc("$in" -> $arr("_id", "$$tourIds")))),
-        $doc("$match"   -> $doc("ongoing" -> true)),
+        $doc("$match"   -> $doc("live" -> true)),
         $doc("$project" -> $doc("_id" -> false, "id" -> true))
       )
     )

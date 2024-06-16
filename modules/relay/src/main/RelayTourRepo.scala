@@ -11,8 +11,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField($id(tour.id), "syncedAt", nowInstant).void
 
-  def setActive(tourId: RelayTourId, active: Boolean, ongoing: Boolean): Funit =
-    coll.update.one($id(tourId), $set("active" -> active, "ongoing" -> ongoing)).void
+  def setActive(tourId: RelayTourId, active: Boolean, live: Boolean): Funit =
+    coll.update.one($id(tourId), $set("active" -> active, "live" -> live)).void
 
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
 
