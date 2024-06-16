@@ -76,7 +76,7 @@
   <string name="lookupOfPlayer">Шукаць задачы з партый гульца</string>
   <string name="fromXGames">Задачы з гульняў %s</string>
   <string name="searchPuzzles">Шукаць задачы</string>
-  <string name="fromMyGamesNone">Базе дадзеных няма задач з вашых гульня, але Liches усе роўна любіць вас!
+  <string name="fromMyGamesNone">Базе дадзеных няма задач з вашых гульня, але Lichess усе роўна любіць вас!
 Пагуляйце ў хуткія або класічныя шахматы каб павялічыць шанец выкарыстання вашых гульняў у задачах.</string>
   <string name="fromXGamesFound">Знойдзена %1$s задач ў %2$s гульнях</string>
   <string name="puzzleDashboardDescription">Трэніруйцеся, аналізуйце, паляпшайцеся</string>
