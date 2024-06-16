@@ -33,23 +33,25 @@
     }
 
     .user-actions {
+      @extend %flex-center-nowrap;
       flex: 0 0 auto;
       margin: 1em 1em 1em 0.3em;
 
-      form {
-        display: inline;
+      .mod-zone-toggle,
+      .dropdown > a {
+        display: block;
+        font-size: 2em;
+        height: 1.5em;
+        color: $c-font-dim;
+        padding: 0 0.7em;
+      }
+      .mod-zone-toggle:hover {
+        color: $c-font-clear;
       }
     }
 
     .dropdown {
       position: relative;
-      font-size: 2em;
-      > a {
-        display: block;
-        height: 1.5em;
-        color: $c-font-page;
-        padding-left: 0.5em;
-      }
 
       .dropdown-window {
         @extend %dropdown-shadow;
@@ -58,14 +60,17 @@
         background: $c-bg-header-dropdown;
         border-radius: 3px 0 3px 3px;
         position: absolute;
-        top: 1.5em;
+        top: 3rem;
         right: 0;
         a {
-          width: 16em;
-          font-size: 1rem;
+          width: 20em;
           display: block;
-          padding: 0.6rem 1rem;
+          padding: 0.7rem 1rem;
           color: $c-header-dropdown;
+          &::before {
+            margin-inline: 0 1rem;
+            font-size: 1.4em;
+          }
           &:first-child {
             border-radius: 3px 0 0 0;
           }
@@ -83,9 +88,9 @@
       }
       &:hover {
         > a {
-          border-radius: 3px 3px 0 0;
+          @extend %box-radius-top, %dropdown-shadow;
           background: $c-bg-header-dropdown;
-          box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+          color: $c-font-clear;
         }
         .dropdown-window {
           visibility: visible;
