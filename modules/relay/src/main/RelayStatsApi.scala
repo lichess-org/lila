@@ -45,7 +45,7 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
         yield RoundStats(round, stats)
 
   private def record(): Funit = for
-    crowds <- roundRepo.roundCrowds
+    crowds <- fetchRoundCrowds
     nowMinutes = nowSeconds / 60
     update     = colls.stats.update(ordered = false)
     elements <- crowds.sequentially: (roundId, crowd) =>
@@ -56,3 +56,19 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
       )
     _ <- elements.nonEmpty.so(update.many(elements).void)
   yield ()
+
+  private def fetchRoundCrowds: Fu[List[(RelayRoundId, Crowd)]] =
+    val max = 500
+    colls.round
+      .aggregateList(maxDocs = max, _.sec): framework =>
+        import framework.*
+        Match($doc("sync.until" -> $exists(true), "crowd".$gt(0))) ->
+          List(Project($doc("_id" -> 1, "crowd" -> 1)))
+      .map: docs =>
+        if docs.size == max
+        then logger.warn(s"RelayStats.fetchRoundCrowds: $max docs fetched")
+        for
+          doc   <- docs
+          id    <- doc.getAsOpt[RelayRoundId]("_id")
+          crowd <- doc.getAsOpt[Crowd]("crowd")
+        yield (id, crowd)
