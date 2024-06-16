@@ -102,17 +102,11 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         )
       )
 
-  def stats(t: RelayTour, graph: RelayStats.Graph)(using Context) =
+  def stats(t: RelayTour, stats: List[RelayStats.RoundStats])(using Context) =
+    import JsonView.given
     Page(s"${t.name.value} - Stats")
       .css("bits.relay.index")
-      .js(
-        PageModule(
-          "bits.relayStats",
-          Json
-            .obj("points" -> graph.map: (minute, crowd) =>
-              Json.arr(minute * 60, crowd))
-        )
-      ):
+      .js(PageModule("bits.relayStats", Json.obj("rounds" -> stats))):
         main(cls := "relay-tour page box box-pad")(
           boxTop(h1(a(href := routes.RelayTour.show(t.slug, t.id).url)(t.name), " - Stats")),
           "Here, a graph shows the number of viewers over time."

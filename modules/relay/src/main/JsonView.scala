@@ -45,18 +45,6 @@ final class JsonView(
       "tours" -> g.withShorterTourNames.tours
     )
 
-  given OWrites[RelayRound] = OWrites: r =>
-    Json
-      .obj(
-        "id"        -> r.id,
-        "name"      -> r.name,
-        "slug"      -> r.slug,
-        "createdAt" -> r.createdAt
-      )
-      .add("finished" -> r.finished)
-      .add("ongoing" -> (r.hasStarted && !r.finished))
-      .add("startsAt" -> r.startsAt.orElse(r.startedAt))
-
   def fullTour(tour: RelayTour): JsObject =
     Json
       .toJsObject(tour)
@@ -164,6 +152,25 @@ object JsonView:
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject, group: Option[RelayGroup.Name])
 
   given OWrites[SyncLog.Event] = Json.writes
+
+  given OWrites[RelayRound] = OWrites: r =>
+    Json
+      .obj(
+        "id"        -> r.id,
+        "name"      -> r.name,
+        "slug"      -> r.slug,
+        "createdAt" -> r.createdAt
+      )
+      .add("finished" -> r.finished)
+      .add("ongoing" -> (r.hasStarted && !r.finished))
+      .add("startsAt" -> r.startsAt.orElse(r.startedAt))
+
+  given OWrites[RelayStats.RoundStats] = OWrites: r =>
+    Json.obj(
+      "round" -> r.round,
+      "viewers" -> r.viewers.map: (minute, crowd) =>
+        Json.arr(minute * 60, crowd)
+    )
 
   private given OWrites[RelayRound.Sync] = OWrites: s =>
     Json

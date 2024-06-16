@@ -49,16 +49,16 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def studyIdsOf(tourId: RelayTourId): Fu[List[StudyId]] =
     coll.distinctEasy[StudyId, List]("_id", selectors.tour(tourId))
 
-  def tourCrowds: Fu[List[(RelayTourId, Int)]] =
+  def roundCrowds: Fu[List[(RelayRoundId, Int)]] =
     coll
       .aggregateList(maxDocs = 500, _.sec): framework =>
         import framework.*
         Match($doc("sync.until" -> $exists(true), "crowd".$gt(0))) ->
-          List(GroupField("tourId")("crowd" -> SumField("crowd")))
+          List(Project($doc("_id" -> 1, "crowd" -> 1)))
       .map: docs =>
         for
           doc   <- docs
-          id    <- doc.getAsOpt[RelayTourId]("_id")
+          id    <- doc.getAsOpt[RelayRoundId]("_id")
           crowd <- doc.getAsOpt[Int]("crowd")
         yield (id, crowd)
 
