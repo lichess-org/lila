@@ -29,7 +29,7 @@
       0 0 20px $c-link;
   }
 
-  &--ongoing {
+  &--live {
     outline: 3px solid $m-bad--alpha-50;
     &:hover {
       box-shadow:
@@ -42,7 +42,7 @@
     width: 100%;
     height: auto;
     opacity: 0.7;
-    .relay-card--ongoing & {
+    .relay-card--live & {
       opacity: 0.9;
     }
     @include transition(opacity);

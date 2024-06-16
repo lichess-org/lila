@@ -172,8 +172,8 @@ final class RelayPager(
   ) =
     onlyKeepGroupFirst.so(
       List(
-        framework.PipelineOperator(RelayListing.group.lookup(colls.group)),
-        framework.Match(RelayListing.group.filter)
+        framework.PipelineOperator(RelayListing.group.firstLookup(colls.group)),
+        framework.Match(RelayListing.group.firstFilter)
       )
     ) ::: List(
       framework.PipelineOperator(

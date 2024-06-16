@@ -15,6 +15,7 @@ case class RelayTour(
     createdAt: Instant,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
+    live: Option[Boolean],        // a round is live, i.e. started and not finished
     syncedAt: Option[Instant],    // last time a round was synced
     spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
