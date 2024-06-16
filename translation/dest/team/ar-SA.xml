@@ -68,6 +68,7 @@
   <string name="joinLichessVariantTeam">انضم إلى فريق %s الرسمي للأخبار والأحداث</string>
   <string name="teamPage">صفحة الفريق</string>
   <string name="thisTeamBattleIsOver">انتهت هذه البطولة، ولم يعد من الممكن تحديث الفريق.</string>
+  <string name="listTheTeamsThatWillCompete">قائمة الفرق التي ستتنافس في هذه المعركة.</string>
   <string name="oneTeamPerLine">فريق واحد لكل سطر. استخدم الإكمال التلقائي.</string>
   <string name="oneTeamPerLineHelp">يمكنك نسخ ولصق هذه القائمة من بطولة إلى أخرى!
 
