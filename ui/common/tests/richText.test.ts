@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { movePattern, userPattern } from '../src/richText';
 
 describe('test regex patterns', () => {
@@ -6,6 +6,7 @@ describe('test regex patterns', () => {
     expect('@foo'.match(userPattern)).toStrictEqual(['@foo']);
     expect('@foo-'.match(userPattern)).toStrictEqual(['@foo-']);
     expect('@__foo'.match(userPattern)).toStrictEqual(['@__foo']);
+    expect('@Foo'.match(userPattern)).toStrictEqual(['@Foo']);
   });
 
   test.each([
