@@ -126,7 +126,7 @@ final class RelationUi(helpers: Helpers):
             trans.site.friends()
           )
         ),
-        pagTable(pag, routes.Relation.following(u.username))
+        pagTable(pag, routes.Relation.following(u.username), withActions = true)
       )
 
   def blocks(u: User, pag: Paginator[Related[UserWithPerfs]])(using Context) =
@@ -136,7 +136,7 @@ final class RelationUi(helpers: Helpers):
           h1(userLink(u, withOnline = false)),
           div(cls := "actions")(trans.site.blocks.pluralSame(pag.nbResults))
         ),
-        pagTable(pag, routes.Relation.blocks())
+        pagTable(pag, routes.Relation.blocks(), withActions = false)
       )
 
   def opponents(u: User, sugs: List[Related[UserWithPerfs]])(using ctx: Context) =
@@ -177,7 +177,9 @@ final class RelationUi(helpers: Helpers):
       .wrap: body =>
         main(cls := "box page-small")(body)
 
-  private def pagTable(pager: Paginator[Related[UserWithPerfs]], call: Call)(using ctx: Context) =
+  private def pagTable(pager: Paginator[Related[UserWithPerfs]], call: Call, withActions: Boolean)(using
+      ctx: Context
+  ) =
     table(cls := "slist slist-pad")(
       if pager.nbResults > 0
       then
@@ -189,7 +191,8 @@ final class RelationUi(helpers: Helpers):
               td(trans.site.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
               td(r.user.seenAt.map: seen =>
                 trans.site.lastSeenActive(momentFromNow(seen))),
-              td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
+              withActions.option:
+                td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             ),
           pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )

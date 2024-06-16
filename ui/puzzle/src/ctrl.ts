@@ -428,7 +428,10 @@ export default class PuzzleCtrl implements ParentCtrl {
   private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
   nextPuzzle = (): void => {
-    if (this.streak && this.lastFeedback != 'win') return;
+    if (this.streak && this.lastFeedback != 'win') {
+      if (this.lastFeedback == 'fail') site.redirect(router.withLang('/streak'));
+      return;
+    }
     if (this.mode !== 'view') return;
 
     this.ceval.stop();
