@@ -56,7 +56,6 @@ final private[api] class Cli(
   private def processors =
     security.cli.process
       .orElse(teamSearch.cli.process)
-      .orElse(forumSearch.cli.process)
       .orElse(tournament.cli.process)
       .orElse(fishnet.cli.process)
       .orElse(study.cli.process)
