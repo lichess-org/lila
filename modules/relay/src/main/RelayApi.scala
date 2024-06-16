@@ -194,10 +194,9 @@ final class RelayApi(
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
     roundRepo
       .lastByTour(tour)
-      .flatMapz { last =>
+      .flatMapz: last =>
         studyRepo.byId(last.studyId)
-      }
-      .flatMap { lastStudy =>
+      .flatMap: lastStudy =>
         import lila.study.{ StudyMember, StudyMembers }
         val relay = data.make(me, tour)
         for
@@ -226,10 +225,9 @@ final class RelayApi(
             )
             .orFail(s"Can't create study for relay $relay")
           _ <- roundRepo.coll.insert.one(relay)
-          _ <- tourRepo.setActive(tour.id, true)
+          _ <- tourRepo.setActive(tour.id, true, relay.hasStarted)
           _ <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
         yield relay.withTour(tour).withStudy(study.study)
-      }
 
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id): relay =>
