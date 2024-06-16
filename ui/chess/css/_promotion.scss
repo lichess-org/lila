@@ -1,6 +1,6 @@
 #promotion-choice {
   background: $m-bg--fade-30;
-  z-index: z('cg__promotion');
+  z-index: $z-cg__promotion-205;
 
   position: absolute;
   width: var(---cg-width, 100%);

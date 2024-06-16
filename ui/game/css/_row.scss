@@ -89,7 +89,7 @@
     a {
       font-weight: bold;
       position: relative;
-      z-index: z('above-link-overlay');
+      z-index: $z-above-link-overlay-3;
     }
 
     .anon {

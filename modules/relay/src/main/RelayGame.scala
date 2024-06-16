@@ -38,6 +38,10 @@ case class RelayGame(
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
     tags.fideIds.some.filter(_.forall(_.isDefined)).map(_.toPair)
 
+  def hasUnknownPlayer: Boolean =
+    List(RelayGame.whiteTags, RelayGame.blackTags).exists:
+      _.forall(tag => tags(tag).isEmpty)
+
 private object RelayGame:
 
   val lichessDomains = List("lichess.org", "lichess.dev")
@@ -46,6 +50,8 @@ private object RelayGame:
   val eventTags: TagNames  = List(_.Event, _.Site)
   val nameTags: TagNames   = List(_.White, _.Black)
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
+  val whiteTags: TagNames  = List(_.White, _.WhiteFideId)
+  val blackTags: TagNames  = List(_.Black, _.BlackFideId)
 
   import scalalib.Iso
   import chess.format.pgn.{ InitialComments, Pgn }

@@ -10,9 +10,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 enum BusForum:
   case CreatePost(post: ForumPostMini)
   case RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
-  case RemovePosts(ids: List[ForumPostId])
   // erasing = blanking, still in db but with empty text
-  case ErasePost(id: ForumPostId)
   case ErasePosts(ids: List[ForumPostId])
 
 object BusForum:

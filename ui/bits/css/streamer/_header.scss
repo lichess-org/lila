@@ -133,11 +133,11 @@
   gap: 1em;
   align-self: flex-start;
   font-weight: bold;
-  z-index: z('link-overlay');
+  z-index: $z-link-overlay-2;
 }
 
 .streamer-profile {
-  z-index: z('link-overlay');
+  z-index: $z-link-overlay-2;
 }
 
 .live .streamer-lang {
