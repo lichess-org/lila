@@ -4,7 +4,7 @@
   background: $c-bg-box;
   position: absolute;
   display: none;
-  z-index: z('context-menu');
+  z-index: $z-context-menu-108;
   cursor: default;
   user-select: none;
   -webkit-user-select: none;

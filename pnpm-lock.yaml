@@ -257,17 +257,17 @@ importers:
         specifier: workspace:*
         version: link:../ceval
       chart.js:
-        specifier: 4.4.0
-        version: 4.4.0
+        specifier: 4.4.3
+        version: 4.4.3
       chartjs-adapter-dayjs-4:
         specifier: ^1.0.4
-        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.10)
+        version: 1.0.4(chart.js@4.4.3)(dayjs@1.11.10)
       chartjs-plugin-datalabels:
         specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.0)
+        version: 2.2.0(chart.js@4.4.3)
       chartjs-plugin-zoom:
         specifier: ^2.0.1
-        version: 2.0.1(chart.js@4.4.0)
+        version: 2.0.1(chart.js@4.4.3)
       common:
         specifier: workspace:*
         version: link:../common
@@ -1345,6 +1345,10 @@ packages:
   chart.js@4.4.0:
     resolution: {integrity: sha512-vQEj6d+z0dcsKLlQvbKIMYFHd3t8W/7L2vfJIbYcfyPcRx92CsHqECpueN8qVGNlKyDcr5wBrYAYKnfu/9Q1hQ==}
     engines: {pnpm: '>=7'}
+
+  chart.js@4.4.3:
+    resolution: {integrity: sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==}
+    engines: {pnpm: '>=8'}
 
   chartjs-adapter-dayjs-4@1.0.4:
     resolution: {integrity: sha512-yy9BAYW4aNzPVrCWZetbILegTRb7HokhgospPoC3b5iZ5qdlqNmXts2KdSp6AqnjkPAp/YWyHDxLvIvwt5x81w==}
@@ -3034,18 +3038,31 @@ snapshots:
     dependencies:
       '@kurkle/color': 0.3.2
 
+  chart.js@4.4.3:
+    dependencies:
+      '@kurkle/color': 0.3.2
+
   chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.0)(dayjs@1.11.10):
     dependencies:
       chart.js: 4.4.0
+      dayjs: 1.11.10
+
+  chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.3)(dayjs@1.11.10):
+    dependencies:
+      chart.js: 4.4.3
       dayjs: 1.11.10
 
   chartjs-plugin-datalabels@2.2.0(chart.js@4.4.0):
     dependencies:
       chart.js: 4.4.0
 
-  chartjs-plugin-zoom@2.0.1(chart.js@4.4.0):
+  chartjs-plugin-datalabels@2.2.0(chart.js@4.4.3):
     dependencies:
-      chart.js: 4.4.0
+      chart.js: 4.4.3
+
+  chartjs-plugin-zoom@2.0.1(chart.js@4.4.3):
+    dependencies:
+      chart.js: 4.4.3
       hammerjs: 2.0.8
 
   check-error@1.0.3:

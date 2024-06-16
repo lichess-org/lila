@@ -22,7 +22,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map:
-          card.render(_, ongoing = _.ongoing)
+          card.render(_, ongoing = _.display.hasStarted)
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")

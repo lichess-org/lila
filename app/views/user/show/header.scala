@@ -89,63 +89,66 @@ object header:
           (ctx.isAuth && ctx.isnt(u))
             .option(a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes")))
         ),
-        div(cls := "user-actions dropdown")(
-          a(cls := "text", dataIcon := Icon.Hamburger),
-          div(cls := "dropdown-window")(
-            ctx
-              .is(u)
-              .option(
-                frag(
-                  a(
-                    cls      := "text",
-                    href     := routes.Account.profile,
-                    dataIcon := Icon.Gear
-                  )(trans.site.editProfile.txt()),
-                  a(
-                    cls      := "text",
-                    href     := routes.Relation.blocks(),
-                    dataIcon := Icon.NotAllowed
-                  )(trans.site.listBlockedPlayers.txt())
-                )
-              ),
-            isGranted(_.UserModView).option(
-              a(
-                cls      := "text mod-zone-toggle",
-                href     := routes.User.mod(u.username),
-                dataIcon := Icon.Agent
-              )("Mod zone (Hotkey: m)")
-            ),
+        div(cls := "user-actions")(
+          isGranted(_.UserModView).option(
             a(
-              cls      := "text",
-              href     := routes.User.tv(u.username),
-              dataIcon := Icon.AnalogTv
-            )(trans.site.watchGames.txt()),
-            ctx
-              .isnt(u)
-              .option(
-                views.relation.actions(
-                  u.light,
-                  relation = social.relation,
-                  followable = social.followable,
-                  blocked = social.blocked
-                )
-              ),
-            a(
-              cls      := "text",
-              href     := s"${routes.UserAnalysis.index}#explorer/${u.username}",
-              dataIcon := Icon.Book
-            )(trans.site.openingExplorer.txt()),
-            a(
-              cls      := "text",
-              href     := routes.User.download(u.username),
-              dataIcon := Icon.Download
-            )(trans.site.exportGames.txt()),
-            (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
+              cls      := "mod-zone-toggle",
+              href     := routes.User.mod(u.username),
+              dataIcon := Icon.Agent,
+              title    := "Mod zone (Hotkey: m)"
+            )
+          ),
+          div(cls := "dropdown")(
+            a(dataIcon := Icon.Hamburger),
+            div(cls := "dropdown-window")(
+              ctx
+                .is(u)
+                .option(
+                  frag(
+                    a(
+                      cls      := "text",
+                      href     := routes.Account.profile,
+                      dataIcon := Icon.Gear
+                    )(trans.site.editProfile.txt()),
+                    a(
+                      cls      := "text",
+                      href     := routes.Relation.blocks(),
+                      dataIcon := Icon.NotAllowed
+                    )(trans.site.listBlockedPlayers.txt())
+                  )
+                ),
               a(
                 cls      := "text",
-                href     := s"${routes.Report.form}?username=${u.username}",
-                dataIcon := Icon.CautionTriangle
-              )(trans.site.reportXToModerators.txt(u.username))
+                href     := routes.User.tv(u.username),
+                dataIcon := Icon.AnalogTv
+              )(trans.site.watchGames.txt()),
+              ctx
+                .isnt(u)
+                .option(
+                  views.relation.actions(
+                    u.light,
+                    relation = social.relation,
+                    followable = social.followable,
+                    blocked = social.blocked
+                  )
+                ),
+              a(
+                cls      := "text",
+                href     := s"${routes.UserAnalysis.index}#explorer/${u.username}",
+                dataIcon := Icon.Book
+              )(trans.site.openingExplorer.txt()),
+              a(
+                cls      := "text",
+                href     := routes.User.download(u.username),
+                dataIcon := Icon.Download
+              )(trans.site.exportGames.txt()),
+              (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
+                a(
+                  cls      := "text",
+                  href     := s"${routes.Report.form}?username=${u.username}",
+                  dataIcon := Icon.CautionTriangle
+                )(trans.site.reportXToModerators.txt(u.username))
+              )
             )
           )
         )

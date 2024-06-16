@@ -3,7 +3,7 @@
   display: none;
   flex-flow: row nowrap;
   align-items: center;
-  z-index: z('zen-toggle');
+  z-index: $z-zen-toggle-111;
 
   body.zenable.zen & {
     display: flex;
