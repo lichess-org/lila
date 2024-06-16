@@ -429,7 +429,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   nextPuzzle = (): void => {
     if (this.streak && this.lastFeedback != 'win') {
-      if (this.lastFeedback == 'fail') window.location.replace('/streak');
+      if (this.lastFeedback == 'fail') site.redirect(router.withLang('/streak'));
       return;
     }
     if (this.mode !== 'view') return;
