@@ -129,12 +129,14 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     ) =
       val isLcc = form("syncUrl").value.exists(RelayRound.Sync.UpstreamUrl.LccRegex.matches)
       postForm(cls := "form3", action := url)(
-        div(cls := "form-group")(
-          ui.howToUse,
-          (create && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
-            p(dataIcon := Icon.InfoCircle, cls := "text"):
-              trb.theNewRoundHelp()
-        ),
+        (!Granter.opt(_.StudyAdmin)).option:
+          div(cls := "form-group")(
+            div(cls := "form-group")(ui.howToUse),
+            (create && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
+              p(dataIcon := Icon.InfoCircle, cls := "text"):
+                trb.theNewRoundHelp()
+          )
+        ,
         form3.globalError(form),
         form3.split(
           form3.group(form("name"), trb.roundName(), half = true)(form3.input(_)(autofocus)),
@@ -270,7 +272,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 
     private def inner(form: Form[RelayTourForm.Data], tg: Option[RelayTour.WithGroupTours])(using Context) =
       frag(
-        div(cls := "form-group")(ui.howToUse),
+        (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
         form3.split(
           form3.group(form("name"), trb.tournamentName(), half = true)(form3.input(_)(autofocus)),
