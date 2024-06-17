@@ -63,4 +63,5 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
 Et voi poistaa joukkuetta, jos pelaaja on jo liittynyt turnaukseen sen kanssa.</string>
   <string name="numberOfLeadsPerTeam">Johtajien määrä kussakin joukkueessa. Heidän pisteidensä summa muodostaa joukkueen pistemäärän.</string>
   <string name="numberOfLeadsPerTeamHelp">Tätä arvoa ei todellakaan tulisi muuttaa turnauksen jo käynnistyttyä!</string>
+  <string name="innerTeam">Sisäinen joukkue</string>
 </resources>

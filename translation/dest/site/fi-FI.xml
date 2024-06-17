@@ -70,6 +70,8 @@
   <string name="promoteVariation">Nosta muunnelmaa</string>
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">Taita kokoon muunnelmat</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Laajenna muunnelmat</string>
   <string name="forceVariation">Pakota muunnelmaksi</string>
   <string name="copyVariationPgn">Kopioi muunnelman PGN</string>
   <string name="move">Siirto</string>
