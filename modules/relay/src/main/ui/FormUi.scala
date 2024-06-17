@@ -105,6 +105,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         val rt = r.withTour(nav.tour)
         frag(
           boxTop(h1(a(href := rt.path)(rt.fullName))),
+          standardFlash,
           inner(form, routes.RelayRound.update(r.id), nav.tour, create = false),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
