@@ -14,18 +14,24 @@ export function annotationShapes(node: Tree.Node): DrawShape[] {
         ? 'c8'
         : 'g8'
       : makeSquare(move.to);
-    const prerendered = glyphToSvg[glyphs[0].symbol];
+    const symbol = glyphs[0].symbol;
+    const prerendered = glyphToSvg[symbol];
     return [
       {
         orig: destSquare,
         brush: prerendered ? '' : undefined,
         customSvg: prerendered ? { html: prerendered } : undefined,
-        label: prerendered ? undefined : { text: glyphs[0].symbol, fill: 'purple' },
+        label: prerendered ? undefined : { text: symbol, fill: fills[symbol] || 'purple' },
         // keep some purple just to keep feedback forum on their toes
       },
     ];
   } else return [];
 }
+
+const fills: { [key: string]: string } = {
+  '✓': '#168226',
+  '✗': '#df5353',
+};
 
 // We can render glyphs as text, but people are used to these SVGs as the "Big 5" glyphs
 // and right now they look better

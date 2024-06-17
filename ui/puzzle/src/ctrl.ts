@@ -255,7 +255,10 @@ export default class PuzzleCtrl implements ParentCtrl {
     return config;
   };
 
-  showGround = (g: CgApi): void => g.set(this.makeCgOpts());
+  showGround = (g: CgApi): void => {
+    g.set(this.makeCgOpts());
+    this.setAutoShapes();
+  };
 
   pluginMove = (orig: Key, dest: Key, role?: Role) => {
     if (role) this.playUserMove(orig, dest, role);

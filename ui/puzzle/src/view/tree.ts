@@ -100,9 +100,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
   return h('move', { attrs: { p: path }, class: classes }, renderMove(ctx, node));
 }
 
-function renderGlyph(glyph: Glyph): VNode {
-  return h('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
-}
+const renderGlyph = (glyph: Glyph): VNode => h('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
 
 function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
   switch (node.puzzle) {
