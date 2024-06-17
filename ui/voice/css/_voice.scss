@@ -114,7 +114,7 @@ button#microphone-button {
   @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
   position: absolute;
   border-top: 2px solid $c-primary;
-  z-index: z(mz-menu);
+  z-index: $z-mz-menu-4;
   width: 100%;
   background: $c-bg-high;
   gap: 1.5em;

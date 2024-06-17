@@ -456,7 +456,7 @@ $hover-bg: $m-primary_bg--mix-30;
     max-height: 12em;
     overflow-y: auto;
     background: $c-bg-zebra;
-    z-index: z(mz-menu);
+    z-index: $z-mz-menu-4;
     width: 100%;
     border: $c-primary 2px solid;
   }
