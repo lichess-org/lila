@@ -54,7 +54,9 @@ ${trans.common_orPaste.txt()}
         previous <- userRepo.email(userId)
         _        <- userRepo.setEmail(userId, email).recoverDefault
         me       <- userRepo.me(userId)
-      yield me.map(_ -> previous)
+      yield
+        logger.info(s"Set email for $id: $email")
+        me.map(_ -> previous)
     }
 
   case class TokenPayload(userId: UserId, email: EmailAddress)
