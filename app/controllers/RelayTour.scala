@@ -215,10 +215,11 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       id: RelayTourId
   )(f: (FormNavigation) => Fu[Result])(using Context, Me): Fu[Result] =
     WithTour(id): tour =>
-      env.relay.api
-        .canUpdate(tour)
-        .elseNotFound:
-          env.relay.api.formNavigation(tour).flatMap(f)
+      for
+        canUpdate <- env.relay.api.canUpdate(tour)
+        nav       <- env.relay.api.formNavigation(tour)
+        res       <- if canUpdate then f(nav) else Forbidden.page(views.relay.form.noAccess(nav))
+      yield res
 
   private[controllers] def rateLimitCreation(
       fail: => Fu[Result]

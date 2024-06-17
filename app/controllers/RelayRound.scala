@@ -52,8 +52,17 @@ final class RelayRound(
   }
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
-    FoundPage(env.relay.api.formNavigation(id)): (round, nav) =>
-      views.relay.form.round.edit(round, env.relay.roundForm.edit(round), nav)
+    env.relay.api
+      .byIdAndContributor(id)
+      .flatMap:
+        case None =>
+          Found(env.relay.api.formNavigation(id)): (_, nav) =>
+            Forbidden.page(views.relay.form.noAccess(nav))
+        case Some(rt) =>
+          env.relay.api
+            .formNavigation(rt)
+            .flatMap: (round, nav) =>
+              Ok.page(views.relay.form.round.edit(round, env.relay.roundForm.edit(round), nav))
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>

@@ -50,9 +50,11 @@ final class RelayApi(
           relay.withTour(tour)
 
   def formNavigation(id: RelayRoundId)(using me: Me): Fu[Option[(RelayRound, ui.FormNavigation)]] =
-    byIdAndContributor(id).flatMapz: rt =>
-      formNavigation(rt.tour).map: nav =>
-        (rt.round, nav.copy(round = rt.round.id.some)).some
+    byIdWithTour(id).flatMapz(rt => formNavigation(rt).dmap(some))
+
+  def formNavigation(rt: RelayRound.WithTour)(using me: Me): Fu[(RelayRound, ui.FormNavigation)] =
+    formNavigation(rt.tour).map: nav =>
+      (rt.round, nav.copy(round = rt.round.id.some))
 
   def formNavigation(tour: RelayTour)(using me: Me): Fu[ui.FormNavigation] = for
     group  <- withTours.get(tour.id)
