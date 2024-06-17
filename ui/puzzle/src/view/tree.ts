@@ -28,7 +28,8 @@ const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el: HTMLElement) => {
     cont.scrollTop = ctrl.path === treePath.root ? 0 : 99999;
     return;
   }
-  cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+  const targetOffset = target.getBoundingClientRect().y - el.getBoundingClientRect().y;
+  cont.scrollTop = targetOffset - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
 function pathContains(ctx: Ctx, path: Tree.Path): boolean {
