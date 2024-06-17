@@ -9,6 +9,7 @@ import scala.annotation.nowarn
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.relay.ui.FormNavigation
 import lila.core.id.{ RelayRoundId, RelayTourId }
 
 final class RelayRound(
@@ -21,7 +22,7 @@ final class RelayRound(
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         Ok.page:
-          views.relay.form.round.create(env.relay.roundForm.create(trs), trs.tour)
+          views.relay.form.round.create(env.relay.roundForm.create(trs), FormNavigation(trs, none))
   }
 
   def create(tourId: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -35,7 +36,7 @@ final class RelayRound(
         bindForm(env.relay.roundForm.create(trs))(
           err =>
             negotiate(
-              BadRequest.page(views.relay.form.round.create(err, tour)),
+              BadRequest.page(views.relay.form.round.create(err, FormNavigation(trs, none))),
               jsonFormError(err)
             ),
           setup =>
@@ -51,30 +52,31 @@ final class RelayRound(
   }
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
-    FoundPage(env.relay.api.byIdAndContributor(id)): rt =>
-      views.relay.form.round.edit(rt, env.relay.roundForm.edit(rt.round))
+    FoundPage(env.relay.api.formNavigation(id)): (round, nav) =>
+      views.relay.form.round.edit(round, env.relay.roundForm.edit(round), nav)
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     given play.api.Mode = env.mode
     env.relay.api
-      .byIdAndContributor(id)
-      .flatMapz: rt =>
-        bindForm(env.relay.roundForm.edit(rt.round))(
-          err => fuccess(Left(rt -> err)),
+      .formNavigation(id)
+      .flatMapz: (round, nav) =>
+        bindForm(env.relay.roundForm.edit(round))(
+          err => fuccess(Left((round, nav) -> err)),
           data =>
             env.relay.api
-              .update(rt.round)(data.update(rt.tour.official))
-              .dmap(_.withTour(rt.tour))
+              .update(round)(data.update(nav.tour.official))
+              .dmap(_.withTour(nav.tour))
               .dmap(Right(_))
         ).dmap(some)
       .orNotFound:
         _.fold(
-          (old, err) =>
+          { case ((round, nav), err) =>
             negotiate(
-              BadRequest.page(views.relay.form.round.edit(old, err)),
+              BadRequest.page(views.relay.form.round.edit(round, err, nav)),
               jsonFormError(err)
-            ),
+            )
+          },
           rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt, withTour = true)))
         )
   }

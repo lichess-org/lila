@@ -58,7 +58,7 @@
         z-index: $z-link-overlay-2;
         visibility: hidden;
         background: $c-bg-header-dropdown;
-        border-radius: 3px 0 3px 3px;
+        border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
         position: absolute;
         top: 3rem;
         right: 0;
@@ -72,10 +72,10 @@
             font-size: 1.4em;
           }
           &:first-child {
-            border-radius: 3px 0 0 0;
+            border-radius: $box-radius-size 0 0 0;
           }
           &:last-child {
-            border-radius: 0 0 3px 3px;
+            @extend %box-radius-bottom;
           }
           &:hover {
             background: $c-primary;

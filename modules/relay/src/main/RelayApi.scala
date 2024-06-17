@@ -45,8 +45,19 @@ final class RelayApi(
   def byIdAndContributor(id: RelayRoundId)(using me: Me): Fu[Option[WithTour]] =
     byIdWithTourAndStudy(id).map:
       _.collect:
-        case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me) =>
+        case RelayRound.WithTourAndStudy(relay, tour, study)
+            if study.canContribute(me) || Granter(_.StudyAdmin) =>
           relay.withTour(tour)
+
+  def formNavigation(id: RelayRoundId)(using me: Me): Fu[Option[(RelayRound, ui.FormNavigation)]] =
+    byIdAndContributor(id).flatMapz: rt =>
+      formNavigation(rt.tour).map: nav =>
+        (rt.round, nav.copy(round = rt.round.id.some)).some
+
+  def formNavigation(tour: RelayTour)(using me: Me): Fu[ui.FormNavigation] = for
+    group  <- withTours.get(tour.id)
+    rounds <- roundRepo.byTourOrdered(tour.id)
+  yield ui.FormNavigation(group, tour, rounds, none)
 
   def byIdWithTourAndStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
     byIdWithTour(id).flatMapz { case WithTour(relay, tour) =>
@@ -64,7 +75,7 @@ final class RelayApi(
           RelayRound.WithStudy(relay, _)
 
   def byTourOrdered(tour: RelayTour): Fu[List[WithTour]] =
-    roundRepo.byTourOrdered(tour).dmap(_.map(_.withTour(tour)))
+    roundRepo.byTourOrdered(tour.id).dmap(_.map(_.withTour(tour)))
 
   def roundIdsById(tourId: RelayTourId): Fu[List[StudyId]] =
     roundRepo.idsByTourId(tourId)
@@ -73,7 +84,7 @@ final class RelayApi(
     roundIdsById(tourId).flatMap:
       _.sequentiallyVoid(studyApi.kick(_, userId, who))
 
-  def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
+  def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour.id).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTourId): Funit =
     val unfinished = RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)
@@ -314,7 +325,7 @@ final class RelayApi(
     )
     tourRepo.coll.insert.one(tour) >>
       roundRepo
-        .byTourOrderedCursor(from)
+        .byTourOrderedCursor(from.id)
         .documentSource()
         .mapAsync(1)(cloneWithStudy(_, tour))
         .runWith(Sink.ignore)

@@ -14,17 +14,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
           ? h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
               h('h2', [
                 h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
-                h('span', [
-                  h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
-                  ' ',
-                  h('a', {
-                    attrs: {
-                      href: `/broadcast/${ctrl.data.tour.id}/new`,
-                      title: 'New round',
-                      'data-icon': licon.PlusButton,
-                    },
-                  }),
-                ]),
+                h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
               ]),
               ctrl.data.sync?.url || ctrl.data.sync?.ids
                 ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl)

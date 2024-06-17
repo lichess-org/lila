@@ -8,40 +8,94 @@ import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
 import lila.core.id.ImageId
 
+case class FormNavigation(
+    group: Option[RelayGroup.WithTours],
+    tour: RelayTour,
+    rounds: List[RelayRound],
+    round: Option[RelayRoundId],
+    newRound: Boolean = false
+):
+  def tourWithGroup = RelayTour.WithGroupTours(tour, group)
+
+object FormNavigation:
+  def apply(trs: RelayTour.WithRounds, roundId: Option[RelayRoundId]): FormNavigation =
+    FormNavigation(none, trs.tour, trs.rounds, roundId)
+
 final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   import helpers.{ *, given }
   import trans.{ broadcast as trb }
 
+  private def navigationMenu(nav: FormNavigation)(using Context) =
+    def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
+      a(
+        href := routes.RelayTour.edit(nav.tour.id),
+        cls := List(
+          "relay-form__subnav__tour-parent" -> shortName.isDefined,
+          "active"                          -> (nav.round.isEmpty && !nav.newRound)
+        )
+      )(
+        shortName.fold(frag(nav.tour.name))(strong(_))
+      ),
+      frag(
+        nav.rounds.map: r =>
+          a(
+            href := routes.RelayRound.edit(r.id),
+            cls  := List("subnav__subitem" -> true, "active" -> nav.round.has(r.id))
+          )(r.name),
+        a(
+          href     := routes.RelayRound.create(nav.tour.id),
+          cls      := List("subnav__subitem text" -> true, "active" -> nav.newRound),
+          dataIcon := Icon.PlusButton
+        )("New round")
+      )
+    )
+    lila.ui.bits.pageMenuSubnav(
+      cls := "relay-form__subnav",
+      nav.group match
+        case None => tourAndRounds(none)
+        case Some(g) =>
+          frag(
+            span(cls := "relay-form__subnav__group")(g.group.name),
+            g.withShorterTourNames.tours.map: t =>
+              if nav.tour.id == t.id then tourAndRounds(t.name.some)
+              else a(href := routes.RelayTour.edit(t.id), cls := List("subnav__item" -> true))(t.name)
+          )
+    )
+
   object round:
 
-    private def page(title: String)(using Context) =
+    private def page(title: String, nav: FormNavigation)(using Context) =
       Page(title)
         .css("bits.relay.form")
         .js(EsmInit("bits.flatpickr"))
         .wrap: body =>
-          main(cls := "page-small box box-pad")(body)
+          main(cls := "page page-menu")(
+            navigationMenu(nav),
+            div(cls := "page-menu__content box box-pad")(body)
+          )
 
-    def create(form: Form[RelayRoundForm.Data], tour: RelayTour)(using Context) =
-      page(trans.broadcast.newBroadcast.txt()):
-        frag(
-          boxTop(h1(a(href := routes.RelayTour.edit(tour.id))(tour.name), " • ", trans.broadcast.addRound())),
-          standardFlash,
-          inner(form, routes.RelayRound.create(tour.id), tour, create = true)
-        )
-
-    def edit(rt: RelayRound.WithTour, form: Form[RelayRoundForm.Data])(using Context) =
-      page(rt.fullName):
+    def create(form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
+      page(trans.broadcast.newBroadcast.txt(), nav.copy(newRound = true)):
         frag(
           boxTop(
-            h1(dataIcon := Icon.Pencil, cls := "text")(
-              a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name),
+            h1(
+              a(href := routes.RelayTour.edit(nav.tour.id))(nav.tour.name),
               " • ",
-              a(href := rt.path)(rt.round.name)
+              trans.broadcast.addRound()
             )
           ),
-          inner(form, routes.RelayRound.update(rt.round.id), rt.tour, create = false),
+          standardFlash,
+          inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, create = true)
+        )
+
+    def edit(r: RelayRound, form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
+      page(r.name.value, nav):
+        val rt = r.withTour(nav.tour)
+        frag(
+          boxTop(h1(a(href := rt.path)(rt.fullName))),
+          inner(form, routes.RelayRound.update(r.id), nav.tour, create = false),
           div(cls := "relay-form__actions")(
-            postForm(action := routes.RelayRound.reset(rt.round.id))(
+            postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
                 cls := "button button-red button-empty confirm"
               )(
@@ -49,7 +103,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 em(trb.deleteAllGamesOfThisRound())
               )
             ),
-            postForm(action := routes.Study.delete(rt.round.studyId))(
+            postForm(action := routes.Study.delete(r.studyId))(
               submitButton(
                 cls := "button button-red button-empty confirm"
               )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
@@ -146,21 +200,18 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 
   object tour:
 
-    private def page(title: String, menu: Option[String])(using Context) =
+    private def page(title: String, menu: Either[String, FormNavigation])(using Context) =
       Page(title)
         .css("bits.relay.form")
         .js(EsmInit("bits.relayForm"))
         .wrap: body =>
-          menu match
-            case Some(active) =>
-              main(cls := "page page-menu")(
-                tourUi.pageMenu(active),
-                div(cls := "page-menu__content box box-pad")(body)
-              )
-            case None => main(cls := "page-small box box-pad")(body)
+          main(cls := "page page-menu")(
+            menu.fold(tourUi.pageMenu(_), navigationMenu),
+            div(cls := "page-menu__content box box-pad")(body)
+          )
 
     def create(form: Form[lila.relay.RelayTourForm.Data])(using Context) =
-      page(trans.broadcast.newBroadcast.txt(), menu = "new".some):
+      page(trans.broadcast.newBroadcast.txt(), menu = Left("new")):
         frag(
           boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trans.broadcast.newBroadcast())),
           postForm(cls := "form3", action := routes.RelayTour.create)(
@@ -172,23 +223,19 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
         )
 
-    def edit(tg: RelayTour.WithGroupTours, form: Form[RelayTourForm.Data])(using Context) =
-      page(tg.tour.name.value, menu = none):
+    def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context) =
+      page(nav.tour.name.value, menu = Right(nav)):
         frag(
-          boxTop:
-            h1(dataIcon := Icon.Pencil, cls := "text"):
-              a(href := routes.RelayTour.show(tg.tour.slug, tg.tour.id))(tg.tour.name)
-          ,
-          image(tg.tour),
-          postForm(cls := "form3", action := routes.RelayTour.update(tg.tour.id))(
-            inner(form, tg.some),
+          boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
+          postForm(cls := "form3", action := routes.RelayTour.update(nav.tour.id))(
+            inner(form, nav.tourWithGroup.some),
             form3.actions(
-              a(href := routes.RelayTour.show(tg.tour.slug, tg.tour.id))(trans.site.cancel()),
+              a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trans.site.cancel()),
               form3.submit(trans.site.apply())
             )
           ),
           div(cls := "relay-form__actions")(
-            postForm(action := routes.RelayTour.delete(tg.tour.id))(
+            postForm(action := routes.RelayTour.delete(nav.tour.id))(
               submitButton(
                 cls := "button button-red button-empty confirm"
               )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
@@ -196,7 +243,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             Granter
               .opt(_.Relay)
               .option(
-                postForm(action := routes.RelayTour.cloneTour(tg.tour.id))(
+                postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
                     cls := "button button-green button-empty confirm"
                   )(
@@ -268,7 +315,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               pre("player name / rating / title / new name"),
               "All values are optional. Example:",
               pre("""Magnus Carlsen / 2863 / GM
-YouGotLittUp / 1890 / / Louis Litt""")
+  YouGotLittUp / 1890 / / Louis Litt""")
             ).some,
             half = true
           )(form3.textarea(_)(rows := 3)),
@@ -280,7 +327,7 @@ YouGotLittUp / 1890 / / Louis Litt""")
               pre("Team name; Fide Id or Player name"),
               "Example:",
               pre("""Team Cats ; 3408230
-Team Dogs ; Scooby Doo"""),
+  Team Dogs ; Scooby Doo"""),
               "By default the PGN tags WhiteTeam and BlackTeam are used."
             ).some,
             half = true
@@ -361,39 +408,39 @@ Team Dogs ; Scooby Doo"""),
           )
       )
 
-    private def image(t: RelayTour)(using ctx: Context) =
-      div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
-        ui.thumbnail(t.image, _.Size.Small)(
-          cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
-          attr("draggable") := "true"
+  private def image(t: RelayTour)(using ctx: Context) =
+    div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
+      ui.thumbnail(t.image, _.Size.Small)(
+        cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
+        attr("draggable") := "true"
+      ),
+      div(
+        p("Upload a beautiful image to represent your tournament."),
+        p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
+        p(
+          "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
         ),
-        div(
-          p("Upload a beautiful image to represent your tournament."),
-          p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
-          p(
-            "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
-          ),
-          p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-          form3.file.selectImage()
-        )
+        p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
+        form3.file.selectImage()
       )
+    )
 
-    def grouping(form: Form[RelayTourForm.Data])(using Context) =
-      form3.split(cls := "relay-form__grouping")(
-        form3.group(
-          form("grouping"),
-          "Optional: assign tournaments to a group",
-          half = true
-        )(form3.textarea(_)(rows := 5)),
-        div(cls := "form-group form-half form-help")( // do not translate
-          "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
-          br,
-          "You can add, remove, and re-order tournaments; and you can rename the group.",
-          br,
-          "Example:",
-          pre("""Youth Championship 2024
+  def grouping(form: Form[RelayTourForm.Data])(using Context) =
+    form3.split(cls := "relay-form__grouping")(
+      form3.group(
+        form("grouping"),
+        "Optional: assign tournaments to a group",
+        half = true
+      )(form3.textarea(_)(rows := 5)),
+      div(cls := "form-group form-half form-help")( // do not translate
+        "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
+        br,
+        "You can add, remove, and re-order tournaments; and you can rename the group.",
+        br,
+        "Example:",
+        pre("""Youth Championship 2024
 tour1-id Youth Championship 2024 | G20
 tour2-id Youth Championship 2024 | G16
 """)
-        )
       )
+    )
