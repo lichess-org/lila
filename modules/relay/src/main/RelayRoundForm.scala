@@ -81,7 +81,7 @@ object RelayRoundForm:
     yield prevDate.plusMillis(delta)
     Data(
       name = RelayRound.Name(guessName | s"Round ${nextNumber}"),
-      caption = none,
+      caption = prev.flatMap(_.caption),
       syncUrl = nextUrl,
       syncUrlRound = (prevs.isEmpty || nextUrl.isDefined).option(nextNumber),
       startsAt = guessDate,
