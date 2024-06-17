@@ -20,29 +20,29 @@ final class RelayRound(
 
   def form(tourId: RelayTourId) = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
-      WithTourAndRoundsCanUpdate(tourId): trs =>
+      WithNavigationCanUpdate(tourId): nav =>
         Ok.page:
-          views.relay.form.round.create(env.relay.roundForm.create(trs), FormNavigation(trs, none))
+          views.relay.form.round
+            .create(env.relay.roundForm.create(nav.tourWithRounds), nav)
   }
 
   def create(tourId: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
-      WithTourAndRoundsCanUpdate(tourId): trs =>
-        val tour = trs.tour
+      WithNavigationCanUpdate(tourId): nav =>
         def whenRateLimited = negotiate(
-          Redirect(routes.RelayTour.show(tour.slug, tour.id)),
+          Redirect(routes.RelayTour.show(nav.tour.slug, nav.tour.id)),
           rateLimited
         )
-        bindForm(env.relay.roundForm.create(trs))(
+        bindForm(env.relay.roundForm.create(nav.tourWithRounds))(
           err =>
             negotiate(
-              BadRequest.page(views.relay.form.round.create(err, FormNavigation(trs, none))),
+              BadRequest.page(views.relay.form.round.create(err, nav)),
               jsonFormError(err)
             ),
           setup =>
             rateLimitCreation(whenRateLimited):
               env.relay.api
-                .create(setup, tour)
+                .create(setup, nav.tour)
                 .flatMap: rt =>
                   negotiate(
                     Redirect(routes.RelayRound.edit(rt.relay.id)).flashSuccess,
@@ -187,14 +187,14 @@ final class RelayRound(
   )(using Context): Fu[Result] =
     Found(env.relay.api.tourById(id))(f)
 
-  private def WithTourAndRoundsCanUpdate(id: RelayTourId)(
-      f: TourModel.WithRounds => Fu[Result]
+  private def WithNavigationCanUpdate(id: RelayTourId)(
+      f: FormNavigation => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me
         .soUse { env.relay.api.canUpdate(tour) }
         .elseNotFound:
-          env.relay.api.withRounds(tour).flatMap(f)
+          env.relay.api.formNavigation(tour).flatMap(f)
 
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter, embed: Option[UserStr])(
       using ctx: Context

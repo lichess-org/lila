@@ -15,11 +15,8 @@ case class FormNavigation(
     round: Option[RelayRoundId],
     newRound: Boolean = false
 ):
-  def tourWithGroup = RelayTour.WithGroupTours(tour, group)
-
-object FormNavigation:
-  def apply(trs: RelayTour.WithRounds, roundId: Option[RelayRoundId]): FormNavigation =
-    FormNavigation(none, trs.tour, trs.rounds, roundId)
+  def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
+  def tourWithRounds = RelayTour.WithRounds(tour, rounds)
 
 final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   import helpers.{ *, given }
