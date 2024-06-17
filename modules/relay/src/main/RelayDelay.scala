@@ -84,6 +84,6 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
             _.flatMap(_.getAsOpt[PgnStr]("pgn"))
 
 private object RelayDelay:
-  val maxSeconds = Seconds(1800)
+  val maxSeconds = Seconds(60 * 60)
 
   private case class GamesSeenBy(games: Fu[RelayGames], seenBy: Set[RelayRoundId])
