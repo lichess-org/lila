@@ -1,11 +1,9 @@
 import { parseUci, makeSquare, squareRank } from 'chessops/util';
-import AnalyseCtrl from './ctrl';
 import { DrawShape } from 'chessground/draw';
 
-export function annotationShapes(ctrl: AnalyseCtrl): DrawShape[] {
-  const shapes: DrawShape[] = [];
-  const { uci, glyphs, san } = ctrl.node;
-  if (ctrl.showMoveAnnotation() && uci && san && glyphs && glyphs.length > 0) {
+export function annotationShapes(node: Tree.Node): DrawShape[] {
+  const { uci, glyphs, san } = node;
+  if (uci && san && glyphs?.[0]) {
     const move = parseUci(uci)!;
     const destSquare = san.startsWith('O-O') // castle, short or long
       ? squareRank(move.to) === 0 // white castle
@@ -17,29 +15,23 @@ export function annotationShapes(ctrl: AnalyseCtrl): DrawShape[] {
         : 'g8'
       : makeSquare(move.to);
     const prerendered = glyphToSvg[glyphs[0].symbol];
-    shapes.push({
-      orig: destSquare,
-      brush: prerendered ? '' : undefined,
-      customSvg: prerendered ? { html: prerendered } : undefined,
-      label: prerendered ? undefined : { text: glyphs[0].symbol, fill: 'purple' },
-      // keep some purple just to keep feedback forum on their toes
-    });
-  }
-  return shapes;
+    return [
+      {
+        orig: destSquare,
+        brush: prerendered ? '' : undefined,
+        customSvg: prerendered ? { html: prerendered } : undefined,
+        label: prerendered ? undefined : { text: glyphs[0].symbol, fill: 'purple' },
+        // keep some purple just to keep feedback forum on their toes
+      },
+    ];
+  } else return [];
 }
 
 // We can render glyphs as text, but people are used to these SVGs as the "Big 5" glyphs
 // and right now they look better
 const prependDropShadow = (svgBase: string) =>
-  `
-<defs>
-  <filter id="shadow">
-    <feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5" />
-  </filter>
-</defs>
-<g transform="translate(71 -12) scale(0.4)">` +
-  svgBase +
-  '</g>';
+  `<defs><filter id="shadow"><feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5" /></filter></defs>
+<g transform="translate(71 -12) scale(0.4)">${svgBase}</g>`;
 // NOTE:
 //   Base svg was authored with Inkscape.
 //   On Inkscape, by using "Object to Path", text is converted to path, which enables consistent layout on browser.
