@@ -64,8 +64,8 @@ final class RelayListing(
                         "$filter" -> $doc(
                           "input" -> "$tours",
                           "as"    -> "tour",
-                          "cond"  -> "$$tour.live",
-                          "limit" -> 1
+                          "cond"  -> "$$tour.live"
+                          // "limit" -> 1 // TODO unsupported by mongodb 4.4 (but also not needed here)
                         )
                       )
                     ),
