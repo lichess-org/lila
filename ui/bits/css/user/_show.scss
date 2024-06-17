@@ -61,7 +61,7 @@
         border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
         position: absolute;
         top: 3rem;
-        right: 0;
+        @include inline-end(0);
         a {
           width: 20em;
           display: block;
