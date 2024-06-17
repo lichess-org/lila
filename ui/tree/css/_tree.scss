@@ -37,9 +37,9 @@
       }
     }
     &.good {
-      color: $c-good-move;
+      color: $c-good;
       &:hover {
-        background: $m-good-move_bg--mix-30;
+        background: $m-good_bg--mix-30;
       }
     }
     &.brilliant {
