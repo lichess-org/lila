@@ -46,7 +46,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           href     := routes.RelayRound.create(nav.tour.id),
           cls      := List("subnav__subitem text" -> true, "active" -> nav.newRound),
           dataIcon := Icon.PlusButton
-        )("New round")
+        )(trb.addRound())
       )
     )
     lila.ui.bits.pageMenuSubnav(
@@ -92,7 +92,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           boxTop(
             h1(
               a(href := routes.RelayTour.edit(nav.tour.id))(nav.tour.name),
-              " • ",
+              " / ",
               trans.broadcast.addRound()
             )
           ),
