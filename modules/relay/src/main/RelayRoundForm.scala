@@ -83,7 +83,7 @@ object RelayRoundForm:
       name = RelayRound.Name(guessName | s"Round ${nextNumber}"),
       caption = none,
       syncUrl = nextUrl,
-      syncUrlRound = nextUrl.isDefined.option(nextNumber),
+      syncUrlRound = (prevs.isEmpty || nextUrl.isDefined).option(nextNumber),
       startsAt = guessDate,
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay)
