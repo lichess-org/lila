@@ -165,10 +165,10 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__mselect {
-    @extend %ellipsis;
     position: unset;
     flex: auto;
     @include fluid-size('font-size', 12px, 20px);
+    white-space: wrap;
     &.mselect__active {
       overflow: visible;
     }
@@ -193,6 +193,7 @@ $hover-bg: $m-primary_bg--mix-30;
     &__status {
       font-size: 1rem;
       margin-inline-end: 1ch;
+      white-space: nowrap;
     }
     &__label {
       .round-state {
