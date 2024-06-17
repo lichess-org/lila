@@ -21,9 +21,9 @@ interface Glyph {
   symbol: string;
 }
 
-const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el) => {
-  const cont = el.parentNode;
-  const target = el.querySelector('.active');
+const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el: HTMLElement) => {
+  const cont = el.parentNode as HTMLElement;
+  const target = el.querySelector('.active') as HTMLElement | null;
   if (!target) {
     cont.scrollTop = ctrl.path === treePath.root ? 0 : 99999;
     return;
