@@ -40,7 +40,11 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         nav.rounds.map: r =>
           a(
             href := routes.RelayRound.edit(r.id),
-            cls  := List("subnav__subitem" -> true, "active" -> nav.round.has(r.id))
+            cls  := List("subnav__subitem text" -> true, "active" -> nav.round.has(r.id)),
+            dataIcon := r.stateHash.match
+              case (_, true)     => Icon.Checkmark
+              case (true, false) => Icon.DiscBig
+              case _             => Icon.DiscOutline
           )(r.name),
         a(
           href     := routes.RelayRound.create(nav.tour.id),
