@@ -105,8 +105,11 @@ body {
     @extend %page-text-shadow !optional;
     font-size: 1.2em;
   }
-  .ublog-post-card:hover {
-    box-shadow: none;
+  .ublog-post-card {
+    background: $c-bg-box;
+    &:hover {
+      box-shadow: none;
+    }
   }
 }
 
