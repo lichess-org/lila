@@ -1,6 +1,7 @@
 package lila.relay
 
 import lila.db.dsl.{ *, given }
+import reactivemongo.api.bson.BSONInteger
 
 object RelayStats:
   type Minute = Int
@@ -47,13 +48,29 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
   private def record(): Funit = for
     crowds <- fetchRoundCrowds
     nowMinutes = nowSeconds / 60
-    update     = colls.stats.update(ordered = false)
-    elements <- crowds.sequentially: (roundId, crowd) =>
-      update.element(
-        q = $id(roundId),
-        u = $push("d" -> $doc("$each" -> $arr(nowMinutes, crowd))),
-        upsert = true
+    lastValuesDocs <- colls.stats.aggregateList(crowds.size): framework =>
+      import framework.*
+      Match($inIds(crowds.map(_._1))) -> List(
+        Project($doc("last" -> $doc("$arrayElemAt" -> $arr("$d", -1))))
       )
+    lastValues = for
+      doc  <- lastValuesDocs
+      last <- doc.getAsOpt[Crowd]("last")
+      id   <- doc.getAsOpt[RelayRoundId]("_id")
+    yield (id, last)
+    lastValuesMap = lastValues.toMap
+    update        = colls.stats.update(ordered = false)
+    elementOpts <- crowds.sequentially: (roundId, crowd) =>
+      val lastValue = ~lastValuesMap.get(roundId)
+      (lastValue != crowd).so:
+        update
+          .element(
+            q = $id(roundId),
+            u = $push("d" -> $doc("$each" -> $arr(nowMinutes, crowd))),
+            upsert = true
+          )
+          .dmap(some)
+    elements = elementOpts.flatten
     _ <- elements.nonEmpty.so(update.many(elements).void)
   yield ()
 
