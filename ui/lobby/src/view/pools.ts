@@ -3,10 +3,11 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { bind } from 'common/snabbdom';
 import LobbyController from '../ctrl';
 
-export function hooks(ctrl: LobbyController): Hooks {
-  return bind(
+export const hooks = (ctrl: LobbyController): Hooks =>
+  bind(
     'click',
     e => {
+      if (ctrl.redirecting) return;
       const id =
         (e.target as HTMLElement).dataset['id'] ||
         ((e.target as HTMLElement).parentNode as HTMLElement).dataset['id'];
@@ -15,7 +16,6 @@ export function hooks(ctrl: LobbyController): Hooks {
     },
     ctrl.redraw,
   );
-}
 
 export function render(ctrl: LobbyController) {
   const member = ctrl.poolMember;
