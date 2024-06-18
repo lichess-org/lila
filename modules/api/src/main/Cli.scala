@@ -5,8 +5,6 @@ import lila.web.AnnounceApi
 
 final private[api] class Cli(
     security: lila.security.Env,
-    teamSearch: lila.teamSearch.Env,
-    forumSearch: lila.forumSearch.Env,
     tournament: lila.tournament.Env,
     fishnet: lila.fishnet.Env,
     study: lila.study.Env,
@@ -55,7 +53,6 @@ final private[api] class Cli(
 
   private def processors =
     security.cli.process
-      .orElse(teamSearch.cli.process)
       .orElse(tournament.cli.process)
       .orElse(fishnet.cli.process)
       .orElse(study.cli.process)
