@@ -244,6 +244,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       page(nav.tour.name.value, menu = Right(nav)):
         frag(
           boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
+          image(nav.tour),
           postForm(cls := "form3", action := routes.RelayTour.update(nav.tour.id))(
             inner(form, nav.tourWithGroup.some),
             form3.actions(

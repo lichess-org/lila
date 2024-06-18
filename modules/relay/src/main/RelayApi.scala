@@ -392,17 +392,22 @@ final class RelayApi(
       .list[RelayRound](
         $doc(
           "startsAt"
-            .$lt(nowInstant.plusMinutes(30)) // start 30 minutes early to fetch boards
-            .$gt(nowInstant.minusDays(1)),   // bit late now
+            // start early to fetch boards
+            .$lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
+            .$gt(nowInstant.minusDays(1)), // bit late now
           "startedAt".$exists(false),
-          "sync.until".$exists(false)
+          "sync.until".$exists(false),
+          "sync.upstream".$exists(true)
         )
       )
       .flatMap:
-        _.sequentiallyVoid { relay =>
-          logger.info(s"Automatically start $relay")
-          requestPlay(relay.id, v = true)
-        }
+        _.sequentiallyVoid: relay =>
+          val earlyMinutes = Math.min(60, 30 + relay.sync.delay.so(_.value / 60))
+          relay.startsAt
+            .exists(_.isBefore(nowInstant.plusMinutes(earlyMinutes)))
+            .so:
+              logger.info(s"Automatically start $relay")
+              requestPlay(relay.id, v = true)
 
   private[relay] def autoFinishNotSyncing: Funit =
     roundRepo.coll
@@ -417,10 +422,9 @@ final class RelayApi(
           )
         )
       .flatMap:
-        _.sequentiallyVoid { relay =>
+        _.sequentiallyVoid: relay =>
           logger.info(s"Automatically finish $relay")
           update(relay)(_.finish)
-        }
 
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
     byId(id).flatMapz(f)
