@@ -81,6 +81,7 @@ final private class RelayFetch(
     else
       fetchGames(rt)
         .map(RelayGame.filter(rt.round.sync.onlyRound))
+        .map(RelayGame.Slices.filter(~rt.round.sync.slices))
         .map(games => rt.tour.players.fold(games)(_.update(games)))
         .flatMap(fidePlayers.enrichGames(rt.tour))
         .map(games => rt.tour.teams.fold(games)(_.update(games)))

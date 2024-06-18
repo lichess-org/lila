@@ -33,7 +33,10 @@ final class RelayRoundForm(using mode: Mode):
       "finished"     -> optional(boolean),
       "period"       -> optional(number(min = 2, max = 60).into[Seconds]),
       "delay"        -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
-      "onlyRound"    -> optional(number(min = 1, max = 999))
+      "onlyRound"    -> optional(number(min = 1, max = 999)),
+      "slices" -> optional:
+        nonEmptyText
+          .transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
@@ -86,7 +89,8 @@ object RelayRoundForm:
       startsAt = guessDate,
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
-      onlyRound = prev.flatMap(_.sync.onlyRound).map(_ + 1)
+      onlyRound = prev.flatMap(_.sync.onlyRound).map(_ + 1),
+      slices = prev.flatMap(_.sync.slices)
     )
 
   case class GameIds(ids: List[GameId])
@@ -144,7 +148,8 @@ object RelayRoundForm:
       finished: Option[Boolean] = None,
       period: Option[Seconds] = None,
       delay: Option[Seconds] = None,
-      onlyRound: Option[Int] = None
+      onlyRound: Option[Int] = None,
+      slices: Option[List[RelayGame.Slice]] = None
   ):
 
     def requiresRound = syncUrl.exists(RelayRound.Sync.UpstreamUrl.LccRegex.matches)
@@ -178,6 +183,7 @@ object RelayRoundForm:
         period = period.ifTrue(Granter.ofUser(_.StudyAdmin)(user)),
         delay = delay,
         onlyRound = onlyRound,
+        slices = slices,
         log = SyncLog.empty
       )
 
@@ -210,5 +216,6 @@ object RelayRoundForm:
         finished = relay.finished.option(true),
         period = relay.sync.period,
         onlyRound = relay.sync.onlyRound,
+        slices = relay.sync.slices,
         delay = relay.sync.delay
       )

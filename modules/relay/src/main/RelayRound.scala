@@ -76,6 +76,7 @@ object RelayRound:
       period: Option[Seconds],         // override time between two sync (rare)
       delay: Option[Seconds],          // add delay between the source and the study
       onlyRound: Option[Int],          // only keep games with [Round "x"]
+      slices: Option[List[RelayGame.Slice]] = none,
       log: SyncLog
   ):
     def hasUpstream = upstream.isDefined

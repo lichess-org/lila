@@ -30,6 +30,9 @@ object BSONHandlers:
 
   given BSONHandler[SyncLog] = isoHandler[SyncLog, Vector[Event]](_.events, SyncLog.apply)
 
+  given BSONHandler[List[RelayGame.Slice]] =
+    stringIsoHandler[List[RelayGame.Slice]](using RelayGame.Slices.iso)
+
   given BSONDocumentHandler[Sync] = Macros.handler
 
   given BSONDocumentHandler[RelayRound] = Macros.handler

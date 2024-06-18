@@ -217,7 +217,24 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               "Optional, only keep games from the source that match a round number."
             ).some,
             half = true
-          )(form3.input(_, typ = "number"))
+          )(form3.input(_, typ = "number")),
+          form3.group(
+            form("slices"),
+            raw("Select slices of the games"),
+            help = frag(
+              "Optional. Select games based on their position in the source.",
+              br,
+              pre("""
+1           only select the first board
+1-4         only select the first 4 boards
+1,2,3,4     same as above, first 4 boards
+11-20,21-30 boards 11 to 20, and boards 21 to 30
+2,3,7-9     boards 2, 3, 7, 8, and 9
+"""),
+              "Slicing is done after filtering by round number."
+            ).some,
+            half = true
+          )(form3.input(_))
         ),
         form3.actions(
           a(href := routes.RelayTour.show(t.slug, t.id))(trans.site.cancel()),
