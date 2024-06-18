@@ -108,7 +108,7 @@ private object RelayGame:
               t <- to.toIntOption
             yield Slice(f, t)
 
-    def show(slices: List[Slice]): String = slices.pp
+    def show(slices: List[Slice]): String = slices
       .map:
         case Slice(f, t) if f == t => f.toString
         case Slice(f, t)           => s"$f-$t"
