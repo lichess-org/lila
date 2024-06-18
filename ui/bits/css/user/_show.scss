@@ -64,7 +64,7 @@
         @include inline-end(0);
         a {
           width: 20em;
-          display: block;
+          display: flex;
           padding: 0.7rem 1rem;
           color: $c-header-dropdown;
           &::before {
