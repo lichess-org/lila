@@ -228,7 +228,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 1           only select the first board
 1-4         only select the first 4 boards
 1,2,3,4     same as above, first 4 boards
-11-20,21-30 boards 11 to 20, and boards 21 to 30
+11-15,21-25 boards 11 to 15, and boards 21 to 25
 2,3,7-9     boards 2, 3, 7, 8, and 9
 """),
               "Slicing is done after filtering by round number."
