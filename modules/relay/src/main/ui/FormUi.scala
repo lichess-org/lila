@@ -209,6 +209,16 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               )(form3.input(_, typ = "number"))
             )
         ),
+        form3.split(
+          form3.group(
+            form("onlyRound"),
+            raw("Filter games by round number"),
+            help = frag(
+              "Optional, only keep games from the source that match a round number."
+            ).some,
+            half = true
+          )(form3.input(_, typ = "number"))
+        ),
         form3.actions(
           a(href := routes.RelayTour.show(t.slug, t.id))(trans.site.cancel()),
           form3.submit(trans.site.apply())

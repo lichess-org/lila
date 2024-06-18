@@ -32,9 +32,8 @@ final class RelayRoundForm(using mode: Mode):
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
       "finished"     -> optional(boolean),
       "period"       -> optional(number(min = 2, max = 60).into[Seconds]),
-      "delay" -> optional(
-        number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]
-      ) // don't increase the max
+      "delay"        -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
+      "onlyRound"    -> optional(number(min = 1, max = 999))
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
@@ -54,7 +53,7 @@ object RelayRoundForm:
     val prevs: Option[(RelayRound, RelayRound)] = rounds.reverse match
       case a :: b :: _ => (a, b).some
       case _           => none
-    val prev: Option[RelayRound] = prevs.map(_._1)
+    val prev: Option[RelayRound] = rounds.lastOption
     val roundNumberRegex         = """([^\d]*)(\d{1,2})([^\d]*)""".r
     val roundNumberIn: String => Option[Int] =
       case roundNumberRegex(_, n, _) => n.toIntOption
@@ -86,7 +85,8 @@ object RelayRoundForm:
       syncUrlRound = (prevs.isEmpty || nextUrl.isDefined).option(nextNumber),
       startsAt = guessDate,
       period = prev.flatMap(_.sync.period),
-      delay = prev.flatMap(_.sync.delay)
+      delay = prev.flatMap(_.sync.delay),
+      onlyRound = prev.flatMap(_.sync.onlyRound).map(_ + 1)
     )
 
   case class GameIds(ids: List[GameId])
@@ -143,7 +143,8 @@ object RelayRoundForm:
       startsAt: Option[Instant] = None,
       finished: Option[Boolean] = None,
       period: Option[Seconds] = None,
-      delay: Option[Seconds] = None
+      delay: Option[Seconds] = None,
+      onlyRound: Option[Int] = None
   ):
 
     def requiresRound = syncUrl.exists(RelayRound.Sync.UpstreamUrl.LccRegex.matches)
@@ -176,6 +177,7 @@ object RelayRoundForm:
         nextAt = none,
         period = period.ifTrue(Granter.ofUser(_.StudyAdmin)(user)),
         delay = delay,
+        onlyRound = onlyRound,
         log = SyncLog.empty
       )
 
@@ -207,5 +209,6 @@ object RelayRoundForm:
         startsAt = relay.startsAt,
         finished = relay.finished.option(true),
         period = relay.sync.period,
+        onlyRound = relay.sync.onlyRound,
         delay = relay.sync.delay
       )

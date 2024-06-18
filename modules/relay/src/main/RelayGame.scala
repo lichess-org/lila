@@ -73,3 +73,7 @@ private object RelayGame:
       ,
       mul => RelayFetch.multiPgnToGames(mul).fold(e => throw e, identity)
     )
+
+  def filter(onlyRound: Option[Int])(games: RelayGames): RelayGames =
+    onlyRound.fold(games): round =>
+      games.filter(_.tags.roundNumber.has(round))
