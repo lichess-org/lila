@@ -6,13 +6,14 @@ import { TestCtrl } from './testCtrl';
 import { renderTestView } from './testView';
 import { LocalPlayOpts, Libot } from './types';
 import { BotCtrl } from './botCtrl';
+import { AssetDb } from './assetDb';
 import { LocalDialog } from './setupDialog';
 import view from './gameView';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts) {
-  const botCtrl = await new BotCtrl().init();
+  const botCtrl = await new BotCtrl(opts.assets).init();
   if (opts.setup) {
     if (!opts.setup.go) {
       new LocalDialog(botCtrl.bots, opts.setup, true);

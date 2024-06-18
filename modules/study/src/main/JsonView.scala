@@ -80,17 +80,19 @@ final class JsonView(
       .pipe(addChapterMode(c))
 
   def pagerData(s: Study.WithChaptersAndLiked) =
-    Json.obj(
-      "id"        -> s.study.id,
-      "name"      -> s.study.name,
-      "liked"     -> s.liked,
-      "likes"     -> s.study.likes,
-      "updatedAt" -> s.study.updatedAt,
-      "owner"     -> lightUserApi.sync(s.study.ownerId),
-      "chapters"  -> s.chapters.take(Study.previewNbChapters),
-      "topics"    -> s.study.topicsOrEmpty,
-      "members"   -> s.study.members.members.values.take(Study.previewNbMembers)
-    )
+    Json
+      .obj(
+        "id"        -> s.study.id,
+        "name"      -> s.study.name,
+        "liked"     -> s.liked,
+        "likes"     -> s.study.likes,
+        "updatedAt" -> s.study.updatedAt,
+        "owner"     -> lightUserApi.sync(s.study.ownerId),
+        "chapters"  -> s.chapters.take(Study.previewNbChapters),
+        "topics"    -> s.study.topicsOrEmpty,
+        "members"   -> s.study.members.members.values.take(Study.previewNbMembers)
+      )
+      .add("flair", s.study.flair)
 
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
     js.add("practice", c.isPractice)

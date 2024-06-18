@@ -1,0 +1,123 @@
+[
+  {
+    "uid": "#terrence",
+    "name": "Terrence",
+    "description": "Terrence just learned how the pieces move. Now he wants blood.",
+    "image": "terrence.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1100.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#tbone",
+    "name": "T-Bone",
+    "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
+    "image": "t-bone.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1200.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#nacho",
+    "name": "Nacho",
+    "description": "Nacho is cute. He wonders what your face tastes like.",
+    "image": "nacho.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1300.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#marco",
+    "name": "Marco",
+    "description": "They never asked Marco to star in a video game. He is not pleased.",
+    "image": "marco.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1400.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#ghost",
+    "name": "Ghost",
+    "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
+    "image": "ghost.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1500.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#greta",
+    "name": "Greta",
+    "description": "Greta lives in the woods and plays chess with squirrels.",
+    "image": "greta.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1600.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#maia",
+    "name": "Maia",
+    "description": "Maia was a famous author before she began modeling for Elle c0.",
+    "image": "maia.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1700.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#gerard",
+    "name": "Gerard",
+    "description": "Gerard brought a sword to a chess match. And he swings it hard.",
+    "image": "gerard.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1800.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#bionica",
+    "name": "Bionica",
+    "description": "Bionica was programmed with a full range of emotions. But she prefers contempt.",
+    "image": "bionica.webp",
+    "book": "gm2600.bin",
+    "zero": { "net": "maia-1900.pb", "search": { "nodes": 1 } }
+  },
+  {
+    "uid": "#mitsoko",
+    "name": "Mitsoko",
+    "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
+    "image": "mitsoko.webp",
+    "fish": { "multipv": 12, "level": 5, "search": { "depth": 1 } }
+  },
+  {
+    "uid": "#spectre",
+    "name": "Spectre",
+    "description": "Spectre will strike without warning. You have been warned.",
+    "image": "spectre.webp",
+    "fish": { "multipv": 1, "search": { "depth": 10 } }
+  },
+  {
+    "uid": "#aurora",
+    "name": "Aurora",
+    "description": "They say Aurora can see the future. She sees your defeat.",
+    "image": "aurora.webp",
+    "zero": { "net": "goodgyal-5.pb", "search": { "depth": 2 } }
+  },
+  {
+    "uid": "#hanzo",
+    "name": "Hanzo",
+    "description": "Hanzo will not rest until he has defeated you. But then he will rest.",
+    "image": "nullzo.webp",
+    "zero": { "net": "badgyal-8.pb", "search": { "depth": 2 } }
+  },
+  {
+    "uid": "#eliza",
+    "name": "Eliza",
+    "description": "Eliza plays masterfully. Some say she's a machine. They're right.",
+    "image": "eliza.webp",
+    "zero": { "net": "badgyal-8.pb", "search": { "depth": 3 } }
+  },
+  {
+    "uid": "#thinman",
+    "name": "Thinman",
+    "description": "Thinman is not your friend. It's why he's pointing a laser gun at your face.",
+    "image": "thinman.webp",
+    "zero": { "net": "evilgyal-6.pb", "search": { "depth": 3 } }
+  },
+  {
+    "uid": "#listress",
+    "name": "Listress",
+    "description": "You are a wretched, pitiful worm. Listress will not be merciful.",
+    "image": "listress.webp",
+    "zero": { "net": "evilgyal-6.pb", "search": { "depth": 4 } }
+  }
+]

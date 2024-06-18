@@ -5,22 +5,25 @@ dialog .dialog-content {
     height: min-content;
     max-height: unset;
     max-width: min(1600px, 90vw);
-    .edit-bot {
+    /*.edit-bot {
       height: calc(max(33vh, 400px) + $card-height + $chin-height);
       .player {
         max-width: 25vw;
       }
-    }
+    }*/
   }
 }
 .edit-bot {
   @extend %flex-column, %box-radius-bottom;
   //@include above-cards;
   //width: 100%;
-  display: grid;
-  grid-template-columns: 320px max(320px, 33vh) 1fr;
-  grid-template-rows: max(320px, 33vh) 1fr;
-  grid-template-areas: 'a b c' '. . .';
+  @media (orientation: landscape) {
+    display: grid;
+    height: calc(max(45vh, 400px) + $card-height + $chin-height);
+    grid-template-columns: 320px min(400px, 45vh) 1fr;
+    grid-template-rows: calc(100% - ($chin-height + $card-height)) 1fr;
+    grid-template-areas: 'a b c' '. . .';
+  }
   gap: 1em;
 
   #bot_name,
@@ -30,6 +33,9 @@ dialog .dialog-content {
   input,
   textarea {
     padding: 0.5em;
+  }
+  input:not([type='text']) {
+    cursor: pointer;
   }
   textarea {
     white-space: pre-wrap;
@@ -41,7 +47,7 @@ dialog .dialog-content {
     flex-direction: column;
     gap: 1em;
     border-radius: 10px;
-    width: 320px;
+    //width: 320px;
     grid-area: a;
   }
   .player {
@@ -56,15 +62,14 @@ dialog .dialog-content {
   }
   .settings {
     grid-area: b;
-    border: 1px solid $c-border;
-    padding: 1em;
+    //border: 1px solid $c-border;
+    padding: 0 1em;
     border-radius: 10px;
     min-width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: start;
     gap: 1em;
-    padding: 1em;
     overflow: auto;
   }
   .fish {
@@ -79,6 +84,15 @@ dialog .dialog-content {
     padding: 1em 0;
     legend {
       font-weight: bold;
+    }
+  }
+  .selectable {
+    cursor: pointer;
+    &.selected {
+      background-color: $m-bg_primary--mix-60;
+    }
+    &:hover {
+      background-color: $m-bg_primary--mix-80;
     }
   }
   .setting {
@@ -99,14 +113,6 @@ dialog .dialog-content {
         background-color: $m-bg_bad--mix-60;
       }
     }
-    &.has-panel {
-      &.selected {
-        background-color: $m-bg_primary--mix-60;
-      }
-      &:hover {
-        background-color: $m-bg_primary--mix-80;
-      }
-    }
     &.disabled {
       > input[data-type],
       > label {
@@ -115,9 +121,18 @@ dialog .dialog-content {
     }
   }
   .edit-panel {
-    position: relative;
-    min-width: 0; // chart.js hack
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 1em;
+    padding: 1em;
+    border-radius: 10px;
     grid-area: c;
+  }
+  .chart-wrapper {
+    position: relative;
+    //min-width: 0; // chart.js hack
+    //grid-area: c;
     border-radius: 10px;
     cursor: pointer;
     background-color: beige;

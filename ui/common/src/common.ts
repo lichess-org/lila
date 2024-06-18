@@ -16,6 +16,14 @@ export function as<T>(v: T, f: () => void): () => T {
   };
 }
 
+export function deepFreeze(obj: any) {
+  if (!obj || typeof obj !== 'object') return obj;
+  for (const prop of Object.values(obj)) {
+    if (prop && typeof prop === 'object') deepFreeze(prop);
+  }
+  return Object.freeze(obj);
+}
+
 export interface Prop<T> {
   (): T;
   (v: T): T;

@@ -79,8 +79,8 @@ export class HandOfCards {
     this.rect = newRect;
     this.userMidX = this.view.offsetWidth / 2;
     this.userMidY = this.view.offsetHeight + Math.sqrt(3 / 4) * this.fanRadius - h2;
-    this.animate();
-    this.resetIdleTimer();
+    //this.animate();
+    this.redraw();
   };
 
   placeCards() {
@@ -149,20 +149,20 @@ export class HandOfCards {
 
   mouseEnter = (e: MouseEvent) => {
     $(e.target as HTMLElement).addClass('pull');
-    this.resetIdleTimer();
+    this.redraw();
   };
 
   mouseLeave = (e: MouseEvent) => {
     $(e.target as HTMLElement).removeClass('pull');
-    this.resetIdleTimer();
+    this.redraw();
   };
 
   pointerDown = (e: PointerEvent) => {
-    this.resetIdleTimer();
     this.pointerDownTime = Date.now();
     this.dragCard?.releasePointerCapture(e.pointerId);
     this.dragCard = e.currentTarget as HTMLElement;
     this.dragCard.setPointerCapture(e.pointerId);
+    this.redraw();
   };
 
   pointerMove = (e: PointerEvent) => {
@@ -176,7 +176,7 @@ export class HandOfCards {
     this.dragCard.style.transform = `translate(${viewX}px, ${viewY}px) rotate(${newAngle}rad)`;
     for (const drop of this.drops) drop.el?.classList.remove('drag-over');
     this.dropTarget(e)?.classList.add('drag-over');
-    this.resetIdleTimer();
+    this.redraw();
   };
 
   pointerUp = (e: PointerEvent) => {
@@ -192,7 +192,7 @@ export class HandOfCards {
         this.drops[this.drops.length - 1].el);
     if (target) this.select(target, this.dragCard.id);
     this.dragCard = null;
-    this.resetIdleTimer();
+    this.redraw();
     this.pointerDownTime = undefined;
   };
 
@@ -210,14 +210,22 @@ export class HandOfCards {
     this.frame = requestAnimationFrame(this.animate);
   };
 
-  resetIdleTimer(timeout = 300) {
+  redraw(andKeepAnimatingFor = 300) {
+    if (this.frame === 0) this.animate();
+    clearTimeout(this.killAnimation);
+    this.killAnimation = setTimeout(() => {
+      cancelAnimationFrame(this.frame);
+      this.frame = 0;
+    }, andKeepAnimatingFor);
+  }
+  /*resetIdleTimer(timeout = 300) {
     if (this.frame === 0) this.animate();
     clearTimeout(this.killAnimation);
     this.killAnimation = setTimeout(() => {
       cancelAnimationFrame(this.frame);
       this.frame = 0;
     }, timeout);
-  }
+  }*/
 
   get fanRadius() {
     return this.view.offsetWidth;

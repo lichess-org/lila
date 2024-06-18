@@ -84,12 +84,11 @@ export class LocalDialog {
   };
 
   select(color: 'white' | 'black', selection?: string) {
-    console.log(color, selection, this.bots);
     const bot = selection ? this.bots[selection] : undefined;
-    //this.view.style.setProperty(`---${color}-image-url`, bot ? `url(${bot.imageUrl})` : null);
     this.view.querySelector(`.${color} .placard`)!.textContent = bot ? bot.description : 'Player';
     this.setup[color] = bot?.uid;
-    this[color].querySelector(`img.remove`)!.classList.toggle('show', !!bot);
+    if (!bot) this.hand.redraw();
+    this[color].querySelector(`img.remove`)?.classList.toggle('show', !!bot);
   }
 
   fight = async (dlg: Dialog) => {
@@ -110,6 +109,7 @@ export class LocalDialog {
     const newBlack = this.setup.white;
     this.select('white', this.setup.black);
     this.select('black', newBlack);
+    this.hand.redraw();
   };
 
   random = (dlg: Dialog) => {

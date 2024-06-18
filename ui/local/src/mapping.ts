@@ -1,39 +1,33 @@
 import { Mapping, Point } from './types';
 
-export function updateMapping(m: Mapping, op: { add: Point } | { remove: number } | 'clear' | 'normalize') {
-  if (op === 'normalize') normalize(m);
-  else if (op === 'clear') m.data = [];
-  else if ('add' in op) {
-    normalize(m);
-    const addX = quantize(op.add.x, m);
-    const i = m.data.findIndex(p => p.x >= addX);
-    if (i >= 0) {
-      if (m.data[i].x === addX) m.data[i] = { x: addX, y: op.add.y };
-      else m.data.splice(i, 0, { x: addX, y: op.add.y });
-    } else m.data.push({ x: addX, y: op.add.y });
-  } else {
-    const removeX = quantize(m.data[op.remove].x, m);
-    const i = m.data.findIndex(p => p.x === removeX);
-    if (i >= 0) m.data.splice(i, 1);
-  }
+const EXTERNAL_DOMAIN_DELTA = 10;
+
+export function addPoint(m: Mapping, add: Point) {
+  normalize(m);
+  const qX = quantize(add.x, m);
+  const i = m.data.findIndex(p => p.x >= qX);
+  if (i >= 0) {
+    if (m.data[i].x === qX) m.data[i] = { x: qX, y: add.y };
+    else m.data.splice(i, 0, { x: qX, y: add.y });
+  } else m.data.push({ x: qX, y: add.y });
 }
 
-export function asChartJsData(m: Mapping) {
+export function asData(m: Mapping) {
   const pts = m.data.slice() as any[];
   const xs = domain(m);
   const yMid = (m.range.max - m.range.min) / 2;
   if (pts.length === 0)
     return [
-      { x: xs.min, y: yMid, radius: 0 },
-      { x: xs.max, y: yMid, radius: 0 },
+      { x: xs.min - EXTERNAL_DOMAIN_DELTA, y: yMid },
+      { x: xs.max + EXTERNAL_DOMAIN_DELTA, y: yMid },
     ];
-  if (pts[0].x > xs.min) pts.unshift({ x: xs.min, y: pts[0].y, radius: 0 });
-  if (pts[pts.length - 1].x < xs.max) pts.push({ x: xs.max, y: pts[pts.length - 1].y, radius: 0 });
+  pts.unshift({ x: xs.min - EXTERNAL_DOMAIN_DELTA, y: pts[0].y });
+  pts.push({ x: xs.max + EXTERNAL_DOMAIN_DELTA, y: pts[pts.length - 1].y });
   return pts;
 }
 
 export function quantize(x: number, m: Mapping) {
-  const qu = m.by === 'moves' ? 1 : 0.01;
+  const qu = m.from === 'moves' ? 1 : 0.01;
   return Math.round(x / qu) * qu;
 }
 
@@ -47,24 +41,23 @@ export function normalize(m: Mapping) {
   }, []);
   newData.sort((a, b) => a.x - b.x);
   m.data = newData;
-  return m.data.slice();
 }
 
-export function interpolate(curve: Mapping, x: number) {
-  if (curve.data.length === 0) return undefined;
-  if (curve.data.length === 1) return curve.data[0].y;
-  for (let i = 1; i < curve.data.length; i++) {
-    const p1 = curve.data[i];
-    const p2 = curve.data[i + 1];
+export function interpolate(m: Mapping, x: number) {
+  if (m.data.length === 0) return undefined;
+  if (m.data.length === 1) return m.data[0].y;
+  for (let i = 1; i < m.data.length - 1; i++) {
+    const p1 = m.data[i];
+    const p2 = m.data[i + 1];
     if (p1.x <= x && x <= p2.x) {
       const m = (p2.y - p1.y) / (p2.x - p1.x);
       return p1.y + m * (x - p1.x);
     }
   }
-  return curve.data[curve.data.length - 1].y;
+  return m.data[m.data.length - 1].y;
 }
 
 export function domain(m: Mapping) {
-  if (m.by === 'moves') return { min: 1, max: 60 };
+  if (m.from === 'moves') return { min: 1, max: 60 };
   else return { min: -1, max: 1 };
 }

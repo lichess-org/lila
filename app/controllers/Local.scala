@@ -21,7 +21,7 @@ final class Local(env: Env) extends LilaController(env):
         "black" -> optional(nonEmptyText),
         "fen"   -> optional(nonEmptyText),
         "time"  -> optional(nonEmptyText),
-        "go"    -> play.api.data.Forms.boolean,
+        "go"    -> play.api.data.Forms.boolean
       )(GameSetup.apply)(unapply)
 
   def index(testUi: Option[String]) = OpenBody:
@@ -37,7 +37,8 @@ final class Local(env: Env) extends LilaController(env):
       testUi: Option[String]
   ) = OpenBody:
     NoBot:
-      Ok.page(indexPage(GameSetup(white, black, fen, time, optTrue(go)).some, optTrue(testUi))).map(_.enforceCrossSiteIsolation)
+      Ok.page(indexPage(GameSetup(white, black, fen, time, optTrue(go)).some, optTrue(testUi)))
+        .map(_.enforceCrossSiteIsolation)
 
   def newGameForm(testUi: Option[String]) = OpenBody:
     NoBot:
@@ -48,9 +49,25 @@ final class Local(env: Env) extends LilaController(env):
 
   private def indexPage(setup: Option[GameSetup], testUi: Boolean = false)(using ctx: Context) =
     given setupFormat: Format[GameSetup] = Json.format[GameSetup]
-      views.local.index(
-        Json.obj("pref" -> lila.pref.JsonView.write(ctx.pref, false), "testUi" -> testUi).add("setup", setup)
+    views.local.index(
+      Json
+        .obj(
+          "pref"   -> lila.pref.JsonView.write(ctx.pref, false),
+          "testUi" -> testUi
         )
+        .add("setup", setup)
+        .add(
+          "assets",
+          testUi.option(
+            // temporary, we'll replace these filesystem calls with a json file when things settle down
+            Json.obj(
+              "images" -> env.getFile(s"public/lifat/bots/images").listFiles().toList.map(_.getName),
+              "nets"   -> env.getFile(s"public/lifat/bots/nets").listFiles().toList.map(_.getName),
+              "books"  -> env.getFile(s"public/lifat/bots/books").listFiles().toList.map(_.getName)
+            )
+          )
+        )
+    )
 
-  private def optTrue(s: Option[String]) = 
+  private def optTrue(s: Option[String]) =
     s.exists(v => v == "" || v == "1" || v == "true")

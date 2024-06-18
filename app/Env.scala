@@ -127,6 +127,8 @@ final class Env(
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
       promise.success(Html(views.puzzle.bits.daily(puzzle, fen, lastMove)))
 
+  def getFile(path: String) = environment.getFile(path)
+
 end Env
 
 given ConfigLoader[NetConfig] = ConfigLoader(config =>

@@ -344,6 +344,7 @@ POST  /streamer/:username/check        controllers.Streamer.checkOnline(username
 GET   /local                               controllers.Local.index(testUi: Option[String])
 GET   /local/new                           controllers.Local.newGame(white: Option[String], black: Option[String], fen: Option[String], time: Option[String], go: Option[String], testUi: Option[String])
 POST  /local                               controllers.Local.newGameForm(testUi: Option[String])
+# GET   /local/assets                        controllers.Local.assets
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)

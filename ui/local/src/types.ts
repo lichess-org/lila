@@ -1,37 +1,37 @@
 import { RoundData } from 'round';
 import { Material } from 'chessops/setup';
 import type { Search, Position } from 'zerofish';
+import { Point } from 'chart.js';
 import { CardData } from './handOfCards';
 import { GameState } from './gameCtrl';
 import { Chess } from 'chessops';
 
-export { type CardData };
+export type { CardData, Point };
 
 export interface Quirks {
   takebacks?: number; // 0 to 1 is the chance of asking for a takeback at mistake or below
 }
 
-export type AssetLoc = { lichess: string; url: undefined } | { url: string; lichess: undefined };
-
-export type Point = { readonly x: number; readonly y: number };
-
 export interface Mapping {
-  by: 'score' | 'moves';
+  readonly to: 'mix' | 'acpl';
+  readonly from: 'moves' | 'score';
+  readonly default: number;
   data: Point[];
-  range: { min: number; max: number };
+  readonly range: { min: number; max: number };
 }
 
 export interface BotInfo {
   readonly uid: string;
   readonly name: string;
-  readonly image?: AssetLoc;
-  readonly book?: AssetLoc;
+  readonly image?: string;
+  readonly book?: string;
   readonly description: string;
   readonly glicko?: { r: number; rd: number };
-  readonly zero?: { net: AssetLoc; search: Search };
+  readonly zero?: { net: string; search: Search };
   readonly fish?: { multipv: number; search: Search };
   readonly quirks?: Quirks;
   readonly searchMix?: Mapping;
+  readonly acpl?: Mapping;
 }
 
 export type BotInfos = { [id: string]: BotInfo };
@@ -60,6 +60,7 @@ export interface LocalPlayOpts {
   setup?: LocalSetup;
   state?: GameState;
   testUi?: boolean;
+  assets?: { nets: string[]; images: string[]; books: string[] };
 }
 
 export interface LocalSetup {
@@ -90,3 +91,8 @@ export interface Matchup {
   white: string;
   black: string;
 }
+
+export type NetData = {
+  key: string;
+  data: Uint8Array;
+};

@@ -1,11 +1,11 @@
 import { LocalPlayOpts, LocalSetup, Automator, Outcome } from './types';
 import { type BotCtrl } from './botCtrl';
 import { makeSocket } from './socket';
-import { makeFen /*, parseFen*/ } from 'chessops/fen';
+import { makeFen } from 'chessops/fen';
+import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
 import { MoveRootCtrl } from 'game';
 import { RoundSocket, RoundOpts, RoundData } from 'round';
-import { Database } from './database';
 import { Chess } from 'chessops';
 import * as co from 'chessops';
 
@@ -36,46 +36,18 @@ export class GameCtrl {
   ) {
     this.socket = makeSocket(this);
     this.i18n = opts.i18n;
-    if (opts.setup) {
+    if (opts.setup)
       this.setup = Object.fromEntries(
         Object.entries({ ...opts.setup }).map(([k, v]) => [k, v === null ? undefined : v]),
       );
-    } else {
-      //this.state = opts.state;
-      this.setup = {}; // white: this.state.white, black: this.state.black, fen: this.state.fen };
-    }
+    else this.setup = {};
     this.roundData = this.makeRoundData(this.setup.fen);
   }
-  /*get db(): Database {
-    return this.botCtrl.db;
-  }*/
-
-  /*get state(): GameState {
-    return {
-      fen: this.fen,
-      threefoldFens: this.threefoldFens,
-      fiftyMovePly: this.fiftyMovePly,
-      white: this.setup?.white,
-      black: this.setup?.black,
-    };
-  }*/
-
-  /*set state(state: GameState | undefined) {
-    if (!state) return;
-    this.setup.white = state.white;
-    this.setup.black = state.black;
-    this.resetBoard(state.fen); // it is a "from positon" for now
-    this.fiftyMovePly = state.fiftyMovePly;
-    this.threefoldFens = new Map(state.threefoldFens);
-  }*/
 
   setAutomator(automator: Automator) {
     this.automator = automator;
   }
 
-  /*setup() {
-    this.round = site.asset.loadEsm<MoveRootCtrl>('round', { init: this.roundOpts });
-  }*/
   resetToSetup() {
     this.botCtrl.setPlayer('white', this.setup.white);
     this.botCtrl.setPlayer('black', this.setup.black);
@@ -89,7 +61,6 @@ export class GameCtrl {
   }
 
   resetBoard(fen?: string) {
-    //console.trace('reset');
     if (fen) this.setup.fen = fen;
     this.fiftyMovePly = 0;
     this.moves = [];
@@ -105,7 +76,7 @@ export class GameCtrl {
     });
     this.updateRound();
     this.updateTurn();
-    this.botCtrl.zf.reset();
+    this.botCtrl.reset();
     this.automator?.onReset?.();
   }
 
@@ -129,27 +100,32 @@ export class GameCtrl {
     return { end: true, result, reason };
   }
 
-  doGameOver(result: string, reason: string) {
+  gameOver(result: string, reason: string) {
     this.botCtrl.zf.reset();
     setTimeout(() => {
       this.automator?.onGameEnd(result as 'white' | 'black' | 'draw', reason);
-      //this.db.putState(this.state);
       this.redraw();
     });
-    // blah blah do outcome stuff
   }
 
   move(uci: Uci): boolean {
-    const move = co.parseUci(uci) as co.NormalMove;
+    const bareMove = co.parseUci(uci) as co.NormalMove;
+    const move = { ...normalizeMove(this.chess, bareMove), promotion: bareMove.promotion };
+    const balls = uci === 'e1h1' || uci === 'e8h8';
+    uci = co.makeUci(move); // fix e1h1 nonsense
+    if (balls) {
+      console.log(uci, move, this.chess.isLegal(move), makeFen(this.chess.toSetup()));
+    }
     this.moves.push(uci);
     if (!move || !this.chess.isLegal(move)) {
-      this.doGameOver(
+      this.gameOver(
         'error',
         `${this.botCtrl[this.chess.turn]?.name} made illegal move ${uci} at ${makeFen(this.chess.toSetup())}`,
       );
       return false;
     }
     const san = makeSanAndPlay(this.chess, move);
+    if (balls) console.log('san is', san);
     this.fifty(move);
     this.updateThreefold();
     this.socket.receive('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
@@ -165,7 +141,7 @@ export class GameCtrl {
       );
     const { end, result, reason } = this.checkGameOver();
     if (end) {
-      this.doGameOver(result!, reason!);
+      this.gameOver(result!, reason!);
       this.redraw();
       return false;
     }

@@ -3,7 +3,6 @@ import * as co from 'chessops';
 import { GameCtrl } from './gameCtrl';
 import { rankBotMatchup } from './rankBot';
 import { Automator, Libot, Result, Matchup, Outcome } from './types';
-import { Database } from './database';
 import { clamp } from 'common';
 import * as u from './testUtil';
 //import { Libot } from './interfaces';

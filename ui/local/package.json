@@ -7,7 +7,7 @@
     "@types/lichess": "workspace:*",
     "bits": "workspace:*",
     "ceval": "workspace:*",
-    "chart.js": "=4.4.0",
+    "chart.js": "4.4.3",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "chartjs-plugin-datalabels": "^2.2.0",
     "chartjs-plugin-zoom": "^2.0.1",
@@ -17,7 +17,7 @@
     "game": "workspace:*",
     "round": "workspace:*",
     "snabbdom": "3.5.1",
-    "zerofish": "0.0.23"
+    "zerofish": "link:/home/gamblej/ws/lichess/zerofish"
   },
   "lichess": {
     "bundles": [
@@ -26,9 +26,7 @@
     ],
     "sync": {
       "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",
-      "defs/local.bots.json": "public/json",
-      "defs/local.openings.json": "public/json",
-      "defs/local.nets.json": "public/json"
+      "json/*": "public/json"
     }
   }
 }

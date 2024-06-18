@@ -37,7 +37,7 @@ export class RankBot implements Libot {
   }
 
   async move(pos: Position) {
-    return (await this.zf.goFish(pos, { level: this.level, search: { depth: this.depth } }, 1)).bestmove;
+    return (await this.zf.goFish(pos, { level: this.level, search: { depth: this.depth } })).bestmove;
   }
 }
 

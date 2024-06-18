@@ -12,16 +12,16 @@ importers:
         specifier: workspace:*
         version: link:ui/@types/lichess
       '@types/node':
-        specifier: ^20.12.7
+        specifier: ^20.14.2
         version: 20.14.2
       '@types/web':
-        specifier: ^0.0.143
-        version: 0.0.143
+        specifier: ^0.0.149
+        version: 0.0.149
       '@typescript-eslint/eslint-plugin':
-        specifier: ^7.7.0
+        specifier: ^7.13.0
         version: 7.13.0(@typescript-eslint/parser@7.13.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
       '@typescript-eslint/parser':
-        specifier: ^7.7.0
+        specifier: ^7.13.0
         version: 7.13.0(eslint@8.57.0)(typescript@5.4.5)
       ab:
         specifier: github:lichess-org/ab-stub
@@ -30,10 +30,10 @@ importers:
         specifier: ^9.1.1
         version: 9.1.1
       eslint:
-        specifier: ^8.57.0
+        specifier: ^8.56.0
         version: 8.57.0
       lint-staged:
-        specifier: ^15.2.2
+        specifier: ^15.2.7
         version: 15.2.7
       onchange:
         specifier: ^7.1.0
@@ -260,17 +260,17 @@ importers:
         specifier: workspace:*
         version: link:../ceval
       chart.js:
-        specifier: '=4.4.0'
-        version: 4.4.0
+        specifier: 4.4.3
+        version: 4.4.3
       chartjs-adapter-dayjs-4:
         specifier: ^1.0.4
-        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.11)
+        version: 1.0.4(chart.js@4.4.3)(dayjs@1.11.11)
       chartjs-plugin-datalabels:
         specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.0)
+        version: 2.2.0(chart.js@4.4.3)
       chartjs-plugin-zoom:
         specifier: ^2.0.1
-        version: 2.0.1(chart.js@4.4.0)
+        version: 2.0.1(chart.js@4.4.3)
       common:
         specifier: workspace:*
         version: link:../common
@@ -383,11 +383,11 @@ importers:
         specifier: workspace:^
         version: link:../chart
       chart.js:
-        specifier: ^4.4.0
-        version: 4.4.0
+        specifier: 4.4.3
+        version: 4.4.3
       chartjs-plugin-datalabels:
         specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.0)
+        version: 2.2.0(chart.js@4.4.3)
       common:
         specifier: workspace:*
         version: link:../common
@@ -455,17 +455,17 @@ importers:
         specifier: workspace:*
         version: link:../ceval
       chart.js:
-        specifier: '=4.4.0'
-        version: 4.4.0
+        specifier: 4.4.3
+        version: 4.4.3
       chartjs-adapter-dayjs-4:
         specifier: ^1.0.4
-        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.11)
+        version: 1.0.4(chart.js@4.4.3)(dayjs@1.11.11)
       chartjs-plugin-datalabels:
         specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.0)
+        version: 2.2.0(chart.js@4.4.3)
       chartjs-plugin-zoom:
         specifier: ^2.0.1
-        version: 2.0.1(chart.js@4.4.0)
+        version: 2.0.1(chart.js@4.4.3)
       chess:
         specifier: workspace:*
         version: link:../chess
@@ -485,8 +485,8 @@ importers:
         specifier: 3.5.1
         version: 3.5.1
       zerofish:
-        specifier: 0.0.23
-        version: 0.0.23
+        specifier: link:/home/gamblej/ws/lichess/zerofish
+        version: link:../../../zerofish
 
   ui/mod:
     dependencies:
@@ -554,11 +554,11 @@ importers:
         specifier: ^3.1.9
         version: 3.1.9
       chart.js:
-        specifier: 4.4.0
-        version: 4.4.0
+        specifier: 4.4.3
+        version: 4.4.3
       chartjs-adapter-dayjs-4:
         specifier: ^1.0.4
-        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.11)
+        version: 1.0.4(chart.js@4.4.3)(dayjs@1.11.11)
       common:
         specifier: workspace:*
         version: link:../common
@@ -608,8 +608,8 @@ importers:
         specifier: workspace:*
         version: link:../ceval
       chart.js:
-        specifier: 4.4.0
-        version: 4.4.0
+        specifier: 4.4.3
+        version: 4.4.3
       chess:
         specifier: workspace:*
         version: link:../chess
@@ -1157,9 +1157,6 @@ packages:
   '@types/dragscroll@0.0.0':
     resolution: {integrity: sha512-rWr/ryzOUi9r/zUA2GK2qLWGBIBmDeIojBQXuvR76pulHUoEGMJ2A7NWShUaA5AE90ha+l9tlsyGz2UioQE9cg==}
 
-  '@types/emscripten@1.39.13':
-    resolution: {integrity: sha512-cFq+fO/isvhvmuP/+Sl4K4jtU6E23DoivtbO4r50e3odaxAiVdbfSYRDdJ4gCdxx+3aRjhphS5ZMwIH4hFy/Cw==}
-
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
@@ -1181,11 +1178,8 @@ packages:
   '@types/sortablejs@1.15.8':
     resolution: {integrity: sha512-b79830lW+RZfwaztgs1aVPgbasJ8e7AXtZYHTELNXZPsERt4ymJdjV4OccDbHQAvHrCcFpbF78jkm0R6h/pZVg==}
 
-  '@types/web@0.0.143':
-    resolution: {integrity: sha512-TazK16/OqeeqfQRB/Tv/NwzJagHbLi/w5g26FLbiFte/8LpPq6BuTyXHO/cpgwJpE6KGgFSNYb6Ap05Tz9XvCA==}
-
-  '@types/web@0.0.147':
-    resolution: {integrity: sha512-HubXF+XiMsQBdwhMC9w1aZuSOZ6CvcBR01MA4UdQCbWABkcrSBbMGQ0VnqTJlEU1b78WCx8quv8pznnDXSiUtQ==}
+  '@types/web@0.0.149':
+    resolution: {integrity: sha512-xQHorJ1SBC7lbabYAW8TM/nWHR4JcxOMEdNHs8Orv31e4uB/OXD/OtF5uN+ArSmx7qAENejm44I2NqXlntUfaQ==}
 
   '@types/webrtc@0.0.42':
     resolution: {integrity: sha512-YyrG3yzw/JvZs0q3f9SY+AiJr0FJw1qhBjvoQJEUy07udiyakAax2A87BHpB3qnaxsm2ExCvhyUvjTxdsn+qSw==}
@@ -1394,9 +1388,9 @@ packages:
     resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
-  chart.js@4.4.0:
-    resolution: {integrity: sha512-vQEj6d+z0dcsKLlQvbKIMYFHd3t8W/7L2vfJIbYcfyPcRx92CsHqECpueN8qVGNlKyDcr5wBrYAYKnfu/9Q1hQ==}
-    engines: {pnpm: '>=7'}
+  chart.js@4.4.3:
+    resolution: {integrity: sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==}
+    engines: {pnpm: '>=8'}
 
   chartjs-adapter-dayjs-4@1.0.4:
     resolution: {integrity: sha512-yy9BAYW4aNzPVrCWZetbILegTRb7HokhgospPoC3b5iZ5qdlqNmXts2KdSp6AqnjkPAp/YWyHDxLvIvwt5x81w==}
@@ -2584,9 +2578,6 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
 
-  zerofish@0.0.23:
-    resolution: {integrity: sha512-VoyXgBy4lL/tNliB/JC/EAgIBNSCEqJZsmdWUbQGvjGfGWs7qk9AqGSW7Yte2xXfZ65FhESaskcq7TndYVAYYQ==}
-
   zxcvbn@4.4.2:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
 
@@ -2821,8 +2812,6 @@ snapshots:
 
   '@types/dragscroll@0.0.0': {}
 
-  '@types/emscripten@1.39.13': {}
-
   '@types/estree@1.0.5': {}
 
   '@types/fnando__sparkline@0.3.7': {}
@@ -2844,9 +2833,7 @@ snapshots:
 
   '@types/sortablejs@1.15.8': {}
 
-  '@types/web@0.0.143': {}
-
-  '@types/web@0.0.147': {}
+  '@types/web@0.0.149': {}
 
   '@types/webrtc@0.0.42': {}
 
@@ -3078,22 +3065,22 @@ snapshots:
 
   chalk@5.3.0: {}
 
-  chart.js@4.4.0:
+  chart.js@4.4.3:
     dependencies:
       '@kurkle/color': 0.3.2
 
-  chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.0)(dayjs@1.11.11):
+  chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.3)(dayjs@1.11.11):
     dependencies:
-      chart.js: 4.4.0
+      chart.js: 4.4.3
       dayjs: 1.11.11
 
-  chartjs-plugin-datalabels@2.2.0(chart.js@4.4.0):
+  chartjs-plugin-datalabels@2.2.0(chart.js@4.4.3):
     dependencies:
-      chart.js: 4.4.0
+      chart.js: 4.4.3
 
-  chartjs-plugin-zoom@2.0.1(chart.js@4.4.0):
+  chartjs-plugin-zoom@2.0.1(chart.js@4.4.3):
     dependencies:
-      chart.js: 4.4.0
+      chart.js: 4.4.3
       hammerjs: 2.0.8
 
   check-error@1.0.3:
@@ -4272,13 +4259,5 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   yocto-queue@1.0.0: {}
-
-  zerofish@0.0.23:
-    dependencies:
-      '@types/emscripten': 1.39.13
-      '@types/node': 20.14.2
-      '@types/web': 0.0.147
-      prettier: 3.0.2
-      typescript: 5.4.5
 
   zxcvbn@4.4.2: {}

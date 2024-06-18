@@ -6,6 +6,8 @@
   overflow: hidden;
 
   .card {
+    user-select: none;
+    cursor: pointer;
     position: absolute;
     top: 0;
     left: 0;
@@ -14,7 +16,7 @@
     border: 1px solid $c-border;
     transition:
       transform 0.3s,
-      background-color 0.3s;
+      background-color 0.2s;
     img {
       width: calc(192px * var(---scale-factor));
     }
@@ -28,8 +30,10 @@
       right: 0;
       display: none;
     }
-    &.pull label {
-      display: block;
+    &.pull:not(&.selected) {
+      label {
+        display: block;
+      }
     }
     &.dragging {
       transition: none;

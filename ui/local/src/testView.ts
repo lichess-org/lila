@@ -2,7 +2,7 @@ import * as co from 'chessops';
 import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
 import { LocalDialog } from './setupDialog';
 import { storedBooleanProp } from 'common/storage';
-import { EditBotDialog } from './editBotDialog';
+import { BotDialog } from './editor/botDialog';
 import { ZerofishBot } from './zerofishBot';
 import { BotCtrl } from './botCtrl';
 import { TestCtrl } from './testCtrl';
@@ -84,15 +84,15 @@ function player(ctx: TestContext, color: Color): VNode {
 }
 
 function editBot({ testCtrl, botCtrl }: TestContext, color: Color) {
-  let selected = botCtrl[color]?.uid;
+  const selected = botCtrl[color]?.uid;
   if (!selected) return;
-  new EditBotDialog(botCtrl, testCtrl.gameCtrl, color, (uid: string) => {
+  new BotDialog(botCtrl, testCtrl.gameCtrl, color, (uid: string) => {
     // if (selected !== botCtrl[color]?.uid) return;
     // selected = uid;
     // botCtrl[color] = botCtrl.bot(uid);
     // testCtrl.gameCtrl.setup[color] = uid;
     // testCtrl.reset(false);
-    console.log('bot changed', color, uid, testCtrl.script, testCtrl.gameCtrl.setup);
+    //console.log('bot changed', color, uid, testCtrl.script, testCtrl.gameCtrl.setup);
     testCtrl.redraw();
   })
     .show()
@@ -178,11 +178,12 @@ function clickPlayPause({ testCtrl }: TestContext) {
   if (!testCtrl.isStopped) testCtrl.stop();
   else {
     if (testCtrl.gameInProgress) testCtrl.run();
-    else
+    else {
       testCtrl.run(
         { type: 'matchup', players: [testCtrl.white.uid, testCtrl.black.uid], time: '1+0' },
         parseInt($('.num-games').val() as string) || 1,
       );
+    }
   }
   testCtrl.gameCtrl.redraw();
 }
@@ -204,11 +205,6 @@ function results(ctx: TestContext) {
 
 async function downloadResults(ctx: TestContext) {
   const results = [{}];
-  /*for (const key of await testCtrl.store.list()) {
-    const result = await testCtrl.store.get(key);
-    results.push(result);
-    console.log(result);
-  }*/
 
   const blob = new Blob([JSON.stringify(results)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -260,7 +256,7 @@ function roundRobin({ testCtrl, botCtrl }: TestContext) {
         <label for='${p.uid.slice(1)}'>${p.name}</label></li>`;
       })
       .join('')}</ul>
-    <button class="button" id="start-tournament">Start</button>`,
+    <span style="display: flex; gap: 1em;">Repeat: <input type="number" maxLength="3" value="1"><button class="button" id="start-tournament">Start</button></span>`,
     action: [
       {
         selector: '#start-tournament',
@@ -269,11 +265,16 @@ function roundRobin({ testCtrl, botCtrl }: TestContext) {
             (el: HTMLInputElement) => el.value,
           );
           if (participants.length < 2) return;
-          testCtrl.run({
-            type: 'roundRobin',
-            players: participants,
-            time: '1+0',
-          });
+          const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
+          const iterations = parseInt(iterationField.value);
+          testCtrl.run(
+            {
+              type: 'roundRobin',
+              players: participants,
+              time: '1+0',
+            },
+            isNaN(iterations) ? 1 : iterations,
+          );
           dlg.close();
         },
       },

@@ -10,7 +10,8 @@ dialog .dialog-content {
   @include if-constrained(400px) {
     ---scale-factor: 0.5;
   }
-  @include if-constrained() {
+
+  @include if-constrained(500px) {
     ---scale-factor: 0.7;
   }
 
@@ -29,12 +30,38 @@ dialog .dialog-content {
     max-height: 800px;
   }
 
+  .card {
+    z-index: 12;
+
+    &.selected {
+      z-index: $z-dialog-11;
+    }
+  }
+
+  .remove {
+    display: none;
+    z-index: $z-above-dialog-13;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    filter: grayscale(1);
+    &.show {
+      display: block;
+    }
+    &:hover {
+      filter: saturate(1);
+    }
+  }
+
   .player {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    @include if-constrained {
+    @include if-constrained(500px) {
       aspect-ratio: 3/4;
     }
     border-radius: 10px;
@@ -46,7 +73,7 @@ dialog .dialog-content {
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      @include if-constrained {
+      @include if-constrained(500px) {
         background-position: top;
       }
     }
@@ -68,23 +95,6 @@ dialog .dialog-content {
       background-color: hsl(37, 5%, 23%);
       &::before {
         background-image: var(---black-image-url);
-      }
-    }
-    .remove {
-      display: none;
-      z-index: $z-above-dialog-13;
-      position: absolute;
-      height: 20px;
-      width: 20px;
-      top: 5px;
-      right: 5px;
-      cursor: pointer;
-      filter: grayscale(1);
-      &.show {
-        display: block;
-      }
-      &:hover {
-        filter: saturate(1);
       }
     }
   }

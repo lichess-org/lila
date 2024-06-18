@@ -14,7 +14,7 @@
   "dependencies": {
     "board": "workspace:*",
     "ceval": "workspace:*",
-    "chart.js": "4.4.0",
+    "chart.js": "4.4.3",
     "chess": "workspace:*",
     "chessops": "^0.14.1",
     "common": "workspace:*",
