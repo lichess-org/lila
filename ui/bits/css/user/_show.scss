@@ -62,6 +62,9 @@
         position: absolute;
         top: 3rem;
         @include inline-end(0);
+        body.blind-mode & {
+          visibility: visible;
+        }
         a {
           @extend %flex-center-nowrap;
           width: 20em;
