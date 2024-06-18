@@ -63,8 +63,8 @@
         top: 3rem;
         @include inline-end(0);
         a {
+          @extend %flex-center-nowrap;
           width: 20em;
-          display: block;
           padding: 0.7rem 1rem;
           color: $c-header-dropdown;
           &::before {
