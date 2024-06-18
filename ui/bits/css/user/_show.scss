@@ -74,18 +74,20 @@
             margin-inline: 0 1rem;
             font-size: 1.4em;
           }
-          &:first-child {
-            border-radius: $box-radius-size 0 0 0;
-          }
-          &:last-child {
-            @extend %box-radius-bottom;
-          }
           &:hover {
             background: $c-primary;
             &,
             &::after {
               color: $c-over;
             }
+          }
+        }
+        > a {
+          &:first-child {
+            border-radius: $box-radius-size 0 0 0;
+          }
+          &:last-child {
+            @extend %box-radius-bottom;
           }
         }
       }
