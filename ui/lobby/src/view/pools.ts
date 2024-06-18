@@ -21,12 +21,12 @@ export function render(ctrl: LobbyController) {
   const member = ctrl.poolMember;
   return ctrl.pools
     .map(pool => {
-      const active = !!member && member.id === pool.id,
+      const active = member?.id === pool.id,
         transp = !!member && !active;
       return h(
         'div',
         {
-          class: { active, transp: !active && transp },
+          class: { active, transp },
           attrs: { role: 'button', 'data-id': pool.id },
         },
         [
