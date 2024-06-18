@@ -8,6 +8,7 @@
   padding-top: 9px;
   background-color: transparent !important;
   box-shadow: none;
+  overflow: visible !important; // for button shadows
 
   @include fluid-size('font-size', 14px, 25px);
 
@@ -36,7 +37,6 @@
 
   .active {
     @extend %popup-shadow;
-    @include back-blur(); // for all themes, not just transp
 
     .perf {
       display: none;
@@ -44,7 +44,7 @@
   }
 
   .transp {
-    opacity: 0.4;
+    opacity: 0.35;
   }
 
   .spinner {
