@@ -4,11 +4,9 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.search.*
 import lila.core.forum.BusForum
 import BusForum.*
 import lila.core.config.ConfigName
-import lila.core.id.ForumPostId
 import lila.search.client.SearchClient
 import lila.search.spec.Query
 

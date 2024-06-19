@@ -381,11 +381,13 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               br,
               """"Jorge Rick Vito" will match "Jorge Rick", "jorge vito", "Rick, Vito", etc.""",
               br,
+              "If the player is NM or WNM, you can:",
+              pre("""Player Name = FIDE ID / Title"""),
               "Alternatively, you may set tags manually, like so:",
               pre("player name / rating / title / new name"),
               "All values are optional. Example:",
               pre("""Magnus Carlsen / 2863 / GM
-  YouGotLittUp / 1890 / / Louis Litt""")
+YouGotLittUp / 1890 / / Louis Litt""")
             ).some,
             half = true
           )(form3.textarea(_)(rows := 3)),
@@ -397,7 +399,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               pre("Team name; Fide Id or Player name"),
               "Example:",
               pre("""Team Cats ; 3408230
-  Team Dogs ; Scooby Doo"""),
+Team Dogs ; Scooby Doo"""),
               "By default the PGN tags WhiteTeam and BlackTeam are used."
             ).some,
             half = true
