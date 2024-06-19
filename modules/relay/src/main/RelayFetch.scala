@@ -6,6 +6,7 @@ import chess.{ Outcome, Ply }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
+import scalalib.model.Seconds
 
 import lila.core.lilaism.LilaInvalid
 import lila.common.LilaScheduler
@@ -13,10 +14,8 @@ import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.study.{ MultiPgn, StudyPgnImport }
 import lila.tree.Node.Comments
-
-import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
-import RelayFormat.CanProxy
-import scalalib.model.Seconds
+import lila.relay.RelayRound.Sync
+import lila.relay.RelayFormat.CanProxy
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -80,6 +79,8 @@ final private class RelayFetch(
     if !rt.round.sync.playing then fuccess(updating(_.withSync(_.play(rt.tour.official))))
     else
       fetchGames(rt)
+        .map(RelayGame.filter(rt.round.sync.onlyRound))
+        .map(RelayGame.Slices.filter(~rt.round.sync.slices))
         .map(games => rt.tour.players.fold(games)(_.update(games)))
         .flatMap(fidePlayers.enrichGames(rt.tour))
         .map(games => rt.tour.teams.fold(games)(_.update(games)))
@@ -140,8 +141,7 @@ final private class RelayFetch(
           Seconds(60)
         else
           round.sync.period | Seconds:
-            if upstream.local then 3
-            else if upstream.asUrl.exists(_.isLcc) && !tour.official then 10
+            if upstream.isLcc && !tour.official then 12
             else 5
       updating:
         _.withSync:
@@ -165,32 +165,42 @@ final private class RelayFetch(
   )
 
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
+    given CanProxy = CanProxy(rt.tour.official)
     rt.round.sync.upstream.so:
-      case UpstreamIds(ids) =>
-        gameRepo
-          .gamesFromSecondary(ids)
-          .flatMap(gameProxy.upgradeIfPresent)
-          .flatMap(gameRepo.withInitialFens)
-          .flatMap { games =>
-            if games.size == ids.size then
-              val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
-              given play.api.i18n.Lang = lila.core.i18n.defaultLang
-              games
-                .sequentially: (game, fen) =>
-                  pgnDump(game, fen, pgnFlags).dmap(_.render)
-                .dmap(MultiPgn.apply)
-            else
-              throw LilaInvalid:
-                s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
-          }
-          .flatMap(multiPgnToGames(_).toFuture)
-      case url: UpstreamUrl =>
-        delayer(url, rt.round, fetchFromUpstream(using CanProxy(rt.tour.official)))
+      case Sync.UpstreamIds(ids) => fetchFromGameIds(rt.tour, ids)
+      case lcc: Sync.UpstreamLcc => fetchFromUpstream(lcc, RelayFetch.maxChapters)
+      case url: Sync.UpstreamUrl => delayer(url, rt.round, fetchFromUpstream)
+      case Sync.UpstreamUrls(urls) =>
+        urls
+          .traverse: url =>
+            delayer(url, rt.round, fetchFromUpstream(using CanProxy(rt.tour.official)))
+          .map(_.flatten.toVector)
 
-  private def fetchFromUpstream(using canProxy: CanProxy)(upstream: UpstreamUrl, max: Max): Fu[RelayGames] =
+  private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
+    gameRepo
+      .gamesFromSecondary(ids)
+      .flatMap(gameProxy.upgradeIfPresent)
+      .flatMap(gameRepo.withInitialFens)
+      .flatMap { games =>
+        if games.size == ids.size then
+          val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
+          given play.api.i18n.Lang = lila.core.i18n.defaultLang
+          games
+            .sequentially: (game, fen) =>
+              pgnDump(game, fen, pgnFlags).dmap(_.render)
+            .dmap(MultiPgn.apply)
+        else
+          throw LilaInvalid:
+            s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
+      }
+      .flatMap(multiPgnToGames(_).toFuture)
+
+  private def fetchFromUpstream(using
+      canProxy: CanProxy
+  )(upstream: Sync.FetchableUpstream, max: Max): Fu[RelayGames] =
     import DgtJson.*
     formatApi
-      .get(upstream.withRound)
+      .get(upstream)
       .flatMap {
         case RelayFormat.SingleFile(doc) =>
           doc.format match

@@ -1,7 +1,7 @@
 package lila.opening
 package ui
 
-import play.api.libs.json.Json
+import play.api.libs.json.*
 import chess.opening.{ Opening, OpeningKey }
 
 import lila.ui.*
@@ -15,7 +15,7 @@ final class OpeningBits(helpers: Helpers):
   def pageModule(page: Option[OpeningPage])(using Context) =
     PageModule(
       "opening",
-      page.so: p =>
+      page.fold(JsNull): p =>
         import lila.common.Json.given
         Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
     )

@@ -93,9 +93,7 @@ final class JsonView(
       rt: RelayRound.WithTourAndStudy,
       previews: ChapterPreview.AsJsons,
       group: Option[RelayGroup.WithTours]
-  )(using
-      Option[Me]
-  ): JsObject =
+  )(using Option[Me]): JsObject =
     myRound(rt) ++ Json.obj("games" -> previews).add("group" -> group)
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
@@ -172,7 +170,8 @@ object JsonView:
         Json.arr(minute * 60, crowd)
     )
 
-  private given OWrites[RelayRound.Sync] = OWrites: s =>
+  import RelayRound.Sync
+  private given OWrites[Sync] = OWrites: s =>
     Json
       .obj(
         "ongoing" -> s.ongoing,
@@ -180,6 +179,8 @@ object JsonView:
       )
       .add("delay" -> s.delay) ++
       s.upstream.so {
-        case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
-        case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
+        case Sync.UpstreamUrl(url)        => Json.obj("url" -> url)
+        case Sync.UpstreamLcc(url, round) => Json.obj("url" -> url, "round" -> round)
+        case Sync.UpstreamUrls(urls)      => Json.obj("urls" -> urls.map(_.url))
+        case Sync.UpstreamIds(ids)        => Json.obj("ids" -> ids)
       }

@@ -48,8 +48,6 @@ async function fetchAndRender(data: OpeningPage, render: (html: string) => void)
         console.warn('error: unexpected API response:<br><pre>' + JSON.stringify(page) + '</pre>');
         return;
       } else {
-        console.log(page.extract, title);
-        console.log(transform(page.extract, title));
         return render(transform(page.extract, title));
       }
     } else return;

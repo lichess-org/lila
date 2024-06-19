@@ -9,7 +9,7 @@ import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
-import lila.relay.RelayRound.WithTour
+import lila.relay.RelayRound.{ WithTour, Sync }
 import lila.core.perm.Granter
 import lila.core.study.data.StudyName
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
@@ -45,8 +45,21 @@ final class RelayApi(
   def byIdAndContributor(id: RelayRoundId)(using me: Me): Fu[Option[WithTour]] =
     byIdWithTourAndStudy(id).map:
       _.collect:
-        case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me) =>
+        case RelayRound.WithTourAndStudy(relay, tour, study)
+            if study.canContribute(me) || Granter(_.StudyAdmin) =>
           relay.withTour(tour)
+
+  def formNavigation(id: RelayRoundId): Fu[Option[(RelayRound, ui.FormNavigation)]] =
+    byIdWithTour(id).flatMapz(rt => formNavigation(rt).dmap(some))
+
+  def formNavigation(rt: RelayRound.WithTour): Fu[(RelayRound, ui.FormNavigation)] =
+    formNavigation(rt.tour).map: nav =>
+      (rt.round, nav.copy(round = rt.round.id.some))
+
+  def formNavigation(tour: RelayTour): Fu[ui.FormNavigation] = for
+    group  <- withTours.get(tour.id)
+    rounds <- roundRepo.byTourOrdered(tour.id)
+  yield ui.FormNavigation(group, tour, rounds, none)
 
   def byIdWithTourAndStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
     byIdWithTour(id).flatMapz { case WithTour(relay, tour) =>
@@ -64,7 +77,7 @@ final class RelayApi(
           RelayRound.WithStudy(relay, _)
 
   def byTourOrdered(tour: RelayTour): Fu[List[WithTour]] =
-    roundRepo.byTourOrdered(tour).dmap(_.map(_.withTour(tour)))
+    roundRepo.byTourOrdered(tour.id).dmap(_.map(_.withTour(tour)))
 
   def roundIdsById(tourId: RelayTourId): Fu[List[StudyId]] =
     roundRepo.idsByTourId(tourId)
@@ -73,7 +86,7 @@ final class RelayApi(
     roundIdsById(tourId).flatMap:
       _.sequentiallyVoid(studyApi.kick(_, userId, who))
 
-  def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
+  def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour.id).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTourId): Funit =
     val unfinished = RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)
@@ -231,7 +244,8 @@ final class RelayApi(
 
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id): relay =>
-      relay.sync.upstream.flatMap(_.asUrl).map(_.withRound).foreach(formatApi.refresh)
+      relay.sync.upstream.collect:
+        case f: Sync.FetchableUpstream => formatApi.refresh(f)
       isOfficial(relay.id).flatMap: official =>
         update(relay): r =>
           if v
@@ -314,7 +328,7 @@ final class RelayApi(
     )
     tourRepo.coll.insert.one(tour) >>
       roundRepo
-        .byTourOrderedCursor(from)
+        .byTourOrderedCursor(from.id)
         .documentSource()
         .mapAsync(1)(cloneWithStudy(_, tour))
         .runWith(Sink.ignore)
@@ -379,17 +393,22 @@ final class RelayApi(
       .list[RelayRound](
         $doc(
           "startsAt"
-            .$lt(nowInstant.plusMinutes(30)) // start 30 minutes early to fetch boards
-            .$gt(nowInstant.minusDays(1)),   // bit late now
+            // start early to fetch boards
+            .$lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
+            .$gt(nowInstant.minusDays(1)), // bit late now
           "startedAt".$exists(false),
-          "sync.until".$exists(false)
+          "sync.until".$exists(false),
+          "sync.upstream".$exists(true)
         )
       )
       .flatMap:
-        _.sequentiallyVoid { relay =>
-          logger.info(s"Automatically start $relay")
-          requestPlay(relay.id, v = true)
-        }
+        _.sequentiallyVoid: relay =>
+          val earlyMinutes = Math.min(60, 30 + relay.sync.delay.so(_.value / 60))
+          relay.startsAt
+            .exists(_.isBefore(nowInstant.plusMinutes(earlyMinutes)))
+            .so:
+              logger.info(s"Automatically start $relay")
+              requestPlay(relay.id, v = true)
 
   private[relay] def autoFinishNotSyncing: Funit =
     roundRepo.coll
@@ -404,10 +423,9 @@ final class RelayApi(
           )
         )
       .flatMap:
-        _.sequentiallyVoid { relay =>
+        _.sequentiallyVoid: relay =>
           logger.info(s"Automatically finish $relay")
           update(relay)(_.finish)
-        }
 
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
     byId(id).flatMapz(f)

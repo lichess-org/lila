@@ -37,19 +37,22 @@
       }
     }
     &.good {
-      color: $c-good-move;
+      color: $c-good;
+      font-weight: bold;
       &:hover {
-        background: $m-good-move_bg--mix-30;
+        background: $m-good_bg--mix-30;
       }
     }
     &.brilliant {
       color: $c-brilliant;
+      font-weight: bold;
       &:hover {
         background: $m-brilliant_bg--mix-30;
       }
     }
     &.interesting {
       color: $c-interesting;
+      font-weight: bold;
       &:hover {
         background: $m-interesting_bg--mix-30;
       }

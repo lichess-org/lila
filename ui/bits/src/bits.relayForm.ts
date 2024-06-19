@@ -7,6 +7,20 @@ site.load.then(() => {
     selectClicks: $('.select-image, .drop-target'),
     selectDrags: $('.drop-target'),
   });
+
+  pinnedStreamerForm();
+
+  const $source = $('#form3-syncSource'),
+    showSource = () =>
+      $('.relay-form__sync').each(function (this: HTMLElement) {
+        this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
+      });
+
+  $source.on('change', showSource);
+  showSource();
+});
+
+function pinnedStreamerForm() {
   const pinned = document.querySelector('.relay-pinned-streamer-edit') as HTMLElement;
   if (!pinned) return;
 
@@ -27,4 +41,4 @@ site.load.then(() => {
   else
     deleteImageBtn.onclick = () =>
       fetch(deleteImageBtn.dataset.postUrl!, { method: 'POST', body: new FormData() }).then(site.reload);
-});
+}

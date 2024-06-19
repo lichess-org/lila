@@ -21,14 +21,15 @@ interface Glyph {
   symbol: string;
 }
 
-const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el) => {
-  const cont = el.parentNode;
-  const target = el.querySelector('.active');
+const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el: HTMLElement) => {
+  const cont = el.parentNode as HTMLElement;
+  const target = el.querySelector('.active') as HTMLElement | null;
   if (!target) {
     cont.scrollTop = ctrl.path === treePath.root ? 0 : 99999;
     return;
   }
-  cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
+  const targetOffset = target.getBoundingClientRect().y - el.getBoundingClientRect().y;
+  cont.scrollTop = targetOffset - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
 function pathContains(ctx: Ctx, path: Tree.Path): boolean {
@@ -99,9 +100,7 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
   return h('move', { attrs: { p: path }, class: classes }, renderMove(ctx, node));
 }
 
-function renderGlyph(glyph: Glyph): VNode {
-  return h('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
-}
+const renderGlyph = (glyph: Glyph): VNode => h('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
 
 function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
   switch (node.puzzle) {

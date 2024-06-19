@@ -24,8 +24,7 @@ final class RelayUi(helpers: Helpers)(
       rt: lila.relay.RelayRound.WithTourAndStudy,
       data: lila.relay.JsonView.JsData,
       chatOption: Option[(JsObject, Frag)],
-      socketVersion: lila.core.socket.SocketVersion,
-      crossSiteIsolation: Boolean = true
+      socketVersion: lila.core.socket.SocketVersion
   )(using ctx: Context) =
     Page(rt.fullName)
       .css("analyse.relay")

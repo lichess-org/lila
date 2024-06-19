@@ -58,24 +58,21 @@
         z-index: $z-link-overlay-2;
         visibility: hidden;
         background: $c-bg-header-dropdown;
-        border-radius: 3px 0 3px 3px;
+        border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
         position: absolute;
         top: 3rem;
-        right: 0;
+        @include inline-end(0);
+        body.blind-mode & {
+          visibility: visible;
+        }
         a {
+          @extend %flex-center-nowrap;
           width: 20em;
-          display: block;
           padding: 0.7rem 1rem;
           color: $c-header-dropdown;
           &::before {
             margin-inline: 0 1rem;
             font-size: 1.4em;
-          }
-          &:first-child {
-            border-radius: 3px 0 0 0;
-          }
-          &:last-child {
-            border-radius: 0 0 3px 3px;
           }
           &:hover {
             background: $c-primary;
@@ -83,6 +80,14 @@
             &::after {
               color: $c-over;
             }
+          }
+        }
+        > a {
+          &:first-child {
+            border-radius: $box-radius-size 0 0 0;
+          }
+          &:last-child {
+            @extend %box-radius-bottom;
           }
         }
       }

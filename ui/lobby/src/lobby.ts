@@ -42,8 +42,8 @@ export function initModule(opts: LobbyOpts) {
         site.contentLoaded();
       },
       redirect(e: RedirectTo) {
-        lobbyCtrl.leavePool();
         lobbyCtrl.setRedirecting();
+        lobbyCtrl.leavePool();
         site.redirect(e, true);
         return true;
       },

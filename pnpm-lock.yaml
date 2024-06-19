@@ -292,6 +292,9 @@ importers:
 
   ui/chess:
     dependencies:
+      chessops:
+        specifier: ^0.14.1
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -503,11 +506,11 @@ importers:
         specifier: ^3.1.9
         version: 3.1.9
       chart.js:
-        specifier: 4.4.0
-        version: 4.4.0
+        specifier: 4.4.3
+        version: 4.4.3
       chartjs-adapter-dayjs-4:
         specifier: ^1.0.4
-        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.10)
+        version: 1.0.4(chart.js@4.4.3)(dayjs@1.11.10)
       common:
         specifier: workspace:*
         version: link:../common
@@ -3041,11 +3044,6 @@ snapshots:
   chart.js@4.4.3:
     dependencies:
       '@kurkle/color': 0.3.2
-
-  chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.0)(dayjs@1.11.10):
-    dependencies:
-      chart.js: 4.4.0
-      dayjs: 1.11.10
 
   chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.3)(dayjs@1.11.10):
     dependencies:

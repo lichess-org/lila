@@ -6,6 +6,7 @@ import scalalib.Render
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.user.FlairApi
 import lila.core.i18n.{ I18nKey as trans, Translate }
+import scalatags.Text.TypedTag
 
 final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
 

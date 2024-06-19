@@ -73,3 +73,41 @@ private object RelayGame:
       ,
       mul => RelayFetch.multiPgnToGames(mul).fold(e => throw e, identity)
     )
+
+  def filter(onlyRound: Option[Int])(games: RelayGames): RelayGames =
+    onlyRound.fold(games): round =>
+      games.filter(_.tags.roundNumber.has(round))
+
+  // 1-indexed, both inclusive
+  case class Slice(from: Int, to: Int)
+
+  object Slices:
+    def filter(slices: List[Slice])(games: RelayGames): RelayGames =
+      if slices.isEmpty then games
+      else
+        games.view.zipWithIndex
+          .filter: (g, i) =>
+            val n = i + 1
+            slices.exists: s =>
+              n >= s.from && n <= s.to
+          .map(_._1)
+          .toVector
+
+    // 1-5,12-15,20
+    def parse(str: String): List[Slice] = str.trim
+      .split(',')
+      .toList
+      .map(_.trim)
+      .flatMap: s =>
+        s.split('-').toList.map(_.trim) match
+          case Nil             => none
+          case from :: Nil     => from.toIntOption.map(f => Slice(f, f))
+          case from :: to :: _ => (from.toIntOption, to.toIntOption).mapN(Slice.apply)
+
+    def show(slices: List[Slice]): String = slices
+      .map:
+        case Slice(f, t) if f == t => f.toString
+        case Slice(f, t)           => s"$f-$t"
+      .mkString(",")
+
+    val iso: Iso.StringIso[List[Slice]] = Iso(parse, show)
