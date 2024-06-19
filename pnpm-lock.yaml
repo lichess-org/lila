@@ -381,10 +381,10 @@ importers:
         version: link:../chart
       chart.js:
         specifier: ^4.4.0
-        version: 4.4.0
+        version: 4.4.3
       chartjs-plugin-datalabels:
         specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.0)
+        version: 2.2.0(chart.js@4.4.3)
       common:
         specifier: workspace:*
         version: link:../common
@@ -3051,10 +3051,6 @@ snapshots:
     dependencies:
       chart.js: 4.4.3
       dayjs: 1.11.10
-
-  chartjs-plugin-datalabels@2.2.0(chart.js@4.4.0):
-    dependencies:
-      chart.js: 4.4.0
 
   chartjs-plugin-datalabels@2.2.0(chart.js@4.4.3):
     dependencies:
