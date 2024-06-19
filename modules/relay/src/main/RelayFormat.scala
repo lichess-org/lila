@@ -49,6 +49,8 @@ final private class RelayFormatApi(
 
     def parsedUrl = URL.parse(upstream.url)
 
+    def guessLcc: Fu[Option[RelayFormat]] = upstream.isLcc.so(guessManyFiles(parsedUrl))
+
     def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
       List(
         url.some,
@@ -81,7 +83,8 @@ final private class RelayFormatApi(
               ManyFiles(index, _)
             .dmap(_.orElse(ManyFilesLater(index).some))
 
-    guessSingleFile(parsedUrl)
+    guessLcc
+      .orElse(guessSingleFile(parsedUrl))
       .orElse(guessManyFiles(parsedUrl))
       .orFailWith(LilaInvalid(s"No games found at $upstream"))
 
