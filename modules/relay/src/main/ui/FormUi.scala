@@ -160,7 +160,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(form3.select(_, RelayRoundForm.sourceTypes)),
           form3.group(
             form("syncUrl"),
-            trb.sourceUrl(),
+            trb.sourceSingleUrl(),
             help = trb.sourceUrlHelp().some
           )(form3.input(_))(cls := "relay-form__sync relay-form__sync-url"),
           form3.split(cls := "relay-form__sync relay-form__sync-lcc none")(
@@ -211,9 +211,9 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                   """[Round "3"]
 [Round "3.1"]"""
                 ),
-                "Games without a ",
+                "If you set a round number, then games without a ",
                 strong("Round"),
-                " tag are removed."
+                " tag are dropped."
               ).some,
               half = true
             )(form3.input(_, typ = "number")),

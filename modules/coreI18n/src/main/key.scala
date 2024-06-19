@@ -1665,7 +1665,7 @@ object I18nKey:
     val `tournamentDescription`: I18nKey = "broadcast:tournamentDescription"
     val `fullDescription`: I18nKey = "broadcast:fullDescription"
     val `fullDescriptionHelp`: I18nKey = "broadcast:fullDescriptionHelp"
-    val `sourceUrl`: I18nKey = "broadcast:sourceUrl"
+    val `sourceSingleUrl`: I18nKey = "broadcast:sourceSingleUrl"
     val `sourceUrlHelp`: I18nKey = "broadcast:sourceUrlHelp"
     val `sourceGameIds`: I18nKey = "broadcast:sourceGameIds"
     val `startDate`: I18nKey = "broadcast:startDate"
