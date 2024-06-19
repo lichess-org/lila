@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">النظام السويسري</string>
   <string name="swissTournaments">البطولات السويسرية</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="zero">اعرض الجولة%s</item>
@@ -142,6 +143,7 @@
   <string name="predefinedUsers">السماح فقط للمستخدمين المحددين مسبقاً بالانضمام</string>
   <string name="forbiddedUsers">إذا كانت هذه القائمة غير فارغة، فسيمنع اللاعبون غير الواردة أسماءهم في هذه القائمة من الانضمام إلى البطولة. اسم مستخدم واحد لكل سطر.</string>
   <string name="playYourGames">ألعب مبارياتك</string>
+  <string name="byes">أقاصٍ</string>
   <string name="absences">الغيابات</string>
   <string name="tieBreak">كسر التعادل</string>
 </resources>
