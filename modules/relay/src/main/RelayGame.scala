@@ -100,13 +100,9 @@ private object RelayGame:
       .map(_.trim)
       .flatMap: s =>
         s.split('-').toList.map(_.trim) match
-          case Nil         => none
-          case from :: Nil => from.toIntOption.map(f => Slice(f, f))
-          case from :: to :: _ =>
-            for
-              f <- from.toIntOption
-              t <- to.toIntOption
-            yield Slice(f, t)
+          case Nil             => none
+          case from :: Nil     => from.toIntOption.map(f => Slice(f, f))
+          case from :: to :: _ => (from.toIntOption, to.toIntOption).mapN(Slice.apply)
 
     def show(slices: List[Slice]): String = slices
       .map:
