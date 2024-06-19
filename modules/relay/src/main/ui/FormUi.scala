@@ -228,7 +228,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 1           only select the first board
 1-4         only select the first 4 boards
 1,2,3,4     same as above, first 4 boards
-11-20,21-30 boards 11 to 20, and boards 21 to 30
+11-15,21-25 boards 11 to 15, and boards 21 to 25
 2,3,7-9     boards 2, 3, 7, 8, and 9
 """),
               "Slicing is done after filtering by round number."
@@ -356,11 +356,13 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               br,
               """"Jorge Rick Vito" will match "Jorge Rick", "jorge vito", "Rick, Vito", etc.""",
               br,
+              "If the player is NM or WNM, you can:",
+              pre("""Player Name = FIDE ID / Title"""),
               "Alternatively, you may set tags manually, like so:",
               pre("player name / rating / title / new name"),
               "All values are optional. Example:",
               pre("""Magnus Carlsen / 2863 / GM
-  YouGotLittUp / 1890 / / Louis Litt""")
+YouGotLittUp / 1890 / / Louis Litt""")
             ).some,
             half = true
           )(form3.textarea(_)(rows := 3)),
@@ -372,7 +374,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               pre("Team name; Fide Id or Player name"),
               "Example:",
               pre("""Team Cats ; 3408230
-  Team Dogs ; Scooby Doo"""),
+Team Dogs ; Scooby Doo"""),
               "By default the PGN tags WhiteTeam and BlackTeam are used."
             ).some,
             half = true

@@ -8,9 +8,7 @@ import lila.forum.Filter.*
 import lila.core.forum.ForumPostMini
 import reactivemongo.api.CursorOps
 
-final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
-    Executor
-):
+final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor):
 
   def forUser(user: Option[User]) =
     withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
