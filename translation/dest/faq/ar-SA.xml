@@ -163,6 +163,7 @@
 3. انقر على ملفات تعريف الارتباط و أذونات الموقع
 4. مرر للأسفل وانقر على Media Autoplay
 5. أضف lichess.org للقائمة المسموح بها</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">كيف أوقف نفسي عن اللعب؟</string>
   <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">نتلقى بانتظام رسائل من المستخدمين يطلبون منا المساعدة لمنعهم من اللعب كثيرًا.
 
  على الرغم من أن Lichess لا تقوم بحظر اللاعبين أو حظرهم باستثناء انتهاكات شروط الخدمة، فإننا نوصي باستخدام أدوات خارجية للحد من سلوك اللعب المفرط.  تتضمن بعض الاقتراحات الشائعة لأدوات حظر مواقع الويب %1$s و%2$s و%3$s.  إذا كنت تريد الاستمرار في استخدام الموقع ولكن لا تنجذب إلى التحكم في الوقت السريع، فقد تكون مهتمًا أيضًا بـ %4$s، إليك واحدة مع %5$s.
