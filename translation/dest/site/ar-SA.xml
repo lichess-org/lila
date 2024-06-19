@@ -856,6 +856,7 @@
   <string name="toggleVariationArrows">تبديل أسهم النقلات المرشحة</string>
   <string name="cyclePreviousOrNextVariation">الدورة السابقة/التفريع التالي</string>
   <string name="toggleGlyphAnnotations">تبديل الرموز التوضيحية</string>
+  <string name="togglePositionAnnotations">تبديل النقلات</string>
   <string name="variationArrowsInfo">أسمهم النقلات تسمح لك بلعبها دون استخدام قائمة النقلات المرشحة.</string>
   <string name="playSelectedMove">لعب النقلة المحددة</string>
   <string name="newTournament">مسابقة جديدة</string>
