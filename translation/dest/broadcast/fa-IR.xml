@@ -23,9 +23,7 @@
   <string name="tournamentDescription">توضیحات کوتاه مسابقات</string>
   <string name="fullDescription">توضیحات کامل مسابقات</string>
   <string name="fullDescriptionHelp">توضیحات بلند و اختیاری پخش همگانی. %1$s قابل‌استفاده است. طول متن باید کمتر از %2$s نویسه باشد.</string>
-  <string name="sourceUrlOrGameIds">نشانی منبع، یا شناسه بازی‌ها</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
-  <string name="gameIdsHelp">همچنین، می‌توانید تا ۶۴ شناسه بازی Lichess را که با *فاصله* از هم جدا شده‌اند، وارد کنید.</string>
   <string name="startDate">تاریخ شروع، در منطقه زمانی خودتان</string>
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
   <string name="credits">به منبع اعتبار دهید</string>
