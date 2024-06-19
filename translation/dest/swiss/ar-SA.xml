@@ -66,6 +66,7 @@
   <string name="roundInterval">الفاصل الزمني بين المباريات</string>
   <string name="forbiddenPairings">أزواج محظورة</string>
   <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
+  <string name="manualPairings">مزاوجة يدوية في الجولة القادمة</string>
   <string name="newSwiss">بطولة جديدة بالنظام السويسري</string>
   <string name="swissVsArenaQ">متى تستخدم البطولا السويسرية عوضاً عن البطولات العادية؟</string>
   <string name="swissVsArenaA">في نظام البطولات السويسرية، يمكن للمشاركين اللعب ضد أحدهم الآخر مرة واحدة فقط، ويلعب الجميع نفس العدد من المباريات.
@@ -141,4 +142,6 @@
   <string name="predefinedUsers">السماح فقط للمستخدمين المحددين مسبقاً بالانضمام</string>
   <string name="forbiddedUsers">إذا كانت هذه القائمة غير فارغة، فسيمنع اللاعبون غير الواردة أسماءهم في هذه القائمة من الانضمام إلى البطولة. اسم مستخدم واحد لكل سطر.</string>
   <string name="playYourGames">ألعب مبارياتك</string>
+  <string name="absences">الغيابات</string>
+  <string name="tieBreak">كسر التعادل</string>
 </resources>
