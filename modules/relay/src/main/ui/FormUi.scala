@@ -202,7 +202,18 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               form("onlyRound"),
               raw("Filter games by round number"),
               help = frag(
-                "Optional, only keep games from the source that match a round number."
+                "Optional, only keep games from the source that match a round number.",
+                br,
+                "It uses the PGN ",
+                strong("Round"),
+                " tag. These would match round 3:",
+                pre(
+                  """[Round "3"]
+[Round "3.1"]"""
+                ),
+                "Games without a ",
+                strong("Round"),
+                " tag are removed."
               ).some,
               half = true
             )(form3.input(_, typ = "number")),
