@@ -129,7 +129,6 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def inner(form: Form[RelayRoundForm.Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(
         using ctx: Context
     ) =
-      val isLcc = form("syncUrl").value.exists(RelayRound.Sync.UpstreamUrl.LccRegex.matches)
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
@@ -159,25 +158,26 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             form("syncSource"),
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
-          div(
-            cls := List(
-              "relay-form__sync relay-form__sync-url" -> true,
-              "form-split relay-form__sync-lcc"       -> isLcc
-            )
-          )(
+          form3.group(
+            form("syncUrl"),
+            trb.sourceUrl(),
+            help = trb.sourceUrlHelp().some
+          )(form3.input(_))(cls := "relay-form__sync relay-form__sync-url"),
+          form3.split(cls := "relay-form__sync relay-form__sync-lcc none")(
             form3.group(
-              form("syncUrl"),
-              trb.sourceUrl(),
-              help = trb.sourceUrlHelp().some,
-              half = isLcc
+              form("syncLcc.id"),
+              "Tournament ID",
+              help = frag(
+                "From the LCC page URL. The ID looks like this: ",
+                pre("f1943ec6-4992-45d9-969d-a0aff688b404")
+              ).some,
+              half = true
             )(form3.input(_)),
-            isLcc.option:
-              form3.group(
-                form("syncUrlRound"),
-                trb.roundNumber(),
-                help = frag("Only for livechesscloud source URLs").some,
-                half = true
-              )(form3.input(_, typ = "number"))
+            form3.group(
+              form("syncLcc.round"),
+              trb.roundNumber(),
+              half = true
+            )(form3.input(_, typ = "number"))
           ),
           form3.group(
             form("syncUrls"),
@@ -205,7 +205,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 "Optional, only keep games from the source that match a round number."
               ).some,
               half = true
-            )(form3.input(_, typ = "number"))(cls := List("none" -> isLcc)),
+            )(form3.input(_, typ = "number")),
             form3.group(
               form("slices"),
               raw("Select slices of the games"),

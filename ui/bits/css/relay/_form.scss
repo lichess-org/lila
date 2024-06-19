@@ -55,16 +55,6 @@
   }
 }
 
-.relay-form__sync-lcc {
-  .form-half:first-child {
-    flex: 0 1 76%;
-  }
-  .form-half:last-child {
-    flex: 0 1 20%;
-    min-width: 3ch;
-  }
-}
-
 @include mq-subnav-side {
   .relay-form__subnav__group {
     display: block;

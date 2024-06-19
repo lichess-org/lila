@@ -42,25 +42,29 @@ final class RelayRoundForm(using mode: Mode):
     _.ids.mkString(" ")
   )
 
+  val lccMapping = mapping(
+    "id"    -> cleanText(minLength = 10, maxLength = 40),
+    "round" -> number(min = 1, max = 999)
+  )(Sync.UpstreamLcc.apply)(unapply)
+
   val roundMapping =
     mapping(
-      "name"         -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
-      "caption"      -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
-      "syncSource"   -> optional(stringIn(sourceTypes.map(_._1).toSet)),
-      "syncUrl"      -> optional(of[Sync.UpstreamUrl]),
-      "syncUrls"     -> optional(of[Sync.UpstreamUrls]),
-      "syncIds"      -> optional(of[Sync.UpstreamIds]),
-      "syncUrlRound" -> optional(number(min = 1, max = 999)),
-      "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
-      "finished"     -> optional(boolean),
-      "period"       -> optional(number(min = 2, max = 60).into[Seconds]),
-      "delay"        -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
-      "onlyRound"    -> optional(number(min = 1, max = 999)),
+      "name"       -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
+      "caption"    -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
+      "syncSource" -> optional(stringIn(sourceTypes.map(_._1).toSet)),
+      "syncUrl"    -> optional(of[Sync.UpstreamUrl]),
+      "syncUrls"   -> optional(of[Sync.UpstreamUrls]),
+      "syncLcc"    -> optional(lccMapping),
+      "syncIds"    -> optional(of[Sync.UpstreamIds]),
+      "startsAt"   -> optional(ISOInstantOrTimestamp.mapping),
+      "finished"   -> optional(boolean),
+      "period"     -> optional(number(min = 2, max = 60).into[Seconds]),
+      "delay"      -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
+      "onlyRound"  -> optional(number(min = 1, max = 999)),
       "slices" -> optional:
         nonEmptyText
           .transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
-      .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
   def create(trs: RelayTour.WithRounds) = Form(
     roundMapping
@@ -77,6 +81,7 @@ object RelayRoundForm:
   val sourceTypes = List(
     "url"  -> "Single PGN URL",
     "urls" -> "Combine several PGN URLs",
+    "lcc"  -> "LiveChessCloud page",
     "ids"  -> "Lichess game IDs",
     "push" -> "Push local games"
   )
@@ -117,8 +122,7 @@ object RelayRoundForm:
       name = RelayRound.Name(guessName | s"Round ${nextNumber}"),
       caption = prev.flatMap(_.caption),
       syncSource = prev.map(Data.make).flatMap(_.syncSource),
-      syncUrl = nextLcc.map(l => Sync.UpstreamUrl(l.url)),
-      syncUrlRound = nextLcc.map(_.round),
+      syncLcc = nextLcc,
       startsAt = guessDate,
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
@@ -184,8 +188,8 @@ object RelayRoundForm:
       syncSource: Option[String],
       syncUrl: Option[Sync.UpstreamUrl] = None,
       syncUrls: Option[Sync.UpstreamUrls] = None,
+      syncLcc: Option[Sync.UpstreamLcc] = None,
       syncIds: Option[Sync.UpstreamIds] = None,
-      syncUrlRound: Option[Int] = None,
       startsAt: Option[Instant] = None,
       finished: Option[Boolean] = None,
       period: Option[Seconds] = None,
@@ -194,17 +198,12 @@ object RelayRoundForm:
       slices: Option[List[RelayGame.Slice]] = None
   ):
     def upstream: Option[Sync.Upstream] = syncSource match
-      case None => syncUrl.orElse(syncUrls).orElse(syncIds)
-      case Some("url") =>
-        syncUrl.map: u =>
-          (Sync.tryLcc(u.url), syncUrlRound).mapN((l, r) => l.copy(round = r)) | u
+      case None         => syncUrl.orElse(syncUrls).orElse(syncIds)
+      case Some("url")  => syncUrl
       case Some("urls") => syncUrls
+      case Some("lcc")  => syncLcc
       case Some("ids")  => syncIds
       case _            => None
-
-    def roundMissing = upstream.exists:
-      case u: Sync.UpstreamUrl => Sync.tryLcc(u.url).isDefined
-      case _                   => false
 
     def update(official: Boolean)(relay: RelayRound)(using me: Me)(using mode: Mode) =
       val sync = makeSync(me)
@@ -252,16 +251,18 @@ object RelayRoundForm:
           .fold("push"):
             case _: Sync.UpstreamUrl  => "url"
             case _: Sync.UpstreamUrls => "urls"
+            case _: Sync.UpstreamLcc  => "lcc"
             case _: Sync.UpstreamIds  => "ids"
           .some,
         syncUrl = relay.sync.upstream.collect:
-          case url: Sync.UpstreamUrl => url.withoutRound,
+          case url: Sync.UpstreamUrl => url,
         syncUrls = relay.sync.upstream.collect:
-          case url: Sync.UpstreamUrl   => Sync.UpstreamUrls(List(url.withoutRound))
+          case url: Sync.UpstreamUrl   => Sync.UpstreamUrls(List(url))
           case urls: Sync.UpstreamUrls => urls,
+        syncLcc = relay.sync.upstream.collect:
+          case lcc: Sync.UpstreamLcc => lcc,
         syncIds = relay.sync.upstream.collect:
           case ids: Sync.UpstreamIds => ids,
-        syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
         finished = relay.finished.option(true),
         period = relay.sync.period,

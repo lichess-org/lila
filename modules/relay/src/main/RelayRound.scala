@@ -114,16 +114,18 @@ object RelayRound:
     override def toString = upstream.toString
 
   object Sync:
-    sealed trait Upstream
-    case class UpstreamUrl(url: String) extends Upstream
-    case class UpstreamLcc(id: String, round: Int) extends Upstream:
-      def url = s"https://view.livechesscloud.com/#$id"
+    sealed trait Upstream:
+      def isLcc = false
+    sealed trait FetchableUpstream extends Upstream:
+      def url: String
+    case class UpstreamUrl(url: String) extends FetchableUpstream
+    case class UpstreamLcc(lcc: String, round: Int) extends FetchableUpstream:
+      override def isLcc = true
+      def id             = lcc
+      def url            = s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json"
+      def viewUrl        = s"https://view.livechesscloud.com/#$id"
     case class UpstreamUrls(urls: List[UpstreamUrl]) extends Upstream
     case class UpstreamIds(ids: List[GameId])        extends Upstream
-    val LccRegex = """.*view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r
-    def tryLcc(url: String): Option[UpstreamLcc] = url match
-      case LccRegex(id) => UpstreamLcc(id, 1).some
-      case _            => none
 
   trait AndTour:
     val tour: RelayTour
