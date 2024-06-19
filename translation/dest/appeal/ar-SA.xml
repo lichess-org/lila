@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="prizeBanned">تم حظر حسابك من البطولات ذو جوائز حقيقية.</string>
+  <string name="boosterMarked">تم تحديد حسابك للتلاعب بالتقييم.</string>
+  <string name="boosterMarkedInfo">نحن نعرف هذا بأنه التلاعب المتعمد بالتصنيف عن طريق فقدان الأدوار عن قصد أو اللعب ضد حساب آخر يفقد الأدوار عمدا.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">تم كتم صوت حسابك.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">اقرأ %s الخاص بنا. الفشل في اتباع القواعد الإرشادية للتواصل يمكن أن يؤدي إلى كتم الحسابات.</string>
+  <string name="excludedFromLeaderboards">تم استبعاد حسابك من لوحات المتصدرين.</string>
+  <string name="excludedFromLeaderboardsInfo">نحن نعرّف هذا على أنه استخدام أي طريقة غير عادلة للدخول إلى لوحة المتصدرين.</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">تم إيقافك عن اللعب.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">قواعد التواصل</string>
+  <string name="blogRules">قواعد المدونة</string>
+  <string name="fairPlay">اللعب العادل</string>
+</resources>
