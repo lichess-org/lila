@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">لديك 30 ثانية لرسم خريطة صحيحة لأكبر عدد ممكن من المربعات!</string>
   <string name="goAsLongAsYouWant">اذهب طالما تريد، لا يوجد حد زمني!</string>
   <string name="showCoordinates">إظهار الإحداثيات</string>
+  <string name="showCoordsOnAllSquares">الإحداثيات على كل مربع</string>
   <string name="showPieces">إظهار القطع</string>
   <string name="startTraining">إبدأ التدريب</string>
   <string name="findSquare">ابحث عن مربع</string>
