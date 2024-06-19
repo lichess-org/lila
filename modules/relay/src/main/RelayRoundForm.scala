@@ -86,15 +86,16 @@ object RelayRoundForm:
     "push" -> "Push local games"
   )
 
+  private val roundNumberRegex = """([^\d]*)(\d{1,2})([^\d]*)""".r
+  val roundNumberIn: String => Option[Int] =
+    case roundNumberRegex(_, n, _) => n.toIntOption
+    case _                         => none
+
   def fillFromPrevRounds(rounds: List[RelayRound]): Data =
     val prevs: Option[(RelayRound, RelayRound)] = rounds.reverse match
       case a :: b :: _ => (a, b).some
       case _           => none
     val prev: Option[RelayRound] = rounds.lastOption
-    val roundNumberRegex         = """([^\d]*)(\d{1,2})([^\d]*)""".r
-    val roundNumberIn: String => Option[Int] =
-      case roundNumberRegex(_, n, _) => n.toIntOption
-      case _                         => none
     def replaceRoundNumber(s: String, n: Int): String =
       roundNumberRegex.replaceAllIn(s, m => s"${m.group(1)}${n}${m.group(3)}")
     val prevNumber: Option[Int] = prev.flatMap(p => roundNumberIn(p.name.value))
@@ -197,13 +198,22 @@ object RelayRoundForm:
       onlyRound: Option[Int] = None,
       slices: Option[List[RelayGame.Slice]] = None
   ):
-    def upstream: Option[Sync.Upstream] = syncSource match
-      case None         => syncUrl.orElse(syncUrls).orElse(syncIds)
-      case Some("url")  => syncUrl
-      case Some("urls") => syncUrls
-      case Some("lcc")  => syncLcc
-      case Some("ids")  => syncIds
-      case _            => None
+    def upstream: Option[Sync.Upstream] = syncSource
+      .match
+        case None         => syncUrl.orElse(syncUrls).orElse(syncIds)
+        case Some("url")  => syncUrl
+        case Some("urls") => syncUrls
+        case Some("lcc")  => syncLcc
+        case Some("ids")  => syncIds
+        case _            => None
+      .map:
+        case url: Sync.UpstreamUrl =>
+          val foundLcc = for
+            lccId <- url.findLccId
+            round <- roundNumberIn(name.value)
+          yield Sync.UpstreamLcc(lccId, round)
+          foundLcc | url
+        case up => up
 
     def update(official: Boolean)(relay: RelayRound)(using me: Me)(using mode: Mode) =
       val sync = makeSync(me)
