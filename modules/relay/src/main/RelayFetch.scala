@@ -14,7 +14,7 @@ import lila.memo.CacheApi
 import lila.study.{ MultiPgn, StudyPgnImport }
 import lila.tree.Node.Comments
 
-import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
+import RelayRound.Sync.{ UpstreamIds, UpstreamUrl, UpstreamUrls }
 import RelayFormat.CanProxy
 import scalalib.model.Seconds
 
@@ -142,8 +142,7 @@ final private class RelayFetch(
           Seconds(60)
         else
           round.sync.period | Seconds:
-            if upstream.local then 3
-            else if upstream.asUrl.exists(_.isLcc) && !tour.official then 10
+            if upstream.asUrl.exists(_.isLcc) && !tour.official then 12
             else 5
       updating:
         _.withSync:
@@ -168,26 +167,32 @@ final private class RelayFetch(
 
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
     rt.round.sync.upstream.so:
-      case UpstreamIds(ids) =>
-        gameRepo
-          .gamesFromSecondary(ids)
-          .flatMap(gameProxy.upgradeIfPresent)
-          .flatMap(gameRepo.withInitialFens)
-          .flatMap { games =>
-            if games.size == ids.size then
-              val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
-              given play.api.i18n.Lang = lila.core.i18n.defaultLang
-              games
-                .sequentially: (game, fen) =>
-                  pgnDump(game, fen, pgnFlags).dmap(_.render)
-                .dmap(MultiPgn.apply)
-            else
-              throw LilaInvalid:
-                s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
-          }
-          .flatMap(multiPgnToGames(_).toFuture)
-      case url: UpstreamUrl =>
-        delayer(url, rt.round, fetchFromUpstream(using CanProxy(rt.tour.official)))
+      case UpstreamIds(ids) => fetchFromGameIds(rt.tour, ids)
+      case url: UpstreamUrl => delayer(url, rt.round, fetchFromUpstream(using CanProxy(rt.tour.official)))
+      case UpstreamUrls(urls) =>
+        urls
+          .traverse: url =>
+            delayer(url, rt.round, fetchFromUpstream(using CanProxy(rt.tour.official)))
+          .map(_.flatten.toVector)
+
+  private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
+    gameRepo
+      .gamesFromSecondary(ids)
+      .flatMap(gameProxy.upgradeIfPresent)
+      .flatMap(gameRepo.withInitialFens)
+      .flatMap { games =>
+        if games.size == ids.size then
+          val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
+          given play.api.i18n.Lang = lila.core.i18n.defaultLang
+          games
+            .sequentially: (game, fen) =>
+              pgnDump(game, fen, pgnFlags).dmap(_.render)
+            .dmap(MultiPgn.apply)
+        else
+          throw LilaInvalid:
+            s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
+      }
+      .flatMap(multiPgnToGames(_).toFuture)
 
   private def fetchFromUpstream(using canProxy: CanProxy)(upstream: UpstreamUrl, max: Max): Fu[RelayGames] =
     import DgtJson.*

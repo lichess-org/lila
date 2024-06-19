@@ -244,7 +244,7 @@ final class RelayApi(
 
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id): relay =>
-      relay.sync.upstream.flatMap(_.asUrl).map(_.withRound).foreach(formatApi.refresh)
+      relay.sync.upstream.foreach(formatApi.refresh)
       isOfficial(relay.id).flatMap: official =>
         update(relay): r =>
           if v

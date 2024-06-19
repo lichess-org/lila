@@ -81,7 +81,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def page(title: String, nav: FormNavigation)(using Context) =
       Page(title)
         .css("bits.relay.form")
-        .js(EsmInit("bits.flatpickr"))
+        .js(List(EsmInit("bits.flatpickr"), EsmInit("bits.relayForm")).map(some))
         .wrap: body =>
           main(cls := "page page-menu")(
             navigationMenu(nav),
@@ -154,25 +154,77 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 form3.input(_)
             )
         ),
-        form3.group(
-          form("syncUrl"),
-          trb.sourceUrlOrGameIds(),
-          help = frag(
-            trb.sourceUrlHelp(),
-            br,
-            trb.gameIdsHelp(),
-            br,
-            "Or leave empty to push games from another program."
-          ).some
-        )(form3.input(_)),
-        form3
-          .group(
-            form("syncUrlRound"),
-            trb.roundNumber(),
-            help = frag("Only for livechesscloud source URLs").some
+        form3.fieldset("Source")(cls := "box-pad")(
+          form3.group(
+            form("syncSource"),
+            "Where do the games come from?"
+          )(form3.select(_, RelayRoundForm.sourceTypes)),
+          div(
+            cls := List(
+              "relay-form__sync relay-form__sync-url" -> true,
+              "form-split relay-form__sync-lcc"       -> isLcc
+            )
           )(
-            form3.input(_, typ = "number")
-          )(cls := (!isLcc).option("none")),
+            form3.group(
+              form("syncUrl"),
+              trb.sourceUrl(),
+              help = trb.sourceUrlHelp().some,
+              half = isLcc
+            )(form3.input(_)),
+            isLcc.option:
+              form3.group(
+                form("syncUrlRound"),
+                trb.roundNumber(),
+                help = frag("Only for livechesscloud source URLs").some,
+                half = true
+              )(form3.input(_, typ = "number"))
+          ),
+          form3.group(
+            form("syncUrls"),
+            "Multiple source URLs, one per line.",
+            help = frag("The games will be combined in the order of the URLs.").some,
+            half = false
+          )(form3.textarea(_)(rows := 5))(cls := "relay-form__sync relay-form__sync-urls none"),
+          form3.group(
+            form("syncIds"),
+            trb.sourceGameIds(),
+            half = false
+          )(form3.input(_))(cls := "relay-form__sync relay-form__sync-ids none"),
+          div(cls := "form-group relay-form__sync relay-form__sync-push none")(
+            p(
+              "Send your local games to Lichess using ",
+              a(href := "https://github.com/lichess-org/broadcaster")("the Lichess Broadcaster App"),
+              "."
+            )
+          ),
+          form3.split(cls := "relay-form__sync relay-form__sync-url relay-form__sync-urls none")(
+            form3.group(
+              form("onlyRound"),
+              raw("Filter games by round number"),
+              help = frag(
+                "Optional, only keep games from the source that match a round number."
+              ).some,
+              half = true
+            )(form3.input(_, typ = "number"))(cls := List("none" -> isLcc)),
+            form3.group(
+              form("slices"),
+              raw("Select slices of the games"),
+              help = frag(
+                "Optional. Select games based on their position in the source.",
+                br,
+                pre("""
+1           only select the first board
+1-4         only select the first 4 boards
+1,2,3,4     same as above, first 4 boards
+11-15,21-25 boards 11 to 15, and boards 21 to 25
+2,3,7-9     boards 2, 3, 7, 8, and 9
+"""),
+                "Slicing is done after filtering by round number."
+              ).some,
+              half = true
+            )(form3.input(_))
+          )
+        ),
         form3.split(
           form3.group(
             form("startsAt"),
@@ -208,33 +260,6 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 half = true
               )(form3.input(_, typ = "number"))
             )
-        ),
-        form3.split(
-          form3.group(
-            form("onlyRound"),
-            raw("Filter games by round number"),
-            help = frag(
-              "Optional, only keep games from the source that match a round number."
-            ).some,
-            half = true
-          )(form3.input(_, typ = "number")),
-          form3.group(
-            form("slices"),
-            raw("Select slices of the games"),
-            help = frag(
-              "Optional. Select games based on their position in the source.",
-              br,
-              pre("""
-1           only select the first board
-1-4         only select the first 4 boards
-1,2,3,4     same as above, first 4 boards
-11-15,21-25 boards 11 to 15, and boards 21 to 25
-2,3,7-9     boards 2, 3, 7, 8, and 9
-"""),
-              "Slicing is done after filtering by round number."
-            ).some,
-            half = true
-          )(form3.input(_))
         ),
         form3.actions(
           a(href := routes.RelayTour.show(t.slug, t.id))(trans.site.cancel()),
@@ -470,7 +495,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       )
     )
 
-  def grouping(form: Form[RelayTourForm.Data])(using Context) =
+  private def grouping(form: Form[RelayTourForm.Data])(using Context) =
     form3.split(cls := "relay-form__grouping")(
       form3.group(
         form("grouping"),

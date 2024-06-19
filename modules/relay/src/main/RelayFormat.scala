@@ -29,34 +29,33 @@ final private class RelayFormatApi(
 )(using Executor):
 
   import RelayFormat.*
-  import RelayRound.Sync.UpstreamUrl
+  import RelayRound.Sync.{ Upstream, UpstreamUrl, UpstreamLcc }
 
-  private val cache = cacheApi[(UpstreamUrl.WithRound, CanProxy), RelayFormat](64, "relay.format"):
+  private val cache = cacheApi[(Upstream, CanProxy), RelayFormat](64, "relay.format"):
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture: (url, proxy) =>
         guessFormat(url)(using proxy)
 
-  def get(upstream: UpstreamUrl.WithRound)(using proxy: CanProxy): Fu[RelayFormat] =
+  def get(upstream: Upstream)(using proxy: CanProxy): Fu[RelayFormat] =
     cache.get(upstream -> proxy)
 
-  def refresh(upstream: UpstreamUrl.WithRound): Unit =
+  def refresh(upstream: Upstream): Unit =
     CanProxy
       .from(List(false, true))
       .foreach: proxy =>
         cache.invalidate(upstream -> proxy)
 
-  private def guessFormat(upstream: UpstreamUrl.WithRound)(using CanProxy): Fu[RelayFormat] = {
+  private def guessFormat(upstream: Upstream)(using CanProxy): Fu[RelayFormat] = {
 
-    val originalUrl = URL.parse(upstream.url)
+    // val originalUrl = URL.parse(upstream.url)
 
     // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
-    def guessLcc(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
-      url.toString match
-        case UpstreamUrl.LccRegex(id) =>
-          guessManyFiles:
-            URL.parse:
-              s"http://1.pool.livechesscloud.com/get/$id/round-${upstream.round | 1}/index.json"
-        case _ => fuccess(none)
+    def guessLcc(using CanProxy): Fu[Option[RelayFormat]] = upstream match
+      case UpstreamLcc(id, round) =>
+        guessManyFiles:
+          URL.parse:
+            s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json"
+      case _ => fuccess(none)
 
     def guessSingleFile(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
       List(
