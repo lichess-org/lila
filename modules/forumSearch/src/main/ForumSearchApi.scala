@@ -10,7 +10,7 @@ final class ForumSearchApi(client: SearchClient)(using Executor)
 
   def search(query: Query.Forum, from: From, size: Size) =
     client
-      .search(query, from.value, size.value)
+      .search(query, from, size)
       .map(res => res.hitIds.map(ForumPostId.apply))
 
   def count(query: Query.Forum) =

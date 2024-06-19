@@ -12,9 +12,10 @@ final class GameSearchApi(
     extends SearchReadApi[Game, Query.Game]:
 
   def search(query: Query.Game, from: From, size: Size): Fu[List[Game]] =
-    client.search(query, from.value, size.value).flatMap { res =>
-      gameRepo.gamesFromSecondary(res.hitIds.map(GameId.apply))
-    }
+    client
+      .search(query, from, size)
+      .flatMap: res =>
+        gameRepo.gamesFromSecondary(res.hitIds.map(GameId.apply))
 
   def count(query: Query.Game) =
     client.count(query).dmap(_.count)
@@ -53,7 +54,7 @@ final class GameSearchApi(
       winnerColor = game.winner.fold(3)(_.color.fold(1, 2)),
       averageRating = game.averageUsersRating,
       ai = game.aiLevel,
-      date = lila.search.spec.SearchDateTime.fromInstant(game.movedAt),
+      date = lila.search.SearchDateTime.fromInstant(game.movedAt),
       duration = game.durationSeconds, // for realtime games only
       clockInit = game.clock.map(_.limitSeconds.value),
       clockInc = game.clock.map(_.incrementSeconds.value),
