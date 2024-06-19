@@ -142,20 +142,20 @@ function parsePath(path: string) {
   return match ? { name: match[1], hash: match[2] } : undefined;
 }
 
-function enumerableEquivalence(a: any, b: any) {
+function enumerableEquivalence(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
   if (Array.isArray(a))
-    return a.length === b.length && a.every(x => b.find((y: any) => enumerableEquivalence(x, y)));
+    return (
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every(x => b.find((y: any) => enumerableEquivalence(x, y)))
+    );
   if (typeof a !== 'object') return false;
-  for (const [x, y, deep] of [
-    [a, b, true],
-    [b, a, false],
-  ]) {
-    for (const key in x) {
-      if (!Object.prototype.propertyIsEnumerable.call(x, key)) continue;
-      if (!(key in y) || (deep && !enumerableEquivalence(x[key], y[key]))) return false;
-    }
+  const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
+  if (aKeys.length !== bKeys.length) return false;
+  for (const key of aKeys) {
+    if (!bKeys.includes(key) || !enumerableEquivalence(a[key], b[key])) return false;
   }
   return true;
 }
