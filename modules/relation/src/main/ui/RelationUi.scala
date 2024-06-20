@@ -86,26 +86,26 @@ final class RelationUi(helpers: Helpers):
                       (followable && !blocked).option(
                         a(
                           cls      := "text relation-button",
-                          href     := routes.Relation.follow(user.name),
+                          href     := s"${routes.Relation.follow(user.name)}?showText=${showText}",
                           dataIcon := Icon.ThumbsUp
                         )(showText.option(trans.site.follow.txt()))
                       ),
                       a(
                         cls      := "text relation-button",
-                        href     := routes.Relation.block(user.name),
+                        href     := s"${routes.Relation.block(user.name)}?showText=${showText}",
                         dataIcon := Icon.NotAllowed
                       )(showText.option(trans.site.block.txt()))
                     )
                   case Some(Relation.Follow) =>
                     a(
                       cls      := "text relation-button",
-                      href     := routes.Relation.unfollow(user.name),
+                      href     := s"${routes.Relation.unfollow(user.name)}?showText=${showText}",
                       dataIcon := Icon.ThumbsUp
                     )(showText.option(trans.site.unfollow.txt()))
                   case Some(Relation.Block) =>
                     a(
                       cls      := "text relation-button",
-                      href     := routes.Relation.unblock(user.name),
+                      href     := s"${routes.Relation.unblock(user.name)}?showText=${showText}",
                       dataIcon := Icon.NotAllowed
                     )(showText.option(trans.site.unblock.txt()))
               )

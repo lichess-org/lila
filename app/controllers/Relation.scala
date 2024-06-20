@@ -16,25 +16,34 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   val api = env.relation.api
 
-  private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) = for
-    user       <- env.user.lightUserApi.asyncFallbackName(username)
-    relation   <- ctx.userId.so(api.fetchRelation(_, user.id))
-    followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
-    blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
-    res <- negotiate(
-      Ok.snip:
-        if mini
-        then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
-        else views.relation.actions(user, relation, blocked = blocked, followable = followable)
-      ,
-      Ok:
-        Json.obj(
-          "followable" -> followable,
-          "following"  -> relation.contains(true),
-          "blocking"   -> relation.contains(false)
-        )
-    )
-  yield res
+  private def renderActions(username: UserName, mini: Boolean, showText: Boolean = true)(using ctx: Context) =
+    for
+      user       <- env.user.lightUserApi.asyncFallbackName(username)
+      relation   <- ctx.userId.so(api.fetchRelation(_, user.id))
+      followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
+      blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
+      res <- negotiate(
+        Ok.snip:
+          if mini
+          then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+          else
+            views.relation.actions(
+              user,
+              relation,
+              blocked = blocked,
+              followable = followable,
+              signup = false,
+              showText = showText
+            )
+        ,
+        Ok:
+          Json.obj(
+            "followable" -> followable,
+            "following"  -> relation.contains(true),
+            "blocking"   -> relation.contains(false)
+          )
+      )
+    yield res
 
   private def RatelimitWith(
       str: UserStr
@@ -51,7 +60,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           env.msg.api.postPreset(me, msg) >> rateLimited(msg.name)
         else
           api.follow(me, user.id).recoverDefault >> negotiate(
-            renderActions(user.name, getBool("mini")),
+            renderActions(user.name, getBool("mini"), getBool("showText")),
             jsonOkResult
           )
       }
@@ -61,7 +70,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.unfollow(me, user.id).recoverDefault >> negotiate(
-        renderActions(user.name, getBool("mini")),
+        renderActions(user.name, getBool("mini"), getBool("showText")),
         jsonOkResult
       )
   }
@@ -69,12 +78,16 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def block(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api.block(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+      api.block(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"), getBool("showText"))
   }
 
   def unblock(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api.unblock(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+      api.unblock(me, user.id).recoverDefault >> renderActions(
+        user.name,
+        getBool("mini"),
+        getBool("showText")
+      )
   }
 
   def following(username: UserStr, page: Int) = Open:
