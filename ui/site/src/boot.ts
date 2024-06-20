@@ -115,6 +115,10 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
+    $('.form-fieldset--toggle legend').on('click', function (this: HTMLElement) {
+      $(this).closest('.form-fieldset--toggle').toggleClass('form-fieldset--toggle-off');
+    });
+
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
     if (showDebug) site.asset.loadEsm('bits.diagnosticDialog');

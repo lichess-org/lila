@@ -43,7 +43,10 @@ final class RelayRoundForm(using mode: Mode):
   )
 
   val lccMapping = mapping(
-    "id"    -> cleanText(minLength = 10, maxLength = 40),
+    "id" -> cleanText(minLength = 10, maxLength = 100).transform(
+      str => Sync.UpstreamLcc.findId(str).getOrElse(str),
+      identity
+    ),
     "round" -> number(min = 1, max = 999)
   )(Sync.UpstreamLcc.apply)(unapply)
 
@@ -214,7 +217,7 @@ object RelayRoundForm:
       .map:
         case url: Sync.UpstreamUrl =>
           val foundLcc = for
-            lccId <- Sync.UpstreamLcc.findId(url)
+            lccId <- Sync.UpstreamLcc.findId(url.url)
             round <- roundNumberIn(name.value)
           yield Sync.UpstreamLcc(lccId, round)
           foundLcc | url

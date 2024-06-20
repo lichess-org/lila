@@ -10,6 +10,7 @@ import lila.game.JsonView.given
 import lila.core.i18n.I18nKey as trans
 import lila.core.socket.{ SocketVersion, userLag }
 import lila.core.i18n.{ Translate, JsDump }
+import lila.core.id.GameFullId
 
 final class JsonView(
     baseUrl: lila.core.config.BaseUrl,
@@ -45,13 +46,25 @@ final class JsonView(
         r.key -> JsString(r.trans.txt()))
     )
 
-  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using
-      Translate
-  ) =
+  def websiteAndLichobile(
+      challenge: Challenge,
+      socketVersion: SocketVersion,
+      direction: Option[Direction]
+  )(using Translate) =
     Json.obj(
       "challenge"     -> apply(direction)(challenge),
       "socketVersion" -> socketVersion
     )
+
+  def apiAndMobile(
+      challenge: Challenge,
+      socketVersion: Option[SocketVersion],
+      direction: Option[Direction],
+      fullId: Option[GameFullId] = none
+  )(using Translate) =
+    apply(direction)(challenge)
+      .add("socketVersion" -> socketVersion)
+      .add("fullId" -> fullId)
 
   private given OWrites[Challenge.Open] = Json.writes
 

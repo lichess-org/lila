@@ -57,20 +57,17 @@ function stateOn(ctrl: RelayCtrl) {
     'div.state.on.clickable',
     { hook: bind('click', _ => ctrl.setSync(false)), attrs: dataIcon(licon.ChasingArrows) },
     [
-      h(
-        'div',
-        url
-          ? [
-              sync.delay ? `Connected with ${sync.delay}s delay` : 'Connected to source',
-              h('br'),
-              url.replace(/https?:\/\//, ''),
-            ]
+      h('div', [
+        'Connected ',
+        sync?.delay ? `with ${sync.delay}s delay ` : null,
+        ...(url
+          ? ['to source', h('br'), url.replace(/https?:\/\//, '')]
           : ids
-          ? ['Connected to', h('br'), ids.length, ' game(s)']
+          ? ['to', h('br'), ids.length, ' game(s)']
           : urls
-          ? ['Connected to', h('br'), urls.length, ' urls']
-          : [],
-      ),
+          ? ['to', h('br'), urls.length, ' sources']
+          : []),
+      ]),
     ],
   );
 }

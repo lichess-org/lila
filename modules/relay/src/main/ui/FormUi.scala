@@ -99,7 +99,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
           standardFlash,
-          inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, create = true)
+          inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, round = none)
         )
 
     def edit(r: RelayRound, form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
@@ -108,7 +108,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         frag(
           boxTop(h1(a(href := rt.path)(rt.fullName))),
           standardFlash,
-          inner(form, routes.RelayRound.update(r.id), nav.tour, create = false),
+          inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
@@ -126,14 +126,17 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
         )
 
-    private def inner(form: Form[RelayRoundForm.Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(
-        using ctx: Context
-    ) =
+    private def inner(
+        form: Form[RelayRoundForm.Data],
+        url: play.api.mvc.Call,
+        t: RelayTour,
+        round: Option[RelayRound]
+    )(using ctx: Context) =
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
-            (create && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
+            (round.isEmpty && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
               p(dataIcon := Icon.InfoCircle, cls := "text"):
                 trb.theNewRoundHelp()
           )
@@ -163,40 +166,49 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             trb.sourceSingleUrl(),
             help = trb.sourceUrlHelp().some
           )(form3.input(_))(cls := "relay-form__sync relay-form__sync-url"),
-          div(cls := "relay-form__sync relay-form__sync-lcc none")(
-            (!Granter.opt(_.Relay)).option(
-              flashMessage("box")(
-                p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
-                p(
-                  "LiveChessCloud support is deprecated and will be removed soon.",
-                  br,
-                  "If you need help, please contact us at broadcast@lichess.org."
+          div(cls := "relay-form__sync relay-form__sync-lcc none"):
+            val lccUrl = round
+              .flatMap(_.sync.upstream)
+              .collect:
+                case lcc: RelayRound.Sync.UpstreamLcc => lcc.viewUrl
+            frag(
+              (!Granter.opt(_.Relay)).option(
+                flashMessage("box")(
+                  p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+                  p(
+                    "LiveChessCloud support is deprecated and will be removed soon.",
+                    br,
+                    "If you need help, please contact us at broadcast@lichess.org."
+                  )
                 )
+              ),
+              lccUrl.map(url => div(cls := "form-group")(a(href := url, targetBlank)(url))),
+              form3.split(
+                form3.group(
+                  form("syncLcc.id"),
+                  "Tournament ID",
+                  help = frag(
+                    "From the LCC page URL. The ID looks like this: ",
+                    pre("f1943ec6-4992-45d9-969d-a0aff688b404")
+                  ).some,
+                  half = true
+                )(form3.input(_)),
+                form3.group(
+                  form("syncLcc.round"),
+                  trb.roundNumber(),
+                  half = true
+                )(form3.input(_, typ = "number"))
               )
-            ),
-            form3.split(
-              form3.group(
-                form("syncLcc.id"),
-                "Tournament ID",
-                help = frag(
-                  "From the LCC page URL. The ID looks like this: ",
-                  pre("f1943ec6-4992-45d9-969d-a0aff688b404")
-                ).some,
-                half = true
-              )(form3.input(_)),
-              form3.group(
-                form("syncLcc.round"),
-                trb.roundNumber(),
-                half = true
-              )(form3.input(_, typ = "number"))
             )
-          ),
+          ,
           form3.group(
             form("syncUrls"),
             "Multiple source URLs, one per line.",
             help = frag("The games will be combined in the order of the URLs.").some,
             half = false
-          )(form3.textarea(_)(rows := 5))(cls := "relay-form__sync relay-form__sync-urls none"),
+          )(form3.textarea(_)(rows := 5, spellcheck := "false"))(
+            cls := "relay-form__sync relay-form__sync-urls none"
+          ),
           form3.group(
             form("syncIds"),
             trb.sourceGameIds(),
@@ -319,6 +331,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       page(nav.tour.name.value, menu = Right(nav)):
         frag(
           boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
+          standardFlash,
           image(nav.tour),
           postForm(cls := "form3", action := routes.RelayTour.update(nav.tour.id))(
             inner(form, nav.tourWithGroup.some),
@@ -352,19 +365,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
       frag(
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
-        form3.split(
-          form3.group(form("name"), trb.tournamentName(), half = true)(form3.input(_)(autofocus)),
-          Granter
-            .opt(_.StudyAdmin)
-            .option(
-              form3.group(
-                form("spotlight.title"),
-                "Homepage spotlight custom tournament name",
-                help = raw("Leave empty to use the tournament name").some,
-                half = true
-              )(form3.input(_))
-            )
-        ),
+        form3.group(form("name"), trb.tournamentName())(form3.input(_)(autofocus)),
         form3.group(form("description"), trb.tournamentDescription())(form3.textarea(_)(rows := 2)),
         form3.group(
           form("markdown"),
@@ -391,116 +392,136 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
           )
         ),
-        form3.split(
-          form3.group(
-            form("players"),
-            trb.replacePlayerTags(),
-            help = frag( // do not translate
-              "One line per player, formatted as such:",
-              pre("player name = FIDE ID"),
-              "Example:",
-              pre("""Magnus Carlsen = 1503014"""),
-              "Player names ignore case and punctuation, and match all possible combinations of 2 words:",
-              br,
-              """"Jorge Rick Vito" will match "Jorge Rick", "jorge vito", "Rick, Vito", etc.""",
-              br,
-              "If the player is NM or WNM, you can:",
-              pre("""Player Name = FIDE ID / Title"""),
-              "Alternatively, you may set tags manually, like so:",
-              pre("player name / rating / title / new name"),
-              "All values are optional. Example:",
-              pre("""Magnus Carlsen / 2863 / GM
+        form3.fieldset(
+          "Players & Teams",
+          toggle = (form("players").value.isDefined || form("teams").value.isDefined).some
+        )(
+          form3.split(
+            form3.group(
+              form("players"),
+              trb.replacePlayerTags(),
+              help = frag( // do not translate
+                "One line per player, formatted as such:",
+                pre("player name = FIDE ID"),
+                "Example:",
+                pre("""Magnus Carlsen = 1503014"""),
+                "Player names ignore case and punctuation, and match all possible combinations of 2 words:",
+                br,
+                """"Jorge Rick Vito" will match "Jorge Rick", "jorge vito", "Rick, Vito", etc.""",
+                br,
+                "If the player is NM or WNM, you can:",
+                pre("""Player Name = FIDE ID / Title"""),
+                "Alternatively, you may set tags manually, like so:",
+                pre("player name / rating / title / new name"),
+                "All values are optional. Example:",
+                pre("""Magnus Carlsen / 2863 / GM
 YouGotLittUp / 1890 / / Louis Litt""")
-            ).some,
-            half = true
-          )(form3.textarea(_)(rows := 3)),
-          form3.group(
-            form("teams"),
-            "Optional: assign players to teams",
-            help = frag( // do not translate
-              "One line per player, formatted as such:",
-              pre("Team name; Fide Id or Player name"),
-              "Example:",
-              pre("""Team Cats ; 3408230
+              ).some,
+              half = true
+            )(form3.textarea(_)(rows := 3, spellcheck := "false")),
+            form3.group(
+              form("teams"),
+              "Optional: assign players to teams",
+              help = frag( // do not translate
+                "One line per player, formatted as such:",
+                pre("Team name; Fide Id or Player name"),
+                "Example:",
+                pre("""Team Cats ; 3408230
 Team Dogs ; Scooby Doo"""),
-              "By default the PGN tags WhiteTeam and BlackTeam are used."
-            ).some,
-            half = true
-          )(form3.textarea(_)(rows := 3))
+                "By default the PGN tags WhiteTeam and BlackTeam are used."
+              ).some,
+              half = true
+            )(form3.textarea(_)(rows := 3, spellcheck := "false"))
+          )
         ),
         if Granter.opt(_.Relay) then
           frag(
-            tg.isDefined.option(grouping(form)),
-            form3.split(
-              form3.group(
-                form("tier"),
-                raw("Official Lichess broadcast tier"),
-                help = raw("Feature on /broadcast - for admins only").some,
-                half = true
-              )(form3.select(_, RelayTour.Tier.options))
-            )
-          )
-        else form3.hidden(form("tier")),
-        Granter
-          .opt(_.StudyAdmin)
-          .option(
-            frag(
+            form3.fieldset("Broadcast admin")(
+              tg.isDefined.option(grouping(form)),
               form3.split(
-                form3.checkbox(
-                  form("spotlight.enabled"),
-                  "Show a homepage spotlight",
-                  help = raw("As a Big Blue Button - for admins only").some,
-                  half = true
-                ),
                 form3.group(
-                  form("spotlight.lang"),
-                  "Homepage spotlight language",
-                  help =
-                    raw("Only show to users who speak this language. English is shown to everyone.").some,
+                  form("tier"),
+                  raw("Official Lichess broadcast tier"),
+                  help = raw("Feature on /broadcast - for admins only").some,
                   half = true
-                ):
-                  form3.select(_, langList.popularLanguagesForm.choices)
-              ),
-              tg.map: t =>
-                details(
-                  summary("Pinned streamer"),
-                  div(
-                    cls              := "relay-pinned-streamer-edit",
-                    data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                  )(
-                    div(
-                      form3.group(
-                        form("pinnedStreamer"),
-                        "Pinned streamer",
-                        help = frag(
-                          p("The pinned streamer is featured even when they're not watching the broadcast."),
-                          p("An optional placeholder image will embed their stream when clicked."),
-                          p(
-                            "To upload one, you must first submit this form with a pinned streamer. "
-                              + "Then return to this page and choose an image."
-                          )
-                        ).some
-                      )(form3.input(_)),
-                      span(
-                        button(tpe := "button", cls := "button streamer-select-image")("select image"),
-                        button(
-                          tpe              := "button",
-                          cls              := "button button-empty button-red streamer-delete-image",
-                          data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                        )("delete image")
-                      )
-                    ),
-                    ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
-                      cls := List(
-                        "streamer-drop-target" -> true,
-                        "user-image"           -> t.tour.pinnedStreamerImage.isDefined
-                      ),
-                      attr("draggable") := "true"
+                )(form3.select(_, RelayTour.Tier.options)),
+                Granter
+                  .opt(_.StudyAdmin)
+                  .option(
+                    form3.checkbox(
+                      form("spotlight.enabled"),
+                      "Show a homepage spotlight",
+                      help = raw("As a Big Blue Button - for admins only").some,
+                      half = true
                     )
+                  )
+              ),
+              Granter
+                .opt(_.StudyAdmin)
+                .option(
+                  frag(
+                    form3.split(
+                      form3.group(
+                        form("spotlight.title"),
+                        "Homepage spotlight custom tournament name",
+                        help = raw("Leave empty to use the tournament name").some,
+                        half = true
+                      )(form3.input(_)),
+                      form3.group(
+                        form("spotlight.lang"),
+                        "Homepage spotlight language",
+                        help = raw(
+                          "Only show to users who speak this language. English is shown to everyone."
+                        ).some,
+                        half = true
+                      ):
+                        form3.select(_, langList.popularLanguagesForm.choices)
+                    ),
+                    tg.map: t =>
+                      form3.fieldset("Pinned streamer", toggle = form("pinnedStreamer").value.isDefined.some)(
+                        div(
+                          cls              := "relay-pinned-streamer-edit",
+                          data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+                        )(
+                          div(
+                            form3.group(
+                              form("pinnedStreamer"),
+                              "Pinned streamer",
+                              help = frag(
+                                p(
+                                  "The pinned streamer is featured even when they're not watching the broadcast."
+                                ),
+                                p("An optional placeholder image will embed their stream when clicked."),
+                                p(
+                                  "To upload one, you must first submit this form with a pinned streamer. "
+                                    + "Then return to this page and choose an image."
+                                )
+                              ).some
+                            )(form3.input(_)),
+                            span(
+                              button(tpe := "button", cls := "button streamer-select-image")("select image"),
+                              button(
+                                tpe := "button",
+                                cls := "button button-empty button-red streamer-delete-image",
+                                data("post-url") := routes.RelayTour
+                                  .image(t.tour.id, "pinnedStreamerImage".some)
+                              )("delete image")
+                            )
+                          ),
+                          ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
+                            cls := List(
+                              "streamer-drop-target" -> true,
+                              "user-image"           -> t.tour.pinnedStreamerImage.isDefined
+                            ),
+                            attr("draggable") := "true"
+                          )
+                        )
+                      )
                   )
                 )
             )
           )
+        else form3.hidden(form("tier"))
       )
 
   private def image(t: RelayTour)(using ctx: Context) =
@@ -526,7 +547,7 @@ Team Dogs ; Scooby Doo"""),
         form("grouping"),
         "Optional: assign tournaments to a group",
         half = true
-      )(form3.textarea(_)(rows := 5)),
+      )(form3.textarea(_)(rows := 5, spellcheck := "false")),
       div(cls := "form-group form-half form-help")( // do not translate
         "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
         br,
