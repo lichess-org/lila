@@ -205,7 +205,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           div(cls := "form-group relay-form__sync relay-form__sync-push none")(
             p(
               "Send your local games to Lichess using ",
-              a(href := "https://github.com/lichess-org/broadcaster")("the Lichess Broadcaster App"),
+              a(href := "https://github.com/lichess-org/broadcaster")(lila.relay.broadcasterUrl),
               "."
             )
           ),
