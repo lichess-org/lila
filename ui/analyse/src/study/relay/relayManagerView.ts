@@ -7,7 +7,8 @@ import { side as studyViewSide } from '../studyView';
 import StudyCtrl from '../studyCtrl';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
-  const contributor = ctrl.members.canContribute();
+  const contributor = ctrl.members.canContribute(),
+    sync = ctrl.data.sync;
   return contributor || study.data.admin
     ? h('div.relay-admin__container', [
         contributor
@@ -16,9 +17,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
                 h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
                 h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
               ]),
-              ctrl.data.sync?.url || ctrl.data.sync?.ids
-                ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl)
-                : null,
+              sync?.url || sync?.ids || sync?.urls ? (sync.ongoing ? stateOn : stateOff)(ctrl) : null,
               renderLog(ctrl),
             ])
           : undefined,
@@ -52,6 +51,7 @@ function renderLog(ctrl: RelayCtrl) {
 function stateOn(ctrl: RelayCtrl) {
   const sync = ctrl.data.sync,
     url = sync?.url,
+    urls = sync?.urls,
     ids = sync?.ids;
   return h(
     'div.state.on.clickable',
@@ -67,6 +67,8 @@ function stateOn(ctrl: RelayCtrl) {
             ]
           : ids
           ? ['Connected to', h('br'), ids.length, ' game(s)']
+          : urls
+          ? ['Connected to', h('br'), urls.length, ' urls']
           : [],
       ),
     ],

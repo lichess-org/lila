@@ -44,6 +44,7 @@ export interface RelayTour {
 export interface RelaySync {
   ongoing: boolean;
   url?: string;
+  urls?: [{ url: string }];
   ids?: string;
   log: LogEvent[];
   delay?: number;
