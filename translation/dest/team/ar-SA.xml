@@ -76,4 +76,20 @@
   <string name="numberOfLeadsPerTeam">عدد القادة لكل فريق. مجموع درجاتهم هو نتيجة الفريق.</string>
   <string name="numberOfLeadsPerTeamHelp">لا يجب عليك تغيير هذه القيمة بعد بدء البطولة!</string>
   <string name="innerTeam">الفريق الداخلي</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="zero">معركة %s فريق</item>
+    <item quantity="one">معركة فريق واحد</item>
+    <item quantity="two">معركة فريقين</item>
+    <item quantity="few">معركة %s أفرقة</item>
+    <item quantity="many">معركة %s فريقا</item>
+    <item quantity="other">معركة %s فريقا</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="zero">%s قائدا لكل فريق</item>
+    <item quantity="one">قائد واحد لكل فريق</item>
+    <item quantity="two">قائدين للفريق</item>
+    <item quantity="few">%s قادة للفريق الواحد</item>
+    <item quantity="many">%s قائد للفريق الواحد</item>
+    <item quantity="other">%s قائد للفريق الواحد</item>
+  </plurals>
 </resources>
