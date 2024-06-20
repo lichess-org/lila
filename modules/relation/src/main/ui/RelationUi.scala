@@ -57,9 +57,8 @@ final class RelationUi(helpers: Helpers):
         a(
           cls      := "text",
           href     := s"${routes.Lobby.home}?user=${user.name}#friend",
-          dataIcon := Icon.Swords,
-          alt      := trans.challenge.challengeToPlay.txt()
-        )
+          dataIcon := Icon.Swords
+        )(trans.challenge.challengeToPlay.txt())
       ),
       ctx.userId
         .map: myId =>
@@ -70,17 +69,15 @@ final class RelationUi(helpers: Helpers):
                   a(
                     cls      := "text",
                     href     := routes.Msg.convo(user.name),
-                    dataIcon := Icon.BubbleSpeech,
-                    alt      := trans.site.composeMessage.txt()
-                  )
+                    dataIcon := Icon.BubbleSpeech
+                  )(trans.site.composeMessage.txt())
                 ),
                 (!blocked && !blocks && !user.isPatron).option(
                   a(
                     cls      := "text",
                     href     := s"${routes.Plan.list}?dest=gift&giftUsername=${user.name}",
-                    dataIcon := Icon.Wings,
-                    alt      := trans.patron.giftPatronWingsShort.txt()
-                  )
+                    dataIcon := Icon.Wings
+                  )(trans.patron.giftPatronWingsShort.txt())
                 ),
                 relation match
                   case None =>
@@ -89,31 +86,27 @@ final class RelationUi(helpers: Helpers):
                         a(
                           cls      := "text relation-button",
                           href     := routes.Relation.follow(user.name),
-                          dataIcon := Icon.ThumbsUp,
-                          alt      := trans.site.follow.txt()
-                        )
+                          dataIcon := Icon.ThumbsUp
+                        )(trans.site.follow.txt())
                       ),
                       a(
                         cls      := "text relation-button",
                         href     := routes.Relation.block(user.name),
-                        dataIcon := Icon.NotAllowed,
-                        alt      := trans.site.block.txt()
-                      )
+                        dataIcon := Icon.NotAllowed
+                      )(trans.site.block.txt())
                     )
                   case Some(Relation.Follow) =>
                     a(
                       cls      := "text relation-button",
                       href     := routes.Relation.unfollow(user.name),
-                      dataIcon := Icon.ThumbsUp,
-                      alt      := trans.site.unfollow.txt()
-                    )
+                      dataIcon := Icon.ThumbsUp
+                    )(trans.site.unfollow.txt())
                   case Some(Relation.Block) =>
                     a(
                       cls      := "text relation-button",
                       href     := routes.Relation.unblock(user.name),
-                      dataIcon := Icon.NotAllowed,
-                      alt      := trans.site.unblock.txt()
-                    )
+                      dataIcon := Icon.NotAllowed
+                    )(trans.site.unblock.txt())
               )
             )
         .getOrElse:
