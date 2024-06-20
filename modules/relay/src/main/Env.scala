@@ -62,6 +62,8 @@ final class Env(
 
   lazy val listing: RelayListing = wire[RelayListing]
 
+  lazy val stats = wire[RelayStatsApi]
+
   lazy val api: RelayApi = wire[RelayApi]
 
   lazy val tourStream: RelayTourStream = wire[RelayTourStream]
@@ -89,9 +91,6 @@ final class Env(
   private lazy val formatApi = wire[RelayFormatApi]
 
   private lazy val delay = wire[RelayDelay]
-
-  // must instanciate eagerly to start the scheduler
-  val stats = wire[RelayStatsApi]
 
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](

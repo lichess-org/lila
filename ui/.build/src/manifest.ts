@@ -29,7 +29,7 @@ export async function css() {
   const css: { name: string; hash: string }[] = await Promise.all(files.map(hashMove));
   const newCssManifest: Manifest = {};
   for (const { name, hash } of css) newCssManifest[name] = { hash };
-  if (isEquivalent(newCssManifest, current.css)) return;
+  if (enumerableEquivalence(newCssManifest, current.css)) return;
   current.css = shallowSort({ ...current.css, ...newCssManifest });
   clearTimeout(writeTimer);
   writeTimer = setTimeout(write, 500);
@@ -53,7 +53,7 @@ export async function js(meta: es.Metafile) {
     }
     newJsManifest[out.name].imports = imports;
   }
-  if (isEquivalent(newJsManifest, current.js) && fs.existsSync(env.manifestFile)) return;
+  if (enumerableEquivalence(newJsManifest, current.js) && fs.existsSync(env.manifestFile)) return;
   current.js = shallowSort({ ...current.js, ...newJsManifest });
   clearTimeout(writeTimer);
   writeTimer = setTimeout(write, 500);
@@ -112,29 +112,6 @@ async function hashMove(src: string) {
   return { name: path.basename(src, '.css'), hash };
 }
 
-function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {
-  // es6 string properties are insertion order, we need more determinism
-  const sorted: { [key: string]: any } = {};
-  for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
-  return sorted;
-}
-
-function parsePath(path: string) {
-  const match = path.match(/\/public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/);
-  return match ? { name: match[1], hash: match[2] } : undefined;
-}
-
-function isEquivalent(a: any, b: any) {
-  // key order does NOT matter
-  if (typeof a !== typeof b) return false;
-  if (Array.isArray(a)) return a.length === b.length && a.every(x => b.includes(x));
-  if (typeof a !== 'object') return a === b;
-  for (const key in a) {
-    if (!(key in b) || !isEquivalent(a[key], b[key])) return false;
-  }
-  return true;
-}
-
 async function isComplete() {
   for (const bundle of [...env.modules.values()].map(x => x.bundles ?? []).flat()) {
     const name = path.basename(bundle, '.ts');
@@ -149,6 +126,36 @@ async function isComplete() {
       env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.scss')}'`);
       return false;
     }
+  }
+  return true;
+}
+
+function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {
+  // es6 string properties are insertion order, we need more determinism
+  const sorted: { [key: string]: any } = {};
+  for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
+  return sorted;
+}
+
+function parsePath(path: string) {
+  const match = path.match(/\/public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/);
+  return match ? { name: match[1], hash: match[2] } : undefined;
+}
+
+function enumerableEquivalence(a: any, b: any): boolean {
+  if (a === b) return true;
+  if (typeof a !== typeof b) return false;
+  if (Array.isArray(a))
+    return (
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every(x => b.find((y: any) => enumerableEquivalence(x, y)))
+    );
+  if (typeof a !== 'object') return false;
+  const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
+  if (aKeys.length !== bKeys.length) return false;
+  for (const key of aKeys) {
+    if (!bKeys.includes(key) || !enumerableEquivalence(a[key], b[key])) return false;
   }
   return true;
 }

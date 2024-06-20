@@ -70,6 +70,8 @@
   <string name="promoteVariation">Variant opwäerten</string>
   <string name="makeMainLine">Haaptvariant maachen</string>
   <string name="deleteFromHere">Vun hei läschen</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">Varianten zesummeklappen</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Varianten opklappen</string>
   <string name="forceVariation">Variant forcéieren</string>
   <string name="copyVariationPgn">PGN-Variant kopéieren</string>
   <string name="move">Zuch</string>
@@ -688,7 +690,7 @@
   <string name="keyMoveBackwardOrForward">zeréck/no fir beweegen</string>
   <string name="keyGoToStartOrEnd">bei Start/Schluss goen</string>
   <string name="keyShowOrHideComments">Kommentarer weisen/verstoppen</string>
-  <string name="keyEnterOrExitVariation">Variant wiehlen/verloossen</string>
+  <string name="keyEnterOrExitVariation">Variant wielen/verloossen</string>
   <string name="keyRequestComputerAnalysis">Computeranalys ufroen, léier aus denge Feeler</string>
   <string name="keyNextLearnFromYourMistakes">Nächst (Aus dengen Feeler léieren)</string>
   <string name="keyNextBlunder">Nächst Gaffe</string>
@@ -845,7 +847,7 @@
   <string name="middlegame">Mëttelspill</string>
   <string name="endgame">Endspill</string>
   <string name="conditionalPremoves">Bedingt Virauszich</string>
-  <string name="addCurrentVariation">Aktuell Variante bäifügen</string>
+  <string name="addCurrentVariation">Aktuell Variant bäifügen</string>
   <string name="playVariationToCreateConditionalPremoves">Variant spillen fir bedingt Virauszich ze kreéieren</string>
   <string name="noConditionalPremoves">Keng bedingt Virauszich</string>
   <string name="playX">Spill %s</string>

@@ -35,6 +35,16 @@
   font-family: monospace;
 }
 
+.flash-box {
+  border: 5px solid $m-brag_bg--mix-70;
+
+  &::before {
+    color: $c-brag;
+    content: $licon-InfoCircle;
+    font-size: 4em;
+  }
+}
+
 .relay-image {
   max-width: 100%;
   height: auto;

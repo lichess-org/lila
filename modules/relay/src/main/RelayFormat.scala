@@ -29,45 +29,40 @@ final private class RelayFormatApi(
 )(using Executor):
 
   import RelayFormat.*
-  import RelayRound.Sync.UpstreamUrl
+  import RelayRound.Sync.{ FetchableUpstream, UpstreamUrl, UpstreamLcc }
 
-  private val cache = cacheApi[(UpstreamUrl.WithRound, CanProxy), RelayFormat](64, "relay.format"):
+  private val cache = cacheApi[(FetchableUpstream, CanProxy), RelayFormat](64, "relay.format"):
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture: (url, proxy) =>
         guessFormat(url)(using proxy)
 
-  def get(upstream: UpstreamUrl.WithRound)(using proxy: CanProxy): Fu[RelayFormat] =
+  def get(upstream: FetchableUpstream)(using proxy: CanProxy): Fu[RelayFormat] =
     cache.get(upstream -> proxy)
 
-  def refresh(upstream: UpstreamUrl.WithRound): Unit =
+  def refresh(upstream: FetchableUpstream): Unit =
     CanProxy
       .from(List(false, true))
       .foreach: proxy =>
         cache.invalidate(upstream -> proxy)
 
-  private def guessFormat(upstream: UpstreamUrl.WithRound)(using CanProxy): Fu[RelayFormat] = {
+  private def guessFormat(upstream: FetchableUpstream)(using CanProxy): Fu[RelayFormat] = {
 
-    val originalUrl = URL.parse(upstream.url)
+    def parsedUrl = URL.parse(upstream.fetchUrl)
 
-    // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
-    def guessLcc(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
-      url.toString match
-        case UpstreamUrl.LccRegex(id) =>
-          guessManyFiles:
-            URL.parse:
-              s"http://1.pool.livechesscloud.com/get/$id/round-${upstream.round | 1}/index.json"
-        case _ => fuccess(none)
+    def guessLcc: Fu[Option[RelayFormat]] = upstream.isLcc.so(guessManyFiles(parsedUrl))
 
-    def guessSingleFile(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
+    def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
       List(
         url.some,
-        (!url.pathSegments.contains(mostCommonSingleFileName)).option(addPart(url, mostCommonSingleFileName))
+        (!url.pathSegments.contains(mostCommonSingleFileName)).option(
+          addPart(url, mostCommonSingleFileName)
+        )
       ).flatten.distinct
         .findM(looksLikePgn)
         .dmap2: (u: URL) =>
           SingleFile(pgnDoc(u))
 
-    def guessManyFiles(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
+    def guessManyFiles(url: URL): Fu[Option[RelayFormat]] =
       (List(url) ::: mostCommonIndexNames
         .filterNot(url.pathSegments.contains)
         .map(addPart(url, _)))
@@ -88,10 +83,11 @@ final private class RelayFormatApi(
               ManyFiles(index, _)
             .dmap(_.orElse(ManyFilesLater(index).some))
 
-    guessLcc(originalUrl)
-      .orElse(guessSingleFile(originalUrl))
-      .orElse(guessManyFiles(originalUrl))
-      .orFailWith(LilaInvalid(s"No games found at $originalUrl"))
+    guessLcc
+      .orElse(guessSingleFile(parsedUrl))
+      .orElse(guessManyFiles(parsedUrl))
+      .orFailWith(LilaInvalid(s"No games found at $upstream"))
+
   }.addEffect { format =>
     logger.info(s"guessed format of $upstream: $format")
   }
