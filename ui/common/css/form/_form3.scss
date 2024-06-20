@@ -144,3 +144,27 @@ textarea.form-control {
     font-size: 1.2em;
   }
 }
+.form-fieldset--toggle {
+  legend {
+    cursor: pointer;
+    &::after {
+      content: '▲';
+      margin-left: 1ch;
+    }
+  }
+}
+.form-fieldset--toggle-off {
+  border-width: 1px 0 0 0;
+  legend {
+    &:hover {
+      color: $c-brag;
+    }
+    &::after {
+      color: $c-brag;
+      content: '▼';
+    }
+  }
+  > *:not(legend) {
+    display: none;
+  }
+}
