@@ -49,7 +49,8 @@ final class RelationUi(helpers: Helpers):
       relation: Option[Relation],
       followable: Boolean,
       blocked: Boolean,
-      signup: Boolean = false
+      signup: Boolean = false,
+      showText: Boolean = true
   )(using ctx: Context) =
     val blocks = relation.contains(Relation.Block)
     div(cls := "relation-actions")(
@@ -58,7 +59,7 @@ final class RelationUi(helpers: Helpers):
           cls      := "text",
           href     := s"${routes.Lobby.home}?user=${user.name}#friend",
           dataIcon := Icon.Swords
-        )(trans.challenge.challengeToPlay.txt())
+        )(showText.option(trans.challenge.challengeToPlay.txt()))
       ),
       ctx.userId
         .map: myId =>
@@ -70,14 +71,14 @@ final class RelationUi(helpers: Helpers):
                     cls      := "text",
                     href     := routes.Msg.convo(user.name),
                     dataIcon := Icon.BubbleSpeech
-                  )(trans.site.composeMessage.txt())
+                  )(showText.option(showText.option(trans.site.composeMessage.txt())))
                 ),
                 (!blocked && !blocks && !user.isPatron).option(
                   a(
                     cls      := "text",
                     href     := s"${routes.Plan.list}?dest=gift&giftUsername=${user.name}",
                     dataIcon := Icon.Wings
-                  )(trans.patron.giftPatronWingsShort.txt())
+                  )(showText.option(trans.patron.giftPatronWingsShort.txt()))
                 ),
                 relation match
                   case None =>
@@ -87,26 +88,26 @@ final class RelationUi(helpers: Helpers):
                           cls      := "text relation-button",
                           href     := routes.Relation.follow(user.name),
                           dataIcon := Icon.ThumbsUp
-                        )(trans.site.follow.txt())
+                        )(showText.option(trans.site.follow.txt()))
                       ),
                       a(
                         cls      := "text relation-button",
                         href     := routes.Relation.block(user.name),
                         dataIcon := Icon.NotAllowed
-                      )(trans.site.block.txt())
+                      )(showText.option(trans.site.block.txt()))
                     )
                   case Some(Relation.Follow) =>
                     a(
                       cls      := "text relation-button",
                       href     := routes.Relation.unfollow(user.name),
                       dataIcon := Icon.ThumbsUp
-                    )(trans.site.unfollow.txt())
+                    )(showText.option(trans.site.unfollow.txt()))
                   case Some(Relation.Block) =>
                     a(
                       cls      := "text relation-button",
                       href     := routes.Relation.unblock(user.name),
                       dataIcon := Icon.NotAllowed
-                    )(trans.site.unblock.txt())
+                    )(showText.option(trans.site.unblock.txt()))
               )
             )
         .getOrElse:
@@ -193,7 +194,7 @@ final class RelationUi(helpers: Helpers):
               td(r.user.seenAt.map: seen =>
                 trans.site.lastSeenActive(momentFromNow(seen))),
               withActions.option:
-                td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
+                td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false, signup = false, showText = false))
             ),
           pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )
