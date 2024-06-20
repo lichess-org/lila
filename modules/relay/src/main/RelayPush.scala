@@ -4,15 +4,15 @@ import akka.actor.*
 import akka.pattern.after
 import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Game, Replay, Square }
-
 import scala.concurrent.duration.*
-
 import scalalib.actor.AsyncActorSequencers
+
 import lila.study.{ MultiPgn, StudyPgnImport }
 
 final class RelayPush(
     sync: RelaySync,
     api: RelayApi,
+    stats: RelayStatsApi,
     irc: lila.core.irc.IrcApi
 )(using ActorSystem, Executor, Scheduler):
 
@@ -50,6 +50,7 @@ final class RelayPush(
         .flatMap: event =>
           if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
             irc.broadcastStart(rt.round.id, rt.fullName)
+          stats.setActive(rt.round.id)
           api
             .update(rt.round): r1 =>
               val r2 = r1.withSync(_.addLog(event))
