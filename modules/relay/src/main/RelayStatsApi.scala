@@ -2,6 +2,7 @@ package lila.relay
 
 import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.BSONInteger
+import scalalib.cache.ExpireSetMemo
 
 object RelayStats:
   type Minute = Int
@@ -20,7 +21,7 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
 
   def get(id: RelayTourId): Fu[List[RoundStats]] =
     colls.round
-      .aggregateList(128): framework =>
+      .aggregateList(RelayTour.maxRelays): framework =>
         import framework.*
         Match($doc("tourId" -> id)) -> List(
           Sort(Ascending("createdAt")),
@@ -74,13 +75,24 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
     _ <- elements.nonEmpty.so(update.many(elements).void)
   yield ()
 
+  // keep monitoring rounds for 30m after they stopped syncing
+  private val syncTail = ExpireSetMemo[RelayRoundId](30 minutes)
+
   private def fetchRoundCrowds: Fu[List[(RelayRoundId, Crowd)]] =
     val max = 500
     colls.round
       .aggregateList(maxDocs = max, _.sec): framework =>
         import framework.*
-        Match($doc("sync.until" -> $exists(true), "crowd".$gt(0))) ->
-          List(Project($doc("_id" -> 1, "crowd" -> 1)))
+        Match(
+          $doc(
+            $or(
+              $doc("sync.until" -> $exists(true)),
+              $inIds(syncTail.keys)
+            ),
+            "crowd".$gt(0)
+          )
+        ) ->
+          List(Project($doc("_id" -> 1, "crowd" -> 1, "syncing" -> "$sync.until")))
       .map: docs =>
         if docs.size == max
         then logger.warn(s"RelayStats.fetchRoundCrowds: $max docs fetched")
@@ -88,4 +100,5 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
           doc   <- docs
           id    <- doc.getAsOpt[RelayRoundId]("_id")
           crowd <- doc.getAsOpt[Crowd]("crowd")
+          _ = if doc.contains("syncing") then syncTail.put(id)
         yield (id, crowd)
