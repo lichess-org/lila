@@ -52,14 +52,13 @@
 
 .relay-image-edit {
   @extend %image-preview-and-upload, %box-neat;
-  margin-bottom: 2em;
+  margin-bottom: 3em;
 }
 
 .relay-pinned-streamer-edit {
-  @extend %image-preview-and-upload, %box-neat;
-  > div {
-    flex-basis: 300px;
-  }
+  @extend %image-preview-and-upload;
+  background: none;
+  padding: 0;
   span {
     @extend %flex-between;
   }

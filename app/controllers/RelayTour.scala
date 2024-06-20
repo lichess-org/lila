@@ -115,7 +115,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         setup =>
           env.relay.api.tourUpdate(nav.tour, setup) >>
             negotiate(
-              Redirect(routes.RelayTour.show(nav.tour.slug, nav.tour.id)),
+              Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess,
               jsonOkResult
             )
       )
