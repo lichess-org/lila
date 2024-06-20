@@ -15,7 +15,7 @@ final class TeamSearchApi(
 
   def search(query: Query.Team, from: From, size: Size) =
     client
-      .search(query, from.value, size.value)
+      .search(query, from, size)
       .map: res =>
         res.hitIds.map(TeamId.apply)
 

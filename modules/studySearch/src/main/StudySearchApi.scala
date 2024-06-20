@@ -23,9 +23,10 @@ final class StudySearchApi(
     extends SearchReadApi[Study, Query.Study]:
 
   def search(query: Query.Study, from: From, size: Size) =
-    client.search(query, from.value, size.value).flatMap { res =>
-      studyRepo.byOrderedIds(res.hitIds.map(StudyId(_)))
-    }
+    client
+      .search(query, from, size)
+      .flatMap: res =>
+        studyRepo.byOrderedIds(res.hitIds.map(StudyId(_)))
 
   def count(query: Query.Study) = client.count(query).dmap(_.count)
 
