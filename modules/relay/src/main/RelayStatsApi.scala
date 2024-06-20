@@ -46,6 +46,11 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
               .toList
         yield RoundStats(round, stats)
 
+  def setActive(id: RelayRoundId) = activeRounds.put(id)
+
+  // keep monitoring rounds for 30m after they stopped syncing
+  private val activeRounds = ExpireSetMemo[RelayRoundId](30 minutes)
+
   private def record(): Funit = for
     crowds <- fetchRoundCrowds
     nowMinutes = nowSeconds / 60
@@ -75,9 +80,6 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
     _ <- elements.nonEmpty.so(update.many(elements).void)
   yield ()
 
-  // keep monitoring rounds for 30m after they stopped syncing
-  private val syncTail = ExpireSetMemo[RelayRoundId](30 minutes)
-
   private def fetchRoundCrowds: Fu[List[(RelayRoundId, Crowd)]] =
     val max = 500
     colls.round
@@ -87,7 +89,7 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
           $doc(
             $or(
               $doc("sync.until" -> $exists(true)),
-              $inIds(syncTail.keys)
+              $inIds(activeRounds.keys)
             ),
             "crowd".$gt(0)
           )
@@ -100,5 +102,5 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
           doc   <- docs
           id    <- doc.getAsOpt[RelayRoundId]("_id")
           crowd <- doc.getAsOpt[Crowd]("crowd")
-          _ = if doc.contains("syncing") then syncTail.put(id)
+          _ = if doc.contains("syncing") then activeRounds.put(id)
         yield (id, crowd)
