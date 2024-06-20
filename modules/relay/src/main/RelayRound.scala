@@ -117,19 +117,27 @@ object RelayRound:
     sealed trait Upstream:
       def isLcc = false
     sealed trait FetchableUpstream extends Upstream:
-      def url: String
+      def fetchUrl: String
+      def formUrl: String
     case class UpstreamUrl(url: String) extends FetchableUpstream:
-      def findLccId: Option[String] = url match
-        case LccRegex(id) => id.some
-        case _            => none
+      def fetchUrl = url
+      def formUrl  = url
+    case class UpstreamUrls(urls: List[FetchableUpstream]) extends Upstream
+    case class UpstreamIds(ids: List[GameId])              extends Upstream
     case class UpstreamLcc(lcc: String, round: Int) extends FetchableUpstream:
       override def isLcc = true
       def id             = lcc
-      def url            = s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json"
+      def fetchUrl       = s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json"
       def viewUrl        = s"https://view.livechesscloud.com/#$id"
-    case class UpstreamUrls(urls: List[UpstreamUrl]) extends Upstream
-    case class UpstreamIds(ids: List[GameId])        extends Upstream
-    private val LccRegex = """.*view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r
+      def formUrl        = s"$viewUrl $round"
+    object UpstreamLcc:
+      private val idRegex = """.*view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r
+      def findId(url: UpstreamUrl): Option[String] = url.url match
+        case idRegex(id) => id.some
+        case _           => none
+      def find(url: String): Option[UpstreamLcc] = url.split(' ').map(_.trim).filter(_.nonEmpty) match
+        case Array(idRegex(id), round) => round.toIntOption.map(UpstreamLcc(id, _))
+        case _                         => none
 
   trait AndTour:
     val tour: RelayTour
