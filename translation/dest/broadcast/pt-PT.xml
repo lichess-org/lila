@@ -23,9 +23,9 @@
   <string name="tournamentDescription">Breve descrição do torneio</string>
   <string name="fullDescription">Descrição completa do evento</string>
   <string name="fullDescriptionHelp">Descrição longa do evento opcional da transmissão. %1$s está disponível. Tem de ter menos que %2$s carácteres.</string>
-  <string name="sourceUrlOrGameIds">URL de origem ou IDs do jogo</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">URL da fonte PGN</string>
   <string name="sourceUrlHelp">Link que o Lichess vai verificar para obter atualizações da PGN. Deve ser acessível ao público a partir da internet.</string>
-  <string name="gameIdsHelp">Como alternativa, você pode inserir até 64 IDs do jogo Lichess, separados por espaços.</string>
+  <string name="sourceGameIds">Até 64 IDs de jogo Lichess, separados por espaços.</string>
   <string name="startDate">Data de início no teu fuso horário</string>
   <string name="startDateHelp">Opcional, se souberes quando começa o evento</string>
   <string name="credits">Credita a fonte</string>

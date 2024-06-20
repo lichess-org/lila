@@ -19,15 +19,15 @@ final class RelayRoundForm(using mode: Mode):
   import RelayRoundForm.*
   import lila.common.Form.ISOInstantOrTimestamp
 
-  private given Formatter[Sync.UpstreamUrl] = formatter.stringTryFormatter(validateUpstreamUrl, _.url)
+  private given Formatter[Sync.UpstreamUrl] = formatter.stringTryFormatter(validateUpstreamUrl, _.fetchUrl)
   private given Formatter[Sync.UpstreamUrls] = formatter.stringTryFormatter(
     _.linesIterator.toList
       .map(_.trim)
       .filter(_.nonEmpty)
-      .traverse(validateUpstreamUrl)
+      .traverse(validateUpstreamUrlOrLcc)
       .map(_.distinct)
       .map(Sync.UpstreamUrls.apply),
-    _.urls.map(_.url).mkString("\n")
+    _.urls.map(_.formUrl).mkString("\n")
   )
   private given Formatter[Sync.UpstreamIds] = formatter.stringTryFormatter(
     _.split(' ').toList
@@ -147,6 +147,11 @@ object RelayRoundForm:
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
     yield url.toString.stripSuffix("/")
 
+  private def validateUpstreamUrlOrLcc(s: String)(using Mode): Either[String, Sync.FetchableUpstream] =
+    Sync.UpstreamLcc.find(s) match
+      case Some(lcc) => Right(lcc)
+      case None      => validateUpstreamUrl(s)
+
   private def validateUpstreamUrl(s: String)(using Mode): Either[String, Sync.UpstreamUrl] = for
     url <- cleanUrl(s).toRight("Invalid source URL")
     url <- if !validSourcePort(url) then Left("The source URL cannot specify a port") else Right(url)
@@ -209,7 +214,7 @@ object RelayRoundForm:
       .map:
         case url: Sync.UpstreamUrl =>
           val foundLcc = for
-            lccId <- url.findLccId
+            lccId <- Sync.UpstreamLcc.findId(url)
             round <- roundNumberIn(name.value)
           yield Sync.UpstreamLcc(lccId, round)
           foundLcc | url

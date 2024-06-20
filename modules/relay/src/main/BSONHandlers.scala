@@ -10,9 +10,19 @@ object BSONHandlers:
   given BSONHandler[RelayTeamsTextarea]   = stringAnyValHandler(_.text, RelayTeamsTextarea(_))
 
   import RelayRound.Sync
-  import Sync.{ Upstream, UpstreamIds, UpstreamUrl, UpstreamLcc, UpstreamUrls }
-  given upstreamUrlHandler: BSONDocumentHandler[UpstreamUrl]   = Macros.handler
-  given upstreamLccHandler: BSONDocumentHandler[UpstreamLcc]   = Macros.handler
+  import Sync.{ Upstream, UpstreamIds, UpstreamUrl, UpstreamLcc, UpstreamUrls, FetchableUpstream }
+  given upstreamUrlHandler: BSONDocumentHandler[UpstreamUrl] = Macros.handler
+  given upstreamLccHandler: BSONDocumentHandler[UpstreamLcc] = Macros.handler
+  given BSONHandler[FetchableUpstream] = tryHandler(
+    {
+      case d: BSONDocument if d.contains("url") => upstreamUrlHandler.readTry(d)
+      case d: BSONDocument if d.contains("lcc") => upstreamLccHandler.readTry(d)
+    },
+    {
+      case url: UpstreamUrl => upstreamUrlHandler.writeTry(url).get
+      case lcc: UpstreamLcc => upstreamLccHandler.writeTry(lcc).get
+    }
+  )
   given upstreamUrlsHandler: BSONDocumentHandler[UpstreamUrls] = Macros.handler
   given upstreamIdsHandler: BSONDocumentHandler[UpstreamIds]   = Macros.handler
 

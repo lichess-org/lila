@@ -22,7 +22,7 @@ data/
 dist/
 node_modules/
 local/
-gen/
+ui/common/css/theme/gen/*.scss
 ui/common/**/*.js
 ui/common/**/*.d.ts
 ui/chess/**/*.js

@@ -47,7 +47,7 @@ final private class RelayFormatApi(
 
   private def guessFormat(upstream: FetchableUpstream)(using CanProxy): Fu[RelayFormat] = {
 
-    def parsedUrl = URL.parse(upstream.url)
+    def parsedUrl = URL.parse(upstream.fetchUrl)
 
     def guessLcc: Fu[Option[RelayFormat]] = upstream.isLcc.so(guessManyFiles(parsedUrl))
 

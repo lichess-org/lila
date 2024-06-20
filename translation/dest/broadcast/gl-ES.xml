@@ -23,9 +23,9 @@
   <string name="tournamentDescription">Breve descrición do torneo</string>
   <string name="fullDescription">Descrición completa do evento</string>
   <string name="fullDescriptionHelp">Descrición longa opcional da retransmisión. %1$s está dispoñíbel. A lonxitude debe ser menor de %2$s caracteres.</string>
-  <string name="sourceUrlOrGameIds">Ligazón de orixe ou identificador da partida</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">URL de orixe do arquivo PGN</string>
   <string name="sourceUrlHelp">Ligazón que Lichess comprobará para obter actualizacións dos PGN. Debe ser publicamente accesíbel desde a Internet.</string>
-  <string name="gameIdsHelp">Alternativamente, podes introducir ata 64 identificadores de partida, separados por espazos.</string>
+  <string name="sourceGameIds">Até 64 identificadores de partidas de Lichess, separados por espazos.</string>
   <string name="startDate">Data de inicio na túa zona horaria</string>
   <string name="startDateHelp">Opcional, se sabes cando comeza o evento</string>
   <string name="credits">Cita a fonte</string>

@@ -44,6 +44,7 @@ themes = [
   ['kiwen-suwi', 'svg'],
   ['mpchess','svg'],
   ['cooke','svg'],
+  ['monarchy','svg'],
 ]
 types = {
   'svg' => 'svg+xml;base64,',

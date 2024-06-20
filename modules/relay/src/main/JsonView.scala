@@ -178,9 +178,8 @@ object JsonView:
         "log"     -> s.log.events
       )
       .add("delay" -> s.delay) ++
-      s.upstream.so {
+      s.upstream.so:
         case Sync.UpstreamUrl(url)        => Json.obj("url" -> url)
         case Sync.UpstreamLcc(url, round) => Json.obj("url" -> url, "round" -> round)
-        case Sync.UpstreamUrls(urls)      => Json.obj("urls" -> urls.map(_.url))
+        case Sync.UpstreamUrls(urls)      => Json.obj("urls" -> urls.map(_.formUrl))
         case Sync.UpstreamIds(ids)        => Json.obj("ids" -> ids)
-      }
