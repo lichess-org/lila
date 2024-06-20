@@ -194,7 +194,16 @@ final class RelationUi(helpers: Helpers):
               td(r.user.seenAt.map: seen =>
                 trans.site.lastSeenActive(momentFromNow(seen))),
               withActions.option:
-                td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false, signup = false, showText = false))
+                td(
+                  actions(
+                    r.user.light,
+                    relation = r.relation,
+                    followable = r.followable,
+                    blocked = false,
+                    signup = false,
+                    showText = false
+                  )
+                )
             ),
           pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )
