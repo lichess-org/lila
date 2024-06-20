@@ -99,7 +99,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
           standardFlash,
-          inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, create = true)
+          inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, round = none)
         )
 
     def edit(r: RelayRound, form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
@@ -108,7 +108,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         frag(
           boxTop(h1(a(href := rt.path)(rt.fullName))),
           standardFlash,
-          inner(form, routes.RelayRound.update(r.id), nav.tour, create = false),
+          inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
@@ -126,14 +126,17 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
         )
 
-    private def inner(form: Form[RelayRoundForm.Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(
-        using ctx: Context
-    ) =
+    private def inner(
+        form: Form[RelayRoundForm.Data],
+        url: play.api.mvc.Call,
+        t: RelayTour,
+        round: Option[RelayRound]
+    )(using ctx: Context) =
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
-            (create && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
+            (round.isEmpty && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
               p(dataIcon := Icon.InfoCircle, cls := "text"):
                 trb.theNewRoundHelp()
           )
@@ -163,34 +166,41 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             trb.sourceSingleUrl(),
             help = trb.sourceUrlHelp().some
           )(form3.input(_))(cls := "relay-form__sync relay-form__sync-url"),
-          div(cls := "relay-form__sync relay-form__sync-lcc none")(
-            (!Granter.opt(_.Relay)).option(
-              flashMessage("box")(
-                p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
-                p(
-                  "LiveChessCloud support is deprecated and will be removed soon.",
-                  br,
-                  "If you need help, please contact us at broadcast@lichess.org."
+          div(cls := "relay-form__sync relay-form__sync-lcc none"):
+            val lccUrl = round
+              .flatMap(_.sync.upstream)
+              .collect:
+                case lcc: RelayRound.Sync.UpstreamLcc => lcc.viewUrl
+            frag(
+              (!Granter.opt(_.Relay)).option(
+                flashMessage("box")(
+                  p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+                  p(
+                    "LiveChessCloud support is deprecated and will be removed soon.",
+                    br,
+                    "If you need help, please contact us at broadcast@lichess.org."
+                  )
                 )
+              ),
+              lccUrl.map(url => div(cls := "form-group")(a(href := url, targetBlank)(url))),
+              form3.split(
+                form3.group(
+                  form("syncLcc.id"),
+                  "Tournament ID",
+                  help = frag(
+                    "From the LCC page URL. The ID looks like this: ",
+                    pre("f1943ec6-4992-45d9-969d-a0aff688b404")
+                  ).some,
+                  half = true
+                )(form3.input(_)),
+                form3.group(
+                  form("syncLcc.round"),
+                  trb.roundNumber(),
+                  half = true
+                )(form3.input(_, typ = "number"))
               )
-            ),
-            form3.split(
-              form3.group(
-                form("syncLcc.id"),
-                "Tournament ID",
-                help = frag(
-                  "From the LCC page URL. The ID looks like this: ",
-                  pre("f1943ec6-4992-45d9-969d-a0aff688b404")
-                ).some,
-                half = true
-              )(form3.input(_)),
-              form3.group(
-                form("syncLcc.round"),
-                trb.roundNumber(),
-                half = true
-              )(form3.input(_, typ = "number"))
             )
-          ),
+          ,
           form3.group(
             form("syncUrls"),
             "Multiple source URLs, one per line.",
