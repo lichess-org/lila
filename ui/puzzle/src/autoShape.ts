@@ -1,4 +1,5 @@
 import { winningChances, CevalCtrl } from 'ceval';
+import { annotationShapes } from 'chess/glyphs';
 import { DrawModifiers, DrawShape } from 'chessground/draw';
 import { Api as CgApi } from 'chessground/api';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
@@ -6,6 +7,7 @@ import { NormalMove } from 'chessops/types';
 
 interface Opts {
   node: Tree.Node;
+  nodeList: Tree.Node[];
   showComputer(): boolean;
   ceval: CevalCtrl;
   ground: CgApi;
@@ -42,14 +44,8 @@ export default function (opts: Opts): DrawShape[] {
       let nextBest: Uci | undefined = opts.nextNodeBest();
       if (!nextBest && opts.ceval.enabled() && n.ceval) nextBest = n.ceval.pvs[0].moves[0];
       if (nextBest) shapes = shapes.concat(makeAutoShapesFromUci(color, nextBest, 'paleBlue'));
-      if (
-        opts.ceval.enabled() &&
-        n.ceval &&
-        n.ceval.pvs &&
-        n.ceval.pvs[1] &&
-        !(opts.threatMode() && n.threat && n.threat.pvs[2])
-      ) {
-        n.ceval.pvs.forEach(function (pv) {
+      if (opts.ceval.enabled() && n.ceval?.pvs?.[1] && !(opts.threatMode() && n.threat?.pvs[2])) {
+        n.ceval.pvs.forEach(pv => {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, n.ceval!.pvs[0], pv);
           if (shift > 0.2 || isNaN(shift) || shift < 0) return;
@@ -65,7 +61,7 @@ export default function (opts: Opts): DrawShape[] {
   if (opts.ceval.enabled() && opts.threatMode() && n.threat) {
     if (n.threat.pvs[1]) {
       shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'paleRed'));
-      n.threat.pvs.slice(1).forEach(function (pv) {
+      n.threat.pvs.slice(1).forEach(pv => {
         const shift = winningChances.povDiff(opposite(color), pv, n.threat!.pvs[0]);
         if (shift > 0.2 || isNaN(shift) || shift < 0) return;
         shapes = shapes.concat(
@@ -76,5 +72,20 @@ export default function (opts: Opts): DrawShape[] {
       });
     } else shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'red'));
   }
-  return shapes;
+  const feedback = feedbackAnnotation(n, opts.nodeList[opts.nodeList.length - 2]);
+  return shapes.concat(annotationShapes(n)).concat(feedback ? annotationShapes(feedback) : []);
+}
+
+function feedbackAnnotation(n: Tree.Node, prev?: Tree.Node): Tree.Node | undefined {
+  let glyph: Tree.Glyph | undefined;
+  const node = n.puzzle ? n : prev?.puzzle ? prev : undefined;
+  switch (node?.puzzle) {
+    case 'good':
+    case 'win':
+      glyph = { id: 7, name: 'good', symbol: '✓' };
+      break;
+    case 'fail':
+      glyph = { id: 4, name: 'fail', symbol: '✗' };
+  }
+  return node && glyph && { ...node, glyphs: [glyph] };
 }

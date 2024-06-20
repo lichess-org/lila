@@ -33,7 +33,7 @@ $c-shade: hsl(0, 0%, 30%);
 $c-inaccuracy: hsl(202, 78%, 62%);
 $c-mistake: hsl(41, 100%, 45%);
 $c-blunder: hsl(0, 69%, 60%);
-$c-good-move: hsl(130, 67%, 62%);
+$c-good: $c-secondary;
 $c-brilliant: hsl(129, 71%, 45%);
 $c-interesting: hsl(307, 80%, 70%);
 $c-dark: #333;
@@ -70,7 +70,7 @@ $c-clearer: #fff;
   --c-metal-top-hover: #{hsl($site-hue, 7%, 25%)};
   --c-metal-bottom-hover: #{hsl($site-hue, 5%, 22%)};
 
-  --c-font-dim: #{change-color($c-font, $lightness: 60%)};
+  --c-font-dim: #{change-color($c-font, $lightness: 55%)};
   --c-font-dimmer: #{change-color($c-font, $lightness: 42%)};
   --c-font-clear: #{change-color($c-font, $lightness: 80%)};
   --c-font-clearer: #{change-color($c-font, $lightness: 89%)};
@@ -119,7 +119,8 @@ $c-clearer: #fff;
   --c-inaccuracy: #{$c-inaccuracy};
   --c-mistake: #{$c-mistake};
   --c-blunder: #{$c-blunder};
-  --c-good-move: #{$c-good-move};
+  --c-good-move: #{$c-good};
   --c-brilliant: #{$c-brilliant};
   --c-interesting: #{$c-interesting};
+  --c-pool-button: #{hsla($site-hue, 7%, 19%, 66%)};
 }

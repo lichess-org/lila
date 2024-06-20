@@ -5,4 +5,4 @@ export lila.common.extensions.*
 
 private val logger = lila.log("teamSearch")
 
-val index = lila.search.spec.Index.Team
+val index = lila.search.Index.Team

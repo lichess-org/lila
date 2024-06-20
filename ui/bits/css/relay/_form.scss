@@ -28,6 +28,23 @@
     margin-bottom: 2em;
   }
 }
+
+#form3-grouping,
+#form3-players,
+#form3-teams {
+  font-family: monospace;
+}
+
+.flash-box {
+  border: 5px solid $m-brag_bg--mix-70;
+
+  &::before {
+    color: $c-brag;
+    content: $licon-InfoCircle;
+    font-size: 4em;
+  }
+}
+
 .relay-image {
   max-width: 100%;
   height: auto;
@@ -45,5 +62,31 @@
   }
   span {
     @extend %flex-between;
+  }
+}
+
+@include mq-subnav-side {
+  .relay-form__subnav__group {
+    display: block;
+    margin-bottom: 1em;
+    font-weight: bold;
+    color: $c-font-dimmer;
+  }
+  .relay-form__subnav__tour-parent {
+    background: $c-bg-box;
+    border-radius: $box-radius-size 0 0 $box-radius-size;
+  }
+  .subnav {
+    width: 30ch;
+    a {
+      white-space: wrap;
+    }
+    .subnav__subitem {
+      margin-left: 1em;
+    }
+    .subnav__subitem2 {
+      margin-left: 2em;
+      letter-spacing: 0px;
+    }
   }
 }

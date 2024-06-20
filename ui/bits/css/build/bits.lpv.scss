@@ -8,7 +8,7 @@
 }
 .lpv__gamebook {
   @extend %popup-shadow;
-  z-index: z('cg__board.overlay');
+  z-index: $z-cg__board_overlay-100;
   position: absolute;
   top: 50%;
   @include inline-start(50%);

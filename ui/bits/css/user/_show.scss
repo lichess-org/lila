@@ -22,26 +22,85 @@
   }
 
   &__social {
-    @extend %flex-between;
+    @extend %flex-between-nowrap;
 
     background: $c-bg-zebra;
 
     .number-menu {
+      flex: 0 1 auto;
+      overflow-x: auto;
       margin: 0 0 0.2em 1em;
     }
 
     .user-actions {
-      margin: 1em;
+      @extend %flex-center-nowrap;
+      flex: 0 0 auto;
+      margin: 0 1em 0 0.3em;
 
-      form {
-        display: inline;
+      .mod-zone-toggle,
+      .dropdown > a {
+        display: block;
+        font-size: 2em;
+        height: 1.5em;
+        color: $c-font-dim;
+        padding: 0 0.7em;
+      }
+      .mod-zone-toggle:hover {
+        color: $c-font-clear;
       }
     }
 
-    .relation-actions {
-      @extend %flex-center-nowrap;
+    .dropdown {
+      position: relative;
 
-      border-inline-end: $border;
+      .dropdown-window {
+        @extend %dropdown-shadow;
+        z-index: $z-link-overlay-2;
+        visibility: hidden;
+        background: $c-bg-header-dropdown;
+        border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
+        position: absolute;
+        top: 3rem;
+        @include inline-end(0);
+        body.blind-mode & {
+          visibility: visible;
+        }
+        a {
+          @extend %flex-center-nowrap;
+          width: 20em;
+          padding: 0.7rem 1rem;
+          color: $c-header-dropdown;
+          &::before {
+            margin-inline: 0 1rem;
+            font-size: 1.4em;
+          }
+          &:hover {
+            background: $c-primary;
+            &,
+            &::after {
+              color: $c-over;
+            }
+          }
+        }
+        > a {
+          &:first-child {
+            border-radius: $box-radius-size 0 0 0;
+          }
+          &:last-child {
+            @extend %box-radius-bottom;
+          }
+        }
+      }
+      &:hover {
+        > a {
+          @extend %box-radius-top, %dropdown-shadow;
+          background: $c-bg-header-dropdown;
+          color: $c-font-clear;
+        }
+        .dropdown-window {
+          visibility: visible;
+        }
+      }
     }
   }
 

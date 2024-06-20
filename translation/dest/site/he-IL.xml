@@ -72,6 +72,8 @@
   <string name="promoteVariation">העדפת וריאנט</string>
   <string name="makeMainLine">קביעה כוריאנט הראשי</string>
   <string name="deleteFromHere">מחיקה מכאן והלאה</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">הסתרת מהלכים חלופיים</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">הצגת מהלכים חלופיים</string>
   <string name="forceVariation">וריאנט יחיד</string>
   <string name="copyVariationPgn">העתקת ה-PGN של הוריאנט</string>
   <string name="move">מסע</string>
@@ -458,7 +460,7 @@
   <string name="orUploadPgnFile">או העלו קובץ PGN</string>
   <string name="fromPosition">מעמדה מסוימת</string>
   <string name="continueFromHere">המשיכו מכאן</string>
-  <string name="toStudy">הפכו ללוח למידה</string>
+  <string name="toStudy">לוח למידה</string>
   <string name="importGame">ייבוא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
   <string name="importGameCaveat">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>

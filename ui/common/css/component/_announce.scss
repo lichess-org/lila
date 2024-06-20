@@ -8,7 +8,7 @@
   background: $c-primary;
   color: $c-over;
   padding: 0.7rem 1rem;
-  z-index: z('tour-reminder');
+  z-index: $z-tour-reminder-104;
   width: 100%;
 
   @media (min-width: at-least($xx-small)) {

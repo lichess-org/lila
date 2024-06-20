@@ -57,6 +57,8 @@ export class LevelCtrl {
     readonly opts: LevelOpts,
     readonly redraw: () => void,
   ) {
+    timeouts.clearTimeouts();
+
     this.isAppleLevel = prop(blueprint.apples?.length > 0);
     this.items = makeItems({ apples: blueprint.apples });
     this.chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : this.items.appleKeys());

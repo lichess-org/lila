@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 import lila.common.Form.*
 import lila.core.i18n.Translate
-import lila.search.spec.{ Sorting as SpecSorting, Clocking, IntRange, DateRange, Query }
+import lila.search.spec.{ Sorting as SpecSorting, IntRange, DateRange, Query }
 import smithy4s.Timestamp
 
 final private[gameSearch] class GameSearchForm:
@@ -91,16 +91,16 @@ private[gameSearch] case class SearchData(
     source = source,
     rated = mode.flatMap(Mode.apply).map(_.rated),
     status = status,
-    turns = IntRange(turnsMin, turnsMax).some,
-    averageRating = IntRange(ratingMin, ratingMax).some,
+    turns = IntRange(turnsMin, turnsMax),
+    averageRating = IntRange(ratingMin, ratingMax),
     hasAi = hasAi.map(_ == 1),
-    aiLevel = IntRange(aiLevelMin, aiLevelMax).some,
-    date = DateRange(dateMin.map(transform), dateMax.map(transform)).some,
-    duration = IntRange(durationMin, durationMax).some,
+    aiLevel = IntRange(aiLevelMin, aiLevelMax),
+    date = DateRange(dateMin.map(transform), dateMax.map(transform)),
+    duration = IntRange(durationMin, durationMax),
     analysed = analysed.map(_ == 1),
     whiteUser = players.cleanWhite.map(_.value),
     blackUser = players.cleanBlack.map(_.value),
-    sorting = SpecSorting(sortOrDefault.field, sortOrDefault.order).some,
+    sorting = SpecSorting(sortOrDefault.field, sortOrDefault.order),
     clockInit = clockInit,
     clockInc = clockInc
   )

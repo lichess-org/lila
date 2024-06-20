@@ -70,6 +70,8 @@
   <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
+  <string name="collapseVariations">بستن شاخه‌ها</string>
+  <string name="expandVariations">باز کردن شاخه‌ها</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
@@ -147,8 +149,8 @@
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s نفر بازیکن آنلاین</item>
-    <item quantity="other">%s نفر بازیکن آنلاین</item>
+    <item quantity="one">%s بازیکن</item>
+    <item quantity="other">%s بازیکن</item>
   </plurals>
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
   <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>

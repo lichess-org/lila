@@ -33,16 +33,17 @@ final class Study(
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
       if text.trim.isEmpty then
-        env.study.pager
-          .all(Orders.default, page)
-          .flatMap: pag =>
-            preloadMembers(pag) >> negotiate(
-              Ok.page(views.study.list.all(pag, Orders.default)),
-              apiStudies(pag)
-            )
+        for
+          pag <- env.study.pager.all(Orders.default, page)
+          _   <- preloadMembers(pag)
+          res <- negotiate(
+            Ok.page(views.study.list.all(pag, Orders.default)),
+            apiStudies(pag)
+          )
+        yield res
       else
         env
-          .studySearch(ctx.me)(text, page)
+          .studySearch(ctx.me)(text.take(100), page)
           .flatMap: pag =>
             negotiate(
               Ok.page(views.study.list.search(pag, text)),
@@ -62,13 +63,14 @@ final class Study(
         case order if !Orders.withoutSelector.contains(order) =>
           Redirect(routes.Study.allDefault(page))
         case order =>
-          env.study.pager
-            .all(order, page)
-            .flatMap: pag =>
-              preloadMembers(pag) >> negotiate(
-                Ok.page(views.study.list.all(pag, order)),
-                apiStudies(pag)
-              )
+          for
+            pag <- env.study.pager.all(order, page)
+            _   <- preloadMembers(pag)
+            res <- negotiate(
+              Ok.page(views.study.list.all(pag, order)),
+              apiStudies(pag)
+            )
+          yield res
 
   def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Orders.default, page)
 
@@ -83,50 +85,55 @@ final class Study(
           )
 
   def mine(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager
-      .mine(order, page)
-      .flatMap: pag =>
-        preloadMembers(pag) >> negotiate(
-          env.study.topicApi.userTopics(me).flatMap { topics =>
-            Ok.page(views.study.list.mine(pag, order, topics))
-          },
-          apiStudies(pag)
-        )
+    for
+      pag <- env.study.pager.mine(order, page)
+      _   <- preloadMembers(pag)
+      res <- negotiate(
+        env.study.topicApi.userTopics(me).flatMap { topics =>
+          Ok.page(views.study.list.mine(pag, order, topics))
+        },
+        apiStudies(pag)
+      )
+    yield res
   }
 
   def minePublic(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager
-      .minePublic(order, page)
-      .flatMap: pag =>
-        preloadMembers(pag) >> negotiate(
-          Ok.page(views.study.list.minePublic(pag, order)),
-          apiStudies(pag)
-        )
+    for
+      pag <- env.study.pager.minePublic(order, page)
+      _   <- preloadMembers(pag)
+      res <- negotiate(
+        Ok.page(views.study.list.minePublic(pag, order)),
+        apiStudies(pag)
+      )
+    yield res
   }
 
   def minePrivate(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager
-      .minePrivate(order, page)
-      .flatMap: pag =>
-        preloadMembers(pag) >> negotiate(
-          Ok.page(views.study.list.minePrivate(pag, order)),
-          apiStudies(pag)
-        )
+    for
+      pag <- env.study.pager.minePrivate(order, page)
+      _   <- preloadMembers(pag)
+      res <- negotiate(
+        Ok.page(views.study.list.minePrivate(pag, order)),
+        apiStudies(pag)
+      )
+    yield res
+
   }
 
   def mineMember(order: Order, page: Int) = Auth { ctx ?=> me ?=>
-    env.study.pager
-      .mineMember(order, page)
-      .flatMap: pag =>
-        preloadMembers(pag) >> negotiate(
-          Ok.async:
-            env.study.topicApi
-              .userTopics(me)
-              .map:
-                views.study.list.mineMember(pag, order, _)
-          ,
-          apiStudies(pag)
-        )
+    for
+      pag <- env.study.pager.mineMember(order, page)
+      _   <- preloadMembers(pag)
+      res <- negotiate(
+        Ok.async:
+          env.study.topicApi
+            .userTopics(me)
+            .map:
+              views.study.list.mineMember(pag, order, _)
+        ,
+        apiStudies(pag)
+      )
+    yield res
   }
 
   def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me ?=>
@@ -327,9 +334,8 @@ final class Study(
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
     env.study.api
       .isOwnerOrAdmin(id, me)
-      .flatMapz {
+      .flatMapz:
         env.chat.api.userChat.clear(id.into(ChatId))
-      }
       .inject(Redirect(routes.Study.show(id)))
   }
 
@@ -339,12 +345,7 @@ final class Study(
     val chapterDatas = data.toChapterDatas
     limit.studyPgnImport(me, rateLimited, cost = chapterDatas.size):
       env.study.api
-        .importPgns(
-          id,
-          chapterDatas,
-          sticky = data.sticky,
-          ctx.pref.showRatings
-        )(Who(me, sri))
+        .importPgns(id, chapterDatas, sticky = data.sticky, ctx.pref.showRatings)(Who(me, sri))
         .map(f)
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>

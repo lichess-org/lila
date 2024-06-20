@@ -133,10 +133,12 @@ textarea.form-control {
 
 .form-fieldset {
   @extend %box-radius;
-  margin: 1.5em 0;
+  margin: 1rem 0 3rem 0;
   border-color: rgba(128, 128, 128, 0.3);
+  padding: 2rem 2rem 0 2rem;
 
   legend {
+    padding: 0 1em;
     text-align: center;
     font-style: italic;
     font-size: 1.2em;

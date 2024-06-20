@@ -43,7 +43,7 @@ class LilaSearchClient(client: SearchClient, writeable: Boolean)(using Executor)
             logger.info(s"Count error: query={$query}", e)
             CountOutput(0)
 
-  override def search(query: Query, from: Int, size: Int): Future[SearchOutput] =
+  override def search(query: Query, from: From, size: Size): Future[SearchOutput] =
     monitor("search", query.index):
       client
         .search(query, from, size)

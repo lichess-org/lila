@@ -6,6 +6,7 @@ import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.relay.RelayTour.WithLastRound
 import lila.core.LightUser
+import play.api.libs.json.Json
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   import helpers.{ *, given }
@@ -22,7 +23,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map:
-          card.render(_, ongoing = _.ongoing)
+          card.render(_, live = _.display.hasStarted)
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
@@ -40,7 +41,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
                 h2(cls := "relay-index__section")("Upcoming broadcasts"),
                 st.section(cls := "relay-cards relay-cards--upcoming"):
                   upcoming.map:
-                    card.render(_, ongoing = _ => false)
+                    card.render(_, live = _ => false)
               )
             ),
             h2(cls := "relay-index__section")("Past broadcasts"),
@@ -101,6 +102,16 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         )
       )
 
+  def stats(t: RelayTour, stats: List[RelayStats.RoundStats])(using Context) =
+    import JsonView.given
+    Page(s"${t.name.value} - Stats")
+      .css("bits.relay.index")
+      .js(PageModule("bits.relayStats", Json.obj("rounds" -> stats))):
+        main(cls := "relay-tour page box box-pad")(
+          boxTop(h1(a(href := routes.RelayTour.show(t.slug, t.id).url)(t.name), " - Stats")),
+          "Here, a graph shows the number of viewers over time."
+        )
+
   def page(title: String, pageBody: Frag, active: String)(using Context): Page =
     Page(title)
       .css("bits.page")
@@ -146,24 +157,24 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     )
 
   private object card:
-    private def link(t: RelayTour, url: String, ongoing: Boolean) = a(
+    private def link(t: RelayTour, url: String, live: Boolean) = a(
       href := url,
       cls := List(
-        "relay-card"          -> true,
-        "relay-card--active"  -> t.active,
-        "relay-card--ongoing" -> ongoing
+        "relay-card"         -> true,
+        "relay-card--active" -> t.active,
+        "relay-card--live"   -> live
       )
     )
     private def image(t: RelayTour) = t.image.fold(ui.thumbnail.fallback(cls := "relay-card__image")): id =>
       img(cls := "relay-card__image", src := ui.thumbnail.url(id, _.Size.Small))
 
-    def render[A <: RelayRound.AndTourAndGroup](tr: A, ongoing: A => Boolean)(using Context) =
-      link(tr.tour, tr.path, ongoing(tr))(
+    def render[A <: RelayRound.AndTourAndGroup](tr: A, live: A => Boolean)(using Context) =
+      link(tr.tour, tr.path, live(tr))(
         image(tr.tour),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(
             tr.tour.active.option(span(cls := "relay-card__round")(tr.display.name)),
-            if ongoing(tr)
+            if live(tr)
             then
               span(cls := "relay-card__live")(
                 "LIVE",
@@ -204,7 +215,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def renderPager(pager: Paginator[RelayTour | WithLastRound])(next: Int => Call)(using Context): Tag =
     st.section(cls := "infinite-scroll relay-cards")(
       pager.currentPageResults.map:
-        case w: WithLastRound => card.render(w, ongoing = _ => false)(cls := "paginated")
+        case w: WithLastRound => card.render(w, live = _ => false)(cls := "paginated")
         case t: RelayTour     => card.empty(t)(cls := "paginated")
       ,
       pagerNext(pager, next(_).url)

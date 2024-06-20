@@ -285,6 +285,13 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('boards', 'Boards'),
     relay.teams && makeTab('teams', 'Teams'),
     relay.data.tour.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
+    // study.members.myMember()
+    //   ? h(
+    //       'a.text',
+    //       { attrs: { ...dataIcon(licon.LineGraph), href: `/broadcast/${relay.data.tour.id}/stats` } },
+    //       'Popularity stats',
+    //     )
+    //   : undefined,
   ]);
 };
 

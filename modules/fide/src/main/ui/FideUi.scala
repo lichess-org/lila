@@ -111,6 +111,30 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         playerList(players, np => routes.Fide.index(np, query.some.filter(_.nonEmpty)))
       )
 
+    def notFound(id: chess.FideId)(using Context) =
+      page("FIDE player not found", "players")(
+        cls := "fide-players",
+        boxTop(
+          h1("FIDE player not found"),
+          div(cls := "box__top__actions"):
+            searchForm("")
+        ),
+        div(cls := "box__pad")(
+          p(
+            "We could not find anyone with the FIDE ID \"",
+            strong(id),
+            "\", please make sure the number is correct."
+          ),
+          p(
+            "If the player appears on the ",
+            a(href := "https://ratings.fide.com/", targetBlank)("official FIDE website"),
+            ", then the player was not included in the latest rating export from FIDE.",
+            br,
+            "FIDE exports are provided once a month and includes players who have at least one official rating."
+          )
+        )
+      )
+
     def searchForm(q: String) =
       st.form(cls := "fide-players__search-form", action := routes.Fide.index(1), method := "get")(
         input(
@@ -188,7 +212,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
           ),
           tcTrans.map: (tc, name) =>
             card(name(), player.ratingOf(tc).fold("Unrated")(_.toString)),
-          tours.map: tours =>
-            div(cls := "fide-player__tours")(h2("Recent tournaments"), tours)
-        )
+        ),
+        tours.map: tours =>
+          div(cls := "fide-player__tours")(h2("Recent tournaments"), tours)
       )

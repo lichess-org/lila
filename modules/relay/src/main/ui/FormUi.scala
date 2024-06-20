@@ -8,40 +8,109 @@ import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
 import lila.core.id.ImageId
 
+case class FormNavigation(
+    group: Option[RelayGroup.WithTours],
+    tour: RelayTour,
+    rounds: List[RelayRound],
+    round: Option[RelayRoundId],
+    newRound: Boolean = false
+):
+  def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
+  def tourWithRounds = RelayTour.WithRounds(tour, rounds)
+
 final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   import helpers.{ *, given }
   import trans.{ broadcast as trb }
 
-  object round:
+  private def navigationMenu(nav: FormNavigation)(using Context) =
+    def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
+      a(
+        href := routes.RelayTour.edit(nav.tour.id),
+        cls := List(
+          "relay-form__subnav__tour-parent" -> shortName.isDefined,
+          "active"                          -> (nav.round.isEmpty && !nav.newRound)
+        )
+      )(
+        shortName.fold(frag(nav.tour.name))(strong(_))
+      ),
+      frag(
+        nav.rounds.map: r =>
+          a(
+            href := routes.RelayRound.edit(r.id),
+            cls  := List("subnav__subitem text" -> true, "active" -> nav.round.has(r.id)),
+            dataIcon := (
+              if r.finished then Icon.Checkmark
+              else if r.hasStarted then Icon.DiscBig
+              else Icon.DiscOutline
+            )
+          )(r.name),
+        a(
+          href     := routes.RelayRound.create(nav.tour.id),
+          cls      := List("subnav__subitem text" -> true, "active" -> nav.newRound),
+          dataIcon := Icon.PlusButton
+        )(trb.addRound())
+      )
+    )
+    lila.ui.bits.pageMenuSubnav(
+      cls := "relay-form__subnav",
+      nav.group match
+        case None => tourAndRounds(none)
+        case Some(g) =>
+          frag(
+            span(cls := "relay-form__subnav__group")(g.group.name),
+            g.withShorterTourNames.tours.map: t =>
+              if nav.tour.id == t.id then tourAndRounds(t.name.some)
+              else a(href := routes.RelayTour.edit(t.id), cls := List("subnav__item" -> true))(t.name)
+          )
+    )
 
-    private def page(title: String)(using Context) =
-      Page(title)
-        .css("bits.relay.form")
-        .js(EsmInit("bits.flatpickr"))
-        .wrap: body =>
-          main(cls := "page-small box box-pad")(body)
-
-    def create(form: Form[RelayRoundForm.Data], tour: RelayTour)(using Context) =
-      page(trans.broadcast.newBroadcast.txt()):
-        frag(
-          boxTop(h1(a(href := routes.RelayTour.edit(tour.id))(tour.name), " • ", trans.broadcast.addRound())),
-          standardFlash,
-          inner(form, routes.RelayRound.create(tour.id), tour, create = true)
+  def noAccess(nav: FormNavigation)(using Context) =
+    Page("Insufficient permissions")
+      .css("bits.relay.form")
+      .wrap: body =>
+        main(cls := "page page-menu")(
+          navigationMenu(nav),
+          div(cls := "page-menu__content box box-pad")(
+            boxTop(h1("Insufficient permissions")),
+            p("You are not allowed to edit this broadcast or round.")
+          )
         )
 
-    def edit(rt: RelayRound.WithTour, form: Form[RelayRoundForm.Data])(using Context) =
-      page(rt.fullName):
+  object round:
+
+    private def page(title: String, nav: FormNavigation)(using Context) =
+      Page(title)
+        .css("bits.relay.form")
+        .js(List(EsmInit("bits.flatpickr"), EsmInit("bits.relayForm")).map(some))
+        .wrap: body =>
+          main(cls := "page page-menu")(
+            navigationMenu(nav),
+            div(cls := "page-menu__content box box-pad")(body)
+          )
+
+    def create(form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
+      page(trans.broadcast.newBroadcast.txt(), nav.copy(newRound = true)):
         frag(
           boxTop(
-            h1(dataIcon := Icon.Pencil, cls := "text")(
-              a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name),
-              " • ",
-              a(href := rt.path)(rt.round.name)
+            h1(
+              a(href := routes.RelayTour.edit(nav.tour.id))(nav.tour.name),
+              " / ",
+              trans.broadcast.addRound()
             )
           ),
-          inner(form, routes.RelayRound.update(rt.round.id), rt.tour, create = false),
+          standardFlash,
+          inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, create = true)
+        )
+
+    def edit(r: RelayRound, form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
+      page(r.name.value, nav):
+        val rt = r.withTour(nav.tour)
+        frag(
+          boxTop(h1(a(href := rt.path)(rt.fullName))),
+          standardFlash,
+          inner(form, routes.RelayRound.update(r.id), nav.tour, create = false),
           div(cls := "relay-form__actions")(
-            postForm(action := routes.RelayRound.reset(rt.round.id))(
+            postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
                 cls := "button button-red button-empty confirm"
               )(
@@ -49,7 +118,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 em(trb.deleteAllGamesOfThisRound())
               )
             ),
-            postForm(action := routes.Study.delete(rt.round.studyId))(
+            postForm(action := routes.Study.delete(r.studyId))(
               submitButton(
                 cls := "button button-red button-empty confirm"
               )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
@@ -60,14 +129,15 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def inner(form: Form[RelayRoundForm.Data], url: play.api.mvc.Call, t: RelayTour, create: Boolean)(
         using ctx: Context
     ) =
-      val isLcc = form("syncUrl").value.exists(RelayRound.Sync.UpstreamUrl.LccRegex.matches)
       postForm(cls := "form3", action := url)(
-        div(cls := "form-group")(
-          ui.howToUse,
-          (create && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
-            p(dataIcon := Icon.InfoCircle, cls := "text"):
-              trb.theNewRoundHelp()
-        ),
+        (!Granter.opt(_.StudyAdmin)).option:
+          div(cls := "form-group")(
+            div(cls := "form-group")(ui.howToUse),
+            (create && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
+              p(dataIcon := Icon.InfoCircle, cls := "text"):
+                trb.theNewRoundHelp()
+          )
+        ,
         form3.globalError(form),
         form3.split(
           form3.group(form("name"), trb.roundName(), half = true)(form3.input(_)(autofocus)),
@@ -83,25 +153,101 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 form3.input(_)
             )
         ),
-        form3.group(
-          form("syncUrl"),
-          trb.sourceUrlOrGameIds(),
-          help = frag(
-            trb.sourceUrlHelp(),
-            br,
-            trb.gameIdsHelp(),
-            br,
-            "Or leave empty to push games from another program."
-          ).some
-        )(form3.input(_)),
-        form3
-          .group(
-            form("syncUrlRound"),
-            trb.roundNumber(),
-            help = frag("Only for livechesscloud source URLs").some
-          )(
-            form3.input(_, typ = "number")
-          )(cls := (!isLcc).option("none")),
+        form3.fieldset("Source")(cls := "box-pad")(
+          form3.group(
+            form("syncSource"),
+            "Where do the games come from?"
+          )(form3.select(_, RelayRoundForm.sourceTypes)),
+          form3.group(
+            form("syncUrl"),
+            trb.sourceSingleUrl(),
+            help = trb.sourceUrlHelp().some
+          )(form3.input(_))(cls := "relay-form__sync relay-form__sync-url"),
+          div(cls := "relay-form__sync relay-form__sync-lcc none")(
+            (!Granter.opt(_.Relay)).option(
+              flashMessage("box")(
+                p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+                p(
+                  "LiveChessCloud support is deprecated and will be removed soon.",
+                  br,
+                  "If you need help, please contact us at broadcast@lichess.org."
+                )
+              )
+            ),
+            form3.split(
+              form3.group(
+                form("syncLcc.id"),
+                "Tournament ID",
+                help = frag(
+                  "From the LCC page URL. The ID looks like this: ",
+                  pre("f1943ec6-4992-45d9-969d-a0aff688b404")
+                ).some,
+                half = true
+              )(form3.input(_)),
+              form3.group(
+                form("syncLcc.round"),
+                trb.roundNumber(),
+                half = true
+              )(form3.input(_, typ = "number"))
+            )
+          ),
+          form3.group(
+            form("syncUrls"),
+            "Multiple source URLs, one per line.",
+            help = frag("The games will be combined in the order of the URLs.").some,
+            half = false
+          )(form3.textarea(_)(rows := 5))(cls := "relay-form__sync relay-form__sync-urls none"),
+          form3.group(
+            form("syncIds"),
+            trb.sourceGameIds(),
+            half = false
+          )(form3.input(_))(cls := "relay-form__sync relay-form__sync-ids none"),
+          div(cls := "form-group relay-form__sync relay-form__sync-push none")(
+            p(
+              "Send your local games to Lichess using ",
+              a(href := "https://github.com/lichess-org/broadcaster")(lila.relay.broadcasterUrl),
+              "."
+            )
+          ),
+          form3.split(cls := "relay-form__sync relay-form__sync-url relay-form__sync-urls none")(
+            form3.group(
+              form("onlyRound"),
+              raw("Filter games by round number"),
+              help = frag(
+                "Optional, only keep games from the source that match a round number.",
+                br,
+                "It uses the PGN ",
+                strong("Round"),
+                " tag. These would match round 3:",
+                pre(
+                  """[Round "3"]
+[Round "3.1"]"""
+                ),
+                "If you set a round number, then games without a ",
+                strong("Round"),
+                " tag are dropped."
+              ).some,
+              half = true
+            )(form3.input(_, typ = "number")),
+            form3.group(
+              form("slices"),
+              raw("Select slices of the games"),
+              help = frag(
+                "Optional. Select games based on their position in the source.",
+                br,
+                pre("""
+1           only select the first board
+1-4         only select the first 4 boards
+1,2,3,4     same as above, first 4 boards
+11-15,21-25 boards 11 to 15, and boards 21 to 25
+2,3,7-9     boards 2, 3, 7, 8, and 9
+"""),
+                "Slicing is done after filtering by round number."
+              ).some,
+              half = true
+            )(form3.input(_))
+          )
+        ),
         form3.split(
           form3.group(
             form("startsAt"),
@@ -146,21 +292,18 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 
   object tour:
 
-    private def page(title: String, menu: Option[String])(using Context) =
+    private def page(title: String, menu: Either[String, FormNavigation])(using Context) =
       Page(title)
         .css("bits.relay.form")
         .js(EsmInit("bits.relayForm"))
         .wrap: body =>
-          menu match
-            case Some(active) =>
-              main(cls := "page page-menu")(
-                tourUi.pageMenu(active),
-                div(cls := "page-menu__content box box-pad")(body)
-              )
-            case None => main(cls := "page-small box box-pad")(body)
+          main(cls := "page page-menu")(
+            menu.fold(tourUi.pageMenu(_), navigationMenu),
+            div(cls := "page-menu__content box box-pad")(body)
+          )
 
     def create(form: Form[lila.relay.RelayTourForm.Data])(using Context) =
-      page(trans.broadcast.newBroadcast.txt(), menu = "new".some):
+      page(trans.broadcast.newBroadcast.txt(), menu = Left("new")):
         frag(
           boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trans.broadcast.newBroadcast())),
           postForm(cls := "form3", action := routes.RelayTour.create)(
@@ -172,23 +315,20 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
         )
 
-    def edit(tg: RelayTour.WithGroupTours, form: Form[RelayTourForm.Data])(using Context) =
-      page(tg.tour.name.value, menu = none):
+    def edit(form: Form[RelayTourForm.Data], nav: FormNavigation)(using Context) =
+      page(nav.tour.name.value, menu = Right(nav)):
         frag(
-          boxTop:
-            h1(dataIcon := Icon.Pencil, cls := "text"):
-              a(href := routes.RelayTour.show(tg.tour.slug, tg.tour.id))(tg.tour.name)
-          ,
-          image(tg.tour),
-          postForm(cls := "form3", action := routes.RelayTour.update(tg.tour.id))(
-            inner(form, tg.some),
+          boxTop(h1(a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(nav.tour.name))),
+          image(nav.tour),
+          postForm(cls := "form3", action := routes.RelayTour.update(nav.tour.id))(
+            inner(form, nav.tourWithGroup.some),
             form3.actions(
-              a(href := routes.RelayTour.show(tg.tour.slug, tg.tour.id))(trans.site.cancel()),
+              a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trans.site.cancel()),
               form3.submit(trans.site.apply())
             )
           ),
           div(cls := "relay-form__actions")(
-            postForm(action := routes.RelayTour.delete(tg.tour.id))(
+            postForm(action := routes.RelayTour.delete(nav.tour.id))(
               submitButton(
                 cls := "button button-red button-empty confirm"
               )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
@@ -196,7 +336,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             Granter
               .opt(_.Relay)
               .option(
-                postForm(action := routes.RelayTour.cloneTour(tg.tour.id))(
+                postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
                     cls := "button button-green button-empty confirm"
                   )(
@@ -210,7 +350,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 
     private def inner(form: Form[RelayTourForm.Data], tg: Option[RelayTour.WithGroupTours])(using Context) =
       frag(
-        div(cls := "form-group")(ui.howToUse),
+        (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
         form3.split(
           form3.group(form("name"), trb.tournamentName(), half = true)(form3.input(_)(autofocus)),
@@ -264,11 +404,13 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               br,
               """"Jorge Rick Vito" will match "Jorge Rick", "jorge vito", "Rick, Vito", etc.""",
               br,
+              "If the player is NM or WNM, you can:",
+              pre("""Player Name = FIDE ID / Title"""),
               "Alternatively, you may set tags manually, like so:",
               pre("player name / rating / title / new name"),
               "All values are optional. Example:",
               pre("""Magnus Carlsen / 2863 / GM
-  YouGotLittUp / 1890 / / Louis Litt""")
+YouGotLittUp / 1890 / / Louis Litt""")
             ).some,
             half = true
           )(form3.textarea(_)(rows := 3)),
@@ -280,7 +422,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               pre("Team name; Fide Id or Player name"),
               "Example:",
               pre("""Team Cats ; 3408230
-  Team Dogs ; Scooby Doo"""),
+Team Dogs ; Scooby Doo"""),
               "By default the PGN tags WhiteTeam and BlackTeam are used."
             ).some,
             half = true
@@ -320,77 +462,80 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                   form3.select(_, langList.popularLanguagesForm.choices)
               ),
               tg.map: t =>
-                div(
-                  cls              := "relay-pinned-streamer-edit",
-                  data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                )(
+                details(
+                  summary("Pinned streamer"),
                   div(
-                    form3.group(
-                      form("pinnedStreamer"),
-                      "Pinned streamer",
-                      help = frag(
-                        p("The pinned streamer is featured even when they're not watching the broadcast."),
-                        p("An optional placeholder image will embed their stream when clicked."),
-                        p(
-                          "To upload one, you must first submit this form with a pinned streamer. "
-                            + "Then return to this page and choose an image."
-                        )
-                      ).some
-                    )(form3.input(_)),
-                    span(
-                      button(tpe := "button", cls := "button streamer-select-image")("select image"),
-                      button(
-                        tpe              := "button",
-                        cls              := "button button-empty button-red streamer-delete-image",
-                        data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                      )("delete image")
-                    )
-                  ),
-                  ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
-                    cls := List(
-                      "streamer-drop-target" -> true,
-                      "user-image"           -> t.tour.pinnedStreamerImage.isDefined
+                    cls              := "relay-pinned-streamer-edit",
+                    data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+                  )(
+                    div(
+                      form3.group(
+                        form("pinnedStreamer"),
+                        "Pinned streamer",
+                        help = frag(
+                          p("The pinned streamer is featured even when they're not watching the broadcast."),
+                          p("An optional placeholder image will embed their stream when clicked."),
+                          p(
+                            "To upload one, you must first submit this form with a pinned streamer. "
+                              + "Then return to this page and choose an image."
+                          )
+                        ).some
+                      )(form3.input(_)),
+                      span(
+                        button(tpe := "button", cls := "button streamer-select-image")("select image"),
+                        button(
+                          tpe              := "button",
+                          cls              := "button button-empty button-red streamer-delete-image",
+                          data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+                        )("delete image")
+                      )
                     ),
-                    attr("draggable") := "true"
+                    ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
+                      cls := List(
+                        "streamer-drop-target" -> true,
+                        "user-image"           -> t.tour.pinnedStreamerImage.isDefined
+                      ),
+                      attr("draggable") := "true"
+                    )
                   )
                 )
             )
           )
       )
 
-    private def image(t: RelayTour)(using ctx: Context) =
-      div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
-        ui.thumbnail(t.image, _.Size.Small)(
-          cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
-          attr("draggable") := "true"
+  private def image(t: RelayTour)(using ctx: Context) =
+    div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
+      ui.thumbnail(t.image, _.Size.Small)(
+        cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
+        attr("draggable") := "true"
+      ),
+      div(
+        p("Upload a beautiful image to represent your tournament."),
+        p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
+        p(
+          "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
         ),
-        div(
-          p("Upload a beautiful image to represent your tournament."),
-          p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
-          p(
-            "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
-          ),
-          p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-          form3.file.selectImage()
-        )
+        p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
+        form3.file.selectImage()
       )
+    )
 
-    def grouping(form: Form[RelayTourForm.Data])(using Context) =
-      form3.split(cls := "relay-form__grouping")(
-        form3.group(
-          form("grouping"),
-          "Optional: assign tournaments to a group",
-          half = true
-        )(form3.textarea(_)(rows := 5)),
-        div(cls := "form-group form-half form-help")( // do not translate
-          "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
-          br,
-          "You can add, remove, and re-order tournaments; and you can rename the group.",
-          br,
-          "Example:",
-          pre("""Youth Championship 2024
-  tour1-id Youth Championship 2024 | G20
-  tour2-id Youth Championship 2024 | G16
-  """)
-        )
+  private def grouping(form: Form[RelayTourForm.Data])(using Context) =
+    form3.split(cls := "relay-form__grouping")(
+      form3.group(
+        form("grouping"),
+        "Optional: assign tournaments to a group",
+        half = true
+      )(form3.textarea(_)(rows := 5)),
+      div(cls := "form-group form-half form-help")( // do not translate
+        "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
+        br,
+        "You can add, remove, and re-order tournaments; and you can rename the group.",
+        br,
+        "Example:",
+        pre("""Youth Championship 2024
+tour1-id Youth Championship 2024 | G20
+tour2-id Youth Championship 2024 | G16
+""")
       )
+    )

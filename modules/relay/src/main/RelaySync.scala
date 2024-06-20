@@ -20,7 +20,7 @@ final private class RelaySync(
     study    <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
     chapters <- chapterRepo.orderedByStudyLoadingAllInMemory(study.id)
     games = RelayInputSanity.fixGames(rawGames)
-    plan  = RelayUpdatePlan(chapters, games).output
+    plan  = RelayUpdatePlan(chapters, games)
     _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
       updateChapter(rt.tour, study, game, chapter)

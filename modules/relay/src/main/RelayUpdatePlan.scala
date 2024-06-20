@@ -9,15 +9,13 @@ object RelayUpdatePlan:
     override def toString: String =
       s"Input(chapters = ${chapters.map(_.name)}, games = ${games.map(_.tags.names)})"
 
-  case class Output(
+  case class Plan(
       reorder: Option[List[StudyChapterId]],
       update: List[(Chapter, RelayGame)],
       append: RelayGames
   ):
     override def toString: String =
       s"Output(reorder = $reorder, update = ${update.map(_._1.name)}, append = ${append.map(_.tags.names)})"
-
-  case class Plan(input: Input, output: Output)
 
   def apply(chapters: List[Chapter], games: RelayGames): Plan =
     apply(Input(chapters, games))
@@ -52,9 +50,8 @@ object RelayUpdatePlan:
       val ids = updates.map(_._1.id)
       Option.when(ids.size == chapters.size && ids != chapters.map(_.id))(ids)
 
-    val output = Output(
+    Plan(
       reorder = reorder,
       update = updates,
       append = appends
     )
-    Plan(input, output)

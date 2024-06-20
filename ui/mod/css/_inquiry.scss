@@ -34,7 +34,7 @@ body.no-inquiry {
   top: 0;
   left: 0;
   right: 0;
-  z-index: z('inquiry');
+  z-index: $z-inquiry-112;
 
   .costello {
     flex: 0 0 160px;

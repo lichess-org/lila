@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Sinulla on 30 sekuntia aikaa paikantaa niin monta ruutua kuin ehdit!</string>
   <string name="goAsLongAsYouWant">Tee sitä kaikessa rauhassa, aikarajaa ei ole!</string>
   <string name="showCoordinates">Näytä koordinaatit</string>
+  <string name="showCoordsOnAllSquares">Koordinaatit jokaisessa ruudussa</string>
   <string name="showPieces">Näytä nappulat</string>
   <string name="startTraining">Aloita harjoitus</string>
   <string name="findSquare">Etsi ruutu</string>

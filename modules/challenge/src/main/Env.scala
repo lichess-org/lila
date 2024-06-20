@@ -50,7 +50,7 @@ final class Env(
 
   lazy val api = wire[ChallengeApi]
 
-  private lazy val socket = wire[ChallengeSocket]
+  private val socket = wire[ChallengeSocket]
 
   lazy val granter = wire[ChallengeGranter]
 

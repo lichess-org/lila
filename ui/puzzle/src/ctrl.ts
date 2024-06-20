@@ -255,7 +255,10 @@ export default class PuzzleCtrl implements ParentCtrl {
     return config;
   };
 
-  showGround = (g: CgApi): void => g.set(this.makeCgOpts());
+  showGround = (g: CgApi): void => {
+    g.set(this.makeCgOpts());
+    this.setAutoShapes();
+  };
 
   pluginMove = (orig: Key, dest: Key, role?: Role) => {
     if (role) this.playUserMove(orig, dest, role);
@@ -318,6 +321,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.withGround(g => g.playPremove());
 
     const progress = moveTest(this);
+    this.setAutoShapes();
     if (progress === 'fail') site.sound.say('incorrect');
     if (progress) this.applyProgress(progress);
     this.reorderChildren(path);
@@ -346,7 +350,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   revertUserMove = (): void => {
     if (site.blindMode) this.instantRevertUserMove();
-    else setTimeout(this.instantRevertUserMove, 100);
+    else setTimeout(this.instantRevertUserMove, 300);
   };
 
   applyProgress = (progress: undefined | 'fail' | 'win' | MoveTest): void => {
@@ -428,7 +432,10 @@ export default class PuzzleCtrl implements ParentCtrl {
   private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
   nextPuzzle = (): void => {
-    if (this.streak && this.lastFeedback != 'win') return;
+    if (this.streak && this.lastFeedback != 'win') {
+      if (this.lastFeedback == 'fail') site.redirect(router.withLang('/streak'));
+      return;
+    }
     if (this.mode !== 'view') return;
 
     this.ceval.stop();

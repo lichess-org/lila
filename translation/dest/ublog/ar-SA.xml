@@ -64,4 +64,5 @@
   <string name="inappropriateContentAccountClosed">اي شيء غير لائق من الممكن أن يتسبب باغلاق حسابك.</string>
   <string name="blogTips">نصائحنا البسيطة لكتابة مقالة رائعة</string>
   <string name="discussThisBlogPostInTheForum">ناقش منشور المدونة هذا في المنتدى</string>
+  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">تم حظرك من قبل مؤلف المدونة.</string>
 </resources>

@@ -1,14 +1,20 @@
 package lila.gameSearch
 
+import lila.search.spec.{ IntRange, DateRange }
+
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
 private val logger = lila.log("gameSearch")
 
-val index = lila.search.spec.Index.Game
+val index = lila.search.Index.Game
+
+extension (range: IntRange) def nonEmpty: Boolean = range.a.nonEmpty || range.b.nonEmpty
+
+extension (range: DateRange) def nonEmpty: Boolean = range.a.nonEmpty || range.b.nonEmpty
 
 extension (query: lila.search.spec.Query.Game)
-  def nonEmpty =
+  def nonEmpty: Boolean =
     query.user1.nonEmpty ||
       query.user2.nonEmpty ||
       query.winner.nonEmpty ||

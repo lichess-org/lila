@@ -26,7 +26,7 @@ final class Challenge(
       api.allFor(me).map(env.challenge.jsonView.apply).map(JsonOk)
   }
 
-  def apiList = ScopedBody(_.Challenge.Read) { ctx ?=> me ?=>
+  def apiList = ScopedBody(_.Challenge.Read, _.Web.Mobile) { ctx ?=> me ?=>
     api.allFor(me, 300).map { all =>
       JsonOk:
         Json.obj(
@@ -39,18 +39,18 @@ final class Challenge(
   def show(id: ChallengeId, _color: Option[Color]) = Open:
     showId(id)
 
-  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read) { ctx ?=> _ ?=>
+  def apiShow(id: ChallengeId) = Scoped(_.Challenge.Read, _.Web.Mobile) { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>
       val direction: Option[Direction] =
         if isMine(c) then Direction.Out.some
         else if isForMe(c) then Direction.In.some
         else none
       direction.so: dir =>
-        val json = env.challenge.jsonView(dir.some)(c)
         for
           fullId        <- c.accepted.so(env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir)))
           socketVersion <- ctx.isMobileOauth.so(env.challenge.version(c.id).dmap(some))
-        yield JsonOk(json.add("fullId", fullId).add("socketVersion", socketVersion))
+          json = env.challenge.jsonView.apiAndMobile(c, socketVersion, dir.some, fullId)
+        yield JsonOk(json)
   }
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
@@ -69,7 +69,7 @@ final class Challenge(
           if mine then Direction.Out.some
           else if isForMe(c) then Direction.In.some
           else none
-        val json = env.challenge.jsonView.show(c, version, direction)
+        val json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
         negotiate(
           html =
             val color = get("color").flatMap(Color.fromName)
@@ -125,7 +125,7 @@ final class Challenge(
       )
 
   def apiAccept(id: ChallengeId) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ ?=> me ?=>
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { _ ?=> me ?=>
       def tryRematch =
         env.bot.player.rematchAccept(id.into(GameId)).flatMap {
           if _ then jsonOkResult
@@ -173,19 +173,20 @@ final class Challenge(
           )
           .inject(NoContent)
   }
-  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
-    api.activeByIdFor(id, me).flatMap {
-      case None =>
-        env.bot.player.rematchDecline(id.into(GameId)).flatMap {
-          if _ then jsonOkResult
-          else notFoundJson()
-        }
-      case Some(c) =>
-        bindForm(env.challenge.forms.decline)(
-          jsonFormError,
-          data => api.decline(c, data.realReason).inject(jsonOkResult)
-        )
-    }
+  def apiDecline(id: ChallengeId) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) {
+    ctx ?=> me ?=>
+      api.activeByIdFor(id, me).flatMap {
+        case None =>
+          env.bot.player.rematchDecline(id.into(GameId)).flatMap {
+            if _ then jsonOkResult
+            else notFoundJson()
+          }
+        case Some(c) =>
+          bindForm(env.challenge.forms.decline)(
+            jsonFormError,
+            data => api.decline(c, data.realReason).inject(jsonOkResult)
+          )
+      }
   }
 
   def cancel(id: ChallengeId) =
@@ -195,49 +196,50 @@ final class Challenge(
         then api.cancel(c).inject(NoContent)
         else notFound
 
-  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { ctx ?=> me ?=>
-    api.activeByIdBy(id, me).flatMap {
-      case Some(c) => api.cancel(c).inject(jsonOkResult)
-      case None =>
-        api.activeByIdFor(id, me).flatMap {
-          case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
-          case None =>
-            import lila.core.misc.map.Tell
-            import lila.core.round.Abort
-            import lila.core.round.AbortForce
-            env.game.gameRepo
-              .game(id.into(GameId))
-              .dmap {
-                _.flatMap { Pov(_, me) }
-              }
-              .flatMapz { p =>
-                env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
-              }
-              .flatMap {
-                case Some(pov) if pov.game.abortableByUser =>
-                  lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
-                  jsonOkResult
-                case Some(pov) if pov.game.playable =>
-                  Bearer.from(get("opponentToken")) match
-                    case Some(bearer) =>
-                      val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
-                      env.oAuth.server.auth(bearer, required, ctx.req.some).map {
-                        case Right(access) if pov.opponent.isUser(access.me) =>
+  def apiCancel(id: ChallengeId) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) {
+    ctx ?=> me ?=>
+      api.activeByIdBy(id, me).flatMap {
+        case Some(c) => api.cancel(c).inject(jsonOkResult)
+        case None =>
+          api.activeByIdFor(id, me).flatMap {
+            case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
+            case None =>
+              import lila.core.misc.map.Tell
+              import lila.core.round.Abort
+              import lila.core.round.AbortForce
+              env.game.gameRepo
+                .game(id.into(GameId))
+                .dmap {
+                  _.flatMap { Pov(_, me) }
+                }
+                .flatMapz { p =>
+                  env.round.proxyRepo.upgradeIfPresent(p).dmap(some)
+                }
+                .flatMap {
+                  case Some(pov) if pov.game.abortableByUser =>
+                    lila.common.Bus.publish(Tell(id.value, Abort(pov.playerId)), "roundSocket")
+                    jsonOkResult
+                  case Some(pov) if pov.game.playable =>
+                    Bearer.from(get("opponentToken")) match
+                      case Some(bearer) =>
+                        val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
+                        env.oAuth.server.auth(bearer, required, ctx.req.some).map {
+                          case Right(access) if pov.opponent.isUser(access.me) =>
+                            lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
+                            jsonOkResult
+                          case Right(_)  => BadRequest(jsonError("Not the opponent token"))
+                          case Left(err) => BadRequest(jsonError(err.message))
+                        }
+                      case None if api.isOpenBy(id, me) =>
+                        if pov.game.abortable then
                           lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                           jsonOkResult
-                        case Right(_)  => BadRequest(jsonError("Not the opponent token"))
-                        case Left(err) => BadRequest(jsonError(err.message))
-                      }
-                    case None if api.isOpenBy(id, me) =>
-                      if pov.game.abortable then
-                        lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
-                        jsonOkResult
-                      else BadRequest(jsonError("The game can no longer be aborted"))
-                    case None => BadRequest(jsonError("Missing opponentToken"))
-                case _ => notFoundJson()
-              }
-        }
-    }
+                        else BadRequest(jsonError("The game can no longer be aborted"))
+                      case None => BadRequest(jsonError("Missing opponentToken"))
+                  case _ => notFoundJson()
+                }
+          }
+      }
   }
 
   def apiStartClocks(id: GameId) = Anon:
@@ -308,15 +310,22 @@ final class Challenge(
                                 JsonBadRequest:
                                   jsonError(lila.challenge.ChallengeDenied.translated(denied))
                             case _ =>
-                              env.challenge.api.create(challenge).map {
+                              env.challenge.api.create(challenge).flatMap {
                                 if _ then
-                                  val json = env.challenge.jsonView
-                                    .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                                  if config.keepAliveStream then
-                                    jsOptToNdJson:
-                                      ndJson.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
-                                  else JsonOk(json)
-                                else JsonBadRequest(jsonError("Challenge not created"))
+                                  ctx.isMobileOauth
+                                    .so(env.challenge.version(challenge.id).dmap(some))
+                                    .map: socketVersion =>
+                                      val json = env.challenge.jsonView
+                                        .apiAndMobile(
+                                          challenge,
+                                          socketVersion,
+                                          lila.challenge.Direction.Out.some
+                                        )
+                                      if config.keepAliveStream then
+                                        jsOptToNdJson:
+                                          ndJson.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
+                                      else JsonOk(json)
+                                else JsonBadRequest(jsonError("Challenge not created")).toFuccess
                               }
                         yield res
                 }
@@ -356,7 +365,7 @@ final class Challenge(
               .map: challenge =>
                 JsonOk:
                   val url = s"${env.net.baseUrl}/${challenge.id}"
-                  env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
+                  env.challenge.jsonView.apiAndMobile(challenge, none, none) ++ Json.obj(
                     "urlWhite" -> s"$url?color=white",
                     "urlBlack" -> s"$url?color=black"
                   )

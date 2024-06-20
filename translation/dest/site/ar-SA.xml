@@ -74,6 +74,8 @@
   <string name="promoteVariation">رفع سلسلة الحركات</string>
   <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">أعلى</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">وسع التفريع</string>
   <string name="forceVariation">فرض التسلسل</string>
   <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
   <string name="move">التقلة</string>
@@ -854,6 +856,7 @@
   <string name="toggleVariationArrows">تبديل أسهم النقلات المرشحة</string>
   <string name="cyclePreviousOrNextVariation">الدورة السابقة/التفريع التالي</string>
   <string name="toggleGlyphAnnotations">تبديل الرموز التوضيحية</string>
+  <string name="togglePositionAnnotations">تبديل تحليل الموقف</string>
   <string name="variationArrowsInfo">أسمهم النقلات تسمح لك بلعبها دون استخدام قائمة النقلات المرشحة.</string>
   <string name="playSelectedMove">لعب النقلة المحددة</string>
   <string name="newTournament">مسابقة جديدة</string>

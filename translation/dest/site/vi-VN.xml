@@ -69,6 +69,8 @@
   <string name="promoteVariation">Thay đổi biến</string>
   <string name="makeMainLine">Biến chính</string>
   <string name="deleteFromHere">Xoá từ đây</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">Thu gọn các biến</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Mở rộng các biến</string>
   <string name="forceVariation">Đổi biến</string>
   <string name="copyVariationPgn">Sao chép biến PGN</string>
   <string name="move">Nước cờ</string>

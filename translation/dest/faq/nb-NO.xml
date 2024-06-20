@@ -51,7 +51,7 @@ Lichess bruker Stockfish til maskinanalyse.</string>
   <string name="insufficientMaterial">Tap på tid, remis og utilstrekkelig materiell</string>
   <string name="lichessFollowFIDErules">Hvis tiden løper ut for en spiller, vil vedkommende vanligvis tape partiet. Partiet er likevel remis hvis stillingen er slik at motstanderen ikke kan matte spillerens konge ved noen lovlig trekkrekkefølge (%1$s).
 
-Dette kan i sjeldne tilfeller være vanskelig å avgjøre automatisk (tvungne linjer, festninger). Da holder vi med spilleren der tiden ikke løp ut.
+Dette kan i sjeldne tilfeller være vanskelig å avgjøre automatisk (tvungne varianter, festninger). Da holder vi med spilleren der tiden ikke løp ut.
 
 Legg merke til at den kan være mulig å matte med en enkelt springer eller løper hvis motstanderen har en brikke som kan blokkere kongen.</string>
   <string name="fideHandbook">FIDEs håndbok</string>
@@ -167,7 +167,7 @@ Vi viser det røde ikonet for å varsle deg når dette skjer. Ofte kan du ekspli
 3. Klikk på Informasjonskapsler og nettstedstillatelser
 4. Rull ned og klikk på Automatisk avspilling av medier
 5. Legg til lichess.org under Tillat</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Stoppe meg selv fra å spille?</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Stoppe meg selv fra å spille?</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">egen psykisk helsetilstand</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess-brukerstiler</string>
   <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">færre lobbypuljer</string>

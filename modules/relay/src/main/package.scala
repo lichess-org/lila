@@ -4,6 +4,8 @@ export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 export lila.core.id.{ RelayRoundId, RelayTourId }
 
+val broadcasterUrl = "https://lichess.org/page/broadcaster-app"
+
 private val logger = lila.log("relay")
 private type RelayGames = Vector[RelayGame]
 

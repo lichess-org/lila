@@ -6,7 +6,7 @@ import { VNode, Hooks } from 'snabbdom';
 export const linkRegex =
   /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 export const newLineRegex = /\n/g;
-export const userPattern = /(^|[^\w@#/])@([a-z0-9][a-z0-9_-]{0,28}[a-z0-9])/gi;
+export const userPattern = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 
 // looks like it has a @mention or #gameid or a url.tld
 export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
@@ -59,8 +59,8 @@ export function richHTML(text: string, newLines = true): Hooks {
 
 const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|])/gi;
 const pawnDropPattern = /^[a-h][2-7]$/;
-const movePattern =
-  /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-z][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
+export const movePattern =
+  /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
 const boardPattern = /\b(?:board|game)\s(\d{1,2})/gi;
 
 function moveReplacer(match: string, turn: number, dots: string) {

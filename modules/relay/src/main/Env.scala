@@ -16,6 +16,7 @@ import lila.relay.RelayTour.WithLastRound
 
 @Module
 final class Env(
+    config: play.api.Configuration,
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
@@ -60,6 +61,8 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   lazy val listing: RelayListing = wire[RelayListing]
+
+  lazy val stats = wire[RelayStatsApi]
 
   lazy val api: RelayApi = wire[RelayApi]
 
@@ -114,6 +117,9 @@ final class Env(
 
   private val relayFidePlayerApi = wire[RelayFidePlayerApi]
 
+  import lila.common.config.given
+  private val syncOnlyIds = config.getOptional[List[String]]("relay.syncOnlyIds").map(RelayTourId.from)
+
   // start the sync scheduler
   wire[RelayFetch]
 
@@ -146,6 +152,7 @@ private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.
   val tour  = mainDb(CollName("relay_tour"))
   val group = mainDb(CollName("relay_group"))
   val delay = yoloDb(CollName("relay_delay"))
+  val stats = mainDb(CollName("relay_stats"))
 
 private trait ProxyCredentials
 private trait ProxyHostPort

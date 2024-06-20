@@ -45,18 +45,6 @@ final class JsonView(
       "tours" -> g.withShorterTourNames.tours
     )
 
-  given OWrites[RelayRound] = OWrites: r =>
-    Json
-      .obj(
-        "id"        -> r.id,
-        "name"      -> r.name,
-        "slug"      -> r.slug,
-        "createdAt" -> r.createdAt
-      )
-      .add("finished" -> r.finished)
-      .add("ongoing" -> (r.hasStarted && !r.finished))
-      .add("startsAt" -> r.startsAt.orElse(r.startedAt))
-
   def fullTour(tour: RelayTour): JsObject =
     Json
       .toJsObject(tour)
@@ -105,9 +93,7 @@ final class JsonView(
       rt: RelayRound.WithTourAndStudy,
       previews: ChapterPreview.AsJsons,
       group: Option[RelayGroup.WithTours]
-  )(using
-      Option[Me]
-  ): JsObject =
+  )(using Option[Me]): JsObject =
     myRound(rt) ++ Json.obj("games" -> previews).add("group" -> group)
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
@@ -165,14 +151,35 @@ object JsonView:
 
   given OWrites[SyncLog.Event] = Json.writes
 
-  private given OWrites[RelayRound.Sync] = OWrites: s =>
+  given OWrites[RelayRound] = OWrites: r =>
+    Json
+      .obj(
+        "id"        -> r.id,
+        "name"      -> r.name,
+        "slug"      -> r.slug,
+        "createdAt" -> r.createdAt
+      )
+      .add("finished" -> r.finished)
+      .add("ongoing" -> (r.hasStarted && !r.finished))
+      .add("startsAt" -> r.startsAt.orElse(r.startedAt))
+
+  given OWrites[RelayStats.RoundStats] = OWrites: r =>
+    Json.obj(
+      "round" -> r.round,
+      "viewers" -> r.viewers.map: (minute, crowd) =>
+        Json.arr(minute * 60, crowd)
+    )
+
+  import RelayRound.Sync
+  private given OWrites[Sync] = OWrites: s =>
     Json
       .obj(
         "ongoing" -> s.ongoing,
         "log"     -> s.log.events
       )
       .add("delay" -> s.delay) ++
-      s.upstream.so {
-        case url: RelayRound.Sync.UpstreamUrl => Json.obj("url" -> url.withRound.url)
-        case RelayRound.Sync.UpstreamIds(ids) => Json.obj("ids" -> ids)
-      }
+      s.upstream.so:
+        case Sync.UpstreamUrl(url)        => Json.obj("url" -> url)
+        case Sync.UpstreamLcc(url, round) => Json.obj("url" -> url, "round" -> round)
+        case Sync.UpstreamUrls(urls)      => Json.obj("urls" -> urls.map(_.formUrl))
+        case Sync.UpstreamIds(ids)        => Json.obj("ids" -> ids)

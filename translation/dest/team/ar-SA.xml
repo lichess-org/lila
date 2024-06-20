@@ -67,4 +67,29 @@
   <string name="declinedRequests">الطلبات المرفوضة</string>
   <string name="joinLichessVariantTeam">انضم إلى فريق %s الرسمي للأخبار والأحداث</string>
   <string name="teamPage">صفحة الفريق</string>
+  <string name="thisTeamBattleIsOver">انتهت هذه البطولة، ولم يعد من الممكن تحديث الفريق.</string>
+  <string name="listTheTeamsThatWillCompete">قائمة الفرق التي ستتنافس في هذه المعركة.</string>
+  <string name="oneTeamPerLine">فريق واحد لكل سطر. استخدم الإكمال التلقائي.</string>
+  <string name="oneTeamPerLineHelp">يمكنك نسخ ولصق هذه القائمة من بطولة إلى أخرى!
+
+لا يمكنك إزالة فريق إذا كان اللاعب قد انضم فعلًا إلى البطولة معه.</string>
+  <string name="numberOfLeadsPerTeam">عدد القادة لكل فريق. مجموع درجاتهم هو نتيجة الفريق.</string>
+  <string name="numberOfLeadsPerTeamHelp">لا يجب عليك تغيير هذه القيمة بعد بدء البطولة!</string>
+  <string name="innerTeam">الفريق الداخلي</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="zero">معركة %s فريق</item>
+    <item quantity="one">معركة فريق واحد</item>
+    <item quantity="two">معركة فريقين</item>
+    <item quantity="few">معركة %s أفرقة</item>
+    <item quantity="many">معركة %s فريقا</item>
+    <item quantity="other">معركة %s فريقا</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="zero">%s قائدا لكل فريق</item>
+    <item quantity="one">قائد واحد لكل فريق</item>
+    <item quantity="two">قائدين للفريق</item>
+    <item quantity="few">%s قادة للفريق الواحد</item>
+    <item quantity="many">%s قائد للفريق الواحد</item>
+    <item quantity="other">%s قائد للفريق الواحد</item>
+  </plurals>
 </resources>

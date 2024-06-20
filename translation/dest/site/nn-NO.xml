@@ -70,6 +70,8 @@
   <string name="promoteVariation">Forfremjingsvariant</string>
   <string name="makeMainLine">Gjer til hovudline</string>
   <string name="deleteFromHere">Slett herifrå</string>
+  <string name="collapseVariations">Skjul variantar</string>
+  <string name="expandVariations">Vis variantar</string>
   <string name="forceVariation">Tving fram varianten</string>
   <string name="copyVariationPgn">Kopier variant-PGN</string>
   <string name="move">Trekk</string>

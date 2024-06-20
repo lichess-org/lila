@@ -51,70 +51,62 @@ final class RelationUi(helpers: Helpers):
       blocked: Boolean,
       signup: Boolean = false
   )(using ctx: Context) =
-    div(cls := "relation-actions btn-rack")(
-      (ctx.isnt(user) && !blocked).option(
+    val blocks = relation.contains(Relation.Block)
+    div(cls := "relation-actions")(
+      (ctx.isnt(user) && !blocked && !blocks).option(
         a(
-          titleOrText(trans.challenge.challengeToPlay.txt()),
+          cls      := "text",
           href     := s"${routes.Lobby.home}?user=${user.name}#friend",
-          cls      := "btn-rack__btn",
           dataIcon := Icon.Swords
-        )
+        )(trans.challenge.challengeToPlay.txt())
       ),
       ctx.userId
         .map: myId =>
           (!user.is(myId))
             .so(
               frag(
-                (!blocked && !user.isBot).option(
+                (!blocked && !blocks && !user.isBot).option(
                   a(
-                    titleOrText(trans.site.composeMessage.txt()),
+                    cls      := "text",
                     href     := routes.Msg.convo(user.name),
-                    cls      := "btn-rack__btn",
                     dataIcon := Icon.BubbleSpeech
-                  )
+                  )(trans.site.composeMessage.txt())
                 ),
-                (!blocked && !user.isPatron).option(
+                (!blocked && !blocks && !user.isPatron).option(
                   a(
-                    titleOrText(trans.patron.giftPatronWingsShort.txt()),
+                    cls      := "text",
                     href     := s"${routes.Plan.list}?dest=gift&giftUsername=${user.name}",
-                    cls      := "btn-rack__btn",
                     dataIcon := Icon.Wings
-                  )
+                  )(trans.patron.giftPatronWingsShort.txt())
                 ),
                 relation match
                   case None =>
                     frag(
                       (followable && !blocked).option(
                         a(
-                          cls  := "btn-rack__btn relation-button",
-                          href := routes.Relation.follow(user.name),
-                          titleOrText(trans.site.follow.txt()),
+                          cls      := "text relation-button",
+                          href     := routes.Relation.follow(user.name),
                           dataIcon := Icon.ThumbsUp
-                        )
+                        )(trans.site.follow.txt())
                       ),
                       a(
-                        cls  := "btn-rack__btn relation-button",
-                        href := routes.Relation.block(user.name),
-                        titleOrText(trans.site.block.txt()),
+                        cls      := "text relation-button",
+                        href     := routes.Relation.block(user.name),
                         dataIcon := Icon.NotAllowed
-                      )
+                      )(trans.site.block.txt())
                     )
                   case Some(Relation.Follow) =>
                     a(
-                      dataIcon := Icon.ThumbsUp,
-                      cls      := "btn-rack__btn relation-button text hover-text",
+                      cls      := "text relation-button",
                       href     := routes.Relation.unfollow(user.name),
-                      titleOrText(trans.site.following.txt()),
-                      dataHoverText := trans.site.unfollow.txt()
-                    )
+                      dataIcon := Icon.ThumbsUp
+                    )(trans.site.unfollow.txt())
                   case Some(Relation.Block) =>
                     a(
-                      dataIcon := Icon.NotAllowed,
-                      cls      := "btn-rack__btn relation-button text hover-text",
+                      cls      := "text relation-button",
                       href     := routes.Relation.unblock(user.name),
-                      titleOrText(trans.site.blocked.txt()),
-                      dataHoverText := trans.site.unblock.txt()
-                    )
+                      dataIcon := Icon.NotAllowed
+                    )(trans.site.unblock.txt())
               )
             )
         .getOrElse:
@@ -135,7 +127,7 @@ final class RelationUi(helpers: Helpers):
             trans.site.friends()
           )
         ),
-        pagTable(pag, routes.Relation.following(u.username))
+        pagTable(pag, routes.Relation.following(u.username), withActions = true)
       )
 
   def blocks(u: User, pag: Paginator[Related[UserWithPerfs]])(using Context) =
@@ -145,7 +137,7 @@ final class RelationUi(helpers: Helpers):
           h1(userLink(u, withOnline = false)),
           div(cls := "actions")(trans.site.blocks.pluralSame(pag.nbResults))
         ),
-        pagTable(pag, routes.Relation.blocks())
+        pagTable(pag, routes.Relation.blocks(), withActions = false)
       )
 
   def opponents(u: User, sugs: List[Related[UserWithPerfs]])(using ctx: Context) =
@@ -186,7 +178,9 @@ final class RelationUi(helpers: Helpers):
       .wrap: body =>
         main(cls := "box page-small")(body)
 
-  private def pagTable(pager: Paginator[Related[UserWithPerfs]], call: Call)(using ctx: Context) =
+  private def pagTable(pager: Paginator[Related[UserWithPerfs]], call: Call, withActions: Boolean)(using
+      ctx: Context
+  ) =
     table(cls := "slist slist-pad")(
       if pager.nbResults > 0
       then
@@ -198,7 +192,8 @@ final class RelationUi(helpers: Helpers):
               td(trans.site.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
               td(r.user.seenAt.map: seen =>
                 trans.site.lastSeenActive(momentFromNow(seen))),
-              td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
+              withActions.option:
+                td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             ),
           pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )

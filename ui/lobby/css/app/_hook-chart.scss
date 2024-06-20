@@ -77,7 +77,7 @@
   display: none;
   background: $c-bg-box;
   position: absolute;
-  z-index: z('powertip');
+  z-index: $z-powertip-120;
 
   .inner {
     @extend %flex-column;

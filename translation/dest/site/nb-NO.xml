@@ -70,6 +70,8 @@
   <string name="promoteVariation">Forfrem variant</string>
   <string name="makeMainLine">Gjør til hovedvariant</string>
   <string name="deleteFromHere">Slett herfra</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">Skjul varianter</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Vis varianter</string>
   <string name="forceVariation">Vis som variant</string>
   <string name="copyVariationPgn">Kopier variant-PGN</string>
   <string name="move">Trekk</string>
@@ -119,7 +121,7 @@
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Evalueringsmåler</string>
-  <string name="multipleLines">Flere linjer</string>
+  <string name="multipleLines">Flere varianter</string>
   <string name="cpus">Prosessorer</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
@@ -330,7 +332,7 @@
     <item quantity="other">Gi %s sekunder</item>
   </plurals>
   <string name="thisAccountViolatedTos">Denne kontoen brøt vilkårene for å bruke Lichess</string>
-  <string name="openingExplorerAndTablebase">Åpningsutforsker &amp; tabellbase</string>
+  <string name="openingExplorerAndTablebase">Åpningsutforsker og tabellbase</string>
   <string name="takeback">Angre</string>
   <string name="proposeATakeback">Foreslå å angre</string>
   <string name="takebackPropositionSent">Angreforslag sendt</string>
@@ -865,8 +867,8 @@
   <string name="noConditionalPremoves">Ingen betingede forhåndstrekk</string>
   <string name="playX">Spill %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">og lagre %s linje med forhåndstrekk</item>
-    <item quantity="other">og lagre %s linjer med forhåndstrekk</item>
+    <item quantity="one">og lagre %s forhåndstrekkvariant</item>
+    <item quantity="other">og lagre %s forhåndstrekkvarianter</item>
   </plurals>
   <string name="showUnreadLichessMessage">Du har mottatt en privat melding fra Lichess.</string>
   <string name="clickHereToReadIt">Klikk her for å lese den</string>

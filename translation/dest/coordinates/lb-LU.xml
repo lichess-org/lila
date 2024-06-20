@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Du hues 30 Sekonnen fir esou vill Felder wéi méiglech korrekt ze wielen!</string>
   <string name="goAsLongAsYouWant">Spill sou lang wéi du wëlls, et gëtt keng Zäitlimite!</string>
   <string name="showCoordinates">Koordinaten uweisen</string>
+  <string name="showCoordsOnAllSquares">Koordinaten op jiddwer Feld</string>
   <string name="showPieces">Figuren uweisen</string>
   <string name="startTraining">Training ufänken</string>
   <string name="findSquare">Feld fannen</string>
