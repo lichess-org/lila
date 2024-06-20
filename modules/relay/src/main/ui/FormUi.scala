@@ -196,7 +196,9 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Multiple source URLs, one per line.",
             help = frag("The games will be combined in the order of the URLs.").some,
             half = false
-          )(form3.textarea(_)(rows := 5))(cls := "relay-form__sync relay-form__sync-urls none"),
+          )(form3.textarea(_)(rows := 5, spellcheck := "false"))(
+            cls := "relay-form__sync relay-form__sync-urls none"
+          ),
           form3.group(
             form("syncIds"),
             trb.sourceGameIds(),
@@ -413,7 +415,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 YouGotLittUp / 1890 / / Louis Litt""")
             ).some,
             half = true
-          )(form3.textarea(_)(rows := 3)),
+          )(form3.textarea(_)(rows := 3, spellcheck := "false")),
           form3.group(
             form("teams"),
             "Optional: assign players to teams",
@@ -426,7 +428,7 @@ Team Dogs ; Scooby Doo"""),
               "By default the PGN tags WhiteTeam and BlackTeam are used."
             ).some,
             half = true
-          )(form3.textarea(_)(rows := 3))
+          )(form3.textarea(_)(rows := 3, spellcheck := "false"))
         ),
         if Granter.opt(_.Relay) then
           frag(
@@ -526,7 +528,7 @@ Team Dogs ; Scooby Doo"""),
         form("grouping"),
         "Optional: assign tournaments to a group",
         half = true
-      )(form3.textarea(_)(rows := 5)),
+      )(form3.textarea(_)(rows := 5, spellcheck := "false")),
       div(cls := "form-group form-half form-help")( // do not translate
         "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
         br,
