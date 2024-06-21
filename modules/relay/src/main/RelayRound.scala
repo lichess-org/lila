@@ -128,7 +128,7 @@ object RelayRound:
       override def isLcc = true
       def id             = lcc
       def fetchUrl       = s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json"
-      def viewUrl        = s"https://view.livechesscloud.com/#$id"
+      def viewUrl        = s"https://view.livechesscloud.com/#$id/$round"
       def formUrl        = s"$viewUrl $round"
     object UpstreamLcc:
       private val idRegex = """.*view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r
