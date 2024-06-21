@@ -131,7 +131,7 @@ object RelayRound:
       def viewUrl        = s"https://view.livechesscloud.com/#$id/$round"
       def formUrl        = s"$viewUrl $round"
     object UpstreamLcc:
-      private val idRegex = """.*view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r
+      private val idRegex = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r.unanchored
       def findId(url: String): Option[String] = url match
         case idRegex(id) => id.some
         case _           => none
