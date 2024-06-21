@@ -29,10 +29,14 @@
   }
 }
 
-#form3-grouping,
-#form3-players,
-#form3-teams {
-  font-family: monospace;
+.flash-box {
+  border: 5px solid $m-brag_bg--mix-70;
+
+  &::before {
+    color: $c-brag;
+    content: $licon-InfoCircle;
+    font-size: 4em;
+  }
 }
 
 .relay-image {
@@ -42,14 +46,13 @@
 
 .relay-image-edit {
   @extend %image-preview-and-upload, %box-neat;
-  margin-bottom: 2em;
+  margin-bottom: 3em;
 }
 
 .relay-pinned-streamer-edit {
-  @extend %image-preview-and-upload, %box-neat;
-  > div {
-    flex-basis: 300px;
-  }
+  @extend %image-preview-and-upload;
+  background: none;
+  padding: 0;
   span {
     @extend %flex-between;
   }

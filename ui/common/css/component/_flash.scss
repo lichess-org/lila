@@ -3,13 +3,12 @@
   margin: 1em 0 2em 0;
   padding: 1em 2em;
   background: $c-good;
-  color: $c-over;
 
   &::before {
     @extend %data-icon;
 
     content: $licon-Checkmark;
-    @include margin-inline-end(1em);
+    @include margin-inline-end(2rem);
     font-size: 1.5em;
   }
 
@@ -18,6 +17,10 @@
       color: $c-over;
       unicode-bidi: plaintext;
     }
+  }
+
+  &-success {
+    color: $c-over;
   }
 
   &-warning {
@@ -41,5 +44,13 @@
   &-quiet {
     @extend %box-neat;
     background: $c-bg-zebra;
+  }
+
+  &-box {
+    @extend %box-neat;
+    background: $c-bg-zebra;
+    a {
+      color: $c-primary;
+    }
   }
 }

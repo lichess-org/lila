@@ -70,6 +70,7 @@
   <string name="whichTeamWillYouRepresentInThisBattle">أي فريق ستمثله في هذه المعركة؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">يجب أن تنضم إلى أحد هذه الفرق للمشاركة!</string>
   <string name="created">تم الإنشاء</string>
+  <string name="recentlyPlayed">لعب مؤخرًا</string>
   <string name="bestResults">أفضل النتائج</string>
   <string name="stats">الإحصاءات</string>
   <string name="tournamentStats">إحصائيات البطولة</string>

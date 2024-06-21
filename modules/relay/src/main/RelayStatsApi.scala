@@ -2,6 +2,7 @@ package lila.relay
 
 import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.BSONInteger
+import scalalib.cache.ExpireSetMemo
 
 object RelayStats:
   type Minute = Int
@@ -20,7 +21,7 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
 
   def get(id: RelayTourId): Fu[List[RoundStats]] =
     colls.round
-      .aggregateList(128): framework =>
+      .aggregateList(RelayTour.maxRelays): framework =>
         import framework.*
         Match($doc("tourId" -> id)) -> List(
           Sort(Ascending("createdAt")),
@@ -44,6 +45,11 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
                 case List(minute, crowd) => (minute, crowd)
               .toList
         yield RoundStats(round, stats)
+
+  def setActive(id: RelayRoundId) = activeRounds.put(id)
+
+  // keep monitoring rounds for 30m after they stopped syncing
+  private val activeRounds = ExpireSetMemo[RelayRoundId](30 minutes)
 
   private def record(): Funit = for
     crowds <- fetchRoundCrowds
@@ -79,8 +85,16 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
     colls.round
       .aggregateList(maxDocs = max, _.sec): framework =>
         import framework.*
-        Match($doc("sync.until" -> $exists(true), "crowd".$gt(0))) ->
-          List(Project($doc("_id" -> 1, "crowd" -> 1)))
+        Match(
+          $doc(
+            $or(
+              $doc("sync.until" -> $exists(true)),
+              $inIds(activeRounds.keys)
+            ),
+            "crowd".$gt(0)
+          )
+        ) ->
+          List(Project($doc("_id" -> 1, "crowd" -> 1, "syncing" -> "$sync.until")))
       .map: docs =>
         if docs.size == max
         then logger.warn(s"RelayStats.fetchRoundCrowds: $max docs fetched")
@@ -88,4 +102,5 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
           doc   <- docs
           id    <- doc.getAsOpt[RelayRoundId]("_id")
           crowd <- doc.getAsOpt[Crowd]("crowd")
+          _ = if doc.contains("syncing") then activeRounds.put(id)
         yield (id, crowd)

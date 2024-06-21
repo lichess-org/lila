@@ -6,6 +6,7 @@ import scalalib.Render
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.user.FlairApi
 import lila.core.i18n.{ I18nKey as trans, Translate }
+import scalatags.Text.TypedTag
 
 final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
 
@@ -191,8 +192,14 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     form.globalError.map: err =>
       div(cls := "form-group is-invalid")(error(err))
 
-  def fieldset(legend: Frag): Tag =
-    st.fieldset(cls := "form-fieldset")(st.legend(legend))
+  def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
+    st.fieldset(
+      cls := List(
+        "form-fieldset"             -> true,
+        "form-fieldset--toggle"     -> toggle.isDefined,
+        "form-fieldset--toggle-off" -> toggle.has(false)
+      )
+    )(st.legend(legend))
 
   private val dataEnableTime = attr("data-enable-time")
   private val dataTime24h    = attr("data-time_24h")

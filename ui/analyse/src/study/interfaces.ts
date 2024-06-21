@@ -175,6 +175,7 @@ export interface ChapterPreviewBase {
   name: string;
   status?: StatusStr;
   lastMove?: string;
+  check?: '+' | '#';
 }
 
 export interface ChapterPreviewFromServer extends ChapterPreviewBase {

@@ -199,7 +199,8 @@ cg-auto-pieces {
 html:not(.transp) body:not(.simple-board) {
   &.coords-in coord,
   cg-board piece,
-  cg-board square {
+  cg-board square,
+  .cg-custom-svgs {
     filter: brightness(calc(0.3 + 0.0059 * min(120, var(---board-brightness))));
     //hue-rotate(calc(var(---board-hue) * 3.6deg));
   }

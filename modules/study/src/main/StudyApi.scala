@@ -632,8 +632,7 @@ final class StudyApi(
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit = for
     _ <- chapterRepo.insert(chapter)
     newStudy = study.withChapter(chapter)
-    _ <- sticky.so(studyRepo.updateSomeFields(newStudy))
-    _ <- studyRepo.updateNow(study)
+    _ <- if sticky then studyRepo.updateSomeFields(newStudy) else studyRepo.updateNow(study)
   yield
     sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
     indexStudy(study)

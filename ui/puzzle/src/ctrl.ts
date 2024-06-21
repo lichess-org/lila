@@ -319,6 +319,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.withGround(g => g.playPremove());
 
     const progress = moveTest(this);
+    this.setAutoShapes();
     if (progress === 'fail') site.sound.say('incorrect');
     if (progress) this.applyProgress(progress);
     this.reorderChildren(path);
@@ -347,7 +348,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   revertUserMove = (): void => {
     if (site.blindMode) this.instantRevertUserMove();
-    else setTimeout(this.instantRevertUserMove, 100);
+    else setTimeout(this.instantRevertUserMove, 300);
   };
 
   applyProgress = (progress: undefined | 'fail' | 'win' | MoveTest): void => {

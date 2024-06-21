@@ -10,18 +10,34 @@ object BSONHandlers:
   given BSONHandler[RelayTeamsTextarea]   = stringAnyValHandler(_.text, RelayTeamsTextarea(_))
 
   import RelayRound.Sync
-  import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
+  import Sync.{ Upstream, UpstreamIds, UpstreamUrl, UpstreamLcc, UpstreamUrls, FetchableUpstream }
   given upstreamUrlHandler: BSONDocumentHandler[UpstreamUrl] = Macros.handler
-  given upstreamIdsHandler: BSONDocumentHandler[UpstreamIds] = Macros.handler
-
-  given BSONHandler[Upstream] = tryHandler(
+  given upstreamLccHandler: BSONDocumentHandler[UpstreamLcc] = Macros.handler
+  given BSONHandler[FetchableUpstream] = tryHandler(
     {
       case d: BSONDocument if d.contains("url") => upstreamUrlHandler.readTry(d)
-      case d: BSONDocument if d.contains("ids") => upstreamIdsHandler.readTry(d)
+      case d: BSONDocument if d.contains("lcc") => upstreamLccHandler.readTry(d)
     },
     {
       case url: UpstreamUrl => upstreamUrlHandler.writeTry(url).get
-      case ids: UpstreamIds => upstreamIdsHandler.writeTry(ids).get
+      case lcc: UpstreamLcc => upstreamLccHandler.writeTry(lcc).get
+    }
+  )
+  given upstreamUrlsHandler: BSONDocumentHandler[UpstreamUrls] = Macros.handler
+  given upstreamIdsHandler: BSONDocumentHandler[UpstreamIds]   = Macros.handler
+
+  given BSONHandler[Upstream] = tryHandler(
+    {
+      case d: BSONDocument if d.contains("url")  => upstreamUrlHandler.readTry(d)
+      case d: BSONDocument if d.contains("lcc")  => upstreamLccHandler.readTry(d)
+      case d: BSONDocument if d.contains("urls") => upstreamUrlsHandler.readTry(d)
+      case d: BSONDocument if d.contains("ids")  => upstreamIdsHandler.readTry(d)
+    },
+    {
+      case url: UpstreamUrl   => upstreamUrlHandler.writeTry(url).get
+      case lcc: UpstreamLcc   => upstreamLccHandler.writeTry(lcc).get
+      case urls: UpstreamUrls => upstreamUrlsHandler.writeTry(urls).get
+      case ids: UpstreamIds   => upstreamIdsHandler.writeTry(ids).get
     }
   )
 

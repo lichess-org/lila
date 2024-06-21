@@ -22,7 +22,12 @@ target
 data/
 dist/
 node_modules/
+<<<<<<< HEAD
 gen/
+=======
+local/
+ui/common/css/theme/gen/*.scss
+>>>>>>> upstream/master
 ui/common/**/*.js
 ui/common/**/*.d.ts
 ui/chess/**/*.js

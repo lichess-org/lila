@@ -133,12 +133,38 @@ textarea.form-control {
 
 .form-fieldset {
   @extend %box-radius;
-  margin: 1.5em 0;
+  margin: 1rem 0 3rem 0;
   border-color: rgba(128, 128, 128, 0.3);
+  padding: 2rem 2rem 0 2rem;
 
   legend {
+    padding: 0 1em;
     text-align: center;
     font-style: italic;
     font-size: 1.2em;
+  }
+}
+.form-fieldset--toggle {
+  legend {
+    cursor: pointer;
+    &::after {
+      content: '▲';
+      margin-left: 1ch;
+    }
+  }
+}
+.form-fieldset--toggle-off {
+  border-width: 1px 0 0 0;
+  legend {
+    &:hover {
+      color: $c-brag;
+    }
+    &::after {
+      color: $c-brag;
+      content: '▼';
+    }
+  }
+  > *:not(legend) {
+    display: none;
   }
 }

@@ -117,6 +117,13 @@ const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
     ctrl.trans.noarg('playing'),
   ]);
 
+const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
+  fen: cp.fen,
+  lastMove: uciToMove(cp.lastMove),
+  turnColor: fenColor(cp.fen),
+  check: !!cp.check,
+});
+
 const makePreview =
   (basePath: string, current: ChapterId, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
     const orientation = preview.orientation || 'white';
@@ -137,11 +144,10 @@ const makePreview =
                 insert(vnode) {
                   const el = vnode.elm as HTMLElement;
                   vnode.data!.cg = site.makeChessground(el, {
+                    ...previewToCgConfig(preview),
                     coordinates: false,
                     viewOnly: true,
-                    fen: preview.fen,
                     orientation,
-                    lastMove: uciToMove(preview.lastMove),
                     drawable: {
                       enabled: false,
                       visible: false,
@@ -151,10 +157,7 @@ const makePreview =
                 },
                 postpatch(old, vnode) {
                   if (old.data!.fen !== preview.fen) {
-                    old.data!.cg?.set({
-                      fen: preview.fen,
-                      lastMove: uciToMove(preview.lastMove),
-                    });
+                    old.data!.cg?.set(previewToCgConfig(preview));
                   }
                   vnode.data!.fen = preview.fen;
                   vnode.data!.cg = old.data!.cg;
@@ -169,31 +172,42 @@ const makePreview =
   };
 
 export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEval): MaybeVNode =>
-  h(
-    'span.mini-game__gauge',
-    {
-      attrs: { 'data-id': chap.id },
-      hook: {
-        ...onInsert(cloudEval.observe),
-        postpatch(old, vnode) {
-          const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
-          const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
-          if (cev?.chances != prevNodeCloud?.chances) {
-            const elm = vnode.elm as HTMLElement;
-            (elm.firstChild as HTMLElement).style.height = `${Math.round(
-              ((1 - (cev?.chances || 0)) / 2) * 100,
-            )}%`;
-            if (cev) {
-              elm.title = renderScoreAtDepth(cev);
-              elm.classList.add('mini-game__gauge--set');
-            }
-          }
-          vnode.data!.cloud = cev;
+  chap.check == '#'
+    ? h(
+        'span.mini-game__gauge.mini-game__gauge--set',
+        { attrs: { 'data-id': chap.id, title: 'Checkmate' } },
+        [
+          h('span.mini-game__gauge__black', {
+            attrs: { style: `height: ${fenColor(chap.fen) == 'white' ? 100 : 0}%` },
+          }),
+          h('tick'),
+        ],
+      )
+    : h(
+        'span.mini-game__gauge',
+        {
+          attrs: { 'data-id': chap.id },
+          hook: {
+            ...onInsert(cloudEval.observe),
+            postpatch(old, vnode) {
+              const elm = vnode.elm as HTMLElement;
+              const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
+              const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
+              if (cev?.chances != prevNodeCloud?.chances) {
+                (elm.firstChild as HTMLElement).style.height = `${Math.round(
+                  ((1 - (cev?.chances || 0)) / 2) * 100,
+                )}%`;
+                if (cev) {
+                  elm.title = renderScoreAtDepth(cev);
+                  elm.classList.add('mini-game__gauge--set');
+                }
+              }
+              vnode.data!.cloud = cev;
+            },
+          },
         },
-      },
-    },
-    [h('span.mini-game__gauge__black'), h('tick')],
-  );
+        [h('span.mini-game__gauge__black'), h('tick')],
+      );
 
 const renderUser = (player: ChapterPreviewPlayer): VNode =>
   h('span.mini-game__user', [

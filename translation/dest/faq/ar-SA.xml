@@ -163,4 +163,13 @@
 3. انقر على ملفات تعريف الارتباط و أذونات الموقع
 4. مرر للأسفل وانقر على Media Autoplay
 5. أضف lichess.org للقائمة المسموح بها</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">كيف أوقف نفسي عن اللعب؟</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">حالة عقلية مستقلة</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">أنماط المستخدم ليتشيس</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">تصنيفات أقل</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">نتلقى بانتظام رسائل من المستخدمين يطلبون منا المساعدة لمنعهم من اللعب كثيرًا.
+
+ على الرغم من أن Lichess لا تقوم بحظر اللاعبين أو حظرهم باستثناء انتهاكات شروط الخدمة، فإننا نوصي باستخدام أدوات خارجية للحد من سلوك اللعب المفرط.  تتضمن بعض الاقتراحات الشائعة لأدوات حظر مواقع الويب %1$s و%2$s و%3$s.  إذا كنت تريد الاستمرار في استخدام الموقع ولكن لا تنجذب إلى التحكم في الوقت السريع، فقد تكون مهتمًا أيضًا بـ %4$s، إليك واحدة مع %5$s.
+
+ قد يشعر بعض اللاعبين أن سلوكهم في اللعب يتحول إلى إدمان.  في الواقع، تصنف منظمة الصحة العالمية اضطراب الألعاب على أنه %6$s، مع ميزات أساسية تتمثل في 1) ضعف التحكم في الألعاب، 2) زيادة الأولوية المعطاة للألعاب، و3) تصاعد الألعاب على الرغم من العواقب السلبية.  إذا كنت تعتقد أن سلوكك في لعب الشطرنج يتبع هذا النمط، فإننا نشجعك على التحدث عن ذلك مع صديق أو أحد أفراد العائلة و/أو مع أحد المحترفين.</string>
 </resources>

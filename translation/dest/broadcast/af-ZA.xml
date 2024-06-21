@@ -14,9 +14,7 @@
   <string name="tournamentDescription">Kort beskrywing van die toernooi</string>
   <string name="fullDescription">Volle geleentheid beskrywing</string>
   <string name="fullDescriptionHelp">Opsionele lang beskrywing van die uitsending. %1$s is beskikbaar. Lengte moet minder as %2$s karakters.</string>
-  <string name="sourceUrlOrGameIds">Bronadress, of spel IDs</string>
   <string name="sourceUrlHelp">URL wat Lichess sal nagaan vir PGN opdaterings. Dit moet openbaar beskikbaar wees vanaf die Internet.</string>
-  <string name="gameIdsHelp">Of anders, kan jy tot en met 64 Lichess spel IDs bevoeg, gespasieer deur spasie.</string>
   <string name="startDate">Begin datum in jou eie tydsone</string>
   <string name="startDateHelp">Optioneel, indien jy weet wanner die geleentheid begin</string>
   <string name="credits">Gee krediet aan die bron</string>

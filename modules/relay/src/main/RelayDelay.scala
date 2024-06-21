@@ -6,7 +6,7 @@ import scalalib.model.Seconds
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.relay.RelayRound.Sync.UpstreamUrl
+import lila.relay.RelayRound.Sync.FetchableUpstream
 import lila.study.MultiPgn
 
 final private class RelayDelay(colls: RelayColls)(using Executor):
@@ -14,9 +14,9 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   import RelayDelay.*
 
   def apply(
-      url: UpstreamUrl,
+      url: FetchableUpstream,
       round: RelayRound,
-      doFetchUrl: (UpstreamUrl, Max) => Fu[RelayGames]
+      doFetchUrl: (FetchableUpstream, Max) => Fu[RelayGames]
   ): Fu[RelayGames] =
     dedupCache(url, round, () => doFetchUrl(url, RelayFetch.maxChapters))
       .flatMap: latest =>
@@ -31,10 +31,10 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
     private val cache = CacheApi.scaffeineNoScheduler
       .initialCapacity(8)
       .maximumSize(128)
-      .build[UpstreamUrl, GamesSeenBy]()
+      .build[FetchableUpstream, GamesSeenBy]()
       .underlying
 
-    def apply(url: UpstreamUrl, round: RelayRound, doFetch: () => Fu[RelayGames]) =
+    def apply(url: FetchableUpstream, round: RelayRound, doFetch: () => Fu[RelayGames]) =
       cache.asMap
         .compute(
           url,
@@ -51,10 +51,10 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
   private object store:
 
-    private def idOf(upstream: UpstreamUrl, at: Instant) = s"${upstream.url} ${at.toSeconds}"
-    private val longPast                                 = java.time.Instant.ofEpochMilli(0)
+    private def idOf(upstream: FetchableUpstream, at: Instant) = s"${upstream.formUrl} ${at.toSeconds}"
+    private val longPast                                       = java.time.Instant.ofEpochMilli(0)
 
-    def putIfNew(upstream: UpstreamUrl, games: RelayGames): Funit =
+    def putIfNew(upstream: FetchableUpstream, games: RelayGames): Funit =
       val newPgn = RelayGame.iso.from(games).toPgnStr
       getLatestPgn(upstream).flatMap:
         case Some(latestPgn) if latestPgn == newPgn => funit
@@ -64,14 +64,14 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
           colls.delay:
             _.insert.one(doc).void
 
-    def get(upstream: UpstreamUrl, delay: Seconds): Fu[Option[RelayGames]] =
+    def get(upstream: FetchableUpstream, delay: Seconds): Fu[Option[RelayGames]] =
       getPgn(upstream, delay).map2: pgn =>
         RelayGame.iso.to(MultiPgn.split(pgn, Max(999)))
 
-    private def getLatestPgn(upstream: UpstreamUrl): Fu[Option[PgnStr]] =
+    private def getLatestPgn(upstream: FetchableUpstream): Fu[Option[PgnStr]] =
       getPgn(upstream, Seconds(0))
 
-    private def getPgn(upstream: UpstreamUrl, delay: Seconds): Fu[Option[PgnStr]] =
+    private def getPgn(upstream: FetchableUpstream, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
         _.find(
           $doc(

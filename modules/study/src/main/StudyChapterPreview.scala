@@ -17,6 +17,7 @@ case class ChapterPreview(
     fen: Fen.Full,
     lastMove: Option[Uci],
     lastMoveAt: Option[Instant],
+    check: Option[Chapter.Check],
     /* None = No Result PGN tag, the chapter may not be a game
      * Some(None) = Result PGN tag is "*", the game is ongoing
      * Some(Some(Outcome)) = Game is over with a result
@@ -122,6 +123,10 @@ object ChapterPreview:
         .add("clock" -> p.clock)
         .add("fed" -> p.fideId.flatMap(federations.get))
 
+    private given Writes[Chapter.Check] = Writes:
+      case Chapter.Check.Check => JsString("+")
+      case Chapter.Check.Mate  => JsString("#")
+
     private def writesWithFederations(using Federation.ByFideIds): OWrites[ChapterPreview] = c =>
       Json
         .obj(
@@ -132,6 +137,7 @@ object ChapterPreview:
         .add("players", c.players.map(_.mapList(playerWithFederations)))
         .add("orientation", c.orientation.some.filter(_.black))
         .add("lastMove", c.lastMove)
+        .add("check", c.check)
         .add("thinkTime", c.thinkTime)
         .add("status", c.result.map(o => Outcome.showResult(o).replace("1/2", "½")))
 
@@ -163,5 +169,6 @@ object ChapterPreview:
         fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Full]("rootFen")).getOrElse(Fen.initial),
         lastMove = lastPos.flatMap(_.uci),
         lastMoveAt = lastMoveAt,
+        check = lastPos.flatMap(_.check),
         result = tags.flatMap(_(_.Result)).map(Outcome.fromResult)
       )

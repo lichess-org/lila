@@ -183,12 +183,16 @@
   <string name="changeUsername">Palitan ang iyong pangalan</string>
   <string name="changeUsernameNotSame">Ang laki o liit lang ng mga letra ang pwedeng baguhin. Halimbawa, pwedeng gawing \"JohnDoe\" ang \"johndoe\".</string>
   <string name="changeUsernameDescription">Palitan ang iyong pangalan. Maaari mo lang itong gawin ng isang beses at maaari mo lang baguhin ang laki o liit ng mga letra sa pangalan mo.</string>
+  <string name="signupUsernameHint">Tiyaking pumili ng pampamilyang username. Hindi mo ito mababago sa ibang pagkakataon at ang anumang mga account na may hindi naaangkop na mga username ay isasara!</string>
+  <string name="signupEmailHint">Gagamitin lang namin ito para sa pag-reset ng password.</string>
   <string name="password">Password</string>
   <string name="changePassword">Palitan ang password</string>
   <string name="changeEmail">Palitan ang email</string>
   <string name="email">Email</string>
   <string name="passwordReset">Ibalik ang password</string>
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
+  <string name="error.namePassword">Mangyaring huwag gamitin ang iyong username bilang iyong password.</string>
+  <string name="emailForSignupHelp">If everything else fails, then send us this email:</string>
   <string name="rank">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">

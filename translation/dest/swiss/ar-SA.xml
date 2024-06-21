@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">النظام السويسري</string>
   <string name="swissTournaments">البطولات السويسرية</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="zero">اعرض الجولة%s</item>
@@ -66,6 +67,16 @@
   <string name="roundInterval">الفاصل الزمني بين المباريات</string>
   <string name="forbiddenPairings">أزواج محظورة</string>
   <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
+  <string name="manualPairings">مزاوجة يدوية في الجولة القادمة</string>
+  <string name="manualPairingsHelp">حدد يدويًا جميع عمليات الاقتران للجولة التالية. زوج لاعب واحد لكل سطر. مثال:
+اللاعب أ  اللاعب ب
+اللاعب ج اللاعب د
+لإعطاء إقصاء (1 نقطة) للاعب بدلا من زوج، إضافة سطر مثل:
+اللاعب 1
+اللاعبين المفقودين سيعدون غائبين ويحصلون على نقطة صفر.
+اترك هذا الحقل فارغاً للسماح لليتشيس بإنشاء أزواج تلقائياً.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">يجب أن يكونوا قد لعبوا آخر مواجهة لهم بالنظام السويسري</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">اسمح للاعبين بالانضمام فقط إذا كانوا قد لعبوا آخر مباراة لهم في SWISS. إذا أخفقوا في الظهور في حدث SWISS مؤخرًا، فلن يتمكنوا من الدخول إلى حدثك. يؤدي هذا إلى تجربة SWISS أفضل للاعبين الذين يحضرون فعلًا.</string>
   <string name="newSwiss">بطولة جديدة بالنظام السويسري</string>
   <string name="swissVsArenaQ">متى تستخدم البطولا السويسرية عوضاً عن البطولات العادية؟</string>
   <string name="swissVsArenaA">في نظام البطولات السويسرية، يمكن للمشاركين اللعب ضد أحدهم الآخر مرة واحدة فقط، ويلعب الجميع نفس العدد من المباريات.
@@ -141,4 +152,7 @@
   <string name="predefinedUsers">السماح فقط للمستخدمين المحددين مسبقاً بالانضمام</string>
   <string name="forbiddedUsers">إذا كانت هذه القائمة غير فارغة، فسيمنع اللاعبون غير الواردة أسماءهم في هذه القائمة من الانضمام إلى البطولة. اسم مستخدم واحد لكل سطر.</string>
   <string name="playYourGames">ألعب مبارياتك</string>
+  <string name="byes">أقاصٍ</string>
+  <string name="absences">الغيابات</string>
+  <string name="tieBreak">كسر التعادل</string>
 </resources>

@@ -98,6 +98,7 @@ export default class StudyChaptersCtrl {
       if (onRelayPath || !d.relayPath) {
         cp.fen = node.fen;
         cp.lastMove = node.uci;
+        cp.check = node.san?.includes('#') ? '#' : node.san?.includes('+') ? '+' : undefined;
       }
       if (onRelayPath) {
         cp.lastMoveAt = Date.now();
