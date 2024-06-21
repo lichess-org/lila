@@ -43,13 +43,13 @@ final private[forum] class ForumForm(
     single("reason" -> optional(nonEmptyText))
 
   private def userTextMapping(inOwnTeam: Boolean, previousText: Option[String] = None)(using me: Me) =
-    cleanText(minLength = 3)
+    cleanText(minLength = 3, 10_000)
       .verifying(
         "You have reached the daily maximum for links in forum posts.",
         t => inOwnTeam || promotion.test(me, t, previousText)
       )
 
-  val diagnostic = Form(single("text" -> nonEmptyText(maxLength = 100000)))
+  val diagnostic = Form(single("text" -> nonEmptyText(maxLength = 100_000)))
 
 object ForumForm:
 
