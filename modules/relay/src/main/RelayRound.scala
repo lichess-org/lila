@@ -135,9 +135,10 @@ object RelayRound:
       def findId(url: String): Option[String] = url match
         case idRegex(id) => id.some
         case _           => none
-      def find(url: String): Option[UpstreamLcc] = url.split('/').map(_.trim).filter(_.nonEmpty) match
-        case Array(idRegex(id), round) => round.toIntOption.map(UpstreamLcc(id, _))
-        case _                         => none
+      def find(url: String): Option[UpstreamLcc] =
+        url.trim.replace(" ", "/").split('/') match
+          case Array(idRegex(id), round) => round.toIntOption.map(UpstreamLcc(id, _))
+          case _                         => none
 
   trait AndTour:
     val tour: RelayTour
