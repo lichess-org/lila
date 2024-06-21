@@ -72,6 +72,8 @@
   <string name="promoteVariation">Підвищити пріоритет варіанта</string>
   <string name="makeMainLine">Зробити варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">Згорнути варіанти</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Розгорнути варіанти</string>
   <string name="forceVariation">Зробити варіантом</string>
   <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
   <string name="move">Хід</string>

@@ -21,6 +21,7 @@
   <string name="tournamentDescription">Krátky popis turnaja</string>
   <string name="fullDescription">Úplný popis turnaja</string>
   <string name="fullDescriptionHelp">Voliteľný dlhý popis vysielania. %1$s je dostupný. Dĺžka musí byť menej ako %2$s znakov.</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">Zdrojová URL pre PGN súbor</string>
   <string name="sourceUrlHelp">URL, ktorú bude Lichess kontrolovať, aby získal aktualizácie PGN. Musí byť verejne prístupná z internetu.</string>
   <string name="startDate">Dátum a čas začiatku, vo vašej časovej zóne</string>
   <string name="startDateHelp">Voliteľné, ak viete kedy sa udalosť začne</string>
