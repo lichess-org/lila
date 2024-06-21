@@ -8,7 +8,11 @@ import lila.study.*
 private object RelayInputSanity:
 
   def fixGames(games: RelayGames): RelayGames =
-    fixDgtKingsInTheCenter(games)
+    fixDgtKingsInTheCenter:
+      removeGamesWithUnknownPlayer(games)
+
+  private def removeGamesWithUnknownPlayer(games: RelayGames): RelayGames =
+    games.filterNot(_.hasUnknownPlayer)
 
   // DGT puts the kings in the center on game end
   // and sends it as actual moves if the kings were close to the center

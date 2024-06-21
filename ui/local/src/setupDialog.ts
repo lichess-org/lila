@@ -60,12 +60,12 @@ export class LocalDialog {
             <label for="bot-dev">Dev UI</label>
           </div>`,
         append: [{ node: this.view, where: '.chin', how: 'before' }],
-        action: [
-          { selector: '.fight', result: dlg => this.fight(dlg) },
-          { selector: '.switch', result: dlg => this.switch(dlg) },
-          { selector: '.random', result: dlg => this.random(dlg) },
-          { selector: '.white > img.remove', result: () => this.select('white') },
-          { selector: '.black > img.remove', result: () => this.select('black') },
+        actions: [
+          { selector: '.fight', listener: dlg => this.fight(dlg) },
+          { selector: '.switch', listener: dlg => this.switch(dlg) },
+          { selector: '.random', listener: dlg => this.random(dlg) },
+          { selector: '.white > img.remove', listener: () => this.select('white') },
+          { selector: '.black > img.remove', listener: () => this.select('black') },
         ],
         noCloseButton: this.noClose,
         noClickAway: this.noClose,

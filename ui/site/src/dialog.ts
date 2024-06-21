@@ -133,7 +133,7 @@ class DialogWrapper implements Dialog {
       else if (app.how === 'after') where.after(app.node);
       else where.appendChild(app.node);
     }
-    this.refresh();
+    this.actions();
   }
 
   get open() {
@@ -148,20 +148,19 @@ class DialogWrapper implements Dialog {
     this.dialog.returnValue = v;
   }
 
-  // sometimes we want to mess with the dom and need the listeners to be reattached
-  refresh = () => {
-    const o = this.o;
-    if (!o.action) return;
+  // attach/reattach existing listeners or provide a set of new ones
+  actions = (actions = this.o.actions) => {
     for (const { el, type, listener } of this.eventCleanup) {
       el.removeEventListener(type, listener);
     }
     this.eventCleanup = [];
-    for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
+    if (!actions) return;
+    for (const a of Array.isArray(actions) ? actions : [actions]) {
       for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
         for (const el of this.view.querySelectorAll(a.selector)) {
           const listener = (e: Event) => {
-            if (!a.result || typeof a.result === 'string') this.close(a.result);
-            else a.result(this, a, e);
+            if ('listener' in a) a.listener(this, a, e);
+            else this.close(a.result);
           };
           this.eventCleanup.push({ el, type: event, listener });
           el.addEventListener(event, listener);

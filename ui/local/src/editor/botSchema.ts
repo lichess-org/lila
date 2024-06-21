@@ -1,4 +1,4 @@
-import type { BotSchema, SelectInfo, BaseInfo } from './types';
+import type { BotSchema, BaseInfo, SelectInfo } from './types';
 import { deepFreeze } from 'common';
 
 export let botSchema: BotSchema = {
@@ -35,11 +35,13 @@ export let botSchema: BotSchema = {
     },
     zero: {
       label: 'Lc0',
+      require: ['bot_zero_net', 'zeroSearch'],
       net: {
         label: 'model',
         type: 'select',
         choices: [],
         value: undefined,
+        require: true,
       },
       search: {
         nodes: {
@@ -49,7 +51,6 @@ export let botSchema: BotSchema = {
           min: 1,
           max: 1,
           radioGroup: 'zeroSearch',
-          require: ['bot_zero_net'],
         },
         depth: {
           label: 'depth',
@@ -59,7 +60,6 @@ export let botSchema: BotSchema = {
           max: 5,
           step: 1,
           radioGroup: 'zeroSearch',
-          require: ['bot_zero_net'],
         },
         movetime: {
           label: 'movetime',
@@ -69,30 +69,30 @@ export let botSchema: BotSchema = {
           max: 1000,
           step: 10,
           radioGroup: 'zeroSearch',
-          require: ['bot_zero_net'],
         },
       },
     },
     fish: {
       label: 'Stockfish',
+      require: ['bot_fish_multipv', 'fishSearch'],
       multipv: {
         label: 'multipv',
         type: 'range',
         value: 12,
         min: 1,
-        max: 50,
+        max: 20,
         step: 1,
+        require: true,
       },
       search: {
         nodes: {
           label: 'nodes',
           type: 'range',
-          value: 1,
-          min: 1,
-          max: 1000001,
+          value: 100000,
+          min: 0,
+          max: 1000000,
           step: 10000,
           radioGroup: 'fishSearch',
-          require: ['bot_fish_multipv'],
         },
         depth: {
           label: 'depth',
@@ -102,7 +102,6 @@ export let botSchema: BotSchema = {
           max: 20,
           step: 1,
           radioGroup: 'fishSearch',
-          require: ['bot_fish_multipv'],
         },
         movetime: {
           label: 'movetime',
@@ -112,37 +111,45 @@ export let botSchema: BotSchema = {
           max: 1000,
           step: 10,
           radioGroup: 'fishSearch',
-          require: ['bot_fish_multipv'],
         },
       },
     },
     searchMix: {
       type: 'mapping',
       label: 'Lc0 frequency',
-      title:
-        'Likelihood of selecting Lc0 move over previous head. 0 is always previous head, 1 is always Lc0',
+      title: 'Chance from 0 to 1 of selecting Lc0 move. 1 is always Lc0',
       class: ['selectable'],
-      value: { from: 'moves', to: 'mix', default: 0.5, data: [], range: { min: 0, max: 1 } },
-      require: ['bot_zero_net', 'bot_fish_multipv'],
+      value: { from: 'const', to: 'lc0', data: 0.5, range: { min: 0, max: 1 } },
+      require: ['bot_zero', 'bot_fish'],
     },
     acpl: {
       type: 'mapping',
-      label: 'ACPL target',
+      label: 'ACPL',
       title:
-        'Normal distribution with a mean of acpl and stdev acpl/4 yields the target cp distance from the best move',
+        'Normal distribution with mean=acpl and stdev=acpl/4 gives target move score reduction from best move',
       class: ['selectable'],
-      value: { from: 'score', to: 'acpl', default: 80, data: [], range: { min: 10, max: 150 } },
-      require: ['bot_fish_multipv'],
+      value: { from: 'const', to: 'acpl', data: 80, range: { min: 10, max: 150 } },
+      require: ['bot_fish'],
     },
   },
 };
 
-botSchema = deepFreeze(botSchema);
+export const reservedKeys: (keyof BaseInfo)[] = [
+  'type',
+  'id',
+  'class',
+  'label',
+  'title',
+  'require',
+  'radioGroup',
+  'value',
+];
+
+deepFreeze(botSchema);
 
 export function getSchemaDefault(id: string) {
   const setting = botSchema[id] ?? id.split('_').reduce((obj, key) => obj[key], botSchema);
-  const value = setting ? (setting as BaseInfo).value : undefined;
-  return typeof value === 'object' ? structuredClone(value) : value;
+  return typeof setting === 'object' && 'value' in setting ? structuredClone(setting.value) : undefined;
 }
 
 export function setSchemaAssets(a: { nets: string[]; images: string[]; books: string[] }) {

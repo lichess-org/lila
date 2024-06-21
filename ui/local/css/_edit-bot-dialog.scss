@@ -83,7 +83,15 @@ dialog .dialog-content {
     border-radius: 5px;
     padding: 1em 0;
     legend {
+      @extend %flex-center;
+      gap: 1em;
       font-weight: bold;
+    }
+    &.disabled {
+      padding: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
     }
   }
   .selectable {
@@ -124,16 +132,24 @@ dialog .dialog-content {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    gap: 1em;
     padding: 1em;
     border-radius: 10px;
     grid-area: c;
+    .btn-rack__btn {
+      flex: auto;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      &.active {
+        background-color: beige;
+      }
+    }
   }
   .chart-wrapper {
     position: relative;
-    //min-width: 0; // chart.js hack
-    //grid-area: c;
-    border-radius: 10px;
+    height: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     cursor: pointer;
     background-color: beige;
   }
@@ -174,5 +190,8 @@ dialog .dialog-content {
 .chin {
   padding: 0.5em;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  span {
+    gap: 1em;
+  }
 }

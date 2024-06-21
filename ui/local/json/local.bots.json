@@ -18,7 +18,7 @@
   {
     "uid": "#nacho",
     "name": "Nacho",
-    "description": "Nacho is cute. He wonders what your face tastes like.",
+    "description": "Nacho might try to cheese you.",
     "image": "nacho.webp",
     "book": "gm2600.bin",
     "zero": { "net": "maia-1300.pb", "search": { "nodes": 1 } }
@@ -50,7 +50,7 @@
   {
     "uid": "#maia",
     "name": "Maia",
-    "description": "Maia was a famous author before she began modeling for Elle c0.",
+    "description": "Maia was a famous author before she became a model for Elle c0.",
     "image": "maia.webp",
     "book": "gm2600.bin",
     "zero": { "net": "maia-1700.pb", "search": { "nodes": 1 } }
@@ -76,7 +76,7 @@
     "name": "Mitsoko",
     "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
     "image": "mitsoko.webp",
-    "fish": { "multipv": 12, "level": 5, "search": { "depth": 1 } }
+    "fish": { "multipv": 12, "search": { "depth": 12 } }
   },
   {
     "uid": "#spectre",
@@ -88,9 +88,9 @@
   {
     "uid": "#aurora",
     "name": "Aurora",
-    "description": "They say Aurora can see the future. She sees your defeat.",
+    "description": "Aurora can see the future. She sees your defeat.",
     "image": "aurora.webp",
-    "zero": { "net": "goodgyal-5.pb", "search": { "depth": 2 } }
+    "fish": { "multipv": 12, "search": { "depth": 12 } }
   },
   {
     "uid": "#hanzo",
@@ -102,7 +102,7 @@
   {
     "uid": "#eliza",
     "name": "Eliza",
-    "description": "Eliza plays masterfully. Some say she's a machine. They're right.",
+    "description": "Some say Eliza is an engine, but that's just transistor bias.",
     "image": "eliza.webp",
     "zero": { "net": "badgyal-8.pb", "search": { "depth": 3 } }
   },

@@ -32,29 +32,66 @@ final class RelayRoundForm(using mode: Mode):
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
       "finished"     -> optional(boolean),
       "period"       -> optional(number(min = 2, max = 60).into[Seconds]),
-      "delay" -> optional(
-        number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]
-      ) // don't increase the max
+      "delay"        -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
+      "onlyRound"    -> optional(number(min = 1, max = 999)),
+      "slices" -> optional:
+        nonEmptyText
+          .transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
 
-  def create(trs: RelayTour.WithRounds) = Form {
+  def create(trs: RelayTour.WithRounds) = Form(
     roundMapping
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
-  }.fill(
-    Data(
-      name = RelayRound.Name(s"Round ${trs.rounds.size + 1}"),
-      caption = none,
-      syncUrlRound = Some(trs.rounds.size + 1)
-    )
-  )
+  ).fill(fillFromPrevRounds(trs.rounds))
 
   def edit(r: RelayRound) = Form(roundMapping).fill(Data.make(r))
 
 object RelayRoundForm:
+
+  def fillFromPrevRounds(rounds: List[RelayRound]): Data =
+    val prevs: Option[(RelayRound, RelayRound)] = rounds.reverse match
+      case a :: b :: _ => (a, b).some
+      case _           => none
+    val prev: Option[RelayRound] = rounds.lastOption
+    val roundNumberRegex         = """([^\d]*)(\d{1,2})([^\d]*)""".r
+    val roundNumberIn: String => Option[Int] =
+      case roundNumberRegex(_, n, _) => n.toIntOption
+      case _                         => none
+    def replaceRoundNumber(s: String, n: Int): String =
+      roundNumberRegex.replaceAllIn(s, m => s"${m.group(1)}${n}${m.group(3)}")
+    val prevNumber: Option[Int] = prev.flatMap(p => roundNumberIn(p.name.value))
+    val nextNumber              = (prevNumber | rounds.size) + 1
+    val guessName = for
+      n <- prevNumber
+      if prevs
+        .map(_._2)
+        .fold(true): old =>
+          roundNumberIn(old.name.value).contains(n - 1)
+      p <- prev
+    yield replaceRoundNumber(p.name.value, nextNumber)
+    val nextUrl =
+      prev.flatMap(_.sync.upstream).flatMap(_.asUrl).map(_.withRound).filter(_.round.isDefined).map(_.url)
+    val guessDate = for
+      (prev, old) <- prevs
+      prevDate    <- prev.startsAt
+      oldDate     <- old.startsAt
+      delta = prevDate.toEpochMilli - oldDate.toEpochMilli
+    yield prevDate.plusMillis(delta)
+    Data(
+      name = RelayRound.Name(guessName | s"Round ${nextNumber}"),
+      caption = prev.flatMap(_.caption),
+      syncUrl = nextUrl,
+      syncUrlRound = (prevs.isEmpty || nextUrl.isDefined).option(nextNumber),
+      startsAt = guessDate,
+      period = prev.flatMap(_.sync.period),
+      delay = prev.flatMap(_.sync.delay),
+      onlyRound = prev.flatMap(_.sync.onlyRound).map(_ + 1),
+      slices = prev.flatMap(_.sync.slices)
+    )
 
   case class GameIds(ids: List[GameId])
 
@@ -110,7 +147,9 @@ object RelayRoundForm:
       startsAt: Option[Instant] = None,
       finished: Option[Boolean] = None,
       period: Option[Seconds] = None,
-      delay: Option[Seconds] = None
+      delay: Option[Seconds] = None,
+      onlyRound: Option[Int] = None,
+      slices: Option[List[RelayGame.Slice]] = None
   ):
 
     def requiresRound = syncUrl.exists(RelayRound.Sync.UpstreamUrl.LccRegex.matches)
@@ -143,6 +182,8 @@ object RelayRoundForm:
         nextAt = none,
         period = period.ifTrue(Granter.ofUser(_.StudyAdmin)(user)),
         delay = delay,
+        onlyRound = onlyRound,
+        slices = slices,
         log = SyncLog.empty
       )
 
@@ -174,5 +215,7 @@ object RelayRoundForm:
         startsAt = relay.startsAt,
         finished = relay.finished.option(true),
         period = relay.sync.period,
+        onlyRound = relay.sync.onlyRound,
+        slices = relay.sync.slices,
         delay = relay.sync.delay
       )

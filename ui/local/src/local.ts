@@ -26,6 +26,7 @@ export async function initModule(opts: LocalPlayOpts) {
   const ctrl = new GameCtrl(opts, botCtrl, redraw);
   const testCtrl = opts.testUi && new TestCtrl(ctrl, redraw);
   const el = document.createElement('main');
+
   document.getElementById('main-wrap')?.appendChild(el);
   const renderSide = testCtrl ? () => renderTestView(testCtrl) : () => undefined;
   let vnode = patch(el, view(ctrl, renderSide()));

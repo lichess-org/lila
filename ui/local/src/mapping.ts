@@ -5,6 +5,7 @@ const EXTERNAL_DOMAIN_DELTA = 10;
 export function addPoint(m: Mapping, add: Point) {
   normalize(m);
   const qX = quantize(add.x, m);
+  if (!Array.isArray(m.data)) m.data = [];
   const i = m.data.findIndex(p => p.x >= qX);
   if (i >= 0) {
     if (m.data[i].x === qX) m.data[i] = { x: qX, y: add.y };
@@ -13,13 +14,13 @@ export function addPoint(m: Mapping, add: Point) {
 }
 
 export function asData(m: Mapping) {
-  const pts = m.data.slice() as any[];
+  const pts = Array.isArray(m.data) ? m.data.slice() : [];
   const xs = domain(m);
-  const yMid = (m.range.max - m.range.min) / 2;
+  const defaultVal = typeof m.data === 'number' ? m.data : (m.range.max - m.range.min) / 2;
   if (pts.length === 0)
     return [
-      { x: xs.min - EXTERNAL_DOMAIN_DELTA, y: yMid },
-      { x: xs.max + EXTERNAL_DOMAIN_DELTA, y: yMid },
+      { x: xs.min - EXTERNAL_DOMAIN_DELTA, y: defaultVal },
+      { x: xs.max + EXTERNAL_DOMAIN_DELTA, y: defaultVal },
     ];
   pts.unshift({ x: xs.min - EXTERNAL_DOMAIN_DELTA, y: pts[0].y });
   pts.push({ x: xs.max + EXTERNAL_DOMAIN_DELTA, y: pts[pts.length - 1].y });
@@ -32,6 +33,7 @@ export function quantize(x: number, m: Mapping) {
 }
 
 export function normalize(m: Mapping) {
+  if (!Array.isArray(m.data)) return;
   const newData = m.data.reduce((acc: Point[], p) => {
     const x = quantize(p.x, m);
     const i = acc.findIndex(q => q.x === x);
@@ -44,6 +46,7 @@ export function normalize(m: Mapping) {
 }
 
 export function interpolate(m: Mapping, x: number) {
+  if (typeof m.data === 'number') return m.data;
   if (m.data.length === 0) return undefined;
   if (m.data.length === 1) return m.data[0].y;
   for (let i = 1; i < m.data.length - 1; i++) {

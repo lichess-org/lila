@@ -247,7 +247,7 @@ function roundRobin({ testCtrl, botCtrl }: TestContext) {
   site.dialog.dom({
     class: 'tournament-dialog',
     htmlText: `<h2>Round robin</h2><h3>Select participants</h3>
-    <ul>${Object.values(botCtrl.bots)
+    <ul>${[...Object.values(botCtrl.bots), ...botCtrl.rankBots]
       .map(p => {
         const checked = storedBooleanProp(`local.test.tournament-${p.uid.slice(1)}`, true)();
         return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
@@ -257,10 +257,10 @@ function roundRobin({ testCtrl, botCtrl }: TestContext) {
       })
       .join('')}</ul>
     <span style="display: flex; gap: 1em;">Repeat: <input type="number" maxLength="3" value="1"><button class="button" id="start-tournament">Start</button></span>`,
-    action: [
+    actions: [
       {
         selector: '#start-tournament',
-        result: dlg => {
+        listener: dlg => {
           const participants = Array.from(dlg.view.querySelectorAll('input:checked')).map(
             (el: HTMLInputElement) => el.value,
           );
@@ -281,7 +281,7 @@ function roundRobin({ testCtrl, botCtrl }: TestContext) {
       {
         selector: 'input[type="checkbox"]',
         event: 'change',
-        result: (_, __, e) => {
+        listener: (_, __, e) => {
           const el = e.target as HTMLInputElement;
           storedBooleanProp(`local.test.tournament-${el.value.slice(1)}`, true)(el.checked);
         },

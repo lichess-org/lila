@@ -70,6 +70,8 @@
   <string name="promoteVariation">Promoveer variant</string>
   <string name="makeMainLine">Maak hoofdvariant</string>
   <string name="deleteFromHere">Verwijder vanaf hier</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">Varianten verbergen</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Varianten weergeven</string>
   <string name="forceVariation">Forceer variatie</string>
   <string name="copyVariationPgn">Kopieer variatie PGN</string>
   <string name="move">Zet</string>

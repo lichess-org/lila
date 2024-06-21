@@ -10,14 +10,14 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   import RelayRoundRepo.*
   import BSONHandlers.given
 
-  def byTourOrderedCursor(tour: RelayTour) =
+  def byTourOrderedCursor(tourId: RelayTourId) =
     coll
-      .find(selectors.tour(tour.id))
+      .find(selectors.tour(tourId))
       .sort(sort.chrono)
       .cursor[RelayRound]()
 
-  def byTourOrdered(tour: RelayTour): Fu[List[RelayRound]] =
-    byTourOrderedCursor(tour).list(RelayTour.maxRelays)
+  def byTourOrdered(tourId: RelayTourId): Fu[List[RelayRound]] =
+    byTourOrderedCursor(tourId).list(RelayTour.maxRelays)
 
   def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRoundId]] =
     coll.primitive[RelayRoundId](
@@ -48,19 +48,6 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
 
   def studyIdsOf(tourId: RelayTourId): Fu[List[StudyId]] =
     coll.distinctEasy[StudyId, List]("_id", selectors.tour(tourId))
-
-  def tourCrowds: Fu[List[(RelayTourId, Int)]] =
-    coll
-      .aggregateList(maxDocs = 500, _.sec): framework =>
-        import framework.*
-        Match($doc("sync.until" -> $exists(true))) ->
-          List(GroupField("_id")("crowd" -> SumField("crowd")))
-      .map: docs =>
-        for
-          doc   <- docs
-          id    <- doc.getAsOpt[RelayTourId]("_id")
-          crowd <- doc.getAsOpt[Int]("crowd")
-        yield (id, crowd)
 
 private object RelayRoundRepo:
 

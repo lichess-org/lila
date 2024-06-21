@@ -1,33 +1,28 @@
 import type { Libot, Mapping } from '../types';
 import type { BotInfoReader, SettingHost } from './types';
-import { ZerofishBot, ZerofishBots } from '../zerofishBot';
+import type { ZerofishBotEditor, ZerofishBots } from '../zerofishBot';
 import { BotCtrl } from '../botCtrl';
 import { HandOfCards } from '../handOfCards';
-import { defined, escapeHtml } from 'common';
+import { defined, escapeHtml, enumerableEquivalence } from 'common';
 import { GameCtrl } from '../gameCtrl';
-import { buildFromSchema, SettingGroup } from './setting';
+import { buildFromSchema, SettingGroup } from './settingGroup';
+import { objectPath, removePath } from './settingNode';
 import * as licon from 'common/licon';
-
-interface ZerofishBotEditor extends ZerofishBot {
-  [key: string]: any;
-}
 
 export class BotDialog implements SettingHost {
   view: HTMLElement;
   hand: HandOfCards;
-  bots: ZerofishBots;
   uid: string;
+  scratch: { [uid: string]: ZerofishBotEditor } = {};
   settings: SettingGroup;
-  panel: HTMLElement;
   dlg: Dialog;
 
   constructor(
     readonly botCtrl: BotCtrl,
     readonly gameCtrl: GameCtrl,
-    readonly color: Color,
-    readonly setBot: (uid: string) => void,
+    readonly color: Color = 'white',
+    readonly onSelectBot?: (uid: string) => void,
   ) {
-    this.bots = botCtrl.zerofishBots;
     this.view = $as<HTMLElement>(`<div class="with-hand-of-cards"><div class="edit-bot"></div></div>`);
     this.selectBot();
     this.hand = new HandOfCards({
@@ -42,41 +37,47 @@ export class BotDialog implements SettingHost {
     });
   }
 
+  get actions(): Action[] {
+    return [
+      ...this.settings.actions,
+      { selector: '.bot-apply', listener: () => this.apply() },
+      { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
+      { selector: '.bot-json-all', listener: () => this.showJson() },
+      { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
+      { selector: '.bot-unrate-all', listener: () => this.clearRatings() },
+      { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
+      { selector: '.bot-clear-all', listener: () => this.clearBots() },
+    ];
+  }
+
   show() {
     return new Promise<void>(resolve => {
       site.dialog
         .dom({
           css: [{ hashed: 'local.test.setup' }],
-          htmlText: `<div class="chin">
-            <button class="button button-empty bot-json-one">Bot JSON</button>
-            <button class="button button-empty bot-json-all">All JSON</button>
-            <button class="button button-empty button-red bot-unrate-one">Unrate</button>
-            <button class="button button-empty button-red bot-unrate-all">Unrate All</button>
-            <button class="button button-empty button-red bot-clear-one">Clear</button>
-            <button class="button button-empty button-red bot-clear-all">Clear All</button>
-          </div>`,
+          htmlText: `<div class="chin"><span>
+            <button class="button button-green bot-apply">apply</button>
+            <button class="button button-metal bot-json-one">json</button>
+            <button class="button button-metal button-red bot-unrate-one">clear rating</button>
+            <button class="button button-empty button-red bot-clear-one">revert</button>
+            </span><span>
+            <button class="button button-metal bot-json-all">all json</button>
+            <button class="button button-empty button-red bot-unrate-all">clear all ratings</button>
+            <button class="button button-empty button-red bot-clear-all">revert all to server</button>
+          </span></div>`,
           append: [{ node: this.view, where: '.chin', how: 'before' }],
-          action: [
-            { selector: '[data-type]', event: ['input', 'change'], result: this.valueChange },
-            { selector: '.toggle-enabled', event: 'change', result: this.toggleEnabled },
-            { selector: '.selectable', result: this.showPanel },
-            { selector: '.bot-json-one', result: () => this.showJson([this.bot.uid]) },
-            { selector: '.bot-json-all', result: () => this.showJson() },
-            { selector: '.bot-unrate-one', result: () => this.clearRatings([this.bot.uid]) },
-            { selector: '.bot-unrate-all', result: () => this.clearRatings() },
-            { selector: '.bot-clear-one', result: () => this.clearBots([this.bot.uid]) },
-            { selector: '.bot-clear-all', result: () => this.clearBots() },
-          ],
+          actions: this.actions,
+          onClose: () => {
+            window.removeEventListener('resize', this.resize);
+            resolve();
+          },
         })
-        .then(async dlg => {
+        .then(dlg => {
           this.dlg = dlg;
-          this.updateView();
-          const allDone = dlg.show();
+          this.update();
+          this.dlg.show();
           window.addEventListener('resize', this.resize);
           this.resize();
-          await allDone;
-          window.removeEventListener('resize', this.resize);
-          resolve();
         });
     });
   }
@@ -84,6 +85,7 @@ export class BotDialog implements SettingHost {
   makeEditView() {
     this.settings = new SettingGroup();
     const el = $as<HTMLElement>(`<div class="edit-bot">`);
+    this.view.querySelector('.edit-bot')?.replaceWith(el);
     const playerInfo = $as<HTMLElement>(`<div class="player-info">`);
     playerInfo.appendChild(buildFromSchema(this, ['bot_name']).div);
     const player = $as<HTMLElement>(`<div class="player ${this.color}">`);
@@ -91,65 +93,74 @@ export class BotDialog implements SettingHost {
     playerInfo.appendChild(player);
     el.appendChild(playerInfo);
     el.appendChild(buildFromSchema(this, ['bot']).div);
-    el.appendChild($as<HTMLElement>('<div class="edit-panel"><canvas></canvas></div>'));
-    this.setVisibility();
-    return el;
+    const edit = $as<HTMLElement>(`<div class="edit-panel none">
+        <div class="chart-wrapper"><canvas></canvas></div>
+      </div>`);
+    el.appendChild(edit);
+    this.settings.forEach(el => el.setEnabled());
   }
-
-  toggleEnabled = (dlg: Dialog, action: Action, e: Event) => {
-    const cbox = e.target as HTMLInputElement;
-    this.settings.byEl(cbox)?.setEnabled(cbox.checked);
-    this.bot.update();
-  };
-
-  valueChange = (dlg: Dialog, action: Action, e: Event) => {
-    this.settings.byEvent(e)?.update(e);
-    this.bot.update();
-  };
-
-  setVisibility = () => this.settings.forEach(el => el.setVisibility());
 
   resize = () => this.hand.resize();
 
-  showPanel = (dlg: Dialog, action: Action, e: Event) => {
-    document.querySelectorAll('.selectable').forEach(el => el.classList.remove('selected'));
-    const setting = this.settings.byEvent(e);
-    if (!setting) return;
-    setting.select();
-  };
+  get bots(): ZerofishBots {
+    return this.botCtrl.zerofishBots;
+  }
 
   get bot(): ZerofishBotEditor {
-    return this.bots[this.uid];
+    if (!this.scratch[this.uid]) {
+      const clone = structuredClone(this.bots[this.uid]);
+      const editor = Object.defineProperty(clone, 'disabled', { value: new Set<string>() });
+      this.scratch[this.uid] = editor as ZerofishBotEditor;
+    }
+    return this.scratch[this.uid];
   }
 
   get botDefault(): BotInfoReader {
     return this.botCtrl.botDefault(this.uid);
   }
-  get selected(): string[] {
-    return this.view.querySelector('.has-panel.selected')?.id.split('_') ?? [];
+
+  apply() {
+    for (const id of this.bot.disabled) {
+      if (this.bot.disabled.has(id)) removePath({ obj: this.bot, path: objectPath(id) }, true);
+    }
+    this.bot.disabled.clear();
+    this.botCtrl.setBot(this.bot);
+    this.selectBot();
   }
 
-  updateView = (force: boolean = false) => {
-    if (force) {
-      this.view.querySelector('.edit-bot')?.replaceWith(this.makeEditView());
-      this.dlg?.refresh();
-    }
-    //renderMapping(this.view.querySelector('.edit-panel canvas') as HTMLCanvasElement, this.bot.mix!);
-    if (force) this.hand.resize();
-  };
+  get isClean() {
+    return (
+      !this.scratch[this.uid] || enumerableEquivalence(this.botCtrl.bot(this.uid), this.scratch[this.uid])
+    );
+  }
 
-  selectBot(uid = this.botCtrl[this.color]!.uid) {
+  get allDirty(): string[] {
+    return Object.keys(this.scratch).filter(
+      uid => !enumerableEquivalence(this.botCtrl.bot(uid), this.scratch[uid]),
+    );
+  }
+
+  update() {
+    const isClean = this.isClean;
+    //const isAllClean = isClean && this.allDirty.length === 0;
+    this.dlg?.view.querySelector('.bot-apply')?.classList.toggle('disabled', isClean);
+    //this.dlg?.view.querySelector('.bot-clear-one')?.classList.toggle('disabled', !isClean);
+    //this.dlg?.view.querySelector('.bot-clear-all')?.classList.toggle('disabled', !isAllClean);
+  }
+
+  selectBot(uid = this.uid ?? this.botCtrl[this.color]!.uid) {
     this.uid = uid;
-    //this.view.style.setProperty(`---${this.color}-image-url`, `url(${this.bot.imageUrl})`);
-    this.view.querySelector('.edit-bot')?.replaceWith(this.makeEditView());
-    //this.placardEl.textContent = this.bot.description;
-    this.dlg?.refresh();
-    this.setBot(this.uid);
+    this.makeEditView();
+    this.dlg?.actions(this.actions);
+    this.update();
+    this.onSelectBot?.(this.uid);
   }
 
   clearBots = async (uids?: string[]) => {
+    for (const uid of uids ?? Object.keys(this.bots)) {
+      delete this.scratch[uid];
+    }
     await this.botCtrl.clearLocalBots(uids);
-    this.bots = this.botCtrl.zerofishBots;
     this.selectBot(this.bot.uid in this.bots ? this.bot.uid : Object.keys(this.bots)[0]);
     alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // make a flash for this stuff
   };

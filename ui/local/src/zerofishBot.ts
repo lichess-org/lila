@@ -8,6 +8,11 @@ import * as co from 'chessops';
 
 export type ZerofishBots = { [id: string]: ZerofishBot };
 
+export interface ZerofishBotEditor extends ZerofishBot {
+  [key: string]: any;
+  disabled: Set<string>;
+}
+
 export class ZerofishBot implements Libot {
   name: string;
   readonly uid: string;
@@ -25,16 +30,9 @@ export class ZerofishBot implements Libot {
 
   constructor(info: Libot, ctrl: BotCtrl) {
     Object.assign(this, info);
-    Object.defineProperty(this, 'ctrl', {
-      enumerable: false,
-      value: ctrl,
-    });
-    Object.defineProperty(this, 'openings', {
-      enumerable: false,
-      get: () => ctrl.assetDb.getBook(this.book),
-    });
+    Object.defineProperty(this, 'ctrl', { value: ctrl });
+    Object.defineProperty(this, 'openings', { get: () => ctrl.assetDb.getBook(this.book) });
     Object.defineProperty(this, 'card', {
-      enumerable: false,
       get: () => ({
         label: this.name,
         domId: this.uid.startsWith('#') ? this.uid.slice(1) : this.uid,
@@ -90,10 +88,6 @@ export class ZerofishBot implements Libot {
     return `${this.glicko?.r ?? 1500}${(this.glicko?.rd ?? 350) > 80 ? '?' : ''}`;
   }
 
-  update() {
-    this.ctrl.update(this);
-  }
-
   chooseMove(
     chess: co.Chess,
     zeroResult: SearchResult | undefined,
@@ -101,6 +95,7 @@ export class ZerofishBot implements Libot {
   ): Uci {
     const [f, z] = [fishResult as SearchResult, zeroResult as SearchResult];
     let head = z?.bestmove ?? f?.bestmove ?? '0000';
+    //if (fishResult) return applyShallow(f, 0);
     if (this.acpl) head = applyAcpl(f, interpolateValue(this.acpl, f, chess) ?? 0);
     if (this.searchMix) {
       const val = interpolateValue(this.searchMix, f, chess);
@@ -116,33 +111,46 @@ function interpolateValue(m: Mapping, r: SearchResult, chess: co.Chess) {
     : m.from === 'moves'
     ? interpolate(m, chess.fullmoves)
     : m.from === 'score' && r.pvs.length > 1
-    ? interpolate(m, outcomeExpectancy(deepScore(r.pvs[0])))
+    ? interpolate(m, outcomeExpectancy(score(r.pvs[0])))
     : undefined;
+}
+
+function applyShallow(r: SearchResult, depth = 0) {
+  // negative contribution from deepest score
+  r = structuredClone(r);
+  console.log(structuredClone(r).pvs.sort(sortShallow(depth)));
+  return r.pvs.sort(sortShallow(depth))[0].moves[0];
 }
 
 function applyAcpl(r: SearchResult, acpl: number) {
   r = structuredClone(r);
-  const headScore = deepScore(r.pvs[0]);
+  const headScore = score(r.pvs[0]);
   const headMove = r.pvs[0].moves[0];
   const targetCp = clamp(normalRandom(acpl, clamp(acpl / 4, { min: 5, max: 50 })), { min: 0, max: 250 });
   return r.pvs.sort(sortCpl(headScore, targetCp)).filter(pv => pv.moves.length > 0)?.[0].moves[0] ?? headMove;
 }
 
 //function applySearchMix
-function deepScore(pv: Line) {
-  return pv.scores[pv.scores.length - 1];
+function score(pv: Line, depth = pv.scores.length - 1) {
+  return pv.scores[clamp(depth, { min: 0, max: pv.scores.length - 1 })];
 }
 
 function outcomeExpectancy(cp: number) {
-  return 2 / (1 + 10 ** (-cp / 400)) - 1;
+  return 2 / (1 + 10 ** (-cp / 400)) - 1; // [-1, 1]
 }
+
 function sortCpl(headScore: number, targetCp: number) {
   return (lhs: Line, rhs: Line) => {
-    return Math.abs(headScore - deepScore(lhs) - targetCp) - Math.abs(headScore - deepScore(rhs) - targetCp);
+    return Math.abs(headScore - score(lhs) - targetCp) - Math.abs(headScore - score(rhs) - targetCp);
+  };
+}
+
+function sortShallow(depth: number) {
+  return (lhs: Line, rhs: Line) => {
+    return 2 * score(rhs, depth) - score(rhs) - (2 * score(lhs, depth) - score(lhs));
   };
 }
 
 function normalRandom(mean: number, sd: number) {
-  // box muller
   return mean + sd * Math.sqrt(-2.0 * Math.log(Math.random())) * Math.sin(2.0 * Math.PI * Math.random());
 }

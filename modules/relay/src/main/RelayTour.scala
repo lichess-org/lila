@@ -15,6 +15,7 @@ case class RelayTour(
     createdAt: Instant,
     tier: Option[RelayTour.Tier], // if present, it's an official broadcast
     active: Boolean,              // a round is scheduled or ongoing
+    live: Option[Boolean],        // a round is live, i.e. started and not finished
     syncedAt: Option[Instant],    // last time a round was synced
     spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
@@ -84,8 +85,7 @@ object RelayTour:
       display: RelayRound, // which round to show on the tour link
       link: RelayRound,    // which round to actually link to
       group: Option[RelayGroup.Name]
-  ) extends RelayRound.AndTourAndGroup:
-    export display.{ hasStarted as ongoing }
+  ) extends RelayRound.AndTourAndGroup
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:

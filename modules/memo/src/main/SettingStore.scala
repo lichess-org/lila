@@ -79,7 +79,7 @@ object SettingStore:
     given StringReader[Strings] = StringReader.fromIso(using stringsIso)
   object UserIds:
     val userIdsIso = Strings.stringsIso.map[lila.core.data.UserIds](
-      strs => lila.core.data.UserIds(UserId.from(strs.value)),
+      strs => lila.core.data.UserIds(UserStr.from(strs.value).map(_.id)),
       uids => lila.core.data.Strings(UserId.raw(uids.value))
     )
     given BSONHandler[UserIds]  = lila.db.dsl.isoHandler(using userIdsIso)

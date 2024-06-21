@@ -7,7 +7,7 @@ interface Dialog {
 
   showModal(): Promise<Dialog>; // resolves on close
   show(): Promise<Dialog>; // resolves on close
-  refresh(): void; // reattach action handlers (if necessary)
+  actions(actions?: Action | Action[]): void; // set new or reattach existing actions
   close(): void;
 }
 
@@ -19,7 +19,7 @@ interface DialogOpts {
   htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
   append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default 'child'
   attrs?: { dialog?: _Snabbdom.Attrs; view?: _Snabbdom.Attrs }; // optional attrs for dialog and view div
-  action?: Action | Action[]; // if present, add handlers to action buttons
+  actions?: Action | Action[]; // if present, add listeners to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
   noCloseButton?: boolean; // if true, no upper right corner close button
   noClickAway?: boolean; // if true, no click-away-to-close
@@ -37,15 +37,13 @@ interface SnabDialogOpts extends DialogOpts {
   onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
 }
 
-// Action can be any "clickable" client button, usually to dismiss the dialog
-interface Action {
-  selector: string; // selector
-  event?: string | string[]; // if not specified, 'click' handler will be installed
-  result?: string | ((dialog: Dialog, action: Action, e: Event) => void);
-  // if result handler not provided, just close
-  // if string, given value will set dialog.returnValue and dialog is closed on event
-  // if function, it will be called on event. dialog is not closed.
-}
+type ActionListener = (dialog: Dialog, action: Action, e: Event) => void;
+
+// Actions are managed listeners / results that are easily refreshed on DOM changes
+// if no event is specified, then 'click' is assumed
+type Action =
+  | { selector: string; event?: string | string[]; listener: ActionListener }
+  | { selector: string; event?: string | string[]; result: string };
 
 declare namespace _Snabbdom {
   type Attrs = Record<string, string | number | boolean>;

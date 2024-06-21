@@ -28,49 +28,51 @@
 
     .number-menu {
       flex: 0 1 auto;
-      overflow: hidden;
+      overflow-x: auto;
       margin: 0 0 0.2em 1em;
     }
 
     .user-actions {
+      @extend %flex-center-nowrap;
       flex: 0 0 auto;
-      margin: 1em 1em 1em 0.3em;
+      margin: 0 1em 0 0.3em;
 
-      form {
-        display: inline;
+      .mod-zone-toggle,
+      .dropdown > a {
+        display: block;
+        font-size: 2em;
+        height: 1.5em;
+        color: $c-font-dim;
+        padding: 0 0.7em;
+      }
+      .mod-zone-toggle:hover {
+        color: $c-font-clear;
       }
     }
 
     .dropdown {
       position: relative;
-      font-size: 2em;
-      > a {
-        display: block;
-        height: 1.5em;
-        color: $c-font-page;
-        padding-left: 0.5em;
-      }
 
       .dropdown-window {
         @extend %dropdown-shadow;
         z-index: $z-link-overlay-2;
         visibility: hidden;
         background: $c-bg-header-dropdown;
-        border-radius: 3px 0 3px 3px;
+        border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
         position: absolute;
-        top: 1.5em;
-        right: 0;
+        top: 3rem;
+        @include inline-end(0);
+        body.blind-mode & {
+          visibility: visible;
+        }
         a {
-          width: 16em;
-          font-size: 1rem;
-          display: block;
-          padding: 0.6rem 1rem;
+          @extend %flex-center-nowrap;
+          width: 20em;
+          padding: 0.7rem 1rem;
           color: $c-header-dropdown;
-          &:first-child {
-            border-radius: 3px 0 0 0;
-          }
-          &:last-child {
-            border-radius: 0 0 3px 3px;
+          &::before {
+            margin-inline: 0 1rem;
+            font-size: 1.4em;
           }
           &:hover {
             background: $c-primary;
@@ -80,12 +82,20 @@
             }
           }
         }
+        > a {
+          &:first-child {
+            border-radius: $box-radius-size 0 0 0;
+          }
+          &:last-child {
+            @extend %box-radius-bottom;
+          }
+        }
       }
       &:hover {
         > a {
-          border-radius: 3px 3px 0 0;
+          @extend %box-radius-top, %dropdown-shadow;
           background: $c-bg-header-dropdown;
-          box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
+          color: $c-font-clear;
         }
         .dropdown-window {
           visibility: visible;

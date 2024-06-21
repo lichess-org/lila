@@ -13,10 +13,9 @@ export interface Quirks {
 }
 
 export interface Mapping {
-  readonly to: 'mix' | 'acpl';
-  readonly from: 'moves' | 'score';
-  readonly default: number;
-  data: Point[];
+  readonly to: 'lc0' | 'acpl';
+  from: 'moves' | 'score' | 'const';
+  data: Point[] | number;
   readonly range: { min: number; max: number };
 }
 

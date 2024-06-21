@@ -90,6 +90,9 @@ final class Env(
 
   private lazy val delay = wire[RelayDelay]
 
+  // must instanciate eagerly to start the scheduler
+  val stats = wire[RelayStatsApi]
+
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](
     "relayProxyCredentials",
@@ -122,7 +125,7 @@ final class Env(
   wire[RelayFetch]
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
-    api.autoStart >> api.autoFinishNotSyncing >> api.monitorCrowd
+    api.autoStart >> api.autoFinishNotSyncing
 
   lila.common.Bus.subscribeFuns(
     "study" -> { case lila.core.study.RemoveStudy(studyId) =>
@@ -150,6 +153,7 @@ private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.
   val tour  = mainDb(CollName("relay_tour"))
   val group = mainDb(CollName("relay_group"))
   val delay = yoloDb(CollName("relay_delay"))
+  val stats = mainDb(CollName("relay_stats"))
 
 private trait ProxyCredentials
 private trait ProxyHostPort

@@ -85,7 +85,8 @@ export class BotCtrl {
     this.zf.reset();
   }
 
-  update(bot: Libot) {
+  setBot(bot: ZerofishBot) {
+    this.bots[bot.uid] = new ZerofishBot(bot, this);
     this.store.put(bot.uid, bot);
   }
 

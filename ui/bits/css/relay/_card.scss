@@ -29,7 +29,7 @@
       0 0 20px $c-link;
   }
 
-  &--ongoing {
+  &--live {
     outline: 3px solid $m-bad--alpha-50;
     &:hover {
       box-shadow:
@@ -42,7 +42,7 @@
     width: 100%;
     height: auto;
     opacity: 0.7;
-    .relay-card--ongoing & {
+    .relay-card--live & {
       opacity: 0.9;
     }
     @include transition(opacity);
@@ -57,7 +57,7 @@
 
   &__body {
     @extend %flex-column;
-    padding: 0.3em 0.5em 1em 1em;
+    padding: 0.6em 0.5em 0.6em 1em;
   }
 
   &__info {
@@ -78,10 +78,10 @@
     .relay-cards--tier-best & {
       font-size: 1.4em;
     }
+    padding: 0.2em 0 0.3em 0;
   }
   &__desc {
     @extend %roboto;
     color: $c-font-dim;
-    font-size: 0.9em;
   }
 }
