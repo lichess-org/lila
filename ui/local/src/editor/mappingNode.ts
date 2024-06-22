@@ -2,7 +2,7 @@
 import { Chart, PointElement, LinearScale, LineController, LineElement, Tooltip } from 'chart.js';
 import type { Mapping } from '../types';
 import { MappingInfo, SettingHost } from './types';
-import { SettingNode, maxChars } from './settingNode';
+import { SettingView, maxChars } from './setting';
 import { addPoint, asData, domain } from '../mapping';
 
 /*
@@ -25,18 +25,16 @@ import { addPoint, asData, domain } from '../mapping';
       </span>
       
 */
-export class MappingNode extends SettingNode {
+export class MappingNode extends SettingView {
   info: MappingInfo;
   constructor(p: any) {
     super(p);
     this.init();
+    const rack = $as<HTMLElement>(`<span class="btn-rack">`);
+    this.div.append(rack);
     const constant = $as<HTMLInputElement>(`<input type="text" data-type="number" class="btn-rack">`);
     constant.maxLength = 4;
     constant.style.maxWidth = `calc(5ch + 1.5em)`;
-    //this.div.append(constant);
-    //this.div.append('or by');
-    const rack = $as<HTMLElement>(`<span class="btn-rack">`);
-    this.div.append(rack);
     rack.append(constant);
     const moves = $as<HTMLElement>(`<span class="btn-rack__btn byMoves">Moves</span>`);
     rack.append(moves);
@@ -46,7 +44,7 @@ export class MappingNode extends SettingNode {
   select() {
     this.div.classList.add('selected');
     const maybeFrozen = this.getProperty(['bot', 'default', 'schema']) as Mapping;
-    const mapping = maybeFrozen ? structuredClone(maybeFrozen) : maybeFrozen;
+    const mapping = Object.isFrozen(maybeFrozen) ? structuredClone(maybeFrozen) : maybeFrozen;
     this.setProperty(mapping);
     this.info.value = mapping;
     const panel = this.host.view.querySelector('.edit-panel') as HTMLElement;
@@ -56,7 +54,28 @@ export class MappingNode extends SettingNode {
     canvas.innerHTML = '';
     renderMapping(canvas, this.info, this.host);
   }
-
+  update(e: Event) {
+    if (e.target instanceof HTMLInputElement) {
+      const v = Number(e.target.value);
+      if (isNaN(v) || v < this.info.value.range.min || v > this.info.value.range.max) {
+        // bad, select moves / score
+      } else {
+        // good, deactivate moves and score
+      }
+    }
+    this.host.update();
+  }
+  click(e: MouseEvent) {
+    if (e.target instanceof HTMLElement) {
+      if (e.target.classList.contains('byMoves')) {
+        this.info.value.from = 'moves';
+        this.update(e);
+      } else if (e.target.classList.contains('byScore')) {
+        this.info.value.from = 'score';
+        this.update(e);
+      }
+    }
+  }
   get inputValue(): Mapping {
     return this.getProperty();
   }

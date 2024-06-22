@@ -135,8 +135,6 @@ class Env {
     tsc: 'yellow',
     esbuild: 'blue',
   };
-  resolveTypesOk?: () => void;
-  typesOk = new Promise<void>(resolve => (this.resolveTypesOk = resolve));
 
   constructor() {}
   get sass(): boolean {
@@ -226,10 +224,6 @@ class Env {
   }
   done(code: number, ctx: Builder): void {
     this.exitCode.set(ctx, code);
-    if (ctx === 'tsc' && code === 0 && this.resolveTypesOk) {
-      this.resolveTypesOk();
-      this.resolveTypesOk = undefined;
-    }
     const err = [...this.exitCode.values()].find(x => x);
     const allDone = this.exitCode.size === 3;
 
@@ -250,9 +244,6 @@ class Env {
         process.exitCode = err || 0;
       }
     }
-  }
-  typesNotOk() {
-    this.typesOk = new Promise<void>(resolve => (this.resolveTypesOk = resolve));
   }
 }
 

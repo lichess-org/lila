@@ -5,8 +5,8 @@ import { BotCtrl } from '../botCtrl';
 import { HandOfCards } from '../handOfCards';
 import { defined, escapeHtml, enumerableEquivalence } from 'common';
 import { GameCtrl } from '../gameCtrl';
-import { buildFromSchema, SettingGroup } from './settingGroup';
-import { objectPath, removePath } from './settingNode';
+import { buildFromSchema, SettingCtrl } from './settings';
+import { /*objectPath,*/ removePath } from './setting';
 import * as licon from 'common/licon';
 
 export class BotDialog implements SettingHost {
@@ -14,7 +14,7 @@ export class BotDialog implements SettingHost {
   hand: HandOfCards;
   uid: string;
   scratch: { [uid: string]: ZerofishBotEditor } = {};
-  settings: SettingGroup;
+  settings: SettingCtrl;
   dlg: Dialog;
 
   constructor(
@@ -83,7 +83,7 @@ export class BotDialog implements SettingHost {
   }
 
   makeEditView() {
-    this.settings = new SettingGroup();
+    this.settings = new SettingCtrl();
     const el = $as<HTMLElement>(`<div class="edit-bot">`);
     this.view.querySelector('.edit-bot')?.replaceWith(el);
     const playerInfo = $as<HTMLElement>(`<div class="player-info">`);
@@ -92,7 +92,7 @@ export class BotDialog implements SettingHost {
     player.appendChild(buildFromSchema(this, ['bot_description']).div);
     playerInfo.appendChild(player);
     el.appendChild(playerInfo);
-    el.appendChild(buildFromSchema(this, ['bot']).div);
+    el.appendChild(buildFromSchema(this, ['sources']).div);
     const edit = $as<HTMLElement>(`<div class="edit-panel none">
         <div class="chart-wrapper"><canvas></canvas></div>
       </div>`);
@@ -121,7 +121,7 @@ export class BotDialog implements SettingHost {
 
   apply() {
     for (const id of this.bot.disabled) {
-      if (this.bot.disabled.has(id)) removePath({ obj: this.bot, path: objectPath(id) }, true);
+      removePath({ obj: this.bot, path: id.split('_').slice(1) }, true);
     }
     this.bot.disabled.clear();
     this.botCtrl.setBot(this.bot);

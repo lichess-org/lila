@@ -1,8 +1,8 @@
 import type { BotInfo, Mapping } from '../types';
-import type { SettingGroup } from './settingGroup';
-import type { SettingNode } from './settingNode';
+import type { SettingCtrl } from './settings';
+import type { SettingView } from './setting';
 import type { ZerofishBotEditor } from '../zerofishBot';
-export type { SettingNode, SettingGroup };
+export type { SettingView as SettingNode, SettingCtrl as SettingGroup };
 
 export interface BotInfoReader extends BotInfo {
   readonly [key: string]: any;
@@ -10,14 +10,14 @@ export interface BotInfoReader extends BotInfo {
 
 export interface SettingHost {
   readonly view: HTMLElement;
-  readonly settings: SettingGroup;
+  readonly settings: SettingCtrl;
   readonly bot: ZerofishBotEditor;
   readonly botDefault: BotInfoReader;
   update(): void;
 }
 
 export interface BaseInfo {
-  type?: 'select' | 'text' | 'textarea' | 'range' | 'number' | 'mapping' | 'disclosure';
+  type?: 'select' | 'text' | 'textarea' | 'range' | 'number' | 'mapping' | 'radioGroup';
   id?: string;
   class?: string[];
   label?: string;
@@ -25,10 +25,6 @@ export interface BaseInfo {
   require?: string[] | boolean;
   radioGroup?: string;
   value?: string | number | boolean | Mapping;
-}
-
-export interface DisclosureInfo extends BaseInfo {
-  type: 'disclosure';
 }
 
 export interface SelectInfo extends BaseInfo {
@@ -68,18 +64,19 @@ export interface MappingInfo extends BaseInfo {
   value: Mapping;
 }
 
+export type AnyKey =
+  | keyof SelectInfo
+  | keyof TextInfo
+  | keyof TextareaInfo
+  | keyof RangeInfo
+  | keyof NumberInfo
+  | keyof MappingInfo;
+
+export type AnyInfo = SelectInfo | TextInfo | TextareaInfo | RangeInfo | NumberInfo | MappingInfo;
+
 export interface BotSchema extends BaseInfo {
-  [key: string]:
-    | SelectInfo
-    | TextInfo
-    | TextareaInfo
-    | RangeInfo
-    | NumberInfo
-    | MappingInfo
-    | DisclosureInfo
-    | BotSchema
-    | PropertyVal;
-  type?: undefined;
+  [key: string]: AnyInfo | BotSchema | PropertyVal;
+  type?: undefined | 'radioGroup';
 }
 
 export type NodeArgs = { host: SettingHost; info: BaseInfo };

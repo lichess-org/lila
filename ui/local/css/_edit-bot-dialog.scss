@@ -60,7 +60,7 @@ dialog .dialog-content {
       text-align: center;
     }
   }
-  .settings {
+  .sources {
     grid-area: b;
     //border: 1px solid $c-border;
     padding: 0 1em;
@@ -72,11 +72,8 @@ dialog .dialog-content {
     gap: 1em;
     overflow: auto;
   }
-  .fish {
-    //break-inside: avoid;
-  }
-  .zero {
-    //break-inside: avoid;
+  hr {
+    flex: auto;
   }
   fieldset {
     border: 1px solid $c-border;
@@ -128,7 +125,10 @@ dialog .dialog-content {
       }
     }
   }
-  .edit-panel {
+  &.active {
+    background-color: beige;
+  }
+  .selectors {
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -139,10 +139,6 @@ dialog .dialog-content {
       flex: auto;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-
-      &.active {
-        background-color: beige;
-      }
     }
   }
   .chart-wrapper {
@@ -153,39 +149,6 @@ dialog .dialog-content {
     cursor: pointer;
     background-color: beige;
   }
-  /*.setting {
-    @extend %flex-nowrap;
-
-    * {
-      white-space: nowrap;
-    }
-    label {
-      flex: 4 1 auto;
-      cursor: pointer;
-    }
-
-    .switch + label {
-      margin-inline-start: 1ch;
-    }
-
-    input[type='range'] {
-      cursor: pointer;
-      flex: 1 4 auto;
-      padding: 0;
-      height: 1.6em;
-      width: 100%;
-      margin: 0 1ch;
-    }
-
-    select {
-      flex: 1 4 auto;
-      min-width: 0;
-      margin-inline-start: 1ch;
-      padding: 4px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }*/
 }
 .chin {
   padding: 0.5em;
