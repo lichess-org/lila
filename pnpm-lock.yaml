@@ -383,7 +383,7 @@ importers:
         specifier: workspace:^
         version: link:../chart
       chart.js:
-        specifier: ^4.4.0
+        specifier: 4.4.3
         version: 4.4.3
       chartjs-plugin-datalabels:
         specifier: ^2.2.0

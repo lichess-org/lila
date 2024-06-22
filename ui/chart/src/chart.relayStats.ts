@@ -49,17 +49,18 @@ const dateFormat = memoize(() =>
 
 export default function initModule(data: RelayStats) {
   const $el = $('#relay-stats');
+  const last = data.rounds.reverse().find(r => !!r.viewers.length);
   const container = $('#round-selector')[0]!;
   container.innerHTML = `<div class = "mselect"><select class="mselect__label" id="round-select">${data.rounds
     .map(
       (round, i) =>
-        `<option value="${round.round.id}" ${i == data.rounds.length - 1 ? 'selected' : ''}>${
-          round.round.name
-        }</option>`,
+        `<option value="${round.round.id}" ${
+          (last ? last.round.id == round.round.id : i == data.rounds.length - 1) ? 'selected' : ''
+        }>${round.round.name}</option>`,
     )
     .join('')}</select></div>`;
   const possibleChart = maybeChart($el[0] as HTMLCanvasElement);
-  const relayChart = (possibleChart as RelayChart) ?? makeChart(data, $el);
+  const relayChart = (possibleChart as RelayChart) ?? makeChart($el, last);
   $('#round-select').on('change', function (this: HTMLSelectElement) {
     const selected = data.rounds.find(r => r.round.id == this.value)!;
     relayChart.updateData(selected);
@@ -75,7 +76,7 @@ const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDatase
     {
       indexAxis: 'x',
       type: 'line',
-      data: data.viewers.map(v => ({ x: v[0] * 1000, y: v[1] })),
+      data: fillData(data.viewers),
       label: `${data.round.name}`,
       pointBorderColor: '#fff',
       pointBackgroundColor: blue,
@@ -116,9 +117,8 @@ const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDatase
   return plot;
 };
 
-const makeChart = (data: RelayStats, $el: Cash) => {
-  const last = data.rounds[data.rounds.length - 1];
-  const ds = makeDataset(last, $el[0] as HTMLCanvasElement);
+const makeChart = ($el: Cash, last?: RoundStats) => {
+  const ds = last ? makeDataset(last, $el[0] as HTMLCanvasElement) : [];
   const config: chart.ChartConfiguration<'line'> = {
     type: 'line',
     data: {
@@ -176,7 +176,7 @@ const makeChart = (data: RelayStats, $el: Cash) => {
             text: 'Spectators',
             color: fontColor,
           },
-          suggestedMin: 0,
+          min: 0,
         },
         y2: {
           display: false,
@@ -198,7 +198,7 @@ const makeChart = (data: RelayStats, $el: Cash) => {
         },
         title: {
           display: true,
-          text: titleText(last),
+          text: last ? titleText(last) : 'No viewership stats yet',
           color: fontColor,
         },
       },
@@ -208,6 +208,7 @@ const makeChart = (data: RelayStats, $el: Cash) => {
   relayChart.updateData = (data: RoundStats) => {
     relayChart.data.datasets = makeDataset(data, $el[0] as HTMLCanvasElement);
     relayChart.options.plugins!.title!.text = titleText(data);
+    relayChart.options.animations = updateAnimations(data);
     relayChart.update();
   };
   return relayChart;
@@ -215,3 +216,25 @@ const makeChart = (data: RelayStats, $el: Cash) => {
 
 const titleText = (data: RoundStats): string =>
   `${data.round.name} • Start - ${dateFormat()(data.round.startsAt)}`;
+
+const updateAnimations = (data?: RoundStats) =>
+  data && data.viewers.length > 30 ? animation(1000 / data.viewers.length) : undefined;
+
+const fillData = (viewers: RoundStats['viewers']) => {
+  const points: chart.Point[] = [];
+  if (!viewers.length) return [];
+  const last = viewers[viewers.length - 1];
+  points.push({ x: last[0], y: last[1] });
+  viewers
+    .slice(0, viewers.length - 2)
+    .reverse()
+    .forEach(([behind, v]) => {
+      const minuteGap = points.find(({ x }) => x - behind <= 60);
+      if (!minuteGap) {
+        for (let i = behind; i < points[points.length - 1].x; i += 60) {
+          points.push({ x: i, y: v });
+        }
+      } else points.push({ x: behind, y: v });
+    });
+  return points.map(p => ({ x: p.x * 1000, y: p.y })).reverse();
+};
