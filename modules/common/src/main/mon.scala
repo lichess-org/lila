@@ -328,6 +328,9 @@ object mon:
     object verifyMailApi:
       def fetch(success: Boolean, ok: Boolean) =
         timer("verifyMail.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
+    object mailcheckApi:
+      def fetch(success: Boolean, ok: Boolean) =
+        timer("mailcheck.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
     def usersAlikeTime(field: String)  = timer("security.usersAlike.time").withTag("field", field)
     def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
     object hCaptcha:
