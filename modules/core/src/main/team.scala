@@ -56,8 +56,6 @@ case class TeamData(
 )
 case class TeamCreate(team: TeamData)
 case class TeamUpdate(team: TeamData, byMod: Boolean)(using val me: MyId)
-case class TeamDelete(id: TeamId)
-case class TeamDisable(id: TeamId)
 case class JoinTeam(id: TeamId, userId: UserId)
 case class IsLeader(id: TeamId, userId: UserId, promise: Promise[Boolean])
 case class IsLeaderOf(leaderId: UserId, memberId: UserId, promise: Promise[Boolean])
