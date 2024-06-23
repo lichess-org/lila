@@ -15,7 +15,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import { currentTheme } from 'common/theme';
-import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill } from 'chart';
+import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill, colorSeries } from 'chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { formatNumber } from './table';
 
@@ -30,19 +30,7 @@ const resultColors = {
   Draw: '#007599',
   Defeat: '#dc322f',
 };
-const theme = [
-  '#2b908f',
-  '#90ee7e',
-  '#f45b5b',
-  '#7798BF',
-  '#aaeeee',
-  '#ff0066',
-  '#eeaaee',
-  '#55BF3B',
-  '#DF5353',
-  '#7798BF',
-  '#aaeeee',
-];
+
 const sizeColor = 'rgba(120,120,120,0.2)';
 const tooltipFontColor = light ? '#4d4d4d' : '#cccccc';
 
@@ -96,7 +84,7 @@ function datasetBuilder(d: InsightData) {
   const color = (i: number, name: string, stack: boolean) => {
     if (d.valueYaxis.name == 'Game result') return resultColors[name as 'Victory' | 'Draw' | 'Defeat'];
     else if (!stack && light) return '#7cb5ec';
-    return theme[i % theme.length];
+    return colorSeries[i % colorSeries.length];
   };
   return [
     ...d.series.map((serie, i) =>

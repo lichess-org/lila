@@ -10,34 +10,21 @@ object BSONHandlers:
   given BSONHandler[RelayTeamsTextarea]   = stringAnyValHandler(_.text, RelayTeamsTextarea(_))
 
   import RelayRound.Sync
-  import Sync.{ Upstream, UpstreamIds, UpstreamUrl, UpstreamLcc, UpstreamUrls, FetchableUpstream }
-  given upstreamUrlHandler: BSONDocumentHandler[UpstreamUrl] = Macros.handler
-  given upstreamLccHandler: BSONDocumentHandler[UpstreamLcc] = Macros.handler
-  given BSONHandler[FetchableUpstream] = tryHandler(
-    {
-      case d: BSONDocument if d.contains("url") => upstreamUrlHandler.readTry(d)
-      case d: BSONDocument if d.contains("lcc") => upstreamLccHandler.readTry(d)
-    },
-    {
-      case url: UpstreamUrl => upstreamUrlHandler.writeTry(url).get
-      case lcc: UpstreamLcc => upstreamLccHandler.writeTry(lcc).get
-    }
-  )
-  given upstreamUrlsHandler: BSONDocumentHandler[UpstreamUrls] = Macros.handler
-  given upstreamIdsHandler: BSONDocumentHandler[UpstreamIds]   = Macros.handler
+  import Sync.Upstream
+  given upstreamUrlHandler: BSONDocumentHandler[Upstream.Url]   = Macros.handler
+  given upstreamUrlsHandler: BSONDocumentHandler[Upstream.Urls] = Macros.handler
+  given upstreamIdsHandler: BSONDocumentHandler[Upstream.Ids]   = Macros.handler
 
   given BSONHandler[Upstream] = tryHandler(
     {
       case d: BSONDocument if d.contains("url")  => upstreamUrlHandler.readTry(d)
-      case d: BSONDocument if d.contains("lcc")  => upstreamLccHandler.readTry(d)
       case d: BSONDocument if d.contains("urls") => upstreamUrlsHandler.readTry(d)
       case d: BSONDocument if d.contains("ids")  => upstreamIdsHandler.readTry(d)
     },
     {
-      case url: UpstreamUrl   => upstreamUrlHandler.writeTry(url).get
-      case lcc: UpstreamLcc   => upstreamLccHandler.writeTry(lcc).get
-      case urls: UpstreamUrls => upstreamUrlsHandler.writeTry(urls).get
-      case ids: UpstreamIds   => upstreamIdsHandler.writeTry(ids).get
+      case url: Upstream.Url   => upstreamUrlHandler.writeTry(url).get
+      case urls: Upstream.Urls => upstreamUrlsHandler.writeTry(urls).get
+      case ids: Upstream.Ids   => upstreamIdsHandler.writeTry(ids).get
     }
   )
 

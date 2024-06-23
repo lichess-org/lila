@@ -7,6 +7,7 @@ import scalalib.Render
 import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
+import io.mola.galimatias.URL
 
 // collection of lila attrs
 trait ScalatagsAttrs:
@@ -108,6 +109,7 @@ trait ScalatagsTemplate
 
   /* Convert play URLs to scalatags attributes with toString */
   given GenericAttr[Call] = GenericAttr[Call]
+  given GenericAttr[URL]  = GenericAttr[URL]
 
 object ScalatagsTemplate extends ScalatagsTemplate
 
@@ -118,6 +120,7 @@ trait ScalatagsExtensions:
   export lila.core.perm.Granter
 
   given Render[Icon] = _.value
+  given Render[URL]  = _.toString
 
   given [A](using Render[A]): Conversion[A, Frag] = a => StringFrag(a.render)
 
