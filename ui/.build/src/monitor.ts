@@ -4,6 +4,7 @@ import * as ps from 'node:process';
 import { build, stop } from './build';
 import { env } from './main';
 import { globArray } from './parse';
+import { clean } from './clean';
 import { stopTsc, tsc } from './tsc';
 import { stopEsbuild, esbuild } from './esbuild';
 
@@ -30,7 +31,9 @@ export async function startMonitor(mods: string[]) {
     stopEsbuild();
     clearTimeout(tscTimeout);
     tscTimeout = setTimeout(() => {
-      if (!reinitTimeout) esbuild(tsc());
+      if (reinitTimeout) return;
+      clean(['ui/*/tsconfig.tsbuildinfo']);
+      esbuild(tsc());
     }, 2000);
   };
   const packageChange = async () => {

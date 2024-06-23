@@ -168,8 +168,10 @@
 @mixin rendered-markdown--embed {
   .embed {
     @extend %video;
-
     margin: $block-gap auto;
+    > iframe {
+      left: 0;
+    }
   }
 
   .twitter-tweet {

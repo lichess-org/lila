@@ -50,27 +50,26 @@ final private class RelayFetch(
 
   private val maxRelaysToSync = Max(50)
 
-  private def syncRelays(official: Boolean): Funit =
-    val relays =
+  private def syncRelays(official: Boolean): Funit = for
+    relays <-
       if official then api.toSyncOfficial(maxRelaysToSync, onlyIds)
       else api.toSyncUser(maxRelaysToSync, onlyIds)
-    relays
-      .flatMap: relays =>
-        lila.mon.relay.ongoing(official).update(relays.size)
-        relays
-          .parallelVoid: rt =>
-            if rt.round.sync.ongoing then
-              processRelay(rt).flatMap: updating =>
-                api.reFetchAndUpdate(rt.round)(updating.reRun)
-            else if rt.round.hasStarted then
-              logger.info(s"Finish by lack of activity ${rt.round}")
-              api.update(rt.round)(_.finish)
-            else if rt.round.shouldGiveUp then
-              val msg = "Finish for lack of start"
-              logger.info(s"$msg ${rt.round}")
-              if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
-              api.update(rt.round)(_.finish)
-            else funit
+    _ <- relays.parallelVoid(syncRelay)
+  yield lila.mon.relay.ongoing(official).update(relays.size)
+
+  private def syncRelay(rt: RelayRound.WithTour): Funit =
+    if rt.round.sync.ongoing then
+      processRelay(rt).flatMap: updating =>
+        api.reFetchAndUpdate(rt.round)(updating.reRun).void
+    else if rt.round.hasStarted then
+      logger.info(s"Finish by lack of activity ${rt.round}")
+      api.update(rt.round)(_.finish).void
+    else if rt.round.shouldGiveUp then
+      val msg = "Finish for lack of start"
+      logger.info(s"$msg ${rt.round}")
+      if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
+      api.update(rt.round)(_.finish).void
+    else funit
 
   // no writing the relay; only reading!
   // this can take a long time if the source is slow
@@ -167,11 +166,11 @@ final private class RelayFetch(
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
     given CanProxy = CanProxy(rt.tour.official)
     rt.round.sync.upstream.so:
-      case Sync.UpstreamIds(ids)            => fetchFromGameIds(rt.tour, ids)
-      case urlOrLcc: Sync.FetchableUpstream => delayer(urlOrLcc, rt.round, fetchFromUpstream)
-      case Sync.UpstreamUrls(urls) =>
+      case Sync.Upstream.Ids(ids) => fetchFromGameIds(rt.tour, ids)
+      case Sync.Upstream.Url(url) => delayer(url, rt.round, fetchFromUpstream)
+      case Sync.Upstream.Urls(urls) =>
         urls
-          .traverse: url =>
+          .parallel: url =>
             delayer(url, rt.round, fetchFromUpstream)
           .map(_.flatten.toVector)
 
@@ -194,47 +193,33 @@ final private class RelayFetch(
       }
       .flatMap(multiPgnToGames(_).toFuture)
 
-  private def fetchFromUpstream(using
-      canProxy: CanProxy
-  )(upstream: Sync.FetchableUpstream, max: Max): Fu[RelayGames] =
+  private def fetchFromUpstream(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
     formatApi
-      .get(upstream)
+      .get(url)
       .flatMap {
-        case RelayFormat.SingleFile(doc) =>
-          doc.format match
-            // all games in a single PGN file
-            case RelayFormat.DocFormat.Pgn => httpGetPgn(doc.url).map { MultiPgn.split(_, max) }
-            // maybe a single JSON game? Why not
-            case RelayFormat.DocFormat.Json =>
-              httpGetJson[GameJson](doc.url).map: game =>
-                MultiPgn(List(game.toPgn()))
-        case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
-          httpGetJson[RoundJson](indexUrl).flatMap: round =>
-            round.pairings.zipWithIndex
-              .map: (pairing, i) =>
-                val number  = i + 1
-                val gameDoc = makeGameDoc(number)
-                gameDoc.format
-                  .match
-                    case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
-                    case RelayFormat.DocFormat.Json =>
-                      httpGetJson[GameJson](gameDoc.url)
-                        .recover:
-                          case _: Exception => GameJson(moves = Nil, result = none)
-                        .map { _.toPgn(pairing.tags) }
+        case RelayFormat.SingleFile(url) => httpGetPgn(url).map { MultiPgn.split(_, max) }
+        case RelayFormat.LccWithGames(lcc) =>
+          httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
+            round.pairings
+              .mapWithIndex: (pairing, i) =>
+                val game = i + 1
+                val tags = pairing.tags(lcc.round, game)
+                httpGetJson[GameJson](lcc.gameUrl(game))
+                  .recover:
+                    case _: Exception => GameJson(moves = Nil, result = none)
+                  .map { _.toPgn(tags) }
                   .recover: _ =>
-                    PgnStr(s"${pairing.tags}\n\n${pairing.result}")
-                  .map(number -> _)
+                    PgnStr(s"${tags}\n\n${pairing.result}")
+                  .map(game -> _)
               .parallel
               .map: results =>
                 MultiPgn(results.sortBy(_._1).map(_._2))
-        case RelayFormat.ManyFilesLater(indexUrl) =>
-          httpGetJson[RoundJson](indexUrl).map: round =>
+        case RelayFormat.LccWithoutGames(lcc) =>
+          httpGetJson[RoundJson](lcc.indexUrl).map: round =>
             MultiPgn:
-              round.pairings.map: pairing =>
-                PgnStr(s"${pairing.tags}\n\n${pairing.result}")
-
+              round.pairings.mapWithIndex: (pairing, i) =>
+                PgnStr(s"${pairing.tags(lcc.round, i + 1)}\n\n${pairing.result}")
       }
       .flatMap { multiPgnToGames(_).toFuture }
 
@@ -268,7 +253,7 @@ private object RelayFetch:
         result: Option[String]
     ):
       import chess.format.pgn.*
-      def tags = Tags:
+      def tags(round: Int, game: Int) = Tags:
         List(
           white.flatMap(_.fullName).map { Tag(_.White, _) },
           white.flatMap(_.title).map { Tag(_.WhiteTitle, _) },
@@ -276,7 +261,8 @@ private object RelayFetch:
           black.flatMap(_.fullName).map { Tag(_.Black, _) },
           black.flatMap(_.title).map { Tag(_.BlackTitle, _) },
           black.flatMap(_.fideid).map { Tag(_.BlackFideId, _) },
-          result.map(Tag(_.Result, _))
+          result.map(Tag(_.Result, _)),
+          Tag(_.Round, s"$round.$game").some
         ).flatten
     case class RoundJson(pairings: List[RoundJsonPairing])
     given Reads[PairingPlayer]    = Json.reads
@@ -323,7 +309,7 @@ private object RelayFetch:
       CacheApi
         .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
         .expireAfterAccess(2 minutes)
-        .maximumSize(512)
+        .maximumSize(1024)
         .build(compute)
 
     private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =

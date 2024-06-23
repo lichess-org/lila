@@ -1,8 +1,8 @@
 package lila.common
 
 import play.api.libs.json.{ Json as PlayJson, * }
-
 import scala.util.NotGiven
+import io.mola.galimatias.URL
 
 object Json:
 
@@ -17,6 +17,8 @@ object Json:
   given Writes[lila.core.relation.Relation] = writeAs(_.isFollow)
 
   given Writes[PerfKey] = pk => JsString(PerfKey.value(pk))
+
+  given Writes[URL] = url => JsString(url.toString)
 
   given [A](using Show[A]): KeyWrites[A] with
     def writeKey(key: A) = key.show

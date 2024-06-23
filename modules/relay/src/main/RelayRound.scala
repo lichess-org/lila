@@ -5,6 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import scalalib.model.Seconds
 import lila.study.Study
+import io.mola.galimatias.URL
 
 case class RelayRound(
     /* Same as the Study id it refers to */
@@ -114,30 +115,25 @@ object RelayRound:
     override def toString = upstream.toString
 
   object Sync:
-    sealed trait Upstream:
-      def isLcc = false
-    sealed trait FetchableUpstream extends Upstream:
-      def fetchUrl: String
-      def formUrl: String
-    case class UpstreamUrl(url: String) extends FetchableUpstream:
-      def fetchUrl = url
-      def formUrl  = url
-    case class UpstreamUrls(urls: List[FetchableUpstream]) extends Upstream
-    case class UpstreamIds(ids: List[GameId])              extends Upstream
-    case class UpstreamLcc(lcc: String, round: Int) extends FetchableUpstream:
-      override def isLcc = true
-      def id             = lcc
-      def fetchUrl       = s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json"
-      def viewUrl        = s"https://view.livechesscloud.com/#$id"
-      def formUrl        = s"$viewUrl $round"
-    object UpstreamLcc:
-      private val idRegex = """.*view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r
-      def findId(url: String): Option[String] = url match
-        case idRegex(id) => id.some
-        case _           => none
-      def find(url: String): Option[UpstreamLcc] = url.split(' ').map(_.trim).filter(_.nonEmpty) match
-        case Array(idRegex(id), round) => round.toIntOption.map(UpstreamLcc(id, _))
-        case _                         => none
+    enum Upstream:
+      case Url(url: URL)          extends Upstream
+      case Urls(urls: List[URL])  extends Upstream
+      case Ids(ids: List[GameId]) extends Upstream
+      def lcc: Option[Lcc] = this match
+        case Url(url) =>
+          url.toString match
+            case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
+            case _                   => none
+        case _ => none
+      def isLcc = lcc.isDefined
+
+    case class Lcc(id: String, round: Int):
+      def pageUrl  = URL.parse(s"https://view.livechesscloud.com/#$id/$round")
+      def indexUrl = URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json")
+      def gameUrl(game: Int) =
+        URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/game-$game.json")
+
+    private val lccRegex = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
 
   trait AndTour:
     val tour: RelayTour

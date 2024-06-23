@@ -245,7 +245,8 @@ final class RelayApi(
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id): relay =>
       relay.sync.upstream.collect:
-        case f: Sync.FetchableUpstream => formatApi.refresh(f)
+        case Sync.Upstream.Url(url)   => formatApi.refresh(url)
+        case Sync.Upstream.Urls(urls) => urls.foreach(formatApi.refresh)
       isOfficial(relay.id).flatMap: official =>
         update(relay): r =>
           if v
@@ -397,8 +398,8 @@ final class RelayApi(
             .$lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
             .$gt(nowInstant.minusDays(1)), // bit late now
           "startedAt".$exists(false),
-          "sync.until".$exists(false),
-          "sync.upstream".$exists(true)
+          "sync.upstream".$exists(true),
+          $or("sync.until".$exists(false), "sync.until".$lt(nowInstant))
         )
       )
       .flatMap:
