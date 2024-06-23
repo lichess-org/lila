@@ -118,19 +118,16 @@ final private class RelayFormatApi(
     catch case _: Exception => false
   private def looksLikeJson(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url).map(looksLikeJson)
 
-sealed private trait RelayFormat
+private enum RelayFormat:
+  case SingleFile(url: URL)                   extends RelayFormat
+  case LccWithGames(lcc: RelayRound.Sync.Lcc) extends RelayFormat
+  // there will be game files with names like "game-1.json" or "game-1.pgn"
+  // but not at the moment. The index is still useful.
+  case LccWithoutGames(lcc: RelayRound.Sync.Lcc) extends RelayFormat
 
 private object RelayFormat:
 
   opaque type CanProxy = Boolean
   object CanProxy extends YesNo[CanProxy]
-
-  case class SingleFile(url: URL) extends RelayFormat
-
-  case class LccWithGames(lcc: RelayRound.Sync.Lcc) extends RelayFormat
-
-  // there will be game files with names like "game-1.json" or "game-1.pgn"
-  // but not at the moment. The index is still useful.
-  case class LccWithoutGames(lcc: RelayRound.Sync.Lcc) extends RelayFormat
 
   case class NotFound(message: String) extends LilaException

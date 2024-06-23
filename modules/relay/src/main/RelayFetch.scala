@@ -169,18 +169,18 @@ final private class RelayFetch(
       case Sync.Upstream.Ids(ids) => fetchFromGameIds(rt.tour, ids)
       case Sync.Upstream.Url(url) => delayer(url, rt.round, fetchFromUpstream)
       case Sync.Upstream.Urls(urls) =>
-        urls
+        urls.toVector
           .parallel: url =>
             delayer(url, rt.round, fetchFromUpstream)
-          .map(_.flatten.toVector)
+          .map(_.flatten)
 
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
     gameRepo
       .gamesFromSecondary(ids)
       .flatMap(gameProxy.upgradeIfPresent)
       .flatMap(gameRepo.withInitialFens)
-      .flatMap { games =>
-        if games.size == ids.size then
+      .flatMap: games =>
+        if games.sizeIs == ids.size then
           val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
           given play.api.i18n.Lang = lila.core.i18n.defaultLang
           games
@@ -190,7 +190,6 @@ final private class RelayFetch(
         else
           throw LilaInvalid:
             s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
-      }
       .flatMap(multiPgnToGames(_).toFuture)
 
   private def fetchFromUpstream(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
