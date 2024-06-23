@@ -50,27 +50,26 @@ final private class RelayFetch(
 
   private val maxRelaysToSync = Max(50)
 
-  private def syncRelays(official: Boolean): Funit =
-    val relays =
+  private def syncRelays(official: Boolean): Funit = for
+    relays <-
       if official then api.toSyncOfficial(maxRelaysToSync, onlyIds)
       else api.toSyncUser(maxRelaysToSync, onlyIds)
-    relays
-      .flatMap: relays =>
-        lila.mon.relay.ongoing(official).update(relays.size)
-        relays
-          .parallelVoid: rt =>
-            if rt.round.sync.ongoing then
-              processRelay(rt).flatMap: updating =>
-                api.reFetchAndUpdate(rt.round)(updating.reRun)
-            else if rt.round.hasStarted then
-              logger.info(s"Finish by lack of activity ${rt.round}")
-              api.update(rt.round)(_.finish)
-            else if rt.round.shouldGiveUp then
-              val msg = "Finish for lack of start"
-              logger.info(s"$msg ${rt.round}")
-              if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
-              api.update(rt.round)(_.finish)
-            else funit
+    _ <- relays.parallelVoid(syncRelay)
+  yield lila.mon.relay.ongoing(official).update(relays.size)
+
+  private def syncRelay(rt: RelayRound.WithTour): Funit =
+    if rt.round.sync.ongoing then
+      processRelay(rt).flatMap: updating =>
+        api.reFetchAndUpdate(rt.round)(updating.reRun).void
+    else if rt.round.hasStarted then
+      logger.info(s"Finish by lack of activity ${rt.round}")
+      api.update(rt.round)(_.finish).void
+    else if rt.round.shouldGiveUp then
+      val msg = "Finish for lack of start"
+      logger.info(s"$msg ${rt.round}")
+      if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
+      api.update(rt.round)(_.finish).void
+    else funit
 
   // no writing the relay; only reading!
   // this can take a long time if the source is slow
