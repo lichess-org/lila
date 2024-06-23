@@ -53,12 +53,10 @@ final private class VerifyMail(
   export cache.invalidate
 
   private def fetch(domain: Domain.Lower): Fu[Boolean] =
-    fetchFree(domain)
-      .logFailure(logger)
-      .recover(_ => true)
-      .flatMap:
-        case false => fuccess(false)
-        case true  => fetchPaid(domain)
+    List(fetchFree(domain), fetchPaid(domain))
+      .map(_.logFailure(logger).recover(_ => true)) // fetch fail = domain ok
+      .parallel
+      .map(_.forall(identity)) // ok if both say the domain is ok
 
   private def fetchFree(domain: Domain.Lower): Fu[Boolean] =
     val url = s"https://api.mailcheck.ai/domain/$domain"
