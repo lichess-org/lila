@@ -170,7 +170,7 @@ final private class RelayFetch(
       case urlOrLcc: Sync.FetchableUpstream => delayer(urlOrLcc, rt.round, fetchFromUpstream)
       case Sync.UpstreamUrls(urls) =>
         urls
-          .traverse: url =>
+          .parallel: url =>
             delayer(url, rt.round, fetchFromUpstream)
           .map(_.flatten.toVector)
 
@@ -193,9 +193,7 @@ final private class RelayFetch(
       }
       .flatMap(multiPgnToGames(_).toFuture)
 
-  private def fetchFromUpstream(using
-      canProxy: CanProxy
-  )(upstream: Sync.FetchableUpstream, max: Max): Fu[RelayGames] =
+  private def fetchFromUpstream(upstream: Sync.FetchableUpstream, max: Max)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
     formatApi
       .get(upstream)
@@ -322,7 +320,7 @@ private object RelayFetch:
       CacheApi
         .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
         .expireAfterAccess(2 minutes)
-        .maximumSize(512)
+        .maximumSize(1024)
         .build(compute)
 
     private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
