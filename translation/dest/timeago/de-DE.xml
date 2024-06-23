@@ -59,8 +59,8 @@
     <item quantity="other">%s Minuten verbleibend</item>
   </plurals>
   <plurals name="nbHoursRemaining">
-    <item quantity="one">%s Stunden verbleiben</item>
-    <item quantity="other">%s Stunden übrig</item>
+    <item quantity="one">%s Stunde verbleiben</item>
+    <item quantity="other">%s Stunden verbleiben</item>
   </plurals>
   <string name="completed">abgeschlossen</string>
 </resources>
