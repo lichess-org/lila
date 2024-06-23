@@ -84,20 +84,21 @@ final class ChallengeUi(helpers: Helpers):
     )
 
   private def rule(r: GameRule, isLast: Boolean) =
-    val (text, icon) = getRuleStyle(r);
+    val (text, flair) = getRuleStyle(r);
     div(cls := "challenge-rule")(
-      span(cls := "text", dataIcon := icon)(text),
-      span(text),
+      iconFlair(flair),
+      span(cls := "text")(text),
       if !isLast then span("/", cls := "separator") else span()
     )
 
-  private def getRuleStyle(r: GameRule): (String, Icon) =
+  private def getRuleStyle(r: GameRule): (String, Flair) =
     r match
-      case GameRule.noAbort     => ("Abort not allowed", Icon.X);
-      case GameRule.noRematch   => ("No rematch", Icon.InfoCircle);
-      case GameRule.noGiveTime  => ("No giving of time", Icon.Clock);
-      case GameRule.noClaimWin  => ("No claiming of win", Icon.InfoCircle);
-      case GameRule.noEarlyDraw => ("Early draw not allowed", Icon.OneHalf);
+      case GameRule.noAbort => ("Abort not allowed", Flair("symbols.cross-mark"));
+      case GameRule.noRematch =>
+        ("No rematch", Flair("people.hand-with-index-finger-and-thumb-crossed-light-skin-tone"));
+      case GameRule.noGiveTime  => ("No giving of time", Flair("objects.hourglass-done"));
+      case GameRule.noClaimWin  => ("No claiming of win", Flair("people.raised-hand-light-skin-tone"));
+      case GameRule.noEarlyDraw => ("Early draw not allowed", Flair("people.handshake-light-skin-tone"));
 
   def mine(
       c: Challenge,

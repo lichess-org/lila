@@ -130,6 +130,10 @@
           @extend %flex-center;
           margin-bottom: 0.75rem;
 
+          .icon-flair {
+            height: 0.65em;
+          }
+
           .text {
             font-size: 0.575em;
           }
