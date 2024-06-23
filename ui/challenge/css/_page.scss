@@ -121,27 +121,18 @@
 
     .rules {
       margin-top: 1.5rem;
+      font-size: 1rem;
 
       > div {
         @extend %flex-center;
-        margin-top: 1rem;
+        gap: 1em;
+        margin-top: 1em;
 
         .challenge-rule {
           @extend %flex-center;
-          margin-bottom: 0.75rem;
 
           .icon-flair {
-            height: 0.65em;
-          }
-
-          .text {
-            font-size: 0.575em;
-          }
-
-          .separator {
-            padding: 0 0.5rem 0 0.5rem;
-            font-weight: bold;
-            font-size: 0.625em;
+            height: 1em;
           }
         }
       }

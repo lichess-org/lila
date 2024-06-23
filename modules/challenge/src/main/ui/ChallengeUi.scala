@@ -51,7 +51,6 @@ final class ChallengeUi(helpers: Helpers):
     s"$speed$variant ${c.mode.name} Chess • $players"
 
   private def details(c: Challenge, requestedColor: Option[Color])(using ctx: Context) =
-    val rulesSeq = c.rules.toSeq;
     div(cls := "details-wrapper")(
       div(cls := "content")(
         div(
@@ -76,19 +75,16 @@ final class ChallengeUi(helpers: Helpers):
         )
       ),
       div(cls := "rules")(
-        h6("Rules"),
-        div(
-          rulesSeq.zipWithIndex.map { case (r, i) => rule(r, i == rulesSeq.length - 1) }
-        )
+        h2("Custom rules:"),
+        div(fragList(c.rules.toList.map(showRule), "/"))
       )
     )
 
-  private def rule(r: GameRule, isLast: Boolean) =
+  private def showRule(r: GameRule) =
     val (text, flair) = getRuleStyle(r);
     div(cls := "challenge-rule")(
       iconFlair(flair),
-      span(cls := "text")(text),
-      if !isLast then span("/", cls := "separator") else span()
+      text
     )
 
   private def getRuleStyle(r: GameRule): (String, Flair) =
