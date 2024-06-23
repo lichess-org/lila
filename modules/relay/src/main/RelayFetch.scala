@@ -166,9 +166,9 @@ final private class RelayFetch(
   private def fetchGames(rt: RelayRound.WithTour): Fu[RelayGames] =
     given CanProxy = CanProxy(rt.tour.official)
     rt.round.sync.upstream.so:
-      case Sync.UpstreamIds(ids)            => fetchFromGameIds(rt.tour, ids)
-      case urlOrLcc: Sync.FetchableUpstream => delayer(urlOrLcc, rt.round, fetchFromUpstream)
-      case Sync.UpstreamUrls(urls) =>
+      case Sync.Upstream.Ids(ids) => fetchFromGameIds(rt.tour, ids)
+      case Sync.Upstream.Url(url) => delayer(url, rt.round, fetchFromUpstream)
+      case Sync.Upstream.Urls(urls) =>
         urls
           .parallel: url =>
             delayer(url, rt.round, fetchFromUpstream)
@@ -193,45 +193,32 @@ final private class RelayFetch(
       }
       .flatMap(multiPgnToGames(_).toFuture)
 
-  private def fetchFromUpstream(upstream: Sync.FetchableUpstream, max: Max)(using CanProxy): Fu[RelayGames] =
+  private def fetchFromUpstream(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
     formatApi
-      .get(upstream)
+      .get(url)
       .flatMap {
-        case RelayFormat.SingleFile(doc) =>
-          doc.format match
-            // all games in a single PGN file
-            case RelayFormat.DocFormat.Pgn => httpGetPgn(doc.url).map { MultiPgn.split(_, max) }
-            // maybe a single JSON game? Why not
-            case RelayFormat.DocFormat.Json =>
-              httpGetJson[GameJson](doc.url).map: game =>
-                MultiPgn(List(game.toPgn()))
-        case RelayFormat.ManyFiles(indexUrl, makeGameDoc) =>
-          httpGetJson[RoundJson](indexUrl).flatMap: round =>
+        case RelayFormat.SingleFile(url) => httpGetPgn(url).map { MultiPgn.split(_, max) }
+        case RelayFormat.LccWithGames(lcc) =>
+          httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
             round.pairings.zipWithIndex
               .map: (pairing, i) =>
-                val number  = i + 1
-                val gameDoc = makeGameDoc(number)
-                gameDoc.format
-                  .match
-                    case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
-                    case RelayFormat.DocFormat.Json =>
-                      httpGetJson[GameJson](gameDoc.url)
-                        .recover:
-                          case _: Exception => GameJson(moves = Nil, result = none)
-                        .map { _.toPgn(pairing.tags) }
+                val number = i + 1
+                httpGetJson[GameJson](lcc.gameUrl(number))
+                  .recover:
+                    case _: Exception => GameJson(moves = Nil, result = none)
+                  .map { _.toPgn(pairing.tags) }
                   .recover: _ =>
                     PgnStr(s"${pairing.tags}\n\n${pairing.result}")
                   .map(number -> _)
               .parallel
               .map: results =>
                 MultiPgn(results.sortBy(_._1).map(_._2))
-        case RelayFormat.ManyFilesLater(indexUrl) =>
-          httpGetJson[RoundJson](indexUrl).map: round =>
+        case RelayFormat.LccWithoutGames(lcc) =>
+          httpGetJson[RoundJson](lcc.indexUrl).map: round =>
             MultiPgn:
               round.pairings.map: pairing =>
                 PgnStr(s"${pairing.tags}\n\n${pairing.result}")
-
       }
       .flatMap { multiPgnToGames(_).toFuture }
 

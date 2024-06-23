@@ -161,46 +161,23 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             form("syncSource"),
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
-          form3.group(
-            form("syncUrl"),
-            trb.sourceSingleUrl(),
-            help = trb.sourceUrlHelp().some
-          )(form3.input(_))(cls := "relay-form__sync relay-form__sync-url"),
-          div(cls := "relay-form__sync relay-form__sync-lcc none"):
-            val lccUrl = round
-              .flatMap(_.sync.upstream)
-              .collect:
-                case lcc: RelayRound.Sync.UpstreamLcc => lcc.viewUrl
-            frag(
-              (!Granter.opt(_.Relay)).option(
-                flashMessage("box")(
-                  p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
-                  p(
-                    "LiveChessCloud support is deprecated and will be removed soon.",
-                    br,
-                    "If you need help, please contact us at broadcast@lichess.org."
-                  )
+          div(cls := "relay-form__sync relay-form__sync-url")(
+            (round.flatMap(_.sync.upstream).exists(_.isLcc) && Granter.opt(_.Relay)).option(
+              flashMessage("box")(
+                p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+                p(
+                  "LiveChessCloud support is deprecated and will be removed soon.",
+                  br,
+                  "If you need help, please contact us at broadcast@lichess.org."
                 )
-              ),
-              lccUrl.map(url => div(cls := "form-group")(a(href := url, targetBlank)(url))),
-              form3.split(
-                form3.group(
-                  form("syncLcc.id"),
-                  "Tournament ID",
-                  help = frag(
-                    "From the LCC page URL. The ID looks like this: ",
-                    pre("f1943ec6-4992-45d9-969d-a0aff688b404")
-                  ).some,
-                  half = true
-                )(form3.input(_)),
-                form3.group(
-                  form("syncLcc.round"),
-                  trb.roundNumber(),
-                  half = true
-                )(form3.input(_, typ = "number"))
               )
-            )
-          ,
+            ),
+            form3.group(
+              form("syncUrl"),
+              trb.sourceSingleUrl(),
+              help = trb.sourceUrlHelp().some
+            )(form3.input(_))
+          ),
           form3.group(
             form("syncUrls"),
             "Multiple source URLs, one per line.",
