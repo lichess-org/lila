@@ -12,11 +12,14 @@ export interface Quirks {
   takebacks?: number; // 0 to 1 is the chance of asking for a takeback at mistake or below
 }
 
+export type MoveMapping = { from: 'move'; to: Point[] };
+export type ScoreMapping = { from: 'score'; to: Point[] };
+export type ConstMapping = { from: 'const'; to: number };
+
 export interface Mapping {
-  readonly to: 'lc0' | 'acpl';
-  from: 'moves' | 'score' | 'const';
-  data: Point[] | number;
+  readonly type: string;
   readonly range: { min: number; max: number };
+  data: MoveMapping | ScoreMapping | ConstMapping;
 }
 
 export interface BotInfo {

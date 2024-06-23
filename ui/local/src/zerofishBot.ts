@@ -23,8 +23,7 @@ export class ZerofishBot implements Libot {
   zero?: { net: string; search: Search };
   fish?: { multipv: number; search: Search };
   glicko: { r: number; rd: number };
-  searchMix?: Mapping;
-  acpl?: Mapping;
+  mappings: { [type: string]: Mapping } = {};
   private ctrl: BotCtrl;
   private openings: Promise<PolyglotBook | undefined>;
 
@@ -39,7 +38,7 @@ export class ZerofishBot implements Libot {
         imageUrl: this.imageUrl,
       }),
     });
-    if (this.searchMix) normalize(this.searchMix);
+    Object.values(this.mappings).forEach(normalize);
   }
 
   get imageUrl() {
@@ -96,9 +95,9 @@ export class ZerofishBot implements Libot {
     const [f, z] = [fishResult as SearchResult, zeroResult as SearchResult];
     let head = z?.bestmove ?? f?.bestmove ?? '0000';
     //if (fishResult) return applyShallow(f, 0);
-    if (this.acpl) head = applyAcpl(f, interpolateValue(this.acpl, f, chess) ?? 0);
-    if (this.searchMix) {
-      const val = interpolateValue(this.searchMix, f, chess);
+    if (this.mappings.acpl) head = applyAcpl(f, interpolateValue(this.mappings.acpl, f, chess) ?? 0);
+    if (this.mappings.searchMix) {
+      const val = interpolateValue(this.mappings.searchMix, f, chess);
       if (val && z?.bestmove && Math.random() < val) head = z.bestmove;
     }
     return head;
@@ -108,9 +107,9 @@ export class ZerofishBot implements Libot {
 function interpolateValue(m: Mapping, r: SearchResult, chess: co.Chess) {
   return !m
     ? undefined
-    : m.from === 'moves'
+    : m.data.from === 'move'
     ? interpolate(m, chess.fullmoves)
-    : m.from === 'score' && r.pvs.length > 1
+    : m.data.from === 'score' && r.pvs.length > 1
     ? interpolate(m, outcomeExpectancy(score(r.pvs[0])))
     : undefined;
 }

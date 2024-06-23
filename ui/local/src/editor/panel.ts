@@ -1,8 +1,29 @@
+import { PaneArgs, EditorHost, MappingInfo, BaseInfo, ObjectSelector } from './types';
+import { Pane } from './pane';
+import { Mapping } from '../types';
+import { getSchemaDefault } from './schema';
+
+abstract class Panel extends Pane {
+  info: MappingInfo;
+  constructor(args: PaneArgs) {
+    super(args);
+  }
+  get inputValue(): Mapping {
+    return this.getProperty();
+  }
+  get id() {
+    return this.info.id!;
+  }
+  get enabled() {
+    return this.host.bot.disabled.has(this.id);
+  }
+  setEnabled(enabled?: boolean | 'refresh') {
+    if (!this.enabledCheckbox) return;
+    this.enabledCheckbox.checked = !!enabled;
+  }
+}
 //import * as ch from 'chart.js';
 import { Chart, PointElement, LinearScale, LineController, LineElement, Tooltip } from 'chart.js';
-import type { Mapping } from '../types';
-import { MappingInfo, EditorHost } from './types';
-import { Setting } from './setting';
 import { maxChars } from './util';
 import { addPoint, asData, domain } from '../mapping';
 
@@ -26,11 +47,16 @@ import { addPoint, asData, domain } from '../mapping';
       </span>
       
 */
-export class MappingNode extends Setting {
+export class MappingPanel extends Panel {
   info: MappingInfo;
-  constructor(p: any) {
+  getProperty(sel?: ObjectSelector[]): Mapping {
+    return this.info.value;
+  }
+
+  setProperty(value: Mapping) {}
+  constructor(p: PaneArgs) {
     super(p);
-    this.init();
+
     const rack = $as<HTMLElement>(`<span class="btn-rack">`);
     this.div.append(rack);
     const constant = $as<HTMLInputElement>(`<input type="text" data-type="number" class="btn-rack">`);
@@ -42,6 +68,7 @@ export class MappingNode extends Setting {
     const score = $as<HTMLElement>(`<span class="btn-rack__btn byScore">Score</span>`);
     rack.append(score);
   }
+
   select() {
     this.div.classList.add('selected');
     const maybeFrozen = this.getProperty(['bot', 'default', 'schema']) as Mapping;

@@ -1,34 +1,27 @@
-import { NodeArgs, SettingHost, BaseInfo, SelectInfo, TextareaInfo, NumberInfo, RangeInfo } from './types';
-import { Mapping } from '../types';
-import { getSchemaDefault } from './botSchema';
+import type { PaneArgs, SelectInfo, TextareaInfo, NumberInfo, RangeInfo, ObjectSelector } from './types';
+import type { Mapping } from '../types';
+import { Pane } from './pane';
+import { removePath, setPath, maxChars } from './util';
+import { getSchemaDefault } from './schema';
 
-export class SettingView {
-  readonly host: SettingHost;
-  readonly info: BaseInfo;
-  readonly div: HTMLElement;
-  enabledCheckbox?: HTMLInputElement;
+export class Setting extends Pane {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
-  constructor({ host, info }: NodeArgs) {
-    [this.host, this.info] = [host, info];
-    this.div = document.createElement(info.type || !info.label ? 'div' : 'fieldset');
-    this.div.id = this.id;
-    host.settings.add(this);
-    info.class?.forEach(c => this.div.classList.add(c));
-    if (this.isSetting) this.div.classList.add('setting');
-    if (info.title) this.div.title = info.title;
+  constructor(args: PaneArgs) {
+    super(args);
     let label;
-    if (info.label) {
-      label = document.createElement(this.isSetting ? 'label' : 'legend');
-      label.textContent = info.label;
+    if (this.info.label) {
+      label = document.createElement(this.div.tagName === 'FIELDSET' ? 'legend' : 'label');
+      label.textContent = this.info.label;
       this.div.appendChild(label);
     }
-    if (this.info.radioGroup)
+    if (this.info.radio) {
       this.enabledCheckbox = $as<HTMLInputElement>(
-        `<input type="radio" name="${this.info.radioGroup}" tabindex="-1">`,
+        `<input type="radio" name="${this.info.radio}" tabindex="-1">`,
       );
-    else if (this.info.require !== true && label)
+    } else if (!this.info.required && label) {
       this.enabledCheckbox = $as<HTMLInputElement>(`<input type="checkbox">`);
+    }
     if (this.enabledCheckbox) {
       this.enabledCheckbox.classList.add('toggle-enabled');
       this.enabledCheckbox.checked = this.getProperty() !== undefined; // ?
@@ -42,118 +35,110 @@ export class SettingView {
     if (this.input) this.div.appendChild(this.input);
   }
 
-  setEnabled(enabled = this.canEnable()) {
+  setEnabled(enabled = this.autoEnable()) {
     if (!this.input && !this.enabledCheckbox) return;
-    const { settings, view } = this.host;
+
+    const { editor, view } = this.host;
     this.div.classList.toggle('disabled', !enabled);
-    if (this.input && !this.input.value && enabled !== 'refresh')
+
+    if (this.input && !this.input.value)
       this.input.value = this.getStringProperty(['bot', 'default', 'schema']);
-    if (enabled) {
-      this.host.bot.disabled.delete(this.id);
-      for (const setting of this.requires.map(x => settings.byId[x])) {
-        if (setting?.info.require === true) setting.update();
-        else if (setting?.info.type !== 'radioGroup') continue;
-        const radios = Object.values(settings.byId).filter(x => x.info.radioGroup === setting.id);
-        const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['default']));
-        if (active) active.update();
-        else if (radios.length) radios[0].update();
-      }
-    } else if (this.enabledCheckbox) this.host.bot.disabled.add(this.id);
-    if (this.enabledCheckbox) this.enabledCheckbox.checked = !!enabled;
-    if (this.info.radioGroup && enabled)
-      view.querySelectorAll(`[name="${this.info.radioGroup}"]`).forEach(el => {
-        const setting = settings.byEl(el);
-        if (setting === this) return;
-        setting?.setEnabled(false);
-      });
-    for (const id in settings.byId) {
-      if (id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1) {
-        settings.byId[id].div.classList.toggle('none', !enabled);
-      }
+
+    if (enabled) this.host.bot.disabled.delete(this.id);
+    else this.host.bot.disabled.add(this.id);
+
+    for (const kid of this.children) {
+      kid.div.classList.toggle('none', !enabled);
+      if (!enabled) continue;
+      if (kid.info.required) kid.update();
+      else if (kid.info.type !== 'radio') continue;
+      const radios = Object.values(editor.byId).filter(x => x.info.radio === kid.id);
+      const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['default']));
+      if (active) active.update();
+      else if (radios.length) radios[0].update();
     }
+    if (this.enabledCheckbox) this.enabledCheckbox.checked = !!enabled;
+    if (this.info.radio && enabled)
+      view.querySelectorAll(`[name="${this.info.radio}"]`).forEach(el => {
+        const kid = editor.byEl(el);
+        if (kid === this) return;
+        kid?.setEnabled(false);
+      });
   }
 
-  update(_?: Event) {
-    this.setProperty(this.inputValue);
-    this.setEnabled(this.getProperty() !== undefined);
-  }
-
-  select() {}
-
+  // update(_?: Event) {
+  //   this.setProperty(this.inputValue);
+  //   this.setEnabled(this.getProperty() !== undefined);
+  // }
   get inputValue(): number | string | Mapping | undefined {
     return this.input?.value;
   }
 
-  get isSetting() {
-    return this.info.type && this.info.type !== 'radioGroup';
-  }
+  // get children() {
+  //   return Object.keys(this.host.editor.byId)
+  //     .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
+  //     .map(id => this.host.editor.byId[id]);
+  // }
 
-  get id() {
-    return this.info.id!;
-  }
+  // get requires() {
+  //   return this.info.requires ?? [];
+  // }
 
-  get requires() {
-    return Array.isArray(this.info.require) ? this.info.require : [];
-  }
+  // get enabled() {
+  //   if (this.host.bot.disabled.has(this.id)) return false;
+  //   const kids = this.children;
+  //   if (!kids.length) return this.getProperty() !== undefined;
+  //   return kids.every(x => x.enabled || !x.info.required);
+  // }
 
-  get enabled() {
-    return (
-      !this.host.bot.disabled.has(this.id) &&
-      (this.info.require === true || this.getProperty() !== undefined || !this.isSetting)
-    );
-  }
+  // get path() {
+  //   return this.id.split('_').slice(1);
+  // }
 
-  get path() {
-    return this.id.split('_').slice(1);
-  }
+  // setProperty(value: string | number | Mapping | undefined) {
+  //   if (value === undefined) removePath({ obj: this.host.bot, path: this.path });
+  //   else setPath({ obj: this.host.bot, path: this.path, value });
+  // }
 
-  setProperty(value: string | number | Mapping | undefined) {
-    if (value === undefined) removePath({ obj: this.host.bot, path: this.path });
-    else setPath({ obj: this.host.bot, path: this.path, value });
-  }
+  // getProperty(sel: ObjectSelector[] = ['bot']) {
+  //   for (const s of sel) {
+  //     const prop =
+  //       s === 'schema'
+  //         ? getSchemaDefault(this.id)
+  //         : this.path.reduce((o, key) => o?.[key], s === 'bot' ? this.host.bot : this.host.botDefault);
+  //     if (prop !== undefined) return prop;
+  //   }
+  //   return undefined;
+  // }
 
-  getProperty(sel: ObjectSelector[] = ['bot']) {
-    for (const s of sel) {
-      const prop =
-        s === 'schema'
-          ? getSchemaDefault(this.id)
-          : this.path.reduce((o, key) => o?.[key], s === 'bot' ? this.host.bot : this.host.botDefault);
-      if (prop !== undefined) return prop;
+  // getStringProperty(sel: ObjectSelector[] = ['bot']) {
+  //   const prop = this.getProperty(sel);
+  //   return typeof prop === 'object' ? JSON.stringify(prop) : prop !== undefined ? String(prop) : '';
+  // }
+
+  protected autoEnable(): boolean {
+    if (this.input) return this.enabled;
+    for (const e of this.requires.map(r => this.host.editor.byId[r])) {
+      if (!e.enabled) return false;
     }
-    return undefined;
-  }
-
-  getStringProperty(sel: ObjectSelector[] = ['bot']) {
-    const prop = this.getProperty(sel);
-    return typeof prop === 'object' ? JSON.stringify(prop) : prop !== undefined ? String(prop) : '';
-  }
-
-  private canEnable(): boolean | 'refresh' {
-    if (!this.input && Array.isArray(this.info.require)) {
-      for (const r of this.info.require) {
-        const setting = this.host.settings.byId[r];
-        if (setting && setting.getProperty() === undefined) return false;
-        else if (!setting) {
-          const radios = Object.values(this.host.settings.byId).filter(x => x.info.radioGroup === r);
-          if (!radios.find(x => x.getProperty())) return false;
-        }
-      }
-    } else return this.enabled;
-    return 'refresh';
+    for (const c of this.children) {
+      if (c.info.required && c.getProperty() === undefined) return false;
+    }
+    return true;
   }
 }
 
-export class DisclosureView extends SettingView {
-  constructor(p: NodeArgs) {
+export class DisclosureSetting extends Setting {
+  constructor(p: PaneArgs) {
     super(p);
     this.init();
   }
 }
 
-export class SelectView extends SettingView {
+export class SelectSetting extends Setting {
   input = $as<HTMLSelectElement>('<select data-type="string">');
   info: SelectInfo;
-  constructor(p: NodeArgs) {
+  constructor(p: PaneArgs) {
     super(p);
     for (const c of this.info.choices) {
       const option = document.createElement('option');
@@ -170,9 +155,9 @@ export class SelectView extends SettingView {
   }
 }
 
-export class TextView extends SettingView {
+export class TextSetting extends Setting {
   input = $as<HTMLInputElement>('<input type="text" data-type="string">');
-  constructor(p: NodeArgs) {
+  constructor(p: PaneArgs) {
     super(p);
     this.init();
   }
@@ -181,10 +166,10 @@ export class TextView extends SettingView {
   }
 }
 
-export class TextareaView extends SettingView {
+export class TextareaSetting extends Setting {
   input = $as<HTMLTextAreaElement>('<textarea data-type="string">');
   info: TextareaInfo;
-  constructor(p: NodeArgs) {
+  constructor(p: PaneArgs) {
     super(p);
     this.init();
     if (this.info.rows) this.input.rows = this.info.rows;
@@ -194,10 +179,10 @@ export class TextareaView extends SettingView {
   }
 }
 
-export class NumberView extends SettingView {
+export class NumberSetting extends Setting {
   input = $as<HTMLInputElement>('<input type="text" data-type="number">');
   info: NumberInfo | RangeInfo;
-  constructor(p: NodeArgs) {
+  constructor(p: PaneArgs) {
     super(p);
     this.div.appendChild(document.createElement('hr'));
     this.init();
@@ -222,10 +207,10 @@ export class NumberView extends SettingView {
   }
 }
 
-export class RangeView extends NumberView {
+export class RangeSetting extends NumberSetting {
   rangeInput = $as<HTMLInputElement>('<input type="range" data-type="number">');
   info: RangeInfo;
-  constructor(p: NodeArgs) {
+  constructor(p: PaneArgs) {
     super(p);
     this.rangeInput.min = String(this.info.min);
     this.rangeInput.max = String(this.info.max);
@@ -244,35 +229,4 @@ export class RangeView extends NumberView {
     this.setProperty(Number(this.input.value));
     this.setEnabled(true);
   }
-}
-
-export type ObjectSelector = 'bot' | 'default' | 'schema';
-
-export function idToPath({ id, obj }: { id: string; obj: any }): string[] {
-  const path = id.split('_');
-  return path[0] in obj ? path : path.slice(1);
-}
-
-export function resolvePath({ obj, path }: { obj: any; path: string[] }) {
-  return path.reduce((o, key) => o?.[key], obj);
-}
-
-export function removePath({ obj, path }: { obj: any; path: string[] }, stripObjects = false) {
-  if (!obj) return;
-  if (path.length > 1) removePath({ obj: obj[path[0]], path: path.slice(1) });
-  if (typeof obj[path[0]] !== 'object' || (stripObjects && path.length === 1)) delete obj[path[0]];
-}
-
-export function setPath({ obj, path, value }: { obj: any; path: string[]; value: any }) {
-  if (path.length === 0) return;
-  if (path.length === 1) obj[path[0]] = value;
-  else if (!(path[0] in obj)) obj[path[0]] = {};
-  setPath({ obj: obj[path[0]], path: path.slice(1), value });
-}
-
-export function maxChars(info: NumberInfo | RangeInfo) {
-  const len = Math.max(info.max.toString().length, info.min.toString().length);
-  if (!('step' in info)) return len;
-  const fractionLen = info.step < 1 ? String(info.step).length - String(info.step).indexOf('.') - 1 : 0;
-  return len + fractionLen;
 }

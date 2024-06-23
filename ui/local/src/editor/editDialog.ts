@@ -1,20 +1,20 @@
 import type { Libot, Mapping } from '../types';
-import type { BotInfoReader, SettingHost } from './types';
+import type { BotInfoReader, EditorHost } from './types';
 import type { ZerofishBotEditor, ZerofishBots } from '../zerofishBot';
 import { BotCtrl } from '../botCtrl';
 import { HandOfCards } from '../handOfCards';
 import { defined, escapeHtml, enumerableEquivalence } from 'common';
 import { GameCtrl } from '../gameCtrl';
-import { buildFromSchema, SettingCtrl } from './settings';
-import { /*objectPath,*/ removePath } from './setting';
+import { buildFromSchema, Editor } from './editor';
+import { /*objectPath,*/ removePath } from './util';
 import * as licon from 'common/licon';
 
-export class BotDialog implements SettingHost {
+export class EditDialog implements EditorHost {
   view: HTMLElement;
   hand: HandOfCards;
   uid: string;
   scratch: { [uid: string]: ZerofishBotEditor } = {};
-  settings: SettingCtrl;
+  editor: Editor;
   dlg: Dialog;
 
   constructor(
@@ -39,7 +39,7 @@ export class BotDialog implements SettingHost {
 
   get actions(): Action[] {
     return [
-      ...this.settings.actions,
+      ...this.editor.actions,
       { selector: '.bot-apply', listener: () => this.apply() },
       { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
       { selector: '.bot-json-all', listener: () => this.showJson() },
@@ -60,7 +60,7 @@ export class BotDialog implements SettingHost {
             <button class="button button-metal bot-json-one">json</button>
             <button class="button button-metal button-red bot-unrate-one">clear rating</button>
             <button class="button button-empty button-red bot-clear-one">revert</button>
-            </span><span>
+          </span><span>
             <button class="button button-metal bot-json-all">all json</button>
             <button class="button button-empty button-red bot-unrate-all">clear all ratings</button>
             <button class="button button-empty button-red bot-clear-all">revert all to server</button>
@@ -83,7 +83,7 @@ export class BotDialog implements SettingHost {
   }
 
   makeEditView() {
-    this.settings = new SettingCtrl();
+    this.editor = new Editor();
     const el = $as<HTMLElement>(`<div class="edit-bot">`);
     this.view.querySelector('.edit-bot')?.replaceWith(el);
     const playerInfo = $as<HTMLElement>(`<div class="player-info">`);
@@ -93,11 +93,8 @@ export class BotDialog implements SettingHost {
     playerInfo.appendChild(player);
     el.appendChild(playerInfo);
     el.appendChild(buildFromSchema(this, ['sources']).div);
-    const edit = $as<HTMLElement>(`<div class="edit-panel none">
-        <div class="chart-wrapper"><canvas></canvas></div>
-      </div>`);
-    el.appendChild(edit);
-    this.settings.forEach(el => el.setEnabled());
+    el.appendChild(buildFromSchema(this, ['panels']).div);
+    this.editor.forEach(el => el.setEnabled());
   }
 
   resize = () => this.hand.resize();
@@ -109,8 +106,8 @@ export class BotDialog implements SettingHost {
   get bot(): ZerofishBotEditor {
     if (!this.scratch[this.uid]) {
       const clone = structuredClone(this.bots[this.uid]);
-      const editor = Object.defineProperty(clone, 'disabled', { value: new Set<string>() });
-      this.scratch[this.uid] = editor as ZerofishBotEditor;
+      const scratch = Object.defineProperty(clone, 'disabled', { value: new Set<string>() });
+      this.scratch[this.uid] = scratch as ZerofishBotEditor;
     }
     return this.scratch[this.uid];
   }

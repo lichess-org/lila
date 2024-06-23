@@ -128,13 +128,15 @@ dialog .dialog-content {
   &.active {
     background-color: beige;
   }
-  .selectors {
+  .panels {
     display: flex;
     flex-direction: column;
     min-width: 0;
     padding: 1em;
     border-radius: 10px;
     grid-area: c;
+  }
+  .panel {
     .btn-rack__btn {
       flex: auto;
       border-bottom-left-radius: 0;

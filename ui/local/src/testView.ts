@@ -2,7 +2,7 @@ import * as co from 'chessops';
 import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
 import { LocalDialog } from './setupDialog';
 import { storedBooleanProp } from 'common/storage';
-import { BotDialog } from './editor/botDialog';
+import { EditDialog } from './editor/editDialog';
 import { ZerofishBot } from './zerofishBot';
 import { BotCtrl } from './botCtrl';
 import { TestCtrl } from './testCtrl';
@@ -86,7 +86,7 @@ function player(ctx: TestContext, color: Color): VNode {
 function editBot({ testCtrl, botCtrl }: TestContext, color: Color) {
   const selected = botCtrl[color]?.uid;
   if (!selected) return;
-  new BotDialog(botCtrl, testCtrl.gameCtrl, color, (uid: string) => {
+  new EditDialog(botCtrl, testCtrl.gameCtrl, color, (uid: string) => {
     // if (selected !== botCtrl[color]?.uid) return;
     // selected = uid;
     // botCtrl[color] = botCtrl.bot(uid);

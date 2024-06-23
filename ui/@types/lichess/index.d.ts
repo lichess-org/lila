@@ -80,6 +80,7 @@ interface Site {
     ready: Promise<boolean>;
     dom(opts: DomDialogOpts): Promise<Dialog>;
     snab(opts: SnabDialogOpts): _Snabbdom.VNode;
+    alert(s: string): Promise<void>;
   };
 
   // the remaining are not set in site.lichess.globals.ts

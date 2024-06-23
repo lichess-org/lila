@@ -93,6 +93,12 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   );
 }
 
+export async function alertDialog(msg: string): Promise<void> {
+  await domDialog({
+    htmlText: msg,
+    show: 'modal',
+  });
+}
 class DialogWrapper implements Dialog {
   private restore?: { focus: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
