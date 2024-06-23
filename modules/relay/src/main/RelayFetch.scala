@@ -201,24 +201,25 @@ final private class RelayFetch(
         case RelayFormat.SingleFile(url) => httpGetPgn(url).map { MultiPgn.split(_, max) }
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
-            round.pairings.zipWithIndex
-              .map: (pairing, i) =>
-                val number = i + 1
-                httpGetJson[GameJson](lcc.gameUrl(number))
+            round.pairings
+              .mapWithIndex: (pairing, i) =>
+                val game = i + 1
+                val tags = pairing.tags(lcc.round, game)
+                httpGetJson[GameJson](lcc.gameUrl(game))
                   .recover:
                     case _: Exception => GameJson(moves = Nil, result = none)
-                  .map { _.toPgn(pairing.tags) }
+                  .map { _.toPgn(tags) }
                   .recover: _ =>
-                    PgnStr(s"${pairing.tags}\n\n${pairing.result}")
-                  .map(number -> _)
+                    PgnStr(s"${tags}\n\n${pairing.result}")
+                  .map(game -> _)
               .parallel
               .map: results =>
                 MultiPgn(results.sortBy(_._1).map(_._2))
         case RelayFormat.LccWithoutGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).map: round =>
             MultiPgn:
-              round.pairings.map: pairing =>
-                PgnStr(s"${pairing.tags}\n\n${pairing.result}")
+              round.pairings.mapWithIndex: (pairing, i) =>
+                PgnStr(s"${pairing.tags(lcc.round, i + 1)}\n\n${pairing.result}")
       }
       .flatMap { multiPgnToGames(_).toFuture }
 
@@ -252,7 +253,7 @@ private object RelayFetch:
         result: Option[String]
     ):
       import chess.format.pgn.*
-      def tags = Tags:
+      def tags(round: Int, game: Int) = Tags:
         List(
           white.flatMap(_.fullName).map { Tag(_.White, _) },
           white.flatMap(_.title).map { Tag(_.WhiteTitle, _) },
@@ -260,7 +261,8 @@ private object RelayFetch:
           black.flatMap(_.fullName).map { Tag(_.Black, _) },
           black.flatMap(_.title).map { Tag(_.BlackTitle, _) },
           black.flatMap(_.fideid).map { Tag(_.BlackFideId, _) },
-          result.map(Tag(_.Result, _))
+          result.map(Tag(_.Result, _)),
+          Tag(_.Round, s"$round.$game").some
         ).flatten
     case class RoundJson(pairings: List[RoundJsonPairing])
     given Reads[PairingPlayer]    = Json.reads
