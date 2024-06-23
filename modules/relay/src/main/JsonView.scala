@@ -181,5 +181,5 @@ object JsonView:
       s.upstream.so:
         case Sync.UpstreamUrl(url)        => Json.obj("url" -> url)
         case Sync.UpstreamLcc(url, round) => Json.obj("url" -> url, "round" -> round)
-        case Sync.UpstreamUrls(urls)      => Json.obj("urls" -> urls.map(_.formUrl))
+        case Sync.UpstreamUrls(urls)      => Json.obj("urls" -> urls.map(_.viewUrl))
         case Sync.UpstreamIds(ids)        => Json.obj("ids" -> ids)

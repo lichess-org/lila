@@ -27,7 +27,7 @@ final class RelayRoundForm(using mode: Mode):
       .traverse(validateUpstreamUrlOrLcc)
       .map(_.distinct)
       .map(Sync.UpstreamUrls.apply),
-    _.urls.map(_.formUrl).mkString("\n")
+    _.urls.map(_.viewUrl).mkString("\n")
   )
   private given Formatter[Sync.UpstreamIds] = formatter.stringTryFormatter(
     _.split(' ').toList

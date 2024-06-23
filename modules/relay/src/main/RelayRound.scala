@@ -118,10 +118,10 @@ object RelayRound:
       def isLcc = false
     sealed trait FetchableUpstream extends Upstream:
       def fetchUrl: String
-      def formUrl: String
+      def viewUrl: String
     case class UpstreamUrl(url: String) extends FetchableUpstream:
       def fetchUrl = url
-      def formUrl  = url
+      def viewUrl  = url
     case class UpstreamUrls(urls: List[FetchableUpstream]) extends Upstream
     case class UpstreamIds(ids: List[GameId])              extends Upstream
     case class UpstreamLcc(lcc: String, round: Int) extends FetchableUpstream:
@@ -129,7 +129,6 @@ object RelayRound:
       def id             = lcc
       def fetchUrl       = s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json"
       def viewUrl        = s"https://view.livechesscloud.com/#$id/$round"
-      def formUrl        = s"$viewUrl $round"
     object UpstreamLcc:
       private val idRegex = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)""".r.unanchored
       def findId(url: String): Option[String] = url match

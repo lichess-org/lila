@@ -51,7 +51,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
   private object store:
 
-    private def idOf(upstream: FetchableUpstream, at: Instant) = s"${upstream.formUrl} ${at.toSeconds}"
+    private def idOf(upstream: FetchableUpstream, at: Instant) = s"${upstream.viewUrl} ${at.toSeconds}"
     private val longPast                                       = java.time.Instant.ofEpochMilli(0)
 
     def putIfNew(upstream: FetchableUpstream, games: RelayGames): Funit =
