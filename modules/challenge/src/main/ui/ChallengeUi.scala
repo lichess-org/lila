@@ -8,6 +8,7 @@ import ScalatagsTemplate.{ *, given }
 import lila.core.LightUser
 import lila.challenge.Challenge.Status
 import lila.core.user.WithPerf
+import lila.core.game.GameRule
 
 final class ChallengeUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -50,28 +51,53 @@ final class ChallengeUi(helpers: Helpers):
     s"$speed$variant ${c.mode.name} Chess • $players"
 
   private def details(c: Challenge, requestedColor: Option[Color])(using ctx: Context) =
-    div(cls := "details")(
-      div(
-        cls      := "variant",
-        dataIcon := (if c.initialFen.isDefined then Icon.Feather else c.perfType.icon)
-      )(
+    val rulesSeq = c.rules.toSeq;
+    div(cls := "details-wrapper")(
+      div(cls := "content")(
         div(
-          variantLink(c.variant, c.perfType, c.initialFen),
-          br,
-          span(cls := "clock"):
-            c.daysPerTurn
-              .fold(shortClockName(c.clock.map(_.config))): days =>
-                if days.value == 1 then trans.site.oneDay()
-                else trans.site.nbDays.pluralSame(days.value)
+          cls      := "variant",
+          dataIcon := (if c.initialFen.isDefined then Icon.Feather else c.perfType.icon)
+        )(
+          div(
+            variantLink(c.variant, c.perfType, c.initialFen),
+            br,
+            span(cls := "clock"):
+              c.daysPerTurn
+                .fold(shortClockName(c.clock.map(_.config))): days =>
+                  if days.value == 1 then trans.site.oneDay()
+                  else trans.site.nbDays.pluralSame(days.value)
+          )
+        ),
+        div(cls := "mode")(
+          c.open.fold(c.colorChoice.some)(_.colorFor(requestedColor)).map { colorChoice =>
+            frag(colorChoice.trans(), br)
+          },
+          modeName(c.mode)
         )
       ),
-      div(cls := "mode")(
-        c.open.fold(c.colorChoice.some)(_.colorFor(requestedColor)).map { colorChoice =>
-          frag(colorChoice.trans(), br)
-        },
-        modeName(c.mode)
+      div(cls := "rules")(
+        h6("Rules"),
+        div(
+          rulesSeq.zipWithIndex.map { case (r, i) => rule(r, i == rulesSeq.length - 1) }
+        )
       )
     )
+
+  private def rule(r: GameRule, isLast: Boolean) =
+    val (text, icon) = getRuleStyle(r);
+    div(cls := "challenge-rule")(
+      span(cls := "text", dataIcon := icon)(text),
+      span(text),
+      if !isLast then span("/", cls := "separator") else span()
+    )
+
+  private def getRuleStyle(r: GameRule): (String, Icon) =
+    r match
+      case GameRule.noAbort     => ("Abort not allowed", Icon.X);
+      case GameRule.noRematch   => ("No rematch", Icon.InfoCircle);
+      case GameRule.noGiveTime  => ("No giving of time", Icon.Clock);
+      case GameRule.noClaimWin  => ("No claiming of win", Icon.InfoCircle);
+      case GameRule.noEarlyDraw => ("Early draw not allowed", Icon.OneHalf);
 
   def mine(
       c: Challenge,
