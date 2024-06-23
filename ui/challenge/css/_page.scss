@@ -4,7 +4,7 @@
     gap: $block-gap;
     grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
 
-    >div {
+    > div {
       @extend %box-neat;
       padding: $block-gap;
       background: $c-bg-zebra;
@@ -88,7 +88,7 @@
     .content {
       @extend %flex-between;
 
-      >div {
+      > div {
         flex: 0 1 auto;
         @extend %flex-center, %roboto;
 
@@ -122,7 +122,7 @@
     .rules {
       margin-top: 1.5rem;
 
-      >div {
+      > div {
         @extend %flex-center;
         margin-top: 1rem;
 
