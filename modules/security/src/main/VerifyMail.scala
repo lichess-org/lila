@@ -53,6 +53,33 @@ final private class VerifyMail(
   export cache.invalidate
 
   private def fetch(domain: Domain.Lower): Fu[Boolean] =
+    fetchFree(domain)
+      .logFailure(logger)
+      .recover(_ => true)
+      .flatMap:
+        case false => fuccess(false)
+        case true  => fetchPaid(domain)
+
+  private def fetchFree(domain: Domain.Lower): Fu[Boolean] =
+    val url = s"https://api.mailcheck.ai/domain/$domain"
+    ws.url(url)
+      .get()
+      .withTimeout(8.seconds, "mailcheck.fetch")
+      .map: res =>
+        (for
+          js <- res.body[JsValue].asOpt[JsObject]
+          if res.status == 200
+          disposable <- js.boolean("disposable")
+        yield
+          val ok = !disposable
+          logger.info:
+            s"Mailcheck $domain = $ok {disposable:$disposable}"
+          ok
+        ).getOrElse:
+          throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
+      .monTry(res => _.security.mailcheckApi.fetch(res.isSuccess, res.getOrElse(true)))
+
+  private def fetchPaid(domain: Domain.Lower): Fu[Boolean] =
     val url = s"https://verifymail.io/api/$domain"
     ws.url(url)
       .withQueryStringParameters("key" -> config.key.value)
