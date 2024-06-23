@@ -89,12 +89,11 @@ final class ChallengeUi(helpers: Helpers):
 
   private def getRuleStyle(r: GameRule): (String, Flair) =
     r match
-      case GameRule.noAbort => ("Abort not allowed", Flair("symbols.cross-mark"));
-      case GameRule.noRematch =>
-        ("No rematch", Flair("people.hand-with-index-finger-and-thumb-crossed-light-skin-tone"));
-      case GameRule.noGiveTime  => ("No giving of time", Flair("objects.hourglass-done"));
-      case GameRule.noClaimWin  => ("No claiming of win", Flair("people.raised-hand-light-skin-tone"));
-      case GameRule.noEarlyDraw => ("Early draw not allowed", Flair("people.handshake-light-skin-tone"));
+      case GameRule.noAbort     => ("No abort", Flair("symbols.cross-mark"));
+      case GameRule.noRematch   => ("No rematch", Flair("symbols.recycling-symbol"));
+      case GameRule.noGiveTime  => ("No giving of time", Flair("objects.alarm-clock"));
+      case GameRule.noClaimWin  => ("No claiming of win", Flair("objects.hourglass-done"));
+      case GameRule.noEarlyDraw => ("No early draw", Flair("people.handshake-light-skin-tone"));
 
   def mine(
       c: Challenge,
