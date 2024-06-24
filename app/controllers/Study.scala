@@ -423,7 +423,8 @@ final class Study(
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
         HeadLastModifiedAt(study.updatedAt):
-          limit.studyPgn[Fu[Result]](req.ipAddress, rateLimited, msg = id.value):
+          val limiter = if study.isRelay then limit.relayPgn else limit.studyPgn
+          limiter[Fu[Result]](req.ipAddress, rateLimited, msg = id.value):
             CanView(study, study.settings.shareable.some)(doPgn(study))(
               privateUnauthorizedText,
               privateForbiddenText
@@ -431,7 +432,7 @@ final class Study(
     }
 
   private def doPgn(study: StudyModel)(using RequestHeader, Option[Me]) =
-    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
+    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(20, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn"))
       .as(pgnContentType)
       .withDateHeaders(lastModified(study.updatedAt))
