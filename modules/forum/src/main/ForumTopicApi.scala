@@ -107,9 +107,9 @@ final private class ForumTopicApi(
         case Some(dup) => fuccess(dup)
         case None =>
           for
-            _ <- postRepo.coll.insert.one(post)
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- postRepo.coll.insert.one(post)
           yield
             promotion.save(me, post.text)
             val text = s"${topic.name} ${post.text}"
