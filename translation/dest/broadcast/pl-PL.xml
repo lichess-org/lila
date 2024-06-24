@@ -25,14 +25,12 @@
   <string name="tournamentDescription">Krótki opis turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">Adres URL zapisu PGN</string>
+  <string name="sourceSingleUrl">Adres URL zapisu PGN</string>
   <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>
   <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
   <string name="credits">Potwierdź źródło</string>
-  <string name="broadcastUrl">Adres URL transmisji</string>
-  <string name="currentRoundUrl">Adres URL bieżącej rundy</string>
   <string name="currentGameUrl">Adres URL bieżącej partii</string>
   <string name="downloadAllRounds">Pobierz wszystkie rundy</string>
   <string name="resetRound">Zresetuj tę rundę</string>
