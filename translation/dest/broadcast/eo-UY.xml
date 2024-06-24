@@ -27,8 +27,6 @@
   <string name="startDate">Komenca dato en via propra horzono</string>
   <string name="startDateHelp">Laŭvola, se vi scias, kiam komenciĝas la evento</string>
   <string name="credits">Citu la fonton</string>
-  <string name="broadcastUrl">Elsenda URL</string>
-  <string name="currentRoundUrl">Nuna raŭnda URL</string>
   <string name="currentGameUrl">Nuna luda URL</string>
   <string name="downloadAllRounds">Elŝuti ĉiujn raŭndojn</string>
   <string name="resetRound">Restarigi ĉi tiun raŭndon</string>
