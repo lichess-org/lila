@@ -103,9 +103,9 @@ final private class ForumTopicApi(
         case Some(dup) => fuccess(dup)
         case None =>
           for
-            _ <- postRepo.coll.insert.one(post)
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- postRepo.coll.insert.one(post)
           yield
             promotion.save(me, post.text)
             val text = s"${topic.name} ${post.text}"
@@ -151,9 +151,9 @@ final private class ForumTopicApi(
     }
 
   private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) = for
-    _ <- postRepo.coll.insert.one(post)
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+    _ <- postRepo.coll.insert.one(post)
   yield Bus.pub(CreatePost(post.mini))
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
