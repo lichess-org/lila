@@ -39,11 +39,7 @@ final private class ForumTopicApi(
       .flatMapz: topic =>
         show(categId, slug, topic.lastPage(config.postMaxPerPage))
 
-  def show(
-      categId: ForumCategId,
-      slug: String,
-      page: Int
-  )(using
+  def show(categId: ForumCategId, slug: String, page: Int)(using
       NetDomain
   )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for
@@ -219,3 +215,9 @@ final private class ForumTopicApi(
               _ <- categRepo.coll.update
                 .one($id(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
             yield ()
+
+  def relocate(topic: ForumTopicId, to: ForumCategId)(using Me): Funit =
+    for
+      _ <- topicRepo.coll.update.one($id(topic), $set("categId" -> to))
+      _ <- postRepo.coll.update.one($doc("topicId" -> topic), $set("categId" -> to))
+    yield ()
