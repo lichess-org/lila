@@ -12,8 +12,6 @@
   <string name="tournamentName">Turnir ataması</string>
   <string name="tournamentDescription">Turnirdiń qısqasha táriypi</string>
   <string name="fullDescription">Turnirdiń tolıq táriypi</string>
-  <string name="broadcastUrl">Esittiriwdiń URL mánzili</string>
-  <string name="currentRoundUrl">Házirgi tur URL mánzili</string>
   <string name="currentGameUrl">Házirgi oyın URL mánzili</string>
   <string name="downloadAllRounds">Barlıq turlardı júklep alıw</string>
   <string name="resetRound">Bul turdı qayta ornatıw</string>
