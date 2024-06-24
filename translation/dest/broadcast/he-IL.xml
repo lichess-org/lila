@@ -25,14 +25,12 @@
   <string name="tournamentDescription">תיאור הטורניר בקצרה</string>
   <string name="fullDescription">תיאור מלא של הטורניר</string>
   <string name="fullDescriptionHelp">תיאור מפורט של הטורניר (אופציונאלי). %1$s זמין. אורך התיאור לא יעלה על %2$s תווים.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">קישור המקור של ה-PGN</string>
+  <string name="sourceSingleUrl">קישור המקור של ה-PGN</string>
   <string name="sourceUrlHelp">הקישור ש־Lichess יבדוק כדי לקלוט עדכונים ב-PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
   <string name="sourceGameIds">עד 64 מזהי משחק של Lichess, מופרדים ברווחים.</string>
   <string name="startDate">תאריך ההתחלה באזור הזמן שלך</string>
   <string name="startDateHelp">אופציונאלי, אם את/ה יודע/ת מתי האירוע צפוי להתחיל</string>
   <string name="credits">תן/י קרדיט למקור</string>
-  <string name="broadcastUrl">הקישור להקרנה</string>
-  <string name="currentRoundUrl">הקישור לסבב הנוכחי</string>
   <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
   <string name="downloadAllRounds">הורדת כל הסבבים</string>
   <string name="resetRound">אפס את הסיבוב הזה</string>
