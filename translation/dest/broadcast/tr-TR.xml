@@ -27,8 +27,6 @@
   <string name="startDate">Kendi saat diliminizdeki başlangıç zamanı</string>
   <string name="startDateHelp">İsteğe bağlı, etkinliğin ne zaman başladığını biliyorsanız ekleyebilirsiniz.</string>
   <string name="credits">Kaynağı görüntüle</string>
-  <string name="broadcastUrl">Yayın linki</string>
-  <string name="currentRoundUrl">Şu anki turun linki</string>
   <string name="currentGameUrl">Şu anki oyunun linki</string>
   <string name="downloadAllRounds">Bütün maçları indir</string>
   <string name="resetRound">Bu turu sıfırla</string>
