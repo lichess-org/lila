@@ -1671,8 +1671,6 @@ object I18nKey:
     val `startDate`: I18nKey = "broadcast:startDate"
     val `startDateHelp`: I18nKey = "broadcast:startDateHelp"
     val `credits`: I18nKey = "broadcast:credits"
-    val `broadcastUrl`: I18nKey = "broadcast:broadcastUrl"
-    val `currentRoundUrl`: I18nKey = "broadcast:currentRoundUrl"
     val `currentGameUrl`: I18nKey = "broadcast:currentGameUrl"
     val `downloadAllRounds`: I18nKey = "broadcast:downloadAllRounds"
     val `resetRound`: I18nKey = "broadcast:resetRound"

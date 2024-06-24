@@ -17,6 +17,8 @@ import { renderStreamerMenu, renderPinnedImage } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
 import { gameLinksListener } from '../studyChapters';
+import { copyMeInput } from 'common/copyMe';
+import { baseUrl } from '../../view/util';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -105,6 +107,32 @@ const overview = (ctx: RelayViewContext) => [
         hook: innerHTML(ctx.relay.data.tour.markup, () => ctx.relay.data.tour.markup!),
       })
     : h('div.relay-tour__markup', ctx.relay.data.tour.description),
+  h('div.relay-tour__share', [
+    h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
+    ...[
+      [ctx.relay.data.tour.name, ctx.relay.tourPath()],
+      [ctx.study.data.name, ctx.relay.roundPath()],
+      [
+        `${ctx.study.data.name} PGN`,
+        `${ctx.relay.roundPath()}.pgn`,
+        h('div.form-help', [
+          'A public, real-time PGN source for this round. We also offer a ',
+          h(
+            'a',
+            { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+            'streaming API',
+          ),
+          ' for faster and more efficient synchronisation.',
+        ]),
+      ],
+    ].map(([i18n, path, help]: [string, string, VNode]) =>
+      h('div.form-group', [
+        h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
+        copyMeInput(`${baseUrl()}${path}`),
+        help,
+      ]),
+    ),
+  ]),
 ];
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
