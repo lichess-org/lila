@@ -25,8 +25,6 @@
   <string name="startDate">بەرواری دەستپێکردن لە چوارچێوەی کاتی خۆتدا</string>
   <string name="startDateHelp">بە ھەلبژاردنی خۆتە چ کاتێک دەس پێ بکات</string>
   <string name="credits">لە سەرچاوەکە دڵنیابە</string>
-  <string name="broadcastUrl">لینکی پالەوانێتیەکە</string>
-  <string name="currentRoundUrl">لینکی خولی یەکەم</string>
   <string name="currentGameUrl">لینکی یاریەکانی ئێستا</string>
   <string name="downloadAllRounds">دابەزاندنی ھەموو خولەکان</string>
   <string name="resetRound">دەسکاری کردنی ئەم خولە</string>
