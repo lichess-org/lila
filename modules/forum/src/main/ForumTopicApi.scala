@@ -39,11 +39,7 @@ final private class ForumTopicApi(
       .flatMapz: topic =>
         show(categId, slug, topic.lastPage(config.postMaxPerPage))
 
-  def show(
-      categId: ForumCategId,
-      slug: String,
-      page: Int
-  )(using
+  def show(categId: ForumCategId, slug: String, page: Int)(using
       NetDomain
   )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for
@@ -107,9 +103,9 @@ final private class ForumTopicApi(
         case Some(dup) => fuccess(dup)
         case None =>
           for
-            _ <- postRepo.coll.insert.one(post)
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- postRepo.coll.insert.one(post)
           yield
             promotion.save(me, post.text)
             val text = s"${topic.name} ${post.text}"
@@ -155,9 +151,9 @@ final private class ForumTopicApi(
     }
 
   private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) = for
-    _ <- postRepo.coll.insert.one(post)
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+    _ <- postRepo.coll.insert.one(post)
   yield Bus.pub(CreatePost(post.mini))
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
@@ -219,3 +215,9 @@ final private class ForumTopicApi(
               _ <- categRepo.coll.update
                 .one($id(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
             yield ()
+
+  def relocate(topic: ForumTopicId, to: ForumCategId)(using Me): Funit =
+    for
+      _ <- topicRepo.coll.update.one($id(topic), $set("categId" -> to))
+      _ <- postRepo.coll.update.one($doc("topicId" -> topic), $set("categId" -> to))
+    yield ()

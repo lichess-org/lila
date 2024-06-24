@@ -186,8 +186,8 @@ export function view(ctrl: StudyShare): VNode {
           h('form.form3', [
             ...(ctrl.relay
               ? [
-                  ['broadcastUrl', ctrl.relay.tourPath()],
-                  ['currentRoundUrl', ctrl.relay.roundPath()],
+                  [ctrl.relay.data.tour.name, ctrl.relay.tourPath()],
+                  [ctrl.data.name, ctrl.relay.roundPath()],
                   ['currentGameUrl', addPly(`${ctrl.relay.roundPath()}/${chapter.id}`), true],
                 ]
               : [

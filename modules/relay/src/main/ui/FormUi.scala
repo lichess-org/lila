@@ -162,7 +162,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
           div(cls := "relay-form__sync relay-form__sync-url")(
-            (round.flatMap(_.sync.upstream).exists(_.isLcc) && Granter.opt(_.Relay)).option(
+            (round.flatMap(_.sync.upstream).exists(_.isLcc) && !Granter.opt(_.Relay)).option(
               flashMessage("box")(
                 p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
                 p(
