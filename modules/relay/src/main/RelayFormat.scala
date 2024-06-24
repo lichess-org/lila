@@ -51,9 +51,11 @@ final private class RelayFormatApi(
       .match
         case Some(lcc) =>
           looksLikeJson(lcc.indexUrl).flatMapz:
-            looksLikeJson(lcc.gameUrl(1)).recoverDefault.map:
-              if _ then LccWithGames(lcc).some
-              else LccWithoutGames(lcc).some
+            looksLikeJson(lcc.gameUrl(1))
+              .recoverDefault(false)(_ => ())
+              .map:
+                if _ then LccWithGames(lcc).some
+                else LccWithoutGames(lcc).some
         case None => looksLikePgn(url).mapz(SingleFile(url).some)
       .orFailWith(LilaInvalid(s"No games found at $url"))
       .addEffect: format =>
