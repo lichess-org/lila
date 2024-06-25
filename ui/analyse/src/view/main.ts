@@ -33,7 +33,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
   const { study, gamebookPlayView, gaugeOn } = ctx;
 
-  return renderMain(ctx, [
+  return renderMain(ctx, {}, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     study && deps?.studyView.overboard(study),
     renderBoard(ctx),

@@ -37,48 +37,50 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
 export const tourSide = (ctx: RelayViewContext) => {
   const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
-  return h(
-    'aside.relay-tour__side',
-    {
-      hook: {
-        insert: gameLinksListener(study.setChapter),
+  return [
+    h(
+      'aside.relay-tour__side',
+      {
+        hook: {
+          insert: gameLinksListener(study.setChapter),
+        },
       },
-    },
-    [
-      ...(empty
-        ? [startCountdown(relay)]
-        : [
-            h('div.relay-tour__side__header', [
-              h(
-                'button.relay-tour__side__name',
-                { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-                study.data.name,
-              ),
-              h('button.streamer-show.data-count', {
-                attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
-                class: {
-                  disabled: !relay.streams.length,
-                  active: relay.showStreamerMenu(),
-                  streaming: relay.isStreamer(),
-                },
-                hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
-              }),
-              h('button.relay-tour__side__search', {
-                attrs: { 'data-icon': licon.Search, title: 'Search' },
-                hook: bind('click', study.search.open.toggle),
-              }),
+      [
+        ...(empty
+          ? [startCountdown(relay)]
+          : [
+              h('div.relay-tour__side__header', [
+                h(
+                  'button.relay-tour__side__name',
+                  { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
+                  study.data.name,
+                ),
+                h('button.streamer-show.data-count', {
+                  attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
+                  class: {
+                    disabled: !relay.streams.length,
+                    active: relay.showStreamerMenu(),
+                    streaming: relay.isStreamer(),
+                  },
+                  hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
+                }),
+                h('button.relay-tour__side__search', {
+                  attrs: { 'data-icon': licon.Search, title: 'Search' },
+                  hook: bind('click', study.search.open.toggle),
+                }),
+              ]),
             ]),
-          ]),
-      relay.showStreamerMenu() && renderStreamerMenu(relay),
-      !empty && gamesList(study, relay),
-      h('div.chat__members', {
-        hook: onInsert(el => {
-          makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-          site.watchers(el);
-        }),
+        relay.showStreamerMenu() && renderStreamerMenu(relay),
+        !empty && gamesList(study, relay),
+      ],
+    ),
+    h('div.chat__members', {
+      hook: onInsert(el => {
+        makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
+        site.watchers(el);
       }),
-    ],
-  );
+    }),
+  ];
 };
 
 const startCountdown = (relay: RelayCtrl) => {
@@ -240,6 +242,7 @@ const header = (ctx: RelayViewContext) => {
     embedVideo = d.videoUrls && allowVideo;
 
   return [
+    h('div.spacer'),
     h('div.relay-tour__header', [
       h('div.relay-tour__header__content', [
         h('h1', group?.name || d.tour.name),

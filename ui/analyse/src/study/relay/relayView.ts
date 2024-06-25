@@ -6,7 +6,7 @@ import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../studyDeps';
 import { tourSide, renderRelayTour } from './relayTourView';
-import { renderVideoPlayer } from './videoPlayerView';
+import { renderVideoPlayer, player } from './videoPlayerView';
 import {
   type RelayViewContext,
   viewContext,
@@ -25,17 +25,64 @@ export function relayView(
   deps: typeof studyDeps,
 ): VNode {
   const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: allowVideo() };
-
-  const renderTourView = () => [renderRelayTour(ctx), tourSide(ctx), deps.relayManager(relay, study)];
-
-  return renderMain(ctx, [
+  const { wide, tinyBoard } = queryBody();
+  return renderMain(ctx, { wide: wide, 'with-video': !!relay.data.videoUrls, 'tiny-board': tinyBoard }, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
-    ...(ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx)),
+    ...(ctx.hasRelayTour
+      ? [renderRelayTour(ctx), ...tourSide(ctx), deps.relayManager(relay, study)]
+      : renderBoardView(ctx, wide)),
   ]);
 }
 
-export function renderStreamerMenu(relay: RelayCtrl): VNode {
+export function addResizeListener(redraw: () => void) {
+  let [oldWide, oldShowVideo, oldTinyBoard] = [false, false, false];
+  window.addEventListener(
+    'resize',
+    () => {
+      const { wide, allowVideo, tinyBoard } = queryBody(),
+        placeholder = document.getElementById('video-player-placeholder') ?? undefined,
+        showVideo = allowVideo && !!placeholder;
+      player?.cover(allowVideo ? placeholder : undefined);
+      if (oldShowVideo !== showVideo || oldWide !== wide || oldTinyBoard !== tinyBoard) redraw();
+      [oldWide, oldShowVideo, oldTinyBoard] = [wide, showVideo, tinyBoard];
+    },
+    { passive: true },
+  );
+}
+
+function queryBody() {
+  const docStyle = window.getComputedStyle(document.body),
+    scale = (parseFloat(docStyle.getPropertyValue('--zoom')) / 100) * 0.75 + 0.25,
+    boardWidth = scale * window.innerHeight,
+    allowVideo = docStyle.getPropertyValue('--allow-video') === 'true',
+    leftSidePlusGaps = 410,
+    minWidthForTwoColumns = 500;
+  // zoom -> scale calc from file://./../../../../common/css/layout/_uniboard.scss
+  // leftSidePlusGaps and minWidthForTwoColumns aren't exact and don't have to be
+  return {
+    wide: window.innerWidth - leftSidePlusGaps - boardWidth > minWidthForTwoColumns,
+    allowVideo,
+    tinyBoard: scale <= 0.67,
+  };
+}
+
+function renderBoardView(ctx: RelayViewContext, wide: boolean) {
+  const { ctrl, deps, study, gaugeOn, relay } = ctx;
+
+  return [
+    renderBoard(ctx),
+    gaugeOn && cevalView.renderGauge(ctrl),
+    wide && renderEmbedPlaceholder(ctx),
+    renderTools(ctx, wide ? undefined : renderEmbedPlaceholder(ctx)),
+    renderControls(ctrl),
+    renderUnderboard(ctx),
+    ...tourSide(ctx),
+    deps.relayManager(relay, study),
+  ];
+}
+
+export function renderStreamerMenu(relay: RelayCtrl) {
   const makeUrl = (id: string) => {
     const url = new URL(location.href);
     url.searchParams.set('embed', id);
@@ -81,23 +128,10 @@ export function allowVideo(): boolean {
   return window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';
 }
 
-function renderBoardView(ctx: RelayViewContext) {
-  const { ctrl, deps, study, gaugeOn, relay } = ctx;
-  return [
-    renderBoard(ctx),
-    gaugeOn && cevalView.renderGauge(ctrl),
-    renderTools(ctx, renderEmbedPlaceholder(ctx)),
-    renderControls(ctrl),
-    renderUnderboard(ctx),
-    tourSide(ctx),
-    deps.relayManager(relay, study),
-  ];
-}
-
 function renderEmbedPlaceholder(ctx: RelayViewContext): MaybeVNode {
   return ctx.relay.data.videoUrls
     ? renderVideoPlayer(ctx.relay)
-    : ctx.relay.isShowingPinnedImage()
+    : ctx.relay.pinStreamer() && ctx.relay.allowPinnedImageOnUniboards()
     ? renderPinnedImage(ctx)
     : undefined;
 }

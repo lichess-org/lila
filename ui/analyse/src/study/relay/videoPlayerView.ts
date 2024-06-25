@@ -1,8 +1,7 @@
 import { looseH as h, Redraw, VNode } from 'common/snabbdom';
 import RelayCtrl from './relayCtrl';
-import { allowVideo } from './relayView';
 
-let player: VideoPlayer;
+export let player: VideoPlayer;
 
 export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
   if (!relay.data.videoUrls) return undefined;
@@ -13,22 +12,6 @@ export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
       update: (_, vnode: VNode) => player.cover(vnode.elm as HTMLElement),
     },
   });
-}
-
-export function onWindowResize(redraw: Redraw) {
-  let showingVideo = false;
-  window.addEventListener(
-    'resize',
-    () => {
-      const allow = allowVideo();
-      const placeholder = document.getElementById('video-player-placeholder') ?? undefined;
-      player?.cover(allow ? placeholder : undefined);
-      if (showingVideo === allow && !!placeholder) return;
-      showingVideo = allow && !!placeholder;
-      redraw();
-    },
-    { passive: true },
-  );
 }
 
 class VideoPlayer {
@@ -53,10 +36,11 @@ class VideoPlayer {
 
   cover(el?: HTMLElement) {
     cancelAnimationFrame(this.animationFrameId);
+    const wrap = document.getElementById('main-wrap')!;
     if (!el) {
-      if (!document.body.contains(this.iframe)) return;
-      document.body.removeChild(this.iframe);
-      document.body.removeChild(this.close);
+      if (!wrap.contains(this.iframe)) return;
+      wrap.removeChild(this.iframe);
+      wrap.removeChild(this.close);
     }
     this.animationFrameId = requestAnimationFrame(() => {
       this.iframe.style.display = 'block';
@@ -66,9 +50,9 @@ class VideoPlayer {
       this.iframe.style.height = `${el!.offsetHeight}px`;
       this.close.style.left = `${el!.offsetLeft + el!.offsetWidth - 16}px`;
       this.close.style.top = `${el!.offsetTop - 4}px`;
-      if (document.body.contains(this.iframe)) return;
-      document.body.appendChild(this.iframe);
-      document.body.appendChild(this.close);
+      if (wrap.contains(this.iframe)) return;
+      wrap.appendChild(this.iframe);
+      wrap.appendChild(this.close);
     });
   }
 }

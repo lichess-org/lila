@@ -7,7 +7,7 @@ import RelayTeams from './relayTeams';
 import RelayLeaderboard from './relayLeaderboard';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
-import { onWindowResize as videoPlayerOnWindowResize } from './videoPlayerView';
+import { addResizeListener } from './relayView';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -52,7 +52,7 @@ export default class RelayCtrl {
     setInterval(() => this.redraw(true), 1000);
 
     const pinned = data.pinned;
-    if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
+    addResizeListener(this.redraw);
     if (pinned && this.pinStreamer()) this.streams.push([pinned.userId, pinned.name]);
 
     site.pubsub.on('socket.in.crowd', d => {
@@ -123,7 +123,7 @@ export default class RelayCtrl {
     window.location.replace(url);
   };
 
-  isShowingPinnedImage = () => site.storage.get(`relay.hide-image.${this.id}`) !== 'true';
+  allowPinnedImageOnUniboards = () => site.storage.get(`relay.hide-image.${this.id}`) !== 'true';
 
   private socketHandlers = {
     relayData: (d: RelayData) => {

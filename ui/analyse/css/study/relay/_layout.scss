@@ -12,10 +12,22 @@ body {
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
-    &__side {
-      grid-area: side;
+  }
+  .relay-tour__side {
+    grid-area: side;
+  }
+  .relay-tour__header__image {
+    display: flex;
+    &.video {
+      display: block;
+    }
+    justify-content: end;
+    > img {
+      width: unset;
+      max-height: 200px;
     }
   }
+
   .analyse__round-training,
   .relay-admin__container {
     grid-area: relay-admin;
@@ -29,11 +41,48 @@ main.is-relay {
     .mchat {
       flex: 1 1 50%;
     }
+
+    &.wide .spacer {
+      // empty div used to maximize grid container sizing of rightmost column(s)
+      width: 9999px;
+      visibility: hidden;
+    }
+  }
+}
+
+main.is-relay.wide {
+  .now-playing {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%/3, max(220px, 100%/8)), 1fr));
+  }
+}
+
+main.is-relay.wide.with-video {
+  max-height: calc(100vh - $site-header-outer-height - $block-gap);
+
+  .relay-tour {
+    @extend %flex-column;
+    overflow: hidden;
+  }
+  .relay-tour__header {
+    flex-shrink: 0;
+  }
+  .relay-tour__header__image {
+    display: block !important;
+  }
+
+  .study__multiboard {
+    overflow-y: auto;
+    min-height: 0;
   }
 }
 
 /* tour overview */
 main.is-relay.has-relay-tour {
+  #video-player-placeholder {
+    width: unset;
+    height: 100%;
+  }
+
   grid-template-rows: auto;
   grid-template-areas:
     'relay-tour'
@@ -44,9 +93,11 @@ main.is-relay.has-relay-tour {
   }
 
   @include mq-at-least-col2 {
-    grid-template-rows: 80vh;
+    grid-template-rows: 50vh 30vh;
     grid-template-areas:
       'relay-tour . side'
+      'relay-tour . chat'
+      'relay-tour . uchat'
       'relay-tour . relay-admin';
     .mchat {
       margin-top: $analyse-block-gap;
@@ -59,10 +110,16 @@ main.is-relay.has-relay-tour {
 
   @include mq-at-least-col3 {
     grid-template-columns: $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
-    grid-template-rows: $mq-col3-side-height;
+    grid-template-rows: repeat(2, calc($mq-col3-side-height / 2));
     grid-template-areas:
       'side        . relay-tour relay-tour relay-tour'
+      'chat        . relay-tour relay-tour relay-tour'
+      'uchat       . relay-tour relay-tour relay-tour'
       'relay-admin . relay-tour relay-tour relay-tour';
+
+    &.wide {
+      grid-template-columns: $col3-uniboard-side $analyse-block-gap 1fr;
+    }
   }
 }
 
@@ -77,18 +134,21 @@ main.analyse.is-relay:not(.has-relay-tour) {
     'side'
     'relay-admin'
     'under';
+
   .mchat,
   .chat__members {
     display: none;
   }
+
   @include mq-at-least-col2 {
     grid-template-rows: repeat(2, calc(var(---cg-height) / 2)) 2.5em;
     grid-template-areas:
-      'board        gauge side'
-      'board        gauge tools'
-      'board        .     controls'
-      'under        under under'
-      'relay-admin  .     .';
+      'board       gauge side'
+      'board       gauge tools'
+      'board       .     controls'
+      'under       under under'
+      'relay-admin .     .';
+
     .analyse__underboard {
       margin-top: unset;
       .is3d & {
@@ -99,25 +159,91 @@ main.analyse.is-relay:not(.has-relay-tour) {
       flex-wrap: nowrap;
     }
   }
+
   @include mq-at-least-col3 {
-    grid-template-rows: var(---cg-height) 2.5em;
+    grid-template-rows: calc(var(---cg-height) * 0.6) calc(var(---cg-height) * 0.4) 2.5em fit-content(0);
     grid-template-areas:
-      'side           . board gauge tools'
-      'side           . board .     controls'
-      'side           . under under under'
-      'relay-admin    . under under under';
+      'side        . board gauge tools'
+      'chat        . board gauge tools'
+      'chat        . board .     controls'
+      'chat        . under under under'
+      'uchat       . under under under'
+      'relay-admin . under under under';
+
     .relay-tour__side {
       max-height: $mq-col3-side-height;
     }
+
     .mchat,
     .chat__members {
       display: flex;
     }
+
     .mchat {
       margin-top: $analyse-block-gap;
       flex: 5 0 30%;
     }
+
+    &.wide {
+      grid-template-rows: var(--cg-height) 2.5em 1fr auto;
+      grid-template-columns: $col3-uniboard-side $analyse-block-gap var(--col3-uniboard-width) $analyse-block-gap 1fr 1fr;
+      grid-template-areas:
+        'side        . board gauge tools    chat'
+        'side        . board .     controls uchat'
+        'side        . under under under    under'
+        'relay-admin . under under under    under';
+
+      .mchat,
+      .chat__members {
+        margin-top: 0;
+        margin-inline-start: $analyse-block-gap;
+      }
+
+      #video-player-placeholder {
+        grid-area: video;
+        height: 100%;
+      }
+    }
+
+    &.wide.with-video {
+      overflow: hidden;
+      grid-template-rows: calc(var(--cg-height) * 9 / 16) calc(var(--cg-height) * 7 / 16) 2.5em;
+      grid-template-areas:
+        'side        . board gauge video    video'
+        'side        . board gauge tools    chat'
+        'side        . board .     controls uchat'
+        'side        . under under under    under'
+        'relay-admin . under under under    under';
+
+      .analyse__tools,
+      .mchat {
+        margin-top: $analyse-block-gap;
+      }
+      .analyse__underboard {
+        display: flex;
+        flex-flow: column;
+        overflow-y: hidden;
+      }
+    }
+
+    &.wide.with-video.tiny-board {
+      grid-template-rows: repeat(2, calc(var(--cg-height) / 2)) 2.5em;
+      grid-template-areas:
+        'side        . board gauge tools    video'
+        'side        . board gauge tools    chat'
+        'side        . board .     controls uchat'
+        'side        . under under under    under'
+        'relay-admin . under under under    under';
+      .analyse__tools {
+        margin-top: 0;
+      }
+
+      #video-player-placeholder {
+        margin-inline-start: $analyse-block-gap;
+      }
+    }
   }
+
   .eval-chart-and-training {
     @extend %flex-center;
     gap: $analyse-block-gap;

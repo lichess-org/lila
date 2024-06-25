@@ -87,6 +87,7 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
 
 export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
+  classes: { [key: string]: boolean },
   kids: VNodeKids,
 ): VNode {
   return h(
@@ -111,6 +112,7 @@ export function renderMain(
         },
       },
       class: {
+        ...classes,
         'comp-off': !ctrl.showComputer(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
@@ -127,9 +129,10 @@ export function renderMain(
 
 export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: MaybeVNode) {
   return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
+    h('div.spacer'), // prevent grid container from sizing action menu and move list differently in wide mode
     allowVideo && embedded,
     ...(ctrl.actionMenu()
-      ? [actionMenu(ctrl)]
+      ? [...cevalView.renderCeval(ctrl), h('div'), actionMenu(ctrl)]
       : [
           ...cevalView.renderCeval(ctrl),
           !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),

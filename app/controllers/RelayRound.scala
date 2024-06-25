@@ -222,7 +222,12 @@ final class RelayRound(
         pinnedStreamer <- rt.tour.pinnedStreamer.so(env.streamer.api.find)
         streamer       <- embed.so(env.streamer.api.find)
         stream         <- streamer.soFu(env.streamer.liveStreamApi.of)
-        videoUrls          = stream.flatMap(_.stream).map(_.urls(netDomain))
+        videoUrls =
+          if embed.contains("fake") then
+            lila.streamer.Stream
+              .Urls(s"https://www.youtube.com/embed/zeo3AmLAuZc?autoplay=1&disablekb=1&color=white", "")
+              .some
+          else stream.flatMap(_.stream).map(_.urls(netDomain))
         crossSiteIsolation = videoUrls.isEmpty
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
