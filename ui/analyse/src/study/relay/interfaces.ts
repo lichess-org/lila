@@ -39,6 +39,7 @@ export interface RelayTour {
   image?: string;
   teamTable?: boolean;
   leaderboard?: boolean;
+  tier?: number;
 }
 
 export interface RelaySync {
