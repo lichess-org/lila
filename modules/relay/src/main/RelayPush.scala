@@ -55,7 +55,7 @@ final class RelayPush(
             .update(rt.round): r1 =>
               val r2 = r1.withSync(_.addLog(event))
               val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
-              r3.copy(finished = games.nonEmpty && games.forall(_.ending.isDefined))
+              r3.copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
 
   private def pgnToGames(pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
     MultiPgn
@@ -75,7 +75,7 @@ final class RelayPush(
                     children = game.root.children
                       .updateMainline(_.copy(comments = lila.tree.Node.Comments.empty))
                   ),
-                  ending = game.end
+                  outcome = game.end.map(_.outcome)
                 )
               )
 

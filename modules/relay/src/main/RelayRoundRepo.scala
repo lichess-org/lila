@@ -10,6 +10,8 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   import RelayRoundRepo.*
   import BSONHandlers.given
 
+  def exists(id: RelayRoundId): Fu[Boolean] = coll.exists($id(id))
+
   def byTourOrderedCursor(tourId: RelayTourId) =
     coll
       .find(selectors.tour(tourId))
