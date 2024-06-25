@@ -158,7 +158,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       table(cls := "slist slist-pad")(
         thead:
           tr(
-            th(trans.site.name),
+            th(trans.site.name()),
             withFlag.option(th(iconTag(Icon.FlagOutline))),
             th(trans.site.classical()),
             th(trans.site.rapid()),
