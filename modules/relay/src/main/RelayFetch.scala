@@ -27,6 +27,7 @@ final private class RelayFetch(
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     gameProxy: lila.core.game.GameProxy,
+    cacheApi: CacheApi,
     onlyIds: Option[List[RelayTourId]] = None
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
@@ -192,7 +193,22 @@ final private class RelayFetch(
             s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
       .flatMap(multiPgnToGames(_).toFuture)
 
-  private val finishedLccGames = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
+  // cache finished games so they're not requested again for a while
+  private object lccCache:
+    import DgtJson.GameJson
+    type LccGameKey = String
+    private val finishedGames =
+      cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
+        _.expireAfterWrite(3 minutes).build()
+    def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags)(
+        fetch: () => Fu[GameJson]
+    ): Fu[GameJson] =
+      val key = s"${lcc.id} ${lcc.round} $index"
+      finishedGames.getIfPresent(key) match
+        case Some(game) => fuccess(game)
+        case None =>
+          fetch().addEffect: game =>
+            if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
 
   private def fetchFromUpstream(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
@@ -202,24 +218,20 @@ final private class RelayFetch(
         case RelayFormat.SingleFile(url) => httpGetPgn(url).map { MultiPgn.split(_, max) }
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
-            val finishedIndexes = round.finishedGameIndexes
-            round.finishedGames.foreach: i =>
-              finishedLccGames.put(s"${lcc.id} ${lcc.round} $i")
             round.pairings
               .mapWithIndex: (pairing, i) =>
-                val shouldFetch = 
                 val game = i + 1
                 val tags = pairing.tags(lcc.round, game)
-                httpGetJson[GameJson](lcc.gameUrl(game))
-                  .recover:
+                lccCache(lcc, game, tags): () =>
+                  httpGetJson[GameJson](lcc.gameUrl(game)).recover:
                     case _: Exception => GameJson(moves = Nil, result = none)
-                  .map { _.toPgn(tags) }
+                .map { _.toPgn(tags) }
                   .recover: _ =>
                     PgnStr(s"${tags}\n\n${pairing.result}")
                   .map(game -> _)
               .parallel
-              .map: results =>
-                MultiPgn(results.sortBy(_._1).map(_._2))
+              .map: pgns =>
+                MultiPgn(pgns.sortBy(_._1).map(_._2))
         case RelayFormat.LccWithoutGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).map: round =>
             MultiPgn:
@@ -278,13 +290,15 @@ private object RelayFetch:
 
     case class GameJson(moves: List[String], result: Option[String], chess960: Option[Int] = none):
       def outcome = result.flatMap(Outcome.fromResult)
-      def toPgn(extraTags: Tags = Tags.empty): PgnStr =
+      def mergeRoundTags(roundTags: Tags): Tags =
         val fenTag = chess960
           .filter(_ != 518) // LCC sends 518 for standard chess
           .flatMap(chess.variant.Chess960.positionToFen)
           .map(pos => Tag(_.FEN, pos.value))
         val outcomeTag = outcome.map(o => Tag(_.Result, Outcome.showResult(o.some)))
-        val tags       = extraTags ++ Tags(List(fenTag, outcomeTag).flatten)
+        roundTags ++ Tags(List(fenTag, outcomeTag).flatten)
+      def toPgn(roundTags: Tags): PgnStr =
+        val mergedTags = mergeRoundTags(roundTags)
         val strMoves = moves
           .map(_.split(' '))
           .mapWithIndex: (move, index) =>
@@ -296,7 +310,7 @@ private object RelayFetch:
               )
               .render
           .mkString(" ")
-        PgnStr(s"$tags\n\n$strMoves")
+        PgnStr(s"$mergedTags\n\n$strMoves")
     given Reads[GameJson] = Json.reads
 
   object multiPgnToGames:
