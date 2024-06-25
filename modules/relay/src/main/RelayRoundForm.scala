@@ -80,10 +80,10 @@ final class RelayRoundForm(using mode: Mode):
 object RelayRoundForm:
 
   val sourceTypes = List(
+    "push" -> "Broadcaster App",
     "url"  -> "Single PGN URL",
     "urls" -> "Combine several PGN URLs",
-    "ids"  -> "Lichess game IDs",
-    "push" -> "Push local games"
+    "ids"  -> "Lichess game IDs"
   )
 
   private val roundNumberRegex = """([^\d]*)(\d{1,2})([^\d]*)""".r
