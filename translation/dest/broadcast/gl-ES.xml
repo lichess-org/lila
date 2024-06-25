@@ -43,4 +43,13 @@
   <string name="replacePlayerTags">Opcional: substituír os nomes dos xogadores, as puntuacións e os títulos</string>
   <string name="periodInSeconds">Período en segundos</string>
   <string name="periodInSecondsHelp">Opcional: canto tempo se agarda entre peticións. Min 2s, max 60s. Por defecto é automático baseado no número de espectadores.</string>
+  <string name="fideFederations">Federacións FIDE</string>
+  <string name="top10Rating">As mellores 10 puntuacións</string>
+  <string name="fidePlayers">Xogadores FIDE</string>
+  <string name="fidePlayerNotFound">Xogador FIDE non atopado</string>
+  <string name="fideProfile">Perfil FIDE</string>
+  <string name="federation">Federación</string>
+  <string name="ageThisYear">Idade actual</string>
+  <string name="unrated">Sen puntuar</string>
+  <string name="recentTournaments">Torneos recentes</string>
 </resources>
