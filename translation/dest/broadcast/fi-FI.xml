@@ -43,4 +43,12 @@
   <string name="replacePlayerTags">Valinnainen: korvaa pelaajien nimet, vahvuusluvut ja arvonimet</string>
   <string name="periodInSeconds">Jakso sekunteina</string>
   <string name="periodInSecondsHelp">Tarvittaessa pyyntöjen välinen odotusaika: vähintään 2 s, enintään 60 s. Oletuksena on katsojien määrään perustuva automaattinen arvo.</string>
+  <string name="fideFederations">FIDEn liitot</string>
+  <string name="top10Rating">Top 10 -vahvuuslukulista</string>
+  <string name="fidePlayers">FIDE-pelaajat</string>
+  <string name="fidePlayerNotFound">FIDE-pelaajaa ei löytynyt</string>
+  <string name="fideProfile">FIDE-profiili</string>
+  <string name="federation">Kansallinen liitto</string>
+  <string name="ageThisYear">Ikä tänä vuonna</string>
+  <string name="recentTournaments">Viimeisimmät turnaukset</string>
 </resources>
