@@ -140,10 +140,7 @@ final private class RelayFetch(
             .filterNot(_.contains("Found an empty PGN"))
             .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
           Seconds(60)
-        else
-          round.sync.period | Seconds:
-            if upstream.isLcc && !tour.official then 12
-            else 5
+        else round.sync.period | dynamicPeriod(tour, round, upstream)
       updating:
         _.withSync:
           _.copy(
@@ -153,6 +150,17 @@ final private class RelayFetch(
               }.value
             } some
           )
+
+  private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
+    val base =
+      if upstream.isLcc then 6
+      else if upstream.roundId.isDefined then 5 // uses push so no need to pull often
+      else 3
+    base * {
+      if tour.official then 1 else 2
+    } * {
+      if round.crowd.exists(_ > 4) then 1 else 2
+    }
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
     clocks = true,
