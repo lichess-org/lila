@@ -44,7 +44,7 @@ final private class RelayFetch(
 
   LilaScheduler(
     "RelayFetch.user",
-    _.Every(if mode.isDev then 2.seconds else 750 millis),
+    _.Every(if mode.isDev then 2.seconds else 879 millis),
     _.AtMost(10 seconds),
     _.Delay(if mode.isDev then 2.second else 33 seconds)
   ):
@@ -154,7 +154,7 @@ final private class RelayFetch(
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =
       if upstream.isLcc then 6
-      else if upstream.roundId.isDefined then 5 // uses push so no need to pull often
+      else if upstream.isRound then 5 // uses push so no need to pull often
       else 3
     base * {
       if tour.official then 1 else 2

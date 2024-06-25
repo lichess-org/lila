@@ -17,7 +17,7 @@ final class RelayPush(
 )(using ActorSystem, Executor, Scheduler):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
-    maxSize = Max(8),
+    maxSize = Max(32),
     expiration = 1 minute,
     timeout = 10 seconds,
     name = "relay.push",
