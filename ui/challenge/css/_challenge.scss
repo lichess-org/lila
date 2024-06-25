@@ -47,6 +47,15 @@
       width: 33%;
     }
 
+    a.view {
+      font-size: 1.5rem;
+      color: $c-primary;
+
+      &:hover {
+        font-size: 1.85rem;
+      }
+    }
+
     button {
       cursor: pointer;
       color: $c-good;
@@ -126,9 +135,11 @@
       display: block;
       font-weight: bold;
       margin-bottom: 0.1em;
+
       .user-link {
         margin-inline-start: -5px;
       }
+
       signal {
         margin-inline-start: 5px;
       }
