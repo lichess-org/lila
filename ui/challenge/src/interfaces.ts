@@ -38,7 +38,7 @@ export interface Challenge {
   status: ChallengeStatus;
   challenger?: ChallengeUser;
   destUser?: ChallengeUser;
-  rules: GameRule[];
+  rules?: GameRule[];
   variant: Variant;
   initialFen: FEN;
   rated: boolean;

@@ -74,7 +74,7 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
 }
 
 function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
-  const viewInsteadOfAccept = c.rules.length > 0;
+  const viewInsteadOfAccept = !c.rules ? false : c.rules.length > 0;
   const acceptElement = h('form', { attrs: { method: 'post', action: `/challenge/${c.id}/accept` } }, [
     h('button.button.accept', {
       attrs: {
