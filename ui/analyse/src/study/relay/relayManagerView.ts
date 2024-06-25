@@ -17,7 +17,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
                 h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
                 h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
               ]),
-              sync?.url || sync?.ids || sync?.urls ? (sync.ongoing ? stateOn : stateOff)(ctrl) : null,
+              sync?.url || sync?.ids || sync?.urls ? (sync.ongoing ? stateOn : stateOff)(ctrl) : statePush(),
               renderLog(ctrl),
             ])
           : undefined,
@@ -78,6 +78,9 @@ const stateOff = (ctrl: RelayCtrl) =>
     { hook: bind('click', _ => ctrl.setSync(true)), attrs: dataIcon(licon.PlayTriangle) },
     [h('div.fat', 'Click to connect')],
   );
+
+const statePush = () =>
+  h('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, ['Listening to Broadcaster App']);
 
 const dateFormatter = memoize(() =>
   window.Intl && Intl.DateTimeFormat
