@@ -192,6 +192,8 @@ final private class RelayFetch(
             s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
       .flatMap(multiPgnToGames(_).toFuture)
 
+  private val finishedLccGames = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
+
   private def fetchFromUpstream(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
     formatApi
@@ -200,8 +202,12 @@ final private class RelayFetch(
         case RelayFormat.SingleFile(url) => httpGetPgn(url).map { MultiPgn.split(_, max) }
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
+            val finishedIndexes = round.finishedGameIndexes
+            round.finishedGames.foreach: i =>
+              finishedLccGames.put(s"${lcc.id} ${lcc.round} $i")
             round.pairings
               .mapWithIndex: (pairing, i) =>
+                val shouldFetch = 
                 val game = i + 1
                 val tags = pairing.tags(lcc.round, game)
                 httpGetJson[GameJson](lcc.gameUrl(game))
@@ -263,7 +269,9 @@ private object RelayFetch:
           result.map(Tag(_.Result, _)),
           Tag(_.Round, s"$round.$game").some
         ).flatten
-    case class RoundJson(pairings: List[RoundJsonPairing])
+    case class RoundJson(pairings: List[RoundJsonPairing]):
+      def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
+        case (pairing, i) if pairing.result.forall(_ != "*") => i
     given Reads[PairingPlayer]    = Json.reads
     given Reads[RoundJsonPairing] = Json.reads
     given Reads[RoundJson]        = Json.reads
