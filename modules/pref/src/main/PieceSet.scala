@@ -42,6 +42,7 @@ object PieceSet extends PieceSetBase {
     new PieceSet("Shogi_cz", "Shogi.cz"),
     new PieceSet("Shogi_FCZ", "Czech"),
     new PieceSet("Engraved_cz", "Engraved Shogi.cz"),
+    new PieceSet("Engraved_cz_BnW", "Engraved Shogi.cz - black and white"),
     new PieceSet("Kanji_Guide_Shadowed", "Kanji Guide Shadowed"),
     new PieceSet("Valdivia", "Valdivia"),
     new PieceSet("Vald_opt", "Valdivia 2"),
