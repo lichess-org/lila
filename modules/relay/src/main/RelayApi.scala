@@ -53,8 +53,10 @@ final class RelayApi(
     byIdWithTour(id).flatMapz(rt => formNavigation(rt).dmap(some))
 
   def formNavigation(rt: RelayRound.WithTour): Fu[(RelayRound, ui.FormNavigation)] =
-    formNavigation(rt.tour).map: nav =>
-      (rt.round, nav.copy(round = rt.round.id.some))
+    for
+      nav         <- formNavigation(rt.tour)
+      sourceRound <- rt.round.sync.upstream.flatMap(_.roundId).so(byIdWithTour)
+    yield (rt.round, nav.copy(round = rt.round.id.some, sourceRound = sourceRound))
 
   def formNavigation(tour: RelayTour): Fu[ui.FormNavigation] = for
     group  <- withTours.get(tour.id)

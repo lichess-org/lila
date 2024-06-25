@@ -13,6 +13,7 @@ case class FormNavigation(
     tour: RelayTour,
     rounds: List[RelayRound],
     round: Option[RelayRoundId],
+    sourceRound: Option[RelayRound.WithTour] = none,
     newRound: Boolean = false
 ):
   def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
@@ -102,13 +103,17 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, round = none)
         )
 
-    def edit(r: RelayRound, form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
+    def edit(
+        r: RelayRound,
+        form: Form[RelayRoundForm.Data],
+        nav: FormNavigation
+    )(using Context) =
       page(r.name.value, nav):
         val rt = r.withTour(nav.tour)
         frag(
           boxTop(h1(a(href := rt.path)(rt.fullName))),
           standardFlash,
-          inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some),
+          inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some, nav.sourceRound),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
@@ -130,7 +135,8 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form: Form[RelayRoundForm.Data],
         url: play.api.mvc.Call,
         t: RelayTour,
-        round: Option[RelayRound]
+        round: Option[RelayRound],
+        sourceRound: Option[RelayRound.WithTour] = none
     )(using ctx: Context) =
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
@@ -177,14 +183,31 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               trb.sourceSingleUrl(),
               help = trb.sourceUrlHelp().some
             )(form3.input(_)),
-            round
-              .flatMap(_.sync.upstream)
-              .flatMap(_.roundId)
-              .map: roundId =>
-                flashMessage("round-push")(
-                  "Getting real-time updates from the broadcast ",
-                  a(href := routes.RelayRound.show("-", "-", roundId))("#", roundId)
-                )
+            sourceRound.map: source =>
+              flashMessage("round-push")(
+                "Getting real-time updates from ",
+                strong(a(href := source.path)(source.fullName)),
+                br,
+                "Owner: ",
+                userIdLink(source.tour.ownerId.some),
+                br,
+                "Delay: ",
+                source.round.sync.delay.fold("0")(_.toString),
+                "s",
+                br,
+                "Start: ",
+                source.round.startedAt.orElse(source.round.startsAt).fold(frag("unscheduled"))(momentFromNow),
+                br,
+                "Last sync: ",
+                source.round.sync.log.events.lastOption.map: event =>
+                  frag(
+                    momentFromNow(event.at),
+                    br,
+                    event.error match
+                      case Some(err) => s"❌ $err"
+                      case _         => s"✅ ${event.moves} moves"
+                  )
+              )
           ),
           form3.group(
             form("syncUrls"),
