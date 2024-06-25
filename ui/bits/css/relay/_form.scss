@@ -39,6 +39,17 @@
   }
 }
 
+.flash-round-push {
+  border: 5px solid $c-good;
+  background: $c-bg-box;
+
+  &::before {
+    color: $c-good;
+    content: $licon-Checkmark;
+    font-size: 4em;
+  }
+}
+
 .relay-image {
   max-width: 100%;
   height: auto;

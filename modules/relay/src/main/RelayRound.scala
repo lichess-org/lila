@@ -129,10 +129,12 @@ object RelayRound:
       def roundId: Option[RelayRoundId] = this match
         case Url(url) =>
           url.path.split("/") match
-            case Array("", "broadcast", _, _, id) if id.size == 8 =>
-              RelayRoundId(id).some
+            case Array("", "broadcast", _, _, id) =>
+              val cleanId = if id.endsWith(".pgn") then id.dropRight(4) else id
+              (cleanId.size == 8).option(RelayRoundId(cleanId))
             case _ => none
         case _ => none
+      def isRound = roundId.isDefined
 
     case class Lcc(id: String, round: Int):
       def pageUrl  = URL.parse(s"https://view.livechesscloud.com/#$id/$round")

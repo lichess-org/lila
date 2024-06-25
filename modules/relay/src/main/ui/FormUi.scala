@@ -176,7 +176,15 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               form("syncUrl"),
               trb.sourceSingleUrl(),
               help = trb.sourceUrlHelp().some
-            )(form3.input(_))
+            )(form3.input(_)),
+            round
+              .flatMap(_.sync.upstream)
+              .flatMap(_.roundId)
+              .map: roundId =>
+                flashMessage("round-push")(
+                  "Getting real-time updates from the broadcast ",
+                  a(href := routes.RelayRound.show("-", "-", roundId))("#", roundId)
+                )
           ),
           form3.group(
             form("syncUrls"),
