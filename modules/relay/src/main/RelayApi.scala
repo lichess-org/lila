@@ -275,6 +275,10 @@ final class RelayApi(
             sendToContributors(round.id, "relayLog", Json.toJsObject(event))
         round
 
+  def syncTargetsOfSource(source: RelayRound): Funit =
+    (!source.sync.upstream.exists(_.isRound)).so: // prevent chaining (and circular!) round updates
+      roundRepo.syncTargetsOfSource(source.id)
+
   def reset(old: RelayRound)(using me: Me): Funit =
     WithRelay(old.id) { relay =>
       for

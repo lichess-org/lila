@@ -135,6 +135,10 @@ object RelayRound:
             case _ => none
         case _ => none
       def isRound = roundId.isDefined
+      def roundIds: List[RelayRoundId] = this match
+        case url: Url   => url.roundId.toList
+        case Urls(urls) => urls.map(Url.apply).flatMap(_.roundId)
+        case _          => Nil
 
     case class Lcc(id: String, round: Int):
       def pageUrl  = URL.parse(s"https://view.livechesscloud.com/#$id/$round")

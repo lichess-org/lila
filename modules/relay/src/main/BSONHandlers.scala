@@ -2,6 +2,7 @@ package lila.relay
 
 import reactivemongo.api.bson.*
 
+import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
@@ -15,18 +16,17 @@ object BSONHandlers:
   given upstreamUrlsHandler: BSONDocumentHandler[Upstream.Urls] = Macros.handler
   given upstreamIdsHandler: BSONDocumentHandler[Upstream.Ids]   = Macros.handler
 
-  given BSONHandler[Upstream] = tryHandler(
-    {
-      case d: BSONDocument if d.contains("url")  => upstreamUrlHandler.readTry(d)
-      case d: BSONDocument if d.contains("urls") => upstreamUrlsHandler.readTry(d)
-      case d: BSONDocument if d.contains("ids")  => upstreamIdsHandler.readTry(d)
-    },
-    {
-      case url: Upstream.Url   => upstreamUrlHandler.writeTry(url).get
-      case urls: Upstream.Urls => upstreamUrlsHandler.writeTry(urls).get
-      case ids: Upstream.Ids   => upstreamIdsHandler.writeTry(ids).get
-    }
-  )
+  given BSONHandler[Upstream] = new BSON[Upstream]:
+    def reads(r: BSON.Reader): Upstream =
+      if r.contains("url") then upstreamUrlHandler.readTry(r.doc).get
+      else if r.contains("urls") then upstreamUrlsHandler.readTry(r.doc).get
+      else upstreamIdsHandler.readTry(r.doc).get
+    def writes(w: BSON.Writer, up: Upstream) =
+      val doc = up match
+        case url: Upstream.Url   => upstreamUrlHandler.writeTry(url).get
+        case urls: Upstream.Urls => upstreamUrlsHandler.writeTry(urls).get
+        case ids: Upstream.Ids   => upstreamIdsHandler.writeTry(ids).get
+      doc ++ up.roundIds.some.filter(_.nonEmpty).so(ids => $doc("roundIds" -> ids))
 
   import SyncLog.Event
   given BSONDocumentHandler[Event] = Macros.handler
