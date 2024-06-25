@@ -94,9 +94,9 @@ final class RelayRound(
         )
   }
 
-  def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
+  def reset(id: RelayRoundId) = AuthOrScoped(_.Study.Write) { ctx ?=> me ?=>
     Found(env.relay.api.byIdAndContributor(id)): rt =>
-      env.relay.api.reset(rt.round).inject(Redirect(rt.path))
+      env.relay.api.reset(rt.round) >> negotiate(Redirect(rt.path), jsonOkResult)
   }
 
   def show(ts: String, rs: String, id: RelayRoundId, embed: Option[UserStr]) =

@@ -44,7 +44,7 @@ final private class RelayFetch(
 
   LilaScheduler(
     "RelayFetch.user",
-    _.Every(if mode.isDev then 2.seconds else 750 millis),
+    _.Every(if mode.isDev then 2.seconds else 879 millis),
     _.AtMost(10 seconds),
     _.Delay(if mode.isDev then 2.second else 33 seconds)
   ):
@@ -120,10 +120,12 @@ final private class RelayFetch(
   ): Updating[RelayRound] =
     val round = updating.current
     result match
-      case result: SyncResult.Ok if result.nbMoves > 0 =>
-        lila.mon.relay.moves(tour.official, round.slug).increment(result.nbMoves)
-        if !round.hasStarted && !tour.official then
-          irc.broadcastStart(round.id, round.withTour(tour).fullName)
+      case result: SyncResult.Ok if result.hasMovesOrTags =>
+        api.syncTargetsOfSource(round)
+        if result.nbMoves > 0 then
+          lila.mon.relay.moves(tour.official, round.slug).increment(result.nbMoves)
+          if !round.hasStarted && !tour.official then
+            irc.broadcastStart(round.id, round.withTour(tour).fullName)
         continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
       case _ => continueRelay(tour, updating)
 
@@ -140,10 +142,7 @@ final private class RelayFetch(
             .filterNot(_.contains("Found an empty PGN"))
             .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
           Seconds(60)
-        else
-          round.sync.period | Seconds:
-            if upstream.isLcc && !tour.official then 12
-            else 5
+        else round.sync.period | dynamicPeriod(tour, round, upstream)
       updating:
         _.withSync:
           _.copy(
@@ -153,6 +152,17 @@ final private class RelayFetch(
               }.value
             } some
           )
+
+  private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
+    val base =
+      if upstream.isLcc then 6
+      else if upstream.isRound then 10 // uses push so no need to pull often
+      else 3
+    base * {
+      if tour.official then 1 else 2
+    } * {
+      if round.crowd.exists(_ > 4) then 1 else 2
+    }
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
     clocks = true,

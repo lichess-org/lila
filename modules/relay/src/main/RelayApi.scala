@@ -53,8 +53,10 @@ final class RelayApi(
     byIdWithTour(id).flatMapz(rt => formNavigation(rt).dmap(some))
 
   def formNavigation(rt: RelayRound.WithTour): Fu[(RelayRound, ui.FormNavigation)] =
-    formNavigation(rt.tour).map: nav =>
-      (rt.round, nav.copy(round = rt.round.id.some))
+    for
+      nav         <- formNavigation(rt.tour)
+      sourceRound <- rt.round.sync.upstream.flatMap(_.roundId).so(byIdWithTour)
+    yield (rt.round, nav.copy(round = rt.round.id.some, sourceRound = sourceRound))
 
   def formNavigation(tour: RelayTour): Fu[ui.FormNavigation] = for
     group  <- withTours.get(tour.id)
@@ -274,6 +276,10 @@ final class RelayApi(
           .foreach: event =>
             sendToContributors(round.id, "relayLog", Json.toJsObject(event))
         round
+
+  def syncTargetsOfSource(source: RelayRound): Funit =
+    (!source.sync.upstream.exists(_.isRound)).so: // prevent chaining (and circular!) round updates
+      roundRepo.syncTargetsOfSource(source.id)
 
   def reset(old: RelayRound)(using me: Me): Funit =
     WithRelay(old.id) { relay =>

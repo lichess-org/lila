@@ -51,6 +51,14 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def studyIdsOf(tourId: RelayTourId): Fu[List[StudyId]] =
     coll.distinctEasy[StudyId, List]("_id", selectors.tour(tourId))
 
+  def syncTargetsOfSource(source: RelayRoundId): Funit =
+    coll.update
+      .one(
+        $doc("sync.until".$exists(true), "sync.upstream.roundIds" -> source),
+        $set("sync.nextAt"                                        -> nowInstant)
+      )
+      .void
+
 private object RelayRoundRepo:
 
   object sort:

@@ -17,7 +17,7 @@ final class RelayPush(
 )(using ActorSystem, Executor, Scheduler):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
-    maxSize = Max(8),
+    maxSize = Max(32),
     expiration = 1 minute,
     timeout = 10 seconds,
     name = "relay.push",
@@ -31,31 +31,36 @@ final class RelayPush(
     if rt.round.sync.hasUpstream
     then fuccess(List(Left(Failure(Tags.empty, "The relay has an upstream URL, and cannot be pushed to."))))
     else
-      val parsed   = pgnToGames(pgn)
-      val games    = parsed.collect { case Right(g) => g }.toVector
-      val response = parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
+      val parsed = pgnToGames(pgn)
+      val games  = parsed.collect { case Right(g) => g }.toVector
+      val response: List[Either[Failure, Success]] =
+        parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
+      val andSyncTargets = response.exists(_.isRight)
 
-      rt.round.sync.nonEmptyDelay.fold(push(rt, games).inject(response)): delay =>
-        after(delay.value.seconds)(push(rt, games))
-        fuccess(response)
+      rt.round.sync.nonEmptyDelay match
+        case None => push(rt, games, andSyncTargets).inject(response)
+        case Some(delay) =>
+          after(delay.value.seconds)(push(rt, games, andSyncTargets))
+          fuccess(response)
 
-  private def push(rt: RelayRound.WithTour, games: Vector[RelayGame]) =
+  private def push(rt: RelayRound.WithTour, games: Vector[RelayGame], andSyncTargets: Boolean) =
     workQueue(rt.round.id):
-      sync
-        .updateStudyChapters(rt, rt.tour.players.fold(games)(_.update(games)))
-        .map: res =>
-          SyncLog.event(res.nbMoves, none)
-        .recover:
-          case e: Exception => SyncLog.event(0, e.some)
-        .flatMap: event =>
-          if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
-            irc.broadcastStart(rt.round.id, rt.fullName)
-          stats.setActive(rt.round.id)
-          api
-            .update(rt.round): r1 =>
-              val r2 = r1.withSync(_.addLog(event))
-              val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
-              r3.copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
+      for
+        event <- sync
+          .updateStudyChapters(rt, rt.tour.players.fold(games)(_.update(games)))
+          .map: res =>
+            SyncLog.event(res.nbMoves, none)
+          .recover:
+            case e: Exception => SyncLog.event(0, e.some)
+        _ = if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
+          irc.broadcastStart(rt.round.id, rt.fullName)
+        _ = stats.setActive(rt.round.id)
+        round <- api.update(rt.round): r1 =>
+          val r2 = r1.withSync(_.addLog(event))
+          val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
+          r3.copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
+        _ <- andSyncTargets.so(api.syncTargetsOfSource(round))
+      yield ()
 
   private def pgnToGames(pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
     MultiPgn

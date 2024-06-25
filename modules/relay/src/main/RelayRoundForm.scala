@@ -75,15 +75,20 @@ final class RelayRoundForm(using mode: Mode):
       )
   ).fill(fillFromPrevRounds(trs.rounds))
 
-  def edit(r: RelayRound) = Form(roundMapping).fill(Data.make(r))
+  def edit(r: RelayRound) = Form(
+    roundMapping.verifying(
+      "The round source cannot be itself",
+      d => d.syncSource.pp.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
+    )
+  ).fill(Data.make(r))
 
 object RelayRoundForm:
 
   val sourceTypes = List(
+    "push" -> "Broadcaster App",
     "url"  -> "Single PGN URL",
     "urls" -> "Combine several PGN URLs",
-    "ids"  -> "Lichess game IDs",
-    "push" -> "Push local games"
+    "ids"  -> "Lichess game IDs"
   )
 
   private val roundNumberRegex = """([^\d]*)(\d{1,2})([^\d]*)""".r

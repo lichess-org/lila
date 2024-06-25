@@ -65,11 +65,11 @@ final private class RelayFormatApi(
         logger.info(s"guessed format of $url: $format")
 
   private def guessRelayRound(url: URL): Fu[Option[RelayFormat.Round]] =
-    url.path.split("/") match
-      case Array("", "broadcast", _, _, id) if id.size == 8 =>
-        val roundId = RelayRoundId(id)
-        roundRepo.exists(roundId).map(_.option(RelayFormat.Round(roundId)))
-      case _ => fuccess(none)
+    RelayRound.Sync.Upstream
+      .Url(url)
+      .roundId
+      .so: id =>
+        roundRepo.exists(id).map(_.option(RelayFormat.Round(id)))
 
   private[relay] def httpGet(url: URL)(using CanProxy): Fu[String] =
     httpGetResponse(url).map(_.body)
