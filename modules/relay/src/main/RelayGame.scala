@@ -62,7 +62,8 @@ private object RelayGame:
       variations = false,
       clocks = true,
       source = true,
-      orientation = false
+      orientation = false,
+      site = none
     )
     Iso[RelayGames, MultiPgn](
       gs =>

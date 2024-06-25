@@ -55,6 +55,14 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                   ).some
                 else
                   frag(
+                    (canModCateg && post.number == 1).option:
+                      a(
+                        cls      := "mod mod-relocate button button-empty",
+                        href     := routes.ForumPost.relocate(post.id),
+                        dataIcon := Icon.Forward,
+                        title    := "Relocate"
+                      )
+                    ,
                     if canModCateg || topic.isUblogAuthor(me) then
                       a(
                         cls      := "mod delete button button-empty",

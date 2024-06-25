@@ -54,7 +54,7 @@ final class ChapterPreviewApi(
 
   object dataList:
     private[ChapterPreviewApi] val cache =
-      cacheApi[StudyId, List[ChapterPreview]](256, "study.chapterPreview.data"):
+      cacheApi[StudyId, List[ChapterPreview]](512, "study.chapterPreview.data"):
         _.expireAfterWrite(1 minute).buildAsyncFuture(listAll)
 
     def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)

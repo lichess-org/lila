@@ -121,11 +121,11 @@ final private class RelayFormatApi(
   private def looksLikeJson(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url).map(looksLikeJson)
 
 private enum RelayFormat:
-  case SingleFile(url: URL)                   extends RelayFormat
-  case LccWithGames(lcc: RelayRound.Sync.Lcc) extends RelayFormat
+  case SingleFile(url: URL)
+  case LccWithGames(lcc: RelayRound.Sync.Lcc)
   // there will be game files with names like "game-1.json" or "game-1.pgn"
   // but not at the moment. The index is still useful.
-  case LccWithoutGames(lcc: RelayRound.Sync.Lcc) extends RelayFormat
+  case LccWithoutGames(lcc: RelayRound.Sync.Lcc)
 
 private object RelayFormat:
 

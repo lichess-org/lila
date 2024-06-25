@@ -48,8 +48,8 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
 
   def setActive(id: RelayRoundId) = activeRounds.put(id)
 
-  // keep monitoring rounds for 30m after they stopped syncing
-  private val activeRounds = ExpireSetMemo[RelayRoundId](30 minutes)
+  // keep monitoring rounds for some time after they stopped syncing
+  private val activeRounds = ExpireSetMemo[RelayRoundId](1 hour)
 
   private def record(): Funit = for
     crowds <- fetchRoundCrowds

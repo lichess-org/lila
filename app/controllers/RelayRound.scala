@@ -127,8 +127,21 @@ final class RelayRound(
           yield JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group))
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
-  def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
-  def apiPgn                                   = studyC.apiPgn
+  def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
+    pgnWithFlags(ts, rs, id)
+
+  def apiPgn(id: RelayRoundId) = AnonOrScoped(_.Study.Read): ctx ?=>
+    pgnWithFlags("-", "-", id)
+
+  private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
+    studyC.pgnWithFlags(
+      id.into(StudyId),
+      _.copy(
+        site = s"${env.net.baseUrl}${routes.RelayRound.show(ts, rs, id)}".some,
+        comments = false,
+        variations = false
+      )
+    )
 
   def apiMyRounds = Scoped(_.Study.Read) { ctx ?=> _ ?=>
     val source = env.relay.api.myRounds(MaxPerSecond(20), getIntAs[Max]("nb")).map(env.relay.jsonView.myRound)
