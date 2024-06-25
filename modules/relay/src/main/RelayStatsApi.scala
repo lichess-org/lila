@@ -24,7 +24,7 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
       .aggregateList(RelayTour.maxRelays): framework =>
         import framework.*
         Match($doc("tourId" -> id)) -> List(
-          Sort(Ascending("createdAt")),
+          Sort(Descending("createdAt")),
           AddFields($doc("sync.log" -> $arr())),
           PipelineOperator(
             $lookup.simple(colls.stats, "stats", "_id", "_id")

@@ -108,7 +108,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       .css("bits.relay.stats")
       .js(PageModule("chart.relayStats", Json.obj("rounds" -> stats))):
         main(cls := "relay-tour page box box-pad")(
-          boxTop(h1(a(href := routes.RelayTour.show(t.slug, t.id).url)(t.name), " - Stats")),
+          boxTop(h1("Stats of ", a(href := routes.RelayTour.show(t.slug, t.id).url)(t.name))),
           div(id := "round-selector"),
           div(id := "relay-stats-container")(canvas(id := "relay-stats"))
         )
