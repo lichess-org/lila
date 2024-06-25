@@ -9,7 +9,6 @@ export interface ChallengeOpts {
 }
 
 type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';
-type GameRule = 'noAbort' | 'noRematch' | 'noGiveTime' | 'noClaimWin' | 'noEarlyDraw';
 export type ChallengeDirection = 'in' | 'out';
 
 export interface ChallengeUser {
@@ -38,7 +37,7 @@ export interface Challenge {
   status: ChallengeStatus;
   challenger?: ChallengeUser;
   destUser?: ChallengeUser;
-  rules?: GameRule[];
+  rules?: unknown[];
   variant: Variant;
   initialFen: FEN;
   rated: boolean;
