@@ -995,4 +995,13 @@ Leave empty to start games from the normal initial position.</string>
   <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
+  <string name="fideFederations">FIDE federations</string>
+  <string name="top10Rating">Top 10 rating</string>
+  <string name="fidePlayers">FIDE players</string>
+  <string name="fidePlayerNotFound">FIDE player not found</string>
+  <string name="fideProfile">FIDE profile</string>
+  <string name="federation">Federation</string>
+  <string name="ageThisYear">Age this year</string>
+  <string name="unrated">Unrated</string>
+  <string name="recentTournaments">Recent tournaments</string>
 </resources>
