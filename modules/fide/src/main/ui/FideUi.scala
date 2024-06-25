@@ -153,12 +153,12 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         players: Paginator[FidePlayer],
         url: Int => Call,
         withFlag: Boolean = true,
-        title: String = trans.site.name()
+        title: String = "Name"
     )(using Context) =
       table(cls := "slist slist-pad")(
         thead:
           tr(
-            th(title),
+            th(trans.site.name),
             withFlag.option(th(iconTag(Icon.FlagOutline))),
             th(trans.site.classical()),
             th(trans.site.rapid()),
@@ -203,7 +203,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
                 )
             ),
           card(
-            trans.fideProfile(),
+            trans.site.fideProfile(),
             a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
           ),
           card(
