@@ -504,11 +504,11 @@
   <string name="loadPosition">بارگذاری موقعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
-  <string name="profileCompletion">میزان تکمیل نمایه: %s</string>
+  <string name="profileCompletion">میزان تکمیل رُخ‌نما: %s</string>
   <string name="xRating">درجه‌‏بندی %s</string>
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
-  <string name="profile">نمایه</string>
-  <string name="editProfile">ویرایش نمایه</string>
+  <string name="profile">رُخ‌نما</string>
+  <string name="editProfile">ویرایش رُخ‌نما</string>
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
   <string name="setFlair">تعیین کردن شکلک</string>
