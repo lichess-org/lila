@@ -4,12 +4,13 @@ import chess.format.pgn.{ Tag, TagType, Tags }
 
 import lila.study.{ MultiPgn, StudyPgnImport, PgnDump }
 import lila.tree.Root
+import chess.Outcome
 
 case class RelayGame(
     tags: Tags,
     variant: chess.variant.Variant,
     root: Root,
-    ending: Option[StudyPgnImport.End]
+    outcome: Option[Outcome]
 ):
 
   // We don't use tags.boardNumber.
@@ -31,8 +32,8 @@ case class RelayGame(
 
   def resetToSetup = copy(
     root = root.withoutChildren,
-    ending = None,
-    tags = tags.copy(value = tags.value.filter(_.name != Tag.Result))
+    tags = tags.copy(value = tags.value.filter(_.name != Tag.Result)),
+    outcome = None
   )
 
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
@@ -41,6 +42,8 @@ case class RelayGame(
   def hasUnknownPlayer: Boolean =
     List(RelayGame.whiteTags, RelayGame.blackTags).exists:
       _.forall(tag => tags(tag).isEmpty)
+
+  def showResult = Outcome.showResult(outcome)
 
 private object RelayGame:
 
@@ -57,13 +60,7 @@ private object RelayGame:
     tags = c.tags,
     variant = c.setup.variant,
     root = c.root,
-    ending = c.tags.outcome.map: out =>
-      StudyPgnImport.End(
-        status = chess.Status.UnknownFinish,
-        outcome = out,
-        resultText = chess.Outcome.showResult(out.some),
-        statusText = ""
-      )
+    outcome = c.tags.outcome
   )
 
   import scalalib.Iso

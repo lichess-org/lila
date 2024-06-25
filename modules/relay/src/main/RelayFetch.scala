@@ -95,7 +95,7 @@ final private class RelayFetch(
             .map: res =>
               res -> updating:
                 _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-                  .copy(finished = games.nonEmpty && games.forall(_.ending.isDefined))
+                  .copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
         .recover:
           case e: Exception =>
             val result = e.match
@@ -358,5 +358,5 @@ private object RelayFetch:
               comments = Comments.empty,
               children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
             ),
-            ending = res.end
+            outcome = res.end.map(_.outcome)
           )
