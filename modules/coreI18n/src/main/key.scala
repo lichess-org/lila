@@ -1685,6 +1685,15 @@ object I18nKey:
     val `replacePlayerTags`: I18nKey = "broadcast:replacePlayerTags"
     val `periodInSeconds`: I18nKey = "broadcast:periodInSeconds"
     val `periodInSecondsHelp`: I18nKey = "broadcast:periodInSecondsHelp"
+    val `fideFederations`: I18nKey = "broadcast:fideFederations"
+    val `top10Rating`: I18nKey = "broadcast:top10Rating"
+    val `fidePlayers`: I18nKey = "broadcast:fidePlayers"
+    val `fidePlayerNotFound`: I18nKey = "broadcast:fidePlayerNotFound"
+    val `fideProfile`: I18nKey = "broadcast:fideProfile"
+    val `federation`: I18nKey = "broadcast:federation"
+    val `ageThisYear`: I18nKey = "broadcast:ageThisYear"
+    val `unrated`: I18nKey = "broadcast:unrated"
+    val `recentTournaments`: I18nKey = "broadcast:recentTournaments"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object streamer:
