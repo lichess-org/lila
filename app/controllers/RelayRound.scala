@@ -187,6 +187,13 @@ final class RelayRound(
           env.relay.teamTable.tableJson(rt.relay).map(JsonStrOk)
       }(Unauthorized, Forbidden)
 
+  def stats(id: RelayRoundId) = Open:
+    env.relay.stats
+      .get(id)
+      .map: stats =>
+        import lila.relay.JsonView.given
+        JsonOk(stats)
+
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: Context): Fu[Result] =

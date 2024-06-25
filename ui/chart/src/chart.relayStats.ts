@@ -1,15 +1,7 @@
-import { RelayStats, RoundStats } from './interface';
+import { RoundStats } from './interface';
 import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
-import {
-  hoverBorderColor,
-  gridColor,
-  tooltipBgColor,
-  fontColor,
-  fontFamily,
-  maybeChart,
-  animation,
-} from './common';
+import { hoverBorderColor, gridColor, tooltipBgColor, fontColor, fontFamily, animation } from './common';
 import { memoize } from 'common';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
@@ -47,24 +39,9 @@ const dateFormat = memoize(() =>
     : (d: Date) => d.toLocaleDateString(),
 );
 
-export default function initModule(data: RelayStats) {
-  const $el = $('#relay-stats');
-  const last = data.rounds.reverse().find(r => !!r.viewers.length);
-  const container = $('#round-selector')[0]!;
-  container.innerHTML = `<div class = "mselect"><select class="mselect__label" id="round-select">${data.rounds
-    .map(
-      (round, i) =>
-        `<option value="${round.round.id}" ${
-          (last ? last.round.id == round.round.id : i == data.rounds.length - 1) ? 'selected' : ''
-        }>${round.round.name}</option>`,
-    )
-    .join('')}</select></div>`;
-  const possibleChart = maybeChart($el[0] as HTMLCanvasElement);
-  const relayChart = (possibleChart as RelayChart) ?? makeChart($el, last);
-  $('#round-select').on('change', function (this: HTMLSelectElement) {
-    const selected = data.rounds.find(r => r.round.id == this.value)!;
-    relayChart.updateData(selected);
-  });
+export default function initModule(data: RoundStats) {
+  const $el = $('.relay-tour__stats canvas');
+  makeChart($el, data);
 }
 
 const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDataset<'line'>[] => {
@@ -117,8 +94,8 @@ const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDatase
   return plot;
 };
 
-const makeChart = ($el: Cash, last?: RoundStats) => {
-  const ds = last ? makeDataset(last, $el[0] as HTMLCanvasElement) : [];
+const makeChart = ($el: Cash, data: RoundStats) => {
+  const ds = makeDataset(data, $el[0] as HTMLCanvasElement);
   const config: chart.ChartConfiguration<'line'> = {
     type: 'line',
     data: {
@@ -198,7 +175,7 @@ const makeChart = ($el: Cash, last?: RoundStats) => {
         },
         title: {
           display: true,
-          text: last ? titleText(last) : 'No viewership stats yet',
+          text: data.viewers[0] ? titleText(data) : 'No viewership stats yet',
           color: fontColor,
         },
       },
