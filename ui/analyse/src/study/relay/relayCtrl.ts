@@ -103,7 +103,7 @@ export default class RelayCtrl {
     const r = round || this.currentRound();
     return `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
   };
-
+  roundUrlWithHash = (round?: RelayRound) => `${this.roundPath(round)}#${this.tab()}`;
   updateAddressBar = (tourUrl: string, roundUrl: string) => {
     const url = this.tourShow() ? `${tourUrl}${this.tab() === 'overview' ? '' : `#${this.tab()}`}` : roundUrl;
     // when jumping from a tour tab to another page, remember which tour tab we were on.
