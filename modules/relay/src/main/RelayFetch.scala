@@ -25,6 +25,7 @@ final private class RelayFetch(
     delayer: RelayDelay,
     fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
+    studyChapterRepo: lila.study.ChapterRepo,
     pgnDump: PgnDump,
     gameProxy: lila.core.game.GameProxy,
     cacheApi: CacheApi,
@@ -191,7 +192,7 @@ final private class RelayFetch(
         else
           throw LilaInvalid:
             s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
-      .flatMap(multiPgnToGames(_).toFuture)
+      .flatMap(multiPgnToGames.future)
 
   // cache finished games so they're not requested again for a while
   private object lccCache:
@@ -215,7 +216,12 @@ final private class RelayFetch(
     formatApi
       .get(url)
       .flatMap {
-        case RelayFormat.SingleFile(url) => httpGetPgn(url).map { MultiPgn.split(_, max) }
+        case RelayFormat.Round(id) =>
+          studyChapterRepo
+            .orderedByStudyLoadingAllInMemory(id.into(StudyId))
+            .map(_.view.map(RelayGame.fromChapter).toVector)
+        case RelayFormat.SingleFile(url) =>
+          httpGetPgn(url).map { MultiPgn.split(_, max) }.flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
             round.pairings
@@ -232,13 +238,15 @@ final private class RelayFetch(
               .parallel
               .map: pgns =>
                 MultiPgn(pgns.sortBy(_._1).map(_._2))
+              .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithoutGames(lcc) =>
-          httpGetJson[RoundJson](lcc.indexUrl).map: round =>
-            MultiPgn:
-              round.pairings.mapWithIndex: (pairing, i) =>
-                PgnStr(s"${pairing.tags(lcc.round, i + 1)}\n\n${pairing.result}")
+          httpGetJson[RoundJson](lcc.indexUrl)
+            .map: round =>
+              MultiPgn:
+                round.pairings.mapWithIndex: (pairing, i) =>
+                  PgnStr(s"${pairing.tags(lcc.round, i + 1)}\n\n${pairing.result}")
+            .flatMap(multiPgnToGames.future)
       }
-      .flatMap { multiPgnToGames(_).toFuture }
 
   private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] =
     PgnStr.from(formatApi.httpGetAndGuessCharset(url))
@@ -325,6 +333,8 @@ private object RelayFetch:
                 if game.isEmpty then LilaInvalid(s"Found an empty PGN at index $index").asLeft
                 else (acc :+ game, index + 1).asRight[LilaInvalid]
         .map(_._1)
+
+    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = apply(multiPgn).toFuture
 
     private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, RelayGame]] =
       CacheApi

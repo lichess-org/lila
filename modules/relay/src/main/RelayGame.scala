@@ -53,6 +53,19 @@ private object RelayGame:
   val whiteTags: TagNames  = List(_.White, _.WhiteFideId)
   val blackTags: TagNames  = List(_.Black, _.BlackFideId)
 
+  def fromChapter(c: lila.study.Chapter) = RelayGame(
+    tags = c.tags,
+    variant = c.setup.variant,
+    root = c.root,
+    ending = c.tags.outcome.map: out =>
+      StudyPgnImport.End(
+        status = chess.Status.UnknownFinish,
+        outcome = out,
+        resultText = chess.Outcome.showResult(out.some),
+        statusText = ""
+      )
+  )
+
   import scalalib.Iso
   import chess.format.pgn.{ InitialComments, Pgn }
   val iso: Iso[RelayGames, MultiPgn] =

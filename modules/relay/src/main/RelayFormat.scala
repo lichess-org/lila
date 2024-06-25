@@ -21,6 +21,7 @@ import lila.memo.{ CacheApi, SettingStore }
 import lila.study.MultiPgn
 
 final private class RelayFormatApi(
+    roundRepo: RelayRoundRepo,
     ws: StandaloneWSClient,
     cacheApi: CacheApi,
     proxyCredentials: SettingStore[Option[Credentials]] @@ ProxyCredentials,
@@ -56,10 +57,19 @@ final private class RelayFormatApi(
               .map:
                 if _ then LccWithGames(lcc).some
                 else LccWithoutGames(lcc).some
-        case None => looksLikePgn(url).mapz(SingleFile(url).some)
+        case None =>
+          guessRelayRound(url).orElse:
+            looksLikePgn(url).mapz(SingleFile(url).some)
       .orFailWith(LilaInvalid(s"No games found at $url"))
       .addEffect: format =>
         logger.info(s"guessed format of $url: $format")
+
+  private def guessRelayRound(url: URL): Fu[Option[RelayFormat.Round]] =
+    url.path.split("/") match
+      case Array("", "broadcast", _, _, id) if id.size == 8 =>
+        val roundId = RelayRoundId(id)
+        roundRepo.exists(roundId).map(_.option(RelayFormat.Round(roundId)))
+      case _ => fuccess(none)
 
   private[relay] def httpGet(url: URL)(using CanProxy): Fu[String] =
     httpGetResponse(url).map(_.body)
@@ -121,6 +131,7 @@ final private class RelayFormatApi(
   private def looksLikeJson(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url).map(looksLikeJson)
 
 private enum RelayFormat:
+  case Round(id: RelayRoundId)
   case SingleFile(url: URL)
   case LccWithGames(lcc: RelayRound.Sync.Lcc)
   // there will be game files with names like "game-1.json" or "game-1.pgn"
