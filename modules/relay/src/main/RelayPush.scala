@@ -7,12 +7,13 @@ import chess.{ ErrorStr, Game, Replay, Square }
 import scala.concurrent.duration.*
 import scalalib.actor.AsyncActorSequencers
 
-import lila.study.{ MultiPgn, StudyPgnImport }
+import lila.study.{ MultiPgn, StudyPgnImport, ChapterPreviewApi }
 
 final class RelayPush(
     sync: RelaySync,
     api: RelayApi,
     stats: RelayStatsApi,
+    chapterPreview: ChapterPreviewApi,
     irc: lila.core.irc.IrcApi
 )(using ActorSystem, Executor, Scheduler):
 
@@ -55,10 +56,12 @@ final class RelayPush(
         _ = if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
           irc.broadcastStart(rt.round.id, rt.fullName)
         _ = stats.setActive(rt.round.id)
+        allGamesFinished <- (games.nonEmpty && games.forall(_.outcome.isDefined)).so:
+          chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>
           val r2 = r1.withSync(_.addLog(event))
           val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
-          r3.copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
+          r3.copy(finished = allGamesFinished)
         _ <- andSyncTargets.so(api.syncTargetsOfSource(round))
       yield ()
 
