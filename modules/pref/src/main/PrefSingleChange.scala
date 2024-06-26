@@ -51,6 +51,8 @@ object PrefSingleChange:
       _.copy(confirmResign = v),
     changing(_.moretime): v =>
       _.copy(moretime = v),
+    changing(_.clockSound): v =>
+      _.copy(clockSound = v == 1),
     changing(_.ratings): v =>
       _.copy(ratings = v),
     changing(_.follow): v =>
