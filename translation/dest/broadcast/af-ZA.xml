@@ -30,10 +30,12 @@
   <string name="replacePlayerTags">Opsioneel: vervang spelername, graderings en titels</string>
   <string name="periodInSeconds">Periode in sekondes</string>
   <string name="fideFederations">FIDE-federasies</string>
+  <string name="top10Rating">Top 10 gradering</string>
   <string name="fidePlayers">FIDE-deelnemers</string>
   <string name="fidePlayerNotFound">FIDE-deelnemer nie gevind nie</string>
   <string name="fideProfile">FIDE-profiel</string>
   <string name="federation">Federasie</string>
   <string name="ageThisYear">Ouderdom vanjaar</string>
+  <string name="unrated">Ongegradeerd</string>
   <string name="recentTournaments">Onlangse toernooie</string>
 </resources>
