@@ -157,11 +157,13 @@ final private class RelayFetch(
     val base =
       if upstream.isLcc then 6
       else if upstream.isRound then 10 // uses push so no need to pull often
-      else 3
+      else 2
     base * {
       if tour.official then 1 else 2
     } * {
       if round.crowd.exists(_ > 4) then 1 else 2
+    } * {
+      if round.hasStarted then 1 else 2
     }
 
   private val gameIdsUpstreamPgnFlags = PgnDump.WithFlags(
