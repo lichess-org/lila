@@ -77,3 +77,14 @@
   border: none;
   cursor: pointer;
 }
+
+.show-hide-password.strikethrough::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: rotate(45deg);
+  top: 50%;
+  left: 0;
+}

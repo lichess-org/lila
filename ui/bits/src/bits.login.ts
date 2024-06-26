@@ -122,6 +122,7 @@ function passwordShowHide() {
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
       $input.attr('type', type);
       $button.toggleClass('show', type === 'text');
+      $button.toggleClass('strikethrough');
     });
   });
 }
