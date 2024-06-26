@@ -337,7 +337,9 @@ body { margin-top: 45px; }
     "policy"  -> trans.site.agreementPolicy()
   )
 
-  private def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using Context) =
+  private def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using
+      Context
+  ) =
     frag(
       form3.group(
         username,
