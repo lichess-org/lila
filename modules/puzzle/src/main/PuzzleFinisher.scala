@@ -30,13 +30,12 @@ final private[puzzle] class PuzzleFinisher(
     )
 
   def batch(
-      theme: PuzzleTheme.Key,
       user: User,
       solutions: List[PuzzleForm.mobile.Solution]
-  ): Fu[List[(PuzzleRound, IntRatingDiff)]] = {
+  ): Fu[List[(PuzzleRound, IntRatingDiff)]] =
     solutions.foldM((user.perfs.puzzle, List.empty[(PuzzleRound, IntRatingDiff)])) {
       case ((perf, rounds), sol) =>
-        apply(Puzzle.Id(sol.id), theme, user, Result(sol.win)) map {
+        apply(Puzzle.Id(sol.id), PuzzleTheme.findOrAny(sol.theme).key, user, Result(sol.win)) map {
           case Some((round, newPerf)) => {
             val rDiff = IntRatingDiff(newPerf.intRating - perf.intRating)
             (newPerf, (round, rDiff) :: rounds)
@@ -44,7 +43,6 @@ final private[puzzle] class PuzzleFinisher(
           case None => (perf, rounds)
         }
     } map { case (_, rounds) => rounds.reverse }
-  }
 
   def apply(
       id: Puzzle.Id,

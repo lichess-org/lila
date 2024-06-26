@@ -30,11 +30,8 @@ object PuzzleTheme {
   val pin          = PuzzleTheme(Key("pin"), i.pin, i.pinDescription)
   val sacrifice    = PuzzleTheme(Key("sacrifice"), i.sacrifice, i.sacrificeDescription)
   val strikingPawn = PuzzleTheme(Key("strikingPawn"), i.strikingPawn, i.strikingPawnDescription)
-  // val danglingPawn   = PuzzleTheme(Key("danglingPawn"), i.danglingPawn, i.danglingPawnDescription)
-  val joiningPawn = PuzzleTheme(Key("joiningPawn"), i.joiningPawn, i.joiningPawnDescription)
-  // val exchange       = PuzzleTheme(Key("exchange"), i.exchange, i.exchangeDescription)
-  // val dancingPawns   = PuzzleTheme(Key("dancingPawns"), i.dancingPawns, i.dancingPawnsDescription)
-  val edgeAttack = PuzzleTheme(Key("edgeAttack"), i.edgeAttack, i.edgeAttackDescription)
+  val joiningPawn  = PuzzleTheme(Key("joiningPawn"), i.joiningPawn, i.joiningPawnDescription)
+  val edgeAttack   = PuzzleTheme(Key("edgeAttack"), i.edgeAttack, i.edgeAttackDescription)
 
   val mate    = PuzzleTheme(Key("mate"), i.mate, i.mateDescription)
   val mateIn1 = PuzzleTheme(Key("mateIn1"), i.mateIn1, i.mateIn1Description)

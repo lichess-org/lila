@@ -91,14 +91,14 @@ GET   /training/history                controllers.Puzzle.history(page: Int ?= 1
 GET   /training/upload                 controllers.Puzzle.newPuzzlesForm
 POST  /training/upload                 controllers.Puzzle.addPuzzles
 GET   /training/submitted              controllers.Puzzle.submitted(name: Option[String] ?= None, page: Int ?= 1)
+GET   /training/mobile/:themeOrId      controllers.Puzzle.mobileShow(themeOrId: String)
+POST  /training/mobile-solve           controllers.Puzzle.mobileSolve
 GET   /training/:themeOrId             controllers.Puzzle.show(themeOrId: String)
 GET   /training/:theme/$id<\w{5}>      controllers.Puzzle.showWithTheme(theme: String, id: String)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: String)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: String, theme: String)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme: String, id: String)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme: String)
-GET   /training/batch/:theme           controllers.Puzzle.mobileBatch(theme: String)
-POST  /training/batch/:theme           controllers.Puzzle.mobileBatchSolve(theme: String)
 
 # Puzzle Storm
 GET   /storm                            controllers.Storm.home
@@ -623,7 +623,7 @@ GET   /account/reopen                  controllers.Account.reopen
 POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent/:email      controllers.Account.reopenSent(email: String)
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token: String)
-# App BC
+# App
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info

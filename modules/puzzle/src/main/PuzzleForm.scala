@@ -2,7 +2,6 @@ package lila.puzzle
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.libs.json._
 
 import lila.common.Form.{ numberIn, stringIn }
 
@@ -40,10 +39,19 @@ object PuzzleForm {
 
   object mobile {
 
-    case class Solution(id: String, win: Boolean)
-    case class SolveData(solutions: List[Solution])
+    case class Solution(id: String, theme: String, win: Boolean)
 
-    implicit val SolutionReads  = Json.reads[Solution]
-    implicit val SolveDataReads = Json.reads[SolveData]
+    val solutions = Form(
+      single(
+        "solutions" -> list(
+          mapping(
+            "id"    -> nonEmptyText,
+            "theme" -> nonEmptyText,
+            "win"   -> boolean
+          )(Solution.apply)(Solution.unapply)
+        )
+      )
+    )
+
   }
 }

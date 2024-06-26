@@ -346,35 +346,51 @@ final class Puzzle(
       }
     }
 
-  /* Mobile API: select a bunch of puzzles for offline use */
-  def mobileBatch(themeKey: String) =
+  // select a bunch of puzzles for offline use
+  // or get a single puzzle I guess
+  def mobileShow(themeOrId: String) =
     Open { implicit ctx =>
       negotiate(
         html = notFound,
-        api = _ => batch(PuzzleTheme.findOrAny(themeKey))
+        api = _ =>
+          PuzzleTheme.find(themeOrId) match {
+            case None if themeOrId.sizeIs == Puz.idSize =>
+              OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
+                ctx.me.?? { me =>
+                  !env.puzzle.api.round.exists(me, puz.id) map {
+                    _ ?? env.puzzle.api.casual.set(me, puz.id)
+                  }
+                } >> Ok(env.puzzle.jsonView.mobile(Seq(puz), PuzzleTheme.mix, ctx.me)).fuccess
+              }
+            case themeOpt => batch(themeOpt.getOrElse(PuzzleTheme.mix)) dmap { Ok(_) }
+          }
       )
     }
 
-  /* Mobile API: tell the server about puzzles solved while offline */
-  def mobileBatchSolve(themeKey: String) =
-    OpenBody(parse.json) { implicit ctx =>
+  // tell the server about puzzles solved while offline
+  val maxOfflineBatch = 30
+  def mobileSolve =
+    OpenBody { implicit ctx =>
+      implicit val req = ctx.body
       negotiate(
         html = notFound,
         api = _ => {
-          import lila.puzzle.PuzzleForm.mobile._
-          ctx.body.body
-            .validate[SolveData]
+          env.puzzle.forms.mobile.solutions
+            .bindFromRequest()
             .fold(
-              err => BadRequest(err.toString).fuccess,
-              data =>
+              jsonFormError,
+              solutions =>
                 ctx.me match {
                   case Some(me) =>
-                    env.puzzle.finisher.batch(PuzzleTheme.findOrAny(themeKey).key, me, data.solutions) map {
+                    env.puzzle.finisher.batch(
+                      me,
+                      solutions.take(maxOfflineBatch)
+                    ) map {
                       _.map { case (round, rDiff) => env.puzzle.jsonView.roundJsonApi(round, rDiff) }
                     } dmap { JsonOk(_) }
                   case None =>
                     env.puzzle.finisher.batchIncPuzzlePlays(
-                      data.solutions.flatMap(sol => Puz.toId(sol.id))
+                      solutions.take(maxOfflineBatch).flatMap(sol => Puz.toId(sol.id))
                     ) inject { jsonOkResult }
                 }
             )
@@ -383,8 +399,8 @@ final class Puzzle(
     }
 
   private def batch(theme: PuzzleTheme)(implicit ctx: Context) =
-    env.puzzle.batch.nextFor(ctx.me, theme, ~getInt("nb", ctx.req)) map { puzzles =>
-      env.puzzle.jsonView.mobile.batch(puzzles, theme, ctx.me)
-    } dmap { Ok(_) }
+    env.puzzle.batch.nextFor(ctx.me, theme) map { puzzles =>
+      env.puzzle.jsonView.mobile(puzzles, theme, ctx.me)
+    }
 
 }

@@ -12,7 +12,16 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
 
   import BsonHandlers._
 
-  def nextFor(user: Option[User], theme: PuzzleTheme, nb: Int): Fu[Vector[Puzzle]] = (nb > 0) ?? {
+  def calculateMax(user: Option[User], theme: PuzzleTheme): Int =
+    user.fold(3) { u =>
+      val base =
+        if (u.perfs.puzzle.established) 16
+        else 6
+      if (theme == PuzzleTheme.mix) base else base / 2
+    }
+
+  def nextFor(user: Option[User], theme: PuzzleTheme): Fu[Vector[Puzzle]] = {
+    val nb = calculateMax(user, theme)
     user match {
       case None => anonApi.getBatchFor(nb)
       case Some(user) =>

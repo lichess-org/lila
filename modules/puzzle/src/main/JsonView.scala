@@ -137,18 +137,19 @@ final class JsonView(
 
   object mobile {
 
-    def apply(puzzle: Puzzle, theme: PuzzleTheme, user: Option[User]): JsObject =
+    def apply(puzzles: Seq[Puzzle], theme: PuzzleTheme, user: Option[User]): JsObject =
       Json
-        .obj(
-          "puzzle" -> puzzleJson(puzzle),
-          "theme"  -> theme.key
-        )
+        .obj("puzzles" -> puzzles.map(p => mobilePuzzleJson(p)), "theme" -> theme.key)
         .add("user" -> user.map(userJson))
 
-    def batch(puzzles: Seq[Puzzle], theme: PuzzleTheme, user: Option[User]): JsObject =
-      Json
-        .obj("puzzles" -> puzzles.map(puzzleJson), "theme" -> theme.key)
-        .add("user" -> user.map(userJson))
+    private def mobileSource(puzzle: Puzzle): JsObject =
+      Json.obj(
+        "gameId" -> puzzle.gameId,
+        "author" -> puzzle.author
+      )
+
+    private def mobilePuzzleJson(puzzle: Puzzle): JsObject =
+      puzzleJson(puzzle) ++ mobileSource(puzzle)
 
   }
 }
