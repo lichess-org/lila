@@ -27,7 +27,7 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
               )
             ),
             t.password.nonEmpty.so(
-              form3.passwordModified(form("password"), trt.entryCode())(
+              form3.passwordModified(form("password"), trt.entryCode(), reveal = false)(
                 autocomplete := "new-password"
               )
             ),

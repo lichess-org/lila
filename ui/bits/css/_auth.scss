@@ -64,13 +64,3 @@
     margin-top: 1rem;
   }
 }
-
-.show-hide-password {
-  @extend %button-none;
-  float: right;
-  margin-right: 1em;
-  margin-top: -2.2em;
-}
-.show-hide-password.revealed {
-  color: $c-bad;
-}

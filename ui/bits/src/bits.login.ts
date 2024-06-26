@@ -1,9 +1,12 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
+import { addPasswordVisibilityToggleListener } from 'common/password';
 import { storedJsonProp } from 'common/storage';
 
 export function initModule(mode: 'login' | 'signup') {
   mode === 'login' ? loginStart() : signupStart();
+
+  addPasswordVisibilityToggleListener();
 }
 class LoginHistory {
   historyStorage = storedJsonProp<number[]>('login.history', () => []);
@@ -78,8 +81,6 @@ function loginStart() {
         });
     });
   })();
-
-  addPasswordVisibilityToggleListener();
 }
 
 function signupStart() {
@@ -110,20 +111,4 @@ function signupStart() {
   });
 
   site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
-
-  addPasswordVisibilityToggleListener();
-}
-
-function addPasswordVisibilityToggleListener() {
-  $('.password-wrapper').each(function (this: HTMLElement) {
-    const $wrapper = $(this);
-    const $button = $wrapper.find('.show-hide-password');
-    $button.on('click', function (e: Event) {
-      e.preventDefault();
-      const $input = $wrapper.find('input');
-      const type = $input.attr('type') === 'password' ? 'text' : 'password';
-      $input.attr('type', type);
-      $button.toggleClass('revealed', type == 'text');
-    });
-  });
 }
