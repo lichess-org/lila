@@ -337,9 +337,7 @@ body { margin-top: 45px; }
     "policy"  -> trans.site.agreementPolicy()
   )
 
-  private def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using
-      Context
-  ) =
+  private def formFields(username: Field, password: Field, email: Option[Field], register: Boolean)(using Context) =
     frag(
       form3.group(
         username,
@@ -350,8 +348,11 @@ body { margin-top: 45px; }
           form3.input(f)(autofocus, required, autocomplete := "username"),
           register.option(p(cls := "error username-exists none")(trans.site.usernameAlreadyUsed()))
         ),
-      form3.passwordModified(password, trans.site.password())(
-        autocomplete := (if register then "new-password" else "current-password")
+      div(cls := "password-wrapper")(
+        form3.passwordModified(password, trans.site.password())(
+          autocomplete := (if register then "new-password" else "current-password")
+        ),
+        button(cls := "show-hide-password", title := "Show/hide password")("Joey")
       ),
       register.option(form3.passwordComplexityMeter(trans.site.newPasswordStrength())),
       email.map: email =>

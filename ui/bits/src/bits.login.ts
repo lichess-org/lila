@@ -82,6 +82,7 @@ function loginStart() {
 }
 
 function signupStart() {
+  passwordShowHide();
   const $form = $('#signup-form'),
     $exists = $form.find('.username-exists'),
     $username = $form.find('input[name="username"]').on('change keyup paste', () => {
@@ -112,13 +113,10 @@ function signupStart() {
 }
 
 function passwordShowHide() {
-  $('#form3-password').each(function (this: HTMLElement) {
-    const $input = $(this);
-    $input.wrap('<div class="password-wrapper"></div>');
-    const $wrapper = $input.parent();
-    const $button = $('<button class="show-hide-password" title="Show/hide password">Joey</button>').appendTo(
-      $wrapper,
-    );
+  $('.password-wrapper').each(function (this: HTMLElement) {
+    const $wrapper = $(this);
+    const $input = $wrapper.find('input[type="password"], input[type="text"]');
+    const $button = $wrapper.find('.show-hide-password');
     $button.on('click', function (e: Event) {
       e.preventDefault();
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
