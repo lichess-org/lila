@@ -14,8 +14,9 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
     def header(name: Frag)(using Translate) = thead(
       st.tr(th(name), th(trp.freeAccount()), th(trp.lichessPatron()))
     )
-    val unlimited = span(dataIcon := Icon.Checkmark, cls := "is is-green text unlimited")(trans.site.unlimited())
-    val check     = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")(trans.site.yes())
+    val unlimited =
+      span(dataIcon := Icon.Checkmark, cls := "is is-green text unlimited")(trans.site.unlimited())
+    val check = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")(trans.site.yes())
     def custom(str: String)          = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")(str)
     def all(content: Frag)           = frag(td(content), td(content))
     def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
@@ -44,8 +45,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 trans.features.correspondenceWithConditionalPremoves()
               ),
               tr(check)(
-                trans.features.standardChessAndX(
-                a(href := routes.Cms.variantHome)(trans.faq.eightVariants()))
+                trans.features.standardChessAndX(a(href := routes.Cms.variantHome)(trans.faq.eightVariants()))
               ),
               tr(custom(s"$fishnetPerDay per day"))(
                 trans.features.deepXServerAnalysis(lila.ui.bits.engineFullName)
@@ -55,7 +55,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
               ),
               tr(unlimited)(
                 a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
-                trans.features.cloudEngineAnalysis()
+                  trans.features.cloudEngineAnalysis()
                 )
               ),
               tr(unlimited)(
@@ -87,23 +87,30 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 a(href := routes.Racer.home)("Puzzle Racer")
               ),
               tr(check)(
-                a(href := s"${routes.UserAnalysis.index}#explorer")(trans.features.globalOpeningExplorerInNbGames("4300000"))
+                a(href := s"${routes.UserAnalysis.index}#explorer")(
+                  trans.features.globalOpeningExplorerInNbGames("4300000")
+                )
               ),
               tr(check)(
                 trans.features.personalOpeningExplorerX(
-                a(href := s"${routes.UserAnalysis.index}#explorer/me")(trans.features.personalOpeningExplorer()),
-                a(href := s"${routes.UserAnalysis.index}#explorer/DrNykterstein")(trans.site.otherPlayers()))
+                  a(href := s"${routes.UserAnalysis.index}#explorer/me")(
+                    trans.features.personalOpeningExplorer()
+                  ),
+                  a(href := s"${routes.UserAnalysis.index}#explorer/DrNykterstein")(trans.site.otherPlayers())
+                )
               ),
               tr(unlimited)(
                 a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
-                  trans.features.endgameTablebase())
+                  trans.features.endgameTablebase()
+                )
               ),
               tr(check)(
                 trans.features.downloadOrUploadAnyGameAsPgn()
               ),
               tr(unlimited)(
                 trans.features.xThroughLichessBillionGames(
-                a(href := routes.Search.index(1))(trans.search.advancedSearch()))
+                  a(href := routes.Search.index(1))(trans.search.advancedSearch())
+                )
               ),
               tr(unlimited)(
                 a(href := routes.Video.index)(trans.site.videoLibrary())
