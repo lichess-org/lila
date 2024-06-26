@@ -17,7 +17,7 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
   import BSONHandlers.given
 
   // on measurement by minute at most; the storage depends on it.
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => record())
+  scheduler.scheduleWithFixedDelay(2 minutes, 2 minutes)(() => record())
 
   def get(id: RelayRoundId): Fu[Option[RoundStats]] =
     colls.round
@@ -45,7 +45,7 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
   def setActive(id: RelayRoundId) = activeRounds.put(id)
 
   // keep monitoring rounds for some time after they stopped syncing
-  private val activeRounds = ExpireSetMemo[RelayRoundId](1 hour)
+  private val activeRounds = ExpireSetMemo[RelayRoundId](2 hours)
 
   private def record(): Funit = for
     crowds <- fetchRoundCrowds
