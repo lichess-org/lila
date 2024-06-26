@@ -25,7 +25,7 @@ function loginStart() {
 
   const toggleSubmit = ($submit: Cash, v: boolean) =>
     $submit.prop('disabled', !v).toggleClass('disabled', !v);
-
+  passwordShowHide();
   (function load() {
     const form = document.querySelector(selector) as HTMLFormElement,
       $f = $(form);
@@ -109,4 +109,21 @@ function signupStart() {
   });
 
   site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+}
+
+function passwordShowHide() {
+  $('#form3-password').each(function (this: HTMLElement) {
+    const $input = $(this);
+    $input.wrap('<div class="password-wrapper"></div>');
+    const $wrapper = $input.parent();
+    const $button = $('<button class="show-hide-password" title="Show/hide password">Joey</button>').appendTo(
+      $wrapper,
+    );
+    $button.on('click', function (e: Event) {
+      e.preventDefault();
+      const type = $input.attr('type') === 'password' ? 'text' : 'password';
+      $input.attr('type', type);
+      $button.toggleClass('show', type === 'text');
+    });
+  });
 }

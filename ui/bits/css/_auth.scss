@@ -64,3 +64,17 @@
     margin-top: 1rem;
   }
 }
+
+.password-wrapper {
+  position: relative;
+}
+
+.show-hide-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
