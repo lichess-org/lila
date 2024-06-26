@@ -14,6 +14,7 @@ final class RelayPush(
     api: RelayApi,
     stats: RelayStatsApi,
     chapterPreview: ChapterPreviewApi,
+    fidePlayers: RelayFidePlayerApi,
     irc: lila.core.irc.IrcApi
 )(using ActorSystem, Executor, Scheduler):
 
@@ -44,9 +45,10 @@ final class RelayPush(
           after(delay.value.seconds)(push(rt, games, andSyncTargets))
           fuccess(response)
 
-  private def push(rt: RelayRound.WithTour, games: Vector[RelayGame], andSyncTargets: Boolean) =
+  private def push(rt: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
     workQueue(rt.round.id):
       for
+        games <- fidePlayers.enrichGames(rt.tour)(rawGames)
         event <- sync
           .updateStudyChapters(rt, rt.tour.players.fold(games)(_.update(games)))
           .map: res =>
