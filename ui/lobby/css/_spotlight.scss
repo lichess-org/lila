@@ -41,7 +41,8 @@
       margin-left: 3px;
     }
   }
-  &.Yearly {
+  &.Yearly,
+  &.Unique {
     .img {
       color: $c-brag;
     }

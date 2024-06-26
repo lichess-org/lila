@@ -22,7 +22,7 @@
     @if $theme-light {
       background: fade-out($c-bg-box, 0.5);
     } @else {
-      background: fade-out($c-font, 0.95);
+      background: fade-out($c-font-dim, 0.95);
     }
     color: $c-font-clear;
     @include transition();
