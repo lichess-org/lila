@@ -681,8 +681,6 @@ object Game {
     if (variant.chushogi) 1000
     else 700 // unlimited can cause StackOverflowError
 
-  val maxBotPlies = 600
-
   val analysableVariants: Set[Variant] = Set(
     shogi.variant.Standard,
     shogi.variant.Minishogi,
