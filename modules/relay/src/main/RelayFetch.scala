@@ -208,12 +208,16 @@ final private class RelayFetch(
       .flatMap(multiPgnToGames.future)
 
   // cache finished games so they're not requested again for a while
+  // TODO also cache non-started games. Some actually never start.
   private object lccCache:
     import DgtJson.GameJson
     type LccGameKey = String
     private val finishedGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
         _.expireAfterWrite(5 minutes).build()
+    private val createdGames = // not started yet (possibly never)
+      cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.createdLccGames"):
+        _.expireAfterWrite(1 minute).build()
     def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags)(
         fetch: () => Fu[GameJson]
     ): Fu[GameJson] =
@@ -221,8 +225,12 @@ final private class RelayFetch(
       finishedGames.getIfPresent(key) match
         case Some(game) => fuccess(game)
         case None =>
-          fetch().addEffect: game =>
-            if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
+          createdGames.getIfPresent(key) match
+            case Some(game) => fuccess(game)
+            case None =>
+              fetch().addEffect: game =>
+                if game.moves.isEmpty then createdGames.put(key, game)
+                else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
 
   private def fetchFromUpstream(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
