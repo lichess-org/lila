@@ -182,11 +182,11 @@ final private class RelayFetch(
     given CanProxy = CanProxy(rt.tour.official)
     rt.round.sync.upstream.so:
       case Sync.Upstream.Ids(ids) => fetchFromGameIds(rt.tour, ids)
-      case Sync.Upstream.Url(url) => delayer(url, rt.round, fetchFromUpstream)
+      case Sync.Upstream.Url(url) => delayer(url, rt.round, fetchFromUpstream(rt))
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
-            delayer(url, rt.round, fetchFromUpstream)
+            delayer(url, rt.round, fetchFromUpstream(rt))
           .map(_.flatten)
 
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
@@ -208,20 +208,24 @@ final private class RelayFetch(
       .flatMap(multiPgnToGames.future)
 
   // cache finished games so they're not requested again for a while
-  // TODO also cache non-started games. Some actually never start.
   private object lccCache:
     import DgtJson.GameJson
     type LccGameKey = String
     private val finishedGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
         _.expireAfterWrite(5 minutes).build()
-    private val createdGames = // not started yet (possibly never)
+    private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.createdLccGames"):
-        _.expireAfterWrite(1 minute).build()
-    def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags)(
+        _.expireAfter[LccGameKey, GameJson](
+          create = (key, _) => (if key.startsWith("start ") then 1 minutes else 5 minutes),
+          update = (_, _, current) => current,
+          read = (_, _, current) => current
+        ).build()
+
+    def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, nearStart: Boolean)(
         fetch: () => Fu[GameJson]
     ): Fu[GameJson] =
-      val key = s"${lcc.id} ${lcc.round} $index"
+      val key = s"${nearStart.so("start ")}${lcc.id} ${lcc.round} $index"
       finishedGames.getIfPresent(key) match
         case Some(game) => fuccess(game)
         case None =>
@@ -232,7 +236,7 @@ final private class RelayFetch(
                 if game.moves.isEmpty then createdGames.put(key, game)
                 else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
 
-  private def fetchFromUpstream(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
+  private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
     formatApi
       .get(url)
@@ -245,11 +249,12 @@ final private class RelayFetch(
           httpGetPgn(url).map { MultiPgn.split(_, max) }.flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
+            val nearStart = rt.round.secondsAfterStart.exists(_ < 300)
             round.pairings
               .mapWithIndex: (pairing, i) =>
                 val game = i + 1
                 val tags = pairing.tags(lcc.round, game)
-                lccCache(lcc, game, tags): () =>
+                lccCache(lcc, game, tags, nearStart): () =>
                   httpGetJson[GameJson](lcc.gameUrl(game)).recover:
                     case _: Exception => GameJson(moves = Nil, result = none)
                 .map { _.toPgn(tags) }
