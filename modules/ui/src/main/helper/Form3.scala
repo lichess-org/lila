@@ -184,7 +184,7 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     group(field, content): f =>
       div(cls := "password-wrapper")(
         input(f, typ = "password")(required)(modifiers),
-        reveal.option(button(cls := "password-reveal", dataIcon := Icon.Eye))
+        reveal.option(button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye))
       )
 
   def passwordComplexityMeter(labelContent: Frag): Frag =
