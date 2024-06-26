@@ -160,7 +160,9 @@ final private class RelayFetch(
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
-      if tour.official then 1 else 2
+      if tour.tier.exists(_ > RelayTour.Tier.NORMAL) then 1
+      else if tour.official then 2
+      else 3
     } * {
       if round.crowd.exists(_ > 4) then 1 else 2
     } * {
