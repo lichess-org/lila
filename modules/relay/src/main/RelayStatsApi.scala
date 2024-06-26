@@ -19,28 +19,15 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
   // on measurement by minute at most; the storage depends on it.
   scheduler.scheduleWithFixedDelay(2 minutes, 2 minutes)(() => record())
 
-  def get(id: RelayRoundId): Fu[Option[RoundStats]] =
-    colls.round
-      .aggregateOne(): framework =>
-        import framework.*
-        Match($id(id)) -> List(
-          Project($doc("_id" -> true)),
-          PipelineOperator(
-            $lookup.simple(colls.stats, "stats", "_id", "_id")
-          ),
-          AddFields($doc("stats" -> $doc("$first" -> "$stats")))
-        )
-      .map: docOpt =>
-        for
-          doc   <- docOpt
-          stats <- doc.getAsOpt[Bdoc]("stats")
-          data  <- stats.getAsOpt[List[Int]]("d")
-          viewers = data
-            .grouped(2)
-            .collect:
-              case List(minute, crowd) => (minute, crowd)
-            .toList
-        yield RoundStats(viewers)
+  def get(id: RelayRoundId): Fu[RoundStats] =
+    colls.stats
+      .primitiveOne[List[Int]]($id(id), "d")
+      .mapz:
+        _.grouped(2)
+          .collect:
+            case List(minute, crowd) => (minute, crowd)
+          .toList
+      .map(RoundStats.apply)
 
   def setActive(id: RelayRoundId) = activeRounds.put(id)
 
