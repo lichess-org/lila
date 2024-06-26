@@ -352,7 +352,9 @@ body { margin-top: 45px; }
         form3.passwordModified(password, trans.site.password())(
           autocomplete := (if register then "new-password" else "current-password")
         ),
-        button(cls := "show-hide-password", title := "Show/hide password")("Joey")
+        button(cls := "show-hide-password")(
+          i(dataIcon := Icon.Eye)
+        )
       ),
       register.option(form3.passwordComplexityMeter(trans.site.newPasswordStrength())),
       email.map: email =>
