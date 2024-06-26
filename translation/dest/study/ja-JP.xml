@@ -9,7 +9,7 @@
   <string name="whatAreStudies">研究（study）とは？</string>
   <string name="allStudies">すべての研究</string>
   <string name="studiesCreatedByX">%s による研究</string>
-  <string name="studyByX" comment="By username">A shogi study by %s</string>
+  <string name="studyByX" comment="By username">%s による将棋研究</string>
   <string name="noneYet">まだなし</string>
   <string name="hot">注目</string>
   <string name="dateAddedNewest">投稿日（新しい順）</string>

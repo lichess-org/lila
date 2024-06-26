@@ -10,13 +10,13 @@
 	<string name="shogiPieces">Pezas do shogi</string>
 	<string name="theIntroduction">Introdución</string>
 	<string name="introBasics">Aprendamos algúns conceptos básicos.</string>
-	<string name="introIntro">O teu viaxe comeza aquí.</string>
+	<string name="introIntro">A túa viaxe comeza aquí.</string>
 	<string name="clickHereAfterYouveChosen">Preme aquí ou fai un movemento despois de elixir o deseño de pezas que che guste.</string>
 	<string name="tellYourPiecesApart">É importante que saibas distinguir as pezas, así que asegúrate de escoller o estilo de pezas axeitado.</string>
 	<string name="howToSelectPieceSet">Como escoller o estilo das pezas?</string>
 	<string name="choosePieceDesign">É importante que saibas distinguir as pezas, así que asegúrate de escoller o conxunto de pezas axeitado.
 Para facelo, preme na engrenaxe ou no teu nome de usuario (recanto superior dereito) e logo pulsa en \"Estilo das pezas\".</string>
-	<string name="promotionZone">Cando algunhas das túas pezas chegan ou saen das tres primeiras ringleiras do territorio do teu rival, podes escoller coroar a túa peza e facela máis forte.</string>
+	<string name="promotionZone">Cando algunha das túas pezas entra ou sae das tres primeiras ringleiras do territorio do teu rival, podes escoller coroala e facela máis forte.</string>
 	<string name="senteGoesFirst">No shogi o xogador que move primeiro chámase sente e o que move segundo, gote. Sente ás veces represéntase coa cor negra e gote coa cor branca. Fai calquera xogada con sente para continuar.</string>
 	<string name="introComplete">Xa sabes os conceptos básicos, pero este titorial aínda está en construción. Polo de agora aprende como moven as pezas individuais.</string>
 	<string name="introCompleteTwo">Xa sabes os conceptos básicos! Agora aprende como moven as pezas individuais.</string>
@@ -48,7 +48,7 @@ Para facelo, preme na engrenaxe ou no teu nome de usuario (recanto superior dere
 	<string name="kingComplete">Agora podes comandar o comandante!</string>
 	<string name="theKnight">O cabaleiro</string>
 	<string name="itMovesInAnLShape">Move en forma de L, pero só CARA DIANTE!</string>
-	<string name="knightIntro">Velaquí outro reto para ti. O cabaleiro é... unha peza complicada.</string>
+	<string name="knightIntro">Velaquí tes outro reto. O cabaleiro é... unha peza complicada.</string>
 	<string name="knightsHaveAFancyWay">Os cabaleiros teñen unha forma extravagante
 de ir dando chimpos!</string>
 	<string name="knightsCanJumpOverObstacles">Os cabaleiros poden saltar por riba dos obstáculos!</string>
@@ -66,8 +66,8 @@ de ir dando chimpos!</string>
 	<string name="tokinSummary">Xa deberías estar familiarizado con este patrón.</string>
 	<string name="theLance">A lanza</string>
 	<string name="itMovesStraightForward">Só move cara diante.</string>
-	<string name="lanceIntro">Úsao con sabedoría.</string>
-	<string name="lancesAreStraighforward">Só tes que movelo cara diante tanto como queiras. Isto ten que ser fácil para ti.</string>
+	<string name="lanceIntro">Úsaa con sabedoría.</string>
+	<string name="lancesAreStraighforward">Só tes que movela cara diante tanto como queiras. Isto ten que ser fácil para ti.</string>
 	<string name="lancePromotion">Unha vez que a lanza coroa, cambian os seus movementos; claro que xa oíches falar disto — move igual ca un xeneral de ouro.</string>
 	<string name="lanceSummary">Move cara diante. Isto é moi fácil.</string>
 	<string name="planceSummary">É o mesmo có xeneral de ouro.</string>
@@ -77,7 +77,7 @@ de ir dando chimpos!</string>
 	<string name="itMovesInAnyDirectionExceptDiagonallyBack">O xeneral de ouro move en calquera dirección EXCEPTO diagonalmente cara atrás.</string>
 	<string name="goldIntro">Os movementos do xeneral de ouro poden ser un anaco máis difíciles de lembrar ó comezo, pero de seguro que o farás.</string>
 	<string name="goldDoesntPromote">O xeneral de ouro e o rei son as únicas pezas que NON PODEN coroar.</string>
-	<string name="goldSummary">Tenta lembrar estes movementos, pois moitas pezas se moven igual tras coroar.</string>
+	<string name="goldSummary">Tenta lembrar estes movementos: moitas pezas móvense igual tras coroaren.</string>
 	<string name="goldComplete">Parabéns! Conseguíchelo.</string>
 	<string name="theSilver">O xeneral de prata</string>
 	<string name="itMovesEitherForwardOrDiagonallyBack">O xeneral de prata pode mover un cadro en calquera diagonal ou cara adiante.</string>
@@ -141,7 +141,7 @@ a través das túas defensas!</string>
 	<string name="watchOutForYourOpponentsReply">Coidado coa resposta do teu opoñente!</string>
 	<string name="escapeOrBlock">Escapa co rei
 ou bloquea o ataque!</string>
-	<string name="outOfCheckComplete">Parabéns! O teu rei nunca pode ser capturado, asegúrate de que podes defendelo contra xaque!</string>
+	<string name="outOfCheckComplete">Parabéns! O teu rei nunca pode ser capturado, asegúrate de que podes defendelo contra un xaque!</string>
 	<string name="mateInOne">Mate nunha</string>
 	<string name="defeatTheOpponentsKing">Derrota o rei rival</string>
 	<string name="mateInOneIntro">Gañas cando o teu rival non pode defenderse dun xaque.</string>

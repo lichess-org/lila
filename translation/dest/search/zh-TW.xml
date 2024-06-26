@@ -3,7 +3,7 @@
 	<string name="search">搜尋</string>
 	<string name="advancedSearch">進階搜尋</string>
 	<plurals name="searchInXGames">
-		<item quantity="other">Search in %s shogi games</item>
+		<item quantity="other">搜尋 %s 盤棋</item>
 	</plurals>
 	<plurals name="xGamesFound">
 		<item quantity="other">找到了%s盤棋局</item>

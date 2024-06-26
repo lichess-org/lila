@@ -11,8 +11,8 @@
 	<string name="theIntroduction">はじめに</string>
 	<string name="introBasics">基本を学びましょう</string>
 	<string name="introIntro">あなたの旅はここから始まります。</string>
-	<string name="clickHereAfterYouveChosen">好きなピースデザインを選択したら、ここをクリックしてください。</string>
-	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="clickHereAfterYouveChosen">好きな駒デザインを選択したら、ここをクリックしてください。</string>
+	<string name="tellYourPiecesApart">駒の区別がつくことが大切なので、自分が気に入った駒のデザインを選択しましょう。</string>
 	<string name="howToSelectPieceSet">駒を選ぶ方法は？</string>
 	<string name="choosePieceDesign">駒の区別がつくことが大切なので、自分が気に入った駒のデザインを選択しましょう。そのために右上にある歯車かユーザ名をクリックし、そこから「駒のデザイン」をクリックします。</string>
 	<string name="promotionZone">いくつかの駒は相手の陣地 3 列内に入り、または出たときに、成ることを選択して強くすることができます。</string>
@@ -101,7 +101,7 @@
 	<string name="capturedPiecesCanBeDropped">取った駒は自分の手番に盤面へ打って戻すことができます！</string>
 	<string name="dropLimitations">他の駒がいるところや合法手のないマスに駒を打つことはできません。成れる場所に駒を打っても成ることはできません、
 相手の駒を取りましょう！</string>
-	<string name="youCannotHaveTwoUnpromotedPawns">同じ列に歩を二枚置くことはできません。</string>
+	<string name="youCannotHaveTwoUnpromotedPawns">同じ縦の列にまだ成っていない歩兵を2枚置いてはいけません。「二歩」という反則です。</string>
 	<string name="protection">守り</string>
 	<string name="keepYourPiecesSafe">自分の駒を安全に</string>
 	<string name="protectionIntro">相手に攻撃されている自分の駒を見つけ、守ってください！</string>
@@ -144,12 +144,12 @@
 	<string name="defeatTheOpponentsKing">相手の王将/玉将を詰ませる</string>
 	<string name="mateInOneIntro">相手が王手を防げなくなれば、あなたの勝ちです。</string>
 	<string name="toWinInShogi">将棋で勝つには、相手が守れないように相手の王将を攻撃してください。これはメイト、または詰みと呼ばれます。</string>
-	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
+	<string name="dropsCommonDeliverMate">持ち駒を打つことは相手を詰ませるための非常に一般的な方法です。</string>
 	<string name="attackYourOpponentsKing">防げないような
 王手をかけて！</string>
-	<string name="chooseYourPieceCarefully">Choose your piece carefully!</string>
-	<string name="mateWithADroppedPawnIs">Mate with a dropped pawn is illegal - in a real game you would be forfeited!</string>
-	<string name="mateWithAPushedPawnIs">Mate with a pushed pawn is fine.</string>
+	<string name="chooseYourPieceCarefully">注意して駒を選びましょう！</string>
+	<string name="mateWithADroppedPawnIs">持ち駒の歩兵を打って相手を詰ませるのは「打ち歩詰め」という反則です。実際の対局でやってしまうと負けになってしまいます。</string>
+	<string name="mateWithAPushedPawnIs">盤上の歩兵を動かして相手を詰ませる「突き歩詰め」は反則になりません。</string>
 	<string name="mateInOneComplete">おめでとうございます！これが将棋で勝つ方法です！</string>
 	<string name="intermediate">中級</string>
 	<string name="boardSetup">盤と駒の用意</string>
@@ -157,45 +157,45 @@
 	<string name="boardSetupIntro">両軍が向かい合い、戦いに備えます。</string>
 	<string name="thisIsTheInitialPosition">これが将棋の初期盤面です。
 続けるには好きな次の手をどうぞ。</string>
-	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
-	<string name="dropAGold">Drop a gold on the left side of the king, then place another gold on the right.</string>
-	<string name="thenPlaceASilver">Then place the silver next to the left-side gold, and a silver beside the right gold.</string>
-	<string name="dropTheKnights">Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.</string>
-	<string name="dropTheLances">Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.</string>
-	<string name="placeTheBishopThenRook">Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.</string>
-	<string name="placeThePawns">Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.</string>
-	<string name="pushingThe3rdPawn">Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.</string>
+	<string name="firstPlaceTheKing">対局前に駒を並べる伝統的な方法として、「大橋流」と「伊藤流」の2つがあります。今回はプロが最もよく使う「大橋流」をやってみましょう。まずは王将/玉将を一番下の段の真ん中のマスに置きましょう。</string>
+	<string name="dropAGold">金将を王将/玉将の左に置きましょう。そうしたら、右にも置きましょう。</string>
+	<string name="thenPlaceASilver">今度は左側の金将の横に銀将を置き、右側の金将の横に銀将を置きましょう。</string>
+	<string name="dropTheKnights">さっきと同じように桂馬も置きましょう。ここまでは「大橋流」も「伊藤流」も同じです。</string>
+	<string name="dropTheLances">同じように香車も置きましょう。おや？相手は先に左側の歩兵から並べるみたいですね。これが伊藤流です。</string>
+	<string name="placeTheBishopThenRook">角行を左側の桂馬の上に置き、飛車を右側の桂馬の上に置きましょう。もちろん、実際の対局では、相手のペースに合わせて駒を置く必要はなく、自分のペースで置いて構いません。</string>
+	<string name="placeThePawns">最後に、下から3段目に、一番下の段と同じように歩兵を置いていきます。丸の位置に歩兵を置きましょう。</string>
+	<string name="pushingThe3rdPawn">左から3番目の歩兵を進めて角行の開けてあげるのが最も一般的な初手とされています。やってみましょう。</string>
 	<string name="boardSetupComplete">おめでとう！駒の並べ方を覚えました！</string>
-	<string name="repetition">Repetition</string>
-	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
-	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
-	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
-	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
-	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
-	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
+	<string name="repetition">千日手</string>
+	<string name="fourfoldRepetitionIsADrawExcept">同じ盤面が4回現れたら引き分け。ただし…</string>
+	<string name="repetitionIntro">千日手になると引き分けです。ただし連続王手の千日手は反則で、仕掛けた側の負けになります。</string>
+	<string name="ifTheSamePositionOccurs">将棋で全く同じ配置の盤面が4回現れた場合、引き分けとなります。この状況を「千日手」といいます。唯一の合法手を指しましょう。</string>
+	<string name="perpetualCheckIsALoss">しかし、「連続王手の千日手」は、王手を仕掛けた方の負けになります。どうやら相手はそのことを知らないようです。唯一の合法手を指しましょう。</string>
+	<string name="boardFlippedFindBestMove">今度は立場が逆転しました。最善手はどれでしょう？</string>
+	<string name="repetitionComplete">連続王手の千日手が負けになるのは、千日手によって引き分けを強制するのを防ぐためです。</string>
 	<string name="advanced">上級</string>
 	<string name="pieceValue">駒の価値</string>
 	<string name="evaluatePieceStrength">駒の価値を数字で</string>
-	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
-The king is priceless! Losing it means losing the game.</string>
+	<string name="pieceValueIntroNew">機動力の高い駒ほどより価値が高いです。
+王将/玉将は何よりも大切です。これを取られることは敗北を意味します。</string>
 	<string name="queenOverBishop">いちばん価値の大きい
 駒を取ってください。
 クイーン ＞ ビショップ</string>
-	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
-Take the most valuable piece.</string>
-	<string name="knightSilverGold">Knight &lt; Silver &lt; Gold
-Take the most valuable piece without losing your own.</string>
-	<string name="goldBishopRook">Gold &lt; Bishop &lt; Rook
-Take the most valuable piece.</string>
-	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
-	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
-	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
-	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
-	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
-	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>
+	<string name="pawnsAreTheLeastValuable">歩兵は最も価値の低い駒で、香車は歩兵の次に価値が高く、桂馬は香車の次に価値が高いです。
+最も価値の高い駒を取りましょう。</string>
+	<string name="knightSilverGold">桂馬 &lt; 銀将 &lt; 金将
+自分の駒を失うことなく取ることができる、最も価値の高い駒を取りましょう。</string>
+	<string name="goldBishopRook">金将 &lt; 角行 &lt; 飛車
+最も価値の高い駒を取りましょう。</string>
+	<string name="takeAllThePiecesStartingFromTheMost">価値の最も高い駒から最も低い駒まで、順番にすべての駒を取りましょう！</string>
+	<string name="anExchangeIs">駒の交換とは、自分の駒を犠牲に相手の駒を取ることです。銀将で飛車を取るか、金将で桂馬を取るか、どちらがより良い交換になるでしょう？</string>
+	<string name="theOpponentJustGaveAway">相手は貴重な飛車をこちらが取れる状態にしてしまいました。取ってしまいますか？</string>
+	<string name="yourKingsValueIsInfinite">飛車と比較すると、王将/玉将の価値は無限です。最善手は何でしょう？</string>
+	<string name="twoGeneralsAreBetter">2つの金将/銀将は1つの大駒よりも価値があることがあります。桂馬と香車は金将/銀将より強い場合もあります。角行を犠牲にし、2つの金将/銀将を取る方法を見つけましょう。</string>
+	<string name="rememberWhichPieceIsTheMostValuable">どの駒が最も価値があるか覚えていますか？</string>
 	<string name="takeThePieceWithTheHighestValue">いちばん価値の大きい
 駒を取ってください。</string>
-	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">The king is more valuable than every other piece combined. It may be OK to sacrifice pieces to attack the opponent\'s king. Just don\'t forget your own king\'s safety as well!</string>
+	<string name="rememberTheKingIsMoreValuableThanEveryOtherPieceCombined">王将/玉将は他のどの駒よりも大切です。相手の王将/玉将を攻撃するために駒を犠牲にしてもいいかもしれません。自分の王将/玉将を守ることを忘れないでください！</string>
 	<string name="checkInTwo">３手で王手する</string>
 	<string name="twoMovesToGiveCheck">２手動かして王手する</string>
 	<string name="checkInTwoIntro">相手の王将/玉将を王手する３手の組み合わせを考えてください。</string>
@@ -207,13 +207,13 @@ Take the most valuable piece.</string>
 	<string name="register">登録</string>
 	<string name="getAFreeLishogiAccount">Lishogi の無料アカウントを作る</string>
 	<string name="practice">練習</string>
-	<string name="learnCommonShogiPositions">Learn common shogi positions</string>
+	<string name="learnCommonShogiPositions">将棋のよくある局面を知る</string>
 	<string name="puzzles">タクティクス問題</string>
 	<string name="exerciseYourTacticalSkills">戦術の技を磨く</string>
 	<string name="shogiResources">英語圏向けの将棋資料</string>
 	<string name="curatedShogiResources">厳選された将棋資料一覧をご覧ください</string>
 	<string name="videos">動画</string>
-	<string name="watchInstructiveShogiVideos">役に立つ将棋の動画を見ましょう</string>
+	<string name="watchInstructiveShogiVideos">将棋の教材動画を見る</string>
 	<string name="playPeople">対人戦</string>
 	<string name="opponentsFromAroundTheWorld">世界中に相手がいます</string>
 	<string name="playMachine">マシンと対局</string>

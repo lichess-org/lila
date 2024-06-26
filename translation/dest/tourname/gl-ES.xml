@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Arena Rápida horaria</string>
-  <string name="hourlyRapid">Rápido horario</string>
-  <string name="hourlyXArena">Arena %s horaria</string>
+  <string name="hourlyRapidArena">Arena horaria de Rápidas</string>
+  <string name="hourlyRapid">Rápidas horaria</string>
+  <string name="hourlyXArena">Arena horaria de %s</string>
   <string name="hourlyX" comment="adjective">%s horario</string>
-  <string name="dailyRapidArena">Arena Rápida diaria</string>
-  <string name="dailyRapid">Rápido diario</string>
-  <string name="dailyClassicalArena">Arena Clásica diaria</string>
-  <string name="dailyClassical">Clásico diario</string>
-  <string name="dailyXArena">Arena %s diaria</string>
+  <string name="dailyRapidArena">Arena diaria de Rápidas</string>
+  <string name="dailyRapid">Rápidas diaria</string>
+  <string name="dailyClassicalArena">Arena diaria de Clásicas</string>
+  <string name="dailyClassical">Clásicas diaria</string>
+  <string name="dailyXArena">Arena diaria de %s</string>
   <string name="dailyX" comment="adjective">%s diario</string>
-  <string name="easternRapidArena">Arena Rápida oriental</string>
-  <string name="easternRapid">Rápido oriental</string>
-  <string name="easternClassicalArena">Arena Clásica oriental</string>
-  <string name="easternClassical">Clásico oriental</string>
-  <string name="easternXArena">Arena %s oriental</string>
+  <string name="easternRapidArena">Arena oriental de Rápidas</string>
+  <string name="easternRapid">Rápidas oriental</string>
+  <string name="easternClassicalArena">Arena Oriental de Clásicas</string>
+  <string name="easternClassical">Clásicas oriental</string>
+  <string name="easternXArena">Arena oriental de %s</string>
   <string name="easternX">%s oriental</string>
-  <string name="weeklyRapidArena">Arena Rápida semanal</string>
-  <string name="weeklyRapid">Rápido semanal</string>
-  <string name="weeklyClassicalArena">Arena Clásica semanal</string>
-  <string name="weeklyClassical">Clásico semanal</string>
-  <string name="weeklyXArena">Arena %s semanal</string>
+  <string name="weeklyRapidArena">Arena semanal de Rápidas</string>
+  <string name="weeklyRapid">Rápidas semanal</string>
+  <string name="weeklyClassicalArena">Arena semanal de Clásicas</string>
+  <string name="weeklyClassical">Clásicas semanal</string>
+  <string name="weeklyXArena">Arena semanal de %s</string>
   <string name="weeklyX" comment="adjective">%s semanal</string>
-  <string name="monthlyRapidArena">Arena Rápida mensual</string>
-  <string name="monthlyRapid">Rápido mensual</string>
-  <string name="monthlyClassicalArena">Arena Clásica mensual</string>
-  <string name="monthlyClassical">Clásico mensual</string>
-  <string name="monthlyXArena">Arena %s mensual</string>
+  <string name="monthlyRapidArena">Arena mensual de Rápidas</string>
+  <string name="monthlyRapid">Rápidas mensual</string>
+  <string name="monthlyClassicalArena">Arena mensual de Clásicas</string>
+  <string name="monthlyClassical">Clásicas mensual</string>
+  <string name="monthlyXArena">Arena mensual de %s</string>
   <string name="monthlyX" comment="adjective">%s mensual</string>
-  <string name="yearlyRapidArena">Arena Rápida anual</string>
-  <string name="yearlyRapid">Rápido anual</string>
-  <string name="yearlyClassicalArena">Arena Clásica anual</string>
-  <string name="yearlyClassical">Clásico anual</string>
-  <string name="yearlyXArena">Arena %s anual</string>
+  <string name="yearlyRapidArena">Arena anual de Rápidas</string>
+  <string name="yearlyRapid">Rápidas anual</string>
+  <string name="yearlyClassicalArena">Arena anual de Clásicas</string>
+  <string name="yearlyClassical">Clásicas anual</string>
+  <string name="yearlyXArena">Arena anual de %s</string>
   <string name="yearlyX" comment="adjective">%s anual</string>
-  <string name="rapidShieldArena">Arena Escudo Rápido</string>
-  <string name="rapidShield">Escudo Rápido</string>
-  <string name="classicalShieldArena">Arena Escudo Clásico</string>
-  <string name="classicalShield">Escudo Clásico</string>
-  <string name="xShieldArena">Arena Escudo %s</string>
-  <string name="xShield">Escudo %s</string>
-  <string name="openingRapidArena">Arena Rápida %s</string>
-  <string name="openingRapid">Arena %s</string>
+  <string name="rapidShieldArena">Arena Escudo de Rápidas</string>
+  <string name="rapidShield">Escudo de Rápidas</string>
+  <string name="classicalShieldArena">Arena Escudo de Clásicas</string>
+  <string name="classicalShield">Escudo de Clásicas</string>
+  <string name="xShieldArena">Arena Escudo de %s</string>
+  <string name="xShield">Escudo de %s</string>
+  <string name="openingRapidArena">Arena de Rápidas %s</string>
+  <string name="openingRapid">Rápidas %s</string>
   <string name="xTeamBattle">Batalla por equipos %s</string>
   <string name="eliteXArena">Arena %s de Elite</string>
   <string name="eliteX">%s de Elite</string>

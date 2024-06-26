@@ -37,7 +37,7 @@
 	<string name="ehThereIsNoPiece">Hein ? Il n\'y a pas de pièce sur le plateau. Mais regardez à l\'extérieur du plateau, un fou ! Cette zone est l\'endroit où vont les pièces que vous avez capturées. Vous pouvez placer la pièce sur le plateau. Collectez toutes les étoiles comme d\'habitude.</string>
 	<string name="bishopPromotion">Quand le fou se promeut, il deviendra un cheval-dragon, une pièce plus forte.</string>
 	<string name="bishopSummary">Le fou se déplace diagonalement autant de cases qu\'il veut.</string>
-	<string name="horseSummary">Le fou promu (cheval-dragon) se déplace comme le fou, mais il pet aussi se déplace d\'une case orthogonalement.</string>
+	<string name="horseSummary">Le fou promu (cheval-dragon) se déplace comme le fou, mais il peut aussi se déplacer d\'une case orthogonalement.</string>
 	<string name="bishopComplete">Félicitations ! Vous maîtrisez les déplacements du Fou.</string>
 	<string name="theKing">Le Roi</string>
 	<string name="theMostImportantPiece">La pièce la plus importante</string>
@@ -98,7 +98,7 @@
 	<string name="reuseCapturedPieces">Réutilisez les pièces capturées !</string>
 	<string name="dropIntro">Encore une fois, capturez toutes les pièces de l\'adversaire, sans perdre les vôtres !</string>
 	<string name="capturedPiecesCanBeDropped">Vous pouvez parchuter les pièces capturées sur le plateau à votre tour de jeu !</string>
-	<string name="dropLimitations">Vous ne pouvez pas parachuter une pièce sur une autre pièce ou la lâcher là où elle ne peut pas avoir de déplacements légaux. Parachuter une pièce dans la zone de promotion ne donne pas de promotion.
+	<string name="dropLimitations">Vous ne pouvez pas parachuter une pièce sur une autre pièce, ni la lâcher là où elle ne peut pas avoir de déplacements légaux. Parachuter une pièce dans la zone de promotion ne donne pas de promotion.
 Prenez les pièces ennemies !</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">Vous ne pouvez pas avoir deux pions non promus sur la même colonne.</string>
 	<string name="protection">Protéger</string>

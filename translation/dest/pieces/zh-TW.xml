@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="pawn">Pawn</string>
-  <string name="lance">Lance</string>
-  <string name="knight">Knight</string>
-  <string name="silver">Silver</string>
-  <string name="gold">Gold</string>
-  <string name="bishop">Bishop</string>
-  <string name="rook">Rook</string>
-  <string name="king">King</string>
-  <string name="tokin">Tokin</string>
-  <string name="promotedlance">Promoted lance</string>
-  <string name="promotedknight">Promoted knight</string>
-  <string name="promotedsilver">Promoted silver</string>
-  <string name="horse">Horse</string>
-  <string name="dragon">Dragon</string>
-  <string comment="Chushogi piece - not tokin" name="promotedpawn">Promoted pawn</string>
+  <string name="pawn">步兵</string>
+  <string name="lance">香車</string>
+  <string name="knight">桂馬</string>
+  <string name="silver">銀將</string>
+  <string name="gold">金將</string>
+  <string name="bishop">角行</string>
+  <string name="rook">飛車</string>
+  <string name="king">玉將</string>
+  <string name="tokin">成金</string>
+  <string name="promotedlance">成香</string>
+  <string name="promotedknight">成桂</string>
+  <string name="promotedsilver">成銀</string>
+  <string name="horse">龍馬</string>
+  <string name="dragon">龍王</string>
+  <string comment="Chushogi piece - not tokin" name="promotedpawn">成金</string>
   <string comment="Chushogi piece, low priority for translation" name="leopard">Leopard</string>
-  <string comment="Chushogi piece, low priority for translation" name="copper">Copper</string>
-  <string comment="Chushogi piece, low priority for translation" name="elephant">Elephant</string>
-  <string comment="Chushogi piece, low priority for translation" name="chariot">Chariot</string>
-  <string comment="Chushogi piece, low priority for translation" name="tiger">Tiger</string>
-  <string comment="Chushogi piece, low priority for translation" name="kirin">Kirin</string>
-  <string comment="Chushogi piece, low priority for translation" name="phoenix">Phoenix</string>
-  <string comment="Chushogi piece, low priority for translation" name="sidemover">Side mover</string>
-  <string comment="Chushogi piece, low priority for translation" name="verticalmover">Vertical mover</string>
-  <string comment="Chushogi piece, low priority for translation" name="lion">Lion</string>
-  <string comment="Chushogi piece, low priority for translation" name="queen">Queen</string>
-  <string comment="Chushogi piece, low priority for translation" name="gobetween">Go-between</string>
-  <string comment="Chushogi piece, low priority for translation" name="whitehorse">White horse</string>
+  <string comment="Chushogi piece, low priority for translation" name="copper">銅將</string>
+  <string comment="Chushogi piece, low priority for translation" name="elephant">醉象</string>
+  <string comment="Chushogi piece, low priority for translation" name="chariot">反車</string>
+  <string comment="Chushogi piece, low priority for translation" name="tiger">盲虎</string>
+  <string comment="Chushogi piece, low priority for translation" name="kirin">麒麟</string>
+  <string comment="Chushogi piece, low priority for translation" name="phoenix">鳳凰</string>
+  <string comment="Chushogi piece, low priority for translation" name="sidemover">橫行</string>
+  <string comment="Chushogi piece, low priority for translation" name="verticalmover">豎行</string>
+  <string comment="Chushogi piece, low priority for translation" name="lion">獅子</string>
+  <string comment="Chushogi piece, low priority for translation" name="queen">奔王</string>
+  <string comment="Chushogi piece, low priority for translation" name="gobetween">仲人</string>
+  <string comment="Chushogi piece, low priority for translation" name="whitehorse">白駒</string>
   <string comment="Chushogi piece, low priority for translation" name="lionpromoted">Promoted lion</string>
   <string comment="Chushogi piece, low priority for translation" name="queenpromoted">Promoted queen</string>
   <string comment="Chushogi piece, low priority for translation" name="bishoppromoted">Promoted bishop</string>
   <string comment="Chushogi piece, low priority for translation" name="sidemoverpromoted">Promoted side mover</string>
   <string comment="Chushogi piece, low priority for translation" name="verticalmoverpromoted">Promoted vertical mover</string>
   <string comment="Chushogi piece, low priority for translation" name="rookpromoted">Promoted rook</string>
-  <string comment="Chushogi piece, low priority for translation" name="prince">Prince</string>
-  <string comment="Chushogi piece, low priority for translation" name="whale">Whale</string>
+  <string comment="Chushogi piece, low priority for translation" name="prince">太子</string>
+  <string comment="Chushogi piece, low priority for translation" name="whale">鯨鯢</string>
   <string comment="Chushogi piece, low priority for translation" name="horsepromoted">Promoted horse</string>
   <string comment="Chushogi piece, low priority for translation" name="elephantpromoted">Promoted elephant</string>
-  <string comment="Chushogi piece, low priority for translation" name="stag">Stag</string>
-  <string comment="Chushogi piece, low priority for translation" name="boar">Boar</string>
-  <string comment="Chushogi piece, low priority for translation" name="ox">Ox</string>
-  <string comment="Chushogi piece, low priority for translation" name="falcon">Falcon</string>
-  <string comment="Chushogi piece, low priority for translation" name="eagle">Eagle</string>
+  <string comment="Chushogi piece, low priority for translation" name="stag">飛鹿</string>
+  <string comment="Chushogi piece, low priority for translation" name="boar">奔豬</string>
+  <string comment="Chushogi piece, low priority for translation" name="ox">飛牛</string>
+  <string comment="Chushogi piece, low priority for translation" name="falcon">角鷹</string>
+  <string comment="Chushogi piece, low priority for translation" name="eagle">飛鷲</string>
   <string comment="Chushogi piece, low priority for translation" name="dragonpromoted">Promoted dragon</string>
 </resources>

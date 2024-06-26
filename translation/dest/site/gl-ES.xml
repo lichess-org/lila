@@ -247,8 +247,8 @@
 	<string name="standard" comment="Variant - meaning standard shogi">Estándar</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
-	<string name="annanshogi">Annan shogi</string>
-	<string name="kyotoshogi">Kyoto shogi</string>
+	<string name="annanshogi">Annanshogi</string>
+	<string name="kyotoshogi">Kyotoshogi</string>
 	<string name="checkshogi">Xaqueshogi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Regras estándar do shogi</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">As mesmas regras do shogi estándar, pero xogado nun taboleiro máis pequeno de 5x5</string>
@@ -362,7 +362,7 @@
 		<item quantity="one">Necesitas xogar %s partida puntuada máis</item>
 		<item quantity="other">Necesitas xogar %s partidas puntuadas máis</item>
 	</plurals>
-	<string name="yourPerfRatingIsProvisional">A túa puntuación %s é provisional</string>
+	<string name="yourPerfRatingIsProvisional">A túa puntuación de %s é provisional</string>
 	<string name="yourPerfRatingIsTooHigh">A túa puntuación %1$s (%2$s) é demasiado alta</string>
 	<string name="yourTopWeeklyPerfRatingIsTooHigh">A túa puntuación máxima semanal %1$s (%2$s) é demasiado alta</string>
 	<string name="yourPerfRatingIsTooLow">A túa puntuación %1$s (%2$s) é demasiado baixa</string>
@@ -384,7 +384,7 @@
 	<string name="apply">Aplicar</string>
 	<string name="save">Gardar</string>
 	<string name="leaderboard">Lista de líderes</string>
-	<string name="leaderboards">Listaxes de líderes</string>
+	<string name="leaderboards">Listas de líderes</string>
 	<string name="bestPlayersInVariousCategories">Os mellores xogadores en varias categorías</string>
 	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Os mellores %1$s xogadores en %2$s, ordenados por puntuación</string>
 	<string name="selectHandicap">Seleccionar desvantaxe</string>
@@ -488,7 +488,7 @@
 	<string name="handicap">Desvantaxe</string>
 	<string name="startPosition">Posición inicial</string>
 	<string name="clearBoard">Limpar o taboleiro</string>
-	<string name="fillXHand">Completar as pezas en man de %s</string>
+	<string name="fillXHand">Completar a man de %s</string>
 	<string name="savePosition">Gardar a posición</string>
 	<string name="loadPosition">Cargar posición</string>
 	<string name="isPrivate">Privado</string>
@@ -716,7 +716,7 @@
 	<string name="keyEnterOrExitVariation">entrar/saír da variante</string>
 	<string name="newTournament">Novo torneo</string>
 	<string name="tournamentHomeTitle">Torneos de shogi con varios controis de tempo e variantes</string>
-	<string name="tournamentHomeDescription">Xoga torneos de shogi rápidos! Únete a un torneo oficial programado, ou crea un de teu. Bala, Lóstrego, Clásico e máis opcións dispoñibles para que non remate a diversión do shogi.</string>
+	<string name="tournamentHomeDescription">Xoga torneos de shogi rápidos! Únete a un torneo oficial programado, ou crea un de teu. Bala, Lóstrego, Clásicas e máis opcións dispoñibles para que non remate a diversión do shogi.</string>
 	<string name="tournamentNotFound">Torneo non atopado</string>
 	<string name="tournamentDoesNotExist">Este torneo non existe.</string>
 	<string name="tournamentMayHaveBeenCanceled">Poida que fose cancelado, se todos os xogadores marcharon antes de que o torneo comezase.</string>
@@ -766,12 +766,12 @@
 	<string name="playShogiEverywhere">Xoga ó shogi en todas partes</string>
 	<string name="features">Funcións</string>
 	<string name="asFreeAsLishogi">Tan libre coma Lishogi</string>
-	<string name="builtForTheLoveOfShogiNotMoney">Construído por amor ó shogi, non ó diñeiro</string>
+	<string name="builtForTheLoveOfShogiNotMoney">Construído por amor ó shogi, non ós cartos</string>
 	<string name="everybodyGetsAllFeaturesForFree">Todo o mundo obtén todas as funcións gratis</string>
 	<string name="zeroAdvertisement">Sen anuncios</string>
 	<string name="fullFeatured">Repleta de funcións</string>
 	<string name="phoneAndTablet">Teléfono e tableta</string>
-	<string name="bulletBlitzClassical">Bala, lóstrego, clásico</string>
+	<string name="bulletBlitzClassical">Bala, lóstrego, clásicas</string>
 	<string name="correspondenceShogi">Shogi postal</string>
 	<string name="onlineAndOfflinePlay">Xogar en liña ou sen conexión</string>
 	<string name="viewTheSolution">Mirar a solución</string>
@@ -911,8 +911,8 @@
 	<string name="ultrabullet" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">UltraBala</string>
 	<string name="bullet" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">Bala</string>
 	<string name="blitz" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">Lóstrego</string>
-	<string name="rapid">Rápida</string>
-	<string name="classical">Clásica</string>
+	<string name="rapid">Rápidas</string>
+	<string name="classical">Clásicas</string>
 	<string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 1 minuto</string>
 	<string name="bulletDesc">Partidas moi rápidas: menos de 5 minutos</string>
 	<string name="blitzDesc">Partidas rápidas: de 5 a 10 minutos</string>

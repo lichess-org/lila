@@ -53,7 +53,7 @@ To do that click the cog wheel or your username (top right corner) and then clic
 	<string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!</string>
 	<string name="knightSummary">The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn\'t restricted by other pieces - it will just jump over them.</string>
 	<string name="pknightSummary">Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.</string>
-	<string name="knightPromotion">The knight can also be promoted. His movements change a lot after that, so pay attention.</string>
+	<string name="knightPromotion">The knight can also be promoted. Its movements change a lot after that, so pay attention.</string>
 	<string name="knightComplete">Congratulations! You have mastered the knight.</string>
 	<string name="thePawn">The pawn</string>
 	<string name="itMovesForwardOnly">March forward!</string>
@@ -81,7 +81,7 @@ To do that click the cog wheel or your username (top right corner) and then clic
 	<string name="theSilver">The silver general</string>
 	<string name="itMovesEitherForwardOrDiagonallyBack">The general moves either forward or diagonally back.</string>
 	<string name="silverIntro">Another piece with unusual movements, but this is the last one. Promise!</string>
-	<string name="silverPromotion">When you promote the silver general his movements are the same as the gold general.</string>
+	<string name="silverPromotion">When you promote the silver general its movements are the same as the gold general.</string>
 	<string name="silverSummary">You will surely remember these moves with some practice.</string>
 	<string name="psilverSummary">Same as the gold general, you will see this a lot.</string>
 	<string name="silverComplete">Congratulations! You are on a roll.</string>
@@ -192,7 +192,7 @@ Take the most valuable piece without losing your own.</string>
 Take the most valuable piece.</string>
 	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
 	<string name="anExchangeIs">An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?</string>
-	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
+	<string name="theOpponentJustGaveAway">The opponent just gave away their valuable rook for free! Do you take it?</string>
 	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
 	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
 	<string name="rememberWhichPieceIsTheMostValuable">Do you remember which piece is the most valuable?</string>

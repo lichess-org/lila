@@ -18,8 +18,8 @@
 	<string name="zenMode">Режим Дзен</string>
 	<string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
 	<string name="onlyOnInitialPosition">Только в начальном положении</string>
-	<string name="blindfoldShogi">Сеги вслепую (невидимые фигуры)</string>
-	<string name="shogiClock">Часы сеги</string>
+	<string name="blindfoldShogi">Сёги вслепую (невидимые фигуры)</string>
+	<string name="shogiClock">Часы сёги</string>
 	<string name="tenthsOfSeconds">Десятые доли секунд</string>
 	<string name="whenTimeRemainingLessThanTenSeconds">Когда остаётся меньше 10 секунд</string>
 	<string name="clockTickingStart">Часы должны начать тикать в</string>
@@ -46,5 +46,5 @@
 	<string name="kitaoKawasakiNotation">Китайская</string>
 	<string name="kifNotation">Нотация кифу</string>
 	<string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
-	<string name="smallMoves">Small moves</string>
+	<string name="smallMoves">Малые ходы</string>
 </resources>
