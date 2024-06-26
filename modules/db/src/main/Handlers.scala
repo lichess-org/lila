@@ -33,6 +33,9 @@ trait Handlers:
   given userIdOfWriter[U: UserIdOf, T](using writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(u.id)
 
+  given NoDbHandler[UserId] with {}
+  given userIdHandler: BSONHandler[UserId] = stringIsoHandler
+
   given dateTimeHandler: BSONHandler[LocalDateTime] = quickHandler[LocalDateTime](
     { case v: BSONDateTime => millisToDateTime(v.value) },
     v => BSONDateTime(v.toMillis)
