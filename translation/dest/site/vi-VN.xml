@@ -447,7 +447,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="createdBy">Tạo bởi</string>
   <string name="tournamentIsStarting">Giải đấu đang diễn ra</string>
   <string name="tournamentPairingsAreNowClosed">Đã đóng việc sắp xếp cặp đấu.</string>
-  <string name="standByX">Cặp đấu đang được xếp, %s hãy sẵn sàng!</string>
+  <string name="standByX">%s chờ nhé, đang xếp cặp đấu, chuẩn bị sẵn sàng!</string>
   <string name="pause">Tạm rút</string>
   <string name="resume">Tiếp tục</string>
   <string name="youArePlaying">Bạn đã vào ván!</string>

@@ -48,7 +48,7 @@
   <string name="onlyDonationFromAbove">لطفاً توجه داشته باشید که فقط برگه کمک مالی بالا، جایگاه حامی را به ارمغان می‌آورد.</string>
   <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>
   <string name="noPatronFeatures">نه، زیرا Lichess برای همیشه و برای همه، کاملا رایگان است. قول می‌دهیم.
-با این حال، حامیان با بال‌های معرکه‌ای که در نمایه‌شان نشان داده می‌شود، حق پُز دادن دارند.</string>
+با این حال، حامیان با بال‌های معرکه‌ای که در رُخ‌نمای‌شان نشان داده می‌شود، حق پُز دادن دارند.</string>
   <string name="featuresComparison">مقایسه جزئیاتِ ویژگیها را مشاهده کنید</string>
   <plurals name="patronForMonths">
     <item quantity="one">پشتیبانِ Lichess برای یک ماه</item>
@@ -75,7 +75,7 @@
   <string name="amount">مقدار</string>
   <string name="transactionCompleted">تراکنشِ شما تکمیل شد، و یک رسید برای کمک مالی شما برایتان ایمیل شد.</string>
   <string name="permanentPatron">شما هم‌اکنون یک حساب دائمی پشتیبان دارید.</string>
-  <string name="checkOutProfile">به صفحه نمایه‌تان سَر بزنید!</string>
+  <string name="checkOutProfile">به صفحه رُخ‌نمای‌تان سَر بزنید!</string>
   <string name="nowLifetime">شما هم‌اکنون یک پشتیبانِ مادام‌العمرِ Lichess هستید!</string>
   <string name="nowOneMonth">شما هم‌اکنون برای یک ماه یک پشتیبانِ Lichess هستید!</string>
   <string name="downgradeNextMonth">طی یک ماه، دوباره برای شما بدهکاری ثبت نخواهد شد، و حساب کاربری Lichess شما به یک حساب کاربری معمولی برگردانده خواهد شد.</string>

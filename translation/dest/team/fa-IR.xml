@@ -55,6 +55,7 @@
   <string name="declinedRequests">درخواست‌های رد شده</string>
   <string name="joinLichessVariantTeam">برای دسترسی به اخبار و رویداد ها در تیم رسمی %s عضو شوید</string>
   <string name="teamPage">صفحه تیم ها</string>
+  <string name="thisTeamBattleIsOver">این مسابقات به پایان رسیده‌است و تیم‌ها دیگر نمی‌توانند به‌روز شوند.</string>
   <string name="listTheTeamsThatWillCompete">تیم‌هایی که در این نبرد با یکدیگر رقابت خواهند کرد را لیست کنید.</string>
   <string name="oneTeamPerLine">هر تیم در یک خط. از تکمیل خودکار استفاده کنید.</string>
   <string name="oneTeamPerLineHelp">می‌توانید این لیست را از یک مسابقه به مسابقات دیگر کپی کنید!

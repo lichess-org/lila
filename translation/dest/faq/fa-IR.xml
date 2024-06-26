@@ -67,7 +67,7 @@
   <string name="usernamesNotOffensive">به طور کلی، نام های کاربری نباید: توهین آمیز، جعل هویت شخص دیگری یا تبلیغاتی باشند. می‌توانید درباره %1$s بیشتر بخوانید.</string>
   <string name="guidelines">دستورالعمل‌ها</string>
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
-  <string name="usernamesCannotBeChanged">خیر، نام کاربری به دلایل فنی و عملی قابل تغییر نیست. نام‌های کاربری در جاهای مختلف ثبت شده اند: پایگاه‌های داده، گزارش‌ها و در نظر مردم. می توانید یک بار حروف بزرگ را تنظیم کنید.</string>
+  <string name="usernamesCannotBeChanged">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
   <string name="wayOfBerserkExplanation">برای به دست آوردنش، hiimgosu خود را به چالش کشید تا تمام بازی های %s با استفاده از جنون برنده شود.</string>
   <string name="aHourlyBulletTournament">یک مسابقه گلوله‌ای ساعتی</string>

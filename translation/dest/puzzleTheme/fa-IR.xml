@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">یک ذره از همه چیز. شما نمی دانید چه چیزی پیش روی شماست، بنابراین شما باید برای هر چیزی آماده باشید! دقیقا مثل بازی های واقعی.</string>
   <string name="playerGames">بازی‌های بازیکن</string>
   <string name="playerGamesDescription">دنبال معماهای ایجادشده از بازی‌های خودتان یا بازی‌های سایر بازیکنان، بگردید.</string>
-  <string name="puzzleDownloadInformation">این معماها به صورت عمومی هستند و می توانند از %s بارگیری شوند.</string>
+  <string name="puzzleDownloadInformation">این معماها به صورت همگانی هستند و می‌توانید از %s بارگیریدشان.</string>
 </resources>

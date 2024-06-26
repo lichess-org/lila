@@ -21,8 +21,6 @@
   <string name="startDate">วันที่เริ่มในเขตเวลาของคุณ</string>
   <string name="startDateHelp">ไม่บังคับ, ถ้าคุณรู้ว่ารายการจะเริ่มเมื่อใด</string>
   <string name="credits">เครดิตแหล่ง</string>
-  <string name="broadcastUrl">URL การถ่ายทอดสด</string>
-  <string name="currentRoundUrl">URL รอบปัจจุบัน</string>
   <string name="currentGameUrl">URL เกมปัจจุบัน</string>
   <string name="automaticLeaderboard">ตารางผู้นำอัตโนมัติ</string>
   <string name="automaticLeaderboardHelp">คำนวณและแสดงกระดานผู้นำอย่างง่ายตามผลลัพธ์ของเกม</string>

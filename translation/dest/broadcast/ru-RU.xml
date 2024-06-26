@@ -30,8 +30,6 @@
   <string name="startDate">Дата начала в вашем часовом поясе</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>
   <string name="credits">Признательность</string>
-  <string name="broadcastUrl">URL-адрес трансляции</string>
-  <string name="currentRoundUrl">URL-адрес текущего тура</string>
   <string name="currentGameUrl">URL-адрес текущей партии</string>
   <string name="downloadAllRounds">Скачать все туры</string>
   <string name="resetRound">Сбросить тур</string>

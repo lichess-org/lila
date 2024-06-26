@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Sửa giao diện</string>
+  <string name="preferences">Tuỳ chỉnh</string>
   <string name="display">Hiển thị</string>
   <string name="privacy">Quyền riêng tư</string>
   <string name="notifications">Thông báo</string>
