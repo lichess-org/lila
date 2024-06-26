@@ -350,13 +350,8 @@ body { margin-top: 45px; }
           form3.input(f)(autofocus, required, autocomplete := "username"),
           register.option(p(cls := "error username-exists none")(trans.site.usernameAlreadyUsed()))
         ),
-      div(cls := "password-wrapper")(
-        form3.passwordModified(password, trans.site.password())(
-          autocomplete := (if register then "new-password" else "current-password")
-        ),
-        button(cls := "show-hide-password")(
-          i(dataIcon := Icon.Eye)
-        )
+      form3.passwordModified(password, trans.site.password())(
+        autocomplete := (if register then "new-password" else "current-password")
       ),
       register.option(form3.passwordComplexityMeter(trans.site.newPasswordStrength())),
       email.map: email =>

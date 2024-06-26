@@ -179,7 +179,11 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
   def hiddenFalse(field: Field): Tag = hidden(field, "false".some)
 
   def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using Translate): Frag =
-    group(field, content)(input(_, typ = "password")(required)(modifiers))
+    group(field, content): f =>
+      div(cls := "password-wrapper")(
+        input(f, typ = "password")(required)(modifiers),
+        button(cls := "show-hide-password", dataIcon := Icon.Eye)
+      )
 
   def passwordComplexityMeter(labelContent: Frag): Frag =
     div(cls := "password-complexity")(

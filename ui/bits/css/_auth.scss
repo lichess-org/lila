@@ -65,26 +65,12 @@
   }
 }
 
-.password-wrapper {
-  position: relative;
-}
-
 .show-hide-password {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  background: none;
-  border: none;
-  cursor: pointer;
+  @extend %button-none;
+  float: right;
+  margin-right: 1em;
+  margin-top: -2.2em;
 }
-
-.show-hide-password.strikethrough::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background-color: currentColor;
-  transform: rotate(45deg);
-  top: 50%;
-  left: 0;
+.show-hide-password.revealed {
+  color: $c-bad;
 }
