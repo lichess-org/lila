@@ -25,7 +25,6 @@ function loginStart() {
 
   const toggleSubmit = ($submit: Cash, v: boolean) =>
     $submit.prop('disabled', !v).toggleClass('disabled', !v);
-  passwordShowHide();
   (function load() {
     const form = document.querySelector(selector) as HTMLFormElement,
       $f = $(form);
@@ -79,10 +78,11 @@ function loginStart() {
         });
     });
   })();
+
+  addPasswordVisibilityToggleListener();
 }
 
 function signupStart() {
-  passwordShowHide();
   const $form = $('#signup-form'),
     $exists = $form.find('.username-exists'),
     $username = $form.find('input[name="username"]').on('change keyup paste', () => {
@@ -110,9 +110,11 @@ function signupStart() {
   });
 
   site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+
+  addPasswordVisibilityToggleListener();
 }
 
-function passwordShowHide() {
+function addPasswordVisibilityToggleListener() {
   $('.password-wrapper').each(function (this: HTMLElement) {
     const $wrapper = $(this);
     const $input = $wrapper.find('input[type="password"], input[type="text"]');
