@@ -78,7 +78,7 @@ final class RelayRoundForm(using mode: Mode):
   def edit(r: RelayRound) = Form(
     roundMapping.verifying(
       "The round source cannot be itself",
-      d => d.syncSource.pp.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
+      d => d.syncSource.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
     )
   ).fill(Data.make(r))
 
