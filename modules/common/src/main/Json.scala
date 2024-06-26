@@ -22,9 +22,6 @@ object Json:
 
   given Writes[PlayerTitle] = tile => JsString(tile.value)
 
-  given [A](using Show[A]): KeyWrites[A] with
-    def writeKey(key: A) = key.show
-
   given NoJsonHandler[chess.Square] with {}
 
   import lila.core.LightUser
