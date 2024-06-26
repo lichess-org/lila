@@ -126,7 +126,8 @@ final private class RelayFetch(
           lila.mon.relay.moves(tour.official, round.slug).increment(result.nbMoves)
           if !round.hasStarted && !tour.official then
             irc.broadcastStart(round.id, round.withTour(tour).fullName)
-        continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
+          continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
+        else continueRelay(tour, updating)
       case _ => continueRelay(tour, updating)
 
   private def continueRelay(tour: RelayTour, updating: Updating[RelayRound]): Updating[RelayRound] =
@@ -212,7 +213,7 @@ final private class RelayFetch(
     type LccGameKey = String
     private val finishedGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
-        _.expireAfterWrite(3 minutes).build()
+        _.expireAfterWrite(5 minutes).build()
     def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags)(
         fetch: () => Fu[GameJson]
     ): Fu[GameJson] =
