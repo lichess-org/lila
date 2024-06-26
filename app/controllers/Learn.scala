@@ -34,7 +34,7 @@ final class Learn(env: Env) extends LilaController(env) {
       scoreForm
         .bindFromRequest()
         .fold(
-          _ => BadRequest.fuccess,
+          jsonFormError,
           scores => env.learn.api.setScore(me, scores) inject Ok(Json.obj("ok" -> true))
         )
     }
@@ -45,7 +45,7 @@ final class Learn(env: Env) extends LilaController(env) {
       scoresForm
         .bindFromRequest()
         .fold(
-          _ => BadRequest.fuccess,
+          jsonFormError,
           scores => env.learn.api.setScores(me, scores) inject Ok(Json.obj("ok" -> true))
         )
     }

@@ -155,6 +155,7 @@ GET   /study/topic/autocomplete         controllers.Study.topicAutocomplete
 # Learn
 GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score
+POST  /learn/scores                    controllers.Learn.scores
 POST  /learn/reset                     controllers.Learn.reset
 
 # Insights
