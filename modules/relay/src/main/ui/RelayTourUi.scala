@@ -143,7 +143,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
       div(cls := "sep"),
       a(cls := menu.active("players"), href := routes.Fide.index(1))(trans.broadcast.fidePlayers()),
-      a(cls := menu.active("federations"), href := routes.Fide.federations(1))(trans.broadcast.fideFederations())
+      a(cls := menu.active("federations"), href := routes.Fide.federations(1))(
+        trans.broadcast.fideFederations()
+      )
     )
 
   private object card:
