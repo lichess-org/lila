@@ -45,10 +45,10 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
               ),
               tr(check)(
                 trans.features.standardChessAndX(
-                a(href := routes.ContentPage.variantHome)(trans.faq.eightVariants()))
+                a(href := routes.Cms.variantHome)(trans.faq.eightVariants()))
               ),
               tr(custom(s"$fishnetPerDay per day"))(
-                trans.features.deepXServerAnalysis(engineFullName)
+                trans.features.deepXServerAnalysis(lila.ui.bits.engineFullName)
               ),
               tr(unlimited)(
                 trans.features.boardEditorAndAnalysisBoardWithEngine("Stockfish 16, Fairy-Stockfish 14")
@@ -92,7 +92,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
               tr(check)(
                 trans.features.personalOpeningExplorerX(
                 a(href := s"${routes.UserAnalysis.index}#explorer/me")(trans.features.personalOpeningExplorer()),
-                a(href := s"${routes.UserAnalysis.index}#explorer/DrNykterstein")(trans.otherPlayers()))
+                a(href := s"${routes.UserAnalysis.index}#explorer/DrNykterstein")(trans.site.otherPlayers()))
               ),
               tr(unlimited)(
                 a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
@@ -112,7 +112,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 trans.features.tvForumBlogTeamsMessagingFriendsChallenges()
               ),
               tr(check)(
-                trans.availableInNbLanguages(a(href := "https://crowdin.com/project/lichess")("140+"))
+                trans.site.availableInNbLanguages(a(href := "https://crowdin.com/project/lichess")("140+"))
               ),
               tr(check)(
                 trans.features.lightOrDarkThemeCustomBoardsPiecesAndBackground()
@@ -142,7 +142,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 a(href := routes.Puzzle.home)(trans.features.tacticalPuzzlesFromUserGames())
               ),
               tr(check)(
-                trans.availableInNbLanguages(a(href := "https://crowdin.com/project/lichess")("100+"))
+                trans.site.availableInNbLanguages(a(href := "https://crowdin.com/project/lichess")("100+"))
               ),
               tr(check)(
                 trans.features.lightOrDarkThemeCustomBoardsPiecesAndBackground()
@@ -171,7 +171,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
           p(cls := "explanation")(
             strong(trans.features.everybodyGetsAllFeaturesForFree()),
             br,
-            trans.builtForTheLoveOfChessNotMoney(),
+            trans.site.builtForTheLoveOfChessNotMoney(),
             br,
             trans.features.weBelieveEveryChessPlayerDeservesTheBest(),
             br,
