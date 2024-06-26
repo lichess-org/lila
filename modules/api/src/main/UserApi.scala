@@ -10,6 +10,7 @@ import lila.core.perm.Granter
 import lila.user.Trophy
 import lila.rating.PerfType
 import lila.core.perf.UserWithPerfs
+import lila.core.LightUser
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -31,9 +32,12 @@ final class UserApi(
     net: NetConfig
 )(using Executor, lila.core.i18n.Translator):
 
-  def one(u: UserWithPerfs, joinedAt: Option[Instant] = None): JsObject = {
-    addStreaming(jsonView.full(u.user, u.perfs.some, withProfile = true), u.id) ++
-      Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
+  def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
+    val (light, userJson) = u match
+      case u: UserWithPerfs => (u.user.light, jsonView.full(u.user, u.perfs.some, withProfile = false))
+      case u: LightUser     => (u, Json.toJsObject(u))
+    addStreaming(userJson, light.id) ++
+      Json.obj("url" -> makeUrl(s"@/${light.name}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
 
   def extended(

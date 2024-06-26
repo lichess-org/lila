@@ -50,9 +50,10 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         else ctx.me.so(api.belongsTo(team.id, _))
       canView.map:
         if _ then
+          val full = getBool("full")
           apiC.jsonDownload(
             env.team
-              .memberStream(team, MaxPerSecond(20))
+              .memberStream(team, full)
               .map: (user, joinedAt) =>
                 env.api.userApi.one(user, joinedAt.some)
           )
