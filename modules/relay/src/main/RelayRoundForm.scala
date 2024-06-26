@@ -44,9 +44,9 @@ final class RelayRoundForm(using mode: Mode):
   )
 
   private def lccIsComplete(url: Upstream.Url) =
-    url.isLcc || !url.url.host.toString.contains("livechesscloud.com")
+    url.isLcc || !url.url.host.toString.endsWith("livechesscloud.com")
 
-  val roundMapping =
+  def roundMapping(using Me) =
     mapping(
       "name"       -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption"    -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
@@ -54,6 +54,10 @@ final class RelayRoundForm(using mode: Mode):
       "syncUrl" -> optional(
         of[Upstream.Url]
           .verifying("LCC URLs must end with /{round-number}, e.g. /5 for round 5", lccIsComplete)
+          .verifying(
+            "Invalid source URL",
+            u => !u.url.host.toString.endsWith("lichess.org") || Granter(_.Relay)
+          )
       ),
       "syncUrls"  -> optional(of[Upstream.Urls]),
       "syncIds"   -> optional(of[Upstream.Ids]),
@@ -67,7 +71,7 @@ final class RelayRoundForm(using mode: Mode):
           .transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
 
-  def create(trs: RelayTour.WithRounds) = Form(
+  def create(trs: RelayTour.WithRounds)(using Me) = Form(
     roundMapping
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
@@ -75,11 +79,12 @@ final class RelayRoundForm(using mode: Mode):
       )
   ).fill(fillFromPrevRounds(trs.rounds))
 
-  def edit(r: RelayRound) = Form(
-    roundMapping.verifying(
-      "The round source cannot be itself",
-      d => d.syncSource.pp.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
-    )
+  def edit(r: RelayRound)(using Me) = Form(
+    roundMapping
+      .verifying(
+        "The round source cannot be itself",
+        d => d.syncSource.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
+      )
   ).fill(Data.make(r))
 
 object RelayRoundForm:
@@ -176,7 +181,6 @@ object RelayRoundForm:
     "twitch.com",
     "youtube.com",
     "youtu.be",
-    "lichess.org",
     "google.com",
     "vk.com",
     "chess-results.com",

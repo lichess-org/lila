@@ -12,8 +12,6 @@
   <string name="tournamentName">შეჯიბრის სახელი</string>
   <string name="tournamentDescription">ტურნირი მცირე აღწერა</string>
   <string name="fullDescription">ტურნირის სრული აღწერა</string>
-  <string name="broadcastUrl">გადაცემის URL</string>
-  <string name="currentRoundUrl">მიმდინარე ტურის URL</string>
   <string name="currentGameUrl">მიმდინარე პარტიის URL</string>
   <string name="downloadAllRounds">ჩამოტვირთე ყველა ტური</string>
   <string name="resetRound">გადატვირთე ეს ტური</string>

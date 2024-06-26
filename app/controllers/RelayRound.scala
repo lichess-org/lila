@@ -123,7 +123,7 @@ final class RelayRound(
         studyC.CanView(study)(
           for
             group    <- env.relay.api.withTours.get(rt.tour.id)
-            previews <- env.study.preview.jsonList(study.id)
+            previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           yield JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group))
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 

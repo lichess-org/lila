@@ -23,14 +23,12 @@
   <string name="tournamentDescription">Descrição curta do torneio</string>
   <string name="fullDescription">Descrição completa do evento</string>
   <string name="fullDescriptionHelp">Descrição longa e opcional da transmissão. %1$s está disponível. O tamanho deve ser menor que %2$s caracteres.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">URL de origem de PGN</string>
+  <string name="sourceSingleUrl">URL de origem de PGN</string>
   <string name="sourceUrlHelp">URL que Lichess irá verificar para obter atualizações PGN. Deve ser acessível ao público a partir da Internet.</string>
   <string name="sourceGameIds">Até 64 IDs de partidas do Lichess, separados por espaços.</string>
   <string name="startDate">Data de início em seu próprio fuso horário</string>
   <string name="startDateHelp">Opcional, se você sabe quando o evento começa</string>
   <string name="credits">Crédito a fonte</string>
-  <string name="broadcastUrl">URL da transmissão</string>
-  <string name="currentRoundUrl">URL da rodada atual</string>
   <string name="currentGameUrl">URL da partida atual</string>
   <string name="downloadAllRounds">Baixar todas as rodadas</string>
   <string name="resetRound">Reiniciar esta rodada</string>
@@ -45,4 +43,13 @@
   <string name="replacePlayerTags">Opcional: substituir nomes de jogador, ratings e títulos</string>
   <string name="periodInSeconds">Período em segundos</string>
   <string name="periodInSecondsHelp">Opcional: tempo entre as solicitações. Mín. 2s, máx. 60s. Por padrão, é calculado com base no número de espectadores.</string>
+  <string name="fideFederations">Federações FIDE</string>
+  <string name="top10Rating">Classificação top 10</string>
+  <string name="fidePlayers">Jogadores FIDE</string>
+  <string name="fidePlayerNotFound">Jogador não encontrando na FIDE</string>
+  <string name="fideProfile">Perfil FIDE</string>
+  <string name="federation">Federação</string>
+  <string name="ageThisYear">Idade atual</string>
+  <string name="unrated">Sem rating</string>
+  <string name="recentTournaments">Torneios recentes</string>
 </resources>

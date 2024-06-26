@@ -23,14 +23,12 @@
   <string name="tournamentDescription">Kortfatta skildring av turneringa</string>
   <string name="fullDescription">Full omtale av arrangementet</string>
   <string name="fullDescriptionHelp">Valfri lang omtale av overføringa. %1$s er tilgjengeleg. Omtalen må vera kortare enn %2$s teikn.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">PGN kjelde-URL</string>
+  <string name="sourceSingleUrl">PGN kjelde-URL</string>
   <string name="sourceUrlHelp">Lenke som Lichess vil hente PGN-oppdateringar frå. Den må vera offentleg tilgjengeleg på internett.</string>
   <string name="sourceGameIds">Opp til 64 Lichess spel-ID\'ar, skilde med mellomrom.</string>
   <string name="startDate">Startdato i di eiga tidssone</string>
   <string name="startDateHelp">Valfritt, om du veit når arrangementet startar</string>
   <string name="credits">Kreditér kjelda</string>
-  <string name="broadcastUrl">Kunngjerings-URL</string>
-  <string name="currentRoundUrl">URL til noverande runde</string>
   <string name="currentGameUrl">URL til pågåande parti</string>
   <string name="downloadAllRounds">Last ned alle rundene</string>
   <string name="resetRound">Tilbakestill denne runden</string>
@@ -45,4 +43,13 @@
   <string name="replacePlayerTags">Valfritt: bytt ut spelarnamn, rangeringar og titlar</string>
   <string name="periodInSeconds">Periode i sekund</string>
   <string name="periodInSecondsHelp">Ventetida mellom førespurnadene er valfri frå 2 til 60 sekund. Default tid er basert på sjåartalet.</string>
+  <string name="fideFederations">FIDE-forbund</string>
+  <string name="top10Rating">Topp 10 rating</string>
+  <string name="fidePlayers">FIDE-spelarar</string>
+  <string name="fidePlayerNotFound">Fann ikkje FIDE-spelar</string>
+  <string name="fideProfile">FIDE-profil</string>
+  <string name="federation">Forbund</string>
+  <string name="ageThisYear">Alder i år</string>
+  <string name="unrated">Urangert</string>
+  <string name="recentTournaments">Nylegaste turneringar</string>
 </resources>
