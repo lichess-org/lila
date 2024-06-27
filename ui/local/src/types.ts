@@ -1,6 +1,6 @@
 import { RoundData } from 'round';
 import { Material } from 'chessops/setup';
-import type { Search, Position } from 'zerofish';
+import type { Position, FishSearch } from 'zerofish';
 import { Point } from 'chart.js';
 import { CardData } from './handOfCards';
 import { GameState } from './gameCtrl';
@@ -12,16 +12,16 @@ export interface Quirks {
   takebacks?: number; // 0 to 1 is the chance of asking for a takeback at mistake or below
 }
 
-export type MoveMapping = { from: 'move'; to: Point[] };
-export type ScoreMapping = { from: 'score'; to: Point[] };
-export type ConstMapping = { from: 'const'; to: number };
-
 export interface Mapping {
-  readonly type: string;
+  //readonly type: string;
   readonly range: { min: number; max: number };
-  data: MoveMapping | ScoreMapping | ConstMapping;
+  from: 'move' | 'score';
+  data: Point[];
 }
 
+export type Mappings = { [type: string]: Mapping };
+
+export type ZeroSearch = { multipv: number; net: string };
 export interface BotInfo {
   readonly uid: string;
   readonly name: string;
@@ -29,11 +29,10 @@ export interface BotInfo {
   readonly book?: string;
   readonly description: string;
   readonly glicko?: { r: number; rd: number };
-  readonly zero?: { net: string; search: Search };
-  readonly fish?: { multipv: number; search: Search };
+  readonly zero?: ZeroSearch;
+  readonly fish?: FishSearch;
   readonly quirks?: Quirks;
-  readonly searchMix?: Mapping;
-  readonly acpl?: Mapping;
+  readonly selectors?: Mappings;
 }
 
 export type BotInfos = { [id: string]: BotInfo };

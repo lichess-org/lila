@@ -9,10 +9,12 @@ export function resolvePath({ obj, path }: { obj: any; path: string[] }) {
   return path.reduce((o, key) => o?.[key], obj);
 }
 
-export function removePath({ obj, path }: { obj: any; path: string[] }, stripObjects = false) {
-  if (!obj) return;
-  if (path.length > 1) removePath({ obj: obj[path[0]], path: path.slice(1) });
-  if (typeof obj[path[0]] !== 'object' || (stripObjects && path.length === 1)) delete obj[path[0]];
+export function removePath({ obj, path }: { obj: any; path: string[] }, stripEmptyObjects = false) {
+  if (!(obj && path[0] && obj[path[0]])) return;
+  if (path.length > 1) removePath({ obj: obj[path[0]], path: path.slice(1) }, stripEmptyObjects);
+  if (path.length === 1 || (stripEmptyObjects && Object.keys(obj[path[0]]).length === 0)) {
+    delete obj[path[0]];
+  }
 }
 
 export function setPath({ obj, path, value }: { obj: any; path: string[]; value: any }) {

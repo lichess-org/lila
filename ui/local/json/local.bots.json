@@ -5,7 +5,7 @@
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1100.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1100.pb" }
   },
   {
     "uid": "#tbone",
@@ -13,7 +13,7 @@
     "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
     "image": "t-bone.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1200.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1200.pb" }
   },
   {
     "uid": "#nacho",
@@ -21,7 +21,7 @@
     "description": "Nacho might try to cheese you.",
     "image": "nacho.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1300.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1300.pb" }
   },
   {
     "uid": "#marco",
@@ -29,7 +29,7 @@
     "description": "They never asked Marco to star in a video game. He is not pleased.",
     "image": "marco.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1400.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1400.pb" }
   },
   {
     "uid": "#ghost",
@@ -37,7 +37,7 @@
     "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
     "image": "ghost.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1500.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1500.pb" }
   },
   {
     "uid": "#greta",
@@ -45,7 +45,7 @@
     "description": "Greta lives in the woods and plays chess with squirrels.",
     "image": "greta.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1600.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1600.pb" }
   },
   {
     "uid": "#maia",
@@ -53,7 +53,7 @@
     "description": "Maia was a famous author before she became a model for Elle c0.",
     "image": "maia.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1700.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1700.pb" }
   },
   {
     "uid": "#gerard",
@@ -61,7 +61,7 @@
     "description": "Gerard brought a sword to a chess match. And he swings it hard.",
     "image": "gerard.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1800.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1800.pb" }
   },
   {
     "uid": "#bionica",
@@ -69,55 +69,55 @@
     "description": "Bionica was programmed with a full range of emotions. But she prefers contempt.",
     "image": "bionica.webp",
     "book": "gm2600.bin",
-    "zero": { "net": "maia-1900.pb", "search": { "nodes": 1 } }
+    "zero": { "multipv": 1, "net": "maia-1900.pb" }
   },
   {
     "uid": "#mitsoko",
     "name": "Mitsoko",
     "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
     "image": "mitsoko.webp",
-    "fish": { "multipv": 12, "search": { "depth": 12 } }
+    "fish": { "multipv": 12, "by": { "depth": 12 } }
   },
   {
     "uid": "#spectre",
     "name": "Spectre",
     "description": "Spectre will strike without warning. You have been warned.",
     "image": "spectre.webp",
-    "fish": { "multipv": 1, "search": { "depth": 10 } }
+    "fish": { "multipv": 1, "by": { "depth": 10 } }
   },
   {
     "uid": "#aurora",
     "name": "Aurora",
     "description": "Aurora can see the future. She sees your defeat.",
     "image": "aurora.webp",
-    "fish": { "multipv": 12, "search": { "depth": 12 } }
+    "fish": { "multipv": 12, "by": { "depth": 12 } }
   },
   {
     "uid": "#hanzo",
     "name": "Hanzo",
     "description": "Hanzo will not rest until he has defeated you. But then he will rest.",
     "image": "nullzo.webp",
-    "zero": { "net": "badgyal-8.pb", "search": { "depth": 2 } }
+    "zero": { "multipv": 1, "net": "badgyal-8.pb" }
   },
   {
     "uid": "#eliza",
     "name": "Eliza",
     "description": "Some say Eliza is an engine, but that's just transistor bias.",
     "image": "eliza.webp",
-    "zero": { "net": "badgyal-8.pb", "search": { "depth": 3 } }
+    "zero": { "multipv": 1, "net": "badgyal-8.pb" }
   },
   {
     "uid": "#thinman",
     "name": "Thinman",
     "description": "Thinman is not your friend. It's why he's pointing a laser gun at your face.",
     "image": "thinman.webp",
-    "zero": { "net": "evilgyal-6.pb", "search": { "depth": 3 } }
+    "zero": { "multipv": 1, "net": "evilgyal-6.pb" }
   },
   {
     "uid": "#listress",
     "name": "Listress",
     "description": "You are a wretched, pitiful worm. Listress will not be merciful.",
     "image": "listress.webp",
-    "zero": { "net": "evilgyal-6.pb", "search": { "depth": 4 } }
+    "zero": { "multipv": 1, "net": "tinygyal-8.pb" }
   }
 ]

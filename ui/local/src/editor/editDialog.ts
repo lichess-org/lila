@@ -8,14 +8,16 @@ import { GameCtrl } from '../gameCtrl';
 import { buildFromSchema, Editor } from './editor';
 import { /*objectPath,*/ removePath } from './util';
 import * as licon from 'common/licon';
+import { domDialog, alert, confirm, Dialog, Action } from 'common/dialog';
 
 export class EditDialog implements EditorHost {
   view: HTMLElement;
   hand: HandOfCards;
-  uid: string;
-  scratch: { [uid: string]: ZerofishBotEditor } = {};
-  editor: Editor;
   dlg: Dialog;
+  uid: string;
+  editor: Editor;
+  scratch: { [uid: string]: ZerofishBotEditor } = {};
+  cleanups: (() => void)[] = [];
 
   constructor(
     readonly botCtrl: BotCtrl,
@@ -23,7 +25,9 @@ export class EditDialog implements EditorHost {
     readonly color: Color = 'white',
     readonly onSelectBot?: (uid: string) => void,
   ) {
-    this.view = $as<HTMLElement>(`<div class="with-hand-of-cards"><div class="edit-bot"></div></div>`);
+    this.view = $as<HTMLElement>(`<div class="with-hand-of-cards">
+      <div class="edit-bot"></div>
+      </div>`);
     this.selectBot();
     this.hand = new HandOfCards({
       view: () => this.view,
@@ -52,48 +56,75 @@ export class EditDialog implements EditorHost {
 
   show() {
     return new Promise<void>(resolve => {
-      site.dialog
-        .dom({
-          css: [{ hashed: 'local.test.setup' }],
-          htmlText: `<div class="chin"><span>
-            <button class="button button-green bot-apply">apply</button>
+      domDialog({
+        css: [{ hashed: 'local.editor' }],
+        htmlText: `<div class="chin"><span>
+            
             <button class="button button-metal bot-json-one">json</button>
-            <button class="button button-metal button-red bot-unrate-one">clear rating</button>
-            <button class="button button-empty button-red bot-clear-one">revert</button>
-          </span><span>
             <button class="button button-metal bot-json-all">all json</button>
+            
+          </span><span>
             <button class="button button-empty button-red bot-unrate-all">clear all ratings</button>
             <button class="button button-empty button-red bot-clear-all">revert all to server</button>
           </span></div>`,
-          append: [{ node: this.view, where: '.chin', how: 'before' }],
-          actions: this.actions,
-          onClose: () => {
-            window.removeEventListener('resize', this.resize);
-            resolve();
-          },
-        })
-        .then(dlg => {
-          this.dlg = dlg;
-          this.update();
-          this.dlg.show();
-          window.addEventListener('resize', this.resize);
-          this.resize();
-        });
+        append: [{ node: this.view, where: '.chin', how: 'before' }],
+        actions: this.actions,
+        onClose: () => {
+          window.removeEventListener('resize', this.resize);
+          this.destroy();
+          resolve();
+        },
+      }).then(dlg => {
+        this.dlg = dlg;
+        this.update();
+        this.dlg.show();
+        window.addEventListener('resize', this.resize);
+        this.resize();
+      });
     });
   }
 
+  destroy() {
+    for (const cleanup of this.cleanups) cleanup();
+  }
+
   makeEditView() {
+    for (const cleanup of this.cleanups) cleanup();
+    this.cleanups = [];
     this.editor = new Editor();
     const el = $as<HTMLElement>(`<div class="edit-bot">`);
     this.view.querySelector('.edit-bot')?.replaceWith(el);
     const playerInfo = $as<HTMLElement>(`<div class="player-info">`);
-    playerInfo.appendChild(buildFromSchema(this, ['bot_name']).div);
     const player = $as<HTMLElement>(`<div class="player ${this.color}">`);
     player.appendChild(buildFromSchema(this, ['bot_description']).div);
     playerInfo.appendChild(player);
+    const info = $as<HTMLElement>(`<div class="info">`);
+    info.appendChild($as<Node>(`<span><label>uid</label> ${this.bot.uid}</span>`));
+    info.appendChild(buildFromSchema(this, ['bot_name']).div);
+    const glicko = this.botCtrl.bot(this.uid)?.glicko;
+    info.appendChild(
+      $as<Node>(
+        `<span><label>rating</label> ${glicko?.r ?? '1500?'} / ${Math.round(glicko?.rd ?? 350)}` +
+          (glicko && glicko.rd !== 350
+            ? `<i class="bot-unrate-one" data-icon="${licon.Cancel}"></i></span>`
+            : '</span>'),
+      ),
+    );
+    /*info.appendChild(
+      $as<Node>(`<span><button class="button button-empty button-red bot-unrate-one">clear</button>
+      <button class="button button-empty button-metal bot-rank">rank</button></span>`),
+    );*/
+    playerInfo.appendChild(info);
     el.appendChild(playerInfo);
     el.appendChild(buildFromSchema(this, ['sources']).div);
-    el.appendChild(buildFromSchema(this, ['panels']).div);
+    const panels = buildFromSchema(this, ['panels']).div;
+    el.appendChild(panels);
+    el.appendChild(
+      $as<Node>(`<div class="bot-actions">
+        <button class="button button-green bot-apply">apply</button>
+        <button class="button button-empty button-red bot-clear-one">revert</button>
+        `),
+    );
     this.editor.forEach(el => el.setEnabled());
   }
 
@@ -122,13 +153,17 @@ export class EditDialog implements EditorHost {
     }
     this.bot.disabled.clear();
     this.botCtrl.setBot(this.bot);
+    delete this.scratch[this.uid];
     this.selectBot();
   }
 
   get isClean() {
-    return (
-      !this.scratch[this.uid] || enumerableEquivalence(this.botCtrl.bot(this.uid), this.scratch[this.uid])
-    );
+    if (!this.scratch[this.uid]) return true;
+    const scratch = structuredClone(this.scratch[this.uid]);
+    for (const id of this.bot.disabled) {
+      removePath({ obj: scratch, path: id.split('_').slice(1) }, true);
+    }
+    return enumerableEquivalence(this.botCtrl.bot(this.uid), scratch);
   }
 
   get allDirty(): string[] {
@@ -143,6 +178,7 @@ export class EditDialog implements EditorHost {
     this.dlg?.view.querySelector('.bot-apply')?.classList.toggle('disabled', isClean);
     //this.dlg?.view.querySelector('.bot-clear-one')?.classList.toggle('disabled', !isClean);
     //this.dlg?.view.querySelector('.bot-clear-all')?.classList.toggle('disabled', !isAllClean);
+    //this.dlg?.actions(this.actions);
   }
 
   selectBot(uid = this.uid ?? this.botCtrl[this.color]!.uid) {
@@ -154,6 +190,7 @@ export class EditDialog implements EditorHost {
   }
 
   clearBots = async (uids?: string[]) => {
+    if (!(await confirm(uids ? `Clear ${uids.join(' ')}?` : 'Clear all local bots?'))) return;
     for (const uid of uids ?? Object.keys(this.bots)) {
       delete this.scratch[uid];
     }
@@ -164,9 +201,10 @@ export class EditDialog implements EditorHost {
 
   clearRatings = (uids?: string[]) => {
     const unrate: Libot[] = [];
-    if (uids) uids.forEach(uid => unrate.push(this.bots[uid]));
+    if (uids) uids.forEach(uid => unrate.push(this.bots[uid], this.scratch[uid]));
     else Object.values(this.bots).forEach(bot => unrate.push(bot));
     unrate.filter(defined).forEach(bot => (bot.glicko = undefined));
+    this.selectBot();
     this.gameCtrl.redraw();
   };
 
@@ -176,7 +214,7 @@ export class EditDialog implements EditorHost {
     );
     const clear = text ? `<button class="button button-empty button-red clear">clear local</button>` : '';
     const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
-    const dlg = await site.dialog.dom({
+    const dlg = await domDialog({
       class: 'diagnostic',
       css: [{ hashed: 'bits.diagnosticDialog' }],
       htmlText: `

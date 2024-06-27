@@ -5,8 +5,7 @@ const DOMAIN_CAP_DELTA = 10;
 export function addPoint(m: Mapping, add: Point) {
   normalize(m);
   const qX = quantize(add.x, m);
-  if (!Array.isArray(m.data.to)) m.data.to = [];
-  const data = m.data.to;
+  const data = m.data;
   const i = data.findIndex(p => p.x >= qX);
   if (i >= 0) {
     if (data[i].x === qX) data[i] = { x: qX, y: add.y };
@@ -15,10 +14,9 @@ export function addPoint(m: Mapping, add: Point) {
 }
 
 export function asData(m: Mapping) {
-  const to = m.data.to;
-  const pts = Array.isArray(to) ? to.slice() : [];
+  const pts = m.data.slice();
   const xs = domain(m);
-  const defaultVal = typeof to === 'number' ? to : (m.range.max - m.range.min) / 2;
+  const defaultVal = (m.range.max - m.range.min) / 2;
   if (pts.length === 0)
     return [
       { x: xs.min - DOMAIN_CAP_DELTA, y: defaultVal },
@@ -30,13 +28,13 @@ export function asData(m: Mapping) {
 }
 
 export function quantize(x: number, m: Mapping) {
-  const qu = m.data.from === 'move' ? 1 : 0.01;
+  const qu = m.from === 'move' ? 1 : 0.01;
   return Math.round(x / qu) * qu;
 }
 
 export function normalize(m: Mapping) {
-  if (m.data.from === 'const') return;
-  const newData = m.data.to.reduce((acc: Point[], p) => {
+  // TODO - not in place
+  const newData = m.data.reduce((acc: Point[], p) => {
     const x = quantize(p.x, m);
     const i = acc.findIndex(q => q.x === x);
     if (i >= 0) acc[i] = { x, y: p.y };
@@ -44,12 +42,11 @@ export function normalize(m: Mapping) {
     return acc;
   }, []);
   newData.sort((a, b) => a.x - b.x);
-  m.data.to = newData;
+  m.data = newData;
 }
 
 export function interpolate(m: Mapping, x: number) {
-  if (m.data.from === 'const') return m.data.to;
-  const to = m.data.to;
+  const to = m.data;
   if (to.length === 0) return undefined;
   if (to.length === 1) return to[0].y;
   for (let i = 1; i < to.length - 1; i++) {
@@ -64,7 +61,7 @@ export function interpolate(m: Mapping, x: number) {
 }
 
 export function domain(m: Mapping) {
-  if (m.data.from === 'move') return { min: 1, max: 60 };
-  else if (m.data.from === 'score') return { min: -1, max: 1 };
+  if (m.from === 'move') return { min: 1, max: 60 };
+  else if (m.from === 'score') return { min: -1, max: 1 };
   else return { min: NaN, max: NaN };
 }

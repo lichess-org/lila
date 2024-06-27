@@ -1,187 +1,131 @@
-import { PaneArgs, EditorHost, MappingInfo, BaseInfo, ObjectSelector } from './types';
+import { PaneArgs, EditorHost, SelectorInfo, PaneInfo, ObjectSelector, AnyType } from './types';
 import { Pane } from './pane';
-import { Mapping } from '../types';
+import { Setting, NumberSetting } from './setting';
+import { Mappings, Mapping } from '../types';
 import { getSchemaDefault } from './schema';
-
-abstract class Panel extends Pane {
-  info: MappingInfo;
-  constructor(args: PaneArgs) {
-    super(args);
-  }
-  get inputValue(): Mapping {
-    return this.getProperty();
-  }
-  get id() {
-    return this.info.id!;
-  }
-  get enabled() {
-    return this.host.bot.disabled.has(this.id);
-  }
-  setEnabled(enabled?: boolean | 'refresh') {
-    if (!this.enabledCheckbox) return;
-    this.enabledCheckbox.checked = !!enabled;
-  }
-}
-//import * as ch from 'chart.js';
 import { Chart, PointElement, LinearScale, LineController, LineElement, Tooltip } from 'chart.js';
 import { maxChars } from './util';
 import { addPoint, asData, domain } from '../mapping';
 
-/*
+Chart.register(PointElement, LinearScale, Tooltip, LineController, LineElement);
 
-  showPanel = (dlg: Dialog, action: Action, e: Event) => {
-    document.querySelectorAll('.selectable').forEach(el => el.classList.remove('selected'));
-    const setting = this.settings.byEvent(e);
-    if (!setting) return;
-    const el = this.view.querySelector('.edit-panel') as HTMLElement;
-    el.classList.remove('none');
-    el.dataset.showing = setting.id;
-    setting.select();
-    document.querySelectorAll('.btn-rack__btn').forEach(el => el.classList.remove('active'));
-    (e.target as HTMLElement).classList.add('active');
-  };
+export class SelectorPanel extends Setting {
+  info: SelectorInfo;
+  canvas: HTMLCanvasElement;
+  chart: Chart;
 
-        <span class="btn-rack">
-        <span class="btn-rack__btn byMoves">Moves</span>
-        <span class="btn-rack__btn byScore">Score</span>
-      </span>
-      
-*/
-export class MappingPanel extends Panel {
-  info: MappingInfo;
-  getProperty(sel?: ObjectSelector[]): Mapping {
-    return this.info.value;
-  }
-
-  setProperty(value: Mapping) {}
   constructor(p: PaneArgs) {
     super(p);
-
-    const rack = $as<HTMLElement>(`<span class="btn-rack">`);
-    this.div.append(rack);
-    const constant = $as<HTMLInputElement>(`<input type="text" data-type="number" class="btn-rack">`);
-    constant.maxLength = 4;
-    constant.style.maxWidth = `calc(5ch + 1.5em)`;
-    rack.append(constant);
-    const moves = $as<HTMLElement>(`<span class="btn-rack__btn byMoves">Moves</span>`);
-    rack.append(moves);
-    const score = $as<HTMLElement>(`<span class="btn-rack__btn byScore">Score</span>`);
-    rack.append(score);
+    this.div.classList.add('panel');
+    const constT = this.toggleGroup();
+    this.div.append(constT);
+    this.canvas = document.createElement('canvas');
+    const wrapper = $as<HTMLElement>(`<div class="chart-wrapper">`);
+    wrapper.append(this.canvas);
+    this.div.append(wrapper);
+    this.host.cleanups.push(() => this.chart?.destroy());
+    this.renderMapping();
   }
 
-  select() {
-    this.div.classList.add('selected');
-    const maybeFrozen = this.getProperty(['bot', 'default', 'schema']) as Mapping;
-    const mapping = Object.isFrozen(maybeFrozen) ? structuredClone(maybeFrozen) : maybeFrozen;
-    this.setProperty(mapping);
-    this.info.value = mapping;
-    const panel = this.host.view.querySelector('.edit-panel') as HTMLElement;
-    panel.classList.remove('none');
-    panel.dataset.showing = this.id;
-    const canvas = panel.querySelector('canvas') as HTMLCanvasElement;
-    canvas.innerHTML = '';
-    renderMapping(canvas, this.info, this.host);
+  toggleGroup() {
+    const active = (this.paneValue ?? this.info.value).from;
+    const by = $as<HTMLElement>(`<div class="btn-rack">
+        <div class="by${active === 'move' ? ' active' : ''}">by move</div>
+        <div class="by${active === 'score' ? ' active' : ''}">by score</div>
+      </div>`);
+    if (this.label) by.prepend(this.label);
+    return by;
+  }
+  setEnabled(enabled = this.getProperty() !== undefined) {
+    if (enabled && !this.autoEnable()) enabled = false;
+    if (enabled && !this.getProperty()) {
+      this.setProperty(structuredClone(this.info.value));
+      this.renderMapping();
+    }
+    super.setEnabled(enabled);
+    this.canvas.style.display = enabled ? 'block' : 'none';
   }
   update(e: Event) {
-    if (e.target instanceof HTMLInputElement) {
-      const v = Number(e.target.value);
-      if (isNaN(v) || v < this.info.value.range.min || v > this.info.value.range.max) {
-        // bad, select moves / score
+    if (!(e.target instanceof HTMLElement && e instanceof MouseEvent)) return;
+    if (e.target.classList.contains('by') && this.enabled) {
+      if (e.target.classList.contains('active')) return;
+      this.div.querySelector('.by.active')?.classList.remove('active');
+      e.target.classList.add('active');
+      this.paneValue.from = this.info.value.from === 'score' ? 'move' : 'score';
+      this.paneValue.data = [];
+      this.renderMapping();
+    }
+    if (e.target.nodeName === 'CANVAS') {
+      const m = this.paneValue;
+      const remove = this.chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false);
+      if (remove.length > 0 && remove[0].index > 0) {
+        m.data.splice(remove[0].index - 1, 1);
       } else {
-        // good, deactivate moves and score
+        const rect = (e.target as HTMLElement).getBoundingClientRect();
+
+        const chartX = this.chart.scales.x.getValueForPixel(e.clientX - rect.left);
+        const chartY = this.chart.scales.y.getValueForPixel(e.clientY - rect.top);
+        if (!chartX || !chartY) return;
+        addPoint(m, { x: chartX, y: chartY });
       }
+      this.chart.data.datasets[0].data = asData(m);
+      this.chart.update();
     }
     this.host.update();
   }
-  click(e: MouseEvent) {
-    if (e.target instanceof HTMLElement) {
-      if (e.target.classList.contains('byMoves')) {
-        this.info.value.data.from = 'move';
-        this.update(e);
-      } else if (e.target.classList.contains('byScore')) {
-        this.info.value.data.from = 'score';
-        this.update(e);
-      }
-    }
+  get paneValue(): Mapping {
+    return this.getProperty() as Mapping;
   }
-  get inputValue(): Mapping {
-    return this.getProperty();
-  }
-}
 
-Chart.register(PointElement, LinearScale, Tooltip, LineController, LineElement);
-
-let chart: Chart;
-let clickHandler: (e: MouseEvent) => void;
-
-export function renderMapping(canvas: HTMLCanvasElement, info: MappingInfo, host: EditorHost) {
-  const m = info.value;
-  if (chart) {
-    chart.destroy();
-    canvas.removeEventListener('click', clickHandler);
-  }
-  clickHandler = (e: MouseEvent) => {
-    const remove = chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false);
-    if (remove.length > 0 && remove[0].index > 0) {
-      if (m.data.from === 'const') throw new Error('Unexpected number');
-      m.data.to.splice(remove[0].index - 1, 1);
-    } else {
-      const rect = (e.target as HTMLElement).getBoundingClientRect();
-
-      const chartX = chart.scales.x.getValueForPixel(e.clientX - rect.left);
-      const chartY = chart.scales.y.getValueForPixel(e.clientY - rect.top);
-      if (!chartX || !chartY) return;
-      addPoint(m, { x: chartX, y: chartY });
-    }
-    chart.data.datasets[0].data = asData(m);
-    chart.update();
-    host.update();
-  };
-  canvas.addEventListener('click', clickHandler);
-  chart = new Chart(canvas.getContext('2d')!, {
-    type: 'line',
-    data: {
-      datasets: [
-        {
-          //label: 'My Dataset',
-          data: asData(m),
-          backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        },
-      ],
-    },
-    options: {
-      parsing: false,
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: false /*{ duration: 100 },*/,
-      layout: {
-        padding: {
-          left: 16,
-          right: 16,
-          top: 16,
-        },
+  private renderMapping() {
+    const m = this.paneValue;
+    this.chart?.destroy();
+    if (!m?.data) return;
+    this.chart = new Chart(this.canvas.getContext('2d')!, {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            //label: 'My Dataset',
+            data: asData(m),
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          },
+        ],
       },
-      scales: {
-        x: {
-          type: 'linear',
-          beginAtZero: true,
-          min: domain(m).min,
-          max: domain(m).max,
-          title: {
-            display: true,
-            text: m.data.from === 'move' ? 'Moves' : 'Score',
+      options: {
+        parsing: false,
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false /*{ duration: 100 },*/,
+        layout: {
+          padding: {
+            left: 16,
+            right: 16,
+            top: 16,
           },
         },
-        y: {
-          beginAtZero: true,
-          min: m.range.min,
-          max: m.range.max,
-          title: {
-            display: true,
-            text: info.label,
+        scales: {
+          x: {
+            type: 'linear',
+            beginAtZero: true,
+            min: domain(m).min,
+            max: domain(m).max,
+            title: {
+              display: true,
+              text: m.from === 'move' ? 'Moves' : 'Score',
+            },
+          },
+          y: {
+            beginAtZero: true,
+            min: m.range.min,
+            max: m.range.max,
+            title: {
+              display: true,
+              text: this.info.label,
+            },
           },
         },
       },
-    },
-  });
+    });
+  }
 }

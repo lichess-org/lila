@@ -137,7 +137,7 @@ export class TestCtrl implements Automator {
     const game = this.script.games[this.script.results.length];
     this.botCtrl.setPlayer('white', game.white);
     this.botCtrl.setPlayer('black', game.black);
-    this.gameCtrl.reset({ white: game.white, black: game.black });
+    this.gameCtrl.reset({ white: game.white, black: game.black, startingFen: this.startingFen, moves: [] });
     this.run();
   }
 

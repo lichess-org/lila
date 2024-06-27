@@ -117,7 +117,7 @@ export function makeSocket(/*send: SocketSend, */ ctrl: GameCtrl): RoundSocket {
       }
     },
     simulEnd(simul: game.Simul) {
-      site.dialog.dom({
+      domDialog({
         htmlText:
           '<div><p>Simul complete!</p><br /><br />' +
           `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,

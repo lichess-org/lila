@@ -6,26 +6,27 @@ import { getSchemaDefault } from './schema';
 
 export class Setting extends Pane {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+  label?: HTMLElement;
 
   constructor(args: PaneArgs) {
     super(args);
-    let label;
+    if (args.autoEnable) this.autoEnable = args.autoEnable;
     if (this.info.label) {
-      label = document.createElement(this.div.tagName === 'FIELDSET' ? 'legend' : 'label');
-      label.textContent = this.info.label;
-      this.div.appendChild(label);
+      this.label = document.createElement(this.div.tagName === 'FIELDSET' ? 'legend' : 'label');
+      this.label.textContent = this.info.label;
+      this.div.appendChild(this.label);
     }
-    if (this.info.radio) {
+    if (this.radioGroup) {
       this.enabledCheckbox = $as<HTMLInputElement>(
-        `<input type="radio" name="${this.info.radio}" tabindex="-1">`,
+        `<input type="radio" name="${this.radioGroup}" tabindex="-1">`,
       );
-    } else if (!this.info.required && label) {
+    } else if (!this.info.required && this.label) {
       this.enabledCheckbox = $as<HTMLInputElement>(`<input type="checkbox">`);
     }
     if (this.enabledCheckbox) {
       this.enabledCheckbox.classList.add('toggle-enabled');
       this.enabledCheckbox.checked = this.getProperty() !== undefined; // ?
-      if (this.div.tagName === 'FIELDSET') label?.prepend(this.enabledCheckbox);
+      if (this.label) this.label.prepend(this.enabledCheckbox);
       else this.div.prepend(this.enabledCheckbox as HTMLInputElement);
     }
   }
@@ -52,77 +53,32 @@ export class Setting extends Pane {
       if (!enabled) continue;
       if (kid.info.required) kid.update();
       else if (kid.info.type !== 'radio') continue;
-      const radios = Object.values(editor.byId).filter(x => x.info.radio === kid.id);
+      const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
       const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['default']));
       if (active) active.update();
       else if (radios.length) radios[0].update();
     }
-    if (this.enabledCheckbox) this.enabledCheckbox.checked = !!enabled;
-    if (this.info.radio && enabled)
-      view.querySelectorAll(`[name="${this.info.radio}"]`).forEach(el => {
+    if (this.enabledCheckbox) this.enabledCheckbox.checked = enabled;
+    if (this.radioGroup && enabled)
+      view.querySelectorAll(`[name="${this.radioGroup}"]`).forEach(el => {
         const kid = editor.byEl(el);
         if (kid === this) return;
         kid?.setEnabled(false);
       });
+    for (const r of this.host.editor.requires(this.id)) r.setEnabled(enabled ? undefined : false);
   }
 
-  // update(_?: Event) {
-  //   this.setProperty(this.inputValue);
-  //   this.setEnabled(this.getProperty() !== undefined);
-  // }
-  get inputValue(): number | string | Mapping | undefined {
+  get paneValue(): number | string | Mapping | undefined {
     return this.input?.value;
   }
 
-  // get children() {
-  //   return Object.keys(this.host.editor.byId)
-  //     .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
-  //     .map(id => this.host.editor.byId[id]);
-  // }
-
-  // get requires() {
-  //   return this.info.requires ?? [];
-  // }
-
-  // get enabled() {
-  //   if (this.host.bot.disabled.has(this.id)) return false;
-  //   const kids = this.children;
-  //   if (!kids.length) return this.getProperty() !== undefined;
-  //   return kids.every(x => x.enabled || !x.info.required);
-  // }
-
-  // get path() {
-  //   return this.id.split('_').slice(1);
-  // }
-
-  // setProperty(value: string | number | Mapping | undefined) {
-  //   if (value === undefined) removePath({ obj: this.host.bot, path: this.path });
-  //   else setPath({ obj: this.host.bot, path: this.path, value });
-  // }
-
-  // getProperty(sel: ObjectSelector[] = ['bot']) {
-  //   for (const s of sel) {
-  //     const prop =
-  //       s === 'schema'
-  //         ? getSchemaDefault(this.id)
-  //         : this.path.reduce((o, key) => o?.[key], s === 'bot' ? this.host.bot : this.host.botDefault);
-  //     if (prop !== undefined) return prop;
-  //   }
-  //   return undefined;
-  // }
-
-  // getStringProperty(sel: ObjectSelector[] = ['bot']) {
-  //   const prop = this.getProperty(sel);
-  //   return typeof prop === 'object' ? JSON.stringify(prop) : prop !== undefined ? String(prop) : '';
-  // }
-
-  protected autoEnable(): boolean {
+  autoEnable(): boolean {
     if (this.input) return this.enabled;
-    for (const e of this.requires.map(r => this.host.editor.byId[r])) {
-      if (!e.enabled) return false;
-    }
     for (const c of this.children) {
       if (c.info.required && c.getProperty() === undefined) return false;
+    }
+    for (const r of this.requires) {
+      if (!this.host.editor.byId[r].enabled) return false;
     }
     return true;
   }
@@ -150,7 +106,7 @@ export class SelectSetting extends Setting {
     this.div.appendChild(document.createElement('hr'));
     this.init();
   }
-  get inputValue(): string {
+  get paneValue(): string {
     return this.input.value;
   }
 }
@@ -161,7 +117,7 @@ export class TextSetting extends Setting {
     super(p);
     this.init();
   }
-  get inputValue(): string {
+  get paneValue(): string {
     return this.input.value;
   }
 }
@@ -174,7 +130,7 @@ export class TextareaSetting extends Setting {
     this.init();
     if (this.info.rows) this.input.rows = this.info.rows;
   }
-  get inputValue(): string {
+  get paneValue(): string {
     return this.input.value;
   }
 }
@@ -194,7 +150,7 @@ export class NumberSetting extends Setting {
     const isValid = this.isValid();
     this.input.classList.toggle('invalid', !isValid);
     if (isValid) {
-      this.setProperty(this.inputValue);
+      this.setProperty(this.paneValue);
       this.setEnabled(true);
     }
   }
@@ -202,7 +158,7 @@ export class NumberSetting extends Setting {
     const v = Number(el.value);
     return !isNaN(v) && v >= this.info.min && v <= this.info.max;
   }
-  get inputValue(): number | undefined {
+  get paneValue(): number | undefined {
     return this.isValid() ? Number(this.input.value) : undefined;
   }
 }

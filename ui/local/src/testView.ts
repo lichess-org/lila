@@ -2,6 +2,7 @@ import * as co from 'chessops';
 import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
 import { LocalDialog } from './setupDialog';
 import { storedBooleanProp } from 'common/storage';
+import { domDialog } from 'common/dialog';
 import { EditDialog } from './editor/editDialog';
 import { ZerofishBot } from './zerofishBot';
 import { BotCtrl } from './botCtrl';
@@ -244,7 +245,7 @@ function fen({ testCtrl, gameCtrl }: TestContext): VNode {
 }
 
 function roundRobin({ testCtrl, botCtrl }: TestContext) {
-  site.dialog.dom({
+  domDialog({
     class: 'tournament-dialog',
     htmlText: `<h2>Round robin</h2><h3>Select participants</h3>
     <ul>${[...Object.values(botCtrl.bots), ...botCtrl.rankBots]
@@ -253,7 +254,7 @@ function roundRobin({ testCtrl, botCtrl }: TestContext) {
         return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
           p.uid
         }">
-        <label for='${p.uid.slice(1)}'>${p.name}</label></li>`;
+        <label for='${p.uid.slice(1)}'>${p.name} ${p.ratingText}</label></li>`;
       })
       .join('')}</ul>
     <span style="display: flex; gap: 1em;">Repeat: <input type="number" maxLength="3" value="1"><button class="button" id="start-tournament">Start</button></span>`,

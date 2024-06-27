@@ -1,5 +1,5 @@
-import type { Zerofish, Line, SearchResult, Search, Position } from 'zerofish';
-import { Libot, CardData, Point, Mapping } from './types';
+import type { Zerofish, Line, SearchResult, FishSearch, Position } from 'zerofish';
+import { Libot, CardData, ZeroSearch, Mapping } from './types';
 import { PolyglotBook } from 'bits/types';
 import { clamp, deepFreeze } from 'common';
 import { BotCtrl, botAssetUrl } from './botCtrl';
@@ -20,10 +20,10 @@ export class ZerofishBot implements Libot {
   description: string;
   image: string;
   book?: string;
-  zero?: { net: string; search: Search };
-  fish?: { multipv: number; search: Search };
+  zero?: ZeroSearch;
+  fish?: FishSearch;
   glicko: { r: number; rd: number };
-  mappings: { [type: string]: Mapping } = {};
+  selectors?: { [type: string]: Mapping };
   private ctrl: BotCtrl;
   private openings: Promise<PolyglotBook | undefined>;
 
@@ -38,7 +38,7 @@ export class ZerofishBot implements Libot {
         imageUrl: this.imageUrl,
       }),
     });
-    Object.values(this.mappings).forEach(normalize);
+    Object.values(this.selectors ?? {}).forEach(normalize);
   }
 
   get imageUrl() {
@@ -50,15 +50,14 @@ export class ZerofishBot implements Libot {
     let chance = Math.random();
     for (const { uci, weight } of openings ?? []) {
       chance -= weight;
-      if (chance <= 0) console.log('opening', uci);
       if (chance <= 0) return uci;
     }
     const [zeroResult, fishResult] = await Promise.all([
       this.zero &&
         this.ctrl.zf.goZero(pos, {
-          search: this.zero.search,
+          ...this.zero,
           net: {
-            name: this.zero.net,
+            name: this.name + '-' + this.zero.net,
             fetch: async () => (await this.ctrl.assetDb.getNet(this.zero!.net))!,
           },
         }),
@@ -66,7 +65,6 @@ export class ZerofishBot implements Libot {
     ]);
     deepFreeze(zeroResult);
     deepFreeze(fishResult);
-    console.log(this.uid, chess.turn, 'zero =', zeroResult, 'fish =', fishResult);
     return this.chooseMove(chess, zeroResult, fishResult);
   }
 
@@ -95,9 +93,22 @@ export class ZerofishBot implements Libot {
     const [f, z] = [fishResult as SearchResult, zeroResult as SearchResult];
     let head = z?.bestmove ?? f?.bestmove ?? '0000';
     //if (fishResult) return applyShallow(f, 0);
-    if (this.mappings.acpl) head = applyAcpl(f, interpolateValue(this.mappings.acpl, f, chess) ?? 0);
-    if (this.mappings.searchMix) {
-      const val = interpolateValue(this.mappings.searchMix, f, chess);
+    if (f && z && f.pvs.length > 1 && z.pvs.length > 1) {
+      let i = 0;
+      for (const pv of z.pvs) {
+        const move = pv.moves[0];
+        if (f.pvs.some(pv => pv.moves[0] === move)) i++;
+      }
+      console.log(i, 'of', z.pvs.length, 'are scored by fish');
+    }
+    /*if (!f && z) {
+      const pvs = z.pvs.filter(pv => pv.moves.length > 0);
+      const pv = pvs[Math.floor(Math.random() * pvs.length)];
+      return pv.moves[pv.moves.length - 1];
+    }*/
+    if (this.selectors?.acpl) head = applyAcpl(f, interpolateValue(this.selectors.acpl, f, chess) ?? 0);
+    if (this.selectors?.lc0) {
+      const val = interpolateValue(this.selectors.lc0, f, chess);
       if (val && z?.bestmove && Math.random() < val) head = z.bestmove;
     }
     return head;
@@ -107,9 +118,9 @@ export class ZerofishBot implements Libot {
 function interpolateValue(m: Mapping, r: SearchResult, chess: co.Chess) {
   return !m
     ? undefined
-    : m.data.from === 'move'
+    : m.from === 'move'
     ? interpolate(m, chess.fullmoves)
-    : m.data.from === 'score' && r.pvs.length > 1
+    : m.from === 'score' && r.pvs.length > 1
     ? interpolate(m, outcomeExpectancy(score(r.pvs[0])))
     : undefined;
 }
@@ -152,4 +163,43 @@ function sortShallow(depth: number) {
 
 function normalRandom(mean: number, sd: number) {
   return mean + sd * Math.sqrt(-2.0 * Math.log(Math.random())) * Math.sin(2.0 * Math.PI * Math.random());
+}
+
+/*function byDestruction(lines: Line[], fen: string, mutual = false) {
+  const chess = co.Chess.fromSetup(co.fen.parseFen(fen).unwrap()).unwrap();
+  const beforeMaterial = co.Material.fromBoard(chess.board);
+  const opponent = co.opposite(chess.turn);
+  const before = weigh(mutual ? beforeMaterial : beforeMaterial[opponent]);
+  const aggression: [number, Score][] = [];
+  for (const history of lines) {
+    for (const pv of history) {
+      try {
+        const pvChess = chess.clone();
+        for (const move of pv.moves) pvChess.play(co.parseUci(move)!);
+        const afterMaterial = co.Material.fromBoard(pvChess.board);
+        const destruction =
+          (before - weigh(mutual ? afterMaterial : afterMaterial[opponent])) / pv.moves.length;
+        if (destruction > 0) aggression.push([destruction, pv]);
+      } catch (e) {
+        console.error(e, pv.moves);
+      }
+    }
+  }
+  return aggression;
+}*/
+
+const prices: { [role in co.Role]?: number } = {
+  pawn: 1,
+  knight: 2.8,
+  bishop: 3,
+  rook: 5,
+  queen: 9,
+};
+
+function weigh(material: co.Material | co.MaterialSide) {
+  let score = 0;
+  for (const [role, price] of Object.entries(prices) as [co.Role, number][]) {
+    score += price * ('white' in material ? material.count(role) : material[role]);
+  }
+  return score;
 }

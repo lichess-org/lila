@@ -129,8 +129,8 @@ export class BotCtrl {
     image: 'gray-torso.webp',
     book: 'gm2600.bin',
     glicko: { r: 1500, rd: 350 },
-    zero: { net: 'maia-1100.pb', search: { nodes: 1 } },
-    fish: { multipv: 12, search: { depth: 12 } },
+    //zero: { multipv: 1, net: 'maia-1100.pb' },
+    fish: { multipv: 1, by: { depth: 1 } },
   };
 }
 

@@ -3,6 +3,7 @@ import { isTouchDevice } from 'common/device';
 import { HandOfCards } from './handOfCards';
 //import { clamp } from 'common';
 import * as licon from 'common/licon';
+import { domDialog, Dialog } from 'common/dialog';
 import { defined } from 'common';
 //import { ratingView } from './components/ratingView';
 
@@ -51,31 +52,29 @@ export class LocalDialog {
   }
 
   show() {
-    site.dialog
-      .dom({
-        class: 'game-setup.local-setup',
-        css: [{ hashed: 'local.setup' }],
-        htmlText: `<div class="chin">
+    domDialog({
+      class: 'game-setup.local-setup',
+      css: [{ hashed: 'local.setup' }],
+      htmlText: `<div class="chin">
             <input type="checkbox" id="bot-dev" checked>
             <label for="bot-dev">Dev UI</label>
           </div>`,
-        append: [{ node: this.view, where: '.chin', how: 'before' }],
-        actions: [
-          { selector: '.fight', listener: dlg => this.fight(dlg) },
-          { selector: '.switch', listener: dlg => this.switch(dlg) },
-          { selector: '.random', listener: dlg => this.random(dlg) },
-          { selector: '.white > img.remove', listener: () => this.select('white') },
-          { selector: '.black > img.remove', listener: () => this.select('black') },
-        ],
-        noCloseButton: this.noClose,
-        noClickAway: this.noClose,
-      })
-      .then(dlg => {
-        if (this.setup.white) this.select('white', this.setup.white);
-        if (this.setup.black) this.select('black', this.setup.black);
-        dlg.showModal();
-        this.hand.resize();
-      });
+      append: [{ node: this.view, where: '.chin', how: 'before' }],
+      actions: [
+        { selector: '.fight', listener: dlg => this.fight(dlg) },
+        { selector: '.switch', listener: dlg => this.switch(dlg) },
+        { selector: '.random', listener: dlg => this.random(dlg) },
+        { selector: '.white > img.remove', listener: () => this.select('white') },
+        { selector: '.black > img.remove', listener: () => this.select('black') },
+      ],
+      noCloseButton: this.noClose,
+      noClickAway: this.noClose,
+    }).then(dlg => {
+      if (this.setup.white) this.select('white', this.setup.white);
+      if (this.setup.black) this.select('black', this.setup.black);
+      dlg.showModal();
+      this.hand.resize();
+    });
   }
 
   dropSelect = (target: HTMLElement, domId?: string) => {

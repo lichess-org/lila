@@ -31,7 +31,7 @@ dialog .dialog-content {
   }
 
   .card {
-    z-index: 12;
+    z-index: $z-above-dialog-12;
 
     &.selected {
       z-index: $z-dialog-11;

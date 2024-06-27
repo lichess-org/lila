@@ -1,6 +1,7 @@
 import { LocalPlayOpts, LocalSetup, Automator, Outcome } from './types';
 import { type BotCtrl } from './botCtrl';
 import { makeSocket } from './socket';
+import { GameDb } from './gameDb';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
@@ -10,7 +11,8 @@ import { Chess } from 'chessops';
 import * as co from 'chessops';
 
 export interface GameState {
-  fen?: string;
+  startingFen: string;
+  moves: Uci[];
   threefoldFens?: Map<string, number>;
   fiftyMovePly?: number;
   white: string | undefined;
@@ -27,6 +29,7 @@ export class GameCtrl {
   setup: LocalSetup;
   moves: Uci[] = [];
   roundData: RoundData;
+  gameDb = new GameDb();
   private automator?: Automator;
 
   constructor(
@@ -54,10 +57,10 @@ export class GameCtrl {
     this.resetBoard();
   }
 
-  reset({ white, black, fen }: GameState) {
+  reset({ white, black, startingFen }: GameState) {
     this.botCtrl.setPlayer('white', white);
     this.botCtrl.setPlayer('black', black);
-    this.resetBoard(fen);
+    this.resetBoard(startingFen);
   }
 
   resetBoard(fen?: string) {
@@ -111,11 +114,7 @@ export class GameCtrl {
   move(uci: Uci): boolean {
     const bareMove = co.parseUci(uci) as co.NormalMove;
     const move = { ...normalizeMove(this.chess, bareMove), promotion: bareMove.promotion };
-    const balls = uci === 'e1h1' || uci === 'e8h8';
-    uci = co.makeUci(move); // fix e1h1 nonsense
-    if (balls) {
-      console.log(uci, move, this.chess.isLegal(move), makeFen(this.chess.toSetup()));
-    }
+    uci = co.makeUci(move); // fix e1h1/e8h8 nonsense
     this.moves.push(uci);
     if (!move || !this.chess.isLegal(move)) {
       this.gameOver(
@@ -125,7 +124,6 @@ export class GameCtrl {
       return false;
     }
     const san = makeSanAndPlay(this.chess, move);
-    if (balls) console.log('san is', san);
     this.fifty(move);
     this.updateThreefold();
     this.socket.receive('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
@@ -284,6 +282,32 @@ export class GameCtrl {
       local: this.socket,
       onChange: (d: RoundData) => {}, //console.log(d),
     };
+  }
+
+  private async saveGameState() {
+    const gameState: GameState = {
+      startingFen: this.setup.fen ?? co.fen.INITIAL_FEN,
+      moves: this.moves,
+      threefoldFens: this.threefoldFens,
+      fiftyMovePly: this.fiftyMovePly,
+      white: this.botCtrl.white?.name,
+      black: this.botCtrl.black?.name,
+    };
+    await this.gameDb.save(this.roundData.game.id, gameState);
+  }
+
+  async load(gameId: string) {
+    const gameState = await this.gameDb.get(gameId);
+    if (gameState) {
+      this.setup.fen = gameState.startingFen;
+      this.moves = gameState.moves;
+      this.threefoldFens = gameState.threefoldFens ?? new Map();
+      this.fiftyMovePly = gameState.fiftyMovePly ?? 0;
+      this.botCtrl.setPlayer('white', gameState.white);
+      this.botCtrl.setPlayer('black', gameState.black);
+      this.resetBoard();
+      gameState.moves.forEach(move => this.chess.play(co.parseUci(move)!));
+    }
   }
 }
 

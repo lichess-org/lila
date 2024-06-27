@@ -5,31 +5,57 @@ dialog .dialog-content {
     height: min-content;
     max-height: unset;
     max-width: min(1600px, 90vw);
-    /*.edit-bot {
-      height: calc(max(33vh, 400px) + $card-height + $chin-height);
-      .player {
-        max-width: 25vw;
-      }
-    }*/
+  }
+  span {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+  *:focus-visible {
+    outline: 2px solid $c-primary;
+    outline-offset: -2px;
+  }
+  label:focus-within,
+  legend:focus-within {
+    outline: 2px solid $c-primary;
+    outline-offset: -2px;
   }
 }
+
 .edit-bot {
   @extend %flex-column, %box-radius-bottom;
-  //@include above-cards;
-  //width: 100%;
+  gap: 1em;
   @media (orientation: landscape) {
     display: grid;
     height: calc(max(45vh, 400px) + $card-height + $chin-height);
-    grid-template-columns: 320px min(400px, 45vh) 1fr;
+    grid-template-columns: min(360px, 40vh) min(480px, 45vh) 1fr;
     grid-template-rows: calc(100% - ($chin-height + $card-height)) 1fr;
-    grid-template-areas: 'a b c' '. . .';
+    grid-template-areas: 'a b c' 'd d d';
   }
-  gap: 1em;
+  #bot_name > input {
+    width: 12ch;
+  }
+  .sources,
+  .panels {
+    overflow-y: auto;
+    overflow-x: visible;
+    scrollbar-width: thin;
+    scrollbar-color: $c-primary transparent;
 
-  #bot_name,
-  #bot_description {
-    padding: 0;
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $c-primary;
+      background-clip: content-box;
+    }
+
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
   }
+
   input,
   textarea {
     padding: 0.5em;
@@ -42,14 +68,69 @@ dialog .dialog-content {
     width: 100%;
     resize: none;
   }
+  hr {
+    flex: auto;
+  }
+  label {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    flex: initial;
+    gap: 12px;
+  }
+  fieldset {
+    border: 1px solid $c-border;
+    border-radius: $box-radius-size;
+    padding: 1em 0;
+    legend {
+      @extend %flex-center;
+      gap: 1em;
+      font-weight: bold;
+    }
+    &.disabled {
+      padding: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+    }
+  }
   .player-info {
     display: flex;
+    overflow-y: hidden;
     flex-direction: column;
     gap: 1em;
     border-radius: 10px;
     //width: 320px;
     grid-area: a;
+    div {
+      padding: 0;
+    }
   }
+  .bot-unrate-one {
+    color: $c-bad;
+    &:hover {
+      color: $m-bad--lighten-11;
+      cursor: pointer;
+    }
+  }
+  .bot-actions {
+    grid-area: d;
+    z-index: $z-above-dialog-12;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 1em;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: min-content;
+    //align-items: start;
+    //gap: 1em;
+    overflow-y: auto;
+  }
+
   .player {
     aspect-ratio: 1/1;
     ---scale-factor: 0.7;
@@ -70,35 +151,6 @@ dialog .dialog-content {
     flex-direction: column;
     justify-content: start;
     gap: 1em;
-    overflow: auto;
-  }
-  hr {
-    flex: auto;
-  }
-  fieldset {
-    border: 1px solid $c-border;
-    border-radius: 5px;
-    padding: 1em 0;
-    legend {
-      @extend %flex-center;
-      gap: 1em;
-      font-weight: bold;
-    }
-    &.disabled {
-      padding: 0;
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
-    }
-  }
-  .selectable {
-    cursor: pointer;
-    &.selected {
-      background-color: $m-bg_primary--mix-60;
-    }
-    &:hover {
-      background-color: $m-bg_primary--mix-80;
-    }
   }
   .setting {
     display: flex;
@@ -113,7 +165,9 @@ dialog .dialog-content {
       flex: 0 0 initial;
     }
     input[data-type] {
-      flex: auto;
+      //flex: auto;
+      width: 60px;
+      flex-grow: 1;
       &.invalid {
         background-color: $m-bg_bad--mix-60;
       }
@@ -125,33 +179,92 @@ dialog .dialog-content {
       }
     }
   }
-  &.active {
-    background-color: beige;
-  }
   .panels {
     display: flex;
     flex-direction: column;
+    //align-items: center;
     min-width: 0;
-    padding: 1em;
-    border-radius: 10px;
+    gap: 1em;
     grid-area: c;
-  }
-  .panel {
-    .btn-rack__btn {
-      flex: auto;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+    //overflow: scroll;
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
     }
   }
-  .chart-wrapper {
-    position: relative;
-    height: 100%;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    cursor: pointer;
-    background-color: beige;
+  // #panels_selectors {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 1em;
+  // }
+  .panel {
+    border-radius: $box-radius-size;
+    .btn-rack {
+      width: 100%;
+      > * {
+        padding: 4px 1em;
+        flex: auto;
+      }
+      > label {
+        flex-basis: 80px;
+        border-right: 1px solid $c-border;
+      }
+    }
+    .chart-wrapper {
+      position: relative;
+      border-radius: 0 0 $box-radius-size $box-radius-size;
+      cursor: pointer;
+      background: $c-paper;
+    }
+    &.disabled {
+      .chart-wrapper {
+        display: none;
+      }
+      > .btn-rack label,
+      > .btn-rack .by {
+        opacity: 0.5;
+      }
+    }
+    .by {
+      @extend %flex-center-nowrap;
+      justify-content: center;
+      background: $m-bg-zebra_paper--mix-50;
+      text-align: center;
+      height: 32px;
+      user-select: none;
+      //cursor: pointer;
+      border-right: $border;
+      color: $c-font;
+      white-space: nowrap;
+      padding: 0 0.6em;
+
+      &:last-child {
+        border-radius: 0 $box-radius-size $box-radius-size 0;
+        border: 0;
+      }
+    }
+    &:not(.disabled) .btn-rack {
+      border-radius: $box-radius-size $box-radius-size 0 0;
+      border-bottom: 0;
+    }
+    &:not(.disabled) .by {
+      border-bottom-right-radius: 0;
+      &.active {
+        background: $c-paper;
+        border-bottom: 0;
+        color: #555;
+        cursor: default;
+      }
+
+      &:hover:not(.active) {
+        @extend %metal-hover;
+        cursor: pointer;
+      }
+    }
   }
 }
+
 .chin {
   padding: 0.5em;
   display: flex;

@@ -47,7 +47,7 @@ export let schema: Schema = {
       value: undefined,
     },
     zero: {
-      label: 'Lc0',
+      label: 'lc0',
       net: {
         label: 'model',
         type: 'selectSetting',
@@ -55,36 +55,18 @@ export let schema: Schema = {
         value: undefined,
         required: true,
       },
-      search: {
-        type: 'radio',
+      multipv: {
+        label: 'multipv',
+        type: 'rangeSetting',
+        value: 1,
+        min: 1,
+        max: 8,
+        step: 1,
         required: true,
-        nodes: {
-          label: 'nodes',
-          type: 'numberSetting',
-          value: 1,
-          min: 1,
-          max: 1,
-        },
-        depth: {
-          label: 'depth',
-          type: 'rangeSetting',
-          value: 1,
-          min: 1,
-          max: 5,
-          step: 1,
-        },
-        movetime: {
-          label: 'movetime',
-          type: 'rangeSetting',
-          value: 100,
-          min: 0,
-          max: 1000,
-          step: 10,
-        },
       },
     },
     fish: {
-      label: 'Stockfish',
+      label: 'stockfish',
       multipv: {
         label: 'multipv',
         type: 'rangeSetting',
@@ -94,7 +76,7 @@ export let schema: Schema = {
         step: 1,
         required: true,
       },
-      search: {
+      by: {
         type: 'radio',
         required: true,
         nodes: {
@@ -126,23 +108,20 @@ export let schema: Schema = {
   },
   panels: {
     class: ['panels'],
-
-    mappings: {
+    selectors: {
       lc0: {
-        type: 'mappingPanel',
-        label: 'Lc0 frequency',
+        type: 'selectorPanel',
+        label: 'lc0',
         title: 'Chance from 0 to 1 of selecting Lc0 move. 1 is always Lc0',
-        class: ['selectable'],
-        value: { type: 'lc0', range: { min: 0, max: 1 }, data: { from: 'const', to: 0.5 } },
+        value: { range: { min: 0, max: 1 }, from: 'move', data: [] },
         requires: ['sources_zero', 'sources_fish'],
       },
       acpl: {
-        type: 'mappingPanel',
-        label: 'ACPL',
+        type: 'selectorPanel',
+        label: 'acpl',
         title:
           'Normal distribution with mean=acpl and stdev=acpl/4 gives target move score reduction from best move',
-        class: ['selectable'],
-        value: { type: 'acpl', range: { min: 10, max: 150 }, data: { from: 'const', to: 80 } },
+        value: { range: { min: 10, max: 150 }, from: 'score', data: [] },
         requires: ['sources_fish'],
       },
     },
