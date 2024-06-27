@@ -10,6 +10,8 @@ case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal:
 
   def updatedAt = events.lastOption.map(_.at)
 
+  def lastErrors: List[String] = events.reverse.takeWhile(_.isKo).flatMap(_.error).toList
+
   def add(event: SyncLog.Event) =
     copy(
       events = {

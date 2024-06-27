@@ -84,4 +84,9 @@
     @extend %roboto;
     color: $c-font-dim;
   }
+  &__errors {
+    @extend %break-word, %nowrap-ellipsis;
+    font-family: monospace;
+    color: $c-bad;
+  }
 }

@@ -33,6 +33,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           pageMenu("index"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(trc.liveBroadcasts()), searchForm("")),
+            Granter.opt(_.StudyAdmin).option(adminIndex(active)),
             nonEmptyTier(_.BEST, "best"),
             nonEmptyTier(_.HIGH, "high"),
             nonEmptyTier(_.NORMAL, "normal"),
@@ -48,6 +49,16 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             renderPager(asRelayPager(past), "")(cls := "relay-cards--past")
           )
         )
+
+  private def adminIndex(active: List[RelayTour.ActiveWithSomeRounds])(using Context) =
+    val errored = active.flatMap(a => a.link.sync.log.lastErrors.some.filter(_.nonEmpty).map(a -> _))
+    errored.nonEmpty.option:
+      div(cls := "relay-index__admin")(
+        h2("Ongoing broadcasts with errors"),
+        st.section(cls := "relay-cards"):
+          errored.map: (tr, errors) =>
+            card.render(tr, live = _.display.hasStarted, errors = errors.take(5))
+      )
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
     Page(trc.liveBroadcasts.txt())
@@ -160,7 +171,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     private def image(t: RelayTour) = t.image.fold(ui.thumbnail.fallback(cls := "relay-card__image")): id =>
       img(cls := "relay-card__image", src := ui.thumbnail.url(id, _.Size.Small))
 
-    def render[A <: RelayRound.AndTourAndGroup](tr: A, live: A => Boolean)(using Context) =
+    def render[A <: RelayRound.AndTourAndGroup](tr: A, live: A => Boolean, errors: List[String] = Nil)(using
+        Context
+    ) =
       link(tr.tour, tr.path, live(tr))(
         image(tr.tour),
         span(cls := "relay-card__body")(
@@ -178,7 +191,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
-          span(cls := "relay-card__desc")(tr.tour.description)
+          if errors.nonEmpty
+          then ul(cls := "relay-card__errors")(errors.map(li(_)))
+          else span(cls := "relay-card__desc")(tr.tour.description)
         )
       )
 
