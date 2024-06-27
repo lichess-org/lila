@@ -75,9 +75,20 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
     )
 
-  def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using Context) =
+  def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using ctx: Context) =
     listLayout(trc.liveBroadcasts.txt(), pageMenu("by", owner.some))(
-      boxTop(h1(lightUserLink(owner), " ", trc.liveBroadcasts())),
+      boxTop(
+        h1(
+          if ctx.is(owner)
+          then trc.myBroadcasts()
+          else frag(lightUserLink(owner), " ", trc.liveBroadcasts())
+        ),
+        div(cls := "box__top__actions")(
+          a(href := routes.RelayTour.form, cls := "button button-green text", dataIcon := Icon.PlusButton)(
+            trc.newBroadcast()
+          )
+        )
+      ),
       standardFlash,
       renderPager(pager, owner = owner.some)
     )
@@ -129,7 +140,10 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     lila.ui.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
-        a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_.is(me)).option("active")):
+        a(
+          href := routes.RelayTour.by(me.username, 1),
+          cls  := (menu == "new" || by.exists(_.is(me))).option("active")
+        ):
           trans.broadcast.myBroadcasts()
       ,
       by.filterNot(ctx.is)
@@ -149,7 +163,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             "Private Broadcasts"
           )
         ),
-      a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
       div(cls := "sep"),
