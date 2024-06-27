@@ -209,34 +209,41 @@ final private class RelayFetch(
             s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)).mkString(", ")}"
       .flatMap(multiPgnToGames.future)
 
-  // cache finished games so they're not requested again for a while
   private object lccCache:
     import DgtJson.GameJson
     type LccGameKey = String
+    // cache finished games so they're not requested again for a while
     private val finishedGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
         _.expireAfterWrite(5 minutes).build()
+    // cache created (non-started) games until they start
     private val createdGames =
-      cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.createdLccGames"):
+      cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
         _.expireAfter[LccGameKey, GameJson](
           create = (key, _) => (if key.startsWith("start ") then 1 minutes else 5 minutes),
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
+    // cache games with number > 12 to reduce load on big tournaments
+    private val tailGames =
+      cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
+        _.expireAfterWrite(1 minutes).build()
 
     def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, nearStart: Boolean)(
         fetch: () => Fu[GameJson]
     ): Fu[GameJson] =
       val key = s"${nearStart.so("start ")}${lcc.id} ${lcc.round} $index"
-      finishedGames.getIfPresent(key) match
-        case Some(game) => fuccess(game)
-        case None =>
-          createdGames.getIfPresent(key) match
-            case Some(game) => fuccess(game)
-            case None =>
-              fetch().addEffect: game =>
-                if game.moves.isEmpty then createdGames.put(key, game)
-                else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
+      finishedGames
+        .getIfPresent(key)
+        .orElse(createdGames.getIfPresent(key))
+        .orElse(tailGames.getIfPresent(key))
+        .match
+          case Some(game) => fuccess(game)
+          case None =>
+            fetch().addEffect: game =>
+              if game.moves.isEmpty then createdGames.put(key, game)
+              else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
+              else if index >= 12 then tailGames.put(key, game)
 
   private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
