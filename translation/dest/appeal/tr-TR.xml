@@ -14,7 +14,7 @@
   <string name="closedByModerators">Hesabınız moderatörler tarafından kapatılmıştır.</string>
   <string name="hiddenBlog">Bloglarınız moderatörler tarafından görünmeze alınmıştır.</string>
   <string name="hiddenBlogInfo">%s bölümümüzü tekrar okuduğunuzdan emin olun.</string>
-  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Oyun zaman aşımınız var.</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Uzaklaştırma cezanız var.</string>
   <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">iletişim kuralları</string>
   <string name="blogRules">blog kuralları</string>
   <string name="fairPlay">Fair Play</string>

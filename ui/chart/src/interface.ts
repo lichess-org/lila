@@ -87,7 +87,3 @@ export interface RoundStats {
   round: RelayRound;
   viewers: [number, number][];
 }
-
-export interface RelayStats {
-  rounds: RoundStats[];
-}

@@ -1,9 +1,12 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
+import { addPasswordVisibilityToggleListener } from 'common/password';
 import { storedJsonProp } from 'common/storage';
 
 export function initModule(mode: 'login' | 'signup') {
   mode === 'login' ? loginStart() : signupStart();
+
+  addPasswordVisibilityToggleListener();
 }
 class LoginHistory {
   historyStorage = storedJsonProp<number[]>('login.history', () => []);
@@ -25,7 +28,6 @@ function loginStart() {
 
   const toggleSubmit = ($submit: Cash, v: boolean) =>
     $submit.prop('disabled', !v).toggleClass('disabled', !v);
-
   (function load() {
     const form = document.querySelector(selector) as HTMLFormElement,
       $f = $(form);

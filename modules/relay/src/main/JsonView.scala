@@ -165,7 +165,6 @@ object JsonView:
 
   given OWrites[RelayStats.RoundStats] = OWrites: r =>
     Json.obj(
-      "round" -> r.round,
       "viewers" -> r.viewers.map: (minute, crowd) =>
         Json.arr(minute * 60, crowd)
     )

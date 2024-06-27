@@ -33,15 +33,15 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         td(if stats.top10Rating > 0 then stats.top10Rating else "-")
       page("FIDE federations", "federations")(
         cls := "fide-federations",
-        boxTop(h1("FIDE federations")),
+        boxTop(h1(trans.broadcast.fideFederations())),
         table(cls := "slist slist-pad")(
           thead:
             tr(
-              th("Name"),
-              th("Players"),
-              th("Classic"),
-              th("Rapid"),
-              th("Blitz")
+              th(trans.site.name()),
+              th(trans.site.players()),
+              th(trans.site.classical()),
+              th(trans.site.rapid()),
+              th(trans.site.blitz())
             )
           ,
           tbody(cls := "infinite-scroll")(
@@ -72,9 +72,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             card(
               name(),
               frag(
-                p("Rank", strong(stats.get.rank)),
-                p("Top 10 rating", strong(stats.get.top10Rating)),
-                p("Players", strong(stats.get.nbPlayers.localize))
+                p(trans.site.rank(), strong(stats.get.rank)),
+                p(trans.broadcast.top10Rating(), strong(stats.get.top10Rating)),
+                p(trans.site.players(), strong(stats.get.nbPlayers.localize))
               )
             )
         ),
@@ -104,7 +104,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       page("FIDE players", "players")(
         cls := "fide-players",
         boxTop(
-          h1("FIDE players"),
+          h1(trans.broadcast.fidePlayers()),
           div(cls := "box__top__actions"):
             searchForm(query)
         ),
@@ -115,7 +115,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       page("FIDE player not found", "players")(
         cls := "fide-players",
         boxTop(
-          h1("FIDE player not found"),
+          h1(trans.broadcast.fidePlayerNotFound()),
           div(cls := "box__top__actions"):
             searchForm("")
         ),
@@ -158,12 +158,12 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       table(cls := "slist slist-pad")(
         thead:
           tr(
-            th(title),
+            th(trans.site.name()),
             withFlag.option(th(iconTag(Icon.FlagOutline))),
-            th("Classic"),
-            th("Rapid"),
-            th("Blitz"),
-            th("Age this year")
+            th(trans.site.classical()),
+            th(trans.site.rapid()),
+            th(trans.site.blitz()),
+            th(trans.broadcast.ageThisYear())
           )
         ,
         tbody(cls := "infinite-scroll")(
@@ -194,7 +194,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         div(cls := "fide-cards fide-player__cards")(
           player.fed.map: fed =>
             card(
-              "Federation",
+              trans.broadcast.federation(),
               if fed == Federation.idNone then "None"
               else
                 a(cls := "fide-player__federation", href := routes.Fide.federation(Federation.idToSlug(fed)))(
@@ -203,16 +203,16 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
                 )
             ),
           card(
-            "FIDE profile",
+            trans.broadcast.fideProfile(),
             a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
           ),
           card(
-            "Age this year",
+            trans.broadcast.ageThisYear(),
             player.age
           ),
           tcTrans.map: (tc, name) =>
-            card(name(), player.ratingOf(tc).fold("Unrated")(_.toString)),
+            card(name(), player.ratingOf(tc).fold(trans.broadcast.unrated())(_.toString)),
         ),
         tours.map: tours =>
-          div(cls := "fide-player__tours")(h2("Recent tournaments"), tours)
+          div(cls := "fide-player__tours")(h2(trans.broadcast.recentTournaments()), tours)
       )

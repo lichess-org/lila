@@ -19,7 +19,5 @@
   <string name="startDate">Data d\'inicio en a tuya zona horaria</string>
   <string name="startDateHelp">Opcional, si sabes quan prencipia l\'evento</string>
   <string name="credits">Cita la fuent</string>
-  <string name="broadcastUrl">URL d\'a emisión</string>
-  <string name="currentRoundUrl">Vinclo d\'a ronda actual</string>
   <string name="currentGameUrl">Vinclo d\'a partida actual</string>
 </resources>

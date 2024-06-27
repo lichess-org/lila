@@ -123,7 +123,7 @@ final class RelayRound(
         studyC.CanView(study)(
           for
             group    <- env.relay.api.withTours.get(rt.tour.id)
-            previews <- env.study.preview.jsonList(study.id)
+            previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           yield JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group))
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
@@ -186,6 +186,13 @@ final class RelayRound(
         rt.tour.teamTable.so:
           env.relay.teamTable.tableJson(rt.relay).map(JsonStrOk)
       }(Unauthorized, Forbidden)
+
+  def stats(id: RelayRoundId) = Open:
+    env.relay.stats
+      .get(id)
+      .map: stats =>
+        import lila.relay.JsonView.given
+        JsonOk(stats)
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]

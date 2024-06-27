@@ -417,6 +417,16 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 }
 
+.relay-tour__stats {
+  .spinner {
+    margin: 10em auto;
+  }
+  canvas {
+    min-height: 50vh;
+    margin: 0 2em 0 1em;
+  }
+}
+
 .relay-tour__side {
   overflow: hidden;
   &__header {

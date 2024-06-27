@@ -189,13 +189,6 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn"):
           Ok.chunked(source).as(pgnContentType)
 
-  def stats(id: RelayTourId) = Open:
-    Found(env.relay.api.tourById(id)): tour =>
-      env.relay.stats
-        .get(tour.id)
-        .flatMap: stats =>
-          Ok.page(views.relay.tour.stats(tour, stats))
-
   def apiIndex = Anon:
     apiC.jsonDownload:
       env.relay.tourStream

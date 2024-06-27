@@ -63,7 +63,7 @@ object RelayTourForm:
           name = name,
           description = description,
           markup = markup,
-          tier = tier.ifTrue(Granter(_.Relay)),
+          tier = if Granter(_.Relay) then tier else tour.tier,
           autoLeaderboard = autoLeaderboard,
           teamTable = teamTable,
           players = players,

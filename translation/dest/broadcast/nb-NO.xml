@@ -23,14 +23,12 @@
   <string name="tournamentDescription">Kort beskrivelse av turneringen</string>
   <string name="fullDescription">Full beskrivelse av turneringen</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse av turneringen. %1$s er tilgjengelig. Beskrivelsen må være kortere enn %2$s tegn.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">URL til PGN-kilden</string>
+  <string name="sourceSingleUrl">URL til PGN-kilden</string>
   <string name="sourceUrlHelp">Lenke som Lichess vil hente PGN-oppdateringer fra. Den må være offentlig tilgjengelig på internett.</string>
   <string name="sourceGameIds">Opptil 64 ID-er for partier hos Lichess. De må være adskilt med mellomrom.</string>
   <string name="startDate">Startdato i din egen tidssone</string>
   <string name="startDateHelp">Valgfritt, hvis du vet når arrangementet starter</string>
   <string name="credits">Krediter kilden</string>
-  <string name="broadcastUrl">URL for denne overføringen</string>
-  <string name="currentRoundUrl">URL for denne runden</string>
   <string name="currentGameUrl">URL for dette partiet</string>
   <string name="downloadAllRounds">Last ned alle rundene</string>
   <string name="resetRound">Nullstill denne runden</string>

@@ -102,17 +102,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         )
       )
 
-  def stats(t: RelayTour, stats: List[RelayStats.RoundStats])(using Context) =
-    import JsonView.given
-    Page(s"${t.name.value} - Stats")
-      .css("bits.relay.stats")
-      .js(PageModule("chart.relayStats", Json.obj("rounds" -> stats))):
-        main(cls := "relay-tour page box box-pad")(
-          boxTop(h1(a(href := routes.RelayTour.show(t.slug, t.id).url)(t.name), " - Stats")),
-          div(id := "round-selector"),
-          div(id := "relay-stats-container")(canvas(id := "relay-stats"))
-        )
-
   def page(title: String, pageBody: Frag, active: String)(using Context): Page =
     Page(title)
       .css("bits.page")
@@ -153,8 +142,10 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
       div(cls := "sep"),
-      a(cls := menu.active("players"), href := routes.Fide.index(1))("FIDE players"),
-      a(cls := menu.active("federations"), href := routes.Fide.federations(1))("FIDE federations")
+      a(cls := menu.active("players"), href := routes.Fide.index(1))(trans.broadcast.fidePlayers()),
+      a(cls := menu.active("federations"), href := routes.Fide.federations(1))(
+        trans.broadcast.fideFederations()
+      )
     )
 
   private object card:

@@ -47,7 +47,8 @@ final class Api(
         .extended(
           name,
           withFollows = userWithFollows,
-          withTrophies = getBool("trophies")
+          withTrophies = getBool("trophies"),
+          withCanChallenge = getBool("challenge")
         )
         .map(toApiResult)
         .map(toHttp)

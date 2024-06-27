@@ -8,7 +8,7 @@ object RelayStats:
   type Minute = Int
   type Crowd  = Int
   type Graph  = List[(Minute, Crowd)]
-  case class RoundStats(round: RelayRound, viewers: Graph)
+  case class RoundStats(viewers: Graph)
 
 final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using scheduler: Scheduler)(using
     Executor
@@ -17,39 +17,22 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
   import BSONHandlers.given
 
   // on measurement by minute at most; the storage depends on it.
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => record())
+  scheduler.scheduleWithFixedDelay(2 minutes, 2 minutes)(() => record())
 
-  def get(id: RelayTourId): Fu[List[RoundStats]] =
-    colls.round
-      .aggregateList(RelayTour.maxRelays): framework =>
-        import framework.*
-        Match($doc("tourId" -> id)) -> List(
-          Sort(Ascending("createdAt")),
-          AddFields($doc("sync.log" -> $arr())),
-          PipelineOperator(
-            $lookup.simple(colls.stats, "stats", "_id", "_id")
-          ),
-          AddFields($doc("stats" -> $doc("$first" -> "$stats")))
-        )
-      .map: docs =>
-        for
-          doc   <- docs
-          round <- doc.asOpt[RelayRound]
-          data = for
-            doc  <- doc.getAsOpt[Bdoc]("stats")
-            data <- doc.getAsOpt[List[Int]]("d")
-          yield data
-          stats = data.so:
-            _.grouped(2)
-              .collect:
-                case List(minute, crowd) => (minute, crowd)
-              .toList
-        yield RoundStats(round, stats)
+  def get(id: RelayRoundId): Fu[RoundStats] =
+    colls.stats
+      .primitiveOne[List[Int]]($id(id), "d")
+      .mapz:
+        _.grouped(2)
+          .collect:
+            case List(minute, crowd) => (minute, crowd)
+          .toList
+      .map(RoundStats.apply)
 
   def setActive(id: RelayRoundId) = activeRounds.put(id)
 
   // keep monitoring rounds for some time after they stopped syncing
-  private val activeRounds = ExpireSetMemo[RelayRoundId](1 hour)
+  private val activeRounds = ExpireSetMemo[RelayRoundId](2 hours)
 
   private def record(): Funit = for
     crowds <- fetchRoundCrowds
