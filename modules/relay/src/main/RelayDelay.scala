@@ -40,6 +40,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
           (_, v) =>
             Option(v) match
               case Some(GamesSeenBy(games, seenBy)) if !seenBy(round.id) =>
+                lila.mon.relay.dedup.increment()
                 GamesSeenBy(games, seenBy + round.id)
               case _ =>
                 val futureGames = doFetch().addEffect: games =>

@@ -287,6 +287,7 @@ object mon:
     def tourCrowd(tourId: RelayTourId)             = gauge("relay.tour.crowd").withTag("tour", tourId.value)
     def httpGet(host: String, proxy: Option[String]) =
       future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
+    val dedup = counter("relay.fetch.dedup").withoutTags()
 
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
