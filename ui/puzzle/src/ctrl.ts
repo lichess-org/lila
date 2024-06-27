@@ -6,6 +6,7 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import throttle from 'common/throttle';
+import { requestIdleCallback } from 'common';
 import { PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd, NvuiPlugin, PuzzleRound } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
@@ -101,9 +102,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
     // Make sure chessground is fully shown when the page goes back to being visible.
-    document.addEventListener('visibilitychange', () =>
-      site.requestIdleCallback(() => this.jump(this.path), 500),
-    );
+    document.addEventListener('visibilitychange', () => requestIdleCallback(() => this.jump(this.path), 500));
 
     site.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');

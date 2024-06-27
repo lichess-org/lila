@@ -1,4 +1,6 @@
 import { load as loadDasher } from 'dasher';
+import { domDialog } from 'common/dialog';
+import { escapeHtml } from 'common';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
   site.asset.userComplete({
@@ -46,15 +48,15 @@ function commandHelp(aliases: string, args: string, desc: string) {
     '<div class="command"><div>' +
     aliases
       .split(' ')
-      .map(a => `<p>${a} ${site.escapeHtml(args)}</p>`)
+      .map(a => `<p>${a} ${escapeHtml(args)}</p>`)
       .join('') +
     `</div> <span>${desc}<span></div>`
   );
 }
 
 function help() {
-  site.dialog.dom({
-    css: [{ themed: 'cli.help' }],
+  domDialog({
+    css: [{ hashed: 'cli.help' }],
     class: 'clinput-help',
     show: 'modal',
     htmlText:

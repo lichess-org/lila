@@ -1,7 +1,6 @@
 import StrongSocket from './socket';
 import { boot } from './boot';
 import Mousetrap from './mousetrap';
-import { requestIdleCallback, escapeHtml } from './functions';
 import once from './once';
 import { spinnerHtml } from 'common/spinner';
 import sri from './sri';
@@ -22,7 +21,6 @@ import * as miniGame from './miniGame';
 import { format as timeago, formatter as dateFormat } from './timeago';
 import watchers from './watchers';
 import { Chessground } from 'chessground';
-import { domDialog, ready, snabDialog } from './dialog';
 
 // window.site.{load, quantity, i18n} are initialized in layout.scala embedded script tags
 
@@ -31,7 +29,6 @@ window.$as = <T>(cashOrHtml: Cash | string) =>
 const s = window.site;
 s.StrongSocket = StrongSocket;
 s.mousetrap = new Mousetrap(document);
-s.requestIdleCallback = requestIdleCallback;
 s.sri = sri;
 s.storage = storage;
 s.tempStorage = tempStorage;
@@ -46,7 +43,6 @@ s.unload = unload;
 s.redirect = redirect;
 s.reload = reload;
 s.watchers = watchers;
-s.escapeHtml = escapeHtml;
 s.announce = announce;
 s.trans = trans;
 s.sound = sound;
@@ -60,9 +56,4 @@ s.blindMode = document.body.classList.contains('blind-mode');
 s.makeChat = data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
 s.makeChessground = Chessground;
 s.log = makeLog();
-(s.dialog as any) = { ready };
-ready.then(() => {
-  s.dialog.dom = domDialog;
-  s.dialog.snab = snabDialog;
-});
 s.load.then(boot);

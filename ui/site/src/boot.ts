@@ -12,7 +12,7 @@ import serviceWorker from './serviceWorker';
 import StrongSocket from './socket';
 import topBar from './topBar';
 import watchers from './watchers';
-import { requestIdleCallback } from './functions';
+import { requestIdleCallback } from 'common';
 import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector } from 'common';

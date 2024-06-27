@@ -6,6 +6,7 @@ import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
 import * as ground from './ground';
+import { requestIdleCallback } from 'common';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
 import { make as makeSocket, RoundSocket } from './socket';
@@ -865,7 +866,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private delayedInit = () => {
-    site.requestIdleCallback(() => {
+    requestIdleCallback(() => {
       const d = this.data;
       if (this.isPlaying()) {
         if (!d.simul) blur.init(d.steps.length > 2);

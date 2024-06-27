@@ -1,6 +1,7 @@
 import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { prop } from 'common';
+import { snabDialog } from 'common/dialog';
 import { bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
 import { StudyData } from './interfaces';
@@ -81,7 +82,7 @@ export function view(ctrl: StudyForm): VNode {
     ['member', ctrl.trans.noarg('members')],
     ['everyone', ctrl.trans.noarg('everyone')],
   ];
-  return site.dialog.snab({
+  return snabDialog({
     class: 'study-edit',
     onClose() {
       ctrl.open(false);
