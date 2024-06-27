@@ -1,4 +1,5 @@
 import { defined } from 'common';
+import { domDialog } from 'common/dialog';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
@@ -61,7 +62,7 @@ export async function initModule(o?: CropOpts) {
     minContainerHeight: viewBounds.height,
   });
 
-  const dlg = await site.dialog.dom({
+  const dlg = await domDialog({
     class: 'crop-viewer',
     css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
     htmlText: `<h2>Crop image to desired shape</h2>

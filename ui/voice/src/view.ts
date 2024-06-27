@@ -1,6 +1,7 @@
 import * as licon from 'common/licon';
 import { onInsert, bind, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
+import { snabDialog, Dialog } from 'common/dialog';
 import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
 import { supportedLangs } from './voice';
@@ -155,7 +156,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     if (!dlg.open) dlg.showModal();
   };
 
-  return site.dialog.snab({
+  return snabDialog({
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
     css: [{ hashed: 'voice.move.help' }],

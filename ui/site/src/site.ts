@@ -21,7 +21,6 @@ import * as miniGame from './miniGame';
 import { format as timeago, formatter as dateFormat } from './timeago';
 import watchers from './watchers';
 import { Chessground } from 'chessground';
-import { domDialog, ready, snabDialog, alertDialog } from './dialog';
 
 // window.site.{load, quantity, i18n} are initialized in layout.scala embedded script tags
 
@@ -57,10 +56,4 @@ s.blindMode = document.body.classList.contains('blind-mode');
 s.makeChat = data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
 s.makeChessground = (element: HTMLElement, config?: CgConfig) => Chessground(element, config);
 s.log = makeLog();
-(s.dialog as any) = { ready };
-ready.then(() => {
-  s.dialog.dom = domDialog;
-  s.dialog.snab = snabDialog;
-  s.dialog.alert = alertDialog;
-});
 s.load.then(boot);

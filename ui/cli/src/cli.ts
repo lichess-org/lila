@@ -1,5 +1,6 @@
 import { load as loadDasher } from 'dasher';
 import { escapeHtml } from 'common';
+import { domDialog } from 'common/dialog';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
   site.asset.userComplete({
@@ -54,7 +55,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 }
 
 function help() {
-  site.dialog.dom({
+  domDialog({
     css: [{ hashed: 'cli.help' }],
     class: 'clinput-help',
     show: 'modal',

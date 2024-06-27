@@ -1,11 +1,54 @@
-import { onInsert, looseH as h, VNode } from 'common/snabbdom';
-import { isTouchDevice } from 'common/device';
-import * as xhr from 'common/xhr';
-import * as licon from 'common/licon';
+import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
+import { isTouchDevice } from './device';
+import * as xhr from './xhr';
+import * as licon from './licon';
 
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
-// for usage see file://./../../@types/lichess/dialog.d.ts
+export interface Dialog {
+  readonly open: boolean; // is visible?
+  readonly view: HTMLElement; // your content div
+  readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
+
+  showModal(): Promise<Dialog>; // resolves on close
+  show(): Promise<Dialog>; // resolves on close
+  actions(actions?: Action | Action[]): void; // set new or reattach existing actions
+  close(): void;
+}
+
+export interface DialogOpts {
+  class?: string; // zero or more classes for your view div
+  css?: ({ url: string } | { hashed: string })[]; // fetches hashed or full url css
+  htmlText?: string; // content, text will be used as-is
+  cash?: Cash; // content, overrides htmlText, will be cloned and any 'none' class removed
+  htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
+  append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default 'child'
+  attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
+  actions?: Action | Action[]; // if present, add listeners to action buttons
+  onClose?: (dialog: Dialog) => void; // called when dialog closes
+  noCloseButton?: boolean; // if true, no upper right corner close button
+  noClickAway?: boolean; // if true, no click-away-to-close
+  noScrollable?: boolean; // if true, no scrollable div container. Fixes dialogs containing an auto-completer
+}
+
+export interface DomDialogOpts extends DialogOpts {
+  parent?: Element; // for centering and dom placement, otherwise fixed on document.body
+  show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
+}
+
+//snabDialog automatically shows as 'modal' on redraw unless onInsert callback is supplied
+export interface SnabDialogOpts extends DialogOpts {
+  vnodes?: LooseVNodes; // content, overrides other content properties
+  onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
+}
+
+export type ActionListener = (dialog: Dialog, action: Action, e: Event) => void;
+
+// Actions are managed listeners / results that are easily refreshed on DOM changes
+// if no event is specified, then 'click' is assumed
+export type Action =
+  | { selector: string; event?: string | string[]; listener: ActionListener }
+  | { selector: string; event?: string | string[]; result: string };
 
 export const ready = site.load.then(async () => {
   window.addEventListener('resize', onResize);
@@ -93,14 +136,35 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   );
 }
 
-export async function alertDialog(msg: string): Promise<void> {
+export async function alert(msg: string): Promise<void> {
   await domDialog({
     htmlText: msg,
+    class: 'alert',
     show: 'modal',
   });
 }
+
+export async function confirm(msg: string): Promise<boolean> {
+  return (
+    (
+      await domDialog({
+        htmlText: `<div>${msg}</div>
+      <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
+        class: 'alert',
+        noCloseButton: true,
+        noClickAway: true,
+        show: 'modal',
+        actions: [
+          { selector: '.yes', result: 'yes' },
+          { selector: '.no', result: 'no' },
+        ],
+      })
+    ).returnValue === 'yes'
+  );
+}
+
 class DialogWrapper implements Dialog {
-  private restore?: { focus: HTMLElement; overflow: string };
+  private restore?: { focus?: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
   private eventCleanup: { el: Element; type: string; listener: EventListener }[] = [];
   private observer: MutationObserver = new MutationObserver(list => {
@@ -176,6 +240,10 @@ class DialogWrapper implements Dialog {
   };
 
   show = (): Promise<Dialog> => {
+    this.restore = {
+      overflow: document.body.style.overflow,
+    };
+    document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.show();
     return new Promise(resolve => (this.resolve = resolve));
@@ -204,7 +272,7 @@ class DialogWrapper implements Dialog {
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    this.restore?.focus.focus(); // one modal at a time please
+    this.restore?.focus?.focus(); // one modal at a time please
     if (this.restore?.overflow !== undefined) document.body.style.overflow = this.restore.overflow;
     this.restore = undefined;
     this.resolve?.(this);

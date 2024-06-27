@@ -13,7 +13,7 @@ const gameTypeToRenderer = {
 export default function setupModal(ctrl: SetupCtrl): VNode {
   if (!ctrl.gameType || ctrl.gameType === 'local') return null;
   const renderContent = gameTypeToRenderer[ctrl.gameType];
-  return site.dialog.snab({
+  return snabDialog({
     class: 'game-setup',
     css: [{ url: 'game-setup' }],
     onClose: ctrl.closeModal,

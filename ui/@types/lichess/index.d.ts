@@ -1,10 +1,7 @@
 // eslint-disable-next-line
 /// <reference path="./tree.d.ts" />
-
 // eslint-disable-next-line
 /// <reference path="./chessground.d.ts" />
-// eslint-disable-next-line
-/// <reference path="./dialog.d.ts" />
 // eslint-disable-next-line
 /// <reference path="./voice.d.ts" />
 // eslint-disable-next-line
@@ -75,13 +72,6 @@ interface Site {
   makeChat(data: any): any;
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;
   log: LichessLog; // file://./../../site/src/log.ts
-  dialog: {
-    // file://./../../site/src/dialog.ts
-    ready: Promise<boolean>;
-    dom(opts: DomDialogOpts): Promise<Dialog>;
-    snab(opts: SnabDialogOpts): _Snabbdom.VNode;
-    alert(s: string): Promise<void>;
-  };
 
   // the remaining are not set in site.lichess.globals.ts
   load: Promise<void>; // DOMContentLoaded promise

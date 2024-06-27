@@ -1,4 +1,5 @@
 import { isTouchDevice } from 'common/device';
+import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
 import { escapeHtml } from 'common';
 
@@ -23,7 +24,7 @@ export async function initModule() {
     : '';
   const clear = logs ? `<button class="button button-empty button-red clear">clear logs</button>` : '';
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
-  const dlg = await site.dialog.dom({
+  const dlg = await domDialog({
     class: 'diagnostic',
     css: [{ hashed: 'bits.diagnosticDialog' }],
     htmlText: `
