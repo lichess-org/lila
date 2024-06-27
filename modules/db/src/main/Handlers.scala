@@ -17,12 +17,17 @@ trait Handlers:
 
   // free handlers for all types with TotalWrapper
   // unless they are given an instance of lila.db.NoDbHandler[T]
-  given opaqueHandler[T, A](using
-      sr: SameRuntime[A, T],
+  given opaqueWriter[T, A](using
       rs: SameRuntime[T, A],
-      handler: BSONHandler[A]
-  )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
-    handler.as(sr.apply, rs.apply)
+      writer: BSONWriter[A]
+  )(using NotGiven[NoDbHandler[T]]): BSONWriter[T] with
+    def writeTry(t: T) = writer.writeTry(rs(t))
+
+  given opaqueReader[T, A](using
+      sr: SameRuntime[A, T],
+      reader: BSONReader[A]
+  ): BSONReader[T] with
+    def readTry(bson: BSONValue) = reader.readTry(bson).map(sr.apply)
 
   given listHandler[T: BSONHandler]: BSONHandler[List[T]] with
     val reader                                 = collectionReader[List, T]
