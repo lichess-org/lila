@@ -51,7 +51,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         )
 
   private def adminIndex(active: List[RelayTour.ActiveWithSomeRounds])(using Context) =
-    val errored = active.flatMap(a => a.link.sync.log.lastErrors.some.filter(_.nonEmpty).map(a -> _))
+    val errored = active.flatMap(a => a.errors.some.filter(_.nonEmpty).map(a -> _))
     errored.nonEmpty.option:
       div(cls := "relay-index__admin")(
         h2("Ongoing broadcasts with errors"),

@@ -85,7 +85,13 @@ object RelayTour:
       display: RelayRound, // which round to show on the tour link
       link: RelayRound,    // which round to actually link to
       group: Option[RelayGroup.Name]
-  ) extends RelayRound.AndTourAndGroup
+  ) extends RelayRound.AndTourAndGroup:
+    def errors: List[String] =
+      val round = display
+      ~round.sync.log.lastErrors.some
+        .filter(_.nonEmpty)
+        .orElse:
+          (round.hasStarted && !round.sync.ongoing).option(List("Not syncing!"))
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:
