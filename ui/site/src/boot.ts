@@ -12,10 +12,9 @@ import serviceWorker from './serviceWorker';
 import StrongSocket from './socket';
 import topBar from './topBar';
 import watchers from './watchers';
-import { requestIdleCallback } from 'common';
 import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
-import { scrollToInnerSelector } from 'common';
+import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 
 export function boot() {

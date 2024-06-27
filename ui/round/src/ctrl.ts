@@ -6,7 +6,6 @@ import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
 import * as ground from './ground';
-import { requestIdleCallback } from 'common';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
 import { make as makeSocket, RoundSocket } from './socket';
@@ -35,7 +34,6 @@ import * as wakeLock from 'common/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { endGameView } from './view/main';
-
 import {
   RoundOpts,
   RoundData,
@@ -49,7 +47,7 @@ import {
   NvuiPlugin,
   RoundTour,
 } from './interfaces';
-import { defined, Toggle, toggle } from 'common';
+import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
 
 interface GoneBerserk {
