@@ -31,7 +31,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "shogiground": "^0.8.4",
+    "shogiground": "^0.8.6",
     "shogiops": "^0.16.2"
   }
 }
