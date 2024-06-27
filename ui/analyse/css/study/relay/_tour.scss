@@ -290,6 +290,15 @@ $hover-bg: $m-primary_bg--mix-30;
     @include rendered-markdown(2em, 50vh);
     margin: 3em var(---box-padding);
   }
+  &__share {
+    @extend %box-neat;
+    background: $c-bg-zebra;
+    margin: 3em var(---box-padding);
+    padding: 3em var(---box-padding) 1em var(---box-padding);
+    h2 {
+      margin-bottom: 3rem;
+    }
+  }
 
   &__leaderboard {
     width: auto;
@@ -405,6 +414,16 @@ $hover-bg: $m-primary_bg--mix-30;
       top: 1.5px;
       border-bottom-width: 3px;
     }
+  }
+}
+
+.relay-tour__stats {
+  .spinner {
+    margin: 10em auto;
+  }
+  canvas {
+    min-height: 50vh;
+    margin: 0 2em 0 1em;
   }
 }
 

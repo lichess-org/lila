@@ -124,10 +124,11 @@ final private class RelaySync(
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
       if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
-    val newEndTag = game.ending
-      .ifFalse(gameTags(_.Result).isDefined)
-      .filterNot(end => chapter.tags(_.Result).has(end.resultText))
-      .map(end => Tag(_.Result, end.resultText))
+    val newEndTag = (
+      game.outcome.isDefined &&
+        gameTags(_.Result).isEmpty &&
+        !chapter.tags(_.Result).has(game.showResult)
+    ).option(Tag(_.Result, game.showResult))
     val tags = newEndTag.fold(gameTags)(gameTags + _)
     val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
@@ -215,8 +216,9 @@ sealed trait SyncResult:
   val reportKey: String
 object SyncResult:
   case class Ok(chapters: List[ChapterResult], games: RelayGames) extends SyncResult:
-    def nbMoves   = chapters.foldLeft(0)(_ + _.newMoves)
-    val reportKey = "ok"
+    def nbMoves        = chapters.foldLeft(0)(_ + _.newMoves)
+    def hasMovesOrTags = chapters.exists(c => c.newMoves > 0 || c.tagUpdate)
+    val reportKey      = "ok"
   case object Timeout extends Exception with SyncResult with util.control.NoStackTrace:
     val reportKey           = "timeout"
     override def getMessage = "In progress..."

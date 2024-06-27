@@ -23,8 +23,6 @@
   <string name="startDate">Дата на започване във вашата часова зона</string>
   <string name="startDateHelp">По избор, ако знаете, кога започва събитието</string>
   <string name="credits">Признателност на източника</string>
-  <string name="broadcastUrl">URL на предаването</string>
-  <string name="currentRoundUrl">URL на настоящия гунд</string>
   <string name="currentGameUrl">URL на настоящата партия</string>
   <string name="downloadAllRounds">Изтегли всички рундове</string>
   <string name="resetRound">Нулирай този рунд</string>

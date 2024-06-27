@@ -1,11 +1,14 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
+import { addPasswordVisibilityToggleListener } from 'common/password';
 import flairPicker from './exports/flairPicker';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
     flairPicker(this);
   });
+
+  addPasswordVisibilityToggleListener();
 
   const localPrefs: [string, string, string, boolean][] = [
     ['behavior', 'arrowSnap', 'arrow.snap', true],

@@ -44,7 +44,7 @@
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
   <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
-  <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
+  <string name="talkInChat">لطفا در گپ‌زنی بااَدب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این وب‌نشانی آید با شما بازی خواهد کرد.</string>
   <string name="whiteResigned">سفید تسلیم شد</string>
   <string name="blackResigned">سیاه تسلیم شد</string>
@@ -70,8 +70,8 @@
   <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
-  <string name="collapseVariations">بستن شاخه‌ها</string>
-  <string name="expandVariations">باز کردن شاخه‌ها</string>
+  <string name="collapseVariations" comment="Context menu button to hide variations">بستن شاخه‌ها</string>
+  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">باز کردن شاخه‌ها</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
@@ -112,7 +112,7 @@
   <string name="allSet">همه چیز آماده است!</string>
   <string name="importPgn">PGN را وارد کنید</string>
   <string name="delete">حذف</string>
-  <string name="deleteThisImportedGame">آیا این بازیِ وارد شده حذف گردد؟</string>
+  <string name="deleteThisImportedGame">آیا این بازیِ درونبُرده پاک شود؟</string>
   <string name="replayMode">حالت پخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
   <string name="byCPL">درنگ حین اشتباهات</string>
@@ -142,7 +142,7 @@
     <item quantity="one">%s غیردقیق</item>
     <item quantity="other">%s غیردقیق</item>
   </plurals>
-  <string name="moveTimes">مدت زمان حركت</string>
+  <string name="moveTimes">مدت حركت‌ها</string>
   <string name="flipBoard">چرخاندن صفحه</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
   <string name="claimADraw">ادعای تساوی</string>
@@ -325,7 +325,7 @@
     <item quantity="one">%s بازی در حال انجام</item>
     <item quantity="other">%s بازی در حال انجام</item>
   </plurals>
-  <string name="exportGames">استخراج بازی ها</string>
+  <string name="exportGames">برون‏بُرد بازی‌ها</string>
   <string name="ratingRange">محدوده درجه‌بندی</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
@@ -398,7 +398,7 @@
   <string name="save">ذخیره</string>
   <string name="leaderboard">جدول رده‌بندی</string>
   <string name="screenshotCurrentPosition">از وضعیت فعلی نماگرفت بگیرید</string>
-  <string name="gameAsGIF">دانلود گیف بازی</string>
+  <string name="gameAsGIF">بارگیری GIF بازی</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
@@ -504,11 +504,11 @@
   <string name="loadPosition">بارگذاری موقعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
-  <string name="profileCompletion">میزان تکمیل نمایه: %s</string>
+  <string name="profileCompletion">میزان تکمیل رُخ‌نما: %s</string>
   <string name="xRating">درجه‌‏بندی %s</string>
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
-  <string name="profile">نمایه</string>
-  <string name="editProfile">ویرایش نمایه</string>
+  <string name="profile">رُخ‌نما</string>
+  <string name="editProfile">ویرایش رُخ‌نما</string>
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
   <string name="setFlair">تعیین کردن شکلک</string>
@@ -740,8 +740,8 @@
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
-  <string name="downloadRaw">دانلود خام</string>
-  <string name="downloadImported">دانلود جایگذاری شده</string>
+  <string name="downloadRaw">بارگیری خام</string>
+  <string name="downloadImported">بارگیری درونبُرد</string>
   <string name="crosstable">رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
@@ -800,7 +800,7 @@
   <string name="hue">فام</string>
   <string name="boardReset">بازنشاندن به رنگ‌های پیش‌فرض</string>
   <string name="pieceSet">نوع مهره</string>
-  <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
+  <string name="embedInYourWebsite">قرار دادن در وبگاه خود</string>
   <string name="usernameAlreadyUsed">این نام کاربری در حال حاضر انتخاب شده است.لطفا نام دیگری انتخاب کنید.</string>
   <string name="usernamePrefixInvalid">نام کاربری باید با حرف شروع شود.</string>
   <string name="usernameSuffixInvalid">نام کاربری باید با حرف یا شماره خاتمه یابد.</string>

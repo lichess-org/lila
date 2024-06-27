@@ -145,6 +145,7 @@ const payPalStyle = {
 };
 
 function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  if (!window.paypalOrder) return;
   (window.paypalOrder as any)
     .Buttons({
       style: payPalStyle,
@@ -173,6 +174,7 @@ function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => nu
 }
 
 function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  if (!window.paypalSubscription) return;
   (window.paypalSubscription as any)
     .Buttons({
       style: payPalStyle,

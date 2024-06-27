@@ -58,7 +58,7 @@ case class Study(
   def isOld = (nowSeconds - updatedAt.toSeconds) > 20 * 60
 
   def isRelay = from match
-    case From.Relay(_) => true
+    case _: From.Relay => true
     case _             => false
 
   def cloneFor(user: User): Study =

@@ -167,7 +167,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   )
                 )
               ),
-              (canModCateg || ctx.me.exists(topic.isAuthor)).option(deleteModal)
+              (canModCateg || ctx.me.exists(topic.isAuthor)).option(deleteModal),
+              canModCateg.option(relocateModal(categ))
             )
           ),
           formWithCaptcha.map: (form, captcha) =>
@@ -250,6 +251,31 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           form3.submit(
             frag("Delete the post")
           )(value := "default", cls := "button-red")
+        )
+      )
+    )
+
+  private val relocateTo = List(
+    "general-chess-discussion" -> "General Chess Discussion",
+    "lichess-feedback"         -> "Lichess Feedback",
+    "game-analysis"            -> "Game Analysis",
+    "off-topic-discussion"     -> "Off-Topic Discussion"
+  )
+
+  private def relocateModal(from: lila.forum.ForumCateg) =
+    div(cls := "forum-relocate-modal none")(
+      p("Move the entire thread to another forum"),
+      st.form(method := "post", cls := "form3")(
+        st.select(
+          name := "categ",
+          cls  := "form-control"
+        )(
+          relocateTo.collect:
+            case (slug, name) if slug != from.id.value => st.option(value := slug)(name)
+        ),
+        form3.actions(
+          button(cls := "cancel button button-empty", tpe := "button")("Cancel"),
+          form3.submit(frag("Relocate the thread"))(cls := "button-red")
         )
       )
     )

@@ -52,9 +52,21 @@ final class ChapterPreviewApi(
 
     def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
 
+    def withoutInitialEmpty(studyId: StudyId): Fu[AsJsons] =
+      apply(studyId).map: json =>
+        val singleInitial = json
+          .asOpt[JsArray]
+          .map(_.value)
+          .filter(_.sizeIs == 1)
+          .flatMap(_.headOption)
+          .exists:
+            case single: JsObject => single.str("name").contains("Chapter 1")
+            case _                => false
+        if singleInitial then JsArray.empty else json
+
   object dataList:
     private[ChapterPreviewApi] val cache =
-      cacheApi[StudyId, List[ChapterPreview]](256, "study.chapterPreview.data"):
+      cacheApi[StudyId, List[ChapterPreview]](512, "study.chapterPreview.data"):
         _.expireAfterWrite(1 minute).buildAsyncFuture(listAll)
 
     def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)

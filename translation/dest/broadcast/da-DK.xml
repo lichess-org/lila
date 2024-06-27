@@ -23,14 +23,12 @@
   <string name="tournamentDescription">Kort beskrivelse af turnering</string>
   <string name="fullDescription">Fuld beskrivelse af begivenheden</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse af transmissionen. %1$s er tilgængelig. Længde skal være mindre end %2$s tegn.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">URL for PGN-kilde</string>
+  <string name="sourceSingleUrl">URL for PGN-kilde</string>
   <string name="sourceUrlHelp">URL som Lichess vil trække på for at få PGN updates. Den skal være offentlig tilgængelig fra internettet.</string>
   <string name="sourceGameIds">Op til 64 Lichess parti-ID\'er, adskilt af mellemrum.</string>
   <string name="startDate">Startdato i din egen tidszone</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>
   <string name="credits">Krediter kilden</string>
-  <string name="broadcastUrl">Udsendelse-URL</string>
-  <string name="currentRoundUrl">Nuværende runde URL</string>
   <string name="currentGameUrl">Nuværende parti URL</string>
   <string name="downloadAllRounds">Download alle runder</string>
   <string name="resetRound">Nulstil denne runde</string>
@@ -45,4 +43,13 @@
   <string name="replacePlayerTags">Valgfrit: udskift spillernavne, ratings og titler</string>
   <string name="periodInSeconds">Periode i sekunder</string>
   <string name="periodInSecondsHelp">Valgfri, hvor lang tid der skal ventes mellem anmodninger. Min 2s, maks. 60s. Er som standard automatisk baseret på antallet af seere.</string>
+  <string name="fideFederations">FIDE-føderationer</string>
+  <string name="top10Rating">Top 10 rating</string>
+  <string name="fidePlayers">FIDE-spillere</string>
+  <string name="fidePlayerNotFound">FIDE-spiller ikke fundet</string>
+  <string name="fideProfile">FIDE-profil</string>
+  <string name="federation">Føderation</string>
+  <string name="ageThisYear">Alder i år</string>
+  <string name="unrated">Uden rating</string>
+  <string name="recentTournaments">Seneste turneringer</string>
 </resources>

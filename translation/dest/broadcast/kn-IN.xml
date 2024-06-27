@@ -21,8 +21,6 @@
   <string name="startDate">ನಿಮ್ಮ ಸ್ವಂತ ಸಮಯವಲಯದಲ್ಲಿ ದಿನಾಂಕವನ್ನು ಪ್ರಾರಂಭಿಸಿ</string>
   <string name="startDateHelp">ಐಚ್ಛಿಕ, ಈವೆಂಟ್ ಯಾವಾಗ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ ಎಂದು ನಿಮಗೆ ತಿಳಿದಿದ್ದರೆ</string>
   <string name="credits">ಮೂಲವನ್ನು ಕ್ರೆಡಿಟ್ ಮಾಡಿ</string>
-  <string name="broadcastUrl">URL ಅನ್ನು ಪ್ರಸಾರ ಮಾಡಿ</string>
-  <string name="currentRoundUrl">ಪ್ರಸ್ತುತ ಸುತ್ತಿನ URL</string>
   <string name="currentGameUrl">ಪ್ರಸ್ತುತ ಆಟದ URL</string>
   <string name="downloadAllRounds">ಎಲ್ಲಾ ಸುತ್ತುಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
   <string name="resetRound">ಈ ಸುತ್ತನ್ನು ಮರುಹೊಂದಿಸಿ</string>

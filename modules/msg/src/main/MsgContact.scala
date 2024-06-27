@@ -5,6 +5,8 @@ import reactivemongo.api.bson.*
 
 import lila.core.user.UserMarks
 import lila.db.dsl.{ *, given }
+import lila.core.perm.Permission
+import lila.core.perm.Granter
 
 private case class Contact(
     @Key("_id") id: UserId,
@@ -13,13 +15,14 @@ private case class Contact(
     roles: Option[List[String]],
     createdAt: Instant
 ):
-  def isKid                  = ~kid
-  def isTroll                = marks.exists(_.troll)
-  def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
-  def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-  def isDaysOld(days: Int)   = createdAt.isBefore(nowInstant.minusDays(days))
-  def isHoursOld(hours: Int) = createdAt.isBefore(nowInstant.minusHours(hours))
-  def isLichess              = id.is(UserId.lichess)
+  def isKid                                = ~kid
+  def isTroll                              = marks.exists(_.troll)
+  def isVerified                           = roles.exists(_ contains "ROLE_VERIFIED")
+  def isApiHog                             = roles.exists(_ contains "ROLE_API_HOG")
+  def isDaysOld(days: Int)                 = createdAt.isBefore(nowInstant.minusDays(days))
+  def isHoursOld(hours: Int)               = createdAt.isBefore(nowInstant.minusHours(hours))
+  def isLichess                            = id.is(UserId.lichess)
+  def isGranted(perm: Permission.Selector) = Granter.ofDbKeys(perm, ~roles)
 
 private case class Contacts(orig: Contact, dest: Contact):
   def hasKid                     = orig.isKid || dest.isKid

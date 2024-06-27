@@ -32,18 +32,19 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
         ctx.isAuth.option(
           frag(
             stripeScript,
-            frag(
-              // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
-              // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
-              script(
-                src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
-                namespaceAttr := "paypalOrder"
-              ),
-              script(
-                src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
-                namespaceAttr := "paypalSubscription"
+            pricing.payPalSupportsCurrency.option:
+              frag(
+                // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
+                // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
+                script(
+                  src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
+                  namespaceAttr := "paypalOrder"
+                ),
+                script(
+                  src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
+                  namespaceAttr := "paypalSubscription"
+                )
               )
-            )
           )
         )
       .js(ctx.isAuth.option(embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")))

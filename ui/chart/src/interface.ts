@@ -72,3 +72,18 @@ export interface PerfRatingHistory {
   name: string;
   points: [number, number, number, number][];
 }
+
+interface RelayRound {
+  id: string;
+  name: string;
+  slug: string;
+  finished?: boolean;
+  ongoing?: boolean;
+  createdAt?: number;
+  startsAt?: number;
+}
+
+export interface RoundStats {
+  round: RelayRound;
+  viewers: [number, number][];
+}

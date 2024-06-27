@@ -13,6 +13,7 @@ case class FormNavigation(
     tour: RelayTour,
     rounds: List[RelayRound],
     round: Option[RelayRoundId],
+    sourceRound: Option[RelayRound.WithTour] = none,
     newRound: Boolean = false
 ):
   def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
@@ -102,13 +103,17 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, round = none)
         )
 
-    def edit(r: RelayRound, form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
+    def edit(
+        r: RelayRound,
+        form: Form[RelayRoundForm.Data],
+        nav: FormNavigation
+    )(using Context) =
       page(r.name.value, nav):
         val rt = r.withTour(nav.tour)
         frag(
           boxTop(h1(a(href := rt.path)(rt.fullName))),
           standardFlash,
-          inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some),
+          inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some, nav.sourceRound),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
@@ -130,7 +135,8 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form: Form[RelayRoundForm.Data],
         url: play.api.mvc.Call,
         t: RelayTour,
-        round: Option[RelayRound]
+        round: Option[RelayRound],
+        sourceRound: Option[RelayRound.WithTour] = none
     )(using ctx: Context) =
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
@@ -161,46 +167,48 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             form("syncSource"),
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
-          form3.group(
-            form("syncUrl"),
-            trb.sourceSingleUrl(),
-            help = trb.sourceUrlHelp().some
-          )(form3.input(_))(cls := "relay-form__sync relay-form__sync-url"),
-          div(cls := "relay-form__sync relay-form__sync-lcc none"):
-            val lccUrl = round
-              .flatMap(_.sync.upstream)
-              .collect:
-                case lcc: RelayRound.Sync.UpstreamLcc => lcc.viewUrl
-            frag(
-              (!Granter.opt(_.Relay)).option(
-                flashMessage("box")(
-                  p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
-                  p(
-                    "LiveChessCloud support is deprecated and will be removed soon.",
-                    br,
-                    "If you need help, please contact us at broadcast@lichess.org."
-                  )
+          div(cls := "relay-form__sync relay-form__sync-url")(
+            (round.flatMap(_.sync.upstream).exists(_.isLcc) && !Granter.opt(_.Relay)).option(
+              flashMessage("box")(
+                p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+                p(
+                  "LiveChessCloud support is deprecated and will be removed soon.",
+                  br,
+                  "If you need help, please contact us at broadcast@lichess.org."
                 )
-              ),
-              lccUrl.map(url => div(cls := "form-group")(a(href := url, targetBlank)(url))),
-              form3.split(
-                form3.group(
-                  form("syncLcc.id"),
-                  "Tournament ID",
-                  help = frag(
-                    "From the LCC page URL. The ID looks like this: ",
-                    pre("f1943ec6-4992-45d9-969d-a0aff688b404")
-                  ).some,
-                  half = true
-                )(form3.input(_)),
-                form3.group(
-                  form("syncLcc.round"),
-                  trb.roundNumber(),
-                  half = true
-                )(form3.input(_, typ = "number"))
               )
-            )
-          ,
+            ),
+            form3.group(
+              form("syncUrl"),
+              trb.sourceSingleUrl(),
+              help = trb.sourceUrlHelp().some
+            )(form3.input(_)),
+            sourceRound.map: source =>
+              flashMessage("round-push")(
+                "Getting real-time updates from ",
+                strong(a(href := source.path)(source.fullName)),
+                br,
+                "Owner: ",
+                userIdLink(source.tour.ownerId.some),
+                br,
+                "Delay: ",
+                source.round.sync.delay.fold("0")(_.toString),
+                "s",
+                br,
+                "Start: ",
+                source.round.startedAt.orElse(source.round.startsAt).fold(frag("unscheduled"))(momentFromNow),
+                br,
+                "Last sync: ",
+                source.round.sync.log.events.lastOption.map: event =>
+                  frag(
+                    momentFromNow(event.at),
+                    br,
+                    event.error match
+                      case Some(err) => s"❌ $err"
+                      case _         => s"✅ ${event.moves} moves"
+                  )
+              )
+          ),
           form3.group(
             form("syncUrls"),
             "Multiple source URLs, one per line.",

@@ -25,6 +25,18 @@ site.load.then(() => {
       });
       return false;
     })
+    .on('click', 'a.mod-relocate', function (this: HTMLAnchorElement) {
+      const link = this;
+      domDialog({
+        cash: $('.forum-relocate-modal'),
+        attrs: { view: { action: link.href } },
+      }).then(dlg => {
+        $(dlg.view).find('form').attr('action', link.href);
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        dlg.showModal();
+      });
+      return false;
+    })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
       xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });

@@ -119,8 +119,6 @@ final class RelayUi(helpers: Helpers)(
     import trans.broadcast as trb
     List(
       trb.addRound,
-      trb.broadcastUrl,
-      trb.currentRoundUrl,
       trb.currentGameUrl,
       trb.downloadAllRounds,
       trb.editRoundStudy

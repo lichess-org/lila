@@ -53,8 +53,10 @@ final class RelayApi(
     byIdWithTour(id).flatMapz(rt => formNavigation(rt).dmap(some))
 
   def formNavigation(rt: RelayRound.WithTour): Fu[(RelayRound, ui.FormNavigation)] =
-    formNavigation(rt.tour).map: nav =>
-      (rt.round, nav.copy(round = rt.round.id.some))
+    for
+      nav         <- formNavigation(rt.tour)
+      sourceRound <- rt.round.sync.upstream.flatMap(_.roundId).so(byIdWithTour)
+    yield (rt.round, nav.copy(round = rt.round.id.some, sourceRound = sourceRound))
 
   def formNavigation(tour: RelayTour): Fu[ui.FormNavigation] = for
     group  <- withTours.get(tour.id)
@@ -245,7 +247,8 @@ final class RelayApi(
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id): relay =>
       relay.sync.upstream.collect:
-        case f: Sync.FetchableUpstream => formatApi.refresh(f)
+        case Sync.Upstream.Url(url)   => formatApi.refresh(url)
+        case Sync.Upstream.Urls(urls) => urls.foreach(formatApi.refresh)
       isOfficial(relay.id).flatMap: official =>
         update(relay): r =>
           if v
@@ -274,12 +277,17 @@ final class RelayApi(
             sendToContributors(round.id, "relayLog", Json.toJsObject(event))
         round
 
+  def syncTargetsOfSource(source: RelayRound): Funit =
+    (!source.sync.upstream.exists(_.isRound)).so: // prevent chaining (and circular!) round updates
+      roundRepo.syncTargetsOfSource(source.id)
+
   def reset(old: RelayRound)(using me: Me): Funit =
     WithRelay(old.id) { relay =>
       for
         _ <- studyApi.deleteAllChapters(relay.studyId, me)
+        _ <- roundRepo.coll.updateField($id(relay.id), "finished", false)
         _ <- old.hasStartedEarly.so:
-          roundRepo.coll.update.one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt")).void
+          roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
       yield leaderboard.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
@@ -397,8 +405,8 @@ final class RelayApi(
             .$lt(nowInstant.plusSeconds(RelayDelay.maxSeconds.value))
             .$gt(nowInstant.minusDays(1)), // bit late now
           "startedAt".$exists(false),
-          "sync.until".$exists(false),
-          "sync.upstream".$exists(true)
+          "sync.upstream".$exists(true),
+          $or("sync.until".$exists(false), "sync.until".$lt(nowInstant))
         )
       )
       .flatMap:

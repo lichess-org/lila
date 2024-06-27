@@ -114,23 +114,6 @@ textarea.form-control {
   border-top: $border;
 }
 
-.password-complexity {
-  margin-top: -2rem;
-  margin-bottom: 3rem;
-}
-
-.password-complexity-meter {
-  display: flex;
-  grid-gap: 0.25rem;
-  height: 0.4rem;
-  margin-top: 1rem;
-
-  > * {
-    background-color: gray;
-    width: 25%;
-  }
-}
-
 .form-fieldset {
   @extend %box-radius;
   margin: 1rem 0 3rem 0;

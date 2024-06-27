@@ -8,8 +8,9 @@ import RelayLeaderboard from './relayLeaderboard';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
 import { onWindowResize as videoPlayerOnWindowResize } from './videoPlayerView';
+import RelayStats from './relayStats';
 
-export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
+export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
@@ -21,6 +22,7 @@ export default class RelayCtrl {
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   leaderboard?: RelayLeaderboard;
+  stats: RelayStats;
   streams: [string, string][] = [];
   showStreamerMenu = toggle(false);
 
@@ -49,6 +51,7 @@ export default class RelayCtrl {
     this.leaderboard = data.tour.leaderboard
       ? new RelayLeaderboard(data.tour.id, this.federations, redraw)
       : undefined;
+    this.stats = new RelayStats(this.currentRound(), redraw);
     setInterval(() => this.redraw(true), 1000);
 
     const pinned = data.pinned;
@@ -100,7 +103,7 @@ export default class RelayCtrl {
     const r = round || this.currentRound();
     return `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
   };
-
+  roundUrlWithHash = (round?: RelayRound) => `${this.roundPath(round)}#${this.tab()}`;
   updateAddressBar = (tourUrl: string, roundUrl: string) => {
     const url = this.tourShow() ? `${tourUrl}${this.tab() === 'overview' ? '' : `#${this.tab()}`}` : roundUrl;
     // when jumping from a tour tab to another page, remember which tour tab we were on.
@@ -149,7 +152,7 @@ export default class RelayCtrl {
       }, 4500);
       this.redraw();
       if (event.error) {
-        if (this.data.sync.log.slice(-2).every(e => e.error)) site.sound.play('error');
+        if (this.data.sync.log.slice(-3).every(e => e.error)) site.sound.play('error');
         console.warn(`relay synchronisation error: ${event.error}`);
       }
     },

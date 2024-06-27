@@ -25,7 +25,8 @@
       "src/chart.ratingHistory.ts",
       "src/chart.game.ts",
       "src/chart.resizePolyfill.ts",
-      "src/chart.lag.ts"
+      "src/chart.lag.ts",
+      "src/chart.relayStats.ts"
     ]
   }
 }

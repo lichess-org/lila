@@ -27,7 +27,8 @@ final class RelayPgnStream(
     variations = false,
     clocks = true,
     source = false,
-    orientation = false
+    orientation = false,
+    site = none
   )
   private val fileR         = """[\s,]""".r
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")

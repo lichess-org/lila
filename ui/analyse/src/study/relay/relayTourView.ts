@@ -11,12 +11,15 @@ import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
+import { statsView } from './relayStats';
 import { makeChat, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu, renderPinnedImage } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
 import { gameLinksListener } from '../studyChapters';
+import { copyMeInput } from 'common/copyMe';
+import { baseUrl } from '../../view/util';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -27,6 +30,8 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
       ? games(ctx)
       : tab == 'teams'
       ? teams(ctx)
+      : tab == 'stats'
+      ? stats(ctx)
       : leaderboard(ctx);
 
   return h('div.box.relay-tour', content);
@@ -105,6 +110,32 @@ const overview = (ctx: RelayViewContext) => [
         hook: innerHTML(ctx.relay.data.tour.markup, () => ctx.relay.data.tour.markup!),
       })
     : h('div.relay-tour__markup', ctx.relay.data.tour.description),
+  h('div.relay-tour__share', [
+    h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
+    ...[
+      [ctx.relay.data.tour.name, ctx.relay.tourPath()],
+      [ctx.study.data.name, ctx.relay.roundPath()],
+      [
+        `${ctx.study.data.name} PGN`,
+        `${ctx.relay.roundPath()}.pgn`,
+        h('div.form-help', [
+          'A public, real-time PGN source for this round. We also offer a ',
+          h(
+            'a',
+            { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+            'streaming API',
+          ),
+          ' for faster and more efficient synchronisation.',
+        ]),
+      ],
+    ].map(([i18n, path, help]: [string, string, VNode]) =>
+      h('div.form-group', [
+        h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
+        copyMeInput(`${baseUrl()}${path}`),
+        help,
+      ]),
+    ),
+  ]),
 ];
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
@@ -176,7 +207,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                   },
                   relay.data.rounds.map(round =>
                     h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
-                      h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
+                      h('td.name', h('a', { attrs: { href: relay.roundUrlWithHash(round) } }, round.name)),
                       h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
                       h(
                         'td.status',
@@ -203,6 +234,8 @@ const teams = (ctx: RelayViewContext) => [
   ...header(ctx),
   ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list),
 ];
+
+const stats = (ctx: RelayViewContext) => [...header(ctx), statsView(ctx.relay.stats)];
 
 const header = (ctx: RelayViewContext) => {
   const { ctrl, relay, allowVideo } = ctx;
@@ -285,13 +318,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('boards', 'Boards'),
     relay.teams && makeTab('teams', 'Teams'),
     relay.data.tour.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
-    // study.members.myMember()
-    //   ? h(
-    //       'a.text',
-    //       { attrs: { ...dataIcon(licon.LineGraph), href: `/broadcast/${relay.data.tour.id}/stats` } },
-    //       'Popularity stats',
-    //     )
-    //   : undefined,
+    study.members.myMember() && relay.data.tour.tier ? makeTab('stats', 'Stats') : undefined,
   ]);
 };
 

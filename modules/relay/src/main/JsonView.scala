@@ -165,7 +165,6 @@ object JsonView:
 
   given OWrites[RelayStats.RoundStats] = OWrites: r =>
     Json.obj(
-      "round" -> r.round,
       "viewers" -> r.viewers.map: (minute, crowd) =>
         Json.arr(minute * 60, crowd)
     )
@@ -179,7 +178,6 @@ object JsonView:
       )
       .add("delay" -> s.delay) ++
       s.upstream.so:
-        case Sync.UpstreamUrl(url)        => Json.obj("url" -> url)
-        case Sync.UpstreamLcc(url, round) => Json.obj("url" -> url, "round" -> round)
-        case Sync.UpstreamUrls(urls)      => Json.obj("urls" -> urls.map(_.formUrl))
-        case Sync.UpstreamIds(ids)        => Json.obj("ids" -> ids)
+        case Sync.Upstream.Url(url)   => Json.obj("url" -> url)
+        case Sync.Upstream.Urls(urls) => Json.obj("urls" -> urls)
+        case Sync.Upstream.Ids(ids)   => Json.obj("ids" -> ids)
