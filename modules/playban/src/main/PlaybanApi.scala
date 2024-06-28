@@ -2,10 +2,10 @@ package lila.playban
 
 import chess.{ Centis, Color, Status }
 import reactivemongo.api.bson.*
+import scalalib.model.Days
 
 import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
-
 import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.core.game.Source
 import lila.core.playban.RageSit as RageSitCounter
@@ -222,16 +222,16 @@ final class PlaybanApi(
         if outcome == Outcome.Good then fuccess(withOutcome)
         else
           for
-            createdAt <- userApi.createdAtById(userId).orFail(s"Missing user creation date $userId")
-            withBan   <- legiferate(withOutcome, createdAt, source)
+            age     <- userApi.accountAge(userId)
+            withBan <- legiferate(withOutcome, age, source)
           yield withBan
       _ <- registerRageSit(withBan, rsUpdate)
     yield ()
   }.void.logFailure(lila.log("playban"))
 
-  private def legiferate(record: UserRecord, accCreatedAt: Instant, source: Option[Source]): Fu[UserRecord] =
+  private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] =
     record
-      .bannable(accCreatedAt)
+      .bannable(age)
       .ifFalse(record.banInEffect)
       .so: ban =>
         lila.mon.playban.ban.count.increment()
