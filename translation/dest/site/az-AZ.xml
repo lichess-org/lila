@@ -502,8 +502,6 @@
   <string name="ifNoneLeaveEmpty">Əgər yoxdursa, boş qoyun</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili redaktə et</string>
-  <string name="firstName">Ad</string>
-  <string name="lastName">Soyad</string>
   <string name="biography">Özü haqqında</string>
   <string name="thankYou">Təşəkkürlər!</string>
   <string name="socialMediaLinks">Sosial media linkləri</string>
