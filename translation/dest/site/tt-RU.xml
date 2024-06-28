@@ -368,9 +368,6 @@
   <string name="safeTournamentName">Бәйге өчен хуп имин исем куегыз.</string>
   <string name="inappropriateNameWarning">Әз генә дә килешми торган исем аккаунтыгызның ябылуына китерә ала.</string>
   <string name="emptyTournamentName">Бәйгегә берәр атаклы шаһматчының исемен бирү өчен буш калдырыгыз.</string>
-  <string name="recommendNotTouching">Боларны тимәскә кинәш итәбез.</string>
-  <string name="fewerPlayers">Бәйгегә керү тәлапләрен куйсагыз, уенчылар саны әзрәк булыр.</string>
-  <string name="showAdvancedSettings">Кушылма көйләүләрне күрсәтү</string>
   <string name="makePrivateTournament">Бәйгегә серсүз буенча гына керү куя аласыз</string>
   <string name="join">Катнашу</string>
   <string name="withdraw">Уеннан чыгу</string>
