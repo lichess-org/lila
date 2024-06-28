@@ -475,8 +475,6 @@
   <string name="ifNoneLeaveEmpty">नभएको खण्डमा खाली छोडौं</string>
   <string name="profile">प्रोफाइल</string>
   <string name="editProfile">प्रोफाइल सम्पादन गर्नुहोस्</string>
-  <string name="firstName">शुभनाम</string>
-  <string name="lastName">थर</string>
   <string name="biography">जीवनी</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक सञ्जाल लिङ्क</string>
