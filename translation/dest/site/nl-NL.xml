@@ -466,9 +466,6 @@
   <string name="safeTournamentName">Kies een zeer veilige naam voor het toernooi.</string>
   <string name="inappropriateNameWarning">Bij zelfs het minste vermoeden van een misplaatst gekozen naam, kan uw account gesloten worden.</string>
   <string name="emptyTournamentName">Laat het veld leeg om het toernooi naar een willekeurige grootmeester te vernoemen.</string>
-  <string name="recommendNotTouching">Wij raden aan om deze niet aan te raken.</string>
-  <string name="fewerPlayers">Als u voorwaarden voor deelname instelt, zullen er minder spelers meedoen.</string>
-  <string name="showAdvancedSettings">Toon uitgebreide instellingen &gt;&gt;</string>
   <string name="makePrivateTournament">Maak het toernooi privé en beperk de toegang met een wachtwoord</string>
   <string name="join">Neem deel</string>
   <string name="withdraw">Trek terug</string>
