@@ -497,8 +497,6 @@
   <string name="ifNoneLeaveEmpty">Без рејтинг? Остави го полето празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Уреди го профилот</string>
-  <string name="firstName">Име</string>
-  <string name="lastName">Презиме</string>
   <string name="biography">Биографија</string>
   <string name="thankYou">Благодарам!</string>
   <string name="socialMediaLinks">Врски на друштвени мрежи</string>
