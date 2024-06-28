@@ -504,8 +504,6 @@
   <string name="ifNoneLeaveEmpty">यदि कोई नहीं, खाली छोड़ दो</string>
   <string name="profile">प्रोफ़ाइल</string>
   <string name="editProfile">प्रोफ़ाइल संपादित करें</string>
-  <string name="firstName">प्रथम नाम</string>
-  <string name="lastName">अंतिम नाम</string>
   <string name="youCanHideFlair">संपूर्ण साइट पर सभी उपयोगकर्ता विशेषताओं को छिपाने के लिए एक सेटिंग है</string>
   <string name="biography">जीवनी</string>
   <string name="thankYou">धन्यवाद!</string>
