@@ -501,8 +501,6 @@
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
-  <string name="firstName">სახელი</string>
-  <string name="lastName">გვარი</string>
   <string name="biography">ბიოგრაფია</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
   <string name="socialMediaLinks">სოციალური მედიის ბმულები</string>
