@@ -474,8 +474,6 @@
   <string name="ifNoneLeaveEmpty">ถ้าไม่มี, จงเว้นว่าง</string>
   <string name="profile">ข้อมูลประจำตัว</string>
   <string name="editProfile">แก้ไขข้อมูลประจำตัว</string>
-  <string name="firstName">ชื่อจริง</string>
-  <string name="lastName">นามสกุล</string>
   <string name="setFlair">ตั้งค่ารูปตกแต่ง</string>
   <string name="flair">รูปตกแต่ง</string>
   <string name="youCanHideFlair">มันมีการตั้งค่าที่ทำให้ไม่สามารถเห็นรูปตกแต่งของผู้ใช้ได้ทั้งเวบไซต์</string>
