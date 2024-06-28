@@ -48,8 +48,12 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           )(r.name),
         a(
-          href     := routes.RelayRound.create(nav.tour.id),
-          cls      := List("subnav__subitem text" -> true, "active" -> nav.newRound),
+          href := routes.RelayRound.create(nav.tour.id),
+          cls := List(
+            "subnav__subitem text" -> true,
+            "active"               -> nav.newRound,
+            "button"               -> (nav.rounds.isEmpty && !nav.newRound)
+          ),
           dataIcon := Icon.PlusButton
         )(trb.addRound())
       )
