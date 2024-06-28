@@ -459,9 +459,6 @@
   <string name="safeTournamentName">Turnir uchun juda ham xavfsiz nom tanlash.</string>
   <string name="inappropriateNameWarning">Sal noqulayku lekin so\'rashimiz joiz, balkim sizni akkountingizni yopish kerak.</string>
   <string name="emptyTournamentName">Turnir nomini tasodifiy Grassmeyster nomiga moslab qo\'yish uchun ochiq qoldiring.</string>
-  <string name="recommendNotTouching">Biz sizga bu joyda teginmaslikni maslahat beramiz.</string>
-  <string name="fewerPlayers">Agar siz kirish shartlarini sozlagan bo\'lsangiz, sizni turniringiz kam kishidan iborat bo\'ladi.</string>
-  <string name="showAdvancedSettings">Qo\'shimcha shartlarni namoyish qilish</string>
   <string name="makePrivateTournament">Yopiq turnir yarating va ishtirokchilarga parol yordamida kirishga huquq bering</string>
   <string name="join">Qo\'shilish</string>
   <string name="withdraw">Chekinish</string>
