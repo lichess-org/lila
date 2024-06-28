@@ -508,8 +508,6 @@
   <string name="ifNoneLeaveEmpty">Αν δεν υπάρχει, αφήστε κενό</string>
   <string name="profile">Προφίλ</string>
   <string name="editProfile">Επεξεργασία προφίλ</string>
-  <string name="firstName">Όνομα</string>
-  <string name="lastName">Επώνυμο</string>
   <string name="setFlair">Ορίστε τη νιφάδα σας</string>
   <string name="flair">Νιφάδα</string>
   <string name="youCanHideFlair">Υπάρχει μια ρύθμιση για να κρύψει όλες τις νιφάδες χρήστη σε ολόκληρη την ιστοσελίδα.</string>
