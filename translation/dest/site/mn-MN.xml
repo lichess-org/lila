@@ -469,8 +469,6 @@
   <string name="ifNoneLeaveEmpty">Байхгүй бол хоосон орхи</string>
   <string name="profile">Гишүүний хуудас</string>
   <string name="editProfile">Танилцуулга хуудсаа засварлах</string>
-  <string name="firstName">Өөрийн нэр</string>
-  <string name="lastName">Эцгийн нэр</string>
   <string name="setFlair">Нэрнийхээ хажууг чимэглэх</string>
   <string name="flair">Эможи</string>
   <string name="youCanHideFlair">Сайтанд байгаа бүх нэрний хажуу зүйлсийг нуух тохиргоо байдгийг санаарай.</string>
