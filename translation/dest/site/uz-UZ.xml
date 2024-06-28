@@ -500,8 +500,6 @@
   <string name="ifNoneLeaveEmpty">Agar yo\'q bo\'lsa bo\'sh qoldiring</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profilni o\'zgartirish</string>
-  <string name="firstName">Berilgan nom</string>
-  <string name="lastName">Familiya</string>
   <string name="biography">Biografiya</string>
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
