@@ -532,9 +532,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="safeTournamentName">Pasirinkite labai saugų turnyro pavadinimą.</string>
   <string name="inappropriateNameWarning">Kas nors bent kiek netinkamo gali lemti jūsų paskyros uždarymą.</string>
   <string name="emptyTournamentName">Palikus tuščią, turnyras bus pavadintas pagal atsitiktinį didmeistrį.</string>
-  <string name="recommendNotTouching">Rekomenduojame šitų neliesti.</string>
-  <string name="fewerPlayers">Jeigu pridėsite dalyvavimo sąlygų, jūsų turnyre bus mažiau žaidėjų.</string>
-  <string name="showAdvancedSettings">Rodyti papildomas nuostatas</string>
   <string name="makePrivateTournament">Padaryti turnyrą privačiu, ir apriboti patekimą su slaptažodžiu</string>
   <string name="join">Prisijungti</string>
   <string name="withdraw">Pasitraukti</string>
