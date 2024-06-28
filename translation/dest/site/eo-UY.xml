@@ -506,8 +506,6 @@
   <string name="ifNoneLeaveEmpty">Se neniu, lasu malplena</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Redakti profilon</string>
-  <string name="firstName">Persona nomo</string>
-  <string name="lastName">Familia nomo</string>
   <string name="setFlair">Agordi viaj emoĝio</string>
   <string name="flair">Emoĝio</string>
   <string name="youCanHideFlair">Estas agordo por kaŝi ĉiujn uzantajn emoĝiojn tra la tuta retejo.</string>
