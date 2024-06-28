@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Escolle un nome seguro para o torneo.</string>
   <string name="inappropriateNameWarning">Calquera comportamento minimamente inadecuado podería levar ao peche da túa conta.</string>
   <string name="emptyTournamentName">Deixar en branco para poñerlle ó torneo o nome dun Grande Mestre notable.</string>
-  <string name="recommendNotTouching">Non recomendamos cambiar estes axustes.</string>
-  <string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
-  <string name="showAdvancedSettings">Amosar axustes avanzados</string>
   <string name="makePrivateTournament">Fai que o torneo sexa privado e restrinxe o acceso cun contrasinal</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Retirarse</string>
