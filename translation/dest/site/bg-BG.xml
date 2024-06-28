@@ -504,8 +504,6 @@
   <string name="ifNoneLeaveEmpty">При липса оставете празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Редактирай профила</string>
-  <string name="firstName">Име</string>
-  <string name="lastName">Презиме</string>
   <string name="setFlair">Изберете вашето емоджи</string>
   <string name="flair">Емоджи</string>
   <string name="biography">Животопис</string>
