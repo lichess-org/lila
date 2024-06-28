@@ -543,9 +543,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="safeTournamentName">Pioc ainm an-sábháilte don chomórtas.</string>
   <string name="inappropriateNameWarning">D\'fhéadfadh do chuntas a dhúnadh má roghnaítear aon rud míchuí.</string>
   <string name="emptyTournamentName">Fág folamh chun an comórtas a ainmniú i ndiaidh imreoir fichille suntasach.</string>
-  <string name="recommendNotTouching">Molaimid iad seo a fhágáil mar atá.</string>
-  <string name="fewerPlayers">Má shocraíonn tú riachtanais iontrála don chomórtas, beidh níos lú imreoirí i do chomórtas.</string>
-  <string name="showAdvancedSettings">Taispeáin ardsocruithe</string>
   <string name="makePrivateTournament">Déan an comórtas príobháideach, agus cuir srian ar rochtain le pasfhocal</string>
   <string name="join">Cláraigh</string>
   <string name="withdraw">Tarraing siar</string>
