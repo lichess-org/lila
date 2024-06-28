@@ -70,8 +70,8 @@
   <string name="promoteVariation">Promoveer variant</string>
   <string name="makeMainLine">Maak hoofdvariant</string>
   <string name="deleteFromHere">Verwijder vanaf hier</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Varianten verbergen</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Varianten weergeven</string>
+  <string name="collapseVariations">Varianten verbergen</string>
+  <string name="expandVariations">Varianten weergeven</string>
   <string name="forceVariation">Forceer variatie</string>
   <string name="copyVariationPgn">Kopieer variatie PGN</string>
   <string name="move">Zet</string>
@@ -508,8 +508,6 @@
   <string name="ifNoneLeaveEmpty">Leeg indien n.v.t.</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Pas profiel aan</string>
-  <string name="firstName">Voornaam</string>
-  <string name="lastName">Achternaam</string>
   <string name="setFlair">Stel je flair in</string>
   <string name="flair">Symbool</string>
   <string name="youCanHideFlair">Er bestaat een instelling om alle gebruikersflairs over de hele site te verbergen.</string>
