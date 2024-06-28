@@ -416,9 +416,6 @@
   <string name="safeTournamentName">Veldu mjög öruggt nafn fyrir mótið.</string>
   <string name="inappropriateNameWarning">Eitthvað sem er hið minnsta óviðeigandi getur leitt til þess að reikningi verði lokað.</string>
   <string name="emptyTournamentName">Skildu eftir autt til að nefna mótið eftir handahófskennt völdum stórmeistara.</string>
-  <string name="recommendNotTouching">Við mælum með því að breyta þessu ekki.</string>
-  <string name="fewerPlayers">Ef þú setur skilyrði við þátttöku mun mótið hafa færri leikmenn.</string>
-  <string name="showAdvancedSettings">Sýna ítarlegar stillingar</string>
   <string name="makePrivateTournament">Loka móti, og takmarka aðgang með aðgangsorði</string>
   <string name="join">Taka þátt</string>
   <string name="withdraw">afturkalla</string>
