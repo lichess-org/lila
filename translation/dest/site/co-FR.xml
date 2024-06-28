@@ -420,9 +420,6 @@
   <string name="safeTournamentName">Scegli un nomu curtesu pè a ghjustra criata.</string>
   <string name="inappropriateNameWarning">S\'è vo date un nomu sgarbatu à u vostru turneu, u vostru contu pò esse chjosu.</string>
   <string name="emptyTournamentName">Lascià viotu darà à a ghjustra u nomu d\' un ghjucadore famosu.</string>
-  <string name="recommendNotTouching">V\' arricumandemu d\' ùn tuccà.</string>
-  <string name="fewerPlayers">S\'è vo create parechji cundizioni d\' intrata, ci seranu menu ghjucadori.</string>
-  <string name="showAdvancedSettings">Mustrà l\' uzzioni avanzati</string>
   <string name="makePrivateTournament">Creà una ghjustra privata è limità ne l\' accessu cù una parolla d\' intesa</string>
   <string name="join">Ghjunghje</string>
   <string name="withdraw">Ritirà si</string>
