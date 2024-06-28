@@ -434,9 +434,6 @@
   <string name="safeTournamentName">为锦标赛提出一个无争议的名称。</string>
   <string name="inappropriateNameWarning">即使只有一点点违规的内容都可能导致你的账户被封禁。</string>
   <string name="emptyTournamentName">若留空，将会随机选择一位著名的大师的名字作为锦标赛名称。</string>
-  <string name="recommendNotTouching">我们建议你不更改这些设置。</string>
-  <string name="fewerPlayers">如果你设置参赛条件，锦标赛的玩家将会更少。</string>
-  <string name="showAdvancedSettings">显示高级设置</string>
   <string name="makePrivateTournament">设置比赛私有，并用密码限制访问</string>
   <string name="join">参与锦标赛</string>
   <string name="withdraw">退出锦标赛</string>
