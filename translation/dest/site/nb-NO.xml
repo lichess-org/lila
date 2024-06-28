@@ -70,8 +70,8 @@
   <string name="promoteVariation">Forfrem variant</string>
   <string name="makeMainLine">Gjør til hovedvariant</string>
   <string name="deleteFromHere">Slett herfra</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Skjul varianter</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Vis varianter</string>
+  <string name="collapseVariations">Skjul varianter</string>
+  <string name="expandVariations">Vis varianter</string>
   <string name="forceVariation">Vis som variant</string>
   <string name="copyVariationPgn">Kopier variant-PGN</string>
   <string name="move">Trekk</string>
@@ -509,8 +509,6 @@
   <string name="ifNoneLeaveEmpty">Hvis ingen, la stå tom</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
-  <string name="firstName">Fornavn</string>
-  <string name="lastName">Etternavn</string>
   <string name="setFlair">Velg flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finnes en innstilling for å skjule alle brukerflairer på hele nettstedet.</string>
