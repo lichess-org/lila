@@ -161,7 +161,9 @@ Today's date is [current date]""")
           then form("public")
           else form("public").copy(value = "true".some),
           frag("Public account"),
-          help = frag("Recommended. Required for coaching, streaming, and prize tournaments.").some,
+          help = frag(
+            "Makes your real name public. Required for coaching, streaming, and prize tournaments."
+          ).some,
           half = true
         ),
         form3.checkbox(
