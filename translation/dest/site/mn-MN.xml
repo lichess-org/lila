@@ -427,9 +427,6 @@
   <string name="safeTournamentName">Тэмцээний хувьд маш аюулгүй нэр сонгоно уу.</string>
   <string name="inappropriateNameWarning">Бүр бага зэрэг зохисгүй зүйл таны данс хаагдах боломжтой болно.</string>
   <string name="emptyTournamentName">Тэмцээний Grandmaster-ийн дараа хоосон орхи.</string>
-  <string name="recommendNotTouching">Бид эдгээрийг хөндөхгүй байхыг зөвлөж байна.</string>
-  <string name="fewerPlayers">Хэрэв та орох нөхцөлийг тохируулсан бол таны тэмцээн цөөхөн тоглогчтой болно.</string>
-  <string name="showAdvancedSettings">Нарийвчилсан тохиргоог харуулах</string>
   <string name="makePrivateTournament">Хувийн тур нууц үгтэйгээр үүсгэх</string>
   <string name="join">Нэгдэх</string>
   <string name="withdraw">Тэмцээнийг орхих</string>
