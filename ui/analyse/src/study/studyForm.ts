@@ -172,8 +172,6 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 selected: data.settings.computer,
               })
             ),
-          ]),
-          h('div.form-split', [
             h(
               'div.form-group.form-half',
               select({
@@ -183,6 +181,8 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 selected: data.settings.chat,
               })
             ),
+          ]),
+          h('div.form-split', [
             h(
               'div.form-group.form-half',
               select({
@@ -195,19 +195,19 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 selected: '' + data.settings.sticky,
               })
             ),
+            h(
+              'div.form-group.form-half',
+              select({
+                key: 'description',
+                name: ctrl.trans.noarg('pinnedStudyComment'),
+                choices: [
+                  ['false', ctrl.trans.noarg('noPinnedComment')],
+                  ['true', ctrl.trans.noarg('rightUnderTheBoard')],
+                ],
+                selected: '' + data.settings.description,
+              })
+            ),
           ]),
-          h(
-            'div.form-group.form-half',
-            select({
-              key: 'description',
-              name: ctrl.trans.noarg('pinnedStudyComment'),
-              choices: [
-                ['false', ctrl.trans.noarg('noPinnedComment')],
-                ['true', ctrl.trans.noarg('rightUnderTheBoard')],
-              ],
-              selected: '' + data.settings.description,
-            })
-          ),
           h('div.form-actions', [
             h(
               'button.button',
