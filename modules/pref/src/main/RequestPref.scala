@@ -14,7 +14,7 @@ object RequestPref {
       )
     }
 
-  def fromRequest(req: RequestHeader, considerLanguage: Boolean = true): Pref = {
+  def fromRequest(req: RequestHeader, languageNotation: Boolean = true): Pref = {
 
     def paramOrSession(name: String): Option[String] =
       queryParam(req, name) orElse req.session.get(name)
@@ -40,7 +40,7 @@ object RequestPref {
       kyoPieceSet = paramOrSession("kyoPieceSet") | default.kyoPieceSet,
       soundSet = paramOrSession("soundSet") | default.soundSet,
       bgImg = paramOrSession("bgImg"),
-      notation = paramOrSession("notation").flatMap(_.toIntOption) | defaultNotation(req, considerLanguage),
+      notation = paramOrSession("notation").flatMap(_.toIntOption) | defaultNotation(req, languageNotation),
       thickGrid = paramOrSession("thickGrid").flatMap(_.toIntOption) | default.thickGrid,
       customTheme = customTheme
     )
@@ -51,8 +51,8 @@ object RequestPref {
       v.nonEmpty && v != "auto"
     }
 
-  private def defaultNotation(req: RequestHeader, considerLanguage: Boolean): Int =
-    if (considerLanguage && req.acceptLanguages.headOption.exists(_.language == "ja"))
+  private def defaultNotation(req: RequestHeader, languageNotation: Boolean): Int =
+    if (languageNotation && req.acceptLanguages.headOption.exists(_.language == "ja"))
       Notations.japanese.index
     else default.notation
 

@@ -196,7 +196,7 @@ object layout {
       case lila.i18n.LangList.EnglishJapanese =>
         defaultWithEnHrefLang(path) + hrefLang("ja", s"$path?lang=ja")
       case lila.i18n.LangList.All =>
-        defaultWithEnHrefLang(path) + (lila.i18n.LangList.hrefLangCodes.map { langCode =>
+        defaultWithEnHrefLang(path) + (lila.i18n.LangList.alternativeHrefLangCodes.map { langCode =>
           hrefLang(langCode, s"$path?lang=$langCode")
         }).mkString
       case lila.i18n.LangList.Custom(langPathMap) =>

@@ -154,7 +154,7 @@ object LangList {
 
   // based on https://crowdin.com/project/lishogi
   // at least 80%, en not included
-  private val fullyTranslated =
+  private val mostlyTranslated =
     Set(
       "be-BY",
       "zh-CN",
@@ -177,8 +177,9 @@ object LangList {
   case object All                                  extends AlternativeLangs
   case class Custom(langPath: Map[String, String]) extends AlternativeLangs
 
-  lazy val hrefLangCodes: List[String] =
-    popular.withFilter(l => fullyTranslated.contains(l.code)).map(languageCode).take(15)
+  // no english, sorted by popularity
+  lazy val alternativeHrefLangCodes: List[String] =
+    popular.withFilter(l => mostlyTranslated.contains(l.code)).map(languageCode).take(15)
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)

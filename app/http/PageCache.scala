@@ -23,7 +23,7 @@ final class PageCache(cacheApi: lila.memo.CacheApi) {
     s"${HTTPRequest actionName ctx.req}(${ctx.lang.code})"
 
   private def defaultPrefs(req: RequestHeader) =
-    lila.pref.RequestPref.fromRequest(req, considerLanguage = false) == lila.pref.Pref.default
+    lila.pref.RequestPref.fromRequest(req, languageNotation = false) == lila.pref.Pref.default
 
   private val langs =
     Set("en-US", "en-GB", "ja-JP", "ru-RU", "es-ES", "pt-BR", "fr-FR", "de-DE", "zh-CN", "vi-VN")
