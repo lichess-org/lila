@@ -465,9 +465,6 @@
   <string name="safeTournamentName">Turnuva için oldukça güvenli bir isim seçin.</string>
   <string name="inappropriateNameWarning">Herhangi bir uygunsuz isim, hesabınızın yasaklanmasına yol açabilir.</string>
   <string name="emptyTournamentName">Kutuyu boş bırakarak turnuvaya rastgele bir Büyükusta\'nın ismini verebilirsiniz.</string>
-  <string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
-  <string name="fewerPlayers">Turnuvaya katılım şartı koyarsanız, daha az oyuncu katılacaktır.</string>
-  <string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
   <string name="makePrivateTournament">Turnuvayı özel olarak ayarlayın ve şifre koyarak erişimi kısıtlayın</string>
   <string name="join">Katıl</string>
   <string name="withdraw">Çekil</string>
