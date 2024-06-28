@@ -70,8 +70,8 @@
   <string name="promoteVariation">Promoure variant</string>
   <string name="makeMainLine">Convertir en línia principal</string>
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Amagar variacions</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Expandir variacions</string>
+  <string name="collapseVariations">Amagar variacions</string>
+  <string name="expandVariations">Expandir variacions</string>
   <string name="forceVariation">Forçar variant</string>
   <string name="copyVariationPgn">Copia el PGN de la variació</string>
   <string name="move">Moviment</string>
@@ -509,8 +509,6 @@
   <string name="ifNoneLeaveEmpty">Si no en tens, deixa-ho buit</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
-  <string name="firstName">Nom</string>
-  <string name="lastName">Cognoms</string>
   <string name="setFlair">Defineix el teu estil</string>
   <string name="flair">Icona</string>
   <string name="youCanHideFlair">Existeix una configuració per amagar els estils dels jugadors a tot el lloc web.</string>
