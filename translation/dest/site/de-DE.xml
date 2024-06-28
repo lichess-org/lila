@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
   <string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
   <string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
-  <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
-  <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
-  <string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
   <string name="makePrivateTournament">Stelle das Turnier auf privat und beschränke den Zugang durch ein Passwort</string>
   <string name="join">Teilnehmen</string>
   <string name="withdraw">Verlassen</string>
