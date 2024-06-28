@@ -70,8 +70,8 @@
   <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">بستن شاخه‌ها</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">باز کردن شاخه‌ها</string>
+  <string name="collapseVariations">بستن شاخه‌ها</string>
+  <string name="expandVariations">باز کردن شاخه‌ها</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
@@ -509,8 +509,6 @@
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
   <string name="profile">رُخ‌نما</string>
   <string name="editProfile">ویرایش رُخ‌نما</string>
-  <string name="firstName">نام</string>
-  <string name="lastName">نام خانوادگی</string>
   <string name="setFlair">تعیین کردن شکلک</string>
   <string name="flair">نشان</string>
   <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
