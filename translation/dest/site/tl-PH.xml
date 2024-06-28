@@ -406,9 +406,6 @@
   <string name="safeTournamentName">Pumili ka ng angkop na pangalan ng paligsahan.</string>
   <string name="inappropriateNameWarning">Maaaring masara ang iyong account kapag naglagay ka ng kahit anong hindi naaangkop na bagay.</string>
   <string name="emptyTournamentName">Pabayaang walang laman upang pangalanan ang paligsahang ito sa isang Grandmaster.</string>
-  <string name="recommendNotTouching">Payo naming huwag pakialaman ang mga ito.</string>
-  <string name="fewerPlayers">Kung maglagay ka ng mga kondisyon upang makapasok, kakaunti ang mga maglalaro ng iyong paligsahan.</string>
-  <string name="showAdvancedSettings">Ipakita ang mga masulong na setting</string>
   <string name="makePrivateTournament">Gawing pribado ang paligsahan, at higpitan ang access sa pamamagitan ng isang password</string>
   <string name="join">Sumali</string>
   <string name="withdraw">Umalis</string>
