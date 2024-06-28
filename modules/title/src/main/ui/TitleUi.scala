@@ -160,10 +160,8 @@ Today's date is [current date]""")
           if form("public").value.isDefined || form.hasErrors
           then form("public")
           else form("public").copy(value = "true".some),
-          frag("Publish my title"),
-          help = frag(
-            "Recommended. Your title is visible on your profile page. Your real name is NOT published."
-          ).some,
+          frag("Public account"),
+          help = frag("Recommended. Required for coaching, streaming, and prize tournaments.").some,
           half = true
         ),
         form3.checkbox(
