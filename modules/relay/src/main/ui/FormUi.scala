@@ -163,7 +163,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             half = true
           )(form3.flatpickr(_, minDate = None))
         ),
-        form3.fieldset("Source")(cls := "box-pad")(
+        form3.fieldset("Source", toggle = true.some)(cls := "box-pad")(
           form3.group(
             form("syncSource"),
             "Where do the games come from?"
@@ -441,7 +441,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           ),
         form3.fieldset(
           "Players & Teams",
-          toggle = (form("players").value.isDefined || form("teams").value.isDefined).some
+          toggle = List("players", "teams").exists(k => form(k).value.exists(_.nonEmpty)).some
         )(
           form3.split(
             form3.group(

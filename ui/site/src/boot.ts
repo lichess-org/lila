@@ -115,8 +115,12 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    $('.form-fieldset--toggle legend').on('click', function (this: HTMLElement) {
-      $(this).closest('.form-fieldset--toggle').toggleClass('form-fieldset--toggle-off');
+    $('.form-fieldset--toggle').each(function (this: HTMLFieldSetElement) {
+      const toggle = () => this.classList.toggle('form-fieldset--toggle-off');
+      $(this)
+        .find('legend')
+        .on('click', toggle)
+        .on('keypress', e => e.key == 'Enter' && toggle());
     });
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);

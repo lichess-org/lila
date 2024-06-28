@@ -146,8 +146,10 @@ textarea.form-control {
   padding-top: 0;
   legend {
     border: $border;
+    background: none;
     &:hover {
       @extend %box-neat;
+      background: $c-bg-zebra;
     }
     &::after {
       content: '▼';
