@@ -467,9 +467,6 @@
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
   <string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
   <string name="emptyTournamentName">این مکان را خالی بگذارید تا به صورت تصادفی اسم یک استاد بزرگ برای مسابقات انتخاب شود.</string>
-  <string name="recommendNotTouching">توصیه میکنیم که تنظیمات پیشرفته را تغییر ندهید.</string>
-  <string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
-  <string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
   <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
   <string name="join">ملحق شدن</string>
   <string name="withdraw">منصرف شدن</string>
@@ -509,7 +506,7 @@
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
   <string name="profile">رُخ‌نما</string>
   <string name="editProfile">ویرایش رُخ‌نما</string>
-  <string name="realName" comment="An option in the player profile allowing them to publicly list their full name. https://lichess.org/account/profile&#10;&#10;The term 'Real name' is used here because  most usernames on Lichess are pseudonyms.">نام راستین</string>
+  <string name="realName">نام راستین</string>
   <string name="setFlair">تعیین کردن شکلک</string>
   <string name="flair">نشان</string>
   <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
