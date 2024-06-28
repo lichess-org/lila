@@ -498,9 +498,6 @@
   <string name="safeTournamentName">Alege un nume foarte sigur pentru turneu.</string>
   <string name="inappropriateNameWarning">Orice nume care este chiar și ușor nepotrivit poate cauza închiderea contului tău.</string>
   <string name="emptyTournamentName">Lăsați necompletat pentru a numi turneul după un jucător bun de șah.</string>
-  <string name="recommendNotTouching">Iți recomandăm să nu modifici aceste setări.</string>
-  <string name="fewerPlayers">Dacă stabilești condiții de intrare, turneul tău va avea mai puțini jucători.</string>
-  <string name="showAdvancedSettings">Afișează setările avansate</string>
   <string name="makePrivateTournament">Faceți competiția privată și restricționați accesul cu o parolă</string>
   <string name="join">Intră</string>
   <string name="withdraw">Retrage-te</string>
