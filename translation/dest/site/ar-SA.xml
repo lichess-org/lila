@@ -599,9 +599,6 @@
   <string name="safeTournamentName">اختر اسماً ملائماً لهذه البطولة.</string>
   <string name="inappropriateNameWarning">أي شيء غير مناسب ولو حتى قليلاً يمكن أن يعرّض حسابك للإغلاق.</string>
   <string name="emptyTournamentName">أترك الحقل فارغاً وسيتم تسمية البطولة باسم غراند ماستر عشوائي.</string>
-  <string name="recommendNotTouching">نوصي بعدم تغيير هذه الخيارات.</string>
-  <string name="fewerPlayers">إذا حددت شروطَ دخولٍ للبطولة فقد يكون لديك لاعبون أقل.</string>
-  <string name="showAdvancedSettings">إظهار الإعدادات المتقدمة</string>
   <string name="makePrivateTournament">جعل البطولة خاصة، وتقييد الوصول بكلمة مرور</string>
   <string name="join">إشترك</string>
   <string name="withdraw">انسحاب</string>
