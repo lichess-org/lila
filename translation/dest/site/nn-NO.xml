@@ -510,6 +510,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lat stå tomt</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profilen</string>
+  <string name="realName">Verkelege namn</string>
   <string name="setFlair">Vel eit ikon som best representerer talentet ditt</string>
   <string name="flair">Talent</string>
   <string name="youCanHideFlair">Det finst ei innstilling for å skjule symbolet for spelarane sine talent på heile nettstaden.</string>
