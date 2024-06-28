@@ -82,7 +82,7 @@ def show(
               localMod = ctx.userId.exists(s.canContribute)
             ),
           "socketUrl"     -> socketUrl(s.id),
-          "socketVersion" -> socketVersion,
+          "socketVersion" -> socketVersion
         ) ++ views.board.explorerAndCevalConfig
       )
     )

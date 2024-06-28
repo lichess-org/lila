@@ -19,9 +19,9 @@ final class LearnUi(helpers: Helpers):
             "data" -> data,
             "i18n" -> i18nJsObject(i18nKeys),
             "pref" -> Json.obj(
-              "coords" -> ctx.pref.coords,
+              "coords" -> ctx.pref.coords
             )
-          ),
+          )
         )
       .css("learn")
       .graph(

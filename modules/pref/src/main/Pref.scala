@@ -336,7 +336,6 @@ object Pref:
       INSIDE  -> "Inside the board",
       OUTSIDE -> "Outside the board",
       ALL     -> "Inside all squares of the board"
-
     )
 
     def classOf(v: Int) =
