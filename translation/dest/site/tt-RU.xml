@@ -407,8 +407,6 @@
   <string name="ifNoneLeaveEmpty">Булмаса, буш калдырыгыз</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профильны үзгәртү</string>
-  <string name="firstName">Исем</string>
-  <string name="lastName">Фамилия</string>
   <string name="biography">Үзең турында</string>
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
