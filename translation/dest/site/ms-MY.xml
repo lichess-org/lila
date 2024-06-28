@@ -421,9 +421,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="safeTournamentName">Pilih nama yang selamat untuk pertandingan ini.</string>
   <string name="inappropriateNameWarning">Sebarang perkara yang tidak senonoh boleh menyebabkan akaun anda ditutup.</string>
   <string name="emptyTournamentName">Biarkan kosong untuk menamakan pertandingan kepada pemain catur terkenal.</string>
-  <string name="recommendNotTouching">Kami menasihat agar tidak menukar tetapan ini.</string>
-  <string name="fewerPlayers">Jika anda tetapkan keperluan kemasukan, pertandingan anda akan ada lebih sedikit pemain.</string>
-  <string name="showAdvancedSettings">Tunjukkan tetapan lanjutan</string>
   <string name="makePrivateTournament">Buat pertandingan privasi peribadi and kurangkan akses dengan kata kunci</string>
   <string name="join">Serta</string>
   <string name="withdraw">Tarik diri</string>
