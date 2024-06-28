@@ -72,8 +72,8 @@
   <string name="promoteVariation">העדפת וריאנט</string>
   <string name="makeMainLine">קביעה כוריאנט הראשי</string>
   <string name="deleteFromHere">מחיקה מכאן והלאה</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">הסתרת מהלכים חלופיים</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">הצגת מהלכים חלופיים</string>
+  <string name="collapseVariations">הסתרת מהלכים חלופיים</string>
+  <string name="expandVariations">הצגת מהלכים חלופיים</string>
   <string name="forceVariation">וריאנט יחיד</string>
   <string name="copyVariationPgn">העתקת ה־PGN של הוריאנט</string>
   <string name="move">מסע</string>
@@ -575,8 +575,6 @@
   <string name="ifNoneLeaveEmpty">אם אין, השאירו ריק</string>
   <string name="profile">פרופיל</string>
   <string name="editProfile">עריכת פרופיל</string>
-  <string name="firstName">שם פרטי</string>
-  <string name="lastName">שם משפחה</string>
   <string name="setFlair">הגדירו את הסמליל שלכם</string>
   <string name="flair">סמליל</string>
   <string name="youCanHideFlair">ישנה הגדרה שמאפשרת להסתיר את כל הסמלילים באתר.</string>
