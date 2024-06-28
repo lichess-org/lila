@@ -89,7 +89,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
             )) =>
           sim :: acc
         case (acc, _) => acc
-      }.sortBy(_.nbAccepted)
+      }.sortBy(-_.nbAccepted)
     }
 
   def hostId(id: Simul.ID): Fu[Option[User.ID]] =
