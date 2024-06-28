@@ -127,6 +127,8 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
       url  = s"${env.net.baseUrl}${routes.TitleVerify.show(req.id)}"
       note = s"Title verified: ${req.data.title}. Public: ${if req.data.public then "Yes" else "No"}. $url"
       _ <- env.user.noteApi.write(user.id, note, modOnly = true, dox = false)
+      _ <- req.data.public.so:
+        env.user.repo.setRealName(user.id, req.data.realName)
       _ <- req.data.coach.so:
         env.user.repo.addPermission(user.id, lila.core.perm.Permission.Coach)
       _ <- req.data.coach.so:
