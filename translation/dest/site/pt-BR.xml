@@ -509,6 +509,7 @@
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
+  <string name="realName">Nome real</string>
   <string name="setFlair">Escolha seu emote</string>
   <string name="flair">Estilo</string>
   <string name="youCanHideFlair">Você pode esconder todos os emotes de usuário no site.</string>
