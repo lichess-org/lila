@@ -509,6 +509,7 @@
   <string name="ifNoneLeaveEmpty">Nur falls vorhanden</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
+  <string name="realName">Echter Name</string>
   <string name="setFlair">Setze dein Flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Es existiert eine Einstellungsmöglichkeit, um alle Benutzerflairs auf der gesamten Seite zu verbergen.</string>
