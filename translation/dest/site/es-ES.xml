@@ -509,6 +509,7 @@
   <string name="ifNoneLeaveEmpty">Si no aplica, déjalo en blanco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
+  <string name="realName">Nombre real</string>
   <string name="setFlair">Configura tu entorno</string>
   <string name="flair">Entorno</string>
   <string name="youCanHideFlair">Existe una opción para ocultar la configuración de entorno en todo el sitio.</string>
