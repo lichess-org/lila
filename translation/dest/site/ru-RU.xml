@@ -533,9 +533,6 @@
   <string name="safeTournamentName">Выберите для турнира как можно более безопасное название.</string>
   <string name="inappropriateNameWarning">Если название хотя бы немного покажется неуместным, вас могут заблокировать.</string>
   <string name="emptyTournamentName">Оставьте пустым, чтобы назвать турнир в честь случайного гроссмейстера.</string>
-  <string name="recommendNotTouching">Мы не рекомендуем задавать эти условия.</string>
-  <string name="fewerPlayers">Если вы зададите условия участия, то в вашем турнире сможет принять участие меньше игроков.</string>
-  <string name="showAdvancedSettings">Показать дополнительные настройки</string>
   <string name="makePrivateTournament">Сделать турнир закрытым и ограничить доступ паролем</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
