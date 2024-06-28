@@ -24,20 +24,22 @@ final class JsonView(
   given Writes[Option[RelayTour.Tier]] = Writes: t =>
     JsString(t.flatMap(RelayTour.Tier.keys.get) | "user")
 
+  given OWrites[RelayTour.Info] = Json.writes
+
   given OWrites[RelayTour] = OWrites: t =>
     Json
       .obj(
-        "id"          -> t.id,
-        "name"        -> t.name,
-        "slug"        -> t.slug,
-        "description" -> t.description,
-        "createdAt"   -> t.createdAt,
-        "url"         -> s"$baseUrl${t.path}"
+        "id"        -> t.id,
+        "name"      -> t.name,
+        "slug"      -> t.slug,
+        "info"      -> t.info,
+        "createdAt" -> t.createdAt,
+        "url"       -> s"$baseUrl${t.path}"
       )
       .add("tier" -> t.tier)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
-  given OWrites[RelayTour.IdName] = Json.writes[RelayTour.IdName]
+  given OWrites[RelayTour.IdName] = Json.writes
 
   given OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(

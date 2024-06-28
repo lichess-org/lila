@@ -114,7 +114,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           boxTop:
             ui.broadcastH1(t.name)
           ,
-          h2(t.description),
+          h2(t.info.toString),
           markup.map: html =>
             frag(
               hr,
@@ -206,7 +206,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           if errors.nonEmpty
           then ul(cls := "relay-card__errors")(errors.map(li(_)))
-          else span(cls := "relay-card__desc")(tr.tour.description)
+          else span(cls := "relay-card__desc")(tr.tour.info.toString)
         )
       )
 
@@ -215,7 +215,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         image(t),
         span(cls := "relay-card__body")(
           h3(cls := "relay-card__title")(t.name),
-          span(cls := "relay-card__desc")(t.description)
+          span(cls := "relay-card__desc")(t.info.toString)
         )
       )
 

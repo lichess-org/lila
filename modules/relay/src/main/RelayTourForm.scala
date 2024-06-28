@@ -3,7 +3,7 @@ package lila.relay
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanText, formatter, into, numberIn }
+import lila.common.Form.{ cleanText, formatter, into, numberIn, ISODate }
 import lila.core.perm.Granter
 
 import lila.core.i18n.I18nKey.streamer
@@ -17,10 +17,18 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       RelayTour.Spotlight.apply
     )(unapply)
 
+  val infoMapping = mapping(
+    "startAt" -> optional(ISODate.mapping),
+    "endAt"   -> optional(ISODate.mapping),
+    "format"  -> optional(cleanText(maxLength = 80)),
+    "tc"      -> optional(cleanText(maxLength = 80)),
+    "players" -> optional(cleanText(maxLength = 120))
+  )(RelayTour.Info.apply)(unapply)
+
   val form = Form(
     mapping(
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
-      "description"     -> cleanText(minLength = 3, maxLength = 400),
+      "info"            -> infoMapping,
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
       "tier"            -> optional(numberIn(RelayTour.Tier.keys.keySet)),
       "autoLeaderboard" -> boolean,
@@ -45,7 +53,7 @@ object RelayTourForm:
 
   case class Data(
       name: RelayTour.Name,
-      description: String,
+      info: RelayTour.Info,
       markup: Option[Markdown],
       tier: Option[RelayTour.Tier],
       autoLeaderboard: Boolean,
@@ -61,7 +69,7 @@ object RelayTourForm:
       tour
         .copy(
           name = name,
-          description = description,
+          info = info,
           markup = markup,
           tier = if Granter(_.Relay) then tier else tour.tier,
           autoLeaderboard = autoLeaderboard,
@@ -77,7 +85,7 @@ object RelayTourForm:
       RelayTour(
         id = RelayTour.makeId,
         name = name,
-        description = description,
+        info = info,
         markup = markup,
         ownerId = me,
         tier = tier.ifTrue(Granter(_.Relay)),
@@ -99,7 +107,7 @@ object RelayTourForm:
       import tg.*
       Data(
         name = tour.name,
-        description = tour.description,
+        info = tour.info,
         markup = tour.markup,
         tier = tour.tier,
         autoLeaderboard = tour.autoLeaderboard,

@@ -374,32 +374,58 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
         form3.group(form("name"), trb.tournamentName())(form3.input(_)(autofocus)),
-        form3.group(form("description"), trb.tournamentDescription())(form3.textarea(_)(rows := 2)),
-        form3.group(
-          form("markdown"),
-          trb.fullDescription(),
-          help = trb
-            .fullDescriptionHelp(
-              a(
-                href := "https://guides.github.com/features/mastering-markdown/",
-                targetBlank
-              )("Markdown"),
-              20000.localize
-            )
-            .some
-        )(form3.textarea(_)(rows := 10)),
-        form3.split(
-          form3.checkbox(
-            form("autoLeaderboard"),
-            trb.automaticLeaderboard(),
-            help = trb.automaticLeaderboardHelp().some
+        form3.fieldset("Optional details", toggle = tg.exists(_.tour.info.nonEmpty).some)(
+          form3.split(
+            form3.group(
+              form("info.format"),
+              "Tournament format",
+              help = frag("""e.g. "8-player round-robin" or "5-round Swiss"""").some,
+              half = true
+            )(form3.input(_)),
+            form3.group(
+              form("info.tc"),
+              "Time control",
+              help = frag(""""Classical" or "Rapid"""").some,
+              half = true
+            )(form3.input(_))
           ),
-          form3.checkbox(
-            form("teamTable"),
-            "Team tournament",
-            help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
-          )
+          form3.split(
+            form3.group(
+              form("info.players"),
+              "Top players",
+              help = frag("Mention up to 4 of the best players participating").some,
+              half = true
+            )(form3.input(_))
+          ),
+          form3.group(
+            form("markdown"),
+            trb.fullDescription(),
+            help = trb
+              .fullDescriptionHelp(
+                a(
+                  href := "https://guides.github.com/features/mastering-markdown/",
+                  targetBlank
+                )("Markdown"),
+                20000.localize
+              )
+              .some
+          )(form3.textarea(_)(rows := 10))
         ),
+        form3
+          .fieldset("Features", toggle = tg.map(_.tour).exists(t => t.autoLeaderboard || t.teamTable).some)(
+            form3.split(
+              form3.checkbox(
+                form("autoLeaderboard"),
+                trb.automaticLeaderboard(),
+                help = trb.automaticLeaderboardHelp().some
+              ),
+              form3.checkbox(
+                form("teamTable"),
+                "Team tournament",
+                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
+              )
+            )
+          ),
         form3.fieldset(
           "Players & Teams",
           toggle = (form("players").value.isDefined || form("teams").value.isDefined).some
@@ -444,7 +470,7 @@ Team Dogs ; Scooby Doo"""),
         ),
         if Granter.opt(_.Relay) then
           frag(
-            form3.fieldset("Broadcast admin")(
+            form3.fieldset("Broadcast admin", toggle = true.some)(
               tg.isDefined.option(grouping(form)),
               form3.split(
                 form3.group(

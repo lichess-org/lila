@@ -184,7 +184,7 @@ final class RelayApi(
         $id(tour.id),
         $setsAndUnsets(
           "name"            -> tour.name.some,
-          "description"     -> tour.description.some,
+          "info"            -> tour.info.some,
           "markup"          -> tour.markup,
           "tier"            -> tour.tier,
           "autoLeaderboard" -> tour.autoLeaderboard.some,

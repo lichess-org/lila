@@ -5,11 +5,12 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.i18n.Language
 import lila.core.misc.PicfitUrl
 import lila.core.id.ImageId
+import java.time.LocalDate
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
     name: RelayTour.Name,
-    description: String,
+    info: RelayTour.Info,
     markup: Option[Markdown] = None,
     ownerId: UserId,
     createdAt: Instant,
@@ -73,6 +74,16 @@ object RelayTour:
       PRIVATE -> "private"
     )
     type Selector = RelayTour.Tier.type => RelayTour.Tier
+
+  case class Info(
+      startAt: Option[LocalDate],
+      endAt: Option[LocalDate],
+      format: Option[String],
+      tc: Option[String],
+      players: Option[String]
+  ):
+    def nonEmpty          = List(startAt, endAt, format, tc, players).exists(_.nonEmpty)
+    override def toString = List(format, tc, players).flatten.mkString(" | ")
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty

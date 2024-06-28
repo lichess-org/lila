@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
-import { RelayGroup, RelayRound } from './interfaces';
+import { RelayGroup, RelayRound, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined } from 'common';
 import StudyCtrl from '../studyCtrl';
@@ -103,13 +103,16 @@ const leaderboard = (ctx: RelayViewContext) => [
   ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
 ];
 
+const descriptionOf = (info: RelayTourInfo) => h('div.relay-tour__info', JSON.stringify(info));
+
 const overview = (ctx: RelayViewContext) => [
   ...header(ctx),
   ctx.relay.data.tour.markup
     ? h('div.relay-tour__markup', {
         hook: innerHTML(ctx.relay.data.tour.markup, () => ctx.relay.data.tour.markup!),
       })
-    : h('div.relay-tour__markup', ctx.relay.data.tour.description),
+    : undefined,
+  descriptionOf(ctx.relay.data.tour.info),
   h('div.relay-tour__share', [
     h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
     ...[
