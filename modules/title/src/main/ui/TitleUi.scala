@@ -62,14 +62,20 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           req,
           "idDocument",
           name = "Identity document",
-          help = frag("ID card, passport or driver's license.")
+          help = div(
+            p("ID card, passport or driver's license."),
+            p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))
+          )
         ),
         imageByTag(
           req,
           "selfie",
           name = "Your picture",
-          help = frag(
-            """A picture of yourself holding up a piece of paper, with today's date and your Lichess username written on it."""
+          help = div(
+            p("""A picture of yourself holding up a piece of paper, with the required text:"""),
+            pre("""Official Lichess verification
+My Lichess account is [your username]
+Today's date is [current date]""")
           )
         )
       ),
@@ -187,10 +193,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
         cls               := List("drop-target" -> true, "user-image" -> image.isDefined),
         attr("draggable") := "true"
       ),
-      div(
-        help,
-        p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))
-      )
+      help
     )
 
   object thumbnail:
