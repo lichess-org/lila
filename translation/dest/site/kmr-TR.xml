@@ -410,9 +410,6 @@
   <string name="safeTournamentName">Ji bo pêşbirkê navekê pir ewle bibijêre.</string>
   <string name="inappropriateNameWarning">Navekê piçekî nelirê dibe ku bibe sedem ji girtina hesabê te re.</string>
   <string name="emptyTournamentName">Cihê navê vala bihêlî wê bi ketoberî naveke hosteyeke kişikê yê hêja lê were danîn.</string>
-  <string name="recommendNotTouching">Em pêşniyar dikin ku destê xwe nedî van.</string>
-  <string name="fewerPlayers">Ger tu mercên tevlîbûnê saz bikî, wê kêmtir lîzer hebin di pêşbirka te de.</string>
-  <string name="showAdvancedSettings">Sazkariyên pêşketî nîşan bide</string>
   <string name="makePrivateTournament">Tûrnûva bik taybet û gihînê jî bi şîfre tengbik</string>
   <string name="join">Tevlê bibe</string>
   <string name="withdraw">Vekişe</string>
