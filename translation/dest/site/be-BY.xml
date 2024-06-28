@@ -513,9 +513,6 @@
   <string name="safeTournamentName">Абярыце назву для турніру (бяспечную, калі ласка).</string>
   <string name="inappropriateNameWarning">Усё, што нават крыху апынецца недарэчным, можа прывесці да блакіроўкі.</string>
   <string name="emptyTournamentName">Пакіньце пустым, каб назваць турнір у гонар выпадковага гросмайстра.</string>
-  <string name="recommendNotTouching">Лепей тут нічога не чапаць.</string>
-  <string name="fewerPlayers">Калі вы задасце ўмовы ўваходу, то не ўсе гульцы змогуць далучыцца да вашага турніру.</string>
-  <string name="showAdvancedSettings">Паказаць дадатковыя налады</string>
   <string name="makePrivateTournament">Зрабіць турнір прыватным і абмяжаваць доступ паролем</string>
   <string name="join">Далучыцца</string>
   <string name="withdraw">Адмовіцца ад удзелу</string>
