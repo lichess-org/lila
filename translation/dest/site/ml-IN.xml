@@ -446,8 +446,6 @@
   <string name="ifNoneLeaveEmpty">ഒന്നുമില്ലെങ്കിൽ ഒഴിവാക്കിയിടുക</string>
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
-  <string name="firstName">നൽകിയ പേര്</string>
-  <string name="lastName">അവസാന പേര്</string>
   <string name="biography">ജീവചരിത്രം</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
