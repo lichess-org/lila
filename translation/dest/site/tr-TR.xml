@@ -507,8 +507,6 @@
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili düzenle</string>
-  <string name="firstName">Ad</string>
-  <string name="lastName">Soyad</string>
   <string name="setFlair">Rozetinizi seçin</string>
   <string name="flair">Rozet</string>
   <string name="youCanHideFlair">Ayarlardan oyuncu rozetlerini gizleyebilirsiniz.</string>
