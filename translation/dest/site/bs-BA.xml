@@ -494,9 +494,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="safeTournamentName">Odaberite vrlo siguran naziv za turnir.</string>
   <string name="inappropriateNameWarning">Sve što je imalo neprikladno može dovesti do trajnog zatvaranja vašeg profila.</string>
   <string name="emptyTournamentName">Ako ostavite prazno, turnir će se nazvati po slučajno odabranom šahovskom igraču.</string>
-  <string name="recommendNotTouching">Preporučujemo da ne dirate ove opcije.</string>
-  <string name="fewerPlayers">Ako postavite uslov za učestvovanje, vaš turnir će imati manje igrača.</string>
-  <string name="showAdvancedSettings">Pogledajte napredne postavke</string>
   <string name="makePrivateTournament">Učinite turnir privatnim i ograničite pristup lozinkom</string>
   <string name="join">Pridružite se</string>
   <string name="withdraw">Odustanite</string>
