@@ -432,9 +432,6 @@
   <string name="safeTournamentName">เลือกชื่อที่ปลอดภัยสุดสำหรับทัวร์นาเมนต์</string>
   <string name="inappropriateNameWarning">อะไรที่ไม่เหมาะสมแม้เพียงเล็กน้อย ก็สามารถทำให้บัญชีของคุณถูกปิดได้</string>
   <string name="emptyTournamentName">ปล่อยว่างไว้เพื่อตั้งชื่อทัวร์นาเมนต์หลังจากสุ่มแกรนด์มาสเตอร์</string>
-  <string name="recommendNotTouching">เราแนะนำว่าอย่าแตะต้องสิ่งเหล่านี้</string>
-  <string name="fewerPlayers">ถ้าคุณตั้งค่าเงื่อนไขการเข้าร่วม ทัวร์นาเมนต์ของคุณจะมีผู้เข้าเล่นได้น้อยลง</string>
-  <string name="showAdvancedSettings">แสดงการตั้งค่าขั้นสูง</string>
   <string name="makePrivateTournament">ทำทัวร์นาเมนต์ให้เป็นส่วนตัว และจำกัดการเข้าถึงด้วยรหัสผ่าน</string>
   <string name="join">เข้าร่วม</string>
   <string name="withdraw">ถอนตัว</string>
