@@ -447,8 +447,6 @@
   <string name="ifNoneLeaveEmpty">Kung wala, iwang walang laman</string>
   <string name="profile">Profile</string>
   <string name="editProfile">I-edit ang profile</string>
-  <string name="firstName">Pangalan</string>
-  <string name="lastName">Apelyido</string>
   <string name="biography">Talambuhay</string>
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
