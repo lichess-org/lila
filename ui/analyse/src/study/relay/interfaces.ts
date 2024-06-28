@@ -30,8 +30,7 @@ export interface RelayRound {
 }
 
 export interface RelayTourInfo {
-  startAt?: number;
-  endAt?: number;
+  dates?: string;
   format?: string;
   tc?: string;
   players?: string;

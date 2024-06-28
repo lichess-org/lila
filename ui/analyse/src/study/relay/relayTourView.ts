@@ -103,16 +103,30 @@ const leaderboard = (ctx: RelayViewContext) => [
   ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
 ];
 
-const descriptionOf = (info: RelayTourInfo) => h('div.relay-tour__info', JSON.stringify(info));
+const showInfo = (i: RelayTourInfo) =>
+  h(
+    'div.relay-tour__info',
+    [
+      ['dates', i.dates, 'objects.calendar'],
+      ['format', i.format, 'objects.crown'],
+      ['tc', i.tc, 'objects.mantelpiece-clock'],
+      ['players', i.players, 'activity.sparkles'],
+    ].map(([key, value, icon]) =>
+      h('div.relay-tour__info__' + key, [
+        h('img', { attrs: { src: site.asset.flairSrc(icon as string) } }),
+        value,
+      ]),
+    ),
+  );
 
 const overview = (ctx: RelayViewContext) => [
   ...header(ctx),
+  showInfo(ctx.relay.data.tour.info),
   ctx.relay.data.tour.markup
     ? h('div.relay-tour__markup', {
         hook: innerHTML(ctx.relay.data.tour.markup, () => ctx.relay.data.tour.markup!),
       })
     : undefined,
-  descriptionOf(ctx.relay.data.tour.info),
   h('div.relay-tour__share', [
     h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
     ...[

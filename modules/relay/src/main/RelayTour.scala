@@ -76,13 +76,12 @@ object RelayTour:
     type Selector = RelayTour.Tier.type => RelayTour.Tier
 
   case class Info(
-      startAt: Option[LocalDate],
-      endAt: Option[LocalDate],
+      dates: Option[String],
       format: Option[String],
       tc: Option[String],
       players: Option[String]
   ):
-    def nonEmpty          = List(startAt, endAt, format, tc, players).exists(_.nonEmpty)
+    def nonEmpty          = List(dates, format, tc, players).exists(_.nonEmpty)
     override def toString = List(format, tc, players).flatten.mkString(" | ")
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):

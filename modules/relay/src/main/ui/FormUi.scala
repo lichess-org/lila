@@ -26,8 +26,10 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   private def navigationMenu(nav: FormNavigation)(using Context) =
     def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
       a(
-        href := routes.RelayTour.edit(nav.tour.id),
+        href     := routes.RelayTour.edit(nav.tour.id),
+        dataIcon := Icon.RadioTower,
         cls := List(
+          "text"                            -> true,
           "relay-form__subnav__tour-parent" -> shortName.isDefined,
           "active"                          -> (nav.round.isEmpty && !nav.newRound)
         )
@@ -377,19 +379,25 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form3.fieldset("Optional details", toggle = tg.exists(_.tour.info.nonEmpty).some)(
           form3.split(
             form3.group(
+              form("info.dates"),
+              "Event dates",
+              help = frag("""Start and end dates, eg "June 17th - 25th" or "June 17th"""").some,
+              half = true
+            )(form3.input(_)),
+            form3.group(
               form("info.format"),
               "Tournament format",
               help = frag("""e.g. "8-player round-robin" or "5-round Swiss"""").some,
               half = true
-            )(form3.input(_)),
+            )(form3.input(_))
+          ),
+          form3.split(
             form3.group(
               form("info.tc"),
               "Time control",
               help = frag(""""Classical" or "Rapid"""").some,
               half = true
-            )(form3.input(_))
-          ),
-          form3.split(
+            )(form3.input(_)),
             form3.group(
               form("info.players"),
               "Top players",

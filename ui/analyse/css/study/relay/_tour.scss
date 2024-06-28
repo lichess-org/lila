@@ -286,6 +286,21 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
 
+  &__info {
+    @extend %box-neat, %flex-between;
+    gap: 1em;
+    background: $c-bg-zebra;
+    margin: 3em var(---box-padding);
+    padding: 1em 2em;
+    > div {
+      @extend %flex-center-nowrap;
+      gap: 1em;
+    }
+    img {
+      height: 2em;
+    }
+  }
+
   &__markup {
     @include rendered-markdown(2em, 50vh);
     margin: 3em var(---box-padding);
