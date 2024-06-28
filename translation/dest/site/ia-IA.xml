@@ -417,8 +417,6 @@
   <string name="ifNoneLeaveEmpty">Si necun, lassa lo vacue</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modificar profilo</string>
-  <string name="firstName">Prenomine</string>
-  <string name="lastName">Nomine de familia</string>
   <string name="biography">Biographia</string>
   <string name="thankYou">Gratias!</string>
   <string name="socialMediaLinks">Ligamines de medios social</string>
