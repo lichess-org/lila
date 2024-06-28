@@ -575,6 +575,7 @@
   <string name="ifNoneLeaveEmpty">אם אין, השאירו ריק</string>
   <string name="profile">פרופיל</string>
   <string name="editProfile">עריכת פרופיל</string>
+  <string name="realName">שם אמיתי</string>
   <string name="setFlair">הגדירו את הסמליל שלכם</string>
   <string name="flair">סמליל</string>
   <string name="youCanHideFlair">ישנה הגדרה שמאפשרת להסתיר את כל הסמלילים באתר.</string>
