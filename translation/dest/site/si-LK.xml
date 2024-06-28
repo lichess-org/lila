@@ -459,8 +459,6 @@ You are playing chess.</string>
   <string name="ifNoneLeaveEmpty">කිසිවක් නොමැති නම්, හිස්ව තබන්න</string>
   <string name="profile">පැතිකඩ</string>
   <string name="editProfile">පැතිකඩ සංස්කරණය කරන්න</string>
-  <string name="firstName">මුල් නම</string>
-  <string name="lastName">වාසගම</string>
   <string name="setFlair">ඔබේ ෆ්ලෙයාර්ය​ සකසන්න</string>
   <string name="flair">ෆ්ලෙයාරය</string>
   <string name="youCanHideFlair">සම්පූර්ණ වෙබ් අඩවිය හරහා සියලුම පරිශීලක ෆ්ලෙයාර සැඟවීමට සැකසීමක් ඇත.</string>
