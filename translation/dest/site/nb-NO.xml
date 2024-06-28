@@ -509,6 +509,7 @@
   <string name="ifNoneLeaveEmpty">Hvis ingen, la stå tom</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
+  <string name="realName" comment="An option in the player profile allowing them to publicly list their full name. https://lichess.org/account/profile&#10;&#10;The term 'Real name' is used here because  most usernames on Lichess are pseudonyms.">Virkelig navn</string>
   <string name="setFlair">Velg flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finnes en innstilling for å skjule alle brukerflairer på hele nettstedet.</string>
