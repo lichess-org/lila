@@ -574,6 +574,7 @@
   <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
+  <string name="realName" comment="An option in the player profile allowing them to publicly list their full name. https://lichess.org/account/profile&#10;&#10;The term 'Real name' is used here because  most usernames on Lichess are pseudonyms.">Skutočné meno</string>
   <string name="setFlair">Nastavte si svoju ikonku štýlu</string>
   <string name="flair">Ikonka štýlu</string>
   <string name="youCanHideFlair">V nastaveniach je možné skryť všetky ikonky štýlu používateľov na celej stránke.</string>
