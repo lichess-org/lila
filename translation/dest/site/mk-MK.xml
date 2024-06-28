@@ -456,9 +456,6 @@
   <string name="safeTournamentName">Одбери многу безбедно име за турнирот.</string>
   <string name="inappropriateNameWarning">И најмалку непристојни работи можат да ви ја затворат сметката.</string>
   <string name="emptyTournamentName">Остави празно за турнирот да биде крстен по шаховски првак.</string>
-  <string name="recommendNotTouching">Препорачуваме да не ги менувате овие поставки.</string>
-  <string name="fewerPlayers">Ако поставите услови за влез, вашиот турнир ќе има помалку играчи.</string>
-  <string name="showAdvancedSettings">Покажи ги напредните поставки</string>
   <string name="makePrivateTournament">Направи го турнирот приватен и ограничи го пристапот со лозинка</string>
   <string name="join">Приклучи се</string>
   <string name="withdraw">Предади</string>
