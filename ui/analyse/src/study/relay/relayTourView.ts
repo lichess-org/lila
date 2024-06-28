@@ -111,11 +111,11 @@ const showInfo = (i: RelayTourInfo) =>
       ['format', i.format, 'objects.crown'],
       ['tc', i.tc, 'objects.mantelpiece-clock'],
       ['players', i.players, 'activity.sparkles'],
-    ].map(([key, value, icon]) =>
-      h('div.relay-tour__info__' + key, [
-        h('img', { attrs: { src: site.asset.flairSrc(icon as string) } }),
-        value,
-      ]),
+    ].map(
+      ([key, value, icon]) =>
+        value &&
+        icon &&
+        h('div.relay-tour__info__' + key, [h('img', { attrs: { src: site.asset.flairSrc(icon) } }), value]),
     ),
   );
 

@@ -206,7 +206,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           if errors.nonEmpty
           then ul(cls := "relay-card__errors")(errors.map(li(_)))
-          else span(cls := "relay-card__desc")(tr.tour.info.toString)
+          else tr.tour.info.players.map(span(cls := "relay-card__desc")(_))
         )
       )
 
