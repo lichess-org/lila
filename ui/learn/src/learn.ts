@@ -49,7 +49,7 @@ export function initModule({ data, i18n, pref }: LearnServerOpts) {
     storage: _storage,
     stageId: null,
     levelId: null,
-    pref: pref
+    pref: pref,
   };
   const ctrl = new LearnCtrl(opts, redraw);
 
