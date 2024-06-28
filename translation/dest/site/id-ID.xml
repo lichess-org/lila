@@ -470,8 +470,6 @@
   <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
-  <string name="firstName">Nama depan</string>
-  <string name="lastName">Nama Belakang</string>
   <string name="setFlair">Sunting flair anda</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Terdapat setting untuk menyembunyikan semua flair pengguna pada seluruh situs.</string>
