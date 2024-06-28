@@ -417,9 +417,6 @@ You are playing chess.</string>
   <string name="safeTournamentName">තරඟාවලිය සඳහා ඉතා ආරක්ෂිත නමක් තෝරන්න.</string>
   <string name="inappropriateNameWarning">තරමක් නුසුදුසු ඕනෑම දෙයක් නිසා ඔබගේ ගිණුම වසා දැමිය හැක.</string>
   <string name="emptyTournamentName">කැපී පෙනෙන චෙස් ක්‍රීඩකයෙකුගේ නමින් තරඟාවලිය නම් කිරීමට හිස්ව තබන්න.</string>
-  <string name="recommendNotTouching">මේවා ඇල්ලීම​ නොකරන ලෙස අපි නිර්දේශ කරමු.</string>
-  <string name="fewerPlayers">ඔබ ප්‍රවේශ අවශ්‍යතා සකසන්නේ නම්, ඔබේ තරඟාවලියට ක්‍රීඩකයින් සංඛ්‍යාව අඩු වනු ඇත.</string>
-  <string name="showAdvancedSettings">උසස් සැකසුම් පෙන්වන්න</string>
   <string name="makePrivateTournament">තරඟාවලිය පුද්ගලික කරන්න, මුරපදයකින් ප්‍රවේශය සීමා කරන්න</string>
   <string name="join">එකතු වන්න​</string>
   <string name="withdraw">ඉල්ලා අස් වෙන්න​</string>
