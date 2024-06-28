@@ -432,9 +432,6 @@
   <string name="safeTournamentName">토너먼트 이름은 무난한 것으로 정해주십시오.</string>
   <string name="inappropriateNameWarning">조금이라도 부적절한 이름일 경우에는 계정이 정지될 수도 있습니다.</string>
   <string name="emptyTournamentName">토너먼트 이름을 공란으로 두면, 임의의 그랜드마스터 선수 이름으로 선택됩니다.</string>
-  <string name="recommendNotTouching">이 설정은 되도록이면 그대로 두는 것을 추천합니다.</string>
-  <string name="fewerPlayers">참가조건을 설정하면, 참가자 수가 적어집니다.</string>
-  <string name="showAdvancedSettings">고급 설정 보기</string>
   <string name="makePrivateTournament">토너먼트를 비공개로 바꾸고, 비밀번호가 있어야만 들어갈 수 있습니다.</string>
   <string name="join">참가하기</string>
   <string name="withdraw">중단</string>
