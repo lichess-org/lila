@@ -69,8 +69,8 @@
   <string name="promoteVariation">変化を主手順にする</string>
   <string name="makeMainLine">主手順にする</string>
   <string name="deleteFromHere">これ以降を削除</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">変化手順をかくす</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">変化手順を表示する</string>
+  <string name="collapseVariations">変化手順をかくす</string>
+  <string name="expandVariations">変化手順を表示する</string>
   <string name="forceVariation">変化として表示</string>
   <string name="copyVariationPgn">手順の PGN をコピー</string>
   <string name="move">手</string>
@@ -477,8 +477,6 @@
   <string name="ifNoneLeaveEmpty">ない場合は空白で</string>
   <string name="profile">プロフィール</string>
   <string name="editProfile">プロフィールの編集</string>
-  <string name="firstName">名</string>
-  <string name="lastName">姓</string>
   <string name="setFlair">フレアを設定</string>
   <string name="flair">フレア</string>
   <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
