@@ -509,6 +509,7 @@
   <string name="ifNoneLeaveEmpty">Se non aplica, déixao en branco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
+  <string name="realName">Nome</string>
   <string name="setFlair">Escolle a túa habelencia</string>
   <string name="flair">Habelencia</string>
   <string name="youCanHideFlair">Nas preferencias podes agochar por completo as habelencias dos xogadores en todo o sitio.</string>
