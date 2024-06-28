@@ -504,8 +504,6 @@
   <string name="ifNoneLeaveEmpty">যদি কিছুই না হয়, খালি রাখুন</string>
   <string name="profile">পরিচিতি</string>
   <string name="editProfile">পরিচিতি সম্পাদনা</string>
-  <string name="firstName">প্রথম নাম</string>
-  <string name="lastName">শেষ নাম</string>
   <string name="setFlair">আপনার ফ্লেয়ার সেট করুন</string>
   <string name="flair">ফ্লেয়ার</string>
   <string name="youCanHideFlair">পুরো সাইট জুড়ে সমস্ত ব্যবহারকারীর ফ্লেয়ার লুকানোর জন্য একটি সেটিং রয়েছে.</string>
