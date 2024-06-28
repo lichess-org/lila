@@ -532,9 +532,6 @@
   <string name="safeTournamentName">Izberite zelo varno ime za turnir.</string>
   <string name="inappropriateNameWarning">Že zelo majhna neprimernost lahko povzroči ukinitev vašega računa.</string>
   <string name="emptyTournamentName">Pustite prazno, da bo turnir imenovan po naključnem velemojstru.</string>
-  <string name="recommendNotTouching">Priporočamo, da se tega ne dotikate.</string>
-  <string name="fewerPlayers">Če nastavite pogoje za vstop, bo imel vaš turnir manj igralcev.</string>
-  <string name="showAdvancedSettings">Prikaži napredne nastavitve</string>
   <string name="makePrivateTournament">Naredi turnir zaseben in zaščiti dostop z geslom</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Zapusti turnir</string>
