@@ -574,8 +574,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="ifNoneLeaveEmpty">Jei neturite, palikite tuščią</string>
   <string name="profile">Profilis</string>
   <string name="editProfile">Redaguoti profilį</string>
-  <string name="firstName">Vardas</string>
-  <string name="lastName">Pavardė</string>
   <string name="setFlair">Pasirinkite savo atskiriamąjį ženklą - avatarą</string>
   <string name="flair">Atskiriamasis ženklas</string>
   <string name="youCanHideFlair">Yra nustatymas leidžiantis atjungti visų žaidėjų skiriamuosius ženklus.</string>
