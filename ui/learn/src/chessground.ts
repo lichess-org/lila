@@ -1,6 +1,7 @@
 import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
 import { RunCtrl } from './run/runCtrl';
+import * as Prefs from 'common/prefs';
 
 export interface Shape {
   orig: Key;

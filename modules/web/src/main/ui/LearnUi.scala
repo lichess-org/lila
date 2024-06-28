@@ -10,12 +10,18 @@ final class LearnUi(helpers: Helpers):
   import helpers.{ *, given }
   import trans.{ learn as trl }
 
-  def apply(data: Option[play.api.libs.json.JsValue])(using Context) =
+  def apply(data: Option[play.api.libs.json.JsValue])(using ctx: Context) =
     Page(s"${trl.learnChess.txt()} - ${trl.byPlaying.txt()}")
       .js:
         PageModule(
           "learn",
-          Json.obj("data" -> data, "i18n" -> i18nJsObject(i18nKeys))
+          Json.obj(
+            "data" -> data,
+            "i18n" -> i18nJsObject(i18nKeys),
+            "pref" -> Json.obj(
+              "coords" -> ctx.pref.coords,
+            )
+          ),
         )
       .css("learn")
       .graph(

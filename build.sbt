@@ -14,7 +14,7 @@ lazy val root = Project("lila", file("."))
   .settings(scalacOptions ++= Seq("-unchecked", "-deprecation"))
 
 organization         := "org.lichess"
-Compile / run / fork := true
+Compile / run / fork := false
 javaOptions ++= Seq("-Xms64m", "-Xmx512m", "-Dlogger.file=conf/logger.dev.xml")
 ThisBuild / usePipelining := false
 // shorter prod classpath
