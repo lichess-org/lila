@@ -533,9 +533,6 @@
   <string name="safeTournamentName">בחר/י שם בטוח מאוד לטורניר.</string>
   <string name="inappropriateNameWarning">כל דבר לא הולם ולו במעט עלול לגרום לסגירת חשבונך.</string>
   <string name="emptyTournamentName">השאירו ריק כדי לקרוא לטורניר על שם שחקן/ית שח דגול/ה.</string>
-  <string name="recommendNotTouching">אנו ממליצים לא לגעת בזה.</string>
-  <string name="fewerPlayers">אם תגדיר/י תנאי כניסה, יהיו בטורניר פחות שחקנים.</string>
-  <string name="showAdvancedSettings">הצגת הגדרות מתקדמות</string>
   <string name="makePrivateTournament">הפכו את הטורניר לפרטי, והגבילו את הכניסה עם סיסמה</string>
   <string name="join">הצטרף/י</string>
   <string name="withdraw">צא/י</string>
