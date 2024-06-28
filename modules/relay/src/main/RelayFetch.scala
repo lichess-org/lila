@@ -215,7 +215,7 @@ final private class RelayFetch(
     // cache finished games so they're not requested again for a while
     private val finishedGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
-        _.expireAfterWrite(5 minutes).build()
+        _.expireAfterWrite(8 minutes).build()
     // cache created (non-started) games until they start
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
