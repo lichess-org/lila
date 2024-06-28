@@ -466,9 +466,6 @@
   <string name="safeTournamentName">Wiehl en ganz sécheren Numm fir däin Turnéier.</string>
   <string name="inappropriateNameWarning">Alles nemmen liicht Onangemessenes kéint zum Zoumaachen vun dengem Konto féieren.</string>
   <string name="emptyTournamentName">Eidel loossen, wann den Turnéier no engem bekannten Schachspiller soll benannt ginn.</string>
-  <string name="recommendNotTouching">Mir recommandéieren déi net unzepaken.</string>
-  <string name="fewerPlayers">Mat Teilnahmebedingungen wäert däin Turnéier maner Spiller hunn.</string>
-  <string name="showAdvancedSettings">Erweidert Optiounen uweisen</string>
   <string name="makePrivateTournament">Turnéier privat maachen an Accès mat Passwuert beschränken</string>
   <string name="join">Bäitrieden</string>
   <string name="withdraw">Zeréckzéihen</string>
