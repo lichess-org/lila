@@ -457,8 +457,6 @@
   <string name="ifNoneLeaveEmpty">Autt ef á ekki við</string>
   <string name="profile">Prófíll</string>
   <string name="editProfile">Stillingar</string>
-  <string name="firstName">Fornafn</string>
-  <string name="lastName">Eftirnafn</string>
   <string name="biography">Lífssaga</string>
   <string name="thankYou">Takk fyrir!</string>
   <string name="socialMediaLinks">Samfélagsmiðlatengill</string>
