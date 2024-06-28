@@ -444,7 +444,6 @@
   <string name="isPrivate">Закрытый</string>
   <string name="xRating">Рейтінґ %s</string>
   <string name="profile">Профіл</string>
-  <string name="lastName">Прозвище</string>
   <string name="biography">За ся</string>
   <string name="clearSavedMoves">Захарити ходы</string>
   <string name="success">Успіх</string>
