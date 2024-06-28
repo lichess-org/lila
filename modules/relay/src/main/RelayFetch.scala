@@ -188,7 +188,7 @@ final private class RelayFetch(
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
-            delayer(url, rt.round, fetchFromUpstream(rt))
+            delayer(url, rt.round, fetchFromUpstreamWithRecover(rt))
           .map(_.flatten)
 
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
@@ -215,7 +215,7 @@ final private class RelayFetch(
     // cache finished games so they're not requested again for a while
     private val finishedGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
-        _.expireAfterWrite(5 minutes).build()
+        _.expireAfterWrite(8 minutes).build()
     // cache created (non-started) games until they start
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
@@ -245,7 +245,15 @@ final private class RelayFetch(
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
               else if index >= 12 then tailGames.put(key, game)
 
-  private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
+  private def fetchFromUpstreamWithRecover(rt: RelayRound.WithTour)(url: URL)(using
+      CanProxy
+  ): Fu[RelayGames] =
+    fetchFromUpstream(rt)(url).recover:
+      case e: Exception =>
+        logger.info(s"Fetch error in multi-url ${rt.round.id} $url ${e.getMessage.take(80)}", e)
+        Vector.empty
+
+  private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
     formatApi
       .get(url)
@@ -255,7 +263,7 @@ final private class RelayFetch(
             .orderedByStudyLoadingAllInMemory(id.into(StudyId))
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
-          httpGetPgn(url).map { MultiPgn.split(_, max) }.flatMap(multiPgnToGames.future)
+          httpGetPgn(url).map { MultiPgn.split(_, RelayFetch.maxChapters) }.flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
             val nearStart = rt.round.secondsAfterStart.exists(_ < 300)

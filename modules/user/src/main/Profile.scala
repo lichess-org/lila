@@ -23,8 +23,7 @@ object Profile:
 
     def filterTroll(troll: Boolean): Profile = p.copy(
       bio = p.bio.ifFalse(troll),
-      firstName = p.firstName.ifFalse(troll),
-      lastName = p.lastName.ifFalse(troll),
+      realName = p.realName.ifFalse(troll),
       location = p.location.ifFalse(troll),
       links = p.links.ifFalse(troll)
     )

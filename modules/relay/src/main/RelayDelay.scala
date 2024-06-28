@@ -15,9 +15,9 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   def apply(
       url: URL,
       round: RelayRound,
-      doFetchUrl: (URL, Max) => Fu[RelayGames]
+      doFetchUrl: URL => Fu[RelayGames]
   ): Fu[RelayGames] =
-    dedupCache(url, round, () => doFetchUrl(url, RelayFetch.maxChapters))
+    dedupCache(url, round, () => doFetchUrl(url))
       .flatMap: latest =>
         round.sync.delay match
           case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
