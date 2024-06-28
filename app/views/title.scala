@@ -34,7 +34,8 @@ object mod:
           " ",
           player.name
         ),
-        p(player.ratingsStr)
+        p(player.ratingsStr),
+        p("Year of birth: ", player.year.fold("unknown")(_.toString))
       )
     modUi.show(req, data.user, fide, similar, modZone)
 
