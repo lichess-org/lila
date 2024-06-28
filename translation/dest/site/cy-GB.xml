@@ -375,8 +375,6 @@
   <string name="ifNoneLeaveEmpty">Os heb gradd, gadewch yn wag</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
-  <string name="firstName">Enw cyntaf</string>
-  <string name="lastName">Cyfenw</string>
   <string name="biography">Cofiant</string>
   <string name="thankYou">Diolch yn fawr!</string>
   <string name="socialMediaLinks">Dolenni cyfryngau cymdeithasol</string>
