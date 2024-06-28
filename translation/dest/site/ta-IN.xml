@@ -491,8 +491,6 @@
   <string name="ifNoneLeaveEmpty">இல்லையென்றால் காலியாக விடலாம்</string>
   <string name="profile">குறிப்புகள்</string>
   <string name="editProfile">தகவல்களை  மாற்று</string>
-  <string name="firstName">முதல் பெயர்</string>
-  <string name="lastName">கடைசி பெயர்</string>
   <string name="setFlair">உங்கள் திறமையை அமைக்கவும்</string>
   <string name="youCanHideFlair">தளம் முழுவதும் அனைத்து பயனர் திறமைகளையும் மறைக்க ஒரு அமைப்பு உள்ளது.</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
