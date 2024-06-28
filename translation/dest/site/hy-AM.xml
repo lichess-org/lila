@@ -502,8 +502,6 @@
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
-  <string name="firstName">Անուն</string>
-  <string name="lastName">Ազգանուն</string>
   <string name="biography">Կենսագրություն</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
