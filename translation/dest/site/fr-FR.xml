@@ -509,6 +509,7 @@
   <string name="ifNoneLeaveEmpty">Sinon, laissez vide</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Modifier le profil</string>
+  <string name="realName">Nom réel</string>
   <string name="setFlair">Choisir votre émoji</string>
   <string name="flair">Émoji</string>
   <string name="youCanHideFlair">Un paramètre permet de cacher les émojis des utilisateurs sur tout le site.</string>
