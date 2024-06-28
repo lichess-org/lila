@@ -463,9 +463,6 @@
   <string name="safeTournamentName">Изберете много безопасно име за турнира.</string>
   <string name="inappropriateNameWarning">Нещо дори и леко неуместно може да доведе до затваряне на вашия акаунт.</string>
   <string name="emptyTournamentName">Ако оставите празно името, тогава турнирът ще бъде кръстен на случайно избран гросмайстор.</string>
-  <string name="recommendNotTouching">Препоръчваме да не пипате тези.</string>
-  <string name="fewerPlayers">Ако сте задали условия за влизане, вашият турнир ще има по-малко играчи.</string>
-  <string name="showAdvancedSettings">Показване на разширените настройки</string>
   <string name="makePrivateTournament">Ограничи достъпа до турнира с парола</string>
   <string name="join">Включи се</string>
   <string name="withdraw">Напусни</string>
