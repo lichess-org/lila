@@ -461,9 +461,6 @@
   <string name="safeTournamentName">Tría un nombre muito seguro pa lo torneyo.</string>
   <string name="inappropriateNameWarning">Cualsequier comportamiento minimament inadecuau podría comportar que se zarre la tuya cuenta.</string>
   <string name="emptyTournamentName">Si lo deixas en blanco, lo torneyo recebirá lo nombre d\'un Gran Mayestro a l\'azar.</string>
-  <string name="recommendNotTouching">Se recomienda deixar como ye.</string>
-  <string name="fewerPlayers">Si imposas condicions de dentrada, lo torneyo tendrá menos chugadors.</string>
-  <string name="showAdvancedSettings">Amostrar configuración abanzada</string>
   <string name="makePrivateTournament">Fer lo torneyo privau y restrinchir l\'acceso con una clau</string>
   <string name="join">Unir-se</string>
   <string name="withdraw">Abandonar</string>
