@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Vælg et meget ufarligt navn til turneringen.</string>
   <string name="inappropriateNameWarning">Selv noget lidt upassende kan resultere i at din konto lukkes.</string>
   <string name="emptyTournamentName">Lad stå tomt for at navngive turneringen efter en tilfældig stormester.</string>
-  <string name="recommendNotTouching">Vi anbefaler at ikke ændre disse.</string>
-  <string name="fewerPlayers">Hvis du stiller betingelser for deltagelse, vil din turnering have færre spillere.</string>
-  <string name="showAdvancedSettings">Vis avancerede Indstillinger</string>
   <string name="makePrivateTournament">Gør turneringen privat og begræns adgang med en adgangskode</string>
   <string name="join">Deltag</string>
   <string name="withdraw">Frameld</string>
