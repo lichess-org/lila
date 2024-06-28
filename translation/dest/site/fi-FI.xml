@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
   <string name="inappropriateNameWarning">Hiemankin epäasiallinen nimi voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
   <string name="emptyTournamentName">Jos jätät tyhjäksi, turnaus nimetään jonkun suurmestarin mukaan.</string>
-  <string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
-  <string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
-  <string name="showAdvancedSettings">Näytä lisäasetukset</string>
   <string name="makePrivateTournament">Tee turnauksesta yksityinen ja aseta salasana, jolla siihen pääsee</string>
   <string name="join">Liity</string>
   <string name="withdraw">Peru osallistuminen</string>
