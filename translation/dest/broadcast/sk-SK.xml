@@ -37,4 +37,13 @@
   <string name="deleteTournament">Vymazať tento turnaj</string>
   <string name="definitivelyDeleteTournament">Definitívne odstrániť celý turnaj so všetkými kolami a všetkými partiami.</string>
   <string name="replacePlayerTags">Voliteľné: nahradiť mená hráčov, hodnotenia a tituly</string>
+  <string name="fideFederations">FIDE federácie</string>
+  <string name="top10Rating">10 najlepšie hodnotených</string>
+  <string name="fidePlayers">FIDE šachisti</string>
+  <string name="fidePlayerNotFound">FIDE šachista sa nenašiel</string>
+  <string name="fideProfile">FIDE profil</string>
+  <string name="federation">Federácia</string>
+  <string name="ageThisYear">Vek tento rok</string>
+  <string name="unrated">Bez hodnotenia</string>
+  <string name="recentTournaments">Posledné turnaje</string>
 </resources>
