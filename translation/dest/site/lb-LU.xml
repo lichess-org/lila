@@ -70,8 +70,8 @@
   <string name="promoteVariation">Variant opwäerten</string>
   <string name="makeMainLine">Haaptvariant maachen</string>
   <string name="deleteFromHere">Vun hei läschen</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Varianten zesummeklappen</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Varianten opklappen</string>
+  <string name="collapseVariations">Varianten zesummeklappen</string>
+  <string name="expandVariations">Varianten opklappen</string>
   <string name="forceVariation">Variant forcéieren</string>
   <string name="copyVariationPgn">PGN-Variant kopéieren</string>
   <string name="move">Zuch</string>
@@ -508,8 +508,6 @@
   <string name="ifNoneLeaveEmpty">Eidel loossen, falls keng</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil änneren</string>
-  <string name="firstName">Virnumm</string>
-  <string name="lastName">Numm</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Regioun</string>
   <string name="thankYou">Merci!</string>
