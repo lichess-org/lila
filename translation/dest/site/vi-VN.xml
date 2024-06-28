@@ -435,9 +435,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
   <string name="inappropriateNameWarning">Một hành động dù chỉ một chút không thích hợp, tài khoản của bạn có thể bị khoá.</string>
   <string name="emptyTournamentName">Hãy để trống để lấy tên theo tên một kỳ thủ cờ vua nổi tiếng.</string>
-  <string name="recommendNotTouching">Chúng tôi khuyên bạn không nên thay đổi.</string>
-  <string name="fewerPlayers">Nếu bạn thiết lập điều kiện tham gia, giải của bạn sẽ có ít người chơi hơn.</string>
-  <string name="showAdvancedSettings">Hiện các thiết lập nâng cao</string>
   <string name="makePrivateTournament">Đặt giải đấu ở chế độ riêng tư và giới hạn tham gia bởi mật khẩu</string>
   <string name="join">Tham gia</string>
   <string name="withdraw">Rút lui</string>
