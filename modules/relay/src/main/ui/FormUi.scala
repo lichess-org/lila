@@ -152,17 +152,12 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form3.globalError(form),
         form3.split(
           form3.group(form("name"), trb.roundName(), half = true)(form3.input(_)(autofocus)),
-          Granter
-            .opt(_.StudyAdmin)
-            .option(
-              form3.group(
-                form("caption"),
-                "Homepage spotlight custom round name",
-                help = raw("Leave empty to use the round name").some,
-                half = true
-              ):
-                form3.input(_)
-            )
+          form3.group(
+            form("startsAt"),
+            trb.startDate(),
+            help = trb.startDateHelp().some,
+            half = true
+          )(form3.flatpickr(_, minDate = None))
         ),
         form3.fieldset("Source")(cls := "box-pad")(
           form3.group(
@@ -270,42 +265,48 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )(form3.input(_))
           )
         ),
-        form3.split(
-          form3.group(
-            form("startsAt"),
-            trb.startDate(),
-            help = trb.startDateHelp().some,
-            half = true
-          )(form3.flatpickr(_, minDate = None)),
-          form3.checkbox(
-            form("finished"),
-            trb.completed(),
-            help = trb.completedHelp().some,
-            half = true
+        form3.fieldset("Advanced", toggle = round.exists(r => r.sync.delay.isDefined).some)(
+          form3.split(
+            form3.group(
+              form("delay"),
+              raw("Delay in seconds"),
+              help = frag(
+                "Optional, how long to delay moves coming from the source.",
+                br,
+                "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
+              ).some,
+              half = true
+            )(form3.input(_, typ = "number")),
+            form3.checkbox(
+              form("finished"),
+              trb.completed(),
+              help = trb.completedHelp().some,
+              half = true
+            )
           )
         ),
-        form3.split(
-          form3.group(
-            form("delay"),
-            raw("Delay in seconds"),
-            help = frag(
-              "Optional, how long to delay moves coming from the source.",
-              br,
-              "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
-            ).some,
-            half = true
-          )(form3.input(_, typ = "number")),
-          Granter
-            .opt(_.StudyAdmin)
-            .option(
-              form3.group(
-                form("period"),
-                trb.periodInSeconds(),
-                help = trb.periodInSecondsHelp().some,
-                half = true
-              )(form3.input(_, typ = "number"))
+        Granter
+          .opt(_.StudyAdmin)
+          .option(
+            form3.fieldset("Broadcast admin", toggle = false.some)(
+              form3.split(
+                form3.group(
+                  form("caption"),
+                  "Homepage spotlight custom round name",
+                  help = raw("Leave empty to use the round name").some,
+                  half = true
+                ):
+                  form3.input(_)
+                ,
+                form3.group(
+                  form("period"),
+                  trb.periodInSeconds(),
+                  help = trb.periodInSecondsHelp().some,
+                  half = true
+                )(form3.input(_, typ = "number"))
+              )
             )
-        ),
+          ),
         form3.actions(
           a(href := routes.RelayTour.show(t.slug, t.id))(trans.site.cancel()),
           form3.submit(trans.site.apply())
