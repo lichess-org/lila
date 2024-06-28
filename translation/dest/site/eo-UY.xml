@@ -464,9 +464,6 @@
   <string name="safeTournamentName">Elekti tre sekuran nomon por la turniro.</string>
   <string name="inappropriateNameWarning">Se vi uzas maltaŭgan aŭ maldecan nomon, ni fermos vian konton.</string>
   <string name="emptyTournamentName">Se vi lasas ĝin malplena, ni uzos la nomon de fama ŝakludisto.</string>
-  <string name="recommendNotTouching">Ni rekomendi ke vi ne tuŝas ĉi tiujn.</string>
-  <string name="fewerPlayers">Se vi aldonas aliĝpostulojn, via turniro havos malpli da ludantoj.</string>
-  <string name="showAdvancedSettings">Montri spertulajn agordojn</string>
   <string name="makePrivateTournament">Faru la turniron privata kaj restriktu la aliron per pasvorto</string>
   <string name="join">Aliĝi</string>
   <string name="withdraw">Eliri</string>
