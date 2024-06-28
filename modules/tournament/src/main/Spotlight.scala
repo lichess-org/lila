@@ -42,11 +42,12 @@ object Spotlight {
     tour.schedule.fold(!isAnon && tour.popular) { schedule =>
       tour.startsAt isBefore DateTime.now.plusMinutes {
         schedule.freq match {
-          case Unique | Yearly | Marathon => 3 * 24 * 60
-          case Monthly | Shield           => 36 * 60
-          case Weekly | Weekend           => 6 * 60
-          case Daily                      => 2 * 60
-          case _                          => 30
+          case Unique            => 5 * 24 * 60
+          case Yearly | Marathon => 3 * 24 * 60
+          case Monthly | Shield  => 36 * 60
+          case Weekly | Weekend  => 6 * 60
+          case Daily             => 2 * 60
+          case _                 => 30
         }
       }
     }
