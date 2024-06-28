@@ -575,6 +575,7 @@
   <string name="ifNoneLeaveEmpty">Якщо немає, то залиште порожнім</string>
   <string name="profile">Профіль</string>
   <string name="editProfile">Редагувати профіль</string>
+  <string name="realName" comment="An option in the player profile allowing them to publicly list their full name. https://lichess.org/account/profile&#10;&#10;The term 'Real name' is used here because  most usernames on Lichess are pseudonyms.">Справжнє ім\'я</string>
   <string name="setFlair">Оберіть свій символ</string>
   <string name="flair">Символ</string>
   <string name="youCanHideFlair">Це налаштування вимикає символи всіх користувачів сайту.</string>
