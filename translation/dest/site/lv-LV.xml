@@ -533,8 +533,6 @@
   <string name="ifNoneLeaveEmpty">Ja nav piešķirts, atstājiet tukšu</string>
   <string name="profile">Profils</string>
   <string name="editProfile">Labot profilu</string>
-  <string name="firstName">Vārds</string>
-  <string name="lastName">Uzvārds</string>
   <string name="biography">Biogrāfija</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
