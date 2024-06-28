@@ -70,8 +70,8 @@
   <string name="promoteVariation">Promouvoir la variante</string>
   <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Fermer les variantes</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Afficher les variantes</string>
+  <string name="collapseVariations">Fermer les variantes</string>
+  <string name="expandVariations">Afficher les variantes</string>
   <string name="forceVariation">Forcer la variante</string>
   <string name="copyVariationPgn">Copier le PGN de la variante</string>
   <string name="move">Coup</string>
@@ -509,8 +509,6 @@
   <string name="ifNoneLeaveEmpty">Sinon, laissez vide</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Modifier le profil</string>
-  <string name="firstName">Prénom</string>
-  <string name="lastName">Nom</string>
   <string name="setFlair">Choisir votre émoji</string>
   <string name="flair">Émoji</string>
   <string name="youCanHideFlair">Un paramètre permet de cacher les émojis des utilisateurs sur tout le site.</string>
