@@ -509,6 +509,7 @@
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
   <string name="profile">رُخ‌نما</string>
   <string name="editProfile">ویرایش رُخ‌نما</string>
+  <string name="realName" comment="An option in the player profile allowing them to publicly list their full name. https://lichess.org/account/profile&#10;&#10;The term 'Real name' is used here because  most usernames on Lichess are pseudonyms.">نام راستین</string>
   <string name="setFlair">تعیین کردن شکلک</string>
   <string name="flair">نشان</string>
   <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
