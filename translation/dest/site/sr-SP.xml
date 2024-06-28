@@ -474,9 +474,6 @@
   <string name="safeTournamentName">Изаберите веома сигурно име за турнир.</string>
   <string name="inappropriateNameWarning">Било које име које је бар мало неприкладно може да вам затвори налог.</string>
   <string name="emptyTournamentName">Оставите празно како би назвали турнир по насумично изабраном Велемајстору.</string>
-  <string name="recommendNotTouching">Препоручујемо да немењате ове.</string>
-  <string name="fewerPlayers">Ако ставите услове за улаз, ваш турнир ће имати мање играча.</string>
-  <string name="showAdvancedSettings">Покажи напредна подешавања</string>
   <string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
   <string name="join">Придружи се</string>
   <string name="withdraw">Повуци се</string>
