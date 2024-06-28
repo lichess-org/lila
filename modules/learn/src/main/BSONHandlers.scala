@@ -14,4 +14,6 @@ object BSONHandlers:
     StageProgress.apply
   )
 
+  given BSONHandler[Map[String, StageProgress]] = mapHandler[StageProgress]
+
   given BSONDocumentHandler[LearnProgress] = Macros.handler

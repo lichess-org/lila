@@ -1,6 +1,7 @@
 package lila.chat
 
-import reactivemongo.api.bson.BSONDocumentHandler
+import reactivemongo.api.*
+import reactivemongo.api.bson.*
 
 sealed trait AnyChat:
   def id: ChatId
@@ -107,10 +108,10 @@ object Chat:
 
   import BSONFields.*
   import reactivemongo.api.bson.BSONDocument
-  import lila.chat.Line.given
   import lila.db.dsl.given
 
   given BSONDocumentHandler[MixedChat] = new BSON[MixedChat]:
+    import lila.chat.Line.given
     def reads(r: BSON.Reader): MixedChat =
       MixedChat(
         id = r.get[ChatId](id),
@@ -123,6 +124,7 @@ object Chat:
       )
 
   given BSONDocumentHandler[UserChat] = new BSON[UserChat]:
+    import lila.chat.UserLine.given
     def reads(r: BSON.Reader): UserChat =
       UserChat(
         id = r.get[ChatId](id),

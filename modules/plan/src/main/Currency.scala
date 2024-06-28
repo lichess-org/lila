@@ -12,6 +12,8 @@ import scala.util.Try
 import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
 import lila.core.config.Secret
+import reactivemongo.api.bson.*
+import lila.db.dsl.mapHandler
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 
@@ -25,6 +27,7 @@ final class CurrencyApi(
 
   private val baseUrl = "https://openexchangerates.org/api"
 
+  given BSONHandler[Map[String, Double]] = mapHandler[Double]
   private val ratesCache = mongoCache.unit[Map[String, Double]](
     "currency:rates",
     if mode.isProd then 120 minutes // i.e. 377/month, under the 1000/month limit of free OER plan

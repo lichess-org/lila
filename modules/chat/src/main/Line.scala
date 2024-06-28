@@ -1,5 +1,7 @@
 package lila.chat
 
+import reactivemongo.api.bson.*
+
 import chess.{ Color, PlayerTitle }
 
 case class UserLine(
@@ -23,6 +25,12 @@ case class UserLine(
 
   def isLichess = userId.is(UserId.lichess)
 
+object UserLine:
+  private[chat] given BSONHandler[UserLine] = BSONStringHandler.as[UserLine](
+    v => Line.strToUserLine(v).getOrElse(Line.invalidLine),
+    Line.userLineToStr
+  )
+
 case class PlayerLine(color: Color, text: String) extends Line:
   def deleted     = false
   def author      = color.name
@@ -35,15 +43,8 @@ object Line:
   val textMaxSize = 140
   val titleSep    = '~'
 
-  import reactivemongo.api.bson.*
-
-  private val invalidLine =
+  val invalidLine =
     UserLine(UserName(""), None, false, false, "[invalid character]", troll = false, deleted = true)
-
-  private[chat] given BSONHandler[UserLine] = BSONStringHandler.as[UserLine](
-    v => strToUserLine(v).getOrElse(invalidLine),
-    userLineToStr
-  )
 
   private[chat] given lineHandler: BSONHandler[lila.core.chat.Line] =
     BSONStringHandler.as[lila.core.chat.Line](
@@ -59,7 +60,7 @@ object Line:
   private val UserLineRegex = {
     """(?s)([\w-~]{2,}+)([ """ + s"$trollChar$deletedChar$patronChar$flairChar$patronFlairChar" + """])(.++)"""
   }.r
-  private def strToUserLine(str: String): Option[UserLine] = str match
+  def strToUserLine(str: String): Option[UserLine] = str match
     case UserLineRegex(username, sep, text) =>
       val troll   = sep == trollChar
       val deleted = sep == deletedChar
