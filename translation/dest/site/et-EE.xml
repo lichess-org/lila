@@ -446,9 +446,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="safeTournamentName">Vali turniirile sobiv nimi.</string>
   <string name="inappropriateNameWarning">Isegi pisut kohatu nimi võib tähendada sinu konto sulgemist.</string>
   <string name="emptyTournamentName">Jäta tühjaks, et nimetada turniir juhusliku suurmeistri järgi.</string>
-  <string name="recommendNotTouching">Me ei soovita neid muuta.</string>
-  <string name="fewerPlayers">Kui sa lisad osalemiseks tingimusi, siis osaleb turniiril vähem inimesi.</string>
-  <string name="showAdvancedSettings">Näita täpsemaid sätteid</string>
   <string name="makePrivateTournament">Tee turniir privaatseks ja piira juurdepääsu parooliga</string>
   <string name="join">Liitu</string>
   <string name="withdraw">Loobu</string>
