@@ -508,6 +508,7 @@
   <string name="ifNoneLeaveEmpty">Leeg indien n.v.t.</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Pas profiel aan</string>
+  <string name="realName">Echte naam</string>
   <string name="setFlair">Stel je flair in</string>
   <string name="flair">Symbool</string>
   <string name="youCanHideFlair">Er bestaat een instelling om alle gebruikersflairs over de hele site te verbergen.</string>
