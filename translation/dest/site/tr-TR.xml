@@ -70,6 +70,8 @@
   <string name="promoteVariation">Bu varyanttan devam et</string>
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
+  <string name="collapseVariations">Varyasyonları daralt</string>
+  <string name="expandVariations">Varyasyonları genişler</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="copyVariationPgn">Varyasyon PGN\'sini kopyala</string>
   <string name="move">Hamle</string>
@@ -504,6 +506,7 @@
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili düzenle</string>
+  <string name="realName">Gerçek isim</string>
   <string name="setFlair">Rozetinizi seçin</string>
   <string name="flair">Rozet</string>
   <string name="youCanHideFlair">Ayarlardan oyuncu rozetlerini gizleyebilirsiniz.</string>
