@@ -134,6 +134,11 @@ object RelayRound:
             case _                   => none
         case _ => none
       def isLcc = lcc.isDefined
+      def looksLikeLcc = this match
+        case Url(url)   => Sync.looksLikeLcc(url)
+        case Urls(urls) => urls.exists(Sync.looksLikeLcc)
+        case _          => false
+
       def roundId: Option[RelayRoundId] = this match
         case Url(url) =>
           url.path.split("/") match
@@ -154,7 +159,8 @@ object RelayRound:
       def gameUrl(game: Int) =
         URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/game-$game.json")
 
-    private val lccRegex = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
+    private val lccRegex               = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
+    private def looksLikeLcc(url: URL) = url.toString.contains(".livechesscloud.com/")
 
   trait AndTour:
     val tour: RelayTour

@@ -6,6 +6,7 @@ export interface RelayData {
   isSubscribed?: boolean; // undefined if anon
   videoUrls?: [string, string];
   pinned?: { userId: string; name: string; image?: string };
+  lcc?: boolean;
 }
 
 export interface RelayGroup {

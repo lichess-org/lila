@@ -305,6 +305,10 @@ $hover-bg: $m-primary_bg--mix-30;
     @include rendered-markdown(2em, 50vh);
     margin: 3em var(---box-padding);
   }
+  &__source {
+    @extend %box-margin-horiz;
+    font-style: italic;
+  }
   &__share {
     @extend %box-neat;
     background: $c-bg-zebra;

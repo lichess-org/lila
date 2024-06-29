@@ -126,6 +126,7 @@ final class JsonView(
     JsonView.JsData(
       relay = fullTourWithRounds(trs, group)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
+        .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.looksLikeLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
         .add("pinned" -> pinned.map: (id, name, image) =>

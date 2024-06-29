@@ -73,6 +73,7 @@ object Location:
 
   def isSuspicious(loc: Location) =
     loc == unknown ||
-      loc.region.has("Kirov Oblast")
+      loc.region.has("Kirov Oblast") ||
+      loc.region.has("Samsun")
 
   case class WithProxy(location: Location, proxy: IsProxy)

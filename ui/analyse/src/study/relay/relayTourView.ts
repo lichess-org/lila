@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
-import { RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
+import { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'common';
 import StudyCtrl from '../studyCtrl';
@@ -134,9 +134,16 @@ const showDates = (dates: RelayTourDates) => {
   return rendered[0];
 };
 
+const showSource = (data: RelayData) =>
+  data.lcc
+    ? h('div.relay-tour__source', [
+        'PGN source: ',
+        h('a', { attrs: { href: 'https://www.livechesscloud.com' } }, 'LiveChessCloud'),
+      ])
+    : undefined;
+
 const overview = (ctx: RelayViewContext) => {
   const tour = ctx.relay.data.tour;
-  console.log(tour.dates);
   return [
     ...header(ctx),
     showInfo(tour.info, tour.dates),
@@ -145,6 +152,7 @@ const overview = (ctx: RelayViewContext) => {
           hook: innerHTML(tour.markup, () => tour.markup!),
         })
       : undefined,
+    showSource(ctx.relay.data),
     h('div.relay-tour__share', [
       h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
       ...[
@@ -264,6 +272,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
 const games = (ctx: RelayViewContext) => [
   ...header(ctx),
   ctx.study.chapters.list.looksNew() ? undefined : multiBoardView(ctx.study.multiBoard, ctx.study),
+  showSource(ctx.relay.data),
 ];
 
 const teams = (ctx: RelayViewContext) => [
