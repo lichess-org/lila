@@ -43,4 +43,13 @@
   <string name="replacePlayerTags">Valgfritt: erstatt spillernavn, ratinger og titler</string>
   <string name="periodInSeconds">Tidsrom i sekunder</string>
   <string name="periodInSecondsHelp">Valgfritt, hvor lenge man skal vente mellom forespørslene. Minst 2 sekunder, maks 60 sekunder. Standardinnstillingen er automatisk basert på antall seere.</string>
+  <string name="fideFederations">FIDE-forbund</string>
+  <string name="top10Rating">Topp 10 rating</string>
+  <string name="fidePlayers">FIDE-spillere</string>
+  <string name="fidePlayerNotFound">Fant ikke FIDE-spiller</string>
+  <string name="fideProfile">FIDE-profil</string>
+  <string name="federation">Forbund</string>
+  <string name="ageThisYear">Alder i år</string>
+  <string name="unrated">Uratet</string>
+  <string name="recentTournaments">Nylige turneringer</string>
 </resources>

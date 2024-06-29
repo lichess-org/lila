@@ -463,9 +463,6 @@
   <string name="safeTournamentName">Изберете много безопасно име за турнира.</string>
   <string name="inappropriateNameWarning">Нещо дори и леко неуместно може да доведе до затваряне на вашия акаунт.</string>
   <string name="emptyTournamentName">Ако оставите празно името, тогава турнирът ще бъде кръстен на случайно избран гросмайстор.</string>
-  <string name="recommendNotTouching">Препоръчваме да не пипате тези.</string>
-  <string name="fewerPlayers">Ако сте задали условия за влизане, вашият турнир ще има по-малко играчи.</string>
-  <string name="showAdvancedSettings">Показване на разширените настройки</string>
   <string name="makePrivateTournament">Ограничи достъпа до турнира с парола</string>
   <string name="join">Включи се</string>
   <string name="withdraw">Напусни</string>
@@ -504,8 +501,7 @@
   <string name="ifNoneLeaveEmpty">При липса оставете празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Редактирай профила</string>
-  <string name="firstName">Име</string>
-  <string name="lastName">Презиме</string>
+  <string name="realName">Истинско име</string>
   <string name="setFlair">Изберете вашето емоджи</string>
   <string name="flair">Емоджи</string>
   <string name="biography">Животопис</string>
@@ -777,6 +773,12 @@
   <string name="transparent">Прозрачен</string>
   <string name="deviceTheme">Тема на устройството</string>
   <string name="backgroundImageUrl">URL адрес на фоновия образ:</string>
+  <string name="board">Дъска</string>
+  <string name="size">Размер</string>
+  <string name="opacity">Прозрачност</string>
+  <string name="brightness">Яркост</string>
+  <string name="hue">Цветови тон</string>
+  <string name="boardReset">Възстановяване на стандартните цветовете</string>
   <string name="pieceSet">Дизайн на фигури</string>
   <string name="embedInYourWebsite">Вграждане в уебсайта ви</string>
   <string name="usernameAlreadyUsed">Потребителското име е заето. Опитайте с друго име.</string>

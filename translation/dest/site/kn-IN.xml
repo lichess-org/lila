@@ -461,9 +461,6 @@
   <string name="safeTournamentName">ಪಂದ್ಯಾವಳಿಗೆ ಸುರಕ್ಷಿತ ಹಾಗೂ ಅಪಾಯವಿಲ್ಲದ ಹೆಸರನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.</string>
   <string name="inappropriateNameWarning">ಕೇವಲ ಸಣ್ಣಮಟ್ಟಿನ ಅನುಚಿತ ಅಥವಾ ಅಸಮಂಜಸ ಹೆಸರುಗಳೂ ಕೂಡ ನಿಮ್ಮ ಖಾತೆಯ ನಿಷೇದಕ್ಕೆ ಕಾರಣವಾಗಬಹುದು.</string>
   <string name="emptyTournamentName">ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಯನ್ನು ಯಾವುದೋ ಒಬ್ಬರು ಪ್ರಸಿದ್ಧ ಚೆಸ್ ಆಟಗಾರರ ಹೆಸರಿನಲ್ಲಿ ನಾಮಕರಣಗೊಳಿಸಬೇಕೆಂದಿದ್ದರೆ, ಹೆಸರಿನ ಭಾಗವನ್ನು ಖಾಲಿ ಬಿಟ್ಟು ಬಿಡಿ.</string>
-  <string name="recommendNotTouching">ಇದನ್ನು ಬದಲಾಯಿಸಬೇಡಿ ಎಂದು ಶಿಫಾರಸ್ಸು ಮಾಡುತ್ತೇವೆ.</string>
-  <string name="fewerPlayers">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಪ್ರವೇಶಾರ್ಹತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿದರೆ, ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಗೆ ಲಭ್ಯವಾಗುವ ಆಟಗಾರರ ಸಂಖ್ಯೆ ಕಡಿಮೆಯಾಗುವ ಸಾಧ್ಯತೆಯಿದೆ.</string>
-  <string name="showAdvancedSettings">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಅಳವಡಿಕೆಗಳನ್ನು ತೋರಿಸಿ</string>
   <string name="makePrivateTournament">ಈ ಪಂದ್ಯಾವಳಿಯನ್ನು ಖಾಸಗಿಯಾಗಿಸಿ, ಹಾಗೂ ಕೀಲಿಪದ ಅಂದರೆ ಪಾಸ್ವರ್ಡ್ ಬಳಸಿ ಪ್ರವೇಶವನ್ನು ನಿರ್ಬಂಧಿಸಿ</string>
   <string name="join">ಸೇರಿ</string>
   <string name="withdraw">ಹಿಂಪಡೆಯಿರಿ</string>
@@ -502,8 +499,6 @@
   <string name="ifNoneLeaveEmpty">ಧಾರಣೆ ಇಲ್ಲವಾದರೆ, ಈ ಜಾಗ ಖಾಲಿ ಬಿಟ್ಟು ಬಿಡಿ</string>
   <string name="profile">ಪ್ರೊಫೈಲು</string>
   <string name="editProfile">ಪ್ರೊಫೈಲ್ ಪರಿಷ್ಕರಿಸಿ</string>
-  <string name="firstName">ಹೆಸರು</string>
-  <string name="lastName">ಕುಟುಂಬನಾಮ (surname)</string>
   <string name="biography">ನಿಮ್ಮ ಬಗ್ಗೆ</string>
   <string name="thankYou">ಧನ್ಯವಾದಗಳು!</string>
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>

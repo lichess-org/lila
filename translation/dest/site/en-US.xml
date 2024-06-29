@@ -468,9 +468,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="safeTournamentName">Pick a very safe name for the tournament.</string>
   <string name="inappropriateNameWarning">Anything even slightly inappropriate could get your account closed.</string>
   <string name="emptyTournamentName">Leave empty to name the tournament after a notable chess player.</string>
-  <string name="recommendNotTouching">We recommend not touching these.</string>
-  <string name="fewerPlayers">If you set entry requirements, your tournament will have fewer players.</string>
-  <string name="showAdvancedSettings">Show advanced settings</string>
   <string name="makePrivateTournament">Make the tournament private, and restrict access with a password</string>
   <string name="join">Join</string>
   <string name="withdraw">Withdraw</string>
@@ -510,8 +507,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
-  <string name="firstName">First name</string>
-  <string name="lastName">Last name</string>
   <string name="setFlair">Set your flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">There is a setting to hide all user flairs across the entire site.</string>

@@ -533,9 +533,6 @@
   <string name="safeTournamentName">Nadaj turniejowi neutralną nazwę.</string>
   <string name="inappropriateNameWarning">Nawet nieco nieodpowiednia nazwa może spowodować zamknięcie Twojego konta.</string>
   <string name="emptyTournamentName">Jeśli nie podasz nazwy turnieju, zostanie on nazwany od nazwiska losowo wybranego arcymistrza.</string>
-  <string name="recommendNotTouching">Zalecamy nie zmieniać tych ustawień.</string>
-  <string name="fewerPlayers">Ustawienie warunków wstępu sprawi, że do turnieju przystąpi mniej osób.</string>
-  <string name="showAdvancedSettings">Pokaż ustawienia zaawansowane</string>
   <string name="makePrivateTournament">Ustaw turniej jako prywatny i ogranicz dostęp za pomocą hasła</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
@@ -575,8 +572,6 @@
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Edycja profilu</string>
-  <string name="firstName">Imię</string>
-  <string name="lastName">Nazwisko</string>
   <string name="setFlair">Ustaw swój emblemat</string>
   <string name="flair">Emblemat</string>
   <string name="youCanHideFlair">Istnieje ustawienie, pozwalające ukryć wszystkie emblematy użytkowników na lichess.</string>

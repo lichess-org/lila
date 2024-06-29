@@ -380,9 +380,6 @@
   <string name="safeTournamentName">Selige un nomine assatis secur pro le torneo.</string>
   <string name="inappropriateNameWarning">Mesmo alco levemente inappropriate pote causar que tu conto sia terminate.</string>
   <string name="emptyTournamentName">Lassa iste campo vacue pro que le torneo ha un nomine de un Grande Maestro al hasardo.</string>
-  <string name="recommendNotTouching">Nos recommenda non modificar isto.</string>
-  <string name="fewerPlayers">Si tu impone conditiones de entrata, tu torneo habera minus jocatores.</string>
-  <string name="showAdvancedSettings">Monstrar le configurationes avantiate</string>
   <string name="makePrivateTournament">Facer le torneo esser private, e restringer le accesso con un contrasigno</string>
   <string name="join">Participar</string>
   <string name="withdraw">Retirar se</string>
@@ -417,8 +414,6 @@
   <string name="ifNoneLeaveEmpty">Si necun, lassa lo vacue</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modificar profilo</string>
-  <string name="firstName">Prenomine</string>
-  <string name="lastName">Nomine de familia</string>
   <string name="biography">Biographia</string>
   <string name="thankYou">Gratias!</string>
   <string name="socialMediaLinks">Ligamines de medios social</string>

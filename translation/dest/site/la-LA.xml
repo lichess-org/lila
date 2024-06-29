@@ -396,8 +396,6 @@
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
   <string name="advancedSettings">Occasus provectus</string>
-  <string name="recommendNotTouching">Commendamus te non hos mutare.</string>
-  <string name="showAdvancedSettings">Ostende occasus provectus</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
   <string name="points">Puncta</string>
@@ -425,8 +423,6 @@
   <string name="xRating">Gradus %s</string>
   <string name="profile">Codex</string>
   <string name="editProfile">Mutare codicem</string>
-  <string name="firstName">Praenomen</string>
-  <string name="lastName">Nomen gentilicium</string>
   <string name="biography">Biographia</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
