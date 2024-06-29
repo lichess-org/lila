@@ -56,8 +56,7 @@
 }
 
 .relay-image-edit {
-  @extend %image-preview-and-upload, %box-neat;
-  margin-bottom: 3em;
+  @extend %image-preview-and-upload;
 }
 
 .relay-pinned-streamer-edit {

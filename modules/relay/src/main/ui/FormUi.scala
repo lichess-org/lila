@@ -6,7 +6,6 @@ import scalalib.paginator.Paginator
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
-import lila.core.id.ImageId
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -572,21 +571,25 @@ Team Dogs ; Scooby Doo"""),
       )
 
   private def image(t: RelayTour)(using ctx: Context) =
-    div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
-      ui.thumbnail(t.image, _.Size.Small)(
-        cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
-        attr("draggable") := "true"
-      ),
+    form3.fieldset("Image", toggle = true.some):
       div(
-        p("Upload a beautiful image to represent your tournament."),
-        p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
-        p(
-          "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
+        cls              := "form-group relay-image-edit",
+        data("post-url") := routes.RelayTour.image(t.id)
+      )(
+        ui.thumbnail(t.image, _.Size.Small)(
+          cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
+          attr("draggable") := "true"
         ),
-        p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-        form3.file.selectImage()
+        div(
+          p("Upload a beautiful image to represent your tournament."),
+          p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
+          p(
+            "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
+          ),
+          p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
+          form3.file.selectImage()
+        )
       )
-    )
 
   private def grouping(form: Form[RelayTourForm.Data])(using Context) =
     form3.split(cls := "relay-form__grouping")(
