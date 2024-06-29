@@ -73,6 +73,8 @@ export class RunCtrl {
     this.withGround(this.levelCtrl.initializeWithGround);
   };
 
+  pref = this.opts.pref;
+
   withGround: WithGround = f => (this.chessground ? f(this.chessground) : undefined);
 
   stageScore = () => {

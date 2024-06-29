@@ -32,6 +32,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     lastMove: opts.lastMove,
     orientation: ctrl.bottomColor(),
     coordinates: pref.coords !== Prefs.Coords.Hidden,
+    coordinatesOnSquares: pref.coords === Prefs.Coords.All,
     addPieceZIndex: pref.is3d,
     addDimensionsCssVarsTo: document.body,
     viewOnly: false,

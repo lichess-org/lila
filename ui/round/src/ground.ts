@@ -21,6 +21,7 @@ export function makeConfig(ctrl: RoundController): Config {
     lastMove: uciToMove(step.uci),
     check: !!step.check,
     coordinates: data.pref.coords !== Prefs.Coords.Hidden,
+    coordinatesOnSquares: data.pref.coords === Prefs.Coords.All,
     addPieceZIndex: ctrl.data.pref.is3d,
     addDimensionsCssVarsTo: document.body,
     highlight: {

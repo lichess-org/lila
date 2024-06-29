@@ -474,6 +474,7 @@ object I18nKey:
     val `slow`: I18nKey = "slow"
     val `insideTheBoard`: I18nKey = "insideTheBoard"
     val `outsideTheBoard`: I18nKey = "outsideTheBoard"
+    val `allSquaresOfTheBoard`: I18nKey = "allSquaresOfTheBoard"
     val `onSlowGames`: I18nKey = "onSlowGames"
     val `always`: I18nKey = "always"
     val `never`: I18nKey = "never"
