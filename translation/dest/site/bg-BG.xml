@@ -583,6 +583,7 @@
   <string name="slow">Бавно</string>
   <string name="insideTheBoard">На дъската</string>
   <string name="outsideTheBoard">Извън дъската</string>
+  <string name="allSquaresOfTheBoard">Всички полета на дъската</string>
   <string name="onSlowGames">При бавни игри</string>
   <string name="always">Винаги</string>
   <string name="never">Никога</string>
