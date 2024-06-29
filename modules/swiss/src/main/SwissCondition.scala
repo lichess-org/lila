@@ -45,8 +45,6 @@ object SwissCondition:
 
     def similar(other: All) = sameRatings(other) && titled == other.titled
 
-    def isDefault = this == All.empty
-
   object All:
     val empty       = All(none, none, none, none, none, none, PlayYourGames.some)
     given Zero[All] = Zero(empty)
