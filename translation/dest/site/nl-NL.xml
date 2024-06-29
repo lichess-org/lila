@@ -589,6 +589,7 @@
   <string name="slow">Traag</string>
   <string name="insideTheBoard">Binnen het bord</string>
   <string name="outsideTheBoard">Buiten het bord</string>
+  <string name="allSquaresOfTheBoard">Alle velden van het bord</string>
   <string name="onSlowGames">Alleen bij langzame partijen</string>
   <string name="always">Altijd</string>
   <string name="never">Nooit</string>
