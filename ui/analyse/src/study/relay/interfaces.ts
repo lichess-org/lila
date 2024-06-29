@@ -30,11 +30,12 @@ export interface RelayRound {
 }
 
 export interface RelayTourInfo {
-  dates?: string;
   format?: string;
   tc?: string;
   players?: string;
 }
+
+export type RelayTourDates = [number] | [number, number];
 
 export interface RelayTour {
   id: string;
@@ -48,6 +49,7 @@ export interface RelayTour {
   teamTable?: boolean;
   leaderboard?: boolean;
   tier?: number;
+  dates?: RelayTourDates;
 }
 
 export interface RelaySync {

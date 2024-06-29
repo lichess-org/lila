@@ -42,6 +42,7 @@ object BSONHandlers:
 
   given BSONDocumentHandler[RelayTour.Spotlight]    = Macros.handler
   given BSONDocumentHandler[RelayTour.Info]         = Macros.handler
+  given BSONDocumentHandler[RelayTour.Dates]        = Macros.handler
   given tourHandler: BSONDocumentHandler[RelayTour] = Macros.handler
 
   given BSONDocumentHandler[RelayTour.IdName] = Macros.handler

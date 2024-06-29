@@ -18,7 +18,6 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
     )(unapply)
 
   val infoMapping = mapping(
-    "dates"   -> optional(cleanText(maxLength = 80)),
     "format"  -> optional(cleanText(maxLength = 80)),
     "tc"      -> optional(cleanText(maxLength = 80)),
     "players" -> optional(cleanText(maxLength = 120))

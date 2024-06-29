@@ -383,32 +383,23 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form3.fieldset("Optional details", toggle = tg.exists(_.tour.info.nonEmpty).some)(
           form3.split(
             form3.group(
-              form("info.dates"),
-              "Event dates",
-              help = frag("""Start and end dates, eg "June 17th - 25th" or "June 17th"""").some,
-              half = true
-            )(form3.input(_)),
-            form3.group(
               form("info.format"),
               "Tournament format",
               help = frag("""e.g. "8-player round-robin" or "5-round Swiss"""").some,
               half = true
-            )(form3.input(_))
-          ),
-          form3.split(
+            )(form3.input(_)),
             form3.group(
               form("info.tc"),
               "Time control",
               help = frag(""""Classical" or "Rapid"""").some,
               half = true
-            )(form3.input(_)),
-            form3.group(
-              form("info.players"),
-              "Top players",
-              help = frag("Mention up to 4 of the best players participating").some,
-              half = true
             )(form3.input(_))
           ),
+          form3.group(
+            form("info.players"),
+            "Top players",
+            help = frag("Mention up to 4 of the best players participating").some
+          )(form3.input(_)),
           form3.group(
             form("markdown"),
             trb.fullDescription(),

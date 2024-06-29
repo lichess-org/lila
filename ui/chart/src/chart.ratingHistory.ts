@@ -71,14 +71,11 @@ const oneDay = 24 * 60 * 60 * 1000;
 
 const dateFormat = memoize(() =>
   window.Intl && Intl.DateTimeFormat
-    ? new Intl.DateTimeFormat(
-        document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang,
-        {
-          month: 'short',
-          day: '2-digit',
-          year: 'numeric',
-        },
-      ).format
+    ? new Intl.DateTimeFormat(site.displayLocale, {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+      }).format
     : (d: Date) => d.toLocaleDateString(),
 );
 

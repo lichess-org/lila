@@ -26,6 +26,9 @@ final class JsonView(
 
   given OWrites[RelayTour.Info] = Json.writes
 
+  given Writes[RelayTour.Dates] = Writes: ds =>
+    JsArray(List(ds.start.some, ds.end).flatten.map(Json.toJson))
+
   given OWrites[RelayTour] = OWrites: t =>
     Json
       .obj(
@@ -37,6 +40,7 @@ final class JsonView(
         "url"       -> s"$baseUrl${t.path}"
       )
       .add("tier" -> t.tier)
+      .add("dates" -> t.dates)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
   given OWrites[RelayTour.IdName] = Json.writes
