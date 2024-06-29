@@ -572,6 +572,7 @@
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Edycja profilu</string>
+  <string name="realName">Prawdziwe nazwisko</string>
   <string name="setFlair">Ustaw swój emblemat</string>
   <string name="flair">Emblemat</string>
   <string name="youCanHideFlair">Istnieje ustawienie, pozwalające ukryć wszystkie emblematy użytkowników na lichess.</string>
