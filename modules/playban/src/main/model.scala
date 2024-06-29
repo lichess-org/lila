@@ -25,6 +25,7 @@ case class UserRecord(
 
   def badOutcomeScore: Float =
     outcomes.collect {
+      case Outcome.Sandbag                => .7f
       case Outcome.NoPlay | Outcome.Abort => .8f
       case o if o != Outcome.Good         => 1
     } sum
