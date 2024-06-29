@@ -57,7 +57,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         h2("Ongoing broadcasts with errors"),
         st.section(cls := "relay-cards"):
           errored.map: (tr, errors) =>
-            card.render(tr, live = _.display.hasStarted, errors = errors.take(5))
+            card.render(tr.copy(link = tr.display), live = _.display.hasStarted, errors = errors.take(5))
       )
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
