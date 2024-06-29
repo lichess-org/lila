@@ -267,7 +267,7 @@ final private class RelayFetch(
           httpGetPgn(url).map { MultiPgn.split(_, RelayFetch.maxChapters) }.flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
-            val nearStart = rt.round.secondsAfterStart.exists(_ < 300)
+            val nearStart = rt.round.secondsAfterSyncStart.exists(_ < 300)
             round.pairings
               .mapWithIndex: (pairing, i) =>
                 val game = i + 1
