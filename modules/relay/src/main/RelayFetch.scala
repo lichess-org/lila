@@ -220,7 +220,7 @@ final private class RelayFetch(
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
         _.expireAfter[LccGameKey, GameJson](
-          create = (key, _) => (if key.startsWith("start ") then 1 minutes else 5 minutes),
+          create = (key, _) => (if key.startsWith("started ") then 1 minute else 5 minutes),
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
@@ -230,10 +230,10 @@ final private class RelayFetch(
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1 minutes).build()
 
-    def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, nearStart: Boolean)(
+    def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, started: Boolean)(
         fetch: () => Fu[GameJson]
     ): Fu[GameJson] =
-      val key = s"${nearStart.so("start ")}${lcc.id} ${lcc.round} $index"
+      val key = s"${started.so("started ")}${lcc.id} ${lcc.round} $index"
       finishedGames
         .getIfPresent(key)
         .orElse(createdGames.getIfPresent(key))
@@ -267,12 +267,15 @@ final private class RelayFetch(
           httpGetPgn(url).map { MultiPgn.split(_, RelayFetch.maxChapters) }.flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
-            val nearStart = rt.round.secondsAfterSyncStart.exists(_ < 300)
+            val lookForStart: Boolean =
+              rt.round.startsAt
+                .map(_.minusSeconds(rt.round.sync.delay.so(_.value) + 5 * 60))
+                .forall(_.isBeforeNow)
             round.pairings
               .mapWithIndex: (pairing, i) =>
                 val game = i + 1
                 val tags = pairing.tags(lcc.round, game)
-                lccCache(lcc, game, tags, nearStart): () =>
+                lccCache(lcc, game, tags, lookForStart): () =>
                   httpGetJson[GameJson](lcc.gameUrl(game)).recover:
                     case _: Exception => GameJson(moves = Nil, result = none)
                 .map { _.toPgn(tags) }

@@ -58,14 +58,6 @@ case class RelayRound(
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
 
-  def secondsAfterSyncStart: Option[Seconds] =
-    startedAt
-      .orElse(startsAt)
-      .map: start =>
-        (nowSeconds - start.toSeconds - sync.delay.so(_.value)).toInt
-      .filter(0 < _)
-      .map(Seconds.apply)
-
   override def toString = s"""relay #$id "$name" $sync"""
 
 object RelayRound:
