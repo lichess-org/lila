@@ -103,21 +103,22 @@ const leaderboard = (ctx: RelayViewContext) => [
   ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
 ];
 
-const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) =>
-  h(
-    'div.relay-tour__info',
-    [
-      ['dates', dates && showDates(dates), 'objects.calendar'],
-      ['format', i.format, 'objects.crown'],
-      ['tc', i.tc, 'objects.mantelpiece-clock'],
-      ['players', i.players, 'activity.sparkles'],
-    ].map(
+const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
+  const contents = [
+    ['dates', dates && showDates(dates), 'objects.calendar'],
+    ['format', i.format, 'objects.crown'],
+    ['tc', i.tc, 'objects.mantelpiece-clock'],
+    ['players', i.players, 'activity.sparkles'],
+  ]
+    .map(
       ([key, value, icon]) =>
         value &&
         icon &&
         h('div.relay-tour__info__' + key, [h('img', { attrs: { src: site.asset.flairSrc(icon) } }), value]),
-    ),
-  );
+    )
+    .filter(defined);
+  return contents.length ? h('div.relay-tour__info', contents) : undefined;
+};
 
 const dateFormat = memoize(() =>
   window.Intl && Intl.DateTimeFormat
