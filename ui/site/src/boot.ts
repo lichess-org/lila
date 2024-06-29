@@ -118,7 +118,7 @@ export function boot() {
     $('.form-fieldset--toggle').each(function (this: HTMLFieldSetElement) {
       const toggle = () => this.classList.toggle('form-fieldset--toggle-off');
       $(this)
-        .find('legend')
+        .children('legend')
         .on('click', toggle)
         .on('keypress', e => e.key == 'Enter' && toggle());
     });
