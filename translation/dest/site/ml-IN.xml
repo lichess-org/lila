@@ -407,9 +407,6 @@
   <string name="safeTournamentName">ടൂർണമെന്റിന് വളരെ സുരക്ഷിതമായ പേര് കൊടുക്കുക.</string>
   <string name="inappropriateNameWarning">എന്തെങ്കിലും ചെറിയ ഔചിത്യപൂർണമല്ലാത്ത പ്രവൃത്തി മതി നിങ്ങളുടെ അക്കൗണ്ട് പൂട്ടാൻ.</string>
   <string name="emptyTournamentName">ടൂർണമെന്റിന്റെ പേര് ഒഴിവാക്കി വിട്ടാൽ ഏതെങ്കിലും ഗ്രാൻഡ്മാസ്റ്ററുടെ പേരിലായിരിക്കും ടൂർണമെന്റ് നടത്തപ്പെടുക.</string>
-  <string name="recommendNotTouching">ഇവ തൊടരുതെന്ന് ഞങ്ങൾ ശുപാർശ ചെയ്യുന്നു.</string>
-  <string name="fewerPlayers">പ്രവേശനത്തിനുള്ള നിബന്ധനങ്ങൾ നിങ്ങൾ സെറ്റ് ചെയ്താൽ, അത് കുറച്ചു കളിക്കാർ മാത്രം നിങ്ങളുടെ ടൂർണമെന്റിൽ കളിക്കുന്നതിനു കാരണമാകും.</string>
-  <string name="showAdvancedSettings">നൂതനമായ ക്രമീകരണം</string>
   <string name="makePrivateTournament">ടൂർണമെന്റ് പ്രൈവറ്റ് ആക്കുക പാസ്സ്‌വേർഡ്‌ വെച്ച് സംരക്ഷിക്കുക</string>
   <string name="join">പങ്കെടുക്കാം</string>
   <string name="withdraw">റദ്ദാക്കുക</string>
@@ -446,8 +443,6 @@
   <string name="ifNoneLeaveEmpty">ഒന്നുമില്ലെങ്കിൽ ഒഴിവാക്കിയിടുക</string>
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
-  <string name="firstName">നൽകിയ പേര്</string>
-  <string name="lastName">അവസാന പേര്</string>
   <string name="biography">ജീവചരിത്രം</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>

@@ -5,11 +5,12 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.i18n.Language
 import lila.core.misc.PicfitUrl
 import lila.core.id.ImageId
+import java.time.LocalDate
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
     name: RelayTour.Name,
-    description: String,
+    info: RelayTour.Info,
     markup: Option[Markdown] = None,
     ownerId: UserId,
     createdAt: Instant,
@@ -74,6 +75,15 @@ object RelayTour:
     )
     type Selector = RelayTour.Tier.type => RelayTour.Tier
 
+  case class Info(
+      dates: Option[String],
+      format: Option[String],
+      tc: Option[String],
+      players: Option[String]
+  ):
+    def nonEmpty          = List(dates, format, tc, players).exists(_.nonEmpty)
+    override def toString = List(format, tc, players).flatten.mkString(" | ")
+
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty
     def specialLanguage: Option[Language] = (language != lila.core.i18n.defaultLanguage).option(language)
@@ -85,7 +95,13 @@ object RelayTour:
       display: RelayRound, // which round to show on the tour link
       link: RelayRound,    // which round to actually link to
       group: Option[RelayGroup.Name]
-  ) extends RelayRound.AndTourAndGroup
+  ) extends RelayRound.AndTourAndGroup:
+    def errors: List[String] =
+      val round = display
+      ~round.sync.log.lastErrors.some
+        .filter(_.nonEmpty)
+        .orElse:
+          (round.hasStarted && !round.sync.ongoing).option(List("Not syncing!"))
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:

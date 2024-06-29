@@ -69,8 +69,8 @@
   <string name="promoteVariation">Thay đổi biến</string>
   <string name="makeMainLine">Biến chính</string>
   <string name="deleteFromHere">Xoá từ đây</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Thu gọn các biến</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Mở rộng các biến</string>
+  <string name="collapseVariations">Thu gọn các biến</string>
+  <string name="expandVariations">Mở rộng các biến</string>
   <string name="forceVariation">Đổi biến</string>
   <string name="copyVariationPgn">Sao chép biến PGN</string>
   <string name="move">Nước cờ</string>
@@ -435,9 +435,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
   <string name="inappropriateNameWarning">Một hành động dù chỉ một chút không thích hợp, tài khoản của bạn có thể bị khoá.</string>
   <string name="emptyTournamentName">Hãy để trống để lấy tên theo tên một kỳ thủ cờ vua nổi tiếng.</string>
-  <string name="recommendNotTouching">Chúng tôi khuyên bạn không nên thay đổi.</string>
-  <string name="fewerPlayers">Nếu bạn thiết lập điều kiện tham gia, giải của bạn sẽ có ít người chơi hơn.</string>
-  <string name="showAdvancedSettings">Hiện các thiết lập nâng cao</string>
   <string name="makePrivateTournament">Đặt giải đấu ở chế độ riêng tư và giới hạn tham gia bởi mật khẩu</string>
   <string name="join">Tham gia</string>
   <string name="withdraw">Rút lui</string>
@@ -477,8 +474,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="ifNoneLeaveEmpty">Nếu không có, hãy để trống</string>
   <string name="profile">Hồ sơ</string>
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
-  <string name="firstName">Tên</string>
-  <string name="lastName">Họ</string>
+  <string name="realName">Tên thật</string>
   <string name="setFlair">Đặt biểu tượng của bạn</string>
   <string name="flair">Biểu tượng</string>
   <string name="youCanHideFlair">Có một cài đặt để ẩn tất cả biểu tượng của người dùng trên toàn bộ trang web.</string>

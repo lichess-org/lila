@@ -29,11 +29,19 @@ export interface RelayRound {
   startsAt?: number;
 }
 
+export interface RelayTourInfo {
+  dates?: string;
+  format?: string;
+  tc?: string;
+  players?: string;
+}
+
 export interface RelayTour {
   id: string;
   name: string;
   slug: string;
-  description: string;
+  description?: string;
+  info: RelayTourInfo;
   official?: boolean;
   markup?: string;
   image?: string;

@@ -159,16 +159,14 @@ final class Mod(
     bindForm(lila.user.UserForm.title)(
       _ => redirect(username, mod = true),
       title =>
-        doSetTitle(username.id, title, public = true).inject:
+        doSetTitle(username.id, title).inject:
           redirect(username, mod = false)
     )
   }
 
-  protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle], public: Boolean)(
-      using Me
-  ) = for
-    _ <- (public || title.isEmpty).so(modApi.setTitle(userId, title))
-    _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _, public))
+  protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle])(using Me) = for
+    _ <- modApi.setTitle(userId, title)
+    _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _))
   yield ()
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>

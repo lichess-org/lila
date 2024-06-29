@@ -72,8 +72,8 @@
   <string name="promoteVariation">העדפת וריאנט</string>
   <string name="makeMainLine">קביעה כוריאנט הראשי</string>
   <string name="deleteFromHere">מחיקה מכאן והלאה</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">הסתרת מהלכים חלופיים</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">הצגת מהלכים חלופיים</string>
+  <string name="collapseVariations">הסתרת מהלכים חלופיים</string>
+  <string name="expandVariations">הצגת מהלכים חלופיים</string>
   <string name="forceVariation">וריאנט יחיד</string>
   <string name="copyVariationPgn">העתקת ה־PGN של הוריאנט</string>
   <string name="move">מסע</string>
@@ -533,9 +533,6 @@
   <string name="safeTournamentName">בחר/י שם בטוח מאוד לטורניר.</string>
   <string name="inappropriateNameWarning">כל דבר לא הולם ולו במעט עלול לגרום לסגירת חשבונך.</string>
   <string name="emptyTournamentName">השאירו ריק כדי לקרוא לטורניר על שם שחקן/ית שח דגול/ה.</string>
-  <string name="recommendNotTouching">אנו ממליצים לא לגעת בזה.</string>
-  <string name="fewerPlayers">אם תגדיר/י תנאי כניסה, יהיו בטורניר פחות שחקנים.</string>
-  <string name="showAdvancedSettings">הצגת הגדרות מתקדמות</string>
   <string name="makePrivateTournament">הפכו את הטורניר לפרטי, והגבילו את הכניסה עם סיסמה</string>
   <string name="join">הצטרף/י</string>
   <string name="withdraw">צא/י</string>
@@ -575,8 +572,7 @@
   <string name="ifNoneLeaveEmpty">אם אין, השאירו ריק</string>
   <string name="profile">פרופיל</string>
   <string name="editProfile">עריכת פרופיל</string>
-  <string name="firstName">שם פרטי</string>
-  <string name="lastName">שם משפחה</string>
+  <string name="realName">שם אמיתי</string>
   <string name="setFlair">הגדירו את הסמליל שלכם</string>
   <string name="flair">סמליל</string>
   <string name="youCanHideFlair">ישנה הגדרה שמאפשרת להסתיר את כל הסמלילים באתר.</string>

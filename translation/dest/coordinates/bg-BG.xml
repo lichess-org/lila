@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Имате 30 секунди да намерите колкото се може повече полета!</string>
   <string name="goAsLongAsYouWant">Давайте до колкото си поискате, няма ограничение за време!</string>
   <string name="showCoordinates">Покажи координатите</string>
+  <string name="showCoordsOnAllSquares">Координати на всяко поле</string>
   <string name="showPieces">Покажи фигурите</string>
   <string name="startTraining">Започни упражнението</string>
   <string name="findSquare">Намери полето</string>

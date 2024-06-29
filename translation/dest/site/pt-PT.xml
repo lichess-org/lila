@@ -468,9 +468,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="safeTournamentName">Escolhe um nome totalmente seguro para o torneio.</string>
   <string name="inappropriateNameWarning">Até uma linguagem ligeiramente inadequada pode levar ao encerramento da tua conta.</string>
   <string name="emptyTournamentName">Deixe em branco e será atribuído um nome aleatório de um jogador notável ao torneio.</string>
-  <string name="recommendNotTouching">Recomendamos que não mechas nestas oções.</string>
-  <string name="fewerPlayers">Se definies condições de participação, o teu torneio terá menos jogadores.</string>
-  <string name="showAdvancedSettings">Mostrar as definições avançadas</string>
   <string name="makePrivateTournament">Torna o torneio privado e restrinje o acesso com uma palavra-passe</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
@@ -510,8 +507,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="ifNoneLeaveEmpty">Se não existir, deixa em branco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar o perfil</string>
-  <string name="firstName">Nome próprio</string>
-  <string name="lastName">Apelido</string>
+  <string name="realName">Nome Real</string>
   <string name="setFlair">Defina o teu estilo</string>
   <string name="flair">Estilo</string>
   <string name="youCanHideFlair">Há uma opção para ocultar todos os estilos dos utilizadores em todo o site.</string>

@@ -459,9 +459,6 @@
   <string name="safeTournamentName">Бище турниралъе расги хӀинкъи гьечӀеб цӀар.</string>
   <string name="inappropriateNameWarning">Бокьараб, дагьаб рекъечӀеб гӀамалалъцин дур аккаунт къаялде бачине бегьула.</string>
   <string name="emptyTournamentName">РакӀалда гьечӀого цо гроссмейстерасул цӀар турниралда лъезе, чӀобого те.</string>
-  <string name="recommendNotTouching">Нижеца гӀакълу кьола гьел хъвагеян.</string>
-  <string name="fewerPlayers">Дуца турниралде лъугьине шартӀал чӀезаруни, турниралда рукӀаралдаса дагьал чагӀи рукӀине руго.</string>
-  <string name="showAdvancedSettings">ЦеретӀурал рекъезариял рихьизе</string>
   <string name="makePrivateTournament">Турнирги къараб гьабе паролалъ гӀорхъиги чӀвай</string>
   <string name="join">Жувазе</string>
   <string name="withdraw">Нахъе ине</string>
@@ -500,8 +497,6 @@
   <string name="ifNoneLeaveEmpty">ГьечӀеб батани, чӀобого те</string>
   <string name="profile">Дур гьумер</string>
   <string name="editProfile">Дур гьумер хисизе</string>
-  <string name="firstName">ЦӀар</string>
-  <string name="lastName">Хъизамалъул цӀар</string>
   <string name="biography">ГӀумрухъвай</string>
   <string name="thankYou">Баркала!</string>
   <string name="socialMediaLinks">Социалиял медиабазул бухьенал</string>

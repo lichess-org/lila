@@ -601,6 +601,7 @@ GET   /forum/search                    controllers.ForumPost.search(text ?= "", 
 GET   /forum/:categId                  controllers.ForumCateg.show(categId: ForumCategId, page: Int ?= 1)
 GET   /forum/:categId/form             controllers.ForumTopic.form(categId: ForumCategId)
 POST  /forum/:categId/new              controllers.ForumTopic.create(categId: ForumCategId)
+GET   /forum/:categId/mod-feed         controllers.ForumCateg.modFeed(categId: ForumCategId, page: Int ?= 1)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: ForumTopicId)
 GET   /forum/:categId/:slug            controllers.ForumTopic.show(categId: ForumCategId, slug, page: Int ?= 1)
 POST  /forum/:categId/:slug/close      controllers.ForumTopic.close(categId: ForumCategId, slug)

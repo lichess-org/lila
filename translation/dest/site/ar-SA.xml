@@ -74,8 +74,8 @@
   <string name="promoteVariation">رفع سلسلة الحركات</string>
   <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">أعلى</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">وسع التفريع</string>
+  <string name="collapseVariations">أعلى</string>
+  <string name="expandVariations">وسع التفريع</string>
   <string name="forceVariation">فرض التسلسل</string>
   <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
   <string name="move">التقلة</string>
@@ -599,9 +599,6 @@
   <string name="safeTournamentName">اختر اسماً ملائماً لهذه البطولة.</string>
   <string name="inappropriateNameWarning">أي شيء غير مناسب ولو حتى قليلاً يمكن أن يعرّض حسابك للإغلاق.</string>
   <string name="emptyTournamentName">أترك الحقل فارغاً وسيتم تسمية البطولة باسم غراند ماستر عشوائي.</string>
-  <string name="recommendNotTouching">نوصي بعدم تغيير هذه الخيارات.</string>
-  <string name="fewerPlayers">إذا حددت شروطَ دخولٍ للبطولة فقد يكون لديك لاعبون أقل.</string>
-  <string name="showAdvancedSettings">إظهار الإعدادات المتقدمة</string>
   <string name="makePrivateTournament">جعل البطولة خاصة، وتقييد الوصول بكلمة مرور</string>
   <string name="join">إشترك</string>
   <string name="withdraw">انسحاب</string>
@@ -641,8 +638,6 @@
   <string name="ifNoneLeaveEmpty">إذا لم يوجد، أتركه فارغًا</string>
   <string name="profile">الملف الشخصي</string>
   <string name="editProfile">حرر الملف الشخصي</string>
-  <string name="firstName">الاسم الأول</string>
-  <string name="lastName">اسم العائلة</string>
   <string name="setFlair">اختيار الشارة</string>
   <string name="flair">الشارة</string>
   <string name="youCanHideFlair">يستخدم هذا الإعداد لإخفاء جميع شارات المستخدمين في الموقع.</string>

@@ -35,3 +35,12 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
                 if canRead then Ok.page(views.forum.categ.show(categ, topics, canWrite, stickyPosts))
                 else notFound
             yield res
+
+  def modFeed(slug: ForumCategId, page: Int) = Secure(_.ModerateForum) { ctx ?=> _ ?=>
+    Found(env.forum.categRepo.byId(slug)): categ =>
+      for
+        posts     <- env.forum.paginator.recent(categ, page)
+        postViews <- posts.mapFutureList(env.forum.postApi.views)
+        page      <- renderPage(views.forum.categ.modFeed(categ, postViews))
+      yield Ok(page)
+  }

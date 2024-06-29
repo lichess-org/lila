@@ -58,11 +58,11 @@ case class RelayRound(
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
 
-  def secondsAfterStart: Option[Seconds] =
+  def secondsAfterSyncStart: Option[Seconds] =
     startedAt
       .orElse(startsAt)
       .map: start =>
-        (nowSeconds - start.toSeconds).toInt
+        (nowSeconds - start.toSeconds - sync.delay.so(_.value)).toInt
       .filter(0 < _)
       .map(Seconds.apply)
 

@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
   <string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
   <string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
-  <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
-  <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
-  <string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
   <string name="makePrivateTournament">Stelle das Turnier auf privat und beschränke den Zugang durch ein Passwort</string>
   <string name="join">Teilnehmen</string>
   <string name="withdraw">Verlassen</string>
@@ -509,8 +506,7 @@
   <string name="ifNoneLeaveEmpty">Nur falls vorhanden</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
-  <string name="firstName">Vorname</string>
-  <string name="lastName">Nachname</string>
+  <string name="realName">Echter Name</string>
   <string name="setFlair">Setze dein Flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Es existiert eine Einstellungsmöglichkeit, um alle Benutzerflairs auf der gesamten Seite zu verbergen.</string>

@@ -93,9 +93,10 @@
       }
       &:hover {
         > a {
-          @extend %box-radius-top, %dropdown-shadow;
+          @extend %box-radius-top;
           background: $c-bg-header-dropdown;
           color: $c-font-clear;
+          box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
         }
         .dropdown-window {
           visibility: visible;

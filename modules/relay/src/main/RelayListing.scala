@@ -26,10 +26,9 @@ final class RelayListing(
         local = "_id",
         foreign = "tourId",
         pipe = List(
-          $doc("$match"     -> $doc("finished" -> false)),
-          $doc("$addFields" -> $doc("sync.log" -> $arr())),
-          $doc("$sort"      -> RelayRoundRepo.sort.chrono),
-          $doc("$limit"     -> 1)
+          $doc("$match" -> $doc("finished" -> false)),
+          $doc("$sort"  -> RelayRoundRepo.sort.chrono),
+          $doc("$limit" -> 1)
         )
       )
       for

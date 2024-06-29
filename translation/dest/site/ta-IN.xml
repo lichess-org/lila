@@ -449,9 +449,6 @@
   <string name="safeTournamentName">போட்டிக்கு மிகவும் பாதுகாப்பான பெயரைத் தேர்ந்தெடுக்கவும்.</string>
   <string name="inappropriateNameWarning">சற்று பொருத்தமற்றது கூட உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="emptyTournamentName">ஒரு குறிப்பிடத் தக்க சதுரங்க வீரரின் பெயரைப் போட்டிக்குப் பெயரிட காலியாக விடவும்.</string>
-  <string name="recommendNotTouching">இவற்றில் மாற்றம் செய்யவேண்டாமெனப் பரிந்துரைக்கின்றோம்.</string>
-  <string name="fewerPlayers">நீங்கள் போட்டியாளர்களுக்கான நிபந்தனைகளை உருவாக்கினால், உங்கள் போட்டிகளில் குறைவான வீரர்களே பங்குபற்றுவார்கள்.</string>
-  <string name="showAdvancedSettings">மேம்பட்ட அமைப்புகளைப் பார்க்கவும்</string>
   <string name="makePrivateTournament">போட்டியைத் தனிப்பட்டதாக்க, கடவுச்சொல் கொண்டு அணுக்கத்தைக் கட்டுப்படுத்தவும்</string>
   <string name="join">சேர்</string>
   <string name="withdraw">விலகு</string>
@@ -491,8 +488,6 @@
   <string name="ifNoneLeaveEmpty">இல்லையென்றால் காலியாக விடலாம்</string>
   <string name="profile">குறிப்புகள்</string>
   <string name="editProfile">தகவல்களை  மாற்று</string>
-  <string name="firstName">முதல் பெயர்</string>
-  <string name="lastName">கடைசி பெயர்</string>
   <string name="setFlair">உங்கள் திறமையை அமைக்கவும்</string>
   <string name="youCanHideFlair">தளம் முழுவதும் அனைத்து பயனர் திறமைகளையும் மறைக்க ஒரு அமைப்பு உள்ளது.</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>

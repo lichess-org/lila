@@ -392,9 +392,6 @@
   <string name="safeTournamentName">Равзар æдас ном турнирæн.</string>
   <string name="inappropriateNameWarning">Турниры ном куы зæрдæхсайгæ уа, уæд блокадæ дын акæндзысты.</string>
   <string name="emptyTournamentName">Ныууадз афтидæй, цæмæй турнир уыд сæмбæлгæ гроссмейстеры номæн.</string>
-  <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
-  <string name="fewerPlayers">Хайады домæнтæ куы раттдзынæ, уæд дæ ерысы къаддæр адæм хъаздзысты.</string>
-  <string name="showAdvancedSettings">Равдисын баххæстæг настройкæтæ</string>
   <string name="makePrivateTournament">Турнир æхгæдæй скæнын æмæ бацæуæн арæн скæнын паролæй</string>
   <string name="join">Хайад исын</string>
   <string name="withdraw">Ныууадзын</string>
@@ -429,8 +426,6 @@
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профиль æндæр кæнын</string>
-  <string name="firstName">Ном</string>
-  <string name="lastName">Мыггаг</string>
   <string name="biography">Махи тыххæй</string>
   <string name="thankYou">Бузныг!</string>
   <string name="socialMediaLinks">Социалон хызтæм дæнцæгтæ</string>

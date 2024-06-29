@@ -9,6 +9,15 @@
     margin: 2em 0 1em 0;
   }
 }
+.relay-index__admin {
+  h2 {
+    margin: 0 0 1em 0;
+    color: $c-bad;
+  }
+  padding-bottom: 1em;
+  border-bottom: $border;
+  margin-bottom: 2em;
+}
 
 .relay-image {
   &--fallback {

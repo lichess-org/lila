@@ -243,7 +243,7 @@ final class Study(
           division = division
         )
       )
-      withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin)
+      withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
       studyJson <- env.study.jsonView(study, previews, chapter, fedNames.some, withMembers = withMembers)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
@@ -320,11 +320,12 @@ final class Study(
 
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
-      env.study.api.delete(study) >> env.relay.api
-        .deleteRound(id.into(RelayRoundId))
-        .map:
-          case None       => Redirect(routes.Study.mine(Order.hot))
-          case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
+      for
+        round <- env.relay.api.deleteRound(id.into(RelayRoundId))
+        _     <- env.study.api.delete(study)
+      yield round match
+        case None       => Redirect(routes.Study.mine(Order.hot))
+        case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
   def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write) { _ ?=> me ?=>

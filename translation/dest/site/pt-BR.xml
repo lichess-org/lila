@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Escolha um nome seguro para o torneio.</string>
   <string name="inappropriateNameWarning">Até mesmo a menor indecência poderia ensejar o encerramento de sua conta.</string>
   <string name="emptyTournamentName">Deixe em branco para dar ao torneio o nome de um grande mestre aleatório.</string>
-  <string name="recommendNotTouching">Recomendamos não mexer nisso.</string>
-  <string name="fewerPlayers">Se você restringir as condições de participação, haverá menos jogadores no torneio.</string>
-  <string name="showAdvancedSettings">Exibir configurações avançadas</string>
   <string name="makePrivateTournament">Faça o torneio privado e restrinja o acesso com uma senha</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
@@ -509,8 +506,7 @@
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
-  <string name="firstName">Primeiro nome</string>
-  <string name="lastName">Sobrenome</string>
+  <string name="realName">Nome real</string>
   <string name="setFlair">Escolha seu emote</string>
   <string name="flair">Estilo</string>
   <string name="youCanHideFlair">Você pode esconder todos os emotes de usuário no site.</string>

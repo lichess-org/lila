@@ -205,7 +205,7 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
         "form-fieldset--toggle"     -> toggle.isDefined,
         "form-fieldset--toggle-off" -> toggle.has(false)
       )
-    )(st.legend(legend))
+    )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
   private val dataTime24h    = attr("data-time_24h")

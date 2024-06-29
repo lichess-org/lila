@@ -466,9 +466,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="safeTournamentName">Scegli un nome appropriato per il torneo.</string>
   <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare l\'eliminazione del tuo account.</string>
   <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo con il nome di un giocatore famoso casuale.</string>
-  <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
-  <string name="fewerPlayers">Se imponi condizioni d\'accesso il torneo avrà un minor numero di giocatori.</string>
-  <string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
   <string name="makePrivateTournament">Rendi privato il torneo e limita l\'accesso con una password</string>
   <string name="join">Unisciti</string>
   <string name="withdraw">Ritirati</string>
@@ -508,8 +505,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="ifNoneLeaveEmpty">Se nessuno, lasciare vuoto</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modifica profilo</string>
-  <string name="firstName">Nome</string>
-  <string name="lastName">Cognome</string>
   <string name="setFlair">Imposta la tua icona</string>
   <string name="flair">Icona</string>
   <string name="youCanHideFlair">Esiste un\'impostazione per nascondere le icone di tutti gli utenti, sull\'intero sito.</string>

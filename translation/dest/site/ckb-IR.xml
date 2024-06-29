@@ -465,9 +465,6 @@
   <string name="safeTournamentName">ناوێکی گونجاو بۆ پاڵەوانیەتیەکە هەڵبژێرە.</string>
   <string name="inappropriateNameWarning">هەرشتێک ئەگەر کەمێکیش نەگونجاوبێت، دەبێتە هۆی داخستنی هەژمارەکەت.</string>
   <string name="emptyTournamentName">ئەم خانەیە بە بەتاڵی جێبێڵە، بۆئەوەی بە شێوەیەکی هەڕەمەکی بە ناوی یاریزانێکی دیاری شەترەنجەوە بنرێت.</string>
-  <string name="recommendNotTouching">ئێمە پێشنیار دەکەین، گۆڕانکاری لەو بەشە نەکرێت.</string>
-  <string name="fewerPlayers">ئەگەر مەرجی چوونەژوورەوە زیادبکەیت ڕەنگە یاریزانی کەمتر بەشداربن.</string>
-  <string name="showAdvancedSettings">ڕێکخستنی پێشکەوتوو نیشان بدە</string>
   <string name="makePrivateTournament">پاڵەوانێتییەکە بکە بە تایبەت، و بە وشەی نهێنی چوونە ژوورەوە سنووردار بکە</string>
   <string name="join">بەشداریبکە</string>
   <string name="withdraw">کشانەوە</string>
@@ -507,8 +504,6 @@
   <string name="ifNoneLeaveEmpty">ئەگەر نییە، بە بەتاڵی جێیبێڵە</string>
   <string name="profile">پڕۆفایل</string>
   <string name="editProfile">دەستکاریکردنی پڕۆفایل</string>
-  <string name="firstName">ناو</string>
-  <string name="lastName">ناوی باپیرت</string>
   <string name="setFlair">توانای خۆت دابنێ</string>
   <string name="flair">بەهرە</string>
   <string name="youCanHideFlair">ڕێکخستنێک هەیە بۆ شاردنەوەی هەموو تواناکانی بەکارهێنەر لە سەرانسەری ماڵپەڕەکەدا.</string>

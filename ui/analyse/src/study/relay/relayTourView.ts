@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
-import { RelayGroup, RelayRound } from './interfaces';
+import { RelayGroup, RelayRound, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined } from 'common';
 import StudyCtrl from '../studyCtrl';
@@ -103,13 +103,30 @@ const leaderboard = (ctx: RelayViewContext) => [
   ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
 ];
 
+const showInfo = (i: RelayTourInfo) =>
+  h(
+    'div.relay-tour__info',
+    [
+      ['dates', i.dates, 'objects.calendar'],
+      ['format', i.format, 'objects.crown'],
+      ['tc', i.tc, 'objects.mantelpiece-clock'],
+      ['players', i.players, 'activity.sparkles'],
+    ].map(
+      ([key, value, icon]) =>
+        value &&
+        icon &&
+        h('div.relay-tour__info__' + key, [h('img', { attrs: { src: site.asset.flairSrc(icon) } }), value]),
+    ),
+  );
+
 const overview = (ctx: RelayViewContext) => [
   ...header(ctx),
+  showInfo(ctx.relay.data.tour.info),
   ctx.relay.data.tour.markup
     ? h('div.relay-tour__markup', {
         hook: innerHTML(ctx.relay.data.tour.markup, () => ctx.relay.data.tour.markup!),
       })
-    : h('div.relay-tour__markup', ctx.relay.data.tour.description),
+    : undefined,
   h('div.relay-tour__share', [
     h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
     ...[

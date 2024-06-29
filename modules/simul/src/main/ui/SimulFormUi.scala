@@ -147,11 +147,13 @@ final class SimulFormUi(helpers: Helpers)(
           gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
         )
       ),
-      form3.group(
-        form("estimatedStartAt"),
-        trans.site.estimatedStart(),
-        half = true
-      )(form3.flatpickr(_)),
+      form3.split(
+        form3.group(
+          form("estimatedStartAt"),
+          trans.site.estimatedStart(),
+          half = true
+        )(form3.flatpickr(_))
+      ),
       form3.group(
         form("text"),
         trans.site.simulDescription(),
