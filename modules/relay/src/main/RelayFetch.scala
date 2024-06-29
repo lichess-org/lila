@@ -85,13 +85,13 @@ final private class RelayFetch(
         .map(games => rt.tour.players.fold(games)(_.update(games)))
         .flatMap(fidePlayers.enrichGames(rt.tour))
         .map(games => rt.tour.teams.fold(games)(_.update(games)))
-        .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
+        .mon(_.relay.fetchTime(rt.tour.official, rt.tour.slug))
         .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size))
         .flatMap: games =>
           sync
             .updateStudyChapters(rt, games)
             .withTimeoutError(7 seconds, SyncResult.Timeout)
-            .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
+            .mon(_.relay.syncTime(rt.tour.official, rt.tour.slug))
             .map: res =>
               res -> updating:
                 _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
@@ -123,7 +123,7 @@ final private class RelayFetch(
       case result: SyncResult.Ok if result.hasMovesOrTags =>
         api.syncTargetsOfSource(round)
         if result.nbMoves > 0 then
-          lila.mon.relay.moves(tour.official, round.slug).increment(result.nbMoves)
+          lila.mon.relay.moves(tour.official, tour.slug).increment(result.nbMoves)
           if !round.hasStarted && !tour.official then
             irc.broadcastStart(round.id, round.withTour(tour).fullName)
           continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
