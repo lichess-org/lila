@@ -32,7 +32,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     given prefix: FormPrefix = FormPrefix.empty
     val fields               = tourFields(form, none)
     Page(trans.site.newTournament.txt())
-      .css("tournament.form")
+      .css("tournament.form", "bits.page")
       .js(EsmInit("bits.tourForm")):
         main(cls := "page-small")(
           div(cls := "tour__form box box-pad")(
@@ -55,7 +55,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
               )
             )
           ),
-          div(cls := "box box-pad tour__faq")(showUi.faq.pageContent)
+          div(cls := "box box-pad tour__faq page")(div(cls := "body")(showUi.faq()))
         )
 
   def edit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using Context) =
