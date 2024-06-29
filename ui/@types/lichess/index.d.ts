@@ -71,6 +71,7 @@ interface Site {
   };
   timeago(date: number | Date): string;
   dateFormat: () => (date: Date) => string;
+  displayLocale: string;
   contentLoaded(parent?: HTMLElement): void;
   blindMode: boolean;
   makeChat(data: any): any;

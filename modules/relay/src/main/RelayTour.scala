@@ -24,6 +24,7 @@ case class RelayTour(
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,
     image: Option[ImageId] = None,
+    dates: Option[RelayTour.Dates] = None, // denormalized from round dates
     pinnedStreamer: Option[UserStr] = None,
     pinnedStreamerImage: Option[ImageId] = None
 ):
@@ -76,13 +77,15 @@ object RelayTour:
     type Selector = RelayTour.Tier.type => RelayTour.Tier
 
   case class Info(
-      dates: Option[String],
       format: Option[String],
       tc: Option[String],
       players: Option[String]
   ):
-    def nonEmpty          = List(dates, format, tc, players).exists(_.nonEmpty)
-    override def toString = List(format, tc, players).flatten.mkString(" | ")
+    val all = List(format, tc, players).flatten
+    export all.nonEmpty
+    override def toString = all.flatten.mkString(" | ")
+
+  case class Dates(start: Instant, end: Option[Instant])
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty
@@ -101,7 +104,8 @@ object RelayTour:
       ~round.sync.log.lastErrors.some
         .filter(_.nonEmpty)
         .orElse:
-          (round.hasStarted && !round.sync.ongoing).option(List("Not syncing!"))
+          (round.hasStarted && round.sync.upstream.isDefined && !round.sync.ongoing)
+            .option(List("Not syncing!"))
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:
