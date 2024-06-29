@@ -104,7 +104,8 @@ object RelayTour:
       ~round.sync.log.lastErrors.some
         .filter(_.nonEmpty)
         .orElse:
-          (round.hasStarted && !round.sync.ongoing).option(List("Not syncing!"))
+          (round.hasStarted && round.sync.upstream.isDefined && !round.sync.ongoing)
+            .option(List("Not syncing!"))
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:
