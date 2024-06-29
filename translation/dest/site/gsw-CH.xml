@@ -469,9 +469,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="safeTournamentName">Wähl en möglichscht sichere Name fürs Turnier.</string>
   <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
   <string name="emptyTournamentName">Frei la zum s\'Turnier nach eme namhafte Schachschpiller z\'benänne.</string>
-  <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
-  <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
-  <string name="showAdvancedSettings">Zeig die erwiterete Ischtellige</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
   <string name="join">Mach mit</string>
   <string name="withdraw">Usstige</string>
@@ -511,8 +508,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="ifNoneLeaveEmpty">Nur wänn vorhande</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeite</string>
-  <string name="firstName">Vorname</string>
-  <string name="lastName">Nachname</string>
   <string name="setFlair">Wähl dis Emoji</string>
   <string name="flair">Emoji</string>
   <string name="youCanHideFlair">Alli Benutzer-Emojis chönnd - uf de ganze Site - usbländet werde.</string>

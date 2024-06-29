@@ -492,9 +492,6 @@
   <string name="safeTournamentName">Izvēlieties drošu turnīra nosaukumu.</string>
   <string name="inappropriateNameWarning">Jebkas kaut nedaudz nepiedienīgs var novest pie jūsu konta slēgšanas.</string>
   <string name="emptyTournamentName">Atstājiet neaizpildītu, lai nosauktu turnīru kāda ievērojama šahista vārdā.</string>
-  <string name="recommendNotTouching">Iesakām šeit neko nemainīt.</string>
-  <string name="fewerPlayers">Ja uzstādīsiet dalības noteikumus, jūsu turnīrā piedalīsies mazāk spēlētāju.</string>
-  <string name="showAdvancedSettings">Rādīt lietpratēju uzstādījumus</string>
   <string name="makePrivateTournament">Padarīt turnīru privātu, un ierobežot piekļuvi ar paroli</string>
   <string name="join">Pievienoties</string>
   <string name="withdraw">Izstāties</string>
@@ -533,8 +530,6 @@
   <string name="ifNoneLeaveEmpty">Ja nav piešķirts, atstājiet tukšu</string>
   <string name="profile">Profils</string>
   <string name="editProfile">Labot profilu</string>
-  <string name="firstName">Vārds</string>
-  <string name="lastName">Uzvārds</string>
   <string name="biography">Biogrāfija</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>

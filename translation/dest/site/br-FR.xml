@@ -539,9 +539,6 @@
   <string name="safeTournamentName">Choazit un anv dereat-tre evit an tournamant.</string>
   <string name="inappropriateNameWarning">Un draig ha ne vefe ket dereat a vefe trawalc\'h evit ma serrfemp ho kont.</string>
   <string name="emptyTournamentName">Laoskit goullo evit envel an tournamant diouzh anv ur c\'hoarier echedoù brudet.</string>
-  <string name="recommendNotTouching">Gwelloc\'h eo deoc\'h chom hep kemm anezhe.</string>
-  <string name="fewerPlayers">Ma c\'houlennit strishadurioù evit mont-tre e vo nebeutoc\'h a c\'hoarierien o kemer perzh en ho tournamant.</string>
-  <string name="showAdvancedSettings">Diskouez an arventennoù kempleshoc\'h</string>
   <string name="makePrivateTournament">Gallout a rit krouiñ un tournamant prevez oc\'h ouzhpennañ ur ger-tremen</string>
   <string name="join">Kemer perzh</string>
   <string name="withdraw">Dilezel</string>
@@ -580,8 +577,6 @@
   <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Aozañ ar profil</string>
-  <string name="firstName">Anv</string>
-  <string name="lastName">Anv familh</string>
   <string name="biography">Diwar ho penn</string>
   <string name="thankYou">Trugarez!</string>
   <string name="socialMediaLinks">Liammoù ar mediaoù sokial</string>

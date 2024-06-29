@@ -460,9 +460,6 @@
   <string name="safeTournamentName">ტურნირისთვის შეარჩიეთ უსაფრთხო სახელი.</string>
   <string name="inappropriateNameWarning">ნებისმიერი, თუნდაც მცირედი, უტაქტობა გამოიწვევს თქვენი ანგარიშის დახურვას.</string>
   <string name="emptyTournamentName">დატოვეთ ცარიელი, თუ გნებავთ რომ ტურნირს დაერქვას შემთხვევითად შერჩეული ჭადრაკის დიდოსტატის სახელი.</string>
-  <string name="recommendNotTouching">გირჩევთ ამას არ შეეხოთ.</string>
-  <string name="fewerPlayers">თუ თქვენ შესვლის წინაპირობებს დააყენებთ, თქვენს ტურნირს უფრო ცოტა მოთამაშე ეყოლება.</string>
-  <string name="showAdvancedSettings">დამატებითი პარამეტრების ნახვა</string>
   <string name="makePrivateTournament">გახადე ტურნირი დახურული და შეუზღუდე ჭვდომა პაროლით</string>
   <string name="join">შეუერთდით</string>
   <string name="withdraw">გავარდნა</string>
@@ -501,8 +498,6 @@
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
-  <string name="firstName">სახელი</string>
-  <string name="lastName">გვარი</string>
   <string name="biography">ბიოგრაფია</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
   <string name="socialMediaLinks">სოციალური მედიის ბმულები</string>

@@ -427,9 +427,6 @@
   <string name="safeTournamentName">Тэмцээний хувьд маш аюулгүй нэр сонгоно уу.</string>
   <string name="inappropriateNameWarning">Бүр бага зэрэг зохисгүй зүйл таны данс хаагдах боломжтой болно.</string>
   <string name="emptyTournamentName">Тэмцээний Grandmaster-ийн дараа хоосон орхи.</string>
-  <string name="recommendNotTouching">Бид эдгээрийг хөндөхгүй байхыг зөвлөж байна.</string>
-  <string name="fewerPlayers">Хэрэв та орох нөхцөлийг тохируулсан бол таны тэмцээн цөөхөн тоглогчтой болно.</string>
-  <string name="showAdvancedSettings">Нарийвчилсан тохиргоог харуулах</string>
   <string name="makePrivateTournament">Хувийн тур нууц үгтэйгээр үүсгэх</string>
   <string name="join">Нэгдэх</string>
   <string name="withdraw">Тэмцээнийг орхих</string>
@@ -469,8 +466,6 @@
   <string name="ifNoneLeaveEmpty">Байхгүй бол хоосон орхи</string>
   <string name="profile">Гишүүний хуудас</string>
   <string name="editProfile">Танилцуулга хуудсаа засварлах</string>
-  <string name="firstName">Өөрийн нэр</string>
-  <string name="lastName">Эцгийн нэр</string>
   <string name="setFlair">Нэрнийхээ хажууг чимэглэх</string>
   <string name="flair">Эможи</string>
   <string name="youCanHideFlair">Сайтанд байгаа бүх нэрний хажуу зүйлсийг нуух тохиргоо байдгийг санаарай.</string>

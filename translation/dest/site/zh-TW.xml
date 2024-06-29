@@ -428,9 +428,6 @@
   <string name="safeTournamentName">幫錦標賽挑選一個適合的名字</string>
   <string name="inappropriateNameWarning">即便只是一點點的違規都有可能導致您的帳號被封鎖。</string>
   <string name="emptyTournamentName">若不填入錦標賽的名稱，將會用一位著名的棋手名字來做為錦標賽名稱。</string>
-  <string name="recommendNotTouching">我們建議您不要調整這些數據</string>
-  <string name="fewerPlayers">如果你設定入場限制，你的錦標賽選手會比較少。</string>
-  <string name="showAdvancedSettings">顯示進階設定</string>
   <string name="makePrivateTournament">把錦標賽設定為私人，並設定密碼來限制進入。</string>
   <string name="join">加入</string>
   <string name="withdraw">離開</string>
@@ -470,8 +467,6 @@
   <string name="ifNoneLeaveEmpty">如果沒有，請留空</string>
   <string name="profile">資料</string>
   <string name="editProfile">編輯資料</string>
-  <string name="firstName">名</string>
-  <string name="lastName">姓</string>
   <string name="setFlair">設置你的圖標</string>
   <string name="flair">圖標</string>
   <string name="youCanHideFlair">有一個設置可以隱藏整個網站上所有用户圖標。</string>

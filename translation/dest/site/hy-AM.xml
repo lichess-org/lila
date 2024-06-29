@@ -461,9 +461,6 @@
   <string name="safeTournamentName">Ընտրեք շատ ապահով անվանում մրցաշարի համար։</string>
   <string name="inappropriateNameWarning">Եթե անվանումը թվա նույնիսկ փոքր-ինչ անհարիր, Ձեզ կարող են արգելափակել։</string>
   <string name="emptyTournamentName">Թողեք դատարկ` մրցաշարը պատահական գրոսմայստերի պատվին կոչելու համար։</string>
-  <string name="recommendNotTouching">Խորհուրդ չենք տալիս սահմանել այդ պայմանները։</string>
-  <string name="fewerPlayers">Եթե Դուք սահմանեք մասնակցության պայմանները, Ձեր մրցաշարին կարող են մասնակցել ավելի քիչ թվով խաղացողներ։</string>
-  <string name="showAdvancedSettings">Ցույց տալ ընդլայնված կարգավորումները</string>
   <string name="makePrivateTournament">Մրցաշարը դարձնել փակ և մուտքը սահմանափակել գաղտնաբառով</string>
   <string name="join">Միանալ</string>
   <string name="withdraw">Չեղարկել</string>
@@ -502,8 +499,6 @@
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
-  <string name="firstName">Անուն</string>
-  <string name="lastName">Ազգանուն</string>
   <string name="biography">Կենսագրություն</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>

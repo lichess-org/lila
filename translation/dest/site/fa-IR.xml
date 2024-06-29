@@ -70,8 +70,8 @@
   <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">بستن شاخه‌ها</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">باز کردن شاخه‌ها</string>
+  <string name="collapseVariations">بستن شاخه‌ها</string>
+  <string name="expandVariations">باز کردن شاخه‌ها</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
@@ -467,9 +467,6 @@
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
   <string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
   <string name="emptyTournamentName">این مکان را خالی بگذارید تا به صورت تصادفی اسم یک استاد بزرگ برای مسابقات انتخاب شود.</string>
-  <string name="recommendNotTouching">توصیه میکنیم که تنظیمات پیشرفته را تغییر ندهید.</string>
-  <string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
-  <string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
   <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
   <string name="join">ملحق شدن</string>
   <string name="withdraw">منصرف شدن</string>
@@ -509,8 +506,7 @@
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
   <string name="profile">رُخ‌نما</string>
   <string name="editProfile">ویرایش رُخ‌نما</string>
-  <string name="firstName">نام</string>
-  <string name="lastName">نام خانوادگی</string>
+  <string name="realName">نام راستین</string>
   <string name="setFlair">تعیین کردن شکلک</string>
   <string name="flair">نشان</string>
   <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>

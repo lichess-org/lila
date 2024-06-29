@@ -462,9 +462,6 @@
   <string name="safeTournamentName">Жарысты түзу, жөнді сөзбен атаңыз.</string>
   <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет себебінен тіркелгіңіз жабылуы мүмкін.</string>
   <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
-  <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
-  <string name="fewerPlayers">Егер кіру талаптарын қойсаңыз, қатысатын ойыншылар саны аз болады.</string>
-  <string name="showAdvancedSettings">Қосымша баптауларды көрсету</string>
   <string name="makePrivateTournament">Кіруді құпиясөзбен шектеп, жарысты оңашалаңыз</string>
   <string name="join">Қосылыңыз</string>
   <string name="withdraw">Жарыстан шығу</string>
@@ -503,8 +500,6 @@
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
   <string name="profile">Куәлік</string>
   <string name="editProfile">Куәлікті өзгерту</string>
-  <string name="firstName">Атыңыз</string>
-  <string name="lastName">Тегіңіз</string>
   <string name="biography">Өмірбаян</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>

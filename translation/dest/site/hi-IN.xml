@@ -463,9 +463,6 @@
   <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
   <string name="inappropriateNameWarning">थोड़ा सा भी अनुचित नाम चुनने से आपका ख़ाता बंद हो सकता है।</string>
   <string name="emptyTournamentName">खाली रखने पर बेतरतीब ढंग से कोई एक सर्वश्रेष्ठ शतरंज के खिलाड़ी के बाद टूर्नामेंट का नाम चुना जाएगा।</string>
-  <string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते ।</string>
-  <string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
-  <string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
   <string name="makePrivateTournament">प्रतियोगिता को निजी बनाएं, और पासवर्ड के साथ पहुंच को प्रतिबंधित करें</string>
   <string name="join">हिस्सा लें</string>
   <string name="withdraw">छोड़ के जाएं</string>
@@ -504,8 +501,6 @@
   <string name="ifNoneLeaveEmpty">यदि कोई नहीं, खाली छोड़ दो</string>
   <string name="profile">प्रोफ़ाइल</string>
   <string name="editProfile">प्रोफ़ाइल संपादित करें</string>
-  <string name="firstName">प्रथम नाम</string>
-  <string name="lastName">अंतिम नाम</string>
   <string name="youCanHideFlair">संपूर्ण साइट पर सभी उपयोगकर्ता विशेषताओं को छिपाने के लिए एक सेटिंग है</string>
   <string name="biography">जीवनी</string>
   <string name="thankYou">धन्यवाद!</string>

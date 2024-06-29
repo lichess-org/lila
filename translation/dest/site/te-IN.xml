@@ -394,9 +394,6 @@
   <string name="safeTournamentName">టోర్నమెంట్ కోసం చాలా సురక్షితమైన పేరును ఎంచుకోండి.</string>
   <string name="inappropriateNameWarning">కొంచెం అనుచితమైన ఏదైనా మీ ఖాతా మూసివేయబడుతుంది.</string>
   <string name="emptyTournamentName">చెస్ ఆటగాడి పేరు మీద టోర్నమెంట్ పేరు పెట్టడానికి ఖాళీగా ఉండండి.</string>
-  <string name="recommendNotTouching">వీటిని తాకవద్దని మేము సిఫార్సు చేస్తున్నాము.</string>
-  <string name="fewerPlayers">మీరు ప్రవేశ అవసరాలను సెట్ చేస్తే, మీ టోర్నమెంట్‌లో తక్కువ మంది ఆటగాళ్ళు ఉంటారు.</string>
-  <string name="showAdvancedSettings">అధునాతన సెట్టింగ్‌లను చూపించు</string>
   <string name="makePrivateTournament">టోర్నమెంట్‌ను ప్రైవేట్‌గా చేయండి మరియు పాస్‌వర్డ్‌తో ప్రాప్యతను పరిమితం చేయండి</string>
   <string name="join">చేరండి</string>
   <string name="withdraw">ఉపసంహరించుకోండి</string>
@@ -433,8 +430,6 @@
   <string name="ifNoneLeaveEmpty">ఏదీ లేకుంటే, ఖాళీగా వదిలివేయండి</string>
   <string name="profile">ప్రొఫైల్</string>
   <string name="editProfile">ప్రొఫైల్ మార్చాలి</string>
-  <string name="firstName">ఇచ్చిన పేరు</string>
-  <string name="lastName">ఇంటిపేరు</string>
   <string name="biography">జీవిత చరిత్ర</string>
   <string name="thankYou">ధన్యవాదాలు!</string>
   <string name="socialMediaLinks">సోషల్ మీడియా లింక్‌లు</string>

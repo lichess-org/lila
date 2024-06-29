@@ -468,9 +468,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="safeTournamentName">Finn eit svært sikkert namn på turneringa.</string>
   <string name="inappropriateNameWarning">Upassande innhald kan føre til at brukarkontoen din blir stengd.</string>
   <string name="emptyTournamentName">Lat stå tomt for at turneringa skal få namn etter ein tilfeldig stormester.</string>
-  <string name="recommendNotTouching">Vi tilrår å ikkje endre desse.</string>
-  <string name="fewerPlayers">Om du set opp vilkår for deltaking vil turneringa di få færre deltakarar.</string>
-  <string name="showAdvancedSettings">Vis avanserte innstillingar</string>
   <string name="makePrivateTournament">Gjer turneringa privat og avgrens tilgang vha. eit passord</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
@@ -510,8 +507,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lat stå tomt</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profilen</string>
-  <string name="firstName">Førenamn</string>
-  <string name="lastName">Etternamn</string>
+  <string name="realName">Verkelege namn</string>
   <string name="setFlair">Vel eit ikon som best representerer talentet ditt</string>
   <string name="flair">Talent</string>
   <string name="youCanHideFlair">Det finst ei innstilling for å skjule symbolet for spelarane sine talent på heile nettstaden.</string>
