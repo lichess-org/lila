@@ -590,6 +590,7 @@
   <string name="slow">آرام</string>
   <string name="insideTheBoard">در صفحه</string>
   <string name="outsideTheBoard">بیرون صفحه</string>
+  <string name="allSquaresOfTheBoard">همه خانه‌های صفحه</string>
   <string name="onSlowGames">در بازی های آرام</string>
   <string name="always">همیشه</string>
   <string name="never">هرگز</string>
