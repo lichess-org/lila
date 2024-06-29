@@ -225,6 +225,7 @@ final private class RelayFetch(
           read = (_, _, current) => current
         ).build()
     // cache games with number > 12 to reduce load on big tournaments
+    val tailAt = 12
     private val tailGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1 minutes).build()
@@ -236,14 +237,14 @@ final private class RelayFetch(
       finishedGames
         .getIfPresent(key)
         .orElse(createdGames.getIfPresent(key))
-        .orElse(tailGames.getIfPresent(key))
+        .orElse((index >= lccCache.tailAt).so(tailGames.getIfPresent(key)))
         .match
           case Some(game) => fuccess(game)
           case None =>
             fetch().addEffect: game =>
               if game.moves.isEmpty then createdGames.put(key, game)
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
-              else if index >= 12 then tailGames.put(key, game)
+              else if index >= lccCache.tailAt then tailGames.put(key, game)
 
   private def fetchFromUpstreamWithRecover(rt: RelayRound.WithTour)(url: URL)(using
       CanProxy
