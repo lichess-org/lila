@@ -553,9 +553,7 @@
   <string name="reason">دلیل</string>
   <string name="whatIsIheMatter">موضوع</string>
   <string name="cheat">تقلب</string>
-  <string name="insult">توهین کردن</string>
   <string name="troll">ترول</string>
-  <string name="ratingManipulation">دستکاری درجه‌بندی</string>
   <string name="other">موضوعات دیگر</string>
   <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
