@@ -307,6 +307,12 @@ $hover-bg: $m-primary_bg--mix-30;
   &__source {
     @extend %box-margin-horiz;
     font-style: italic;
+    @media (max-width: at-most($x-large)) {
+      display: none;
+    }
+    &:last-child {
+      margin-bottom: 3em;
+    }
   }
   &__share {
     @extend %box-neat, %box-margin-horiz;
