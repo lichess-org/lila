@@ -14,7 +14,7 @@ final class PerfsUpdater(
     gameRepo: lila.game.GameRepo,
     userApi: UserApi,
     rankingApi: RankingApi,
-    botFarming: BotFarming,
+    farming: FarmBoostDetection,
     ratingFactors: () => RatingFactors
 )(using Executor):
 
@@ -22,8 +22,9 @@ final class PerfsUpdater(
 
   // returns rating diffs
   def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[ByColor[IntRatingDiff]]] =
-    botFarming(game).flatMap {
+    farming.botFarming(game).flatMap {
       if _ then fuccess(none)
+      else if farming.newAccountBoosting(game, ByColor(white, black)) then fuccess(none)
       else
         val ratingPerf: Option[PerfKey] =
           if game.variant.fromPosition

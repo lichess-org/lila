@@ -157,6 +157,9 @@ object mon:
     object correspondenceEmail:
       val emails = histogram("round.correspondenceEmail.emails").withoutTags()
       val time   = future("round.correspondenceEmail.time")
+    object farming:
+      val bot         = counter("round.farming.bot").withoutTags()
+      val provisional = counter("round.farming.provisional").withoutTags()
   object playban:
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
     object ban:
