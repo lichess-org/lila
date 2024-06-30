@@ -11,13 +11,22 @@ const fetchDates = tourId =>
     ])
     .next();
 
+const cmp = (a, b) => (a ? a.getTime() : 0) == (b ? b.getTime() : 0);
+
 db.relay_tour
-  .find({ dates: { $exists: 0 } })
+  .find()
   .sort({ $natural: -1 })
+  .limit(200)
   .forEach(tour => {
     const dates = fetchDates(tour._id);
     if (dates) {
-      console.log(tour._id + ' ' + tour.createdAt);
-      db.relay_tour.updateOne({ _id: tour._id }, { $set: { dates } });
+      if (!cmp(dates?.start, tour.dates?.start)) {
+        console.log(tour._id + ' ' + tour.dates?.start + ' -> ' + dates.start);
+        db.relay_tour.updateOne({ _id: tour._id }, { $set: { 'dates.start': dates.start } });
+      }
+      if (!cmp(dates?.end, tour.dates?.end)) {
+        console.log(tour._id + ' ' + tour.dates?.end + ' -> ' + dates.end);
+        db.relay_tour.updateOne({ _id: tour._id }, { $set: { 'dates.end': dates.end } });
+      }
     }
   });
