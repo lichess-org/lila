@@ -656,6 +656,7 @@
   <string name="slow">Wolno</string>
   <string name="insideTheBoard">Na szachownicy</string>
   <string name="outsideTheBoard">Poza szachownicą</string>
+  <string name="allSquaresOfTheBoard">Wszystkie pola szachownicy</string>
   <string name="onSlowGames">W wolniejszych partiach</string>
   <string name="always">Zawsze</string>
   <string name="never">Nigdy</string>
