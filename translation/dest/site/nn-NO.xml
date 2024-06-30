@@ -589,6 +589,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="slow">Sakte</string>
   <string name="insideTheBoard">På brettet</string>
   <string name="outsideTheBoard">Utanfor brettet</string>
+  <string name="allSquaresOfTheBoard">Alle felt på brettet</string>
   <string name="onSlowGames">I parti med lang tid</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>
