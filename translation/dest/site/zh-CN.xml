@@ -473,6 +473,7 @@
   <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
   <string name="profile">个人资料</string>
   <string name="editProfile">编辑个人资料</string>
+  <string name="realName">真名</string>
   <string name="setFlair">设置你的图标</string>
   <string name="flair">头像</string>
   <string name="youCanHideFlair">有一个设置可以隐藏整个站点上的所有用户图标。</string>

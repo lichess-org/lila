@@ -506,6 +506,7 @@
   <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
   <string name="profile">Profiili</string>
   <string name="editProfile">Muokkaa profiilia</string>
+  <string name="realName">Oikea nimi</string>
   <string name="setFlair">Valitse tyylisi</string>
   <string name="flair">Tyyli</string>
   <string name="youCanHideFlair">On olemassa asetus, jolla voit piilottaa kaikkien käyttäjien tyylit koko sivustolla.</string>
@@ -589,6 +590,7 @@
   <string name="slow">Hidas</string>
   <string name="insideTheBoard">Laudan sisäpuolella</string>
   <string name="outsideTheBoard">Laudan ulkopuolella</string>
+  <string name="allSquaresOfTheBoard">Kaikki laudan ruudut</string>
   <string name="onSlowGames">Hitaissa peleissä</string>
   <string name="always">Aina</string>
   <string name="never">Ei koskaan</string>

@@ -591,6 +591,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro do tabuleiro</string>
   <string name="outsideTheBoard">Fora do tabuleiro</string>
+  <string name="allSquaresOfTheBoard">Todas as casas do tabuleiro</string>
   <string name="onSlowGames">Em jogos lentos</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>

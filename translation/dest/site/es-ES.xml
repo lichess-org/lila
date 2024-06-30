@@ -590,6 +590,7 @@
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro del tablero</string>
   <string name="outsideTheBoard">Fuera del tablero</string>
+  <string name="allSquaresOfTheBoard">Todas las casillas del tablero</string>
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>

@@ -656,6 +656,7 @@
   <string name="slow">Pomaly</string>
   <string name="insideTheBoard">Vnútri šachovnice</string>
   <string name="outsideTheBoard">Mimo šachovnice</string>
+  <string name="allSquaresOfTheBoard">Všetky políčka šachovnice</string>
   <string name="onSlowGames">Pri pomalých hrách</string>
   <string name="always">Vždy</string>
   <string name="never">Nikdy</string>

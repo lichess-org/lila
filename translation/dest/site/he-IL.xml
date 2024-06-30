@@ -658,6 +658,7 @@
   <string name="slow">איטי</string>
   <string name="insideTheBoard">בתוך הלוח</string>
   <string name="outsideTheBoard">מחוץ ללוח</string>
+  <string name="allSquaresOfTheBoard">כל משבצות הלוח</string>
   <string name="onSlowGames">במשחקים איטיים</string>
   <string name="always">תמיד</string>
   <string name="never">אף פעם</string>

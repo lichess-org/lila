@@ -507,6 +507,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
   <string name="profile">Profile</string>
   <string name="editProfile">Edit profile</string>
+  <string name="realName">Real name</string>
   <string name="setFlair">Set your flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">There is a setting to hide all user flairs across the entire site.</string>
@@ -590,6 +591,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="slow">Slow</string>
   <string name="insideTheBoard">Inside the board</string>
   <string name="outsideTheBoard">Outside the board</string>
+  <string name="allSquaresOfTheBoard">All squares of the board</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>

@@ -590,6 +590,7 @@
   <string name="slow">Langsom</string>
   <string name="insideTheBoard">På brættet</string>
   <string name="outsideTheBoard">Uden for brættet</string>
+  <string name="allSquaresOfTheBoard">Alle felter på brættet</string>
   <string name="onSlowGames">I langsomme spil</string>
   <string name="always">Altid</string>
   <string name="never">Aldrig</string>

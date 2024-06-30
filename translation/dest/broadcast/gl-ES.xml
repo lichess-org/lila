@@ -16,7 +16,7 @@
   <string name="ongoing">En curso</string>
   <string name="upcoming">Proximamente</string>
   <string name="completed">Completadas</string>
-  <string name="completedHelp">Lichess detecta o final das roldas en función das partidas de orixe. Usa esta opción se non hai orixe.</string>
+  <string name="completedHelp">Malia que Lichess detecta o final das roldas, pódese equivocar. Usa esta opción para facelo manualmente.</string>
   <string name="roundName">Nome da rolda</string>
   <string name="roundNumber">Número de rolda</string>
   <string name="tournamentName">Nome do torneo</string>

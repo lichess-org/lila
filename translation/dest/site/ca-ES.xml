@@ -590,6 +590,7 @@
   <string name="slow">Lent</string>
   <string name="insideTheBoard">Dins del tauler</string>
   <string name="outsideTheBoard">Fora del tauler</string>
+  <string name="allSquaresOfTheBoard">Totes les caselles del tauler</string>
   <string name="onSlowGames">En els jocs lents</string>
   <string name="always">Sempre</string>
   <string name="never">Mai</string>
