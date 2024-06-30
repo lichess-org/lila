@@ -25,7 +25,7 @@ final class BotPlayer(
   private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
 
   def apply(pov: Pov, me: User, usiStr: String, offeringDraw: Option[Boolean]): Funit =
-    lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
+    lila.common.Future.delay((!pov.game.hasHuman ?? 750) millis) {
       Usi(usiStr)
         .orElse(UciToUsi(usiStr))
         .orElse(Kyoto.readFairyUsi(usiStr))
