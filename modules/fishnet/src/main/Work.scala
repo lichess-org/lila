@@ -115,7 +115,7 @@ object Work {
       )
     )
 
-    def similar(to: Move) = game.id == to.game.id && game.moves == to.game.moves
+    def similar(to: Move) = game.id == to.game.id && ply == to.ply
 
     override def toString =
       s"id:$id game:${game.id} variant:${game.variant.key} sfen:${currentSfen} level:$level tries:$tries created:$createdAt acquired:$acquired"
