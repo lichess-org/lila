@@ -12,7 +12,8 @@ case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 case class Player(
     id: Player.ID,
     color: Color,
-    engineConfig: Option[EngineConfig],
+    engineConfig: Option[EngineConfig] = None,
+    isBot: Boolean = false,
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
     lastDrawOffer: Option[Int] = None,
@@ -36,8 +37,6 @@ case class Player(
   def aiLevel  = engineConfig.map(_.level)
   def aiEngine = engineConfig.map(_.engine)
   def aiCode   = engineConfig.map(_.engine.code)
-
-  def isHuman = !isAi
 
   def hasUser = userId.isDefined
 
@@ -115,20 +114,10 @@ object Player {
 
   def make(
       color: Color,
-      userPerf: (User.ID, lila.rating.Perf)
-  ): Player =
-    make(
-      color = color,
-      userId = userPerf._1,
-      rating = userPerf._2.intRating,
-      provisional = userPerf._2.glicko.provisional
-    )
-
-  def make(
-      color: Color,
       userId: User.ID,
       rating: Int,
-      provisional: Boolean
+      provisional: Boolean,
+      isBot: Boolean
   ): Player =
     Player(
       id = IdGenerator.player(color),
@@ -136,7 +125,8 @@ object Player {
       engineConfig = none,
       userId = userId.some,
       rating = rating.some,
-      provisional = provisional
+      provisional = provisional,
+      isBot = isBot
     )
 
   def make(
@@ -145,7 +135,14 @@ object Player {
       perfPicker: lila.user.Perfs => lila.rating.Perf
   ): Player =
     user.fold(make(color)) { u =>
-      make(color, (u.id, perfPicker(u.perfs)))
+      val perf = perfPicker(u.perfs)
+      make(
+        color,
+        userId = u.id,
+        rating = perf.intRating,
+        provisional = perf.glicko.provisional,
+        isBot = u.isBot
+      )
     }
 
   case class HoldAlert(ply: Int, mean: Int, sd: Int) {
@@ -167,6 +164,7 @@ object Player {
 
     val aiLevel           = "ai"
     val aiEngine          = "a"
+    val isBot             = "b"
     val isOfferingDraw    = "od"
     val lastDrawOffer     = "ld"
     val proposeTakebackAt = "ta"
@@ -221,6 +219,7 @@ object Player {
                         .getOrElse(EngineConfig.Engine.default)
                     )
                   ),
+                isBot = r boolD isBot,
                 isWinner = win,
                 isOfferingDraw = r boolD isOfferingDraw,
                 lastDrawOffer = r intO lastDrawOffer,
@@ -240,6 +239,7 @@ object Player {
         BSONDocument(
           aiLevel           -> p.aiLevel,
           aiEngine          -> p.aiEngine.map(_.code),
+          isBot             -> w.boolO(p.isBot),
           isOfferingDraw    -> w.boolO(p.isOfferingDraw),
           lastDrawOffer     -> p.lastDrawOffer,
           isOfferingPause   -> w.boolO(p.isOfferingPause),

@@ -95,8 +95,8 @@ case class ImportData(notation: String, analyse: Option[String]) {
           .make(
             shogi = game,
             initialSfen = init.toSfen.some,
-            sentePlayer = Player.make(shogi.Sente, None) withName name(_.Sente, _.SenteElo),
-            gotePlayer = Player.make(shogi.Gote, None) withName name(_.Gote, _.GoteElo),
+            sentePlayer = Player.make(shogi.Sente) withName name(_.Sente, _.SenteElo),
+            gotePlayer = Player.make(shogi.Gote) withName name(_.Gote, _.GoteElo),
             mode = Mode.Casual,
             source = Source.Import,
             notationImport = NotationImport

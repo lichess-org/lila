@@ -73,8 +73,8 @@ final class UserAnalysis(
             startedAtStep = from.stepNumber
           ),
           initialSfen = Some(from.toSfen),
-          sentePlayer = lila.game.Player.make(shogi.Sente, none),
-          gotePlayer = lila.game.Player.make(shogi.Gote, none),
+          sentePlayer = lila.game.Player.make(shogi.Sente),
+          gotePlayer = lila.game.Player.make(shogi.Gote),
           mode = shogi.Mode.Casual,
           source = if (imported) lila.game.Source.Import else lila.game.Source.Api,
           notationImport = None
