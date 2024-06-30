@@ -485,9 +485,7 @@
   <string name="reason">Dahilan</string>
   <string name="whatIsIheMatter">Ano ang problema?</string>
   <string name="cheat">Pandaraya</string>
-  <string name="insult">Insulto</string>
   <string name="troll">Awitin</string>
-  <string name="ratingManipulation">Pagmamanipula ng rating</string>
   <string name="other">Iba pa</string>
   <string name="reportDescriptionHelp">I-paste ang link sa mga laro at ipaliwanag kung ano ang mali tungkol sa ugali ng gumagamit. Huwag mo lamang sabihin na \"sila\'y nandaya\", pero sabihin mo sa amin kung paano mo ito nasabi. Ang iyong report ay ipoproseso ng mas mabilis kapag nakasulat sa English.</string>
   <string name="error.provideOneCheatedGameLink">Magbigay ng kahit na isang link sa dinayang laro.</string>
