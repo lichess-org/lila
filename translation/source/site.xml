@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Latest forum posts</string>
   <string name="players">Players</string>
   <string name="friends">Friends</string>
+  <string name="otherPlayers">other players</string>
   <string name="discussions">Conversations</string>
   <string name="today">Today</string>
   <string name="yesterday">Yesterday</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Text that only the team members will see. If set, replaces the public description for team members.</string>
   <string name="no">No</string>
   <string name="yes">Yes</string>
+  <string name="website">Website</string>
+  <string name="mobile">Mobile</string>
   <string name="help">Help:</string>
   <string name="createANewTopic">Create a new topic</string>
   <string name="topics">Topics</string>
