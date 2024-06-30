@@ -535,9 +535,7 @@
   <string name="reason">Причина</string>
   <string name="whatIsIheMatter">Каде е проблемот?</string>
   <string name="cheat">Мамење</string>
-  <string name="insult">Навреда</string>
   <string name="troll">Трол</string>
-  <string name="ratingManipulation">Манипулација на рејтинг</string>
   <string name="other">Друго</string>
   <string name="reportDescriptionHelp">Внесете линк од играта/игрите и објаснете каде е проблемот во однесувањето на овој корисник. Немојте само да обвините за мамење, туку објаснете како дојдовте до тој заклучок. Вашата пријава ќе биди разгледана побрзо ако е напишана на англиски јазик.</string>
   <string name="error.provideOneCheatedGameLink">Ве молиме доставете барем една врска до партија со мамење.</string>
