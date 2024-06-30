@@ -82,7 +82,7 @@ final class ReportApi(
         reporter,
         suspect,
         Reason.Comm,
-        s"${Reason.Comm.flagText} $resource ${text.take(140)}"
+        s"${Reason.flagText} $resource ${text.take(140)}"
       )
     )
 
@@ -94,7 +94,7 @@ final class ReportApi(
             reporter,
             suspect,
             Reason.Comm,
-            s"${Reason.Comm.flagText} $resource ${text.take(140)}"
+            s"${Reason.flagText} $resource ${text.take(140)}"
           ),
           score = (_: Report.Score).map(_ * (if critical then 2 else 1))
         )

@@ -26,7 +26,7 @@ object Room:
     reason match
       case R.Cheat                           => Cheat
       case R.Boost                           => Boost
-      case R.AltPrint | R.CheatPrint         => Print
+      case R.AltPrint                        => Print
       case R.Comm | R.Sexism                 => Comm
       case R.Other | R.Playbans | R.Username => Other
 
