@@ -31,7 +31,7 @@ final private[report] class ReportForm(
           u => !UserId.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
-      "text"   -> cleanNonEmptyText(minLength = 5, maxLength = 2000)
+      "text"   -> cleanNonEmptyText(minLength = 5)
     ) { (username, reason, text) =>
       ReportSetup(
         user = blockingFetchUser(username).err("Unknown username " + username),
@@ -40,6 +40,7 @@ final private[report] class ReportForm(
       )
     }(_.values.some)
       .verifying(cheatLinkConstraint)
+      .verifying(s"Maximum report length is 3000 characters", _.text.length <= 3000)
 
   val flag = Form:
     mapping(
