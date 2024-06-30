@@ -81,7 +81,8 @@ final class ReportUi(helpers: Helpers):
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
-    val englishPlease = " Your report will be processed faster if written in English."
+    val englishPlease = "Your report will be processed faster if written in English."
+    val maxLength     = "Maximum 3000 characters."
     translatedReasonChoices
       .map(_._1)
       .distinct
@@ -89,12 +90,12 @@ final class ReportUi(helpers: Helpers):
         span(
           cls := List(s"report-reason report-reason-${reason.key}" -> true, "none" -> (current != reason.key))
         ):
-          if reason == Cheat || reason == Boost then trans.site.reportDescriptionHelp()
-          else if reason == Username then
-            "Please explain briefly what about this username is offensive." + englishPlease
-          else if reason.isComm then
-            "Please explain briefly what that user said that was abusive." + englishPlease
-          else "Please explain briefly what happened." + englishPlease
+          val base =
+            if reason == Cheat || reason == Boost then trans.site.reportDescriptionHelp()
+            else if reason == Username then "Please explain briefly what about this username is offensive."
+            else
+              "Please provide as much information as possible, including relevant game links, posts, and messages."
+          s"$base $englishPlease $maxLength"
 
   private def translatedReasonChoices(using Translate) =
     import Reason.*
