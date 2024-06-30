@@ -469,9 +469,7 @@
   <string name="reason">కారణం</string>
   <string name="whatIsIheMatter">మీరు ఎందుకు రిపోర్టు చేస్తున్నారు?</string>
   <string name="cheat">మోసం</string>
-  <string name="insult">అవమానం</string>
   <string name="troll">ఎగతాళి చేయండి</string>
-  <string name="ratingManipulation">రేటింగ్ మానిప్యులేషన్</string>
   <string name="other">ఇతర</string>
   <string name="reportDescriptionHelp">గేమ్/గేమ్‌ల లింక్‌ను పంపండి మరియు ఈ వినియోగదారు ప్రవర్తనలో తప్పు ఏమిటో వివరించండి. \"వారు మోసం చేసారు\" అని చెప్పకండి, కానీ మీరు ఈ నిర్ణయానికి ఎలా వచ్చారో మాకు చెప్పండి. మీ నివేదికను ఆంగ్లంలో వ్రాస్తే వేగంగా ప్రాసెస్ చేయబడుతుంది.</string>
   <string name="error.provideOneCheatedGameLink">దయచేసి కనీసం మోసం చేసిన ఆట ఒక లింక్‌నైనౌ అందించండి.</string>
