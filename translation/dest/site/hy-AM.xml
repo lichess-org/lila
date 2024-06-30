@@ -540,9 +540,7 @@
   <string name="reason">Պատճառ</string>
   <string name="whatIsIheMatter">Ի՞նչ է պատահել</string>
   <string name="cheat">խաբեբա</string>
-  <string name="insult">վիրավորանք</string>
   <string name="troll">Թրոլինգ</string>
-  <string name="ratingManipulation">Կեղծարարություններ վարկանիշի հետ</string>
   <string name="other">այլ</string>
   <string name="reportDescriptionHelp">Կիսվեք մեզ հետ Այն խաղերի հղումներով, որտեղ կարծում եք, որ կանոնները խախտվել են և նկարագրեք, թե ինչն է սխալ: Բավական չէ պարզապես գրել \"Նա խարդախում է\", խնդրում ենք նկարագրել, թե ինչպես եք եկել այս եզրակացության: Մենք ավելի արագ կաշխատենք, եթե գրեք անգլերեն:</string>
   <string name="error.provideOneCheatedGameLink">Խնդրում ենք ավելացնել առնվազն մեկ խաղի հղում, որտեղ ձեր կարծիքով խախտվել են կանոնները:</string>
