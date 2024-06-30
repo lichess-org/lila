@@ -452,9 +452,7 @@
   <string name="reason">Ration</string>
   <string name="whatIsIheMatter">Que es le problema?</string>
   <string name="cheat">Fraude</string>
-  <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation de classification</string>
   <string name="other">Altere</string>
   <string name="reportDescriptionHelp">Colla le ligamine al joco(s) e explica lo que es improprie re le conducto del usator. Non dice solmente \"ille frauda\", ma informa como tu arrivava a iste conclusion. Tu reporto essera processate plus rapidemente si tu scribe in anglese.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, provide al minus un ligamine de un partita fraudate.</string>
