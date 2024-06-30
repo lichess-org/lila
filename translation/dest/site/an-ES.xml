@@ -545,9 +545,7 @@
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">Qué ocurre?</string>
   <string name="cheat">Trapa</string>
-  <string name="insult">Insulto</string>
   <string name="troll">Acoso</string>
-  <string name="ratingManipulation">Manipulación d\'a puntuación</string>
   <string name="other">Atro</string>
   <string name="reportDescriptionHelp">Apega lo vinclo a la(s) partida(s) y explica-nos qué i hai de malo en o comportamiento d\'este usuario. No digas simplament \"fa trapazas\"; explica-nos cómo has arribau a esta conclusión. Lo tuyo reporte será procesau mas rapido si ye escrito en anglés.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>
