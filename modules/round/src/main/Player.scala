@@ -89,7 +89,7 @@ final private class Player(
   }
 
   private[round] def fishnet(game: Game, ply: Int, usi: Usi)(implicit proxy: GameProxy): Fu[Events] = {
-    if (game.playable && game.player.isAi && game.playedPlies == ply) {
+    if (game.playable && game.player.isAi && game.plies == ply) {
       applyUsi(game, usi, blur = false, metrics = fishnetLag)
         .fold(errs => fufail(ClientError(errs.toString)), fuccess)
         .flatMap {

@@ -39,7 +39,8 @@ final class Player(
         if sleep > 25
         millis     = sleep * 10
         randomized = approximately(0.5f)(millis)
-        divided    = randomized / (if (g.plies > 9) 1 else 2)
+        divider    = (if (g.hasBot) 1 else if (g.plies > 10) 2 else 4)
+        divided    = randomized / divider
       } yield divided.millis
 
   private def makeWork(game: Game, ec: lila.game.EngineConfig): Fu[Work.Move] =
@@ -48,6 +49,7 @@ final class Player(
         fuccess(
           Work.Move(
             _id = Work.makeId,
+            ply = game.plies,
             game = Work.Game(
               id = game.id,
               initialSfen = game.initialSfen,
@@ -55,6 +57,7 @@ final class Player(
               variant = game.variant,
               moves = game.usis.map(_.usi) mkString " "
             ),
+            currentSfen = game.shogi.toSfen,
             level = ec.level,
             engine = ec.engine.name,
             clock = game.clock.map { clk =>

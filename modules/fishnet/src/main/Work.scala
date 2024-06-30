@@ -56,7 +56,6 @@ object Work {
   ) {
     def sfen               = initialSfen.getOrElse(variant.initialSfen)
     def usiList: List[Usi] = ~(Usi readList moves)
-    def ply                = if (moves.isEmpty) 0 else moves.count(' '.==) + 1
   }
 
   case class Sender(
@@ -76,7 +75,9 @@ object Work {
 
   case class Move(
       _id: Work.Id, // random
+      ply: Int,
       game: Game,
+      currentSfen: Sfen, // backup
       level: Int,
       engine: String,
       clock: Option[Work.Clock],
@@ -105,11 +106,19 @@ object Work {
     def invalid = copy(acquired = none)
 
     def isOutOfTries = tries >= maxTries
+    def hasLastTry   = tries + 1 == maxTries
+
+    def sfenOnly = copy(
+      game = game.copy(
+        initialSfen = currentSfen.some,
+        moves = ""
+      )
+    )
 
     def similar(to: Move) = game.id == to.game.id && game.moves == to.game.moves
 
     override def toString =
-      s"id:$id game:${game.id} variant:${game.variant.key} level:$level tries:$tries created:$createdAt acquired:$acquired"
+      s"id:$id game:${game.id} variant:${game.variant.key} sfen:${currentSfen} level:$level tries:$tries created:$createdAt acquired:$acquired"
   }
 
   case class Analysis(

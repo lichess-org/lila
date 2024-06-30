@@ -83,7 +83,7 @@ final class MoveDB(implicit system: ActorSystem) {
               case Some(usi) =>
                 coll -= move.id
                 Monitor.move(client).unit
-                Bus.publish(Tell(move.game.id, FishnetPlay(usi, move.game.ply)), "roundSocket")
+                Bus.publish(Tell(move.game.id, FishnetPlay(usi, move.ply)), "roundSocket")
               case _ =>
                 sender() ! None
                 updateOrGiveUp(move.invalid)
@@ -109,6 +109,8 @@ final class MoveDB(implicit system: ActorSystem) {
       if (move.isOutOfTries) {
         logger.warn(s"Give up on move $move")
         coll -= move.id
+      } else if (move.hasLastTry) {
+        coll += (move.id -> move.sfenOnly)
       } else coll += (move.id -> move)
 
     def clearIfFull() =
