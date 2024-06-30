@@ -539,9 +539,7 @@
   <string name="reason">მიზეზი</string>
   <string name="whatIsIheMatter">მიზეზი</string>
   <string name="cheat">ტყული</string>
-  <string name="insult">შეურაცხყოფა</string>
   <string name="troll">პროვოკაცია</string>
-  <string name="ratingManipulation">რეიტინგის მანიპულაცია</string>
   <string name="other">სხვა</string>
   <string name="reportDescriptionHelp">ჩასვით თამაშ(ებ)ის ბმული და მიუთითეთ თუ რა არის საეჭვო მომხმარებლის ქცევაში.</string>
   <string name="error.provideOneCheatedGameLink">გთხოვთ მიუთითო სულ მცირე ერთი პარტიის ბმული სადაც თვლით რომ მოწინააღმდეგემ წესების დარღვევით ითამაშა.</string>
