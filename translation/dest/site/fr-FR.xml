@@ -588,7 +588,7 @@
   <string name="slow">Lente</string>
   <string name="insideTheBoard">Sur l\'échiquier</string>
   <string name="outsideTheBoard">En dehors de l\'échiquier</string>
-  <string name="allSquaresOfTheBoard">Toutes les cases de l\'échiquier</string>
+  <string name="allSquaresOfTheBoard">Toutes les cases</string>
   <string name="onSlowGames">Durant les parties lentes</string>
   <string name="always">Toujours</string>
   <string name="never">Jamais</string>
