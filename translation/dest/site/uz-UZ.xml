@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
   <string name="gameOver">O‘yin tugadi</string>
   <string name="waitingForOpponent">Sherik tanlanishi kutilayabdi</string>
+  <string name="orLetYourOpponentScanQrCode">Yoki ushbu QR kodni skanerlash uchun opponentingizga bering</string>
   <string name="waiting">Kutib turing</string>
   <string name="yourTurn">Sizni yurishingiz</string>
   <string name="aiNameLevelAiLevel">%1$s daraja %2$s</string>
@@ -69,7 +70,10 @@
   <string name="promoteVariation">O\'zgarishlarni qo\'llash</string>
   <string name="makeMainLine">Asosiy chiziqni yaratish</string>
   <string name="deleteFromHere">Bu yerdan o\'chirish</string>
+  <string name="collapseVariations">Variantlarni yashirish</string>
+  <string name="expandVariations">Variantlarni koʻrsatish</string>
   <string name="forceVariation">Majburiy o\'zgartirish</string>
+  <string name="copyVariationPgn">Variantning PGN ini nusxalash</string>
   <string name="move">Yurish</string>
   <string name="variantLoss">Yo\'qotish varianti</string>
   <string name="variantWin">Yutuq varianti</string>
@@ -115,6 +119,7 @@
   <string name="openStudy">Ochiq ta\'lim</string>
   <string name="enable">Yoqish</string>
   <string name="bestMoveArrow">Yaxshi yo\'l ko\'rsatmasi</string>
+  <string name="showVariationArrows">Variantlar strelkalarini koʻrsatish</string>
   <string name="evaluationGauge">Baholash ko\'rsatkichi</string>
   <string name="multipleLines">Bir nechta chiziqlar</string>
   <string name="cpus">Markaziy protsessorlar soni</string>
@@ -273,6 +278,7 @@
   <string name="abortGame">O\'yinni bekor qilish</string>
   <string name="gameAborted">O\'yin bekor qilindi</string>
   <string name="standard">Standart</string>
+  <string name="customPosition">Foydalanuvchi joyidan</string>
   <string name="unlimited">Chegaralanmagan</string>
   <string name="mode">Holat</string>
   <string name="casual">Norasmiy</string>
@@ -402,6 +408,7 @@
   <string name="importGame">O\'yinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
   <string name="importGameCaveat">Variantlar o‘chiriladi. Ularni saqlash uchun PGN yordamida \"ta‘lim\"da saqlang.</string>
+  <string name="importGameDataPrivacyWarning">Ushbu PGN ommaga ochiq boʻladi. Oʻyinni yopiq holatda import qilish uchun study - oʻrganish boʻlimidan foydalaning.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s import qilingan o\'yin</item>
     <item quantity="other">%s import qilingan o\'yinlar</item>
@@ -414,6 +421,7 @@
   <string name="blackCheckmatesInOneMove">Qoralar bitta yurishda mot</string>
   <string name="retry">Qayta urinish</string>
   <string name="reconnecting">Qaytadan ulanmoqda</string>
+  <string name="noNetwork">Oflayn</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ta o\'rtoq onlayn</item>
     <item quantity="other">%s ta o\'rtoqlar onlayn</item>
@@ -479,6 +487,7 @@
   <string name="movesPlayed">Yurilgan yo\'llar</string>
   <string name="whiteWins">Oqlar g\'alabalari</string>
   <string name="blackWins">Qoralar g\'alabalari</string>
+  <string name="drawRate">Oʻyin tezligi</string>
   <string name="draws">Durranglar</string>
   <string name="nextXTournament">Keyingi %s turnir:</string>
   <string name="averageOpponent">O\'rtacha raqiblar soni</string>
@@ -497,6 +506,9 @@
   <string name="ifNoneLeaveEmpty">Agar yo\'q bo\'lsa bo\'sh qoldiring</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profilni o\'zgartirish</string>
+  <string name="realName">Haqiqiy nomi</string>
+  <string name="setFlair">Oʻz kulgichingizni belgilang</string>
+  <string name="flair">Kulgich</string>
   <string name="biography">Biografiya</string>
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
