@@ -5,7 +5,6 @@ $c-support: $c-brag;
   a {
     @extend %flex-center-nowrap, %box-neat;
     background: $c-bg-box;
-    font-size: 1.3em;
     padding: 0.5em;
     outline: 1px solid $c-support;
     outline-offset: -1px;
@@ -24,7 +23,7 @@ $c-support: $c-brag;
     &::before {
       margin-right: 0.15em;
       color: $c-support;
-      font-size: 2.6em;
+      font-size: 3em;
       @include transition();
     }
   }
@@ -35,11 +34,12 @@ $c-support: $c-brag;
     strong {
       font-weight: normal;
       display: block;
+      font-size: 1.3em;
     }
     span {
       @extend %nowrap-ellipsis;
       display: block;
-      font-size: 0.8em;
+      font-size: 1em;
     }
   }
 }

@@ -140,12 +140,15 @@ object home {
                  a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
                )
              )),
-          ctx.me.fold(true)(!_.isPatron) option div(cls := "lobby__support")(
+          div(cls := "lobby__support")(
             a(href := langHref(routes.Plan.index))(
               iconTag(patronIconChar),
               span(cls := "lobby__support__text")(
                 strong(trans.patron.donate()),
-                span(trans.patron.becomePatron())
+                ctx.me map { u =>
+                  if (u.isPatron) span(trans.patron.thankYou()) 
+                  else span(trans.patron.becomePatron())
+                } 
               )
             )
           )
