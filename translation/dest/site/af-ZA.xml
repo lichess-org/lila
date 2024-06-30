@@ -580,6 +580,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="slow">Stadig</string>
   <string name="insideTheBoard">In die bord</string>
   <string name="outsideTheBoard">Buite die bord</string>
+  <string name="allSquaresOfTheBoard" comment="An option to display board coordinates (A-H, 1-8) within every single square of the chessboard.&#10;&#10;Could be written as 'In all squares of the board', but please try to keep this string short.">Al die blokkies van die bord</string>
   <string name="onSlowGames">Op stadig spelle</string>
   <string name="always">Altyd</string>
   <string name="never">Nooit</string>
