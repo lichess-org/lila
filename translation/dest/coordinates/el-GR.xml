@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Έχετε 30 δευτερόλεπτα για να διαλέξτε σωστά όσα τετράγωνα γίνεται!</string>
   <string name="goAsLongAsYouWant">Πάρτε όσο χρόνο θέλετε, δεν υπάρχει χρονικό όριο!</string>
   <string name="showCoordinates">Εμφάνιση συντεταγμένων</string>
+  <string name="showCoordsOnAllSquares">Συντεταγμένες σε κάθε τετράγωνο</string>
   <string name="showPieces">Εμφάνιση κομματιών</string>
   <string name="startTraining">Έναρξη εξάσκησης</string>
   <string name="findSquare">Εύρεση τετραγώνου</string>
