@@ -114,10 +114,10 @@ final class RelayApi(
       .aggregateOne(): framework =>
         import framework.*
         Match($doc("tourId" -> tourId)) -> List(
-          Project($doc("at" -> $doc("ifNull" -> $arr("$startsAt", "$startedAt")))),
+          Project($doc("at" -> $doc("$ifNull" -> $arr("$startsAt", "$startedAt")))),
           Sort(Ascending("at")),
           Group(BSONNull)("at" -> PushField("at")),
-          Project($doc("start" -> $doc("$first" -> "$at"), "end" -> $doc("$first" -> "$at")))
+          Project($doc("start" -> $doc("$first" -> "$at"), "end" -> $doc("$last" -> "$at")))
         )
       .map:
         _.flatMap: doc =>
@@ -304,7 +304,7 @@ final class RelayApi(
         _     <- roundRepo.coll.update.one($id(round.id), round).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
-        _ <- (round.stateHash != from.stateHash).so(denormalizeTour(round.tourId))
+        _ <- denormalizeTour(round.tourId)
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
