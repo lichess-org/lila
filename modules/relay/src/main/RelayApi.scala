@@ -12,7 +12,17 @@ import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.{ WithTour, Sync }
 import lila.core.perm.Granter
 import lila.core.study.data.StudyName
-import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
+import lila.study.{
+  Settings,
+  Study,
+  StudyApi,
+  StudyId,
+  StudyMaker,
+  StudyRepo,
+  StudyTopic,
+  StudyMember,
+  StudyMembers
+}
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -225,44 +235,48 @@ final class RelayApi(
       val canGroup = fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
       canGroup.flatMapz(groupRepo.update(tour.id, data))
 
-  def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
-    roundRepo
-      .lastByTour(tour)
-      .flatMapz: last =>
-        studyRepo.byId(last.studyId)
-      .flatMap: lastStudy =>
-        import lila.study.{ StudyMember, StudyMembers }
-        val relay = data.make(me, tour)
-        for
-          study <- studyApi
-            .create(
-              StudyMaker.ImportGame(
-                id = relay.studyId.some,
-                name = relay.name.into(StudyName).some,
-                settings = lastStudy
-                  .fold(
-                    Settings.init
-                      .copy(
-                        chat = Settings.UserSelection.Everyone,
-                        sticky = false
-                      )
-                  )(_.settings)
-                  .some,
-                from = Study.From.Relay(none).some
-              ),
-              me,
-              withRatings = true,
-              _.copy(
-                members =
-                  lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(me, StudyMember.Role.Write)
-              )
+  def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] = for
+    last      <- roundRepo.lastByTour(tour)
+    lastStudy <- last.so(r => studyRepo.byId(r.studyId))
+    relay     <- copyRoundSourceSettings(data.make(me, tour))
+    importGame = StudyMaker.ImportGame(
+      id = relay.studyId.some,
+      name = relay.name.into(StudyName).some,
+      settings = lastStudy
+        .fold(
+          Settings.init
+            .copy(
+              chat = Settings.UserSelection.Everyone,
+              sticky = false
             )
-            .orFail(s"Can't create study for relay $relay")
-          _     <- roundRepo.coll.insert.one(relay)
-          dates <- computeDates(tour.id)
-          _     <- tourRepo.denormalize(tour.id, true, relay.hasStarted, dates)
-          _     <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
-        yield relay.withTour(tour).withStudy(study.study)
+        )(_.settings)
+        .some,
+      from = Study.From.Relay(none).some
+    )
+    study <- studyApi
+      .create(
+        importGame,
+        me,
+        withRatings = true,
+        _.copy(
+          members = lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(me, StudyMember.Role.Write)
+        )
+      )
+      .orFail(s"Can't create study for relay $relay")
+    _     <- roundRepo.coll.insert.one(relay)
+    dates <- computeDates(tour.id)
+    _     <- tourRepo.denormalize(tour.id, true, relay.hasStarted, dates)
+    _     <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
+  yield relay.withTour(tour).withStudy(study.study)
+
+  private def copyRoundSourceSettings(relay: RelayRound): Fu[RelayRound] =
+    relay.sync.upstream
+      .flatMap(_.roundId)
+      .ifTrue(relay.startsAt.isEmpty)
+      .so(byId)
+      .map:
+        _.fold(relay): sourceRound =>
+          relay.copy(startsAt = sourceRound.startsAt)
 
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id): relay =>
@@ -280,13 +294,14 @@ final class RelayApi(
     byId(round.id).orFail(s"Relay round ${round.id} not found").flatMap(update(_)(f))
 
   def update(from: RelayRound)(f: Update[RelayRound]): Fu[RelayRound] =
-    val round = f(from).pipe: r =>
+    val updated = f(from).pipe: r =>
       if r.sync.upstream != from.sync.upstream then r.withSync(_.clearLog) else r
-    if round == from then fuccess(round)
+    if updated == from then fuccess(from)
     else
       for
-        _ <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
-        _ <- roundRepo.coll.update.one($id(round.id), round).void
+        round <- copyRoundSourceSettings(updated)
+        _     <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
+        _     <- roundRepo.coll.update.one($id(round.id), round).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _ <- (round.stateHash != from.stateHash).so(denormalizeTour(round.tourId))
