@@ -50,11 +50,9 @@ object topnav {
         frag(
           linkTitle(learnUrl, trans.learnMenu()),
           div(role := "group")(
-            ctx.noBot option frag(
-              a(href := learnUrl)(trans.shogiBasics()),
-              // a(href := langHref(routes.Practice.index))(trans.practice()),
-              a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
-            ),
+            a(href := learnUrl)(trans.shogiBasics()),
+            // a(href := langHref(routes.Practice.index))(trans.practice()),
+            a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates()),
             a(href := langHref(routes.Study.allDefault(1)))(trans.studyMenu()),
             // ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
             canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lishogiClasses()),
