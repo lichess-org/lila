@@ -557,6 +557,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="slow">Chậm</string>
   <string name="insideTheBoard">Bên trong bàn cờ</string>
   <string name="outsideTheBoard">Bên ngoài bàn cờ</string>
+  <string name="allSquaresOfTheBoard">Tất cả ô vuông của bàn cờ</string>
   <string name="onSlowGames">Chỉ khi chơi cờ chậm</string>
   <string name="always">Luôn luôn</string>
   <string name="never">Không bao giờ</string>
