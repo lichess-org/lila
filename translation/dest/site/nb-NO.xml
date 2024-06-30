@@ -553,9 +553,7 @@
   <string name="reason">Årsak</string>
   <string name="whatIsIheMatter">Hva gjelder det?</string>
   <string name="cheat">Juks</string>
-  <string name="insult">Fornærmelse</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Ratingmanipulering</string>
   <string name="other">Annet</string>
   <string name="reportDescriptionHelp">Kopier lenken til partiet/partiene og forklar hva som er galt med denne brukerens oppførsel.</string>
   <string name="error.provideOneCheatedGameLink">Oppgi minst én lenke til et jukseparti.</string>
