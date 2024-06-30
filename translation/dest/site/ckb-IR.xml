@@ -550,9 +550,7 @@
   <string name="reason">هۆکار</string>
   <string name="whatIsIheMatter">کێشەکە چییە?</string>
   <string name="cheat">فێڵکردن</string>
-  <string name="insult">بێڕێزی</string>
   <string name="troll">بێزارکەرەکان</string>
-  <string name="ratingManipulation">دەستکاریکردنی هەڵسەنگاندن</string>
   <string name="other">ئەوانیتر</string>
   <string name="reportDescriptionHelp">لینکی یاریەکە لێرە دابنێ، پاشان بە وردی لەبارەی هەڵسوکەوتە نەشیاوەکانی ئەو بەکارهێنەرە بنووسە، هیچ سنورێک بۆ فێڵکردن نییە، ئەمە تەنها نمونەیەکە لێرە بەکاری دێنین، لەبەرئەوەی ئەمە زۆرترین داواکاری ریپۆرتە.</string>
   <string name="error.provideOneCheatedGameLink">تکایە بەلایەنی کەمەوە لینکی یاریەک دابنێ بۆ ئەو یاریانەی فێڵی تێداکراوە.</string>
