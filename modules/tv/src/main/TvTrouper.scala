@@ -46,14 +46,10 @@ final private[tv] class TvTrouper(
     case GetChampions(promise) => promise success Tv.Champions(channelChampions)
 
     case lila.game.actorApi.StartGame(g) =>
-      if (g.hasClock) {
-        val nbOfBots = g.userIds.count(lightUserApi.isBotSync)
-        val candidate =
-          Tv.Candidate(g, hasBot = nbOfBots > 0, hasHuman = nbOfBots == 0 || (nbOfBots == 1 && !g.hasAi))
+      if (g.hasClock)
         channelTroupers collect {
-          case (chan, trouper) if chan.filter(candidate) => trouper
+          case (chan, trouper) if chan.filter(g) => trouper
         } foreach (_ addCandidate g)
-      }
 
     case s @ TvTrouper.Select => channelTroupers.foreach(_._2 ! s)
 
@@ -61,7 +57,10 @@ final private[tv] class TvTrouper(
       import lila.socket.Socket.makeMessage
       import cats.implicits._
       val player = game.players.sortBy { p =>
-        (p.userId.fold(true)(uid => (channel.key == "computer") == lightUserApi.isBotSync(uid))) ?? ~p.rating
+        if (!p.isHuman) {
+          if (channel.key == "computer") (Int.MaxValue / 2) + ~p.rating
+          else Int.MinValue
+        } else ~p.rating
       }.lastOption | game.firstPlayer
       val user = player.userId flatMap lightUserApi.sync
       (user, player.rating) mapN { (u, r) =>

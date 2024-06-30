@@ -38,6 +38,8 @@ case class Player(
   def aiEngine = engineConfig.map(_.engine)
   def aiCode   = engineConfig.map(_.engine.code)
 
+  def isHuman = !isAi && !isBot
+
   def hasUser = userId.isDefined
 
   def isUser(u: User) = userId.fold(false)(_ == u.id)

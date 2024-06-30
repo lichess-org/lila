@@ -358,6 +358,11 @@ case class Game(
   def hasAi: Boolean = players.exists(_.isAi)
   def nonAi          = !hasAi
 
+  // Set only after July 2024
+  def hasBot: Boolean = players.exists(_.isBot)
+
+  def hasHuman: Boolean = players.exists(_.isHuman)
+
   def aiPov: Option[Pov] = aiPlayer.map(_.color) map pov
 
   def mapPlayers(f: Player => Player) =

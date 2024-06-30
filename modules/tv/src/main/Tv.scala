@@ -61,15 +61,13 @@ object Tv {
     def get = channels.get _
   }
 
-  private[tv] case class Candidate(game: Game, hasBot: Boolean, hasHuman: Boolean)
-
   sealed abstract class Channel(
       val key: String,
       val icon: String,
-      filters: Seq[Candidate => Boolean]
+      filters: Seq[Game => Boolean]
   ) {
 
-    def filter(c: Candidate): Boolean = filters.forall { _(c) }
+    def filter(g: Game): Boolean = filters.forall { _(g) }
 
   }
 
@@ -132,10 +130,10 @@ object Tv {
     }.toMap
   }
 
-  private def someComputer(c: Candidate) = c.hasBot || c.game.hasAi
-  private def someHuman(c: Candidate)    = c.hasHuman
+  private def someComputer(g: Game) = g.hasBot || g.hasAi
+  private def someHuman(g: Game)    = g.hasHuman
 
   private def variant(variant: shogi.variant.Variant) =
-    (c: Candidate) => c.game.variant == variant
+    (g: Game) => g.variant == variant
 
 }

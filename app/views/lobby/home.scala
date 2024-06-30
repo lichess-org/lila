@@ -146,9 +146,9 @@ object home {
               span(cls := "lobby__support__text")(
                 strong(trans.patron.donate()),
                 ctx.me map { u =>
-                  if (u.isPatron) span(trans.patron.thankYou()) 
+                  if (u.isPatron) span(trans.patron.thankYou())
                   else span(trans.patron.becomePatron())
-                } 
+                }
               )
             )
           )
