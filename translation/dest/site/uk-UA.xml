@@ -658,6 +658,7 @@
   <string name="slow">Повільна</string>
   <string name="insideTheBoard">Усередині шахівниці</string>
   <string name="outsideTheBoard">Поза шахівницею</string>
+  <string name="allSquaresOfTheBoard" comment="An option to display board coordinates (A-H, 1-8) within every single square of the chessboard.&#10;&#10;Could be written as 'In all squares of the board', but please try to keep this string short.">Усі поля дошки</string>
   <string name="onSlowGames">У повільних іграх</string>
   <string name="always">Завжди</string>
   <string name="never">Ніколи</string>
