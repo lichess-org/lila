@@ -20,6 +20,9 @@ case class UserRecord(
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
   def banMinutes  = bans.lastOption.map(_.remainingMinutes)
+  def bansThisWeek =
+    val since = nowInstant.minusDays(7)
+    bans.count(_.date.isAfter(since))
 
   def nbOutcomes = outcomes.size
 
@@ -36,7 +39,7 @@ case class UserRecord(
     else 0.3f
 
   def minBadOutcomes: Int =
-    bans.size match
+    bansThisWeek match
       case 0 | 1 => 4
       case 2 | 3 => 3
       case _     => 2
