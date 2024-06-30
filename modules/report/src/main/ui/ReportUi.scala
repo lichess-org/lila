@@ -4,10 +4,93 @@ package ui
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey as trans }
+import play.api.data.Form
 
 object ReportUi:
 
-  def translatedReasonChoices(using Translate) =
+  def reportScore(score: Report.Score): Frag =
+    span(cls := s"score ${score.color}")(score.value.toInt)
+
+final class ReportUi(helpers: Helpers):
+  import helpers.{ given, * }
+  import ReportUi.*
+
+  def form(form: Form[?], reqUser: Option[User] = None)(using ctx: Context) =
+    Page(trans.site.reportAUser.txt())
+      .css("bits.form3")
+      .js(
+        embedJsUnsafeLoadThen(
+          """$('#form3-reason').on('change', function() {
+            $('.report-reason').addClass('none').filter('.report-reason-' + this.value).removeClass('none');
+          })"""
+        )
+      ):
+        val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1))
+        main(cls := "page-small box box-pad report")(
+          h1(cls := "box__top")(trans.site.reportAUser()),
+          postForm(
+            cls    := "form3",
+            action := s"${routes.Report.create}${reqUser.so(u => "?username=" + u.username)}"
+          )(
+            div(cls := "form-group")(
+              p(
+                a(
+                  href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
+                  dataIcon := Icon.InfoCircle,
+                  cls      := "text"
+                ):
+                  "Read more about Lichess reports"
+              ),
+              ctx.req.queryString
+                .contains("postUrl")
+                .option(
+                  p(
+                    "Here for DMCA or Intellectual Property Take Down Notice? ",
+                    a(href := "/dmca")("Complete this form instead"),
+                    "."
+                  )
+                )
+            ),
+            form3.globalError(form),
+            form3.group(form("username"), trans.site.user(), klass = "field_to complete-parent"): f =>
+              reqUser
+                .map: user =>
+                  frag(userLink(user), form3.hidden(f, user.id.value.some))
+                .getOrElse:
+                  div(form3.input(f, klass = "user-autocomplete")(dataTag := "span", autofocus))
+            ,
+            if ctx.req.queryString contains "reason"
+            then form3.hidden(form("reason"))
+            else
+              form3.group(form("reason"), trans.site.reason()): f =>
+                form3.select(f, translatedReasonChoices, trans.site.whatIsIheMatter.txt().some)
+            ,
+            form3.group(form("text"), trans.site.description(), help = descriptionHelp(~defaultReason).some):
+              form3.textarea(_)(rows := 8)
+            ,
+            form3.actions(
+              a(href := routes.Lobby.home)(trans.site.cancel()),
+              form3.submit(trans.site.send())
+            )
+          )
+        )
+
+  private def descriptionHelp(default: String)(using ctx: Context) = frag:
+    import Reason.*
+    val englishPlease = " Your report will be processed faster if written in English."
+    translatedReasonChoices
+      .map(_._1)
+      .distinct
+      .map: key =>
+        span(cls := List(s"report-reason report-reason-$key" -> true, "none" -> (default != key))):
+          if key == Cheat.key || key == Boost.key then trans.site.reportDescriptionHelp()
+          else if key == Username.key then
+            "Please explain briefly what about this username is offensive." + englishPlease
+          else if key == Comm.key || key == Sexism.key then
+            "Please explain briefly what that user said that was abusive." + englishPlease
+          else "Please explain briefly what happened." + englishPlease
+
+  private def translatedReasonChoices(using Translate) =
     List(
       (Reason.Cheat.key, trans.site.cheat.txt()),
       (Reason.Comm.key, trans.site.insult.txt()),
@@ -17,12 +100,6 @@ object ReportUi:
       (Reason.Username.key, trans.site.username.txt()),
       (Reason.Other.key, trans.site.other.txt())
     )
-
-  def reportScore(score: Report.Score): Frag =
-    span(cls := s"score ${score.color}")(score.value.toInt)
-
-final class ReportUi(helpers: Helpers):
-  import helpers.{ given, * }
 
   def thanks(userId: UserId, blocked: Boolean)(using ctx: Context) =
     val title = "Thanks for the report"

@@ -322,7 +322,7 @@ object contact:
               "dmca",
               "DMCA / Intellectual Property Take Down Notice",
               p(
-                a(href := dmcaUrl)("Complete this form"),
+                a(href := "/dmca")("Complete this form"),
                 " ",
                 "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
               )
@@ -339,5 +339,3 @@ object contact:
         )
       )
     )
-
-  val dmcaUrl = "/dmca"
