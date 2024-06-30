@@ -551,9 +551,7 @@
   <string name="reason">Αιτία</string>
   <string name="whatIsIheMatter">Τι τρέχει;</string>
   <string name="cheat">Απάτη</string>
-  <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
-  <string name="ratingManipulation">Παραποίηση βαθμολογίας</string>
   <string name="other">Άλλο</string>
   <string name="reportDescriptionHelp">Κάντε επικόλληση τον σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
@@ -588,7 +586,7 @@
   <string name="slow">Αργή</string>
   <string name="insideTheBoard">Μέσα στη σκακιέρα</string>
   <string name="outsideTheBoard">Εκτός της σκακιέρας</string>
-  <string name="allSquaresOfTheBoard" comment="An option to display board coordinates (A-H, 1-8) within every single square of the chessboard.&#10;&#10;Could be written as 'In all squares of the board', but please try to keep this string short.">Σε όλα τα τετράγωνα της σκακιέρας</string>
+  <string name="allSquaresOfTheBoard">Σε όλα τα τετράγωνα της σκακιέρας</string>
   <string name="onSlowGames">Σε αργά παιχνίδια</string>
   <string name="always">Πάντα</string>
   <string name="never">Ποτέ</string>
