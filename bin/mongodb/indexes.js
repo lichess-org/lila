@@ -202,6 +202,7 @@ db.relay.createIndex({ startsAt: 1 }, { partialFilterExpression: { startsAt: { $
 db.relay.createIndex({ startedAt: 1 }, { partialFilterExpression: { startedAt: { $exists: 1 } } });
 db.relay.createIndex({ 'sync.until': 1 }, { partialFilterExpression: { 'sync.until': { $exists: 1 } } });
 db.relay.createIndex({ tourId: 1 });
+db.relay.createIndex({ 'sync.upstream.roundIds': 1 }, { partialFilterExpression: { 'sync.upstream.roundIds': { $exists: 1 } } });
 db.oauth2_access_token.createIndex({ userId: 1 });
 db.oauth2_access_token.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
 db.cache.createIndex({ e: 1 }, { expireAfterSeconds: 0 });

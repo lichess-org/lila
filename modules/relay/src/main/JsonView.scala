@@ -98,9 +98,13 @@ final class JsonView(
   def withUrlAndPreviews(
       rt: RelayRound.WithTourAndStudy,
       previews: ChapterPreview.AsJsons,
-      group: Option[RelayGroup.WithTours]
+      group: Option[RelayGroup.WithTours],
+      targetRound: Option[RelayRound.WithTour]
   )(using Option[Me]): JsObject =
-    myRound(rt) ++ Json.obj("games" -> previews).add("group" -> group)
+    myRound(rt) ++ Json
+      .obj("games" -> previews)
+      .add("group" -> group)
+      .add("targetRound" -> targetRound.map(withUrl(_, true)))
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 

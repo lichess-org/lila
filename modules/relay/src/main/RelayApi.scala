@@ -66,7 +66,11 @@ final class RelayApi(
     for
       nav         <- formNavigation(rt.tour)
       sourceRound <- rt.round.sync.upstream.flatMap(_.roundId).so(byIdWithTour)
-    yield (rt.round, nav.copy(round = rt.round.id.some, sourceRound = sourceRound))
+      targetRound <- officialTarget(rt.round)
+    yield (
+      rt.round,
+      nav.copy(round = rt.round.id.some, sourceRound = sourceRound, targetRound = targetRound)
+    )
 
   def formNavigation(tour: RelayTour): Fu[ui.FormNavigation] = for
     group  <- withTours.get(tour.id)
@@ -315,6 +319,20 @@ final class RelayApi(
   def syncTargetsOfSource(source: RelayRound): Funit =
     (!source.sync.upstream.exists(_.isRound)).so: // prevent chaining (and circular!) round updates
       roundRepo.syncTargetsOfSource(source.id)
+
+  def officialTarget(source: RelayRound): Fu[Option[WithTour]] =
+    source.sync.isPush.so:
+      roundRepo.coll
+        .aggregateOne(): framework =>
+          import framework.*
+          Match($doc("sync.upstream.roundIds" -> source.id)) -> List(
+            PipelineOperator(tourRepo.lookup("tourId")),
+            UnwindField("tour"),
+            Match($doc("tour.tier".$exists(true))),
+            Sort(Descending("tour.tier"), Descending("tour.createdAt")),
+            Limit(1)
+          )
+        .map(_.flatMap(readRoundWithTour))
 
   def reset(old: RelayRound)(using me: Me): Funit =
     WithRelay(old.id) { relay =>

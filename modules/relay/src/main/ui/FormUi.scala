@@ -13,6 +13,7 @@ case class FormNavigation(
     rounds: List[RelayRound],
     round: Option[RelayRoundId],
     sourceRound: Option[RelayRound.WithTour] = none,
+    targetRound: Option[RelayRound.WithTour] = none,
     newRound: Boolean = false
 ):
   def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
@@ -118,6 +119,13 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         frag(
           boxTop(h1(a(href := rt.path)(rt.fullName))),
           standardFlash,
+          nav.targetRound.map: tr =>
+            flashMessage("success")(
+              "Your tournament round is officially broadcasted by Lichess!",
+              br,
+              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
+              "."
+            ),
           inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some, nav.sourceRound),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(

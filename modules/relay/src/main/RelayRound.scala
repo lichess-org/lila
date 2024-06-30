@@ -79,6 +79,7 @@ object RelayRound:
       log: SyncLog
   ):
     def hasUpstream = upstream.isDefined
+    def isPush      = upstream.isEmpty
 
     def renew(official: Boolean) =
       if hasUpstream then copy(until = nowInstant.plusHours(if official then 3 else 1).some)
