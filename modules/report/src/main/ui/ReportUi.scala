@@ -107,7 +107,7 @@ final class ReportUi(helpers: Helpers):
       (Violence, "Violence / Threats"),
       (Harass, "Harassment / Bullying / Stalking"),
       (SelfHarm, "Suicide / Self-Injury"),
-      (Hate, "Hate Speech | Sexism"),
+      (Hate, "Hate Speech / Sexism"),
       (Spam, "Spamming"),
       (Username, trans.site.username.txt()),
       (Other, trans.site.other.txt())
