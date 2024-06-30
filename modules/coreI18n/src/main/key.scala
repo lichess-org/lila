@@ -437,7 +437,6 @@ object I18nKey:
     val `reason`: I18nKey = "reason"
     val `whatIsIheMatter`: I18nKey = "whatIsIheMatter"
     val `cheat`: I18nKey = "cheat"
-    val `insult`: I18nKey = "insult"
     val `troll`: I18nKey = "troll"
     val `ratingManipulation`: I18nKey = "ratingManipulation"
     val `other`: I18nKey = "other"

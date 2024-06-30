@@ -50,6 +50,9 @@ object Form:
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
+  def stringIn[A](choices: Seq[A])(key: A => String): Mapping[A] =
+    stringIn(choices.map(key).toSet).transform[A](str => choices.find(c => str == key(c)).get, key)
+
   def id[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
       sr: StringRuntime[Id],
       rs: SameRuntime[String, Id]

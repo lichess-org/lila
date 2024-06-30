@@ -5,22 +5,31 @@ import lila.core.user.Me
 
 enum Reason:
   case Cheat
-  case AltPrint
-  case Comm
+  case Stall
   case Boost
+  case Comm   // BC
+  case Sexism // BC
+  case VerbalAbuse
+  case Violence
+  case Harass
+  case SelfHarm
+  case Hate
+  case Spam
   case Username
-  case Sexism
   case Other
+  // auto reports:
   case Playbans
+  case AltPrint
   def key    = toString.toLowerCase
   def name   = if this == AltPrint then "Print" else toString
-  def isComm = this == Reason.Comm || this == Reason.Sexism
+  def isComm = Reason.comm(this)
 
 object Reason:
   val all       = values.toList
   val keys      = all.map(_.key)
   val byKey     = all.mapBy(_.key)
-  val autoBlock = Set(Comm, Sexism)
+  val comm      = Set(Comm, Sexism, VerbalAbuse, Violence, Harass, SelfHarm, Hate, Spam)
+  val autoBlock = comm
   val flagText  = "[FLAG]"
 
   given Iso.StringIso[Reason] = Iso.string(k => byKey.getOrElse(k, Other), _.key)
@@ -40,7 +49,7 @@ object Reason:
   def isGranted(reason: Reason)(using Me) =
     import lila.core.perm.Granter
     reason match
-      case Cheat                                  => Granter(_.MarkEngine)
-      case Comm | Sexism                          => Granter(_.Shadowban)
-      case Boost                                  => Granter(_.MarkBooster)
-      case AltPrint | Playbans | Username | Other => Granter(_.Admin)
+      case Cheat         => Granter(_.MarkEngine)
+      case r if r.isComm => Granter(_.Shadowban)
+      case Boost         => Granter(_.MarkBooster)
+      case _             => Granter(_.Admin)

@@ -25,7 +25,7 @@ final class ReportUi(helpers: Helpers):
           })"""
         )
       ):
-        val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1))
+        val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1.key))
         main(cls := "page-small box box-pad report")(
           h1(cls := "box__top")(trans.site.reportAUser()),
           postForm(
@@ -63,7 +63,11 @@ final class ReportUi(helpers: Helpers):
             then form3.hidden(form("reason"))
             else
               form3.group(form("reason"), trans.site.reason()): f =>
-                form3.select(f, translatedReasonChoices, trans.site.whatIsIheMatter.txt().some)
+                form3.select(
+                  f,
+                  translatedReasonChoices.map((r, t) => (r.key, t)),
+                  trans.site.whatIsIheMatter.txt().some
+                )
             ,
             form3.group(form("text"), trans.site.description(), help = descriptionHelp(~defaultReason).some):
               form3.textarea(_)(rows := 8)
@@ -75,30 +79,37 @@ final class ReportUi(helpers: Helpers):
           )
         )
 
-  private def descriptionHelp(default: String)(using ctx: Context) = frag:
+  private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
     val englishPlease = " Your report will be processed faster if written in English."
     translatedReasonChoices
       .map(_._1)
       .distinct
-      .map: key =>
-        span(cls := List(s"report-reason report-reason-$key" -> true, "none" -> (default != key))):
-          if key == Cheat.key || key == Boost.key then trans.site.reportDescriptionHelp()
-          else if key == Username.key then
+      .map: reason =>
+        span(
+          cls := List(s"report-reason report-reason-${reason.key}" -> true, "none" -> (current != reason.key))
+        ):
+          if reason == Cheat || reason == Boost then trans.site.reportDescriptionHelp()
+          else if reason == Username then
             "Please explain briefly what about this username is offensive." + englishPlease
-          else if key == Comm.key || key == Sexism.key then
+          else if reason.isComm then
             "Please explain briefly what that user said that was abusive." + englishPlease
           else "Please explain briefly what happened." + englishPlease
 
   private def translatedReasonChoices(using Translate) =
+    import Reason.*
     List(
-      (Reason.Cheat.key, trans.site.cheat.txt()),
-      (Reason.Comm.key, trans.site.insult.txt()),
-      (Reason.Boost.key, trans.site.ratingManipulation.txt()),
-      (Reason.Comm.key, trans.site.troll.txt()),
-      (Reason.Sexism.key, "Sexual harassment or Sexist remarks"),
-      (Reason.Username.key, trans.site.username.txt()),
-      (Reason.Other.key, trans.site.other.txt())
+      (Cheat, trans.site.cheat.txt()),
+      (Stall, "Stalling / Leaving Games"),
+      (Boost, "Sandbagging / Boosting / Match fixing"),
+      (VerbalAbuse, "Verbal abuse / Cursing / Trolling"),
+      (Violence, "Violence / Threats"),
+      (Harass, "Harassment / Bullying / Stalking"),
+      (SelfHarm, "Suicide / Self-Injury"),
+      (Hate, "Hate Speech"),
+      (Spam, "Spamming"),
+      (Username, trans.site.username.txt()),
+      (Other, trans.site.other.txt())
     )
 
   def thanks(userId: UserId, blocked: Boolean)(using ctx: Context) =
