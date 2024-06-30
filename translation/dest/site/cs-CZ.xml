@@ -616,9 +616,7 @@
   <string name="reason">Důvod</string>
   <string name="whatIsIheMatter">Co se stalo?</string>
   <string name="cheat">Podvod</string>
-  <string name="insult">Urážka</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulace s ratingem</string>
   <string name="other">Jiné</string>
   <string name="reportDescriptionHelp">Vložte link na hru(y) a popište, co je špatně na chování tohoto hráče. (Pokud možno anglicky.)</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
