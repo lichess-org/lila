@@ -70,7 +70,10 @@
   <string name="promoteVariation">Повиши вариацията</string>
   <string name="makeMainLine">Направи основна линия</string>
   <string name="deleteFromHere">Изтриване от тук</string>
+  <string name="collapseVariations">Скрий вариациите</string>
+  <string name="expandVariations">Покажи вариациите</string>
   <string name="forceVariation">Покажи като вариация</string>
+  <string name="copyVariationPgn">Копирай PGN на вариацията</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Вариант на загуба</string>
   <string name="variantWin">Вариант на победа</string>
