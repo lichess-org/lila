@@ -588,6 +588,7 @@
   <string name="slow">Αργή</string>
   <string name="insideTheBoard">Μέσα στη σκακιέρα</string>
   <string name="outsideTheBoard">Εκτός της σκακιέρας</string>
+  <string name="allSquaresOfTheBoard" comment="An option to display board coordinates (A-H, 1-8) within every single square of the chessboard.&#10;&#10;Could be written as 'In all squares of the board', but please try to keep this string short.">Σε όλα τα τετράγωνα της σκακιέρας</string>
   <string name="onSlowGames">Σε αργά παιχνίδια</string>
   <string name="always">Πάντα</string>
   <string name="never">Ποτέ</string>
