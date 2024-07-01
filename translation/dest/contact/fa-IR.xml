@@ -36,7 +36,7 @@
   <string name="wantReportBug">می‌خواهم یک ایراد فنی را گزارش کنم</string>
   <string name="reportBugInForum">در قسمت بازخوردِ Lichess در تالار گفت و گو</string>
   <string name="reportWebsiteIssue">به عنوان یک مشکلِ وب‌سایت Lichess روی GitHub</string>
-  <string name="reportMobileIssue">به عنوان یک مشکلِ اپلیکیشن موبایل Lichess روی GitHub</string>
+  <string name="reportMobileIssue">مشکلِ گوشی‌افزار Lichess در GitHub</string>
   <string name="reportBugInDiscord">در سرورِ دیسکوردِ Lichess</string>
   <string name="howToReportBug">لطفاً توصیف کنید که نقصان فنی چگونه است، شما انتظار داشتید به جای آن چه اتفاقی رخ می‌داد، و گامهایی که نقصان را مجدداً ایجاد می‌کند را شرح دهید.</string>
   <string name="illegalPawnCapture">زدنِ غیرقانونیِ سرباز</string>
