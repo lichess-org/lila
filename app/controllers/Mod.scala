@@ -468,7 +468,7 @@ final class Mod(
           } >> {
             Permission
               .ofDbKeys(permissions)
-              .exists(_.grants(Permission.SeeReport))
+              .exists(p => p.grants(Permission.SeeReport) || p.grants(Permission.Developer))
               .so(env.plan.api.setLifetime(user))
           }).inject(Redirect(routes.Mod.permissions(user.username)).flashSuccess)
       )
