@@ -474,6 +474,7 @@
   <string name="ifNoneLeaveEmpty">ない場合は空白で</string>
   <string name="profile">プロフィール</string>
   <string name="editProfile">プロフィールの編集</string>
+  <string name="realName">実名</string>
   <string name="setFlair">フレアを設定</string>
   <string name="flair">フレア</string>
   <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
@@ -554,6 +555,7 @@
   <string name="slow">遅い</string>
   <string name="insideTheBoard">盤の内</string>
   <string name="outsideTheBoard">盤の外</string>
+  <string name="allSquaresOfTheBoard">すべてのマスに</string>
   <string name="onSlowGames">長時間の対局のみ</string>
   <string name="always">常に有効</string>
   <string name="never">無効</string>
