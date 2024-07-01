@@ -71,8 +71,8 @@
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">медиани</string>
   <string name="total">Общо</string>
   <string name="pointsAvg">Среднени точки</string>
-  <string name="pointsSum">Сума на точките</string>
-  <string name="rankAvg">Среднен рейтинг</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Сума на точките</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Среднен рейтинг</string>
   <string name="tournamentWinners">Победители в турнира</string>
   <string name="onlyTitled">Само титулувани играчи</string>
   <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
