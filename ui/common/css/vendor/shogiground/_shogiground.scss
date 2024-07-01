@@ -38,8 +38,8 @@ sg-squares {
     grid-template: repeat(12, 1fr) / repeat(12, 1fr);
   }
   // to force grid to fully cover the background
-  width: calc(100% + 0.1px);
-  height: calc(100% + 0.1px);
+  width: calc(100% + 0.04px);
+  height: calc(100% + 0.04px);
 
   pointer-events: none;
   sq {
