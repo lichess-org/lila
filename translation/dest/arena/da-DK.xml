@@ -77,8 +77,8 @@ Eksempelvis er en rangering som nummer 3 i en turnering med 100 spillere = 3%. A
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Alle gennemsnit på denne side er %s.</string>
   <string name="total">I alt</string>
   <string name="pointsAvg">Gennemsnitlige point</string>
-  <string name="pointsSum">Sum af point</string>
-  <string name="rankAvg">Gennemsnitlig rangering</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Sum af point</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Gennemsnitlig rangering</string>
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="tournamentShields">Turneringsskjold</string>
   <string name="onlyTitled">Kun spillere med titel</string>
