@@ -71,7 +71,9 @@ final private class RelayFetch(
       logger.info(s"$msg ${rt.round}")
       if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
       api.update(rt.round)(_.finish).void
-    else funit
+    else
+      logger.info(s"Pause sync until round starts ${rt.round}")
+      api.update(rt.round)(_.withSync(_.pause)).void
 
   // no writing the relay; only reading!
   // this can take a long time if the source is slow
