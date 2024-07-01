@@ -7,15 +7,15 @@
   <string name="prizeBanned">Kontoen din er stengd ute frå deltaking i turneringar med premiepengar.</string>
   <string name="boosterMarked">Kontoen din er merka for ratingmanipulering.</string>
   <string name="boosterMarkedInfo">Vi definerer dette som bevisst manipulering av rating ved med hensikt å tapa parti, eller ved å spela mot ein annan konto som med hensikt tapar parti.</string>
-  <string name="accountMuted">Kontoen din er gjort stum.</string>
-  <string name="accountMutedInfo">Les vår %s. Dersom desse retningslinjene ikkje vert følgd kan det føre til at kontoane vert gjort stumme.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Kontoen din er gjort stum.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Les vår %s. Dersom desse retningslinjene ikkje vert følgd kan det føre til at kontoane vert gjort stumme.</string>
   <string name="excludedFromLeaderboards">Kontoen din er utelukka frå ranglistene.</string>
   <string name="excludedFromLeaderboardsInfo">Vi definerer dette som å bruka urettvise måtar å koma på rangeringslistene.</string>
   <string name="closedByModerators">Moderatorane har stengd kontoen din.</string>
   <string name="hiddenBlog">Moderatorane har skjult bloggane dine.</string>
   <string name="hiddenBlogInfo">Sørg for å lese vår %s opp att.</string>
-  <string name="playTimeout">Du har ei pause i spelet.</string>
-  <string name="communicationGuidelines">retningslinjer for kommunikasjon</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Du har ei pause i spelet.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">retningslinjer for kommunikasjon</string>
   <string name="blogRules">bloggreglar</string>
   <string name="fairPlay">Fair Play</string>
 </resources>
