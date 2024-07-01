@@ -29,6 +29,10 @@ $box-padding: var(--box-padding);
   .game-list {
     margin: 2em 0;
     grid-gap: 1rem;
+    .vstext .vstext__pl {
+      width: 60%;
+      max-width: 60%;
+    }
   }
 
   .simul-text {
