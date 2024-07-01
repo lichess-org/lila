@@ -79,8 +79,8 @@ Ein Beispiel: Wenn man in einem Turnier von 100 Spielern Platz 3 erreicht hat = 
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Alle Durchschnittswerte auf dieser Seite sind %s.</string>
   <string name="total">Gesamt</string>
   <string name="pointsAvg">Punkte im Schnitt</string>
-  <string name="pointsSum">Punkte insgesamt</string>
-  <string name="rankAvg">Platzierungs-Durchschnitt</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Punkte insgesamt</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Platzierungs-Durchschnitt</string>
   <string name="tournamentWinners">Turniersieger</string>
   <string name="tournamentShields">Turnier-Schilde</string>
   <string name="onlyTitled">Nur Spieler mit Titel</string>
