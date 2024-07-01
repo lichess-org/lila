@@ -104,7 +104,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
       max: Max = Max(40),
       errorPage: => Fu[Result] = BadRequest("resource too old")
   )(result: => Fu[Result]): Fu[Result] =
-    if page < max.value && page > 0 then result else errorPage
+    if page <= max.value && page > 0 then result else errorPage
 
   def NotForKids(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.kid.no then f else notFound
