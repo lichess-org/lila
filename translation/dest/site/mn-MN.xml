@@ -510,9 +510,7 @@
   <string name="reason">Шалтгаан</string>
   <string name="whatIsIheMatter">Шалтгаан?</string>
   <string name="cheat">Булхайцсан</string>
-  <string name="insult">Доромжилсон</string>
   <string name="troll">Тохуурхсан</string>
-  <string name="ratingManipulation">Үнэлгээгээ гуйвуулах</string>
   <string name="other">Өөр шалтаан</string>
   <string name="reportDescriptionHelp">Та энэ гишүүнтэй тоглосон өргийнхөө холбоос хаягыг энд хуулж тавиад зүй бус үйлдлийнх нь талаар тайлбар бичнэ үү. Та хэрхэн энэ гишүүнийг булхайцсан үйлдэл хийсэн гэсэн дүгнэлтэд хүрсэн бэ? Хэрэв та гомдлоо англи хэлээр мэдүүлвэл бид илүү түргэн шуурхай арга хэмжээ авах болно.</string>
   <string name="error.provideOneCheatedGameLink">Тоглоомын дор хаяж нэг холбоосыг оруулна уу.</string>

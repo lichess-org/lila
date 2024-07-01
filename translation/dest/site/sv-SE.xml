@@ -549,9 +549,7 @@
   <string name="reason">Anledning</string>
   <string name="whatIsIheMatter">Vad är problemet?</string>
   <string name="cheat">Fusk</string>
-  <string name="insult">Förolämpning</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation av rating</string>
   <string name="other">Annat</string>
   <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>

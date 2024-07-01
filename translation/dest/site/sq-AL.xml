@@ -506,6 +506,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="ifNoneLeaveEmpty">Në mos pastë, lëreni të zbrazët</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Përpunoni profilin</string>
+  <string name="realName">Emër i njëmendtë</string>
   <string name="biography">Jetëshkrim</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vend ose rajon</string>
   <string name="thankYou">Faleminderit!</string>
@@ -549,9 +550,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="reason">Arsye</string>
   <string name="whatIsIheMatter">Si është puna?</string>
   <string name="cheat">Hile</string>
-  <string name="insult">Fyerje</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulim vlerësimi</string>
   <string name="other">Tjetër</string>
   <string name="reportDescriptionHelp">Ngjitni lidhjen për te loja(ra) dhe shpjegoni çfarë nuk shkon me sjelljen e këtij përdoruesi. Mos shkruani thjesht “mashtrojnë”, por na tregoni si mbërritët në këtë përfundim. Raportimi juaj do të përpunohet më shpejt, nëse shkruhet në anglisht.</string>
   <string name="error.provideOneCheatedGameLink">Ju lutemi, jepni të paktën një lidhje te një lojë me hile.</string>
@@ -586,6 +585,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="slow">Ngadalë</string>
   <string name="insideTheBoard">Brenda fushës</string>
   <string name="outsideTheBoard">Jashtë fushës</string>
+  <string name="allSquaresOfTheBoard">Në krejt katrorët e fushës</string>
   <string name="onSlowGames">Në lojëra të ngadalta</string>
   <string name="always">Përherë</string>
   <string name="never">Kurrë</string>

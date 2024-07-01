@@ -547,9 +547,7 @@
   <string name="reason">কারণ</string>
   <string name="whatIsIheMatter">সম্পূর্ণ ঘটনার বিবরণ দেন</string>
   <string name="cheat">চিটিং করছে</string>
-  <string name="insult">অপমান করেছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
-  <string name="ratingManipulation">রেটিং ইচ্ছাকৃতভাবে পরিবর্তন</string>
   <string name="other">অন্য কোনো কারণ</string>
   <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>

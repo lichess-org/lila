@@ -621,9 +621,7 @@
   <string name="reason">סיבה</string>
   <string name="whatIsIheMatter">מה הבעיה?</string>
   <string name="cheat">רמאות</string>
-  <string name="insult">העלבה</string>
   <string name="troll">הטרלה</string>
-  <string name="ratingManipulation">מניפולציה בדירוג</string>
   <string name="other">אחר</string>
   <string name="reportDescriptionHelp">הדביקו את הקישור למשחק(ים) והסבירו מה לא בסדר בהתנהגות המשתמש. אל תכתבו סתם ״השחקן/ית מרמה״, הסבירו לנו כיצד הגעתם למסקנה הזו. הדיווח יטופל מהר יותר אם ייכתב באנגלית.</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>

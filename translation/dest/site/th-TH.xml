@@ -516,9 +516,7 @@
   <string name="reason">เหตุผล</string>
   <string name="whatIsIheMatter">เกิดอะไรขึ้น?</string>
   <string name="cheat">โกง</string>
-  <string name="insult">ดูหมิ่น</string>
   <string name="troll">ป่วน</string>
-  <string name="ratingManipulation">การปรับแต่งระดับคะแนน</string>
   <string name="other">อื่นๆ</string>
   <string name="reportDescriptionHelp">วางลิงค์ที่ไปสู่เกม และอธิบายว่าผู้ใช้นี้มีพฤติกรรมที่ผิดอะไร อย่าบอกเพียงว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณสรุปแบบนี้เพราะอะไร การรายงานของคุณจะเร็วขึ้นถ้าเขียนด้วยภาษาอังกฤษ</string>
   <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>

@@ -621,9 +621,7 @@
   <string name="reason">Powód</string>
   <string name="whatIsIheMatter">Jakie to ma znaczenie?</string>
   <string name="cheat">Oszust</string>
-  <string name="insult">Znieważenie</string>
   <string name="troll">Natręt (troll)</string>
-  <string name="ratingManipulation">Manipulacja rankingiem</string>
   <string name="other">Inne</string>
   <string name="reportDescriptionHelp">Wklej odnośnik do partii i wyjaśnij, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko, że „oszukuje”, ale wytłumacz nam, na jakiej podstawie doszedłeś/aś do takiego wniosku. Odniesiemy się do twojego zgłoszenia szybciej, jeżeli napiszesz je w języku angielskim.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
@@ -658,6 +656,7 @@
   <string name="slow">Wolno</string>
   <string name="insideTheBoard">Na szachownicy</string>
   <string name="outsideTheBoard">Poza szachownicą</string>
+  <string name="allSquaresOfTheBoard">Wszystkie pola szachownicy</string>
   <string name="onSlowGames">W wolniejszych partiach</string>
   <string name="always">Zawsze</string>
   <string name="never">Nigdy</string>

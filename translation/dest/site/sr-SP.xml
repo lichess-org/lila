@@ -560,9 +560,7 @@
   <string name="reason">Разлог</string>
   <string name="whatIsIheMatter">Y чему је проблем?</string>
   <string name="cheat">Варање</string>
-  <string name="insult">Увреда</string>
   <string name="troll">Трол</string>
-  <string name="ratingManipulation">Манипулација рејтингом</string>
   <string name="other">Остало</string>
   <string name="reportDescriptionHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
   <string name="error.provideOneCheatedGameLink">Наведите барем једну везу игре у којој је играч варао.</string>

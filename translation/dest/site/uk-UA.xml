@@ -621,9 +621,7 @@
   <string name="reason">Причина</string>
   <string name="whatIsIheMatter">Що трапилося?</string>
   <string name="cheat">Нечесна гра</string>
-  <string name="insult">Образа</string>
   <string name="troll">Тролінг</string>
-  <string name="ratingManipulation">Маніпуляції з рейтингом</string>
   <string name="other">Інше</string>
   <string name="reportDescriptionHelp">Вставте посилання на гру (ігри) та поясніть, що не так із поведінкою цього користувача. Не пишіть просто \"він шахраює\", а розкажіть, як ви дійшли до такого висновку. Вашу скаргу розглянуть швидше, якщо ви напишете її англійською.</string>
   <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання на хоча б одну нечесну гру.</string>
@@ -658,6 +656,7 @@
   <string name="slow">Повільна</string>
   <string name="insideTheBoard">Усередині шахівниці</string>
   <string name="outsideTheBoard">Поза шахівницею</string>
+  <string name="allSquaresOfTheBoard">Усі поля дошки</string>
   <string name="onSlowGames">У повільних іграх</string>
   <string name="always">Завжди</string>
   <string name="never">Ніколи</string>

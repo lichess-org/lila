@@ -511,9 +511,7 @@
   <string name="reason">原因</string>
   <string name="whatIsIheMatter">举报原因？</string>
   <string name="cheat">作弊</string>
-  <string name="insult">侮辱</string>
   <string name="troll">钓鱼</string>
-  <string name="ratingManipulation">操縱積分</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">附上游戏的网址解释该用户的行为问题</string>
   <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>

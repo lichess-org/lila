@@ -520,9 +520,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="reason">Lý do</string>
   <string name="whatIsIheMatter">Có chuyện gì vậy?</string>
   <string name="cheat">Gian lận</string>
-  <string name="insult">Xúc phạm</string>
   <string name="troll">Chọc tức, chơi khăm</string>
-  <string name="ratingManipulation">Thao túng xếp hạng</string>
   <string name="other">Khác</string>
   <string name="reportDescriptionHelp">Dán đường dẫn đến (các) ván cờ và giải thích về vấn đề của kỳ thủ này. Đừng chỉ nói \"họ gian lận\" mà hãy miêu tả chi tiết nhất có thể. Vấn đề sẽ được giải quyết nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
   <string name="error.provideOneCheatedGameLink">Hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>

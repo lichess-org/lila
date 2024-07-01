@@ -502,9 +502,7 @@ You are playing chess.</string>
   <string name="reason">හේතුව</string>
   <string name="whatIsIheMatter">කාරණය කුමක් ද?</string>
   <string name="cheat">වංචාකරණ​ය​</string>
-  <string name="insult">අපහාස කිරීම​</string>
   <string name="troll">ට්‍රෝල් කිරීම​</string>
-  <string name="ratingManipulation">ශ්‍රේණිගත කිරීම් වංචාව​</string>
   <string name="other">වෙනත්</string>
   <string name="reportDescriptionHelp">ක්‍රීඩා(ව​) වෙත සබැඳිය අලවා මෙම පරිශීලකයාගේ හැසිරීමේ ඇති වරද කුමක්දැයි පැහැදිලි කරන්න. \"ඔවුන් වංචා කරනවා\" පමණක් නොකියන්න, නමුත් ඔබ මෙම නිගමනයට පැමිණියේ කෙසේදැයි අපට කියන්න. ඔබේ වාර්තාව ඉංග්‍රීසියෙන් ලියා ඇත්නම් වේගයෙන් සකසනු ලැබේ.</string>
   <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
