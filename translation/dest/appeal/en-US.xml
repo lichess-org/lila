@@ -7,15 +7,15 @@
   <string name="prizeBanned">Your account is banned from tournaments with real prizes.</string>
   <string name="boosterMarked">Your account is marked for rating manipulation.</string>
   <string name="boosterMarkedInfo">We define this as deliberately manipulating a rating by losing games on purpose or by playing against another account that is deliberately losing games.</string>
-  <string name="accountMuted">Your account is muted.</string>
-  <string name="accountMutedInfo">Read our %s. Failure to comply with the communication guidelines may result in your account being muted.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Your account is muted.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Read our %s. Failure to comply with the communication guidelines may result in your account being muted.</string>
   <string name="excludedFromLeaderboards">Your account has been excluded from leaderboards.</string>
   <string name="excludedFromLeaderboardsInfo">We define this as using any unfair way to get on the leaderboard.</string>
   <string name="closedByModerators">Your account was closed by moderators.</string>
   <string name="hiddenBlog">Your blogs have been hidden by moderators.</string>
   <string name="hiddenBlogInfo">Make sure to read again our %s.</string>
-  <string name="playTimeout">You have a play timeout.</string>
-  <string name="communicationGuidelines">communication guidelines</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">You have a play timeout.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">communication guidelines</string>
   <string name="blogRules">blog rules</string>
   <string name="fairPlay">Fair Play</string>
 </resources>
