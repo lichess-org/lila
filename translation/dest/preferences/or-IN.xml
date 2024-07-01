@@ -10,6 +10,6 @@
   <string name="giveMoreTime">ଅଧିକ ସମୟ ଦିଅନ୍ତୁ</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">ଖେଳ ଆଚରଣ</string>
   <string name="inputMovesWithVoice">ଆପଣଙ୍କ ସ୍ୱର ସହିତ ଇନପୁଟ୍ ଚଳନ</string>
-  <string name="yourPreferencesHaveBeenSaved">ଆପଣଙ୍କ ଅଗ୍ରାଧିକାର ସଞ୍ଚୟ ହୋଇଛି।</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">ଆପଣଙ୍କ ଅଗ୍ରାଧିକାର ସଞ୍ଚୟ ହୋଇଛି।</string>
   <string name="correspondenceEmailNotification">ଆପଣଙ୍କ ଖେଳଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରୁଥିବା ଦୈନିକ ମେଲ୍ ବିଜ୍ଞପ୍ତି</string>
 </resources>
