@@ -650,7 +650,7 @@
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازها</string>
-  <string name="mobileApp">برنامه ی موبایل</string>
+  <string name="mobileApp">گوشی‌افزار</string>
   <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
@@ -758,7 +758,7 @@
   <string name="sessions">جلسات</string>
   <string name="revokeAllSessions">باطل کردن تمامی موارد</string>
   <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>
-  <string name="asFreeAsLichess">رایگان به مانند لیچس</string>
+  <string name="asFreeAsLichess">کاملا رایگان</string>
   <string name="builtForTheLoveOfChessNotMoney">ساخته شده با عشق به شطرنج نه پول</string>
   <string name="everybodyGetsAllFeaturesForFree">همگی از مزایا بصورت رایگان استفاده می کنند</string>
   <string name="zeroAdvertisement">بدون تبلیغات</string>
@@ -766,12 +766,12 @@
   <string name="phoneAndTablet">موبایل و تبلت</string>
   <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، مرسوم</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
-  <string name="onlineAndOfflinePlay">بازی کردن بَرخط و بُرون‌خط</string>
+  <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>
   <string name="viewTheSolution">دیدن راهِ حل</string>
   <string name="followAndChallengeFriends">دنبال کردن و پیشنهاد بازی دادن به دوستان</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">در %s  زبان‌ها موجود است</item>
-    <item quantity="other">در %s  زبان‌ها موجود است</item>
+    <item quantity="one">در %s زبان موجود است!</item>
+    <item quantity="other">در %s زبان موجود است!</item>
   </plurals>
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
   <string name="xHostsY">%1$s میزبان ها %2$s</string>
