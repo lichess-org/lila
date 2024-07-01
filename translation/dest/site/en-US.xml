@@ -589,7 +589,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="slow">Slow</string>
   <string name="insideTheBoard">Inside the board</string>
   <string name="outsideTheBoard">Outside the board</string>
-  <string name="allSquaresOfTheBoard">All squares of the board</string>
+  <string name="allSquaresOfTheBoard">All squares on the board</string>
   <string name="onSlowGames">On slow games</string>
   <string name="always">Always</string>
   <string name="never">Never</string>
