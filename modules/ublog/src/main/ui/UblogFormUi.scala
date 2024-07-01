@@ -41,7 +41,6 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
             ),
             a(href := ui.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
           ),
-          image(post, f),
           inner(f, Right(post), none),
           postForm(
             cls    := "ublog-post-form__delete",
@@ -65,6 +64,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id))
     )(
       form3.globalError(form),
+      post.toOption.map(image(_, form)),
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
       form3.group(form("intro"), trans.ublog.postIntro())(form3.input(_)(autofocus)),
       form3.group(
