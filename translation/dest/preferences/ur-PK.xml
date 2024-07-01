@@ -40,5 +40,5 @@
   <string name="castleByMovingOntoTheRook">بادشاہ کو رخ پر منتقل کریں</string>
   <string name="inputMovesWithTheKeyboard">کی بورڈ کے ذریعے چالیں داخل کریں</string>
   <string name="inputMovesWithVoice">چالیں اپنی آواز سے داخل کریں</string>
-  <string name="yourPreferencesHaveBeenSaved">آپ کے اندراج محفوظ کر دیے گئے ہیں</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">آپ کے اندراج محفوظ کر دیے گئے ہیں</string>
 </resources>
