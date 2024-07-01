@@ -72,15 +72,15 @@ final class JsonView(
     case tr: WithLastRound =>
       Json
         .obj(
-          "tour"      -> fullTour(tr.tour),
-          "lastRound" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
+          "tour"  -> fullTour(tr.tour),
+          "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
         )
         .add("group" -> tr.group)
     case tr: ActiveWithSomeRounds =>
       Json
         .obj(
-          "tour"      -> fullTour(tr.tour),
-          "lastRound" -> withUrl(tr)
+          "tour"  -> fullTour(tr.tour),
+          "round" -> withUrl(tr)
         )
         .add("group" -> tr.group)
 
