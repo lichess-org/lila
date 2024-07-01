@@ -144,11 +144,16 @@ object home {
             a(href := langHref(routes.Plan.index))(
               iconTag(patronIconChar),
               span(cls := "lobby__support__text")(
-                strong(trans.patron.donate()),
-                ctx.me map { u =>
-                  if (u.isPatron) span(trans.patron.thankYou())
-                  else span(trans.patron.becomePatron())
-                }
+                if (ctx.me.exists(_.isPatron))
+                  frag(
+                    strong(trans.patron.lishogiPatron()),
+                    span(trans.patron.thankYou())
+                  )
+                else
+                  frag(
+                    strong(trans.patron.donate()),
+                    ctx.isAuth option span(trans.patron.becomePatron())
+                  )
               )
             )
           )
