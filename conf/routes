@@ -100,6 +100,7 @@ GET   /@/:username/:filterName         controllers.User.games(username: UserStr,
 GET   /@/:username                     controllers.User.show(username: UserStr)
 GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
+GET   /player/search/:term             controllers.User.search(term: String)
 GET   /player                          controllers.User.list
 GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: PerfKey)
 GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey: PerfKey)
