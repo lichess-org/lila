@@ -97,11 +97,19 @@ export default class ChatCtrl {
   post = (text: string): boolean => {
     text = text.trim();
     if (!text) return false;
+    if (text.startsWith('<<<<')) return false;
     if (text == 'You too!' && !this.data.lines.some(l => l.u != this.data.userId)) return false;
     if (text.length > 140) {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
+
+    if (site.analysis?.study?.relay && !site.analysis.study.relay.tourShow()) {
+      let chapterId = site.analysis.study.currentChapter().id;
+      let ply = site.analysis.study.currentNode().ply;
+      text = '<<<<' + chapterId + '|' + ply + '>>>> ' + text;
+    }
+
     site.pubsub.emit('socket.send', 'talk', text);
     return true;
   };
