@@ -158,15 +158,15 @@ final private class RelayFetch(
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =
-      if upstream.isLcc then 6
-      else if upstream.isRound then 10 // uses push so no need to pull often
+      if upstream.hasLcc then 6
+      else if upstream.isRound then 10 // uses push so no need to pull oftenrelayfetch
       else 2
     base * {
       if tour.tier.exists(_ > RelayTour.Tier.NORMAL) then 1
       else if tour.official then 2
       else 3
     } * {
-      if round.crowd.exists(_ > 4) then 1 else 2
+      if upstream.hasLcc && round.crowd.exists(_ < 10) then 2 else 1
     } * {
       if round.hasStarted then 1 else 2
     }

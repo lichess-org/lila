@@ -124,8 +124,7 @@ object RelayRound:
             case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
             case _                   => none
         case _ => none
-      def isLcc = lcc.isDefined
-      def looksLikeLcc = this match
+      def hasLcc = this match
         case Url(url)   => Sync.looksLikeLcc(url)
         case Urls(urls) => urls.exists(Sync.looksLikeLcc)
         case _          => false

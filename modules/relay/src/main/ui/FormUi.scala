@@ -151,6 +151,19 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         round: Option[RelayRound],
         sourceRound: Option[RelayRound.WithTour] = none
     )(using ctx: Context) =
+      val lccWarning = round
+        .flatMap(_.sync.upstream)
+        .exists(_.hasLcc)
+        .option(
+          flashMessage("box")(
+            p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+            p(
+              "LiveChessCloud support is deprecated and will be removed soon.",
+              br,
+              "If you need help, please contact us at broadcast@lichess.org."
+            )
+          )
+        )
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
@@ -176,16 +189,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
           div(cls := "relay-form__sync relay-form__sync-url")(
-            (round.flatMap(_.sync.upstream).exists(_.isLcc) && !Granter.opt(_.Relay)).option(
-              flashMessage("box")(
-                p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
-                p(
-                  "LiveChessCloud support is deprecated and will be removed soon.",
-                  br,
-                  "If you need help, please contact us at broadcast@lichess.org."
-                )
-              )
-            ),
+            lccWarning,
             form3.group(
               form("syncUrl"),
               trb.sourceSingleUrl(),
@@ -222,9 +226,9 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Multiple source URLs, one per line.",
             help = frag("The games will be combined in the order of the URLs.").some,
             half = false
-          )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace"))(
-            cls := "relay-form__sync relay-form__sync-urls none"
-          ),
+          )(field =>
+            frag(lccWarning, form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace"))
+          )(cls := "relay-form__sync relay-form__sync-urls none"),
           form3.group(
             form("syncIds"),
             trb.sourceGameIds(),
