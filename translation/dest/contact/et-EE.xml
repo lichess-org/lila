@@ -55,7 +55,6 @@
   <string name="botRatingAbuse">Teatud juhtumites mängides boti vastu reitingumäng ei anna punkte, kui on märgatud, et mängija kasutab botti ära reitingu tõstmiseks.</string>
   <string name="errorPage">Vigane leht</string>
   <string name="reportErrorPage">Kui märkasid vigast lehte, saad teavitada sellest:</string>
-  <string name="wantBroadcastTournament">Ma soovin turniiri edastada</string>
   <string name="learnHowToMakeBroadcasts">Õpi kuidas Lichess\'is ise ülekannet teha</string>
   <string name="banAppeal">Kaeba bännist või IP-piirangust</string>
   <string name="engineAppeal">Arvuti või pettuse märk</string>
