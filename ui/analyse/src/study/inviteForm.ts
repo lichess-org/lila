@@ -6,6 +6,7 @@ import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
 import { AnalyseSocketSend } from '../socket';
 import { storedSet, StoredSet } from 'common/storage';
+import { snabDialog } from 'common/dialog';
 
 export interface StudyInviteFormCtrl {
   open: Prop<boolean>;
@@ -58,7 +59,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = [...new Set([...ctrl.spectators(), ...ctrl.previouslyInvited()])]
     .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
     .sort();
-  return site.dialog.snab({
+  return snabDialog({
     class: 'study__invite',
     onClose() {
       ctrl.open(false);

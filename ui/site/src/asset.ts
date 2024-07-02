@@ -33,6 +33,8 @@ export const loadCssPath = async (key: string): Promise<void> => {
   await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
 };
 
+export const removeCss = (href: string) => $(`head > link[href="${href}"]`).remove();
+
 export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 
 export const jsModule = (name: string, prefix: string = 'compiled/') => {

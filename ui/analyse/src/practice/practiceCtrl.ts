@@ -4,7 +4,7 @@ import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, Prop, requestIdleCallback } from 'common';
 import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
@@ -195,7 +195,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     checkCevalOrTablebase();
   }
 
-  site.requestIdleCallback(checkCevalOrTablebase, 800);
+  requestIdleCallback(checkCevalOrTablebase, 800);
 
   return {
     onCeval: checkCeval,

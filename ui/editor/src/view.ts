@@ -11,6 +11,7 @@ import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import { Selected, CastlingToggle, EditorState } from './interfaces';
 import { dataIcon } from 'common/snabbdom';
+import { domDialog } from 'common/dialog';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -248,7 +249,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 class: { button: true, 'button-empty': true, disabled: !state.playable },
                 on: {
                   click: () => {
-                    if (state.playable) site.dialog.dom({ cash: $('.continue-with'), show: 'modal' });
+                    if (state.playable) domDialog({ cash: $('.continue-with'), show: 'modal' });
                   },
                 },
               },

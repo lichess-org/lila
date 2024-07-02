@@ -1,6 +1,7 @@
 import { prop } from 'common';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
+import { snabDialog } from 'common/dialog';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { Topic } from './interfaces';
@@ -36,7 +37,7 @@ export const view = (ctrl: StudyCtrl): VNode =>
 let tagify: Tagify | undefined;
 
 export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
-  site.dialog.snab({
+  snabDialog({
     class: 'study-topics',
     onClose() {
       ctrl.open(false);

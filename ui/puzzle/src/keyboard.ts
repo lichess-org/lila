@@ -1,5 +1,6 @@
 import * as control from './control';
 import PuzzleCtrl from './ctrl';
+import { snabDialog } from 'common/dialog';
 
 export default (ctrl: PuzzleCtrl) =>
   site.mousetrap
@@ -34,7 +35,7 @@ export default (ctrl: PuzzleCtrl) =>
     .bind('B', () => ctrl.blindfold(!ctrl.blindfold()));
 
 export const view = (ctrl: PuzzleCtrl) =>
-  site.dialog.snab({
+  snabDialog({
     class: 'help',
     htmlUrl: '/training/help',
     onClose: () => ctrl.keyboardHelp(false),

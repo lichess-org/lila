@@ -1,6 +1,7 @@
 import TournamentController from '../ctrl';
 import { bind, MaybeVNode } from 'common/snabbdom';
 import { fullName, userFlair } from 'common/userLink';
+import { snabDialog } from 'common/dialog';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 
@@ -10,7 +11,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     ctrl.joinWithTeamSelector = false;
     ctrl.redraw();
   };
-  return site.dialog.snab({
+  return snabDialog({
     class: 'team-battle__choice',
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {

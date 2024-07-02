@@ -4,6 +4,7 @@ import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { propWithEffect, Prop } from 'common';
+import { snabDialog } from 'common/dialog';
 import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { load as loadKeyboardMove } from './keyboardMove';
 import KeyboardChecker from './keyboardChecker';
@@ -171,7 +172,7 @@ export function render(ctrl: KeyboardMove) {
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
     ctrl.helpModalOpen()
-      ? site.dialog.snab({
+      ? snabDialog({
           class: 'help.keyboard-move-help',
           htmlUrl: '/help/keyboard-move',
           onClose: () => ctrl.helpModalOpen(false),

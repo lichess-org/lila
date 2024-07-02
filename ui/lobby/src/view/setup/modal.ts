@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
 import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 import { userLink } from 'common/userLink';
+import { snabDialog } from 'common/dialog';
 import LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
 import { timePickerAndSliders } from './components/timePickerAndSliders';
@@ -14,9 +15,9 @@ import { levelButtons } from './components/levelButtons';
 export default function setupModal(ctrl: LobbyController): MaybeVNode {
   const { setupCtrl } = ctrl;
   if (!setupCtrl.gameType) return null;
-  return site.dialog.snab({
+  return snabDialog({
     class: 'game-setup',
-    css: [{ themed: 'lobby.setup' }],
+    css: [{ hashed: 'lobby.setup' }],
     onClose: setupCtrl.closeModal,
     vnodes: [...views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
   });

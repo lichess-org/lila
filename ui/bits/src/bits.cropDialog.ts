@@ -1,4 +1,5 @@
 import { defined } from 'common';
+import { domDialog } from 'common/dialog';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
@@ -61,17 +62,17 @@ export async function initModule(o?: CropOpts) {
     minContainerHeight: viewBounds.height,
   });
 
-  const dlg = await site.dialog.dom({
+  const dlg = await domDialog({
     class: 'crop-viewer',
-    css: [{ themed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
+    css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
     htmlText: `<h2>Crop image to desired shape</h2>
 <div class="crop-view"></div>
 <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
 <button class="button submit">submit</button></span>`,
-    append: [{ selector: '.crop-view', node: container }],
-    action: [
-      { selector: '.dialog-actions > .cancel', action: d => d.close() },
-      { selector: '.dialog-actions > .submit', action: crop },
+    append: [{ where: '.crop-view', node: container }],
+    actions: [
+      { selector: '.dialog-actions > .cancel', listener: d => d.close() },
+      { selector: '.dialog-actions > .submit', listener: crop },
     ],
     onClose: () => {
       URL.revokeObjectURL(url);

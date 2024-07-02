@@ -1,6 +1,7 @@
 // Rich Text helper functions
 // Refactored for https://github.com/lichess-org/lila/issues/7342 request
 import { VNode, Hooks } from 'snabbdom';
+import { escapeHtml } from './common';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
 export const linkRegex =
@@ -48,7 +49,7 @@ export const userLinkReplace = (_: string, prefix: string, user: string) =>
 export const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
 
 export function enrichText(text: string, allowNewlines = true): string {
-  let html = autolink(site.escapeHtml(text), toLink);
+  let html = autolink(escapeHtml(text), toLink);
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
 }
@@ -85,7 +86,7 @@ export interface EnhanceOpts {
 }
 
 export function enhance(text: string, opts?: EnhanceOpts): string {
-  const escaped = site.escapeHtml(text);
+  const escaped = escapeHtml(text);
   const linked = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
   const plied = opts?.plies && linked === escaped ? addPlies(linked) : linked;
   const boarded = opts?.boards && linked === escaped ? addBoards(plied) : linked;

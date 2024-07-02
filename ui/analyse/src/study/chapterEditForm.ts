@@ -4,6 +4,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { option, emptyRedButton } from '../view/util';
 import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, ChapterPreview } from './interfaces';
 import { defined, prop } from 'common';
+import { snabDialog } from 'common/dialog';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
@@ -57,7 +58,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
   const data = ctrl.current(),
     noarg = ctrl.trans.noarg;
   return data
-    ? site.dialog.snab({
+    ? snabDialog({
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);

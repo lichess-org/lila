@@ -1,6 +1,7 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { isTouchDevice } from 'common/device';
+import { domDialog } from 'common/dialog';
 import { bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { AutoplayDelay } from '../autoplay';
@@ -130,9 +131,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         h(
           'a',
           {
-            hook: bind('click', () =>
-              site.dialog.dom({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
-            ),
+            hook: bind('click', () => domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' })),
             attrs: dataIcon(licon.Swords),
           },
           noarg('continueFromHere'),

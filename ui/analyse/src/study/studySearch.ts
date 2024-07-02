@@ -1,6 +1,7 @@
 import { Prop, Toggle, propWithEffect, toggle } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
+import { snabDialog } from 'common/dialog';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { ChapterPreview } from './interfaces';
@@ -49,7 +50,7 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); //
 export function view(ctrl: SearchCtrl) {
   const cleanQuery = ctrl.cleanQuery();
   const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
-  return site.dialog.snab({
+  return snabDialog({
     class: 'study-search',
     onClose() {
       ctrl.open(false);
