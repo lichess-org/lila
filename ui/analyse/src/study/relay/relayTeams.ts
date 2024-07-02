@@ -71,7 +71,7 @@ const renderTeams = (
 ): MaybeVNodes =>
   teams.table.map(row => {
     const firstTeam = row.teams[1];
-    const secondTeam = row.teams[0]
+    const secondTeam = row.teams[0];
     return h('div.relay-tour__team-match', [
       h('div.relay-tour__team-match__teams', [
         h('strong.relay-tour__team-match__team', firstTeam.name),
