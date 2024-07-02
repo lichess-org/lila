@@ -69,7 +69,7 @@ final class RelayApi(
       targetRound <- officialTarget(rt.round)
     yield (
       rt.round,
-      nav.copy(round = rt.round.id.some, sourceRound = sourceRound, targetRound = targetRound)
+      nav.copy(roundId = rt.round.id.some, sourceRound = sourceRound, targetRound = targetRound)
     )
 
   def formNavigation(tour: RelayTour): Fu[ui.FormNavigation] = for

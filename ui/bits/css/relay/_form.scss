@@ -29,12 +29,22 @@
   }
 }
 
-.flash-box {
+.relay-form__lcc-deprecated {
   border: 5px solid $m-brag_bg--mix-70;
 
   &::before {
     color: $c-brag;
     content: $licon-InfoCircle;
+    font-size: 4em;
+  }
+}
+
+.relay-form__contact-us.flash-box {
+  border: 5px solid $m-secondary_bg--mix-70;
+
+  &::before {
+    color: $c-secondary;
+    content: $licon-UploadCloud;
     font-size: 4em;
   }
 }

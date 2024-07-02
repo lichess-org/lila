@@ -11,13 +11,18 @@ case class FormNavigation(
     group: Option[RelayGroup.WithTours],
     tour: RelayTour,
     rounds: List[RelayRound],
-    round: Option[RelayRoundId],
+    roundId: Option[RelayRoundId],
     sourceRound: Option[RelayRound.WithTour] = none,
     targetRound: Option[RelayRound.WithTour] = none,
     newRound: Boolean = false
 ):
   def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
   def tourWithRounds = RelayTour.WithRounds(tour, rounds)
+  def round          = roundId.flatMap(id => rounds.find(_.id == id))
+  def featurableRound = round
+    .ifTrue(targetRound.isEmpty)
+    .filter: r =>
+      r.sync.upstream.forall(up => up.isUrl && !up.hasLcc)
 
 final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   import helpers.{ *, given }
@@ -40,7 +45,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         nav.rounds.map: r =>
           a(
             href := routes.RelayRound.edit(r.id),
-            cls  := List("subnav__subitem text" -> true, "active" -> nav.round.has(r.id)),
+            cls  := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
             dataIcon := (
               if r.finished then Icon.Checkmark
               else if r.hasStarted then Icon.DiscBig
@@ -106,7 +111,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
           standardFlash,
-          inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, round = none)
+          inner(form, routes.RelayRound.create(nav.tour.id), nav)
         )
 
     def edit(
@@ -126,7 +131,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
               "."
             ),
-          inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some, nav.sourceRound),
+          inner(form, routes.RelayRound.update(r.id), nav),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
@@ -147,15 +152,13 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def inner(
         form: Form[RelayRoundForm.Data],
         url: play.api.mvc.Call,
-        t: RelayTour,
-        round: Option[RelayRound],
-        sourceRound: Option[RelayRound.WithTour] = none
+        nav: FormNavigation
     )(using ctx: Context) =
-      val lccWarning = round
+      val lccWarning = nav.round
         .flatMap(_.sync.upstream)
         .exists(_.hasLcc)
-        .option(
-          flashMessage("box")(
+        .option:
+          flashMessage("box relay-form__lcc-deprecated")(
             p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
             p(
               "LiveChessCloud support is deprecated and will be removed soon.",
@@ -163,12 +166,22 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               "If you need help, please contact us at broadcast@lichess.org."
             )
           )
-        )
+      val contactUsForOfficial = nav.featurableRound.isDefined
+        .option:
+          flashMessage("box relay-form__contact-us")(
+            p(
+              "Is this a tournament you organize? Do you want Lichess to feature it on the ",
+              a(href := routes.RelayTour.index(1))("broadcast page"),
+              "?"
+            ),
+            p(trans.contact.sendEmailAt("broadcast@lichess.org"))
+          )
+        .pp
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
-            (round.isEmpty && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
+            (nav.round.isEmpty && nav.tour.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
               p(dataIcon := Icon.InfoCircle, cls := "text"):
                 trb.theNewRoundHelp()
           )
@@ -189,13 +202,13 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
           div(cls := "relay-form__sync relay-form__sync-url")(
-            lccWarning,
+            lccWarning.orElse(contactUsForOfficial),
             form3.group(
               form("syncUrl"),
               trb.sourceSingleUrl(),
               help = trb.sourceUrlHelp().some
             )(form3.input(_)),
-            sourceRound.map: source =>
+            nav.sourceRound.map: source =>
               flashMessage("round-push")(
                 "Getting real-time updates from ",
                 strong(a(href := source.path)(source.fullName)),
@@ -235,6 +248,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             half = false
           )(form3.input(_))(cls := "relay-form__sync relay-form__sync-ids none"),
           div(cls := "form-group relay-form__sync relay-form__sync-push none")(
+            contactUsForOfficial,
             p(
               "Send your local games to Lichess using the ",
               a(href := broadcasterUrl)("Lichess Broadcaster App"),
@@ -280,7 +294,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )(form3.input(_))
           )
         ),
-        form3.fieldset("Advanced", toggle = round.exists(r => r.sync.delay.isDefined).some)(
+        form3.fieldset("Advanced", toggle = nav.round.exists(r => r.sync.delay.isDefined).some)(
           form3.split(
             form3.group(
               form("delay"),
@@ -323,7 +337,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
         form3.actions(
-          a(href := routes.RelayTour.show(t.slug, t.id))(trans.site.cancel()),
+          a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trans.site.cancel()),
           form3.submit(trans.site.apply())
         )
       )

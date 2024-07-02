@@ -118,6 +118,9 @@ object RelayRound:
       case Url(url: URL)          extends Upstream
       case Urls(urls: List[URL])  extends Upstream
       case Ids(ids: List[GameId]) extends Upstream
+      def isUrl = this match
+        case Url(_) => true
+        case _      => false
       def lcc: Option[Lcc] = this match
         case Url(url) =>
           url.toString match

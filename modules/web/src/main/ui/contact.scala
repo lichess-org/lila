@@ -222,18 +222,6 @@ object contact:
             )
           )
         ),
-        Leaf(
-          "broadcast",
-          wantBroadcastTournament(),
-          frag(
-            p(a(href := routes.RelayTour.help)(learnHowToMakeBroadcasts()), "."),
-            p(
-              contactAboutOfficialBroadcasts(),
-              " ",
-              sendEmailAt(contactEmailLink("broadcast@lichess.org"))
-            )
-          )
-        ),
         frag(
           p(doNotMessageModerators()),
           p(sendAppealTo(a(href := routes.Appeal.home)(routes.Appeal.home.url))),
