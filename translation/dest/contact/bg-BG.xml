@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
   <string name="errorPage">Страница за грешката</string>
   <string name="reportErrorPage">Ако сте се сблъскали с грешна страница, можете да съобщите за нея:</string>
-  <string name="wantBroadcastTournament">Искам да излъча турнир</string>
   <string name="learnHowToMakeBroadcasts">Научете се как да правите излъчвания в Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Можете също да се свържете с екипа за излъчвания ако се интересувате от официални излъчвания.</string>
   <string name="banAppeal">Жалба за бан или IP ограничение</string>
   <string name="engineAppeal">Програма или измама</string>
   <string name="sendAppealTo">Можете да изпратите жалба до %s.</string>

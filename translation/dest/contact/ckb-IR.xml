@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">لە هەندێک بارودۆخدا لەکاتی یاریکردن بەرامبەر ئەکاونتی بۆت، یارییەکی ڕیزبەندی ڕەنگە خاڵت پێ نەدرێت ئەگەر بزارێت کە یاریزانەکە خراپ بۆتەکە بەکاردەهێنێت بۆ خاڵەکانی ڕیزبەندی.</string>
   <string name="errorPage">لاپەڕەی هەڵە</string>
   <string name="reportErrorPage">ئەگەر ڕووبەڕووی لاپەڕەیەکی هەڵە بوویتەوە، دەکرێ سکاڵا بکەیت:</string>
-  <string name="wantBroadcastTournament">دەمەوێت پاڵەوانێتییەک پەخش بکەم</string>
   <string name="learnHowToMakeBroadcasts">فێربە چۆن پەخشی تایبەتی خۆت لە لیچێس دروست بکەیت</string>
-  <string name="contactAboutOfficialBroadcasts">هەروەها دەتوانن پەیوەندی بە تیمی پەخشەوە بکەن سەبارەت بە پەخشی فەرمی.</string>
   <string name="banAppeal">تانەدان بۆ قەدەغەکردن یان سنووردارکردنی IP</string>
   <string name="engineAppeal">بەکارهێنانی بزوێنەر یان نیشانەی قۆپیە کردن</string>
   <string name="sendAppealTo">دەتوانی تانەدانەکە بنێریت بۆ %s.</string>

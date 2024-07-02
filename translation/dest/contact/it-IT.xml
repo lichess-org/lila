@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">In certe circostanze giocando contro un profilo bot, un gioco valutato potrebbe non ricompensare punti se è determinato che il giocatore stia abusando del bot per i punti di valutazione.</string>
   <string name="errorPage">Pagina di errore</string>
   <string name="reportErrorPage">Se hai riscontrato una pagina di errore, puoi segnalarla:</string>
-  <string name="wantBroadcastTournament">Voglio trasmettere un torneo</string>
   <string name="learnHowToMakeBroadcasts">Impara come fare le tue trasmissioni su Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Puoi anche contattare il team delle dirette riguardo le dirette ufficiali.</string>
   <string name="banAppeal">Reclamo per un ban o una restrizione IP</string>
   <string name="engineAppeal">Motore o cheat mark</string>
   <string name="sendAppealTo">Puoi inviare una segnalazione a %s.</string>

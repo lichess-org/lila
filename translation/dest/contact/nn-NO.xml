@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Dersom det vert slått fast at ein spelar misbrukar ein bot-konto for å manipulera ratingpoeng, kan det hende det ikkje vert gjeven poeng for spelet.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Dersom du støtte på ei feilside kan du rapportere det:</string>
-  <string name="wantBroadcastTournament">Eg vil kringkaste ei turnering</string>
   <string name="learnHowToMakeBroadcasts">Lær deg korleis du lagar eigne sendingar på Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Du kan òg ta kontakt med kringkastingsgruppa om det som gjeld offisielle sendingar.</string>
   <string name="banAppeal">Protest ved utestenging eller IP-restriksjon</string>
   <string name="engineAppeal">Merknad om juks eller bruk av sjakkcomputer</string>
   <string name="sendAppealTo">Du kan sende ein appell til %s.</string>

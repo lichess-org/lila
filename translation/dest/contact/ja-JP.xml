@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">ボットアカウントとの対戦で、ボットを利用してレーティングを操作していると判断された場合は、レーティングの点が与えられません。</string>
   <string name="errorPage">エラーページ</string>
   <string name="reportErrorPage">エラーページに出会ったら、以下で報告できます。</string>
-  <string name="wantBroadcastTournament">トーナメントを配信したい</string>
   <string name="learnHowToMakeBroadcasts">Lichess で独自の配信を行なう方法について</string>
-  <string name="contactAboutOfficialBroadcasts">公式の配信については配信担当者に連絡することもできます。</string>
   <string name="banAppeal">アクセス禁止や IP 制限への異議申し立て</string>
   <string name="engineAppeal">不正行為の赤マーク</string>
   <string name="sendAppealTo">異議申し立てを %s に送ることができます。</string>

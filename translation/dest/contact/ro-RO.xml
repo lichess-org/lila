@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">În anumite circumstanțe, atunci când se joacă cu un cont de bot, un joc evaluat nu poate acorda puncte dacă se stabilește că jucătorul abuzează de bot pentru a obține puncte de evaluare.</string>
   <string name="errorPage">Pagina de eroare</string>
   <string name="reportErrorPage">Dacă ai primit o pagină de eroare, o poți raporta:</string>
-  <string name="wantBroadcastTournament">Vreau să transmit un turneu</string>
   <string name="learnHowToMakeBroadcasts">Învață cum să îți faci propriile transmisiuni pe Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">De asemenea, puteți contacta echipa de difuzare despre emisiunile oficiale.</string>
   <string name="banAppeal">Aplică pentru un ban sau restricție de IP</string>
   <string name="engineAppeal">Motor de asistență sau marcaj de trișare</string>
   <string name="sendAppealTo">Poți trimite o cerere pe %s.</string>

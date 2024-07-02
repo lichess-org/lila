@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">В рейтинговых играх против ботов в некоторых случаях очки рейтинга не начисляются, если система считает, что игрок эксплуатирует слабости бота для набивания рейтинга.</string>
   <string name="errorPage">Сообщение об ошибке</string>
   <string name="reportErrorPage">Если вы столкнулись с сообщением об ошибке, вы можете сообщить об этом:</string>
-  <string name="wantBroadcastTournament">Я хочу стримить турнир</string>
   <string name="learnHowToMakeBroadcasts">Узнайте, как создавать свои собственные стримы на Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Вы также можете связаться с командой поддержки стримов по вопросам ваших стримов.</string>
   <string name="banAppeal">Обжалование бана аккаунта или ограничения IP-адреса</string>
   <string name="engineAppeal">Отметка об использовании шахматных движков или читерстве</string>
   <string name="sendAppealTo">Вы можете отправить апелляцию на %s.</string>
