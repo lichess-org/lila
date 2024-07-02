@@ -693,6 +693,9 @@ phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL
 	<plurals name="nbPerfTypePlayersThisWeek">
 		<item quantity="other">%1$s người chơi %2$s tuần này.</item>
 	</plurals>
+	<plurals name="nbPerfTypePlayersThisMonth">
+		<item quantity="other">%1$s kỳ thủ %2$s tháng này</item>
+	</plurals>
 	<string name="yourPerfTypeRatingIsRating">Điểm hệ số thứ hạng %1$s của bạn là %2$s.</string>
 	<string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
 	<string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
@@ -936,4 +939,9 @@ phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL
 	<string name="preview">Xem chi tiết</string>
 	<string name="variantNotSupported" comment="Used in engine evaluation for variants like chushogi, annanshogi, etc.">Biến thể không được hỗ trợ</string>
 	<string name="readyToPlay" comment="Used as a help on a game that can be immediately started without waiting (ai games for example, or timecontrol where another player is already waiting)">Sẵn sàng chơi</string>
+	<string name="general-shogi-discussion">General Shogi Discussion</string>
+	<string name="game-analysis">Game Analysis</string>
+	<string name="lishogi-feedback">Lishogi Feedback</string>
+	<string name="off-topic-discussion">Off-Topic Discussion</string>
+	<string name="teamXForum">Forum of the team %s</string>
 </resources>

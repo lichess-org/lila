@@ -727,6 +727,10 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 		<item quantity="one">%1$s %2$s speler hierdie week.</item>
 		<item quantity="other">%1$s %2$s spelers hierdie week.</item>
 	</plurals>
+	<plurals name="nbPerfTypePlayersThisMonth">
+		<item quantity="one">%1$s %2$s player this month.</item>
+		<item quantity="other">%1$s %2$s players this month.</item>
+	</plurals>
 	<string name="yourPerfTypeRatingIsRating">Jou %1$s gradering is %2$s</string>
 	<string name="youAreBetterThanPercentOfPerfTypePlayers">Jy vaar beter as %1$s van %2$s spelers.</string>
 	<string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s is beter as %2$s van %3$s spelers.</string>
@@ -974,4 +978,9 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="preview">Preview</string>
 	<string name="variantNotSupported" comment="Used in engine evaluation for variants like chushogi, annanshogi, etc.">Variant not supported</string>
 	<string name="readyToPlay" comment="Used as a help on a game that can be immediately started without waiting (ai games for example, or timecontrol where another player is already waiting)">Ready to play</string>
+	<string name="general-shogi-discussion">General Shogi Discussion</string>
+	<string name="game-analysis">Game Analysis</string>
+	<string name="lishogi-feedback">Lishogi Feedback</string>
+	<string name="off-topic-discussion">Off-Topic Discussion</string>
+	<string name="teamXForum">Forum of the team %s</string>
 </resources>

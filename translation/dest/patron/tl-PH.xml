@@ -31,7 +31,7 @@
 	<string name="whereMoneyGoes">Saan napupunta ang pera?</string>
 	<string name="costBreakdown">See the detailed cost breakdown</string>
 	<string name="changeMonthlySupport">Can I change/cancel my monthly support?</string>
-	<string name="changeOrContact">Yes, at any time, from this page.
+	<string name="changeOrContact">Yes, at any time, from PayPal or Patreon page.
 Or you can %s.</string>
 	<string name="contactSupport">contact Lishogi support</string>
 	<string name="otherMethods">Other methods of donation?</string>

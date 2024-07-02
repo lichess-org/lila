@@ -726,6 +726,10 @@
 		<item quantity="one">%1$s jugador de %2$s esta semana.</item>
 		<item quantity="other">%1$s jugadores de %2$s esta semana.</item>
 	</plurals>
+	<plurals name="nbPerfTypePlayersThisMonth">
+		<item quantity="one">%1$s %2$s player this month.</item>
+		<item quantity="other">%1$s %2$s players this month.</item>
+	</plurals>
 	<string name="yourPerfTypeRatingIsRating">Tu puntuación en %1$s es %2$s.</string>
 	<string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores de %2$s.</string>
 	<string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s es mejor que %2$s de %3$s jugadores.</string>
@@ -973,4 +977,9 @@
 	<string name="preview">Vista previa</string>
 	<string name="variantNotSupported" comment="Used in engine evaluation for variants like chushogi, annanshogi, etc.">Variante no admitida</string>
 	<string name="readyToPlay" comment="Used as a help on a game that can be immediately started without waiting (ai games for example, or timecontrol where another player is already waiting)">Listo para jugar</string>
+	<string name="general-shogi-discussion">General Shogi Discussion</string>
+	<string name="game-analysis">Game Analysis</string>
+	<string name="lishogi-feedback">Lishogi Feedback</string>
+	<string name="off-topic-discussion">Off-Topic Discussion</string>
+	<string name="teamXForum">Forum of the team %s</string>
 </resources>
