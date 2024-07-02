@@ -70,16 +70,17 @@ const renderTeams = (
   cloudEval?: MultiCloudEval,
 ): MaybeVNodes =>
   teams.table.map(row => {
-    const firstTeam = row.teams[0];
+    const firstTeam = row.teams[1];
+    const secondTeam = row.teams[0]
     return h('div.relay-tour__team-match', [
       h('div.relay-tour__team-match__teams', [
-        h('strong.relay-tour__team-match__team', row.teams[0].name),
+        h('strong.relay-tour__team-match__team', firstTeam.name),
         h('span.relay-tour__team-match__team__points', [
           h('points', firstTeam.points.toString()),
           h('vs', 'vs'),
-          h('points', row.teams[1].points.toString()),
+          h('points', secondTeam.points.toString()),
         ]),
-        h('strong.relay-tour__team', row.teams[1].name),
+        h('strong.relay-tour__team', secondTeam.name),
       ]),
       h(
         'div.relay-tour__team-match__games',
@@ -88,7 +89,7 @@ const renderTeams = (
           const players = chap?.players;
           if (!players) return;
           const sortedPlayers =
-            game.pov == 'white' ? [players.white, players.black] : [players.black, players.white];
+            game.pov == 'white' ? [players.black, players.white] : [players.white, players.black];
           return (
             chap &&
             h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(basePath, chap) }, [
@@ -109,7 +110,7 @@ const playerView = (p: ChapterPreviewPlayer) =>
   ]);
 
 const statusView = (g: ChapterPreview, pov: Color, chapters: StudyChapters, cloudEval?: MultiCloudEval) => {
-  const status = pov == 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
+  const status = pov == 'white' ? (g.status?.split('').reverse().join('') as StatusStr) : g.status;
   return h(
     'span.relay-tour__team-match__game__status',
     status && status != '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
