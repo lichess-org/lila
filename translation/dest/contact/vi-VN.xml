@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Trong một số trường hợp nhất định khi chơi với tài khoản Bot, ván cờ có xếp hạng có thể không trao điểm nếu xác định được rằng người chơi đang lạm dụng Bot để lấy điểm xếp hạng.</string>
   <string name="errorPage">Trang lỗi</string>
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thể báo cáo nó:</string>
-  <string name="wantBroadcastTournament">Tôi muốn phát sóng một giải đấu</string>
   <string name="learnHowToMakeBroadcasts">Tìm hiểu cách thức phát sóng trên Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Bạn cũng có thể liên hệ đội ngũ phát sóng về các chương trình phát sóng chính thức.</string>
   <string name="banAppeal">Khiếu nại lệnh cấm, hạn chế hoặc chặn IP</string>
   <string name="engineAppeal">Đánh dấu gian lận hoặc dùng động cơ máy tính</string>
   <string name="sendAppealTo">Bạn có thể gửi khiếu nại đến %s.</string>
