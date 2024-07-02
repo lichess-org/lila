@@ -49,5 +49,5 @@
   <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị đóng.</string>
   <string name="blogTips">Vài mẹo đơn giản để giúp viết ra một bài blog tuyệt vời</string>
   <string name="discussThisBlogPostInTheForum">Thảo luận về bài blog này trong diễn đàn</string>
-  <string name="youBlockedByBlogAuthor">Bạn đã bị chặn bởi tác giả blog.</string>
+  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Bạn đã bị chặn bởi tác giả blog.</string>
 </resources>

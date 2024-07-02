@@ -7,15 +7,15 @@
   <string name="prizeBanned">Tu cuenta tiene prohibido participar en torneos con premios reales.</string>
   <string name="boosterMarked">Tu cuenta está marcada por manipulación de la calificación.</string>
   <string name="boosterMarkedInfo">Definimos manipular deliberadamente la calificación como el perder partidas a propósito, o jugar contra otra cuenta que está perdiendo partidas deliberadamente.</string>
-  <string name="accountMuted">Tu cuenta está silenciada.</string>
-  <string name="accountMutedInfo">Lee nuestro %s. No seguir las directrices de comunicación puede provocar que las cuentas sean silenciadas.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Tu cuenta está silenciada.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Lee nuestro %s. No seguir las directrices de comunicación puede provocar que las cuentas sean silenciadas.</string>
   <string name="excludedFromLeaderboards">Se ha excluido a su cuenta de las tablas de clasificación.</string>
   <string name="excludedFromLeaderboardsInfo">Definimos esto como usar cualquier forma injusta de posicionarse en la tabla de clasificaciones.</string>
   <string name="closedByModerators">Tu cuenta fue cerrada por moderadores.</string>
   <string name="hiddenBlog">Tus blogs han sido ocultados por los moderadores.</string>
   <string name="hiddenBlogInfo">Asegúrate de leer de nuevo nuestro %s.</string>
-  <string name="playTimeout">Tienes un tiempo de espera agotado.</string>
-  <string name="communicationGuidelines">directrices de comunicación</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Tienes un tiempo de espera agotado.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">directrices de comunicación</string>
   <string name="blogRules">reglas del blog</string>
   <string name="fairPlay">Juego limpio</string>
 </resources>

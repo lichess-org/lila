@@ -167,7 +167,7 @@ Ikonën e kuqe jua shfaqim për t’ju sinjalizuar, kur ndodh kjo. Shpesh, mund 
 3. Klikoni Leje Cookie-sh dhe Sajti
 4. Shkoni më poshtë dhe klikoni “Vetëluajtje mediash”
 5. Shtoni lichess.org te Lejoje</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Të ndal veten nga loja?</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Të ndal veten nga loja?</string>
   <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Marrim rregullisht mesazhe nga përdorues ku na kërkohet t’i ndihmojmë të reshtin së luajturi tej mase.
 
 Teksa Lichess-i nuk dëbon, apo bllokon lojtarë, hiq cenime të Kushteve të Shërbimit, rekomandojmë përdorim mjetesh të jashtme për kufizim sjelljeje të tepruar të luajturi. Disa nga sugjerimet e rëndomta për bllokues sajtesh përfshijnë %1$s, %2$s dhe %3$s. Nësedoni të vazhdoni të përdorni sajtin, por pa qenë të joshur nga kontrolle të shpejtë kohe, mund t’ju interesojnë edhe %4$s, ja një me %5$s.
