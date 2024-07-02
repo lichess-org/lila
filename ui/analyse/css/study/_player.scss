@@ -71,4 +71,16 @@ $player-height: 1.6rem;
     margin-left: 0.5em;
     font-weight: normal;
   }
+
+  @include breakpoint($mq-col1) {
+    &-top,
+    &-bot {
+      background: none;
+      box-shadow: none;
+      border-radius: $box-radius-size;
+      .analyse__clock {
+        border-radius: $box-radius-size;
+      }
+    }
+  }
 }

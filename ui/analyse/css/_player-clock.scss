@@ -10,11 +10,8 @@ $clock-height: 20px;
     }
   }
   @include breakpoint($mq-col1) {
-    .analyse__controls {
-      margin-top: $clock-height;
-    }
     .analyse__board {
-      margin: 1.6rem 0;
+      margin: 16px 0 20px 0;
     }
   }
 }
@@ -25,6 +22,7 @@ $clock-height: 20px;
   display: flex;
   position: absolute;
   right: 0;
+  text-shadow: none;
 
   height: $clock-height;
 
@@ -36,7 +34,7 @@ $clock-height: 20px;
     top: #{-$clock-height};
     z-index: 2; // over the board coords
     .time {
-      border-top-right-radius: 3px;
+      border-top-right-radius: $box-radius-size;
     }
   }
   &.bottom {
@@ -44,7 +42,7 @@ $clock-height: 20px;
     @extend %box-radius-bottom;
     bottom: #{-$clock-height};
     .time {
-      border-bottom-right-radius: 3px;
+      border-bottom-right-radius: $box-radius-size;
     }
   }
   & > div {
@@ -60,6 +58,20 @@ $clock-height: 20px;
   }
   tenths {
     font-size: 80%;
+  }
+
+  @include breakpoint($mq-col1) {
+    background: none;
+    &.top {
+      left: 0;
+      right: unset;
+    }
+    &.bottom {
+      box-shadow: none;
+    }
+    .time {
+      border-radius: $box-radius-size;
+    }
   }
   @include breakpoint($mq-col2) {
     @include hand-width(right);

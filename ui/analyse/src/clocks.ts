@@ -32,8 +32,8 @@ export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VN
   const showTenths = true; // let's see
 
   return [
-    renderClock('sente', centis[0], sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top', showTenths),
-    renderClock('gote', centis[1], gotePlayer, !isSenteTurn, sentePov ? 'top' : 'bottom', showTenths),
+    renderClock('sente', centis[0], sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top', showTenths, showNames),
+    renderClock('gote', centis[1], gotePlayer, !isSenteTurn, sentePov ? 'top' : 'bottom', showTenths, showNames),
   ];
 }
 
@@ -43,14 +43,15 @@ function renderClock(
   player: game.Player | undefined,
   active: boolean,
   cls: string,
-  showTenths: boolean
+  showTenths: boolean,
+  showNames: boolean
 ): VNode {
   return h(
     `div.analyse__clock.${cls}`,
     {
       class: { active },
     },
-    [playerName(color, player), h('div.time', clockContent(centis, showTenths))]
+    [showNames ? playerName(color, player) : undefined, h('div.time', clockContent(centis, showTenths))]
   );
 }
 
