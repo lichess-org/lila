@@ -29,12 +29,12 @@
   <string name="definitivelyDeleteTournament">Vee beslis die hele toernooi uit, met al sy rondtes en spelle.</string>
   <string name="replacePlayerTags">Opsioneel: vervang spelername, graderings en titels</string>
   <string name="periodInSeconds">Periode in sekondes</string>
-  <string name="fideFederations">FIDE-federasies</string>
-  <string name="top10Rating">Top 10 gradering</string>
-  <string name="fidePlayers">FIDE-deelnemers</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE-federasies</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Top 10 gradering</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE-deelnemers</string>
   <string name="fidePlayerNotFound">FIDE-deelnemer nie gevind nie</string>
   <string name="fideProfile">FIDE-profiel</string>
-  <string name="federation">Federasie</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federasie</string>
   <string name="ageThisYear">Ouderdom vanjaar</string>
   <string name="unrated">Ongegradeerd</string>
   <string name="recentTournaments">Onlangse toernooie</string>

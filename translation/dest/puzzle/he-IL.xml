@@ -32,7 +32,7 @@
   <string name="puzzlesByOpenings">חידות לפי פתיחות</string>
   <string name="openingsYouPlayedTheMost">הפתיחות הנפוצות שלך במשחקים מדורגים</string>
   <string name="useFindInPage">השתמשו ב״חיפוש בעמוד״ בדפדפן כדי למצוא את הפתיחה המועדפת עליכם!</string>
-  <string name="useCtrlF">השתמשו ב-ctrl+F כדי למצוא את הפתיחה המועדפת עליכם!</string>
+  <string name="useCtrlF">השתמשו ב־ctrl+F כדי למצוא את הפתיחה המועדפת עליכם!</string>
   <string name="notTheMove">זה לא המהלך!</string>
   <string name="trySomethingElse">נסו משהו אחר.</string>
   <string name="ratingX">דירוג: %s</string>

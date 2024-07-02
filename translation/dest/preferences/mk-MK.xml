@@ -41,5 +41,5 @@
   <string name="castleByMovingTwoSquares">Помести го кралот две полиња</string>
   <string name="castleByMovingOntoTheRook">Помести го кралот врз топот</string>
   <string name="inputMovesWithTheKeyboard">Внеси потези со тастатура</string>
-  <string name="yourPreferencesHaveBeenSaved">Вашите поставки се зачувани.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Вашите поставки се зачувани.</string>
 </resources>

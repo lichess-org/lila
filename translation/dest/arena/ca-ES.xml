@@ -77,8 +77,8 @@ Per exemple, estar en el tercer lloc en un torneig de 100 jugadors = 3%. Ser cla
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Totes les mitjanes d\'aquesta pàgina són %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Mitjana de punts</string>
-  <string name="pointsSum">Suma de punts</string>
-  <string name="rankAvg">Rànquing mitjà</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Suma de punts</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Rànquing mitjà</string>
   <string name="tournamentWinners">Guanyadors de tornejos</string>
   <string name="tournamentShields">Insígnies de tornejos</string>
   <string name="onlyTitled">Només jugadors titulats</string>

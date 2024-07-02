@@ -48,7 +48,7 @@
   <string name="inputMovesWithTheKeyboard">Omogući unošenje poteza tipkovnicom</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Crtaj strelice za planiranje budućih poteza</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Reci \"Dobra partija, odlićno odigrano\" kad izgubiš ili odigraš remi</string>
-  <string name="yourPreferencesHaveBeenSaved">Tvoje promjene su spremljene.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Tvoje promjene su spremljene.</string>
   <string name="scrollOnTheBoardToReplayMoves">Pomakni kotačić miša iznad ploče za pregled poteza</string>
   <string name="correspondenceEmailNotification">Dnevna obavijest putem pošte s popisom vaših dopisnih igara</string>
   <string name="notifyStreamStart">Streamer ide uživo</string>

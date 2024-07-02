@@ -79,8 +79,8 @@ Por ejemplo, ocupar el puesto 3 en un torneo de 100 jugadores = 3%. Estar en el 
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Todos los promedios en esta página son %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Promedio de puntos</string>
-  <string name="pointsSum">Suma de puntos</string>
-  <string name="rankAvg">Promedio de clasificación</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Suma de puntos</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Promedio de clasificación</string>
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="tournamentShields">Escudos de torneo</string>
   <string name="onlyTitled">Solo jugadores titulados</string>

@@ -588,6 +588,7 @@
   <string name="slow">Sakte</string>
   <string name="insideTheBoard">Innenfor brettet</string>
   <string name="outsideTheBoard">Utenfor brettet</string>
+  <string name="allSquaresOfTheBoard">Alle felt på brettet</string>
   <string name="onSlowGames">På lange partier</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>

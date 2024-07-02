@@ -43,12 +43,12 @@
   <string name="replacePlayerTags">Opcional: Reemplaça noms dels jugadors, puntuacions i títols</string>
   <string name="periodInSeconds">Període en segons</string>
   <string name="periodInSecondsHelp">Opcional, quant de temps esperar entre sol·licituds. Mínim 2 segons, màxim 60 segons. Per defecte es gestiona automàticament en funció del nombre de visualitzadors.</string>
-  <string name="fideFederations">Federacions FIDE</string>
-  <string name="top10Rating">Top 10 Ràting</string>
-  <string name="fidePlayers">Jugadors FIDE</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federacions FIDE</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Top 10 Ràting</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Jugadors FIDE</string>
   <string name="fidePlayerNotFound">No s\'ha trobat el jugador FIDE</string>
   <string name="fideProfile">Perfil FIDE</string>
-  <string name="federation">Federació</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federació</string>
   <string name="ageThisYear">Edat aquest any</string>
   <string name="unrated">Sense avaluació</string>
   <string name="recentTournaments">Tornejos recents</string>

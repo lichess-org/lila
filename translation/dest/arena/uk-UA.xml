@@ -81,8 +81,8 @@
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Усі середні значення на цій сторінці є %s.</string>
   <string name="total">Загальні</string>
   <string name="pointsAvg">Середні значення очків</string>
-  <string name="pointsSum">Сума очок</string>
-  <string name="rankAvg">Середнє місце</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Сума очок</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Середнє місце</string>
   <string name="tournamentWinners">Переможці турніру</string>
   <string name="tournamentShields">Турнірні щити</string>
   <string name="onlyTitled">Тільки титуловані гравці</string>

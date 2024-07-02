@@ -10,7 +10,7 @@
   <string name="totalGames">Всього ігор</string>
   <string name="ratedGames">Рейтингові ігри</string>
   <string name="tournamentGames">Турнірні ігри</string>
-  <string name="berserkedGames">Ігри з берсерком</string>
+  <string name="berserkedGames">Партії з берсерком</string>
   <string name="timeSpentPlaying">Проведено часу у грі</string>
   <string name="averageOpponent">Середній рейтинг суперників</string>
   <string name="victories">Перемог</string>
