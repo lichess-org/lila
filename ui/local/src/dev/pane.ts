@@ -1,24 +1,27 @@
 import type { PaneInfo, EditorHost, ObjectSelector, PaneArgs } from './types';
-import type { Mapping } from '../types';
-import { removePath, setPath } from './util';
+import type { Mapping, Book } from '../types';
+import { removeObjectProperty, setObjectProperty } from './util';
 import { getSchemaDefault } from './schema';
 
 export abstract class Pane {
   readonly host: EditorHost;
   readonly info: PaneInfo;
-  readonly div: HTMLElement;
+  readonly el: HTMLElement;
   readonly parent: Pane | undefined;
   enabledCheckbox?: HTMLInputElement;
 
   constructor({ host, info, parent }: PaneArgs) {
     [this.host, this.info, this.parent] = [host, info, parent];
-    this.div = document.createElement(this.info.type || !info.label ? 'div' : 'fieldset');
-    this.div.id = this.id;
+    this.el = document.createElement(this.isFieldset ? 'fieldset' : 'div');
+    this.el.id = this.id;
+    info.class?.forEach(c => this.el.classList.add(c));
+    if (info.title) this.el.title = info.title;
     host.editor.add(this);
-    info.class?.forEach(c => this.div.classList.add(c));
-    if (this.isSetting) this.div.classList.add('setting');
-    if (info.title) this.div.title = info.title;
   }
+
+  abstract setEnabled(enabled?: boolean): void;
+
+  abstract canEnable(): boolean;
 
   get id() {
     return this.info.id!;
@@ -33,19 +36,19 @@ export abstract class Pane {
   }
 
   get radioGroup() {
-    return this.parent?.info.type === 'radio' ? this.parent.id : undefined;
+    return this.parent?.info.type === 'radioGroup' ? this.parent.id : undefined;
   }
 
   get requires() {
     return this.info.requires ?? [];
   }
 
-  get requirementsAllow(): boolean {
-    return this.requires.every(r => this.host.editor.byId[r].enabled);
+  get isFieldset() {
+    return this.info.type === 'group' || this.info.type === 'books'; // || this.info.type === 'moveSelector';
   }
 
-  get isSetting() {
-    return this.info.type?.endsWith('Setting') ?? false;
+  get requirementsAllow(): boolean {
+    return this.requires.every(r => this.host.editor.byId[r].enabled);
   }
 
   get children() {
@@ -61,11 +64,9 @@ export abstract class Pane {
     return kids.every(x => x.enabled || !x.info.required);
   }
 
-  get paneValue(): number | string | Mapping | undefined {
-    return undefined;
+  get paneValue(): number | string | Mapping | Book[] | undefined {
+    return undefined; // paneValue is from an uncommitted input control
   }
-
-  setEnabled(enabled?: boolean) {}
 
   update(_?: Event) {
     this.setProperty(this.paneValue);
@@ -75,13 +76,13 @@ export abstract class Pane {
 
   select() {}
 
-  setProperty(value: string | number | Mapping | undefined) {
+  setProperty(value: string | number | Mapping | Book[] | undefined) {
     if (value === undefined) {
-      if (this.paneValue) removePath({ obj: this.host.bot, path: this.path });
-    } else setPath({ obj: this.host.bot, path: this.path, value });
+      if (this.paneValue) removeObjectProperty({ obj: this.host.bot, path: { id: this.id } });
+    } else setObjectProperty({ obj: this.host.bot, path: { id: this.id }, value });
   }
 
-  getProperty(sel: ObjectSelector[] = ['bot']): string | number | Mapping | undefined {
+  getProperty(sel: ObjectSelector[] = ['bot']): string | number | Mapping | Book[] | undefined {
     for (const s of sel) {
       const prop =
         s === 'schema'
@@ -96,6 +97,4 @@ export abstract class Pane {
     const prop = this.getProperty(sel);
     return typeof prop === 'object' ? JSON.stringify(prop) : prop !== undefined ? String(prop) : '';
   }
-
-  abstract autoEnable(): boolean;
 }

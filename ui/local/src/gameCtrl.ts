@@ -192,6 +192,10 @@ export class GameCtrl {
     return !this.botCtrl[this.chess.turn];
   }
 
+  get isBotTurn() {
+    return !!this.botCtrl[this.chess.turn];
+  }
+
   get dests() {
     const dests: { [from: string]: string } = {};
     [...this.chess.allDests()]

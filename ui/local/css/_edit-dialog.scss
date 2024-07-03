@@ -1,0 +1,301 @@
+$chin-height: 66px;
+
+dialog .dialog-content {
+  padding: 0;
+  background-color: $c-bg-zebra;
+  height: min-content;
+  max-height: unset;
+  max-width: min(1600px, 90vw);
+
+  span {
+    @extend %flex-center-nowrap;
+    white-space: nowrap;
+    gap: 1em;
+  }
+  input,
+  textarea,
+  select {
+    padding: 5px;
+  }
+  input:not([type='text']) {
+    cursor: pointer;
+  }
+  textarea {
+    white-space: pre-wrap;
+    width: 100%;
+    resize: none;
+  }
+  hr {
+    margin: 0;
+    flex: auto;
+  }
+  label {
+    @extend %flex-center-nowrap;
+    white-space: nowrap;
+    font-weight: bold;
+    flex: initial;
+    gap: 12px;
+  }
+  canvas {
+    min-height: 300px;
+  }
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border: 1px solid $c-border;
+    border-radius: $box-radius-size;
+    padding: 0.75em 0 1em;
+    row-gap: 0.5em;
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      row-gap: 0.5em;
+    }
+    &.disabled {
+      padding: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+    }
+  }
+  legend {
+    @extend %flex-center;
+    z-index: $z-above-dialog-12; // get around safari z-index bug in legend / fieldset
+    align-self: start;
+    text-align: left;
+    margin: 0 0.5em;
+  }
+  *:focus-visible {
+    outline: 2px solid $c-font; //$c-primary;
+    outline-offset: -2px;
+  }
+}
+
+.deck {
+  position: absolute;
+  z-index: $z-above-dialog-14;
+  left: 4em;
+  bottom: 2em;
+  width: 192px;
+  height: 192px;
+  &.fanout {
+    z-index: $z-dialog-11;
+  }
+}
+
+.edit-bot {
+  @extend %flex-column;
+  display: grid;
+  height: calc(max(45vh, 400px) + $card-height + $chin-height);
+  grid-template-columns: min(360px, 40vh) min(480px, 45vh) 1fr;
+  grid-template-rows: 1fr calc(160px * var(---scale-factor)) auto;
+  grid-template-areas: 'a b c' '. b c' '. d d';
+  column-gap: 1em;
+
+  .bot-card {
+    display: flex;
+    overflow-y: hidden;
+    flex-direction: column;
+    border-radius: 10px;
+    gap: 1em;
+    grid-area: a;
+
+    div {
+      padding: 0;
+    }
+    span {
+      z-index: $z-above-dialog-14;
+      font-size: 1.5em;
+      font-weight: bold;
+      font-style: italic;
+      padding: 0 4px;
+      color: $c-font-dimmer;
+    }
+    textarea {
+      text-align: center;
+    }
+    .player {
+      ---scale-factor: 0.7;
+      aspect-ratio: 1/1;
+    }
+    .placard {
+      width: 90%;
+    }
+  }
+  .bot-unrate-one,
+  [data-click='remove'] {
+    color: $c-bad;
+    &:hover {
+      color: $m-bad--lighten-11;
+      cursor: pointer;
+    }
+  }
+  [data-click='add'] {
+    cursor: pointer;
+    color: $c-secondary;
+    &:hover {
+      color: $m-secondary--lighten-11;
+      cursor: pointer;
+    }
+    &.disabled {
+      color: $c-border;
+      pointer-events: none;
+    }
+  }
+  .bot-actions {
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    gap: 1em;
+    padding: 1em;
+  }
+
+  .bot-info {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    text-align: center;
+
+    #bot_name {
+      max-width: 40%;
+      padding: 0;
+
+      > input {
+        width: 16ch;
+        flex: initial;
+      }
+    }
+  }
+  .sources,
+  .selectors {
+    overflow-y: auto;
+    overflow-x: visible;
+    scrollbar-width: thin;
+    scrollbar-color: $c-primary transparent;
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $c-primary;
+      background-clip: content-box;
+    }
+
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
+  }
+  .books {
+    select {
+      flex-grow: 1;
+    }
+    .book > input[type='text'] {
+      max-width: 5ch;
+    }
+  }
+  .sources {
+    grid-area: b;
+    padding: 0 1em;
+    border-radius: 10px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1em;
+  }
+  .setting {
+    display: flex;
+    padding: 0 1em;
+    display: flex;
+    width: 100%;
+    flex-flow: row nowrap;
+    gap: 1em;
+    align-items: center;
+    input[data-type] {
+      width: 60px;
+      flex-grow: 1;
+      &.invalid {
+        background-color: $m-bg_bad--mix-60;
+      }
+    }
+    &.disabled {
+      > input[data-type],
+      > label {
+        opacity: 0.5;
+      }
+    }
+  }
+  .selectors {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 1em;
+    grid-area: c;
+  }
+  .move-selector {
+    display: flex;
+    flex-direction: column;
+    border-radius: $box-radius-size;
+    label {
+      flex-flow: row nowrap;
+      height: 32px;
+      padding-inline-start: 0.5em;
+    }
+    .chart-wrapper {
+      border: $border;
+      position: relative;
+      border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
+      background: $c-paper;
+      cursor: pointer;
+    }
+    &.disabled .chart-wrapper {
+      display: none;
+    }
+    .btn-rack {
+      width: 100%;
+      border: none;
+    }
+    .by {
+      @extend %flex-center-nowrap;
+      z-index: $z-above-dialog-12;
+      justify-content: center;
+      background: $m-paper_dimmer--mix-50;
+      flex: auto;
+      height: 32px;
+      user-select: none;
+      color: $c-font;
+      white-space: nowrap;
+      border: $border;
+      border-bottom: none;
+      border-radius: $box-radius-size $box-radius-size 0 0;
+      margin-inline-end: -1px;
+
+      &:last-child {
+        margin-inline-end: 0;
+      }
+      &.active {
+        background: $c-paper;
+        margin-bottom: -1px;
+        height: 33px;
+        color: #555;
+        cursor: default;
+      }
+
+      &:hover:not(.active) {
+        background: $m-paper_dimmer--mix-75;
+        color: $c-font-clearer;
+        cursor: pointer;
+      }
+    }
+  }
+  .global-actions {
+    grid-area: d;
+    padding: 1em;
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+  }
+}

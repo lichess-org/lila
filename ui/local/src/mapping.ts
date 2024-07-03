@@ -47,7 +47,8 @@ export function normalize(m: Mapping) {
 
 export function interpolate(m: Mapping, x: number) {
   const to = m.data;
-  if (to.length === 0) return undefined;
+  // if (to.length === 0) return undefined; // TODO explicit default?
+  if (to.length === 0) return (m.range.max + m.range.min) / 2;
   if (to.length === 1) return to[0].y;
   for (let i = 1; i < to.length - 1; i++) {
     const p1 = to[i];

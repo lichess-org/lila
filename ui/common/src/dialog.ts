@@ -12,7 +12,7 @@ export interface Dialog {
 
   showModal(): Promise<Dialog>; // resolves on close
   show(): Promise<Dialog>; // resolves on close
-  actions(actions?: Action | Action[]): void; // set new or reattach existing actions
+  updateActions(actions?: Action | Action[]): void; // set new or reattach existing actions
   close(): void;
 }
 
@@ -36,7 +36,7 @@ export interface DomDialogOpts extends DialogOpts {
   show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
 }
 
-//snabDialog automatically shows as 'modal' on redraw unless onInsert callback is supplied
+//snabDialog automatically shows as 'modal' unless onInsert callback is supplied
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: LooseVNodes; // content, overrides other content properties
   onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
@@ -50,6 +50,7 @@ export type Action =
   | { selector: string; event?: string | string[]; listener: ActionListener }
   | { selector: string; event?: string | string[]; result: string };
 
+// Safari versions before 15.4 need a polyfill for dialog. this "ready" promise resolves when that's loaded
 export const ready = site.load.then(async () => {
   window.addEventListener('resize', onResize);
   if (window.HTMLDialogElement) return true;
@@ -58,6 +59,36 @@ export const ready = site.load.then(async () => {
   return dialogPolyfill !== undefined;
 });
 
+// non-blocking window.alert-alike
+export async function alert(msg: string): Promise<void> {
+  await domDialog({
+    htmlText: msg,
+    class: 'alert',
+    show: 'modal',
+  });
+}
+
+// non-blocking window.confirm-alike
+export async function confirm(msg: string): Promise<boolean> {
+  return (
+    (
+      await domDialog({
+        htmlText: `<div>${msg}</div>
+      <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
+        class: 'alert',
+        noCloseButton: true,
+        noClickAway: true,
+        show: 'modal',
+        actions: [
+          { selector: '.yes', result: 'yes' },
+          { selector: '.no', result: 'no' },
+        ],
+      })
+    ).returnValue === 'yes'
+  );
+}
+
+// when { ..., show: 'modal' } is given, this promise resolves on dialog close so check returnValue
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   const [html] = await assets(o);
 
@@ -90,7 +121,8 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   return wrapper;
 }
 
-// snab dialogs are shown by default, to suppress this pass onInsert callback
+// snab dialogs without an onInsert callback are shown as modal by default. use onInsert callback to handle
+// this yourself
 export function snabDialog(o: SnabDialogOpts): VNode {
   const ass = assets(o);
   let dialog: HTMLDialogElement;
@@ -136,33 +168,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   );
 }
 
-export async function alert(msg: string): Promise<void> {
-  await domDialog({
-    htmlText: msg,
-    class: 'alert',
-    show: 'modal',
-  });
-}
-
-export async function confirm(msg: string): Promise<boolean> {
-  return (
-    (
-      await domDialog({
-        htmlText: `<div>${msg}</div>
-      <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
-        class: 'alert',
-        noCloseButton: true,
-        noClickAway: true,
-        show: 'modal',
-        actions: [
-          { selector: '.yes', result: 'yes' },
-          { selector: '.no', result: 'no' },
-        ],
-      })
-    ).returnValue === 'yes'
-  );
-}
-
+// implementation stuff
 class DialogWrapper implements Dialog {
   private restore?: { focus?: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
@@ -203,7 +209,7 @@ class DialogWrapper implements Dialog {
       else if (app.how === 'after') where.after(app.node);
       else where.appendChild(app.node);
     }
-    this.actions();
+    this.updateActions();
   }
 
   get open() {
@@ -219,7 +225,7 @@ class DialogWrapper implements Dialog {
   }
 
   // attach/reattach existing listeners or provide a set of new ones
-  actions = (actions = this.o.actions) => {
+  updateActions = (actions = this.o.actions) => {
     for (const { el, type, listener } of this.eventCleanup) {
       el.removeEventListener(type, listener);
     }

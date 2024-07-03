@@ -1,28 +1,25 @@
-import { PaneArgs, EditorHost, SelectorInfo, PaneInfo, ObjectSelector, AnyType } from './types';
-import { Pane } from './pane';
-import { Setting, NumberSetting } from './setting';
-import { Mappings, Mapping } from '../types';
-import { getSchemaDefault } from './schema';
+import { PaneArgs, EditorHost, MoveSelectorInfo, PaneInfo, ObjectSelector, AnyType } from './types';
+import { Setting } from './setting';
+import { Mapping } from '../types';
 import { Chart, PointElement, LinearScale, LineController, LineElement, Tooltip } from 'chart.js';
-import { maxChars } from './util';
 import { addPoint, asData, domain } from '../mapping';
+import { alert } from 'common/dialog';
+import { clamp } from 'common';
 
-Chart.register(PointElement, LinearScale, Tooltip, LineController, LineElement);
+Chart.register(PointElement, LinearScale, /*Tooltip,*/ LineController, LineElement);
 
-export class SelectorPanel extends Setting {
-  info: SelectorInfo;
+export class MoveSelector extends Setting {
+  info: MoveSelectorInfo;
   canvas: HTMLCanvasElement;
   chart: Chart;
 
   constructor(p: PaneArgs) {
     super(p);
-    this.div.classList.add('panel');
-    const constT = this.toggleGroup();
-    this.div.append(constT);
+    this.el.firstElementChild?.append(this.toggleGroup());
     this.canvas = document.createElement('canvas');
     const wrapper = $as<HTMLElement>(`<div class="chart-wrapper">`);
     wrapper.append(this.canvas);
-    this.div.append(wrapper);
+    this.el.append(wrapper);
     this.host.cleanups.push(() => this.chart?.destroy());
     this.renderMapping();
   }
@@ -30,32 +27,40 @@ export class SelectorPanel extends Setting {
   toggleGroup() {
     const active = (this.paneValue ?? this.info.value).from;
     const by = $as<HTMLElement>(`<div class="btn-rack">
-        <div class="by${active === 'move' ? ' active' : ''}">by move</div>
-        <div class="by${active === 'score' ? ' active' : ''}">by score</div>
+        <div data-click="move" class="by${active === 'move' ? ' active' : ''}">by move</div>
+        <div data-click="score" class="by${active === 'score' ? ' active' : ''}">by score</div>
       </div>`);
-    if (this.label) by.prepend(this.label);
+    //if (this.label) by.prepend(this.label);
     return by;
   }
-  setEnabled(enabled = this.getProperty() !== undefined) {
-    if (enabled && !this.autoEnable()) enabled = false;
+
+  setEnabled(enabled?: boolean) {
+    const canEnable = this.canEnable();
+    if (enabled && !canEnable) {
+      alert(`Cannot enable ${this.info.label} because of unmet preconditions: ${this.requires.join(', ')}`);
+      enabled = false;
+    } else enabled ??= canEnable && (this.info.required || !this.host.bot.disabled.has(this.id));
+
     if (enabled && !this.getProperty()) {
       this.setProperty(structuredClone(this.info.value));
       this.renderMapping();
     }
+    this.el.querySelectorAll('.chart-wrapper, .btn-rack')?.forEach(x => x.classList.toggle('none', !enabled));
+    this.el.classList.toggle('none', !canEnable); //!enabled && this.info.required === true);
     super.setEnabled(enabled);
-    this.canvas.style.display = enabled ? 'block' : 'none';
   }
+
   update(e: Event) {
     if (!(e.target instanceof HTMLElement && e instanceof MouseEvent)) return;
-    if (e.target.classList.contains('by') && this.enabled) {
+    if (e.target.dataset.click && this.enabled) {
       if (e.target.classList.contains('active')) return;
-      this.div.querySelector('.by.active')?.classList.remove('active');
+      this.el.querySelector('.by.active')?.classList.remove('active');
       e.target.classList.add('active');
-      this.paneValue.from = this.info.value.from === 'score' ? 'move' : 'score';
+      this.paneValue.from = e.target.dataset.click as 'move' | 'score';
       this.paneValue.data = [];
       this.renderMapping();
     }
-    if (e.target.nodeName === 'CANVAS') {
+    if (e.target instanceof HTMLCanvasElement) {
       const m = this.paneValue;
       const remove = this.chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, false);
       if (remove.length > 0 && remove[0].index > 0) {
@@ -66,12 +71,11 @@ export class SelectorPanel extends Setting {
         const chartX = this.chart.scales.x.getValueForPixel(e.clientX - rect.left);
         const chartY = this.chart.scales.y.getValueForPixel(e.clientY - rect.top);
         if (!chartX || !chartY) return;
-        addPoint(m, { x: chartX, y: chartY });
+        addPoint(m, { x: clamp(chartX, domain(m)), y: clamp(chartY, m.range) });
       }
       this.chart.data.datasets[0].data = asData(m);
       this.chart.update();
     }
-    this.host.update();
   }
   get paneValue(): Mapping {
     return this.getProperty() as Mapping;
@@ -112,7 +116,10 @@ export class SelectorPanel extends Setting {
             max: domain(m).max,
             title: {
               display: true,
-              text: m.from === 'move' ? 'Moves' : 'Score',
+              text:
+                m.from === 'move'
+                  ? 'full moves'
+                  : `outcome expectancy for ${this.host.bot.name.toLowerCase()}`,
             },
           },
           y: {

@@ -1,7 +1,7 @@
 import { Zerofish, Position } from 'zerofish';
 import { clamp } from 'common';
-import { Libot, Result, Matchup, Outcome } from './types';
-import { botScore } from './testUtil';
+import { Libot, Result, Matchup, Outcome } from '../types';
+import { botScore } from './util';
 
 export class RankBot implements Libot {
   static readonly MAX_LEVEL = 30;

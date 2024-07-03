@@ -6,7 +6,7 @@ import { HandOfCards } from '../handOfCards';
 import { defined, escapeHtml, enumerableEquivalence } from 'common';
 import { GameCtrl } from '../gameCtrl';
 import { buildFromSchema, Editor } from './editor';
-import { /*objectPath,*/ removePath } from './util';
+import { /*objectPath,*/ removeObjectProperty } from './util';
 import * as licon from 'common/licon';
 import { domDialog, alert, confirm, Dialog, Action } from 'common/dialog';
 
@@ -26,7 +26,8 @@ export class EditDialog implements EditorHost {
     readonly onSelectBot?: (uid: string) => void,
   ) {
     this.view = $as<HTMLElement>(`<div class="with-hand-of-cards">
-      <div class="edit-bot"></div>
+        <div class="edit-bot"></div>
+        <div class="deck"></div>
       </div>`);
     this.selectBot();
     this.hand = new HandOfCards({
@@ -37,6 +38,7 @@ export class EditDialog implements EditorHost {
           .map(b => b.card)
           .filter(defined),
       select: (_: HTMLElement, cardId?: string) => this.selectBot(`#${cardId}`),
+      deck: () => this.view.querySelector('.deck')!,
       autoResize: false,
     });
   }
@@ -57,17 +59,7 @@ export class EditDialog implements EditorHost {
   show() {
     return new Promise<void>(resolve => {
       domDialog({
-        css: [{ hashed: 'local.editor' }],
-        htmlText: `<div class="chin"><span>
-            
-            <button class="button button-metal bot-json-one">json</button>
-            <button class="button button-metal bot-json-all">all json</button>
-            
-          </span><span>
-            <button class="button button-empty button-red bot-unrate-all">clear all ratings</button>
-            <button class="button button-empty button-red bot-clear-all">revert all to server</button>
-          </span></div>`,
-        append: [{ node: this.view, where: '.chin', how: 'before' }],
+        append: [{ node: this.view }],
         actions: this.actions,
         onClose: () => {
           window.removeEventListener('resize', this.resize);
@@ -92,39 +84,13 @@ export class EditDialog implements EditorHost {
     for (const cleanup of this.cleanups) cleanup();
     this.cleanups = [];
     this.editor = new Editor();
-    const el = $as<HTMLElement>(`<div class="edit-bot">`);
-    this.view.querySelector('.edit-bot')?.replaceWith(el);
-    const playerInfo = $as<HTMLElement>(`<div class="player-info">`);
-    const player = $as<HTMLElement>(`<div class="player ${this.color}">`);
-    player.appendChild(buildFromSchema(this, ['bot_description']).div);
-    playerInfo.appendChild(player);
-    const info = $as<HTMLElement>(`<div class="info">`);
-    info.appendChild($as<Node>(`<span><label>uid</label> ${this.bot.uid}</span>`));
-    info.appendChild(buildFromSchema(this, ['bot_name']).div);
-    const glicko = this.botCtrl.bot(this.uid)?.glicko;
-    info.appendChild(
-      $as<Node>(
-        `<span><label>rating</label> ${glicko?.r ?? '1500?'} / ${Math.round(glicko?.rd ?? 350)}` +
-          (glicko && glicko.rd !== 350
-            ? `<i class="bot-unrate-one" data-icon="${licon.Cancel}"></i></span>`
-            : '</span>'),
-      ),
-    );
-    /*info.appendChild(
-      $as<Node>(`<span><button class="button button-empty button-red bot-unrate-one">clear</button>
-      <button class="button button-empty button-metal bot-rank">rank</button></span>`),
-    );*/
-    playerInfo.appendChild(info);
-    el.appendChild(playerInfo);
-    el.appendChild(buildFromSchema(this, ['sources']).div);
-    const panels = buildFromSchema(this, ['panels']).div;
-    el.appendChild(panels);
-    el.appendChild(
-      $as<Node>(`<div class="bot-actions">
-        <button class="button button-green bot-apply">apply</button>
-        <button class="button button-empty button-red bot-clear-one">revert</button>
-        `),
-    );
+    const el = this.view.querySelector('.edit-bot') as HTMLElement;
+    el.innerHTML = '';
+    el.appendChild(this.botCardEl);
+    const sources = buildFromSchema(this, ['sources']).el;
+    sources.prepend(this.botInfoEl);
+    el.appendChild(sources);
+    el.appendChild(buildFromSchema(this, ['bot_selectors']).el);
     this.editor.forEach(el => el.setEnabled());
   }
 
@@ -149,7 +115,10 @@ export class EditDialog implements EditorHost {
 
   apply() {
     for (const id of this.bot.disabled) {
-      removePath({ obj: this.bot, path: id.split('_').slice(1) }, true);
+      removeObjectProperty({ obj: this.bot, path: { id } }, true);
+      this.editor
+        .requires(id)
+        .forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
     }
     this.bot.disabled.clear();
     this.botCtrl.setBot(this.bot);
@@ -161,7 +130,7 @@ export class EditDialog implements EditorHost {
     if (!this.scratch[this.uid]) return true;
     const scratch = structuredClone(this.scratch[this.uid]);
     for (const id of this.bot.disabled) {
-      removePath({ obj: scratch, path: id.split('_').slice(1) }, true);
+      removeObjectProperty({ obj: scratch, path: { id } }, true);
     }
     return enumerableEquivalence(this.botCtrl.bot(this.uid), scratch);
   }
@@ -173,6 +142,7 @@ export class EditDialog implements EditorHost {
   }
 
   update() {
+    this.dlg?.updateActions(this.actions);
     const isClean = this.isClean;
     //const isAllClean = isClean && this.allDirty.length === 0;
     this.dlg?.view.querySelector('.bot-apply')?.classList.toggle('disabled', isClean);
@@ -184,7 +154,6 @@ export class EditDialog implements EditorHost {
   selectBot(uid = this.uid ?? this.botCtrl[this.color]!.uid) {
     this.uid = uid;
     this.makeEditView();
-    this.dlg?.actions(this.actions);
     this.update();
     this.onSelectBot?.(this.uid);
   }
@@ -239,4 +208,37 @@ export class EditDialog implements EditorHost {
     );
     dlg.showModal();
   };
+
+  get globalActionsEl(): Node {
+    return $as<Node>(`<div class="global-actions">
+        <button class="button button-empty button-dim bot-json-all">all json</button>
+        <button class="button button-empty button-red bot-unrate-all">clear all ratings</button>
+        <button class="button button-empty button-red bot-clear-all">revert all to server</button>
+      </div>`);
+  }
+
+  get botCardEl(): Node {
+    const botCard = $as<Element>(`<div class="bot-card">
+        <div class="player ${this.color}"><span>${this.uid}</span></div>
+        <div class="bot-actions">
+          <button class="button button-empty button-red bot-clear-one">revert</button>
+          <button class="button button-empty button-dim bot-json-one">json</button>
+          <button class="button button-green bot-apply">apply</button>
+        </div>
+      </div>`);
+    botCard.firstElementChild?.appendChild(buildFromSchema(this, ['bot_description']).el);
+    return botCard;
+  }
+
+  get botInfoEl(): Node {
+    const bot = this.botCtrl.bot(this.uid) as ZerofishBotEditor;
+    const glicko = bot.glicko ?? { r: 1500, rd: 350 };
+    const info = $as<Element>(`<div class="bot-info">
+        <span><label>rating</label>${bot.fullRatingText}${
+          glicko.rd !== 350 ? `<i class="bot-unrate-one" data-icon="${licon.Cancel}"></i>` : ''
+        }</span>
+      </div>`);
+    info.prepend(buildFromSchema(this, ['bot_name']).el);
+    return info;
+  }
 }

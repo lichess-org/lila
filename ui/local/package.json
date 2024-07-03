@@ -17,12 +17,13 @@
     "game": "workspace:*",
     "round": "workspace:*",
     "snabbdom": "3.5.1",
-    "zerofish": "0.0.25"
+    "zerofish": "0.0.26"
   },
   "lichess": {
     "bundles": [
       "src/local.setup.ts",
-      "src/local.ts"
+      "src/local.ts",
+      "src/dev/local.dev.ts"
     ],
     "sync": {
       "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",

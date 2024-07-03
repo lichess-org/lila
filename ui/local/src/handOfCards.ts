@@ -1,6 +1,6 @@
-import { isTouchDevice } from 'common/device';
+//import { isTouchDevice } from 'common/device';
 
-const BASE_CARD_SIZE = 192;
+const BASE_CARD_SIZE = 192; // at ---scale-factor: 1
 
 export interface CardData {
   imageUrl: string;
@@ -13,6 +13,7 @@ export interface HandOwner {
   drops: () => { el: HTMLElement; selected?: string }[];
   cardData: () => Iterable<CardData>;
   select: (drop: HTMLElement, domId?: string) => void;
+  deck?: () => HTMLElement;
   autoResize?: boolean;
 }
 
@@ -34,6 +35,8 @@ export class HandOfCards {
   constructor(readonly owner: HandOwner) {
     for (const c of owner.cardData()) this.cards.push(this.createCard(c));
     this.cards.reverse().forEach(card => this.view.appendChild(card));
+    //this.deck?.addEventListener('mouseenter', this.mouseEnterDeck);
+    this.view.addEventListener('mousemove', this.mouseMove);
     if (owner.autoResize) window.addEventListener('resize', this.resize);
   }
 
@@ -49,6 +52,16 @@ export class HandOfCards {
   get selected() {
     return this.drops.map(x => this.card(x.selected));
   }
+  get deck() {
+    return this.owner.deck?.();
+  }
+  get fanout() {
+    return !this.deck || this.deck.classList.contains('fanout');
+  }
+  get fanRadius() {
+    return this.view.offsetWidth;
+  }
+
   card(id: string | undefined) {
     if (id?.startsWith('#')) id = id.slice(1);
     return this.cards.find(c => c.id === id);
@@ -62,8 +75,8 @@ export class HandOfCards {
     card.addEventListener('pointerdown', this.pointerDown);
     card.addEventListener('pointermove', this.pointerMove);
     card.addEventListener('pointerup', this.pointerUp);
-    card.addEventListener('mouseenter', this.mouseEnter);
-    card.addEventListener('mouseleave', this.mouseLeave);
+    card.addEventListener('mouseenter', this.mouseEnterCard);
+    card.addEventListener('mouseleave', this.mouseLeaveCard);
     card.addEventListener('dragstart', e => e.preventDefault());
     return card;
   }
@@ -79,24 +92,41 @@ export class HandOfCards {
     this.rect = newRect;
     this.userMidX = this.view.offsetWidth / 2;
     this.userMidY = this.view.offsetHeight + Math.sqrt(3 / 4) * this.fanRadius - h2;
-    //this.animate();
     this.redraw();
   };
 
   placeCards() {
-    const visibleCards = Math.min(this.view.offsetWidth / 50, this.cards.length);
+    const visibleCards = this.cards.length; //Math.min(this.view.offsetWidth / 50, this.cards.length);
     const hovered = $as<HTMLElement>($('.card.pull'));
     const hoveredIndex = this.cards.findIndex(x => x == hovered);
-    for (const [i, card] of this.cards.entries()) {
-      if (this.transformSelect(card) || card === this.dragCard) continue;
-      card.style.backgroundColor = '';
-      const pull = !hovered || i <= hoveredIndex ? 0 : (-(Math.PI / 2) * this.scaleFactor) / visibleCards;
-      const fanout = ((Math.PI / 4) * (this.cards.length - i - 0.5)) / visibleCards;
-      this.transform(card, -Math.PI / 8 + pull + this.dragAngle + fanout);
-    }
+    const deck = this.cards.filter(x => x !== this.dragCard);
+    const selected = deck.filter(x => this.selectedTransform(x));
+    if (!this.fanout)
+      for (const [i, card] of deck.filter(x => !selected.includes(x)).entries()) {
+        card.style.backgroundColor = '';
+        this.deckTransform(card, deck.length - selected.length - i);
+      }
+    else
+      for (const [i, card] of this.cards.entries()) {
+        if (this.selected.includes(card) || card === this.dragCard) continue;
+        card.style.backgroundColor = '';
+        const pull = !hovered || i <= hoveredIndex ? 0 : (-(Math.PI / 2) * this.scaleFactor) / visibleCards;
+        const fanout = ((Math.PI / 4) * (this.cards.length - i - 0.5)) / visibleCards;
+        this.fanoutTransform(card, -Math.PI / 8 + pull + this.dragAngle + fanout);
+      }
   }
 
-  transform(card: HTMLElement, angle: number) {
+  deckTransform(card: HTMLElement, i: number) {
+    const dindex = this.drops.findIndex(x => x.selected?.slice(1) === card.id);
+    if (dindex >= 0 || !this.deck) return false;
+    const to = this.deck;
+    const x = to.offsetLeft - card.offsetLeft + (to.offsetWidth - card.offsetWidth) / 2 + i;
+    const y = to.offsetTop - card.offsetTop + (to.offsetHeight - card.offsetHeight) / 2 + i;
+    card.style.transform = `translate(${x}px, ${y}px) rotate(-5deg)`;
+    return true;
+  }
+
+  fanoutTransform(card: HTMLElement, angle: number) {
     const hovered = card.classList.contains('pull');
     const mag =
       15 + this.view.offsetWidth + (hovered ? 40 * this.scaleFactor + this.dragMag - this.startMag : 0);
@@ -106,7 +136,7 @@ export class HandOfCards {
     card.style.transform = `translate(${x}px, ${y}px) rotate(${angle}rad)`;
   }
 
-  transformSelect(card: HTMLElement) {
+  selectedTransform(card: HTMLElement) {
     const dindex = this.drops.findIndex(x => x.selected?.slice(1) === card.id);
     card.classList.toggle('selected', dindex >= 0);
     if (dindex < 0) return false;
@@ -147,12 +177,28 @@ export class HandOfCards {
     return Math.sqrt(userPt[0] * userPt[0] + userPt[1] * userPt[1]);
   }
 
-  mouseEnter = (e: MouseEvent) => {
+  mouseMove = (e: MouseEvent) => {
+    if (this.dragCard || !this.deck) return;
+    let fanout = this.fanout;
+    if (document.elementFromPoint(e.clientX, e.clientY) === this.deck) fanout = true;
+    else if (
+      e.clientX < this.rect.left ||
+      e.clientX > this.rect.right ||
+      e.clientY < this.rect.bottom - BASE_CARD_SIZE * this.scaleFactor * 1.5 ||
+      e.clientY > this.rect.bottom
+    )
+      fanout = false;
+    if (fanout === this.fanout) return;
+    this.deck.classList.toggle('fanout');
+    this.redraw();
+  };
+
+  mouseEnterCard = (e: MouseEvent) => {
     $(e.target as HTMLElement).addClass('pull');
     this.redraw();
   };
 
-  mouseLeave = (e: MouseEvent) => {
+  mouseLeaveCard = (e: MouseEvent) => {
     $(e.target as HTMLElement).removeClass('pull');
     this.redraw();
   };
@@ -217,18 +263,6 @@ export class HandOfCards {
       cancelAnimationFrame(this.frame);
       this.frame = 0;
     }, andKeepAnimatingFor);
-  }
-  /*resetIdleTimer(timeout = 300) {
-    if (this.frame === 0) this.animate();
-    clearTimeout(this.killAnimation);
-    this.killAnimation = setTimeout(() => {
-      cancelAnimationFrame(this.frame);
-      this.frame = 0;
-    }, timeout);
-  }*/
-
-  get fanRadius() {
-    return this.view.offsetWidth;
   }
 }
 

@@ -19,14 +19,29 @@ export interface Mapping {
   data: Point[];
 }
 
+export type Trigger =
+  | 'greeting'
+  | 'takeback'
+  | 'playerBlunder'
+  | 'playerWin'
+  | 'botWin'
+  | 'botCaputre'
+  | 'playerCapture';
+
+export type Sounds = { [key in Trigger]: { [sound: string]: number } };
+
 export type Mappings = { [type: string]: Mapping };
 
 export type ZeroSearch = { multipv: number; net: string };
+
+export type Book = { name: string; weight?: number };
+
 export interface BotInfo {
   readonly uid: string;
   readonly name: string;
   readonly image?: string;
-  readonly book?: string;
+  readonly sounds?: Sounds;
+  readonly books?: Book[];
   readonly description: string;
   readonly glicko?: { r: number; rd: number };
   readonly zero?: ZeroSearch;
@@ -60,7 +75,7 @@ export interface LocalPlayOpts {
   data: RoundData;
   setup?: LocalSetup;
   state?: GameState;
-  testUi?: boolean;
+  devUi?: boolean;
   assets?: { nets: string[]; images: string[]; books: string[] };
 }
 

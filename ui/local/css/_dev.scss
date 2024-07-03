@@ -1,4 +1,4 @@
-.test-side {
+.dev-side {
   display: flex;
   height: 100%;
   flex-flow: column;
@@ -125,7 +125,7 @@
     margin-inline-end: 0.5em;
   }
 }
-.test-progress {
+.dev-progress {
   padding: 0.5em;
   width: 100%;
   background: $c-bg-high;
@@ -143,7 +143,7 @@
     }
   }
 }
-.test-dashboard {
+.dev-dashboard {
   @extend %flex-column, %box-radius-bottom;
   //border-top: 2px solid $c-primary;
   z-index: z(mz-menu);

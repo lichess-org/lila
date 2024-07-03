@@ -7,7 +7,7 @@ import { domDialog, Dialog } from 'common/dialog';
 import { defined } from 'common';
 //import { ratingView } from './components/ratingView';
 
-export class LocalDialog {
+export class SetupDialog {
   view: HTMLElement;
   white: HTMLElement;
   black: HTMLElement;
@@ -61,9 +61,9 @@ export class LocalDialog {
           </div>`,
       append: [{ node: this.view, where: '.chin', how: 'before' }],
       actions: [
-        { selector: '.fight', listener: dlg => this.fight(dlg) },
-        { selector: '.switch', listener: dlg => this.switch(dlg) },
-        { selector: '.random', listener: dlg => this.random(dlg) },
+        { selector: '.fight', listener: this.fight },
+        { selector: '.switch', listener: this.switch },
+        { selector: '.random', listener: this.random },
         { selector: '.white > img.remove', listener: () => this.select('white') },
         { selector: '.black > img.remove', listener: () => this.select('black') },
       ],
@@ -90,29 +90,29 @@ export class LocalDialog {
     this[color].querySelector(`img.remove`)?.classList.toggle('show', !!bot);
   }
 
-  fight = async (dlg: Dialog) => {
+  fight = () => {
     this.setup.time = 'unlimited';
     this.setup.go = true;
     const form = $as<HTMLFormElement>(
-      `<form method="POST" action="/local?testUi=${$as<HTMLInputElement>('#bot-dev').checked}">`,
+      `<form method="POST" action="/local?devUi=${$as<HTMLInputElement>('#bot-dev').checked}">`,
     );
     for (const [k, v] of Object.entries(this.setup)) {
-      form.appendChild($as<HTMLInputElement>(`<input name="${k}" type="hidden" value="${v}">`));
+      form.appendChild($as<HTMLInputElement>(`<input name="${k}" type="hidden" value="${v ?? ''}">`));
     }
     document.body.appendChild(form);
     form.submit();
     form.remove();
   };
 
-  switch = (dlg: Dialog) => {
+  switch = () => {
     const newBlack = this.setup.white;
     this.select('white', this.setup.black);
     this.select('black', newBlack);
     this.hand.redraw();
   };
 
-  random = (dlg: Dialog) => {
-    if (Math.random() < 0.5) this.switch(dlg);
-    this.fight(dlg);
+  random = () => {
+    if (Math.random() < 0.5) this.switch();
+    this.fight();
   };
 }

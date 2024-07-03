@@ -1,3 +1,3 @@
 import type { Chess } from 'chessops';
 
-export type PolyglotBook = { (pos: Chess): { uci: Uci; weight: number }[] };
+export type PolyglotBook = (pos: Chess, raw?: boolean) => { uci: Uci; weight: number }[];

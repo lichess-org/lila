@@ -2,7 +2,7 @@ import { ObjectStorage, objectStorage } from 'common/objectStorage';
 import { GameState } from './gameCtrl';
 import { Libot, type NetData } from './types';
 import { PolyglotBook } from 'bits/types';
-import { setSchemaAssets } from './editor/schema';
+import { setSchemaAssets } from './dev/schema';
 
 export class AssetDb {
   private db = { nets: new Store('nets'), books: new Store('books'), images: new Store('images') };
@@ -17,6 +17,7 @@ export class AssetDb {
   constructor(readonly assets?: { nets: string[]; images: string[]; books: string[] }) {}
 
   async init() {
+    const then = Date.now();
     this.cached = { nets: [], books: {}, images: {} };
     await Promise.all(Object.values(this.db).map(s => s.init()));
     const imageKeys = (await this.db.images.store?.list()) ?? [];
@@ -29,6 +30,7 @@ export class AssetDb {
       if (data) this.cached.images[key] = URL.createObjectURL(new Blob([data], o));
     }
     if (this.assets) await this.setBotEditorAssets();
+    console.trace('AssetDb init', Date.now() - then, 'ms');
     return this;
   }
 

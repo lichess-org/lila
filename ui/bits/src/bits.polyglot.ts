@@ -14,19 +14,17 @@ export default function initModule(bytes: DataView): PolyglotBook {
     moves.push({ uci: shortToUci(move), weight });
     book.set(hash, moves);
   }
-  for (const [hash, moves] of book.entries()) {
+  return (chess: co.Chess, raw = false) => {
+    const moves = book.get(hashBoard(chess)) ?? [];
+    if (raw) return moves;
     const sum = moves.reduce((sum: number, m) => sum + m.weight, 0);
-    book.set(
-      hash,
-      moves.map(m => ({ uci: m.uci, weight: m.weight / sum })),
-    );
-  }
-  return (chess: co.Chess) => book.get(hashBoard(chess)) ?? [];
+    return moves.map(m => ({ uci: m.uci, weight: m.weight / sum }));
+  };
 }
 
 function hashBoard({ board, castles, epSquare, turn }: co.Chess) {
   let hash = 0n;
-  for (const sq of board.occupied.reversed()) {
+  for (const sq of board.occupied) {
     const { role, color } = board.get(sq) as co.Piece;
     hash ^= hashish[sq + 64 * rolodex[role][color]];
   }
@@ -35,8 +33,16 @@ function hashBoard({ board, castles, epSquare, turn }: co.Chess) {
   if (rights.has(0)) hash ^= hashish[769];
   if (rights.has(63)) hash ^= hashish[770];
   if (rights.has(56)) hash ^= hashish[771];
-  if (epSquare) hash ^= hashish[772 + co.squareFile(epSquare)];
   if (turn === 'white') hash ^= hashish[780];
+  if (epSquare) {
+    const mv = epSquare + (turn === 'white' ? -8 : 8);
+    if (
+      ((mv & 0x7) > 0 && board.get(mv - 1)?.role === 'pawn' && board.get(mv - 1)?.color === turn) ||
+      ((mv & 0x7) < 7 && board.get(mv + 1)?.role === 'pawn' && board.get(mv + 1)?.color === turn)
+    ) {
+      hash ^= hashish[772 + (epSquare & 0x7)];
+    }
+  }
   return hash;
 }
 

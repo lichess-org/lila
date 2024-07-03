@@ -37,6 +37,7 @@ export async function css() {
 
 export async function js(meta: es.Metafile) {
   const newJsManifest: Manifest = {};
+  env.log('esbuild triggered manifest update');
   for (const [filename, info] of Object.entries(meta.outputs)) {
     const out = parsePath(filename);
     if (!out) continue;
@@ -53,6 +54,7 @@ export async function js(meta: es.Metafile) {
     }
     newJsManifest[out.name].imports = imports;
   }
+  env.log(`equivalence: ${enumerableEquivalence(newJsManifest, current.js)}`);
   if (enumerableEquivalence(newJsManifest, current.js) && fs.existsSync(env.manifestFile)) return;
   current.js = shallowSort({ ...current.js, ...newJsManifest });
   clearTimeout(writeTimer);

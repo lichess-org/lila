@@ -103,6 +103,11 @@
     &.button-green:hover {
       color: $c-secondary;
     }
+
+    &.button-dim,
+    &.button-dim:hover {
+      color: $c-font-dim;
+    }
   }
 
   &.button-metal {

@@ -1,10 +1,10 @@
 import * as co from 'chessops';
 //import { ObjectStorage, objectStorage } from 'common/objectStorage';
-import { GameCtrl } from './gameCtrl';
+import { GameCtrl } from '../gameCtrl';
 import { rankBotMatchup } from './rankBot';
-import { Automator, Libot, Result, Matchup, Outcome } from './types';
+import { Automator, Libot, Result, Matchup, Outcome } from '../types';
 import { clamp } from 'common';
-import * as u from './testUtil';
+import * as u from './util';
 //import { Libot } from './interfaces';
 
 export interface Test {
@@ -19,7 +19,7 @@ export interface Script extends Test {
   results: Result[];
 }
 
-export class TestCtrl implements Automator {
+export class DevCtrl implements Automator {
   private stopped = true;
   flipped = false;
   script: Script;
@@ -53,6 +53,8 @@ export class TestCtrl implements Automator {
   }*/
 
   get bottomColor(): Color {
+    if (!this.white) return 'white';
+    if (!this.black) return 'black';
     const o = { top: this.black, bottom: this.white };
     const wi = this.script.players.indexOf(this.white?.uid);
     const bi = this.script.players.indexOf(this.black?.uid);

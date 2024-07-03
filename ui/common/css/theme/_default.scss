@@ -1,7 +1,5 @@
 @import 'gen/mix';
 
-// this may not import anything from outside common/css/colors
-
 @function _clear($color, $weight: 20%) {
   @return mix(#fff, $color, $weight);
 }
@@ -12,8 +10,7 @@
 
 $site-hue: 37;
 
-/* top level $c-variables must be valid css format (rgba, hsla, hex) and are mixable by ui/build
-*/
+// top level $c-variables must be valid css format (rgba, hsla, hex) and are mixable by ui/build
 
 $c-bg: hsl(37, 7%, 14%); // $c-bg-high
 $c-bg-page: hsl(37, 10%, 8%);
@@ -36,14 +33,14 @@ $c-blunder: hsl(0, 69%, 60%);
 $c-good: $c-secondary;
 $c-brilliant: hsl(129, 71%, 45%);
 $c-interesting: hsl(307, 80%, 70%);
-$c-paper: beige;
+$c-paper: hsl(60, 56%, 91%);
 $c-dark: #333;
 $c-dimmer: #000;
 $c-clearer: #fff;
 
 /* shared-color-defs is the location for theme colors that share the same definition syntax.
-   note that many of the assigned values may depend on variables from the including scope and
-   therefore may differ between themes.
+   important: the assigned values often depend on variables from the including scope and
+   will therefore differ between themes.
 */
 @mixin shared-color-defs {
   --c-bg: #{$c-bg};

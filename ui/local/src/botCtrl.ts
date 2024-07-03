@@ -2,7 +2,7 @@ import makeZerofish, { type Zerofish, type Position, type FishSearch } from 'zer
 import { Libot, Libots, BotInfo, BotInfos } from './types';
 import { AssetDb } from './assetDb';
 import { ZerofishBot, ZerofishBots } from './zerofishBot';
-import { RankBot } from './rankBot';
+import { RankBot } from './dev/rankBot';
 import { PolyglotBook } from 'bits/types';
 import { ObjectStorage, objectStorage } from 'common/objectStorage';
 import * as co from 'chessops';
@@ -27,7 +27,7 @@ export class BotCtrl {
       makeZerofish({
         root: site.asset.url('npm', { documentOrigin: true }),
         wasm: site.asset.url('npm/zerofishEngine.wasm'),
-        dev: true,
+        dev: this.assetDb.assets !== undefined,
       }),
       this.initLibots(),
     ]);
@@ -39,7 +39,7 @@ export class BotCtrl {
   }
 
   async initLibots(): Promise<Libots> {
-    await Promise.all([this.resetBots(), this.assetDb.init()]);
+    await Promise.all([this.resetBots(), this.assetDb.ready]);
     return this.bots;
   }
 
@@ -127,7 +127,7 @@ export class BotCtrl {
     name: 'Name',
     description: 'Description',
     image: 'gray-torso.webp',
-    book: 'gm2600.bin',
+    books: [{ name: 'gm2600.bin', weight: 1 }],
     glicko: { r: 1500, rd: 350 },
     //zero: { multipv: 1, net: 'maia-1100.pb' },
     fish: { multipv: 1, by: { depth: 1 } },

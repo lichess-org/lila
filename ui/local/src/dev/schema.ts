@@ -4,60 +4,69 @@ import { deepFreeze } from 'common';
 export const primitiveKeys: AnyKey[] = [
   'type',
   'id',
-  'class',
   'label',
-  'title',
-  'required',
-  'requires',
-  'choices',
   'value',
+  'class',
+  'choices',
+  'title',
   'min',
   'max',
   'step',
   'rows',
-]; // these keys are reserved for schema types
+  'requires',
+  'required',
+]; // these keys are reserved
 
 export let schema: Schema = {
   bot_name: {
-    label: 'name',
-    type: 'textSetting',
+    //label: 'name',
+    type: 'text',
+    class: ['setting'],
     value: 'bot name',
     required: true,
   },
   bot_description: {
-    type: 'textareaSetting',
+    type: 'textarea',
     rows: 3,
-    class: ['placard'],
+    class: ['placard', 'setting'],
     value: 'short description',
     required: true,
   },
   bot_image: {
     label: 'image',
-    type: 'selectSetting',
+    type: 'select',
+    class: ['setting'],
     choices: [],
     value: undefined,
     required: true,
   },
   sources: {
     class: ['sources'],
-    book: {
-      label: 'book',
-      type: 'selectSetting',
+    books: {
+      label: 'books',
+      class: ['books'],
+      type: 'books',
       choices: [],
-      value: undefined,
+      value: [],
+      required: true,
+      min: 0,
+      max: 99,
     },
     zero: {
       label: 'lc0',
+      type: 'group',
       net: {
         label: 'model',
-        type: 'selectSetting',
+        type: 'select',
+        class: ['setting'],
         choices: [],
         value: undefined,
         required: true,
       },
       multipv: {
         label: 'multipv',
-        type: 'rangeSetting',
+        type: 'range',
+        class: ['setting'],
         value: 1,
         min: 1,
         max: 8,
@@ -67,9 +76,11 @@ export let schema: Schema = {
     },
     fish: {
       label: 'stockfish',
+      type: 'group',
       multipv: {
         label: 'multipv',
-        type: 'rangeSetting',
+        type: 'range',
+        class: ['setting'],
         value: 12,
         min: 1,
         max: 20,
@@ -77,19 +88,12 @@ export let schema: Schema = {
         required: true,
       },
       by: {
-        type: 'radio',
+        type: 'radioGroup',
         required: true,
-        nodes: {
-          label: 'nodes',
-          type: 'rangeSetting',
-          value: 100000,
-          min: 0,
-          max: 1000000,
-          step: 10000,
-        },
         depth: {
           label: 'depth',
-          type: 'rangeSetting',
+          type: 'range',
+          class: ['setting'],
           value: 12,
           min: 1,
           max: 20,
@@ -97,33 +101,49 @@ export let schema: Schema = {
         },
         movetime: {
           label: 'movetime',
-          type: 'rangeSetting',
+          type: 'range',
+          class: ['setting'],
           value: 100,
           min: 0,
           max: 1000,
           step: 10,
         },
+        nodes: {
+          label: 'nodes',
+          type: 'range',
+          class: ['setting'],
+          value: 100000,
+          min: 0,
+          max: 1000000,
+          step: 10000,
+        },
       },
     },
   },
-  panels: {
-    class: ['panels'],
-    selectors: {
-      lc0: {
-        type: 'selectorPanel',
-        label: 'lc0',
-        title: 'Chance from 0 to 1 of selecting Lc0 move. 1 is always Lc0',
-        value: { range: { min: 0, max: 1 }, from: 'move', data: [] },
-        requires: ['sources_zero', 'sources_fish'],
-      },
-      acpl: {
-        type: 'selectorPanel',
-        label: 'acpl',
-        title:
-          'Normal distribution with mean=acpl and stdev=acpl/4 gives target move score reduction from best move',
-        value: { range: { min: 10, max: 150 }, from: 'score', data: [] },
-        requires: ['sources_fish'],
-      },
+  bot_selectors: {
+    class: ['selectors'],
+    lc0Bias: {
+      label: 'lc0 bias',
+      type: 'moveSelector',
+      class: ['move-selector'],
+      value: { range: { min: 0, max: 1 }, from: 'move', data: [] },
+      requires: ['sources_zero', 'sources_fish'],
+      required: true,
+    },
+    acplMean: {
+      label: 'acpl mean',
+      type: 'moveSelector',
+      class: ['move-selector'],
+      value: { range: { min: 0, max: 150 }, from: 'score', data: [] },
+      requires: ['sources_fish'],
+    },
+    acplStdev: {
+      label: 'acpl stdev',
+      type: 'moveSelector',
+      class: ['move-selector'],
+      value: { range: { min: 0, max: 100 }, from: 'score', data: [] },
+      requires: ['bot_selectors_acplMean'],
+      required: true,
     },
   },
 };
@@ -143,7 +163,7 @@ export function setSchemaAssets(a: { nets: string[]; images: string[]; books: st
     setting.value = setting.choices[0].value;
   };
   setChoices('bot_image', a.images);
-  setChoices('sources_book', a.books);
+  setChoices('sources_books', a.books);
   setChoices('sources_zero_net', a.nets);
   deepFreeze(schema);
 }

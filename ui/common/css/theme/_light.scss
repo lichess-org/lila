@@ -1,7 +1,3 @@
-@import 'default';
-
-// this may not import anything from outside common/css/colors
-
 @function _clear($color, $weight: 17%) {
   @return mix(#000, $color, $weight);
 }
@@ -27,6 +23,7 @@ $c-blunder: hsl(0, 68%, 50%);
 $c-good: $c-secondary;
 $c-brilliant: hsl(129, 71%, 30%);
 $c-interesting: hsl(307, 80%, 59%);
+$c-paper: hsl(60, 56%, 86%);
 $c-dimmer: #fff;
 $c-clearer: #000;
 
@@ -35,9 +32,7 @@ html.light {
 
   --c-bg-input: #{change-color($c-bg-page, $lightness: 98%)};
   --c-bg-variation: #{$c-bg-zebra2};
-  --c-bg-popup: #{$c-bg};
   --c-bg-header-dropdown: #{$c-bg};
-  --c-popup: #{$c-font};
   --c-header-dropdown: #{$c-font};
   --c-page-input: #{$c-bg-low};
   --c-metal-top: hsl(0, 0%, 96%);

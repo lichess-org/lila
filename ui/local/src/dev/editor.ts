@@ -3,7 +3,8 @@ import type { EditorHost, PaneInfo, AnyKey } from './types';
 import type { Pane } from './pane';
 import { ActionListener, Action } from 'common/dialog';
 import { Setting, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './setting';
-import { SelectorPanel } from './panel';
+import { MoveSelector } from './moveSelector';
+import { Books } from './books';
 
 export class Editor {
   byId: { [id: string]: Pane } = {};
@@ -15,7 +16,7 @@ export class Editor {
 
   byEvent = (e: Event) => (e.target instanceof Element ? this.byEl(e.target) : undefined);
 
-  add = (setting: Pane) => (this.byId[setting.div.id] = setting);
+  add = (setting: Pane) => (this.byId[setting.el.id] = setting);
 
   forEach(cb: (value: Pane, key: string) => void) {
     Object.keys(this.byId).forEach(key => cb(this.byId[key], key));
@@ -45,10 +46,10 @@ export class Editor {
 
   get actions(): Action[] {
     return [
-      { selector: '[data-type]', event: ['input', 'change'], listener: this.updateProperty },
-      { selector: 'canvas', event: 'click', listener: this.updateProperty },
-      { selector: '.by', event: 'click', listener: this.updateProperty },
-      { selector: '.toggle-enabled', event: 'change', listener: this.toggleEnabled },
+      { selector: '[data-type]', event: 'input', listener: this.updateProperty },
+      { selector: '[data-click]', listener: this.updateProperty },
+      { selector: 'canvas', listener: this.updateProperty },
+      { selector: '.toggle', event: 'change', listener: this.toggleEnabled },
     ];
   }
 }
@@ -58,7 +59,7 @@ export function buildFromSchema(host: EditorHost, path: string[], parent?: Pane)
   const iter = path.reduce<any>((acc, key) => acc[key], schema);
   const s = buildFromInfo(host, { id, ...iter }, parent);
   for (const key of Object.keys(iter).filter(k => !primitiveKeys.includes(k as AnyKey))) {
-    s.div.appendChild(buildFromSchema(host, [...path, key], s).div);
+    s.el.appendChild(buildFromSchema(host, [...path, key], s).el);
   }
   return s;
 }
@@ -66,18 +67,20 @@ export function buildFromSchema(host: EditorHost, path: string[], parent?: Pane)
 function buildFromInfo(host: EditorHost, info: PaneInfo, parent?: Pane): Pane {
   const p = { host, info, parent };
   switch (info?.type) {
-    case 'selectSetting':
+    case 'select':
       return new SelectSetting(p);
-    case 'rangeSetting':
+    case 'range':
       return new RangeSetting(p);
-    case 'textareaSetting':
+    case 'textarea':
       return new TextareaSetting(p);
-    case 'textSetting':
+    case 'text':
       return new TextSetting(p);
-    case 'numberSetting':
+    case 'number':
       return new NumberSetting(p);
-    case 'selectorPanel':
-      return new SelectorPanel(p);
+    case 'books':
+      return new Books(p);
+    case 'moveSelector':
+      return new MoveSelector(p);
     default:
       return new Setting(p);
   }

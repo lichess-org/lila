@@ -1,34 +1,34 @@
 import * as co from 'chessops';
 import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
-import { LocalDialog } from './setupDialog';
+import { SetupDialog } from '../setupDialog';
 import { storedBooleanProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
-import { EditDialog } from './editor/editDialog';
-import { ZerofishBot } from './zerofishBot';
-import { BotCtrl } from './botCtrl';
-import { TestCtrl } from './testCtrl';
-import { GameCtrl } from './gameCtrl';
-import { Libot } from './types';
-import { playerResults, playersWithResults } from './testUtil';
+import { EditDialog } from './editDialog';
+import { ZerofishBot } from '../zerofishBot';
+import { BotCtrl } from '../botCtrl';
+import { DevCtrl } from './devCtrl';
+import { GameCtrl } from '../gameCtrl';
+import { Libot } from '../types';
+import { playerResults, playersWithResults } from './util';
 
 site.asset.loadCssPath('local.test');
 
 interface TestContext {
-  testCtrl: TestCtrl;
+  testCtrl: DevCtrl;
   botCtrl: BotCtrl;
   gameCtrl: GameCtrl;
 }
 
-function testContext(testCtrl: TestCtrl): TestContext {
+function testContext(testCtrl: DevCtrl): TestContext {
   return {
     testCtrl,
     botCtrl: testCtrl.botCtrl,
     gameCtrl: testCtrl.gameCtrl,
   };
 }
-export function renderTestView(testCtrl: TestCtrl): VNode {
+export function renderDevView(testCtrl: DevCtrl): VNode {
   const ctx = testContext(testCtrl);
-  return h('div.test-side', [
+  return h('div.dev-side', [
     results(ctx),
     h('hr'),
     h('div', player(ctx, co.opposite(testCtrl.bottomColor))),
@@ -102,7 +102,7 @@ function editBot({ testCtrl, botCtrl }: TestContext, color: Color) {
 
 function dashboard(ctx: TestContext) {
   const { testCtrl, botCtrl } = ctx;
-  return h('div.test-dashboard', [
+  return h('div.dev-dashboard', [
     h('span', [
       h(`button.refresh.button.button-metal`, {
         hook: onInsert(el =>
@@ -119,7 +119,7 @@ function dashboard(ctx: TestContext) {
           hook: onInsert(el =>
             el.addEventListener('click', () => {
               const setup = { white: botCtrl.white?.uid, black: botCtrl.black?.uid };
-              new LocalDialog(botCtrl.bots, setup);
+              new SetupDialog(botCtrl.bots, setup);
             }),
           ),
         },
@@ -140,7 +140,7 @@ function dashboard(ctx: TestContext) {
 
 function progress(ctx: TestContext) {
   const { testCtrl, botCtrl } = ctx;
-  return h('div.test-progress', [
+  return h('div.dev-progress', [
     h('h3', [
       testCtrl.script.type === 'rank'
         ? 'Ranking...'
@@ -161,10 +161,10 @@ function progress(ctx: TestContext) {
 }
 
 function renderPlayPause(ctx: TestContext): VNode {
-  const { testCtrl } = ctx;
+  const { testCtrl, gameCtrl } = ctx;
   return h(
     `button.play-pause.button.button-metal${
-      testCtrl.hasUser
+      gameCtrl.isUserTurn
         ? '.play.disabled'
         : testCtrl.testInProgress && !testCtrl.isStopped
         ? '.pause'
@@ -174,8 +174,8 @@ function renderPlayPause(ctx: TestContext): VNode {
   );
 }
 
-function clickPlayPause({ testCtrl }: TestContext) {
-  if (testCtrl.hasUser) return;
+function clickPlayPause({ testCtrl, gameCtrl }: TestContext) {
+  if (testCtrl.hasUser) gameCtrl.botMove();
   if (!testCtrl.isStopped) testCtrl.stop();
   else {
     if (testCtrl.gameInProgress) testCtrl.run();

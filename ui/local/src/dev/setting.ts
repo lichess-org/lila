@@ -1,20 +1,24 @@
-import type { PaneArgs, SelectInfo, TextareaInfo, NumberInfo, RangeInfo, ObjectSelector } from './types';
-import type { Mapping } from '../types';
+import type { PaneArgs, SelectInfo, TextareaInfo, NumberInfo, RangeInfo } from './types';
+import type { Mapping, Book } from '../types';
 import { Pane } from './pane';
-import { removePath, setPath, maxChars } from './util';
+import { removeObjectProperty, setObjectProperty, maxChars } from './util';
 import { getSchemaDefault } from './schema';
 
 export class Setting extends Pane {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-  label?: HTMLElement;
+  //label?: HTMLElement;
 
   constructor(args: PaneArgs) {
     super(args);
-    if (args.autoEnable) this.autoEnable = args.autoEnable;
     if (this.info.label) {
-      this.label = document.createElement(this.div.tagName === 'FIELDSET' ? 'legend' : 'label');
-      this.label.textContent = this.info.label;
-      this.div.appendChild(this.label);
+      const label = $as<HTMLElement>(`<label>${this.info.label}</label>`);
+      if (this.info.class?.includes('setting')) this.el.appendChild(label);
+      else {
+        const header = document.createElement(this.isFieldset ? 'legend' : 'span');
+        //header.classList.add('header');
+        header.appendChild(label);
+        this.el.appendChild(header);
+      }
     }
     if (this.radioGroup) {
       this.enabledCheckbox = $as<HTMLInputElement>(
@@ -24,23 +28,24 @@ export class Setting extends Pane {
       this.enabledCheckbox = $as<HTMLInputElement>(`<input type="checkbox">`);
     }
     if (this.enabledCheckbox) {
-      this.enabledCheckbox.classList.add('toggle-enabled');
+      this.enabledCheckbox.classList.add('toggle');
       this.enabledCheckbox.checked = this.getProperty() !== undefined; // ?
       if (this.label) this.label.prepend(this.enabledCheckbox);
-      else this.div.prepend(this.enabledCheckbox as HTMLInputElement);
+      else this.el.prepend(this.enabledCheckbox as HTMLInputElement);
     }
   }
 
   init() {
     this.setEnabled();
-    if (this.input) this.div.appendChild(this.input);
+    if (this.input) this.el.appendChild(this.input);
   }
 
-  setEnabled(enabled = this.autoEnable()) {
+  setEnabled(enabled = this.canEnable()) {
+    //this.el.classList.toggle('disabled', !enabled);
     if (!this.input && !this.enabledCheckbox) return;
 
     const { editor, view } = this.host;
-    this.div.classList.toggle('disabled', !enabled);
+    this.el.classList.toggle('disabled', !enabled);
 
     if (this.input && !this.input.value)
       this.input.value = this.getStringProperty(['bot', 'default', 'schema']);
@@ -49,10 +54,10 @@ export class Setting extends Pane {
     else this.host.bot.disabled.add(this.id);
 
     for (const kid of this.children) {
-      kid.div.classList.toggle('none', !enabled);
+      kid.el.classList.toggle('none', !enabled);
       if (!enabled) continue;
       if (kid.info.required) kid.update();
-      else if (kid.info.type !== 'radio') continue;
+      else if (kid.info.type !== 'radioGroup') continue;
       const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
       const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['default']));
       if (active) active.update();
@@ -68,26 +73,28 @@ export class Setting extends Pane {
     for (const r of this.host.editor.requires(this.id)) r.setEnabled(enabled ? undefined : false);
   }
 
-  get paneValue(): number | string | Mapping | undefined {
-    return this.input?.value;
-  }
-
-  autoEnable(): boolean {
+  canEnable(): boolean {
     if (this.input) return this.enabled;
     for (const c of this.children) {
-      if (c.info.required && c.getProperty() === undefined) return false;
+      if (c.info.required && !c.enabled) return false; //c.getProperty() === undefined) return false;
     }
     for (const r of this.requires) {
       if (!this.host.editor.byId[r].enabled) return false;
     }
     return true;
   }
-}
 
-export class DisclosureSetting extends Setting {
-  constructor(p: PaneArgs) {
-    super(p);
-    this.init();
+  get label(): HTMLElement | undefined {
+    if (this.info.label) return this.el.querySelector('label') ?? undefined;
+    return undefined;
+  }
+
+  get paneValue(): number | string | Mapping | Book[] | undefined {
+    return this.input?.value;
+  }
+
+  get header(): HTMLElement {
+    return this.label?.parentElement as HTMLElement;
   }
 }
 
@@ -103,9 +110,10 @@ export class SelectSetting extends Setting {
       if (option.value === this.getStringProperty()) option.selected = true;
       this.input.appendChild(option);
     }
-    this.div.appendChild(document.createElement('hr'));
+    this.el.appendChild(document.createElement('hr'));
     this.init();
   }
+
   get paneValue(): string {
     return this.input.value;
   }
@@ -140,7 +148,7 @@ export class NumberSetting extends Setting {
   info: NumberInfo | RangeInfo;
   constructor(p: PaneArgs) {
     super(p);
-    this.div.appendChild(document.createElement('hr'));
+    this.el.appendChild(document.createElement('hr'));
     this.init();
     this.input.maxLength = maxChars(this.info);
     this.input.style.maxWidth = `calc(${maxChars(this.info)}ch + 1.5em)`;
@@ -172,7 +180,7 @@ export class RangeSetting extends NumberSetting {
     this.rangeInput.max = String(this.info.max);
     this.rangeInput.step = String(this.info.step);
     this.rangeInput.value = this.input.value;
-    this.div.querySelector('hr')?.replaceWith(this.rangeInput);
+    this.el.querySelector('hr')?.replaceWith(this.rangeInput);
   }
   update(e?: Event) {
     if (!e || e.target === this.input) {

@@ -24,9 +24,9 @@ final class Local(env: Env) extends LilaController(env):
         "go"    -> play.api.data.Forms.boolean
       )(GameSetup.apply)(unapply)
 
-  def index(testUi: Option[String]) = OpenBody:
+  def index(devUi: Option[String]) = OpenBody:
     NoBot:
-      Ok.page(indexPage(none, optTrue(testUi))).map(_.enforceCrossSiteIsolation)
+      Ok.page(indexPage(none, optTrue(devUi))).map(_.enforceCrossSiteIsolation)
 
   def newGame(
       white: Option[String],
@@ -34,31 +34,30 @@ final class Local(env: Env) extends LilaController(env):
       fen: Option[String],
       time: Option[String],
       go: Option[String],
-      testUi: Option[String]
+      devUi: Option[String]
   ) = OpenBody:
     NoBot:
-      Ok.page(indexPage(GameSetup(white, black, fen, time, optTrue(go)).some, optTrue(testUi)))
+      Ok.page(indexPage(GameSetup(white, black, fen, time, optTrue(go)).some, optTrue(devUi)))
         .map(_.enforceCrossSiteIsolation)
 
-  def newGameForm(testUi: Option[String]) = OpenBody:
+  def newGameForm(devUi: Option[String]) = OpenBody:
     NoBot:
       bindForm(setupForm)(
         err => jsonFormError(err),
-        setup => Ok.page(indexPage(setup.some, optTrue(testUi))).map(_.enforceCrossSiteIsolation)
+        setup => Ok.page(indexPage(setup.some, optTrue(devUi))).map(_.enforceCrossSiteIsolation)
       )
 
-  private def indexPage(setup: Option[GameSetup], testUi: Boolean = false)(using ctx: Context) =
+  private def indexPage(setup: Option[GameSetup], devUi: Boolean)(using ctx: Context) =
     given setupFormat: Format[GameSetup] = Json.format[GameSetup]
     views.local.index(
       Json
         .obj(
-          "pref"   -> lila.pref.JsonView.write(ctx.pref, false),
-          "testUi" -> testUi
+          "pref" -> lila.pref.JsonView.write(ctx.pref, false)
         )
         .add("setup", setup)
         .add(
           "assets",
-          testUi.option(
+          devUi.option(
             // temporary, we'll replace these filesystem calls with a json file when things settle down
             Json.obj(
               "images" -> env.getFile(s"public/lifat/bots/images").listFiles().toList.map(_.getName),
@@ -66,7 +65,8 @@ final class Local(env: Env) extends LilaController(env):
               "books"  -> env.getFile(s"public/lifat/bots/books").listFiles().toList.map(_.getName)
             )
           )
-        )
+        ),
+      devUi
     )
 
   private def optTrue(s: Option[String]) =

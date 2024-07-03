@@ -31,7 +31,7 @@ dialog .dialog-content {
   }
 
   .card {
-    z-index: $z-above-dialog-12;
+    z-index: $z-above-dialog-13;
 
     &.selected {
       z-index: $z-dialog-11;
@@ -40,7 +40,7 @@ dialog .dialog-content {
 
   .remove {
     display: none;
-    z-index: $z-above-dialog-13;
+    z-index: $z-above-dialog-14;
     position: absolute;
     height: 20px;
     width: 20px;
@@ -102,7 +102,7 @@ dialog .dialog-content {
   .placard {
     position: absolute;
     bottom: calc(40px * $scale-factor * $scale-factor);
-    z-index: $z-above-dialog-13;
+    z-index: $z-above-dialog-14;
     left: 50%;
     transform: translateX(-50%);
     width: max-content;

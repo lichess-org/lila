@@ -4,7 +4,18 @@
     "name": "Terrence",
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 },
+      { "name": "Book.bin", "weight": 1 },
+      { "name": "codekiddy.bin", "weight": 1 },
+      { "name": "Elo2400.bin", "weight": 1 },
+      { "name": "final-book.bin", "weight": 1 },
+      { "name": "gavibook-small.bin", "weight": 1 },
+      { "name": "KomodoVariety.bin", "weight": 1 },
+      { "name": "Performance.bin", "weight": 1 },
+      { "name": "varied.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1100.pb" }
   },
   {
@@ -12,7 +23,10 @@
     "name": "T-Bone",
     "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
     "image": "t-bone.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1200.pb" }
   },
   {
@@ -20,7 +34,10 @@
     "name": "Nacho",
     "description": "Nacho might try to cheese you.",
     "image": "nacho.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1300.pb" }
   },
   {
@@ -28,7 +45,10 @@
     "name": "Marco",
     "description": "They never asked Marco to star in a video game. He is not pleased.",
     "image": "marco.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1400.pb" }
   },
   {
@@ -36,7 +56,10 @@
     "name": "Ghost",
     "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
     "image": "ghost.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1500.pb" }
   },
   {
@@ -44,15 +67,21 @@
     "name": "Greta",
     "description": "Greta lives in the woods and plays chess with squirrels.",
     "image": "greta.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1600.pb" }
   },
   {
     "uid": "#maia",
     "name": "Maia",
-    "description": "Maia was a famous author before she became a model for Elle c0.",
+    "description": "Maia was a famous author before she began modeling for Elle (see zero).",
     "image": "maia.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1700.pb" }
   },
   {
@@ -60,7 +89,10 @@
     "name": "Gerard",
     "description": "Gerard brought a sword to a chess match. And he swings it hard.",
     "image": "gerard.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1800.pb" }
   },
   {
@@ -68,7 +100,10 @@
     "name": "Bionica",
     "description": "Bionica was programmed with a full range of emotions. But she prefers contempt.",
     "image": "bionica.webp",
-    "book": "gm2600.bin",
+    "books": [
+      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "komodo.bin", "weight": 1 }
+    ],
     "zero": { "multipv": 1, "net": "maia-1900.pb" }
   },
   {

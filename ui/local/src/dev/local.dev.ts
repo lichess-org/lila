@@ -1,19 +1,19 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 //import { RoundOpts, RoundData, RoundSocket } from 'round';
 import { MoveRootCtrl } from 'game';
-import { GameCtrl } from './gameCtrl';
-import { DevCtrl } from './dev/devCtrl';
-import { renderDevView } from './dev/devView';
-import { LocalPlayOpts, Libot } from './types';
-import { BotCtrl } from './botCtrl';
-import { AssetDb } from './assetDb';
-import { SetupDialog } from './setupDialog';
-import view from './gameView';
+import { GameCtrl } from '../gameCtrl';
+import { DevCtrl } from './devCtrl';
+import { renderDevView } from './devView';
+import { LocalPlayOpts, Libot } from '../types';
+import { BotCtrl } from '../botCtrl';
+import { AssetDb } from '../assetDb';
+import { SetupDialog } from '../setupDialog';
+import renderGameView from '../gameView';
 
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts) {
-  const botCtrl = await new BotCtrl().init();
+  const botCtrl = await new BotCtrl(opts.assets).init();
   if (opts.setup) {
     if (!opts.setup.go) {
       new SetupDialog(botCtrl.bots, opts.setup, true);
@@ -23,19 +23,20 @@ export async function initModule(opts: LocalPlayOpts) {
     botCtrl.setPlayer('black', opts.setup.black);
   }
 
-  const ctrl = new GameCtrl(opts, botCtrl, redraw);
+  const gameCtrl = new GameCtrl(opts, botCtrl, redraw);
+  const devCtrl = new DevCtrl(gameCtrl, redraw);
+
   const el = document.createElement('main');
-
   document.getElementById('main-wrap')?.appendChild(el);
-  let vnode = patch(el, view(ctrl));
 
-  ctrl.round = await site.asset.loadEsm<MoveRootCtrl>('round', { init: ctrl.roundOpts });
+  let vnode = patch(el, renderGameView(gameCtrl, renderDevView(devCtrl)));
 
+  gameCtrl.round = await site.asset.loadEsm<MoveRootCtrl>('round', { init: gameCtrl.roundOpts });
   redraw();
 
   function redraw() {
-    vnode = patch(vnode, view(ctrl));
-    ctrl.round.redraw();
+    vnode = patch(vnode, renderGameView(gameCtrl, renderDevView(devCtrl)));
+    gameCtrl.round.redraw();
   }
 }
 
