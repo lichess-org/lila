@@ -39,7 +39,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
     coll
       .byId[TitleRequest](id)
       .map:
-        _.filter(_.userId.is(me) || Granter(_.SetTitle))
+        _.filter(_.userId.is(me) || Granter(_.TitleRequest))
 
   def findSimilar(req: TitleRequest): Fu[List[TitleRequest]] =
     val search = List(

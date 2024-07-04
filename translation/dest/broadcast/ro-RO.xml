@@ -42,4 +42,12 @@
   <string name="automaticLeaderboardHelp">Calculează și afișează un clasament simplu bazat pe rezultatele jocului</string>
   <string name="replacePlayerTags">Opțional: înlocuiește numele jucătorilor, ratingurile și titlurile</string>
   <string name="periodInSeconds">Perioada în secunde</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federații FIDE</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Jucători FIDE</string>
+  <string name="fidePlayerNotFound">Jucătorul FIDE nu a fost găsit</string>
+  <string name="fideProfile">Profil FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federație</string>
+  <string name="ageThisYear">Vârsta în acest an</string>
+  <string name="unrated">Fără rating</string>
+  <string name="recentTournaments">Turnee recente</string>
 </resources>

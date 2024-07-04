@@ -139,16 +139,12 @@ export interface SetupStore {
   days: number;
 }
 
-export interface ForceSetupOptions {
-  variant?: VariantKey;
-  fen?: string;
-  timeMode?: TimeMode;
-}
-
 export interface SetupConstraints {
   variant?: VariantKey;
   fen?: string;
   timeMode?: TimeMode;
+  time?: number;
+  increment?: number;
 }
 
 export interface GameSetup {

@@ -44,7 +44,7 @@ final class RelayRoundForm(using mode: Mode):
   )
 
   private def lccIsComplete(url: Upstream.Url) =
-    url.isLcc || !url.url.host.toString.endsWith("livechesscloud.com")
+    url.lcc.isDefined || !url.url.host.toString.endsWith("livechesscloud.com")
 
   def roundMapping(using Me) =
     mapping(

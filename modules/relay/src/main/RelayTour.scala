@@ -5,11 +5,12 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.i18n.Language
 import lila.core.misc.PicfitUrl
 import lila.core.id.ImageId
+import java.time.LocalDate
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
     name: RelayTour.Name,
-    description: String,
+    info: RelayTour.Info,
     markup: Option[Markdown] = None,
     ownerId: UserId,
     createdAt: Instant,
@@ -23,6 +24,7 @@ case class RelayTour(
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,
     image: Option[ImageId] = None,
+    dates: Option[RelayTour.Dates] = None, // denormalized from round dates
     pinnedStreamer: Option[UserStr] = None,
     pinnedStreamerImage: Option[ImageId] = None
 ):
@@ -74,6 +76,17 @@ object RelayTour:
     )
     type Selector = RelayTour.Tier.type => RelayTour.Tier
 
+  case class Info(
+      format: Option[String],
+      tc: Option[String],
+      players: Option[String]
+  ):
+    val all = List(format, tc, players).flatten
+    export all.nonEmpty
+    override def toString = all.mkString(" | ")
+
+  case class Dates(start: Instant, end: Option[Instant])
+
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty
     def specialLanguage: Option[Language] = (language != lila.core.i18n.defaultLanguage).option(language)
@@ -91,7 +104,8 @@ object RelayTour:
       ~round.sync.log.lastErrors.some
         .filter(_.nonEmpty)
         .orElse:
-          (round.hasStarted && !round.sync.ongoing).option(List("Not syncing!"))
+          (round.hasStarted && round.sync.upstream.isDefined && !round.sync.ongoing)
+            .option(List("Not syncing!"))
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:

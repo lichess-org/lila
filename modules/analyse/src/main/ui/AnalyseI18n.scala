@@ -300,6 +300,8 @@ final class GameAnalyseI18n(helpers: Helpers, board: AnalyseI18n):
         site.promoteVariation,
         site.makeMainLine,
         site.deleteFromHere,
+        site.collapseVariations,
+        site.expandVariations,
         site.forceVariation,
         site.copyVariationPgn,
         // practice (also uses checkmate, draw)

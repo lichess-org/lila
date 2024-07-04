@@ -461,9 +461,6 @@
   <string name="safeTournamentName">Turnir üçün çox etibarlı bir ad seçin.</string>
   <string name="inappropriateNameWarning">Hər hansı uyğunsuz bir ad, hesabınızın bağlanmasına yol aça bilər.</string>
   <string name="emptyTournamentName">Turnirə görkəmli bir şahmatçının adını vermək üçün boş buraxın.</string>
-  <string name="recommendNotTouching">Bunlara toxunmamağınızı məsləhət görürük.</string>
-  <string name="fewerPlayers">Giriş tələbləri qoyulsa, turnirə daha az oyunçu qoşulacaq.</string>
-  <string name="showAdvancedSettings">Ətraflı tənzimləmələr</string>
   <string name="makePrivateTournament">Turniri özəl et və şifrə qoyaraq müraciəti məhdudlaşdır</string>
   <string name="join">Qoşul</string>
   <string name="withdraw">Tərk et</string>
@@ -502,8 +499,6 @@
   <string name="ifNoneLeaveEmpty">Əgər yoxdursa, boş qoyun</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili redaktə et</string>
-  <string name="firstName">Ad</string>
-  <string name="lastName">Soyad</string>
   <string name="biography">Özü haqqında</string>
   <string name="thankYou">Təşəkkürlər!</string>
   <string name="socialMediaLinks">Sosial media linkləri</string>
@@ -544,9 +539,7 @@
   <string name="reason">Səbəb</string>
   <string name="whatIsIheMatter">Problem nədir?</string>
   <string name="cheat">Hiylə</string>
-  <string name="insult">Təhqir</string>
   <string name="troll">Trol</string>
-  <string name="ratingManipulation">Reytinq manipulyasiyası</string>
   <string name="other">Digər</string>
   <string name="reportDescriptionHelp">Oyunun və ya oyunların linkini yapışdırın və bu istifadəçinin davranışında nəyin səhv olduğunu izah edin. Yalnız \"hiylə edirlər\" deməyin, necə bu nəticəyə gəldiyinizi bizə deyin. İngilis dilində yazıldığı təqdirdə hesabat daha sürətli işlənəcəkdir.</string>
   <string name="error.provideOneCheatedGameLink">Lütfən ən azı bir hiyləli oyun linki daxil edin.</string>

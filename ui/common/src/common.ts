@@ -16,12 +16,12 @@ export function as<T>(v: T, f: () => void): () => T {
   };
 }
 
-export function deepFreeze(obj: any): void {
-  if (obj === null || typeof obj !== 'object') return;
-  for (const prop of Object.values(obj)) {
-    if (prop && typeof prop === 'object') deepFreeze(prop);
-  }
-  Object.freeze(obj);
+export function deepFreeze(obj: any): any {
+  if (obj !== null && typeof obj === 'object')
+    Object.values(obj)
+      .filter(v => v && typeof v === 'object')
+      .forEach(o => deepFreeze(o));
+  return Object.freeze(obj);
 }
 
 export interface Prop<T> {
@@ -157,7 +157,7 @@ export const escapeHtml = (str: string) =>
     : str;
 
 // does not compare complex objects or non-enumerable properties
-export function enumerableEquivalence(a: any, b: any, enforceArrayOrder = true): boolean {
+export function isEquivalent(a: any, b: any, enforceArrayOrder = true): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
   if (Array.isArray(a)) {
@@ -165,15 +165,15 @@ export function enumerableEquivalence(a: any, b: any, enforceArrayOrder = true):
       Array.isArray(b) &&
       a.length === b.length &&
       (enforceArrayOrder
-        ? a.every((x, i) => enumerableEquivalence(x, b[i]))
-        : a.every(x => b.find((y: any) => enumerableEquivalence(x, y))))
+        ? a.every((x, i) => isEquivalent(x, b[i]))
+        : a.every(x => b.find((y: any) => isEquivalent(x, y))))
     );
   }
   if (typeof a !== 'object') return false;
   const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
   if (aKeys.length !== bKeys.length) return false;
   for (const key of aKeys) {
-    if (!bKeys.includes(key) || !enumerableEquivalence(a[key], b[key])) return false;
+    if (!bKeys.includes(key) || !isEquivalent(a[key], b[key])) return false;
   }
   return true;
 }

@@ -6,7 +6,7 @@ import { RankBot } from './dev/rankBot';
 import { PolyglotBook } from 'bits/types';
 import { ObjectStorage, objectStorage } from 'common/objectStorage';
 import * as co from 'chessops';
-import { clamp, defined } from 'common';
+import { clamp, defined, deepFreeze } from 'common';
 
 export class BotCtrl {
   readonly assetDb: AssetDb;
@@ -71,7 +71,7 @@ export class BotCtrl {
     [this.white, this.black] = [this.black, this.white];
   }
 
-  move(pos: Position, chess: co.Chess): Promise<string> {
+  move(pos: Position, chess: co.Chess): Promise<Uci> {
     chess = chess.clone();
     pos = structuredClone(pos);
     return this[chess.turn]?.move(pos, chess) ?? Promise.resolve('0000');
@@ -95,7 +95,7 @@ export class BotCtrl {
   }
 
   defaultBot(uid: string = ''): BotInfo {
-    return uid in this.botDefaults ? structuredClone(this.botDefaults[uid]) : structuredClone(this.default);
+    return uid in this.botDefaults ? this.botDefaults[uid] : this.default;
   }
 
   updateRating(bot: Libot | undefined, opp: { r: number; rd: number } = { r: 1500, rd: 350 }, score: number) {
@@ -133,7 +133,7 @@ export class BotCtrl {
       this.getLocalOverrides(),
     ]);
     this.botDefaults = {};
-    jsonBots.forEach((b: BotInfo) => (this.botDefaults[b.uid] = b));
+    jsonBots.forEach((b: BotInfo) => (this.botDefaults[b.uid] = deepFreeze(b)));
     this.bots = {};
     [...jsonBots, ...overrides].forEach((b: Libot) => (this.bots[b.uid] = new ZerofishBot(b, this)));
     this.white = this.white ? this.bots[this.white.uid] : undefined;
@@ -155,7 +155,7 @@ export class BotCtrl {
     return isNaN(index) ? undefined : this.rankBots[index];
   }
 
-  readonly default: ZerofishBotInfo = {
+  readonly default: ZerofishBotInfo = deepFreeze({
     uid: '#default',
     name: 'Name',
     description: 'Description',
@@ -164,7 +164,7 @@ export class BotCtrl {
     glicko: { r: 1500, rd: 350 },
     //zero: { multipv: 1, net: 'maia-1100.pb' },
     fish: { multipv: 1, by: { depth: 1 } },
-  };
+  });
 }
 
 export function botAssetUrl(name: string, version: string | false = 'bot000') {

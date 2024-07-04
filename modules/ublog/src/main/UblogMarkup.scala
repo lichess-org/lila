@@ -39,7 +39,7 @@ final class UblogMarkup(
 
   private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup"):
     _.maximumSize(2048)
-      .expireAfterWrite(if mode.isProd then 15 minutes else 1 second)
+      .expireAfterWrite(if mode.isProd then 20 minutes else 1 second)
       .buildAsyncFuture: (id, markdown) =>
         Bus
           .ask("lpv")(AllPgnsFromText(markdown.value, _))

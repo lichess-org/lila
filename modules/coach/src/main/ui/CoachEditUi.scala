@@ -47,9 +47,11 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
                 h3("TODO list before publishing your coach profile"),
                 ul
               ),
-              div(cls := "picture_wrap")(
-                ui.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
-                div(label("Drag file or"), " ", form3.file.selectImage())
+              form3.fieldset("Picture", toggle = true.some)(
+                div(cls := "form-group coach-edit-picture")(
+                  ui.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
+                  div(label("Drag file or"), " ", form3.file.selectImage())
+                )
               )
             )
           ),

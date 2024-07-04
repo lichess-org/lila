@@ -70,8 +70,8 @@
   <string name="promoteVariation">Variant opwäerten</string>
   <string name="makeMainLine">Haaptvariant maachen</string>
   <string name="deleteFromHere">Vun hei läschen</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Varianten zesummeklappen</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Varianten opklappen</string>
+  <string name="collapseVariations">Varianten zesummeklappen</string>
+  <string name="expandVariations">Varianten opklappen</string>
   <string name="forceVariation">Variant forcéieren</string>
   <string name="copyVariationPgn">PGN-Variant kopéieren</string>
   <string name="move">Zuch</string>
@@ -466,9 +466,6 @@
   <string name="safeTournamentName">Wiehl en ganz sécheren Numm fir däin Turnéier.</string>
   <string name="inappropriateNameWarning">Alles nemmen liicht Onangemessenes kéint zum Zoumaachen vun dengem Konto féieren.</string>
   <string name="emptyTournamentName">Eidel loossen, wann den Turnéier no engem bekannten Schachspiller soll benannt ginn.</string>
-  <string name="recommendNotTouching">Mir recommandéieren déi net unzepaken.</string>
-  <string name="fewerPlayers">Mat Teilnahmebedingungen wäert däin Turnéier maner Spiller hunn.</string>
-  <string name="showAdvancedSettings">Erweidert Optiounen uweisen</string>
   <string name="makePrivateTournament">Turnéier privat maachen an Accès mat Passwuert beschränken</string>
   <string name="join">Bäitrieden</string>
   <string name="withdraw">Zeréckzéihen</string>
@@ -508,8 +505,6 @@
   <string name="ifNoneLeaveEmpty">Eidel loossen, falls keng</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil änneren</string>
-  <string name="firstName">Virnumm</string>
-  <string name="lastName">Numm</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Regioun</string>
   <string name="thankYou">Merci!</string>
@@ -553,9 +548,7 @@
   <string name="reason">Grond</string>
   <string name="whatIsIheMatter">Wat ass den Problem?</string>
   <string name="cheat">Bedruch</string>
-  <string name="insult">Beleidegung</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Wäertungsmanipulatioun</string>
   <string name="other">Aner</string>
   <string name="reportDescriptionHelp">Post den Link vun Partie(n) and erklär wat den Problem mat dësem Benotzer sengem Verhalen ass. So net just \"Hien fuddelt\", mee so eis wéi du zu dëser Konklusioun komm bass. Däin Rapport gëtt méi schnell veraarbecht wann en op Englesch ass.</string>
   <string name="error.provideOneCheatedGameLink">Wannechgelift gëff eis op mannst een Link zu enger Partie mat Bedruch.</string>

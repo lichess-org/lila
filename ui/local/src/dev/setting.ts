@@ -6,7 +6,6 @@ import { getSchemaDefault } from './schema';
 
 export class Setting extends Pane {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-  //label?: HTMLElement;
 
   constructor(args: PaneArgs) {
     super(args);
@@ -24,15 +23,15 @@ export class Setting extends Pane {
       this.enabledCheckbox = $as<HTMLInputElement>(
         `<input type="radio" name="${this.radioGroup}" tabindex="-1">`,
       );
-    } else if (!this.info.required && this.label) {
+    } else if (!this.info.required && this.info.label) {
       this.enabledCheckbox = $as<HTMLInputElement>(`<input type="checkbox">`);
     }
-    if (this.enabledCheckbox) {
-      this.enabledCheckbox.classList.add('toggle');
-      this.enabledCheckbox.checked = this.getProperty() !== undefined; // ?
-      if (this.label) this.label.prepend(this.enabledCheckbox);
-      else this.el.prepend(this.enabledCheckbox as HTMLInputElement);
-    }
+    if (!this.enabledCheckbox) return;
+    this.enabledCheckbox.classList.add('toggle');
+    this.enabledCheckbox.checked = this.isDefined;
+    this.el.prepend(this.enabledCheckbox);
+    this.label?.prepend(this.enabledCheckbox);
+    //else this.el.prepend(this.enabledCheckbox as HTMLInputElement);
   }
 
   init() {
@@ -74,14 +73,9 @@ export class Setting extends Pane {
   }
 
   canEnable(): boolean {
-    if (this.input) return this.enabled;
-    for (const c of this.children) {
-      if (c.info.required && !c.enabled) return false; //c.getProperty() === undefined) return false;
-    }
-    for (const r of this.requires) {
-      if (!this.host.editor.byId[r].enabled) return false;
-    }
-    return true;
+    const kids = this.children;
+    if (this.input && !kids.length) return this.isDefined;
+    return kids.every(x => x.enabled || !x.info.required) && this.requirementsAllow;
   }
 
   get label(): HTMLElement | undefined {

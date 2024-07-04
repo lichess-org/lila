@@ -40,12 +40,11 @@ final class Auth(
   ): Fu[Result] =
     api
       .saveAuthentication(u.id, ctx.mobileApiVersion)
-      .flatMap { sessionId =>
+      .flatMap: sessionId =>
         negotiate(
           result.fold(Redirect(getReferrer))(_(getReferrer)),
           mobileUserOk(u, sessionId)
         ).map(authenticateCookie(sessionId, remember))
-      }
       .recoverWith(authRecovery)
 
   private def authenticateAppealUser(u: UserModel, redirect: String => Result)(using
@@ -53,10 +52,9 @@ final class Auth(
   ): Fu[Result] =
     api.appeal
       .saveAuthentication(u.id)
-      .flatMap { sessionId =>
+      .flatMap: sessionId =>
         authenticateCookie(sessionId, remember = false):
           redirect(routes.Appeal.landing.url)
-      }
       .recoverWith(authRecovery)
 
   private def authenticateCookie(sessionId: String, remember: Boolean)(

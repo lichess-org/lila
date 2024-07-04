@@ -52,38 +52,33 @@ final class ReportApi(
     val ignoreReport = c.reporter.user.marks.reportban && !c.reason.isComm
     (!ignoreReport && !isAlreadySlain(c)).so {
       scorer(c).map(_.withScore(score)).flatMap { case scored @ Candidate.Scored(candidate, _) =>
-        coll
-          .one[Report](
+        for
+          prev <- coll.one[Report]:
             $doc(
               "user"   -> candidate.suspect.user.id,
               "reason" -> candidate.reason,
               "open"   -> true
             )
-          )
-          .flatMap { prev =>
-            val report = Report.make(scored, prev)
-            lila.mon.mod.report.create(report.reason.key, scored.score.value.toInt).increment()
-            if report.isRecentComm &&
-              report.score.value >= thresholds.discord() &&
-              prev.exists(_.score.value < thresholds.discord())
-            then ircApi.commReportBurst(c.suspect.user.light)
-            coll.update.one($id(report.id), report, upsert = true).void >>
-              autoAnalysis(candidate).andDo:
-                if report.isCheat then
-                  Bus.publish(lila.core.report.CheatReportCreated(report.user), "cheatReport")
-          }
-          .andDo(maxScoreCache.invalidateUnit())
+          report = Report.make(scored, prev)
+          _      = lila.mon.mod.report.create(report.reason.key, scored.score.value.toInt).increment()
+          _ = if report.isRecentComm &&
+            report.score.value >= thresholds.discord() &&
+            prev.exists(_.score.value < thresholds.discord())
+          then ircApi.commReportBurst(c.suspect.user.light)
+          _ <- coll.update.one($id(report.id), report, upsert = true)
+          _ <- autoAnalysis(candidate)
+        yield
+          if report.isCheat then Bus.publish(lila.core.report.CheatReportCreated(report.user), "cheatReport")
+          maxScoreCache.invalidateUnit()
       }
     }
 
-  def commFlag(reporter: Reporter, suspect: Suspect, resource: String, text: String) =
-    create(
-      Candidate(
-        reporter,
-        suspect,
-        Reason.Comm,
-        s"${Reason.Comm.flagText} $resource ${text.take(140)}"
-      )
+  def commFlag(reporter: Reporter, suspect: Suspect, resource: String, text: String) = create:
+    Candidate(
+      reporter,
+      suspect,
+      Reason.Comm,
+      s"${Reason.flagText} $resource ${text.take(140)}"
     )
 
   def autoCommFlag(suspectId: SuspectId, resource: String, text: String, critical: Boolean = false) =
@@ -94,7 +89,7 @@ final class ReportApi(
             reporter,
             suspect,
             Reason.Comm,
-            s"${Reason.Comm.flagText} $resource ${text.take(140)}"
+            s"${Reason.flagText} $resource ${text.take(140)}"
           ),
           score = (_: Report.Score).map(_ * (if critical then 2 else 1))
         )

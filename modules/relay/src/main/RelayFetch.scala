@@ -71,7 +71,9 @@ final private class RelayFetch(
       logger.info(s"$msg ${rt.round}")
       if rt.tour.official then irc.broadcastError(rt.round.id, rt.fullName, msg)
       api.update(rt.round)(_.finish).void
-    else funit
+    else
+      logger.info(s"Pause sync until round starts ${rt.round}")
+      api.update(rt.round)(_.withSync(_.pause)).void
 
   // no writing the relay; only reading!
   // this can take a long time if the source is slow
@@ -85,13 +87,13 @@ final private class RelayFetch(
         .map(games => rt.tour.players.fold(games)(_.update(games)))
         .flatMap(fidePlayers.enrichGames(rt.tour))
         .map(games => rt.tour.teams.fold(games)(_.update(games)))
-        .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
-        .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size))
+        .mon(_.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug))
+        .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.tour.id, rt.round.slug).update(gs.size))
         .flatMap: games =>
           sync
             .updateStudyChapters(rt, games)
             .withTimeoutError(7 seconds, SyncResult.Timeout)
-            .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
+            .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
             .map: res =>
               res -> updating:
                 _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
@@ -123,7 +125,7 @@ final private class RelayFetch(
       case result: SyncResult.Ok if result.hasMovesOrTags =>
         api.syncTargetsOfSource(round)
         if result.nbMoves > 0 then
-          lila.mon.relay.moves(tour.official, round.slug).increment(result.nbMoves)
+          lila.mon.relay.moves(tour.official, tour.id, tour.slug).increment(result.nbMoves)
           if !round.hasStarted && !tour.official then
             irc.broadcastStart(round.id, round.withTour(tour).fullName)
           continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
@@ -156,15 +158,15 @@ final private class RelayFetch(
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =
-      if upstream.isLcc then 6
-      else if upstream.isRound then 10 // uses push so no need to pull often
+      if upstream.hasLcc then 6
+      else if upstream.isRound then 10 // uses push so no need to pull oftenrelayfetch
       else 2
     base * {
       if tour.tier.exists(_ > RelayTour.Tier.NORMAL) then 1
       else if tour.official then 2
       else 3
     } * {
-      if round.crowd.exists(_ > 4) then 1 else 2
+      if upstream.hasLcc && round.crowd.exists(_ < 10) then 2 else 1
     } * {
       if round.hasStarted then 1 else 2
     }
@@ -188,7 +190,7 @@ final private class RelayFetch(
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
-            delayer(url, rt.round, fetchFromUpstream(rt))
+            delayer(url, rt.round, fetchFromUpstreamWithRecover(rt))
           .map(_.flatten)
 
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
@@ -215,37 +217,46 @@ final private class RelayFetch(
     // cache finished games so they're not requested again for a while
     private val finishedGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](512, "relay.fetch.finishedLccGames"):
-        _.expireAfterWrite(5 minutes).build()
+        _.expireAfterWrite(8 minutes).build()
     // cache created (non-started) games until they start
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
         _.expireAfter[LccGameKey, GameJson](
-          create = (key, _) => (if key.startsWith("start ") then 1 minutes else 5 minutes),
+          create = (key, _) => (if key.startsWith("started ") then 1 minute else 5 minutes),
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
     // cache games with number > 12 to reduce load on big tournaments
+    val tailAt = 12
     private val tailGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1 minutes).build()
 
-    def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, nearStart: Boolean)(
+    def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, started: Boolean)(
         fetch: () => Fu[GameJson]
     ): Fu[GameJson] =
-      val key = s"${nearStart.so("start ")}${lcc.id} ${lcc.round} $index"
+      val key = s"${started.so("started ")}${lcc.id} ${lcc.round} $index"
       finishedGames
         .getIfPresent(key)
         .orElse(createdGames.getIfPresent(key))
-        .orElse(tailGames.getIfPresent(key))
+        .orElse((index >= lccCache.tailAt).so(tailGames.getIfPresent(key)))
         .match
           case Some(game) => fuccess(game)
           case None =>
             fetch().addEffect: game =>
               if game.moves.isEmpty then createdGames.put(key, game)
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
-              else if index >= 12 then tailGames.put(key, game)
+              else if index >= lccCache.tailAt then tailGames.put(key, game)
 
-  private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL, max: Max)(using CanProxy): Fu[RelayGames] =
+  private def fetchFromUpstreamWithRecover(rt: RelayRound.WithTour)(url: URL)(using
+      CanProxy
+  ): Fu[RelayGames] =
+    fetchFromUpstream(rt)(url).recover:
+      case e: Exception =>
+        logger.info(s"Fetch error in multi-url ${rt.round.id} $url ${e.getMessage.take(80)}", e)
+        Vector.empty
+
+  private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
     formatApi
       .get(url)
@@ -255,15 +266,18 @@ final private class RelayFetch(
             .orderedByStudyLoadingAllInMemory(id.into(StudyId))
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
-          httpGetPgn(url).map { MultiPgn.split(_, max) }.flatMap(multiPgnToGames.future)
+          httpGetPgn(url).map { MultiPgn.split(_, RelayFetch.maxChapters) }.flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
-            val nearStart = rt.round.secondsAfterStart.exists(_ < 300)
+            val lookForStart: Boolean =
+              rt.round.startsAt
+                .map(_.minusSeconds(rt.round.sync.delay.so(_.value) + 5 * 60))
+                .forall(_.isBeforeNow)
             round.pairings
               .mapWithIndex: (pairing, i) =>
                 val game = i + 1
                 val tags = pairing.tags(lcc.round, game)
-                lccCache(lcc, game, tags, nearStart): () =>
+                lccCache(lcc, game, tags, lookForStart): () =>
                   httpGetJson[GameJson](lcc.gameUrl(game)).recover:
                     case _: Exception => GameJson(moves = Nil, result = none)
                 .map { _.toPgn(tags) }

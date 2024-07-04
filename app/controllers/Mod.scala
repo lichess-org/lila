@@ -159,16 +159,14 @@ final class Mod(
     bindForm(lila.user.UserForm.title)(
       _ => redirect(username, mod = true),
       title =>
-        doSetTitle(username.id, title, public = true).inject:
+        doSetTitle(username.id, title).inject:
           redirect(username, mod = false)
     )
   }
 
-  protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle], public: Boolean)(
-      using Me
-  ) = for
-    _ <- (public || title.isEmpty).so(modApi.setTitle(userId, title))
-    _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _, public))
+  protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle])(using Me) = for
+    _ <- modApi.setTitle(userId, title)
+    _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _))
   yield ()
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>
@@ -470,7 +468,7 @@ final class Mod(
           } >> {
             Permission
               .ofDbKeys(permissions)
-              .exists(_.grants(Permission.SeeReport))
+              .exists(p => p.grants(Permission.SeeReport) || p.grants(Permission.Developer))
               .so(env.plan.api.setLifetime(user))
           }).inject(Redirect(routes.Mod.permissions(user.username)).flashSuccess)
       )

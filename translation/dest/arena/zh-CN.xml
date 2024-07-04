@@ -75,8 +75,8 @@
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">此页面上的所有平均值是 %s。</string>
   <string name="total">总计</string>
   <string name="pointsAvg">平均分数</string>
-  <string name="pointsSum">总分数</string>
-  <string name="rankAvg">平均等级</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">总分数</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">平均等级</string>
   <string name="tournamentWinners">锦标赛赢家</string>
   <string name="tournamentShields">锦标赛盾牌</string>
   <string name="onlyTitled">仅限有头衔玩家</string>

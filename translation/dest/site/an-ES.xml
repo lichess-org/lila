@@ -461,9 +461,6 @@
   <string name="safeTournamentName">Tría un nombre muito seguro pa lo torneyo.</string>
   <string name="inappropriateNameWarning">Cualsequier comportamiento minimament inadecuau podría comportar que se zarre la tuya cuenta.</string>
   <string name="emptyTournamentName">Si lo deixas en blanco, lo torneyo recebirá lo nombre d\'un Gran Mayestro a l\'azar.</string>
-  <string name="recommendNotTouching">Se recomienda deixar como ye.</string>
-  <string name="fewerPlayers">Si imposas condicions de dentrada, lo torneyo tendrá menos chugadors.</string>
-  <string name="showAdvancedSettings">Amostrar configuración abanzada</string>
   <string name="makePrivateTournament">Fer lo torneyo privau y restrinchir l\'acceso con una clau</string>
   <string name="join">Unir-se</string>
   <string name="withdraw">Abandonar</string>
@@ -503,8 +500,6 @@
   <string name="ifNoneLeaveEmpty">Si no aplica, deixa-lo en blanco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
-  <string name="firstName">Nombre</string>
-  <string name="lastName">Apellido</string>
   <string name="setFlair">Define lo tuyo estilo</string>
   <string name="flair">Estilo</string>
   <string name="youCanHideFlair">I hai un achuste pa amagar toz es estilos d\'usuario en tot lo puesto web.</string>
@@ -550,9 +545,7 @@
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">Qué ocurre?</string>
   <string name="cheat">Trapa</string>
-  <string name="insult">Insulto</string>
   <string name="troll">Acoso</string>
-  <string name="ratingManipulation">Manipulación d\'a puntuación</string>
   <string name="other">Atro</string>
   <string name="reportDescriptionHelp">Apega lo vinclo a la(s) partida(s) y explica-nos qué i hai de malo en o comportamiento d\'este usuario. No digas simplament \"fa trapazas\"; explica-nos cómo has arribau a esta conclusión. Lo tuyo reporte será procesau mas rapido si ye escrito en anglés.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>

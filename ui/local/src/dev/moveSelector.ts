@@ -39,14 +39,16 @@ export class MoveSelector extends Setting {
     if (enabled && !canEnable) {
       alert(`Cannot enable ${this.info.label} because of unmet preconditions: ${this.requires.join(', ')}`);
       enabled = false;
-    } else enabled ??= canEnable && (this.info.required || !this.host.bot.disabled.has(this.id));
+    } else
+      enabled ??=
+        canEnable && (this.info.required || (this.isDefined && !this.host.bot.disabled.has(this.id)));
 
-    if (enabled && !this.getProperty()) {
+    if (enabled && !this.isDefined) {
       this.setProperty(structuredClone(this.info.value));
       this.renderMapping();
     }
     this.el.querySelectorAll('.chart-wrapper, .btn-rack')?.forEach(x => x.classList.toggle('none', !enabled));
-    this.el.classList.toggle('none', !canEnable); //!enabled && this.info.required === true);
+    this.el.classList.toggle('none', !canEnable);
     super.setEnabled(enabled);
   }
 
@@ -77,20 +79,20 @@ export class MoveSelector extends Setting {
       this.chart.update();
     }
   }
+
   get paneValue(): Mapping {
     return this.getProperty() as Mapping;
   }
 
   private renderMapping() {
-    const m = this.paneValue;
     this.chart?.destroy();
+    const m = this.paneValue;
     if (!m?.data) return;
     this.chart = new Chart(this.canvas.getContext('2d')!, {
       type: 'line',
       data: {
         datasets: [
           {
-            //label: 'My Dataset',
             data: asData(m),
             backgroundColor: 'rgba(75, 192, 192, 0.6)',
           },
@@ -100,7 +102,7 @@ export class MoveSelector extends Setting {
         parsing: false,
         responsive: true,
         maintainAspectRatio: false,
-        animation: false /*{ duration: 100 },*/,
+        animation: false,
         layout: {
           padding: {
             left: 16,
@@ -111,7 +113,7 @@ export class MoveSelector extends Setting {
         scales: {
           x: {
             type: 'linear',
-            beginAtZero: true,
+            //beginAtZero: true,
             min: domain(m).min,
             max: domain(m).max,
             title: {
@@ -123,7 +125,7 @@ export class MoveSelector extends Setting {
             },
           },
           y: {
-            beginAtZero: true,
+            //beginAtZero: true,
             min: m.range.min,
             max: m.range.max,
             title: {

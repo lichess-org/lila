@@ -48,7 +48,8 @@ final class RelayPush(
   private def push(rt: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
     workQueue(rt.round.id):
       for
-        games <- fidePlayers.enrichGames(rt.tour)(rawGames)
+        withPlayers <- fuccess(rt.tour.players.fold(rawGames)(_.update(rawGames)))
+        games       <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         event <- sync
           .updateStudyChapters(rt, rt.tour.players.fold(games)(_.update(games)))
           .map: res =>

@@ -462,9 +462,6 @@
   <string name="safeTournamentName">টুর্নামেন্টের জন্য একটি নিরাপদ নাম পছন্দ করুন।</string>
   <string name="inappropriateNameWarning">এমনকি সামান্য অনুপযুক্ত কিছুও আপনার অ্যাকাউন্ট বন্ধ করতে পারে।</string>
   <string name="emptyTournamentName">কোন গ্র্যান্ডমাস্টারের নামে টুর্নামেন্টের নাম দিতে চাইলে খালি রাখুন।</string>
-  <string name="recommendNotTouching">এটা টাচ না করার জন্য পরামর্শ দেয়া হচ্ছে।</string>
-  <string name="fewerPlayers">যদি আপনি এন্ট্রি করার শর্ত ঠিক করে দেন, তাহলে টুর্নামেন্টে তুলনামূলকভাবে কম খেলোয়ার পাওয়া যাবে।</string>
-  <string name="showAdvancedSettings">এডভান্সড সেটিংসে যান</string>
   <string name="makePrivateTournament">পাসওয়ার্ড দিয়ে টুর্নামেন্টটি গোপনীয় এবং সিমাবদ্ধ করেদিন</string>
   <string name="join">যোগ দিন</string>
   <string name="withdraw">উঠিয়ে নিন</string>
@@ -504,8 +501,6 @@
   <string name="ifNoneLeaveEmpty">যদি কিছুই না হয়, খালি রাখুন</string>
   <string name="profile">পরিচিতি</string>
   <string name="editProfile">পরিচিতি সম্পাদনা</string>
-  <string name="firstName">প্রথম নাম</string>
-  <string name="lastName">শেষ নাম</string>
   <string name="setFlair">আপনার ফ্লেয়ার সেট করুন</string>
   <string name="flair">ফ্লেয়ার</string>
   <string name="youCanHideFlair">পুরো সাইট জুড়ে সমস্ত ব্যবহারকারীর ফ্লেয়ার লুকানোর জন্য একটি সেটিং রয়েছে.</string>
@@ -552,9 +547,7 @@
   <string name="reason">কারণ</string>
   <string name="whatIsIheMatter">সম্পূর্ণ ঘটনার বিবরণ দেন</string>
   <string name="cheat">চিটিং করছে</string>
-  <string name="insult">অপমান করেছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
-  <string name="ratingManipulation">রেটিং ইচ্ছাকৃতভাবে পরিবর্তন</string>
   <string name="other">অন্য কোনো কারণ</string>
   <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>

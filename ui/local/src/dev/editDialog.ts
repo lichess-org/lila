@@ -3,7 +3,7 @@ import type { BotInfoReader, ZerofishBotEditor, EditorHost } from './types';
 import type { ZerofishBots } from '../zerofishBot';
 import { BotCtrl, domIdToUid, uidToDomId } from '../botCtrl';
 import { HandOfCards } from '../handOfCards';
-import { defined, escapeHtml, enumerableEquivalence } from 'common';
+import { defined, escapeHtml, isEquivalent } from 'common';
 import { GameCtrl } from '../gameCtrl';
 import { buildFromSchema, Editor } from './editor';
 import { /*objectPath,*/ removeObjectProperty } from './util';
@@ -133,13 +133,11 @@ export class EditDialog implements EditorHost {
     for (const id of this.bot.disabled) {
       removeObjectProperty({ obj: scratch, path: { id } }, true);
     }
-    return enumerableEquivalence(this.botCtrl.bot(this.uid), scratch);
+    return isEquivalent(this.botCtrl.bot(this.uid), scratch);
   }
 
   get allDirty(): string[] {
-    return Object.keys(this.scratch).filter(
-      uid => !enumerableEquivalence(this.botCtrl.bot(uid), this.scratch[uid]),
-    );
+    return Object.keys(this.scratch).filter(uid => !isEquivalent(this.botCtrl.bot(uid), this.scratch[uid]));
   }
 
   update() {

@@ -19,7 +19,8 @@ export function puzzleBox(ctrl: PuzzleCtrl): VNode {
 
 const angleImg = (ctrl: PuzzleCtrl): string => {
   const angle = ctrl.data.angle;
-  const name = angle.opening ? 'opening' : angle.key.startsWith('mateIn') ? 'mate' : angle.key;
+  const name =
+    angle.opening || angle.openingAbstract ? 'opening' : angle.key.startsWith('mateIn') ? 'mate' : angle.key;
   return site.asset.url(`images/puzzle-themes/${name}.svg`);
 };
 

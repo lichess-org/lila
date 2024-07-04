@@ -304,6 +304,16 @@ export default class LobbyController implements ParentCtrl {
     let friendUser: string | undefined;
     const forceOptions: SetupConstraints = {};
     const urlParams = new URLSearchParams(location.search);
+    const minutesPerSide = urlParams.get('minutesPerSide');
+    const increment = urlParams.get('increment');
+
+    if (minutesPerSide) {
+      forceOptions.time = parseInt(minutesPerSide);
+    }
+
+    if (increment) {
+      forceOptions.increment = parseInt(increment);
+    }
     if (locationHash === 'hook') {
       if (urlParams.get('time') === 'realTime') {
         this.tab = 'real_time';

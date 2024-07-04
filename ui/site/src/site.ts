@@ -18,7 +18,7 @@ import sound from './sound';
 import { mic } from './mic';
 import * as miniBoard from 'common/miniBoard';
 import * as miniGame from './miniGame';
-import { format as timeago, formatter as dateFormat } from './timeago';
+import { format as timeago, formatter as dateFormat, displayLocale } from './timeago';
 import watchers from './watchers';
 import { Chessground } from 'chessground';
 
@@ -51,6 +51,7 @@ s.miniBoard = miniBoard;
 s.miniGame = miniGame;
 s.timeago = timeago;
 s.dateFormat = dateFormat;
+s.displayLocale = displayLocale;
 s.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
 s.blindMode = document.body.classList.contains('blind-mode');
 s.makeChat = data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });

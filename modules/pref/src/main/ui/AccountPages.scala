@@ -78,8 +78,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             form3.group(form("location"), trans.site.location(), half = true)(form3.input(_))
           ),
           form3.split(
-            form3.group(form("firstName"), trans.site.firstName(), half = true)(form3.input(_)),
-            form3.group(form("lastName"), trans.site.lastName(), half = true)(form3.input(_))
+            form3.group(form("realName"), trans.site.realName(), half = true)(form3.input(_))
           ),
           form3.split(
             List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map: rn =>

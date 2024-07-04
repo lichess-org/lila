@@ -58,5 +58,5 @@
   <string name="inappropriateContentAccountClosed">Cokoliv nevhodného může způsobit smazání vašeho účtu.</string>
   <string name="blogTips">Naše jednoduché rady, jak psát skvělé příspěvky do blogu</string>
   <string name="discussThisBlogPostInTheForum">Diskutujte o tomto příspěvku blogu ve fóru</string>
-  <string name="youBlockedByBlogAuthor">Jste zablokováni autorem blogu.</string>
+  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Jste zablokováni autorem blogu.</string>
 </resources>

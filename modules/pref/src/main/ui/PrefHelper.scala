@@ -24,7 +24,8 @@ trait PrefHelper:
     List(
       (Pref.Coords.NONE, trans.site.no.txt()),
       (Pref.Coords.INSIDE, trans.site.insideTheBoard.txt()),
-      (Pref.Coords.OUTSIDE, trans.site.outsideTheBoard.txt())
+      (Pref.Coords.OUTSIDE, trans.site.outsideTheBoard.txt()),
+      (Pref.Coords.ALL, trans.site.allSquaresOfTheBoard.txt())
     )
 
   def translatedMoveListWhilePlayingChoices(using Translate) =

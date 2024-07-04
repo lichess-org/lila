@@ -205,7 +205,7 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
         "form-fieldset--toggle"     -> toggle.isDefined,
         "form-fieldset--toggle-off" -> toggle.has(false)
       )
-    )(st.legend(legend))
+    )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
   private val dataTime24h    = attr("data-time_24h")
@@ -258,4 +258,4 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     def image(name: String): Frag =
       st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg, image/webp")
     def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-    def selectImage             = button(cls := "button select-image")("select image")
+    def selectImage             = button(cls := "button select-image", tpe := "button")("Select image")

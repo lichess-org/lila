@@ -47,6 +47,10 @@ export abstract class Pane {
     return this.info.type === 'group' || this.info.type === 'books'; // || this.info.type === 'moveSelector';
   }
 
+  get isDefined() {
+    return this.getProperty() !== undefined;
+  }
+
   get requirementsAllow(): boolean {
     return this.requires.every(r => this.host.editor.byId[r].enabled);
   }
@@ -60,7 +64,7 @@ export abstract class Pane {
   get enabled(): boolean {
     if (this.host.bot.disabled.has(this.id)) return false;
     const kids = this.children;
-    if (!kids.length) return this.getProperty() !== undefined;
+    if (!kids.length) return this.isDefined;
     return kids.every(x => x.enabled || !x.info.required);
   }
 
@@ -70,7 +74,7 @@ export abstract class Pane {
 
   update(_?: Event) {
     this.setProperty(this.paneValue);
-    this.setEnabled(this.getProperty() !== undefined);
+    this.setEnabled(this.isDefined);
     this.host.update();
   }
 

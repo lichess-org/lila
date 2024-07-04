@@ -68,7 +68,7 @@ $c-clearer: #fff;
   --c-metal-top-hover: #{hsl($site-hue, 7%, 25%)};
   --c-metal-bottom-hover: #{hsl($site-hue, 5%, 22%)};
 
-  --c-font-dim: #{change-color($c-font, $lightness: 55%)};
+  --c-font-dim: #{change-color($c-font, $lightness: 58%)};
   --c-font-dimmer: #{change-color($c-font, $lightness: 42%)};
   --c-font-clear: #{change-color($c-font, $lightness: 80%)};
   --c-font-clearer: #{change-color($c-font, $lightness: 89%)};

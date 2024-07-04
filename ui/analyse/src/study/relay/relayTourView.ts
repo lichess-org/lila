@@ -4,9 +4,9 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
-import { RelayGroup, RelayRound } from './interfaces';
+import { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
-import { defined } from 'common';
+import { defined, memoize } from 'common';
 import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
@@ -103,40 +103,85 @@ const leaderboard = (ctx: RelayViewContext) => [
   ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
 ];
 
-const overview = (ctx: RelayViewContext) => [
-  ...header(ctx),
-  ctx.relay.data.tour.markup
-    ? h('div.relay-tour__markup', {
-        hook: innerHTML(ctx.relay.data.tour.markup, () => ctx.relay.data.tour.markup!),
-      })
-    : h('div.relay-tour__markup', ctx.relay.data.tour.description),
-  h('div.relay-tour__share', [
-    h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
-    ...[
-      [ctx.relay.data.tour.name, ctx.relay.tourPath()],
-      [ctx.study.data.name, ctx.relay.roundPath()],
-      [
-        `${ctx.study.data.name} PGN`,
-        `${ctx.relay.roundPath()}.pgn`,
-        h('div.form-help', [
-          'A public, real-time PGN source for this round. We also offer a ',
-          h(
-            'a',
-            { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
-            'streaming API',
-          ),
-          ' for faster and more efficient synchronisation.',
+const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
+  const contents = [
+    ['dates', dates && showDates(dates), 'objects.calendar'],
+    ['format', i.format, 'objects.crown'],
+    ['tc', i.tc, 'objects.mantelpiece-clock'],
+    ['players', i.players, 'activity.sparkles'],
+  ]
+    .map(
+      ([key, value, icon]) =>
+        value &&
+        icon &&
+        h('div.relay-tour__info__' + key, [h('img', { attrs: { src: site.asset.flairSrc(icon) } }), value]),
+    )
+    .filter(defined);
+  return contents.length ? h('div.relay-tour__info', contents) : undefined;
+};
+
+const dateFormat = memoize(() =>
+  window.Intl && Intl.DateTimeFormat
+    ? new Intl.DateTimeFormat(site.displayLocale, {
+        month: 'short',
+        day: '2-digit',
+      } as any).format
+    : (d: Date) => d.toLocaleDateString(),
+);
+
+const showDates = (dates: RelayTourDates) => {
+  const rendered = dates.map(date => dateFormat()(new Date(date)));
+  if (rendered[1]) return `${rendered[0]} - ${rendered[1]}`;
+  return rendered[0];
+};
+
+const showSource = (data: RelayData) =>
+  data.lcc
+    ? h('div.relay-tour__source', [
+        'PGN source: ',
+        h('a', { attrs: { href: 'https://www.livechesscloud.com' } }, 'LiveChessCloud'),
+      ])
+    : undefined;
+
+const overview = (ctx: RelayViewContext) => {
+  const tour = ctx.relay.data.tour;
+  return [
+    ...header(ctx),
+    showInfo(tour.info, tour.dates),
+    tour.markup
+      ? h('div.relay-tour__markup', {
+          hook: innerHTML(tour.markup, () => tour.markup!),
+        })
+      : undefined,
+    showSource(ctx.relay.data),
+    h('div.relay-tour__share', [
+      h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
+      ...[
+        [tour.name, ctx.relay.tourPath()],
+        [ctx.study.data.name, ctx.relay.roundPath()],
+        [
+          `${ctx.study.data.name} PGN`,
+          `${ctx.relay.roundPath()}.pgn`,
+          h('div.form-help', [
+            'A public, real-time PGN source for this round. We also offer a ',
+            h(
+              'a',
+              { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+              'streaming API',
+            ),
+            ' for faster and more efficient synchronisation.',
+          ]),
+        ],
+      ].map(([i18n, path, help]: [string, string, VNode]) =>
+        h('div.form-group', [
+          h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
+          copyMeInput(`${baseUrl()}${path}`),
+          help,
         ]),
-      ],
-    ].map(([i18n, path, help]: [string, string, VNode]) =>
-      h('div.form-group', [
-        h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
-        copyMeInput(`${baseUrl()}${path}`),
-        help,
-      ]),
-    ),
-  ]),
-];
+      ),
+    ]),
+  ];
+};
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
   const toggle = relay.groupSelectShow;
@@ -228,6 +273,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
 const games = (ctx: RelayViewContext) => [
   ...header(ctx),
   ctx.study.chapters.list.looksNew() ? undefined : multiBoardView(ctx.study.multiBoard, ctx.study),
+  showSource(ctx.relay.data),
 ];
 
 const teams = (ctx: RelayViewContext) => [

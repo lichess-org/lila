@@ -51,7 +51,7 @@
   <string name="inputMovesWithVoice">Indica los movimientos con a tuya voz</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Flechas enta los movimientos validos</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Decir \"Buena partida, bien chugada\" en caso de redota u empaz</string>
-  <string name="yourPreferencesHaveBeenSaved">Las tuyas preferencias s\'han alzau.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Las tuyas preferencias s\'han alzau.</string>
   <string name="scrollOnTheBoardToReplayMoves">Fe servir la rodeta d\'o rate pa reproducir chugadas</string>
   <string name="correspondenceEmailNotification">Correu electronico diario de notificación con as tuyas partidas per correspondiencia</string>
   <string name="notifyStreamStart">Un presentador ye en vivo</string>

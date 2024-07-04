@@ -336,9 +336,6 @@
   <string name="safeTournamentName">Dewisia enw saff i\'r talwrn.</string>
   <string name="inappropriateNameWarning">Gall unrhywbeth amhriodol arwain at ddileu dy gyfrif.</string>
   <string name="emptyTournamentName">Gadewch yn wag i enwi\'r talwrn ar ol Uwchfeistr Rhyngwladol wedi ei ddewis ar hap.</string>
-  <string name="recommendNotTouching">Rydym yn awgrymu nad ydych yn cyffwrdd rhain.</string>
-  <string name="fewerPlayers">Bydd gosod telerau ymuno yn debyg o olygu llai o chwaraewyr yn y talwrn.</string>
-  <string name="showAdvancedSettings">Dangos gosodiadau cymleth</string>
   <string name="makePrivateTournament">Gwneud y talwrn yn breifat a cyfyngu mynediad gyda cyfrinair</string>
   <string name="join">Ymuno</string>
   <string name="withdraw">Ymddiswyddo</string>
@@ -375,8 +372,6 @@
   <string name="ifNoneLeaveEmpty">Os heb gradd, gadewch yn wag</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
-  <string name="firstName">Enw cyntaf</string>
-  <string name="lastName">Cyfenw</string>
   <string name="biography">Cofiant</string>
   <string name="thankYou">Diolch yn fawr!</string>
   <string name="socialMediaLinks">Dolenni cyfryngau cymdeithasol</string>
@@ -411,9 +406,7 @@
   <string name="reason">Rheswm</string>
   <string name="whatIsIheMatter">Beth sy\'n bod?</string>
   <string name="cheat">Twyll</string>
-  <string name="insult">Sarhad</string>
   <string name="troll">Trôl</string>
-  <string name="ratingManipulation">Twyllo sgôr</string>
   <string name="other">Arall</string>
   <string name="reportDescriptionHelp">Gluda ddolen i\'r gêm ac esbonio be sydd o\'i le am ymddigiad y defnyddiwr hwn. Paid â dweud jyst ´\"Mae o\'n twyllo\", ond dwed pam wyt ti\'n meddwl hynny. Bydd dy adrodd yn cael ei brosesu yn gyflymach os ysgrifenni yn Saesneg.</string>
   <string name="error.provideOneCheatedGameLink">Rhowch o leiaf un dolen at gem lle bu twyllo.</string>

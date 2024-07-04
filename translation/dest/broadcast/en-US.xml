@@ -43,12 +43,12 @@
   <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
   <string name="periodInSeconds">Period in seconds</string>
   <string name="periodInSecondsHelp">Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers.</string>
-  <string name="fideFederations">FIDE federations</string>
-  <string name="top10Rating">Top 10 rating</string>
-  <string name="fidePlayers">FIDE players</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE federations</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Top 10 rating</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE players</string>
   <string name="fidePlayerNotFound">FIDE player not found</string>
   <string name="fideProfile">FIDE profile</string>
-  <string name="federation">Federation</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federation</string>
   <string name="ageThisYear">Age this year</string>
   <string name="unrated">Unrated</string>
   <string name="recentTournaments">Recent tournaments</string>

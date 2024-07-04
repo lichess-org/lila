@@ -36,5 +36,5 @@
   <string name="castleByMovingTwoSquares">Şany 2 göçüm süýşüriň</string>
   <string name="castleByMovingOntoTheRook">Şany ruha tarap süýşüriň</string>
   <string name="inputMovesWithTheKeyboard">Göçümleri klawiatura bilen düz</string>
-  <string name="yourPreferencesHaveBeenSaved">Ileri tutmalaryňyz huşda saklandy.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Ileri tutmalaryňyz huşda saklandy.</string>
 </resources>

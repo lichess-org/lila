@@ -11,37 +11,37 @@ import { GameCtrl } from '../gameCtrl';
 import { Libot } from '../types';
 import { playerResults, playersWithResults } from './util';
 
-site.asset.loadCssPath('local.test');
+site.asset.loadCssPath('local.dev');
 
-interface TestContext {
-  testCtrl: DevCtrl;
+interface DevContext {
+  devCtrl: DevCtrl;
   botCtrl: BotCtrl;
   gameCtrl: GameCtrl;
 }
 
-function testContext(testCtrl: DevCtrl): TestContext {
+function devContext(devCtrl: DevCtrl): DevContext {
   return {
-    testCtrl,
-    botCtrl: testCtrl.botCtrl,
-    gameCtrl: testCtrl.gameCtrl,
+    devCtrl,
+    botCtrl: devCtrl.botCtrl,
+    gameCtrl: devCtrl.gameCtrl,
   };
 }
-export function renderDevView(testCtrl: DevCtrl): VNode {
-  const ctx = testContext(testCtrl);
+export function renderDevView(devCtrl: DevCtrl): VNode {
+  const ctx = devContext(devCtrl);
   return h('div.dev-side', [
     results(ctx),
     h('hr'),
-    h('div', player(ctx, co.opposite(testCtrl.bottomColor))),
+    h('div', player(ctx, co.opposite(devCtrl.bottomColor))),
     h('div.spacer'),
     fen(ctx),
-    testCtrl.script.type !== 'matchup' ? progress(ctx) : dashboard(ctx),
+    devCtrl.script.type !== 'matchup' ? progress(ctx) : dashboard(ctx),
     h('div.spacer'),
-    h('div', [player(ctx, testCtrl.bottomColor)]),
+    h('div', [player(ctx, devCtrl.bottomColor)]),
   ]);
 }
 
-function player(ctx: TestContext, color: Color): VNode {
-  const { testCtrl, botCtrl } = ctx;
+function player(ctx: DevContext, color: Color): VNode {
+  const { devCtrl, botCtrl } = ctx;
   const p = botCtrl[color];
   const imgUrl = botCtrl.imageUrl(p) ?? site.asset.url(`lifat/bots/images/${color}-torso.webp`);
   const isLight = document.documentElement.classList.contains('light');
@@ -66,7 +66,7 @@ function player(ctx: TestContext, color: Color): VNode {
             {
               hook: onInsert(el =>
                 el.addEventListener('click', () => {
-                  testCtrl.run({
+                  devCtrl.run({
                     type: 'rank',
                     players: [p.uid, ...botCtrl.rankBots.map(b => b.uid)],
                     time: '1+0',
@@ -80,37 +80,27 @@ function player(ctx: TestContext, color: Color): VNode {
     h('div.stats', [
       h('span.totals.strong', p?.name ? `${p.name} ${p.ratingText}` : `Player ${color}`),
       p instanceof ZerofishBot && h('span.totals', p.statsText),
-      h('span.totals', playerResults(testCtrl.script.results, botCtrl[color]?.uid)),
+      h('span.totals', playerResults(devCtrl.script.results, botCtrl[color]?.uid)),
     ]),
   ]);
 }
 
-function editBot({ testCtrl, botCtrl }: TestContext, color: Color) {
+function editBot({ devCtrl, botCtrl }: DevContext, color: Color) {
   const selected = botCtrl[color]?.uid;
   if (!selected) return;
-  new EditDialog(botCtrl, testCtrl.gameCtrl, color, (uid: string) => {
-    // if (selected !== botCtrl[color]?.uid) return;
-    // selected = uid;
-    // botCtrl[color] = botCtrl.bot(uid);
-    // testCtrl.gameCtrl.setup[color] = uid;
-    // testCtrl.reset(false);
-    //console.log('bot changed', color, uid, testCtrl.script, testCtrl.gameCtrl.setup);
-    testCtrl.redraw();
-  })
-    .show()
-    .then(testCtrl.redraw);
+  new EditDialog(botCtrl, devCtrl.gameCtrl, color, () => devCtrl.redraw()).show().then(devCtrl.redraw);
 }
 
-function dashboard(ctx: TestContext) {
-  const { testCtrl, botCtrl } = ctx;
+function dashboard(ctx: DevContext) {
+  const { devCtrl, botCtrl } = ctx;
   return h('div.dev-dashboard', [
     h('span', [
       h(`button.refresh.button.button-metal`, {
         hook: onInsert(el =>
           el.addEventListener('click', () => {
-            testCtrl.stop();
-            testCtrl.gameCtrl.resetToSetup();
-            testCtrl.gameCtrl.redraw();
+            devCtrl.stop();
+            devCtrl.gameCtrl.resetToSetup();
+            devCtrl.gameCtrl.redraw();
           }),
         ),
       }),
@@ -139,35 +129,35 @@ function dashboard(ctx: TestContext) {
   ]);
 }
 
-function progress(ctx: TestContext) {
-  const { testCtrl, botCtrl } = ctx;
+function progress(ctx: DevContext) {
+  const { devCtrl, botCtrl } = ctx;
   return h('div.dev-progress', [
     h('h3', [
-      testCtrl.script.type === 'rank'
+      devCtrl.script.type === 'rank'
         ? 'Ranking...'
-        : `Game ${testCtrl.script.results.length + 1} of ${testCtrl.script.games.length}`,
+        : `Game ${devCtrl.script.results.length + 1} of ${devCtrl.script.games.length}`,
       renderPlayPause(ctx),
       h(`button.button.reset.button-metal`, {
-        hook: onInsert(el => el.addEventListener('click', () => testCtrl.reset())),
+        hook: onInsert(el => el.addEventListener('click', () => devCtrl.reset())),
       }),
     ]),
     h(
       'div.results',
-      playersWithResults(testCtrl.script).map(p => {
+      playersWithResults(devCtrl.script).map(p => {
         const bot = botCtrl.bot(p)!;
-        return h('div', `${bot?.name ?? p} ${bot.ratingText} ${playerResults(testCtrl.script.results, p)}`);
+        return h('div', `${bot?.name ?? p} ${bot.ratingText} ${playerResults(devCtrl.script.results, p)}`);
       }),
     ),
   ]);
 }
 
-function renderPlayPause(ctx: TestContext): VNode {
-  const { testCtrl, gameCtrl } = ctx;
+function renderPlayPause(ctx: DevContext): VNode {
+  const { devCtrl, gameCtrl } = ctx;
   return h(
     `button.play-pause.button.button-metal${
       gameCtrl.isUserTurn
         ? '.play.disabled'
-        : testCtrl.testInProgress && !testCtrl.isStopped
+        : devCtrl.testInProgress && !devCtrl.isStopped
         ? '.pause'
         : '.play'
     }`,
@@ -175,22 +165,22 @@ function renderPlayPause(ctx: TestContext): VNode {
   );
 }
 
-function clickPlayPause({ testCtrl, gameCtrl }: TestContext) {
-  if (testCtrl.hasUser) gameCtrl.botMove();
-  if (!testCtrl.isStopped) testCtrl.stop();
+function clickPlayPause({ devCtrl, gameCtrl }: DevContext) {
+  if (devCtrl.hasUser) gameCtrl.botMove();
+  if (!devCtrl.isStopped) devCtrl.stop();
   else {
-    if (testCtrl.gameInProgress) testCtrl.run();
+    if (devCtrl.gameInProgress) devCtrl.run();
     else {
-      testCtrl.run(
-        { type: 'matchup', players: [testCtrl.white.uid, testCtrl.black.uid], time: '1+0' },
+      devCtrl.run(
+        { type: 'matchup', players: [devCtrl.white.uid, devCtrl.black.uid], time: '1+0' },
         parseInt($('.num-games').val() as string) || 1,
       );
     }
   }
-  testCtrl.gameCtrl.redraw();
+  devCtrl.gameCtrl.redraw();
 }
 
-function results(ctx: TestContext) {
+function results(ctx: DevContext) {
   return h('span', [
     h(
       'button.results-action.button-link',
@@ -205,7 +195,7 @@ function results(ctx: TestContext) {
   ]);
 }
 
-async function downloadResults(ctx: TestContext) {
+async function downloadResults(ctx: DevContext) {
   const results = [{}];
 
   const blob = new Blob([JSON.stringify(results)], { type: 'application/json' });
@@ -217,13 +207,13 @@ async function downloadResults(ctx: TestContext) {
   URL.revokeObjectURL(url);
 }
 
-function clearResults({ testCtrl }: TestContext) {
+function clearResults({ devCtrl }: DevContext) {
   if (!confirm('Clear all results?')) return;
-  //testCtrl.store.clear();
-  testCtrl.redraw();
+  //devCtrl.store.clear();
+  devCtrl.redraw();
 }
 
-function fen({ testCtrl, gameCtrl }: TestContext): VNode {
+function fen({ devCtrl, gameCtrl }: DevContext): VNode {
   return h('input.fen', {
     attrs: { value: gameCtrl.fen, spellcheck: 'false' },
     hook: bind('input', e => {
@@ -237,21 +227,21 @@ function fen({ testCtrl, gameCtrl }: TestContext): VNode {
       el.style.backgroundColor = '';
       if (fen) {
         gameCtrl.resetBoard(fen);
-        if (!testCtrl.isStopped && !gameCtrl.isUserTurn) gameCtrl.botMove();
-        testCtrl.redraw();
+        if (!devCtrl.isStopped && !gameCtrl.isUserTurn) gameCtrl.botMove();
+        devCtrl.redraw();
       }
     }),
-    props: { value: testCtrl.startingFen },
+    props: { value: devCtrl.startingFen },
   });
 }
 
-function roundRobin({ testCtrl, botCtrl }: TestContext) {
+function roundRobin({ devCtrl, botCtrl }: DevContext) {
   domDialog({
     class: 'tournament-dialog',
     htmlText: `<h2>Round robin</h2><h3>Select participants</h3>
     <ul>${[...Object.values(botCtrl.bots), ...botCtrl.rankBots]
       .map(p => {
-        const checked = storedBooleanProp(`local.test.tournament-${p.uid.slice(1)}`, true)();
+        const checked = storedBooleanProp(`local.dev.tournament-${p.uid.slice(1)}`, true)();
         return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
           p.uid
         }">
@@ -269,7 +259,7 @@ function roundRobin({ testCtrl, botCtrl }: TestContext) {
           if (participants.length < 2) return;
           const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
           const iterations = parseInt(iterationField.value);
-          testCtrl.run(
+          devCtrl.run(
             {
               type: 'roundRobin',
               players: participants,
@@ -285,7 +275,7 @@ function roundRobin({ testCtrl, botCtrl }: TestContext) {
         event: 'change',
         listener: (_, __, e) => {
           const el = e.target as HTMLInputElement;
-          storedBooleanProp(`local.test.tournament-${el.value.slice(1)}`, true)(el.checked);
+          storedBooleanProp(`local.dev.tournament-${el.value.slice(1)}`, true)(el.checked);
         },
       },
     ],

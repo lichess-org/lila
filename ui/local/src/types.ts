@@ -1,16 +1,17 @@
 import { RoundData } from 'round';
 import { Material } from 'chessops/setup';
 import type { Position, FishSearch } from 'zerofish';
-import { Point } from 'chart.js';
 import { CardData } from './handOfCards';
 import { GameState } from './gameCtrl';
 import { Chess } from 'chessops';
 
-export type { CardData, Point };
+export type { CardData };
 
 export interface Quirks {
   takebacks?: number; // 0 to 1 is the chance of asking for a takeback at mistake or below
 }
+
+export type Point = [number, number];
 
 export interface Mapping {
   //readonly type: string;
@@ -47,11 +48,8 @@ export interface BotInfo {
 
 export type BotInfos = { [id: string]: BotInfo };
 
-type Writable<T> = {
-  -readonly [P in keyof T]: T[P];
-};
-
-export interface Libot extends Writable<BotInfo> {
+export interface Libot extends BotInfo {
+  glicko?: { r: number; rd: number };
   readonly ratingText: string;
 
   move: (pos: Position, chess?: Chess) => Promise<Uci>;

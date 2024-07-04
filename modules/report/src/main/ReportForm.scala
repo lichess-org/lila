@@ -7,6 +7,7 @@ import play.api.data.validation.*
 import lila.core.config.NetDomain
 import lila.core.LightUser
 import lila.core.report.SuspectId
+import lila.common.Form.cleanNonEmptyText
 
 final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,
@@ -30,7 +31,7 @@ final private[report] class ReportForm(
           u => !UserId.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
-      "text"   -> text(minLength = 5, maxLength = 2000)
+      "text"   -> cleanNonEmptyText(minLength = 5)
     ) { (username, reason, text) =>
       ReportSetup(
         user = blockingFetchUser(username).err("Unknown username " + username),
@@ -39,12 +40,13 @@ final private[report] class ReportForm(
       )
     }(_.values.some)
       .verifying(cheatLinkConstraint)
+      .verifying(s"Maximum report length is 3000 characters", _.text.length <= 3000)
 
   val flag = Form:
     mapping(
       "username" -> lila.common.Form.username.historicalField,
       "resource" -> nonEmptyText,
-      "text"     -> text(minLength = 3, maxLength = 140)
+      "text"     -> text(minLength = 1, maxLength = 140)
     )(ReportFlag.apply)(unapply)
 
   private def blockingFetchUser(username: UserStr) =

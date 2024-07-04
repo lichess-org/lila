@@ -50,7 +50,7 @@ final class RelayUi(helpers: Helpers)(
       .graph(
         title = rt.fullName,
         url = s"$netBaseUrl${rt.path}",
-        description = shorten(rt.tour.description, 152)
+        description = shorten(rt.tour.info.toString, 152)
       ):
         main(cls := "analyse is-relay has-relay-tour")(
           div(cls := "box relay-tour")(

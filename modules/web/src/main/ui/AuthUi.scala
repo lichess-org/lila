@@ -197,8 +197,8 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
       Context
   )(using me: Me) =
     Page(s"${me.username} - ${trans.site.changePassword.txt()}")
-      .css("bits.form3")
-      .js(jsModuleInit("bits.passwordComplexity")):
+      .css("bits.auth")
+      .js(jsModuleInit("bits.login", "reset")):
         main(cls := "page-small box box-pad")(
           boxTop(
             (ok match

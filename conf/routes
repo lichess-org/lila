@@ -100,6 +100,7 @@ GET   /@/:username/:filterName         controllers.User.games(username: UserStr,
 GET   /@/:username                     controllers.User.show(username: UserStr)
 GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
+GET   /player/search/:term             controllers.User.search(term: String)
 GET   /player                          controllers.User.list
 GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: PerfKey)
 GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey: PerfKey)
@@ -608,6 +609,7 @@ GET   /forum/search                    controllers.ForumPost.search(text ?= "", 
 GET   /forum/:categId                  controllers.ForumCateg.show(categId: ForumCategId, page: Int ?= 1)
 GET   /forum/:categId/form             controllers.ForumTopic.form(categId: ForumCategId)
 POST  /forum/:categId/new              controllers.ForumTopic.create(categId: ForumCategId)
+GET   /forum/:categId/mod-feed         controllers.ForumCateg.modFeed(categId: ForumCategId, page: Int ?= 1)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: ForumTopicId)
 GET   /forum/:categId/:slug            controllers.ForumTopic.show(categId: ForumCategId, slug, page: Int ?= 1)
 POST  /forum/:categId/:slug/close      controllers.ForumTopic.close(categId: ForumCategId, slug)
@@ -730,6 +732,7 @@ GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create
 GET   /api/bulk-pairing/:id            controllers.BulkPairing.show(id)
 DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id)
+GET   /api/bulk-pairing/:id/games      controllers.BulkPairing.games(id)
 POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id)
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: UserStr)

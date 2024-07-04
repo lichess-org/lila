@@ -153,7 +153,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
                   text = s"$pid\n\n"
                 )
             case _ => form
-          views.report.form(filledForm, user)
+          views.report.ui.form(filledForm, user)
     }
   }
 
@@ -162,7 +162,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       err =>
         for
           user <- getUserStr("username").so(env.user.repo.byId)
-          page <- renderPage(views.report.form(err, user))
+          page <- renderPage(views.report.ui.form(err, user))
         yield BadRequest(page),
       data =>
         if me.is(data.user.id) then BadRequest("You cannot report yourself")

@@ -11,8 +11,13 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField($id(tour.id), "syncedAt", nowInstant).void
 
-  def setActive(tourId: RelayTourId, active: Boolean, live: Boolean): Funit =
-    coll.update.one($id(tourId), $set("active" -> active, "live" -> live)).void
+  def denormalize(
+      tourId: RelayTourId,
+      active: Boolean,
+      live: Boolean,
+      dates: Option[RelayTour.Dates]
+  ): Funit =
+    coll.update.one($id(tourId), $set("active" -> active, "live" -> live, "dates" -> dates)).void
 
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
 
