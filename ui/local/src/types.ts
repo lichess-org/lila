@@ -39,15 +39,10 @@ export type Book = { name: string; weight?: number };
 export interface BotInfo {
   readonly uid: string;
   readonly name: string;
+  readonly description: string;
   readonly image?: string;
   readonly sounds?: Sounds;
-  readonly books?: Book[];
-  readonly description: string;
   readonly glicko?: { r: number; rd: number };
-  readonly zero?: ZeroSearch;
-  readonly fish?: FishSearch;
-  readonly quirks?: Quirks;
-  readonly selectors?: Mappings;
 }
 
 export type BotInfos = { [id: string]: BotInfo };
@@ -57,17 +52,20 @@ type Writable<T> = {
 };
 
 export interface Libot extends Writable<BotInfo> {
-  readonly level?: number; // for rank bots
-  readonly isRankBot?: boolean;
   readonly ratingText: string;
-  readonly imageUrl: string;
-  readonly card?: CardData;
 
-  updateRating?: (opponent: { r: number; rd: number } | undefined, score: number) => void;
   move: (pos: Position, chess?: Chess) => Promise<Uci>;
 }
 
 export type Libots = { [id: string]: Libot };
+
+export interface ZerofishBotInfo extends BotInfo {
+  readonly books?: Book[];
+  readonly zero?: ZeroSearch;
+  readonly fish?: FishSearch;
+  readonly quirks?: Quirks;
+  readonly selectors?: Mappings;
+}
 
 export interface LocalPlayOpts {
   pref: any;

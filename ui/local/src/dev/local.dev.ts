@@ -16,7 +16,7 @@ export async function initModule(opts: LocalPlayOpts) {
   const botCtrl = await new BotCtrl(opts.assets).init();
   if (opts.setup) {
     if (!opts.setup.go) {
-      new SetupDialog(botCtrl.bots, opts.setup, true);
+      new SetupDialog(botCtrl, opts.setup, true);
       return;
     }
     botCtrl.setPlayer('white', opts.setup.white);

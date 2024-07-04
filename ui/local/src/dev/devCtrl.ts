@@ -127,8 +127,8 @@ export class DevCtrl implements Automator {
     this.script.results.push(last);
 
     const whiteRating = { r: this.white.glicko?.r ?? 1500, rd: this.white.glicko?.rd ?? 350 };
-    this.white.updateRating?.(this.black.glicko, u.score(outcome, 'white'));
-    this.black.updateRating?.(whiteRating, u.score(outcome, 'black'));
+    this.botCtrl.updateRating(this.white, this.black.glicko, u.score(outcome, 'white'));
+    this.botCtrl.updateRating(this.black, whiteRating, u.score(outcome, 'black'));
 
     if (this.script.type === 'rank')
       this.script.games.push(...rankBotMatchup(this.botCtrl.bot(this.script.players[0])!, last));

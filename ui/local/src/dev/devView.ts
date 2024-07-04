@@ -43,7 +43,7 @@ export function renderDevView(testCtrl: DevCtrl): VNode {
 function player(ctx: TestContext, color: Color): VNode {
   const { testCtrl, botCtrl } = ctx;
   const p = botCtrl[color];
-  const imgUrl = p?.imageUrl ?? site.asset.url(`lifat/bots/images/${color}-torso.webp`);
+  const imgUrl = botCtrl.imageUrl(p) ?? site.asset.url(`lifat/bots/images/${color}-torso.webp`);
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
@@ -52,7 +52,7 @@ function player(ctx: TestContext, color: Color): VNode {
   return h(`div.${color}.player`, [
     h('img', { attrs: { src: imgUrl, width: 120, height: 120 } }),
     p &&
-      !p?.isRankBot &&
+      !('level' in p) &&
       h('div.bot-actions', [
         p instanceof ZerofishBot &&
           h(
@@ -79,6 +79,7 @@ function player(ctx: TestContext, color: Color): VNode {
       ]),
     h('div.stats', [
       h('span.totals.strong', p?.name ? `${p.name} ${p.ratingText}` : `Player ${color}`),
+      p instanceof ZerofishBot && h('span.totals', p.statsText),
       h('span.totals', playerResults(testCtrl.script.results, botCtrl[color]?.uid)),
     ]),
   ]);
@@ -119,7 +120,7 @@ function dashboard(ctx: TestContext) {
           hook: onInsert(el =>
             el.addEventListener('click', () => {
               const setup = { white: botCtrl.white?.uid, black: botCtrl.black?.uid };
-              new SetupDialog(botCtrl.bots, setup);
+              new SetupDialog(botCtrl, setup);
             }),
           ),
         },
@@ -154,7 +155,7 @@ function progress(ctx: TestContext) {
       'div.results',
       playersWithResults(testCtrl.script).map(p => {
         const bot = botCtrl.bot(p)!;
-        return h('div', `${bot?.name ?? p} ${playerResults(testCtrl.script.results, p)} ${bot.ratingText}`);
+        return h('div', `${bot?.name ?? p} ${bot.ratingText} ${playerResults(testCtrl.script.results, p)}`);
       }),
     ),
   ]);

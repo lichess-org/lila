@@ -26,8 +26,9 @@ export default function (ctrl?: GameCtrl, side?: VNode): VNode {
 }
 
 function botView(ctrl: GameCtrl, bot: Libot): VNode {
+  const imageUrl = ctrl.botCtrl.imageUrl(bot);
   return h('div.fancy-bot', [
-    bot.imageUrl && h('img', { attrs: { src: bot.imageUrl } }),
+    imageUrl && h('img', { attrs: { src: imageUrl } }),
     h('div.overview', [h('h2', bot.name), h('p', bot.description)]),
   ]);
 }

@@ -2,17 +2,19 @@
 
 const BASE_CARD_SIZE = 192; // at ---scale-factor: 1
 
+type DomId = string; // must not contain any dom selector chars
+
 export interface CardData {
-  imageUrl: string;
+  imageUrl?: string;
   label: string;
-  domId: string;
+  domId: DomId;
 }
 
 export interface HandOwner {
   view: () => HTMLElement;
-  drops: () => { el: HTMLElement; selected?: string }[];
+  drops: () => { el: HTMLElement; selected?: DomId }[];
   cardData: () => Iterable<CardData>;
-  select: (drop: HTMLElement, domId?: string) => void;
+  select: (drop: HTMLElement, domId?: DomId) => void;
   deck?: () => HTMLElement;
   autoResize?: boolean;
 }
@@ -50,7 +52,7 @@ export class HandOfCards {
     return this.owner.select;
   }
   get selected() {
-    return this.drops.map(x => this.card(x.selected));
+    return this.drops.map(x => this.cards.find(y => y.id === x.selected));
   }
   get deck() {
     return this.owner.deck?.();
@@ -62,10 +64,10 @@ export class HandOfCards {
     return this.view.offsetWidth;
   }
 
-  card(id: string | undefined) {
+  /*card(id: string | undefined) {
     if (id?.startsWith('#')) id = id.slice(1);
     return this.cards.find(c => c.id === id);
-  }
+  }*/
 
   createCard(c: CardData) {
     const card = $as<HTMLElement>(`<div id="${c.domId}" class="card">
@@ -117,7 +119,7 @@ export class HandOfCards {
   }
 
   deckTransform(card: HTMLElement, i: number) {
-    const dindex = this.drops.findIndex(x => x.selected?.slice(1) === card.id);
+    const dindex = this.drops.findIndex(x => x.selected === card.id);
     if (dindex >= 0 || !this.deck) return false;
     const to = this.deck;
     const x = to.offsetLeft - card.offsetLeft + (to.offsetWidth - card.offsetWidth) / 2 + i;
@@ -137,7 +139,7 @@ export class HandOfCards {
   }
 
   selectedTransform(card: HTMLElement) {
-    const dindex = this.drops.findIndex(x => x.selected?.slice(1) === card.id);
+    const dindex = this.drops.findIndex(x => x.selected === card.id);
     card.classList.toggle('selected', dindex >= 0);
     if (dindex < 0) return false;
     const to = this.drops[dindex].el;

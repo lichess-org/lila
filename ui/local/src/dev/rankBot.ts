@@ -6,8 +6,7 @@ import { botScore } from './util';
 export class RankBot implements Libot {
   static readonly MAX_LEVEL = 30;
 
-  imageUrl = site.asset.url('lifat/bots/images/baby-robot.webp', { version: 'bot000' });
-  isRankBot = true;
+  image = 'baby-robot.webp';
 
   constructor(
     readonly zf: Zerofish,

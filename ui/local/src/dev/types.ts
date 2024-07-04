@@ -1,17 +1,22 @@
 import type { BotInfo, Mapping, Mappings, Book } from '../types';
 import type { Editor } from './editor';
 import type { Pane } from './pane';
-import type { ZerofishBotEditor } from '../zerofishBot';
+import type { ZerofishBot } from '../zerofishBot';
 
 export interface BotInfoReader extends BotInfo {
   readonly [key: string]: any;
+}
+
+export interface ZerofishBotEditor extends ZerofishBot {
+  [key: string]: any;
+  disabled: Set<string>;
 }
 
 export interface EditorHost {
   readonly view: HTMLElement;
   readonly editor: Editor;
   readonly bot: ZerofishBotEditor;
-  readonly botDefault: BotInfoReader;
+  readonly defaultBot: BotInfoReader;
   readonly cleanups: (() => void)[];
   update(): void;
 }

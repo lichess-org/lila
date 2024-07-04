@@ -7,7 +7,7 @@ import { sass, stopSass } from './sass';
 import { esbuild, stopEsbuild } from './esbuild';
 import { copies, stopCopies } from './copies';
 import { startMonitor, stopMonitor } from './monitor';
-import { initManifest } from './manifest';
+import { initManifest, writeManifest } from './manifest';
 import { clean } from './clean';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
@@ -51,6 +51,7 @@ export async function stop() {
 }
 
 export function postBuild() {
+  writeManifest();
   for (const mod of env.building) {
     mod.post.forEach((args: string[]) => {
       env.log(`[${c.grey(mod.name)}] exec - ${c.cyanBold(args.join(' '))}`);

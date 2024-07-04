@@ -87,7 +87,7 @@ export abstract class Pane {
       const prop =
         s === 'schema'
           ? getSchemaDefault(this.id)
-          : this.path.reduce((o, key) => o?.[key], s === 'bot' ? this.host.bot : this.host.botDefault);
+          : this.path.reduce((o, key) => o?.[key], s === 'bot' ? this.host.bot : this.host.defaultBot);
       if (prop !== undefined) return s === 'bot' ? prop : structuredClone(prop);
     }
     return undefined;

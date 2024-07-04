@@ -149,8 +149,9 @@ export class GameCtrl {
   }
 
   botMove = async () => {
-    if (!this.automator?.isStopped)
-      this.move(await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess));
+    if (this.automator?.isStopped) return;
+    const botMove = await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess);
+    if (!this.automator?.isStopped) this.move(botMove);
   };
 
   fifty(move?: co.Move) {

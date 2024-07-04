@@ -1,5 +1,5 @@
 import makeZerofish, { type Zerofish, type Position, type FishSearch } from 'zerofish';
-import { Libot, Libots, BotInfo, BotInfos } from './types';
+import { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo, CardData } from './types';
 import { AssetDb } from './assetDb';
 import { ZerofishBot, ZerofishBots } from './zerofishBot';
 import { RankBot } from './dev/rankBot';
@@ -15,7 +15,7 @@ export class BotCtrl {
   rankBots: RankBot[] = [];
   white?: Libot;
   black?: Libot;
-  store: ObjectStorage<Libot>;
+  store: ObjectStorage<BotInfo>;
   zf: Zerofish;
 
   constructor(assets?: { nets: string[]; images: string[]; books: string[] }) {
@@ -23,7 +23,7 @@ export class BotCtrl {
   }
 
   async init() {
-    [this.zf, this.bots] = await Promise.all([
+    [this.zf] = await Promise.all([
       makeZerofish({
         root: site.asset.url('npm', { documentOrigin: true }),
         wasm: site.asset.url('npm/zerofishEngine.wasm'),
@@ -38,9 +38,9 @@ export class BotCtrl {
     return this;
   }
 
-  async initLibots(): Promise<Libots> {
+  async initLibots() {
     await Promise.all([this.resetBots(), this.assetDb.ready]);
-    return this.bots;
+    return this;
   }
 
   async localJson(): Promise<string> {
@@ -85,13 +85,46 @@ export class BotCtrl {
     this.zf.reset();
   }
 
-  setBot(bot: ZerofishBot) {
+  updateBot(bot: ZerofishBot) {
     this.bots[bot.uid] = new ZerofishBot(bot, this);
-    this.store.put(bot.uid, bot);
+    this.saveBot(bot.uid);
   }
 
-  botDefault(uid: string = ''): BotInfo {
+  saveBot(uid: string) {
+    return this.store.put(uid, this.bots[uid]);
+  }
+
+  defaultBot(uid: string = ''): BotInfo {
     return uid in this.botDefaults ? structuredClone(this.botDefaults[uid]) : structuredClone(this.default);
+  }
+
+  updateRating(bot: Libot | undefined, opp: { r: number; rd: number } = { r: 1500, rd: 350 }, score: number) {
+    if (!bot || bot instanceof RankBot) return;
+    const q = Math.log(10) / 400;
+    bot.glicko ??= { r: 1500, rd: 350 };
+    const expected = 1 / (1 + 10 ** ((opp.r - bot.glicko.r) / 400));
+    const g = 1 / Math.sqrt(1 + (3 * q ** 2 * opp.rd ** 2) / Math.PI ** 2);
+    const dSquared = 1 / (q ** 2 * g ** 2 * expected * (1 - expected));
+    const deltaR = (q * g * (score - expected)) / (1 / dSquared + 1 / bot.glicko.rd ** 2);
+    bot.glicko = {
+      r: Math.round(bot.glicko.r + deltaR),
+      rd: Math.max(30, Math.sqrt(1 / (1 / bot.glicko.rd ** 2 + 1 / dSquared))),
+    };
+    this.saveBot(bot.uid);
+  }
+
+  imageUrl(bot: BotInfo | undefined) {
+    if (!bot?.image) return;
+    return this.assetDb.getImageUrl(bot.image);
+  }
+
+  card(bot: BotInfo | undefined) {
+    if (!bot) return;
+    return {
+      label: bot.name,
+      domId: uidToDomId(bot.uid)!,
+      imageUrl: this.imageUrl(bot),
+    };
   }
 
   private async resetBots() {
@@ -110,7 +143,7 @@ export class BotCtrl {
   private getLocalOverrides() {
     return (
       this.store?.getMany() ??
-      objectStorage<Libot>({ store: 'local.bots' }).then(s => {
+      objectStorage<BotInfo>({ store: 'local.bots' }).then(s => {
         this.store = s;
         return s.getMany();
       })
@@ -122,7 +155,7 @@ export class BotCtrl {
     return isNaN(index) ? undefined : this.rankBots[index];
   }
 
-  readonly default: BotInfo = {
+  readonly default: ZerofishBotInfo = {
     uid: '#default',
     name: 'Name',
     description: 'Description',
@@ -136,4 +169,12 @@ export class BotCtrl {
 
 export function botAssetUrl(name: string, version: string | false = 'bot000') {
   return site.asset.url(`lifat/bots/${name}`, { version });
+}
+
+export function uidToDomId(uid: string | undefined) {
+  return uid?.startsWith('#') ? `bot-id-${uid.slice(1)}` : undefined;
+}
+
+export function domIdToUid(domId: string | undefined) {
+  return domId && domId.length > 7 ? `#${domId.slice(7)}` : undefined;
 }

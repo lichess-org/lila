@@ -1,7 +1,7 @@
 import type { Libot, Mapping } from '../types';
-import type { BotInfoReader, EditorHost } from './types';
-import type { ZerofishBotEditor, ZerofishBots } from '../zerofishBot';
-import { BotCtrl } from '../botCtrl';
+import type { BotInfoReader, ZerofishBotEditor, EditorHost } from './types';
+import type { ZerofishBots } from '../zerofishBot';
+import { BotCtrl, domIdToUid, uidToDomId } from '../botCtrl';
 import { HandOfCards } from '../handOfCards';
 import { defined, escapeHtml, enumerableEquivalence } from 'common';
 import { GameCtrl } from '../gameCtrl';
@@ -28,16 +28,17 @@ export class EditDialog implements EditorHost {
     this.view = $as<HTMLElement>(`<div class="with-hand-of-cards">
         <div class="edit-bot"></div>
         <div class="deck"></div>
+        ${this.globalActionsHtml}
       </div>`);
     this.selectBot();
     this.hand = new HandOfCards({
       view: () => this.view,
-      drops: () => [{ el: this.view.querySelector('.player')!, selected: this.bot.uid }],
+      drops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.bot.uid) }],
       cardData: () =>
         Object.values(this.bots)
-          .map(b => b.card)
+          .map(b => botCtrl.card(b))
           .filter(defined),
-      select: (_: HTMLElement, cardId?: string) => this.selectBot(`#${cardId}`),
+      select: (_: HTMLElement, domId?: string) => this.selectBot(domIdToUid(domId)),
       deck: () => this.view.querySelector('.deck')!,
       autoResize: false,
     });
@@ -109,8 +110,8 @@ export class EditDialog implements EditorHost {
     return this.scratch[this.uid];
   }
 
-  get botDefault(): BotInfoReader {
-    return this.botCtrl.botDefault(this.uid);
+  get defaultBot(): BotInfoReader {
+    return this.botCtrl.defaultBot(this.uid);
   }
 
   apply() {
@@ -121,7 +122,7 @@ export class EditDialog implements EditorHost {
         .forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
     }
     this.bot.disabled.clear();
-    this.botCtrl.setBot(this.bot);
+    this.botCtrl.updateBot(this.bot);
     delete this.scratch[this.uid];
     this.selectBot();
   }
@@ -168,11 +169,13 @@ export class EditDialog implements EditorHost {
     alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // make a flash for this stuff
   };
 
-  clearRatings = (uids?: string[]) => {
-    const unrate: Libot[] = [];
-    if (uids) uids.forEach(uid => unrate.push(this.bots[uid], this.scratch[uid]));
-    else Object.values(this.bots).forEach(bot => unrate.push(bot));
-    unrate.filter(defined).forEach(bot => (bot.glicko = undefined));
+  clearRatings = (uids: string[] = Object.keys(this.bots)) => {
+    for (const uid of uids) {
+      if (this.scratch[uid]) this.scratch[uid].glicko = undefined;
+      if (!this.bots[uid].glicko) continue;
+      this.bots[uid].glicko = undefined;
+      this.botCtrl.saveBot(uid);
+    }
     this.selectBot();
     this.gameCtrl.redraw();
   };
@@ -209,20 +212,20 @@ export class EditDialog implements EditorHost {
     dlg.showModal();
   };
 
-  get globalActionsEl(): Node {
-    return $as<Node>(`<div class="global-actions">
+  get globalActionsHtml(): string {
+    return `<div class="global-actions">
         <button class="button button-empty button-dim bot-json-all">all json</button>
         <button class="button button-empty button-red bot-unrate-all">clear all ratings</button>
         <button class="button button-empty button-red bot-clear-all">revert all to server</button>
-      </div>`);
+      </div>`;
   }
 
   get botCardEl(): Node {
     const botCard = $as<Element>(`<div class="bot-card">
         <div class="player ${this.color}"><span>${this.uid}</span></div>
         <div class="bot-actions">
-          <button class="button button-empty button-red bot-clear-one">revert</button>
           <button class="button button-empty button-dim bot-json-one">json</button>
+          <button class="button button-empty button-red bot-clear-one">revert</button>
           <button class="button button-green bot-apply">apply</button>
         </div>
       </div>`);

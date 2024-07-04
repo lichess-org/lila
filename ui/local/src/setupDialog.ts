@@ -5,6 +5,7 @@ import { HandOfCards } from './handOfCards';
 import * as licon from 'common/licon';
 import { domDialog, Dialog } from 'common/dialog';
 import { defined } from 'common';
+import { domIdToUid, uidToDomId, BotCtrl } from './botCtrl';
 //import { ratingView } from './components/ratingView';
 
 export class SetupDialog {
@@ -13,12 +14,14 @@ export class SetupDialog {
   black: HTMLElement;
   setup: LocalSetup = {};
   hand: HandOfCards;
+  bots: Libots;
 
   constructor(
-    readonly bots: Libots,
+    readonly botCtrl: BotCtrl,
     setup: LocalSetup = {},
     readonly noClose = false,
   ) {
+    this.bots = botCtrl.bots;
     this.setup = { ...setup };
     const player = (color: 'white' | 'black') =>
       `<div class="player ${color}"><img class="remove" src="${site.asset.flairSrc(
@@ -37,13 +40,13 @@ export class SetupDialog {
     </div>`);
     this.white = this.view.querySelector('.white')!;
     this.black = this.view.querySelector('.black')!;
-    const cardData = [...Object.values(this.bots).map(b => b.card)].filter(defined);
+    const cardData = [...Object.values(this.bots).map(b => botCtrl.card(b))].filter(defined);
     //const drops = ;
     this.hand = new HandOfCards({
       view: () => this.view,
       drops: () => [
-        { el: this.white, selected: this.setup.white },
-        { el: this.black, selected: this.setup.black },
+        { el: this.white, selected: uidToDomId(this.setup.white) },
+        { el: this.black, selected: uidToDomId(this.setup.black) },
       ],
       cardData: () => cardData,
       select: this.dropSelect,
@@ -79,7 +82,8 @@ export class SetupDialog {
 
   dropSelect = (target: HTMLElement, domId?: string) => {
     const color = target.classList.contains('white') ? 'white' : 'black';
-    this.select(color, domId ? `#${domId}` : undefined);
+    console.log(domId, domIdToUid(domId));
+    this.select(color, domIdToUid(domId));
   };
 
   select(color: 'white' | 'black', selection?: string) {

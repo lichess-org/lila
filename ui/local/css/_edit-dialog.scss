@@ -1,12 +1,12 @@
-$chin-height: 66px;
-
 dialog .dialog-content {
   padding: 0;
   background-color: $c-bg-zebra;
   height: min-content;
   max-height: unset;
   max-width: min(1600px, 90vw);
+}
 
+.with-hand-of-cards {
   span {
     @extend %flex-center-nowrap;
     white-space: nowrap;
@@ -111,7 +111,7 @@ dialog .dialog-content {
       font-weight: bold;
       font-style: italic;
       padding: 0 4px;
-      color: $c-font-dimmer;
+      color: $c-font-dim;
     }
     textarea {
       text-align: center;
