@@ -143,4 +143,6 @@ export interface ForceSetupOptions {
   variant?: VariantKey;
   fen?: string;
   timeMode?: TimeMode;
+  time?: number;
+  increment?: number;
 }
