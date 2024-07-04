@@ -25,10 +25,9 @@ export async function initManifest() {
 }
 
 export async function writeManifest() {
-  if (current.dirty) {
-    clearTimeout(writeTimer);
-    writeTimer = setTimeout(write, 500);
-  }
+  if (!current.dirty) return;
+  clearTimeout(writeTimer);
+  writeTimer = setTimeout(write, 500);
 }
 
 export async function css() {
