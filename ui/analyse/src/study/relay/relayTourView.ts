@@ -105,7 +105,7 @@ const leaderboard = (ctx: RelayViewContext) => [
 
 const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
   const contents = [
-    ['dates', dates && showDates(dates), 'objects.calendar'],
+    ['dates', dates && showDates(dates), 'objects.spiral-calendar'],
     ['format', i.format, 'objects.crown'],
     ['tc', i.tc, 'objects.mantelpiece-clock'],
     ['players', i.players, 'activity.sparkles'],
