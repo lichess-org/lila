@@ -44,6 +44,10 @@ final class JsonView(
               .add("chapter" -> a.asTheme.flatMap(PuzzleTheme.studyChapterIds.get))
               .add("opening" -> a.opening.map: op =>
                 Json.obj("key" -> op.key, "name" -> op.name))
+              .add("openingAbstract" -> a.match
+                case op: PuzzleAngle.Opening => op.isAbstract
+                case _                       => false
+              )
         )
 
   def userJson(using me: Option[Me], perf: Perf) = me.map: me =>

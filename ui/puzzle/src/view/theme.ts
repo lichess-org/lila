@@ -39,7 +39,7 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
             ]),
         showEditor
           ? h('div.puzzle__themes', editor(ctrl))
-          : !data.replay && !ctrl.streak && angle.opening && renderColorForm(ctrl),
+          : !data.replay && !ctrl.streak && (angle.opening || angle.openingAbstract) && renderColorForm(ctrl),
       ]);
 }
 
