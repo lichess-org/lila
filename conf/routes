@@ -725,6 +725,7 @@ GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create
 GET   /api/bulk-pairing/:id            controllers.BulkPairing.show(id)
 DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id)
+GET   /api/bulk-pairing/:id/games      controllers.BulkPairing.games(id)
 POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id)
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: UserStr)
