@@ -83,7 +83,7 @@ object RelayTour:
   ):
     val all = List(format, tc, players).flatten
     export all.nonEmpty
-    override def toString = all.flatten.mkString(" | ")
+    override def toString = all.mkString(" | ")
 
   case class Dates(start: Instant, end: Option[Instant])
 
