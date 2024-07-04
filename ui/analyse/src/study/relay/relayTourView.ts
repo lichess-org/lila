@@ -105,7 +105,7 @@ const leaderboard = (ctx: RelayViewContext) => [
 
 const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
   const contents = [
-    ['dates', dates && showDates(dates), 'objects.calendar'],
+    ['dates', dates && showDates(dates), 'objects.spiral-calendar'],
     ['format', i.format, 'objects.crown'],
     ['tc', i.tc, 'objects.mantelpiece-clock'],
     ['players', i.players, 'activity.sparkles'],
@@ -131,8 +131,8 @@ const dateFormat = memoize(() =>
 
 const showDates = (dates: RelayTourDates) => {
   const rendered = dates.map(date => dateFormat()(new Date(date)));
-  if (rendered[1]) return `${rendered[0]} - ${rendered[1]}`;
-  return rendered[0];
+  // if the tournament only lasts one day, don't show the end date
+  return rendered[1] ? `${rendered[0]} - ${rendered[1]}` : rendered[0];
 };
 
 const showSource = (data: RelayData) =>
