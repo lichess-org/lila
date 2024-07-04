@@ -46,7 +46,7 @@ final private[report] class ReportForm(
     mapping(
       "username" -> lila.common.Form.username.historicalField,
       "resource" -> nonEmptyText,
-      "text"     -> text(minLength = 3, maxLength = 140)
+      "text"     -> text(minLength = 1, maxLength = 140)
     )(ReportFlag.apply)(unapply)
 
   private def blockingFetchUser(username: UserStr) =

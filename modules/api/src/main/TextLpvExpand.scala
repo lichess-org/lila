@@ -54,6 +54,7 @@ final class TextLpvExpand(
   def allPgnsFromText(text: String): Fu[Map[String, LpvEmbed]] =
     regex.blogPgnCandidatesRe
       .findAllMatchIn(text)
+      .take(20)
       .map(_.group(1))
       .map:
         case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(id -> _)
