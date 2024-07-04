@@ -132,8 +132,7 @@ const dateFormat = memoize(() =>
 const showDates = (dates: RelayTourDates) => {
   const rendered = dates.map(date => dateFormat()(new Date(date)));
   // if the tournament only lasts one day, don't show the end date
-  if (rendered[1] && rendered[0] != rendered[1]) return `${rendered[0]} - ${rendered[1]}`;
-  return rendered[0];
+  return rendered[1] ? `${rendered[0]} - ${rendered[1]}` : rendered[0];
 };
 
 const showSource = (data: RelayData) =>
