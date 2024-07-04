@@ -58,12 +58,11 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
 const onEndPlugin = {
   name: 'onEnd',
   setup(build: es.PluginBuild) {
-    build.onEnd((result: es.BuildResult) => {
+    build.onEnd(async (result: es.BuildResult) => {
       for (const err of result.errors) esbuildMessage(err, true);
       for (const warn of result.warnings) esbuildMessage(warn);
+      if (result.errors.length === 0) await jsManifest(result.metafile!);
       env.done(result.errors.length, 'esbuild');
-      if (result.errors.length) return;
-      jsManifest(result.metafile!);
     });
   },
 };
