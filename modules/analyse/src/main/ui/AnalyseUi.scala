@@ -47,7 +47,14 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
                   )(v.name)
                 }
               ),
-              pov.game.variant.standard.option(div(cls := "analyse__wiki"))
+              pov.game.variant.standard.option(
+                div(cls := "analyse__wiki empty")(
+                  fieldset(cls := "form-fieldset form-fieldset--toggle")(
+                    legend(tabindex := 0)("WikiBook"),
+                    div(cls := "analyse__wiki-text")
+                  )
+                )
+              )
             )
           ),
           div(cls := "analyse__board main-board")(chessgroundBoard),

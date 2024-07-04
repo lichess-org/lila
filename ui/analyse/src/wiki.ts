@@ -5,7 +5,8 @@ export type WikiTheory = (nodes: Tree.Node[]) => void;
 export default function wikiTheory(): WikiTheory {
   const cache = new Map<string, string>();
   const show = (html: string) => {
-    $('.analyse__wiki').html(html).toggleClass('empty', !html);
+    $('.analyse__wiki').toggleClass('empty', !html);
+    $('.analyse__wiki-text').html(html);
     site.pubsub.emit('chat.resize');
   };
 
@@ -13,7 +14,7 @@ export default function wikiTheory(): WikiTheory {
     `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
   const wikiBooksUrl = 'https://en.wikibooks.org';
-  const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
+  const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1000';
 
   const removeEmptyParagraph = (html: string) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
 
@@ -73,5 +74,5 @@ export default function wikiTheory(): WikiTheory {
 }
 
 export function wikiClear() {
-  $('.analyse__wiki').html('').toggleClass('empty', true);
+  $('.analyse__wiki').toggleClass('empty', true);
 }
