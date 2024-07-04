@@ -38,6 +38,7 @@ export async function css() {
   if (isEquivalent(newCssManifest, current.css)) return;
   current.css = shallowSort({ ...current.css, ...newCssManifest });
   current.dirty = true;
+  writeManifest();
 }
 
 export async function js(meta: es.Metafile) {
