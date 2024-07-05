@@ -240,8 +240,8 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             half = false
           )(field =>
             frag(
-                (!Granter.opt(_.Relay)).option(lccWarning), 
-                form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace")
+              (!Granter.opt(_.Relay)).option(lccWarning),
+              form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace")
             )
           )(cls := "relay-form__sync relay-form__sync-urls none"),
           form3.group(
