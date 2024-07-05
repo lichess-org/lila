@@ -201,7 +201,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
           div(cls := "relay-form__sync relay-form__sync-url")(
-            lccWarning.orElse(contactUsForOfficial),
+            (!Granter.opt(_.Relay)).option(lccWarning.orElse(contactUsForOfficial)),
             form3.group(
               form("syncUrl"),
               trb.sourceSingleUrl(),
@@ -239,7 +239,10 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             help = frag("The games will be combined in the order of the URLs.").some,
             half = false
           )(field =>
-            frag(lccWarning, form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace"))
+            frag(
+                (!Granter.opt(_.Relay)).option(lccWarning), 
+                form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace")
+            )
           )(cls := "relay-form__sync relay-form__sync-urls none"),
           form3.group(
             form("syncIds"),
