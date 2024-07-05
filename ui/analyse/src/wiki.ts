@@ -10,6 +10,23 @@ export default function wikiTheory(): WikiTheory {
     site.pubsub.emit('chat.resize');
   };
 
+  $(window).on('load', () => {
+    const wikiBookField = $('#wikibook-field').first();
+    const wikiBookStorageKey = 'anlayse.wikibooks.display';
+    const toggleWikiBookStorage = () => site.storage.boolean(wikiBookStorageKey).toggle();
+
+    if (!site.storage.boolean(wikiBookStorageKey).getOrDefault(true)) {
+      wikiBookField.addClass('form-fieldset--toggle-off');
+    } else {
+      site.storage.boolean(wikiBookStorageKey).set(true);
+    }
+
+    $(wikiBookField)
+      .children('legend')
+      .on('click', () => toggleWikiBookStorage())
+      .on('keypress', e => e.key == 'Enter' && toggleWikiBookStorage());
+  });
+
   const plyPrefix = (node: Tree.Node) =>
     `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
