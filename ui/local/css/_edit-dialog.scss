@@ -245,11 +245,12 @@ dialog .dialog-content {
       padding-inline-start: 0.5em;
     }
     .chart-wrapper {
-      border: $border;
+      border: 1px solid $c-border-light;
       position: relative;
       border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
       background: $c-paper;
       cursor: pointer;
+      padding: 1em 1em 0.5em 0.5em;
     }
     &.disabled .chart-wrapper {
       display: none;
@@ -268,7 +269,7 @@ dialog .dialog-content {
       user-select: none;
       color: $c-font;
       white-space: nowrap;
-      border: $border;
+      border: 1px solid $c-border-light;
       border-bottom: none;
       border-radius: $box-radius-size $box-radius-size 0 0;
       margin-inline-end: -1px;
@@ -279,6 +280,7 @@ dialog .dialog-content {
       &.active {
         background: $c-paper;
         margin-bottom: -1px;
+        padding-bottom: 1px;
         height: 33px;
         color: #555;
         cursor: default;

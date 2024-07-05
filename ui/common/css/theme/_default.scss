@@ -84,6 +84,7 @@ $c-clearer: #fff;
   --c-border: hsl(0, 0%, 25%);
   --c-border-page: hsl(0, 0%, 22%);
   --c-border-tour: #{mix(hsl(0, 0%, 22%), $c-bg-page, 50)};
+  --c-border-light: hsl(0, 0%, 40%);
   --c-primary: #{$c-primary};
   --c-primary-clear: #{_clear($c-primary)};
   --c-secondary: #{$c-secondary};

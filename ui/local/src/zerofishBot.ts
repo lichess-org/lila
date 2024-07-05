@@ -1,5 +1,5 @@
 import type { Zerofish, Line, SearchResult, FishSearch, Position } from 'zerofish';
-import { Libot, ZerofishBotInfo, CardData, ZeroSearch, Mapping } from './types';
+import { Libot, ZerofishBotInfo, CardData, ZeroSearch, Mapping, Mappings } from './types';
 import { PolyglotBook } from 'bits/types';
 import { clamp, deepFreeze } from 'common';
 import { BotCtrl, botAssetUrl, uidToDomId } from './botCtrl';
@@ -26,7 +26,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     Object.assign(this, info);
     Object.values(this.selectors ?? {}).forEach(normalize);
 
-    // these properties are not enumerable so that sparse copies of bots can be cloned
+    // non enumerable properties are not stored or cloned
     Object.defineProperty(this, 'ctrl', { value: ctrl });
     Object.defineProperty(this, 'openings', {
       get: () => Promise.all(this.books ? [...this.books.map(b => ctrl.assetDb.getBook(b.name))] : []),
@@ -38,7 +38,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     return this.ctrl.assetDb.getImageUrl(this.image);
   }
 
-  async openingMove(chess: co.Chess) {
+  async bookMove(chess: co.Chess) {
     if (!this.books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; bookWeight: number }[] = [];
     let bookChance = 0;
@@ -64,7 +64,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   }
 
   async move(pos: Position, chess: co.Chess) {
-    const opening = await this.openingMove(chess);
+    const opening = await this.bookMove(chess);
     if (opening) return opening;
     const [zeroResult, fishResult] = await Promise.all([
       this.zero &&
@@ -99,7 +99,8 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     zeroResult: SearchResult | undefined,
     fishResult: SearchResult | undefined,
   ): Uci {
-    const [f, z] = [fishResult as SearchResult, zeroResult as SearchResult];
+    return new SearchData(fishResult, zeroResult, this.selectors ?? {}, chess).bestMove;
+    /*const [f, z] = [fishResult as SearchResult, zeroResult as SearchResult];
     let head = z?.bestmove ?? f?.bestmove ?? '0000';
     const cp = score(f?.pvs[0]);
     const lastHead = head;
@@ -117,7 +118,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
       const val = interpolateValue(this.selectors.lc0, f, chess);
       if (val && z?.bestmove && Math.random() < val) head = z.bestmove;
     }
-    return head;
+    return head;*/
   }
 }
 
@@ -220,4 +221,87 @@ function weigh(material: co.Material | co.MaterialSide) {
     score += price * ('white' in material ? material.count(role) : material[role]);
   }
   return score;
+}
+
+type SearchMove = {
+  uci: Uci;
+  score?: number;
+  shallowScore?: number;
+  cpl?: number;
+  weights: {
+    acpl?: number;
+    lc0?: number;
+  };
+};
+
+class SearchData {
+  scored: SearchMove[] = [];
+  byMove: { [uci: string]: SearchMove } = {};
+  zmoves: string[] = [];
+  weights: number[] = [];
+  score: number;
+  constructor(
+    readonly fish: SearchResult | undefined,
+    readonly zero: SearchResult | undefined,
+    readonly mappings: Mappings,
+    readonly chess: co.Chess,
+  ) {
+    fish?.pvs.forEach(pv => {
+      const cp = score(pv);
+      this.score ??= cp;
+      const move = {
+        uci: pv.moves[0],
+        score: cp,
+        shallowScore: score(pv, 0),
+        cpl: Math.abs(this.score - cp),
+        weights: {},
+      };
+      this.byMove[pv.moves[0]] = move;
+      this.scored.push(move);
+    });
+    const lc0bias = zero
+      ? this.mappings.lc0Bias
+        ? interpolateValue(this.mappings.lc0Bias, zero, chess) ?? 0.5
+        : 1
+      : (0 as number);
+    zero?.pvs.forEach(pv => {
+      if (pv.moves.length === 0) return;
+      const uci = pv.moves[0];
+      this.zmoves.push(uci);
+      const lc0Weight = (lc0bias * (zero.pvs.length - this.zmoves.length + 1)) / zero.pvs.length;
+      (this.byMove[uci] ??= { uci, weights: {} }).weights.lc0 = lc0Weight;
+    });
+    this.score ??= 0;
+    this.applyAcpl();
+  }
+  applyAcpl() {
+    if (!this.mappings.acplMean) return; // this.scored;
+    const mean = this.interpolateValue(this.mappings.acplMean) ?? 0;
+    const stdev = this.interpolateValue(this.mappings.acplStdev) ?? 0;
+
+    const targetCpl = Math.max(mean + stdev * normal(), 0); // truncating distribution will skew mean
+    for (const mv of this.scored) {
+      // sigmoid with .06 sensitivity and offset 80
+      const distance = Math.abs((mv.cpl ?? 0) - targetCpl);
+      const offset = 80;
+      const sensitivity = 0.06;
+      mv.weights.acpl = distance === 0 ? 1 : 1 / (1 + Math.E ** (sensitivity * (distance - offset)));
+    }
+  }
+  interpolateValue(m: Mapping) {
+    return !m
+      ? undefined
+      : m.from === 'move'
+      ? interpolate(m, this.chess.fullmoves)
+      : m.from === 'score'
+      ? interpolate(m, outcomeExpectancy(this.score))
+      : undefined;
+  }
+  sortMoves = (a: SearchMove, b: SearchMove) => {
+    const wScore = (mv: SearchMove) => Object.values(mv.weights).reduce((acc, w) => acc * (w ?? 0), 1);
+    return wScore(b) - wScore(a);
+  };
+  get bestMove() {
+    return this.scored.sort(this.sortMoves)[0].uci;
+  }
 }

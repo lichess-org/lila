@@ -1,19 +1,20 @@
 import { Mapping, Point } from './types';
+import { Point as CjsPoint } from 'chart.js';
 
 const DOMAIN_CAP_DELTA = 10;
 
-export function addPoint(m: Mapping, add: Point) {
+export function addPoint(m: Mapping, add: Point): void {
   normalize(m);
-  const qX = quantize(add.x, m);
+  const qX = quantizeX(add[0], m);
   const data = m.data;
-  const i = data.findIndex(p => p.x >= qX);
+  const i = data.findIndex(p => p[0] >= qX);
   if (i >= 0) {
-    if (data[i].x === qX) data[i] = { x: qX, y: add.y };
-    else data.splice(i, 0, { x: qX, y: add.y });
-  } else data.push({ x: qX, y: add.y });
+    if (data[i][0] === qX) data[i] = [qX, add[1]];
+    else data.splice(i, 0, [qX, add[1]]);
+  } else data.push([qX, add[1]]);
 }
 
-export function asData(m: Mapping) {
+export function asData(m: Mapping): CjsPoint[] {
   const pts = m.data.slice();
   const xs = domain(m);
   const defaultVal = (m.range.max - m.range.min) / 2;
@@ -22,12 +23,12 @@ export function asData(m: Mapping) {
       { x: xs.min - DOMAIN_CAP_DELTA, y: defaultVal },
       { x: xs.max + DOMAIN_CAP_DELTA, y: defaultVal },
     ];
-  pts.unshift({ x: xs.min - DOMAIN_CAP_DELTA, y: pts[0].y });
-  pts.push({ x: xs.max + DOMAIN_CAP_DELTA, y: pts[pts.length - 1].y });
-  return pts;
+  pts.unshift([xs.min - DOMAIN_CAP_DELTA, pts[0][1]]);
+  pts.push([xs.max + DOMAIN_CAP_DELTA, pts[pts.length - 1][1]]);
+  return pts.map(p => ({ x: p[0], y: p[1] }));
 }
 
-export function quantize(x: number, m: Mapping) {
+export function quantizeX(x: number, m: Mapping): number {
   const qu = m.from === 'move' ? 1 : 0.01;
   return Math.round(x / qu) * qu;
 }
@@ -35,13 +36,13 @@ export function quantize(x: number, m: Mapping) {
 export function normalize(m: Mapping) {
   // TODO - not in place
   const newData = m.data.reduce((acc: Point[], p) => {
-    const x = quantize(p.x, m);
-    const i = acc.findIndex(q => q.x === x);
-    if (i >= 0) acc[i] = { x, y: p.y };
-    else acc.push({ x, y: p.y });
+    const x = quantizeX(p[0], m);
+    const i = acc.findIndex(q => q[0] === x);
+    if (i >= 0) acc[i] = [x, p[1]];
+    else acc.push([x, p[1]]);
     return acc;
   }, []);
-  newData.sort((a, b) => a.x - b.x);
+  newData.sort((a, b) => a[0] - b[0]);
   m.data = newData;
 }
 
@@ -49,16 +50,16 @@ export function interpolate(m: Mapping, x: number) {
   const to = m.data;
   // if (to.length === 0) return undefined; // TODO explicit default?
   if (to.length === 0) return (m.range.max + m.range.min) / 2;
-  if (to.length === 1) return to[0].y;
+  if (to.length === 1) return to[0][1];
   for (let i = 1; i < to.length - 1; i++) {
     const p1 = to[i];
     const p2 = to[i + 1];
-    if (p1.x <= x && x <= p2.x) {
-      const m = (p2.y - p1.y) / (p2.x - p1.x);
-      return p1.y + m * (x - p1.x);
+    if (p1[0] <= x && x <= p2[0]) {
+      const m = (p2[1] - p1[1]) / (p2[0] - p1[0]);
+      return p1[1] + m * (x - p1[0]);
     }
   }
-  return to[to.length - 1].y;
+  return to[to.length - 1][1];
 }
 
 export function domain(m: Mapping) {

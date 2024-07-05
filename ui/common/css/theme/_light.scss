@@ -56,6 +56,7 @@ html.light {
   --c-border: hsl(0, 0%, 85%);
   --c-border-page: hsl(0, 0%, 80%);
   --c-border-tour: #{mix(hsl(0, 0%, 80%), $c-bg-page, 50)};
+  --c-border-light: hsl(0, 0%, 80%);
 
   @include light-mix;
 }

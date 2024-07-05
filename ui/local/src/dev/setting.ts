@@ -29,9 +29,8 @@ export class Setting extends Pane {
     if (!this.enabledCheckbox) return;
     this.enabledCheckbox.classList.add('toggle');
     this.enabledCheckbox.checked = this.isDefined;
-    this.el.prepend(this.enabledCheckbox);
+    //this.el.prepend(this.enabledCheckbox);
     this.label?.prepend(this.enabledCheckbox);
-    //else this.el.prepend(this.enabledCheckbox as HTMLInputElement);
   }
 
   init() {
@@ -40,7 +39,6 @@ export class Setting extends Pane {
   }
 
   setEnabled(enabled = this.canEnable()) {
-    //this.el.classList.toggle('disabled', !enabled);
     if (!this.input && !this.enabledCheckbox) return;
 
     const { editor, view } = this.host;

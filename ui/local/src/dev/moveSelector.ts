@@ -6,8 +6,6 @@ import { addPoint, asData, domain } from '../mapping';
 import { alert } from 'common/dialog';
 import { clamp } from 'common';
 
-Chart.register(PointElement, LinearScale, /*Tooltip,*/ LineController, LineElement);
-
 export class MoveSelector extends Setting {
   info: MoveSelectorInfo;
   canvas: HTMLCanvasElement;
@@ -30,7 +28,6 @@ export class MoveSelector extends Setting {
         <div data-click="move" class="by${active === 'move' ? ' active' : ''}">by move</div>
         <div data-click="score" class="by${active === 'score' ? ' active' : ''}">by score</div>
       </div>`);
-    //if (this.label) by.prepend(this.label);
     return by;
   }
 
@@ -73,7 +70,7 @@ export class MoveSelector extends Setting {
         const chartX = this.chart.scales.x.getValueForPixel(e.clientX - rect.left);
         const chartY = this.chart.scales.y.getValueForPixel(e.clientY - rect.top);
         if (!chartX || !chartY) return;
-        addPoint(m, { x: clamp(chartX, domain(m)), y: clamp(chartY, m.range) });
+        addPoint(m, [clamp(chartX, domain(m)), clamp(chartY, m.range)]);
       }
       this.chart.data.datasets[0].data = asData(m);
       this.chart.update();
@@ -95,6 +92,8 @@ export class MoveSelector extends Setting {
           {
             data: asData(m),
             backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            pointRadius: 4,
+            pointHoverBackgroundColor: 'rgba(220, 105, 105, 0.6)',
           },
         ],
       },
@@ -103,21 +102,14 @@ export class MoveSelector extends Setting {
         responsive: true,
         maintainAspectRatio: false,
         animation: false,
-        layout: {
-          padding: {
-            left: 16,
-            right: 16,
-            top: 16,
-          },
-        },
         scales: {
           x: {
             type: 'linear',
-            //beginAtZero: true,
             min: domain(m).min,
             max: domain(m).max,
             title: {
               display: true,
+              color: '#555',
               text:
                 m.from === 'move'
                   ? 'full moves'
@@ -125,11 +117,11 @@ export class MoveSelector extends Setting {
             },
           },
           y: {
-            //beginAtZero: true,
             min: m.range.min,
             max: m.range.max,
             title: {
               display: true,
+              color: '#555',
               text: this.info.label,
             },
           },
@@ -138,3 +130,5 @@ export class MoveSelector extends Setting {
     });
   }
 }
+
+Chart.register(PointElement, LinearScale, /*readoutPlugin,*/ LineController, LineElement);
