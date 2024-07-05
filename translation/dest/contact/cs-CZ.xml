@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Za určitých okolností při hraní proti účtu bota hodnocená hra neudělí žádné body, pokud je zjištěno, že hráč zneužívá bota jen pro změnu hodnocení.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="reportErrorPage">Pokud jste narazili na chybovou stránku, můžete ji nahlásit:</string>
-  <string name="wantBroadcastTournament">Chci vysílat turnaj</string>
   <string name="learnHowToMakeBroadcasts">Naučte se vytvořit své vlastní vysílání na Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Můžete také kontaktovat vysílací tým o oficiálním vysílání.</string>
   <string name="banAppeal">Žádost o zákaz nebo IP omezení</string>
   <string name="engineAppeal">Ozčnačení za engine nebo podvádění</string>
   <string name="sendAppealTo">Můžete poslat odvolání na %s.</string>

@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Wanneer een speler tegen een bot-account speelt, worden onder bepaalde omstandigheden geen ratingpunten toegekend wanneer blijkt dat de speler de bot misbruikt om ratingpunten te winnen.</string>
   <string name="errorPage">Foutpagina</string>
   <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
-  <string name="wantBroadcastTournament">Ik wil een tornooi uitzenden</string>
   <string name="learnHowToMakeBroadcasts">Lees hoe je je eigen uitzendingen op Lichess maakt</string>
-  <string name="contactAboutOfficialBroadcasts">Je kunt ook het uitzendingsteam contacteren over officiële uitzendingen.</string>
   <string name="banAppeal">Vragen om een ban of IP beperking</string>
   <string name="engineAppeal">Schaakcomputer of valsspel markering</string>
   <string name="sendAppealTo">U kunt een verzoek sturen naar %s.</string>

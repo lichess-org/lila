@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Tam tikromis aplinkybėmis, jei nustatoma, kad žmogus išnaudoja robotą norėdamas gauti daugiau reitingo taškų, reitinguotas žaidimas prieš roboto paskyrą gali nesuteikti reitingo taškų.</string>
   <string name="errorPage">Klaidos puslapis</string>
   <string name="reportErrorPage">Jei susidūrėte su klaidos puslapiu galite apie jį pranešti:</string>
-  <string name="wantBroadcastTournament">Noriu transliuoti turnyrą</string>
   <string name="learnHowToMakeBroadcasts">Išmokite kurti savo transliacijas per Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Dėl oficialių transliacijų galite susisiekti su transliacijų komanda.</string>
   <string name="banAppeal">Apeliuoti blokavimą ar IP adreso apribojimą</string>
   <string name="engineAppeal">Variklio ar sukčiavimo žymė</string>
   <string name="sendAppealTo">Apeliaciją galite siųsti %s.</string>
