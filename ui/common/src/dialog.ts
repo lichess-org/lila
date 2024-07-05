@@ -22,7 +22,7 @@ export interface DialogOpts {
   htmlText?: string; // content, text will be used as-is
   cash?: Cash; // content, overrides htmlText, will be cloned and any 'none' class removed
   htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
-  append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default 'child'
+  append?: { node: HTMLElement; where?: string }[]; // if no where selector, appends to view
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   actions?: Action | Action[]; // if present, add listeners to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
@@ -133,33 +133,6 @@ export function snabDialog(o: SnabDialogOpts): VNode {
         ),
       ),
     ],
-  );
-}
-
-export async function alert(msg: string): Promise<void> {
-  await domDialog({
-    htmlText: msg,
-    class: 'alert',
-    show: 'modal',
-  });
-}
-
-export async function confirm(msg: string): Promise<boolean> {
-  return (
-    (
-      await domDialog({
-        htmlText: `<div>${msg}</div>
-      <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
-        class: 'alert',
-        noCloseButton: true,
-        noClickAway: true,
-        show: 'modal',
-        actions: [
-          { selector: '.yes', result: 'yes' },
-          { selector: '.no', result: 'no' },
-        ],
-      })
-    ).returnValue === 'yes'
   );
 }
 
