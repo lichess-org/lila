@@ -12,7 +12,7 @@ export default function wikiTheory(): WikiTheory {
 
   $(window).on('load', () => {
     const wikiBookField = $('#wikibook-field').first();
-    const wikiBookStorageKey = 'anlayse.wikibooks.display';
+    const wikiBookStorageKey = 'analyse.wikibooks.display';
     const toggleWikiBookStorage = () => site.storage.boolean(wikiBookStorageKey).toggle();
 
     if (!site.storage.boolean(wikiBookStorageKey).getOrDefault(true)) {
