@@ -198,10 +198,7 @@ class DialogWrapper implements Dialog {
 
     if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', cancelOnInterval));
     for (const app of o.append ?? []) {
-      const where = (app.where ? view.querySelector(app.where) : view)!;
-      if (app.how === 'before') where.before(app.node);
-      else if (app.how === 'after') where.after(app.node);
-      else where.appendChild(app.node);
+      (app.where ? view.querySelector(app.where) : view)?.appendChild(app.node);
     }
     this.actions();
   }
