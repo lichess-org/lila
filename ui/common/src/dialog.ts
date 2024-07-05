@@ -22,7 +22,7 @@ export interface DialogOpts {
   htmlText?: string; // content, text will be used as-is
   cash?: Cash; // content, overrides htmlText, will be cloned and any 'none' class removed
   htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
-  append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default 'child'
+  append?: { node: HTMLElement; where?: string }[]; // if no where selector, appends to view
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   actions?: Action | Action[]; // if present, add listeners to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
