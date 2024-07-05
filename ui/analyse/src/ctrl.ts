@@ -404,12 +404,11 @@ export default class AnalyseCtrl {
     !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
   jump(path: Tree.Path): void {
-    const pathChanged = path !== this.path,
-      isForwardStep = pathChanged && path.length == this.path.length + 2;
+    const pathChanged = path !== this.path;
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
-      if (isForwardStep) site.sound.move(this.node);
+      site.sound.move(this.node);
       this.threatMode(false);
       this.ceval?.stop();
       this.startCeval();
