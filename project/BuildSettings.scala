@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.5.0-RC1"
+  val globalScalaVersion = "3.5.0-RC3"
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
