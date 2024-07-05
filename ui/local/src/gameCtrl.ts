@@ -112,10 +112,13 @@ export class GameCtrl {
   }
 
   move(uci: Uci): boolean {
-    const bareMove = co.parseUci(uci) as co.NormalMove;
-    const move = { ...normalizeMove(this.chess, bareMove), promotion: bareMove.promotion };
-    uci = co.makeUci(move); // fix e1h1/e8h8 nonsense
-    this.moves.push(uci);
+    let move: co.NormalMove | undefined;
+    try {
+      const bareMove = co.parseUci(uci) as co.NormalMove;
+      move = { ...(normalizeMove(this.chess, bareMove) as co.NormalMove), promotion: bareMove.promotion };
+    } catch (e) {
+      console.log(`error parsing ${uci}`, e);
+    }
     if (!move || !this.chess.isLegal(move)) {
       this.gameOver(
         'error',
@@ -123,6 +126,8 @@ export class GameCtrl {
       );
       return false;
     }
+    uci = co.makeUci(move); // fix e1h1/e8h8 nonsense
+    this.moves.push(uci);
     const san = makeSanAndPlay(this.chess, move);
     this.fifty(move);
     this.updateThreefold();

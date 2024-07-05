@@ -154,7 +154,6 @@ function score(pv: Line, depth = pv.scores.length - 1) {
 }
 
 function outcomeExpectancy(cp: number) {
-  //console.log('outcome expectancy: ', 2 / (1 + 10 ** (-cp / 400)) - 1);
   return 2 / (1 + 10 ** (-cp / 400)) - 1; // [-1, 1]
 }
 
@@ -267,8 +266,9 @@ class SearchData {
     zero?.pvs.forEach(pv => {
       if (pv.moves.length === 0) return;
       const uci = pv.moves[0];
+      if (!uci) return;
+      const lc0Weight = (lc0bias * (zero.pvs.length - this.zmoves.length)) / zero.pvs.length;
       this.zmoves.push(uci);
-      const lc0Weight = (lc0bias * (zero.pvs.length - this.zmoves.length + 1)) / zero.pvs.length;
       (this.byMove[uci] ??= { uci, weights: {} }).weights.lc0 = lc0Weight;
     });
     this.score ??= 0;
@@ -298,10 +298,11 @@ class SearchData {
       : undefined;
   }
   sortMoves = (a: SearchMove, b: SearchMove) => {
-    const wScore = (mv: SearchMove) => Object.values(mv.weights).reduce((acc, w) => acc * (w ?? 0), 1);
+    const wScore = (mv: SearchMove) => Object.values(mv.weights).reduce((acc, w) => acc + (w ?? 0), 0);
     return wScore(b) - wScore(a);
   };
   get bestMove() {
+    console.log(this.scored.sort(this.sortMoves));
     return this.scored.sort(this.sortMoves)[0].uci;
   }
 }

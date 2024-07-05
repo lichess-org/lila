@@ -5,9 +5,6 @@
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
     "books": [
-      { "name": "gm2600.bin", "weight": 1 },
-      { "name": "komodo.bin", "weight": 1 },
-      { "name": "Book.bin", "weight": 1 },
       { "name": "codekiddy.bin", "weight": 1 },
       { "name": "Elo2400.bin", "weight": 1 },
       { "name": "final-book.bin", "weight": 1 },
@@ -35,7 +32,7 @@
     "description": "Nacho might try to cheese you.",
     "image": "nacho.webp",
     "books": [
-      { "name": "gm2600.bin", "weight": 1 },
+      { "name": "varied.bin", "weight": 1 },
       { "name": "komodo.bin", "weight": 1 }
     ],
     "zero": { "multipv": 1, "net": "maia-1300.pb" }
@@ -47,7 +44,7 @@
     "image": "marco.webp",
     "books": [
       { "name": "gm2600.bin", "weight": 1 },
-      { "name": "komodo.bin", "weight": 1 }
+      { "name": "Performance.bin", "weight": 1 }
     ],
     "zero": { "multipv": 1, "net": "maia-1400.pb" }
   },
@@ -57,8 +54,8 @@
     "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
     "image": "ghost.webp",
     "books": [
-      { "name": "gm2600.bin", "weight": 1 },
-      { "name": "komodo.bin", "weight": 1 }
+      { "name": "final-book.bin", "weight": 1 },
+      { "name": "KomodoVariety.bin", "weight": 1 }
     ],
     "zero": { "multipv": 1, "net": "maia-1500.pb" }
   },
