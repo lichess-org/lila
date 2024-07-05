@@ -471,6 +471,7 @@
   <string name="ifNoneLeaveEmpty">없으면 무시하세요</string>
   <string name="profile">프로필</string>
   <string name="editProfile">프로필 수정</string>
+  <string name="realName">본명</string>
   <string name="biography">소개</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가/지역</string>
   <string name="thankYou">감사합니다!</string>

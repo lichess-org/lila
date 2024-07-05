@@ -41,6 +41,9 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
       .map:
         _.filter(_.userId.is(me) || Granter(_.TitleRequest))
 
+  def allOf(u: User): Fu[List[TitleRequest]] =
+    coll.list[TitleRequest]($doc("userId" -> u.id))
+
   def findSimilar(req: TitleRequest): Fu[List[TitleRequest]] =
     val search = List(
       ("data.realName" -> BSONString(req.data.realName)).some,

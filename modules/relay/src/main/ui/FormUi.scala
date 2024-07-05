@@ -176,7 +176,6 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             ),
             p(trans.contact.sendEmailAt("broadcast@lichess.org"))
           )
-        .pp
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(

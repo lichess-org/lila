@@ -131,6 +131,8 @@ export function boot() {
 
     serviceWorker();
 
+    console.info('Lichess is open source! See https://lichess.org/source');
+
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {
       site.unload.expected = true;

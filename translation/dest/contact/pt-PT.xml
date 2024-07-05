@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Em certas circunstâncias, ao jogar contra uma conta bot, uma partida a valer pontos pode não premiar pontos se for determinado que o jogador está abusando do bot para ganhar pontos.</string>
   <string name="errorPage">Página de erro</string>
   <string name="reportErrorPage">Se encontras uma página de erro, podes reportá-lo:</string>
-  <string name="wantBroadcastTournament">Eu quero transmitir um torneio</string>
   <string name="learnHowToMakeBroadcasts">Aprenda a fazer as suas próprias transmissões no Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Também pode entrar em contato com a equipa de transmissão sobre transmissões oficiais.</string>
   <string name="banAppeal">Apelar a um banimento ou restrição de IP</string>
   <string name="engineAppeal">Marcado por fazer batota ou usar a ajuda do computador</string>
   <string name="sendAppealTo">Podes enviar um apelo para %s.</string>

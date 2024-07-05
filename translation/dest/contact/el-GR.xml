@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Σε ορισμένες περιπτώσεις, παίζοντας εναντίον ενός λογαριασμού-υπολογιστή ένα βαθμολογημένο παιχνίδι μπορεί να μην αποφέρει πόντους βαθμολογίας εάν ο παίκτης κάνει κατάχρηση αυτού.</string>
   <string name="errorPage">Σελίδα σφάλματος</string>
   <string name="reportErrorPage">Αν εμφανίστηκε σελίδα σφάλματος, μπορείτε να το αναφέρετε:</string>
-  <string name="wantBroadcastTournament">Θέλω να αναμεταδώσω ένα γεγονός</string>
   <string name="learnHowToMakeBroadcasts">Μάθετε πώς να κάνετε τις δικές σας μεταδόσεις στο Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Μπορείτε επίσης να επικοινωνήσετε με την ομάδα μετάδοσης για επίσημες μεταδόσεις.</string>
   <string name="banAppeal">Θέλω να αποσυρθεί ο περιορισμός/αποκλεισμός της διεύθυνσης IP μου</string>
   <string name="engineAppeal">Μηχανή ή απάτη</string>
   <string name="sendAppealTo">Μπορείτε να ασκήσετε ένσταση στο %s.</string>

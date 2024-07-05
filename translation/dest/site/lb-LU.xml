@@ -505,6 +505,7 @@
   <string name="ifNoneLeaveEmpty">Eidel loossen, falls keng</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil änneren</string>
+  <string name="realName">Richtegen Numm</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Regioun</string>
   <string name="thankYou">Merci!</string>
@@ -583,6 +584,7 @@
   <string name="slow">Lues</string>
   <string name="insideTheBoard">Um Briet</string>
   <string name="outsideTheBoard">Außerhalb vum Briet</string>
+  <string name="allSquaresOfTheBoard">All d\'Felder um Briet</string>
   <string name="onSlowGames">An luesen Partien</string>
   <string name="always">Ëmmer</string>
   <string name="never">Ni</string>

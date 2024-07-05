@@ -128,7 +128,8 @@ final class RelayApi(
           for
             start <- doc.getAsOpt[Instant]("start")
             end   <- doc.getAsOpt[Instant]("end")
-            endMaybe = Option.when(end != start)(end)
+            singleDay = end.isBefore(start.plusDays(1))
+            endMaybe  = Option.when(!singleDay)(end)
           yield RelayTour.Dates(start, endMaybe)
 
   object countOwnedByUser:
