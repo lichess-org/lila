@@ -8,11 +8,6 @@ site.load.then(() => {
   $variant.on('change', showPosition);
   showPosition();
 
-  $('form .conditions a.show').on('click', function (this: HTMLAnchorElement) {
-    $(this).remove();
-    $('form .conditions').addClass('visible');
-  });
-
   $('.flatpickr').each(function (this: HTMLInputElement) {
     flatpickr(this, {
       minDate: 'today',

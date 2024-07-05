@@ -132,11 +132,11 @@ final class ForumPostApi(
               react(categId, postId, reaction.key, false)
     }
 
-  def views(posts: List[ForumPost]): Fu[List[PostView]] =
+  def views(posts: Seq[ForumPost]): Fu[List[PostView]] =
     for
       topics <- topicRepo.coll.byIds[ForumTopic, ForumTopicId](posts.map(_.topicId).distinct)
       categs <- categRepo.coll.byIds[ForumCateg, ForumCategId](topics.map(_.categId).distinct)
-    yield posts.flatMap: post =>
+    yield posts.toList.flatMap: post =>
       for
         topic <- topics.find(_.id == post.topicId)
         categ <- categs.find(_.id == topic.categId)

@@ -22,6 +22,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
     check: opts.check,
     lastMove: opts.lastMove,
     coordinates: ctrl.pref.coords !== Prefs.Coords.Hidden,
+    coordinatesOnSquares: ctrl.pref.coords === Prefs.Coords.All,
     addPieceZIndex: ctrl.pref.is3d,
     addDimensionsCssVarsTo: document.body,
     movable: {

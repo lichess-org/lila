@@ -9,12 +9,12 @@ import { allSources } from './sass';
 
 type Manifest = { [key: string]: { hash?: string; imports?: string[] } };
 
-const current: { js: Manifest; css: Manifest } = { js: {}, css: {} };
+const current: { js: Manifest; css: Manifest; dirty: boolean } = { js: {}, css: {}, dirty: false };
 let writeTimer: NodeJS.Timeout;
 
 export async function initManifest() {
   if (env.building.length === env.modules.size) return;
-  // we're building a subset of modules. if possible reuse the previously built full manifest to give us
+  // we're building a subset of modules. reuse the previousl full manifest for
   // a shot at changes viewable in the browser, otherwise punt.
   if (!fs.existsSync(env.manifestFile)) return;
   if (Object.keys(current.js).length && Object.keys(current.css).length) return;
@@ -24,15 +24,21 @@ export async function initManifest() {
   current.css = manifest.css;
 }
 
+export async function writeManifest() {
+  if (!current.dirty) return;
+  clearTimeout(writeTimer);
+  writeTimer = setTimeout(write, 500);
+}
+
 export async function css() {
   const files = await globArray(path.join(env.cssTempDir, '*.css'), { abs: true });
   const css: { name: string; hash: string }[] = await Promise.all(files.map(hashMove));
   const newCssManifest: Manifest = {};
   for (const { name, hash } of css) newCssManifest[name] = { hash };
-  if (enumerableEquivalence(newCssManifest, current.css)) return;
+  if (isEquivalent(newCssManifest, current.css)) return;
   current.css = shallowSort({ ...current.css, ...newCssManifest });
-  clearTimeout(writeTimer);
-  writeTimer = setTimeout(write, 500);
+  current.dirty = true;
+  writeManifest();
 }
 
 export async function js(meta: es.Metafile) {
@@ -53,10 +59,9 @@ export async function js(meta: es.Metafile) {
     }
     newJsManifest[out.name].imports = imports;
   }
-  if (enumerableEquivalence(newJsManifest, current.js) && fs.existsSync(env.manifestFile)) return;
+  if (isEquivalent(newJsManifest, current.js) && fs.existsSync(env.manifestFile)) return;
   current.js = shallowSort({ ...current.js, ...newJsManifest });
-  clearTimeout(writeTimer);
-  writeTimer = setTimeout(write, 500);
+  current.dirty = true;
 }
 
 async function write() {
@@ -98,6 +103,7 @@ async function write() {
       JSON.stringify(serverManifest, null, env.prod ? undefined : 2),
     ),
   ]);
+  current.dirty = false;
   env.log(`Manifest hash ${c.green(hash)}`);
 }
 
@@ -142,20 +148,16 @@ function parsePath(path: string) {
   return match ? { name: match[1], hash: match[2] } : undefined;
 }
 
-function enumerableEquivalence(a: any, b: any): boolean {
+function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
   if (Array.isArray(a))
-    return (
-      Array.isArray(b) &&
-      a.length === b.length &&
-      a.every(x => b.find((y: any) => enumerableEquivalence(x, y)))
-    );
+    return Array.isArray(b) && a.length === b.length && a.every(x => b.find((y: any) => isEquivalent(x, y)));
   if (typeof a !== 'object') return false;
   const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
   if (aKeys.length !== bKeys.length) return false;
   for (const key of aKeys) {
-    if (!bKeys.includes(key) || !enumerableEquivalence(a[key], b[key])) return false;
+    if (!bKeys.includes(key) || !isEquivalent(a[key], b[key])) return false;
   }
   return true;
 }

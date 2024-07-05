@@ -79,8 +79,8 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Όλοι οι μέσοι όροι σε αυτή τη σελίδα είναι %s.</string>
   <string name="total">Σύνολο</string>
   <string name="pointsAvg">Μέσος όρος πόντων</string>
-  <string name="pointsSum">Σύνολο πόντων</string>
-  <string name="rankAvg">Μέσος όρος κατάταξης</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Σύνολο πόντων</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Μέσος όρος κατάταξης</string>
   <string name="tournamentWinners">Νικητές πρωταθλήματος</string>
   <string name="tournamentShields">Πρωταθλήματα Ασπίδας</string>
   <string name="onlyTitled">Μόνο τιτλούχοι παίκτες</string>

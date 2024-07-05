@@ -7,14 +7,14 @@
   <string name="prizeBanned">Llogarisë tuaj i është ndaluar të marrë pjesë në turne me çmime të njëmendta.</string>
   <string name="boosterMarked">Llogarisë tuaj i është vënë shenjë për manipulim vlerësimi.</string>
   <string name="boosterMarkedInfo">Këtë e përkufizojmë si manipulim me vetëdije i vlerësimit, duke humbur lojëra, ose duke luajtur kudnër një llogarije tjetër që po humb me vetëdije lojëra.</string>
-  <string name="accountMuted">Llogaria juaj është heshtuar.</string>
-  <string name="accountMutedInfo">Lexoni %s tonë. Mosndjekja e udhëzimeve tona për komunikimin mund të sjellë heshtimin e llogarisë.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Llogaria juaj është heshtuar.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Lexoni %s tonë. Mosndjekja e udhëzimeve tona për komunikimin mund të sjellë heshtimin e llogarisë.</string>
   <string name="excludedFromLeaderboards">Llogaria juaj është përjashtuar nga tabelat.</string>
   <string name="excludedFromLeaderboardsInfo">Këtë e pkufizojmë si përdorim të çfarëdo rrute të padrejtë për të hyrë te tabela.</string>
   <string name="closedByModerators">Llogaria juaj u mbyll nga moderatorë.</string>
   <string name="hiddenBlog">Blogjet tuaja janë fshehur nga moderatorë.</string>
   <string name="hiddenBlogInfo">Sigurohuni se lexoni edhe një herë %s tona.</string>
-  <string name="playTimeout">Keni një mbarim kohe lëvizjeje.</string>
-  <string name="communicationGuidelines">udhëzime komunikimi</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Keni një mbarim kohe lëvizjeje.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">udhëzime komunikimi</string>
   <string name="blogRules">rregulla blogjesh</string>
 </resources>

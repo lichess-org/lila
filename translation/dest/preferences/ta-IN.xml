@@ -8,5 +8,5 @@
   <string name="showPlayerRatings">ஆட்டக்காரரின் மதிப்பீட்டைக் காட்டு</string>
   <string name="chessClock">செஸ் கடிகாரம்</string>
   <string name="giveMoreTime">கூடுதல் நேரம் வழங்கு</string>
-  <string name="yourPreferencesHaveBeenSaved">உங்கள் விருப்பங்களை சேமிக்கப்பட்டுள்ளது.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">உங்கள் விருப்பங்களை சேமிக்கப்பட்டுள்ளது.</string>
 </resources>

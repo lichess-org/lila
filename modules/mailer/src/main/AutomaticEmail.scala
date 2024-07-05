@@ -46,16 +46,15 @@ The Lichess team"""
       import lila.core.i18n.I18nKey
       s"""${I18nKey.onboarding.welcome.txt()}\n${I18nKey.site.lichessPatronInfo.txt()}"""
 
-  def onTitleSet(username: UserStr, title: chess.PlayerTitle, public: Boolean): Funit = {
+  def onTitleSet(username: UserStr, title: chess.PlayerTitle): Funit = {
     for
       user        <- userApi.byId(username).orFail(s"No such user $username")
       emailOption <- userApi.email(user.id)
       body = alsoSendAsPrivateMessage(user): _ =>
-        val visible = public.so(s"""It is now visible on your profile page: $baseUrl/@/${user.username}.""")
         s"""Hello,
 
 Thank you for confirming your $title title on Lichess.
-$visible
+It is now visible on your profile page: $baseUrl/@/${user.username}.
 
 $regards
 """

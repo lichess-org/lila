@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Кейде роботқа қарсы бағалы ойындарда ұпай берілмеуі мүмкін. Мысалы, ойыншы өз ұпайларын өсіру мақсатында роботты асыра пайдаланғанда.</string>
   <string name="errorPage">Ақаулық парақшасы</string>
   <string name="reportErrorPage">Ақаулық парақшасына тап болсаңыз, осында хабарлауыңызға болады:</string>
-  <string name="wantBroadcastTournament">Мен жарысты таратқым келеді</string>
   <string name="learnHowToMakeBroadcasts">Личестегі өз көрсетіліміңізді қалай таратуға болатынын меңгеріп алыңыз</string>
-  <string name="contactAboutOfficialBroadcasts">Сонымен қатар ресми тарату мәселесін тарату тобымен талқыласаңыз болады.</string>
   <string name="banAppeal">Шектеуге не IP шектеуге қарсылық шағымы</string>
   <string name="engineAppeal">Есептеуіш не чит қолданды</string>
   <string name="sendAppealTo">Сіз өтінішті %s жібере аласыз.</string>

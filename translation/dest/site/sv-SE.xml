@@ -464,9 +464,6 @@
   <string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
   <string name="inappropriateNameWarning">Någonting, om än bara lite, olämpligt skulle kunna få ditt konto att stängas.</string>
   <string name="emptyTournamentName">Lämna tom för att namnge turneringen efter en slumpmässig stormästare.</string>
-  <string name="recommendNotTouching">Vi rekommenderar att inte röra dessa.</string>
-  <string name="fewerPlayers">Om du anger inträdesvillkor kommer din turnering att ha färre spelare.</string>
-  <string name="showAdvancedSettings">Visa avancerade inställningar</string>
   <string name="makePrivateTournament">Gör turneringen privat, och begränsa åtkomst med ett lösenord</string>
   <string name="join">Delta</string>
   <string name="withdraw">Lämna</string>
@@ -506,8 +503,7 @@
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
-  <string name="firstName">Förnamn</string>
-  <string name="lastName">Efternamn</string>
+  <string name="realName">Verkligt namn</string>
   <string name="setFlair">Ställ in din flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarflairs över hela webbplatsen.</string>
@@ -554,9 +550,7 @@
   <string name="reason">Anledning</string>
   <string name="whatIsIheMatter">Vad är problemet?</string>
   <string name="cheat">Fusk</string>
-  <string name="insult">Förolämpning</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation av rating</string>
   <string name="other">Annat</string>
   <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>

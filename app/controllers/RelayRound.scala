@@ -122,9 +122,12 @@ final class RelayRound(
       Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
         studyC.CanView(study)(
           for
-            group    <- env.relay.api.withTours.get(rt.tour.id)
-            previews <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
-          yield JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group))
+            group       <- env.relay.api.withTours.get(rt.tour.id)
+            previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
+            targetRound <- env.relay.api.officialTarget(rt.round)
+          yield JsonOk(
+            env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound)
+          )
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:

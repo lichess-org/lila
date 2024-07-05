@@ -76,6 +76,17 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
+      const minutesPerSide = urlParams.get('minutesPerSide');
+      const increment = urlParams.get('increment');
+
+      if (minutesPerSide) {
+        forceOptions.time = parseInt(minutesPerSide);
+      }
+
+      if (increment) {
+        forceOptions.increment = parseInt(increment);
+      }
+
       if (locationHash === 'hook') {
         if (urlParams.get('time') === 'realTime') {
           this.tab = 'real_time';

@@ -421,9 +421,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="safeTournamentName">Pilih nama yang selamat untuk pertandingan ini.</string>
   <string name="inappropriateNameWarning">Sebarang perkara yang tidak senonoh boleh menyebabkan akaun anda ditutup.</string>
   <string name="emptyTournamentName">Biarkan kosong untuk menamakan pertandingan kepada pemain catur terkenal.</string>
-  <string name="recommendNotTouching">Kami menasihat agar tidak menukar tetapan ini.</string>
-  <string name="fewerPlayers">Jika anda tetapkan keperluan kemasukan, pertandingan anda akan ada lebih sedikit pemain.</string>
-  <string name="showAdvancedSettings">Tunjukkan tetapan lanjutan</string>
   <string name="makePrivateTournament">Buat pertandingan privasi peribadi and kurangkan akses dengan kata kunci</string>
   <string name="join">Serta</string>
   <string name="withdraw">Tarik diri</string>
@@ -462,8 +459,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="ifNoneLeaveEmpty">Jika tiada, biar kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Sunting profile</string>
-  <string name="firstName">Nama yang diberi</string>
-  <string name="lastName">Nama keluarga</string>
   <string name="biography">Biografi</string>
   <string name="thankYou">Terima kasih!</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
@@ -498,9 +493,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="reason">Sebab</string>
   <string name="whatIsIheMatter">Apa masalahnya?</string>
   <string name="cheat">Penipuan</string>
-  <string name="insult">Unsur ejekan</string>
   <string name="troll">Unsur jenaka</string>
-  <string name="ratingManipulation">Manipulasi Taraf</string>
   <string name="other">Lain-lain</string>
   <string name="reportDescriptionHelp">Laporkan link kepada permainan dan terangkan apa yang dilakukan oleh pengguna yang tidak betul. Jangan hanya beritahu \"mereka menipu\" tapi terangkan juga bagaimana anda dapatkan konklusi ini. Laporan anda akan diproses lebih cepat jika ditulis dalam English.</string>
   <string name="error.provideOneCheatedGameLink">Tolong berikan sekurangnya satu link kepada game yang dicurigai ditipu.</string>

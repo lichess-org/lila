@@ -15,6 +15,18 @@ final class ForumPaginator(
 
   import BSONHandlers.given
 
+  def recent(categ: ForumCateg, page: Int): Fu[Paginator[ForumPost]] =
+    Paginator(
+      Adapter[ForumPost](
+        collection = postRepo.coll,
+        selector = postRepo.selectCateg(categ.id),
+        projection = none,
+        sort = $sort.createdDesc
+      ).withLotsOfResults,
+      currentPage = page,
+      maxPerPage = MaxPerPage(30)
+    )
+
   def topicPosts(topic: ForumTopic, page: Int)(using me: Option[Me])(using
       netDomain: NetDomain
   ): Fu[Paginator[ForumPost.WithFrag]] =
@@ -23,7 +35,7 @@ final class ForumPaginator(
         collection = postRepo.coll,
         selector = postRepo.forUser(me).selectTopic(topic.id),
         projection = none,
-        sort = postRepo.sortQuery
+        sort = $sort.createdAsc
       ).mapFutureList(textExpand.manyPosts),
       currentPage = page,
       maxPerPage = config.postMaxPerPage

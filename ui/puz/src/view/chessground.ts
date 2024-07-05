@@ -11,6 +11,7 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
     check: opts.check,
     lastMove: opts.lastMove,
     coordinates: pref.coords !== Prefs.Coords.Hidden,
+    coordinatesOnSquares: pref.coords === Prefs.Coords.All,
     addPieceZIndex: pref.is3d,
     addDimensionsCssVarsTo: document.body,
     movable: {

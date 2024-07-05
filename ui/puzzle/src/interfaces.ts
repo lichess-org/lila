@@ -64,6 +64,7 @@ export interface Angle {
     key: string;
     name: string;
   };
+  openingAbstract?: boolean;
 }
 
 export interface PuzzleData {

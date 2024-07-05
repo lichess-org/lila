@@ -69,8 +69,8 @@
   <string name="promoteVariation">提升变着</string>
   <string name="makeMainLine">做为主线</string>
   <string name="deleteFromHere">从此处开始删除</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">折叠变着</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">展开变着</string>
+  <string name="collapseVariations">折叠变着</string>
+  <string name="expandVariations">展开变着</string>
   <string name="forceVariation">强制作为变着</string>
   <string name="copyVariationPgn">复制变着的PGN</string>
   <string name="move">着法</string>
@@ -434,9 +434,6 @@
   <string name="safeTournamentName">为锦标赛提出一个无争议的名称。</string>
   <string name="inappropriateNameWarning">即使只有一点点违规的内容都可能导致你的账户被封禁。</string>
   <string name="emptyTournamentName">若留空，将会随机选择一位著名的大师的名字作为锦标赛名称。</string>
-  <string name="recommendNotTouching">我们建议你不更改这些设置。</string>
-  <string name="fewerPlayers">如果你设置参赛条件，锦标赛的玩家将会更少。</string>
-  <string name="showAdvancedSettings">显示高级设置</string>
   <string name="makePrivateTournament">设置比赛私有，并用密码限制访问</string>
   <string name="join">参与锦标赛</string>
   <string name="withdraw">退出锦标赛</string>
@@ -476,8 +473,7 @@
   <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
   <string name="profile">个人资料</string>
   <string name="editProfile">编辑个人资料</string>
-  <string name="firstName">名</string>
-  <string name="lastName">姓</string>
+  <string name="realName">真名</string>
   <string name="setFlair">设置你的图标</string>
   <string name="flair">头像</string>
   <string name="youCanHideFlair">有一个设置可以隐藏整个站点上的所有用户图标。</string>
@@ -523,9 +519,7 @@
   <string name="reason">原因</string>
   <string name="whatIsIheMatter">举报原因？</string>
   <string name="cheat">作弊</string>
-  <string name="insult">侮辱</string>
   <string name="troll">捣乱</string>
-  <string name="ratingManipulation">操纵等级分</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">请附上棋局链接解释该用户的行为问题。例如如果你怀疑某用户作弊，请不要只说 “对手作弊”。请解释为什么你认为对手作弊。如果你用英语举报，我们将会更快作出答复。</string>
   <string name="error.provideOneCheatedGameLink">请提供至少一局作弊的棋局的链接。</string>

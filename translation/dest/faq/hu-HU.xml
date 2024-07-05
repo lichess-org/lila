@@ -144,4 +144,31 @@ Kattints a lakat ikonra a böngésző címsorában, a lichess.org mellett.
 
 Utána válaszd ki, hogy engedélyezed vagy tiltod az Lichess értesítéseit.</string>
   <string name="enableAutoplayForSoundsQ">Engedélyezed hangok automatikus lejátszását?</string>
+  <string name="enableAutoplayForSoundsA">A legtöbb böngésző a felhasználók védelme érdekében megakadályozhatja a hang lejátszását a frissen betöltött oldalakon. Képzeld el, milyen lenne, ha minden weboldal azonnal hanghirdetésekkel bombázhatna... 
+
+A piros némító ikon akkor jelenik meg, ha a böngésző megakadályozta a lichess.org hangjainak lejátszását. Általában ez a korlátozás feloldódik, amint rákattintasz valamire. Egyes mobilböngészőkben egy bábu érintéssel történő húzása nem számít kattintásnak. Ebben az esetben minden játék kezdetén meg kell érintened a táblát, hogy engedélyezd a hangok lejátszását. 
+
+A piros ikont azért mutatjuk, hogy figyelmeztessünk, amikor ez történik. Sok esetben lehetséges külön engedélyezni a lichess.org számára a hangok lejátszását. Itt találod az erre vonatkozó utasításokat néhány népszerű böngésző legújabb verziójához.</string>
+  <string name="desktop">asztali</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Nyisd meg a lichess.org weboldalt
+2. Használd a Ctrl-i billentyűkombinációt Linuxon és Windowson vagy a cmd-i billentyűkombinációt MacOS-en
+3. Nyisd meg az Engedélyek oldalt
+4. Engedélyezd a videó- és hanglejátszást a lichess. org oldalon</string>
+  <string name="enableAutoplayForSoundsChrome">1. Nyisd meg a lichess.org weboldalt
+2. Kattints a lakat ikonra a címsor mellett
+3. Kattints az Oldalbeállításokra
+4. Engedélyezd a hangok lejátszását</string>
+  <string name="enableAutoplayForSoundsSafari">1. Nyisd meg a lichess.org weboldalt
+2. Kattints a Safari-ra a menüsorban
+3. Nyisd meg a lichess.org weboldalra vonatkozó beállításokat
+4. Engedélyezd a mindenre vonatkozó automatikus lejátszást</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Kattints a három pontra a jobb felső sarokban a menü megnyitásához
+2. Nyisd meg a Beállításokat
+3. Nyisd meg a Sütik és oldalengedélyek menüpontot
+4. Görgess lejjebb és nyisd meg a Média automatikus lejátszása menüpontot
+5. Add hozzá a lichess.org weboldalt az engedélyezéshez</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Hagyjam abba a játékot?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">mentális betegség</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess egyéni stílusok</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">kevesebb lobbival</string>
 </resources>

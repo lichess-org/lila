@@ -465,9 +465,6 @@
   <string name="safeTournamentName">Válassz egy nevet a versenyednek.</string>
   <string name="inappropriateNameWarning">Akár a legkisebb pontatlanság is a fiókod zárolását eredményezheti.</string>
   <string name="emptyTournamentName">Hagyd üresen, ha azt szeretnéd, hogy a versenyed egy nagymesterről kapjon nevet.</string>
-  <string name="recommendNotTouching">Azt javasoljuk, hogy ne változtass ezeken.</string>
-  <string name="fewerPlayers">Követelmények beállítása esetén kevesebb játékos lesz a versenyen.</string>
-  <string name="showAdvancedSettings">Haladó beállítások megjelenítése</string>
   <string name="makePrivateTournament">A torna priváttá tétele a fenti jelszóval</string>
   <string name="join">Csatlakozás</string>
   <string name="withdraw">Visszavon</string>
@@ -507,8 +504,6 @@
   <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil szerkesztése</string>
-  <string name="firstName">Keresztnév</string>
-  <string name="lastName">Vezetéknév</string>
   <string name="setFlair">Állítsd be az ikonod</string>
   <string name="flair">Ikon</string>
   <string name="youCanHideFlair">Van egy beállítás amivel elrejtheted az összes felhasználói ikont az egész oldalon.</string>
@@ -555,9 +550,7 @@
   <string name="reason">Ok</string>
   <string name="whatIsIheMatter">Probléma meghatározása</string>
   <string name="cheat">Csalás</string>
-  <string name="insult">Sértegetés</string>
   <string name="troll">Trollkodás</string>
-  <string name="ratingManipulation">Pontszám manipuláció</string>
   <string name="other">Egyéb</string>
   <string name="reportDescriptionHelp">Másold be a játék(ok) linkjét, és mondd el, mi a gond a játékos viselkedésével. Ne csak annyit írj, hogy \"csalt\", hanem próbáld elmondani, miből gondolod ezt. A jelentésedet hamarabb feldolgozzák, ha angolul írod.</string>
   <string name="error.provideOneCheatedGameLink">Kérünk, legalább adj meg linket legalább egy csalt játszmához.</string>

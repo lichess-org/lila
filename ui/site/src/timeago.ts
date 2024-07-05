@@ -39,20 +39,21 @@ const formatRemaining = (seconds: number): string =>
     ? siteTrans.pluralSame('nbMinutesRemaining', Math.floor(seconds / 60))
     : siteTrans.pluralSame('nbHoursRemaining', Math.floor(seconds / 3600));
 
+// for many users, using the islamic calendar is not practical on the internet
+// due to international context, so we make sure it's displayed using the gregorian calendar
+export const displayLocale = document.documentElement.lang.startsWith('ar-')
+  ? 'ar-ly'
+  : document.documentElement.lang;
+
 export const formatter = memoize(() =>
   window.Intl
-    ? // for many users, using the islamic calendar is not practical on the internet
-      // due to international context, so we make sure it's displayed using the gregorian calendar
-      new Intl.DateTimeFormat(
-        document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang,
-        {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-        },
-      ).format
+    ? new Intl.DateTimeFormat(displayLocale, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      }).format
     : (d: Date) => d.toLocaleString(),
 );
 

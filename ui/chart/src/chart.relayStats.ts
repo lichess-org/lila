@@ -25,17 +25,14 @@ interface RelayChart extends chart.Chart {
 
 const dateFormat = memoize(() =>
   window.Intl && Intl.DateTimeFormat
-    ? new Intl.DateTimeFormat(
-        document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang,
-        {
-          year: 'numeric',
-          month: 'short',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false,
-        },
-      ).format
+    ? new Intl.DateTimeFormat(site.displayLocale, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).format
     : (d: Date) => d.toLocaleDateString(),
 );
 

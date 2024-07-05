@@ -78,8 +78,8 @@
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">इस पृष्ठ पर सभी औसत हैं %s</string>
   <string name="total">कुल</string>
   <string name="pointsAvg">अंक औसत</string>
-  <string name="pointsSum">अंक योग</string>
-  <string name="rankAvg">रैंक औसत</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">अंक योग</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">रैंक औसत</string>
   <string name="tournamentWinners">टूर्नामेंट विजेता</string>
   <string name="tournamentShields">टूर्नामेंट शील्ड्स</string>
   <string name="onlyTitled">केवल शीर्षक वाले खिलाड़ी</string>

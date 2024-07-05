@@ -94,7 +94,7 @@ final private class RelayFormatApi(
       .get()
       .flatMap: res =>
         if res.status == 200 then fuccess(res)
-        else if res.status == 404 then fufail(NotFound(url.toString))
+        else if res.status == 404 then fufail(NotFound(url))
         else fufail(s"[${res.status}] $url")
       .monSuccess(_.relay.httpGet(url.host.toString, proxy))
 
@@ -143,4 +143,5 @@ private object RelayFormat:
   opaque type CanProxy = Boolean
   object CanProxy extends YesNo[CanProxy]
 
-  case class NotFound(message: String) extends LilaException
+  case class NotFound(url: URL) extends LilaException:
+    override val message = s"404: $url"

@@ -39,5 +39,5 @@
   <string name="castleByMovingTwoSquares">Şahê du çarçik bide hereketkirin</string>
   <string name="castleByMovingOntoTheRook">Şahê bi ser kelehê de kaş bike</string>
   <string name="inputMovesWithTheKeyboard">Hemlekirina bi textenivîsê aktîv bike</string>
-  <string name="yourPreferencesHaveBeenSaved">Tercîhên te hate qeydkirin.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Tercîhên te hate qeydkirin.</string>
 </resources>

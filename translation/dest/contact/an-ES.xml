@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">En bels casos, cuan se chuga contra una cuenta de bot, una partida con puntuación puede que no de puntos si se determina que lo chugador ye abusando d\'o bot pa obtener puntos.</string>
   <string name="errorPage">Pachina d\'error</string>
   <string name="reportErrorPage">Si una pachina te da error, puez reportar-la:</string>
-  <string name="wantBroadcastTournament">Quiero retransmitir un torneyo</string>
   <string name="learnHowToMakeBroadcasts">Aprende cómo puez anyadir las tuyas propias retransmisions a Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Tamién puez contactar con l\'equipo de retransmisions sobre transmisions oficials.</string>
   <string name="banAppeal">Apelar per un bloqueyo u una restricción d\'IP</string>
   <string name="engineAppeal">Motor u marca de trapacería</string>
   <string name="sendAppealTo">Puez ninviar una apelación a %s.</string>

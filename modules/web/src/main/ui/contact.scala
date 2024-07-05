@@ -222,18 +222,6 @@ object contact:
             )
           )
         ),
-        Leaf(
-          "broadcast",
-          wantBroadcastTournament(),
-          frag(
-            p(a(href := routes.RelayTour.help)(learnHowToMakeBroadcasts()), "."),
-            p(
-              contactAboutOfficialBroadcasts(),
-              " ",
-              sendEmailAt(contactEmailLink("broadcast@lichess.org"))
-            )
-          )
-        ),
         frag(
           p(doNotMessageModerators()),
           p(sendAppealTo(a(href := routes.Appeal.home)(routes.Appeal.home.url))),
@@ -322,7 +310,7 @@ object contact:
               "dmca",
               "DMCA / Intellectual Property Take Down Notice",
               p(
-                a(href := dmcaUrl)("Complete this form"),
+                a(href := "/dmca")("Complete this form"),
                 " ",
                 "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
               )
@@ -339,5 +327,3 @@ object contact:
         )
       )
     )
-
-  val dmcaUrl = "/dmca"

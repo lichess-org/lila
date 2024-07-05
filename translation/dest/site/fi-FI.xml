@@ -70,8 +70,8 @@
   <string name="promoteVariation">Nosta muunnelmaa</string>
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Taita kokoon muunnelmat</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Laajenna muunnelmat</string>
+  <string name="collapseVariations">Taita kokoon muunnelmat</string>
+  <string name="expandVariations">Laajenna muunnelmat</string>
   <string name="forceVariation">Pakota muunnelmaksi</string>
   <string name="copyVariationPgn">Kopioi muunnelman PGN</string>
   <string name="move">Siirto</string>
@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
   <string name="inappropriateNameWarning">Hiemankin epäasiallinen nimi voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
   <string name="emptyTournamentName">Jos jätät tyhjäksi, turnaus nimetään jonkun suurmestarin mukaan.</string>
-  <string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
-  <string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
-  <string name="showAdvancedSettings">Näytä lisäasetukset</string>
   <string name="makePrivateTournament">Tee turnauksesta yksityinen ja aseta salasana, jolla siihen pääsee</string>
   <string name="join">Liity</string>
   <string name="withdraw">Peru osallistuminen</string>
@@ -509,8 +506,7 @@
   <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
   <string name="profile">Profiili</string>
   <string name="editProfile">Muokkaa profiilia</string>
-  <string name="firstName">Etunimi</string>
-  <string name="lastName">Sukunimi</string>
+  <string name="realName">Oikea nimi</string>
   <string name="setFlair">Valitse tyylisi</string>
   <string name="flair">Tyyli</string>
   <string name="youCanHideFlair">On olemassa asetus, jolla voit piilottaa kaikkien käyttäjien tyylit koko sivustolla.</string>
@@ -557,9 +553,7 @@
   <string name="reason">Syy</string>
   <string name="whatIsIheMatter">Mikä hätänä?</string>
   <string name="cheat">Huijaus</string>
-  <string name="insult">Loukkaus</string>
   <string name="troll">Trolli</string>
-  <string name="ratingManipulation">Vahvuusluvun manipulointi</string>
   <string name="other">Muu</string>
   <string name="reportDescriptionHelp">Liitä linkki peliin/peleihin ja kerro, mikä on pielessä tämän käyttäjän käytöksessä. Älä vain sano että \"hän huijaa\", vaan kerro meille miksi ajattelet näin. Raporttisi käydään läpi nopeammin, jos se on kirjoitettu englanniksi.</string>
   <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
@@ -594,6 +588,7 @@
   <string name="slow">Hidas</string>
   <string name="insideTheBoard">Laudan sisäpuolella</string>
   <string name="outsideTheBoard">Laudan ulkopuolella</string>
+  <string name="allSquaresOfTheBoard">Kaikki laudan ruudut</string>
   <string name="onSlowGames">Hitaissa peleissä</string>
   <string name="always">Aina</string>
   <string name="never">Ei koskaan</string>

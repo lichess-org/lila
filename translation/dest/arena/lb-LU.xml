@@ -72,7 +72,7 @@ Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spi
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">All Duerchschnëttswäerter op dëser Säit sinn %s.</string>
   <string name="total">Insgesamt</string>
   <string name="pointsAvg">Punktenduerchschnëtt</string>
-  <string name="pointsSum">Punktenzomm</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Punktenzomm</string>
   <string name="tournamentWinners">Gewënner vum Turnéier</string>
   <string name="tournamentShields">Turnéierschëlter</string>
   <string name="onlyTitled">Just Spiller mat Titel</string>

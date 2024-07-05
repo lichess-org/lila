@@ -16,7 +16,7 @@
   <string name="ongoing">Ongoing</string>
   <string name="upcoming">Upcoming</string>
   <string name="completed">Completed</string>
-  <string name="completedHelp">Lichess detects round completion based on the source games. Use this toggle if there is no source.</string>
+  <string name="completedHelp">Lichess detects round completion, but can get it wrong. Use this to set it manually.</string>
   <string name="roundName">Round name</string>
   <string name="roundNumber">Round number</string>
   <string name="tournamentName">Tournament name</string>

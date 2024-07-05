@@ -532,9 +532,6 @@
   <string name="safeTournamentName">Názov turnaja vyberajte s rozvahou!</string>
   <string name="inappropriateNameWarning">Čokoľvek čo i len mierne nevhodné môže mať za následok uzavretie Vášho účtu.</string>
   <string name="emptyTournamentName">Ak názov nevyplníte, turnaj bude pomenovaný po náhodnom veľmajstrovi.</string>
-  <string name="recommendNotTouching">Tieto nastavenia odporúčame ponechať nedotknuté.</string>
-  <string name="fewerPlayers">Ak nastavíte podmienky účasti, Váš turnaj bude mať menej hráčov.</string>
-  <string name="showAdvancedSettings">Zobraziť pokročilé nastavenia</string>
   <string name="makePrivateTournament">Nastav turnaj ako súkromný a obmedz prístup k nemu pomocou hesla</string>
   <string name="join">Pripojiť</string>
   <string name="withdraw">Odstúpiť</string>
@@ -574,8 +571,7 @@
   <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
-  <string name="firstName">Meno</string>
-  <string name="lastName">Priezvisko</string>
+  <string name="realName">Skutočné meno</string>
   <string name="setFlair">Nastavte si svoju ikonku štýlu</string>
   <string name="flair">Ikonka štýlu</string>
   <string name="youCanHideFlair">V nastaveniach je možné skryť všetky ikonky štýlu používateľov na celej stránke.</string>
@@ -623,9 +619,7 @@
   <string name="reason">Dôvod</string>
   <string name="whatIsIheMatter">Čo sa deje?</string>
   <string name="cheat">Podvod</string>
-  <string name="insult">Urážka</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Ovplyvňovanie ratingu</string>
   <string name="other">Iné</string>
   <string name="reportDescriptionHelp">Vložte odkaz na hru/y, a vysvetlite, čo je zlé na tomto správaní používateľa.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
@@ -660,6 +654,7 @@
   <string name="slow">Pomaly</string>
   <string name="insideTheBoard">Vnútri šachovnice</string>
   <string name="outsideTheBoard">Mimo šachovnice</string>
+  <string name="allSquaresOfTheBoard">Všetky políčka šachovnice</string>
   <string name="onSlowGames">Pri pomalých hrách</string>
   <string name="always">Vždy</string>
   <string name="never">Nikdy</string>

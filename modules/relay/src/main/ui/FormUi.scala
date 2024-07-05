@@ -6,18 +6,23 @@ import scalalib.paginator.Paginator
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
-import lila.core.id.ImageId
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
     tour: RelayTour,
     rounds: List[RelayRound],
-    round: Option[RelayRoundId],
+    roundId: Option[RelayRoundId],
     sourceRound: Option[RelayRound.WithTour] = none,
+    targetRound: Option[RelayRound.WithTour] = none,
     newRound: Boolean = false
 ):
   def tourWithGroup  = RelayTour.WithGroupTours(tour, group)
   def tourWithRounds = RelayTour.WithRounds(tour, rounds)
+  def round          = roundId.flatMap(id => rounds.find(_.id == id))
+  def featurableRound = round
+    .ifTrue(targetRound.isEmpty)
+    .filter: r =>
+      r.sync.upstream.forall(up => up.isUrl && !up.hasLcc)
 
 final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   import helpers.{ *, given }
@@ -26,8 +31,10 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   private def navigationMenu(nav: FormNavigation)(using Context) =
     def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
       a(
-        href := routes.RelayTour.edit(nav.tour.id),
+        href     := routes.RelayTour.edit(nav.tour.id),
+        dataIcon := Icon.RadioTower,
         cls := List(
+          "text"                            -> true,
           "relay-form__subnav__tour-parent" -> shortName.isDefined,
           "active"                          -> (nav.round.isEmpty && !nav.newRound)
         )
@@ -38,7 +45,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         nav.rounds.map: r =>
           a(
             href := routes.RelayRound.edit(r.id),
-            cls  := List("subnav__subitem text" -> true, "active" -> nav.round.has(r.id)),
+            cls  := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
             dataIcon := (
               if r.finished then Icon.Checkmark
               else if r.hasStarted then Icon.DiscBig
@@ -46,8 +53,12 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           )(r.name),
         a(
-          href     := routes.RelayRound.create(nav.tour.id),
-          cls      := List("subnav__subitem text" -> true, "active" -> nav.newRound),
+          href := routes.RelayRound.create(nav.tour.id),
+          cls := List(
+            "subnav__subitem text" -> true,
+            "active"               -> nav.newRound,
+            "button"               -> (nav.rounds.isEmpty && !nav.newRound)
+          ),
           dataIcon := Icon.PlusButton
         )(trb.addRound())
       )
@@ -100,7 +111,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
           standardFlash,
-          inner(form, routes.RelayRound.create(nav.tour.id), nav.tour, round = none)
+          inner(form, routes.RelayRound.create(nav.tour.id), nav)
         )
 
     def edit(
@@ -113,7 +124,14 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         frag(
           boxTop(h1(a(href := rt.path)(rt.fullName))),
           standardFlash,
-          inner(form, routes.RelayRound.update(r.id), nav.tour, round = r.some, nav.sourceRound),
+          nav.targetRound.map: tr =>
+            flashMessage("success")(
+              "Your tournament round is officially broadcasted by Lichess!",
+              br,
+              strong(a(href := tr.path, cls := "text", dataIcon := Icon.RadioTower)(tr.fullName)),
+              "."
+            ),
+          inner(form, routes.RelayRound.update(r.id), nav),
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
@@ -134,15 +152,35 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def inner(
         form: Form[RelayRoundForm.Data],
         url: play.api.mvc.Call,
-        t: RelayTour,
-        round: Option[RelayRound],
-        sourceRound: Option[RelayRound.WithTour] = none
+        nav: FormNavigation
     )(using ctx: Context) =
+      val lccWarning = nav.round
+        .flatMap(_.sync.upstream)
+        .exists(_.hasLcc)
+        .option:
+          flashMessage("box relay-form__lcc-deprecated")(
+            p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+            p(
+              "LiveChessCloud support is deprecated and will be removed soon.",
+              br,
+              "If you need help, please contact us at broadcast@lichess.org."
+            )
+          )
+      val contactUsForOfficial = nav.featurableRound.isDefined
+        .option:
+          flashMessage("box relay-form__contact-us")(
+            p(
+              "Is this a tournament you organize? Do you want Lichess to feature it on the ",
+              a(href := routes.RelayTour.index(1))("broadcast page"),
+              "?"
+            ),
+            p(trans.contact.sendEmailAt("broadcast@lichess.org"))
+          )
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
             div(cls := "form-group")(ui.howToUse),
-            (round.isEmpty && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
+            (nav.round.isEmpty && nav.tour.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
               p(dataIcon := Icon.InfoCircle, cls := "text"):
                 trb.theNewRoundHelp()
           )
@@ -150,40 +188,26 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form3.globalError(form),
         form3.split(
           form3.group(form("name"), trb.roundName(), half = true)(form3.input(_)(autofocus)),
-          Granter
-            .opt(_.StudyAdmin)
-            .option(
-              form3.group(
-                form("caption"),
-                "Homepage spotlight custom round name",
-                help = raw("Leave empty to use the round name").some,
-                half = true
-              ):
-                form3.input(_)
-            )
+          form3.group(
+            form("startsAt"),
+            trb.startDate(),
+            help = trb.startDateHelp().some,
+            half = true
+          )(form3.flatpickr(_, minDate = None))
         ),
-        form3.fieldset("Source")(cls := "box-pad")(
+        form3.fieldset("Source", toggle = true.some)(cls := "box-pad")(
           form3.group(
             form("syncSource"),
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
           div(cls := "relay-form__sync relay-form__sync-url")(
-            (round.flatMap(_.sync.upstream).exists(_.isLcc) && !Granter.opt(_.Relay)).option(
-              flashMessage("box")(
-                p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
-                p(
-                  "LiveChessCloud support is deprecated and will be removed soon.",
-                  br,
-                  "If you need help, please contact us at broadcast@lichess.org."
-                )
-              )
-            ),
+            lccWarning.orElse(contactUsForOfficial),
             form3.group(
               form("syncUrl"),
               trb.sourceSingleUrl(),
               help = trb.sourceUrlHelp().some
             )(form3.input(_)),
-            sourceRound.map: source =>
+            nav.sourceRound.map: source =>
               flashMessage("round-push")(
                 "Getting real-time updates from ",
                 strong(a(href := source.path)(source.fullName)),
@@ -214,15 +238,16 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Multiple source URLs, one per line.",
             help = frag("The games will be combined in the order of the URLs.").some,
             half = false
-          )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace"))(
-            cls := "relay-form__sync relay-form__sync-urls none"
-          ),
+          )(field =>
+            frag(lccWarning, form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace"))
+          )(cls := "relay-form__sync relay-form__sync-urls none"),
           form3.group(
             form("syncIds"),
             trb.sourceGameIds(),
             half = false
           )(form3.input(_))(cls := "relay-form__sync relay-form__sync-ids none"),
           div(cls := "form-group relay-form__sync relay-form__sync-push none")(
+            contactUsForOfficial,
             p(
               "Send your local games to Lichess using the ",
               a(href := broadcasterUrl)("Lichess Broadcaster App"),
@@ -268,44 +293,50 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )(form3.input(_))
           )
         ),
-        form3.split(
-          form3.group(
-            form("startsAt"),
-            trb.startDate(),
-            help = trb.startDateHelp().some,
-            half = true
-          )(form3.flatpickr(_, minDate = None)),
-          form3.checkbox(
-            form("finished"),
-            trb.completed(),
-            help = trb.completedHelp().some,
-            half = true
+        form3.fieldset("Advanced", toggle = nav.round.exists(r => r.sync.delay.isDefined).some)(
+          form3.split(
+            form3.group(
+              form("delay"),
+              raw("Delay in seconds"),
+              help = frag(
+                "Optional, how long to delay moves coming from the source.",
+                br,
+                "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
+              ).some,
+              half = true
+            )(form3.input(_, typ = "number")),
+            form3.checkbox(
+              form("finished"),
+              trb.completed(),
+              help = trb.completedHelp().some,
+              half = true
+            )
           )
         ),
-        form3.split(
-          form3.group(
-            form("delay"),
-            raw("Delay in seconds"),
-            help = frag(
-              "Optional, how long to delay moves coming from the source.",
-              br,
-              "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
-            ).some,
-            half = true
-          )(form3.input(_, typ = "number")),
-          Granter
-            .opt(_.StudyAdmin)
-            .option(
-              form3.group(
-                form("period"),
-                trb.periodInSeconds(),
-                help = trb.periodInSecondsHelp().some,
-                half = true
-              )(form3.input(_, typ = "number"))
+        Granter
+          .opt(_.StudyAdmin)
+          .option(
+            form3.fieldset("Broadcast admin", toggle = false.some)(
+              form3.split(
+                form3.group(
+                  form("caption"),
+                  "Homepage spotlight custom round name",
+                  help = raw("Leave empty to use the round name").some,
+                  half = true
+                ):
+                  form3.input(_)
+                ,
+                form3.group(
+                  form("period"),
+                  trb.periodInSeconds(),
+                  help = trb.periodInSecondsHelp().some,
+                  half = true
+                )(form3.input(_, typ = "number"))
+              )
             )
-        ),
+          ),
         form3.actions(
-          a(href := routes.RelayTour.show(t.slug, t.id))(trans.site.cancel()),
+          a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trans.site.cancel()),
           form3.submit(trans.site.apply())
         )
       )
@@ -374,35 +405,58 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
         form3.group(form("name"), trb.tournamentName())(form3.input(_)(autofocus)),
-        form3.group(form("description"), trb.tournamentDescription())(form3.textarea(_)(rows := 2)),
-        form3.group(
-          form("markdown"),
-          trb.fullDescription(),
-          help = trb
-            .fullDescriptionHelp(
-              a(
-                href := "https://guides.github.com/features/mastering-markdown/",
-                targetBlank
-              )("Markdown"),
-              20000.localize
-            )
-            .some
-        )(form3.textarea(_)(rows := 10)),
-        form3.split(
-          form3.checkbox(
-            form("autoLeaderboard"),
-            trb.automaticLeaderboard(),
-            help = trb.automaticLeaderboardHelp().some
+        form3.fieldset("Optional details", toggle = tg.exists(_.tour.info.nonEmpty).some)(
+          form3.split(
+            form3.group(
+              form("info.format"),
+              "Tournament format",
+              help = frag("""e.g. "8-player round-robin" or "5-round Swiss"""").some,
+              half = true
+            )(form3.input(_)),
+            form3.group(
+              form("info.tc"),
+              "Time control",
+              help = frag(""""Classical" or "Rapid" or "Rapid & Blitz"""").some,
+              half = true
+            )(form3.input(_))
           ),
-          form3.checkbox(
-            form("teamTable"),
-            "Team tournament",
-            help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
-          )
+          form3.group(
+            form("info.players"),
+            "Top players",
+            help = frag("Mention up to 4 of the best players participating").some
+          )(form3.input(_)),
+          form3.group(
+            form("markdown"),
+            trb.fullDescription(),
+            help = trb
+              .fullDescriptionHelp(
+                a(
+                  href := "https://guides.github.com/features/mastering-markdown/",
+                  targetBlank
+                )("Markdown"),
+                20000.localize
+              )
+              .some
+          )(form3.textarea(_)(rows := 10))
         ),
+        form3
+          .fieldset("Features", toggle = tg.map(_.tour).exists(t => t.autoLeaderboard || t.teamTable).some)(
+            form3.split(
+              form3.checkbox(
+                form("autoLeaderboard"),
+                trb.automaticLeaderboard(),
+                help = trb.automaticLeaderboardHelp().some
+              ),
+              form3.checkbox(
+                form("teamTable"),
+                "Team tournament",
+                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
+              )
+            )
+          ),
         form3.fieldset(
           "Players & Teams",
-          toggle = (form("players").value.isDefined || form("teams").value.isDefined).some
+          toggle = List("players", "teams").exists(k => form(k).value.exists(_.nonEmpty)).some
         )(
           form3.split(
             form3.group(
@@ -444,7 +498,7 @@ Team Dogs ; Scooby Doo"""),
         ),
         if Granter.opt(_.Relay) then
           frag(
-            form3.fieldset("Broadcast admin")(
+            form3.fieldset("Broadcast admin", toggle = true.some)(
               tg.isDefined.option(grouping(form)),
               form3.split(
                 form3.group(
@@ -533,21 +587,25 @@ Team Dogs ; Scooby Doo"""),
       )
 
   private def image(t: RelayTour)(using ctx: Context) =
-    div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
-      ui.thumbnail(t.image, _.Size.Small)(
-        cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
-        attr("draggable") := "true"
-      ),
+    form3.fieldset("Image", toggle = true.some):
       div(
-        p("Upload a beautiful image to represent your tournament."),
-        p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
-        p(
-          "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
+        cls              := "form-group relay-image-edit",
+        data("post-url") := routes.RelayTour.image(t.id)
+      )(
+        ui.thumbnail(t.image, _.Size.Small)(
+          cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
+          attr("draggable") := "true"
         ),
-        p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-        form3.file.selectImage()
+        div(
+          p("Upload a beautiful image to represent your tournament."),
+          p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
+          p(
+            "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
+          ),
+          p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
+          form3.file.selectImage()
+        )
       )
-    )
 
   private def grouping(form: Form[RelayTourForm.Data])(using Context) =
     form3.split(cls := "relay-form__grouping")(

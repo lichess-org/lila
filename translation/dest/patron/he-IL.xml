@@ -36,7 +36,7 @@
   <string name="celebratedPatrons">התומכים המהוללים שהופכים את לִיצֶ\'ס לאפשרי</string>
   <string name="whereMoneyGoes">לאן הכסף הולך?</string>
   <string name="serversAndDeveloper">בראש ובראשונה, לשרתים חזקים.
-לאחר מכן אנחנו משלמים למפתח במשרה מלאה: %s, המייסד של ליצ׳ס.</string>
+לאחר מכן אנחנו משלמים למפתח במשרה מלאה: %s, המייסד של Lichess.</string>
   <string name="costBreakdown">צפו במפרט ההוצאות הכלכליות</string>
   <string name="officialNonProfit">האם לִיצֶ\'ס הוא ארגון ללא מטרות רווח באופן רשמי?</string>
   <string name="actOfCreation">כן, הנה מסמך היצירה (בצרפתית)</string>
@@ -45,7 +45,7 @@
 או שאפשר %s.</string>
   <string name="contactSupport">ליצור קשר עם התמיכה שלנו</string>
   <string name="otherMethods">האם יש אמצעים אחרים לתרום?</string>
-  <string name="lichessIsRegisteredWith">ליצ׳ס רשום ל-%s.</string>
+  <string name="lichessIsRegisteredWith">Lichess רשום ל־%s.</string>
   <string name="bankTransfers">אנחנו מקבלים גם העברות בנקאיות</string>
   <string name="onlyDonationFromAbove">לידיעתכם: רק טופס התרומה שלעיל מקנה את כנפי התורם/ת.</string>
   <string name="patronFeatures">האם יש יתרונות ששמורים רק עבור תומכים?</string>

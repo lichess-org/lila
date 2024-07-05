@@ -102,8 +102,6 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
       )
     )
 
-  def sortQuery = $sort.createdAsc
-
   def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
     coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), _.sec)
 

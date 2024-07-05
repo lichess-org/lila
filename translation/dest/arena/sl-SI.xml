@@ -82,8 +82,8 @@ Na primer, 3. mesto na turnirju s 100 igralci = 3%. 10. mesto na turnirju s 1000
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Vsa povprečja na tej strani so %s.</string>
   <string name="total">Skupaj</string>
   <string name="pointsAvg">Povprečje točk</string>
-  <string name="pointsSum">Seštevek točk</string>
-  <string name="rankAvg">Povprečje uvrstitve</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Seštevek točk</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Povprečje uvrstitve</string>
   <string name="tournamentWinners">Zmagovalci turnirjev</string>
   <string name="tournamentShields">Turnirski ščiti</string>
   <string name="onlyTitled">Samo igralci z nazivom</string>

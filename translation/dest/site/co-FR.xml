@@ -420,9 +420,6 @@
   <string name="safeTournamentName">Scegli un nomu curtesu pè a ghjustra criata.</string>
   <string name="inappropriateNameWarning">S\'è vo date un nomu sgarbatu à u vostru turneu, u vostru contu pò esse chjosu.</string>
   <string name="emptyTournamentName">Lascià viotu darà à a ghjustra u nomu d\' un ghjucadore famosu.</string>
-  <string name="recommendNotTouching">V\' arricumandemu d\' ùn tuccà.</string>
-  <string name="fewerPlayers">S\'è vo create parechji cundizioni d\' intrata, ci seranu menu ghjucadori.</string>
-  <string name="showAdvancedSettings">Mustrà l\' uzzioni avanzati</string>
   <string name="makePrivateTournament">Creà una ghjustra privata è limità ne l\' accessu cù una parolla d\' intesa</string>
   <string name="join">Ghjunghje</string>
   <string name="withdraw">Ritirà si</string>
@@ -461,8 +458,6 @@
   <string name="ifNoneLeaveEmpty">S\'è ùn n\' avete, lasciate viotu</string>
   <string name="profile">Profilu</string>
   <string name="editProfile">Edità u prufilu</string>
-  <string name="firstName">Nome datu</string>
-  <string name="lastName">Cugnome</string>
   <string name="biography">Biugraffia</string>
   <string name="thankYou">À ringrazià vi!</string>
   <string name="socialMediaLinks">Leie di e rete suciale</string>
@@ -504,9 +499,7 @@
   <string name="reason">Mutivu</string>
   <string name="whatIsIheMatter">Chì hè u ?</string>
   <string name="cheat">Ingannu</string>
-  <string name="insult">Parullaccia</string>
   <string name="troll">Trollu</string>
-  <string name="ratingManipulation">Valutazione trafficata</string>
   <string name="other">Altru</string>
   <string name="reportDescriptionHelp">Incolla a leia di a partita è spiega ciò ch\' ùn si passa bè cù u cumpurtamentu di u ghjucadore. Ùn scrivi micca soltantu \"inganna\" ma dite dinù perchè. A vostra dumanda serà trattata di modu più prontu s\' ellu hè scrittu in inglese.</string>
   <string name="error.provideOneCheatedGameLink">Pè piace date omancu una leia d\' una partita ingannata.</string>
