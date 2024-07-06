@@ -93,8 +93,8 @@
   <string name="queenEndgameDescription">آخربازی، تنها با وزیرها و پیاده‌ها.</string>
   <string name="queenRookEndgame">وزیر و رخ</string>
   <string name="queenRookEndgameDescription">آخربازی، تنها با وزیرها، رُخ‌ها و پیاده‌ها.</string>
-  <string name="queensideAttack">حمله به جناه وزیر</string>
-  <string name="queensideAttackDescription">یک حمله به شاه حریف، زمانی که در جناه وزیر قلعه رفته است.</string>
+  <string name="queensideAttack">حمله به جناح وزیر</string>
+  <string name="queensideAttackDescription">حمله به شاه حریف، پس از آنکه آنها در جناح وزیر قلعه رفتند.</string>
   <string name="quietMove">حرکت آرام</string>
   <string name="quietMoveDescription">حرکتی که نه کیش ایجاد می کند و نه مهره ای را می گیرد و نه تهدید فوری را در پی دارد اما یک تهدید غیر قابل پیشگیری را در حرکات بعد به همراه دارد.</string>
   <string name="rookEndgame">آخربازی رخ</string>
@@ -111,7 +111,7 @@
   <string name="superGMDescription">معماهای برگرفته‌شده از بازی‌های بهترین بازیکنان جهان.</string>
   <string name="trappedPiece">مهره به‌دام‌افتاده</string>
   <string name="trappedPieceDescription">یک مهره قادر به فرار کردن از زده شدن نیست چون حرکات محدودی دارد.</string>
-  <string name="underPromotion">ارتقا به غیر از وزیر</string>
+  <string name="underPromotion">فرو-ارتقا</string>
   <string name="underPromotionDescription">ارتقا به اسب، فیل یا رخ.</string>
   <string name="veryLong">معمای خیلی طولانی</string>
   <string name="veryLongDescription">چهار حرکت یا بیشتر برای برنده شدن.</string>
