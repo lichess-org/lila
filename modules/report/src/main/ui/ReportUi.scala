@@ -95,7 +95,9 @@ final class ReportUi(helpers: Helpers):
           else
             "Please provide as much information as possible, including relevant game links, posts, and messages."
           ,
+          " ",
           englishPlease,
+          " ",
           maxLength
         )
 
