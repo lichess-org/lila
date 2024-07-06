@@ -132,3 +132,18 @@ export function pushMap<T>(m: SparseMap<T>, key: string, val: T) {
 export function hyphenToCamel(str: string) {
   return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 }
+
+export const requestIdleCallback = (f: () => void, timeout?: number) => {
+  if (window.requestIdleCallback) window.requestIdleCallback(f, timeout ? { timeout } : undefined);
+  else requestAnimationFrame(f);
+};
+
+export const escapeHtml = (str: string) =>
+  /[&<>"']/.test(str)
+    ? str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/'/g, '&#39;')
+        .replace(/"/g, '&quot;')
+    : str;
