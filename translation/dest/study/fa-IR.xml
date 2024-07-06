@@ -47,7 +47,7 @@
   <string name="commentThisMove">قرار دادن توضیحات برای این حرکت</string>
   <string name="annotateWithGlyphs">حرکت‌نویسی به‌همراه علائم</string>
   <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
-  <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
+  <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت‌گران این مطالعه، می‌توانند درخواست تحلیل رایانه‌ای دهند.</string>
   <string name="getAFullComputerAnalysis">یک تحلیل رایانه‌ای از حرکات اصلی (نه حرکات منشعب و فرعی) با استفاده از منابع سرورها (نه منابع محلی مانند مرورگر، اپلیکیشن و غیره) دریافت نمایید.</string>
   <string name="makeSureTheChapterIsComplete">مطمئن شوید که فصل کامل است. شما فقط یک بار می‌توانید درخواست تحلیل بدهید.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
