@@ -98,7 +98,7 @@
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید بازی‌های بیشتری با توجه به گزینگان ترجیحات، وجود داشته باشه؟</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ممکنه بازی‌های بیشتری با توجه به گزینگان ترجیح‌ها، وجود داشته باشد؟</string>
   <string name="openings">گشایش</string>
   <string name="openingExplorer">جستجوگر گشایش‌</string>
   <string name="openingEndgameExplorer">جستجوگر گشایش/آخربازی</string>
@@ -388,8 +388,8 @@
   <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان شطرنج بازی کنید. بدون ثبت‌نام، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
-  <string name="startedStreaming">شروع به استریم کرده است</string>
-  <string name="xStartedStreaming">%s شروع به استریم کرده است</string>
+  <string name="startedStreaming">پخش را آغازید</string>
+  <string name="xStartedStreaming">%s پخش را آغازید</string>
   <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
   <string name="filterGames">دستچین کردن بازی‌ها</string>
@@ -780,7 +780,7 @@
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">بازی های ایجادشده</string>
   <string name="anonymous">ناشناس</string>
-  <string name="yourScore">امتیاز شما:%s</string>
+  <string name="yourScore">امتیازتان: %s</string>
   <string name="language">زبان</string>
   <string name="background">زمینه</string>
   <string name="light">روشن</string>
@@ -924,7 +924,7 @@
   <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
   <string name="gameVsX">بازی در برابر %1$s</string>
   <string name="resVsX">%1$s در برابر %2$s</string>
-  <string name="lostAgainstTOSViolator">شما در مقابل کسی که قوانین Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
+  <string name="lostAgainstTOSViolator">شما در برابر کسی که قانون‌های Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
   <string name="refundXpointsTimeControlY">پس‌دادن: %1$s امتیاز به درجه‌بندی %2$s.</string>
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
   <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
