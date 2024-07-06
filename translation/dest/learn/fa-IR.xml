@@ -27,8 +27,8 @@
 شما به هر دو نیاز دارید!</string>
   <string name="bishopComplete">تبریک! شما میتوانید یک فیل را فرمانروایی کنید.</string>
   <string name="theQueen">وزیر</string>
-  <string name="queenCombinesRookAndBishop">وزیر=رخ+فیل</string>
-  <string name="queenIntro">قویترین مهره شطرنج وارد میشود. وزیر با ابهت!</string>
+  <string name="queenCombinesRookAndBishop">وزیر = رخ + فیل</string>
+  <string name="queenIntro">قویترین مهره شطرنج وارد میشود. مقام معظم وزارت!</string>
   <string name="queenComplete">تبریک! هیچ رازی از وزیر بر شما پنهان نیست.</string>
   <string name="theKing">شاه</string>
   <string name="theMostImportantPiece">مهم ترین مهره شطرنج</string>
@@ -110,8 +110,8 @@
 in a way that cannot be defended!</string>
   <string name="mateInOneComplete">تبریک میگم! این گونه شما در بازی شطرنج برنده می شوید!</string>
   <string name="intermediate">متوسط</string>
-  <string name="boardSetup">چبدمان صفحه</string>
-  <string name="howTheGameStarts">چگونه بازی شروع می شود</string>
+  <string name="boardSetup">چیدمان صفحه</string>
+  <string name="howTheGameStarts">بازی چگونه می‌آغازد</string>
   <string name="boardSetupIntro">دو لشکر باهم رودررو می‌شوند و آماده نبرد هستند.</string>
   <string name="thisIsTheInitialPosition">This is the initial position
 of every game of chess!
@@ -210,7 +210,7 @@ Queen &gt; Bishop</string>
   <string name="watchInstructiveChessVideos">فیلم های آموزنده شطرنج را ببینید</string>
   <string name="playPeople">با مردم بازی کنید</string>
   <string name="opponentsFromAroundTheWorld">حریف هایی از سراسر دنیا</string>
-  <string name="playMachine">با ماشین بازی کنید</string>
+  <string name="playMachine">بازی در برابر رایانه</string>
   <string name="testYourSkillsWithTheComputer">مهارت‌های‌تان را با رایانه بیازمایید</string>
   <string name="letsGo">Let\'s go!</string>
   <string name="stageX">Stage %s</string>
@@ -226,8 +226,8 @@ Queen &gt; Bishop</string>
   <string name="rightOn">Right on!</string>
   <string name="stageXComplete">Stage %s complete</string>
   <string name="next">بعدی</string>
-  <string name="nextX">بعدی%s</string>
-  <string name="backToMenu">برگشت به منو</string>
+  <string name="nextX">بعدی %s</string>
+  <string name="backToMenu">بازگشت به گزینگان</string>
   <string name="puzzleFailed">در حل معما موفق نشدید!</string>
   <string name="retry">تلاش مجدد</string>
 </resources>
