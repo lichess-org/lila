@@ -1,4 +1,5 @@
 import { isTouchDevice } from 'common/device';
+import { escapeHtml } from 'common';
 
 export const registerMultipleSelect = () => {
   $.fn.multipleSelectHover = function (fnOver, fnOut) {
@@ -143,7 +144,7 @@ export const registerMultipleSelect = () => {
           [
             `<li class="${multiple} ${classes}" ${style}>`,
             `<label class="${disabled ? 'disabled' : ''}">`,
-            `<input type="${type}" value="${site.escapeHtml(value)}" ${this.selectItemName} ${
+            `<input type="${type}" value="${escapeHtml(value)}" ${this.selectItemName} ${
               selected ? 'checked' : ''
             } ${disabled ? 'disabled' : ''} ${group ? `data-group="${group}"` : ''}>`,
             text,

@@ -1,5 +1,6 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop, toggle } from 'common';
+import { snabDialog } from 'common/dialog';
 import * as licon from 'common/licon';
 import { bind, bindSubmit, onInsert, looseH as h, dataIcon } from 'common/snabbdom';
 import { storedProp } from 'common/storage';
@@ -126,7 +127,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
     : 'normal';
   const noarg = trans.noarg;
 
-  return site.dialog.snab({
+  return snabDialog({
     class: 'chapter-new',
     onClose() {
       ctrl.isOpen(false);

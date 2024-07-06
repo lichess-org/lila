@@ -1,6 +1,7 @@
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { spinnerVdom, chartSpinner } from 'common/spinner';
+import { requestIdleCallback } from 'common';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { ChartGame, AcplChart } from 'chart';
@@ -40,7 +41,7 @@ export function view(ctrl: ServerEval): VNode {
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
-      site.requestIdleCallback(async () => {
+      requestIdleCallback(async () => {
         (await site.asset.loadEsm<ChartGame>('chart.game'))
           .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline, ctrl.root.trans)
           .then(chart => (ctrl.chart = chart));

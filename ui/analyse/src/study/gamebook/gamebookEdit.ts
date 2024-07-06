@@ -1,5 +1,6 @@
 import * as control from '../../control';
 import AnalyseCtrl from '../../ctrl';
+import { requestIdleCallback } from 'common';
 import * as licon from 'common/licon';
 import throttle from 'common/throttle';
 import { iconTag, bind, MaybeVNodes } from 'common/snabbdom';
@@ -27,7 +28,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     () => {
       study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
       study.vm.toolTab('comments');
-      site.requestIdleCallback(
+      requestIdleCallback(
         () =>
           $('#comment-text').each(function (this: HTMLTextAreaElement) {
             this.focus();
