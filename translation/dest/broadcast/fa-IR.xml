@@ -23,13 +23,12 @@
   <string name="tournamentDescription">توضیحات کوتاه مسابقات</string>
   <string name="fullDescription">توضیحات کامل مسابقات</string>
   <string name="fullDescriptionHelp">توضیحات بلند و اختیاری پخش همگانی. %1$s قابل‌استفاده است. طول متن باید کمتر از %2$s نویسه باشد.</string>
+  <string name="sourceSingleUrl">وب‌نشانیِ PGN</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
-  <string name="sourceGameIds">تا ۶۴ نشانه بازی لیچس٬ جداشده با فاصله.</string>
+  <string name="sourceGameIds">تا ۶۴ شناسه بازی لیچس٬ جداشده با فاصله.</string>
   <string name="startDate">تاریخ شروع، در منطقه زمانی خودتان</string>
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
   <string name="credits">به منبع اعتبار دهید</string>
-  <string name="broadcastUrl">وب‌نشانی پخش همگانی</string>
-  <string name="currentRoundUrl">نشانی دور کنونی</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
   <string name="downloadAllRounds">بارگیری همه دورها</string>
   <string name="resetRound">ازنوکردن این دور</string>
@@ -44,4 +43,13 @@
   <string name="replacePlayerTags">اختیاری: عوض کردن نام، درجه‌بندی و عنوان بازیکنان</string>
   <string name="periodInSeconds">مدت در واحد ثانیه</string>
   <string name="periodInSecondsHelp">اختیاری است، چه مدت باید بین درخواست‌ها صبر کرد. حداقل 2 ثانیه، حداکثر 60 ثانیه. بر اساس تعداد بینندگان، پیشفرض‌ها، به صورت خودکار مقدار می‌گیرند.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">کشورگان‌های فیده</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">ده درجه‌بندی برتر</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">بازیکنان فیده</string>
+  <string name="fidePlayerNotFound">بازیکن فیده پیدا نشد</string>
+  <string name="fideProfile">رُخ‌نمای فیده</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">کشورگان</string>
+  <string name="ageThisYear">سنِ امسال</string>
+  <string name="unrated">بی‌درجه‌بندی</string>
+  <string name="recentTournaments">مسابقاتِ اخیر</string>
 </resources>

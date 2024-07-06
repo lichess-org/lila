@@ -1,10 +1,14 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
+import { addPasswordVisibilityToggleListener } from 'common/password';
 import { storedJsonProp } from 'common/storage';
 
-export function initModule(mode: 'login' | 'signup') {
-  mode === 'login' ? loginStart() : signupStart();
+export function initModule(mode: 'login' | 'signup' | 'reset') {
+  mode === 'login' ? loginStart() : mode === 'signup' ? signupStart() : resetStart();
+
+  addPasswordVisibilityToggleListener();
 }
+
 class LoginHistory {
   historyStorage = storedJsonProp<number[]>('login.history', () => []);
   private now = () => Math.round(Date.now() / 1000);
@@ -25,7 +29,6 @@ function loginStart() {
 
   const toggleSubmit = ($submit: Cash, v: boolean) =>
     $submit.prop('disabled', !v).toggleClass('disabled', !v);
-
   (function load() {
     const form = document.querySelector(selector) as HTMLFormElement,
       $f = $(form);
@@ -109,4 +112,8 @@ function signupStart() {
   });
 
   site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+}
+
+function resetStart() {
+  site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-newPasswd1' });
 }

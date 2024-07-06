@@ -167,7 +167,7 @@ Vi viser det raude ikonet for å gje ei åtvaring når dette skjer. Ofte kan du 
 3. Klikk informasjonskapslar og rettar
 4. Rull ned og klikk Media autospel
 5. Legg til lichess.org for å tillate</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Stoppa meg frå å spela?</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Stoppa meg frå å spela?</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">eigen mental tilstand</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess brukarstilar</string>
   <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">færre lobbysamlingar</string>

@@ -432,9 +432,6 @@
   <string name="safeTournamentName">토너먼트 이름은 무난한 것으로 정해주십시오.</string>
   <string name="inappropriateNameWarning">조금이라도 부적절한 이름일 경우에는 계정이 정지될 수도 있습니다.</string>
   <string name="emptyTournamentName">토너먼트 이름을 공란으로 두면, 임의의 그랜드마스터 선수 이름으로 선택됩니다.</string>
-  <string name="recommendNotTouching">이 설정은 되도록이면 그대로 두는 것을 추천합니다.</string>
-  <string name="fewerPlayers">참가조건을 설정하면, 참가자 수가 적어집니다.</string>
-  <string name="showAdvancedSettings">고급 설정 보기</string>
   <string name="makePrivateTournament">토너먼트를 비공개로 바꾸고, 비밀번호가 있어야만 들어갈 수 있습니다.</string>
   <string name="join">참가하기</string>
   <string name="withdraw">중단</string>
@@ -474,8 +471,7 @@
   <string name="ifNoneLeaveEmpty">없으면 무시하세요</string>
   <string name="profile">프로필</string>
   <string name="editProfile">프로필 수정</string>
-  <string name="firstName">이름</string>
-  <string name="lastName">성</string>
+  <string name="realName">본명</string>
   <string name="biography">소개</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가/지역</string>
   <string name="thankYou">감사합니다!</string>
@@ -517,9 +513,7 @@
   <string name="reason">이유</string>
   <string name="whatIsIheMatter">무엇이 문제인가요?</string>
   <string name="cheat">부정행위</string>
-  <string name="insult">모욕</string>
   <string name="troll">분란 조장</string>
-  <string name="ratingManipulation">레이팅 조작</string>
   <string name="other">기타</string>
   <string name="reportDescriptionHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요.</string>
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>

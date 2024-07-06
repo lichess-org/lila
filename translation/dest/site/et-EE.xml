@@ -446,9 +446,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="safeTournamentName">Vali turniirile sobiv nimi.</string>
   <string name="inappropriateNameWarning">Isegi pisut kohatu nimi võib tähendada sinu konto sulgemist.</string>
   <string name="emptyTournamentName">Jäta tühjaks, et nimetada turniir juhusliku suurmeistri järgi.</string>
-  <string name="recommendNotTouching">Me ei soovita neid muuta.</string>
-  <string name="fewerPlayers">Kui sa lisad osalemiseks tingimusi, siis osaleb turniiril vähem inimesi.</string>
-  <string name="showAdvancedSettings">Näita täpsemaid sätteid</string>
   <string name="makePrivateTournament">Tee turniir privaatseks ja piira juurdepääsu parooliga</string>
   <string name="join">Liitu</string>
   <string name="withdraw">Loobu</string>
@@ -487,8 +484,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="ifNoneLeaveEmpty">Kui pole, jäta tühjaks</string>
   <string name="profile">Profiil</string>
   <string name="editProfile">Muuda profiili</string>
-  <string name="firstName">Eesnimi</string>
-  <string name="lastName">Perekonnanimi</string>
   <string name="biography">Kirjeldus</string>
   <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
@@ -530,9 +525,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="reason">Põhjus</string>
   <string name="whatIsIheMatter">Milles asi?</string>
   <string name="cheat">Sohk</string>
-  <string name="insult">Solvang</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Reitingu manipulatsioon</string>
   <string name="other">Muu</string>
   <string name="reportDescriptionHelp">Kleebi link mängu(de)st ja selgita, mis on valesti selle kasutaja käitumises. Ära ütle lihtsalt \"ta teeb sohki\", vaid seleta, kuidas sa selle järelduseni jõudsid. Sõnum käsitletakse kiiremini kui see on kirjutatud inglise keeles.</string>
   <string name="error.provideOneCheatedGameLink">Palun andke vähemalt üks link pettust sisaldavale mängule.</string>

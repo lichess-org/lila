@@ -191,8 +191,6 @@
   <string name="reportXToModerators">Cuir gearan mu %s dha na maoir</string>
   <string name="profile">Pròifil</string>
   <string name="editProfile">Deasaich a’ phròifil</string>
-  <string name="firstName">Ainm</string>
-  <string name="lastName">Sloinneadh</string>
   <string name="biography">Eachdraidh-beatha</string>
   <string name="thankYou">Mòran taing!</string>
   <string name="previouslyOnLichessTV">Air tbh Lichess roimhe</string>
@@ -222,7 +220,6 @@
   <string name="reason">Adhbhar</string>
   <string name="whatIsIheMatter">Dè an trioblaid?</string>
   <string name="cheat">Cealgaireachd</string>
-  <string name="insult">Mosach</string>
   <string name="troll">Troll</string>
   <string name="other">Adhbhar eile</string>
   <string name="by">le %s</string>

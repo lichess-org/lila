@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Ви маєте 30 секунд для того, щоб відмітити якнайбільше полів!</string>
   <string name="goAsLongAsYouWant">Витрачайте стільки часу, скільки забажаєте - жодних лімітів!</string>
   <string name="showCoordinates">Відображати координати</string>
+  <string name="showCoordsOnAllSquares">Координати на кожному полі</string>
   <string name="showPieces">Показувати фігури</string>
   <string name="startTraining">Розпочати тренування</string>
   <string name="findSquare">Знайти поле</string>

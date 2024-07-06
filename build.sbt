@@ -393,7 +393,7 @@ lazy val practice = module("practice",
 
 lazy val playban = module("playban",
   Seq(memo),
-  Seq()
+  tests.bundle
 )
 
 lazy val push = module("push",

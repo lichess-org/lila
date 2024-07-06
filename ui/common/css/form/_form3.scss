@@ -114,33 +114,48 @@ textarea.form-control {
   border-top: $border;
 }
 
-.password-complexity {
-  margin-top: -2rem;
-  margin-bottom: 3rem;
-}
-
-.password-complexity-meter {
-  display: flex;
-  grid-gap: 0.25rem;
-  height: 0.4rem;
-  margin-top: 1rem;
-
-  > * {
-    background-color: gray;
-    width: 25%;
-  }
-}
-
 .form-fieldset {
   @extend %box-radius;
+  border: $border;
+  background: $c-bg-zebra;
   margin: 1rem 0 3rem 0;
-  border-color: rgba(128, 128, 128, 0.3);
   padding: 2rem 2rem 0 2rem;
 
   legend {
-    padding: 0 1em;
-    text-align: center;
-    font-style: italic;
+    @extend %box-radius;
+    background: $c-bg-zebra;
+    padding: 0.5em 1.5em;
+    text-align: right;
     font-size: 1.2em;
+    user-select: none;
+  }
+}
+.form-fieldset--toggle {
+  legend {
+    border-top: $border;
+    cursor: pointer;
+    &::after {
+      content: '▲';
+      margin-left: 1ch;
+    }
+  }
+}
+.form-fieldset--toggle-off {
+  background: none;
+  border-width: 1px 0 0 0;
+  padding-top: 0;
+  legend {
+    border: $border;
+    background: none;
+    &:hover {
+      @extend %box-neat;
+      background: $c-bg-zebra;
+    }
+    &::after {
+      content: '▼';
+    }
+  }
+  > *:not(legend) {
+    display: none;
   }
 }

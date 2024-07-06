@@ -17,7 +17,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
                 h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
                 h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
               ]),
-              sync?.url || sync?.ids || sync?.urls ? (sync.ongoing ? stateOn : stateOff)(ctrl) : null,
+              sync?.url || sync?.ids || sync?.urls ? (sync.ongoing ? stateOn : stateOff)(ctrl) : statePush(),
               renderLog(ctrl),
             ])
           : undefined,
@@ -57,20 +57,17 @@ function stateOn(ctrl: RelayCtrl) {
     'div.state.on.clickable',
     { hook: bind('click', _ => ctrl.setSync(false)), attrs: dataIcon(licon.ChasingArrows) },
     [
-      h(
-        'div',
-        url
-          ? [
-              sync.delay ? `Connected with ${sync.delay}s delay` : 'Connected to source',
-              h('br'),
-              url.replace(/https?:\/\//, ''),
-            ]
+      h('div', [
+        'Connected ',
+        sync?.delay ? `with ${sync.delay}s delay ` : null,
+        ...(url
+          ? ['to source', h('br'), url.replace(/https?:\/\//, '')]
           : ids
-          ? ['Connected to', h('br'), ids.length, ' game(s)']
+          ? ['to', h('br'), ids.length, ' game(s)']
           : urls
-          ? ['Connected to', h('br'), urls.length, ' urls']
-          : [],
-      ),
+          ? ['to', h('br'), urls.length, ' sources']
+          : []),
+      ]),
     ],
   );
 }
@@ -81,6 +78,9 @@ const stateOff = (ctrl: RelayCtrl) =>
     { hook: bind('click', _ => ctrl.setSync(true)), attrs: dataIcon(licon.PlayTriangle) },
     [h('div.fat', 'Click to connect')],
   );
+
+const statePush = () =>
+  h('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, ['Listening to Broadcaster App']);
 
 const dateFormatter = memoize(() =>
   window.Intl && Intl.DateTimeFormat

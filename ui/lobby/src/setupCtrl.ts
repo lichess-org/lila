@@ -103,8 +103,10 @@ export default class SetupController {
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
     this.timeMode = propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange);
-    this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
-    this.incrementV = this.propWithApply(sliderInitVal(storeProps.increment, incrementVToIncrement, 100)!);
+    this.timeV = this.propWithApply(sliderInitVal(forceOptions?.time || storeProps.time, timeVToTime, 100)!);
+    this.incrementV = this.propWithApply(
+      sliderInitVal(forceOptions?.increment || storeProps.increment, incrementVToIncrement, 100)!,
+    );
     this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
     this.gameMode = this.propWithApply(storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);

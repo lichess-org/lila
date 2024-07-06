@@ -9,7 +9,7 @@
   <string name="youCannotChallengeX">לא ניתן להזמין את %s למשחק.</string>
   <string name="xDoesNotAcceptChallenges">%s לא מקבל/ת הזמנות למשחקים.</string>
   <string name="yourXRatingIsTooFarFromY">הדירוג שלך ב%1$s רחוק מדי מהדירוג של %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">אין אפשרות להזמין למשחק בגלל שדירוגך ב-%s זמני.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">אין אפשרות להזמין למשחק בגלל שדירוגך ב־%s זמני.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s מאשר/ת רק אתגרים מחברים.</string>
   <string name="declineGeneric">אני לא מקבל/ת הזמנות עכשיו.</string>
   <string name="declineLater">זה לא הזמן המתאים עבורי, אנא שאל שוב מאוחר יותר.</string>

@@ -74,7 +74,8 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
 }
 
 function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
-  return [
+  const viewInsteadOfAccept = (c.rules?.length ?? 0) > 0;
+  const acceptElement = () =>
     h('form', { attrs: { method: 'post', action: `/challenge/${c.id}/accept` } }, [
       h('button.button.accept', {
         attrs: {
@@ -85,7 +86,14 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
         },
         hook: onClick(ctrl.onRedirect),
       }),
-    ]),
+    ]);
+  const viewElement = () =>
+    h('a.view', {
+      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: ctrl.trans('viewInFullSize') },
+    });
+
+  return [
+    viewInsteadOfAccept ? viewElement() : acceptElement(),
     h('button.button.decline', {
       attrs: { type: 'submit', 'data-icon': licon.X, title: ctrl.trans('decline') },
       hook: onClick(() => ctrl.decline(c.id, 'generic')),

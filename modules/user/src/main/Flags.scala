@@ -208,6 +208,8 @@ object Flags extends lila.core.user.FlagApi:
     C("PR", "Puerto Rico"),
     C("PS", "Palestine"),
     C("PT", "Portugal"),
+    C("PT-20", "Azores"),
+    C("PT-30", "Madeira"),
     C("PW", "Palau"),
     C("PY", "Paraguay"),
     C("QA", "Qatar"),

@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">En alguns casos quan es juga contra un compte de bot, una partida amb puntuació pot ser que no doni punts si es determina que el jugador està abusant del bot per tal d\'obtenir punts.</string>
   <string name="errorPage">Pàgina d\'error</string>
   <string name="reportErrorPage">Si una pàgina et dóna error, la pots reportar:</string>
-  <string name="wantBroadcastTournament">Vull retransmetre un torneig</string>
   <string name="learnHowToMakeBroadcasts">Aprèn com pots afegir les teves pròpies retransmissions a Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">També podeu contactar l\'equip de retransmissions per les retransmissions oficials.</string>
   <string name="banAppeal">Apel·lació per prohibició o restricció de IP</string>
   <string name="engineAppeal">Motor o marca de trampa</string>
   <string name="sendAppealTo">Pots enviar una apel·lació a %s.</string>

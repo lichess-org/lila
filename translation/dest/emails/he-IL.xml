@@ -15,6 +15,6 @@
 אנו מאחלים לכלים שלך תמיד למצוא את דרכם למלך של יריביך!</string>
   <string name="logInToLichess">%s, התחבר/י ל־lichess.org</string>
   <string name="common_orPaste">(אם לחיצה אינה עובדת, נסו הדבקה לתוך הדפדפן!)</string>
-  <string name="common_note">זו הודעת שירות בקשר לשימושך ב-%s.</string>
-  <string name="common_contact">כדי ליצור איתנו קשר, השתמשו ב-%s.</string>
+  <string name="common_note">זו הודעת שירות בקשר לשימושך ב־%s.</string>
+  <string name="common_contact">כדי ליצור איתנו קשר, השתמשו ב־%s.</string>
 </resources>

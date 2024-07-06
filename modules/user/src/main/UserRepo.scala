@@ -154,6 +154,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
 
+  def setRealName(id: UserId, name: String): Funit =
+    coll.updateField($id(id), s"${F.profile}.realName", name).void
+
   def setUsernameCased(id: UserId, name: UserName): Funit =
     if id.is(name) then
       coll.update

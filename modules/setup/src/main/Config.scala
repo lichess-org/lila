@@ -58,6 +58,7 @@ private[setup] trait Config:
   def makeSpeed: Speed = chess.Speed(makeClock)
 
   def perfType: PerfType = lila.rating.PerfType(variant, makeSpeed)
+  def perfKey            = perfType.key
 
 trait Positional:
   self: Config =>

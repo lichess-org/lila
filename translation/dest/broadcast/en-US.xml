@@ -23,14 +23,12 @@
   <string name="tournamentDescription">Short tournament description</string>
   <string name="fullDescription">Full event description</string>
   <string name="fullDescriptionHelp">Optional long description of the broadcast. %1$s is available. Length must be less than %2$s characters.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">PGN Source URL</string>
+  <string name="sourceSingleUrl">PGN Source URL</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="sourceGameIds">Up to 64 Lichess game IDs, separated by spaces.</string>
   <string name="startDate">Start date in your own timezone</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
   <string name="credits">Credit the source</string>
-  <string name="broadcastUrl">Broadcast URL</string>
-  <string name="currentRoundUrl">Current round URL</string>
   <string name="currentGameUrl">Current game URL</string>
   <string name="downloadAllRounds">Download all rounds</string>
   <string name="resetRound">Reset this round</string>
@@ -45,4 +43,13 @@
   <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
   <string name="periodInSeconds">Period in seconds</string>
   <string name="periodInSecondsHelp">Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE federations</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Top 10 rating</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE players</string>
+  <string name="fidePlayerNotFound">FIDE player not found</string>
+  <string name="fideProfile">FIDE profile</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federation</string>
+  <string name="ageThisYear">Age this year</string>
+  <string name="unrated">Unrated</string>
+  <string name="recentTournaments">Recent tournaments</string>
 </resources>

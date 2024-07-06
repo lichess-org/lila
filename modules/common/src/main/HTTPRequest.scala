@@ -64,7 +64,7 @@ object HTTPRequest:
 
   private val crawlerMatcher = UaMatcher:
     // spiders/crawlers
-    """Googlebot|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|Twitterbot|Baiduspider|Amazonbot|Bytespider""" +
+    """Googlebot|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|Twitterbot|Baiduspider|Amazonbot|Bytespider|yacybot""" +
       // http libs
       """|HeadlessChrome|okhttp|axios|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus"""
 

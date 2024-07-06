@@ -1,7 +1,10 @@
 @import 'layout';
 
-.coach-edit,
-.coach-picture {
+.coach-edit-picture {
+  @extend %image-preview-and-upload;
+}
+
+.coach-edit {
   .top {
     > span {
       @extend %flex-between;
@@ -21,14 +24,7 @@
         margin-inline-start: auto;
       }
     }
-
-    .picture_wrap {
-      @extend %image-preview-and-upload, %box-neat;
-    }
   }
-}
-
-.coach-edit {
   .overview {
     width: 100%;
     display: flex;

@@ -102,6 +102,7 @@ final class Account(
               me.value,
               withFollows = apiC.userWithFollows,
               withTrophies = false,
+              withCanChallenge = false,
               forWiki = wikiGranted
             )
             .dmap { JsonOk(_) }

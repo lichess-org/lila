@@ -58,7 +58,7 @@
   <string name="previous">پیشین</string>
   <string name="next">بعدی</string>
   <string name="last">آخرین</string>
-  <string name="shareAndExport">اشتراک &amp; صدور</string>
+  <string name="shareAndExport">همرسانی و برون‏بُرد</string>
   <string name="cloneStudy">نمونه سازی</string>
   <string name="studyPgn">PGN درس</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
@@ -70,7 +70,7 @@
   <string name="youCanPasteThisInTheForumToEmbed">برای جاسازی این نوشته، این کد را در تالار گفت و گو قرار دهید</string>
   <string name="startAtInitialPosition">در موقعیت آغازین شروع نمایید</string>
   <string name="startAtX">شروع از %s</string>
-  <string name="embedInYourWebsite">در وبسایت یا وبلاگ خود قرار دهید</string>
+  <string name="embedInYourWebsite">در وبگاهتان قرار دهید</string>
   <string name="readMoreAboutEmbedding">درباره قرار دادن (در سایت) بیشتر بخوانید</string>
   <string name="onlyPublicStudiesCanBeEmbedded">فقط مطالعاتِ عمومی می‌توانند جایگذاری شوند!</string>
   <string name="open">بگشایید</string>

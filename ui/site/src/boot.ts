@@ -12,10 +12,9 @@ import serviceWorker from './serviceWorker';
 import StrongSocket from './socket';
 import topBar from './topBar';
 import watchers from './watchers';
-import { requestIdleCallback } from './functions';
 import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
-import { scrollToInnerSelector } from 'common';
+import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 
 export function boot() {
@@ -115,6 +114,14 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
+    $('.form-fieldset--toggle').each(function (this: HTMLFieldSetElement) {
+      const toggle = () => this.classList.toggle('form-fieldset--toggle-off');
+      $(this)
+        .children('legend')
+        .on('click', toggle)
+        .on('keypress', e => e.key == 'Enter' && toggle());
+    });
+
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
     if (showDebug) site.asset.loadEsm('bits.diagnosticDialog');
@@ -123,6 +130,8 @@ export function boot() {
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));
 
     serviceWorker();
+
+    console.info('Lichess is open source! See https://lichess.org/source');
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {

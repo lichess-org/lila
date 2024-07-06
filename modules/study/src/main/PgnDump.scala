@@ -71,7 +71,7 @@ final class PgnDump(
       val opening = chapter.opening
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
-        Tag(_.Site, chapterUrl(study.id, chapter.id)),
+        Tag(_.Site, flags.site | chapterUrl(study.id, chapter.id)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
@@ -109,9 +109,10 @@ object PgnDump:
       variations: Boolean,
       clocks: Boolean,
       source: Boolean,
-      orientation: Boolean
+      orientation: Boolean,
+      site: Option[String]
   )
-  val fullFlags = WithFlags(true, true, true, true, true)
+  val fullFlags = WithFlags(true, true, true, true, true, none)
 
   def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
     rootToPgn(NewRoot(root), tags, comments)

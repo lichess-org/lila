@@ -37,5 +37,5 @@
   <string name="castleByMovingTwoSquares">രാജാവിനെ രണ്ടു കാലങ്ങൾ നീക്കുക</string>
   <string name="castleByMovingOntoTheRook">തേരിനു മുകളിൽ രാജാവിനെ വയ്ക്കുക</string>
   <string name="inputMovesWithTheKeyboard">കീബോർഡ് മുഖേന നീക്കങ്ങൾ നൽകുക</string>
-  <string name="yourPreferencesHaveBeenSaved">നിങ്ങളുടെ ക്രമീകരണങ്ങൾ സേവ് ചെയ്തു.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">നിങ്ങളുടെ ക്രമീകരണങ്ങൾ സേവ് ചെയ്തു.</string>
 </resources>

@@ -16,21 +16,19 @@
   <string name="ongoing">En curso</string>
   <string name="upcoming">Proximamente</string>
   <string name="completed">Completadas</string>
-  <string name="completedHelp">Lichess detecta o final das roldas en función das partidas de orixe. Usa esta opción se non hai orixe.</string>
+  <string name="completedHelp">Malia que Lichess detecta o final das roldas, pódese equivocar. Usa esta opción para facelo manualmente.</string>
   <string name="roundName">Nome da rolda</string>
   <string name="roundNumber">Número de rolda</string>
   <string name="tournamentName">Nome do torneo</string>
   <string name="tournamentDescription">Breve descrición do torneo</string>
   <string name="fullDescription">Descrición completa do evento</string>
   <string name="fullDescriptionHelp">Descrición longa opcional da retransmisión. %1$s está dispoñíbel. A lonxitude debe ser menor de %2$s caracteres.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">URL de orixe do arquivo PGN</string>
+  <string name="sourceSingleUrl">URL de orixe do arquivo PGN</string>
   <string name="sourceUrlHelp">Ligazón que Lichess comprobará para obter actualizacións dos PGN. Debe ser publicamente accesíbel desde a Internet.</string>
   <string name="sourceGameIds">Até 64 identificadores de partidas de Lichess, separados por espazos.</string>
   <string name="startDate">Data de inicio na túa zona horaria</string>
   <string name="startDateHelp">Opcional, se sabes cando comeza o evento</string>
   <string name="credits">Cita a fonte</string>
-  <string name="broadcastUrl">Ligazón da transmisión</string>
-  <string name="currentRoundUrl">Ligazón da rolda actual</string>
   <string name="currentGameUrl">Ligazón da partida actual</string>
   <string name="downloadAllRounds">Descargar todas as roldas</string>
   <string name="resetRound">Restablecer esta rolda</string>
@@ -45,4 +43,13 @@
   <string name="replacePlayerTags">Opcional: substituír os nomes dos xogadores, as puntuacións e os títulos</string>
   <string name="periodInSeconds">Período en segundos</string>
   <string name="periodInSecondsHelp">Opcional: canto tempo se agarda entre peticións. Min 2s, max 60s. Por defecto é automático baseado no número de espectadores.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federacións FIDE</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Media do top 10</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Xogadores FIDE</string>
+  <string name="fidePlayerNotFound">Xogador FIDE non atopado</string>
+  <string name="fideProfile">Perfil FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federación</string>
+  <string name="ageThisYear">Idade actual</string>
+  <string name="unrated">Sen puntuar</string>
+  <string name="recentTournaments">Torneos recentes</string>
 </resources>

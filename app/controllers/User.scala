@@ -66,6 +66,12 @@ final class User(
         apiGames(u, GameFilter.All.name, 1)
       )
 
+  def search(term: String) = Open: _ ?=>
+    UserStr.read(term) match
+      case Some(username)                  => Redirect(routes.User.show(username)).toFuccess
+      case _ if isGrantedOpt(_.UserSearch) => Redirect(s"${routes.Mod.search}?q=$term").toFuccess
+      case _                               => notFound
+
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then

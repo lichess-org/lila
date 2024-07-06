@@ -17,8 +17,6 @@
   <string name="startDate">Alguskuupäev sinu ajavööndis</string>
   <string name="startDateHelp">Valikuline, kui tead millal sündmus algab</string>
   <string name="credits">Viita allikale</string>
-  <string name="broadcastUrl">Otseülekande URL</string>
-  <string name="currentRoundUrl">Preaguse vooru URL</string>
   <string name="currentGameUrl">Praeguse mängu URL</string>
   <string name="downloadAllRounds">Lae alla kõik voorud</string>
   <string name="resetRound">Lähtesta see voor</string>

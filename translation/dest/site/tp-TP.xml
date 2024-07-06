@@ -446,9 +446,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="safeTournamentName">o pana e nimi pona tawa utala musi ni. o kepeken e nimi ike, e nimi ni: ona li ike tawa jan ante</string>
   <string name="inappropriateNameWarning">sina pana e nimi ike tawa utala musi la, lipu lawa sina li ken kama pakala.</string>
   <string name="emptyTournamentName">sina pana ala e nimi la, nimi li kama tan jan musi suli pi musi pi lawa mije moli.</string>
-  <string name="recommendNotTouching">mi toki insa e ni: sina wile ala ante e ona.</string>
-  <string name="fewerPlayers">utala musi sina li jo e nasin open, jan musi pi mute lili li kama tawa ona.</string>
-  <string name="showAdvancedSettings">o pana lukin e ante nasin mute</string>
   <string name="makePrivateTournament">o pana e nimi awen tawa utala musi sina tawa ni: jan pona sina taso li ken kama tawa ona.</string>
   <string name="join">kama</string>
   <string name="withdraw">tawa weka</string>
@@ -487,8 +484,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="ifNoneLeaveEmpty">ala li lon la, o sitelen ala</string>
   <string name="profile">lipu jan</string>
   <string name="editProfile">ante e sona jan</string>
-  <string name="firstName">nimi jan</string>
-  <string name="lastName">nimi mama</string>
   <string name="flair">sitelen namako</string>
   <string name="biography">sona jan sina</string>
   <string name="thankYou">pona tawa sina!</string>
@@ -530,9 +525,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="reason">tan seme?</string>
   <string name="whatIsIheMatter">jan ni li ike seme?</string>
   <string name="cheat">musi ike</string>
-  <string name="insult">toki ike</string>
   <string name="troll">pakala e musi</string>
-  <string name="ratingManipulation">jan li ante ike e nanpa</string>
   <string name="other">ijo ante</string>
   <string name="reportDescriptionHelp">o pana e nimi nasin tawa musi. o toki e ni: jan li musi ike lon nasin seme? o toki ala e \"ona li toki kepeken ilo ike\". o toki e ni: sina kama sona e ni tan seme? sina toki kepeken toki Inli la, mi lukin e toki sina lon tenpo lili.</string>
   <string name="error.provideOneCheatedGameLink">o pana e nimi nasin tawa musi pi pali ike.</string>

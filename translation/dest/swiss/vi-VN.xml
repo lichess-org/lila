@@ -24,7 +24,7 @@
   <string name="startingIn" comment="Displayed above a timer">Bắt đầu trong</string>
   <string name="nextRound">Vòng đấu tiếp theo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="other">Ván cờ hiện đang chơi</item>
+    <item quantity="other">Ván đấu đang diễn ra</item>
   </plurals>
   <string name="tournStartDate">Thời gian bắt đầu giải đấu</string>
   <string name="numberOfRounds">Số vòng đấu</string>
@@ -117,7 +117,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
   <string name="playYourGames">Chơi các ván đấu của bạn</string>
-  <string name="byes">Miễn</string>
+  <string name="byes">Được miễn</string>
   <string name="absences">Vắng mặt</string>
   <string name="tieBreak">Điểm số phụ</string>
 </resources>

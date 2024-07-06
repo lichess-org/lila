@@ -1,28 +1,10 @@
 .tour__form {
-  #form3-name {
-    width: 48% !important;
-    display: inline-block;
-  }
-
-  .conditions {
-    p {
-      margin: 20px;
-    }
-
-    .form {
-      display: none;
-    }
-
-    &.visible {
-      margin: 0;
-      padding: 0;
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
-
-      .form {
-        display: block;
-      }
+  .tour-name > div {
+    @extend %flex-center-nowrap;
+    overflow: hidden;
+    gap: 1em;
+    > * {
+      flex: 1 1 auto;
     }
   }
 }

@@ -72,7 +72,6 @@
       "src/bits.publicChats.ts",
       "src/bits.qrcode.ts",
       "src/bits.relayForm.ts",
-      "src/bits.relayStats.ts",
       "src/bits.soundMove.ts",
       "src/bits.streamer.ts",
       "src/bits.team.ts",

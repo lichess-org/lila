@@ -10,6 +10,8 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   import RelayRoundRepo.*
   import BSONHandlers.given
 
+  def exists(id: RelayRoundId): Fu[Boolean] = coll.exists($id(id))
+
   def byTourOrderedCursor(tourId: RelayTourId) =
     coll
       .find(selectors.tour(tourId))
@@ -48,6 +50,14 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
 
   def studyIdsOf(tourId: RelayTourId): Fu[List[StudyId]] =
     coll.distinctEasy[StudyId, List]("_id", selectors.tour(tourId))
+
+  def syncTargetsOfSource(source: RelayRoundId): Funit =
+    coll.update
+      .one(
+        $doc("sync.until".$exists(true), "sync.upstream.roundIds" -> source),
+        $set("sync.nextAt"                                        -> nowInstant)
+      )
+      .void
 
 private object RelayRoundRepo:
 

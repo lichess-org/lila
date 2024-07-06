@@ -3,7 +3,7 @@ package lila.forum
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.cleanText
+import lila.common.Form.{ cleanText, into }
 import lila.common.Form.given
 
 final private[forum] class ForumForm(
@@ -42,14 +42,17 @@ final private[forum] class ForumForm(
   val deleteWithReason = Form:
     single("reason" -> optional(nonEmptyText))
 
+  val relocateTo = Form:
+    single("categ" -> nonEmptyText.into[ForumCategId])
+
   private def userTextMapping(inOwnTeam: Boolean, previousText: Option[String] = None)(using me: Me) =
-    cleanText(minLength = 3)
+    cleanText(minLength = 3, 20_000)
       .verifying(
         "You have reached the daily maximum for links in forum posts.",
         t => inOwnTeam || promotion.test(me, t, previousText)
       )
 
-  val diagnostic = Form(single("text" -> nonEmptyText(maxLength = 100000)))
+  val diagnostic = Form(single("text" -> nonEmptyText(maxLength = 100_000)))
 
 object ForumForm:
 

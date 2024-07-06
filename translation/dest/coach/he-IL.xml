@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">מאמנים ב-lichess</string>
-  <string name="lichessCoach">מאמן ב-lichess</string>
+  <string name="lichessCoaches">מאמנים ב־lichess</string>
+  <string name="lichessCoach">מאמן ב־lichess</string>
   <string name="areYouCoach">האם את/ה מאמן/ת שחמט מעולה בדרגת %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">אמן/ית לאומי/ת או אחת מדרגות FIDE</string>
   <string name="confirmTitle">אשר/י את דרגתך כאן ואנו נבדוק את בקשתך.</string>

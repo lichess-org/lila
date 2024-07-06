@@ -44,7 +44,7 @@
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
   <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
-  <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
+  <string name="talkInChat">لطفا در گپ‌زنی بااَدب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این وب‌نشانی آید با شما بازی خواهد کرد.</string>
   <string name="whiteResigned">سفید تسلیم شد</string>
   <string name="blackResigned">سیاه تسلیم شد</string>
@@ -112,7 +112,7 @@
   <string name="allSet">همه چیز آماده است!</string>
   <string name="importPgn">PGN را وارد کنید</string>
   <string name="delete">حذف</string>
-  <string name="deleteThisImportedGame">آیا این بازیِ وارد شده حذف گردد؟</string>
+  <string name="deleteThisImportedGame">آیا این بازیِ درونبُرده پاک شود؟</string>
   <string name="replayMode">حالت پخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
   <string name="byCPL">درنگ حین اشتباهات</string>
@@ -142,7 +142,7 @@
     <item quantity="one">%s غیردقیق</item>
     <item quantity="other">%s غیردقیق</item>
   </plurals>
-  <string name="moveTimes">مدت زمان حركت</string>
+  <string name="moveTimes">مدت حركت‌ها</string>
   <string name="flipBoard">چرخاندن صفحه</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
   <string name="claimADraw">ادعای تساوی</string>
@@ -325,7 +325,7 @@
     <item quantity="one">%s بازی در حال انجام</item>
     <item quantity="other">%s بازی در حال انجام</item>
   </plurals>
-  <string name="exportGames">استخراج بازی ها</string>
+  <string name="exportGames">برون‏بُرد بازی‌ها</string>
   <string name="ratingRange">محدوده درجه‌بندی</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
@@ -398,7 +398,7 @@
   <string name="save">ذخیره</string>
   <string name="leaderboard">جدول رده‌بندی</string>
   <string name="screenshotCurrentPosition">از وضعیت فعلی نماگرفت بگیرید</string>
-  <string name="gameAsGIF">دانلود گیف بازی</string>
+  <string name="gameAsGIF">بارگیری GIF بازی</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
@@ -467,9 +467,6 @@
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
   <string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
   <string name="emptyTournamentName">این مکان را خالی بگذارید تا به صورت تصادفی اسم یک استاد بزرگ برای مسابقات انتخاب شود.</string>
-  <string name="recommendNotTouching">توصیه میکنیم که تنظیمات پیشرفته را تغییر ندهید.</string>
-  <string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
-  <string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
   <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
   <string name="join">ملحق شدن</string>
   <string name="withdraw">منصرف شدن</string>
@@ -504,13 +501,12 @@
   <string name="loadPosition">بارگذاری موقعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
-  <string name="profileCompletion">میزان تکمیل نمایه: %s</string>
+  <string name="profileCompletion">میزان تکمیل رُخ‌نما: %s</string>
   <string name="xRating">درجه‌‏بندی %s</string>
   <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
-  <string name="profile">نمایه</string>
-  <string name="editProfile">ویرایش نمایه</string>
-  <string name="firstName">نام</string>
-  <string name="lastName">نام خانوادگی</string>
+  <string name="profile">رُخ‌نما</string>
+  <string name="editProfile">ویرایش رُخ‌نما</string>
+  <string name="realName">نام راستین</string>
   <string name="setFlair">تعیین کردن شکلک</string>
   <string name="flair">نشان</string>
   <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
@@ -557,9 +553,7 @@
   <string name="reason">دلیل</string>
   <string name="whatIsIheMatter">موضوع</string>
   <string name="cheat">تقلب</string>
-  <string name="insult">توهین کردن</string>
   <string name="troll">ترول</string>
-  <string name="ratingManipulation">دستکاری درجه‌بندی</string>
   <string name="other">موضوعات دیگر</string>
   <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
@@ -594,6 +588,7 @@
   <string name="slow">آرام</string>
   <string name="insideTheBoard">در صفحه</string>
   <string name="outsideTheBoard">بیرون صفحه</string>
+  <string name="allSquaresOfTheBoard">همه خانه‌های صفحه</string>
   <string name="onSlowGames">در بازی های آرام</string>
   <string name="always">همیشه</string>
   <string name="never">هرگز</string>
@@ -655,7 +650,7 @@
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازها</string>
-  <string name="mobileApp">برنامه ی موبایل</string>
+  <string name="mobileApp">گوشی‌افزار</string>
   <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
@@ -740,8 +735,8 @@
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
-  <string name="downloadRaw">دانلود خام</string>
-  <string name="downloadImported">دانلود جایگذاری شده</string>
+  <string name="downloadRaw">بارگیری خام</string>
+  <string name="downloadImported">بارگیری درونبُرد</string>
   <string name="crosstable">رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
@@ -763,7 +758,7 @@
   <string name="sessions">جلسات</string>
   <string name="revokeAllSessions">باطل کردن تمامی موارد</string>
   <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>
-  <string name="asFreeAsLichess">رایگان به مانند لیچس</string>
+  <string name="asFreeAsLichess">کاملا رایگان</string>
   <string name="builtForTheLoveOfChessNotMoney">ساخته شده با عشق به شطرنج نه پول</string>
   <string name="everybodyGetsAllFeaturesForFree">همگی از مزایا بصورت رایگان استفاده می کنند</string>
   <string name="zeroAdvertisement">بدون تبلیغات</string>
@@ -771,12 +766,12 @@
   <string name="phoneAndTablet">موبایل و تبلت</string>
   <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، مرسوم</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
-  <string name="onlineAndOfflinePlay">بازی کردن بَرخط و بُرون‌خط</string>
+  <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>
   <string name="viewTheSolution">دیدن راهِ حل</string>
   <string name="followAndChallengeFriends">دنبال کردن و پیشنهاد بازی دادن به دوستان</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">در %s  زبان‌ها موجود است</item>
-    <item quantity="other">در %s  زبان‌ها موجود است</item>
+    <item quantity="one">در %s زبان موجود است!</item>
+    <item quantity="other">در %s زبان موجود است!</item>
   </plurals>
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
   <string name="xHostsY">%1$s میزبان ها %2$s</string>
@@ -800,7 +795,7 @@
   <string name="hue">فام</string>
   <string name="boardReset">بازنشاندن به رنگ‌های پیش‌فرض</string>
   <string name="pieceSet">نوع مهره</string>
-  <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
+  <string name="embedInYourWebsite">قرار دادن در وبگاه خود</string>
   <string name="usernameAlreadyUsed">این نام کاربری در حال حاضر انتخاب شده است.لطفا نام دیگری انتخاب کنید.</string>
   <string name="usernamePrefixInvalid">نام کاربری باید با حرف شروع شود.</string>
   <string name="usernameSuffixInvalid">نام کاربری باید با حرف یا شماره خاتمه یابد.</string>

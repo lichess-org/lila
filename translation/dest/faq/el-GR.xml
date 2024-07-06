@@ -166,6 +166,6 @@
 3. Κάντε κλικ στην επιλογή Cookies και άδειες ιστοσελίδας
 4. Κάντε κύλιση προς τα κάτω και κάντε κλικ στην αυτόματη αναπαραγωγή πολυμέσων
 5. Προσθέστε το lichess.org στο επιτρέπω</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Να σταματήσω τον εαυτό μου από το να παίζει;</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Να σταματήσω τον εαυτό μου από το να παίζει;</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">αυτόνομη κατάσταση ψυχικής υγείας</string>
 </resources>

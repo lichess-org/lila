@@ -702,7 +702,7 @@ export default class StudyCtrl {
       this.setMemberActive(d.w);
       if (d.s && !this.vm.mode.sticky) this.vm.behind++;
       if (d.s) this.data.position = d.p;
-      else if (d.w && d.w.s === site.sri) {
+      if (d.w?.s === site.sri) {
         this.vm.mode.write = this.relayData ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
       }

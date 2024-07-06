@@ -463,9 +463,6 @@
   <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
   <string name="inappropriateNameWarning">थोड़ा सा भी अनुचित नाम चुनने से आपका ख़ाता बंद हो सकता है।</string>
   <string name="emptyTournamentName">खाली रखने पर बेतरतीब ढंग से कोई एक सर्वश्रेष्ठ शतरंज के खिलाड़ी के बाद टूर्नामेंट का नाम चुना जाएगा।</string>
-  <string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते ।</string>
-  <string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
-  <string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
   <string name="makePrivateTournament">प्रतियोगिता को निजी बनाएं, और पासवर्ड के साथ पहुंच को प्रतिबंधित करें</string>
   <string name="join">हिस्सा लें</string>
   <string name="withdraw">छोड़ के जाएं</string>
@@ -504,8 +501,6 @@
   <string name="ifNoneLeaveEmpty">यदि कोई नहीं, खाली छोड़ दो</string>
   <string name="profile">प्रोफ़ाइल</string>
   <string name="editProfile">प्रोफ़ाइल संपादित करें</string>
-  <string name="firstName">प्रथम नाम</string>
-  <string name="lastName">अंतिम नाम</string>
   <string name="youCanHideFlair">संपूर्ण साइट पर सभी उपयोगकर्ता विशेषताओं को छिपाने के लिए एक सेटिंग है</string>
   <string name="biography">जीवनी</string>
   <string name="thankYou">धन्यवाद!</string>
@@ -549,9 +544,7 @@
   <string name="reason">कारण</string>
   <string name="whatIsIheMatter">बात क्या है?</string>
   <string name="cheat">धोखेबाज़ी</string>
-  <string name="insult">अपमान</string>
   <string name="troll">ट्रोल</string>
-  <string name="ratingManipulation">जब एक उपयोगकर्ता (lichess. org/report) की रिपोर्टिंग करते हैं, तो \"कारण\" ड्रॉपडाउन के संभावित चयनों में से एक। यह रिपोर्टिंग खिलाड़ियों के लिए है जो उनकी रेटिंग में हेरफेर करते हैं, या तो इसे बढ़ाते हैं या नकली खातों के साथ कृत्रिम रूप से घटाते हैं</string>
   <string name="other">दूसरा</string>
   <string name="reportDescriptionHelp">खेल/खेलों के लिंक को लगाएं (paste) और बताएँ की यूज़र के व्यवहार में क्या खराबी है|</string>
   <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>

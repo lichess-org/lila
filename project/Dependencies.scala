@@ -85,7 +85,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.18"
-    val json        = "org.playframework" %% "play-json"         % "3.0.3"
+    val json        = "org.playframework" %% "play-json"         % "3.0.4"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
@@ -94,7 +94,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.7"
+    val version = "2.2.8"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)

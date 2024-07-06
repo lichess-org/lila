@@ -80,8 +80,8 @@ For instance, being ranked 3 in a tournament of 100 players = 3%. Being ranked 1
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">All averages on this page are %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Points avg</string>
-  <string name="pointsSum">Points sum</string>
-  <string name="rankAvg">Rank avg</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Points sum</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Rank avg</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="tournamentShields">Tournament shields</string>
   <string name="onlyTitled">Only titled players</string>

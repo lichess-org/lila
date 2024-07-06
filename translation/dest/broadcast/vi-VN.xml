@@ -22,14 +22,12 @@
   <string name="tournamentDescription">Mô tả ngắn giải đấu</string>
   <string name="fullDescription">Mô tả đầy đủ giải đấu</string>
   <string name="fullDescriptionHelp">Tùy chọn mô tả dài về giải đấu. Có thể sử dụng %1$s. Độ dài phải nhỏ hơn %2$s ký tự.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">URL Nguồn PGN</string>
+  <string name="sourceSingleUrl">URL Nguồn PGN</string>
   <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
   <string name="sourceGameIds">Tối đa 64 ID ván cờ trên Lichess, phân tách bằng dấu cách.</string>
   <string name="startDate">Ngày bắt đầu theo múi giờ của bạn</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="credits">Công nhận nguồn</string>
-  <string name="broadcastUrl">URL phát sóng</string>
-  <string name="currentRoundUrl">URL vòng đấu hiện tại</string>
   <string name="currentGameUrl">URL ván đấu hiện tại</string>
   <string name="downloadAllRounds">Tải về tất cả ván đấu</string>
   <string name="resetRound">Đặt lại vòng này</string>
@@ -44,4 +42,13 @@
   <string name="replacePlayerTags">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
   <string name="periodInSeconds">Khoảng thời gian tính bằng giây</string>
   <string name="periodInSecondsHelp">Tùy chọn, thời gian chờ đợi giữa các yêu cầu. Tối thiểu 2 giây, tối đa 60 giây. Mặc định là tự động dựa trên số lượng người xem.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Các liên đoàn FIDE</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Hệ số Elo top 10</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Các kỳ thủ FIDE</string>
+  <string name="fidePlayerNotFound">Không tìm thấy kỳ thủ FIDE</string>
+  <string name="fideProfile">Hồ sơ FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Liên đoàn</string>
+  <string name="ageThisYear">Tuổi năm nay</string>
+  <string name="unrated">Chưa xếp hạng</string>
+  <string name="recentTournaments">Các giải đấu tham gia gần đây</string>
 </resources>

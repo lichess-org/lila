@@ -24,20 +24,26 @@ final class JsonView(
   given Writes[Option[RelayTour.Tier]] = Writes: t =>
     JsString(t.flatMap(RelayTour.Tier.keys.get) | "user")
 
+  given OWrites[RelayTour.Info] = Json.writes
+
+  given Writes[RelayTour.Dates] = Writes: ds =>
+    JsArray(List(ds.start.some, ds.end).flatten.map(Json.toJson))
+
   given OWrites[RelayTour] = OWrites: t =>
     Json
       .obj(
-        "id"          -> t.id,
-        "name"        -> t.name,
-        "slug"        -> t.slug,
-        "description" -> t.description,
-        "createdAt"   -> t.createdAt,
-        "url"         -> s"$baseUrl${t.path}"
+        "id"        -> t.id,
+        "name"      -> t.name,
+        "slug"      -> t.slug,
+        "info"      -> t.info,
+        "createdAt" -> t.createdAt,
+        "url"       -> s"$baseUrl${t.path}"
       )
       .add("tier" -> t.tier)
+      .add("dates" -> t.dates)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
-  given OWrites[RelayTour.IdName] = Json.writes[RelayTour.IdName]
+  given OWrites[RelayTour.IdName] = Json.writes
 
   given OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(
@@ -66,15 +72,15 @@ final class JsonView(
     case tr: WithLastRound =>
       Json
         .obj(
-          "tour"      -> fullTour(tr.tour),
-          "lastRound" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
+          "tour"  -> fullTour(tr.tour),
+          "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
         )
         .add("group" -> tr.group)
     case tr: ActiveWithSomeRounds =>
       Json
         .obj(
-          "tour"      -> fullTour(tr.tour),
-          "lastRound" -> withUrl(tr)
+          "tour"  -> fullTour(tr.tour),
+          "round" -> withUrl(tr)
         )
         .add("group" -> tr.group)
 
@@ -92,9 +98,13 @@ final class JsonView(
   def withUrlAndPreviews(
       rt: RelayRound.WithTourAndStudy,
       previews: ChapterPreview.AsJsons,
-      group: Option[RelayGroup.WithTours]
+      group: Option[RelayGroup.WithTours],
+      targetRound: Option[RelayRound.WithTour]
   )(using Option[Me]): JsObject =
-    myRound(rt) ++ Json.obj("games" -> previews).add("group" -> group)
+    myRound(rt) ++ Json
+      .obj("games" -> previews)
+      .add("group" -> group)
+      .add("targetRound" -> targetRound.map(withUrl(_, true)))
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
@@ -120,6 +130,7 @@ final class JsonView(
     JsonView.JsData(
       relay = fullTourWithRounds(trs, group)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
+        .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
         .add("pinned" -> pinned.map: (id, name, image) =>
@@ -165,7 +176,6 @@ object JsonView:
 
   given OWrites[RelayStats.RoundStats] = OWrites: r =>
     Json.obj(
-      "round" -> r.round,
       "viewers" -> r.viewers.map: (minute, crowd) =>
         Json.arr(minute * 60, crowd)
     )
@@ -179,7 +189,6 @@ object JsonView:
       )
       .add("delay" -> s.delay) ++
       s.upstream.so:
-        case Sync.UpstreamUrl(url)        => Json.obj("url" -> url)
-        case Sync.UpstreamLcc(url, round) => Json.obj("url" -> url, "round" -> round)
-        case Sync.UpstreamUrls(urls)      => Json.obj("urls" -> urls.map(_.formUrl))
-        case Sync.UpstreamIds(ids)        => Json.obj("ids" -> ids)
+        case Sync.Upstream.Url(url)   => Json.obj("url" -> url)
+        case Sync.Upstream.Urls(urls) => Json.obj("urls" -> urls)
+        case Sync.Upstream.Ids(ids)   => Json.obj("ids" -> ids)
