@@ -360,8 +360,7 @@ object BSONHandlers:
   private[study] given BSONDocumentWriter[StudyMember] with
     def writeTry(x: StudyMember) = Success($doc("role" -> x.role))
 
-
-  private[study] given BSONHandler[Map[String, DbMember]]= mapHandler[DbMember]
+  private[study] given BSONHandler[Map[String, DbMember]] = mapHandler[DbMember]
 
   private[study] given (using handler: BSONHandler[Map[String, DbMember]]): BSONHandler[StudyMembers] =
     handler.as[StudyMembers](
