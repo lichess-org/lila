@@ -408,7 +408,7 @@ function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
       if (segs.length == 3) {
         const [_, chapterId, ply] = segs;
         ctrl.study.setChapter(chapterId);
-        ctrl.jumpToMain(parseInt(ply));
+        setTimeout(() => ctrl.jumpToMain(parseInt(ply)), 100);
       }
     }
   };

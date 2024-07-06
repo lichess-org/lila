@@ -106,9 +106,16 @@
     }
   }
 
-  a.jump {
+  button.jump {
     font-size: medium;
     cursor: pointer;
+    background-color: transparent;
+    color: $c-link;
+    border: none;
+  }
+
+  button.jump:hover {
+    color: $c-link-hover;
   }
 
   div.actions {

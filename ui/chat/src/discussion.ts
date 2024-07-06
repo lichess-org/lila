@@ -209,7 +209,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
 
   const jumpToPly = msgPly
     ? h(
-        'a.jump',
+        'button.jump',
         {
           hook: bind('click', ctrl.broadcastChatHandler.jumpToMove.bind(null, line.t)),
           attrs: {
