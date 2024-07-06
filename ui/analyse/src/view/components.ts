@@ -90,7 +90,6 @@ export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
   kids: VNodeKids,
 ): VNode {
-  // console.log('renderMainmake');
   return h(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -405,8 +404,7 @@ function broadcastChatHandler(ctrl: AnalyseCtrl):BroadcastChatHandler {
     if (msg.includes('\ue666') && ctrl.study?.relay) {
       let segs = msg.split('\ue666');
       if (segs.length == 3) {
-        const [text, chapterId, ply] = segs;
-        // console.log(text, chapterId, ply);
+        const [_, chapterId, ply] = segs;
         ctrl.study.setChapter(chapterId);
         ctrl.jumpToMain(parseInt(ply));
       }
@@ -430,7 +428,6 @@ function broadcastChatHandler(ctrl: AnalyseCtrl):BroadcastChatHandler {
 }
 
 export function makeChat(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
-  // console.log('makeChat');
   if (ctrl.opts.chat) {
     const chatEl = document.createElement('section');
     chatEl.classList.add('mchat');
