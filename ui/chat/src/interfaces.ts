@@ -57,7 +57,6 @@ export interface Line {
   ply?: number;
 }
 
-
 export interface BroadcastChatHandler {
   encode(text: string): string;
   getClearedText(msg: string): string;

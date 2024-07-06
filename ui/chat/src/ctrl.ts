@@ -9,12 +9,12 @@ import {
   ChatData,
   NoteCtrl,
   ChatPalantir,
+  BroadcastChatHandler,
 } from './interfaces';
 import { PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
-import { BroadcastChatHandler } from './interfaces';
 
 export default class ChatCtrl {
   data: ChatData;

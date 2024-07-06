@@ -384,11 +384,11 @@ export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
-function broadcastChatHandler(ctrl: AnalyseCtrl):BroadcastChatHandler {
+function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
   const encode = (text: string): string => {
     if (ctrl.study?.relay && !ctrl.study.relay.tourShow()) {
-      let chapterId = ctrl.study.currentChapter().id;
-      let ply = ctrl.study.currentNode().ply;
+      const chapterId = ctrl.study.currentChapter().id;
+      const ply = ctrl.study.currentNode().ply;
       // '\ue666' was arbitrarily chosen from the unicode private use area to separate the text from the chapterId and ply
       text = text + '\ue666' + chapterId + '\ue666' + ply;
     }
@@ -402,7 +402,7 @@ function broadcastChatHandler(ctrl: AnalyseCtrl):BroadcastChatHandler {
   };
   const jumpToMove = (msg: string): void => {
     if (msg.includes('\ue666') && ctrl.study?.relay) {
-      let segs = msg.split('\ue666');
+      const segs = msg.split('\ue666');
       if (segs.length == 3) {
         const [_, chapterId, ply] = segs;
         ctrl.study.setChapter(chapterId);
@@ -411,19 +411,16 @@ function broadcastChatHandler(ctrl: AnalyseCtrl):BroadcastChatHandler {
     }
   };
   const canJumpToMove = (msg: string): boolean => {
-    if (msg.includes('\ue666') && ctrl.study?.relay) {
-      let segs = msg.split('\ue666');
-      if (segs.length == 3) {
-        return true;
-      }
+    if (msg.includes('\ue666') && ctrl.study?.relay && msg.split('\ue666').length === 3) {
+      return true;
     }
     return false;
-  }
+  };
   return {
     encode,
     getClearedText,
     jumpToMove,
-    canJumpToMove
+    canJumpToMove,
   };
 }
 
@@ -433,7 +430,7 @@ export function makeChat(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void)
     chatEl.classList.add('mchat');
     insert(chatEl);
     const chatOpts = ctrl.opts.chat;
-    chatOpts.broadcastChatHandler= broadcastChatHandler(ctrl);
+    chatOpts.broadcastChatHandler = broadcastChatHandler(ctrl);
     chatOpts.instance?.then(c => c.destroy());
     chatOpts.enhance = { plies: true, boards: !!ctrl.study?.relay };
     chatOpts.instance = site.makeChat(chatOpts);

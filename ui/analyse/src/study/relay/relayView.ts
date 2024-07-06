@@ -27,6 +27,7 @@ export function relayView(
   const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: allowVideo() };
 
   const renderTourView = () => [renderRelayTour(ctx), tourSide(ctx), deps.relayManager(relay, study)];
+
   return renderMain(ctx, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
