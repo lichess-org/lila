@@ -125,7 +125,7 @@
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
   <string name="infiniteAnalysis">آنالیز بی پایان</string>
-  <string name="removesTheDepthLimit">محدودیت عمق بررسی را بر می دارد که به گرم شدن کامپیوتر شما منجر می شود</string>
+  <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="engineManager">مدیر موتور شطرنج</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
@@ -385,7 +385,7 @@
   <string name="mustBeInTeam">باید در تیم %s باشید</string>
   <string name="youAreNotInTeam">شما در تیم %s نیستید</string>
   <string name="backToGame">بازگشت به بازی</string>
-  <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
+  <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان شطرنج بازی کنید. بدون ثبت‌نام، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
   <string name="startedStreaming">شروع به استریم کرده است</string>
@@ -414,7 +414,7 @@
     <item quantity="other">%s بارگذاری شده</item>
   </plurals>
   <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
-  <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
+  <string name="clickOnTheBoardToMakeYourMove">روی صفحه بزنید تا حرکت‌تان را بروید و اثبات کنید که انسانید.</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">این یک کیش و مات نیست</string>
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
@@ -814,14 +814,14 @@
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
   </plurals>
-  <string name="practiceWithComputer">تمرین با کامپیوتر</string>
+  <string name="practiceWithComputer">تمرین با رایانه</string>
   <string name="anotherWasX">حرکت مناسب دیگر %s بود</string>
   <string name="bestWasX">بهترین حرکت %s بود</string>
   <string name="youBrowsedAway">پوزیشن را به هم زدید!</string>
   <string name="resumePractice">ادامه تمرین</string>
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
-  <string name="computerThinking">کامپیوتر در حال محاسبه است...</string>
+  <string name="computerThinking">محاسبه رایانه‌ای ...</string>
   <string name="seeBestMove">مشاهده بهترین حرکت</string>
   <string name="hideBestMove">پنهان کردن بهترین حرکت</string>
   <string name="getAHint">راهنمایی</string>
