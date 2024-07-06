@@ -54,7 +54,7 @@
   <string name="hookMate">مات قُلاب</string>
   <string name="hookMateDescription">مات با یک رخ، اسب و یک پیاده در برابر یک پیاده حریف برای محدود کردن راه های فرار شاه دشمن.</string>
   <string name="interference">چنگال</string>
-  <string name="interferenceDescription">حرکت دادن یک مهره و حمله کردن به دو مهره هم زمان که بتوان یکی از مهره ها را گرفت، مانند حمله یک اسب به به دو تا رخ بصورت هم زمان.</string>
+  <string name="interferenceDescription">حرکت یک مهره به میان دو مهره حریف برای بی‌دفاع کردن یک یا هر دو مهره حریف، برای نمونه گذاشتن اسبی در خانه دفاع‌شده میان دو رخ.</string>
   <string name="intermezzo">زوگزوانگ</string>
   <string name="intermezzoDescription">به جای انجام حرکت مورد انتظار، ابتدا حرکت دیگری را وارد کنید که تهدیدی فوری است که حریف باید به آن پاسخ دهد. به عنوان \"Zwischenzug\" شناخته میشود.</string>
   <string name="knightEndgame">آخربازی اسب</string>
