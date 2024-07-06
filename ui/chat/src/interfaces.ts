@@ -53,15 +53,13 @@ export interface Line {
   p?: boolean; // patron
   f?: Flair;
   title?: string;
-  chapterId?: string;
-  ply?: number;
 }
 
 export interface BroadcastChatHandler {
-  encode(text: string): string;
-  getClearedText(msg: string): string;
+  encodeMsg(text: string): string;
+  cleanMsg(msg: string): string;
   jumpToMove(msg: string): void;
-  canJumpToMove(msg: string): boolean;
+  canJumpToMove(msg: string): string | null;
 }
 
 export interface Permissions {

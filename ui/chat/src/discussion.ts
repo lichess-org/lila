@@ -189,7 +189,7 @@ const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair
   userLink({ name, title, patron, line: !!patron, flair });
 
 function renderLine(ctrl: ChatCtrl, line: Line): VNode {
-  const textNode = renderText(ctrl.broadcastChatHandler?.getClearedText(line.t) || line.t, ctrl.opts.enhance);
+  const textNode = renderText(ctrl.broadcastChatHandler?.cleanMsg(line.t) || line.t, ctrl.opts.enhance);
 
   if (line.u === 'lichess') return h('li.system', textNode);
 
@@ -205,18 +205,21 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       .match(enhance.userPattern)
       ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
 
-  const jumpToPly = ctrl.broadcastChatHandler?.canJumpToMove(line.t)
+  const msgPly = ctrl.broadcastChatHandler?.canJumpToMove(line.t);
+
+  const jumpToPly = msgPly
     ? h(
         'a.jump',
         {
           hook: bind('click', ctrl.broadcastChatHandler.jumpToMove.bind(null, line.t)),
           attrs: {
-            title: `Jump to move ${line.chapterId}#${line.ply}`,
+            title: `Jump to move ${msgPly}`,
           },
         },
         '#',
       )
     : null;
+
   return h(
     'li',
     {
@@ -227,17 +230,19 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       },
     },
     ctrl.moderation
-      ? [line.u ? modLineAction() : null, userNode, ' ', textNode, jumpToPly]
+      ? [h('div.actions', [line.u ? modLineAction() : null, jumpToPly]), userNode, ' ', textNode]
       : [
-          myUserId && line.u && myUserId != line.u
-            ? h('action.flag', {
-                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
-              })
-            : null,
+          h('div.actions', [
+            myUserId && line.u && myUserId != line.u
+              ? h('action.flag', {
+                  attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
+                })
+              : null,
+            jumpToPly,
+          ]),
           userNode,
           ' ',
           textNode,
-          jumpToPly,
         ],
   );
 }

@@ -385,7 +385,7 @@ export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
 function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
-  const encode = (text: string): string => {
+  const encodeMsg = (text: string): string => {
     if (ctrl.study?.relay && !ctrl.study.relay.tourShow()) {
       const chapterId = ctrl.study.currentChapter().id;
       const ply = ctrl.study.currentNode().ply;
@@ -394,12 +394,14 @@ function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
     }
     return text;
   };
-  const getClearedText = (msg: string): string => {
+
+  const cleanMsg = (msg: string): string => {
     if (msg.includes('\ue666') && ctrl.study?.relay) {
       return msg.split('\ue666')[0];
     }
     return msg;
   };
+
   const jumpToMove = (msg: string): void => {
     if (msg.includes('\ue666') && ctrl.study?.relay) {
       const segs = msg.split('\ue666');
@@ -410,15 +412,21 @@ function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
       }
     }
   };
-  const canJumpToMove = (msg: string): boolean => {
-    if (msg.includes('\ue666') && ctrl.study?.relay && msg.split('\ue666').length === 3) {
-      return true;
+
+  const canJumpToMove = (msg: string): string | null => {
+    if (msg.includes('\ue666') && ctrl.study?.relay) {
+      const segs = msg.split('\ue666');
+      if (segs.length == 3) {
+        const [_, chapterId, ply] = segs;
+        return `${chapterId}#${ply}`;
+      }
     }
-    return false;
+    return null;
   };
+
   return {
-    encode,
-    getClearedText,
+    encodeMsg,
+    cleanMsg,
     jumpToMove,
     canJumpToMove,
   };

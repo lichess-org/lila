@@ -101,13 +101,13 @@ export default class ChatCtrl {
     text = text.trim();
     if (!text) return false;
     if (text == 'You too!' && !this.data.lines.some(l => l.u != this.data.userId)) return false;
-    if (text.length > 125) {
-      alert('Max length: 125 chars. ' + text.length + ' chars used.');
+    if (text.length > 140) {
+      alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
     if (text.includes('\ue666')) return false;
 
-    if (this.broadcastChatHandler) text = this.broadcastChatHandler.encode(text);
+    if (this.broadcastChatHandler) text = this.broadcastChatHandler.encodeMsg(text);
 
     site.pubsub.emit('socket.send', 'talk', text);
     return true;
