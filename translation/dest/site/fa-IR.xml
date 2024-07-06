@@ -77,7 +77,7 @@
   <string name="move">انتقال بدهید</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
-  <string name="insufficientMaterial">مُهره کافی برای مات کردن وجود ندارد</string>
+  <string name="insufficientMaterial">مُهره ناکافی برای مات</string>
   <string name="pawnMove">حرکت پیاده</string>
   <string name="capture">گرفتن مهره</string>
   <string name="close">بستن</string>
@@ -625,7 +625,7 @@
   <string name="error.unknown">مقدار نامعتبر</string>
   <string name="error.required">حتماً باید این خانه را پر کنید</string>
   <string name="error.email">آدرس ایمیل غیر معتبر است</string>
-  <string name="error.email_acceptable">این آدرس ایمیل قابل قبول نیست. لطفا آدرس وارد شده را چک کنید و دوباره امتحان کنید.</string>
+  <string name="error.email_acceptable">این نشانی رایانامه پذیرفتنی نیست. لطفا باز به آن سر زنید و دوباره بکوشید.</string>
   <string name="error.email_unique">آدرس ایمیل نامعتبر است یا قبلا در سیستم ثبت شده است</string>
   <string name="error.email_different">اکنون، این نشانی رایانامه‌تان شما است</string>
   <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
@@ -646,7 +646,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی ها</string>
-  <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
+  <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازها</string>
@@ -726,9 +726,9 @@
   <string name="yourRating">درجه‌بندی شما</string>
   <string name="cumulative">تجمعی</string>
   <string name="glicko2Rating">درجه‌بندی Glicko-2</string>
-  <string name="checkYourEmail">ایمیل خود را چک کنید</string>
+  <string name="checkYourEmail">به رایانامه‌تان سر زنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موارد را بررسی کنید.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
   <string name="weHaveSentYouAnEmailTo">ایمیل ارسال شد.بر روی لینک داخل ایمیل کلیک کنید تا پسورد شما ریست شود %s  به آدرس</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
