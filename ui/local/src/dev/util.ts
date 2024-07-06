@@ -1,7 +1,7 @@
-import { NumberInfo, RangeInfo } from './types';
-import { Outcome, Result } from '../types';
-import { Script } from './devCtrl';
 import * as co from 'chessops';
+import type { NumberInfo, RangeInfo } from './types';
+import type { Outcome, Result } from '../types';
+import type { Script } from './devCtrl';
 
 type ObjectPath = { obj: any; path: { keys: string[] } | { id: string } };
 

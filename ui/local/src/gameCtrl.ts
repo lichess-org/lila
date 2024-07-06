@@ -1,14 +1,13 @@
-import { LocalPlayOpts, LocalSetup, Automator, Outcome } from './types';
-import { type BotCtrl } from './botCtrl';
+import * as co from 'chessops';
 import { makeSocket } from './socket';
 import { GameDb } from './gameDb';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
-import { MoveRootCtrl } from 'game';
-import { RoundSocket, RoundOpts, RoundData } from 'round';
-import { Chess } from 'chessops';
-import * as co from 'chessops';
+import type { MoveRootCtrl } from 'game';
+import type { RoundSocket, RoundOpts, RoundData } from 'round';
+import type { LocalPlayOpts, LocalSetup, Automator, Outcome } from './types';
+import type { BotCtrl } from './botCtrl';
 
 export interface GameState {
   startingFen: string;
@@ -20,7 +19,7 @@ export interface GameState {
 }
 
 export class GameCtrl {
-  chess = Chess.default();
+  chess = co.Chess.default();
   socket: RoundSocket;
   fiftyMovePly = 0;
   threefoldFens: Map<string, number> = new Map();
@@ -68,7 +67,7 @@ export class GameCtrl {
     this.fiftyMovePly = 0;
     this.moves = [];
     this.threefoldFens.clear();
-    this.chess = Chess.fromSetup(
+    this.chess = co.Chess.fromSetup(
       co.fen.parseFen(fen ?? this.setup.fen ?? co.fen.INITIAL_FEN).unwrap(),
     ).unwrap();
     this.round.cg?.set({

@@ -1,12 +1,11 @@
-import makeZerofish, { type Zerofish, type Position, type FishSearch } from 'zerofish';
-import { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo, CardData } from './types';
+import * as co from 'chessops';
+import makeZerofish, { type Zerofish, type Position } from 'zerofish';
 import { AssetDb } from './assetDb';
 import { ZerofishBot, ZerofishBots } from './zerofishBot';
 import { RankBot } from './dev/rankBot';
-import { PolyglotBook } from 'bits/types';
-import { ObjectStorage, objectStorage } from 'common/objectStorage';
-import * as co from 'chessops';
-import { clamp, defined, deepFreeze } from 'common';
+import { type ObjectStorage, objectStorage } from 'common/objectStorage';
+import { defined, deepFreeze } from 'common';
+import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo } from './types';
 
 export class BotCtrl {
   readonly assetDb: AssetDb;

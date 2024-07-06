@@ -1,14 +1,12 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 //import { RoundOpts, RoundData, RoundSocket } from 'round';
-import { MoveRootCtrl } from 'game';
 import { GameCtrl } from './gameCtrl';
-import { DevCtrl } from './dev/devCtrl';
-import { renderDevView } from './dev/devView';
-import { LocalPlayOpts, Libot } from './types';
 import { BotCtrl } from './botCtrl';
 import { AssetDb } from './assetDb';
 import { SetupDialog } from './setupDialog';
 import view from './gameView';
+import type { MoveRootCtrl } from 'game';
+import type { LocalPlayOpts, Libot } from './types';
 
 const patch = init([classModule, attributesModule]);
 

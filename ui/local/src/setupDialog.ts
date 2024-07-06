@@ -1,11 +1,11 @@
-import type { Libot, Libots, LocalSetup } from './types';
 import { isTouchDevice } from 'common/device';
 import { HandOfCards } from './handOfCards';
 //import { clamp } from 'common';
 import * as licon from 'common/licon';
-import { domDialog, Dialog } from 'common/dialog';
+import { domDialog } from 'common/dialog';
 import { defined } from 'common';
-import { domIdToUid, uidToDomId, BotCtrl } from './botCtrl';
+import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
+import type { Libots, LocalSetup } from './types';
 //import { ratingView } from './components/ratingView';
 
 export class SetupDialog {

@@ -1,13 +1,13 @@
-import { PaneArgs, EditorHost, MoveSelectorInfo, PaneInfo, ObjectSelector, AnyType } from './types';
-import { Setting } from './setting';
-import { Mapping } from '../types';
+import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement, Tooltip } from 'chart.js';
-import { addPoint, asData, domain } from '../mapping';
+import { addPoint, asData, domain } from '../operator';
 import { alert } from 'common/dialog';
 import { clamp } from 'common';
+import type { PaneArgs, OperatorInfo } from './types';
+import type { Operator } from '../types';
 
-export class MoveSelector extends Setting {
-  info: MoveSelectorInfo;
+export class OperatorPane extends Pane {
+  info: OperatorInfo;
   canvas: HTMLCanvasElement;
   chart: Chart;
 
@@ -77,8 +77,8 @@ export class MoveSelector extends Setting {
     }
   }
 
-  get paneValue(): Mapping {
-    return this.getProperty() as Mapping;
+  get paneValue(): Operator {
+    return this.getProperty() as Operator;
   }
 
   private renderMapping() {

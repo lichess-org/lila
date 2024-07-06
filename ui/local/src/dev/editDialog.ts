@@ -1,14 +1,13 @@
-import type { Libot, Mapping } from '../types';
-import type { BotInfoReader, ZerofishBotEditor, EditorHost } from './types';
-import type { ZerofishBots } from '../zerofishBot';
-import { BotCtrl, domIdToUid, uidToDomId } from '../botCtrl';
+import { type BotCtrl, domIdToUid, uidToDomId } from '../botCtrl';
 import { HandOfCards } from '../handOfCards';
 import { defined, escapeHtml, isEquivalent } from 'common';
-import { GameCtrl } from '../gameCtrl';
 import { buildFromSchema, Editor } from './editor';
-import { /*objectPath,*/ removeObjectProperty } from './util';
+import { removeObjectProperty } from './util';
 import * as licon from 'common/licon';
-import { domDialog, alert, confirm, Dialog, Action } from 'common/dialog';
+import { domDialog, alert, confirm, type Dialog, type Action } from 'common/dialog';
+import type { BotInfoReader, ZerofishBotEditor, EditorHost } from './types';
+import type { ZerofishBots } from '../zerofishBot';
+import type { GameCtrl } from '../gameCtrl';
 
 export class EditDialog implements EditorHost {
   view: HTMLElement;
@@ -91,7 +90,7 @@ export class EditDialog implements EditorHost {
     const sources = buildFromSchema(this, ['sources']).el;
     sources.prepend(this.botInfoEl);
     el.appendChild(sources);
-    el.appendChild(buildFromSchema(this, ['bot_selectors']).el);
+    el.appendChild(buildFromSchema(this, ['bot_operators']).el);
     this.editor.forEach(el => el.setEnabled());
   }
 

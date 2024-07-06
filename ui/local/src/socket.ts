@@ -1,7 +1,7 @@
 import throttle from 'common/throttle';
-import { GameCtrl } from './gameCtrl';
-import { ApiMove } from 'game';
-import { RoundSocket } from 'round';
+import type { GameCtrl } from './gameCtrl';
+import type { ApiMove } from 'game';
+import type { RoundSocket } from 'round';
 
 export function makeSocket(/*send: SocketSend, */ ctrl: GameCtrl): RoundSocket {
   const handlers: SocketHandlers = {

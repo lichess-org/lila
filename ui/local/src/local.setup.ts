@@ -1,7 +1,5 @@
 import { SetupDialog } from './setupDialog';
 import { BotCtrl } from './botCtrl';
-import { AssetDb } from './assetDb';
-import { Libots } from './types';
 
 interface LocalModalOpts {}
 

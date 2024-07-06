@@ -1,10 +1,9 @@
-import type { PaneArgs, BooksInfo } from './types';
-import type { Mapping, Book } from '../types';
-import { Setting, SelectSetting } from './setting';
 import { Pane } from './pane';
 import * as licon from 'common/licon';
+import type { PaneArgs, BooksInfo } from './types';
+import type { Book } from '../types';
 
-export class Books extends Setting {
+export class BooksPane extends Pane {
   info: BooksInfo;
   constructor(p: PaneArgs) {
     super(p);

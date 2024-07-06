@@ -1,11 +1,8 @@
 import * as co from 'chessops';
-//import { ObjectStorage, objectStorage } from 'common/objectStorage';
-import { GameCtrl } from '../gameCtrl';
 import { rankBotMatchup } from './rankBot';
-import { Automator, Libot, Result, Matchup, Outcome } from '../types';
-import { clamp } from 'common';
 import * as u from './util';
-//import { Libot } from './interfaces';
+import type { Automator, Result, Matchup, Outcome } from '../types';
+import type { GameCtrl } from '../gameCtrl';
 
 export interface Test {
   type: 'matchup' | 'roundRobin' | 'rank';

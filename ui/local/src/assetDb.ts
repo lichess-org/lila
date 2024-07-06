@@ -1,8 +1,7 @@
-import { ObjectStorage, objectStorage } from 'common/objectStorage';
-import { GameState } from './gameCtrl';
-import { Libot, type NetData } from './types';
-import { PolyglotBook } from 'bits/types';
+import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { setSchemaAssets } from './dev/schema';
+import type { NetData } from './types';
+import type { PolyglotBook } from 'bits/types';
 
 export class AssetDb {
   private db = { nets: new Store('nets'), books: new Store('books'), images: new Store('images') };

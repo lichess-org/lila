@@ -5,11 +5,10 @@ import { storedBooleanProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
 import { EditDialog } from './editDialog';
 import { ZerofishBot } from '../zerofishBot';
-import { BotCtrl } from '../botCtrl';
-import { DevCtrl } from './devCtrl';
-import { GameCtrl } from '../gameCtrl';
-import { Libot } from '../types';
 import { playerResults, playersWithResults } from './util';
+import type { BotCtrl } from '../botCtrl';
+import type { DevCtrl } from './devCtrl';
+import type { GameCtrl } from '../gameCtrl';
 
 site.asset.loadCssPath('local.dev');
 

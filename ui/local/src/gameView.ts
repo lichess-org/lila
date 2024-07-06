@@ -1,8 +1,8 @@
 import { looseH as h, VNode } from 'common/snabbdom';
 //import * as licon from 'common/licon';
 //import { bind } from 'common/snabbdom';
-import { type Libot } from './types';
-import { GameCtrl } from './gameCtrl';
+import type { Libot } from './types';
+import type { GameCtrl } from './gameCtrl';
 
 export default function (ctrl?: GameCtrl, side?: VNode): VNode {
   return h('main.round', [

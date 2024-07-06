@@ -1,4 +1,4 @@
-import type { BotInfo, Mapping, Mappings, Book } from '../types';
+import type { BotInfo, Operator, Book } from '../types';
 import type { Editor } from './editor';
 import type { Pane } from './pane';
 import type { ZerofishBot } from '../zerofishBot';
@@ -29,7 +29,7 @@ export interface PaneInfo {
   title?: string;
   required?: boolean;
   requires?: string[];
-  value?: string | number | boolean | Mapping | Book[];
+  value?: string | number | boolean | Operator | Book[];
 }
 
 export interface SelectInfo extends PaneInfo {
@@ -72,15 +72,15 @@ export interface BooksInfo extends PaneInfo {
   max: number;
 }
 
-export interface MoveSelectorInfo extends PaneInfo {
-  type: 'moveSelector';
-  value: Mapping;
+export interface OperatorInfo extends PaneInfo {
+  type: 'operator';
+  value: Operator;
 }
 
 export type AnyType =
   | 'group'
   | 'books'
-  | 'moveSelector'
+  | 'operator'
   | 'radioGroup'
   | 'toggle'
   | 'select'
@@ -96,7 +96,7 @@ export type AnyKey =
   | keyof RangeInfo
   | keyof NumberInfo
   | keyof BooksInfo
-  | keyof MoveSelectorInfo;
+  | keyof OperatorInfo;
 
 export type AnyInfo =
   | SelectInfo
@@ -105,7 +105,7 @@ export type AnyInfo =
   | RangeInfo
   | NumberInfo
   | BooksInfo
-  | MoveSelectorInfo
+  | OperatorInfo
   | AnyInfo[];
 
 export interface Schema extends PaneInfo {
@@ -117,4 +117,4 @@ export type PaneArgs = { host: EditorHost; info: PaneInfo; parent?: Pane };
 
 export type ObjectSelector = 'bot' | 'default' | 'schema';
 
-type PropertyValue = string | number | boolean | Mapping | Book[] | PropertyValue[] | undefined;
+type PropertyValue = string | number | boolean | Operator | Book[] | PropertyValue[] | undefined;

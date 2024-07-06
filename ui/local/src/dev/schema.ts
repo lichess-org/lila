@@ -1,5 +1,5 @@
-import type { Schema, AnyKey, SelectInfo } from './types';
 import { deepFreeze } from 'common';
+import type { Schema, AnyKey, SelectInfo } from './types';
 
 export const primitiveKeys: AnyKey[] = [
   'type',
@@ -64,7 +64,7 @@ export let schema: Schema = {
         required: true,
       },
       multipv: {
-        label: 'multipv',
+        label: 'lines',
         type: 'range',
         class: ['setting'],
         value: 1,
@@ -78,7 +78,7 @@ export let schema: Schema = {
       label: 'stockfish',
       type: 'group',
       multipv: {
-        label: 'multipv',
+        label: 'lines',
         type: 'range',
         class: ['setting'],
         value: 12,
@@ -120,29 +120,29 @@ export let schema: Schema = {
       },
     },
   },
-  bot_selectors: {
-    class: ['selectors'],
+  bot_operators: {
+    class: ['operators'],
     lc0Bias: {
       label: 'lc0 bias',
-      type: 'moveSelector',
-      class: ['move-selector'],
+      type: 'operator',
+      class: ['operator'],
       value: { range: { min: 0, max: 1 }, from: 'move', data: [] },
       requires: ['sources_zero', 'sources_fish'],
       required: true,
     },
     acplMean: {
       label: 'acpl mean',
-      type: 'moveSelector',
-      class: ['move-selector'],
+      type: 'operator',
+      class: ['operator'],
       value: { range: { min: 0, max: 150 }, from: 'score', data: [] },
       requires: ['sources_fish'],
     },
     acplStdev: {
       label: 'acpl stdev',
-      type: 'moveSelector',
-      class: ['move-selector'],
+      type: 'operator',
+      class: ['operator'],
       value: { range: { min: 0, max: 100 }, from: 'score', data: [] },
-      requires: ['bot_selectors_acplMean'],
+      requires: ['bot_operators_acplMean'],
       required: true,
     },
   },

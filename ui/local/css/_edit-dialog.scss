@@ -169,7 +169,7 @@ dialog .dialog-content {
     }
   }
   .sources,
-  .selectors {
+  .operators {
     overflow-y: auto;
     overflow-x: visible;
     scrollbar-width: thin;
@@ -228,14 +228,14 @@ dialog .dialog-content {
       }
     }
   }
-  .selectors {
+  .operators {
     display: flex;
     flex-direction: column;
     min-width: 0;
     gap: 1em;
     grid-area: c;
   }
-  .move-selector {
+  .operator {
     display: flex;
     flex-direction: column;
     border-radius: $box-radius-size;

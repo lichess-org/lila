@@ -1,9 +1,9 @@
-import { Mapping, Point } from './types';
-import { Point as CjsPoint } from 'chart.js';
+import type { Operator, Point } from './types';
+import type { Point as CjsPoint } from 'chart.js';
 
 const DOMAIN_CAP_DELTA = 10;
 
-export function addPoint(m: Mapping, add: Point): void {
+export function addPoint(m: Operator, add: Point): void {
   normalize(m);
   const qX = quantizeX(add[0], m);
   const data = m.data;
@@ -14,7 +14,7 @@ export function addPoint(m: Mapping, add: Point): void {
   } else data.push([qX, add[1]]);
 }
 
-export function asData(m: Mapping): CjsPoint[] {
+export function asData(m: Operator): CjsPoint[] {
   const pts = m.data.slice();
   const xs = domain(m);
   const defaultVal = (m.range.max - m.range.min) / 2;
@@ -28,12 +28,12 @@ export function asData(m: Mapping): CjsPoint[] {
   return pts.map(p => ({ x: p[0], y: p[1] }));
 }
 
-export function quantizeX(x: number, m: Mapping): number {
+export function quantizeX(x: number, m: Operator): number {
   const qu = m.from === 'move' ? 1 : 0.01;
   return Math.round(x / qu) * qu;
 }
 
-export function normalize(m: Mapping) {
+export function normalize(m: Operator) {
   // TODO - not in place
   const newData = m.data.reduce((acc: Point[], p) => {
     const x = quantizeX(p[0], m);
@@ -46,7 +46,7 @@ export function normalize(m: Mapping) {
   m.data = newData;
 }
 
-export function interpolate(m: Mapping, x: number) {
+export function interpolate(m: Operator, x: number) {
   const to = m.data;
   // if (to.length === 0) return undefined; // TODO explicit default?
   if (to.length === 0) return (m.range.max + m.range.min) / 2;
@@ -62,7 +62,7 @@ export function interpolate(m: Mapping, x: number) {
   return to[to.length - 1][1];
 }
 
-export function domain(m: Mapping) {
+export function domain(m: Operator) {
   if (m.from === 'move') return { min: 1, max: 60 };
   else if (m.from === 'score') return { min: -1, max: 1 };
   else return { min: NaN, max: NaN };

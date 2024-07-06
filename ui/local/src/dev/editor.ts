@@ -1,10 +1,9 @@
 import { schema, primitiveKeys } from './schema';
+import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
+import { OperatorPane } from './operatorPane';
+import { BooksPane } from './booksPane';
 import type { EditorHost, PaneInfo, AnyKey } from './types';
-import type { Pane } from './pane';
-import { ActionListener, Action } from 'common/dialog';
-import { Setting, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './setting';
-import { MoveSelector } from './moveSelector';
-import { Books } from './books';
+import type { ActionListener, Action } from 'common/dialog';
 
 export class Editor {
   byId: { [id: string]: Pane } = {};
@@ -78,11 +77,11 @@ function buildFromInfo(host: EditorHost, info: PaneInfo, parent?: Pane): Pane {
     case 'number':
       return new NumberSetting(p);
     case 'books':
-      return new Books(p);
-    case 'moveSelector':
-      return new MoveSelector(p);
+      return new BooksPane(p);
+    case 'operator':
+      return new OperatorPane(p);
     default:
-      return new Setting(p);
+      return new Pane(p);
   }
 }
 /*

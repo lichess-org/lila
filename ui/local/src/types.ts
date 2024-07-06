@@ -1,9 +1,9 @@
-import { RoundData } from 'round';
+import type { RoundData } from 'round';
 import { Material } from 'chessops/setup';
 import type { Position, FishSearch } from 'zerofish';
-import { CardData } from './handOfCards';
-import { GameState } from './gameCtrl';
-import { Chess } from 'chessops';
+import type { CardData } from './handOfCards';
+import type { GameState } from './gameCtrl';
+import type { Chess } from 'chessops';
 
 export type { CardData };
 
@@ -13,7 +13,7 @@ export interface Quirks {
 
 export type Point = [number, number];
 
-export interface Mapping {
+export interface Operator {
   //readonly type: string;
   readonly range: { min: number; max: number };
   from: 'move' | 'score';
@@ -31,7 +31,7 @@ export type Trigger =
 
 export type Sounds = { [key in Trigger]: { [sound: string]: number } };
 
-export type Mappings = { [type: string]: Mapping };
+export type Operators = { [key: string]: Operator };
 
 export type ZeroSearch = { multipv: number; net: string };
 
@@ -62,7 +62,7 @@ export interface ZerofishBotInfo extends BotInfo {
   readonly zero?: ZeroSearch;
   readonly fish?: FishSearch;
   readonly quirks?: Quirks;
-  readonly selectors?: Mappings;
+  readonly operators?: Operators;
 }
 
 export interface LocalPlayOpts {
