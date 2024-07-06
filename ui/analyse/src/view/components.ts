@@ -40,6 +40,7 @@ import StudyCtrl from '../study/studyCtrl';
 import RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
+import { BroadcastChatHandler } from 'chat/src/interfaces';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -89,6 +90,7 @@ export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
   kids: VNodeKids,
 ): VNode {
+  // console.log('renderMainmake');
   return h(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -383,12 +385,58 @@ export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
+function broadcastChatHandler(ctrl: AnalyseCtrl):BroadcastChatHandler {
+  const encode = (text: string): string => {
+    if (ctrl.study?.relay && !ctrl.study.relay.tourShow()) {
+      let chapterId = ctrl.study.currentChapter().id;
+      let ply = ctrl.study.currentNode().ply;
+      // '\ue666' was arbitrarily chosen from the unicode private use area to separate the text from the chapterId and ply
+      text = text + '\ue666' + chapterId + '\ue666' + ply;
+    }
+    return text;
+  };
+  const getClearedText = (msg: string): string => {
+    if (msg.includes('\ue666') && ctrl.study?.relay) {
+      return msg.split('\ue666')[0];
+    }
+    return msg;
+  };
+  const jumpToMove = (msg: string): void => {
+    if (msg.includes('\ue666') && ctrl.study?.relay) {
+      let segs = msg.split('\ue666');
+      if (segs.length == 3) {
+        const [text, chapterId, ply] = segs;
+        // console.log(text, chapterId, ply);
+        ctrl.study.setChapter(chapterId);
+        ctrl.jumpToMain(parseInt(ply));
+      }
+    }
+  };
+  const canJumpToMove = (msg: string): boolean => {
+    if (msg.includes('\ue666') && ctrl.study?.relay) {
+      let segs = msg.split('\ue666');
+      if (segs.length == 3) {
+        return true;
+      }
+    }
+    return false;
+  }
+  return {
+    encode,
+    getClearedText,
+    jumpToMove,
+    canJumpToMove
+  };
+}
+
 export function makeChat(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
+  // console.log('makeChat');
   if (ctrl.opts.chat) {
     const chatEl = document.createElement('section');
     chatEl.classList.add('mchat');
     insert(chatEl);
     const chatOpts = ctrl.opts.chat;
+    chatOpts.broadcastChatHandler= broadcastChatHandler(ctrl);
     chatOpts.instance?.then(c => c.destroy());
     chatOpts.enhance = { plies: true, boards: !!ctrl.study?.relay };
     chatOpts.instance = site.makeChat(chatOpts);

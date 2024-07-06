@@ -24,10 +24,12 @@ export function relayView(
   relay: RelayCtrl,
   deps: typeof studyDeps,
 ): VNode {
+  // console.log(ctrl);
+  // console.log(site.analysis)
   const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: allowVideo() };
 
   const renderTourView = () => [renderRelayTour(ctx), tourSide(ctx), deps.relayManager(relay, study)];
-
+  // console.log(renderTourView());
   return renderMain(ctx, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),

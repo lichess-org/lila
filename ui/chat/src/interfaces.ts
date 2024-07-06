@@ -12,6 +12,7 @@ export interface ChatOpts {
   blind: boolean;
   timeout: boolean;
   enhance?: EnhanceOpts;
+  broadcastChatHandler: BroadcastChatHandler;
   public: boolean;
   permissions: Permissions;
   timeoutReasons?: ModerationReason[];
@@ -54,6 +55,14 @@ export interface Line {
   title?: string;
   chapterId?: string;
   ply?: number;
+}
+
+
+export interface BroadcastChatHandler {
+  encode(text: string): string;
+  getClearedText(msg: string): string;
+  jumpToMove(msg: string): void;
+  canJumpToMove(msg: string): boolean;
 }
 
 export interface Permissions {

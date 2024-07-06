@@ -9,6 +9,7 @@ export type { ChatPlugin } from './interfaces';
 export { default as ChatCtrl } from './ctrl';
 
 export function initModule(opts: ChatOpts): { preset: PresetCtrl } {
+  // console.log('hi chat.ts',opts);
   const patch = init([classModule, attributesModule]);
 
   const ctrl = new ChatCtrl(opts, redraw);

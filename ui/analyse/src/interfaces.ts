@@ -11,6 +11,7 @@ import { AnalyseSocketSend } from './socket';
 import { ExternalEngineInfo } from 'ceval';
 import * as Prefs from 'common/prefs';
 import { EnhanceOpts } from 'common/richText';
+import { BroadcastChatHandler } from 'chat/src/interfaces';
 
 export type Seconds = number;
 
@@ -158,6 +159,7 @@ export interface AnalyseOpts {
   chat: {
     enhance: EnhanceOpts;
     instance?: Promise<ChatCtrl>;
+    broadcastChatHandler?: BroadcastChatHandler;
   };
   wiki?: boolean;
   inlinePgn?: string;
