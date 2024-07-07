@@ -80,7 +80,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                             cls := "mod report button button-empty",
                             href := addQueryParams(
                               routes.Report.form.url,
-                              Map("username" -> userId.value, "postUrl" -> postUrl, "reason" -> "comm")
+                              Map("username" -> userId.value, "postUrl" -> postUrl, "from" -> "forum")
                             ),
                             dataIcon := Icon.CautionTriangle
                           )
