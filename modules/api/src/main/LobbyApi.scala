@@ -1,6 +1,6 @@
 package lila.api
 
-import play.api.libs.json.{ JsObject, Json, Writes, KeyWrites }
+import play.api.libs.json.{ JsObject, Json, Writes }
 
 import lila.common.Json.given
 

@@ -43,7 +43,7 @@ object Line:
   val textMaxSize = 140
   val titleSep    = '~'
 
-  val invalidLine =
+  private[chat] val invalidLine =
     UserLine(UserName(""), None, false, false, "[invalid character]", troll = false, deleted = true)
 
   private[chat] given lineHandler: BSONHandler[lila.core.chat.Line] =
@@ -60,7 +60,7 @@ object Line:
   private val UserLineRegex = {
     """(?s)([\w-~]{2,}+)([ """ + s"$trollChar$deletedChar$patronChar$flairChar$patronFlairChar" + """])(.++)"""
   }.r
-  def strToUserLine(str: String): Option[UserLine] = str match
+  private[chat] def strToUserLine(str: String): Option[UserLine] = str match
     case UserLineRegex(username, sep, text) =>
       val troll   = sep == trollChar
       val deleted = sep == deletedChar
