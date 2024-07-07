@@ -70,6 +70,8 @@
   <string name="promoteVariation">Plivalorigi variaĵon</string>
   <string name="makeMainLine">Ĉefigi linion</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
+  <string name="collapseVariations">Malatendi variaĵojn</string>
+  <string name="expandVariations">Etendi variaĵojn</string>
   <string name="forceVariation">Devigi variaĵon</string>
   <string name="copyVariationPgn">Kopi varianto PGN</string>
   <string name="move">Movo</string>
@@ -276,6 +278,7 @@
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>
+  <string name="customPosition">Tajlora pozicio</string>
   <string name="unlimited">Senlime</string>
   <string name="mode">Modo</string>
   <string name="casual">Amike</string>
