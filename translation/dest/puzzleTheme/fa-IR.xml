@@ -30,8 +30,8 @@
   <string name="dovetailMateDescription">وزیری که شاه مجاور خودش را که تنها دو خانه ای که برای فرارش باقی مانده توسط مهره های خودش سد شده، مات می کند.</string>
   <string name="equality">برابری</string>
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">تغییر وضعیت بازنده، و تضمین تساوی یا وضعیت متعادل. (eval ≤ 200cp)</string>
-  <string name="kingsideAttack">حمله به جناه شاه</string>
-  <string name="kingsideAttackDescription">حمله به شاه حریف زمانی که در جناه شاه قلعه رفته است.</string>
+  <string name="kingsideAttack">حمله به جناح شاه</string>
+  <string name="kingsideAttackDescription">حمله به شاه حریف، پس از آنکه آنها در جناح شاه قلعه رفتند.</string>
   <string name="clearance">پاکسازی</string>
   <string name="clearanceDescription">حرکتی، اغلب سریع، برای پاک کردن صفحه جهت دنبال کردن ایده های تاکتیکی بعدی.</string>
   <string name="defensiveMove">حرکت تدافعی</string>
