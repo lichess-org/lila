@@ -113,7 +113,7 @@ trait Handlers:
       leftHandler.readTry(bson).map(Left.apply).orElse(rightHandler.readTry(bson).map(Right.apply))
     def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
 
-  def mapHandler[V: BSONHandler]: BSONHandler[Map[String, V]] = new:
+  given mapHandler[V: BSONHandler]: BSONHandler[Map[String, V]] = new:
     def readTry(bson: BSONValue)    = BSONReader.mapReader.readTry(bson)
     def writeTry(v: Map[String, V]) = BSONWriter.mapWriter.writeTry(v)
 

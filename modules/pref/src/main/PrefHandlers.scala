@@ -58,7 +58,6 @@ private object PrefHandlers:
         tags = r.getD("tags", Pref.default.tags)
       )
 
-    given BSONHandler[Map[String, String]] = mapHandler[String]
     def writes(w: BSON.Writer, o: Pref) =
       $doc(
         "_id"            -> o.id,
