@@ -25,7 +25,7 @@
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Når resterende tid &lt; 10 sekunder</string>
   <string name="horizontalGreenProgressBars">Horisontale grønne statuslinjer</string>
   <string name="soundWhenTimeGetsCritical">Lyd, når tiden bliver kritisk</string>
-  <string name="giveMoreTime">Give mere tid</string>
+  <string name="giveMoreTime">Giv mere tid</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Spiladfærd</string>
   <string name="howDoYouMovePieces">Hvordan flytter du brikker?</string>
   <string name="clickTwoSquares">Klik på to felter</string>
@@ -34,7 +34,7 @@
   <string name="premovesPlayingDuringOpponentTurn">Forhåndstræk (spilles på modstanderens tur)</string>
   <string name="takebacksWithOpponentApproval">Fortrydelse af træk (med modstanderens accept)</string>
   <string name="inCasualGamesOnly">Kun i ikke-ratede spil</string>
-  <string name="promoteToQueenAutomatically">Forfrem til Dronning automatisk</string>
+  <string name="promoteToQueenAutomatically">Forfrem til dronning automatisk</string>
   <string name="explainPromoteToQueenAutomatically">Hold &lt;ctrl&gt;-tasten nede, mens du forfremmer for midlertidigt at deaktivere auto-forfremmelse</string>
   <string name="whenPremoving">Ved forhåndstræk</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv automatisk remis ved trækgentagelse</string>
