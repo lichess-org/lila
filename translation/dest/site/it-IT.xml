@@ -70,6 +70,8 @@
   <string name="promoteVariation">Promuovi la variante</string>
   <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
+  <string name="collapseVariations">Riduci varianti</string>
+  <string name="expandVariations">Espandi varianti</string>
   <string name="forceVariation">Mostra come variante</string>
   <string name="copyVariationPgn">Copia il PGN della variante</string>
   <string name="move">Mossa</string>
@@ -505,6 +507,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="ifNoneLeaveEmpty">Se nessuno, lasciare vuoto</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modifica profilo</string>
+  <string name="realName">Nome reale</string>
   <string name="setFlair">Imposta la tua icona</string>
   <string name="flair">Icona</string>
   <string name="youCanHideFlair">Esiste un\'impostazione per nascondere le icone di tutti gli utenti, sull\'intero sito.</string>
@@ -586,6 +589,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="slow">Lenta</string>
   <string name="insideTheBoard">Dentro la scacchiera</string>
   <string name="outsideTheBoard">Fuori la scacchiera</string>
+  <string name="allSquaresOfTheBoard">Su tutte le case della scacchiera</string>
   <string name="onSlowGames">Nelle partite lente</string>
   <string name="always">Sempre</string>
   <string name="never">Mai</string>

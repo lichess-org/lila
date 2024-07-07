@@ -43,7 +43,7 @@
   <string name="explainCanThenBeTemporarilyDisabled">Voidaan poistaa käytöstä pelin aikana lautavalikon kautta</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
-  <string name="confirmResignationAndDrawOffers">Vahvista luovutukset ja tasapelitarjoukset</string>
+  <string name="confirmResignationAndDrawOffers">Vahvista luovutukset ja tasapeliehdotukset</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Kuinka linnoittaudut</string>
   <string name="castleByMovingTwoSquares">Siirrä kuningasta kaksi ruutua</string>
   <string name="castleByMovingOntoTheRook">Siirrä kuningas tornin päälle</string>
