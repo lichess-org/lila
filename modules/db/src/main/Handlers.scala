@@ -31,9 +31,7 @@ trait Handlers:
 
   given userIdOfWriter[U: UserIdOf](using writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(u.id)
-
-  given noOpaqueUserId[A: lila.core.userId.OpaqueUserId]: NoDbHandler[A] with {}
-  given noUserIdOf[A: lila.core.userId.UserIdOf]: NoDbHandler[A] with         {}
+  given noUserIdOf[A: lila.core.userId.UserIdOf]: NoDbHandler[A] with {}
 
   given NoDbHandler[UserId] with {}
   given userIdHandler: BSONHandler[UserId] = stringIsoHandler
