@@ -47,9 +47,6 @@ final class LobbyApi(
   def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(using lightUserApi.sync)
 
   private def ratingMap(perfs: UserPerfs): JsObject =
-    given KeyWrites[PerfKey] with
-      def writeKey(key: PerfKey) = key.value
-
     Writes
       .keyMapWrites[PerfKey, JsObject, Map]
       .writes(

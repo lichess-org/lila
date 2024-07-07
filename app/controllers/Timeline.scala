@@ -37,8 +37,6 @@ final class Timeline(env: Env) extends LilaController(env):
     apiOutput(getIntAs[Max]("nb").fold(Max(15))(_.atMost(Max(30))))
 
   private def apiOutput(max: Max)(using ctx: Context, me: Me) =
-    given KeyWrites[UserId] with
-      def writeKey(key: UserId) = key.value
     for
       entries <- env.timeline.entryApi.moreUserEntries(me, max, since = getTimestamp("since"))
       users   <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
