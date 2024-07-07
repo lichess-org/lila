@@ -56,7 +56,7 @@ export interface Line {
 }
 
 export interface BroadcastChatHandler {
-  encodeMsg(text: string): string;
+  encodeMsg(msg: string): string;
   cleanMsg(msg: string): string;
   jumpToMove(msg: string): void;
   canJumpToMove(msg: string): string | null;

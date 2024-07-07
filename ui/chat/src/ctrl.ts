@@ -105,8 +105,6 @@ export default class ChatCtrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    if (text.includes('\ue666')) return false;
-
     if (this.broadcastChatHandler) text = this.broadcastChatHandler.encodeMsg(text);
 
     site.pubsub.emit('socket.send', 'talk', text);

@@ -6,6 +6,7 @@ export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
   const separator = '\ue666';
 
   const encodeMsg = (text: string): string => {
+    text = cleanMsg(text);
     if (ctrl.study?.relay && !ctrl.study.relay.tourShow()) {
       const chapterId = ctrl.study.currentChapter().id;
       const ply = ctrl.study.currentNode().ply;
