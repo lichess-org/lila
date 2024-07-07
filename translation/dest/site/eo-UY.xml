@@ -506,6 +506,7 @@
   <string name="ifNoneLeaveEmpty">Se neniu, lasu malplena</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Redakti profilon</string>
+  <string name="realName">Fakta nomo</string>
   <string name="setFlair">Agordi viaj emoĝio</string>
   <string name="flair">Emoĝio</string>
   <string name="youCanHideFlair">Estas agordo por kaŝi ĉiujn uzantajn emoĝiojn tra la tuta retejo.</string>
@@ -529,6 +530,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Memage iri al sekvanta ludo post via movo</string>
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
   <string name="puzzles">Puzloj</string>
+  <string name="onlineBots">Retaj robotoj</string>
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
   <string name="descPrivate">Privata priskribo</string>
@@ -586,6 +588,7 @@
   <string name="slow">Malrapide</string>
   <string name="insideTheBoard">Ene de la tabulo</string>
   <string name="outsideTheBoard">Ekstere de la tabulo</string>
+  <string name="allSquaresOfTheBoard">Ĉiuj kvadratoj de la ŝaktabulo</string>
   <string name="onSlowGames">Ĉe malrapidaj ludoj</string>
   <string name="always">Ĉiam</string>
   <string name="never">Neniam</string>
@@ -699,7 +702,8 @@
   <string name="keyNextBranch">Sekva branĉo</string>
   <string name="toggleVariationArrows">Baskuligi variaĵojn sagojn</string>
   <string name="cyclePreviousOrNextVariation">Cickligi antaŭan/sekvan variaĵon</string>
-  <string name="toggleGlyphAnnotations">Baskuligi signobildan prinotadon</string>
+  <string name="toggleGlyphAnnotations">Baskuligi movajn prinotaĵojn</string>
+  <string name="togglePositionAnnotations">Baskuligi poziciajn prinotaĵojn</string>
   <string name="variationArrowsInfo">Variaĵaj sagoj lasi vin navigi neutile la movlisto.</string>
   <string name="playSelectedMove">ludi elektan movon</string>
   <string name="newTournament">Nova konkurso</string>
@@ -784,6 +788,12 @@
   <string name="transparent">Travidebla</string>
   <string name="deviceTheme">Ila etoso</string>
   <string name="backgroundImageUrl">Malantaŭografikaĵo URL:</string>
+  <string name="board">Ŝaktabulo</string>
+  <string name="size">Amplekso</string>
+  <string name="opacity">Opakeco</string>
+  <string name="brightness">Lumeco</string>
+  <string name="hue">Kolortono</string>
+  <string name="boardReset">Restarigi kolorojn al la defaŭlta</string>
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
   <string name="usernameAlreadyUsed">Oni jam uzas tiun salutnomon. Bonvolu provi alian.</string>
@@ -979,4 +989,5 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="showMeEverything">Ĉion montru al mi</string>
   <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
+  <string name="nothingToSeeHere">Nenio videbla ĉi tie nuntempe.</string>
 </resources>
