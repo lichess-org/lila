@@ -30,7 +30,7 @@
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "shogiground": "^0.8.6",
-    "shogiops": "^0.16.2",
+    "shogiops": "^0.16.3",
     "spectrum": "github:WandererXII/spectrum",
     "tablesort": "^5.3"
   },

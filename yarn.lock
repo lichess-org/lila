@@ -6697,10 +6697,10 @@ shogiground@^0.8.6:
   resolved "https://registry.yarnpkg.com/shogiground/-/shogiground-0.8.6.tgz#9d8c4a184d813f69ea76c808c8724b34fa647cd9"
   integrity sha512-2t9Mh1FBBe4bCDHmXpH7ii+T7yHjt8x34JzOUstnWQ1OlcRfWC4YBfdnUV5wW60/UdTg5znDkU7dB6xFpCcA5A==
 
-shogiops@^0.16.2:
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.16.2.tgz#c02633efc871c8e89b3733260265de4c45bf1663"
-  integrity sha512-/uBmuL9IEugUejmXLZkaDe7k4ZPx3BXNOcicHf6eaj9xQhEF0AcWyo010CRsPMBzwdKJQ7uRG8HMtM5oBmoK6A==
+shogiops@^0.16.3:
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.16.3.tgz#17a06c841c8dbe80308004429bd98b0c9fcf8fe8"
+  integrity sha512-4h95W0m8ZoSWJrEeLPQCKaoJR6wrEAJI8LAp/SvghHYnkslp6bFzc+AKyNlEo7lZCessJIaekOwrFGuY582+/w==
   dependencies:
     "@badrap/result" "^0.2"
 
