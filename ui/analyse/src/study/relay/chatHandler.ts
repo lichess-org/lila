@@ -30,7 +30,23 @@ export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
       if (segs.length == 3) {
         const [_, chapterId, ply] = segs;
         ctrl.study.setChapter(chapterId);
-        setTimeout(() => ctrl.jumpToMain(parseInt(ply)), 100);
+
+        let attempts = 0;
+        const maxAttempts = 50;
+
+        // wait for the chapter to be set before jumping to the move
+        const waitForLoadingAndJump = () => {
+          if (!ctrl.study?.vm.loading) {
+            ctrl.jumpToMain(parseInt(ply));
+          } else if (attempts < maxAttempts) {
+            attempts++;
+            setTimeout(waitForLoadingAndJump, 100);
+          } else {
+            console.log('Failed to jump to move, took too many attempts.');
+          }
+        };
+
+        waitForLoadingAndJump();
       }
     }
   };
