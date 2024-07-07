@@ -3,7 +3,6 @@ import * as enhance from 'common/richText';
 import { userLink } from 'common/userLink';
 import * as spam from './spam';
 import { Line } from './interfaces';
-import { bind } from 'common/snabbdom';
 import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, report } from './moderation';
 import { presetView } from './preset';
@@ -205,20 +204,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       .match(enhance.userPattern)
       ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
 
-  const msgPly = ctrl.broadcastChatHandler?.canJumpToMove(line.t);
-
-  const jumpToPly = msgPly
-    ? h(
-        'button.jump',
-        {
-          hook: bind('click', ctrl.broadcastChatHandler.jumpToMove.bind(null, line.t)),
-          attrs: {
-            title: `Jump to move ${msgPly}`,
-          },
-        },
-        '#',
-      )
-    : null;
+  const jumpButton = ctrl.broadcastChatHandler?.jumpButton(line);
 
   return h(
     'li',
@@ -230,7 +216,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       },
     },
     ctrl.moderation
-      ? [h('div.actions', [line.u ? modLineAction() : null, jumpToPly]), userNode, ' ', textNode]
+      ? [h('div.actions', [line.u ? modLineAction() : null, jumpButton]), userNode, ' ', textNode]
       : [
           h('div.actions', [
             myUserId && line.u && myUserId != line.u
@@ -238,7 +224,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
                   attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
                 })
               : null,
-            jumpToPly,
+            jumpButton,
           ]),
           userNode,
           ' ',

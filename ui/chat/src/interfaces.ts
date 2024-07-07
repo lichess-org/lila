@@ -59,7 +59,7 @@ export interface BroadcastChatHandler {
   encodeMsg(msg: string): string;
   cleanMsg(msg: string): string;
   jumpToMove(msg: string): void;
-  canJumpToMove(msg: string): string | null;
+  jumpButton(line: Line): VNode | null;
 }
 
 export interface Permissions {

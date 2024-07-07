@@ -1,5 +1,7 @@
-import { BroadcastChatHandler } from 'chat/src/interfaces';
+import { BroadcastChatHandler, Line } from 'chat/src/interfaces';
 import AnalyseCtrl from '../../ctrl';
+import { VNode, h } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 
 export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
   // '\ue666' was arbitrarily chosen from the unicode private use area to separate the text from the chapterId and ply
@@ -44,10 +46,26 @@ export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
     return null;
   };
 
+  const jumpButton = (line: Line): VNode | null => {
+    const msgPly = canJumpToMove(line.t);
+    return msgPly
+      ? h(
+          'button.jump',
+          {
+            hook: bind('click', () => jumpToMove(line.t)),
+            attrs: {
+              title: `Jump to move ${msgPly}`,
+            },
+          },
+          '#',
+        )
+      : null;
+  };
+
   return {
     encodeMsg,
     cleanMsg,
     jumpToMove,
-    canJumpToMove,
+    jumpButton,
   };
 }
