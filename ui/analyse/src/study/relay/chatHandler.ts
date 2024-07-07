@@ -12,7 +12,10 @@ export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
     if (ctrl.study?.relay && !ctrl.study.relay.tourShow()) {
       const chapterId = ctrl.study.currentChapter().id;
       const ply = ctrl.study.currentNode().ply;
-      text = text + separator + chapterId + separator + ply;
+      const newText = text + separator + chapterId + separator + ply;
+      if (newText.length <= 140) {
+        text = newText;
+      }
     }
     return text;
   };

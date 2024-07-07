@@ -21,18 +21,28 @@ object String:
     try play.utils.UriEncoding.decodePath(input, "UTF-8").some
     catch case _: play.utils.InvalidUriEncodingException => None
 
-  def isShouting(text: String) =
+  def isShouting(text: String): Boolean =
     text.lengthIs >= 5 && {
       import java.lang.Character.*
       // true if >1/2 of the latin letters are uppercase
-      text.take(80).replace("O-O", "o-o").foldLeft(0) { (i, c) =>
-        getType(c) match
-          case UPPERCASE_LETTER => i + 1
-          case LOWERCASE_LETTER => i - 1
-          case _                => i
-      } > 0
+      if text.contains('\ue666') then
+        val (before, after) = text.span(_ != '\ue666')
+        isShouting(before)
+      else
+        text.take(80).replace("O-O", "o-o").foldLeft(0) { (i, c) =>
+          getType(c) match
+            case UPPERCASE_LETTER => i + 1
+            case LOWERCASE_LETTER => i - 1
+            case _                => i
+        } > 0
     }
-  def noShouting(str: String): String = if isShouting(str) then str.toLowerCase else str
+  def noShouting(str: String): String = if isShouting(str) then
+    // '\ue666' is a special character used to encode broadcast chat messages. See file://./../../../../ui/analyse/src/study/relay/chatHandler.ts
+    if str.contains('\ue666') then
+      val (before, after) = str.span(_ != '\ue666')
+      before.toLowerCase + after
+    else str.toLowerCase
+  else str
 
   val atUsernameRegex    = RawHtml.atUsernameRegex
   val forumPostPathRegex = """(?:(?<= )|^)\b([\w-]+/[\w-]+)\b(?:(?= )|$)""".r
