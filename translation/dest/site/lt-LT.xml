@@ -572,8 +572,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="profile">Profilis</string>
   <string name="editProfile">Redaguoti profilį</string>
   <string name="setFlair">Pasirinkite savo atskiriamąjį ženklą - avatarą</string>
-  <string name="flair">Atskiriamasis ženklas</string>
-  <string name="youCanHideFlair">Yra nustatymas leidžiantis atjungti visų žaidėjų skiriamuosius ženklus.</string>
+  <string name="flair">Skiriamasis ženklas</string>
+  <string name="youCanHideFlair">Tai nustatymas, leidžiantis atjungti visų žaidėjų skiriamuosius ženklus.</string>
   <string name="biography">Aprašymas</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Šalis ar regionas</string>
   <string name="thankYou">Ačiū!</string>
@@ -596,7 +596,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Po ėjimo automatiškai pereiti prie kitos partijos</string>
   <string name="autoSwitch">Automatinis perjungimas</string>
   <string name="puzzles">Užduotys</string>
-  <string name="onlineBots">Prisijungę robotai</string>
+  <string name="onlineBots">Online robotai</string>
   <string name="name">Pavadinimas</string>
   <string name="description">Aprašymas</string>
   <string name="descPrivate">Privatus aprašymas</string>
@@ -761,7 +761,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keyboardShortcuts">Spartieji klavišai</string>
   <string name="keyMoveBackwardOrForward">judėti pirmyn/atgal</string>
   <string name="keyGoToStartOrEnd">eiti į pradžią/pabaigą</string>
-  <string name="keyCycleSelectedVariation">Pereiti pasirinktą variantą</string>
+  <string name="keyCycleSelectedVariation">Praeiti pasirinktą variantą</string>
   <string name="keyShowOrHideComments">rodyti/slėpti komentarus</string>
   <string name="keyEnterOrExitVariation">įeiti/išeiti iš variacijos</string>
   <string name="keyRequestComputerAnalysis">Paprašyti kompiuterio analizės, pasimokykite iš savo klaidų</string>
@@ -770,12 +770,12 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="keyNextMistake">Kita klaida</string>
   <string name="keyNextInaccuracy">Kitas netiklsumas</string>
   <string name="keyPreviousBranch">Praeita atšaka</string>
-  <string name="keyNextBranch">Kita atšaka</string>
+  <string name="keyNextBranch">Sekanti atšaka</string>
   <string name="toggleVariationArrows">Rodyti variacijų rodykles</string>
-  <string name="cyclePreviousOrNextVariation">Eiti į praeitą/sekantį variantą</string>
+  <string name="cyclePreviousOrNextVariation">Eiti į ankstesnį/sekantį variantą</string>
   <string name="toggleGlyphAnnotations">Įjungti ėjimų komentarus</string>
   <string name="togglePositionAnnotations">Įjungti pozicijos komentarus</string>
-  <string name="variationArrowsInfo">Variacijų rodyklės leidžia jums naviguoti nenaudojant ėjimų lentelės.</string>
+  <string name="variationArrowsInfo">Variacijų rodyklės leidžia jums naviguoti nenaudojant ėjimų sarašo.</string>
   <string name="playSelectedMove">padaryti pasirinktą ėjimą</string>
   <string name="newTournament">Naujas turnyras</string>
   <string name="tournamentHomeTitle">Šachmatų turnyras su įvairiomis laiko kontrolėmis ir variantais</string>
@@ -969,7 +969,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
   <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
   <string name="edit">Keisti</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Naujiena</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Kulka</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Greitieji</string>
   <string name="classical">Klasikiniai</string>

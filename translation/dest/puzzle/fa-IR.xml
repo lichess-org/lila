@@ -48,14 +48,14 @@
   <string name="easier">آسان‌تر</string>
   <string name="easiest">آسان‌ترین</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
-    <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
+    <item quantity="one">یک امتیاز زیر درجه‌بندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز زیر درجه‌بندی معمایی‌تان</item>
   </plurals>
   <string name="harder">سخت‌تر</string>
   <string name="hardest">سخت‌ترین</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">یک امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
-    <item quantity="other">%s امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
+    <item quantity="one">یک امتیاز بالای درجه‌بندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز بالای درجه‌بندی معمایی‌تان</item>
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">افزودن موضوعی دیگر</string>

@@ -554,6 +554,7 @@
   <string name="slow">慢</string>
   <string name="insideTheBoard">棋盘内</string>
   <string name="outsideTheBoard">棋盘外</string>
+  <string name="allSquaresOfTheBoard">棋盘上的所有格子</string>
   <string name="onSlowGames">在慢棋时</string>
   <string name="always">总是</string>
   <string name="never">从不</string>

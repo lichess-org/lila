@@ -6,7 +6,7 @@
   <string name="moveKnightToC3">اسب به c3 رفت</string>
   <string name="kingsideCastle">قلعه جناح شاه</string>
   <string name="queensideCastle">قلعه جناح وزیر</string>
-  <string name="promoteC8ToQueen">ارتقاء c8 به وزیر</string>
+  <string name="promoteC8ToQueen">ارتقا c8 به وزیر</string>
   <string name="dropARookAtB4">رُخ را در b4 بکارید (فقط در شطرنج‌گونه دیوانه‌خانه)</string>
   <string name="offerOrAcceptDraw">پیشنهاد یا قبول تساوی</string>
   <string name="readOutClocks">اعلام ساعت</string>

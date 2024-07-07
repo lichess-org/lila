@@ -154,6 +154,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         url: play.api.mvc.Call,
         nav: FormNavigation
     )(using ctx: Context) =
+      val broadcastEmailContact = a(href := "mailto:broadcast@lichess.org")("broadcast@lichess.org")
       val lccWarning = nav.round
         .flatMap(_.sync.upstream)
         .exists(_.hasLcc)
@@ -163,7 +164,9 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             p(
               "LiveChessCloud support is deprecated and will be removed soon.",
               br,
-              "If you need help, please contact us at broadcast@lichess.org."
+              s"If you need help, please contact us at ",
+              broadcastEmailContact,
+              "."
             )
           )
       val contactUsForOfficial = nav.featurableRound.isDefined
@@ -174,7 +177,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               a(href := routes.RelayTour.index(1))("broadcast page"),
               "?"
             ),
-            p(trans.contact.sendEmailAt("broadcast@lichess.org"))
+            p(trans.contact.sendEmailAt(broadcastEmailContact))
           )
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
