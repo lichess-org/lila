@@ -656,7 +656,7 @@
   <string name="slow">Медленно</string>
   <string name="insideTheBoard">Внутри доски</string>
   <string name="outsideTheBoard">Вне доски</string>
-  <string name="allSquaresOfTheBoard"></string>
+  <string name="allSquaresOfTheBoard">Все поля на доске</string>
   <string name="onSlowGames">В медленных играх</string>
   <string name="always">Всегда</string>
   <string name="never">Никогда</string>
