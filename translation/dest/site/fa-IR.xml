@@ -113,7 +113,7 @@
   <string name="importPgn">PGN را وارد کنید</string>
   <string name="delete">حذف</string>
   <string name="deleteThisImportedGame">آیا این بازیِ درونبُرده پاک شود؟</string>
-  <string name="replayMode">حالت پخش</string>
+  <string name="replayMode">حالت بازپخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
   <string name="byCPL">درنگ حین اشتباهات</string>
   <string name="openStudy">مطالعه را شروع نمایید</string>
@@ -280,7 +280,7 @@
   <string name="standard">استاندارد</string>
   <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
-  <string name="mode">نوع</string>
+  <string name="mode">حالت</string>
   <string name="casual">غیر رسمی</string>
   <string name="rated">رسمی</string>
   <string name="casualTournament">غیر رسمی</string>
