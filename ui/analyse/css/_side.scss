@@ -33,6 +33,7 @@
   }
   &__wiki {
     overflow-y: auto;
+    padding: 1rem 1rem 0 1rem;
     scrollbar-gutter: stable both-edges;
 
     p {
@@ -50,10 +51,4 @@
       margin-bottom: 0.7rem;
     }
   }
-}
-
-#wikibook-field {
-  padding: 1rem 1rem 0 1rem;
-  overflow-y: auto;
-  scrollbar-gutter: stable both-edges;
 }
