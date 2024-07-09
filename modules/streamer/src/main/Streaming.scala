@@ -57,11 +57,9 @@ final private class Streaming(
   private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
-    Bus.publish(
+    Bus.pub:
       lila.core.misc.streamer
-        .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value))),
-      "streamersOnline"
-    )
+        .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value)))
     if newStreams != liveStreams then
       newStreams.streams
         .filterNot { s =>

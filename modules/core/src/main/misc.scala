@@ -11,8 +11,10 @@ package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
   object StreamStart:
     given bus.WithChannel[StreamStart] = bus.WithChannel[StreamStart]("streamStart")
-  
+
   case class StreamersOnline(streamers: Iterable[(UserId, String)])
+  object StreamersOnline:
+    given bus.WithChannel[StreamersOnline] = bus.WithChannel[StreamersOnline]("streamersOnline")
 
 package map:
   case class Tell(id: String, msg: Any)
