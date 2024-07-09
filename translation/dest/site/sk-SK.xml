@@ -774,6 +774,12 @@
   <string name="keyNextInaccuracy">Ďalšia nepresnosť</string>
   <string name="keyPreviousBranch">Predchádzajúca vetva</string>
   <string name="keyNextBranch">Nasledujúca vetva</string>
+  <string name="toggleVariationArrows">Prepnúť šípky variantov</string>
+  <string name="cyclePreviousOrNextVariation">Zakomponovať predchádzajúci/nasledujúci variant</string>
+  <string name="toggleGlyphAnnotations">Prepnúť poznámky k ťahom</string>
+  <string name="togglePositionAnnotations">Prepnúť poznámky k pozíciám</string>
+  <string name="variationArrowsInfo">Šípky variantov umožňujú navigáciu bez použitia záznamu ťahov.</string>
+  <string name="playSelectedMove">zahrať zvolený ťah</string>
   <string name="newTournament">Nový turnaj</string>
   <string name="tournamentHomeTitle">Šachový turnaj ponúka rôzne časové nastavenia partie a rôzne varianty</string>
   <string name="tournamentHomeDescription">Hrajte šachové turnaje s rýchlym tempom! Pridajte sa k oficiálnym plánovaným turnajom, alebo si vytvorte vlastný turnaj. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, a viac možností na výber pre nekonečnú šachovú zábavu.</string>
@@ -818,6 +824,7 @@
   <string name="withFriends">S priateľmi</string>
   <string name="withEverybody">S každým</string>
   <string name="kidMode">Detský režim</string>
+  <string name="kidModeIsEnabled">Detský režim je povolený.</string>
   <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je spravovaný niekým iným. Opýtajte sa svojho učiteľa šachu na zrušenie detského režimu.</string>
@@ -942,6 +949,8 @@
     <item quantity="many">a uložiť %s variantov predťahu</item>
     <item quantity="other">a uložiť %s variantov predťahu</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Obdržali ste súkromnú správu od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknutím sem si ju môžete prečítať</string>
   <string name="sorry">Prepáčte :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na chvíľu sme Vás museli odstaviť.</string>
   <string name="why">Prečo?</string>
@@ -1063,4 +1072,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="instructions">Inštrukcie</string>
   <string name="showMeEverything">Ukázať všetko</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="nothingToSeeHere">Momentálne tu nie je nič k zobrazeniu.</string>
 </resources>
