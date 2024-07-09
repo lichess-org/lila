@@ -32,24 +32,15 @@ export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
       const segs = msg.split(separator);
       if (segs.length == 3) {
         const [_, chapterId, ply] = segs;
-        ctrl.study.setChapter(chapterId);
-
-        let attempts = 0;
-        const maxAttempts = 50;
-
-        // wait for the chapter to be set before jumping to the move
-        const waitForLoadingAndJump = () => {
-          if (!ctrl.study?.vm.loading) {
-            ctrl.jumpToMain(parseInt(ply));
-          } else if (attempts < maxAttempts) {
-            attempts++;
-            setTimeout(waitForLoadingAndJump, 100);
-          } else {
-            console.log('Failed to jump to move, took too many attempts.');
+        if (ctrl.study.vm.chapterId != chapterId || ctrl.study.vm.loading) {
+          ctrl.study.vm.nextPly = parseInt(ply);
+          ctrl.study.setChapter(chapterId);
+        } else {
+          if (ctrl.study.relay.tourShow()) {
+            ctrl.study.relay.tourShow(false);
           }
-        };
-
-        waitForLoadingAndJump();
+          ctrl.jumpToMain(parseInt(ply));
+        }
       }
     }
   };

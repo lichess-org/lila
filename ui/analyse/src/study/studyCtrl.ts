@@ -364,8 +364,13 @@ export default class StudyCtrl {
         : this.data.chapter.relayPath || this.chapters.localPaths[this.vm.chapterId] || treePath.root;
     }
 
-    // path could be gone (because of subtree deletion), go as far as possible
-    this.ctrl.userJump(this.ctrl.tree.longestValidPath(nextPath));
+    if (this.vm.nextPly) {
+      this.ctrl.jumpToMain(this.vm.nextPly);
+      this.vm.nextPly = undefined;
+    } else {
+      // path could be gone (because of subtree deletion), go as far as possible
+      this.ctrl.userJump(this.ctrl.tree.longestValidPath(nextPath));
+    }
 
     this.vm.justSetChapterId = undefined;
 
