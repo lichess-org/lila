@@ -11,8 +11,8 @@ import lila.common.Form.cleanNonEmptyText
 
 final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>
-    if setup.reason != "cheat" || ReportForm.hasGameLink(setup.text)
-    then Valid
+    val gameLinkRequired = setup.reason == Reason.Cheat.key || setup.reason == Reason.Stall.key
+    if !gameLinkRequired || ReportForm.hasGameLink(setup.text) then Valid
     else Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
 
   def create(using me: MyId) = Form:
