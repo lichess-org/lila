@@ -106,8 +106,8 @@
   <string name="mateInOne">مات در یک حرکت</string>
   <string name="defeatTheOpponentsKing">شاه حریف را شکست بده</string>
   <string name="mateInOneIntro">شما زمانی برنده می شوید که حریفتان در برابر کیش نمی تواند از خودش دفاع کند.</string>
-  <string name="attackYourOpponentsKing">Attack your opponent\'s king
-in a way that cannot be defended!</string>
+  <string name="attackYourOpponentsKing">به شاه حریف حمله کنید
+طوری که نتواند دفاع کند!</string>
   <string name="mateInOneComplete">تبریک میگم! این گونه شما در بازی شطرنج برنده می شوید!</string>
   <string name="intermediate">متوسط</string>
   <string name="boardSetup">چیدمان صفحه</string>
@@ -145,9 +145,9 @@ You need to move out pieces first.</string>
   <string name="youCannotCastleIfMoved">You cannot castle if
 the king has already moved
 or the rook has already moved.</string>
-  <string name="youCannotCastleIfAttacked">You cannot castle if
-the king is attacked on the way.
-Block the check then castle!</string>
+  <string name="youCannotCastleIfAttacked">اگر به شاه‌تان حمله شود
+نمی‌توانید قلعه روید.
+راه کیش را ببندید و سپس قلعه روید!</string>
   <string name="findAWayToCastleKingSide">پیدا کردن راهی برای قلعه سمت شاه!</string>
   <string name="findAWayToCastleQueenSide">برای قلعه جناح وزیر
 راهی بیابید!</string>
