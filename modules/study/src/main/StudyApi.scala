@@ -772,18 +772,23 @@ final class StudyApi(
   def editStudy(studyId: StudyId, data: Study.Data)(who: Who) =
     sequenceStudy(studyId): study =>
       canActAsOwner(study, who.u).flatMap: asOwner =>
-        asOwner.option(data.settings).so: settings =>
-          val newStudy = study
-            .copy(
-              name = Study.toName(data.name),
-              flair = data.flair.flatMap(flairApi.find),
-              settings = settings,
-              visibility = data.vis,
-              description = settings.description.option:
-                study.description.filter(_.nonEmpty) | "-"
-            )
-          (newStudy != study).so:
-            studyRepo.updateSomeFields(newStudy).andDo(sendTo(study.id)(_.reloadAll)).andDo(indexStudy(study))
+        asOwner
+          .option(data.settings)
+          .so: settings =>
+            val newStudy = study
+              .copy(
+                name = Study.toName(data.name),
+                flair = data.flair.flatMap(flairApi.find),
+                settings = settings,
+                visibility = data.vis,
+                description = settings.description.option:
+                  study.description.filter(_.nonEmpty) | "-"
+              )
+            (newStudy != study).so:
+              studyRepo
+                .updateSomeFields(newStudy)
+                .andDo(sendTo(study.id)(_.reloadAll))
+                .andDo(indexStudy(study))
 
   def delete(study: Study) =
     sequenceStudy(study.id): study =>
