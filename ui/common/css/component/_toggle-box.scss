@@ -2,9 +2,8 @@
   @extend %box-radius;
   border: $border;
   background: $c-bg-zebra;
-  padding: 1rem 1rem 0 1rem;
-  overflow-y: auto;
-  scrollbar-gutter: stable both-edges;
+  margin: 1rem 0 3rem 0;
+  padding: 2rem 2rem 0 2rem;
 
   legend {
     @extend %box-radius;
@@ -15,7 +14,6 @@
     user-select: none;
   }
 }
-
 .toggle-box--toggle {
   legend {
     border-top: $border;
@@ -26,7 +24,6 @@
     }
   }
 }
-
 .toggle-box--toggle-off {
   background: none;
   border-width: 1px 0 0 0;
