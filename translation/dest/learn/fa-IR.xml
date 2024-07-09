@@ -76,15 +76,16 @@
   <string name="keepYourPiecesSafe">مهره های خود را امن نگه دارید</string>
   <string name="protectionIntro">مهره هایی که حریفتان حمله میکند را شناسایی کنید، و از آن ها دفاع کنید!</string>
   <string name="protectionComplete">تبریک! مهره ای که شما از دست ندادی مهره ای است که شما بردید!</string>
-  <string name="escape">شما مورد حمله قرار گرفتید!
+  <string name="escape">شما زیر حمله‌اید!
 از تهدید فرار کنید!</string>
   <string name="noEscape">هیچ راه فراری نیست،
-اما میتوانید دفاع کنید!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">بهشون اجازه نده هیچ مهره بی دفاعی رو بگیرن!</string>
+اما می‌توانید دفاع کنید!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">به آنها اجازه نده 
+هیچ مهره بی‌دفاعی را بزنند!</string>
   <string name="combat">مبارزه</string>
   <string name="captureAndDefendPieces">زدن و دفاع کردن مهره ها</string>
-  <string name="combatIntro">یه جنگجوی خوب هم حمله بلده هم دفاع!</string>
-  <string name="combatComplete">تبریک! شما بلدید چطور با مهره های شطرنج بجنگید!</string>
+  <string name="combatIntro">یک جنگجوی خوب هر دو را بلد است، دفاع و حمله!</string>
+  <string name="combatComplete">شادباش! شما بلدید چطور با مهره‌های شطرنج بجنگید!</string>
   <string name="checkInOne">کیش در یک حرکت</string>
   <string name="attackTheOpponentsKing">به شاه حریف حمله کن</string>
   <string name="checkInOneIntro">برای کیش دادن به حریف، به شاهش حمله کن. اون باید دفاع کنه!</string>
