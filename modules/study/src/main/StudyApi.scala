@@ -776,15 +776,14 @@ final class StudyApi(
           val newStudy = study
             .copy(
               name = Study.toName(data.name),
-              flair = data.pp("received data").flair.flatMap(flairApi.find),
+              flair = data.flair.flatMap(flairApi.find),
               settings = settings,
               visibility = data.vis,
               description = settings.description.option {
                 study.description.filter(_.nonEmpty) | "-"
               }
             )
-            .pp("New study")
-          (newStudy != study).pp("updated is different").so {
+          (newStudy != study).so {
             studyRepo.updateSomeFields(newStudy).andDo(sendTo(study.id)(_.reloadAll)).andDo(indexStudy(study))
           }
         }
