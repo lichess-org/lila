@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Švajčiarsky</string>
   <string name="swissTournaments">Turnaje švajčiarskym systémom</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Zobraziť kolo</item>
@@ -52,6 +53,16 @@
   <string name="roundInterval">Interval medzi kolami</string>
   <string name="forbiddenPairings">Zakázané párovania</string>
   <string name="forbiddenPairingsHelp">Užívateľské mená hráčov, ktorí nesmú hrať spolu (napríklad súrodenci). Dve užívateľské mená na riadok, oddelené medzerou.</string>
+  <string name="manualPairings">Manuálne párovanie v ďalšom kole</string>
+  <string name="manualPairingsHelp">Všetky dvojice ďalšieho kola zadajte ručne. Jedna dvojica hráčov na riadok. Príklad:
+HráčA HráčB
+HráčC HráčD
+Ak chcete hráčovi namiesto spárovania udeliť vynechanie kola (1 bod), pridajte riadok takto:
+HráčE 1
+Chýbajúci hráči budú považovaní za neprítomných a dostanú nula bodov.
+Toto pole nechajte prázdne, aby lichess vytvoril dvojice automaticky.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Musel odohrať svoju poslednú partiu v švajčiarskom turnaji</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Hráči sa môžu pripojiť len vtedy, ak odohrali svoju poslednú partiu v švajčiarskom turnaji. Ak v poslednej partii hranej švajčiarskym systémom nenastúpili, nebudú môcť nastúpiť do tej Vašej. To vedie k lepšiemu zážitku zo švajčiarskeho systému pre hráčov, ktorí sa skutočne dostavia.</string>
   <string name="newSwiss">Nový turnaj švajčiarskym systémom</string>
   <string name="swissVsArenaQ">Kedy použiť švajčiarsky systém namiesto arén?</string>
   <string name="swissVsArenaA">V švajčiarskom systéme, všetci hráči hrajú rovnaký počet hier a proti sebe môžu hrať iba raz.
@@ -126,4 +137,7 @@ Víťaz je súťažiaci s najvyšším počtom bodov, ktoré získal vo všetký
   <string name="predefinedUsers">Povoľte pripojenie len vopred zadaným používateľom</string>
   <string name="forbiddedUsers">Ak tento zoznam nie je prázdny, používatelia, ktorí v ňom nie sú, sa nesmú pripojiť. Jedno meno používateľa na riadok.</string>
   <string name="playYourGames">Odohrajte viac partií!</string>
+  <string name="byes">Vynechania kôl</string>
+  <string name="absences">Nenastúpenia</string>
+  <string name="tieBreak">Tajbrejk</string>
 </resources>
