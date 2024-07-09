@@ -80,4 +80,5 @@
     <item quantity="many">pred %s rokmi</item>
     <item quantity="other">pred %s rokmi</item>
   </plurals>
+  <string name="completed">ukončené</string>
 </resources>
