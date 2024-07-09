@@ -73,9 +73,9 @@ final class Env(
     case lila.core.study.StartStudy(id)               =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id) }
-    case lila.core.team.TeamCreate(t)                   => write.team(t.id, t.userId)
-    case lila.core.team.JoinTeam(id, userId)            => write.team(id, userId)
-    case lila.core.swiss.SwissFinish(swissId, ranking)  => write.swiss(swissId, ranking)
+    case lila.core.team.TeamCreate(t)                  => write.team(t.id, t.userId)
+    case lila.core.team.JoinTeam(id, userId)           => write.team(id, userId)
+    case lila.core.swiss.SwissFinish(swissId, ranking) => write.swiss(swissId, ranking)
 
   Bus.sub[StreamStart]:
     case StreamStart(userId, _) => write.streamStart(userId)
