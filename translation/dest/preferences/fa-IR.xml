@@ -34,13 +34,13 @@
   <string name="premovesPlayingDuringOpponentTurn">پیش حرکت (بازی در نوبت حریف)</string>
   <string name="takebacksWithOpponentApproval">پس گرفتن حرکت (با تایید حریف)</string>
   <string name="inCasualGamesOnly">در بازی های غیررسمی</string>
-  <string name="promoteToQueenAutomatically">ترفیع کردن به وزیر به صورت خودکار</string>
+  <string name="promoteToQueenAutomatically">ارتقا خودکار به وزیر</string>
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; را در هنگام تبلیغ بزنید تا به طور موقت تبلیغات خودکار را غیرفعال کنید</string>
   <string name="whenPremoving">در زمان پیش حرکت</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
-  <string name="explainCanThenBeTemporarilyDisabled">می‌توانید در طول بازی منوی تخته را غیرفعال کنید</string>
+  <string name="explainCanThenBeTemporarilyDisabled">می‌تواند هنگام بازی با «گزینگان صفحه‌بازی» خاموش شود</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
   <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>

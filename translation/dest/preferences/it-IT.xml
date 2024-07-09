@@ -44,7 +44,7 @@
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
   <string name="correspondenceAndUnlimited">Corrispondenza e senza limiti di tempo</string>
   <string name="confirmResignationAndDrawOffers">Conferma abbandono e offerte di patta</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metodo di arrocco</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Modalità di arrocco</string>
   <string name="castleByMovingTwoSquares">Muovi il re di due caselle</string>
   <string name="castleByMovingOntoTheRook">Muovi il re sopra la Torre</string>
   <string name="inputMovesWithTheKeyboard">Muovi utilizzando la tastiera</string>

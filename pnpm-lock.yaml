@@ -496,6 +496,9 @@ importers:
       chessops:
         specifier: ^0.14.1
         version: 0.14.1
+      common:
+        specifier: workspace:*
+        version: link:../common
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
