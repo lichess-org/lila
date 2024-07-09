@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Aréna</string>
   <string name="arenaTournaments">Arénové turnaje</string>
   <string name="isItRated">Započítava sa turnaj do môjho ratingu?</string>
   <string name="willBeNotified">Dáme Vám vedieť keď turnaj začne, takže kým čakáte, môžete pokojne hrať na ďalšej karte prehliadača.</string>
@@ -61,4 +62,6 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="averagePerformance">Priemerný výkon</string>
   <string name="averageScore">Priemerné skóre</string>
   <string name="myTournaments">Moje turnaje</string>
+  <string name="editTournament">Editovať turnaj</string>
+  <string name="editTeamBattle">Editovať zápas tímov</string>
 </resources>
