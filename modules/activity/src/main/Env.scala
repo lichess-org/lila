@@ -6,7 +6,7 @@ import com.softwaremill.tagging.*
 import lila.core.config.*
 import lila.core.round.CorresMoveEvent
 import lila.core.misc.streamer.StreamStart
-import lila.core.misc.puzzle.RacerRun
+import lila.core.misc.puzzle.{ RacerRun, StormRun, StreakRun }
 import lila.common.Bus
 import lila.core.forum.BusForum
 
@@ -42,14 +42,16 @@ final class Env(
     },
     "finishPuzzle" -> { case res: lila.puzzle.Puzzle.UserResult =>
       write.puzzle(res)
-    },
-    "stormRun" -> { case lila.core.misc.puzzle.StormRun(userId, score) =>
-      write.storm(userId, score)
-    },
-    "streakRun" -> { case lila.core.misc.puzzle.StreakRun(userId, score) =>
-      write.streak(userId, score)
     }
   )
+  Bus.sub[StreakRun]:
+    case StreakRun(userId, score) =>
+      write.streak(userId, score)
+
+  Bus.sub[StormRun]:
+    case StormRun(userId, score) =>
+      write.storm(userId, score)
+
   Bus.sub[RacerRun]:
     case RacerRun(userId, score) =>
       write.racer(userId, score)

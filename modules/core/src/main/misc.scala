@@ -30,11 +30,16 @@ package clas:
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)
+  object StormRun:
+    given bus.WithChannel[StormRun] = bus.WithChannel[StormRun]("stormRun")
+
   case class RacerRun(userId: UserId, score: Int)
   object RacerRun:
     given bus.WithChannel[RacerRun] = bus.WithChannel[RacerRun]("racerRun")
 
   case class StreakRun(userId: UserId, score: Int)
+  object StreakRun:
+    given bus.WithChannel[StreakRun] = bus.WithChannel[StreakRun]("streakRun")
 
 package lpv:
   import _root_.chess.format.pgn.PgnStr
