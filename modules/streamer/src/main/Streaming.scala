@@ -70,10 +70,7 @@ final private class Streaming(
         .foreach { s =>
           import s.streamer.userId
           if streamStartOnceEvery(userId) then
-            Bus.publish(
-              lila.core.misc.streamer.StreamStart(userId, s.streamer.name.value),
-              "streamStart"
-            )
+            Bus.pub(lila.core.misc.streamer.StreamStart(userId, s.streamer.name.value))
         }
     liveStreams = newStreams
     streamers.foreach { streamer =>

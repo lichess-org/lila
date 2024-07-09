@@ -5,6 +5,7 @@ import com.softwaremill.tagging.*
 
 import lila.core.config.*
 import lila.core.round.CorresMoveEvent
+import lila.core.misc.streamer.StreamStart
 import lila.common.Bus
 import lila.core.forum.BusForum
 
@@ -61,7 +62,6 @@ final class Env(
     "plan",
     "relation",
     "startStudy",
-    "streamStart",
     "swissFinish"
   ):
     case lila.core.ublog.UblogPost.Create(post)       => write.ublogPost(post)
@@ -75,8 +75,10 @@ final class Env(
       scheduler.scheduleOnce(5 minutes) { write.study(id) }
     case lila.core.team.TeamCreate(t)                   => write.team(t.id, t.userId)
     case lila.core.team.JoinTeam(id, userId)            => write.team(id, userId)
-    case lila.core.misc.streamer.StreamStart(userId, _) => write.streamStart(userId)
     case lila.core.swiss.SwissFinish(swissId, ranking)  => write.swiss(swissId, ranking)
+
+  Bus.sub[StreamStart]:
+    case StreamStart(userId, _) => write.streamStart(userId)
 
   Bus.sub[BusForum]:
     case BusForum.CreatePost(post) => write.forumPost(post)

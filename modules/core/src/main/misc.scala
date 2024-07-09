@@ -9,6 +9,9 @@ import lila.core.id.GameId
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
+  object StreamStart:
+    given bus.WithChannel[StreamStart] = bus.WithChannel[StreamStart]("streamStart")
+  
   case class StreamersOnline(streamers: Iterable[(UserId, String)])
 
 package map:
