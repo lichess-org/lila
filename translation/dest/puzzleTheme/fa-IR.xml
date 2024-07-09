@@ -106,7 +106,7 @@
   <string name="skewer">سیخ‌کشی یا سیخ‌کباب</string>
   <string name="skewerDescription">سیخ‌کشی، که به یک مهره باارزش حمله شده، به گونه‌ای جابجا می‌شود، و حالا امکان می‌دهد که مهره کم‌ارزش پشتش زده شود یا زیر ضرب قرار گیرد. برعکس آچمزی است.</string>
   <string name="smotheredMate">مات مختنق</string>
-  <string name="smotheredMateDescription">ماتی که توسط یک اسب انجام می شود که در آن پادشاه قادر به حرکت نیست زیرا توسط مهره های خود احاطه شده.</string>
+  <string name="smotheredMateDescription">ماتی که با یک اسب انجام می‌شود و در آن شاه قادر به حرکت نیست زیرا با مهره‌های خودش احاطه (یا خفه) شده است.</string>
   <string name="superGM">بازی اَبَر استاد بزرگان</string>
   <string name="superGMDescription">معماهای برگرفته از بازی‌های بهترین بازیکنان جهان.</string>
   <string name="trappedPiece">مهره به‌دام‌افتاده</string>
