@@ -2,6 +2,27 @@ import debounce from 'common/debounce';
 
 export type WikiTheory = (nodes: Tree.Node[]) => void;
 
+export function wikiToggleBox() {
+  $('#wikibook-field').each(function (this: HTMLElement) {
+    const wikiBookStorage = site.storage.boolean('analyse.wikibooks.display');
+    const toggleWikiBook = () => {
+      this.classList.toggle('toggle-box--toggle-off');
+      wikiBookStorage.toggle();
+    };
+
+    if (!wikiBookStorage.getOrDefault(true)) {
+      this.classList.add('toggle-box--toggle-off');
+    } else {
+      wikiBookStorage.set(true);
+    }
+
+    $(this)
+      .children('legend')
+      .on('click', () => toggleWikiBook())
+      .on('keypress', e => e.key == 'Enter' && toggleWikiBook());
+  });
+}
+
 export default function wikiTheory(): WikiTheory {
   const cache = new Map<string, string>();
   const show = (html: string) => {
@@ -9,26 +30,6 @@ export default function wikiTheory(): WikiTheory {
     $('.analyse__wiki-text').html(html);
     site.pubsub.emit('chat.resize');
   };
-
-  $(window).on('load', () => {
-    const wikiBookField = $('#wikibook-field').first();
-    const wikiBookStorage = site.storage.boolean('analyse.wikibooks.display');
-    const toggleWikiBook = () => {
-      wikiBookField.toggleClass('toggle-box--toggle-off');
-      wikiBookStorage.toggle();
-    };
-
-    if (!wikiBookStorage.getOrDefault(true)) {
-      wikiBookField.addClass('toggle-box--toggle-off');
-    } else {
-      wikiBookStorage.set(true);
-    }
-
-    $(wikiBookField)
-      .children('legend')
-      .on('click', () => toggleWikiBook())
-      .on('keypress', e => e.key == 'Enter' && toggleWikiBook());
-  });
 
   const plyPrefix = (node: Tree.Node) =>
     `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
