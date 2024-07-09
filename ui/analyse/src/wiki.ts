@@ -12,26 +12,29 @@ export default function wikiTheory(): WikiTheory {
 
   $(window).on('load', () => {
     const wikiBookField = $('#wikibook-field').first();
-    const wikiBookStorageKey = 'analyse.wikibooks.display';
-    const toggleWikiBookStorage = () => site.storage.boolean(wikiBookStorageKey).toggle();
+    const wikiBookStorage = site.storage.boolean('analyse.wikibooks.display');
+    const toggleWikiBook = () => {
+      wikiBookField.toggleClass('toggle-box--toggle-off');
+      wikiBookStorage.toggle();
+    };
 
-    if (!site.storage.boolean(wikiBookStorageKey).getOrDefault(true)) {
-      wikiBookField.addClass('form-fieldset--toggle-off');
+    if (!wikiBookStorage.getOrDefault(true)) {
+      wikiBookField.addClass('toggle-box--toggle-off');
     } else {
-      site.storage.boolean(wikiBookStorageKey).set(true);
+      wikiBookStorage.set(true);
     }
 
     $(wikiBookField)
       .children('legend')
-      .on('click', () => toggleWikiBookStorage())
-      .on('keypress', e => e.key == 'Enter' && toggleWikiBookStorage());
+      .on('click', () => toggleWikiBook())
+      .on('keypress', e => e.key == 'Enter' && toggleWikiBook());
   });
 
   const plyPrefix = (node: Tree.Node) =>
     `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '._' : '...'}`;
 
   const wikiBooksUrl = 'https://en.wikibooks.org';
-  const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1000';
+  const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
 
   const removeEmptyParagraph = (html: string) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
 

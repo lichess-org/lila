@@ -1,0 +1,48 @@
+.toggle-box {
+  @extend %box-radius;
+  border: $border;
+  background: $c-bg-zebra;
+  padding: 1rem 1rem 0 1rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
+
+  legend {
+    @extend %box-radius;
+    background: $c-bg-zebra;
+    padding: 0.5em 1.5em;
+    text-align: right;
+    font-size: 1.2em;
+    user-select: none;
+  }
+}
+
+.toggle-box--toggle {
+  legend {
+    border-top: $border;
+    cursor: pointer;
+    &::after {
+      content: '▲';
+      margin-left: 1ch;
+    }
+  }
+}
+
+.toggle-box--toggle-off {
+  background: none;
+  border-width: 1px 0 0 0;
+  padding-top: 0;
+  legend {
+    border: $border;
+    background: none;
+    &:hover {
+      @extend %box-neat;
+      background: $c-bg-zebra;
+    }
+    &::after {
+      content: '▼';
+    }
+  }
+  > *:not(legend) {
+    display: none;
+  }
+}

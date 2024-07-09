@@ -16,19 +16,14 @@
       }
     }
     .analyse__wiki {
-      margin-top: 2vh;
+      margin: 2vh 0;
       flex: 1 1 auto;
       @include mq-at-least-col3 {
         flex: 1 1 0;
-        padding: 0.5em 1em 0 0;
       }
 
       &.empty {
         visibility: hidden;
-      }
-
-      .form-fieldset {
-        padding: 1rem 1rem 0 1rem;
       }
     }
   }

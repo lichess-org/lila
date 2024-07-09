@@ -48,11 +48,9 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
                 }
               ),
               pov.game.variant.standard.option(
-                div(cls := "analyse__wiki empty")(
-                  fieldset(cls := "form-fieldset form-fieldset--toggle", id := "wikibook-field")(
-                    legend(tabindex := 0)("WikiBook"),
-                    div(cls := "analyse__wiki-text")
-                  )
+                fieldset(cls := "analyse__wiki empty toggle-box toggle-box--toggle", id := "wikibook-field")(
+                  legend(tabindex := 0)("WikiBook"),
+                  div(cls := "analyse__wiki-text")
                 )
               )
             )
