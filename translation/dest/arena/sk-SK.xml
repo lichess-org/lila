@@ -84,4 +84,6 @@ Napríklad 3. miesto v turnaji so 100 hráčmi = 3 %. Byť na 10. mieste v turna
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Priemer umiestnení</string>
   <string name="tournamentWinners">Víťazi turnajov</string>
   <string name="tournamentShields">Shield turnaje</string>
+  <string name="onlyTitled">Iba hráči s titulom</string>
+  <string name="onlyTitledHelp">Na účasť v turnaji je potrebný oficiálny titul</string>
 </resources>
