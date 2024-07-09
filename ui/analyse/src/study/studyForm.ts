@@ -142,6 +142,7 @@ export function view(ctrl: StudyForm): VNode {
                   }),
                 ],
               ),
+              h(removeEmojiButton, 'Delete flair'),
             ]),
             h('div.form-group', [
               h('label.form-label', { attrs: { for: 'study-name' } }, ctrl.trans.noarg('name')),
@@ -272,3 +273,5 @@ export function view(ctrl: StudyForm): VNode {
     ],
   });
 }
+
+const removeEmojiButton = emptyRedButton + '.button-thin.text.emoji-remove';
