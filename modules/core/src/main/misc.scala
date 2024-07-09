@@ -31,6 +31,9 @@ package clas:
 package puzzle:
   case class StormRun(userId: UserId, score: Int)
   case class RacerRun(userId: UserId, score: Int)
+  object RacerRun:
+    given bus.WithChannel[RacerRun] = bus.WithChannel[RacerRun]("racerRun")
+
   case class StreakRun(userId: UserId, score: Int)
 
 package lpv:
