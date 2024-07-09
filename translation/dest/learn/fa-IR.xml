@@ -131,7 +131,7 @@ Make any move to continue.</string>
   <string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
   <string name="castling">قلعه رفتن</string>
   <string name="theSpecialKingMove">حرکت ویژه پادشاه</string>
-  <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
+  <string name="castlingIntro">شاه‌تان را جای امنی آورید و رخ‌تان را برای حمله به پا دارید!</string>
   <string name="castleKingSide">Move your king two squares
 to castle king-side!</string>
   <string name="castleQueenSide">Move your king two squares
