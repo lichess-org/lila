@@ -114,8 +114,8 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    $('.form-fieldset--toggle').each(function (this: HTMLFieldSetElement) {
-      const toggle = () => this.classList.toggle('form-fieldset--toggle-off');
+    $('.toggle-box--toggle').each(function (this: HTMLFieldSetElement) {
+      const toggle = () => this.classList.toggle('toggle-box--toggle-off');
       $(this)
         .children('legend')
         .on('click', toggle)
