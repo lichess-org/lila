@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Váš účet nie je označený ani obmedzený. Všetko je v poriadku!</string>
+  <string name="engineMarked">Váš účet je označený kvôli externej pomoci v partiách.</string>
+  <string name="engineMarkedInfo">Definujeme to ako využívanie akejkoľvek externej pomoci na posilnenie svojich vedomostí a/alebo schopností kalkulácie s cieľom získať neférovú výhodu nad súperom. Viac informácií nájdete na stránke %s.</string>
+  <string name="arenaBanned">Vášmu účtu je zakázané vstupovať do arén.</string>
+</resources>
