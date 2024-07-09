@@ -142,7 +142,7 @@ export function view(ctrl: StudyForm): VNode {
                   }),
                 ],
               ),
-              h(removeEmojiButton, 'Delete flair'),
+              data.flair && h(removeEmojiButton, 'Delete flair'),
             ]),
             h('div.form-group', [
               h('label.form-label', { attrs: { for: 'study-name' } }, ctrl.trans.noarg('name')),
