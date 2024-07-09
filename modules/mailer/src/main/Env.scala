@@ -5,6 +5,8 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.*
+import lila.common.Bus
+import lila.core.misc.mailer.CorrespondenceOpponents
 
 @Module
 final class Env(
@@ -32,7 +34,7 @@ final class Env(
 
   lazy val automaticEmail = wire[AutomaticEmail]
 
-  lila.common.Bus.subscribeFuns(
+  Bus.subscribeFuns(
     "fishnet" -> { case lila.core.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)
     },
@@ -44,8 +46,8 @@ final class Env(
     },
     "planExpire" -> { case lila.core.misc.plan.PlanExpire(userId) =>
       automaticEmail.onPatronStop(userId)
-    },
-    "dailyCorrespondenceNotif" -> { case lila.core.misc.mailer.CorrespondenceOpponents(userId, opponents) =>
-      automaticEmail.dailyCorrespondenceNotice(userId, opponents)
     }
   )
+  Bus.sub[CorrespondenceOpponents]:
+    case CorrespondenceOpponents(userId, opponents) =>
+      automaticEmail.dailyCorrespondenceNotice(userId, opponents)

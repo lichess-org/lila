@@ -57,6 +57,9 @@ package mailer:
       gameId: GameId
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
+  object CorrespondenceOpponents:
+    given bus.WithChannel[CorrespondenceOpponents] =
+      bus.WithChannel[CorrespondenceOpponents]("dailyCorrespondenceNotif")
 
 package evaluation:
   case class AutoCheck(userId: UserId)

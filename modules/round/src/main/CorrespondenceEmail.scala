@@ -23,7 +23,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   private def run() =
     opponentStream
-      .map { Bus.publish(_, "dailyCorrespondenceNotif") }
+      .map { Bus.pub(_) }
       .runWith(LilaStream.sinkCount)
       .addEffect(lila.mon.round.correspondenceEmail.emails.record(_))
       .monSuccess(_.round.correspondenceEmail.time)
