@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="ifLiveChessRunningOnThisComputer">Ak %1$s beží na tomto počítači, svoje pripojenie k nemu môžete skontrolovať pomocou %2$s.</string>
+  <string name="ifLiveChessRunningElsewhere">Ak %1$s beží na inom počítači alebo na inom porte, bude potebné nastaviť v %2$s IP adresu a port.</string>
+  <string name="configurationSection">Sekcii Konfigurácia</string>
+  <string name="useWebSocketUrl">Použite \"%1$s\", pokiaľ %2$s nebeží na inom počítači alebo inom porte.</string>
   <string name="textToSpeech">Text na reč</string>
 </resources>
