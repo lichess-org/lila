@@ -64,4 +64,16 @@ Hráči, ktorí nemajú záujem o prijímanie vašich správ, môžu opustiť va
   <string name="thisTeamBattleIsOver">Tento turnaj sa skončil a tímy už nie je možné aktualizovať.</string>
   <string name="listTheTeamsThatWillCompete">Uveďte zoznam tímov, ktoré budú súťažiť v tomto turnaji.</string>
   <string name="oneTeamPerLine">Jeden tím na riadok. Použite automatické dokončovanie.</string>
+  <string name="oneTeamPerLineHelp">Tento zoznam môžete kopírovať a vkladať z jedného turnaja do druhého!
+
+Nemôžete odstrániť tím, ak sa s ním hráč už prihlásil do turnaja.</string>
+  <string name="numberOfLeadsPerTeam">Počet lídrov na tím. Súčet ich skóre je skóre tímu.</string>
+  <string name="numberOfLeadsPerTeamHelp">Túto hodnotu by ste naozaj nemali meniť po začiatku turnaja!</string>
+  <string name="innerTeam">Vnútorný tím</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Turnaj %s tímu</item>
+    <item quantity="few">Turnaj %s tímov</item>
+    <item quantity="many">Turnaj %s tímov</item>
+    <item quantity="other">Turnaj %s tímov</item>
+  </plurals>
 </resources>
