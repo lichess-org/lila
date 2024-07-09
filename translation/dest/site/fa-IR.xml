@@ -708,7 +708,7 @@
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
   <string name="tournamentHomeTitle">مسابقات شطرنج با گونه‌ها و زمان‌بندی‌های مختلف</string>
-  <string name="tournamentHomeDescription">هرچه سریع‌تر شطرنج بازی کنید! به یک مسابقه رسمی برنامه‌ریزی‌شده بپیوندید یا مسابقات خودتان را ایجاد کنید. شطرنج گلوله‌ای، برق‌آسا، مرسوم، ۹۶۰، پادشاه تپه‌ها، سه‌کیش و دیگر گزینه‌ها، برای لذت بی‌پایان از شطرنج در دسترس هستند.</string>
+  <string name="tournamentHomeDescription">هرچه زودتر شطرنج بازی کنید! به یک مسابقه رسمی برنامه‌ریزی‌شده بپیوندید یا مسابقات خودتان را بسازید. شطرنج گلوله‌ای، برق‌آسا، مرسوم، ۹۶۰، پادشاه تپه‌ها، سه‌کیش و دیگر گزینه‌ها، برای لذت بی‌پایان از شطرنج در دسترسند.</string>
   <string name="tournamentNotFound">مسابقات یافت نشد</string>
   <string name="tournamentDoesNotExist">این مسابقات وجود ندارد</string>
   <string name="tournamentMayHaveBeenCanceled">ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند</string>
