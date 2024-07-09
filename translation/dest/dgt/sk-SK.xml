@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="dgtBoard">DGT šachovnica</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Požiadavky na DGT šachovnicu</string>
+  <string name="dgtBoardLimitations">Obmedzenia DGT šachovnice</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Táto stránka vám umožňuje pripojiť Vašu DGT šachovnicu k Lichess a používať ju na hranie partií.</string>
+  <string name="toConnectTheDgtBoard">Na pripojenie sa k DGT elektronickej šachovnici je potrebné nainštalovať %s.</string>
+  <string name="downloadHere">Príslušný softvér si môžete stiahnuť tu: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Ak %1$s beží na tomto počítači, svoje pripojenie k nemu môžete skontrolovať pomocou %2$s.</string>
+  <string name="openingThisLink">tohoto odkazu</string>
   <string name="ifLiveChessRunningElsewhere">Ak %1$s beží na inom počítači alebo na inom porte, bude potebné nastaviť v %2$s IP adresu a port.</string>
   <string name="configurationSection">Sekcii Konfigurácia</string>
   <string name="timeControlsForCasualGames">Čas pre priateľské partie: iba Klasické, Korešpondenčné a Rapid.</string>
