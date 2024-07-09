@@ -274,4 +274,4 @@ export function view(ctrl: StudyForm): VNode {
   });
 }
 
-const removeEmojiButton = emptyRedButton + '.button-thin.text.emoji-remove';
+const removeEmojiButton = emptyRedButton + '.text.emoji-remove';
