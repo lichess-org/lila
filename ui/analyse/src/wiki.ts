@@ -1,25 +1,24 @@
 import debounce from 'common/debounce';
+import { storedBooleanPropWithEffect } from 'common/storage';
 
 export type WikiTheory = (nodes: Tree.Node[]) => void;
 
 export function wikiToggleBox() {
   $('#wikibook-field').each(function (this: HTMLElement) {
-    const wikiBookStorage = site.storage.boolean('analyse.wikibooks.display');
-    const toggleWikiBook = () => {
-      this.classList.toggle('toggle-box--toggle-off');
-      wikiBookStorage.toggle();
-    };
+    const box = this;
 
-    if (!wikiBookStorage.getOrDefault(true)) {
-      this.classList.add('toggle-box--toggle-off');
-    } else {
-      wikiBookStorage.set(true);
-    }
+    const state = storedBooleanPropWithEffect('analyse.wikibooks.display', true, value =>
+      box.classList.toggle('toggle-box--toggle-off', value),
+    );
 
-    $(this)
+    const toggle = () => state(!state());
+
+    if (!state()) box.classList.add('toggle-box--toggle-off');
+
+    $(box)
       .children('legend')
-      .on('click', () => toggleWikiBook())
-      .on('keypress', e => e.key == 'Enter' && toggleWikiBook());
+      .on('click', toggle)
+      .on('keypress', e => e.key == 'Enter' && toggle());
   });
 }
 
