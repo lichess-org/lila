@@ -76,4 +76,10 @@ Nemôžete odstrániť tím, ak sa s ním hráč už prihlásil do turnaja.</str
     <item quantity="many">Turnaj %s tímov</item>
     <item quantity="other">Turnaj %s tímov</item>
   </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Jeden líder na tím</item>
+    <item quantity="few">%s lídri na tím</item>
+    <item quantity="many">%s lídrov na tím</item>
+    <item quantity="other">%s lídrov na tím</item>
+  </plurals>
 </resources>
