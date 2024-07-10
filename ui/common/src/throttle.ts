@@ -56,10 +56,8 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
   wrapped: T,
 ): (...args: Parameters<T>) => Promise<void> {
   const throttler = throttlePromiseWithResult<void, T>(wrapped);
-  return async function (this: any, ...args: Parameters<T>): Promise<void> {
-    try {
-      return await throttler.apply(this, args);
-    } catch {}
+  return function (this: any, ...args: Parameters<T>): Promise<void> {
+    return throttler.apply(this, args).catch(() => {});
   };
 }
 

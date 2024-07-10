@@ -31,7 +31,7 @@ export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
     if (msg.includes(separator) && ctrl.study?.relay) {
       const segs = msg.split(separator);
       if (segs.length == 3) {
-        const [_, chapterId, ply] = segs;
+        const [, chapterId, ply] = segs;
         await ctrl.study.setChapter(chapterId);
         ctrl.jumpToMain(parseInt(ply));
       }
@@ -42,7 +42,7 @@ export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
     if (msg.includes(separator) && ctrl.study?.relay) {
       const segs = msg.split(separator);
       if (segs.length == 3) {
-        const [_, chapterId, ply] = segs;
+        const [, chapterId, ply] = segs;
         return `${chapterId}#${ply}`;
       }
     }
