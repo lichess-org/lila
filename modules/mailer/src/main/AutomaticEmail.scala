@@ -3,8 +3,6 @@ package lila.mailer
 import play.api.i18n.Lang
 import scalatags.Text.all.*
 
-import scala.util.chaining.*
-
 import lila.core.lilaism.LilaException
 import lila.core.config.BaseUrl
 import lila.core.misc.mailer.CorrespondenceOpponent

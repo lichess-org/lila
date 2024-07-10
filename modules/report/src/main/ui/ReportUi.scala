@@ -15,7 +15,11 @@ final class ReportUi(helpers: Helpers):
   import helpers.{ given, * }
   import ReportUi.*
 
-  def form(form: Form[?], reqUser: Option[User] = None)(using ctx: Context) =
+  def filterReason(from: Option[String])(reason: Reason): Boolean = from match
+    case Some("forum") => reason.isComm
+    case _             => true
+
+  def form(form: Form[?], reqUser: Option[User] = None, from: Option[String])(using ctx: Context) =
     Page(trans.site.reportAUser.txt())
       .css("bits.form3")
       .js(
@@ -65,7 +69,8 @@ final class ReportUi(helpers: Helpers):
               form3.group(form("reason"), trans.site.reason()): f =>
                 form3.select(
                   f,
-                  translatedReasonChoices.map((r, t) => (r.key, t)),
+                  translatedReasonChoices.collect:
+                    case (r, t) if filterReason(from)(r) => (r.key, t),
                   trans.site.whatIsIheMatter.txt().some
                 )
             ,
@@ -89,13 +94,17 @@ final class ReportUi(helpers: Helpers):
       .map: reason =>
         span(
           cls := List(s"report-reason report-reason-${reason.key}" -> true, "none" -> (current != reason.key))
-        ):
-          val base =
-            if reason == Cheat || reason == Boost then trans.site.reportDescriptionHelp()
-            else if reason == Username then "Please explain briefly what about this username is offensive."
-            else
-              "Please provide as much information as possible, including relevant game links, posts, and messages."
-          s"$base $englishPlease $maxLength"
+        )(
+          if reason == Cheat || reason == Boost then trans.site.reportDescriptionHelp()
+          else if reason == Username then "Please explain briefly what about this username is offensive."
+          else
+            "Please provide as much information as possible, including relevant game links, posts, and messages."
+          ,
+          " ",
+          englishPlease,
+          " ",
+          maxLength
+        )
 
   private def translatedReasonChoices(using Translate) =
     import Reason.*

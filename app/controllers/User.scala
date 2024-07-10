@@ -1,6 +1,5 @@
 package controllers
 
-import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.http.ContentTypes
 import play.api.libs.EventSource

@@ -12,10 +12,9 @@ import serviceWorker from './serviceWorker';
 import StrongSocket from './socket';
 import topBar from './topBar';
 import watchers from './watchers';
-import { requestIdleCallback } from './functions';
 import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
-import { scrollToInnerSelector } from 'common';
+import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 
 export function boot() {
@@ -115,8 +114,8 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    $('.form-fieldset--toggle').each(function (this: HTMLFieldSetElement) {
-      const toggle = () => this.classList.toggle('form-fieldset--toggle-off');
+    $('.toggle-box--toggle').each(function (this: HTMLFieldSetElement) {
+      const toggle = () => this.classList.toggle('toggle-box--toggle-off');
       $(this)
         .children('legend')
         .on('click', toggle)

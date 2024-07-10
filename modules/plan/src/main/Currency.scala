@@ -12,6 +12,7 @@ import scala.util.Try
 import lila.common.autoconfig.AutoConfig
 import lila.common.config.given
 import lila.core.config.Secret
+import lila.db.dsl.mapHandler
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 

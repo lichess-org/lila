@@ -4,7 +4,6 @@ import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
 import scalatags.Text.Frag
-import scala.util.chaining.*
 
 import lila.web.AnnounceApi
 import lila.app.{ *, given }

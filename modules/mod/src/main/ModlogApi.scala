@@ -65,6 +65,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def isolate(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, if sus.user.marks.isolate then Modlog.isolate else Modlog.unisolate)
 
+  def deleteComms(sus: Suspect)(using MyId) = add:
+    Modlog.make(sus, Modlog.deleteComms)
+
   def fullCommExport(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, Modlog.fullCommsExport)
 

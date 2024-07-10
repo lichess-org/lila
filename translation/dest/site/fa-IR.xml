@@ -77,7 +77,7 @@
   <string name="move">انتقال بدهید</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
-  <string name="insufficientMaterial">مُهره کافی برای مات کردن وجود ندارد</string>
+  <string name="insufficientMaterial">مُهره ناکافی برای مات</string>
   <string name="pawnMove">حرکت پیاده</string>
   <string name="capture">گرفتن مهره</string>
   <string name="close">بستن</string>
@@ -98,7 +98,7 @@
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید بازی‌های بیشتری با توجه به گزینگان ترجیحات، وجود داشته باشه؟</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ممکنه بازی‌های بیشتری با توجه به گزینگان ترجیح‌ها، وجود داشته باشد؟</string>
   <string name="openings">گشایش</string>
   <string name="openingExplorer">جستجوگر گشایش‌</string>
   <string name="openingEndgameExplorer">جستجوگر گشایش/آخربازی</string>
@@ -125,7 +125,7 @@
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
   <string name="infiniteAnalysis">آنالیز بی پایان</string>
-  <string name="removesTheDepthLimit">محدودیت عمق بررسی را بر می دارد که به گرم شدن کامپیوتر شما منجر می شود</string>
+  <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="engineManager">مدیر موتور شطرنج</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
@@ -385,11 +385,11 @@
   <string name="mustBeInTeam">باید در تیم %s باشید</string>
   <string name="youAreNotInTeam">شما در تیم %s نیستید</string>
   <string name="backToGame">بازگشت به بازی</string>
-  <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
+  <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان شطرنج بازی کنید. بدون ثبت‌نام، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
-  <string name="startedStreaming">شروع به استریم کرده است</string>
-  <string name="xStartedStreaming">%s شروع به استریم کرده است</string>
+  <string name="startedStreaming">پخش را آغازید</string>
+  <string name="xStartedStreaming">%s پخش را آغازید</string>
   <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
   <string name="filterGames">دستچین کردن بازی‌ها</string>
@@ -414,7 +414,7 @@
     <item quantity="other">%s بارگذاری شده</item>
   </plurals>
   <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
-  <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
+  <string name="clickOnTheBoardToMakeYourMove">روی صفحه بزنید تا حرکت‌تان را بروید و اثبات کنید که انسانید.</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">این یک کیش و مات نیست</string>
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
@@ -625,7 +625,7 @@
   <string name="error.unknown">مقدار نامعتبر</string>
   <string name="error.required">حتماً باید این خانه را پر کنید</string>
   <string name="error.email">آدرس ایمیل غیر معتبر است</string>
-  <string name="error.email_acceptable">این آدرس ایمیل قابل قبول نیست. لطفا آدرس وارد شده را چک کنید و دوباره امتحان کنید.</string>
+  <string name="error.email_acceptable">این نشانی رایانامه پذیرفتنی نیست. لطفا باز به آن سر زنید و دوباره بکوشید.</string>
   <string name="error.email_unique">آدرس ایمیل نامعتبر است یا قبلا در سیستم ثبت شده است</string>
   <string name="error.email_different">اکنون، این نشانی رایانامه‌تان شما است</string>
   <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
@@ -646,7 +646,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی ها</string>
-  <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
+  <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازها</string>
@@ -726,9 +726,9 @@
   <string name="yourRating">درجه‌بندی شما</string>
   <string name="cumulative">تجمعی</string>
   <string name="glicko2Rating">درجه‌بندی Glicko-2</string>
-  <string name="checkYourEmail">ایمیل خود را چک کنید</string>
+  <string name="checkYourEmail">به رایانامه‌تان سر زنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موارد را بررسی کنید.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موردها را بررسی کنید.</string>
   <string name="weHaveSentYouAnEmailTo">ایمیل ارسال شد.بر روی لینک داخل ایمیل کلیک کنید تا پسورد شما ریست شود %s  به آدرس</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
@@ -780,7 +780,7 @@
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">بازی های ایجادشده</string>
   <string name="anonymous">ناشناس</string>
-  <string name="yourScore">امتیاز شما:%s</string>
+  <string name="yourScore">امتیازتان: %s</string>
   <string name="language">زبان</string>
   <string name="background">زمینه</string>
   <string name="light">روشن</string>
@@ -814,14 +814,14 @@
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
   </plurals>
-  <string name="practiceWithComputer">تمرین با کامپیوتر</string>
+  <string name="practiceWithComputer">تمرین با رایانه</string>
   <string name="anotherWasX">حرکت مناسب دیگر %s بود</string>
   <string name="bestWasX">بهترین حرکت %s بود</string>
   <string name="youBrowsedAway">پوزیشن را به هم زدید!</string>
   <string name="resumePractice">ادامه تمرین</string>
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
-  <string name="computerThinking">کامپیوتر در حال محاسبه است...</string>
+  <string name="computerThinking">محاسبه رایانه‌ای ...</string>
   <string name="seeBestMove">مشاهده بهترین حرکت</string>
   <string name="hideBestMove">پنهان کردن بهترین حرکت</string>
   <string name="getAHint">راهنمایی</string>
@@ -924,7 +924,7 @@
   <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
   <string name="gameVsX">بازی در برابر %1$s</string>
   <string name="resVsX">%1$s در برابر %2$s</string>
-  <string name="lostAgainstTOSViolator">شما در مقابل کسی که قوانین Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
+  <string name="lostAgainstTOSViolator">شما در برابر کسی که قانون‌های Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
   <string name="refundXpointsTimeControlY">پس‌دادن: %1$s امتیاز به درجه‌بندی %2$s.</string>
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
   <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>

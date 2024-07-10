@@ -1,7 +1,6 @@
 package views.mod
 
 import play.api.data.Form
-import scala.util.chaining.*
 
 import lila.app.UiEnv.{ *, given }
 

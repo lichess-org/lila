@@ -213,7 +213,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       fail: => Fu[Result]
   )(create: => Fu[Result])(using me: Me, req: RequestHeader): Fu[Result] =
     val cost =
-      if isGranted(_.ManageTournament) then 2
+      if me.is(UserId.lichess) then 1
+      else if isGranted(_.ManageTournament) then 2
       else if me.hasTitle ||
         env.streamer.liveStreamApi.isStreaming(me) ||
         me.isVerified ||

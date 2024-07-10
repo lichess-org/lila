@@ -9,13 +9,10 @@ import lila.core.LightUser
 import lila.core.report.SuspectId
 import lila.common.Form.cleanNonEmptyText
 
-final private[report] class ReportForm(
-    lightUserAsync: LightUser.Getter,
-    domain: NetDomain
-):
+final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>
-    if setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined
-    then Valid
+    val gameLinkRequired = setup.reason == Reason.Cheat.key || setup.reason == Reason.Stall.key
+    if !gameLinkRequired || ReportForm.hasGameLink(setup.text) then Valid
     else Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
 
   def create(using me: MyId) = Form:
@@ -53,7 +50,10 @@ final private[report] class ReportForm(
     lightUserAsync(username.id).await(1 second, "reportUser")
 
 object ReportForm:
-  def gameLinkRegex(domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
+  private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
+  def gameLinks(text: String)(using NetDomain) =
+    gameLinkRegex.findAllMatchIn(text).take(20).map(m => GameId(m.group(1))).toList
+  def hasGameLink(text: String)(using NetDomain) = gameLinks(text).nonEmpty
 
 private[report] case class ReportFlag(
     username: UserStr,

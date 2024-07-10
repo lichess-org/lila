@@ -2,8 +2,6 @@ package lila.tree
 
 import chess.format.pgn.{ Comment, Glyph }
 
-import scala.util.chaining.*
-
 import lila.tree.Eval.*
 
 sealed trait Advice:
@@ -14,9 +12,7 @@ sealed trait Advice:
   export info.{ ply, prevPly, prevMoveNumber, color, cp, mate }
 
   def makeComment(withEval: Boolean, withBestMove: Boolean): Comment = Comment {
-    withEval.so(evalComment.so { c =>
-      s"($c) "
-    }) +
+    withEval.so(evalComment.so(c => s"($c) ")) +
       (this.match
         case MateAdvice(seq, _, _, _) => seq.desc
         case CpAdvice(judgment, _, _) => judgment.toString
@@ -26,9 +22,8 @@ sealed trait Advice:
 
   }
 
-  def evalComment: Option[String] = {
-    List(prev.evalComment, info.evalComment).flatten.mkString(" → ")
-  }.some.filter(_.nonEmpty)
+  def evalComment: Option[String] =
+    List(prev.evalComment, info.evalComment).flatten.mkString(" → ").some.filter(_.nonEmpty)
 
 object Advice:
 
@@ -63,10 +58,8 @@ private[tree] object CpAdvice:
       infoCp <- info.cp
       prevWinningChances    = WinPercent.winningChances(cp)
       currentWinningChances = WinPercent.winningChances(infoCp)
-      delta = (currentWinningChances - prevWinningChances).pipe { d =>
-        info.color.fold(-d, d)
-      }
-      judgement <- winningChanceJudgements.find { case (d, _) => d <= delta }.map(_._2)
+      delta                 = (currentWinningChances - prevWinningChances).pipe(d => info.color.fold(-d, d))
+      judgement <- winningChanceJudgements.find((d, _) => d <= delta).map(_._2)
     yield CpAdvice(judgement, info, prev)
 
 sealed abstract private[tree] class MateSequence(val desc: String)

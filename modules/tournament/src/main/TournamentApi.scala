@@ -6,7 +6,6 @@ import play.api.libs.json.*
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import scala.util.chaining.*
 
 import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }

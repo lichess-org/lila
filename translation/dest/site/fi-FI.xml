@@ -334,11 +334,11 @@
   <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
   <string name="openingExplorerAndTablebase">Avausselain ja -tietokanta</string>
   <string name="takeback">Peruuta siirto</string>
-  <string name="proposeATakeback">Ehdota siirron peruutusta</string>
-  <string name="takebackPropositionSent">Siirron peruutusta ehdotettu</string>
-  <string name="takebackPropositionDeclined">Siirron peruutuksen ehdotus hylätty</string>
-  <string name="takebackPropositionAccepted">Siirron peruutuksen ehdotus hyväksytty</string>
-  <string name="takebackPropositionCanceled">Siirron peruutuksen ehdotus peruttu</string>
+  <string name="proposeATakeback">Pyydä siirron peruutusta</string>
+  <string name="takebackPropositionSent">Siirron peruutusta pyydetty</string>
+  <string name="takebackPropositionDeclined">Siirron peruutuspyyntö torjuttu</string>
+  <string name="takebackPropositionAccepted">Siirron peruutuspyyntö hyväksytty</string>
+  <string name="takebackPropositionCanceled">Siirron peruutuspyyntö vedetty pois</string>
   <string name="yourOpponentProposesATakeback">Vastustajasi ehdottaa siirron peruutusta</string>
   <string name="bookmarkThisGame">Jätä kirjanmerkki tähän peliin</string>
   <string name="tournament">Turnaus</string>

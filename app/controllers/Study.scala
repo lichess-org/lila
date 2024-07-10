@@ -4,8 +4,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.Json.given
 
-import scala.util.chaining.*
-
 import lila.analyse.Analysis
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
