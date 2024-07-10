@@ -78,8 +78,7 @@ final class ChatApi(
           if _ then
             linkCheck(line, publicSource).flatMap:
               if _ then
-                val actuallyPersist =
-                  persist && (publicSource.isEmpty || text.filter(_.isLetter).toLowerCase != "last")
+                val actuallyPersist = persist && (publicSource.isEmpty || !isGarbage(text))
                 (actuallyPersist
                   .so(persistLine(chatId, line)))
                   .andDo:
@@ -98,6 +97,8 @@ final class ChatApi(
           else
             logger.info(s"Can't post $line in $publicSource: chat is closed")
             funit
+
+    private def isGarbage(text: String) = text.filter(_.isLetter).toLowerCase == "last"
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)): s =>
