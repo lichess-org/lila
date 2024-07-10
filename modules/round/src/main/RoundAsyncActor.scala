@@ -3,7 +3,6 @@ package lila.round
 import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
 import play.api.libs.json.*
-import scala.util.chaining.*
 
 import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
 import scalalib.actor.AsyncActor
