@@ -44,9 +44,9 @@
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
   <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">روش انجام شاه قلعه</string>
-  <string name="castleByMovingTwoSquares">به وسیله ی دو خانه حرکت دادن شاه</string>
-  <string name="castleByMovingOntoTheRook">به وسیله ی حرکت دادن شاه روی خانه رخ</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">روش قلعه‌روی</string>
+  <string name="castleByMovingTwoSquares">شاه را دو خانه حرکت دهید</string>
+  <string name="castleByMovingOntoTheRook">شاه را روی رخ گذارید</string>
   <string name="inputMovesWithTheKeyboard">ورود حرکات با استفاده از صفحه کلید</string>
   <string name="inputMovesWithVoice">حرکات را با صدای خود وارد کنید</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">چسبیدن پیکان‌ها به حرکت‌های ممکن</string>
