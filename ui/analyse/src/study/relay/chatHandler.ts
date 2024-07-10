@@ -27,20 +27,13 @@ export function broadcastChatHandler(ctrl: AnalyseCtrl): BroadcastChatHandler {
     return msg;
   };
 
-  const jumpToMove = (msg: string): void => {
+  const jumpToMove = async (msg: string) => {
     if (msg.includes(separator) && ctrl.study?.relay) {
       const segs = msg.split(separator);
       if (segs.length == 3) {
         const [_, chapterId, ply] = segs;
-        if (ctrl.study.vm.chapterId != chapterId || ctrl.study.vm.loading) {
-          ctrl.study.vm.nextPly = parseInt(ply);
-          ctrl.study.setChapter(chapterId);
-        } else {
-          if (ctrl.study.relay.tourShow()) {
-            ctrl.study.relay.tourShow(false);
-          }
-          ctrl.jumpToMain(parseInt(ply));
-        }
+        await ctrl.study.setChapter(chapterId);
+        ctrl.jumpToMain(parseInt(ply));
       }
     }
   };

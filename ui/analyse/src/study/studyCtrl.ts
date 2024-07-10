@@ -364,13 +364,8 @@ export default class StudyCtrl {
         : this.data.chapter.relayPath || this.chapters.localPaths[this.vm.chapterId] || treePath.root;
     }
 
-    if (this.vm.nextPly) {
-      this.ctrl.jumpToMain(this.vm.nextPly);
-      this.vm.nextPly = undefined;
-    } else {
-      // path could be gone (because of subtree deletion), go as far as possible
-      this.ctrl.userJump(this.ctrl.tree.longestValidPath(nextPath));
-    }
+    // path could be gone (because of subtree deletion), go as far as possible
+    this.ctrl.userJump(this.ctrl.tree.longestValidPath(nextPath));
 
     this.vm.justSetChapterId = undefined;
 
@@ -382,7 +377,7 @@ export default class StudyCtrl {
     this.updateAddressBar();
   };
 
-  xhrReload = throttlePromiseDelay(
+  xhrReload: () => Promise<void> = throttlePromiseDelay(
     () => 500,
     () => {
       this.vm.loading = true;
@@ -453,31 +448,32 @@ export default class StudyCtrl {
 
   likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
 
-  setChapter = (idOrNumber: ChapterId | number, force?: boolean): boolean => {
+  setChapter = (idOrNumber: ChapterId | number, force?: boolean): Promise<void> => {
     const prev = this.chapters.list.get(idOrNumber);
     const id = prev?.id;
     if (!id) {
       console.warn(`Chapter ${idOrNumber} not found`);
-      return false;
+      return Promise.reject();
     }
     const alreadySet = id === this.vm.chapterId && !force;
     if (this.relay?.tourShow()) {
       this.relay.tourShow(false);
       if (alreadySet) this.redraw();
     }
-    if (alreadySet) return true;
+    let result = Promise.resolve();
+    if (alreadySet) return result;
     if (!this.vm.mode.sticky || !this.makeChange('setChapter', id)) {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
-      this.xhrReload();
+      result = this.xhrReload();
     }
     this.vm.loading = true;
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     this.redraw();
     window.scrollTo(0, 0);
-    return true;
+    return result;
   };
 
   private deltaChapter = (delta: number): ChapterPreview | undefined => {
@@ -643,7 +639,7 @@ export default class StudyCtrl {
         (position.path === this.ctrl.path && position.path === treePath.fromNodeList(this.ctrl.mainline))
       )
         this.ctrl.jump(newPath);
-      this.redraw();
+      return this.redraw();
     },
     deleteNode: d => {
       const position = d.p,
@@ -655,7 +651,7 @@ export default class StudyCtrl {
       if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
       this.ctrl.tree.deleteNodeAt(position.path);
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
-      this.redraw();
+      return this.redraw();
     },
     promote: d => {
       const position = d.p,
@@ -668,7 +664,7 @@ export default class StudyCtrl {
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
       else if (this.relay) this.ctrl.jump(d.p.path);
       this.ctrl.treeVersion++;
-      this.redraw();
+      return this.redraw();
     },
     reload: this.xhrReload,
     changeChapter: d => {

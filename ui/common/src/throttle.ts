@@ -3,25 +3,63 @@
  * flight. Any extra calls are dropped, except the last one, which waits for
  * the previous call to complete.
  */
-export function throttlePromise<T extends (...args: any) => Promise<any>>(
+export function throttlePromiseWithResult<R, T extends (...args: any) => Promise<R>>(
   wrapped: T,
-): (...args: Parameters<T>) => void {
-  let current: Promise<void> | undefined;
-  let afterCurrent: (() => void) | undefined;
+): (...args: Parameters<T>) => Promise<R> {
+  let current: Promise<R> | undefined;
+  let pending:
+    | {
+        run: () => Promise<R>;
+        reject: () => void;
+      }
+    | undefined;
 
-  return function (this: any, ...args: Parameters<T>): void {
+  return function (this: any, ...args: Parameters<T>): Promise<R> {
     const self = this;
 
-    const exec = () => {
-      afterCurrent = undefined;
+    const runCurrent = () => {
       current = wrapped.apply(self, args).finally(() => {
         current = undefined;
-        if (afterCurrent) afterCurrent();
+        if (pending) {
+          pending.run();
+          pending = undefined;
+        }
       });
+      return current;
     };
 
-    if (current) afterCurrent = exec;
-    else exec();
+    if (!current) return runCurrent();
+
+    pending?.reject();
+    const next = new Promise<R>((resolve, reject) => {
+      pending = {
+        run: () =>
+          runCurrent().then(
+            res => {
+              resolve(res);
+              return res;
+            },
+            err => {
+              reject(err);
+              throw err;
+            },
+          ),
+        reject: () => reject(new Error('Throttled')),
+      };
+    });
+    return next;
+  };
+}
+
+/* doesn't fail the promise if it's throttled */
+export function throttlePromise<T extends (...args: any) => Promise<void>>(
+  wrapped: T,
+): (...args: Parameters<T>) => Promise<void> {
+  const throttler = throttlePromiseWithResult<void, T>(wrapped);
+  return async function (this: any, ...args: Parameters<T>): Promise<void> {
+    try {
+      return await throttler.apply(this, args);
+    } catch {}
   };
 }
 
@@ -49,7 +87,7 @@ export function finallyDelay<T extends (...args: any) => Promise<any>>(
 export function throttlePromiseDelay<T extends (...args: any) => Promise<any>>(
   delay: (...args: Parameters<T>) => number,
   wrapped: T,
-): (...args: Parameters<T>) => void {
+): (...args: Parameters<T>) => Promise<void> {
   return throttlePromise(finallyDelay(delay, wrapped));
 }
 

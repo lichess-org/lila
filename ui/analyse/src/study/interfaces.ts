@@ -25,7 +25,6 @@ export interface StudyVm {
   loading: boolean;
   nextChapterId?: ChapterId;
   justSetChapterId?: ChapterId;
-  nextPly?: number;
   tab: Prop<Tab>;
   toolTab: Prop<ToolTab>;
   chapterId: ChapterId;
