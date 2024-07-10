@@ -133,15 +133,15 @@
   <string name="castling">قلعه‌روی</string>
   <string name="theSpecialKingMove">حرکت ویژه شاه</string>
   <string name="castlingIntro">شاه‌تان را جای امنی ببرید و رخ‌تان را برای حمله به پا دارید!</string>
-  <string name="castleKingSide">برای قلعه‌ی جناح‌شاه
+  <string name="castleKingSide">برای قلعه‌ی کوچک
 شاه‌تان را دو خانه حرکت دهید!</string>
-  <string name="castleQueenSide">برای قلعه‌ی جناح‌وزیر
+  <string name="castleQueenSide">برای قلعه‌ی بزرگ
 شاه‌تان را دو خانه حرکت دهید!</string>
   <string name="theKnightIsInTheWay">اسب سَرِ راه است!
-آن را حرکت دهید، سپس قلعه‌ی جناح‌شاه روید.</string>
-  <string name="castleKingSideMovePiecesFirst">قلعه‌ی جناح‌شاه!
+آن را حرکت دهید، سپس قلعه‌ی کوچک روید.</string>
+  <string name="castleKingSideMovePiecesFirst">قلعه‌ی کوچک!
 نخست لازم است مهره‌ها را بیرون آورید.</string>
-  <string name="castleQueenSideMovePiecesFirst">قلعه‌ی جناح‌وزیر!
+  <string name="castleQueenSideMovePiecesFirst">قلعه‌ی بزرگ!
 نخست لازم است مهره‌ها را بیرون آورید.</string>
   <string name="youCannotCastleIfMoved">اگر شاه پیش‌تر حرکت کرده
 یا رخ پیش‌تر حرکت کرده است
@@ -149,9 +149,9 @@
   <string name="youCannotCastleIfAttacked">اگر به شاه‌تان حمله شود
 نمی‌توانید قلعه روید.
 راه کیش را ببندید و سپس قلعه روید!</string>
-  <string name="findAWayToCastleKingSide">برای قلعه جناح‌شاه
+  <string name="findAWayToCastleKingSide">برای قلعه‌ی کوچک
 راهی بیابید!</string>
-  <string name="findAWayToCastleQueenSide">برای قلعه جناح‌وزیر
+  <string name="findAWayToCastleQueenSide">برای قلعه‌ی بزرگ
 راهی بیابید!</string>
   <string name="castlingComplete">شادباش! تقریبا همیشه، بهتر است در بازی قلعه روید.</string>
   <string name="enPassant">گرفتن هنگامِ عبور</string>
