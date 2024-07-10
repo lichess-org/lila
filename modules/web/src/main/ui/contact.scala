@@ -1,8 +1,6 @@
 package lila.web
 package ui
 
-import scala.util.chaining.*
-
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey as trans }
