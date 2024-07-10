@@ -637,7 +637,7 @@
   <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
   <string name="menu">فهرست</string>
-  <string name="castling">قلعه رفتن</string>
+  <string name="castling">قلعه‌روی</string>
   <string name="whiteCastlingKingside">سفید O-O</string>
   <string name="blackCastlingKingside">سیاه O-O</string>
   <plurals name="nbForumPosts">
