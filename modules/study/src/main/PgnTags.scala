@@ -3,8 +3,6 @@ package lila.study
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
 
-import scala.util.chaining.*
-
 object PgnTags:
 
   def apply(tags: Tags): Tags =

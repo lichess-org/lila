@@ -4,7 +4,6 @@ import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
 import chess.{ Game as ChessGame, * }
 import chess.variant.*
-import scala.util.chaining.*
 
 import lila.core.userId.UserId
 

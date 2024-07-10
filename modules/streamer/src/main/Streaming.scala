@@ -3,8 +3,6 @@ package lila.streamer
 import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 
-import scala.util.chaining.*
-
 import lila.common.{ Bus, LilaScheduler }
 
 final private class Streaming(

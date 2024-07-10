@@ -7,7 +7,6 @@ import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
 import play.api.libs.json.*
 
 import java.util.concurrent.atomic.AtomicReference
-import scala.util.chaining.*
 
 import lila.common.{ Bus, Lilakka }
 import lila.core.relation.{ Follow, UnFollow }

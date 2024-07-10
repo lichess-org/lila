@@ -4,7 +4,6 @@ import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
 import scalalib.ThreadLocalRandom
-import scala.util.chaining.*
 
 import lila.gathering.GreatPlayer
 import lila.core.i18n.defaultLang

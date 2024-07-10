@@ -8,7 +8,7 @@
     padding-left: var(---box-padding);
     padding-right: var(---box-padding);
   }
-  .form-fieldset {
+  .toggle-box {
     @extend %box-margin-horiz;
   }
   &__delete {

@@ -78,10 +78,12 @@ final class ChatApi(
           if _ then
             linkCheck(line, publicSource).flatMap:
               if _ then
-                (persist
+                val actuallyPersist =
+                  persist && (publicSource.isEmpty || text.filter(_.isLetter).toLowerCase != "last")
+                (actuallyPersist
                   .so(persistLine(chatId, line)))
                   .andDo:
-                    if persist then
+                    if actuallyPersist then
                       if publicSource.isDefined then cached.invalidate(chatId)
                       publicSource.match
                         case Some(source) => shutupApi.publicText(userId, text, source)

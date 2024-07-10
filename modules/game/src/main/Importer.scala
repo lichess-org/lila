@@ -1,7 +1,6 @@
 package lila.game
 package importer
 
-import scala.util.chaining.*
 import play.api.data.*
 import play.api.data.Forms.*
 
