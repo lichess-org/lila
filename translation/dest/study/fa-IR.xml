@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">خصوصی</string>
-  <string name="myStudies">مطالعات من</string>
-  <string name="studiesIContributeTo">مطالعاتی که من در آن مشارکت میکنم</string>
-  <string name="myPublicStudies">مطالعات عمومی من</string>
-  <string name="myPrivateStudies">مطالعات خصوصی من</string>
-  <string name="myFavoriteStudies">مطالعات مورد علاقه من</string>
+  <string name="myStudies">مطالعه‌های من</string>
+  <string name="studiesIContributeTo">مطالعه‌هایی که در آن شرکت دارم</string>
+  <string name="myPublicStudies">مطالعه‌های همگانی من</string>
+  <string name="myPrivateStudies">مطالعه‌های خصوصی من</string>
+  <string name="myFavoriteStudies">مطالعه‌های دلخواه من</string>
   <string name="whatAreStudies">مطالعه‌ها چه هستند؟</string>
-  <string name="allStudies">همه مطالعات من</string>
-  <string name="studiesCreatedByX">مطالعاتِ ایجاد شده توسط %s</string>
+  <string name="allStudies">همه مطالعه‌ها</string>
+  <string name="studiesCreatedByX">مطالعه‌هایی که %s ساخته است</string>
   <string name="noneYet">هنوز چیزی نیست.</string>
   <string name="hot">داغ</string>
   <string name="dateAddedNewest">بروز(جدید ترین)</string>
@@ -30,13 +30,13 @@
     <item quantity="one">%s عضو</item>
     <item quantity="other">%s عضو</item>
   </plurals>
-  <string name="inviteToTheStudy">دعوت به این درس</string>
+  <string name="inviteToTheStudy">دعوت به این مطالعه</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">لطفا تنها افرادی که میشناسید, و یا کسانی که میخواهند فعالانه به این درس بپیوندند را اضافه کنید.</string>
   <string name="searchByUsername">جستجو بر اساس نام کاربری</string>
   <string name="spectator">تماشاگر</string>
   <string name="contributor">مشارکت کننده</string>
   <string name="kick">اخراج</string>
-  <string name="leaveTheStudy">خروج از درس</string>
+  <string name="leaveTheStudy">ترک مطالعه</string>
   <string name="youAreNowAContributor">شما یک مشارکت کننده جدید هستید</string>
   <string name="youAreNowASpectator">شما حالا یک تماشاگرید</string>
   <string name="pgnTags">نشان های PGN</string>
@@ -60,7 +60,7 @@
   <string name="last">آخرین</string>
   <string name="shareAndExport">همرسانی و برون‏بُرد</string>
   <string name="cloneStudy">نمونه سازی</string>
-  <string name="studyPgn">PGN درس</string>
+  <string name="studyPgn">PGN مطالعه</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="chapterPgn">PGN فصل</string>
   <string name="copyChapterPgn">کپی کردن PGN</string>
@@ -72,7 +72,7 @@
   <string name="startAtX">شروع از %s</string>
   <string name="embedInYourWebsite">در وبگاهتان قرار دهید</string>
   <string name="readMoreAboutEmbedding">درباره قرار دادن (در سایت) بیشتر بخوانید</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">فقط مطالعاتِ عمومی می‌توانند جایگذاری شوند!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">فقط مطالعه‌های همگانی می‌توانند جایگذاری شوند!</string>
   <string name="open">بگشایید</string>
   <string name="xBroughtToYouByY">مطالعه %1$s، توسط %2$s برای شما آورده شده است</string>
   <string name="studyNotFound">مطالعه یافت نشد</string>
@@ -109,8 +109,8 @@
   <string name="urlOfTheGame">وب‌نشانی بازی‌ها، یکی در هر خط</string>
   <string name="loadAGameFromXOrY">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
   <string name="createChapter">ساخت فصل</string>
-  <string name="createStudy">مطالعه ایجاد کنید</string>
-  <string name="editStudy">مطالعه را ویرایش نمایید</string>
+  <string name="createStudy">ساخت مطالعه</string>
+  <string name="editStudy">ویرایش مطالعه</string>
   <string name="visibility">وضعیت نمایش</string>
   <string name="public">عمومی</string>
   <string name="unlisted">فهرست نشده</string>
@@ -124,7 +124,7 @@
   <string name="enableSync">فعال کردن همگام سازی</string>
   <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در پوزیسیونی یکسان نگه دار</string>
   <string name="noLetPeopleBrowseFreely">خیر: به مردم اجازه جستجوی آزادانه بده</string>
-  <string name="pinnedStudyComment">نظر سنجاق شده درباره مطالعه</string>
+  <string name="pinnedStudyComment">یادداشت سنجاقیده به مطالعه</string>
   <string name="start">شروع</string>
   <string name="save">ذخیره</string>
   <string name="clearChat">پاک کردن گفتگو</string>
