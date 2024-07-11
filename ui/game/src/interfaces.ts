@@ -1,5 +1,9 @@
 import * as cg from 'chessground/types';
 
+export type Seconds = number;
+export type Centis = number;
+export type Millis = number;
+
 export interface GameData {
   game: Game;
   player: Player;
@@ -43,6 +47,7 @@ export interface Status {
 }
 
 export type StatusName =
+  | 'created'
   | 'started'
   | 'aborted'
   | 'mate'
@@ -53,8 +58,7 @@ export type StatusName =
   | 'outoftime'
   | 'noStart'
   | 'cheat'
-  | 'variantEnd'
-  | 'unknownFinish';
+  | 'variantEnd';
 
 export type StatusId = number;
 
@@ -220,16 +224,16 @@ export interface ApiMove {
   san: string;
   uci: string;
   clock?: {
-    white: number; // seconds
-    black: number; // seconds
-    lag?: number; // centis
+    white: Seconds;
+    black: Seconds;
+    lag?: Centis;
   };
-  status: Status;
+  status?: Status;
   winner?: Color;
-  check: boolean;
-  threefold: boolean;
-  wDraw: boolean;
-  bDraw: boolean;
+  check?: boolean;
+  threefold?: boolean;
+  wDraw?: boolean;
+  bDraw?: boolean;
   crazyhouse?: CrazyData;
   role?: cg.Role;
   drops?: string;
@@ -246,9 +250,24 @@ export interface ApiMove {
   isDrop?: true;
 }
 
+export interface ApiEnd {
+  winner?: Color;
+  status: Status;
+  ratingDiff?: {
+    white: number;
+    black: number;
+  };
+  boosted: boolean;
+  clock?: {
+    wc: Centis;
+    bc: Centis;
+  };
+}
+
 export interface MoveRootCtrl {
   pluginMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
   apiMove?: (move: ApiMove) => void;
+  endWithData?: (data: ApiEnd) => void;
   redraw: () => void;
   flipNow: () => void;
   offerDraw?: (v: boolean, immediately?: boolean) => void;

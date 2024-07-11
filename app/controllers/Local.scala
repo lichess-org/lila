@@ -52,22 +52,26 @@ final class Local(env: Env) extends LilaController(env):
     views.local.index(
       Json
         .obj(
-          "pref" -> lila.pref.JsonView.write(ctx.pref, false)
+          "pref" -> pref
         )
         .add("setup", setup)
         .add(
           "assets",
           devUi.option(
-            // temporary, we'll replace these filesystem calls with a json file when things settle down
+            // we'll replace these filesystem calls with a mapping json when things settle down
             Json.obj(
-              "images" -> env.getFile(s"public/lifat/bots/images").listFiles().toList.map(_.getName),
-              "nets"   -> env.getFile(s"public/lifat/bots/nets").listFiles().toList.map(_.getName),
-              "books"  -> env.getFile(s"public/lifat/bots/books").listFiles().toList.map(_.getName)
+              "image" -> env.getFile(s"public/lifat/bots/images").listFiles().toList.map(_.getName),
+              "net"   -> env.getFile(s"public/lifat/bots/nets").listFiles().toList.map(_.getName),
+              "book"  -> env.getFile(s"public/lifat/bots/books").listFiles().toList.map(_.getName),
+              "sound" -> env.getFile(s"public/lifat/bots/sounds").listFiles().toList.map(_.getName)
             )
           )
         ),
       devUi
     )
+
+  private def pref(using ctx: Context) =
+    lila.pref.JsonView.write(ctx.pref, false).add("animationDuration", ctx.pref.animationMillis.some)
 
   private def optTrue(s: Option[String]) =
     s.exists(v => v == "" || v == "1" || v == "true")

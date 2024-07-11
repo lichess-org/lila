@@ -1,11 +1,7 @@
 import { updateElements } from './clockView';
 import { RoundData } from '../interfaces';
-import * as game from 'game';
+import { playedTurns, playable, Seconds, Centis, Millis } from 'game';
 import * as Prefs from 'common/prefs';
-
-export type Seconds = number;
-export type Centis = number;
-export type Millis = number;
 
 interface ClockOpts {
   onFlag(): void;
@@ -100,7 +96,7 @@ export class ClockController {
   timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
-    const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
+    const isClockRunning = playable(d) && (playedTurns(d) > 1 || d.clock!.running),
       delayMs = delay * 10;
 
     this.times = {

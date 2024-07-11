@@ -17,8 +17,8 @@ export async function initModule(opts: LocalPlayOpts) {
       new SetupDialog(botCtrl, opts.setup, true);
       return;
     }
-    botCtrl.setPlayer('white', opts.setup.white);
-    botCtrl.setPlayer('black', opts.setup.black);
+    botCtrl.whiteUid = opts.setup.white;
+    botCtrl.blackUid = opts.setup.black;
   }
 
   const ctrl = new GameCtrl(opts, botCtrl, redraw);

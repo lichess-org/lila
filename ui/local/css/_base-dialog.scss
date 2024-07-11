@@ -1,8 +1,4 @@
-dialog {
-  z-index: $z-dialog-11;
-}
-
-dialog .dialog-content {
+.base-view {
   ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp'); // TODO - set from botCtrl/js
   ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp'); // TODO - set from botCtrl/js
   ---scale-factor: 1;
@@ -29,30 +25,14 @@ dialog .dialog-content {
     max-width: 1200px;
     max-height: 800px;
   }
+}
 
+.with-cards {
   .card {
     z-index: $z-above-dialog-13;
 
     &.selected {
       z-index: $z-dialog-11;
-    }
-  }
-
-  .remove {
-    display: none;
-    z-index: $z-above-dialog-14;
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-    filter: grayscale(1);
-    &.show {
-      display: block;
-    }
-    &:hover {
-      filter: saturate(1);
     }
   }
 
@@ -78,8 +58,8 @@ dialog .dialog-content {
       }
     }
     /*&:hover {
-      border: 1px dashed $c-border;
-    }*/
+        border: 1px dashed $c-border;
+      }*/
 
     &.drag-over {
       outline: 2px dashed $c-primary;

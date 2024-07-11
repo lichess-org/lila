@@ -5,15 +5,10 @@
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
     "books": [
-      { "name": "codekiddy.bin", "weight": 1 },
-      { "name": "Elo2400.bin", "weight": 1 },
-      { "name": "final-book.bin", "weight": 1 },
-      { "name": "gavibook-small.bin", "weight": 1 },
-      { "name": "KomodoVariety.bin", "weight": 1 },
       { "name": "Performance.bin", "weight": 1 },
       { "name": "varied.bin", "weight": 1 }
     ],
-    "zero": { "multipv": 1, "net": "maia-1100.pb" }
+    "zero": { "multipv": 8, "net": "maia-1100.pb" }
   },
   {
     "uid": "#tbone",

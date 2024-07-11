@@ -24,10 +24,10 @@ export class SetupDialog {
     this.bots = botCtrl.bots;
     this.setup = { ...setup };
     const player = (color: 'white' | 'black') =>
-      `<div class="player ${color}"><img class="remove" src="${site.asset.flairSrc(
+      `<div class="player ${color}"><img class="z-remove" src="${site.asset.flairSrc(
         'symbols.cancel',
       )}"><div class="placard ${color}">Player</div></div>`;
-    this.view = $as<HTMLElement>(`<div class="with-hand-of-cards">
+    this.view = $as<HTMLElement>(`<div class="with-cards">
       <div class="vs">
         ${player('white')}
         <div class="actions">
@@ -56,7 +56,7 @@ export class SetupDialog {
 
   show() {
     domDialog({
-      class: 'game-setup.local-setup',
+      class: 'game-setup base-view setup-view', // with-cards',
       css: [{ hashed: 'local.setup' }],
       htmlText: `<div class="chin">
             <input type="checkbox" id="bot-dev" checked>
@@ -67,8 +67,8 @@ export class SetupDialog {
         { selector: '.fight', listener: this.fight },
         { selector: '.switch', listener: this.switch },
         { selector: '.random', listener: this.random },
-        { selector: '.white > img.remove', listener: () => this.select('white') },
-        { selector: '.black > img.remove', listener: () => this.select('black') },
+        { selector: '.white > img.z-remove', listener: () => this.select('white') },
+        { selector: '.black > img.z-remove', listener: () => this.select('black') },
       ],
       noCloseButton: this.noClose,
       noClickAway: this.noClose,
@@ -91,7 +91,7 @@ export class SetupDialog {
     this.view.querySelector(`.${color} .placard`)!.textContent = bot ? bot.description : 'Player';
     this.setup[color] = bot?.uid;
     if (!bot) this.hand.redraw();
-    this[color].querySelector(`img.remove`)?.classList.toggle('show', !!bot);
+    this[color].querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
   }
 
   fight = () => {

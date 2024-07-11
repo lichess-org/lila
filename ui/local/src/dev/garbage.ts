@@ -28,14 +28,14 @@ export class ZerofishBot2 implements Libot {
     const promises = [];
     if (this.zero) {
       promises.push(
-        this.zf.goZero(pos, {
+        this.zerofish.goZero(pos, {
           depth: this.zero.depth,
           net: { name: this.zero.net, fetch: this.db.getNet },
         }),
       );
     }
     if (this.fish) {
-      promises.push(await this.zf.goFish(pos, this.fish.search));
+      promises.push(await this.zerofish.goFish(pos, this.fish.search));
     }
     const movers = await Promise.all(promises);
     if (movers.length === 0) return '0000';
@@ -44,7 +44,7 @@ export class ZerofishBot2 implements Libot {
       const [zeroResult, fishResult] = movers;
       return this.chooseMove(pos.fen!, zeroResult, fishResult);
     }
-    const fishMove = zf.goFish(fen, {
+    const fishMove = zerofish.goFish(fen, {
       depth: this.ctx.searchDepth?.(p) ?? 12,
       pvs: this.ctx.searchWidth(p),
     });

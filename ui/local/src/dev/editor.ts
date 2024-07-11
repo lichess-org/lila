@@ -29,7 +29,7 @@ export class Editor {
     return [...this].filter(setting => setting.info.requires?.includes(idOrGroup));
   }
 
-  toggleEnabled: ActionListener = (_, __, e) => {
+  toggleEnabled: ActionListener = e => {
     const pane = this.byEvent(e)!;
     pane.setProperty(pane.paneValue);
     pane.setEnabled((e.target as HTMLInputElement).checked);
@@ -37,7 +37,7 @@ export class Editor {
     pane.host.update();
   };
 
-  updateProperty: ActionListener = (_, __, e) => {
+  updateProperty: ActionListener = e => {
     const pane = this.byEvent(e)!;
     pane.update(e);
     pane.host.update();

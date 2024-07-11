@@ -9,7 +9,7 @@ export class RankBot implements Libot {
   image = 'baby-robot.webp';
 
   constructor(
-    readonly zf: Zerofish,
+    readonly zerofish: Zerofish,
     readonly level: number,
   ) {}
 
@@ -36,7 +36,8 @@ export class RankBot implements Libot {
   }
 
   async move(pos: Position) {
-    return (await this.zf.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } })).bestmove;
+    return (await this.zerofish.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } }))
+      .bestmove;
   }
 }
 

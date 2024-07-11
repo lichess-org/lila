@@ -1,6 +1,6 @@
 import { VNode } from 'snabbdom';
-import { GameData, Status } from 'game';
-import { ClockData, Centis } from './clock/clockCtrl';
+import { GameData } from 'game';
+import { ClockData } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';
 import { CrazyData } from 'game';
@@ -107,20 +107,6 @@ export interface Step {
   uci: Uci;
   check?: boolean;
   crazy?: StepCrazy;
-}
-
-export interface ApiEnd {
-  winner?: Color;
-  status: Status;
-  ratingDiff?: {
-    white: number;
-    black: number;
-  };
-  boosted: boolean;
-  clock?: {
-    wc: Centis;
-    bc: Centis;
-  };
 }
 
 export interface StepCrazy extends Untyped {}

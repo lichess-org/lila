@@ -32,7 +32,6 @@ export class Pane {
       if (this.info.class?.includes('setting')) this.el.appendChild(label);
       else {
         const header = document.createElement(this.isFieldset ? 'legend' : 'span');
-        //header.classList.add('header');
         header.appendChild(label);
         this.el.appendChild(header);
       }
@@ -103,10 +102,6 @@ export class Pane {
     return this.input?.value;
   }
 
-  // get header(): HTMLElement {
-  //   return this.label?.parentElement as HTMLElement;
-  // }
-
   get id() {
     return this.info.id!;
   }
@@ -157,8 +152,6 @@ export class Pane {
     this.setEnabled(this.isDefined);
     this.host.update();
   }
-
-  select() {}
 
   setProperty(value: string | number | Operator | Book[] | undefined) {
     if (value === undefined) {

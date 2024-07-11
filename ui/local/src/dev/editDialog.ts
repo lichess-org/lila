@@ -8,6 +8,7 @@ import { domDialog, alert, confirm, type Dialog, type Action } from 'common/dial
 import type { BotInfoReader, ZerofishBotEditor, EditorHost } from './types';
 import type { ZerofishBots } from '../zerofishBot';
 import type { GameCtrl } from '../gameCtrl';
+import { assetDialog } from './assetDialog';
 
 export class EditDialog implements EditorHost {
   view: HTMLElement;
@@ -15,8 +16,8 @@ export class EditDialog implements EditorHost {
   dlg: Dialog;
   uid: string;
   editor: Editor;
-  scratch: { [uid: string]: ZerofishBotEditor } = {};
-  cleanups: (() => void)[] = [];
+  scratch: { [uid: string]: ZerofishBotEditor } = {}; // scratchpad for bot edits, pre-apply
+  cleanups: (() => void)[] = []; // chart.js
 
   constructor(
     readonly botCtrl: BotCtrl,
@@ -24,106 +25,37 @@ export class EditDialog implements EditorHost {
     readonly color: Color = 'white',
     readonly onSelectBot?: (uid: string) => void,
   ) {
-    this.view = $as<HTMLElement>(`<div class="with-hand-of-cards">
+    this.view = $as<HTMLElement>(`<div class="base-view dev-view edit-view with-cards">
         <div class="edit-bot"></div>
         <div class="deck"></div>
-        ${this.globalActionsHtml}
       </div>`);
     this.selectBot();
     this.hand = new HandOfCards({
       view: () => this.view,
       drops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.bot.uid) }],
       cardData: () =>
-        Object.values(this.bots)
+        Object.values({ ...this.bots, ...this.scratch })
           .map(b => botCtrl.card(b))
           .filter(defined),
       select: (_: HTMLElement, domId?: string) => this.selectBot(domIdToUid(domId)),
-      deck: () => this.view.querySelector('.deck')!,
+      deck: () => this.view.querySelector('.deck')!, // TODO optimize
       autoResize: false,
     });
   }
-
-  get actions(): Action[] {
-    return [
-      ...this.editor.actions,
-      { selector: '.bot-apply', listener: () => this.apply() },
-      { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
-      { selector: '.bot-json-all', listener: () => this.showJson() },
-      { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
-      { selector: '.bot-unrate-all', listener: () => this.clearRatings() },
-      { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
-      { selector: '.bot-clear-all', listener: () => this.clearBots() },
-    ];
-  }
-
-  show() {
-    return new Promise<void>(resolve => {
-      domDialog({
-        append: [{ node: this.view }],
-        actions: this.actions,
-        onClose: () => {
-          window.removeEventListener('resize', this.resize);
-          this.destroy();
-          resolve();
-        },
-      }).then(dlg => {
-        this.dlg = dlg;
-        this.update();
-        this.dlg.show();
-        window.addEventListener('resize', this.resize);
-        this.resize();
-      });
-    });
-  }
-
-  destroy() {
-    for (const cleanup of this.cleanups) cleanup();
-  }
-
-  makeEditView() {
-    for (const cleanup of this.cleanups) cleanup();
-    this.cleanups = [];
-    this.editor = new Editor();
-    const el = this.view.querySelector('.edit-bot') as HTMLElement;
-    el.innerHTML = '';
-    el.appendChild(this.botCardEl);
-    const sources = buildFromSchema(this, ['sources']).el;
-    sources.prepend(this.botInfoEl);
-    el.appendChild(sources);
-    el.appendChild(buildFromSchema(this, ['bot_operators']).el);
-    this.editor.forEach(el => el.setEnabled());
-  }
-
-  resize = () => this.hand.resize();
 
   get bots(): ZerofishBots {
     return this.botCtrl.zerofishBots;
   }
 
   get bot(): ZerofishBotEditor {
-    if (!this.scratch[this.uid]) {
-      const clone = structuredClone(this.bots[this.uid]);
-      const scratch = Object.defineProperty(clone, 'disabled', { value: new Set<string>() });
-      this.scratch[this.uid] = scratch as ZerofishBotEditor;
-    }
+    this.scratch[this.uid] ??= Object.defineProperty(structuredClone(this.bots[this.uid]), 'disabled', {
+      value: new Set<string>(),
+    }) as ZerofishBotEditor; // scratchpad for bot edits
     return this.scratch[this.uid];
   }
 
   get defaultBot(): BotInfoReader {
     return this.botCtrl.defaultBot(this.uid);
-  }
-
-  apply() {
-    for (const id of this.bot.disabled) {
-      removeObjectProperty({ obj: this.bot, path: { id } }, true);
-      this.editor
-        .requires(id)
-        .forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
-    }
-    this.bot.disabled.clear();
-    this.botCtrl.updateBot(this.bot);
-    delete this.scratch[this.uid];
-    this.selectBot();
   }
 
   get isClean() {
@@ -137,6 +69,67 @@ export class EditDialog implements EditorHost {
 
   get allDirty(): string[] {
     return Object.keys(this.scratch).filter(uid => !isEquivalent(this.botCtrl.bot(uid), this.scratch[uid]));
+  }
+
+  get actions(): Action[] {
+    return [
+      ...this.editor.actions,
+      { selector: '.bot-apply', listener: () => this.apply() },
+      { selector: '.bot-new', listener: () => this.newBot() },
+      { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
+      { selector: '.bot-json-all', listener: () => this.showJson() },
+      { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
+      { selector: '.bot-assets', listener: () => assetDialog(this.botCtrl.assetDb, 'image') },
+      { selector: '.bot-unrate-all', listener: () => this.clearRatings() },
+      { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
+      { selector: '.bot-clear-all', listener: () => this.clearBots() },
+      { selector: '.player', listener: e => this.clickImage(e) },
+    ];
+  }
+
+  async show() {
+    this.dlg = await domDialog({
+      append: [{ node: this.view }],
+      actions: this.actions,
+      noClickAway: true,
+      onClose: () => {
+        window.removeEventListener('resize', this.resize);
+        for (const cleanup of this.cleanups) cleanup();
+      },
+    });
+    window.addEventListener('resize', this.resize);
+    setTimeout(this.resize);
+    return this.dlg.show();
+  }
+
+  makeEditView() {
+    for (const cleanup of this.cleanups) cleanup();
+    this.cleanups = [];
+    this.editor = new Editor();
+    const el = this.view.querySelector('.edit-bot') as HTMLElement;
+    el.innerHTML = this.globalActionsHtml;
+    el.appendChild(this.botCardEl);
+    const sources = buildFromSchema(this, ['sources']).el;
+    sources.prepend(this.botInfoEl);
+    el.appendChild(sources);
+    el.appendChild(buildFromSchema(this, ['bot_operators']).el);
+
+    this.editor.forEach(el => el.setEnabled());
+  }
+
+  resize = () => this.hand.resize();
+
+  apply() {
+    for (const id of this.bot.disabled) {
+      removeObjectProperty({ obj: this.bot, path: { id } }, true);
+      this.editor
+        .requires(id)
+        .forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
+    }
+    this.bot.disabled.clear();
+    this.botCtrl.updateBot(this.bot);
+    delete this.scratch[this.uid];
+    this.selectBot();
   }
 
   update() {
@@ -154,6 +147,15 @@ export class EditDialog implements EditorHost {
     this.makeEditView();
     this.update();
     this.onSelectBot?.(this.uid);
+  }
+
+  async clickImage(e: Event) {
+    if (e.target !== e.currentTarget) return;
+    const newImage = await assetDialog(this.botCtrl.assetDb, 'image', true);
+    if (!newImage) return;
+    this.bot.image = newImage;
+    this.hand.updateCards();
+    this.update();
   }
 
   clearBots = async (uids?: string[]) => {
@@ -209,8 +211,62 @@ export class EditDialog implements EditorHost {
     dlg.showModal();
   };
 
+  newBot() {
+    const ok = $as<HTMLButtonElement>('<button class="button ok disabled">ok</button>');
+    const input = $as<HTMLInputElement>(`<input class="invalid" spellcheck="false" type="text" value="#">`);
+    domDialog({
+      class: 'dev-view',
+      htmlText: `<h2>Choose a user id</h2><p>must be unique and begin with #</p><span></span>`,
+      append: [
+        { node: input, where: 'span' },
+        { node: ok, where: 'span' },
+      ],
+      focus: 'input',
+      actions: [
+        {
+          selector: 'input',
+          event: ['input'],
+          listener: () => {
+            const newUid = input.value.toLowerCase();
+            const isValid = /^#[a-z][a-z0-9-]{2,19}$/.test(newUid) && this.bots[newUid] === undefined;
+            input.dataset.uid = isValid ? newUid : '';
+            input.classList.toggle('invalid', !isValid);
+            ok.classList.toggle('disabled', !isValid);
+          },
+        },
+        {
+          selector: 'input',
+          event: ['keydown'],
+          listener: e => {
+            if ('key' in e && e.key === 'Enter') ok.click();
+          },
+        },
+        {
+          selector: '.ok',
+          listener: (_, dlg) => {
+            if (!input.dataset.uid) return;
+            const newBot = {
+              ...structuredClone(this.botCtrl.default),
+              uid: input.dataset.uid,
+              name: input.dataset.uid.slice(1),
+            } as ZerofishBotEditor;
+            this.botCtrl.updateBot(newBot);
+            this.selectBot(newBot.uid);
+            this.hand.updateCards();
+            dlg.close();
+          },
+        },
+      ],
+    }).then(dlg => {
+      input.setSelectionRange(1, 1);
+      dlg.showModal();
+    });
+  }
+
   get globalActionsHtml(): string {
     return `<div class="global-actions">
+        <button class="button button-empty button-green bot-new">new bot</button>
+        <button class="button button-empty button-dim bot-assets">assets</button>
         <button class="button button-empty button-dim bot-json-all">all json</button>
         <button class="button button-empty button-red bot-unrate-all">clear all ratings</button>
         <button class="button button-empty button-red bot-clear-all">revert all to server</button>
@@ -223,7 +279,7 @@ export class EditDialog implements EditorHost {
         <div class="bot-actions">
           <button class="button button-empty button-dim bot-json-one">json</button>
           <button class="button button-empty button-red bot-clear-one">revert</button>
-          <button class="button button-green bot-apply">apply</button>
+          <button class="button button-green bot-apply disabled">apply</button>
         </div>
       </div>`);
     botCard.firstElementChild?.appendChild(buildFromSchema(this, ['bot_description']).el);

@@ -25,6 +25,7 @@ function devContext(devCtrl: DevCtrl): DevContext {
     gameCtrl: devCtrl.gameCtrl,
   };
 }
+
 export function renderDevView(devCtrl: DevCtrl): VNode {
   const ctx = devContext(devCtrl);
   return h('div.dev-side', [
@@ -43,6 +44,7 @@ function player(ctx: DevContext, color: Color): VNode {
   const { devCtrl, botCtrl } = ctx;
   const p = botCtrl[color];
   const imgUrl = botCtrl.imageUrl(p) ?? site.asset.url(`lifat/bots/images/${color}-torso.webp`);
+  console.log(color, imgUrl);
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
@@ -84,10 +86,11 @@ function player(ctx: DevContext, color: Color): VNode {
   ]);
 }
 
-function editBot({ devCtrl, botCtrl }: DevContext, color: Color) {
+async function editBot({ devCtrl, botCtrl }: DevContext, color: Color) {
   const selected = botCtrl[color]?.uid;
   if (!selected) return;
-  new EditDialog(botCtrl, devCtrl.gameCtrl, color, () => devCtrl.redraw()).show().then(devCtrl.redraw);
+  await new EditDialog(botCtrl, devCtrl.gameCtrl, color, () => devCtrl.redraw()).show();
+  devCtrl.redraw();
 }
 
 function dashboard(ctx: DevContext) {
@@ -236,22 +239,24 @@ function fen({ devCtrl, gameCtrl }: DevContext): VNode {
 
 function roundRobin({ devCtrl, botCtrl }: DevContext) {
   domDialog({
-    class: 'tournament-dialog',
+    class: 'round-robin-dialog',
     htmlText: `<h2>Round robin</h2><h3>Select participants</h3>
     <ul>${[...Object.values(botCtrl.bots), ...botCtrl.rankBots]
       .map(p => {
-        const checked = storedBooleanProp(`local.dev.tournament-${p.uid.slice(1)}`, true)();
+        const checked = isNaN(parseInt(p.uid.slice(1)))
+          ? storedBooleanProp(`local.dev.tournament-${p.uid.slice(1)}`, true)()
+          : false;
         return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
           p.uid
         }">
         <label for='${p.uid.slice(1)}'>${p.name} ${p.ratingText}</label></li>`;
       })
       .join('')}</ul>
-    <span style="display: flex; gap: 1em;">Repeat: <input type="number" maxLength="3" value="1"><button class="button" id="start-tournament">Start</button></span>`,
+    <span>Repeat: <input type="number" maxLength="3" value="1"><button class="button" id="start-tournament">Start</button></span>`,
     actions: [
       {
         selector: '#start-tournament',
-        listener: dlg => {
+        listener: (_, dlg) => {
           const participants = Array.from(dlg.view.querySelectorAll('input:checked')).map(
             (el: HTMLInputElement) => el.value,
           );
@@ -272,8 +277,9 @@ function roundRobin({ devCtrl, botCtrl }: DevContext) {
       {
         selector: 'input[type="checkbox"]',
         event: 'change',
-        listener: (_, __, e) => {
+        listener: e => {
           const el = e.target as HTMLInputElement;
+          if (!isNaN(parseInt(el.value.slice(1)))) return;
           storedBooleanProp(`local.dev.tournament-${el.value.slice(1)}`, true)(el.checked);
         },
       },

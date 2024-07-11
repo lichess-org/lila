@@ -38,7 +38,6 @@ import { endGameView } from './view/main';
 import {
   RoundOpts,
   RoundData,
-  ApiEnd,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -545,11 +544,10 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    //this.updateZero(d.steps[d.steps.length - 1].fen); //, true);
     this.pluginUpdate(d.steps[d.steps.length - 1].fen);
   };
 
-  endWithData = (o: ApiEnd): void => {
+  endWithData = (o: game.ApiEnd): void => {
     const d = this.data;
     d.game.winner = o.winner;
     d.game.status = o.status;
@@ -916,7 +914,6 @@ export default class RoundController implements MoveRootCtrl {
           location.href = '/page/play-extensions';
         }
       }, 1000);
-      //this.updateZero(d.game.fen);
       this.onChange();
     }, 800);
   };

@@ -35,8 +35,9 @@ export class HandOfCards {
   dragCard: HTMLElement | null = null;
 
   constructor(readonly owner: HandOwner) {
-    for (const c of owner.cardData()) this.cards.push(this.createCard(c));
-    this.cards.reverse().forEach(card => this.view.appendChild(card));
+    this.updateCards();
+    // for (const c of owner.cardData()) this.cards.push(this.createCard(c));
+    // this.cards.reverse().forEach(card => this.view.appendChild(card));
     //this.deck?.addEventListener('mouseenter', this.mouseEnterDeck);
     this.view.addEventListener('mousemove', this.mouseMove);
     if (owner.autoResize) window.addEventListener('resize', this.resize);
@@ -149,6 +150,29 @@ export class HandOfCards {
     card.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
     card.style.backgroundColor = window.getComputedStyle(to).backgroundColor;
     return true;
+  }
+
+  updateCards() {
+    const data = [...this.owner.cardData()].reverse();
+    const deletes = this.cards.filter(x => !data.some(y => y.domId === x.id));
+    for (const cd of data) {
+      const card = this.cards.find(c => c.id === cd.domId);
+      if (!card) {
+        const newCard = this.createCard(cd);
+        this.cards.push(newCard);
+        this.view.append(newCard);
+      } else {
+        const label = card.querySelector('label') as HTMLElement;
+        if (cd.label !== label.textContent) label.textContent = cd.label;
+        const img = card.querySelector('img') as HTMLImageElement;
+        if (cd.imageUrl !== img.src) img.src = cd.imageUrl ?? '';
+      }
+    }
+    for (const card of deletes) {
+      this.cards.splice(this.cards.indexOf(card), 1);
+      card.remove();
+    }
+    this.redraw();
   }
 
   clientToOrigin(client: [number, number]): [number, number] {

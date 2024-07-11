@@ -1,25 +1,32 @@
-dialog .dialog-content {
-  padding: 0;
-  background-color: $c-bg-zebra;
-  height: min-content;
-  max-height: unset;
-  max-width: min(1600px, 90vw);
-}
+.dev-view {
+  @extend %flex-column;
+  gap: 1em;
 
-.with-hand-of-cards {
+  textarea,
+  select,
+  input {
+    padding: 5px;
+    &.invalid {
+      background-color: $m-bg_bad--mix-60;
+    }
+  }
   span {
     @extend %flex-center-nowrap;
     white-space: nowrap;
     gap: 1em;
   }
-  input,
-  textarea,
-  select {
-    padding: 5px;
-  }
   input:not([type='text']) {
     cursor: pointer;
   }
+}
+
+.edit-view {
+  background-color: $c-bg-zebra;
+  height: min-content;
+  max-height: unset;
+  max-width: min(1600px, 96vw);
+  padding-bottom: 0;
+
   textarea {
     white-space: pre-wrap;
     width: 100%;
@@ -76,8 +83,8 @@ dialog .dialog-content {
 .deck {
   position: absolute;
   z-index: $z-above-dialog-14;
-  left: 4em;
-  bottom: 2em;
+  left: 2em;
+  bottom: 4em;
   width: 192px;
   height: 192px;
   &.fanout {
@@ -89,7 +96,7 @@ dialog .dialog-content {
   @extend %flex-column;
   display: grid;
   height: calc(max(45vh, 400px) + $card-height + $chin-height);
-  grid-template-columns: min(360px, 40vh) min(480px, 45vh) 1fr;
+  grid-template-columns: min(36vh, 30vw) min(480px, 33vw) 1fr;
   grid-template-rows: 1fr calc(160px * var(---scale-factor)) auto;
   grid-template-areas: 'a b c' '. b c' '. d d';
   column-gap: 1em;
@@ -119,6 +126,7 @@ dialog .dialog-content {
     .player {
       ---scale-factor: 0.7;
       aspect-ratio: 1/1;
+      cursor: pointer;
     }
     .placard {
       width: 90%;
@@ -126,10 +134,10 @@ dialog .dialog-content {
   }
   .bot-unrate-one,
   [data-click='remove'] {
+    cursor: pointer;
     color: $c-bad;
     &:hover {
       color: $m-bad--lighten-11;
-      cursor: pointer;
     }
   }
   [data-click='add'] {
@@ -137,7 +145,6 @@ dialog .dialog-content {
     color: $c-secondary;
     &:hover {
       color: $m-secondary--lighten-11;
-      cursor: pointer;
     }
     &.disabled {
       color: $c-border;
@@ -217,9 +224,9 @@ dialog .dialog-content {
     input[data-type] {
       width: 60px;
       flex-grow: 1;
-      &.invalid {
-        background-color: $m-bg_bad--mix-60;
-      }
+      // &.invalid {
+      //   background-color: $m-bg_bad--mix-60;
+      // }
     }
     &.disabled {
       > input[data-type],
@@ -294,10 +301,61 @@ dialog .dialog-content {
     }
   }
   .global-actions {
+    padding: 1em 0;
     grid-area: d;
-    padding: 1em;
     display: flex;
     justify-content: end;
     gap: 1em;
+  }
+}
+
+.asset-dialog {
+  @extend %flex-column;
+  //gap: 1em;
+  .asset-grid {
+    display: grid;
+    max-width: 70vw;
+    width: fit-content;
+    grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
+    grid-auto-rows: auto;
+    gap: 1em;
+  }
+  img {
+    width: 192px;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+  }
+  .asset-item {
+    @extend %flex-column;
+    position: relative;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em;
+    border-radius: 8px;
+    background: $c-bg-high;
+    box-shadow: 0 0 5px 0 $c-border;
+    .asset-preview {
+      width: min-content;
+    }
+    .remove {
+      z-index: $z-above-dialog-14;
+      position: absolute;
+      font-size: 1.25em;
+      top: -4px;
+      right: 0;
+      color: $c-bad;
+      cursor: pointer;
+      &.show {
+        display: block;
+      }
+      &:hover {
+        color: $m-bad--lighten-11;
+        filter: saturate(1);
+      }
+    }
+    .asset-label {
+      font-size: 0.9em;
+      font-weight: bold;
+    }
   }
 }

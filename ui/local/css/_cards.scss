@@ -1,4 +1,4 @@
-.with-hand-of-cards {
+.with-cards {
   position: relative;
   padding: calc(2em * var(---scale-factor));
   padding-bottom: 0;
@@ -42,5 +42,23 @@
       pointer-events: none;
       border: none;
     }
+  }
+}
+
+.z-remove {
+  display: none;
+  z-index: $z-above-dialog-14;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  filter: grayscale(1);
+  &.show {
+    display: block;
+  }
+  &:hover {
+    filter: saturate(1);
   }
 }

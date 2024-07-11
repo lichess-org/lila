@@ -4,7 +4,8 @@ import { GameDb } from './gameDb';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
-import type { MoveRootCtrl } from 'game';
+import type { MoveRootCtrl, Status } from 'game';
+import { statusOf } from 'game/status';
 import type { RoundSocket, RoundOpts, RoundData } from 'round';
 import type { LocalPlayOpts, LocalSetup, Automator, Outcome } from './types';
 import type { BotCtrl } from './botCtrl';
@@ -51,14 +52,14 @@ export class GameCtrl {
   }
 
   resetToSetup() {
-    this.botCtrl.setPlayer('white', this.setup.white);
-    this.botCtrl.setPlayer('black', this.setup.black);
+    this.botCtrl.whiteUid = this.setup.white;
+    this.botCtrl.blackUid = this.setup.black;
     this.resetBoard();
   }
 
   reset({ white, black, startingFen }: GameState) {
-    this.botCtrl.setPlayer('white', white);
-    this.botCtrl.setPlayer('black', black);
+    this.botCtrl.whiteUid = white;
+    this.botCtrl.blackUid = black;
     this.resetBoard(startingFen);
   }
 
@@ -86,26 +87,38 @@ export class GameCtrl {
     end: boolean;
     result?: Outcome | 'error';
     reason?: string;
+    status?: Status;
   } {
+    let status = statusOf('started');
     let result: Outcome | 'error' = 'draw',
       reason = userEnd ?? 'checkmate';
-    if (this.chess.isCheckmate()) result = co.opposite(this.chess.turn);
-    else if (this.chess.isInsufficientMaterial()) reason = 'insufficient';
-    else if (this.chess.isStalemate()) reason = 'stalemate';
-    else if (this.fifty()) reason = 'fifty';
-    else if (this.isThreefold) reason = 'threefold';
+    if (this.chess.isCheckmate()) [result, status] = [co.opposite(this.chess.turn), statusOf('mate')];
+    else if (this.chess.isInsufficientMaterial()) [reason, status] = ['insufficient', statusOf('draw')];
+    else if (this.chess.isStalemate()) [reason, status] = ['stalemate', statusOf('stalemate')];
+    else if (this.fifty()) [reason, status] = ['fifty', statusOf('draw')];
+    else if (this.isThreefold) [reason, status] = ['threefold', statusOf('draw')];
     else if (userEnd) {
-      if (userEnd !== 'mutualDraw') reason = 'resign';
+      if (userEnd !== 'mutualDraw') [reason, status] = ['resign', statusOf('resign')];
       if (userEnd === 'whiteResign') result = 'black';
       else if (userEnd === 'blackResign') result = 'white';
     } else return { end: false };
-    return { end: true, result, reason };
+    // needs outoftime
+    return { end: true, result, reason, status };
   }
 
-  gameOver(result: string, reason: string) {
-    this.botCtrl.zf.reset();
+  gameOver(result: string, reason: string, status: Status) {
+    console.log('oh good');
+    this.botCtrl.reset();
     setTimeout(() => {
-      this.automator?.onGameEnd(result as 'white' | 'black' | 'draw', reason);
+      if (!this.automator?.onGameEnd(result as 'white' | 'black' | 'draw', reason)) {
+        console.log('hay yo');
+        const end = {
+          status,
+          winner: result === 'white' || result === 'black' ? (result as Color) : undefined,
+          boosted: false,
+        };
+        this.round.endWithData?.(end);
+      }
       this.redraw();
     });
   }
@@ -122,6 +135,7 @@ export class GameCtrl {
       this.gameOver(
         'error',
         `${this.botCtrl[this.chess.turn]?.name} made illegal move ${uci} at ${makeFen(this.chess.toSetup())}`,
+        { name: 'aborted', id: 20 },
       );
       return false;
     }
@@ -130,7 +144,20 @@ export class GameCtrl {
     const san = makeSanAndPlay(this.chess, move);
     this.fifty(move);
     this.updateThreefold();
-    this.socket.receive('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
+    //this.socket.receive('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
+    const { end, result, reason, status } = this.checkGameOver();
+    const winner = result === 'white' || result === 'black' ? (result as Color) : undefined;
+    this.round.apiMove!({
+      status,
+      uci,
+      san,
+      fen: this.fen,
+      ply: this.ply,
+      dests: this.dests,
+      threefold: this.isThreefold,
+      check: this.chess.isCheck(),
+      winner,
+    });
     this.updateTurn();
     if (move.promotion)
       this.round.cg?.setPieces(
@@ -141,9 +168,8 @@ export class GameCtrl {
           ],
         ]),
       );
-    const { end, result, reason } = this.checkGameOver();
     if (end) {
-      this.gameOver(result!, reason!);
+      this.gameOver(result!, reason!, status!);
       this.redraw();
       return false;
     }
@@ -156,6 +182,13 @@ export class GameCtrl {
     if (this.automator?.isStopped) return;
     const botMove = await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess);
     if (!this.automator?.isStopped) this.move(botMove);
+    else {
+      const { end, result, reason, status } = this.checkGameOver();
+      if (end) {
+        this.gameOver(result!, reason!, status!);
+        this.redraw();
+      }
+    }
   };
 
   fifty(move?: co.Move) {
@@ -272,6 +305,7 @@ export class GameCtrl {
   makeRoundData(fen?: string): RoundData {
     const bottom = !this.setup.white ? 'white' : !this.setup.black ? 'black' : 'white';
     const top = co.opposite(bottom);
+    console.log(this.opts.pref);
     return {
       game: this.game,
       player: this.player(bottom, this.botCtrl[bottom]?.name ?? 'Player'),
@@ -312,8 +346,8 @@ export class GameCtrl {
       this.moves = gameState.moves;
       this.threefoldFens = gameState.threefoldFens ?? new Map();
       this.fiftyMovePly = gameState.fiftyMovePly ?? 0;
-      this.botCtrl.setPlayer('white', gameState.white);
-      this.botCtrl.setPlayer('black', gameState.black);
+      this.botCtrl.whiteUid = gameState.white;
+      this.botCtrl.blackUid = gameState.black;
       this.resetBoard();
       gameState.moves.forEach(move => this.chess.play(co.parseUci(move)!));
     }

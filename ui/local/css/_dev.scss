@@ -107,15 +107,14 @@
     }
   }
 }
-
-.tournament-dialog {
+.round-robin-dialog {
   @extend %flex-column;
   gap: 1em;
   ul {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(200px, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+    grid-auto-columns: minmax(160px, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     gap: 2px;
   }
   li {
@@ -123,6 +122,9 @@
   }
   input[type='checkbox'] {
     margin-inline-end: 0.5em;
+  }
+  span {
+    justify-content: center;
   }
 }
 .dev-progress {

@@ -3,38 +3,38 @@ import makeZerofish, { type Zerofish, type Position } from 'zerofish';
 import { AssetDb } from './assetDb';
 import { ZerofishBot, ZerofishBots } from './zerofishBot';
 import { RankBot } from './dev/rankBot';
+import { CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { defined, deepFreeze } from 'common';
+import { deepFreeze } from 'common';
 import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo } from './types';
 
 export class BotCtrl {
   readonly assetDb: AssetDb;
-  private botDefaults: BotInfos;
+  readonly rankBots: RankBot[] = [];
+  private zerofish: Zerofish;
+  private store: ObjectStorage<BotInfo>;
+  private defaultBots: BotInfos;
   bots: Libots;
-  rankBots: RankBot[] = [];
-  white?: Libot;
-  black?: Libot;
-  store: ObjectStorage<BotInfo>;
-  zf: Zerofish;
+  whiteUid?: string;
+  blackUid?: string;
 
-  constructor(assets?: { nets: string[]; images: string[]; books: string[] }) {
-    this.assetDb = new AssetDb(assets);
+  constructor(remoteAssets?: { net: string[]; image: string[]; book: string[]; sound: string[] }) {
+    this.assetDb = new AssetDb(remoteAssets);
   }
 
   async init() {
-    [this.zf] = await Promise.all([
-      makeZerofish({
-        root: site.asset.url('npm', { documentOrigin: true }),
-        wasm: site.asset.url('npm/zerofishEngine.wasm'),
-        dev: this.assetDb.assets !== undefined,
-      }),
-      this.initLibots(),
-    ]);
-
-    for (let i = 0; i <= RankBot.MAX_LEVEL; i++) {
-      this.rankBots.push(new RankBot(this.zf, i));
+    const dev = this.assetDb.remote !== undefined;
+    this.zerofish = await makeZerofish({
+      root: site.asset.url('npm', { documentOrigin: true }),
+      wasm: site.asset.url('npm/zerofishEngine.wasm'),
+      dev,
+    });
+    if (dev) {
+      for (let i = 0; i <= RankBot.MAX_LEVEL; i++) {
+        this.rankBots.push(new RankBot(this.zerofish, i));
+      }
     }
-    return this;
+    return this.initLibots();
   }
 
   async initLibots() {
@@ -57,8 +57,12 @@ export class BotCtrl {
     );
   }
 
-  setPlayer(color: Color, uid?: string) {
-    this[color] = defined(uid) ? this.bot(uid) : undefined;
+  get white(): Libot | undefined {
+    return this.bot(this.whiteUid);
+  }
+
+  get black(): Libot | undefined {
+    return this.bot(this.blackUid);
   }
 
   bot(uid: string | undefined): Libot | undefined {
@@ -66,27 +70,23 @@ export class BotCtrl {
     return this.bots[uid] ?? this.rankBot(uid);
   }
 
-  swap() {
-    [this.white, this.black] = [this.black, this.white];
-  }
-
   move(pos: Position, chess: co.Chess): Promise<Uci> {
-    chess = chess.clone();
-    pos = structuredClone(pos);
+    //chess = chess.clone();
+    //pos = structuredClone(pos);
     return this[chess.turn]?.move(pos, chess) ?? Promise.resolve('0000');
   }
 
-  stop() {
-    this.zf.stop();
+  stop(): void {
+    this.zerofish.stop();
   }
 
-  reset() {
-    this.zf.reset();
+  reset(): void {
+    this.zerofish.reset();
   }
 
   updateBot(bot: ZerofishBot) {
-    this.bots[bot.uid] = new ZerofishBot(bot, this);
-    this.saveBot(bot.uid);
+    this.bots[bot.uid] = new ZerofishBot(bot, this.zerofish, this.assetDb);
+    return this.saveBot(bot.uid);
   }
 
   saveBot(uid: string) {
@@ -94,7 +94,7 @@ export class BotCtrl {
   }
 
   defaultBot(uid: string = ''): BotInfo {
-    return uid in this.botDefaults ? this.botDefaults[uid] : this.default;
+    return uid in this.defaultBots ? this.defaultBots[uid] : this.default;
   }
 
   updateRating(bot: Libot | undefined, opp: { r: number; rd: number } = { r: 1500, rd: 350 }, score: number) {
@@ -112,18 +112,18 @@ export class BotCtrl {
     this.saveBot(bot.uid);
   }
 
-  imageUrl(bot: BotInfo | undefined) {
-    if (!bot?.image) return;
-    return this.assetDb.getImageUrl(bot.image);
+  imageUrl(bot: BotInfo | undefined): string | undefined {
+    return bot?.image && this.assetDb.getImageUrl(bot.image);
   }
 
-  card(bot: BotInfo | undefined) {
-    if (!bot) return;
-    return {
-      label: bot.name,
-      domId: uidToDomId(bot.uid)!,
-      imageUrl: this.imageUrl(bot),
-    };
+  card(bot: BotInfo | undefined): CardData | undefined {
+    return (
+      bot && {
+        label: bot.name,
+        domId: uidToDomId(bot.uid)!,
+        imageUrl: this.imageUrl(bot),
+      }
+    );
   }
 
   private async resetBots() {
@@ -131,12 +131,13 @@ export class BotCtrl {
       fetch(site.asset.url('json/local.bots.json')).then(x => x.json()),
       this.getLocalOverrides(),
     ]);
-    this.botDefaults = {};
-    jsonBots.forEach((b: BotInfo) => (this.botDefaults[b.uid] = deepFreeze(b)));
+    this.defaultBots = {};
+    jsonBots.forEach((b: BotInfo) => (this.defaultBots[b.uid] = deepFreeze(b)));
     this.bots = {};
-    [...jsonBots, ...overrides].forEach((b: Libot) => (this.bots[b.uid] = new ZerofishBot(b, this)));
-    this.white = this.white ? this.bots[this.white.uid] : undefined;
-    this.black = this.black ? this.bots[this.black.uid] : undefined;
+    for (const b of [...jsonBots, ...overrides]) {
+      console.log(b.uid, this.zerofish);
+      this.bots[b.uid] = new ZerofishBot(b, this.zerofish, this.assetDb);
+    }
   }
 
   private getLocalOverrides() {
@@ -150,8 +151,7 @@ export class BotCtrl {
   }
 
   private rankBot(uid: string) {
-    const index = Number(uid.slice(1));
-    return isNaN(index) ? undefined : this.rankBots[index];
+    return this.rankBots[Number(uid.slice(1))];
   }
 
   readonly default: ZerofishBotInfo = deepFreeze({
@@ -159,10 +159,10 @@ export class BotCtrl {
     name: 'Name',
     description: 'Description',
     image: 'gray-torso.webp',
-    books: [{ name: 'gm2600.bin', weight: 1 }],
-    glicko: { r: 1500, rd: 350 },
-    //zero: { multipv: 1, net: 'maia-1100.pb' },
+    books: [], //[{ name: 'gm2600.bin', weight: 1 }],
     fish: { multipv: 1, by: { depth: 1 } },
+    //zero: { multipv: 1, net: 'maia-1100.pb' },
+    //glicko: { r: 1500, rd: 350 },
   });
 }
 
@@ -175,5 +175,5 @@ export function uidToDomId(uid: string | undefined) {
 }
 
 export function domIdToUid(domId: string | undefined) {
-  return domId && domId.length > 7 ? `#${domId.slice(7)}` : undefined;
+  return domId && domId.startsWith('bot-id-') ? `#${domId.slice(7)}` : undefined;
 }

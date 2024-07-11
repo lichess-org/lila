@@ -24,6 +24,7 @@ export interface DialogOpts {
   htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
   append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default 'child'
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
+  focus?: string; // query selector for element to focus on show
   actions?: Action | Action[]; // if present, add listeners to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
   noCloseButton?: boolean; // if true, no upper right corner close button
@@ -39,10 +40,10 @@ export interface DomDialogOpts extends DialogOpts {
 //snabDialog automatically shows as 'modal' unless onInsert callback is supplied
 export interface SnabDialogOpts extends DialogOpts {
   vnodes?: LooseVNodes; // content, overrides other content properties
-  onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
+  onInsert?: (dialog: Dialog) => void; // if supplied, you must call show() or showModal() manually
 }
 
-export type ActionListener = (dialog: Dialog, action: Action, e: Event) => void;
+export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
 
 // Actions are managed listeners / results that are easily refreshed on DOM changes
 // if no event is specified, then 'click' is assumed
@@ -88,9 +89,9 @@ export async function confirm(msg: string): Promise<boolean> {
   );
 }
 
-// when { ..., show: 'modal' } is given, this promise resolves on dialog close so check returnValue
+// when { show: 'modal' } is given, this promise resolves on dialog close so check returnValue
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
-  const [html] = await assets(o);
+  const [html] = await loadAssets(o);
 
   const dialog = document.createElement('dialog');
   for (const [k, v] of Object.entries(o.attrs?.dialog ?? {})) dialog.setAttribute(k, String(v));
@@ -103,7 +104,8 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
     dialog.appendChild(anchor);
   }
 
-  const view = $as<HTMLElement>('<div class="dialog-content">');
+  const view = !html && o.append?.length === 1 ? o.append[0].node : document.createElement('div');
+  view.classList.add('dialog-content');
   if (o.class) view.classList.add(...o.class.split(/[. ]/).filter(x => x));
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
@@ -124,7 +126,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
 // snab dialogs without an onInsert callback are shown as modal by default. use onInsert callback to handle
 // this yourself
 export function snabDialog(o: SnabDialogOpts): VNode {
-  const ass = assets(o);
+  const ass = loadAssets(o);
   let dialog: HTMLDialogElement;
 
   return h(
@@ -168,11 +170,11 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   );
 }
 
-// implementation stuff
 class DialogWrapper implements Dialog {
   private restore?: { focus?: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
-  private eventCleanup: { el: Element; type: string; listener: EventListener }[] = [];
+  private actionCleanup: { el: Element; type: string; listener: EventListener }[] = [];
+  private dialogCleanup: { el: Element; type: string; listener: EventListener }[] = [];
   private observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
@@ -192,18 +194,29 @@ class DialogWrapper implements Dialog {
     if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
 
     const justThen = Date.now();
-    const cancelOnInterval = () => Date.now() - justThen > 200 && this.close('cancel');
-
+    const cancelOnInterval = (e: PointerEvent) => {
+      if (Date.now() - justThen < 200) return;
+      const r = dialog.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
+        this.close('cancel');
+    };
     this.observer.observe(document.body, { childList: true, subtree: true });
     view.parentElement?.style.setProperty('---viewport-height', `${window.innerHeight}px`);
-    view.addEventListener('click', e => e.stopPropagation());
+    this.addEventListener(view, 'click', e => e.stopPropagation());
 
-    dialog.addEventListener('cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
-    dialog.addEventListener('close', this.onRemove);
-    dialog.querySelector('.close-button-anchor > .close-button')?.addEventListener('click', cancelOnInterval);
+    this.addEventListener(dialog, 'cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
+    this.addEventListener(dialog, 'close', this.onRemove);
+    this.addEventListener(dialog.querySelector('.close-button-anchor > .close-button'), 'click', () =>
+      this.close('cancel'),
+    );
 
-    if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', cancelOnInterval));
+    if (!o.noClickAway)
+      setTimeout(() => {
+        this.addEventListener(document.body, 'click', cancelOnInterval);
+        this.addEventListener(dialog, 'click', cancelOnInterval);
+      });
     for (const app of o.append ?? []) {
+      if (app.node === view) break;
       const where = (app.where ? view.querySelector(app.where) : view)!;
       if (app.how === 'before') where.before(app.node);
       else if (app.how === 'after') where.after(app.node);
@@ -216,6 +229,10 @@ class DialogWrapper implements Dialog {
     return this.dialog.open;
   }
 
+  get isModal() {
+    return ('show' in this.o && this.o.show === 'modal') || (this.restore && 'focus' in this.restore);
+  }
+
   get returnValue() {
     return this.dialog.returnValue;
   }
@@ -224,31 +241,11 @@ class DialogWrapper implements Dialog {
     this.dialog.returnValue = v;
   }
 
-  // attach/reattach existing listeners or provide a set of new ones
-  updateActions = (actions = this.o.actions) => {
-    for (const { el, type, listener } of this.eventCleanup) {
-      el.removeEventListener(type, listener);
-    }
-    this.eventCleanup = [];
-    if (!actions) return;
-    for (const a of Array.isArray(actions) ? actions : [actions]) {
-      for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
-        for (const el of this.view.querySelectorAll(a.selector)) {
-          const listener = (e: Event) => {
-            if ('listener' in a) a.listener(this, a, e);
-            else this.close(a.result);
-          };
-          this.eventCleanup.push({ el, type: event, listener });
-          el.addEventListener(event, listener);
-        }
-      }
-    }
-  };
-
   show = (): Promise<Dialog> => {
     this.restore = {
       overflow: document.body.style.overflow,
     };
+    if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
     document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.show();
@@ -260,19 +257,45 @@ class DialogWrapper implements Dialog {
       focus: document.activeElement as HTMLElement,
       overflow: document.body.style.overflow,
     };
+    if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
+    else (this.view.querySelectorAll(focusQuery)[1] as HTMLElement)?.focus();
 
-    $(focusQuery, this.view)[1]?.focus();
-    document.body.style.overflow = 'hidden';
-
+    this.addEventListener(this.dialog, 'keydown', onModalKeydown);
     this.view.scrollTop = 0;
-    this.dialog.addEventListener('keydown', onModalKeydown);
+    document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.showModal();
+    if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   close = (v?: string) => {
     this.dialog.close(this.returnValue || v || 'ok');
+  };
+
+  // attach/reattach existing listeners or provide a set of new ones
+  updateActions = (actions = this.o.actions) => {
+    for (const { el, type, listener } of this.actionCleanup) {
+      el.removeEventListener(type, listener);
+    }
+    this.actionCleanup = [];
+    if (!actions) return;
+    for (const a of Array.isArray(actions) ? actions : [actions]) {
+      for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
+        for (const el of this.view.querySelectorAll(a.selector)) {
+          const listener =
+            'listener' in a ? (e: Event) => a.listener(e, this, a) : () => this.close(a.result);
+          this.actionCleanup.push({ el, type: event, listener });
+          el.addEventListener(event, listener);
+        }
+      }
+    }
+  };
+
+  private addEventListener = (el: Element | null, type: string, listener: EventListener) => {
+    if (!el) return;
+    this.dialogCleanup.push({ el, type, listener });
+    el.addEventListener(type, listener);
   };
 
   private onRemove = () => {
@@ -284,24 +307,26 @@ class DialogWrapper implements Dialog {
     this.resolve?.(this);
     this.o.onClose?.(this);
     this.dialog.remove();
-    for (const css of this.o.css ?? [])
-      'hashed' in css && site.asset.removeCssPath(css.hashed), 'url' in css && site.asset.removeCss(css.url);
+    for (const css of this.o.css ?? []) {
+      if ('hashed' in css) site.asset.removeCssPath(css.hashed);
+      else if ('url' in css) site.asset.removeCss(css.url);
+    }
+    for (const { el, type, listener } of this.dialogCleanup) {
+      el.removeEventListener(type, listener);
+    }
   };
 }
 
-function assets(o: DialogOpts) {
-  const cssPromises = (o.css ?? []).map(css => {
-    if ('hashed' in css) return site.asset.loadCssPath(css.hashed);
-    else if ('url' in css) return site.asset.loadCss(css.url);
-    else return Promise.resolve();
-  });
+function loadAssets(o: DialogOpts) {
   return Promise.all([
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
       : Promise.resolve(
           o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
         ),
-    ...cssPromises,
+    ...(o.css ?? []).map(css =>
+      'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
+    ),
   ]);
 }
 

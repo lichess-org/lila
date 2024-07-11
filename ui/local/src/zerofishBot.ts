@@ -1,15 +1,16 @@
 import * as co from 'chessops';
 import { normalize } from './operator';
 import { zerofishMove } from './zerofishMove';
-import type { FishSearch, Position } from 'zerofish';
-import type { Libot, ZerofishBotInfo, CardData, ZeroSearch, Operator } from './types';
+import type { FishSearch, Position, Zerofish } from 'zerofish';
+import type { Libot, ZerofishBotInfo, ZeroSearch, Operator } from './types';
 import type { PolyglotBook } from 'bits/types';
-import type { BotCtrl } from './botCtrl';
+import type { AssetDb } from './assetDb';
 
 export type ZerofishBots = { [id: string]: ZerofishBot };
 
 export class ZerofishBot implements Libot, ZerofishBotInfo {
-  private ctrl: BotCtrl;
+  private zerofish: Zerofish;
+  private assetDb: AssetDb;
   private openings: Promise<PolyglotBook[]>;
   private stats: any;
   readonly uid: string;
@@ -22,20 +23,21 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   glicko?: { r: number; rd: number };
   operators?: { [type: string]: Operator };
 
-  constructor(info: Libot, ctrl: BotCtrl) {
+  constructor(info: Libot, zerofish: Zerofish, assetDb: AssetDb) {
     Object.assign(this, info);
     Object.values(this.operators ?? {}).forEach(normalize);
 
     // non enumerable properties are not stored or cloned
-    Object.defineProperty(this, 'ctrl', { value: ctrl });
+    Object.defineProperty(this, 'zerofish', { value: zerofish });
+    Object.defineProperty(this, 'assetDb', { value: assetDb });
     Object.defineProperty(this, 'openings', {
-      get: () => Promise.all(this.books ? [...this.books.map(b => ctrl.assetDb.getBook(b.name))] : []),
+      get: () => Promise.all(this.books ? [...this.books.map(b => this.assetDb.getBook(b.name))] : []),
     });
     Object.defineProperty(this, 'stats', { value: { moves: 0, cpl: 0 } });
   }
 
   get imageUrl() {
-    return this.ctrl.assetDb.getImageUrl(this.image);
+    return this.assetDb.getImageUrl(this.image);
   }
 
   async bookMove(chess: co.Chess) {
@@ -69,14 +71,14 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     if (opening) return opening;
     const [zeroResult, fishResult] = await Promise.all([
       this.zero &&
-        this.ctrl.zf.goZero(pos, {
+        this.zerofish.goZero(pos, {
           ...this.zero,
           net: {
             name: this.name + '-' + this.zero.net,
-            fetch: async () => (await this.ctrl.assetDb.getNet(this.zero!.net))!,
+            fetch: async () => (await this.assetDb.getNet(this.zero!.net))!,
           },
         }),
-      this.fish && this.ctrl.zf.goFish(pos, this.fish),
+      this.fish && this.zerofish.goFish(pos, this.fish),
     ]);
     const { move, cpl } = zerofishMove(fishResult, zeroResult, this.operators ?? {}, chess);
     if (!isNaN(cpl)) {

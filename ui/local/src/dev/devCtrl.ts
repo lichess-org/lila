@@ -25,11 +25,12 @@ export class DevCtrl implements Automator {
     readonly gameCtrl: GameCtrl,
     readonly redraw: () => void,
   ) {
-    gameCtrl.setAutomator(this);
     site.pubsub.on('flip', (flipped: boolean) => {
       this.flipped = flipped;
       this.redraw();
     });
+
+    gameCtrl.setAutomator(this);
     this.reset(false);
   }
 
@@ -77,8 +78,8 @@ export class DevCtrl implements Automator {
       this.script.games = this.script.games.slice(0, index);
       this.script.games.push(...this.matchups(test, iterations));
       if (this.script.games.length > index) {
-        this.botCtrl.setPlayer('white', this.script.games[index].white);
-        this.botCtrl.setPlayer('black', this.script.games[index].black);
+        this.botCtrl.whiteUid = this.script.games[index].white;
+        this.botCtrl.blackUid = this.script.games[index].black;
       }
     }
     if (test || this.gameCtrl.checkGameOver().end) this.gameCtrl.resetBoard();
@@ -110,7 +111,7 @@ export class DevCtrl implements Automator {
     return this.gameCtrl.roundData.steps.length > 1 && !this.gameCtrl.checkGameOver().end;
   }
 
-  onGameEnd(outcome: Outcome | 'error', reason: string) {
+  onGameEnd(outcome: Outcome | 'error', reason: string): boolean {
     if (outcome === 'error') {
       console.error(
         `${this.white?.name ?? 'Player'} (white) vs ${
@@ -118,26 +119,27 @@ export class DevCtrl implements Automator {
         } (black) - ${outcome} ${reason} - ${this.gameCtrl.fen} ${this.gameCtrl.moves.join(' ')}`,
         JSON.stringify(this.gameCtrl.chess),
       );
-      return;
+      return false;
     }
     const last = { outcome: outcome, reason, white: this.white?.uid, black: this.black?.uid };
     this.script.results.push(last);
 
-    const whiteRating = { r: this.white.glicko?.r ?? 1500, rd: this.white.glicko?.rd ?? 350 };
-    this.botCtrl.updateRating(this.white, this.black.glicko, u.score(outcome, 'white'));
+    const whiteRating = { r: this.white?.glicko?.r ?? 1500, rd: this.white?.glicko?.rd ?? 350 };
+    this.botCtrl.updateRating(this.white, this.black?.glicko, u.score(outcome, 'white'));
     this.botCtrl.updateRating(this.black, whiteRating, u.score(outcome, 'black'));
 
     if (this.script.type === 'rank')
       this.script.games.push(...rankBotMatchup(this.botCtrl.bot(this.script.players[0])!, last));
 
     this.stopped = !this.testInProgress;
-    if (this.isStopped) return;
+    if (this.stopped) return false;
 
     const game = this.script.games[this.script.results.length];
-    this.botCtrl.setPlayer('white', game.white);
-    this.botCtrl.setPlayer('black', game.black);
+    this.botCtrl.whiteUid = game.white;
+    this.botCtrl.blackUid = game.black;
     this.gameCtrl.reset({ white: game.white, black: game.black, startingFen: this.startingFen, moves: [] });
     this.run();
+    return true;
   }
 
   matchups(test: Test, iterations = 1): Matchup[] {

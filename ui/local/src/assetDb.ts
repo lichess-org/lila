@@ -3,90 +3,101 @@ import { setSchemaAssets } from './dev/schema';
 import type { NetData } from './types';
 import type { PolyglotBook } from 'bits/types';
 
+export type AssetType = 'net' | 'book' | 'image' | 'sound';
 export class AssetDb {
-  private db = { nets: new Store('nets'), books: new Store('books'), images: new Store('images') };
+  private db = {
+    net: new Store('nets'),
+    book: new Store('books'),
+    image: new Store('images'),
+    sound: new Store('sounds'),
+  };
   private cached: {
-    nets: NetData[];
-    books: { [key: string]: PolyglotBook };
-    images: { [key: string]: string };
+    net: Map<string, NetData>;
+    book: Map<string, PolyglotBook>;
+    image: Map<string, string>;
+    sound: Map<string, string>;
   };
 
   ready = new Promise<void>(resolve => this.init().then(() => resolve()));
 
-  constructor(readonly assets?: { nets: string[]; images: string[]; books: string[] }) {}
+  constructor(readonly remote?: { net: string[]; image: string[]; book: string[]; sound: string[] }) {}
 
   async init() {
     const then = Date.now();
-    this.cached = { nets: [], books: {}, images: {} };
-    await Promise.all(Object.values(this.db).map(s => s.init()));
-    const imageKeys = (await this.db.images.store?.list()) ?? [];
-    const images = (await Promise.allSettled(imageKeys?.map(k => this.db.images.get(k)) ?? [])).map(
+    this.cached = { net: new Map(), book: new Map(), image: new Map(), sound: new Map() };
+    await Promise.allSettled(Object.values(this.db).map(s => s.init()));
+    const imageKeys = await this.db.image.list();
+    const images = (await Promise.allSettled(imageKeys.map(k => this.db.image.get(k)) ?? [])).map(
       r => r.status === 'fulfilled' && r.value,
     );
     for (let i = 0; i < imageKeys.length; i++) {
       const [key, data] = [imageKeys[i], images[i]];
       const o = { type: extToMime(key) };
-      if (data) this.cached.images[key] = URL.createObjectURL(new Blob([data], o));
+      if (data) this.cached.image.set(key, URL.createObjectURL(new Blob([data], o)));
     }
-    if (this.assets) await this.setBotEditorAssets();
-    console.trace('AssetDb init', Date.now() - then, 'ms');
+    if (this.remote) await this.setBotEditorAssets();
+    console.log('AssetDb init', Date.now() - then, 'ms');
     return this;
   }
 
-  listNets = () => this.assets?.nets ?? [];
-  listBooks = () => this.assets?.books ?? [];
+  local = (type: AssetType) => this.db[type].list();
 
-  addNet = async (key: string, file: File) => {
-    this.db.nets.store?.put(key, new Uint8Array(await arrayBuffer(file)));
-    this.setBotEditorAssets();
+  add = async (type: AssetType, key: string, file: Blob) => {
+    this.db[type].store?.put(key, new Uint8Array(await arrayBuffer(file)));
+    if (type === 'image' || type === 'sound') {
+      const oldUrl = this.cached[type].get(key);
+      if (oldUrl) URL.revokeObjectURL(oldUrl);
+      this.cached[type].set(key, URL.createObjectURL(file));
+    }
+    this.setBotEditorAssets(); // TODO, update dialog somehow
   };
 
-  addBook = async (key: string, file: File) => {
-    this.db.books.store?.put(key, new Uint8Array(await arrayBuffer(file)));
-    this.setBotEditorAssets();
-  };
-
-  addImage = async (key: string, file: File) => {
-    if (!file.type.startsWith('image/')) return;
-    await this.db.images.store?.put(key, new Uint8Array(await arrayBuffer(file)));
-    if (this.cached.images[key]) URL.revokeObjectURL(this.cached.images[key]);
-    this.cached.images[key] = URL.createObjectURL(file);
+  delete = async (type: AssetType, key: string) => {
+    await this.db[type].store?.remove(key);
+    if (type === 'image' || type === 'sound') {
+      const oldUrl = this.cached[type].get(key);
+      if (oldUrl) URL.revokeObjectURL(oldUrl);
+      this.cached[type].delete(key);
+    }
+    this.setBotEditorAssets(); // TODO, update dialog somehow
   };
 
   getNet = async (key: string | undefined): Promise<Uint8Array | undefined> => {
     if (!key) return undefined;
     await this.ready;
-    const cached = this.cached.nets.find(n => n.key === key);
+    const cached = this.cached.net.get(key);
     if (cached) return cached.data;
-    const data = await this.db.nets.get(key);
-    this.cached.nets.push({ key, data });
-    if (this.cached.nets.length > 2) this.cached.nets.shift();
+    const data = await this.db.net.get(key);
+    this.cached.net.set(key, { key, data });
+    if (this.cached.net.size > 2) this.cached.net.delete(this.cached.net.keys().next().value);
     return data;
   };
 
   getBook = async (key: string | undefined): Promise<PolyglotBook | undefined> => {
     if (!key) return undefined;
     await this.ready;
-    const cached = this.cached.books[key];
+    const cached = this.cached.book.get(key);
     if (cached) return cached;
-    const book = await this.db.books
+    const book = await this.db.book
       .get(key)
       .then(arr => site.asset.loadEsm<PolyglotBook>('bits.polyglot', { init: new DataView(arr.buffer) }));
-    this.cached.books[key] = book;
+    this.cached.book.set(key, book);
     return book;
   };
 
-  getImageUrl = (key: string) => this.cached.images[key] ?? botAssetUrl(`images/${key}`);
+  getImageUrl = (key: string) => this.cached.image.get(key) ?? botAssetUrl(`images/${key}`);
+
+  getSoundUrl = (key: string) => this.cached.sound.get(key) ?? botAssetUrl(`sounds/${key}`);
 
   private async setBotEditorAssets() {
-    if (!this.assets) return;
+    if (!this.remote) return;
     const [idbNets, idbBooks, idbImages] = await Promise.all(
-      [this.db.nets, this.db.books, this.db.images].map(s => s.store?.list()),
+      [this.db.net, this.db.book, this.db.image].map(s => s.list()),
     );
     const combined = {
-      nets: [...new Set([...this.assets.nets, ...(idbNets ?? [])])],
-      books: [...new Set([...this.assets.books, ...(idbBooks ?? [])])],
-      images: [...new Set([...this.assets.images, ...(idbImages ?? [])])],
+      nets: [...new Set([...this.remote.net, ...idbNets])],
+      books: [...new Set([...this.remote.book, ...idbBooks])],
+      images: [...new Set([...this.remote.image, ...idbImages])],
     };
     setSchemaAssets(combined);
   }
@@ -96,7 +107,7 @@ export function botAssetUrl(name: string, version: string | false = 'bot000') {
   return site.asset.url(`lifat/bots/${name}`, { version });
 }
 
-function arrayBuffer(file: File): Promise<ArrayBuffer> {
+function arrayBuffer(file: Blob): Promise<ArrayBuffer> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result as ArrayBuffer);
@@ -118,16 +129,16 @@ function extToMime(filename: string) {
       return 'image/svg+xml';
     case 'webp':
       return 'image/webp';
+    case 'mp3':
+      return 'audio/mpeg';
     default:
       return 'application/octet-stream';
   }
 }
 
 class Store {
-  store?: ObjectStorage<Uint8Array, string>;
-  constructor(readonly type: string) {
-    this.store = undefined;
-  }
+  store: ObjectStorage<Uint8Array, string>;
+  constructor(readonly type: string) {}
   async init() {
     this.store = await objectStorage<Uint8Array, string>({ store: `local.${this.type}` });
     return this;
@@ -141,5 +152,8 @@ class Store {
     if (!data) throw new Error(`error fetching ${this.type}/${key}`);
     this.store?.put(key, data);
     return data;
+  }
+  async list() {
+    return this.store?.list() ?? [];
   }
 }

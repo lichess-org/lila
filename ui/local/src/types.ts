@@ -72,7 +72,7 @@ export interface LocalPlayOpts {
   setup?: LocalSetup;
   state?: GameState;
   devUi?: boolean;
-  assets?: { nets: string[]; images: string[]; books: string[] };
+  assets?: { net: string[]; image: string[]; book: string[]; sound: string[] };
 }
 
 export interface LocalSetup {
@@ -86,7 +86,7 @@ export interface LocalSetup {
 export type Outcome = 'white' | 'black' | 'draw';
 
 export interface Automator {
-  onGameEnd: (outcome: Outcome, reason: string) => void;
+  onGameEnd: (outcome: Outcome, reason: string) => boolean; // returns true to keep going
   onMove?: (fen: string) => void;
   onReset?: () => void;
   isStopped?: boolean;
