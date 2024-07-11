@@ -6,7 +6,7 @@ import { RankBot } from './dev/rankBot';
 import { CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { deepFreeze } from 'common';
-import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo } from './types';
+import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo, Glicko } from './types';
 
 export class BotCtrl {
   readonly assetDb: AssetDb;
@@ -22,7 +22,7 @@ export class BotCtrl {
     this.assetDb = new AssetDb(remoteAssets);
   }
 
-  async init() {
+  async init(): Promise<this> {
     const dev = this.assetDb.remote !== undefined;
     this.zerofish = await makeZerofish({
       root: site.asset.url('npm', { documentOrigin: true }),
@@ -37,7 +37,7 @@ export class BotCtrl {
     return this.initLibots();
   }
 
-  async initLibots() {
+  async initLibots(): Promise<this> {
     await Promise.all([this.resetBots(), this.assetDb.ready]);
     return this;
   }
@@ -46,7 +46,7 @@ export class BotCtrl {
     return JSON.stringify(await this.store.getMany(), null, 2);
   }
 
-  async clearLocalBots(uids?: string[]) {
+  async clearLocalBots(uids?: string[]): Promise<void> {
     await (uids ? Promise.all(uids.map(uid => this.store.remove(uid))) : this.store.clear());
     return this.resetBots();
   }
@@ -84,12 +84,12 @@ export class BotCtrl {
     this.zerofish.reset();
   }
 
-  updateBot(bot: ZerofishBot) {
+  updateBot(bot: ZerofishBot): Promise<IDBValidKey> {
     this.bots[bot.uid] = new ZerofishBot(bot, this.zerofish, this.assetDb);
     return this.saveBot(bot.uid);
   }
 
-  saveBot(uid: string) {
+  saveBot(uid: string): Promise<IDBValidKey> {
     return this.store.put(uid, this.bots[uid]);
   }
 
@@ -97,7 +97,7 @@ export class BotCtrl {
     return uid in this.defaultBots ? this.defaultBots[uid] : this.default;
   }
 
-  updateRating(bot: Libot | undefined, opp: { r: number; rd: number } = { r: 1500, rd: 350 }, score: number) {
+  updateRating(bot: Libot | undefined, score: number, opp: Glicko | undefined = { r: 1500, rd: 350 }): void {
     if (!bot || bot instanceof RankBot) return;
     const q = Math.log(10) / 400;
     bot.glicko ??= { r: 1500, rd: 350 };
@@ -166,14 +166,14 @@ export class BotCtrl {
   });
 }
 
-export function botAssetUrl(name: string, version: string | false = 'bot000') {
+export function botAssetUrl(name: string, version: string | false = 'bot000'): string {
   return site.asset.url(`lifat/bots/${name}`, { version });
 }
 
-export function uidToDomId(uid: string | undefined) {
+export function uidToDomId(uid: string | undefined): string | undefined {
   return uid?.startsWith('#') ? `bot-id-${uid.slice(1)}` : undefined;
 }
 
-export function domIdToUid(domId: string | undefined) {
+export function domIdToUid(domId: string | undefined): string | undefined {
   return domId && domId.startsWith('bot-id-') ? `#${domId.slice(7)}` : undefined;
 }

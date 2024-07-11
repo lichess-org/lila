@@ -10,7 +10,7 @@ import type { LocalPlayOpts } from '../types';
 
 const patch = init([classModule, attributesModule]);
 
-export async function initModule(opts: LocalPlayOpts) {
+export async function initModule(opts: LocalPlayOpts): Promise<void> {
   const botCtrl = await new BotCtrl(opts.assets).init();
   if (opts.setup) {
     if (!opts.setup.go) {

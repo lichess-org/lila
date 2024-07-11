@@ -42,6 +42,11 @@
     }
   }
 
+  .switch.disabled,
+  .random.disabled {
+    pointer-events: none;
+  }
+
   .chin {
     //height: 120px;
     padding: 1em;

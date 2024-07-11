@@ -1,7 +1,7 @@
 import { clamp } from 'common';
 import { botScore } from './util';
 import type { Zerofish, Position } from 'zerofish';
-import type { Libot, Result, Matchup } from '../types';
+import type { Libot, Result, Matchup, Glicko } from '../types';
 
 export class RankBot implements Libot {
   static readonly MAX_LEVEL = 30;
@@ -13,29 +13,29 @@ export class RankBot implements Libot {
     readonly level: number,
   ) {}
 
-  get uid() {
+  get uid(): string {
     return `#${this.level}`;
   }
 
-  get name() {
+  get name(): string {
     return `Stockfish`;
   }
 
-  get glicko() {
+  get glicko(): Glicko {
     return { r: (this.level + 8) * 75, rd: 20 };
   }
-  get ratingText() {
+  get ratingText(): string {
     return `${this.glicko.r}`;
   }
-  get depth() {
+  get depth(): number {
     return clamp(this.level - 9, { min: 1, max: 20 });
   }
 
-  get description() {
+  get description(): string {
     return `Stockfish UCI_Elo ${this.glicko.r} depth ${this.depth}`;
   }
 
-  async move(pos: Position) {
+  async move(pos: Position): Promise<Uci> {
     return (await this.zerofish.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } }))
       .bestmove;
   }

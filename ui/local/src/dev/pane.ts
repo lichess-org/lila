@@ -7,14 +7,14 @@ import type {
   TextareaInfo,
   NumberInfo,
   RangeInfo,
-  EditorHost,
+  PaneHost,
   PaneInfo,
   ObjectSelector,
 } from './types';
 
 export class Pane {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-  readonly host: EditorHost;
+  readonly host: PaneHost;
   readonly info: PaneInfo;
   readonly el: HTMLElement;
   readonly parent: Pane | undefined;
@@ -25,10 +25,10 @@ export class Pane {
     this.el = document.createElement(this.isFieldset ? 'fieldset' : 'div');
     this.el.id = this.id;
     info.class?.forEach(c => this.el.classList.add(c));
-    if (info.title) this.el.title = info.title;
     host.editor.add(this);
+    if (info.title) this.el.title = info.title;
     if (this.info.label) {
-      const label = $as<HTMLElement>(`<label>${this.info.label}</label>`);
+      const label = $as<HTMLElement>(`<label><span>${this.info.label}</span></label>`);
       if (this.info.class?.includes('setting')) this.el.appendChild(label);
       else {
         const header = document.createElement(this.isFieldset ? 'legend' : 'span');
@@ -46,17 +46,11 @@ export class Pane {
     if (!this.enabledCheckbox) return;
     this.enabledCheckbox.classList.add('toggle');
     this.enabledCheckbox.checked = this.isDefined;
-    //this.el.prepend(this.enabledCheckbox);
     this.label?.prepend(this.enabledCheckbox);
   }
 
-  init() {
-    this.setEnabled();
-    if (this.input) this.el.appendChild(this.input);
-  }
-
-  setEnabled(enabled = this.canEnable()) {
-    if (!this.input && !this.enabledCheckbox) return;
+  setEnabled(enabled: boolean = this.canEnable()): boolean {
+    if (!this.input && !this.enabledCheckbox) return false;
 
     const { editor, view } = this.host;
     this.el.classList.toggle('disabled', !enabled);
@@ -85,75 +79,16 @@ export class Pane {
         kid?.setEnabled(false);
       });
     for (const r of this.host.editor.requires(this.id)) r.setEnabled(enabled ? undefined : false);
+    return enabled;
   }
 
-  canEnable(): boolean {
-    const kids = this.children;
-    if (this.input && !kids.length) return this.isDefined;
-    return kids.every(x => x.enabled || !x.info.required) && this.requirementsAllow;
-  }
-
-  get label(): HTMLElement | undefined {
-    if (this.info.label) return this.el.querySelector('label') ?? undefined;
-    return undefined;
-  }
-
-  get paneValue(): number | string | Operator | Book[] | undefined {
-    return this.input?.value;
-  }
-
-  get id() {
-    return this.info.id!;
-  }
-
-  get name() {
-    return this.id.split('_').pop()!;
-  }
-
-  get path() {
-    return this.id.split('_').slice(1);
-  }
-
-  get radioGroup() {
-    return this.parent?.info.type === 'radioGroup' ? this.parent.id : undefined;
-  }
-
-  get requires() {
-    return this.info.requires ?? [];
-  }
-
-  get isFieldset() {
-    return this.info.type === 'group' || this.info.type === 'books'; // || this.info.type === 'operator';
-  }
-
-  get isDefined() {
-    return this.getProperty() !== undefined;
-  }
-
-  get requirementsAllow(): boolean {
-    return this.requires.every(r => this.host.editor.byId[r].enabled);
-  }
-
-  get children() {
-    return Object.keys(this.host.editor.byId)
-      .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
-      .map(id => this.host.editor.byId[id]);
-  }
-
-  get enabled(): boolean {
-    if (this.host.bot.disabled.has(this.id)) return false;
-    const kids = this.children;
-    if (!kids.length) return this.isDefined;
-    return kids.every(x => x.enabled || !x.info.required);
-  }
-
-  update(_?: Event) {
+  update(_?: Event): void {
     this.setProperty(this.paneValue);
     this.setEnabled(this.isDefined);
     this.host.update();
   }
 
-  setProperty(value: string | number | Operator | Book[] | undefined) {
+  setProperty(value: string | number | Operator | Book[] | undefined): void {
     if (value === undefined) {
       if (this.paneValue) removeObjectProperty({ obj: this.host.bot, path: { id: this.id } });
     } else setObjectProperty({ obj: this.host.bot, path: { id: this.id }, value });
@@ -170,14 +105,75 @@ export class Pane {
     return undefined;
   }
 
-  getStringProperty(sel: ObjectSelector[] = ['bot']) {
+  getStringProperty(sel: ObjectSelector[] = ['bot']): string {
     const prop = this.getProperty(sel);
     return typeof prop === 'object' ? JSON.stringify(prop) : prop !== undefined ? String(prop) : '';
+  }
+
+  get paneValue(): number | string | Operator | Book[] | undefined {
+    return this.input?.value;
+  }
+
+  get id(): string {
+    return this.info.id!;
+  }
+
+  get enabled(): boolean {
+    if (this.host.bot.disabled.has(this.id)) return false;
+    const kids = this.children;
+    if (!kids.length) return this.isDefined;
+    return kids.every(x => x.enabled || !x.info.required);
+  }
+
+  protected init(): void {
+    this.setEnabled();
+    if (this.input) this.el.appendChild(this.input);
+  }
+
+  protected canEnable(): boolean {
+    const kids = this.children;
+    if (this.input && !kids.length) return this.isDefined;
+    return kids.every(x => x.enabled || !x.info.required) && this.requirementsAllow;
+  }
+
+  protected get label(): HTMLElement | undefined {
+    if (this.info.label) return this.el.querySelector('label') ?? undefined;
+    return undefined;
+  }
+
+  protected get path(): string[] {
+    return this.id.split('_').slice(1);
+  }
+
+  protected get requires(): string[] {
+    return this.info.requires ?? [];
+  }
+
+  protected get radioGroup(): string | undefined {
+    return this.parent?.info.type === 'radioGroup' ? this.parent.id : undefined;
+  }
+
+  protected get isFieldset(): boolean {
+    return this.info.type === 'group' || this.info.type === 'books'; // || this.info.type === 'operator';
+  }
+
+  protected get isDefined(): boolean {
+    return this.getProperty() !== undefined;
+  }
+
+  protected get requirementsAllow(): boolean {
+    return this.requires.every(r => this.host.editor.byId[r].enabled);
+  }
+
+  protected get children(): Pane[] {
+    return Object.keys(this.host.editor.byId)
+      .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
+      .map(id => this.host.editor.byId[id]);
   }
 }
 
 export class SelectSetting extends Pane {
-  input = $as<HTMLSelectElement>('<select data-type="string">');
+  input: HTMLSelectElement = $as<HTMLSelectElement>('<select data-type="string">');
   info: SelectInfo;
   constructor(p: PaneArgs) {
     super(p);
@@ -198,7 +194,7 @@ export class SelectSetting extends Pane {
 }
 
 export class TextSetting extends Pane {
-  input = $as<HTMLInputElement>('<input type="text" data-type="string">');
+  input: HTMLInputElement = $as<HTMLInputElement>('<input type="text" data-type="string">');
   constructor(p: PaneArgs) {
     super(p);
     this.init();
@@ -209,7 +205,7 @@ export class TextSetting extends Pane {
 }
 
 export class TextareaSetting extends Pane {
-  input = $as<HTMLTextAreaElement>('<textarea data-type="string">');
+  input: HTMLTextAreaElement = $as<HTMLTextAreaElement>('<textarea data-type="string">');
   info: TextareaInfo;
   constructor(p: PaneArgs) {
     super(p);
@@ -222,7 +218,7 @@ export class TextareaSetting extends Pane {
 }
 
 export class NumberSetting extends Pane {
-  input = $as<HTMLInputElement>('<input type="text" data-type="number">');
+  input: HTMLInputElement = $as<HTMLInputElement>('<input type="text" data-type="number">');
   info: NumberInfo | RangeInfo;
   constructor(p: PaneArgs) {
     super(p);
@@ -232,7 +228,7 @@ export class NumberSetting extends Pane {
     this.input.style.maxWidth = `calc(${maxChars(this.info)}ch + 1.5em)`;
     if (this.info.min === this.info.max) this.input.disabled = true;
   }
-  update() {
+  update(): void {
     const isValid = this.isValid();
     this.input.classList.toggle('invalid', !isValid);
     if (isValid) {
@@ -240,7 +236,7 @@ export class NumberSetting extends Pane {
       this.setEnabled(true);
     }
   }
-  isValid(el: HTMLInputElement = this.input) {
+  isValid(el: HTMLInputElement = this.input): boolean {
     const v = Number(el.value);
     return !isNaN(v) && v >= this.info.min && v <= this.info.max;
   }
@@ -250,7 +246,7 @@ export class NumberSetting extends Pane {
 }
 
 export class RangeSetting extends NumberSetting {
-  rangeInput = $as<HTMLInputElement>('<input type="range" data-type="number">');
+  rangeInput: HTMLInputElement = $as<HTMLInputElement>('<input type="range" data-type="number">');
   info: RangeInfo;
   constructor(p: PaneArgs) {
     super(p);
@@ -260,7 +256,7 @@ export class RangeSetting extends NumberSetting {
     this.rangeInput.value = this.input.value;
     this.el.querySelector('hr')?.replaceWith(this.rangeInput);
   }
-  update(e?: Event) {
+  update(e?: Event): void {
     if (!e || e.target === this.input) {
       super.update();
       this.rangeInput.value = this.input.value;

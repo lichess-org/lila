@@ -20,16 +20,16 @@ export interface GameState {
 }
 
 export class GameCtrl {
-  chess = co.Chess.default();
+  chess: co.Chess = co.Chess.default();
   socket: RoundSocket;
-  fiftyMovePly = 0;
+  fiftyMovePly: number = 0;
   threefoldFens: Map<string, number> = new Map();
   round: MoveRootCtrl;
   i18n: { [key: string]: string };
   setup: LocalSetup;
   moves: Uci[] = [];
   roundData: RoundData;
-  gameDb = new GameDb();
+  gameDb: GameDb = new GameDb();
   private automator?: Automator;
 
   constructor(
@@ -47,23 +47,23 @@ export class GameCtrl {
     this.roundData = this.makeRoundData(this.setup.fen);
   }
 
-  setAutomator(automator: Automator) {
+  setAutomator(automator: Automator): void {
     this.automator = automator;
   }
 
-  resetToSetup() {
+  resetToSetup(): void {
     this.botCtrl.whiteUid = this.setup.white;
     this.botCtrl.blackUid = this.setup.black;
     this.resetBoard();
   }
 
-  reset({ white, black, startingFen }: GameState) {
+  reset({ white, black, startingFen }: GameState): void {
     this.botCtrl.whiteUid = white;
     this.botCtrl.blackUid = black;
     this.resetBoard(startingFen);
   }
 
-  resetBoard(fen?: string) {
+  resetBoard(fen?: string): void {
     if (fen) this.setup.fen = fen;
     this.fiftyMovePly = 0;
     this.moves = [];
@@ -104,23 +104,6 @@ export class GameCtrl {
     } else return { end: false };
     // needs outoftime
     return { end: true, result, reason, status };
-  }
-
-  gameOver(result: string, reason: string, status: Status) {
-    console.log('oh good');
-    this.botCtrl.reset();
-    setTimeout(() => {
-      if (!this.automator?.onGameEnd(result as 'white' | 'black' | 'draw', reason)) {
-        console.log('hay yo');
-        const end = {
-          status,
-          winner: result === 'white' || result === 'black' ? (result as Color) : undefined,
-          boosted: false,
-        };
-        this.round.endWithData?.(end);
-      }
-      this.redraw();
-    });
   }
 
   move(uci: Uci): boolean {
@@ -178,7 +161,7 @@ export class GameCtrl {
     return true;
   }
 
-  botMove = async () => {
+  async botMove(): Promise<void> {
     if (this.automator?.isStopped) return;
     const botMove = await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess);
     if (!this.automator?.isStopped) this.move(botMove);
@@ -189,76 +172,24 @@ export class GameCtrl {
         this.redraw();
       }
     }
-  };
-
-  fifty(move?: co.Move) {
-    if (move)
-      if (
-        !('from' in move) ||
-        this.chess.board.getRole(move.from) === 'pawn' ||
-        this.chess.board.get(move.to)
-      )
-        this.fiftyMovePly = 0;
-      else this.fiftyMovePly++;
-    return this.fiftyMovePly >= 100;
   }
 
-  updateThreefold() {
-    const boardFen = this.fen.split('-')[0];
-    let fenCount = this.threefoldFens.get(boardFen) ?? 0;
-    this.threefoldFens.set(boardFen, ++fenCount);
-    return fenCount >= 3; // TODO fixme
-  }
-
-  get isThreefold() {
-    return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3; // TODO fixme
-  }
-
-  get inProgress() {
-    return !this.checkGameOver().end && this.moves.length > 0;
-  }
-
-  isPromotion(move: co.Move) {
-    return (
-      'from' in move &&
-      co.squareRank(move.to) === (this.chess.turn === 'white' ? 7 : 0) &&
-      this.chess.board.getRole(move.from) === 'pawn'
-    );
-  }
-
-  get isUserTurn() {
-    return !this.botCtrl[this.chess.turn];
-  }
-
-  get isBotTurn() {
-    return !!this.botCtrl[this.chess.turn];
-  }
-
-  get dests() {
-    const dests: { [from: string]: string } = {};
-    [...this.chess.allDests()]
-      .filter(([, to]) => !to.isEmpty())
-      .forEach(([s, ds]) => (dests[co.makeSquare(s)] = [...ds].map(co.makeSquare).join('')));
-    return dests;
-  }
-
-  get cgDests() {
-    const dec = new Map();
-    const dests = this.dests;
-    if (!dests) return dec;
-    for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as Cg.Key[]);
-    return dec;
-  }
-
-  get fen() {
-    return makeFen(this.chess.toSetup());
-  }
-
-  get ply() {
-    return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
+  async load(gameId: string): Promise<void> {
+    const gameState = await this.gameDb.get(gameId);
+    if (gameState) {
+      this.setup.fen = gameState.startingFen;
+      this.moves = gameState.moves;
+      this.threefoldFens = gameState.threefoldFens ?? new Map();
+      this.fiftyMovePly = gameState.fiftyMovePly ?? 0;
+      this.botCtrl.whiteUid = gameState.white;
+      this.botCtrl.blackUid = gameState.black;
+      this.resetBoard();
+      gameState.moves.forEach(move => this.chess.play(co.parseUci(move)!));
+    }
   }
 
   player(color: Color, name: string): RoundData['player'] {
+    // TODO - figure out way to delete this shit
     return {
       color,
       user: {
@@ -276,7 +207,95 @@ export class GameCtrl {
     };
   }
 
-  get game(): RoundData['game'] {
+  get roundOpts(): RoundOpts {
+    return {
+      data: this.roundData,
+      i18n: this.opts.i18n,
+      local: this.socket,
+      onChange: (d: RoundData) => {}, //console.log(d),
+    };
+  }
+
+  get isUserTurn(): boolean {
+    return !this.botCtrl[this.chess.turn];
+  }
+
+  get fen(): string {
+    return makeFen(this.chess.toSetup());
+  }
+
+  get ply(): number {
+    return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
+  }
+
+  private gameOver(result: string, reason: string, status: Status) {
+    this.botCtrl.reset();
+    setTimeout(() => {
+      if (!this.automator?.onGameEnd(result as 'white' | 'black' | 'draw', reason)) {
+        const end = {
+          status,
+          winner: result === 'white' || result === 'black' ? (result as Color) : undefined,
+          boosted: false,
+        };
+        this.round.endWithData?.(end);
+      }
+      this.redraw();
+    });
+  }
+
+  private fifty(move?: co.Move): boolean {
+    if (move)
+      if (
+        !('from' in move) ||
+        this.chess.board.getRole(move.from) === 'pawn' ||
+        this.chess.board.get(move.to)
+      )
+        this.fiftyMovePly = 0;
+      else this.fiftyMovePly++;
+    return this.fiftyMovePly >= 100;
+  }
+
+  private updateThreefold(): boolean {
+    const boardFen = this.fen.split('-')[0];
+    let fenCount = this.threefoldFens.get(boardFen) ?? 0;
+    this.threefoldFens.set(boardFen, ++fenCount);
+    return fenCount >= 3; // TODO fixme
+  }
+
+  private get isThreefold() {
+    return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3; // TODO fixme
+  }
+
+  /*isPromotion(move: co.Move) {
+    return (
+      'from' in move &&
+      co.squareRank(move.to) === (this.chess.turn === 'white' ? 7 : 0) &&
+      this.chess.board.getRole(move.from) === 'pawn'
+    );
+  }*/
+
+  /*get isBotTurn() {
+    return !!this.botCtrl[this.chess.turn];
+  }*/
+
+  private get dests() {
+    const dests: { [from: string]: string } = {};
+    [...this.chess.allDests()]
+      .filter(([, to]) => !to.isEmpty())
+      .forEach(([s, ds]) => (dests[co.makeSquare(s)] = [...ds].map(co.makeSquare).join('')));
+    return dests;
+  }
+
+  private get cgDests() {
+    const dec = new Map();
+    const dests = this.dests;
+    if (!dests) return dec;
+    for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as Cg.Key[]);
+    return dec;
+  }
+
+  private get game(): RoundData['game'] {
+    // TODO - figure out way to remove this
     return {
       id: 'synthetic',
       variant: { key: 'standard', name: 'Standard', short: 'Std' },
@@ -291,18 +310,18 @@ export class GameCtrl {
     };
   }
 
-  updateRound() {
+  private updateRound() {
     this.roundData.game.fen = this.fen;
     this.roundData.possibleMoves = this.dests;
     this.round.reset?.(this.fen ?? co.fen.INITIAL_FEN);
   }
 
-  updateTurn() {
+  private updateTurn() {
     this.roundData.game.player = this.chess.turn;
     this.round.cg?.set({ movable: { color: this.chess.turn, dests: this.cgDests } });
   }
 
-  makeRoundData(fen?: string): RoundData {
+  private makeRoundData(fen?: string): RoundData {
     const bottom = !this.setup.white ? 'white' : !this.setup.black ? 'black' : 'white';
     const top = co.opposite(bottom);
     console.log(this.opts.pref);
@@ -318,15 +337,6 @@ export class GameCtrl {
     };
   }
 
-  get roundOpts(): RoundOpts {
-    return {
-      data: this.roundData,
-      i18n: this.opts.i18n,
-      local: this.socket,
-      onChange: (d: RoundData) => {}, //console.log(d),
-    };
-  }
-
   private async saveGameState() {
     const gameState: GameState = {
       startingFen: this.setup.fen ?? co.fen.INITIAL_FEN,
@@ -337,20 +347,6 @@ export class GameCtrl {
       black: this.botCtrl.black?.name,
     };
     await this.gameDb.save(this.roundData.game.id, gameState);
-  }
-
-  async load(gameId: string) {
-    const gameState = await this.gameDb.get(gameId);
-    if (gameState) {
-      this.setup.fen = gameState.startingFen;
-      this.moves = gameState.moves;
-      this.threefoldFens = gameState.threefoldFens ?? new Map();
-      this.fiftyMovePly = gameState.fiftyMovePly ?? 0;
-      this.botCtrl.whiteUid = gameState.white;
-      this.botCtrl.blackUid = gameState.black;
-      this.resetBoard();
-      gameState.moves.forEach(move => this.chess.play(co.parseUci(move)!));
-    }
   }
 }
 

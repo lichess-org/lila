@@ -2,7 +2,7 @@ import * as co from 'chessops';
 import { normalize } from './operator';
 import { zerofishMove } from './zerofishMove';
 import type { FishSearch, Position, Zerofish } from 'zerofish';
-import type { Libot, ZerofishBotInfo, ZeroSearch, Operator } from './types';
+import type { Libot, ZerofishBotInfo, ZeroSearch, Operator, Glicko } from './types';
 import type { PolyglotBook } from 'bits/types';
 import type { AssetDb } from './assetDb';
 
@@ -20,7 +20,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   books: { name: string; weight?: number }[] = [];
   zero?: ZeroSearch;
   fish?: FishSearch;
-  glicko?: { r: number; rd: number };
+  glicko?: Glicko;
   operators?: { [type: string]: Operator };
 
   constructor(info: Libot, zerofish: Zerofish, assetDb: AssetDb) {
@@ -36,11 +36,45 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     Object.defineProperty(this, 'stats', { value: { moves: 0, cpl: 0 } });
   }
 
-  get imageUrl() {
+  /*get imageUrl() {
     return this.assetDb.getImageUrl(this.image);
+  }*/
+
+  async move(pos: Position, chess: co.Chess): Promise<Uci> {
+    const opening = await this.bookMove(chess);
+    if (opening) return opening;
+    const [zeroResult, fishResult] = await Promise.all([
+      this.zero &&
+        this.zerofish.goZero(pos, {
+          ...this.zero,
+          net: {
+            name: this.name + '-' + this.zero.net,
+            fetch: async () => (await this.assetDb.getNet(this.zero!.net))!,
+          },
+        }),
+      this.fish && this.zerofish.goFish(pos, this.fish),
+    ]);
+    const { move, cpl } = zerofishMove(fishResult, zeroResult, this.operators ?? {}, chess);
+    if (!isNaN(cpl)) {
+      this.stats.moves++; // debug stats
+      this.stats.cpl += cpl;
+    }
+    return move;
   }
 
-  async bookMove(chess: co.Chess) {
+  get ratingText(): string {
+    return `${this.glicko?.r ?? 1500}${(this.glicko?.rd ?? 3580) > 80 ? '?' : ''}`;
+  }
+
+  get fullRatingText(): string {
+    return this.ratingText + ` (${Math.round(this.glicko?.rd ?? 350)})`;
+  }
+
+  get statsText(): string {
+    return this.stats.moves ? `acpl ${Math.round(this.stats.cpl / this.stats.moves)}` : '';
+  }
+
+  private async bookMove(chess: co.Chess) {
     if (!this.books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; bookWeight: number }[] = [];
     let bookChance = 0;
@@ -64,39 +98,5 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
       }
     }
     return undefined;
-  }
-
-  async move(pos: Position, chess: co.Chess) {
-    const opening = await this.bookMove(chess);
-    if (opening) return opening;
-    const [zeroResult, fishResult] = await Promise.all([
-      this.zero &&
-        this.zerofish.goZero(pos, {
-          ...this.zero,
-          net: {
-            name: this.name + '-' + this.zero.net,
-            fetch: async () => (await this.assetDb.getNet(this.zero!.net))!,
-          },
-        }),
-      this.fish && this.zerofish.goFish(pos, this.fish),
-    ]);
-    const { move, cpl } = zerofishMove(fishResult, zeroResult, this.operators ?? {}, chess);
-    if (!isNaN(cpl)) {
-      this.stats.moves++; // debug stats
-      this.stats.cpl += cpl;
-    }
-    return move;
-  }
-
-  get ratingText() {
-    return `${this.glicko?.r ?? 1500}${(this.glicko?.rd ?? 3580) > 80 ? '?' : ''}`;
-  }
-
-  get fullRatingText() {
-    return this.ratingText + ` (${Math.round(this.glicko?.rd ?? 350)})`;
-  }
-
-  get statsText() {
-    return this.stats.moves ? `acpl ${Math.round(this.stats.cpl / this.stats.moves)}` : '';
   }
 }

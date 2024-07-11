@@ -1,21 +1,21 @@
 import { type BotCtrl, domIdToUid, uidToDomId } from '../botCtrl';
 import { HandOfCards } from '../handOfCards';
 import { defined, escapeHtml, isEquivalent } from 'common';
-import { buildFromSchema, Editor } from './editor';
+import { buildFromSchema, PaneCtrl } from './paneCtrl';
 import { removeObjectProperty } from './util';
 import * as licon from 'common/licon';
 import { domDialog, alert, confirm, type Dialog, type Action } from 'common/dialog';
-import type { BotInfoReader, ZerofishBotEditor, EditorHost } from './types';
+import type { BotInfoReader, ZerofishBotEditor, PaneHost } from './types';
 import type { ZerofishBots } from '../zerofishBot';
 import type { GameCtrl } from '../gameCtrl';
 import { assetDialog } from './assetDialog';
 
-export class EditDialog implements EditorHost {
+export class EditDialog implements PaneHost {
   view: HTMLElement;
   hand: HandOfCards;
   dlg: Dialog;
   uid: string;
-  editor: Editor;
+  editor: PaneCtrl;
   scratch: { [uid: string]: ZerofishBotEditor } = {}; // scratchpad for bot edits, pre-apply
   cleanups: (() => void)[] = []; // chart.js
 
@@ -43,8 +43,29 @@ export class EditDialog implements EditorHost {
     });
   }
 
-  get bots(): ZerofishBots {
-    return this.botCtrl.zerofishBots;
+  async show(): Promise<Dialog> {
+    this.dlg = await domDialog({
+      append: [{ node: this.view }],
+      actions: this.actions,
+      noClickAway: true,
+      onClose: () => {
+        window.removeEventListener('resize', this.hand.resize);
+        for (const cleanup of this.cleanups) cleanup();
+      },
+    });
+    window.addEventListener('resize', this.hand.resize);
+    setTimeout(this.hand.resize);
+    return this.dlg.show();
+  }
+
+  update(): void {
+    this.dlg?.updateActions(this.actions);
+    const isClean = this.isClean;
+    //const isAllClean = isClean && this.allDirty.length === 0;
+    this.dlg?.view.querySelector('.bot-apply')?.classList.toggle('disabled', isClean);
+    //this.dlg?.view.querySelector('.bot-clear-one')?.classList.toggle('disabled', !isClean);
+    //this.dlg?.view.querySelector('.bot-clear-all')?.classList.toggle('disabled', !isAllClean);
+    //this.dlg?.actions(this.actions);
   }
 
   get bot(): ZerofishBotEditor {
@@ -58,54 +79,10 @@ export class EditDialog implements EditorHost {
     return this.botCtrl.defaultBot(this.uid);
   }
 
-  get isClean() {
-    if (!this.scratch[this.uid]) return true;
-    const scratch = structuredClone(this.scratch[this.uid]);
-    for (const id of this.bot.disabled) {
-      removeObjectProperty({ obj: scratch, path: { id } }, true);
-    }
-    return isEquivalent(this.botCtrl.bot(this.uid), scratch);
-  }
-
-  get allDirty(): string[] {
-    return Object.keys(this.scratch).filter(uid => !isEquivalent(this.botCtrl.bot(uid), this.scratch[uid]));
-  }
-
-  get actions(): Action[] {
-    return [
-      ...this.editor.actions,
-      { selector: '.bot-apply', listener: () => this.apply() },
-      { selector: '.bot-new', listener: () => this.newBot() },
-      { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
-      { selector: '.bot-json-all', listener: () => this.showJson() },
-      { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
-      { selector: '.bot-assets', listener: () => assetDialog(this.botCtrl.assetDb, 'image') },
-      { selector: '.bot-unrate-all', listener: () => this.clearRatings() },
-      { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
-      { selector: '.bot-clear-all', listener: () => this.clearBots() },
-      { selector: '.player', listener: e => this.clickImage(e) },
-    ];
-  }
-
-  async show() {
-    this.dlg = await domDialog({
-      append: [{ node: this.view }],
-      actions: this.actions,
-      noClickAway: true,
-      onClose: () => {
-        window.removeEventListener('resize', this.resize);
-        for (const cleanup of this.cleanups) cleanup();
-      },
-    });
-    window.addEventListener('resize', this.resize);
-    setTimeout(this.resize);
-    return this.dlg.show();
-  }
-
-  makeEditView() {
+  private makeEditView(): void {
     for (const cleanup of this.cleanups) cleanup();
     this.cleanups = [];
-    this.editor = new Editor();
+    this.editor = new PaneCtrl();
     const el = this.view.querySelector('.edit-bot') as HTMLElement;
     el.innerHTML = this.globalActionsHtml;
     el.appendChild(this.botCardEl);
@@ -117,9 +94,7 @@ export class EditDialog implements EditorHost {
     this.editor.forEach(el => el.setEnabled());
   }
 
-  resize = () => this.hand.resize();
-
-  apply() {
+  private apply() {
     for (const id of this.bot.disabled) {
       removeObjectProperty({ obj: this.bot, path: { id } }, true);
       this.editor
@@ -132,24 +107,14 @@ export class EditDialog implements EditorHost {
     this.selectBot();
   }
 
-  update() {
-    this.dlg?.updateActions(this.actions);
-    const isClean = this.isClean;
-    //const isAllClean = isClean && this.allDirty.length === 0;
-    this.dlg?.view.querySelector('.bot-apply')?.classList.toggle('disabled', isClean);
-    //this.dlg?.view.querySelector('.bot-clear-one')?.classList.toggle('disabled', !isClean);
-    //this.dlg?.view.querySelector('.bot-clear-all')?.classList.toggle('disabled', !isAllClean);
-    //this.dlg?.actions(this.actions);
-  }
-
-  selectBot(uid = this.uid ?? this.botCtrl[this.color]!.uid) {
+  private selectBot(uid = this.uid ?? this.botCtrl[this.color]!.uid) {
     this.uid = uid;
     this.makeEditView();
     this.update();
     this.onSelectBot?.(this.uid);
   }
 
-  async clickImage(e: Event) {
+  private async clickImage(e: Event) {
     if (e.target !== e.currentTarget) return;
     const newImage = await assetDialog(this.botCtrl.assetDb, 'image', true);
     if (!newImage) return;
@@ -158,7 +123,7 @@ export class EditDialog implements EditorHost {
     this.update();
   }
 
-  clearBots = async (uids?: string[]) => {
+  private clearBots = async (uids?: string[]) => {
     if (!(await confirm(uids ? `Clear ${uids.join(' ')}?` : 'Clear all local bots?'))) return;
     for (const uid of uids ?? Object.keys(this.bots)) {
       delete this.scratch[uid];
@@ -168,7 +133,7 @@ export class EditDialog implements EditorHost {
     alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // make a flash for this stuff
   };
 
-  clearRatings = (uids: string[] = Object.keys(this.bots)) => {
+  private clearRatings = (uids: string[] = Object.keys(this.bots)) => {
     for (const uid of uids) {
       if (this.scratch[uid]) this.scratch[uid].glicko = undefined;
       if (!this.bots[uid].glicko) continue;
@@ -179,7 +144,7 @@ export class EditDialog implements EditorHost {
     this.gameCtrl.redraw();
   };
 
-  showJson = async (uids?: string[]) => {
+  private async showJson(uids?: string[]): Promise<void> {
     const text = escapeHtml(
       JSON.stringify(uids ? uids.map(id => this.bots[id]) : [...Object.values(this.bots)], null, 2),
     );
@@ -209,9 +174,9 @@ export class EditDialog implements EditorHost {
       }),
     );
     dlg.showModal();
-  };
+  }
 
-  newBot() {
+  private newBot(): void {
     const ok = $as<HTMLButtonElement>('<button class="button ok disabled">ok</button>');
     const input = $as<HTMLInputElement>(`<input class="invalid" spellcheck="false" type="text" value="#">`);
     domDialog({
@@ -263,7 +228,40 @@ export class EditDialog implements EditorHost {
     });
   }
 
-  get globalActionsHtml(): string {
+  private get bots(): ZerofishBots {
+    return this.botCtrl.zerofishBots;
+  }
+
+  private get actions(): Action[] {
+    return [
+      ...this.editor.actions,
+      { selector: '.bot-apply', listener: () => this.apply() },
+      { selector: '.bot-new', listener: () => this.newBot() },
+      { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
+      { selector: '.bot-json-all', listener: () => this.showJson() },
+      { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
+      { selector: '.bot-assets', listener: () => assetDialog(this.botCtrl.assetDb, 'image') },
+      { selector: '.bot-unrate-all', listener: () => this.clearRatings() },
+      { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
+      { selector: '.bot-clear-all', listener: () => this.clearBots() },
+      { selector: '.player', listener: e => this.clickImage(e) },
+    ];
+  }
+
+  private get isClean(): boolean {
+    if (!this.scratch[this.uid]) return true;
+    const scratch = structuredClone(this.scratch[this.uid]);
+    for (const id of this.bot.disabled) {
+      removeObjectProperty({ obj: scratch, path: { id } }, true);
+    }
+    return isEquivalent(this.botCtrl.bot(this.uid), scratch);
+  }
+
+  private get allDirty(): string[] {
+    return Object.keys(this.scratch).filter(uid => !isEquivalent(this.botCtrl.bot(uid), this.scratch[uid]));
+  }
+
+  private get globalActionsHtml(): string {
     return `<div class="global-actions">
         <button class="button button-empty button-green bot-new">new bot</button>
         <button class="button button-empty button-dim bot-assets">assets</button>
@@ -273,7 +271,7 @@ export class EditDialog implements EditorHost {
       </div>`;
   }
 
-  get botCardEl(): Node {
+  private get botCardEl(): Node {
     const botCard = $as<Element>(`<div class="bot-card">
         <div class="player ${this.color}"><span>${this.uid}</span></div>
         <div class="bot-actions">
@@ -286,14 +284,14 @@ export class EditDialog implements EditorHost {
     return botCard;
   }
 
-  get botInfoEl(): Node {
+  private get botInfoEl(): Node {
     const bot = this.botCtrl.bot(this.uid) as ZerofishBotEditor;
     const glicko = bot.glicko ?? { r: 1500, rd: 350 };
-    const info = $as<Element>(`<div class="bot-info">
+    const info = $as<Element>(`<span class="bot-info">
         <span><label>rating</label>${bot.fullRatingText}${
           glicko.rd !== 350 ? `<i class="bot-unrate-one" data-icon="${licon.Cancel}"></i>` : ''
         }</span>
-      </div>`);
+      </span>`);
     info.prepend(buildFromSchema(this, ['bot_name']).el);
     return info;
   }

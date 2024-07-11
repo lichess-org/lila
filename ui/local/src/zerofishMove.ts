@@ -9,7 +9,7 @@ export function zerofishMove(
   zero: SearchResult | undefined,
   mappings: Operators,
   chess: co.Chess,
-) {
+): { move: Uci; cpl: number } {
   const zm = new ZerofishMove(fish, zero, mappings, chess);
   return zm.bestMove;
 }

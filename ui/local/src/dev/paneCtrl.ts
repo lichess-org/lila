@@ -2,46 +2,32 @@ import { schema, primitiveKeys } from './schema';
 import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
 import { OperatorPane } from './operatorPane';
 import { BooksPane } from './booksPane';
-import type { EditorHost, PaneInfo, AnyKey } from './types';
+import type { PaneHost, PaneInfo, AnyKey } from './types';
 import type { ActionListener, Action } from 'common/dialog';
 
-export class Editor {
+export class PaneCtrl {
   byId: { [id: string]: Pane } = {};
 
-  byEl = (el: Element) => {
+  byEl(el: Element): Pane | undefined {
     while (el && this.byId[el.id] === undefined) el = el.parentElement!;
     return el ? this.byId[el.id] : undefined;
-  };
+  }
 
-  byEvent = (e: Event) => (e.target instanceof Element ? this.byEl(e.target) : undefined);
+  byEvent(e: Event): Pane | undefined {
+    return e.target instanceof Element ? this.byEl(e.target) : undefined;
+  }
 
-  add = (setting: Pane) => (this.byId[setting.el.id] = setting);
+  add(setting: Pane): void {
+    this.byId[setting.el.id] = setting;
+  }
 
-  forEach(cb: (value: Pane, key: string) => void) {
+  forEach(cb: (value: Pane, key: string) => void): void {
     Object.keys(this.byId).forEach(key => cb(this.byId[key], key));
   }
 
-  *[Symbol.iterator]() {
-    for (const v of Object.values(this.byId)) yield v;
-  }
-
   requires(idOrGroup: string): Pane[] {
-    return [...this].filter(setting => setting.info.requires?.includes(idOrGroup));
+    return Object.values(this.byId).filter(setting => setting.info.requires?.includes(idOrGroup));
   }
-
-  toggleEnabled: ActionListener = e => {
-    const pane = this.byEvent(e)!;
-    pane.setProperty(pane.paneValue);
-    pane.setEnabled((e.target as HTMLInputElement).checked);
-    (e.target as HTMLInputElement).checked = pane.enabled;
-    pane.host.update();
-  };
-
-  updateProperty: ActionListener = e => {
-    const pane = this.byEvent(e)!;
-    pane.update(e);
-    pane.host.update();
-  };
 
   get actions(): Action[] {
     return [
@@ -51,9 +37,23 @@ export class Editor {
       { selector: '.toggle', event: 'change', listener: this.toggleEnabled },
     ];
   }
+
+  private toggleEnabled: ActionListener = e => {
+    const pane = this.byEvent(e)!;
+    pane.setProperty(pane.paneValue);
+    pane.setEnabled((e.target as HTMLInputElement).checked);
+    (e.target as HTMLInputElement).checked = pane.enabled;
+    pane.host.update();
+  };
+
+  private updateProperty: ActionListener = e => {
+    const pane = this.byEvent(e)!;
+    pane.update(e);
+    pane.host.update();
+  };
 }
 
-export function buildFromSchema(host: EditorHost, path: string[], parent?: Pane): Pane {
+export function buildFromSchema(host: PaneHost, path: string[], parent?: Pane): Pane {
   const id = path.join('_');
   const iter = path.reduce<any>((acc, key) => acc[key], schema);
   const s = buildFromInfo(host, { id, ...iter }, parent);
@@ -63,7 +63,7 @@ export function buildFromSchema(host: EditorHost, path: string[], parent?: Pane)
   return s;
 }
 
-function buildFromInfo(host: EditorHost, info: PaneInfo, parent?: Pane): Pane {
+function buildFromInfo(host: PaneHost, info: PaneInfo, parent?: Pane): Pane {
   const p = { host, info, parent };
   switch (info?.type) {
     case 'select':

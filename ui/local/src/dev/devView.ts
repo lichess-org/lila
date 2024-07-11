@@ -21,7 +21,7 @@ interface DevContext {
 function devContext(devCtrl: DevCtrl): DevContext {
   return {
     devCtrl,
-    botCtrl: devCtrl.botCtrl,
+    botCtrl: devCtrl.gameCtrl.botCtrl,
     gameCtrl: devCtrl.gameCtrl,
   };
 }
@@ -167,14 +167,14 @@ function renderPlayPause(ctx: DevContext): VNode {
   );
 }
 
-function clickPlayPause({ devCtrl, gameCtrl }: DevContext) {
+function clickPlayPause({ devCtrl, gameCtrl, botCtrl }: DevContext) {
   if (devCtrl.hasUser) gameCtrl.botMove();
   if (!devCtrl.isStopped) devCtrl.stop();
   else {
     if (devCtrl.gameInProgress) devCtrl.run();
     else {
       devCtrl.run(
-        { type: 'matchup', players: [devCtrl.white.uid, devCtrl.black.uid], time: '1+0' },
+        { type: 'matchup', players: [botCtrl.white!.uid, botCtrl.black!.uid], time: '1+0' },
         parseInt($('.num-games').val() as string) || 1,
       );
     }

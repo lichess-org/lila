@@ -33,7 +33,7 @@ export function quantizeX(x: number, m: Operator): number {
   return Math.round(x / qu) * qu;
 }
 
-export function normalize(m: Operator) {
+export function normalize(m: Operator): void {
   // TODO - not in place
   const newData = m.data.reduce((acc: Point[], p) => {
     const x = quantizeX(p[0], m);
@@ -46,7 +46,7 @@ export function normalize(m: Operator) {
   m.data = newData;
 }
 
-export function interpolate(m: Operator, x: number) {
+export function interpolate(m: Operator, x: number): number {
   const to = m.data;
   // if (to.length === 0) return undefined; // TODO explicit default?
   if (to.length === 0) return (m.range.max + m.range.min) / 2;
@@ -62,7 +62,7 @@ export function interpolate(m: Operator, x: number) {
   return to[to.length - 1][1];
 }
 
-export function domain(m: Operator) {
+export function domain(m: Operator): { min: number; max: number } {
   if (m.from === 'move') return { min: 1, max: 60 };
   else if (m.from === 'score') return { min: -1, max: 1 };
   else return { min: NaN, max: NaN };

@@ -22,16 +22,7 @@ export class OperatorPane extends Pane {
     this.renderMapping();
   }
 
-  toggleGroup() {
-    const active = (this.paneValue ?? this.info.value).from;
-    const by = $as<HTMLElement>(`<div class="btn-rack">
-        <div data-click="move" class="by${active === 'move' ? ' active' : ''}">by move</div>
-        <div data-click="score" class="by${active === 'score' ? ' active' : ''}">by score</div>
-      </div>`);
-    return by;
-  }
-
-  setEnabled(enabled?: boolean) {
+  setEnabled(enabled?: boolean): boolean {
     const canEnable = this.canEnable();
     if (enabled && !canEnable) {
       alert(`Cannot enable ${this.info.label} because of unmet preconditions: ${this.requires.join(', ')}`);
@@ -46,10 +37,10 @@ export class OperatorPane extends Pane {
     }
     this.el.querySelectorAll('.chart-wrapper, .btn-rack')?.forEach(x => x.classList.toggle('none', !enabled));
     this.el.classList.toggle('none', !canEnable);
-    super.setEnabled(enabled);
+    return super.setEnabled(enabled);
   }
 
-  update(e: Event) {
+  update(e: Event): void {
     if (!(e.target instanceof HTMLElement && e instanceof MouseEvent)) return;
     if (e.target.dataset.click && this.enabled) {
       if (e.target.classList.contains('active')) return;
@@ -128,6 +119,15 @@ export class OperatorPane extends Pane {
         },
       },
     });
+  }
+
+  private toggleGroup() {
+    const active = (this.paneValue ?? this.info.value).from;
+    const by = $as<HTMLElement>(`<div class="btn-rack">
+        <div data-click="move" class="by${active === 'move' ? ' active' : ''}">by move</div>
+        <div data-click="score" class="by${active === 'score' ? ' active' : ''}">by score</div>
+      </div>`);
+    return by;
   }
 }
 

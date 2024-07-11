@@ -18,11 +18,11 @@ export class AssetDb {
     sound: Map<string, string>;
   };
 
-  ready = new Promise<void>(resolve => this.init().then(() => resolve()));
+  ready: Promise<void> = new Promise<void>(resolve => this.init().then(() => resolve()));
 
   constructor(readonly remote?: { net: string[]; image: string[]; book: string[]; sound: string[] }) {}
 
-  async init() {
+  async init(): Promise<this> {
     const then = Date.now();
     this.cached = { net: new Map(), book: new Map(), image: new Map(), sound: new Map() };
     await Promise.allSettled(Object.values(this.db).map(s => s.init()));
@@ -40,9 +40,11 @@ export class AssetDb {
     return this;
   }
 
-  local = (type: AssetType) => this.db[type].list();
+  local(type: AssetType): Promise<string[]> {
+    return this.db[type].list();
+  }
 
-  add = async (type: AssetType, key: string, file: Blob) => {
+  async add(type: AssetType, key: string, file: Blob): Promise<void> {
     this.db[type].store?.put(key, new Uint8Array(await arrayBuffer(file)));
     if (type === 'image' || type === 'sound') {
       const oldUrl = this.cached[type].get(key);
@@ -50,9 +52,9 @@ export class AssetDb {
       this.cached[type].set(key, URL.createObjectURL(file));
     }
     this.setBotEditorAssets(); // TODO, update dialog somehow
-  };
+  }
 
-  delete = async (type: AssetType, key: string) => {
+  async delete(type: AssetType, key: string): Promise<void> {
     await this.db[type].store?.remove(key);
     if (type === 'image' || type === 'sound') {
       const oldUrl = this.cached[type].get(key);
@@ -60,9 +62,9 @@ export class AssetDb {
       this.cached[type].delete(key);
     }
     this.setBotEditorAssets(); // TODO, update dialog somehow
-  };
+  }
 
-  getNet = async (key: string | undefined): Promise<Uint8Array | undefined> => {
+  async getNet(key: string | undefined): Promise<Uint8Array | undefined> {
     if (!key) return undefined;
     await this.ready;
     const cached = this.cached.net.get(key);
@@ -71,9 +73,9 @@ export class AssetDb {
     this.cached.net.set(key, { key, data });
     if (this.cached.net.size > 2) this.cached.net.delete(this.cached.net.keys().next().value);
     return data;
-  };
+  }
 
-  getBook = async (key: string | undefined): Promise<PolyglotBook | undefined> => {
+  async getBook(key: string | undefined): Promise<PolyglotBook | undefined> {
     if (!key) return undefined;
     await this.ready;
     const cached = this.cached.book.get(key);
@@ -83,11 +85,15 @@ export class AssetDb {
       .then(arr => site.asset.loadEsm<PolyglotBook>('bits.polyglot', { init: new DataView(arr.buffer) }));
     this.cached.book.set(key, book);
     return book;
-  };
+  }
 
-  getImageUrl = (key: string) => this.cached.image.get(key) ?? botAssetUrl(`images/${key}`);
+  getImageUrl(key: string): string {
+    return this.cached.image.get(key) ?? botAssetUrl(`images/${key}`);
+  }
 
-  getSoundUrl = (key: string) => this.cached.sound.get(key) ?? botAssetUrl(`sounds/${key}`);
+  getSoundUrl(key: string): string {
+    return this.cached.sound.get(key) ?? botAssetUrl(`sounds/${key}`);
+  }
 
   private async setBotEditorAssets() {
     if (!this.remote) return;
@@ -103,7 +109,7 @@ export class AssetDb {
   }
 }
 
-export function botAssetUrl(name: string, version: string | false = 'bot000') {
+export function botAssetUrl(name: string, version: string | false = 'bot000'): string {
   return site.asset.url(`lifat/bots/${name}`, { version });
 }
 

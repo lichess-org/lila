@@ -31,8 +31,8 @@ export class SetupDialog {
       <div class="vs">
         ${player('white')}
         <div class="actions">
-          <button class="button button-empty switch" data-icon="${licon.Switch}"></button>
-          <button class="button button-empty random" data-icon="${licon.DieSix}"></button>
+          <button class="button button-empty switch disabled" data-icon="${licon.Switch}"></button>
+          <button class="button button-empty random disabled" data-icon="${licon.DieSix}"></button>
           <button class="button button-empty fight" data-icon="${licon.Swords}"></button>
         </div>
         ${player('black')}
@@ -54,7 +54,7 @@ export class SetupDialog {
     this.show();
   }
 
-  show() {
+  private show() {
     domDialog({
       class: 'game-setup base-view setup-view', // with-cards',
       css: [{ hashed: 'local.setup' }],
@@ -80,21 +80,23 @@ export class SetupDialog {
     });
   }
 
-  dropSelect = (target: HTMLElement, domId?: string) => {
+  private dropSelect = (target: HTMLElement, domId?: string) => {
     const color = target.classList.contains('white') ? 'white' : 'black';
     console.log(domId, domIdToUid(domId));
     this.select(color, domIdToUid(domId));
   };
 
-  select(color: 'white' | 'black', selection?: string) {
+  private select(color: 'white' | 'black', selection?: string) {
     const bot = selection ? this.bots[selection] : undefined;
     this.view.querySelector(`.${color} .placard`)!.textContent = bot ? bot.description : 'Player';
     this.setup[color] = bot?.uid;
     if (!bot) this.hand.redraw();
     this[color].querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
+    this.view.querySelector('.switch')!.classList.toggle('disabled', !this.setup.white && !this.setup.black);
+    this.view.querySelector('.random')!.classList.toggle('disabled', !this.setup.white && !this.setup.black);
   }
 
-  fight = () => {
+  private fight = () => {
     this.setup.time = 'unlimited';
     this.setup.go = true;
     const form = $as<HTMLFormElement>(
@@ -108,14 +110,14 @@ export class SetupDialog {
     form.remove();
   };
 
-  switch = () => {
+  private switch = () => {
     const newBlack = this.setup.white;
     this.select('white', this.setup.black);
     this.select('black', newBlack);
     this.hand.redraw();
   };
 
-  random = () => {
+  private random = () => {
     if (Math.random() < 0.5) this.switch();
     this.fight();
   };

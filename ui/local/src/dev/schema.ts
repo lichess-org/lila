@@ -1,5 +1,5 @@
 import { deepFreeze } from 'common';
-import type { Schema, AnyKey, SelectInfo } from './types';
+import type { Schema, AnyKey, SelectInfo, PropertyValue } from './types';
 
 export const primitiveKeys: AnyKey[] = [
   'type',
@@ -150,12 +150,12 @@ export let schema: Schema = {
 
 deepFreeze(schema);
 
-export function getSchemaDefault(id: string) {
+export function getSchemaDefault(id: string): PropertyValue {
   const setting = schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema);
   return typeof setting === 'object' && 'value' in setting ? structuredClone(setting.value) : undefined;
 }
 
-export function setSchemaAssets(a: { nets: string[]; images: string[]; books: string[] }) {
+export function setSchemaAssets(a: { nets: string[]; images: string[]; books: string[] }): void {
   schema = structuredClone(schema);
   const setChoices = (id: string, choices: string[]) => {
     const setting = (schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema)) as SelectInfo;

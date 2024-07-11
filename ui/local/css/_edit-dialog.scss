@@ -7,7 +7,7 @@
   input {
     padding: 5px;
     &.invalid {
-      background-color: $m-bg_bad--mix-60;
+      background-color: $m-bg_bad--mix-80;
     }
   }
   span {
@@ -17,6 +17,9 @@
   }
   input:not([type='text']) {
     cursor: pointer;
+  }
+  .disabled label > span {
+    opacity: 0.5;
   }
 }
 
@@ -160,19 +163,13 @@
   }
 
   .bot-info {
-    display: flex;
-    flex-flow: row nowrap;
     justify-content: space-between;
     text-align: center;
 
     #bot_name {
-      max-width: 40%;
+      max-width: 50%;
+      flex: 1 1 auto;
       padding: 0;
-
-      > input {
-        width: 16ch;
-        flex: initial;
-      }
     }
   }
   .sources,
@@ -224,15 +221,9 @@
     input[data-type] {
       width: 60px;
       flex-grow: 1;
-      // &.invalid {
-      //   background-color: $m-bg_bad--mix-60;
-      // }
     }
-    &.disabled {
-      > input[data-type],
-      > label {
-        opacity: 0.5;
-      }
+    &.disabled > input[data-type] {
+      opacity: 0.5;
     }
   }
   .operators {

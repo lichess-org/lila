@@ -8,7 +8,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "allowUnreachableCode": true,
-    "composite": true
+    "composite": true,
+    "isolatedDeclarations": true
   },
   "isolatedModules": true,
   "references": [

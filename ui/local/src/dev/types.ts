@@ -1,5 +1,5 @@
 import type { BotInfo, Operator, Book } from '../types';
-import type { Editor } from './editor';
+import type { PaneCtrl } from './paneCtrl';
 import type { Pane } from './pane';
 import type { ZerofishBot } from '../zerofishBot';
 
@@ -12,9 +12,9 @@ export interface ZerofishBotEditor extends ZerofishBot {
   disabled: Set<string>;
 }
 
-export interface EditorHost {
+export interface PaneHost {
   readonly view: HTMLElement;
-  readonly editor: Editor;
+  readonly editor: PaneCtrl;
   readonly bot: ZerofishBotEditor;
   readonly defaultBot: BotInfoReader;
   readonly cleanups: (() => void)[];
@@ -113,8 +113,8 @@ export interface Schema extends PaneInfo {
   type?: undefined | 'radioGroup' | 'group';
 }
 
-export type PaneArgs = { host: EditorHost; info: PaneInfo; parent?: Pane };
+export type PaneArgs = { host: PaneHost; info: PaneInfo; parent?: Pane };
 
 export type ObjectSelector = 'bot' | 'default' | 'schema';
 
-type PropertyValue = string | number | boolean | Operator | Book[] | PropertyValue[] | undefined;
+export type PropertyValue = string | number | boolean | Operator | Book[] | PropertyValue[] | undefined;

@@ -37,19 +37,21 @@ export type ZeroSearch = { multipv: number; net: string };
 
 export type Book = { name: string; weight?: number };
 
+export type Glicko = { r: number; rd: number };
+
 export interface BotInfo {
   readonly uid: string;
   readonly name: string;
   readonly description: string;
   readonly image?: string;
   readonly sounds?: Sounds;
-  readonly glicko?: { r: number; rd: number };
+  readonly glicko?: Glicko;
 }
 
 export type BotInfos = { [id: string]: BotInfo };
 
 export interface Libot extends BotInfo {
-  glicko?: { r: number; rd: number };
+  glicko?: Glicko;
   readonly ratingText: string;
 
   move: (pos: Position, chess?: Chess) => Promise<Uci>;

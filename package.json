@@ -27,17 +27,17 @@
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/node": "^20.14.2",
-    "@types/web": "^0.0.149",
-    "@typescript-eslint/eslint-plugin": "^7.13.0",
-    "@typescript-eslint/parser": "^7.13.0",
+    "@types/node": "^20.14.10",
+    "@types/web": "^0.0.151",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
     "eslint": "^8.56.0",
     "lint-staged": "^15.2.7",
     "onchange": "^7.1.0",
     "prettier": "3.0.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.3"
   },
   "scripts": {
     "format": "prettier --write --log-level warn .",
