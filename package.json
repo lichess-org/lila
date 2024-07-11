@@ -37,7 +37,7 @@
     "lint-staged": "^15.2.2",
     "onchange": "^7.1.0",
     "prettier": "3.0.2",
-    "typescript": "^5.4.2"
+    "typescript": "^5.5.3"
   },
   "scripts": {
     "format": "prettier --write --log-level warn .",
