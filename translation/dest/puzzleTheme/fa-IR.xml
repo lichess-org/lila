@@ -32,8 +32,8 @@
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">تغییر وضعیت بازنده، و تضمین تساوی یا وضعیت متعادل. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">حمله به جناح شاه</string>
   <string name="kingsideAttackDescription">حمله به شاه حریف، پس از آنکه آنها قلعه کوچک رفتند.</string>
-  <string name="clearance">پاکسازی</string>
-  <string name="clearanceDescription">حرکتی، اغلب سریع، برای پاک کردن صفحه جهت دنبال کردن ایده های تاکتیکی بعدی.</string>
+  <string name="clearance">آزادسازی</string>
+  <string name="clearanceDescription">حرکتی، اغلب با زمان، که خانه، عرض، ستون یا قطری را برای پیشبُرد اندیشه‌ای راهکنشی، آزاد می‌کند.</string>
   <string name="defensiveMove">حرکت تدافعی</string>
   <string name="defensiveMoveDescription">حرکت یا دنباله ای از حرکات که برای جلوگیری از دست دادن مهره یا مزیت لازم است.</string>
   <string name="deflection">منحرف کردن</string>
