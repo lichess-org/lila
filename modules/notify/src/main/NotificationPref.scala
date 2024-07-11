@@ -76,7 +76,7 @@ object NotificationPref:
       )(NotificationPref.apply)(lila.notify.unapply)
     )
 
-  import lila.db.dsl.opaqueHandler
+  import lila.db.dsl.given
   given BSONDocumentHandler[NotificationPref] = Macros.handler
 
   import play.api.libs.json.{ Json, Writes, OWrites }

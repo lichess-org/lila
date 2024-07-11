@@ -89,7 +89,8 @@ export async function confirm(msg: string): Promise<boolean> {
   );
 }
 
-// when { show: 'modal' } is given, this promise resolves on dialog close so check returnValue
+// when opts contains 'show', this promise resolves as show/showModal (on dialog close) so check returnValue
+// if not, this promise resolves once assets are loaded and things are fully constructed but not shown
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   const [html] = await loadAssets(o);
 
@@ -225,15 +226,11 @@ class DialogWrapper implements Dialog {
     this.updateActions();
   }
 
-  get open() {
+  get open(): boolean {
     return this.dialog.open;
   }
 
-  get isModal() {
-    return ('show' in this.o && this.o.show === 'modal') || (this.restore && 'focus' in this.restore);
-  }
-
-  get returnValue() {
+  get returnValue(): string {
     return this.dialog.returnValue;
   }
 
@@ -265,7 +262,6 @@ class DialogWrapper implements Dialog {
     document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.showModal();
-    if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
     return new Promise(resolve => (this.resolve = resolve));
   };
 

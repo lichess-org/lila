@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 
 import scala.annotation.nowarn
-import scala.util.chaining.scalaUtilChainingOps
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -102,9 +101,12 @@ final class Mod(
 
   def deletePmsAndChats(username: UserStr) = OAuthMod(_.Shadowban) { _ ?=> _ ?=>
     withSuspect(username): sus =>
-      (env.mod.publicChat.deleteAll(sus) >>
-        env.forum.delete.allByUser(sus.user) >>
-        env.msg.api.deleteAllBy(sus.user)).map(some)
+      for
+        _ <- env.mod.publicChat.deleteAll(sus)
+        _ <- env.forum.delete.allByUser(sus.user)
+        _ <- env.msg.api.deleteAllBy(sus.user)
+        _ <- env.mod.logApi.deleteComms(sus)
+      yield ().some
   }(actionResult(username))
 
   def disableTwoFactor(username: UserStr) = OAuthMod(_.DisableTwoFactor) { _ ?=> me ?=>

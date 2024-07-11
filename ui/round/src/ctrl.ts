@@ -34,7 +34,6 @@ import * as wakeLock from 'common/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { endGameView } from './view/main';
-
 import {
   RoundOpts,
   RoundData,

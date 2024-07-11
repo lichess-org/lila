@@ -1,6 +1,6 @@
 import { load as loadDasher } from 'dasher';
-import { escapeHtml } from 'common';
 import { domDialog } from 'common/dialog';
+import { escapeHtml } from 'common';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
   site.asset.userComplete({

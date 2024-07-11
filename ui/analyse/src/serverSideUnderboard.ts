@@ -6,8 +6,8 @@ import { AnalyseData } from './interfaces';
 import { ChartGame, AcplChart } from 'chart';
 import { stockfishName } from 'common/spinner';
 import { domDialog } from 'common/dialog';
-import { escapeHtml } from 'common';
 import { FEN } from 'chessground/types';
+import { escapeHtml } from 'common';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);

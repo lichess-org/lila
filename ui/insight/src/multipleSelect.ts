@@ -1,5 +1,6 @@
 import { isTouchDevice } from 'common/device';
 import { escapeHtml } from 'common';
+
 export const registerMultipleSelect = () => {
   $.fn.multipleSelectHover = function (fnOver, fnOut) {
     return this.on('mouseenter', fnOver).on('mouseleave', fnOut || fnOver);

@@ -125,18 +125,19 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     .void
 
   def updateSomeFields(s: Study): Funit =
+    import toBSONValueOption.given
     coll:
       _.update
         .one(
           $id(s.id),
-          $set(
-            "position"    -> s.position,
-            "name"        -> s.name,
+          $setsAndUnsets(
+            "position"    -> s.position.some,
+            "name"        -> s.name.some,
             "flair"       -> s.flair,
-            "settings"    -> s.settings,
-            "visibility"  -> s.visibility,
-            "description" -> ~s.description,
-            "updatedAt"   -> nowInstant
+            "settings"    -> s.settings.some,
+            "visibility"  -> s.visibility.some,
+            "description" -> s.description,
+            "updatedAt"   -> nowInstant.some
           )
         )
     .void

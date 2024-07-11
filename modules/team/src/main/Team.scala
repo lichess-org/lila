@@ -5,7 +5,6 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import scala.util.chaining.*
 
 import lila.core.team.{ TeamData, LightTeam }
 

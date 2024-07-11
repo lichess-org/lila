@@ -34,13 +34,13 @@ interface Site {
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
-    loadCss(url: string): Promise<void>;
-    removeCss(url: string): void;
-    loadCssPath(path: string): Promise<void>;
-    removeCssPath(path: string): void;
+    loadCss(href: string): Promise<void>;
+    loadCssPath(key: string): Promise<void>;
+    removeCss(href: string): void;
+    removeCssPath(key: string): void;
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
-    loadEsm<T>(name: string, opts?: EsmModuleOpts): Promise<T>;
+    loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
     userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;

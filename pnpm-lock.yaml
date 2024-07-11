@@ -79,6 +79,9 @@ importers:
       '@yaireo/tagify':
         specifier: 4.17.9
         version: 4.17.9(prop-types@15.8.1)
+      bits:
+        specifier: workspace:*
+        version: link:../bits
       ceval:
         specifier: workspace:*
         version: link:../ceval

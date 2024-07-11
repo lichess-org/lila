@@ -1,6 +1,5 @@
 package lila.mod
 
-import scala.util.chaining.*
 import play.api.data.*
 import play.api.data.Forms.{ list as formList, * }
 

@@ -19,6 +19,7 @@
     "@types/sortablejs": "^1.15.8",
     "@types/yaireo__tagify": "4.17.5",
     "@yaireo/tagify": "4.17.9",
+    "bits": "workspace:*",
     "ceval": "workspace:*",
     "chart": "workspace:*",
     "chat": "workspace:*",

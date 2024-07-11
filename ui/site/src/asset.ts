@@ -28,14 +28,12 @@ export const loadCss = (href: string, key?: string): Promise<void> => {
   });
 };
 
-export const removeCss = (href: string) => {
-  $(`head > link[href="${href}"]`).remove();
-};
-
 export const loadCssPath = async (key: string): Promise<void> => {
   const hash = site.manifest.css[key];
   await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
 };
+
+export const removeCss = (href: string) => $(`head > link[href="${href}"]`).remove();
 
 export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 

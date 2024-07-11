@@ -59,7 +59,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.us
     lila.mon.storm.run.score(user.isDefined).record(data.score)
     user.so: u =>
       if mobile || sign.check(u, ~data.signed) then
-        Bus.publish(lila.core.misc.puzzle.StormRun(u.id, data.score), "stormRun")
+        Bus.pub(lila.core.misc.puzzle.StormRun(u.id, data.score))
         highApi.get(u.id).flatMap { prevHigh =>
           val todayId = Id.today(u.id)
           coll

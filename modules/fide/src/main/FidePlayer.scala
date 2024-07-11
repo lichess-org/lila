@@ -1,6 +1,5 @@
 package lila.fide
 
-import scala.util.chaining.*
 import chess.{ FideId, PlayerName, PlayerTitle }
 import reactivemongo.api.bson.Macros.Annotations.Key
 

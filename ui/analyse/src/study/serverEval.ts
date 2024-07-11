@@ -1,8 +1,8 @@
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { spinnerVdom, chartSpinner } from 'common/spinner';
-import { h, VNode } from 'snabbdom';
 import { requestIdleCallback } from 'common';
+import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { ChartGame, AcplChart } from 'chart';
 import { AnalyseData } from '../interfaces';
