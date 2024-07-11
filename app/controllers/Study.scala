@@ -268,7 +268,7 @@ final class Study(
               env.study.studyRepo
                 .exists(id)
                 .flatMap:
-                  if _ then Redirect(routes.Study.show(id))
+                  if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
                   else showQuery(fuccess(none))
             case sc => showQuery(fuccess(sc))
 
