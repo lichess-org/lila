@@ -116,7 +116,7 @@
   <string name="replayMode">حالت بازپخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
   <string name="byCPL">درنگ حین اشتباهات</string>
-  <string name="openStudy">مطالعه را شروع نمایید</string>
+  <string name="openStudy">گشودن مطالعه</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های شاخه اصلی</string>
@@ -516,7 +516,7 @@
   <string name="socialMediaLinks">پیوندهای رسانه‌های اجتماعی</string>
   <string name="oneUrlPerLine">یک وب‌نشانی در هر خط.</string>
   <string name="inlineNotation">نشانه‌گذاری خطی</string>
-  <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
+  <string name="makeAStudy">برای نگهداری مطمئن و همرسانی، ساخت یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی پیشین در Lichess</string>
   <string name="onlinePlayers">بازیکنان بَرخط</string>
@@ -580,7 +580,7 @@
   <string name="privacyPolicy">سیاست حریم شخصی</string>
   <string name="letOtherPlayersFollowYou">بقیه بازیکنان شما را دنبال کنند</string>
   <string name="letOtherPlayersChallengeYou">اجازه دهید بازیکنان دیگر به شما پیشنهاد بازی دهند</string>
-  <string name="letOtherPlayersInviteYouToStudy">اجازه دهید دیگر بازیکن شما را به مطالعه دعوت کنند</string>
+  <string name="letOtherPlayersInviteYouToStudy">بگذارید دیگر بازیکنان، شما را به مطالعه دعوت کنند</string>
   <string name="sound">صدا</string>
   <string name="none">هیچ کدام</string>
   <string name="fast">سریع</string>
@@ -836,7 +836,7 @@
   <string name="findBetterMoveForWhite">یه حرکت بهتر برای سفید پیدا کنید</string>
   <string name="findBetterMoveForBlack">یه حرکت بهتر برای سیاه پیدا کنید</string>
   <string name="resumeLearning">ادامه یادگیری</string>
-  <string name="youCanDoBetter">شما می توانید حرکت بهتری انجام دهید!</string>
+  <string name="youCanDoBetter">می‌توانید بهتر انجامش دهید</string>
   <string name="tryAnotherMoveForWhite">برای سفید،حرکت دیگری را امتحان کنید</string>
   <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
   <string name="solution">راه حل</string>
@@ -916,8 +916,8 @@
   <string name="unsubscribe">لغو اشتراک</string>
   <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
   <string name="xMentionedYouInY">%1$s اسم شما را در \"%2$s\" ذکر کرده است.</string>
-  <string name="invitedYouToX">شما به \"%1$s\" دعوت شده اید.</string>
-  <string name="xInvitedYouToY">%1$s شما را به \"%2$s\" دعوت کرده است.</string>
+  <string name="invitedYouToX">به «%1$s» دعوت شده‌اید.</string>
+  <string name="xInvitedYouToY">%1$s شما را به «%2$s» دعوت کرده است.</string>
   <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>
   <string name="youHaveJoinedTeamX">شما به \"%1$s\" پیوستید.</string>
   <string name="someoneYouReportedWasBanned">شخصی که گزارش کردید مسدود شد</string>
