@@ -24,9 +24,12 @@ package map:
   case class Exists(id: String, promise: Promise[Boolean])
 
 package clas:
-  case class AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
-  case class IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
-  case class ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
+  enum ClasBus:
+    case AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
+    case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
+    case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
+  object ClasBus:
+    given bus.WithChannel[ClasBus] = bus.WithChannel[ClasBus]("clas")
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)

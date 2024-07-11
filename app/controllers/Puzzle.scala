@@ -3,7 +3,6 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.util.chaining.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given

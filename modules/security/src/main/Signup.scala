@@ -4,8 +4,6 @@ import play.api.data.*
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
-import scala.util.chaining.*
-
 import lila.core.config.NetConfig
 import lila.common.{ HTTPRequest }
 import lila.core.net.{ ApiVersion, IpAddress }

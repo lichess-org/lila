@@ -5,8 +5,6 @@ import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
-import scala.util.chaining.*
-
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.{ WithTour, Sync }
