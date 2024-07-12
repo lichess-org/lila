@@ -76,4 +76,4 @@ export const charRole = (char: string) =>
     Q: 'queen',
     K: 'king',
   })[char] as Role;
-export const promo = (uci: Uci) => charRole(uci.slice(4, 5).toUpperCase() as RoleChar);
+export const promo = (uci: Uci): Role => charRole(uci.slice(4, 5).toUpperCase() as RoleChar);

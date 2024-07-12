@@ -20,10 +20,10 @@ const allGlobs = [
   'public/css',
 ];
 
-export async function clean(globs: string[] = allGlobs) {
-  if (!env.clean) return;
+export async function clean(globs?: string[]) {
+  if (!env.clean && !globs) return;
 
-  for (const glob of globs) {
+  for (const glob of globs ?? allGlobs) {
     env.log(`Cleaning '${c.cyan(glob)}'...`);
     for await (const f of fg.stream(glob, { cwd: env.rootDir, ...globOpts })) {
       if (f.includes('ui/.build') && !f.includes('dist/css')) continue;
