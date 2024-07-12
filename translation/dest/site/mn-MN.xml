@@ -70,7 +70,6 @@
   <string name="promoteVariation">Өргийн дүн шинжилгээ хийж, өөрчлөлтийг дэмжихийг хүсч байвал. (Энэ нь нэг түвшинг дээшлүүлдэг бөгөөд \"Үндсэн мөрийг үүсгэх\" -тэй адил, энэ нь түүнийг бүх чиглэлд шилжүүлдэг.)</string>
   <string name="makeMainLine">Үндсэн мөрийг гаргах</string>
   <string name="deleteFromHere">Энд дарж устага</string>
-  <string name="collapseVariations"></string>
   <string name="forceVariation">Хүчний өөрчлөлт</string>
   <string name="move">Нүүдэл</string>
   <string name="variantLoss">Хожигдох хувилбар</string>
