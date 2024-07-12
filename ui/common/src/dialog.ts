@@ -1,5 +1,6 @@
 import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
+import { escapeHtml } from './common';
 import * as xhr from './xhr';
 import * as licon from './licon';
 
@@ -12,7 +13,7 @@ export interface Dialog {
 
   showModal(): Promise<Dialog>; // resolves on close
   show(): Promise<Dialog>; // resolves on close
-  updateActions(actions?: Action | Action[]): void; // set new or reattach existing actions
+  updateActions(actions?: Action | Action[]): void; // set new actions, reattach existing if no arg provided
   close(): void;
 }
 
@@ -63,7 +64,7 @@ export const ready: Promise<boolean> = site.load.then(async () => {
 // non-blocking window.alert-alike
 export async function alert(msg: string): Promise<void> {
   await domDialog({
-    htmlText: msg,
+    htmlText: escapeHtml(msg),
     class: 'alert',
     show: 'modal',
   });
@@ -74,7 +75,7 @@ export async function confirm(msg: string): Promise<boolean> {
   return (
     (
       await domDialog({
-        htmlText: `<div>${msg}</div>
+        htmlText: `<div>${escapeHtml(msg)}</div>
       <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
         class: 'alert',
         noCloseButton: true,

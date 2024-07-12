@@ -31,7 +31,7 @@ export const spinnerVdom = (box = '-2 -2 54 54'): VNode =>
 
 export const stockfishName = 'Stockfish 16.1';
 
-export const chartSpinner = () =>
+export const chartSpinner = (): VNode =>
   h('div#acpl-chart-container-loader', [
     h('span', [stockfishName, h('br'), 'Server analysis']),
     spinnerVdom(),

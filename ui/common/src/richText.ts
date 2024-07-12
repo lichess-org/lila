@@ -4,13 +4,13 @@ import { VNode, Hooks } from 'snabbdom';
 import { escapeHtml } from './common';
 
 // from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
-export const linkRegex =
+export const linkRegex: RegExp =
   /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
-export const newLineRegex = /\n/g;
-export const userPattern = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
+export const newLineRegex: RegExp = /\n/g;
+export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 
 // looks like it has a @mention or #gameid or a url.tld
-export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
+export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
 
 export function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
@@ -36,17 +36,17 @@ export const innerHTML = <A>(a: A, toHtml: (a: A) => string): Hooks => ({
   },
 });
 
-export function linkReplace(href: string, body?: string, cls?: string) {
+export function linkReplace(href: string, body?: string, cls?: string): string {
   if (href.includes('&quot;')) return href;
   return `<a target="_blank" rel="noopener nofollow noreferrer" href="${
     href.startsWith('/') || href.includes('://') ? href : '//' + href
   }"${cls ? ` class="${cls}"` : ''}>${body ? body : href}</a>`;
 }
 
-export const userLinkReplace = (_: string, prefix: string, user: string) =>
+export const userLinkReplace = (_: string, prefix: string, user: string): string =>
   prefix + linkReplace('/@/' + user, '@' + user);
 
-export const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
+export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
 
 export function enrichText(text: string, allowNewlines = true): string {
   let html = autolink(escapeHtml(text), toLink);
@@ -60,7 +60,7 @@ export function richHTML(text: string, newLines = true): Hooks {
 
 const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|])/gi;
 const pawnDropPattern = /^[a-h][2-7]$/;
-export const movePattern =
+export const movePattern: RegExp =
   /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
 const boardPattern = /\b(?:board|game)\s(\d{1,2})/gi;
 

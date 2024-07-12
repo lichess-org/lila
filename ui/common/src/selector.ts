@@ -7,7 +7,7 @@ export interface Selectable {
   name?: string;
 }
 
-export class Selector<K extends string = string, V extends Selectable & Record<string, any> = any, C = any> {
+export class Selector<K extends string = string, V extends Selectable = any, C = any> {
   group: Map<K, V>;
   context: C | Selector<K, V>;
   key: K | false = false;
@@ -31,7 +31,7 @@ export class Selector<K extends string = string, V extends Selectable & Record<s
     return this.key ? this.group.get(this.key) : undefined;
   }
 
-  set(key: K | false) {
+  set(key: K | false): void {
     if (this.key) {
       if (this.key === key) return;
       this.value?.deselect?.(this.context);
@@ -44,7 +44,7 @@ export class Selector<K extends string = string, V extends Selectable & Record<s
     return this.group.get(key);
   }
 
-  add(key: K, val: V) {
+  add(key: K, val: V): void {
     const reselect = this.key === key;
     this.release(key);
     this.group.set(key, val);
@@ -56,11 +56,11 @@ export class Selector<K extends string = string, V extends Selectable & Record<s
     return false;
   }
 
-  has(key: string) {
+  has(key: string): boolean {
     return this.group.has(key as K);
   }
 
-  release(key?: K) {
+  release(key?: K): void {
     if (key === undefined) {
       for (const k of this.group.keys()) this.release(k);
       return;
@@ -72,7 +72,7 @@ export class Selector<K extends string = string, V extends Selectable & Record<s
     this.group.get(key)?.close?.(this.context);
   }
 
-  remove(key?: K) {
+  remove(key?: K): void {
     this.release(key);
     key ? this.group.delete(key) : this.group.clear();
   }
@@ -94,7 +94,7 @@ export class StoredSelector<K extends string = string, V extends Selectable = an
       (opts?.defaultKey ?? false)) as typeof this.key;
   }
 
-  set(key: K | false) {
+  set(key: K | false): void {
     super.set(key);
     if (key === false) site.storage.remove(`${this.storageKey}:${user}`);
     else site.storage.set(`${this.storageKey}:${user}`, String(this.key));

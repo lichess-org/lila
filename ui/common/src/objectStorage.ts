@@ -51,7 +51,7 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
   };
 }
 
-export async function dbConnect(dbInfo: DbInfo) {
+export async function dbConnect(dbInfo: DbInfo): Promise<IDBDatabase> {
   const dbName = dbInfo?.db || `${dbInfo.store}--db`;
 
   return new Promise<IDBDatabase>((resolve, reject) => {
