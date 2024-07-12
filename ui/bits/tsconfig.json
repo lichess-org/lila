@@ -9,7 +9,6 @@
     "declaration": true,
     "allowJs": true
   },
-  "isolatedModules": true,
   "references": [
     { "path": "../chat/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },
