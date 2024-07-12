@@ -16,7 +16,7 @@ type State = {
   event?: string;
 };
 
-export default function () {
+export default function (): void {
   if ('ontouchstart' in window) return;
 
   const interval = 200,

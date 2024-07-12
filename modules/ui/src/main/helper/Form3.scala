@@ -201,9 +201,9 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
   def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
     st.fieldset(
       cls := List(
-        "form-fieldset"             -> true,
-        "form-fieldset--toggle"     -> toggle.isDefined,
-        "form-fieldset--toggle-off" -> toggle.has(false)
+        "toggle-box"             -> true,
+        "toggle-box--toggle"     -> toggle.isDefined,
+        "toggle-box--toggle-off" -> toggle.has(false)
       )
     )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 

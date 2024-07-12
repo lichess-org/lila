@@ -1,6 +1,5 @@
 package lila.game
 
-import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.format.{ Fen, Uci }

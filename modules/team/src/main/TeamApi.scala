@@ -5,7 +5,6 @@ import play.api.mvc.RequestHeader
 
 import java.time.Period
 import scala.util.Try
-import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }

@@ -1,11 +1,32 @@
 import debounce from 'common/debounce';
+import { storedBooleanPropWithEffect } from 'common/storage';
 
 export type WikiTheory = (nodes: Tree.Node[]) => void;
+
+export function wikiToggleBox() {
+  $('#wikibook-field').each(function (this: HTMLElement) {
+    const box = this;
+
+    const state = storedBooleanPropWithEffect('analyse.wikibooks.display', true, value =>
+      box.classList.toggle('toggle-box--toggle-off', value),
+    );
+
+    const toggle = () => state(!state());
+
+    if (!state()) box.classList.add('toggle-box--toggle-off');
+
+    $(box)
+      .children('legend')
+      .on('click', toggle)
+      .on('keypress', e => e.key == 'Enter' && toggle());
+  });
+}
 
 export default function wikiTheory(): WikiTheory {
   const cache = new Map<string, string>();
   const show = (html: string) => {
-    $('.analyse__wiki').html(html).toggleClass('empty', !html);
+    $('.analyse__wiki').toggleClass('empty', !html);
+    $('.analyse__wiki-text').html(html);
     site.pubsub.emit('chat.resize');
   };
 
@@ -73,5 +94,5 @@ export default function wikiTheory(): WikiTheory {
 }
 
 export function wikiClear() {
-  $('.analyse__wiki').html('').toggleClass('empty', true);
+  $('.analyse__wiki').toggleClass('empty', true);
 }

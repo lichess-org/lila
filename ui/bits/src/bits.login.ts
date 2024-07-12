@@ -69,6 +69,7 @@ function loginStart() {
               if (el.length) {
                 history.add();
                 $f.replaceWith(el);
+                addPasswordVisibilityToggleListener();
                 load();
               } else {
                 alert(text || res.statusText + '. Please wait some time before trying again.');

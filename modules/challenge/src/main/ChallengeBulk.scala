@@ -4,8 +4,6 @@ import akka.stream.scaladsl.*
 import chess.{ ByColor, Clock, Speed }
 import reactivemongo.api.bson.*
 
-import scala.util.chaining.*
-
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.core.misc.map.TellMany

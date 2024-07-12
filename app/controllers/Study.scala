@@ -4,8 +4,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.Json.given
 
-import scala.util.chaining.*
-
 import lila.analyse.Analysis
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
@@ -270,7 +268,7 @@ final class Study(
               env.study.studyRepo
                 .exists(id)
                 .flatMap:
-                  if _ then Redirect(routes.Study.show(id))
+                  if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
                   else showQuery(fuccess(none))
             case sc => showQuery(fuccess(sc))
 

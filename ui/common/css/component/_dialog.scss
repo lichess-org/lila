@@ -81,18 +81,4 @@ dialog {
   text-align: center;
   padding: 2em;
   color: $c-font;
-
-  &.alert {
-    @extend %flex-column;
-    gap: 2em;
-    padding: 2em;
-    width: unset;
-    height: unset;
-
-    span {
-      display: flex;
-      justify-content: end;
-      gap: 2em;
-    }
-  }
 }

@@ -572,6 +572,7 @@
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Редактировать профиль</string>
+  <string name="realName">Настоящее имя</string>
   <string name="setFlair">Задайте свой эмодзи</string>
   <string name="flair">Эмодзи</string>
   <string name="youCanHideFlair">Эта настройка скрывает все эмодзи пользователей на всём сайте.</string>
@@ -655,6 +656,7 @@
   <string name="slow">Медленно</string>
   <string name="insideTheBoard">Внутри доски</string>
   <string name="outsideTheBoard">Вне доски</string>
+  <string name="allSquaresOfTheBoard">Все поля на доске</string>
   <string name="onSlowGames">В медленных играх</string>
   <string name="always">Всегда</string>
   <string name="never">Никогда</string>

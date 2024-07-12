@@ -2,8 +2,6 @@ package lila.common
 
 import akka.actor.*
 
-import scala.util.chaining.*
-
 import lila.log.Logger
 
 /** Runs the work then waits cooldown only runs once at a time per id. Guarantees that work is ran as early as

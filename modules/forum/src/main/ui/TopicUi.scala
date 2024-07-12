@@ -18,6 +18,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context) =
     Page("New forum topic")
+      .csp(_.withInlineIconFont)
       .css("bits.forum")
       .js(EsmInit("bits.forum"))
       .js(captchaEsmInit):

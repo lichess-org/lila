@@ -30,7 +30,7 @@ interface Site {
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   asset: {
-    // file://./../../site/src/assets.ts
+    // file://./../../site/src/asset.ts
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;

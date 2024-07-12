@@ -23,7 +23,7 @@
   <string name="date">تاریخ</string>
   <string name="sortBy">مرتب‌سازی بر اساس</string>
   <string name="analysis">برسی بازی</string>
-  <string name="onlyAnalysed">فقط بازی هایی که تجزیه و تحلیل کامپیوتر در آنها موجود است</string>
+  <string name="onlyAnalysed">فقط بازی‌هایی که تحلیل رایانه‌ای برای‌شان موجود است</string>
   <string name="color">رنگ</string>
   <string name="evaluation">ارزیابی</string>
   <string name="maxNumber">حداکثر تعداد</string>

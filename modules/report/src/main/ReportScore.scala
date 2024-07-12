@@ -2,9 +2,8 @@ package lila.report
 
 final private class ReportScore(
     getAccuracy: Report.Candidate => Fu[Option[Accuracy]],
-    gameRepo: lila.core.game.GameRepo,
-    domain: lila.core.config.NetDomain
-)(using Executor):
+    gameRepo: lila.core.game.GameRepo
+)(using domain: lila.core.config.NetDomain)(using Executor):
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =
     getAccuracy(candidate)
@@ -43,13 +42,11 @@ final private class ReportScore(
       else if c.is(_.Username) then 50d
       else score
 
-    private val gameRegex = ReportForm.gameLinkRegex(domain)
-
     def dropScoreIfCheatReportHasNoAnalyzedGames(c: Report.Candidate.Scored): Fu[Report.Candidate.Scored] =
       if c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat then
-        val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(m => GameId(m.group(1)))
-        def isUsable(gameId: GameId) = gameRepo.analysed(gameId).map { _.exists(_.ply > 30) }
-        gameIds
+        def isUsable(gameId: GameId) = gameRepo.analysed(gameId).map(_.exists(_.ply > 30))
+        ReportForm
+          .gameLinks(c.candidate.text)
           .existsM(isUsable)
           .map:
             if _ then c

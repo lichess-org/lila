@@ -1,5 +1,4 @@
 import { objectStorage, ObjectStorage, DbInfo } from 'common/objectStorage';
-import { alert } from 'common/dialog';
 
 const dbInfo: DbInfo = {
   db: 'log--db',
@@ -81,11 +80,9 @@ export default function makeLog(): LichessLog {
   window.addEventListener('error', async e => {
     const loc = e.filename ? ` - (${e.filename}:${e.lineno}:${e.colno})` : '';
     log(`${terseHref()} - ${e.message}${loc}\n${e.error?.stack ?? ''}`.trim());
-    if (site.debug) alert(`${e.message}${loc}\n${e.error?.stack ?? ''}`);
   });
   window.addEventListener('unhandledrejection', async e => {
     log(`${terseHref()} - ${e.reason}`);
-    if (site.debug) alert(`${e.reason}`);
   });
 
   return log;

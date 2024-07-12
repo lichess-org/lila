@@ -1,6 +1,6 @@
 let numberFormatter: false | Intl.NumberFormat | null = false;
 
-export const numberFormat = (n: number) => {
+export const numberFormat = (n: number): string => {
   if (numberFormatter === false)
     numberFormatter = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
   if (numberFormatter === null) return '' + n;
@@ -17,7 +17,7 @@ export const numberSpread = (el: HTMLElement, nbSteps: number, duration: number,
     }
   };
   let timeouts: Timeout[] = [];
-  return (nb: number, overrideNbSteps?: number) => {
+  return (nb: number, overrideNbSteps?: number): void => {
     if (!el || (!nb && nb !== 0)) return;
     if (overrideNbSteps) nbSteps = Math.abs(overrideNbSteps);
     timeouts.forEach(clearTimeout);

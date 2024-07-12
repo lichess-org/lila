@@ -59,7 +59,7 @@
   </plurals>
   <string name="onlyVisibleToTeachers">قابل مشاهده فقط برای معلم‌های کلاس</string>
   <string name="lastActiveDate">فعال</string>
-  <string name="managed">دسترسی کاربری مدیریت‌شده</string>
+  <string name="managed">مدیریت‌شده</string>
   <string name="thisStudentAccountIsManaged">حساب کاربری این دانشجو توسط معلم مدیریت و ایجاد شده است</string>
   <string name="upgradeFromManaged">ارتقاء از مدیریت شده به خودمختار</string>
   <string name="release">حساب کاربری تبدیل شده به حساب اصلی</string>

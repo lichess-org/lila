@@ -50,7 +50,7 @@ export type Action =
   | { selector: string; event?: string | string[]; listener: ActionListener }
   | { selector: string; event?: string | string[]; result: string };
 
-export const ready = site.load.then(async () => {
+export const ready: Promise<boolean> = site.load.then(async () => {
   window.addEventListener('resize', onResize);
   if (window.HTMLDialogElement) return true;
   dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
@@ -133,33 +133,6 @@ export function snabDialog(o: SnabDialogOpts): VNode {
         ),
       ),
     ],
-  );
-}
-
-export async function alert(msg: string): Promise<void> {
-  await domDialog({
-    htmlText: msg,
-    class: 'alert',
-    show: 'modal',
-  });
-}
-
-export async function confirm(msg: string): Promise<boolean> {
-  return (
-    (
-      await domDialog({
-        htmlText: `<div>${msg}</div>
-      <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
-        class: 'alert',
-        noCloseButton: true,
-        noClickAway: true,
-        show: 'modal',
-        actions: [
-          { selector: '.yes', result: 'yes' },
-          { selector: '.no', result: 'no' },
-        ],
-      })
-    ).returnValue === 'yes'
   );
 }
 
