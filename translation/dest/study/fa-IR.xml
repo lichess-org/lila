@@ -63,7 +63,7 @@
   <string name="studyPgn">PGN مطالعه</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="chapterPgn">PGN ِ بخش</string>
-  <string name="copyChapterPgn">کپی کردن PGN</string>
+  <string name="copyChapterPgn">رونوشت‌گیری PGN</string>
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">وب‌نشانی مطالعه</string>
   <string name="currentChapterUrl">وب‌نشانی بخش جاری</string>
@@ -85,15 +85,15 @@
   <string name="saveChapter">ذخیره بخش</string>
   <string name="clearAnnotations">پاک کردن حرکت‌نویسی</string>
   <string name="clearVariations">پاک کردن تغییرات</string>
-  <string name="deleteChapter">حذف فصل</string>
-  <string name="deleteThisChapter">آیا میخواهید این فصل را پاک کنید؟امکان برگرداندن آن وجود ندارد!</string>
+  <string name="deleteChapter">حذف بخش</string>
+  <string name="deleteThisChapter">حذف این بخش. بازگشت وجود ندارد!</string>
   <string name="clearAllCommentsInThisChapter">همه دیدگاه‌ها، نمادها و شکل‌های ترسیم شده در این بخش، پاک شوند</string>
   <string name="rightUnderTheBoard">درست زیر صفحه بازی</string>
   <string name="noPinnedComment">هیچ</string>
   <string name="normalAnalysis">تحلیل ساده</string>
   <string name="hideNextMoves">پنهان کردن حرکت بعدی</string>
   <string name="interactiveLesson">درس تعاملی</string>
-  <string name="chapterX">فصل %s</string>
+  <string name="chapterX">بخش %s</string>
   <string name="empty">خالی</string>
   <string name="startFromInitialPosition">از موقعیت ابتدایی شروع نمایید</string>
   <string name="editor">ویرایشگر</string>
@@ -108,7 +108,7 @@
   </plurals>
   <string name="urlOfTheGame">وب‌نشانی بازی‌ها، یکی در هر خط</string>
   <string name="loadAGameFromXOrY">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
-  <string name="createChapter">ساخت فصل</string>
+  <string name="createChapter">ساخت بخش</string>
   <string name="createStudy">ساخت مطالعه</string>
   <string name="editStudy">ویرایش مطالعه</string>
   <string name="visibility">دیدگی</string>
@@ -156,8 +156,8 @@
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">تنگی زمان</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">دارای مزیت و برتری</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">با طرح</string>
-  <string name="nextChapter">فصل بعدی</string>
-  <string name="prevChapter">فصل پیشین</string>
+  <string name="nextChapter">بخش بعدی</string>
+  <string name="prevChapter">بخش پیشین</string>
   <string name="studyActions">عملگرهای مطالعه</string>
   <string name="topics">موضوع‌ها</string>
   <string name="myTopics">موضوع‌های من</string>
