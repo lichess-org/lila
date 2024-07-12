@@ -48,7 +48,7 @@
 Týmto spôsobom môžete aj zavolať hráčov do turnaja alebo súboja družstiev.
 Hráči, ktorí nemajú záujem o prijímanie vašich správ, môžu opustiť vaše družstvo.</string>
   <string name="teamsIlead">Družstvá ktoré vediem</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Možno by ste chceli prepojiť jeden z týchto nadchádzajúcich turnajov?</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Možno budete chcieť prepojiť jeden z týchto blížiacich sa turnajov?</string>
   <string name="leadersChat">Diskusia vedúcich</string>
   <string name="closeTeam">Zrušiť družstvo</string>
   <string name="closeTeamDescription">Zruší družstvo natrvalo.</string>
@@ -56,8 +56,30 @@ Hráči, ktorí nemajú záujem o prijímanie vašich správ, môžu opustiť va
   <string name="entryCodeDescriptionForLeader">(Voliteľné) Vstupný kód, ktorý musia noví členovia poznať, aby sa mohli pripojiť k družstvu.</string>
   <string name="incorrectEntryCode">Nesprávny vstupný kód.</string>
   <string name="teamAlreadyExists">Toto družstvo už existuje.</string>
+  <string name="upcomingTournaments">Blížiace sa turnaje</string>
   <string name="completedTourns">Ukončené turnaje</string>
   <string name="declinedRequests">Zamietnuté žiadosti</string>
   <string name="joinLichessVariantTeam">Pridajte sa k oficiálnemu tímu %s a sledujte novinky a udalosti</string>
   <string name="teamPage">Stránka tímu</string>
+  <string name="thisTeamBattleIsOver">Tento turnaj sa skončil a tímy už nie je možné aktualizovať.</string>
+  <string name="listTheTeamsThatWillCompete">Uveďte zoznam tímov, ktoré budú súťažiť v tomto turnaji.</string>
+  <string name="oneTeamPerLine">Jeden tím na riadok. Použite automatické dokončovanie.</string>
+  <string name="oneTeamPerLineHelp">Tento zoznam môžete kopírovať a vkladať z jedného turnaja do druhého!
+
+Nemôžete odstrániť tím, ak sa s ním hráč už prihlásil do turnaja.</string>
+  <string name="numberOfLeadsPerTeam">Počet lídrov na tím. Súčet ich skóre je skóre tímu.</string>
+  <string name="numberOfLeadsPerTeamHelp">Túto hodnotu by ste naozaj nemali meniť po začiatku turnaja!</string>
+  <string name="innerTeam">Vnútorný tím</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Turnaj %s tímu</item>
+    <item quantity="few">Turnaj %s tímov</item>
+    <item quantity="many">Turnaj %s tímov</item>
+    <item quantity="other">Turnaj %s tímov</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Jeden líder na tím</item>
+    <item quantity="few">%s lídri na tím</item>
+    <item quantity="many">%s lídrov na tím</item>
+    <item quantity="other">%s lídrov na tím</item>
+  </plurals>
 </resources>
