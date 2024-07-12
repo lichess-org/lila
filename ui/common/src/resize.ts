@@ -18,7 +18,7 @@ export default function resizeHandle(
   pref: Prefs.ShowResizeHandle,
   ply: number,
   visible?: Visible,
-) {
+): void {
   if (pref === Prefs.ShowResizeHandle.Never) return;
 
   const el = document.createElement('cg-resize');
