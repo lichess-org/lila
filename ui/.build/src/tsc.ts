@@ -31,11 +31,15 @@ export async function tsc(): Promise<void> {
       for (const dep of env.deps.get(module) ?? []) {
         if (!ref.references?.some((x: any) => x.path.endsWith(path.join(dep, 'tsconfig.json'))))
           env.warn(
-            `${warnMark} - Module '${c.grey(module)}' depends on '${c.grey(
-              dep,
-            )}' but no reference in '${c.cyan(tsconfig.path.slice(env.uiDir.length + 1))}'`,
+            `${warnMark} - Module ${c.grey(module)} depends on ${c.grey(dep)} with no reference in '${c.cyan(
+              module + '/tsconfig.json',
+            )}'`,
+            'tsc',
           );
       }
+      const o = ref.compilerOptions ?? {};
+      if (!o.isolatedDeclarations && (o.composite || o.declaration || o.emitDeclarationOnly))
+        env.log(`[${c.grey(module)}] - Convert to ${c.yellow('isolatedDeclarations')}`, { ctx: 'tsc' });
     }
 
     await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
