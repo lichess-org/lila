@@ -16,5 +16,5 @@
   <string name="whenTimeRemainingLessThanThirtySeconds">Nuair a bhios &lt; 30 diog a thìde air fhàgail</string>
   <string name="moveConfirmation">Dearbhadh a\' ghluasaid</string>
   <string name="inCorrespondenceGames">Geamannan co-sgrìobhaidh</string>
-  <string name="yourPreferencesHaveBeenSaved">Chaidh na roghainnean agad a shàbhaladh.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Chaidh na roghainnean agad a shàbhaladh.</string>
 </resources>

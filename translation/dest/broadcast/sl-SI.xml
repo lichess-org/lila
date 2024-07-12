@@ -29,8 +29,6 @@
   <string name="startDate">Datum začetka v vaše časovnem pasu</string>
   <string name="startDateHelp">Izbirno, če veste, kdaj se dogodek začne</string>
   <string name="credits">Navedi vir</string>
-  <string name="broadcastUrl">URL oddaje</string>
-  <string name="currentRoundUrl">URL trenutnega kroga</string>
   <string name="currentGameUrl">URL trenutno igrane igre</string>
   <string name="downloadAllRounds">Prenesite vse kroge</string>
   <string name="resetRound">Ponastavi ta krog</string>

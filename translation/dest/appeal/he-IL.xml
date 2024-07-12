@@ -7,15 +7,15 @@
   <string name="prizeBanned">חשבונך לא יכול לשמש להצטרפות לטורנירים עם פרסים אמיתיים.</string>
   <string name="boosterMarked">חשבונך מוגבל בשל מניפולציה בדירוג.</string>
   <string name="boosterMarkedInfo">אסור לבצע מניפולציה בדירוג באמצעות הפסד של משחקים בכוונה או שימוש בחשבון אחר כדי להקטין את דירוגך.</string>
-  <string name="accountMuted">חשבונך מושתק.</string>
-  <string name="accountMutedInfo">קראו את %s שלנו. חובה לעמוד בכללי השיח שלנו כדי להימנע מהשתקה של החשבון.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">חשבונך מושתק.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">קראו את %s שלנו. חובה לעמוד בכללי השיח שלנו כדי להימנע מהשתקה של החשבון.</string>
   <string name="excludedFromLeaderboards">חשבונך לא יכול להופיע בטבלאות האלופים.</string>
   <string name="excludedFromLeaderboardsInfo">חשבונות שמשתמשים בדרכים לא כשרות כדי להופיע בטבלאות יימחקו מהן.</string>
   <string name="closedByModerators">חשבונך נסגר על ידי המנהלים.</string>
   <string name="hiddenBlog">הפוסטים שלך בבלוג הוסתרו על ידי המנהלים.</string>
   <string name="hiddenBlogInfo">אנא קראו את %s שלנו שוב.</string>
-  <string name="playTimeout">חשבונך מושעה ממשחקים.</string>
-  <string name="communicationGuidelines">כללי השיח</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">חשבונך מושעה ממשחקים.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">כללי השיח</string>
   <string name="blogRules">חוקי הבלוג</string>
   <string name="fairPlay">משחק ההוגן</string>
 </resources>

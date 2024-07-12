@@ -308,6 +308,7 @@
   <string name="abortGame">Zrušiť hru</string>
   <string name="gameAborted">Partia zrušená</string>
   <string name="standard">Štandard</string>
+  <string name="customPosition">Vlastná pozícia</string>
   <string name="unlimited">Bez času</string>
   <string name="mode">Režim partie</string>
   <string name="casual">Priateľská</string>
@@ -532,9 +533,6 @@
   <string name="safeTournamentName">Názov turnaja vyberajte s rozvahou!</string>
   <string name="inappropriateNameWarning">Čokoľvek čo i len mierne nevhodné môže mať za následok uzavretie Vášho účtu.</string>
   <string name="emptyTournamentName">Ak názov nevyplníte, turnaj bude pomenovaný po náhodnom veľmajstrovi.</string>
-  <string name="recommendNotTouching">Tieto nastavenia odporúčame ponechať nedotknuté.</string>
-  <string name="fewerPlayers">Ak nastavíte podmienky účasti, Váš turnaj bude mať menej hráčov.</string>
-  <string name="showAdvancedSettings">Zobraziť pokročilé nastavenia</string>
   <string name="makePrivateTournament">Nastav turnaj ako súkromný a obmedz prístup k nemu pomocou hesla</string>
   <string name="join">Pripojiť</string>
   <string name="withdraw">Odstúpiť</string>
@@ -574,8 +572,7 @@
   <string name="ifNoneLeaveEmpty">Ak nemáte, nevyplňujte</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upraviť profil</string>
-  <string name="firstName">Meno</string>
-  <string name="lastName">Priezvisko</string>
+  <string name="realName">Skutočné meno</string>
   <string name="setFlair">Nastavte si svoju ikonku štýlu</string>
   <string name="flair">Ikonka štýlu</string>
   <string name="youCanHideFlair">V nastaveniach je možné skryť všetky ikonky štýlu používateľov na celej stránke.</string>
@@ -601,6 +598,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">po ťahu automaticky prejdite k ďalšej hre</string>
   <string name="autoSwitch">Prepnite automaticky</string>
   <string name="puzzles">Šachové úlohy</string>
+  <string name="onlineBots">Online boti</string>
   <string name="name">Meno</string>
   <string name="description">Popis</string>
   <string name="descPrivate">Opis pre členov tímu</string>
@@ -623,9 +621,7 @@
   <string name="reason">Dôvod</string>
   <string name="whatIsIheMatter">Čo sa deje?</string>
   <string name="cheat">Podvod</string>
-  <string name="insult">Urážka</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Ovplyvňovanie ratingu</string>
   <string name="other">Iné</string>
   <string name="reportDescriptionHelp">Vložte odkaz na hru/y, a vysvetlite, čo je zlé na tomto správaní používateľa.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
@@ -660,6 +656,7 @@
   <string name="slow">Pomaly</string>
   <string name="insideTheBoard">Vnútri šachovnice</string>
   <string name="outsideTheBoard">Mimo šachovnice</string>
+  <string name="allSquaresOfTheBoard">Všetky políčka šachovnice</string>
   <string name="onSlowGames">Pri pomalých hrách</string>
   <string name="always">Vždy</string>
   <string name="never">Nikdy</string>
@@ -726,7 +723,7 @@
   <string name="tpTimeSpentOnTV">Čas strávený na TV: %s</string>
   <string name="watch">Sledovať</string>
   <string name="videoLibrary">Video knižnica</string>
-  <string name="streamersMenu">Streameri</string>
+  <string name="streamersMenu">Strímeri</string>
   <string name="mobileApp">Mobilná aplikácia</string>
   <string name="webmasters">Správcovia</string>
   <string name="about">Viac o</string>
@@ -767,6 +764,7 @@
   <string name="keyboardShortcuts">Klávesové skratky</string>
   <string name="keyMoveBackwardOrForward">pohyb dopredu/späť</string>
   <string name="keyGoToStartOrEnd">ísť na začiatok/koniec</string>
+  <string name="keyCycleSelectedVariation">Vybrať variant</string>
   <string name="keyShowOrHideComments">zobraziť/skryť komentáre</string>
   <string name="keyEnterOrExitVariation">zvoliť/opustiť variant</string>
   <string name="keyRequestComputerAnalysis">Požadujte analýzu počítačom, Poučte sa zo svojich chýb</string>
@@ -774,6 +772,14 @@
   <string name="keyNextBlunder">Ďalšia hrubá chyba</string>
   <string name="keyNextMistake">Ďalšia chyba</string>
   <string name="keyNextInaccuracy">Ďalšia nepresnosť</string>
+  <string name="keyPreviousBranch">Predchádzajúca vetva</string>
+  <string name="keyNextBranch">Nasledujúca vetva</string>
+  <string name="toggleVariationArrows">Prepnúť šípky variantov</string>
+  <string name="cyclePreviousOrNextVariation">Zakomponovať predchádzajúci/nasledujúci variant</string>
+  <string name="toggleGlyphAnnotations">Prepnúť poznámky k ťahom</string>
+  <string name="togglePositionAnnotations">Prepnúť poznámky k pozíciám</string>
+  <string name="variationArrowsInfo">Šípky variantov umožňujú navigáciu bez použitia záznamu ťahov.</string>
+  <string name="playSelectedMove">zahrať zvolený ťah</string>
   <string name="newTournament">Nový turnaj</string>
   <string name="tournamentHomeTitle">Šachový turnaj ponúka rôzne časové nastavenia partie a rôzne varianty</string>
   <string name="tournamentHomeDescription">Hrajte šachové turnaje s rýchlym tempom! Pridajte sa k oficiálnym plánovaným turnajom, alebo si vytvorte vlastný turnaj. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, a viac možností na výber pre nekonečnú šachovú zábavu.</string>
@@ -818,6 +824,7 @@
   <string name="withFriends">S priateľmi</string>
   <string name="withEverybody">S každým</string>
   <string name="kidMode">Detský režim</string>
+  <string name="kidModeIsEnabled">Detský režim je povolený.</string>
   <string name="kidModeExplanation">V detskom režime je pre ochranu detí a mládeže pred ostatnými užívateľmi akákoľvek komunikácia zablokovaná.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Keď je zapnutý detský režim, tak sa pri logu Lichess objaví ikona %s. Podľa toho viete, že je Vaše dieťa v bezpečí.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je spravovaný niekým iným. Opýtajte sa svojho učiteľa šachu na zrušenie detského režimu.</string>
@@ -942,6 +949,8 @@
     <item quantity="many">a uložiť %s variantov predťahu</item>
     <item quantity="other">a uložiť %s variantov predťahu</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Obdržali ste súkromnú správu od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknutím sem si ju môžete prečítať</string>
   <string name="sorry">Prepáčte :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na chvíľu sme Vás museli odstaviť.</string>
   <string name="why">Prečo?</string>
@@ -1063,4 +1072,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="instructions">Inštrukcie</string>
   <string name="showMeEverything">Ukázať všetko</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
+  <string name="nothingToSeeHere">Momentálne tu nie je nič k zobrazeniu.</string>
 </resources>

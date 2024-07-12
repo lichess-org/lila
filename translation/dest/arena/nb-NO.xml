@@ -72,8 +72,8 @@ For eksempel tilsvarer en tredjeplass i en turnering med 100 spillere 3 %. En ti
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Alle snittverdiene på denne siden er %s.</string>
   <string name="total">Totalt</string>
   <string name="pointsAvg">Poengsnitt</string>
-  <string name="pointsSum">Poengsum</string>
-  <string name="rankAvg">Prosentrangering</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Poengsum</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Prosentrangering</string>
   <string name="tournamentWinners">Turneringsvinnere</string>
   <string name="tournamentShields">Turneringsskjold</string>
   <string name="onlyTitled">Kun spillere med sjakktittel</string>

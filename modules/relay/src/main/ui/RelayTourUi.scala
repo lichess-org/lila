@@ -33,6 +33,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           pageMenu("index"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(trc.liveBroadcasts()), searchForm("")),
+            Granter.opt(_.StudyAdmin).option(adminIndex(active)),
             nonEmptyTier(_.BEST, "best"),
             nonEmptyTier(_.HIGH, "high"),
             nonEmptyTier(_.NORMAL, "normal"),
@@ -49,6 +50,16 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           )
         )
 
+  private def adminIndex(active: List[RelayTour.ActiveWithSomeRounds])(using Context) =
+    val errored = active.flatMap(a => a.errors.some.filter(_.nonEmpty).map(a -> _))
+    errored.nonEmpty.option:
+      div(cls := "relay-index__admin")(
+        h2("Ongoing broadcasts with errors"),
+        st.section(cls := "relay-cards"):
+          errored.map: (tr, errors) =>
+            card.render(tr.copy(link = tr.display), live = _.display.hasStarted, errors = errors.take(5))
+      )
+
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
@@ -64,9 +75,20 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
     )
 
-  def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using Context) =
+  def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using ctx: Context) =
     listLayout(trc.liveBroadcasts.txt(), pageMenu("by", owner.some))(
-      boxTop(h1(lightUserLink(owner), " ", trc.liveBroadcasts())),
+      boxTop(
+        h1(
+          if ctx.is(owner)
+          then trc.myBroadcasts()
+          else frag(lightUserLink(owner), " ", trc.liveBroadcasts())
+        ),
+        div(cls := "box__top__actions")(
+          a(href := routes.RelayTour.form, cls := "button button-green text", dataIcon := Icon.PlusButton)(
+            trc.newBroadcast()
+          )
+        )
+      ),
       standardFlash,
       renderPager(pager, owner = owner.some)
     )
@@ -92,7 +114,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           boxTop:
             ui.broadcastH1(t.name)
           ,
-          h2(t.description),
+          h2(t.info.toString),
           markup.map: html =>
             frag(
               hr,
@@ -101,16 +123,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             )
         )
       )
-
-  def stats(t: RelayTour, stats: List[RelayStats.RoundStats])(using Context) =
-    import JsonView.given
-    Page(s"${t.name.value} - Stats")
-      .css("bits.relay.index")
-      .js(PageModule("bits.relayStats", Json.obj("rounds" -> stats))):
-        main(cls := "relay-tour page box box-pad")(
-          boxTop(h1(a(href := routes.RelayTour.show(t.slug, t.id).url)(t.name), " - Stats")),
-          "Here, a graph shows the number of viewers over time."
-        )
 
   def page(title: String, pageBody: Frag, active: String)(using Context): Page =
     Page(title)
@@ -128,7 +140,10 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     lila.ui.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
-        a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_.is(me)).option("active")):
+        a(
+          href := routes.RelayTour.by(me.username, 1),
+          cls  := (menu == "new" || by.exists(_.is(me))).option("active")
+        ):
           trans.broadcast.myBroadcasts()
       ,
       by.filterNot(ctx.is)
@@ -148,12 +163,13 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             "Private Broadcasts"
           )
         ),
-      a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
       div(cls := "sep"),
-      a(cls := menu.active("players"), href := routes.Fide.index(1))("FIDE players"),
-      a(cls := menu.active("federations"), href := routes.Fide.federations(1))("FIDE federations")
+      a(cls := menu.active("players"), href := routes.Fide.index(1))(trans.broadcast.fidePlayers()),
+      a(cls := menu.active("federations"), href := routes.Fide.federations(1))(
+        trans.broadcast.fideFederations()
+      )
     )
 
   private object card:
@@ -168,7 +184,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     private def image(t: RelayTour) = t.image.fold(ui.thumbnail.fallback(cls := "relay-card__image")): id =>
       img(cls := "relay-card__image", src := ui.thumbnail.url(id, _.Size.Small))
 
-    def render[A <: RelayRound.AndTourAndGroup](tr: A, live: A => Boolean)(using Context) =
+    def render[A <: RelayRound.AndTourAndGroup](tr: A, live: A => Boolean, errors: List[String] = Nil)(using
+        Context
+    ) =
       link(tr.tour, tr.path, live(tr))(
         image(tr.tour),
         span(cls := "relay-card__body")(
@@ -186,7 +204,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
-          span(cls := "relay-card__desc")(tr.tour.description)
+          if errors.nonEmpty
+          then ul(cls := "relay-card__errors")(errors.map(li(_)))
+          else tr.tour.info.players.map(span(cls := "relay-card__desc")(_))
         )
       )
 
@@ -195,7 +215,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         image(t),
         span(cls := "relay-card__body")(
           h3(cls := "relay-card__title")(t.name),
-          span(cls := "relay-card__desc")(t.description)
+          span(cls := "relay-card__desc")(t.info.toString)
         )
       )
 

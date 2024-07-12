@@ -32,7 +32,7 @@
   <string name="realName">نام واقعی</string>
   <string name="privateWillNeverBeShown">خصوصی. هرگز در خارج از کلاس نمایش داده نخواهد شد. به یاد آوری دانش آموز کمک می کند.</string>
   <string name="addStudent">دانش‌آموز اضافه کنید</string>
-  <string name="lichessProfileXCreatedForY">نمایه %1$s برای %2$s ساخته شد.</string>
+  <string name="lichessProfileXCreatedForY">رُخ‌نما %1$s برای %2$s ساخته شد.</string>
   <string name="studentCredentials">دانش‌جو: %1$s
 نامِ کاربری: %2$s
 گذرواژه: %3$s</string>
@@ -59,7 +59,7 @@
   </plurals>
   <string name="onlyVisibleToTeachers">قابل مشاهده فقط برای معلم‌های کلاس</string>
   <string name="lastActiveDate">فعال</string>
-  <string name="managed">دسترسی کاربری مدیریت‌شده</string>
+  <string name="managed">مدیریت‌شده</string>
   <string name="thisStudentAccountIsManaged">حساب کاربری این دانشجو توسط معلم مدیریت و ایجاد شده است</string>
   <string name="upgradeFromManaged">ارتقاء از مدیریت شده به خودمختار</string>
   <string name="release">حساب کاربری تبدیل شده به حساب اصلی</string>

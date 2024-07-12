@@ -15,7 +15,7 @@ test('self report', () => {
     },
   });
 
-  const spy = vi.spyOn(xhr, 'text').mockImplementation((url: string, init?: RequestInit) => {
+  const spy = vi.spyOn(xhr, 'text').mockImplementation((url: string) => {
     expect(url).toBe('/jslog/abcdef123456?n=spam');
     return Promise.resolve('ok');
   });

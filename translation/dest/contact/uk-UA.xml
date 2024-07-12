@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">За певних обставин при грі проти облікового запису бота, гра з рейтингом не може обраховувати очки, якщо система визначить, що гравець зловживає ботом для отримання рейтингових очок.</string>
   <string name="errorPage">Сторінка помилки</string>
   <string name="reportErrorPage">Якщо ви зіткнулися з повідомленням про помилку, ви можете повідомити про це:</string>
-  <string name="wantBroadcastTournament">Я хочу транслювати турнір</string>
   <string name="learnHowToMakeBroadcasts">Дізнайтеся, як робити власні трансляції на Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Також ви можете зв\'язатися з командою проведення трансляцій щодо офіційних етерів.</string>
   <string name="banAppeal">Оскарження бану або обмеження за IP-адресою</string>
   <string name="engineAppeal">Відмітка про використання шахового рушія або нечесну гру</string>
   <string name="sendAppealTo">Ви можете надіслати оскарження на %s.</string>

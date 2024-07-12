@@ -7,7 +7,7 @@ export interface Selectable<C = any> {
 }
 
 export class Selector<T extends Selectable, C = any> {
-  group = new Map<string, T>();
+  group: Map<string, T> = new Map<string, T>();
   context?: C;
   key: string | false = false;
 
@@ -22,7 +22,7 @@ export class Selector<T extends Selectable, C = any> {
     return this.key ? this.group.get(this.key) : undefined;
   }
 
-  select(key: string | false) {
+  select(key: string | false): void {
     if (this.key) {
       if (this.key === key) return;
       this.selected?.deselect?.(this.context);
@@ -35,14 +35,14 @@ export class Selector<T extends Selectable, C = any> {
     return this.group.get(key);
   }
 
-  set(key: string, val: T) {
+  set(key: string, val: T): void {
     const reselect = this.key === key;
     this.close(key);
     this.group.set(key, val);
     if (reselect) this.select(key);
   }
 
-  close(key?: string) {
+  close(key?: string): void {
     if (key === undefined) {
       for (const k of this.group.keys()) this.close(k);
       return;
@@ -54,7 +54,7 @@ export class Selector<T extends Selectable, C = any> {
     this.group.get(key)?.close?.(this.context);
   }
 
-  delete(key?: string) {
+  delete(key?: string): void {
     this.close(key);
     key ? this.group.delete(key) : this.group.clear();
   }

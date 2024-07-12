@@ -48,7 +48,7 @@ final class Setup(
             for
               origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
               destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
-              denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfType))
+              denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
               result <- denied match
                 case Some(denied) =>
                   val message = lila.challenge.ChallengeDenied.translated(denied)

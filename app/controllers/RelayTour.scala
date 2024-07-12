@@ -115,7 +115,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         setup =>
           env.relay.api.tourUpdate(nav.tour, setup) >>
             negotiate(
-              Redirect(routes.RelayTour.show(nav.tour.slug, nav.tour.id)),
+              Redirect(routes.RelayTour.edit(nav.tour.id)).flashSuccess,
               jsonOkResult
             )
       )
@@ -188,13 +188,6 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       ): source =>
         asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn"):
           Ok.chunked(source).as(pgnContentType)
-
-  def stats(id: RelayTourId) = Open:
-    Found(env.relay.api.tourById(id)): tour =>
-      env.relay.stats
-        .get(tour.id)
-        .flatMap: stats =>
-          Ok.page(views.relay.tour.stats(tour, stats))
 
   def apiIndex = Anon:
     apiC.jsonDownload:

@@ -72,16 +72,23 @@
     font-weight: bold;
   }
   &__title {
+    @include line-clamp(2);
+    margin: 0.2em 0 0.3em 0;
     font-weight: bold;
     color: $c-font-clearer;
-    font-size: 1.2em;
+    font-size: 1.3em;
     .relay-cards--tier-best & {
       font-size: 1.4em;
     }
-    padding: 0.2em 0 0.3em 0;
   }
   &__desc {
     @extend %roboto;
+    @include line-clamp(2);
     color: $c-font-dim;
+  }
+  &__errors {
+    @extend %break-word, %nowrap-ellipsis;
+    font-family: monospace;
+    color: $c-bad;
   }
 }

@@ -3,7 +3,6 @@ package controllers
 import play.api.mvc.*
 
 import java.time.format.DateTimeFormatter
-import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }

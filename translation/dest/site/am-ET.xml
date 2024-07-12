@@ -53,4 +53,11 @@
   <string name="analysis">የትንተና ሰሌዳ</string>
   <string name="depthX">ጥልቀት %s</string>
   <string name="usingServerAnalysis">የሰርቨር ትንተና</string>
+  <string name="move">ማንቀሳቀስ</string>
+  <string name="capture">ተያዘ</string>
+  <string name="close">ዝጋ</string>
+  <string name="winning">አሸናፊ</string>
+  <string name="openings">መክፈቻ</string>
+  <string name="winPreventedBy50MoveRule">በ 50-እንቅስቃሴ ሕግ አሸናፊው ተገቷል</string>
+  <string name="lossSavedBy50MoveRule">በ 50-እንቅስቃሴ ሕግ ሽንፈት ተገቷል</string>
 </resources>

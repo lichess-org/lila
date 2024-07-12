@@ -5,7 +5,6 @@ import play.api.mvc.RequestHeader
 
 import java.time.Period
 import scala.util.Try
-import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
@@ -326,7 +325,7 @@ final class TeamApi(
             users <- memberRepo.userIdsByTeam(team.id)
             _ = users.foreach(cached.invalidateTeamIds)
             _ <- requestRepo.removeByTeam(team.id)
-          yield publish(TeamDisable(team.id))
+          yield ()
         else
           teamRepo
             .enable(team)
@@ -353,7 +352,6 @@ final class TeamApi(
     (teamRepo.coll.delete.one($id(team.id)) >>
       memberRepo.removeByTeam(team.id)).andDo {
       logger.info(s"delete team ${team.id} by @${by.id}: $explain")
-      publish(TeamDelete(team.id))
     }
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =

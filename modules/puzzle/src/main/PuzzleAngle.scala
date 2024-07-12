@@ -29,6 +29,7 @@ object PuzzleAngle:
         opKey => SimpleOpening(opKey).map(_.ref.key)
       )
       .flatMap(OpeningDb.shortestLines.get)
+    def isAbstract  = opening.isEmpty
     val name        = I18nKey(openingName)
     def description = I18nKey(s"From games with the opening: $openingName")
     def asTheme     = none

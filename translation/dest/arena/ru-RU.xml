@@ -76,8 +76,8 @@
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Средние значения по этой странице: %s.</string>
   <string name="total">Всего</string>
   <string name="pointsAvg">Очки в среднем</string>
-  <string name="pointsSum">Сумма очков</string>
-  <string name="rankAvg">Среднее занятое место</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Сумма очков</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Среднее занятое место</string>
   <string name="tournamentWinners">Победители турнира</string>
   <string name="tournamentShields">Щиты турниров</string>
   <string name="onlyTitled">Только игроки со званиями</string>

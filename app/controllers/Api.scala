@@ -1,6 +1,5 @@
 package controllers
 
-import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
@@ -47,7 +46,8 @@ final class Api(
         .extended(
           name,
           withFollows = userWithFollows,
-          withTrophies = getBool("trophies")
+          withTrophies = getBool("trophies"),
+          withCanChallenge = getBool("challenge")
         )
         .map(toApiResult)
         .map(toHttp)

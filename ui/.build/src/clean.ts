@@ -9,7 +9,7 @@ const globOpts: fg.Options = {
   markDirectories: true,
 };
 
-const globs = [
+const allGlobs = [
   '**/node_modules',
   '**/css/**/gen',
   'ui/.build/dist/css',
@@ -20,7 +20,7 @@ const globs = [
   'public/css',
 ];
 
-export async function clean() {
+export async function clean(globs: string[] = allGlobs) {
   if (!env.clean) return;
 
   for (const glob of globs) {

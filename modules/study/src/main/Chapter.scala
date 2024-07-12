@@ -41,7 +41,13 @@ case class Chapter(
         val parentNode = parentPath.flatMap(root.nodeAt)
         val clockSwap  = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
         if node.color.black then clockSwap else clockSwap.swap
-      Chapter.LastPosDenorm(node.fen, node.moveOption.map(_.uci), clocks = clocks)
+      val uci = node.moveOption.map(_.uci)
+      val check = node.moveOption
+        .flatMap(_.san.value.lastOption)
+        .collect:
+          case '+' => Chapter.Check.Check
+          case '#' => Chapter.Check.Mate
+      Chapter.LastPosDenorm(node.fen, uci, check, clocks)
     copy(denorm = newDenorm)
 
   def updateRoot(f: Root => Option[Root]) =
@@ -104,6 +110,7 @@ case class Chapter(
     fen = denorm.fold(Fen.initial)(_.fen),
     lastMove = denorm.flatMap(_.uci),
     lastMoveAt = relay.map(_.lastMoveAt),
+    check = denorm.flatMap(_.check),
     result = tags.outcome.isDefined.option(tags.outcome)
   )
 
@@ -149,9 +156,12 @@ object Chapter:
 
   type BothClocks = ByColor[Option[Centis]]
 
+  enum Check:
+    case Check, Mate
+
   /* Last position of the main line.
    * Used for chapter previews. */
-  case class LastPosDenorm(fen: Fen.Full, uci: Option[Uci], clocks: BothClocks)
+  case class LastPosDenorm(fen: Fen.Full, uci: Option[Uci], check: Option[Check], clocks: BothClocks)
 
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 

@@ -4,6 +4,7 @@ import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
+import { ready as oldSafariDialogPolyfillReady } from 'common/dialog';
 import * as poolRangeStorage from './poolRangeStorage';
 import {
   LobbyOpts,
@@ -75,6 +76,17 @@ export default class LobbyController {
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
       const friendUser = urlParams.get('user') ?? undefined;
+      const minutesPerSide = urlParams.get('minutesPerSide');
+      const increment = urlParams.get('increment');
+
+      if (minutesPerSide) {
+        forceOptions.time = parseInt(minutesPerSide);
+      }
+
+      if (increment) {
+        forceOptions.increment = parseInt(increment);
+      }
+
       if (locationHash === 'hook') {
         if (urlParams.get('time') === 'realTime') {
           this.tab = 'real_time';
@@ -88,7 +100,7 @@ export default class LobbyController {
         forceOptions.variant = 'fromPosition';
       }
 
-      site.dialog.ready.then(() => {
+      oldSafariDialogPolyfillReady.then(() => {
         this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
         redraw();
       });

@@ -52,5 +52,5 @@
   <string name="inappropriateContentAccountClosed">Irgendwelchi unagmässeni Inhält, chönd zur Schlüssig vu dim Konto fühere.</string>
   <string name="blogTips">Eusi simple Tips, zum tolli Tagebuech-Biträg poschte</string>
   <string name="discussThisBlogPostInTheForum">Diskutier de Tagebuech-Bitrag im Forum</string>
-  <string name="youBlockedByBlogAuthor">De Autor - vu dem Tagebuech - hät dich blockiert.</string>
+  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">De Autor - vu dem Tagebuech - hät dich blockiert.</string>
 </resources>

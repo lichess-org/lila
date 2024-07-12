@@ -333,8 +333,6 @@
   <string name="reportXToModerators">Toroy any amin\'ny tompon-andraikitra i %s</string>
   <string name="profile">Mombamomba</string>
   <string name="editProfile">Ovay ny mombamomba anao</string>
-  <string name="firstName">Anarana</string>
-  <string name="lastName">Fanampin\'anarana</string>
   <string name="biography">Biographie</string>
   <string name="thankYou">Misaotra!</string>
   <string name="previouslyOnLichessTV">Teto amin\'ny Lichess TV</string>
@@ -363,9 +361,7 @@
   <string name="reason">Antony</string>
   <string name="whatIsIheMatter">Inona ny olana?</string>
   <string name="cheat">Fanambakana</string>
-  <string name="insult">Fanopana</string>
   <string name="troll">Fananihanina</string>
-  <string name="ratingManipulation">Fanovana laharana</string>
   <string name="other">Antony hafa</string>
   <string name="thisTopicIsNowClosed">Mikatona ity lohahevitra ity.</string>
   <string name="blog">Bilaogy</string>

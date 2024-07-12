@@ -1,7 +1,8 @@
 $hover-bg: $m-primary_bg--mix-30;
 
 .relay-tour {
-  @extend %box-neat-force;
+  @extend %box-neat-force, %flex-column;
+  gap: 3em;
   background: $c-bg-box;
   &__side {
     @extend %flex-column;
@@ -256,8 +257,7 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__nav {
-    @extend %flex-between;
-    margin: 2em var(---box-padding);
+    @extend %flex-between, %box-margin-horiz;
     gap: 1em;
     user-select: none;
   }
@@ -286,13 +286,46 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
 
+  &__info {
+    @extend %box-neat, %flex-between, %box-margin-horiz;
+    gap: 1em;
+    background: $c-bg-zebra;
+    padding: 1em 2em;
+    > div {
+      @extend %flex-center-nowrap;
+      gap: 1em;
+    }
+    img {
+      height: 2em;
+    }
+  }
+
   &__markup {
+    @extend %box-margin-horiz;
     @include rendered-markdown(2em, 50vh);
-    margin: 3em var(---box-padding);
+  }
+  &__source {
+    @extend %box-margin-horiz;
+    font-style: italic;
+    @media (max-width: at-most($x-large)) {
+      display: none;
+    }
+    &:last-child {
+      margin-bottom: 3em;
+    }
+  }
+  &__share {
+    @extend %box-neat, %box-margin-horiz;
+    background: $c-bg-zebra;
+    padding: 3em var(---box-padding) 1em var(---box-padding);
+    h2 {
+      margin-bottom: 3rem;
+    }
   }
 
   &__leaderboard {
     width: auto;
+    overflow-x: auto;
     margin: 0 auto 1rem;
     thead {
       background: none;
@@ -405,6 +438,16 @@ $hover-bg: $m-primary_bg--mix-30;
       top: 1.5px;
       border-bottom-width: 3px;
     }
+  }
+}
+
+.relay-tour__stats {
+  .spinner {
+    margin: 10em auto;
+  }
+  canvas {
+    min-height: 50vh;
+    margin: 0 2em 0 1em;
   }
 }
 

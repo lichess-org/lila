@@ -2,7 +2,6 @@ package lila.puzzle
 
 import chess.Mode
 
-import scala.util.chaining.*
 import scalalib.actor.AsyncActorSequencers
 
 import lila.common.Bus

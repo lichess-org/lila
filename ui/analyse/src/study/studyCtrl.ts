@@ -638,7 +638,7 @@ export default class StudyCtrl {
         (position.path === this.ctrl.path && position.path === treePath.fromNodeList(this.ctrl.mainline))
       )
         this.ctrl.jump(newPath);
-      this.redraw();
+      return this.redraw();
     },
     deleteNode: d => {
       const position = d.p,
@@ -650,7 +650,7 @@ export default class StudyCtrl {
       if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
       this.ctrl.tree.deleteNodeAt(position.path);
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
-      this.redraw();
+      return this.redraw();
     },
     promote: d => {
       const position = d.p,
@@ -663,7 +663,7 @@ export default class StudyCtrl {
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
       else if (this.relay) this.ctrl.jump(d.p.path);
       this.ctrl.treeVersion++;
-      this.redraw();
+      return this.redraw();
     },
     reload: this.xhrReload,
     changeChapter: d => {
@@ -702,7 +702,7 @@ export default class StudyCtrl {
       this.setMemberActive(d.w);
       if (d.s && !this.vm.mode.sticky) this.vm.behind++;
       if (d.s) this.data.position = d.p;
-      else if (d.w && d.w.s === site.sri) {
+      if (d.w?.s === site.sri) {
         this.vm.mode.write = this.relayData ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
       }

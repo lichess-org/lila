@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC nariai lieka toje pačioje pozicijoje</string>
   <string name="shareChanges">Dalinkitės pakeitimais su žiūrovais ir saugokite juos serveryje</string>
   <string name="playing">Žaidžiama</string>
+  <string name="showEvalBar">Vertinimo skalė</string>
   <string name="first">Pirmas</string>
   <string name="previous">Ankstesnis</string>
   <string name="next">Kitas</string>

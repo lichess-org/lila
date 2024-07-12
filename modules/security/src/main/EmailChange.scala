@@ -55,7 +55,7 @@ ${trans.common_orPaste.txt()}
         _        <- userRepo.setEmail(userId, email).recoverDefault
         me       <- userRepo.me(userId)
       yield
-        logger.info(s"Set email for $id: $email")
+        logger.info(s"Change email for $userId: $previous -> $email")
         me.map(_ -> previous)
     }
 

@@ -3,6 +3,7 @@ import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import RoundController from './ctrl';
 import { defined } from 'common';
+import { domDialog } from 'common/dialog';
 
 export interface RoundSocket {
   send: SocketSend;
@@ -144,7 +145,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       }
     },
     simulEnd(simul: game.Simul) {
-      site.dialog.dom({
+      domDialog({
         htmlText:
           '<div><p>Simul complete!</p><br /><br />' +
           `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,

@@ -23,16 +23,16 @@
   <string name="tournamentDescription">Breve descrizione dell\'evento</string>
   <string name="fullDescription">Descrizione completa dell\'evento</string>
   <string name="fullDescriptionHelp">(Facoltativo) Descrizione completa dell\'evento. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
+  <string name="sourceSingleUrl">Sorgente URL PGN</string>
   <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
+  <string name="sourceGameIds">Fino a 64 ID di partite Lichess, separati da spazi.</string>
   <string name="startDate">Data di inizio nel tuo fuso orario</string>
   <string name="startDateHelp">Facoltativo, se sai quando inizia l\'evento</string>
   <string name="credits">Cita la fonte</string>
-  <string name="broadcastUrl">URL della diretta</string>
-  <string name="currentRoundUrl">URL del turno corrente</string>
   <string name="currentGameUrl">URL della partita corrente</string>
   <string name="downloadAllRounds">Scarica tutti i round</string>
   <string name="resetRound">Reimposta questo turno</string>
-  <string name="deleteRound">Cancella questo turno</string>
+  <string name="deleteRound">Elimina questo turno</string>
   <string name="definitivelyDeleteRound">Elimina definitivamente il turno e le sue partite.</string>
   <string name="deleteAllGamesOfThisRound">Elimina tutte le partite di questo turno. L\'emittente dovrà essere attiva per poterli ricreare.</string>
   <string name="editRoundStudy">Modifica lo studio del turno</string>
@@ -42,5 +42,14 @@
   <string name="automaticLeaderboardHelp">Calcola e mostra una semplice classifica basata sui risultati delle partite</string>
   <string name="replacePlayerTags">Facoltativo: sostituisci i nomi dei giocatori, i punteggi e i titoli</string>
   <string name="periodInSeconds">Intervallo in secondi</string>
-  <string name="periodInSecondsHelp">Facoltativo: quanto a lungo aspettare tra due richieste. Minimo 2s, massimo 60s. Il default è scelto in base al numeri di spettatori.</string>
+  <string name="periodInSecondsHelp">Facoltativo: quanto a lungo aspettare tra le richieste. Minimo 2s, massimo 60s. Il default è scelto in base al numero di spettatori.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federazioni FIDE</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Migliori 10 punteggi</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Giocatori FIDE</string>
+  <string name="fidePlayerNotFound">Giocatore FIDE non trovato</string>
+  <string name="fideProfile">Profilo FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federazione</string>
+  <string name="ageThisYear">Età quest\'anno</string>
+  <string name="unrated">Non classificato</string>
+  <string name="recentTournaments">Tornei recenti</string>
 </resources>

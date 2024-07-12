@@ -24,9 +24,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
         update(tags, tc, _)
 
   private def guessTimeControl(tour: RelayTour): Option[FideTC] =
-    tour.description
-      .split('|')
-      .lift(2)
+    tour.info.tc
       .map(_.trim.toLowerCase.replace("classical", "standard"))
       .so: tcStr =>
         FideTC.values.find(tc => tcStr.contains(tc.toString))

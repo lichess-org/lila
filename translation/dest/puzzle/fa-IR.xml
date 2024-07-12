@@ -41,21 +41,21 @@
     <item quantity="one">%s بار بازی شده است</item>
     <item quantity="other">%s بار بازی شده</item>
   </plurals>
-  <string name="fromGameLink">برگرفته شده از بازی %s</string>
+  <string name="fromGameLink">برگرفته از بازی %s</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="difficultyLevel">میزان سختی</string>
   <string name="normal">متوسط</string>
   <string name="easier">آسان‌تر</string>
   <string name="easiest">آسان‌ترین</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
-    <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
+    <item quantity="one">یک امتیاز زیر درجه‌بندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز زیر درجه‌بندی معمایی‌تان</item>
   </plurals>
   <string name="harder">سخت‌تر</string>
   <string name="hardest">سخت‌ترین</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">یک امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
-    <item quantity="other">%s امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
+    <item quantity="one">یک امتیاز بالای درجه‌بندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز بالای درجه‌بندی معمایی‌تان</item>
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">افزودن موضوعی دیگر</string>
@@ -73,8 +73,8 @@
   <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">رکورد جدید</string>
   <string name="fromMyGames">از بازی های من</string>
-  <string name="lookupOfPlayer">به دنبال معماهای برگرفته‌شده از بازی‌های یک بازیکن مشخص، بگردید</string>
-  <string name="fromXGames">معماهای برگرفته‌شده از بازی‌های %s</string>
+  <string name="lookupOfPlayer">به دنبال معماهای برگرفته از بازی‌های یک بازیکن مشخص، بگردید</string>
+  <string name="fromXGames">معماهای برگرفته از بازی‌های %s</string>
   <string name="searchPuzzles">جستجوی معماها</string>
   <string name="fromMyGamesNone">شما هیچ معمایی در پایگاه‌داده ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
 
@@ -86,11 +86,11 @@
     <item quantity="other">%s نفر بازی کردند</item>
   </plurals>
   <plurals name="nbToReplay">
-    <item quantity="one">%s برای بازبینی</item>
-    <item quantity="other">%s مورد برای بازبینی</item>
+    <item quantity="one">%s بازپخش</item>
+    <item quantity="other">%s بازپخش</item>
   </plurals>
-  <string name="percentSolved">%s حل شده</string>
-  <string name="noPuzzlesToShow">هیچ موردی برای نمایش وجود ندارد، بروید و ابتدا چند معما حل کنید!</string>
+  <string name="percentSolved">%s حل‌شده</string>
+  <string name="noPuzzlesToShow">چیزی برای نمایش نیست، نخست بروید و چند معما حل کنید!</string>
   <string name="improvementAreasDescription">این‌ها را تمرین کنید تا روند پیشرفت خود را بهبود ببخشید!</string>
   <string name="strengthDescription">شما در این زمینه‌ها بهترین عملکرد را دارید</string>
 </resources>

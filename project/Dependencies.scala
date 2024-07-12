@@ -20,7 +20,7 @@ object Dependencies {
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.23.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.24.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.0.8"
+    val version  = "16.0.9"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -50,7 +50,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.2.2"
+    val version  = "11.2.4"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
@@ -85,7 +85,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.18"
-    val json        = "org.playframework" %% "play-json"         % "3.0.3"
+    val json        = "org.playframework" %% "play-json"         % "3.0.4"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
@@ -94,7 +94,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.7"
+    val version = "2.2.9"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)

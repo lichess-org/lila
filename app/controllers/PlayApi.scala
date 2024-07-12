@@ -1,6 +1,5 @@
 package controllers
 
-import scala.util.chaining.*
 import play.api.i18n.Lang
 import play.api.mvc.*
 

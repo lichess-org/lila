@@ -38,19 +38,17 @@ final class Env(
   val getAllows = GetNotifyAllows(api.prefs.allows)
 
   // api actor
-  Bus.subscribeFuns(
-    "notify" -> {
-      case lila.core.notify.NotifiedBatch(userIds) => api.markAllRead(userIds)
-      case lila.core.game.CorresAlarmEvent(userId, pov, opponent) =>
-        api.notifyOne(userId, CorresAlarm(pov.game.id, opponent))
-    },
-    "streamStart" -> { case lila.core.misc.streamer.StreamStart(userId, streamerName) =>
+  Bus.subscribeFun("notify"):
+    case lila.core.notify.NotifiedBatch(userIds) => api.markAllRead(userIds)
+    case lila.core.game.CorresAlarmEvent(userId, pov, opponent) =>
+      api.notifyOne(userId, CorresAlarm(pov.game.id, opponent))
+
+  Bus.sub[lila.core.misc.streamer.StreamStart]:
+    case lila.core.misc.streamer.StreamStart(userId, streamerName) =>
       subsRepo
         .subscribersOnlineSince(userId, 7)
         .map: subs =>
           api.notifyMany(subs, StreamStart(userId, streamerName))
-    }
-  )
 
   lazy val cli = wire[NotifyCli]
 

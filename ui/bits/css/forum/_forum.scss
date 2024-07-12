@@ -42,3 +42,9 @@
     margin-bottom: 1em;
   }
 }
+
+.forum-mod-feed {
+  tbody {
+    @extend %break-word;
+  }
+}

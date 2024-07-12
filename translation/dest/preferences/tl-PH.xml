@@ -36,5 +36,5 @@
   <string name="castleByMovingTwoSquares">Galawin ang hari ng dalawang kwadrado</string>
   <string name="castleByMovingOntoTheRook">Igalaw ang Hari sa rook</string>
   <string name="inputMovesWithTheKeyboard">Maglagay ng mga galaw sa keyboard</string>
-  <string name="yourPreferencesHaveBeenSaved">Ang iyong mga kagutuhan ay nai-save na.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Ang iyong mga kagutuhan ay nai-save na.</string>
 </resources>

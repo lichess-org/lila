@@ -4,12 +4,13 @@ import chess.format.pgn.{ Tag, TagType, Tags }
 
 import lila.study.{ MultiPgn, StudyPgnImport, PgnDump }
 import lila.tree.Root
+import chess.Outcome
 
 case class RelayGame(
     tags: Tags,
     variant: chess.variant.Variant,
     root: Root,
-    ending: Option[StudyPgnImport.End]
+    outcome: Option[Outcome]
 ):
 
   // We don't use tags.boardNumber.
@@ -31,8 +32,8 @@ case class RelayGame(
 
   def resetToSetup = copy(
     root = root.withoutChildren,
-    ending = None,
-    tags = tags.copy(value = tags.value.filter(_.name != Tag.Result))
+    tags = tags.copy(value = tags.value.filter(_.name != Tag.Result)),
+    outcome = None
   )
 
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
@@ -41,6 +42,8 @@ case class RelayGame(
   def hasUnknownPlayer: Boolean =
     List(RelayGame.whiteTags, RelayGame.blackTags).exists:
       _.forall(tag => tags(tag).isEmpty)
+
+  def showResult = Outcome.showResult(outcome)
 
 private object RelayGame:
 
@@ -53,6 +56,13 @@ private object RelayGame:
   val whiteTags: TagNames  = List(_.White, _.WhiteFideId)
   val blackTags: TagNames  = List(_.Black, _.BlackFideId)
 
+  def fromChapter(c: lila.study.Chapter) = RelayGame(
+    tags = c.tags,
+    variant = c.setup.variant,
+    root = c.root,
+    outcome = c.tags.outcome
+  )
+
   import scalalib.Iso
   import chess.format.pgn.{ InitialComments, Pgn }
   val iso: Iso[RelayGames, MultiPgn] =
@@ -62,7 +72,8 @@ private object RelayGame:
       variations = false,
       clocks = true,
       source = true,
-      orientation = false
+      orientation = false,
+      site = none
     )
     Iso[RelayGames, MultiPgn](
       gs =>

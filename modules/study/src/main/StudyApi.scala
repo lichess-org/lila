@@ -632,8 +632,7 @@ final class StudyApi(
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit = for
     _ <- chapterRepo.insert(chapter)
     newStudy = study.withChapter(chapter)
-    _ <- sticky.so(studyRepo.updateSomeFields(newStudy))
-    _ <- studyRepo.updateNow(study)
+    _ <- if sticky then studyRepo.updateSomeFields(newStudy) else studyRepo.updateNow(study)
   yield
     sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
     indexStudy(study)
@@ -772,22 +771,24 @@ final class StudyApi(
 
   def editStudy(studyId: StudyId, data: Study.Data)(who: Who) =
     sequenceStudy(studyId): study =>
-      canActAsOwner(study, who.u).flatMap { asOwner =>
-        asOwner.option(data.settings).so { settings =>
-          val newStudy = study.copy(
-            name = Study.toName(data.name),
-            flair = data.flair.flatMap(flairApi.find),
-            settings = settings,
-            visibility = data.vis,
-            description = settings.description.option {
-              study.description.filter(_.nonEmpty) | "-"
-            }
-          )
-          (newStudy != study).so {
-            studyRepo.updateSomeFields(newStudy).andDo(sendTo(study.id)(_.reloadAll)).andDo(indexStudy(study))
-          }
-        }
-      }
+      canActAsOwner(study, who.u).flatMap: asOwner =>
+        asOwner
+          .option(data.settings)
+          .so: settings =>
+            val newStudy = study
+              .copy(
+                name = Study.toName(data.name),
+                flair = data.flair.flatMap(flairApi.find),
+                settings = settings,
+                visibility = data.vis,
+                description = settings.description.option:
+                  study.description.filter(_.nonEmpty) | "-"
+              )
+            (newStudy != study).so:
+              studyRepo
+                .updateSomeFields(newStudy)
+                .andDo(sendTo(study.id)(_.reloadAll))
+                .andDo(indexStudy(study))
 
   def delete(study: Study) =
     sequenceStudy(study.id): study =>

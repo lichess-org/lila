@@ -73,7 +73,7 @@ case class Game(
   def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u).exists(turnOf)
 
-  def playedTurns = ply - startedAtPly
+  def playedTurns: Ply = ply - startedAtPly
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 

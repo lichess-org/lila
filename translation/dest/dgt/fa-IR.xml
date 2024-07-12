@@ -17,4 +17,5 @@
   <string name="clickToGenerateOne">برای تولید یکی، اینجا کلیک کنید</string>
   <string name="useWebSocketUrl">از «%1$s» استفاده کنید، مگر اینکه %2$s روی دستگاه یا درگاه دیگری اجرا می‌شود.</string>
   <string name="textToSpeech">متن به گفتار</string>
+  <string name="playWithDgtBoard">بازی با صفحه و مهره ی دیجیتالی</string>
 </resources>

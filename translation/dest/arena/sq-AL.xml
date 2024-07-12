@@ -76,8 +76,8 @@ Për shembull, të qenët i renditur i 3-i në një turne me 100 lojtarë = 3%. 
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Krejt mesataret në këtë faqe janë %s.</string>
   <string name="total">Gjithsej</string>
   <string name="pointsAvg">Mesatare pikësh</string>
-  <string name="pointsSum">Shumë pikësh</string>
-  <string name="rankAvg">Mesatare renditjeje</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Shumë pikësh</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Mesatare renditjeje</string>
   <string name="tournamentWinners">Fitues turnesh</string>
   <string name="onlyTitled">Vetëm lojtarë me titull</string>
   <string name="onlyTitledHelp">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>

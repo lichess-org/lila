@@ -8,14 +8,14 @@
   <string name="boosterMarked">Sua conta está marcada por manipulação de rating.</string>
   <string name="boosterMarkedInfo">Nós definimos isso como uma manipulação deliberada perdendo jogos de propósito ou jogando contra outra conta que está deliberadamente perdendo jogos.</string>
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Sua conta está silenciada.</string>
-  <string name="accountMutedInfo">Leia as nossas %s. O não cumprimento das diretrizes de comunicação pode resultar no silenciamento das contas.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Leia as nossas %s. O não cumprimento das diretrizes de comunicação pode resultar no silenciamento das contas.</string>
   <string name="excludedFromLeaderboards">Sua conta foi excluída das tabelas de classificação.</string>
   <string name="excludedFromLeaderboardsInfo">Definimos isto como uma forma injusta de conseguir posições na tabela de classificações.</string>
   <string name="closedByModerators">Sua conta foi fechada pelos moderadores.</string>
   <string name="hiddenBlog">Seus blogs foram ocultados pelos moderadores.</string>
   <string name="hiddenBlogInfo">Certifique-se de ler novamente as nossas %s.</string>
   <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Você está temporariamente suspenso de jogar.</string>
-  <string name="communicationGuidelines">diretrizes de comunicação</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">diretrizes de comunicação</string>
   <string name="blogRules">regras do blog</string>
   <string name="fairPlay">Jogo Limpo</string>
 </resources>

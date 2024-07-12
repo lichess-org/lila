@@ -327,15 +327,21 @@ object BSONHandlers:
 
   private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionPairHandler
   given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)
+  given BSONHandler[Chapter.Check] = quickHandler[Chapter.Check](
+    { case BSONString(v) => if v == "#" then Chapter.Check.Mate else Chapter.Check.Check },
+    v => BSONString(if v == Chapter.Check.Mate then "#" else "+")
+  )
   given BSON[Chapter.LastPosDenorm] with
     def reads(r: Reader) = Chapter.LastPosDenorm(
       fen = r.getO[Fen.Full]("fen") | Fen.initial,
       uci = r.getO[Uci]("uci"),
+      check = r.getO[Chapter.Check]("check"),
       clocks = ~r.getO[Chapter.BothClocks]("clocks")
     )
     def writes(w: Writer, l: Chapter.LastPosDenorm) = $doc(
       "fen"    -> l.fen.some.filterNot(Fen.Full.isInitial),
       "uci"    -> l.uci,
+      "check"  -> l.check,
       "clocks" -> l.clocks.some.filter(_.exists(_.isDefined))
     )
 
@@ -353,6 +359,7 @@ object BSONHandlers:
   private[study] given dbMemberHandler: BSONDocumentHandler[DbMember] = Macros.handler
   private[study] given BSONDocumentWriter[StudyMember] with
     def writeTry(x: StudyMember) = Success($doc("role" -> x.role))
+
   private[study] given (using handler: BSONHandler[Map[String, DbMember]]): BSONHandler[StudyMembers] =
     handler.as[StudyMembers](
       members =>
@@ -361,6 +368,7 @@ object BSONHandlers:
         }),
       _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
+
   import lila.core.study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey.get(v).toTry(s"Invalid visibility $v") },

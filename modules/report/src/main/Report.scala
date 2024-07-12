@@ -108,7 +108,7 @@ object Report:
 
     def byLichess = by.is(ReporterId.lichess)
 
-    def isFlag = text.startsWith(Reason.Comm.flagText)
+    def isFlag = text.startsWith(Reason.flagText)
 
   case class Done(by: ModId, at: Instant)
 

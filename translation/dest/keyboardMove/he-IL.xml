@@ -2,8 +2,8 @@
 <resources>
   <string name="keyboardInputCommands">פקודות קלט מקלדת</string>
   <string name="performAMove">ביצוע מהלך</string>
-  <string name="movePieceFromE2ToE4">הזזת כלי מ-e2 ל-e4</string>
-  <string name="moveKnightToC3">הזזת פרש ל-c3</string>
+  <string name="movePieceFromE2ToE4">הזזת כלי מ־e2 ל־e4</string>
+  <string name="moveKnightToC3">הזזת פרש ל־c3</string>
   <string name="kingsideCastle">הצרחה קטנה</string>
   <string name="queensideCastle">הצרחה גדולה</string>
   <string name="promoteC8ToQueen">הכתרת רגלי c8 למלכה</string>

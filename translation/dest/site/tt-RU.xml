@@ -368,9 +368,6 @@
   <string name="safeTournamentName">Бәйге өчен хуп имин исем куегыз.</string>
   <string name="inappropriateNameWarning">Әз генә дә килешми торган исем аккаунтыгызның ябылуына китерә ала.</string>
   <string name="emptyTournamentName">Бәйгегә берәр атаклы шаһматчының исемен бирү өчен буш калдырыгыз.</string>
-  <string name="recommendNotTouching">Боларны тимәскә кинәш итәбез.</string>
-  <string name="fewerPlayers">Бәйгегә керү тәлапләрен куйсагыз, уенчылар саны әзрәк булыр.</string>
-  <string name="showAdvancedSettings">Кушылма көйләүләрне күрсәтү</string>
   <string name="makePrivateTournament">Бәйгегә серсүз буенча гына керү куя аласыз</string>
   <string name="join">Катнашу</string>
   <string name="withdraw">Уеннан чыгу</string>
@@ -407,8 +404,6 @@
   <string name="ifNoneLeaveEmpty">Булмаса, буш калдырыгыз</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профильны үзгәртү</string>
-  <string name="firstName">Исем</string>
-  <string name="lastName">Фамилия</string>
   <string name="biography">Үзең турында</string>
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
@@ -446,9 +441,7 @@
   <string name="reason">Сәбаб</string>
   <string name="whatIsIheMatter">Нәрсә булды?</string>
   <string name="cheat">Алдамак</string>
-  <string name="insult">Хурламак</string>
   <string name="troll">Троль</string>
-  <string name="ratingManipulation">Рейтинг белән уйнамак</string>
   <string name="other">Бүтән</string>
   <string name="reportDescriptionHelp">Уен(нар) сылтамаларын кертегез һәм бу кулланучының тәртибендә дөрес булмаганны аңлатыгыз. \"Алдакчы\" дип кенә әйтмәгез, бу нәтиҗәгә ничек килгәнегезне әйтегез. Сезнең җибәрүегез инглизчә язылган очракта тизрәк эшкәртеләчәк.</string>
   <string name="error.provideOneCheatedGameLink">Зинһар, алданган уенга ким дигәндә бер сылтама бирегез.</string>

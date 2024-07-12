@@ -46,11 +46,11 @@ final class Challenge(
         else if isForMe(c) then Direction.In.some
         else none
       direction.so: dir =>
-        val json = env.challenge.jsonView(dir.some)(c)
         for
           fullId        <- c.accepted.so(env.round.proxyRepo.game(c.gameId).map2(c.fullIdOf(_, dir)))
           socketVersion <- ctx.isMobileOauth.so(env.challenge.version(c.id).dmap(some))
-        yield JsonOk(json.add("fullId", fullId).add("socketVersion", socketVersion))
+          json = env.challenge.jsonView.apiAndMobile(c, socketVersion, dir.some, fullId)
+        yield JsonOk(json)
   }
 
   protected[controllers] def showId(id: ChallengeId)(using Context): Fu[Result] =
@@ -69,7 +69,7 @@ final class Challenge(
           if mine then Direction.Out.some
           else if isForMe(c) then Direction.In.some
           else none
-        val json = env.challenge.jsonView.show(c, version, direction)
+        val json = env.challenge.jsonView.websiteAndLichobile(c, version, direction)
         negotiate(
           html =
             val color = get("color").flatMap(Color.fromName)
@@ -274,7 +274,7 @@ final class Challenge(
                 case None                       => redir
                 case Some(dest) if ctx.is(dest) => redir
                 case Some(dest) =>
-                  env.challenge.granter.isDenied(dest, c.perfType).flatMap {
+                  env.challenge.granter.isDenied(dest, c.perfType.key.some).flatMap {
                     case Some(denied) =>
                       showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
                     case None => api.setDestUser(c, dest).inject(redir)
@@ -303,22 +303,29 @@ final class Challenge(
                       limit.challengeUser(me, rateLimited, cost = cost):
                         for
                           challenge <- makeOauthChallenge(config, me, destUser)
-                          grant     <- env.challenge.granter.isDenied(destUser, config.perfType)
+                          grant     <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
                           res <- grant match
                             case Some(denied) =>
                               fuccess:
                                 JsonBadRequest:
                                   jsonError(lila.challenge.ChallengeDenied.translated(denied))
                             case _ =>
-                              env.challenge.api.create(challenge).map {
+                              env.challenge.api.create(challenge).flatMap {
                                 if _ then
-                                  val json = env.challenge.jsonView
-                                    .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                                  if config.keepAliveStream then
-                                    jsOptToNdJson:
-                                      ndJson.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
-                                  else JsonOk(json)
-                                else JsonBadRequest(jsonError("Challenge not created"))
+                                  ctx.isMobileOauth
+                                    .so(env.challenge.version(challenge.id).dmap(some))
+                                    .map: socketVersion =>
+                                      val json = env.challenge.jsonView
+                                        .apiAndMobile(
+                                          challenge,
+                                          socketVersion,
+                                          lila.challenge.Direction.Out.some
+                                        )
+                                      if config.keepAliveStream then
+                                        jsOptToNdJson:
+                                          ndJson.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
+                                      else JsonOk(json)
+                                else JsonBadRequest(jsonError("Challenge not created")).toFuccess
                               }
                         yield res
                 }
@@ -358,7 +365,7 @@ final class Challenge(
               .map: challenge =>
                 JsonOk:
                   val url = s"${env.net.baseUrl}/${challenge.id}"
-                  env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
+                  env.challenge.jsonView.apiAndMobile(challenge, none, none) ++ Json.obj(
                     "urlWhite" -> s"$url?color=white",
                     "urlBlack" -> s"$url?color=black"
                   )
@@ -369,7 +376,7 @@ final class Challenge(
     NoBot:
       Found(env.game.gameRepo.game(gameId)): g =>
         g.opponentOf(me).flatMap(_.userId).so(env.user.repo.byId).orNotFound { opponent =>
-          env.challenge.granter.isDenied(opponent, g.perfKey).flatMap {
+          env.challenge.granter.isDenied(opponent, g.perfKey.some).flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(d)))
             case _ =>
               api.offerRematchForGame(g, me).map {

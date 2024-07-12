@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import { domDialog } from 'common/dialog';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 
@@ -6,24 +7,34 @@ site.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
-      site.dialog
-        .dom({
-          cash: $('.forum-delete-modal'),
-          attrs: { view: { action: link.href } },
-        })
-        .then(dlg => {
-          $(dlg.view)
-            .find('form')
-            .attr('action', link.href)
-            .on('submit', function (this: HTMLFormElement, e: Event) {
-              e.preventDefault();
-              xhr.formToXhr(this);
-              $(link).closest('.forum-post').hide();
-              dlg.close();
-            });
-          $(dlg.view).find('form button.cancel').on('click', dlg.close);
-          dlg.showModal();
-        });
+      domDialog({
+        cash: $('.forum-delete-modal'),
+        attrs: { view: { action: link.href } },
+      }).then(dlg => {
+        $(dlg.view)
+          .find('form')
+          .attr('action', link.href)
+          .on('submit', function (this: HTMLFormElement, e: Event) {
+            e.preventDefault();
+            xhr.formToXhr(this);
+            $(link).closest('.forum-post').hide();
+            dlg.close();
+          });
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        dlg.showModal();
+      });
+      return false;
+    })
+    .on('click', 'a.mod-relocate', function (this: HTMLAnchorElement) {
+      const link = this;
+      domDialog({
+        cash: $('.forum-relocate-modal'),
+        attrs: { view: { action: link.href } },
+      }).then(dlg => {
+        $(dlg.view).find('form').attr('action', link.href);
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        dlg.showModal();
+      });
       return false;
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {

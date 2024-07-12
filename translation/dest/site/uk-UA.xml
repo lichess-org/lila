@@ -72,6 +72,8 @@
   <string name="promoteVariation">Підвищити пріоритет варіанта</string>
   <string name="makeMainLine">Зробити варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
+  <string name="collapseVariations">Згорнути варіанти</string>
+  <string name="expandVariations">Розгорнути варіанти</string>
   <string name="forceVariation">Зробити варіантом</string>
   <string name="copyVariationPgn">Скопіювати PGN варіанту</string>
   <string name="move">Хід</string>
@@ -531,9 +533,6 @@
   <string name="safeTournamentName">Оберіть пристойну назву для турніру.</string>
   <string name="inappropriateNameWarning">Все, що навіть трохи виявиться недоречним, може призвести до блокування.</string>
   <string name="emptyTournamentName">Залиште пустим, щоб назвати турнір на честь випадкового гросмейстера.</string>
-  <string name="recommendNotTouching">Ми радимо не змінювати їх.</string>
-  <string name="fewerPlayers">Якщо ви встановите умови вступу, у вашому турнірі буде менше гравців.</string>
-  <string name="showAdvancedSettings">Показати додаткові налаштування</string>
   <string name="makePrivateTournament">Зробити турнір приватним та обмежити доступ паролем</string>
   <string name="join">Приєднатись</string>
   <string name="withdraw">Відступити</string>
@@ -573,8 +572,7 @@
   <string name="ifNoneLeaveEmpty">Якщо немає, то залиште порожнім</string>
   <string name="profile">Профіль</string>
   <string name="editProfile">Редагувати профіль</string>
-  <string name="firstName">Ім\'я</string>
-  <string name="lastName">Прізвище</string>
+  <string name="realName">Справжнє ім\'я</string>
   <string name="setFlair">Оберіть свій символ</string>
   <string name="flair">Символ</string>
   <string name="youCanHideFlair">Це налаштування вимикає символи всіх користувачів сайту.</string>
@@ -623,9 +621,7 @@
   <string name="reason">Причина</string>
   <string name="whatIsIheMatter">Що трапилося?</string>
   <string name="cheat">Нечесна гра</string>
-  <string name="insult">Образа</string>
   <string name="troll">Тролінг</string>
-  <string name="ratingManipulation">Маніпуляції з рейтингом</string>
   <string name="other">Інше</string>
   <string name="reportDescriptionHelp">Вставте посилання на гру (ігри) та поясніть, що не так із поведінкою цього користувача. Не пишіть просто \"він шахраює\", а розкажіть, як ви дійшли до такого висновку. Вашу скаргу розглянуть швидше, якщо ви напишете її англійською.</string>
   <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання на хоча б одну нечесну гру.</string>
@@ -660,6 +656,7 @@
   <string name="slow">Повільна</string>
   <string name="insideTheBoard">Усередині шахівниці</string>
   <string name="outsideTheBoard">Поза шахівницею</string>
+  <string name="allSquaresOfTheBoard">Усі поля дошки</string>
   <string name="onSlowGames">У повільних іграх</string>
   <string name="always">Завжди</string>
   <string name="never">Ніколи</string>

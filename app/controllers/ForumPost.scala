@@ -108,6 +108,21 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               NoContent
   }
 
+  def relocate(id: ForumPostId) = SecureBody(_.ModerateForum) { ctx ?=> me ?=>
+    Found(postApi.getPost(id).flatMapz(postApi.viewOf)): post =>
+      forms.relocateTo
+        .bindFromRequest()
+        .value
+        .so: to =>
+          env.forum.topicApi
+            .relocate(post.topic.id, to)
+            .inject:
+              post.post.userId.foreach: op =>
+                val newUrl = routes.ForumTopic.show(to, post.topic.slug, 1).url
+                env.msg.api.systemPost(op, MsgPreset.forumRelocation(post.topic.name, newUrl))
+              Redirect(routes.ForumCateg.show(to)).flashSuccess
+  }
+
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
       FoundSnip(postApi.react(categId, id, reaction, v)): post =>

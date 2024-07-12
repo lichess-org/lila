@@ -111,8 +111,7 @@ object user:
       @Key("country") flag: Option[String] = None,
       location: Option[String] = None,
       bio: Option[String] = None,
-      firstName: Option[String] = None,
-      lastName: Option[String] = None,
+      realName: Option[String] = None,
       fideRating: Option[Int] = None,
       uscfRating: Option[Int] = None,
       ecfRating: Option[Int] = None,
@@ -121,10 +120,7 @@ object user:
       dsbRating: Option[Int] = None,
       links: Option[String] = None
   ):
-    def nonEmptyRealName =
-      List(ne(firstName), ne(lastName)).flatten match
-        case Nil   => none
-        case names => (names.mkString(" ")).some
+    def nonEmptyRealName = ne(realName)
 
     def nonEmptyLocation = ne(location)
 
@@ -133,9 +129,10 @@ object user:
     def isEmpty = completionPercent == 0
 
     def completionPercent: Int =
-      100 * List(flag, bio, firstName, lastName).count(_.isDefined) / 4
+      100 * List(flag, bio, realName).count(_.isDefined) / 4
 
     private def ne(str: Option[String]) = str.filter(_.nonEmpty)
+
   end Profile
 
   object Profile:

@@ -4,8 +4,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.Json.given
 
-import scala.util.chaining.*
-
 import lila.analyse.Analysis
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
@@ -15,6 +13,7 @@ import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Settings, Orders, Study as StudyModel, StudyForm }
+import lila.study.PgnDump.WithFlags
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.net.IpAddress
@@ -242,7 +241,7 @@ final class Study(
           division = division
         )
       )
-      withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin)
+      withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
       studyJson <- env.study.jsonView(study, previews, chapter, fedNames.some, withMembers = withMembers)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
@@ -269,7 +268,7 @@ final class Study(
               env.study.studyRepo
                 .exists(id)
                 .flatMap:
-                  if _ then Redirect(routes.Study.show(id))
+                  if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
                   else showQuery(fuccess(none))
             case sc => showQuery(fuccess(sc))
 
@@ -319,11 +318,12 @@ final class Study(
 
   def delete(id: StudyId) = Auth { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
-      env.study.api.delete(study) >> env.relay.api
-        .deleteRound(id.into(RelayRoundId))
-        .map:
-          case None       => Redirect(routes.Study.mine(Order.hot))
-          case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
+      for
+        round <- env.relay.api.deleteRound(id.into(RelayRoundId))
+        _     <- env.study.api.delete(study)
+      yield round match
+        case None       => Redirect(routes.Study.mine(Order.hot))
+        case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
   def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write) { _ ?=> me ?=>
@@ -411,27 +411,23 @@ final class Study(
   }
 
   def pgn(id: StudyId) = Open:
+    pgnWithFlags(id, identity)
+
+  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
+    pgnWithFlags(id, identity)
+
+  def pgnWithFlags(id: StudyId, flags: Update[WithFlags])(using Context) =
     Found(env.study.api.byId(id)): study =>
       HeadLastModifiedAt(study.updatedAt):
-        limit.studyPgn(ctx.ip, rateLimited, msg = id.value):
-          CanView(study, study.settings.shareable.some)(doPgn(study))(
+        val limiter = if study.isRelay then limit.relayPgn else limit.studyPgn
+        limiter[Fu[Result]](req.ipAddress, rateLimited, msg = id.value):
+          CanView(study, study.settings.shareable.some)(doPgn(study, flags))(
             privateUnauthorizedFu(study),
             privateForbiddenFu(study)
           )
 
-  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
-    env.study.api.byId(id).flatMap {
-      _.fold(studyNotFoundText.toFuccess): study =>
-        HeadLastModifiedAt(study.updatedAt):
-          limit.studyPgn[Fu[Result]](req.ipAddress, rateLimited, msg = id.value):
-            CanView(study, study.settings.shareable.some)(doPgn(study))(
-              privateUnauthorizedText,
-              privateForbiddenText
-            )
-    }
-
-  private def doPgn(study: StudyModel)(using RequestHeader, Option[Me]) =
-    Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
+  private def doPgn(study: StudyModel, flags: Update[WithFlags])(using RequestHeader, Option[Me]) =
+    Ok.chunked(env.study.pgnDump.chaptersOf(study, flags(requestPgnFlags)).throttle(20, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn"))
       .as(pgnContentType)
       .withDateHeaders(lastModified(study.updatedAt))
@@ -494,12 +490,13 @@ final class Study(
         .map(lila.study.JsonView.metadata)
 
   private def requestPgnFlags(using RequestHeader) =
-    lila.study.PgnDump.WithFlags(
+    WithFlags(
       comments = getBoolOpt("comments") | true,
       variations = getBoolOpt("variations") | true,
       clocks = getBoolOpt("clocks") | true,
       source = getBool("source"),
-      orientation = getBool("orientation")
+      orientation = getBool("orientation"),
+      site = none
     )
 
   def chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String]) = Open:

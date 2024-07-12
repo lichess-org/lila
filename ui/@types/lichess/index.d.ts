@@ -1,10 +1,7 @@
 // eslint-disable-next-line
 /// <reference path="./tree.d.ts" />
-
 // eslint-disable-next-line
 /// <reference path="./chessground.d.ts" />
-// eslint-disable-next-line
-/// <reference path="./dialog.d.ts" />
 // eslint-disable-next-line
 /// <reference path="./voice.d.ts" />
 // eslint-disable-next-line
@@ -25,7 +22,6 @@ interface Site {
     defaultParams: Record<string, any>;
   };
   mousetrap: LichessMousetrap; // file://./../../site/src/mousetrap.ts
-  requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;
@@ -34,16 +30,17 @@ interface Site {
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   asset: {
-    // file://./../../site/src/assets.ts
+    // file://./../../site/src/asset.ts
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
-    loadCss(path: string): Promise<void>;
-    loadCssPath(path: string): Promise<void>;
-    removeCssPath(path: string): void;
+    loadCss(href: string): Promise<void>;
+    loadCssPath(key: string): Promise<void>;
+    removeCss(href: string): void;
+    removeCssPath(key: string): void;
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
-    loadEsm<T>(name: string, opts?: EsmModuleOpts): Promise<T>;
+    loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
     userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
@@ -52,7 +49,6 @@ interface Site {
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(): void;
   watchers(el: HTMLElement): void;
-  escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
   trans(i18n: I18nDict): Trans;
   sound: SoundI; // file://./../../site/src/sound.ts
@@ -71,17 +67,12 @@ interface Site {
   };
   timeago(date: number | Date): string;
   dateFormat: () => (date: Date) => string;
+  displayLocale: string;
   contentLoaded(parent?: HTMLElement): void;
   blindMode: boolean;
   makeChat(data: any): any;
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;
   log: LichessLog; // file://./../../site/src/log.ts
-  dialog: {
-    // file://./../../site/src/dialog.ts
-    ready: Promise<boolean>;
-    dom(opts: DomDialogOpts): Promise<Dialog>;
-    snab(opts: SnabDialogOpts): _Snabbdom.VNode;
-  };
 
   // the remaining are not set in site.lichess.globals.ts
   load: Promise<void>; // DOMContentLoaded promise

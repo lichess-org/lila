@@ -3,13 +3,13 @@
   <string name="advancedPawn">רגלי מתקדם</string>
   <string name="advancedPawnDescription">אחד מהחיילים שלך עמוק בקווי היריב, אולי מאיים להיות מוכתר.</string>
   <string name="advantage">יתרון</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">נצל/י את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל-6.0)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">נצל/י את ההזדמנות כדי להשיג יתרון מכריע. (הערכת יתרון בין 2.0 ל־6.0)</string>
   <string name="anastasiaMate">המט של אנסטסיה</string>
   <string name="anastasiaMateDescription">פרש, יחד עם צריח או מלכה, לוכדים את המלך היריב בין דופן הלוח לבין כלי מכוחותיו.</string>
   <string name="arabianMate">מט ערבי</string>
   <string name="arabianMateDescription">פרש וצריח לוכדים יחד את המלך היריב בפינת הלוח.</string>
   <string name="attackingF2F7">תקיפה של ו2 או ו7</string>
-  <string name="attackingF2F7Description">מיקוד איומים על הרגלי ב-ו2 או ו7, כמו למשל בפתיחת \"Fried Liver\".</string>
+  <string name="attackingF2F7Description">מיקוד איומים על הרגלי ב־ו2 או ו7, כמו למשל בפתיחת \"Fried Liver\".</string>
   <string name="attraction">משיכה</string>
   <string name="attractionDescription">החלפת כלים או הקרבה שמעודדות או מכריחות כלי יריב לנדוד למשבצת שמאפשרת טקטיקת המשך.</string>
   <string name="backRankMate">מט שורה אחורית (״מתחת למים״)</string>
@@ -29,7 +29,7 @@
   <string name="dovetailMate">מט קוזיו</string>
   <string name="dovetailMateDescription">מלכה מבצעת מט למלך סמוך, ששתי משבצות הבריחה שלו חסומות על ידי כלים מכוחותיו.</string>
   <string name="equality">שוויון</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">חזרו למשחק מעמדת הפסד, והבטיחו תיקו או עמדה מאוזנת. (הערכת יתרון קטנה מ-2.0)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">חזרו למשחק מעמדת הפסד, והבטיחו תיקו או עמדה מאוזנת. (הערכת יתרון קטנה מ־2.0)</string>
   <string name="kingsideAttack">תקיפת צד המלך</string>
   <string name="kingsideAttackDescription">תקיפת המלך של היריב, לאחר שהצריח לצד המלך.</string>
   <string name="clearance">פינוי</string>
@@ -107,7 +107,7 @@
   <string name="skewerDescription">מוטיב המשלב כלי חשוב מאוים, זז ומאפשר איום או הכאה של כלי חשוב פחות מאחוריו, ההפך מריתוק.</string>
   <string name="smotheredMate">מט חנק</string>
   <string name="smotheredMateDescription">מט על ידי פרש בו המלך היריב לא מסוגל לזוז כי הוא מוקף (או חנוק) על ידי כלים מכוחותיו.</string>
-  <string name="superGM">משחקי סופר רב-אמנים</string>
+  <string name="superGM">משחקי סופר רב־אמנים</string>
   <string name="superGMDescription">פאזלים ממשחקים של השחקנים הטובים בעולם.</string>
   <string name="trappedPiece">כלי לכוד</string>
   <string name="trappedPieceDescription">כלי לא יכול להימנע מהכאה בגלל צמצום מסעים אפשריים.</string>
@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">קצת מהכל. לא תדעו למה לצפות. עליכם להיות מוכנים להכל! בדיוק כמו משחקים אמיתיים.</string>
   <string name="playerGames">המשחקים שלי</string>
   <string name="playerGamesDescription">חפשו חידות אשר נוצרו ממשחקים שלכם או של שחקנים אחרים.</string>
-  <string name="puzzleDownloadInformation">החידות האלו הן נחלת הכלל, וניתן להוריד אותן מ-%s.</string>
+  <string name="puzzleDownloadInformation">החידות האלו הן נחלת הכלל, וניתן להוריד אותן מ־%s.</string>
 </resources>

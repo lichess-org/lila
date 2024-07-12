@@ -37,7 +37,7 @@ export const dataIcon = (icon: string): Attrs => ({
   'data-icon': icon,
 });
 
-export const iconTag = (icon: string) => snabH('i', { attrs: dataIcon(icon) });
+export const iconTag = (icon: string): VNode => snabH('i', { attrs: dataIcon(icon) });
 
 export type LooseVNode = VNode | string | undefined | null | boolean;
 export type LooseVNodes = LooseVNode[];

@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import * as domData from './data';
 import { uciToMove } from 'chessground/util';
 
@@ -25,15 +25,15 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
   );
 };
 
-export const initAll = (parent?: HTMLElement) =>
+export const initAll = (parent?: HTMLElement): void =>
   Array.from((parent || document).getElementsByClassName('mini-board--init')).forEach((el: HTMLElement) => {
     el.classList.remove('mini-board--init');
     init(el);
   });
 
-export const fenColor = (fen: string) => (fen.includes(' w') ? 'white' : 'black');
+export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');
 
-export const renderClock = (color: Color, time: number) =>
+export const renderClock = (color: Color, time: number): VNode =>
   h(`span.mini-game__clock.mini-game__clock--${color}`, {
     attrs: { 'data-time': time, 'data-managed': 1 },
   });

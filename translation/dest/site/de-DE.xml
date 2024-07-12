@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
   <string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
   <string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
-  <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
-  <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
-  <string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
   <string name="makePrivateTournament">Stelle das Turnier auf privat und beschränke den Zugang durch ein Passwort</string>
   <string name="join">Teilnehmen</string>
   <string name="withdraw">Verlassen</string>
@@ -509,8 +506,7 @@
   <string name="ifNoneLeaveEmpty">Nur falls vorhanden</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
-  <string name="firstName">Vorname</string>
-  <string name="lastName">Nachname</string>
+  <string name="realName">Echter Name</string>
   <string name="setFlair">Setze dein Flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Es existiert eine Einstellungsmöglichkeit, um alle Benutzerflairs auf der gesamten Seite zu verbergen.</string>
@@ -557,9 +553,7 @@
   <string name="reason">Grund</string>
   <string name="whatIsIheMatter">Was ist das Problem?</string>
   <string name="cheat">Betrug</string>
-  <string name="insult">Beleidigung</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation der Wertungszahl</string>
   <string name="other">Sonstiges</string>
   <string name="reportDescriptionHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einem Spiel an, in dem betrogen wurde.</string>
@@ -594,6 +588,7 @@
   <string name="slow">Langsam</string>
   <string name="insideTheBoard">Auf dem Brett</string>
   <string name="outsideTheBoard">Neben dem Brett</string>
+  <string name="allSquaresOfTheBoard">Alle Felder auf dem Brett</string>
   <string name="onSlowGames">Bei langsamen Spielen</string>
   <string name="always">Immer</string>
   <string name="never">Nie</string>

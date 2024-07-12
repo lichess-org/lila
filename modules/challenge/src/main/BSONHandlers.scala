@@ -13,18 +13,14 @@ private object BSONHandlers:
   import Challenge.*
   import lila.game.BSONHandlers.given
 
-  given BSONHandler[ColorChoice] = BSONIntegerHandler.as[ColorChoice](
-    {
-      case 1 => ColorChoice.White
-      case 2 => ColorChoice.Black
-      case _ => ColorChoice.Random
-    },
-    {
-      case ColorChoice.White  => 1
-      case ColorChoice.Black  => 2
-      case ColorChoice.Random => 0
-    }
-  )
+  given BSONHandler[ColorChoice] =
+    val map = Map(
+      0 -> ColorChoice.Random,
+      1 -> ColorChoice.White,
+      2 -> ColorChoice.Black
+    )
+    valueMapHandler[Int, ColorChoice](map)(i => map.find(_._2 == i).so(_._1))
+
   given BSON[TimeControl] with
     import chess.Clock
     def reads(r: Reader) =

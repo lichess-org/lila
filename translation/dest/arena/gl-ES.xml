@@ -78,8 +78,8 @@ Por exemplo, ficar en 3º lugar nun torneo de 100 xogadores = 3%. Ficar 10º nun
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Todas as medias nesta páxina son %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Media de puntos</string>
-  <string name="pointsSum">Suma dos puntos</string>
-  <string name="rankAvg">Clasificación media</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Suma dos puntos</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Clasificación media</string>
   <string name="tournamentWinners">Gañadores do torneo</string>
   <string name="tournamentShields">Torneos de Escudo</string>
   <string name="onlyTitled">Só xogadores titulados</string>

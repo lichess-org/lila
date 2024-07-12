@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Turite 30 sekundžių pažymėti kiek galima daugiau langelių!</string>
   <string name="goAsLongAsYouWant">Žymėkite kiek tik norite, laiko limito nėra!</string>
   <string name="showCoordinates">Rodyti koordinates</string>
+  <string name="showCoordsOnAllSquares">Kiekvieno laukelio koordinatės</string>
   <string name="showPieces">Rodyti figūras</string>
   <string name="startTraining">Pradėti treniruotę</string>
   <string name="findSquare">Rasti langelį</string>

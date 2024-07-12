@@ -70,8 +70,8 @@
   <string name="promoteVariation">Promouvoir la variante</string>
   <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Fermer les variantes</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Afficher les variantes</string>
+  <string name="collapseVariations">Fermer les variantes</string>
+  <string name="expandVariations">Afficher les variantes</string>
   <string name="forceVariation">Forcer la variante</string>
   <string name="copyVariationPgn">Copier le PGN de la variante</string>
   <string name="move">Coup</string>
@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Choisissez un sage nom pour le tournoi.</string>
   <string name="inappropriateNameWarning">Toute conduite inappropriée aboutira à la fermeture de votre compte.</string>
   <string name="emptyTournamentName">Laissez vide pour que le tournoi soit nommé d\'après le nom d\'un grand maître.</string>
-  <string name="recommendNotTouching">Nous recommandons de ne pas modifier cela.</string>
-  <string name="fewerPlayers">Si vous définissez des conditions d\'admission, votre tournoi aura moins de joueurs.</string>
-  <string name="showAdvancedSettings">Afficher les paramètres avancés</string>
   <string name="makePrivateTournament">Rendre le tournoi privé et en restreindre l\'accès avec un mot de passe</string>
   <string name="join">Rejoindre</string>
   <string name="withdraw">Renoncer</string>
@@ -509,8 +506,7 @@
   <string name="ifNoneLeaveEmpty">Sinon, laissez vide</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Modifier le profil</string>
-  <string name="firstName">Prénom</string>
-  <string name="lastName">Nom</string>
+  <string name="realName">Nom réel</string>
   <string name="setFlair">Choisir votre émoji</string>
   <string name="flair">Émoji</string>
   <string name="youCanHideFlair">Un paramètre permet de cacher les émojis des utilisateurs sur tout le site.</string>
@@ -557,9 +553,7 @@
   <string name="reason">Motif</string>
   <string name="whatIsIheMatter">Quel est le problème ?</string>
   <string name="cheat">Triche</string>
-  <string name="insult">Insulte</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation du classement</string>
   <string name="other">Autre</string>
   <string name="reportDescriptionHelp">Copiez le(s) lien(s) vers les parties et expliquez en quoi le comportement de cet utilisateur est inapproprié. Ne dites pas juste \"il triche\", mais expliquez comment vous êtes arrivé à cette conclusion. Votre rapport sera traité plus vite s\'il est écrit en anglais.</string>
   <string name="error.provideOneCheatedGameLink">Merci de fournir au moins un lien vers une partie où il y a eu triche.</string>
@@ -594,6 +588,7 @@
   <string name="slow">Lente</string>
   <string name="insideTheBoard">Sur l\'échiquier</string>
   <string name="outsideTheBoard">En dehors de l\'échiquier</string>
+  <string name="allSquaresOfTheBoard">Toutes les cases</string>
   <string name="onSlowGames">Durant les parties lentes</string>
   <string name="always">Toujours</string>
   <string name="never">Jamais</string>

@@ -7,14 +7,12 @@ import play.api.data.validation.*
 import lila.core.config.NetDomain
 import lila.core.LightUser
 import lila.core.report.SuspectId
+import lila.common.Form.cleanNonEmptyText
 
-final private[report] class ReportForm(
-    lightUserAsync: LightUser.Getter,
-    domain: NetDomain
-):
+final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>
-    if setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined
-    then Valid
+    val gameLinkRequired = setup.reason == Reason.Cheat.key || setup.reason == Reason.Stall.key
+    if !gameLinkRequired || ReportForm.hasGameLink(setup.text) then Valid
     else Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
 
   def create(using me: MyId) = Form:
@@ -30,7 +28,7 @@ final private[report] class ReportForm(
           u => !UserId.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
-      "text"   -> text(minLength = 5, maxLength = 2000)
+      "text"   -> cleanNonEmptyText(minLength = 5)
     ) { (username, reason, text) =>
       ReportSetup(
         user = blockingFetchUser(username).err("Unknown username " + username),
@@ -39,19 +37,23 @@ final private[report] class ReportForm(
       )
     }(_.values.some)
       .verifying(cheatLinkConstraint)
+      .verifying(s"Maximum report length is 3000 characters", _.text.length <= 3000)
 
   val flag = Form:
     mapping(
       "username" -> lila.common.Form.username.historicalField,
       "resource" -> nonEmptyText,
-      "text"     -> text(minLength = 3, maxLength = 140)
+      "text"     -> text(minLength = 1, maxLength = 140)
     )(ReportFlag.apply)(unapply)
 
   private def blockingFetchUser(username: UserStr) =
     lightUserAsync(username.id).await(1 second, "reportUser")
 
 object ReportForm:
-  def gameLinkRegex(domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
+  private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
+  def gameLinks(text: String)(using NetDomain) =
+    gameLinkRegex.findAllMatchIn(text).take(20).map(m => GameId(m.group(1))).toList
+  def hasGameLink(text: String)(using NetDomain) = gameLinks(text).nonEmpty
 
 private[report] case class ReportFlag(
     username: UserStr,

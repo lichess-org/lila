@@ -77,8 +77,8 @@ Par exemple, être classé 3e dans un tournoi de 100 joueurs = 3 %. Être class
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Toutes les moyennes sur cette page sont des %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Moyenne des points</string>
-  <string name="pointsSum">Somme des points</string>
-  <string name="rankAvg">Classement moyen</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Somme des points</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Classement moyen</string>
   <string name="tournamentWinners">Vainqueurs du tournoi</string>
   <string name="tournamentShields">Tournois des Boucliers</string>
   <string name="onlyTitled">Uniquement les joueurs titrés</string>

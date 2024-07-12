@@ -7,15 +7,15 @@
   <string name="prizeBanned">El teu compte té prohibit jugar tornejos amb premis reals.</string>
   <string name="boosterMarked">El teu compte està marcat com a manipulació de la puntuació.</string>
   <string name="boosterMarkedInfo">Ho definim com manipular la puntuació perdent partides expressament, o jugant contra un altre compte que està perdent partides deliberadament.</string>
-  <string name="accountMuted">El teu compte està silenciat.</string>
-  <string name="accountMutedInfo">Llegiu la nostra %s. No respectar les normes de comunicació pot provocar que els comptes se silenciïn.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">El teu compte està silenciat.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Llegiu la nostra %s. No respectar les normes de comunicació pot provocar que els comptes se silenciïn.</string>
   <string name="excludedFromLeaderboards">El vostre compte ha estat exclòs de les classificacions.</string>
   <string name="excludedFromLeaderboardsInfo">Ho definim com fer servir alguna forma bruta per pujar a la clarificació.</string>
   <string name="closedByModerators">El vostre compte ha estat tancat pels moderadors.</string>
   <string name="hiddenBlog">Les vostres entrades del blog han estat amagades pels moderadors.</string>
   <string name="hiddenBlogInfo">Assegureu-vos de llegir de nou la nostra %s.</string>
-  <string name="playTimeout">Teniu un temps d\'espera per jugar.</string>
-  <string name="communicationGuidelines">guia de comunicació</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Teniu un temps d\'espera per jugar.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">guia de comunicació</string>
   <string name="blogRules">normes del blog</string>
   <string name="fairPlay">Joc net</string>
 </resources>

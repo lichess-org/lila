@@ -69,8 +69,8 @@
   <string name="promoteVariation">変化を主手順にする</string>
   <string name="makeMainLine">主手順にする</string>
   <string name="deleteFromHere">これ以降を削除</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">変化手順をかくす</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">変化手順を表示する</string>
+  <string name="collapseVariations">変化手順をかくす</string>
+  <string name="expandVariations">変化手順を表示する</string>
   <string name="forceVariation">変化として表示</string>
   <string name="copyVariationPgn">手順の PGN をコピー</string>
   <string name="move">手</string>
@@ -435,9 +435,6 @@
   <string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
   <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを停止することがあります。</string>
   <string name="emptyTournamentName">空白のままにしておくと、自動でランダムな有名選手の名前がつきます。</string>
-  <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
-  <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
-  <string name="showAdvancedSettings">「高度な設定」を表示</string>
   <string name="makePrivateTournament">トーナメントを「非公開」にすると参加にパスワードが必要になります</string>
   <string name="join">参加する</string>
   <string name="withdraw">参加をやめる</string>
@@ -477,8 +474,7 @@
   <string name="ifNoneLeaveEmpty">ない場合は空白で</string>
   <string name="profile">プロフィール</string>
   <string name="editProfile">プロフィールの編集</string>
-  <string name="firstName">名</string>
-  <string name="lastName">姓</string>
+  <string name="realName">実名</string>
   <string name="setFlair">フレアを設定</string>
   <string name="flair">フレア</string>
   <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
@@ -524,9 +520,7 @@
   <string name="reason">理由</string>
   <string name="whatIsIheMatter">どうされましたか？</string>
   <string name="cheat">ソフト使用</string>
-  <string name="insult">侮辱</string>
   <string name="troll">荒らし</string>
-  <string name="ratingManipulation">レーティング不正操作</string>
   <string name="other">その他</string>
   <string name="reportDescriptionHelp">問題のゲームへのリンクを貼って、相手ユーザーの問題点を説明してください。ただ「イカサマだ」と言うのではなく、なぜそう思うか理由を書いてください。英語で書くと対応が早くできます。</string>
   <string name="error.provideOneCheatedGameLink">不正のあった対局 1 局以上へのリンクを添えてください。</string>
@@ -561,6 +555,7 @@
   <string name="slow">遅い</string>
   <string name="insideTheBoard">盤の内</string>
   <string name="outsideTheBoard">盤の外</string>
+  <string name="allSquaresOfTheBoard">すべてのマスに</string>
   <string name="onSlowGames">長時間の対局のみ</string>
   <string name="always">常に有効</string>
   <string name="never">無効</string>

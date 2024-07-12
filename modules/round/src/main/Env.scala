@@ -166,7 +166,7 @@ final class Env(
 
   lazy val recentTvGames = wire[RecentTvGames]
 
-  private lazy val botFarming = wire[BotFarming]
+  private lazy val farmBoostDetection = wire[FarmBoostDetection]
 
   lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
 

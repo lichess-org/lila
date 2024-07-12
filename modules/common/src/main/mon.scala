@@ -157,6 +157,9 @@ object mon:
     object correspondenceEmail:
       val emails = histogram("round.correspondenceEmail.emails").withoutTags()
       val time   = future("round.correspondenceEmail.time")
+    object farming:
+      val bot         = counter("round.farming.bot").withoutTags()
+      val provisional = counter("round.farming.provisional").withoutTags()
   object playban:
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
     object ban:
@@ -277,16 +280,20 @@ object mon:
     def zoneSegment(name: String) = future("mod.zone.segment", name)
   object relay:
     private def by(official: Boolean) = if official then "official" else "user"
-    private def relay(official: Boolean, slug: String) =
-      tags("by" -> by(official), "slug" -> slug)
-    def ongoing(official: Boolean)                 = gauge("relay.ongoing").withTag("by", by(official))
-    def games(official: Boolean, slug: String)     = gauge("relay.games").withTags(relay(official, slug))
-    def moves(official: Boolean, slug: String)     = counter("relay.moves").withTags(relay(official, slug))
-    def fetchTime(official: Boolean, slug: String) = timer("relay.fetch.time").withTags(relay(official, slug))
-    def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
-    def tourCrowd(tourId: RelayTourId)             = gauge("relay.tour.crowd").withTag("tour", tourId.value)
+    private def relay(official: Boolean, id: RelayTourId, slug: String) =
+      tags("by" -> by(official), "slug" -> s"$slug/$id")
+    def ongoing(official: Boolean) = gauge("relay.ongoing").withTag("by", by(official))
+    def games(official: Boolean, id: RelayTourId, slug: String) =
+      gauge("relay.games").withTags(relay(official, id, slug))
+    def moves(official: Boolean, id: RelayTourId, slug: String) =
+      counter("relay.moves").withTags(relay(official, id, slug))
+    def fetchTime(official: Boolean, id: RelayTourId, slug: String) =
+      timer("relay.fetch.time").withTags(relay(official, id, slug))
+    def syncTime(official: Boolean, id: RelayTourId, slug: String) =
+      timer("relay.sync.time").withTags(relay(official, id, slug))
     def httpGet(host: String, proxy: Option[String]) =
       future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
+    val dedup = counter("relay.fetch.dedup").withoutTags()
 
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
@@ -328,6 +335,9 @@ object mon:
     object verifyMailApi:
       def fetch(success: Boolean, ok: Boolean) =
         timer("verifyMail.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
+    object mailcheckApi:
+      def fetch(success: Boolean, ok: Boolean) =
+        timer("mailcheck.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
     def usersAlikeTime(field: String)  = timer("security.usersAlike.time").withTag("field", field)
     def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
     object hCaptcha:
