@@ -38,7 +38,7 @@ export async function tsc(): Promise<void> {
           );
       }
       const o = ref.compilerOptions ?? {};
-      if (!o.isolatedDeclarations && (o.composite || o.declaration || o.emitDeclarationOnly))
+      if (!o.isolatedDeclarations && !o.noEmit && (o.composite || o.declaration || o.emitDeclarationOnly))
         env.log(`[${c.grey(module)}] - Convert to ${c.yellow('isolatedDeclarations')}`, { ctx: 'tsc' });
     }
 
