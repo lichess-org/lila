@@ -50,7 +50,7 @@ export type Action =
   | { selector: string; event?: string | string[]; listener: ActionListener }
   | { selector: string; event?: string | string[]; result: string };
 
-export const ready = site.load.then(async () => {
+export const ready: Promise<boolean> = site.load.then(async () => {
   window.addEventListener('resize', onResize);
   if (window.HTMLDialogElement) return true;
   dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
