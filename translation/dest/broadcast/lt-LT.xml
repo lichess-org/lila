@@ -41,4 +41,6 @@
   <string name="deleteTournament">Ištrinti šį turnyrą</string>
   <string name="definitivelyDeleteTournament">Užtikrintai ištrinti visą turnyrą, visus raundus ir visas jų partijas.</string>
   <string name="automaticLeaderboard">Automatinė lyderių lentelė</string>
+  <string name="automaticLeaderboardHelp">Apskaičiuokite ir parodykite paprastą lyderių lentelę pagal žaidimo rezultatus</string>
+  <string name="replacePlayerTags">Pasirenkama: pakeiskite žaidėjų vardus, reitingus ir titulus</string>
 </resources>
