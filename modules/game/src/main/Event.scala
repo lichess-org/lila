@@ -157,15 +157,7 @@ object Event:
   object PossibleMoves:
     def json(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
-      else
-        val sb    = new java.lang.StringBuilder(128)
-        var first = true
-        moves.foreach: (orig, dests) =>
-          if first then first = false
-          else sb.append(" ")
-          sb.append(orig.key)
-          dests.foreach(s => sb.append(s.key))
-        JsString(sb.toString)
+      else JsString(chess.json.Json.destString(moves))
 
     def oldJson(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
