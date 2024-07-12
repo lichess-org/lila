@@ -1,4 +1,5 @@
 import { Attrs, h, VNode } from 'snabbdom';
+import { MaybeVNode } from './snabbdom';
 
 export interface HasRating {
   rating?: number;
@@ -57,7 +58,7 @@ export const userTitle = (u: HasTitle): VNode | undefined =>
     ? h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0'])
     : undefined;
 
-export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
+export const fullName = (u: AnyUser): MaybeVNode[] => [userTitle(u), u.name, userFlair(u)];
 
 export const userRating = (u: HasRating): string | undefined => {
   if (u.rating) {

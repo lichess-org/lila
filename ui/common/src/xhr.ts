@@ -74,7 +74,7 @@ export const form = (data: any): FormData => {
 };
 
 /* constructs a url with escaped parameters */
-export const url = (path: string, params: { [k: string]: string | number | boolean | undefined }) => {
+export const url = (path: string, params: { [k: string]: string | number | boolean | undefined }): string => {
   const searchParams = new URLSearchParams();
   for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k] as string);
   const query = searchParams.toString();
