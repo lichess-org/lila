@@ -2,12 +2,12 @@ let primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydow
 let wakeLock: WakeLockSentinel | null = null;
 let keepScreenAwake = false;
 
-export function request() {
+export function request(): void {
   keepScreenAwake = true;
   acquire();
 }
 
-export function release() {
+export function release(): void {
   keepScreenAwake = false;
   wakeLock?.release().catch(() => {});
   wakeLock = null;

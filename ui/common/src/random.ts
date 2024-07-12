@@ -1,4 +1,4 @@
-export const randomToken = () => {
+export const randomToken = (): string => {
   try {
     const data = window.crypto.getRandomValues(new Uint8Array(9));
     return btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');

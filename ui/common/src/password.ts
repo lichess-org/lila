@@ -1,4 +1,4 @@
-export const addPasswordVisibilityToggleListener = () => {
+export const addPasswordVisibilityToggleListener = (): void => {
   $('.password-wrapper').each(function (this: HTMLElement) {
     const $wrapper = $(this);
     const $button = $wrapper.find('.password-reveal');
