@@ -5,7 +5,7 @@ import scalalib.model.Days
 class PlaybanTest extends munit.FunSuite:
 
   val userId   = UserId("user")
-  val brandNew = Days(0)
+  val brandNew = Days(scalalib.time.daysBetween(nowInstant.minusHours(1), nowInstant)) // 0
 
   test("empty"):
     val rec = UserRecord(userId, none, none, none)
@@ -17,10 +17,10 @@ class PlaybanTest extends munit.FunSuite:
 
   test("new 2 aborts"):
     val rec = UserRecord(userId, Vector.fill(2)(Outcome.Abort).some, none, none)
-    assertEquals(rec.bannable(brandNew), None)
+    assert(rec.bannable(brandNew).isDefined)
 
-  test("new 3 aborts"):
-    val rec = UserRecord(userId, Vector.fill(3)(Outcome.Abort).some, none, none)
+  test("new 1 good and 3 aborts"):
+    val rec = UserRecord(userId, Some(Outcome.Good +: Vector.fill(3)(Outcome.Abort)), none, none)
     assert(rec.bannable(brandNew).isDefined)
 
   test("good and aborts"):
