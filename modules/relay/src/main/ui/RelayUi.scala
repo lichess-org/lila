@@ -48,9 +48,12 @@ final class RelayUi(helpers: Helpers)(
       )
       .zoom
       .graph(
-        title = rt.fullName,
-        url = s"$netBaseUrl${rt.path}",
-        description = shorten(rt.tour.info.toString, 152)
+        OpenGraph(
+          title = rt.fullName,
+          url = s"$netBaseUrl${rt.path}",
+          description = shorten(rt.tour.info.toString, 152),
+          image = rt.tour.image.flatMap(imgId => Some(thumbnail.url(imgId, _.Size.Large)))
+        )
       ):
         main(cls := "analyse is-relay has-relay-tour")(
           div(cls := "box relay-tour")(
