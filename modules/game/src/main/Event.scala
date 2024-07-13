@@ -104,7 +104,7 @@ object Event:
       threefold = situation.threefoldRepetition,
       promotion = move.promotion.map { Promotion(_, move.dest) },
       enpassant = move.capture.ifTrue(move.enpassant).map(Event.Enpassant(_, !move.color)),
-      castle = move.castle.map(c => Castling(c.king, c.kingTo, c.rook, c.rookTo, move.color)),
+      castle = move.castle.map(Castling(_, move.color)),
       state = state,
       clock = clock,
       possibleMoves = situation.destinations,
@@ -181,9 +181,10 @@ object Event:
         "color" -> color
       )
 
-  case class Castling(king: Square, kingTo: Square, rook: Square, rookTo: Square, color: Color) extends Event:
+  case class Castling(castle: ChessMove.Castle, color: Color) extends Event:
     def typ = "castling"
     def data =
+      import castle.*
       Json.obj(
         "king"  -> Json.arr(king.key, kingTo.key),
         "rook"  -> Json.arr(rook.key, rookTo.key),
