@@ -52,7 +52,7 @@ final class RelayUi(helpers: Helpers)(
           title = rt.fullName,
           url = s"$netBaseUrl${rt.path}",
           description = shorten(rt.tour.info.toString, 152),
-          image = rt.tour.image.flatMap(imgId => Some(thumbnail.url(imgId, _.Size.Large)))
+          image = rt.tour.image.map(thumbnail.url(_, _.Size.Large))
         )
       ):
         main(cls := "analyse is-relay has-relay-tour")(
