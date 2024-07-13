@@ -155,6 +155,7 @@ object Event:
     )
 
   object PossibleMoves:
+    // We need to keep this implementation for compatibility
     def json(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
