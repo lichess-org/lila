@@ -30,6 +30,9 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
       : chapters.map((c, i) => {
           const status =
             !c.status || c.status == '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
+          const pov = c.orientation || 'white';
+          let players = [c.players?.black, c.players?.white];
+          players = pov == 'white' ? players : players.reverse()
           return h(
             `a.relay-game.relay-game--${c.id}`,
             {
@@ -43,7 +46,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               cloudEval && verticalEvalGauge(c, cloudEval),
               h(
                 'span.relay-game__players',
-                [c.players?.black, c.players?.white].map((p, i) => {
+                players.map((p, i) => {
                   const s = status[i];
                   return h(
                     'span.relay-game__player',
