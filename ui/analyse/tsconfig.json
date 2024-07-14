@@ -5,6 +5,7 @@
     "noEmit": true
   },
   "references": [
+    { "path": "../bits/tsconfig.json" },
     { "path": "../ceval/tsconfig.json" },
     { "path": "../chart/tsconfig.json" },
     { "path": "../chat/tsconfig.json" },
