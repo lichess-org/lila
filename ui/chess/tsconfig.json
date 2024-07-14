@@ -5,8 +5,7 @@
     "outDir": "./dist",
     "rootDir": "src",
     "composite": true,
-    "isolatedDeclarations": true,
-    "isolatedModules": true
+    "isolatedDeclarations": true
   },
   "references": [{ "path": "../common/tsconfig.json" }]
 }

@@ -116,7 +116,7 @@ export class EditDialog implements PaneHost {
 
   private async clickImage(e: Event) {
     if (e.target !== e.currentTarget) return;
-    const newImage = await assetDialog(this.botCtrl.assetDb, 'image', true);
+    const newImage = await assetDialog(this.botCtrl.assetDb, 'image');
     if (!newImage) return;
     this.bot.image = newImage;
     this.hand.updateCards();
@@ -240,7 +240,7 @@ export class EditDialog implements PaneHost {
       { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
       { selector: '.bot-json-all', listener: () => this.showJson() },
       { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
-      { selector: '.bot-assets', listener: () => assetDialog(this.botCtrl.assetDb, 'image') },
+      { selector: '.bot-assets', listener: () => assetDialog(this.botCtrl.assetDb) },
       { selector: '.bot-unrate-all', listener: () => this.clearRatings() },
       { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
       { selector: '.bot-clear-all', listener: () => this.clearBots() },

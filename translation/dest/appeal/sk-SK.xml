@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Váš účet nie je označený ani obmedzený. Všetko je v poriadku!</string>
+  <string name="engineMarked">Váš účet je označený kvôli externej pomoci v partiách.</string>
+  <string name="engineMarkedInfo">Definujeme to ako využívanie akejkoľvek externej pomoci na posilnenie svojich vedomostí a/alebo schopností kalkulácie s cieľom získať neférovú výhodu nad súperom. Viac informácií nájdete na stránke %s.</string>
+  <string name="arenaBanned">Vášmu účtu je zakázané vstupovať do arén.</string>
+  <string name="prizeBanned">Váš účet má zakázané zúčastňovať sa turnajov so skutočnými cenami.</string>
+  <string name="boosterMarked">Váš účet je označený kvôli manipulácii s ratingom.</string>
+  <string name="boosterMarkedInfo">Definujeme to ako úmyselnú manipuláciu s ratingom prostredníctvom úmyselného prehrávania partií alebo hrania proti inému účtu, ktorý partie úmyselne prehráva.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Posielanie správ je u Vášho konta zakázané.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Prečítajte si naše %s. Nedodržanie komunikačných pokynov môže viesť k zákazu posielania správ.</string>
+  <string name="excludedFromLeaderboards">Vaše konto bolo vylúčené z rebríčkov.</string>
+  <string name="excludedFromLeaderboardsInfo">Definujeme to ako používanie akéhokoľvek neférového spôsobu, ako sa dostať do rebríčka.</string>
+  <string name="closedByModerators">Váš účet bol zrušený moderátormi.</string>
+  <string name="hiddenBlog">Vaše blogy boli skryté moderátormi.</string>
+  <string name="hiddenBlogInfo">Nezabudnite si znovu prečítať naše %s.</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Máte dočasný zákaz hrania.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">komunikačné smernice</string>
+  <string name="blogRules">pravidlá blogovania</string>
+  <string name="fairPlay">Fair Play</string>
+</resources>

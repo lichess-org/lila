@@ -124,6 +124,7 @@ export function boot() {
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
+    if (site.debug) site.asset.loadEsm('bits.devMode');
     if (showDebug) site.asset.loadEsm('bits.diagnosticDialog');
 
     const pageAnnounce = document.body.getAttribute('data-announce');

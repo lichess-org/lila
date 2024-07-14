@@ -78,6 +78,7 @@ export interface LichessModule {
   post: string[][]; // post-bundle build steps from package.json scripts
   hasTsconfig?: boolean; // fileExists('tsconfig.json')
   bundles?: string[];
+  hashGlobs?: string[];
   sync?: Sync[]; // pre-bundle filesystem copies from package json
 }
 
@@ -156,6 +157,9 @@ class Env {
   }
   get outDir(): string {
     return path.join(this.rootDir, 'public');
+  }
+  get hashDir(): string {
+    return path.join(this.outDir, 'hashed');
   }
   get themeDir(): string {
     return path.join(this.uiDir, 'common', 'css', 'theme');

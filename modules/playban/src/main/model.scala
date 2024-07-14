@@ -45,7 +45,7 @@ case class UserRecord(
       case _     => 2
 
   def badOutcomesStreakSize(age: Days): Int =
-    if age <= 1
+    if age < 1
     then 3
     else if bans.size == 0 then 6
     else if bans.size < 3 then 5
@@ -62,6 +62,9 @@ case class UserRecord(
           val streakSize = badOutcomesStreakSize(age)
           outcomes.sizeIs >= streakSize &&
           outcomes.takeRight(streakSize).forall(Outcome.Good !=)
+        } || {
+          // bad first 2 games
+          age < 1 && outcomes.sizeIs == 2 && outcomes.forall(Outcome.Good !=)
         }
       }
     }
@@ -105,13 +108,14 @@ object TempBan:
     */
   def make(bans: Vector[TempBan], age: Days): TempBan =
     make {
-      (bans.lastOption
-        .so { prev =>
+      val base = bans.lastOption
+        .so: prev =>
           prev.endsAt.toNow.toHours.toSaturatedInt match
             case h if h < 72 => prev.mins * (132 - h) / 60
             case h           => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
-        }
-        .atLeast(baseMinutes)) * (if age <= 3 then 2 else 1)
+        .atLeast(baseMinutes)
+      val multiplier = if age == Days(0) then 3 else if age <= 3 then 2 else 1
+      base * multiplier
     }
 
 enum Outcome(val id: Int, val name: String):

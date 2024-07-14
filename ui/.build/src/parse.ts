@@ -3,10 +3,11 @@ import * as path from 'node:path';
 import * as fg from 'fast-glob';
 import { LichessModule, env, colors as c } from './main';
 
-export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<string, string[]>]> => {
+export async function parseModules(): Promise<[Map<string, LichessModule>, Map<string, string[]>]> {
   const modules = new Map<string, LichessModule>();
   const moduleDeps = new Map<string, string[]>();
 
+  const mainPkg = JSON.parse(await fs.promises.readFile(path.join(env.uiDir, 'package.json'), 'utf8'));
   for (const dir of (await globArray('[^@.]*/package.json')).map(pkg => path.dirname(pkg))) {
     const mod = await parseModule(dir);
     modules.set(mod.name, mod);
@@ -20,16 +21,25 @@ export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<s
     moduleDeps.set(mod.name, deplist);
   }
   return [modules, moduleDeps];
-};
+}
 
-export async function globArray(
-  glob: string,
-  { cwd = env.uiDir, abs = true, dirs = false } = {},
-): Promise<string[]> {
+export async function globArray(glob: string, opts: fg.Options = {}): Promise<string[]> {
   const files: string[] = [];
-  for await (const f of fg.stream(glob, { cwd, absolute: abs, onlyFiles: !dirs }))
+  for await (const f of fg.stream(glob, {
+    cwd: env.uiDir,
+    absolute: true,
+    onlyFiles: true,
+    ...opts,
+  })) {
     files.push(f.toString('utf8'));
+  }
   return files;
+}
+
+export async function globArrays(globs: string[] | undefined, opts: fg.Options = {}): Promise<string[]> {
+  if (!globs) return [];
+  const globResults = await Promise.all(globs.map(g => globArray(g, opts)));
+  return [...new Set<string>(globResults.flat())];
 }
 
 async function parseModule(moduleDir: string): Promise<LichessModule> {
@@ -43,6 +53,9 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     hasTsconfig: fs.existsSync(path.join(moduleDir, 'tsconfig.json')),
   };
 
+  if ('lichess' in pkg && 'hashed' in pkg.lichess) {
+    mod.hashGlobs = pkg.lichess.hashed as string[];
+  }
   if ('lichess' in pkg && 'bundles' in pkg.lichess) {
     if (typeof pkg.lichess.bundles === 'string') mod.bundles = [pkg.lichess.bundles];
     else mod.bundles = pkg.lichess.bundles as string[];

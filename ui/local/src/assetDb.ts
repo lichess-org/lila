@@ -5,11 +5,11 @@ import type { PolyglotBook } from 'bits/types';
 
 export type AssetType = 'net' | 'book' | 'image' | 'sound';
 export class AssetDb {
-  private db = {
-    net: new Store('nets'),
-    book: new Store('books'),
-    image: new Store('images'),
-    sound: new Store('sounds'),
+  private db: { [key in AssetType]: Store } = {
+    net: new Store('net'),
+    book: new Store('book'),
+    image: new Store('image'),
+    sound: new Store('sound'),
   };
   private cached: {
     net: Map<string, NetData>;
@@ -26,22 +26,20 @@ export class AssetDb {
     const then = Date.now();
     this.cached = { net: new Map(), book: new Map(), image: new Map(), sound: new Map() };
     await Promise.allSettled(Object.values(this.db).map(s => s.init()));
-    const imageKeys = await this.db.image.list();
-    const images = (await Promise.allSettled(imageKeys.map(k => this.db.image.get(k)) ?? [])).map(
-      r => r.status === 'fulfilled' && r.value,
-    );
-    for (let i = 0; i < imageKeys.length; i++) {
-      const [key, data] = [imageKeys[i], images[i]];
-      const o = { type: extToMime(key) };
-      if (data) this.cached.image.set(key, URL.createObjectURL(new Blob([data], o)));
+    const [sounds, images] = await Promise.all([this.db.sound.getAll(), this.db.image.getAll()]);
+    for (const [key, data] of sounds) {
+      this.cached.sound.set(key, URL.createObjectURL(new Blob([data], { type: 'audio/mpeg' })));
+    }
+    for (const [key, data] of images) {
+      this.cached.image.set(key, URL.createObjectURL(new Blob([data], { type: extToMime(key) })));
     }
     if (this.remote) await this.setBotEditorAssets();
     console.log('AssetDb init', Date.now() - then, 'ms');
     return this;
   }
 
-  local(type: AssetType): Promise<string[]> {
-    return this.db[type].list();
+  async local(type: AssetType): Promise<string[]> {
+    return (await this.db[type].list()).filter(k => !this.remote?.[type].includes(k));
   }
 
   async add(type: AssetType, key: string, file: Blob): Promise<void> {
@@ -50,6 +48,7 @@ export class AssetDb {
       const oldUrl = this.cached[type].get(key);
       if (oldUrl) URL.revokeObjectURL(oldUrl);
       this.cached[type].set(key, URL.createObjectURL(file));
+      console.log(type, key, this.cached[type].get(key));
     }
     this.setBotEditorAssets(); // TODO, update dialog somehow
   }
@@ -92,6 +91,7 @@ export class AssetDb {
   }
 
   getSoundUrl(key: string): string {
+    console.log(key, this.cached.sound.get(key));
     return this.cached.sound.get(key) ?? botAssetUrl(`sounds/${key}`);
   }
 
@@ -144,18 +144,22 @@ function extToMime(filename: string) {
 
 class Store {
   store: ObjectStorage<Uint8Array, string>;
-  constructor(readonly type: string) {}
+  constructor(readonly type: AssetType) {}
   async init() {
-    this.store = await objectStorage<Uint8Array, string>({ store: `local.${this.type}` });
+    this.store = await objectStorage<Uint8Array, string>({ store: `local.${this.type}s` });
     return this;
+  }
+  async getAll(): Promise<[string, Uint8Array][]> {
+    const list = await this.list();
+    return Promise.all(list.map(async k => [k, await this.store.get(k)]));
   }
   async get(key: string): Promise<Uint8Array> {
     const data =
       (await this.store?.get(key)) ??
-      (await fetch(botAssetUrl(`${this.type}/${key}`, false))
+      (await fetch(botAssetUrl(`${this.type}s/${key}`, false))
         .then(res => res.arrayBuffer())
         .then(buf => new Uint8Array(buf)));
-    if (!data) throw new Error(`error fetching ${this.type}/${key}`);
+    if (!data) throw new Error(`error fetching ${this.type}s/${key}`);
     this.store?.put(key, data);
     return data;
   }

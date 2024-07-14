@@ -15,6 +15,5 @@
     { "path": "../keyboardMove/tsconfig.json" },
     { "path": "../nvui/tsconfig.json" },
     { "path": "../tree/tsconfig.json" }
-  ],
-  "isolatedModules": true
+  ]
 }

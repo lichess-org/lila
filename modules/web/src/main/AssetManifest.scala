@@ -9,18 +9,24 @@ import java.nio.file.{ Files, Path, Paths }
 import lila.core.config.NetConfig
 
 case class SplitAsset(name: String, imports: List[String])
-case class AssetMaps(js: Map[String, SplitAsset], css: Map[String, String], modified: Instant)
+case class AssetMaps(
+    js: Map[String, SplitAsset],
+    css: Map[String, String],
+    hashed: Map[String, String],
+    modified: Instant
+)
 
 final class AssetManifest(environment: Environment, net: NetConfig)(using ws: StandaloneWSClient)(using
     Executor
 ) extends lila.ui.AssetManifest:
-  private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, java.time.Instant.MIN)
+  private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
   private val filename = s"manifest.${if net.minifiedAssets then "prod" else "dev"}.json"
   private val logger   = lila.log("assetManifest")
 
   def js(key: String): Option[SplitAsset]    = maps.js.get(key)
   def css(key: String): Option[String]       = maps.css.get(key)
+  def hashed(path: String): Option[String]   = maps.hashed.get(path)
   def deps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.imports) }.distinct
   def lastUpdate: Instant                    = maps.modified
 
@@ -82,7 +88,15 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         (k, s"$k.$hash.css")
       }
       .toMap
-    AssetMaps(js, css, nowInstant)
+    val hashed = (manifest \ "hashed")
+      .as[JsObject]
+      .value
+      .map { (k, asset) =>
+        val hashedName = (asset \ "hash").as[String]
+        (k, s"hashed/$hashedName")
+      }
+      .toMap
+    AssetMaps(js, css, hashed, nowInstant)
 
   private def fetchManifestJson(filename: String) =
     val resource = s"${net.assetBaseUrlInternal}/assets/json/$filename"

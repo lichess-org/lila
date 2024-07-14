@@ -302,6 +302,7 @@
 
 .asset-dialog {
   @extend %flex-column;
+  min-width: 704px;
   //gap: 1em;
   .asset-grid {
     display: grid;
@@ -310,6 +311,11 @@
     grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
     grid-auto-rows: auto;
     gap: 1em;
+  }
+  .tab {
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
   }
   img {
     width: 192px;

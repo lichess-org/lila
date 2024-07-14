@@ -4,10 +4,7 @@
     "name": "Terrence",
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
-    "books": [
-      { "name": "Performance.bin", "weight": 1 },
-      { "name": "varied.bin", "weight": 1 }
-    ],
+    "books": [{ "name": "Performance.bin", "weight": 1 }],
     "zero": { "multipv": 8, "net": "maia-1100.pb" }
   },
   {

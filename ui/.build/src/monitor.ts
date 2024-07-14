@@ -23,8 +23,8 @@ export function stopMonitor() {
 
 export async function startMonitor(mods: string[]) {
   if (!env.watch) return;
-  const typePkgs = await globArray('*/package.json', { cwd: env.typesDir, abs: true });
-  const typings = await globArray('*/*.d.ts', { cwd: env.typesDir, abs: true });
+  const typePkgs = await globArray('*/package.json', { cwd: env.typesDir, absolute: true });
+  const typings = await globArray('*/*.d.ts', { cwd: env.typesDir, absolute: true });
   const tscChange = (t: any) => {
     if (reinitTimeout) return;
     stopTsc();

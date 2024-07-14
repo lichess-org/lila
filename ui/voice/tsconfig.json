@@ -4,10 +4,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    //"emitDeclarationOnly": true,
     "composite": true
   },
-  "isolatedModules": true,
   "references": [
     { "path": "../common/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },

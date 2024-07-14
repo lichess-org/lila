@@ -75,7 +75,7 @@ export default function makeLog(): LichessLog {
   };
 
   function terseHref(): string {
-    return window.location.href.replace(/^(https:\/\/)?lichess(?:1?)\.org\//, '/');
+    return window.location.href.replace(/^(https:\/\/)?(?:lichess|lichess1)\.org\//, '/');
   }
 
   window.addEventListener('error', async e => {

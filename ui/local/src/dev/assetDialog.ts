@@ -3,15 +3,15 @@ import { AssetDb, type AssetType } from '../assetDb';
 import * as licon from 'common/licon';
 import { wireCropDialog } from 'bits/crop';
 
-export function assetDialog(db: AssetDb, type: AssetType, isChooser = false): Promise<string | undefined> {
-  if (type === 'image') wireCropDialog();
-  return new AssetDialog(db, type, isChooser).show();
+export function assetDialog(db: AssetDb, type?: AssetType): Promise<string | undefined> {
+  if (!type || type === 'image') wireCropDialog();
+  return new AssetDialog(db, type).show();
 }
 
 const mimeTypes: { [type in AssetType]: string[] } = {
   image: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
   book: ['application/x-chess-pgn', 'application/octet-stream'],
-  sound: ['audio/mpeg', 'audio/wav'],
+  sound: ['audio/mpeg'],
   net: [],
 };
 
@@ -19,12 +19,16 @@ class AssetDialog {
   private dlg: Dialog;
   private resolve?: (key: string | undefined) => void;
   private local: Set<string>;
+  private type: AssetType;
+  private isChooser: boolean;
 
   constructor(
     readonly db: AssetDb,
-    readonly type: AssetType,
-    readonly isChooser: boolean,
-  ) {}
+    type?: AssetType,
+  ) {
+    this.isChooser = type !== undefined;
+    this.type = type ?? 'image';
+  }
 
   get flavor() {
     return this.flavors[this.type];
@@ -32,6 +36,10 @@ class AssetDialog {
 
   get remote() {
     return this.db.remote?.[this.type];
+  }
+
+  get tab() {
+    return this.type;
   }
 
   show(): Promise<string | undefined> {
@@ -46,12 +54,13 @@ class AssetDialog {
         this.local = new Set(await this.db.local(this.type));
         this.dlg = await domDialog({
           class: 'dev-view asset-dialog',
-          htmlText: `<div class="asset-grid"></div>`,
+          htmlText: this.bodyHtml(),
           onClose: () => this.resolve?.(undefined),
           actions: [
             { selector: '.asset-grid', event: ['dragover', 'drop'], listener: this.dragDrop },
             { selector: '.remove', listener: this.remove },
-            { selector: '.asset-item', event: ['click'], listener: this.click },
+            { selector: '.asset-item', listener: this.clickItem },
+            { selector: '.tab', listener: this.clickTab },
           ],
         });
         this.refresh();
@@ -59,6 +68,16 @@ class AssetDialog {
       })(),
     );
   }
+
+  bodyHtml = () => {
+    if (this.isChooser) return `<div class="asset-grid"></div>`;
+    return `<div class="tabs-horiz" role="tabList">
+      <span class="tab ${this.type === 'image' ? 'active' : ''}" role="tab">images</span>
+      <span class="tab ${this.type === 'sound' ? 'active' : ''}" role="tab">sounds</span>
+      <span class="tab ${this.type === 'book' ? 'active' : ''}" role="tab">books</span>
+      </div>
+      <div class="asset-grid"></div>`;
+  };
 
   renderAsset = (key: string) => {
     const wrap = $as<HTMLElement>(`<div class="asset-item" data-asset="${key}">
@@ -73,7 +92,7 @@ class AssetDialog {
   dragDrop = (e: DragEvent): void => {
     e.preventDefault();
     const assetItem = (e.target as HTMLElement).closest('.asset-item');
-    if (this.isChooser && assetItem?.getAttribute('data-asset')) return;
+    if (assetItem?.getAttribute('data-asset')) return;
     if (e.type === 'dragover') {
       e.dataTransfer!.dropEffect = 'copy';
       return;
@@ -96,7 +115,18 @@ class AssetDialog {
     e.stopPropagation();
   };
 
-  click = (e: Event): void => {
+  clickTab = async (e: Event): Promise<void> => {
+    const tab = (e.currentTarget as HTMLElement).closest('.tab')!;
+    const type = tab?.textContent?.slice(0, -1) as AssetType;
+    if (!tab || type === this.type) return;
+    this.dlg.view.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    this.type = tab.textContent?.slice(0, -1) as AssetType;
+    this.local = new Set(await this.db.local(this.type));
+    this.refresh();
+  };
+
+  clickItem = (e: Event): void => {
     const item = (e.currentTarget as HTMLElement).closest('.asset-item') as HTMLElement;
     const oldKey = item?.getAttribute('data-asset');
     if (oldKey && this.isChooser) return this.resolve?.(oldKey);
@@ -107,13 +137,13 @@ class AssetDialog {
     const onchange = () => {
       fileInputEl.removeEventListener('change', onchange);
       if (!fileInputEl.files || fileInputEl.files.length < 1) return;
-      this.flavor.process(fileInputEl.files[0], item, (newKey: string, result: Blob) => {
+      this.flavor.process(fileInputEl.files[0], item, async (newKey: string, result: Blob) => {
         if (oldKey && newKey !== oldKey) {
           this.db.delete(this.type, oldKey);
           this.local.delete(oldKey);
         }
         this.local.add(newKey);
-        this.db.add(this.type, newKey, result);
+        await this.db.add(this.type, newKey, result);
         if (this.resolve) this.resolve(newKey);
         else this.refresh();
       });

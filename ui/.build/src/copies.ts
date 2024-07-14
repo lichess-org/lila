@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { globArray } from './parse';
+import { globArray, globArrays } from './parse';
+import { hashedManifest, writeManifest } from './manifest';
 import { Sync, env, errorMark, colors as c } from './main';
 
 const syncWatch: fs.FSWatcher[] = [];
@@ -15,33 +16,50 @@ export function stopCopies() {
 
 export async function copies() {
   if (!env.copies) return;
-  const watched = new Map<string, Sync[]>();
   const updated = new Set<string>();
+  const watched = new Map<string, Sync[]>();
 
-  const fire = () => {
-    updated.forEach(d => watched.get(d)?.forEach(globSync));
-    updated.clear();
-    watchTimeout = undefined;
-  };
   for (const mod of env.building) {
-    if (!mod?.sync) continue;
-    for (const cp of mod.sync) {
+    for (const cp of mod.sync ?? []) {
       for (const src of await globSync(cp)) {
         watched.set(src, [...(watched.get(src) ?? []), cp]);
       }
     }
-    if (!env.watch) continue;
+    const sources = await globArrays(mod.hashGlobs, { cwd: env.outDir, absolute: true });
+
+    for (const src of sources.filter(isUnmanagedAsset)) {
+      if (!watched.has(path.dirname(src))) watched.set(path.dirname(src), []);
+    }
+  }
+  if (env.watch)
     for (const dir of watched.keys()) {
       const watcher = fs.watch(dir);
+
       watcher.on('change', () => {
         updated.add(dir);
         clearTimeout(watchTimeout);
-        watchTimeout = setTimeout(fire, 2000);
+
+        watchTimeout = setTimeout(() => {
+          Promise.all([...updated].flatMap(d => (watched.get(d) ?? []).map(x => globSync(x)))).then(() => {
+            hashedManifest();
+            writeManifest();
+          });
+          updated.clear();
+          watchTimeout = undefined;
+        }, 2000);
       });
       watcher.on('error', (err: Error) => env.error(err));
       syncWatch.push(watcher);
     }
-  }
+  hashedManifest();
+}
+
+export function isUnmanagedAsset(absfile: string) {
+  if (!absfile.startsWith(env.outDir)) return false;
+  const name = absfile.slice(env.outDir.length + 1);
+  if (['compiled/', 'hashed/', 'css/'].some(dir => name.startsWith(dir))) return false;
+  if (/json\/manifest.*.json/.test(name)) return false;
+  return true;
 }
 
 async function globSync(cp: Sync): Promise<Set<string>> {
@@ -54,7 +72,7 @@ async function globSync(cp: Sync): Promise<Set<string>> {
       ? cp.src.slice(0, globIndex - 1)
       : path.dirname(cp.src.slice(0, globIndex));
 
-  const srcs = await globArray(cp.src, { cwd: cp.mod.root, abs: false });
+  const srcs = await globArray(cp.src, { cwd: cp.mod.root, absolute: false });
 
   watchDirs.add(path.join(cp.mod.root, globRoot));
   env.log(`[${c.grey(cp.mod.name)}] - Sync '${c.cyan(cp.src)}' to '${c.cyan(cp.dest)}'`);

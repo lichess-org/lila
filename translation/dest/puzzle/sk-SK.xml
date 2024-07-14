@@ -75,7 +75,7 @@
   <string name="failed">zlyhané</string>
   <string name="streakDescription">Riešte postupne ťažšie úlohy a dosiahnite nepretržitú sériu správnych riešení. Nie sú tu žiadne hodiny, takže sa neponáhľajte. Stačí jeden nesprávny ťah a séria sa končí! V každej sérii je však môžete jeden ťah vynechať.</string>
   <string name="yourStreakX">Vaša séria výhier: %s</string>
-  <string name="streakSkipExplanation">Preskočte tento ťah, aby ste neprerušili sériu! Funguje len raz za sériu.</string>
+  <string name="streakSkipExplanation">Preskočte tento ťah, aby ste neprerušili sériu! Funguje len raz za kolo.</string>
   <string name="continueTheStreak">Pokračovať v sérii výhier</string>
   <string name="newStreak">Nová séria výhier</string>
   <string name="fromMyGames">Z mojich partií</string>
@@ -100,7 +100,7 @@ Hrajte rapid a klasické partie, aby ste zvýšili svoje šance na pridanie úlo
     <item quantity="other">%s na zopakovanie</item>
   </plurals>
   <string name="percentSolved">%s vyriešených</string>
-  <string name="noPuzzlesToShow">Niet tu čo ukázať, choďte najprv riešiť pár úloh!</string>
+  <string name="noPuzzlesToShow">Niet čo zobraziť, vyriešte najprv zopár úloh!</string>
   <string name="improvementAreasDescription">Precvičujte tieto úlohy aby ste napredovali čo najrýchlejšie!</string>
   <string name="strengthDescription">Tieto témy Vám idú najlepšie</string>
 </resources>

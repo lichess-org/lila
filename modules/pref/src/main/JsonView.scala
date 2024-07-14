@@ -24,6 +24,7 @@ object JsonView:
       "clockSound"    -> p.clockSound,
       "premove"       -> p.premove,
       "animation"     -> p.animation,
+      "pieceNotation" -> p.pieceNotation,
       "captured"      -> p.captured,
       "follow"        -> p.follow,
       "highlight"     -> p.highlight,

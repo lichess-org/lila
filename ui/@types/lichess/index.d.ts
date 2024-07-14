@@ -81,7 +81,7 @@ interface Site {
   socket: any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
-  manifest: { css: Record<string, string>; js: Record<string, string> };
+  manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
 }
 
 interface EsmModuleOpts extends AssetUrlOpts {
@@ -175,7 +175,7 @@ interface SoundI {
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
   theme: string;
-  baseUrl: string;
+  url(name: string): string;
 }
 
 interface LichessSpeech {

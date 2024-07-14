@@ -42,10 +42,10 @@
   <string name="illegalPawnCapture">زدنِ غیرقانونیِ سرباز</string>
   <string name="calledEnPassant">این حرکت \"en passant\" نامیده می‌شود و یکی از قوانین شطرنج است.</string>
   <string name="tryEnPassant">این بازی تعاملی کوچک را امتحان کنید تا در مورد \"en passant\" بیشتر یاد بگیرید.</string>
-  <string name="illegalCastling">قلعه رفتن غیر ممکن یا غیر مجاز</string>
-  <string name="castlingPrevented">از قلعه‌زدن فقط وقتی جلوگیری می‌شود که شاه حرکتهای کنترل‌شده‌ای را انجام می‌دهد.</string>
-  <string name="castlingRules">مطمئن شوید که قوانین قلعه زدن را می‌فهمید</string>
-  <string name="tryCastling">این بازی تعاملی کوچک را امتحان کنید تا قلعه‌زدن را در شطرنج تمرین نمایید</string>
+  <string name="illegalCastling">قلعه‌روی نامجاز یا ناممکن</string>
+  <string name="castlingPrevented">از قلعه‌روی، هنگامی که شاه از خانه‌ی زیرِضرب می‌گذرد، جلوگیری می‌شود.</string>
+  <string name="castlingRules">اطمینان یابید که قانون‌های قلعه‌روی را می‌فهمید</string>
+  <string name="tryCastling">برای تمرین قلعه‌روی در شطرنج، این بازی اندرکنشی را انجام دهید</string>
   <string name="castlingImported">اگر که شما بازی را وارد و بارگذاری کرده‌اید، یا از یک موقعیت میانی (وسطِ بازی در جریان و به جز وضعیت اولیه) شروع کرده‌اید، مطمئن شوید که قوانین قلعه‌زدن را درست تنظیم می‌کنید.</string>
   <string name="insufficientMaterial">نبودِ مهره کافی برای مات کردن</string>
   <string name="fideMate">بازگشت به قوانین فیده برای شطرنج بخش 6.9، اگر کیش و مات با هر گونه سلسله حرکتهای قانونی ممکن باشد، آنگاه بازی مساوی نیست</string>
