@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">معماها</string>
-  <string name="puzzleThemes">معماهای دسته‌بندی شده</string>
+  <string name="puzzleThemes">موضوع معماها</string>
   <string name="recommended">توصیه شده</string>
   <string name="phases">مرحله‌ها</string>
   <string name="motifs">موضوعات</string>
