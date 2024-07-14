@@ -1,3 +1,5 @@
+@import 'default';
+
 @function _clear($color, $weight: 17%) {
   @return mix(#000, $color, $weight);
 }

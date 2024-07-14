@@ -39,7 +39,7 @@ class ZerofishMove {
     readonly mappings: Operators,
     readonly chess: co.Chess,
   ) {
-    const lc0bias = zero ? (this.mappings.lc0Bias ? this.from(this.mappings.lc0Bias) : 0.5) : 0;
+    const lc0bias = zero ? (this.mappings.lc0bias ? this.from(this.mappings.lc0bias) : 0.5) : 0;
 
     fish?.pvs
       .filter(x => x.moves[0])
@@ -51,7 +51,7 @@ class ZerofishMove {
           score: cp,
           shallowScore: score(pv, 0),
           cpl: Math.abs(this.score - cp),
-          weights: { lc0: 1 - lc0bias },
+          weights: {},
         };
         this.byMove[pv.moves[0]] = move;
         this.scored.push(move);
@@ -62,22 +62,24 @@ class ZerofishMove {
         const uci = pv.moves[0];
         this.zmoves.push(uci);
         const move = (this.byMove[uci] ??= { uci, weights: {} });
-
-        const lc0Weight = lc0bias * 2 ** -index;
-        const spice = !this.mappings.acplMean ? Math.random() - 0.5 : 0;
-        //const spice = isAcpl ? 1 : 0.5 + Math.random() / 2; // used to randomize multipv lc0 when no stockfish
-
-        if (this.mappings.acplMean || !move.weights.lc0) move.weights.lc0 = lc0Weight + spice;
+        this.byMove[uci].weights.lc0 = lc0bias;
         move.cpl ??= this.scored[this.scored.length - 1]?.cpl ?? 200;
         if (!this.scored.includes(move)) this.scored.push(move);
       });
     this.score ??= 0;
-    this.applyAcpl();
+    if (this.isAcpl) this.applyAcpl();
+    console.log(this.zmoves, this.scored);
+  }
+  get isAcpl() {
+    return this.mappings.acplMean && this.mappings.acplStdev !== undefined;
+  }
+  get isLc0bias() {
+    return this.mappings.lc0bias !== undefined;
   }
   applyAcpl() {
     const targetCpl = this.makeTargetCpl();
     for (const mv of this.scored) {
-      // sigmoid with .06 sensitivity and offset 80
+      // currently we use a sigmoid with .06 sensitivity and offset 80, seemsgood
       const distance = Math.abs((mv.cpl ?? 0) - targetCpl);
       const offset = 80;
       const sensitivity = 0.06;
@@ -85,6 +87,7 @@ class ZerofishMove {
     }
   }
   from(m: Operator) {
+    if (!m) return undefined;
     return interpolate(m, m.from === 'move' ? this.chess.fullmoves : outcomeExpectancy(this.score));
   }
   weightSort = (a: SearchMove, b: SearchMove) => {
@@ -92,7 +95,6 @@ class ZerofishMove {
     return wScore(b) - wScore(a);
   };
   makeTargetCpl() {
-    if (!this.mappings.acplMean) return 0;
     const mean = this.from(this.mappings.acplMean) ?? 0;
     const stdev = this.from(this.mappings.acplStdev) ?? 0;
     return Math.max(mean + stdev * this.makeNormal(), 0);
@@ -109,9 +111,14 @@ class ZerofishMove {
     return r * Math.cos(theta);
   }
   get bestMove() {
-    const sorted = this.scored.slice().sort(this.weightSort);
+    const sorted = this.scored.slice();
+    if (this.isAcpl) sorted.sort(this.weightSort);
+    else if (this.isLc0bias) {
+      const chance = Math.random();
+      const index = sorted.findIndex(mv => (mv.weights.lc0 ?? 0) > chance);
+      if (index !== -1) sorted.unshift(...sorted.splice(index, 1));
+    }
     const cpl = (this.fish?.pvs.length ?? 0) > 1 ? sorted[0].cpl! : NaN;
-    console.log(cpl, sorted);
     return {
       move: sorted[0]?.uci,
       cpl,

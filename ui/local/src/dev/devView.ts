@@ -44,7 +44,6 @@ function player(ctx: DevContext, color: Color): VNode {
   const { devCtrl, botCtrl } = ctx;
   const p = botCtrl[color];
   const imgUrl = botCtrl.imageUrl(p) ?? site.asset.url(`lifat/bots/images/${color}-torso.webp`);
-  console.log(color, imgUrl);
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',

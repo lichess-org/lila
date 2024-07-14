@@ -122,7 +122,7 @@ export let schema: Schema = {
   },
   bot_operators: {
     class: ['operators'],
-    lc0Bias: {
+    lc0bias: {
       label: 'lc0 bias',
       type: 'operator',
       class: ['operator'],
@@ -146,6 +146,14 @@ export let schema: Schema = {
       required: true,
     },
   },
+  /*bot_sounds: {
+    label: 'sounds',
+    class: ['sounds'],
+    type: 'sounds',
+    choices: [],
+    value: [],
+    required: true,
+  },*/
 };
 
 deepFreeze(schema);
