@@ -74,7 +74,7 @@
   <string name="expandVariations">باز کردن شاخه‌ها</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
-  <string name="move">انتقال بدهید</string>
+  <string name="move">حرکت</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
   <string name="insufficientMaterial">مُهره ناکافی برای مات</string>
@@ -99,11 +99,11 @@
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ممکنه بازی‌های بیشتری با توجه به گزینگان ترجیح‌ها، وجود داشته باشد؟</string>
-  <string name="openings">گشایش</string>
+  <string name="openings">گشایش‌ها</string>
   <string name="openingExplorer">جستجوگر گشایش‌</string>
   <string name="openingEndgameExplorer">جستجوگر گشایش/آخربازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">اولین حرکت گشایش/آخربازی را برو</string>
+  <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی را برو</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
@@ -970,7 +970,7 @@
   <string name="showHelpDialog">نمایش این پنجره راهنما</string>
   <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
   <string name="closedAccountChangedMind">اگر حساب کاربری خود را مسدود کردید، اما بعد از آن نظرتان عوض شد، شما یک فرصت برای بازگرداندنِ حساب کاربری خود خواهید داشت.</string>
-  <string name="onlyWorksOnce">پس از مسدودسازی حساب کاربری فقط یک بار امکان بازیابی آن خواهد بود.</string>
+  <string name="onlyWorksOnce">تنها یک‌بار کار خواهد کرد.</string>
   <string name="cantDoThisTwice">اگر برای بار دوم حساب کاربری خود را مسدود سازید، هیچ راهی برای بازیابی آن وجود نخواهد داشت.</string>
   <string name="emailAssociatedToaccount">آدرس ایمیلی که به حساب کاربری مربوط شده است</string>
   <string name="sentEmailWithLink">ما رایانامه‌ای شامل یک پیوند را به شما فرستاده‌ایم.</string>
