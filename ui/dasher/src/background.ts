@@ -144,7 +144,7 @@ export class BackgroundCtrl extends PaneCtrl {
 
     const gallery = this.data.gallery!;
     const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
-    const montageUrl = site.asset.url(gallery[`montage${cols}`], { version: false });
+    const montageUrl = site.asset.url(gallery[`montage${cols}`]);
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 

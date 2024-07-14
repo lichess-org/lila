@@ -7,8 +7,9 @@ const assetVersion = memoize(() => document.body.getAttribute('data-asset-versio
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
   const base = opts.documentOrigin ? window.location.origin : opts.pathOnly ? '' : baseUrl();
-  const version = opts.version === false ? '' : `/_${opts.version ?? assetVersion()}`;
-  return `${base}/assets${version}/${path}`;
+  const version = opts.version === false ? '' : `_${opts.version ?? assetVersion()}/`;
+  const hashed = opts.version !== false && site.manifest.hashed[path];
+  return `${base}/assets/${hashed ? `hashed/${hashed}` : `${version}${path}`}`;
 };
 
 // bump flairs version if a flair is changed only (not added or removed)

@@ -5,7 +5,7 @@ import * as path from 'node:path';
 import clr from 'tinycolor2';
 import { env, colors as c, lines, errorMark } from './main';
 import { globArray } from './parse';
-import { css as cssManifest } from './manifest';
+import { cssManifest } from './manifest';
 
 const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
 const themeColorMap = new Map<string, Map<string, clr.Instance>>();
@@ -44,9 +44,7 @@ export async function sass(): Promise<void> {
 }
 
 export async function allSources(): Promise<string[]> {
-  return [
-    ...new Set((await globArray('./*/css/**/[^_]*.scss', { abs: false })).filter(x => !x.includes('/gen/'))),
-  ];
+  return (await globArray('./*/css/**/[^_]*.scss', { absolute: false })).filter(x => !x.includes('/gen/'));
 }
 
 async function unbuiltSources(): Promise<string[]> {
@@ -130,7 +128,7 @@ async function parseScss(src: string) {
 
 // collect mixable scss color definitions from theme files
 async function parseThemeColorDefs() {
-  const themeFiles = await globArray('./common/css/theme/_*.scss', { abs: false });
+  const themeFiles = await globArray('./common/css/theme/_*.scss', { absolute: false });
   const themes: string[] = ['dark'];
   for (const themeFile of themeFiles ?? []) {
     const theme = /_([^/]+)\.scss/.exec(themeFile)?.[1];
@@ -308,7 +306,7 @@ class SassWatch {
     if (event === 'change') {
       if (this.add([path.join(dir, srcFile)])) env.log(`File '${c.cyanBold(srcFile)}' changed`);
     } else if (event === 'rename') {
-      globArray('*.scss', { cwd: dir, abs: false }).then(files => {
+      globArray('*.scss', { cwd: dir, absolute: false }).then(files => {
         if (this.add(files.map(f => path.join(dir, f)))) {
           env.log(`Cross your fingers - directory '${c.cyanBold(dir)}' changed`, { ctx: 'sass' });
         }
