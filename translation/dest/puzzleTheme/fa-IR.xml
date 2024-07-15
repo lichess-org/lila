@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">پیاده پیش رفته</string>
-  <string name="advancedPawnDescription">یکی از پیاده های شما در زمین حریف پیشروی کرده، گویی تهدید به ارتقا میکنه.</string>
+  <string name="advancedPawnDescription">یکی از پیاده‌های‌تان به اردوگاه حریف پیش‌رویده، شاید تهدید به ارتقا کند.</string>
   <string name="advantage">برتری</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">از شانس خود برای بدست اوردن برتری قطعی استفاده کنید. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">از بخت‌تان برای رسیدن به برتری قطعی بهره برید. (۲۰۰ص‌پ ≤ ارزیابی ≤ ۶۰۰ص‌پ)</string>
   <string name="anastasiaMate">مات آناستازیا</string>
   <string name="anastasiaMateDescription">یک اسب و یک رخ به همدیگر کمک میکنند تا شاه حریف را بین گوشه های زمین و یک مهره از حریف زندانی کنند.</string>
   <string name="arabianMate">مات عربی</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">مهره دفاع کننده را بگیرید</string>
   <string name="capturingDefenderDescription">گرفتن یک مهره که برای دفاع از یک مهره دیگر حیاتی است، اجازه می دهد مهره ای که اکنون بدون دفاع است در حرکت بعدی گرفته شود.</string>
   <string name="crushing">تخریب</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">استفاده از اشتباه حریف برای بدست آوردن مزیتی کوچک. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">تشخیص اشتباه فاحش حریف، برای رسیدن به برتری‌ای کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
   <string name="doubleBishopMate">مات با دو فیل</string>
   <string name="doubleBishopMateDescription">دو فیل که همزمان به گوشه های مجاور حمله می کنند، شاهی که راهش با مهره های خودش سد شده را مات می کنند.</string>
   <string name="dovetailMate">مات بوسه ای</string>
   <string name="dovetailMateDescription">وزیری که شاه مجاور خودش را که تنها دو خانه ای که برای فرارش باقی مانده توسط مهره های خودش سد شده، مات می کند.</string>
   <string name="equality">برابری</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">تغییر وضعیت بازنده، و تضمین تساوی یا وضعیت متعادل. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">از وضعیت باخت در‌آیید و به وضعیت تساوی یا ترازمند برسید. (ارزیابی ≤ ۲۰۰ ص‌پ)</string>
   <string name="kingsideAttack">حمله به جناح شاه</string>
   <string name="kingsideAttackDescription">حمله به شاه حریف، پس از آنکه آنها قلعه کوچک رفتند.</string>
   <string name="clearance">آزادسازی</string>
@@ -118,7 +118,7 @@
   <string name="xRayAttack">حمله پیکانی</string>
   <string name="xRayAttackDescription">یک مهره از طریق مهره حریف به یک خانه حمله میکند یا از آن دفاع می کند.</string>
   <string name="zugzwang">زوگزوانگ</string>
-  <string name="zugzwangDescription">حریف حرکات محدودی برای انجام دادن دارد و تمام حرکات ممکن موقعیت حریف را بدتر میکند.</string>
+  <string name="zugzwangDescription">حریف در حرکت‌هایش محدود است و همه‌شان وضعیتش را بدتر می‌کند.</string>
   <string name="healthyMix">ترکیب سالم</string>
   <string name="healthyMixDescription">یک ذره از همه چیز. شما نمی دانید چه چیزی پیش روی شماست، بنابراین شما باید برای هر چیزی آماده باشید! دقیقا مثل بازی های واقعی.</string>
   <string name="playerGames">بازی‌های بازیکن</string>
