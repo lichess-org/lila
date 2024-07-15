@@ -1,30 +1,25 @@
 package lila.study
 
-import chess.{ Centis, ErrorStr, Node as PgnNode, Situation }
-import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.MoveOrDrop.*
-
-import lila.tree.Node.{ Comment, Comments, Shapes }
-
-import cats.syntax.all.*
-import StudyArbitraries.{ *, given }
+import chess.Centis
 import chess.CoreArbitraries.given
+import chess.format.UciPath
+import chess.format.pgn.{ Glyph, PgnStr }
 import org.scalacheck.Prop.{ forAll, propBoolean }
+
 import scala.language.implicitConversions
 
-import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
-import chess.format.pgn.Glyph
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
 import lila.study.BSONHandlers.given
-import play.api.libs.json.Json
+import lila.tree.Node.Shapes
+import lila.tree.{ Branch, NewRoot, NewTree, Node, Root }
+
+import StudyArbitraries.{ *, given }
 
 @munit.IgnoreSuite
 class NewTreeCheck extends munit.ScalaCheckSuite:
 
-  import lila.tree.NewTree.*
   import Helpers.*
 
   given Conversion[String, PgnStr] = PgnStr(_)

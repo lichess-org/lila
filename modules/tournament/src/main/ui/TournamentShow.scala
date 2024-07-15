@@ -1,16 +1,15 @@
 package lila.tournament
 package ui
-
-import play.api.data.Form
 import play.api.libs.json.*
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.team.LightTeam
-import lila.common.String.html.markdownLinksOrRichText
 import lila.common.Json.given
+import lila.common.String.html.markdownLinksOrRichText
 import lila.core.config.NetDomain
+import lila.core.team.LightTeam
 import lila.gathering.ui.GatheringUi
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: GatheringUi)(
     variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)]

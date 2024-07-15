@@ -1,8 +1,8 @@
 package lila.report
 
 import lila.core.report.SuspectId
-import lila.core.userId.{ ModId, OpaqueUserId }
 import lila.core.user.WithPerf
+import lila.core.userId.{ ModId, OpaqueUserId }
 
 case class Mod(user: User) extends AnyVal:
   def id = user.id.into(ModId)

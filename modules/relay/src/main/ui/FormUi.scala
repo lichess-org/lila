@@ -1,11 +1,10 @@
 package lila.relay
 package ui
-
-import scalalib.paginator.Paginator
+import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import play.api.data.Form
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],

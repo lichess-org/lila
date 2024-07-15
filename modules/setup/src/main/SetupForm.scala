@@ -5,12 +5,11 @@ import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
-
-import lila.common.Form.{ *, given }
-import lila.common.Form as LilaForm
-import lila.core.rating.RatingRange
-
 import scalalib.model.Days
+
+import lila.common.Form as LilaForm
+import lila.common.Form.{ *, given }
+import lila.core.rating.RatingRange
 
 object SetupForm:
 

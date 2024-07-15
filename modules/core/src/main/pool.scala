@@ -1,15 +1,15 @@
 package lila.core
 package pool
 
+import _root_.chess.{ ByColor, Clock }
 import alleycats.Zero
-import _root_.chess.{ Clock, ByColor }
 
+import lila.core.id.GameFullId
+import lila.core.perf.PerfKey
 import lila.core.rating.RatingRange
 import lila.core.rating.data.IntRating
 import lila.core.socket.Sri
-import lila.core.id.GameFullId
 import lila.core.userId.*
-import lila.core.perf.PerfKey
 
 opaque type Blocking = Set[UserId]
 object Blocking extends TotalWrapper[Blocking, Set[UserId]]:

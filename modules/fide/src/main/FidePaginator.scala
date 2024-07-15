@@ -1,8 +1,8 @@
 package lila.fide
 
 import reactivemongo.api.*
-
 import scalalib.paginator.{ AdapterLike, Paginator }
+
 import lila.db.dsl.*
 import lila.db.paginator.{ Adapter, CachedAdapter }
 

@@ -4,10 +4,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanNonEmptyText, into, given }
-import lila.core.i18n.{ Language, LangList, defaultLanguage }
-
-import lila.core.captcha.CaptchaApi
-import lila.core.captcha.WithCaptcha
+import lila.core.captcha.{ CaptchaApi, WithCaptcha }
+import lila.core.i18n.{ LangList, Language, defaultLanguage }
 
 final class UblogForm(val captcher: CaptchaApi, langList: LangList):
 

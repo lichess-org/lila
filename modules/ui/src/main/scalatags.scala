@@ -1,13 +1,13 @@
 package lila.ui
 
-import cats.Monoid
 import alleycats.Zero
+import cats.Monoid
 import chess.PlayerTitle
+import io.mola.galimatias.URL
 import scalalib.Render
 import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
-import io.mola.galimatias.URL
 
 // collection of lila attrs
 trait ScalatagsAttrs:

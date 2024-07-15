@@ -1,6 +1,6 @@
 package views.title
 
-import lila.app.UiEnv.{ given, * }
+import lila.app.UiEnv.{ *, given }
 import lila.mod.IpRender.RenderIp
 import lila.title.TitleRequest
 

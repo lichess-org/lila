@@ -1,7 +1,5 @@
 package lila.app
 package http
-
-import akka.stream.scaladsl.Source
 import alleycats.Zero
 import play.api.http.*
 import play.api.libs.json.*

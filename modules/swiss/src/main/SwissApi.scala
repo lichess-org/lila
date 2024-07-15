@@ -8,18 +8,15 @@ import reactivemongo.api.bson.*
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import java.time.format.{ DateTimeFormatter, FormatStyle }
-import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.core.LightUser
-import lila.db.dsl.{ *, given }
-
-import lila.gathering.Condition.WithVerdicts
-import lila.gathering.GreatPlayer
-
 import lila.core.round.QuietFlag
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
+import lila.gathering.Condition.WithVerdicts
+import lila.gathering.GreatPlayer
 
 final class SwissApi(
     mongo: SwissMongo,

@@ -1,19 +1,16 @@
 package lila.tree
 
 import alleycats.Zero
-import chess.Centis
+import chess.bitboard.Bitboard
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.Opening
-import chess.{ Ply, Square, Check }
-import chess.bitboard.Bitboard
-import chess.variant.{ Variant, Crazyhouse }
+import chess.variant.{ Crazyhouse, Variant }
+import chess.{ Centis, Check, Ply, Square }
 import play.api.libs.json.*
-import scalalib.ThreadLocalRandom
 import scalalib.StringOps.softCleanUp
-
+import scalalib.ThreadLocalRandom
 import scalalib.json.Json.{ *, given }
-import chess.json.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 

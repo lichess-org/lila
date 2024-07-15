@@ -4,6 +4,5 @@
     "types": ["lichess", "web"],
     "noEmit": true
   },
-  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../voice/tsconfig.json" }],
-  "isolatedModules": true
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../voice/tsconfig.json" }]
 }

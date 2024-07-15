@@ -3,13 +3,13 @@ package lila.round
 import chess.format.Fen
 import chess.variant.*
 import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation }
+import scalalib.cache.ExpireSetMemo
 
 import lila.common.Bus
-import lila.game.{ AnonCookie, Event, Rematches }
-import lila.core.game.{ IdGenerator, GameRepo }
-import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
-import scalalib.cache.ExpireSetMemo
+import lila.core.game.{ GameRepo, IdGenerator }
+import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.user.{ GameUsers, UserApi }
+import lila.game.{ AnonCookie, Event, Rematches }
 
 import ChessColor.White
 

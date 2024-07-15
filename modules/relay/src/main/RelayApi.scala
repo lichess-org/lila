@@ -5,21 +5,21 @@ import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.memo.{ CacheApi, PicfitApi }
-import lila.relay.RelayRound.{ WithTour, Sync }
 import lila.core.perm.Granter
 import lila.core.study.data.StudyName
+import lila.db.dsl.{ *, given }
+import lila.memo.{ CacheApi, PicfitApi }
+import lila.relay.RelayRound.{ Sync, WithTour }
 import lila.study.{
   Settings,
   Study,
   StudyApi,
   StudyId,
   StudyMaker,
-  StudyRepo,
-  StudyTopic,
   StudyMember,
-  StudyMembers
+  StudyMembers,
+  StudyRepo,
+  StudyTopic
 }
 
 final class RelayApi(

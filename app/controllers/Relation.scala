@@ -3,14 +3,14 @@ package controllers
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
 import scalalib.Json.given
+import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.app.{ *, given }
-import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.core.LightUser
-import lila.relation.Related
-import lila.relation.RelationStream.*
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
+import lila.relation.Related
+import lila.relation.RelationStream.*
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 

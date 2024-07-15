@@ -1,11 +1,10 @@
 package lila.evalCache
 
 import chess.format.{ BinaryFen, Fen }
-import chess.{ FullMoveNumber, HalfMoveClock, Situation }
-import chess.variant.{ Chess960, FromPosition, Standard, Variant }
+import chess.variant.Variant
 
-import lila.tree.CloudEval
 import lila.core.chess.MultiPv
+import lila.tree.CloudEval
 
 case class EvalCacheEntry(
     nbMoves: Int, // multipv cannot be greater than number of legal moves

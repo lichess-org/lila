@@ -2,13 +2,11 @@ package lila.rating
 
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
+import lila.core.perf.{ Perf, PuzPerf }
+import lila.core.rating.Glicko
 import lila.db.BSON
 import lila.db.dsl.given
-import lila.rating.PerfType
-import lila.core.rating.Glicko
 import lila.rating.GlickoExt.*
-import lila.core.perf.Perf
-import lila.core.perf.PuzPerf
 
 object PerfExt:
 

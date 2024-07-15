@@ -1,14 +1,8 @@
 package lila.web
 package ui
-
-import chess.format.Fen
-import play.api.i18n.Lang
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import scalalib.paginator.Paginator
-import lila.core.i18n.Translate
-import lila.ui.ChessHelper.underscoreFen
 
 object bits:
 

@@ -1,16 +1,16 @@
 package lila.forum
 
+import scalalib.paginator.*
+
 import lila.common.Bus
 import lila.common.String.noShouting
 import lila.core.config.NetDomain
-import scalalib.paginator.*
-import lila.db.dsl.{ *, given }
-import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.forum.BusForum.CreatePost
-import lila.memo.CacheApi
-import lila.mon.forum.topic
 import lila.core.perm.Granter as MasterGranter
+import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,

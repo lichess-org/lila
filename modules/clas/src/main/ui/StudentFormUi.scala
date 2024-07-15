@@ -4,8 +4,8 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.core.config.NetDomain
 
 final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi):
   import helpers.{ *, given }

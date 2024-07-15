@@ -7,7 +7,7 @@ import { sass, stopSass } from './sass';
 import { esbuild, stopEsbuild } from './esbuild';
 import { copies, stopCopies } from './copies';
 import { startMonitor, stopMonitor } from './monitor';
-import { initManifest, writeManifest } from './manifest';
+import { writeManifest } from './manifest';
 import { clean } from './clean';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
@@ -32,11 +32,11 @@ export async function build(mods: string[]) {
   await Promise.allSettled([
     fs.promises.mkdir(env.jsDir),
     fs.promises.mkdir(env.cssDir),
+    fs.promises.mkdir(env.hashDir),
     fs.promises.mkdir(env.themeGenDir),
     fs.promises.mkdir(env.cssTempDir),
   ]);
 
-  await initManifest();
   startMonitor(mods);
   await Promise.all([sass(), copies(), esbuild(tsc())]);
 }

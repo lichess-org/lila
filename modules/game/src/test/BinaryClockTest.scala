@@ -1,8 +1,8 @@
 package lila.game
 
 import chess.{ Centis, Clock, White }
-
 import scalalib.Maths
+
 import lila.db.ByteArray
 
 class BinaryClockTest extends munit.FunSuite:

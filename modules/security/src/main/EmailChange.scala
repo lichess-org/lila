@@ -1,9 +1,9 @@
 package lila.security
 
+import scalalib.Iso
 import scalatags.Text.all.*
 
 import lila.core.config.*
-import scalalib.Iso
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
 import lila.user.{ Me, User, UserRepo }

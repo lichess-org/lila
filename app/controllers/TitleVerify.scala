@@ -1,11 +1,7 @@
 package controllers
-
-import play.api.libs.json.*
-
 import lila.app.{ *, given }
+import lila.core.id.{ CmsPageKey, TitleRequestId }
 import lila.title.TitleRequest
-import lila.core.id.{ TitleRequestId, CmsPageKey }
-import org.checkerframework.checker.units.qual.s
 
 final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC: => User, modC: => Mod)
     extends LilaController(env):

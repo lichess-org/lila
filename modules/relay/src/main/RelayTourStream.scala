@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
+import lila.db.dsl.*
 
 final class RelayTourStream(
     colls: RelayColls,

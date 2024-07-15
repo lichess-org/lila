@@ -1,9 +1,5 @@
 package controllers
-
-import play.api.i18n.Lang
-
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
 import lila.core.i18n.Translate
 
 final class Search(env: Env) extends LilaController(env):

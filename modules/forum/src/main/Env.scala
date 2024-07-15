@@ -6,9 +6,8 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.core.relation.RelationApi
-
 import lila.core.forum.ForumPostMiniView
+import lila.core.relation.RelationApi
 
 @Module
 final private class ForumConfig(

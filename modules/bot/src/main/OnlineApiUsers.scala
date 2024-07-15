@@ -1,9 +1,8 @@
 package lila.bot
 
 import lila.common.Bus
-import lila.core.socket.ApiUserIsOnline
+import lila.core.socket.{ ApiUserIsOnline, IsOnline }
 import lila.memo.ExpireCallbackMemo
-import lila.core.socket.IsOnline
 
 final class OnlineApiUsers(
     isOnline: IsOnline,

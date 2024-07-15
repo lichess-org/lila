@@ -1,7 +1,8 @@
 package lila.core
 
-import lila.core.net.Domain
 import scalalib.newtypes.OpaqueString
+
+import lila.core.net.Domain
 
 object email:
 

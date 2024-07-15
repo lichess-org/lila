@@ -6,11 +6,10 @@ import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
 import lila.core.LightUser
 import lila.core.config.BaseUrl
-import lila.core.i18n.Translate
-import lila.core.game.{ Game, Player }
 import lila.core.game.PgnDump.WithFlags
-import lila.game.Player.nameSplit
+import lila.core.game.{ Game, Player }
 import lila.game.GameExt.perfType
+import lila.game.Player.nameSplit
 
 final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor)
     extends lila.core.game.PgnDump:

@@ -4,7 +4,7 @@ import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'common/ric
 import { escapeHtml } from 'common';
 export { isMoreThanText } from 'common/richText';
 
-const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
+const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w{7})(?:\.jpe?g|\.png|\.gif)?/;
 const giphyRegex =
   /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
 const teamMessageRegex =

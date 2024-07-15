@@ -1,16 +1,15 @@
 package lila.coach
 package ui
 
-import play.api.libs.json.Json
 import play.api.data.Form
-import scalalib.paginator.Paginator
+import play.api.libs.json.Json
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class CoachEditUi(helpers: Helpers, ui: CoachUi):
   import helpers.{ *, given }
-  import trans.{ coach as trc }
 
   private val dataTab = attr("data-tab")
 

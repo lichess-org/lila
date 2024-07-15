@@ -1,8 +1,8 @@
 package lila.gameSearch
 
-import lila.search.{ SearchReadApi, From, Size }
 import lila.search.client.SearchClient
 import lila.search.spec.Query
+import lila.search.{ From, SearchReadApi, Size }
 
 final class GameSearchApi(
     client: SearchClient,

@@ -2,7 +2,7 @@ import * as path from 'node:path';
 import * as es from 'esbuild';
 import { preModule } from './build';
 import { env, errorMark, colors as c } from './main';
-import { js as jsManifest } from './manifest';
+import { jsManifest } from './manifest';
 
 const bundles = new Map<string, string>();
 const esbuildCtx: es.BuildContext[] = [];

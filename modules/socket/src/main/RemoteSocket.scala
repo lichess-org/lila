@@ -9,10 +9,10 @@ import play.api.libs.json.*
 import java.util.concurrent.atomic.AtomicReference
 
 import lila.common.{ Bus, Lilakka }
+import lila.core.misc.streamer.StreamersOnline
 import lila.core.relation.{ Follow, UnFollow }
 import lila.core.round.Mlat
 import lila.core.security.CloseAccount
-import lila.core.misc.streamer.StreamersOnline
 import lila.core.socket.remote.*
 import lila.core.socket.{ SocketRequester as _, * }
 

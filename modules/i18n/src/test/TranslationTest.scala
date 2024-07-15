@@ -3,8 +3,8 @@ package lila.i18n
 import play.api.i18n.Lang
 
 import scala.jdk.CollectionConverters.*
-import lila.core.i18n.I18nKey
-import lila.core.i18n.defaultLang
+
+import lila.core.i18n.{ I18nKey, defaultLang }
 
 class TranslationTest extends munit.FunSuite:
 

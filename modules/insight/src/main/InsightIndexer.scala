@@ -5,7 +5,6 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.common.LilaStream
-
 import lila.db.dsl.{ *, given }
 import lila.game.{ GameRepo, Query }
 

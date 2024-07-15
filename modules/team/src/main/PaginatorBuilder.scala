@@ -1,8 +1,8 @@
 package lila.team
 
-import lila.core.LightUser
-
 import scalalib.paginator.*
+
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
 

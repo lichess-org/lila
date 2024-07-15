@@ -1,9 +1,9 @@
 package lila.round
 
-import chess.format.{ Fen, Uci }
 import chess.format.pgn.SanStr
-import chess.{ Check, Ply, Square }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
+import chess.{ Check, Ply, Square }
 import play.api.libs.json.*
 
 case class Step(

@@ -20,8 +20,8 @@ export default class StudyPractice {
     readonly data: StudyPracticeData,
   ) {
     this.goal = prop<Goal>(root.data.practiceGoal!);
-    site.sound.load('practiceSuccess', `${site.sound.baseUrl}/other/energy3`);
-    site.sound.load('practiceFailure', `${site.sound.baseUrl}/other/failure2`);
+    site.sound.load('practiceSuccess', site.sound.url('other/energy3.mp3'));
+    site.sound.load('practiceFailure', site.sound.url('other/failure2.mp3'));
     this.onLoad();
   }
 

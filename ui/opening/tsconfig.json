@@ -5,6 +5,6 @@
     "types": ["lichess", "web"],
     "noEmit": true
   },
-  "isolatedModules": true,
+
   "references": [{ "path": "../common/tsconfig.json" }]
 }

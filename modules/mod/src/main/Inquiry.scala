@@ -1,9 +1,9 @@
 package lila.mod
 
 import lila.core.LightUser
+import lila.core.perf.UserWithPerfs
 import lila.report.{ Report, ReportApi }
 import lila.user.{ Me, Note, NoteApi, UserApi }
-import lila.core.perf.UserWithPerfs
 
 case class Inquiry(
     mod: LightUser,

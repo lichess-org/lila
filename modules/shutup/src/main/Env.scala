@@ -1,6 +1,4 @@
 package lila.shutup
-
-import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
 

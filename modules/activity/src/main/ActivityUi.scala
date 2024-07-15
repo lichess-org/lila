@@ -2,15 +2,14 @@ package lila.activity
 package ui
 
 import lila.activity.activities.*
-import lila.core.forum.ForumTopicMini
-import lila.core.forum.ForumPostMini
-import lila.core.rating.Score
-import lila.core.rating.RatingProg
 import lila.core.chess.Rank
-import lila.core.perf.UserWithPerfs
-import lila.rating.UserPerfsExt.dubiousPuzzle
+import lila.core.forum.{ ForumPostMini, ForumTopicMini }
 import lila.core.i18n.Translate
+import lila.core.perf.UserWithPerfs
+import lila.core.rating.{ RatingProg, Score }
+import lila.rating.UserPerfsExt.dubiousPuzzle
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class ActivityUi(helpers: Helpers)(

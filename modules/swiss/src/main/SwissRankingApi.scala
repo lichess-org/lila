@@ -2,10 +2,10 @@ package lila.swiss
 
 import reactivemongo.api.bson.*
 
+import lila.core.chess.Rank
+import lila.core.swiss.Ranking
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.core.swiss.Ranking
-import lila.core.chess.Rank
 
 final private class SwissRankingApi(
     mongo: SwissMongo,

@@ -1,17 +1,15 @@
 package lila.room
 
 import play.api.libs.json.*
-import scalalib.actor.SyncActorMap
-import scalalib.actor.SyncActor
+import scalalib.actor.{ SyncActor, SyncActorMap }
 
+import lila.common.Json.given
 import lila.core.chat.{ BusChan, ChatApi, TimeoutScope }
 import lila.core.shutup.PublicSource
-import lila.log.Logger
-import lila.core.socket.{ protocol as P, * }
-import lila.core.socket.{ makeMessage }
-import lila.common.Json.given
-
+import lila.core.socket.*
+import lila.core.socket.protocol as P
 import lila.core.user.FlairGet
+import lila.log.Logger
 
 object RoomSocket:
 

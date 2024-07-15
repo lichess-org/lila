@@ -1,9 +1,7 @@
 package lila.plan
 package ui
-
-import scalalib.paginator.Paginator
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):

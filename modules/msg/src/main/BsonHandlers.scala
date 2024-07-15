@@ -1,7 +1,7 @@
 package lila.msg
 
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.*
+import scalalib.ThreadLocalRandom
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }

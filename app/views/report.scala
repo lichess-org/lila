@@ -1,13 +1,10 @@
 package views.report
-
-import play.api.data.Form
-
 import lila.app.UiEnv.{ *, given }
-import lila.report.ui.ReportUi.*
-import lila.report.Room
-import lila.report.Report.WithSuspect
-import lila.rating.UserPerfsExt.bestPerfs
 import lila.mod.ui.PendingCounts
+import lila.rating.UserPerfsExt.bestPerfs
+import lila.report.Report.WithSuspect
+import lila.report.Room
+import lila.report.ui.ReportUi.*
 
 val ui = lila.report.ui.ReportUi(helpers)
 

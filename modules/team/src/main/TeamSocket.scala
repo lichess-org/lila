@@ -1,7 +1,7 @@
 package lila.team
 
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
+import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final private class TeamSocket(
     socketKit: SocketKit,

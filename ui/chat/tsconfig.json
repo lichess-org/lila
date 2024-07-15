@@ -9,6 +9,5 @@
     "inlineSourceMap": true,
     "composite": true
   },
-  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../palantir/tsconfig.json" }],
-  "isolatedModules": true
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../palantir/tsconfig.json" }]
 }

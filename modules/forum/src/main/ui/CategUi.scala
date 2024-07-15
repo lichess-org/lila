@@ -1,9 +1,11 @@
 package lila.forum
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
+
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class CategUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
@@ -142,7 +144,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
       categ: lila.forum.ForumCateg,
       posts: Paginator[PostView]
   )(using Context) =
-    val pager = paginationByQuery(routes.ForumCateg.modFeed(categ.id, 1), posts, showPost = true)
+    paginationByQuery(routes.ForumCateg.modFeed(categ.id, 1), posts, showPost = true)
     Page(categ.name)
       .css("bits.forum")
       .csp(_.withInlineIconFont)

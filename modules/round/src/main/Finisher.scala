@@ -1,14 +1,14 @@
 package lila.round
 
-import chess.{ Color, ByColor, DecayingStats, Status }
+import chess.{ ByColor, Color, DecayingStats, Status }
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.{ AbortedBy, FinishGame }
-import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
-import lila.playban.PlaybanApi
-import lila.user.{ User, UserApi, UserRepo }
+import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.perf.UserWithPerfs
 import lila.game.GameExt.finish
+import lila.playban.PlaybanApi
+import lila.user.{ UserApi, UserRepo }
 
 final private class Finisher(
     gameRepo: lila.game.GameRepo,

@@ -1,11 +1,8 @@
 package lila.core
 package misc
 
-import _root_.chess.format.{ Fen, Uci }
-import play.api.libs.json.*
-
-import lila.core.userId.*
 import lila.core.id.GameId
+import lila.core.userId.*
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)

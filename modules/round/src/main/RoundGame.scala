@@ -2,7 +2,7 @@ package lila.round
 
 import chess.{ Centis, Color }
 
-import lila.core.game.{ Source, Player }
+import lila.core.game.{ Player, Source }
 
 object RoundGame:
 

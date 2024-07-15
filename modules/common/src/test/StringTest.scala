@@ -1,6 +1,7 @@
 package lila.common
 
 import scalatags.Text.all.*
+
 import lila.core.config.NetDomain
 
 class StringTest extends munit.FunSuite:

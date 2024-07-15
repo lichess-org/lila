@@ -1,17 +1,17 @@
 package lila.game
 
 import chess.format.Fen
-import chess.format.pgn.{ PgnStr, SanStr }
-import chess.{ Color, ByColor, Status }
-import scalalib.ThreadLocalRandom
+import chess.format.pgn.SanStr
+import chess.{ ByColor, Color, Status }
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
+import scalalib.ThreadLocalRandom
 
+import lila.core.game.*
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
-import lila.core.game.*
 import lila.game.GameExt.*
 
 final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c):

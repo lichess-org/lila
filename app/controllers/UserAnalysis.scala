@@ -8,9 +8,8 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-
-import lila.tree.ExportOptions
 import lila.core.id.GameFullId
+import lila.tree.ExportOptions
 
 final class UserAnalysis(
     env: Env,

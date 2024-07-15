@@ -5,7 +5,6 @@ import chess.Replay
 import chess.format.pgn.{ PgnMovesStr, PgnStr, SanStr }
 import chess.format.{ Fen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
-import chess.variant.Standard
 
 case class OpeningQuery(replay: Replay, config: OpeningConfig):
   export replay.state.sans

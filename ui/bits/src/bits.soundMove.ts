@@ -26,7 +26,7 @@ export async function initModule(): Promise<SoundMove> {
   const load = async (instrument: string, index: number, filename: string) =>
     site.sound.load(
       `orchestra.${instrument}.${index}`,
-      `${site.sound.baseUrl}/instrument/${instrument}/${filename}`,
+      site.sound.url(`instrument/${instrument}/${filename}`),
     );
 
   const isPawn = (san: string) => san[0] === san[0].toLowerCase();
@@ -43,10 +43,10 @@ export async function initModule(): Promise<SoundMove> {
   const promises = [];
   for (const inst of ['celesta', 'clav']) {
     for (let i = 1; i <= 24; i++) {
-      promises.push(load(inst, i - 1, 'c' + `${i}`.padStart(3, '0')));
+      promises.push(load(inst, i - 1, 'c' + `${i}.mp3`.padStart(7, '0')));
     }
   }
-  for (let i = 1; i <= 3; i++) promises.push(load('swells', i - 1, `swell${i}`));
+  for (let i = 1; i <= 3; i++) promises.push(load('swells', i - 1, `swell${i}.mp3`));
 
   await Promise.all(promises);
 

@@ -8,12 +8,12 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.net.IpAddress
 import lila.core.perm.Permission
+import lila.core.security.FingerHash
+import lila.core.userId.ModId
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
-import lila.core.security.FingerHash
-import lila.core.net.IpAddress
-import lila.core.userId.ModId
 
 final class Mod(
     env: Env,

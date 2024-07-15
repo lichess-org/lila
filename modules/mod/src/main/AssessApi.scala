@@ -1,16 +1,15 @@
 package lila.mod
 
-import chess.{ Black, Color, White, ByColor }
-import scalalib.ThreadLocalRandom
+import chess.{ Black, ByColor, Color, White }
 import reactivemongo.api.bson.*
+import scalalib.ThreadLocalRandom
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.db.dsl.{ *, given }
-import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics }
 import lila.core.game.{ Player, Source }
 import lila.core.report.SuspectId
+import lila.db.dsl.{ *, given }
+import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics }
 import lila.game.GameExt.playerBlurPercent
-import lila.game.GameExt.analysable
 
 final class AssessApi(
     assessRepo: AssessmentRepo,

@@ -8,6 +8,5 @@
     "declaration": true,
     "composite": true
   },
-  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../ceval/tsconfig.json" }],
-  "isolatedModules": true
+  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../ceval/tsconfig.json" }]
 }
