@@ -19,8 +19,6 @@ final class Env(
     db: lila.db.Db
 )(using Executor, Scheduler, play.api.Mode):
 
-  RacerColls(puzzle = puzzleColls.puzzle)
-
   lazy val api = wire[RacerApi]
 
   lazy val lobby = wire[RacerLobby]
@@ -28,5 +26,3 @@ final class Env(
   lazy val json = wire[RacerJson]
 
   wire[RacerSocket] // requires eager eval
-
-final private class RacerColls(val puzzle: AsyncColl)
