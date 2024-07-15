@@ -1,27 +1,11 @@
 package lila.user
-
-import chess.PlayerTitle
 import play.api.i18n.Lang
+
 import java.time.Duration
 
-import lila.core.email.NormalizedEmailAddress
-import lila.core.LightUser
-import lila.core.user.{
-  LightPerf,
-  UserMark,
-  UserMarks,
-  UserEnabled,
-  Emails,
-  WithPerf,
-  Plan,
-  PlayTime,
-  Profile,
-  TotpSecret,
-  Count
-}
 import lila.core.i18n.Language
-import lila.rating.PerfType
-import lila.core.perf.{ Perf, UserPerfs, UserWithPerfs }
+import lila.core.perf.UserWithPerfs
+import lila.core.user.{ Emails, PlayTime }
 
 object UserExt:
   extension (u: User) def userLanguage: Option[Language] = u.realLang.map(Language.apply)

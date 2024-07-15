@@ -8,12 +8,11 @@ import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.LightUser
-import lila.core.net.IpAddress
 import lila.core.chess.MultiPv
+import lila.core.net.IpAddress
+import lila.core.{ LightUser, id }
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
-import lila.core.id
 
 final class Api(
     env: Env,
@@ -187,7 +186,6 @@ final class Api(
   def tournamentResults(id: TourId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
     env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
-      import lila.tournament.JsonView.playerResultWrites
       val withSheet = getBool("sheet")
       val perSecond = MaxPerSecond:
         if withSheet

@@ -4,8 +4,8 @@ package game
 import _root_.chess.{ Color, Status }
 
 import lila.core.id.GameId
-import lila.core.userId.UserId
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
+import lila.core.userId.UserId
 
 case class LightGame(
     id: GameId,

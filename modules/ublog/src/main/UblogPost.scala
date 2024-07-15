@@ -2,9 +2,8 @@ package lila.ublog
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.i18n.Language
 import lila.core.data.OpaqueInstant
-import lila.memo.PicfitUrl
+import lila.core.i18n.Language
 import lila.core.id.ImageId
 
 case class UblogPost(

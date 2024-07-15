@@ -1,13 +1,10 @@
 package lila.perfStat
 
-import lila.rating.{ Perf, UserRankMap }
+import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.perm.Granter
-
-import lila.rating.PerfType
-import lila.rating.PerfExt.established
-import lila.core.perf.UserWithPerfs
-import lila.core.perf.PerfId
 import lila.rating.Glicko.minRating
+import lila.rating.PerfExt.established
+import lila.rating.{ PerfType, UserRankMap }
 
 case class PerfStatData(
     user: UserWithPerfs,

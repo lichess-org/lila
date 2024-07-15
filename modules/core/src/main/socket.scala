@@ -1,12 +1,12 @@
 package lila.core
 package socket
 
-import play.api.libs.json.*
+import _root_.chess.{ Centis, Color }
 import alleycats.Zero
-import _root_.chess.{ Color, Centis }
+import play.api.libs.json.*
 
-import lila.core.userId.UserId
 import lila.core.data.LazyFu
+import lila.core.userId.UserId
 
 opaque type IsOnline = UserId => Boolean
 object IsOnline extends FunctionWrapper[IsOnline, UserId => Boolean]

@@ -2,13 +2,12 @@ package lila.relay
 package ui
 
 import play.api.libs.json.*
-import play.api.data.Form
-import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.core.id.ImageId
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class RelayUi(helpers: Helpers)(
     picfitUrl: lila.core.misc.PicfitUrl,

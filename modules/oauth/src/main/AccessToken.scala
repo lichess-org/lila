@@ -1,7 +1,7 @@
 package lila.oauth
 
-import reactivemongo.api.bson.*
 import com.roundeights.hasher.Algo
+import reactivemongo.api.bson.*
 
 import lila.core.net.Bearer
 

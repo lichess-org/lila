@@ -3,9 +3,9 @@ package lila.opening
 import play.api.mvc.RequestHeader
 
 import lila.core.game.{ GameRepo, PgnDump }
-import lila.memo.CacheApi
-import lila.core.i18n.{ Translator, Translate }
+import lila.core.i18n.{ Translate, Translator }
 import lila.core.net.Crawler
+import lila.memo.CacheApi
 
 final class OpeningApi(
     wikiApi: OpeningWikiApi,

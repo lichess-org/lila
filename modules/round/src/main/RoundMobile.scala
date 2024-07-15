@@ -1,13 +1,12 @@
 package lila.round
 
-import chess.{ ByColor, Color }
+import chess.Color
 import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.chat.Chat
 import lila.common.Json.given
-import lila.core.data.Preload
 import lila.core.LightUser
-import lila.game.JsonView.given
+import lila.core.data.Preload
 import lila.pref.Pref
 import lila.round.RoundGame.*
 

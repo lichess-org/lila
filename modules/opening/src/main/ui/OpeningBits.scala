@@ -1,10 +1,11 @@
 package lila.opening
 package ui
 
-import play.api.libs.json.*
 import chess.opening.{ Opening, OpeningKey }
+import play.api.libs.json.*
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class OpeningBits(helpers: Helpers):

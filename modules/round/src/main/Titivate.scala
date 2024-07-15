@@ -4,11 +4,10 @@ import akka.actor.*
 import akka.stream.scaladsl.*
 
 import lila.common.LilaStream
-import lila.db.dsl.*
-import lila.game.{ GameRepo, Query }
 import lila.core.round.{ Abandon, QuietFlag }
+import lila.db.dsl.*
 import lila.game.GameExt.abandoned
-import lila.game.Query.bothRatingsGreaterThan
+import lila.game.{ GameRepo, Query }
 
 /*
  * Cleans up unfinished games

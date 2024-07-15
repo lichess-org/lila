@@ -1,10 +1,10 @@
 package lila.forum
 
 import scalalib.paginator.*
-import lila.db.dsl.{ *, given }
-import lila.db.paginator.Adapter
 
 import lila.core.config.NetDomain
+import lila.db.dsl.*
+import lila.db.paginator.Adapter
 
 final class ForumPaginator(
     topicRepo: ForumTopicRepo,

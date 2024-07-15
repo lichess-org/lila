@@ -3,9 +3,9 @@ package notify
 
 import alleycats.Zero
 
+import lila.core.chess.Win
 import lila.core.id.*
 import lila.core.study.data.StudyName
-import lila.core.chess.Win
 import lila.core.userId.*
 
 opaque type UnreadCount = Int

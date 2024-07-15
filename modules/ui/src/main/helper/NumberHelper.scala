@@ -2,6 +2,7 @@ package lila.ui
 
 import java.text.NumberFormat
 import java.util.concurrent.ConcurrentHashMap
+
 import lila.core.i18n.Translate
 
 object NumberHelper:

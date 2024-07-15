@@ -1,6 +1,6 @@
 package views.mod
 
-import lila.app.UiEnv.{ *, given }
+import lila.app.UiEnv.*
 import lila.mod.ui.*
 
 lazy val ui         = ModUi(helpers)(() => env.chat.panic.enabled)

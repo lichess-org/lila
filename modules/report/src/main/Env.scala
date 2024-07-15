@@ -2,10 +2,8 @@ package lila.report
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.Configuration
 
 import lila.core.config.*
-import lila.core.report.SuspectId
 
 @Module
 final class Env(

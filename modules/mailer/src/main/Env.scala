@@ -4,8 +4,8 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
 import lila.common.Bus
+import lila.common.config.*
 import lila.core.misc.mailer.CorrespondenceOpponents
 
 @Module

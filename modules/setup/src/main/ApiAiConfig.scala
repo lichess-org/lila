@@ -3,13 +3,11 @@ package lila.setup
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ ByColor, Clock }
-
 import scalalib.model.Days
-import lila.lobby.TriColor
-import lila.rating.PerfType
+
+import lila.core.game.{ IdGenerator, NewPlayer, Source }
 import lila.core.user.GameUser
-import lila.core.game.{ IdGenerator, Source }
-import lila.core.game.NewPlayer
+import lila.lobby.TriColor
 
 final case class ApiAiConfig(
     variant: Variant,

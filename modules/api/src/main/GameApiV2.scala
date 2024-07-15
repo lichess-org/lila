@@ -7,21 +7,18 @@ import chess.format.pgn.{ PgnStr, Tag }
 import play.api.libs.json.*
 
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
-import lila.common.Json.given
-
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.LightUser
+import lila.core.i18n.Translate
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
-import lila.game.PgnDump.WithFlags
+import lila.game.PgnDump.{ WithFlags, applyDelay }
 import lila.game.{ Divider, Query }
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.web.{ RealPlayerApi, RealPlayers }
-
-import lila.core.i18n.Translate
-import lila.game.PgnDump.applyDelay
 
 final class GameApiV2(
     pgnDump: PgnDump,

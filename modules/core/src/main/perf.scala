@@ -1,13 +1,11 @@
 package lila.core
 
-import _root_.chess.{ variant as ChessVariant }
 import _root_.chess.variant.Variant
-import _root_.chess.Speed
+import _root_.chess.{ Speed, variant as ChessVariant }
 
-import lila.core.userId.UserId
-import lila.core.rating.data.{ IntRating, IntRatingDiff }
 import lila.core.rating.Glicko
-import lila.core.userId.UserIdOf
+import lila.core.rating.data.{ IntRating, IntRatingDiff }
+import lila.core.userId.{ UserId, UserIdOf }
 
 object perf:
 

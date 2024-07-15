@@ -3,12 +3,10 @@ package show
 
 import play.api.data.Form
 
-import lila.app.mashup.UserInfo
 import lila.app.UiEnv.{ *, given }
-
-import lila.game.GameFilter
-
+import lila.app.mashup.UserInfo
 import lila.core.data.SafeJsonStr
+import lila.game.GameFilter
 import lila.rating.UserWithPerfs.titleUsernameWithBestRating
 
 lazy val ui = lila.user.ui.UserShow(helpers, bits)

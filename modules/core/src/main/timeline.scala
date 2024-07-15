@@ -1,11 +1,11 @@
 package lila.core
 package timeline
 
+import lila.core.bus.WithChannel
 import lila.core.id.*
+import lila.core.perf.PerfKey
 import lila.core.study.data.StudyName
 import lila.core.userId.UserId
-import lila.core.perf.PerfKey
-import lila.core.bus.WithChannel
 
 case class ReloadTimelines(userIds: List[UserId])
 

@@ -2,9 +2,9 @@ package lila.lobby
 
 import scalalib.actor.SyncActor
 
-import lila.common.{ Bus, LilaScheduler }
+import lila.common.Bus
+import lila.core.pool.{ HookThieve, IsClockCompatible }
 import lila.core.socket.{ Sri, Sris }
-import lila.core.pool.{ IsClockCompatible, HookThieve }
 
 final private class LobbySyncActor(
     seekApi: SeekApi,

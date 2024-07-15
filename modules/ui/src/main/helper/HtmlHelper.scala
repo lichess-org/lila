@@ -2,8 +2,8 @@ package lila.ui
 
 import scalatags.text.Builder
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object HtmlHelper:
 

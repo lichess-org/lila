@@ -1,12 +1,12 @@
 package lila.oauth
 
-import reactivemongo.api.bson.*
 import play.api.libs.json.*
+import reactivemongo.api.bson.*
 
+import lila.common.Json.given
+import lila.core.misc.oauth.TokenRevoke
 import lila.core.net.Bearer
 import lila.db.dsl.{ *, given }
-import lila.core.misc.oauth.TokenRevoke
-import lila.common.Json.given
 
 final class AccessTokenApi(
     coll: Coll,

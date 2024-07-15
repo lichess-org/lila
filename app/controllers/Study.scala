@@ -3,22 +3,22 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.Json.given
+import scalalib.paginator.Paginator
 
 import lila.analyse.Analysis
 import lila.app.{ *, given }
-import scalalib.paginator.Paginator
 import lila.common.{ Bus, HTTPRequest }
-import lila.core.socket.Sri
-import lila.study.JsonView.JsData
-import lila.study.Study.WithChapter
-import lila.study.actorApi.{ BecomeStudyAdmin, Who }
-import lila.study.{ Chapter, Settings, Orders, Study as StudyModel, StudyForm }
-import lila.study.PgnDump.WithFlags
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.core.id.RelayRoundId
 import lila.core.misc.lpv.LpvEmbed
 import lila.core.net.IpAddress
-import lila.core.id.RelayRoundId
+import lila.core.socket.Sri
 import lila.core.study.Order
+import lila.study.JsonView.JsData
+import lila.study.PgnDump.WithFlags
+import lila.study.Study.WithChapter
+import lila.study.actorApi.{ BecomeStudyAdmin, Who }
+import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm }
+import lila.tree.Node.partitionTreeJsonWriter
 
 final class Study(
     env: Env,

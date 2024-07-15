@@ -1,10 +1,8 @@
 package lila.study
-
-import cats.syntax.all.*
-import monocle.syntax.all.*
 import chess.variant.Variant
-import lila.tree.{ Branch, Branches, Root }
-import lila.tree.NewRoot
+import monocle.syntax.all.*
+
+import lila.tree.{ Branches, NewRoot, Root }
 
 object TreeBuilder:
 

@@ -3,11 +3,10 @@ package views.appeal
 import play.api.data.Form
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
-import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
+import lila.mod.{ ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 

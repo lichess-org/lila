@@ -1,9 +1,7 @@
 package lila.rating
 
-import lila.core.user.LightPerf
-import lila.core.user.WithPerf
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.rating.PerfExt.*
+import lila.core.user.{ LightPerf, WithPerf }
 import lila.rating.UserPerfsExt.bestRating
 
 object UserWithPerfs:

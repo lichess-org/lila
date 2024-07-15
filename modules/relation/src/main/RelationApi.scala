@@ -5,15 +5,15 @@ import reactivemongo.api.bson.*
 
 import lila.common.Bus
 import lila.common.Json.given
-import lila.db.dsl.{ *, given }
-import lila.db.paginator.*
-import lila.core.timeline.{ Follow as FollowUser, Propagate }
-import lila.memo.CacheApi.*
-import lila.relation.BSONHandlers.given
+import lila.core.relation.Relation.{ Block, Follow }
 import lila.core.relation.{ Relation, Relations }
-import lila.core.relation.Relation.{ Follow, Block }
+import lila.core.timeline.{ Follow as FollowUser, Propagate }
 import lila.core.user.UserApi
 import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
+import lila.db.paginator.*
+import lila.memo.CacheApi.*
+import lila.relation.BSONHandlers.given
 
 final class RelationApi(
     repo: RelationRepo,

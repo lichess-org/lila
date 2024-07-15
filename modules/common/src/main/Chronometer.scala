@@ -4,7 +4,7 @@ object Chronometer:
 
   object futureExtension:
 
-    import scala.concurrent.{ Await, ExecutionContext as EC }
+    import scala.concurrent.Await
     extension [A](fua: Future[A])
 
       def await(duration: FiniteDuration, name: String): A =

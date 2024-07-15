@@ -2,9 +2,9 @@ package lila.rating
 
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
 
-import lila.db.BSON
-import lila.core.rating.Glicko
 import lila.core.perf.Perf
+import lila.core.rating.Glicko
+import lila.db.BSON
 import lila.rating.PerfExt.*
 
 object GlickoExt:

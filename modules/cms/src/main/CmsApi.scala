@@ -1,12 +1,9 @@
 package lila.cms
-
-import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.core.i18n.{ LangPicker, LangList, Language, defaultLanguage }
+import lila.core.i18n.{ LangList, LangPicker, Language, defaultLanguage }
 import lila.core.id.{ CmsPageId, CmsPageKey }
+import lila.db.dsl.{ *, given }
 import lila.ui.Context
 
 final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker: LangPicker)(using Executor):

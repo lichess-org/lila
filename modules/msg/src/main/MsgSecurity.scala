@@ -1,14 +1,12 @@
 package lila.msg
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
 import lila.core.misc.clas.ClasBus
-import lila.core.team.IsLeaderOf
-import lila.memo.RateLimit
-import lila.core.perm.Granter
-import lila.core.shutup.TextAnalyser
-
 import lila.core.report.SuspectId
+import lila.core.shutup.TextAnalyser
+import lila.core.team.IsLeaderOf
+import lila.db.dsl.{ *, given }
+import lila.memo.RateLimit
 
 final private class MsgSecurity(
     colls: MsgColls,

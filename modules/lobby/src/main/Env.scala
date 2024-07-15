@@ -2,10 +2,10 @@ package lila.lobby
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
+import scalalib.cache.ExpireSetMemo
 
 import lila.core.config.*
 import lila.core.pool.IsClockCompatible
-import scalalib.cache.ExpireSetMemo
 
 @Module
 final class Env(

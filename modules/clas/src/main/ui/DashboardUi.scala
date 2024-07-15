@@ -3,12 +3,12 @@ package ui
 
 import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 import lila.core.perf.UserPerfs
-import lila.core.i18n.Translate
-import lila.rating.UserPerfsExt.{ bestRating, bestAny3Perfs }
+import lila.rating.UserPerfsExt.{ bestAny3Perfs, bestRating }
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
   import helpers.{ *, given }

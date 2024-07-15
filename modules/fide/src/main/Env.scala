@@ -4,8 +4,8 @@ import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.CollName
+import lila.core.fide as hub
 import lila.memo.CacheApi
-import lila.core.{ fide as hub }
 
 @Module
 final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(using

@@ -2,15 +2,14 @@ package lila.studySearch
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-
-import lila.common.Bus
 import scalalib.paginator.*
-import lila.common.LateMultiThrottler
+
+import lila.common.{ Bus, LateMultiThrottler }
 import lila.core.study.RemoveStudy
-import lila.study.Study
 import lila.search.*
 import lila.search.client.SearchClient
 import lila.search.spec.Query
+import lila.study.Study
 
 final class Env(
     studyRepo: lila.study.StudyRepo,

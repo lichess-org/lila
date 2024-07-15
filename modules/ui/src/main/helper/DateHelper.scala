@@ -6,8 +6,8 @@ import java.time.format.{ DateTimeFormatter, FormatStyle }
 import java.time.{ Duration, LocalDate }
 import java.util.concurrent.ConcurrentHashMap
 
-import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
+import lila.ui.ScalatagsTemplate.*
 
 trait DateHelper:
   self: StringHelper =>

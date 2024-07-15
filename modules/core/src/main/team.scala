@@ -2,9 +2,10 @@ package lila.core
 package team
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.core.data.Markdown
+import lila.core.id.{ Flair, TeamId }
 import lila.core.userId.*
-import lila.core.id.{ TeamId, Flair }
 
 trait TeamApi:
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]]

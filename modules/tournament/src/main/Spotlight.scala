@@ -1,10 +1,10 @@
 package lila.tournament
 
 import scalalib.HeapSort.topN
-import lila.ui.Icon
 
 import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
+import lila.ui.Icon
 
 case class Spotlight(
     headline: String,

@@ -1,9 +1,11 @@
 package lila.core
 
 import _root_.chess.PlayerTitle
-import lila.core.userId.*
-import lila.core.id.Flair
+
 import scala.concurrent.ExecutionContext
+
+import lila.core.id.Flair
+import lila.core.userId.*
 
 case class LightUser(
     id: UserId,

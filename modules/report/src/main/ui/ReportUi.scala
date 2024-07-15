@@ -1,10 +1,12 @@
 package lila.report
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.i18n.{ Translate, I18nKey as trans }
 import play.api.data.Form
+
+import lila.core.i18n.{ I18nKey as trans, Translate }
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 object ReportUi:
 

@@ -6,9 +6,9 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.core.net.ApiVersion
-import lila.ui.LangPath
+import lila.core.i18n.{ Language, Translate }
 import lila.core.id.PuzzleId
+import lila.core.net.ApiVersion
 import lila.puzzle.{
   Puzzle as Puz,
   PuzzleAngle,
@@ -19,9 +19,7 @@ import lila.puzzle.{
   PuzzleTheme
 }
 import lila.rating.PerfType
-import lila.core.i18n.Translate
-import lila.core.user.WithPerf
-import lila.core.i18n.Language
+import lila.ui.LangPath
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 

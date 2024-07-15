@@ -1,12 +1,11 @@
 package lila.web
 
-import play.api.mvc.*
 import play.api.libs.json.*
+import play.api.mvc.*
 
-import lila.common.Json.given
+import lila.core.game.anonCookieName
 import lila.core.id.GamePlayerId
 import lila.ui.Context
-import lila.core.game.anonCookieName
 
 trait TheftPrevention:
   self: lila.web.ResponseBuilder =>

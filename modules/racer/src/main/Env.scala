@@ -19,7 +19,7 @@ final class Env(
     db: lila.db.Db
 )(using Executor, Scheduler, play.api.Mode):
 
-  private lazy val colls = RacerColls(puzzle = puzzleColls.puzzle)
+  RacerColls(puzzle = puzzleColls.puzzle)
 
   lazy val api = wire[RacerApi]
 

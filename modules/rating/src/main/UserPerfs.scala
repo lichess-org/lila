@@ -1,18 +1,12 @@
 package lila.rating
 
 import chess.Speed
-
 import scalalib.HeapSort.*
-import lila.rating.{ Glicko, Perf }
 
-import lila.rating.PerfType
+import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
 import lila.core.user.LightPerf
-import lila.core.perf.Perf
-import lila.core.rating.Glicko
-import lila.rating.PerfExt.*
 import lila.rating.GlickoExt.*
-import lila.core.perf.UserPerfs
-import lila.core.perf.{ KeyedPerf, PuzPerf }
+import lila.rating.PerfExt.*
 
 object UserPerfsExt:
 

@@ -1,10 +1,11 @@
 package lila.tournament
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
 import lila.core.i18n.Translate
+import lila.rating.PerfType
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   import helpers.{ *, given }

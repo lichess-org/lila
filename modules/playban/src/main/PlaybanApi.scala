@@ -5,10 +5,10 @@ import reactivemongo.api.bson.*
 import scalalib.model.Days
 
 import lila.common.{ Bus, Uptime }
-import lila.db.dsl.{ *, given }
-import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.core.game.Source
+import lila.core.msg.MsgApi
 import lila.core.playban.RageSit as RageSitCounter
+import lila.db.dsl.{ *, given }
 
 final class PlaybanApi(
     coll: Coll,

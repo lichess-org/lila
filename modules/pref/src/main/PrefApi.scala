@@ -4,9 +4,9 @@ import chess.{ ByColor, Color }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
+import lila.core.userId
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.core.userId
 
 final class PrefApi(
     val coll: Coll,

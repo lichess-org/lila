@@ -1,13 +1,12 @@
 package views.user
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.appeal.Appeal
+import lila.core.i18n.Translate
 import lila.mod.IpRender.RenderIp
-import lila.mod. UserWithModlog 
+import lila.mod.UserWithModlog
 import lila.mod.ui.ModUserTableUi
 import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
-import lila.core.i18n.Translate
 
 object mod:
 

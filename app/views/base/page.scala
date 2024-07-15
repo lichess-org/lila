@@ -1,11 +1,9 @@
 package views.base
-
-import play.api.i18n.Lang
 import scalalib.StringUtils.escapeHtmlRaw
 
-import lila.ui.{ RenderedPage, ContentSecurityPolicy }
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.ui.RenderedPage
 
 object page:
 
@@ -33,10 +31,6 @@ object page:
       )
     )
   )
-
-  private def current2dTheme(using ctx: Context) =
-    if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
-    else ctx.pref.currentTheme
 
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
     s"---board-opacity:${ctx.pref.board.opacity};" +

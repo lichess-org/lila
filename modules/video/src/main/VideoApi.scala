@@ -1,8 +1,8 @@
 package lila.video
 
 import reactivemongo.api.bson.*
-
 import scalalib.paginator.*
+
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi.*

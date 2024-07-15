@@ -4,12 +4,11 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
 import scalalib.Json.given
+import scalalib.paginator.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.common.config.*
-import scalalib.paginator.*
-import lila.db.dsl.{ given, * }
+import lila.db.dsl.{ *, given }
 
 final class MsgCompat(
     api: MsgApi,

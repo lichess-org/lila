@@ -3,9 +3,8 @@ package lila.relay
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
-import lila.core.misc.PicfitUrl
 import lila.core.id.ImageId
-import java.time.LocalDate
+import lila.core.misc.PicfitUrl
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,

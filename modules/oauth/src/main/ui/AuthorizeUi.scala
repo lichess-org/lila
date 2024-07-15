@@ -1,9 +1,10 @@
 package lila.oauth
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.LightUser
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
   import helpers.{ *, given }

@@ -1,10 +1,11 @@
 package lila.ui
 
 import play.api.data.*
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.user.FlairApi
-import lila.core.i18n.{ I18nKey as trans, Translate }
 import scalatags.Text.TypedTag
+
+import lila.core.i18n.{ I18nKey as trans, Translate }
+import lila.core.user.FlairApi
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
 

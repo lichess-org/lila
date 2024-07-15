@@ -2,10 +2,10 @@ package controllers
 
 import play.api.libs.json.*
 
-import lila.app.*
-import lila.common.Json.given
-import lila.challenge.ChallengeBulkSetup
 import lila.api.GameApiV2
+import lila.app.*
+import lila.challenge.ChallengeBulkSetup
+import lila.common.Json.given
 
 final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaController(env):
 

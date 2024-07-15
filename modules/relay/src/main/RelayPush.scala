@@ -4,10 +4,11 @@ import akka.actor.*
 import akka.pattern.after
 import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Game, Replay, Square }
-import scala.concurrent.duration.*
 import scalalib.actor.AsyncActorSequencers
 
-import lila.study.{ MultiPgn, StudyPgnImport, ChapterPreviewApi }
+import scala.concurrent.duration.*
+
+import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 
 final class RelayPush(
     sync: RelaySync,

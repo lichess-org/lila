@@ -1,7 +1,6 @@
 package lila.report
 
 import cats.derived.*
-
 import scalalib.Iso
 
 enum Room derives Eq:

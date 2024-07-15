@@ -5,8 +5,8 @@ import play.api.data.Mapping
 import scalalib.model.Days
 
 import lila.common.Form.{ *, given }
-import lila.gathering.Condition.*
 import lila.core.team.LightTeam
+import lila.gathering.Condition.*
 
 object ConditionForm:
 

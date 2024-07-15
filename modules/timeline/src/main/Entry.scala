@@ -4,8 +4,8 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.common.Json.given
-import lila.db.dsl.{ *, given }
 import lila.core.timeline.*
+import lila.db.dsl.{ *, given }
 
 case class Entry(
     _id: BSONObjectID,

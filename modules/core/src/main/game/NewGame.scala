@@ -1,12 +1,12 @@
 package lila.core
 package game
 
-import scalalib.model.Days
+import _root_.chess.format.Fen
+import _root_.chess.{ ByColor, Game as ChessGame, Mode, Status }
 import scalalib.ThreadLocalRandom
-import _root_.chess.{ Mode, ByColor, Status, Game as ChessGame }
+import scalalib.model.Days
 
 import lila.core.id.GameId
-import _root_.chess.format.Fen
 
 case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
 

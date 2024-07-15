@@ -4,8 +4,8 @@ import chess.Ply
 import scalalib.actor.AsyncActorSequencer
 
 import lila.analyse.AnalysisRepo
-import lila.fishnet.Work.{ Origin, Sender }
 import lila.core.id
+import lila.fishnet.Work.{ Origin, Sender }
 
 final class Analyser(
     repo: FishnetRepo,

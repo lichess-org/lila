@@ -1,7 +1,6 @@
 package lila.i18n
-
-import play.api.i18n.Lang
 import play.api.libs.json.{ JsObject, JsString }
+
 import lila.core.i18n.{ I18nKey, Translate }
 
 object JsDump extends lila.core.i18n.JsDump:

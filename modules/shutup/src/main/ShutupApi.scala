@@ -2,8 +2,8 @@ package lila.shutup
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.shutup.PublicSource
+import lila.db.dsl.{ *, given }
 
 final class ShutupApi(
     coll: Coll,

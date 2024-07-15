@@ -1,12 +1,11 @@
 package lila.msg
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.*
+import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.core.perm.{ Granter, Permission }
 import lila.core.user.UserMarks
 import lila.db.dsl.{ *, given }
-import lila.core.perm.Permission
-import lila.core.perm.Granter
 
 private case class Contact(
     @Key("_id") id: UserId,

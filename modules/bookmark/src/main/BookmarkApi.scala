@@ -2,8 +2,8 @@ package lila.bookmark
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.game.{ Game, GameApi }
+import lila.db.dsl.{ *, given }
 
 case class Bookmark(game: Game, user: User)
 

@@ -2,11 +2,11 @@ package lila.ublog
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONNull
-
 import scalalib.paginator.{ AdapterLike, Paginator }
+
+import lila.core.i18n.Language
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.core.i18n.Language
 
 final class UblogPaginator(
     colls: UblogColls,

@@ -1,10 +1,8 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
-
-import lila.common.String.html.richText
-import lila.report.{ Reason, Report }
 import lila.core.id.{ ForumPostId, RelayRoundId }
+import lila.report.Report
 
 object inquiry:
 

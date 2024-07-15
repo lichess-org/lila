@@ -7,10 +7,10 @@ import chess.{ Centis, Clock, ErrorStr, MoveMetrics, MoveOrDrop, Status }
 import java.util.concurrent.TimeUnit
 
 import lila.common.Bus
-import lila.game.actorApi.MoveGameEvent
-import lila.game.{ Progress, UciMemo }
 import lila.core.round.*
 import lila.game.GameExt.applyMove
+import lila.game.actorApi.MoveGameEvent
+import lila.game.{ Progress, UciMemo }
 import lila.round.RoundGame.*
 
 final private class Player(

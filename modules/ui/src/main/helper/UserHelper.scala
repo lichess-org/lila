@@ -2,10 +2,10 @@ package lila.ui
 
 import chess.PlayerTitle
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.perf.{ UserWithPerfs, KeyedPerf, UserPerfs }
 import lila.core.LightUser
+import lila.core.perf.{ KeyedPerf, UserPerfs, UserWithPerfs }
 import lila.core.socket.IsOnline
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 trait UserHelper:
   self: I18nHelper & NumberHelper & AssetHelper =>

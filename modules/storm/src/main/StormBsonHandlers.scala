@@ -6,8 +6,8 @@ import reactivemongo.api.bson.*
 import scala.util.Success
 
 import lila.common.LichessDay
-import lila.db.dsl.{ *, given }
 import lila.core.id.PuzzleId
+import lila.db.dsl.{ *, given }
 
 object StormBsonHandlers:
 

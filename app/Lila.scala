@@ -1,7 +1,7 @@
 package lila.app
 
-import play.api.inject.DefaultApplicationLifecycle
 import play.api.Configuration
+import play.api.inject.DefaultApplicationLifecycle
 
 // The program entry point.
 // To run with bloop:

@@ -3,11 +3,11 @@ package lila.report
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi.*
+import lila.core.id.ReportId
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
-import lila.core.id.ReportId
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 import lila.report.Room.Scores
 
 final class ReportApi(

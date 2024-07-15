@@ -1,11 +1,13 @@
 package lila.ublog
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
+
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     renderCaptcha: (Form[?], Option[Captcha]) => Context ?=> Frag

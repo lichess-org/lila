@@ -3,10 +3,10 @@ package lila.fishnet
 import chess.format.{ Fen, Uci }
 import chess.{ Color, Speed }
 import com.softwaremill.tagging.*
-import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
 import lila.memo.SettingStore

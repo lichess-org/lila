@@ -1,11 +1,11 @@
 package lila.relay
 
-import scalalib.ThreadLocalRandom
-import reactivemongo.api.bson.Macros.Annotations.Key
-
-import scalalib.model.Seconds
-import lila.study.Study
 import io.mola.galimatias.URL
+import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.ThreadLocalRandom
+import scalalib.model.Seconds
+
+import lila.study.Study
 
 case class RelayRound(
     /* Same as the Study id it refers to */

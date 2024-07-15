@@ -1,14 +1,13 @@
 package lila.core
 package security
 
+import play.api.data.{ Form, Mapping }
 import play.api.mvc.RequestHeader
 
-import lila.core.user.User
-import lila.core.net.IpAddress
-import lila.core.userId.UserId
-import play.api.data.{ Form, Mapping }
 import lila.core.email.EmailAddress
-import lila.core.userId.UserName
+import lila.core.net.IpAddress
+import lila.core.user.User
+import lila.core.userId.{ UserId, UserName }
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)

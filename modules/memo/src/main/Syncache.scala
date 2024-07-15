@@ -1,6 +1,7 @@
 package lila.memo
 
 import com.github.benmanes.caffeine.cache.*
+
 import java.util.concurrent.TimeUnit
 import scala.util.Success
 

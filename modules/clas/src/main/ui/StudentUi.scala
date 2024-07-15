@@ -1,9 +1,10 @@
 package lila.clas
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   import helpers.{ *, given }
