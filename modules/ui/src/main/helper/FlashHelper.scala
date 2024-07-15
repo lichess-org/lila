@@ -1,7 +1,6 @@
 package lila.ui
 
 import lila.ui.ScalatagsTemplate.*
-import lila.core.i18n.{ I18nKey as trans }
 
 trait FlashHelper:
   self: I18nHelper =>

@@ -7,7 +7,7 @@ import java.time.{ Duration, LocalDate }
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.ui.ScalatagsTemplate.*
-import lila.core.i18n.{ I18nKey, Translate }
+import lila.core.i18n.Translate
 
 trait DateHelper:
   self: StringHelper =>

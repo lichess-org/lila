@@ -1,6 +1,6 @@
 package lila.ui
 
-import chess.{ Clock, Color, Mode, Outcome, Ply }
+import chess.{ Clock, Color, Mode, Outcome }
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.LightUser

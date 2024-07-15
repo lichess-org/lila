@@ -1,6 +1,6 @@
 package lila.ui
 
-import play.api.mvc.{ Request, RequestHeader }
+import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 
 import lila.core.i18n.{ Language, Translate, defaultLanguage }

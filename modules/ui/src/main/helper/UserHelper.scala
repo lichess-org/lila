@@ -1,13 +1,9 @@
 package lila.ui
 
-import play.api.i18n.Lang
 import chess.PlayerTitle
 
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.Translate
-import lila.core.perf.UserWithPerfs
-import lila.core.perf.KeyedPerf
-import lila.core.perf.UserPerfs
+import lila.core.perf.{ UserWithPerfs, KeyedPerf, UserPerfs }
 import lila.core.LightUser
 import lila.core.socket.IsOnline
 

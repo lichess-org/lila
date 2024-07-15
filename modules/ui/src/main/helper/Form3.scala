@@ -1,8 +1,6 @@
 package lila.ui
 
 import play.api.data.*
-import scalalib.Render
-
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.user.FlairApi
 import lila.core.i18n.{ I18nKey as trans, Translate }
