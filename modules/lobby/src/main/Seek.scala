@@ -2,15 +2,14 @@ package lila.lobby
 
 import chess.variant.Variant
 import chess.{ Mode, Speed }
-import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
-
+import scalalib.ThreadLocalRandom
 import scalalib.model.Days
-import lila.common.Json.given
-import lila.rating.{ Perf, PerfType }
-import lila.core.rating.RatingRange
 
+import lila.common.Json.given
 import lila.core.perf.UserWithPerfs
+import lila.core.rating.RatingRange
+import lila.rating.PerfType
 
 // correspondence chess, persistent
 case class Seek(

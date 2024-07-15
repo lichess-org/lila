@@ -1,6 +1,7 @@
 package lila.tournament
 
 import play.api.i18n.Lang
+
 import lila.core.chess.Rank
 
 final class LeaderboardRepo(val coll: lila.db.dsl.Coll)

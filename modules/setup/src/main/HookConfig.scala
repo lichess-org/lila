@@ -4,11 +4,10 @@ import chess.variant.Variant
 import chess.{ Clock, Mode }
 import scalalib.model.Days
 
-import lila.lobby.{ TriColor, Hook, Seek }
-import lila.rating.{ Perf }
-import lila.rating.RatingRange.withinLimits
-import lila.core.rating.RatingRange
 import lila.core.perf.UserWithPerfs
+import lila.core.rating.RatingRange
+import lila.lobby.{ Hook, Seek, TriColor }
+import lila.rating.RatingRange.withinLimits
 
 case class HookConfig(
     variant: chess.variant.Variant,

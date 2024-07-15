@@ -1,14 +1,13 @@
 package lila.team
 
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import java.time.Period
 
+import lila.core.team.{ Access, LightTeam, TeamData }
 import lila.db.dsl.{ *, given }
-import lila.core.team.{ LightTeam, Access, TeamData }
-import reactivemongo.akkastream.AkkaStreamCursor
 
 final class TeamRepo(val coll: Coll)(using Executor):
 

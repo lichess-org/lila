@@ -3,7 +3,6 @@ package views.round
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.round.RoundGame.secondsSinceCreation
 
 def watcher(

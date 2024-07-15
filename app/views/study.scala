@@ -1,15 +1,15 @@
 package views.study
 
-import play.api.libs.json.Json
 import chess.format.pgn.PgnStr
+import play.api.libs.json.Json
 
 import lila.app.UiEnv.{ *, given }
-import lila.core.study.{ IdName, Order }
-import lila.core.socket.SocketVersion
 import lila.common.Json.given
+import lila.core.socket.SocketVersion
+import lila.core.study.{ IdName, Order }
 
 lazy val bits = lila.study.ui.StudyBits(helpers)
-lazy val ui   = lila.study.ui.StudyUi(helpers, bits)
+lazy val ui   = lila.study.ui.StudyUi(helpers)
 lazy val list = lila.study.ui.ListUi(helpers, bits)
 
 def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
@@ -118,7 +118,6 @@ def privateStudy(study: lila.study.Study)(using Context) =
 object embed:
 
   def apply(s: lila.study.Study, chapter: lila.study.Chapter, pgn: PgnStr)(using ctx: EmbedContext) =
-    import views.analyse.embed.*
     val canGetPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
     views.base.embed(
       title = s"${s.name} ${chapter.name}",

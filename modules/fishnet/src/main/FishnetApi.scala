@@ -1,10 +1,9 @@
 package lila.fishnet
 
 import reactivemongo.api.bson.*
+import scalalib.actor.AsyncActorSequencer
 
 import scala.util.{ Failure, Success, Try }
-
-import scalalib.actor.AsyncActorSequencer
 
 import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress

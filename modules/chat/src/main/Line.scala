@@ -1,8 +1,7 @@
 package lila.chat
 
-import reactivemongo.api.bson.*
-
 import chess.{ Color, PlayerTitle }
+import reactivemongo.api.bson.*
 
 case class UserLine(
     username: UserName,

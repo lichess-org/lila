@@ -7,8 +7,6 @@ import java.time.format.DateTimeFormatter
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-
-import lila.rating.PerfType
 import lila.core.id.GameAnyId
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):

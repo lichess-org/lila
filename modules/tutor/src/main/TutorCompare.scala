@@ -1,6 +1,7 @@
 package lila.tutor
 
 import scalalib.HeapSort.topN
+
 import lila.insight.{ InsightDimension, InsightPosition }
 
 case class TutorCompare[D, V](

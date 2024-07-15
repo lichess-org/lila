@@ -1,13 +1,11 @@
 package lila.streamer
 package ui
-
-import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.perf.UserPerfs
 import lila.core.config.NetDomain
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: NetDomain):
   import helpers.{ *, given }

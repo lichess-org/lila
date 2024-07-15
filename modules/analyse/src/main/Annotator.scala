@@ -4,8 +4,8 @@ import chess.format.pgn.{ Comment, Glyphs, Move, Pgn, PgnStr, Tag }
 import chess.opening.*
 import chess.{ Color, Ply, Status, Tree, Variation }
 
-import lila.tree.{ Advice, Analysis, StatusText }
 import lila.core.game.{ Game, GameDrawOffers }
+import lila.tree.{ Advice, Analysis, StatusText }
 
 final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.Annotator:
 

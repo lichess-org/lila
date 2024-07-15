@@ -1,9 +1,9 @@
 package controllers
 
+import monocle.syntax.all.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import monocle.syntax.all.*
 import scala.util.{ Failure, Success }
 
 import lila.app.*

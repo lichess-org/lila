@@ -3,10 +3,8 @@ package lila.relay
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanText, formatter, into, numberIn, ISODate }
+import lila.common.Form.{ cleanText, formatter, into, numberIn }
 import lila.core.perm.Granter
-
-import lila.core.i18n.I18nKey.streamer
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 

@@ -1,6 +1,4 @@
 package lila.puzzle
-
-import akka.pattern.ask
 import chess.format.{ BoardFen, Uci }
 import scalalib.ThreadLocalRandom.odds
 

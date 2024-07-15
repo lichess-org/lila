@@ -8,7 +8,6 @@ import lila.db.dsl.{ *, given }
 final class RelationStream(colls: Colls)(using akka.stream.Materializer):
 
   import RelationStream.*
-  import RelationRepo.given
 
   private val coll = colls.relation
 

@@ -5,9 +5,8 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.app.{ *, given }
-import lila.common.Json.lightUserWrites
 import lila.core.i18n.{ I18nKey as trans, defaultLang }
-import lila.i18n.{ LangPicker, LangList }
+import lila.i18n.{ LangList, LangPicker }
 import lila.pref.ui.DasherJson
 
 final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaController(env):

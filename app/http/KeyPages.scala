@@ -3,7 +3,6 @@ package http
 
 import play.api.libs.json.Json
 import play.api.mvc.*
-import scalatags.Text.all.Frag
 
 import lila.app.{ *, given }
 import lila.memo.CacheApi.*

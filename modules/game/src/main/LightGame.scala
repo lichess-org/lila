@@ -1,8 +1,8 @@
 package lila.game
 
-import chess.{ Color, Status }
+import chess.Color
 
-import lila.core.game.{ LightGame, LightPlayer }
+import lila.core.game.LightPlayer
 
 object LightGame:
 

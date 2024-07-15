@@ -1,28 +1,30 @@
 package lila.fishnet
 
-import monocle.syntax.all.*
-import chess.MoveOrDrop.*
-import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tags }
+import chess.ByColor
+import chess.format.pgn.{ Parser, PgnStr, SanStr }
 import chess.variant.Standard
-import chess.{ ByColor, Clock, MoveOrDrop, Ply, Situation }
-import play.api.libs.json.Json
-
-import java.time.Instant
+import monocle.syntax.all.*
+import play.api.libs.json.JsValue
 
 import lila.analyse.{ Analysis, Annotator }
 import lila.core.config.NetDomain
-
-import JsonApi.*
-import readers.given
 import lila.core.game.Player
 import lila.core.id.GamePlayerId
-import chess.format.FullFen
-import chess.variant.Variant
-
-import lila.tree.{ ExportOptions, TreeBuilder, NewTreeBuilder, NewRoot, Tree, Root, NewBranch }
 import lila.tree.Node.{ Comment, Comments }
-import lila.tree.{ Branch, Branches, Node, NewTree }
-import play.api.libs.json.JsValue
+import lila.tree.{
+  Branch,
+  Branches,
+  ExportOptions,
+  NewBranch,
+  NewRoot,
+  NewTree,
+  NewTreeBuilder,
+  Node,
+  Root,
+  TreeBuilder
+}
+
+import JsonApi.*
 
 final class TreeBuilderTest extends munit.FunSuite:
 

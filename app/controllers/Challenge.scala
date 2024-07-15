@@ -4,15 +4,13 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 
 import lila.app.{ *, given }
-import lila.challenge.Challenge as ChallengeModel
-import lila.core.net.{ Bearer, IpAddress }
+import lila.challenge.{ Challenge as ChallengeModel, Direction }
 import lila.core.id.ChallengeId
-import lila.game.{ AnonCookie }
+import lila.core.net.Bearer
+import lila.core.socket.SocketVersion
+import lila.game.AnonCookie
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
-import lila.core.socket.SocketVersion
-import lila.challenge.Direction
-import lila.common.Json.given
 
 final class Challenge(
     env: Env,
@@ -359,7 +357,6 @@ final class Challenge(
       config =>
         limit
           .challenge(req.ipAddress, rateLimited):
-            import lila.challenge.Challenge.*
             env.challenge.api
               .createOpen(config)
               .map: challenge =>

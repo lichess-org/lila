@@ -4,14 +4,13 @@ import reactivemongo.api.bson.*
 
 import scala.util.Success
 
+import lila.core.perf.{ PerfId, UserPerfs }
+import lila.core.user.LightPerf
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.rating.{ Glicko, Perf, UserPerfs }
-import lila.core.user.LightPerf
-import lila.core.perf.{ PerfId, UserPerfs }
-import lila.rating.PerfType
 import lila.rating.GlickoExt.rankable
+import lila.rating.PerfType
 
 final class RankingApi(
     c: AsyncCollFailingSilently,

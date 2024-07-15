@@ -1,7 +1,6 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.common.String.html.richText
 import lila.core.shutup.PublicSource
 import lila.mod.IpRender.RenderIp

@@ -6,8 +6,8 @@ import chess.{ ByColor, Centis, Color, Elo, FideId, Outcome, PlayerName, PlayerT
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.fide.Federation
+import lila.db.dsl.{ *, given }
 
 case class ChapterPreview(
     id: StudyChapterId,

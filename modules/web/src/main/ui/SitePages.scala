@@ -1,10 +1,10 @@
 package lila.web
 package ui
 
+import lila.core.id.{ CmsPageKey, ForumCategId }
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.core.id.ForumCategId
-import lila.core.id.CmsPageKey
 
 final class SitePages(helpers: Helpers):
   import helpers.{ *, given }

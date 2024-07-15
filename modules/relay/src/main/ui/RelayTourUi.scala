@@ -1,12 +1,13 @@
 package lila.relay
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
-import lila.relay.RelayTour.WithLastRound
+
 import lila.core.LightUser
-import play.api.libs.json.Json
+import lila.relay.RelayTour.WithLastRound
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   import helpers.{ *, given }

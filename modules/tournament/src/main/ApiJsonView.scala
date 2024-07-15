@@ -3,10 +3,10 @@ package lila.tournament
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.i18n.Translate
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
 import lila.rating.PerfType
-import lila.core.i18n.Translate
 
 final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executor):
 

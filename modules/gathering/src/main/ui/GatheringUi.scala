@@ -1,9 +1,10 @@
 package lila.gathering
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.data.UserIds
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
   import helpers.{ *, given }
@@ -56,7 +57,7 @@ final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
     )
 
 final class GatheringFormUi(helpers: Helpers):
-  import helpers.{ *, given }
+  import helpers.*
   import play.api.data.Field
 
   val titleBypass = frag("Titled players bypass this restriction.")

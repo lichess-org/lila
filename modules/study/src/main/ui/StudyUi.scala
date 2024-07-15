@@ -1,11 +1,12 @@
 package lila.study
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.study.IdName
+import lila.ui.*
 
-final class StudyUi(helpers: Helpers, bits: StudyBits):
+import ScalatagsTemplate.{ *, given }
+
+final class StudyUi(helpers: Helpers):
   import helpers.{ *, given }
 
   def clone(s: Study)(using Context) =

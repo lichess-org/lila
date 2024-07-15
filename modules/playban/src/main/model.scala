@@ -1,10 +1,10 @@
 package lila.playban
 
 import play.api.libs.json.*
+import scalalib.model.Days
 
 import lila.common.Json.given
 import lila.core.playban.RageSit as RageSitCounter
-import scalalib.model.Days
 
 case class UserRecord(
     _id: UserId,

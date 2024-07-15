@@ -1,17 +1,17 @@
 package controllers
 
-import scalalib.ThreadLocalRandom
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
+import scalalib.ThreadLocalRandom
 import scalatags.Text.all.stringFrag
 
 import lila.app.*
+import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.net.{ Bearer, IpAddress }
+import lila.core.net.Bearer
 import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
 
 import Api.ApiResult
-import lila.common.HTTPRequest
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 

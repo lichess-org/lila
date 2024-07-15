@@ -5,8 +5,8 @@ import chess.variant.Variant
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
-import lila.core.net.IpAddress
 import lila.core.chess.Depth
+import lila.core.net.IpAddress
 import lila.fishnet.Work as W
 import lila.tree.Eval.{ Cp, Mate }
 

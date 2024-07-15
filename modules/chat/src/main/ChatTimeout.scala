@@ -1,9 +1,9 @@
 package lila.chat
 
-import scalalib.ThreadLocalRandom
 import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
+import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 

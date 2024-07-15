@@ -1,11 +1,9 @@
 package lila.fide
-
-import chess.FideId
 import monocle.syntax.all.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.fide.FideTC
 import lila.core.fide.Federation.*
+import lila.core.fide.FideTC
 
 case class Federation(
     @Key("_id") id: Id,

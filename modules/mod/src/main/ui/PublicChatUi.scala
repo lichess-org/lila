@@ -1,10 +1,10 @@
 package lila.mod
 package ui
 
+import lila.chat.{ ChatTimeout, UserChat }
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.chat.UserChat
-import lila.chat.ChatTimeout
 
 final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String => Frag):
   import helpers.{ *, given }

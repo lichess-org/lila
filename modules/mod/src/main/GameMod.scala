@@ -3,10 +3,10 @@ package lila.mod
 import play.api.data.*
 import play.api.data.Forms.{ list as formList, * }
 
-import lila.rating.PerfType
-import lila.game.Query
-import lila.common.Form.{ stringIn, perfKey, given }
+import lila.common.Form.{ perfKey, stringIn, given }
 import lila.db.dsl.{ *, given }
+import lila.game.Query
+import lila.rating.PerfType
 
 object GameMod:
 

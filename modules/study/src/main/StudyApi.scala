@@ -6,10 +6,10 @@ import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 
 import lila.common.Bus
-import lila.core.timeline.{ Propagate, StudyLike }
 import lila.core.perm.Granter
 import lila.core.socket.Sri
-import lila.core.{ study as hub }
+import lila.core.study as hub
+import lila.core.timeline.{ Propagate, StudyLike }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 

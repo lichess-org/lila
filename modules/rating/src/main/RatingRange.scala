@@ -1,6 +1,6 @@
 package lila.rating
 
-import lila.core.{ rating as hub }
+import lila.core.rating as hub
 
 object RatingRange:
 

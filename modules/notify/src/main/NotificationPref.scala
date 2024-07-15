@@ -1,6 +1,5 @@
 package lila.notify
 
-import alleycats.Zero
 import reactivemongo.api.bson.*
 
 import lila.core.notify.{ Allows, PrefEvent }

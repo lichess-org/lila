@@ -1,17 +1,16 @@
 package lila.study
 
-import lila.core.LightUser
-import lila.tree.{ Node, Root, NewRoot }
-import chess.variant.{ Variant, Standard }
-
-import monocle.syntax.all.*
-import lila.study.Helpers.*
-
-import lila.db.BSON
-import BSONHandlers.given
-import lila.db.BSON.{ Writer, Reader }
-import lila.db.dsl.Bdoc
+import chess.variant.Variant
 import play.api.libs.json.Json
+
+import lila.core.LightUser
+import lila.db.BSON
+import lila.db.BSON.{ Reader, Writer }
+import lila.db.dsl.Bdoc
+import lila.study.Helpers.*
+import lila.tree.{ NewRoot, Node, Root }
+
+import BSONHandlers.given
 
 class JsonTest extends munit.FunSuite:
 

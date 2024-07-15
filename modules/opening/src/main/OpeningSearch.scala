@@ -2,11 +2,11 @@ package lila.opening
 
 import chess.format.pgn.PgnMovesStr
 import chess.opening.{ Opening, OpeningDb }
+import scalalib.HeapSort.topN
 
 import java.text.Normalizer
 
 import lila.common.Chronometer
-import scalalib.HeapSort.topN
 import lila.memo.CacheApi
 
 case class OpeningSearchResult(opening: Opening):

@@ -2,8 +2,8 @@ package lila.user
 
 import reactivemongo.api.bson.*
 
-import lila.core.user.{ UserEnabled, Profile, Plan, TotpSecret, PlayTime, UserMarks, Count }
 import lila.core.security.HashedPassword
+import lila.core.user.{ Count, Plan, PlayTime, Profile, TotpSecret, UserEnabled, UserMarks }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 

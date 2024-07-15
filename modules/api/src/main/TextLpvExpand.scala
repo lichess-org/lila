@@ -5,9 +5,9 @@ import scalatags.Text.all.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.core.config.NetDomain
-import lila.memo.CacheApi
 import lila.core.i18n.{ Translate, Translator }
 import lila.core.misc.lpv.*
+import lila.memo.CacheApi
 
 final class TextLpvExpand(
     gameRepo: lila.core.game.GameRepo,

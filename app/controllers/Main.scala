@@ -1,15 +1,11 @@
 package controllers
-
-import play.api.data.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.GameFullId
-
-import lila.core.net.Bearer
-import lila.web.{ WebForms, StaticContent }
+import lila.web.{ StaticContent, WebForms }
 
 final class Main(
     env: Env,

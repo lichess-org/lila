@@ -2,10 +2,11 @@ package lila.user
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class UserBits(helpers: Helpers):
-  import helpers.{ *, given }
+  import helpers.*
 
   def communityMenu(active: String)(using Translate) =
     lila.ui.bits.pageMenuSubnav(

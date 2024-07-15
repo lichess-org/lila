@@ -1,14 +1,13 @@
 package lila.activity
 
 import play.api.i18n.Lang
-
 import scalalib.HeapSort
+
+import lila.core.chess.Rank
+import lila.core.game.LightPov
+import lila.core.swiss.IdName as SwissIdName
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
-import lila.core.game.LightPov
-
-import lila.core.swiss.{ IdName as SwissIdName }
-import lila.core.chess.Rank
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,

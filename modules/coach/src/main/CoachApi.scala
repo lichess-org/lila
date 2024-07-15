@@ -1,9 +1,8 @@
 package lila.coach
 
+import lila.core.perm.Granter
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
-import lila.core.perm.Granter
-import lila.core.perf.UserPerfs
 import lila.rating.UserPerfsExt.bestStandardRating
 
 final class CoachApi(

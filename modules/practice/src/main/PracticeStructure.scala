@@ -1,7 +1,7 @@
 package lila.practice
 
+import lila.core.study.data.{ StudyChapterName, StudyName }
 import lila.study.Chapter
-import lila.core.study.data.{ StudyName, StudyChapterName }
 
 case class PracticeStructure(sections: List[PracticeSection]):
 

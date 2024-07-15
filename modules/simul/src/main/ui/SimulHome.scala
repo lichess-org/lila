@@ -1,9 +1,11 @@
 package lila.simul
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
+
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class SimulHome(helpers: Helpers, ui: SimulUi):
   import helpers.{ *, given }

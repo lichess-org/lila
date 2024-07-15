@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.core.game.{ GameRepo, GameApi }
+import lila.core.game.{ GameApi, GameRepo }
 
 final class AutoAnalysis(gameRepo: GameRepo, gameApi: GameApi)(using ec: Executor, scheduler: Scheduler):
 

@@ -3,9 +3,8 @@ package lila.security
 import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
+import lila.core.net.{ ApiVersion, UserAgent }
 import lila.core.socket.Sri
-import lila.core.net.ApiVersion
-import lila.core.net.UserAgent
 
 object Mobile:
 

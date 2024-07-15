@@ -1,16 +1,13 @@
 package lila.challenge
-
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.i18n.{ I18nKey as trans, JsDump, Translate }
+import lila.core.id.GameFullId
+import lila.core.socket.{ SocketVersion, userLag }
+import lila.game.JsonView.given
 import lila.ui.Icon
 import lila.ui.Icon.iconWrites
-import lila.game.JsonView.given
-import lila.core.i18n.I18nKey as trans
-import lila.core.socket.{ SocketVersion, userLag }
-import lila.core.i18n.{ Translate, JsDump }
-import lila.core.id.GameFullId
 
 final class JsonView(
     baseUrl: lila.core.config.BaseUrl,

@@ -2,9 +2,9 @@ package lila.activity
 
 import reactivemongo.api.bson.*
 
+import lila.core.simul.Simul
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import lila.core.simul.Simul
 
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,

@@ -1,8 +1,8 @@
 package lila.pool
 
 import lila.core.playban.RageSit
+import lila.core.pool.{ Joiner, PoolMember }
 import lila.core.rating.RatingRange
-import lila.core.pool.{ PoolMember, Joiner }
 
 extension (m: PoolMember)
   def incMisses                     = m.copy(misses = m.misses + 1)

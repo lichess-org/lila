@@ -1,32 +1,28 @@
 package lila.game
 
-import scalalib.model.Days
-import Color.{ Black, White }
 import chess.MoveOrDrop.{ color, fold }
+import chess.format.Uci
 import chess.format.pgn.SanStr
-import chess.format.{ Fen, Uci }
-import chess.opening.{ Opening, OpeningDb }
-import chess.variant.{ FromPosition, Standard, Variant }
+import chess.variant.Variant
 import chess.{
   ByColor,
   Castles,
   Centis,
-  CheckCount,
   Clock,
   Color,
   Game as ChessGame,
   Mode,
   MoveOrDrop,
-  Outcome,
   Ply,
   Speed,
   Status
 }
+import scalalib.model.Days
 
+import lila.core.game.{ ClockHistory, Game, Player, Pov }
 import lila.db.ByteArray
-import lila.core.game.{ Pov, Game, Player, GameRule, Source, PgnImport, ClockHistory }
-import lila.rating.PerfType
 import lila.game.Blurs.addAtMoveIndex
+import lila.rating.PerfType
 
 object GameExt:
 

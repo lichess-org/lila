@@ -1,7 +1,6 @@
 package lila.study
 
 import alleycats.Zero
-
 import scalalib.actor.AsyncActorSequencers
 
 final private class StudySequencer(

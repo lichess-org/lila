@@ -1,14 +1,15 @@
 package lila.swiss
 package ui
 
+import chess.variant.Variant
 import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Translate
-import lila.gathering.{ ConditionForm, GatheringClock }
-import chess.variant.Variant
+import lila.gathering.GatheringClock
 import lila.gathering.ui.GatheringFormUi
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class SwissFormUi(helpers: Helpers)(
     translatedVariantChoicesWithVariants: (
@@ -48,9 +49,6 @@ final class SwissFormUi(helpers: Helpers)(
             )
           )
         )
-
-  private def advancedSettings(settings: Frag*)(using Context) =
-    details(summary(trans.site.advancedSettings()), settings)
 
   private val gatheringFormUi = GatheringFormUi(helpers)
 
