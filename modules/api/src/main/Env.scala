@@ -2,14 +2,11 @@ package lila.api
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
-import lila.common.config.*
 import lila.core.misc.lpv.*
-import lila.core.id.CmsPageKey
 
 @Module
 final class Env(
@@ -54,6 +51,7 @@ final class Env(
     notifyEnv: lila.notify.Env,
     appealApi: lila.appeal.AppealApi,
     shutupEnv: lila.shutup.Env,
+    titleEnv: lila.title.Env,
     modLogApi: lila.mod.ModlogApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,

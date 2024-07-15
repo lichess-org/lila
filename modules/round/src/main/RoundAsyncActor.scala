@@ -3,15 +3,14 @@ package lila.round
 import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
 import play.api.libs.json.*
-import scala.util.chaining.*
-
-import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
 import scalalib.actor.AsyncActor
+
 import lila.core.round.*
-import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
+import lila.core.socket.{ GetVersion, SocketSend, SocketVersion, makeMessage, userLag }
 import lila.core.user.FlairGet
 import lila.game.GameExt.*
+import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
+import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.round.RoundGame.*
 
 final private class RoundAsyncActor(

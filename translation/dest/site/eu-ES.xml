@@ -464,9 +464,6 @@
   <string name="safeTournamentName">Adeitasunezko izena hauta ezazu.</string>
   <string name="inappropriateNameWarning">Errespetua galduz gero, zure kontua itxiko dugu.</string>
   <string name="emptyTournamentName">Ez baduzu betetzen, txapelketak Maisu Handi baten izena hartuko du, ausaz.</string>
-  <string name="recommendNotTouching">Hobe ez ukitu hau.</string>
-  <string name="fewerPlayers">Parte hartzeko baldintzak jartzen badituzu, jokalari gutxiago sartuko dira txapelketan.</string>
-  <string name="showAdvancedSettings">Ezarpen aurreratuak</string>
   <string name="makePrivateTournament">Txapelketa pribatu egin eta sarrera pasahitzarekin babestu</string>
   <string name="join">Sartu</string>
   <string name="withdraw">Txapelketa utzi</string>
@@ -506,8 +503,6 @@
   <string name="ifNoneLeaveEmpty">Ez baduzu, hutsik utzi</string>
   <string name="profile">Profila</string>
   <string name="editProfile">Nire profila editatu</string>
-  <string name="firstName">Izena</string>
-  <string name="lastName">Abizena</string>
   <string name="setFlair">Ezarri zure iruditxoa</string>
   <string name="flair">Iruditxoa</string>
   <string name="youCanHideFlair">Webgune guztian zehar erabiltzaile guztien iruditxoak ezkutatzeko ezarpen bat dago.</string>
@@ -553,9 +548,7 @@
   <string name="reason">Arrazoia</string>
   <string name="whatIsIheMatter">Zein da arazoa?</string>
   <string name="cheat">Tranpak</string>
-  <string name="insult">Irainak</string>
   <string name="troll">Trolla</string>
-  <string name="ratingManipulation">Puntuazioa manipulatu</string>
   <string name="other">Bestelakoak</string>
   <string name="reportDescriptionHelp">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak. Zure mezua azkarrago begiratuko dugu ingelesez idazten baduzu.</string>
   <string name="error.provideOneCheatedGameLink">Iruzurra izandako partida baten lotura bidali gutxienez.</string>

@@ -1,22 +1,19 @@
 package lila.fishnet
-
-import chess.MoveOrDrop.*
-import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tags }
-import chess.variant.Standard
-import chess.{ ByColor, Clock, MoveOrDrop, Ply, Situation }
+import chess.format.FullFen
+import chess.format.pgn.{ Parser, Pgn, PgnStr, SanStr, Tags }
+import chess.variant.{ Standard, Variant }
+import chess.{ ByColor, Ply }
 import play.api.libs.json.Json
 
 import java.time.Instant
 
-import lila.analyse.{ Analysis, Annotator }
+import lila.analyse.Annotator
 import lila.core.config.NetDomain
+import lila.core.game.Player
+import lila.core.id.GamePlayerId
 
 import JsonApi.*
 import readers.given
-import lila.core.game.Player
-import lila.core.id.GamePlayerId
-import chess.format.FullFen
-import chess.variant.Variant
 
 final class AnnotatorTest extends munit.FunSuite:
 

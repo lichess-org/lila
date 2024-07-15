@@ -1,6 +1,8 @@
 import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { prop } from 'common';
+import { snabDialog } from 'common/dialog';
+import flairPickerLoader from 'bits/flairPicker';
 import { bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
 import { StudyData } from './interfaces';
@@ -81,7 +83,7 @@ export function view(ctrl: StudyForm): VNode {
     ['member', ctrl.trans.noarg('members')],
     ['everyone', ctrl.trans.noarg('everyone')],
   ];
-  return site.dialog.snab({
+  return snabDialog({
     class: 'study-edit',
     onClose() {
       ctrl.open(false);
@@ -122,7 +124,7 @@ export function view(ctrl: StudyForm): VNode {
               h(
                 'details.form-control.emoji-details',
                 {
-                  hook: onInsert(el => flairPicker(el)),
+                  hook: onInsert(el => flairPickerLoader(el)),
                 },
                 [
                   h('summary.button.button-metal.button-no-upper', [
@@ -140,6 +142,7 @@ export function view(ctrl: StudyForm): VNode {
                   }),
                 ],
               ),
+              data.flair && h(removeEmojiButton, 'Delete'),
             ]),
             h('div.form-group', [
               h('label.form-label', { attrs: { for: 'study-name' } }, ctrl.trans.noarg('name')),
@@ -271,29 +274,4 @@ export function view(ctrl: StudyForm): VNode {
   });
 }
 
-// TODO FIXME
-// copied from ui/bits/src/load/flairPicker.ts
-function flairPicker(element: HTMLElement) {
-  const parent = $(element).parent();
-  const close = () => element.removeAttribute('open');
-  const onEmojiSelect = (i?: { id: string; src: string }) => {
-    parent.find('input[name="flair"]').val(i?.id ?? '');
-    parent.find('.uflair').remove();
-    if (i) parent.find('.flair-container').append('<img class="uflair" src="' + i.src + '" />');
-    close();
-  };
-  parent.find('.emoji-remove').on('click', e => {
-    e.preventDefault();
-    onEmojiSelect();
-    $(e.target).remove();
-  });
-  $(element).on('toggle', () =>
-    site.asset.loadEsm('bits.flairPicker', {
-      init: {
-        element: element.querySelector('.flair-picker')!,
-        close,
-        onEmojiSelect,
-      },
-    }),
-  );
-}
+const removeEmojiButton = emptyRedButton + '.text.emoji-remove';

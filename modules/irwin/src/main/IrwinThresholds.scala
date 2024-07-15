@@ -3,10 +3,10 @@ package lila.irwin
 import play.api.data.Form
 import play.api.data.Forms.{ single, text }
 import reactivemongo.api.bson.BSONHandler
-
 import scalalib.Iso
-import lila.memo.SettingStore.{ Formable, StringReader }
+
 import lila.core.data.Ints
+import lila.memo.SettingStore.{ Formable, StringReader }
 
 case class IrwinThresholds(report: Int, mark: Int)
 

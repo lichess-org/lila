@@ -2,18 +2,14 @@ package controllers
 
 import chess.format.Fen
 import play.api.libs.json.Json
-import play.api.mvc.{ Request, Result, EssentialAction }
+import play.api.mvc.{ EssentialAction, Result }
 
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
 import lila.common.HTTPRequest
-import lila.game.{ AnonCookie, Pov }
-import lila.memo.RateLimit
-
+import lila.core.socket.Sri
+import lila.game.AnonCookie
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
-import lila.core.socket.Sri
-import lila.game.GameExt.perfType
 
 final class Setup(
     env: Env,
@@ -48,7 +44,7 @@ final class Setup(
             for
               origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
               destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
-              denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfType))
+              denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
               result <- denied match
                 case Some(denied) =>
                   val message = lila.challenge.ChallengeDenied.translated(denied)

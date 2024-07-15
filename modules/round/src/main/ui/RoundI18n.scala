@@ -1,12 +1,11 @@
 package lila.round
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ I18nKey, Translate }
+import lila.ui.*
 
 final class RoundI18n(helpers: Helpers):
-  import helpers.{ *, given }
+  import helpers.*
 
   def apply(g: Game)(using t: Translate) =
     i18nJsObject:

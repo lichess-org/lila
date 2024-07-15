@@ -1,12 +1,10 @@
 package lila.common
 
-import scala.util.Try
-
 object Chronometer:
 
   object futureExtension:
 
-    import scala.concurrent.{ Await, ExecutionContext as EC }
+    import scala.concurrent.Await
     extension [A](fua: Future[A])
 
       def await(duration: FiniteDuration, name: String): A =
@@ -25,7 +23,7 @@ object Chronometer:
       def chronometerTry = Chronometer.lapTry(fua)
 
       def mon(path: lila.mon.TimerPath): Fu[A] = chronometer.mon(path).result
-      def monTry(path: Try[A] => lila.mon.TimerPath): Fu[A] =
+      def monTry(path: scala.util.Try[A] => lila.mon.TimerPath): Fu[A] =
         chronometerTry.mon(r => path(r)(lila.mon)).result
       def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer): Fu[A] =
         chronometerTry
@@ -72,7 +70,7 @@ object Chronometer:
 
     def showDuration: String = if millis >= 1 then s"$millis ms" else s"$micros micros"
 
-  case class LapTry[A](result: Try[A], nanos: Long):
+  case class LapTry[A](result: scala.util.Try[A], nanos: Long):
     def millis = (nanos / 1000000).toInt
 
   case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal:
@@ -105,7 +103,7 @@ object Chronometer:
 
   case class FuLapTry[A](lap: Fu[LapTry[A]]) extends AnyVal:
 
-    def mon(path: Try[A] => kamon.metric.Timer) =
+    def mon(path: scala.util.Try[A] => kamon.metric.Timer) =
       lap.dforeach: l =>
         path(l.result).record(l.nanos)
       this

@@ -6,6 +6,7 @@
     "rootDir": "src",
     "types": ["lichess", "web"],
     "composite": true,
-    "incremental": true
+    "incremental": true,
+    "isolatedDeclarations": true
   }
 }

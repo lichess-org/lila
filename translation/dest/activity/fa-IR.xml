@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">فعالیت</string>
-  <string name="hostedALiveStream">یک پخش زنده میزبانی کرد</string>
+  <string name="hostedALiveStream">میزبان پخش زنده بود</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">به عنوان %2$s برای %1$s ماه از lichess.org حمایت کرد</item>
     <item quantity="other">به عنوان %2$s برای %1$s ماه از lichess.org حمایت کرد</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">%1$s وضعیت را در %2$s تمرین کرد</item>
-    <item quantity="other">%1$s پوزیسیون را در %2$s تمرین کرد</item>
+    <item quantity="one">%1$s وضعیت تمرین‌شده در %2$s</item>
+    <item quantity="other">%1$s وضعیت تمرین‌شده در %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s معمای آموزشی را حل کرد</item>

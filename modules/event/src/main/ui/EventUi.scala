@@ -3,9 +3,10 @@ package ui
 
 import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.MarkdownRender
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor):
   import helpers.{ *, given }

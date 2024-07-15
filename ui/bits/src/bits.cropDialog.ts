@@ -1,10 +1,11 @@
 import { defined } from 'common';
+import { domDialog } from 'common/dialog';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
-  aspectRatio: number; // required
+  aspectRatio?: number;
   source?: Blob | string; // image or url
-  max: { megabytes: number; pixels?: number }; // constrain size
+  max?: { megabytes?: number; pixels?: number }; // constrain size
   post?: { url: string; field?: string }; // multipart post form url and field name
   onCropped?: (result: Blob | boolean, error?: string) => void; // result callback
 }
@@ -61,17 +62,17 @@ export async function initModule(o?: CropOpts) {
     minContainerHeight: viewBounds.height,
   });
 
-  const dlg = await site.dialog.dom({
+  const dlg = await domDialog({
     class: 'crop-viewer',
-    css: [{ themed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
+    css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
     htmlText: `<h2>Crop image to desired shape</h2>
-<div class="crop-view"></div>
-<span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
-<button class="button submit">submit</button></span>`,
-    append: [{ selector: '.crop-view', node: container }],
-    action: [
-      { selector: '.dialog-actions > .cancel', action: d => d.close() },
-      { selector: '.dialog-actions > .submit', action: crop },
+      <div class="crop-view"></div>
+      <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
+      <button class="button submit">submit</button></span>`,
+    append: [{ where: '.crop-view', node: container }],
+    actions: [
+      { selector: '.dialog-actions > .cancel', listener: (_, d) => d.close() },
+      { selector: '.dialog-actions > .submit', listener: crop },
     ],
     onClose: () => {
       URL.revokeObjectURL(url);
@@ -94,7 +95,7 @@ export async function initModule(o?: CropOpts) {
     const tryQuality = (quality = 0.9) => {
       canvas.toBlob(
         blob => {
-          if (blob && blob.size < opts.max.megabytes * 1024 * 1024) submit(blob);
+          if (blob && blob.size < (opts.max?.megabytes ?? 100) * 1024 * 1024) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');
         },

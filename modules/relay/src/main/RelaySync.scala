@@ -23,7 +23,7 @@ final private class RelaySync(
     plan  = RelayUpdatePlan(chapters, games)
     _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
-      updateChapter(rt.tour, study, game, chapter)
+      updateChapter(rt, study, game, chapter)
     appends <- plan.append.toList.sequentially: game =>
       createChapter(rt, study, game)
     result = SyncResult.Ok(updates ::: appends.flatten, games)
@@ -32,14 +32,15 @@ final private class RelaySync(
   yield result
 
   private def updateChapter(
-      tour: RelayTour,
+      rt: RelayRound.WithTour,
       study: Study,
       game: RelayGame,
       chapter: Chapter
   ): Fu[SyncResult.ChapterResult] = for
     chapter   <- updateInitialPosition(study.id, chapter, game)
-    tagUpdate <- updateChapterTags(tour, study, chapter, game)
-    nbMoves   <- updateChapterTree(study, chapter, game)(using tour)
+    tagUpdate <- updateChapterTags(rt.tour, study, chapter, game)
+    nbMoves   <- updateChapterTree(study, chapter, game)(using rt.tour)
+    _         <- (nbMoves > 0).so(notifier.roundBegin(rt))
   yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
 
   private def createChapter(
@@ -53,8 +54,6 @@ final private class RelaySync(
         (RelayFetch.maxChapters > nb).so:
           createChapter(study, game)(using rt.tour).map: chapter =>
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
-      .flatMapz: result =>
-        ((result.newMoves > 0).so(notifier.roundBegin(rt))).inject(result.some)
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
     if game.root.mainline.sizeIs > 1 || game.root.fen == chapter.root.fen

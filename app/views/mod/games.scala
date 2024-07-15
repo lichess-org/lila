@@ -1,17 +1,14 @@
 package views.mod
 
 import play.api.data.Form
-import scala.util.chaining.*
 
 import lila.app.UiEnv.{ *, given }
-
-import lila.evaluation.PlayerAssessment
-import lila.rating.PerfType
 import lila.core.chess.Rank
-import lila.tournament.LeaderboardApi.TourEntry
+import lila.evaluation.PlayerAssessment
 import lila.game.GameExt.*
 import lila.mod.GameMod
 import lila.mod.ui.ModUserTableUi.sortNoneTh
+import lila.tournament.LeaderboardApi.TourEntry
 
 def games(
     user: User,

@@ -432,9 +432,6 @@
   <string name="safeTournamentName">เลือกชื่อที่ปลอดภัยสุดสำหรับทัวร์นาเมนต์</string>
   <string name="inappropriateNameWarning">อะไรที่ไม่เหมาะสมแม้เพียงเล็กน้อย ก็สามารถทำให้บัญชีของคุณถูกปิดได้</string>
   <string name="emptyTournamentName">ปล่อยว่างไว้เพื่อตั้งชื่อทัวร์นาเมนต์หลังจากสุ่มแกรนด์มาสเตอร์</string>
-  <string name="recommendNotTouching">เราแนะนำว่าอย่าแตะต้องสิ่งเหล่านี้</string>
-  <string name="fewerPlayers">ถ้าคุณตั้งค่าเงื่อนไขการเข้าร่วม ทัวร์นาเมนต์ของคุณจะมีผู้เข้าเล่นได้น้อยลง</string>
-  <string name="showAdvancedSettings">แสดงการตั้งค่าขั้นสูง</string>
   <string name="makePrivateTournament">ทำทัวร์นาเมนต์ให้เป็นส่วนตัว และจำกัดการเข้าถึงด้วยรหัสผ่าน</string>
   <string name="join">เข้าร่วม</string>
   <string name="withdraw">ถอนตัว</string>
@@ -474,8 +471,6 @@
   <string name="ifNoneLeaveEmpty">ถ้าไม่มี, จงเว้นว่าง</string>
   <string name="profile">ข้อมูลประจำตัว</string>
   <string name="editProfile">แก้ไขข้อมูลประจำตัว</string>
-  <string name="firstName">ชื่อจริง</string>
-  <string name="lastName">นามสกุล</string>
   <string name="setFlair">ตั้งค่ารูปตกแต่ง</string>
   <string name="flair">รูปตกแต่ง</string>
   <string name="youCanHideFlair">มันมีการตั้งค่าที่ทำให้ไม่สามารถเห็นรูปตกแต่งของผู้ใช้ได้ทั้งเวบไซต์</string>
@@ -521,9 +516,7 @@
   <string name="reason">เหตุผล</string>
   <string name="whatIsIheMatter">เกิดอะไรขึ้น?</string>
   <string name="cheat">โกง</string>
-  <string name="insult">ดูหมิ่น</string>
   <string name="troll">ป่วน</string>
-  <string name="ratingManipulation">การปรับแต่งระดับคะแนน</string>
   <string name="other">อื่นๆ</string>
   <string name="reportDescriptionHelp">วางลิงค์ที่ไปสู่เกม และอธิบายว่าผู้ใช้นี้มีพฤติกรรมที่ผิดอะไร อย่าบอกเพียงว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณสรุปแบบนี้เพราะอะไร การรายงานของคุณจะเร็วขึ้นถ้าเขียนด้วยภาษาอังกฤษ</string>
   <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>

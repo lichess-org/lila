@@ -1,11 +1,13 @@
 package lila.ublog
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
+
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     renderCaptcha: (Form[?], Option[Captcha]) => Context ?=> Frag
@@ -18,7 +20,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
   def create(user: User, f: Form[UblogForm.UblogPostData], captcha: Captcha)(using Context) =
     FormPage(s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}")
       .js(captchaEsmInit):
-        main(cls := "page-menu page-small")(
+        main(cls := "page-menu page")(
           ui.menu(Left(user.id)),
           div(cls := "page-menu__content box ublog-post-form")(
             standardFlash,
@@ -30,7 +32,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
 
   def edit(post: UblogPost, f: Form[UblogForm.UblogPostData])(using ctx: Context) =
     FormPage(s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"):
-      main(cls := "page-menu page-small")(
+      main(cls := "page-menu page")(
         ui.menu(Left(post.created.by)),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash,
@@ -41,7 +43,6 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
             ),
             a(href := ui.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
           ),
-          image(post),
           inner(f, Right(post), none),
           postForm(
             cls    := "ublog-post-form__delete",
@@ -65,14 +66,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id))
     )(
       form3.globalError(form),
-      post.toOption.map { p =>
-        frag(
-          form3.split(
-            form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
-            form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
-          )(cls := s"ublog-post-form__image-text ${p.image.isDefined.so("visible")}")
-        )
-      },
+      post.toOption.map(image(_, form)),
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),
       form3.group(form("intro"), trans.ublog.postIntro())(form3.input(_)(autofocus)),
       form3.group(
@@ -130,44 +124,51 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
       )
     )
 
-  private def image(post: UblogPost)(using ctx: Context) =
-    div(cls := "ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
-      ui.thumbnail(post, _.Size.Small)(
-        cls               := "drop-target " + post.image.isDefined.so("user-image"),
-        attr("draggable") := "true"
-      ),
-      div(
-        if ctx.is(post.created.by) then
-          frag(
-            p(strong(trans.ublog.uploadAnImageForYourPost())),
-            p(
-              trans.ublog.safeToUseImages(),
-              fragList(
-                List(
-                  "unsplash.com"          -> "https://unsplash.com",
-                  "commons.wikimedia.org" -> "https://commons.wikimedia.org",
-                  "pixabay.com"           -> "https://pixabay.com",
-                  "pexels.com"            -> "https://pexels.com",
-                  "piqsels.com"           -> "https://piqsels.com",
-                  "freeimages.com"        -> "https://freeimages.com"
-                ).map: (name, url) =>
-                  a(href := url, targetBlank)(name)
-              )
-            ),
-            p(trans.ublog.useImagesYouMadeYourself()),
-            p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-            form3.file.selectImage()
-          )
-        else
-          postForm(
-            cls     := "ublog-post-form__image",
-            action  := routes.Ublog.image(post.id),
-            enctype := "multipart/form-data"
-          )(
-            post.image.isDefined.option(submitButton(cls := "button button-red confirm"):
-              trans.ublog.deleteImage()
+  private def image(post: UblogPost, form: Form[UblogForm.UblogPostData])(using ctx: Context) =
+    form3.fieldset("Image", toggle = true.some)(
+      div(cls := "form-group ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
+        ui.thumbnail(post, _.Size.Small)(
+          cls               := "drop-target " + post.image.isDefined.so("user-image"),
+          attr("draggable") := "true"
+        ),
+        div(
+          if ctx.is(post.created.by) then
+            frag(
+              p(strong(trans.ublog.uploadAnImageForYourPost())),
+              p(
+                trans.ublog.safeToUseImages(),
+                fragList(
+                  List(
+                    "unsplash.com"          -> "https://unsplash.com",
+                    "commons.wikimedia.org" -> "https://commons.wikimedia.org",
+                    "pixabay.com"           -> "https://pixabay.com",
+                    "pexels.com"            -> "https://pexels.com",
+                    "piqsels.com"           -> "https://piqsels.com",
+                    "freeimages.com"        -> "https://freeimages.com"
+                  ).map: (name, url) =>
+                    a(href := url, targetBlank)(name)
+                )
+              ),
+              p(trans.ublog.useImagesYouMadeYourself()),
+              p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
+              form3.file.selectImage()
             )
-          )
+          else
+            postForm(
+              action  := routes.Ublog.image(post.id),
+              enctype := "multipart/form-data"
+            )(
+              post.image.isDefined.option(submitButton(cls := "button button-red confirm"):
+                trans.ublog.deleteImage()
+              )
+            )
+        )
+      ),
+      post.image.isDefined.option(
+        form3.split(
+          form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
+          form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
+        )(cls := s"ublog-post-form__image-text visible")
       )
     )
 

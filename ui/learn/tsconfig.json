@@ -6,6 +6,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "references": [{ "path": "../common/tsconfig.json" }],
-  "isolatedModules": true
+  "references": [{ "path": "../common/tsconfig.json" }]
 }

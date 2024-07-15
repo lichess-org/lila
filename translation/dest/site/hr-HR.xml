@@ -485,9 +485,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="safeTournamentName">Odaberi vrlo siguran naziv za turnir.</string>
   <string name="inappropriateNameWarning">Sve imalo neprikladno može trajno zatvoriti tvoj profil.</string>
   <string name="emptyTournamentName">Ako ostaviš prazno, turnir će se nazvati po nasumičnom velemajstoru.</string>
-  <string name="recommendNotTouching">Preporučamo da ne ovo ne dira.</string>
-  <string name="fewerPlayers">Ako se postavi uvjet za sudjelovanje, turnir će imati manje igrača.</string>
-  <string name="showAdvancedSettings">Prikaži napredne postavke</string>
   <string name="makePrivateTournament">Učini turnir privatnim i ograniči pristup lozinkom</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Odustani</string>
@@ -526,8 +523,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="ifNoneLeaveEmpty">Nemaš rejting? Ostavi polje prazno</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
-  <string name="firstName">Ime</string>
-  <string name="lastName">Prezime</string>
   <string name="biography">Životopis</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi društvenih mreža</string>
@@ -570,9 +565,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="reason">Razlog</string>
   <string name="whatIsIheMatter">U čemu je problem?</string>
   <string name="cheat">Varanje</string>
-  <string name="insult">Vrijeđanje</string>
   <string name="troll">Provokacija</string>
-  <string name="ratingManipulation">Manipulacija rejtingom</string>
   <string name="other">Ostalo</string>
   <string name="reportDescriptionHelp">Zalijepi link na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika. Nemoj samo reći \"varao je\", nego reci kako si došao/la do tog zaključka. Tvoja prijava bit će obrađena brže ako ju napišeš na engleskom jeziku.</string>
   <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link igre u kojoj je igrač varao.</string>

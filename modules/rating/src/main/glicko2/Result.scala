@@ -1,7 +1,5 @@
 package lila.rating.glicko2
 
-import scala.jdk.CollectionConverters.*
-
 trait Result:
 
   def getScore(player: Rating): Double

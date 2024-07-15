@@ -1,17 +1,14 @@
 package controllers
 
-import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import akka.util.ByteString
-
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.mvc.Result
 
 import lila.app.*
-import lila.core.net.IpAddress
-import lila.pref.{ PieceSet, Theme }
 import lila.core.id.PuzzleId
+import lila.pref.{ PieceSet, Theme }
 
 final class Export(env: Env) extends LilaController(env):
 

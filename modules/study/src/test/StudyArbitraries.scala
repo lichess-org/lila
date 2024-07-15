@@ -1,16 +1,24 @@
 package lila.study
 
-import chess.{ Centis, Move, Square, Ply, Game as ChessGame, Situation }
-import chess.{ WithMove, FromMove, Generator, GameTree, ChessTreeArbitraries, NodeArbitraries }
-import chess.ChessTreeArbitraries.{ given, * }
-import chess.CoreArbitraries.{ given, * }
+import chess.ChessTreeArbitraries.*
+import chess.CoreArbitraries.{ *, given }
+import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.format.pgn.{ Pgn, Move as PgnMove, Tags, InitialComments, Glyph, Glyphs }
-import org.scalacheck.{ Arbitrary, Gen }
-import chess.bitboard.Bitboard
-import lila.tree.{ NewTree, NewRoot, NewBranch, Metas }
-import lila.tree.Node.{ Comments, Comment, Shapes, Shape }
-import org.scalacheck.Cogen
+import chess.{
+  Centis,
+  ChessTreeArbitraries,
+  FromMove,
+  Game as ChessGame,
+  Move,
+  Ply,
+  Situation,
+  Square,
+  WithMove
+}
+import org.scalacheck.{ Arbitrary, Cogen, Gen }
+
+import lila.tree.Node.{ Comment, Comments, Shape, Shapes }
+import lila.tree.{ Metas, NewBranch, NewRoot, NewTree }
 
 object StudyArbitraries:
 

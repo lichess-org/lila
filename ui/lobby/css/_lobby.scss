@@ -103,7 +103,8 @@ body {
   font-size: 0.9em;
   h2 {
     @extend %page-text-shadow !optional;
-    font-size: 1.2em;
+    @include line-clamp(4);
+    font-size: 1.3em;
   }
   .ublog-post-card {
     background: $c-bg-box;

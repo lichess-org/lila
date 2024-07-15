@@ -1,6 +1,7 @@
 package lila.evaluation
 
 import scala.math.sqrt
+
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRating
 

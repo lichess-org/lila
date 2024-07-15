@@ -4,15 +4,14 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.paginator.Paginator
 
 import scala.util.matching.Regex
 
 import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
-import lila.relay.RelayTour.ActiveWithSomeRounds
-import scalalib.paginator.Paginator
-import lila.relay.RelayTour.WithLastRound
+import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound }
 
 @Module
 final class Env(

@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):

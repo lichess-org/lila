@@ -467,9 +467,6 @@
   <string name="safeTournamentName">Escolle un nome seguro para o torneo.</string>
   <string name="inappropriateNameWarning">Calquera comportamento minimamente inadecuado podería levar ao peche da túa conta.</string>
   <string name="emptyTournamentName">Deixar en branco para poñerlle ó torneo o nome dun Grande Mestre notable.</string>
-  <string name="recommendNotTouching">Non recomendamos cambiar estes axustes.</string>
-  <string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
-  <string name="showAdvancedSettings">Amosar axustes avanzados</string>
   <string name="makePrivateTournament">Fai que o torneo sexa privado e restrinxe o acceso cun contrasinal</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Retirarse</string>
@@ -509,8 +506,7 @@
   <string name="ifNoneLeaveEmpty">Se non aplica, déixao en branco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
-  <string name="firstName">Nome</string>
-  <string name="lastName">Apelido(s)</string>
+  <string name="realName">Nome real</string>
   <string name="setFlair">Escolle a túa habelencia</string>
   <string name="flair">Habelencia</string>
   <string name="youCanHideFlair">Nas preferencias podes agochar por completo as habelencias dos xogadores en todo o sitio.</string>
@@ -557,9 +553,7 @@
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">Que pasou?</string>
   <string name="cheat">Trampa</string>
-  <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulación da puntuación</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Pega a ligazón á(s) partida(s) e explica o que é incorrecto no comportamento deste usuario. Non digas só \"fai trampas\", cóntanos como chegaches a esa conclusión. A túa denuncia será procesada máis rapidamente se está escrita en inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, incorpora cando menos unha ligazón a unha partida na que se fixeron trampas.</string>
@@ -594,6 +588,7 @@
   <string name="slow">Lenta</string>
   <string name="insideTheBoard">Dentro do taboleiro</string>
   <string name="outsideTheBoard">Fóra do taboleiro</string>
+  <string name="allSquaresOfTheBoard">Todas as casas do taboleiro</string>
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>

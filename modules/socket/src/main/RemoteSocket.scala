@@ -7,9 +7,9 @@ import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
 import play.api.libs.json.*
 
 import java.util.concurrent.atomic.AtomicReference
-import scala.util.chaining.*
 
 import lila.common.{ Bus, Lilakka }
+import lila.core.misc.streamer.StreamersOnline
 import lila.core.relation.{ Follow, UnFollow }
 import lila.core.round.Mlat
 import lila.core.security.CloseAccount
@@ -68,8 +68,7 @@ final class RemoteSocket(
     "shadowban",
     "impersonate",
     "relation",
-    "onlineApiUsers",
-    "streamersOnline"
+    "onlineApiUsers"
   ) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds.intersect(onlineUserIds.get)
@@ -101,9 +100,10 @@ final class RemoteSocket(
       if value then onlineUserIds.getAndUpdate(_ + userId)
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
-    case lila.core.misc.streamer.StreamersOnline(streamers) =>
-      send(Out.streamersOnline(streamers))
   }
+  Bus.sub[StreamersOnline]:
+    case StreamersOnline(streamers) =>
+      send(Out.streamersOnline(streamers))
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
     def apply(msg: String)               = if !stopping then super.sendTo(channel, msg)

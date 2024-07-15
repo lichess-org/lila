@@ -3,20 +3,25 @@ package lila.team
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
-import lila.db.dsl.{ *, given }
+import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
+import lila.db.dsl.{ *, given }
 
 final class TeamMemberStream(
     memberRepo: TeamMemberRepo,
-    userApi: lila.core.user.UserApi
+    userApi: lila.core.user.UserApi,
+    lightApi: lila.core.user.LightUserApi
 )(using Executor, akka.stream.Materializer):
 
-  def apply(team: Team, perSecond: MaxPerSecond): Source[(UserWithPerfs, Instant), ?] =
-    idsBatches(team, perSecond)
+  def apply(team: Team, fullUser: Boolean): Source[(UserWithPerfs | LightUser, Instant), ?] =
+    idsBatches(team, MaxPerSecond(if fullUser then 20 else 50))
+      .limit(if fullUser then 1000 else 5000)
       .mapAsync(1): members =>
-        userApi
-          .listWithPerfs(members.view.map(_._1).toList)
-          .map(_.zip(members.map(_._2)))
+        val users =
+          if fullUser
+          then userApi.listWithPerfs(members.view.map(_._1).toList)
+          else lightApi.asyncManyFallback(members.view.map(_._1).toList)
+        users.map(_.zip(members.map(_._2)))
       .mapConcat(identity)
 
   def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =

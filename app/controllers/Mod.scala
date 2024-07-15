@@ -5,16 +5,15 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 
 import scala.annotation.nowarn
-import scala.util.chaining.scalaUtilChainingOps
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.net.IpAddress
 import lila.core.perm.Permission
+import lila.core.security.FingerHash
+import lila.core.userId.ModId
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
-import lila.core.security.FingerHash
-import lila.core.net.IpAddress
-import lila.core.userId.ModId
 
 final class Mod(
     env: Env,
@@ -102,9 +101,12 @@ final class Mod(
 
   def deletePmsAndChats(username: UserStr) = OAuthMod(_.Shadowban) { _ ?=> _ ?=>
     withSuspect(username): sus =>
-      (env.mod.publicChat.deleteAll(sus) >>
-        env.forum.delete.allByUser(sus.user) >>
-        env.msg.api.deleteAllBy(sus.user)).map(some)
+      for
+        _ <- env.mod.publicChat.deleteAll(sus)
+        _ <- env.forum.delete.allByUser(sus.user)
+        _ <- env.msg.api.deleteAllBy(sus.user)
+        _ <- env.mod.logApi.deleteComms(sus)
+      yield ().some
   }(actionResult(username))
 
   def disableTwoFactor(username: UserStr) = OAuthMod(_.DisableTwoFactor) { _ ?=> me ?=>
@@ -159,16 +161,14 @@ final class Mod(
     bindForm(lila.user.UserForm.title)(
       _ => redirect(username, mod = true),
       title =>
-        doSetTitle(username.id, title, public = true).inject:
+        doSetTitle(username.id, title).inject:
           redirect(username, mod = false)
     )
   }
 
-  protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle], public: Boolean)(
-      using Me
-  ) = for
-    _ <- (public || title.isEmpty).so(modApi.setTitle(userId, title))
-    _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _, public))
+  protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle])(using Me) = for
+    _ <- modApi.setTitle(userId, title)
+    _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _))
   yield ()
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>
@@ -470,7 +470,7 @@ final class Mod(
           } >> {
             Permission
               .ofDbKeys(permissions)
-              .exists(_.grants(Permission.SeeReport))
+              .exists(p => p.grants(Permission.SeeReport) || p.grants(Permission.Developer))
               .so(env.plan.api.setLifetime(user))
           }).inject(Redirect(routes.Mod.permissions(user.username)).flashSuccess)
       )

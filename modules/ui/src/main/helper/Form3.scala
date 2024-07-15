@@ -1,12 +1,11 @@
 package lila.ui
 
 import play.api.data.*
-import scalalib.Render
-
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.user.FlairApi
-import lila.core.i18n.{ I18nKey as trans, Translate }
 import scalatags.Text.TypedTag
+
+import lila.core.i18n.{ I18nKey as trans, Translate }
+import lila.core.user.FlairApi
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
 
@@ -178,8 +177,14 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
   // allows disabling of a field that defaults to true
   def hiddenFalse(field: Field): Tag = hidden(field, "false".some)
 
-  def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using Translate): Frag =
-    group(field, content)(input(_, typ = "password")(required)(modifiers))
+  def passwordModified(field: Field, content: Frag, reveal: Boolean = true)(
+      modifiers: Modifier*
+  )(using Translate): Frag =
+    group(field, content): f =>
+      div(cls := "password-wrapper")(
+        input(f, typ = "password")(required)(modifiers),
+        reveal.option(button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye))
+      )
 
   def passwordComplexityMeter(labelContent: Frag): Frag =
     div(cls := "password-complexity")(
@@ -195,11 +200,11 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
   def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
     st.fieldset(
       cls := List(
-        "form-fieldset"             -> true,
-        "form-fieldset--toggle"     -> toggle.isDefined,
-        "form-fieldset--toggle-off" -> toggle.has(false)
+        "toggle-box"             -> true,
+        "toggle-box--toggle"     -> toggle.isDefined,
+        "toggle-box--toggle-off" -> toggle.has(false)
       )
-    )(st.legend(legend))
+    )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
   private val dataTime24h    = attr("data-time_24h")
@@ -252,4 +257,4 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     def image(name: String): Frag =
       st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg, image/webp")
     def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-    def selectImage             = button(cls := "button select-image")("select image")
+    def selectImage             = button(cls := "button select-image", tpe := "button")("Select image")

@@ -1,10 +1,11 @@
 package lila.common
 
 import akka.actor.{ ActorRef, Scheduler }
-import lila.core.bus.{ Channel, WithChannel }
 
 import scala.jdk.CollectionConverters.*
 import scala.reflect.Typeable
+
+import lila.core.bus.{ Channel, WithChannel }
 
 trait Tellable extends Any:
   def !(msg: Matchable): Unit
@@ -78,6 +79,19 @@ object Bus:
     publish(msg, channel)
     promise.future
       .withTimeout(timeout, s"Bus.ask $channel $msg")
+      .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
+
+  def safeAsk[A, T <: Payload](makeMsg: Promise[A] => T, timeout: FiniteDuration = 2.second)(using
+      wc: WithChannel[T],
+      e: Executor,
+      s: Scheduler
+  ): Fu[A] =
+    val promise = Promise[A]()
+    val channel = wc.channel
+    val msg     = makeMsg(promise)
+    pub(msg)
+    promise.future
+      .withTimeout(timeout, s"Bus.safeAsk $channel $msg")
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
 
   private val bus = EventBus[Payload, Channel, Tellable](

@@ -4,7 +4,7 @@ import chess.format.pgn.{ Tag, Tags }
 import chess.{ Elo, FideId, PlayerName, PlayerTitle }
 import play.api.data.Forms.*
 
-import lila.core.fide.{ Player, PlayerToken, diacritics }
+import lila.core.fide.{ PlayerToken, diacritics }
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(

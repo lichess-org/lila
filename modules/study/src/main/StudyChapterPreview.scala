@@ -6,8 +6,8 @@ import chess.{ ByColor, Centis, Color, Elo, FideId, Outcome, PlayerName, PlayerT
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.fide.Federation
+import lila.db.dsl.{ *, given }
 
 case class ChapterPreview(
     id: StudyChapterId,
@@ -51,6 +51,18 @@ final class ChapterPreviewApi(
           yield ChapterPreview.json.write(chapters)(using federations)
 
     def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
+
+    def withoutInitialEmpty(studyId: StudyId): Fu[AsJsons] =
+      apply(studyId).map: json =>
+        val singleInitial = json
+          .asOpt[JsArray]
+          .map(_.value)
+          .filter(_.sizeIs == 1)
+          .flatMap(_.headOption)
+          .exists:
+            case single: JsObject => single.str("name").contains("Chapter 1")
+            case _                => false
+        if singleInitial then JsArray.empty else json
 
   object dataList:
     private[ChapterPreviewApi] val cache =

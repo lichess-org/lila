@@ -78,7 +78,9 @@ final class RelayTeamTable(
         .dataList(studyId)
         .map: chapters =>
           import json.given
-          JsonStr(Json.stringify(Json.obj("table" -> makeTable(chapters))))
+          val table   = makeTable(chapters)
+          val ordered = ensureFirstPlayerHasWhite(table)
+          JsonStr(Json.stringify(Json.obj("table" -> ordered)))
 
     case class TeamWithPoints(name: String, points: Float = 0):
       def add(o: Option[Outcome], as: Color) =
@@ -93,7 +95,8 @@ final class RelayTeamTable(
       def bimap[B](f: A => B, g: A => B) = Pair(f(a), g(b))
       def reverse                        = Pair(b, a)
 
-    case class TeamGame(id: StudyChapterId, pov: Color)
+    case class TeamGame(id: StudyChapterId, pov: Color):
+      def swap = copy(pov = !pov)
 
     case class TeamMatch(teams: Pair[TeamWithPoints], games: List[TeamGame]):
       def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
@@ -108,6 +111,7 @@ final class RelayTeamTable(
           games = TeamGame(chap.id, t0Color) :: games,
           teams = teams.bimap(_.add(outcome, t0Color), _.add(outcome, !t0Color))
         )
+      def swap = copy(teams = teams.reverse, games = games.map(_.swap))
 
     def makeTable(chapters: List[ChapterPreview]): List[TeamMatch] =
       chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
@@ -119,6 +123,11 @@ final class RelayTeamTable(
           m1       = m0.add(chap, Pair(players.white -> teams.a, players.black -> teams.b), outcome)
           newTable = m1 :: table.filterNot(_.is(teams))
         yield newTable) | table
+
+    def ensureFirstPlayerHasWhite(table: List[TeamMatch]): List[TeamMatch] =
+      table.map: m =>
+        if m.games.headOption.forall(_.pov.white) then m
+        else m.swap
 
     object json:
       import lila.common.Json.given

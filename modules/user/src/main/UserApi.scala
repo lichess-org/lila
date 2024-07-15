@@ -4,18 +4,15 @@ import chess.{ ByColor, PlayerTitle }
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
-import lila.core.email.NormalizedEmailAddress
 import lila.core.LightUser
-import lila.core.user.UserMark
+import lila.core.email.NormalizedEmailAddress
+import lila.core.lilaism.LilaInvalid
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
+import lila.core.user.{ GameUsers, UserMark, WithEmails, WithPerf }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.user.BSONHandlers.userHandler
-import lila.core.lilaism.LilaInvalid
-import lila.core.user.{ WithEmails, WithPerf }
-
 import lila.rating.PerfType
-import lila.core.user.GameUsers
+import lila.user.BSONHandlers.userHandler
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,

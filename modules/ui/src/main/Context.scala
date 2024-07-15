@@ -1,13 +1,13 @@
 package lila.ui
 
-import play.api.mvc.{ Request, RequestHeader }
 import play.api.i18n.Lang
+import play.api.mvc.RequestHeader
 
 import lila.core.i18n.{ Language, Translate, defaultLanguage }
 import lila.core.net.IpAddress
+import lila.core.notify.UnreadCount
 import lila.core.pref.Pref
 import lila.core.user.KidMode
-import lila.core.notify.UnreadCount
 
 /* Data available in every HTTP request */
 trait Context:

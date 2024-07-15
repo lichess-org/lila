@@ -2,10 +2,10 @@ package lila.security
 
 import com.roundeights.hasher.Implicits.*
 
-import lila.db.dsl.{ *, given }
-import lila.user.{ UserRepo, TotpToken, AuthData, BSONFields as F }
 import lila.core.email.NormalizedEmailAddress
 import lila.core.security.{ ClearPassword, HashedPassword }
+import lila.db.dsl.{ *, given }
+import lila.user.{ AuthData, BSONFields as F, TotpToken, UserRepo }
 
 case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 type CredentialCheck = ClearPassword => Boolean

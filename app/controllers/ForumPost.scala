@@ -1,9 +1,8 @@
 package controllers
 
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
 import lila.core.i18n.I18nKey as trans
-import lila.core.id.{ ForumCategId, ForumTopicId }
+import lila.core.id.ForumCategId
 import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:

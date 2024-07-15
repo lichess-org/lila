@@ -1,13 +1,13 @@
 package lila.mod
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.user.WithPerfsAndEmails
 import lila.core.perm.Permission
 import lila.core.playban.RageSit
-import lila.core.LightUser
 import lila.evaluation.Display
+import lila.ui.*
+import lila.user.WithPerfsAndEmails
+
+import ScalatagsTemplate.{ *, given }
 
 final class ModUserUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }

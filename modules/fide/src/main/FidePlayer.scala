@@ -4,6 +4,7 @@ import chess.{ FideId, PlayerName, PlayerTitle }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.text.Normalizer
+
 import lila.core.fide.{ FideTC, PlayerToken, Tokenize, diacritics }
 
 case class FidePlayer(
@@ -52,9 +53,14 @@ object FidePlayer:
         .toList
         .map(_.trim)
         .filter(_.nonEmpty)
+        .pipe(trimTitle)
         .distinct
         .sorted
         .mkString(" ")
+
+  private def trimTitle(name: List[String]): List[String] = name match
+    case title :: rest if PlayerTitle.get(title).isDefined => rest
+    case _                                                 => name
 
   val slugify: PlayerName => String =
     val splitAccentRegex = "[\u0300-\u036f]".r

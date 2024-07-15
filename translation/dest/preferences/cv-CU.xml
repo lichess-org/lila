@@ -26,7 +26,7 @@
   <string name="moveConfirmation">Куҫӑма ҫирӗплетесси</string>
   <string name="inCorrespondenceGames">Куҫӑн мар вӑйӑсем</string>
   <string name="correspondenceAndUnlimited">Вӑрах тата чикӗсӗр</string>
-  <string name="yourPreferencesHaveBeenSaved">Улӑштарни упраннӑ.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Улӑштарни упраннӑ.</string>
   <string name="notifyWeb">Браусӑр</string>
   <string name="notifyDevice">Хатӗр</string>
 </resources>

@@ -7,15 +7,15 @@
   <string name="prizeBanned">Ваша учётная запись заблокирована для участия в турнирах с реальными призами.</string>
   <string name="boosterMarked">Ваша учётная запись помечена за манипуляции рейтингом.</string>
   <string name="boosterMarkedInfo">Мы определяем это как преднамеренное манипулирование рейтингом путём намеренного проигрыша партий или игрой против другого игрока, который намеренно проигрывает партии.</string>
-  <string name="accountMuted">Ваша учётная запись ограничена.</string>
-  <string name="accountMutedInfo">Прочтите наши %s. Несоблюдение правил общения может привести к ограничению учётных записей.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Ваша учётная запись ограничена.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Прочтите наши %s. Несоблюдение правил общения может привести к ограничению учётных записей.</string>
   <string name="excludedFromLeaderboards">Ваша учётная запись исключена из списка лидеров.</string>
   <string name="excludedFromLeaderboardsInfo">Мы определяем это как использование нечестного способа попасть в список лидеров.</string>
   <string name="closedByModerators">Ваша учётная запись была закрыта модераторами.</string>
   <string name="hiddenBlog">Ваши блоги были скрыты модераторами.</string>
   <string name="hiddenBlogInfo">Обязательно перечитайте наши %s.</string>
-  <string name="playTimeout">У вас есть таймаут.</string>
-  <string name="communicationGuidelines">правила общения</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">У вас есть таймаут.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">правила общения</string>
   <string name="blogRules">правила ведения блогов</string>
   <string name="fairPlay">Честная игра</string>
 </resources>

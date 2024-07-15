@@ -1,10 +1,9 @@
 package lila.ublog
 
 import lila.common.{ Bus, Markdown, MarkdownRender, MarkdownToastUi }
-import lila.core.misc.lpv.AllPgnsFromText
-import lila.memo.CacheApi
 import lila.core.config
-import lila.core.misc.lpv.LpvEmbed
+import lila.core.misc.lpv.{ AllPgnsFromText, LpvEmbed }
+import lila.memo.CacheApi
 
 final class UblogMarkup(
     baseUrl: config.BaseUrl,
@@ -39,7 +38,7 @@ final class UblogMarkup(
 
   private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup"):
     _.maximumSize(2048)
-      .expireAfterWrite(if mode.isProd then 15 minutes else 1 second)
+      .expireAfterWrite(if mode.isProd then 20 minutes else 1 second)
       .buildAsyncFuture: (id, markdown) =>
         Bus
           .ask("lpv")(AllPgnsFromText(markdown.value, _))

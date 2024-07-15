@@ -4,15 +4,18 @@ import akka.actor.*
 import akka.pattern.after
 import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Game, Replay, Square }
-import scala.concurrent.duration.*
 import scalalib.actor.AsyncActorSequencers
 
-import lila.study.{ MultiPgn, StudyPgnImport }
+import scala.concurrent.duration.*
+
+import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 
 final class RelayPush(
     sync: RelaySync,
     api: RelayApi,
     stats: RelayStatsApi,
+    chapterPreview: ChapterPreviewApi,
+    fidePlayers: RelayFidePlayerApi,
     irc: lila.core.irc.IrcApi
 )(using ActorSystem, Executor, Scheduler):
 
@@ -43,9 +46,11 @@ final class RelayPush(
           after(delay.value.seconds)(push(rt, games, andSyncTargets))
           fuccess(response)
 
-  private def push(rt: RelayRound.WithTour, games: Vector[RelayGame], andSyncTargets: Boolean) =
+  private def push(rt: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
     workQueue(rt.round.id):
       for
+        withPlayers <- fuccess(rt.tour.players.fold(rawGames)(_.update(rawGames)))
+        games       <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         event <- sync
           .updateStudyChapters(rt, rt.tour.players.fold(games)(_.update(games)))
           .map: res =>
@@ -55,10 +60,12 @@ final class RelayPush(
         _ = if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
           irc.broadcastStart(rt.round.id, rt.fullName)
         _ = stats.setActive(rt.round.id)
+        allGamesFinished <- (games.nonEmpty && games.forall(_.outcome.isDefined)).so:
+          chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>
           val r2 = r1.withSync(_.addLog(event))
           val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
-          r3.copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
+          r3.copy(finished = allGamesFinished)
         _ <- andSyncTargets.so(api.syncTargetsOfSource(round))
       yield ()
 

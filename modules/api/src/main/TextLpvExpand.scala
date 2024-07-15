@@ -5,9 +5,9 @@ import scalatags.Text.all.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.core.config.NetDomain
-import lila.memo.CacheApi
 import lila.core.i18n.{ Translate, Translator }
 import lila.core.misc.lpv.*
+import lila.memo.CacheApi
 
 final class TextLpvExpand(
     gameRepo: lila.core.game.GameRepo,
@@ -54,6 +54,7 @@ final class TextLpvExpand(
   def allPgnsFromText(text: String): Fu[Map[String, LpvEmbed]] =
     regex.blogPgnCandidatesRe
       .findAllMatchIn(text)
+      .take(20)
       .map(_.group(1))
       .map:
         case regex.gamePgnRe(url, id)    => getPgn(GameId(id)).map(id -> _)

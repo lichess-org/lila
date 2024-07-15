@@ -1,9 +1,7 @@
 package lila.streamer
 
-import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
-
-import scala.util.chaining.*
+import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
 
@@ -57,11 +55,9 @@ final private class Streaming(
   private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
-    Bus.publish(
+    Bus.pub:
       lila.core.misc.streamer
-        .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value))),
-      "streamersOnline"
-    )
+        .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value)))
     if newStreams != liveStreams then
       newStreams.streams
         .filterNot { s =>
@@ -70,10 +66,7 @@ final private class Streaming(
         .foreach { s =>
           import s.streamer.userId
           if streamStartOnceEvery(userId) then
-            Bus.publish(
-              lila.core.misc.streamer.StreamStart(userId, s.streamer.name.value),
-              "streamStart"
-            )
+            Bus.pub(lila.core.misc.streamer.StreamStart(userId, s.streamer.name.value))
         }
     liveStreams = newStreams
     streamers.foreach { streamer =>

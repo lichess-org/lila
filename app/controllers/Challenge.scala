@@ -4,15 +4,13 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 
 import lila.app.{ *, given }
-import lila.challenge.Challenge as ChallengeModel
-import lila.core.net.{ Bearer, IpAddress }
+import lila.challenge.{ Challenge as ChallengeModel, Direction }
 import lila.core.id.ChallengeId
-import lila.game.{ AnonCookie }
+import lila.core.net.Bearer
+import lila.core.socket.SocketVersion
+import lila.game.AnonCookie
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
-import lila.core.socket.SocketVersion
-import lila.challenge.Direction
-import lila.common.Json.given
 
 final class Challenge(
     env: Env,
@@ -274,7 +272,7 @@ final class Challenge(
                 case None                       => redir
                 case Some(dest) if ctx.is(dest) => redir
                 case Some(dest) =>
-                  env.challenge.granter.isDenied(dest, c.perfType).flatMap {
+                  env.challenge.granter.isDenied(dest, c.perfType.key.some).flatMap {
                     case Some(denied) =>
                       showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
                     case None => api.setDestUser(c, dest).inject(redir)
@@ -303,7 +301,7 @@ final class Challenge(
                       limit.challengeUser(me, rateLimited, cost = cost):
                         for
                           challenge <- makeOauthChallenge(config, me, destUser)
-                          grant     <- env.challenge.granter.isDenied(destUser, config.perfType)
+                          grant     <- env.challenge.granter.isDenied(destUser, config.perfKey.some)
                           res <- grant match
                             case Some(denied) =>
                               fuccess:
@@ -359,7 +357,6 @@ final class Challenge(
       config =>
         limit
           .challenge(req.ipAddress, rateLimited):
-            import lila.challenge.Challenge.*
             env.challenge.api
               .createOpen(config)
               .map: challenge =>
@@ -376,7 +373,7 @@ final class Challenge(
     NoBot:
       Found(env.game.gameRepo.game(gameId)): g =>
         g.opponentOf(me).flatMap(_.userId).so(env.user.repo.byId).orNotFound { opponent =>
-          env.challenge.granter.isDenied(opponent, g.perfKey).flatMap {
+          env.challenge.granter.isDenied(opponent, g.perfKey.some).flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(d)))
             case _ =>
               api.offerRematchForGame(g, me).map {

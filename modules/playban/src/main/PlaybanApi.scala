@@ -2,13 +2,13 @@ package lila.playban
 
 import chess.{ Centis, Color, Status }
 import reactivemongo.api.bson.*
+import scalalib.model.Days
 
 import lila.common.{ Bus, Uptime }
-import lila.db.dsl.{ *, given }
-
-import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.core.game.Source
+import lila.core.msg.MsgApi
 import lila.core.playban.RageSit as RageSitCounter
+import lila.db.dsl.{ *, given }
 
 final class PlaybanApi(
     coll: Coll,
@@ -89,21 +89,18 @@ final class PlaybanApi(
       game
         .player(flaggerColor)
         .userId
-        .ifTrue {
+        .ifTrue:
           ~(for
             movetimes    <- gameApi.computeMoveTimes(game, flaggerColor)
             lastMovetime <- movetimes.lastOption
             limit        <- unreasonableTime
           yield lastMovetime.toSeconds >= limit)
-        }
-        .map { userId =>
+        .map: userId =>
           (save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>
             propagateSitting(game, userId)).andDo(feedback.sitting(Pov(game, flaggerColor)))
-        }
 
-    IfBlameable(game) {
+    IfBlameable(game):
       sitting.orElse(sitMoving).getOrElse(good(game, flaggerColor))
-    }
 
   private def propagateSitting(game: Game, userId: UserId): Funit =
     game.tournamentId.so: tourId =>
@@ -140,9 +137,23 @@ final class PlaybanApi(
     }
 
   private def good(game: Game, loserColor: Color): Funit =
-    game.player(loserColor).userId.so {
-      save(Outcome.Good, _, RageSit.redeem(game), game.source)
-    }
+    import chess.variant.*
+    val quickResign = game.status == Status.Resign &&
+      game.durationSeconds.exists(_ < 60) &&
+      game.playedTurns >= game.variant.match
+        case Standard | Chess960 | Horde            => 20
+        case Antichess | Crazyhouse | KingOfTheHill => 15
+        case ThreeCheck | Atomic | RacingKings      => 10
+
+    if quickResign then
+      game.userIds.parallelVoid: userId =>
+        save(Outcome.Sandbag, userId, RageSit.Update.Noop, game.source)
+    else
+      game
+        .player(loserColor)
+        .userId
+        .so: userId =>
+          save(Outcome.Good, userId, RageSit.redeem(game), game.source)
 
   // memorize users without any ban to save DB reads
   private val cleanUserIds = scalalib.cache.ExpireSetMemo[UserId](30 minutes)
@@ -222,16 +233,16 @@ final class PlaybanApi(
         if outcome == Outcome.Good then fuccess(withOutcome)
         else
           for
-            createdAt <- userApi.createdAtById(userId).orFail(s"Missing user creation date $userId")
-            withBan   <- legiferate(withOutcome, createdAt, source)
+            age     <- userApi.accountAge(userId)
+            withBan <- legiferate(withOutcome, age, source)
           yield withBan
       _ <- registerRageSit(withBan, rsUpdate)
     yield ()
   }.void.logFailure(lila.log("playban"))
 
-  private def legiferate(record: UserRecord, accCreatedAt: Instant, source: Option[Source]): Fu[UserRecord] =
+  private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] =
     record
-      .bannable(accCreatedAt)
+      .bannable(age)
       .ifFalse(record.banInEffect)
       .so: ban =>
         lila.mon.playban.ban.count.increment()

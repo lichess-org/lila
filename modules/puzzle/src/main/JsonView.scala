@@ -1,12 +1,11 @@
 package lila.puzzle
 
+import chess.format.*
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
-
+import lila.common.Json.given
+import lila.core.i18n.{ Translate, Translator }
 import lila.tree.{ Metas, NewBranch, NewTree }
-import lila.core.i18n.{ Translate, Translator, defaultLang }
-import chess.format.*
 
 final class JsonView(
     gameJson: GameJson,
@@ -44,6 +43,10 @@ final class JsonView(
               .add("chapter" -> a.asTheme.flatMap(PuzzleTheme.studyChapterIds.get))
               .add("opening" -> a.opening.map: op =>
                 Json.obj("key" -> op.key, "name" -> op.name))
+              .add("openingAbstract" -> a.match
+                case op: PuzzleAngle.Opening => op.isAbstract
+                case _                       => false
+              )
         )
 
   def userJson(using me: Option[Me], perf: Perf) = me.map: me =>

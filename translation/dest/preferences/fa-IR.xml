@@ -18,7 +18,7 @@
   <string name="showFlairs">نمایش نشان بازیکنان</string>
   <string name="explainShowPlayerRatings">این گزینه همه درجه‌بندی‌ها در Lichess را پنهان می‌کند تا کمک کند روی شطرنج تمرکز کنید. بازی‌های رسمی همچنان بر درجه‌بندی‌تان تاثیر می‌گذارند، این گزینه فقط مربوط به دیدن/ندیدن درجه‌بندی‌هاست.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
-  <string name="onlyOnInitialPosition">فقط در آغاز بازی</string>
+  <string name="onlyOnInitialPosition">فقط در وضعیت آغازین</string>
   <string name="inGameOnly">تنها در بازی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
@@ -34,24 +34,24 @@
   <string name="premovesPlayingDuringOpponentTurn">پیش حرکت (بازی در نوبت حریف)</string>
   <string name="takebacksWithOpponentApproval">پس گرفتن حرکت (با تایید حریف)</string>
   <string name="inCasualGamesOnly">در بازی های غیررسمی</string>
-  <string name="promoteToQueenAutomatically">ترفیع کردن به وزیر به صورت خودکار</string>
+  <string name="promoteToQueenAutomatically">ارتقا خودکار به وزیر</string>
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; را در هنگام تبلیغ بزنید تا به طور موقت تبلیغات خودکار را غیرفعال کنید</string>
   <string name="whenPremoving">در زمان پیش حرکت</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای خودکار تساوی، در تکرار سه‌گانه</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
-  <string name="explainCanThenBeTemporarilyDisabled">می‌توانید در طول بازی منوی تخته را غیرفعال کنید</string>
+  <string name="explainCanThenBeTemporarilyDisabled">می‌تواند هنگام بازی با «گزینگان صفحه‌بازی» خاموش شود</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
   <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>
-  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">روش انجام شاه قلعه</string>
-  <string name="castleByMovingTwoSquares">به وسیله ی دو خانه حرکت دادن شاه</string>
-  <string name="castleByMovingOntoTheRook">به وسیله ی حرکت دادن شاه روی خانه رخ</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">روش قلعه‌روی</string>
+  <string name="castleByMovingTwoSquares">شاه را دو خانه حرکت دهید</string>
+  <string name="castleByMovingOntoTheRook">شاه را روی رخ گذارید</string>
   <string name="inputMovesWithTheKeyboard">ورود حرکات با استفاده از صفحه کلید</string>
   <string name="inputMovesWithVoice">حرکات را با صدای خود وارد کنید</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">چسبیدن پیکان‌ها به حرکت‌های ممکن</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">گفتن \"بازی خوبی بود، خوب بازی کردی\" در هنگام باخت یا تساوی</string>
-  <string name="yourPreferencesHaveBeenSaved">تغییرات شما ذخیره شده است</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">تغییرات شما ذخیره شده است</string>
   <string name="scrollOnTheBoardToReplayMoves">اسکرول کردن روی صفحه برای مشاهده مجدد حرکت‌ها</string>
   <string name="correspondenceEmailNotification">ایمیل های روزانه که بازی های شبیه شما را به صورت لیست درمی‌آورند</string>
   <string name="notifyStreamStart">استریمر شروع به فعالیت کرد</string>

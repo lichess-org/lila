@@ -5,12 +5,10 @@ import chess.format.Fen
 import chess.{ ByColor, Centis, Ply, Replay, Situation }
 import play.api.libs.json.*
 
-import scala.util.chaining.*
-
 import lila.common.Bus
 import lila.common.Json.given
 import lila.core.game.FinishGame
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 import lila.game.actorApi.MoveGameEvent
 
 final class ApiMoveStream(

@@ -1,6 +1,6 @@
 import { h, Hooks, VNode } from 'snabbdom';
 import { bind } from './snabbdom';
-import { toggle as baseToggle } from './common';
+import { toggle as baseToggle, Toggle } from './common';
 import * as xhr from './xhr';
 
 export interface ToggleSettings {
@@ -13,7 +13,7 @@ export interface ToggleSettings {
   change(v: boolean): void;
 }
 
-export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void) {
+export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void): VNode {
   const fullId = 'abset-' + t.id;
   return h(
     'div.setting.' + fullId + (t.cls ? '.' + t.cls : ''),
@@ -45,7 +45,7 @@ export function rangeConfig(read: () => number, write: (value: number) => void):
   };
 }
 
-export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => void = site.reload) =>
+export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => void = site.reload): Toggle =>
   baseToggle(val, async v => {
     await xhr.text(`/pref/${prefKey}`, { method: 'post', body: xhr.form({ [prefKey]: v ? '1' : '0' }) });
     effect();

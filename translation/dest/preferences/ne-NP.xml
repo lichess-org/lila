@@ -37,5 +37,5 @@
   <string name="castleByMovingTwoSquares">राजा दुई कदम चाल्ने</string>
   <string name="castleByMovingOntoTheRook">राजा हात्तीमा चाल्ने</string>
   <string name="inputMovesWithTheKeyboard">किबोर्डबाट चाल चलौं</string>
-  <string name="yourPreferencesHaveBeenSaved">तपाइका प्राथमिकता सेभ गरिएको छ।</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">तपाइका प्राथमिकता सेभ गरिएको छ।</string>
 </resources>

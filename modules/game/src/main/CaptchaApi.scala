@@ -1,14 +1,11 @@
 package lila.game
-
-import akka.actor.*
-import akka.pattern.pipe
 import chess.Game as ChessGame
 import chess.format.pgn.{ SanStr, Sans, Tags }
-import chess.format.{ Fen, pgn, BoardFen }
-import scala.util.Success
-import play.api.data.Form
+import chess.format.{ BoardFen, Fen, pgn }
 
-import lila.core.captcha.{ Captcha, Solutions, WithCaptcha, CaptchaApi as ICaptchaApi }
+import scala.util.Success
+
+import lila.core.captcha.{ Captcha, CaptchaApi as ICaptchaApi, Solutions, WithCaptcha }
 import lila.core.game.Game
 
 // only works with standard chess (not chess960)

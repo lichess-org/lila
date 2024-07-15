@@ -26,8 +26,6 @@
   <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
   <string name="credits">Αναφέρετε την πηγή</string>
-  <string name="broadcastUrl">Διεύθυνση URL μετάδοσης</string>
-  <string name="currentRoundUrl">Διεύθυνση URL αυτού του γύρου</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>
   <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
   <string name="resetRound">Επαναφορά αυτού του γύρου</string>
@@ -37,4 +35,11 @@
   <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή αυτού του τουρνουά</string>
   <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο τον διαγωνισμό, όλους τους γύρους του και όλα τα παιχνίδια του.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Ομοσπονδίες FIDE</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Παίκτες FIDE</string>
+  <string name="fidePlayerNotFound">Δε βρέθηκε παίκτης FIDE</string>
+  <string name="fideProfile">Προφίλ FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Ομοσπονδία</string>
+  <string name="ageThisYear">Φετινή ηλικία</string>
+  <string name="recentTournaments">Πρόσφατα τουρνουά</string>
 </resources>

@@ -74,7 +74,7 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="repeatedPositionsThatMatters">Kolminkertaisessa toistossa on kysymys %1$s toistumisesta, ei siirtojen. Toistumisen ei tarvitse tapahtua peräkkäin.</string>
   <string name="positions">aseman</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Asema toistui meillä kolme kertaa. Miksi peli ei päättynyt tasapeliin?</string>
-  <string name="threeFoldHasToBeClaimed">Jonkun pelaajista pitää vaatia tasapeliä aseman toistuessa. Voit tehdä sen painamalla näkyviin tulevaa nappia tai tarjoamalla tasapeliä ennen viimeistä toistuvaa siirtoasi. Voit myös %1$s Lichessin vaatimaan sinulle automaattisesti tasapelin toiston perusteella. Lisäksi aseman viisinkertainen toistuminen lopettaa pelin välittömästi.</string>
+  <string name="threeFoldHasToBeClaimed">Jonkun pelaajista pitää vaatia tasapeliä aseman toistuessa. Voit tehdä sen painamalla näkyviin tulevaa nappia tai tarjoamalla tasapeliä ennen viimeistä toistuvaa siirtoasi. Voit myös %1$s Lichessin vaatimaan sinulle automaattisesti tasapelin toiston perusteella. Lisäksi aseman viisinkertainen toistuminen lopettaa aina pelin välittömästi.</string>
   <string name="configure">konfiguroida</string>
   <string name="accounts">Käyttäjätunnukset</string>
   <string name="titlesAvailableOnLichess">Mitä arvonimiä Lichessissä on?</string>
@@ -163,7 +163,7 @@ Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voi
 3. Valitse Evästeet ja sivuston käyttöoikeudet
 4. Vieritä alas ja valitse Median automaattinen toisto
 4. Lisää lichess.org listalle \"Salli\"</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How do I stop myself from playing?&quot;.&#10;&#10;It is an FAQ answer that addresses chess/gaming addiction.">Estää itseäni pelaamasta?</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Estää itseäni pelaamasta?</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">erilliseksi mielenterveyshäiriöksi</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichessin käyttäjäkohtaiset tyylit</string>
   <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">aulassa vähemmän pelivaihtoehtoja</string>

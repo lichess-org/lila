@@ -1,33 +1,29 @@
 package lila.core
 package game
 
-import scalalib.model.Days
 import _root_.chess.Color.{ Black, White }
-import _root_.chess.MoveOrDrop.{ color, fold }
+import _root_.chess.format.Uci
 import _root_.chess.format.pgn.SanStr
-import _root_.chess.format.{ Fen, Uci }
 import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ FromPosition, Standard, Variant }
 import _root_.chess.{
   ByColor,
-  Castles,
   Centis,
-  CheckCount,
   Clock,
-  CorrespondenceClock,
   Color,
+  CorrespondenceClock,
   Game as ChessGame,
   Mode,
-  MoveOrDrop,
-  Outcome,
   Ply,
   Speed,
   Status
 }
-import lila.core.id.{ GameId, GamePlayerId, GameFullId }
-import lila.core.userId.{ UserId, UserIdOf }
-import lila.core.user.User
+import scalalib.model.Days
+
+import lila.core.id.{ GameFullId, GameId, GamePlayerId }
 import lila.core.perf.PerfKey
+import lila.core.user.User
+import lila.core.userId.{ UserId, UserIdOf }
 
 case class Game(
     id: GameId,
@@ -73,7 +69,7 @@ case class Game(
   def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u).exists(turnOf)
 
-  def playedTurns = ply - startedAtPly
+  def playedTurns: Ply = ply - startedAtPly
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 

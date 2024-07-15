@@ -4,10 +4,10 @@ import reactivemongo.akkastream.cursorProducer
 import java.time.{ Duration, LocalTime }
 
 import lila.common.{ Bus, LilaStream }
-import lila.db.dsl.{ *, given }
-import lila.core.game.{ GameRepo }
+import lila.core.game.GameRepo
 import lila.core.misc.mailer.*
 import lila.core.notify.NotifyApi
+import lila.db.dsl.{ *, given }
 import lila.user.UserRepo
 
 final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, notifyApi: NotifyApi)(using
@@ -23,7 +23,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
 
   private def run() =
     opponentStream
-      .map { Bus.publish(_, "dailyCorrespondenceNotif") }
+      .map { Bus.pub(_) }
       .runWith(LilaStream.sinkCount)
       .addEffect(lila.mon.round.correspondenceEmail.emails.record(_))
       .monSuccess(_.round.correspondenceEmail.time)

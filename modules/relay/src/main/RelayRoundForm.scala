@@ -1,16 +1,16 @@
 package lila.relay
 
-import scala.util.Try
 import io.mola.galimatias.URL
+import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
-import play.api.Mode
 import scalalib.model.Seconds
 
-import lila.common.Form.{ cleanText, into, stringIn, formatter }
-import lila.core.perm.Granter
+import scala.util.Try
 
+import lila.common.Form.{ cleanText, formatter, into, stringIn }
+import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
 import lila.relay.RelayRound.Sync.Upstream
 
@@ -44,9 +44,9 @@ final class RelayRoundForm(using mode: Mode):
   )
 
   private def lccIsComplete(url: Upstream.Url) =
-    url.isLcc || !url.url.host.toString.contains("livechesscloud.com")
+    url.lcc.isDefined || !url.url.host.toString.endsWith("livechesscloud.com")
 
-  val roundMapping =
+  def roundMapping(using Me) =
     mapping(
       "name"       -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption"    -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
@@ -54,6 +54,10 @@ final class RelayRoundForm(using mode: Mode):
       "syncUrl" -> optional(
         of[Upstream.Url]
           .verifying("LCC URLs must end with /{round-number}, e.g. /5 for round 5", lccIsComplete)
+          .verifying(
+            "Invalid source URL",
+            u => !u.url.host.toString.endsWith("lichess.org") || Granter(_.Relay)
+          )
       ),
       "syncUrls"  -> optional(of[Upstream.Urls]),
       "syncIds"   -> optional(of[Upstream.Ids]),
@@ -67,7 +71,7 @@ final class RelayRoundForm(using mode: Mode):
           .transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
 
-  def create(trs: RelayTour.WithRounds) = Form(
+  def create(trs: RelayTour.WithRounds)(using Me) = Form(
     roundMapping
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
@@ -75,11 +79,12 @@ final class RelayRoundForm(using mode: Mode):
       )
   ).fill(fillFromPrevRounds(trs.rounds))
 
-  def edit(r: RelayRound) = Form(
-    roundMapping.verifying(
-      "The round source cannot be itself",
-      d => d.syncSource.pp.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
-    )
+  def edit(r: RelayRound)(using Me) = Form(
+    roundMapping
+      .verifying(
+        "The round source cannot be itself",
+        d => d.syncSource.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
+      )
   ).fill(Data.make(r))
 
 object RelayRoundForm:
@@ -139,10 +144,6 @@ object RelayRoundForm:
 
   case class GameIds(ids: List[GameId])
 
-  private def toGameIds(ids: String): Option[GameIds] =
-    val list = ids.split(' ').view.flatMap(i => GameId.from(i.trim)).toList
-    (list.sizeIs > 0 && list.sizeIs <= RelayFetch.maxChapters.value).option(GameIds(list))
-
   private def cleanUrl(source: String)(using mode: Mode): Option[URL] =
     for
       url <- Try(URL.parse(source)).toOption
@@ -157,9 +158,6 @@ object RelayRoundForm:
     url <- cleanUrl(s).toRight("Invalid source URL")
     url <- if !validSourcePort(url) then Left("The source URL cannot specify a port") else Right(url)
   yield url
-
-  private def cleanUrls(source: String)(using mode: Mode): Option[List[URL]] =
-    source.linesIterator.toList.flatMap(cleanUrl).some.filter(_.nonEmpty)
 
   private val validPorts                                           = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)
@@ -176,7 +174,6 @@ object RelayRoundForm:
     "twitch.com",
     "youtube.com",
     "youtu.be",
-    "lichess.org",
     "google.com",
     "vk.com",
     "chess-results.com",

@@ -53,6 +53,7 @@ Kompiuterinė šachmatų analizė Lichess veikia Stockfish pagalba.</string>
 Retais atvejais sunku nuspręsti automatiškai (forsuotos linijos, tvirtovės). Pagal nutylėjimą mes visada esame žaidėjo, kuriam nepasibaigė laikas, pusėje.
 
 Verta pastebėti, kad matas su vienu žirgu ar rikiu galimas, jei priešininkas turi figūrą, kuri gali blokuoti karalių.</string>
+  <string name="fideHandbook">FIDE vadovas</string>
   <string name="fideHandbookX">FIDE taisyklės %s</string>
   <string name="discoveringEnPassant">Kodėl pėstininkas gali kirsti kitą pėstininką, nors jis jau prasilenkė? (kirtimas prasilenkiant, en passant)</string>
   <string name="explainingEnPassant">Tai yra legalus ėjimas vadinamas \"kirtimu prasilenkiant\". Šis Vikipedijos straipsnis suteikia %1$s.
@@ -141,4 +142,36 @@ Geriausia galvoti apie reitingus kaip apie \"reliatyvius\" skaičius (priešinga
 Spustelėkite spynelės ikoną šalia lichess.org adreso savo naršyklės adreso laukelyje.
 
 Tada pasirinkite, ar norite gauti, ar blokuoti pranešimus iš Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Įgalinti automatinį garso paleidimą?</string>
+  <string name="enableAutoplayForSoundsA">Daugelis naršyklių gali neleisti garsui groti ką tik įkeltame puslapyje, kad apsaugotų vartotojus. Įsivaizduokite, kad kiekviena svetainė galėtų jus iš karto bombarduoti garso skelbimais.
+
+Raudona nutildymo piktograma pasirodo, kai naršyklė neleidžia lichess.org leisti garso. Paprastai šis apribojimas panaikinamas, kai kur nors spustelėsite. Kai kuriose mobiliosiose naršyklėse elemento vilkimas jį palietus nelaikomas paspaudimu. Tokiu atveju turite paliesti lentą, kad kiekvieno žaidimo pradžioje būtų leidžiamas garsas.
+
+Rodome raudoną piktogramą, kad įspėtume jus, kai tai atsitiks. Dažnai galite aiškiai leisti lichess.org skleisti garsą. Čia pateikiamos instrukcijos, kaip tai padaryti naudojant naujausias kai kurių populiarių naršyklių versijas.</string>
+  <string name="desktop">darbalaukis</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Eikite į lichess.org
+2. Paspauskite Ctrl-i, jei naudojate „Linux“ ir/arba „Windows“, arba cmd-i, jei naudojate „MacOS“.
+3. Spustelėkite skirtuką Leidimai
+4. Leiskite garso ir vaizdo įrašus svetainėje lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Eikite į lichess.org
+2. Adreso juostoje spustelėkite užrakto piktogramą
+3. Spustelėkite Svetainės nustatymai
+4. Leiskite garsą</string>
+  <string name="enableAutoplayForSoundsSafari">1. Eikite į lichess.org
+2. Meniu juostoje spustelėkite Safari
+3. Spustelėkite „Lichess.org“ nustatymai ...
+4. Leiskite visus automatinius paleidimus</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Spustelėkite tris taškus viršutiniame dešiniajame kampe
+2. Spustelėkite Nustatymai
+3. Spustelėkite Slapukai ir svetainės leidimai
+4. Slinkite žemyn ir spustelėkite Media autoplay
+5. Pridėkite lichess.org prie \"Leisti\"</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Stabdote savo žaidimą?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">savarankiška psichinės sveikatos būklė</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess vartotojo stiliai</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Reguliariai gauname žinutes iš vartotojų, prašančių padėti, kad jie nežaistų per daug.
+
+Nors Lichess nedraudžia ir neblokuoja žaidėjų, išskyrus paslaugų teikimo sąlygų pažeidimus, rekomenduojame naudoti išorinius įrankius, kad apribotumėte pernelyg ilgai besitęsiantį žaidimą. Kai kurie bendri svetainių blokatorių pasiūlymai yra %1$s, %2$s ir %3$s. Jei norite ir toliau naudotis svetaine, bet nesusigundyti greita laiko kontrole, jus taip pat gali sudominti %4$s, čia yra %5$s.
+
+Kai kurie žaidėjai gali jausti, kad jų žaidimo elgesys virsta priklausomybe. Tiesą sakant, PSO lošimų sutrikimą priskiria %6$s, kurių pagrindiniai bruožai yra 1) pablogėjusi žaidimų kontrolė 2) žaidimams teikiamas prioritetas ir 3) lošimų išplitimas nepaisant neigiamų pasekmių. Jei manote, kad jūsų elgesys žaidžiant šachmatais atitinka šį modelį, raginame apie tai pasikalbėti su draugu ar šeimos nariu ir/arba profesionaliu specialistu.</string>
 </resources>

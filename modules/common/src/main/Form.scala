@@ -5,12 +5,11 @@ import play.api.data.Forms.*
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Field, Form as PlayForm, FormError, Mapping, validation as V }
+import play.api.data.{ Form as PlayForm, FormError, Mapping, validation as V }
 
 import java.lang
 import java.time.LocalDate
 import scala.util.Try
-import play.api.data.FieldMapping
 
 object Form:
 
@@ -50,6 +49,9 @@ object Form:
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
+  def stringIn[A](choices: Seq[A])(key: A => String): Mapping[A] =
+    stringIn(choices.map(key).toSet).transform[A](str => choices.find(c => str == key(c)).get, key)
+
   def id[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
       sr: StringRuntime[Id],
       rs: SameRuntime[String, Id]
@@ -78,6 +80,10 @@ object Form:
   val cleanText: Mapping[String]            = of(cleanTextFormatter)
   val cleanTextWithSymbols: Mapping[String] = of(cleanTextFormatterWithSymbols)
 
+  val nonEmptyOrSpace = V.Constraint[String]: t =>
+    if t.linesIterator.exists(_.stripLineEnd.exists(!_.isWhitespace)) then V.Valid
+    else V.Invalid(V.ValidationError("error.required"))
+
   private def addLengthConstraints(m: Mapping[String], minLength: Int, maxLength: Int) =
     (minLength, maxLength) match
       case (min, Int.MaxValue) => m.verifying(Constraints.minLength(min))
@@ -87,9 +93,9 @@ object Form:
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     addLengthConstraints(cleanText, minLength, maxLength)
 
-  val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)
+  val cleanNonEmptyText: Mapping[String] = cleanText.verifying(nonEmptyOrSpace)
   def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    cleanText(minLength, maxLength).verifying(Constraints.nonEmpty)
+    cleanText(minLength, maxLength).verifying(nonEmptyOrSpace)
 
   def cleanTextWithSymbols(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     addLengthConstraints(cleanTextWithSymbols, minLength, maxLength)
@@ -98,7 +104,7 @@ object Form:
     cleanTextWithSymbols(minLength, maxLength).verifying(noSymbolsConstraint)
 
   def cleanNoSymbolsAndNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    cleanNoSymbolsText(minLength, maxLength).verifying(Constraints.nonEmpty)
+    cleanNoSymbolsText(minLength, maxLength).verifying(nonEmptyOrSpace)
 
   private val eventNameConstraint = Constraints.pattern(
     regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,

@@ -25,14 +25,12 @@
   <string name="tournamentDescription">Короткий опис турніру</string>
   <string name="fullDescription">Повний опис події</string>
   <string name="fullDescriptionHelp">Необов\'язковий довгий опис трансляції. Наявна розмітка %1$s. Довжина має бути менша ніж %2$s символів.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">Адреса джерела PGN</string>
+  <string name="sourceSingleUrl">Адреса джерела PGN</string>
   <string name="sourceUrlHelp">Посилання, яке Lichess перевірятиме, щоб отримати оновлення PGN. Воно має бути загальнодоступним в Інтернеті.</string>
   <string name="sourceGameIds">До 64 ігрових ID Lichess, відокремлені пробілами.</string>
   <string name="startDate">Дата початку у вашому часовому поясі</string>
   <string name="startDateHelp">За бажанням, якщо ви знаєте, коли починається подія</string>
   <string name="credits">Вдячність джерелу</string>
-  <string name="broadcastUrl">Посилання на трансляцію</string>
-  <string name="currentRoundUrl">Посилання на поточний раунд</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
   <string name="downloadAllRounds">Завантажити всі тури</string>
   <string name="resetRound">Скинути цей раунд</string>
@@ -47,4 +45,11 @@
   <string name="replacePlayerTags">За бажанням: замінити імена, рейтинги та титули гравців</string>
   <string name="periodInSeconds">Період у секундах</string>
   <string name="periodInSecondsHelp">Опціонально: час очікування між запитами. Мінімально 2 с, максимально 60 с. За замовчуванням - автоматично, виходячи з кількості запитів глядачів.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Федерації FIDE</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Гравці FIDE</string>
+  <string name="fidePlayerNotFound">Гравця FIDE не знайдено</string>
+  <string name="fideProfile">Профіль FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Федерація</string>
+  <string name="unrated">Без рейтингу</string>
+  <string name="recentTournaments">Нещодавні турніри</string>
 </resources>

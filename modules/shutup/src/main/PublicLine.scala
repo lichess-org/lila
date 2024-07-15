@@ -2,8 +2,8 @@ package lila.shutup
 
 import scala.util.Success
 
-import lila.db.dsl.given
 import lila.core.shutup.PublicSource as Source
+import lila.db.dsl.given
 
 case class PublicLine(
     text: String,

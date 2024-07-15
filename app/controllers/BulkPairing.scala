@@ -2,11 +2,12 @@ package controllers
 
 import play.api.libs.json.*
 
+import lila.api.GameApiV2
 import lila.app.*
-import lila.common.Json.given
 import lila.challenge.ChallengeBulkSetup
+import lila.common.Json.given
 
-final class BulkPairing(env: Env) extends LilaController(env):
+final class BulkPairing(gameC: => Game, apiC: => Api, env: Env) extends LilaController(env):
 
   def list = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
     env.challenge.bulk
@@ -21,6 +22,24 @@ final class BulkPairing(env: Env) extends LilaController(env):
       .map:
         _.fold(notFoundJson()): bulk =>
           JsonOk(ChallengeBulkSetup.toJson(bulk))
+  }
+
+  def games(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
+    env.challenge.bulk
+      .findBy(id, me)
+      .map:
+        _.fold(notFoundText()): bulk =>
+          val config = GameApiV2.ByIdsConfig(
+            ids = bulk.games.map(_.id),
+            format = GameApiV2.Format.byRequest(req),
+            flags = gameC
+              .requestPgnFlags(extended = false)
+              .copy(delayMoves = false),
+            perSecond = MaxPerSecond(50)
+          )
+          apiC.GlobalConcurrencyLimitPerIP
+            .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
+              noProxyBuffer(Ok.chunked(source)).as(gameC.gameContentType(config))
   }
 
   def delete(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>

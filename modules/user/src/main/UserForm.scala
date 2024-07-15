@@ -1,19 +1,14 @@
 package lila.user
-
-import chess.PlayerTitle
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.data.validation.Constraints
 
 import lila.common.Form.{
+  cleanNoSymbolsAndNonEmptyText,
+  cleanNoSymbolsText,
   cleanNonEmptyText,
   cleanText,
-  cleanNoSymbolsText,
-  cleanNoSymbolsAndNonEmptyText,
-  playerTitle,
   into,
-  trim,
-  given
+  playerTitle
 }
 import lila.common.LameName
 import lila.core.user.Profile
@@ -42,8 +37,7 @@ final class UserForm:
       "flag"       -> optional(text.verifying(Flags.codeSet contains _)),
       "location"   -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 80)),
       "bio"        -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 400)),
-      "firstName"  -> nameField,
-      "lastName"   -> nameField,
+      "realName"   -> optional(cleanNoSymbolsText(minLength = 1, maxLength = 100)),
       "fideRating" -> optional(number(min = 1400, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating"  -> optional(number(min = 0, max = 3000)),
@@ -57,8 +51,6 @@ final class UserForm:
 
   def flair(using Me) = Form[Option[Flair]]:
     single(FlairApi.formPair())
-
-  private def nameField = optional(cleanNoSymbolsText(minLength = 1, maxLength = 20))
 
 object UserForm:
 

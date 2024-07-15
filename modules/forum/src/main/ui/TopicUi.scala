@@ -1,14 +1,15 @@
 package lila.forum
 package ui
 
-import play.api.data.{ Form, Field }
+import play.api.data.{ Field, Form }
 import play.api.libs.json.Json
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag,
@@ -18,6 +19,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context) =
     Page("New forum topic")
+      .csp(_.withInlineIconFont)
       .css("bits.forum")
       .js(EsmInit("bits.forum"))
       .js(captchaEsmInit):

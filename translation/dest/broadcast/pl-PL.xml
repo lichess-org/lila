@@ -25,14 +25,12 @@
   <string name="tournamentDescription">Krótki opis turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">Adres URL zapisu PGN</string>
+  <string name="sourceSingleUrl">Adres URL zapisu PGN</string>
   <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>
   <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
   <string name="credits">Potwierdź źródło</string>
-  <string name="broadcastUrl">Adres URL transmisji</string>
-  <string name="currentRoundUrl">Adres URL bieżącej rundy</string>
   <string name="currentGameUrl">Adres URL bieżącej partii</string>
   <string name="downloadAllRounds">Pobierz wszystkie rundy</string>
   <string name="resetRound">Zresetuj tę rundę</string>
@@ -47,4 +45,13 @@
   <string name="replacePlayerTags">Opcjonalnie: zmień nazwy, rankingi oraz tytuły gracza</string>
   <string name="periodInSeconds">Przedział czasu w sekundach</string>
   <string name="periodInSecondsHelp">Opcjonalnie, jak długo czekać pomiędzy odpytaniami. Min 2s, max 60s. Domyślnie jest to ustawiane automatycznie na podstawie liczby widzów.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federacje FIDE</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">10 najlepszych rankingów</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Zawodnicy FIDE</string>
+  <string name="fidePlayerNotFound">Nie znaleziono zawodnika FIDE</string>
+  <string name="fideProfile">Profil FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federacja</string>
+  <string name="ageThisYear">Wiek w tym roku</string>
+  <string name="unrated">Bez rankingu</string>
+  <string name="recentTournaments">Najnowsze turnieje</string>
 </resources>

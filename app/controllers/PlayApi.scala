@@ -1,12 +1,11 @@
 package controllers
 
-import scala.util.chaining.*
 import play.api.i18n.Lang
 import play.api.mvc.*
 
 import lila.app.*
-import lila.core.perf.UserWithPerfs
 import lila.core.id.GameAnyId
+import lila.core.perf.UserWithPerfs
 
 // both bot & board APIs
 final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):

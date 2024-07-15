@@ -1,11 +1,11 @@
 package lila.relay
 
-import scalalib.ThreadLocalRandom
-import reactivemongo.api.bson.Macros.Annotations.Key
-
-import scalalib.model.Seconds
-import lila.study.Study
 import io.mola.galimatias.URL
+import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.ThreadLocalRandom
+import scalalib.model.Seconds
+
+import lila.study.Study
 
 case class RelayRound(
     /* Same as the Study id it refers to */
@@ -52,8 +52,6 @@ case class RelayRound(
       case Some(at) => at.isBefore(nowInstant.minusHours(3))
       case None     => createdAt.isBefore(nowInstant.minusDays(1))
 
-  def stateHash = (hasStarted, finished)
-
   def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
 
   def withTour(tour: RelayTour) = RelayRound.WithTour(this, tour)
@@ -81,12 +79,13 @@ object RelayRound:
       log: SyncLog
   ):
     def hasUpstream = upstream.isDefined
+    def isPush      = upstream.isEmpty
 
     def renew(official: Boolean) =
       if hasUpstream then copy(until = nowInstant.plusHours(if official then 3 else 1).some)
       else pause
 
-    def ongoing = until.so(nowInstant.isBefore)
+    def ongoing = until.so(_.isAfterNow)
 
     def play(official: Boolean) =
       if hasUpstream then renew(official).copy(nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some))
@@ -119,13 +118,20 @@ object RelayRound:
       case Url(url: URL)          extends Upstream
       case Urls(urls: List[URL])  extends Upstream
       case Ids(ids: List[GameId]) extends Upstream
+      def isUrl = this match
+        case Url(_) => true
+        case _      => false
       def lcc: Option[Lcc] = this match
         case Url(url) =>
           url.toString match
             case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
             case _                   => none
         case _ => none
-      def isLcc = lcc.isDefined
+      def hasLcc = this match
+        case Url(url)   => Sync.looksLikeLcc(url)
+        case Urls(urls) => urls.exists(Sync.looksLikeLcc)
+        case _          => false
+
       def roundId: Option[RelayRoundId] = this match
         case Url(url) =>
           url.path.split("/") match
@@ -146,7 +152,8 @@ object RelayRound:
       def gameUrl(game: Int) =
         URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/game-$game.json")
 
-    private val lccRegex = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
+    private val lccRegex               = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
+    private def looksLikeLcc(url: URL) = url.toString.contains(".livechesscloud.com/")
 
   trait AndTour:
     val tour: RelayTour

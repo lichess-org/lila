@@ -1,8 +1,8 @@
 package lila.forum
 
+import lila.core.id.ForumCategId
 import lila.core.perm.Granter
 import lila.core.team.Access
-import lila.core.id.ForumCategId
 
 final class ForumAccess(
     teamApi: lila.core.team.TeamApi,

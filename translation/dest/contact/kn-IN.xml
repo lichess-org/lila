@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">ಕೆಲವು ಸಂದರ್ಭಗಳಲ್ಲಿ ಬೋಟ್ ಖಾತೆಯ ವಿರುದ್ಧ ಆಡುವಾಗ, ಆಟಗಾರನು ರೇಟಿಂಗ್ ಪಾಯಿಂಟ್‌ಗಳಿಗಾಗಿ ಬೋಟ್ ಅನ್ನು ದುರುಪಯೋಗಪಡಿಸಿಕೊಳ್ಳುತ್ತಿದ್ದಾರೆ ಎಂದು ನಿರ್ಣಯಿಸಿದರೆ ರೇಟ್ ಮಾಡಲಾದ ಆಟವು ಅಂಕಗಳನ್ನು ನೀಡುವುದಿಲ್ಲ.</string>
   <string name="errorPage">ದೋಷ ಪುಟ</string>
   <string name="reportErrorPage">ನೀವು ದೋಷ ಪುಟವನ್ನು ಎದುರಿಸಿದರೆ, ನೀವು ಅದನ್ನು ವರದಿ ಮಾಡಬಹುದು:</string>
-  <string name="wantBroadcastTournament">ನಾನು ಪಂದ್ಯಾವಳಿಯನ್ನು ಪ್ರಸಾರ ಮಾಡಲು ಬಯಸುತ್ತೇನೆ</string>
   <string name="learnHowToMakeBroadcasts">Lichess ನಲ್ಲಿ ನಿಮ್ಮ ಸ್ವಂತ ಪ್ರಸಾರವನ್ನು ಹೇಗೆ ಮಾಡಬೇಕೆಂದು ತಿಳಿಯಿರಿ</string>
-  <string name="contactAboutOfficialBroadcasts">ಅಧಿಕೃತ ಪ್ರಸಾರಗಳ ಕುರಿತು ನೀವು ಪ್ರಸಾರ ತಂಡವನ್ನು ಸಹ ಸಂಪರ್ಕಿಸಬಹುದು.</string>
   <string name="banAppeal">ನಿಷೇಧ ಅಥವಾ IP ನಿರ್ಬಂಧಕ್ಕಾಗಿ ಮನವಿ</string>
   <string name="engineAppeal">ಎಂಜಿನ್ ಅಥವಾ ಮೋಸ ಗುರುತು</string>
   <string name="sendAppealTo">ನೀವು %s ಗೆ ಮನವಿಯನ್ನು ಕಳುಹಿಸಬಹುದು.</string>

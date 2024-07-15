@@ -1,7 +1,6 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import lila.core.i18n.Language
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*

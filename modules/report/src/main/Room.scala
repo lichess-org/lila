@@ -1,7 +1,6 @@
 package lila.report
 
 import cats.derived.*
-
 import scalalib.Iso
 
 enum Room derives Eq:
@@ -24,11 +23,11 @@ object Room:
   def apply(reason: Reason): Room =
     import lila.report.{ Reason as R }
     reason match
-      case R.Cheat                           => Cheat
-      case R.Boost                           => Boost
-      case R.AltPrint | R.CheatPrint         => Print
-      case R.Comm | R.Sexism                 => Comm
-      case R.Other | R.Playbans | R.Username => Other
+      case R.Cheat       => Cheat
+      case R.Boost       => Boost
+      case R.AltPrint    => Print
+      case r if r.isComm => Comm
+      case _             => Other
 
   case class Scores(value: Map[Room, Int]):
     def get     = value.get

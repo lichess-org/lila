@@ -15,6 +15,7 @@
   <string name="pgnLetter">Raidės (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">„Zen“ režimas</string>
   <string name="showPlayerRatings">Rodyti žaidėjų reitingus</string>
+  <string name="showFlairs">Parodykite žaidėjo emociją</string>
   <string name="explainShowPlayerRatings">Tai leidžia iš svetainės paslėpti visus reitingus ir padeda susifokusuoti ties šachmatais. Partijos vis dar gali būti reitinguojamos. Šis pasirinkimas skirtas tik nustatyti, ką galite matyti.</string>
   <string name="displayBoardResizeHandle">Rodyti lentos dydžio keitimo simbolį</string>
   <string name="onlyOnInitialPosition">Tik pradinėje padėtyje</string>
@@ -50,7 +51,7 @@
   <string name="inputMovesWithVoice">Įvesti ėjimus balsu</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Rodykles užfiksuoti ties leistinais ėjimais</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Nepamirškite nugalėti ar po lygiųjų pasakyti, \"Gera partija, ačiū\"</string>
-  <string name="yourPreferencesHaveBeenSaved">Jūsų nuostatos buvo išsaugotos.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Jūsų nuostatos buvo išsaugotos.</string>
   <string name="scrollOnTheBoardToReplayMoves">Sukite ratuką ant lentos norėdami dar kartą pamatyti ėjimus</string>
   <string name="correspondenceEmailNotification">Kasdieniame laiške pateikti korespondensinių žaidimų išrašus</string>
   <string name="notifyStreamStart">Transliuotojas pradeda transliaciją</string>

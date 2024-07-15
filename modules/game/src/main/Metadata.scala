@@ -1,13 +1,9 @@
 package lila.game
 
 import chess.format.pgn.PgnStr
-import chess.{ Color, Ply }
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-
-import lila.db.ByteArray
-import lila.core.game.{ Source, GameRule, GameMetadata, GameDrawOffers, PgnImport }
 
 object PgnImport:
 

@@ -1,7 +1,6 @@
 package lila.relay
 
 import lila.study.Chapter
-import lila.study.Chapter.Order
 
 object RelayUpdatePlan:
 

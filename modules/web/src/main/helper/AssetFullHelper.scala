@@ -1,12 +1,11 @@
 package lila.web
 package ui
-import play.api.libs.json.{ JsValue, Json, Writes }
+import play.api.libs.json.JsValue
 
-import lila.ui.ScalatagsTemplate.*
-import lila.core.data.SafeJsonStr
-import lila.web.ui.*
 import lila.core.config.NetConfig
-import lila.ui.{ Nonce, Optionce, WithNonce, ContentSecurityPolicy, EsmList, Context }
+import lila.core.data.SafeJsonStr
+import lila.ui.ScalatagsTemplate.*
+import lila.ui.{ ContentSecurityPolicy, Context, Optionce }
 
 trait AssetFullHelper:
   self: lila.ui.AssetHelper & lila.ui.I18nHelper =>
@@ -31,7 +30,8 @@ trait AssetFullHelper:
 
   def assetVersion = lila.core.net.AssetVersion.current
 
-  def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def assetUrl(path: String): String =
+    s"$assetBaseUrl/assets/${manifest.hashed(path).getOrElse(s"_$assetVersion/$path")}"
 
   private val dataCssKey = attr("data-css-key")
   def cssTag(key: String): Frag =

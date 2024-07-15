@@ -2,14 +2,14 @@ package lila.mod
 package ui
 
 import play.api.data.Form
+import play.api.libs.json.Json
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.report.{ Report, Reason }
+import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.mod.ModActivity.{ Period, Who }
-import lila.core.perf.UserWithPerfs
-import play.api.libs.json.Json
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 case class PendingCounts(streamers: Int, appeals: Int, titles: Int)
 

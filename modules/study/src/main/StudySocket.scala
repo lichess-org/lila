@@ -11,7 +11,7 @@ import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
-import lila.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
+import lila.tree.Node.minimalNodeJsonWriter
 
 import actorApi.Who
 
@@ -45,7 +45,7 @@ final private class StudySocket(
           Json.obj(
             "analysis" -> analysis,
             "ch"       -> chapterId,
-            "tree"     -> defaultNodeJsonWriter.writes(tree),
+            "tree"     -> lila.tree.Node.defaultNodeJsonWriter.writes(tree),
             "division" -> division
           )
         )

@@ -38,7 +38,7 @@ final class RelayPgnStream(
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
   def streamRoundGames(rs: RelayRound.WithStudy): Source[PgnStr, ?] = {
-    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(16, 1 second)
+    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(32, 1 second)
     else Source.empty[PgnStr]
   }.concat(
     Source

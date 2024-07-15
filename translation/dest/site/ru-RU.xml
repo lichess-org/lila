@@ -533,9 +533,6 @@
   <string name="safeTournamentName">Выберите для турнира как можно более безопасное название.</string>
   <string name="inappropriateNameWarning">Если название хотя бы немного покажется неуместным, вас могут заблокировать.</string>
   <string name="emptyTournamentName">Оставьте пустым, чтобы назвать турнир в честь случайного гроссмейстера.</string>
-  <string name="recommendNotTouching">Мы не рекомендуем задавать эти условия.</string>
-  <string name="fewerPlayers">Если вы зададите условия участия, то в вашем турнире сможет принять участие меньше игроков.</string>
-  <string name="showAdvancedSettings">Показать дополнительные настройки</string>
   <string name="makePrivateTournament">Сделать турнир закрытым и ограничить доступ паролем</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
@@ -575,8 +572,7 @@
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Редактировать профиль</string>
-  <string name="firstName">Имя</string>
-  <string name="lastName">Фамилия</string>
+  <string name="realName">Настоящее имя</string>
   <string name="setFlair">Задайте свой эмодзи</string>
   <string name="flair">Эмодзи</string>
   <string name="youCanHideFlair">Эта настройка скрывает все эмодзи пользователей на всём сайте.</string>
@@ -625,9 +621,7 @@
   <string name="reason">Причина</string>
   <string name="whatIsIheMatter">Что это было?</string>
   <string name="cheat">Жульничество</string>
-  <string name="insult">Оскорбление</string>
   <string name="troll">Троллинг</string>
-  <string name="ratingManipulation">Махинации с рейтингом</string>
   <string name="other">Другое</string>
   <string name="reportDescriptionHelp">Поделитесь с нами ссылками на игры, где, как вам кажется, были нарушены правила, и опишите, в чём дело. Недостаточно просто написать «он мухлюет», пожалуйста, опишите, как вы пришли к такому выводу. Мы сработаем оперативнее, если вы напишете на английском языке.</string>
   <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
@@ -662,6 +656,7 @@
   <string name="slow">Медленно</string>
   <string name="insideTheBoard">Внутри доски</string>
   <string name="outsideTheBoard">Вне доски</string>
+  <string name="allSquaresOfTheBoard">Все поля на доске</string>
   <string name="onSlowGames">В медленных играх</string>
   <string name="always">Всегда</string>
   <string name="never">Никогда</string>

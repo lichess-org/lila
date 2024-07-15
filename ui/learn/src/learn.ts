@@ -8,6 +8,7 @@ import {
 } from 'snabbdom';
 import { LearnCtrl } from './ctrl';
 import { view } from './view';
+import * as Prefs from 'common/prefs';
 
 import storage, { Storage } from './storage';
 
@@ -28,20 +29,27 @@ export interface LearnOpts {
   stageId: number | null;
   levelId: number | null;
   route?: string;
+  pref: LearnPrefs;
+}
+
+export interface LearnPrefs {
+  coords: Prefs.Coords;
 }
 
 interface LearnServerOpts {
   data?: LearnProgress;
   i18n: I18nDict;
+  pref: LearnPrefs;
 }
 
-export function initModule({ data, i18n }: LearnServerOpts) {
+export function initModule({ data, i18n, pref }: LearnServerOpts) {
   const _storage = storage(data);
   const opts: LearnOpts = {
     i18n,
     storage: _storage,
     stageId: null,
     levelId: null,
+    pref: pref,
   };
   const ctrl = new LearnCtrl(opts, redraw);
 

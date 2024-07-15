@@ -1,4 +1,4 @@
-export default function flairPicker(element: HTMLElement) {
+export default function flairPickerLoader(element: HTMLElement): void {
   const parent = $(element).parent();
   const close = () => element.removeAttribute('open');
   const onEmojiSelect = (i?: { id: string; src: string }) => {

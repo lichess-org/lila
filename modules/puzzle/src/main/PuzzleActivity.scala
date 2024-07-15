@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.Json.given
-
 import lila.db.dsl.{ *, given }
 
 final class PuzzleActivity(

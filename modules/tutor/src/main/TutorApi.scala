@@ -1,9 +1,9 @@
 package lila.tutor
 
 import lila.common.{ Chronometer, LilaScheduler, Uptime }
+import lila.core.perf.UserWithPerfs
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.core.perf.UserWithPerfs
 
 final class TutorApi(
     colls: TutorColls,

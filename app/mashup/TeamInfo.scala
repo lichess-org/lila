@@ -1,13 +1,11 @@
 package lila.app
 package mashup
-
-import lila.core.forum.ForumPostMini
-import lila.simul.{ Simul, SimulApi }
-import lila.swiss.{ Swiss, SwissApi }
-import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo, TeamSecurity }
-import lila.tournament.{ Tournament, TournamentApi }
 import lila.core.forum.ForumPostMiniView
 import lila.core.user.User
+import lila.simul.{ Simul, SimulApi }
+import lila.swiss.{ Swiss, SwissApi }
+import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo }
+import lila.tournament.{ Tournament, TournamentApi }
 
 case class TeamInfo(
     withLeaders: Team.WithLeaders,

@@ -1,11 +1,11 @@
 package lila.puzzle
 
+import scalalib.actor.AsyncActorSequencers
 import scalalib.paginator.Paginator
-import lila.db.dsl.{ *, given }
-import lila.db.paginator.Adapter
 
 import lila.core.i18n.I18nKey
-import scalalib.actor.AsyncActorSequencers
+import lila.db.dsl.{ *, given }
+import lila.db.paginator.Adapter
 
 final class PuzzleApi(
     colls: PuzzleColls,

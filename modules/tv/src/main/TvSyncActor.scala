@@ -1,7 +1,7 @@
 package lila.tv
 
-import scalalib.actor.SyncActor
 import play.api.libs.json.Json
+import scalalib.actor.SyncActor
 
 import lila.common.Bus
 import lila.common.Json.given

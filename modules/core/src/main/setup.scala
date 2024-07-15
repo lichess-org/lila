@@ -1,10 +1,10 @@
 package lila.core
 package setup
 
-import _root_.chess.{ format, Clock }
 import _root_.chess.variant.Variant
-
+import _root_.chess.{ Clock, format }
 import scalalib.model.Days
+
 import lila.core.game.GameRule
 import lila.core.userId.UserId
 

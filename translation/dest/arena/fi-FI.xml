@@ -66,6 +66,7 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="pickYourTeam">Valitse joukkueesi</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Mitä joukkuetta edustat tässä taistossa?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Sinun täytyy liittyä johonkin näistä joukkueista osallistuaksesi turnaukseen!</string>
+  <string name="created">Luodut</string>
   <string name="recentlyPlayed">Äskettäin pelatut</string>
   <string name="bestResults">Parhaat tulokset</string>
   <string name="stats">Tilastot</string>
@@ -77,8 +78,8 @@ Esimerkiksi sijoittuminen 3. sijalle 100 pelaajan turnauksessa = 3%. Sijoittumin
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Kaikki keskiarvot tällä sivulla ovat %s.</string>
   <string name="total">Yhteensä</string>
   <string name="pointsAvg">Pisteiden keskiarvo</string>
-  <string name="pointsSum">Pisteiden summa</string>
-  <string name="rankAvg">Sijoitusten keskiarvo</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Pisteiden summa</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Sijoitusten keskiarvo</string>
   <string name="tournamentWinners">Turnauksen voittajat</string>
   <string name="tournamentShields">Turnauskilvet</string>
   <string name="onlyTitled">Vain arvonimen saaneet pelaajat</string>

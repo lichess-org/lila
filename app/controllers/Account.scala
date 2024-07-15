@@ -3,14 +3,12 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
-import scalatags.Text.Frag
-import scala.util.chaining.*
+import views.account.pages
 
-import lila.web.AnnounceApi
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import views.account.pages
+import lila.web.AnnounceApi
 
 final class Account(
     env: Env,
@@ -102,6 +100,7 @@ final class Account(
               me.value,
               withFollows = apiC.userWithFollows,
               withTrophies = false,
+              withCanChallenge = false,
               forWiki = wikiGranted
             )
             .dmap { JsonOk(_) }

@@ -3,19 +3,16 @@ package controllers
 import play.api.mvc.*
 
 import java.time.format.DateTimeFormatter
-import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-
-import lila.rating.PerfType
 import lila.core.id.GameAnyId
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
-  def bookmark(gameId: GameId) = Auth { _ ?=> me ?=>
-    env.bookmark.api.toggle(gameId, me).inject(NoContent)
+  def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+    env.bookmark.api.toggle(gameId, me, getBoolOpt("v")).inject(NoContent)
   }
 
   def delete(gameId: GameId) = Auth { _ ?=> me ?=>

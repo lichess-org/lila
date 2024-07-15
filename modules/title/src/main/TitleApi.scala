@@ -2,12 +2,12 @@ package lila.title
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.core.perm.Granter
-import lila.core.id.TitleRequestId
-import lila.memo.PicfitApi
-import lila.core.msg.SystemMsg
 import lila.core.config.BaseUrl
+import lila.core.id.TitleRequestId
+import lila.core.msg.SystemMsg
+import lila.core.perm.Granter
+import lila.db.dsl.{ *, given }
+import lila.memo.PicfitApi
 
 final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
 
@@ -39,7 +39,10 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
     coll
       .byId[TitleRequest](id)
       .map:
-        _.filter(_.userId.is(me) || Granter(_.SetTitle))
+        _.filter(_.userId.is(me) || Granter(_.TitleRequest))
+
+  def allOf(u: User): Fu[List[TitleRequest]] =
+    coll.list[TitleRequest]($doc("userId" -> u.id))
 
   def findSimilar(req: TitleRequest): Fu[List[TitleRequest]] =
     val search = List(

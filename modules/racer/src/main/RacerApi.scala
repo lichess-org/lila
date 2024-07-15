@@ -92,7 +92,7 @@ final class RacerApi(
       race.players.foreach: player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
         player.user.ifTrue(player.score > 0).foreach { user =>
-          Bus.publish(lila.core.misc.puzzle.RacerRun(user.id, player.score), "racerRun")
+          Bus.pub(lila.core.misc.puzzle.RacerRun(user.id, player.score))
           userApi.addPuzRun("racer", user.id, player.score)
         }
       publish(race)

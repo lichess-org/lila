@@ -3,14 +3,13 @@ package lila.mod
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.core.irc.IrcApi
-import lila.core.msg.MsgPreset
-import lila.report.{ Mod, Report, Suspect }
-import lila.core.perm.Permission
-import lila.user.UserRepo
 import lila.core.id.ForumCategId
+import lila.core.irc.IrcApi
 import lila.core.perf.UserWithPerfs
+import lila.core.perm.Permission
+import lila.db.dsl.{ *, given }
+import lila.report.{ Mod, Report, Suspect }
+import lila.user.UserRepo
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -64,6 +63,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def isolate(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, if sus.user.marks.isolate then Modlog.isolate else Modlog.unisolate)
+
+  def deleteComms(sus: Suspect)(using MyId) = add:
+    Modlog.make(sus, Modlog.deleteComms)
 
   def fullCommExport(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, Modlog.fullCommsExport)

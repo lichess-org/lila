@@ -1,8 +1,8 @@
 package lila.core
 package pref
 
-import lila.core.userId.UserId
 import lila.core.user.User
+import lila.core.userId.UserId
 
 trait Pref:
   val id: UserId

@@ -417,9 +417,6 @@ You are playing chess.</string>
   <string name="safeTournamentName">තරඟාවලිය සඳහා ඉතා ආරක්ෂිත නමක් තෝරන්න.</string>
   <string name="inappropriateNameWarning">තරමක් නුසුදුසු ඕනෑම දෙයක් නිසා ඔබගේ ගිණුම වසා දැමිය හැක.</string>
   <string name="emptyTournamentName">කැපී පෙනෙන චෙස් ක්‍රීඩකයෙකුගේ නමින් තරඟාවලිය නම් කිරීමට හිස්ව තබන්න.</string>
-  <string name="recommendNotTouching">මේවා ඇල්ලීම​ නොකරන ලෙස අපි නිර්දේශ කරමු.</string>
-  <string name="fewerPlayers">ඔබ ප්‍රවේශ අවශ්‍යතා සකසන්නේ නම්, ඔබේ තරඟාවලියට ක්‍රීඩකයින් සංඛ්‍යාව අඩු වනු ඇත.</string>
-  <string name="showAdvancedSettings">උසස් සැකසුම් පෙන්වන්න</string>
   <string name="makePrivateTournament">තරඟාවලිය පුද්ගලික කරන්න, මුරපදයකින් ප්‍රවේශය සීමා කරන්න</string>
   <string name="join">එකතු වන්න​</string>
   <string name="withdraw">ඉල්ලා අස් වෙන්න​</string>
@@ -459,8 +456,6 @@ You are playing chess.</string>
   <string name="ifNoneLeaveEmpty">කිසිවක් නොමැති නම්, හිස්ව තබන්න</string>
   <string name="profile">පැතිකඩ</string>
   <string name="editProfile">පැතිකඩ සංස්කරණය කරන්න</string>
-  <string name="firstName">මුල් නම</string>
-  <string name="lastName">වාසගම</string>
   <string name="setFlair">ඔබේ ෆ්ලෙයාර්ය​ සකසන්න</string>
   <string name="flair">ෆ්ලෙයාරය</string>
   <string name="youCanHideFlair">සම්පූර්ණ වෙබ් අඩවිය හරහා සියලුම පරිශීලක ෆ්ලෙයාර සැඟවීමට සැකසීමක් ඇත.</string>
@@ -507,9 +502,7 @@ You are playing chess.</string>
   <string name="reason">හේතුව</string>
   <string name="whatIsIheMatter">කාරණය කුමක් ද?</string>
   <string name="cheat">වංචාකරණ​ය​</string>
-  <string name="insult">අපහාස කිරීම​</string>
   <string name="troll">ට්‍රෝල් කිරීම​</string>
-  <string name="ratingManipulation">ශ්‍රේණිගත කිරීම් වංචාව​</string>
   <string name="other">වෙනත්</string>
   <string name="reportDescriptionHelp">ක්‍රීඩා(ව​) වෙත සබැඳිය අලවා මෙම පරිශීලකයාගේ හැසිරීමේ ඇති වරද කුමක්දැයි පැහැදිලි කරන්න. \"ඔවුන් වංචා කරනවා\" පමණක් නොකියන්න, නමුත් ඔබ මෙම නිගමනයට පැමිණියේ කෙසේදැයි අපට කියන්න. ඔබේ වාර්තාව ඉංග්‍රීසියෙන් ලියා ඇත්නම් වේගයෙන් සකසනු ලැබේ.</string>
   <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>

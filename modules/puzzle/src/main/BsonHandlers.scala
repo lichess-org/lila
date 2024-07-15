@@ -5,9 +5,9 @@ import reactivemongo.api.bson.*
 
 import scala.util.{ Success, Try }
 
+import lila.core.rating.Glicko
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.core.rating.Glicko
 
 object BsonHandlers:
 

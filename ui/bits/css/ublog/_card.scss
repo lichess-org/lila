@@ -1,7 +1,7 @@
 .ublog-post-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
-  grid-gap: 2em;
+  grid-gap: 1em;
 }
 .ublog-post-card {
   @extend %box-neat-force;
@@ -68,22 +68,22 @@
   }
 
   &__content {
-    padding: 3% 3% 4% 6%;
+    padding: 4% 3% 4% 6%;
     display: block;
     max-height: 12em;
   }
 
   &__title {
+    @include line-clamp(2);
     font-size: 1.3em;
     color: $c-font-clear;
-    display: block;
   }
 
   &__intro {
     @extend %roboto, %break-word;
+    @include line-clamp(2);
 
     color: $c-font;
-    margin-top: 1em;
-    display: block;
+    margin-top: 0.5em;
   }
 }

@@ -1,13 +1,13 @@
 package lila.team
 package ui
 
-import play.api.data.{ Form, Field }
-import scalalib.paginator.Paginator
+import play.api.data.{ Field, Form }
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
 import lila.core.team.Access
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class FormUi(helpers: Helpers, bits: TeamUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag

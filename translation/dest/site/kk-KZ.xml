@@ -462,9 +462,6 @@
   <string name="safeTournamentName">Жарысты түзу, жөнді сөзбен атаңыз.</string>
   <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет себебінен тіркелгіңіз жабылуы мүмкін.</string>
   <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
-  <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
-  <string name="fewerPlayers">Егер кіру талаптарын қойсаңыз, қатысатын ойыншылар саны аз болады.</string>
-  <string name="showAdvancedSettings">Қосымша баптауларды көрсету</string>
   <string name="makePrivateTournament">Кіруді құпиясөзбен шектеп, жарысты оңашалаңыз</string>
   <string name="join">Қосылыңыз</string>
   <string name="withdraw">Жарыстан шығу</string>
@@ -503,8 +500,6 @@
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
   <string name="profile">Куәлік</string>
   <string name="editProfile">Куәлікті өзгерту</string>
-  <string name="firstName">Атыңыз</string>
-  <string name="lastName">Тегіңіз</string>
   <string name="biography">Өмірбаян</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
@@ -546,9 +541,7 @@
   <string name="reason">Түйіні</string>
   <string name="whatIsIheMatter">Не болды?</string>
   <string name="cheat">Чит, алдап ойнау</string>
-  <string name="insult">Қорлау</string>
   <string name="troll">Троль, кемсіту</string>
-  <string name="ratingManipulation">Рейтингпен айла-шарғы</string>
   <string name="other">Басқа</string>
   <string name="reportDescriptionHelp">Ойынның (-дардың) сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" деп жаза салмай, осы ойға қалай келгеніңізді айтып беріңіз. Сіздің шағымыңыз ағылшын тілінде жазылса, тезірек тексеруден өтеді.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>

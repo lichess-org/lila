@@ -4,9 +4,9 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
+import lila.core.config.ConfigName
 import lila.core.game.{ FinishGame, InsertGame }
 import lila.search.*
-import lila.core.config.ConfigName
 import lila.search.client.SearchClient
 import lila.search.spec.Query
 

@@ -13,10 +13,10 @@ import lila.common.Form.{
   numberIn,
   given
 }
-import lila.db.dsl.{ *, given }
-import lila.core.team.Access
 import lila.core.captcha.CaptchaApi
+import lila.core.team.Access
 import lila.core.user.FlairApi
+import lila.db.dsl.{ *, given }
 
 final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
     Executor

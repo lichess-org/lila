@@ -2,6 +2,7 @@ package lila.simul
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class SimulUi(helpers: Helpers):

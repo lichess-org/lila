@@ -2,15 +2,15 @@ package lila.api
 
 import akka.actor.*
 import akka.stream.scaladsl.*
+import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.challenge.Challenge
 import lila.common.Bus
 import lila.common.Json.given
 import lila.core.game.{ FinishGame, StartGame }
-import lila.game.{ Rematches }
-import lila.user.{ LightUserApi, Me, User, UserRepo }
-import play.api.i18n.Lang
+import lila.game.Rematches
+import lila.user.{ LightUserApi, Me, UserRepo }
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,

@@ -5,15 +5,14 @@ import play.api.mvc.RequestHeader
 
 import java.time.Period
 import scala.util.Try
-import scala.util.chaining.*
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.core.{ timeline as tl }
-import lila.memo.CacheApi.*
 import lila.core.perm.Granter
 import lila.core.team.*
+import lila.core.timeline as tl
 import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 
 final class TeamApi(
     teamRepo: TeamRepo,

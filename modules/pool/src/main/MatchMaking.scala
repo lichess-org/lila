@@ -1,7 +1,8 @@
 package lila.pool
 
-import scala.math.abs
 import scalalib.WMMatching
+
+import scala.math.abs
 
 import lila.core.pool.PoolMember
 

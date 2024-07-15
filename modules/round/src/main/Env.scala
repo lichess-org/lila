@@ -8,14 +8,13 @@ import play.api.Configuration
 import scala.util.matching.Regex
 
 import lila.common.autoconfig.{ *, given }
-import lila.core.config.*
 import lila.common.{ Bus, Uptime }
-import lila.game.{ Game, GameRepo, Pov }
+import lila.core.config.*
 import lila.core.round.{ Abort, Resign }
-import lila.memo.SettingStore
-import lila.rating.RatingFactor
-import lila.rating.PerfType
 import lila.core.user.{ FlairGet, FlairGetMap }
+import lila.game.GameRepo
+import lila.memo.SettingStore
+import lila.rating.{ PerfType, RatingFactor }
 import lila.round.RoundGame.*
 
 @Module
@@ -166,7 +165,7 @@ final class Env(
 
   lazy val recentTvGames = wire[RecentTvGames]
 
-  private lazy val botFarming = wire[BotFarming]
+  private lazy val farmBoostDetection = wire[FarmBoostDetection]
 
   lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
 

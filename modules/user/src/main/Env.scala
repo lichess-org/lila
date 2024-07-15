@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.core.config.*
-import lila.core.perf
 import lila.core.userId
 
 @Module

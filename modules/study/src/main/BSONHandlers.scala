@@ -1,17 +1,18 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
+import chess.format.pgn.{ Glyph, Glyphs, SanStr, Tag, Tags }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, ByColor, Square, PromotableRole, Role, Outcome, Ply, Check, FideId }
+import chess.{ ByColor, Centis, Check, FideId, Ply, PromotableRole, Role, Square }
 import reactivemongo.api.bson.*
+
 import scala.util.Success
 
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Root, Branch, Branches, NewBranch, Metas, NewRoot, Score }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
+import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Score }
 
 object BSONHandlers:
 
@@ -359,6 +360,7 @@ object BSONHandlers:
   private[study] given dbMemberHandler: BSONDocumentHandler[DbMember] = Macros.handler
   private[study] given BSONDocumentWriter[StudyMember] with
     def writeTry(x: StudyMember) = Success($doc("role" -> x.role))
+
   private[study] given (using handler: BSONHandler[Map[String, DbMember]]): BSONHandler[StudyMembers] =
     handler.as[StudyMembers](
       members =>
@@ -367,6 +369,7 @@ object BSONHandlers:
         }),
       _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
+
   import lila.core.study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey.get(v).toTry(s"Invalid visibility $v") },

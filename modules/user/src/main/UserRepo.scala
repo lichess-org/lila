@@ -1,19 +1,19 @@
 package lila.user
 
-import com.roundeights.hasher.Implicits.*
 import chess.PlayerTitle
-import scalalib.ThreadLocalRandom
+import com.roundeights.hasher.Implicits.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-
-import lila.core.net.ApiVersion
-import lila.core.email.NormalizedEmailAddress
-import lila.core.LightUser
-import lila.db.dsl.{ *, given }
-import lila.core.userId.UserSearch
-import lila.core.user.{ Profile, PlayTime, TotpSecret, Plan, UserMark }
-import lila.core.security.HashedPassword
+import scalalib.ThreadLocalRandom
 import scalalib.model.Days
+
+import lila.core.LightUser
+import lila.core.email.NormalizedEmailAddress
+import lila.core.net.ApiVersion
+import lila.core.security.HashedPassword
+import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark }
+import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
 
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
@@ -153,6 +153,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
+
+  def setRealName(id: UserId, name: String): Funit =
+    coll.updateField($id(id), s"${F.profile}.realName", name).void
 
   def setUsernameCased(id: UserId, name: UserName): Funit =
     if id.is(name) then

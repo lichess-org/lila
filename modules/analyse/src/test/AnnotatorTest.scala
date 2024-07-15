@@ -1,13 +1,12 @@
 package lila.analyse
 import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tag, Tags }
-import chess.{ ByColor, Ply, Node }
+import chess.{ ByColor, Node, Ply }
 
-import lila.core.config.{ BaseUrl, NetDomain }
-import lila.core.game.PgnDump
-import lila.tree.Eval
-import lila.core.user.LightUserApiMinimal
 import lila.core.LightUser
+import lila.core.config.NetDomain
 import lila.core.id.GamePlayerId
+import lila.core.user.LightUserApiMinimal
+import lila.tree.Eval
 
 class AnnotatorTest extends munit.FunSuite:
 
@@ -50,7 +49,7 @@ class AnnotatorTest extends munit.FunSuite:
       def literal(key: I18nKey, args: Seq[Any], lang: Lang): String              = key.value
       def plural(key: I18nKey, count: Count, args: Seq[Any], lang: Lang): String = key.value
     val frag = new TranslatorFrag:
-      import scalatags.Text.{ Frag, RawFrag }
+      import scalatags.Text.RawFrag
       def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag              = RawFrag(key.value)
       def plural(key: I18nKey, count: Count, args: Seq[Matchable], lang: Lang): RawFrag = RawFrag(key.value)
 

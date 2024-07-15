@@ -56,5 +56,5 @@
   <string name="inappropriateContentAccountClosed">Bet koks nepriimtinas turinys privers mus uždaryti jūsų paskyrą.</string>
   <string name="blogTips">Keli patarimai kaip rašyti puikius tinklaraščio įrašus</string>
   <string name="discussThisBlogPostInTheForum">Diskutuoti apie šį įrašą forume</string>
-  <string name="youBlockedByBlogAuthor">Jūs buvote tinklaraščio autoriaus užblokuotas.</string>
+  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Jūs buvote tinklaraščio autoriaus užblokuotas.</string>
 </resources>

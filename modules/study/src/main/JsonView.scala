@@ -3,12 +3,10 @@ package lila.study
 import chess.Square
 import play.api.libs.json.*
 
-import scala.util.chaining.*
-
 import lila.common.Json.{ *, given }
+import lila.core.i18n.Translate
 import lila.core.socket.Sri
 import lila.tree.Node.Shape
-import lila.core.i18n.Translate
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -139,7 +137,6 @@ object JsonView:
   )
 
   def glyphs(using Translate): JsObject =
-    import lila.tree.Node.given
     import lila.core.i18n.I18nKey.{ study as trans }
     import chess.format.pgn.Glyph
     import Glyph.MoveAssessment.*

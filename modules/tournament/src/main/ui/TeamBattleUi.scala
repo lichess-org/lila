@@ -3,9 +3,10 @@ package ui
 
 import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TeamBattleUi(helpers: Helpers):
   import helpers.{ *, given }

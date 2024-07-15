@@ -3,9 +3,10 @@ package ui
 
 import chess.format.pgn.PgnStr
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.perf.UserWithPerfs
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
   import helpers.{ *, given }

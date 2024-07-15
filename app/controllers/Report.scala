@@ -7,9 +7,9 @@ import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.ReportId
-import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
-import lila.report.Room.Scores
 import lila.mod.ui.PendingCounts
+import lila.report.Room.Scores
+import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
 
 final class Report(env: Env, userC: => User, modC: => Mod) extends LilaController(env):
 
@@ -146,14 +146,9 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
           val form = env.report.forms.create
           val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
             case (Some(u), Some(pid)) =>
-              form.fill:
-                lila.report.ReportSetup(
-                  u.light,
-                  reason = ~get("reason"),
-                  text = s"$pid\n\n"
-                )
+              form.fill(lila.report.ReportSetup(u.light, reason = "", text = s"$pid\n\n"))
             case _ => form
-          views.report.form(filledForm, user)
+          views.report.ui.form(filledForm, user, get("from"))
     }
   }
 
@@ -162,7 +157,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       err =>
         for
           user <- getUserStr("username").so(env.user.repo.byId)
-          page <- renderPage(views.report.form(err, user))
+          page <- renderPage(views.report.ui.form(err, user, none))
         yield BadRequest(page),
       data =>
         if me.is(data.user.id) then BadRequest("You cannot report yourself")

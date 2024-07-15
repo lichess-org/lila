@@ -2,7 +2,7 @@ import * as path from 'node:path';
 import * as es from 'esbuild';
 import { preModule } from './build';
 import { env, errorMark, colors as c } from './main';
-import { js as jsManifest } from './manifest';
+import { jsManifest } from './manifest';
 
 const bundles = new Map<string, string>();
 const esbuildCtx: es.BuildContext[] = [];
@@ -58,12 +58,11 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
 const onEndPlugin = {
   name: 'onEnd',
   setup(build: es.PluginBuild) {
-    build.onEnd((result: es.BuildResult) => {
+    build.onEnd(async (result: es.BuildResult) => {
       for (const err of result.errors) esbuildMessage(err, true);
       for (const warn of result.warnings) esbuildMessage(warn);
+      if (result.errors.length === 0) await jsManifest(result.metafile!);
       env.done(result.errors.length, 'esbuild');
-      if (result.errors.length) return;
-      jsManifest(result.metafile!);
     });
   },
 };

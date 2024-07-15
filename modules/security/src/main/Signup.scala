@@ -4,14 +4,12 @@ import play.api.data.*
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
-import scala.util.chaining.*
-
+import lila.common.HTTPRequest
 import lila.core.config.NetConfig
-import lila.common.{ HTTPRequest }
-import lila.core.net.{ ApiVersion, IpAddress }
-import lila.memo.RateLimit
 import lila.core.email.UserIdOrEmail
+import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.security.ClearPassword
+import lila.memo.RateLimit
 
 final class Signup(
     store: Store,
@@ -71,25 +69,19 @@ final class Signup(
           ,
           data =>
             for
-              suspIp <- ipTrust.isSuspicious(ip)
-              ipData <- ipTrust.data(ip)
-              result <- hcaptcha.verify().flatMap {
+              suspIp  <- ipTrust.isSuspicious(ip)
+              ipData  <- ipTrust.data(ip)
+              captcha <- hcaptcha.verify()
+              result <- captcha match
                 case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
-                case hcaptchaResult =>
+                case _ =>
                   signupRateLimit(
                     data.username.id,
                     suspIp = suspIp,
-                    captched = hcaptchaResult == Hcaptcha.Result.Valid
+                    captched = captcha == Hcaptcha.Result.Valid
                   ):
                     MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp).flatMap { mustConfirm =>
-                      monitor(
-                        data,
-                        hcaptchaResult,
-                        mustConfirm,
-                        ipData,
-                        ipSusp = suspIp,
-                        api = none
-                      )
+                      monitor(data, captcha, mustConfirm, ipData, ipSusp = suspIp, api = none)
                       lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
                       val passwordHash = authenticator.passEnc(data.clearPassword)
                       userRepo
@@ -103,11 +95,10 @@ final class Signup(
                         )
                         .orFail(s"No user could be created for ${data.username}")
                         .addEffect:
-                          logSignup(req, _, data.email, data.fingerPrint, none, mustConfirm)
+                          logSignup(req, _, data.email, data.fingerPrint, none, captcha, mustConfirm)
                         .flatMap:
                           confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none)
                     }
-              }
             yield result
         )
     }
@@ -167,7 +158,7 @@ final class Signup(
                 )
                 .orFail(s"No user could be created for ${data.username}")
                 .addEffect:
-                  logSignup(req, _, data.email, none, apiVersion.some, mustConfirm)
+                  logSignup(req, _, data.email, none, apiVersion.some, Hcaptcha.Result.Mobile, mustConfirm)
                 .flatMap:
                   confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
           yield result
@@ -223,13 +214,14 @@ final class Signup(
       email: EmailAddress,
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion],
+      captcha: Hcaptcha.Result,
       mustConfirm: MustConfirmEmail
   ) =
     disposableEmailAttempt.onSuccess(user, email, HTTPRequest.ipAddress(req))
     authLog(
       user.username.into(UserStr),
       email.value,
-      s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
+      s"fp: $fingerPrint mustConfirm: $mustConfirm captcha: $captcha fp: ${fingerPrint
           .so(_.value)} ip: ${HTTPRequest.ipAddress(req)} api: $apiVersion"
     )
 

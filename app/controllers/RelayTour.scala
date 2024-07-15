@@ -1,13 +1,13 @@
 package controllers
 
 import play.api.mvc.*
-
 import scalalib.Json.given
+
 import lila.app.{ *, given }
+import lila.core.id.RelayTourId
 import lila.core.net.IpAddress
 import lila.relay.RelayTour as TourModel
 import lila.relay.ui.FormNavigation
-import lila.core.id.RelayTourId
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 

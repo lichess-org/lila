@@ -58,5 +58,5 @@
   <string name="inappropriateContentAccountClosed">Неуместное содержание может стать причиной закрытия вашего аккаунта.</string>
   <string name="blogTips">Наши простые советы по написанию отличных записей в блоге</string>
   <string name="discussThisBlogPostInTheForum">Обсудить эту запись в блоге на форуме</string>
-  <string name="youBlockedByBlogAuthor">Вы заблокированы автором блога.</string>
+  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Вы заблокированы автором блога.</string>
 </resources>

@@ -5,12 +5,12 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.chat.Chat
-import lila.common.Json.given
 import lila.common.HTTPRequest
-import lila.tournament.Tournament as Tour
+import lila.common.Json.given
 import lila.core.data.Preload
-import lila.core.id.{ GameFullId, GameAnyId }
+import lila.core.id.{ GameAnyId, GameFullId }
 import lila.round.RoundGame.*
+import lila.tournament.Tournament as Tour
 import lila.ui.Snippet
 
 final class Round(

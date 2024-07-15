@@ -16,7 +16,7 @@ import { CevalCtrl } from 'ceval';
 import { makeVoiceMove, VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, KeyboardMoveRootCtrl } from 'keyboardMove';
 import { Deferred, defer } from 'common/defer';
-import { defined, prop, Prop, propWithEffect, Toggle, toggle } from 'common';
+import { defined, prop, Prop, propWithEffect, Toggle, toggle, requestIdleCallback } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
@@ -101,9 +101,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
     // Make sure chessground is fully shown when the page goes back to being visible.
-    document.addEventListener('visibilitychange', () =>
-      site.requestIdleCallback(() => this.jump(this.path), 500),
-    );
+    document.addEventListener('visibilitychange', () => requestIdleCallback(() => this.jump(this.path), 500));
 
     site.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
@@ -114,9 +112,9 @@ export default class PuzzleCtrl implements ParentCtrl {
     $('#zentog').on('click', () => site.pubsub.emit('zen'));
   }
 
-  private loadSound = (file: string, volume?: number) => {
-    site.sound.load(file, `${site.sound.baseUrl}/${file}`);
-    return () => site.sound.play(file, volume);
+  private loadSound = (name: string, volume?: number) => {
+    site.sound.load(name, site.sound.url(`${name}.mp3`));
+    return () => site.sound.play(name, volume);
   };
   sound = {
     good: this.loadSound('lisp/PuzzleStormGood', 0.7),

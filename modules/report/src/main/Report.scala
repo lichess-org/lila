@@ -1,12 +1,12 @@
 package lila.report
 
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.ThreadLocalRandom
 
+import lila.core.id.ReportId
+import lila.core.perf.UserWithPerfs
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
-import lila.core.perf.UserWithPerfs
-import lila.core.id.ReportId
 
 case class Report(
     @Key("_id") id: ReportId, // also the url slug
@@ -108,7 +108,7 @@ object Report:
 
     def byLichess = by.is(ReporterId.lichess)
 
-    def isFlag = text.startsWith(Reason.Comm.flagText)
+    def isFlag = text.startsWith(Reason.flagText)
 
   case class Done(by: ModId, at: Instant)
 

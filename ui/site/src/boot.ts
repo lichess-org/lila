@@ -12,10 +12,9 @@ import serviceWorker from './serviceWorker';
 import StrongSocket from './socket';
 import topBar from './topBar';
 import watchers from './watchers';
-import { requestIdleCallback } from './functions';
 import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
-import { scrollToInnerSelector } from 'common';
+import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 
 export function boot() {
@@ -115,18 +114,25 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    $('.form-fieldset--toggle legend').on('click', function (this: HTMLElement) {
-      $(this).closest('.form-fieldset--toggle').toggleClass('form-fieldset--toggle-off');
+    $('.toggle-box--toggle').each(function (this: HTMLFieldSetElement) {
+      const toggle = () => this.classList.toggle('toggle-box--toggle-off');
+      $(this)
+        .children('legend')
+        .on('click', toggle)
+        .on('keypress', e => e.key == 'Enter' && toggle());
     });
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
+    if (site.debug) site.asset.loadEsm('bits.devMode');
     if (showDebug) site.asset.loadEsm('bits.diagnosticDialog');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));
 
     serviceWorker();
+
+    console.info('Lichess is open source! See https://lichess.org/source');
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {

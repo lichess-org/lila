@@ -428,9 +428,6 @@
   <string name="safeTournamentName">Pilih nama yang paling aman untuk turnamen.</string>
   <string name="inappropriateNameWarning">Nama apapun yang bahkan sedikit tidak pantas akan mengakibatkan akun Anda ditutup.</string>
   <string name="emptyTournamentName">Biarkan kosong untuk nama turnamen setelah pengacakan Grandmaster.</string>
-  <string name="recommendNotTouching">Kita rekomendasikan jangan sentuh ini.</string>
-  <string name="fewerPlayers">Jika Anda atur persyaratan masuk, turnamen yang Anda buat akan memiliki lebih sedikit pemain.</string>
-  <string name="showAdvancedSettings">Tampilkan pengaturan lanjutan</string>
   <string name="makePrivateTournament">Jadikan turnamen pribadi, dan batasi akses dengan kata sandi</string>
   <string name="join">Gabung</string>
   <string name="withdraw">Keluar</string>
@@ -470,8 +467,6 @@
   <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
-  <string name="firstName">Nama depan</string>
-  <string name="lastName">Nama Belakang</string>
   <string name="setFlair">Sunting flair anda</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Terdapat setting untuk menyembunyikan semua flair pengguna pada seluruh situs.</string>
@@ -516,9 +511,7 @@
   <string name="reason">Alasan</string>
   <string name="whatIsIheMatter">Apa masalahnya?</string>
   <string name="cheat">Cheat</string>
-  <string name="insult">Penghinaan</string>
   <string name="troll">Jebakan</string>
-  <string name="ratingManipulation">Manipulasi rating</string>
   <string name="other">Lainnya</string>
   <string name="reportDescriptionHelp">Paste link berikut ke dalam permainan dan jelaskan apa masalah tentang pengguna ini.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>

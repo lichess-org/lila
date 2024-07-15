@@ -5,6 +5,7 @@ import play.api.data.Form
 import scalalib.paginator.Paginator
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class RequestUi(helpers: Helpers, bits: TeamUi):
@@ -27,7 +28,7 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
               )
             ),
             t.password.nonEmpty.so(
-              form3.passwordModified(form("password"), trt.entryCode())(
+              form3.passwordModified(form("password"), trt.entryCode(), reveal = false)(
                 autocomplete := "new-password"
               )
             ),

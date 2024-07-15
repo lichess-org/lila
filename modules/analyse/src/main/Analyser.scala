@@ -1,7 +1,7 @@
 package lila.analyse
 
-import play.api.libs.json.*
 import monocle.syntax.all.*
+import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.core.game.InsertGame

@@ -15,7 +15,7 @@ private object TutorBsonHandlers:
   given BSONHandler[GoodPercent]    = percentAsIntHandler[GoodPercent]
 
   given [A](using handler: BSONHandler[A]): BSONHandler[ByColor[A]] =
-    summon[BSONHandler[Map[String, A]]]
+    mapHandler[A]
       .as[ByColor[A]](
         doc => ByColor(doc("w"), doc("b")),
         map => Map("w" -> map.white, "b" -> map.black)

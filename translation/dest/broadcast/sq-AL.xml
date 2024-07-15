@@ -23,14 +23,12 @@
   <string name="tournamentDescription">Përshkrim i shkurtër i turneut</string>
   <string name="fullDescription">Përshkrim i plotë i turneut</string>
   <string name="fullDescriptionHelp">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
-  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.">URL Burimi PNG-je</string>
+  <string name="sourceSingleUrl">URL Burimi PNG-je</string>
   <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
   <string name="sourceGameIds">Deri në 64 ID lojërash Lichess, ndarë me hapësira.</string>
   <string name="startDate">Datë fillimi në zonën tuaj kohore</string>
   <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
   <string name="credits">Atriboji merita burimit</string>
-  <string name="broadcastUrl">URL Transmetimi</string>
-  <string name="currentRoundUrl">URL e raundit të tanishëm</string>
   <string name="currentGameUrl">URL e lojës së tanishme</string>
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
   <string name="deleteRound">Fshije këtë raund</string>
@@ -44,4 +42,13 @@
   <string name="replacePlayerTags">Opsionale: zëvendësoni emra lojëtarësh, vlerësime dhe tituj</string>
   <string name="periodInSeconds">Periudhë, në sekonda</string>
   <string name="periodInSecondsHelp">Opsionale, sa gjatë të pritet mes kërkesash. Min. 2s, maks. 60s. Si parazgjedhje, përdoret vlera automatike bazuar në numrin e parësve.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federata FIDE</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">10 vlerësimet kryesuese</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Lojtarë FIDE</string>
+  <string name="fidePlayerNotFound">S’u gjet lojtar FIDE</string>
+  <string name="fideProfile">Profil FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federim</string>
+  <string name="ageThisYear">Moshë këtë vit</string>
+  <string name="unrated">Pa pikë</string>
+  <string name="recentTournaments">Turne së fundi</string>
 </resources>

@@ -4,6 +4,5 @@
     "lib": ["ES2017"],
     "types": ["types-serviceworker"],
     "noEmit": true
-  },
-  "isolatedModules": true
+  }
 }

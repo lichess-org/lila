@@ -3,9 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.perf.UserWithPerfs
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class RelationUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -42,7 +43,7 @@ final class RelationUi(helpers: Helpers):
         )(trans.site.blocked())
       case _ => emptyFrag
 
-  private val dataHoverText = data("hover-text")
+  data("hover-text")
 
   def actions(
       user: lila.core.LightUser,

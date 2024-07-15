@@ -1,13 +1,13 @@
 package lila.web
 package ui
 
-import play.api.data.{ Form, Field }
-import play.api.libs.json.Json
+import play.api.data.{ Field, Form }
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.security.HcaptchaForm
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class AuthUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -197,8 +197,8 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
       Context
   )(using me: Me) =
     Page(s"${me.username} - ${trans.site.changePassword.txt()}")
-      .css("bits.form3")
-      .js(jsModuleInit("bits.passwordComplexity")):
+      .css("bits.auth")
+      .js(jsModuleInit("bits.login", "reset")):
         main(cls := "page-small box box-pad")(
           boxTop(
             (ok match

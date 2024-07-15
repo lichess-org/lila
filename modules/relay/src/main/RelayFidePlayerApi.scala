@@ -3,8 +3,8 @@ package lila.relay
 import chess.ByColor
 import chess.format.pgn.{ Tag, Tags }
 
+import lila.core.fide.{ FideTC, Player }
 import lila.db.dsl.*
-import lila.core.fide.{ Player, FideTC }
 
 final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(using Executor):
 
@@ -24,9 +24,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
         update(tags, tc, _)
 
   private def guessTimeControl(tour: RelayTour): Option[FideTC] =
-    tour.description
-      .split('|')
-      .lift(2)
+    tour.info.tc
       .map(_.trim.toLowerCase.replace("classical", "standard"))
       .so: tcStr =>
         FideTC.values.find(tc => tcStr.contains(tc.toString))

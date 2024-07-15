@@ -1,9 +1,9 @@
 package lila.appeal
 
-import lila.db.dsl.{ *, given }
-import lila.core.user.{ UserMark, NoteApi, UserRepo }
 import lila.appeal.Appeal.Filter
 import lila.core.id.AppealId
+import lila.core.user.{ NoteApi, UserMark, UserRepo }
+import lila.db.dsl.{ *, given }
 
 final class AppealApi(
     coll: Coll,

@@ -1,15 +1,14 @@
 package lila.simul
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.format.Fen
 import chess.variant.Variant
 import chess.{ Color, Speed }
+import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
-import lila.rating.PerfType
-
-import lila.core.rating.Score
 import lila.core.perf.UserWithPerfs
+import lila.core.rating.Score
+import lila.rating.PerfType
 import lila.rating.UserPerfsExt.bestPerf
 
 case class Simul(

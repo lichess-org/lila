@@ -3,20 +3,18 @@ package lila.tournament
 import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import play.api.libs.json.*
+import scalalib.paginator.Paginator
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import scala.util.chaining.*
 
-import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
+import lila.core.game.LightPov
+import lila.core.round.{ AbortForce, GoBerserk }
+import lila.core.team.LightTeam
+import lila.core.tournament.Status
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.core.team.LightTeam
-import lila.core.round.{ AbortForce, GoBerserk }
-import lila.tournament.TeamBattle.TeamInfo
-import lila.core.tournament.Status
-import lila.core.game.LightPov
 
 final class TournamentApi(
     cached: TournamentCache,
