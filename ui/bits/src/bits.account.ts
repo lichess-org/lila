@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { addPasswordVisibilityToggleListener } from 'common/password';
-import flairPickerLoader from 'common/flairPicker';
+import flairPickerLoader from './exports/flairPicker';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
