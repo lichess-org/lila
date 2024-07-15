@@ -2,7 +2,7 @@ package views.ublog
 
 import scalalib.paginator.Paginator
 
-import lila.app.UiEnv.{ *, given }
+import lila.app.UiEnv. *
 import lila.i18n.LangList
 import lila.core.i18n.Language
 import lila.ublog.UblogPost

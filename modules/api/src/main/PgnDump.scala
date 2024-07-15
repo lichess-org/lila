@@ -6,7 +6,6 @@ import chess.format.Fen
 import play.api.i18n.Lang
 
 import lila.analyse.{ Analysis, Annotator }
-import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
 import lila.core.i18n.Translate
