@@ -3,8 +3,8 @@ package lila.tournament
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.tournament.leaderboard.Ratio
+import lila.db.dsl.{ *, given }
 
 final private class LeaderboardIndexer(
     pairingRepo: PairingRepo,

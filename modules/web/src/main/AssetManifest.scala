@@ -1,10 +1,11 @@
 package lila.web
 
 import play.api.Environment
-import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.json.{ JsObject, JsValue, Json }
 import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.json.{ JsObject, Json, JsValue, JsString }
-import java.nio.file.{ Files, Path, Paths }
+import play.api.libs.ws.StandaloneWSClient
+
+import java.nio.file.Files
 
 import lila.core.config.NetConfig
 
@@ -64,6 +65,12 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         asset.imports.flatMap: importName =>
           importName :: closure(importName, jsMap, visited + name)
       case _ => Nil
+// function asHashed(path: string, hash: string) {
+//   const extensionLoc = path.lastIndexOf('.');
+//   const nameLoc = path.lastIndexOf('/') + 1;
+//   if (extensionLoc < 0 || nameLoc > extensionLoc) return `${path.slice(nameLoc)}.${hash}`;
+//   else return `${path.slice(nameLoc, extensionLoc)}.${hash}${path.slice(extensionLoc)}`;
+// }
 
   // throws an Exception if JsValue is not as expected
   private def readMaps(manifest: JsValue): AssetMaps =
@@ -92,7 +99,12 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .as[JsObject]
       .value
       .map { (k, asset) =>
-        val hashedName = (asset \ "hash").as[String]
+        val hash   = (asset \ "hash").as[String]
+        val name   = k.substring(k.lastIndexOf('/') + 1)
+        val extPos = name.indexOf('.')
+        val hashedName =
+          if extPos < 0 then s"${name}.$hash"
+          else s"${name.slice(0, extPos)}.$hash${name.substring(extPos)}"
         (k, s"hashed/$hashedName")
       }
       .toMap

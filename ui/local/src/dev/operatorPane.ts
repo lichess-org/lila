@@ -25,7 +25,9 @@ export class OperatorPane extends Pane {
   setEnabled(enabled?: boolean): boolean {
     const canEnable = this.canEnable();
     if (enabled && !canEnable) {
-      alert(`Cannot enable ${this.info.label} because of unmet preconditions: ${this.requires.join(', ')}`);
+      alert(
+        `Cannot enable ${this.info.label} because of unmet preconditions: ${this.info.requires!.join(', ')}`,
+      );
       enabled = false;
     } else
       enabled ??=
@@ -40,8 +42,8 @@ export class OperatorPane extends Pane {
     return super.setEnabled(enabled);
   }
 
-  update(e: Event): void {
-    if (!(e.target instanceof HTMLElement && e instanceof MouseEvent)) return;
+  update(e?: Event): void {
+    if (!(e instanceof MouseEvent && e.target instanceof HTMLElement)) return;
     if (e.target.dataset.click && this.enabled) {
       if (e.target.classList.contains('active')) return;
       this.el.querySelector('.by.active')?.classList.remove('active');

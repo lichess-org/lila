@@ -4,13 +4,12 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.core.config.*
-import lila.rating.UserRankMap
-import lila.core.perm.Granter
-import lila.user.Trophy
-import lila.rating.PerfType
-import lila.core.perf.UserWithPerfs
 import lila.core.LightUser
+import lila.core.config.*
+import lila.core.perf.UserWithPerfs
+import lila.core.perm.Granter
+import lila.rating.{ PerfType, UserRankMap }
+import lila.user.Trophy
 
 final class UserApi(
     jsonView: lila.user.JsonView,

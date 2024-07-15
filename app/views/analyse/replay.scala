@@ -3,13 +3,11 @@ package views.analyse
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 import chess.variant.Crazyhouse
-import play.api.i18n.Lang
 import play.api.libs.json.Json
+import views.analyse.bits.dataPanel
 
 import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
-import views.analyse.bits.dataPanel
-import lila.game.GameExt.analysable
 import lila.round.RoundGame.secondsSinceCreation
 
 def replay(

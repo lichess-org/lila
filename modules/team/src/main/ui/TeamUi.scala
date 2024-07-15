@@ -3,10 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.MarkdownRender
-import lila.core.team.LightTeam
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }

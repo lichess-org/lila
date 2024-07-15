@@ -101,7 +101,7 @@ export class GameCtrl {
       if (userEnd !== 'mutualDraw') [reason, status] = ['resign', statusOf('resign')];
       if (userEnd === 'whiteResign') result = 'black';
       else if (userEnd === 'blackResign') result = 'white';
-    } else return { end: false };
+    } else return { end: false, status };
     // needs outoftime
     return { end: true, result, reason, status };
   }
@@ -163,7 +163,9 @@ export class GameCtrl {
 
   async botMove(): Promise<void> {
     if (this.automator?.isStopped) return;
+    console.log(this.setup, this.moves, this.chess, this.botCtrl);
     const botMove = await this.botCtrl.move({ fen: this.setup.fen, moves: this.moves }, this.chess);
+    console.log(botMove);
     if (!this.automator?.isStopped) this.move(botMove);
     else {
       const { end, result, reason, status } = this.checkGameOver();
@@ -172,6 +174,7 @@ export class GameCtrl {
         this.redraw();
       }
     }
+    console.log('exiting');
   }
 
   async load(gameId: string): Promise<void> {
@@ -324,7 +327,6 @@ export class GameCtrl {
   private makeRoundData(fen?: string): RoundData {
     const bottom = !this.setup.white ? 'white' : !this.setup.black ? 'black' : 'white';
     const top = co.opposite(bottom);
-    console.log(this.opts.pref);
     return {
       game: this.game,
       player: this.player(bottom, this.botCtrl[bottom]?.name ?? 'Player'),

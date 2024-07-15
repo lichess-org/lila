@@ -2,8 +2,8 @@ package lila.irc
 
 import lila.core.LightUser
 import lila.core.LightUser.Me.given
-import lila.core.irc.*
 import lila.core.id.*
+import lila.core.irc.*
 
 final class IrcApi(
     zulip: ZulipClient,

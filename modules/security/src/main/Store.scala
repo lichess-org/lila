@@ -7,12 +7,11 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNul
 import scala.concurrent.blocking
 
 import lila.common.HTTPRequest
-import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.net.{ ApiVersion, IpAddress, UserAgent }
+import lila.core.security.FingerHash
+import lila.core.socket.Sri
 import lila.db.dsl.{ *, given }
 import lila.oauth.AccessToken
-import lila.core.socket.Sri
-import lila.core.net.UserAgent
-import lila.core.security.FingerHash
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 

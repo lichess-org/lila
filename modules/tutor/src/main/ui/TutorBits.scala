@@ -2,6 +2,7 @@ package lila.tutor
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class TutorBits(helpers: Helpers)(

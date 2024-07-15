@@ -17,6 +17,8 @@ export const primitiveKeys: AnyKey[] = [
   'required',
 ]; // these keys are reserved
 
+export const operatorRegex: RegExp = /==|>=|>|<=|<|!=/;
+
 export let schema: Schema = {
   bot_name: {
     //label: 'name',
@@ -135,7 +137,8 @@ export let schema: Schema = {
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 150 }, from: 'score', data: [] },
-      requires: ['sources_fish'],
+      requires: ['sources_fish', 'sources_fish_multipv > 1'],
+      required: true,
     },
     acplStdev: {
       label: 'acpl stdev',

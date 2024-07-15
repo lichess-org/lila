@@ -3,12 +3,13 @@ package ui
 
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.LightUser
 import lila.challenge.Challenge.Status
-import lila.core.user.WithPerf
+import lila.core.LightUser
 import lila.core.game.GameRule
+import lila.core.user.WithPerf
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class ChallengeUi(helpers: Helpers):
   import helpers.{ *, given }

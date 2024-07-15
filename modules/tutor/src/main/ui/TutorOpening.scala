@@ -1,11 +1,9 @@
 package lila.tutor
 package ui
-
-import chess.format.pgn.PgnStr
-
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
   import helpers.{ *, given }

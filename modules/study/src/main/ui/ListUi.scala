@@ -4,10 +4,11 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.study.Study.WithChaptersAndLiked
 import lila.core.study.Order
+import lila.study.Study.WithChaptersAndLiked
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class ListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }

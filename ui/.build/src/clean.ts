@@ -20,6 +20,7 @@ const allGlobs = [
   'public/hashed',
   'public/json',
   'public/npm',
+  'public/javascripts',
 ];
 
 export async function clean(globs?: string[]) {

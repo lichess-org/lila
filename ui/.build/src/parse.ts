@@ -25,12 +25,7 @@ export async function parseModules(): Promise<[Map<string, LichessModule>, Map<s
 
 export async function globArray(glob: string, opts: fg.Options = {}): Promise<string[]> {
   const files: string[] = [];
-  for await (const f of fg.stream(glob, {
-    cwd: env.uiDir,
-    absolute: true,
-    onlyFiles: true,
-    ...opts,
-  })) {
+  for await (const f of fg.stream(glob, { cwd: env.uiDir, absolute: true, onlyFiles: true, ...opts })) {
     files.push(f.toString('utf8'));
   }
   return files;
@@ -53,9 +48,8 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     hasTsconfig: fs.existsSync(path.join(moduleDir, 'tsconfig.json')),
   };
 
-  if ('lichess' in pkg && 'hashed' in pkg.lichess) {
-    mod.hashGlobs = pkg.lichess.hashed as string[];
-  }
+  if ('lichess' in pkg && 'hashed' in pkg.lichess) mod.hashGlobs = pkg.lichess.hashed as string[];
+
   if ('lichess' in pkg && 'bundles' in pkg.lichess) {
     if (typeof pkg.lichess.bundles === 'string') mod.bundles = [pkg.lichess.bundles];
     else mod.bundles = pkg.lichess.bundles as string[];

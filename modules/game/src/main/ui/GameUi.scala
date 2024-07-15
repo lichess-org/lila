@@ -4,10 +4,11 @@ package ui
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.game.Game
 import lila.game.GameExt.*
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class GameUi(helpers: Helpers):
   import helpers.{ *, given }

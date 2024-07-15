@@ -3,10 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
 import lila.core.i18n.Translate
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class UserTournament(helpers: Helpers, ui: TournamentUi):
   import helpers.{ *, given }

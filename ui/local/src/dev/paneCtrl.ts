@@ -17,16 +17,16 @@ export class PaneCtrl {
     return e.target instanceof Element ? this.byEl(e.target) : undefined;
   }
 
-  add(setting: Pane): void {
-    this.byId[setting.el.id] = setting;
+  add(pane: Pane): void {
+    this.byId[pane.el.id] = pane;
   }
 
   forEach(cb: (value: Pane, key: string) => void): void {
     Object.keys(this.byId).forEach(key => cb(this.byId[key], key));
   }
 
-  requires(idOrGroup: string): Pane[] {
-    return Object.values(this.byId).filter(setting => setting.info.requires?.includes(idOrGroup));
+  dependsOn(idOrGroup: string): Pane[] {
+    return Object.values(this.byId).filter(pane => pane.requires.includes(idOrGroup));
   }
 
   get actions(): Action[] {

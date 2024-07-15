@@ -5,8 +5,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.core.user.FlairGet
-import lila.core.user.FlairGetMap
+import lila.core.user.{ FlairGet, FlairGetMap }
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,

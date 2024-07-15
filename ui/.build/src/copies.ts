@@ -22,10 +22,11 @@ export async function copies() {
   for (const mod of env.building) {
     for (const cp of mod.sync ?? []) {
       for (const src of await globSync(cp)) {
-        watched.set(src, [...(watched.get(src) ?? []), cp]);
+        if (env.watch) watched.set(src, [...(watched.get(src) ?? []), cp]);
       }
     }
-    const sources = await globArrays(mod.hashGlobs, { cwd: env.outDir, absolute: true });
+    if (!env.watch) continue;
+    const sources = await globArrays(mod.hashGlobs, { cwd: env.outDir });
 
     for (const src of sources.filter(isUnmanagedAsset)) {
       if (!watched.has(path.dirname(src))) watched.set(path.dirname(src), []);

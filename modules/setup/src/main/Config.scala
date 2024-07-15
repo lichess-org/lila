@@ -3,8 +3,8 @@ package lila.setup
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Game as ChessGame, Situation, Speed }
-
 import scalalib.model.Days
+
 import lila.lobby.TriColor
 import lila.rating.PerfType
 

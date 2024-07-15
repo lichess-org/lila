@@ -4,81 +4,131 @@ import { clamp } from 'common';
 import type { SearchResult, Line } from 'zerofish';
 import type { Operators, Operator } from './types';
 
-export function zerofishMove(
-  fish: SearchResult | undefined,
-  zero: SearchResult | undefined,
-  mappings: Operators,
-  chess: co.Chess,
-): { move: Uci; cpl: number } {
-  const zm = new ZerofishMove(fish, zero, mappings, chess);
-  return zm.bestMove;
-}
+let nextNormal: number | undefined;
+
+const prices: { readonly [role in co.Role]?: number } = {
+  pawn: 1,
+  knight: 2.8,
+  bishop: 3,
+  rook: 5,
+  queen: 9,
+};
+
+type Weights = 'acpl' | 'lc0' | 'aggression';
 
 type SearchMove = {
   uci: Uci;
   score?: number;
-  shallowScore?: number;
   cpl?: number;
   weights: {
-    acpl?: number;
-    lc0?: number;
+    [key in Weights]?: number;
   };
 };
 
-class ZerofishMove {
-  scored: SearchMove[] = [];
-  byMove: { [uci: string]: SearchMove } = {};
-  zmoves: string[] = [];
-  weights: number[] = [];
-  score: number;
-  static nextNormal: number | undefined;
+type MoveContext = {
+  fish: SearchResult | undefined;
+  zero: SearchResult | undefined;
+  operators: Operators;
+  chess: co.Chess;
+  score?: number;
+  scored: SearchMove[];
+  byMove: { [uci: string]: SearchMove };
+};
 
-  constructor(
-    readonly fish: SearchResult | undefined,
-    readonly zero: SearchResult | undefined,
-    readonly mappings: Operators,
-    readonly chess: co.Chess,
-  ) {
-    const lc0bias = zero ? (this.mappings.lc0bias ? this.from(this.mappings.lc0bias) : 0.5) : 0;
+export function zerofishMove(
+  fish: SearchResult | undefined,
+  zero: SearchResult | undefined,
+  operators: Operators,
+  chess: co.Chess,
+): { move: Uci; cpl: number } {
+  const scored: SearchMove[] = [];
+  const byMove: { [uci: string]: SearchMove } = {};
+  //const zmoves: string[] = [];
+  const weights: number[] = [];
+  const lc0bias = zero ? (operators.lc0bias ? from(operators.lc0bias) : 0.5) : 0;
+  let score: number;
 
-    fish?.pvs
-      .filter(x => x.moves[0])
-      .forEach(pv => {
-        const cp = score(pv);
-        this.score ??= cp;
-        const move = {
-          uci: pv.moves[0],
-          score: cp,
-          shallowScore: score(pv, 0),
-          cpl: Math.abs(this.score - cp),
-          weights: {},
-        };
-        this.byMove[pv.moves[0]] = move;
-        this.scored.push(move);
-      });
-    zero?.pvs
-      .filter(x => x.moves[0])
-      .forEach((pv, index) => {
-        const uci = pv.moves[0];
-        this.zmoves.push(uci);
-        const move = (this.byMove[uci] ??= { uci, weights: {} });
-        this.byMove[uci].weights.lc0 = lc0bias;
-        move.cpl ??= this.scored[this.scored.length - 1]?.cpl ?? 200;
-        if (!this.scored.includes(move)) this.scored.push(move);
-      });
-    this.score ??= 0;
-    if (this.isAcpl) this.applyAcpl();
-    console.log(this.zmoves, this.scored);
+  for (const pv of fish?.pvs.filter(x => x.moves[0]) ?? []) {
+    const cp = scoreOf(pv);
+    score ??= cp;
+    const move = {
+      uci: pv.moves[0],
+      score: cp,
+      shallowScore: scoreOf(pv, 0),
+      cpl: Math.abs(score - cp),
+      weights: {},
+    };
+    byMove[pv.moves[0]] = move;
+    scored.push(move);
   }
-  get isAcpl() {
-    return this.mappings.acplMean && this.mappings.acplStdev !== undefined;
+  for (const pv of zero?.pvs.filter(x => x.moves[0]) ?? []) {
+    const uci = pv.moves[0];
+    //zmoves.push(uci);
+    const move = (byMove[uci] ??= { uci, weights: {} });
+    byMove[uci].weights.lc0 = lc0bias;
+    move.cpl ??= scored[scored.length - 1]?.cpl ?? 80;
+    if (!scored.includes(move)) scored.push(move);
   }
-  get isLc0bias() {
-    return this.mappings.lc0bias !== undefined;
+  score ??= 0;
+  if (isAcpl()) applyAcpl();
+  const sorted = scored.slice();
+  if (isAcpl()) sorted.sort(weightSort);
+  else if (isLc0bias()) {
+    const chance = Math.random();
+    const index = sorted.findIndex(mv => (mv.weights.lc0 ?? 0) > chance);
+    if (index !== -1) sorted.unshift(...sorted.splice(index, 1));
   }
-  applyAcpl() {
-    const targetCpl = this.makeTargetCpl();
-    for (const mv of this.scored) {
+  const byMaterial = scored.slice();
+  byMaterial.sort(aggressionSort);
+  for (const mv of byMaterial) {
+    const fsh = fish?.pvs.find(pv => pv.moves[0] === mv.uci);
+    const dest = fsh ? byDestruction(fsh) : NaN;
+    console.log(dest, fsh);
+  }
+  const cpl = (fish?.pvs.length ?? 0) > 1 ? sorted[0].cpl! : NaN;
+
+  return {
+    move: sorted[0]?.uci,
+    cpl,
+  };
+
+  function aggressionSort(a: SearchMove, b: SearchMove) {
+    const afish = fish?.pvs.find(pv => pv.moves[0] === a.uci);
+    const bfish = fish?.pvs.find(pv => pv.moves[0] === b.uci);
+    if (!bfish && !afish) return 0;
+    if (!bfish) return -1;
+    if (!afish) return 1;
+    return byDestruction(bfish, false) - byDestruction(afish, false);
+  }
+
+  function byDestruction(pv: Line, mutual = false) {
+    const beforeMaterial = co.Material.fromBoard(chess.board);
+    const opponent = co.opposite(chess.turn);
+    const before = weigh(mutual ? beforeMaterial : beforeMaterial[opponent]);
+    try {
+      const pvChess = chess.clone();
+      for (const move of pv.moves) pvChess.play(co.parseUci(move)!);
+      const afterMaterial = co.Material.fromBoard(pvChess.board);
+      const destruction =
+        (before - weigh(mutual ? afterMaterial : afterMaterial[opponent])) / pv.moves.length;
+      return destruction;
+    } catch (e) {
+      console.error(e, pv.moves);
+    }
+    return NaN;
+  }
+
+  function isAcpl() {
+    return operators.acplMean && operators.acplStdev !== undefined;
+  }
+
+  function isLc0bias() {
+    return operators.lc0bias !== undefined;
+  }
+
+  function applyAcpl() {
+    const targetCpl = makeTargetCpl();
+    for (const mv of scored) {
       // currently we use a sigmoid with .06 sensitivity and offset 80, seemsgood
       const distance = Math.abs((mv.cpl ?? 0) - targetCpl);
       const offset = 80;
@@ -86,63 +136,53 @@ class ZerofishMove {
       mv.weights.acpl = distance === 0 ? 1 : 1 / (1 + Math.E ** (sensitivity * (distance - offset)));
     }
   }
-  from(m: Operator) {
+
+  function from(m: Operator) {
     if (!m) return undefined;
-    return interpolate(m, m.from === 'move' ? this.chess.fullmoves : outcomeExpectancy(this.score));
+    return interpolate(m, m.from === 'move' ? chess.fullmoves : outcomeExpectancy(score));
   }
-  weightSort = (a: SearchMove, b: SearchMove) => {
+
+  function weightSort(a: SearchMove, b: SearchMove) {
     const wScore = (mv: SearchMove) => Object.values(mv.weights).reduce((acc, w) => acc + (w ?? 0), 0);
     return wScore(b) - wScore(a);
-  };
-  makeTargetCpl() {
-    const mean = this.from(this.mappings.acplMean) ?? 0;
-    const stdev = this.from(this.mappings.acplStdev) ?? 0;
-    return Math.max(mean + stdev * this.makeNormal(), 0);
   }
-  makeNormal() {
-    if (ZerofishMove.nextNormal !== undefined) {
-      const normal = ZerofishMove.nextNormal;
-      ZerofishMove.nextNormal = undefined;
+
+  function makeTargetCpl() {
+    const mean = from(operators.acplMean) ?? 0;
+    const stdev = from(operators.acplStdev) ?? 0;
+    return Math.max(mean + stdev * makeNormal(), 0);
+  }
+
+  function makeNormal() {
+    if (nextNormal !== undefined) {
+      const normal = nextNormal;
+      nextNormal = undefined;
       return normal;
     }
     const r = Math.sqrt(-2.0 * Math.log(Math.random()));
     const theta = 2.0 * Math.PI * Math.random();
-    ZerofishMove.nextNormal = r * Math.sin(theta);
+    nextNormal = r * Math.sin(theta);
     return r * Math.cos(theta);
   }
-  get bestMove() {
-    const sorted = this.scored.slice();
-    if (this.isAcpl) sorted.sort(this.weightSort);
-    else if (this.isLc0bias) {
-      const chance = Math.random();
-      const index = sorted.findIndex(mv => (mv.weights.lc0 ?? 0) > chance);
-      if (index !== -1) sorted.unshift(...sorted.splice(index, 1));
-    }
-    const cpl = (this.fish?.pvs.length ?? 0) > 1 ? sorted[0].cpl! : NaN;
-    return {
-      move: sorted[0]?.uci,
-      cpl,
-    };
-  }
-}
-function score(pv: Line, depth = pv.scores.length - 1) {
-  const sc = pv.scores[clamp(depth, { min: 0, max: pv.scores.length - 1 })];
-  return isNaN(sc) ? 1000 : clamp(sc, { min: -1000, max: 1000 });
-}
 
-function outcomeExpectancy(cp: number) {
-  return 2 / (1 + 10 ** (-cp / 400)) - 1; // [-1, 1]
-}
-/*
-function interpolateValue(m: Mapping, r: SearchResult, chess: co.Chess) {
-  return !m
-    ? undefined
-    : m.from === 'move'
-    ? interpolate(m, chess.fullmoves)
-    : m.from === 'score' && r.pvs.length > 1
-    ? interpolate(m, outcomeExpectancy(score(r.pvs[0])))
-    : undefined;
-}
+  function scoreOf(pv: Line, depth = pv.scores.length - 1) {
+    const sc = pv.scores[clamp(depth, { min: 0, max: pv.scores.length - 1 })];
+    return isNaN(sc) ? 1000 : clamp(sc, { min: -1000, max: 1000 });
+  }
+
+  function outcomeExpectancy(cp: number) {
+    return 2 / (1 + 10 ** (-cp / 400)) - 1; // [-1, 1]
+  }
+
+  function weigh(material: co.Material | co.MaterialSide) {
+    let score = 0;
+    for (const [role, price] of Object.entries(prices) as [co.Role, number][]) {
+      score += price * ('white' in material ? material.count(role) : material[role]);
+    }
+    return score;
+  }
+
+  /*
 
 function applyShallow(r: SearchResult, depth = 0) {
   // negative contribution from deepest score
@@ -151,31 +191,14 @@ function applyShallow(r: SearchResult, depth = 0) {
   return r.pvs.sort(sortShallow(depth))[0].moves[0];
 }
 
-function applyAcpl(r: SearchResult, mean: number, stdev: number) {
-  r = structuredClone(r);
-  const headScore = score(r.pvs[0]);
-  const headMove = r.pvs[0].moves[0];
-  const targetCp = clamp(mean + stdev * normal(), { min: 0 });
-  //console.log('target cp:', targetCp);
-  return r.pvs.sort(sortCpl(headScore, targetCp)).filter(pv => pv.moves.length > 0)?.[0].moves[0] ?? headMove;
-}
-*/
-//function applySearchMix
-/*
-function sortCpl(headScore: number, targetCp: number) {
-  return (lhs: Line, rhs: Line) => {
-    return Math.abs(headScore - score(lhs) - targetCp) - Math.abs(headScore - score(rhs) - targetCp);
-  };
-}
-
 function sortShallow(depth: number) {
   return (lhs: Line, rhs: Line) => {
-    return 2 * score(rhs, depth) - score(rhs) - (2 * score(lhs, depth) - score(lhs));
+    return 2 * scoreOf(rhs, depth) - scoreOf(rhs) - (2 * scoreOf(lhs, depth) - scoreOf(lhs));
   };
 }
 */
 
-/*function byDestruction(lines: Line[], fen: string, mutual = false) {
+  /*function byDestruction(lines: Line[], fen: string, mutual = false) {
   const chess = co.Chess.fromSetup(co.fen.parseFen(fen).unwrap()).unwrap();
   const beforeMaterial = co.Material.fromBoard(chess.board);
   const opponent = co.opposite(chess.turn);
@@ -197,19 +220,4 @@ function sortShallow(depth: number) {
   }
   return aggression;
 }*/
-
-const prices: { [role in co.Role]?: number } = {
-  pawn: 1,
-  knight: 2.8,
-  bishop: 3,
-  rook: 5,
-  queen: 9,
-};
-
-function weigh(material: co.Material | co.MaterialSide) {
-  let score = 0;
-  for (const [role, price] of Object.entries(prices) as [co.Role, number][]) {
-    score += price * ('white' in material ? material.count(role) : material[role]);
-  }
-  return score;
 }

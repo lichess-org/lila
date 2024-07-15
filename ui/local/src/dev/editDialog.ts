@@ -15,7 +15,7 @@ export class EditDialog implements PaneHost {
   hand: HandOfCards;
   dlg: Dialog;
   uid: string;
-  editor: PaneCtrl;
+  ctrl: PaneCtrl;
   scratch: { [uid: string]: ZerofishBotEditor } = {}; // scratchpad for bot edits, pre-apply
   cleanups: (() => void)[] = []; // chart.js
 
@@ -82,7 +82,7 @@ export class EditDialog implements PaneHost {
   private makeEditView(): void {
     for (const cleanup of this.cleanups) cleanup();
     this.cleanups = [];
-    this.editor = new PaneCtrl();
+    this.ctrl = new PaneCtrl();
     const el = this.view.querySelector('.edit-bot') as HTMLElement;
     el.innerHTML = this.globalActionsHtml;
     el.appendChild(this.botCardEl);
@@ -91,15 +91,13 @@ export class EditDialog implements PaneHost {
     el.appendChild(sources);
     el.appendChild(buildFromSchema(this, ['bot_operators']).el);
 
-    this.editor.forEach(el => el.setEnabled());
+    this.ctrl.forEach(el => el.setEnabled());
   }
 
   private apply() {
     for (const id of this.bot.disabled) {
       removeObjectProperty({ obj: this.bot, path: { id } }, true);
-      this.editor
-        .requires(id)
-        .forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
+      this.ctrl.dependsOn(id).forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
     }
     this.bot.disabled.clear();
     this.botCtrl.updateBot(this.bot);
@@ -234,7 +232,7 @@ export class EditDialog implements PaneHost {
 
   private get actions(): Action[] {
     return [
-      ...this.editor.actions,
+      ...this.ctrl.actions,
       { selector: '.bot-apply', listener: () => this.apply() },
       { selector: '.bot-new', listener: () => this.newBot() },
       { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },

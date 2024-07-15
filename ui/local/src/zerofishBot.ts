@@ -41,6 +41,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   }*/
 
   async move(pos: Position, chess: co.Chess): Promise<Uci> {
+    console.log('hayo');
     const opening = await this.bookMove(chess);
     if (opening) return opening;
     const [zeroResult, fishResult] = await Promise.all([

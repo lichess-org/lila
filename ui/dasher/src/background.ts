@@ -107,6 +107,7 @@ export class BackgroundCtrl extends PaneCtrl {
             '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
           );
     }
+    site.pubsub.emit('theme', key);
   };
 
   private imageInput = () =>

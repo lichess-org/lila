@@ -4,11 +4,11 @@ import reactivemongo.api.bson.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.Bus
+import lila.core.report.SuspectId
+import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 import lila.game.{ GameRepo, Query }
 import lila.report.{ Mod, Report, Reporter, Suspect }
-import lila.core.report.SuspectId
-import lila.core.userId.ModId
 
 final class IrwinApi(
     reportColl: Coll,

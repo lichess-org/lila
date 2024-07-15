@@ -4,11 +4,12 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.core.forum.BusForum
-import BusForum.*
 import lila.core.config.ConfigName
+import lila.core.forum.BusForum
 import lila.search.client.SearchClient
 import lila.search.spec.Query
+
+import BusForum.*
 
 @Module
 private class ForumSearchConfig(@ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage)

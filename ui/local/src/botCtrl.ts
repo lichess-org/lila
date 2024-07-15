@@ -135,7 +135,6 @@ export class BotCtrl {
     jsonBots.forEach((b: BotInfo) => (this.defaultBots[b.uid] = deepFreeze(b)));
     this.bots = {};
     for (const b of [...jsonBots, ...overrides]) {
-      console.log(b.uid, this.zerofish);
       this.bots[b.uid] = new ZerofishBot(b, this.zerofish, this.assetDb);
     }
   }

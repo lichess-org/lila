@@ -1,10 +1,11 @@
 package lila.title
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 import lila.core.id.ImageId
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.PicfitUrl)(using NetDomain):
   import helpers.{ *, given }

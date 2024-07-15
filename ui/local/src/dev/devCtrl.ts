@@ -29,14 +29,10 @@ export class DevCtrl implements Automator {
       this.flipped = flipped;
       this.redraw();
     });
-
+    site.pubsub.on('theme', this.redraw);
     gameCtrl.setAutomator(this);
     this.reset(false);
   }
-
-  /*set startingFen(fen: string) {
-    this.gameCtrl.setup.fen = fen;
-  }*/
 
   onReset(): void {
     const bottom = this.bottomColor;

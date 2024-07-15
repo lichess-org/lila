@@ -1,5 +1,5 @@
 import { removeObjectProperty, setObjectProperty, maxChars } from './util';
-import { getSchemaDefault } from './schema';
+import { getSchemaDefault, operatorRegex } from './schema';
 import type { Operator, Book } from '../types';
 import type {
   PaneArgs,
@@ -25,7 +25,7 @@ export class Pane {
     this.el = document.createElement(this.isFieldset ? 'fieldset' : 'div');
     this.el.id = this.id;
     info.class?.forEach(c => this.el.classList.add(c));
-    host.editor.add(this);
+    host.ctrl.add(this);
     if (info.title) this.el.title = info.title;
     if (this.info.label) {
       const label = $as<HTMLElement>(`<label><span>${this.info.label}</span></label>`);
@@ -50,35 +50,35 @@ export class Pane {
   }
 
   setEnabled(enabled: boolean = this.canEnable()): boolean {
-    if (!this.input && !this.enabledCheckbox) return false;
+    if (this.input || this.enabledCheckbox) {
+      const { ctrl: editor, view } = this.host;
+      this.el.classList.toggle('disabled', !enabled);
 
-    const { editor, view } = this.host;
-    this.el.classList.toggle('disabled', !enabled);
+      if (this.input && !this.input.value)
+        this.input.value = this.getStringProperty(['bot', 'default', 'schema']);
 
-    if (this.input && !this.input.value)
-      this.input.value = this.getStringProperty(['bot', 'default', 'schema']);
+      if (enabled) this.host.bot.disabled.delete(this.id);
+      else this.host.bot.disabled.add(this.id);
 
-    if (enabled) this.host.bot.disabled.delete(this.id);
-    else this.host.bot.disabled.add(this.id);
-
-    for (const kid of this.children) {
-      kid.el.classList.toggle('none', !enabled);
-      if (!enabled) continue;
-      if (kid.info.required) kid.update();
-      else if (kid.info.type !== 'radioGroup') continue;
-      const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
-      const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['default']));
-      if (active) active.update();
-      else if (radios.length) radios[0].update();
+      for (const kid of this.children) {
+        kid.el.classList.toggle('none', !enabled);
+        if (!enabled) continue;
+        if (kid.info.required) kid.update();
+        else if (kid.info.type !== 'radioGroup') continue;
+        const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
+        const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['default']));
+        if (active) active.update();
+        else if (radios.length) radios[0].update();
+      }
+      if (this.enabledCheckbox) this.enabledCheckbox.checked = enabled;
+      if (this.radioGroup && enabled)
+        view.querySelectorAll(`[name="${this.radioGroup}"]`).forEach(el => {
+          const kid = editor.byEl(el);
+          if (kid === this) return;
+          kid?.setEnabled(false);
+        });
     }
-    if (this.enabledCheckbox) this.enabledCheckbox.checked = enabled;
-    if (this.radioGroup && enabled)
-      view.querySelectorAll(`[name="${this.radioGroup}"]`).forEach(el => {
-        const kid = editor.byEl(el);
-        if (kid === this) return;
-        kid?.setEnabled(false);
-      });
-    for (const r of this.host.editor.requires(this.id)) r.setEnabled(enabled ? undefined : false);
+    for (const r of this.host.ctrl.dependsOn(this.id)) r.setEnabled(enabled ? undefined : false);
     return enabled;
   }
 
@@ -121,8 +121,12 @@ export class Pane {
   get enabled(): boolean {
     if (this.host.bot.disabled.has(this.id)) return false;
     const kids = this.children;
-    if (!kids.length) return this.isDefined;
+    if (!kids.length) return this.isDefined && this.requirementsAllow;
     return kids.every(x => x.enabled || !x.info.required);
+  }
+
+  get requires(): string[] {
+    return (this.info.requires ?? []).map(r => r.split(operatorRegex)[0].trim());
   }
 
   protected init(): void {
@@ -145,10 +149,6 @@ export class Pane {
     return this.id.split('_').slice(1);
   }
 
-  protected get requires(): string[] {
-    return this.info.requires ?? [];
-  }
-
   protected get radioGroup(): string | undefined {
     return this.parent?.info.type === 'radioGroup' ? this.parent.id : undefined;
   }
@@ -162,13 +162,34 @@ export class Pane {
   }
 
   protected get requirementsAllow(): boolean {
-    return this.requires.every(r => this.host.editor.byId[r].enabled);
+    return (this.info.requires ?? []).every(r => {
+      const op = r.match(operatorRegex)?.[0] as string;
+      const [id, val] = r.split(op).map(x => x.trim());
+      const required = this.host.ctrl.byId[id];
+      if (!required?.enabled) return false;
+      switch (op) {
+        case '==':
+          return String(required.paneValue) === val;
+        case '!=':
+          return String(required.paneValue) !== val;
+        case '>=':
+          return Number(required.paneValue) >= Number(val);
+        case '>':
+          return Number(required.paneValue) > Number(val);
+        case '<=':
+          return Number(required.paneValue) <= Number(val);
+        case '<':
+          return Number(required.paneValue) < Number(val);
+        default:
+          return true;
+      }
+    });
   }
 
   protected get children(): Pane[] {
-    return Object.keys(this.host.editor.byId)
+    return Object.keys(this.host.ctrl.byId)
       .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
-      .map(id => this.host.editor.byId[id]);
+      .map(id => this.host.ctrl.byId[id]);
   }
 }
 

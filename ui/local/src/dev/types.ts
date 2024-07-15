@@ -14,7 +14,7 @@ export interface ZerofishBotEditor extends ZerofishBot {
 
 export interface PaneHost {
   readonly view: HTMLElement;
-  readonly editor: PaneCtrl;
+  readonly ctrl: PaneCtrl;
   readonly bot: ZerofishBotEditor;
   readonly defaultBot: BotInfoReader;
   readonly cleanups: (() => void)[];

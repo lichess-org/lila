@@ -3,8 +3,6 @@ package lila.evaluation
 import chess.{ Centis, Stats }
 import scalalib.Maths
 
-import lila.game.GameExt.computeMoveTimes
-
 object Statistics:
 
   case class IntAvgSd(avg: Int, sd: Int):

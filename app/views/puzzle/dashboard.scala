@@ -1,9 +1,5 @@
 package views.puzzle
-
-import play.api.libs.json.Json
-
 import lila.app.UiEnv.{ *, given }
-
 import lila.puzzle.{ PuzzleDashboard, PuzzleTheme }
 
 object dashboard:

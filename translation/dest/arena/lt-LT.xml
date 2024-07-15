@@ -54,8 +54,8 @@ Kai tik baigiate partiją, grįžkite į turnyro laukiamąjį: tuomet būsite su
   <string name="newTeamBattle">Nauja komandinė kova</string>
   <string name="customStartDate">Kita pradžios data</string>
   <string name="customStartDateHelp">Jūsų laiko zonoje. Turi pirmenybę prieš \"Laikas iki turnyro pradžios\" nustatymą</string>
-  <string name="allowBerserk">Leisti \"įsiutį\"</string>
-  <string name="allowBerserkHelp">Leisti žaidėjams gauti tašką perpus sumažinant laiką ant savo laikrodžio</string>
+  <string name="allowBerserk">Leisti \"įsiūtį\"</string>
+  <string name="allowBerserkHelp">Leisti žaidėjams gauti papildomą tašką, perpus sumažinant savo laiką</string>
   <string name="allowChatHelp">Leisti žaidėjams kalbėtis pokalbių kambaryje</string>
   <string name="arenaStreaks">Arenos serijos</string>
   <string name="arenaStreaksHelp">Po dviejų pergalių kiti laimėjimai suteikia keturis taškus vietoje dviejų.</string>

@@ -2,9 +2,8 @@ package lila.pool
 
 import akka.actor.*
 
-import lila.core.rating.RatingRange
-import lila.core.socket.{ Sri, Sris }
-import lila.core.pool.{ PoolMember, PoolConfigId, Joiner }
+import lila.core.pool.{ Joiner, PoolConfigId }
+import lila.core.socket.Sris
 
 final class PoolApi(
     val configs: List[PoolConfig],

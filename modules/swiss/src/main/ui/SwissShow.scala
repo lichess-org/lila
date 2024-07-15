@@ -4,14 +4,15 @@ package ui
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import lila.common.Json.given
+import lila.common.String.html.markdownLinksOrRichText
+import lila.core.config.NetDomain
 import lila.core.team.LightTeam
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.ui.GatheringUi
-import lila.common.String.html.markdownLinksOrRichText
-import lila.common.Json.given
-import lila.core.config.NetDomain
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)(using NetDomain):
   import helpers.{ *, given }

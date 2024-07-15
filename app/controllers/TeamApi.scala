@@ -5,7 +5,6 @@ import play.api.mvc.*
 import scalalib.Json.given
 
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
 import lila.team.{ Team as TeamModel, TeamSecurity }
 
 import Api.ApiResult

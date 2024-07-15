@@ -1,8 +1,8 @@
 package lila.user
 
+import lila.core.security.HashedPassword
 import lila.db.dsl.*
 import lila.user.BSONFields as F
-import lila.core.security.HashedPassword
 
 case class AuthData(
     _id: UserId,

@@ -76,7 +76,7 @@
   {
     "uid": "#gerard",
     "name": "Gerard",
-    "description": "Gerard brought a sword to a chess match. And he swings it hard.",
+    "description": "It appears that Gerard has brought a sword to a chess match.",
     "image": "gerard.webp",
     "books": [
       { "name": "gm2600.bin", "weight": 1 },
@@ -87,7 +87,7 @@
   {
     "uid": "#bionica",
     "name": "Bionica",
-    "description": "Bionica was programmed with a full range of emotions. But she prefers contempt.",
+    "description": "Bionica was programmed with a full range of emotions. Her favorite is contempt.",
     "image": "bionica.webp",
     "books": [
       { "name": "gm2600.bin", "weight": 1 },
@@ -126,7 +126,7 @@
   {
     "uid": "#eliza",
     "name": "Eliza",
-    "description": "Some say Eliza is an engine, but that's just transistor bias.",
+    "description": "Some say Eliza is an engine, but that's probably just transistor bias.",
     "image": "eliza.webp",
     "zero": { "multipv": 1, "net": "badgyal-8.pb" }
   },

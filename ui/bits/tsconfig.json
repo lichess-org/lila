@@ -7,8 +7,8 @@
     "skipLibCheck": true,
     "noImplicitReturns": false,
     "declaration": true,
-    "allowJs": true,
-    "composite": true
+    "composite": true,
+    "allowJs": true
   },
   "references": [
     { "path": "../chat/tsconfig.json" },

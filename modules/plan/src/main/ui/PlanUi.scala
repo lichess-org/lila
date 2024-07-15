@@ -1,11 +1,10 @@
 package lila.plan
 package ui
-
-import scalalib.paginator.Paginator
+import java.util.Currency
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import java.util.Currency
 
 final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   import helpers.{ *, given }

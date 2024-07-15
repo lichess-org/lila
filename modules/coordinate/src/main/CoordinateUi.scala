@@ -3,9 +3,10 @@ package ui
 
 import play.api.libs.json.Json
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey
+import lila.ui.*
+
+import ScalatagsTemplate.*
 
 final class CoordinateUi(helpers: Helpers):
   import helpers.{ *, given }

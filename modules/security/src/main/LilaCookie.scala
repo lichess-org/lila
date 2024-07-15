@@ -1,8 +1,8 @@
 package lila
 package security
 
-import scalalib.SecureRandom
 import play.api.mvc.*
+import scalalib.SecureRandom
 
 import lila.core.config.NetDomain
 import lila.core.security.LilaCookie

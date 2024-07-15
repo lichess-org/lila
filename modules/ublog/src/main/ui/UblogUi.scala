@@ -3,9 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Language
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }

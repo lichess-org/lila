@@ -1,10 +1,10 @@
 package lila.relay
 
-import chess.format.pgn.PgnStr
+import chess.format.pgn.{ PgnStr, Tags }
+
+import lila.core.study.data.StudyChapterName
 import lila.study.{ Chapter, MultiPgn }
 import lila.tree.Root
-import lila.core.study.data.StudyChapterName
-import chess.format.pgn.Tags
 
 private object RelayPlanUpdateFixtures:
 

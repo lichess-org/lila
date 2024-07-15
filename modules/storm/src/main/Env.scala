@@ -3,8 +3,8 @@ package lila.storm
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.core.config.*
 import lila.common.config.given
+import lila.core.config.*
 
 @Module
 final class Env(

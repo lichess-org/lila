@@ -3,9 +3,9 @@ package lila.ublog
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 
+import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.timeline as tl
 import lila.db.dsl.{ *, given }
-import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.{ timeline as tl }
 import lila.memo.PicfitApi
 
 final class UblogApi(

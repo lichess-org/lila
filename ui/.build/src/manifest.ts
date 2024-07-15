@@ -49,7 +49,7 @@ export async function jsManifest(meta: es.Metafile) {
 }
 
 export async function cssManifest() {
-  const files = await globArray(path.join(env.cssTempDir, '*.css'), { absolute: true });
+  const files = await globArray(path.join(env.cssTempDir, '*.css'));
   const css: { name: string; hash: string }[] = await Promise.all(files.map(hashMoveCss));
   const newCssManifest: Manifest = {};
   for (const { name, hash } of css) newCssManifest[name] = { hash };
@@ -65,7 +65,7 @@ export async function hashedManifest() {
   const sources: string[] = (
     await globArrays(
       env.building.flatMap(x => x.hashGlobs ?? []),
-      { cwd: env.outDir, absolute: true },
+      { cwd: env.outDir },
     )
   ).filter(isUnmanagedAsset);
   const sourceStats = await Promise.all(sources.map(file => fs.promises.stat(file)));
@@ -76,14 +76,12 @@ export async function hashedManifest() {
     if (stat.mtimeMs === current.hashed[name]?.mtime) alreadyHashed.set(name, current.hashed[name].hash!);
     else newHashLinks.set(name, stat.mtimeMs);
   }
-  await Promise.allSettled(
-    [...alreadyHashed].map(([name, hash]) =>
-      fs.promises.symlink(path.join(env.outDir, name), path.join(env.hashDir, hash)),
-    ),
-  );
+  await Promise.allSettled([...alreadyHashed].map(([name, hash]) => link(name, hash)));
+
   for (const { name, hash } of await Promise.all([...newHashLinks.keys()].map(hashLink))) {
     current.hashed[name] = Object.defineProperty({ hash }, 'mtime', { value: newHashLinks.get(name) });
   }
+
   if (newHashLinks.size === 0 && alreadyHashed.size === Object.keys(current.hashed).length) return;
 
   for (const name of Object.keys(current.hashed)) {
@@ -156,14 +154,12 @@ async function hashMoveCss(src: string) {
 
 async function hashLink(name: string) {
   const src = path.join(env.outDir, name);
-  const hash =
-    crypto
-      .createHash('sha256')
-      .update(await fs.promises.readFile(src))
-      .digest('base64url')
-      .slice(0, 8) + path.extname(src);
-  const link = path.join(env.hashDir, hash);
-  fs.promises.symlink(path.join('..', name), link).catch(() => {});
+  const hash = crypto
+    .createHash('sha256')
+    .update(await fs.promises.readFile(src))
+    .digest('hex')
+    .slice(0, 8);
+  link(name, hash);
   return { name, hash };
 }
 
@@ -209,4 +205,15 @@ function isEquivalent(a: any, b: any): boolean {
     if (!bKeys.includes(key) || !isEquivalent(a[key], b[key])) return false;
   }
   return true;
+}
+
+function asHashed(path: string, hash: string) {
+  const name = path.slice(path.lastIndexOf('/') + 1);
+  const extPos = name.indexOf('.');
+  return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
+}
+
+function link(name: string, hash: string) {
+  const link = path.join(env.hashDir, asHashed(name, hash));
+  fs.promises.symlink(path.join('..', name), link).catch(() => {});
 }

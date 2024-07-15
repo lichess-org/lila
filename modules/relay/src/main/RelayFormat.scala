@@ -4,7 +4,6 @@ import chess.format.pgn.PgnStr
 import com.softwaremill.tagging.*
 import io.mola.galimatias.URL
 import play.api.libs.json.*
-import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.{
   DefaultWSProxyServer,
   StandaloneWSClient,
@@ -14,8 +13,8 @@ import play.api.libs.ws.{
 
 import scala.util.matching.Regex
 
-import lila.core.lilaism.{ LilaInvalid, LilaException }
 import lila.core.config.{ Credentials, HostPort }
+import lila.core.lilaism.{ LilaException, LilaInvalid }
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
 import lila.study.MultiPgn
