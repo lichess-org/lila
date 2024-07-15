@@ -1,14 +1,13 @@
 package lila.game
 
-import scalalib.{ SecureRandom, ThreadLocalRandom }
+import scalalib.SecureRandom
 
-import lila.db.dsl.{ *, given }
-import lila.core.id.GameId
 import lila.core.game.{ Game, NewGame }
+import lila.core.id.GameId
+import lila.db.dsl.{ *, given }
 
 final class IdGenerator(gameRepo: GameRepo)(using Executor) extends lila.core.game.IdGenerator:
 
-  import IdGenerator.*
   import lila.core.game.IdGenerator.*
 
   def game: Fu[GameId] =

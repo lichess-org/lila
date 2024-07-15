@@ -4,7 +4,7 @@ import chess.Outcome
 import chess.format.Fen
 
 import lila.tree.Node.Comment
-import lila.tree.{ ExportOptions, TreeBuilder, Root }
+import lila.tree.{ ExportOptions, Root, TreeBuilder }
 
 object GameToRoot:
 

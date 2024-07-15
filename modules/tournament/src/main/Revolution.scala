@@ -2,10 +2,9 @@ package lila.tournament
 
 import chess.variant.Variant
 
+import lila.core.tournament.Status
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-
-import lila.core.tournament.Status
 
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,

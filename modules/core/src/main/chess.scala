@@ -1,8 +1,6 @@
 package lila.core
 package chess
 
-import alleycats.Zero
-
 opaque type Win = Boolean
 object Win extends YesNo[Win]
 

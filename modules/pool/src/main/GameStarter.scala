@@ -2,7 +2,7 @@ package lila.pool
 
 import chess.ByColor
 
-import lila.core.game.{ IdGenerator, GameRepo, NewPlayer, Source }
+import lila.core.game.{ GameRepo, IdGenerator, NewPlayer, Source }
 import lila.core.pool.{ Pairing, Pairings }
 
 final private class GameStarter(

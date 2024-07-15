@@ -1,12 +1,13 @@
 package lila.puzzle
 package ui
 
-import play.api.libs.json.Json
 import chess.format.{ BoardFen, Uci }
+import play.api.libs.json.Json
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class PuzzleBits(helpers: Helpers)(cevalTranslations: Seq[I18nKey]):
   import helpers.{ *, given }

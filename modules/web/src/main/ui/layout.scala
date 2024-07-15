@@ -3,10 +3,11 @@ package ui
 
 import play.api.i18n.Lang
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Language
 import lila.core.report.ScoreThresholds
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     jsQuantity: Lang => String,

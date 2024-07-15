@@ -1,8 +1,9 @@
 package lila.puzzle
 
 import scalalib.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl.{ *, given }
+
 import lila.core.user.WithPerf
+import lila.db.dsl.{ *, given }
 
 object PuzzleHistory:
 

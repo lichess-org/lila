@@ -5,11 +5,11 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.LightUser
+import lila.core.socket.SocketVersion
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 import lila.quote.Quote.given
-import lila.core.socket.SocketVersion
 
 final class SwissJson(
     mongo: SwissMongo,
@@ -23,7 +23,7 @@ final class SwissJson(
 
   import SwissJson.{ *, given }
   import BsonHandlers.given
-  import lila.gathering.ConditionHandlers.JSONHandlers.{ *, given }
+  import lila.gathering.ConditionHandlers.JSONHandlers.*
 
   def api(swiss: Swiss, verdicts: WithVerdicts)(using lang: Lang) = statsApi(swiss).map { stats =>
     swissJsonBase(swiss) ++ Json.obj(

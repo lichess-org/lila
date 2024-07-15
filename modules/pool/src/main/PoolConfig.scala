@@ -1,9 +1,9 @@
 package lila.pool
 
 import play.api.i18n.Lang
+
 import lila.core.i18n.Translator
 import lila.core.pool.PoolConfigId
-
 import lila.rating.PerfType
 
 case class PoolConfig(

@@ -1,9 +1,9 @@
 package lila.tutor
 
 import alleycats.Zero
+import scalalib.Iso
 
 import lila.analyse.AccuracyPercent
-import scalalib.Iso
 import lila.insight.ClockPercent
 
 trait TutorNumber[V]:

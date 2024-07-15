@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.gathering.Condition.WithVerdicts
-import lila.rating.PerfType
 
 final class JsonView(
     gameRepo: lila.core.game.GameRepo,

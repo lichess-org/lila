@@ -2,6 +2,7 @@ package lila.web
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class SiteMessage(helpers: Helpers):

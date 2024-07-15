@@ -1,6 +1,6 @@
 package lila.tv
 
-import chess.{ Ply, Color }
+import chess.{ Color, Ply }
 import monocle.syntax.all.*
 import scalalib.actor.SyncActor
 

@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import lila.search.spec.{ IntRange, DateRange }
+import lila.search.spec.{ DateRange, IntRange }
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*

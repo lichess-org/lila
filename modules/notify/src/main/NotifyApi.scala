@@ -7,7 +7,7 @@ import lila.common.Bus
 import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.core.socket.{ SendTo, SendTos }
+import lila.core.socket.SendTos
 import lila.memo.CacheApi.*
 import lila.core.i18n.{ Translator, LangPicker }
 import lila.core.notify.{ NotificationPref as _, * }

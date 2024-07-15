@@ -3,9 +3,9 @@ package lila.racer
 import chess.format.{ Fen, Uci }
 import reactivemongo.api.bson.*
 
+import lila.core.id.PuzzleId
 import lila.db.dsl.{ *, given }
 import lila.storm.StormPuzzle
-import lila.core.id.PuzzleId
 
 private object RacerBsonHandlers:
 

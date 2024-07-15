@@ -4,11 +4,10 @@ import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
-import lila.db.dsl.bsonWriteOpt
 import lila.core.perm.Granter
+import lila.db.dsl.bsonWriteOpt
 import lila.tree.Node.Comment
-import lila.tree.{ Branch, Node, Root }
-import lila.tree.{ Advice, Analysis, Info }
+import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root }
 
 object ServerEval:
 
@@ -68,7 +67,7 @@ object ServerEval:
                 .foldM(UciPath.root):
                   case (path, (node, (info, advOpt))) =>
                     saveAnalysis(chapter, node, path, info, advOpt)
-                .andDo(sendProgress(chapter, studyId, chapterId, analysis))
+                .andDo(sendProgress(studyId, chapterId, analysis))
                 .logFailure(logger)
             yield ()
       case _ => funit
@@ -154,7 +153,6 @@ object ServerEval:
       )
 
     private def sendProgress(
-        chapter: Chapter,
         studyId: StudyId,
         chapterId: StudyChapterId,
         analysis: Analysis

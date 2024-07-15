@@ -4,14 +4,14 @@ import chess.Speed
 import reactivemongo.api.Cursor
 import reactivemongo.api.bson.*
 
+import lila.core.perf.UserWithPerfs
+import lila.core.report.SuspectId
+import lila.core.userId.ModId
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.game.{ BinaryFormat, GameRepo }
 import lila.memo.CacheApi
 import lila.report.{ Mod, Report, Reporter, Suspect }
-import lila.core.report.SuspectId
-import lila.core.userId.ModId
-import lila.core.perf.UserWithPerfs
 
 final class KaladinApi(
     coll: AsyncColl,

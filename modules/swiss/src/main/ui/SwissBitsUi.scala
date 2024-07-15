@@ -1,9 +1,7 @@
 package lila.swiss
 package ui
-
-import play.api.data.Form
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):

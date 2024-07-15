@@ -2,13 +2,13 @@ package lila.lobby
 
 import chess.variant.Variant
 import chess.{ Clock, Mode, Speed }
-import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
+import scalalib.ThreadLocalRandom
 
-import lila.rating.PerfType
+import lila.core.perf.UserWithPerfs
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
-import lila.core.perf.UserWithPerfs
+import lila.rating.PerfType
 
 // realtime chess, volatile
 case class Hook(

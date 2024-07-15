@@ -3,11 +3,11 @@ package lila.round
 import chess.{ ByColor, Color }
 
 import lila.common.Bus
-import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
-import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
-import lila.core.round.*
-import lila.pref.{ Pref, PrefApi }
 import lila.core.data.Preload
+import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
+import lila.core.round.*
+import lila.game.{ Event, GameRepo, Progress, Rewind, UciMemo }
+import lila.pref.{ Pref, PrefApi }
 import lila.round.RoundAsyncActor.TakebackSituation
 import lila.round.RoundGame.playableByAi
 

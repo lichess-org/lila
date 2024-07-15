@@ -1,13 +1,15 @@
 package lila.gameSearch
 package ui
 
-import java.time.format.DateTimeFormatter
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import java.time.format.DateTimeFormatter
+
 import lila.core.i18n.Translate
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class GameSearchUi(helpers: Helpers)(
     gameWidgets: Seq[Game] => Context ?=> Frag
@@ -147,7 +149,7 @@ final class GameSearchUi(helpers: Helpers)(
     )
 
 final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
-  import helpers.{ *, given }
+  import helpers.*
   import trans.{ search as trs }
 
   private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")

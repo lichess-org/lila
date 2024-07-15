@@ -3,8 +3,8 @@ package lila.relay
 import chess.ByColor
 import chess.format.pgn.{ Tag, Tags }
 
+import lila.core.fide.{ FideTC, Player }
 import lila.db.dsl.*
-import lila.core.fide.{ Player, FideTC }
 
 final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(using Executor):
 

@@ -3,12 +3,13 @@ package lila.gameSearch
 import chess.Mode
 import play.api.data.*
 import play.api.data.Forms.*
+import smithy4s.Timestamp
+
 import java.time.LocalDate
 
 import lila.common.Form.*
 import lila.core.i18n.Translate
-import lila.search.spec.{ Sorting as SpecSorting, IntRange, DateRange, Query }
-import smithy4s.Timestamp
+import lila.search.spec.{ DateRange, IntRange, Query, Sorting as SpecSorting }
 
 final private[gameSearch] class GameSearchForm:
 

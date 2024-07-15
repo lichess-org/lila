@@ -2,11 +2,9 @@ package lila.forum
 
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
-import lila.db.dsl.{ *, given }
-
-import lila.forum.Filter.*
 import lila.core.forum.ForumPostMini
-import reactivemongo.api.CursorOps
+import lila.db.dsl.{ *, given }
+import lila.forum.Filter.*
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor):
 

@@ -1,15 +1,16 @@
 package lila.coach
 package ui
 
+import play.api.i18n.Lang
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
-import lila.core.data.RichText
 import lila.core.config.NetDomain
-import play.api.i18n.Lang
+import lila.core.data.RichText
 import lila.core.user.{ Flag, Profile }
+import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class CoachUi(helpers: Helpers)(
     picfitUrl: lila.core.misc.PicfitUrl,

@@ -1,7 +1,8 @@
 package lila.puzzle
 
 import chess.format.{ Fen, Uci }
-import lila.rating.{ Glicko, Perf }
+
+import lila.rating.Glicko
 import lila.tree
 import lila.tree.NewTree
 

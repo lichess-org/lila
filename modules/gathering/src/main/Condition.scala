@@ -1,10 +1,11 @@
 package lila.gathering
 
-import lila.core.team.LightTeam.TeamName
-import lila.core.i18n.{ Translate, I18nKey as trans }
-import lila.rating.PerfType
-import lila.core.LightUser.Me
 import scalalib.model.Days
+
+import lila.core.LightUser.Me
+import lila.core.i18n.{ I18nKey as trans, Translate }
+import lila.core.team.LightTeam.TeamName
+import lila.rating.PerfType
 
 trait Condition:
 

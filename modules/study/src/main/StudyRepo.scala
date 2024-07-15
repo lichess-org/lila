@@ -5,11 +5,10 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 
+import lila.core.study as hub
+import lila.core.study.Visibility
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
-
-import lila.core.{ study as hub }
-import lila.core.study.Visibility
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
     Executor,

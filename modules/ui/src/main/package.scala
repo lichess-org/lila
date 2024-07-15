@@ -3,9 +3,9 @@ package lila.ui
 import play.api.libs.json.JsValue
 import scalatags.Text.all.Frag
 
+import lila.core.data.SafeJsonStr
 import lila.core.i18n.I18nKey
 import lila.core.perf.{ KeyedPerf, UserPerfs }
-import lila.core.data.SafeJsonStr
 
 export lila.core.lilaism.Lilaism.{ *, given }
 

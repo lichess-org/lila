@@ -1,12 +1,12 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
-import chess.format.{ pgn as chessPgn }
-
+import chess.format.pgn as chessPgn
+import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
 import scalalib.StringOps.slug
-import lila.tree.{ Analysis, Root, Metas, NewBranch, NewTree, NewRoot }
+
 import lila.tree.Node.{ Shape, Shapes }
+import lila.tree.{ Analysis, Metas, NewBranch, NewRoot, NewTree, Root }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,

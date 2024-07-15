@@ -5,21 +5,20 @@ import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.paginator.Paginator
 import scalatags.Text.Frag
 
-import lila.game.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
-import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.mod.UserWithModlog
-import lila.security.UserLogins
-import lila.user.WithPerfsAndEmails
-import lila.rating.PerfType
-import lila.core.net.IpAddress
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
+import lila.game.GameFilter
+import lila.mod.UserWithModlog
+import lila.rating.PerfType
 import lila.rating.UserPerfsExt.best8Perfs
+import lila.security.UserLogins
+import lila.user.WithPerfsAndEmails
 
 final class User(
     override val env: Env,

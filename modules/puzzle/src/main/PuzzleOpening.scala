@@ -4,8 +4,8 @@ import chess.opening.{ Opening, OpeningDb, OpeningFamily }
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
-import lila.db.dsl.{ *, given }
 import lila.core.i18n.I18nKey
+import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, MongoCache }
 
 case class PuzzleOpeningCollection(

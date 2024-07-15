@@ -1,9 +1,8 @@
 package lila.challenge
 
 import lila.common.Bus
-
-import lila.core.socket.SendTo
 import lila.core.i18n.LangPicker
+import lila.core.socket.SendTo
 import lila.memo.CacheApi.*
 
 final class ChallengeApi(

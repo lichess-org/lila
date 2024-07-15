@@ -1,11 +1,9 @@
 package lila.ui
 
 import play.api.data.*
-import play.api.i18n.Lang
-import scalatags.generic.TypedTag
 import scalatags.text.Builder
 
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.*
 
 trait FormHelper:
   self: I18nHelper =>

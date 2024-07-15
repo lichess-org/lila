@@ -3,12 +3,12 @@ package lila.activity
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.core.config.*
-import lila.core.round.CorresMoveEvent
-import lila.core.misc.streamer.StreamStart
-import lila.core.misc.puzzle.{ RacerRun, StormRun, StreakRun }
 import lila.common.Bus
+import lila.core.config.*
 import lila.core.forum.BusForum
+import lila.core.misc.puzzle.{ RacerRun, StormRun, StreakRun }
+import lila.core.misc.streamer.StreamStart
+import lila.core.round.CorresMoveEvent
 
 @Module
 final class Env(

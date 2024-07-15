@@ -2,8 +2,6 @@ package lila.insight
 
 import lila.common.SimpleOpening
 
-import lila.rating.PerfType
-
 case class InsightEntry(
     id: String, // gameId + w/b
     userId: UserId,

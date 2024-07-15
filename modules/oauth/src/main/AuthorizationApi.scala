@@ -1,6 +1,7 @@
 package lila.oauth
 
 import reactivemongo.api.bson.*
+
 import lila.db.dsl.*
 
 final class AuthorizationApi(val coll: Coll)(using Executor):

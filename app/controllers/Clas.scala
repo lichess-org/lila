@@ -2,14 +2,14 @@ package controllers
 package clas
 
 import akka.stream.scaladsl.*
-import play.api.mvc.*
 import play.api.data.Form
+import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite
-import lila.core.security.ClearPassword
 import lila.core.id.{ ClasId, ClasInviteId }
+import lila.core.security.ClearPassword
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 

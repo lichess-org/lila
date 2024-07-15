@@ -1,8 +1,8 @@
 package lila.web
 
-import scalalib.ThreadLocalRandom
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.ThreadLocalRandom
 
 final class InfluxEvent(
     ws: StandaloneWSClient,

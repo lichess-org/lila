@@ -1,10 +1,11 @@
 package lila.web
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.i18n.{ Translate, I18nKey as trans }
+import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.id.ForumCategId
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 object contact:
 

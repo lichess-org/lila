@@ -1,6 +1,7 @@
 package lila.swiss
 
 import scalalib.paginator.Paginator
+
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 

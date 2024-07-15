@@ -1,11 +1,10 @@
 package lila.forum
 
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
-
-import lila.core.perm.Granter
+import scalalib.ThreadLocalRandom
 
 import lila.core.forum.ForumPostMini
+import lila.core.perm.Granter
 
 case class OldVersion(text: String, createdAt: Instant)
 

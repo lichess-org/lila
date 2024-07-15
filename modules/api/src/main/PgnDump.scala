@@ -1,15 +1,14 @@
 package lila.api
 
 import chess.ByColor
-import chess.format.pgn.Pgn
 import chess.format.Fen
+import chess.format.pgn.Pgn
 import play.api.i18n.Lang
 
 import lila.analyse.{ Analysis, Annotator }
-import lila.game.Game
+import lila.core.i18n.Translate
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
-import lila.core.i18n.Translate
 import lila.web.RealPlayers
 
 final class PgnDump(

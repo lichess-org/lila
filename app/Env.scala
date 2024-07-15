@@ -4,12 +4,9 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ Configuration, Environment, Mode, ConfigLoader }
+import play.api.{ ConfigLoader, Configuration, Environment, Mode }
 
 import lila.core.config.*
-import lila.common.config.given
-import lila.common.autoconfig.{ *, given }
-import lila.core.data.{ Strings, UserIds }
 import lila.core.i18n.Translator
 
 final class Env(

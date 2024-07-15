@@ -1,14 +1,14 @@
 package lila.simul
 package ui
 
-import play.api.data.{ Form, Field }
+import play.api.data.{ Field, Form }
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.team.LightTeam
 import lila.core.i18n.Translate
-import lila.gathering.ConditionForm
+import lila.core.team.LightTeam
 import lila.gathering.ui.GatheringFormUi
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class SimulFormUi(helpers: Helpers)(
     setupCheckboxes: (Field, Seq[(Any, String, Option[String])], Set[String]) => Frag,

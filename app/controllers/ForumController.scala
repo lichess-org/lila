@@ -3,8 +3,8 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.forum.ForumTopic
 import lila.core.id.{ ForumCategId, ForumTopicId }
+import lila.forum.ForumTopic
 
 private[controllers] trait ForumController:
   self: LilaController =>

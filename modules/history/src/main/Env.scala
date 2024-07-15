@@ -4,9 +4,6 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.core.config.CollName
-import lila.core.user.WithPerf
-
-import scalalib.model.Days
 
 @Module
 final class Env(

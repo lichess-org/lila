@@ -1,7 +1,7 @@
 package lila.streamer
 
-import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
+import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
 

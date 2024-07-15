@@ -2,8 +2,9 @@ package lila.chat
 
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class ChatUi(helpers: Helpers):

@@ -1,6 +1,6 @@
 package lila.event
-import lila.db.dsl.{ *, given }
 import lila.core.i18n.Language
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
 final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm)(using Executor):

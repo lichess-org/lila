@@ -1,15 +1,15 @@
 package lila.puzzle
 package ui
 
-import scalalib.paginator.Paginator
 import play.api.libs.json.*
-import chess.format.{ BoardFen, Uci }
+import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.common.LilaOpeningFamily
 import lila.common.Json.given
+import lila.common.LilaOpeningFamily
 import lila.core.i18n.I18nKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
     analyseCsp: Update[ContentSecurityPolicy],

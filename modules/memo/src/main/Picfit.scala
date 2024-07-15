@@ -1,18 +1,18 @@
 package lila.memo
 
-import reactivemongo.api.bson.Macros.Annotations.Key
-import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
 import com.github.blemale.scaffeine.LoadingCache
-import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
+import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.MultipartFormData
+import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import scalalib.ThreadLocalRandom
 
-import lila.db.dsl.{ *, given }
-import lila.core.net.IpAddress
 import lila.core.id.ImageId
+import lila.core.net.IpAddress
+import lila.db.dsl.{ *, given }
 
 case class PicfitImage(
     @Key("_id") id: ImageId,

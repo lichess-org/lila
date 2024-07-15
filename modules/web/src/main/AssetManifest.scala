@@ -1,10 +1,11 @@
 package lila.web
 
 import play.api.Environment
-import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.json.{ JsObject, JsValue, Json }
 import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.json.{ JsObject, Json, JsValue, JsString }
-import java.nio.file.{ Files, Path, Paths }
+import play.api.libs.ws.StandaloneWSClient
+
+import java.nio.file.Files
 
 import lila.core.config.NetConfig
 

@@ -2,17 +2,16 @@ package controllers
 
 import play.api.data.{ Form, FormBinding }
 import play.api.http.*
-import play.api.i18n.Lang
 import play.api.libs.json.Writes
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, config }
-import lila.i18n.LangPicker
+import lila.common.HTTPRequest
 import lila.core.i18n.Language
-import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
-import lila.core.perm.Permission
 import lila.core.perf.UserWithPerfs
+import lila.core.perm.Permission
+import lila.i18n.LangPicker
+import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.ui.{ Page, Snippet }
 
 abstract private[controllers] class LilaController(val env: Env)

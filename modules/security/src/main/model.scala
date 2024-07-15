@@ -1,11 +1,5 @@
 package lila.security
-
-import play.api.data.Form
-import play.api.mvc.RequestHeader
-
-import lila.core.net.IpAddress
-
-import lila.core.net.UserAgent
+import lila.core.net.{ IpAddress, UserAgent }
 
 case class Dated[V](value: V, date: Instant) extends Ordered[Dated[V]]:
   def compare(other: Dated[V]) = other.date.compareTo(date)
