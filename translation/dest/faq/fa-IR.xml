@@ -49,6 +49,11 @@
 
 تحلیل رایانه‌ای در Lichess با Stockfish انجام می‌شود.</string>
   <string name="insufficientMaterial">افتادن زمان، مساوی و مهره های ناکافی برای برد</string>
+  <string name="lichessFollowFIDErules">در هنگام تمام شدن زمان یک بازیکن، آن بازیکن معمولا بازی را می بازد. با این حال، اگر وضعیت به گونه‌ای باشد که حریف نتواند با هر دنباله حرکت‌های قانونی (%1$s) شاه را مات کند، بازی مساوی می‌شود.
+
+در مورد‌هایی کمیابی هم، تصمیم‌گیری خودکار دشوار است (شاخه‌های ناگزیر، دژها). پیش‌فرضانه، ما همیشه در کنار بازیکنی هستیم که زمانش تمام نشده است.
+
+توجه کنید که مات با تک اسب یا فیل، به شرطی که حریف مهره‌ای داشته باشد که شاه را سد کند، شدنی است.</string>
   <string name="fideHandbook">دستینه فیده</string>
   <string name="fideHandbookX">بخش %s از دستینه فیده</string>
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
@@ -59,7 +64,7 @@
   <string name="threefoldRepetitionExplanation">اگر یک وضعیت سه بار رخ دهد، بازیکنان می‌توانند با %1$s، ادعای تساوی کنند. Lichess قانون‌های رسمی فیده را که در ماده 9.2 %2$s آمده را، اجرا می‌کند.</string>
   <string name="threefoldRepetitionLowerCase">تکرار سه گانه</string>
   <string name="notRepeatedMoves">ما حرکات را تکرار نکردیم. چرا بازی همچنان با تکرار مساوی می شد؟</string>
-  <string name="repeatedPositionsThatMatters">تکرار سه گانه مربوط به %1$s تکراری است، نه حرکت. لزومی ندارد که تکرار به طور متوالی اتفاق بیفتد.</string>
+  <string name="repeatedPositionsThatMatters">تکرار سه‌گانه درباره %1$s تکراری است، نه حرکت‌ها. لازم نیست که تکرار، پیاپی باشد.</string>
   <string name="positions">وضعیت‌ها</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">ما یک وضعیت را سه بار تکرار کردیم. چرا بازی مساوی نشد؟</string>
   <string name="configure">پیکربندی نمایید</string>
