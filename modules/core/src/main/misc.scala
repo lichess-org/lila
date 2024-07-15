@@ -56,10 +56,6 @@ package mailer:
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
   object CorrespondenceOpponents extends bus.GivenChannel[CorrespondenceOpponents]("dailyCorrespondenceNotif")
 
-package evaluation:
-  case class AutoCheck(userId: UserId)
-  case class Refresh(userId: UserId)
-
 package plan:
   case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)
   case class MonthInc(userId: UserId, months: Int)
