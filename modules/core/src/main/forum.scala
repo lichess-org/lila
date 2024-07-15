@@ -13,8 +13,7 @@ enum BusForum:
   // erasing = blanking, still in db but with empty text
   case ErasePosts(ids: List[ForumPostId])
 
-object BusForum:
-  given bus.WithChannel[BusForum] = bus.WithChannel[BusForum]("forumPost")
+object BusForum extends bus.GivenChannel[BusForum]("forumPost")
 
 trait ForumPost:
   val id: ForumPostId

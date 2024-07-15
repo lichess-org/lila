@@ -9,12 +9,10 @@ import lila.core.id.GameId
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
-  object StreamStart:
-    given bus.WithChannel[StreamStart] = bus.WithChannel[StreamStart]("streamStart")
+  object StreamStart extends bus.GivenChannel[StreamStart]("streamStart")
 
   case class StreamersOnline(streamers: Iterable[(UserId, String)])
-  object StreamersOnline:
-    given bus.WithChannel[StreamersOnline] = bus.WithChannel[StreamersOnline]("streamersOnline")
+  object StreamersOnline extends bus.GivenChannel[StreamersOnline]("streamersOnline")
 
 package map:
   case class Tell(id: String, msg: Any)
@@ -28,21 +26,17 @@ package clas:
     case AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
     case IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
     case ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
-  object ClasBus:
-    given bus.WithChannel[ClasBus] = bus.WithChannel[ClasBus]("clas")
+  object ClasBus extends bus.GivenChannel[ClasBus]("clas")
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)
-  object StormRun:
-    given bus.WithChannel[StormRun] = bus.WithChannel[StormRun]("stormRun")
+  object StormRun extends bus.GivenChannel[StormRun]("stormRun")
 
   case class RacerRun(userId: UserId, score: Int)
-  object RacerRun:
-    given bus.WithChannel[RacerRun] = bus.WithChannel[RacerRun]("racerRun")
+  object RacerRun extends bus.GivenChannel[RacerRun]("racerRun")
 
   case class StreakRun(userId: UserId, score: Int)
-  object StreakRun:
-    given bus.WithChannel[StreakRun] = bus.WithChannel[StreakRun]("streakRun")
+  object StreakRun extends bus.GivenChannel[StreakRun]("streakRun")
 
 package lpv:
   import _root_.chess.format.pgn.PgnStr
@@ -60,9 +54,7 @@ package mailer:
       gameId: GameId
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
-  object CorrespondenceOpponents:
-    given bus.WithChannel[CorrespondenceOpponents] =
-      bus.WithChannel[CorrespondenceOpponents]("dailyCorrespondenceNotif")
+  object CorrespondenceOpponents extends bus.GivenChannel[CorrespondenceOpponents]("dailyCorrespondenceNotif")
 
 package evaluation:
   case class AutoCheck(userId: UserId)

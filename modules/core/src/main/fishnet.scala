@@ -21,8 +21,7 @@ enum Bus:
       userId: UserId,
       official: Boolean
   )
-object Bus:
-  given bus.WithChannel[Bus] = bus.WithChannel[Bus]("fishnet")
+object Bus extends bus.GivenChannel[Bus]("fishnet")
 
 type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Funit
 
