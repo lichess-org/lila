@@ -40,14 +40,18 @@ final class BookmarkApi(
 
   def remove(gameId: GameId, userId: UserId): Funit = coll.delete.one(selectId(gameId, userId)).void
 
-  def toggle(gameId: GameId, userId: UserId): Funit =
+  def toggle(gameId: GameId, userId: UserId, v: Option[Boolean]): Funit =
     exists(gameId, userId)
       .flatMap: e =>
-        (if e then remove(gameId, userId) else add(gameId, userId, nowInstant)).inject(!e)
-      .flatMap: bookmarked =>
-        val inc = if bookmarked then 1 else -1
-        gameApi.incBookmarks(gameId, inc) >>
-          gameProxy.updateIfPresent(gameId)(g => g.copy(bookmarks = g.bookmarks + inc))
+        val newValue = v.getOrElse(!e)
+        if e == newValue then funit
+        else
+          for
+            _ <- if newValue then add(gameId, userId, nowInstant) else remove(gameId, userId)
+            inc = if newValue then 1 else -1
+            _ <- gameApi.incBookmarks(gameId, inc)
+            _ <- gameProxy.updateIfPresent(gameId)(g => g.copy(bookmarks = g.bookmarks + inc))
+          yield ()
       .recover:
         lila.db.ignoreDuplicateKey
 

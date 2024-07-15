@@ -12,7 +12,7 @@ import lila.core.id.GameAnyId
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
-    env.bookmark.api.toggle(gameId, me).inject(NoContent)
+    env.bookmark.api.toggle(gameId, me, getBoolOpt("v")).inject(NoContent)
   }
 
   def delete(gameId: GameId) = Auth { _ ?=> me ?=>
