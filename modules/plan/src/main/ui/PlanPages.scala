@@ -37,7 +37,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 a(href := routes.Tournament.home)(trans.arena.arenaTournaments())
               ),
               tr(unlimited)(
-                a(href := routes.Tournament.home)(trans.site.simultaneousExhibitions())
+                a(href := routes.Simul.home)(trans.site.simultaneousExhibitions())
               ),
               tr(unlimited)(
                 trans.features.correspondenceWithConditionalPremoves()
