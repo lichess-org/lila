@@ -3,7 +3,7 @@ package security
 
 import play.api.mvc.RequestHeader
 
-import lila.core.user.{ User, UserEnabled }
+import lila.core.user.User
 import lila.core.net.IpAddress
 import lila.core.userId.UserId
 import play.api.data.{ Form, Mapping }

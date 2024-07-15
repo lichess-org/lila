@@ -3,32 +3,18 @@ package game
 
 import cats.derived.*
 import play.api.libs.json.*
-import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler, BSONDocument }
+import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.akkastream.AkkaStreamCursor
-import _root_.chess.{
-  Color,
-  Clock,
-  ByColor,
-  Status,
-  Speed,
-  Ply,
-  Centis,
-  Replay,
-  ErrorStr,
-  Division,
-  Game as ChessGame
-}
+import _root_.chess.{ Color, Clock, ByColor, Status, Speed, Ply, Centis, Division }
 import _root_.chess.format.Fen
-import _root_.chess.format.pgn.{ Pgn, PgnStr, SanStr, ParsedPgn, Tags }
+import _root_.chess.format.pgn.{ Pgn, SanStr, ParsedPgn, Tags }
 
 import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
 import lila.core.userId.UserId
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.perf.UserWithPerfs
 import lila.core.user.User
 import _root_.chess.variant.Variant
-import lila.core.userId.MyId
 import lila.core.perf.PerfKey
 
 val maxPlaying           = Max(200) // including correspondence

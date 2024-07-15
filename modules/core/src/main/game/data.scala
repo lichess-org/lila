@@ -5,7 +5,6 @@ import _root_.chess.{ Centis, Clock, Color, Ply }
 import _root_.chess.format.pgn.PgnStr
 import lila.core.id.{ TourId, SwissId, SimulId }
 import lila.core.userId.UserId
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 
 case class GameMetadata(
     source: Option[Source],

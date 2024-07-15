@@ -3,23 +3,18 @@ package game
 
 import scalalib.model.Days
 import _root_.chess.Color.{ Black, White }
-import _root_.chess.MoveOrDrop.{ color, fold }
 import _root_.chess.format.pgn.SanStr
-import _root_.chess.format.{ Fen, Uci }
+import _root_.chess.format.Uci
 import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ FromPosition, Standard, Variant }
 import _root_.chess.{
   ByColor,
-  Castles,
   Centis,
-  CheckCount,
   Clock,
   CorrespondenceClock,
   Color,
   Game as ChessGame,
   Mode,
-  MoveOrDrop,
-  Outcome,
   Ply,
   Speed,
   Status

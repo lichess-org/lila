@@ -1,6 +1,5 @@
 package lila.core
 
-import scalalib.Render
 import _root_.chess.{ variant as ChessVariant }
 import _root_.chess.variant.Variant
 import _root_.chess.Speed

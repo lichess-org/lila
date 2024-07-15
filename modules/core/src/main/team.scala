@@ -2,8 +2,6 @@ package lila.core
 package team
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import reactivemongo.api.bson.BSONDocument
-
 import lila.core.data.Markdown
 import lila.core.userId.*
 import lila.core.id.{ TeamId, Flair }

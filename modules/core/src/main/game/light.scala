@@ -3,7 +3,7 @@ package game
 
 import _root_.chess.{ Color, Status }
 
-import lila.core.id.{ GameId, GameFullId, GamePlayerId }
+import lila.core.id.GameId
 import lila.core.userId.UserId
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 

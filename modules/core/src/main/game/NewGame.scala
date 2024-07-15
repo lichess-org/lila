@@ -1,13 +1,11 @@
 package lila.core
 package game
 
-import scala.concurrent.ExecutionContext
 import scalalib.model.Days
 import scalalib.ThreadLocalRandom
-import _root_.chess.{ Color, Mode, ByColor, Status, Game as ChessGame }
+import _root_.chess.{ Mode, ByColor, Status, Game as ChessGame }
 
-import lila.core.id.{ GameId, GamePlayerId }
-import lila.core.user.WithPerf
+import lila.core.id.GameId
 import _root_.chess.format.Fen
 
 case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):

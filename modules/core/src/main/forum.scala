@@ -3,7 +3,6 @@ package forum
 
 import lila.core.id.{ ForumCategId, ForumPostId, ForumTopicId, TeamId }
 import lila.core.userId.*
-import lila.core.bus
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
