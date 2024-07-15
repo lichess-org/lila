@@ -2740,7 +2740,6 @@ object I18nKey:
     val `exploreTheSiteAndHaveFun`: I18nKey = "onboarding:exploreTheSiteAndHaveFun"
 
   object features:
-    val `features`: I18nKey = "features:features"
     val `zeroAdsAndNoTracking`: I18nKey = "features:zeroAdsAndNoTracking"
     val `playAndCreateSimul`: I18nKey = "features:playAndCreateSimul"
     val `playAndCreateTournaments`: I18nKey = "features:playAndCreateTournaments"

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="features" comment="https://lichess.org/features">Features</string>
   <string name="zeroAdsAndNoTracking">Zero advertisement, no tracking</string>
   <string name="playAndCreateSimul">Play and create simultaneous exhibitions</string>
   <string name="playAndCreateTournaments">Play and create tournaments</string>
