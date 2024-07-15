@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">Zero advertisement, no tracking</string>
-  <string name="playAndCreateSimul">Play and create simultaneous exhibitions</string>
-  <string name="playAndCreateTournaments">Play and create tournaments</string>
   <string name="correspondenceWithConditionalPremoves">Correspondence chess with conditional premoves</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Standard chess and %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Deep %s server analysis</string>

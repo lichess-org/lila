@@ -34,10 +34,10 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 strong(trans.features.zeroAdsAndNoTracking())
               ),
               tr(unlimited)(
-                a(href := routes.Tournament.home)(trans.features.playAndCreateTournaments())
+                a(href := routes.Tournament.home)(trans.arena.arenaTournaments())
               ),
               tr(unlimited)(
-                a(href := routes.Tournament.home)(trans.features.playAndCreateSimul())
+                a(href := routes.Tournament.home)(trans.site.simultaneousExhibitions())
               ),
               tr(unlimited)(
                 trans.features.correspondenceWithConditionalPremoves()

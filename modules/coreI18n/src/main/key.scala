@@ -2741,8 +2741,6 @@ object I18nKey:
 
   object features:
     val `zeroAdsAndNoTracking`: I18nKey = "features:zeroAdsAndNoTracking"
-    val `playAndCreateSimul`: I18nKey = "features:playAndCreateSimul"
-    val `playAndCreateTournaments`: I18nKey = "features:playAndCreateTournaments"
     val `correspondenceWithConditionalPremoves`: I18nKey = "features:correspondenceWithConditionalPremoves"
     val `standardChessAndX`: I18nKey = "features:standardChessAndX"
     val `deepXServerAnalysis`: I18nKey = "features:deepXServerAnalysis"
