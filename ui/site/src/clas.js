@@ -35,7 +35,7 @@ $(function () {
             if (term.length < 2) callback([]);
             else
               $.ajax({
-                url: '/player/autocomplete?object=1&teacher=1',
+                url: '/api/player/autocomplete?object=1&teacher=1',
                 data: {
                   term: term,
                 },

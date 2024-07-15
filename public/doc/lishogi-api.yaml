@@ -2364,6 +2364,60 @@ paths:
               schema:
                 $ref: '#/components/schemas/Crosstable'
 
+  /api/player/autocomplete:
+    get:
+      operationId: apiPlayerAutocomplete
+      summary: Autocomplete usernames
+      description: |
+        Provides autocompletion options for an incomplete username.
+      tags:
+        - Users
+      security: []
+      parameters:
+        - in: query
+          name: term
+          description: The beginning of a username
+          schema:
+            type: string
+            minLength: 3
+          required: true
+        - in: query
+          name: object
+          description: |
+            - `false` returns an array of usernames
+            - `true` returns an object with matching users
+          schema:
+            type: boolean
+            default: false
+        - in: query
+          name: friend
+          description: |
+            Returns followed players matching `term` if any, else returns other players.
+            Requires [OAuth](#tag/OAuth).
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: An array of players which usernames start with the provided term.
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                default: "'*'"
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: array
+                    items:
+                      type: string
+                  - type: object
+                    properties:
+                      result:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LightUser'
+
   /api/stream/event:
     get:
       operationId: apiStreamEvent
@@ -4328,6 +4382,9 @@ components:
     LightUser:
       type: object
       properties:
+        id:
+          type: string
+          example: "shogi_harbour"
         name:
           type: string
           example: "Shogi_Harbour"
@@ -4338,9 +4395,9 @@ components:
         patron:
           type: boolean
           example: true
-        id:
-          type: string
-          example: "shogi_harbour"
+        online:
+          type: boolean
+          example: true
 
     Perf:
       type: object

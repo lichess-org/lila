@@ -7,7 +7,7 @@ $(function () {
     if (name.length >= 3)
       $.ajax({
         method: 'GET',
-        url: '/player/autocomplete',
+        url: '/api/player/autocomplete',
         data: {
           term: name,
           exists: 1,

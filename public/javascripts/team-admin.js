@@ -16,7 +16,7 @@ $(() => {
     // show loading animation and hide the suggestions dropdown
     tagify.loading(true).dropdown.hide.call(tagify);
 
-    fetch(`/player/autocomplete?term=${encodeURIComponent(term)}&names=1`, {
+    fetch(`/api/player/autocomplete?term=${encodeURIComponent(term)}&names=1`, {
       signal: abortCtrl.signal,
     })
       .then(r => r.json())
