@@ -5,7 +5,6 @@ import scalalib.HeapSort.*
 
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
 import lila.core.user.LightPerf
-import lila.rating.GlickoExt.*
 import lila.rating.PerfExt.*
 
 object UserPerfsExt:

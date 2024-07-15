@@ -155,13 +155,12 @@ final class SetupUi(helpers: Helpers):
 
   private def encodeId(v: Variant) = v.id.toString
 
-  private def variantTupleId = variantTuple(encodeId)
+  
 
   private def variantTuple(encode: Variant => String)(variant: Variant) =
     (encode(variant), variant.name, variant.title.some)
 
-  private def translatedVariantChoices(using Translate): List[SelectChoice] =
-    translatedVariantChoices(encodeId)
+  
 
   private def translatedVariantChoices(encode: Variant => String)(using Translate): List[SelectChoice] =
     List(

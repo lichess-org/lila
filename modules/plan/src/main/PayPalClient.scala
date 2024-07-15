@@ -25,7 +25,6 @@ final private class PayPalClient(
 
   import PayPalClient.*
   import JsonHandlers.payPal.given
-  import WebService.*
 
   given moneyWrites: OWrites[Money] = OWrites[Money] { money =>
     Json.obj(
