@@ -30,7 +30,8 @@ trait AssetFullHelper:
 
   def assetVersion = lila.core.net.AssetVersion.current
 
-  def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
+  def assetUrl(path: String): String =
+    s"$assetBaseUrl/assets/${manifest.hashed(path).getOrElse(s"_$assetVersion/$path")}"
 
   private val dataCssKey = attr("data-css-key")
   def cssTag(key: String): Frag =

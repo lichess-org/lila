@@ -23,6 +23,11 @@
     ],
     "sync": {
       "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "public/npm"
-    }
+    },
+    "hashed": [
+      "font/lichess.woff",
+      "font/lichess.woff2",
+      "lifat/background/montage*.webp"
+    ]
   }
 }

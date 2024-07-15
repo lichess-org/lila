@@ -112,9 +112,9 @@ export default class PuzzleCtrl implements ParentCtrl {
     $('#zentog').on('click', () => site.pubsub.emit('zen'));
   }
 
-  private loadSound = (file: string, volume?: number) => {
-    site.sound.load(file, `${site.sound.baseUrl}/${file}`);
-    return () => site.sound.play(file, volume);
+  private loadSound = (name: string, volume?: number) => {
+    site.sound.load(name, site.sound.url(`${name}.mp3`));
+    return () => site.sound.play(name, volume);
   };
   sound = {
     good: this.loadSound('lisp/PuzzleStormGood', 0.7),
