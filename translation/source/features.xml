@@ -4,6 +4,10 @@
   <string name="correspondenceWithConditionalPremoves">Correspondence chess with conditional premoves</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Standard chess and %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Deep %s server analysis</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">%s game per day</item>
+    <item quantity="other">%s games per day</item>
+  </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Board editor and analysis board with %s</string>
   <string name="cloudEngineAnalysis">Cloud engine analysis</string>
   <string name="studies">Studies (shared and persistent analysis)</string>

@@ -14,8 +14,8 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
     )
     val unlimited =
       span(dataIcon := Icon.Checkmark, cls := "is is-green text unlimited")(trans.site.unlimited())
-    val check = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")(trans.site.yes())
-    def custom(str: String)          = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")(str)
+    val custom                       = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")
+    val check                        = custom(trans.site.yes())
     def all(content: Frag)           = frag(td(content), td(content))
     def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))
     val title                        = "Lichess features"
@@ -48,7 +48,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
               tr(check)(
                 trans.features.standardChessAndX(a(href := routes.Cms.variantHome)(trans.faq.eightVariants()))
               ),
-              tr(custom(s"$fishnetPerDay per day"))(
+              tr(custom(trans.features.gamesPerDay.pluralSame(fishnetPerDay)))(
                 trans.features.deepXServerAnalysis(lila.ui.bits.engineFullName)
               ),
               tr(unlimited)(
