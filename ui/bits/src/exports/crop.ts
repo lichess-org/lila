@@ -12,7 +12,7 @@ export function wireCropDialog(
     site.asset.loadEsm('bits.cropDialog'); // preload
     return;
   }
-  const init = structuredClone(opts);
+  const init = { ...opts };
 
   if (!init.onCropped) init.onCropped = () => site.reload();
 
