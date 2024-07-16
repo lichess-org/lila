@@ -43,8 +43,6 @@ final class RelationUi(helpers: Helpers):
         )(trans.site.blocked())
       case _ => emptyFrag
 
-  data("hover-text")
-
   def actions(
       user: lila.core.LightUser,
       relation: Option[Relation],
