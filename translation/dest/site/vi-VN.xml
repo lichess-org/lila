@@ -22,8 +22,8 @@
   <string name="asBlack">khi chơi quân đen</string>
   <string name="randomColor">Màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo một ván cờ</string>
-  <string name="whiteIsVictorious">Bên Trắng thắng</string>
-  <string name="blackIsVictorious">Bên Đen thắng</string>
+  <string name="whiteIsVictorious">Bên trắng thắng</string>
+  <string name="blackIsVictorious">Bên đen thắng</string>
   <string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
   <string name="youPlayTheBlackPieces">Bạn chơi quân đen</string>
   <string name="itsYourTurn">Đến lượt bạn!</string>
@@ -35,8 +35,8 @@
   <string name="newOpponent">Đối thủ mới</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Đối thủ muốn chơi một ván cờ mới với bạn</string>
   <string name="joinTheGame">Tham gia ván cờ</string>
-  <string name="whitePlays">Lượt Trắng đi</string>
-  <string name="blackPlays">Lượt Đen đi</string>
+  <string name="whitePlays">Lượt trắng đi</string>
+  <string name="blackPlays">Lượt đen đi</string>
   <plurals name="opponentLeftCounter">
     <item quantity="other">Đối thủ đã rời khỏi ván cờ. Bạn có thể tuyên bố thắng cuộc trong %s giây.</item>
   </plurals>
@@ -45,10 +45,10 @@
   <string name="forceDraw">Bắt buộc hòa</string>
   <string name="talkInChat">Hãy cư xử thân thiện trong cuộc trò chuyện!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng URL này sẽ bắt đầu chơi với bạn.</string>
-  <string name="whiteResigned">Trắng chịu thua</string>
+  <string name="whiteResigned">Bên trắng chịu thua</string>
   <string name="blackResigned">Đen chịu thua</string>
-  <string name="whiteLeftTheGame">Trắng đã rời khỏi ván cờ</string>
-  <string name="blackLeftTheGame">Đen đã rời khỏi ván cờ</string>
+  <string name="whiteLeftTheGame">Bên trắng đã rời khỏi ván cờ</string>
+  <string name="blackLeftTheGame">Bên đen đã rời khỏi ván cờ</string>
   <string name="whiteDidntMove">Bên trắng không đi quân</string>
   <string name="blackDidntMove">Bên đen không đi quân</string>
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
@@ -85,7 +85,7 @@
   <string name="drawn">Hòa cờ</string>
   <string name="unknown">Không chắc</string>
   <string name="database">Cơ sở dữ liệu</string>
-  <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
+  <string name="whiteDrawBlack">Trắng thắng / Hòa / Đen thắng</string>
   <string name="averageRatingX">Hệ số bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
@@ -245,15 +245,15 @@
     <item quantity="other">%s ván cờ với bạn</item>
   </plurals>
   <string name="cancel">Hủy</string>
-  <string name="whiteTimeOut">Trắng hết giờ</string>
-  <string name="blackTimeOut">Đen hết giờ</string>
+  <string name="whiteTimeOut">Bên trắng hết giờ</string>
+  <string name="blackTimeOut">Bên đen hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
   <string name="drawOfferAccepted">Đề nghị hoà được chấp nhận</string>
   <string name="drawOfferCanceled">Đã hủy bỏ đề nghị hoà</string>
-  <string name="whiteOffersDraw">Trắng đề nghị hòa</string>
-  <string name="blackOffersDraw">Đen đề nghị hòa</string>
-  <string name="whiteDeclinesDraw">Trắng từ chối hòa</string>
-  <string name="blackDeclinesDraw">Đen từ chối hòa</string>
+  <string name="whiteOffersDraw">Bên trắng đề nghị hòa</string>
+  <string name="blackOffersDraw">Bên đen đề nghị hòa</string>
+  <string name="whiteDeclinesDraw">Bên trắng từ chối hòa</string>
+  <string name="blackDeclinesDraw">Bên đen từ chối hòa</string>
   <string name="yourOpponentOffersADraw">Đối thủ xin hoà</string>
   <string name="accept">Chấp nhận</string>
   <string name="decline">Từ chối</string>
@@ -389,8 +389,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="clickOnTheBoardToMakeYourMove">Nhấn vào bàn cờ để di chuyển và chứng minh bạn là con người.</string>
   <string name="captcha.fail">Hãy giải mã captcha cờ vua.</string>
   <string name="notACheckmate">Không phải là một nước chiếu hết</string>
-  <string name="whiteCheckmatesInOneMove">Trắng chiếu hết trong một nước đi</string>
-  <string name="blackCheckmatesInOneMove">Đen chiếu hết trong một nước đi</string>
+  <string name="whiteCheckmatesInOneMove">Bên trắng hãy chiếu hết trong một nước đi</string>
+  <string name="blackCheckmatesInOneMove">Bên đen hãy chiếu hết trong một nước đi</string>
   <string name="retry">Thử lại</string>
   <string name="reconnecting">Đang kết nối lại</string>
   <string name="noNetwork">Ngoại tuyến</string>
@@ -794,12 +794,12 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="skipThisMove">Bỏ qua nước này</string>
   <string name="next">Tiếp</string>
   <string name="xWasPlayed">Đã chơi %s</string>
-  <string name="findBetterMoveForWhite">Tìm nước đi tốt hơn cho trắng</string>
+  <string name="findBetterMoveForWhite">Tìm nước đi tốt hơn cho bên trắng</string>
   <string name="findBetterMoveForBlack">Tìm nước đi tốt hơn cho đen</string>
   <string name="resumeLearning">Tiếp tục học</string>
   <string name="youCanDoBetter">Bạn có thể làm tốt hơn</string>
-  <string name="tryAnotherMoveForWhite">Tìm nước đi khác cho trắng</string>
-  <string name="tryAnotherMoveForBlack">Tìm nước đi khác cho đen</string>
+  <string name="tryAnotherMoveForWhite">Tìm nước đi khác cho bên trắng</string>
+  <string name="tryAnotherMoveForBlack">Tìm nước đi khác cho bên đen</string>
   <string name="solution">Đáp án</string>
   <string name="waitingForAnalysis">Đang chờ phân tích</string>
   <string name="noMistakesFoundForWhite">Bên trắng không mắc sai lầm nào</string>
@@ -807,8 +807,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="doneReviewingWhiteMistakes">Đã hoàn tất phân tích sai lầm của bên trắng</string>
   <string name="doneReviewingBlackMistakes">Đã hoàn tất phân tích sai lầm của bên đen</string>
   <string name="doItAgain">Thử lại một lần nữa</string>
-  <string name="reviewWhiteMistakes">Đánh giá lỗi bên trắng</string>
-  <string name="reviewBlackMistakes">Đánh giá lỗi bên đen</string>
+  <string name="reviewWhiteMistakes">Xem lại sai lầm của bên trắng</string>
+  <string name="reviewBlackMistakes">Xem lại sai lầm của bên đen</string>
   <string name="advantage">Lợi thế</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s giây</item>
