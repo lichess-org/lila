@@ -33,7 +33,7 @@
   <string name="privateWillNeverBeShown">Riêng tư. Sẽ không bao giờ được hiển thị bên ngoài lớp học. Giúp bạn nhớ học viên là ai.</string>
   <string name="addStudent">Thêm học viên</string>
   <string name="lichessProfileXCreatedForY">Đã tạo %1$s làm hồ sơ Lichess cho %2$s.</string>
-  <string name="studentCredentials">Học viên:%1$s
+  <string name="studentCredentials">Học viên: %1$s
 Tên người dùng: %2$s
 Mật khẩu: %3$s</string>
   <string name="inviteALichessAccount">Mời một tài khoản Lichess</string>
