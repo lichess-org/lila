@@ -2,9 +2,9 @@ package lila.activity
 
 import alleycats.Zero
 
-import lila.core.rating.Score
 import lila.activity.Score.plus
 import lila.core.chess.Rank
+import lila.core.rating.Score
 
 object activities:
 

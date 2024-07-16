@@ -57,14 +57,14 @@
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
   <string name="computerAnalysisDisabled">تحلیل رایانه‌ای غیرفعال شد</string>
   <string name="analysis">تحلیل بازی</string>
-  <string name="depthX">عمق بررسی تا %s حرکت</string>
-  <string name="usingServerAnalysis">استفاده از کارساز برای تحلیل</string>
-  <string name="loadingEngine">در حال بارگذاری پردازشگر شطرنج...</string>
+  <string name="depthX">عمق %s</string>
+  <string name="usingServerAnalysis">با استفاده از کارسازِ تحلیل</string>
+  <string name="loadingEngine">پردازشگر بارمی‌گذارد...</string>
   <string name="calculatingMoves">در حال محاسبه حرکات...</string>
   <string name="engineFailed">خطا در بارگذاری پردازشگر شطرنج</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
-  <string name="goDeeper">عمق و تعداد بیشتری از حرکتها را بررسی نمایید</string>
-  <string name="showThreat">تهدید را نمایش بدهید</string>
+  <string name="goDeeper">بررسی عمیق‌تر</string>
+  <string name="showThreat">نمایش تهدید</string>
   <string name="inLocalBrowser">در مرورگر محلی</string>
   <string name="toggleLocalEvaluation">کلید ارزیابی محلی</string>
   <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
@@ -74,7 +74,7 @@
   <string name="expandVariations">باز کردن شاخه‌ها</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
-  <string name="move">انتقال بدهید</string>
+  <string name="move">حرکت</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
   <string name="insufficientMaterial">مُهره ناکافی برای مات</string>
@@ -99,11 +99,11 @@
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ممکنه بازی‌های بیشتری با توجه به گزینگان ترجیح‌ها، وجود داشته باشد؟</string>
-  <string name="openings">گشایش</string>
+  <string name="openings">گشایش‌ها</string>
   <string name="openingExplorer">جستجوگر گشایش‌</string>
   <string name="openingEndgameExplorer">جستجوگر گشایش/آخربازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">اولین حرکت گشایش/آخربازی را برو</string>
+  <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی را برو</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
@@ -359,7 +359,7 @@
   <string name="viewTournament">مشاهده مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
   <string name="noDrawBeforeSwissLimit">شما نمی‌توانید در مسابقات سوییس تا قبل از حرکت ۳۰ام بازی را مساوی کنید.</string>
-  <string name="thematic">واریانتی</string>
+  <string name="thematic">موضوعی</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">بیشتر از %s بازی رسمی</item>
     <item quantity="other">بیشتر از %s بازی رسمی</item>
@@ -397,12 +397,12 @@
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
   <string name="leaderboard">جدول رده‌بندی</string>
-  <string name="screenshotCurrentPosition">از وضعیت فعلی نماگرفت بگیرید</string>
+  <string name="screenshotCurrentPosition">نماگرفت از وضعیت فعلی</string>
   <string name="gameAsGIF">بارگیری GIF بازی</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
-  <string name="fromPosition">شروع از پوزیشن</string>
+  <string name="fromPosition">از وضعیت</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
@@ -494,11 +494,11 @@
   <string name="boardEditor">مُهره‌چینی</string>
   <string name="setTheBoard">مهره‌ها را بچینید</string>
   <string name="popularOpenings">گشایش‌های محبوب</string>
-  <string name="endgamePositions">آخربازی</string>
-  <string name="chess960StartPosition">پوزیشن ابتدایی شطرنج960: %s</string>
-  <string name="startPosition">موقعیت شروع</string>
+  <string name="endgamePositions">وضعیت‌های آخربازی</string>
+  <string name="chess960StartPosition">وضعیت آغازین شطرنج۹۶۰: %s</string>
+  <string name="startPosition">وضعیت آغازش</string>
   <string name="clearBoard">پاک کردن صفحه</string>
-  <string name="loadPosition">بارگذاری موقعیت</string>
+  <string name="loadPosition">بارگذاری وضعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به ناظران</string>
   <string name="profileCompletion">میزان تکمیل رُخ‌نما: %s</string>
@@ -638,8 +638,8 @@
   <string name="onlyFriends">فقط دوستان</string>
   <string name="menu">فهرست</string>
   <string name="castling">قلعه‌روی</string>
-  <string name="whiteCastlingKingside">سفید O-O</string>
-  <string name="blackCastlingKingside">سیاه O-O</string>
+  <string name="whiteCastlingKingside">O-O سفید</string>
+  <string name="blackCastlingKingside">O-O سیاه</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s وبنوشته در انجمن</item>
     <item quantity="other">%s وبنوشته در انجمن</item>
@@ -703,7 +703,7 @@
   <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
   <string name="cyclePreviousOrNextVariation">چرخه پیشین/پسین شاخه اصلی</string>
   <string name="toggleGlyphAnnotations">کلید علائم حرکت‌نویسی</string>
-  <string name="togglePositionAnnotations">تغییر علائم حرکت‌نویسی</string>
+  <string name="togglePositionAnnotations">تغییر حرکت‌نویسی وضعیت</string>
   <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
@@ -805,7 +805,7 @@
   <string name="chessBasics">اصول شطرنج</string>
   <string name="coaches">مربی ها</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
-  <string name="invalidFen">پوزیشن وارد شده نامعتبر است</string>
+  <string name="invalidFen">وضعیت نامعتبر</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
   <string name="notificationsX">هشدار: %1$s</string>
@@ -942,10 +942,10 @@
   <string name="minimumRatedGames">حداقل بازی های ریتد</string>
   <string name="minimumRating">حداقل درجه‌بندی</string>
   <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
-  <string name="positionInputHelp">برای شروع هر بازی از یک پوزیشن مشخص یک FEN معتبر را جایگذاری کنید.
-این عمل فقط برای بازی های استاندارد امکان پذیر است، نه با واریانت ها.
-شما می توانید %s را جهت ساخت یک پوزیشن FEN استفاده کنید و سپس اینجا جایگذاری کنید.
-برای شروع بازی ها از وضعیت عادی ابتدایی خالی بگذارید.</string>
+  <string name="positionInputHelp">برای آغاز هر بازی از یک وضعیت مشخص، یک FEN معتبر جای‌گذارید.
+تنها برای شطرنج معیار کار می‌کند، نه با شطرنج‌گونه‌ها.
+می‌توانید از %s برای آزانیدن وضعیت FEN استفاده کنید، سپس آن را اینجا جای‌گذارید.
+برای آغاز بازی از وضعیت نخستین معمولی، خالی بگذارید.</string>
   <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>
   <string name="estimatedStart">زمان تقریبی شروع بازی</string>
@@ -954,7 +954,7 @@
   <string name="simulDescription">توصیف بازی هم‌زمان</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
   <string name="markdownAvailable">%s برای کُدهای دستوری پیچیده‌تر در دسترس است.</string>
-  <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی فصل مطالعه را برای جاسازی آن، جایگذاری کنید.</string>
+  <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
   <string name="noChat">بدون چت</string>
@@ -970,7 +970,7 @@
   <string name="showHelpDialog">نمایش این پنجره راهنما</string>
   <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
   <string name="closedAccountChangedMind">اگر حساب کاربری خود را مسدود کردید، اما بعد از آن نظرتان عوض شد، شما یک فرصت برای بازگرداندنِ حساب کاربری خود خواهید داشت.</string>
-  <string name="onlyWorksOnce">پس از مسدودسازی حساب کاربری فقط یک بار امکان بازیابی آن خواهد بود.</string>
+  <string name="onlyWorksOnce">تنها یک‌بار کار خواهد کرد.</string>
   <string name="cantDoThisTwice">اگر برای بار دوم حساب کاربری خود را مسدود سازید، هیچ راهی برای بازیابی آن وجود نخواهد داشت.</string>
   <string name="emailAssociatedToaccount">آدرس ایمیلی که به حساب کاربری مربوط شده است</string>
   <string name="sentEmailWithLink">ما رایانامه‌ای شامل یک پیوند را به شما فرستاده‌ایم.</string>

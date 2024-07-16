@@ -2,7 +2,7 @@ import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { prop } from 'common';
 import { snabDialog } from 'common/dialog';
-import flairPickerLoader from 'common/flairPicker';
+import flairPickerLoader from 'bits/flairPicker';
 import { bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
 import { StudyData } from './interfaces';

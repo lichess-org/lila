@@ -4,11 +4,10 @@ import reactivemongo.api.bson.*
 
 import lila.common.Bus
 import lila.core.LightUser
-import lila.db.dsl.{ *, given }
 import lila.core.misc.clas.ClasBus
-
 import lila.core.user.KidMode
 import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
 
 final class MsgSearch(
     colls: MsgColls,

@@ -2,14 +2,15 @@ package lila.clas
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import java.time.Duration
 import scalalib.model.Days
 
+import java.time.Duration
+
+import lila.core.game.GameRepo
+import lila.core.user.WithPerf
 import lila.db.dsl.{ *, given }
-import lila.core.game.{ GameRepo }
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
-import lila.core.user.WithPerf
 
 case class ClasProgress(
     perfType: PerfType,

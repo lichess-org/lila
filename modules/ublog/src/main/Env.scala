@@ -4,7 +4,6 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
-import lila.common.config.*
 import lila.db.dsl.Coll
 
 @Module

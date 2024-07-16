@@ -3,10 +3,10 @@ package ui
 
 import play.api.libs.json.*
 
-import lila.ui.Context
-import lila.core.i18n.{ I18nKey as trans }
 import lila.common.Json.given
+import lila.core.i18n.I18nKey as trans
 import lila.core.perm.Granter
+import lila.ui.Context
 
 object DasherJson:
 

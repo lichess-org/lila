@@ -5,6 +5,7 @@
     "noEmit": true
   },
   "references": [
+    { "path": "../bits/tsconfig.json" },
     { "path": "../ceval/tsconfig.json" },
     { "path": "../chart/tsconfig.json" },
     { "path": "../chat/tsconfig.json" },
@@ -14,6 +15,5 @@
     { "path": "../keyboardMove/tsconfig.json" },
     { "path": "../nvui/tsconfig.json" },
     { "path": "../tree/tsconfig.json" }
-  ],
-  "isolatedModules": true
+  ]
 }

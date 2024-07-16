@@ -17,24 +17,24 @@ import chess.{
   UnmovedRooks
 }
 import reactivemongo.api.bson.*
+import scalalib.model.Days
 
 import scala.util.{ Success, Try }
 
-import scalalib.model.Days
-import lila.db.BSON
-import lila.db.dsl.{ *, given }
 import lila.core.game.{
+  ClockHistory,
   Game,
-  GameRule,
-  LightGame,
-  Source,
   GameDrawOffers,
   GameMetadata,
-  PgnImport,
+  GameRule,
+  LightGame,
   LightPlayer,
-  ClockHistory,
+  PgnImport,
+  Source,
   emptyDrawOffers
 }
+import lila.db.BSON
+import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
 

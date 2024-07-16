@@ -8,11 +8,11 @@ import java.time.LocalDate
 
 import lila.common.LateMultiThrottler
 import lila.search.*
+import lila.search.client.SearchClient
+import lila.search.spec.{ Query, StudySource }
 import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }
 import lila.tree.Node
 import lila.tree.Node.Comments
-import lila.search.client.SearchClient
-import lila.search.spec.{ Query, StudySource }
 
 final class StudySearchApi(
     client: SearchClient,

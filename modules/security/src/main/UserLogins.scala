@@ -2,11 +2,10 @@ package lila.security
 
 import reactivemongo.api.bson.*
 
-import lila.core.net.IpAddress
+import lila.core.net.{ IpAddress, UserAgent }
+import lila.core.security.{ FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
-import lila.core.security.{ IsProxy, Ip2ProxyApi, FingerHash }
-import lila.core.net.UserAgent
 
 case class UserLogins(
     ips: List[UserLogins.IPData],

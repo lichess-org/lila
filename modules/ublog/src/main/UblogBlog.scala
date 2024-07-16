@@ -1,8 +1,7 @@
 package lila.ublog
 
-import lila.core.perm.Granter
-
 import lila.core.perf.UserWithPerfs
+import lila.core.perm.Granter
 
 case class UblogBlog(
     _id: UblogBlog.Id,

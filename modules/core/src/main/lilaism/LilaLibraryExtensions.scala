@@ -2,13 +2,13 @@ package lila.core.lilaism
 
 import alleycats.Zero
 import com.typesafe.config.Config
-import scalalib.extensions.*
+import scalalib.future.FutureAfter
+
 import java.util.Base64
 import java.util.concurrent.TimeUnit
-import scala.concurrent.{ Future, ExecutionContext as EC }
 import scala.collection.BuildFrom
+import scala.concurrent.{ ExecutionContext as EC, Future }
 import scala.util.Try
-import scalalib.future.FutureAfter
 
 trait LilaLibraryExtensions extends CoreExports:
 

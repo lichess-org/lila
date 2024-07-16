@@ -3,12 +3,12 @@ package lila.mailer
 import play.api.i18n.Lang
 import scalatags.Text.all.*
 
-import lila.core.lilaism.LilaException
 import lila.core.config.BaseUrl
+import lila.core.i18n.I18nKey.emails as trans
+import lila.core.i18n.Translator
+import lila.core.lilaism.LilaException
 import lila.core.misc.mailer.CorrespondenceOpponent
 import lila.core.msg.SystemMsg
-import lila.core.i18n.Translator
-import lila.core.i18n.I18nKey.emails as trans
 
 final class AutomaticEmail(
     userApi: lila.core.user.UserApi,

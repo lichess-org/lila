@@ -19,7 +19,7 @@ object Dependencies {
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
-  val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
+  val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.24.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.0.9"
+    val version  = "16.1.0"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version

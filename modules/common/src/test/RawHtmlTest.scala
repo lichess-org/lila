@@ -1,7 +1,8 @@
 package lila.common
 
-import RawHtml.*
 import lila.core.config.NetDomain
+
+import RawHtml.*
 
 class RawHtmlTest extends munit.FunSuite:
 

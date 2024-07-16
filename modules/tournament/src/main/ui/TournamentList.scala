@@ -4,10 +4,11 @@ package ui
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.tournament.Schedule.Freq
 import lila.rating.PerfType
+import lila.tournament.Schedule.Freq
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     communityMenu: Context ?=> Frag,

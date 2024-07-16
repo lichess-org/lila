@@ -2,6 +2,7 @@ package lila.appeal
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class AppealUi(helpers: Helpers):

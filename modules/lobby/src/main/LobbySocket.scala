@@ -1,15 +1,14 @@
 package lila.lobby
 
 import play.api.libs.json.*
+import scalalib.actor.SyncActor
 
 import lila.common.Json.given
-
-import scalalib.actor.SyncActor
+import lila.core.game.ChangeFeatured
+import lila.core.pool.PoolConfigId
+import lila.core.socket.{ protocol as P, * }
 import lila.core.timeline.*
 import lila.rating.RatingRange
-import lila.core.game.ChangeFeatured
-import lila.core.socket.{ protocol as P, * }
-import lila.core.pool.PoolConfigId
 
 case class LobbyCounters(members: Int, rounds: Int)
 

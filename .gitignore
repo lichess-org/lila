@@ -14,14 +14,15 @@ project/metals.sbt
 project/project
 project/target
 public/compiled
+public/hashed
 public/npm
 public/lifat
 public/css/
+public/json
 target
 data/
 dist/
 node_modules/
-local/
 ui/common/css/theme/gen/*.scss
 ui/common/**/*.js
 ui/common/**/*.d.ts

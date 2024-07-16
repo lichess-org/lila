@@ -1,7 +1,6 @@
 package lila.api
 
 import lila.common.Bus
-import lila.web.AnnounceApi
 
 final private[api] class Cli(
     security: lila.security.Env,

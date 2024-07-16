@@ -1,9 +1,11 @@
 package lila.round
 package ui
 
+import chess.variant.{ Crazyhouse, Variant }
+
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import chess.variant.{ Variant, Crazyhouse }
 
 final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
   import helpers.{ *, given }

@@ -1,16 +1,14 @@
 package lila.mod
 
 import akka.actor.*
-import com.softwaremill.macwire.*
 import chess.ByColor
+import com.softwaremill.macwire.*
 
-import lila.core.config.*
-import lila.core.report.SuspectId
-
-import lila.core.user.WithPerf
 import lila.common.Bus
-import lila.rating.UserWithPerfs.only
+import lila.core.config.*
 import lila.core.forum.BusForum
+import lila.core.report.SuspectId
+import lila.rating.UserWithPerfs.only
 
 @Module
 final class Env(

@@ -4,9 +4,9 @@ import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.{ Bus, LilaStream }
-import lila.db.dsl.{ *, given }
-import lila.core.relation.Relations
 import lila.core.msg.PostResult
+import lila.core.relation.Relations
+import lila.db.dsl.{ *, given }
 
 final class MsgApi(
     colls: MsgColls,

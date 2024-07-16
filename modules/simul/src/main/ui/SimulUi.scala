@@ -2,6 +2,7 @@ package lila.simul
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class SimulUi(helpers: Helpers):
@@ -24,7 +25,7 @@ final class SimulUi(helpers: Helpers):
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little")(
       img(cls := "img icon", src := assetUrl("images/fire-silhouette.svg")),
       span(cls := "content")(
-        span(cls := "name")(s.name, " simul"),
+        span(cls := "name")(s.name, (!s.name.toLowerCase.endsWith(" simul")).so(" simul")),
         span(cls := "more")(
           trans.site.nbPlayers.plural(s.applicants.size, s.applicants.size.localize),
           " • ",

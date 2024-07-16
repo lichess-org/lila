@@ -4,10 +4,10 @@ import chess.Centis
 import play.api.i18n.Lang
 
 import lila.common.Bus
-import lila.game.{ Event, Progress }
-import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
-import lila.pref.{ Pref, PrefApi }
+import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.game.GameExt.playerCanOfferDraw
+import lila.game.{ Event, Progress }
+import lila.pref.{ Pref, PrefApi }
 
 final private[round] class Drawer(
     messenger: Messenger,

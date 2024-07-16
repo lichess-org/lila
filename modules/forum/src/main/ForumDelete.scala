@@ -2,9 +2,9 @@ package lila.forum
 
 import akka.stream.scaladsl.*
 
-import lila.core.perm.Granter as MasterGranter
-import lila.core.forum.BusForum
 import lila.common.Bus
+import lila.core.forum.BusForum
+import lila.core.perm.Granter as MasterGranter
 
 final class ForumDelete(
     postRepo: ForumPostRepo,

@@ -8,14 +8,14 @@ import io.mola.galimatias.URL
 import play.api.libs.json.*
 import scalalib.model.Seconds
 
-import lila.core.lilaism.LilaInvalid
 import lila.common.LilaScheduler
+import lila.core.lilaism.LilaInvalid
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
+import lila.relay.RelayFormat.CanProxy
+import lila.relay.RelayRound.Sync
 import lila.study.{ MultiPgn, StudyPgnImport }
 import lila.tree.Node.Comments
-import lila.relay.RelayRound.Sync
-import lila.relay.RelayFormat.CanProxy
 
 final private class RelayFetch(
     sync: RelaySync,

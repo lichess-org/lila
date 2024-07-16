@@ -1,7 +1,7 @@
 package lila.tutor
 
-import lila.insight.ClockPercent
 import lila.core.perf.UserWithPerfs
+import lila.insight.ClockPercent
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*

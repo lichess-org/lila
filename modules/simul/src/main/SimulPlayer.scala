@@ -1,6 +1,7 @@
 package lila.simul
 
 import chess.variant.Variant
+
 import lila.core.user.WithPerf
 
 private[simul] case class SimulPlayer(

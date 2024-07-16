@@ -1,8 +1,5 @@
 package lila.user
-
-import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.core.user.Profile
-import lila.core.user.Flag
+import lila.core.user.{ Flag, Profile }
 
 object Profile:
 

@@ -6,12 +6,12 @@
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "exports": {
-    "./*": "./dist/load/*.js"
+    "./*": "./dist/exports/*.js"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "dist/load/*"
+        "dist/exports/*"
       ]
     }
   },
@@ -55,6 +55,7 @@
       "src/bits.contact.ts",
       "src/bits.cropDialog.ts",
       "src/bits.dailyFeed.ts",
+      "src/bits.devMode.ts",
       "src/bits.diagnosticDialog.ts",
       "src/bits.eventCountdown.ts",
       "src/bits.expandText.ts",

@@ -1,21 +1,21 @@
 package lila.security
 
 import com.softwaremill.tagging.*
-import scalalib.SecureRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
-import play.api.mvc.{ Session, RequestHeader }
+import play.api.mvc.{ RequestHeader, Session }
 import reactivemongo.api.bson.*
+import scalalib.SecureRandom
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
+import lila.core.email.UserStrOrEmail
 import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
-import lila.core.email.UserStrOrEmail
-import lila.core.security.{ IsProxy, Ip2ProxyApi, FingerHash, ClearPassword }
 
 final class SecurityApi(
     userRepo: lila.user.UserRepo,

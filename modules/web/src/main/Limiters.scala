@@ -1,9 +1,9 @@
 package lila.web
 
 import lila.core.net.IpAddress
-import lila.memo.RateLimit
 import lila.core.socket.Sri
 import lila.core.userId
+import lila.memo.RateLimit
 
 final class Limiters(using Executor, lila.core.config.RateLimit):
 

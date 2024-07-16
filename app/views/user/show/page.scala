@@ -3,12 +3,10 @@ package show
 
 import play.api.data.Form
 
-import lila.app.mashup.UserInfo
 import lila.app.UiEnv.{ *, given }
-
-import lila.game.{ Game, GameFilter }
-
+import lila.app.mashup.UserInfo
 import lila.core.data.SafeJsonStr
+import lila.game.GameFilter
 import lila.rating.UserWithPerfs.titleUsernameWithBestRating
 
 lazy val ui = lila.user.ui.UserShow(helpers, bits)
@@ -34,7 +32,7 @@ object page:
         )
       )
       .js(pageModule(info))
-      .js(esModules(info))
+      .js(esModules())
       .css("bits.user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .robots(u.count.game >= 10):
@@ -59,7 +57,7 @@ object page:
     val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
-      .js(esModules(info, filters.current.name == "search"))
+      .js(esModules(filters.current.name == "search"))
       .css("bits.user.show")
       .css((filters.current.name == "search").option("bits.user.show.search"))
       .css(isGranted(_.UserModView).option("mod.user"))
@@ -74,7 +72,7 @@ object page:
           )
         )
 
-  private def esModules(info: UserInfo, withSearch: Boolean = false)(using Context): EsmList =
+  private def esModules(withSearch: Boolean = false)(using Context): EsmList =
     import play.api.libs.json.Json
     infiniteScrollEsmInit
       ++ jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(ui.i18nKeys)))

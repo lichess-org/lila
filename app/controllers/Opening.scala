@@ -4,8 +4,8 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.opening.OpeningQuery.queryFromUrl
 import lila.core.net.Crawler
+import lila.opening.OpeningQuery.queryFromUrl
 
 final class Opening(env: Env) extends LilaController(env):
 

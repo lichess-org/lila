@@ -1,12 +1,10 @@
 package controllers
-
-import play.api.i18n.Lang
 import play.api.libs.json.{ JsValue, Json }
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.insight.{ InsightDimension, InsightMetric }
 import lila.core.i18n.Translate
+import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env):
 

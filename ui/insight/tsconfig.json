@@ -6,6 +6,6 @@
     "noEmit": true,
     "composite": true
   },
-  "isolatedModules": true,
+
   "references": [{ "path": "../common/tsconfig.json" }, { "path": "../chart/tsconfig.json" }]
 }

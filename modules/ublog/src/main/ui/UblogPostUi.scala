@@ -2,8 +2,8 @@ package lila.ublog
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.core.i18n.Language
 
 final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
     ublogRank: UblogRank,

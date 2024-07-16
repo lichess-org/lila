@@ -1,7 +1,7 @@
 package lila
 package pref
 
-import lila.core.i18n.{ Translate, I18nKey as trans }
+import lila.core.i18n.{ I18nKey as trans, Translate }
 
 trait PrefHelper:
 

@@ -3,9 +3,8 @@ package lila.api
 import play.api.libs.json.{ JsObject, Json, Writes }
 
 import lila.common.Json.given
-
-import lila.lobby.{ LobbySocket, SeekApi }
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
+import lila.lobby.{ LobbySocket, SeekApi }
 import lila.rating.UserPerfsExt.perfsList
 
 final class LobbyApi(

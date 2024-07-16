@@ -3,8 +3,8 @@ package lila.ui
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 
+import lila.core.i18n.{ I18nKey, JsDump, LangList, Translator, fixJavaLanguage }
 import lila.ui.ScalatagsTemplate.*
-import lila.core.i18n.{ LangList, I18nKey, fixJavaLanguage, JsDump, Translator }
 
 trait I18nHelper:
 

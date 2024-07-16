@@ -1,4 +1,4 @@
-import { wireCropDialog } from './load/crop';
+import { wireCropDialog } from './exports/crop';
 
 site.load.then(() => {
   $('.title-image-edit').each(function (this: HTMLElement) {

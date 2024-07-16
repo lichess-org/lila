@@ -6,6 +6,6 @@
     "rootDir": "src",
     "composite": true
   },
-  "isolatedModules": true,
+
   "references": [{ "path": "../common/tsconfig.json" }]
 }

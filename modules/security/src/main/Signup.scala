@@ -4,12 +4,12 @@ import play.api.data.*
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
+import lila.common.HTTPRequest
 import lila.core.config.NetConfig
-import lila.common.{ HTTPRequest }
-import lila.core.net.{ ApiVersion, IpAddress }
-import lila.memo.RateLimit
 import lila.core.email.UserIdOrEmail
+import lila.core.net.{ ApiVersion, IpAddress }
 import lila.core.security.ClearPassword
+import lila.memo.RateLimit
 
 final class Signup(
     store: Store,

@@ -2,13 +2,14 @@ package lila.perfStat
 
 import play.api.libs.json.Json
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
-import lila.core.perm.Granter
-import lila.core.perf.UserWithPerfs
 import lila.common.Json.given
 import lila.core.data.SafeJsonStr
+import lila.core.perf.UserWithPerfs
+import lila.core.perm.Granter
+import lila.rating.PerfType
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   import helpers.{ *, given }

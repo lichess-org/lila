@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
@@ -11,7 +12,6 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
 ):
   import helpers.{ *, given }
   import trans.{ tfa as trt }
-  import ui.AccountPage
 
   def setup(form: Form[?])(using Context)(using me: Me) =
     val secret = form("secret").value.orZero

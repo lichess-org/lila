@@ -1,9 +1,11 @@
 package lila.clas
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
+
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
   import helpers.{ *, given }

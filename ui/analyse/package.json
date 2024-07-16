@@ -19,6 +19,7 @@
     "@types/sortablejs": "^1.15.8",
     "@types/yaireo__tagify": "4.17.5",
     "@yaireo/tagify": "4.17.9",
+    "bits": "workspace:*",
     "ceval": "workspace:*",
     "chart": "workspace:*",
     "chat": "workspace:*",
@@ -44,7 +45,7 @@
       "src/plugins/analyse.study.tour.ts"
     ],
     "sync": {
-      "node_modules/@yaireo/tagify/dist/tagify.min.js": "public/npm/tagify",
+      "node_modules/@yaireo/tagify/dist/tagify.min.js": "public/npm",
       "node_modules/sortablejs/modular/sortable.esm.js": "public/npm"
     }
   }

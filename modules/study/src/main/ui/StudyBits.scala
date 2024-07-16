@@ -1,10 +1,11 @@
 package lila.study
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.String.removeMultibyteSymbols
 import lila.core.study.Order
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }

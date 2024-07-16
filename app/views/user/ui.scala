@@ -1,11 +1,11 @@
 package views.user
 
 import lila.app.UiEnv.{ *, given }
-import lila.rating.UserPerfsExt.best8Perfs
-import lila.core.perf.UserWithPerfs
-import lila.user.Profile.flagInfo
 import lila.core.data.SafeJsonStr
+import lila.core.perf.UserWithPerfs
 import lila.perfStat.PerfStatData
+import lila.rating.UserPerfsExt.best8Perfs
+import lila.user.Profile.flagInfo
 
 val bits     = lila.user.ui.UserBits(helpers)
 val noteUi   = lila.user.ui.NoteUi(helpers)

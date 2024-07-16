@@ -3,21 +3,21 @@ package lila.simul
 import akka.actor.*
 import chess.variant.Variant
 import chess.{ ByColor, Status }
-import play.api.libs.json.Json
 import monocle.syntax.all.*
+import play.api.libs.json.Json
+import scalalib.paginator.Paginator
 
 import lila.common.Json.given
-import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
+import lila.core.perf.UserWithPerfs
+import lila.core.socket.SendToFlag
+import lila.core.team.LightTeam
+import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.core.team.LightTeam
-import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.rating.PerfType
-import lila.core.socket.SendToFlag
-import lila.core.perf.UserWithPerfs
 import lila.rating.UserWithPerfs.only
 
 final class SimulApi(

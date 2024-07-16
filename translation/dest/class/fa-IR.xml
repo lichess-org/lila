@@ -14,7 +14,7 @@
   <string name="closeClass">کلاس را ببندید</string>
   <string name="removedByX">توسط %s اخراج شد</string>
   <string name="reopen">بازگشایی</string>
-  <string name="removeStudent">دانش‌جو را خارج کنید</string>
+  <string name="removeStudent">برداشتن شطرنج‌آموز</string>
   <string name="removedStudents">حذف شده</string>
   <string name="inviteTheStudentBack">دانش‌جو را برای بازگشت دعوت کنید</string>
   <string name="sendAMessage">یک پیام به همه دانش‌جویان ارسال نمایید.</string>
@@ -31,10 +31,10 @@
   <string name="invitedToXByY">توسط %2$s به %1$s دعوت شد</string>
   <string name="realName">نام واقعی</string>
   <string name="privateWillNeverBeShown">خصوصی. هرگز در خارج از کلاس نمایش داده نخواهد شد. به یاد آوری دانش آموز کمک می کند.</string>
-  <string name="addStudent">دانش‌آموز اضافه کنید</string>
+  <string name="addStudent">افزودن شطرنج‌آموز</string>
   <string name="lichessProfileXCreatedForY">رُخ‌نما %1$s برای %2$s ساخته شد.</string>
-  <string name="studentCredentials">دانش‌جو: %1$s
-نامِ کاربری: %2$s
+  <string name="studentCredentials">شطرنج‌آموز: %1$s
+نام کاربری: %2$s
 گذرواژه: %3$s</string>
   <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
   <string name="inviteDesc1">اگر دانش آموز هم اکنون دارای یک حساب در lichess می باشد، شما می توانید او را به کلاس دعوت کنید.</string>
@@ -46,7 +46,7 @@
   <string name="createDesc2">هیچ آدرس ایمیلی نیاز نیست. یک رمز عبور ساخته خواهد شد و شما باید آن را به دانش آموز انتقال بدهید تا بتواند وارد شود.</string>
   <string name="createDesc3">مهم: یک دانش‌جو نباید حسابهای کاربری متعدد داشته باشد.</string>
   <string name="createDesc4">اگر قبلاً یکی دارند، به جای آن از فرم دعوت استفاده کنید.</string>
-  <string name="createStudentWarning">فقط برای دانش آموزان واقعی حساب باز کنید. از این امکان برای درست کردن چندین حساب برای خود استفاده نکنید. در غیر این صورت حساب شما مسدود خواهد شد.</string>
+  <string name="createStudentWarning">فقط برای شطرنج‌آموزان واقعی حساب بسازید. جهت ساخت حساب‌های چندگانه برای خودتان استفاده نکنید. حساب‌تان بسته می‌شود.</string>
   <string name="lichessUsername">نام کاربریِ Lichess</string>
   <string name="generateANewUsername">یک نام کاربری جدید تولید کنید</string>
   <string name="welcomeToClass">به کلاس %s خوش آمدید.
@@ -77,13 +77,13 @@
     <item quantity="other">%s معلم</item>
   </plurals>
   <plurals name="nbStudents">
-    <item quantity="one">دانشجو</item>
-    <item quantity="other">%s دانشجو</item>
+    <item quantity="one">شطرنج‌آموز</item>
+    <item quantity="other">%s شطرنج‌آموز</item>
   </plurals>
-  <string name="students">دانشجویان</string>
+  <string name="students">شطرنج‌آموزان</string>
   <string name="progress">پیشرفت</string>
-  <string name="noStudents">هنوز، هیچ دانشجویی در کلاس نیست.</string>
-  <string name="noRemovedStudents">هیچ دانشجویی اخراج نشده است.</string>
+  <string name="noStudents">هنوز، هیچ شطرنج‌آموزی در کلاس نیست.</string>
+  <string name="noRemovedStudents">شطرنج‌آموز برداشته‌شده وجود ندارد.</string>
   <string name="overDays">تعداد روزها</string>
   <string name="timePlaying">زمان بازی کردن</string>
   <string name="variantXOverLastY">%1$s در %2$s روز اخیر</string>

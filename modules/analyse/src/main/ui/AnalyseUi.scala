@@ -1,10 +1,11 @@
 package lila.analyse
 package ui
 
-import play.api.libs.json.*
 import chess.variant.*
+import play.api.libs.json.*
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):

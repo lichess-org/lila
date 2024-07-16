@@ -56,8 +56,18 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="entryCodeDescriptionForLeader">(Nebūtina) Įėjimo kodas, kurį norėdami prisijungti turi žinoti visi nauji komandos nariai.</string>
   <string name="incorrectEntryCode">Netinkamas kodas.</string>
   <string name="teamAlreadyExists">Ši komanda jau egzistuoja.</string>
+  <string name="upcomingTournaments">Artėjantys turnyrai</string>
   <string name="completedTourns">Baigti turnyrai</string>
   <string name="declinedRequests">Atsisakytos užklausos</string>
   <string name="joinLichessVariantTeam">Prisijunkite prie oficialios %s komandos ir gaukite naujienas bei pranešimus apie renginius</string>
   <string name="teamPage">Komandos puslapis</string>
+  <string name="thisTeamBattleIsOver">Šis turnyras baigėsi, ir komandos nebegali būti atnaujinamos.</string>
+  <string name="listTheTeamsThatWillCompete">Komandų, kurios varžysis šiame mūšyje, sąrašas.</string>
+  <string name="oneTeamPerLine">Viena komanda eilutėje. Naudokite automatinį užbaigimą.</string>
+  <string name="oneTeamPerLineHelp">Galite nukopijuoti ir įklijuoti šį sąrašą iš vieno turnyro į kitą!
+
+Negalite pašalinti komandos, jei žaidėjas su ja jau prisijungė prie turnyro.</string>
+  <string name="numberOfLeadsPerTeam">Lyderių skaičius komandoje. Jų taškų suma yra komandos rezultatas.</string>
+  <string name="numberOfLeadsPerTeamHelp">Prasidėjus turnyrui, šios vertės keisti tikrai neturėtumėte!</string>
+  <string name="innerTeam">Vidinė komanda</string>
 </resources>

@@ -2,7 +2,8 @@ package lila.web
 package ui
 
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+
+import ScalatagsTemplate.*
 
 def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Context) =
   import helpers.{ *, given }

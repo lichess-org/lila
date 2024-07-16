@@ -53,6 +53,8 @@ object PrefSingleChange:
       _.copy(moretime = v),
     changing(_.clockSound): v =>
       _.copy(clockSound = v == 1),
+    changing(_.pieceNotation): v =>
+      _.copy(pieceNotation = v),
     changing(_.ratings): v =>
       _.copy(ratings = v),
     changing(_.follow): v =>

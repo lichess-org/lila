@@ -1,6 +1,7 @@
 package lila.core
 
 import scalalib.newtypes.OpaqueString
+
 import scala.concurrent.ExecutionContext
 
 import lila.core.userId.UserId

@@ -2,9 +2,9 @@ package lila.web
 
 import play.api.mvc.RequestHeader
 
-import lila.core.security.LilaCookie
-import lila.core.config.*
 import lila.common.config.given
+import lila.core.config.*
+import lila.core.security.LilaCookie
 
 final class WebConfig(
     val apiToken: Secret,

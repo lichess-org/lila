@@ -3,8 +3,7 @@ package lila.lobby
 import chess.{ ByColor, Game as ChessGame, Situation }
 
 import lila.core.socket.Sri
-import lila.core.user.GameUsers
-import lila.core.user.WithPerf
+import lila.core.user.{ GameUsers, WithPerf }
 
 final private class Biter(
     userApi: lila.core.user.UserApi,

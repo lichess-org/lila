@@ -1,13 +1,10 @@
 package lila.tutor
 package ui
-
-import play.api.i18n.Lang
-
-import lila.ui.ScalatagsTemplate.*
 import lila.common.LilaOpeningFamily
+import lila.core.i18n.Translate
 import lila.insight.{ InsightDimension, Phase }
 import lila.rating.PerfType
-import lila.core.i18n.Translate
+import lila.ui.ScalatagsTemplate.*
 
 object compare:
 
