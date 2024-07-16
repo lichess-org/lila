@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">Sin anuncios ni seguimiento</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">%s partida por día</item>
+    <item quantity="other">%s partidas por día</item>
+  </plurals>
+</resources>
