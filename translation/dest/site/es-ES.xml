@@ -539,6 +539,7 @@
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="website">Sitio web</string>
+  <string name="mobile">Móvil</string>
   <string name="help">Ayuda:</string>
   <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
