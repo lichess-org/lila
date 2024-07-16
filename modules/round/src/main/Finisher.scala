@@ -155,7 +155,10 @@ final private class Finisher(
     def clockOk = game.clock
       .map(c => c.config.limitSeconds.value + c.config.incrementSeconds.value * 60)
       .exists(total => total >= 5 * 60 && total <= 8 * 60 * 60)
-    if game.rated && game.variant.standard && game.playedTurns >= 30 && statusOk && clockOk
+    def toCESTDay(date: Instant) =
+      java.time.LocalDate.ofInstant(date, java.time.ZoneId.of("CET")).getDayOfMonth()
+    def datesOk = toCESTDay(game.createdAt) == toCESTDay(game.movedAt)
+    if game.rated && game.variant.standard && game.playedTurns >= 30 && statusOk && clockOk && datesOk
     then lila.mon.round.fideGWR.increment()
 
   private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
