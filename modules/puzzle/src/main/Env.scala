@@ -105,7 +105,7 @@ final class Env(
     tagger.addAllMissing
 
   if mode.isProd then
-    scheduler.scheduleAtFixedRate(1 hour, 1 hour): () =>
+    scheduler.scheduleAtFixedRate(10 minutes, 10 minutes): () =>
       pathApi.isStale.foreach: stale =>
         if stale then logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
 
