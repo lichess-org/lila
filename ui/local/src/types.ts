@@ -1,5 +1,4 @@
 import type { RoundData } from 'round';
-import { Material } from 'chessops/setup';
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
 import type { GameState } from './gameCtrl';
@@ -14,7 +13,6 @@ export interface Quirks {
 export type Point = [number, number];
 
 export interface Operator {
-  //readonly type: string;
   readonly range: { min: number; max: number };
   from: 'move' | 'score';
   data: Point[];
@@ -26,10 +24,10 @@ export type Trigger =
   | 'playerBlunder'
   | 'playerWin'
   | 'botWin'
-  | 'botCaputre'
+  | 'botCapture'
   | 'playerCapture';
 
-export type Sounds = { [key in Trigger]: { [sound: string]: number } };
+export type Sounds = { [key in Trigger]?: { [sound: string]: number } };
 
 export type Operators = { [key: string]: Operator };
 

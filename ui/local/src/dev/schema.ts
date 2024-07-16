@@ -149,14 +149,16 @@ export let schema: Schema = {
       required: true,
     },
   },
-  /*bot_sounds: {
+  bot_sounds: {
     label: 'sounds',
     class: ['sounds'],
     type: 'sounds',
     choices: [],
-    value: [],
+    value: {},
     required: true,
-  },*/
+    min: 0,
+    max: 1,
+  },
 };
 
 deepFreeze(schema);
