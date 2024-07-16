@@ -63,8 +63,11 @@ case class UserRecord(
           outcomes.sizeIs >= streakSize &&
           outcomes.takeRight(streakSize).forall(Outcome.Good !=)
         } || {
-          // bad first 2 games
-          age < 1 && outcomes.sizeIs == 2 && outcomes.forall(Outcome.Good !=)
+          // last 2 games
+          age < 1 &&
+          outcomes.sizeIs < 9 &&
+          outcomes.sizeIs > 1 &&
+          outcomes.reverse.take(2).forall(Outcome.Good !=)
         }
       }
     }
