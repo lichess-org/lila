@@ -45,7 +45,7 @@
       "src/plugins/analyse.study.tour.ts"
     ],
     "sync": {
-      "node_modules/@yaireo/tagify/dist/tagify.min.js": "public/npm/tagify",
+      "node_modules/@yaireo/tagify/dist/tagify.min.js": "public/npm",
       "node_modules/sortablejs/modular/sortable.esm.js": "public/npm"
     }
   }
