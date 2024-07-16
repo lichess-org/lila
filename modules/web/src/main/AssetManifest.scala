@@ -93,7 +93,12 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .as[JsObject]
       .value
       .map { (k, asset) =>
-        val hashedName = (asset \ "hash").as[String]
+        val hash   = (asset \ "hash").as[String]
+        val name   = k.substring(k.lastIndexOf('/') + 1)
+        val extPos = name.indexOf('.')
+        val hashedName =
+          if extPos < 0 then s"${name}.$hash"
+          else s"${name.slice(0, extPos)}.$hash${name.substring(extPos)}"
         (k, s"hashed/$hashedName")
       }
       .toMap

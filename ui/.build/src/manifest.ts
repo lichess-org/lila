@@ -76,12 +76,7 @@ export async function hashedManifest() {
     if (stat.mtimeMs === current.hashed[name]?.mtime) alreadyHashed.set(name, current.hashed[name].hash!);
     else newHashLinks.set(name, stat.mtimeMs);
   }
-
-  await Promise.allSettled(
-    [...alreadyHashed].map(([name, hash]) =>
-      fs.promises.symlink(path.join(env.outDir, name), path.join(env.hashDir, hash)),
-    ),
-  );
+  await Promise.allSettled([...alreadyHashed].map(([name, hash]) => link(name, hash)));
 
   for (const { name, hash } of await Promise.all([...newHashLinks.keys()].map(hashLink))) {
     current.hashed[name] = Object.defineProperty({ hash }, 'mtime', { value: newHashLinks.get(name) });
@@ -159,14 +154,12 @@ async function hashMoveCss(src: string) {
 
 async function hashLink(name: string) {
   const src = path.join(env.outDir, name);
-  const hash =
-    crypto
-      .createHash('sha256')
-      .update(await fs.promises.readFile(src))
-      .digest('base64url')
-      .slice(0, 8) + path.extname(src);
-  const link = path.join(env.hashDir, hash);
-  fs.promises.symlink(path.join('..', name), link).catch(() => {});
+  const hash = crypto
+    .createHash('sha256')
+    .update(await fs.promises.readFile(src))
+    .digest('hex')
+    .slice(0, 8);
+  link(name, hash);
   return { name, hash };
 }
 
@@ -212,4 +205,15 @@ function isEquivalent(a: any, b: any): boolean {
     if (!bKeys.includes(key) || !isEquivalent(a[key], b[key])) return false;
   }
   return true;
+}
+
+function asHashed(path: string, hash: string) {
+  const name = path.slice(path.lastIndexOf('/') + 1);
+  const extPos = name.indexOf('.');
+  return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
+}
+
+function link(name: string, hash: string) {
+  const link = path.join(env.hashDir, asHashed(name, hash));
+  fs.promises.symlink(path.join('..', name), link).catch(() => {});
 }
