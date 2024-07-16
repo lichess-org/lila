@@ -770,7 +770,7 @@
   <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، مرسوم</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>
-  <string name="viewTheSolution">دیدن راهِ حل</string>
+  <string name="viewTheSolution">دیدن راه‌حل</string>
   <string name="followAndChallengeFriends">دنبال کردن و پیشنهاد بازی دادن به دوستان</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">در %s زبان موجود است!</item>
@@ -836,13 +836,13 @@
   <string name="skipThisMove">رد کردن این حرکت</string>
   <string name="next">بعدی</string>
   <string name="xWasPlayed">%s بازی شد</string>
-  <string name="findBetterMoveForWhite">یه حرکت بهتر برای سفید پیدا کنید</string>
-  <string name="findBetterMoveForBlack">یه حرکت بهتر برای سیاه پیدا کنید</string>
+  <string name="findBetterMoveForWhite">حرکت بهتری برای سفید بیابید</string>
+  <string name="findBetterMoveForBlack">حرکت بهتری برای سیاه بیابید</string>
   <string name="resumeLearning">ادامه یادگیری</string>
   <string name="youCanDoBetter">می‌توانید بهتر انجامش دهید</string>
   <string name="tryAnotherMoveForWhite">برای سفید،حرکت دیگری را امتحان کنید</string>
   <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
-  <string name="solution">راه حل</string>
+  <string name="solution">راه‌حل</string>
   <string name="waitingForAnalysis">در انتظار برای آنالیز</string>
   <string name="noMistakesFoundForWhite">هیچ اشتباهی برای سفید مشاهده نشد</string>
   <string name="noMistakesFoundForBlack">هیچ اشتباهی برای سیاه مشاهده نشد</string>
