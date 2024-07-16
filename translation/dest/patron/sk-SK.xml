@@ -49,8 +49,8 @@ Alebo môžete %s.</string>
   <string name="bankTransfers">Prijímame aj bankové prevody</string>
   <string name="onlyDonationFromAbove">Upozorňujeme, že štatút Patróna získate iba darovaním prostredníctvom stránky Lichess.</string>
   <string name="patronFeatures">Sú niektoré funkcie vyhradené pre patrónov?</string>
-  <string name="noPatronFeatures">Nie, pretože Lichess je úplne zadarmo, navždy a pre všetkých. To je prísľub.
-Patróni však majú vychvaľovacie práva so skvelou novou ikonou profilu.</string>
+  <string name="noPatronFeatures">Nie, pretože Lichess je úplne zadarmo, navždy a pre každého. To Vám sľubujeme.
+Patróni však získajú právo chváliť sa novými parádnymi patrónskymi krídlami, ktoré sa zobrazia vo Vašom profile.</string>
   <string name="featuresComparison">Pozrite si podrobné porovnanie funkcií</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron na jeden mesiac</item>
