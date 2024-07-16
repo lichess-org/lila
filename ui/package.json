@@ -11,7 +11,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "jsdom": "^24.1.0",
-    "vitest": "^1.6.0"
+    "vitest": "^2.0.3"
   },
   "scripts": {
     "test": "vitest run",
