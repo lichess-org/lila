@@ -171,6 +171,7 @@
   <string name="latestForumPosts">Bài đăng diễn đàn mới nhất</string>
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
+  <string name="otherPlayers">các kỳ thủ khác</string>
   <string name="discussions">Trò chuyện</string>
   <string name="today">Hôm nay</string>
   <string name="yesterday">Hôm qua</string>
@@ -504,6 +505,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="descPrivateHelp">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
   <string name="no">Không</string>
   <string name="yes">Có</string>
+  <string name="website">Trang mạng</string>
+  <string name="mobile">Điện thoại di động</string>
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
