@@ -17,6 +17,7 @@
   <string name="personalOpeningExplorerX">%1$s (virker også på %2$s)</string>
   <string name="personalOpeningExplorer">Personlig åbningsdatabase</string>
   <string name="globalOpeningExplorerInNbGames">Global åbningsdatabase (%s partier!)</string>
+  <string name="endgameTablebase">7-briks slutspilsbog</string>
   <string name="downloadOrUploadAnyGameAsPgn">Download/upload ethvert parti som PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, forum, teams, TV, beskeder, venner, udfordringer</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Lyst / mørkt tema, tilpassede brætter, brikker og baggrunde</string>
