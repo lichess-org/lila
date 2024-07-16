@@ -19,7 +19,6 @@
   <string name="globalOpeningExplorerInNbGames">Global opening explorer (%s games!)</string>
   <string name="endgameTablebase">7-piece endgame tablebase</string>
   <string name="downloadOrUploadAnyGameAsPgn">Download/Upload any game as PGN</string>
-  <string name="xThroughLichessBillionGames">%s through Lichess 4 billion games</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, forum, teams, TV, messaging, friends, challenges</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Light/Dark theme, custom boards, pieces and background</string>
   <string name="allFeaturesToCome">All features to come, forever!</string>

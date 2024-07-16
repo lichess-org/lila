@@ -108,14 +108,6 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
               tr(check)(
                 trans.features.downloadOrUploadAnyGameAsPgn()
               ),
-              tr(unlimited)(
-                trans.features.xThroughLichessBillionGames(
-                  a(href := routes.Search.index(1))(trans.search.advancedSearch())
-                )
-              ),
-              tr(unlimited)(
-                a(href := routes.Video.index)(trans.site.videoLibrary())
-              ),
               tr(check)(
                 trans.features.tvForumBlogTeamsMessagingFriendsChallenges()
               ),
