@@ -171,8 +171,6 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
           p(cls := "explanation")(
             strong(trans.features.everybodyGetsAllFeaturesForFree()),
             br,
-            trans.site.builtForTheLoveOfChessNotMoney(),
-            br,
             trans.features.weBelieveEveryChessPlayerDeservesTheBest(),
             br,
             br,
