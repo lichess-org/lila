@@ -16,10 +16,7 @@
   <string name="tacticalPuzzlesFromUserGames">Tactical puzzles from user games</string>
   <string name="personalOpeningExplorerX">%1$s (also works on %2$s)</string>
   <string name="personalOpeningExplorer">Personal opening explorer</string>
-  <plurals name="globalOpeningExplorerInNbGames">
-    <item quantity="one">Global opening explorer (%s game!)</item>
-    <item quantity="other">Global opening explorer (%s games!)</item>
-  </plurals>
+  <string name="globalOpeningExplorerInNbGames">Global opening explorer (%s games!)</string>
   <string name="endgameTablebase">7-piece endgame tablebase</string>
   <string name="downloadOrUploadAnyGameAsPgn">Download/Upload any game as PGN</string>
   <string name="xThroughLichessBillionGames">%s through Lichess 4 billion games</string>
