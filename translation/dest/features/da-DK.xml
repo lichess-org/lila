@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">Nul reklame, ingen sporing</string>
+  <string name="correspondenceWithConditionalPremoves">Korrespondance-skak med betingede forhåndstræk</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Standardskak og %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Dyb %s serveranalyse</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">%s parti pr. dag</item>
+    <item quantity="other">%s partier pr. dag</item>
+  </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Bræt-editor og analysebræt med %s</string>
+  <string name="cloudEngineAnalysis">Analyse med cloud-motor</string>
+  <string name="studies">Studier (Fælles og sammenhængende analyse)</string>
+  <string name="chessInsights">Skakindsigt (detaljeret analyse af dit spil)</string>
+  <string name="allChessBasicsLessons">Alle grundlæggende skaklektioner</string>
+  <string name="tacticalPuzzlesFromUserGames">Taktiske opgaver fra brugerpartier</string>
+  <string name="personalOpeningExplorerX">%1$s (virker også på %2$s)</string>
+  <string name="personalOpeningExplorer">Personlig åbningsdatabase</string>
+  <string name="globalOpeningExplorerInNbGames">Global åbningsdatabase (%s partier!)</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Download/upload ethvert parti som PGN</string>
+</resources>
