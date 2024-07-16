@@ -198,6 +198,7 @@
   <string name="latestForumPosts">פרסומים אחרונים בפורום</string>
   <string name="players">שחקנים</string>
   <string name="friends">חברים</string>
+  <string name="otherPlayers">שחקנים אחרים</string>
   <string name="discussions">דיונים</string>
   <string name="today">היום</string>
   <string name="yesterday">אתמול</string>
@@ -605,6 +606,8 @@
   <string name="descPrivateHelp">טקסט שרק חברי הקבוצה יראו. אם נכתב, יחליף את התיאור הפומבי עבור חברי הקבוצה.</string>
   <string name="no">לא</string>
   <string name="yes">כן</string>
+  <string name="website">אתר האינטרנט</string>
+  <string name="mobile">האפליקציה</string>
   <string name="help">עזרה:</string>
   <string name="createANewTopic">צרו נושא חדש</string>
   <string name="topics">נושאים</string>
