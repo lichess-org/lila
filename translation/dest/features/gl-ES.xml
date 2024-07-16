@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">Sen anuncios nin rastrexadores</string>
+  <string name="correspondenceWithConditionalPremoves">Xadrez postal con premovementos condicionais</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Xadrez estándar e %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Análise profunda no servidor de %s</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">%s partida ó día</item>
+    <item quantity="other">%s partidas ó día</item>
+  </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor de taboleiro e taboleiro de análise con %s</string>
+  <string name="cloudEngineAnalysis">Motor de análise dende a nube</string>
+  <string name="studies">Estudos (compartidos e análise persistente)</string>
+  <string name="chessInsights">Estatísticas (análise detallado do teu xogo)</string>
+  <string name="allChessBasicsLessons">Todas as leccións básicas de xadrez</string>
+</resources>
