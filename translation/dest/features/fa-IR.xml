@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">بدون تبلیغ، بدون ردگیری</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">شطرنج استاندارد و %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">عمق تحلیل کارساز %s</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">%s بازی در روز</item>
+    <item quantity="other">%s بازی در روز</item>
+  </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">مهره‌چینی و تحلیل بازی با %s</string>
+  <string name="cloudEngineAnalysis">تحلیل رایانه ابری</string>
+</resources>
