@@ -162,12 +162,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       coll.update
         .one(
           $id(id) ++ F.changedCase.$exists(false),
-          $set(F.username -> name, F.changedCase -> true)
+          $set(F.username -> name.value, F.changedCase -> true)
         )
-        .flatMap { result =>
+        .flatMap: result =>
           if result.n == 0 then fufail(s"You have already changed your username")
           else funit
-        }
     else fufail(s"Proposed username $name does not match old username $id")
 
   def setTitle(id: UserId, title: PlayerTitle): Funit =
@@ -512,7 +511,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     val now             = nowInstant
     $doc(
       F.id                    -> name.id,
-      F.username              -> name,
+      F.username              -> name.value,
       F.email                 -> normalizedEmail,
       F.mustConfirmEmail      -> mustConfirmEmail.option(now),
       F.bpass                 -> passwordHash,
