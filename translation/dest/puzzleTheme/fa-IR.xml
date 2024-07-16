@@ -53,10 +53,10 @@
   <string name="hangingPieceDescription">تاکتیکی که در آن مهره های حریف برای گرفتن، بدون دفاع یا با دفاع ناکافی است.</string>
   <string name="hookMate">مات قُلاب</string>
   <string name="hookMateDescription">مات با یک رخ، اسب و یک پیاده در برابر یک پیاده حریف برای محدود کردن راه های فرار شاه دشمن.</string>
-  <string name="interference">اَندَرزَنِش</string>
+  <string name="interference">میان‌زَنِش</string>
   <string name="interferenceDescription">حرکت یک مهره به میان دو مهره حریف برای بی‌دفاع کردن یک یا هر دو مهره حریف، برای نمونه گذاشتن اسبی در خانه دفاع‌شده میان دو رخ.</string>
-  <string name="intermezzo">اَندرمیانی</string>
-  <string name="intermezzoDescription">به جای انجام حرکت موردانتظار، نخست حرکت دیگری را روید که تهدیدی فوریست و حریف باید به آن پاسخ دهد. همچنین به آن «قطار میانی - Zwischenzug» یا «در میانه» می‌گویند.</string>
+  <string name="intermezzo">میان‌آیند</string>
+  <string name="intermezzoDescription">به جای انجام حرکت موردانتظار، نخست حرکت دیگری را روید که تهدیدی فوری‌ست و حریف باید به آن پاسخ دهد. همچنین به آن «قطار میانی - Zwischenzug» یا «در میانه» می‌گویند.</string>
   <string name="knightEndgame">آخربازی اسب</string>
   <string name="knightEndgameDescription">آخربازی، تنها با اسب‌ها و پیاده‌ها.</string>
   <string name="long">معمای طولانی</string>
