@@ -52,7 +52,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 trans.features.deepXServerAnalysis(lila.ui.bits.engineFullName)
               ),
               tr(unlimited)(
-                trans.features.boardEditorAndAnalysisBoardWithEngine("Stockfish 16, Fairy-Stockfish 14")
+                trans.features.boardEditorAndAnalysisBoardWithEngine("Stockfish 16+ NNUE")
               ),
               tr(unlimited)(
                 a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
@@ -89,7 +89,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
               ),
               tr(check)(
                 a(href := s"${routes.UserAnalysis.index}#explorer")(
-                  trans.features.globalOpeningExplorerInNbGames("4300000")
+                  trans.features.globalOpeningExplorerInNbGames(6_000_000_000L.localize)
                 )
               ),
               tr(check)(
