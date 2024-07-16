@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">零广告，无跟踪器</string>
+  <plurals name="gamesPerDay">
+    <item quantity="other">每天 %s 局棋</item>
+  </plurals>
+  <string name="cloudEngineAnalysis">云引擎分析</string>
+  <string name="personalOpeningExplorer">个人的开局浏览器</string>
+  <string name="globalOpeningExplorerInNbGames">全球的开局浏览器 (%s 局棋！)</string>
+  <string name="endgameTablebase">7子残局库</string>
+  <string name="downloadOrUploadAnyGameAsPgn">以 PGN 格式下载/上传任何棋局</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">亮/暗主题，自定义棋盘、棋子和背景</string>
+  <string name="supportLichess">支持 Lichess</string>
+</resources>
