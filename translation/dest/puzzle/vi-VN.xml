@@ -16,8 +16,8 @@
   <string name="upVote">Thích câu đố</string>
   <string name="downVote">Không thích câu đố</string>
   <string name="yourPuzzleRatingWillNotChange">Hệ số giải câu đố của bạn sẽ không thay đổi. Lưu ý rằng giải câu đố không phải một cuộc thi. Hệ số của bạn nhằm giúp chọn những câu đố phù hợp nhất với trình độ của bạn.</string>
-  <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng.</string>
-  <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen.</string>
+  <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho bên trắng.</string>
+  <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho bên đen.</string>
   <string name="toGetPersonalizedPuzzles">Để có được các thế cờ dành riêng cho bạn:</string>
   <string name="puzzleId">Câu đố %s</string>
   <string name="puzzleOfTheDay">Câu đố của ngày</string>
