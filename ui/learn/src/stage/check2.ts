@@ -1,5 +1,6 @@
 import { checkIn, noCheckIn } from '../assert';
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/crossed-swords.svg';
 
@@ -9,7 +10,7 @@ const common = () => ({
   success: checkIn(2),
 });
 
-export default {
+const stage: StageNoID = {
   key: 'check2',
   title: 'checkInTwo',
   subtitle: 'twoMovesToGiveCheck',
@@ -49,3 +50,4 @@ export default {
   ].map((l, i) => toLevel({ ...common(), ...l }, i)),
   complete: 'checkInTwoComplete',
 };
+export default stage;

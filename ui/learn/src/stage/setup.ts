@@ -1,9 +1,10 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 import { and, pieceOn } from '../assert';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/rally-the-troops.svg';
 
-export default {
+const stage: StageNoID = {
   key: 'setup',
   title: 'boardSetup',
   subtitle: 'howTheGameStarts',
@@ -63,3 +64,4 @@ export default {
   complete: 'boardSetupComplete',
   cssClass: 'no-go-home',
 };
+export default stage;

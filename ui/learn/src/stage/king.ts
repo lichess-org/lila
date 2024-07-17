@@ -1,7 +1,7 @@
-import { LevelPartial } from './list';
+import { LevelPartial, StageNoID } from './list';
 import { arrow, assetUrl, pieceImg, toLevel } from '../util';
 
-export default {
+const stage: StageNoID = {
   key: 'king',
   title: 'theKing',
   subtitle: 'theMostImportantPiece',
@@ -34,3 +34,4 @@ export default {
   }),
   complete: 'kingComplete',
 };
+export default stage;

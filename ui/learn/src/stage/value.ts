@@ -1,5 +1,6 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 import { scenarioComplete, scenarioFailed } from '../assert';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/sprint.svg';
 
@@ -10,7 +11,7 @@ const common = {
   showPieceValues: true,
 };
 
-export default {
+const stage: StageNoID = {
   key: 'value',
   title: 'pieceValue',
   subtitle: 'evaluatePieceStrength',
@@ -64,3 +65,4 @@ export default {
   ].map((l, i) => toLevel({ ...common, ...l }, i)),
   complete: 'pieceValueComplete',
 };
+export default stage;

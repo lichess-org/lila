@@ -1,10 +1,10 @@
 import { extinct } from '../assert';
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
-import { LevelPartial } from './list';
+import { LevelPartial, StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/battle-gear.svg';
 
-export default {
+const stage: StageNoID = {
   key: 'combat',
   title: 'combat',
   subtitle: 'captureAndDefendPieces',
@@ -44,10 +44,7 @@ export default {
       nbMoves: 8,
       captures: 2,
     },
-  ].map((l: LevelPartial, i) => {
-    l.pointsForCapture = true;
-    l.success = extinct('black');
-    return toLevel(l, i);
-  }),
+  ].map((l: LevelPartial, i) => toLevel({ ...l, pointsForCapture: true, success: extinct('black') }, i)),
   complete: 'combatComplete',
 };
+export default stage;

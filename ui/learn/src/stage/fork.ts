@@ -1,17 +1,18 @@
 import { checkIn, noCheckIn } from '../assert';
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/crossed-swords.svg';
 
 const twoMoves = 'Threaten the opponent king<br>in two moves!';
 
-const common = () => ({
+const common = {
   nbMoves: 2,
   failure: noCheckIn(2),
   success: checkIn(2),
-});
+};
 
-export default {
+const stage: StageNoID = {
   key: 'check2',
   title: 'Check in two',
   subtitle: 'Two moves to give a check',
@@ -40,6 +41,7 @@ export default {
       goal: twoMoves,
       fen: '8/8/8/2k5/q7/4N3/3B4/8 w - -',
     },
-  ].map((l, i) => toLevel({ ...common(), ...l }, i)),
+  ].map((l, i) => toLevel({ ...common, ...l }, i)),
   complete: 'Congratulations! You checked your opponent, forcing them to defend their king!',
 };
+export default stage;
