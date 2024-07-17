@@ -49,8 +49,7 @@ final class ReportApi(
     Reason(data.reason).exists(Reason.autoBlock)
 
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
-    val ignoreReport = c.reporter.user.marks.reportban && !c.reason.isComm
-    (!ignoreReport && !isAlreadySlain(c)).so {
+    (!c.reporter.user.marks.reportban && !isAlreadySlain(c)).so {
       scorer(c).map(_.withScore(score)).flatMap { case scored @ Candidate.Scored(candidate, _) =>
         for
           prev <- coll.one[Report]:
