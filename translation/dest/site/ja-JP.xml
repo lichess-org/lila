@@ -171,6 +171,7 @@
   <string name="latestForumPosts">最新のフォーラム記事</string>
   <string name="players">プレイヤー</string>
   <string name="friends">友達</string>
+  <string name="otherPlayers">その他のプレイヤー</string>
   <string name="discussions">トピック</string>
   <string name="today">今日</string>
   <string name="yesterday">昨日</string>
@@ -504,6 +505,8 @@
   <string name="descPrivateHelp">チームメンバーだけに見える文章です。設定すると、チームメンバーには一般向けの説明文に代えて表示されます。</string>
   <string name="no">いいえ</string>
   <string name="yes">はい</string>
+  <string name="website">ウェブサイト</string>
+  <string name="mobile">モバイル</string>
   <string name="help">ヘルプ：</string>
   <string name="createANewTopic">新しいトピックを作成</string>
   <string name="topics">トピック</string>
