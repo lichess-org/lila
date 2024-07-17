@@ -1,4 +1,4 @@
-import type { Square as Key } from 'chess.js';
+import type { SquareName as Key } from 'chessops';
 import { Level, LevelPartial } from './stage/list';
 import { h } from 'snabbdom';
 import * as cg from 'chessground/types';
@@ -31,45 +31,30 @@ export const roleToSan: {
 export type PromotionRole = 'knight' | 'bishop' | 'rook' | 'queen';
 export type PromotionChar = 'n' | 'b' | 'r' | 'q';
 
-export function isRole(str: PromotionChar | PromotionRole): str is PromotionRole {
-  return str.length > 1;
-}
+export const isRole = (str: PromotionChar | PromotionRole): str is PromotionRole => str.length > 1;
 
-export function arrow(vector: Uci, brush?: cg.BrushColor): DrawShape {
-  return {
-    brush: brush || 'paleGreen',
-    orig: vector.slice(0, 2) as Key,
-    dest: vector.slice(2, 4) as Key,
-  };
-}
+export const arrow = (vector: Uci, brush?: cg.BrushColor): DrawShape => ({
+  brush: brush || 'paleGreen',
+  orig: vector.slice(0, 2) as Key,
+  dest: vector.slice(2, 4) as Key,
+});
 
-export function circle(key: Key, brush?: cg.BrushColor): DrawShape {
-  return {
-    brush: brush || 'green',
-    orig: key,
-  };
-}
+export const circle = (key: Key, brush?: cg.BrushColor): DrawShape => ({
+  brush: brush || 'green',
+  orig: key,
+});
 
-export function readKeys(keys: string | Key[]) {
-  return typeof keys === 'string' ? (keys.split(' ') as Key[]) : keys;
-}
+export const readKeys = (keys: string | Key[]): Key[] =>
+  typeof keys === 'string' ? (keys.split(' ') as Key[]) : keys;
 
-export function setFenTurn(fen: string, turn: 'b' | 'w') {
-  return fen.replace(/ (w|b) /, ' ' + turn + ' ');
-}
+export const setFenTurn = (fen: string, turn: Color) => fen.replace(/ (w|b) /, ' ' + turn + ' ');
 
-export function pieceImg(role: string) {
-  return h('div.no-square', h('piece.white.' + role));
-}
+export const pieceImg = (role: cg.Role) => h('div.no-square', h('piece.white.' + role));
 
-export function roundSvg(url: string) {
-  return h('div.round-svg', h('img', { attrs: { src: url } }));
-}
+export const roundSvg = (url: string) => h('div.round-svg', h('img', { attrs: { src: url } }));
 
-export function withLinebreaks(text: string) {
-  return text.split(/(\n)/g).map(part => (part === '\n' ? h('br') : part));
-}
+export const withLinebreaks = (text: string) =>
+  text.split(/(\n)/g).map(part => (part === '\n' ? h('br') : part));
 
-export function decomposeUci(uci: string) {
-  return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)] as [Key, Key, PromotionChar | ''];
-}
+export const decomposeUci = (uci: string) =>
+  [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)] as [Key, Key, PromotionChar | ''];

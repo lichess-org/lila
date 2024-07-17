@@ -418,6 +418,9 @@ importers:
       chess.js:
         specifier: github:ornicar/chess.js#learn
         version: https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249
+      chessops:
+        specifier: ^0.14.1
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common

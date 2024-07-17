@@ -6,7 +6,7 @@ import * as timeouts from './timeouts';
 import * as sound from './sound';
 import makeChess, { ChessCtrl } from './chess';
 import makeScenario, { Scenario } from './scenario';
-import type { Square as Key } from 'chess.js';
+import type { SquareName as Key } from 'chessops';
 import { CgMove } from './chessground';
 import * as cg from 'chessground/types';
 import { PromotionCtrl } from './promotionCtrl';
@@ -46,7 +46,7 @@ export class LevelCtrl {
   };
 
   isAppleLevel: Prop<boolean>;
-  items: Items<'apple'>;
+  items: Items;
   chess: ChessCtrl;
   scenario: Scenario;
   promotionCtrl: PromotionCtrl;
@@ -122,8 +122,7 @@ export class LevelCtrl {
       if (failed) sound.failure();
       return failed;
     };
-    const detectSuccess = () =>
-      blueprint.success ? blueprint.success(assertData()) : !items.hasItem('apple');
+    const detectSuccess = () => (blueprint.success ? blueprint.success(assertData()) : items.isEmpty());
     const detectCapture = () => {
       if (!blueprint.detectCapture) return false;
       const fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
@@ -151,14 +150,13 @@ export class LevelCtrl {
       let took = false,
         inScenario,
         captured = false;
-      items.withItem(move.to, () => {
+      items.doIfKeyExists(move.to, () => {
         vm.score += scoring.apple;
         items.remove(move.to);
         took = true;
       });
       if (!took && move.captured && blueprint.pointsForCapture) {
-        if (blueprint.showPieceValues) vm.score += scoring.pieceValue(move.captured);
-        else vm.score += scoring.capture;
+        vm.score += blueprint.showPieceValues ? scoring.pieceValue(move.captured) : scoring.capture;
         took = true;
       }
       this.setCheck();
@@ -185,7 +183,7 @@ export class LevelCtrl {
       } else {
         ground.selectSquare(dest);
         if (!inScenario) {
-          chess.color(blueprint.color);
+          chess.setColor(blueprint.color);
           this.setColorDests(blueprint.color, this.makeChessDests());
         }
       }

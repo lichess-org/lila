@@ -1,119 +1,90 @@
 import * as cg from 'chessground/types';
-import { Chess, Piece, Square as Key, Move, ChessInstance, PieceType } from 'chess.js';
+import { Square as Key, Move, ChessInstance, PieceType } from 'chess.js';
+import { parseFen, makeFen } from 'chessops/fen';
+import { parseSquare, makeSquare, Piece, Setup, SquareSet, Chess } from 'chessops';
+import { Antichess, Context } from 'chessops/variant';
+import { chessgroundDests } from 'chessops/compat';
 import { CgMove } from './chessground';
 import { isRole, PromotionChar, PromotionRole, roleToSan, setFenTurn } from './util';
 
 export interface ChessCtrl {
   dests(opts?: { illegal?: boolean }): cg.Dests;
-  color(c: Color): void;
-  color(): Color;
+  setColor(c: Color): void;
+  getColor(): Color;
   fen(): string;
-  move(orig: Key, dest: Key, prom?: PromotionRole | PromotionChar | ''): Move | null;
+  move(orig: Key, dest: Key, prom?: PromotionRole): void;
   occupation(): Partial<Record<Key, Piece>>;
   kingKey(color: Color): Key | undefined;
-  findCapture(): CgMove;
   findUnprotectedCapture(): CgMove | undefined;
   checks(): CgMove[] | null;
   playRandomMove(): CgMove | undefined;
-  get(square: Key): Piece | null;
-  undo(): Move | null;
-  instance: ChessInstance;
-}
-
-declare module 'chess.js' {
-  interface ChessInstance {
-    moves(opts: { square: Key; verbose: boolean; legal: boolean }): Move[];
-  }
+  get(square: Key): Piece | undefined;
+  instance: Chess | Antichess;
 }
 
 export default function (fen: string, appleKeys: Key[]): ChessCtrl {
-  const chess = new Chess(fen);
+  let setup = parseFen(fen).unwrap();
+  const chess = Chess.fromSetup(setup);
+  // Use antichess when there are less than 2 kings
+  const pos = chess.isOk ? chess.unwrap() : Antichess.fromSetup(setup).unwrap();
 
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
-    const color = chess.turn() === 'w' ? 'b' : 'w';
+    const color = pos.turn === 'white' ? 'black' : 'white';
     appleKeys.forEach(key => {
-      chess.put({ type: 'p', color: color }, key);
+      pos.board.set(parseSquare(key), { color: color, role: 'pawn' });
     });
   }
 
-  const getColor = () => (chess.turn() == 'w' ? 'white' : 'black');
+  const context = (): Context => ({
+    blockers: setup.board.occupied,
+    checkers: SquareSet.empty(), //Revisit
+    king: undefined,
+    mustCapture: false,
+    variantEnd: false,
+  });
+  if (pos instanceof Antichess) pos.ctx = context;
 
-  const setColor = (c: Color) => {
-    const turn = c === 'white' ? 'w' : 'b';
-    let newFen = setFenTurn(chess.fen(), turn);
-    chess.load(newFen);
-    if (getColor() !== c) {
-      // the en passant square prevents setting color
-      newFen = newFen.replace(/ (w|b) ([kKqQ-]{1,4}) \w\d /, ' ' + turn + ' $2 - ');
-      chess.load(newFen);
-    }
-  };
+  const findCaptures = () => pos.allDests();
 
-  const findCaptures = () =>
-    chess
-      .moves({ verbose: true })
-      .filter(move => move.captured)
-      .map(move => ({ orig: move.from, dest: move.to }));
-
-  function color(): Color;
-  function color(c: Color): void;
-  function color(c?: Color) {
-    return c ? setColor(c) : getColor();
-  }
+  const moves = (pos: Chess | Antichess) => {};
 
   return {
-    dests: (opts?: { illegal?: boolean }) => {
-      const dests: cg.Dests = new Map();
-      chess.SQUARES.forEach(s => {
-        const ms = chess.moves({
-          square: s,
-          verbose: true,
-          legal: !opts?.illegal,
-        });
-        if (ms.length)
-          dests.set(
-            s,
-            ms.map(m => m.to),
-          );
-      });
-      return dests;
+    dests: () => chessgroundDests(pos),
+    getColor: () => pos.turn,
+    setColor: (c: Color) => {
+      pos.turn = c;
     },
-    color,
-    fen: chess.fen,
-    move: (orig: Key, dest: Key, prom?: PromotionChar | PromotionRole | '') =>
-      chess.move({
-        from: orig,
-        to: dest,
-        promotion: prom ? (isRole(prom) ? roleToSan[prom] : prom) : undefined,
+    fen: () => makeFen(setup),
+    move: (orig: Key, dest: Key, prom?: Piece) =>
+      pos.play({
+        from: parseSquare(orig),
+        to: parseSquare(dest),
+        promotion: prom?.role,
       }),
     occupation: () => {
       const map: Partial<Record<Key, Piece>> = {};
-      chess.SQUARES.forEach(s => {
-        const p = chess.get(s);
-        if (p) map[s] = p;
+      Array.from(pos.board.occupied).map(s => {
+        const p = pos.board.get(s);
+        if (p) map[makeSquare(s)] = p;
       });
       return map;
     },
     kingKey: (color: Color) => {
-      for (const i in chess.SQUARES) {
-        const p = chess.get(chess.SQUARES[i]);
-        if (p && p.type === 'k' && p.color === (color === 'white' ? 'w' : 'b')) return chess.SQUARES[i];
-      }
-      return undefined;
+      const kingSq = pos.board.kingOf(color);
+      return kingSq ? makeSquare(kingSq) : undefined;
     },
-    findCapture: () => findCaptures()[0],
     findUnprotectedCapture: () =>
       findCaptures().find(capture => {
-        const clone = new Chess(chess.fen());
-        clone.move({ from: capture.orig, to: capture.dest });
+        const clone = pos.clone();
+        clone.play({ from: capture.orig, to: capture.dest });
         return !clone.moves({ verbose: true }).some(m => m.captured && m.to === capture.dest);
       }),
     checks: () => {
-      if (!chess.in_check()) return null;
+      if (!setup.in_check()) return null;
       const color = getColor();
       setColor(color === 'white' ? 'black' : 'white');
-      const checks = chess
+      const checks = setup
         .moves({ verbose: true })
         .filter(move => (move.captured as PieceType) === 'k')
         .map(move => ({ orig: move.from, dest: move.to }));
@@ -122,16 +93,15 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
       return checks;
     },
     playRandomMove: () => {
-      const moves = chess.moves({ verbose: true });
+      const moves = pos.moves({ verbose: true });
       if (moves.length) {
         const move = moves[Math.floor(Math.random() * moves.length)];
-        chess.move(move);
+        setup.move(move);
         return { orig: move.from, dest: move.to };
       }
       return undefined;
     },
-    get: chess.get,
-    undo: chess.undo,
-    instance: chess,
+    get: (key: Key) => setup.board.get(parseSquare(key)),
+    instance: pos,
   };
 }
