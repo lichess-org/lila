@@ -9,6 +9,14 @@
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Chỉnh sửa bàn cờ và bàn cờ phân tích với %s</string>
   <string name="cloudEngineAnalysis">Động cơ phân tích đám mây</string>
+  <string name="studies">Nghiên cứu (phân tích chung và liên tục)</string>
+  <string name="chessInsights">Phân tích sâu cờ vua (phân tích chi tiết về cách chơi của bạn)</string>
+  <string name="allChessBasicsLessons">Tất cả bài học cơ bản về cờ vua</string>
+  <string name="tacticalPuzzlesFromUserGames">Các câu đố chiến thuật từ các ván đấu của người dùng</string>
+  <string name="personalOpeningExplorerX">%1$s (cũng hoạt động trên %2$s)</string>
+  <string name="personalOpeningExplorer">Khám phá khai cuộc cá nhân</string>
+  <string name="globalOpeningExplorerInNbGames">Khám phá khai cuộc toàn cầu (%s ván cờ!)</string>
+  <string name="endgameTablebase">Sách tàn cuộc 7 quân tối đa</string>
   <string name="downloadOrUploadAnyGameAsPgn">Tải về/Tải lên bất kỳ ván cờ nào dưới dạng PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, diễn đàn, đội, TV, nhắn tin, bạn bè, thách đấu</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Chủ đề sáng/tối, bàn cờ, quân cờ và nền tùy chỉnh</string>
