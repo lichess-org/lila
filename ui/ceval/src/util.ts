@@ -19,7 +19,9 @@ export function sanIrreversible(variant: VariantKey, san: string): boolean {
   return variant === 'threeCheck' && san.includes('+');
 }
 
-export const fewerCores = memoize<boolean>(() => isMobile() || navigator.userAgent.includes('CrOS'));
+export const fewerCores: () => boolean = memoize<boolean>(
+  () => isMobile() || navigator.userAgent.includes('CrOS'),
+);
 
 export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => {
   let shrink = 4; // 32767 -> 24576 -> 16384 -> 12288 -> 8192 -> 6144 -> etc
@@ -34,7 +36,7 @@ export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => 
   }
 };
 
-export function showEngineError(engine: string, error: string) {
+export function showEngineError(engine: string, error: string): void {
   console.log(error);
   domDialog({
     class: 'engine-error',
