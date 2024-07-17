@@ -174,7 +174,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         Granter.opt(_.ReportBan).option {
           postForm(
             action := routes.Mod.reportban(u.username, !u.marks.reportban),
-            title  := "Enable/disable the boost/cheat report feature for this user.",
+            title  := "Enable/disable the report feature for this user.",
             cls    := "xhr"
           )(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban))("Reportban")
