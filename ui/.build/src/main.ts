@@ -241,9 +241,9 @@ class Env {
       if (this.startTime && !err)
         this.log(`Done in ${colors.green((Date.now() - this.startTime) / 1000 + '')}s`);
       this.startTime = undefined; // it's pointless to time subsequent builds, they are too fast
-      if (!env.watch) {
-        process.exitCode = err || 0;
-      }
+    }
+    if (!env.watch && err) {
+      process.exitCode = err;
     }
   }
 }
