@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">광고 및 추적 없음</string>
+  <string name="correspondenceWithConditionalPremoves">조건적 미리두기를 사용할 수 있는 긴 대국</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">기본 체스와 %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">깊은 %s 서버 분석</string>
+</resources>
