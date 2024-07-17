@@ -1,7 +1,7 @@
 import type { RoundData } from 'round';
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
-import type { GameState } from './gameCtrl';
+import type { GameState } from './game';
 import type { Chess } from 'chessops';
 
 export type { CardData };
@@ -20,10 +20,14 @@ export interface Operator {
 
 export type Trigger =
   | 'greeting'
+  | 'move'
   | 'takeback'
   | 'playerBlunder'
+  | 'botBlunder'
   | 'playerWin'
   | 'botWin'
+  | 'playerCheck'
+  | 'botCheck'
   | 'botCapture'
   | 'playerCapture';
 

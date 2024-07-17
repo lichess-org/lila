@@ -73,7 +73,7 @@ export class DevCtrl implements Automator {
       console.error(
         `${this.white?.name ?? 'Player'} (white) vs ${
           this.black?.name ?? 'Player'
-        } (black) - ${outcome} ${reason} - ${this.gameCtrl.fen} ${this.gameCtrl.moves.join(' ')}`,
+        } (black) - ${outcome} ${reason} - ${this.gameCtrl.fen} ${this.gameCtrl.game.moves.join(' ')}`,
         JSON.stringify(this.gameCtrl.chess),
       );
       return false;

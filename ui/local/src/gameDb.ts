@@ -1,5 +1,5 @@
 import { objectStorage, type ObjectStorage } from 'common/objectStorage';
-import type { GameState } from './gameCtrl';
+import type { GameState } from './game';
 
 type GameId = string;
 

@@ -280,7 +280,7 @@ export interface MoveRootCtrl {
   blindfold?: (v?: boolean) => boolean;
   speakClock?: () => void;
   goBerserk?: () => void;
-  reset?: (fen: string) => void;
+  ply?: Ply;
   cg?: CgApi;
 }
 

@@ -239,7 +239,7 @@ export default class RoundController implements MoveRootCtrl {
     onPredrop: this.onPredrop,
   });
 
-  replaying = (): boolean => this.ply !== this.lastPly();
+  replaying = (): boolean => this.ply !== this.lastPly() && !this.opts.local;
 
   userJump = (ply: Ply): void => {
     this.cancelMove();
@@ -252,20 +252,13 @@ export default class RoundController implements MoveRootCtrl {
 
   isPlaying = () => game.isPlayerPlaying(this.data);
 
-  reset = (fen: string) => {
-    this.data.game.fen = fen;
-    this.data.steps = [{ ply: 0, san: '', uci: '', fen }];
-    this.ply = 0;
-    this.redraw();
-  };
-
   jump = (ply: Ply): boolean => {
     ply = Math.max(round.firstPly(this.data), Math.min(this.lastPly(), ply));
     const isForwardStep = ply === this.ply + 1;
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = this.stepAt(ply),
+    const s = this.stepAt(this.ply),
       config: CgConfig = {
         fen: s.fen,
         lastMove: uciToMove(s.uci),
@@ -282,7 +275,7 @@ export default class RoundController implements MoveRootCtrl {
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
     this.pluginUpdate(s.fen);
-    site.pubsub.emit('ply', ply);
+    site.pubsub.emit('ply', this.ply);
     return true;
   };
 

@@ -238,7 +238,6 @@ class Env {
         ctx: ctx,
       },
     );
-
     if (allDone) {
       if (!err) postBuild();
       if (this.startTime && !err)
