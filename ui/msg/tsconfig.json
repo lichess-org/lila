@@ -1,5 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
+  "include": ["src"],
   "compilerOptions": {
     "types": ["lichess", "web"],
     "noEmit": true
