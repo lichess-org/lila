@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="gamesPerDay">
+    <item quantity="other">1 日あたり %s ゲーム</item>
+  </plurals>
+  <string name="allChessBasicsLessons">すべてのチェスの基本レッスン</string>
+  <string name="allFeaturesToCome">永遠に来るすべての機能!</string>
+  <string name="supportLichess">Lichess をサポート</string>
+  <string name="ifYouLoveLichess">Lichessが好きなら、</string>
+</resources>
