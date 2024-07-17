@@ -537,6 +537,8 @@
   <string name="descPrivateHelp">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäseneiden kohdalla julkisen kuvauksen.</string>
   <string name="no">Ei</string>
   <string name="yes">Kyllä</string>
+  <string name="website">Verkkosivusto</string>
+  <string name="mobile">Mobiili</string>
   <string name="help">Apu:</string>
   <string name="createANewTopic">Luo uusi aihe</string>
   <string name="topics">Aiheet</string>
