@@ -144,7 +144,7 @@ final private class Finisher(
     (!isVsSelf && !game.aborted).so:
       users.tupled
         .so: (white, black) =>
-          countFideGWR(game)
+          if !white.user.isBot && !black.user.isBot then countFideGWR(game)
           crosstableApi.add(game).zip(perfsUpdater.save(game, white, black)).dmap(_._2)
         .zip(users.white.so(incNbGames(game)))
         .zip(users.black.so(incNbGames(game)))
