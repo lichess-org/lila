@@ -11,9 +11,9 @@
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Éditeur de position et échiquier d\'analyse avec %s</string>
   <string name="cloudEngineAnalysis">Analyse avec le nuage</string>
   <string name="studies">Études (analyse partagée et persistante)</string>
-  <string name="chessInsights">Analyse détaillée de votre partie</string>
+  <string name="chessInsights">Analyse (examen détaillé de votre partie)</string>
   <string name="allChessBasicsLessons">Notions de base des échecs</string>
-  <string name="tacticalPuzzlesFromUserGames">Problèmes tactiques tirés de parties de joueurs</string>
+  <string name="tacticalPuzzlesFromUserGames">Problèmes tactiques tirés des parties d\'un joueur</string>
   <string name="personalOpeningExplorerX">%1$s (fonctionne également sur %2$s)</string>
   <string name="personalOpeningExplorer">Explorateur d\'ouvertures personnel</string>
   <string name="globalOpeningExplorerInNbGames">Explorateur d\'ouvertures général (%s parties!)</string>
@@ -23,7 +23,7 @@
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Thème clair/sombre, échiquier, pièces et arrière-plan personnalisés</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Partie : UltraBullet, Bullet, Blitz, Rapide, Classique, par correspondance</string>
   <string name="allFeaturesToCome">Toutes les fonctionnalités à venir, et pour toujours!</string>
-  <string name="landscapeSupportOnApp">Appareils iPhone &amp; appareils Android, soutien arrière-plan</string>
+  <string name="landscapeSupportOnApp">Appareils iPhone, appareils et tablettes Android et soutien mode paysage</string>
   <string name="supportLichess">Soutenir Lichess</string>
   <string name="contributeToLichessAndGetIcon">Versez un don à Lichess et obtenez une belle icône Mécène</string>
   <string name="everybodyGetsAllFeaturesForFree">Oui, les deux comptes ont les mêmes fonctionnalités.</string>
