@@ -43,14 +43,6 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
             ),
             a(href := ui.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
           ),
-          (!ctx.is(post.created.by) && post.image.isDefined).option:
-            postForm(
-              cls    := "ublog-post-form__delete",
-              action := routes.Ublog.image(post.id)
-            ):
-              form3.action:
-                submitButton(cls := "button button-red button-empty confirm")(trans.ublog.deleteImage())
-          ,
           inner(f, Right(post), none),
           postForm(
             cls     := "ublog-post-form__delete",
