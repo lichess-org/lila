@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Últimes publicacions al fòrum</string>
   <string name="players">Jugadors</string>
   <string name="friends">Amics</string>
+  <string name="otherPlayers">altres jugadors</string>
   <string name="discussions">Missatges</string>
   <string name="today">Avui</string>
   <string name="yesterday">Ahir</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Text que només veuran els membres de l\'equip. Si conté text, substituïrà la descripció pública pels membres de l\'equip.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
+  <string name="website">Lloc web</string>
+  <string name="mobile">Mòbil</string>
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Crea un nou tema</string>
   <string name="topics">Temes</string>

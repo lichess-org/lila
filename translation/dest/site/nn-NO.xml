@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Siste innlegg i forumet</string>
   <string name="players">Spelarar</string>
   <string name="friends">Vener</string>
+  <string name="otherPlayers">andre spelarar</string>
   <string name="discussions">Diskusjonar</string>
   <string name="today">I dag</string>
   <string name="yesterday">I går</string>
@@ -538,6 +539,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="descPrivateHelp">Tekst som berre lagmedlemar kan sjå. Dersom utfylt vert den ei erstatning av den offentlege omtalen, til bruk for laget sine medlemar.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
+  <string name="website">Nettside</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Hjelp:</string>
   <string name="createANewTopic">Opprett eit nytt emne</string>
   <string name="topics">Emne</string>

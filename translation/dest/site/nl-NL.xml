@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Recente forumberichten</string>
   <string name="players">Spelers</string>
   <string name="friends">Vrienden</string>
+  <string name="otherPlayers">andere spelers</string>
   <string name="discussions">Discussies</string>
   <string name="today">Vandaag</string>
   <string name="yesterday">Gisteren</string>
@@ -536,6 +537,8 @@
   <string name="descPrivateHelp">Tekst die alleen de teamleden zien. Indien ingesteld, vervangt deze de openbare beschrijving voor teamleden.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
+  <string name="website">Website</string>
+  <string name="mobile">Mobiel</string>
   <string name="help">Help:</string>
   <string name="createANewTopic">Maak een nieuw onderwerp</string>
   <string name="topics">Onderwerpen</string>

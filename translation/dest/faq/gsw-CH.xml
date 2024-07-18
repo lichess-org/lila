@@ -78,8 +78,8 @@ Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="threeFoldHasToBeClaimed">Drüfach glichi Schtellig muess vume Schpiller reklamiert werde. Das macht mer, idem mer uf d\'Schaltflächi klickt, wo azeigt wird, oder idem mer Remis vor em letschte Zug abütet, wo so e Schtellig herbifüehrt. I so me Fall wird e berächtigti Reklamation, wäge drüfach glicher Schtellig, sälbscht dänn erfolgrich si, wänn de Gägner es Remisagebot ablehnt. Mer chann im Konto au %1$s, dass drüfach glichi Schtellig automatisch zum Remis wird. Usserdem beändet e foiffach glichi Schtellig mit gliche Zugsmöglichkeite es Schpil immer sofort.</string>
   <string name="configure">konfiguriärä</string>
   <string name="accounts">Konti</string>
-  <string name="titlesAvailableOnLichess">Weli Titäl gits uf Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess anerkännt alli FIDE-Titel, wo am Brätt gwunne worde sind, ebeso %1$s. Das isch e Lischte vu FIDE-Titel:</string>
+  <string name="titlesAvailableOnLichess">Welli Titel gits uf Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess anerchännt alli FIDE-Titel, wo am Brätt g\'unne worde sind, ebeso %1$s. Da e Lischte vu FIDE-Titel:</string>
   <string name="showYourTitle">Wänn du en OTB Titel häsch, chasch du beaträge, dass er i dim Konto azeigt wird, idem du das %1$s usfüllsch, mit ere läserliche Kopie vu dim Pass oder dinere ID plus es Selfie vu dir, uf dem du d\'Beschtätigung vu dim Titel präsentiersch.
 
 So e Titelbeschtätigung ermöglicht dir, bi Lichess a Titel Arena Events mitzschpille.
@@ -99,7 +99,7 @@ Also verlang de Titel nöd.</string>
   <string name="guidelines">Richtliniä</string>
   <string name="canIChangeMyUsername">Chann ich min Benutzername ändere?</string>
   <string name="usernamesCannotBeChanged">Leider nei, Benutzernäme chönd us technische und praktische Gründ nöd g\'änderet werde. Die Benutzernäme erschined a z\'vill Schtelle: Datebanke, Export, Logs und au im Chopf vu andere Lüt. mer chann aber eimal d\'Gross-/Chlischribig ändere.</string>
-  <string name="uniqueTrophies">Einzigartigi Trophä\'ä</string>
+  <string name="uniqueTrophies">Einzigartigi Trophäe</string>
   <string name="ownerUniqueTrophies">Die Trophäe isch einzigartig i de Gschicht vo Lichess, niemert usser em %1$s wird si jemals ha.</string>
   <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Partie vumene %s mit Berserk gschpillt- und gunne hät.</string>
   <string name="aHourlyBulletTournament">es schtündlichs Bullet-Turnier</string>
@@ -136,7 +136,7 @@ Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu 
   <string name="displayPreferences">Azeige-Ischtellige</string>
   <string name="connexionLostCanIGetMyRatingBack">Ich han es Schpiel wäge Lag / Verbindigsunderbruch verlore. Chann ich mini Wertigspünkt zrugg verlange?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chönd mir kei Wertigspünkt zrugg geh, wo wäge Lag oder eme Underbruch verlore worde sind. Unabhängig devo, ob das Problem vu dinere oder vu eusere Site - was sehr sälte passiert - verursacht worde isch. Pass also au uf, wänn Mäldige für en Neuschtart chömmed, will bim Abefahre vum Syschtem werded alli Partie abbroche und mer chann es Schpiel unfair verlüre.</string>
-  <string name="howToThreeDots">Wiä chan ich...</string>
+  <string name="howToThreeDots">Wie chann ich...</string>
   <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktiviere oder deaktiviere?</string>
   <string name="viewSiteInformationPopUp">Site Informations-Popup azeige</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess chan optional Popup-Benachrichtigunge versände, zum Bischpil wänn du am Zug bisch oder wänn du e privati Nachricht übercho häsch.

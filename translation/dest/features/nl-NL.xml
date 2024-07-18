@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="zeroAdsAndNoTracking">Geen advertenties, geen tracking</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Standaard schaken en %s</string>
+  <string name="chessInsights">Schaakinzichten (gedetailleerde analyse van je spellen)</string>
+  <string name="allChessBasicsLessons">Alle schaak basislessen</string>
+  <string name="personalOpeningExplorerX">%1$s (werkt ook op %2$s)</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, forum, teams, TV, berichten, vrienden, uitdagingen</string>
+  <string name="supportLichess">Steun Lichess</string>
+  <string name="allFeaturesAreFreeForEverybody">Alle functies zijn gratis voor iedereen, voor altijd!</string>
+  <string name="ifYouLoveLichess">Als je van Lichess houdt,</string>
+</resources>

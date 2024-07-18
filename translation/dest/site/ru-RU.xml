@@ -198,6 +198,7 @@
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
+  <string name="otherPlayers">другие игроки</string>
   <string name="discussions">Беседы</string>
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
@@ -605,6 +606,8 @@
   <string name="descPrivateHelp">Текст, который будут видеть только члены команды(добавленный текст заменит публичное описание для членов команды).</string>
   <string name="no">Нет</string>
   <string name="yes">Да</string>
+  <string name="website">Сайт</string>
+  <string name="mobile">Мобильный</string>
   <string name="help">Помощь:</string>
   <string name="createANewTopic">Создать новую тему</string>
   <string name="topics">Темы</string>
