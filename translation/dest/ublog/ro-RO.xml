@@ -47,7 +47,6 @@
   <string name="imageAlt">Text alternativ imagine</string>
   <string name="imageCredit">Sursa imagine</string>
   <string name="deleteBlog">Șterge definitiv această postare pe blog</string>
-  <string name="deleteImage">Șterge imaginea</string>
   <string name="safeToUseImages">Este sigur să folosiți imagini de pe următoarele site-uri: </string>
   <string name="selectPostTopics">Selectează subiectele de discuție despre care este vorba</string>
   <string name="useImagesYouMadeYourself">Poți folosi, de asemenea, imagini pe care le-ai făcut singur, fotografii pe care le-ai făcut, capturi de ecran din Lichess... orice nu este protejat de drepturi de autor ale altcuiva.</string>
@@ -55,5 +54,5 @@
   <string name="inappropriateContentAccountClosed">Orice lucru nepotrivit ar putea duce la închiderea contului tău.</string>
   <string name="blogTips">Sfaturile noastre simple pentru a scrie cele mai bune postări pe blog</string>
   <string name="discussThisBlogPostInTheForum">Discută această postare pe forum</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Ești blocat de autorul blogului.</string>
+  <string name="youBlockedByBlogAuthor">Ești blocat de autorul blogului.</string>
 </resources>
