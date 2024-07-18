@@ -36,7 +36,6 @@
   <string name="imageAlt">نوسینی جێگرەوە بۆ وێنە</string>
   <string name="imageCredit">دروستکەری وێنە</string>
   <string name="deleteBlog">سڕینەوەی ئەم پەیامە کەسییە بە دڵنیاییەوە</string>
-  <string name="deleteImage">سڕینەوەی وێنە</string>
   <string name="safeToUseImages">بەکارهێنانی وێنە لەم پەڕەئەلیکترۆنیانە بەتەواوەتی ڕێپێدراوە: </string>
   <string name="selectPostTopics">دیاریکردنی ناونیشانی پەیامەکەت، کە دەربارەی</string>
   <string name="useImagesYouMadeYourself">هەروەها دەتوانی ئەو وینانە بەکاربهێنی کە خۆت بەرهەمت هێناون، ئەو وێنانەی کە گرتووتن یان ئەو وێنە شاشەییانەی لە لیچێسەوە گرتووتن.. هەرشتێک کە خاوەندارێتی کەسیتری بەسەرەوە نەبێت.</string>
@@ -44,5 +43,5 @@
   <string name="inappropriateContentAccountClosed">هەرشتێکی نەگوونجاو دەشێت ببێتە هۆی داخستنی هەژمارەکەت.</string>
   <string name="blogTips">پێشنیارە سادەکانی ئێمە بۆ نوسینی پەیامێکی کەسی بەهێز</string>
   <string name="discussThisBlogPostInTheForum">لە مەکۆدا باسی ئەم پۆستەی بلۆگەکە بکەن</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">تۆ لەلایەن نووسەری بلۆگەکەوە بلۆک کراویت.</string>
+  <string name="youBlockedByBlogAuthor">تۆ لەلایەن نووسەری بلۆگەکەوە بلۆک کراویت.</string>
 </resources>
