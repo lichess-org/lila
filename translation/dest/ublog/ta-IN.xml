@@ -44,7 +44,6 @@
   <string name="imageAlt">பட மாற்று உரை</string>
   <string name="imageCredit">படம் ஒப்புதல்</string>
   <string name="deleteBlog">இந்த வலைப்பதிவு இடுகையை உறுதியாக நீக்கவும்</string>
-  <string name="deleteImage">படத்தை நீக்கு</string>
   <string name="safeToUseImages">பின்வரும் இணையதளங்களில் உள்ள படங்களைப் பயன்படுத்துவது பாதுகாப்பானது: </string>
   <string name="selectPostTopics">உங்கள் இடுகைபற்றிய தலைப்புகளைத் தேர்ந்தெடுக்கவும்</string>
   <string name="useImagesYouMadeYourself">நீங்களே உருவாக்கிய படங்கள், நீங்கள் எடுத்த படங்கள், லிசெஸ்ஸின் திரைப்பிடிப்பு... வேறு யாராலும் பதிப்புரிமை பெறாத எதையும் நீங்கள் பயன்படுத்தலாம்.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">முறையற்ற எதுவும் உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="blogTips">சிறந்த வலைப்பதிவு இடுகைகளை எழுத எங்கள் எளிய குறிப்புகள்</string>
   <string name="discussThisBlogPostInTheForum">இந்த வலைப்பதிவு இடுகையை மன்றத்தில் விவாதிக்கவும்</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">வலைப்பதிவாளரால் நீங்கள் தடைசெய்யப் பட்டுள்ளீர்கள்.</string>
+  <string name="youBlockedByBlogAuthor">வலைப்பதிவாளரால் நீங்கள் தடைசெய்யப் பட்டுள்ளீர்கள்.</string>
 </resources>
