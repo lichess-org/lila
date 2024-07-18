@@ -36,7 +36,6 @@
   <string name="imageAlt">Суретті сипаттауыш мәтін</string>
   <string name="imageCredit">Суреттің иесі</string>
   <string name="deleteBlog">Бұл блог-жазбаны толығымен жою</string>
-  <string name="deleteImage">Суретті жою</string>
   <string name="safeToUseImages">Суреттерді келесі қауіпсіз сайттардан алуыңызға болады: </string>
   <string name="selectPostTopics">Жазбаңыздың тақырыбын таңдаңыз</string>
   <string name="useImagesYouMadeYourself">Сонымен қатар, ешбіреудің ауторлық құқығымен қорғалмаған суретті қолдануға еркінсіз. Мысалы, өзіңіз салған, түсірген суретіңіз не Личестің экран суреті.</string>
