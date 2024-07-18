@@ -34,7 +34,7 @@ final class ReportApi(
   private lazy val scorer = wire[ReportScore]
 
   def create(data: ReportSetup, reporter: Reporter): Funit =
-    Reason(data.reason).so { reason =>
+    Reason(data.reason).so: reason =>
       getSuspect(data.user.id).flatMapz: suspect =>
         create:
           Report.Candidate(
@@ -43,7 +43,6 @@ final class ReportApi(
             reason,
             data.text.take(1000)
           )
-    }
 
   def isAutoBlock(data: ReportSetup): Boolean =
     Reason(data.reason).exists(Reason.autoBlock)
