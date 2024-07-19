@@ -68,7 +68,8 @@ export function countChildrenAndComments(node: Tree.Node) {
 export function merge(n1: Tree.Node, n2: Tree.Node): void {
   if (n2.eval) n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
-  n2.comments &&
+  else delete n1.glyphs;
+  if (n2.comments) {
     n2.comments.forEach(function (c) {
       if (!n1.comments) n1.comments = [c];
       else if (
@@ -78,6 +79,7 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
       )
         n1.comments.push(c);
     });
+  } else delete n1.comments;
   n2.children.forEach(function (c) {
     const existing = childById(n1, c.id);
     if (existing) merge(existing, c);
