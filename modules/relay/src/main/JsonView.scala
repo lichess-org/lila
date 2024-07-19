@@ -79,8 +79,9 @@ final class JsonView(
       Json
         .obj(
           "tour"  -> fullTour(tr.tour),
-          "round" -> withUrl(tr)
+          "round" -> apply(tr.display)
         )
+        .add("roundToLink" -> (tr.link.id != tr.display.id).option(apply(tr.link)))
         .add("group" -> tr.group)
 
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
@@ -89,10 +90,6 @@ final class JsonView(
     apply(rt.round) ++ Json
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
-
-  def withUrl(tr: ActiveWithSomeRounds): JsObject =
-    val linkRound = tr.link.withTour(tr.tour)
-    apply(tr.display) ++ Json.obj("url" -> s"$baseUrl${linkRound.path}")
 
   def withUrlAndPreviews(
       rt: RelayRound.WithTourAndStudy,
