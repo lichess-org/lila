@@ -1,7 +1,7 @@
 package lila.game
 
 import lila.core.game.Blurs
-import lila.game.Blurs.{ addAtMoveIndex, * }
+import lila.game.Blurs.{ *, given }
 import lila.db.BSON
 import lila.db.dsl.{ given, * }
 import reactivemongo.api.bson.*
