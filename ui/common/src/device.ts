@@ -97,6 +97,10 @@ const ios = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || is
 
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
+export const reducedMotion: () => boolean = memoize<boolean>(
+  () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+);
+
 function sharedMemoryTest(): boolean {
   if (typeof Atomics !== 'object') return false;
   if (typeof SharedArrayBuffer !== 'function') return false;
