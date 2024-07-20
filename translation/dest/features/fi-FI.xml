@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking">Ei mainoksia eikä seurantaa</string>
+  <string name="zeroAdsAndNoTracking" comment="This is string appears as a feature listed on the https://lichess.org/features page.">Ei mainoksia eikä seurantaa</string>
   <string name="correspondenceWithConditionalPremoves">Kirjeshakki ehdollisine ennakkosiirtoineen</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Perusshakki ja %s</string>
-  <string name="deepXServerAnalysis" comment="%s is the engine name">Syväanalyysi %s-palvelimella</string>
+  <string name="deepXServerAnalysis" comment="deepXServerAnalysis&#10;%s is the name of the chess engine (e.g. Stockfish)">Syväanalyysi %s-palvelimella</string>
   <plurals name="gamesPerDay">
     <item quantity="one">%s peli päivässä</item>
     <item quantity="other">%s peliä päivässä</item>
@@ -12,10 +12,11 @@
   <string name="cloudEngineAnalysis">Tietokoneanalyysi pilvessä</string>
   <string name="studies">Tutkielmat (tallennettavat ja jaettavat analyysit)</string>
   <string name="chessInsights">Syväluotaus shakkiisi (peliesi yksityiskohtainen analyysi)</string>
-  <string name="allChessBasicsLessons">Oppitunteja, joilla opit kaikki shakin perusteet</string>
+  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Oppitunteja, joilla opit kaikki shakin perusteet</string>
   <string name="tacticalPuzzlesFromUserGames">Taktiikkatehtäviä käyttäjien peleistä</string>
-  <string name="personalOpeningExplorer">Henkilökohtainen avausselain</string>
-  <string name="globalOpeningExplorerInNbGames">Yleinen avausselain (%s pelistä!)</string>
+  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.&#10;The Features page has a humorous comparison, which demonstrates the features of Lichess and indicates which features free and paying members can access respectively. The joke is that both have the same feature, as Lichess is a fully free service. The sole difference is that patrons can optionally have a wing as their online status indicator.">%1$s (toimii myös %2$s kohdalla)</string>
+  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Henkilökohtainen avausselain</string>
+  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.">Yleinen avausselain (%s pelistä!)</string>
   <string name="endgameTablebase">7 nappulan loppupelitietokanta</string>
   <string name="downloadOrUploadAnyGameAsPgn">Lataa mikä tahansa peli PGN:nä sivustolta – tai sivustolle</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blogi, foorumi, joukkueet, TV, viestit, ystävät, haasteet</string>
@@ -24,10 +25,10 @@
   <string name="allFeaturesToCome">Kaikki tulevat ominaisuudet, aina ja ikuisesti!</string>
   <string name="landscapeSupportOnApp">iPhone- &amp; Android-puhelimille ja tableteille, tukee myös vaaka-asentoa</string>
   <string name="supportLichess">Tue Lichessiä</string>
-  <string name="contributeToLichessAndGetIcon">Kanna kortesi kekoon Lichessin hyväksi ja hae siisti Tukija-merkki tunnukseesi</string>
+  <string name="contributeToLichessAndGetIcon">Kanna kortesi kekoon Lichessin hyväksi ja hanki tunnukseesi siisti Tukija-merkki</string>
   <string name="everybodyGetsAllFeaturesForFree">Kyllä, molemmilla tunnuksilla on samat ominaisuudet!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest">Meidän mielestämme jokainen shakinpelaaja ansaitsee vain parasta, joten:</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;">Meidän mielestämme jokainen shakinpelaaja ansaitsee vain parasta, joten:</string>
   <string name="allFeaturesAreFreeForEverybody">Kaikki ominaisuudet ovat ilmaisia kaikille, aina ja ikuisesti!</string>
-  <string name="ifYouLoveLichess">Jos sinustakin Lichess on mahtava,</string>
-  <string name="supportUsWithAPatronAccount">tue meitä ryhtymällä Tukijaksi!</string>
+  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;">Jos sinustakin Lichess on mahtava,</string>
+  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of https://lichess.org/features, which takes users to the donation page.">tue meitä ryhtymällä Tukijaksi!</string>
 </resources>
