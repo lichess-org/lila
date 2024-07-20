@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">بدون تبلیغ، بدون ردگیری</string>
+  <string name="correspondenceWithConditionalPremoves">شطرنج مکاتبه‌ای با پیش‌حرکت‌های شرطی</string>
   <string name="standardChessAndX" comment="%s is 8 variants">شطرنج استاندارد و %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">عمق تحلیل کارساز %s</string>
   <plurals name="gamesPerDay">
