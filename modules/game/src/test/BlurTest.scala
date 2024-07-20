@@ -1,8 +1,9 @@
 package lila.game
 
 import lila.core.game.Blurs
-import lila.game.Blurs.{ given, * }
+import lila.game.Blurs.{ addAtMoveIndex, * }
 import lila.db.BSON
+import lila.db.dsl.{ given, * }
 import reactivemongo.api.bson.*
 
 class BlurTest extends munit.FunSuite:
@@ -18,11 +19,21 @@ class BlurTest extends munit.FunSuite:
   val bigBlur = fromMoveIndexes(0 until 40)
 
   test("BSON handler, lil blur"):
-    val bson = blursHandler.writeOpt(lilBlur).get
+    val bson = lila.game.Blurs.blursHandler.writeOpt(lilBlur).get
     assertEquals(bson, BSONInteger(15))
-    assertEquals(lilBlur, blursHandler.readOpt(bson).get)
+    assertEquals(lilBlur, lila.game.Blurs.blursHandler.readOpt(bson).get)
 
   test("BSON handler, big blur"):
-    val bson = blursHandler.writeOpt(bigBlur).get
+    val bson = lila.game.Blurs.blursHandler.writeOpt(bigBlur).get
     assertEquals(bson, BSONLong(1099511627775L))
-    assertEquals(bigBlur, blursHandler.readOpt(bson).get)
+    assertEquals(bigBlur, lila.game.Blurs.blursHandler.readOpt(bson).get)
+
+  test("read int using blursHandler"):
+    val bson = BSONInteger(-285641920)
+    val read = lila.game.Blurs.blursHandler.readOpt(bson).get
+    assertEquals(read.nb, 18)
+
+  test("read int using auto handler"):
+    val bson = BSONInteger(-285641920)
+    val read = summon[BSONReader[Blurs]].readOpt(bson).get
+    assertEquals(read.nb, 18)
