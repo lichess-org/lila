@@ -859,10 +859,10 @@
   <string name="opening">گشایش</string>
   <string name="middlegame">وسط بازی</string>
   <string name="endgame">آخربازی</string>
-  <string name="conditionalPremoves">پیش حرکت های شرطی</string>
+  <string name="conditionalPremoves">پیش‌حرکت‌های شرطی</string>
   <string name="addCurrentVariation">اضافه کردن این نوع حرکات</string>
   <string name="playVariationToCreateConditionalPremoves">یک نوع حرکات را بازی کنید تا پیش حرکت های شرطی را بسازید</string>
-  <string name="noConditionalPremoves">فاقد پیش حرکت های شرطی</string>
+  <string name="noConditionalPremoves">بدون پیش‌حرکت‌های شرطی</string>
   <string name="playX">%s را انجام دهید</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
