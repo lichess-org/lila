@@ -9,12 +9,13 @@ import scala.util.{ Failure, NotGiven, Success, Try }
 import lila.common.Iso.{ *, given }
 import lila.core.data.Percent
 import lila.core.net.IpAddress
+import lila.core.game.Blurs
 
 trait Handlers:
 
   def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
 
-  // free handlers for all types with TotalWrapper
+  // free writer for all types with TotalWrapper
   // unless they are given an instance of lila.db.NoDbHandler[T]
   given opaqueWriter[T, A](using
       rs: SameRuntime[T, A],
@@ -22,11 +23,16 @@ trait Handlers:
   )(using NotGiven[NoDbHandler[T]]): BSONWriter[T] with
     def writeTry(t: T) = writer.writeTry(rs(t))
 
+  // free writer for all types with TotalWrapper
+  // unless they are given an instance of lila.db.NoDbHandler[T]
   given opaqueReader[T, A](using
       sr: SameRuntime[A, T],
       reader: BSONReader[A]
-  ): BSONReader[T] with
+  )(using NotGiven[NoBSONReader[T]]): BSONReader[T] with
     def readTry(bson: BSONValue) = reader.readTry(bson).map(sr.apply)
+
+  given NoBSONReader[Blurs] with {}
+  given NoDbHandler[Blurs] with  {}
 
   given userIdOfWriter[U: UserIdOf](using writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(u.id)
