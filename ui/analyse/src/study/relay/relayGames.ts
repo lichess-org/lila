@@ -30,9 +30,8 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
       : chapters.map((c, i) => {
           const status =
             !c.status || c.status == '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
-          const pov = c.orientation || 'white';
-          let players = [c.players?.black, c.players?.white];
-          players = pov == 'white' ? players : players.reverse()
+          const players = [c.players?.black, c.players?.white];
+          if (c.orientation == 'black') players.reverse();
           return h(
             `a.relay-game.relay-game--${c.id}`,
             {
