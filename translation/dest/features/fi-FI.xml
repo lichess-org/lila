@@ -23,9 +23,9 @@
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Vaalea ja tumma väriteema, mukautettavat laudat, nappulat ja tausta</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">Ultrabullet, bullet, pikashakki, nopea shakki, klassinen shakki, kirjeshakki</string>
   <string name="allFeaturesToCome">Kaikki tulevat ominaisuudet, aina ja ikuisesti!</string>
-  <string name="landscapeSupportOnApp">iPhone- &amp; Android-puhelimille ja tableteille, tukee myös vaaka-asentoa</string>
+  <string name="landscapeSupportOnApp">iPhone- ja Android-puhelimille ja tableteille, tukee myös vaaka-asentoa</string>
   <string name="supportLichess">Tue Lichessiä</string>
-  <string name="contributeToLichessAndGetIcon">Kanna kortesi kekoon Lichessin hyväksi ja hanki tunnukseesi siisti Tukija-merkki</string>
+  <string name="contributeToLichessAndGetIcon" comment="This is string speaking of a financial contribution in the context of the Features page that this appears on (https://lichess.org/features). The page is a tongue-in-cheek feature comparison for free and paying members; the only difference is that Patrons can replace the normal status indicator icon (a bubble) with a wing icon.">Kanna kortesi kekoon Lichessin hyväksi ja hanki tunnukseesi siisti Tukija-merkki</string>
   <string name="everybodyGetsAllFeaturesForFree">Kyllä, molemmilla tunnuksilla on samat ominaisuudet!</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;">Meidän mielestämme jokainen shakinpelaaja ansaitsee vain parasta, joten:</string>
   <string name="allFeaturesAreFreeForEverybody">Kaikki ominaisuudet ovat ilmaisia kaikille, aina ja ikuisesti!</string>
