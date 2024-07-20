@@ -21,7 +21,11 @@
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">وبنوشت، انجمن، تیم‌ها، تماشا، پیام‌دهی، دوستان، چالش‌ها</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">رنگ‌بندی روشن/تاریک، صفحه بازی و مهره‌ها و پس‌زمینه دلخواه</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">شطرنج وَراگلوله‌ای، گلوله‌ای، برق‌آسا، سریع، مرسوم، مکاتبه‌ای</string>
-  <string name="allFeaturesToCome">همه‌ی آرنگ‌ها همیشگی‌اند!</string>
+  <string name="allFeaturesToCome">همه‌ی ویژگی‌ها همیشگی‌اند!</string>
   <string name="landscapeSupportOnApp">پشتیبانی افق‌دید در رایانک‌ها، گوشی‌های آیفون و اندروید</string>
   <string name="supportLichess">پیشتیبانی از Lichess</string>
+  <string name="everybodyGetsAllFeaturesForFree">بله، هردو حساب ویژگی‌های یکسانی دارند!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">باور داریم که هر شطرنج‌بازی شایسته بهترین‌هاست، و بنابراین:</string>
+  <string name="allFeaturesAreFreeForEverybody">همه‌ی ویژگی‌ها برای همیشه و همه‌کس، رایگان‌اند!</string>
+  <string name="ifYouLoveLichess">اگر دوستدار Lichessید،</string>
 </resources>
