@@ -16,16 +16,16 @@
   <string name="thankYou">Takk for bidraget ditt!</string>
   <string name="youHaveLifetime">Du har ein bidragsytar-konto på livstid. Det er rett og slett storarta!</string>
   <string name="patronUntil">Du har ein bidragsytar-konto fram til %s.</string>
-  <string name="ifNotRenewedThenAccountWillRevert">On brukarkontoen ikkje vert fornya får den status som vanleg konto igjen.</string>
+  <string name="ifNotRenewedThenAccountWillRevert">On kontoen ikkje vert fornya får den status som vanleg konto igjen.</string>
   <string name="weAreNonProfit">Vi er ein nonprofitorganisasjon fordi vi meiner at alle bør ha tilgang til ein gratis, verdsomspennande sjakkplatform.</string>
   <string name="weRelyOnSupport">For å gjere det mogleg er vi avhengige av stønad frå folk som deg. Dersom du set pris på å bruka Lichess, så vurdér gjerne å støtte oss med eit bidrag og bli ein bidragsytar!</string>
   <string name="lifetime">Livstid</string>
-  <string name="payLifetimeOnce">Betal %s éin gong og ver Lichess bidragsytar for alltid!</string>
+  <string name="payLifetimeOnce">Betal %s ein gong og ver Lichess bidragsytar for alltid!</string>
   <string name="lifetimePatron">Lichess-mesén på livstid</string>
   <string name="monthly">Månadleg</string>
-  <string name="recurringBilling">Tilbakevendande fakturering, forny bidragsytar-vingane dine kvar månad.</string>
+  <string name="recurringBilling">Tilbakevendande fakturering, forny bidragsytar-vengane dine kvar månad.</string>
   <string name="onetime">Ein gong</string>
-  <string name="singleDonation">Eit enkelt bidrag vil gje deg bidragsytar-vingar i ein månad.</string>
+  <string name="singleDonation">Eit enkelt bidrag vil gje deg bidragsytar-vengar i ein månad.</string>
   <string name="otherAmount">Anna</string>
   <string name="pleaseEnterAmountInX">Ver venleg å oppgje eit beløp i %s</string>
   <string name="withCreditCard">Kredittkort</string>
@@ -48,7 +48,7 @@ Eller du kan %s.</string>
   <string name="onlyDonationFromAbove">Legg merke til at berre donasjonsskjemaet ovanfor gjev status som bidragsytar.</string>
   <string name="patronFeatures">Er nokre funksjonar reservert bidragsytarar?</string>
   <string name="noPatronFeatures">Nei, for Lichess er heilt gratis, for alltid og for alle. Det er ein lovnad.
-Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
+Men bidragsytarar kan briske seg med et tøft profil-ikon.</string>
   <string name="featuresComparison">Sjå ein detaljert samanlikning av funksjonar</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess-mesén i ein månad</item>

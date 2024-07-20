@@ -74,7 +74,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
 
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
   site.asset.loadCssPath('bits.tagify');
-  site.asset.loadIife('npm/tagify/tagify.min.js').then(() => {
+  site.asset.loadIife('npm/tagify.min.js').then(() => {
     const tagi = (tagify = new window.Tagify(elm, { pattern: /.{2,}/, maxTags: 30 }));
     let abortCtrl: AbortController | undefined; // for aborting the call
     tagi.on('input', e => {

@@ -2,14 +2,14 @@ package lila.chat
 
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
+import lila.core.chat.{ OnReinstate, OnTimeout }
 import lila.core.config.NetDomain
-import lila.db.dsl.{ *, given }
-import lila.core.shutup.PublicSource
-import lila.memo.CacheApi.*
 import lila.core.perm.Granter
-import lila.core.security.{ FloodSource, FloodApi, SpamApi }
-import lila.core.chat.{ OnTimeout, OnReinstate }
+import lila.core.security.{ FloodApi, FloodSource, SpamApi }
+import lila.core.shutup.PublicSource
 import lila.core.user.{ FlairGet, FlairGetMap }
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 
 final class ChatApi(
     coll: Coll,

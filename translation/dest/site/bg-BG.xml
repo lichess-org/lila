@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Последни съобщения във форума</string>
   <string name="players">Играчи</string>
   <string name="friends">Приятели</string>
+  <string name="otherPlayers">други играчи</string>
   <string name="discussions">Разговори</string>
   <string name="today">Днес</string>
   <string name="yesterday">Вчера</string>
@@ -533,6 +534,8 @@
   <string name="descPrivateHelp">Описание, което ще бъде видимо само от членовете на отбора. Ако е дадено, то ще замени публичното описание което членовете на отбора виждат.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
+  <string name="website">Уебсайт</string>
+  <string name="mobile">Мобилен</string>
   <string name="help">Помощ:</string>
   <string name="createANewTopic">Създаване на нова тема</string>
   <string name="topics">Теми</string>

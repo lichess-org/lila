@@ -179,6 +179,7 @@
   <string name="latestForumPosts">Postimet më të reja në forum</string>
   <string name="players">Lojtarë</string>
   <string name="friends">Miqtë</string>
+  <string name="otherPlayers">lojtarë të tjerë</string>
   <string name="discussions">Biseda</string>
   <string name="today">Sot</string>
   <string name="yesterday">Dje</string>
@@ -534,6 +535,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="descPrivateHelp">Tekst që do ta shohin vetëm anëtarët e ekipit. Në u dhëntë, zëvendëson përshkrimin publik për anëtarët e ekipit.</string>
   <string name="no">Jo</string>
   <string name="yes">Po</string>
+  <string name="website">Sajt</string>
+  <string name="mobile">Celular</string>
   <string name="help">Ndihmë:</string>
   <string name="createANewTopic">Krijoni një temë të re</string>
   <string name="topics">Temat</string>

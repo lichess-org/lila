@@ -1,9 +1,8 @@
 package lila.teamSearch
 
 import com.softwaremill.macwire.*
-
 import scalalib.paginator.Paginator
-import lila.core.config.ConfigName
+
 import lila.search.client.SearchClient
 import lila.search.spec.Query
 

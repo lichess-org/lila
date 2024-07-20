@@ -2,15 +2,14 @@ package lila.relay
 
 import play.api.libs.json.*
 import scalalib.Json.paginatorWriteNoNbResults
+import scalalib.paginator.Paginator
 
 import lila.common.Json.given
 import lila.core.config.BaseUrl
-import lila.memo.PicfitUrl
-import lila.study.ChapterPreview
 import lila.core.id.ImageId
-import lila.relay.RelayTour.{ WithRounds, WithLastRound, ActiveWithSomeRounds }
-import scalalib.paginator.Paginator
-import geny.Generator.Action
+import lila.memo.PicfitUrl
+import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound, WithRounds }
+import lila.study.ChapterPreview
 
 final class JsonView(
     baseUrl: BaseUrl,
@@ -80,8 +79,9 @@ final class JsonView(
       Json
         .obj(
           "tour"  -> fullTour(tr.tour),
-          "round" -> withUrl(tr)
+          "round" -> apply(tr.display)
         )
+        .add("roundToLink" -> (tr.link.id != tr.display.id).option(apply(tr.link)))
         .add("group" -> tr.group)
 
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
@@ -90,10 +90,6 @@ final class JsonView(
     apply(rt.round) ++ Json
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
-
-  def withUrl(tr: ActiveWithSomeRounds): JsObject =
-    val linkRound = tr.link.withTour(tr.tour)
-    apply(tr.display) ++ Json.obj("url" -> s"$baseUrl${linkRound.path}")
 
   def withUrlAndPreviews(
       rt: RelayRound.WithTourAndStudy,

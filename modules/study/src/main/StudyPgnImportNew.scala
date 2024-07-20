@@ -1,22 +1,14 @@
 package lila.study
 
-import monocle.syntax.all.*
-import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
-import chess.format.pgn.{
-  Glyphs,
-  ParsedPgn,
-  ParsedPgnTree,
-  San,
-  Tags,
-  PgnStr,
-  PgnNodeData,
-  Comment as ChessComment
-}
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
+import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags }
+import chess.format.{ Fen, Uci, UciCharPair }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
+import monocle.syntax.all.*
+
 import lila.core.LightUser
-import lila.tree.Node.{ Comment, Comments, Shapes }
-import lila.tree.{ ImportResult, NewRoot, NewTree, NewBranch, Metas }
+import lila.tree.Node.{ Comment, Comments }
+import lila.tree.{ ImportResult, Metas, NewBranch, NewRoot, NewTree }
 
 case class Context(
     currentGame: chess.Game,

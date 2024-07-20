@@ -8,8 +8,8 @@ import org.lichess.compression.clock.Encoder as ClockEncoder
 
 import scala.util.Try
 
-import lila.db.ByteArray
 import lila.core.game.ClockHistory
+import lila.db.ByteArray
 
 object BinaryFormat:
 
@@ -57,9 +57,8 @@ object BinaryFormat:
       List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
     private val encodeCutoffs = buckets
       .zip(buckets.tail)
-      .map { (i1, i2) =>
-        (i1 + i2) / 2
-      } toVector
+      .map((i1, i2) => (i1 + i2) / 2)
+      .toVector
 
     private val decodeMap: Map[Int, MT] = buckets.mapWithIndex((x, i) => i -> x).toMap
 
@@ -74,12 +73,13 @@ object BinaryFormat:
         .map(_.toByte)
         .toArray
 
-    def read(ba: Array[Byte], turns: Ply): Vector[Centis] = Centis.from({
+    def read(ba: Array[Byte], turns: Ply): Vector[Centis] = Centis.from:
       def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
-      ba.map(toInt).flatMap { k =>
-        Array(dec(k >> 4), dec(k & 15))
-      }
-    }.view.take(turns.value).toVector)
+      ba.map(toInt)
+        .flatMap(k => Array(dec(k >> 4), dec(k & 15)))
+        .view
+        .take(turns.value)
+        .toVector
 
   final class clock(start: Timestamp):
 
@@ -89,12 +89,11 @@ object BinaryFormat:
     def computeRemaining(config: Clock.Config, legacyElapsed: Centis) =
       config.limit - legacyElapsed
 
-    def write(clock: Clock): ByteArray = ByteArray {
+    def write(clock: Clock): ByteArray = ByteArray:
       Array(writeClockLimit(clock.limitSeconds.value), clock.incrementSeconds.value.toByte) ++
         writeSignedInt24(legacyElapsed(clock, White).centis) ++
         writeSignedInt24(legacyElapsed(clock, Black).centis) ++
         clock.timer.fold(Array.empty[Byte])(writeTimer)
-    }
 
     def read(ba: ByteArray, whiteBerserk: Boolean, blackBerserk: Boolean): Color => Clock =
       color =>
@@ -137,7 +136,7 @@ object BinaryFormat:
       writeInt(nonZero)
 
     private def readTimer(l: Int) =
-      if l != 0 then Some(start + Centis(l)) else None
+      Option.when(l != 0)(start + Centis(l))
 
     private def writeClockLimit(limit: Int): Byte =
       // The database expects a byte for a limit, and this is limit / 60.
@@ -160,7 +159,7 @@ object BinaryFormat:
 
   object castleLastMove:
 
-    def write(clmt: CastleLastMove): ByteArray = ByteArray {
+    def write(clmt: CastleLastMove): ByteArray = ByteArray:
 
       val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0):
         case (acc, (false, _)) => acc
@@ -171,7 +170,6 @@ object BinaryFormat:
         (posInt(o) << 6) + posInt(d)
       }
       Array((castleInt << 4) + (lastMoveInt >> 8) toByte, lastMoveInt.toByte)
-    }
 
     def read(ba: ByteArray): CastleLastMove =
       val ints = ba.value.map(toInt)
@@ -191,9 +189,9 @@ object BinaryFormat:
 
     private val groupedPos = Square.all
       .grouped(2)
-      .collect { case List(p1, p2) =>
-        (p1, p2)
-      } toArray
+      .collect:
+        case List(p1, p2) => (p1, p2)
+      .toArray
 
     def write(pieces: PieceMap): ByteArray =
       def posInt(pos: Square): Int =

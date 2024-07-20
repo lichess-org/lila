@@ -1,7 +1,6 @@
 package views.activity
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.core.perf.UserWithPerfs
 
 private lazy val ui = lila.activity.ui.ActivityUi(helpers)(views.tournament.ui.tournamentIdToName)

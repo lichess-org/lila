@@ -4,6 +4,7 @@ import chess.{ FideId, PlayerName, PlayerTitle }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.text.Normalizer
+
 import lila.core.fide.{ FideTC, PlayerToken, Tokenize, diacritics }
 
 case class FidePlayer(

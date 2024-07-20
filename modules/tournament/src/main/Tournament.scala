@@ -5,12 +5,10 @@ import chess.format.Fen
 import chess.{ Mode, Speed }
 import scalalib.ThreadLocalRandom
 
-import lila.gathering.GreatPlayer
-import lila.core.i18n.defaultLang
-import lila.rating.PerfType
-import lila.gathering.Thematic
 import lila.core.i18n.Translate
 import lila.core.tournament.Status
+import lila.gathering.{ GreatPlayer, Thematic }
+import lila.rating.PerfType
 
 case class Tournament(
     id: TourId,

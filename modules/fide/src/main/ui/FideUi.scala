@@ -3,9 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.fide.FideTC
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }

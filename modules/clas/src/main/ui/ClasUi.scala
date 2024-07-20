@@ -1,11 +1,8 @@
 package lila.clas
 package ui
-
-import play.api.data.Form
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.user.WithPerfsAndEmails
 
 final class ClasUi(helpers: lila.ui.Helpers)(
     searchMenu: Context ?=> Frag

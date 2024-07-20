@@ -1,7 +1,7 @@
 package lila.search
 
+import lila.search.client.{ SearchClient, SearchError }
 import lila.search.spec.*
-import lila.search.client.{ SearchError, SearchClient }
 
 class LilaSearchClient(client: SearchClient, writeable: Boolean)(using Executor) extends SearchClient:
 

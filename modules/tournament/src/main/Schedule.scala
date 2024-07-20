@@ -5,9 +5,8 @@ import chess.Clock.{ IncrementSeconds, LimitSeconds }
 import chess.format.Fen
 import chess.variant.Variant
 
-import lila.gathering.Condition
 import lila.core.i18n.{ I18nKey, Translate }
-import lila.rating.PerfType
+import lila.gathering.Condition
 
 case class Schedule(
     freq: Schedule.Freq,

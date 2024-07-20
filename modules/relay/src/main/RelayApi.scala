@@ -5,21 +5,21 @@ import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.memo.{ CacheApi, PicfitApi }
-import lila.relay.RelayRound.{ WithTour, Sync }
 import lila.core.perm.Granter
 import lila.core.study.data.StudyName
+import lila.db.dsl.{ *, given }
+import lila.memo.{ CacheApi, PicfitApi }
+import lila.relay.RelayRound.{ Sync, WithTour }
 import lila.study.{
   Settings,
   Study,
   StudyApi,
   StudyId,
   StudyMaker,
-  StudyRepo,
-  StudyTopic,
   StudyMember,
-  StudyMembers
+  StudyMembers,
+  StudyRepo,
+  StudyTopic
 }
 
 final class RelayApi(
@@ -352,8 +352,7 @@ final class RelayApi(
       yield rt.tour.some
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    tour.ownerId
-      .is(me)
+    (tour.ownerId.is(me) || Granter(_.StudyAdmin))
       .so:
         for
           _      <- tourRepo.delete(tour)

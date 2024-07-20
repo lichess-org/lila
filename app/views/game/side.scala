@@ -1,7 +1,6 @@
 package views.game
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.game.GameExt.perfType
 
 object side:

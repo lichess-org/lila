@@ -1,10 +1,10 @@
 package lila.forum
 
 import reactivemongo.api.bson.*
-
 import scalalib.Iso
-import lila.db.dsl.{ *, given }
+
 import lila.core.forum.{ ForumPostMini, ForumTopicMini }
+import lila.db.dsl.{ *, given }
 
 private object BSONHandlers:
 

@@ -4,9 +4,9 @@ import chess.variant.Variant
 import chess.{ Clock, Status }
 import reactivemongo.api.bson.*
 
+import lila.core.game.GameRepo
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.core.game.GameRepo
 
 final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using Executor):
 

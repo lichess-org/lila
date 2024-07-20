@@ -2,9 +2,9 @@ package lila.ui
 
 import play.api.libs.json.*
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.AssetBaseUrl
 import lila.core.data.SafeJsonStr
+import lila.ui.ScalatagsTemplate.*
 
 trait AssetHelper:
 

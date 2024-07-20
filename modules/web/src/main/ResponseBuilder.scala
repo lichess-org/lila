@@ -1,13 +1,9 @@
 package lila.web
 
 import akka.stream.scaladsl.Source
-import alleycats.Zero
 import play.api.http.*
 import play.api.libs.json.*
 import play.api.mvc.*
-
-import lila.common.HTTPRequest
-import lila.core.net.ApiVersion
 
 trait ResponseBuilder(using Executor)
     extends ControllerHelpers

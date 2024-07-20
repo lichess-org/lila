@@ -1,7 +1,7 @@
 package lila.user
 
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.*
+import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.memo.*

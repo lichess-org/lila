@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Últimos mensajes del foro</string>
   <string name="players">Jugadores</string>
   <string name="friends">Amigos</string>
+  <string name="otherPlayers">otros jugadores</string>
   <string name="discussions">Conversaciones</string>
   <string name="today">Hoy</string>
   <string name="yesterday">Ayer</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Este texto sólo pueden verlo los miembros del equipo. El texto que escribas aquí reemplazará tu descripción pública cuando sea vista por los miembros del equipo.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
+  <string name="website">Sitio web</string>
+  <string name="mobile">Móvil</string>
   <string name="help">Ayuda:</string>
   <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>

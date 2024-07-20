@@ -1,19 +1,19 @@
 package lila.user
 
-import com.roundeights.hasher.Implicits.*
 import chess.PlayerTitle
-import scalalib.ThreadLocalRandom
+import com.roundeights.hasher.Implicits.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-
-import lila.core.net.ApiVersion
-import lila.core.email.NormalizedEmailAddress
-import lila.core.LightUser
-import lila.db.dsl.{ *, given }
-import lila.core.userId.UserSearch
-import lila.core.user.{ Profile, PlayTime, TotpSecret, Plan, UserMark }
-import lila.core.security.HashedPassword
+import scalalib.ThreadLocalRandom
 import scalalib.model.Days
+
+import lila.core.LightUser
+import lila.core.email.NormalizedEmailAddress
+import lila.core.net.ApiVersion
+import lila.core.security.HashedPassword
+import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark }
+import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
 
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
@@ -162,12 +162,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       coll.update
         .one(
           $id(id) ++ F.changedCase.$exists(false),
-          $set(F.username -> name, F.changedCase -> true)
+          $set(F.username -> name.value, F.changedCase -> true)
         )
-        .flatMap { result =>
+        .flatMap: result =>
           if result.n == 0 then fufail(s"You have already changed your username")
           else funit
-        }
     else fufail(s"Proposed username $name does not match old username $id")
 
   def setTitle(id: UserId, title: PlayerTitle): Funit =
@@ -512,7 +511,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     val now             = nowInstant
     $doc(
       F.id                    -> name.id,
-      F.username              -> name,
+      F.username              -> name.value,
       F.email                 -> normalizedEmail,
       F.mustConfirmEmail      -> mustConfirmEmail.option(now),
       F.bpass                 -> passwordHash,

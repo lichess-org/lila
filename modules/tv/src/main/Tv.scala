@@ -1,7 +1,7 @@
 package lila.tv
 
-import scalalib.actor.SyncActor
 import chess.PlayerTitle
+import scalalib.actor.SyncActor
 
 import lila.core.LightUser
 import lila.game.GameRepo

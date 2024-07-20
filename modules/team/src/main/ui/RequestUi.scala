@@ -5,6 +5,7 @@ import play.api.data.Form
 import scalalib.paginator.Paginator
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class RequestUi(helpers: Helpers, bits: TeamUi):

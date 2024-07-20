@@ -4,10 +4,10 @@ import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant
 
-import lila.tree.{ Branches, Root }
+import lila.core.game.Namer
 import lila.core.i18n.Translator
 import lila.core.id.GameFullId
-import lila.core.game.Namer
+import lila.tree.{ Branches, Root }
 
 final private class ChapterMaker(
     net: lila.core.config.NetConfig,
@@ -130,7 +130,6 @@ final private class ChapterMaker(
       withRatings: Boolean,
       initialFen: Option[Fen.Full] = None
   ): Fu[Chapter] =
-    given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- makeRoot(game, data.pgn, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)

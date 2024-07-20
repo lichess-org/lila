@@ -1,9 +1,9 @@
 package lila.study
 
-import lila.db.dsl.{ *, given }
 import lila.core.notify.{ InvitedToStudy, NotifyApi }
-import lila.core.relation.Relation.{ Block, Follow }
 import lila.core.perm.Granter
+import lila.core.relation.Relation.{ Block, Follow }
+import lila.db.dsl.{ *, given }
 
 final private class StudyInvite(
     studyRepo: StudyRepo,

@@ -1,19 +1,14 @@
 package lila.user
-
-import chess.PlayerTitle
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.data.validation.Constraints
 
 import lila.common.Form.{
+  cleanNoSymbolsAndNonEmptyText,
+  cleanNoSymbolsText,
   cleanNonEmptyText,
   cleanText,
-  cleanNoSymbolsText,
-  cleanNoSymbolsAndNonEmptyText,
-  playerTitle,
   into,
-  trim,
-  given
+  playerTitle
 }
 import lila.common.LameName
 import lila.core.user.Profile

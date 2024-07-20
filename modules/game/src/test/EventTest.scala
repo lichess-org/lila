@@ -1,10 +1,9 @@
 package lila.game
 
-import chess.*
-import chess.bitboard.Bitboard
-
 import cats.syntax.all.*
+import chess.*
 import chess.CoreArbitraries.given
+import chess.bitboard.Bitboard
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import play.api.libs.json.*
 

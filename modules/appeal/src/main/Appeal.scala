@@ -2,9 +2,9 @@ package lila.appeal
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.ui.Icon
-import lila.core.user.UserMark
 import lila.core.id.AppealId
+import lila.core.user.UserMark
+import lila.ui.Icon
 
 case class Appeal(
     @Key("_id") id: AppealId,

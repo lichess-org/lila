@@ -43,14 +43,14 @@
   <string name="like">پسندیدن</string>
   <string name="unlike">نمی‌پسندم</string>
   <string name="newTag">برچسب جدید</string>
-  <string name="commentThisPosition">نظر دادن به این پوزیسیون</string>
+  <string name="commentThisPosition">دیدگاه‌نویسی برای این وضعیت</string>
   <string name="commentThisMove">قرار دادن توضیحات برای این حرکت</string>
   <string name="annotateWithGlyphs">حرکت‌نویسی به‌همراه علامت‌ها</string>
   <string name="theChapterIsTooShortToBeAnalysed">این بخش برای تحلیل، بسیار کوتاه است.</string>
   <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت‌گران این مطالعه، می‌توانند درخواست تحلیل رایانه‌ای دهند.</string>
   <string name="getAFullComputerAnalysis">یک تحلیل کامل رایانه‌ای کارساز-سو از شاخه اصلی بگیرید.</string>
   <string name="makeSureTheChapterIsComplete">مطمئن شوید که بخش کامل است. شما فقط یک بار می‌توانید درخواست تحلیل دهید.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">همه‌ی عضوهای همگام در وضعیت یکسانی باقی می‌مانند</string>
   <string name="shareChanges">تغییرات را با تماشاگران به اشتراک بگذارید و آنها را در سرور ذخیره کنید</string>
   <string name="playing">در حال انجام</string>
   <string name="showEvalBar">نوار ارزیابی</string>
@@ -68,8 +68,8 @@
   <string name="studyUrl">وب‌نشانی مطالعه</string>
   <string name="currentChapterUrl">وب‌نشانی بخش جاری</string>
   <string name="youCanPasteThisInTheForumToEmbed">می‌توانید این را در انجمن یا وبنوشت Lichessتان برای جاسازی قرار دهید</string>
-  <string name="startAtInitialPosition">از وضعیت نخستین بیاغازید</string>
-  <string name="startAtX">شروع از %s</string>
+  <string name="startAtInitialPosition">در وضعیت نخستین بیاغازید</string>
+  <string name="startAtX">آغاز از %s</string>
   <string name="embedInYourWebsite">در وبگاهتان قرار دهید</string>
   <string name="readMoreAboutEmbedding">درباره قرار دادن (در سایت) بیشتر بخوانید</string>
   <string name="onlyPublicStudiesCanBeEmbedded">فقط مطالعه‌های همگانی می‌توانند جایگذاری شوند!</string>
@@ -95,11 +95,11 @@
   <string name="interactiveLesson">درس تعاملی</string>
   <string name="chapterX">بخش %s</string>
   <string name="empty">خالی</string>
-  <string name="startFromInitialPosition">از موقعیت ابتدایی شروع نمایید</string>
+  <string name="startFromInitialPosition">از وضعیت نخستین بیاغازید</string>
   <string name="editor">ویرایشگر</string>
-  <string name="startFromCustomPosition">از موقعیت دلخواه شروع نمایید</string>
+  <string name="startFromCustomPosition">از وضعیت دلخواه بیاغازید</string>
   <string name="loadAGameByUrl">بارگذاری بازی از وب‌نشانی‌ها</string>
-  <string name="loadAPositionFromFen">از FEN یک موقعیت را بارگیری کنید</string>
+  <string name="loadAPositionFromFen">بار کردن وضعیت از FEN</string>
   <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -122,7 +122,7 @@
   <string name="members">اعضا</string>
   <string name="everyone">همه</string>
   <string name="enableSync">فعال کردن همگام سازی</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در پوزیسیونی یکسان نگه دار</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در وضعیت یکسانی نگه دار</string>
   <string name="noLetPeopleBrowseFreely">خیر: به مردم اجازه جستجوی آزادانه بده</string>
   <string name="pinnedStudyComment">یادداشت سنجاقیده به مطالعه</string>
   <string name="start">آغاز</string>
@@ -140,8 +140,8 @@
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">حرکت مشکوک</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تک‌حرکت</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">اکراهی</string>
-  <string name="equalPosition">موقعیت برابر</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">موقعیت نامعلوم</string>
+  <string name="equalPosition">وضعیت برابر</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">وضعیت ناروشن</string>
   <string name="whiteIsSlightlyBetter">سفید کمی بهتر است</string>
   <string name="blackIsSlightlyBetter">مشکی کمی بهتر است</string>
   <string name="whiteIsBetter">سفید بهتر است</string>
@@ -165,6 +165,6 @@
   <string name="manageTopics">مدیریت موضوع‌ها</string>
   <string name="back">بازگشت</string>
   <string name="playAgain">دوباره بازی کنید</string>
-  <string name="whatWouldYouPlay">شما در این موقعیت چه حرکتی می کنید؟</string>
+  <string name="whatWouldYouPlay">در این وضعیت چطور بازی می‌کنید؟</string>
   <string name="youCompletedThisLesson">تبریک! شما این درس را کامل کردید.</string>
 </resources>

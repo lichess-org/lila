@@ -2,13 +2,12 @@ package lila.cms
 package ui
 
 import play.api.data.Form
-import play.api.libs.json.*
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.id.CmsPageId
-import lila.core.id.CmsPageKey
 import lila.cms.CmsForm.CmsPageData
+import lila.core.id.{ CmsPageId, CmsPageKey }
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ *, given }

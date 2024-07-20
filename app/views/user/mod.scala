@@ -1,22 +1,15 @@
 package views.user
 
-import play.api.i18n.Lang
-
 import lila.app.UiEnv.{ *, given }
-
 import lila.appeal.Appeal
-import lila.evaluation.Display
-import lila.mod.IpRender.RenderIp
-import lila.mod.{ ModPresets, UserWithModlog }
-import lila.mod.ui.ModUserTableUi
-import lila.core.playban.RageSit
-import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
-import lila.core.perm.Permission
 import lila.core.i18n.Translate
+import lila.mod.IpRender.RenderIp
+import lila.mod.UserWithModlog
+import lila.mod.ui.ModUserTableUi
+import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
 
 object mod:
 
-  import views.mod.userTable
   import views.mod.user.*
   import views.mod.{ user as ui }
 

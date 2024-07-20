@@ -1,7 +1,6 @@
 package lila.game
 
 import alleycats.Zero
-import chess.ByColor
 
 export lila.core.lilaism.Lilaism.{ Game as CoreGame, Pov as CorePov, *, given }
 export lila.common.extensions.*

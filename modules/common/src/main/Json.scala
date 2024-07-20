@@ -1,7 +1,7 @@
 package lila.common
 
-import play.api.libs.json.{ Json as PlayJson, * }
 import io.mola.galimatias.URL
+import play.api.libs.json.{ Json as PlayJson, * }
 
 object Json:
 

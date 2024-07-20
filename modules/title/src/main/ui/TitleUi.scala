@@ -1,23 +1,16 @@
 package lila.title
 package ui
 
-import play.api.data.Form
-import play.api.libs.json.*
 import chess.PlayerTitle
+import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.id.TitleRequestId
 import lila.core.id.ImageId
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }
-
-  private def layout(title: String = "Title verification")(using Context) =
-    Page(title)
-      .css("bits.titleRequest")
-      .wrap: body =>
-        main(cls := "box box-pad page")(body)
 
   def index(page: Page, intro: Frag)(using Context) =
     page.css("bits.page"):
@@ -114,7 +107,6 @@ Today's date is [current date]""")
 
   def statusFlair(req: TitleRequest)(using Context) = iconFlair:
     Flair:
-      import TitleRequest.Status
       req.status.name match
         case "approved" => "activity.sparkles"
         case "rejected" => "symbols.cross-mark"

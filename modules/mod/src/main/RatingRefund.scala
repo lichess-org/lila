@@ -1,13 +1,13 @@
 package lila.mod
 
+import lila.core.game.GameRepo
+import lila.core.user.WithPerf
 import lila.db.dsl.*
-import lila.core.game.{ GameRepo }
+import lila.game.Query
+import lila.rating.PerfExt.refund
 import lila.rating.PerfType
 import lila.report.Suspect
-import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
-import lila.core.user.WithPerf
-import lila.rating.PerfExt.refund
-import lila.game.Query
+import lila.user.{ RankingApi, UserApi, UserPerfsRepo }
 
 final private class RatingRefund(
     gameRepo: GameRepo,

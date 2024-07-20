@@ -3,9 +3,8 @@ package lila.insight
 import chess.{ ByColor, Centis }
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-
 import lila.core.perf.PerfId
+import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 
 case class InsightPerfStats(

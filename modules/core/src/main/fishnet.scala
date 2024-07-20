@@ -1,10 +1,10 @@
 package lila.core
 package fishnet
 
-import _root_.chess.format.{ Uci, Fen }
+import _root_.chess.format.{ Fen, Uci }
 
+import lila.core.id.{ GameId, StudyChapterId, StudyId }
 import lila.core.userId.UserId
-import lila.core.id.{ GameId, StudyId, StudyChapterId }
 
 val maxPlies = 300
 
@@ -21,8 +21,7 @@ enum Bus:
       userId: UserId,
       official: Boolean
   )
-object Bus:
-  given bus.WithChannel[Bus] = bus.WithChannel[Bus]("fishnet")
+object Bus extends bus.GivenChannel[Bus]("fishnet")
 
 type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Funit
 

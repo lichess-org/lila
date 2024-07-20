@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
 import lila.core.net.IpAddress
-import lila.core.security.{ IsProxy, Ip2ProxyApi }
+import lila.core.security.{ Ip2ProxyApi, IsProxy }
 
 final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)(using
     Executor,

@@ -4,7 +4,6 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.common.LilaFuture
-
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 

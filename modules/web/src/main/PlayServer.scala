@@ -1,6 +1,4 @@
 package lila.web
-
-import play.api.inject.DefaultApplicationLifecycle
 import play.api.{ Application, Configuration, Environment, Mode, Play }
 import play.core.server.{
   NettyServer,
@@ -10,6 +8,7 @@ import play.core.server.{
   ServerProcess,
   ServerStartException
 }
+
 import java.io.File
 
 object PlayServer:

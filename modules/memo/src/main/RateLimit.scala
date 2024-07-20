@@ -2,7 +2,7 @@ package lila.memo
 
 import alleycats.Zero
 
-import lila.core.config.{ RateLimit as Enforce }
+import lila.core.config.RateLimit as Enforce
 
 /** Throttler that allows X operations per Y unit of time Not thread safe
   */

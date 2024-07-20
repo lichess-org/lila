@@ -1,13 +1,16 @@
 package lila.memo
 
-import scala.util.matching.Regex
-import scala.util.Try
+import play.api.data.*
 import reactivemongo.api.bson.BSONHandler
-
-import lila.db.dsl.*
-import play.api.data.*, Forms.*
-import lila.core.data.{ Ints, Strings, UserIds }
 import scalalib.Iso
+
+import scala.util.Try
+import scala.util.matching.Regex
+
+import lila.core.data.{ Ints, Strings, UserIds }
+import lila.db.dsl.*
+
+import Forms.*
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,

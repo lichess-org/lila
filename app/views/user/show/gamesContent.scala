@@ -1,8 +1,8 @@
 package views.user.show
 
-import lila.app.UiEnv.{ *, given }
-
 import scalalib.paginator.Paginator
+
+import lila.app.UiEnv.{ *, given }
 
 object gamesContent:
 

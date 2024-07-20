@@ -3,11 +3,11 @@ package lila.report
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi.*
+import lila.core.id.ReportId
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
-import lila.core.id.ReportId
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 import lila.report.Room.Scores
 
 final class ReportApi(
@@ -34,7 +34,7 @@ final class ReportApi(
   private lazy val scorer = wire[ReportScore]
 
   def create(data: ReportSetup, reporter: Reporter): Funit =
-    Reason(data.reason).so { reason =>
+    Reason(data.reason).so: reason =>
       getSuspect(data.user.id).flatMapz: suspect =>
         create:
           Report.Candidate(
@@ -43,14 +43,12 @@ final class ReportApi(
             reason,
             data.text.take(1000)
           )
-    }
 
   def isAutoBlock(data: ReportSetup): Boolean =
     Reason(data.reason).exists(Reason.autoBlock)
 
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
-    val ignoreReport = c.reporter.user.marks.reportban && !c.reason.isComm
-    (!ignoreReport && !isAlreadySlain(c)).so {
+    (!c.reporter.user.marks.reportban && !isAlreadySlain(c)).so {
       scorer(c).map(_.withScore(score)).flatMap { case scored @ Candidate.Scored(candidate, _) =>
         for
           prev <- coll.one[Report]:

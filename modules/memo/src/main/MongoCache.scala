@@ -1,10 +1,11 @@
 package lila.memo
 
-import CacheApi.*
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+
+import CacheApi.*
 
 /** To avoid recomputing very expensive values after deploy
   */

@@ -5,8 +5,8 @@ import play.api.libs.json.*
 import scalalib.Json.given
 import scalalib.paginator.Paginator
 
-import lila.core.game.Game
 import lila.common.Json.given
+import lila.core.game.Game
 import lila.game.JsonView.given
 import lila.ui.Context
 

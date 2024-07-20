@@ -1,7 +1,7 @@
 package lila.tree
 
 import cats.data.NonEmptyList
-import chess.format.{ Uci, Fen }
+import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 
 case class Eval(cp: Option[Eval.Cp], mate: Option[Eval.Mate], best: Option[Uci]):

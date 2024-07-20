@@ -1,10 +1,11 @@
 package lila.game
 
 import alleycats.Zero
+
 import scala.util.Success
 
 import lila.core.game.Blurs
-import lila.core.game.{ Blurs as apply }
+import lila.core.game.Blurs as apply
 
 object Blurs:
 

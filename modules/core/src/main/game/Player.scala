@@ -1,13 +1,14 @@
 package lila.core
 package game
 
-import _root_.chess.{ ByColor, Color, Elo, PlayerName, Ply }
-import lila.core.id.GamePlayerId
-import lila.core.userId.{ UserId, UserIdOf }
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
+import _root_.chess.{ Color, PlayerName, Ply }
 import cats.kernel.Eq
-import lila.core.user.WithPerf
+
+import lila.core.id.GamePlayerId
 import lila.core.perf.Perf
+import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
+import lila.core.user.WithPerf
+import lila.core.userId.{ UserId, UserIdOf }
 
 case class Player(
     id: GamePlayerId,

@@ -1,10 +1,11 @@
 package lila.user
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.perf.PuzPerf
 import lila.rating.UserWithPerfs.hasVariantRating
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class UserShowSide(helpers: Helpers):
   import helpers.{ *, given }

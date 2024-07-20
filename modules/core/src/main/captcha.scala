@@ -1,8 +1,8 @@
 package lila.core
 package captcha
 
-import _root_.chess.format.BoardFen
 import _root_.chess.Color
+import _root_.chess.format.BoardFen
 
 import lila.core.id.GameId
 

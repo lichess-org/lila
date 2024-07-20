@@ -4,12 +4,12 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.Json.given
 import lila.common.HTTPRequest
+import lila.common.Json.given
+import lila.core.data.Preload
 import lila.gathering.Condition.GetMyTeamIds
 import lila.memo.CacheApi.*
-import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm, VisibleTournaments }
-import lila.core.data.Preload
+import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm }
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 

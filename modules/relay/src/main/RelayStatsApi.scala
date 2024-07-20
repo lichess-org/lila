@@ -1,8 +1,8 @@
 package lila.relay
 
-import lila.db.dsl.{ *, given }
-import reactivemongo.api.bson.BSONInteger
 import scalalib.cache.ExpireSetMemo
+
+import lila.db.dsl.{ *, given }
 
 object RelayStats:
   type Minute = Int
@@ -14,7 +14,6 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
     Executor
 ):
   import RelayStats.*
-  import BSONHandlers.given
 
   // on measurement by minute at most; the storage depends on it.
   scheduler.scheduleWithFixedDelay(2 minutes, 2 minutes)(() => record())

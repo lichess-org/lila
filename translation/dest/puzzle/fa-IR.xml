@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">معماها</string>
-  <string name="puzzleThemes">معماهای دسته‌بندی شده</string>
+  <string name="puzzleThemes">موضوع معماها</string>
   <string name="recommended">توصیه شده</string>
   <string name="phases">مرحله‌ها</string>
   <string name="motifs">موضوعات</string>
@@ -16,8 +16,8 @@
   <string name="upVote">معمای خوبی بود</string>
   <string name="downVote">معمای بدی بود</string>
   <string name="yourPuzzleRatingWillNotChange">درجه‌بندی معمایی شما تغییری نخواهد کرد. توجه داشته باشید که معماها یک رقابت نیستند. درجه‌بندی‌تان به انتخاب بهترین معماها برای سطح مهارت فعلی‌تان کمک می‌کند.</string>
-  <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید.</string>
-  <string name="findTheBestMoveForBlack">بهترین حرکت برای سیاه را پیدا کنید.</string>
+  <string name="findTheBestMoveForWhite">بهترین حرکت سفید را بیابید.</string>
+  <string name="findTheBestMoveForBlack">بهترین حرکت سیاه را بیابید.</string>
   <string name="toGetPersonalizedPuzzles">دریافت معماهای شخصی‌سازی‌شده:</string>
   <string name="puzzleId">معمای %s</string>
   <string name="puzzleOfTheDay">معمای روز</string>
@@ -31,8 +31,8 @@
   <string name="byOpenings">بر اساس گشایش‌ها</string>
   <string name="puzzlesByOpenings">معماها بر اساس گشایش‌ها</string>
   <string name="openingsYouPlayedTheMost">گشایش‌هایی که بیش از همه در بازی‌های امتیازی کرده‌اید</string>
-  <string name="useFindInPage">با استفاده از قابلیت \"جستجو در صفحه\" مرورگر خود گشایش محبوب خود را پیدا کنید!</string>
-  <string name="useCtrlF">از Ctrl+f برای پیدا کردن گشایش مورد علاقه خود استفاده کنید!</string>
+  <string name="useFindInPage">از گزینه «جستجو در صفحه» مرورگر استفاده کنید تا گشایش دلخواه‌تان را بیابید!</string>
+  <string name="useCtrlF">از Ctrl+f برای یابیدن گشایش دلخواه‌تان استفاده کنید!</string>
   <string name="notTheMove">این حرکت نیست!</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
   <string name="ratingX">درجه‌بندی: %s</string>
@@ -78,8 +78,8 @@
   <string name="searchPuzzles">جستجوی معماها</string>
   <string name="fromMyGamesNone">شما هیچ معمایی در پایگاه‌داده ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
 
-بازی‌های سریع و مرسوم را انجام دهید تا بَختِتان را برای اضافه کردن یک معما از خودتان افزایش دهید!</string>
-  <string name="fromXGamesFound">%1$s معما در بازی‌های %2$s پیدا شد</string>
+بازی‌های سریع و مرسوم را انجام دهید تا بَختِتان را برای افزودن معمایی از خودتان بیفزایید!</string>
+  <string name="fromXGamesFound">%1$s معما در بازی‌های %2$s یافت شد</string>
   <string name="puzzleDashboardDescription">تمرین کن، تحلیل کن، پیشرفت کن</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s بررسی شده</item>

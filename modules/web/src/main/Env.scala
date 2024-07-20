@@ -1,7 +1,7 @@
 package lila.web
 
-import play.api.libs.ws.StandaloneWSClient
 import com.softwaremill.macwire.*
+import play.api.libs.ws.StandaloneWSClient
 
 @Module
 final class Env(

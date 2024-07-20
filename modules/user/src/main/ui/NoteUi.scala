@@ -1,10 +1,12 @@
 package lila.user
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.config.NetDomain
 import scalalib.paginator.Paginator
+
+import lila.core.config.NetDomain
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class NoteUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }

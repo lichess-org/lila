@@ -5,13 +5,13 @@ import chess.format.Fen
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 
+import lila.core.id.TourPlayerId
+import lila.core.tournament.Status
+import lila.core.tournament.leaderboard.Ratio
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.rating.PerfType
-import lila.core.tournament.leaderboard.Ratio
-import lila.core.tournament.Status
-import lila.core.id.TourPlayerId
 import lila.gathering.Thematic
+import lila.rating.PerfType
 
 object BSONHandlers:
 

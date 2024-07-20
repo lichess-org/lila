@@ -1,9 +1,10 @@
 package lila.round
 
-import lila.core.LightUser.IsBotSync
-import lila.game.{ CrosstableApi, Game, GameRepo }
 import chess.ByColor
+
+import lila.core.LightUser.IsBotSync
 import lila.core.perf.UserWithPerfs
+import lila.game.{ CrosstableApi, GameRepo }
 
 final private class FarmBoostDetection(
     gameRepo: GameRepo,

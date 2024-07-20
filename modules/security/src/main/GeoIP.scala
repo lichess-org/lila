@@ -7,9 +7,9 @@ import play.api.ConfigLoader
 
 import scala.util.Try
 
-import lila.core.net.IpAddress
 import lila.common.autoconfig.*
 import lila.core.config.ConfigName
+import lila.core.net.IpAddress
 import lila.core.security.IsProxy
 
 final class GeoIP(config: GeoIP.Config)(using Executor):
@@ -73,7 +73,6 @@ object Location:
 
   def isSuspicious(loc: Location) =
     loc == unknown ||
-      loc.region.has("Kirov Oblast") ||
-      loc.region.has("Samsun")
+      loc.region.has("Kirov Oblast")
 
   case class WithProxy(location: Location, proxy: IsProxy)

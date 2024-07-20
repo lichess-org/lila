@@ -1,12 +1,11 @@
 package views.user
 package show
 
-import lila.app.mashup.UserInfo
 import lila.app.UiEnv.{ *, given }
-
+import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
-import lila.user.Profile.*
 import lila.user.PlayTime.*
+import lila.user.Profile.*
 
 object header:
 

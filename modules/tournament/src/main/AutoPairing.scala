@@ -1,7 +1,7 @@
 package lila.tournament
 
-import monocle.syntax.all.*
 import chess.{ Black, ByColor, Color, White }
+import monocle.syntax.all.*
 
 import lila.core.game.Source
 

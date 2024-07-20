@@ -7,9 +7,9 @@ import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.ReportId
-import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
-import lila.report.Room.Scores
 import lila.mod.ui.PendingCounts
+import lila.report.Room.Scores
+import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
 
 final class Report(env: Env, userC: => User, modC: => Mod) extends LilaController(env):
 

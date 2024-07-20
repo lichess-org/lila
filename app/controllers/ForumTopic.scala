@@ -3,10 +3,9 @@ package controllers
 import play.api.libs.json.*
 
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
-import lila.forum.ForumCateg.diagnosticId
 import lila.common.Json.given
 import lila.core.id.{ ForumCategId, ForumTopicId }
+import lila.forum.ForumCateg.diagnosticId
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
