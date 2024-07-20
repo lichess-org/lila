@@ -12,6 +12,7 @@ opaque type AccuracyPercent = Double
 object AccuracyPercent extends OpaqueDouble[AccuracyPercent]:
 
   given lila.db.NoBSONWriter[AccuracyPercent] with {}
+  given lila.db.NoBSONReader[AccuracyPercent] with {}
   given Percent[AccuracyPercent] = Percent.of(AccuracyPercent)
 
   extension (a: AccuracyPercent)

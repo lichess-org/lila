@@ -31,8 +31,8 @@ trait Handlers:
   )(using NotGiven[NoBSONReader[T]]): BSONReader[T] with
     def readTry(bson: BSONValue) = reader.readTry(bson).map(sr.apply)
 
-  given NoBSONReader[Blurs] with {}
-  given NoBSONWriter[Blurs] with {}
+  // given NoBSONReader[Blurs] with {}
+  // given NoBSONWriter[Blurs] with {}
 
   given userIdOfWriter[U: UserIdOf](using writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(u.id)
@@ -178,8 +178,10 @@ trait Handlers:
   )
 
   given NoBSONWriter[chess.Square] with {} // no default opaque handler for chess.Square
+  given NoBSONReader[chess.Square] with {} // no default opaque handler for chess.Square
 
   given lila.db.NoBSONWriter[lila.core.user.Me] with {}
+  given lila.db.NoBSONReader[lila.core.user.Me] with {}
 
   def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
     { case BSONString(str) => chess.Square.fromKey(str).toTry(s"No such key $str") },
