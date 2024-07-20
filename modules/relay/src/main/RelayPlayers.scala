@@ -14,23 +14,18 @@ private case class RelayPlayer(
     fideId: Option[FideId] = none
 )
 
-private class RelayPlayersTextarea(val text: String):
-
-  def sortedText = text.linesIterator.toList.sorted.mkString("\n")
-
-  private lazy val players: Map[PlayerName, RelayPlayer] =
-    val lines = text.linesIterator
-    lines.nonEmpty.so:
-      text.linesIterator.take(1000).toList.flatMap(parse).toMap
+private object RelayPlayer:
 
   object tokenize:
     private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
     private val splitRegex     = """\W""".r
+    private val titleRegex     = """(?i)(dr|prof)\.""".r
     def apply(str: String): PlayerToken =
       splitRegex
         .split:
           java.text.Normalizer
             .normalize(str.trim, java.text.Normalizer.Form.NFD)
+            .replaceAllIn(titleRegex, "")
             .replaceAllIn(nonLetterRegex, "")
             .toLowerCase
         .toList
@@ -39,6 +34,17 @@ private class RelayPlayersTextarea(val text: String):
         .distinct
         .sorted
         .mkString(" ")
+
+private class RelayPlayersTextarea(val text: String):
+
+  import RelayPlayer.tokenize
+
+  def sortedText = text.linesIterator.toList.sorted.mkString("\n")
+
+  private lazy val players: Map[PlayerName, RelayPlayer] =
+    val lines = text.linesIterator
+    lines.nonEmpty.so:
+      text.linesIterator.take(1000).toList.flatMap(parse).toMap
 
   // With tokenized player names
   private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
