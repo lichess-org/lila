@@ -40,7 +40,7 @@ case class FidePlayer(
 
 object FidePlayer:
 
-  val tokenize: Tokenize =
+  private[fide] val tokenize: Tokenize =
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
     val splitRegex     = """\W""".r
     str =>
@@ -62,7 +62,7 @@ object FidePlayer:
     case title :: rest if PlayerTitle.get(title).isDefined => rest
     case _                                                 => name
 
-  val slugify: PlayerName => String =
+  private[fide] val slugify: PlayerName => String =
     val splitAccentRegex = "[\u0300-\u036f]".r
     val multiSpaceRegex  = """\s+""".r
     val badChars         = """[^\w\-]+""".r
