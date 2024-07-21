@@ -171,20 +171,19 @@ const makePreview =
     );
   };
 
-export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEval): MaybeVNode =>
-  chap.check == '#'
-    ? h(
-        'span.mini-game__gauge.mini-game__gauge--set',
-        { attrs: { 'data-id': chap.id, title: 'Checkmate' } },
-        [
-          h('span.mini-game__gauge__black', {
-            attrs: { style: `height: ${fenColor(chap.fen) == 'white' ? 100 : 0}%` },
-          }),
-          h('tick'),
-        ],
-      )
+export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEval): MaybeVNode => {
+  const tag = `span.mini-game__gauge${chap.orientation == 'black' ? ' mini-game__gauge--flip' : ''}${
+    chap.check == '#' ? ' mini-game__gauge--set' : ''
+  }`;
+  return chap.check == '#'
+    ? h(tag, { attrs: { 'data-id': chap.id, title: 'Checkmate' } }, [
+        h('span.mini-game__gauge__black', {
+          attrs: { style: `height: ${fenColor(chap.fen) == 'white' ? 100 : 0}%` },
+        }),
+        h('tick'),
+      ])
     : h(
-        'span.mini-game__gauge',
+        tag,
         {
           attrs: { 'data-id': chap.id },
           hook: {
@@ -208,6 +207,7 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
         },
         [h('span.mini-game__gauge__black'), h('tick')],
       );
+};
 
 const renderUser = (player: ChapterPreviewPlayer): VNode =>
   h('span.mini-game__user', [

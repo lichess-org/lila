@@ -45,8 +45,9 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
           ),
           inner(f, Right(post), none),
           postForm(
-            cls    := "ublog-post-form__delete",
-            action := routes.Ublog.delete(post.id)
+            cls     := "ublog-post-form__delete",
+            action  := routes.Ublog.delete(post.id),
+            enctype := "multipart/form-data"
           ):
             form3.action:
               submitButton(
@@ -132,34 +133,28 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
           attr("draggable") := "true"
         ),
         div(
-          if ctx.is(post.created.by) then
-            frag(
-              p(strong(trans.ublog.uploadAnImageForYourPost())),
-              p(
-                trans.ublog.safeToUseImages(),
-                fragList(
-                  List(
-                    "unsplash.com"          -> "https://unsplash.com",
-                    "commons.wikimedia.org" -> "https://commons.wikimedia.org",
-                    "pixabay.com"           -> "https://pixabay.com",
-                    "pexels.com"            -> "https://pexels.com",
-                    "piqsels.com"           -> "https://piqsels.com",
-                    "freeimages.com"        -> "https://freeimages.com"
-                  ).map: (name, url) =>
-                    a(href := url, targetBlank)(name)
-                )
-              ),
-              p(trans.ublog.useImagesYouMadeYourself()),
-              p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-              form3.file.selectImage()
-            )
-          else
-            postForm(
-              action  := routes.Ublog.image(post.id),
-              enctype := "multipart/form-data"
-            )(
-              post.image.isDefined.option(submitButton(cls := "button button-red confirm"):
-                trans.ublog.deleteImage()
+          ctx
+            .is(post.created.by)
+            .option(
+              frag(
+                p(strong(trans.ublog.uploadAnImageForYourPost())),
+                p(
+                  trans.ublog.safeToUseImages(),
+                  fragList(
+                    List(
+                      "unsplash.com"          -> "https://unsplash.com",
+                      "commons.wikimedia.org" -> "https://commons.wikimedia.org",
+                      "pixabay.com"           -> "https://pixabay.com",
+                      "pexels.com"            -> "https://pexels.com",
+                      "piqsels.com"           -> "https://piqsels.com",
+                      "freeimages.com"        -> "https://freeimages.com"
+                    ).map: (name, url) =>
+                      a(href := url, targetBlank)(name)
+                  )
+                ),
+                p(trans.ublog.useImagesYouMadeYourself()),
+                p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
+                form3.file.selectImage()
               )
             )
         )

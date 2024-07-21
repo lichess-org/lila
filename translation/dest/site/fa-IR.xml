@@ -100,10 +100,10 @@
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ممکنه بازی‌های بیشتری با توجه به گزینگان ترجیح‌ها، وجود داشته باشد؟</string>
   <string name="openings">گشایش‌ها</string>
-  <string name="openingExplorer">جستجوگر گشایش‌</string>
-  <string name="openingEndgameExplorer">جستجوگر گشایش/آخربازی</string>
+  <string name="openingExplorer">پویشگر گشایش‌</string>
+  <string name="openingEndgameExplorer">پویشگر گشایش/آخربازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی را برو</string>
+  <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی پویشگر را برو</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
@@ -180,6 +180,7 @@
   <string name="latestForumPosts">آخرین پست های انجمن</string>
   <string name="players">بازیکنان</string>
   <string name="friends">دوستان</string>
+  <string name="otherPlayers">بازیکنان دیگر</string>
   <string name="discussions">مکالمات</string>
   <string name="today">امروز</string>
   <string name="yesterday">دیروز</string>
@@ -332,7 +333,7 @@
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
   <string name="thisAccountViolatedTos">این حساب قوانین را نقض کرده است</string>
-  <string name="openingExplorerAndTablebase">جستجوگر گشایش و آخربازی</string>
+  <string name="openingExplorerAndTablebase">پویشگر گشایش و آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>
   <string name="proposeATakeback">پیشنهاد پس گرفتن حرکت</string>
   <string name="takebackPropositionSent">پیشنهاد پس گرفتن حرکت فرستاده شد</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
+  <string name="website">وبگاه</string>
+  <string name="mobile">گوشی</string>
   <string name="help">راهنما:</string>
   <string name="createANewTopic">ایجاد یک موضوع جدید</string>
   <string name="topics">مباحث</string>
@@ -767,7 +770,7 @@
   <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، مرسوم</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>
-  <string name="viewTheSolution">دیدن راهِ حل</string>
+  <string name="viewTheSolution">دیدن راه‌حل</string>
   <string name="followAndChallengeFriends">دنبال کردن و پیشنهاد بازی دادن به دوستان</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">در %s زبان موجود است!</item>
@@ -833,13 +836,13 @@
   <string name="skipThisMove">رد کردن این حرکت</string>
   <string name="next">بعدی</string>
   <string name="xWasPlayed">%s بازی شد</string>
-  <string name="findBetterMoveForWhite">یه حرکت بهتر برای سفید پیدا کنید</string>
-  <string name="findBetterMoveForBlack">یه حرکت بهتر برای سیاه پیدا کنید</string>
+  <string name="findBetterMoveForWhite">حرکت بهتری برای سفید بیابید</string>
+  <string name="findBetterMoveForBlack">حرکت بهتری برای سیاه بیابید</string>
   <string name="resumeLearning">ادامه یادگیری</string>
   <string name="youCanDoBetter">می‌توانید بهتر انجامش دهید</string>
   <string name="tryAnotherMoveForWhite">برای سفید،حرکت دیگری را امتحان کنید</string>
   <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
-  <string name="solution">راه حل</string>
+  <string name="solution">راه‌حل</string>
   <string name="waitingForAnalysis">در انتظار برای آنالیز</string>
   <string name="noMistakesFoundForWhite">هیچ اشتباهی برای سفید مشاهده نشد</string>
   <string name="noMistakesFoundForBlack">هیچ اشتباهی برای سیاه مشاهده نشد</string>
@@ -982,7 +985,7 @@
   <string name="youCantStartNewGame">شما نمی توانید تا زمانی که این بازی تمام نشده بازی جدیدی آغاز کنید.</string>
   <string name="since">از وقتی که</string>
   <string name="until">تا وقتی که</string>
-  <string name="lichessDbExplanation">بازی‌های رسمی برگزار شده در Lichess</string>
+  <string name="lichessDbExplanation">بازی‌های رسمی برگزاریده در Lichess</string>
   <string name="switchSides">تعویض سمت</string>
   <string name="closingAccountWithdrawAppeal">با بستن حساب خود درخواست تجدید نظر خود را پس خواهید گرفت</string>
   <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>

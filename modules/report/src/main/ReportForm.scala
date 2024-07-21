@@ -66,7 +66,5 @@ case class ReportSetup(
     reason: String,
     text: String
 ):
-
   def suspect = SuspectId(user.id)
-
-  def values = (user.name.into(UserStr), reason, text)
+  def values  = (user.name.into(UserStr), reason, text)

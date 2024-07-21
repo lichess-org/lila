@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Neueste Forenbeiträge</string>
   <string name="players">Spieler</string>
   <string name="friends">Freunde</string>
+  <string name="otherPlayers">andere Spieler</string>
   <string name="discussions">Konversationen</string>
   <string name="today">Heute</string>
   <string name="yesterday">Gestern</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Text, den nur Teammitglieder lesen können. Wenn ausgefüllt, ersetzt er für Teammitglieder die öffentliche Beschreibung.</string>
   <string name="no">Nein</string>
   <string name="yes">Ja</string>
+  <string name="website">Webseite</string>
+  <string name="mobile">Handy</string>
   <string name="help">Hilfe:</string>
   <string name="createANewTopic">Erstelle ein neues Thema</string>
   <string name="topics">Themen</string>

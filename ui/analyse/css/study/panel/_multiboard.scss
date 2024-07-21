@@ -105,6 +105,8 @@
     margin-top: -1px;
     overflow: hidden;
     @extend %box-radius-right;
+    opacity: 0.4;
+    background: linear-gradient(to top, $white, $black);
 
     &__black {
       display: none;
@@ -113,8 +115,14 @@
       background: $black;
     }
 
-    opacity: 0.4;
-    background: linear-gradient(to top, $white, $black);
+    &--flip {
+      background: linear-gradient(to bottom, $white, $black);
+      .mini-game__gauge__black {
+        position: absolute;
+        bottom: 0;
+      }
+    }
+
     &--set {
       opacity: 1;
       background: $white;

@@ -198,6 +198,7 @@
   <string name="latestForumPosts">Najnovšie príspevky</string>
   <string name="players">Hráči</string>
   <string name="friends">Priatelia</string>
+  <string name="otherPlayers">iní hráči</string>
   <string name="discussions">Konverzácie</string>
   <string name="today">Dnes</string>
   <string name="yesterday">Včera</string>
@@ -605,6 +606,8 @@
   <string name="descPrivateHelp">Text, ktorý uvidia len členovia daného tímu. Ak je zadaný, tak nahrádza verejný opis členov tímu.</string>
   <string name="no">Nie</string>
   <string name="yes">Áno</string>
+  <string name="website">Webstránka</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Pomoc:</string>
   <string name="createANewTopic">Vytvoriť novú tému</string>
   <string name="topics">Témy</string>

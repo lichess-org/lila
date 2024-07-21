@@ -17,5 +17,5 @@
   <string name="playPreferredMoveOrConfirmSomething">حرکت ترجیحی را بازی کنید یا چیزی را تایید کنید</string>
   <string name="sleep">خواب (اگر کلمه بیدار باش فعال باشد)</string>
   <string name="turnOffVoiceRecognition">تشخیص صدا را خاموش کنید</string>
-  <string name="showPuzzleSolution">نشان دادن راه‌حل معما</string>
+  <string name="showPuzzleSolution">نمایش راه‌حل معما</string>
 </resources>
