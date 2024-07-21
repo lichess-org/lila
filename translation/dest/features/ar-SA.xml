@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="supportLichess">ادعم Lichess</string>
+  <string name="allFeaturesAreFreeForEverybody">جميع الميزات مجانية للجميع، إلى الأبد!</string>
+  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;">إذا كنت تحب ليتشيس،</string>
+  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of https://lichess.org/features, which takes users to the donation page.">قم بدعمنا بحساب Patron!</string>
+</resources>
