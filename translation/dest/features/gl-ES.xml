@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking" comment="This is string appears as a feature listed on the https://lichess.org/features page.">Sen anuncios nin rastrexadores</string>
-  <string name="correspondenceWithConditionalPremoves">Xadrez postal con premovementos condicionais</string>
-  <string name="standardChessAndX" comment="%s is 8 variants">Xadrez estándar e %s</string>
-  <string name="deepXServerAnalysis" comment="deepXServerAnalysis&#10;%s is the name of the chess engine (e.g. Stockfish)">Análise profunda no servidor de %s</string>
-  <plurals name="gamesPerDay">
-    <item quantity="one">%s partida ó día</item>
-    <item quantity="other">%s partidas ó día</item>
+  <string name="correspondenceWithConditionalPremoves" comment="This is string appears as a feature listed on the https://lichess.org/features page.">Xadrez postal con premovementos condicionais</string>
+  <string name="standardChessAndX" comment="%s is &quot;8 variants&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Xadrez estándar e %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the name of the chess engine (e.g. Stockfish)&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Análise profunda no servidor de %s</string>
+  <plurals name="gamesPerDay" comment="%s is the number of games a single user is permitted to analyse per day, using a powerful chess engine.">
+    <item quantity="one">%s partida por día</item>
+    <item quantity="other">%s partidas por día</item>
   </plurals>
-  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor de taboleiro e taboleiro de análise con %s</string>
-  <string name="cloudEngineAnalysis">Motor de análise dende a nube</string>
-  <string name="studies">Estudos (compartidos e análise persistente)</string>
-  <string name="chessInsights">Estatísticas (análise detallado do teu xogo)</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (e.g. Stockfish, Fairy-Stockfish)&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Editor de taboleiro e taboleiro de análise con %s</string>
+  <string name="cloudEngineAnalysis" comment="&quot;Cloud&quot; means it runs online on Lichess's servers instead of your device, which saves your own hardware resources and battery.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Motor de análise dende a nube</string>
+  <string name="studies" comment="This is string appears as a feature listed on the https://lichess.org/features page.">Estudos (compartidos e análise persistente)</string>
+  <string name="chessInsights" comment="This is string appears as a feature listed on the https://lichess.org/features page.">Estatísticas (análise detallado do teu xogo)</string>
   <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Todas as leccións básicas de xadrez</string>
-  <string name="tacticalPuzzlesFromUserGames">Crebacabezas de partidas dos xogadores</string>
+  <string name="tacticalPuzzlesFromUserGames" comment="The text links to https://lichess.org/training, so we recommend translating this to encompass all puzzles, in case your language makes a distinction.&#10;All puzzles on Lichess are generated from real games played on the website.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Crebacabezas de partidas dos xogadores</string>
   <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.&#10;The Features page has a humorous comparison, which demonstrates the features of Lichess and indicates which features free and paying members can access respectively. The joke is that both have the same feature, as Lichess is a fully free service. The sole difference is that patrons can optionally have a wing as their online status indicator.">%1$s (tamén funciona con %2$s)</string>
   <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Explorador de aperturas persoal</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.">Explorador de aperturas global (%s partidas!)</string>
-  <string name="endgameTablebase">Base de datos de finais de 7 pezas</string>
-  <string name="downloadOrUploadAnyGameAsPgn">Descarga/Sube calquera partida coma un PGN</string>
-  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, foro, equipos, TV, mensaxes, amizades, desafíos</string>
-  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Tema Claro/Escuro, taboleiros, pezas e fondo á medida</string>
-  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBala, Bala, Lóstrego, Rápidas, Clásicas, Xadrez Postal</string>
+  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Explorador de aperturas global (%s partidas!)</string>
+  <string name="endgameTablebase" comment="This is string appears as a feature listed on the https://lichess.org/features page.">Base de datos de finais de 7 pezas</string>
+  <string name="downloadOrUploadAnyGameAsPgn" comment="This is string appears as a feature listed on the https://lichess.org/features page.">Descarga/Sube calquera partida coma un PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges" comment="This is string covering several community features.&#10;The string appears as a feature listed on the https://lichess.org/features page.">Blog, foro, equipos, TV, mensaxes, amizades, desafíos</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground" comment="This feature is about how the appearance of Lichess can be customised to suit a user's taste.&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Tema Claro/Escuro, taboleiros, pezas e fondo á medida</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess" comment="This string covers the different variants available on Lichess.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">UltraBala, Bala, Lóstrego, Rápidas, Clásicas, Xadrez Postal</string>
   <string name="allFeaturesToCome">Todas as funcións por chegar, para sempre!</string>
-  <string name="landscapeSupportOnApp">Teléfonos e tabletas iPhone &amp; Android, con modo apaisado</string>
-  <string name="supportLichess">Apoiar a Lichess</string>
-  <string name="contributeToLichessAndGetIcon">Contribúe a Lichess e obtén unha bárbara icona de Patrón</string>
-  <string name="everybodyGetsAllFeaturesForFree">Si, ambas as dúas contas teñen as mesmas funcións!</string>
+  <string name="landscapeSupportOnApp" comment="This is string appears as a feature listed on the https://lichess.org/features page, discussing availability of the official mobile app.">Teléfonos e tabletas iPhone &amp; Android, con modo apaisado</string>
+  <string name="supportLichess" comment="Appears as a heading on the https://lichess.org/features page. We recommend you see this in context (a screenshot is available), to translate appropriately.">Apoiar a Lichess</string>
+  <string name="contributeToLichessAndGetIcon" comment="This is string speaking of a financial contribution in the context of the Features page that this appears on (https://lichess.org/features). The page is a tongue-in-cheek feature comparison for free and paying members; the only difference is that Patrons can replace the normal status indicator icon (a bubble) with a wing icon.">Contribúe a Lichess e obtén unha bárbara icona de Patrón</string>
+  <string name="everybodyGetsAllFeaturesForFree" comment="Appears on the https://lichess.org/features page, explaining that no Lichess features are paywalled. The only difference for patrons is that they paid to help keep Lichess running.">Si, ambas as dúas contas teñen as mesmas funcións!</string>
   <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;">Cremos que todos os xogadores merecen o mellor, polo tanto:</string>
   <string name="allFeaturesAreFreeForEverybody">Todas as funcións son gratis para todo o mundo, para sempre!</string>
   <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;">Se amas a Lichess,</string>
