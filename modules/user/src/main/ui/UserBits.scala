@@ -28,10 +28,18 @@ final class UserBits(helpers: Helpers):
       )
     )
 
-  def miniClosed(u: User)(using Translate) = Snippet:
+  def miniClosed(u: User, blocked: Boolean)(using Translate) = Snippet:
     frag(
       div(cls := "title")(userLink(u, withPowerTip = false)),
-      div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed())
+      div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed()),
+      blocked.option(
+        a(
+          cls      := "btn-rack__btn relation-button text aclose",
+          title    := trans.site.unblock.txt(),
+          href     := s"${routes.Relation.unblock(u.id)}?mini=1",
+          dataIcon := Icon.NotAllowed
+        )(trans.site.blocked())
+      )
     )
 
   def signalBars(v: Int) = raw:

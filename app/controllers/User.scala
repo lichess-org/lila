@@ -7,12 +7,14 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.paginator.Paginator
 import scalatags.Text.Frag
+import scala.concurrent.Await
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
+import lila.core.relation.Relation
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType
@@ -166,13 +168,14 @@ final class User(
           )
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>
+      val relation = ctx.userId.so(relationApi.fetchRelation(_, user.id))
       if user.enabled.yes || isGrantedOpt(_.UserModView)
       then
         (
           ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
           ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
           ctx.isAuth.so(env.pref.api.followable(user.id)),
-          ctx.userId.so(relationApi.fetchRelation(_, user.id))
+          relation
         ).flatMapN: (blocked, crosstable, followable, relation) =>
           val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
           negotiate(
@@ -188,7 +191,9 @@ final class User(
                   "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                 )
           )
-      else Ok(views.user.bits.miniClosed(user.user))
+      else
+        val block = Await.result(relation.map(_.contains(Relation.Block)), Duration.Inf)
+        Ok(views.user.bits.miniClosed(user.user, block))
 
   def online = Anon:
     val max = 50
