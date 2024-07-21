@@ -1,111 +1,113 @@
-import { Pane } from './pane';
+import { Pane, RangeSetting } from './pane';
 import * as licon from 'common/licon';
-import type { PaneArgs, BooksInfo } from './types';
+import type { PaneArgs, BooksInfo, RangeInfo } from './types';
 import type { Book } from '../types';
+import { assetDialog } from './assetDialog';
+
+export class BookPane extends RangeSetting {
+  label: HTMLLabelElement;
+  parent: BooksPane;
+  constructor(p: PaneArgs) {
+    super(p);
+    this.el.append(
+      $as<Node>(`<i role="button" tabindex="0" data-icon="${licon.Cancel}" data-click="remove">`),
+    );
+    const span = this.label.firstElementChild as HTMLElement;
+    span.dataset.src = this.host.assetDb.getBookCoverUrl(span.textContent!);
+    span.classList.add('imagept');
+    this.rangeInput.insertAdjacentHTML('afterend', 'wt');
+  }
+
+  getProperty(): number {
+    return this.parent.getWeight(this) ?? this.info.value ?? 1;
+  }
+
+  setProperty(value: number): void {
+    this.parent.setWeight(this, value);
+  }
+
+  update(e?: Event): void {
+    if (!(e?.target instanceof HTMLElement)) return;
+    if (e.target.dataset.click === 'remove') {
+      this.parent.removeBook(this);
+      this.el.remove();
+      this.host.update();
+    } else super.update(e);
+  }
+}
 
 export class BooksPane extends Pane {
   info: BooksInfo;
+  template: RangeInfo = {
+    type: 'range',
+    class: ['setting', 'book'],
+    value: 1,
+    min: 1,
+    max: 10,
+    step: 1,
+    required: true,
+  };
   constructor(p: PaneArgs) {
     super(p);
     this.label?.prepend(
       $as<Node>(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-click="add">`),
     );
-  }
-
-  protected init(): void {
-    this.books.forEach(x => x.remove());
-    this.value.forEach((_, i) => this.el.appendChild(this.makeBook(i)));
-    this.updateChoices();
-  }
-
-  private choices(index: number): Node[] {
-    const choices = this.available.slice();
-    const selected = this.selected(index);
-    if (!choices.includes(selected)) choices.splice(0, 0, selected);
-    return choices.map(x =>
-      $as<Node>(`<option value="${x}"${selected === x ? ' selected=""' : ''}>${x}</option>`),
-    );
+    this.value.forEach((_, index) => this.makeBook(index));
   }
 
   update(e?: Event): void {
     if (!(e?.target instanceof HTMLElement)) return;
-    const index = this.index(e);
     if (e.target.dataset.click === 'add') {
-      this.value.push({ name: this.available[0], weight: 1 });
-      this.el.append(this.makeBook(this.value.length - 1));
-      this.updateChoices();
-    } else if (e.target.dataset.click === 'remove') this.removeBook(index);
-    else if (e.target.dataset.type === 'string') this.updateBook(index, (e.target as any).value);
-    else if (e.target.dataset.type === 'number') this.updateWeight(index, e.target as HTMLInputElement);
+      assetDialog(this.host.assetDb, 'book').then(b => {
+        if (!b) return;
+        this.value.push({ name: b, weight: this.template?.value ?? 1 });
+        this.makeBook(this.value.length - 1);
+      });
+    }
   }
 
-  private updateChoices(): void {
-    this.selects.forEach((s, i) => {
-      s.innerHTML = '';
-      s.append(...this.choices(i));
-    });
-    this.el.querySelector('[data-click="add"]')?.classList.toggle('disabled', !this.available.length);
-    this.el.classList.toggle('disabled', !this.selects.length);
+  setWeight(pane: BookPane, value: number): void {
+    this.value[this.index(pane)].weight = value;
   }
 
-  private makeBook(index: number): Node {
-    const { name, weight } = this.value[index];
-    return $as<Node>(`<div class="book setting">
-        <select value="${name}" data-type="string"></select>wt:
-        <input type="text" value="${weight}" data-type="number">
-        <i role="button" tabindex="0" data-icon="${licon.Cancel}" data-click="remove">
-      </div>`);
-  }
-
-  private index(e: Event): number {
-    return this.books.indexOf((e.target as Node).parentElement!);
-  }
-
-  private removeBook(index: number): void {
-    this.books[index].remove();
-    this.value.splice(index, 1);
-    this.updateChoices();
-  }
-
-  private updateBook(index: number, value: string) {
-    this.value[index].name = value;
-    this.updateChoices();
-  }
-
-  private updateWeight(index: number, input: HTMLInputElement) {
-    const value = Number(input.value);
-    const invalid = isNaN(value) || value < this.info.min || value > this.info.max;
-    input.classList.toggle('invalid', invalid);
-    if (invalid) return;
-    this.value[index].weight = value;
+  getWeight(pane: BookPane): number | undefined {
+    const index = this.index(pane);
+    return index == -1 ? undefined : this.value[this.index(pane)]?.weight ?? 1;
   }
 
   setEnabled(): boolean {
-    this.init();
+    this.el.classList.toggle('disabled', !this.value.length);
     return true;
+  }
+
+  removeBook(pane: BookPane): void {
+    this.value.splice(this.index(pane), 1);
+    this.setEnabled();
+  }
+
+  index(pane: BookPane): number {
+    return this.bookEls.indexOf(pane.el);
+  }
+
+  private makeBook(index: number): void {
+    const book = this.value[index];
+    const pargs = {
+      host: this.host,
+      info: { ...this.template, label: book.name, value: book.weight, id: `${this.id}_${counter++}` },
+      parent: this,
+    };
+    this.el.appendChild(new BookPane(pargs).el);
+    this.setEnabled();
+    this.host.update();
   }
 
   private get value(): Book[] {
     return this.getProperty() as Book[];
   }
 
-  private get unavailable() {
-    return this.value.map(b => b.name);
-  }
-
-  private get available() {
-    return this.info.choices.map(x => x.value).filter(c => !this.unavailable.includes(c));
-  }
-
-  private get selects() {
-    return [...this.el.querySelectorAll('select')];
-  }
-
-  private get books() {
+  private get bookEls() {
     return [...this.el.querySelectorAll('.book')];
   }
-
-  private selected(index: number): string {
-    return this.value[index]?.name ?? '';
-  }
 }
+
+let counter = 0;

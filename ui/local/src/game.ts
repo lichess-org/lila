@@ -2,17 +2,30 @@ import * as co from 'chessops';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
-import { Outcome } from './types';
+import { Outcome, SoundEvent } from './types';
 import { statusOf } from 'game/status';
 import { Status } from 'game';
 
-export interface GameState {
+/*export interface GameState {
   startingFen: string;
   moves: Uci[];
   threefoldFens?: Map<string, number>;
   fiftyHalfMove?: number;
   white: string | undefined;
   black: string | undefined;
+}*/
+
+export interface GameResult {
+  end: boolean;
+  result?: Outcome | 'error';
+  reason?: string;
+  status?: Status;
+}
+
+export interface MoveResult extends GameResult {
+  san: San;
+  move?: co.NormalMove;
+  sounds?: SoundEvent[];
 }
 
 export class Game {
@@ -31,34 +44,30 @@ export class Game {
     for (const move of moves ?? []) this.move(move);
   }
 
-  move(uci: Uci): {
-    end: boolean;
-    san: San;
-    move?: co.NormalMove;
-    result?: Outcome | 'error';
-    reason?: string;
-    status?: Status;
-  } {
-    const bareMove = co.parseUci(uci) as co.NormalMove;
-    const move = bareMove
-      ? { ...(normalizeMove(this.chess, bareMove) as co.NormalMove), promotion: bareMove.promotion }
-      : undefined;
-    if (!move || !this.chess.isLegal(move)) {
+  move(unsafeUci: Uci, isBot?: boolean): MoveResult {
+    const sounds: SoundEvent[] = [];
+    const { move, uci } = normalMove(this.chess, unsafeUci) ?? {};
+    if (!move || !uci) {
       return {
         end: true,
         san: '',
         result: 'error',
-        reason: `${this.turn} made illegal move ${uci} at ${makeFen(this.chess.toSetup())}`,
+        reason: `${this.turn} made illegal move ${unsafeUci} at ${makeFen(this.chess.toSetup())}`,
         status: statusOf('aborted'),
       };
     }
-    uci = co.makeUci(move); // fix e1h1/e8h8 nonsense
     const san = makeSanAndPlay(this.chess, move);
     this.fifty(move);
     this.updateThreefold();
     const { end, result, reason, status } = this.checkGameOver();
     this.moves.push(uci);
-    return { end, result, reason, status, san, move };
+    if (isBot !== undefined) {
+      if (san.includes('x')) sounds.push(isBot ? 'botCapture' : 'playerCapture');
+      if (this.chess.isCheck()) sounds.push(isBot ? 'botCheck' : 'playerCheck');
+      if (end) sounds.push(isBot ? 'botWin' : 'playerWin');
+      sounds.push(isBot ? 'botMove' : 'playerMove');
+    }
+    return { end, result, reason, status, san, move, sounds };
   }
 
   fifty(move?: co.NormalMove): boolean {
@@ -79,12 +88,7 @@ export class Game {
     return fenCount >= 3; // TODO fixme
   }
 
-  checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): {
-    end: boolean;
-    result?: Outcome | 'error';
-    reason?: string;
-    status?: Status;
-  } {
+  checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): GameResult {
     let status = statusOf('started');
     let result: Outcome | 'error' = 'draw',
       reason = userEnd ?? 'checkmate';
@@ -133,4 +137,11 @@ export class Game {
     for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as Cg.Key[]);
     return dec;
   }
+}
+
+export function normalMove(chess: co.Chess, uci: Uci): { uci: Uci; move: co.NormalMove } | undefined {
+  const bareMove = co.parseUci(uci);
+  const move =
+    bareMove && 'from' in bareMove ? { ...bareMove, ...normalizeMove(chess, bareMove) } : undefined;
+  return move && chess.isLegal(move) ? { uci: co.makeUci(move), move } : undefined;
 }

@@ -1,11 +1,12 @@
 import { deepFreeze } from 'common';
-import type { Schema, AnyKey, SelectInfo, PropertyValue } from './types';
+import type { Schema, AnyKey, PropertyValue } from './types';
 
 export const primitiveKeys: AnyKey[] = [
   'type',
   'id',
   'label',
   'value',
+  'assetType',
   'class',
   'choices',
   'title',
@@ -19,9 +20,8 @@ export const primitiveKeys: AnyKey[] = [
 
 export const operatorRegex: RegExp = /==|>=|>|<=|<|!=/;
 
-export let schema: Schema = {
+export const schema: Schema = {
   bot_name: {
-    //label: 'name',
     type: 'text',
     class: ['setting'],
     value: 'bot name',
@@ -34,25 +34,64 @@ export let schema: Schema = {
     value: 'short description',
     required: true,
   },
-  bot_image: {
-    label: 'image',
-    type: 'select',
-    class: ['setting'],
-    choices: [],
-    value: undefined,
-    required: true,
-  },
   sources: {
     class: ['sources'],
     books: {
       label: 'books',
       class: ['books'],
       type: 'books',
-      choices: [],
-      value: [],
       required: true,
-      min: 0,
-      max: 99,
+    },
+    sounds: {
+      label: 'sounds',
+      class: ['sounds'],
+      type: 'group',
+      required: true,
+      greeting: {
+        label: 'greeting',
+        type: 'sounds',
+        value: { chance: 100, volume: 1, delay: 0 },
+      },
+      playerWin: {
+        label: 'player win',
+        type: 'sounds',
+        value: { chance: 100, volume: 1, delay: 2 },
+      },
+      botWin: {
+        label: 'bot win',
+        type: 'sounds',
+        value: { chance: 100, volume: 1, delay: 1 },
+      },
+      playerCheck: {
+        label: 'player check',
+        type: 'sounds',
+        value: { chance: 50, volume: 0.8, delay: 2 },
+      },
+      botCheck: {
+        label: 'bot check',
+        type: 'sounds',
+        value: { chance: 50, volume: 0.8, delay: 1 },
+      },
+      playerCapture: {
+        label: 'player capture',
+        type: 'sounds',
+        value: { chance: 30, volume: 0.8, delay: 2 },
+      },
+      botCapture: {
+        label: 'bot capture',
+        type: 'sounds',
+        value: { chance: 30, volume: 0.8, delay: 1 },
+      },
+      playerMove: {
+        label: 'player move',
+        type: 'sounds',
+        value: { chance: 2, volume: 0.8, delay: 3 },
+      },
+      botMove: {
+        label: 'bot move',
+        type: 'sounds',
+        value: { chance: 2, volume: 0.8, delay: 2 },
+      },
     },
     zero: {
       label: 'lc0',
@@ -61,8 +100,7 @@ export let schema: Schema = {
         label: 'model',
         type: 'select',
         class: ['setting'],
-        choices: [],
-        value: undefined,
+        assetType: 'net',
         required: true,
       },
       multipv: {
@@ -124,6 +162,14 @@ export let schema: Schema = {
   },
   bot_operators: {
     class: ['operators'],
+    lc0line: {
+      label: 'lc0 line',
+      type: 'operator',
+      class: ['operator'],
+      value: { range: { min: 0, max: 1 }, from: 'move', data: [] },
+      requires: ['sources_zero_multipv > 1'],
+      required: true,
+    },
     lc0bias: {
       label: 'lc0 bias',
       type: 'operator',
@@ -137,7 +183,7 @@ export let schema: Schema = {
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 150 }, from: 'score', data: [] },
-      requires: ['sources_fish', 'sources_fish_multipv > 1'],
+      requires: ['sources_fish_multipv > 1'],
       required: true,
     },
     acplStdev: {
@@ -149,16 +195,6 @@ export let schema: Schema = {
       required: true,
     },
   },
-  bot_sounds: {
-    label: 'sounds',
-    class: ['sounds'],
-    type: 'sounds',
-    choices: [],
-    value: {},
-    required: true,
-    min: 0,
-    max: 1,
-  },
 };
 
 deepFreeze(schema);
@@ -166,17 +202,4 @@ deepFreeze(schema);
 export function getSchemaDefault(id: string): PropertyValue {
   const setting = schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema);
   return typeof setting === 'object' && 'value' in setting ? structuredClone(setting.value) : undefined;
-}
-
-export function setSchemaAssets(a: { nets: string[]; images: string[]; books: string[] }): void {
-  schema = structuredClone(schema);
-  const setChoices = (id: string, choices: string[]) => {
-    const setting = (schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema)) as SelectInfo;
-    setting.choices = choices.map(c => ({ name: c, value: c }));
-    setting.value = setting.choices[0].value;
-  };
-  setChoices('bot_image', a.images);
-  setChoices('sources_books', a.books);
-  setChoices('sources_zero_net', a.nets);
-  deepFreeze(schema);
 }

@@ -1,3 +1,12 @@
+#imagept {
+  @extend %box-radius-force, %popup-shadow;
+  width: 192px;
+  height: 192px;
+  display: none;
+  position: absolute;
+  z-index: $z-powertip-120;
+}
+
 .dev-view {
   @extend %flex-column;
   gap: 1em;
@@ -172,6 +181,34 @@
       padding: 0;
     }
   }
+  .setting {
+    display: flex;
+    padding: 0 1em;
+    display: flex;
+    width: 100%;
+    flex-flow: row nowrap;
+    gap: 1em;
+    align-items: center;
+    input[data-type] {
+      width: 60px;
+      flex-grow: 1;
+    }
+    &.disabled > input[data-type] {
+      opacity: 0.5;
+    }
+  }
+  .books,
+  .sounds {
+    select {
+      flex-grow: 1;
+    }
+    input[type='text'] {
+      max-width: 5ch;
+    }
+  }
+  .sounds {
+    padding: 0.5em 1em;
+  }
   .sources,
   .operators {
     overflow-y: auto;
@@ -192,14 +229,6 @@
       display: none;
     }
   }
-  .books {
-    select {
-      flex-grow: 1;
-    }
-    .book > input[type='text'] {
-      max-width: 5ch;
-    }
-  }
   .sources {
     grid-area: b;
     padding: 0 1em;
@@ -209,22 +238,6 @@
     flex-direction: column;
     justify-content: start;
     gap: 1em;
-  }
-  .setting {
-    display: flex;
-    padding: 0 1em;
-    display: flex;
-    width: 100%;
-    flex-flow: row nowrap;
-    gap: 1em;
-    align-items: center;
-    input[data-type] {
-      width: 60px;
-      flex-grow: 1;
-    }
-    &.disabled > input[data-type] {
-      opacity: 0.5;
-    }
   }
   .operators {
     display: flex;
@@ -353,6 +366,26 @@
     .asset-label {
       font-size: 0.9em;
       font-weight: bold;
+    }
+    .sound-preview > button {
+      @extend %flex-center-nowrap;
+      &::before {
+        color: $c-secondary;
+        font-size: 24px;
+        margin-inline-end: 12px;
+      }
+      text-transform: none;
+      color: $c-font-dim;
+    }
+  }
+  .chooser .asset-item,
+  .asset-item[data-click='add'] {
+    &:hover {
+      cursor: pointer;
+    }
+    &:hover:not(:has(button:hover)) {
+      background: $m-bg_high--lighten-11;
+      outline: $c-primary 2px dashed;
     }
   }
 }

@@ -11,7 +11,11 @@ import type { LocalPlayOpts, Libot } from './types';
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
-  const botCtrl = await new BotCtrl().init();
+  const botCtrl = await new BotCtrl(new AssetDb()).init();
+
+  if (localStorage.getItem('local.setup')) {
+    if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.setup')!);
+  }
   if (opts.setup) {
     if (!opts.setup.go) {
       new SetupDialog(botCtrl, opts.setup, true);
@@ -36,14 +40,3 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
     ctrl.round.redraw();
   }
 }
-
-// async stuff that must be serialized is done so here
-/*const localCode = navigator.language;
-  let i18n = opts.i18n;
-  try {
-    const store = await objectStorage<any>({ db: 'i18n', store: `local` });
-    if (i18n) await store.put(localCode, i18n);
-    else i18n = await store.get(localCode);
-  } catch (e) {
-    console.log('oh noes!', e);
-  }*/

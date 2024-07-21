@@ -2,9 +2,9 @@ import * as co from 'chessops';
 import { normalize } from './operator';
 import { zerofishMove } from './zerofishMove';
 import type { FishSearch, Position, Zerofish } from 'zerofish';
-import type { Libot, ZerofishBotInfo, ZeroSearch, Operator, Glicko } from './types';
-import type { PolyglotBook } from 'bits/types';
+import type { PolyglotBook } from 'bits/polyglot';
 import type { AssetDb } from './assetDb';
+import type { Libot, ZerofishBotInfo, ZeroSearch, Operator, Glicko, Book } from './types';
 
 export type ZerofishBots = { [id: string]: ZerofishBot };
 
@@ -17,7 +17,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   name: string;
   description: string;
   image: string;
-  books: { name: string; weight?: number }[] = [];
+  books: Book[] = [];
   zero?: ZeroSearch;
   fish?: FishSearch;
   glicko?: Glicko;
@@ -35,10 +35,6 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     });
     Object.defineProperty(this, 'stats', { value: { moves: 0, cpl: 0 } });
   }
-
-  /*get imageUrl() {
-    return this.assetDb.getImageUrl(this.image);
-  }*/
 
   async move(pos: Position, chess: co.Chess): Promise<Uci> {
     const opening = await this.bookMove(chess);

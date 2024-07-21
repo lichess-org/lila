@@ -2,9 +2,9 @@ import * as co from 'chessops';
 import { makeSocket } from './socket';
 import { makeFen } from 'chessops/fen';
 import type { MoveRootCtrl, Status } from 'game';
-import { type GameState, Game } from './game';
+import { /*type GameState,*/ type GameResult, Game } from './game';
 import type { RoundSocket, RoundOpts, RoundData } from 'round';
-import type { LocalPlayOpts, LocalSetup, Automator, Outcome } from './types';
+import type { LocalPlayOpts, LocalSetup, Automator } from './types';
 import type { BotCtrl } from './botCtrl';
 
 export class GameCtrl {
@@ -33,13 +33,14 @@ export class GameCtrl {
     this.game = new Game(this.setup.fen);
     this.roundData = this.makeRoundData(this.setup.fen);
     site.pubsub.on('ply', ply => this.jump(ply));
+    ['white', 'black'].forEach(c => this.botCtrl.playSound(c as Color, ['greeting']));
   }
 
   get chess(): co.Chess {
     return this.game.chess;
   }
 
-  checkGameOver(): { end: boolean; result?: Outcome | 'error'; reason?: string; status?: Status } {
+  checkGameOver(): GameResult {
     return this.game.checkGameOver();
   }
 
@@ -53,7 +54,15 @@ export class GameCtrl {
     this.resetBoard();
   }
 
-  reset({ white, black, startingFen }: GameState): void {
+  reset({
+    white,
+    black,
+    startingFen,
+  }: {
+    white: string | undefined;
+    black: string | undefined;
+    startingFen: string;
+  }): void {
     this.botCtrl.whiteUid = white;
     this.botCtrl.blackUid = black;
     this.resetBoard(startingFen);
@@ -66,6 +75,7 @@ export class GameCtrl {
       fen: this.fen,
       turnColor: this.chess.turn,
       lastMove: undefined,
+      check: this.chess.isCheck(),
       movable: { color: this.chess.turn, dests: this.game.cgDests },
     });
     this.resetRound();
@@ -84,7 +94,9 @@ export class GameCtrl {
     if (this.viewing) this.game = this.viewing;
     this.viewing = undefined;
     const game = this.game;
-    const { end, result, reason, status, san, move } = game.move(uci);
+    const isBot = this.botCtrl[game.chess.turn] !== undefined;
+    const { end, result, reason, status, san, move, sounds } = game.move(uci, isBot);
+    const noSound = sounds ? this.botCtrl.playSound(co.opposite(game.chess.turn), sounds) : false;
     const winner = result === 'white' || result === 'black' ? (result as Color) : undefined;
     this.roundData.steps = this.roundData.steps.slice(0, game.ply);
     this.round.apiMove!({
@@ -97,6 +109,7 @@ export class GameCtrl {
       threefold: game.isThreefold,
       check: game.chess.isCheck(),
       winner,
+      noSound,
     });
     this.updateTurn();
     if (move?.promotion)
@@ -120,8 +133,9 @@ export class GameCtrl {
 
   async botMove(): Promise<void> {
     if (this.automator?.isStopped) return;
-    const botMove = await this.botCtrl.move({ fen: this.setup.fen, moves: this.game.moves }, this.chess);
-    if (!this.automator?.isStopped) this.move(botMove);
+    const game = this.game;
+    const botMove = await this.botCtrl.move({ fen: game.startingFen, moves: game.moves }, this.chess);
+    if (!this.automator?.isStopped && game === this.game) this.move(botMove);
     else {
       const { end, result, reason, status } = this.game.checkGameOver();
       if (end) {
@@ -168,6 +182,7 @@ export class GameCtrl {
       this.redraw();
     });
   }
+
   private get roundGame(): RoundData['game'] {
     // TODO - figure out way to remove this
     return {
@@ -216,18 +231,17 @@ export class GameCtrl {
     };
   }
 
-  player(color: Color, name: string): RoundData['player'] {
+  private player(color: Color, name: string): RoundData['player'] {
     // TODO - figure out way to delete this shit
     return {
       color,
       user: {
-        id: '', //name.toLowerCase().replace(' ', ''),
+        id: '',
         username: name,
         online: true,
         perfs: {},
       },
       id: '',
-      //image: this.botCtrl.players[color]?.imageUrl,
       isGone: false,
       name,
       onGame: true,

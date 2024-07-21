@@ -14,21 +14,8 @@ import lila.rating.{ Perf, PerfType }
 import lila.local.GameSetup
 
 final class Local(env: Env) extends LilaController(env):
-  val setupForm =
-    Form:
-      mapping(
-        "white" -> optional(nonEmptyText),
-        "black" -> optional(nonEmptyText),
-        "fen"   -> optional(nonEmptyText),
-        "time"  -> optional(nonEmptyText),
-        "go"    -> play.api.data.Forms.boolean
-      )(GameSetup.apply)(unapply)
 
-  def index(devUi: Option[String]) = OpenBody:
-    NoBot:
-      Ok.page(indexPage(none, optTrue(devUi))).map(_.enforceCrossSiteIsolation)
-
-  def newGame(
+  def index(
       white: Option[String],
       black: Option[String],
       fen: Option[String],
@@ -37,15 +24,13 @@ final class Local(env: Env) extends LilaController(env):
       devUi: Option[String]
   ) = OpenBody:
     NoBot:
-      Ok.page(indexPage(GameSetup(white, black, fen, time, optTrue(go)).some, optTrue(devUi)))
-        .map(_.enforceCrossSiteIsolation)
-
-  def newGameForm(devUi: Option[String]) = OpenBody:
-    NoBot:
-      bindForm(setupForm)(
-        err => jsonFormError(err),
-        setup => Ok.page(indexPage(setup.some, optTrue(devUi))).map(_.enforceCrossSiteIsolation)
-      )
+      val setup =
+        if white.isDefined || black.isDefined || fen.isDefined || time.isDefined then
+          GameSetup(white, black, fen, time, optTrue(go)).some
+        else none
+      Ok
+        .page(indexPage(setup, optTrue(devUi)))
+        .map(_.enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/"))
 
   private def indexPage(setup: Option[GameSetup], devUi: Boolean)(using ctx: Context) =
     given setupFormat: Format[GameSetup] = Json.format[GameSetup]
@@ -62,7 +47,13 @@ final class Local(env: Env) extends LilaController(env):
             Json.obj(
               "image" -> env.getFile(s"public/lifat/bots/images").listFiles().toList.map(_.getName),
               "net"   -> env.getFile(s"public/lifat/bots/nets").listFiles().toList.map(_.getName),
-              "book"  -> env.getFile(s"public/lifat/bots/books").listFiles().toList.map(_.getName),
+              "book" -> env
+                .getFile(s"public/lifat/bots/books")
+                .listFiles()
+                .toList
+                .map(_.getName)
+                .filter(_.endsWith(".bin")) // .bin extension is assumed. .png is used for the cover
+                .map(_.dropRight(4)),
               "sound" -> env.getFile(s"public/lifat/bots/sounds").listFiles().toList.map(_.getName)
             )
           )

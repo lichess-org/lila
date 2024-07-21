@@ -37,8 +37,8 @@ export class DevCtrl implements Automator {
   onReset(): void {
     const bottom = this.bottomColor;
     const top = co.opposite(bottom);
-    this.gameCtrl.roundData.player = this.gameCtrl.player(bottom, this[bottom]?.name ?? 'Player');
-    this.gameCtrl.roundData.opponent = this.gameCtrl.player(top, this[top]?.name ?? 'Player');
+    this.gameCtrl.roundData.player.name = this[bottom]?.name ?? 'Player';
+    this.gameCtrl.roundData.opponent.name = this[top]?.name ?? 'Player';
     this.gameCtrl.round.cg?.set({ orientation: this.bottomColor });
   }
 
@@ -63,6 +63,7 @@ export class DevCtrl implements Automator {
 
   stop(): void {
     if (this.stopped) return;
+    console.log('stopping');
     this.stopped = true;
     this.botCtrl.stop();
     this.redraw();
@@ -94,7 +95,7 @@ export class DevCtrl implements Automator {
     const game = this.script.games[this.script.results.length];
     this.botCtrl.whiteUid = game.white;
     this.botCtrl.blackUid = game.black;
-    this.gameCtrl.reset({ white: game.white, black: game.black, startingFen: this.startingFen, moves: [] });
+    this.gameCtrl.reset({ white: game.white, black: game.black, startingFen: this.startingFen });
     this.run();
     return true;
   }

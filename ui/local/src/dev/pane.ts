@@ -1,48 +1,44 @@
 import { removeObjectProperty, setObjectProperty, maxChars } from './util';
 import { getSchemaDefault, operatorRegex } from './schema';
-import type { Operator, Book } from '../types';
 import type {
   PaneArgs,
   SelectInfo,
+  TextInfo,
   TextareaInfo,
   NumberInfo,
   RangeInfo,
-  PaneHost,
+  HostView,
   PaneInfo,
   ObjectSelector,
+  PropertyValue,
 } from './types';
 
-export class Pane {
+export class Pane<Info extends PaneInfo = PaneInfo> {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-  readonly host: PaneHost;
-  readonly info: PaneInfo;
+  label?: HTMLLabelElement;
+  readonly host: HostView;
+  readonly info: Info;
   readonly el: HTMLElement;
   readonly parent: Pane | undefined;
   enabledCheckbox?: HTMLInputElement;
 
-  constructor({ host, info, parent }: PaneArgs) {
-    [this.host, this.info, this.parent] = [host, info, parent];
+  constructor(args: PaneArgs) {
+    Object.assign(this, args);
     this.el = document.createElement(this.isFieldset ? 'fieldset' : 'div');
     this.el.id = this.id;
-    info.class?.forEach(c => this.el.classList.add(c));
-    host.ctrl.add(this);
-    if (info.title) this.el.title = info.title;
+    this.info.class?.forEach(c => this.el.classList.add(c));
+    this.host.ctrl.add(this);
+    if (this.info.title) this.el.title = this.info.title;
     if (this.info.label) {
-      const label = $as<HTMLElement>(`<label><span>${this.info.label}</span></label>`);
-      if (this.info.class?.includes('setting')) this.el.appendChild(label);
+      this.label = $as<HTMLLabelElement>(`<label><span>${this.info.label}</span></label>`);
+      if (this.info.class?.includes('setting')) this.el.appendChild(this.label);
       else {
         const header = document.createElement(this.isFieldset ? 'legend' : 'span');
-        header.appendChild(label);
+        header.appendChild(this.label);
         this.el.appendChild(header);
       }
     }
-    if (this.radioGroup) {
-      this.enabledCheckbox = $as<HTMLInputElement>(
-        `<input type="radio" name="${this.radioGroup}" tabindex="-1">`,
-      );
-    } else if (!this.info.required && this.info.label) {
-      this.enabledCheckbox = $as<HTMLInputElement>(`<input type="checkbox">`);
-    }
+    this.initEnabledCheckbox();
     if (!this.enabledCheckbox) return;
     this.enabledCheckbox.classList.add('toggle');
     this.enabledCheckbox.checked = this.isDefined;
@@ -88,13 +84,13 @@ export class Pane {
     this.host.update();
   }
 
-  setProperty(value: string | number | Operator | Book[] | undefined): void {
+  setProperty(value: PropertyValue): void {
     if (value === undefined) {
       if (this.paneValue) removeObjectProperty({ obj: this.host.bot, path: { id: this.id } });
     } else setObjectProperty({ obj: this.host.bot, path: { id: this.id }, value });
   }
 
-  getProperty(sel: ObjectSelector[] = ['bot']): string | number | Operator | Book[] | undefined {
+  getProperty(sel: ObjectSelector[] = ['bot']): PropertyValue {
     for (const s of sel) {
       const prop =
         s === 'schema'
@@ -110,7 +106,7 @@ export class Pane {
     return typeof prop === 'object' ? JSON.stringify(prop) : prop !== undefined ? String(prop) : '';
   }
 
-  get paneValue(): number | string | Operator | Book[] | undefined {
+  get paneValue(): PropertyValue {
     return this.input?.value;
   }
 
@@ -140,11 +136,6 @@ export class Pane {
     return kids.every(x => x.enabled || !x.info.required) && this.requirementsAllow;
   }
 
-  protected get label(): HTMLElement | undefined {
-    if (this.info.label) return this.el.querySelector('label') ?? undefined;
-    return undefined;
-  }
-
   protected get path(): string[] {
     return this.id.split('_').slice(1);
   }
@@ -154,7 +145,7 @@ export class Pane {
   }
 
   protected get isFieldset(): boolean {
-    return this.info.type === 'group' || this.info.type === 'books'; // || this.info.type === 'operator';
+    return this.info.type === 'group' || this.info.type === 'books'; // || this.info.type === 'soundEvent';
   }
 
   protected get isDefined(): boolean {
@@ -187,18 +178,33 @@ export class Pane {
   }
 
   protected get children(): Pane[] {
+    if (!this.id) return [];
     return Object.keys(this.host.ctrl.byId)
       .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
       .map(id => this.host.ctrl.byId[id]);
   }
+
+  private initEnabledCheckbox() {
+    if (this.radioGroup) {
+      this.enabledCheckbox = $as<HTMLInputElement>(
+        `<input type="radio" name="${this.radioGroup}" tabindex="-1">`,
+      );
+    } else if (
+      !this.info.required &&
+      this.info.label &&
+      this.info.type !== 'books' &&
+      this.info.type !== 'sounds'
+    ) {
+      this.enabledCheckbox = $as<HTMLInputElement>(`<input type="checkbox">`);
+    }
+  }
 }
 
-export class SelectSetting extends Pane {
+export class SelectSetting extends Pane<SelectInfo> {
   input: HTMLSelectElement = $as<HTMLSelectElement>('<select data-type="string">');
-  info: SelectInfo;
   constructor(p: PaneArgs) {
     super(p);
-    for (const c of this.info.choices) {
+    for (const c of this.choices) {
       const option = document.createElement('option');
       option.value = c.value;
       option.textContent = c.name;
@@ -208,13 +214,16 @@ export class SelectSetting extends Pane {
     this.el.appendChild(document.createElement('hr'));
     this.init();
   }
-
+  get choices(): { name: string; value: string }[] {
+    if (!this.info.assetType) return this.info.choices ?? [];
+    return this.host.assetDb.all(this.info.assetType).map(x => ({ name: x, value: x }));
+  }
   get paneValue(): string {
     return this.input.value;
   }
 }
 
-export class TextSetting extends Pane {
+export class TextSetting extends Pane<TextInfo> {
   input: HTMLInputElement = $as<HTMLInputElement>('<input type="text" data-type="string">');
   constructor(p: PaneArgs) {
     super(p);
@@ -225,9 +234,8 @@ export class TextSetting extends Pane {
   }
 }
 
-export class TextareaSetting extends Pane {
+export class TextareaSetting extends Pane<TextareaInfo> {
   input: HTMLTextAreaElement = $as<HTMLTextAreaElement>('<textarea data-type="string">');
-  info: TextareaInfo;
   constructor(p: PaneArgs) {
     super(p);
     this.init();
@@ -238,9 +246,8 @@ export class TextareaSetting extends Pane {
   }
 }
 
-export class NumberSetting extends Pane {
+export class NumberSetting<Info extends NumberInfo = NumberInfo> extends Pane<Info> {
   input: HTMLInputElement = $as<HTMLInputElement>('<input type="text" data-type="number">');
-  info: NumberInfo | RangeInfo;
   constructor(p: PaneArgs) {
     super(p);
     this.el.appendChild(document.createElement('hr'));
@@ -266,9 +273,8 @@ export class NumberSetting extends Pane {
   }
 }
 
-export class RangeSetting extends NumberSetting {
+export class RangeSetting<Info extends RangeInfo = RangeInfo> extends NumberSetting<Info> {
   rangeInput: HTMLInputElement = $as<HTMLInputElement>('<input type="range" data-type="number">');
-  info: RangeInfo;
   constructor(p: PaneArgs) {
     super(p);
     this.rangeInput.min = String(this.info.min);

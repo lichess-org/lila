@@ -159,17 +159,11 @@ export const escapeHtml = (str: string): string =>
     : str;
 
 // does not compare complex objects or non-enumerable properties
-export function isEquivalent(a: any, b: any, enforceArrayOrder = true): boolean {
+export function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
   if (Array.isArray(a)) {
-    return (
-      Array.isArray(b) &&
-      a.length === b.length &&
-      (enforceArrayOrder
-        ? a.every((x, i) => isEquivalent(x, b[i]))
-        : a.every(x => b.find((y: any) => isEquivalent(x, y))))
-    );
+    return Array.isArray(b) && a.length === b.length && a.every((x, i) => isEquivalent(x, b[i]));
   }
   if (typeof a !== 'object') return false;
   const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];

@@ -6,10 +6,9 @@ import { RankBot } from './dev/rankBot';
 import { CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { deepFreeze } from 'common';
-import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo, Glicko } from './types';
+import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo, Glicko, SoundEvent, Sound } from './types';
 
 export class BotCtrl {
-  readonly assetDb: AssetDb;
   readonly rankBots: RankBot[] = [];
   private zerofish: Zerofish;
   private store: ObjectStorage<BotInfo>;
@@ -18,18 +17,15 @@ export class BotCtrl {
   whiteUid?: string;
   blackUid?: string;
 
-  constructor(remoteAssets?: { net: string[]; image: string[]; book: string[]; sound: string[] }) {
-    this.assetDb = new AssetDb(remoteAssets);
-  }
+  constructor(readonly assetDb: AssetDb) {}
 
   async init(): Promise<this> {
-    const dev = this.assetDb.remote !== undefined;
     this.zerofish = await makeZerofish({
       root: site.asset.url('npm', { documentOrigin: true }),
       wasm: site.asset.url('npm/zerofishEngine.wasm'),
-      dev,
+      dev: this.assetDb.dev,
     });
-    if (dev) {
+    if (this.assetDb.dev) {
       for (let i = 0; i <= RankBot.MAX_LEVEL; i++) {
         this.rankBots.push(new RankBot(this.zerofish, i));
       }
@@ -38,7 +34,7 @@ export class BotCtrl {
   }
 
   async initLibots(): Promise<this> {
-    await Promise.all([this.resetBots(), this.assetDb.ready]);
+    await Promise.all([this.resetBots(), this.assetDb.init()]);
     return this;
   }
 
@@ -71,9 +67,24 @@ export class BotCtrl {
   }
 
   move(pos: Position, chess: co.Chess): Promise<Uci> {
-    //chess = chess.clone();
-    //pos = structuredClone(pos);
     return this[chess.turn]?.move(pos, chess) ?? Promise.resolve('0000');
+  }
+
+  playSound(c: Color, events: SoundEvent[]): boolean {
+    const prioritized = soundPriority.filter(e => events.includes(e));
+    const sounds = prioritized.map(priority => this[c]?.sounds?.[priority] ?? []);
+    for (const set of sounds) {
+      let r = Math.random();
+      for (const { name, chance, volume, delay, only } of set) {
+        r -= chance / 100;
+        if (r > 0) continue;
+        site.sound
+          .load(name, this.assetDb.getSoundUrl(name))
+          .then(() => setTimeout(() => site.sound.play(name, volume), delay * 1000));
+        return true;
+      }
+    }
+    return false;
   }
 
   stop(): void {
@@ -176,3 +187,15 @@ export function uidToDomId(uid: string | undefined): string | undefined {
 export function domIdToUid(domId: string | undefined): string | undefined {
   return domId && domId.startsWith('bot-id-') ? `#${domId.slice(7)}` : undefined;
 }
+
+const soundPriority: SoundEvent[] = [
+  'playerWin',
+  'botWin',
+  'playerCheck',
+  'botCheck',
+  'playerCapture',
+  'botCapture',
+  'playerMove',
+  'botMove',
+  'greeting',
+];

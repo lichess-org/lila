@@ -1,7 +1,7 @@
 import type { RoundData } from 'round';
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
-import type { GameState } from './game';
+//import type { GameState } from './game';
 import type { Chess } from 'chessops';
 
 export type { CardData };
@@ -18,20 +18,20 @@ export interface Operator {
   data: Point[];
 }
 
-export type Trigger =
+export type SoundEvent =
   | 'greeting'
-  | 'move'
-  | 'takeback'
-  | 'playerBlunder'
-  | 'botBlunder'
   | 'playerWin'
   | 'botWin'
   | 'playerCheck'
   | 'botCheck'
   | 'botCapture'
-  | 'playerCapture';
+  | 'playerCapture'
+  | 'playerMove'
+  | 'botMove';
 
-export type Sounds = { [key in Trigger]?: { [sound: string]: number } };
+export type Sound = { name: string; chance: number; volume: number; delay: number; only?: true };
+
+export type SoundEvents = { [key in SoundEvent]?: Sound[] };
 
 export type Operators = { [key: string]: Operator };
 
@@ -46,7 +46,7 @@ export interface BotInfo {
   readonly name: string;
   readonly description: string;
   readonly image?: string;
-  readonly sounds?: Sounds;
+  readonly sounds?: SoundEvents;
   readonly glicko?: Glicko;
 }
 
@@ -62,7 +62,7 @@ export interface Libot extends BotInfo {
 export type Libots = { [id: string]: Libot };
 
 export interface ZerofishBotInfo extends BotInfo {
-  readonly books?: Book[];
+  readonly books?: Book[]; // fck convert to object
   readonly zero?: ZeroSearch;
   readonly fish?: FishSearch;
   readonly quirks?: Quirks;
@@ -74,9 +74,7 @@ export interface LocalPlayOpts {
   i18n: any;
   data: RoundData;
   setup?: LocalSetup;
-  state?: GameState;
   devUi?: boolean;
-  assets?: { net: string[]; image: string[]; book: string[]; sound: string[] };
 }
 
 export interface LocalSetup {

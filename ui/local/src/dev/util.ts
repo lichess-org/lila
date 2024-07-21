@@ -37,7 +37,7 @@ export function maxChars(info: NumberInfo | RangeInfo): number {
   const len = Math.max(info.max.toString().length, info.min.toString().length);
   if (!('step' in info)) return len;
   const fractionLen = info.step < 1 ? String(info.step).length - String(info.step).indexOf('.') - 1 : 0;
-  return len + fractionLen;
+  return len + fractionLen + 1;
 }
 
 export function score(outcome: Outcome, color: Color = 'white'): number {

@@ -1,8 +1,9 @@
 import { schema, primitiveKeys } from './schema';
 import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
 import { OperatorPane } from './operatorPane';
+import { SoundsPane } from './soundsPane';
 import { BooksPane } from './booksPane';
-import type { PaneHost, PaneInfo, AnyKey } from './types';
+import type { HostView, PaneInfo, AnyKey } from './types';
 import type { ActionListener, Action } from 'common/dialog';
 
 export class PaneCtrl {
@@ -47,13 +48,14 @@ export class PaneCtrl {
   };
 
   private updateProperty: ActionListener = e => {
+    console.log('got one!', e);
     const pane = this.byEvent(e)!;
     pane.update(e);
     pane.host.update();
   };
 }
 
-export function buildFromSchema(host: PaneHost, path: string[], parent?: Pane): Pane {
+export function buildFromSchema(host: HostView, path: string[], parent?: Pane): Pane {
   const id = path.join('_');
   const iter = path.reduce<any>((acc, key) => acc[key], schema);
   const s = buildFromInfo(host, { id, ...iter }, parent);
@@ -63,7 +65,7 @@ export function buildFromSchema(host: PaneHost, path: string[], parent?: Pane): 
   return s;
 }
 
-function buildFromInfo(host: PaneHost, info: PaneInfo, parent?: Pane): Pane {
+function buildFromInfo(host: HostView, info: PaneInfo, parent?: Pane): Pane {
   const p = { host, info, parent };
   switch (info?.type) {
     case 'select':
@@ -78,6 +80,8 @@ function buildFromInfo(host: PaneHost, info: PaneInfo, parent?: Pane): Pane {
       return new NumberSetting(p);
     case 'books':
       return new BooksPane(p);
+    case 'sounds':
+      return new SoundsPane(p);
     case 'operator':
       return new OperatorPane(p);
     default:

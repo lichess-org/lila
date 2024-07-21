@@ -248,6 +248,7 @@ export interface ApiMove {
   };
   isMove?: true;
   isDrop?: true;
+  noSound?: boolean;
 }
 
 export interface ApiEnd {

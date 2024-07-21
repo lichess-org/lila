@@ -161,7 +161,7 @@ type SoundMove = (opts?: {
 interface SoundI {
   // file://./../../site/src/sound.ts
   ctx?: AudioContext;
-  load(name: string, path?: string): void;
+  load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
   move: SoundMove;

@@ -1,7 +1,10 @@
-import type { BotInfo, Operator, Book, Sounds } from '../types';
+import type { BotInfo, Operator, Book, Sound as NamedSound } from '../types';
 import type { PaneCtrl } from './paneCtrl';
 import type { Pane } from './pane';
+import type { AssetType, DevAssetDb } from './devAssetDb';
 import type { ZerofishBot } from '../zerofishBot';
+
+type Sound = Omit<NamedSound, 'name'>;
 
 export interface BotInfoReader extends BotInfo {
   readonly [key: string]: any;
@@ -12,11 +15,12 @@ export interface ZerofishBotEditor extends ZerofishBot {
   disabled: Set<string>;
 }
 
-export interface PaneHost {
+export interface HostView {
   readonly view: HTMLElement;
   readonly ctrl: PaneCtrl;
   readonly bot: ZerofishBotEditor;
   readonly defaultBot: BotInfoReader;
+  readonly assetDb: DevAssetDb;
   readonly cleanups: (() => void)[];
   update(): void;
 }
@@ -29,55 +33,50 @@ export interface PaneInfo {
   title?: string;
   required?: boolean;
   requires?: string[];
-  value?: string | number | boolean | Operator | Sounds | Book[];
+  value?: string | number | boolean | Operator | Sound;
+  assetType?: AssetType;
 }
 
 export interface SelectInfo extends PaneInfo {
   type: 'select';
-  value: string | undefined;
-  choices: { name: string; value: string }[];
+  value?: string;
+  choices?: { name: string; value: string }[];
 }
 
 export interface TextareaInfo extends PaneInfo {
   type: 'textarea';
-  value: string;
+  value?: string;
   rows?: number;
 }
 
-export interface RangeInfo extends PaneInfo {
-  type: 'range';
-  value: number;
+export interface NumberInfo extends PaneInfo {
+  type: 'number' | 'range';
+  value?: number;
   min: number;
   max: number;
-  step: number;
 }
 
-export interface NumberInfo extends PaneInfo {
-  type: 'number';
-  value: number;
-  min: number;
-  max: number;
+export interface RangeInfo extends NumberInfo {
+  type: 'range';
+  step: number;
 }
 
 export interface TextInfo extends PaneInfo {
   type: 'text';
-  value: string;
+  value?: string;
 }
 
 export interface BooksInfo extends PaneInfo {
   type: 'books';
-  value: Book[];
-  choices: { name: string; value: string }[];
-  min: number;
-  max: number;
 }
 
-export interface SoundsInfo extends PaneInfo {
+export interface SoundInfo extends PaneInfo {
+  value: Sound;
+}
+
+export interface SoundsInfo extends SoundInfo {
   type: 'sounds';
-  value: Sounds;
-  choices: { name: string; value: string }[];
-  min: number;
-  max: number;
+  value: Sound;
 }
 
 export interface OperatorInfo extends PaneInfo {
@@ -88,6 +87,7 @@ export interface OperatorInfo extends PaneInfo {
 export type AnyType =
   | 'group'
   | 'books'
+  | 'sound'
   | 'sounds'
   | 'operator'
   | 'radioGroup'
@@ -105,6 +105,7 @@ export type AnyKey =
   | keyof RangeInfo
   | keyof NumberInfo
   | keyof BooksInfo
+  | keyof SoundInfo
   | keyof SoundsInfo
   | keyof OperatorInfo;
 
@@ -115,25 +116,18 @@ export type AnyInfo =
   | RangeInfo
   | NumberInfo
   | BooksInfo
+  | SoundInfo
   | SoundsInfo
   | OperatorInfo
   | AnyInfo[];
 
-export type PropertyValue =
-  | string
-  | number
-  | boolean
-  | Operator
-  | Book[]
-  | Sounds
-  | PropertyValue[]
-  | undefined;
+export type PropertyValue = Operator | Sound | Book[] | Sound[] | string | number | boolean | undefined;
 
 export interface Schema extends PaneInfo {
-  [key: string]: AnyInfo | Schema | PropertyValue;
+  [key: string]: Schema | AnyInfo | Operator | string | string[] | number | boolean | undefined;
   type?: undefined | 'radioGroup' | 'group';
 }
 
-export type PaneArgs = { host: PaneHost; info: PaneInfo; parent?: Pane };
+export type PaneArgs = { host: HostView; info: PaneInfo; parent?: Pane };
 
 export type ObjectSelector = 'bot' | 'default' | 'schema';

@@ -5,12 +5,13 @@ import { buildFromSchema, PaneCtrl } from './paneCtrl';
 import { removeObjectProperty } from './util';
 import * as licon from 'common/licon';
 import { domDialog, alert, confirm, type Dialog, type Action } from 'common/dialog';
-import type { BotInfoReader, ZerofishBotEditor, PaneHost } from './types';
+import type { BotInfoReader, ZerofishBotEditor, HostView } from './types';
 import type { ZerofishBots } from '../zerofishBot';
 import type { GameCtrl } from '../gameCtrl';
+import type { DevAssetDb } from './devAssetDb';
 import { assetDialog } from './assetDialog';
 
-export class EditDialog implements PaneHost {
+export class EditDialog implements HostView {
   view: HTMLElement;
   hand: HandOfCards;
   dlg: Dialog;
@@ -79,6 +80,10 @@ export class EditDialog implements PaneHost {
     return this.botCtrl.defaultBot(this.uid);
   }
 
+  get assetDb(): DevAssetDb {
+    return this.botCtrl.assetDb as DevAssetDb;
+  }
+
   private makeEditView(): void {
     for (const cleanup of this.cleanups) cleanup();
     this.cleanups = [];
@@ -114,7 +119,7 @@ export class EditDialog implements PaneHost {
 
   private async clickImage(e: Event) {
     if (e.target !== e.currentTarget) return;
-    const newImage = await assetDialog(this.botCtrl.assetDb, 'image');
+    const newImage = await assetDialog(this.assetDb, 'image');
     if (!newImage) return;
     this.bot.image = newImage;
     this.hand.updateCards();
@@ -238,7 +243,7 @@ export class EditDialog implements PaneHost {
       { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
       { selector: '.bot-json-all', listener: () => this.showJson() },
       { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
-      { selector: '.bot-assets', listener: () => assetDialog(this.botCtrl.assetDb) },
+      { selector: '.bot-assets', listener: () => assetDialog(this.assetDb) },
       { selector: '.bot-unrate-all', listener: () => this.clearRatings() },
       { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
       { selector: '.bot-clear-all', listener: () => this.clearBots() },

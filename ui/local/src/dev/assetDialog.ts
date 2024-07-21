@@ -1,29 +1,30 @@
 import { domDialog, type Dialog } from 'common/dialog';
-import { AssetDb, type AssetType } from '../assetDb';
+import { DevAssetDb } from './devAssetDb';
 import * as licon from 'common/licon';
+import { makeCover } from 'bits/polyglot';
 import { wireCropDialog } from 'bits/crop';
 
-export function assetDialog(db: AssetDb, type?: AssetType): Promise<string | undefined> {
+type AssetType = 'image' | 'book' | 'sound';
+
+export function assetDialog(db: DevAssetDb, type?: AssetType): Promise<string | undefined> {
   if (!type || type === 'image') wireCropDialog();
   return new AssetDialog(db, type).show();
 }
 
-const mimeTypes: { [type in AssetType]: string[] } = {
+const mimeTypes: { [type in AssetType]?: string[] } = {
   image: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
   book: ['application/x-chess-pgn', 'application/octet-stream'],
   sound: ['audio/mpeg'],
-  net: [],
 };
 
 class AssetDialog {
   private dlg: Dialog;
   private resolve?: (key: string | undefined) => void;
-  private local: Set<string>;
   private type: AssetType;
   private isChooser: boolean;
 
   constructor(
-    readonly db: AssetDb,
+    readonly db: DevAssetDb,
     type?: AssetType,
   ) {
     this.isChooser = type !== undefined;
@@ -35,11 +36,16 @@ class AssetDialog {
   }
 
   get remote() {
+    console.log(this.type, this.db.remote?.[this.type]);
     return this.db.remote?.[this.type];
   }
 
   get tab() {
     return this.type;
+  }
+
+  get local() {
+    return this.db.local(this.type);
   }
 
   show(): Promise<string | undefined> {
@@ -51,13 +57,13 @@ class AssetDialog {
             this.resolve = undefined;
             this.dlg.close();
           };
-        this.local = new Set(await this.db.local(this.type));
         this.dlg = await domDialog({
           class: 'dev-view asset-dialog',
           htmlText: this.bodyHtml(),
           onClose: () => this.resolve?.(undefined),
           actions: [
             { selector: '.asset-grid', event: ['dragover', 'drop'], listener: this.dragDrop },
+            { selector: '[data-click="add"]', listener: this.addItem },
             { selector: '.remove', listener: this.remove },
             { selector: '.asset-item', listener: this.clickItem },
             { selector: '.tab', listener: this.clickTab },
@@ -70,7 +76,7 @@ class AssetDialog {
   }
 
   bodyHtml = () => {
-    if (this.isChooser) return `<div class="asset-grid"></div>`;
+    if (this.isChooser) return `<div class="asset-grid chooser"></div>`;
     return `<div class="tabs-horiz" role="tabList">
       <span class="tab ${this.type === 'image' ? 'active' : ''}" role="tab">images</span>
       <span class="tab ${this.type === 'sound' ? 'active' : ''}" role="tab">sounds</span>
@@ -91,38 +97,35 @@ class AssetDialog {
 
   dragDrop = (e: DragEvent): void => {
     e.preventDefault();
-    const assetItem = (e.target as HTMLElement).closest('.asset-item');
-    if (assetItem?.getAttribute('data-asset')) return;
     if (e.type === 'dragover') {
       e.dataTransfer!.dropEffect = 'copy';
       return;
     }
     const files = e.dataTransfer?.files;
     if (files && files.length > 0) {
-      if (assetItem) {
-        const key = assetItem.getAttribute('data-asset');
-        // ...
-      }
+      this.flavor.process(files[0], async (newKey: string, result: Blob) => {
+        await this.db.add(this.type, newKey, result);
+        if (this.resolve) this.resolve(newKey);
+        else this.refresh();
+      });
     }
   };
 
-  remove = (e: Event): void => {
+  remove = async (e: Event): Promise<void> => {
+    e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item')!;
     const key = el.getAttribute('data-asset')!;
-    this.db.delete(this.type, key);
-    this.local.delete(key);
+    await this.db.delete(this.type, key);
     this.refresh();
-    e.stopPropagation();
   };
 
-  clickTab = async (e: Event): Promise<void> => {
+  clickTab = (e: Event): void => {
     const tab = (e.currentTarget as HTMLElement).closest('.tab')!;
     const type = tab?.textContent?.slice(0, -1) as AssetType;
     if (!tab || type === this.type) return;
     this.dlg.view.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     this.type = tab.textContent?.slice(0, -1) as AssetType;
-    this.local = new Set(await this.db.local(this.type));
     this.refresh();
   };
 
@@ -130,19 +133,18 @@ class AssetDialog {
     const item = (e.currentTarget as HTMLElement).closest('.asset-item') as HTMLElement;
     const oldKey = item?.getAttribute('data-asset');
     if (oldKey && this.isChooser) return this.resolve?.(oldKey);
+    else if (!oldKey) this.addItem();
+  };
+
+  addItem = () => {
     const fileInputEl = document.createElement('input');
     fileInputEl.type = 'file';
-    fileInputEl.accept = mimeTypes[this.type].join(',');
+    fileInputEl.accept = mimeTypes[this.type]!.join(',');
     fileInputEl.style.display = 'none';
     const onchange = () => {
       fileInputEl.removeEventListener('change', onchange);
       if (!fileInputEl.files || fileInputEl.files.length < 1) return;
-      this.flavor.process(fileInputEl.files[0], item, async (newKey: string, result: Blob) => {
-        if (oldKey && newKey !== oldKey) {
-          this.db.delete(this.type, oldKey);
-          this.local.delete(oldKey);
-        }
-        this.local.add(newKey);
+      this.flavor.process(fileInputEl.files[0], async (newKey: string, result: Blob) => {
         await this.db.add(this.type, newKey, result);
         if (this.resolve) this.resolve(newKey);
         else this.refresh();
@@ -156,9 +158,9 @@ class AssetDialog {
 
   refresh(): void {
     const grid = this.dlg.view.querySelector('.asset-grid') as HTMLElement;
-    grid.innerHTML = `<div class="asset-item">
+    grid.innerHTML = `<div class="asset-item" data-click="add">
         <div class="asset-preview">${this.flavor.placeholder}</div>
-        <div class="asset-label">Click or drag above</div>
+        <div class="asset-label">Add new ${this.type}</div>
       </div></div>`;
     this.local.forEach(asset => grid.append(this.renderAsset(asset)));
     if (this.isChooser) this.remote?.forEach(asset => grid.append(this.renderAsset(asset)));
@@ -169,7 +171,7 @@ class AssetDialog {
     image: {
       placeholder: '<img src="/assets/lifat/bots/images/black-torso.webp">',
       preview: (key: string) => $as<HTMLElement>(`<img src="${this.db.getImageUrl(key)}">`),
-      process: (file: File, item: HTMLElement, onSuccess: (key: string, result: Blob) => void) => {
+      process: (file: File, onSuccess: (key: string, result: Blob) => void) => {
         //if (this.isChooser && item) return onSuccess(file.name, file);
         site.asset.loadEsm('bits.cropDialog', {
           init: {
@@ -186,26 +188,37 @@ class AssetDialog {
     },
     book: {
       placeholder: '',
-      preview: (key: string) => $as<HTMLElement>(`<p>Book preview for "${key}"</p>`),
-      process: (file: File, item: HTMLElement, onSuccess: (key: string, result: Blob) => void) => {
+      preview: (key: string) => {
+        const divEl = $as<HTMLElement>(`<div></div>`);
+        const imgEl = $as<HTMLImageElement>('<img>');
+        imgEl.src = this.db.getBookCoverUrl(key);
+        divEl.append(imgEl);
+        return divEl;
+      },
+      process: (file: File, onSuccess: (key: string, result: Blob) => void) => {
         onSuccess(file.name, file);
       },
     },
     sound: {
       placeholder: '',
-      preview: (key: string) =>
-        $as<HTMLElement>(`<audio controls>
-            <source src="${this.db.getSoundUrl(key)}" type="audio/mpeg">
-            Your browser does not support the audio element.
-          </audio>`),
-      process: (file: File, item: HTMLElement, onSuccess: (key: string, result: Blob) => void) => {
-        onSuccess(file.name, file);
+      preview: (key: string) => {
+        const soundEl = $as<Element>('<span class="sound-preview"></span>');
+        const audioEl = $as<HTMLAudioElement>(`<audio src="${this.db.getSoundUrl(key)}"></audio>`);
+        const buttonEl = $as<Node>(
+          `<button class="button button-empty" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
+        );
+        buttonEl.addEventListener('click', e => {
+          audioEl.play();
+          e.stopPropagation();
+        });
+        soundEl.append(audioEl);
+        soundEl.append(buttonEl);
+        audioEl.onloadedmetadata = () => {
+          buttonEl.textContent = audioEl.duration.toFixed(2) + 's';
+        };
+        return soundEl;
       },
-    },
-    net: {
-      placeholder: '',
-      preview: () => '',
-      process: (file: File, item: HTMLElement, onSuccess: (key: string, result: Blob) => void) => {
+      process: (file: File, onSuccess: (key: string, result: Blob) => void) => {
         onSuccess(file.name, file);
       },
     },
