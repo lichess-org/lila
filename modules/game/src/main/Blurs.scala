@@ -9,8 +9,6 @@ import lila.core.game.Blurs as apply
 
 object Blurs:
 
-  given lila.db.NoDbHandler[Blurs] with {}
-
   import reactivemongo.api.bson.*
   private[game] given blursHandler: BSONHandler[Blurs] = lila.db.dsl.tryHandler[Blurs](
     {

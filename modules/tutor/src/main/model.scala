@@ -57,7 +57,8 @@ enum TutorMetric[V](val metric: InsightMetric):
 opaque type GoodPercent = Double
 object GoodPercent extends OpaqueDouble[GoodPercent]:
   given Percent[GoodPercent] = Percent.of(GoodPercent)
-  given lila.db.NoDbHandler[GoodPercent] with {}
+  given lila.db.NoBSONWriter[GoodPercent] with {}
+  given lila.db.NoBSONReader[GoodPercent] with {}
   extension (a: GoodPercent) def toInt         = Percent.toInt(a)
   def apply(a: Double, b: Double): GoodPercent = GoodPercent(100 * a / b)
 

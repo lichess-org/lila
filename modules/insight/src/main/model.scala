@@ -37,7 +37,8 @@ case class InsightMove(
 opaque type ClockPercent = Double
 object ClockPercent extends OpaqueDouble[ClockPercent]:
 
-  given lila.db.NoDbHandler[WinPercent] with {}
+  given lila.db.NoBSONWriter[WinPercent] with {}
+  given lila.db.NoBSONReader[WinPercent] with {}
   given Percent[ClockPercent] = Percent.of(ClockPercent)
 
   extension (a: ClockPercent) def toInt = Percent.toInt(a)
