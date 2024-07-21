@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="supportLichess">ادعم Lichess</string>
+  <string name="zeroAdsAndNoTracking" comment="This is string appears as a feature listed on the https://lichess.org/features page.">لا إعلانات، لا تتبع</string>
+  <string name="cloudEngineAnalysis">تحليل محرك السحابة</string>
+  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">جميع دروس الشطرنج الأساسية</string>
+  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">مستكشف افتتاحيات شخصي</string>
+  <string name="allFeaturesToCome">جميع الميزات القادمة، إلى الأبد!</string>
+  <string name="supportLichess">ادعم ليتشيس</string>
+  <string name="contributeToLichessAndGetIcon" comment="This is string speaking of a financial contribution in the context of the Features page that this appears on (https://lichess.org/features). The page is a tongue-in-cheek feature comparison for free and paying members; the only difference is that Patrons can replace the normal status indicator icon (a bubble) with a wing icon.">ساهم في ليتشيس واحصل على أيقونة Patron رائعة</string>
+  <string name="everybodyGetsAllFeaturesForFree">نعم، كلا الحسابين لهما نفس الميزات!</string>
   <string name="allFeaturesAreFreeForEverybody">جميع الميزات مجانية للجميع، إلى الأبد!</string>
   <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;">إذا كنت تحب ليتشيس،</string>
   <string name="supportUsWithAPatronAccount" comment="A button at the bottom of https://lichess.org/features, which takes users to the donation page.">قم بدعمنا بحساب Patron!</string>
