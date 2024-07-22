@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="zeroAdsAndNoTracking" comment="This is string appears as a feature listed on the https://lichess.org/features page.">Aucune publicité, pas de pistage</string>
+  <string name="zeroAdsAndNoTracking">Aucune publicité, pas de pistage</string>
   <string name="correspondenceWithConditionalPremoves">Échecs par correspondance avec coups conditionnels</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Échecs standard et %s</string>
-  <string name="deepXServerAnalysis" comment="deepXServerAnalysis&#10;%s is the name of the chess engine (e.g. Stockfish)">Analyse approfondie sur le serveur avec %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Analyse approfondie sur le serveur avec %s</string>
   <plurals name="gamesPerDay">
     <item quantity="one">%s partie par jour</item>
     <item quantity="other">%s partie(s) par jour</item>
@@ -12,11 +12,11 @@
   <string name="cloudEngineAnalysis">Analyse avec le nuage</string>
   <string name="studies">Études (analyse partagée et persistante)</string>
   <string name="chessInsights">Analyse (examen détaillé de votre partie)</string>
-  <string name="allChessBasicsLessons" comment="Chess basics in this context is discussing https://lichess.org/learn - a complete course on how to play chess for complete beginners.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Notions de base des échecs</string>
+  <string name="allChessBasicsLessons">Notions de base des échecs</string>
   <string name="tacticalPuzzlesFromUserGames">Problèmes tactiques tirés des parties d\'un joueur</string>
-  <string name="personalOpeningExplorerX" comment="%1$s is &quot;Personal opening explorer&quot;&#10;%2$s is &quot;other players&quot;&#10;&#10;Full sentence:&#10;&quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;The opening explorer lets you see the frequency and performance across different openings you play. You can use the feature to look at other players' games as well.&#10;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.&#10;The Features page has a humorous comparison, which demonstrates the features of Lichess and indicates which features free and paying members can access respectively. The joke is that both have the same feature, as Lichess is a fully free service. The sole difference is that patrons can optionally have a wing as their online status indicator.">%1$s (accessible aussi aux %2$s)</string>
-  <string name="personalOpeningExplorer" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;Opening explorer refers to the feature described here: https://lichess.org/@/lichess/blog/opening-explorer/Vs0xMTAA&#10;We state 'personal' as it can also look at the player's own games, and other players' games.&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">Explorateur d\'ouvertures personnel</string>
-  <string name="globalOpeningExplorerInNbGames" comment="%s is the total number of games in the Lichess opening explorer.">Explorateur d\'ouvertures général (%s parties!)</string>
+  <string name="personalOpeningExplorerX">%1$s (accessible aussi aux %2$s)</string>
+  <string name="personalOpeningExplorer">Explorateur d\'ouvertures personnel</string>
+  <string name="globalOpeningExplorerInNbGames">Explorateur d\'ouvertures général (%s parties!)</string>
   <string name="endgameTablebase">Base de finales (7 pièces)</string>
   <string name="downloadOrUploadAnyGameAsPgn">Télécharger/Téléverser une partie en PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blogue, forum, équipes, TV, messagerie, amis, défis</string>
@@ -27,8 +27,8 @@
   <string name="supportLichess">Soutenir Lichess</string>
   <string name="contributeToLichessAndGetIcon">Versez un don à Lichess et obtenez une belle icône Mécène</string>
   <string name="everybodyGetsAllFeaturesForFree">Oui, les deux comptes ont les mêmes fonctionnalités.</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest" comment="This is followed by the sentence &quot;All features are free for everybody, forever!&quot;">Nous croyons que chaque joueur d\'échecs mérite ce qu\'il y a de mieux – donc :</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Nous croyons que chaque joueur d\'échecs mérite ce qu\'il y a de mieux – donc :</string>
   <string name="allFeaturesAreFreeForEverybody">Toutes les fonctionnalités sont gratuites pour tous, pour toujours!</string>
-  <string name="ifYouLoveLichess" comment="The sentence continues with a button saying &quot;Support us with a Patron account!&quot;">Si vous aimez Lichess,</string>
-  <string name="supportUsWithAPatronAccount" comment="A button at the bottom of https://lichess.org/features, which takes users to the donation page.">soutenez-nous avec un compte Mécène!</string>
+  <string name="ifYouLoveLichess">Si vous aimez Lichess,</string>
+  <string name="supportUsWithAPatronAccount">soutenez-nous avec un compte Mécène!</string>
 </resources>
