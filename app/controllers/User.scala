@@ -7,7 +7,6 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.paginator.Paginator
 import scalatags.Text.Frag
-import scala.concurrent.Await
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -192,8 +191,9 @@ final class User(
                 )
           )
       else
-        val block = Await.result(relation.map(_.contains(Relation.Block)), Duration.Inf)
-        Ok(views.user.bits.miniClosed(user.user, block))
+        relation.flatMap: r =>
+          val block = r.contains(Relation.Block)
+          Ok(views.user.bits.miniClosed(user.user, block))
 
   def online = Anon:
     val max = 50
