@@ -10,7 +10,7 @@
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Board editor and analysis board with %s</string>
   <string name="cloudEngineAnalysis">Cloud engine analysis</string>
-  <string name="studies">Studies (shared and persistent analysis)</string>
+  <string name="studies">Studies (shareable and persistent analysis)</string>
   <string name="chessInsights">Chess insights (detailed analysis of your play)</string>
   <string name="allChessBasicsLessons">All chess basics lessons</string>
   <string name="tacticalPuzzlesFromUserGames">Tactical puzzles from user games</string>
