@@ -1,9 +1,9 @@
 import type { NetData } from './types';
-import { type PolyglotBook, makeBook } from 'bits/polyglot';
+import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
 
 export class AssetDb {
   net: Map<string, NetData> = new Map();
-  book: Map<string, PolyglotBook> = new Map();
+  book: Map<string, OpeningBook> = new Map();
 
   get dev(): boolean {
     return false;
@@ -26,12 +26,12 @@ export class AssetDb {
     return data;
   }
 
-  async getBook(key: string | undefined): Promise<PolyglotBook | undefined> {
+  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
     const cached = this.book.get(key);
     if (cached) return cached;
     const buf = await fetch(botAssetUrl(`books/${key}.bin`)).then(res => res.arrayBuffer());
-    const book = await makeBook(new DataView(buf));
+    const book = (await makeBookFromPolyglot(new DataView(buf))).getMoves;
     this.book.set(key, book);
     return book;
   }
@@ -44,6 +44,7 @@ export class AssetDb {
     return botAssetUrl(`sounds/${key}`);
   }
 }
+
 export function botAssetUrl(name: string, version: string | false = 'bot000'): string {
   return site.asset.url(`lifat/bots/${name}`, { version });
 }

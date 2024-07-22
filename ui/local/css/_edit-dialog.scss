@@ -42,6 +42,10 @@
   .icon-btn {
     padding: 6px;
   }
+  *:focus-visible {
+    outline: 2px solid $c-font;
+    outline-offset: -2px;
+  }
 }
 
 .edit-view {
@@ -99,10 +103,6 @@
     > label {
       font-weight: bold;
     }
-  }
-  *:focus-visible {
-    outline: 2px solid $c-font; //$c-primary;
-    outline-offset: -2px;
   }
 }
 
@@ -260,10 +260,7 @@
     @extend %flex-column;
     grid-area: b;
     padding: 0 1em;
-    //border-radius: 10px;
     min-width: 300px;
-    // display: flex;
-    // flex-direction: column;
     justify-content: start;
     gap: 1em;
   }
@@ -344,7 +341,6 @@
 .asset-dialog {
   @extend %flex-column;
   min-width: 704px;
-  //gap: 1em;
   .asset-grid {
     display: grid;
     max-width: 70vw;

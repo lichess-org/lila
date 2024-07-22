@@ -1,13 +1,13 @@
 /**
- * 1. get a function that retrieves the opening moves for any position from a polyglot binary
+ * 1. get a function that retrieves the opening moves for any position from a polyglot binary or pgn
  *
  *   import { makeBook, makeCover, PolyglotBook } from 'bits/polyglot';
  *   import { Chess } from 'chessops';
  *
- *   const book: PolyglotBook = await makeBook(new DataView(myPolyglotBuffer));
+ *   const book: PolyglotResult = await makeBook(new DataView(myPolyglotBuffer));
  *
  *   const position = Chess.default();
- *   for (const move of bookResult.book(position)) {
+ *   for (const move of book.getMoves(position)) {
  *     console.log(move.uci, move.weight, move.app);
  *   }
  *
@@ -17,7 +17,7 @@
  * 2. create a cover thumbnail as a png blob. covers are rendered with piece transparency to suggest
  * move frequency up to a specified depth.
  *
- *   const cover: Blob = await makeCover(book, 2, 192);
+ *   const cover: Blob = await makeCover(book.getMoves, { depth: 2, boardSize: 192 });
  *
  * cover will be a Blob. depth is the number of fullmoves from starting position to
  * traverse while rendering pieces. boardSize is in pixels and should be divisible by 8.
@@ -26,43 +26,94 @@
 import * as co from 'chessops';
 import { normalMove } from 'chess';
 
-export type PolyglotMove = { uci: string; weight: number; app: number };
+export type OpeningMove = { uci: string; weight: number };
 
-export type PolyglotBook = (pos: co.Chess, normalized?: boolean /* = true */) => PolyglotMove[];
+export type OpeningBook = (pos: co.Chess, normalized?: boolean /* = true */) => OpeningMove[];
 
 export type PolyglotOpts = { cover?: { depth: number; boardSize: number } } & (
+  | { pgn: string }
   | { bytes: DataView }
-  | { book: PolyglotBook }
+  | { getMoves: OpeningBook }
 );
 
-export type PolyglotResult = { book: PolyglotBook; cover?: Blob };
+export type PolyglotResult = { getMoves: OpeningBook; polyglot?: Blob; cover?: Blob };
 
 export async function initModule(o: PolyglotOpts): Promise<PolyglotResult> {
-  const book = 'bytes' in o ? makeBook(o.bytes) : o.book;
+  const book =
+    'bytes' in o ? makeBookPolyglot(o.bytes) : 'pgn' in o ? makeBookPgn(o.pgn) : { getMoves: o.getMoves };
   return {
-    book,
-    cover: o.cover ? await makeCover(book, o.cover.depth, o.cover.boardSize) : undefined,
+    ...book,
+    cover: o.cover ? await makeCover(book.getMoves, o.cover.depth, o.cover.boardSize) : undefined,
   };
 }
 
-function makeBook(bytes: DataView) {
-  const book = new Map<bigint, PolyglotMove[]>();
+type Composition = { boards: number; squares: Map<number, Map<Color, Map<co.Role, number>>> };
+
+function makeBookPgn(pgn: string): PolyglotResult {
+  const book = new Map<bigint, OpeningMove[]>();
+  for (const game of co.pgn.parsePgn(pgn)) {
+    traverseTree(co.pgn.startingPosition(game.headers).unwrap(), game.moves);
+  }
+  const polyglot = new Blob(
+    [...book].map(([hash, moves]) => {
+      const buffer = new ArrayBuffer(16 * moves.length);
+      const view = new DataView(buffer);
+      let pos = 0;
+      for (const { uci, weight } of moves) {
+        view.setBigUint64(pos, hash);
+        view.setUint16(pos + 8, uciToShort(uci));
+        view.setUint16(pos + 10, weight);
+        pos += 16;
+      }
+      return buffer;
+    }),
+  );
+  return { ...makeGetMoves(book), polyglot };
+
+  function traverseTree(chess: co.Chess, node: co.pgn.Node<co.pgn.PgnNodeData>) {
+    const moves = book.get(hashBoard(chess)) ?? [];
+    for (const nextNode of node.children) {
+      const move = co.san.parseSan(chess, nextNode.data.san);
+      if (!move) continue;
+      const nextChess = chess.clone();
+      moves.push({ uci: co.makeUci(move), weight: getWeightThatIsAlmostCertainlyWrong(nextNode) });
+      nextChess.play(move);
+      traverseTree(nextChess, nextNode);
+    }
+    book.set(hashBoard(chess), moves);
+  }
+
+  function getWeightThatIsAlmostCertainlyWrong(node: co.pgn.ChildNode<co.pgn.PgnNodeData>) {
+    const weightstr = node.data.comments?.find(x => /W[^:]*:\s*([0-9.]+)/.exec(x))?.[1];
+    const weight = weightstr ? parseFloat(weightstr) : 1;
+    // in case weights are from 0 to 1. crush the top because you cannot have big weights AND nice things
+    return weight < 100 ? weight * 100 : Math.min(65535, 9900 + weight);
+  }
+}
+
+function makeBookPolyglot(bytes: DataView): PolyglotResult {
+  const book = new Map<bigint, OpeningMove[]>();
 
   for (let i = 0; i < bytes.byteLength - 15; i += 16) {
     const hash = bytes.getBigUint64(i);
     const move = bytes.getUint16(i + 8);
     const weight = bytes.getUint16(i + 10);
-    const app = bytes.getUint32(i + 12);
 
     const moves = book.get(hash) ?? [];
-    moves.push({ uci: shortToUci(move), weight, app });
+    moves.push({ uci: shortToUci(move), weight });
     book.set(hash, moves);
   }
-  return (chess: co.Chess, normalized = true) => {
-    const moves = book.get(hashBoard(chess)) ?? [];
-    if (!normalized) return moves;
-    const sum = moves.reduce((sum: number, m) => sum + m.weight, 0);
-    return moves.map(m => ({ uci: m.uci, weight: m.weight / sum, app: m.app }));
+  return makeGetMoves(book);
+}
+
+function makeGetMoves(book: Map<bigint, OpeningMove[]>): PolyglotResult {
+  return {
+    getMoves: (pos: co.Chess, normalized = true) => {
+      const moves = book.get(hashBoard(pos)) ?? [];
+      if (!normalized) return moves;
+      const sum = moves.reduce((sum: number, m) => sum + m.weight, 0);
+      return moves.map(m => ({ uci: m.uci, weight: m.weight / sum }));
+    },
   };
 }
 
@@ -100,16 +151,18 @@ function shortToUci(move: number) {
   );
 }
 
-const promotes = ['', 'n', 'b', 'r', 'q', '?', '?', '?'];
+function charDiff(a: string, b: string) {
+  return a.charCodeAt(0) - b.charCodeAt(0);
+}
 
-const rolodex = {
-  black: { pawn: 0, knight: 2, bishop: 4, rook: 6, queen: 8, king: 10 },
-  white: { pawn: 1, knight: 3, bishop: 5, rook: 7, queen: 9, king: 11 },
-};
+function uciToShort(uci: Uci): number {
+  const from = (charDiff(uci[0], 'a') << 3) | charDiff(uci[1], '1');
+  const to = (charDiff(uci[2], 'a') << 3) | charDiff(uci[3], '1');
+  const promotion = uci.length === 5 ? promotes.indexOf(uci[4]) : 0;
+  return (promotion << 12) | (from << 6) | to;
+}
 
-type Composition = { boards: number; squares: Map<number, Map<Color, Map<co.Role, number>>> };
-
-async function makeCover(polyglotBook: PolyglotBook, depth: number, boardSize: number): Promise<Blob> {
+async function makeCover(polyglotBook: OpeningBook, depth: number, boardSize: number): Promise<Blob> {
   const squareSize = boardSize / 8;
   const canvas = new OffscreenCanvas(boardSize, boardSize);
   const ctx = canvas.getContext('2d')!;
@@ -171,6 +224,13 @@ function makeImage(svg: string) {
   img.src = src;
   return img;
 }
+
+const promotes = ['', 'n', 'b', 'r', 'q', '?', '?', '?'];
+
+const rolodex = {
+  black: { pawn: 0, knight: 2, bishop: 4, rook: 6, queen: 8, king: 10 },
+  white: { pawn: 1, knight: 3, bishop: 5, rook: 7, queen: 9, king: 11 },
+};
 
 const pieces: { [color in Color]: { [role in co.Role]: HTMLImageElement } } = {
   black: {

@@ -14,7 +14,7 @@ export interface Dialog {
   showModal(): Promise<Dialog>; // resolves on close
   show(): Promise<Dialog>; // resolves on close
   updateActions(actions?: Action | Action[]): void; // set new actions, reattach existing if no arg provided
-  close(): void;
+  close(returnValue?: string): void;
 }
 
 export interface DialogOpts {
@@ -66,7 +66,7 @@ export async function alert(msg: string): Promise<void> {
   await domDialog({
     htmlText: escapeHtml(msg),
     class: 'alert',
-    show: 'modal',
+    show: true,
   });
 }
 
@@ -80,7 +80,7 @@ export async function confirm(msg: string): Promise<boolean> {
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
-        show: 'modal',
+        show: true,
         actions: [
           { selector: '.yes', result: 'yes' },
           { selector: '.no', result: 'no' },
@@ -267,7 +267,7 @@ class DialogWrapper implements Dialog {
   };
 
   close = (v?: string) => {
-    this.dialog.close(this.returnValue || v || 'ok');
+    this.dialog.close(v || this.returnValue || 'ok');
   };
 
   // attach/reattach existing listeners or provide a set of new ones

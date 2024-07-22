@@ -1,7 +1,7 @@
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import type { NetData } from '../types';
 import { botAssetUrl, AssetDb } from '../assetDb';
-import { makeBookWithCover, makeBook, type PolyglotBook, type PolyglotResult } from 'bits/polyglot';
+import { makeBookFromPolyglot, type OpeningBook, type PolyglotResult } from 'bits/polyglot';
 
 export type AssetType = 'book' | 'bookCover' | 'image' | 'sound' | 'net';
 export type AssetList = {
@@ -79,14 +79,14 @@ export class DevAssetDb extends AssetDb {
 
   async addBook(key: string, file: Blob): Promise<string> {
     const data = await arrayBuffer(file);
-    const book = await makeBookWithCover(new DataView(data));
+    const book = await makeBookFromPolyglot(new DataView(data), { depth: 2, boardSize: 192 });
     if (!book.cover) throw new Error(`error parsing ${key}`);
     if (key.endsWith('.bin')) key = key.slice(0, -4);
     await Promise.all([
       this.db.book.store.put(key, file),
       this.db.bookCover.store.put(`${key}.png`, book.cover),
     ]);
-    this.book.set(key, book.book);
+    this.book.set(key, book.getMoves);
     this.bookCover.set(key, URL.createObjectURL(new Blob([book.cover], { type: 'image/png' })));
     await this.db.book.updateKeys();
     return key;
@@ -102,7 +102,7 @@ export class DevAssetDb extends AssetDb {
     await this.db[type].updateKeys();
   }
 
-  async getBook(key: string | undefined): Promise<PolyglotBook | undefined> {
+  async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
     const cached = this.book.get(key);
     if (cached) return cached;
@@ -110,9 +110,9 @@ export class DevAssetDb extends AssetDb {
       ? this.db.book.get(key)
       : fetch(botAssetUrl(`books/${key}.bin`)).then(res => res.blob()));
     const bytes = new DataView(await bookBlob.arrayBuffer());
-    const book = await makeBook(bytes);
-    this.book.set(key, book);
-    return book;
+    const book = await makeBookFromPolyglot(bytes);
+    this.book.set(key, book.getMoves);
+    return book.getMoves;
   }
 
   getImageUrl(key: string): string {

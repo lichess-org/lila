@@ -56,10 +56,7 @@ export class SoundEventPane extends Pane {
         ${this.fieldHtml(
           'mix',
           mix,
-          'mix controls the volume relationship between this and the standard board sound.\n' +
-            'values from 0 to 0.5 adjust this sound from mute to full.\n' +
-            'values from 0.5 to 1 adjust the standard board sound from full to mute.\n' +
-            'when either sound is played below full volume, the other is played at full.',
+          'mix controls the volume relationship between this and the standard board sound.\nvalues from 0 to 0.5 adjust this sound from mute to full.\nvalues from 0.5 to 1 adjust the standard board sound from full to mute.\nwhen either sound is played below full volume, the other is played at full.',
         )}
       </fieldset>`);
     const buttonEl = $as<Node>(

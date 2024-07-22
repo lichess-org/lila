@@ -2,7 +2,7 @@ import * as co from 'chessops';
 import { normalize } from './operator';
 import { zerofishMove } from './zerofishMove';
 import type { FishSearch, Position, Zerofish } from 'zerofish';
-import type { PolyglotBook } from 'bits/polyglot';
+import type { OpeningBook } from 'bits/polyglot';
 import type { AssetDb } from './assetDb';
 import type { Libot, ZerofishBotInfo, ZeroSearch, Operator, Glicko, Book } from './types';
 
@@ -11,7 +11,7 @@ export type ZerofishBots = { [id: string]: ZerofishBot };
 export class ZerofishBot implements Libot, ZerofishBotInfo {
   private zerofish: Zerofish;
   private assetDb: AssetDb;
-  private openings: Promise<PolyglotBook[]>;
+  private openings: Promise<OpeningBook[]>;
   private stats: any;
   readonly uid: string;
   name: string;

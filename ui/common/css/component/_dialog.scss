@@ -93,5 +93,9 @@ dialog {
       justify-content: end;
       gap: 2em;
     }
+
+    button {
+      flex: 0;
+    }
   }
 }
