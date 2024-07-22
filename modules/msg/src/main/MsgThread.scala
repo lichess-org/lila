@@ -39,21 +39,20 @@ object MsgThread:
   val idSep = '/'
 
   def id(u1: UserId, u2: UserId): Id = Id {
-    sortUsers(u1, u2) match
-      case (user1, user2) => s"$user1$idSep$user2"
+    val (user1, user2) = sortUsers(u1, u2)
+    s"$user1$idSep$user2"
   }
 
   def make(u1: UserId, u2: UserId, msg: Msg, maskFor: Option[UserId], maskWith: Option[Msg.Last]): MsgThread =
-    sortUsers(u1, u2) match
-      case (user1, user2) =>
-        MsgThread(
-          id = id(user1, user2),
-          user1 = user1,
-          user2 = user2,
-          lastMsg = msg.asLast,
-          maskFor = maskFor,
-          maskWith = maskWith
-        )
+    val (user1, user2) = sortUsers(u1, u2)
+    MsgThread(
+      id = id(user1, user2),
+      user1 = user1,
+      user2 = user2,
+      lastMsg = msg.asLast,
+      maskFor = maskFor,
+      maskWith = maskWith
+    )
 
   private def sortUsers(u1: UserId, u2: UserId): (UserId, UserId) =
     if u1.value < u2.value then (u1, u2) else (u2, u1)
