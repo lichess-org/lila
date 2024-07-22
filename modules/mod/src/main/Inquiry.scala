@@ -31,7 +31,7 @@ final class InquiryApi(
         .ofModId(mod)
         .flatMapz: report =>
           (
-            reportApi.moreLike(report, 10),
+            reportApi.moreLike(report, Max(10)),
             userApi.withPerfs(report.user),
             noteApi.byUserForMod(report.user),
             logApi.userHistory(report.user)

@@ -24,7 +24,9 @@ final class ModInquiryUi(helpers: Helpers):
             lila.report.ui.ReportUi.reportScore(atom.score),
             userIdLink(atom.by.userId.some, withOnline = false),
             " for ",
-            strong(r.reason.name),
+            if r.isComm
+            then a(href := routes.Mod.communicationPublic(r.user))(strong(r.reason.name))
+            else strong(r.reason.name),
             " ",
             momentFromNow(atom.at)
           ),

@@ -39,11 +39,18 @@
   .public_chats,
   .notes,
   .history {
+    @extend %box-neat;
+    padding: 1em;
     margin-top: 0.5em;
-    max-height: 150px;
+    max-height: 20vh;
     overflow-y: auto;
     padding-bottom: 0.5em;
-    border-bottom: 1px solid $border;
+  }
+
+  .reports h3 {
+    line-height: 2em;
+    font-size: 1.5em;
+    font-weight: bold;
   }
 
   .player_chats {

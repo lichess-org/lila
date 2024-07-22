@@ -368,7 +368,7 @@ final class User(
 
         val reportLog = isGranted(_.SeeReport).so(
           env.report.api
-            .byAndAbout(user, 20)
+            .byAndAbout(user, Max(20))
             .flatMap: rs =>
               lightUserApi.preloadMany(rs.userIds).inject(rs)
             .map(ui.reportLog(user))
