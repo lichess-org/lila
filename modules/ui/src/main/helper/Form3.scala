@@ -109,18 +109,35 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
       label(`for` := fieldId)
     )
 
+  def nativeCheckbox[Value: Show](
+      fieldId: String,
+      fieldName: String,
+      checked: Boolean,
+      value: Value = "true"
+  ) =
+    st.input(
+      st.id    := fieldId,
+      name     := fieldName,
+      st.value := value.show,
+      tpe      := "checkbox",
+      checked.option(st.checked)
+    )
+
   def select(
       field: Field,
       options: Iterable[(Any, String)],
       default: Option[String] = None,
-      disabled: Boolean = false
+      disabled: Boolean = false,
+      required: Boolean = false
   ): Frag =
     frag(
       st.select(
         st.id := id(field),
         name  := field.name,
-        cls   := "form-control"
-      )(disabled.option(st.disabled := true))(validationModifiers(field))(
+        cls   := "form-control",
+        disabled.option(st.disabled := true),
+        required.option(st.required)
+      )(validationModifiers(field))(
         default.map { option(value := "")(_) },
         options.toSeq.map { (value, name) =>
           option(

@@ -33,7 +33,7 @@ final class ReportApi(
 
   private lazy val scorer = wire[ReportScore]
 
-  def create(data: ReportSetup, reporter: Reporter): Funit =
+  def create(data: ReportSetup, reporter: Reporter, msgs: List[String]): Funit =
     Reason(data.reason).so: reason =>
       getSuspect(data.user.id).flatMapz: suspect =>
         create:
@@ -41,7 +41,8 @@ final class ReportApi(
             reporter,
             suspect,
             reason,
-            data.text.take(1000)
+            data.text.take(1000) + msgs.nonEmpty.so:
+              s"""\n\n\n--- selected inbox messages ---\n\n${msgs.mkString("\n\n")}"""
           )
 
   def isAutoBlock(data: ReportSetup): Boolean =
@@ -209,7 +210,7 @@ final class ReportApi(
 
   def processAndGetBySuspect(suspect: Suspect): Fu[List[Report]] =
     for
-      all <- recent(suspect, 10)
+      all <- recent(suspect, Max(10))
       open = all.filter(_.open)
       _ <- doProcessReport(
         $inIds(all.filter(_.open).map(_.id)),
@@ -219,7 +220,7 @@ final class ReportApi(
 
   def reopenReports(suspect: Suspect): Funit =
     for
-      all <- recent(suspect, 10)
+      all <- recent(suspect, Max(10))
       closed = all
         .filter(_.done.map(_.by).has(UserId.lichess.into(ModId)))
         .filterNot(_.isAlreadySlain(suspect.user))
@@ -364,29 +365,36 @@ final class ReportApi(
 
   def recent(
       suspect: Suspect,
-      nb: Int,
+      nb: Max,
       readPref: ReadPref = _.sec
   ): Fu[List[Report]] =
     coll
       .find($doc("user" -> suspect.id.value))
       .sort(sortLastAtomAt)
       .cursor[Report](readPref)
-      .list(nb)
+      .list(nb.value)
 
-  def moreLike(report: Report, nb: Int): Fu[List[Report]] =
+  def moreLike(report: Report, nb: Max): Fu[List[Report]] =
     coll
       .find($doc("user" -> report.user, "_id".$ne(report.id)))
       .sort(sortLastAtomAt)
       .cursor[Report]()
-      .list(nb)
+      .list(nb.value)
 
-  def byAndAbout(user: User, nb: Int)(using Me): Fu[Report.ByAndAbout] = for
+  def commReportsAbout(user: User, nb: Max): Fu[List[Report]] =
+    coll
+      .find($doc("user" -> user.id, "room" -> Room.Comm.key))
+      .sort(sortLastAtomAt)
+      .cursor[Report]()
+      .list(nb.value)
+
+  def byAndAbout(user: User, nb: Max)(using Me): Fu[Report.ByAndAbout] = for
     by <-
       coll
         .find($doc("atoms.by" -> user.id))
         .sort(sortLastAtomAt)
         .cursor[Report](ReadPref.priTemp)
-        .list(nb)
+        .list(nb.value)
     about <- recent(Suspect(user), nb, _.priTemp)
   yield Report.ByAndAbout(by, Room.filterGranted(about))
 
