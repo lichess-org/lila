@@ -150,13 +150,15 @@ interface QuestionOpts {
   no?: QuestionChoice;
 }
 
-type SoundMove = (opts?: {
-  // file://./../../site/src/sound.ts
+type SoundMoveOpts = {
   name?: string; // either provide this or valid san/uci
   san?: string;
   uci?: string;
-  filter?: 'music' | 'game'; // undefined allows either
-}) => void;
+  volume?: number;
+  filter?: 'music' | 'game';
+};
+
+type SoundMove = (opts?: SoundMoveOpts) => void;
 
 interface SoundI {
   // file://./../../site/src/sound.ts

@@ -145,7 +145,8 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   protected get isFieldset(): boolean {
-    return this.info.type === 'group' || this.info.type === 'books'; // || this.info.type === 'soundEvent';
+    // we cheat here
+    return this.info.type === 'group' || this.info.type === 'books' || this.info.type === 'sounds';
   }
 
   protected get isDefined(): boolean {
@@ -193,7 +194,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       !this.info.required &&
       this.info.label &&
       this.info.type !== 'books' &&
-      this.info.type !== 'sounds'
+      this.info.type !== 'soundEvent'
     ) {
       this.enabledCheckbox = $as<HTMLInputElement>(`<input type="checkbox">`);
     }

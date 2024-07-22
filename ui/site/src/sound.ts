@@ -67,15 +67,16 @@ export default new (class implements SoundI {
     if (sound && (await this.resumeWithTest())) await sound.play(this.getVolume() * volume);
   }
 
-  throttled = throttle(100, (name: Name) => this.play(name));
+  throttled = throttle(100, (name: Name, volume: number) => this.play(name, volume));
 
-  async move(o?: { uci?: Uci; san?: string; name?: Name; filter?: 'music' | 'game' }) {
+  async move(o?: SoundMoveOpts) {
+    const volume = o?.volume ?? 1;
     if (o?.filter !== 'music' && this.theme !== 'music') {
-      if (o?.name) this.throttled(o.name);
+      if (o?.name) this.throttled(o.name, volume);
       else {
-        if (o?.san?.includes('x')) this.throttled('capture');
-        else this.throttled('move');
-        if (o?.san?.includes('#') || o?.san?.includes('+')) this.throttled('check');
+        if (o?.san?.includes('x')) this.throttled('capture', volume);
+        else this.throttled('move', volume);
+        if (o?.san?.includes('#') || o?.san?.includes('+')) this.throttled('check', volume);
       }
     }
     if (o?.filter === 'game' || this.theme !== 'music') return;

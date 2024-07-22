@@ -2,6 +2,7 @@ import { Pane, RangeSetting } from './pane';
 import * as licon from 'common/licon';
 import type { PaneArgs, BooksInfo, RangeInfo } from './types';
 import type { Book } from '../types';
+import { removeButton } from './util';
 import { assetDialog } from './assetDialog';
 
 export class BookPane extends RangeSetting {
@@ -9,9 +10,7 @@ export class BookPane extends RangeSetting {
   parent: BooksPane;
   constructor(p: PaneArgs) {
     super(p);
-    this.el.append(
-      $as<Node>(`<i role="button" tabindex="0" data-icon="${licon.Cancel}" data-click="remove">`),
-    );
+    this.el.append(removeButton());
     const span = this.label.firstElementChild as HTMLElement;
     span.dataset.src = this.host.assetDb.getBookCoverUrl(span.textContent!);
     span.classList.add('imagept');

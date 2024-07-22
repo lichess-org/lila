@@ -29,7 +29,7 @@ export type SoundEvent =
   | 'playerMove'
   | 'botMove';
 
-export type Sound = { name: string; chance: number; volume: number; delay: number; only?: true };
+export type Sound = { key: string; chance: number; delay: number; mix: number };
 
 export type SoundEvents = { [key in SoundEvent]?: Sound[] };
 

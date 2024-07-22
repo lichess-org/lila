@@ -1,10 +1,10 @@
-import type { BotInfo, Operator, Book, Sound as NamedSound } from '../types';
+import type { BotInfo, Operator, Book, SoundEvent, Sound as NamedSound } from '../types';
 import type { PaneCtrl } from './paneCtrl';
 import type { Pane } from './pane';
 import type { AssetType, DevAssetDb } from './devAssetDb';
 import type { ZerofishBot } from '../zerofishBot';
 
-type Sound = Omit<NamedSound, 'name'>;
+export type Sound = Omit<NamedSound, 'key'>;
 
 export interface BotInfoReader extends BotInfo {
   readonly [key: string]: any;
@@ -25,15 +25,22 @@ export interface HostView {
   update(): void;
 }
 
+export interface Template<T extends object = any> {
+  min: Record<keyof T, number>;
+  max: Record<keyof T, number>;
+  step: Record<keyof T, number>;
+  value: Record<keyof T, number>;
+}
+
 export interface PaneInfo {
-  type?: AnyType;
+  type?: InfoType;
   id?: string;
   class?: string[];
   label?: string;
   title?: string;
   required?: boolean;
   requires?: string[];
-  value?: string | number | boolean | Operator | Sound;
+  value?: string | number | boolean | Operator;
   assetType?: AssetType;
 }
 
@@ -68,45 +75,35 @@ export interface TextInfo extends PaneInfo {
 
 export interface BooksInfo extends PaneInfo {
   type: 'books';
+  template: Template<{ weight: number }>;
 }
 
-export interface SoundInfo extends PaneInfo {
-  value: Sound;
+export interface SoundEventInfo extends PaneInfo {
+  type: 'soundEvent';
 }
 
-export interface SoundsInfo extends SoundInfo {
+interface BaseSoundsInfo extends PaneInfo {
   type: 'sounds';
-  value: Sound;
+  template: Template<Sound>;
 }
+
+export type SoundsInfo = BaseSoundsInfo & {
+  [key in SoundEvent]: SoundEventInfo;
+};
 
 export interface OperatorInfo extends PaneInfo {
   type: 'operator';
   value: Operator;
 }
 
-export type AnyType =
-  | 'group'
-  | 'books'
-  | 'sound'
-  | 'sounds'
-  | 'operator'
-  | 'radioGroup'
-  | 'toggle'
-  | 'select'
-  | 'text'
-  | 'textarea'
-  | 'range'
-  | 'number';
-
-export type AnyKey =
+export type InfoKey =
   | keyof SelectInfo
   | keyof TextInfo
   | keyof TextareaInfo
   | keyof RangeInfo
   | keyof NumberInfo
   | keyof BooksInfo
-  | keyof SoundInfo
-  | keyof SoundsInfo
+  | keyof SoundEventInfo
   | keyof OperatorInfo;
 
 export type AnyInfo =
@@ -116,16 +113,22 @@ export type AnyInfo =
   | RangeInfo
   | NumberInfo
   | BooksInfo
-  | SoundInfo
   | SoundsInfo
+  | SoundEventInfo
   | OperatorInfo
   | AnyInfo[];
 
-export type PropertyValue = Operator | Sound | Book[] | Sound[] | string | number | boolean | undefined;
+type ExtractType<T> = T extends { type: infer U } ? U : never;
+
+export type InfoType = ExtractType<AnyInfo> | 'group' | 'radioGroup';
+
+export type PropertyValue = Operator | Book[] | Sound[] | string | number | boolean | undefined;
+
+export type SchemaValue = Schema | AnyInfo | PropertyValue | string[];
 
 export interface Schema extends PaneInfo {
-  [key: string]: Schema | AnyInfo | Operator | string | string[] | number | boolean | undefined;
-  type?: undefined | 'radioGroup' | 'group';
+  [key: string]: SchemaValue;
+  type?: undefined | 'group' | 'radioGroup';
 }
 
 export type PaneArgs = { host: HostView; info: PaneInfo; parent?: Pane };

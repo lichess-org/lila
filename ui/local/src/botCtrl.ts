@@ -70,21 +70,21 @@ export class BotCtrl {
     return this[chess.turn]?.move(pos, chess) ?? Promise.resolve('0000');
   }
 
-  playSound(c: Color, events: SoundEvent[]): boolean {
+  playSound(c: Color, events: SoundEvent[]): number {
     const prioritized = soundPriority.filter(e => events.includes(e));
     const sounds = prioritized.map(priority => this[c]?.sounds?.[priority] ?? []);
     for (const set of sounds) {
       let r = Math.random();
-      for (const { name, chance, volume, delay, only } of set) {
+      for (const { key, chance, delay, mix } of set) {
         r -= chance / 100;
         if (r > 0) continue;
         site.sound
-          .load(name, this.assetDb.getSoundUrl(name))
-          .then(() => setTimeout(() => site.sound.play(name, volume), delay * 1000));
-        return true;
+          .load(key, this.assetDb.getSoundUrl(key))
+          .then(() => setTimeout(() => site.sound.play(key, Math.min(1, mix * 2)), delay * 1000));
+        return Math.min(1, (1 - mix) * 2);
       }
     }
-    return false;
+    return 1;
   }
 
   stop(): void {

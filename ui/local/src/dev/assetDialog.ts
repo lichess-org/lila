@@ -1,7 +1,7 @@
 import { domDialog, type Dialog } from 'common/dialog';
 import { DevAssetDb } from './devAssetDb';
 import * as licon from 'common/licon';
-import { makeCover } from 'bits/polyglot';
+import { removeButton } from './util';
 import { wireCropDialog } from 'bits/crop';
 
 type AssetType = 'image' | 'book' | 'sound';
@@ -64,7 +64,7 @@ class AssetDialog {
           actions: [
             { selector: '.asset-grid', event: ['dragover', 'drop'], listener: this.dragDrop },
             { selector: '[data-click="add"]', listener: this.addItem },
-            { selector: '.remove', listener: this.remove },
+            { selector: '[data-click="remove"]', listener: this.remove },
             { selector: '.asset-item', listener: this.clickItem },
             { selector: '.tab', listener: this.clickTab },
           ],
@@ -90,7 +90,7 @@ class AssetDialog {
         <div class="asset-preview"></div>
         <div class="asset-label">${key}</div>
       </div>`);
-    if (!this.isChooser) wrap.prepend($as<Node>(`<i class="remove" data-icon="${licon.Cancel}"></i>`));
+    if (!this.isChooser) wrap.prepend(removeButton());
     wrap.querySelector('.asset-preview')!.prepend(this.flavor.preview(key));
     return wrap;
   };
@@ -202,10 +202,10 @@ class AssetDialog {
     sound: {
       placeholder: '',
       preview: (key: string) => {
-        const soundEl = $as<Element>('<span class="sound-preview"></span>');
+        const soundEl = $as<Element>('<span></span>');
         const audioEl = $as<HTMLAudioElement>(`<audio src="${this.db.getSoundUrl(key)}"></audio>`);
         const buttonEl = $as<Node>(
-          `<button class="button button-empty" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
+          `<button class="button button-empty preview-sound" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
         );
         buttonEl.addEventListener('click', e => {
           audioEl.play();

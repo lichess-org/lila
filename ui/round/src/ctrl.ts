@@ -499,7 +499,7 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.pluginUpdate(step.fen);
-    if (!o.noSound) site.sound.move({ ...o, filter: 'music' });
+    site.sound.move({ ...o, filter: 'music' });
     site.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };

@@ -1,4 +1,5 @@
 import * as co from 'chessops';
+import * as licon from 'common/licon';
 import type { NumberInfo, RangeInfo } from './types';
 import type { Outcome, Result } from '../types';
 import type { Script } from './devCtrl';
@@ -66,4 +67,10 @@ export function playerResults(results: Result[], uid?: string): string {
 
 export function playersWithResults(script: Script): string[] {
   return [...new Set(script.players.filter(p => script.results.some(r => r.white === p || r.black === p)))];
+}
+
+export function removeButton(): Node {
+  return $as<Node>(
+    `<button class="button button-empty button-red icon-btn" tabindex="0" data-icon="${licon.Cancel}" data-click="remove">`,
+  );
 }

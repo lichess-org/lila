@@ -96,7 +96,7 @@ export class GameCtrl {
     const game = this.game;
     const isBot = this.botCtrl[game.chess.turn] !== undefined;
     const { end, result, reason, status, san, move, sounds } = game.move(uci, isBot);
-    const noSound = sounds ? this.botCtrl.playSound(co.opposite(game.chess.turn), sounds) : false;
+    const volume = sounds ? this.botCtrl.playSound(co.opposite(game.chess.turn), sounds) : 1;
     const winner = result === 'white' || result === 'black' ? (result as Color) : undefined;
     this.roundData.steps = this.roundData.steps.slice(0, game.ply);
     this.round.apiMove!({
@@ -109,7 +109,7 @@ export class GameCtrl {
       threefold: game.isThreefold,
       check: game.chess.isCheck(),
       winner,
-      noSound,
+      volume,
     });
     this.updateTurn();
     if (move?.promotion)

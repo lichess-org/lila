@@ -1,9 +1,9 @@
-import { schema, primitiveKeys } from './schema';
+import { schema, infoKeys } from './schema';
 import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
 import { OperatorPane } from './operatorPane';
-import { SoundsPane } from './soundsPane';
+import { SoundEventPane } from './soundEventPane';
 import { BooksPane } from './booksPane';
-import type { HostView, PaneInfo, AnyKey } from './types';
+import type { HostView, PaneInfo, InfoKey } from './types';
 import type { ActionListener, Action } from 'common/dialog';
 
 export class PaneCtrl {
@@ -59,7 +59,7 @@ export function buildFromSchema(host: HostView, path: string[], parent?: Pane): 
   const id = path.join('_');
   const iter = path.reduce<any>((acc, key) => acc[key], schema);
   const s = buildFromInfo(host, { id, ...iter }, parent);
-  for (const key of Object.keys(iter).filter(k => !primitiveKeys.includes(k as AnyKey))) {
+  for (const key of Object.keys(iter).filter(k => !infoKeys.includes(k as InfoKey))) {
     s.el.appendChild(buildFromSchema(host, [...path, key], s).el);
   }
   return s;
@@ -80,8 +80,8 @@ function buildFromInfo(host: HostView, info: PaneInfo, parent?: Pane): Pane {
       return new NumberSetting(p);
     case 'books':
       return new BooksPane(p);
-    case 'sounds':
-      return new SoundsPane(p);
+    case 'soundEvent':
+      return new SoundEventPane(p);
     case 'operator':
       return new OperatorPane(p);
     default:

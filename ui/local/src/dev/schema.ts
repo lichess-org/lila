@@ -1,7 +1,9 @@
+import type { Schema, InfoKey, PropertyValue } from './types';
 import { deepFreeze } from 'common';
-import type { Schema, AnyKey, PropertyValue } from './types';
 
-export const primitiveKeys: AnyKey[] = [
+// give dialog constraints, describe dialog content, define direct mappings to BotInfo instances
+
+export const infoKeys: InfoKey[] = [
   'type',
   'id',
   'label',
@@ -14,9 +16,10 @@ export const primitiveKeys: AnyKey[] = [
   'max',
   'step',
   'rows',
+  'template',
   'requires',
   'required',
-]; // these keys are reserved
+]; // keep in sync with InfoKey in file://./types.ts
 
 export const operatorRegex: RegExp = /==|>=|>|<=|<|!=/;
 
@@ -38,60 +41,36 @@ export const schema: Schema = {
     class: ['sources'],
     books: {
       label: 'books',
-      class: ['books'],
       type: 'books',
+      class: ['books'],
+      template: {
+        min: { weight: 0 },
+        max: { weight: 10 },
+        step: { weight: 1 },
+        value: { weight: 1 },
+      },
       required: true,
     },
     sounds: {
       label: 'sounds',
-      class: ['sounds'],
-      type: 'group',
+      type: 'sounds',
+      class: ['sound-events'],
+      template: {
+        min: { chance: 0, delay: 0, mix: 0 },
+        max: { chance: 100, delay: 10, mix: 1 },
+        step: { chance: 0.1, delay: 0.1, mix: 0.01 },
+        value: { chance: 100, delay: 1, mix: 0.5 },
+      },
+      greeting: { label: 'greeting', class: ['sound-event'], type: 'soundEvent' },
+      playerWin: { label: 'player win', class: ['sound-event'], type: 'soundEvent' },
+      botWin: { label: 'bot win', class: ['sound-event'], type: 'soundEvent' },
+      playerCheck: { label: 'player check', class: ['sound-event'], type: 'soundEvent' },
+      botCheck: { label: 'bot check', class: ['sound-event'], type: 'soundEvent' },
+      playerCapture: { label: 'player capture', class: ['sound-event'], type: 'soundEvent' },
+      botCapture: { label: 'bot capture', class: ['sound-event'], type: 'soundEvent' },
+      playerMove: { label: 'player move', class: ['sound-event'], type: 'soundEvent' },
+      botMove: { label: 'bot move', class: ['sound-event'], type: 'soundEvent' },
       required: true,
-      greeting: {
-        label: 'greeting',
-        type: 'sounds',
-        value: { chance: 100, volume: 1, delay: 0 },
-      },
-      playerWin: {
-        label: 'player win',
-        type: 'sounds',
-        value: { chance: 100, volume: 1, delay: 2 },
-      },
-      botWin: {
-        label: 'bot win',
-        type: 'sounds',
-        value: { chance: 100, volume: 1, delay: 1 },
-      },
-      playerCheck: {
-        label: 'player check',
-        type: 'sounds',
-        value: { chance: 50, volume: 0.8, delay: 2 },
-      },
-      botCheck: {
-        label: 'bot check',
-        type: 'sounds',
-        value: { chance: 50, volume: 0.8, delay: 1 },
-      },
-      playerCapture: {
-        label: 'player capture',
-        type: 'sounds',
-        value: { chance: 30, volume: 0.8, delay: 2 },
-      },
-      botCapture: {
-        label: 'bot capture',
-        type: 'sounds',
-        value: { chance: 30, volume: 0.8, delay: 1 },
-      },
-      playerMove: {
-        label: 'player move',
-        type: 'sounds',
-        value: { chance: 2, volume: 0.8, delay: 3 },
-      },
-      botMove: {
-        label: 'bot move',
-        type: 'sounds',
-        value: { chance: 2, volume: 0.8, delay: 2 },
-      },
     },
     zero: {
       label: 'lc0',
@@ -163,7 +142,7 @@ export const schema: Schema = {
   bot_operators: {
     class: ['operators'],
     lc0line: {
-      label: 'lc0 line',
+      label: 'lc0 line P decay',
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 1 }, from: 'move', data: [] },

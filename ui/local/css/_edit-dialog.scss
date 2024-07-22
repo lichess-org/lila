@@ -30,6 +30,18 @@
   .disabled label > span {
     opacity: 0.5;
   }
+  .disabled .hide-disabled {
+    display: none;
+  }
+  .preview-sound::before {
+    color: $c-secondary;
+    &:hover {
+      color: $m-secondary--lighten-11;
+    }
+  }
+  .icon-btn {
+    padding: 6px;
+  }
 }
 
 .edit-view {
@@ -51,7 +63,6 @@
   label {
     @extend %flex-center-nowrap;
     white-space: nowrap;
-    font-weight: bold;
     flex: initial;
     gap: 12px;
   }
@@ -85,6 +96,9 @@
     align-self: start;
     text-align: left;
     margin: 0 0.5em;
+    > label {
+      font-weight: bold;
+    }
   }
   *:focus-visible {
     outline: 2px solid $c-font; //$c-primary;
@@ -182,13 +196,12 @@
     }
   }
   .setting {
-    display: flex;
+    @extend %flex-center;
     padding: 0 1em;
     display: flex;
     width: 100%;
     flex-flow: row nowrap;
     gap: 1em;
-    align-items: center;
     input[data-type] {
       width: 60px;
       flex-grow: 1;
@@ -198,16 +211,30 @@
     }
   }
   .books,
-  .sounds {
-    select {
-      flex-grow: 1;
-    }
+  .sound-events {
     input[type='text'] {
       max-width: 5ch;
     }
   }
-  .sounds {
+  .sound-events {
     padding: 0.5em 1em;
+    .hide-disabled {
+      width: 100%;
+    }
+  }
+  .sound-event > span > label {
+    width: 100%;
+  }
+  .total-chance.invalid {
+    color: $c-bad;
+  }
+  fieldset.sound {
+    @extend %flex-between;
+    flex-wrap: nowrap;
+    padding: 0.25em 0.5em 0.5em;
+    label {
+      gap: 6px;
+    }
   }
   .sources,
   .operators {
@@ -230,12 +257,13 @@
     }
   }
   .sources {
+    @extend %flex-column;
     grid-area: b;
     padding: 0 1em;
-    border-radius: 10px;
+    //border-radius: 10px;
     min-width: 300px;
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     justify-content: start;
     gap: 1em;
   }
@@ -367,15 +395,14 @@
       font-size: 0.9em;
       font-weight: bold;
     }
-    .sound-preview > button {
+    .preview-sound {
       @extend %flex-center-nowrap;
-      &::before {
-        color: $c-secondary;
-        font-size: 24px;
-        margin-inline-end: 12px;
-      }
       text-transform: none;
       color: $c-font-dim;
+      &::before {
+        margin-inline-end: 0.5em;
+        font-size: 24px;
+      }
     }
   }
   .chooser .asset-item,
