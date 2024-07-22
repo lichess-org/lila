@@ -70,7 +70,7 @@ const renderPlayers = (
         h('tr', [
           h(
             'th',
-            player.fideId
+            player.fideId && player.fideId != 0
               ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, [
                   playerFed(expandFederation(player)),
                   userTitle(player),

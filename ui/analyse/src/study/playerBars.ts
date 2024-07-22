@@ -54,7 +54,7 @@ function renderPlayer(
         playerFed(player?.fed),
         player && userTitle(player),
         player &&
-          (fideId
+          (fideId && fideId != '0'
             ? h('a.name', { attrs: { href: `/fide/${fideId}/redirect` } }, player.name)
             : h('span.name', player.name)),
         rating && h('span.elo', `${rating}`),

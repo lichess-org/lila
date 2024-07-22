@@ -53,7 +53,9 @@ const editable = (value: string, submit: (v: string, el: HTMLInputElement) => vo
 type TagRow = (string | VNode)[];
 
 const fixed = ([key, value]: [string, string]) =>
-  key.endsWith('FideId') ? h('a', { attrs: { href: `/fide/${value}/redirect` } }, value) : fixedValue(value);
+  key.endsWith('FideId') && value != '0'
+    ? h('a', { attrs: { href: `/fide/${value}/redirect` } }, value)
+    : fixedValue(value);
 
 const fixedValue = (value: string) => h('span', value);
 
