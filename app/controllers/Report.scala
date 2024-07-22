@@ -10,6 +10,7 @@ import lila.core.id.ReportId
 import lila.mod.ui.PendingCounts
 import lila.report.Room.Scores
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
+import lila.core.i18n.I18nKey.site.inbox
 
 final class Report(env: Env, userC: => User, modC: => Mod) extends LilaController(env):
 
@@ -163,10 +164,35 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
         if me.is(data.user.id) then BadRequest("You cannot report yourself")
         else
           for
-            _ <- api.create(data, Reporter(me))
+            _ <- api.create(data, Reporter(me), Nil)
             _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
           yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
     )
+  }
+
+  private def inboxFormPage(user: lila.core.user.User, form: Form[?])(using Context, Me) = for
+    msgs <- env.msg.api.msgsToReport(user.id)
+    page <- renderPage(views.report.ui.inbox(form, user, msgs))
+  yield (msgs, page)
+
+  def inboxForm(username: UserStr) = Auth { _ ?=> _ ?=>
+    Found(env.user.repo.byId(username)): user =>
+      inboxFormPage(user, env.report.forms.create).map: (msgs, page) =>
+        if msgs.nonEmpty then Ok(page)
+        else Redirect(s"${routes.Report.form}?username=${user.username}")
+  }
+
+  def inboxCreate(username: UserStr) = AuthBody { _ ?=> me ?=>
+    Found(env.user.repo.byId(username)): user =>
+      bindForm(env.report.forms.create)(
+        err => inboxFormPage(user, err).map((_, page) => BadRequest(page)),
+        data =>
+          for
+            msgs <- env.msg.api.msgsToReport(data.user.id, data.msgs.some)
+            _    <- api.create(data, Reporter(me), msgs.map(_.text))
+            _    <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
+          yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
+      )
   }
 
   def flag = AuthBody { _ ?=> me ?=>

@@ -28,12 +28,14 @@ final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using d
           u => !UserId.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
-      "text"   -> cleanNonEmptyText(minLength = 5)
-    ) { (username, reason, text) =>
+      "text"   -> cleanNonEmptyText(minLength = 5),
+      "msgs"   -> list(nonEmptyText)
+    ) { (username, reason, text, msgs) =>
       ReportSetup(
         user = blockingFetchUser(username).err("Unknown username " + username),
         reason = reason,
-        text = text
+        text = text,
+        msgs = msgs
       )
     }(_.values.some)
       .verifying(cheatLinkConstraint)
@@ -64,7 +66,8 @@ private[report] case class ReportFlag(
 case class ReportSetup(
     user: LightUser,
     reason: String,
-    text: String
+    text: String,
+    msgs: List[lila.core.msg.ID] = Nil
 ):
   def suspect = SuspectId(user.id)
-  def values  = (user.name.into(UserStr), reason, text)
+  def values  = (user.name.into(UserStr), reason, text, msgs)

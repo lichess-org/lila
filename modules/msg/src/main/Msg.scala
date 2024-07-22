@@ -1,10 +1,6 @@
 package lila.msg
 
-case class Msg(
-    text: String,
-    user: UserId,
-    date: Instant
-):
+case class Msg(text: String, user: UserId, date: Instant):
 
   def asLast =
     Msg.Last(
