@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="supportLichess" comment="Appears as a heading on the https://lichess.org/features page. We recommend you see this in context (a screenshot is available), to translate appropriately.">Susține Lichess</string>
+  <string name="supportLichess">Susține Lichess</string>
 </resources>
