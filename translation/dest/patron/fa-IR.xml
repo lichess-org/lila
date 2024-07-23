@@ -2,10 +2,10 @@
 <resources>
   <string name="donate">کمک مالی</string>
   <string name="donateAsX">به عنوان %s اهدا کنید</string>
-  <string name="lichessPatron">پشتیبانِ Lichess</string>
+  <string name="lichessPatron">یاورِ Lichess</string>
   <string name="freeAccount">حساب کاربری رایگان</string>
-  <string name="becomePatron">پشتیبانِ Lichess بشوید</string>
-  <string name="xBecamePatron">%s پشتیبانِ Lichess شد</string>
+  <string name="becomePatron">یاور Lichess بشوید</string>
+  <string name="xBecamePatron">%s یاور Lichess شد</string>
   <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s یک پشتیبان Lichess به مدت %2$s ماه می‌باشد</item>
     <item quantity="other">%1$s یک پشتیبان Lichess به مدت %2$s ماه می‌باشد</item>
