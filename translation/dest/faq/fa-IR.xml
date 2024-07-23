@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">پرسش‌های متداول</string>
-  <string name="frequentlyAskedQuestions">پرسش‌های متداول</string>
-  <string name="whyIsLichessCalledLichess">وجه تسمیه Lichess چیست؟</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess ترکیبی از واژه‌های live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess به صورت %1$s است.</string>
-  <string name="leechess">lee-chess</string>
+  <string name="faqAbbreviation">پ‌پ‌ب</string>
+  <string name="frequentlyAskedQuestions">پرسش‌های پُربَسامد</string>
+  <string name="whyIsLichessCalledLichess">نامگذاری Lichess بر چه پایه‌ایست؟</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess آمیخته‌ای از واژگان live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess %1$s است.</string>
+  <string name="leechess">لی-چِس</string>
   <string name="hearItPronouncedBySpecialist">تلفظ آن را از یک متخصص بشنوید.</string>
   <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
   <string name="whyIsLilaCalledLila">به طور مشابه، کد مرجع برای لیچس، %1$s، که مخفف li[chess in sca]la هست، قابل رویت است به صورت فشرده لیچس که نوشته در %2$s، که یک زبان شهودی برنامه نویسی است.</string>
