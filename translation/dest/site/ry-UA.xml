@@ -206,7 +206,7 @@
   <string name="rating">Рейтінґ</string>
   <string name="ratingStats">Подїленя рейтінґув</string>
   <string name="username">Имня хосновача</string>
-  <string name="usernameOrEmail">Имня вадь почта</string>
+  <string name="usernameOrEmail">Имня вадь пошта</string>
   <string name="changeUsername">Поміняти имня</string>
   <string name="changeUsernameNotSame">Мож поміняти лем реґістр. Приміром \"johndoe\" на \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Перемінити своє имня. Мож учинити лем раз, при тум перемінити мож лем реґістр.</string>
@@ -215,7 +215,7 @@
   <string name="password">Парола</string>
   <string name="changePassword">Поміняти паролу</string>
   <string name="changeEmail">Перемінити адрес почты</string>
-  <string name="email">Електрона почта</string>
+  <string name="email">Електрона пошта</string>
   <string name="passwordReset">Зверженя паролы</string>
   <string name="forgotPassword">Забыли сьте паролу?</string>
   <string name="error.weakPassword">Сися парола дуже легка, ї дуже просто угадати.</string>

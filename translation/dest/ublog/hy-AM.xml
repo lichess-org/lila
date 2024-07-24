@@ -36,7 +36,6 @@
   <string name="imageAlt">Պատկերի Նկարագրությունը</string>
   <string name="imageCredit">Պատկերի իրավունքները</string>
   <string name="deleteBlog">Բլոգի այս գրությունը հեռացնել վերջնականապես</string>
-  <string name="deleteImage">Ջնջել պատկերը</string>
   <string name="safeToUseImages">Անվտանգ է օգտագործել պատկերները հետևյալ կայքերից.</string>
   <string name="selectPostTopics">Ընտրեք այն թեմաները, որոնց մասին է Ձեր գրառումը</string>
   <string name="useImagesYouMadeYourself">Կարող եք օգտագործել նաև Ձեր ստեղծած նկարները, ձեր արած լուսանկարները, Lichess-ի սքրինշոթները... այն ամենը, ինչը հեղինակային իրավունքով պաշտպանված չէ:</string>

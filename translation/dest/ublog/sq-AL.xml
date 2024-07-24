@@ -44,7 +44,6 @@
   <string name="imageAlt">Tekst alternativ për figurën</string>
   <string name="imageCredit">Kreditet e imazhit</string>
   <string name="deleteBlog">Fshije këtë blog përgjithmonë</string>
-  <string name="deleteImage">Fshije figurën</string>
   <string name="safeToUseImages">Është pa rrezik të përdoren figura nga sajtet vijues: </string>
   <string name="selectPostTopics">Përzgjidhni subjektet që lidhen me postimin tuaj</string>
   <string name="useImagesYouMadeYourself">Mund të përdorni edhe figura që i keni krijuar vetë, foto që keni bërë, foto ekrani nga Lichess-i… çfarëdo që s’është në të drejta kopjimi të dikujt tjetër.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
   <string name="blogTips">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
   <string name="discussThisBlogPostInTheForum">Diskutojeni në forum këtë postim blogu</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Jeni bllokuar nga autori i blogut.</string>
+  <string name="youBlockedByBlogAuthor">Jeni bllokuar nga autori i blogut.</string>
 </resources>

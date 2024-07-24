@@ -44,7 +44,6 @@
   <string name="imageAlt">Billede alternativ tekst</string>
   <string name="imageCredit">Billedkreditering</string>
   <string name="deleteBlog">Slet dette blogindlæg for altid</string>
-  <string name="deleteImage">Slet billedet</string>
   <string name="safeToUseImages">Det er sikkert at bruge billeder fra følgende hjemmesider: </string>
   <string name="selectPostTopics">Vælg de emner dit indlæg handler om</string>
   <string name="useImagesYouMadeYourself">Du kan også bruge billeder, som du selv har lavet, fotos, du tog, skærmbilleder af Lichess... noget, der ikke er ophavsretligt beskyttet af en anden.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">Alt upassende kan medføre, at din konto lukkes.</string>
   <string name="blogTips">Vores enkle tips til at skrive gode blogindlæg</string>
   <string name="discussThisBlogPostInTheForum">Diskutér dette blogindlæg i forummet</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Du er blokeret af blogforfatteren.</string>
+  <string name="youBlockedByBlogAuthor">Du er blokeret af blogforfatteren.</string>
 </resources>

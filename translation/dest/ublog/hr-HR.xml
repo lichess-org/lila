@@ -39,7 +39,6 @@
   <string name="imageAlt">Alternativni tekst slike</string>
   <string name="imageCredit">Autor slike</string>
   <string name="deleteBlog">Definitivno izbriši ovaj blog post</string>
-  <string name="deleteImage">Izbriši sliku</string>
   <string name="safeToUseImages">Slike sa sljedećih web stranica su sigurne: </string>
   <string name="selectPostTopics">Izaberite teme koje opisuju vaš post</string>
   <string name="useImagesYouMadeYourself">Također možete koristiti slike koje ste sami izradili, slike koje ste snimili, snimke zaslona Lichessa... sve što nije zaštićeno autorskim pravima nekog drugog.</string>

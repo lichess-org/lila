@@ -36,7 +36,6 @@
   <string name="imageAlt">Szöveget helyettesítő kép - látássérüléssel élők számára</string>
   <string name="imageCredit">Kép jogtulajdonosa</string>
   <string name="deleteBlog">Bejegyzés végleges törlése</string>
-  <string name="deleteImage">Kép törlése</string>
   <string name="safeToUseImages">Az alábbi oldalakról származó képek használata biztonságos: </string>
   <string name="selectPostTopics">Válaszd ki a bejegyzésedhez illő témaköröket</string>
   <string name="useImagesYouMadeYourself">Saját magad által készített képeidet is használhatod, például Lichess képernyőképek... bármit, ami nem áll szerzői jog alatt.</string>

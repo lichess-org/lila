@@ -198,6 +198,7 @@
   <string name="latestForumPosts">Najnowsze wpisy</string>
   <string name="players">Gracze</string>
   <string name="friends">Znajomi</string>
+  <string name="otherPlayers">inni gracze</string>
   <string name="discussions">Rozmowy</string>
   <string name="today">Dzisiaj</string>
   <string name="yesterday">Wczoraj</string>
@@ -605,6 +606,7 @@
   <string name="descPrivateHelp">Tekst widoczny tylko dla członków klubu. Jeśli jest ustawiony, zastępuje publiczny opis dla członków klubu.</string>
   <string name="no">Nie</string>
   <string name="yes">Tak</string>
+  <string name="website">Strona internetowa</string>
   <string name="help">Porada:</string>
   <string name="createANewTopic">Załóż nowy temat</string>
   <string name="topics">Liczba tematów</string>
