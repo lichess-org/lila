@@ -10,7 +10,7 @@ import play.api.libs.json.*
 class EventTest extends munit.ScalaCheckSuite:
 
   test("PossibleMoves anti regression"):
-    val moves = Map(Square.E2 -> Bitboard(List(Square.E4, Square.D4, Square.E3)))
+    val moves = Map(Square.E2 -> Bitboard(Square.E4, Square.D4, Square.E3))
     val str   = stringFromPossibleMoves(moves)
     // If We somehow change the order of destinations, We may need to update this test
     assertEquals(str, "e2e3d4e4")
