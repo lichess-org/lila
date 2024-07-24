@@ -12,7 +12,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status?: EngineNotifier,
+    readonly status?: EngineNotifier | undefined,
     readonly variantMap?: (v: VariantKey) => string,
   ) {
     this.protocol = new Protocol(variantMap);
@@ -23,11 +23,11 @@ export class StockfishWebEngine implements CevalEngine {
     });
   }
 
-  getInfo() {
+  getInfo(): BrowserEngineInfo {
     return this.info;
   }
 
-  async boot() {
+  async boot(): Promise<void> {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
     const makeModule = await import(site.asset.url(`${root}/${js}`, { version, documentOrigin: true }));
     const module: StockfishWeb = await new Promise((resolve, reject) => {
@@ -89,7 +89,7 @@ export class StockfishWebEngine implements CevalEngine {
   }
 
   makeErrorHandler(module: StockfishWeb) {
-    return (msg: string) => {
+    return (msg: string): void => {
       site.log(this.info.assets.js, msg);
       if (msg.startsWith('BAD_NNUE') && this.store) {
         // if we got this from IDB, we must remove it. but wait for getModels::store.put to finish first
@@ -103,7 +103,7 @@ export class StockfishWebEngine implements CevalEngine {
     };
   }
 
-  getState() {
+  getState(): CevalState {
     return this.failed
       ? CevalState.Failed
       : !this.module
@@ -113,10 +113,10 @@ export class StockfishWebEngine implements CevalEngine {
       : CevalState.Idle;
   }
 
-  start = (work?: Work) => this.protocol.compute(work);
-  stop = () => this.protocol.compute(undefined);
-  engineName = () => this.protocol.engineName;
-  destroy = () => {
+  start = (work?: Work): void => this.protocol.compute(work);
+  stop = (): void => this.protocol.compute(undefined);
+  engineName = (): string | undefined => this.protocol.engineName;
+  destroy = (): void => {
     this.module?.uci('quit');
     this.module = undefined;
   };
