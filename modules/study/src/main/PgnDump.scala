@@ -124,14 +124,13 @@ object PgnDump:
     rootToPgn(root, tags, InitialComments(root.metas.commentWithShapes))
 
   def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
-    Pgn(tags, comments, root.tree.map(treeToTree))
+    Pgn(tags, comments, root.tree.map(treeToTree), root.ply.next)
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)
 
   private def branchToMove(node: NewBranch)(using flags: WithFlags) =
     chessPgn.Move(
-      node.ply,
       san = node.move.san,
       glyphs = flags.comments.so(node.metas.glyphs),
       comments = flags.comments.so(node.metas.commentWithShapes),

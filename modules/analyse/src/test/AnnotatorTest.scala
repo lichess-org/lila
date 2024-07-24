@@ -23,7 +23,7 @@ class AnnotatorTest extends munit.FunSuite:
         pgnImport = none
       )
       .sloppy
-  val emptyPgn                = Pgn(Tags.empty, InitialComments.empty, None)
+  val emptyPgn                = Pgn(Tags.empty, InitialComments.empty, None, Ply.initial)
   def withAnnotator(pgn: Pgn) = pgn.copy(tags = pgn.tags + Tag(name = "Annotator", value = "l.org"))
   val emptyAnalysis = Analysis(Analysis.Id(GameId("abcd")), Nil, Ply.initial, nowInstant, None, None)
   val emptyEval     = Eval(none, none, none)
@@ -77,15 +77,16 @@ class AnnotatorTest extends munit.FunSuite:
       Tags.empty,
       InitialComments.empty,
       Node(
-        Move(Ply(1), SanStr("a3")),
+        Move(SanStr("a3")),
         Node(
-          Move(Ply(2), SanStr("g6")),
+          Move(SanStr("g6")),
           Node(
-            Move(Ply(3), SanStr("g4")),
+            Move(SanStr("g4")),
             None
           ).some
         ).some
-      ).some
+      ).some,
+      Ply.firstMove
     )
 
     assertEquals(
