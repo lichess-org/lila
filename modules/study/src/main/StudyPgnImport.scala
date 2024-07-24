@@ -113,7 +113,7 @@ object StudyPgnImport:
       annotator: Option[Comment.Author]
   ): Branches =
     val variations =
-      node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(context, x.toNode, annotator))
+      node.take(Node.MAX_PLIES).fold(Nil)(_.variations.flatMap(x => makeBranch(context, x.toNode, annotator)))
     removeDuplicatedChildrenFirstNode(
       Branches(makeBranch(context, node, annotator).fold(variations)(_ +: variations))
     )

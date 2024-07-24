@@ -8,13 +8,13 @@ class PgnDumpTest extends munit.FunSuite:
 
   def assertPgnDump(pgn: String) =
     val sanStrs = pgn.split(' ').toList.map(SanStr(_))
-    val output  = PgnDump.makeTree(sanStrs, Ply.initial, Vector.empty, Color.White).so(_.render)
+    val output  = PgnDump.makeTree(sanStrs, Vector.empty, Color.White).so(_.render(Ply.firstMove))
     val clean   = output.split(' ').grouped(3).map(_.tail).flatten.mkString(" ") // remove ply number
     assertEquals(clean, pgn)
 
   def assertPgnDumpWithMoveNumbers(pgn: String) =
     val sanStrs = pgn.split(' ').toList.grouped(3).map(_.drop(1)).flatten.map(SanStr(_)).toList
-    val output  = PgnDump.makeTree(sanStrs, Ply.initial, Vector.empty, Color.White).so(_.render)
+    val output  = PgnDump.makeTree(sanStrs, Vector.empty, Color.White).so(_.render(Ply.firstMove))
     assertEquals(output, pgn)
 
   test("roundtrip pgns"):
@@ -23,19 +23,19 @@ class PgnDumpTest extends munit.FunSuite:
   test("roundtrip pgns with move numbers"):
     pgns.foreach(assertPgnDumpWithMoveNumbers(_))
 
-  test("pgn from a ply"):
+  test("pgn from few moves"):
     assertEquals(
       PgnDump
-        .makeTree("e5 Ke2 Ke7".split(' ').toList.map(SanStr(_)), Ply(3), Vector.empty, Color.White)
+        .makeTree("e5 Ke2 Ke7".split(' ').toList.map(SanStr(_)), Vector.empty, Color.White)
         .get,
       Node(
-        Move(Ply(4), SanStr("e5")),
+        Move(SanStr("e5")),
         Some(
           Node(
-            Move(Ply(5), SanStr("Ke2")),
+            Move(SanStr("Ke2")),
             Some(
               Node(
-                Move(Ply(6), SanStr("Ke7")),
+                Move(SanStr("Ke7")),
                 None
               )
             )

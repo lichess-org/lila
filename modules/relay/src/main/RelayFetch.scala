@@ -358,10 +358,9 @@ private object RelayFetch:
         val mergedTags = mergeRoundTags(roundTags)
         val strMoves = moves
           .map(_.split(' '))
-          .mapWithIndex: (move, index) =>
+          .map: move =>
             chess.format.pgn
               .Move(
-                ply = Ply(index + 1),
                 san = SanStr(~move.headOption),
                 secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)).flatMap(_.toIntOption)
               )
