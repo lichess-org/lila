@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">Zero pubblicità, nessuna tracciabilità</string>
+  <string name="correspondenceWithConditionalPremoves">Scacchi per corrispondenza con mosse anticipate condizionali</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Scacchi standard e %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Profonda %s analisi del server</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor e scacchiera di analisi con %s</string>
+</resources>
