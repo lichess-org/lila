@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">ไม่มีการโฆษณา, ไม่มีการแทรกแซง</string>
+  <string name="correspondenceWithConditionalPremoves">เกมยาวนานโดยมีตาเดินล่วงหน้า</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">หมากรุกปกติและ %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">การวิเคราะห์เกมอย่างลึกจาก %s</string>
+  <plurals name="gamesPerDay">
+    <item quantity="other">%s เกมต่อวัน</item>
+  </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">ตัวแก้ไขกระดานและกระดานวิเคราะห์กับ%s</string>
+  <string name="cloudEngineAnalysis">การวิเคราะห์ด้วยเครื่องจักรบนคลาวด์</string>
+  <string name="studies">ใช้ศึกษา (การวิเคราะห์ที่แชร์ได้และต่อเนื่อง)</string>
+  <string name="chessInsights">ข้อมูลเชิงลึกของหมากรุก (การวิเคราะห์อย่างละเอียดจากการเล่นของคุณ)</string>
+  <string name="allChessBasicsLessons">บทเรียนหมากรุกพื้นฐานทั้งหมด</string>
+</resources>
