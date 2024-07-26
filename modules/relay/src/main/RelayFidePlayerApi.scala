@@ -1,6 +1,6 @@
 package lila.relay
 
-import chess.ByColor
+import chess.{ ByColor, FideId }
 import chess.format.pgn.{ Tag, Tags }
 
 import lila.core.fide.{ FideTC, Player }
@@ -19,7 +19,9 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
       .zip(tags.names)
       .zip(tags.titles))
       .traverse:
-        case ((fideId, name), title) => guessPlayer(fideId, name, title)
+        // use FIDE ID = 0 to prevent guessing the player info based on their name
+        case ((Some(fideId), _), _) if fideId == FideId(0) => fuccess(none)
+        case ((fideId, name), title)                       => guessPlayer(fideId, name, title)
       .map:
         update(tags, tc, _)
 
@@ -30,7 +32,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
         FideTC.values.find(tc => tcStr.contains(tc.toString))
 
   private def update(tags: Tags, tc: FideTC, fidePlayers: ByColor[Option[Player]]): Tags =
-    Color.all.foldLeft(tags): (tags, color) =>
+    val added = Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
         fidePlayers(color).so: fide =>
           List(
@@ -39,3 +41,9 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
             fide.title.map { title => Tag(_.titles(color), title.value) },
             fide.ratingOf(tc).map { rating => Tag(_.elos(color), rating.toString) }
           ).flatten
+    // remove FIDE ID = 0, now that it has served its purpose
+    added.copy(
+      value = added.value.filter:
+        case Tag(Tag.WhiteFideId | Tag.BlackFideId, "0") => false
+        case _                                           => true
+    )
