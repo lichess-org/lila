@@ -14,7 +14,6 @@
   <string name="allChessBasicsLessons">บทเรียนหมากรุกพื้นฐานทั้งหมด</string>
   <string name="tacticalPuzzlesFromUserGames">ปริศนากลยุทธ์หมากรุกจากผู้เล่น</string>
   <string name="personalOpeningExplorerX">%1$s(ใช้งานได้เหมือนกันบน %2$s)</string>
-  <string name="personalOpeningExplorer">ตัวสำรวจการเปิดเกมส่วนตัว %s</string>
   <string name="globalOpeningExplorerInNbGames">ตัวสำรวจการเปิดเกมจากทั่วโลก (%s เกม!)</string>
   <string name="endgameTablebase">ฐานข้อมูลการจบเกมแบบมีหมาก 7 ตัว</string>
   <string name="downloadOrUploadAnyGameAsPgn">ดาวน์โหลด/ อัปโหลด เกมในรูปแบบ PGN</string>
