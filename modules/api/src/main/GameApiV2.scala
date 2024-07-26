@@ -32,7 +32,8 @@ final class GameApiV2(
     getLightUser: LightUser.Getter,
     realPlayerApi: RealPlayerApi,
     gameProxy: GameProxyRepo,
-    division: Divider
+    division: Divider,
+    bookmarkExists: lila.core.bookmark.BookmarkExists
 )(using Executor, akka.actor.ActorSystem):
 
   import GameApiV2.*
@@ -278,6 +279,7 @@ final class GameApiV2(
           .apply(g, initialFen, analysisOption, config.flags, realPlayers = realPlayers)
           .dmap(annotator.toPgnString)
       )
+    bookmarked <- config.flags.bookmark.so(bookmarkExists(g, config.by.map(_.userId)))
     accuracy = analysisOption
       .ifTrue(flags.accuracy)
       .flatMap:
@@ -325,6 +327,7 @@ final class GameApiV2(
     .add("lastFen" -> flags.lastFen.option(Fen.write(g.chess.situation)))
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
     .add("division" -> flags.division.option(division(g, initialFen)))
+    .add("bookmarked" -> bookmarked)
 
   private def gameLightUsers(game: Game): Future[ByColor[(lila.core.game.Player, Option[LightUser])]] =
     game.players.traverse(_.userId.so(getLightUser)).dmap(game.players.zip(_))

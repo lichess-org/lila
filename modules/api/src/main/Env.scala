@@ -60,6 +60,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
     realPlayerApi: lila.web.RealPlayerApi,
+    bookmarkExists: lila.core.bookmark.BookmarkExists,
     manifest: lila.web.AssetManifest
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,

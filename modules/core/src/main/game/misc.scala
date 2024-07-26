@@ -123,7 +123,7 @@ abstract class GameRepo(val coll: BSONCollection):
   def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game]
 
 trait GameProxy:
-  def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
+  def updateIfPresent(gameId: GameId)(f: Update[Game]): Funit
   def game(gameId: GameId): Fu[Option[Game]]
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]]
   def flushIfPresent(gameId: GameId): Funit
@@ -177,7 +177,8 @@ object PgnDump:
       delayMoves: Boolean = false,
       lastFen: Boolean = false,
       accuracy: Boolean = false,
-      division: Boolean = false
+      division: Boolean = false,
+      bookmark: Boolean = false
   ):
     def requiresAnalysis           = evals || accuracy
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)

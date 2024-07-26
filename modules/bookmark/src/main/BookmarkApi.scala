@@ -7,12 +7,7 @@ import lila.db.dsl.{ *, given }
 
 case class Bookmark(game: Game, user: User)
 
-final class BookmarkApi(
-    coll: Coll,
-    gameApi: GameApi,
-    gameProxy: lila.core.game.GameProxy,
-    paginator: PaginatorBuilder
-)(using Executor):
+final class BookmarkApi(coll: Coll, gameApi: GameApi, paginator: PaginatorBuilder)(using Executor):
 
   private def exists(gameId: GameId, userId: UserId): Fu[Boolean] =
     coll.exists(selectId(gameId, userId))
@@ -38,7 +33,9 @@ final class BookmarkApi(
 
   def remove(gameId: GameId, userId: UserId): Funit = coll.delete.one(selectId(gameId, userId)).void
 
-  def toggle(gameId: GameId, userId: UserId, v: Option[Boolean]): Funit =
+  def toggle(
+      updateProxy: GameId => Update[Game] => Funit
+  )(gameId: GameId, userId: UserId, v: Option[Boolean]): Funit =
     exists(gameId, userId)
       .flatMap: e =>
         val newValue = v.getOrElse(!e)
@@ -48,7 +45,7 @@ final class BookmarkApi(
             _ <- if newValue then add(gameId, userId, nowInstant) else remove(gameId, userId)
             inc = if newValue then 1 else -1
             _ <- gameApi.incBookmarks(gameId, inc)
-            _ <- gameProxy.updateIfPresent(gameId)(g => g.copy(bookmarks = g.bookmarks + inc))
+            _ <- updateProxy(gameId)(g => g.copy(bookmarks = g.bookmarks + inc))
           yield ()
       .recover:
         lila.db.ignoreDuplicateKey
