@@ -18,5 +18,7 @@ final class Env(
 
   lazy val api = wire[BookmarkApi]
 
+  def exists: lila.core.bookmark.BookmarkExists = api.exists
+
   lila.common.Bus.subscribeFun("roundUnplayed"):
     case lila.core.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
