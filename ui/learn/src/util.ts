@@ -20,18 +20,16 @@ export function toLevel(l: LevelPartial, it: number): Level {
 
 export const assetUrl = document.body.dataset.assetUrl + '/assets/';
 
-export const roleToSan: {
-  [R in PromotionRole]: PromotionChar;
+export const promotionCharToRole: {
+  [R in PromotionChar]: PromotionRole;
 } = {
-  knight: 'n',
-  bishop: 'b',
-  rook: 'r',
-  queen: 'q',
+  n: 'knight',
+  b: 'bishop',
+  r: 'rook',
+  q: 'queen',
 };
 export type PromotionRole = 'knight' | 'bishop' | 'rook' | 'queen';
 export type PromotionChar = 'n' | 'b' | 'r' | 'q';
-
-export const isRole = (str: PromotionChar | PromotionRole): str is PromotionRole => str.length > 1;
 
 export const arrow = (vector: Uci, brush?: cg.BrushColor): DrawShape => ({
   brush: brush || 'paleGreen',
@@ -47,8 +45,6 @@ export const circle = (key: Key, brush?: cg.BrushColor): DrawShape => ({
 export const readKeys = (keys: string | Key[]): Key[] =>
   typeof keys === 'string' ? (keys.split(' ') as Key[]) : keys;
 
-export const setFenTurn = (fen: string, turn: Color) => fen.replace(/ (w|b) /, ' ' + turn + ' ');
-
 export const pieceImg = (role: cg.Role) => h('div.no-square', h('piece.white.' + role));
 
 export const roundSvg = (url: string) => h('div.round-svg', h('img', { attrs: { src: url } }));
@@ -58,3 +54,5 @@ export const withLinebreaks = (text: string) =>
 
 export const decomposeUci = (uci: string) =>
   [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)] as [Key, Key, PromotionChar | ''];
+
+export const oppColor = (color: Color): Color => (color == 'white' ? 'black' : 'white');

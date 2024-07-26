@@ -44,7 +44,7 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
     const res = opts.chess.move(move[0], move[1], move[2]);
     if (!res) return fail();
     it++;
-    opts.setFen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
+    opts.setFen(opts.chess.fen(), opts.chess.getColor(), opts.makeChessDests(), move);
     if (step.shapes) timeouts.setTimeout(() => opts.setShapes(step.shapes), 500);
     return;
   };

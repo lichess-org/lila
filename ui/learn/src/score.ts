@@ -1,6 +1,6 @@
-import type { PieceType } from 'chess.js';
 import { Level, Stage } from './stage/list';
 import * as util from './util';
+import { Role } from 'chessops';
 
 export const apple = 50;
 export const capture = 50;
@@ -37,14 +37,14 @@ export const getStageRank = (s: Stage, score: number | number[]): Rank => {
   return score >= max ? 1 : score >= max - Math.max(200, s.levels.length * 150) ? 2 : 3;
 };
 
-type ExcludingKing = Exclude<PieceType, 'k'>;
+type ExcludingKing = Exclude<Role, 'king'>;
 
 const pieceValues: { [key in ExcludingKing]: number } = {
-  q: 90,
-  r: 50,
-  b: 30,
-  n: 30,
-  p: 10,
+  queen: 90,
+  rook: 50,
+  bishop: 30,
+  knight: 30,
+  pawn: 10,
 };
 
 export const pieceValue = (p: ExcludingKing) => pieceValues[p];

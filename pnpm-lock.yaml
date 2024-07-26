@@ -412,12 +412,6 @@ importers:
 
   ui/learn:
     dependencies:
-      '@types/chess.js':
-        specifier: 0.10.1
-        version: 0.10.1
-      chess.js:
-        specifier: github:ornicar/chess.js#learn
-        version: https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249
       chessops:
         specifier: ^0.14.1
         version: 0.14.1
@@ -1102,9 +1096,6 @@ packages:
   '@types/audioworklet@0.0.54':
     resolution: {integrity: sha512-WR1XcwT2LhCaUiKDDgHdTjrVjoBZnTz6FhszeIKgY9i2UYfIRKtnNvqToUDnbCPXBpVuu4Qo5+mMJt+wDphRew==}
 
-  '@types/chess.js@0.10.1':
-    resolution: {integrity: sha512-cuFMyrUYOWpKm5PRayvk22jLV3BOuWs7iJ7Q4PZJXMWoF7uhjWEojMS4GPk441gn4Ki9BHxbKsll7mrwJ3KT3g==}
-
   '@types/debounce-promise@3.1.9':
     resolution: {integrity: sha512-awNxydYSU+E2vL7EiOAMtiSOfL5gUM5X4YSE2A92qpxDJQ/rXz6oMPYBFDcDywlUmvIDI6zsqgq17cGm5CITQw==}
 
@@ -1375,10 +1366,6 @@ packages:
 
   check-error@1.0.3:
     resolution: {integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==}
-
-  chess.js@https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249:
-    resolution: {tarball: https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249}
-    version: 0.10.2
 
   chessground@9.1.1:
     resolution: {integrity: sha512-X4xrBICrixaLATCn+jGEzk58UXcas+9QqJnwVq9nT7AaX2M1CJLMA0vC7noG0s6Tr2zoAHZ1FOviE5b05MgduQ==}
@@ -2774,8 +2761,6 @@ snapshots:
 
   '@types/audioworklet@0.0.54': {}
 
-  '@types/chess.js@0.10.1': {}
-
   '@types/debounce-promise@3.1.9': {}
 
   '@types/dragscroll@0.0.0': {}
@@ -3065,8 +3050,6 @@ snapshots:
   check-error@1.0.3:
     dependencies:
       get-func-name: 2.0.2
-
-  chess.js@https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249: {}
 
   chessground@9.1.1: {}
 

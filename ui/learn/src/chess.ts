@@ -1,25 +1,38 @@
 import * as cg from 'chessground/types';
-import { Square as Key, Move, ChessInstance, PieceType } from 'chess.js';
 import { parseFen, makeFen } from 'chessops/fen';
-import { parseSquare, makeSquare, Piece, Setup, SquareSet, Chess } from 'chessops';
+import {
+  parseSquare,
+  makeSquare,
+  Piece,
+  SquareSet,
+  Chess,
+  NormalMove as Move,
+  SquareName as Key,
+} from 'chessops';
 import { Antichess, Context } from 'chessops/variant';
 import { chessgroundDests } from 'chessops/compat';
 import { CgMove } from './chessground';
-import { isRole, PromotionChar, PromotionRole, roleToSan, setFenTurn } from './util';
+import { makeSan } from 'chessops/san';
+import { oppColor, PromotionChar, promotionCharToRole } from './util';
+
+type LearnVariant = Chess | Antichess;
 
 export interface ChessCtrl {
   dests(opts?: { illegal?: boolean }): cg.Dests;
   setColor(c: Color): void;
   getColor(): Color;
   fen(): string;
-  move(orig: Key, dest: Key, prom?: PromotionRole): void;
-  occupation(): Partial<Record<Key, Piece>>;
+  move(orig: Key, dest: Key, prom?: PromotionChar | ''): Move | null;
+  moves(pos: LearnVariant): Move[];
+  occupiedKeys(): Key[];
   kingKey(color: Color): Key | undefined;
+  findCapture(): CgMove;
   findUnprotectedCapture(): CgMove | undefined;
-  checks(): CgMove[] | null;
+  checks(): CgMove[] | undefined;
   playRandomMove(): CgMove | undefined;
   get(square: Key): Piece | undefined;
-  instance: Chess | Antichess;
+  instance: LearnVariant;
+  sanHistory(): string[];
 }
 
 export default function (fen: string, appleKeys: Key[]): ChessCtrl {
@@ -45,63 +58,73 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
   });
   if (pos instanceof Antichess) pos.ctx = context;
 
-  const findCaptures = () => pos.allDests();
+  const history: string[] = [];
 
-  const moves = (pos: Chess | Antichess) => {};
+  const moves = (pos: LearnVariant): Move[] =>
+    Array.from(chessgroundDests(pos)).flatMap(([orig, dests]) =>
+      dests.map((dest): Move => ({ from: parseSquare(orig), to: parseSquare(dest) })),
+    );
+
+  const findCaptures = (pos: LearnVariant): Move[] => moves(pos).filter(move => pos.board.get(move.to));
+
+  const setColor = (c: Color) => {
+    pos.turn = c;
+  };
+
+  const moveToCgMove = (move: Move): CgMove => ({ orig: makeSquare(move.from), dest: makeSquare(move.to) });
 
   return {
     dests: () => chessgroundDests(pos),
     getColor: () => pos.turn,
-    setColor: (c: Color) => {
-      pos.turn = c;
-    },
+    setColor: setColor,
     fen: () => makeFen(setup),
-    move: (orig: Key, dest: Key, prom?: Piece) =>
-      pos.play({
+    moves: moves,
+    move: (orig: Key, dest: Key, prom?: PromotionChar) => {
+      const move: Move = {
         from: parseSquare(orig),
         to: parseSquare(dest),
-        promotion: prom?.role,
-      }),
-    occupation: () => {
-      const map: Partial<Record<Key, Piece>> = {};
-      Array.from(pos.board.occupied).map(s => {
-        const p = pos.board.get(s);
-        if (p) map[makeSquare(s)] = p;
-      });
-      return map;
+        promotion: prom ? promotionCharToRole[prom] : undefined,
+      };
+      pos.play(move);
+      if (pos.isCheck()) return null;
+      history.push(makeSan(pos, move));
+      return move;
     },
+    occupiedKeys: () => Array.from(pos.board.occupied).map(s => makeSquare(s)),
     kingKey: (color: Color) => {
       const kingSq = pos.board.kingOf(color);
       return kingSq ? makeSquare(kingSq) : undefined;
     },
-    findUnprotectedCapture: () =>
-      findCaptures().find(capture => {
+    findCapture: () => moveToCgMove(findCaptures(pos)[0]),
+    findUnprotectedCapture: () => {
+      const maybeCapture = findCaptures(pos).find(capture => {
         const clone = pos.clone();
-        clone.play({ from: capture.orig, to: capture.dest });
-        return !clone.moves({ verbose: true }).some(m => m.captured && m.to === capture.dest);
-      }),
+        clone.play({ from: capture.from, to: capture.to });
+        return !findCaptures(clone).length;
+      });
+      return maybeCapture ? moveToCgMove(maybeCapture) : undefined;
+    },
     checks: () => {
-      if (!setup.in_check()) return null;
-      const color = getColor();
-      setColor(color === 'white' ? 'black' : 'white');
-      const checks = setup
-        .moves({ verbose: true })
-        .filter(move => (move.captured as PieceType) === 'k')
-        .map(move => ({ orig: move.from, dest: move.to }));
+      if (!pos.isCheck()) return undefined;
+      const color = pos.turn;
+      setColor(oppColor(color));
+      const checks = moves(pos)
+        .filter(m => pos.board.get(m.to)?.role == 'king')
+        .map(moveToCgMove);
       setColor(color);
-      if (checks.length === 0) return null;
-      return checks;
+      return checks.length == 0 ? undefined : checks;
     },
     playRandomMove: () => {
-      const moves = pos.moves({ verbose: true });
-      if (moves.length) {
-        const move = moves[Math.floor(Math.random() * moves.length)];
-        setup.move(move);
-        return { orig: move.from, dest: move.to };
+      const all = moves(pos);
+      if (all.length) {
+        const move = all[Math.floor(Math.random() * all.length)];
+        pos.play(move);
+        return moveToCgMove(move);
       }
       return undefined;
     },
     get: (key: Key) => setup.board.get(parseSquare(key)),
     instance: pos,
+    sanHistory: () => history,
   };
 }

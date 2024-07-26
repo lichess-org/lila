@@ -1,4 +1,4 @@
-import { type SquareName as Key, type Piece, type Role } from 'chessops';
+import { SquareName as Key, Piece, Role } from 'chessops';
 import { AssertData } from './levelCtrl';
 import { readKeys } from './util';
 
@@ -27,11 +27,10 @@ export const pieceNotOn =
   (level: AssertData) =>
     !pieceMatch(level.chess.get(key), fenToMatcher(fenPiece));
 
-export function noPieceOn(keys: string | Key[]): Assert {
+export const noPieceOn = (keys: string | Key[]): Assert => {
   const keyArr = readKeys(keys);
-  return (level: AssertData) =>
-    !Object.keys(level.chess.occupation()).some(occupied => !keyArr.includes(occupied as Key));
-}
+  return (level: AssertData) => level.chess.occupiedKeys().some(sq => !keyArr.includes(sq));
+};
 
 export const whitePawnOnAnyOf = (keys: string | Key[]): Assert =>
   pieceOnAnyOf(fenToMatcher('P'), readKeys(keys));
@@ -43,23 +42,23 @@ export const extinct =
     return fen === (color === 'white' ? fen.toLowerCase() : fen.toUpperCase());
   };
 
-export const check: Assert = (level: AssertData) => level.chess.instance.in_check();
+export const check: Assert = (level: AssertData) => level.chess.instance.isCheck();
 
-export const mate: Assert = (level: AssertData) => level.chess.instance.in_checkmate();
+export const mate: Assert = (level: AssertData) => level.chess.instance.isCheckmate();
 
 export const lastMoveSan =
   (san: string): Assert =>
   (level: AssertData) => {
-    const moves = level.chess.instance.history();
+    const moves = level.chess.sanHistory();
     return moves[moves.length - 1] === san;
   };
 
 export function checkIn(nbMoves: number): Assert {
-  return (level: AssertData) => level.vm.nbMoves <= nbMoves && level.chess.instance.in_check();
+  return (level: AssertData) => level.vm.nbMoves <= nbMoves && level.chess.instance.isCheck();
 }
 
 export function noCheckIn(nbMoves: number): Assert {
-  return (level: AssertData) => level.vm.nbMoves >= nbMoves && !level.chess.instance.in_check();
+  return (level: AssertData) => level.vm.nbMoves >= nbMoves && !level.chess.instance.isCheck();
 }
 
 export function not(assert: Assert): Assert {
