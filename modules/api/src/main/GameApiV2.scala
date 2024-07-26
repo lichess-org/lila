@@ -193,9 +193,8 @@ final class GameApiV2(
             toJson(game, fen, analysis, config, teams)
               .dmap(addBerserk(chess.White))
               .dmap(addBerserk(chess.Black))
-              .dmap { json =>
+              .dmap: json =>
                 s"${Json.stringify(json)}\n"
-              }
       }
 
   def exportBySwiss(config: BySwissConfig)(using Translate): Source[String, ?] =
