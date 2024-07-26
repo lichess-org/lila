@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Nyeste foruminnlegg</string>
   <string name="players">Spillere</string>
   <string name="friends">Venner</string>
+  <string name="otherPlayers">andre spillere</string>
   <string name="discussions">Samtaler</string>
   <string name="today">I dag</string>
   <string name="yesterday">I går</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Tekst som lagmedlemmene ser i stedet for den offentlige beskrivelsen.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
+  <string name="website">Nettsted</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Hjelp:</string>
   <string name="createANewTopic">Opprett nytt emne</string>
   <string name="topics">Emner</string>

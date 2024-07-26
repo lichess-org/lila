@@ -39,7 +39,6 @@
   <string name="imageAlt">Attēla tekstuāla alternatīva</string>
   <string name="imageCredit">Attēla autors</string>
   <string name="deleteBlog">Neatgriezeniski dzēst bloga ierakstu</string>
-  <string name="deleteImage">Dzēsiet attēlu</string>
   <string name="safeToUseImages">Izmantot attēlus ir droši no šādām mājaslapām: </string>
   <string name="selectPostTopics">Atlasiet tematus, kas saistīti ar jūsu ierakstu</string>
   <string name="useImagesYouMadeYourself">Varat arī izmantot pašveidotus attēlus, fotogrāfijas ko uzņēmāt, Lichess ekrānuzņēmumus... jebko, kā autortiesības nepieder kādam citam.</string>

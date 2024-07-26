@@ -42,7 +42,6 @@
   <string name="imageAlt">Тэкставае апісанне выявы</string>
   <string name="imageCredit">Выява належыць</string>
   <string name="deleteBlog">Выдаліць гэты допіс у блогу канчаткова</string>
-  <string name="deleteImage">Выдаліць выяву</string>
   <string name="safeToUseImages">Бяспечна выкарыстоўваць выявы з наступных сайтаў: </string>
   <string name="selectPostTopics">Выберыце тэмы вашага допісу</string>
   <string name="useImagesYouMadeYourself">Вы таксама можаце выкарыстоўваць выявы, зробленыя вамі, зробленыя вамі фатаграфіі, скрыншоты Lichess... усё, што не абаронена чыім-небудзь аўтарскім правам.</string>

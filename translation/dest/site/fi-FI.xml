@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Uusimmat foorumiviestit</string>
   <string name="players">Pelaajat</string>
   <string name="friends">Kaverit</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">muiden pelaajien</string>
   <string name="discussions">Keskustelut</string>
   <string name="today">Tänään</string>
   <string name="yesterday">Eilen</string>

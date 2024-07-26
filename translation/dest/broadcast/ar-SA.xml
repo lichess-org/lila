@@ -47,4 +47,7 @@
   <string name="replacePlayerTags">اختياري: استبدل أسماء اللاعبين وتقييماتهم وألقابهم</string>
   <string name="periodInSeconds">المدّة بالثواني</string>
   <string name="periodInSecondsHelp">أختياري، كم مدة الانتظار بين الطلبات، تتراوح المدة بين الثانيتين والدقيقة، يحدد الإعداد الافتراضي بناء على عدد المشاهدين.</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">لاعبين FIDE</string>
+  <string name="fideProfile">مِلَفّ FIDE</string>
+  <string name="ageThisYear">العمر هذا العام</string>
 </resources>

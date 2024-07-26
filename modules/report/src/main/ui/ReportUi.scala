@@ -32,7 +32,7 @@ final class ReportUi(helpers: Helpers):
             action := routes.Report.inboxCreate(user.username)
           )(
             div(cls := "form-group")(aboutReports),
-            form3.globalError(form.pp),
+            form3.globalError(form),
             form3.group(form("username"), trans.site.user()): f =>
               frag(userLink(user), form3.hidden(f, user.id.value.some)),
             reasonFormGroup(form, "inbox".some),

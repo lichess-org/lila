@@ -74,6 +74,7 @@ export interface TablebaseData extends ExplorerData {
   moves: TablebaseMoveStats[];
   dtz: number | null;
   dtm: number | null;
+  dtw: number | null;
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;
@@ -99,6 +100,7 @@ export interface OpeningMoveStats extends MoveStats {
 export interface TablebaseMoveStats extends MoveStats {
   dtz: number | null;
   dtm: number | null;
+  dtw: number | null;
   checkmate: boolean;
   stalemate: boolean;
   variant_win: boolean;

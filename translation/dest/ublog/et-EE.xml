@@ -34,7 +34,6 @@
   <string name="imageAlt">Pildi alternatiivne tekst</string>
   <string name="imageCredit">Pildi viide</string>
   <string name="deleteBlog">Kustuta see blogipostitus lõplikult</string>
-  <string name="deleteImage">Kustuta pilt</string>
   <string name="safeToUseImages">Turvaline on kasutada pilte järgmistelt aadressitelt: </string>
   <string name="selectPostTopics">Vali teemad, mis on seotud su postitusega</string>
   <string name="useImagesYouMadeYourself">Võid kasutada enda tehtud pilte, Lichessi ekraanitõmmiseid.. kõike, mis ei ole kellegi teise autoriõiguse all.</string>

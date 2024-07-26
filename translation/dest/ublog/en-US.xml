@@ -44,7 +44,6 @@
   <string name="imageAlt">Image alternative text</string>
   <string name="imageCredit">Image credit</string>
   <string name="deleteBlog">Delete this blog post definitively</string>
-  <string name="deleteImage">Delete the image</string>
   <string name="safeToUseImages">It is safe to use images from the following websites: </string>
   <string name="selectPostTopics">Select the topics your post is about</string>
   <string name="useImagesYouMadeYourself">You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">Anything inappropriate could get your account closed.</string>
   <string name="blogTips">Our simple tips to write great blog posts</string>
   <string name="discussThisBlogPostInTheForum">Discuss this blog post in the forum</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">You are blocked by the blog author.</string>
+  <string name="youBlockedByBlogAuthor">You are blocked by the blog author.</string>
 </resources>

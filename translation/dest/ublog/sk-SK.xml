@@ -50,7 +50,6 @@
   <string name="imageAlt">Alternatívny popis obrázka</string>
   <string name="imageCredit">Vlastník obrázka</string>
   <string name="deleteBlog">Definitívne vymazať tento blogový príspevok</string>
-  <string name="deleteImage">Vymazať tento obrázok</string>
   <string name="safeToUseImages">Používanie obrázkov z nasledovných webstránok je bezpečné: </string>
   <string name="selectPostTopics">Zvoľte témy o ktorých je Váš príspevok</string>
   <string name="useImagesYouMadeYourself">Môžete tiež použiť Vami vyrobené obrázky, fotky ktoré ste odfotili, snímky obrazovky na stránke Lichess... čokoľvek, k čomu niekto iný nevlastní autorské práva.</string>
@@ -58,5 +57,5 @@
   <string name="inappropriateContentAccountClosed">Akýkoľvek nevhodný obsah môže mať za následok zrušenie Vášho účtu.</string>
   <string name="blogTips">Naše jednoduché tipy ako písať skvelé blogové príspevky</string>
   <string name="discussThisBlogPostInTheForum">Diskutovať o tomto príspevku na fóre</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Autor blogu Vás zablokoval.</string>
+  <string name="youBlockedByBlogAuthor">Autor blogu Vás zablokoval.</string>
 </resources>

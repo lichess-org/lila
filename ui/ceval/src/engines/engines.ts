@@ -30,13 +30,13 @@ export class Engines {
     this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
   }
 
-  status = (status: { download?: { bytes: number; total: number }; error?: string } = {}) => {
+  status = (status: { download?: { bytes: number; total: number }; error?: string } = {}): void => {
     if (this.ctrl.enabled()) this.ctrl.download = status.download;
     if (status.error) this.ctrl.engineFailed(status.error);
     this.ctrl.opts.redraw();
   };
 
-  makeEngineMap() {
+  makeEngineMap(): Map<string, WithMake> {
     type Hash = string;
     type Variant = [VariantKey, Hash];
     const variantMap = (v: VariantKey): string => (v === 'threeCheck' ? '3check' : v.toLowerCase());
@@ -235,29 +235,29 @@ export class Engines {
     );
   }
 
-  get active() {
+  get active(): EngineInfo | undefined {
     return this._active ?? this.activate();
   }
 
-  activate() {
+  activate(): EngineInfo | undefined {
     this._active = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
     return this._active;
   }
 
-  select(id: string) {
+  select(id: string): void {
     this.selectProp(id);
     this.activate();
   }
 
-  get external() {
+  get external(): EngineInfo | undefined {
     return this.active && 'endpoint' in this.active ? this.active : undefined;
   }
 
-  get maxMovetime() {
+  get maxMovetime(): number {
     return this.external ? 30 * 1000 : Number.POSITIVE_INFINITY; // broker timeouts prevent long search
   }
 
-  async deleteExternal(id: string) {
+  async deleteExternal(id: string): Promise<boolean> {
     if (this.externalEngines.every(e => e.id !== id)) return false;
     const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });
     if (!r.ok) return false;
@@ -266,7 +266,7 @@ export class Engines {
     return true;
   }
 
-  updateCevalCtrl(ctrl: CevalCtrl) {
+  updateCevalCtrl(ctrl: CevalCtrl): void {
     this.ctrl = ctrl;
   }
 

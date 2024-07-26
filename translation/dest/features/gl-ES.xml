@@ -5,8 +5,8 @@
   <string name="standardChessAndX" comment="%s is 8 variants">Xadrez estándar e %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Análise profunda no servidor de %s</string>
   <plurals name="gamesPerDay">
-    <item quantity="one">%s partida ó día</item>
-    <item quantity="other">%s partidas ó día</item>
+    <item quantity="one">%s partida por día</item>
+    <item quantity="other">%s partidas por día</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor de taboleiro e taboleiro de análise con %s</string>
   <string name="cloudEngineAnalysis">Motor de análise dende a nube</string>
@@ -14,7 +14,7 @@
   <string name="chessInsights">Estatísticas (análise detallado do teu xogo)</string>
   <string name="allChessBasicsLessons">Todas as leccións básicas de xadrez</string>
   <string name="tacticalPuzzlesFromUserGames">Crebacabezas de partidas dos xogadores</string>
-  <string name="personalOpeningExplorerX">%1$s (tamén funciona en %2$s)</string>
+  <string name="personalOpeningExplorerX">%1$s (tamén funciona con %2$s)</string>
   <string name="personalOpeningExplorer">Explorador de aperturas persoal</string>
   <string name="globalOpeningExplorerInNbGames">Explorador de aperturas global (%s partidas!)</string>
   <string name="endgameTablebase">Base de datos de finais de 7 pezas</string>

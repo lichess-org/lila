@@ -15,10 +15,10 @@
     <item quantity="other">התאמן/ה על %1$s עמדות ב%2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">פתר/ה פאזל טקטי %s</item>
-    <item quantity="two">פתר/ה %s פאזלים טקטיים</item>
-    <item quantity="many">פתר/ה %s פאזלים טקטיים</item>
-    <item quantity="other">פתר/ה %s פאזלים טקטיים</item>
+    <item quantity="one">פתר/ה חידה טקטית %s</item>
+    <item quantity="two">פתר/ה %s חידות טקטיות</item>
+    <item quantity="many">פתר/ה %s חידות טקטיות</item>
+    <item quantity="other">פתר/ה %s חידות טקטיות</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">שיחק/ה משחק %2$s %1$s</item>

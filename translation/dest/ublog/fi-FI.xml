@@ -44,7 +44,6 @@
   <string name="imageAlt">Vaihtoehtoinen kuvateksti</string>
   <string name="imageCredit">Kuvan lähde</string>
   <string name="deleteBlog">Poista blogikirjoitus lopullisesti</string>
-  <string name="deleteImage">Poista kuva</string>
   <string name="safeToUseImages">Seuraavilta sivustoilta peräisin olevia kuvia saa käyttää: </string>
   <string name="selectPostTopics">Valitse kirjoituksesi teemat</string>
   <string name="useImagesYouMadeYourself">Voit myös käyttää itse tekemiäsi tai ottamiasi kuvia, kuvakaappauksia Lichessistä... mitä tahansa sisältöä, jota eivät suojaa jonkun muun tekijänoikeudet.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">Epäasiallisen sisällön julkaisu voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
   <string name="blogTips">Yksinkertaiset vinkkimme erinomaisten blogikirjoitusten laatimiseen</string>
   <string name="discussThisBlogPostInTheForum">Keskustele tästä blogikirjoituksesta foorumissa</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Blogin tekijä on estänyt sinut.</string>
+  <string name="youBlockedByBlogAuthor">Blogin tekijä on estänyt sinut.</string>
 </resources>

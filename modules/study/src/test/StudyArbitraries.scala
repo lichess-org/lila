@@ -27,9 +27,6 @@ object StudyArbitraries:
   given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(Situation(chess.variant.Standard)))
   given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Situation(chess.variant.Standard)))
 
-  // TODO remove after new scalachess version
-  given Cogen[Centis] = Cogen(_.value.toLong)
-
   def genRoot(seed: Situation): Gen[NewRoot] =
     for
       tree  <- genTree(seed)
@@ -50,11 +47,10 @@ object StudyArbitraries:
     genNode(seed).map(_.map(_.map(_.data)))
 
   given FromMove[NewBranch] with
-    override def ply(a: NewBranch): Ply = a.ply
     extension (move: Move)
-      def next(ply: Ply): Gen[WithMove[NewBranch]] =
+      def next: Gen[WithMove[NewBranch]] =
         for
-          metas <- genMetas(move.situationAfter, ply)
+          metas <- genMetas(move.situationAfter, Ply.initial)
           uci = move.toUci
         yield WithMove[NewBranch](
           move,
