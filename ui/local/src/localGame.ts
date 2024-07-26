@@ -2,33 +2,32 @@ import * as co from 'chessops';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
-import { Outcome, SoundEvent } from './types';
+//import { SoundEvent } from './types';
 import { statusOf } from 'game/status';
 import { Status } from 'game';
 
-/*export interface GameState {
-  startingFen: string;
-  moves: Uci[];
-  threefoldFens?: Map<string, number>;
-  fiftyHalfMove?: number;
-  white: string | undefined;
-  black: string | undefined;
-}*/
-
-export interface GameResult {
-  end: boolean;
-  result?: Outcome | 'error';
+export interface GameStatus {
+  end: boolean; // convenience, basically anything after status 'started'
+  status: Status;
+  turn: Color;
+  winner?: Color;
   reason?: string;
-  status?: Status;
 }
 
-export interface MoveResult extends GameResult {
+export interface MoveResult extends GameStatus {
+  uci: Uci;
   san: San;
   move?: co.NormalMove;
-  sounds?: SoundEvent[];
+  fen: string;
+  ply: number;
+  dests: { [from: string]: string };
+  threefold: boolean;
+  check: boolean;
+  fifty: boolean;
+  winner?: Color;
 }
 
-export class Game {
+export class LocalGame {
   moves: Uci[];
   chess: co.Chess;
   threefoldFens: Map<string, number> = new Map();
@@ -38,39 +37,32 @@ export class Game {
     readonly startingFen: string = co.fen.INITIAL_FEN,
     moves: Uci[] = [],
   ) {
-    this.moves = [];
     this.chess = co.Chess.fromSetup(co.fen.parseFen(this.startingFen).unwrap()).unwrap();
     this.threefoldFens = new Map();
+    this.moves = [];
     for (const move of moves ?? []) this.move(move);
   }
 
-  move(unsafeUci: Uci, isBot?: boolean): MoveResult {
-    const sounds: SoundEvent[] = [];
+  move(unsafeUci: Uci): MoveResult {
+    if (this.end) return this.moveResultWith({ uci: unsafeUci });
     const { move, uci } = normalMove(this.chess, unsafeUci) ?? {};
     if (!move || !uci) {
-      return {
+      return this.moveResultWith({
         end: true,
-        san: '',
-        result: 'error',
+        uci: unsafeUci,
         reason: `${this.turn} made illegal move ${unsafeUci} at ${makeFen(this.chess.toSetup())}`,
-        status: statusOf('aborted'),
-      };
+        status: statusOf('cheat'), // engines are sneaky
+      });
     }
     const san = makeSanAndPlay(this.chess, move);
+    this.moves.push(uci);
     this.fifty(move);
     this.updateThreefold();
-    const { end, result, reason, status } = this.checkGameOver();
-    this.moves.push(uci);
-    if (isBot !== undefined) {
-      if (san.includes('x')) sounds.push(isBot ? 'botCapture' : 'playerCapture');
-      if (this.chess.isCheck()) sounds.push(isBot ? 'botCheck' : 'playerCheck');
-      if (end) sounds.push(isBot ? 'botWin' : 'playerWin');
-      sounds.push(isBot ? 'botMove' : 'playerMove');
-    }
-    return { end, result, reason, status, san, move, sounds };
+    return this.moveResultWith({ uci, san, move });
   }
 
   fifty(move?: co.NormalMove): boolean {
+    // TODO: replace with chessops function
     if (move) {
       if (this.chess.board.getRole(move.from) === 'pawn' || this.chess.board.get(move.to)) {
         this.fiftyHalfMove = 0;
@@ -85,25 +77,53 @@ export class Game {
     const boardFen = this.fen.split('-')[0];
     let fenCount = this.threefoldFens.get(boardFen) ?? 0;
     this.threefoldFens.set(boardFen, ++fenCount);
-    return fenCount >= 3; // TODO fixme
+    return fenCount >= 3;
   }
 
-  checkGameOver(userEnd?: 'whiteResign' | 'blackResign' | 'mutualDraw'): GameResult {
-    let status = statusOf('started');
-    let result: Outcome | 'error' = 'draw',
-      reason = userEnd ?? 'checkmate';
-    if (this.chess.isCheckmate()) [result, status] = [co.opposite(this.chess.turn), statusOf('mate')];
-    else if (this.chess.isInsufficientMaterial()) [reason, status] = ['insufficient', statusOf('draw')];
-    else if (this.chess.isStalemate()) [reason, status] = ['stalemate', statusOf('stalemate')];
-    else if (this.fifty()) [reason, status] = ['fifty', statusOf('draw')];
-    else if (this.isThreefold) [reason, status] = ['threefold', statusOf('draw')];
-    else if (userEnd) {
-      if (userEnd !== 'mutualDraw') [reason, status] = ['resign', statusOf('resign')];
-      if (userEnd === 'whiteResign') result = 'black';
-      else if (userEnd === 'blackResign') result = 'white';
-    } else return { end: false, status };
-    // needs outoftime
-    return { end: true, result, reason, status };
+  timeout(): void {
+    Object.freeze(this);
+  }
+
+  moveResultWith(fields: Partial<MoveResult>): MoveResult {
+    return {
+      uci: '',
+      san: '',
+      fen: this.fen,
+      ply: this.ply,
+      dests: this.dests,
+      threefold: this.isThreefold,
+      check: this.chess.isCheck(),
+      fifty: this.fifty(),
+      ...this.status,
+      ...fields,
+    };
+  }
+
+  get status(): GameStatus {
+    const gameStatus: { status: Status; reason?: string; winner?: Color } = this.chess.isCheckmate()
+      ? { status: statusOf('mate') }
+      : this.chess.isInsufficientMaterial()
+      ? { reason: 'insufficient', status: statusOf('draw') }
+      : this.chess.isStalemate()
+      ? { status: statusOf('stalemate') }
+      : this.fifty()
+      ? { reason: 'fifty', status: statusOf('draw') }
+      : this.isThreefold
+      ? { reason: 'threefold', status: statusOf('draw') }
+      : Object.isFrozen(this)
+      ? { status: statusOf('outoftime'), winner: co.opposite(this.turn) }
+      : { status: statusOf(this.ply > 0 ? 'started' : 'created') };
+
+    return {
+      end: this.end,
+      winner: this.chess.outcome()?.winner,
+      turn: this.chess.turn,
+      ...gameStatus,
+    };
+  }
+
+  get end(): boolean {
+    return Object.isFrozen(this) || this.chess.isEnd() || this.fifty() || this.isThreefold;
   }
 
   get ply(): number {
@@ -115,7 +135,7 @@ export class Game {
   }
 
   get isThreefold(): boolean {
-    return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3; // TODO fixme
+    return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3;
   }
 
   get fen(): string {
@@ -131,6 +151,7 @@ export class Game {
   }
 
   get cgDests(): Map<Cg.Key, Cg.Key[]> {
+    // TODO: chessops
     const dec = new Map();
     const dests = this.dests;
     if (!dests) return dec;

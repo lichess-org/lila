@@ -1,4 +1,5 @@
 import * as co from 'chessops';
+import { zip } from 'common';
 import { normalize } from './operator';
 import { zerofishMove } from './zerofishMove';
 import type { FishSearch, Position, Zerofish } from 'zerofish';
@@ -17,6 +18,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   name: string;
   description: string;
   image: string;
+  version: number = 0;
   books: Book[] = [];
   zero?: ZeroSearch;
   fish?: FishSearch;
@@ -36,6 +38,22 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     Object.defineProperty(this, 'stats', { value: { moves: 0, cpl: 0 } });
   }
 
+  get ratingText(): string {
+    return `${this.glicko?.r ?? 1500}${(this.glicko?.rd ?? 3580) > 80 ? '?' : ''}`;
+  }
+
+  get fullRatingText(): string {
+    return this.ratingText + ` (${Math.round(this.glicko?.rd ?? 350)})`;
+  }
+
+  get statsText(): string {
+    return this.stats.moves ? `acpl ${Math.round(this.stats.cpl / this.stats.moves)}` : '';
+  }
+
+  thinking(secondsRemaining: number): number {
+    return Math.min(Math.random(), secondsRemaining / 5);
+  }
+
   async move(pos: Position, chess: co.Chess): Promise<Uci> {
     const opening = await this.bookMove(chess);
     if (opening) return opening;
@@ -50,6 +68,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
         }),
       this.fish && this.zerofish.goFish(pos, this.fish),
     ]);
+    console.log('fishResult', fishResult);
     const { move, cpl } = zerofishMove(fishResult, zeroResult, this.operators ?? {}, chess);
     if (!isNaN(cpl)) {
       this.stats.moves++; // debug stats
@@ -58,29 +77,15 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     return move;
   }
 
-  get ratingText(): string {
-    return `${this.glicko?.r ?? 1500}${(this.glicko?.rd ?? 3580) > 80 ? '?' : ''}`;
-  }
-
-  get fullRatingText(): string {
-    return this.ratingText + ` (${Math.round(this.glicko?.rd ?? 350)})`;
-  }
-
-  get statsText(): string {
-    return this.stats.moves ? `acpl ${Math.round(this.stats.cpl / this.stats.moves)}` : '';
-  }
-
   private async bookMove(chess: co.Chess) {
     if (!this.books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; bookWeight: number }[] = [];
     let bookChance = 0;
-    const openings = await this.openings;
-    for (let i = 0; i < this.books.length; i++) {
-      const moves = openings[i](chess);
+    for (const [book, opening] of zip(this.books, await this.openings)) {
+      const moves = opening(chess);
       if (moves.length === 0) continue;
-      const bookWeight = this.books[i].weight ?? 1;
-      moveList.push({ moves, bookWeight });
-      bookChance += bookWeight;
+      moveList.push({ moves, bookWeight: book.weight ?? 1 });
+      bookChance += book.weight ?? 1;
     }
     bookChance = Math.random() * bookChance;
     for (const { moves, bookWeight } of moveList) {

@@ -7,7 +7,7 @@ import { main as view } from './view/main';
 
 const patch = init([classModule, attributesModule]);
 
-export async function initModule(opts: RoundOpts) {
+export async function initModule(opts: RoundOpts): Promise<RoundController> {
   return opts.local ? app(opts) : boot(opts, app);
 }
 

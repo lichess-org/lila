@@ -6,13 +6,14 @@ import { RankBot } from './dev/rankBot';
 import { CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { deepFreeze } from 'common';
-import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo, Glicko, SoundEvent, Sound } from './types';
+import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo, Glicko, SoundEvent } from './types';
 
 export class BotCtrl {
   readonly rankBots: RankBot[] = [];
   private zerofish: Zerofish;
   private store: ObjectStorage<BotInfo>;
   private defaultBots: BotInfos;
+  private busy = false;
   bots: Libots;
   whiteUid?: string;
   blackUid?: string;
@@ -61,13 +62,21 @@ export class BotCtrl {
     return this.bot(this.blackUid);
   }
 
+  get isBusy(): boolean {
+    return this.busy;
+  }
+
   bot(uid: string | undefined): Libot | undefined {
     if (uid === undefined) return;
     return this.bots[uid] ?? this.rankBot(uid);
   }
 
-  move(pos: Position, chess: co.Chess): Promise<Uci> {
-    return this[chess.turn]?.move(pos, chess) ?? Promise.resolve('0000');
+  async move(pos: Position, chess: co.Chess): Promise<Uci> {
+    if (this.busy) return '0000'; // dont queue, just ignore requests from different task loops
+    this.busy = true;
+    const move = (await this[chess.turn]?.move(pos, chess.clone())) ?? Promise.resolve('0000');
+    this.busy = false;
+    return move;
   }
 
   playSound(c: Color, events: SoundEvent[]): number {
@@ -88,11 +97,11 @@ export class BotCtrl {
   }
 
   stop(): void {
-    this.zerofish.stop();
+    return this.zerofish.stop();
   }
 
   reset(): void {
-    this.zerofish.reset();
+    return this.zerofish.reset();
   }
 
   updateBot(bot: ZerofishBot): Promise<IDBValidKey> {
@@ -169,15 +178,10 @@ export class BotCtrl {
     name: 'Name',
     description: 'Description',
     image: 'gray-torso.webp',
-    books: [], //[{ name: 'gm2600.bin', weight: 1 }],
+    books: [],
     fish: { multipv: 1, by: { depth: 1 } },
-    //zero: { multipv: 1, net: 'maia-1100.pb' },
-    //glicko: { r: 1500, rd: 350 },
+    version: 0,
   });
-}
-
-export function botAssetUrl(name: string, version: string | false = 'bot000'): string {
-  return site.asset.url(`lifat/bots/${name}`, { version });
 }
 
 export function uidToDomId(uid: string | undefined): string | undefined {

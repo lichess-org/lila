@@ -4,8 +4,9 @@
     "outDir": "dist",
     "rootDir": "src",
     "composite": true,
-    "declaration": true,
-    "emitDeclarationOnly": true
+    //"declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedDeclarations": true
   },
   "references": [
     { "path": "../board/tsconfig.json" },

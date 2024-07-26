@@ -1,34 +1,30 @@
-import throttle from 'common/throttle';
 import type { GameCtrl } from './gameCtrl';
-import type { ApiMove } from 'game';
 import type { RoundSocket } from 'round';
 
-export function makeSocket(/*send: SocketSend, */ ctrl: GameCtrl): RoundSocket {
+// jesus fix this shit
+
+export function makeSocket(/*send: SocketSend, */ gameCtrl: GameCtrl): RoundSocket {
   const handlers: SocketHandlers = {
-    move: (m: ApiMove) => {
-      ctrl.round?.apiMove?.(m);
-      //console.log('apiMove', m);
-    },
+    move: (d: any) => gameCtrl.move(d.u),
+    'blindfold-no': () => {},
+    'blindfold-yes': () => {},
   };
   const send = (t: string, d?: any) => {
-    if (t === 'move') {
-      //console.log('movin on up', t, d);
-      ctrl.move(d.u);
-    } else if (handlers[t]) handlers[t]?.(d);
-    else console.log('no handler for', t, d);
+    if (handlers[t]) handlers[t]?.(d);
+    else console.log('send: no handler for', t, d);
   };
   return {
     send,
     handlers,
-    moreTime: throttle(300, () => send('moretime')),
-    outoftime: () => {}, //backoff(500, 1.1, () => send('flag', ctrl.data.game.player)),
+    moreTime: () => {}, //throttle(300, () => send('moretime')),
+    outoftime: () => gameCtrl.flag(),
     berserk: () => {},
     sendLoading(typ: string, data?: any) {
       send(typ, data);
     },
     receive: (typ: string, data: any) => {
       if (handlers[typ]) handlers[typ]?.(data);
-      else console.log('no handler for', typ, data);
+      else console.log('recv: no handler for', typ, data);
       return true;
     },
     reload: site.reload,

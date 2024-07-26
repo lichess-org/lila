@@ -1,4 +1,4 @@
-import { looseH as h } from 'common/snabbdom';
+import { looseH as h, VNode } from 'common/snabbdom';
 import { Millis } from 'game';
 import { Position } from '../interfaces';
 import { CorresClockController } from './corresClockCtrl';
@@ -38,7 +38,7 @@ export default function (
   color: Color,
   position: Position,
   runningColor: Color,
-) {
+): VNode {
   const millis = ctrl.millisOf(color),
     update = (el: HTMLElement) => {
       el.innerHTML = formatClockTime(trans, millis);

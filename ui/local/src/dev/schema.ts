@@ -23,7 +23,7 @@ export const infoKeys: InfoKey[] = [
 
 export const operatorRegex: RegExp = /==|>=|>|<=|<|!=/;
 
-export const schema: Schema = {
+export const schema: Schema = deepFreeze<Schema>({
   bot_name: {
     type: 'text',
     class: ['setting'],
@@ -174,9 +174,7 @@ export const schema: Schema = {
       required: true,
     },
   },
-};
-
-deepFreeze(schema);
+});
 
 export function getSchemaDefault(id: string): PropertyValue {
   const setting = schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema);

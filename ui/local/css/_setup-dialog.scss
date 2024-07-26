@@ -48,13 +48,15 @@
   }
 
   .chin {
-    //height: 120px;
+    @extend %flex-around;
+    align-items: center;
+
     padding: 1em;
     border-radius: 5px;
     border-top: 1px solid $c-border;
     background-color: $c-bg-zebra2;
-    // label {
-    //   padding: 1em;
-    // }
+    label {
+      @extend %flex-center;
+    }
   }
 }

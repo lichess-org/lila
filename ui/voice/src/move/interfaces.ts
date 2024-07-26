@@ -1,5 +1,5 @@
 import { PromotionCtrl } from 'chess/promotion';
-import { MoveUpdate } from 'game';
+import { MoveUpdate } from 'chess/moveRootCtrl';
 import { VoiceModule } from '../interfaces';
 import * as cg from 'chessground/types';
 

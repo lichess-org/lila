@@ -34,14 +34,14 @@ const renderTableWith = (ctrl: RoundController, buttons: LooseVNodes) => [
   buttons.find(x => !!x) && h('div.rcontrols', buttons),
 ];
 
-export const renderTableEnd = (ctrl: RoundController) =>
+export const renderTableEnd = (ctrl: RoundController): LooseVNodes =>
   renderTableWith(ctrl, [
     isLoading(ctrl)
       ? loader()
       : button.backToTournament(ctrl) || button.backToSwiss(ctrl) || button.followUp(ctrl),
   ]);
 
-export const renderTableWatch = (ctrl: RoundController) =>
+export const renderTableWatch = (ctrl: RoundController): LooseVNodes =>
   renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : game.playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
   ]);
@@ -64,7 +64,7 @@ const prompt = (ctrl: RoundController) => {
   };
 };
 
-export const renderTablePlay = (ctrl: RoundController) => {
+export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
     { promptVNode, isQuestion } = prompt(ctrl),

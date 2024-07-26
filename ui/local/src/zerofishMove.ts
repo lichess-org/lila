@@ -41,6 +41,8 @@ export function zerofishMove(
   operators: Operators,
   chess: co.Chess,
 ): { move: Uci; cpl: number } {
+  if ((!fish || fish.bestmove === '0000') && (!zero || zero.bestmove === '0000'))
+    return { move: '0000', cpl: 0 };
   const scored: SearchMove[] = [];
   const byMove: { [uci: string]: SearchMove } = {};
   //const zmoves: string[] = [];

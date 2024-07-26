@@ -62,11 +62,7 @@ export class EditDialog implements HostView {
   update(): void {
     this.dlg?.updateActions(this.actions);
     const isClean = this.isClean;
-    //const isAllClean = isClean && this.allDirty.length === 0;
     this.dlg?.view.querySelector('.bot-apply')?.classList.toggle('disabled', isClean);
-    //this.dlg?.view.querySelector('.bot-clear-one')?.classList.toggle('disabled', !isClean);
-    //this.dlg?.view.querySelector('.bot-clear-all')?.classList.toggle('disabled', !isAllClean);
-    //this.dlg?.actions(this.actions);
   }
 
   get bot(): ZerofishBotEditor {

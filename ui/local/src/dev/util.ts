@@ -1,8 +1,7 @@
 import * as co from 'chessops';
 import * as licon from 'common/licon';
 import type { NumberInfo, RangeInfo } from './types';
-import type { Outcome, Result } from '../types';
-import type { Script } from './devCtrl';
+import type { Script, Result } from './devCtrl';
 
 type ObjectPath = { obj: any; path: { keys: string[] } | { id: string } };
 
@@ -41,20 +40,20 @@ export function maxChars(info: NumberInfo | RangeInfo): number {
   return len + fractionLen + 1;
 }
 
-export function score(outcome: Outcome, color: Color = 'white'): number {
-  return outcome === color ? 1 : outcome === 'draw' ? 0.5 : 0;
+export function score(outcome: Color | undefined, color: Color = 'white'): number {
+  return outcome === color ? 1 : outcome === undefined ? 0.5 : 0;
 }
 
 export function botScore(r: Result, uid: string): number {
-  return r.outcome === 'draw' ? 0.5 : r[r.outcome] === uid ? 1 : 0;
+  return r.winner === undefined ? 0.5 : r[r.winner] === uid ? 1 : 0;
 }
 
 export function outcomesFor(results: Result[], uid: string | undefined): { w: number; d: number; l: number } {
   return results.reduce(
     (a, r) => ({
-      w: a.w + (r.outcome !== 'draw' && r[r.outcome] === uid ? 1 : 0),
-      d: a.d + (r.outcome === 'draw' && (r.white === uid || r.black === uid) ? 1 : 0),
-      l: a.l + (r.outcome !== 'draw' && r[co.opposite(r.outcome)] === uid ? 1 : 0),
+      w: a.w + (r.winner !== undefined && r[r.winner] === uid ? 1 : 0),
+      d: a.d + (r.winner === undefined && (r.white === uid || r.black === uid) ? 1 : 0),
+      l: a.l + (r.winner !== undefined && r[co.opposite(r.winner)] === uid ? 1 : 0),
     }),
     { w: 0, d: 0, l: 0 },
   );
@@ -65,8 +64,8 @@ export function playerResults(results: Result[], uid?: string): string {
   return `${w}/${d}/${l}`;
 }
 
-export function playersWithResults(script: Script): string[] {
-  return [...new Set(script.players.filter(p => script.results.some(r => r.white === p || r.black === p)))];
+export function playersWithResults(results: Result[]): string[] {
+  return [...new Set(results.flatMap(r => [r.white ?? '', r.black ?? ''].filter(x => x)))];
 }
 
 export function removeButton(): Node {

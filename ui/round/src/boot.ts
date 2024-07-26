@@ -11,7 +11,10 @@ interface RoundApi {
   moveOn: MoveOn;
 }
 
-export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts) => Promise<RoundController>) {
+export default async function (
+  opts: RoundOpts,
+  roundMain: (opts: RoundOpts) => Promise<RoundController>,
+): Promise<RoundController> {
   const data = opts.data;
   if (data.tournament) document.body.dataset.tournamentId = data.tournament.id;
   const socketUrl = opts.data.player.spectator

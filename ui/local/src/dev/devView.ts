@@ -29,14 +29,10 @@ function devContext(devCtrl: DevCtrl): DevContext {
 export function renderDevView(devCtrl: DevCtrl): VNode {
   const ctx = devContext(devCtrl);
   return h('div.dev-side', [
-    results(ctx),
-    h('hr'),
-    h('div', player(ctx, co.opposite(devCtrl.bottomColor))),
-    h('div.spacer'),
-    fen(ctx),
-    devCtrl.script.type !== 'matchup' ? progress(ctx) : dashboard(ctx),
-    h('div.spacer'),
-    h('div', [player(ctx, devCtrl.bottomColor)]),
+    h('div', player(ctx, co.opposite(ctx.gameCtrl.cgOrientation))),
+    dashboard(ctx),
+    progress(ctx),
+    h('div', player(ctx, ctx.gameCtrl.cgOrientation)),
   ]);
 }
 
@@ -69,7 +65,6 @@ function player(ctx: DevContext, color: Color): VNode {
                   devCtrl.run({
                     type: 'rank',
                     players: [p.uid, ...botCtrl.rankBots.map(b => b.uid)],
-                    time: '1+0',
                   });
                 }),
               ),
@@ -80,7 +75,7 @@ function player(ctx: DevContext, color: Color): VNode {
     h('div.stats', [
       h('span.totals.strong', p?.name ? `${p.name} ${p.ratingText}` : `Player ${color}`),
       p instanceof ZerofishBot && h('span.totals', p.statsText),
-      h('span.totals', playerResults(devCtrl.script.results, botCtrl[color]?.uid)),
+      h('span.totals', playerResults(devCtrl.log, botCtrl[color]?.uid)),
     ]),
   ]);
 }
@@ -93,15 +88,16 @@ async function editBot({ devCtrl, botCtrl }: DevContext, color: Color) {
 }
 
 function dashboard(ctx: DevContext) {
-  const { devCtrl, botCtrl } = ctx;
+  const { botCtrl, gameCtrl, devCtrl } = ctx;
+
   return h('div.dev-dashboard', [
+    fen(ctx),
     h('span', [
       h(`button.refresh.button.button-metal`, {
         hook: onInsert(el =>
           el.addEventListener('click', () => {
-            devCtrl.stop();
-            devCtrl.gameCtrl.resetToSetup();
-            devCtrl.gameCtrl.redraw();
+            gameCtrl.resetBoard();
+            gameCtrl.redraw();
           }),
         ),
       }),
@@ -111,7 +107,7 @@ function dashboard(ctx: DevContext) {
           hook: onInsert(el =>
             el.addEventListener('click', () => {
               const setup = { white: botCtrl.white?.uid, black: botCtrl.black?.uid };
-              new SetupDialog(botCtrl, setup);
+              new SetupDialog(botCtrl, { ...gameCtrl.setup, ...setup });
             }),
           ),
         },
@@ -126,6 +122,16 @@ function dashboard(ctx: DevContext) {
         { hook: onInsert(el => el.addEventListener('click', () => roundRobin(ctx))) },
         'round robin',
       ),
+      h('span', [
+        'turbo',
+        h('input', {
+          attrs: { type: 'checkbox', checked: devCtrl.noPause },
+          hook: bind('change', e => {
+            devCtrl.noPause = (e.target as HTMLInputElement).checked;
+            localStorage.setItem('local.dev.noPause', devCtrl.noPause ? '1' : '0');
+          }),
+        }),
+      ]),
     ]),
   ]);
 }
@@ -133,20 +139,11 @@ function dashboard(ctx: DevContext) {
 function progress(ctx: DevContext) {
   const { devCtrl, botCtrl } = ctx;
   return h('div.dev-progress', [
-    h('h3', [
-      devCtrl.script.type === 'rank'
-        ? 'Ranking...'
-        : `Game ${devCtrl.script.results.length + 1} of ${devCtrl.script.games.length}`,
-      renderPlayPause(ctx),
-      h(`button.button.reset.button-metal`, {
-        hook: onInsert(el => el.addEventListener('click', () => devCtrl.reset())),
-      }),
-    ]),
     h(
       'div.results',
-      playersWithResults(devCtrl.script).map(p => {
+      playersWithResults(devCtrl.log).map(p => {
         const bot = botCtrl.bot(p)!;
-        return h('div', `${bot?.name ?? p} ${bot.ratingText} ${playerResults(devCtrl.script.results, p)}`);
+        return h('div', `${bot?.name ?? p} ${bot.ratingText} ${playerResults(devCtrl.log, p)}`);
       }),
     ),
   ]);
@@ -158,7 +155,7 @@ function renderPlayPause(ctx: DevContext): VNode {
     `button.play-pause.button.button-metal${
       gameCtrl.isUserTurn
         ? '.play.disabled'
-        : devCtrl.testInProgress && !devCtrl.isStopped
+        : devCtrl.testInProgress && !gameCtrl.isStopped
         ? '.pause'
         : '.play'
     }`,
@@ -167,51 +164,18 @@ function renderPlayPause(ctx: DevContext): VNode {
 }
 
 function clickPlayPause({ devCtrl, gameCtrl, botCtrl }: DevContext) {
-  if (devCtrl.hasUser) gameCtrl.botMove();
-  if (!devCtrl.isStopped) devCtrl.stop();
+  if (devCtrl.hasUser && gameCtrl.isStopped) gameCtrl.start();
+  else if (!gameCtrl.isStopped) gameCtrl.stop();
   else {
-    if (devCtrl.gameInProgress) devCtrl.run();
+    if (devCtrl.gameInProgress) gameCtrl.start();
     else {
       devCtrl.run(
-        { type: 'matchup', players: [botCtrl.white!.uid, botCtrl.black!.uid], time: '1+0' },
+        { type: 'matchup', players: [botCtrl.white!.uid, botCtrl.black!.uid] },
         parseInt($('.num-games').val() as string) || 1,
       );
     }
   }
   devCtrl.gameCtrl.redraw();
-}
-
-function results(ctx: DevContext) {
-  return h('span', [
-    h(
-      'button.results-action.button-link',
-      { hook: onInsert(el => el.addEventListener('click', () => downloadResults(ctx))) },
-      'Download results',
-    ),
-    h(
-      'button.results-action.button-link',
-      { hook: onInsert(el => el.addEventListener('click', () => clearResults(ctx))) },
-      'Clear results',
-    ),
-  ]);
-}
-
-async function downloadResults(ctx: DevContext) {
-  const results = [{}];
-
-  const blob = new Blob([JSON.stringify(results)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'results.json';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-function clearResults({ devCtrl }: DevContext) {
-  if (!confirm('Clear all results?')) return;
-  //devCtrl.store.clear();
-  devCtrl.redraw();
 }
 
 function fen({ devCtrl, gameCtrl }: DevContext): VNode {
@@ -228,7 +192,7 @@ function fen({ devCtrl, gameCtrl }: DevContext): VNode {
       el.style.backgroundColor = '';
       if (fen) {
         gameCtrl.resetBoard(fen);
-        if (!devCtrl.isStopped && !gameCtrl.isUserTurn) gameCtrl.botMove();
+        if (!gameCtrl.isStopped && !gameCtrl.isUserTurn) gameCtrl.botMove();
         devCtrl.redraw();
       }
     }),
@@ -266,7 +230,6 @@ function roundRobin({ devCtrl, botCtrl }: DevContext) {
             {
               type: 'roundRobin',
               players: participants,
-              time: '1+0',
             },
             isNaN(iterations) ? 1 : iterations,
           );

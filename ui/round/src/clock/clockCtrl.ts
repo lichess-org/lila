@@ -96,7 +96,7 @@ export class ClockController {
 
   timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
-  setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
+  setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0): void => {
     const isClockRunning = playable(d) && (playedTurns(d) > 1 || d.clock!.running),
       delayMs = delay * 10;
 
@@ -163,14 +163,14 @@ export class ClockController {
     }
   };
 
-  elapsed = (now = performance.now()) => Math.max(0, now - this.times.lastUpdate);
+  elapsed = (now: number = performance.now()): number => Math.max(0, now - this.times.lastUpdate);
 
   millisOf = (color: Color): Millis =>
     this.times.activeColor === color ? Math.max(0, this.times[color] - this.elapsed()) : this.times[color];
 
-  isRunning = () => this.times.activeColor !== undefined;
+  isRunning = (): boolean => this.times.activeColor !== undefined;
 
-  speak = () => {
+  speak = (): void => {
     const msgs = ['white', 'black'].map(color => {
       const time = this.millisOf(color as Color);
       const date = new Date(time);

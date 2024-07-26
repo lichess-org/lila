@@ -1,11 +1,10 @@
 import { attributesModule, classModule, init } from 'snabbdom';
-//import { RoundOpts, RoundData, RoundSocket } from 'round';
+import type { RoundController } from 'round';
 import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
 import { AssetDb } from './assetDb';
 import { SetupDialog } from './setupDialog';
 import view from './gameView';
-import type { MoveRootCtrl } from 'game';
 import type { LocalPlayOpts, Libot } from './types';
 
 const patch = init([classModule, attributesModule]);
@@ -31,7 +30,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
   document.getElementById('main-wrap')?.appendChild(el);
   let vnode = patch(el, view(ctrl));
 
-  ctrl.round = await site.asset.loadEsm<MoveRootCtrl>('round', { init: ctrl.roundOpts });
+  ctrl.round = await site.asset.loadEsm<RoundController>('round', { init: ctrl.roundOpts });
 
   redraw();
 

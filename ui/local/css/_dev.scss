@@ -1,15 +1,31 @@
 .dev-side {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content min-content 1fr min-content;
   height: 100%;
   flex-flow: column;
   justify-content: stretch;
+
+  input:not([type='text'], [type='number']) {
+    cursor: pointer;
+  }
+  span,
+  h3 {
+    @extend %flex-between;
+    gap: 1em;
+    flex-wrap: nowrap;
+    * {
+      //margin: 0 15px;
+    }
+  }
+
   .player {
     @extend %flex-between;
     padding: 8px;
     border-radius: 5px;
     border: 1px solid $c-border;
     align-content: center;
-    width: 360px;
+    width: 100%;
     font-size: 1em;
     &:hover {
       border-color: $c-primary;
@@ -44,6 +60,7 @@
       gap: 1em;
     }
   }
+
   .spacer {
     flex: 1 1 auto;
   }
@@ -57,15 +74,6 @@
   .num-games {
     margin-inline-start: auto;
     width: 80px;
-  }
-  span,
-  h3 {
-    @extend %flex-between;
-    gap: 1em;
-    flex-wrap: nowrap;
-    * {
-      //margin: 0 15px;
-    }
   }
   .results-action {
     flex: auto;
@@ -156,50 +164,5 @@
 
   > hr {
     margin: 5px;
-  }
-
-  .setting {
-    @extend %flex-center-nowrap;
-
-    * {
-      white-space: nowrap;
-    }
-
-    label {
-      flex: 4 1 auto;
-      cursor: pointer;
-    }
-
-    .switch + label {
-      margin-inline-start: 1ch;
-    }
-
-    input[type='range'] {
-      cursor: pointer;
-      flex: 1 4 auto;
-      padding: 0;
-      height: 1.6em;
-      width: 100%;
-      margin: 0 1ch;
-    }
-
-    select {
-      flex: 1 4 auto;
-      min-width: 0;
-      margin-inline-start: 1ch;
-      padding: 4px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .select-engine {
-      padding: 0.5em;
-    }
-
-    .range_value {
-      direction: ltr;
-      flex: 0 0 15%;
-      text-align: left;
-    }
   }
 }

@@ -5,10 +5,10 @@ import RoundController from '../ctrl';
 import { bind, justIcon } from '../util';
 import { ClockElements, ClockController } from './clockCtrl';
 import { Hooks } from 'snabbdom';
-import { looseH as h } from 'common/snabbdom';
+import { looseH as h, VNode } from 'common/snabbdom';
 import { Position } from '../interfaces';
 
-export function renderClock(ctrl: RoundController, player: game.Player, position: Position) {
+export function renderClock(ctrl: RoundController, player: game.Player, position: Position): VNode {
   const clock = ctrl.clock!,
     millis = clock.millisOf(player.color),
     isPlayer = ctrl.data.player.color === player.color,
@@ -111,7 +111,7 @@ function showBar(ctrl: RoundController, color: Color) {
   });
 }
 
-export function updateElements(clock: ClockController, els: ClockElements, millis: game.Millis) {
+export function updateElements(clock: ClockController, els: ClockElements, millis: game.Millis): void {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock) {

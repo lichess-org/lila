@@ -5,8 +5,8 @@ import * as licon from 'common/licon';
 import { domDialog } from 'common/dialog';
 import { defined } from 'common';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
+import { rangeTicks } from './gameView';
 import type { Libots, LocalSetup } from './types';
-//import { ratingView } from './components/ratingView';
 
 export class SetupDialog {
   view: HTMLElement;
@@ -23,6 +23,7 @@ export class SetupDialog {
   ) {
     this.bots = botCtrl.bots;
     this.setup = { ...setup };
+    console.log('setupDialog', this.setup);
     const player = (color: 'white' | 'black') =>
       `<div class="player ${color}"><img class="z-remove" src="${site.asset.flairSrc(
         'symbols.cancel',
@@ -41,7 +42,6 @@ export class SetupDialog {
     this.white = this.view.querySelector('.white')!;
     this.black = this.view.querySelector('.black')!;
     const cardData = [...Object.values(this.bots).map(b => botCtrl.card(b))].filter(defined);
-    //const drops = ;
     this.hand = new HandOfCards({
       view: () => this.view,
       drops: () => [
@@ -59,14 +59,16 @@ export class SetupDialog {
       class: 'game-setup base-view setup-view', // with-cards',
       css: [{ hashed: 'local.setup' }],
       htmlText: `<div class="chin">
-            <input type="checkbox" id="bot-dev" checked>
-            <label for="bot-dev">Dev UI</label>
+            <label>Clock<select data-type="initial">${this.timeOptions('initial')}</select></label>
+            <label>Increment<select data-type="increment">${this.timeOptions('increment')}</select></label>
+            <label>Dev UI<input type="checkbox" id="bot-dev" checked></label>
           </div>`,
       append: [{ node: this.view, where: '.chin', how: 'before' }],
       actions: [
         { selector: '.fight', listener: this.fight },
         { selector: '.switch', listener: this.switch },
         { selector: '.random', listener: this.random },
+        { selector: '[data-type]', event: 'input', listener: this.updateClock },
         { selector: '.white > img.z-remove', listener: () => this.select('white') },
         { selector: '.black > img.z-remove', listener: () => this.select('black') },
       ],
@@ -75,9 +77,17 @@ export class SetupDialog {
     }).then(dlg => {
       if (this.setup.white) this.select('white', this.setup.white);
       if (this.setup.black) this.select('black', this.setup.black);
+      window.addEventListener('resize', this.hand.resize);
       dlg.showModal();
-      this.hand.resize();
+      setTimeout(this.hand.resize);
     });
+  }
+
+  private timeOptions(type: 'initial' | 'increment') {
+    const val = this.setup[type] ?? 0;
+    return rangeTicks[type]
+      .map(([secs, label]) => `<option value="${secs}"${secs === val ? ' selected' : ''}>${label}</option>`)
+      .join('');
   }
 
   private dropSelect = (target: HTMLElement, domId?: string) => {
@@ -96,7 +106,14 @@ export class SetupDialog {
     this.view.querySelector('.random')!.classList.toggle('disabled', !this.setup.white && !this.setup.black);
   }
 
+  private updateClock = () => {
+    for (const type of ['initial', 'increment'] as const) {
+      this.setup[type] = Number($as<HTMLSelectElement>(`.chin [data-type="${type}"]`).value);
+    }
+  };
+
   private fight = () => {
+    this.updateClock();
     this.setup.go = true;
     localStorage.setItem('local.setup', JSON.stringify(this.setup));
     window.location.href = `/local?devUi=${$as<HTMLInputElement>('#bot-dev').checked}`;

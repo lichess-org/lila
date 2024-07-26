@@ -4,6 +4,14 @@ const sw = self as ServiceWorkerGlobalScope & typeof globalThis;
 const searchParams = new URL(sw.location.href).searchParams;
 const assetBase = new URL(searchParams.get('asset-url')!, sw.location.href).href;
 
+sw.addEventListener('install', () => {
+  sw.skipWaiting();
+});
+
+sw.addEventListener('activate', e => {
+  e.waitUntil(clients.claim());
+});
+
 sw.addEventListener('push', e => {
   const data = e.data!.json();
   return e.waitUntil(

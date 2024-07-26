@@ -1,7 +1,7 @@
 import type { RoundData } from 'round';
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
-//import type { GameState } from './game';
+import type { GameStatus } from './localGame';
 import type { Chess } from 'chessops';
 
 export type { CardData };
@@ -45,6 +45,7 @@ export interface BotInfo {
   readonly uid: string;
   readonly name: string;
   readonly description: string;
+  readonly version: number;
   readonly image?: string;
   readonly sounds?: SoundEvents;
   readonly glicko?: Glicko;
@@ -57,6 +58,7 @@ export interface Libot extends BotInfo {
   readonly ratingText: string;
 
   move: (pos: Position, chess?: Chess) => Promise<Uci>;
+  thinking: (secondsRemaining: number) => number;
 }
 
 export type Libots = { [id: string]: Libot };
@@ -81,29 +83,18 @@ export interface LocalSetup {
   white?: string;
   black?: string;
   fen?: string;
-  time?: string;
+  initial?: number;
+  increment?: number;
   go?: boolean;
 }
 
-export type Outcome = 'white' | 'black' | 'draw';
-
 export interface Automator {
-  onGameEnd: (outcome: Outcome, reason: string) => boolean; // returns true to keep going
+  onGameOver: (status: GameStatus) => boolean; // returns true to keep going
   onMove?: (fen: string) => void;
   onReset?: () => void;
-  isStopped?: boolean;
-}
-
-export interface Result {
-  outcome: Outcome;
-  white?: string;
-  black?: string;
-  reason: string;
-}
-
-export interface Matchup {
-  white: string;
-  black: string;
+  noPause: boolean;
+  //readonly orientation: Color;
+  //isStopped?: boolean;
 }
 
 export type NetData = {

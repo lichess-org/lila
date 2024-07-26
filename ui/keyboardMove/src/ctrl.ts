@@ -5,7 +5,7 @@ import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { propWithEffect, Prop } from 'common';
 import { snabDialog } from 'common/dialog';
-import { MoveRootCtrl, MoveUpdate } from 'game';
+import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { load as loadKeyboardMove } from './keyboardMove';
 import KeyboardChecker from './keyboardChecker';
 

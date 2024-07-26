@@ -31,12 +31,11 @@ class AssetDialog {
     this.type = type ?? 'image';
   }
 
-  get flavor() {
-    return this.flavors[this.type];
+  get active() {
+    return this.categories[this.type];
   }
 
   get remote() {
-    console.log(this.type, this.db.remote?.[this.type]);
     return this.db.remote?.[this.type];
   }
 
@@ -91,7 +90,7 @@ class AssetDialog {
         <div class="asset-label">${key}</div>
       </div>`);
     if (!this.isChooser) wrap.prepend(removeButton());
-    wrap.querySelector('.asset-preview')!.prepend(this.flavor.preview(key));
+    wrap.querySelector('.asset-preview')!.prepend(this.active.preview(key));
     return wrap;
   };
 
@@ -103,7 +102,7 @@ class AssetDialog {
     }
     const files = e.dataTransfer?.files;
     if (files && files.length > 0) {
-      this.flavor.process(files[0], async (newKey: string, result: Blob) => {
+      this.active.process(files[0], async (newKey: string, result: Blob) => {
         await this.db.add(this.type, newKey, result);
         if (this.resolve) this.resolve(newKey);
         else this.refresh();
@@ -144,7 +143,7 @@ class AssetDialog {
     const onchange = () => {
       fileInputEl.removeEventListener('change', onchange);
       if (!fileInputEl.files || fileInputEl.files.length < 1) return;
-      this.flavor.process(fileInputEl.files[0], async (newKey: string, result: Blob) => {
+      this.active.process(fileInputEl.files[0], async (newKey: string, result: Blob) => {
         await this.db.add(this.type, newKey, result);
         if (this.resolve) this.resolve(newKey);
         else this.refresh();
@@ -159,7 +158,7 @@ class AssetDialog {
   refresh(): void {
     const grid = this.dlg.view.querySelector('.asset-grid') as HTMLElement;
     grid.innerHTML = `<div class="asset-item" data-click="add">
-        <div class="asset-preview">${this.flavor.placeholder}</div>
+        <div class="asset-preview">${this.active.placeholder}</div>
         <div class="asset-label">Add new ${this.type}</div>
       </div></div>`;
     this.local.forEach(asset => grid.append(this.renderAsset(asset)));
@@ -167,7 +166,7 @@ class AssetDialog {
     this.dlg.updateActions();
   }
 
-  flavors = {
+  categories = {
     image: {
       placeholder: '<img src="/assets/lifat/bots/images/black-torso.webp">',
       preview: (key: string) => $as<HTMLElement>(`<img src="${this.db.getImageUrl(key)}">`),

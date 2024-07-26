@@ -6,24 +6,6 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
-export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
-  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
-
-export function as<T>(v: T, f: () => void): () => T {
-  return () => {
-    f();
-    return v;
-  };
-}
-
-export function deepFreeze(obj: any): any {
-  if (obj !== null && typeof obj === 'object')
-    Object.values(obj)
-      .filter(v => v && typeof v === 'object')
-      .forEach(o => deepFreeze(o));
-  return Object.freeze(obj);
-}
-
 export interface Prop<T> {
   (): T;
   (v: T): T;
@@ -158,6 +140,24 @@ export const escapeHtml = (str: string): string =>
         .replace(/"/g, '&quot;')
     : str;
 
+export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
+  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
+
+export function as<T>(v: T, f: () => void): () => T {
+  return () => {
+    f();
+    return v;
+  };
+}
+
+export function deepFreeze<T>(obj: T): T {
+  if (obj !== null && typeof obj === 'object')
+    Object.values(obj)
+      .filter(v => v && typeof v === 'object')
+      .forEach(o => deepFreeze(o));
+  return Object.freeze(obj);
+}
+
 // does not compare complex objects or non-enumerable properties
 export function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
@@ -172,4 +172,13 @@ export function isEquivalent(a: any, b: any): boolean {
     if (!bKeys.includes(key) || !isEquivalent(a[key], b[key])) return false;
   }
   return true;
+}
+
+export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
+  const length = Math.min(arr1.length, arr2.length);
+  const result: [T, U][] = [];
+  for (let i = 0; i < length; i++) {
+    result.push([arr1[i], arr2[i]]);
+  }
+  return result;
 }

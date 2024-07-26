@@ -6,7 +6,7 @@ import { renderDevView } from './devView';
 import { BotCtrl } from '../botCtrl';
 import { SetupDialog } from '../setupDialog';
 import renderGameView from '../gameView';
-import type { MoveRootCtrl } from 'game';
+import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
 
 const patch = init([classModule, attributesModule]);
@@ -38,7 +38,7 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
 
   let vnode = patch(el, renderGameView(gameCtrl, renderDevView(devCtrl)));
 
-  gameCtrl.round = await site.asset.loadEsm<MoveRootCtrl>('round', { init: gameCtrl.roundOpts });
+  gameCtrl.round = await site.asset.loadEsm<RoundController>('round', { init: gameCtrl.roundOpts });
   redraw();
 
   function redraw() {

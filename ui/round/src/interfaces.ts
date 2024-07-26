@@ -1,9 +1,8 @@
 import { VNode } from 'snabbdom';
-import { GameData } from 'game';
+import { GameData, Status, Seconds, Centis } from 'game';
 import { ClockData } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';
-import { CrazyData } from 'game';
 import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
@@ -12,6 +11,9 @@ import { RoundSocket } from './socket';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
+
+export type { default as RoundController } from './ctrl';
+export type { ClockData } from './clock/clockCtrl';
 
 export interface Untyped {
   [key: string]: any;
@@ -76,6 +78,14 @@ export interface Tv {
   flip: boolean;
 }
 
+interface CrazyData {
+  pockets: [CrazyPocket, CrazyPocket];
+}
+
+export interface CrazyPocket {
+  [role: string]: number;
+}
+
 export interface RoundOpts {
   data: RoundData;
   userId?: string;
@@ -107,6 +117,54 @@ export interface Step {
   uci: Uci;
   check?: boolean;
   crazy?: StepCrazy;
+}
+
+export interface ApiMove {
+  dests: string | { [key: string]: string };
+  ply: number;
+  fen: string;
+  san: string;
+  uci: string;
+  clock?: {
+    white: Seconds;
+    black: Seconds;
+    lag?: Centis;
+  };
+  status?: Status;
+  winner?: Color;
+  check?: boolean;
+  threefold?: boolean;
+  wDraw?: boolean;
+  bDraw?: boolean;
+  crazyhouse?: CrazyData;
+  role?: cg.Role;
+  drops?: string;
+  promotion?: {
+    key: cg.Key;
+    pieceClass: cg.Role;
+  };
+  castle?: {
+    king: [cg.Key, cg.Key];
+    rook: [cg.Key, cg.Key];
+    color: Color;
+  };
+  isMove?: true;
+  isDrop?: true;
+  volume?: number;
+}
+
+export interface ApiEnd {
+  winner?: Color;
+  status: Status;
+  ratingDiff?: {
+    white: number;
+    black: number;
+  };
+  boosted: boolean;
+  clock?: {
+    wc: Centis;
+    bc: Centis;
+  };
 }
 
 export interface StepCrazy extends Untyped {}

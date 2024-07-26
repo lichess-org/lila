@@ -5,7 +5,7 @@ import * as round from './round';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
-import { MoveRootCtrl, ApiMove } from 'game';
+import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import * as ground from './ground';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
@@ -35,6 +35,8 @@ import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { endGameView } from './view/main';
 import {
+  Step,
+  CrazyPocket,
   RoundOpts,
   RoundData,
   SocketMove,
@@ -44,6 +46,8 @@ import {
   Position,
   NvuiPlugin,
   RoundTour,
+  ApiMove,
+  ApiEnd,
 } from './interfaces';
 import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
@@ -95,7 +99,7 @@ export default class RoundController implements MoveRootCtrl {
   constructor(
     readonly opts: RoundOpts,
     readonly redraw: Redraw,
-    readonly nvui?: NvuiPlugin,
+    readonly nvui?: NvuiPlugin | undefined,
   ) {
     round.massage(opts.data);
 
@@ -227,9 +231,9 @@ export default class RoundController implements MoveRootCtrl {
     return true;
   };
 
-  lastPly = () => round.lastPly(this.data);
+  lastPly = (): number => round.lastPly(this.data);
 
-  makeCgHooks = () => ({
+  makeCgHooks = (): any => ({
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
     onMove: this.onMove,
@@ -248,9 +252,9 @@ export default class RoundController implements MoveRootCtrl {
     else this.redraw();
   };
 
-  userJumpPlyDelta = (plyDelta: Ply) => this.userJump(this.ply + plyDelta);
+  userJumpPlyDelta = (plyDelta: Ply): void => this.userJump(this.ply + plyDelta);
 
-  isPlaying = () => game.isPlayerPlaying(this.data);
+  isPlaying = (): boolean => game.isPlayerPlaying(this.data);
 
   jump = (ply: Ply): boolean => {
     ply = Math.max(round.firstPly(this.data), Math.min(this.lastPly(), ply));
@@ -279,7 +283,7 @@ export default class RoundController implements MoveRootCtrl {
     return true;
   };
 
-  canMove = () => !this.replaying() && this.data.player.color === this.chessground.state.turnColor;
+  canMove = (): boolean => !this.replaying() && this.data.player.color === this.chessground.state.turnColor;
 
   replayEnabledByPref = (): boolean => {
     const d = this.data;
@@ -290,12 +294,12 @@ export default class RoundController implements MoveRootCtrl {
     );
   };
 
-  isLate = () => this.replaying() && status.playing(this.data);
+  isLate = (): boolean => this.replaying() && status.playing(this.data);
 
   playerAt = (position: Position): game.Player =>
     (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
 
-  flipNow = () => {
+  flipNow = (): void => {
     this.flip = !this.nvui && !this.flip;
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip),
@@ -304,9 +308,9 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
   };
 
-  setTitle = () => title.set(this);
+  setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}) => {
+  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}): void => {
     const socketOpts: SocketOpts = {
       sign: this.sign,
       ackable: true,
@@ -332,7 +336,7 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
   };
 
-  pluginMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
+  pluginMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role): void => {
     if (!role) {
       this.chessground.move(orig, dest);
       this.chessground.state.movable.dests = undefined;
@@ -343,12 +347,12 @@ export default class RoundController implements MoveRootCtrl {
     this.sendMove(orig, dest, role, { premove: false });
   };
 
-  pluginUpdate = (fen: string) => {
+  pluginUpdate = (fen: string): void => {
     this.voiceMove?.update({ fen, canMove: this.canMove() });
     this.keyboardMove?.update({ fen, canMove: this.canMove() });
   };
 
-  sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
+  sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata): void => {
     const move: SocketMove = {
       u: orig + dest,
     };
@@ -381,7 +385,7 @@ export default class RoundController implements MoveRootCtrl {
     }
   };
 
-  showYourMoveNotification = () => {
+  showYourMoveNotification = (): void => {
     if (this.opts.local) return;
     const d = this.data;
     const opponent = $('body').hasClass('zen') ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
@@ -401,7 +405,7 @@ export default class RoundController implements MoveRootCtrl {
     else if (this.isPlaying() && this.ply < 1) notify(joined);
   };
 
-  playerByColor = (c: Color) => this.data[c === this.data.player.color ? 'player' : 'opponent'];
+  playerByColor = (c: Color): game.Player => this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): true => {
     const d = this.data,
@@ -504,9 +508,9 @@ export default class RoundController implements MoveRootCtrl {
     return true; // prevents default socket pubsub
   };
 
-  crazyValid = (role: cg.Role, key: cg.Key) => crazyValid(this.data, role, key);
+  crazyValid = (role: cg.Role, key: cg.Key): boolean => crazyValid(this.data, role, key);
 
-  getCrazyhousePockets = () => this.data.crazyhouse?.pockets;
+  getCrazyhousePockets = (): [CrazyPocket, CrazyPocket] | undefined => this.data.crazyhouse?.pockets;
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
@@ -539,7 +543,7 @@ export default class RoundController implements MoveRootCtrl {
     this.pluginUpdate(d.steps[d.steps.length - 1].fen);
   };
 
-  endWithData = (o: game.ApiEnd): void => {
+  endWithData = (o: ApiEnd): void => {
     const d = this.data;
     d.game.winner = o.winner;
     d.game.status = o.status;
@@ -590,7 +594,7 @@ export default class RoundController implements MoveRootCtrl {
     else site.sound.say(viewStatus(this), false, false, true);
   };
 
-  challengeRematch = async () => {
+  challengeRematch = async (): Promise<void> => {
     if (this.data.game.id !== 'synthetic') await xhr.challengeRematch(this.data.game.id);
     site.pubsub.emit('challenge-app.open');
     if (site.once('rematch-challenge')) {
@@ -659,14 +663,14 @@ export default class RoundController implements MoveRootCtrl {
     else return false;
   };
 
-  opponentRequest(req: string, i18nKey: string) {
+  opponentRequest(req: string, i18nKey: string): void {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
       this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );
     notify(this.noarg(i18nKey));
   }
 
-  takebackYes = () => {
+  takebackYes = (): void => {
     this.socket.sendLoading('takeback-yes');
     this.chessground.cancelPremove();
     this.promotion.cancel();
@@ -688,7 +692,7 @@ export default class RoundController implements MoveRootCtrl {
     }
   };
 
-  goBerserk = () => {
+  goBerserk = (): void => {
     if (!game.berserkableBy(this.data)) return;
     if (this.goneBerserk[this.data.player.color]) return;
     this.socket.berserk();
@@ -703,7 +707,7 @@ export default class RoundController implements MoveRootCtrl {
     $(`<i data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
-  setLoading = (v: boolean, duration = 1500) => {
+  setLoading = (v: boolean, duration = 1500): void => {
     clearTimeout(this.loadingTimeout);
     if (v) {
       this.loading = true;
@@ -718,7 +722,7 @@ export default class RoundController implements MoveRootCtrl {
     }
   };
 
-  setRedirecting = () => {
+  setRedirecting = (): void => {
     this.redirecting = true;
     site.unload.expected = true;
     setTimeout(() => {
@@ -753,7 +757,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private goneTick?: number;
-  setGone = (gone: number | boolean) => {
+  setGone = (gone: number | boolean): void => {
     game.setGone(this.data, this.data.opponent.color, gone);
     clearTimeout(this.goneTick);
     if (Number(gone) > 1)
@@ -796,7 +800,7 @@ export default class RoundController implements MoveRootCtrl {
     game.drawable(this.data) &&
     (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
 
-  cancelTakebackPreventDraws = () => {
+  cancelTakebackPreventDraws = (): void => {
     this.socket.sendLoading('takeback-no');
     clearTimeout(this.preventDrawOffer);
     this.preventDrawOffer = setTimeout(() => {
@@ -827,7 +831,7 @@ export default class RoundController implements MoveRootCtrl {
     this.socket.sendLoading('draw-yes', null);
   };
 
-  setChessground = (cg: CgApi) => {
+  setChessground = (cg: CgApi): void => {
     this.chessground = cg;
     const up = { fen: this.stepAt(this.ply).fen, canMove: this.canMove(), cg };
     if (!this.isPlaying()) return;
@@ -846,9 +850,9 @@ export default class RoundController implements MoveRootCtrl {
     });
   };
 
-  stepAt = (ply: Ply) => round.plyStep(this.data, ply);
+  stepAt = (ply: Ply): Step => round.plyStep(this.data, ply);
 
-  speakClock = () => {
+  speakClock = (): void => {
     this.clock?.speak();
   };
 
@@ -909,7 +913,4 @@ export default class RoundController implements MoveRootCtrl {
       this.onChange();
     }, 800);
   };
-  get cg() {
-    return this.chessground;
-  }
 }

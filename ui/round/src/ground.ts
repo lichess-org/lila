@@ -3,7 +3,7 @@ import * as util from './util';
 import resizeHandle from 'common/resize';
 import RoundController from './ctrl';
 import { Config } from 'chessground/config';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { plyStep } from './round';
 import { RoundData } from './interfaces';
 import { uciToMove } from 'chessground/util';
@@ -92,7 +92,7 @@ export function makeConfig(ctrl: RoundController): Config {
   };
 }
 
-export const reload = (ctrl: RoundController) => ctrl.chessground.set(makeConfig(ctrl));
+export const reload = (ctrl: RoundController): void => ctrl.chessground.set(makeConfig(ctrl));
 
 export const boardOrientation = (data: RoundData, flip: boolean): Color =>
   data.game.variant.key === 'racingKings'
@@ -103,7 +103,7 @@ export const boardOrientation = (data: RoundData, flip: boolean): Color =>
     ? data.opponent.color
     : data.player.color;
 
-export const render = (ctrl: RoundController) =>
+export const render = (ctrl: RoundController): VNode =>
   h('div.cg-wrap', {
     hook: util.onInsert(el => ctrl.setChessground(site.makeChessground(el, makeConfig(ctrl)))),
   });
