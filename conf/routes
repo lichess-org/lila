@@ -588,6 +588,7 @@ POST  /mod/ip/ban/:v/:ip               controllers.Mod.singleIpBan(v: Boolean, i
 GET   /mod/presets/:group              controllers.Mod.presets(group)
 POST  /mod/presets/:group              controllers.Mod.presetsUpdate(group)
 GET   /api/stream/mod                  controllers.Mod.eventStream
+GET   /api/stream/mod-marked-since     controllers.Mod.markedUsersStream
 
 # Irwin
 GET   /irwin                           controllers.Irwin.dashboard
