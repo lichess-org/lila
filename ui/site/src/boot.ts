@@ -58,7 +58,8 @@ export function boot() {
     $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
       const $a = $(this).addClass('processing').css('opacity', 0.3);
       xhr.text(this.href, { method: 'post' }).then(html => {
-        if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+        if ($a.has('.aclose')) $a.hide();
+        else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
         else $a.replaceWith(html);
       });
       return false;
