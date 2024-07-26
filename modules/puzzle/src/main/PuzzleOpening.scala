@@ -36,9 +36,8 @@ case class PuzzleOpeningCollection(
     .sortBy(-_._1.count)
 
   val treeAlphabetical: TreeList = treePopular
-    .map { (fam, ops) =>
+    .map: (fam, ops) =>
       fam -> ops.sortBy(_.opening.name.value)
-    }
     .sortBy(_._1.family.name.value)
 
   def treeList(order: Order): TreeList = order match

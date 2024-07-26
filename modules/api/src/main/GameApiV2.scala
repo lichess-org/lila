@@ -161,10 +161,9 @@ final class GameApiV2(
       .grouped(30)
       .mapAsync(1): pairings =>
         config.tour.isTeamBattle
-          .so {
+          .so:
             playerRepo.teamsOfPlayers(config.tour.id, pairings.flatMap(_.users).distinct).dmap(_.toMap)
-          }
-          .flatMap { playerTeams =>
+          .flatMap: playerTeams =>
             gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)).map {
               _.zip(pairings).collect { case (Some(game), pairing) =>
                 (
@@ -174,7 +173,6 @@ final class GameApiV2(
                 )
               }
             }
-          }
       .mapConcat(identity)
       .throttle(config.perSecond.value, 1 second)
       .mapAsync(4): (game, pairing, teams) =>

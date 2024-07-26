@@ -65,7 +65,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
   ): Fu[List[TeamBattle.RankedTeam]] =
     import TeamBattle.{ RankedTeam, TeamLeader }
     coll
-      .aggregateList(maxDocs = TeamBattle.maxTeams) { framework =>
+      .aggregateList(maxDocs = TeamBattle.maxTeams): framework =>
         import framework.*
         Match(selectTour(tourId)) -> List(
           Sort(Descending("m")),
@@ -86,7 +86,6 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
             )
           )
         )
-      }
       .map {
         _.flatMap: doc =>
           for
