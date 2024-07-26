@@ -191,7 +191,7 @@ final class User(
                 )
           )
       else
-        relation.flatMap: r =>
+        relation.map: r =>
           val block = r.contains(Relation.Block)
           Ok(views.user.bits.miniClosed(user.user, block))
 
