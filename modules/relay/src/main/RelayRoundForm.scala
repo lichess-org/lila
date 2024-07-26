@@ -114,7 +114,7 @@ object RelayRoundForm:
       n <- prevNumber
       if prevs
         .map(_._2)
-        .fold(true): old =>
+        .forall: old =>
           roundNumberIn(old.name.value).contains(n - 1)
       p <- prev
     yield replaceRoundNumber(p.name.value, nextNumber)
@@ -124,17 +124,18 @@ object RelayRoundForm:
       oldDate     <- old.startsAt
       delta = prevDate.toEpochMilli - oldDate.toEpochMilli
     yield prevDate.plusMillis(delta)
-    val nextUrl: Option[Upstream.Url] = for
-      p   <- prev
-      up  <- p.sync.upstream
-      lcc <- up.lcc
-      if prevNumber.contains(lcc.round)
-    yield Upstream.Url(lcc.copy(round = nextNumber).pageUrl)
+    val nextUrl: Option[URL] = for
+      p  <- prev
+      up <- p.sync.upstream
+      lcc     = up.lcc.filter(lcc => prevNumber.contains(lcc.round))
+      nextLcc = lcc.map(_.copy(round = nextNumber).pageUrl)
+      next <- nextLcc.orElse(up.asUrl)
+    yield next
     Data(
       name = RelayRound.Name(guessName | s"Round ${nextNumber}"),
       caption = prev.flatMap(_.caption),
       syncSource = prev.map(Data.make).flatMap(_.syncSource),
-      syncUrl = nextUrl,
+      syncUrl = nextUrl.map(Upstream.Url.apply),
       startsAt = guessDate,
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
