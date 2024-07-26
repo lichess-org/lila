@@ -32,7 +32,6 @@
   <string name="imageAlt">Teks alternatif gambar</string>
   <string name="imageCredit">Kredit gambar</string>
   <string name="deleteBlog">Hapus blog post ini</string>
-  <string name="deleteImage">Hapus gambar</string>
   <string name="safeToUseImages">Aman untuk menggunakan gambar dari website ini: </string>
   <string name="selectPostTopics">Pilih topik yang sesuai untuk post Anda</string>
   <string name="inappropriateContentAccountClosed">Apapun yang tidak senonoh dapat membuat akun Anda ditutup.</string>

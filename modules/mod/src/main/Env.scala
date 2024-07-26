@@ -34,7 +34,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.core.irc.IrcApi,
     msgApi: lila.core.msg.MsgApi
-)(using Executor, Scheduler, lila.core.i18n.Translator):
+)(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
   private lazy val historyRepo    = HistoryRepo(db(CollName("mod_gaming_history")))

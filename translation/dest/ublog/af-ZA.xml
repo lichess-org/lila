@@ -41,12 +41,11 @@
   <string name="imageAlt">Beeld se alternatiewe beskrywing</string>
   <string name="imageCredit">Beeld akkreditasie</string>
   <string name="deleteBlog">Vee hierdie plasing volledig uit</string>
-  <string name="deleteImage">Vee die prent uit</string>
   <string name="safeToUseImages">Dit is veilig om prente van die volgende webtuistes te gebruik: </string>
   <string name="selectPostTopics">Kies die onderwerpe van jou plasing</string>
   <string name="useImagesYouMadeYourself">Jy kan ook prente gebruik wat jy self geskep het, foto\'s wat jy geneem het, skermskote van Lichess; enigiets waarop niemand anders kopiereg het nie.</string>
   <string name="safeAndRespectfulContent">Plaas slegs veilige en bedagsame inhoud. Moenie iemand anders se inhoud kopieer nie.</string>
   <string name="inappropriateContentAccountClosed">Enigiets onvanpas kan lei tot die sluiting van jou rekening.</string>
   <string name="blogTips">Ons eenvoudige wenke vir goeie plasings</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Jy word deur die blog-outeur geblokkeer.</string>
+  <string name="youBlockedByBlogAuthor">Jy word deur die blog-outeur geblokkeer.</string>
 </resources>

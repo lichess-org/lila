@@ -5,7 +5,8 @@
     "outDir": "./dist",
     "rootDir": "src",
     "types": ["lichess", "web"],
-    "composite": true
+    "composite": true,
+    "isolatedDeclarations": true
   },
   "references": [{ "path": "../common/tsconfig.json" }]
 }

@@ -51,18 +51,16 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       hook: bind('click', withConfirm(ctrl.delete)),
     }),
   );
-  if (ctrl.reportableMsg())
-    nodes.push(
-      h(`button.${cls}.bad`, {
-        key: 'report',
-        attrs: {
-          'data-icon': licon.CautionTriangle,
-          type: 'button',
-          title: ctrl.trans('reportXToModerators', convo.user.name),
-        },
-        hook: bind('click', withConfirm(ctrl.report)),
-      }),
-    );
+  nodes.push(
+    h(`a.${cls}.bad`, {
+      key: 'report',
+      attrs: {
+        href: '/report/inbox/' + convo.user.name,
+        'data-icon': licon.CautionTriangle,
+        title: ctrl.trans('reportXToModerators', convo.user.name),
+      },
+    }),
+  );
   return nodes;
 }
 

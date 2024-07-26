@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Neisten Forumbäiträg</string>
   <string name="players">Spiller</string>
   <string name="friends">Kolleegen</string>
+  <string name="otherPlayers">aner Spiller</string>
   <string name="discussions">Konversatiounen</string>
   <string name="today">Haut</string>
   <string name="yesterday">Gëschter</string>
@@ -533,6 +534,7 @@
   <string name="descPrivateHelp">Text deen just Ekippenmemberen wäerten gesinn. Falls agestallt, ersetzt en fir Memberen d\'ëffentlech Beschreiwung.</string>
   <string name="no">Nee</string>
   <string name="yes">Jo</string>
+  <string name="website">Websäit</string>
   <string name="help">Hëllef:</string>
   <string name="createANewTopic">Neien Thema kreéieren</string>
   <string name="topics">Themen</string>

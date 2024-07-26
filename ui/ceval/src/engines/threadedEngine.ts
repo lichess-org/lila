@@ -2,7 +2,6 @@ import { Protocol } from '../protocol';
 import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from '../types';
 import { sharedWasmMemory } from '../util';
 import { Cache } from '../cache';
-import { LegacyBot } from './legacyBot';
 
 interface WasmModule {
   (opts: {
@@ -16,7 +15,6 @@ interface WasmModule {
 
 interface Stockfish {
   addMessageListener(cb: (msg: string) => void): void;
-  removeMessageListener(cb: (msg: string) => void): void;
   postMessage(msg: string): void;
 }
 
@@ -27,38 +25,28 @@ declare global {
   }
 }
 
-export class ThreadedEngine extends LegacyBot implements CevalEngine {
+export class ThreadedEngine implements CevalEngine {
   failed: Error;
   protocol: Protocol;
-  loaded = () => {};
-  load = new Promise<void>(resolve => (this.loaded = resolve));
-  moduleProxy?: { uci: (msg: string) => void; listen: (cb: (msg: string) => void) => void };
+  module?: Stockfish;
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status?: EngineNotifier,
+    readonly status?: EngineNotifier | undefined,
     readonly variantMap?: (v: string) => string,
-  ) {
-    super(info);
-    if (!this.info.isBot) this.protocol = new Protocol(this.variantMap);
-    this.boot().catch(this.onError);
-  }
+  ) {}
 
-  get module() {
-    return this.moduleProxy;
-  }
-
-  onError = (err: Error) => {
+  onError = (err: Error): void => {
     console.error(err);
     this.failed = err;
     this.status?.({ error: String(err) });
   };
 
-  getInfo() {
+  getInfo(): BrowserEngineInfo {
     return this.info;
   }
 
-  getState() {
+  getState(): CevalState {
     return !this.protocol
       ? CevalState.Initial
       : this.failed
@@ -80,7 +68,7 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
       wasmPath = `${root}/${wasm}`;
 
     let wasmBinary: ArrayBuffer | undefined;
-    if (wasm) {
+    if (this.info.id === '__sf14nnue') {
       const cache = window.indexedDB && new Cache('ceval-wasm-cache');
       try {
         if (cache) {
@@ -121,33 +109,26 @@ export class ThreadedEngine extends LegacyBot implements CevalEngine {
         site.asset.url(`${root}/${path}`, { version, pathOnly: path.endsWith('.worker.js') }),
       wasmMemory: sharedWasmMemory(this.info.minMem!),
     });
-    if (!this.info.isBot) {
-      sf.addMessageListener(data => this.protocol.received(data));
-      this.protocol.connected(msg => sf.postMessage(msg));
-    } else {
-      let oldListener: (msg: string) => void;
-      this.moduleProxy = {
-        uci: (msg: string) => sf.postMessage(msg),
-        listen: (cb: (msg: string) => void) => {
-          if (oldListener) sf.removeMessageListener(oldListener);
-          sf.addMessageListener((oldListener = cb));
-        },
-      };
-    }
-    this.loaded();
-    return sf;
+
+    sf.addMessageListener(data => this.protocol.received(data));
+    this.protocol.connected(msg => sf.postMessage(msg));
+    this.module = sf;
   }
 
-  async start(work: Work) {
+  async start(work: Work): Promise<void> {
+    if (!this.protocol) {
+      this.protocol = new Protocol(this.variantMap);
+      this.boot().catch(this.onError);
+    }
     this.protocol.compute(work);
   }
 
-  stop() {
+  stop(): void {
     this.protocol.compute(undefined);
   }
 
-  destroy() {
-    this.moduleProxy?.uci('quit');
-    this.moduleProxy = undefined;
+  destroy(): void {
+    this.module?.postMessage('quit');
+    this.module = undefined;
   }
 }

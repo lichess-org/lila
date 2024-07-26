@@ -169,6 +169,7 @@
   <string name="latestForumPosts">โพสต์อภิปรายล่าสุด</string>
   <string name="players">ผู้เล่น</string>
   <string name="friends">เพื่อน</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">ผู้เล่นอื่นๆ</string>
   <string name="discussions">การสนทนา</string>
   <string name="today">วันนี้</string>
   <string name="yesterday">เมื่อวาน</string>
@@ -500,6 +501,8 @@
   <string name="descPrivateHelp">ข้อความที่สมาชิกทีมเท่านั้นที่เห็นได้ ถ้าตั้งไว้ก็จะไปแทนที่คำอธิบายสาธารณะสำหรับสมาชิกทีม</string>
   <string name="no">ไม่</string>
   <string name="yes">ใช่</string>
+  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">เวบไซต์</string>
+  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">มือถือ</string>
   <string name="help">ช่วยเหลือ:</string>
   <string name="createANewTopic">สร้างหัวข้อใหม่</string>
   <string name="topics">หัวข้อ</string>

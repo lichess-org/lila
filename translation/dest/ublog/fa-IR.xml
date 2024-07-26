@@ -44,7 +44,6 @@
   <string name="imageAlt">مقدار alternative برای عکس</string>
   <string name="imageCredit">منبع عکس</string>
   <string name="deleteBlog">این پست وبلاگ را قطعا حذف کنید</string>
-  <string name="deleteImage">حذف تصویر</string>
   <string name="safeToUseImages">استفاده از تصاویر از وب سایت های زیر بی خطر است:</string>
   <string name="selectPostTopics">موضوعی که پست شما درباره آن است انتخاب کنید</string>
   <string name="useImagesYouMadeYourself">همچنین میتوانید از تصاویری که خودتان درست کردید، عکس هایی که گرفتید، اسکرین شات هایی از لیچس و ... که جزو قوانین کپی رایت حساب نمیشوند استفاده کنید.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">هر چیز نامناسبی می تواند حساب شما را ببندد.</string>
   <string name="blogTips">نکات پیشنهادی ما برای نوشتن پست های خوب وبلاگ</string>
   <string name="discussThisBlogPostInTheForum">راجع‌به این نوشته در انجمن بحث کنید</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">نویسنده وبنوشت، شما را مسدود کرده است.</string>
+  <string name="youBlockedByBlogAuthor">نویسنده وبنوشت، شما را مسدود کرده است.</string>
 </resources>

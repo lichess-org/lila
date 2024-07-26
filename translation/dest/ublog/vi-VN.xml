@@ -41,7 +41,6 @@
   <string name="imageAlt">Văn bản thay thế cho hình ảnh</string>
   <string name="imageCredit">Nguồn ảnh</string>
   <string name="deleteBlog">Xóa dứt khoát bài blog này</string>
-  <string name="deleteImage">Xóa hình ảnh</string>
   <string name="safeToUseImages">Sử dụng các hình ảnh an toàn từ các trang web: </string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
   <string name="useImagesYouMadeYourself">Bạn cũng có thể dùng hình ảnh của riêng bạn, những bức ảnh bạn chụp, ảnh chụp màn hình của Lichess... bất kỳ thứ gì miễn là không vi phạm bản quyền của ai.</string>
@@ -49,5 +48,5 @@
   <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị đóng.</string>
   <string name="blogTips">Vài mẹo đơn giản để giúp viết ra một bài blog tuyệt vời</string>
   <string name="discussThisBlogPostInTheForum">Thảo luận về bài blog này trong diễn đàn</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Bạn đã bị chặn bởi tác giả blog.</string>
+  <string name="youBlockedByBlogAuthor">Bạn đã bị chặn bởi tác giả blog.</string>
 </resources>

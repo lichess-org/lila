@@ -41,9 +41,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    @include if-constrained(500px) {
+    /*@include if-constrained(500px) {
       aspect-ratio: 3/4;
-    }
+    }*/
     border-radius: 10px;
     &::before {
       position: absolute;
@@ -53,9 +53,9 @@
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      @include if-constrained(500px) {
+      /*@include if-constrained(500px) {
         background-position: top;
-      }
+      }*/
     }
     /*&:hover {
         border: 1px dashed $c-border;

@@ -1,6 +1,5 @@
 import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine, Requires } from '../types';
 import CevalCtrl from '../ctrl';
-import { LegacyBot } from './legacyBot';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
@@ -18,7 +17,7 @@ export class Engines {
   selectProp: StoredProp<string>;
   browserSupport: Requires[] = features().slice();
 
-  constructor(private ctrl?: CevalCtrl) {
+  constructor(private ctrl: CevalCtrl) {
     if (
       ((getFirefoxMajorVersion() ?? 114) > 113 && !('brave' in navigator)) ||
       site.storage.get('ceval.lsfw.forceEnable') === 'true'
@@ -27,17 +26,17 @@ export class Engines {
     }
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
-    this.externalEngines = this.ctrl?.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
+    this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
     this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
   }
 
-  status = (status: { download?: { bytes: number; total: number }; error?: string } = {}) => {
-    if (this.ctrl?.enabled()) this.ctrl.download = status.download;
-    if (status.error) this.ctrl?.engineFailed(status.error);
-    this.ctrl?.opts.redraw();
+  status = (status: { download?: { bytes: number; total: number }; error?: string } = {}): void => {
+    if (this.ctrl.enabled()) this.ctrl.download = status.download;
+    if (status.error) this.ctrl.engineFailed(status.error);
+    this.ctrl.opts.redraw();
   };
 
-  makeEngineMap() {
+  makeEngineMap(): Map<string, WithMake> {
     type Hash = string;
     type Variant = [VariantKey, Hash];
     const variantMap = (v: VariantKey): string => (v === 'threeCheck' ? '3check' : v.toLowerCase());
@@ -154,22 +153,6 @@ export class Engines {
         },
         {
           info: {
-            id: '__sfhce',
-            name: 'Stockfish Classical',
-            short: 'SF Classical',
-            tech: 'HCE',
-            requires: ['sharedMem'],
-            minThreads: 1,
-            assets: {
-              version: 'sfw004',
-              root: 'npm/lila-stockfish-web',
-              js: 'sfhce.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-        },
-        {
-          info: {
             id: '__sf11mv',
             name: 'Stockfish 11 Multi-Variant',
             short: 'SF 11 MV',
@@ -205,23 +188,6 @@ export class Engines {
             },
           },
           make: (e: BrowserEngineInfo) => new ThreadedEngine(e),
-        },
-        {
-          info: {
-            id: '__sf14nnue',
-            name: 'Stockfish 14 NNUE',
-            short: 'SF 14',
-            version: 'b6939d',
-            class: 'NNUE',
-            requires: ['simd'],
-            minMem: 2048,
-            assets: {
-              root: 'npm/stockfish-nnue.wasm',
-              js: 'stockfish.js',
-              wasm: 'stockfish.wasm',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new ThreadedEngine(e, this.status),
         },
         {
           info: {
@@ -269,29 +235,29 @@ export class Engines {
     );
   }
 
-  get active() {
+  get active(): EngineInfo | undefined {
     return this._active ?? this.activate();
   }
 
-  activate() {
-    this._active = this.getEngine({ id: this.selectProp(), variant: this.ctrl?.opts.variant.key });
+  activate(): EngineInfo | undefined {
+    this._active = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
     return this._active;
   }
 
-  select(id: string) {
+  select(id: string): void {
     this.selectProp(id);
     this.activate();
   }
 
-  get external() {
+  get external(): EngineInfo | undefined {
     return this.active && 'endpoint' in this.active ? this.active : undefined;
   }
 
-  get maxMovetime() {
+  get maxMovetime(): number {
     return this.external ? 30 * 1000 : Number.POSITIVE_INFINITY; // broker timeouts prevent long search
   }
 
-  async deleteExternal(id: string) {
+  async deleteExternal(id: string): Promise<boolean> {
     if (this.externalEngines.every(e => e.id !== id)) return false;
     const r = await fetch(`/api/external-engine/${id}`, { method: 'DELETE', headers: xhrHeader });
     if (!r.ok) return false;
@@ -300,7 +266,7 @@ export class Engines {
     return true;
   }
 
-  updateCevalCtrl(ctrl: CevalCtrl) {
+  updateCevalCtrl(ctrl: CevalCtrl): void {
     this.ctrl = ctrl;
   }
 
@@ -327,15 +293,8 @@ export class Engines {
     if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}}`);
 
     return e.tech !== 'EXTERNAL'
-      ? (this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo) as CevalEngine)
+      ? this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo)
       : new ExternalEngine(e as ExternalEngineInfo, this.status);
-  }
-
-  makeBot(id: string): LegacyBot {
-    const e = this.getEngine({ id });
-    if (!e) throw Error(`Engine not found ${id}`);
-    e.isBot = true;
-    return this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo) as LegacyBot;
   }
 }
 
@@ -366,5 +325,5 @@ const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
 
 type WithMake = {
   info: BrowserEngineInfo;
-  make: (e: BrowserEngineInfo) => CevalEngine | LegacyBot;
+  make: (e: BrowserEngineInfo) => CevalEngine;
 };

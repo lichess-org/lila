@@ -44,7 +44,6 @@
   <string name="imageAlt">Testo alternativo dell\'immagine</string>
   <string name="imageCredit">Crediti immagine</string>
   <string name="deleteBlog">Elimina questo messaggio permanentemente</string>
-  <string name="deleteImage">Elimina l\'immagine</string>
   <string name="safeToUseImages">Le immagini dai seguenti siti possono essere usate in sicurezza: </string>
   <string name="selectPostTopics">Seleziona l\'argomento del tuo messaggio</string>
   <string name="useImagesYouMadeYourself">Puoi anche usare immagini create da te, foto che hai fatto, schermate di Lichess... Qualunque cosa che non sia protetta da copyright.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">Qualsiasi contenuto inappropriato potrebbe portare alla chiusura del tuo account.</string>
   <string name="blogTips">I nostri suggerimenti per scrivere ottimi messaggi sul blog</string>
   <string name="discussThisBlogPostInTheForum">Discuti di questo post del blog nel forum</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Sei stato bloccato dall\'autore del blog.</string>
+  <string name="youBlockedByBlogAuthor">Sei stato bloccato dall\'autore del blog.</string>
 </resources>

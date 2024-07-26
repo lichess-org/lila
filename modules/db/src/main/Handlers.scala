@@ -9,30 +9,35 @@ import scala.util.{ Failure, NotGiven, Success, Try }
 import lila.common.Iso.{ *, given }
 import lila.core.data.Percent
 import lila.core.net.IpAddress
+import lila.core.game.Blurs
 
 trait Handlers:
 
   def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
 
-  // free handlers for all types with TotalWrapper
-  // unless they are given an instance of lila.db.NoDbHandler[T]
+  // free writer for all types with TotalWrapper
+  // unless they are given an instance of lila.db.NoBSONWriter[T]
   given opaqueWriter[T, A](using
       rs: SameRuntime[T, A],
       writer: BSONWriter[A]
-  )(using NotGiven[NoDbHandler[T]]): BSONWriter[T] with
+  )(using NotGiven[NoBSONWriter[T]]): BSONWriter[T] with
     def writeTry(t: T) = writer.writeTry(rs(t))
 
+  // free reader for all types with TotalWrapper
+  // unless they are given an instance of lila.db.NoBSONReader[T]
   given opaqueReader[T, A](using
       sr: SameRuntime[A, T],
       reader: BSONReader[A]
-  ): BSONReader[T] with
+  )(using NotGiven[NoBSONReader[T]]): BSONReader[T] with
     def readTry(bson: BSONValue) = reader.readTry(bson).map(sr.apply)
+
+  given NoDbHandler[Blurs] with {}
 
   given userIdOfWriter[U: UserIdOf](using writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(u.id)
-  given noUserIdOf[A: lila.core.userId.UserIdOf]: NoDbHandler[A] with {}
+  given noUserIdOf[A: lila.core.userId.UserIdOf]: NoBSONWriter[A] with {}
 
-  given NoDbHandler[UserId] with {}
+  given NoBSONWriter[UserId] with {}
   given userIdHandler: BSONHandler[UserId] = stringIsoHandler
 
   given dateTimeHandler: BSONHandler[LocalDateTime] = quickHandler[LocalDateTime](
@@ -173,7 +178,7 @@ trait Handlers:
 
   given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
 
-  given lila.db.NoDbHandler[lila.core.user.Me] with {}
+  given NoDbHandler[lila.core.user.Me] with {}
 
   def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
     { case BSONString(str) => chess.Square.fromKey(str).toTry(s"No such key $str") },

@@ -36,7 +36,6 @@
   <string name="imageAlt">Rasm o‘rniga matn</string>
   <string name="imageCredit">Rasm uchun imkon</string>
   <string name="deleteBlog">Ushbu blog postini butunlay o\'chirib tashlash</string>
-  <string name="deleteImage">Rasmni oʻchirish</string>
   <string name="safeToUseImages">Quyidagi veb-saytlardagi rasmlardan foydalanish xavfsiz: </string>
   <string name="selectPostTopics">Blog postingizda muhokama qiladigan mavzularni tanlang</string>
   <string name="useImagesYouMadeYourself">Siz shuningdek o‘zgalarning mualliflik huquqi bilan ximoyalanmagan barcha narsalardan tashqari yana o‘zingizning shaxsiy rasmlaringizni, sur‘atlaringizni va Lichess skrinshotlarini ishlatishingiz mumkin.</string>

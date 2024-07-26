@@ -44,7 +44,6 @@
   <string name="imageAlt">Bild beskriven som text</string>
   <string name="imageCredit">Bildens upphovsmakare</string>
   <string name="deleteBlog">Ta bort detta blogginlägg definitivt</string>
-  <string name="deleteImage">Radera bild</string>
   <string name="safeToUseImages">Det är säkert att använda bilder från följande webbplatser: </string>
   <string name="selectPostTopics">Välj de ämnen som ditt inlägg handlar om</string>
   <string name="useImagesYouMadeYourself">Du kan också använda bilder som du gjort själv, bilder du tagit, skärmdumpar från Lichess... allt som inte är upphovsrättsskyddat av någon annan.</string>

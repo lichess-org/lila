@@ -13,6 +13,7 @@ import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
+import lila.core.relation.Relation
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType
@@ -166,13 +167,14 @@ final class User(
           )
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>
+      val relation = ctx.userId.so(relationApi.fetchRelation(_, user.id))
       if user.enabled.yes || isGrantedOpt(_.UserModView)
       then
         (
           ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
           ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
           ctx.isAuth.so(env.pref.api.followable(user.id)),
-          ctx.userId.so(relationApi.fetchRelation(_, user.id))
+          relation
         ).flatMapN: (blocked, crosstable, followable, relation) =>
           val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
           negotiate(
@@ -188,7 +190,10 @@ final class User(
                   "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                 )
           )
-      else Ok(views.user.bits.miniClosed(user.user))
+      else
+        relation.map: r =>
+          val block = r.contains(Relation.Block)
+          Ok(views.user.bits.miniClosed(user.user, block))
 
   def online = Anon:
     val max = 50
@@ -368,7 +373,7 @@ final class User(
 
         val reportLog = isGranted(_.SeeReport).so(
           env.report.api
-            .byAndAbout(user, 20)
+            .byAndAbout(user, Max(20))
             .flatMap: rs =>
               lightUserApi.preloadMany(rs.userIds).inject(rs)
             .map(ui.reportLog(user))

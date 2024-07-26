@@ -49,10 +49,10 @@ final class RelayPush(
   private def push(rt: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
     workQueue(rt.round.id):
       for
-        withPlayers <- fuccess(rt.tour.players.fold(rawGames)(_.update(rawGames)))
+        withPlayers <- fuccess(rt.tour.players.fold(rawGames)(_.parse.update(rawGames)))
         games       <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         event <- sync
-          .updateStudyChapters(rt, rt.tour.players.fold(games)(_.update(games)))
+          .updateStudyChapters(rt, rt.tour.players.fold(games)(_.parse.update(games)))
           .map: res =>
             SyncLog.event(res.nbMoves, none)
           .recover:

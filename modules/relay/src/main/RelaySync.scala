@@ -134,7 +134,7 @@ final private class RelaySync(
     (chapterNewTags != chapter.tags).so {
       if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
-      val newName = chapterName(game)
+      val newName = Chapter.nameFromPlayerTags(game.tags)
       for
         _ <- studyApi.setTagsAndRename(
           studyId = study.id,
@@ -168,14 +168,8 @@ final private class RelaySync(
       fideIds = tour.official.so(game.fideIdsPair)
     )
 
-  private def chapterName(game: RelayGame): Option[StudyChapterName] =
-    StudyChapterName.from:
-      game.tags.names
-        .mapN((w, b) => s"$w - $b")
-        .orElse(game.tags.boardNumber.map(b => s"Board $b"))
-
   private def chapterName(game: RelayGame, order: Chapter.Order): StudyChapterName =
-    chapterName(game) | StudyChapterName(s"Board $order")
+    Chapter.nameFromPlayerTags(game.tags) | StudyChapterName(s"Board $order")
 
   private def createChapter(study: Study, game: RelayGame)(using RelayTour): Fu[Chapter] = for
     order <- chapterRepo.nextOrderByStudy(study.id)

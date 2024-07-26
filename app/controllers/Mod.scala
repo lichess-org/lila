@@ -268,8 +268,9 @@ final class Mod(
                 .mon(_.mod.comm.segment("inquiries")),
               env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
-              }
-            ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins) =>
+              },
+              env.report.api.commReportsAbout(user, Max(50))
+            ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins, reports) =>
               if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
                 env.irc.api.commlog(user = user.light, inquiry.map(_.oldestAtom.by.userId))
                 if isGranted(_.MonitoredCommMod) then
@@ -294,6 +295,7 @@ final class Mod(
                     notes.filter(_.from != UserId.irwin),
                     history,
                     logins,
+                    reports,
                     appeals,
                     priv
                   )
@@ -531,7 +533,14 @@ final class Mod(
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>
-    noProxyBuffer(Ok.chunked(env.mod.stream()))
+    noProxyBuffer(Ok.chunked(env.mod.stream.events()))
+  }
+
+  def markedUsersStream = Scoped() { _ ?=> me ?=>
+    me.is(UserId.explorer)
+      .so(getTimestamp("since"))
+      .so: since =>
+        noProxyBuffer(Ok.chunked(env.mod.stream.markedSince(since).map(_.value + "\n")))
   }
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me ?=>

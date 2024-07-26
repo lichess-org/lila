@@ -84,7 +84,7 @@ final private class RelayFetch(
       fetchGames(rt)
         .map(RelayGame.filter(rt.round.sync.onlyRound))
         .map(RelayGame.Slices.filter(~rt.round.sync.slices))
-        .map(games => rt.tour.players.fold(games)(_.update(games)))
+        .map(games => rt.tour.players.fold(games)(_.parse.update(games)))
         .flatMap(fidePlayers.enrichGames(rt.tour))
         .map(games => rt.tour.teams.fold(games)(_.update(games)))
         .mon(_.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug))
@@ -358,10 +358,9 @@ private object RelayFetch:
         val mergedTags = mergeRoundTags(roundTags)
         val strMoves = moves
           .map(_.split(' '))
-          .mapWithIndex: (move, index) =>
+          .map: move =>
             chess.format.pgn
               .Move(
-                ply = Ply(index + 1),
                 san = SanStr(~move.headOption),
                 secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)).flatMap(_.toIntOption)
               )

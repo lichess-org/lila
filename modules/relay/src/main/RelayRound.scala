@@ -118,15 +118,14 @@ object RelayRound:
       case Url(url: URL)          extends Upstream
       case Urls(urls: List[URL])  extends Upstream
       case Ids(ids: List[GameId]) extends Upstream
-      def isUrl = this match
-        case Url(_) => true
-        case _      => false
-      def lcc: Option[Lcc] = this match
-        case Url(url) =>
-          url.toString match
-            case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
-            case _                   => none
-        case _ => none
+      def asUrl: Option[URL] = this match
+        case Url(url) => url.some
+        case _        => none
+      def isUrl = asUrl.isDefined
+      def lcc: Option[Lcc] = asUrl.flatMap:
+        _.toString match
+          case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
+          case _                   => none
       def hasLcc = this match
         case Url(url)   => Sync.looksLikeLcc(url)
         case Urls(urls) => urls.exists(Sync.looksLikeLcc)

@@ -5,8 +5,6 @@ import * as winningChances from './winningChances';
 export type { NodeEvals, EvalMeta, CevalOpts, ExternalEngineInfo, Search } from './types';
 export { isEvalBetter, renderEval, sanIrreversible } from './util';
 export { CevalCtrl, view, winningChances };
-export { Engines } from './engines/engines';
-export { LegacyBot } from './engines/legacyBot';
 
 // stop when another tab starts. Listen only once here,
 // as the ctrl can be instantiated several times.

@@ -1,24 +1,21 @@
 import { Protocol } from '../protocol';
-import { LegacyBot } from './legacyBot';
 import { Work, CevalState, CevalEngine, BrowserEngineInfo } from '../types';
 
-export class SimpleEngine extends LegacyBot implements CevalEngine {
+export class SimpleEngine implements CevalEngine {
   private failed: Error;
-  private protocol: Protocol;
+  private protocol = new Protocol();
   private worker: Worker | undefined;
   url: string;
 
   constructor(readonly info: BrowserEngineInfo) {
-    super(info);
-    if (!info.isBot) this.protocol = new Protocol();
     this.url = `${info.assets.root}/${info.assets.js}`;
   }
 
-  getInfo() {
+  getInfo(): BrowserEngineInfo {
     return this.info;
   }
 
-  getState() {
+  getState(): CevalState {
     return !this.worker
       ? CevalState.Initial
       : this.failed
@@ -30,7 +27,7 @@ export class SimpleEngine extends LegacyBot implements CevalEngine {
       : CevalState.Idle;
   }
 
-  start(work: Work) {
+  start(work: Work): void {
     this.protocol.compute(work);
 
     if (!this.worker) {
@@ -48,15 +45,15 @@ export class SimpleEngine extends LegacyBot implements CevalEngine {
     }
   }
 
-  stop() {
+  stop(): void {
     this.protocol.compute(undefined);
   }
 
-  engineName() {
+  engineName(): string | undefined {
     return this.protocol.engineName;
   }
 
-  destroy() {
+  destroy(): void {
     this.worker?.terminate();
     this.worker = undefined;
   }

@@ -45,7 +45,6 @@
   <string name="imageAlt">Íomhá téacs malartach</string>
   <string name="imageCredit">Íomhá creidiúna</string>
   <string name="deleteBlog">Scrios an blagphost seo go cinntitheach</string>
-  <string name="deleteImage">Scrios an íomhá</string>
   <string name="safeToUseImages">Tá sé sábháilte íomhánna a úsáid ó na suíomhanna gréasáin seo a leanas: </string>
   <string name="selectPostTopics">Roghnaigh na hábhair a bhaineann le do phostáil</string>
   <string name="useImagesYouMadeYourself">Is féidir leat freisin úsáid a bhaint as íomhánna a rinne tú féin, pictiúir a ghlac tú, scáilghraif de Lichess... rud ar bith nach bhfuil cóipcheart ag duine éigin eile.</string>

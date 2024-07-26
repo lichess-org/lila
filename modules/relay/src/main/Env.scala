@@ -63,6 +63,8 @@ final class Env(
 
   lazy val stats = wire[RelayStatsApi]
 
+  private lazy val playersUpdate = wire[RelayPlayersUpdate]
+
   lazy val api: RelayApi = wire[RelayApi]
 
   lazy val tourStream: RelayTourStream = wire[RelayTourStream]

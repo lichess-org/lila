@@ -14,6 +14,7 @@
   <string name="chessInsights">Chess insights (detailed analysis of your play)</string>
   <string name="allChessBasicsLessons">All chess basics lessons</string>
   <string name="tacticalPuzzlesFromUserGames">Tactical puzzles from user games</string>
+  <string name="personalOpeningExplorerX">%1$s (also works on %2$s)</string>
   <string name="personalOpeningExplorer">Personal opening explorer</string>
   <string name="globalOpeningExplorerInNbGames">Global opening explorer (%s games!)</string>
   <string name="endgameTablebase">7-piece endgame tablebase</string>

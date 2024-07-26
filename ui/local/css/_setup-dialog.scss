@@ -1,13 +1,12 @@
 .setup-view {
+  user-select: none;
   .vs {
     @include above-cards;
     display: grid;
     @media (orientation: portrait) {
-      grid-template-rows: min-content auto;
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-        'w b'
-        'a a';
+      grid-auto-rows: auto;
+      grid-template-columns: 1fr;
+      grid-template-areas: 'b' 'w' 'a';
     }
     @media (orientation: landscape) {
       grid-template-rows: 1fr;

@@ -2,23 +2,19 @@ import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from
 import { Protocol } from '../protocol';
 import { objectStorage, ObjectStorage } from 'common/objectStorage';
 import { sharedWasmMemory } from '../util';
-import { LegacyBot } from './legacyBot';
 import type StockfishWeb from 'lila-stockfish-web';
 
-export class StockfishWebEngine extends LegacyBot implements CevalEngine {
+export class StockfishWebEngine implements CevalEngine {
   failed: Error;
   protocol: Protocol;
-  sfweb?: StockfishWeb;
-  setLoaded = () => {};
-  load = new Promise<void>(resolve => (this.setLoaded = resolve));
+  module?: StockfishWeb;
   store?: ObjectStorage<Uint8Array>;
 
   constructor(
     readonly info: BrowserEngineInfo,
-    readonly status?: EngineNotifier,
+    readonly status?: EngineNotifier | undefined,
     readonly variantMap?: (v: VariantKey) => string,
   ) {
-    super(info);
     this.protocol = new Protocol(variantMap);
     this.boot().catch(e => {
       console.error(e);
@@ -26,20 +22,12 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
       this.status?.({ error: String(e) });
     });
   }
-  get module() {
-    return {
-      uci: (x: string) => this.sfweb?.uci(x),
-      listen: (x: (y: string) => void) => {
-        if (this.sfweb) this.sfweb.listen = x;
-      },
-    };
-  }
 
-  getInfo() {
+  getInfo(): BrowserEngineInfo {
     return this.info;
   }
 
-  async boot() {
+  async boot(): Promise<void> {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
     const makeModule = await import(site.asset.url(`${root}/${js}`, { version, documentOrigin: true }));
     const module: StockfishWeb = await new Promise((resolve, reject) => {
@@ -70,8 +58,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
     }
     module.listen = (data: string) => this.protocol.received(data);
     this.protocol.connected(cmd => module.uci(cmd));
-    this.sfweb = module;
-    this.setLoaded();
+    this.module = module;
   }
 
   getModels(nnueFilenames: string[]): Promise<(Uint8Array | undefined)[]> {
@@ -102,7 +89,7 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
   }
 
   makeErrorHandler(module: StockfishWeb) {
-    return (msg: string) => {
+    return (msg: string): void => {
       site.log(this.info.assets.js, msg);
       if (msg.startsWith('BAD_NNUE') && this.store) {
         // if we got this from IDB, we must remove it. but wait for getModels::store.put to finish first
@@ -116,21 +103,21 @@ export class StockfishWebEngine extends LegacyBot implements CevalEngine {
     };
   }
 
-  getState() {
+  getState(): CevalState {
     return this.failed
       ? CevalState.Failed
-      : !this.sfweb
+      : !this.module
       ? CevalState.Loading
       : this.protocol.isComputing()
       ? CevalState.Computing
       : CevalState.Idle;
   }
 
-  start = (work?: Work) => this.protocol.compute(work);
-  stop = () => this.protocol.compute(undefined);
-  engineName = () => this.protocol.engineName;
-  destroy = () => {
-    this.sfweb?.uci('quit');
-    this.sfweb = undefined;
+  start = (work?: Work): void => this.protocol.compute(work);
+  stop = (): void => this.protocol.compute(undefined);
+  engineName = (): string | undefined => this.protocol.engineName;
+  destroy = (): void => {
+    this.module?.uci('quit');
+    this.module = undefined;
   };
 }
