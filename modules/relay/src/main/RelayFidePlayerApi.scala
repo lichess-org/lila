@@ -14,6 +14,10 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
       enrichTags(game.tags, tc).map: tags =>
         game.copy(tags = tags)
 
+  def enrichTags(tour: RelayTour): Tags => Fu[Tags] =
+    val tc = guessTimeControl(tour) | FideTC.standard
+    tags => enrichTags(tags, tc)
+
   private def enrichTags(tags: Tags, tc: FideTC): Fu[Tags] =
     (tags.fideIds
       .zip(tags.names)

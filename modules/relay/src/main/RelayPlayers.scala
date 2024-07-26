@@ -5,6 +5,7 @@ import chess.{ Elo, FideId, PlayerName, PlayerTitle }
 import play.api.data.Forms.*
 
 import lila.core.fide.{ PlayerToken, diacritics }
+import lila.study.Chapter
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(
@@ -35,37 +36,14 @@ private object RelayPlayer:
         .sorted
         .mkString(" ")
 
-private class RelayPlayersTextarea(val text: String):
-
-  import RelayPlayer.tokenize
+private case class RelayPlayersTextarea(text: String):
 
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 
-  private lazy val players: Map[PlayerName, RelayPlayer] =
+  lazy val parse: RelayPlayers = RelayPlayers:
     val lines = text.linesIterator
     lines.nonEmpty.so:
       text.linesIterator.take(1000).toList.flatMap(parse).toMap
-
-  // With tokenized player names
-  private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
-    umlautifyPlayers(players).mapKeys(name => tokenize(name.value))
-
-  // duplicated PlayerName with it's umlautified version
-  private def umlautifyPlayers(players: Map[PlayerName, RelayPlayer]): Map[PlayerName, RelayPlayer] =
-    players.foldLeft(players):
-      case (map, (name, player)) =>
-        map + (name.map(diacritics.remove) -> player)
-
-  // With player names combinations.
-  // For example, if the tokenized player name is "A B C D", the combinations will be:
-  // A B, A C, A D, B C, B D, C D, A B C, A B D, A C D, B C D
-  private lazy val combinationPlayers: Map[PlayerToken, RelayPlayer] =
-    tokenizedPlayers.flatMap: (fullToken, player) =>
-      val words = fullToken.split(' ').filter(_.sizeIs > 1).toList
-      for
-        size        <- 2 to words.length.atMost(4)
-        combination <- words.combinations(size)
-      yield combination.mkString(" ") -> player
 
   // Original name / Optional rating / Optional title / Optional replacement name
   private def parse(line: String): Option[(PlayerName, RelayPlayer)] =
@@ -89,10 +67,43 @@ private class RelayPlayersTextarea(val text: String):
               title = arr.lift(2).flatMap(PlayerTitle.get)
             )
 
+private case class RelayPlayers(players: Map[PlayerName, RelayPlayer]):
+
+  import RelayPlayer.tokenize
+
+  def diff(prev: Option[RelayPlayers]): Option[RelayPlayers] =
+    val prevPlayers = prev.so(_.players)
+    val newPlayers =
+      players.view
+        .filter: (name, player) =>
+          prevPlayers.get(name).forall(_ != player)
+    newPlayers.nonEmpty.option(RelayPlayers(newPlayers.toMap))
+
+  // With tokenized player names
+  private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
+    umlautifyPlayers(players).mapKeys(name => tokenize(name.value))
+
+  // duplicated PlayerName with it's umlautified version
+  private def umlautifyPlayers(players: Map[PlayerName, RelayPlayer]): Map[PlayerName, RelayPlayer] =
+    players.foldLeft(players):
+      case (map, (name, player)) =>
+        map + (name.map(diacritics.remove) -> player)
+
+  // With player names combinations.
+  // For example, if the tokenized player name is "A B C D", the combinations will be:
+  // A B, A C, A D, B C, B D, C D, A B C, A B D, A C D, B C D
+  private lazy val combinationPlayers: Map[PlayerToken, RelayPlayer] =
+    tokenizedPlayers.flatMap: (fullToken, player) =>
+      val words = fullToken.split(' ').filter(_.sizeIs > 1).toList
+      for
+        size        <- 2 to words.length.atMost(4)
+        combination <- words.combinations(size)
+      yield combination.mkString(" ") -> player
+
   def update(games: RelayGames): RelayGames = games.map: game =>
     game.copy(tags = update(game.tags))
 
-  private def update(tags: Tags): Tags =
+  def update(tags: Tags): Tags =
     Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
         tags

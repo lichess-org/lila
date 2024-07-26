@@ -172,6 +172,11 @@ object Chapter:
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
 
+  def nameFromPlayerTags(tags: Tags): Option[StudyChapterName] = StudyChapterName.from:
+    tags.names
+      .mapN((w, b) => s"$w - $b")
+      .orElse(tags.boardNumber.map(b => s"Board $b"))
+
   def makeId = StudyChapterId(scalalib.ThreadLocalRandom.nextString(8))
 
   def make(
