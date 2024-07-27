@@ -10,6 +10,7 @@
   <string name="yourTurn">giliran kowe</string>
   <string name="aiNameLevelAiLevel">%1$s kelas %2$s</string>
   <string name="level">tingkatan</string>
+  <string name="strength">Kekuwatan</string>
   <string name="toggleTheChat">alihke obrolan</string>
   <string name="chat">obrolan</string>
   <string name="resign">kabur</string>
@@ -17,6 +18,8 @@
   <string name="stalemate">seri</string>
   <string name="white">putih</string>
   <string name="black">ireng</string>
+  <string name="asWhite">minangka putih</string>
+  <string name="asBlack">minangka ireng</string>
   <string name="randomColor">acak warna</string>
   <string name="createAGame">nggawe game</string>
   <string name="whiteIsVictorious">putih seng menang</string>
