@@ -198,6 +198,7 @@
   <string name="latestForumPosts">Останні дописи форуму</string>
   <string name="players">Гравці</string>
   <string name="friends">Друзі</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">інші гравці</string>
   <string name="discussions">Обговорення</string>
   <string name="today">Сьогодні</string>
   <string name="yesterday">Вчора</string>
