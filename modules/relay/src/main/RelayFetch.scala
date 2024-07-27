@@ -276,7 +276,7 @@ final private class RelayFetch(
             round.pairings
               .mapWithIndex: (pairing, i) =>
                 val game = i + 1
-                val tags = pairing.tags(lcc.round, game)
+                val tags = pairing.tags(lcc.round, game, round.date)
                 lccCache(lcc, game, tags, lookForStart): () =>
                   httpGetJson[GameJson](lcc.gameUrl(game)).recover:
                     case _: Exception => GameJson(moves = Nil, result = none)
@@ -293,7 +293,7 @@ final private class RelayFetch(
             .map: round =>
               MultiPgn:
                 round.pairings.mapWithIndex: (pairing, i) =>
-                  PgnStr(s"${pairing.tags(lcc.round, i + 1)}\n\n${pairing.result}")
+                  PgnStr(s"${pairing.tags(lcc.round, i + 1, round.date)}\n\n${pairing.result}")
             .flatMap(multiPgnToGames.future)
       }
 
@@ -327,7 +327,7 @@ private object RelayFetch:
         result: Option[String]
     ):
       import chess.format.pgn.*
-      def tags(round: Int, game: Int) = Tags:
+      def tags(round: Int, game: Int, date: Option[String]) = Tags:
         List(
           white.flatMap(_.fullName).map { Tag(_.White, _) },
           white.flatMap(_.title).map { Tag(_.WhiteTitle, _) },
@@ -336,9 +336,13 @@ private object RelayFetch:
           black.flatMap(_.title).map { Tag(_.BlackTitle, _) },
           black.flatMap(_.fideid).map { Tag(_.BlackFideId, _) },
           result.map(Tag(_.Result, _)),
-          Tag(_.Round, s"$round.$game").some
+          Tag(_.Round, s"$round.$game").some,
+          date.map(Tag(_.Date, _))
         ).flatten
-    case class RoundJson(pairings: List[RoundJsonPairing]):
+    case class RoundJson(
+        date: Option[String],
+        pairings: List[RoundJsonPairing]
+    ):
       def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
         case (pairing, i) if pairing.result.forall(_ != "*") => i
     given Reads[PairingPlayer]    = Json.reads
