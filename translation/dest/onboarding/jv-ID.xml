@@ -11,4 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Main mungsuh saka sak ndonya.</string>
   <string name="followYourFriendsOnLichess">Follow kawan-kawan Aku Kat Sini.</string>
   <string name="playInTournaments">Main ing turnamen.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Sinau saka %1$s lan %2$s.</string>
+  <string name="configureLichess">Ngatur Lichess kanggo liking panjenengan.</string>
+  <string name="exploreTheSiteAndHaveFun">Jelajahi situs lan seneng-seneng :)</string>
 </resources>
