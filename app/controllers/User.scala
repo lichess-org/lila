@@ -192,8 +192,13 @@ final class User(
           )
       else
         relation.map: r =>
-          val block = r.contains(Relation.Block)
-          Ok(views.user.bits.miniClosed(user.user, block))
+          Ok(
+            views.user.bits.miniClosed(
+              user.user,
+              r.contains(Relation.Block),
+              r.contains(Relation.Follow)
+            )
+          )
 
   def online = Anon:
     val max = 50
