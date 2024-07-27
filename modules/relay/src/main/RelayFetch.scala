@@ -340,8 +340,8 @@ private object RelayFetch:
           date.map(Tag(_.Date, _))
         ).flatten
     case class RoundJson(
-      date: Option[String],
-      pairings: List[RoundJsonPairing]
+        date: Option[String],
+        pairings: List[RoundJsonPairing]
     ):
       def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
         case (pairing, i) if pairing.result.forall(_ != "*") => i
