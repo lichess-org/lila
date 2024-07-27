@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">nggo ngundang konco ben maen bareng, ke\'i URL iki</string>
   <string name="gameOver">kowe kalah</string>
   <string name="waitingForOpponent">ngenteni kanca kanca</string>
+  <string name="orLetYourOpponentScanQrCode">Utawa supaya mungsuh mindhai kode QR iki</string>
   <string name="waiting">enteni dilit</string>
   <string name="yourTurn">giliran kowe</string>
   <string name="aiNameLevelAiLevel">%1$s kelas %2$s</string>
