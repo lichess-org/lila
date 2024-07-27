@@ -24,6 +24,8 @@
   <string name="createAGame">nggawe game</string>
   <string name="whiteIsVictorious">putih seng menang</string>
   <string name="blackIsVictorious">ireng seng menang</string>
+  <string name="youPlayTheWhitePieces">Kowé main potongan putih</string>
+  <string name="youPlayTheBlackPieces">Main hitam saja</string>
   <string name="newOpponent">pemain anyar</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">pemain lawanmu pengen dulanan karo kowe meneh</string>
   <string name="joinTheGame">gabung dulanan</string>
