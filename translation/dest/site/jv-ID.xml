@@ -26,11 +26,21 @@
   <string name="blackIsVictorious">ireng seng menang</string>
   <string name="youPlayTheWhitePieces">Kowé main potongan putih</string>
   <string name="youPlayTheBlackPieces">Main hitam saja</string>
+  <string name="itsYourTurn">Giliran akak!</string>
+  <string name="cheatDetected">Ngapusi Dideteksi</string>
+  <string name="kingInTheCenter">Raja ing pusat</string>
+  <string name="threeChecks">Telung priksa</string>
+  <string name="raceFinished">Balapan rampung</string>
+  <string name="variantEnding">Pungkasan varian</string>
   <string name="newOpponent">pemain anyar</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">pemain lawanmu pengen dulanan karo kowe meneh</string>
   <string name="joinTheGame">gabung dulanan</string>
   <string name="whitePlays">putih mulai</string>
   <string name="blackPlays">ireng mulai</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">Lawanmu ninggalké dolanan. Sampeyan bisa menang ing %s kapindho.
+Lawanmu ninggalké dolanan. Sampeyan bisa menang ing %s detik.</item>
+  </plurals>
   <string name="opponentLeftChoices">lawanmu lagi ninggalke dulanan. kowe meksa ngundurke diri opo ditunggu</string>
   <string name="forceResignation">peksa menyerah</string>
   <string name="forceDraw">pekso seri</string>
@@ -40,7 +50,12 @@
   <string name="blackResigned">ireng ngalah</string>
   <string name="whiteLeftTheGame">putih kabur seko dulanan</string>
   <string name="blackLeftTheGame">ireng kabur seko dulanan</string>
+  <string name="whiteDidntMove">Putih ora obah</string>
+  <string name="blackDidntMove">Ireng ora obah</string>
+  <string name="requestAComputerAnalysis">Njaluk analisis komputer</string>
   <string name="computerAnalysis">AnalisaKomputer</string>
+  <string name="computerAnalysisAvailable">Analisis komputer kasedhiya</string>
+  <string name="computerAnalysisDisabled">Analisis komputer dipatèni</string>
   <string name="fromPosition">seka posisi</string>
   <string name="continueFromHere">lanjut seka kene</string>
 </resources>
