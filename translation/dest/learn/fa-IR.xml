@@ -4,12 +4,12 @@
   <string name="byPlaying">با بازی کردن!</string>
   <string name="menu">منو</string>
   <string name="progressX">پیشرفت: %s</string>
-  <string name="resetMyProgress">پیشروی را از نو شروع می‌کنم</string>
+  <string name="resetMyProgress">پیشروی را از نو می‌آغازم</string>
   <string name="youWillLoseAllYourProgress">شما همه پیشرفت خود را از دست خواهید داد!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">بازی کن!</string>
   <string name="chessPieces">مُهره‌های شطرنج</string>
   <string name="theRook">رُخ</string>
-  <string name="itMovesInStraightLines">در عرض و ستون حرکت میکند</string>
+  <string name="itMovesInStraightLines">در خط‌های راست حرکت می‌کند</string>
   <string name="rookIntro">رُخ مهره نیرومندیست. آماده‌اید که به آن دستور دهید؟</string>
   <string name="rookGoal">روی رخ کلیک کن
 تا روی ستاره ببریش!</string>
@@ -20,11 +20,11 @@
 تا به همه چیز سرعت ببخشید!</string>
   <string name="rookComplete">تبریک! موفق شدید بر مُهره رُخ مسلط شوید.</string>
   <string name="theBishop">فیل</string>
-  <string name="itMovesDiagonally">مورب حرکت میکنه</string>
-  <string name="bishopIntro">در مرحله بعدی یاد می‌گیریم چگونه با فیل جولان دهیم!</string>
-  <string name="youNeedBothBishops">یک فیل خونه سفید،
-یک فیل خونه سیاه.
-شما به هر دو نیاز دارید!</string>
+  <string name="itMovesDiagonally">کژ حرکت می‌کند</string>
+  <string name="bishopIntro">در مرحله بعدی یاد می‌گیریم چگونه با فیل بجولانیم!</string>
+  <string name="youNeedBothBishops">یک فیل سفیدرو،
+یک فیل سیاه‌رو.
+به هر دو نیازمندیم!</string>
   <string name="bishopComplete">تبریک! شما میتوانید یک فیل را فرمانروایی کنید.</string>
   <string name="theQueen">وزیر</string>
   <string name="queenCombinesRookAndBishop">وزیر = رخ + فیل</string>
@@ -45,33 +45,33 @@
 فرار کن و ستاره ها رو بگیر!</string>
   <string name="knightComplete">تبریک! شما در بازی با اسب استاد شدید.</string>
   <string name="thePawn">پیاده</string>
-  <string name="itMovesForwardOnly">فقط به جلو حرکت میکند</string>
-  <string name="pawnIntro">پیاده ها ضعیفن، اما کوله باری از پتانسیل اند.</string>
-  <string name="pawnsMoveOneSquareOnly">پیاده ها فقط یک خونه حرکت میکنند.
-اما وقتی که به اون طرف صفحه برسند، مهره قویی میشن!</string>
+  <string name="itMovesForwardOnly">فقط به جلو حرکت می‌کند</string>
+  <string name="pawnIntro">پیاده‌ها ضعیفند، ولی تَوَند فراوانی دارند.</string>
+  <string name="pawnsMoveOneSquareOnly">پیاده‌ها فقط یک خانه حرکت می‌کنند.
+اما وقتی به سوی دیگر صفحه رسند، مهره‌ی نیرومندتری می‌شوند!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">بیشتر وقت‌ها ارتقا به وزیر، بهترین است.
 اما گهگاه، یک اسب می‌تواند به درد خورد!</string>
-  <string name="pawnsMoveForward">پیاده مستقیم حرکت میکنه،
-اما اُریب میزنه!</string>
-  <string name="captureThenPromote">بزن، بعد ارتقاء بده!</string>
-  <string name="useAllThePawns">از همه پیاده ها استفاده کن!
-نیازی به ارتقاء نیست.</string>
-  <string name="aPawnOnTheSecondRank">پیاده در حرکت اولش میتواند 2 خانه به جلو برود!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">همه ستاره ها رو بگیر!
-نیازی به ارتقاء نیست.</string>
+  <string name="pawnsMoveForward">پیاده به جلو حرکت می‌کند،
+ولی کژ می‌زند!</string>
+  <string name="captureThenPromote">بزن، سپس ارتقا ده!</string>
+  <string name="useAllThePawns">از همه‌ی پیاده‌ها استفاده کن!
+نیازی به ارتقا نیست.</string>
+  <string name="aPawnOnTheSecondRank">پیاده‌ی عرض دوم، می‌تواند یکباره ۲ خانه حرکت کند!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">همه‌ی ستاره‌ها را بگیر!
+نیازی به ارتقا نیست.</string>
   <string name="pawnComplete">تبریک! هیچ رازی از پیاده ها بر شما پنهان نیست.</string>
-  <string name="pawnPromotion">ارتقاء پیاده</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">پیاده شما به خونه آخر رسید!</string>
-  <string name="itNowPromotesToAStrongerPiece">حالا به یک مهره قوی تر ارتقاء میابه.</string>
-  <string name="selectThePieceYouWant">مهره ای که میخواهید را انتخاب کنید!</string>
+  <string name="pawnPromotion">ارتقا پیاده</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">پیاده‌تان به عرض آخر رسید!</string>
+  <string name="itNowPromotesToAStrongerPiece">اکنون به مهره نیرومندتری ارتقا می‌یابد.</string>
+  <string name="selectThePieceYouWant">مهره‌ای که می‌خواهید را برگزینید!</string>
   <string name="fundamentals">اصول</string>
   <string name="capture">زدن</string>
-  <string name="takeTheEnemyPieces">مهره حریف رو بزن</string>
-  <string name="captureIntro">مهره های بی دفاع حریف را شناسایی کنید، و آن ها را بزنید!</string>
-  <string name="takeTheBlackPieces">مهره های سیاه را بزنید!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">مهره های سیاه را بزنید!
-و مهره های خودتان را از دست ندهید.</string>
-  <string name="captureComplete">تبریک! شما می دانید چگونه با مهره های شطرنج بجنگید!</string>
+  <string name="takeTheEnemyPieces">مهره‌های دشمن را بزن</string>
+  <string name="captureIntro">مهره‌های بی‌دفاع حریف را شناسایی کنید، و آن‌ها را بزنید!</string>
+  <string name="takeTheBlackPieces">مهره‌های سیاه را بزنید!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">مهره‌های سیاه را بزنید!
+و مهره‌های خودتان را از دست ندهید.</string>
+  <string name="captureComplete">تبریک! شما می‌دانید چگونه با مهره‌های شطرنج بجنگید!</string>
   <string name="protection">محافظت</string>
   <string name="keepYourPiecesSafe">مهره های خود را امن نگه دارید</string>
   <string name="protectionIntro">مهره هایی که حریفتان حمله میکند را شناسایی کنید، و از آن ها دفاع کنید!</string>
