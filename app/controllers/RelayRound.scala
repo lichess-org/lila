@@ -114,7 +114,7 @@ final class RelayRound(
         json = doApiShow(id)
       )
 
-  def apiShow(ts: String, rs: String, id: RelayRoundId) = AnonOrScoped(_.Study.Read):
+  def apiShow(ts: String, rs: String, id: RelayRoundId) = AnonOrScoped(_.Study.Read, _.Web.Mobile):
     doApiShow(id)
 
   private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
