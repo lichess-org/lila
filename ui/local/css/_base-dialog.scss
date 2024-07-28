@@ -1,15 +1,16 @@
 .base-view {
   ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp'); // TODO - set from botCtrl/js
   ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp'); // TODO - set from botCtrl/js
+
   ---scale-factor: 1;
 
-  @include if-constrained(400px) {
-    ---scale-factor: 0.5;
+  /*@include if-constrained(400px) {
+    ---scale-factor: 0.7;
   }
 
   @include if-constrained(500px) {
-    ---scale-factor: 0.7;
-  }
+    ---scale-factor: 0.85;
+  }*/
 
   @extend %flex-column;
   width: 100vw;
@@ -41,9 +42,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    /*@include if-constrained(500px) {
-      aspect-ratio: 3/4;
-    }*/
     border-radius: 10px;
     &::before {
       position: absolute;
@@ -65,13 +63,13 @@
       outline: 2px dashed $c-primary;
     }
 
-    &.white {
+    &[data-color='white'] {
       background-color: hsl(37, 12%, 92%);
       &::before {
         background-image: var(---white-image-url);
       }
     }
-    &.black {
+    &[data-color='black'] {
       background-color: hsl(37, 5%, 23%);
       &::before {
         background-image: var(---black-image-url);
@@ -97,7 +95,7 @@
     background-color: #242424;
     border: 1px solid #444;
     color: white;
-    &.white {
+    &[data-color='white'] {
       background-color: $c-body-gradient;
       color: $c-font-clearer;
       border: 1px solid $c-border;

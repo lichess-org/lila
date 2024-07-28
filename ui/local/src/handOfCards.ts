@@ -1,4 +1,5 @@
-//import { isTouchDevice } from 'common/device';
+import { isTouchDevice } from 'common/device';
+import { clamp } from 'common';
 
 const BASE_CARD_SIZE = 192; // at ---scale-factor: 1
 
@@ -23,7 +24,7 @@ export class HandOfCards {
   cards: HTMLElement[] = [];
   userMidX: number;
   userMidY: number;
-  startAngle = 0;
+  //startAngle = 0;
   startMag = 0;
   dragMag = 0;
   dragAngle: number = 0;
@@ -31,8 +32,9 @@ export class HandOfCards {
   killAnimation = 0;
   scaleFactor = 1;
   pointerDownTime?: number;
-  rect: DOMRect;
+  touchDragShape?: TouchDragShape;
   dragCard: HTMLElement | null = null;
+  rect: DOMRect;
 
   constructor(readonly owner: HandOwner) {
     this.updateCards();
@@ -43,10 +45,8 @@ export class HandOfCards {
   resize: () => void = () => {
     const newRect = this.view.getBoundingClientRect();
     if (this.rect && newRect.width === this.rect.width && newRect.height === this.rect.height) return;
-    this.scaleFactor = parseFloat(
-      window.getComputedStyle(document.documentElement).getPropertyValue('---scale-factor'),
-    );
-    if (isNaN(this.scaleFactor)) this.scaleFactor = 1;
+    this.scaleFactor = 0.8 + 0.3 * clamp((newRect.width - 400) / 200, { min: 0, max: 1 });
+    this.view.style.setProperty('---scale-factor', String(this.scaleFactor));
     const h2 = BASE_CARD_SIZE * this.scaleFactor - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
     this.rect = newRect;
     this.userMidX = this.view.offsetWidth / 2;
@@ -127,7 +127,9 @@ export class HandOfCards {
     const hovered = $as<HTMLElement>($('.card.pull'));
     const hoveredIndex = this.cards.findIndex(x => x == hovered);
     const deck = this.cards.filter(x => x !== this.dragCard);
-    const selected = deck.filter(x => this.selectedTransform(x));
+    const selected = deck.filter(x => !this.selectedTransform(x));
+    const arcSlice = Math.PI / 5;
+
     if (!this.fanout)
       for (const [i, card] of deck.filter(x => !selected.includes(x)).entries()) {
         card.style.backgroundColor = '';
@@ -137,9 +139,10 @@ export class HandOfCards {
       for (const [i, card] of this.cards.entries()) {
         if (this.selected.includes(card) || card === this.dragCard) continue;
         card.style.backgroundColor = '';
-        const pull = !hovered || i <= hoveredIndex ? 0 : (-(Math.PI / 2) * this.scaleFactor) / visibleCards;
-        const fanout = ((Math.PI / 4) * (this.cards.length - i - 0.5)) / visibleCards;
-        this.fanoutTransform(card, -Math.PI / 8 + pull + this.dragAngle + fanout);
+        const pull =
+          !hovered || i <= hoveredIndex ? 0 : -(Math.PI / 2) /* * this.scaleFactor*/ / visibleCards;
+        const fanout = ((Math.PI / 5) * (this.cards.length - i - 0.5)) / visibleCards;
+        this.fanoutTransform(card, fanout - arcSlice / 2 + pull);
       }
   }
 
@@ -166,14 +169,14 @@ export class HandOfCards {
   private selectedTransform(card: HTMLElement) {
     const dindex = this.drops.findIndex(x => x.selected === card.id);
     card.classList.toggle('selected', dindex >= 0);
-    if (dindex < 0) return false;
+    if (dindex < 0) return true;
     const to = this.drops[dindex].el;
     const scale = to.offsetHeight / card.offsetHeight;
     const x = to.offsetLeft - card.offsetLeft + (to.offsetWidth - card.offsetWidth) / 2;
     const y = to.offsetTop - card.offsetTop + (to.offsetHeight - card.offsetHeight) / 2;
     card.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
     card.style.backgroundColor = window.getComputedStyle(to).backgroundColor;
-    return true;
+    return false;
   }
 
   private clientToOrigin(client: [number, number]): [number, number] {
@@ -231,14 +234,31 @@ export class HandOfCards {
   };
 
   private pointerDown = (e: PointerEvent) => {
+    const card = e.currentTarget as HTMLElement;
     this.pointerDownTime = Date.now();
+    if (e.pointerType === 'touch') {
+      this.view.classList.add('no-capture');
+      this.touchDragShape = new TouchDragShape(e, this.cards, card, this.rect.width / this.cards.length);
+      this.select(this.drops[0].el, card.id);
+      //this.dragCard = card;
+      //this.select(this.drops[0].el, card.id);
+      this.redraw();
+      return;
+    }
     this.dragCard?.releasePointerCapture(e.pointerId);
-    this.dragCard = e.currentTarget as HTMLElement;
+    this.dragCard = card;
     this.dragCard.setPointerCapture(e.pointerId);
     this.redraw();
   };
 
   private pointerMove = (e: PointerEvent) => {
+    if (e.pointerType === 'touch') {
+      if (this.touchDragShape?.update(e)) {
+        this.select(this.drops[0].el, this.cards[this.touchDragShape.currentIndex].id);
+        this.redraw();
+        return;
+      }
+    }
     if (!this.pointerDownTime || !this.dragCard) return;
     e.preventDefault();
     this.dragCard.classList.add('dragging');
@@ -253,6 +273,11 @@ export class HandOfCards {
   };
 
   private pointerUp = (e: PointerEvent) => {
+    if (e.pointerType === 'touch') {
+      this.view.classList.remove('no-capture');
+      this.touchDragShape = undefined;
+      return;
+    }
     for (const drop of this.drops) drop.el?.classList.remove('drag-over');
     this.view.querySelectorAll('.dragging')?.forEach(x => x.classList.remove('dragging'));
     if (!this.dragCard) return;
@@ -284,48 +309,34 @@ export class HandOfCards {
   };
 }
 
-/* v0.0.1
-  startDrag(e: PointerEvent): void {
-    this.startAngle = this.getAngle([e.clientX, e.clientY]) - this.dragAngle;
-    this.dragMag = this.startMag = this.getMag([e.clientX, e.clientY]);
-    this.view.classList.add('dragging');
-    this.dragCard = e.currentTarget as HTMLElement;
-    if (isTouchDevice()) {
-      $('.card').removeClass('pull');
-      this.dragCard.classList.add('pull');
-    }
-    this.dragCard.setPointerCapture(e.pointerId);
-    this.dragCard.style.transition = 'none';
-    this.resetIdleTimer();
+class TouchDragShape {
+  start: [number, number];
+  current: [number, number];
+  initialIndex: number;
+  constructor(
+    e: PointerEvent,
+    readonly cards: HTMLElement[],
+    readonly startCard: HTMLElement,
+    readonly touchRadius = 25,
+  ) {
+    this.start = [e.clientX, e.clientY];
+    this.current = [e.clientX, e.clientY];
+    this.initialIndex = this.cards.indexOf(startCard);
   }
-
-  duringDrag(e: PointerEvent): void {
-    e.preventDefault();
-    if (!this.dragCard) return;
-    for (const drop of this.drops) drop.el?.classList.remove('drag-over');
-    this.dropTarget(e)?.classList.add('drag-over');
-    const newAngle = this.getAngle([e.clientX, e.clientY]);
-
-    this.dragMag = this.getMag([e.clientX, e.clientY]);
-    this.dragAngle = newAngle - this.startAngle;
-    this.placeCards();
-    this.resetIdleTimer();
+  update(e: PointerEvent): boolean {
+    this.current = [e.clientX, e.clientY];
+    return this.initialIndex !== this.currentIndex;
   }
-
-  endDrag(e: PointerEvent): void {
-    for (const drop of this.drops) drop.el?.classList.remove('drag-over');
-    $('.card').removeClass('pull');
-    this.view.classList.remove('dragging');
-    if (this.dragCard) {
-      this.dragCard.style.transition = '';
-      this.dragCard.releasePointerCapture(e.pointerId);
-      const target = this.dropTarget(e);
-      if (target) this.select(target, this.dragCard.id);
-    }
-    //this.startMag = this.dragMag = this.startAngle = this.dragAngle = 0;
-    this.startMag = this.dragMag = this.startAngle = 0;
-    this.dragCard = null;
-    this.placeCards();
-    this.resetIdleTimer();
+  get deltaX(): number {
+    return this.current[0] - this.start[0];
   }
-  */
+  get deltaY(): number {
+    return this.current[1] - this.start[1];
+  }
+  get currentIndex(): number {
+    return clamp(this.initialIndex - Math.round(this.deltaX / this.touchRadius), {
+      min: 0,
+      max: this.cards.length - 1,
+    });
+  }
+}

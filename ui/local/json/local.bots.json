@@ -52,17 +52,6 @@
     "zero": { "multipv": 1, "net": "maia-1500.pb" }
   },
   {
-    "uid": "#greta",
-    "name": "Greta",
-    "description": "Greta lives in the woods and plays chess with squirrels.",
-    "image": "greta.webp",
-    "books": [
-      { "name": "gm2600", "weight": 1 },
-      { "name": "komodo", "weight": 1 }
-    ],
-    "zero": { "multipv": 1, "net": "maia-1600.pb" }
-  },
-  {
     "uid": "#maia",
     "name": "Maia",
     "description": "Maia was a famous author before she began modeling for Elle (see zero).",
@@ -87,7 +76,7 @@
   {
     "uid": "#bionica",
     "name": "Bionica",
-    "description": "Bionica was programmed with a full range of emotions. Her favorite is contempt.",
+    "description": "Bionica was programmed with a full range of emotions, but she prefers contempt.",
     "image": "bionica.webp",
     "books": [
       { "name": "gm2600", "weight": 1 },
@@ -133,7 +122,7 @@
   {
     "uid": "#thinman",
     "name": "Thinman",
-    "description": "Thinman is not your friend. It's why he's pointing a laser gun at your face.",
+    "description": "Thinman is pointing a laser gun at your face. It's not out of love.",
     "image": "thinman.webp",
     "zero": { "multipv": 1, "net": "evilgyal-6.pb" }
   },

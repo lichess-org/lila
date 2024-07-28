@@ -1,35 +1,23 @@
+body:has(.base-view.setup-view) {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
 .setup-view {
+  max-width: 720px;
+  max-height: 800px;
   user-select: none;
   .vs {
-    @include above-cards;
-    display: grid;
-    @media (orientation: portrait) {
-      grid-auto-rows: auto;
-      grid-template-columns: 1fr;
-      grid-template-areas: 'b' 'w' 'a';
-    }
-    @media (orientation: landscape) {
-      grid-template-rows: 1fr;
-      grid-template-columns: 1fr auto 1fr;
-      grid-template-areas: 'w a b';
-    }
+    @extend %flex-column;
+    align-items: center;
   }
-  .player.white {
-    grid-area: w;
-  }
-  .player.black {
-    grid-area: b;
+  .player {
+    aspect-ratio: 1;
+    width: min(70%, 33vh);
   }
   .actions {
-    grid-area: a;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    @media (orientation: portrait) {
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: start;
-    }
+    @extend %flex-around;
+    align-items: start;
     gap: calc(20px * $scale-factor);
     font-size: calc(32px * $scale-factor);
     button {
@@ -41,6 +29,37 @@
     }
   }
 
+  .you {
+    @extend %flex-center;
+    align-items: center;
+    border-radius: 10px;
+    width: min(70%, 33vh);
+
+    p {
+      padding: 1em;
+      text-align: center;
+      font-size: calc(0.4em + 0.8em * $scale-factor);
+      opacity: 0.87;
+      border-radius: 8px;
+    }
+
+    &[data-color='white'] {
+      background-color: hsl(37, 12%, 92%);
+      p {
+        background-color: $c-body-gradient;
+        color: $c-font-clearer;
+        border: 1px solid $c-border;
+      }
+    }
+    &[data-color='black'] {
+      background-color: hsl(37, 5%, 23%);
+      p {
+        background-color: #242424;
+        color: white;
+        border: 1px solid #444;
+      }
+    }
+  }
   .switch.disabled,
   .random.disabled {
     pointer-events: none;

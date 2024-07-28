@@ -26,7 +26,7 @@ export interface DialogOpts {
   append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default 'child'
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   focus?: string; // query selector for element to focus on show
-  actions?: Action | Action[]; // if present, add listeners to action buttons
+  actions?: Action | Action[]; // add listeners to controls
   onClose?: (dialog: Dialog) => void; // called when dialog closes
   noCloseButton?: boolean; // if true, no upper right corner close button
   noClickAway?: boolean; // if true, no click-away-to-close
@@ -91,7 +91,7 @@ export async function confirm(msg: string): Promise<boolean> {
 }
 
 // when opts contains 'show', this promise resolves as show/showModal (on dialog close) so check returnValue
-// if not, this promise resolves once assets are loaded and things are fully constructed but not shown
+// otherwise, this promise resolves once assets are loaded and things are fully constructed but not shown
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   const [html] = await loadAssets(o);
 
@@ -240,27 +240,27 @@ class DialogWrapper implements Dialog {
   }
 
   show = (): Promise<Dialog> => {
-    this.restore = {
-      overflow: document.body.style.overflow,
-    };
+    // this.restore = {
+    //   overflow: document.body.style.overflow,
+    // };
     if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
-    document.body.style.overflow = 'hidden';
+    //document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.show();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   showModal = (): Promise<Dialog> => {
-    this.restore = {
-      focus: document.activeElement as HTMLElement,
-      overflow: document.body.style.overflow,
-    };
+    // this.restore = {
+    //   focus: document.activeElement as HTMLElement,
+    //   overflow: document.body.style.overflow,
+    // };
     if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
     else (this.view.querySelectorAll(focusQuery)[1] as HTMLElement)?.focus();
 
     this.addEventListener(this.dialog, 'keydown', onModalKeydown);
     this.view.scrollTop = 0;
-    document.body.style.overflow = 'hidden';
+    //document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.showModal();
     return new Promise(resolve => (this.resolve = resolve));

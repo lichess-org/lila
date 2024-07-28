@@ -1,6 +1,6 @@
 .with-cards {
   position: relative;
-  padding: calc(2em * var(---scale-factor));
+  padding: calc(2em * var(---scale-factor)); // ---scale-factor adjusted in javascript
   padding-bottom: 0;
   flex-grow: 1;
   overflow: hidden;
@@ -45,6 +45,10 @@
   }
 }
 
+.with-cards.no-capture .card {
+  transition: none;
+}
+
 .z-remove {
   display: none;
   z-index: $z-above-dialog-14;
@@ -53,6 +57,7 @@
   width: 20px;
   top: 5px;
   right: 5px;
+
   cursor: pointer;
   filter: grayscale(1);
   &.show {
