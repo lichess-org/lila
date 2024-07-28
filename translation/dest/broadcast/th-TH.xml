@@ -26,4 +26,13 @@
   <string name="automaticLeaderboard">ตารางผู้นำอัตโนมัติ</string>
   <string name="automaticLeaderboardHelp">คำนวณและแสดงกระดานผู้นำอย่างง่ายตามผลลัพธ์ของเกม</string>
   <string name="replacePlayerTags">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">สหพันธ์ FIDE</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">10 ผู้เล่นที่แต้มสูงสุด</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">ผู้เล่น FIDE</string>
+  <string name="fidePlayerNotFound">ไม่พบผู้เล่น FIDE</string>
+  <string name="fideProfile">ประวัติผู้เล่น FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">สหพันธ์</string>
+  <string name="ageThisYear">อายุปัจจุบัน</string>
+  <string name="unrated">ไม่มีคะแนน</string>
+  <string name="recentTournaments">ทัวร์นาเมนต์ล่าสุด</string>
 </resources>
