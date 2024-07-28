@@ -10,6 +10,7 @@
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">مهره‌چینی و تحلیل بازی با %s</string>
   <string name="cloudEngineAnalysis">تحلیل رایانه ابری</string>
+  <string name="studies">مطالعه‌ها (واکاوی ماندگار و همرسانی‌شوا)</string>
   <string name="chessInsights">درون‌دید‌ شطرنجی (تحلیل جز‌ئی بازی‌تان)</string>
   <string name="allChessBasicsLessons">همه درس‌های پایه‌ای شطرنج</string>
   <string name="tacticalPuzzlesFromUserGames">معماهای راهکنشی از بازی‌های کاربر</string>
