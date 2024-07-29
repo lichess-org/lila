@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="justNow">saiki</string>
-  <plurals name="inNbSeconds">
-    <item quantity="other">ing %s kapindho
-ing %s detik</item>
-  </plurals>
 </resources>
