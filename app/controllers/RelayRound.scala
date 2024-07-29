@@ -161,7 +161,7 @@ final class RelayRound(
 
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId, embed: Option[UserStr]) =
     Open:
-      WithRoundAndTour(ts, rs, id): rt =>
+      WithRoundAndTour(ts, rs, id, chapterId.some): rt =>
         env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId).orNotFound {
           doShow(rt, _, embed)
         }
@@ -197,12 +197,17 @@ final class RelayRound(
         import lila.relay.JsonView.given
         JsonOk(stats)
 
-  private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
+  private def WithRoundAndTour(
+      @nowarn ts: String,
+      @nowarn rs: String,
+      id: RelayRoundId,
+      chapterId: Option[StudyChapterId] = None
+  )(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     Found(env.relay.api.byIdWithTour(id)): rt =>
       if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable(ctx.req)
-      then Redirect(rt.path)
+      then Redirect(chapterId.fold(rt.path)(rt.path))
       else f(rt)
 
   private def WithTour(id: RelayTourId)(

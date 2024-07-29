@@ -29,6 +29,7 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: lila.core.game.GameProxy,
     cacheApi: CacheApi,
+    notifyMissingFideIds: RelayNotifyMissingFideIds,
     onlyIds: Option[List[RelayTourId]] = None
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
@@ -126,8 +127,9 @@ final private class RelayFetch(
         api.syncTargetsOfSource(round)
         if result.nbMoves > 0 then
           lila.mon.relay.moves(tour.official, tour.id, tour.slug).increment(result.nbMoves)
-          if !round.hasStarted && !tour.official then
-            irc.broadcastStart(round.id, round.withTour(tour).fullName)
+          if tour.official then notifyMissingFideIds.schedule(round.id)
+          if !round.hasStarted && !tour.official
+          then irc.broadcastStart(round.id, round.withTour(tour).fullName)
           continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
         else continueRelay(tour, updating)
       case _ => continueRelay(tour, updating)

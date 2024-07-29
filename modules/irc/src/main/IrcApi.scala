@@ -89,9 +89,6 @@ final class IrcApi(
           .lichessLink("/mod/chat-panic", " Chat Panic")}"
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
 
-  def broadcastError(id: RelayRoundId, name: String, error: String): Funit =
-    zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
-
   def ublogPost(
       user: LightUser,
       id: UblogPostId,
@@ -106,6 +103,16 @@ final class IrcApi(
   def broadcastStart(id: RelayRoundId, fullName: String): Funit =
     zulip(_.broadcast, "non-tiered broadcasts"):
       s":note: ${markdown.broadcastLink(id, fullName)}"
+
+  def broadcastError(id: RelayRoundId, name: String, error: String): Funit =
+    zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
+
+  def broadcastMissingFideId(id: RelayRoundId, name: String, players: List[(StudyChapterId, String)]): Funit =
+    zulip(_.broadcast, "lila missing FIDE IDs"):
+      s"${players.size} players lack a FIDE ID in ${markdown.broadcastLink(id, name)}\n" + players
+        .map: (chapterId, playerName) =>
+          s"- ${markdown.broadcastGameLink(id, chapterId, playerName)}"
+        .mkString("\n")
 
   def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
     zulip
@@ -189,6 +196,8 @@ object IrcApi:
     def ipLink(ip: String)                            = lichessLink(s"/mod/ip/$ip", ip)
     def userNotesLink(name: UserName)                 = lichessLink(s"/@/$name?notes", "notes")
     def broadcastLink(id: RelayRoundId, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
+    def broadcastGameLink(id: RelayRoundId, gameId: StudyChapterId, name: String) =
+      lichessLink(s"/broadcast/-/-/$id/$gameId", name)
     def linkifyUsers(msg: String) = userRegex.matcher(msg).replaceAll(m => userLink(UserName(m.group(1))))
     val postReplace               = lichessLink("/forum/$1", "$1")
     def linkifyPosts(msg: String) = postRegex.matcher(msg).replaceAll(postReplace)
