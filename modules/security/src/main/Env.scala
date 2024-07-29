@@ -40,7 +40,8 @@ final class Env(
 
   lazy val firewall = Firewall(
     coll = db(config.collection.firewall),
-    scheduler = scheduler
+    scheduler = scheduler,
+    ws = ws
   )
 
   lazy val flood = new Flood
