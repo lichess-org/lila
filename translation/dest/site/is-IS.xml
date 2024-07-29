@@ -37,10 +37,10 @@
   <string name="whitePlays">Hvítur á leik</string>
   <string name="blackPlays">Svartur á leik</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Andstæðingur þinn yfirgaf leikinn. Þú getur krafist sigurs eftir %s sekúndur.</item>
+    <item quantity="one">Andstæðingur þinn yfirgaf skákina. Þú getur krafist sigurs eftir %s sekúndur.</item>
     <item quantity="other">Andstæðingur þinn yfirgaf leikinn. Þú getur krafist sigurs eftir %s sekúndur.</item>
   </plurals>
-  <string name="opponentLeftChoices">Andstæðingurinn hefur yfirgefið leikinn. Þú getur krafist uppgjafar eða beðið.</string>
+  <string name="opponentLeftChoices">Andstæðingurinn yfirgaf skákina. Þú getur krafist sigurs, úrskurðað jafntefli, eða beðið.</string>
   <string name="forceResignation">Krefjast sigurs</string>
   <string name="forceDraw">Þvinga jafntefli</string>
   <string name="talkInChat">Vinsamlegast verið vinaleg í spjalli!</string>
@@ -60,6 +60,7 @@
   <string name="usingServerAnalysis">Greining frá vefþjóni</string>
   <string name="loadingEngine">Hleð inn vél...</string>
   <string name="calculatingMoves">Reikna leiki...</string>
+  <string name="engineFailed">Villa við ræsingu skáktölvu</string>
   <string name="cloudAnalysis">Greining í skýi</string>
   <string name="goDeeper">Fara dýpra</string>
   <string name="showThreat">Sýna ógn</string>
@@ -70,8 +71,8 @@
   <string name="deleteFromHere">Eyða héðan</string>
   <string name="forceVariation">Þvinga í tilbrigði</string>
   <string name="move">Leikur</string>
-  <string name="variantLoss">Tapar afbrigði</string>
-  <string name="variantWin">Vinnur afbrigði</string>
+  <string name="variantLoss">Afbrigði tapar</string>
+  <string name="variantWin">Afbrigði vinnur</string>
   <string name="insufficientMaterial">Mannafla skortir</string>
   <string name="pawnMove">Peðsleikur</string>
   <string name="capture">Drepið</string>
@@ -84,18 +85,20 @@
   <string name="whiteDrawBlack">Hvitur / Jafntefli / Svartur</string>
   <string name="averageRatingX">Meðal Elo: %s</string>
   <string name="recentGames">Síðustu skákir</string>
-  <string name="topGames">Bestir leikir</string>
-  <string name="masterDbExplanation">Tvær milljónir skáka með %1$s FIDE-stiga skákmönnum frá %2$s stigum til %3$s</string>
+  <string name="topGames">Bestu skákir</string>
+  <string name="masterDbExplanation">OTB skákir %1$s+ FIDE-stiga skákmanna frá %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mát eftir %s hálfleik</item>
     <item quantity="other">Mát eftir %s hálfleikum</item>
   </plurals>
-  <string name="noGameFound">Enginn leikur fannst</string>
+  <string name="noGameFound">Engin skák fannst</string>
+  <string name="maxDepthReached">Hámarks dýpt náð!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kannski að bæta við fleiri skákum til að skoða?</string>
   <string name="openings">Byrjanir</string>
-  <string name="openingExplorer">Skoða opnanir</string>
+  <string name="openingExplorer">Skoða byrjanir</string>
   <string name="openingEndgameExplorer">Byrjana/endatafls könnuður</string>
   <string name="xOpeningExplorer">%s byrjanaskoðari</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Leika fyrsta leik byrjunar/endatafls-könnuðar</string>
   <string name="winPreventedBy50MoveRule">Enginn sigur vegna 50 leikja reglu</string>
   <string name="lossSavedBy50MoveRule">Bjargað frá tapi með 50 leikja reglu</string>
   <string name="allSet">Allt tilbúið!</string>
