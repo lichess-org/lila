@@ -37,10 +37,6 @@
   <string name="joinTheGame">gabung dulanan</string>
   <string name="whitePlays">putih mulai</string>
   <string name="blackPlays">ireng mulai</string>
-  <plurals name="opponentLeftCounter">
-    <item quantity="other">Lawanmu ninggalké dolanan. Sampeyan bisa menang ing %s kapindho.
-Lawanmu ninggalké dolanan. Sampeyan bisa menang ing %s detik.</item>
-  </plurals>
   <string name="opponentLeftChoices">lawanmu lagi ninggalke dulanan. kowe meksa ngundurke diri opo ditunggu</string>
   <string name="forceResignation">peksa menyerah</string>
   <string name="forceDraw">pekso seri</string>
