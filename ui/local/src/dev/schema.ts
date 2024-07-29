@@ -141,8 +141,8 @@ export const schema: Schema = deepFreeze<Schema>({
   },
   bot_operators: {
     class: ['operators'],
-    lc0line: {
-      label: 'lc0 line P decay',
+    lc0decay: {
+      label: 'lc0 line decay',
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 1 }, from: 'move', data: [] },

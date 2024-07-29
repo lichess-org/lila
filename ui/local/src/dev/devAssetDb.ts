@@ -24,7 +24,7 @@ export class DevAssetDb extends AssetDb {
   image: Map<string, string> = new Map();
   sound: Map<string, string> = new Map();
 
-  constructor(readonly remote: AssetList) {
+  constructor(public remote: AssetList) {
     super();
     remote.bookCover = [];
     remote.book.forEach(book => remote.bookCover!.push(`${book}.png`));
@@ -57,6 +57,12 @@ export class DevAssetDb extends AssetDb {
     return this;
   }
 
+  update(remote: AssetList): void {
+    this.remote = remote;
+    remote.bookCover = [];
+    remote.book.forEach(book => remote.bookCover!.push(`${book}.png`));
+  }
+
   local(type: AssetType): string[] {
     if (type === 'net') return [];
     return this.db[type].keys.filter(k => !this.remote?.[type]?.includes(k));
@@ -64,6 +70,10 @@ export class DevAssetDb extends AssetDb {
 
   all(type: AssetType): string[] {
     return [...new Set([...(this.remote?.[type] ?? []), ...this.db[type].keys])];
+  }
+
+  blob(type: AssetType, key: string): Promise<Blob> {
+    return this.db[type].get(key);
   }
 
   async add(type: AssetType, key: string, file: Blob): Promise<any> {
@@ -93,7 +103,11 @@ export class DevAssetDb extends AssetDb {
   }
 
   async delete(type: AssetType, key: string): Promise<void> {
-    await this.db[type].store?.remove(key);
+    await Promise.all(
+      type === 'book'
+        ? [this.db.book.store?.remove(key), this.db.bookCover.store?.remove(key)]
+        : [this.db[type].store?.remove(key)],
+    );
     if (type === 'image' || type === 'sound') {
       const oldUrl = this[type].get(key);
       if (oldUrl) URL.revokeObjectURL(oldUrl);

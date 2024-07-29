@@ -39,6 +39,9 @@ export class OperatorPane extends Pane {
     }
     this.el.querySelectorAll('.chart-wrapper, .btn-rack')?.forEach(x => x.classList.toggle('none', !enabled));
     this.el.classList.toggle('none', !canEnable);
+    if (enabled) this.host.bot.disabled.delete(this.id);
+    else this.host.bot.disabled.add(this.id);
+
     return super.setEnabled(enabled);
   }
 

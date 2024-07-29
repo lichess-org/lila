@@ -1,6 +1,8 @@
 [
   {
     "uid": "#terrence",
+    "version": 0,
+    "author": "admin",
     "name": "Terrence",
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
@@ -9,6 +11,8 @@
   },
   {
     "uid": "#tbone",
+    "version": 0,
+    "author": "admin",
     "name": "T-Bone",
     "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
     "image": "t-bone.webp",
@@ -20,6 +24,8 @@
   },
   {
     "uid": "#nacho",
+    "version": 0,
+    "author": "admin",
     "name": "Nacho",
     "description": "Nacho might try to cheese you.",
     "image": "nacho.webp",
@@ -31,6 +37,8 @@
   },
   {
     "uid": "#marco",
+    "version": 0,
+    "author": "admin",
     "name": "Marco",
     "description": "They never asked Marco to star in a video game. He is not pleased.",
     "image": "marco.webp",
@@ -42,6 +50,8 @@
   },
   {
     "uid": "#ghost",
+    "version": 0,
+    "author": "admin",
     "name": "Ghost",
     "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
     "image": "ghost.webp",
@@ -53,6 +63,8 @@
   },
   {
     "uid": "#greta",
+    "version": 0,
+    "author": "admin",
     "name": "Greta",
     "description": "Greta lives in the woods and plays chess with squirrels.",
     "image": "greta.webp",
@@ -64,6 +76,8 @@
   },
   {
     "uid": "#maia",
+    "version": 0,
+    "author": "admin",
     "name": "Maia",
     "description": "Maia was a famous author before she began modeling for Elle (see zero).",
     "image": "maia.webp",
@@ -75,6 +89,8 @@
   },
   {
     "uid": "#gerard",
+    "version": 0,
+    "author": "admin",
     "name": "Gerard",
     "description": "It appears that Gerard has brought a sword to a chess match.",
     "image": "gerard.webp",
@@ -86,6 +102,8 @@
   },
   {
     "uid": "#bionica",
+    "version": 0,
+    "author": "admin",
     "name": "Bionica",
     "description": "Bionica was programmed with a full range of emotions. Her favorite is contempt.",
     "image": "bionica.webp",
@@ -97,6 +115,8 @@
   },
   {
     "uid": "#mitsoko",
+    "version": 0,
+    "author": "admin",
     "name": "Mitsoko",
     "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
     "image": "mitsoko.webp",
@@ -104,6 +124,8 @@
   },
   {
     "uid": "#spectre",
+    "version": 0,
+    "author": "admin",
     "name": "Spectre",
     "description": "Spectre will strike without warning. You have been warned.",
     "image": "spectre.webp",
@@ -111,6 +133,8 @@
   },
   {
     "uid": "#aurora",
+    "version": 0,
+    "author": "admin",
     "name": "Aurora",
     "description": "Aurora can see the future. She sees your defeat.",
     "image": "aurora.webp",
@@ -118,6 +142,8 @@
   },
   {
     "uid": "#hanzo",
+    "version": 0,
+    "author": "admin",
     "name": "Hanzo",
     "description": "Hanzo will not rest until he has defeated you. But then he will rest.",
     "image": "nullzo.webp",
@@ -125,6 +151,8 @@
   },
   {
     "uid": "#eliza",
+    "version": 0,
+    "author": "admin",
     "name": "Eliza",
     "description": "Some say Eliza is an engine, but that's probably just transistor bias.",
     "image": "eliza.webp",
@@ -132,6 +160,8 @@
   },
   {
     "uid": "#thinman",
+    "version": 0,
+    "author": "admin",
     "name": "Thinman",
     "description": "Thinman is not your friend. It's why he's pointing a laser gun at your face.",
     "image": "thinman.webp",
@@ -139,6 +169,8 @@
   },
   {
     "uid": "#listress",
+    "version": 0,
+    "author": "admin",
     "name": "Listress",
     "description": "You are a wretched, pitiful worm. Listress will not be merciful.",
     "image": "listress.webp",

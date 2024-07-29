@@ -5,7 +5,7 @@ import { zerofishMove } from './zerofishMove';
 import type { FishSearch, Position, Zerofish } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import type { AssetDb } from './assetDb';
-import type { Libot, ZerofishBotInfo, ZeroSearch, Operator, Glicko, Book } from './types';
+import type { BotInfo, Libot, ZerofishBotInfo, ZeroSearch, Operator, Glicko, Book } from './types';
 
 export type ZerofishBots = { [id: string]: ZerofishBot };
 
@@ -25,7 +25,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   glicko?: Glicko;
   operators?: { [type: string]: Operator };
 
-  constructor(info: Libot, zerofish: Zerofish, assetDb: AssetDb) {
+  constructor(info: BotInfo, zerofish: Zerofish, assetDb: AssetDb) {
     Object.assign(this, info);
     Object.values(this.operators ?? {}).forEach(normalize);
 

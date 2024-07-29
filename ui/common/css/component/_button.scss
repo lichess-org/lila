@@ -104,6 +104,11 @@
       color: $c-secondary;
     }
 
+    &.button-brag,
+    &.button-brag:hover {
+      color: $c-brag;
+    }
+
     &.button-dim,
     &.button-dim:hover {
       color: $c-font-dim;

@@ -10,7 +10,7 @@ import type { LocalPlayOpts, Libot } from './types';
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
-  const botCtrl = await new BotCtrl(new AssetDb()).init();
+  const botCtrl = await new BotCtrl(new AssetDb()).init(opts.bots);
 
   if (localStorage.getItem('local.setup')) {
     if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.setup')!);

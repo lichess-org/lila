@@ -6,6 +6,7 @@ const assetBase = new URL(searchParams.get('asset-url')!, sw.location.href).href
 
 sw.addEventListener('install', () => {
   sw.skipWaiting();
+  //caches.open('local').then(cache => cache.addAll(['/local']));
 });
 
 sw.addEventListener('activate', e => {

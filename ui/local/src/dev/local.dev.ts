@@ -4,7 +4,6 @@ import { DevCtrl } from './devCtrl';
 import { DevAssetDb, AssetList } from './devAssetDb';
 import { renderDevView } from './devView';
 import { BotCtrl } from '../botCtrl';
-import { SetupDialog } from '../setupDialog';
 import renderGameView from '../gameView';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
@@ -16,16 +15,12 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 }
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
-  const botCtrl = await new BotCtrl(new DevAssetDb(opts.assets)).init();
+  const botCtrl = await new BotCtrl(new DevAssetDb(opts.assets)).init(opts.bots);
 
   if (localStorage.getItem('local.setup')) {
     if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.setup')!);
   }
   if (opts.setup) {
-    if (!opts.setup.go) {
-      new SetupDialog(botCtrl, opts.setup, true);
-      return;
-    }
     botCtrl.whiteUid = opts.setup.white;
     botCtrl.blackUid = opts.setup.black;
   }

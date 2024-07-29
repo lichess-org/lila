@@ -56,21 +56,21 @@ function player(ctx: DevContext, color: Color): VNode {
             { hook: onInsert(el => el.addEventListener('click', () => editBot(ctx, color))) },
             'Edit',
           ),
-        (p.glicko?.rd ?? 350) > 60 &&
-          h(
-            'button.button' + buttonClass[color],
-            {
-              hook: onInsert(el =>
-                el.addEventListener('click', () => {
-                  devCtrl.run({
-                    type: 'rank',
-                    players: [p.uid, ...botCtrl.rankBots.map(b => b.uid)],
-                  });
-                }),
-              ),
-            },
-            'Rank',
-          ),
+        h(
+          'button.button' + buttonClass[color],
+          {
+            hook: onInsert(el =>
+              el.addEventListener('click', () => {
+                p.glicko = undefined;
+                devCtrl.run({
+                  type: 'rank',
+                  players: [p.uid, ...botCtrl.rankBots.map(b => b.uid)],
+                });
+              }),
+            ),
+          },
+          'Rank',
+        ),
       ]),
     h('div.stats', [
       h('span.totals.strong', p?.name ? `${p.name} ${p.ratingText}` : `Player ${color}`),
@@ -153,11 +153,7 @@ function renderPlayPause(ctx: DevContext): VNode {
   const { devCtrl, gameCtrl } = ctx;
   return h(
     `button.play-pause.button.button-metal${
-      gameCtrl.isUserTurn
-        ? '.play.disabled'
-        : devCtrl.testInProgress && !gameCtrl.isStopped
-        ? '.pause'
-        : '.play'
+      gameCtrl.isUserTurn ? '.play.disabled' : gameCtrl.isStopped ? '.play' : '.pause'
     }`,
     { hook: onInsert(el => el.addEventListener('click', () => clickPlayPause(ctx))) },
   );

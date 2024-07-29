@@ -74,7 +74,7 @@ export interface ZerofishBotInfo extends BotInfo {
 export interface LocalPlayOpts {
   pref: any;
   i18n: any;
-  data: RoundData;
+  bots: BotInfo[];
   setup?: LocalSetup;
   devUi?: boolean;
 }
@@ -88,13 +88,15 @@ export interface LocalSetup {
   go?: boolean;
 }
 
+export interface LocalSetupOpts extends LocalSetup {
+  bots: BotInfo[];
+}
+
 export interface Automator {
   onGameOver: (status: GameStatus) => boolean; // returns true to keep going
   onMove?: (fen: string) => void;
   onReset?: () => void;
   noPause: boolean;
-  //readonly orientation: Color;
-  //isStopped?: boolean;
 }
 
 export type NetData = {

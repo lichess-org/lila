@@ -7,12 +7,6 @@ import type { LocalPlayOpts, LocalSetup, Automator, SoundEvent } from './types';
 import type { BotCtrl } from './botCtrl';
 import { statusOf } from 'game/status';
 
-type Elapsed = {
-  sum: number;
-  for: Color;
-  from?: number;
-};
-
 export class GameCtrl {
   private stopped = true;
   game: LocalGame;
@@ -92,7 +86,6 @@ export class GameCtrl {
 
   start(): void {
     if (this.game.end) return;
-    console.warn('weeeeeee! start!');
     this.stopped = false;
     this.updateTurn();
   }
@@ -100,11 +93,6 @@ export class GameCtrl {
   async stop(): Promise<void> {
     if (this.isStopped) return;
     this.stopped = true;
-    console.warn('oh no bubbers!@');
-    //this.cancelBotThink?.();
-    //console.log('STOP DONE!');
-    //this.updateTurn();
-    //this.redraw();
   }
 
   reset(setup: LocalSetup = this.setup): void {
@@ -162,7 +150,6 @@ export class GameCtrl {
   }
 
   jump(ply: number): void {
-    //console.log('jump!', ply);
     this.history =
       ply < this.game.moves.length ? new LocalGame(this.setup.fen, this.game.moves.slice(0, ply)) : undefined;
     if (this.history) return this.updateTurn(this.history);
@@ -175,7 +162,6 @@ export class GameCtrl {
     this.stopped = false;
     const justPlayed = this.turn;
 
-    //console.log(justPlayed, this.game.ply, uci);
     const moveResult = this.game.move(uci);
     const { end, san, move } = moveResult;
 
@@ -188,7 +174,6 @@ export class GameCtrl {
     const boardSoundVolume = sounds ? this.botCtrl.playSound(justPlayed, sounds) : 1;
 
     this.roundData.steps.splice(this.game.ply);
-    //if (end) console.log('WINNAH!', moveResult);
 
     this.round.apiMove!({ ...moveResult, volume: boardSoundVolume });
 
@@ -217,11 +202,7 @@ export class GameCtrl {
 
     if (uci !== '0000' && !this.isStopped && game === this.game && this.round.ply === game.ply)
       this.move(uci);
-    else
-      setTimeout(() => {
-        console.log('hoooooooooooooooooooey!');
-        this.updateTurn();
-      }, 200);
+    else setTimeout(() => this.updateTurn(), 200);
   }
 
   flag(): void {
@@ -237,11 +218,10 @@ export class GameCtrl {
 
   private elapsed: Elapsed = { sum: 0, for: 'black' };
 
-  private updateTurn(game = this.game, boobies = false) {
+  private updateTurn(game = this.game) {
     this.roundData.game.player = game.turn;
     this.round.chessground?.set({ movable: { color: game.turn, dests: game.cgDests } });
     this.syncClock();
-    if (boobies) console.log('boobies!', this.isLive);
     if (this.isLive) this.botMove();
   }
 
@@ -354,3 +334,9 @@ export class GameCtrl {
     };
   }
 }
+
+type Elapsed = {
+  sum: number;
+  for: Color;
+  from?: number;
+};

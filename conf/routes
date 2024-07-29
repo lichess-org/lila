@@ -342,9 +342,13 @@ GET   /streamer/:username              controllers.Streamer.show(username: UserS
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username: UserStr)
 POST  /streamer/:username/check        controllers.Streamer.checkOnline(username: UserStr)
 
-# LocalPlay
+# PrivatePlay
 
-GET   /local                               controllers.Local.index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String], go: Option[String], devUi: Option[String])
+GET   /local                         controllers.Local.index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String], go: Option[String], devUi: Option[String])
+GET   /local/dev/list                controllers.Local.botList
+GET   /local/dev/history             controllers.Local.botHistory
+POST  /local/dev/bot                 controllers.Local.postBot
+POST  /local/dev/asset               controllers.Local.postAsset(tpe: String, name: String)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)

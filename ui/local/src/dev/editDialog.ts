@@ -10,6 +10,7 @@ import type { ZerofishBots } from '../zerofishBot';
 import type { GameCtrl } from '../gameCtrl';
 import type { DevAssetDb } from './devAssetDb';
 import { assetDialog } from './assetDialog';
+import { shareDialog } from './shareDialog';
 
 export class EditDialog implements HostView {
   view: HTMLElement;
@@ -240,7 +241,7 @@ export class EditDialog implements HostView {
       { selector: '.bot-json-all', listener: () => this.showJson() },
       { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
       { selector: '.bot-assets', listener: () => assetDialog(this.assetDb) },
-      { selector: '.bot-unrate-all', listener: () => this.clearRatings() },
+      { selector: '.bot-share', listener: () => shareDialog(this.botCtrl, this.bot.uid) },
       { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
       { selector: '.bot-clear-all', listener: () => this.clearBots() },
       { selector: '.player', listener: e => this.clickImage(e) },
@@ -263,9 +264,8 @@ export class EditDialog implements HostView {
   private get globalActionsHtml(): string {
     return `<div class="global-actions">
         <button class="button button-empty button-green bot-new">new bot</button>
-        <button class="button button-empty button-dim bot-assets">assets</button>
-        <button class="button button-empty button-dim bot-json-all">all json</button>
-        <button class="button button-empty button-red bot-unrate-all">clear all ratings</button>
+        <button class="button button-empty button-brag bot-share">share</button>
+        <button class="button button-empty button-brag bot-assets">assets</button>
         <button class="button button-empty button-red bot-clear-all">revert all to server</button>
       </div>`;
   }

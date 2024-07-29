@@ -23,10 +23,11 @@ final class Env(
 
   export net.{ domain, baseUrl, assetBaseUrlInternal }
 
-  given mode: Mode                 = environment.mode
-  given translator: Translator     = lila.i18n.Translator
-  given scheduler: Scheduler       = system.scheduler
-  given lila.core.config.RateLimit = net.rateLimit
+  given mode: Mode                        = environment.mode
+  given translator: Translator            = lila.i18n.Translator
+  given scheduler: Scheduler              = system.scheduler
+  given lila.core.config.RateLimit        = net.rateLimit
+  given getFile: (String => java.io.File) = environment.getFile
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env
@@ -96,6 +97,7 @@ final class Env(
   val bot: lila.bot.Env                 = wire[lila.bot.Env]
   val storm: lila.storm.Env             = wire[lila.storm.Env]
   val racer: lila.racer.Env             = wire[lila.racer.Env]
+  val local: lila.local.Env             = wire[lila.local.Env]
   val opening: lila.opening.Env         = wire[lila.opening.Env]
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   val cms: lila.cms.Env                 = wire[lila.cms.Env]
@@ -123,8 +125,6 @@ final class Env(
       promise.success(Html(views.game.mini.noCtx(Pov.naturalOrientation(game), tv = true)))
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
       promise.success(Html(views.puzzle.bits.daily(puzzle, fen, lastMove)))
-
-  def getFile(path: String) = environment.getFile(path)
 
 end Env
 

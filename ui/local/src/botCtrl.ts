@@ -20,7 +20,7 @@ export class BotCtrl {
 
   constructor(readonly assetDb: AssetDb) {}
 
-  async init(): Promise<this> {
+  async init(serverBots: BotInfo[]): Promise<this> {
     this.zerofish = await makeZerofish({
       root: site.asset.url('npm', { documentOrigin: true }),
       wasm: site.asset.url('npm/zerofishEngine.wasm'),
@@ -31,11 +31,11 @@ export class BotCtrl {
         this.rankBots.push(new RankBot(this.zerofish, i));
       }
     }
-    return this.initLibots();
+    return this.initLibots(serverBots);
   }
 
-  async initLibots(): Promise<this> {
-    await Promise.all([this.resetBots(), this.assetDb.init()]);
+  async initLibots(serverBots: BotInfo[]): Promise<this> {
+    await Promise.all([this.resetBots(serverBots), this.assetDb.init()]);
     return this;
   }
 
@@ -146,15 +146,13 @@ export class BotCtrl {
     );
   }
 
-  private async resetBots() {
-    const [jsonBots, overrides] = await Promise.all([
-      fetch(site.asset.url('json/local.bots.json')).then(x => x.json()),
-      this.getLocalOverrides(),
-    ]);
+  private async resetBots(jsonBots?: BotInfo[]) {
+    const promises = [jsonBots ?? fetch('/local/dev/list').then(res => res.json()), this.getLocalOverrides()];
+    const [serverBots, overrides] = await Promise.all(promises);
     this.defaultBots = {};
-    jsonBots.forEach((b: BotInfo) => (this.defaultBots[b.uid] = deepFreeze(b)));
+    serverBots.forEach((b: BotInfo) => (this.defaultBots[b.uid] = deepFreeze(b)));
     this.bots = {};
-    for (const b of [...jsonBots, ...overrides]) {
+    for (const b of [...serverBots, ...overrides]) {
       this.bots[b.uid] = new ZerofishBot(b, this.zerofish, this.assetDb);
     }
   }
