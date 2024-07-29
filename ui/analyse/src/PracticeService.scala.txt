@@ -1,0 +1,9 @@
+object PracticeService {
+  def generatePracticePosition(theme: String): String = {
+    theme match {
+      case "basicKingAndPawn" => "8/8/8/8/8/4P3/4K3/8 w - - 0 1"  // King and pawn vs. king
+      case "rookAndPawn" => "8/8/8/4k3/8/4P3/8/4K2R w - - 0 1"     // Rook and pawn vs. king
+      case _ => throw new IllegalArgumentException("Unknown theme")
+    }
+  }
+}
