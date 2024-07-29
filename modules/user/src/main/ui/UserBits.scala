@@ -4,6 +4,7 @@ package ui
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import lila.core.relation.Relation
 
 final class UserBits(helpers: Helpers):
   import helpers.*
@@ -28,26 +29,30 @@ final class UserBits(helpers: Helpers):
       )
     )
 
-  def miniClosed(u: User, blocked: Boolean, followed: Boolean)(using Translate) = Snippet:
+  def miniClosed(u: User, relation: Option[Relation])(using Translate) = Snippet:
     frag(
       div(cls := "title")(userLink(u, withPowerTip = false)),
       div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed()),
-      blocked.option(
-        a(
-          cls      := "btn-rack__btn relation-button text aclose",
-          title    := trans.site.unblock.txt(),
-          href     := s"${routes.Relation.unblock(u.id)}?mini=1",
-          dataIcon := Icon.NotAllowed
-        )(trans.site.blocked())
-      ),
-      followed.option(
-        a(
-          cls      := "btn-rack__btn relation-button text aclose",
-          title    := trans.site.unfollow.txt(),
-          href     := s"${routes.Relation.unfollow(u.id)}?mini=1",
-          dataIcon := Icon.ThumbsUp
-        )(trans.site.following())
-      )
+      relation
+        .exists(!_.isFollow)
+        .option(
+          a(
+            cls      := "btn-rack__btn relation-button text aclose",
+            title    := trans.site.unblock.txt(),
+            href     := s"${routes.Relation.unblock(u.id)}?mini=1",
+            dataIcon := Icon.NotAllowed
+          )(trans.site.blocked())
+        ),
+      relation
+        .exists(!_.isFollow)
+        .option(
+          a(
+            cls      := "btn-rack__btn relation-button text aclose",
+            title    := trans.site.unfollow.txt(),
+            href     := s"${routes.Relation.unfollow(u.id)}?mini=1",
+            dataIcon := Icon.ThumbsUp
+          )(trans.site.following())
+        )
     )
 
   def signalBars(v: Int) = raw:
