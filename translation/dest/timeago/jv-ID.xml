@@ -5,8 +5,4 @@
     <item quantity="other">ing %s kapindho
 ing %s detik</item>
   </plurals>
-  <plurals name="inNbMinutes">
-    <item quantity="other">ing %s menit
-ing %s menit</item>
-  </plurals>
 </resources>
