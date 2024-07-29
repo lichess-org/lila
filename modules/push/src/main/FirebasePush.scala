@@ -83,7 +83,7 @@ final private class FirebasePush(
                   case Some(PushApi.Data.FirebaseMod.NotifOnly(mod)) => mod(data.payload.userData)
                   case _ =>
                     data.payload.userData ++ (data.iosBadge.map: number =>
-                      "iosBadge" -> number.toString),
+                      "iosBadge" -> number.toString)
             )
             .add:
               "notification" -> data.firebaseMod.match

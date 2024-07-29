@@ -92,14 +92,14 @@ export async function initModule(o?: CropOpts) {
       maxWidth: opts.max?.pixels,
       maxHeight: opts.max?.pixels,
     });
-    const tryQuality = (quality = 0.9) => {
+    const tryQuality = (quality = 1) => {
       canvas.toBlob(
         blob => {
           if (blob && blob.size < (opts.max?.megabytes ?? 100) * 1024 * 1024) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');
         },
-        'image/jpeg',
+        'image/png',
         quality,
       );
     };

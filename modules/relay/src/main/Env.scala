@@ -55,6 +55,8 @@ final class Env(
 
   lazy val leaderboard = wire[RelayLeaderboardApi]
 
+  private lazy val notifyMissingFideIds = wire[RelayNotifyMissingFideIds]
+
   private lazy val notifier = wire[RelayNotifier]
 
   lazy val jsonView = wire[JsonView]

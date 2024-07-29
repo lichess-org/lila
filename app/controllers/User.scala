@@ -167,33 +167,31 @@ final class User(
           )
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>
-      val relation = ctx.userId.so(relationApi.fetchRelation(_, user.id))
-      if user.enabled.yes || isGrantedOpt(_.UserModView)
-      then
-        (
-          ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
-          ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
-          ctx.isAuth.so(env.pref.api.followable(user.id)),
-          relation
-        ).flatMapN: (blocked, crosstable, followable, relation) =>
-          val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
-          negotiate(
-            html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-              Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
-            },
-            json =
-              import lila.game.JsonView.given
-              Ok:
-                Json.obj(
-                  "crosstable" -> crosstable,
-                  "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
-                )
-          )
-      else
-        relation.map: r =>
-          val block = r.contains(Relation.Block)
-          Ok(views.user.bits.miniClosed(user.user, block))
+      ctx.userId
+        .so(relationApi.fetchRelation(_, user.id))
+        .flatMap: relation =>
+          if user.enabled.yes || isGrantedOpt(_.UserModView)
+          then
+            (
+              ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
+              ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
+              ctx.isAuth.so(env.pref.api.followable(user.id))
+            ).flatMapN: (blocked, crosstable, followable) =>
+              val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
+              negotiate(
+                html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
+                  Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                    .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
+                },
+                json =
+                  import lila.game.JsonView.given
+                  Ok:
+                    Json.obj(
+                      "crosstable" -> crosstable,
+                      "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
+                    )
+              )
+          else Ok(views.user.bits.miniClosed(user.user, relation))
 
   def online = Anon:
     val max = 50
