@@ -47,7 +47,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
                       th(
                         userIdLink(l.user.some, withOnline = false),
                         form3.hidden(s"leaders[$i].name", l.user)
-                      ),
+                      )
                   )
                 ,
                 tbody:
