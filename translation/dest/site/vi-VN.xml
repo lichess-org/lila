@@ -171,7 +171,7 @@
   <string name="latestForumPosts">Bài đăng diễn đàn mới nhất</string>
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
-  <string name="otherPlayers">các kỳ thủ khác</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">các kỳ thủ khác</string>
   <string name="discussions">Trò chuyện</string>
   <string name="today">Hôm nay</string>
   <string name="yesterday">Hôm qua</string>
@@ -505,8 +505,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="descPrivateHelp">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
   <string name="no">Không</string>
   <string name="yes">Có</string>
-  <string name="website">Trang mạng</string>
-  <string name="mobile">Điện thoại di động</string>
+  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">Trang mạng</string>
+  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">Điện thoại di động</string>
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
@@ -648,7 +648,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian ban đầu cho đồng hồ của mình để đấu cờ đồng loạt dễ hơn.</string>
   <string name="simulHostExtraTime">Thời gian thêm ban đầu cho người chủ trì</string>
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu vào đồng hồ của bạn cho mỗi người chơi tham gia sự kiện đồng loạt.</string>
-  <string name="simulHostExtraTimePerPlayer">Thời gian thêm cho mỗi người tham gia</string>
+  <string name="simulHostExtraTimePerPlayer">Thời gian thêm cho người chủ trì theo số người tham gia</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
   <string name="tournamentFAQ">Các câu hỏi hay gặp về giải đấu Đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
