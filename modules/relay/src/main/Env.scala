@@ -59,6 +59,8 @@ final class Env(
 
   private lazy val notifyMissingFideIds = wire[RelayNotifyMissingFideIds]
 
+  private lazy val notifyOrphanBoard = wire[RelayNotifyOrphanBoard]
+
   private lazy val notifier = wire[RelayNotifier]
 
   lazy val jsonView = wire[JsonView]

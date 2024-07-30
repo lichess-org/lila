@@ -11,7 +11,8 @@ object RelayUpdatePlan:
   case class Plan(
       reorder: Option[List[StudyChapterId]],
       update: List[(Chapter, RelayGame)],
-      append: RelayGames
+      append: RelayGames,
+      orphans: List[Chapter] // existing chapters that don't match any of the input games
   ):
     override def toString: String =
       s"Output(reorder = $reorder, update = ${update.map(_._1.name)}, append = ${append.map(_.tags.names)})"
@@ -49,8 +50,13 @@ object RelayUpdatePlan:
       val ids = updates.map(_._1.id)
       Option.when(ids.size == chapters.size && ids != chapters.map(_.id))(ids)
 
+    val orphans: List[Chapter] =
+      val updatedIds = updates.view.map(_._1.id).toSet
+      chapters.filterNot(c => updatedIds.contains(c.id))
+
     Plan(
       reorder = reorder,
       update = updates,
-      append = appends
+      append = appends,
+      orphans = orphans
     )

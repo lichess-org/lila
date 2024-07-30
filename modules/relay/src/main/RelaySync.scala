@@ -13,7 +13,8 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     leaderboard: RelayLeaderboardApi,
-    notifier: RelayNotifier
+    notifier: RelayNotifier,
+    orphanNotifier: RelayNotifyOrphanBoard
 )(using Executor):
 
   def updateStudyChapters(rt: RelayRound.WithTour, rawGames: RelayGames): Fu[SyncResult.Ok] = for
@@ -29,6 +30,7 @@ final private class RelaySync(
     result = SyncResult.Ok(updates ::: appends.flatten, games)
     _      = lila.common.Bus.publish(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
+    _ <- orphanNotifier.inspectPlan(rt, plan)
   yield result
 
   private def updateChapter(

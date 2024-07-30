@@ -4,6 +4,7 @@ import lila.core.LightUser
 import lila.core.LightUser.Me.given
 import lila.core.id.*
 import lila.core.irc.*
+import lila.core.study.data.StudyChapterName
 
 final class IrcApi(
     zulip: ZulipClient,
@@ -124,6 +125,15 @@ final class IrcApi(
         .map: (from, tos) =>
           s"- $from -> ${tos.mkString(", ")}"
         .mkString("\n")
+
+  def broadcastOrphanBoard(
+      id: RelayRoundId,
+      name: String,
+      chapterId: StudyChapterId,
+      boardName: StudyChapterName
+  ): Funit =
+    zulip(_.broadcast, "lila orphan boards"):
+      s"""Orphan board "${boardName}" in ${markdown.broadcastGameLink(id, chapterId, name)}"""
 
   def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
     zulip
