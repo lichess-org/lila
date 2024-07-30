@@ -54,4 +54,12 @@
     <item quantity="one">%s ár síðan</item>
     <item quantity="other">%s ár síðan</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s mínúta eftir</item>
+    <item quantity="other">%s mínútur eftir</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s klukkustund eftir</item>
+    <item quantity="other">%s klukkustundir eftir</item>
+  </plurals>
 </resources>
