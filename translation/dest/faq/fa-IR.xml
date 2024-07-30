@@ -28,7 +28,7 @@
   <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
   <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
-  <string name="youCanUseOpeningBookNoEngine">در لیچس، تفاوت اصلی در قوانین شطرنج مکاتبه‌ای این است که کتاب‌های شروع بازی مجاز است. استفاده از انجین همچنان ممنوع است و منجر به علامت گذاری برای کمک گرفتن از انجین خواهد شد. اگر چه ICCF اجازه استفاده از انجین را در بازی‌های مکاتبه‌ای می‌دهد، لیچس این کار را نمی‌کند.</string>
+  <string name="youCanUseOpeningBookNoEngine">در Lichess، تفاوت اصلی در قانون‌ها برای شطرنج مکاتبه‌ای آن است که، کتاب گشایش مجاز است. استفاده از موتورها همچنان ممنوع است و منجر به نشانه‌گذاری «کمک از موتور» می‌شود. اگرچه ICCF اجازه استفاده از موتور را در مکاتبه می‌دهد، Lichess اجازه نمی‌دهد.</string>
   <string name="gameplay">روند بازی</string>
   <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
   <string name="basedOnGameDuration">کنترل زمانی لیچس بر اساس مدت زمان تخمینی بازی است = %1$s
