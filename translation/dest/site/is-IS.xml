@@ -121,12 +121,12 @@
   <string name="mistake">Mistök</string>
   <string name="inaccuracy">Ónákvæmni</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s Afleikur</item>
-    <item quantity="other">%s Afleikir</item>
+    <item quantity="one">%s afleikur</item>
+    <item quantity="other">%s afleikir</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="one">%s Mistök</item>
-    <item quantity="other">%s Mistök</item>
+    <item quantity="one">%s mistök</item>
+    <item quantity="other">%s mistök</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s ónákvæmni</item>
@@ -142,15 +142,20 @@
     <item quantity="one">%s tengdir spilarar</item>
     <item quantity="other">%s tengdir spilarar</item>
   </plurals>
-  <string name="drawByMutualAgreement">Jafntefli vegna samkomulag</string>
-  <string name="currentGames">Leikir í gangi núna</string>
+  <string name="drawByMutualAgreement">Samið um jafntefli</string>
+  <string name="fiftyMovesWithoutProgress">Fimmtíu leikir án framvindu</string>
+  <string name="currentGames">Skákir í gangi</string>
   <plurals name="nbGames">
     <item quantity="one">%s skák</item>
     <item quantity="other">%s skákir</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s stig eftir %2$s skák</item>
+    <item quantity="other">%1$s stig eftir %2$s skákir</item>
+  </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Geymt</item>
-    <item quantity="other">%s Geymt</item>
+    <item quantity="one">%s geymd</item>
+    <item quantity="other">%s geymdar</item>
   </plurals>
   <string name="viewInFullSize">Skoða í fullri mynd</string>
   <string name="logOut">Skrá út</string>
@@ -169,19 +174,23 @@
   <string name="yesterday">Í gær</string>
   <string name="minutesPerSide">Mínútur á lið</string>
   <string name="variant">Afbrigði</string>
-  <string name="variants">Taflafbrigði</string>
+  <string name="variants">Afbrigði</string>
   <string name="timeControl">Tímaskorður</string>
   <string name="realTime">Rauntími</string>
   <string name="correspondence">Bréfskák</string>
   <string name="daysPerTurn">Dagar á leik</string>
   <string name="oneDay">Einn dagur</string>
   <plurals name="nbDays">
-    <item quantity="one">%s dagar</item>
+    <item quantity="one">%s dagur</item>
     <item quantity="other">%s dagar</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s tímar</item>
-    <item quantity="other">%s tímar</item>
+    <item quantity="one">%s klukkustund</item>
+    <item quantity="other">%s klukkustundir</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s mínúta</item>
+    <item quantity="other">%s mínútur</item>
   </plurals>
   <string name="time">Tími</string>
   <string name="rating">Skákstig</string>
@@ -192,11 +201,12 @@
   <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
   <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
   <string name="signupUsernameHint">Veldu notendanafn sem er viðeigandi fyrir alla, jafnvel börn. Ekki er hægt að breyta það síðar og allir reikningar með óviðeigandi notendanöfn verða lokaðir!</string>
+  <string name="signupEmailHint">Við munum eingöngu nota það til að endursetja lykilorð.</string>
   <string name="password">Lykilorð</string>
-  <string name="changePassword">Breyta um lykilorð</string>
+  <string name="changePassword">Breyta lykilorði</string>
   <string name="changeEmail">Breyta tölvupóstfangi</string>
   <string name="email">Tölvupóstfang</string>
-  <string name="passwordReset">Breyta lykilorði</string>
+  <string name="passwordReset">Endurstilling lykilorðs</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="emailConfirmHelp">Hjálp með staðfestingu á tölvupóst</string>
   <string name="emailConfirmNotReceived">Fékkstu ekki staðfestingartölvupóst?</string>
@@ -204,6 +214,10 @@
   <string name="usernameNotFound">Við fundum engan með þessu notandanafni: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Þú getur notað þetta notandanafn til þess að stofna nýjan aðgang</string>
   <string name="emailSent">Við höfum sent tölvupóst á %s.</string>
+  <string name="emailCanTakeSomeTime">Það gæti tekið smá tíma að skila sér.</string>
+  <string name="refreshInboxAfterFiveMinutes">Hinkraðu í 5 mínútur og athuga svo innhólfið þitt.</string>
+  <string name="checkSpamFolder">Athugaðu einnig ruslmöppuna þína, pósturinn gæti hafa ratað þangað. Ef svo er, merktu hann öruggan.</string>
+  <string name="copyTextToEmail">Afritaðu og límdu ofangreindan texta og sendu hann til %s</string>
   <string name="accountCanLogin">Þú getur skráð þig inn núna sem %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Þú þarft ekki staðfestingar póst.</string>
   <string name="accountClosed">Aðgangurinn %s er lokaður.</string>
@@ -218,7 +232,7 @@
     <item quantity="one">%s þraut</item>
     <item quantity="other">%s þrautir</item>
   </plurals>
-  <string name="gamesPlayed">Skákir spilaðar</string>
+  <string name="gamesPlayed">Skákir tefldar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s skák með þér</item>
     <item quantity="other">%s skákir með þér</item>
@@ -226,7 +240,7 @@
   <string name="cancel">Hætta við</string>
   <string name="whiteTimeOut">Hvítur féll á tíma</string>
   <string name="blackTimeOut">Svartur féll á tíma</string>
-  <string name="drawOfferSent">boð um jafntefli sent</string>
+  <string name="drawOfferSent">Boð um jafntefli sent</string>
   <string name="drawOfferAccepted">Boði um jafntefli samþykkt</string>
   <string name="drawOfferCanceled">Boði um jafntefli afturkallað</string>
   <string name="whiteOffersDraw">Hvítur býður jafntefli</string>
@@ -236,19 +250,20 @@
   <string name="yourOpponentOffersADraw">Andstæðingur býður jafntefli</string>
   <string name="accept">Samþykkja</string>
   <string name="decline">Hafna</string>
-  <string name="playingRightNow">Spilandi núna</string>
-  <string name="eventInProgress">Spilandi þessa stundina</string>
+  <string name="playingRightNow">Að tefla núna</string>
+  <string name="eventInProgress">Mót í gangi</string>
   <string name="finished">Lokið</string>
-  <string name="abortGame">Hverfa frá leik</string>
+  <string name="abortGame">Hætta við skák</string>
   <string name="gameAborted">Hætt við skák</string>
-  <string name="standard">Staðlað</string>
+  <string name="standard">Hefðbundið</string>
+  <string name="customPosition">Sérsniðin staða</string>
   <string name="unlimited">Ótarkmarkað</string>
   <string name="mode">Tegund</string>
   <string name="casual">Venjuleg</string>
   <string name="rated">Stigaleikur</string>
   <string name="casualTournament">Æfingamót</string>
   <string name="ratedTournament">Með stigagjöf</string>
-  <string name="thisGameIsRated">Þetta er stigaleikur</string>
+  <string name="thisGameIsRated">Þessi skák telur til stiga</string>
   <string name="rematch">Önnur skák</string>
   <string name="rematchOfferSent">Boð um aðra skák sent</string>
   <string name="rematchOfferAccepted">Boð um aðra skák samþykkt</string>
