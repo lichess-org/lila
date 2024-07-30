@@ -114,6 +114,17 @@ final class IrcApi(
           s"- ${markdown.broadcastGameLink(id, chapterId, playerName)}"
         .mkString("\n")
 
+  def broadcastAmbiguousPlayers(
+      id: RelayRoundId,
+      name: String,
+      players: List[(String, List[String])]
+  ): Funit =
+    zulip(_.broadcast, "lila ambiguous player replacements"):
+      s"${players.size} players have ambiguous name replacements in ${markdown.broadcastLink(id, name)}\n" + players
+        .map: (from, tos) =>
+          s"- $from -> ${tos.mkString(", ")}"
+        .mkString("\n")
+
   def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
     zulip
       .sendAndGetLink(_.mod.adminAppeal, "/" + user.name):

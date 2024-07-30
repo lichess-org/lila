@@ -18,5 +18,6 @@ trait IrcApi:
   def broadcastStart(id: RelayRoundId, fullName: String): Funit
   def broadcastError(id: RelayRoundId, name: String, error: String): Funit
   def broadcastMissingFideId(id: RelayRoundId, name: String, players: List[(StudyChapterId, String)]): Funit
+  def broadcastAmbiguousPlayers(id: RelayRoundId, name: String, players: List[(String, List[String])]): Funit
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using MyId): Funit
   def ublogPost(user: LightUser, id: UblogPostId, slug: String, title: String, intro: String): Funit
