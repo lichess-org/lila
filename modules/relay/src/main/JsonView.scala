@@ -121,7 +121,7 @@ final class JsonView(
       canContribute: Boolean,
       isSubscribed: Option[Boolean],
       videoUrls: Option[PairOf[String]],
-      pinned: Option[(UserId, String, Option[ImageId])]
+      pinned: Option[RelayPinnedStream]
   ) =
     JsonView.JsData(
       relay = fullTourWithRounds(trs, group)
@@ -129,13 +129,7 @@ final class JsonView(
         .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
-        .add("pinned" -> pinned.map: (id, name, image) =>
-          Json
-            .obj(
-              "userId" -> id,
-              "name"   -> name
-            )
-            .add("image" -> image.map(id => picfitUrl.thumbnail(id, 1200, 675)))),
+        .add("pinnedStream" -> pinned),
       study = studyData.study,
       analysis = studyData.analysis,
       group = group.map(_.group.name)
@@ -155,6 +149,9 @@ final class JsonView(
 object JsonView:
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject, group: Option[RelayGroup.Name])
+
+  given OWrites[RelayPinnedStream] = OWrites: s =>
+    Json.obj("name" -> s.name)
 
   given OWrites[SyncLog.Event] = Json.writes
 
