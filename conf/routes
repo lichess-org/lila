@@ -887,8 +887,8 @@ GET   /variant/:key                    controllers.Cms.variant(key: chess.varian
 
 # Help
 GET   /help/contribute                 controllers.Cms.help
-GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
-GET   /help/voice/:module              controllers.Main.voiceHelp(module)
+GET   /help/*path                      controllers.Main.helpPath(path)
+
 # DGT
 GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play

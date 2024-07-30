@@ -94,13 +94,12 @@ final class Main(
     pageHit
     NotImplemented.page(views.site.message.temporarilyDisabled)
 
-  def keyboardMoveHelp = Open:
-    Ok(lila.ui.Snippet(lila.web.ui.help.keyboardMove))
-
-  def voiceHelp(module: String) = Open:
-    module match
-      case "move" => Ok.snip(lila.web.ui.help.voiceMove)
-      case _      => NotFound(s"Unknown voice module: $module")
+  def helpPath(path: String) = Open:
+    path match
+      case "keyboard-move" => Ok.snip(lila.web.ui.help.keyboardMove)
+      case "voice/move"    => Ok.snip(lila.web.ui.help.voiceMove)
+      case "master"        => Redirect("/verify-title")
+      case _               => notFound
 
   def movedPermanently(to: String) = Anon:
     MovedPermanently(to)

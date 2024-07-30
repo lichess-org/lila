@@ -63,7 +63,6 @@ trait ResponseBuilder(using Executor)
     "help"         -> "/contact",
     "support"      -> "/contact",
     "donate"       -> "/patron",
-    "how-to-cheat" -> "/page/how-to-cheat",
-    "help/master"  -> "/verify-title"
+    "how-to-cheat" -> "/page/how-to-cheat"
   )
   def staticRedirect(key: String): Option[Fu[Result]] = movedMap.get(key).map { MovedPermanently(_) }
