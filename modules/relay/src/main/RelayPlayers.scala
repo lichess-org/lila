@@ -92,13 +92,16 @@ private case class RelayPlayers(players: Map[PlayerName, RelayPlayer]):
   // With player names combinations.
   // For example, if the tokenized player name is "A B C D", the combinations will be:
   // A B, A C, A D, B C, B D, C D, A B C, A B D, A C D, B C D
-  private lazy val combinationPlayers: Map[PlayerToken, RelayPlayer] =
-    tokenizedPlayers.flatMap: (fullToken, player) =>
-      val words = fullToken.split(' ').filter(_.sizeIs > 1).toList
-      for
-        size        <- 2 to words.length.atMost(4)
-        combination <- words.combinations(size)
-      yield combination.mkString(" ") -> player
+  private lazy val combinationPlayers: Map[PlayerToken, List[RelayPlayer]] =
+    val combinations = for
+      (fullToken, player) <- tokenizedPlayers.toList
+      words = fullToken.split(' ').filter(_.sizeIs > 1).toList
+      size        <- 2 to words.length.atMost(4)
+      combination <- words.combinations(size)
+    yield combination.mkString(" ") -> player
+    combinations.foldLeft(Map.empty):
+      case (acc, (token, player)) =>
+        acc + (token -> (player :: acc.getOrElse(token, Nil)))
 
   def update(games: RelayGames): RelayGames = games.map: game =>
     game.copy(tags = update(game.tags))
@@ -122,4 +125,11 @@ private case class RelayPlayers(players: Map[PlayerName, RelayPlayer]):
       .get(name)
       .orElse:
         val token = tokenize(name.value)
-        tokenizedPlayers.get(token).orElse(combinationPlayers.get(token))
+        tokenizedPlayers
+          .get(token)
+          .orElse:
+            combinationPlayers
+              .get(token)
+              .flatMap:
+                case single :: Nil => single.some
+                case _             => none
