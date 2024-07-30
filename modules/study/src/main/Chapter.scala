@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Tag }
 import chess.format.{ Fen, Uci, UciPath }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
@@ -123,6 +123,8 @@ case class Chapter(
   def withoutChildrenIfPractice = if isPractice then copy(root = root.withoutChildren) else this
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
+
+  def tagsExport = PgnTags.cleanUpForPublication(tags)
 
 object Chapter:
 

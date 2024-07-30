@@ -92,7 +92,7 @@ final class PgnDump(
         flags.orientation.so(List(Tag("Orientation", chapter.setup.orientation.name))) :::
         chapter.isGamebook.so(List(Tag("ChapterMode", "gamebook")))
       genTags
-        .foldLeft(chapter.tags.value.reverse): (tags, tag) =>
+        .foldLeft(chapter.tagsExport.value.reverse): (tags, tag) =>
           if tags.exists(t => tag.name == t.name) then tags
           else tag :: tags
         .reverse

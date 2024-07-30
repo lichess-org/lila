@@ -36,7 +36,7 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
         FideTC.values.find(tc => tcStr.contains(tc.toString))
 
   private def update(tags: Tags, tc: FideTC, fidePlayers: ByColor[Option[Player]]): Tags =
-    val added = Color.all.foldLeft(tags): (tags, color) =>
+    Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
         fidePlayers(color).so: fide =>
           List(
@@ -45,9 +45,3 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
             fide.title.map { title => Tag(_.titles(color), title.value) },
             fide.ratingOf(tc).map { rating => Tag(_.elos(color), rating.toString) }
           ).flatten
-    // remove FIDE ID = 0, now that it has served its purpose
-    added.copy(
-      value = added.value.filter:
-        case Tag(Tag.WhiteFideId | Tag.BlackFideId, "0") => false
-        case _                                           => true
-    )
