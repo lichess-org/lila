@@ -36,7 +36,7 @@
   <string name="studentCredentials">شطرنج‌آموز: %1$s
 نام کاربری: %2$s
 گذرواژه: %3$s</string>
-  <string name="inviteALichessAccount">یک اکانت Lichess را دعوت کنید</string>
+  <string name="inviteALichessAccount">حساب Lichessی را دعوت کنید</string>
   <string name="inviteDesc1">اگر دانش آموز هم اکنون دارای یک حساب در lichess می باشد، شما می توانید او را به کلاس دعوت کنید.</string>
   <string name="inviteDesc2">آنها یک پیام در lichess حاوی یک لینک برای ورود به کلاس دریافت خواهند کرد.</string>
   <string name="inviteDesc3">مهم: فقط دانش آموزانی که میشناسید و میخواهند وارد کلاس بشوند را دعوت کنید.</string>
@@ -70,7 +70,7 @@
   <string name="closeStudent">بستن حساب کاربری</string>
   <string name="closeTheAccount">بستن دائمی حساب دانش آموز.</string>
   <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
-  <string name="closeDesc2">شما ممکن است بخواهد به دانش آموزان کنترل اکانت را بدهید، بنابراین آن ها می توانند که به استفاده از آن ادامه دهند.</string>
+  <string name="closeDesc2">ممکن است بخواهید هدایت حساب را به شطرنج‌آموز بدهید تا بتواند به استفاده از آن ادامه دهد.</string>
   <string name="teachers">معلم‌ها</string>
   <plurals name="nbTeachers">
     <item quantity="one">معلم</item>
