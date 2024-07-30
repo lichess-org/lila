@@ -181,7 +181,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="latestForumPosts">Neuschti Forum-Biträg</string>
   <string name="players">Schpiller</string>
   <string name="friends">Fründe</string>
-  <string name="otherPlayers">anderi Schpiller</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">anderi Schpiller</string>
   <string name="discussions">Underhaltige</string>
   <string name="today">Hüt</string>
   <string name="yesterday">Geschter</string>
@@ -479,7 +479,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="createdBy">Erschtellt vo</string>
   <string name="tournamentIsStarting">s\'Turnier fangt a</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
-  <string name="standByX">Pass uf %s, neui Paarige werded gmacht, mach dich bereit!</string>
+  <string name="standByX">Achtung %s, es git neui Paarige, mach dich parat!</string>
   <string name="pause">underbräche</string>
   <string name="resume">wieder ischtige</string>
   <string name="youArePlaying">Dis Schpiel fangt a!</string>
@@ -540,8 +540,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="descPrivateHelp">Tegscht wo nur Team-Mitglider gsehnd. Wänn usgfüllt, ersetzt er für sie de Öffentlichi.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
-  <string name="website">Website</string>
-  <string name="mobile">Mobil</string>
+  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">Website</string>
+  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">Mobil</string>
   <string name="help">Hilf:</string>
   <string name="createANewTopic">Erschtell es neus Thema</string>
   <string name="topics">Theme</string>

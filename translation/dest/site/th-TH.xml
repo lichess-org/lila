@@ -69,6 +69,8 @@
   <string name="promoteVariation">เลื่อนขั้นตัวแปร</string>
   <string name="makeMainLine">สร้างเส้นทางหลัก</string>
   <string name="deleteFromHere">ลบจากที่นี่</string>
+  <string name="collapseVariations">ซ่อนตาเดินอื่นๆ</string>
+  <string name="expandVariations">ขยายตาเดินอื่นๆ</string>
   <string name="forceVariation">ทำให้เป็นการผันแปร</string>
   <string name="copyVariationPgn">คัดลอก PGN แขนงต่างๆ</string>
   <string name="move">ตาเดิน</string>
@@ -472,6 +474,7 @@
   <string name="ifNoneLeaveEmpty">ถ้าไม่มี, จงเว้นว่าง</string>
   <string name="profile">ข้อมูลประจำตัว</string>
   <string name="editProfile">แก้ไขข้อมูลประจำตัว</string>
+  <string name="realName">ชื่อจริง</string>
   <string name="setFlair">ตั้งค่ารูปตกแต่ง</string>
   <string name="flair">รูปตกแต่ง</string>
   <string name="youCanHideFlair">มันมีการตั้งค่าที่ทำให้ไม่สามารถเห็นรูปตกแต่งของผู้ใช้ได้ทั้งเวบไซต์</string>
@@ -554,6 +557,7 @@
   <string name="slow">ช้า</string>
   <string name="insideTheBoard">ด้านในกระดาน</string>
   <string name="outsideTheBoard">ด้านนอกกระดาน</string>
+  <string name="allSquaresOfTheBoard">ทุกช่องบนกระดาน</string>
   <string name="onSlowGames">ในเกมรูปแบบช้า</string>
   <string name="always">เสมอ</string>
   <string name="never">ไม่ต้อง</string>
@@ -748,6 +752,12 @@
   <string name="transparent">โปร่งใส</string>
   <string name="deviceTheme">ธีมของเครื่อง</string>
   <string name="backgroundImageUrl">URL รูปภาพพื้นหลัง:</string>
+  <string name="board">สีกระดาน</string>
+  <string name="size">ขนาด</string>
+  <string name="opacity">ค่าความทึบ</string>
+  <string name="brightness">ความสว่าง</string>
+  <string name="hue">เฉดสี</string>
+  <string name="boardReset">เปลี่ยนสีเป็นค่าตั้งต้น</string>
   <string name="pieceSet">ชุดหมาก</string>
   <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
   <string name="usernameAlreadyUsed">ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว, โปรดตั้งชื่อใหม่</string>
