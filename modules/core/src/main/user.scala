@@ -127,7 +127,7 @@ object user:
     def isEmpty = completionPercent == 0
 
     def completionPercent: Int =
-      100 * List(flag, bio, realName).count(_.isDefined) / 4
+      100 * List(flag, bio, realName).count(_.isDefined) / 3
 
     private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 
