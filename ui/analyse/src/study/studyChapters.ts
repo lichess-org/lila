@@ -138,18 +138,22 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
 export const gameLinkAttrs = (basePath: string, game: { id: ChapterId }) => ({
   href: `${basePath}/${game.id}`,
 });
-export const gameLinksListener = (setChapter: (id: ChapterId | number) => boolean) => (vnode: VNode) =>
-  (vnode.elm as HTMLElement).addEventListener(
-    'click',
-    e => {
-      let target = e.target as HTMLLinkElement;
-      while (target && target.tagName !== 'A') target = target.parentNode as HTMLLinkElement;
-      const href = target?.href;
-      const id = target?.dataset['board'] || href?.match(/^[^?#]*/)?.[0].slice(-8);
-      if (id && setChapter(id) && !href?.match(/[?&]embed=/)) e.preventDefault();
-    },
-    { passive: false },
-  );
+export const gameLinksListener =
+  (setChapter: (id: ChapterId | number) => Promise<boolean>) => (vnode: VNode) =>
+    (vnode.elm as HTMLElement).addEventListener(
+      'click',
+      async e => {
+        let target = e.target as HTMLLinkElement;
+        while (target && target.tagName !== 'A') target = target.parentNode as HTMLLinkElement;
+        const href = target?.href;
+        const id = target?.dataset['board'] || href?.match(/^[^?#]*/)?.[0].slice(-8);
+        if (id) {
+          if (!href?.match(/[?&]embed=/)) e.preventDefault();
+          await setChapter(id);
+        }
+      },
+      { passive: false },
+    );
 
 export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
