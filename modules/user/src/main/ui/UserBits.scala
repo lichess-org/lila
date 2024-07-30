@@ -44,7 +44,7 @@ final class UserBits(helpers: Helpers):
           )(trans.site.blocked())
         ),
       relation
-        .exists(!_.isFollow)
+        .exists(_.isFollow)
         .option(
           a(
             cls      := "btn-rack__btn relation-button text aclose",
