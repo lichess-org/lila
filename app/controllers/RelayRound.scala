@@ -117,6 +117,38 @@ final class RelayRound(
   def apiShow(ts: String, rs: String, id: RelayRoundId) = AnonOrScoped(_.Study.Read, _.Web.Mobile):
     doApiShow(id)
 
+  def embedShow(ts: String, rs: String, id: RelayRoundId) =
+    Anon:
+      InEmbedContext:
+        Found(env.relay.api.byIdWithTour(id)): rt =>
+          env.study.preview
+            .firstId(rt.round.studyId)
+            .flatMapz(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _))
+            .orNotFound: oldSc =>
+              studyC.CanView(oldSc.study)(
+                for
+                  (sc, studyData) <- studyC.getJsonData(oldSc)
+                  rounds          <- env.relay.api.byTourOrdered(rt.tour)
+                  group           <- env.relay.api.withTours.get(rt.tour.id)
+                  crossSiteIsolation = true
+                  data = env.relay.jsonView.makeData(
+                    rt.tour.withRounds(rounds.map(_.round)),
+                    rt.round.id,
+                    studyData,
+                    group,
+                    ctx.userId.exists(sc.study.canContribute),
+                    isSubscribed = none,
+                    videoUrls = none,
+                    pinned = none
+                  )
+                  sVersion <- NoCrawlers(env.study.version(sc.study.id))
+                  embed    <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
+                yield Ok(embed).enforceCrossSiteIsolation
+              )(
+                studyC.privateUnauthorizedFu(oldSc.study),
+                studyC.privateForbiddenFu(oldSc.study)
+              )
+
   private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
     Found(env.relay.api.byIdWithTour(id)): rt =>
       Found(env.study.studyRepo.byId(rt.round.studyId)): study =>

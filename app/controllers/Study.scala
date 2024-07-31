@@ -561,7 +561,7 @@ final class Study(
       f: => Fu[Result]
   )(unauthorized: => Fu[Result], forbidden: => Fu[Result])(using me: Option[Me]): Fu[Result] =
     def withUserSelection =
-      if userSelection.fold(true)(Settings.UserSelection.allows(_, study, me.map(_.userId))) then f
+      if userSelection.forall(Settings.UserSelection.allows(_, study, me.map(_.userId))) then f
       else forbidden
     me match
       case _ if !study.isPrivate                        => withUserSelection
