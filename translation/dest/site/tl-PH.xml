@@ -110,6 +110,7 @@
   <string name="openStudy">Bukas na pagsusuri</string>
   <string name="enable">Paganahin</string>
   <string name="bestMoveArrow">Pinakamahusay na galaw na arrow</string>
+  <string name="showVariationArrows">Tignan ang ibat ibang linya</string>
   <string name="evaluationGauge">Panukat ng pagsusuri</string>
   <string name="multipleLines">Maraming linya</string>
   <string name="cpus">CPUs</string>
@@ -192,6 +193,10 @@
   <string name="passwordReset">Ibalik ang password</string>
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="error.namePassword">Mangyaring huwag gamitin ang iyong username bilang iyong password.</string>
+  <string name="youAreLeavingLichess">Aalis ka sa Laro</string>
+  <string name="neverTypeYourPassword">Wag mong ilagay ang iyong Password sa ibang website!</string>
+  <string name="passwordSuggestion">Wag mo gamitin ang password na galing sa iba. Dahil gagamitin nila ito sa pagnanakaw ng iyong account.</string>
+  <string name="emailSuggestion">Wag mo ilagay ang email na galing sa iba. Dahil gagamitin nila iyon para nakawin ang iyong account.</string>
   <string name="emailForSignupHelp">If everything else fails, then send us this email:</string>
   <string name="rank">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
