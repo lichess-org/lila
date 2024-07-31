@@ -156,7 +156,7 @@ object page:
           bottomHtml,
           ctx.needsFp.option(views.auth.fingerprintTag),
           ctx.nonce.map(inlineJs.apply),
-          modulesInit(allModules),
+          modulesInit(allModules, ctx.nonce),
           p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
           p.pageModule.map { mod => frag(jsonScript(mod.data)) }
         )

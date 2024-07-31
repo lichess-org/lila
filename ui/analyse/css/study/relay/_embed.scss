@@ -1,0 +1,23 @@
+$vp-min-width: 320px;
+$vp-max-width: 1200px;
+
+body {
+  ---main-margin: 0px;
+  ---block-gap: 10px;
+
+  @media (min-width: at-least($small)) {
+    ---main-margin: 1vw;
+    ---block-gap: 15px;
+    margin-bottom: $block-gap;
+  }
+}
+
+main {
+  grid-area: main;
+
+  &.page-small {
+    max-width: 1000px;
+    margin: auto;
+    width: 100%;
+  }
+}

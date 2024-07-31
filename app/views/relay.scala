@@ -41,11 +41,15 @@ def embed(
     rt: WithTourAndStudy,
     data: lila.relay.JsonView.JsData,
     socketVersion: SocketVersion
-)(using EmbedContext) =
-  views.base.embed(
+)(using ctx: EmbedContext) =
+  views.base.embed.site(
     title = rt.fullName,
-    cssModule = "analyse.relay",
+    cssKeys = List("analyse.relay.embed"),
     pageModule = ui.pageModule(rt, data, none, socketVersion).some,
     csp = _.withExternalAnalysisApis
-  ):
-    ui.showPreload(rt, data)(cls := "relay-embed")
+  )(
+    div(id := "main-wrap", cls := "is2d"):
+      ui.showPreload(rt, data)(cls := "relay-embed")
+    ,
+    views.base.page.ui.inlineJs(ctx.nonce)
+  )

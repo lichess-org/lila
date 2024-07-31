@@ -63,9 +63,9 @@ def games(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Ch
 
 def embed(pov: Pov, channelKey: Option[String])(using EmbedContext) =
   val dataStreamUrl = channelKey.fold("/tv/feed?bc=1")(key => s"/tv/${key}/feed?bc=1")
-  views.base.embed(
+  views.base.embed.minimal(
     title = "lichess.org chess TV",
-    cssModule = "bits.tv.embed",
+    cssKeys = List("bits.tv.embed"),
     modules = EsmInit("site.tvEmbed")
   )(
     attr("data-stream-url") := dataStreamUrl,

@@ -130,7 +130,6 @@ final class RelayRound(
                   (sc, studyData) <- studyC.getJsonData(oldSc)
                   rounds          <- env.relay.api.byTourOrdered(rt.tour)
                   group           <- env.relay.api.withTours.get(rt.tour.id)
-                  crossSiteIsolation = true
                   data = env.relay.jsonView.makeData(
                     rt.tour.withRounds(rounds.map(_.round)),
                     rt.round.id,
