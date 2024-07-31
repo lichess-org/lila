@@ -45,7 +45,7 @@ def embed(
   views.base.embed.site(
     title = rt.fullName,
     cssKeys = List("analyse.relay.embed"),
-    pageModule = ui.pageModule(rt, data, none, socketVersion).some,
+    pageModule = ui.pageModule(rt, data, none, socketVersion, embed = true).some,
     csp = _.withExternalAnalysisApis
   )(
     div(id := "main-wrap", cls := "is2d"):

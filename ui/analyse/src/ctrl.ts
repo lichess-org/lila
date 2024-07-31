@@ -66,6 +66,7 @@ export default class AnalyseCtrl {
   evalCache: EvalCache;
   persistence?: Persistence;
   actionMenu: Toggle = toggle(false);
+  isEmbed: boolean;
 
   // current tree state, cursor, and denormalized node lists
   path: Tree.Path;
@@ -137,6 +138,7 @@ export default class AnalyseCtrl {
     this.data = opts.data;
     this.element = opts.element;
     this.trans = opts.trans;
+    this.isEmbed = !!opts.embed;
     this.treeView = new TreeView('column');
     this.promotion = new PromotionCtrl(
       this.withCg,

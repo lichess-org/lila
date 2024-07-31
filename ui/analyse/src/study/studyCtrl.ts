@@ -164,6 +164,7 @@ export default class StudyCtrl {
         relayData,
         this.send,
         (redrawOnly = false) => (redrawOnly ? this.redraw() : this.redrawAndUpdateAddressBar()),
+        ctrl.isEmbed,
         this.members,
         this.chapters.list,
         this.multiCloudEval,

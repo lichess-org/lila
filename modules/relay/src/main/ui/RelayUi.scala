@@ -47,7 +47,8 @@ final class RelayUi(helpers: Helpers)(
       rt: WithTourAndStudy,
       data: lila.relay.JsonView.JsData,
       chatOption: Option[(JsObject, Frag)],
-      socketVersion: SocketVersion
+      socketVersion: SocketVersion,
+      embed: Boolean = false
   )(using ctx: Context) =
     PageModule(
       "analyse.study",
@@ -62,7 +63,8 @@ final class RelayUi(helpers: Helpers)(
           "chat"          -> chatOption.map(_._1),
           "socketUrl"     -> socketUrl(rt.study.id),
           "socketVersion" -> socketVersion
-        ) ++ explorerAndCevalConfig
+        )
+        .add("embed" -> embed) ++ explorerAndCevalConfig
     )
 
   def showPreload(rt: WithTourAndStudy, data: lila.relay.JsonView.JsData): Tag =

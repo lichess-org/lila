@@ -57,29 +57,31 @@ export const tourSide = (ctx: RelayViewContext) => {
                 { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
                 study.data.name,
               ),
-              h('button.streamer-show.data-count', {
-                attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
-                class: {
-                  disabled: !relay.streams.length,
-                  active: relay.showStreamerMenu(),
-                  streaming: relay.isStreamer(),
-                },
-                hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
-              }),
+              !ctrl.isEmbed &&
+                h('button.streamer-show.data-count', {
+                  attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
+                  class: {
+                    disabled: !relay.streams.length,
+                    active: relay.showStreamerMenu(),
+                    streaming: relay.isStreamer(),
+                  },
+                  hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
+                }),
               h('button.relay-tour__side__search', {
                 attrs: { 'data-icon': licon.Search, title: 'Search' },
                 hook: bind('click', study.search.open.toggle),
               }),
             ]),
           ]),
-      relay.showStreamerMenu() && renderStreamerMenu(relay),
+      !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
       !empty && gamesList(study, relay),
-      h('div.chat__members', {
-        hook: onInsert(el => {
-          makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-          site.watchers(el);
+      !ctrl.isEmbed &&
+        h('div.chat__members', {
+          hook: onInsert(el => {
+            makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
+            site.watchers(el);
+          }),
         }),
-      }),
     ],
   );
 };

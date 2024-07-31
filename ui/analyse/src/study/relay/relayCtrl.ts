@@ -31,6 +31,7 @@ export default class RelayCtrl {
     public data: RelayData,
     readonly send: AnalyseSocketSend,
     readonly redraw: (redrawOnly?: boolean) => void,
+    readonly isEmbed: boolean,
     readonly members: StudyMemberCtrl,
     private readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval,

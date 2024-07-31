@@ -2,7 +2,11 @@ $vp-min-width: 320px;
 $vp-max-width: 1200px;
 
 body {
+  ---site-header-height: 0px;
+  ---site-header-margin: 0px;
+  ---site-header-sticky-padding: 0px;
   ---main-margin: 0px;
+  ---sticky-gap: 0px;
   ---block-gap: 10px;
 
   @media (min-width: at-least($small)) {
