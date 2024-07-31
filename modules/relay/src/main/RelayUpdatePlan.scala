@@ -9,6 +9,7 @@ object RelayUpdatePlan:
       s"Input(chapters = ${chapters.map(_.name)}, games = ${games.map(_.tags.names)})"
 
   case class Plan(
+      input: Input,
       reorder: Option[List[StudyChapterId]],
       update: List[(Chapter, RelayGame)],
       append: RelayGames,
@@ -55,6 +56,7 @@ object RelayUpdatePlan:
       chapters.filterNot(c => updatedIds.contains(c.id))
 
     Plan(
+      input = input,
       reorder = reorder,
       update = updates,
       append = appends,
