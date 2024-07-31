@@ -117,7 +117,7 @@
   <string name="howToThreeDots">چگونه...</string>
   <string name="enableDisableNotificationPopUps">فعال یا غیرفعال سازی اعلان‌های بالاپَر؟</string>
   <string name="viewSiteInformationPopUp">دیدن بالاپَر اطلاعات وبگاه</string>
-  <string name="lichessCanOptionnalySendPopUps">وبگاه Lichess می‌تواند بااختیار اعلان‌های بالاپَر بفرستد، برای مثال زمانی که نوبت‌تان است یا پیام خصوصی دریافت کرده‌اید.
+  <string name="lichessCanOptionnalySendPopUps">وبگاه Lichess می‌تواند بااختیار اعلان‌های بالاپَر بفرستد، برای مثال زمانی که نوبت‌تان است یا پیام خصوصی گرفته‌اید.
 
 روی نقشک پس از قفل، در آغاز نشانی lichess.org در نوار URL مرورگرتان بزنید.
 
