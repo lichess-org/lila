@@ -15,7 +15,7 @@ private final class RelayNotifyOrphanBoard(api: RelayApi, irc: IrcApi)(using Exe
   private val once = scalalib.cache.OnceEvery[StudyChapterId](1 hour)
 
   def inspectPlan(rt: RelayRound.WithTour, plan: RelayUpdatePlan.Plan): Funit =
-    plan.input.games.nonEmpty.so:
+    (rt.tour.official && plan.input.games.nonEmpty).so:
       counter.invalidateAll(plan.update.map(_._1.id))
       plan.orphans.sequentiallyVoid: chapter =>
         val count = ~counter.getIfPresent(chapter.id) + 1
