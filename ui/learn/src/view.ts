@@ -18,8 +18,8 @@ const mapView = (ctrl: LearnCtrl) => {
   return h('div.learn.learn--map', [
     h('div.learn__side', mapSideView(ctrl)),
     h('div.learn__main.learn-stages', [
-      ...stages.categs.map(function (categ) {
-        return h('div.categ', [
+      ...stages.categs.map(categ =>
+        h('div.categ', [
           h('h2', ctrl.trans.noarg(categ.name)),
           h(
             'div.categ_stages',
@@ -33,15 +33,15 @@ const mapView = (ctrl: LearnCtrl) => {
                 `a.stage.${status}.${titleVerbosityClass(title)}`,
                 { attrs: { href: hashHref(stage.id) } },
                 [
-                  ribbon(ctrl, stage, status, stageProgress),
+                  status != 'future' ? ribbon(ctrl, stage, status, stageProgress) : undefined,
                   h('img', { attrs: { src: stage.image } }),
                   h('div.text', [h('h3', title), h('p.subtitle', ctrl.trans.noarg(stage.subtitle))]),
                 ],
               );
             }),
           ),
-        ]);
-      }),
+        ]),
+      ),
       whatNext(ctrl),
     ]),
   ]);
@@ -56,13 +56,14 @@ const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   return progress[0] ? progress.join(' / ') : ctrl.trans.noarg('play');
 };
 
-const ribbon = (ctrl: LearnCtrl, s: Stage, status: Status, stageProgress: StageProgress) => {
-  const ongoingProgress =
-    status == 'ongoing' ? ongoingStr(ctrl, s) : makeStars(scoring.getStageRank(s, stageProgress.scores));
-  return status == 'future'
-    ? undefined
-    : h('span.ribbon-wrapper', h(`span.ribbon.${status}`, ongoingProgress));
-};
+const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, stageProgress: StageProgress) =>
+  h(
+    'span.ribbon-wrapper',
+    h(
+      `span.ribbon.${status}`,
+      status == 'ongoing' ? ongoingStr(ctrl, s) : makeStars(scoring.getStageRank(s, stageProgress.scores)),
+    ),
+  );
 
 function whatNext(ctrl: LearnCtrl) {
   const makeStage = (href: string, img: string, title: string, subtitle: string, done?: boolean) => {

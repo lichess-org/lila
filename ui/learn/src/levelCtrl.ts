@@ -1,4 +1,4 @@
-import { WithGround, arrow } from './util';
+import { PromotionRole, WithGround, arrow, oppColor } from './util';
 import { Items, ctrl as makeItems } from './item';
 import { Level } from './stage/list';
 import * as scoring from './score';
@@ -6,7 +6,7 @@ import * as timeouts from './timeouts';
 import * as sound from './sound';
 import makeChess, { ChessCtrl } from './chess';
 import makeScenario, { Scenario } from './scenario';
-import { SquareName as Key, makeSquare } from 'chessops';
+import { SquareName as Key, makeSquare, makeUci } from 'chessops';
 import { CgMove } from './chessground';
 import * as cg from 'chessground/types';
 import { PromotionCtrl } from './promotionCtrl';
@@ -91,7 +91,8 @@ export class LevelCtrl {
       movable: {
         free: false,
         color: chess.getColor(),
-        dests: chess.dests({ illegal: blueprint.offerIllegalMove }),
+        dests: chess.dests(),
+        rookCastle: false,
       },
       events: {
         move: (orig: Key, dest: Key) => {
@@ -135,9 +136,9 @@ export class LevelCtrl {
       return true;
     };
 
-    return (orig: Key, dest: Key) => {
+    return (orig: Key, dest: Key, prom?: PromotionRole) => {
       vm.nbMoves++;
-      const move = chess.move(orig, dest);
+      const move = chess.move(orig, dest, prom);
       if (move) this.setFen(chess.fen(), blueprint.color, new Map());
       else {
         // moving into check
@@ -161,7 +162,7 @@ export class LevelCtrl {
         took = true;
       }
       this.setCheck();
-      if (scenario.player(move.from + move.to + (move.promotion || ''))) {
+      if (scenario.player(makeUci(move))) {
         vm.score += scoring.scenario;
         inScenario = true;
       } else {
@@ -224,11 +225,11 @@ export class LevelCtrl {
   showKingAttackers = () =>
     this.withGround(ground => {
       const turn = this.chess.getColor();
-      const kingKey = this.chess.kingKey(turn);
+      const kingKey = this.chess.kingKey(oppColor(turn));
       const shapes = this.chess
         .moves(this.chess.instance)
         .filter(m => makeSquare(m.to) === kingKey)
-        .map(m => arrow(makeSquare(m.from) + makeSquare(m.to), 'red'));
+        .map(m => arrow(makeUci(m), 'red'));
       ground.set({ check: turn });
       this.setShapes(shapes);
     });

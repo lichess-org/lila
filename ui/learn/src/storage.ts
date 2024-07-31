@@ -8,14 +8,8 @@ export interface Storage {
   reset(): void;
 }
 
-const key = 'learn.progress';
-
-const defaultValue: LearnProgress = {
-  stages: {},
-};
-
-function xhrSaveScore(stageKey: string, levelId: number, score: number) {
-  return xhr.jsonAnyResponse('/learn/score', {
+const xhrSaveScore = (stageKey: string, levelId: number, score: number) =>
+  xhr.jsonAnyResponse('/learn/score', {
     method: 'POST',
     body: xhr.form({
       stage: stageKey,
@@ -23,13 +17,14 @@ function xhrSaveScore(stageKey: string, levelId: number, score: number) {
       score: score,
     }),
   });
-}
 
-function xhrReset() {
-  return xhr.jsonAnyResponse('/learn/reset', { method: 'POST' });
-}
+const xhrReset = () => xhr.jsonAnyResponse('/learn/reset', { method: 'POST' });
 
 export default function (d?: LearnProgress): Storage {
+  const key = 'learn.progress';
+  const defaultValue: LearnProgress = {
+    stages: {},
+  };
   const data: LearnProgress = d || JSON.parse(site.storage.get(key)!) || defaultValue;
 
   return {
@@ -41,8 +36,7 @@ export default function (d?: LearnProgress): Storage {
         };
       if (data.stages[stage.key].scores[level.id - 1] > score) return;
       data.stages[stage.key].scores[level.id - 1] = score;
-      if (data._id) xhrSaveScore(stage.key, level.id, score);
-      else site.storage.set(key, JSON.stringify(data));
+      data._id ? xhrSaveScore(stage.key, level.id, score) : site.storage.set(key, JSON.stringify(data));
     },
     reset: () => {
       data.stages = {};

@@ -1,8 +1,10 @@
-import { SquareName as Key, Piece, Role } from 'chessops';
+import { charToRole, SquareName as Key, Piece } from 'chessops';
 import { AssertData } from './levelCtrl';
 import { readKeys } from './util';
 
 type Assert = (level: AssertData) => boolean;
+
+type FenPiece = 'p' | 'n' | 'b' | 'r' | 'q' | 'k' | 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
 
 const pieceMatch = (piece: Piece | undefined, matcher: Piece): boolean =>
   piece?.role === matcher.role && piece.color === matcher.color;
@@ -12,18 +14,18 @@ const pieceOnAnyOf =
   (level: AssertData) =>
     keys.some(key => pieceMatch(level.chess.get(key), matcher));
 
-const fenToMatcher = (fenPiece: string): Piece => ({
-  role: fenPiece.toLowerCase() as Role,
+const fenToMatcher = (fenPiece: FenPiece): Piece => ({
+  role: charToRole(fenPiece),
   color: fenPiece.toLowerCase() === fenPiece ? 'black' : 'white',
 });
 
 export const pieceOn =
-  (fenPiece: string, key: Key): Assert =>
+  (fenPiece: FenPiece, key: Key): Assert =>
   (level: AssertData) =>
     pieceMatch(level.chess.get(key), fenToMatcher(fenPiece));
 
 export const pieceNotOn =
-  (fenPiece: string, key: Key): Assert =>
+  (fenPiece: FenPiece, key: Key): Assert =>
   (level: AssertData) =>
     !pieceMatch(level.chess.get(key), fenToMatcher(fenPiece));
 
@@ -65,9 +67,10 @@ export function not(assert: Assert): Assert {
   return (level: AssertData) => !assert(level);
 }
 
-export function and(...asserts: Assert[]): Assert {
-  return (level: AssertData) => asserts.every(a => a(level));
-}
+export const and =
+  (...asserts: Assert[]): Assert =>
+  (level: AssertData) =>
+    asserts.every(a => a(level));
 
 export function or(...asserts: Assert[]): Assert {
   return (level: AssertData) => asserts.some(a => a(level));

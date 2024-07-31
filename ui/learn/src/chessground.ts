@@ -22,7 +22,7 @@ export default function (ctrl: RunCtrl): VNode {
         el.addEventListener('contextmenu', e => e.preventDefault());
         ctrl.setChessground(site.makeChessground(el, makeConfig(ctrl)));
       },
-      destroy: () => ctrl.chessground!.destroy(),
+      destroy: () => ctrl.chessground?.destroy(),
     },
   });
 }

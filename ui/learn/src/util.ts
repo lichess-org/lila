@@ -20,16 +20,10 @@ export function toLevel(l: LevelPartial, it: number): Level {
 
 export const assetUrl = document.body.dataset.assetUrl + '/assets/';
 
-export const promotionCharToRole: {
-  [R in PromotionChar]: PromotionRole;
-} = {
-  n: 'knight',
-  b: 'bishop',
-  r: 'rook',
-  q: 'queen',
-};
 export type PromotionRole = 'knight' | 'bishop' | 'rook' | 'queen';
 export type PromotionChar = 'n' | 'b' | 'r' | 'q';
+
+export const isRole = (str: PromotionChar | PromotionRole): str is PromotionRole => str.length > 1;
 
 export const arrow = (vector: Uci, brush?: cg.BrushColor): DrawShape => ({
   brush: brush || 'paleGreen',

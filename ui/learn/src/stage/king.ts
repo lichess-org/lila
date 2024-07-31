@@ -28,10 +28,7 @@ const stage: StageNoID = {
       apples: 'b5 c5 d6 e3 f3 g4',
       nbMoves: 8,
     },
-  ].map((l: LevelPartial, i) => {
-    l.emptyApples = true;
-    return toLevel(l, i);
-  }),
+  ].map((l: LevelPartial, i) => toLevel({ ...l, emptyApples: true }, i)),
   complete: 'kingComplete',
 };
 export default stage;
