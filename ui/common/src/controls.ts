@@ -36,11 +36,11 @@ export function rangeConfig(read: () => number, write: (value: number) => void):
     insert: (v: VNode) => {
       const el = v.elm as HTMLInputElement;
       el.value = '' + read();
-      el.addEventListener('input', _ => write(parseInt(el.value)));
+      el.addEventListener('input', _ => write(el.valueAsNumber));
       el.addEventListener('mouseout', _ => el.blur());
     },
     update: (_, v: VNode) => {
-      (v.elm as HTMLInputElement).value = `${read()}`; // force redraw on external value change
+      (v.elm as HTMLInputElement).valueAsNumber = read(); // force redraw on external value change
     },
   };
 }
