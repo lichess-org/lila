@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="voiceCommands">دستورهای صوتی</string>
-  <string name="watchTheVideoTutorial">فیلم آموزشی را تماشا کنید</string>
+  <string name="watchTheVideoTutorial">تماشای فیلم آموزشی</string>
   <string name="instructions1">از دکمه %1$s برای تغییر وضعیت تشخیص صدا، از دکمه %2$s برای باز کردن گفتگوی راهنما و از %3$s گزینگان برای تغییر تنظیمات گفتار استفاده کنید.</string>
   <string name="instructions2">وقتی از تشخیص دستورها مطمئن نیستیم، پیکان‌هایی را برای چندین حرکت نشان می‌دهیم. برای انتخاب یک پیکان، رنگ یا شماره آن را بگویید.</string>
   <string name="instructions4">%s را در محیط پر سر و صدا فعال کنید. وقتی آن روشن است، هنگام دستورهای گفتاری، Shift را نگه دارید.</string>
