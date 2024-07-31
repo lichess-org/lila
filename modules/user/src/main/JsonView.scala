@@ -4,13 +4,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ writeAs, given }
 import lila.core.LightUser
-import lila.core.perf.{ Perf, UserPerfs }
-
-import lila.core.user.{ Profile, PlayTime, LightPerf }
-import lila.rating.PerfType
-import lila.core.perf.{ KeyedPerf, UserWithPerfs }
+import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs, UserWithPerfs }
+import lila.core.user.{ LightPerf, PlayTime, Profile }
 import lila.rating.UserPerfsExt.perfsList
-import lila.core.perf.PuzPerf
 
 final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user.JsonView:
 

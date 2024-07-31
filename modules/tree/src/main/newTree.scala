@@ -1,18 +1,14 @@
 package lila.tree
-
-import alleycats.Zero
-import monocle.syntax.all.*
-
-import chess.{ Centis, HasId, Situation, Node as ChessNode, Variation, Ply, Square, Check, Mergeable, Tree }
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.format.pgn.{ Glyph, Glyphs }
-import chess.opening.Opening
-import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
-
+import chess.format.pgn.{ Glyph, Glyphs }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.json.Json.given
+import chess.opening.Opening
+import chess.variant.{ Crazyhouse, Variant }
+import chess.{ Centis, Check, HasId, Mergeable, Node as ChessNode, Ply, Situation, Square, Tree, Variation }
+import monocle.syntax.all.*
 import play.api.libs.json.*
 import scalalib.json.Json.{ *, given }
-import chess.json.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
@@ -179,7 +175,6 @@ object NewTree:
   // def fromNodeToBranch(node: Node): NewBranch = ???
 
 case class NewRoot(metas: Metas, tree: Option[NewTree]):
-  import NewRoot.*
   import NewTree.*
 
   export metas.{

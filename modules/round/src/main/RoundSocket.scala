@@ -5,20 +5,19 @@ import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import play.api.libs.json.*
 import reactivemongo.api.Cursor
+import scalalib.actor.AsyncActorConcMap
 
 import lila.chat.BusChan
 import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
-import lila.game.{ Event, Game, Pov }
-import scalalib.actor.AsyncActorConcMap
-import lila.core.misc.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.core.game.TvSelect
+import lila.core.misc.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
+import lila.core.net.IpAddress
 import lila.core.round.*
 import lila.core.socket.remote.TellSriIn
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
-import lila.core.net.IpAddress
 import lila.core.user.FlairGet
+import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final class RoundSocket(
     socketKit: ParallelSocketKit,

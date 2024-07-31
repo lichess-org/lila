@@ -1,10 +1,11 @@
 package lila.swiss
 
 import scalalib.HeapSort
+
+import lila.core.swiss.FeaturedIdNames
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.memo.CacheApi.*
-import lila.core.swiss.FeaturedIdNames
 
 final class SwissFeature(
     mongo: SwissMongo,

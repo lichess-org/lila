@@ -20,7 +20,7 @@ import chess.{
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.core.game.{ Game, Event }
+import lila.core.game.{ Event, Game }
 
 import JsonView.{ *, given }
 
@@ -104,7 +104,7 @@ object Event:
       threefold = situation.threefoldRepetition,
       promotion = move.promotion.map { Promotion(_, move.dest) },
       enpassant = move.capture.ifTrue(move.enpassant).map(Event.Enpassant(_, !move.color)),
-      castle = move.castle.map(_.value).map((king, rook) => Castling(king, rook, move.color)),
+      castle = move.castle.map(Castling(_, move.color)),
       state = state,
       clock = clock,
       possibleMoves = situation.destinations,
@@ -155,6 +155,7 @@ object Event:
     )
 
   object PossibleMoves:
+    // We need to keep this implementation for compatibility
     def json(moves: Map[Square, Bitboard]): JsValue =
       if moves.isEmpty then JsNull
       else
@@ -181,12 +182,13 @@ object Event:
         "color" -> color
       )
 
-  case class Castling(king: (Square, Square), rook: (Square, Square), color: Color) extends Event:
+  case class Castling(castle: ChessMove.Castle, color: Color) extends Event:
     def typ = "castling"
     def data =
+      import castle.*
       Json.obj(
-        "king"  -> Json.arr(king._1.key, king._2.key),
-        "rook"  -> Json.arr(rook._1.key, rook._2.key),
+        "king"  -> Json.arr(king.key, kingTo.key),
+        "rook"  -> Json.arr(rook.key, rookTo.key),
         "color" -> color
       )
 

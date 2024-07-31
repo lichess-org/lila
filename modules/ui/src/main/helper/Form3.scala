@@ -1,12 +1,11 @@
 package lila.ui
 
 import play.api.data.*
-import scalalib.Render
-
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.user.FlairApi
-import lila.core.i18n.{ I18nKey as trans, Translate }
 import scalatags.Text.TypedTag
+
+import lila.core.i18n.{ I18nKey as trans, Translate }
+import lila.core.user.FlairApi
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
 
@@ -110,18 +109,35 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
       label(`for` := fieldId)
     )
 
+  def nativeCheckbox[Value: Show](
+      fieldId: String,
+      fieldName: String,
+      checked: Boolean,
+      value: Value = "true"
+  ) =
+    st.input(
+      st.id    := fieldId,
+      name     := fieldName,
+      st.value := value.show,
+      tpe      := "checkbox",
+      checked.option(st.checked)
+    )
+
   def select(
       field: Field,
       options: Iterable[(Any, String)],
       default: Option[String] = None,
-      disabled: Boolean = false
+      disabled: Boolean = false,
+      required: Boolean = false
   ): Frag =
     frag(
       st.select(
         st.id := id(field),
         name  := field.name,
-        cls   := "form-control"
-      )(disabled.option(st.disabled := true))(validationModifiers(field))(
+        cls   := "form-control",
+        disabled.option(st.disabled := true),
+        required.option(st.required)
+      )(validationModifiers(field))(
         default.map { option(value := "")(_) },
         options.toSeq.map { (value, name) =>
           option(
@@ -201,9 +217,9 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
   def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
     st.fieldset(
       cls := List(
-        "form-fieldset"             -> true,
-        "form-fieldset--toggle"     -> toggle.isDefined,
-        "form-fieldset--toggle-off" -> toggle.has(false)
+        "toggle-box"             -> true,
+        "toggle-box--toggle"     -> toggle.isDefined,
+        "toggle-box--toggle-off" -> toggle.has(false)
       )
     )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 

@@ -1,9 +1,11 @@
 package lila.ui
 
-import ScalatagsTemplate.{ *, given }
 import chess.format.Fen
+
 import lila.core.i18n.Translate
 import lila.core.security.HcaptchaForm
+
+import ScalatagsTemplate.{ *, given }
 
 object bits:
 

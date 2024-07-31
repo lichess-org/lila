@@ -6,7 +6,6 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-
 import lila.memo.{ CacheApi, SettingStore }
 
 final private class TutorQueue(

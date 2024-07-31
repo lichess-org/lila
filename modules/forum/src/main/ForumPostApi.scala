@@ -1,12 +1,11 @@
 package lila.forum
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.forum.{ BusForum, ForumCateg as _, ForumPost as _, * }
 import lila.core.perm.Granter as MasterGranter
-import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
-import lila.core.forum.BusForum
+import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.db.dsl.{ *, given }
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,

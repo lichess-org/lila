@@ -4,18 +4,15 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.*
 
-import lila.core.config.NetDomain
-import lila.core.LightUser
-import lila.core.report.SuspectId
 import lila.common.Form.cleanNonEmptyText
+import lila.core.LightUser
+import lila.core.config.NetDomain
+import lila.core.report.SuspectId
 
-final private[report] class ReportForm(
-    lightUserAsync: LightUser.Getter,
-    domain: NetDomain
-):
+final private[report] class ReportForm(lightUserAsync: LightUser.Getter)(using domain: NetDomain):
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink"): setup =>
-    if setup.reason != "cheat" || ReportForm.gameLinkRegex(domain).findFirstIn(setup.text).isDefined
-    then Valid
+    val gameLinkRequired = setup.reason == Reason.Cheat.key || setup.reason == Reason.Stall.key
+    if !gameLinkRequired || ReportForm.hasGameLink(setup.text) then Valid
     else Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
 
   def create(using me: MyId) = Form:
@@ -31,12 +28,14 @@ final private[report] class ReportForm(
           u => !UserId.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
-      "text"   -> cleanNonEmptyText(minLength = 5)
-    ) { (username, reason, text) =>
+      "text"   -> cleanNonEmptyText(minLength = 5),
+      "msgs"   -> list(nonEmptyText)
+    ) { (username, reason, text, msgs) =>
       ReportSetup(
         user = blockingFetchUser(username).err("Unknown username " + username),
         reason = reason,
-        text = text
+        text = text,
+        msgs = msgs
       )
     }(_.values.some)
       .verifying(cheatLinkConstraint)
@@ -53,7 +52,10 @@ final private[report] class ReportForm(
     lightUserAsync(username.id).await(1 second, "reportUser")
 
 object ReportForm:
-  def gameLinkRegex(domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
+  private def gameLinkRegex(using domain: NetDomain) = (domain.value + """/(\w{8}|\w{12})""").r
+  def gameLinks(text: String)(using NetDomain) =
+    gameLinkRegex.findAllMatchIn(text).take(20).map(m => GameId(m.group(1))).toList
+  def hasGameLink(text: String)(using NetDomain) = gameLinks(text).nonEmpty
 
 private[report] case class ReportFlag(
     username: UserStr,
@@ -64,9 +66,8 @@ private[report] case class ReportFlag(
 case class ReportSetup(
     user: LightUser,
     reason: String,
-    text: String
+    text: String,
+    msgs: List[lila.core.msg.ID] = Nil
 ):
-
   def suspect = SuspectId(user.id)
-
-  def values = (user.name.into(UserStr), reason, text)
+  def values  = (user.name.into(UserStr), reason, text, msgs)

@@ -35,9 +35,7 @@ import scala.jdk.CollectionConverters.*
 import scala.util.Try
 import scala.util.matching.Regex
 
-import lila.common.RawHtml
-import lila.core.config.AssetDomain
-import lila.core.config.NetDomain
+import lila.core.config.{ AssetDomain, NetDomain }
 import lila.core.misc.lpv.LpvEmbed
 
 final class MarkdownRender(

@@ -198,6 +198,7 @@
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
+  <string name="otherPlayers">другие игроки</string>
   <string name="discussions">Беседы</string>
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
@@ -572,6 +573,7 @@
   <string name="ifNoneLeaveEmpty">Если нет, оставьте пустым</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Редактировать профиль</string>
+  <string name="realName">Настоящее имя</string>
   <string name="setFlair">Задайте свой эмодзи</string>
   <string name="flair">Эмодзи</string>
   <string name="youCanHideFlair">Эта настройка скрывает все эмодзи пользователей на всём сайте.</string>
@@ -604,6 +606,8 @@
   <string name="descPrivateHelp">Текст, который будут видеть только члены команды(добавленный текст заменит публичное описание для членов команды).</string>
   <string name="no">Нет</string>
   <string name="yes">Да</string>
+  <string name="website">Сайт</string>
+  <string name="mobile">Мобильный</string>
   <string name="help">Помощь:</string>
   <string name="createANewTopic">Создать новую тему</string>
   <string name="topics">Темы</string>
@@ -655,6 +659,7 @@
   <string name="slow">Медленно</string>
   <string name="insideTheBoard">Внутри доски</string>
   <string name="outsideTheBoard">Вне доски</string>
+  <string name="allSquaresOfTheBoard">Все поля на доске</string>
   <string name="onSlowGames">В медленных играх</string>
   <string name="always">Всегда</string>
   <string name="never">Никогда</string>
@@ -957,7 +962,7 @@
   <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
   <string name="howToAvoidThis">Как избежать этого?</string>
   <string name="playEveryGame">Доигрывайте все партии, которые начинали.</string>
-  <string name="tryToWin">Пытайтесь выиграть (или хотя бы свести на ничью) каждую свою партию.</string>
+  <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести вничью) каждую свою партию.</string>
   <string name="resignLostGames">Сдавайтесь в безнадёжной позиции (а не ждите, когда время закончится).</string>
   <string name="temporaryInconvenience">Приносим извинения за временные неудобства,</string>
   <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>

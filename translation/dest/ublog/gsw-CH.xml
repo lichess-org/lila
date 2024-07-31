@@ -44,7 +44,6 @@
   <string name="imageAlt">Alternative Bildtegscht</string>
   <string name="imageCredit">Bild Herkunft</string>
   <string name="deleteBlog">Lösch de Tagebuech-Post definitiv</string>
-  <string name="deleteImage">Lösch s\'Bild</string>
   <string name="safeToUseImages">Es isch sicher, Bilder vu folgende Website z\'verwände: </string>
   <string name="selectPostTopics">Wähl d\'Theme vu dim Post us</string>
   <string name="useImagesYouMadeYourself">Du chasch auch sälber g\'machti- oder knipsti Bilder verwände oder Screenshots vu Lichess... eifach alles, was nöd vu öpper anderem urheberrächtlich gschützt isch.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">Irgendwelchi unagmässeni Inhält, chönd zur Schlüssig vu dim Konto fühere.</string>
   <string name="blogTips">Eusi simple Tips, zum tolli Tagebuech-Biträg poschte</string>
   <string name="discussThisBlogPostInTheForum">Diskutier de Tagebuech-Bitrag im Forum</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">De Autor - vu dem Tagebuech - hät dich blockiert.</string>
+  <string name="youBlockedByBlogAuthor">De Autor - vu dem Tagebuech - hät dich blockiert.</string>
 </resources>

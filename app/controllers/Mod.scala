@@ -5,16 +5,15 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 
 import scala.annotation.nowarn
-import scala.util.chaining.scalaUtilChainingOps
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.net.IpAddress
 import lila.core.perm.Permission
+import lila.core.security.FingerHash
+import lila.core.userId.ModId
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
-import lila.core.security.FingerHash
-import lila.core.net.IpAddress
-import lila.core.userId.ModId
 
 final class Mod(
     env: Env,
@@ -102,9 +101,12 @@ final class Mod(
 
   def deletePmsAndChats(username: UserStr) = OAuthMod(_.Shadowban) { _ ?=> _ ?=>
     withSuspect(username): sus =>
-      (env.mod.publicChat.deleteAll(sus) >>
-        env.forum.delete.allByUser(sus.user) >>
-        env.msg.api.deleteAllBy(sus.user)).map(some)
+      for
+        _ <- env.mod.publicChat.deleteAll(sus)
+        _ <- env.forum.delete.allByUser(sus.user)
+        _ <- env.msg.api.deleteAllBy(sus.user)
+        _ <- env.mod.logApi.deleteComms(sus)
+      yield ().some
   }(actionResult(username))
 
   def disableTwoFactor(username: UserStr) = OAuthMod(_.DisableTwoFactor) { _ ?=> me ?=>
@@ -266,8 +268,9 @@ final class Mod(
                 .mon(_.mod.comm.segment("inquiries")),
               env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
-              }
-            ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins) =>
+              },
+              env.report.api.commReportsAbout(user, Max(50))
+            ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins, reports) =>
               if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
                 env.irc.api.commlog(user = user.light, inquiry.map(_.oldestAtom.by.userId))
                 if isGranted(_.MonitoredCommMod) then
@@ -292,6 +295,7 @@ final class Mod(
                     notes.filter(_.from != UserId.irwin),
                     history,
                     logins,
+                    reports,
                     appeals,
                     priv
                   )
@@ -529,7 +533,14 @@ final class Mod(
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>
-    noProxyBuffer(Ok.chunked(env.mod.stream()))
+    noProxyBuffer(Ok.chunked(env.mod.stream.events()))
+  }
+
+  def markedUsersStream = Scoped() { _ ?=> me ?=>
+    me.is(UserId.explorer)
+      .so(getTimestamp("since"))
+      .so: since =>
+        noProxyBuffer(Ok.chunked(env.mod.stream.markedSince(since).map(_.value + "\n")))
   }
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me ?=>

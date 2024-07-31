@@ -1,9 +1,10 @@
+import { Hooks } from 'snabbdom';
 import { memoize } from './common';
 import { bind } from './snabbdom';
 
 const longPressDuration = 610;
 
-export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void) {
+export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
   let longPressCountdown: number;
 
   el.addEventListener('touchstart', e => {
@@ -36,7 +37,7 @@ export const bindMobileMousedown =
     }
   };
 
-export const hookMobileMousedown = (f: (e: Event) => any) =>
+export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
 export const isMobile = (): boolean => isAndroid() || isIOS();
@@ -45,7 +46,7 @@ export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
 export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export const isIOS = (constraint?: { below?: number; atLeast?: number }) => {
+export const isIOS = (constraint?: { below?: number; atLeast?: number }): boolean => {
   let answer = ios();
   if (!constraint || !answer) return answer;
   const version = parseFloat(navigator.userAgent.slice(navigator.userAgent.indexOf('Version/') + 8));
@@ -65,16 +66,16 @@ export const getFirefoxMajorVersion = (): number | undefined => {
 
 export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
-export const isTouchDevice = () => !hasMouse();
+export const isTouchDevice = (): boolean => !hasMouse();
 
 export const isIPad = (): boolean =>
   navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
 export type Feature = 'wasm' | 'sharedMem' | 'simd';
 
-export const hasFeature = (feat?: string) => !feat || features().includes(feat as Feature);
+export const hasFeature = (feat?: string): boolean => !feat || features().includes(feat as Feature);
 
-export const features = memoize<readonly Feature[]>(() => {
+export const features: () => readonly Feature[] = memoize<readonly Feature[]>(() => {
   const features: Feature[] = [];
   if (
     typeof WebAssembly === 'object' &&
@@ -95,6 +96,10 @@ export const features = memoize<readonly Feature[]>(() => {
 const ios = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
 
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+
+export const reducedMotion: () => boolean = memoize<boolean>(
+  () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+);
 
 function sharedMemoryTest(): boolean {
   if (typeof Atomics !== 'object') return false;

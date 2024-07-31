@@ -13,7 +13,8 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     leaderboard: RelayLeaderboardApi,
-    notifier: RelayNotifier
+    notifier: RelayNotifier,
+    orphanNotifier: RelayNotifyOrphanBoard
 )(using Executor):
 
   def updateStudyChapters(rt: RelayRound.WithTour, rawGames: RelayGames): Fu[SyncResult.Ok] = for
@@ -29,6 +30,7 @@ final private class RelaySync(
     result = SyncResult.Ok(updates ::: appends.flatten, games)
     _      = lila.common.Bus.publish(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
+    _ <- orphanNotifier.inspectPlan(rt, plan)
   yield result
 
   private def updateChapter(
@@ -134,7 +136,7 @@ final private class RelaySync(
     (chapterNewTags != chapter.tags).so {
       if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
-      val newName = chapterName(game)
+      val newName = Chapter.nameFromPlayerTags(game.tags)
       for
         _ <- studyApi.setTagsAndRename(
           studyId = study.id,
@@ -168,14 +170,8 @@ final private class RelaySync(
       fideIds = tour.official.so(game.fideIdsPair)
     )
 
-  private def chapterName(game: RelayGame): Option[StudyChapterName] =
-    StudyChapterName.from:
-      game.tags.names
-        .mapN((w, b) => s"$w - $b")
-        .orElse(game.tags.boardNumber.map(b => s"Board $b"))
-
   private def chapterName(game: RelayGame, order: Chapter.Order): StudyChapterName =
-    chapterName(game) | StudyChapterName(s"Board $order")
+    Chapter.nameFromPlayerTags(game.tags) | StudyChapterName(s"Board $order")
 
   private def createChapter(study: Study, game: RelayGame)(using RelayTour): Fu[Chapter] = for
     order <- chapterRepo.nextOrderByStudy(study.id)

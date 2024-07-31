@@ -3,8 +3,8 @@ package lila.web
 import play.api.libs.json.{ JsArray, Json }
 import play.api.mvc.RequestHeader
 
-import lila.common.Json.given
 import lila.common.HTTPRequest
+import lila.common.Json.given
 import lila.core.config.NetConfig
 
 object StaticContent:

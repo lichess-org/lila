@@ -2,11 +2,12 @@ package lila.storm
 package ui
 
 import play.api.libs.json.*
-
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
+
 import lila.core.id.CmsPageKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class StormUi(helpers: Helpers):
   import helpers.{ *, given }

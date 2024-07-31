@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.format.Fen
-import chess.variant.{ Chess960, FromPosition, Variant }
+import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Speed }
 import scalalib.model.Days
 

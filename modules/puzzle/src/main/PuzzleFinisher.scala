@@ -1,21 +1,16 @@
 package lila.puzzle
 
 import chess.Mode
-
-import scala.util.chaining.*
 import scalalib.actor.AsyncActorSequencers
 
 import lila.common.Bus
+import lila.core.perf.Perf
+import lila.core.rating.Glicko
 import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
-import lila.rating.glicko2
-import lila.rating.PerfType
-import lila.core.rating.Glicko
-import lila.core.perf.Perf
-import lila.rating.GlickoExt.sanityCheck
+import lila.rating.GlickoExt.{ average, cap, sanityCheck }
 import lila.rating.PerfExt.*
-import lila.rating.GlickoExt.cap
-import lila.rating.GlickoExt.average
+import lila.rating.{ PerfType, glicko2 }
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,

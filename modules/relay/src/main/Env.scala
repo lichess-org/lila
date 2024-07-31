@@ -4,15 +4,14 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.paginator.Paginator
 
 import scala.util.matching.Regex
 
 import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
-import lila.relay.RelayTour.ActiveWithSomeRounds
-import scalalib.paginator.Paginator
-import lila.relay.RelayTour.WithLastRound
+import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound }
 
 @Module
 final class Env(
@@ -56,6 +55,12 @@ final class Env(
 
   lazy val leaderboard = wire[RelayLeaderboardApi]
 
+  private lazy val playersApi = wire[RelayPlayersApi]
+
+  private lazy val notifyMissingFideIds = wire[RelayNotifyMissingFideIds]
+
+  private lazy val notifyOrphanBoard = wire[RelayNotifyOrphanBoard]
+
   private lazy val notifier = wire[RelayNotifier]
 
   lazy val jsonView = wire[JsonView]
@@ -63,6 +68,8 @@ final class Env(
   lazy val listing: RelayListing = wire[RelayListing]
 
   lazy val stats = wire[RelayStatsApi]
+
+  private lazy val playersUpdate = wire[RelayPlayersUpdate]
 
   lazy val api: RelayApi = wire[RelayApi]
 

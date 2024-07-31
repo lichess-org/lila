@@ -1,12 +1,10 @@
 package lila.web
 
 import play.api.data.Form
-import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Reads, Writes }
 import play.api.mvc.*
 
-import lila.core.i18n.I18nKey
-import lila.core.i18n.Translate
+import lila.core.i18n.{ I18nKey, Translate }
 
 trait CtrlErrors extends ControllerHelpers:
 
@@ -34,7 +32,7 @@ trait CtrlErrors extends ControllerHelpers:
         .mapValues: errors =>
           JsArray:
             errors.map: e =>
-              JsString(I18nKey(e.message).txt(e.args))
+              JsString(I18nKey(e.message).txt(e.args*))
         .toMap
     json.validate(jsonGlobalErrorRenamer).getOrElse(json)
 

@@ -1,18 +1,15 @@
 package lila.game
 package importer
 
-import scala.util.chaining.*
+import chess.format.pgn.PgnStr
+import chess.{ ByColor, ErrorStr, Mode }
 import play.api.data.*
 import play.api.data.Forms.*
 
-import chess.format.Fen
-import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
-import chess.{ ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status }
-
-import lila.game.GameExt.finish
-import lila.core.game.{ ImportedGame, Game, Player }
-import lila.tree.ImportResult
 import lila.common.Form.into
+import lila.core.game.{ Game, ImportedGame }
+import lila.game.GameExt.finish
+import lila.tree.ImportResult
 
 private val maxPlies = 600
 

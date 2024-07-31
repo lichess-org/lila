@@ -1,13 +1,9 @@
 package lila.web
 
 import akka.stream.scaladsl.Source
-import alleycats.Zero
 import play.api.http.*
 import play.api.libs.json.*
 import play.api.mvc.*
-
-import lila.common.HTTPRequest
-import lila.core.net.ApiVersion
 
 trait ResponseBuilder(using Executor)
     extends ControllerHelpers
@@ -67,7 +63,6 @@ trait ResponseBuilder(using Executor)
     "help"         -> "/contact",
     "support"      -> "/contact",
     "donate"       -> "/patron",
-    "how-to-cheat" -> "/page/how-to-cheat",
-    "help/master"  -> "/verify-title"
+    "how-to-cheat" -> "/page/how-to-cheat"
   )
   def staticRedirect(key: String): Option[Fu[Result]] = movedMap.get(key).map { MovedPermanently(_) }

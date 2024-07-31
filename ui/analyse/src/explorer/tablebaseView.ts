@@ -21,7 +21,7 @@ export function showTablebase(
         moves.map(move =>
           h('tr', { key: move.uci, attrs: { 'data-uci': move.uci } }, [
             h('td', move.san),
-            h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move)]),
+            h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move), showDtw(fen, move)]),
           ]),
         ),
       ),
@@ -37,6 +37,16 @@ function showDtm(ctrl: AnalyseCtrl, fen: FEN, move: TablebaseMoveStats) {
         attrs: { title: ctrl.trans.pluralSame('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)' },
       },
       'DTM ' + Math.abs(move.dtm),
+    );
+  return undefined;
+}
+
+function showDtw(fen: FEN, move: TablebaseMoveStats) {
+  if (move.dtw)
+    return h(
+      'result.' + winnerOf(fen, move),
+      { attrs: { title: 'Depth To Win' } },
+      'DTW ' + Math.abs(move.dtw),
     );
   return undefined;
 }

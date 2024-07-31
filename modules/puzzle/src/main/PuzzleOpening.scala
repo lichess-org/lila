@@ -4,8 +4,8 @@ import chess.opening.{ Opening, OpeningDb, OpeningFamily }
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
-import lila.db.dsl.{ *, given }
 import lila.core.i18n.I18nKey
+import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, MongoCache }
 
 case class PuzzleOpeningCollection(
@@ -36,9 +36,8 @@ case class PuzzleOpeningCollection(
     .sortBy(-_._1.count)
 
   val treeAlphabetical: TreeList = treePopular
-    .map { (fam, ops) =>
+    .map: (fam, ops) =>
       fam -> ops.sortBy(_.opening.name.value)
-    }
     .sortBy(_._1.family.name.value)
 
   def treeList(order: Order): TreeList = order match

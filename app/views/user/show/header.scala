@@ -1,12 +1,11 @@
 package views.user
 package show
 
-import lila.app.mashup.UserInfo
 import lila.app.UiEnv.{ *, given }
-
+import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
-import lila.user.Profile.*
 import lila.user.PlayTime.*
+import lila.user.Profile.*
 
 object header:
 
@@ -148,6 +147,14 @@ object header:
                   href     := s"${routes.Report.form}?username=${u.username}",
                   dataIcon := Icon.CautionTriangle
                 )(trans.site.reportXToModerators.txt(u.username))
+              ),
+              (ctx.is(u) || isGranted(_.CloseAccount)).option(
+                a(href := routes.Relation.following(u.username), dataIcon := Icon.User)(trans.site.friends())
+              ),
+              (ctx.is(u) || isGranted(_.BoostHunter)).option(
+                a(href := s"${routes.User.opponents}?u=${u.username}", dataIcon := Icon.User)(
+                  trans.site.favoriteOpponents()
+                )
               )
             )
           )
@@ -209,18 +216,6 @@ object header:
                         trans.site.profileCompletion(s"${profile.completionPercent}%")
                       )
                     ),
-                  (ctx.is(u) || isGranted(_.CloseAccount)).option(
-                    frag(
-                      br,
-                      a(href := routes.Relation.following(u.username))(trans.site.friends())
-                    )
-                  ),
-                  (ctx.is(u) || isGranted(_.BoostHunter)).option(
-                    frag(
-                      br,
-                      a(href := s"${routes.User.opponents}?u=${u.username}")(trans.site.favoriteOpponents())
-                    )
-                  ),
                   u.playTime.map: playTime =>
                     frag(
                       p(

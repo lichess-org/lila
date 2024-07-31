@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="zeroAdsAndNoTracking">Brak reklam, brak śledzenia</string>
+  <string name="tacticalPuzzlesFromUserGames">Zagadki taktyczne z partii użytkownika</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Jasny/ciemny motyw, niestandardowe szachownice, bierki i tło</string>
+  <string name="supportLichess">Wesprzyj Lichess</string>
+  <string name="allFeaturesAreFreeForEverybody">Pełna funkcjonalność jest darmowa dla wszystkich, po wieki !</string>
+  <string name="ifYouLoveLichess">Jeśli kochasz Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Wspomóż nas kontem Patrona!</string>
+</resources>

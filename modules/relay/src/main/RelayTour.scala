@@ -3,9 +3,8 @@ package lila.relay
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
-import lila.core.misc.PicfitUrl
 import lila.core.id.ImageId
-import java.time.LocalDate
+import lila.core.misc.PicfitUrl
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
@@ -25,8 +24,7 @@ case class RelayTour(
     teams: Option[RelayTeamsTextarea] = None,
     image: Option[ImageId] = None,
     dates: Option[RelayTour.Dates] = None, // denormalized from round dates
-    pinnedStreamer: Option[UserStr] = None,
-    pinnedStreamerImage: Option[ImageId] = None
+    pinnedStream: Option[RelayPinnedStream] = None
 ):
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)

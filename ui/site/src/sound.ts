@@ -15,7 +15,6 @@ export default new (class implements SoundI {
   theme = document.body.dataset.soundSet!;
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
-  baseUrl = assetUrl('sound', { version: '_____1' });
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
   primer = () =>
@@ -35,8 +34,8 @@ export default new (class implements SoundI {
     if (!path) return;
     if (this.sounds.has(path)) return this.sounds.get(path);
 
-    const result = await fetch(`${path}.mp3`);
-    if (!result.ok) throw new Error(`${path}.mp3 failed ${result.status}`);
+    const result = await fetch(path);
+    if (!result.ok) throw new Error(`${path} failed ${result.status}`);
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
@@ -56,7 +55,11 @@ export default new (class implements SoundI {
       if (['move', 'capture', 'check'].includes(name)) return;
       dir = 'standard';
     }
-    return `${this.baseUrl}/${dir}/${name[0].toUpperCase() + name.slice(1)}`;
+    return this.url(`${dir}/${name[0].toUpperCase() + name.slice(1)}.mp3`);
+  }
+
+  url(name: Name): string {
+    return assetUrl(`sound/${name}`, { version: '_____1' });
   }
 
   async play(name: Name, volume = 1): Promise<void> {

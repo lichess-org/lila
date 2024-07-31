@@ -2,6 +2,7 @@ import { updateElements } from './clockView';
 import { RoundData } from '../interfaces';
 import * as game from 'game';
 import * as Prefs from 'common/prefs';
+import { reducedMotion } from 'common/device';
 
 export type Seconds = number;
 export type Centis = number;
@@ -88,7 +89,7 @@ export class ClockController {
       this.showTenths = time => time < cutoff;
     }
 
-    this.showBar = cdata.showBar && !this.opts.nvui;
+    this.showBar = cdata.showBar && !this.opts.nvui && !reducedMotion();
     this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 

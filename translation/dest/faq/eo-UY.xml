@@ -167,5 +167,12 @@ Ni montras la ruĝan ikonon por averti vin kiam tio okazas. Ofte vi povas ekspli
 4. Rulumu malsupre kaj alklaku aŭdvidaĵan aŭtomatan ludigon
 5. Aldonu lichess.org al Permesata</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Ĉu haltigi min mem el ludo?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">memstara mensmalsano</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess uzantstiloj</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">malpli da vestiblaj grupoj</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Ni regule ricevas mesaĝojn de uzantoj, kiuj petas nin por helpi ilin halti troludi.
+
+Kiam Lichess ne forigas aŭ forbaras ludantojn krom ĉar malobservos de uzkondiĉoj, ni rekomendi uzon de eksteraj iloj por limi troludado. Kelkaj kutimaj proponoj por retblokiloj estas %1$s, %2$s, and %3$s. Se vi volas daŭri uzi la la retpaĝo, sed ne tentiĝas per rapidaj temporegardoj, tiam vi povus esti interestata pri %4$s, tie estas unu kun %5$s.
+
+Kelkaj ludantas povus senti, kiel ties ludanta konduto fariĝas manio. Fakte, la MOS klasifikis ludmanio kiel %6$s, kies esencaj trajtoj estas 1) difekta regado de ludado, 2) pliigado de prioritato donita al ludado, kaj 3) kreskado de ludado, malĝraŭ malbonaj konsekvencoj. Se vi pensas, ke via ŝakludanta konduto sekvas ĉi tiu ŝablono, tiam ni kuraĝigi vin por paroli kun amiko aŭ familmembro kaj/aŭ profesiulo.</string>
 </resources>

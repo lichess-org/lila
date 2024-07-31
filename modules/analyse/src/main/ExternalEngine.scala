@@ -2,10 +2,10 @@ package lila.analyse
 
 import chess.variant.Variant
 import com.roundeights.hasher.Algo
-import scalalib.{ SecureRandom, ThreadLocalRandom }
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.libs.json.{ Json, OWrites, JsObject }
+import play.api.libs.json.{ JsObject, Json, OWrites }
+import scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.common.Form.{ *, given }
 import lila.common.Json.given

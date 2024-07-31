@@ -1,11 +1,11 @@
 package lila.study
 
 import chess.format.Fen
+import chess.json.Json.destString
 import chess.variant.Variant
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import chess.json.Json.destString
 
 case class AnaDests(
     variant: Variant,

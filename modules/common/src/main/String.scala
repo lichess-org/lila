@@ -1,13 +1,10 @@
 package lila.common
 
 import play.api.libs.json.*
+import scalalib.StringUtils.{ escapeHtmlRaw, safeJsonString }
 import scalatags.Text.all.*
 
-import java.text.Normalizer
-
-import lila.common.RawHtml
 import lila.core.config.NetDomain
-import scalalib.StringUtils.{ escapeHtmlRaw, safeJsonString }
 import lila.core.data.SafeJsonStr
 
 object String:

@@ -1,14 +1,12 @@
 package lila.msg
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.core.misc.clas.{ AreKidsInSameClass, IsTeacherOf }
-import lila.core.team.IsLeaderOf
-import lila.memo.RateLimit
-import lila.core.perm.Granter
-import lila.core.shutup.TextAnalyser
-
+import lila.core.misc.clas.ClasBus
 import lila.core.report.SuspectId
+import lila.core.shutup.TextAnalyser
+import lila.core.team.IsLeaderOf
+import lila.db.dsl.{ *, given }
+import lila.memo.RateLimit
 
 final private class MsgSecurity(
     colls: MsgColls,
@@ -175,7 +173,8 @@ final private class MsgSecurity(
       if !isNew || !hasKid then fuTrue
       else
         (orig.isKid, dest.isKid) match
-          case (true, true)  => Bus.ask[Boolean]("clas") { AreKidsInSameClass(orig.id, dest.id, _) }
+          case (true, true) =>
+            Bus.safeAsk[Boolean, ClasBus] { ClasBus.AreKidsInSameClass(orig.id, dest.id, _) }
           case (false, true) => isTeacherOf(orig.id, dest.id)
           case (true, false) => isTeacherOf(dest.id, orig.id)
           case _             => fuFalse
@@ -184,7 +183,7 @@ final private class MsgSecurity(
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
   private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-    Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
+    Bus.safeAsk[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: Contacts) =
     Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }

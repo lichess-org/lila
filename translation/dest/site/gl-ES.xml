@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Últimas publicacións no foro</string>
   <string name="players">Xogadores</string>
   <string name="friends">Amizades</string>
+  <string name="otherPlayers">outros xogadores</string>
   <string name="discussions">Conversas</string>
   <string name="today">Hoxe</string>
   <string name="yesterday">Onte</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Texto que só verán os membros do equipo. Se se emprega, substitúe á descrición pública cando sexa visto polos membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
+  <string name="website">Páxina web</string>
+  <string name="mobile">Móbil</string>
   <string name="help">Axuda:</string>
   <string name="createANewTopic">Crear novo tema</string>
   <string name="topics">Temas</string>

@@ -66,6 +66,7 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="pickYourTeam">Valitse joukkueesi</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Mitä joukkuetta edustat tässä taistossa?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Sinun täytyy liittyä johonkin näistä joukkueista osallistuaksesi turnaukseen!</string>
+  <string name="created">Luodut</string>
   <string name="recentlyPlayed">Äskettäin pelatut</string>
   <string name="bestResults">Parhaat tulokset</string>
   <string name="stats">Tilastot</string>

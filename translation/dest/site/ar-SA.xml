@@ -216,6 +216,7 @@
   <string name="latestForumPosts">آخر منشورات المنتدى</string>
   <string name="players">اللاعبون</string>
   <string name="friends">الأصدقاء</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">لاعبون آخرون</string>
   <string name="discussions">المحادثات</string>
   <string name="today">اليوم</string>
   <string name="yesterday">الأمس</string>
@@ -638,6 +639,7 @@
   <string name="ifNoneLeaveEmpty">إذا لم يوجد، أتركه فارغًا</string>
   <string name="profile">الملف الشخصي</string>
   <string name="editProfile">حرر الملف الشخصي</string>
+  <string name="realName">الاسم الحقيقي</string>
   <string name="setFlair">اختيار الشارة</string>
   <string name="flair">الشارة</string>
   <string name="youCanHideFlair">يستخدم هذا الإعداد لإخفاء جميع شارات المستخدمين في الموقع.</string>
@@ -672,6 +674,8 @@
   <string name="descPrivateHelp">هذا النص سيراه فقط أعضاء الفريق. في حالة ضبطه، سيحل محل الوصف العام لأعضاء الفريق.</string>
   <string name="no">لا</string>
   <string name="yes">نعم</string>
+  <string name="website">الموقع</string>
+  <string name="mobile">الهاتف المحمول</string>
   <string name="help">مساعدة:</string>
   <string name="createANewTopic">إنشاء موضوع جديد</string>
   <string name="topics">المواضيع</string>
@@ -723,6 +727,7 @@
   <string name="slow">بطيء</string>
   <string name="insideTheBoard">داخل الرقعة</string>
   <string name="outsideTheBoard">خارج الرقعة</string>
+  <string name="allSquaresOfTheBoard">جميع مربعات اللوح</string>
   <string name="onSlowGames">في المباريات البطيئة</string>
   <string name="always">دائماً</string>
   <string name="never">إطلاقا</string>

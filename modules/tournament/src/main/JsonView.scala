@@ -6,21 +6,20 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.common.Json.lightUser.writeNoId
 import lila.common.Uptime
 import lila.core.LightUser
+import lila.core.chess.Rank
+import lila.core.data.Preload
+import lila.core.game.LightPov
+import lila.core.i18n.Translate
+import lila.core.socket.SocketVersion
+import lila.core.user.LightUserApi
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
-import lila.ui.Icon.iconWrites
-
-import lila.core.socket.SocketVersion
-import lila.core.i18n.Translate
-import lila.core.data.Preload
-import lila.common.Json.lightUser.writeNoId
 import lila.rating.PerfType
-import lila.core.chess.Rank
-import lila.core.user.LightUserApi
-import lila.core.game.LightPov
+import lila.ui.Icon.iconWrites
 
 final class JsonView(
     lightUserApi: LightUserApi,

@@ -2,8 +2,6 @@ package lila.rating
 
 import org.apache.commons.math3.special.Erf.{ erf, erfInv }
 
-import scala.math.sqrt
-
 /** Represents a Gaussian distribution over a single real variable. */
 final class Gaussian(mu: Double, sigma: Double):
 

@@ -4,13 +4,14 @@ package ui
 import play.api.data.*
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Translate
-import lila.gathering.{ ConditionForm, GatheringClock }
-import lila.gathering.ui.GatheringFormUi
 import lila.core.team.LightTeam
+import lila.gathering.GatheringClock
+import lila.gathering.ui.GatheringFormUi
 import lila.tournament.crud.CrudForm
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 opaque type FormPrefix = Option[String]
 object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:

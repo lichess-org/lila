@@ -171,6 +171,7 @@
   <string name="latestForumPosts">最新论坛帖子</string>
   <string name="players">棋手</string>
   <string name="friends">棋友</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">其他玩家</string>
   <string name="discussions">讨论组</string>
   <string name="today">今天</string>
   <string name="yesterday">昨天</string>
@@ -503,6 +504,8 @@
   <string name="descPrivateHelp">仅团队成员可见，设置后将覆盖公开简介为团队成员展示。</string>
   <string name="no">否</string>
   <string name="yes">是</string>
+  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">网站</string>
+  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">流动电话</string>
   <string name="help">帮助：</string>
   <string name="createANewTopic">新话题</string>
   <string name="topics">话题</string>
@@ -554,6 +557,7 @@
   <string name="slow">慢</string>
   <string name="insideTheBoard">棋盘内</string>
   <string name="outsideTheBoard">棋盘外</string>
+  <string name="allSquaresOfTheBoard">棋盘上的所有格子</string>
   <string name="onSlowGames">在慢棋时</string>
   <string name="always">总是</string>
   <string name="never">从不</string>
@@ -754,7 +758,7 @@
   <string name="brightness">亮度</string>
   <string name="hue">色调</string>
   <string name="boardReset">重置颜色设置</string>
-  <string name="pieceSet">棋子设定</string>
+  <string name="pieceSet">棋子风格</string>
   <string name="embedInYourWebsite">嵌入到你的网站上</string>
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
   <string name="usernamePrefixInvalid">用户名必须以字母开头。</string>

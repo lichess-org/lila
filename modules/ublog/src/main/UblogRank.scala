@@ -3,11 +3,10 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.i18n.Language
-
 import lila.core.perf.UserWithPerfs
+import lila.core.timeline.{ Propagate, UblogPostLike }
+import lila.db.dsl.{ *, given }
 
 object UblogRank:
 

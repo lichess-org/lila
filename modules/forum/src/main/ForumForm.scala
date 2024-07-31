@@ -3,8 +3,8 @@ package lila.forum
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanText, into }
 import lila.common.Form.given
+import lila.common.Form.{ cleanText, into }
 
 final private[forum] class ForumForm(
     promotion: lila.core.security.PromotionApi,

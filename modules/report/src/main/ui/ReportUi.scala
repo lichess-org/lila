@@ -1,10 +1,12 @@
 package lila.report
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.i18n.{ Translate, I18nKey as trans }
 import play.api.data.Form
+
+import lila.core.i18n.{ I18nKey as trans, Translate }
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 object ReportUi:
 
@@ -15,16 +17,53 @@ final class ReportUi(helpers: Helpers):
   import helpers.{ given, * }
   import ReportUi.*
 
-  def form(form: Form[?], reqUser: Option[User] = None)(using ctx: Context) =
+  def filterReason(from: Option[String])(reason: Reason): Boolean = from match
+    case Some("forum" | "inbox") => reason.isComm
+    case _                       => true
+
+  def inbox(form: Form[?], user: User, msgs: List[lila.core.msg.IdText])(using ctx: Context) =
     Page(trans.site.reportAUser.txt())
-      .css("bits.form3")
-      .js(
-        embedJsUnsafeLoadThen(
-          """$('#form3-reason').on('change', function() {
-            $('.report-reason').addClass('none').filter('.report-reason-' + this.value).removeClass('none');
-          })"""
+      .css("mod.report.form")
+      .js(embedReasonToggleJs):
+        main(cls := "page-small box box-pad report")(
+          h1(cls := "box__top")(trans.site.reportAUser()),
+          postForm(
+            cls    := "form3",
+            action := routes.Report.inboxCreate(user.username)
+          )(
+            div(cls := "form-group")(aboutReports),
+            form3.globalError(form),
+            form3.group(form("username"), trans.site.user()): f =>
+              frag(userLink(user), form3.hidden(f, user.id.value.some)),
+            reasonFormGroup(form, "inbox".some),
+            form3.group(form("msgs"), "Messages to report", klass = "report-inbox-msgs"): f =>
+              ul:
+                msgs.map: msg =>
+                  li(
+                    form3
+                      .nativeCheckbox(
+                        msg.id,
+                        s"${f.name}[]",
+                        checked = false,
+                        value = msg.id
+                      ),
+                    label(`for` := msg.id)(msg.text)
+                  )
+            ,
+            form3.group(form("text"), trans.site.description()):
+              form3.textarea(_)(rows := 8, required)
+            ,
+            form3.actions(
+              a(href := routes.Lobby.home)(trans.site.cancel()),
+              form3.submit(trans.site.send())
+            )
+          )
         )
-      ):
+
+  def form(form: Form[?], reqUser: Option[User] = None, from: Option[String])(using ctx: Context) =
+    Page(trans.site.reportAUser.txt())
+      .css("mod.report.form")
+      .js(embedReasonToggleJs):
         val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1.key))
         main(cls := "page-small box box-pad report")(
           h1(cls := "box__top")(trans.site.reportAUser()),
@@ -33,14 +72,7 @@ final class ReportUi(helpers: Helpers):
             action := s"${routes.Report.create}${reqUser.so(u => "?username=" + u.username)}"
           )(
             div(cls := "form-group")(
-              p(
-                a(
-                  href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
-                  dataIcon := Icon.InfoCircle,
-                  cls      := "text"
-                ):
-                  "Read more about Lichess reports"
-              ),
+              aboutReports,
               ctx.req.queryString
                 .contains("postUrl")
                 .option(
@@ -61,14 +93,7 @@ final class ReportUi(helpers: Helpers):
             ,
             if ctx.req.queryString contains "reason"
             then form3.hidden(form("reason"))
-            else
-              form3.group(form("reason"), trans.site.reason()): f =>
-                form3.select(
-                  f,
-                  translatedReasonChoices.map((r, t) => (r.key, t)),
-                  trans.site.whatIsIheMatter.txt().some
-                )
-            ,
+            else reasonFormGroup(form, from),
             form3.group(form("text"), trans.site.description(), help = descriptionHelp(~defaultReason).some):
               form3.textarea(_)(rows := 8)
             ,
@@ -78,6 +103,27 @@ final class ReportUi(helpers: Helpers):
             )
           )
         )
+
+  private def reasonFormGroup(form: Form[?], from: Option[String])(using Context) =
+    form3.group(form("reason"), trans.site.reason()): f =>
+      form3.select(
+        f,
+        translatedReasonChoices.collect:
+          case (r, t) if filterReason(from)(r) => (r.key, t),
+        trans.site.whatIsIheMatter.txt().some
+      )
+
+  private val aboutReports = p(
+    a(
+      href     := routes.Cms.lonePage(lila.core.id.CmsPageKey("report-faq")),
+      dataIcon := Icon.InfoCircle,
+      cls      := "text"
+    ):
+      "Read more about Lichess reports"
+  )
+
+  private val embedReasonToggleJs = embedJsUnsafeLoadThen:
+    """$('#form3-reason').on('change', function() { $('.report-reason').addClass('none').filter('.report-reason-' + this.value).removeClass('none'); })"""
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
@@ -89,13 +135,17 @@ final class ReportUi(helpers: Helpers):
       .map: reason =>
         span(
           cls := List(s"report-reason report-reason-${reason.key}" -> true, "none" -> (current != reason.key))
-        ):
-          val base =
-            if reason == Cheat || reason == Boost then trans.site.reportDescriptionHelp()
-            else if reason == Username then "Please explain briefly what about this username is offensive."
-            else
-              "Please provide as much information as possible, including relevant game links, posts, and messages."
-          s"$base $englishPlease $maxLength"
+        )(
+          if reason == Cheat || reason == Boost then trans.site.reportDescriptionHelp()
+          else if reason == Username then "Please explain briefly what about this username is offensive."
+          else
+            "Please provide as much information as possible, including relevant game links, posts, and messages."
+          ,
+          " ",
+          englishPlease,
+          " ",
+          maxLength
+        )
 
   private def translatedReasonChoices(using Translate) =
     import Reason.*
@@ -112,6 +162,9 @@ final class ReportUi(helpers: Helpers):
       (Username, trans.site.username.txt()),
       (Other, trans.site.other.txt())
     )
+
+  private def translatedCommReasonChoices(using Translate) =
+    translatedReasonChoices.filter((key, _) => key.isComm)
 
   def thanks(userId: UserId, blocked: Boolean)(using ctx: Context) =
     val title = "Thanks for the report"

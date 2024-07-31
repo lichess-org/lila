@@ -2,14 +2,11 @@ package lila.api
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
-import lila.common.config.*
 import lila.core.misc.lpv.*
-import lila.core.id.CmsPageKey
 
 @Module
 final class Env(
@@ -63,6 +60,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
     realPlayerApi: lila.web.RealPlayerApi,
+    bookmarkExists: lila.core.bookmark.BookmarkExists,
     manifest: lila.web.AssetManifest
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,

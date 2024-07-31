@@ -21,7 +21,8 @@ export async function tsc(): Promise<void> {
       .filter(x => x.hasTsconfig)
       .sort((a, b) => a.name.localeCompare(b.name))
       .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
-
+    const notIsolated: string[] = [];
+    const declModules = new Set<string>();
     // verify that tsconfig references are correct
     for (const tsconfig of cfg.references) {
       if (!tsconfig?.path) continue;
@@ -31,12 +32,22 @@ export async function tsc(): Promise<void> {
       for (const dep of env.deps.get(module) ?? []) {
         if (!ref.references?.some((x: any) => x.path.endsWith(path.join(dep, 'tsconfig.json'))))
           env.warn(
-            `${warnMark} - Module '${c.grey(module)}' depends on '${c.grey(
-              dep,
-            )}' but no reference in '${c.cyan(tsconfig.path.slice(env.uiDir.length + 1))}'`,
+            `${warnMark} - Module ${c.grey(module)} depends on ${c.grey(dep)} with no reference in '${c.cyan(
+              module + '/tsconfig.json',
+            )}'`,
+            'tsc',
           );
       }
+      if (!ref.compilerOptions?.isolatedDeclarations) notIsolated.push(module);
+      ref.references?.forEach((x: any) => declModules.add(/\/([^/]+)\/tsconfig\.json/.exec(x.path)![1]));
     }
+    notIsolated
+      .filter(m => declModules.has(m))
+      .forEach(module =>
+        env.log(`[${c.grey(module)}] - Convert to ${c.blue('isolatedDeclarations')} (typescript 5.5)`, {
+          ctx: 'tsc',
+        }),
+      );
 
     await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
     const thisPs = (tscPs = cps.spawn('.build/node_modules/.bin/tsc', [

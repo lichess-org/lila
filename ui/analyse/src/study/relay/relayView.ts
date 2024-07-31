@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { onClickAway } from 'common';
-import { looseH as h, onInsert, bind, MaybeVNode, VNode } from 'common/snabbdom';
+import { looseH as h, onInsert, MaybeVNode, VNode } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
@@ -60,23 +60,6 @@ export function renderStreamerMenu(relay: RelayCtrl): VNode {
   );
 }
 
-export function renderPinnedImage(ctx: RelayViewContext): MaybeVNode {
-  const { allowVideo, relay } = ctx;
-  if (!relay.pinStreamer() || !relay.data.pinned?.image) return undefined;
-  return h('img.link', {
-    attrs: { src: relay.data.pinned.image },
-    hook: bind('click', () => {
-      if (!allowVideo) {
-        window.open(`${window.location.origin}/streamer/${relay.data.pinned!.userId}`, '_blank', 'noopener');
-        return;
-      }
-      const url = new URL(location.href);
-      url.searchParams.set('embed', relay.data.pinned!.userId);
-      window.location.replace(url);
-    }),
-  });
-}
-
 export function allowVideo(): boolean {
   return window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';
 }
@@ -95,9 +78,5 @@ function renderBoardView(ctx: RelayViewContext) {
 }
 
 function renderEmbedPlaceholder(ctx: RelayViewContext): MaybeVNode {
-  return ctx.relay.data.videoUrls
-    ? renderVideoPlayer(ctx.relay)
-    : ctx.relay.isShowingPinnedImage()
-    ? renderPinnedImage(ctx)
-    : undefined;
+  return ctx.relay.data.videoUrls ? renderVideoPlayer(ctx.relay) : undefined;
 }

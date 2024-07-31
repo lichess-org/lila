@@ -1,12 +1,10 @@
 package controllers
-
-import play.api.i18n.Lang
 import play.api.libs.json.{ JsValue, Json }
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.insight.{ InsightDimension, InsightMetric }
 import lila.core.i18n.Translate
+import lila.insight.{ InsightDimension, InsightMetric }
 
 final class Insight(env: Env) extends LilaController(env):
 
@@ -67,18 +65,18 @@ final class Insight(env: Env) extends LilaController(env):
             .map { Ok(_) }
       )
 
-  private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(using ctx: Context) =
-    Found(meOrFetch(username)): u =>
-      env.insight.share
-        .grant(u)(using ctx.me)
-        .flatMap:
-          if _ then f(u)
-          else Forbidden.page(views.insight.forbidden(u))
+  private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(using Context) =
+    isAccessible(username)(f, u => Forbidden.page(views.insight.forbidden(u)))
 
   private def AccessibleApi(username: UserStr)(f: lila.user.User => Fu[Result])(using Context) =
+    isAccessible(username)(f, _ => Forbidden)
+
+  private def isAccessible(
+      username: UserStr
+  )(f: lila.user.User => Fu[Result], fallback: lila.user.User => Fu[Result])(using Context): Fu[Result] =
     Found(meOrFetch(username)): u =>
       env.insight.share
         .grant(u)(using ctx.me)
         .flatMap:
           if _ then f(u)
-          else Forbidden
+          else fallback(u)

@@ -187,6 +187,7 @@
   <string name="latestForumPosts">Ultimele postări pe forum</string>
   <string name="players">Jucători</string>
   <string name="friends">Prieteni</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">alți jucători</string>
   <string name="discussions">Discuții</string>
   <string name="today">Astăzi</string>
   <string name="yesterday">Ieri</string>

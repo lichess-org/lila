@@ -1,6 +1,6 @@
 package lila.relay
 
-import reactivemongo.api.bson.*
+import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
@@ -40,6 +40,7 @@ object BSONHandlers:
 
   given BSONDocumentHandler[RelayRound] = Macros.handler
 
+  given BSONDocumentHandler[RelayPinnedStream]      = Macros.handler
   given BSONDocumentHandler[RelayTour.Spotlight]    = Macros.handler
   given BSONDocumentHandler[RelayTour.Info]         = Macros.handler
   given BSONDocumentHandler[RelayTour.Dates]        = Macros.handler

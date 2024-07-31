@@ -12,10 +12,9 @@ import serviceWorker from './serviceWorker';
 import StrongSocket from './socket';
 import topBar from './topBar';
 import watchers from './watchers';
-import { requestIdleCallback } from './functions';
 import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
-import { scrollToInnerSelector } from 'common';
+import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 
 export function boot() {
@@ -59,7 +58,8 @@ export function boot() {
     $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
       const $a = $(this).addClass('processing').css('opacity', 0.3);
       xhr.text(this.href, { method: 'post' }).then(html => {
-        if (html.includes('relation-actions')) $a.parent().replaceWith(html);
+        if ($a.hasClass('aclose')) $a.hide();
+        else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
         else $a.replaceWith(html);
       });
       return false;
@@ -115,8 +115,8 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    $('.form-fieldset--toggle').each(function (this: HTMLFieldSetElement) {
-      const toggle = () => this.classList.toggle('form-fieldset--toggle-off');
+    $('.toggle-box--toggle').each(function (this: HTMLFieldSetElement) {
+      const toggle = () => this.classList.toggle('toggle-box--toggle-off');
       $(this)
         .children('legend')
         .on('click', toggle)
@@ -125,12 +125,15 @@ export function boot() {
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
+    if (site.debug) site.asset.loadEsm('bits.devMode');
     if (showDebug) site.asset.loadEsm('bits.diagnosticDialog');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));
 
     serviceWorker();
+
+    console.info('Lichess is open source! See https://lichess.org/source');
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {

@@ -11,10 +11,14 @@
   <string name="liveBroadcasts">Živé vysielanie turnaja</string>
   <string name="newBroadcast">Nové živé vysielanie</string>
   <string name="subscribedBroadcasts">Odoberané vysielania</string>
+  <string name="aboutBroadcasts">O vysielaní</string>
+  <string name="howToUseLichessBroadcasts">Ako používať Lichess vysielanie.</string>
+  <string name="theNewRoundHelp">Nové kolo bude mať tých istých členov a prispievateľov ako to predchádzajúce.</string>
   <string name="addRound">Pridať kolo</string>
   <string name="ongoing">Prebiehajúci</string>
-  <string name="upcoming">Nasledujúce</string>
+  <string name="upcoming">Blížiace sa</string>
   <string name="completed">Ukončené</string>
+  <string name="completedHelp">Lichess rozpozná dokončenie kola, ale môže sa pomýliť. Pomocou tejto funkcie ho môžete nastaviť ručne.</string>
   <string name="roundName">Názov kola</string>
   <string name="roundNumber">Číslo kola</string>
   <string name="tournamentName">Názov turnaja</string>
@@ -36,7 +40,11 @@
   <string name="editRoundStudy">Upraviť kolo štúdií</string>
   <string name="deleteTournament">Vymazať tento turnaj</string>
   <string name="definitivelyDeleteTournament">Definitívne odstrániť celý turnaj so všetkými kolami a všetkými partiami.</string>
+  <string name="automaticLeaderboard">Automatické poradie</string>
+  <string name="automaticLeaderboardHelp">Výpočet a zobrazenie jednoduchého rebríčka na základe výsledkov partií</string>
   <string name="replacePlayerTags">Voliteľné: nahradiť mená hráčov, hodnotenia a tituly</string>
+  <string name="periodInSeconds">Doba v sekundách</string>
+  <string name="periodInSecondsHelp">Nepovinné, ako dlho sa má čakať medzi požiadavkami. Min. 2 s, max. 60 s. Predvolené nastavenie je automatické na základe počtu divákov.</string>
   <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE federácie</string>
   <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">10 najlepšie hodnotených</string>
   <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE šachisti</string>

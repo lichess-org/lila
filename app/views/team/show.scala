@@ -1,14 +1,13 @@
 package views.team
 
 import play.api.libs.json.Json
-
-import lila.app.mashup.TeamInfo
-import lila.app.UiEnv.{ *, given }
-
-import lila.common.Json.given
 import scalalib.paginator.Paginator
-import lila.mod.Modlog
+
+import lila.app.UiEnv.{ *, given }
+import lila.app.mashup.TeamInfo
+import lila.common.Json.given
 import lila.core.socket.SocketVersion
+import lila.mod.Modlog
 import lila.team.Team
 
 object show:

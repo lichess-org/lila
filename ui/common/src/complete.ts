@@ -11,7 +11,7 @@ interface Opts<Result> {
   regex?: RegExp;
 }
 
-export default function <Result>(opts: Opts<Result>) {
+export default function <Result>(opts: Opts<Result>): void {
   const minLength = opts.minLength || 3,
     empty = opts.empty || (() => '<div class="complete-list__empty">No results.</div>'),
     cache = new Map<string, Result[]>(),

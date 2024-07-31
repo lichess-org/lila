@@ -3,25 +3,28 @@ package lila.relay
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanText, formatter, into, numberIn, ISODate }
+import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, url }
 import lila.core.perm.Granter
-
-import lila.core.i18n.I18nKey.streamer
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
   import RelayTourForm.*
 
-  val spotlightMapping =
+  private val spotlightMapping =
     mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
       RelayTour.Spotlight.apply
     )(unapply)
 
-  val infoMapping = mapping(
+  private val infoMapping = mapping(
     "format"  -> optional(cleanText(maxLength = 80)),
     "tc"      -> optional(cleanText(maxLength = 80)),
     "players" -> optional(cleanText(maxLength = 120))
   )(RelayTour.Info.apply)(unapply)
+
+  private val pinnedStreamMapping = mapping(
+    "name" -> cleanNonEmptyText(maxLength = 100),
+    "url"  -> url.field.verifying("Invalid stream URL", url => RelayPinnedStream("", url).upstream.isDefined)
+  )(RelayPinnedStream.apply)(unapply)
 
   val form = Form(
     mapping(
@@ -37,9 +40,9 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "teams" -> optional(
         of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
-      "spotlight"      -> optional(spotlightMapping),
-      "grouping"       -> RelayGroup.form.mapping,
-      "pinnedStreamer" -> optional(lila.common.Form.username.historicalField)
+      "spotlight"    -> optional(spotlightMapping),
+      "grouping"     -> RelayGroup.form.mapping,
+      "pinnedStream" -> optional(pinnedStreamMapping)
     )(Data.apply)(unapply)
   )
 
@@ -60,7 +63,7 @@ object RelayTourForm:
       teams: Option[RelayTeamsTextarea],
       spotlight: Option[RelayTour.Spotlight],
       grouping: Option[RelayGroup.form.Data],
-      pinnedStreamer: Option[UserStr]
+      pinnedStream: Option[RelayPinnedStream]
   ):
 
     def update(tour: RelayTour)(using me: Me) =
@@ -75,7 +78,7 @@ object RelayTourForm:
           players = players,
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty),
-          pinnedStreamer = pinnedStreamer
+          pinnedStream = pinnedStream
         )
         .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
@@ -96,7 +99,7 @@ object RelayTourForm:
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty),
-        pinnedStreamer = pinnedStreamer
+        pinnedStream = pinnedStream
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
@@ -114,5 +117,5 @@ object RelayTourForm:
         teams = tour.teams,
         spotlight = tour.spotlight,
         grouping = group.map(RelayGroup.form.Data.apply),
-        pinnedStreamer = tour.pinnedStreamer
+        pinnedStream = tour.pinnedStream
       )

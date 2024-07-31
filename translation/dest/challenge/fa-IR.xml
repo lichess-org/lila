@@ -17,7 +17,7 @@
   <string name="declineTooSlow">این زمان‌بندی برایم خیلی زیاد است، لطفا دوباره با زمان‌بندی کمتر پیشنهاد بازی دهید.</string>
   <string name="declineTimeControl">من با این زمان‌بندی، پیشنهاد بازی را نمی‌پذیرم.</string>
   <string name="declineRated">لطفا به جایش، پیشنهاد بازی رسمی بده.</string>
-  <string name="declineCasual">لطفا به جایش، پیشنهاد بازی غیررسمی بده.</string>
+  <string name="declineCasual">لطفا به جایش، پیشنهاد بازی نارسمی بده.</string>
   <string name="declineStandard">الان پیشنهاد بازی‌های شطرنج‌گونه را نمی‌پذیرم.</string>
   <string name="declineVariant">الان مایل نیستم این شطرنج‌گونه را بازی کنم.</string>
   <string name="declineNoBot">من پیشنهاد بازی از ربات‌ها را نمی‌پذیرم.</string>

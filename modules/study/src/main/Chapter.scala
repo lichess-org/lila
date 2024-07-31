@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tags }
+import chess.format.pgn.{ Glyph, Tags, Tag }
 import chess.format.{ Fen, Uci, UciPath }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
@@ -124,6 +124,8 @@ case class Chapter(
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
 
+  def tagsExport = PgnTags.cleanUpForPublication(tags)
+
 object Chapter:
 
   type Order = Int
@@ -171,6 +173,11 @@ object Chapter:
   def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
+
+  def nameFromPlayerTags(tags: Tags): Option[StudyChapterName] = StudyChapterName.from:
+    tags.names
+      .mapN((w, b) => s"$w - $b")
+      .orElse(tags.boardNumber.map(b => s"Board $b"))
 
   def makeId = StudyChapterId(scalalib.ThreadLocalRandom.nextString(8))
 

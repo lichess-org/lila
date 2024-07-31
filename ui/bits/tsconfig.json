@@ -7,9 +7,9 @@
     "skipLibCheck": true,
     "noImplicitReturns": false,
     "declaration": true,
+    "composite": true,
     "allowJs": true
   },
-  "isolatedModules": true,
   "references": [
     { "path": "../chat/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },

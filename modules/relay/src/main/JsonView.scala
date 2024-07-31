@@ -2,15 +2,14 @@ package lila.relay
 
 import play.api.libs.json.*
 import scalalib.Json.paginatorWriteNoNbResults
+import scalalib.paginator.Paginator
 
 import lila.common.Json.given
 import lila.core.config.BaseUrl
-import lila.memo.PicfitUrl
-import lila.study.ChapterPreview
 import lila.core.id.ImageId
-import lila.relay.RelayTour.{ WithRounds, WithLastRound, ActiveWithSomeRounds }
-import scalalib.paginator.Paginator
-import geny.Generator.Action
+import lila.memo.PicfitUrl
+import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound, WithRounds }
+import lila.study.ChapterPreview
 
 final class JsonView(
     baseUrl: BaseUrl,
@@ -80,8 +79,9 @@ final class JsonView(
       Json
         .obj(
           "tour"  -> fullTour(tr.tour),
-          "round" -> withUrl(tr)
+          "round" -> apply(tr.display)
         )
+        .add("roundToLink" -> (tr.link.id != tr.display.id).option(apply(tr.link)))
         .add("group" -> tr.group)
 
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
@@ -90,10 +90,6 @@ final class JsonView(
     apply(rt.round) ++ Json
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
-
-  def withUrl(tr: ActiveWithSomeRounds): JsObject =
-    val linkRound = tr.link.withTour(tr.tour)
-    apply(tr.display) ++ Json.obj("url" -> s"$baseUrl${linkRound.path}")
 
   def withUrlAndPreviews(
       rt: RelayRound.WithTourAndStudy,
@@ -125,7 +121,7 @@ final class JsonView(
       canContribute: Boolean,
       isSubscribed: Option[Boolean],
       videoUrls: Option[PairOf[String]],
-      pinned: Option[(UserId, String, Option[ImageId])]
+      pinned: Option[RelayPinnedStream]
   ) =
     JsonView.JsData(
       relay = fullTourWithRounds(trs, group)
@@ -133,13 +129,7 @@ final class JsonView(
         .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
-        .add("pinned" -> pinned.map: (id, name, image) =>
-          Json
-            .obj(
-              "userId" -> id,
-              "name"   -> name
-            )
-            .add("image" -> image.map(id => picfitUrl.thumbnail(id, 1200, 675)))),
+        .add("pinnedStream" -> pinned),
       study = studyData.study,
       analysis = studyData.analysis,
       group = group.map(_.group.name)
@@ -159,6 +149,9 @@ final class JsonView(
 object JsonView:
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject, group: Option[RelayGroup.Name])
+
+  given OWrites[RelayPinnedStream] = OWrites: s =>
+    Json.obj("name" -> s.name)
 
   given OWrites[SyncLog.Event] = Json.writes
 

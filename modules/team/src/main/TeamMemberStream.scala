@@ -3,9 +3,9 @@ package lila.team
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
-import lila.db.dsl.{ *, given }
-import lila.core.perf.UserWithPerfs
 import lila.core.LightUser
+import lila.core.perf.UserWithPerfs
+import lila.db.dsl.{ *, given }
 
 final class TeamMemberStream(
     memberRepo: TeamMemberRepo,

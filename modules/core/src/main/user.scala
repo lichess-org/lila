@@ -1,21 +1,19 @@
 package lila.core
 
-import reactivemongo.api.bson.Macros.Annotations.Key
-import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
-import reactivemongo.api.bson.collection.BSONCollection
+import _root_.chess.{ ByColor, PlayerTitle }
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
-import _root_.chess.{ ByColor, PlayerTitle }
+import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.api.bson.collection.BSONCollection
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import scalalib.model.Days
 
-import lila.core.perf.Perf
-import lila.core.rating.data.{ IntRating, IntRatingDiff }
-import lila.core.perf.{ PerfKey, UserPerfs, UserWithPerfs }
-import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
+import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.rating.Glicko
-import lila.core.perf.KeyedPerf
+import lila.core.rating.data.{ IntRating, IntRatingDiff }
+import lila.core.userId.*
 
 object user:
 
@@ -129,7 +127,7 @@ object user:
     def isEmpty = completionPercent == 0
 
     def completionPercent: Int =
-      100 * List(flag, bio, realName).count(_.isDefined) / 4
+      100 * List(flag, bio, realName).count(_.isDefined) / 3
 
     private def ne(str: Option[String]) = str.filter(_.nonEmpty)
 

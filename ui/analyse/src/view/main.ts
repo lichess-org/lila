@@ -20,6 +20,7 @@ import {
   renderTools,
   renderUnderboard,
 } from './components';
+import { wikiToggleBox } from '../wiki';
 
 export default function (deps?: typeof studyDeps) {
   return function (ctrl: AnalyseCtrl): VNode {
@@ -51,7 +52,10 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
           'aside.analyse__side',
           {
             hook: onInsert(elm => {
-              ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+              if (ctrl.opts.$side && ctrl.opts.$side.length) {
+                $(elm).replaceWith(ctrl.opts.$side);
+                wikiToggleBox();
+              }
             }),
           },
           ctrl.studyPractice

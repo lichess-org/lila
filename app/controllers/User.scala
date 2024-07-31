@@ -1,26 +1,25 @@
 package controllers
 
-import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.paginator.Paginator
 import scalatags.Text.Frag
 
-import lila.game.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
-import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.mod.UserWithModlog
-import lila.security.UserLogins
-import lila.user.WithPerfsAndEmails
-import lila.rating.PerfType
-import lila.core.net.IpAddress
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
+import lila.core.relation.Relation
+import lila.game.GameFilter
+import lila.mod.UserWithModlog
+import lila.rating.PerfType
 import lila.rating.UserPerfsExt.best8Perfs
+import lila.security.UserLogins
+import lila.user.WithPerfsAndEmails
 
 final class User(
     override val env: Env,
@@ -168,29 +167,31 @@ final class User(
           )
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>
-      if user.enabled.yes || isGrantedOpt(_.UserModView)
-      then
-        (
-          ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
-          ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
-          ctx.isAuth.so(env.pref.api.followable(user.id)),
-          ctx.userId.so(relationApi.fetchRelation(_, user.id))
-        ).flatMapN: (blocked, crosstable, followable, relation) =>
-          val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
-          negotiate(
-            html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-              Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
-            },
-            json =
-              import lila.game.JsonView.given
-              Ok:
-                Json.obj(
-                  "crosstable" -> crosstable,
-                  "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
-                )
-          )
-      else Ok(views.user.bits.miniClosed(user.user))
+      ctx.userId
+        .so(relationApi.fetchRelation(_, user.id))
+        .flatMap: relation =>
+          if user.enabled.yes || isGrantedOpt(_.UserModView)
+          then
+            (
+              ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
+              ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
+              ctx.isAuth.so(env.pref.api.followable(user.id))
+            ).flatMapN: (blocked, crosstable, followable) =>
+              val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
+              negotiate(
+                html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
+                  Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                    .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
+                },
+                json =
+                  import lila.game.JsonView.given
+                  Ok:
+                    Json.obj(
+                      "crosstable" -> crosstable,
+                      "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
+                    )
+              )
+          else Ok(views.user.bits.miniClosed(user.user, relation))
 
   def online = Anon:
     val max = 50
@@ -370,7 +371,7 @@ final class User(
 
         val reportLog = isGranted(_.SeeReport).so(
           env.report.api
-            .byAndAbout(user, 20)
+            .byAndAbout(user, Max(20))
             .flatMap: rs =>
               lightUserApi.preloadMany(rs.userIds).inject(rs)
             .map(ui.reportLog(user))

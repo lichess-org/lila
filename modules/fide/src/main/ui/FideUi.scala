@@ -3,9 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.fide.FideTC
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
@@ -211,7 +212,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             player.age
           ),
           tcTrans.map: (tc, name) =>
-            card(name(), player.ratingOf(tc).fold(trans.broadcast.unrated())(_.toString)),
+            card(name(), player.ratingOf(tc).fold(trans.broadcast.unrated())(_.toString))
         ),
         tours.map: tours =>
           div(cls := "fide-player__tours")(h2(trans.broadcast.recentTournaments()), tours)

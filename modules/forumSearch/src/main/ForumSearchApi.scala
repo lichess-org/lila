@@ -1,9 +1,9 @@
 package lila.forumSearch
 
-import lila.search.*
 import lila.core.id.ForumPostId
+import lila.search.*
 import lila.search.client.SearchClient
-import lila.search.spec.{ ForumSource, Query }
+import lila.search.spec.Query
 
 final class ForumSearchApi(client: SearchClient)(using Executor)
     extends SearchReadApi[ForumPostId, Query.Forum]:

@@ -2,6 +2,7 @@ package lila.forum
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class ForumBits(helpers: Helpers):

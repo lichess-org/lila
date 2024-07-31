@@ -1,14 +1,13 @@
 package lila.game
 
 import alleycats.Zero
+
 import scala.util.Success
 
 import lila.core.game.Blurs
-import lila.core.game.{ Blurs as apply }
+import lila.core.game.Blurs as apply
 
 object Blurs:
-
-  given lila.db.NoDbHandler[Blurs] with {}
 
   import reactivemongo.api.bson.*
   private[game] given blursHandler: BSONHandler[Blurs] = lila.db.dsl.tryHandler[Blurs](

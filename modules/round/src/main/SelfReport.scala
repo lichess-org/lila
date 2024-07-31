@@ -7,8 +7,8 @@ import scala.util.matching.Regex
 
 import lila.core.net.{ IpAddress, IpAddressStr }
 import lila.memo.SettingStore
-import lila.user.UserApi
 import lila.rating.UserPerfsExt.bestRating
+import lila.user.UserApi
 
 final class SelfReport(
     roundApi: lila.core.round.RoundApi,

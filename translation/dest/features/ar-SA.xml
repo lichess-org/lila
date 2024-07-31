@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="zeroAdsAndNoTracking">لا إعلانات، لا تتبع</string>
+  <string name="cloudEngineAnalysis">تحليل محرك السحابة</string>
+  <string name="allChessBasicsLessons">جميع دروس الشطرنج الأساسية</string>
+  <string name="personalOpeningExplorer">مستكشف افتتاحيات شخصي</string>
+  <string name="allFeaturesToCome">جميع الميزات القادمة، إلى الأبد!</string>
+  <string name="supportLichess">ادعم ليتشيس</string>
+  <string name="contributeToLichessAndGetIcon">ساهم في ليتشيس واحصل على أيقونة Patron رائعة</string>
+  <string name="everybodyGetsAllFeaturesForFree">نعم، كلا الحسابين لهما نفس الميزات!</string>
+  <string name="allFeaturesAreFreeForEverybody">جميع الميزات مجانية للجميع، إلى الأبد!</string>
+  <string name="ifYouLoveLichess">إذا كنت تحب ليتشيس،</string>
+  <string name="supportUsWithAPatronAccount">قم بدعمنا بحساب Patron!</string>
+</resources>

@@ -60,7 +60,7 @@ final private class StudyMaker(
       user: User,
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {
-    given play.api.i18n.Lang = lila.core.i18n.defaultLang
+    // given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
       tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)

@@ -8,11 +8,11 @@
     padding-left: var(---box-padding);
     padding-right: var(---box-padding);
   }
-  .form-fieldset {
+  .toggle-box {
     @extend %box-margin-horiz;
   }
   &__delete {
-    padding-top: 10em;
+    padding-top: 4em;
   }
   &__etiquette {
     margin-inline-end: 3em;

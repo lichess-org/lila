@@ -1,7 +1,6 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.common.String.html.richText
 import lila.core.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
@@ -17,6 +16,7 @@ def communication(
     notes: List[lila.user.Note],
     history: List[lila.mod.Modlog],
     logins: lila.security.UserLogins.TableData[UserWithModlog],
+    reports: List[lila.report.Report],
     appeals: List[lila.appeal.Appeal],
     priv: Boolean
 )(using ctx: Context, renderIp: RenderIp) =
@@ -69,6 +69,25 @@ def communication(
             div(cls := "mod-zone mod-zone-full none"),
             views.user.mod.otherUsers(mod, u, logins, appeals)(
               cls := "mod-zone communication__logins"
+            )
+          )
+        ),
+        reports.nonEmpty.option(
+          frag(
+            h2("Comm reports"),
+            div(cls := "reports history")(
+              reports.map: r =>
+                div(
+                  h3(r.reason.name),
+                  r.atoms.toList.map: a =>
+                    div(
+                      userIdLink(a.by.some),
+                      " ",
+                      momentFromNowServer(a.at),
+                      ": ",
+                      richText(a.text)
+                    )
+                )
             )
           )
         ),

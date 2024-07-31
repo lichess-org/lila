@@ -1,11 +1,9 @@
 package lila.web
 package ui
 
-import scala.util.chaining.*
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.common.Json.given
 
 final class DgtUi(helpers: Helpers):
   import helpers.{ *, given }

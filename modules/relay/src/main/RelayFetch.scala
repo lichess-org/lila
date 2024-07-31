@@ -8,14 +8,14 @@ import io.mola.galimatias.URL
 import play.api.libs.json.*
 import scalalib.model.Seconds
 
-import lila.core.lilaism.LilaInvalid
 import lila.common.LilaScheduler
+import lila.core.lilaism.LilaInvalid
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
+import lila.relay.RelayFormat.CanProxy
+import lila.relay.RelayRound.Sync
 import lila.study.{ MultiPgn, StudyPgnImport }
 import lila.tree.Node.Comments
-import lila.relay.RelayRound.Sync
-import lila.relay.RelayFormat.CanProxy
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -29,6 +29,8 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: lila.core.game.GameProxy,
     cacheApi: CacheApi,
+    playersApi: RelayPlayersApi,
+    notifyMissingFideIds: RelayNotifyMissingFideIds,
     onlyIds: Option[List[RelayTourId]] = None
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
@@ -84,7 +86,7 @@ final private class RelayFetch(
       fetchGames(rt)
         .map(RelayGame.filter(rt.round.sync.onlyRound))
         .map(RelayGame.Slices.filter(~rt.round.sync.slices))
-        .map(games => rt.tour.players.fold(games)(_.update(games)))
+        .flatMap(playersApi.updateAndReportAmbiguous(rt))
         .flatMap(fidePlayers.enrichGames(rt.tour))
         .map(games => rt.tour.teams.fold(games)(_.update(games)))
         .mon(_.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug))
@@ -126,8 +128,9 @@ final private class RelayFetch(
         api.syncTargetsOfSource(round)
         if result.nbMoves > 0 then
           lila.mon.relay.moves(tour.official, tour.id, tour.slug).increment(result.nbMoves)
-          if !round.hasStarted && !tour.official then
-            irc.broadcastStart(round.id, round.withTour(tour).fullName)
+          if tour.official then notifyMissingFideIds.schedule(round.id)
+          if !round.hasStarted && !tour.official
+          then irc.broadcastStart(round.id, round.withTour(tour).fullName)
           continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))
         else continueRelay(tour, updating)
       case _ => continueRelay(tour, updating)
@@ -276,7 +279,7 @@ final private class RelayFetch(
             round.pairings
               .mapWithIndex: (pairing, i) =>
                 val game = i + 1
-                val tags = pairing.tags(lcc.round, game)
+                val tags = pairing.tags(lcc.round, game, round.date)
                 lccCache(lcc, game, tags, lookForStart): () =>
                   httpGetJson[GameJson](lcc.gameUrl(game)).recover:
                     case _: Exception => GameJson(moves = Nil, result = none)
@@ -293,7 +296,7 @@ final private class RelayFetch(
             .map: round =>
               MultiPgn:
                 round.pairings.mapWithIndex: (pairing, i) =>
-                  PgnStr(s"${pairing.tags(lcc.round, i + 1)}\n\n${pairing.result}")
+                  PgnStr(s"${pairing.tags(lcc.round, i + 1, round.date)}\n\n${pairing.result}")
             .flatMap(multiPgnToGames.future)
       }
 
@@ -327,7 +330,7 @@ private object RelayFetch:
         result: Option[String]
     ):
       import chess.format.pgn.*
-      def tags(round: Int, game: Int) = Tags:
+      def tags(round: Int, game: Int, date: Option[String]) = Tags:
         List(
           white.flatMap(_.fullName).map { Tag(_.White, _) },
           white.flatMap(_.title).map { Tag(_.WhiteTitle, _) },
@@ -336,9 +339,13 @@ private object RelayFetch:
           black.flatMap(_.title).map { Tag(_.BlackTitle, _) },
           black.flatMap(_.fideid).map { Tag(_.BlackFideId, _) },
           result.map(Tag(_.Result, _)),
-          Tag(_.Round, s"$round.$game").some
+          Tag(_.Round, s"$round.$game").some,
+          date.map(Tag(_.Date, _))
         ).flatten
-    case class RoundJson(pairings: List[RoundJsonPairing]):
+    case class RoundJson(
+        date: Option[String],
+        pairings: List[RoundJsonPairing]
+    ):
       def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
         case (pairing, i) if pairing.result.forall(_ != "*") => i
     given Reads[PairingPlayer]    = Json.reads
@@ -358,10 +365,9 @@ private object RelayFetch:
         val mergedTags = mergeRoundTags(roundTags)
         val strMoves = moves
           .map(_.split(' '))
-          .mapWithIndex: (move, index) =>
+          .map: move =>
             chess.format.pgn
               .Move(
-                ply = Ply(index + 1),
                 san = SanStr(~move.headOption),
                 secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)).flatMap(_.toIntOption)
               )

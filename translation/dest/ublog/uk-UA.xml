@@ -50,7 +50,6 @@
   <string name="imageAlt">Текстовий опис зображення</string>
   <string name="imageCredit">Права на зображення</string>
   <string name="deleteBlog">Остаточно видалити цей допис</string>
-  <string name="deleteImage">Видалити зображення</string>
   <string name="safeToUseImages">Можна безпечно використовувати зображення з наступних сайтів: </string>
   <string name="selectPostTopics">Виберіть тему вашого допису</string>
   <string name="useImagesYouMadeYourself">Також, ви можете використовувати зображення, які ви зробили власноруч, знімок з екрана Lichess. Все що немає авторських прав.</string>
@@ -58,5 +57,5 @@
   <string name="inappropriateContentAccountClosed">Невідповідності в дописі можуть спричинити блокування профілю.</string>
   <string name="blogTips">Наші прості поради для написання хороших дописів</string>
   <string name="discussThisBlogPostInTheForum">Обговорити цей допис блогу на форумі</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Ви заблоковані автором блогу.</string>
+  <string name="youBlockedByBlogAuthor">Ви заблоковані автором блогу.</string>
 </resources>

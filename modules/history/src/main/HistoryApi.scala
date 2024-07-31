@@ -2,11 +2,11 @@ package lila.history
 
 import chess.Speed
 import reactivemongo.api.bson.*
+import scalalib.model.Days
 
+import lila.core.perf.UserPerfs
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import scalalib.model.Days
-import lila.core.perf.UserPerfs
 
 final class HistoryApi(
     withColl: AsyncCollFailingSilently,

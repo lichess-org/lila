@@ -5,29 +5,28 @@ import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
-import scala.util.chaining.*
-
-import lila.db.dsl.{ *, given }
-import lila.memo.{ CacheApi, PicfitApi }
-import lila.relay.RelayRound.{ WithTour, Sync }
 import lila.core.perm.Granter
 import lila.core.study.data.StudyName
+import lila.db.dsl.{ *, given }
+import lila.memo.{ CacheApi, PicfitApi }
+import lila.relay.RelayRound.{ Sync, WithTour }
 import lila.study.{
   Settings,
   Study,
   StudyApi,
   StudyId,
   StudyMaker,
-  StudyRepo,
-  StudyTopic,
   StudyMember,
-  StudyMembers
+  StudyMembers,
+  StudyRepo,
+  StudyTopic
 }
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
+    playersUpdate: RelayPlayersUpdate,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
     jsonView: JsonView,
@@ -227,10 +226,11 @@ final class RelayApi(
           "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
           "ownerId"         -> tour.ownerId.some,
-          "pinnedStreamer"  -> tour.pinnedStreamer
+          "pinnedStream"    -> tour.pinnedStream
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))
+      _ <- playersUpdate(tour, prev)
     yield
       leaderboard.invalidate(tour.id)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
@@ -354,8 +354,7 @@ final class RelayApi(
       yield rt.tour.some
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    tour.ownerId
-      .is(me)
+    (tour.ownerId.is(me) || Granter(_.StudyAdmin))
       .so:
         for
           _      <- tourRepo.delete(tour)

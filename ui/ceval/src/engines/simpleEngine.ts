@@ -11,11 +11,11 @@ export class SimpleEngine implements CevalEngine {
     this.url = `${info.assets.root}/${info.assets.js}`;
   }
 
-  getInfo() {
+  getInfo(): BrowserEngineInfo {
     return this.info;
   }
 
-  getState() {
+  getState(): CevalState {
     return !this.worker
       ? CevalState.Initial
       : this.failed
@@ -27,7 +27,7 @@ export class SimpleEngine implements CevalEngine {
       : CevalState.Idle;
   }
 
-  start(work: Work) {
+  start(work: Work): void {
     this.protocol.compute(work);
 
     if (!this.worker) {
@@ -45,15 +45,15 @@ export class SimpleEngine implements CevalEngine {
     }
   }
 
-  stop() {
+  stop(): void {
     this.protocol.compute(undefined);
   }
 
-  engineName() {
+  engineName(): string | undefined {
     return this.protocol.engineName;
   }
 
-  destroy() {
+  destroy(): void {
     this.worker?.terminate();
     this.worker = undefined;
   }

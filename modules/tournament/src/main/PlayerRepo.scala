@@ -4,12 +4,11 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.tournament.BSONHandlers.given
-
-import lila.core.userId.UserSearch
 import lila.core.chess.Rank
 import lila.core.user.WithPerf
+import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
+import lila.tournament.BSONHandlers.given
 
 final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
 
@@ -66,7 +65,7 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
   ): Fu[List[TeamBattle.RankedTeam]] =
     import TeamBattle.{ RankedTeam, TeamLeader }
     coll
-      .aggregateList(maxDocs = TeamBattle.maxTeams) { framework =>
+      .aggregateList(maxDocs = TeamBattle.maxTeams): framework =>
         import framework.*
         Match(selectTour(tourId)) -> List(
           Sort(Descending("m")),
@@ -87,7 +86,6 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
             )
           )
         )
-      }
       .map {
         _.flatMap: doc =>
           for

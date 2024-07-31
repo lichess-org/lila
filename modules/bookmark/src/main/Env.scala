@@ -8,8 +8,7 @@ import lila.core.config.*
 final class Env(
     db: lila.db.Db,
     gameApi: lila.core.game.GameApi,
-    gameRepo: lila.core.game.GameRepo,
-    gameProxyRepo: lila.core.game.GameProxy
+    gameRepo: lila.core.game.GameRepo
 )(using Executor):
 
   private lazy val bookmarkColl = db(CollName("bookmark"))
@@ -17,6 +16,8 @@ final class Env(
   lazy val paginator = wire[PaginatorBuilder]
 
   lazy val api = wire[BookmarkApi]
+
+  def exists: lila.core.bookmark.BookmarkExists = api.exists
 
   lila.common.Bus.subscribeFun("roundUnplayed"):
     case lila.core.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)

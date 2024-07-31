@@ -1,5 +1,4 @@
 package lila.notify
-import alleycats.Zero
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 

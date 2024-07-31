@@ -4,12 +4,8 @@ import chess.format.pgn.SanStr
 import chess.opening.OpeningDb
 import chess.{ Centis, Clock, Ply, Role, Situation, Stats }
 
-import scala.util.chaining.*
-
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, Analysis, WinPercent }
 import lila.common.SimpleOpening
-import lila.game.GameExt.analysable
-import lila.game.GameExt.computeMoveTimes
 import lila.game.Blurs.booleans
 
 case class RichPov(

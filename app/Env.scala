@@ -4,12 +4,9 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ Configuration, Environment, Mode, ConfigLoader }
+import play.api.{ ConfigLoader, Configuration, Environment, Mode }
 
 import lila.core.config.*
-import lila.common.config.given
-import lila.common.autoconfig.{ *, given }
-import lila.core.data.{ Strings, UserIds }
 import lila.core.i18n.Translator
 
 final class Env(
@@ -54,8 +51,8 @@ final class Env(
   val analyse: lila.analyse.Env         = wire[lila.analyse.Env]
   val fishnet: lila.fishnet.Env         = wire[lila.fishnet.Env]
   val history: lila.history.Env         = wire[lila.history.Env]
-  val round: lila.round.Env             = wire[lila.round.Env]
   val bookmark: lila.bookmark.Env       = wire[lila.bookmark.Env]
+  val round: lila.round.Env             = wire[lila.round.Env]
   val search: lila.search.Env           = wire[lila.search.Env]
   val gameSearch: lila.gameSearch.Env   = wire[lila.gameSearch.Env]
   val perfStat: lila.perfStat.Env       = wire[lila.perfStat.Env]

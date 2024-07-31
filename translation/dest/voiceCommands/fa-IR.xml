@@ -11,11 +11,11 @@
   <string name="moveToE4OrSelectE4Piece">حرکت به e4 یا انتخاب خانه e4</string>
   <string name="selectOrCaptureABishop">انتخاب کردن یا زدن یک فیل</string>
   <string name="takeRookWithQueen">گرفتن رخ با وزیر</string>
-  <string name="castle">قلعه (از هر طرف)</string>
+  <string name="castle">قلعه (از هر سو)</string>
   <string name="phoneticAlphabetIsBest">الفبای آوایی بهترین است</string>
   <string name="cancelTimerOrDenyARequest">لغو کردن زمانسنج یا رد یک درخواست</string>
   <string name="playPreferredMoveOrConfirmSomething">حرکت ترجیحی را بازی کنید یا چیزی را تایید کنید</string>
   <string name="sleep">خواب (اگر کلمه بیدار باش فعال باشد)</string>
   <string name="turnOffVoiceRecognition">تشخیص صدا را خاموش کنید</string>
-  <string name="showPuzzleSolution">نشان دادن راه‌حل معما</string>
+  <string name="showPuzzleSolution">نمایش راه‌حل معما</string>
 </resources>

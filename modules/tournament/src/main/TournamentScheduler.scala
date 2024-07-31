@@ -6,11 +6,10 @@ import java.time.DayOfWeek.*
 import java.time.Month.*
 import java.time.temporal.TemporalAdjusters
 import java.time.{ LocalDate, LocalDateTime }
-import scala.util.chaining.*
 
 import lila.common.LilaScheduler
-import lila.gathering.Condition
 import lila.core.i18n.Translator
+import lila.gathering.Condition
 
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     Executor,

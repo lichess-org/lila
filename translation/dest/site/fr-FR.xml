@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Derniers posts du forum</string>
   <string name="players">Joueurs</string>
   <string name="friends">Amis</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">autres joueurs</string>
   <string name="discussions">Discussions</string>
   <string name="today">Aujourd\'hui</string>
   <string name="yesterday">Hier</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Texte que seuls les membres de l\'équipe verront. Si utilisé, remplace la description publique pour les membres de l\'équipe.</string>
   <string name="no">Non</string>
   <string name="yes">Oui</string>
+  <string name="website">Site Web</string>
+  <string name="mobile">Appli mobile</string>
   <string name="help">Aide :</string>
   <string name="createANewTopic">Créer un nouveau sujet</string>
   <string name="topics">Sujets</string>

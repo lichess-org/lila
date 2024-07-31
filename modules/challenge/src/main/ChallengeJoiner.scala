@@ -4,8 +4,6 @@ import chess.format.Fen
 import chess.variant.Variant
 import chess.{ ByColor, Mode, Situation }
 
-import scala.util.chaining.*
-
 import lila.core.user.GameUser
 
 final private class ChallengeJoiner(

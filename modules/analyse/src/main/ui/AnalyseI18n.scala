@@ -1,12 +1,11 @@
 package lila.analyse
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ I18nKey, Translate }
+import lila.ui.*
 
 final class AnalyseI18n(helpers: Helpers):
-  import helpers.{ *, given }
+  import helpers.*
 
   def apply(
       withCeval: Boolean = true,
@@ -225,11 +224,11 @@ final class AnalyseI18n(helpers: Helpers):
       )
 
 final class GameAnalyseI18n(helpers: Helpers, board: AnalyseI18n):
-  import helpers.{ *, given }
+  import helpers.*
 
   def apply()(using Translate) = i18nJsObject(i18nKeys)
 
-  import lila.core.i18n.I18nKey.{ site, puzzle, study, preferences }
+  import lila.core.i18n.I18nKey.{ site, puzzle }
 
   private val i18nKeys: Vector[I18nKey] = {
     board.cevalWidget ++

@@ -54,7 +54,7 @@ export interface SearchResult {
 
 export interface Typing {
   user: string;
-  timeout: number;
+  timeout: Timeout;
 }
 
 export type Pane = 'side' | 'convo';

@@ -3,18 +3,15 @@ package lila.challenge
 import akka.stream.scaladsl.*
 import chess.{ ByColor, Clock, Speed }
 import reactivemongo.api.bson.*
-
-import scala.util.chaining.*
-
-import lila.common.{ Bus, LilaStream }
-import lila.db.dsl.{ *, given }
-import lila.core.misc.map.TellMany
-import lila.rating.PerfType
-import lila.core.round.StartClock
-import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
-
-import lila.core.data.Template
 import scalalib.model.Days
+
+import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
+import lila.common.{ Bus, LilaStream }
+import lila.core.data.Template
+import lila.core.misc.map.TellMany
+import lila.core.round.StartClock
+import lila.db.dsl.{ *, given }
+import lila.rating.PerfType
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,

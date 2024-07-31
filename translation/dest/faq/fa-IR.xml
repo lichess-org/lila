@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">پرسش‌های متداول</string>
-  <string name="frequentlyAskedQuestions">پرسش‌های متداول</string>
-  <string name="whyIsLichessCalledLichess">وجه تسمیه Lichess چیست؟</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess ترکیبی از واژه‌های live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess به صورت %1$s است.</string>
-  <string name="leechess">lee-chess</string>
+  <string name="faqAbbreviation">پ‌پ‌ب</string>
+  <string name="frequentlyAskedQuestions">پرسش‌های پُربَسامد</string>
+  <string name="whyIsLichessCalledLichess">نامگذاری Lichess بر چه پایه‌ایست؟</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess آمیخته‌ای از واژگان live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess %1$s است.</string>
+  <string name="leechess">لی-چِس</string>
   <string name="hearItPronouncedBySpecialist">تلفظ آن را از یک متخصص بشنوید.</string>
   <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
   <string name="whyIsLilaCalledLila">به طور مشابه، کد مرجع برای لیچس، %1$s، که مخفف li[chess in sca]la هست، قابل رویت است به صورت فشرده لیچس که نوشته در %2$s، که یک زبان شهودی برنامه نویسی است.</string>
@@ -28,7 +28,7 @@
   <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
   <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
-  <string name="youCanUseOpeningBookNoEngine">در لیچس، تفاوت اصلی در قوانین شطرنج مکاتبه‌ای این است که کتاب‌های شروع بازی مجاز است. استفاده از انجین همچنان ممنوع است و منجر به علامت گذاری برای کمک گرفتن از انجین خواهد شد. اگر چه ICCF اجازه استفاده از انجین را در بازی‌های مکاتبه‌ای می‌دهد، لیچس این کار را نمی‌کند.</string>
+  <string name="youCanUseOpeningBookNoEngine">در Lichess، تفاوت اصلی در قانون‌ها برای شطرنج مکاتبه‌ای آن است که، کتاب گشایش مجاز است. استفاده از موتورها همچنان ممنوع است و منجر به نشانه‌گذاری «کمک از موتور» می‌شود. اگرچه ICCF اجازه استفاده از موتور را در مکاتبه می‌دهد، Lichess اجازه نمی‌دهد.</string>
   <string name="gameplay">روند بازی</string>
   <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
   <string name="basedOnGameDuration">کنترل زمانی لیچس بر اساس مدت زمان تخمینی بازی است = %1$s
@@ -41,8 +41,19 @@
   <string name="lichessSupportChessAnd">وبگاه Lichess از شطرنج استاندارد و %1$s پشتیبانی می‌کند.</string>
   <string name="eightVariants">هشت شطرنج‌گونه</string>
   <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست؟</string>
-  <string name="acplExplanation">صدم پیاده شاخص اندازه گیری برتری است که در شطرنج اندازه گیری می شود. هر صدم پیاده معادل یک صدم ارزش یک پیاده است. بنابراین هر 100 صدم پیاده = یک پیاده. این ارزشها نقش خاصی در بازی ایفا نمی‌کنند اما برای بازیکنان مفید هستند و برای محاسبه پوزیسیون توسط کامپیوتر ضروری. بهترین حرکت کامپیوتری هیچ صدم پیاده ای از دست نمی‌دهد، ولی حرکت های پایینتر موجب افت پوزیسیونی می شوند که توسط صدم‌پیاده اندازه گیری می شود. این مقدار می‌تواند به عنوان ابزار اندازه‌گیری کیفیت بازی استفاده شود. هرچه صدم‌پیاده ای که یک بازیکن با هر حرکت از دست می دهد کمتر باشد، بازی او بهتر است. آنالیز های کامپیوتری لی چس از استاک فیش قدرت گرفته تند.</string>
+  <string name="acplExplanation">صدم‌پیاده واحد اندازه‌گیری‌ایست که در شطرنج برای نمایش برتری به کار می‌رود. یک صدم‌پیاده برابر است با ۱/۱۰۰ پیاده. بنابراین: ۱۰۰ صدم‌پیاده = ۱ پیاده. این ارزش‌ها هیچ نقش رسمی‌ای در بازی ندارند، ولی برای بازیکنان سودمندند و در شطرنج رایانه‌ای برای ارزیابی وضعیت‌ها ضروری‌اند.
+
+حرکت برتر رایانه‌ای، صفر صدم‌پیاده را از دست می‌دهد، اما حرکت‌های ضعیف‌تر، بَرآیه‌شان بدترشدن وضعیت است که با صدم‌پیاده اندازه‌گیری می‌شود.
+
+این ارزش می تواند به عنوان نشانگر کیفیت بازی استفاده شود. هر چه صدم‌پیاده‌ای که کسی در هر حرکت از دست دهد کمتر، بازی قوی‌تر است.
+
+تحلیل رایانه‌ای در Lichess با Stockfish انجام می‌شود.</string>
   <string name="insufficientMaterial">افتادن زمان، مساوی و مهره های ناکافی برای برد</string>
+  <string name="lichessFollowFIDErules">در هنگام تمام شدن زمان یک بازیکن، آن بازیکن معمولا بازی را می بازد. با این حال، اگر وضعیت به گونه‌ای باشد که حریف نتواند با هر دنباله حرکت‌های قانونی (%1$s) شاه را مات کند، بازی مساوی می‌شود.
+
+در مورد‌هایی کمیابی هم، تصمیم‌گیری خودکار دشوار است (شاخه‌های ناگزیر، دژها). پیش‌فرضانه، ما همیشه در کنار بازیکنی هستیم که زمانش تمام نشده است.
+
+توجه کنید که مات با تک اسب یا فیل، به شرطی که حریف مهره‌ای داشته باشد که شاه را سد کند، شدنی است.</string>
   <string name="fideHandbook">دستینه فیده</string>
   <string name="fideHandbookX">بخش %s از دستینه فیده</string>
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
@@ -50,12 +61,12 @@
   <string name="lichessTraining">آموزش Lichess</string>
   <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
-  <string name="threefoldRepetitionExplanation">اگر پوزیشنی سه بار اتفاق افتاد، بازیکنان میتوانن با استفاده از %1$s ادعای مساوی کنند. لیچس قوانین رسمی FIDE را که در مقاله %2$s توضیح داده شده اجرا میکند.</string>
+  <string name="threefoldRepetitionExplanation">اگر یک وضعیت سه بار رخ دهد، بازیکنان می‌توانند با %1$s، ادعای تساوی کنند. Lichess قانون‌های رسمی فیده را که در ماده 9.2 %2$s آمده را، اجرا می‌کند.</string>
   <string name="threefoldRepetitionLowerCase">تکرار سه گانه</string>
   <string name="notRepeatedMoves">ما حرکات را تکرار نکردیم. چرا بازی همچنان با تکرار مساوی می شد؟</string>
-  <string name="repeatedPositionsThatMatters">تکرار سه گانه مربوط به %1$s تکراری است، نه حرکت. لزومی ندارد که تکرار به طور متوالی اتفاق بیفتد.</string>
-  <string name="positions">موقعیت‌ها</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">ما یک موقعیت را سه بار تکرار کردیم. چرا بازی مساوی نشد؟</string>
+  <string name="repeatedPositionsThatMatters">تکرار سه‌گانه درباره %1$s تکراری است، نه حرکت‌ها. لازم نیست که تکرار، پیاپی باشد.</string>
+  <string name="positions">وضعیت‌ها</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">ما یک وضعیت را سه بار تکرار کردیم. چرا بازی مساوی نشد؟</string>
   <string name="configure">پیکربندی نمایید</string>
   <string name="accounts">حساب‌های کاربری</string>
   <string name="titlesAvailableOnLichess">چه عناوینی در Lichess وجود دارند؟</string>

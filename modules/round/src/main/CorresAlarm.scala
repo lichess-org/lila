@@ -5,9 +5,8 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, LilaScheduler, LilaStream }
-import lila.db.dsl.{ *, given }
-
 import lila.core.user.LightUserApi
+import lila.db.dsl.{ *, given }
 
 final private class CorresAlarm(
     coll: Coll,

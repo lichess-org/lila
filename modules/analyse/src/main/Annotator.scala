@@ -1,11 +1,11 @@
 package lila.analyse
 
-import chess.format.pgn.{ Comment, Glyphs, Move, Pgn, PgnStr, Tag }
+import chess.format.pgn.{ Comment, Glyphs, Move, Pgn, PgnStr, SanStr, Tag }
 import chess.opening.*
 import chess.{ Color, Ply, Status, Tree, Variation }
 
-import lila.tree.{ Advice, Analysis, StatusText }
 import lila.core.game.{ Game, GameDrawOffers }
+import lila.tree.{ Advice, Analysis, StatusText }
 
 final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.Annotator:
 
@@ -76,7 +76,6 @@ final class Annotator(netDomain: lila.core.config.NetDomain) extends lila.tree.A
           .getOrElse(pgn)
 
   private def makeVariation(advice: Advice): Option[Variation[Move]] =
-    val sans = advice.info.variation.take(20)
     Tree
-      .buildWithIndex(sans, (san, index) => Move(Ply(advice.ply.value + index), san))
+      .build[SanStr, Move](advice.info.variation.take(20), Move(_))
       .map(_.toVariation)

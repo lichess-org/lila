@@ -14,7 +14,7 @@ import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
 import { makeChat, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
-import { renderStreamerMenu, renderPinnedImage } from './relayView';
+import { renderStreamerMenu } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
 import { gameLinksListener } from '../studyChapters';
@@ -303,8 +303,6 @@ const header = (ctx: RelayViewContext) => {
         `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
         embedVideo
           ? renderVideoPlayer(relay)
-          : relay.pinStreamer() && d.pinned?.image
-          ? renderPinnedImage(ctx)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
           : study.members.isOwner()

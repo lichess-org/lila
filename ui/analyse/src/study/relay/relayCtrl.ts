@@ -2,7 +2,7 @@ import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interface
 import { BothClocks, ChapterId, Federations, ServerClockMsg } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
-import { Prop, Toggle, notNull, prop, toggle } from 'common';
+import { Prop, Toggle, defined, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import RelayLeaderboard from './relayLeaderboard';
 import { StudyChapters } from '../studyChapters';
@@ -35,7 +35,7 @@ export default class RelayCtrl {
     private readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval,
     private readonly federations: () => Federations | undefined,
-    setChapter: (id: ChapterId | number) => boolean,
+    setChapter: (id: ChapterId | number) => Promise<boolean>,
   ) {
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
@@ -54,15 +54,13 @@ export default class RelayCtrl {
     this.stats = new RelayStats(this.currentRound(), redraw);
     setInterval(() => this.redraw(true), 1000);
 
-    const pinned = data.pinned;
+    const pinned = data.pinnedStream;
     if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
-    if (pinned && this.pinStreamer()) this.streams.push([pinned.userId, pinned.name]);
+    if (pinned && this.pinStreamer()) this.streams.push(['', pinned.name]);
 
     site.pubsub.on('socket.in.crowd', d => {
       const s = (d.streams as [string, string][]) ?? [];
-      if (pinned && this.pinStreamer() && !s.find(x => x[0] === pinned.userId))
-        s.unshift([pinned.userId, pinned.name]);
-      if (!s) return;
+      if (pinned && this.pinStreamer()) s.unshift(['', pinned.name]);
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
       this.streams = s;
       this.redraw();
@@ -114,19 +112,16 @@ export default class RelayCtrl {
   isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
 
   pinStreamer = () =>
+    defined(this.data.pinnedStream) &&
     !this.currentRound().finished &&
-    Date.now() > this.currentRound().startsAt! - 1000 * 3600 &&
-    this.data.pinned != undefined;
+    Date.now() > this.currentRound().startsAt! - 1000 * 3600;
 
-  hidePinnedImageAndRemember = () => {
-    site.storage.set(`relay.hide-image.${this.id}`, 'true');
+  closeEmbed = () => {
     const url = new URL(location.href);
-    url.searchParams.delete('embed');
+    url.searchParams.set('embed', 'no');
     url.searchParams.set('nonce', `${Date.now()}`);
     window.location.replace(url);
   };
-
-  isShowingPinnedImage = () => site.storage.get(`relay.hide-image.${this.id}`) !== 'true';
 
   private socketHandlers = {
     relayData: (d: RelayData) => {

@@ -31,7 +31,7 @@ export default class RelayTeams {
   constructor(
     private readonly roundId: RoundId,
     readonly multiCloudEval: MultiCloudEval,
-    readonly setChapter: (id: ChapterId | number) => boolean,
+    readonly setChapter: (id: ChapterId | number) => Promise<boolean>,
     readonly roundPath: () => string,
     private readonly redraw: Redraw,
   ) {}

@@ -4,11 +4,10 @@ import reactivemongo.api.bson.*
 import scalalib.Maths
 import scalalib.paginator.{ AdapterLike, Paginator }
 
-import lila.db.dsl.{ *, given }
-
-import lila.core.perf.PerfId
-import lila.rating.PerfType
 import lila.core.chess.Rank
+import lila.core.perf.PerfId
+import lila.db.dsl.{ *, given }
+import lila.rating.PerfType
 
 final class LeaderboardApi(
     repo: LeaderboardRepo,

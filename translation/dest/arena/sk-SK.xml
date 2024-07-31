@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Aréna</string>
   <string name="arenaTournaments">Arénové turnaje</string>
   <string name="isItRated">Započítava sa turnaj do môjho ratingu?</string>
   <string name="willBeNotified">Dáme Vám vedieť keď turnaj začne, takže kým čakáte, môžete pokojne hrať na ďalšej karte prehliadača.</string>
@@ -61,4 +62,28 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="averagePerformance">Priemerný výkon</string>
   <string name="averageScore">Priemerné skóre</string>
   <string name="myTournaments">Moje turnaje</string>
+  <string name="editTournament">Editovať turnaj</string>
+  <string name="editTeamBattle">Editovať turnaj tímov</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Obhajca</string>
+  <string name="pickYourTeam">Zvoľte si tím</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Ktorý tím budete v tomto turnaji reprezentovať?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Ak sa chcete zúčastniť, musíte sa pridať k jednému z týchto tímov!</string>
+  <string name="created">Vytvorené</string>
+  <string name="recentlyPlayed">Naposledy odohrané</string>
+  <string name="bestResults">Najlepšie výsledky</string>
+  <string name="stats">Štatistiky</string>
+  <string name="tournamentStats">Turnajové štatistiky</string>
+  <string name="rankAvgHelp">Priemerná pozícia je percentuálny podiel vášho hodnotenia. Nižšia hodnota je lepšia.
+
+Napríklad 3. miesto v turnaji so 100 hráčmi = 3 %. Byť na 10. mieste v turnaji s 1000 hráčmi = 1 %.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">mediány</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Všetky priemery na tejto stránke sú %s.</string>
+  <string name="total">Spolu</string>
+  <string name="pointsAvg">Priemer bodov</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Súčet bodov</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Priemer umiestnení</string>
+  <string name="tournamentWinners">Víťazi turnajov</string>
+  <string name="tournamentShields">Shield turnaje</string>
+  <string name="onlyTitled">Iba hráči s titulom</string>
+  <string name="onlyTitledHelp">Na účasť v turnaji je potrebný oficiálny titul</string>
 </resources>

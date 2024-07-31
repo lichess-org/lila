@@ -2,22 +2,22 @@
 <resources>
   <string name="faqAbbreviation">שאלות נפוצות</string>
   <string name="frequentlyAskedQuestions">שאלות נפוצות</string>
-  <string name="whyIsLichessCalledLichess">למה ליצ\'ס נקרא ליצ\'ס?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">לִיצֶ\'ס הוא הלחם של Live, Light, Libre - חיים, אור וחופש; ו־Chess - שחמט. מבטאים זאת כך: %1$s.</string>
+  <string name="whyIsLichessCalledLichess">למה Lichess נקרא כך?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess הוא הלחם של Live, Light, Libre - חיים, אור וחופש; ו־Chess - שחמט. מבטאים זאת כך: %1$s.</string>
   <string name="leechess">לִיצֶ\'ס</string>
   <string name="hearItPronouncedBySpecialist">שמעו מומחה מבטא ״Lichess\".</string>
-  <string name="whyLiveLightLibre">חיות, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7. אור וחופש על כך שלִיצֶ\'ס הוא open source ולא פושה בו זבל קנייני כמו באתרים אחרים.</string>
+  <string name="whyLiveLightLibre">חיות, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7. אור וחופש על כך ש־Lichess הוא open source והוא אינו בעל אופי קנייני כמו אתרים אחרים.</string>
   <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של לִיצֶ\'ס, %1$s הוא קיצור של li[chess in sca]la, שכן רוב הקוד של לִיצֶ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
-  <string name="howCanIContributeToLichess">כיצד אוכל לתרום לליצ\'ס?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">ליצ\'ס נתמך בידי תרומות מצד תומכים ובידי צוות מתנדבים אשר תורם לפיתוחו.</string>
+  <string name="howCanIContributeToLichess">כיצד אוכל לתרום ל־Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess נתמך בידי תרומות מצד תומכים ובידי צוות מתנדבים אשר תורם לפיתוחו.</string>
   <string name="findMoreAndSeeHowHelp">אתם מוזמנים לקרוא עוד על %1$s (וגם על %2$s). אם אתם מעוניינים לעזור ללִיצֶ\'ס ע\"י נידוב זמנכם וכישוריכם, ישנן הרבה %3$s.</string>
   <string name="beingAPatron">מתן תרומה</string>
   <string name="breakdownOfOurCosts">פירוט העלויות שלנו</string>
   <string name="otherWaysToHelp">דרכים אחרות לעזור</string>
-  <string name="areThereWebsitesBasedOnLichess">האם ישנם אתרים המבוססים על ליצ\'ס?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">כן. ליצ\'ס אכן עורר השראה לאתרי קוד פתוח אחרים המשתמשים באתר שלנו %1$s, %2$s, או %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">האם ישנם אתרים המבוססים על Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">כן. Lichess אכן עורר השראה לאתרי קוד פתוח אחרים המשתמשים ב%1$s, ב%2$s או ב%3$s שלנו.</string>
   <string name="keyboardShortcuts">באילו קיצורי מקלדת ניתן להשתמש?</string>
-  <string name="keyboardShortcutsExplanation">בחלק מהעמודים ב־Lichessישנם קיצורי מקלדת שאפשר להשתמש בהם. לחצו על מקש ה־׳?׳ בלוח למידה, בלוח הניתוחים, בחידה או במשחק כדי לקבל רשימה של קיצורי המקלדת הזמינים.</string>
+  <string name="keyboardShortcutsExplanation">בחלק מהעמודים ב־Lichess ישנם קיצורי מקלדת שאפשר להשתמש בהם. לחצו על מקש ה־׳?׳ בלוח למידה, בלוח הניתוחים, בחידה או במשחק כדי לקבל רשימה של קיצורי המקלדת הזמינים.</string>
   <string name="fairPlay">משחק הוגן</string>
   <string name="whenAmIEligibleRatinRefund">מתי אני זכאי/ת להחזר דירוג אוטומטי מהפסד לרמאים?</string>
   <string name="ratingRefundExplanation">דקה לאחר סימון שחקן/ית, 40 המשחקים המדורגים האחרונים מ־3 הימים האחרונים נבחנים. אם היית היריב/ה של השחקן/ית במשחקים הללו, איבדת דירוג (בגלל הפסד או תיקו) והדירוג שלך לא היה זמני, תקבל/י החזר דירוג. ההחזר מחושב על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
@@ -29,7 +29,7 @@
   <string name="isCorrespondenceDifferent">האם משחקי התכתבות שונים ממשחקים רגילים?</string>
   <string name="pleaseReadFairPlayPage">לקבלת מידע נוסף, בבקשה קראו את %s שלנו</string>
   <string name="fairPlayPage">המדריך למשחק הוגן</string>
-  <string name="youCanUseOpeningBookNoEngine">בלִיצֶ\'ס, ההבדל העיקרי בכללים של שחמט בהתכתבות הוא שספר פתיחות חוקי. השימוש במנוע אסור ויביא לסימון על הסתייעות במנועים. למרות שICCF מאפשרת שימוש במנוע במשחקים בהתכתבות, לִיצֶ\'ס לא.</string>
+  <string name="youCanUseOpeningBookNoEngine">בלִיצֶ\'ס, ההבדל העיקרי בכללים של שחמט בהתכתבות ביחס לשאר סוגי המשחק הוא שמותר להשתמש בספרי פתיחות. השימוש במנוע אסור ויביא לסימון על הסתייעות במנועים. למרות שICCF מאפשרת שימוש במנוע במשחקים בהתכתבות, לִיצֶ\'ס לא.</string>
   <string name="gameplay">מהלך המשחק</string>
   <string name="howBulletBlitzEtcDecided">איך Bullet, Blitz וזמני משחק אחרים נקבעים?</string>
   <string name="basedOnGameDuration">קטגוריות הזמן של לִיצֶ\'ס מבוססות על משך המשחק המשוער = %1$s

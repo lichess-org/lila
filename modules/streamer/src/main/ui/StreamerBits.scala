@@ -1,12 +1,9 @@
 package lila.streamer
 package ui
-
-import play.api.data.Form
-
+import lila.core.id.{ CmsPageKey, ImageId }
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.core.id.ImageId
-import lila.core.id.CmsPageKey
 
 final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }

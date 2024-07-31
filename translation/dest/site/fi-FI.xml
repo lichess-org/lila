@@ -180,6 +180,7 @@
   <string name="latestForumPosts">Uusimmat foorumiviestit</string>
   <string name="players">Pelaajat</string>
   <string name="friends">Kaverit</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">muiden pelaajien</string>
   <string name="discussions">Keskustelut</string>
   <string name="today">Tänään</string>
   <string name="yesterday">Eilen</string>
@@ -334,11 +335,11 @@
   <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
   <string name="openingExplorerAndTablebase">Avausselain ja -tietokanta</string>
   <string name="takeback">Peruuta siirto</string>
-  <string name="proposeATakeback">Ehdota siirron peruutusta</string>
-  <string name="takebackPropositionSent">Siirron peruutusta ehdotettu</string>
-  <string name="takebackPropositionDeclined">Siirron peruutuksen ehdotus hylätty</string>
-  <string name="takebackPropositionAccepted">Siirron peruutuksen ehdotus hyväksytty</string>
-  <string name="takebackPropositionCanceled">Siirron peruutuksen ehdotus peruttu</string>
+  <string name="proposeATakeback">Pyydä siirron peruutusta</string>
+  <string name="takebackPropositionSent">Siirron peruutusta pyydetty</string>
+  <string name="takebackPropositionDeclined">Siirron peruutuspyyntö torjuttu</string>
+  <string name="takebackPropositionAccepted">Siirron peruutuspyyntö hyväksytty</string>
+  <string name="takebackPropositionCanceled">Siirron peruutuspyyntö vedetty pois</string>
   <string name="yourOpponentProposesATakeback">Vastustajasi ehdottaa siirron peruutusta</string>
   <string name="bookmarkThisGame">Jätä kirjanmerkki tähän peliin</string>
   <string name="tournament">Turnaus</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäseneiden kohdalla julkisen kuvauksen.</string>
   <string name="no">Ei</string>
   <string name="yes">Kyllä</string>
+  <string name="website">Verkkosivusto</string>
+  <string name="mobile">Mobiili</string>
   <string name="help">Apu:</string>
   <string name="createANewTopic">Luo uusi aihe</string>
   <string name="topics">Aiheet</string>

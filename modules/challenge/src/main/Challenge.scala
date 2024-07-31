@@ -4,17 +4,16 @@ import cats.derived.*
 import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
-
+import scalalib.ThreadLocalRandom
 import scalalib.model.Days
-import lila.core.i18n.I18nKey
-import lila.core.{ challenge as hub }
+
+import lila.core.challenge as hub
 import lila.core.game.GameRule
-import lila.rating.PerfType
-import lila.core.user.WithPerf
-import lila.core.user.GameUser
+import lila.core.i18n.I18nKey
 import lila.core.id.GameFullId
+import lila.core.user.{ GameUser, WithPerf }
+import lila.rating.PerfType
 
 case class Challenge(
     @Key("_id") id: ChallengeId,

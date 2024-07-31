@@ -1,16 +1,16 @@
 package lila.relay
 
-import scala.util.Try
 import io.mola.galimatias.URL
+import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
-import play.api.Mode
 import scalalib.model.Seconds
 
-import lila.common.Form.{ cleanText, into, stringIn, formatter }
-import lila.core.perm.Granter
+import scala.util.Try
 
+import lila.common.Form.{ cleanText, formatter, into, stringIn }
+import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
 import lila.relay.RelayRound.Sync.Upstream
 
@@ -114,7 +114,7 @@ object RelayRoundForm:
       n <- prevNumber
       if prevs
         .map(_._2)
-        .fold(true): old =>
+        .forall: old =>
           roundNumberIn(old.name.value).contains(n - 1)
       p <- prev
     yield replaceRoundNumber(p.name.value, nextNumber)
@@ -124,17 +124,18 @@ object RelayRoundForm:
       oldDate     <- old.startsAt
       delta = prevDate.toEpochMilli - oldDate.toEpochMilli
     yield prevDate.plusMillis(delta)
-    val nextUrl: Option[Upstream.Url] = for
-      p   <- prev
-      up  <- p.sync.upstream
-      lcc <- up.lcc
-      if prevNumber.contains(lcc.round)
-    yield Upstream.Url(lcc.copy(round = nextNumber).pageUrl)
+    val nextUrl: Option[URL] = for
+      p  <- prev
+      up <- p.sync.upstream
+      lcc     = up.lcc.filter(lcc => prevNumber.contains(lcc.round))
+      nextLcc = lcc.map(_.copy(round = nextNumber).pageUrl)
+      next <- nextLcc.orElse(up.asUrl)
+    yield next
     Data(
       name = RelayRound.Name(guessName | s"Round ${nextNumber}"),
       caption = prev.flatMap(_.caption),
       syncSource = prev.map(Data.make).flatMap(_.syncSource),
-      syncUrl = nextUrl,
+      syncUrl = nextUrl.map(Upstream.Url.apply),
       startsAt = guessDate,
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
@@ -143,10 +144,6 @@ object RelayRoundForm:
     )
 
   case class GameIds(ids: List[GameId])
-
-  private def toGameIds(ids: String): Option[GameIds] =
-    val list = ids.split(' ').view.flatMap(i => GameId.from(i.trim)).toList
-    (list.sizeIs > 0 && list.sizeIs <= RelayFetch.maxChapters.value).option(GameIds(list))
 
   private def cleanUrl(source: String)(using mode: Mode): Option[URL] =
     for
@@ -162,9 +159,6 @@ object RelayRoundForm:
     url <- cleanUrl(s).toRight("Invalid source URL")
     url <- if !validSourcePort(url) then Left("The source URL cannot specify a port") else Right(url)
   yield url
-
-  private def cleanUrls(source: String)(using mode: Mode): Option[List[URL]] =
-    source.linesIterator.toList.flatMap(cleanUrl).some.filter(_.nonEmpty)
 
   private val validPorts                                           = Set(-1, 80, 443, 8080, 8491)
   private def validSourcePort(url: URL)(using mode: Mode): Boolean = mode.notProd || validPorts(url.port)

@@ -29,16 +29,16 @@ export default class CevalCtrl {
   engines: Engines;
   storedPv: Prop<number> = storedIntProp('ceval.multipv', 1);
   storedMovetime: Prop<number> = storedIntProp('ceval.search-ms', 8000); // may be 'Infinity'
-  allowed = toggle(true);
+  allowed: Toggle = toggle(true);
   enabled: Toggle;
   download?: { bytes: number; total: number };
-  hovering = prop<Hovering | null>(null);
-  pvBoard = prop<PvBoard | null>(null);
-  isDeeper = toggle(false);
+  hovering: Prop<Hovering | null> = prop<Hovering | null>(null);
+  pvBoard: Prop<PvBoard | null> = prop<PvBoard | null>(null);
+  isDeeper: Toggle = toggle(false);
 
   curEval: Tree.LocalEval | null = null;
   lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
-  showEnginePrefs = toggle(false);
+  showEnginePrefs: Toggle = toggle(false);
   customSearch?: Search;
 
   private worker: CevalEngine | undefined;
@@ -48,7 +48,7 @@ export default class CevalCtrl {
     this.engines = new Engines(this);
   }
 
-  configure(opts: CevalOpts) {
+  configure(opts: CevalOpts): void {
     this.opts = opts;
     this.possible = this.opts.possible;
     this.rules = lichessRules(this.opts.variant.key);
@@ -64,7 +64,7 @@ export default class CevalCtrl {
     }
   }
 
-  onEmit = throttle(200, (ev: Tree.LocalEval, work: Work) => {
+  onEmit: (ev: Tree.LocalEval, work: Work) => void = throttle(200, (ev: Tree.LocalEval, work: Work) => {
     this.sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
     this.curEval = ev;
     this.opts.emit(ev, work);
@@ -146,26 +146,26 @@ export default class CevalCtrl {
     };
   };
 
-  goDeeper = () => {
+  goDeeper = (): void => {
     if (!this.lastStarted) return;
     this.isDeeper(true);
     this.doStart(this.lastStarted.path, this.lastStarted.steps, this.lastStarted.threatMode);
   };
 
-  stop = () => {
+  stop = (): void => {
     this.worker?.stop();
   };
 
-  start = (path: string, steps: Step[], threatMode?: boolean) => {
+  start = (path: string, steps: Step[], threatMode?: boolean): void => {
     this.isDeeper(false);
     this.doStart(path, steps, !!threatMode);
   };
 
-  get state() {
+  get state(): CevalState {
     return this.worker?.getState() ?? CevalState.Initial;
   }
 
-  get search() {
+  get search(): Search {
     const s = {
       multiPv: this.storedPv(),
       by: { movetime: Math.min(this.storedMovetime(), this.engines.maxMovetime) },
@@ -175,41 +175,41 @@ export default class CevalCtrl {
     return s;
   }
 
-  get safeMovetime() {
+  get safeMovetime(): number {
     return Math.min(this.storedMovetime(), this.engines.maxMovetime);
   }
 
-  get isInfinite() {
+  get isInfinite(): boolean {
     return this.safeMovetime === Number.POSITIVE_INFINITY;
   }
 
-  get canGoDeeper() {
+  get canGoDeeper(): boolean {
     return this.state !== CevalState.Computing && (this.curEval?.depth ?? 0) < 99;
   }
 
-  get isComputing() {
+  get isComputing(): boolean {
     return this.state === CevalState.Computing;
   }
 
-  get isCacheable() {
+  get isCacheable(): boolean {
     return this.engines.active?.tech === 'NNUE';
   }
 
-  get showingCloud() {
+  get showingCloud(): boolean {
     if (!this.lastStarted) return false;
     const curr = this.lastStarted.steps[this.lastStarted.steps.length - 1];
     return !!curr.ceval?.cloud;
   }
 
-  setThreads = (threads: number) => site.storage.set('ceval.threads', threads.toString());
+  setThreads = (threads: number): void => site.storage.set('ceval.threads', threads.toString());
 
-  get threads() {
+  get threads(): number {
     const stored = site.storage.get('ceval.threads');
     const desired = stored ? parseInt(stored) : this.recommendedThreads;
     return clamp(desired, { min: this.engines.active?.minThreads ?? 1, max: this.maxThreads });
   }
 
-  get recommendedThreads() {
+  get recommendedThreads(): number {
     return (
       this.engines.external?.maxThreads ??
       clamp(navigator.hardwareConcurrency - (navigator.hardwareConcurrency % 2 ? 0 : 1), {
@@ -219,7 +219,7 @@ export default class CevalCtrl {
     );
   }
 
-  get maxThreads() {
+  get maxThreads(): number {
     return (
       this.engines.external?.maxThreads ??
       (fewerCores()
@@ -228,33 +228,33 @@ export default class CevalCtrl {
     );
   }
 
-  setHashSize = (hash: number) => site.storage.set('ceval.hash-size', hash.toString());
+  setHashSize = (hash: number): void => site.storage.set('ceval.hash-size', hash.toString());
 
-  get hashSize() {
+  get hashSize(): number {
     const stored = site.storage.get('ceval.hash-size');
     return Math.min(this.maxHash, stored ? parseInt(stored, 10) : 16);
   }
 
-  get maxHash() {
+  get maxHash(): number {
     return this.engines.active?.maxHash ?? 16;
   }
 
-  selectEngine = (id: string) => {
+  selectEngine = (id: string): void => {
     this.engines.select(id);
     this.opts.onSelectEngine?.();
   };
 
-  setHovering = (fen: FEN, uci?: Uci) => {
+  setHovering = (fen: FEN, uci?: Uci): void => {
     this.hovering(uci ? { fen, uci } : null);
     this.opts.setAutoShapes();
   };
 
-  setPvBoard = (pvBoard: PvBoard | null) => {
+  setPvBoard = (pvBoard: PvBoard | null): void => {
     this.pvBoard(pvBoard);
     this.opts.redraw();
   };
 
-  toggle = () => {
+  toggle = (): void => {
     if (!this.possible || !this.allowed()) return;
     this.stop();
     if (!this.enabled() && !document.hidden) {
@@ -268,12 +268,12 @@ export default class CevalCtrl {
     }
   };
 
-  destroy = () => {
+  destroy = (): void => {
     this.worker?.destroy();
     this.worker = undefined;
   };
 
-  engineFailed(msg: string) {
+  engineFailed(msg: string): void {
     if (msg.includes('Blocking on the main thread')) return; // mostly harmless
     showEngineError(this.engines.active?.name ?? 'Engine', msg);
   }

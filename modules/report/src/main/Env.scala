@@ -2,14 +2,11 @@ package lila.report
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.Configuration
 
 import lila.core.config.*
-import lila.core.report.SuspectId
 
 @Module
 final class Env(
-    domain: NetDomain,
     db: lila.db.Db,
     isOnline: lila.core.socket.IsOnline,
     userApi: lila.core.user.UserApi,
@@ -22,7 +19,7 @@ final class Env(
     captcha: lila.core.captcha.CaptchaApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(using Executor)(using scheduler: Scheduler):
+)(using Executor, NetDomain)(using scheduler: Scheduler):
 
   private def lazyPlaybansOf = () => playbansOf
 

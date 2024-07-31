@@ -3,8 +3,8 @@ package lila.cms
 import com.softwaremill.macwire.*
 
 import lila.core.config.{ AssetBaseUrl, BaseUrl, CollName }
-import lila.memo.CacheApi
 import lila.core.id.CmsPageKey
+import lila.memo.CacheApi
 
 @Module
 final class Env(

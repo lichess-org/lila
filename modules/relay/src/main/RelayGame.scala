@@ -1,10 +1,10 @@
 package lila.relay
 
+import chess.Outcome
 import chess.format.pgn.{ Tag, TagType, Tags }
 
-import lila.study.{ MultiPgn, StudyPgnImport, PgnDump }
+import lila.study.{ MultiPgn, PgnDump }
 import lila.tree.Root
-import chess.Outcome
 
 case class RelayGame(
     tags: Tags,
@@ -37,7 +37,7 @@ case class RelayGame(
   )
 
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
-    tags.fideIds.some.filter(_.forall(_.isDefined)).map(_.toPair)
+    tags.fideIds.some.filter(_.forall(_.exists(_ > 0))).map(_.toPair)
 
   def hasUnknownPlayer: Boolean =
     List(RelayGame.whiteTags, RelayGame.blackTags).exists:
@@ -64,7 +64,7 @@ private object RelayGame:
   )
 
   import scalalib.Iso
-  import chess.format.pgn.{ InitialComments, Pgn }
+  import chess.format.pgn.InitialComments
   val iso: Iso[RelayGames, MultiPgn] =
     import lila.study.PgnDump.WithFlags
     given WithFlags = WithFlags(
