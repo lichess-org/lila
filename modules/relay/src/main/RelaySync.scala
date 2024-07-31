@@ -13,8 +13,7 @@ final private class RelaySync(
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     leaderboard: RelayLeaderboardApi,
-    notifier: RelayNotifier,
-    orphanNotifier: RelayNotifyOrphanBoard
+    notifier: RelayNotifier
 )(using Executor):
 
   def updateStudyChapters(rt: RelayRound.WithTour, rawGames: RelayGames): Fu[SyncResult.Ok] = for
@@ -27,10 +26,9 @@ final private class RelaySync(
       updateChapter(rt, study, game, chapter)
     appends <- plan.append.toList.sequentially: game =>
       createChapter(rt, study, game)
-    result = SyncResult.Ok(updates ::: appends.flatten, games)
+    result = SyncResult.Ok(updates ::: appends.flatten, plan)
     _      = lila.common.Bus.publish(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
-    _ <- orphanNotifier.inspectPlan(rt, plan)
   yield result
 
   private def updateChapter(
@@ -210,7 +208,7 @@ final private class RelaySync(
 sealed trait SyncResult:
   val reportKey: String
 object SyncResult:
-  case class Ok(chapters: List[ChapterResult], games: RelayGames) extends SyncResult:
+  case class Ok(chapters: List[ChapterResult], plan: RelayUpdatePlan.Plan) extends SyncResult:
     def nbMoves        = chapters.foldLeft(0)(_ + _.newMoves)
     def hasMovesOrTags = chapters.exists(c => c.newMoves > 0 || c.tagUpdate)
     val reportKey      = "ok"

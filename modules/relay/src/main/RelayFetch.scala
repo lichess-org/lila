@@ -31,6 +31,7 @@ final private class RelayFetch(
     cacheApi: CacheApi,
     playersApi: RelayPlayersApi,
     notifyMissingFideIds: RelayNotifyMissingFideIds,
+    orphanNotifier: RelayNotifyOrphanBoard,
     onlyIds: Option[List[RelayTourId]] = None
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
@@ -96,10 +97,13 @@ final private class RelayFetch(
             .updateStudyChapters(rt, games)
             .withTimeoutError(7 seconds, SyncResult.Timeout)
             .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
-            .map: res =>
-              res -> updating:
-                _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-                  .copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
+        .flatMap: res =>
+          orphanNotifier.inspectPlan(rt, res.plan).inject(res)
+        .map: res =>
+          val games = res.plan.input.games
+          res -> updating:
+            _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
+              .copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
         .recover:
           case e: Exception =>
             val result = e.match
