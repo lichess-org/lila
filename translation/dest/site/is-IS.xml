@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Gefðu upp þessa vefslóð til að bjóða einhverjum að tefla</string>
   <string name="gameOver">Leik lokið</string>
   <string name="waitingForOpponent">Bið eftir andstæðingi</string>
+  <string name="orLetYourOpponentScanQrCode">Eða láttu andstæðing þinn skanna þennan QR kóða</string>
   <string name="waiting">Bið</string>
   <string name="yourTurn">Þú átt leik</string>
   <string name="aiNameLevelAiLevel">%1$s erfiðleiki %2$s</string>

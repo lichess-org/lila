@@ -198,6 +198,7 @@
   <string name="latestForumPosts">Naujausi diskusijų pranešimai</string>
   <string name="players">Žaidėjai</string>
   <string name="friends">Draugai</string>
+  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">kiti žaidėjai</string>
   <string name="discussions">Diskusijos</string>
   <string name="today">Šiandien</string>
   <string name="yesterday">Vakar</string>
@@ -606,6 +607,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="descPrivateHelp">Tekstas, kurį gali matyti tik komandos nariai. Jei nustatytas, komandos nariams pakeičia viešą aprašymą.</string>
   <string name="no">Ne</string>
   <string name="yes">Taip</string>
+  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">Tinklapis</string>
+  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">Mobilus</string>
   <string name="help">Pagalba:</string>
   <string name="createANewTopic">Sukurti naują temą</string>
   <string name="topics">Temos</string>
