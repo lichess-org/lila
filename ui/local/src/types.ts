@@ -14,7 +14,7 @@ export type Point = [number, number];
 
 export interface Operator {
   readonly range: { min: number; max: number };
-  from: 'move' | 'score';
+  from: 'move' | 'score' | 'time';
   data: Point[];
 }
 
@@ -53,12 +53,21 @@ export interface BotInfo {
 
 export type BotInfos = { [id: string]: BotInfo };
 
+export interface MoveArgs {
+  pos: Position;
+  chess: Chess;
+  initial: number | undefined;
+  increment: number | undefined;
+  secondsRemaining: number | undefined;
+  score?: number;
+}
+export type MoveResult = { uci: string; time: number };
+
 export interface Libot extends BotInfo {
   glicko?: Glicko;
   readonly ratingText: string;
 
-  move: (pos: Position, chess?: Chess) => Promise<Uci>;
-  thinking: (secondsRemaining: number) => number;
+  move: (args: MoveArgs) => Promise<MoveResult>;
 }
 
 export type Libots = { [id: string]: Libot };
@@ -96,7 +105,7 @@ export interface Automator {
   onGameOver: (status: GameStatus) => boolean; // returns true to keep going
   onMove?: (fen: string) => void;
   onReset?: () => void;
-  noPause: boolean;
+  skipTheatrics: boolean;
 }
 
 export type NetData = {

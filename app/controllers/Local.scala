@@ -20,8 +20,7 @@ final class Local(env: Env) extends LilaController(env):
       black: Option[String],
       fen: Option[String],
       time: Option[String],
-      go: Option[String],
-      devUi: Option[String]
+      go: Option[String]
   ) = OpenBody:
     val initial   = time.map(_.toFloat)
     val increment = time.flatMap(_.split('+').drop(1).headOption.map(_.toFloat))
@@ -30,8 +29,14 @@ final class Local(env: Env) extends LilaController(env):
         GameSetup(white, black, fen, initial, increment, optTrue(go)).some
       else none
     for
-      bots <- env.local.repo.getAll()
-      page <- renderPage(indexPage(setup, bots, optTrue(devUi)))
+      bots <- env.local.repo.getLatest()
+      page <- renderPage(indexPage(setup, bots, false))
+    yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
+
+  def dev = OpenBody:
+    for
+      bots <- env.local.repo.getLatest()
+      page <- renderPage(indexPage(none, bots, true))
     yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
   def assetList = Open: ctx ?=> // for service worker
@@ -53,7 +58,7 @@ final class Local(env: Env) extends LilaController(env):
 
   // for bot devs
   def postBot = AuthBody(parse.json) { ctx ?=> me ?=>
-    ctx.pp.body.pp.body.pp
+    ctx.pp.body.body
       .validate[JsObject]
       .fold(
         err => BadRequest(Json.obj("error" -> err.toString)),
@@ -86,14 +91,14 @@ final class Local(env: Env) extends LilaController(env):
           .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
       case _ => fuccess(BadRequest(Json.obj("error" -> "bad asset type")).as(JSON))
 
-  private def indexPage(setup: Option[GameSetup], bots: JsArray, devUi: Boolean)(using ctx: Context) =
+  private def indexPage(setup: Option[GameSetup], bots: JsArray, dev: Boolean)(using ctx: Context) =
     given setupFormat: Format[GameSetup] = Json.format[GameSetup]
     views.local.index(
       Json
         .obj("pref" -> pref, "bots" -> bots)
         .add("setup", setup)
-        .add("assets", devUi.option(env.local.api.assets)),
-      devUi
+        .add("assets", dev.option(env.local.api.assets)),
+      if dev then "local.dev" else "local"
     )
 
   private def pref(using ctx: Context) =

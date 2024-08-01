@@ -344,7 +344,8 @@ POST  /streamer/:username/check        controllers.Streamer.checkOnline(username
 
 # PrivatePlay
 
-GET   /local                         controllers.Local.index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String], go: Option[String], devUi: Option[String])
+GET   /local                         controllers.Local.index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String], go: Option[String])
+GET   /local/dev                     controllers.Local.dev
 GET   /local/dev/list                controllers.Local.botList
 GET   /local/dev/history             controllers.Local.botHistory
 POST  /local/dev/bot                 controllers.Local.postBot

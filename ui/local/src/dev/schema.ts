@@ -1,4 +1,4 @@
-import type { Schema, InfoKey, PropertyValue } from './types';
+import type { Schema, InfoKey, PropertyValue, Requirement } from './types';
 import { deepFreeze } from 'common';
 
 // give dialog constraints, describe dialog content, define direct mappings to BotInfo instances
@@ -141,20 +141,12 @@ export const schema: Schema = deepFreeze<Schema>({
   },
   bot_operators: {
     class: ['operators'],
-    lc0decay: {
-      label: 'lc0 line decay',
-      type: 'operator',
-      class: ['operator'],
-      value: { range: { min: 0, max: 1 }, from: 'move', data: [] },
-      requires: ['sources_zero_multipv > 1'],
-      required: true,
-    },
     lc0bias: {
       label: 'lc0 bias',
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 1 }, from: 'move', data: [] },
-      requires: ['sources_zero', 'sources_fish'],
+      requires: { and: ['sources_zero', 'sources_fish'] },
       required: true,
     },
     acplMean: {
@@ -162,16 +154,28 @@ export const schema: Schema = deepFreeze<Schema>({
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 150 }, from: 'score', data: [] },
-      requires: ['sources_fish_multipv > 1'],
-      required: true,
+      requires: { and: ['sources_fish', 'sources_fish_multipv > 1'] },
     },
     acplStdev: {
       label: 'acpl stdev',
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 100 }, from: 'score', data: [] },
-      requires: ['bot_operators_acplMean'],
+      requires: 'bot_operators_acplMean',
       required: true,
+    },
+    decay: {
+      label: 'line probability decay',
+      type: 'operator',
+      class: ['operator'],
+      value: { range: { min: 0, max: 1 }, from: 'time', data: [] },
+      requires: {
+        or: [
+          { and: ['sources_zero', 'sources_fish'] },
+          { and: ['sources_fish', 'sources_fish_multipv > 1'] },
+          { and: ['sources_zero', 'sources_zero_multipv > 1'] },
+        ],
+      },
     },
   },
 });

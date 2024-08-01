@@ -5,7 +5,7 @@ import { BotCtrl } from './botCtrl';
 import { AssetDb } from './assetDb';
 import { SetupDialog } from './setupDialog';
 import view from './gameView';
-import type { LocalPlayOpts, Libot } from './types';
+import type { LocalPlayOpts } from './types';
 
 const patch = init([classModule, attributesModule]);
 
@@ -15,14 +15,12 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
   if (localStorage.getItem('local.setup')) {
     if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.setup')!);
   }
-  if (opts.setup) {
-    if (!opts.setup.go) {
-      new SetupDialog(botCtrl, opts.setup, true);
-      return;
-    }
-    botCtrl.whiteUid = opts.setup.white;
-    botCtrl.blackUid = opts.setup.black;
+  if (!opts.setup?.go) {
+    new SetupDialog(botCtrl, opts.setup, true);
+    return;
   }
+  if (opts.setup.white) botCtrl.whiteUid = opts.setup.white;
+  else botCtrl.blackUid = opts.setup.black;
 
   const ctrl = new GameCtrl(opts, botCtrl, redraw);
   const el = document.createElement('main');

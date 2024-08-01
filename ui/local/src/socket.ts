@@ -8,6 +8,9 @@ export function makeSocket(/*send: SocketSend, */ gameCtrl: GameCtrl): RoundSock
     move: (d: any) => gameCtrl.move(d.u),
     'blindfold-no': () => {},
     'blindfold-yes': () => {},
+    'rematch-yes': () => {
+      gameCtrl.reset();
+    },
   };
   const send = (t: string, d?: any) => {
     if (handlers[t]) handlers[t]?.(d);

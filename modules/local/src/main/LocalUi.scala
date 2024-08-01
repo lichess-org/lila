@@ -15,15 +15,15 @@ import lila.local.GameSetup
 final class LocalUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def index(data: JsObject, devUi: Boolean)(using ctx: Context): Page =
-    Page("Play vs Bots")
-      .css(if devUi then "local.dev" else "local")
+  def index(data: JsObject, moduleName: String = "local")(using ctx: Context): Page =
+    Page("Private Play")
+      .css(moduleName)
       .css("round")
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
       .js(
         PageModule(
-          if devUi then "local.dev" else "local",
+          moduleName,
           data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))
         )
       )
@@ -31,8 +31,8 @@ final class LocalUi(helpers: Helpers):
       .csp(_.withWebAssembly)
       .graph(
         OpenGraph(
-          title = "Play vs Bots",
-          description = "Play vs Bots",
+          title = "Private Play",
+          description = "Private Play",
           url = netBaseUrl.value
         )
       )

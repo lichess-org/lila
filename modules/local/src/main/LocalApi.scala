@@ -40,7 +40,7 @@ final private class LocalApi(repo: LocalRepo, getFile: (String => java.io.File))
         .listFiles()
         .toList
         .map(_.getName)
-        .filter(_.endsWith(".bin")) // .bin extension is assumed. .png is used for the cover
+        .filter(_.endsWith(".png"))
         .map(_.dropRight(4)),
       "sound" -> getFile("public/lifat/bots/sounds").listFiles().toList.map(_.getName)
     )

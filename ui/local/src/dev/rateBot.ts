@@ -1,10 +1,10 @@
 import { clamp } from 'common';
 import { botScore } from './util';
-import type { Zerofish, Position } from 'zerofish';
-import type { Libot, Glicko } from '../types';
+import type { Zerofish } from 'zerofish';
+import type { Libot, Glicko, MoveResult, MoveArgs } from '../types';
 import type { Result, Matchup } from './devCtrl';
 
-export class RankBot implements Libot {
+export class RateBot implements Libot {
   static readonly MAX_LEVEL = 30;
 
   image = 'baby-robot.webp';
@@ -33,9 +33,12 @@ export class RankBot implements Libot {
     return `Stockfish UCI_Elo ${this.glicko.r} depth ${this.depth}`;
   }
 
-  async move(pos: Position): Promise<Uci> {
-    return (await this.zerofish.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } }))
-      .bestmove;
+  async move({ pos }: MoveArgs): Promise<MoveResult> {
+    return {
+      uci: (await this.zerofish.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } }))
+        .bestmove,
+      time: 0,
+    };
   }
 
   thinking(): number {
@@ -43,14 +46,14 @@ export class RankBot implements Libot {
   }
 }
 
-export function rankBotMatchup(bot: Libot, last?: Result): Matchup[] {
+export function rateBotMatchup(bot: Libot, last?: Result): Matchup[] {
   const { r, rd } = bot.glicko ?? { r: 1500, rd: 350 };
   if (rd < 60) return [];
   const score = last ? botScore(last, bot.uid) : 0.5;
-  const lvl = ratingToRankBotLevel(r + (Math.random() + score - 1) * (rd * 1.5));
+  const lvl = ratingToRateBotLevel(r + (Math.random() + score - 1) * (rd * 1.5));
   return [Math.random() < 0.5 ? { white: bot.uid, black: `#${lvl}` } : { white: `#${lvl}`, black: bot.uid }];
 }
 
-function ratingToRankBotLevel(rating: number) {
-  return clamp(Math.round(rating / 75) - 8, { min: 0, max: RankBot.MAX_LEVEL });
+function ratingToRateBotLevel(rating: number) {
+  return clamp(Math.round(rating / 75) - 8, { min: 0, max: RateBot.MAX_LEVEL });
 }

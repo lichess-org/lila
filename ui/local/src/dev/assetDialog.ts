@@ -1,12 +1,12 @@
 import { domDialog, type Dialog } from 'common/dialog';
-import { DevAssetDb } from './devAssetDb';
+import { DevRepo } from './devRepo';
 import * as licon from 'common/licon';
 import { removeButton } from './util';
 import { wireCropDialog } from 'bits/crop';
 
 type AssetType = 'image' | 'book' | 'sound';
 
-export function assetDialog(db: DevAssetDb, type?: AssetType): Promise<string | undefined> {
+export function assetDialog(db: DevRepo, type?: AssetType): Promise<string | undefined> {
   if (!type || type === 'image') wireCropDialog();
   return new AssetDialog(db, type).show();
 }
@@ -24,7 +24,7 @@ class AssetDialog {
   private isChooser: boolean;
 
   constructor(
-    readonly db: DevAssetDb,
+    readonly db: DevRepo,
     type?: AssetType,
   ) {
     this.isChooser = type !== undefined;

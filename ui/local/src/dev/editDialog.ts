@@ -8,7 +8,7 @@ import { domDialog, alert, confirm, type Dialog, type Action } from 'common/dial
 import type { BotInfoReader, ZerofishBotEditor, HostView } from './types';
 import type { ZerofishBots } from '../zerofishBot';
 import type { GameCtrl } from '../gameCtrl';
-import type { DevAssetDb } from './devAssetDb';
+import type { DevRepo } from './devRepo';
 import { assetDialog } from './assetDialog';
 import { shareDialog } from './shareDialog';
 
@@ -77,8 +77,8 @@ export class EditDialog implements HostView {
     return this.botCtrl.defaultBot(this.uid);
   }
 
-  get assetDb(): DevAssetDb {
-    return this.botCtrl.assetDb as DevAssetDb;
+  get assetDb(): DevRepo {
+    return this.botCtrl.assetDb as DevRepo;
   }
 
   private makeEditView(): void {
@@ -97,6 +97,11 @@ export class EditDialog implements HostView {
   }
 
   private apply() {
+    const [sourcesScroll, operatorsScroll] = [
+      this.view.querySelector('.sources')!.scrollTop,
+      this.view.querySelector('.operators')!.scrollTop,
+    ];
+    console.log(this.bot);
     for (const id of this.bot.disabled) {
       removeObjectProperty({ obj: this.bot, path: { id } }, true);
       this.ctrl.dependsOn(id).forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
@@ -105,6 +110,8 @@ export class EditDialog implements HostView {
     this.botCtrl.updateBot(this.bot);
     delete this.scratch[this.uid];
     this.selectBot();
+    this.view.querySelector('.sources')!.scrollTop = sourcesScroll ?? 0;
+    this.view.querySelector('.operators')!.scrollTop = operatorsScroll ?? 0;
   }
 
   private selectBot(uid = this.uid ?? this.botCtrl[this.color]!.uid) {
@@ -138,7 +145,7 @@ export class EditDialog implements HostView {
       if (this.scratch[uid]) this.scratch[uid].glicko = undefined;
       if (!this.bots[uid].glicko) continue;
       this.bots[uid].glicko = undefined;
-      this.botCtrl.saveBot(uid);
+      this.botCtrl.storeBot(uid);
     }
     this.selectBot();
     this.gameCtrl.redraw();
@@ -174,6 +181,14 @@ export class EditDialog implements HostView {
       }),
     );
     dlg.showModal();
+  }
+
+  private deleteBot(): void {
+    confirm(`Delete ${this.uid}?`).then(async ok => {
+      if (!ok) return;
+      delete this.scratch[this.uid];
+      this.botCtrl.deleteBot(this.uid).then(() => this.selectBot());
+    });
   }
 
   private newBot(): void {
@@ -237,6 +252,7 @@ export class EditDialog implements HostView {
       ...this.ctrl.actions,
       { selector: '.bot-apply', listener: () => this.apply() },
       { selector: '.bot-new', listener: () => this.newBot() },
+      { selector: '.bot-delete', listener: () => this.deleteBot() },
       { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
       { selector: '.bot-json-all', listener: () => this.showJson() },
       { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
@@ -274,6 +290,7 @@ export class EditDialog implements HostView {
     const botCard = $as<Element>(`<div class="bot-card">
         <div class="player ${this.color}"><span>${this.uid}</span></div>
         <div class="bot-actions">
+          <button class="button button-empty button-red bot-delete">delete</button>
           <button class="button button-empty button-dim bot-json-one">json</button>
           <button class="button button-empty button-red bot-clear-one">revert</button>
           <button class="button button-green bot-apply disabled">apply</button>

@@ -9,7 +9,7 @@ import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
 import { ChapterPreview, StudyData } from './interfaces';
 import { makeBookFromPgn } from 'bits/polyglot';
-import { domDialog, alert } from 'common/dialog';
+import { domDialog, confirm } from 'common/dialog';
 import RelayCtrl from './relay/relayCtrl';
 
 function fromPly(ctrl: StudyShare): VNode {
@@ -284,10 +284,9 @@ async function exportToBotEditor(pgn: string, name: string): Promise<void> {
           const name = (dlg.view.querySelector('input') as HTMLInputElement).value;
           if (!name) dlg.close();
           if ((await bookStore.list()).includes(name)) {
-            alert('Book with that name already exists!');
-            return;
-          }
-          dlg.close(name);
+            const ok = await confirm('That book already exists. Replace?');
+            if (ok) dlg.close(name);
+          } else dlg.close(name);
         },
       },
       show: true,

@@ -63,7 +63,14 @@ export function interpolate(m: Operator, x: number): number {
 }
 
 export function domain(m: Operator): { min: number; max: number } {
-  if (m.from === 'move') return { min: 1, max: 60 };
-  else if (m.from === 'score') return { min: -1, max: 1 };
-  else return { min: NaN, max: NaN };
+  switch (m.from) {
+    case 'move':
+      return { min: 1, max: 60 };
+    case 'score':
+      return { min: 0, max: 1 };
+    case 'time':
+      return { min: 0, max: 120 };
+    default:
+      return { min: NaN, max: NaN };
+  }
 }

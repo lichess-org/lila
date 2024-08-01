@@ -1,11 +1,22 @@
 import * as co from 'chessops';
-import { zip } from 'common';
-import { normalize } from './operator';
-import { zerofishMove } from './zerofishMove';
+import { zip, clamp } from 'common';
+import { normalize, interpolate } from './operator';
+import { outcomeExpectancy, getNormal } from './util';
+import { zerofishMove, zerofishThink } from './zerofishMove';
 import type { FishSearch, Position, Zerofish } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import type { AssetDb } from './assetDb';
-import type { BotInfo, Libot, ZerofishBotInfo, ZeroSearch, Operator, Glicko, Book } from './types';
+import type {
+  BotInfo,
+  Libot,
+  ZerofishBotInfo,
+  ZeroSearch,
+  Operator,
+  Glicko,
+  Book,
+  MoveArgs,
+  MoveResult,
+} from './types';
 
 export type ZerofishBots = { [id: string]: ZerofishBot };
 
@@ -13,7 +24,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   private zerofish: Zerofish;
   private assetDb: AssetDb;
   private openings: Promise<OpeningBook[]>;
-  private stats: any;
+  private stats: { cplMoves: number; cpl: number };
   readonly uid: string;
   name: string;
   description: string;
@@ -26,7 +37,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   operators?: { [type: string]: Operator };
 
   constructor(info: BotInfo, zerofish: Zerofish, assetDb: AssetDb) {
-    Object.assign(this, info);
+    Object.assign(this, structuredClone(info));
     Object.values(this.operators ?? {}).forEach(normalize);
 
     // non enumerable properties are not stored or cloned
@@ -35,7 +46,7 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
     Object.defineProperty(this, 'openings', {
       get: () => Promise.all(this.books ? [...this.books.map(b => this.assetDb.getBook(b.name))] : []),
     });
-    Object.defineProperty(this, 'stats', { value: { moves: 0, cpl: 0 } });
+    Object.defineProperty(this, 'stats', { value: { cplMoves: 0, cpl: 0 } });
   }
 
   get ratingText(): string {
@@ -47,16 +58,13 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
   }
 
   get statsText(): string {
-    return this.stats.moves ? `acpl ${Math.round(this.stats.cpl / this.stats.moves)}` : '';
+    return this.stats.cplMoves ? `acpl ${Math.round(this.stats.cpl / this.stats.cplMoves)}` : '';
   }
 
-  thinking(secondsRemaining: number): number {
-    return Math.min(Math.random(), secondsRemaining / 5);
-  }
-
-  async move(pos: Position, chess: co.Chess): Promise<Uci> {
+  async move(moveArgs: MoveArgs): Promise<MoveResult> {
+    const { pos, chess } = moveArgs;
     const opening = await this.bookMove(chess);
-    if (opening) return opening;
+    if (opening) return { uci: opening, time: zerofishThink(this, moveArgs) };
     const [zeroResult, fishResult] = await Promise.all([
       this.zero &&
         this.zerofish.goZero(pos, {
@@ -68,13 +76,25 @@ export class ZerofishBot implements Libot, ZerofishBotInfo {
         }),
       this.fish && this.zerofish.goFish(pos, this.fish),
     ]);
-    console.log('fishResult', fishResult);
-    const { move, cpl } = zerofishMove(fishResult, zeroResult, this.operators ?? {}, chess);
-    if (!isNaN(cpl)) {
-      this.stats.moves++; // debug stats
+    const { move, cpl, time } = zerofishMove(fishResult, zeroResult, this, moveArgs);
+    if (cpl !== undefined && cpl < 1000) {
+      this.stats.cplMoves++; // debug stats
       this.stats.cpl += cpl;
     }
-    return move;
+    return { uci: move, time };
+  }
+
+  operator(op: string, { chess, score, secondsRemaining }: MoveArgs): undefined | number {
+    const o = this.operators?.[op];
+    if (!o) return undefined;
+    return interpolate(
+      o,
+      o.from === 'move'
+        ? chess.fullmoves
+        : o.from === 'score'
+        ? outcomeExpectancy(chess.turn, score ?? 0)
+        : secondsRemaining ?? Infinity,
+    );
   }
 
   private async bookMove(chess: co.Chess) {

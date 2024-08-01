@@ -11,6 +11,7 @@ import type {
   PaneInfo,
   ObjectSelector,
   PropertyValue,
+  Requirement,
 } from './types';
 
 export class Pane<Info extends PaneInfo = PaneInfo> {
@@ -59,7 +60,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       for (const kid of this.children) {
         kid.el.classList.toggle('none', !enabled);
         if (!enabled) continue;
-        if (kid.info.required) kid.update();
+        if (kid.isRequired) kid.update();
         else if (kid.info.type !== 'radioGroup') continue;
         const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
         const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['default']));
@@ -118,11 +119,11 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     if (this.host.bot.disabled.has(this.id)) return false;
     const kids = this.children;
     if (!kids.length) return this.isDefined && this.requirementsAllow;
-    return kids.every(x => x.enabled || !x.info.required);
+    return kids.every(x => x.enabled || !x.isRequired);
   }
 
   get requires(): string[] {
-    return (this.info.requires ?? []).map(r => r.split(operatorRegex)[0].trim());
+    return getIds(this.info.requires);
   }
 
   protected init(): void {
@@ -133,7 +134,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   protected canEnable(): boolean {
     const kids = this.children;
     if (this.input && !kids.length) return this.isDefined;
-    return kids.every(x => x.enabled || !x.info.required) && this.requirementsAllow;
+    return kids.every(x => x.enabled || !x.isRequired) && this.requirementsAllow;
   }
 
   protected get path(): string[] {
@@ -145,37 +146,63 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   protected get isFieldset(): boolean {
-    // we cheat here
     return this.info.type === 'group' || this.info.type === 'books' || this.info.type === 'sounds';
   }
 
   protected get isDefined(): boolean {
     return this.getProperty() !== undefined;
   }
-
   protected get requirementsAllow(): boolean {
-    return (this.info.requires ?? []).every(r => {
-      const op = r.match(operatorRegex)?.[0] as string;
-      const [id, val] = r.split(op).map(x => x.trim());
-      const required = this.host.ctrl.byId[id];
-      if (!required?.enabled) return false;
+    return this.evaluate(this.info.requires);
+  }
+
+  protected get isRequired(): boolean {
+    return this.info.required === undefined ? false : this.info.required;
+  }
+
+  private evaluate(requirement: Requirement | undefined): boolean {
+    if (typeof requirement === 'string') {
+      const req = requirement.trim();
+      if (req.startsWith('!')) {
+        const paneId = req.slice(1).trim();
+        const pane = this.host.ctrl.byId[paneId];
+        return pane ? !pane.enabled : true;
+      }
+
+      const op = req.match(operatorRegex)?.[0] as string;
+
+      const [left, right] = req.split(op).map(x => x.trim());
+      const maybeLeftPane = this.host.ctrl.byId[left];
+      const maybeRightPane = this.host.ctrl.byId[right];
+      const leftValue = maybeLeftPane ? maybeLeftPane.paneValue : left;
+      const rightValue = maybeRightPane ? maybeRightPane.paneValue : right;
+
       switch (op) {
         case '==':
-          return String(required.paneValue) === val;
+          return String(leftValue) === String(rightValue);
         case '!=':
-          return String(required.paneValue) !== val;
+          return String(leftValue) !== String(rightValue);
         case '>=':
-          return Number(required.paneValue) >= Number(val);
+          return Number(leftValue) >= Number(rightValue);
         case '>':
-          return Number(required.paneValue) > Number(val);
+          return Number(leftValue) > Number(rightValue);
         case '<=':
-          return Number(required.paneValue) <= Number(val);
+          return Number(leftValue) <= Number(rightValue);
         case '<':
-          return Number(required.paneValue) < Number(val);
-        default:
-          return true;
+          return Number(leftValue) < Number(rightValue);
+        case undefined:
+          return maybeLeftPane?.enabled;
       }
-    });
+    } else if (Array.isArray(requirement)) {
+      return requirement.every(r => this.evaluate(r));
+    } else if (typeof requirement === 'object') {
+      if ('and' in requirement) {
+        return requirement.and.every(r => this.evaluate(r));
+      } else if ('or' in requirement) {
+        return requirement.or.some(r => this.evaluate(r));
+      }
+    }
+    return true;
   }
 
   protected get children(): Pane[] {
@@ -191,7 +218,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         `<input type="radio" name="${this.radioGroup}" tabindex="-1">`,
       );
     } else if (
-      !this.info.required &&
+      !this.isRequired &&
       this.info.label &&
       this.info.type !== 'books' &&
       this.info.type !== 'soundEvent'
@@ -295,4 +322,16 @@ export class RangeSetting<Info extends RangeInfo = RangeInfo> extends NumberSett
     this.setProperty(Number(this.input.value));
     this.setEnabled(true);
   }
+}
+
+function getIds(r: Requirement | undefined): string[] {
+  if (typeof r === 'string') {
+    return [r.split(operatorRegex)[0].trim()];
+  } else if (Array.isArray(r)) {
+    return r.flatMap(getIds);
+  } else if (typeof r === 'object' && r !== null) {
+    if ('and' in r) return r.and.flatMap(getIds);
+    if ('or' in r) return r.or.flatMap(getIds);
+  }
+  return [];
 }

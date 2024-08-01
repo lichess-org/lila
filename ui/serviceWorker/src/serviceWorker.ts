@@ -6,7 +6,7 @@ const assetBase = new URL(searchParams.get('asset-url')!, sw.location.href).href
 
 sw.addEventListener('install', () => {
   sw.skipWaiting();
-  //caches.open('local').then(cache => cache.addAll(['/local']));
+  //caches.open('local').then(cache => cache.addAll([]));
 });
 
 sw.addEventListener('activate', e => {
@@ -69,7 +69,7 @@ async function handleNotificationClick(e: NotificationEvent) {
 sw.addEventListener('notificationclick', e => e.waitUntil(handleNotificationClick(e)));
 
 sw.addEventListener('fetch', e => {
-  const path = new URL(e.request.url).pathname.match(/(\/local$|\/local\?.*)/)?.[1];
+  const path = new URL(e.request.url).pathname.match(/(\/local$|\/local\?.*|\/local\/dev)/)?.[1];
   if (!path) return;
   e.respondWith(resolveFetch(path, e));
 });

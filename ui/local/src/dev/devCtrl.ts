@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import { rankBotMatchup } from './rankBot';
+import { rateBotMatchup } from './rateBot';
 import * as u from './util';
 import type { Automator, Libot } from '../types';
 import { statusOf } from 'game/status';
@@ -8,7 +8,7 @@ import type { GameCtrl } from '../gameCtrl';
 import type { GameStatus } from '../localGame';
 
 interface Test {
-  type: 'matchup' | 'roundRobin' | 'rank';
+  type: 'matchup' | 'roundRobin' | 'rate';
   players: string[];
   startingFen?: string;
 }
@@ -30,7 +30,7 @@ export interface Script extends Test {
 }
 
 export class DevCtrl implements Automator {
-  noPause: boolean;
+  skipTheatrics: boolean;
   script: Script;
   log: Result[];
 
@@ -40,8 +40,8 @@ export class DevCtrl implements Automator {
   ) {
     site.pubsub.on('theme', this.redraw);
     gameCtrl.automator = this;
-    const noPause = localStorage.getItem('local.dev.noPause');
-    this.noPause = noPause ? noPause === '1' : true;
+    const skip = localStorage.getItem('local.dev.skipTheatrics');
+    this.skipTheatrics = skip ? skip === '1' : false;
     this.resetScript();
   }
 
@@ -90,8 +90,8 @@ export class DevCtrl implements Automator {
     this.botCtrl.updateRating(this.white, u.score(winner, 'white'), this.black?.glicko);
     this.botCtrl.updateRating(this.black, u.score(winner, 'black'), whiteRating);
 
-    if (this.script.type === 'rank')
-      this.script.games.push(...rankBotMatchup(this.botCtrl.bot(this.script.players[0])!, last));
+    if (this.script.type === 'rate')
+      this.script.games.push(...rateBotMatchup(this.botCtrl.bot(this.script.players[0])!, last));
 
     if (this.testInProgress) return this.run();
     this.resetScript();
@@ -130,7 +130,7 @@ export class DevCtrl implements Automator {
   private matchups(test: Test, iterations = 1): Matchup[] {
     const players = test.players;
     if (players.length < 2) return [];
-    if (test.type === 'rank') return rankBotMatchup(this.botCtrl.bot(players[0])!);
+    if (test.type === 'rate') return rateBotMatchup(this.botCtrl.bot(players[0])!);
     const games: Matchup[] = [];
     for (let it = 0; it < iterations; it++) {
       if (test.type === 'roundRobin') {

@@ -1,7 +1,6 @@
 import { Pane } from './pane';
-import { Chart, PointElement, LinearScale, LineController, LineElement, Tooltip } from 'chart.js';
+import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
 import { addPoint, asData, domain } from '../operator';
-import { alert } from 'common/dialog';
 import { clamp } from 'common';
 import type { PaneArgs, OperatorInfo } from './types';
 import type { Operator } from '../types';
@@ -24,14 +23,8 @@ export class OperatorPane extends Pane {
 
   setEnabled(enabled?: boolean): boolean {
     const canEnable = this.canEnable();
-    if (enabled && !canEnable) {
-      alert(
-        `Cannot enable ${this.info.label} because of unmet preconditions: ${this.info.requires!.join(', ')}`,
-      );
-      enabled = false;
-    } else
-      enabled ??=
-        canEnable && (this.info.required || (this.isDefined && !this.host.bot.disabled.has(this.id)));
+    if (enabled && !canEnable) enabled = false;
+    else enabled ??= canEnable && (this.isRequired || !this.host.bot.disabled.has(this.id));
 
     if (enabled && !this.isDefined) {
       this.setProperty(structuredClone(this.info.value));
@@ -51,7 +44,7 @@ export class OperatorPane extends Pane {
       if (e.target.classList.contains('active')) return;
       this.el.querySelector('.by.active')?.classList.remove('active');
       e.target.classList.add('active');
-      this.paneValue.from = e.target.dataset.click as 'move' | 'score';
+      this.paneValue.from = e.target.dataset.click as 'move' | 'score' | 'time';
       this.paneValue.data = [];
       this.renderMapping();
     }
@@ -61,7 +54,7 @@ export class OperatorPane extends Pane {
       if (remove.length > 0 && remove[0].index > 0) {
         m.data.splice(remove[0].index - 1, 1);
       } else {
-        const rect = (e.target as HTMLElement).getBoundingClientRect();
+        const rect = e.target.getBoundingClientRect();
 
         const chartX = this.chart.scales.x.getValueForPixel(e.clientX - rect.left);
         const chartY = this.chart.scales.y.getValueForPixel(e.clientY - rect.top);
@@ -103,12 +96,15 @@ export class OperatorPane extends Pane {
             type: 'linear',
             min: domain(m).min,
             max: domain(m).max,
+            reverse: m.from === 'time',
             title: {
               display: true,
               color: '#555',
               text:
                 m.from === 'move'
                   ? 'full moves'
+                  : m.from === 'time'
+                  ? 'seconds remaining'
                   : `outcome expectancy for ${this.host.bot.name.toLowerCase()}`,
             },
           },
@@ -131,6 +127,7 @@ export class OperatorPane extends Pane {
     const by = $as<HTMLElement>(`<div class="btn-rack">
         <div data-click="move" class="by${active === 'move' ? ' active' : ''}">by move</div>
         <div data-click="score" class="by${active === 'score' ? ' active' : ''}">by score</div>
+        <div data-click="time" class="by${active === 'time' ? ' active' : ''}">by time</div>
       </div>`);
     return by;
   }

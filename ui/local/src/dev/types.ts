@@ -1,7 +1,7 @@
 import type { BotInfo, Operator, Book, SoundEvent, Sound as NamedSound } from '../types';
 import type { PaneCtrl } from './paneCtrl';
 import type { Pane } from './pane';
-import type { AssetType, DevAssetDb } from './devAssetDb';
+import type { AssetType, DevRepo } from './devRepo';
 import type { ZerofishBot } from '../zerofishBot';
 
 export type Sound = Omit<NamedSound, 'key'>;
@@ -20,7 +20,7 @@ export interface HostView {
   readonly ctrl: PaneCtrl;
   readonly bot: ZerofishBotEditor;
   readonly defaultBot: BotInfoReader;
-  readonly assetDb: DevAssetDb;
+  readonly assetDb: DevRepo;
   readonly cleanups: (() => void)[];
   update(): void;
 }
@@ -39,7 +39,7 @@ export interface PaneInfo {
   label?: string;
   title?: string;
   required?: boolean;
-  requires?: string[];
+  requires?: Requirement;
   value?: string | number | boolean | Operator;
   assetType?: AssetType;
 }
@@ -124,7 +124,7 @@ export type InfoType = ExtractType<AnyInfo> | 'group' | 'radioGroup';
 
 export type PropertyValue = Operator | Book[] | Sound[] | string | number | boolean | undefined;
 
-export type SchemaValue = Schema | AnyInfo | PropertyValue | string[];
+export type SchemaValue = Schema | AnyInfo | PropertyValue | Requirement | string[];
 
 export interface Schema extends PaneInfo {
   [key: string]: SchemaValue;
@@ -134,3 +134,5 @@ export interface Schema extends PaneInfo {
 export type PaneArgs = { host: HostView; info: PaneInfo; parent?: Pane };
 
 export type ObjectSelector = 'bot' | 'default' | 'schema';
+
+export type Requirement = string | { and: Requirement[] } | { or: Requirement[] };

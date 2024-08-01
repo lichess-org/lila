@@ -63,13 +63,13 @@ function player(ctx: DevContext, color: Color): VNode {
               el.addEventListener('click', () => {
                 p.glicko = undefined;
                 devCtrl.run({
-                  type: 'rank',
-                  players: [p.uid, ...botCtrl.rankBots.map(b => b.uid)],
+                  type: 'rate',
+                  players: [p.uid, ...botCtrl.rateBots.map(b => b.uid)],
                 });
               }),
             ),
           },
-          'Rank',
+          'rate',
         ),
       ]),
     h('div.stats', [
@@ -125,10 +125,10 @@ function dashboard(ctx: DevContext) {
       h('span', [
         'turbo',
         h('input', {
-          attrs: { type: 'checkbox', checked: devCtrl.noPause },
+          attrs: { type: 'checkbox', checked: devCtrl.skipTheatrics },
           hook: bind('change', e => {
-            devCtrl.noPause = (e.target as HTMLInputElement).checked;
-            localStorage.setItem('local.dev.noPause', devCtrl.noPause ? '1' : '0');
+            devCtrl.skipTheatrics = (e.target as HTMLInputElement).checked;
+            localStorage.setItem('local.dev.skipTheatrics', devCtrl.skipTheatrics ? '1' : '0');
           }),
         }),
       ]),
@@ -200,7 +200,7 @@ function roundRobin({ devCtrl, botCtrl }: DevContext) {
   domDialog({
     class: 'round-robin-dialog',
     htmlText: `<h2>Round robin</h2><h3>Select participants</h3>
-    <ul>${[...Object.values(botCtrl.bots), ...botCtrl.rankBots]
+    <ul>${[...Object.values(botCtrl.bots), ...botCtrl.rateBots]
       .map(p => {
         const checked = isNaN(parseInt(p.uid.slice(1)))
           ? storedBooleanProp(`local.dev.tournament-${p.uid.slice(1)}`, true)()

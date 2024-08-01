@@ -14,8 +14,6 @@ import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'game/view/status';
 import * as cg from 'chessground/types';
-import { Config as CgConfig } from 'chessground/config';
-import { Api as CgApi } from 'chessground/api';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
@@ -503,7 +501,7 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.pluginUpdate(step.fen);
-    site.sound.move({ ...o, filter: 'music' });
+    if (!this.opts.local) site.sound.move({ ...o, filter: 'music' });
     site.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
@@ -876,7 +874,7 @@ export default class RoundController implements MoveRootCtrl {
 
         if (d.crazyhouse) crazyInit(this);
 
-        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost())
+        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost() && !this.opts.local)
           window.addEventListener('beforeunload', e => {
             if (site.unload.expected || !this.isPlaying()) return;
             this.socket.send('bye2');

@@ -1,9 +1,10 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import { GameCtrl } from '../gameCtrl';
 import { DevCtrl } from './devCtrl';
-import { DevAssetDb, AssetList } from './devAssetDb';
+import { DevRepo, AssetList } from './devRepo';
 import { renderDevView } from './devView';
 import { BotCtrl } from '../botCtrl';
+import { ShareCtrl } from './shareCtrl';
 import renderGameView from '../gameView';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
@@ -15,7 +16,10 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 }
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
-  const botCtrl = await new BotCtrl(new DevAssetDb(opts.assets)).init(opts.bots);
+  const devRepo = new DevRepo(opts.assets);
+  const botCtrl = new BotCtrl(devRepo);
+  devRepo.share = new ShareCtrl(botCtrl);
+  await botCtrl.init(opts.bots);
 
   if (localStorage.getItem('local.setup')) {
     if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.setup')!);

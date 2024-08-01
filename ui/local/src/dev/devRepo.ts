@@ -1,7 +1,7 @@
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import type { NetData } from '../types';
 import { botAssetUrl, AssetDb } from '../assetDb';
-import { makeBookFromPolyglot, type OpeningBook, type PolyglotResult } from 'bits/polyglot';
+import { makeBookFromPolyglot, type OpeningBook } from 'bits/polyglot';
+import { type ShareCtrl } from './shareCtrl';
 
 export type AssetType = 'book' | 'bookCover' | 'image' | 'sound' | 'net';
 export type AssetList = {
@@ -12,7 +12,7 @@ export type AssetList = {
   bookCover?: string[];
 };
 
-export class DevAssetDb extends AssetDb {
+export class DevRepo extends AssetDb {
   private db = {
     net: new Store('net'),
     book: new Store('book'),
@@ -23,11 +23,11 @@ export class DevAssetDb extends AssetDb {
   bookCover: Map<string, string> = new Map();
   image: Map<string, string> = new Map();
   sound: Map<string, string> = new Map();
+  share: ShareCtrl;
 
   constructor(public remote: AssetList) {
     super();
-    remote.bookCover = [];
-    remote.book.forEach(book => remote.bookCover!.push(`${book}.png`));
+    this.update(remote);
   }
 
   get dev() {
@@ -59,8 +59,7 @@ export class DevAssetDb extends AssetDb {
 
   update(remote: AssetList): void {
     this.remote = remote;
-    remote.bookCover = [];
-    remote.book.forEach(book => remote.bookCover!.push(`${book}.png`));
+    remote.bookCover = remote.book.map(book => `${book}.png`);
   }
 
   local(type: AssetType): string[] {
@@ -102,6 +101,7 @@ export class DevAssetDb extends AssetDb {
     return key;
   }
 
+  // this delete is local only, delete remote assets through git
   async delete(type: AssetType, key: string): Promise<void> {
     await Promise.all(
       type === 'book'
@@ -118,6 +118,7 @@ export class DevAssetDb extends AssetDb {
 
   async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
+    if (key.endsWith('.bin')) key = key.slice(0, -4);
     const cached = this.book.get(key);
     if (cached) return cached;
     const bookBlob = await (this.db.book.keys.includes(key)

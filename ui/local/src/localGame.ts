@@ -15,6 +15,7 @@ export interface GameStatus {
 }
 
 export interface MoveResult extends GameStatus {
+  justPlayed: Color;
   uci: Uci;
   san: San;
   move?: co.NormalMove;
@@ -90,6 +91,7 @@ export class LocalGame {
       san: '',
       fen: this.fen,
       ply: this.ply,
+      justPlayed: co.opposite(this.turn),
       dests: this.dests,
       threefold: this.isThreefold,
       check: this.chess.isCheck(),

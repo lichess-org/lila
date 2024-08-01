@@ -71,6 +71,7 @@ export default new (class implements SoundI {
 
   async move(o?: SoundMoveOpts) {
     const volume = o?.volume ?? 1;
+    console.log(o);
     if (o?.filter !== 'music' && this.theme !== 'music') {
       if (o?.name) this.throttled(o.name, volume);
       else {

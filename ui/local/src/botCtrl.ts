@@ -1,20 +1,31 @@
-import * as co from 'chessops';
-import makeZerofish, { type Zerofish, type Position } from 'zerofish';
-import { AssetDb } from './assetDb';
-import { ZerofishBot, ZerofishBots } from './zerofishBot';
-import { RankBot } from './dev/rankBot';
-import { CardData } from './handOfCards';
+import makeZerofish, { type Zerofish } from 'zerofish';
+import { type AssetDb } from './assetDb';
+import { ZerofishBot, type ZerofishBots } from './zerofishBot';
+import { RateBot } from './dev/rateBot';
+import { type CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { deepFreeze } from 'common';
-import type { Libot, Libots, BotInfo, BotInfos, ZerofishBotInfo, Glicko, SoundEvent } from './types';
+import { deepScore } from './util';
+import type {
+  Libot,
+  Libots,
+  BotInfo,
+  BotInfos,
+  ZerofishBotInfo,
+  Glicko,
+  SoundEvent,
+  MoveArgs,
+  MoveResult,
+} from './types';
 
 export class BotCtrl {
-  readonly rankBots: RankBot[] = [];
+  readonly rateBots: RateBot[] = [];
   private zerofish: Zerofish;
   private store: ObjectStorage<BotInfo>;
   private defaultBots: BotInfos;
   private busy = false;
-  bots: Libots;
+  private bestMove = { uci: 'e2e4', cp: 30 };
+  bots: Libots = {};
   whiteUid?: string;
   blackUid?: string;
 
@@ -27,8 +38,8 @@ export class BotCtrl {
       dev: this.assetDb.dev,
     });
     if (this.assetDb.dev) {
-      for (let i = 0; i <= RankBot.MAX_LEVEL; i++) {
-        this.rankBots.push(new RankBot(this.zerofish, i));
+      for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
+        this.rateBots.push(new RateBot(this.zerofish, i));
       }
     }
     return this.initLibots(serverBots);
@@ -71,12 +82,15 @@ export class BotCtrl {
     return this.bots[uid] ?? this.rankBot(uid);
   }
 
-  async move(pos: Position, chess: co.Chess): Promise<Uci> {
-    if (this.busy) return '0000'; // dont queue, just ignore requests from different task loops
+  async move(args: MoveArgs): Promise<MoveResult | undefined> {
+    if (this.busy) return undefined; // just ignore requests from different call stacks
     this.busy = true;
-    const move = (await this[chess.turn]?.move(pos, chess.clone())) ?? Promise.resolve('0000');
+
+    const move = await this[args.chess.turn]?.move({ ...args, score: this.bestMove.cp });
+    const best = (await this.zerofish.goFish(args.pos, { multipv: 1, by: { depth: 16 } })).lines[0];
+    this.bestMove = { uci: best.moves[0], cp: deepScore(best) };
     this.busy = false;
-    return move;
+    return move?.uci !== '0000' ? move : undefined;
   }
 
   playSound(c: Color, events: SoundEvent[]): number {
@@ -101,15 +115,16 @@ export class BotCtrl {
   }
 
   reset(): void {
+    this.bestMove = { uci: 'e2e4', cp: 30 };
     return this.zerofish.reset();
   }
 
   updateBot(bot: ZerofishBot): Promise<IDBValidKey> {
     this.bots[bot.uid] = new ZerofishBot(bot, this.zerofish, this.assetDb);
-    return this.saveBot(bot.uid);
+    return this.storeBot(bot.uid);
   }
 
-  saveBot(uid: string): Promise<IDBValidKey> {
+  storeBot(uid: string): Promise<IDBValidKey> {
     return this.store.put(uid, this.bots[uid]);
   }
 
@@ -117,19 +132,27 @@ export class BotCtrl {
     return uid in this.defaultBots ? this.defaultBots[uid] : this.default;
   }
 
+  async deleteBot(uid: string): Promise<void> {
+    if (this.whiteUid === uid) this.whiteUid = undefined;
+    if (this.blackUid === uid) this.blackUid = undefined;
+    await this.store.remove(uid);
+    delete this.bots[uid];
+    await this.resetBots();
+  }
+
   updateRating(bot: Libot | undefined, score: number, opp: Glicko | undefined = { r: 1500, rd: 350 }): void {
-    if (!bot || bot instanceof RankBot) return;
+    if (!bot || bot instanceof RateBot) return;
     const q = Math.log(10) / 400;
-    bot.glicko ??= { r: 1500, rd: 350 };
-    const expected = 1 / (1 + 10 ** ((opp.r - bot.glicko.r) / 400));
+    const glicko = bot.glicko ?? { r: 1500, rd: 350 };
+    const expected = 1 / (1 + 10 ** ((opp.r - glicko.r) / 400));
     const g = 1 / Math.sqrt(1 + (3 * q ** 2 * opp.rd ** 2) / Math.PI ** 2);
     const dSquared = 1 / (q ** 2 * g ** 2 * expected * (1 - expected));
-    const deltaR = (q * g * (score - expected)) / (1 / dSquared + 1 / bot.glicko.rd ** 2);
+    const deltaR = (q * g * (score - expected)) / (1 / dSquared + 1 / glicko.rd ** 2);
     bot.glicko = {
-      r: Math.round(bot.glicko.r + deltaR),
-      rd: Math.max(30, Math.sqrt(1 / (1 / bot.glicko.rd ** 2 + 1 / dSquared))),
+      r: Math.round(glicko.r + deltaR),
+      rd: Math.max(30, Math.sqrt(1 / (1 / glicko.rd ** 2 + 1 / dSquared))),
     };
-    this.saveBot(bot.uid);
+    this.storeBot(bot.uid);
   }
 
   imageUrl(bot: BotInfo | undefined): string | undefined {
@@ -146,13 +169,19 @@ export class BotCtrl {
     );
   }
 
-  private async resetBots(jsonBots?: BotInfo[]) {
-    const promises = [jsonBots ?? fetch('/local/dev/list').then(res => res.json()), this.getLocalOverrides()];
-    const [serverBots, overrides] = await Promise.all(promises);
+  private async resetBots(defBots?: BotInfo[]) {
+    const [serverBots, overrides] = await Promise.all([
+      defBots ??
+        fetch('/local/dev/list')
+          .then(res => res.json())
+          .then(res => res.bots),
+      this.getLocalOverrides(),
+    ]);
     this.defaultBots = {};
     serverBots.forEach((b: BotInfo) => (this.defaultBots[b.uid] = deepFreeze(b)));
-    this.bots = {};
     for (const b of [...serverBots, ...overrides]) {
+      if (!b.name) delete this.bots[b.uid];
+      console.log(b);
       this.bots[b.uid] = new ZerofishBot(b, this.zerofish, this.assetDb);
     }
   }
@@ -168,7 +197,7 @@ export class BotCtrl {
   }
 
   private rankBot(uid: string) {
-    return this.rankBots[Number(uid.slice(1))];
+    return this.rateBots[Number(uid.slice(1))];
   }
 
   readonly default: ZerofishBotInfo = deepFreeze({

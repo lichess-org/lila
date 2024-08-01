@@ -1,7 +1,7 @@
 import * as co from 'chessops';
 import { makeSocket } from './socket';
 import { makeFen } from 'chessops/fen';
-import { /*type GameState,*/ type GameStatus, LocalGame } from './localGame';
+import { type MoveResult, type GameStatus, LocalGame } from './localGame';
 import type { RoundSocket, RoundOpts, RoundData, RoundController, ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, Automator, SoundEvent } from './types';
 import type { BotCtrl } from './botCtrl';
@@ -160,22 +160,15 @@ export class GameCtrl {
     if (this.history) this.game = this.history;
     this.history = undefined;
     this.stopped = false;
-    const justPlayed = this.turn;
 
     const moveResult = this.game.move(uci);
-    const { end, san, move } = moveResult;
+    const { end, move, justPlayed } = moveResult;
+    const skipTheatrics = this.automator?.skipTheatrics ?? false;
 
-    const sounds: SoundEvent[] = [];
-    const prefix = this.botCtrl[justPlayed] ? 'bot' : 'player';
-    if (san.includes('x')) sounds.push(`${prefix}Capture`);
-    if (this.chess.isCheck()) sounds.push(`${prefix}Check`);
-    if (end) sounds.push(`${prefix}Win`);
-    sounds.push(`${prefix}Move`);
-    const boardSoundVolume = sounds ? this.botCtrl.playSound(justPlayed, sounds) : 1;
-
+    this.playSounds(moveResult);
     this.roundData.steps.splice(this.game.ply);
-
-    this.round.apiMove!({ ...moveResult, volume: boardSoundVolume });
+    this.round.chessground?.set({ animation: { enabled: !skipTheatrics } });
+    this.round.apiMove!(moveResult);
 
     if (move?.promotion)
       this.round.chessground?.setPieces(
@@ -191,17 +184,21 @@ export class GameCtrl {
     this.cancelBotThink?.();
     const [bot, game] = [this.botCtrl[this.turn], this.game];
     if (!bot || this.isStopped || game.end) return;
+    const move = await this.botCtrl.move({
+      pos: { fen: game.startingFen, moves: game.moves.slice() },
+      chess: this.chess,
+      secondsRemaining: this.clock?.[this.turn],
+      initial: this.clock?.initial,
+      increment: this.clock?.increment,
+    });
+    if (!move) return;
 
-    const uci = await this.botCtrl.move({ fen: game.startingFen, moves: game.moves.slice() }, this.chess);
-    if (uci === '0000') return;
+    if (!this.automator?.skipTheatrics)
+      await new Promise<void>(r => setTimeout((this.cancelBotThink = r), move.time * 1000));
+    else if (this.clock) this.clock[this.turn] -= move.time;
 
-    const thinking = bot.thinking(this.clock?.[this.turn] ?? Infinity);
-    if (!this.automator?.noPause)
-      await new Promise<void>(r => setTimeout((this.cancelBotThink = r), thinking * 1000));
-    else if (this.clock) this.clock[this.turn] -= thinking;
-
-    if (uci !== '0000' && !this.isStopped && game === this.game && this.round.ply === game.ply)
-      this.move(uci);
+    if (move.uci !== '0000' && !this.isStopped && game === this.game && this.round.ply === game.ply)
+      this.move(move.uci);
     else setTimeout(() => this.updateTurn(), 200);
   }
 
@@ -230,7 +227,11 @@ export class GameCtrl {
     if (this.elapsed.from && this.elapsed.for === (this.isLive ? this.pondering : this.turn))
       this.elapsed.sum += performance.now() - this.elapsed.from;
     this.clock[this.elapsed.for] -= this.elapsed.sum / 1000;
-    this.elapsed = { sum: 0, for: this.turn, from: this.isLive ? performance.now() : undefined };
+    this.elapsed = {
+      sum: 0,
+      for: this.turn,
+      from: this.isLive && this.ply > 0 ? performance.now() : undefined,
+    };
     this.round.clock?.setClock(this.roundData, this.clock.white, this.clock.black);
     if (this.isStopped || !this.isLive) this.round.clock?.stopClock();
   }
@@ -243,6 +244,19 @@ export class GameCtrl {
     this.redraw();
   }
 
+  private playSounds(moveResult: MoveResult): void {
+    const { justPlayed, san, end } = moveResult;
+    const sounds: SoundEvent[] = [];
+    const prefix = this.botCtrl[justPlayed] ? 'bot' : 'player';
+    if (san.includes('x')) sounds.push(`${prefix}Capture`);
+    if (this.chess.isCheck()) sounds.push(`${prefix}Check`);
+    if (end) sounds.push(`${prefix}Win`);
+    sounds.push(`${prefix}Move`);
+    const boardSoundVolume = sounds ? this.botCtrl.playSound(justPlayed, sounds) : 1;
+    if (boardSoundVolume > 0 && !this.automator?.skipTheatrics)
+      site.sound.move({ ...moveResult, volume: boardSoundVolume });
+  }
+
   private resetRound() {
     const bottom = this.orientation;
     const top = co.opposite(bottom);
@@ -253,6 +267,7 @@ export class GameCtrl {
     };
     this.roundData.game.fen = this.fen;
     this.roundData.game.turns = 0;
+    this.roundData.game.status = { id: 20, name: 'started' };
     this.roundData.steps = [{ ply: 0, san: '', uci: '', fen: this.fen }];
     this.roundData.possibleMoves = this.game.dests;
     this.roundData.player = this.player(bottom, this.botCtrl[bottom]?.name ?? playerName[bottom]);
@@ -268,7 +283,7 @@ export class GameCtrl {
     });
   }
 
-  private makeRoundData(setup: LocalSetup): void {
+  makeRoundData(setup: LocalSetup): void {
     this.roundData = Object.defineProperty(
       {
         game: {
@@ -327,7 +342,13 @@ export class GameCtrl {
           turnColor: this.turn,
           lastMove: undefined,
           check: this.chess.isCheck(),
-          movable: { color: this.turn, dests: this.game.cgDests },
+          movable: {
+            color: this.turn,
+            dests: this.game.cgDests,
+          },
+          events: {
+            move: undefined,
+          },
           orientation: this.orientation,
         });
       },
