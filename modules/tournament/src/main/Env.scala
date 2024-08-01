@@ -27,6 +27,7 @@ final class Env(
     historyApi: lila.core.history.HistoryApi,
     trophyApi: lila.core.user.TrophyApi,
     socketKit: lila.core.socket.SocketKit,
+    relationApi: lila.core.relation.RelationApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using scheduler: Scheduler)(using
     Executor,
