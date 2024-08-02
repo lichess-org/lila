@@ -1,7 +1,7 @@
 import { MaybeVNodes, Redraw, VNode, onInsert, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { RoundId } from './interfaces';
-import { ChapterId, ChapterPreview, ChapterPreviewPlayer, StatusStr } from '../interfaces';
+import { ChapterId, ChapterPreview, ChapterPreviewPlayer, ChapterSelect, StatusStr } from '../interfaces';
 import { MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
@@ -31,7 +31,7 @@ export default class RelayTeams {
   constructor(
     private readonly roundId: RoundId,
     readonly multiCloudEval: MultiCloudEval,
-    readonly setChapter: (id: ChapterId | number) => Promise<boolean>,
+    readonly chapterSelect: ChapterSelect,
     readonly roundPath: () => string,
     private readonly redraw: Redraw,
   ) {}
@@ -53,7 +53,7 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters) =>
       class: { loading: ctrl.loading, nodata: !ctrl.teams },
       hook: {
         insert: vnode => {
-          gameLinksListener(ctrl.setChapter)(vnode);
+          gameLinksListener(ctrl.chapterSelect)(vnode);
           ctrl.loadFromXhr(true);
         },
       },

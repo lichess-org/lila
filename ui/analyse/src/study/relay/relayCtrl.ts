@@ -1,5 +1,5 @@
 import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import { BothClocks, ChapterId, Federations, ServerClockMsg } from '../interfaces';
+import { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, defined, notNull, prop, toggle } from 'common';
@@ -36,7 +36,7 @@ export default class RelayCtrl {
     private readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval,
     private readonly federations: () => Federations | undefined,
-    setChapter: (id: ChapterId | number) => Promise<boolean>,
+    chapterSelect: ChapterSelect,
   ) {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
@@ -47,7 +47,7 @@ export default class RelayCtrl {
       : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(id, this.multiCloudEval, setChapter, this.roundPath, redraw)
+      ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, redraw)
       : undefined;
     this.leaderboard = data.tour.leaderboard
       ? new RelayLeaderboard(data.tour.id, this.federations, redraw)
