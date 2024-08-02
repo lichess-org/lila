@@ -52,6 +52,7 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
 
   const defaultAntichess = Antichess.default();
   const defaultChess = Chess.default();
+
   const context = (): Context => {
     const king = pos.board.kingOf(pos.turn);
     const occupied = pos.board.occupied;
@@ -65,33 +66,33 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
         }
       : defaultAntichess.ctx();
   };
+
   if (pos instanceof Antichess) {
     pos.ctx = context;
     pos.kingAttackers = defaultChess.kingAttackers;
   }
 
-  const cloneWithCtx = (pos: LearnVariant): LearnVariant => {
+  const dirtyClone = (
+    pos: LearnVariant,
+    ctx: Chess['ctx'],
+    kingAttackers: Chess['kingAttackers'],
+    dests: Chess['dests'],
+  ): LearnVariant => {
     const clone = pos.clone();
-    clone.ctx = pos.ctx;
-    clone.kingAttackers = pos.kingAttackers;
+    clone.ctx = ctx;
+    clone.kingAttackers = kingAttackers;
+    clone.dests = dests;
     return clone;
   };
 
-  const cloneWithChessDests = (pos: LearnVariant): LearnVariant => {
-    const clone = pos.clone();
-    clone.ctx = defaultChess.ctx;
-    clone.kingAttackers = defaultChess.kingAttackers;
-    clone.dests = defaultChess.dests;
-    return clone;
-  };
+  const cloneWithCtx = (pos: LearnVariant): LearnVariant =>
+    dirtyClone(pos, pos.ctx, pos.kingAttackers, pos.dests);
 
-  const cloneWithAntichessDests = (pos: LearnVariant): LearnVariant => {
-    const clone = pos.clone();
-    clone.ctx = context;
-    clone.kingAttackers = defaultAntichess.kingAttackers;
-    clone.dests = defaultAntichess.dests;
-    return clone;
-  };
+  const cloneWithChessDests = (pos: LearnVariant): LearnVariant =>
+    dirtyClone(pos, defaultChess.ctx, defaultChess.kingAttackers, defaultChess.dests);
+
+  const cloneWithAntichessDests = (pos: LearnVariant): LearnVariant =>
+    dirtyClone(pos, context, defaultAntichess.kingAttackers, defaultAntichess.dests);
 
   const history: string[] = [];
 
