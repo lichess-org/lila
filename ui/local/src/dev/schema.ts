@@ -33,7 +33,7 @@ export const schema: Schema = deepFreeze<Schema>({
   bot_description: {
     type: 'textarea',
     rows: 3,
-    class: ['placard', 'setting'],
+    class: ['placard'],
     value: 'short description',
     required: true,
   },

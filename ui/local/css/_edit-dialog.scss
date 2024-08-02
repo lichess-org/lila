@@ -56,6 +56,9 @@
   max-width: min(1600px, 96vw);
   padding-bottom: 0;
 
+  button {
+    padding: 0.8em 0.8em;
+  }
   textarea {
     white-space: pre-wrap;
     width: 100%;
@@ -156,10 +159,17 @@
       cursor: pointer;
     }
     .placard {
+      padding: 0;
       width: 90%;
     }
   }
-  .bot-unrate-one,
+  .bot-unrate-one {
+    color: $m-primary_font--mix-70;
+    &:hover {
+      background-color: $m-bg_bad--mix-80;
+      color: $c-bad;
+    }
+  }
   [data-click='remove'] {
     cursor: pointer;
     color: $c-bad;

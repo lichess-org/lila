@@ -98,7 +98,7 @@ export interface LocalSetup {
 }
 
 export interface LocalSetupOpts extends LocalSetup {
-  bots: BotInfo[];
+  bots?: BotInfo[];
 }
 
 export interface Automator {

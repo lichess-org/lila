@@ -18,24 +18,21 @@ export class OperatorPane extends Pane {
     wrapper.append(this.canvas);
     this.el.append(wrapper);
     this.host.cleanups.push(() => this.chart?.destroy());
-    this.renderMapping();
+    this.render();
   }
 
   setEnabled(enabled?: boolean): boolean {
-    const canEnable = this.canEnable();
-    if (enabled && !canEnable) enabled = false;
-    else enabled ??= canEnable && (this.isRequired || !this.host.bot.disabled.has(this.id));
-
+    const canEnable = this.canEnable;
+    if (canEnable) enabled ??= this.isRequired || (this.isDefined && !this.host.bot.disabled.has(this.id));
+    else enabled = false;
     if (enabled && !this.isDefined) {
       this.setProperty(structuredClone(this.info.value));
-      this.renderMapping();
+      this.render();
     }
+    super.setEnabled(enabled);
     this.el.querySelectorAll('.chart-wrapper, .btn-rack')?.forEach(x => x.classList.toggle('none', !enabled));
     this.el.classList.toggle('none', !canEnable);
-    if (enabled) this.host.bot.disabled.delete(this.id);
-    else this.host.bot.disabled.add(this.id);
-
-    return super.setEnabled(enabled);
+    return enabled;
   }
 
   update(e?: Event): void {
@@ -46,7 +43,7 @@ export class OperatorPane extends Pane {
       e.target.classList.add('active');
       this.paneValue.from = e.target.dataset.click as 'move' | 'score' | 'time';
       this.paneValue.data = [];
-      this.renderMapping();
+      this.render();
     }
     if (e.target instanceof HTMLCanvasElement) {
       const m = this.paneValue;
@@ -64,13 +61,14 @@ export class OperatorPane extends Pane {
       this.chart.data.datasets[0].data = asData(m);
       this.chart.update();
     }
+    console.log((this.host as any).wtf);
   }
 
   get paneValue(): Operator {
     return this.getProperty() as Operator;
   }
 
-  private renderMapping() {
+  private render() {
     this.chart?.destroy();
     const m = this.paneValue;
     if (!m?.data) return;
@@ -133,4 +131,4 @@ export class OperatorPane extends Pane {
   }
 }
 
-Chart.register(PointElement, LinearScale, /*readoutPlugin,*/ LineController, LineElement);
+Chart.register(PointElement, LinearScale, LineController, LineElement);

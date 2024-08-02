@@ -46,16 +46,16 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     this.label?.prepend(this.enabledCheckbox);
   }
 
-  setEnabled(enabled: boolean = this.canEnable()): boolean {
+  setEnabled(enabled: boolean = this.canEnable): boolean {
     if (this.input || this.enabledCheckbox) {
       const { ctrl: editor, view } = this.host;
       this.el.classList.toggle('disabled', !enabled);
 
-      if (this.input && !this.input.value)
-        this.input.value = this.getStringProperty(['bot', 'default', 'schema']);
-
       if (enabled) this.host.bot.disabled.delete(this.id);
       else this.host.bot.disabled.add(this.id);
+
+      if (this.input && !this.input.value)
+        this.input.value = this.getStringProperty(['bot', 'default', 'schema']);
 
       for (const kid of this.children) {
         kid.el.classList.toggle('none', !enabled);
@@ -67,15 +67,16 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         if (active) active.update();
         else if (radios.length) radios[0].update();
       }
+
       if (this.enabledCheckbox) this.enabledCheckbox.checked = enabled;
       if (this.radioGroup && enabled)
         view.querySelectorAll(`[name="${this.radioGroup}"]`).forEach(el => {
-          const kid = editor.byEl(el);
-          if (kid === this) return;
-          kid?.setEnabled(false);
+          const radio = editor.byEl(el);
+          if (radio === this) return;
+          radio?.setEnabled(false);
         });
     }
-    for (const r of this.host.ctrl.dependsOn(this.id)) r.setEnabled(enabled ? undefined : false);
+    for (const r of this.host.ctrl.dependsOn(this.id)) r.setEnabled();
     return enabled;
   }
 
@@ -89,6 +90,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     if (value === undefined) {
       if (this.paneValue) removeObjectProperty({ obj: this.host.bot, path: { id: this.id } });
     } else setObjectProperty({ obj: this.host.bot, path: { id: this.id }, value });
+    console.log('setProperty', this.id, value, this.host.bot);
   }
 
   getProperty(sel: ObjectSelector[] = ['bot']): PropertyValue {
@@ -97,6 +99,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         s === 'schema'
           ? getSchemaDefault(this.id)
           : this.path.reduce((o, key) => o?.[key], s === 'bot' ? this.host.bot : this.host.defaultBot);
+      //if (prop !== undefined) console.log(this.id, s, prop);
       if (prop !== undefined) return s === 'bot' ? prop : structuredClone(prop);
     }
     return undefined;
@@ -123,18 +126,12 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   get requires(): string[] {
-    return getIds(this.info.requires);
+    return getRequirementIds(this.info.requires);
   }
 
   protected init(): void {
     this.setEnabled();
     if (this.input) this.el.appendChild(this.input);
-  }
-
-  protected canEnable(): boolean {
-    const kids = this.children;
-    if (this.input && !kids.length) return this.isDefined;
-    return kids.every(x => x.enabled || !x.isRequired) && this.requirementsAllow;
   }
 
   protected get path(): string[] {
@@ -152,12 +149,26 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   protected get isDefined(): boolean {
     return this.getProperty() !== undefined;
   }
+
+  protected get children(): Pane[] {
+    if (!this.id) return [];
+    return Object.keys(this.host.ctrl.byId)
+      .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
+      .map(id => this.host.ctrl.byId[id]);
+  }
+
+  protected get isRequired(): boolean {
+    return this.info.required ?? false;
+  }
+
   protected get requirementsAllow(): boolean {
     return this.evaluate(this.info.requires);
   }
 
-  protected get isRequired(): boolean {
-    return this.info.required === undefined ? false : this.info.required;
+  protected get canEnable(): boolean {
+    const kids = this.children;
+    if (this.input && !kids.length) return this.isDefined;
+    return kids.every(x => x.enabled || !x.isRequired) && this.requirementsAllow;
   }
 
   private evaluate(requirement: Requirement | undefined): boolean {
@@ -203,13 +214,6 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       }
     }
     return true;
-  }
-
-  protected get children(): Pane[] {
-    if (!this.id) return [];
-    return Object.keys(this.host.ctrl.byId)
-      .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
-      .map(id => this.host.ctrl.byId[id]);
   }
 
   private initEnabledCheckbox() {
@@ -324,14 +328,20 @@ export class RangeSetting<Info extends RangeInfo = RangeInfo> extends NumberSett
   }
 }
 
-function getIds(r: Requirement | undefined): string[] {
+function getRequirementIds(r: Requirement | undefined): string[] {
   if (typeof r === 'string') {
-    return [r.split(operatorRegex)[0].trim()];
+    const req = r.trim();
+    if (req.startsWith('!')) return [`${req.slice(1).trim()}`];
+    const [left, right] = req.split(operatorRegex).map(x => x.trim());
+    const ids = [];
+    if (left && isNaN(Number(left))) ids.push(left);
+    if (right && isNaN(Number(right))) ids.push(right);
+    return ids;
   } else if (Array.isArray(r)) {
-    return r.flatMap(getIds);
+    return r.flatMap(getRequirementIds);
   } else if (typeof r === 'object' && r !== null) {
-    if ('and' in r) return r.and.flatMap(getIds);
-    if ('or' in r) return r.or.flatMap(getIds);
+    if ('and' in r) return r.and.flatMap(getRequirementIds);
+    if ('or' in r) return r.or.flatMap(getRequirementIds);
   }
   return [];
 }

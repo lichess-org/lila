@@ -14,9 +14,6 @@
     @extend %flex-between;
     gap: 1em;
     flex-wrap: nowrap;
-    * {
-      //margin: 0 15px;
-    }
   }
 
   .player {
@@ -27,21 +24,24 @@
     align-content: center;
     width: 100%;
     font-size: 1em;
-    &:hover {
+    &:hover,
+    &.drag-over {
       border-color: $c-primary;
       cursor: pointer;
     }
     &.white {
       background-color: #f0f0f0;
       color: #333;
-      &:hover {
+      &:hover,
+      &.drag-over {
         background-color: white;
       }
     }
     &.black {
       background-color: #333;
       color: white;
-      &:hover {
+      &:hover,
+      &.drag-over {
         background-color: #444;
       }
     }
@@ -95,7 +95,6 @@
     }
   }
   .play-pause {
-    //flex: auto;
     margin-inline-start: auto;
     &.play::before {
       @extend %data-icon;
@@ -155,7 +154,6 @@
 }
 .dev-dashboard {
   @extend %flex-column, %box-radius-bottom;
-  //border-top: 2px solid $c-primary;
   z-index: z(mz-menu);
   width: 100%;
   background: $c-bg-high;

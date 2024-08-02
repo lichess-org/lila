@@ -2,7 +2,6 @@ import * as co from 'chessops';
 import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
-//import { SoundEvent } from './types';
 import { statusOf } from 'game/status';
 import { Status } from 'game';
 
@@ -28,38 +27,41 @@ export interface MoveResult extends GameStatus {
   winner?: Color;
 }
 
+type LocalMove = { uci: Uci; clock?: { white: number; black: number } };
+
 export class LocalGame {
-  moves: Uci[];
+  moves: LocalMove[];
   chess: co.Chess;
   threefoldFens: Map<string, number> = new Map();
   fiftyHalfMove: number = 0;
 
   constructor(
-    readonly startingFen: string = co.fen.INITIAL_FEN,
-    moves: Uci[] = [],
+    readonly initialFen: string = co.fen.INITIAL_FEN,
+    moves: LocalMove[] = [],
   ) {
-    this.chess = co.Chess.fromSetup(co.fen.parseFen(this.startingFen).unwrap()).unwrap();
+    this.chess = co.Chess.fromSetup(co.fen.parseFen(this.initialFen).unwrap()).unwrap();
     this.threefoldFens = new Map();
     this.moves = [];
     for (const move of moves ?? []) this.move(move);
   }
 
-  move(unsafeUci: Uci): MoveResult {
-    if (this.end) return this.moveResultWith({ uci: unsafeUci });
-    const { move, uci } = normalMove(this.chess, unsafeUci) ?? {};
-    if (!move || !uci) {
+  move(move: LocalMove): MoveResult {
+    if (this.end) return this.moveResultWith(move);
+    const { move: coMove, uci } = normalMove(this.chess, move.uci) ?? {};
+    if (!coMove || !uci) {
       return this.moveResultWith({
         end: true,
-        uci: unsafeUci,
-        reason: `${this.turn} made illegal move ${unsafeUci} at ${makeFen(this.chess.toSetup())}`,
+        uci: move.uci,
+        reason: `${this.turn} made illegal move ${move.uci} at ${makeFen(this.chess.toSetup())}`,
         status: statusOf('cheat'), // engines are sneaky
       });
     }
-    const san = makeSanAndPlay(this.chess, move);
-    this.moves.push(uci);
-    this.fifty(move);
+    const san = makeSanAndPlay(this.chess, coMove);
+    const clock = move.clock ? { white: move.clock.white, black: move.clock.black } : undefined;
+    this.moves.push({ uci, clock });
+    this.fifty(coMove);
     this.updateThreefold();
-    return this.moveResultWith({ uci, san, move });
+    return this.moveResultWith({ uci, san, move: coMove });
   }
 
   fifty(move?: co.NormalMove): boolean {
@@ -99,6 +101,10 @@ export class LocalGame {
       ...this.status,
       ...fields,
     };
+  }
+
+  get clock(): { white: number; black: number } | undefined {
+    return this.moves.length ? this.moves[this.moves.length - 1].clock : undefined;
   }
 
   get status(): GameStatus {

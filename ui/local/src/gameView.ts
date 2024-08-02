@@ -6,9 +6,7 @@ import type { GameCtrl } from './gameCtrl';
 
 export default function (ctrl?: GameCtrl, side?: VNode): VNode {
   return h('main.round', [
-    h(
-      'aside.round__side',
-      side ??
+    side ? h('aside.round__side', side) : undefined /* ??
         h('section#bot-view', [
           h(
             'div#bot-content',
@@ -18,7 +16,7 @@ export default function (ctrl?: GameCtrl, side?: VNode): VNode {
             ),
           ),
         ]),
-    ),
+    ),*/,
     h('div.round__app', [h('div.round__app__board.main-board'), h('div.col1-rmoves-preload')]),
     h('div.round__underboard', [h('div.round__now-playing')]),
     h('div.round__underchat'),

@@ -115,19 +115,20 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
 export function analysisButton(ctrl: RoundController): LooseVNode {
   const forecastCount = ctrl.data.forecastCount;
   return (
-    game.userAnalysable(ctrl.data) &&
-    h(
-      'a.fbt.analysis',
-      {
-        class: { text: !!forecastCount },
-        attrs: {
-          title: ctrl.noarg('analysis'),
-          href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-          'data-icon': licon.Microscope,
+    ctrl.opts.local?.analyseButton(true) ??
+    (game.userAnalysable(ctrl.data) &&
+      h(
+        'a.fbt.analysis',
+        {
+          class: { text: !!forecastCount },
+          attrs: {
+            title: ctrl.noarg('analysis'),
+            href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
+            'data-icon': licon.Microscope,
+          },
         },
-      },
-      forecastCount ? ['' + forecastCount] : [],
-    )
+        forecastCount ? ['' + forecastCount] : [],
+      ))
   );
 }
 

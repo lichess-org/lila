@@ -27,18 +27,19 @@ function analysisButton(ctrl: RoundController): VNode | false {
   const d = ctrl.data,
     url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return (
-    game.replayable(d) &&
-    h(
-      'a.fbt',
-      {
-        attrs: { href: url },
-        hook: util.bind('click', _ => {
-          // force page load in case the URL is the same
-          if (location.pathname === url.split('#')[0]) location.reload();
-        }),
-      },
-      ctrl.noarg('analysis'),
-    )
+    ctrl.opts.local?.analyseButton(false) ??
+    (game.replayable(d) &&
+      h(
+        'a.fbt',
+        {
+          attrs: { href: url },
+          hook: util.bind('click', _ => {
+            // force page load in case the URL is the same
+            if (location.pathname === url.split('#')[0]) location.reload();
+          }),
+        },
+        ctrl.noarg('analysis'),
+      ))
   );
 }
 

@@ -1,8 +1,8 @@
 import * as co from 'chessops';
-import { makeSocket } from './socket';
+import { makeStub } from './roundStub';
 import { makeFen } from 'chessops/fen';
 import { type MoveResult, type GameStatus, LocalGame } from './localGame';
-import type { RoundSocket, RoundOpts, RoundData, RoundController, ClockData } from 'round';
+import type { LocalStub, RoundOpts, RoundData, RoundController, ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, Automator, SoundEvent } from './types';
 import type { BotCtrl } from './botCtrl';
 import { statusOf } from 'game/status';
@@ -11,7 +11,7 @@ export class GameCtrl {
   private stopped = true;
   game: LocalGame;
   history?: LocalGame;
-  socket: RoundSocket;
+  stub: LocalStub;
   round: RoundController;
   clock?: ClockData;
   i18n: { [key: string]: string };
@@ -25,7 +25,7 @@ export class GameCtrl {
     readonly botCtrl: BotCtrl,
     readonly redraw: () => void,
   ) {
-    this.socket = makeSocket(this);
+    this.stub = makeStub(this);
     this.i18n = opts.i18n;
     if (opts.setup)
       this.setup = Object.fromEntries(
@@ -157,11 +157,13 @@ export class GameCtrl {
   }
 
   move(uci: Uci): boolean {
-    if (this.history) this.game = this.history;
+    if (this.history) {
+      this.game = this.history;
+    }
     this.history = undefined;
     this.stopped = false;
 
-    const moveResult = this.game.move(uci);
+    const moveResult = this.game.move({ uci, clock: this.clock });
     const { end, move, justPlayed } = moveResult;
     const skipTheatrics = this.automator?.skipTheatrics ?? false;
 
@@ -185,7 +187,7 @@ export class GameCtrl {
     const [bot, game] = [this.botCtrl[this.turn], this.game];
     if (!bot || this.isStopped || game.end) return;
     const move = await this.botCtrl.move({
-      pos: { fen: game.startingFen, moves: game.moves.slice() },
+      pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
       chess: this.chess,
       secondsRemaining: this.clock?.[this.turn],
       initial: this.clock?.initial,
@@ -213,11 +215,28 @@ export class GameCtrl {
     });
   }
 
+  resign(): void {
+    this.stop();
+    this.gameOver({
+      winner: this.pondering,
+      status: statusOf('resign'),
+    });
+  }
+
+  draw(): void {
+    this.stop();
+    this.gameOver({
+      winner: undefined,
+      status: statusOf('draw'),
+    });
+  }
+
   private elapsed: Elapsed = { sum: 0, for: 'black' };
 
   private updateTurn(game = this.game) {
     this.roundData.game.player = game.turn;
     this.round.chessground?.set({ movable: { color: game.turn, dests: game.cgDests } });
+    if (this.clock) this.clock = { ...this.clock, ...game.clock };
     this.syncClock();
     if (this.isLive) this.botMove();
   }
@@ -334,7 +353,7 @@ export class GameCtrl {
     return {
       data: this.roundData,
       i18n: this.opts.i18n,
-      local: this.socket,
+      local: this.stub,
       onChange: (d: RoundData) => {
         if (this.round.ply > 0) return;
         this.round.chessground?.set({

@@ -6,11 +6,11 @@ import { domDialog } from 'common/dialog';
 import { EditDialog } from './editDialog';
 import { ZerofishBot } from '../zerofishBot';
 import { playerResults, playersWithResults } from './util';
-import type { BotCtrl } from '../botCtrl';
+import { handOfCards, type Drop, type HandOfCards } from '../handOfCards';
+import { domIdToUid, uidToDomId, type BotCtrl } from '../botCtrl';
 import type { DevCtrl } from './devCtrl';
 import type { GameCtrl } from '../gameCtrl';
-
-site.asset.loadCssPath('local.dev');
+import { defined } from 'common';
 
 interface DevContext {
   devCtrl: DevCtrl;
@@ -21,8 +21,8 @@ interface DevContext {
 function devContext(devCtrl: DevCtrl): DevContext {
   return {
     devCtrl,
-    botCtrl: devCtrl.gameCtrl.botCtrl,
     gameCtrl: devCtrl.gameCtrl,
+    botCtrl: devCtrl.gameCtrl.botCtrl,
   };
 }
 
@@ -36,6 +36,34 @@ export function renderDevView(devCtrl: DevCtrl): VNode {
   ]);
 }
 
+let botSelector: HandOfCards | undefined;
+function showBotSelector({ gameCtrl, botCtrl }: DevContext, clickedEl: HTMLElement) {
+  const cardData = [...Object.values(botCtrl.bots).map(b => botCtrl.card(b))].filter(defined);
+  const main = document.querySelector('main') as HTMLElement;
+  const drops: Drop[] = [];
+  main.classList.add('with-cards');
+
+  document.querySelectorAll('main .player')?.forEach(el => {
+    const selected = uidToDomId(botCtrl[el.classList.contains('white') ? 'white' : 'black']?.uid);
+    drops.push({ el: el as HTMLElement, selected });
+  });
+  botSelector?.remove();
+  botSelector = handOfCards({
+    getView: () => main,
+    getDrops: () => drops,
+    getCardData: () => cardData,
+    select: (el, domId) => {
+      const uid = domIdToUid(domId);
+      if ((el ?? clickedEl).classList.contains('white')) botCtrl.whiteUid = uid;
+      else botCtrl.blackUid = uid;
+      gameCtrl.redraw();
+    },
+    orientation: 'left',
+    transient: true,
+    autoResize: true,
+  });
+}
+
 function player(ctx: DevContext, color: Color): VNode {
   const { devCtrl, botCtrl } = ctx;
   const p = botCtrl[color];
@@ -45,39 +73,55 @@ function player(ctx: DevContext, color: Color): VNode {
     white: isLight ? '.button-metal' : '.button-inverse',
     black: isLight ? '.button-inverse' : '.button-metal',
   };
-  return h(`div.${color}.player`, [
-    h('img', { attrs: { src: imgUrl, width: 120, height: 120 } }),
-    p &&
-      !('level' in p) &&
-      h('div.bot-actions', [
-        p instanceof ZerofishBot &&
+  return h(
+    `div.${color}.player`,
+    {
+      hook: onInsert(el => el.addEventListener('click', () => showBotSelector(ctx, el))),
+    },
+    [
+      h('img', {
+        attrs: { src: imgUrl, width: 120, height: 120 },
+      }),
+      p &&
+        !('level' in p) &&
+        h('div.bot-actions', [
+          p instanceof ZerofishBot &&
+            h(
+              'button.button' + buttonClass[color],
+              {
+                hook: onInsert(el =>
+                  el.addEventListener('click', e => {
+                    editBot(ctx, color);
+                    e.stopPropagation();
+                  }),
+                ),
+              },
+              'Edit',
+            ),
           h(
             'button.button' + buttonClass[color],
-            { hook: onInsert(el => el.addEventListener('click', () => editBot(ctx, color))) },
-            'Edit',
+            {
+              hook: onInsert(el =>
+                el.addEventListener('click', e => {
+                  p.glicko = undefined;
+                  e.stopPropagation();
+                  devCtrl.run({
+                    type: 'rate',
+                    players: [p.uid, ...botCtrl.rateBots.map(b => b.uid)],
+                  });
+                }),
+              ),
+            },
+            'rate',
           ),
-        h(
-          'button.button' + buttonClass[color],
-          {
-            hook: onInsert(el =>
-              el.addEventListener('click', () => {
-                p.glicko = undefined;
-                devCtrl.run({
-                  type: 'rate',
-                  players: [p.uid, ...botCtrl.rateBots.map(b => b.uid)],
-                });
-              }),
-            ),
-          },
-          'rate',
-        ),
+        ]),
+      h('div.stats', [
+        h('span.totals.strong', p?.name ? `${p.name} ${p.ratingText}` : `Player ${color}`),
+        p instanceof ZerofishBot && h('span.totals', p.statsText),
+        h('span.totals', playerResults(devCtrl.log, botCtrl[color]?.uid)),
       ]),
-    h('div.stats', [
-      h('span.totals.strong', p?.name ? `${p.name} ${p.ratingText}` : `Player ${color}`),
-      p instanceof ZerofishBot && h('span.totals', p.statsText),
-      h('span.totals', playerResults(devCtrl.log, botCtrl[color]?.uid)),
-    ]),
-  ]);
+    ],
+  );
 }
 
 async function editBot({ devCtrl, botCtrl }: DevContext, color: Color) {

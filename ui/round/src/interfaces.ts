@@ -85,6 +85,9 @@ interface CrazyData {
 export interface CrazyPocket {
   [role: string]: number;
 }
+export interface LocalStub extends RoundSocket {
+  analyseButton(isIcon: boolean): VNode | false;
+}
 
 export interface RoundOpts {
   data: RoundData;
@@ -96,7 +99,7 @@ export interface RoundOpts {
   crosstableEl?: HTMLElement;
   i18n: I18nDict;
   chat?: ChatOpts;
-  local?: RoundSocket;
+  local?: LocalStub;
 }
 
 export interface ChatOpts {

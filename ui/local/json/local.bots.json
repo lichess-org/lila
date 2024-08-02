@@ -6,8 +6,9 @@
     "name": "Terrence",
     "description": "Terrence just learned how the pieces move. Now he wants blood.",
     "image": "terrence.webp",
+    "glicko": { "r": 700, "rd": 350 },
     "books": [{ "name": "Performance", "weight": 1 }],
-    "zero": { "multipv": 8, "net": "maia-1100.pb" }
+    "zero": { "multipv": 4, "net": "tinygyal-8.pb" }
   },
   {
     "uid": "#tbone",
@@ -16,11 +17,9 @@
     "name": "T-Bone",
     "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
     "image": "t-bone.webp",
-    "books": [
-      { "name": "gm2600", "weight": 1 },
-      { "name": "komodo", "weight": 1 }
-    ],
-    "zero": { "multipv": 1, "net": "maia-1200.pb" }
+    "glicko": { "r": 800, "rd": 350 },
+    "books": [{ "name": "komodo", "weight": 1 }],
+    "zero": { "multipv": 4, "net": "naise700.pb" }
   },
   {
     "uid": "#nacho",
@@ -29,11 +28,12 @@
     "name": "Nacho",
     "description": "Nacho might try to cheese you.",
     "image": "nacho.webp",
+    "glicko": { "r": 900, "rd": 350 },
     "books": [
       { "name": "varied", "weight": 1 },
       { "name": "komodo", "weight": 1 }
     ],
-    "zero": { "multipv": 1, "net": "maia-1300.pb" }
+    "zero": { "multipv": 4, "net": "nocap2000.pb" }
   },
   {
     "uid": "#marco",
@@ -42,11 +42,12 @@
     "name": "Marco",
     "description": "They never asked Marco to star in a video game. He is not pleased.",
     "image": "marco.webp",
+    "glicko": { "r": 1000, "rd": 350 },
     "books": [
       { "name": "gm2600", "weight": 1 },
       { "name": "Performance", "weight": 1 }
     ],
-    "zero": { "multipv": 1, "net": "maia-1400.pb" }
+    "zero": { "multipv": 1, "net": "tinygyal-8.pb" }
   },
   {
     "uid": "#ghost",
@@ -55,24 +56,12 @@
     "name": "Ghost",
     "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
     "image": "ghost.webp",
+    "glicko": { "r": 1100, "rd": 350 },
     "books": [
       { "name": "final-book", "weight": 1 },
       { "name": "KomodoVariety", "weight": 1 }
     ],
-    "zero": { "multipv": 1, "net": "maia-1500.pb" }
-  },
-  {
-    "uid": "#greta",
-    "version": 0,
-    "author": "admin",
-    "name": "Greta",
-    "description": "Greta lives in the woods and plays chess with squirrels.",
-    "image": "greta.webp",
-    "books": [
-      { "name": "gm2600", "weight": 1 },
-      { "name": "komodo", "weight": 1 }
-    ],
-    "zero": { "multipv": 1, "net": "maia-1600.pb" }
+    "zero": { "multipv": 6, "net": "evilgyal-6.pb" }
   },
   {
     "uid": "#maia",
@@ -81,6 +70,7 @@
     "name": "Maia",
     "description": "Maia was a famous author before she began modeling for Elle (see zero).",
     "image": "maia.webp",
+    "glicko": { "r": 1200, "rd": 350 },
     "books": [
       { "name": "gm2600", "weight": 1 },
       { "name": "komodo", "weight": 1 }
@@ -94,6 +84,7 @@
     "name": "Gerard",
     "description": "It appears that Gerard has brought a sword to a chess match.",
     "image": "gerard.webp",
+    "glicko": { "r": 1300, "rd": 350 },
     "books": [
       { "name": "gm2600", "weight": 1 },
       { "name": "komodo", "weight": 1 }
@@ -105,8 +96,9 @@
     "version": 0,
     "author": "admin",
     "name": "Bionica",
-    "description": "Bionica was programmed with a full range of emotions. Her favorite is contempt.",
+    "description": "Bionica was programmed with a full range of emotions, but she prefers contempt.",
     "image": "bionica.webp",
+    "glicko": { "r": 1400, "rd": 350 },
     "books": [
       { "name": "gm2600", "weight": 1 },
       { "name": "komodo", "weight": 1 }
@@ -120,6 +112,7 @@
     "name": "Mitsoko",
     "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
     "image": "mitsoko.webp",
+    "glicko": { "r": 1500, "rd": 350 },
     "fish": { "multipv": 12, "by": { "depth": 12 } }
   },
   {
@@ -129,6 +122,7 @@
     "name": "Spectre",
     "description": "Spectre will strike without warning. You have been warned.",
     "image": "spectre.webp",
+    "glicko": { "r": 1600, "rd": 350 },
     "fish": { "multipv": 1, "by": { "depth": 10 } }
   },
   {
@@ -138,6 +132,7 @@
     "name": "Aurora",
     "description": "Aurora can see the future. She sees your defeat.",
     "image": "aurora.webp",
+    "glicko": { "r": 1700, "rd": 350 },
     "fish": { "multipv": 12, "by": { "depth": 12 } }
   },
   {
@@ -147,6 +142,7 @@
     "name": "Hanzo",
     "description": "Hanzo will not rest until he has defeated you. But then he will rest.",
     "image": "nullzo.webp",
+    "glicko": { "r": 1800, "rd": 350 },
     "zero": { "multipv": 1, "net": "badgyal-8.pb" }
   },
   {
@@ -156,6 +152,7 @@
     "name": "Eliza",
     "description": "Some say Eliza is an engine, but that's probably just transistor bias.",
     "image": "eliza.webp",
+    "glicko": { "r": 1900, "rd": 350 },
     "zero": { "multipv": 1, "net": "badgyal-8.pb" }
   },
   {
@@ -163,8 +160,9 @@
     "version": 0,
     "author": "admin",
     "name": "Thinman",
-    "description": "Thinman is not your friend. It's why he's pointing a laser gun at your face.",
+    "description": "Thinman is pointing a laser gun at your face. It's not out of love.",
     "image": "thinman.webp",
+    "glicko": { "r": 2000, "rd": 350 },
     "zero": { "multipv": 1, "net": "evilgyal-6.pb" }
   },
   {
@@ -174,6 +172,7 @@
     "name": "Listress",
     "description": "You are a wretched, pitiful worm. Listress will not be merciful.",
     "image": "listress.webp",
+    "glicko": { "r": 2100, "rd": 350 },
     "zero": { "multipv": 1, "net": "tinygyal-8.pb" }
   }
 ]

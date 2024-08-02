@@ -172,7 +172,7 @@ export class BotCtrl {
   private async resetBots(defBots?: BotInfo[]) {
     const [serverBots, overrides] = await Promise.all([
       defBots ??
-        fetch('/local/dev/list')
+        fetch('/local/list')
           .then(res => res.json())
           .then(res => res.bots),
       this.getLocalOverrides(),

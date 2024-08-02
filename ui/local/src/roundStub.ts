@@ -1,9 +1,12 @@
 import type { GameCtrl } from './gameCtrl';
-import type { RoundSocket } from 'round';
+import type { LocalStub } from 'round';
+import { replayable } from 'game';
+import * as licon from 'common/licon';
+import { looseH as h, bind } from 'common/snabbdom';
+import { escapeHtml } from 'common';
+import * as co from 'chessops';
 
-// jesus fix this shit
-
-export function makeSocket(/*send: SocketSend, */ gameCtrl: GameCtrl): RoundSocket {
+export function makeStub(gameCtrl: GameCtrl): LocalStub {
   const handlers: SocketHandlers = {
     move: (d: any) => gameCtrl.move(d.u),
     'blindfold-no': () => {},
@@ -11,6 +14,8 @@ export function makeSocket(/*send: SocketSend, */ gameCtrl: GameCtrl): RoundSock
     'rematch-yes': () => {
       gameCtrl.reset();
     },
+    resign: () => gameCtrl.resign(),
+    'draw-yes': () => gameCtrl.draw(),
   };
   const send = (t: string, d?: any) => {
     if (handlers[t]) handlers[t]?.(d);
@@ -19,6 +24,19 @@ export function makeSocket(/*send: SocketSend, */ gameCtrl: GameCtrl): RoundSock
   return {
     send,
     handlers,
+    analyseButton: (isIcon: boolean) => {
+      return (
+        replayable(gameCtrl.roundData) &&
+        h(
+          isIcon ? 'button.button-none.fbt.analysis' : 'button.fbt',
+          {
+            attrs: isIcon ? { title: gameCtrl.round.noarg('analysis'), 'data-icon': licon.Microscope } : {},
+            hook: bind('click', () => analyse(gameCtrl)),
+          },
+          !isIcon && gameCtrl.round.noarg('analysis'),
+        )
+      );
+    },
     moreTime: () => {}, //throttle(300, () => send('moretime')),
     outoftime: () => gameCtrl.flag(),
     berserk: () => {},
@@ -34,8 +52,39 @@ export function makeSocket(/*send: SocketSend, */ gameCtrl: GameCtrl): RoundSock
   };
 }
 
+function analyse(gameCtrl: GameCtrl) {
+  const local = gameCtrl.game;
+  const root = new co.pgn.Node<co.pgn.PgnNodeData>();
+  const chess = co.Chess.fromSetup(co.fen.parseFen(local.initialFen).unwrap()).unwrap();
+  let node = root;
+  for (const move of local.moves) {
+    const comments = move.clock ? [co.pgn.makeComment({ clock: move.clock[chess.turn] })] : [];
+    const san = co.san.makeSanAndPlay(chess, co.parseUci(move.uci)!);
+    const newNode = new co.pgn.ChildNode<co.pgn.PgnNodeData>({ san, comments });
+    node.children.push(newNode);
+    node = newNode;
+  }
+  const game = {
+    headers: new Map<string, string>([
+      ['Event', 'Local game'],
+      ['Site', 'lichess.org'],
+      ['Date', new Date().toISOString().split('T')[0]],
+      ['Round', '1'],
+      ['White', 'Player'],
+      ['Black', 'Opponent'],
+      ['Result', local.status.winner ? (local.status.winner === 'white' ? '1-0' : '0-1') : '1/2-1/2'],
+      ['TimeControl', gameCtrl.clock ? `${gameCtrl.clock.initial}+${gameCtrl.clock.increment}` : 'Unlimited'],
+    ]),
+    moves: root,
+  };
+  const pgn = co.pgn.makePgn(game);
+  console.log(pgn);
+  const formEl = $as<HTMLFormElement>(`<form method="post" action="/import">
+    <textarea name="pgn">${escapeHtml(pgn)}</textarea></form>`);
+  document.body.appendChild(formEl);
+  formEl.submit();
+}
 /*
-
   const handlers: SocketHandlers = {
     takebackOffers(o: { white?: boolean; black?: boolean }) {
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];

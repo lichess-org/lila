@@ -1,5 +1,5 @@
 import { type BotCtrl, domIdToUid, uidToDomId } from '../botCtrl';
-import { HandOfCards } from '../handOfCards';
+import { handOfCards, type HandOfCards } from '../handOfCards';
 import { defined, escapeHtml, isEquivalent } from 'common';
 import { buildFromSchema, PaneCtrl } from './paneCtrl';
 import { removeObjectProperty } from './util';
@@ -12,6 +12,7 @@ import type { DevRepo } from './devRepo';
 import { assetDialog } from './assetDialog';
 import { shareDialog } from './shareDialog';
 
+let wtf = 0;
 export class EditDialog implements HostView {
   view: HTMLElement;
   hand: HandOfCards;
@@ -20,7 +21,7 @@ export class EditDialog implements HostView {
   ctrl: PaneCtrl;
   scratch: { [uid: string]: ZerofishBotEditor } = {}; // scratchpad for bot edits, pre-apply
   cleanups: (() => void)[] = []; // chart.js
-
+  wtf: number = wtf++;
   constructor(
     readonly botCtrl: BotCtrl,
     readonly gameCtrl: GameCtrl,
@@ -32,16 +33,15 @@ export class EditDialog implements HostView {
         <div class="deck"></div>
       </div>`);
     this.selectBot();
-    this.hand = new HandOfCards({
-      view: () => this.view,
-      drops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.bot.uid) }],
-      cardData: () =>
+    this.hand = handOfCards({
+      getView: () => this.view,
+      getDrops: () => [{ el: this.view.querySelector('.player')!, selected: uidToDomId(this.bot.uid) }],
+      getDeck: () => this.view.querySelector('.deck')!, // TODO optimize
+      getCardData: () =>
         Object.values({ ...this.bots, ...this.scratch })
           .map(b => botCtrl.card(b))
           .filter(defined),
-      select: (_: HTMLElement, domId?: string) => this.selectBot(domIdToUid(domId)),
-      deck: () => this.view.querySelector('.deck')!, // TODO optimize
-      autoResize: false,
+      select: (_, domId?: string) => this.selectBot(domIdToUid(domId)),
     });
   }
 
@@ -67,6 +67,7 @@ export class EditDialog implements HostView {
   }
 
   get bot(): ZerofishBotEditor {
+    if (!this.scratch[this.uid]) console.warn(this.uid, 'new scratch from', this.bots[this.uid]);
     this.scratch[this.uid] ??= Object.defineProperty(structuredClone(this.bots[this.uid]), 'disabled', {
       value: new Set<string>(),
     }) as ZerofishBotEditor; // scratchpad for bot edits
@@ -81,19 +82,38 @@ export class EditDialog implements HostView {
     return this.botCtrl.assetDb as DevRepo;
   }
 
-  private makeEditView(): void {
-    for (const cleanup of this.cleanups) cleanup();
-    this.cleanups = [];
-    this.ctrl = new PaneCtrl();
-    const el = this.view.querySelector('.edit-bot') as HTMLElement;
-    el.innerHTML = this.globalActionsHtml;
-    el.appendChild(this.botCardEl);
-    const sources = buildFromSchema(this, ['sources']).el;
-    sources.prepend(this.botInfoEl);
-    el.appendChild(sources);
-    el.appendChild(buildFromSchema(this, ['bot_operators']).el);
+  private get bots(): ZerofishBots {
+    return this.botCtrl.zerofishBots;
+  }
 
-    this.ctrl.forEach(el => el.setEnabled());
+  private get actions(): Action[] {
+    return [
+      ...this.ctrl.actions,
+      { selector: '.bot-apply', listener: () => this.apply() },
+      { selector: '.bot-new', listener: () => this.newBot() },
+      { selector: '.bot-delete', listener: () => this.deleteBot() },
+      { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
+      { selector: '.bot-json-all', listener: () => this.showJson() },
+      { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
+      { selector: '.bot-assets', listener: () => assetDialog(this.assetDb) },
+      { selector: '.bot-share', listener: () => shareDialog(this.botCtrl, this.bot.uid) },
+      { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
+      { selector: '.bot-clear-all', listener: () => this.clearBots() },
+      { selector: '.player', listener: e => this.clickImage(e) },
+    ];
+  }
+
+  private get isClean(): boolean {
+    if (!this.scratch[this.uid]) return true;
+    const temp = structuredClone(this.scratch[this.uid]);
+    for (const id of this.bot.disabled) {
+      removeObjectProperty({ obj: temp, path: { id } }, true);
+    }
+    return isEquivalent(this.botCtrl.bot(this.uid), temp);
+  }
+
+  private get allDirty(): string[] {
+    return Object.keys(this.scratch).filter(uid => !isEquivalent(this.botCtrl.bot(uid), this.scratch[uid]));
   }
 
   private apply() {
@@ -101,10 +121,9 @@ export class EditDialog implements HostView {
       this.view.querySelector('.sources')!.scrollTop,
       this.view.querySelector('.operators')!.scrollTop,
     ];
-    console.log(this.bot);
     for (const id of this.bot.disabled) {
       removeObjectProperty({ obj: this.bot, path: { id } }, true);
-      this.ctrl.dependsOn(id).forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
+      //this.ctrl.dependsOn(id).forEach(r => removeObjectProperty({ obj: this.bot, path: { id: r.id } }, true));
     }
     this.bot.disabled.clear();
     this.botCtrl.updateBot(this.bot);
@@ -126,8 +145,23 @@ export class EditDialog implements HostView {
     const newImage = await assetDialog(this.assetDb, 'image');
     if (!newImage) return;
     this.bot.image = newImage;
-    this.hand.updateCards();
+    this.hand.update();
     this.update();
+  }
+
+  private makeEditView(): void {
+    for (const cleanup of this.cleanups) cleanup();
+    this.cleanups = [];
+    this.ctrl = new PaneCtrl();
+    const el = this.view.querySelector('.edit-bot') as HTMLElement;
+    el.innerHTML = this.globalActionsHtml;
+    el.appendChild(this.botCardEl);
+    const sources = buildFromSchema(this, ['sources']).el;
+    sources.prepend(this.botInfoEl);
+    el.appendChild(sources);
+    el.appendChild(buildFromSchema(this, ['bot_operators']).el);
+
+    this.ctrl.forEach(el => el.setEnabled());
   }
 
   private clearBots = async (uids?: string[]) => {
@@ -188,6 +222,7 @@ export class EditDialog implements HostView {
       if (!ok) return;
       delete this.scratch[this.uid];
       this.botCtrl.deleteBot(this.uid).then(() => this.selectBot());
+      this.hand.update();
     });
   }
 
@@ -232,7 +267,7 @@ export class EditDialog implements HostView {
             } as ZerofishBotEditor;
             this.botCtrl.updateBot(newBot);
             this.selectBot(newBot.uid);
-            this.hand.updateCards();
+            this.hand.update();
             dlg.close();
           },
         },
@@ -241,40 +276,6 @@ export class EditDialog implements HostView {
       input.setSelectionRange(1, 1);
       dlg.showModal();
     });
-  }
-
-  private get bots(): ZerofishBots {
-    return this.botCtrl.zerofishBots;
-  }
-
-  private get actions(): Action[] {
-    return [
-      ...this.ctrl.actions,
-      { selector: '.bot-apply', listener: () => this.apply() },
-      { selector: '.bot-new', listener: () => this.newBot() },
-      { selector: '.bot-delete', listener: () => this.deleteBot() },
-      { selector: '.bot-json-one', listener: () => this.showJson([this.bot.uid]) },
-      { selector: '.bot-json-all', listener: () => this.showJson() },
-      { selector: '.bot-unrate-one', listener: () => this.clearRatings([this.bot.uid]) },
-      { selector: '.bot-assets', listener: () => assetDialog(this.assetDb) },
-      { selector: '.bot-share', listener: () => shareDialog(this.botCtrl, this.bot.uid) },
-      { selector: '.bot-clear-one', listener: () => this.clearBots([this.bot.uid]) },
-      { selector: '.bot-clear-all', listener: () => this.clearBots() },
-      { selector: '.player', listener: e => this.clickImage(e) },
-    ];
-  }
-
-  private get isClean(): boolean {
-    if (!this.scratch[this.uid]) return true;
-    const scratch = structuredClone(this.scratch[this.uid]);
-    for (const id of this.bot.disabled) {
-      removeObjectProperty({ obj: scratch, path: { id } }, true);
-    }
-    return isEquivalent(this.botCtrl.bot(this.uid), scratch);
-  }
-
-  private get allDirty(): string[] {
-    return Object.keys(this.scratch).filter(uid => !isEquivalent(this.botCtrl.bot(uid), this.scratch[uid]));
   }
 
   private get globalActionsHtml(): string {
@@ -303,11 +304,14 @@ export class EditDialog implements HostView {
   private get botInfoEl(): Node {
     const bot = this.botCtrl.bot(this.uid) as ZerofishBotEditor;
     const glicko = bot.glicko ?? { r: 1500, rd: 350 };
-    const info = $as<Element>(`<span class="bot-info">
-        <span><label>rating</label>${bot.fullRatingText}${
-          glicko.rd !== 350 ? `<i class="bot-unrate-one" data-icon="${licon.Cancel}"></i>` : ''
-        }</span>
-      </span>`);
+    const info = $as<Element>(`<span class="bot-info">`);
+    if (glicko.rd !== 350)
+      info.append(
+        $as<Node>(
+          `<span><label>rating</label><button class="button button-empty bot-unrate-one">${bot.fullRatingText}</button></span>`,
+        ),
+      );
+    else info.append($as<Node>(`<label>rating ${glicko.r}?</label>`));
     info.prepend(buildFromSchema(this, ['bot_name']).el);
     return info;
   }

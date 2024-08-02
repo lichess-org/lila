@@ -27,7 +27,7 @@ export class PaneCtrl {
   }
 
   dependsOn(idOrGroup: string): Pane[] {
-    return Object.values(this.byId).filter(pane => pane.requires.includes(idOrGroup));
+    return [...new Set(Object.values(this.byId).filter(pane => pane.requires.includes(idOrGroup)))];
   }
 
   get actions(): Action[] {

@@ -1,20 +1,21 @@
-import { isTouchDevice } from 'common/device';
-import { HandOfCards } from './handOfCards';
+import { handOfCards, HandOfCards } from './handOfCards';
 //import { clamp } from 'common';
+import * as co from 'chessops';
 import * as licon from 'common/licon';
-import { domDialog } from 'common/dialog';
+import { domDialog, Dialog } from 'common/dialog';
 import { defined } from 'common';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
-import type { Libots, LocalSetup } from './types';
+import type { Libots, BotInfo, LocalSetup } from './types';
 
 export class SetupDialog {
   view: HTMLElement;
-  white: HTMLElement;
-  black: HTMLElement;
+  playerColor: Color = 'white';
   setup: LocalSetup = {};
   hand: HandOfCards;
   bots: Libots;
+  selected?: BotInfo;
+  dialog: Dialog;
 
   constructor(
     readonly botCtrl: BotCtrl,
@@ -23,35 +24,34 @@ export class SetupDialog {
   ) {
     this.bots = botCtrl.bots;
     this.setup = { ...setup };
-    console.log('setupDialog', this.setup);
+    this.selected = this.bots[setup.black ?? ''];
     const player = (color: 'white' | 'black') =>
-      `<div class="player ${color}"><img class="z-remove" src="${site.asset.flairSrc(
+      `<div class="player" data-color="${color}"><img class="z-remove" src="${site.asset.flairSrc(
         'symbols.cancel',
-      )}"><div class="placard ${color}">Player</div></div>`;
+      )}"><div class="placard data-color="${color}"">Player</div></div>`;
     this.view = $as<HTMLElement>(`<div class="with-cards">
       <div class="vs">
-        ${player('white')}
-        <div class="actions">
-          <button class="button button-empty switch disabled" data-icon="${licon.Switch}"></button>
-          <button class="button button-empty random disabled" data-icon="${licon.DieSix}"></button>
-          <button class="button button-empty fight" data-icon="${licon.Swords}"></button>
-        </div>
         ${player('black')}
+        <div class="you" data-color="${this.playerColor}">
+          <p class="text">You play the ${this.playerColor} pieces</p>
+        </div>
       </div>
     </div>`);
-    this.white = this.view.querySelector('.white')!;
-    this.black = this.view.querySelector('.black')!;
     const cardData = [...Object.values(this.bots).map(b => botCtrl.card(b))].filter(defined);
-    this.hand = new HandOfCards({
-      view: () => this.view,
-      drops: () => [
-        { el: this.white, selected: uidToDomId(this.setup.white) },
-        { el: this.black, selected: uidToDomId(this.setup.black) },
+    this.hand = handOfCards({
+      getView: () => this.view,
+      getDrops: () => [
+        { el: this.view.querySelector('.player')!, selected: uidToDomId(this.setup[this.botColor]) },
       ],
-      cardData: () => cardData,
+      getCardData: () => cardData,
       select: this.dropSelect,
+      orientation: 'bottom',
     });
     this.show();
+  }
+
+  private get botColor() {
+    return co.opposite(this.playerColor);
   }
 
   private show() {
@@ -59,9 +59,15 @@ export class SetupDialog {
       class: 'game-setup base-view setup-view', // with-cards',
       css: [{ hashed: 'local.setup' }],
       htmlText: `<div class="chin">
-            <label>Clock<select data-type="initial">${this.timeOptions('initial')}</select></label>
-            <label>Increment<select data-type="increment">${this.timeOptions('increment')}</select></label>
-            <label>Dev UI<input type="checkbox" id="bot-dev" checked></label>
+            <div class="clock">
+              <label>Clock<select data-type="initial">${this.timeOptions('initial')}</select></label>
+              <label>Increment<select data-type="increment">${this.timeOptions('increment')}</select></label>
+            </div>
+            <div class="actions">
+              <button class="button button-empty switch disabled" data-icon="${licon.Switch}"></button>
+              <button class="button button-empty random disabled" data-icon="${licon.DieSix}"></button>
+              <button class="button button-empty fight" data-icon="${licon.Swords}"></button>
+            </div>
           </div>`,
       append: [{ node: this.view, where: '.chin', how: 'before' }],
       actions: [
@@ -69,14 +75,13 @@ export class SetupDialog {
         { selector: '.switch', listener: this.switch },
         { selector: '.random', listener: this.random },
         { selector: '[data-type]', event: 'input', listener: this.updateClock },
-        { selector: '.white > img.z-remove', listener: () => this.select('white') },
-        { selector: '.black > img.z-remove', listener: () => this.select('black') },
+        { selector: 'img.z-remove', listener: () => this.select() },
       ],
       noCloseButton: this.noClose,
       noClickAway: this.noClose,
     }).then(dlg => {
-      if (this.setup.white) this.select('white', this.setup.white);
-      if (this.setup.black) this.select('black', this.setup.black);
+      this.dialog = dlg;
+      this.select(this.setup.black);
       window.addEventListener('resize', this.hand.resize);
       dlg.showModal();
       setTimeout(this.hand.resize);
@@ -91,19 +96,17 @@ export class SetupDialog {
   }
 
   private dropSelect = (target: HTMLElement, domId?: string) => {
-    const color = target.classList.contains('white') ? 'white' : 'black';
-    console.log(domId, domIdToUid(domId));
-    this.select(color, domIdToUid(domId));
+    this.select(domIdToUid(domId));
   };
 
-  private select(color: 'white' | 'black', selection?: string) {
-    const bot = selection ? this.bots[selection] : undefined;
-    this.view.querySelector(`.${color} .placard`)!.textContent = bot ? bot.description : 'Player';
-    this.setup[color] = bot?.uid;
+  private select(selection?: string) {
+    const bot = (this.selected = selection ? this.bots[selection] : undefined);
+    this.view.querySelector(`.placard`)!.textContent = bot?.description ?? 'Player';
+    this.setup[this.botColor] = bot?.uid;
     if (!bot) this.hand.redraw();
-    this[color].querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
-    this.view.querySelector('.switch')!.classList.toggle('disabled', !this.setup.white && !this.setup.black);
-    this.view.querySelector('.random')!.classList.toggle('disabled', !this.setup.white && !this.setup.black);
+    this.dialog.view.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
+    this.dialog.view.querySelector('.switch')!.classList.toggle('disabled', !bot);
+    this.dialog.view.querySelector('.random')!.classList.toggle('disabled', !bot);
   }
 
   private updateClock = () => {
@@ -116,13 +119,16 @@ export class SetupDialog {
     this.updateClock();
     this.setup.go = true;
     localStorage.setItem('local.setup', JSON.stringify(this.setup));
-    window.location.href = `/local?devUi=${$as<HTMLInputElement>('#bot-dev').checked}`;
+    window.location.href = `/local`;
   };
 
   private switch = () => {
-    const newBlack = this.setup.white;
-    this.select('white', this.setup.black);
-    this.select('black', newBlack);
+    this.playerColor = co.opposite(this.playerColor);
+    this.view.querySelectorAll<HTMLElement>('[data-color]').forEach(el => {
+      el.dataset.color = co.opposite(el.dataset.color as Color);
+    });
+    this.setup[this.playerColor] = undefined;
+    this.setup[this.botColor] = this.selected?.uid;
     this.hand.redraw();
   };
 
