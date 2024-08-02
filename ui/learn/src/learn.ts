@@ -34,6 +34,7 @@ export interface LearnOpts {
 
 export interface LearnPrefs {
   coords: Prefs.Coords;
+  destination: boolean;
 }
 
 interface LearnServerOpts {
