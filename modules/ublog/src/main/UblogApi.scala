@@ -30,13 +30,13 @@ final class UblogApi(
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
-  def update(author: User, data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
-    getUserBlog(author, insertMissing = true).flatMap { blog =>
-      val post = data.update(me.value, prev)
-      (colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
-      }).inject(post)
-    }
+  def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] = for
+    author <- userApi.byId(prev.created.by).map(_ | me.value)
+    blog   <- getUserBlog(author, insertMissing = true)
+    post = data.update(me.value, prev)
+    _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
+  yield post
 
   private def onFirstPublish(author: User, blog: UblogBlog, post: UblogPost): Funit =
     rank

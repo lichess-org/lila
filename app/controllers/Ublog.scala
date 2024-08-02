@@ -130,19 +130,11 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      Found(
-        env.ublog.api
-          .findEditableByMe(id)
-          .flatMapz: prev =>
-            env.user.repo
-              .byId(prev.created.by)
-              .map: userOpt =>
-                userOpt.map(user => (user, prev))
-      ): (author, prev) =>
+      Found(env.ublog.api.findEditableByMe(id)): prev =>
         bindForm(env.ublog.form.edit(prev))(
           err => BadRequest.page(views.ublog.form.edit(prev, err)),
           data =>
-            env.ublog.api.update(author, data, prev).flatMap { post =>
+            env.ublog.api.update(data, prev).flatMap { post =>
               logModAction(post, "edit").inject(Redirect(urlOfPost(post)).flashSuccess)
             }
         )
