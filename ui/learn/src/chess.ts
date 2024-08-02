@@ -18,7 +18,7 @@ import { isRole, oppColor, PromotionChar, PromotionRole } from './util';
 type LearnVariant = Chess | Antichess;
 
 export interface ChessCtrl {
-  dests(opts?: { illegal?: boolean }): cg.Dests;
+  dests(pos: LearnVariant, opts?: { illegal?: boolean }): cg.Dests;
   setColor(c: Color): void;
   getColor(): Color;
   fen(): string;
@@ -26,13 +26,14 @@ export interface ChessCtrl {
   moves(pos: LearnVariant): Move[];
   occupiedKeys(): Key[];
   kingKey(color: Color): Key | undefined;
-  findCapture(): CgMove;
+  findCapture(): CgMove | undefined;
   findUnprotectedCapture(): CgMove | undefined;
   checks(): CgMove[] | undefined;
   playRandomMove(): CgMove | undefined;
   get(square: Key): Piece | undefined;
   instance: LearnVariant;
   sanHistory(): string[];
+  defaultChessMate(): boolean;
 }
 
 export default function (fen: string, appleKeys: Key[]): ChessCtrl {
@@ -43,7 +44,7 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
 
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
-    const color = pos.turn === 'white' ? 'black' : 'white';
+    const color = oppColor(pos.turn);
     appleKeys.forEach(key => {
       pos.board.set(parseSquare(key), { color: color, role: 'pawn' });
     });
@@ -76,10 +77,26 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
     return clone;
   };
 
+  const cloneWithChessDests = (pos: LearnVariant): LearnVariant => {
+    const clone = pos.clone();
+    clone.ctx = defaultChess.ctx;
+    clone.kingAttackers = defaultChess.kingAttackers;
+    clone.dests = defaultChess.dests;
+    return clone;
+  };
+
+  const cloneWithAntichessDests = (pos: LearnVariant): LearnVariant => {
+    const clone = pos.clone();
+    clone.ctx = context;
+    clone.kingAttackers = defaultAntichess.kingAttackers;
+    clone.dests = defaultAntichess.dests;
+    return clone;
+  };
+
   const history: string[] = [];
 
   const moves = (pos: LearnVariant): Move[] =>
-    Array.from(chessgroundDests(pos)).reduce<Move[]>(
+    Array.from(dests(pos)).reduce<Move[]>(
       (prev, [orig, dests]) =>
         prev.concat(dests.map((dest): Move => ({ from: parseSquare(orig), to: parseSquare(dest) }))),
       [],
@@ -87,14 +104,24 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
 
   const findCaptures = (pos: LearnVariant): Move[] => moves(pos).filter(move => pos.board.get(move.to));
 
-  const setColor = (c: Color) => {
+  const setColor = (c: Color): void => {
     pos.turn = c;
   };
 
   const moveToCgMove = (move: Move): CgMove => ({ orig: makeSquare(move.from), dest: makeSquare(move.to) });
 
+  const kingKey = (color: Color) => {
+    const kingSq = pos.board.kingOf(color);
+    return kingSq !== undefined ? makeSquare(kingSq) : undefined;
+  };
+
+  const dests = (pos: LearnVariant, opts?: { illegal?: boolean }) =>
+    chessgroundDests(
+      opts?.illegal || !kingKey(pos.turn) ? cloneWithAntichessDests(pos) : cloneWithChessDests(pos),
+    );
+
   return {
-    dests: () => chessgroundDests(pos),
+    dests: dests,
     getColor: () => pos.turn,
     setColor: setColor,
     fen: () => makeBoardFen(pos.board),
@@ -113,11 +140,11 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
       return !clone.isCheck() ? move : null;
     },
     occupiedKeys: () => Array.from(pos.board.occupied).map(s => makeSquare(s)),
-    kingKey: (color: Color) => {
-      const kingSq = pos.board.kingOf(color);
-      return kingSq !== undefined ? makeSquare(kingSq) : undefined;
+    kingKey: kingKey,
+    findCapture: () => {
+      const captures = findCaptures(pos);
+      return captures.length ? moveToCgMove(captures[0]) : undefined;
     },
-    findCapture: () => moveToCgMove(findCaptures(pos)[0]),
     findUnprotectedCapture: () => {
       const maybeCapture = findCaptures(pos).find(capture => {
         const clone = cloneWithCtx(pos);
@@ -148,5 +175,6 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
     get: (key: Key) => pos.board.get(parseSquare(key)),
     instance: pos,
     sanHistory: () => history,
+    defaultChessMate: (): boolean => cloneWithChessDests(pos).isCheckmate(),
   };
 }

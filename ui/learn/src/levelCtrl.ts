@@ -74,7 +74,7 @@ export class LevelCtrl {
     withGround(this.initializeWithGround);
   }
 
-  makeChessDests = () => this.chess.dests({ illegal: this.blueprint.offerIllegalMove });
+  makeChessDests = () => this.chess.dests(this.chess.instance, { illegal: this.blueprint.offerIllegalMove });
 
   initializeWithGround = (ground: CgApi) => {
     const { chess, blueprint } = this;
@@ -91,7 +91,7 @@ export class LevelCtrl {
       movable: {
         free: false,
         color: chess.getColor(),
-        dests: chess.dests(),
+        dests: this.makeChessDests(),
         rookCastle: false,
       },
       events: {
@@ -193,16 +193,13 @@ export class LevelCtrl {
     };
   };
 
-  setFen = (fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key, ...unknown[]]) =>
+  setFen = (fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key]) =>
     this.withGround(g =>
       g.set({
         turnColor: color,
         fen,
         movable: { color, dests },
-        // Casting here instead of declaring lastMove as [Key, Key] right away
-        // allows the setFen function to accept [orig, dest, promotion] values
-        // for lastMove as well.
-        lastMove: lastMove as [Key, Key],
+        lastMove: lastMove,
       }),
     );
 

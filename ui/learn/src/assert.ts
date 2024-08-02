@@ -46,7 +46,7 @@ export const extinct =
 
 export const check: Assert = (level: AssertData) => level.chess.instance.isCheck();
 
-export const mate: Assert = (level: AssertData) => level.chess.instance.isCheckmate();
+export const mate: Assert = (level: AssertData) => level.chess.defaultChessMate();
 
 export const lastMoveSan =
   (san: string): Assert =>
