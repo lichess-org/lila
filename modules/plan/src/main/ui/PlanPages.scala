@@ -115,6 +115,9 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
                 trans.site.availableInNbLanguages(a(href := "https://crowdin.com/project/lichess")("140+"))
               ),
               tr(check)(
+                a(href := "https://lichess.org/account/profile")(trans.site.setFlair()))
+              )
+              tr(check)(
                 trans.features.lightOrDarkThemeCustomBoardsPiecesAndBackground()
               ),
               tr(check)(

@@ -26,7 +26,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Context) =
                 li(trans.site.builtForTheLoveOfChessNotMoney()),
                 li(trans.site.everybodyGetsAllFeaturesForFree()),
                 li(trans.site.zeroAdvertisement()),
-                li("Entirely ", a(href := "https://github.com/lichess-org/lichobile")("Open Source"))
+                li("Entirely ", a(href := "https://github.com/lichess-org/mobile")("Open Source"))
               ),
               h2(trans.site.fullFeatured()),
               ul(cls := "block")(
@@ -40,7 +40,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Context) =
                 li(trans.site.boardEditor()),
                 li("Lichess TV"),
                 li(trans.site.followAndChallengeFriends()),
-                li(trans.site.availableInNbLanguages.pluralSame(80))
+                li(trans.site.availableInNbLanguages.pluralSame(100))
               )
             ),
             div(cls := "right-side")(
