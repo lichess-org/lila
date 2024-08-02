@@ -150,9 +150,9 @@ const overview = (ctx: RelayViewContext) => {
   return [
     ...header(ctx),
     showInfo(tour.info, tour.dates),
-    tour.markup
+    tour.description
       ? h('div.relay-tour__markup', {
-          hook: innerHTML(tour.markup, () => tour.markup!),
+          hook: innerHTML(tour.description, () => tour.description!),
         })
       : undefined,
     ...(ctx.ctrl.isEmbed ? [] : [showSource(ctx.relay.data), share(ctx)]),

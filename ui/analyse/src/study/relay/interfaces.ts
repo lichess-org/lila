@@ -45,7 +45,6 @@ export interface RelayTour {
   description?: string;
   info: RelayTourInfo;
   official?: boolean;
-  markup?: string;
   image?: string;
   teamTable?: boolean;
   leaderboard?: boolean;

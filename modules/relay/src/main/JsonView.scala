@@ -125,9 +125,8 @@ final class JsonView(
       videoUrls: Option[PairOf[String]],
       pinned: Option[RelayPinnedStream]
   ) =
-    given Config = Config(html = true)
     JsonView.JsData(
-      relay = fullTourWithRounds(trs, group)
+      relay = fullTourWithRounds(trs, group)(using Config(html = true))
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
         .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
