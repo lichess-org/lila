@@ -30,15 +30,15 @@ final class UblogApi(
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
-  def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
-    getUserBlog(me.value, insertMissing = true).flatMap { blog =>
-      val post = data.update(me.value, prev)
-      (colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty).so(onFirstPublish(me.value, blog, post))
-      }).inject(post)
-    }
+  def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] = for
+    author <- userApi.byId(prev.created.by).map(_ | me.value)
+    blog   <- getUserBlog(author, insertMissing = true)
+    post = data.update(me.value, prev)
+    _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
+  yield post
 
-  private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
+  private def onFirstPublish(author: User, blog: UblogBlog, post: UblogPost): Funit =
     rank
       .computeRank(blog, post)
       .so: rank =>
@@ -47,9 +47,10 @@ final class UblogApi(
         lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
         if blog.visible then
           lila.common.Bus.pub:
-            tl.Propagate(tl.UblogPost(user.id, post.id, post.slug, post.title)).toFollowersOf(post.created.by)
-          shutupApi.publicText(user.id, post.allText, PublicSource.Ublog(post.id))
-          if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
+            tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
+              .toFollowersOf(post.created.by)
+          shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
+          if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)).getOrElse(
