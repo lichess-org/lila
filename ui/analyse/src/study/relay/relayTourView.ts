@@ -372,7 +372,17 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('boards', 'Boards'),
     relay.teams && makeTab('teams', 'Teams'),
     relay.data.tour.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
-    study.members.myMember() && relay.data.tour.tier ? makeTab('stats', 'Stats') : undefined,
+    study.members.myMember() && relay.data.tour.tier
+      ? makeTab('stats', 'Stats')
+      : ctrl.isEmbed
+      ? h(
+          'a.relay-tour__tabs--open.text',
+          {
+            attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
+          },
+          'Open in Lichess',
+        )
+      : makeTab('stats', 'Stats'),
   ]);
 };
 
