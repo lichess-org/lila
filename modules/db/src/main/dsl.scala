@@ -43,8 +43,8 @@ trait dsl:
 
   def bsonWriteObjTry[A](a: A)(using writer: BSONDocumentWriter[A]) = writer.writeTry(a)
   def bsonWriteTry[A](a: A)(using writer: BSONWriter[A])            = writer.writeTry(a)
-  def bsonWriteOpt[A](a: A)(using writer: BSONWriter[A])            = writer.writeOpt(a)
-  def bsonWriteDoc[A](a: A)(using writer: BSONDocumentWriter[A])    = writer.writeOpt(a) | $empty
+  def bsonWriteOpt[A](a: A)(using writer: BSONWriter[A])         = writer.writeOpt(a)
+  def bsonWriteDoc[A](a: A)(using writer: BSONDocumentWriter[A]) = writer.writeOpt(a) | $empty
 
   // **********************************************************************************************//
   // Helpers
