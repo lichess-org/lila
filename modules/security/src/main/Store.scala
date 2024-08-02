@@ -18,7 +18,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
   import Store.*
   import FingerHash.given
 
-  private val authCache = cacheApi[String, Option[AuthInfo]](65536, "security.authCache"):
+  private val authCache = cacheApi[String, Option[AuthInfo]](65_536, "security.authCache"):
     _.expireAfterAccess(5 minutes).buildAsyncFuture[String, Option[AuthInfo]]: id =>
       coll
         .find($doc("_id" -> id, "up" -> true), authInfoProjection.some)

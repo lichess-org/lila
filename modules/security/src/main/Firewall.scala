@@ -25,8 +25,7 @@ final class Firewall(
   def blocksIp(ip: IpAddress): Boolean = current.contains(ip.value) || proxies.contains(ip)
 
   def blocks(req: RequestHeader): Boolean =
-    val v = blocksIp:
-      lila.common.HTTPRequest.ipAddress(req)
+    val v = blocksIp(lila.common.HTTPRequest.ipAddress(req))
     if v then lila.mon.security.firewall.block.increment()
     v
 
