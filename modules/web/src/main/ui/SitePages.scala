@@ -60,7 +60,7 @@ final class SitePages(helpers: Helpers):
         ),
         br,
         st.section(cls := "box box-pad developers") {
-          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
+          val args = """style="width: 400px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0""""
           frag(
             h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site"),
             div(cls := "body")(
@@ -79,7 +79,7 @@ final class SitePages(helpers: Helpers):
         },
         br,
         st.section(cls := "box box-pad developers") {
-          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
+          val args = """style="width: 400px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0""""
           frag(
             h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "body")(
@@ -102,7 +102,7 @@ final class SitePages(helpers: Helpers):
         },
         br,
         st.section(cls := "box box-pad developers") {
-          val args = """style="width: 600px; height: 397px;" frameborder="0""""
+          val args = """style="width: 100%; aspect-ratio: 3/2;" frameborder="0""""
           frag(
             h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site"),
             div(cls := "body")(
@@ -121,7 +121,7 @@ final class SitePages(helpers: Helpers):
         },
         br,
         st.section(cls := "box box-pad developers") {
-          val args = """style="width: 600px; height: 397px;" frameborder="0""""
+          val args = """style="width: 100%; aspect-ratio: 3/2;" frameborder="0""""
           frag(
             h1(cls := "box__top")("Embed a chess game in your site"),
             div(cls := "body")(
@@ -135,6 +135,22 @@ final class SitePages(helpers: Helpers):
                 "\"",
                 em(trans.site.embedInYourWebsite(), "\".")
               ),
+              parameters,
+              p("The text is automatically translated to your visitor's language.")
+            )
+          )
+        },
+        br,
+        st.section(cls := "box box-pad developers") {
+          val args = """style="width: 100%; aspect-ratio: 4/3;" frameborder="0""""
+          frag(
+            h1(cls := "box__top")("Embed a broadcast in your site"),
+            div(cls := "body")(
+              div(cls := "center"):
+                raw(
+                  s"""<iframe src="/embed/broadcast/sixdays-budapest-july-2024--gm-a/round-4/Cfu9KXTq?bg=auto&theme=auto" $args></iframe>"""
+                )
+              ,
               parameters,
               p("The text is automatically translated to your visitor's language.")
             )

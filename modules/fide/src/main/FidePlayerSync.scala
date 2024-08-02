@@ -134,7 +134,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
       for
         id    <- number(0, 15)
         name1 <- string(15, 76)
-        name = name1.filterNot(_.isDigit).trim
+        name = name1.trim
         if name.sizeIs > 2
         title  = string(84, 89).flatMap(PlayerTitle.get)
         wTitle = string(89, 105).flatMap(PlayerTitle.get)

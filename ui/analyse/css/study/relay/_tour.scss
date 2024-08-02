@@ -1,8 +1,12 @@
 $hover-bg: $m-primary_bg--mix-30;
+%tour-margin-horiz {
+  margin-left: 2vw;
+  margin-right: 2vw;
+}
 
 .relay-tour {
   @extend %box-neat-force, %flex-column;
-  gap: 3em;
+  gap: 3vh;
   background: $c-bg-box;
   &__side {
     @extend %flex-column;
@@ -128,7 +132,6 @@ $hover-bg: $m-primary_bg--mix-30;
       &__image {
         display: block;
       }
-      min-height: 12vh;
     }
 
     h1 {
@@ -138,14 +141,15 @@ $hover-bg: $m-primary_bg--mix-30;
     }
 
     &__content {
-      @extend %flex-column;
+      @extend %flex-column, %tour-margin-horiz;
       flex: 1;
       min-width: 0; // somehow this prevents overflow when mselect is large
       gap: 1em;
       @include mq-at-least-col3 {
         gap: calc(var(---box-padding) / 3);
       }
-      margin: 1em 2em;
+      margin-top: 1em;
+      margin-bottom: 1em;
     }
 
     &__selectors {
@@ -257,7 +261,7 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__nav {
-    @extend %flex-between, %box-margin-horiz;
+    @extend %flex-between, %tour-margin-horiz;
     gap: 1em;
     user-select: none;
   }
@@ -287,10 +291,10 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__info {
-    @extend %box-neat, %flex-between, %box-margin-horiz;
+    @extend %box-neat, %flex-between, %tour-margin-horiz;
     gap: 1em;
     background: $c-bg-zebra;
-    padding: 1em 2em;
+    padding: 1em 2vw;
     > div {
       @extend %flex-center-nowrap;
       gap: 1em;
@@ -301,11 +305,11 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__markup {
-    @extend %box-margin-horiz;
+    @extend %tour-margin-horiz;
     @include rendered-markdown(2em, 50vh);
   }
   &__source {
-    @extend %box-margin-horiz;
+    @extend %tour-margin-horiz;
     font-style: italic;
     @media (max-width: at-most($x-large)) {
       display: none;
@@ -315,9 +319,9 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
   &__share {
-    @extend %box-neat, %box-margin-horiz;
+    @extend %box-neat, %tour-margin-horiz;
     background: $c-bg-zebra;
-    padding: 3em var(---box-padding) 1em var(---box-padding);
+    padding: 3em 2vw 1em 2vw;
     h2 {
       margin-bottom: 3rem;
     }
@@ -367,7 +371,7 @@ $hover-bg: $m-primary_bg--mix-30;
 
   .study__multiboard {
     @media (min-width: at-least($xx-large)) {
-      margin: 0 calc(var(---box-padding) - 1em);
+      margin: 0 2em;
       .now-playing a {
         padding: 0.8em;
       }

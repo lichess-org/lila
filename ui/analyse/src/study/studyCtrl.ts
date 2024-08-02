@@ -37,6 +37,7 @@ import {
   StudyDataFromServer,
   StudyData,
   ChapterPreviewFromServer,
+  ChapterSelect,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -169,7 +170,7 @@ export default class StudyCtrl {
         this.chapters.list,
         this.multiCloudEval,
         () => this.data.federations,
-        id => this.setChapter(id),
+        this.chapterSelect,
       );
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
@@ -481,6 +482,11 @@ export default class StudyCtrl {
     return true;
   };
 
+  chapterSelect: ChapterSelect = {
+    is: (idOrNumber: ChapterId | number) => defined(this.chapters.list.get(idOrNumber)),
+    set: this.setChapter,
+  };
+
   private deltaChapter = (delta: number): ChapterPreview | undefined => {
     const chs = this.chapters.list.all();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
@@ -576,6 +582,7 @@ export default class StudyCtrl {
     return studyIdOffset === -1 ? `/study/${this.data.id}` : current.slice(0, studyIdOffset + 9);
   };
   updateAddressBar = () => {
+    if (this.ctrl.isEmbed) return;
     const studyUrl = this.baseUrl();
     const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
     if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
