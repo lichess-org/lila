@@ -74,7 +74,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       'div.now-playing',
       {
         hook: {
-          insert: gameLinksListener(study.setChapter),
+          insert: gameLinksListener(study.chapterSelect),
         },
       },
       pager.currentPageResults.map(makePreview(basePath, study.vm.chapterId, cloudEval)),

@@ -44,7 +44,7 @@ export const tourSide = (ctx: RelayViewContext) => {
     'aside.relay-tour__side',
     {
       hook: {
-        insert: gameLinksListener(study.setChapter),
+        insert: gameLinksListener(study.chapterSelect),
       },
     },
     [

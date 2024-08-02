@@ -37,6 +37,7 @@ import {
   StudyDataFromServer,
   StudyData,
   ChapterPreviewFromServer,
+  ChapterSelect,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -169,7 +170,7 @@ export default class StudyCtrl {
         this.chapters.list,
         this.multiCloudEval,
         () => this.data.federations,
-        id => this.setChapter(id),
+        this.chapterSelect,
       );
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
@@ -479,6 +480,11 @@ export default class StudyCtrl {
     }
     window.scrollTo(0, 0);
     return true;
+  };
+
+  chapterSelect: ChapterSelect = {
+    is: (idOrNumber: ChapterId | number) => defined(this.chapters.list.get(idOrNumber)),
+    set: this.setChapter,
   };
 
   private deltaChapter = (delta: number): ChapterPreview | undefined => {
