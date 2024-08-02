@@ -155,35 +155,37 @@ const overview = (ctx: RelayViewContext) => {
           hook: innerHTML(tour.markup, () => tour.markup!),
         })
       : undefined,
-    showSource(ctx.relay.data),
-    h('div.relay-tour__share', [
-      h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
-      ...[
-        [tour.name, ctx.relay.tourPath()],
-        [ctx.study.data.name, ctx.relay.roundPath()],
-        [
-          `${ctx.study.data.name} PGN`,
-          `${ctx.relay.roundPath()}.pgn`,
-          h('div.form-help', [
-            'A public, real-time PGN source for this round. We also offer a ',
-            h(
-              'a',
-              { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
-              'streaming API',
-            ),
-            ' for faster and more efficient synchronisation.',
-          ]),
-        ],
-      ].map(([i18n, path, help]: [string, string, VNode]) =>
-        h('div.form-group', [
-          h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
-          copyMeInput(`${baseUrl()}${path}`),
-          help,
-        ]),
-      ),
-    ]),
+    ...(ctx.ctrl.isEmbed ? [] : [showSource(ctx.relay.data), share(ctx)]),
   ];
 };
+
+const share = (ctx: RelayViewContext) =>
+  h('div.relay-tour__share', [
+    h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
+    ...[
+      [ctx.relay.data.tour.name, ctx.relay.tourPath()],
+      [ctx.study.data.name, ctx.relay.roundPath()],
+      [
+        `${ctx.study.data.name} PGN`,
+        `${ctx.relay.roundPath()}.pgn`,
+        h('div.form-help', [
+          'A public, real-time PGN source for this round. We also offer a ',
+          h(
+            'a',
+            { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+            'streaming API',
+          ),
+          ' for faster and more efficient synchronisation.',
+        ]),
+      ],
+    ].map(([i18n, path, help]: [string, string, VNode]) =>
+      h('div.form-group', [
+        h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
+        copyMeInput(`${baseUrl()}${path}`),
+        help,
+      ]),
+    ),
+  ]);
 
 const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const toggle = ctx.relay.groupSelectShow;

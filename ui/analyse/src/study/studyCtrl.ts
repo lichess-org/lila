@@ -576,6 +576,7 @@ export default class StudyCtrl {
     return studyIdOffset === -1 ? `/study/${this.data.id}` : current.slice(0, studyIdOffset + 9);
   };
   updateAddressBar = () => {
+    if (this.ctrl.isEmbed) return;
     const studyUrl = this.baseUrl();
     const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
     if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);

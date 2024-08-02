@@ -60,7 +60,7 @@ final class SitePages(helpers: Helpers):
         ),
         br,
         st.section(cls := "box box-pad developers") {
-          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
+          val args = """style="width: 400px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0""""
           frag(
             h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site"),
             div(cls := "body")(
@@ -79,7 +79,7 @@ final class SitePages(helpers: Helpers):
         },
         br,
         st.section(cls := "box box-pad developers") {
-          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
+          val args = """style="width: 400px; aspect-ratio: 10/11;" allowtransparency="true" frameborder="0""""
           frag(
             h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "body")(
@@ -102,7 +102,7 @@ final class SitePages(helpers: Helpers):
         },
         br,
         st.section(cls := "box box-pad developers") {
-          val args = """style="width: 600px; height: 397px;" frameborder="0""""
+          val args = """style="width: 100%; aspect-ratio: 3/2;" frameborder="0""""
           frag(
             h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site"),
             div(cls := "body")(
@@ -121,7 +121,7 @@ final class SitePages(helpers: Helpers):
         },
         br,
         st.section(cls := "box box-pad developers") {
-          val args = """style="width: 600px; height: 397px;" frameborder="0""""
+          val args = """style="width: 100%; aspect-ratio: 3/2;" frameborder="0""""
           frag(
             h1(cls := "box__top")("Embed a chess game in your site"),
             div(cls := "body")(
