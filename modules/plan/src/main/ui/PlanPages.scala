@@ -116,7 +116,7 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
               ),
               tr(check)(
                 a(href := "https://lichess.org/account/profile")(trans.site.setFlair()))
-              )
+              ),
               tr(check)(
                 trans.features.lightOrDarkThemeCustomBoardsPiecesAndBackground()
               ),
