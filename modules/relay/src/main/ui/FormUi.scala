@@ -540,50 +540,32 @@ Team Dogs ; Scooby Doo"""),
                         half = true
                       ):
                         form3.select(_, langList.popularLanguagesForm.choices)
-                    ),
-                    tg.map: t =>
-                      form3.fieldset("Pinned streamer", toggle = form("pinnedStreamer").value.isDefined.some)(
-                        div(
-                          cls              := "relay-pinned-streamer-edit",
-                          data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
-                        )(
-                          div(
-                            form3.group(
-                              form("pinnedStreamer"),
-                              "Pinned streamer",
-                              help = frag(
-                                p(
-                                  "The pinned streamer is featured even when they're not watching the broadcast."
-                                ),
-                                p("An optional placeholder image will embed their stream when clicked."),
-                                p(
-                                  "To upload one, you must first submit this form with a pinned streamer. "
-                                    + "Then return to this page and choose an image."
-                                )
-                              ).some
-                            )(form3.input(_)),
-                            span(
-                              button(tpe := "button", cls := "button streamer-select-image")("select image"),
-                              button(
-                                tpe := "button",
-                                cls := "button button-empty button-red streamer-delete-image",
-                                data("post-url") := routes.RelayTour
-                                  .image(t.tour.id, "pinnedStreamerImage".some)
-                              )("delete image")
-                            )
-                          ),
-                          ui.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
-                            cls := List(
-                              "streamer-drop-target" -> true,
-                              "user-image"           -> t.tour.pinnedStreamerImage.isDefined
-                            ),
-                            attr("draggable") := "true"
-                          )
-                        )
-                      )
+                    )
                   )
                 )
-            )
+            ),
+            tg.isDefined.option:
+              form3.fieldset("Pinned stream", toggle = form("pinnedStream.url").value.isDefined.some)(
+                form3.split(
+                  form3.group(
+                    form("pinnedStream.url"),
+                    "Stream URL",
+                    help = frag(
+                      p("Embed a live stream in the broadcast. Examples:"),
+                      ul(
+                        li("https://www.youtube.com/live/Lg0askmGqvo"),
+                        li("https://www.twitch.tv/tcec_chess_tv")
+                      )
+                    ).some,
+                    half = true
+                  )(form3.input(_)),
+                  form3.group(
+                    form("pinnedStream.name"),
+                    "Stream name",
+                    half = true
+                  )(form3.input(_))
+                )
+              )
           )
         else form3.hidden(form("tier"))
       )

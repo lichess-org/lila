@@ -53,7 +53,7 @@ final class JsonView(
             "id"      -> chapter.id,
             "ownerId" -> chapter.ownerId,
             "setup"   -> chapter.setup,
-            "tags"    -> chapter.tags,
+            "tags"    -> chapter.tagsExport,
             "features" -> Json.obj(
               "computer" -> allowed(_.computer),
               "explorer" -> allowed(_.explorer)

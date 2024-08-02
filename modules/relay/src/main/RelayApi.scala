@@ -226,7 +226,7 @@ final class RelayApi(
           "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
           "ownerId"         -> tour.ownerId.some,
-          "pinnedStreamer"  -> tour.pinnedStreamer
+          "pinnedStream"    -> tour.pinnedStream
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))

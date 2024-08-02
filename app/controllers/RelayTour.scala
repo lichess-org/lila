@@ -6,7 +6,7 @@ import scalalib.Json.given
 import lila.app.{ *, given }
 import lila.core.id.RelayTourId
 import lila.core.net.IpAddress
-import lila.relay.RelayTour as TourModel
+import lila.relay.{ JsonView, RelayTour as TourModel }
 import lila.relay.ui.FormNavigation
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
@@ -165,13 +165,22 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
               .soUse(env.relay.api.canUpdate(tour))
               .flatMap:
                 if _ then Redirect(routes.RelayRound.form(tour.id))
-                else
-                  for
-                    owner <- env.user.lightUser(tour.ownerId)
-                    markup = tour.markup.map(env.relay.markup(tour))
-                    page <- Ok.page(views.relay.tour.showEmpty(tour, owner, markup))
-                  yield page
+                else emptyBroadcastPage(tour)
           case Some(round) => Redirect(round.withTour(tour).path)
+
+  def embedShow(slug: String, id: RelayTourId) = Open:
+    Found(env.relay.api.tourById(id)): tour =>
+      env.relay.listing.defaultRoundToShow
+        .get(tour.id)
+        .flatMap:
+          _.fold(emptyBroadcastPage(tour)): round =>
+            Redirect(s"/embed${round.withTour(tour).path}")
+
+  private def emptyBroadcastPage(tour: TourModel)(using Context) = for
+    owner <- env.user.lightUser(tour.ownerId)
+    markup = tour.markup.map(env.relay.markup(tour))
+    page <- Ok.page(views.relay.tour.showEmpty(tour, owner, markup))
+  yield page
 
   def apiShow(id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
@@ -200,6 +209,8 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         (active, upcoming, past) <- env.relay.top(page)
         res                      <- JsonOk(env.relay.jsonView.top(active, upcoming, past))
       yield res
+
+  private given (using RequestHeader): JsonView.Config = JsonView.Config(html = getBool("html"))
 
   private def WithTour(id: RelayTourId)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api.tourById(id))(f)

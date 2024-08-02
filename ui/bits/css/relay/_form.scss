@@ -69,15 +69,6 @@
   @extend %image-preview-and-upload;
 }
 
-.relay-pinned-streamer-edit {
-  @extend %image-preview-and-upload;
-  background: none;
-  padding: 0;
-  span {
-    @extend %flex-between;
-  }
-}
-
 @include mq-subnav-side {
   .relay-form__subnav__group {
     display: block;

@@ -14,7 +14,7 @@ import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
 import { makeChat, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
-import { renderStreamerMenu, renderPinnedImage } from './relayView';
+import { renderStreamerMenu } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
 import { gameLinksListener } from '../studyChapters';
@@ -44,7 +44,7 @@ export const tourSide = (ctx: RelayViewContext) => {
     'aside.relay-tour__side',
     {
       hook: {
-        insert: gameLinksListener(study.setChapter),
+        insert: gameLinksListener(study.chapterSelect),
       },
     },
     [
@@ -57,29 +57,31 @@ export const tourSide = (ctx: RelayViewContext) => {
                 { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
                 study.data.name,
               ),
-              h('button.streamer-show.data-count', {
-                attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
-                class: {
-                  disabled: !relay.streams.length,
-                  active: relay.showStreamerMenu(),
-                  streaming: relay.isStreamer(),
-                },
-                hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
-              }),
+              !ctrl.isEmbed &&
+                h('button.streamer-show.data-count', {
+                  attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
+                  class: {
+                    disabled: !relay.streams.length,
+                    active: relay.showStreamerMenu(),
+                    streaming: relay.isStreamer(),
+                  },
+                  hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
+                }),
               h('button.relay-tour__side__search', {
                 attrs: { 'data-icon': licon.Search, title: 'Search' },
                 hook: bind('click', study.search.open.toggle),
               }),
             ]),
           ]),
-      relay.showStreamerMenu() && renderStreamerMenu(relay),
+      !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
       !empty && gamesList(study, relay),
-      h('div.chat__members', {
-        hook: onInsert(el => {
-          makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-          site.watchers(el);
+      !ctrl.isEmbed &&
+        h('div.chat__members', {
+          hook: onInsert(el => {
+            makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
+            site.watchers(el);
+          }),
         }),
-      }),
     ],
   );
 };
@@ -148,44 +150,46 @@ const overview = (ctx: RelayViewContext) => {
   return [
     ...header(ctx),
     showInfo(tour.info, tour.dates),
-    tour.markup
+    tour.description
       ? h('div.relay-tour__markup', {
-          hook: innerHTML(tour.markup, () => tour.markup!),
+          hook: innerHTML(tour.description, () => tour.description!),
         })
       : undefined,
-    showSource(ctx.relay.data),
-    h('div.relay-tour__share', [
-      h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
-      ...[
-        [tour.name, ctx.relay.tourPath()],
-        [ctx.study.data.name, ctx.relay.roundPath()],
-        [
-          `${ctx.study.data.name} PGN`,
-          `${ctx.relay.roundPath()}.pgn`,
-          h('div.form-help', [
-            'A public, real-time PGN source for this round. We also offer a ',
-            h(
-              'a',
-              { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
-              'streaming API',
-            ),
-            ' for faster and more efficient synchronisation.',
-          ]),
-        ],
-      ].map(([i18n, path, help]: [string, string, VNode]) =>
-        h('div.form-group', [
-          h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
-          copyMeInput(`${baseUrl()}${path}`),
-          help,
-        ]),
-      ),
-    ]),
+    ...(ctx.ctrl.isEmbed ? [] : [showSource(ctx.relay.data), share(ctx)]),
   ];
 };
 
-const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
-  const toggle = relay.groupSelectShow;
-  const clickHook = { hook: bind('click', toggle.toggle, relay.redraw) };
+const share = (ctx: RelayViewContext) =>
+  h('div.relay-tour__share', [
+    h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
+    ...[
+      [ctx.relay.data.tour.name, ctx.relay.tourPath()],
+      [ctx.study.data.name, ctx.relay.roundPath()],
+      [
+        `${ctx.study.data.name} PGN`,
+        `${ctx.relay.roundPath()}.pgn`,
+        h('div.form-help', [
+          'A public, real-time PGN source for this round. We also offer a ',
+          h(
+            'a',
+            { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+            'streaming API',
+          ),
+          ' for faster and more efficient synchronisation.',
+        ]),
+      ],
+    ].map(([i18n, path, help]: [string, string, VNode]) =>
+      h('div.form-group', [
+        h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
+        copyMeInput(`${baseUrl()}${path}`),
+        help,
+      ]),
+    ),
+  ]);
+
+const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
+  const toggle = ctx.relay.groupSelectShow;
+  const clickHook = { hook: bind('click', toggle.toggle, ctx.relay.redraw) };
   return h(
     'div.mselect.relay-tour__mselect.relay-tour__group-select',
     {
@@ -195,7 +199,7 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
       h(
         'label.mselect__label',
         clickHook,
-        group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
+        group.tours.find(t => t.id == ctx.relay.data.tour.id)?.name || ctx.relay.data.tour.name,
       ),
       ...(toggle()
         ? [
@@ -204,8 +208,8 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
               'nav.mselect__list',
               group.tours.map(tour =>
                 h(
-                  `a.mselect__item${tour.id == relay.data.tour.id ? '.current' : ''}`,
-                  { attrs: { href: `/broadcast/-/${tour.id}` } },
+                  `a.mselect__item${tour.id == ctx.relay.data.tour.id ? '.current' : ''}`,
+                  { attrs: { href: ctx.study.addEmbedPrefix(`/broadcast/-/${tour.id}`) } },
                   tour.name,
                 ),
               ),
@@ -252,7 +256,14 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                   },
                   relay.data.rounds.map(round =>
                     h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
-                      h('td.name', h('a', { attrs: { href: relay.roundUrlWithHash(round) } }, round.name)),
+                      h(
+                        'td.name',
+                        h(
+                          'a',
+                          { attrs: { href: study.addEmbedPrefix(relay.roundUrlWithHash(round)) } },
+                          round.name,
+                        ),
+                      ),
                       h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
                       h(
                         'td.status',
@@ -286,7 +297,6 @@ const stats = (ctx: RelayViewContext) => [...header(ctx), statsView(ctx.relay.st
 const header = (ctx: RelayViewContext) => {
   const { ctrl, relay, allowVideo } = ctx;
   const d = relay.data,
-    study = ctrl.study!,
     group = d.group,
     embedVideo = d.videoUrls && allowVideo;
 
@@ -295,19 +305,17 @@ const header = (ctx: RelayViewContext) => {
       h('div.relay-tour__header__content', [
         h('h1', group?.name || d.tour.name),
         h('div.relay-tour__header__selectors', [
-          group && groupSelect(relay, group),
-          roundSelect(relay, study),
+          group && groupSelect(ctx, group),
+          roundSelect(relay, ctx.study),
         ]),
       ]),
       h(
         `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
         embedVideo
           ? renderVideoPlayer(relay)
-          : relay.pinStreamer() && d.pinned?.image
-          ? renderPinnedImage(ctx)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
-          : study.members.isOwner()
+          : ctx.study.members.isOwner()
           ? h(
               'a.button.relay-tour__header__image-upload',
               { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
@@ -364,7 +372,17 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('boards', 'Boards'),
     relay.teams && makeTab('teams', 'Teams'),
     relay.data.tour.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
-    study.members.myMember() && relay.data.tour.tier ? makeTab('stats', 'Stats') : undefined,
+    study.members.myMember() && relay.data.tour.tier
+      ? makeTab('stats', 'Stats')
+      : ctrl.isEmbed
+      ? h(
+          'a.relay-tour__tabs--open.text',
+          {
+            attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
+          },
+          'Open in Lichess',
+        )
+      : makeTab('stats', 'Stats'),
   ]);
 };
 

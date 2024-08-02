@@ -40,6 +40,7 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
+    val allModules = p.modules ++ p.pageModule.so(module => jsPageModule(module.name))
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -84,10 +85,7 @@ object page:
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
-          sitePreload(
-            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)),
-            isInquiry = ctx.data.inquiry.isDefined
-          ),
+          sitePreload(allModules, isInquiry = ctx.data.inquiry.isDefined),
           lichessFontFaceCss,
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),
@@ -158,7 +156,7 @@ object page:
           bottomHtml,
           ctx.needsFp.option(views.auth.fingerprintTag),
           ctx.nonce.map(inlineJs.apply),
-          modulesInit(p.modules ++ p.pageModule.so(module => jsPageModule(module.name))),
+          modulesInit(allModules, ctx.nonce),
           p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
           p.pageModule.map { mod => frag(jsonScript(mod.data)) }
         )

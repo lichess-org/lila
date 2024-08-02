@@ -11,6 +11,16 @@ object PgnTags:
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
     c.updateRoot { _.setClockAt(c.tags.clockConfig.map(_.limit), UciPath.root) }.filter(c !=)
 
+  // clean up tags before exposing them
+  def cleanUpForPublication(tags: Tags) = tags.copy(
+    value = tags.value.filter:
+      // we need fideId=0 to know that the player really doesn't have one,
+      // and that we shouldn't alert about it or try to fix it.
+      // But we don't want to publish it.
+      case Tag(Tag.WhiteFideId | Tag.BlackFideId, "0") => false
+      case _                                           => true
+  )
+
   private def filterRelevant(tags: Tags) =
     Tags(tags.value.filter { t =>
       relevantTypeSet(t.name) && !unknownValues(t.value)

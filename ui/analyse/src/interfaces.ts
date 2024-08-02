@@ -162,6 +162,7 @@ export interface AnalyseOpts {
   wiki?: boolean;
   inlinePgn?: string;
   externalEngineEndpoint: string;
+  embed?: boolean;
 }
 
 export interface JustCaptured extends cg.Piece {

@@ -1,6 +1,8 @@
 package views.relay
 
 import lila.app.UiEnv.{ *, given }
+import lila.relay.RelayRound.WithTourAndStudy
+import lila.core.socket.SocketVersion
 
 val ui = lila.relay.ui.RelayUi(helpers)(
   picfitUrl,
@@ -12,10 +14,10 @@ val tour = lila.relay.ui.RelayTourUi(helpers, ui)
 val form = lila.relay.ui.FormUi(helpers, ui, tour)
 
 def show(
-    rt: lila.relay.RelayRound.WithTourAndStudy,
+    rt: WithTourAndStudy,
     data: lila.relay.JsonView.JsData,
     chatOption: Option[lila.chat.UserChat.Mine],
-    socketVersion: lila.core.socket.SocketVersion,
+    socketVersion: SocketVersion,
     crossSiteIsolation: Boolean = true
 )(using ctx: Context) =
   val chat = chatOption.map: c =>
@@ -34,3 +36,20 @@ def show(
       ) -> views.chat.frag
   ui.show(rt, data, chat, socketVersion)
     .csp(crossSiteIsolation.so(views.analyse.ui.csp).compose(_.withExternalAnalysisApis))
+
+def embed(
+    rt: WithTourAndStudy,
+    data: lila.relay.JsonView.JsData,
+    socketVersion: SocketVersion
+)(using ctx: EmbedContext) =
+  views.base.embed.site(
+    title = rt.fullName,
+    cssKeys = List("analyse.relay.embed"),
+    pageModule = ui.pageModule(rt, data, none, socketVersion, embed = true).some,
+    csp = _.withExternalAnalysisApis
+  )(
+    div(id := "main-wrap", cls := "is2d"):
+      ui.showPreload(rt, data)(cls := "relay-embed")
+    ,
+    views.base.page.ui.inlineJs(ctx.nonce)
+  )

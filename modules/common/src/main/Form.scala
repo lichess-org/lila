@@ -10,6 +10,7 @@ import play.api.data.{ Form as PlayForm, FormError, Mapping, validation as V }
 import java.lang
 import java.time.LocalDate
 import scala.util.Try
+import play.api.data.FieldMapping
 
 object Form:
 
@@ -231,7 +232,7 @@ object Form:
         Right(_)
       )
     )
-    val field = of[URL]
+    val field: Mapping[URL] = of[URL]
 
   object username:
     val historicalConstraints = Seq(

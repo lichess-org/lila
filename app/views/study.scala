@@ -119,9 +119,9 @@ object embed:
 
   def apply(s: lila.study.Study, chapter: lila.study.Chapter, pgn: PgnStr)(using ctx: EmbedContext) =
     val canGetPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
-    views.base.embed(
+    views.base.embed.minimal(
       title = s"${s.name} ${chapter.name}",
-      cssModule = "bits.lpv.embed",
+      cssKeys = List("bits.lpv.embed"),
       modules = EsmInit("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
@@ -134,5 +134,6 @@ object embed:
     )
 
   def notFound(using EmbedContext) =
-    views.base.embed(title = s"404 - ${trans.study.studyNotFound.txt()}", cssModule = "bits.lpv.embed"):
-      div(cls := "not-found")(h1(trans.study.studyNotFound()))
+    views.base.embed
+      .minimal(title = s"404 - ${trans.study.studyNotFound.txt()}", cssKeys = List("bits.lpv.embed")):
+        div(cls := "not-found")(h1(trans.study.studyNotFound()))

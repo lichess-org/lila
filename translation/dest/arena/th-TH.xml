@@ -64,6 +64,9 @@
   <string name="bestResults">ผลลัพธ์ของเกมที่ดีที่สุด</string>
   <string name="stats">สถิติ</string>
   <string name="tournamentStats">สถิติของทัวร์นาเมนต์</string>
+  <string name="rankAvgHelp">อันดับเฉลี่ยคือเปอร์เซ็นต์ของอันดับของคุณ ยิ่งต่ำยิ่งดี
+
+ตัวอย่างเช่น การได้อันดับที่ 3 ในการแข่งขันที่มีผู้เล่น 100 คน = 3% อันดับที่ 10 ในการแข่งขันที่มีผู้เล่น 1,000 คน = 1%</string>
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">ค่ามัธฐาน</string>
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">ค่าเฉลี่ยทั้งหมดในหน้านี้คือ %s</string>
   <string name="total">ทั้งหมด</string>

@@ -21,6 +21,9 @@ object HTTPRequest:
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
 
+  def isXhrFromEmbed(req: RequestHeader) =
+    isXhr(req) && referer(req).exists(_.contains(s"${req.host}/embed/"))
+
   private val appOrigins = List(
     "capacitor://localhost", // ios
     "ionic://localhost",     // ios

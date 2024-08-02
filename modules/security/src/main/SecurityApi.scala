@@ -129,17 +129,19 @@ final class SecurityApi(
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
-    firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
-      appeal.authenticate(sessionId) match
-        case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
-        case None =>
-          store.authInfo(sessionId).flatMapz { d =>
-            userRepo.me(d.user).dmap {
-              _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
+    if HTTPRequest.isXhrFromEmbed(req) then fuccess(none)
+    else
+      firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
+        appeal.authenticate(sessionId) match
+          case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
+          case None =>
+            store.authInfo(sessionId).flatMapz { d =>
+              userRepo.me(d.user).dmap {
+                _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
+              }
             }
-          }
-      : Fu[Option[AppealOrUser]]
-    }
+        : Fu[Option[AppealOrUser]]
+      }
 
   def oauthScoped(
       req: RequestHeader,
@@ -193,7 +195,7 @@ final class SecurityApi(
     req.attrs.get[Cell[Session]](RequestAttrKey.Session) match
       case Some(session) => session.value.get(sessionIdKey).orElse(req.headers.get(sessionIdKey))
       case None =>
-        logger.warn(s"No session in request attrs: ${lila.common.HTTPRequest.print(req)}")
+        logger.warn(s"No session in request attrs: ${HTTPRequest.print(req)}")
         none
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)

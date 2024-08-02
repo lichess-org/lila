@@ -1,7 +1,7 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
 import { prop, defined } from 'common';
-import throttle, { throttlePromiseDelay } from 'common/throttle';
+import throttle, { throttlePromise } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
@@ -37,6 +37,7 @@ import {
   StudyDataFromServer,
   StudyData,
   ChapterPreviewFromServer,
+  ChapterSelect,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -164,11 +165,12 @@ export default class StudyCtrl {
         relayData,
         this.send,
         (redrawOnly = false) => (redrawOnly ? this.redraw() : this.redrawAndUpdateAddressBar()),
+        ctrl.isEmbed,
         this.members,
         this.chapters.list,
         this.multiCloudEval,
         () => this.data.federations,
-        id => this.setChapter(id),
+        this.chapterSelect,
       );
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
@@ -377,19 +379,16 @@ export default class StudyCtrl {
     this.updateAddressBar();
   };
 
-  xhrReload = throttlePromiseDelay(
-    () => 500,
-    () => {
-      this.vm.loading = true;
-      return xhr
-        .reload(
-          this.practice ? 'practice/load' : 'study',
-          this.data.id,
-          this.vm.mode.sticky ? undefined : this.vm.chapterId,
-        )
-        .then(this.onReload, site.reload);
-    },
-  );
+  xhrReload = throttlePromise(() => {
+    this.vm.loading = true;
+    return xhr
+      .reload(
+        this.practice ? 'practice/load' : 'study',
+        this.data.id,
+        this.vm.mode.sticky ? undefined : this.vm.chapterId,
+      )
+      .then(this.onReload, site.reload);
+  });
 
   onSetPath = throttle(300, (path: Tree.Path) => {
     if (this.vm.mode.sticky && path !== this.data.position.path)
@@ -448,7 +447,7 @@ export default class StudyCtrl {
 
   likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
 
-  setChapter = (idOrNumber: ChapterId | number, force?: boolean): boolean => {
+  setChapter = async (idOrNumber: ChapterId | number, force?: boolean): Promise<boolean> => {
     const prev = this.chapters.list.get(idOrNumber);
     const id = prev?.id;
     if (!id) {
@@ -456,23 +455,36 @@ export default class StudyCtrl {
       return false;
     }
     const alreadySet = id === this.vm.chapterId && !force;
-    if (this.relay?.tourShow()) {
-      this.relay.tourShow(false);
-      if (alreadySet) this.redraw();
+    if (alreadySet) {
+      this.relay?.tourShow(false);
+      this.redraw();
+      return true;
     }
-    if (alreadySet) return true;
-    if (!this.vm.mode.sticky || !this.makeChange('setChapter', id)) {
+    this.vm.nextChapterId = id;
+    this.vm.justSetChapterId = id;
+    if (this.vm.mode.sticky && this.makeChange('setChapter', id)) {
+      this.vm.loading = true;
+      this.redraw();
+    } else {
+      // not sticky, not sending the chapter change to the server
+      // so we need to apply the change locally immediately
+      // instead of awaiting the server chapter change event
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
-      this.xhrReload();
+      await this.xhrReload();
+      if (this.relay?.tourShow) {
+        this.relay?.tourShow(false);
+        this.redraw();
+      }
     }
-    this.vm.loading = true;
-    this.vm.nextChapterId = id;
-    this.vm.justSetChapterId = id;
-    this.redraw();
     window.scrollTo(0, 0);
     return true;
+  };
+
+  chapterSelect: ChapterSelect = {
+    is: (idOrNumber: ChapterId | number) => defined(this.chapters.list.get(idOrNumber)),
+    set: this.setChapter,
   };
 
   private deltaChapter = (delta: number): ChapterPreview | undefined => {
@@ -570,6 +582,7 @@ export default class StudyCtrl {
     return studyIdOffset === -1 ? `/study/${this.data.id}` : current.slice(0, studyIdOffset + 9);
   };
   updateAddressBar = () => {
+    if (this.ctrl.isEmbed) return;
     const studyUrl = this.baseUrl();
     const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
     if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
@@ -588,6 +601,8 @@ export default class StudyCtrl {
     }
     return !!this.relay?.socketHandler(t, d);
   };
+  addEmbedPrefix = (path: string) =>
+    this.ctrl.isEmbed && !path.startsWith('/embed/') ? '/embed' + path : path;
 
   socketHandlers: Handlers = {
     path: d => {

@@ -1,0 +1,56 @@
+$vp-min-width: 320px;
+$vp-max-width: 1200px;
+
+body {
+  ---site-header-height: 0px;
+  ---site-header-margin: 0px;
+  ---site-header-sticky-padding: 0px;
+  ---main-margin: 0px;
+  ---sticky-gap: 0px;
+  ---block-gap: 10px;
+
+  @media (min-width: at-least($small)) {
+    ---main-margin: 1vw;
+    ---block-gap: 15px;
+  }
+}
+
+/* game view */
+main.analyse {
+  /* In embed mode we don't want any space on the sides. Make the table expand to the full width */
+  $embed-uniboard-table: minmax(#{$col3-uniboard-table-min}, auto);
+  @include mq-at-least-col2 {
+    grid-template-columns: var(---col2-uniboard-width) $analyse-block-gap $embed-uniboard-table;
+    grid-template-areas:
+      'board      gauge tools'
+      'under      .     controls'
+      'under      .     round-training'
+      'under      .     side';
+  }
+
+  @include mq-at-least-col3 {
+    grid-template-columns: $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width) $analyse-block-gap $embed-uniboard-table;
+  }
+}
+
+/* tour view */
+main.is-relay.has-relay-tour {
+  grid-template-areas: 'relay-tour' 'side';
+
+  @include mq-at-least-col2 {
+    grid-template-rows: 100vh;
+    grid-template-areas: 'relay-tour . side';
+    .relay-games {
+      max-height: unset;
+    }
+  }
+
+  @include mq-at-least-col3 {
+    grid-template-areas: 'side . relay-tour relay-tour relay-tour';
+  }
+}
+
+.relay-tour__markup,
+.study__multiboard {
+  overflow-y: auto;
+}

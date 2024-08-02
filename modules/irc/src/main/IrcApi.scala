@@ -4,6 +4,7 @@ import lila.core.LightUser
 import lila.core.LightUser.Me.given
 import lila.core.id.*
 import lila.core.irc.*
+import lila.core.study.data.StudyChapterName
 
 final class IrcApi(
     zulip: ZulipClient,
@@ -113,6 +114,26 @@ final class IrcApi(
         .map: (chapterId, playerName) =>
           s"- ${markdown.broadcastGameLink(id, chapterId, playerName)}"
         .mkString("\n")
+
+  def broadcastAmbiguousPlayers(
+      id: RelayRoundId,
+      name: String,
+      players: List[(String, List[String])]
+  ): Funit =
+    zulip(_.broadcast, "lila ambiguous player replacements"):
+      s"${players.size} players have ambiguous name replacements in ${markdown.broadcastLink(id, name)}\n" + players
+        .map: (from, tos) =>
+          s"- $from -> ${tos.mkString(", ")}"
+        .mkString("\n")
+
+  def broadcastOrphanBoard(
+      id: RelayRoundId,
+      name: String,
+      chapterId: StudyChapterId,
+      boardName: StudyChapterName
+  ): Funit =
+    zulip(_.broadcast, "lila orphan boards"):
+      s"""Orphan board "${boardName}" in ${markdown.broadcastGameLink(id, chapterId, name)}"""
 
   def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
     zulip

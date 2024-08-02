@@ -156,8 +156,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   private def jsTag(key: String): Frag =
     script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
 
-  def modulesInit(modules: EsmList)(using ctx: PageContext) =
-    modules.flatMap(_.map(_.init(ctx.nonce))) // in body
+  def modulesInit(modules: EsmList, nonce: Optionce) =
+    modules.flatMap(_.map(_.init(nonce))) // in body
 
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""

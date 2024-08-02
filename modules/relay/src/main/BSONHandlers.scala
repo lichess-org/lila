@@ -40,6 +40,7 @@ object BSONHandlers:
 
   given BSONDocumentHandler[RelayRound] = Macros.handler
 
+  given BSONDocumentHandler[RelayPinnedStream]      = Macros.handler
   given BSONDocumentHandler[RelayTour.Spotlight]    = Macros.handler
   given BSONDocumentHandler[RelayTour.Info]         = Macros.handler
   given BSONDocumentHandler[RelayTour.Dates]        = Macros.handler

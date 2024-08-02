@@ -32,7 +32,7 @@ const makeConfig = (ctrl: RunCtrl): CgConfig => ({
   blockTouchScroll: true,
   coordinates: true,
   coordinatesOnSquares: ctrl.pref.coords === Prefs.Coords.All,
-  movable: { free: false, color: undefined },
+  movable: { free: false, color: undefined, showDests: ctrl.pref.destination },
   drawable: { enabled: false },
   draggable: { enabled: true },
   selectable: { enabled: true },

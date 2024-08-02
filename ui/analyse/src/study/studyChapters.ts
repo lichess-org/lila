@@ -18,6 +18,7 @@ import {
   Federations,
   ChapterPreviewPlayerFromServer,
   ChapterPreviewPlayer,
+  ChapterSelect,
 } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
@@ -138,15 +139,18 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
 export const gameLinkAttrs = (basePath: string, game: { id: ChapterId }) => ({
   href: `${basePath}/${game.id}`,
 });
-export const gameLinksListener = (setChapter: (id: ChapterId | number) => boolean) => (vnode: VNode) =>
+export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
   (vnode.elm as HTMLElement).addEventListener(
     'click',
-    e => {
+    async e => {
       let target = e.target as HTMLLinkElement;
       while (target && target.tagName !== 'A') target = target.parentNode as HTMLLinkElement;
       const href = target?.href;
       const id = target?.dataset['board'] || href?.match(/^[^?#]*/)?.[0].slice(-8);
-      if (id && setChapter(id) && !href?.match(/[?&]embed=/)) e.preventDefault();
+      if (id && select.is(id)) {
+        if (!href?.match(/[?&]embed=/)) e.preventDefault();
+        await select.set(id);
+      }
     },
     { passive: false },
   );

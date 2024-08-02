@@ -27,7 +27,7 @@ private final class RelayPlayersUpdate(
             _ <- chapterRepo
               .byStudiesSource(studyIds)
               .mapAsync(1): chapter =>
-                val newTags = newPlayers.update(chapter.tags)
+                val (newTags, _) = newPlayers.update(chapter.tags)
                 (newTags != chapter.tags).so:
                   enrichFromFideId(newTags)
                     .flatMap: enriched =>
