@@ -1,4 +1,5 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/guards.svg';
 
@@ -8,7 +9,7 @@ const common = {
   nbMoves: 1,
 };
 
-export default {
+const stage: StageNoID = {
   key: 'outOfCheck',
   title: 'outOfCheck',
   subtitle: 'defendYourKing',
@@ -48,3 +49,4 @@ export default {
   ].map((l, i) => toLevel({ ...common, ...l }, i)),
   complete: 'outOfCheckComplete',
 };
+export default stage;

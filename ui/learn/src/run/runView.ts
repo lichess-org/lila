@@ -7,20 +7,19 @@ import { LevelCtrl } from '../levelCtrl';
 import { RunCtrl } from './runCtrl';
 import { mapSideView } from '../mapSideView';
 import { LearnCtrl } from '../ctrl';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { makeStars, progressView } from '../progressView';
 import { promotionView } from '../promotionView';
 
-function renderFailed(ctrl: RunCtrl) {
-  return h('div.result.failed', { hook: bind('click', ctrl.restart) }, [
+const renderFailed = (ctrl: RunCtrl): VNode =>
+  h('div.result.failed', { hook: bind('click', ctrl.restart) }, [
     h('h2', ctrl.trans.noarg('puzzleFailed')),
     h('button', ctrl.trans.noarg('retry')),
   ]);
-}
 
-function renderCompleted(ctrl: RunCtrl, level: LevelCtrl) {
-  return h(
+const renderCompleted = (ctrl: RunCtrl, level: LevelCtrl): VNode =>
+  h(
     'div.result.completed',
     {
       class: { next: !!level.blueprint.nextButton },
@@ -33,7 +32,6 @@ function renderCompleted(ctrl: RunCtrl, level: LevelCtrl) {
         : makeStars(level.blueprint, level.vm.score),
     ],
   );
-}
 
 export const runView = (ctrl: LearnCtrl) => {
   const runCtrl = ctrl.runCtrl;

@@ -1,16 +1,17 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 import { mate, not } from '../assert';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/guillotine.svg';
 
-const common = () => ({
+const common = {
   nbMoves: 1,
   failure: not(mate),
   success: mate,
   showFailureFollowUp: true,
-});
+};
 
-export default {
+const stage: StageNoID = {
   key: 'checkmate1',
   title: 'mateInOne',
   subtitle: 'defeatTheOpponentsKing',
@@ -60,6 +61,7 @@ export default {
       goal: 'attackYourOpponentsKing',
       fen: 'r1b5/ppp5/2N2kpN/5q2/8/Q7/8/4B3 w - -',
     },
-  ].map((l, i) => toLevel({ ...common(), ...l }, i)),
+  ].map((l, i) => toLevel({ ...common, ...l }, i)),
   complete: 'mateInOneComplete',
 };
+export default stage;

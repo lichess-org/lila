@@ -1,6 +1,7 @@
 import { arrow, assetUrl, pieceImg, toLevel } from '../util';
+import { StageNoID } from './list';
 
-export default {
+const stage: StageNoID = {
   key: 'bishop',
   title: 'theBishop',
   subtitle: 'itMovesDiagonally',
@@ -48,3 +49,4 @@ export default {
   ].map(toLevel),
   complete: 'bishopComplete',
 };
+export default stage;

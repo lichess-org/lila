@@ -1,10 +1,9 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
-import { LevelPartial } from './list';
+import { LevelPartial, StageNoID } from './list';
 import { extinct } from '../assert';
 
 const imgUrl = assetUrl + 'images/learn/bowman.svg';
-
-export default {
+const stage: StageNoID = {
   key: 'capture',
   title: 'capture',
   subtitle: 'takeTheEnemyPieces',
@@ -48,12 +47,9 @@ export default {
       fen: '8/3b4/2p2q2/8/3p1N2/8/8/8 w - -',
       nbMoves: 6,
       captures: 4,
-      success: extinct('black'),
     },
-  ].map((l: LevelPartial, i) => {
-    l.pointsForCapture = true;
-    l.success = extinct('black');
-    return toLevel(l, i);
-  }),
+  ].map((l: LevelPartial, i) => toLevel({ ...l, pointsForCapture: true, success: extinct('black') }, i)),
   complete: 'captureComplete',
 };
+
+export default stage;

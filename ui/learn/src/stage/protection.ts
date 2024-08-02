@@ -1,8 +1,9 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/bolt-shield.svg';
 
-export default {
+const stage: StageNoID = {
   key: 'protection',
   title: 'protection',
   subtitle: 'keepYourPiecesSafe',
@@ -55,3 +56,4 @@ export default {
   ].map((l, i) => toLevel({ nbMoves: 1, ...l }, i)),
   complete: 'protectionComplete',
 };
+export default stage;

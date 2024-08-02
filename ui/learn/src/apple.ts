@@ -100,11 +100,9 @@ const svg = (key: string) => `
     </g>
 </g>`;
 
-export const makeAppleShape = (key: Key): DrawShape => {
-  return {
-    orig: key,
-    customSvg: {
-      html: svg(key),
-    },
-  };
-};
+export const makeAppleShape = (key: Key): DrawShape => ({
+  orig: key,
+  customSvg: {
+    html: svg(key),
+  },
+});

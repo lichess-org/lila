@@ -1,6 +1,7 @@
 import { arrow, assetUrl, pieceImg, toLevel } from '../util';
+import { StageNoID } from './list';
 
-export default {
+const stage: StageNoID = {
   key: 'queen',
   title: 'theQueen',
   subtitle: 'queenCombinesRookAndBishop',
@@ -42,3 +43,4 @@ export default {
   ].map(toLevel),
   complete: 'queenComplete',
 };
+export default stage;

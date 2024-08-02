@@ -1,6 +1,6 @@
 import { and, lastMoveSan, not, or, pieceNotOn, mate } from '../assert';
 import { arrow, assetUrl, circle, roundSvg, toLevel } from '../util';
-import { LevelPartial } from './list';
+import { LevelPartial, StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/castle.svg';
 
@@ -23,7 +23,7 @@ const cantCastleQueenSide9 = and(
   or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'a1'), mate, pieceNotOn('k', 'd8')),
 );
 
-export default {
+const stage: StageNoID = {
   key: 'castling',
   title: 'castling',
   subtitle: 'theSpecialKingMove',
@@ -106,9 +106,7 @@ export default {
       failure: cantCastleQueenSide9,
       detectCapture: false,
     },
-  ].map((l: LevelPartial, i) => {
-    l.autoCastle = true;
-    return toLevel(l, i);
-  }),
+  ].map((l: LevelPartial, i) => toLevel({ ...l, autoCastle: true }, i)),
   complete: 'castlingComplete',
 };
+export default stage;

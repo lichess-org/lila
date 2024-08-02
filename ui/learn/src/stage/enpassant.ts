@@ -1,9 +1,10 @@
 import { scenarioComplete, scenarioFailed } from '../assert';
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/spinning-blades.svg';
 
-export default {
+const stage: StageNoID = {
   key: 'enpassant',
   title: 'enPassant',
   subtitle: 'theSpecialPawnMove',
@@ -77,3 +78,4 @@ export default {
   ].map(toLevel),
   complete: 'enPassantComplete',
 };
+export default stage;
