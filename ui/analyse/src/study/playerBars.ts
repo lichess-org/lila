@@ -66,7 +66,8 @@ function renderPlayer(
 }
 
 export const playerFed = (fed?: Federation): VNode | undefined =>
-  fed &&
-  h('img.mini-game__flag', {
-    attrs: { src: site.asset.url(`images/fide-fed/${fed.id}.svg`), title: `Federation: ${fed.name}` },
-  });
+  fed && fed.id !== 'NON'
+    ? h('img.mini-game__flag', {
+        attrs: { src: site.asset.url(`images/fide-fed/${fed.id}.svg`), title: `Federation: ${fed.name}` },
+      })
+    : undefined;

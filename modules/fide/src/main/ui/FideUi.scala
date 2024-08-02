@@ -173,8 +173,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
               td(a(href := routes.Fide.show(player.id, player.slug))(titleTag(player.title), player.name)),
               withFlag.option(td:
                 player.fed.map: fed =>
-                  a(href := routes.Fide.federation(Federation.name(fed))):
+                  (fed != Federation.idNone).option(a(href := routes.Fide.federation(Federation.name(fed))):
                     federation.flag(fed, Federation.names.get(fed))
+                  )
               ),
               td(player.standard),
               td(player.rapid),
