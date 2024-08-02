@@ -185,9 +185,9 @@ const overview = (ctx: RelayViewContext) => {
   ];
 };
 
-const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
-  const toggle = relay.groupSelectShow;
-  const clickHook = { hook: bind('click', toggle.toggle, relay.redraw) };
+const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
+  const toggle = ctx.relay.groupSelectShow;
+  const clickHook = { hook: bind('click', toggle.toggle, ctx.relay.redraw) };
   return h(
     'div.mselect.relay-tour__mselect.relay-tour__group-select',
     {
@@ -197,7 +197,7 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
       h(
         'label.mselect__label',
         clickHook,
-        group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
+        group.tours.find(t => t.id == ctx.relay.data.tour.id)?.name || ctx.relay.data.tour.name,
       ),
       ...(toggle()
         ? [
@@ -206,8 +206,8 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
               'nav.mselect__list',
               group.tours.map(tour =>
                 h(
-                  `a.mselect__item${tour.id == relay.data.tour.id ? '.current' : ''}`,
-                  { attrs: { href: `/broadcast/-/${tour.id}` } },
+                  `a.mselect__item${tour.id == ctx.relay.data.tour.id ? '.current' : ''}`,
+                  { attrs: { href: ctx.study.addEmbedPrefix(`/broadcast/-/${tour.id}`) } },
                   tour.name,
                 ),
               ),
@@ -295,7 +295,6 @@ const stats = (ctx: RelayViewContext) => [...header(ctx), statsView(ctx.relay.st
 const header = (ctx: RelayViewContext) => {
   const { ctrl, relay, allowVideo } = ctx;
   const d = relay.data,
-    study = ctrl.study!,
     group = d.group,
     embedVideo = d.videoUrls && allowVideo;
 
@@ -304,8 +303,8 @@ const header = (ctx: RelayViewContext) => {
       h('div.relay-tour__header__content', [
         h('h1', group?.name || d.tour.name),
         h('div.relay-tour__header__selectors', [
-          group && groupSelect(relay, group),
-          roundSelect(relay, study),
+          group && groupSelect(ctx, group),
+          roundSelect(relay, ctx.study),
         ]),
       ]),
       h(
@@ -314,7 +313,7 @@ const header = (ctx: RelayViewContext) => {
           ? renderVideoPlayer(relay)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
-          : study.members.isOwner()
+          : ctx.study.members.isOwner()
           ? h(
               'a.button.relay-tour__header__image-upload',
               { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
