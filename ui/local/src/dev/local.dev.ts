@@ -21,8 +21,8 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   devRepo.share = new ShareCtrl(botCtrl);
   await botCtrl.init(opts.bots);
 
-  if (localStorage.getItem('local.setup')) {
-    if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.setup')!);
+  if (localStorage.getItem('local.dev.setup')) {
+    if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.dev.setup')!);
   }
   if (opts.setup) {
     botCtrl.whiteUid = opts.setup.white;

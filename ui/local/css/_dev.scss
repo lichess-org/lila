@@ -6,7 +6,7 @@
   flex-flow: column;
   justify-content: stretch;
 
-  input:not([type='text'], [type='number']) {
+  input:not([type='text']) {
     cursor: pointer;
   }
   span,
@@ -65,15 +65,15 @@
     flex: 1 1 auto;
   }
   .fen {
+    //font-family: monospace;
+    //font-size: smallest;
     &::placeholder {
-      font-family: monospace;
       color: #888;
     }
     width: 100%;
   }
   .num-games {
-    margin-inline-start: auto;
-    width: 80px;
+    width: 50px;
   }
   .results-action {
     flex: auto;
@@ -157,7 +157,7 @@
   z-index: z(mz-menu);
   width: 100%;
   background: $c-bg-high;
-  gap: 1.5em;
+  gap: 1em;
   padding: 2em 1.5em;
 
   > hr {

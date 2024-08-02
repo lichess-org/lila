@@ -93,10 +93,11 @@ export class GameCtrl {
   async stop(): Promise<void> {
     if (this.isStopped) return;
     this.stopped = true;
+    this.cancelBotThink?.();
   }
 
   reset(setup: LocalSetup = this.setup): void {
-    this.setup = setup;
+    this.setup = { ...this.setup, ...setup };
     this.botCtrl.whiteUid = this.setup.white;
     this.botCtrl.blackUid = this.setup.black;
     this.resetBoard();
@@ -178,6 +179,10 @@ export class GameCtrl {
       ); // forever haunted by promotion craplets
 
     if (end) this.gameOver(moveResult);
+    if (this.clock?.increment && this.clock?.initial) {
+      this.clock[justPlayed] += this.clock.increment;
+      this.syncClock();
+    }
     this.redraw();
     return !end;
   }

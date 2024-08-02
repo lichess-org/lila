@@ -10,6 +10,7 @@ import { handOfCards, type Drop, type HandOfCards } from '../handOfCards';
 import { domIdToUid, uidToDomId, type BotCtrl } from '../botCtrl';
 import type { DevCtrl } from './devCtrl';
 import type { GameCtrl } from '../gameCtrl';
+import { rangeTicks } from '../gameView';
 import { defined } from 'common';
 
 interface DevContext {
@@ -28,40 +29,12 @@ function devContext(devCtrl: DevCtrl): DevContext {
 
 export function renderDevView(devCtrl: DevCtrl): VNode {
   const ctx = devContext(devCtrl);
-  return h('div.dev-side', [
+  return h('div.dev-side.dev-view', [
     h('div', player(ctx, co.opposite(ctx.gameCtrl.cgOrientation))),
     dashboard(ctx),
     progress(ctx),
     h('div', player(ctx, ctx.gameCtrl.cgOrientation)),
   ]);
-}
-
-let botSelector: HandOfCards | undefined;
-function showBotSelector({ gameCtrl, botCtrl }: DevContext, clickedEl: HTMLElement) {
-  const cardData = [...Object.values(botCtrl.bots).map(b => botCtrl.card(b))].filter(defined);
-  const main = document.querySelector('main') as HTMLElement;
-  const drops: Drop[] = [];
-  main.classList.add('with-cards');
-
-  document.querySelectorAll('main .player')?.forEach(el => {
-    const selected = uidToDomId(botCtrl[el.classList.contains('white') ? 'white' : 'black']?.uid);
-    drops.push({ el: el as HTMLElement, selected });
-  });
-  botSelector?.remove();
-  botSelector = handOfCards({
-    getView: () => main,
-    getDrops: () => drops,
-    getCardData: () => cardData,
-    select: (el, domId) => {
-      const uid = domIdToUid(domId);
-      if ((el ?? clickedEl).classList.contains('white')) botCtrl.whiteUid = uid;
-      else botCtrl.blackUid = uid;
-      gameCtrl.redraw();
-    },
-    orientation: 'left',
-    transient: true,
-    autoResize: true,
-  });
 }
 
 function player(ctx: DevContext, color: Color): VNode {
@@ -131,12 +104,72 @@ async function editBot({ devCtrl, botCtrl }: DevContext, color: Color) {
   devCtrl.redraw();
 }
 
+function clockOptions(ctx: DevContext) {
+  return h('span', [
+    'clock',
+    ...(['initial', 'increment'] as const).map(type => {
+      const val = ctx.gameCtrl.setup[type] ?? 0;
+      return h(
+        `select.${type}`,
+        {
+          hook: onInsert(el => el.addEventListener('change', () => reset(ctx))),
+        },
+        [
+          ...rangeTicks[type].map(([secs, label]) =>
+            h('option', { attrs: { value: secs, selected: secs === val } }, label),
+          ),
+        ],
+      );
+    }),
+  ]);
+}
+
+function reset({ gameCtrl, botCtrl }: DevContext) {
+  const initial = parseInt((document.querySelector('.initial') as HTMLSelectElement).value);
+  const increment = parseInt((document.querySelector('.increment') as HTMLSelectElement).value);
+  const white = botCtrl.white?.uid;
+  const black = botCtrl.black?.uid;
+  const fen = (document.querySelector('.fen') as HTMLInputElement).value || co.fen.INITIAL_FEN;
+  gameCtrl.reset({ initial, increment, white, black, fen });
+  localStorage.setItem('local.dev.setup', JSON.stringify(gameCtrl.setup));
+  gameCtrl.redraw();
+}
+
 function dashboard(ctx: DevContext) {
   const { botCtrl, gameCtrl, devCtrl } = ctx;
 
   return h('div.dev-dashboard', [
     fen(ctx),
+    clockOptions(ctx),
     h('span', [
+      h('span', [
+        h('input', {
+          attrs: { type: 'checkbox', checked: devCtrl.skipTheatrics },
+          hook: bind('change', e => {
+            devCtrl.skipTheatrics = (e.target as HTMLInputElement).checked;
+            localStorage.setItem('local.dev.skipTheatrics', devCtrl.skipTheatrics ? '1' : '0');
+          }),
+        }),
+        'hurry',
+      ]),
+      h('div.spacer'),
+      'games',
+      h('input.num-games', {
+        attrs: { type: 'text', value: '1' },
+        hook: bind('input', e => {
+          const el = e.target as HTMLInputElement;
+          const val = Number(el.value);
+          el.classList.toggle('invalid', val < 1 || val > 1000 || isNaN(val));
+        }),
+      }),
+    ]),
+    h('span', [
+      h(
+        'button.button.button-metal',
+        { hook: onInsert(el => el.addEventListener('click', () => roundRobin(ctx))) },
+        'round robin',
+      ),
+      h('div.spacer'),
       h(`button.refresh.button.button-metal`, {
         hook: onInsert(el =>
           el.addEventListener('click', () => {
@@ -145,37 +178,7 @@ function dashboard(ctx: DevContext) {
           }),
         ),
       }),
-      h(
-        'button#new.button.button-metal',
-        {
-          hook: onInsert(el =>
-            el.addEventListener('click', () => {
-              const setup = { white: botCtrl.white?.uid, black: botCtrl.black?.uid };
-              new SetupDialog(botCtrl, { ...gameCtrl.setup, ...setup });
-            }),
-          ),
-        },
-        'setup',
-      ),
-      h('input.num-games', { attrs: { type: 'number', min: '1', max: '1000', value: '1' } }),
       renderPlayPause(ctx),
-    ]),
-    h('span', [
-      h(
-        'button.button.button-metal',
-        { hook: onInsert(el => el.addEventListener('click', () => roundRobin(ctx))) },
-        'round robin',
-      ),
-      h('span', [
-        'turbo',
-        h('input', {
-          attrs: { type: 'checkbox', checked: devCtrl.skipTheatrics },
-          hook: bind('change', e => {
-            devCtrl.skipTheatrics = (e.target as HTMLInputElement).checked;
-            localStorage.setItem('local.dev.skipTheatrics', devCtrl.skipTheatrics ? '1' : '0');
-          }),
-        }),
-      ]),
     ]),
   ]);
 }
@@ -193,48 +196,54 @@ function progress(ctx: DevContext) {
   ]);
 }
 
-function renderPlayPause(ctx: DevContext): VNode {
-  const { devCtrl, gameCtrl } = ctx;
+function renderPlayPause({ devCtrl, botCtrl, gameCtrl }: DevContext): VNode {
+  const disabled = gameCtrl.isUserTurn;
+  const paused = gameCtrl.isStopped || gameCtrl.game.end;
   return h(
-    `button.play-pause.button.button-metal${
-      gameCtrl.isUserTurn ? '.play.disabled' : gameCtrl.isStopped ? '.play' : '.pause'
-    }`,
-    { hook: onInsert(el => el.addEventListener('click', () => clickPlayPause(ctx))) },
+    `button.play-pause.button.button-metal${disabled ? '.play.disabled' : paused ? '.play' : '.pause'}`,
+    {
+      hook: onInsert(el =>
+        el.addEventListener('click', () => {
+          if (devCtrl.hasUser && gameCtrl.isStopped) gameCtrl.start();
+          else if (!paused) gameCtrl.stop();
+          else {
+            if (devCtrl.gameInProgress) gameCtrl.start();
+            else {
+              const numGamesField = document.querySelector('.num-games') as HTMLInputElement;
+              if (numGamesField.classList.contains('invalid')) {
+                numGamesField.focus();
+                return;
+              }
+              const numGames = Number(numGamesField.value);
+              devCtrl.run({ type: 'matchup', players: [botCtrl.white!.uid, botCtrl.black!.uid] }, numGames);
+            }
+          }
+          devCtrl.gameCtrl.redraw();
+        }),
+      ),
+    },
   );
 }
 
-function clickPlayPause({ devCtrl, gameCtrl, botCtrl }: DevContext) {
-  if (devCtrl.hasUser && gameCtrl.isStopped) gameCtrl.start();
-  else if (!gameCtrl.isStopped) gameCtrl.stop();
-  else {
-    if (devCtrl.gameInProgress) gameCtrl.start();
-    else {
-      devCtrl.run(
-        { type: 'matchup', players: [botCtrl.white!.uid, botCtrl.black!.uid] },
-        parseInt($('.num-games').val() as string) || 1,
-      );
-    }
-  }
-  devCtrl.gameCtrl.redraw();
-}
-
-function fen({ devCtrl, gameCtrl }: DevContext): VNode {
+function fen(ctx: DevContext): VNode {
+  const { devCtrl, gameCtrl } = ctx;
   return h('input.fen', {
-    attrs: { value: gameCtrl.fen, spellcheck: 'false' },
+    attrs: {
+      type: 'text',
+      value: gameCtrl.fen === co.fen.INITIAL_FEN ? '' : gameCtrl.fen,
+      spellcheck: 'false',
+      placeholder: co.fen.INITIAL_FEN,
+    },
     hook: bind('input', e => {
       let fen = co.fen.INITIAL_FEN;
       const el = e.target as HTMLInputElement;
       if (!el.value || co.fen.parseFen(el.value).isOk) fen = el.value || co.fen.INITIAL_FEN;
       else {
-        el.style.backgroundColor = 'red';
+        el.classList.add('invalid');
         return;
       }
-      el.style.backgroundColor = '';
-      if (fen) {
-        gameCtrl.resetBoard(fen);
-        if (!gameCtrl.isStopped && !gameCtrl.isUserTurn) gameCtrl.botMove();
-        devCtrl.redraw();
-      }
+      el.classList.remove('invalid');
+      if (fen) reset(ctx);
     }),
     props: { value: devCtrl.startingFen },
   });
@@ -287,5 +296,34 @@ function roundRobin({ devCtrl, botCtrl }: DevContext) {
       },
     ],
     show: 'modal',
+  });
+}
+
+let botSelector: HandOfCards | undefined;
+function showBotSelector(ctx: DevContext, clickedEl: HTMLElement) {
+  const { botCtrl } = ctx;
+  const cardData = [...Object.values(botCtrl.bots).map(b => botCtrl.card(b))].filter(defined);
+  const main = document.querySelector('main') as HTMLElement;
+  const drops: Drop[] = [];
+  main.classList.add('with-cards');
+
+  document.querySelectorAll('main .player')?.forEach(el => {
+    const selected = uidToDomId(botCtrl[el.classList.contains('white') ? 'white' : 'black']?.uid);
+    drops.push({ el: el as HTMLElement, selected });
+  });
+  botSelector?.remove();
+  botSelector = handOfCards({
+    getView: () => main,
+    getDrops: () => drops,
+    getCardData: () => cardData,
+    select: (el, domId) => {
+      const uid = domIdToUid(domId);
+      if ((el ?? clickedEl).classList.contains('white')) botCtrl.whiteUid = uid;
+      else botCtrl.blackUid = uid;
+      reset(ctx);
+    },
+    orientation: 'left',
+    transient: true,
+    autoResize: true,
   });
 }

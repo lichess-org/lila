@@ -256,7 +256,9 @@ export class SelectSetting extends Pane<SelectInfo> {
 }
 
 export class TextSetting extends Pane<TextInfo> {
-  input: HTMLInputElement = $as<HTMLInputElement>('<input type="text" data-type="string">');
+  input: HTMLInputElement = $as<HTMLInputElement>(
+    '<input type="text" data-type="string" spellcheck="false">',
+  );
   constructor(p: PaneArgs) {
     super(p);
     this.init();
@@ -267,7 +269,7 @@ export class TextSetting extends Pane<TextInfo> {
 }
 
 export class TextareaSetting extends Pane<TextareaInfo> {
-  input: HTMLTextAreaElement = $as<HTMLTextAreaElement>('<textarea data-type="string">');
+  input: HTMLTextAreaElement = $as<HTMLTextAreaElement>('<textarea data-type="string" spellcheck="false">');
   constructor(p: PaneArgs) {
     super(p);
     this.init();
