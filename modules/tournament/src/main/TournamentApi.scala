@@ -15,7 +15,6 @@ import lila.core.team.LightTeam
 import lila.core.tournament.Status
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.core.userId.UserId.lichess
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -269,47 +268,45 @@ final class TournamentApi(
         import Tournament.JoinResult
 
         val fuBlock: Fu[Boolean] =
-          if tour.createdBy == lichess then fuccess(false)
-               // TODO, really check blocks on every join...?
+          if tour.createdBy.is(UserId.lichess) then fuccess(false)
           else relationApi.fetchBlocks(tour.createdBy, me)
 
         val fuResult: Fu[JoinResult] =
           fuBlock.flatMap: blocked =>
             if blocked then fuccess(JoinResult.Blocked)
-            else
-              if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
-              else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
-              else if prevPlayer.nonEmpty || tour.password.forall: p =>
-                  // plain text access code
-                  MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
-                    // user-specific access code: HMAC-SHA256(access code, user id)
-                    MessageDigest.isEqual(
-                      Algo.hmac(p).sha256(me.userId.value).hex.getBytes(UTF_8),
-                      (~data.password).getBytes(UTF_8)
-                    )
-              then
-                getVerdicts(tour, prevPlayer.isDefined).flatMap: verdicts =>
-                  if !verdicts.accepted then fuccess(JoinResult.Verdicts)
-                  else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
-                  else
-                    def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
-                      user <- userApi.withPerf(me.value, tour.perfType)
-                      _    <- playerRepo.join(tour.id, user, team, prevPlayer)
-                      _    <- updateNbPlayers(tour.id)
-                    yield
-                      publish()
-                      JoinResult.Ok
-                    tour.teamBattle.fold(proceedWithTeam(none)): battle =>
-                      if prevPlayer.isDefined && tour.imminentStart then fuccess(JoinResult.Ok)
-                      else
-                        data.team match
-                          case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
-                          case Some(team) if battle.teams.contains(team) =>
-                            getMyTeamIds(me.lightMe).flatMap: myTeams =>
-                              if myTeams.has(team) then proceedWithTeam(team.some)
-                              else fuccess(JoinResult.MissingTeam)
-                          case _ => fuccess(JoinResult.MissingTeam)
-              else fuccess(JoinResult.WrongEntryCode)
+            else if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
+            else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
+            else if prevPlayer.nonEmpty || tour.password.forall: p =>
+                // plain text access code
+                MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
+                  // user-specific access code: HMAC-SHA256(access code, user id)
+                  MessageDigest.isEqual(
+                    Algo.hmac(p).sha256(me.userId.value).hex.getBytes(UTF_8),
+                    (~data.password).getBytes(UTF_8)
+                  )
+            then
+              getVerdicts(tour, prevPlayer.isDefined).flatMap: verdicts =>
+                if !verdicts.accepted then fuccess(JoinResult.Verdicts)
+                else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
+                else
+                  def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
+                    user <- userApi.withPerf(me.value, tour.perfType)
+                    _    <- playerRepo.join(tour.id, user, team, prevPlayer)
+                    _    <- updateNbPlayers(tour.id)
+                  yield
+                    publish()
+                    JoinResult.Ok
+                  tour.teamBattle.fold(proceedWithTeam(none)): battle =>
+                    if prevPlayer.isDefined && tour.imminentStart then fuccess(JoinResult.Ok)
+                    else
+                      data.team match
+                        case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
+                        case Some(team) if battle.teams.contains(team) =>
+                          getMyTeamIds(me.lightMe).flatMap: myTeams =>
+                            if myTeams.has(team) then proceedWithTeam(team.some)
+                            else fuccess(JoinResult.MissingTeam)
+                        case _ => fuccess(JoinResult.MissingTeam)
+            else fuccess(JoinResult.WrongEntryCode)
         fuResult.map: result =>
           if result.ok then
             data.team.ifTrue(asLeader && tour.isTeamBattle).foreach {
