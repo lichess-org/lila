@@ -219,5 +219,4 @@ object Tournament:
     case MissingTeam    extends JoinResult("Missing team".some)
     case ArenaBanned    extends JoinResult("You are not allowed to join arenas".some)
     case PrizeBanned    extends JoinResult("You are not allowed to play in prized tournaments".some)
-    case Blocked        extends JoinResult("You are blocked".some)
     case Nope           extends JoinResult("Couldn't join for some reason?".some)
