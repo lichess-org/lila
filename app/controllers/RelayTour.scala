@@ -6,7 +6,7 @@ import scalalib.Json.given
 import lila.app.{ *, given }
 import lila.core.id.RelayTourId
 import lila.core.net.IpAddress
-import lila.relay.RelayTour as TourModel
+import lila.relay.{ JsonView, RelayTour as TourModel }
 import lila.relay.ui.FormNavigation
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
@@ -209,6 +209,8 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         (active, upcoming, past) <- env.relay.top(page)
         res                      <- JsonOk(env.relay.jsonView.top(active, upcoming, past))
       yield res
+
+  private given (using RequestHeader): JsonView.Config = JsonView.Config(html = getBool("html"))
 
   private def WithTour(id: RelayTourId)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api.tourById(id))(f)

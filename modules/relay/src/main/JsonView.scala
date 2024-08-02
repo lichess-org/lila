@@ -18,7 +18,7 @@ final class JsonView(
     picfitUrl: PicfitUrl
 )(using Executor):
 
-  import JsonView.given
+  import JsonView.{ Config, given }
 
   given Writes[Option[RelayTour.Tier]] = Writes: t =>
     JsString(t.flatMap(RelayTour.Tier.keys.get) | "user")
@@ -50,14 +50,16 @@ final class JsonView(
       "tours" -> g.withShorterTourNames.tours
     )
 
-  def fullTour(tour: RelayTour): JsObject =
+  def fullTour(tour: RelayTour)(using config: Config): JsObject =
     Json
       .toJsObject(tour)
-      .add("markup" -> tour.markup.map(markup(tour)))
+      .add("description" -> tour.markup.map: md =>
+        if config.html then markup(tour)(md).value
+        else md.value)
       .add("teamTable" -> tour.teamTable)
       .add("leaderboard" -> tour.autoLeaderboard)
 
-  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours]): JsObject =
+  def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json
       .obj(
         "tour" -> fullTour(trs.tour),
@@ -66,7 +68,7 @@ final class JsonView(
       )
       .add("group" -> group)
 
-  def apply(t: RelayTour | WithLastRound | ActiveWithSomeRounds): JsObject = t match
+  def apply(t: RelayTour | WithLastRound | ActiveWithSomeRounds)(using Config): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
@@ -123,6 +125,7 @@ final class JsonView(
       videoUrls: Option[PairOf[String]],
       pinned: Option[RelayPinnedStream]
   ) =
+    given Config = Config(html = true)
     JsonView.JsData(
       relay = fullTourWithRounds(trs, group)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
@@ -139,7 +142,7 @@ final class JsonView(
       active: List[ActiveWithSomeRounds],
       upcoming: List[WithLastRound],
       past: Paginator[WithLastRound]
-  ) =
+  )(using Config) =
     Json.obj(
       "active"   -> active.sortBy(t => -(~t.tour.tier)).map(apply(_)),
       "upcoming" -> upcoming.map(apply(_)),
@@ -147,6 +150,8 @@ final class JsonView(
     )
 
 object JsonView:
+
+  case class Config(html: Boolean)
 
   case class JsData(relay: JsObject, study: JsObject, analysis: JsObject, group: Option[RelayGroup.Name])
 
