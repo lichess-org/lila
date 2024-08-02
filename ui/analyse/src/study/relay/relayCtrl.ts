@@ -38,7 +38,7 @@ export default class RelayCtrl {
     private readonly federations: () => Federations | undefined,
     setChapter: (id: ChapterId | number) => Promise<boolean>,
   ) {
-    this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
+    this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
@@ -117,7 +117,7 @@ export default class RelayCtrl {
     !this.currentRound().finished &&
     Date.now() > this.currentRound().startsAt! - 1000 * 3600;
 
-  closeEmbed = () => {
+  closeVideoPlayer = () => {
     const url = new URL(location.href);
     url.searchParams.set('embed', 'no');
     url.searchParams.set('nonce', `${Date.now()}`);

@@ -594,6 +594,8 @@ export default class StudyCtrl {
     }
     return !!this.relay?.socketHandler(t, d);
   };
+  addEmbedPrefix = (path: string) =>
+    this.ctrl.isEmbed && !path.startsWith('/embed/') ? '/embed' + path : path;
 
   socketHandlers: Handlers = {
     path: d => {

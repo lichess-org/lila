@@ -135,7 +135,7 @@ final class RelayRound(
                     rt.round.id,
                     studyData,
                     group,
-                    ctx.userId.exists(sc.study.canContribute),
+                    canContrib = false,
                     isSubscribed = none,
                     videoUrls = none,
                     pinned = none

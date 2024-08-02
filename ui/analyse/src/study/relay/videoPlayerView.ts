@@ -48,7 +48,7 @@ class VideoPlayer {
     this.close = document.createElement('img');
     this.close.src = site.asset.flairSrc('symbols.cancel');
     this.close.className = 'video-player-close';
-    this.close.addEventListener('click', this.relay.closeEmbed, true);
+    this.close.addEventListener('click', this.relay.closeVideoPlayer, true);
   }
 
   cover(el?: HTMLElement) {

@@ -254,7 +254,14 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                   },
                   relay.data.rounds.map(round =>
                     h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
-                      h('td.name', h('a', { attrs: { href: relay.roundUrlWithHash(round) } }, round.name)),
+                      h(
+                        'td.name',
+                        h(
+                          'a',
+                          { attrs: { href: study.addEmbedPrefix(relay.roundUrlWithHash(round)) } },
+                          round.name,
+                        ),
+                      ),
                       h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
                       h(
                         'td.status',
