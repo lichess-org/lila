@@ -40,8 +40,7 @@ final class UblogApi(
 
   private def onFirstPublish(author: User, blog: UblogBlog, post: UblogPost): Funit =
     rank
-      .computeRank(blog.pp("blog"), post)
-      .pp("rank")
+      .computeRank(blog, post)
       .so: rank =>
         colls.post.updateField($id(post.id), "rank", rank).void
       .andDo:
