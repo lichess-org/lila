@@ -91,15 +91,15 @@ final class IrcApi(
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
 
   def ublogPost(
-      userId: UserId,
+      user: LightUser,
       id: UblogPostId,
       slug: String,
       title: String,
       intro: String
   ): Funit =
     zulip(_.blog, "non-tiered new posts"):
-      val link = markdown.lichessLink(s"/@/${userId}/blog/$slug/$id", title)
-      s":note: $link $intro - by ${markdown.userIdLink(userId)}"
+      val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
+      s":note: $link $intro - by ${markdown.userLink(user)}"
 
   def broadcastStart(id: RelayRoundId, fullName: String): Funit =
     zulip(_.broadcast, "non-tiered broadcasts"):
@@ -206,7 +206,6 @@ object IrcApi:
   private object markdown:
     def link(url: String, name: String)             = s"[$name]($url)"
     def lichessLink[N: Show](path: String, name: N) = show"[$name](https://lichess.org$path)"
-    def userIdLink(id: UserId): String              = lichessLink(s"/@/$id?mod&notes", id)
     def userLink(name: UserName): String            = lichessLink(s"/@/$name?mod&notes", name.value)
     def userLink(user: LightUser): String           = userLink(user.name)
     def userLinkNoNotes(name: UserName): String     = lichessLink(s"/@/$name?mod", name.value)

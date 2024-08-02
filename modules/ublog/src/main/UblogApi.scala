@@ -34,12 +34,11 @@ final class UblogApi(
     getUserBlog(me.value, insertMissing = true).flatMap { blog =>
       val post = data.update(me.value, prev)
       (colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty).so(onFirstPublish(blog, post))
+        (post.live && prev.lived.isEmpty).so(onFirstPublish(me.value, blog, post))
       }).inject(post)
     }
 
-  private def onFirstPublish(blog: UblogBlog, post: UblogPost): Funit =
-    val author = post.created.by
+  private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
     rank
       .computeRank(blog, post)
       .so: rank =>
@@ -48,10 +47,9 @@ final class UblogApi(
         lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
         if blog.visible then
           lila.common.Bus.pub:
-            tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
-              .toFollowersOf(post.created.by)
-          shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
-          if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
+            tl.Propagate(tl.UblogPost(user.id, post.id, post.slug, post.title)).toFollowersOf(post.created.by)
+          shutupApi.publicText(user.id, post.allText, PublicSource.Ublog(post.id))
+          if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)).getOrElse(
@@ -147,10 +145,10 @@ final class UblogApi(
 
     def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
 
-  private def sendPostToZulipMaybe(userId: UserId, post: UblogPost): Funit =
+  private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
     (post.markdown.value.sizeIs > 1000).so(
       irc.ublogPost(
-        userId,
+        user.light,
         id = post.id,
         slug = post.slug,
         title = post.title,
