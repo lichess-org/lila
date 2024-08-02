@@ -139,6 +139,22 @@ final class SitePages(helpers: Helpers):
               p("The text is automatically translated to your visitor's language.")
             )
           )
+        },
+        br,
+        st.section(cls := "box box-pad developers") {
+          val args = """style="width: 100%; aspect-ratio: 4/3;" frameborder="0""""
+          frag(
+            h1(cls := "box__top")("Embed a broadcast in your site"),
+            div(cls := "body")(
+              div(cls := "center"):
+                raw(
+                  s"""<iframe src="/embed/broadcast/sixdays-budapest-july-2024--gm-a/round-4/Cfu9KXTq?bg=auto&theme=auto" $args></iframe>"""
+                )
+              ,
+              parameters,
+              p("The text is automatically translated to your visitor's language.")
+            )
+          )
         }
       )
 
