@@ -84,26 +84,27 @@ final private class RelayFetch(
     val updating = Updating(rt.round)
     if !rt.round.sync.playing then fuccess(updating(_.withSync(_.play(rt.tour.official))))
     else
-      fetchGames(rt)
-        .map(RelayGame.filter(rt.round.sync.onlyRound))
-        .map(RelayGame.Slices.filter(~rt.round.sync.slices))
-        .flatMap(playersApi.updateAndReportAmbiguous(rt))
-        .flatMap(fidePlayers.enrichGames(rt.tour))
-        .map(games => rt.tour.teams.fold(games)(_.update(games)))
-        .mon(_.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug))
-        .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.tour.id, rt.round.slug).update(gs.size))
-        .flatMap: games =>
-          sync
-            .updateStudyChapters(rt, games)
-            .withTimeoutError(7 seconds, SyncResult.Timeout)
-            .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
-        .flatMap: res =>
-          orphanNotifier.inspectPlan(rt, res.plan).inject(res)
-        .map: res =>
-          val games = res.plan.input.games
-          res -> updating:
-            _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-              .copy(finished = games.nonEmpty && games.forall(_.outcome.isDefined))
+      val syncFu = for
+        allGamesInSource <- fetchGames(rt).mon(_.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug))
+        _ = lila.mon.relay.games(rt.tour.official, rt.tour.id, rt.round.slug).update(allGamesInSource.size)
+        filtered = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
+        sliced   = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
+        withPlayers <- playersApi.updateAndReportAmbiguous(rt)(sliced)
+        enriched    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withTeams = rt.tour.teams.fold(enriched)(_.update(enriched))
+        res <- sync
+          .updateStudyChapters(rt, withTeams)
+          .withTimeoutError(7 seconds, SyncResult.Timeout)
+          .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
+        games = res.plan.input.games
+        _ <- orphanNotifier.inspectPlan(rt, res.plan)
+        allGamesHaveOutcome = games.nonEmpty && games.forall(_.outcome.isDefined)
+        // TODO only if the next round starts when this one completes?
+        noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty && rt.round.startedAt.isDefined
+      yield res -> updating:
+        _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
+          .copy(finished = allGamesHaveOutcome || noMoreGamesSelected)
+      syncFu
         .recover:
           case e: Exception =>
             val result = e.match
