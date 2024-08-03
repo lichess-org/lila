@@ -1,6 +1,6 @@
 package lila.relay
 
-import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler, Macros }
+import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
@@ -37,6 +37,19 @@ object BSONHandlers:
     stringIsoHandler[List[RelayGame.Slice]](using RelayGame.Slices.iso)
 
   given BSONDocumentHandler[Sync] = Macros.handler
+
+  import RelayRound.Starts
+  val startsAfterPrevious = "afterPrevious"
+  given BSONHandler[Starts] = quickHandler[Starts](
+    {
+      case v: BSONDateTime             => Starts.At(millisToInstant(v.value))
+      case BSONString("afterPrevious") => Starts.AfterPrevious
+    },
+    {
+      case Starts.At(time)      => BSONDateTime(time.toMillis)
+      case Starts.AfterPrevious => BSONString("afterPrevious")
+    }
+  )
 
   given BSONDocumentHandler[RelayRound] = Macros.handler
 
