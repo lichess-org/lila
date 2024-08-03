@@ -83,11 +83,14 @@ object page:
     info.ratingChart.map: rc =>
       PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
-  def disabled(u: User)(using Context) =
-    Page(u.username.value).robots(false):
-      main(cls := "box box-pad")(
-        h1(cls := "box__top")(u.username),
-        p(trans.settings.thisAccountIsClosed())
+  def deleted(canCreate: Boolean)(using Context) =
+    Page("No such player"):
+      main(cls := "page-small box box-pad page")(
+        h1(cls := "box__top")("No such player"),
+        div(
+          p("This username doesn't match any Lichess player."),
+          (!canCreate).option(p("It cannot be used to create a new account."))
+        )
       )
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): Frag =

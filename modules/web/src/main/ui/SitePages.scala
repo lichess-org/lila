@@ -326,13 +326,3 @@ final class SitePages(helpers: Helpers):
           "."
         )
       )
-
-  def ghost(using Context) =
-    Page("Deleted user"):
-      main(cls := "page-small box box-pad page")(
-        h1(cls := "box__top")("Deleted user"),
-        div(
-          p("This player account is gone!"),
-          p("Nothing to see here, move along.")
-        )
-      )
