@@ -50,8 +50,8 @@
   <string name="blackResigned">سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">سفید بازی را ترک کرد</string>
   <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
-  <string name="whiteDidntMove">سفید تکان نخورد</string>
-  <string name="blackDidntMove">مشکی تکان نخورد</string>
+  <string name="whiteDidntMove">سفید بازی نکرد</string>
+  <string name="blackDidntMove">سیاه بازی نکرد</string>
   <string name="requestAComputerAnalysis">درخواست تحلیل رایانه‌ای</string>
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
