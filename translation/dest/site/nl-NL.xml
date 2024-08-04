@@ -557,6 +557,7 @@
   <string name="cheat">Valsspelen</string>
   <string name="troll">Provoceren</string>
   <string name="other">Anders</string>
+  <string name="reportProcessedFasterInEnglish">Je melding zal sneller worden verwerkt als deze in het Engels is.</string>
   <string name="error.provideOneCheatedGameLink">Geef ten minste één link naar een partij waarin vals gespeeld is.</string>
   <string name="by">door %s</string>
   <string name="importedByX">Geïmporteerd door %s</string>
