@@ -558,7 +558,6 @@
   <string name="cheat">Trapaça</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
-  <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele trapaceia\", informe-nos como chegou a esta conclusão. Sua denúncia será processada mais rapidamente se escrita em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor forneça ao menos um link para um jogo com suspeita de trapaça.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
