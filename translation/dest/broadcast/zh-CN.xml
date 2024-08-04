@@ -22,9 +22,9 @@
   <string name="tournamentDescription">锦标赛简短描述</string>
   <string name="fullDescription">赛事详情</string>
   <string name="fullDescriptionHelp">转播内容的详细描述 (可选）。可以使用 %1$s，字数少于 %2$s 个。</string>
-  <string name="sourceSingleUrl">PGN源URL</string>
+  <string name="sourceSingleUrl">PGN的URL源</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
-  <string name="sourceGameIds">多达64个巫妖游戏Id，由空格分隔。</string>
+  <string name="sourceGameIds">多达64个 Lichess 棋局Id，用空格隔开。</string>
   <string name="startDate">开始日期，在你的本地时区</string>
   <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
   <string name="credits">信任来源</string>
