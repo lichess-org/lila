@@ -21,8 +21,8 @@ final class Analyser(
   val maxPlies = 300
 
   private val workQueue = AsyncActorSequencer(
-    maxSize = Max(256),
-    timeout = 5 seconds,
+    maxSize = Max(512),
+    timeout = 3.seconds,
     "fishnetAnalyser",
     lila.log.asyncActorMonitor
   )
