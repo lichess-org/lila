@@ -492,7 +492,6 @@
   <string name="cheat">Pandaraya</string>
   <string name="troll">Awitin</string>
   <string name="other">Iba pa</string>
-  <string name="reportDescriptionHelp">I-paste ang link sa mga laro at ipaliwanag kung ano ang mali tungkol sa ugali ng gumagamit. Huwag mo lamang sabihin na \"sila\'y nandaya\", pero sabihin mo sa amin kung paano mo ito nasabi. Ang iyong report ay ipoproseso ng mas mabilis kapag nakasulat sa English.</string>
   <string name="error.provideOneCheatedGameLink">Magbigay ng kahit na isang link sa dinayang laro.</string>
   <string name="by">sa pamamagitan ng %s</string>
   <string name="importedByX">Inimport ni %s</string>
