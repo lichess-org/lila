@@ -38,6 +38,9 @@ main.analyse.is-relay:not(.has-relay-tour) {
       display: none;
     }
   }
+  .analyse__controls .features {
+    flex: 0 0 2.5rem;
+  }
 }
 
 /* tour view */
