@@ -558,6 +558,9 @@
   <string name="cheat">Snyd</string>
   <string name="troll">Troll</string>
   <string name="other">Andet</string>
+  <string name="reportCheatBoostHelp">Indsæt linket til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel. Sig ikke blot \"de snyder\", men fortæl os, hvordan du nåede frem til den konklusion.</string>
+  <string name="reportUsernameHelp">Forklar, hvad der er stødende ved dette brugernavn. Sig ikke blot \"det er stødende/upassende\", men fortæl os, hvordan du nåede frem til denne konklusion, især hvis fornærmelsen er sløret, ikke er på engelsk, er slang eller er en historisk/kulturel reference.</string>
+  <string name="reportProcessedFasterInEnglish">Din indberetning vil blive behandlet hurtigere, hvis den er skrevet på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="importedByX">Importeret af %s</string>
