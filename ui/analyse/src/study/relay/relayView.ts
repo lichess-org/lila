@@ -71,7 +71,7 @@ function renderBoardView(ctx: RelayViewContext) {
     gaugeOn && cevalView.renderGauge(ctrl),
     renderTools(ctx, renderEmbedPlaceholder(ctx)),
     renderControls(ctrl),
-    renderUnderboard(ctx),
+    !ctrl.isEmbed && renderUnderboard(ctx),
     tourSide(ctx),
     deps.relayManager(relay, study),
   ];
