@@ -560,6 +560,9 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="cheat">Bschiss</string>
   <string name="troll">Troll</string>
   <string name="other">Suschtigs</string>
+  <string name="reportCheatBoostHelp">Füeg de Link dere oder dene Partie bi und erchlär, was am Beneh vum Schpiller falsch isch. Säg nöd nur eifach \"de bschisst\", sondern schrib, wie du da druf chunnsch.</string>
+  <string name="reportUsernameHelp">Erchlär, was am Benutzername nöd in Ornig isch: Säg nöd eifach \"er isch beleidigend/unagmässe\", sondern schrib eus, wie du zu dere Folgerig cho bisch. B\'sunders wänn die Beleidigung verschleieret-, nöd uf Änglisch- oder in Dialäkt isch oder wänn sie en historische oder kulturelle Bezug hät.</string>
+  <string name="reportProcessedFasterInEnglish">Änglisch g\'schribeni Mäldige werded schnäller behandlet.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens 1 Link zume Schpiel a, wo bschisse worde isch.</string>
   <string name="by">vu %s</string>
   <string name="importedByX">Importiert vu %s</string>
