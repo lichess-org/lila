@@ -195,9 +195,8 @@ final class RelayRound(
   def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId, embed: Option[String]) =
     Open:
       WithRoundAndTour(ts, rs, id, chapterId.some): rt =>
-        env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId).orNotFound {
+        Found(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId)):
           doShow(rt, _, embed)
-        }
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
