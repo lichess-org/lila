@@ -27,7 +27,9 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
   def show(req: TitleRequest, user: User, fide: Option[Frag], similar: List[TitleRequest], modZone: Frag)(
       using Context
   ) =
-    def picture(id: ImageId) = a(href := ui.thumbnail.raw(id))(ui.thumbnail(id.some, 500))
+    def pictureIfGranted(idOpt: Option[ImageId]) =
+      idOpt.flatMap: id =>
+        Granter.opt(_.TitleRequest).option(a(href := ui.thumbnail.raw(id))(ui.thumbnail(id.some, 500)))
     Page(s"${user.username}'s title verification")
       .css("bits.titleRequest")
       .css(Granter.opt(_.UserModView).option("mod.user"))
@@ -95,47 +97,57 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
                   case None      => "None"
                 )
               ),
-              tr(
-                th("ID document"),
-                td(req.idDocument.map(picture))
-              ),
-              tr(
-                th("Selfie"),
-                td(req.selfie.map(picture))
-              ),
+              pictureIfGranted(req.idDocument).map: idPic =>
+                tr(
+                  th("ID document"),
+                  td(idPic)
+                ),
+              pictureIfGranted(req.selfie).map: selfiePic =>
+                tr(
+                  th("Selfie"),
+                  td(selfiePic)
+                ),
               tr(th("Comment"), td(req.data.comment.map(richText(_))))
             )
           ),
-          div(cls := "title-mod__actions")(
-            postForm(action := routes.TitleVerify.process(req.id))(
-              form3
-                .group(
-                  lila.title.TitleForm.process("text"),
-                  "Ask for modifications"
-                )(form3.textarea(_)(rows := 2, required)),
-              form3.actions(
-                submitButton(
-                  cls   := "button button-red button-empty button-fat",
-                  name  := "action",
-                  value := "reject",
-                  if req.status.is(_.rejected)
-                  then disabled := true
-                  else attr("formnovalidate").empty
-                )("Reject request"),
-                submitButton(cls := "button button-blue button-fat", name := "action", value := "feedback")(
-                  "Ask for modifications"
-                ),
-                submitButton(
-                  cls   := "button button-green button-fat",
-                  name  := "action",
-                  value := "approve",
-                  attr("formnovalidate").empty
-                )(
-                  "Approve request"
+          Granter
+            .opt(_.TitleRequest)
+            .option(
+              div(cls := "title-mod__actions")(
+                postForm(action := routes.TitleVerify.process(req.id))(
+                  form3
+                    .group(
+                      lila.title.TitleForm.process("text"),
+                      "Ask for modifications"
+                    )(form3.textarea(_)(rows := 2, required)),
+                  form3.actions(
+                    submitButton(
+                      cls   := "button button-red button-empty button-fat",
+                      name  := "action",
+                      value := "reject",
+                      if req.status.is(_.rejected)
+                      then disabled := true
+                      else attr("formnovalidate").empty
+                    )("Reject request"),
+                    submitButton(
+                      cls   := "button button-blue button-fat",
+                      name  := "action",
+                      value := "feedback"
+                    )(
+                      "Ask for modifications"
+                    ),
+                    submitButton(
+                      cls   := "button button-green button-fat",
+                      name  := "action",
+                      value := "approve",
+                      attr("formnovalidate").empty
+                    )(
+                      "Approve request"
+                    )
+                  )
                 )
               )
             )
-          )
         )
 
   private def showStatus(status: TitleRequest.Status)(using Context) =
