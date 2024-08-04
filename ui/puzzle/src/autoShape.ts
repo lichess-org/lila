@@ -72,14 +72,13 @@ export default function (opts: Opts): DrawShape[] {
       });
     } else shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'red'));
   }
-  const feedback = feedbackAnnotation(n, opts.nodeList[opts.nodeList.length - 2]);
+  const feedback = feedbackAnnotation(n);
   return shapes.concat(annotationShapes(n)).concat(feedback ? annotationShapes(feedback) : []);
 }
 
-function feedbackAnnotation(n: Tree.Node, prev?: Tree.Node): Tree.Node | undefined {
+function feedbackAnnotation(n: Tree.Node): Tree.Node | undefined {
   let glyph: Tree.Glyph | undefined;
-  const node = n.puzzle ? n : prev?.puzzle ? prev : undefined;
-  switch (node?.puzzle) {
+  switch (n.puzzle) {
     case 'good':
     case 'win':
       glyph = { id: 7, name: 'good', symbol: '✓' };
@@ -87,5 +86,5 @@ function feedbackAnnotation(n: Tree.Node, prev?: Tree.Node): Tree.Node | undefin
     case 'fail':
       glyph = { id: 4, name: 'fail', symbol: '✗' };
   }
-  return node && glyph && { ...node, glyphs: [glyph] };
+  return glyph && { ...n, glyphs: [glyph] };
 }
