@@ -99,7 +99,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
     noarg = ctrl.trans.noarg,
     canContinue = !ctrl.ongoing && d.game.variant.key === 'standard',
     ceval = ctrl.getCeval(),
-    mandatoryCeval = ctrl.mandatoryCeval();
+    mandatoryCeval = ctrl.mandatoryCeval(),
+    linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools: MaybeVNodes = [
     h('div.action-menu__tools', [
@@ -122,7 +123,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   })
                 : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
               'data-icon': licon.Pencil,
-              rel: 'nofollow',
+              ...linkAttrs,
             },
           },
           noarg('boardEditor'),
@@ -246,7 +247,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               href: d.userAnalysis
                 ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
                 : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-              rel: 'nofollow',
+              ...linkAttrs,
             },
           },
           noarg('playWithTheMachine'),
@@ -258,7 +259,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               href: d.userAnalysis
                 ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
                 : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-              rel: 'nofollow',
+              ...linkAttrs,
             },
           },
           noarg('playWithAFriend'),

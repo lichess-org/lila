@@ -139,8 +139,8 @@
     <item quantity="other">%s اشتباه</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s غیردقیق</item>
-    <item quantity="other">%s غیردقیق</item>
+    <item quantity="one">%s نادقیق</item>
+    <item quantity="other">%s نادقیق</item>
   </plurals>
   <string name="moveTimes">مدت حركت‌ها</string>
   <string name="flipBoard">چرخاندن صفحه</string>
@@ -171,7 +171,7 @@
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
   <string name="rememberMe">مرا به خاطر بسپار</string>
-  <string name="youNeedAnAccountToDoThat">شما برای انجام این کار به یک حساب کاربری نیاز دارید.</string>
+  <string name="youNeedAnAccountToDoThat">برای انجام آن به یک حساب نیازمندید</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">رایانه ها و بازیکنان رایانه-یاریده، مجاز به بازی نیستند. لطفا هنگام بازی از موتورهای شطرنج، دادگان‌ها یا دیگر بازیکنان کمک نگیرید. همچنین توجه کنید که ساخت چندین حساب به شدت ممنوع است و چند حسابی افزاینده، منجر به بستن‌تان می‌شود.</string>
   <string name="games">بازی ها</string>
@@ -180,7 +180,7 @@
   <string name="latestForumPosts">آخرین پست های انجمن</string>
   <string name="players">بازیکنان</string>
   <string name="friends">دوستان</string>
-  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">بازیکنان دیگر</string>
+  <string name="otherPlayers">بازیکنان دیگر</string>
   <string name="discussions">مکالمات</string>
   <string name="today">امروز</string>
   <string name="yesterday">دیروز</string>
@@ -213,7 +213,7 @@
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
   <string name="signupUsernameHint">مطمئن شوید که یک نام کاربری مناسب انتخاب میکنید. بعداً نمی توانید آن را تغییر دهید و هر حسابی با نام کاربری نامناسب بسته می شود!</string>
-  <string name="signupEmailHint">ما فقط از آن برای تنظیم مجدد رمز عبور استفاده خواهیم کرد.</string>
+  <string name="signupEmailHint">ما فقط برای بازنشاندن گذرواژه، از آن استفاده خواهیم کرد.</string>
   <string name="password">رمز عبور</string>
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
@@ -255,7 +255,7 @@
     <item quantity="one">%s معما</item>
     <item quantity="other">%s معما</item>
   </plurals>
-  <string name="gamesPlayed">تعداد بازی های انجام شده</string>
+  <string name="gamesPlayed">بازی‌های انجامیده</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s بازی با شما</item>
     <item quantity="other">%s بازی با شما</item>
@@ -300,7 +300,7 @@
   <string name="chatRoom">گپ‌سرا</string>
   <string name="loginToChat">برای گپ زدن، وارد حساب‌تان شوید</string>
   <string name="youHaveBeenTimedOut">زمان شما به پایان رسید.</string>
-  <string name="spectatorRoom">اتاق تماشاچیان</string>
+  <string name="spectatorRoom">اتاق تماشاگران</string>
   <string name="composeMessage">نوشتن پیام</string>
   <string name="subject">عنوان</string>
   <string name="send">ارسال</string>
@@ -538,8 +538,8 @@
   <string name="descPrivateHelp">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
-  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">وبگاه</string>
-  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">گوشی</string>
+  <string name="website">وبگاه</string>
+  <string name="mobile">گوشی</string>
   <string name="help">راهنما:</string>
   <string name="createANewTopic">ایجاد یک موضوع جدید</string>
   <string name="topics">مباحث</string>
@@ -558,7 +558,6 @@
   <string name="cheat">تقلب</string>
   <string name="troll">وِزُل</string>
   <string name="other">موضوعات دیگر</string>
-  <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
@@ -569,7 +568,7 @@
   <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی درباره این کاربر بنویسید</string>
   <string name="noNoteYet">تا الان، بدون یادداشت</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
-  <string name="incorrectPassword">رمزعبور اشتباه</string>
+  <string name="incorrectPassword">گذرواژه‌ی نادرست</string>
   <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
   <string name="emailMeALink">یک لینک به من ایمیل کنید</string>
   <string name="currentPassword">رمز جاری</string>
@@ -648,7 +647,7 @@
     <item quantity="other">%s وبنوشته در انجمن</item>
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
-  <string name="watchGames">تماشای بازی ها</string>
+  <string name="watchGames">تماشای بازی‌ها</string>
   <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
@@ -661,7 +660,7 @@
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="termsOfService">قوانین</string>
-  <string name="sourceCode">منبع کد لایچس</string>
+  <string name="sourceCode">کد منبع</string>
   <string name="simultaneousExhibitions">نمایش هم زمان</string>
   <string name="host">میزبان</string>
   <string name="hostColorX">رنگ میزبان: %s</string>
@@ -741,8 +740,8 @@
   <string name="downloadRaw">بارگیری خام</string>
   <string name="downloadImported">بارگیری درونبُرد</string>
   <string name="crosstable">رودررو</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی صفحه بازی بِنَوَردید.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی شاخه‌های رایانه‌ای بِنَوَردید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان در هنگام ذکر شدن در انجمن</string>
@@ -804,7 +803,7 @@
   <string name="usernameSuffixInvalid">نام کاربری باید با حرف یا شماره خاتمه یابد.</string>
   <string name="usernameCharsInvalid">نام کاربری فقط می تواند شامل حروف،اعداد،خط فاصله یا زیر خط(under line) باشد.</string>
   <string name="usernameUnacceptable">این نام کاربری قابل قبول نیست.</string>
-  <string name="playChessInStyle">استایل شطرنج باز داشته باشید!</string>
+  <string name="playChessInStyle">شطرنج‌بازیِ نوگارانه</string>
   <string name="chessBasics">اصول شطرنج</string>
   <string name="coaches">مربی ها</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
@@ -927,7 +926,7 @@
   <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
   <string name="gameVsX">بازی در برابر %1$s</string>
   <string name="resVsX">%1$s در برابر %2$s</string>
-  <string name="lostAgainstTOSViolator">شما در برابر کسی که قانون‌های Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
+  <string name="lostAgainstTOSViolator">شما برابر کسی که قانون‌های Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
   <string name="refundXpointsTimeControlY">پس‌دادن: %1$s امتیاز به درجه‌بندی %2$s.</string>
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
   <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانی رایانامه بتلیکید]</string>

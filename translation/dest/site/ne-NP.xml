@@ -510,7 +510,6 @@
   <string name="cheat">चोरी</string>
   <string name="troll">ट्रोल</string>
   <string name="other">अन्य</string>
-  <string name="reportDescriptionHelp">सबै खेलको लिङ्क पेष्ट गरी खेलाडीको व्यवहारमा के गलत छ र तपाई त्यो निष्कर्षमा कसरी पुग्नुभयो उल्लेख गर्नुहोस्। अंग्रेजी भाषाको प्रयोग गर्नुभयो भने छिटो निष्कर्षमा पुग्न सकिनेछ।</string>
   <string name="error.provideOneCheatedGameLink">कम्तीमा एउटा चोरी गरेको खेलको लिङ्क उपलब्ध गराउनुहोस्।</string>
   <string name="by">%s द्वारा</string>
   <string name="thisTopicIsNowClosed">यो विषय अहिले बन्द गरिएको छ।</string>

@@ -9,7 +9,7 @@ import lila.core.net.IpAddress
 import lila.relay.{ JsonView, RelayTour as TourModel }
 import lila.relay.ui.FormNavigation
 
-final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
+final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends LilaController(env):
 
   def index(page: Int, q: String) = Open:
     indexResults(page, q)
@@ -168,13 +168,13 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
                 else emptyBroadcastPage(tour)
           case Some(round) => Redirect(round.withTour(tour).path)
 
-  def embedShow(slug: String, id: RelayTourId) = Open:
-    Found(env.relay.api.tourById(id)): tour =>
-      env.relay.listing.defaultRoundToShow
-        .get(tour.id)
-        .flatMap:
-          _.fold(emptyBroadcastPage(tour)): round =>
-            Redirect(s"/embed${round.withTour(tour).path}")
+  def embedShow(slug: String, id: RelayTourId) = Anon:
+    InEmbedContext:
+      Found(env.relay.api.tourById(id)): tour =>
+        env.relay.listing.defaultRoundToShow
+          .get(tour.id)
+          .flatMap:
+            _.map(_.withTour(tour)).fold(emptyBroadcastPage(tour))(roundC.embedShow)
 
   private def emptyBroadcastPage(tour: TourModel)(using Context) = for
     owner <- env.user.lightUser(tour.ownerId)

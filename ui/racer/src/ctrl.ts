@@ -141,7 +141,7 @@ export default class RacerCtrl implements PuzCtrl {
 
   countdownSeconds = (): number | undefined =>
     this.status() == 'pre' && this.vm.startsAt && this.vm.startsAt > new Date()
-      ? Math.min(9, Math.ceil((this.vm.startsAt.getTime() - Date.now()) / 1000))
+      ? Math.min(10, Math.ceil((this.vm.startsAt.getTime() - Date.now()) / 1000))
       : undefined;
 
   end = (): void => {

@@ -525,7 +525,9 @@
   <string name="cheat">ソフト使用</string>
   <string name="troll">荒らし</string>
   <string name="other">その他</string>
-  <string name="reportDescriptionHelp">問題のゲームへのリンクを貼って、相手ユーザーの問題点を説明してください。ただ「イカサマだ」と言うのではなく、なぜそう思うか理由を書いてください。英語で書くと対応が早くできます。</string>
+  <string name="reportCheatBoostHelp">ゲームへのリンクを張って、このユーザーの行動のどこが問題かを説明してください。ただ「チート」と言うのではなく、あなたがなぜそう思ったのか教えてください。</string>
+  <string name="reportUsernameHelp">このユーザー名のどこが攻撃的かを説明してください。ただ「攻撃的」「不適切」と言うのではなく、あなたがなぜそう思ったのか教えてください。中でも綴りの変更、英語以外の言語、俗語、歴史・文化的要因に関係した場合は特に説明が必要です。</string>
+  <string name="reportProcessedFasterInEnglish">英語で書いていただくと通報への対応が早くなります。</string>
   <string name="error.provideOneCheatedGameLink">不正のあった対局 1 局以上へのリンクを添えてください。</string>
   <string name="by">%s によって</string>
   <string name="importedByX">%s がインポート</string>

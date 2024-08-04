@@ -14,8 +14,8 @@ export const view = (ctrl: LearnCtrl): VNode => (ctrl.inStage() ? runView(ctrl) 
 
 type Status = 'future' | 'done' | 'ongoing';
 
-const mapView = (ctrl: LearnCtrl) => {
-  return h('div.learn.learn--map', [
+const mapView = (ctrl: LearnCtrl) =>
+  h('div.learn.learn--map', [
     h('div.learn__side', mapSideView(ctrl)),
     h('div.learn__main.learn-stages', [
       ...stages.categs.map(categ =>
@@ -45,11 +45,11 @@ const mapView = (ctrl: LearnCtrl) => {
       whatNext(ctrl),
     ]),
   ]);
-};
 
 const titleVerbosityClass = (title: string) => (title.length > 13 ? (title.length > 18 ? 'vvv' : 'vv') : '');
 
-const makeStars = (nb: number): VNode[] => Array(nb).fill(h('i', { attrs: { 'data-icon': licon.Star } }));
+const makeStars = (rank: scoring.Rank): VNode[] =>
+  Array(4 - rank).fill(h('i', { attrs: { 'data-icon': licon.Star } }));
 
 const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   const progress = ctrl.stageProgress(s);

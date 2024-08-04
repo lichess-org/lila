@@ -148,22 +148,18 @@ final class User(
     if username.id.isGhost
     then
       negotiate(
-        Ok.page(views.site.ui.ghost),
+        Ok.page(views.user.show.page.deleted(false)),
         notFoundJson("Deleted user")
       )
     else
       meOrFetch(username).flatMap:
         case None if isGrantedOpt(_.UserModView) =>
           ctx.me.soUse(modC.searchTerm(username.value))
-        case None                                                    => notFound
         case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
-        case Some(u) =>
+        case u =>
           negotiate(
-            env.user.repo.isErased(u).flatMap { erased =>
-              if erased.yes then notFound
-              else NotFound.page(views.user.show.page.disabled(u))
-            },
-            NotFound(jsonError("No such user, or account closed"))
+            NotFound.page(views.user.show.page.deleted(u.isEmpty)),
+            NotFound(jsonError("No such player, or account closed"))
           )
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>

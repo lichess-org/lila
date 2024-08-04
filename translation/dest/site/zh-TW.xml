@@ -513,7 +513,6 @@
   <string name="cheat">作弊</string>
   <string name="troll">钓鱼</string>
   <string name="other">其他</string>
-  <string name="reportDescriptionHelp">附上游戏的网址解释该用户的行为问题</string>
   <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
   <string name="by">%s作</string>
   <string name="importedByX">由%s滙入</string>

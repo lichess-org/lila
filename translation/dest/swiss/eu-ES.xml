@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Suitzarra</string>
   <string name="swissTournaments">Txapelketa Suitzarrak</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Txanda ikusi</item>
@@ -38,6 +39,16 @@
   <string name="roundInterval">Txanden arteko itxaron-denbora</string>
   <string name="forbiddenPairings">Debekatutako parekatzeak</string>
   <string name="forbiddenPairingsHelp">Elkarren artean jokatu ezin duten jokalarien erabiltzaile-izenak. Lerro bakoitzean espazioaren banatutako bi erabiltzaile-izen idatzi.</string>
+  <string name="manualPairings">Hurrengo txandan eskuzko parekatzeak</string>
+  <string name="manualPairingsHelp">Hurrengo txandako parekatze guztiak eskuz adierazi. Parekatze bat lerro bakoitzean. Adibidez:
+Ajokalaria Bjokalaria
+Djokalaria Ejokalaria
+Jokalari bati jokatu gabeko bye bat emateko (puntu 1), gehitu horrelako lerro bat:
+Fjokalaria 1
+Zerrendan agertzen ez diren jokalariak jokatuko ez dutela ulertuko du sistemak eta 0 puntu emango dizkie.
+Utzi eremu hau hutsik parekatzeak Lichessek sor ditzan.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Euren suitzarreko azken partida jokatu behar dute</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Euren azken suitzarreko partida jokatu duten jokalariei bakarrik utzi parte hartzen. Azkenaldiko suitzar baten partidaren bat ez badute jokatu ezingo dute zure txapelketa jokatu. Honek benetan txapelketetan interesa duten jokalariak bultzatzea ekarriko du.</string>
   <string name="newSwiss">Txapelketa Suitzar berria</string>
   <string name="swissVsArenaQ">Noiz erabili txapelketa suitzarrak Arenak erabili beharrean?</string>
   <string name="swissVsArenaA">Txapelketa suitzarrean jokalariek partida kopuru berbera jokatzen dute, eta elkarren artean behin bakarrik jokatu dezakete. Klubetako edo txapelketa ofizialetarako egokiena izan daiteke.</string>
@@ -111,4 +122,7 @@ Round Robin bat jokatzeko modurik hurbilena txanda asko dituen Txapelketa suitza
   <string name="predefinedUsers">Aurrez definitutako erabiltzaileei bakarrik utzi sartzen</string>
   <string name="forbiddedUsers">Zerrenda hau hutsik ez badago, zerrendan ez dauden jokalariak ezingo dira txapelketara sartu. Erabiltzaile-izen bat lerro bakoitzean.</string>
   <string name="playYourGames">Zure partidak jokatu</string>
+  <string name="byes">Byeak</string>
+  <string name="absences">Jokatuko ez dutenak</string>
+  <string name="tieBreak">Desberdinketa</string>
 </resources>

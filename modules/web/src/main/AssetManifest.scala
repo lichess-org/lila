@@ -68,6 +68,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
 
   // throws an Exception if JsValue is not as expected
   private def readMaps(manifest: JsValue): AssetMaps =
+
     val splits: Map[String, SplitAsset] = (manifest \ "js")
       .as[JsObject]
       .value
@@ -77,18 +78,20 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         (k, SplitAsset(name, imports))
       }
       .toMap
-    val js = splits.map { (k, asset) =>
-      k -> (if asset.imports.nonEmpty then asset.copy(imports = closure(asset.name, splits).distinct)
-            else asset)
-    }
+
+    val js = splits.view.mapValues: asset =>
+      if asset.imports.nonEmpty
+      then asset.copy(imports = closure(asset.name, splits).distinct)
+      else asset
+
     val css = (manifest \ "css")
       .as[JsObject]
       .value
-      .map { (k, asset) =>
+      .map: (k, asset) =>
         val hash = (asset \ "hash").as[String]
         (k, s"$k.$hash.css")
-      }
       .toMap
+
     val hashed = (manifest \ "hashed")
       .as[JsObject]
       .value
@@ -102,7 +105,8 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         (k, s"hashed/$hashedName")
       }
       .toMap
-    AssetMaps(js, css, hashed, nowInstant)
+
+    AssetMaps(js.toMap, css, hashed, nowInstant)
 
   private def fetchManifestJson(filename: String) =
     val resource = s"${net.assetBaseUrlInternal}/assets/compiled/$filename"

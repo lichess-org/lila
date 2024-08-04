@@ -576,7 +576,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="cheat">Varanje</string>
   <string name="troll">Provokacija</string>
   <string name="other">Ostalo</string>
-  <string name="reportDescriptionHelp">Zalijepite link na partiju ili partije u pitanju i objasnite što nije bilo u redu sa ponašanjem korisnika. Nemojte samo reći \"varao je\", nego objasnite kako ste došli do tog zaključka. Vaša prijava će biti brže obrađena ukoliko je napišete na engleskom jeziku.</string>
   <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link na partiju u kojoj je igrač varao.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvezao %s</string>

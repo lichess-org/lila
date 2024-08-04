@@ -171,7 +171,7 @@
   <string name="latestForumPosts">最新论坛帖子</string>
   <string name="players">棋手</string>
   <string name="friends">棋友</string>
-  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">其他玩家</string>
+  <string name="otherPlayers">其他玩家</string>
   <string name="discussions">讨论组</string>
   <string name="today">今天</string>
   <string name="yesterday">昨天</string>
@@ -265,7 +265,7 @@
   <string name="gameAborted">棋局已中止</string>
   <string name="standard">标准国际象棋</string>
   <string name="customPosition">自定义位置</string>
-  <string name="unlimited">无限时间</string>
+  <string name="unlimited">无限制</string>
   <string name="mode">模式</string>
   <string name="casual">休闲</string>
   <string name="rated">排位</string>
@@ -504,8 +504,8 @@
   <string name="descPrivateHelp">仅团队成员可见，设置后将覆盖公开简介为团队成员展示。</string>
   <string name="no">否</string>
   <string name="yes">是</string>
-  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">网站</string>
-  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">流动电话</string>
+  <string name="website">网站</string>
+  <string name="mobile">移动端</string>
   <string name="help">帮助：</string>
   <string name="createANewTopic">新话题</string>
   <string name="topics">话题</string>
@@ -524,7 +524,6 @@
   <string name="cheat">作弊</string>
   <string name="troll">捣乱</string>
   <string name="other">其他</string>
-  <string name="reportDescriptionHelp">请附上棋局链接解释该用户的行为问题。例如如果你怀疑某用户作弊，请不要只说 “对手作弊”。请解释为什么你认为对手作弊。如果你用英语举报，我们将会更快作出答复。</string>
   <string name="error.provideOneCheatedGameLink">请提供至少一局作弊的棋局的链接。</string>
   <string name="by">来自%s</string>
   <string name="importedByX">由 %s 导入</string>

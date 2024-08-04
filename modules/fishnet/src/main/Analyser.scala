@@ -20,12 +20,14 @@ final class Analyser(
 
   val maxPlies = 300
 
-  private val workQueue = AsyncActorSequencer(
-    maxSize = Max(256),
-    timeout = 5 seconds,
-    "fishnetAnalyser",
+  private def workQueue(name: String) = AsyncActorSequencer(
+    maxSize = Max(512),
+    timeout = 3.seconds,
+    s"fishnetAnalyser.$name",
     lila.log.asyncActorMonitor
   )
+  private val workQueueGame  = workQueue("game")
+  private val workQueueStudy = workQueue("study")
 
   private val systemSender = Sender(UserId.lichess, none, mod = false, system = true)
 
@@ -53,7 +55,7 @@ final class Analyser(
           result.ok
             .so {
               makeWork(game, sender, origin).flatMap { work =>
-                workQueue:
+                workQueueGame:
                   repo.getSimilarAnalysis(work).flatMap {
                     // already in progress, do nothing
                     case Some(similar) if similar.isAcquired => funit
@@ -65,10 +67,14 @@ final class Analyser(
                     // first request, store
                     case _ =>
                       lila.mon.fishnet.analysis.requestCount("game").increment()
-                      evalCache.skipPositions(work.game).flatMap { skipPositions =>
-                        lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                        repo.addAnalysis(work.copy(skipPositions = skipPositions))
-                      }
+                      evalCache
+                        .skipPositions(work.game)
+                        .monSuccess(_.fishnet.analysis.skipPositionsGame)
+                        .withTimeout(2.seconds, s"game analysis skipPositions $work")
+                        .recoverDefault
+                        .flatMap: skipPositions =>
+                          lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                          repo.addAnalysis(work.copy(skipPositions = skipPositions))
                   }
               }
             }
@@ -109,17 +115,20 @@ final class Analyser(
                 sender = sender,
                 origin = if req.official then Origin.officialBroadcast else Origin.manualRequest
               )
-              workQueue {
+              workQueueStudy:
                 repo.getSimilarAnalysis(work).flatMap {
                   _.isEmpty.so {
                     lila.mon.fishnet.analysis.requestCount("study").increment()
-                    evalCache.skipPositions(work.game).flatMap { skipPositions =>
-                      lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                      repo.addAnalysis(work.copy(skipPositions = skipPositions))
-                    }
+                    evalCache
+                      .skipPositions(work.game)
+                      .monSuccess(_.fishnet.analysis.skipPositionsStudy)
+                      .withTimeout(2.seconds, s"study analysis skipPositions $work")
+                      .recoverDefault
+                      .flatMap: skipPositions =>
+                        lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                        repo.addAnalysis(work.copy(skipPositions = skipPositions))
                   }
                 }
-              }
             }
             .inject(result)
         }

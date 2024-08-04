@@ -508,7 +508,6 @@
   <string name="cheat">फसवणूक</string>
   <string name="troll">थट्टा</string>
   <string name="other">इतर</string>
-  <string name="reportDescriptionHelp">खेळाचा दुवा पेस्ट करा आणि या वापरकर्त्याच्या वर्तनाबद्दल काय चुकीचे आहे ते सांगा. फक्त \"ते फसवतात\" असे म्हणू नका, परंतु आपण या निष्कर्षावर कसे आलात ते सांगा. इंग्रजीमध्ये लिहिले असल्यास आपल्या अहवालावर वेगवान प्रक्रिया केली जाईल.</string>
   <string name="error.provideOneCheatedGameLink">कृपया फसवणूक झालेल्या खेळासाठी किमान एक दुवा प्रदान करा.</string>
   <string name="by">%s ने</string>
   <string name="importedByX">%s ने आयात केलेले</string>

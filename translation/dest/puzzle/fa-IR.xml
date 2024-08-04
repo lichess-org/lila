@@ -76,9 +76,9 @@
   <string name="lookupOfPlayer">به دنبال معماهای برگرفته از بازی‌های یک بازیکن مشخص، بگردید</string>
   <string name="fromXGames">معماهای برگرفته از بازی‌های %s</string>
   <string name="searchPuzzles">جستجوی معماها</string>
-  <string name="fromMyGamesNone">شما هیچ معمایی در پایگاه‌داده ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
+  <string name="fromMyGamesNone">شما هیچ معمایی در دادگان ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
 
-بازی‌های سریع و مرسوم را انجام دهید تا بَختِتان را برای افزودن معمایی از خودتان بیفزایید!</string>
+بازی‌های سریع و مرسوم را انجام دهید تا بخت‌تان را برای افزودن معمایی از خودتان بیفزایید!</string>
   <string name="fromXGamesFound">%1$s معما در بازی‌های %2$s یافت شد</string>
   <string name="puzzleDashboardDescription">تمرین کن، تحلیل کن، پیشرفت کن</string>
   <plurals name="nbPlayed">

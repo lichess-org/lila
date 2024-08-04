@@ -550,7 +550,6 @@
   <string name="cheat">Tranpak</string>
   <string name="troll">Trolla</string>
   <string name="other">Bestelakoak</string>
-  <string name="reportDescriptionHelp">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak. Zure mezua azkarrago begiratuko dugu ingelesez idazten baduzu.</string>
   <string name="error.provideOneCheatedGameLink">Iruzurra izandako partida baten lotura bidali gutxienez.</string>
   <string name="by">egilea %s</string>
   <string name="importedByX">%s erabiltzaileak inportatuta</string>

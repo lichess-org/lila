@@ -541,7 +541,6 @@
   <string name="cheat">Hiylə</string>
   <string name="troll">Trol</string>
   <string name="other">Digər</string>
-  <string name="reportDescriptionHelp">Oyunun və ya oyunların linkini yapışdırın və bu istifadəçinin davranışında nəyin səhv olduğunu izah edin. Yalnız \"hiylə edirlər\" deməyin, necə bu nəticəyə gəldiyinizi bizə deyin. İngilis dilində yazıldığı təqdirdə hesabat daha sürətli işlənəcəkdir.</string>
   <string name="error.provideOneCheatedGameLink">Lütfən ən azı bir hiyləli oyun linki daxil edin.</string>
   <string name="by">%s tərəfindən</string>
   <string name="thisTopicIsNowClosed">Mövzu bağlandı.</string>
