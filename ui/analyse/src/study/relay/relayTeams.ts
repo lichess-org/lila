@@ -59,19 +59,14 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters) =>
       },
     },
     ctrl.teams
-      ? renderTeams(
-          ctrl.teams,
-          chapters,
-          new URL(ctrl.roundPath(), location.origin),
-          ctrl.multiCloudEval.thisIfShowEval(),
-        )
+      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), ctrl.multiCloudEval.thisIfShowEval())
       : [spinner()],
   );
 
 const renderTeams = (
   teams: TeamTable,
   chapters: StudyChapters,
-  baseUrl: URL,
+  roundPath: string,
   cloudEval?: MultiCloudEval,
 ): MaybeVNodes =>
   teams.table.map(row => {
@@ -96,7 +91,7 @@ const renderTeams = (
             game.pov == 'white' ? [players.white, players.black] : [players.black, players.white];
           return (
             chap &&
-            h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(baseUrl, chap) }, [
+            h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
               playerView(sortedPlayers[0]),
               statusView(chap, game.pov, chapters, cloudEval),
               playerView(sortedPlayers[1]),

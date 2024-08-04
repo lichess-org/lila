@@ -61,7 +61,7 @@ export class MultiBoardCtrl {
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
   const pager = ctrl.pager();
   const cloudEval = ctrl.multiCloudEval.thisIfShowEval();
-  const baseUrl = new URL(study.embeddablePath(study.relay?.roundPath() || study.baseUrl()), location.origin);
+  const baseUrl = study.embeddablePath(study.relay?.roundPath() || study.baseUrl());
   return h('div.study__multiboard', [
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),
@@ -125,13 +125,13 @@ const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
 });
 
 const makePreview =
-  (baseUrl: URL, current: ChapterId, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
+  (roundPath: string, current: ChapterId, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
     const orientation = preview.orientation || 'white';
     return h(
       `a.mini-game.is2d.chap-${preview.id}`,
       {
         class: { active: preview.id === current },
-        attrs: gameLinkAttrs(baseUrl, preview),
+        attrs: gameLinkAttrs(roundPath, preview),
       },
       [
         boardPlayer(preview, CgOpposite(orientation)),
