@@ -558,9 +558,9 @@
   <string name="cheat">Huijaus</string>
   <string name="troll">Trolli</string>
   <string name="other">Muu</string>
-  <string name="reportCheatBoostHelp">Liitä linkki peliin/peleihin ja kerro, mikä on pielessä tämän käyttäjän käytöksessä. Älä vain sano että \"hän huijaa\", vaan kerro meille miksi ajattelet näin.</string>
-  <string name="reportUsernameHelp">Selitä, mikä tässä käyttäjätunnuksessa on loukkaavaa. Älä vain sano \"se on loukkaavaa/sopimaton\", vaan kerro meille, miten olet tullut tähän johtopäätökseen, varsinkin jos loukkaus on epäsuora, ei englantia, on slangia, tai on historiallinen/kulttuurinen viittaus.</string>
-  <string name="reportProcessedFasterInEnglish">Raporttisi käsitellään nopeammin, jos se on kirjoitettu englanniksi.</string>
+  <string name="reportCheatBoostHelp">Liitä linkki peliin/peleihin ja kerro, mikä tämän käyttäjän toiminnassa on pielessä. Älä vain sano hänen huijaavan, vaan kerro meille, miksi olet päätellyt niin.</string>
+  <string name="reportUsernameHelp">Selitä, mikä tässä käyttäjätunnuksessa on loukkaavaa. Älä vain sano sen olevan loukkaava tai sopimaton, vaan kerro meille, mihin näkemyksesi perustuu, varsinkin jos loukkaus on epäsuora, muun kuin englanninkielinen, slangia, tai jos siinä viitataan kulttuuriin tai historiaan.</string>
+  <string name="reportProcessedFasterInEnglish">Ilmoituksesi käsitellään nopeammin, jos se on kirjoitettu englanniksi.</string>
   <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
   <string name="by">%s</string>
   <string name="importedByX">Käyttäjän %s tuoma</string>
