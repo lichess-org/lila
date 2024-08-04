@@ -218,7 +218,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
               group.tours.map(tour =>
                 h(
                   `a.mselect__item${tour.id == ctx.relay.data.tour.id ? '.current' : ''}`,
-                  { attrs: { href: ctx.study.addEmbedPrefix(`/broadcast/-/${tour.id}`) } },
+                  { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
                   tour.name,
                 ),
               ),
@@ -269,7 +269,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         'td.name',
                         h(
                           'a',
-                          { attrs: { href: study.addEmbedPrefix(relay.roundUrlWithHash(round)) } },
+                          { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
                           round.name,
                         ),
                       ),
@@ -293,7 +293,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
 const games = (ctx: RelayViewContext) => [
   ...header(ctx),
   ctx.study.chapters.list.looksNew() ? undefined : multiBoardView(ctx.study.multiBoard, ctx.study),
-  showSource(ctx.relay.data),
+  !ctx.ctrl.isEmbed && showSource(ctx.relay.data),
 ];
 
 const teams = (ctx: RelayViewContext) => [

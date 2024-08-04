@@ -11,7 +11,7 @@ import { h } from 'snabbdom';
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
   const cloudEval = study.multiCloudEval.thisIfShowEval();
-  const basePath = relay.roundPath();
+  const baseUrl = new URL(relay.roundPath(), location.origin);
   return h(
     'div.relay-games',
     {
@@ -39,7 +39,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
             `a.relay-game.relay-game--${c.id}`,
             {
               attrs: {
-                ...gameLinkAttrs(basePath, c),
+                ...gameLinkAttrs(baseUrl, c),
                 'data-n': i + 1,
               },
               class: { 'relay-game--current': c.id === study.data.chapter.id },
