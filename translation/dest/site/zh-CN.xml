@@ -265,7 +265,7 @@
   <string name="gameAborted">棋局已中止</string>
   <string name="standard">标准国际象棋</string>
   <string name="customPosition">自定义位置</string>
-  <string name="unlimited">无限时间</string>
+  <string name="unlimited">无限制</string>
   <string name="mode">模式</string>
   <string name="casual">休闲</string>
   <string name="rated">排位</string>
@@ -505,7 +505,7 @@
   <string name="no">否</string>
   <string name="yes">是</string>
   <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">网站</string>
-  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">流动电话</string>
+  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">移动端</string>
   <string name="help">帮助：</string>
   <string name="createANewTopic">新话题</string>
   <string name="topics">话题</string>
