@@ -123,6 +123,7 @@
   <string name="openStudy">Odpri študij</string>
   <string name="enable">Omogoči</string>
   <string name="bestMoveArrow">Puščica najboljše poteze</string>
+  <string name="showVariationArrows">Prikaži puščice z variacijami</string>
   <string name="evaluationGauge">Kazalnik ocene</string>
   <string name="multipleLines">Več variant</string>
   <string name="cpus">CPU-ji</string>
@@ -197,6 +198,7 @@
   <string name="latestForumPosts">Zadnje objave na forumu</string>
   <string name="players">Igralci</string>
   <string name="friends">Prijatelji</string>
+  <string name="otherPlayers">drugi igralci</string>
   <string name="discussions">Pogovori</string>
   <string name="today">Danes</string>
   <string name="yesterday">Včeraj</string>
@@ -571,6 +573,7 @@
   <string name="ifNoneLeaveEmpty">Če ni, pustite prazno</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
+  <string name="realName">Pravo ime</string>
   <string name="setFlair">Določite svoj okus</string>
   <string name="flair">Simbol</string>
   <string name="youCanHideFlair">Obstaja nastavitev za skrivanje vseh uporabniških čustev na celotnem spletnem mestu.</string>
@@ -603,6 +606,8 @@
   <string name="descPrivateHelp">Besedilo, ki ga bodo videli samo člani ekipe. Če je nastavljen, nadomesti javni opis za člane ekipe.</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
+  <string name="website">Spletna stran</string>
+  <string name="mobile">Mobilna aplikacija</string>
   <string name="help">Pomoč:</string>
   <string name="createANewTopic">Ustvari novo temo</string>
   <string name="topics">Teme</string>
@@ -621,6 +626,7 @@
   <string name="cheat">Goljufija</string>
   <string name="troll">Provokacija</string>
   <string name="other">Drugo</string>
+  <string name="reportCheatBoostHelp">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvozil je %s</string>
