@@ -38,7 +38,7 @@ export default class RelayCtrl {
     private readonly federations: () => Federations | undefined,
     chapterSelect: ChapterSelect,
   ) {
-    this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 5);
+    this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
