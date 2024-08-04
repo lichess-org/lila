@@ -558,7 +558,6 @@
   <string name="cheat">Trampós</string>
   <string name="troll">Troll</string>
   <string name="other">Altres</string>
-  <string name="reportDescriptionHelp">Enganxa l\'enllaç de la partida (o partides) i explica el comportament negatiu d\'aquest usuari. No et limitis a dir que \"fa trampes\", i explica com has arribat a aquesta conclusió. El teu informe serà processat més ràpidament si l\'escrius en anglès.</string>
   <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
   <string name="importedByX">Importat per %s</string>
