@@ -153,7 +153,7 @@ final class SitePages(helpers: Helpers):
               div(cls := "body")(
                 div(cls := "center"):
                   raw(
-                    s"""<iframe src="https://lichess.org/embed/broadcast/fide-world-rapidblitz-team-championships-2024--rapid-matches-1-10/G1YjiG7j?bg=auto&theme=auto" $args></iframe>"""
+                    s"""<iframe src="https://lichess.org/embed/broadcast/fide-world-rapidblitz-team-championships-2024--rapid-matches-1-10/G1YjiG7j" $args></iframe>"""
                   )
                 ,
                 p(
