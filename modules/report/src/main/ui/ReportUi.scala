@@ -136,7 +136,7 @@ final class ReportUi(helpers: Helpers):
           cls := List(s"report-reason report-reason-${reason.key}" -> true, "none" -> (current != reason.key))
         )(
           if reason == Cheat || reason == Boost then trans.site.reportCheatBoostHelp()
-          else if reason == Username then "Please explain briefly what about this username is offensive."
+          else if reason == Username then trans.site.reportUsernameHelp()
           else
             "Please provide as much information as possible, including relevant game links, posts, and messages."
           ,

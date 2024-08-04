@@ -443,6 +443,7 @@ object I18nKey:
     val `troll`: I18nKey = "troll"
     val `other`: I18nKey = "other"
     val `reportCheatBoostHelp`: I18nKey = "reportCheatBoostHelp"
+    val `reportUsernameHelp`: I18nKey = "reportUsernameHelp"
     val `reportProcessedFasterInEnglish`: I18nKey = "reportProcessedFasterInEnglish"
     val `error.provideOneCheatedGameLink`: I18nKey = "error.provideOneCheatedGameLink"
     val `by`: I18nKey = "by"

@@ -559,6 +559,7 @@
   <string name="troll">Troll</string>
   <string name="other">Other</string>
   <string name="reportCheatBoostHelp">Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion.</string>
+  <string name="reportUsernameHelp">Explain what about this username is offensive. Don't just say "it's offensive/inappropriate", but tell us how you came to this conclusion, especially if the insult is obfuscated, not in english, is in slang, or is a historical/cultural reference.</string>
   <string name="reportProcessedFasterInEnglish">Your report will be processed faster if written in English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
   <string name="by">by %s</string>
