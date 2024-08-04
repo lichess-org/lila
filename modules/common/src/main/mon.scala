@@ -636,9 +636,10 @@ object mon:
         def totalMeganode(client: String) =
           counter("fishnet.analysis.total.meganode").withTag("client", client)
         def totalSecond(client: String) = counter("fishnet.analysis.total.second").withTag("client", client)
-      def requestCount(tpe: String)   = counter("fishnet.analysis.request").withTag("type", tpe)
-      val evalCacheHits               = histogram("fishnet.analysis.evalCacheHits").withoutTags()
-      def skipPositions(name: String) = future("fishnet.analysis.skitPositions").withTag("name", name)
+      def requestCount(tpe: String) = counter("fishnet.analysis.request").withTag("type", tpe)
+      val evalCacheHits             = histogram("fishnet.analysis.evalCacheHits").withoutTags()
+      val skipPositionsGame         = future("fishnet.analysis.skipPositions.game")
+      val skipPositionsStudy        = future("fishnet.analysis.skipPositions.study")
     object http:
       def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
     def move(level: Int) = counter("fishnet.move.time").withTag("level", level)

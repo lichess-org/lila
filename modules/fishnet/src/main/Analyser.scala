@@ -69,7 +69,7 @@ final class Analyser(
                       lila.mon.fishnet.analysis.requestCount("game").increment()
                       evalCache
                         .skipPositions(work.game)
-                        .mon(_.fishnet.analysis.skipPositions("game"))
+                        .monSuccess(_.fishnet.analysis.skipPositionsGame)
                         .flatMap: skipPositions =>
                           lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
                           repo.addAnalysis(work.copy(skipPositions = skipPositions))
@@ -119,7 +119,7 @@ final class Analyser(
                     lila.mon.fishnet.analysis.requestCount("study").increment()
                     evalCache
                       .skipPositions(work.game)
-                      .mon(_.fishnet.analysis.skipPositions("study"))
+                      .monSuccess(_.fishnet.analysis.skipPositionsStudy)
                       .flatMap: skipPositions =>
                         lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
                         repo.addAnalysis(work.copy(skipPositions = skipPositions))
