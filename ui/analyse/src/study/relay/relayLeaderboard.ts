@@ -5,7 +5,6 @@ import { RoundId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
 import { Federation, Federations } from '../interfaces';
-import { defined } from 'common';
 
 interface LeadPlayer {
   name: string;
@@ -36,10 +35,13 @@ export default class RelayLeaderboard {
     this.redraw();
   };
 
-  expandFederation = (p: LeadPlayer): Federation | undefined => {
-    const name = p.fed && this.federations()?.[p.fed];
-    return defined(name) ? { id: p.fed!, name } : undefined;
-  };
+  expandFederation = (p: LeadPlayer): Federation | undefined =>
+    p.fed
+      ? {
+          id: p.fed,
+          name: this.federations()?.[p.fed] || p.fed,
+        }
+      : undefined;
 }
 
 export const leaderboardView = (ctrl: RelayLeaderboard): VNode =>
