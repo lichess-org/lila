@@ -70,6 +70,8 @@ final class Analyser(
                       evalCache
                         .skipPositions(work.game)
                         .monSuccess(_.fishnet.analysis.skipPositionsGame)
+                        .withTimeout(2.seconds, s"game analysis skipPositions $work")
+                        .recoverDefault
                         .flatMap: skipPositions =>
                           lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
                           repo.addAnalysis(work.copy(skipPositions = skipPositions))
@@ -120,6 +122,8 @@ final class Analyser(
                     evalCache
                       .skipPositions(work.game)
                       .monSuccess(_.fishnet.analysis.skipPositionsStudy)
+                      .withTimeout(2.seconds, s"study analysis skipPositions $work")
+                      .recoverDefault
                       .flatMap: skipPositions =>
                         lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
                         repo.addAnalysis(work.copy(skipPositions = skipPositions))
