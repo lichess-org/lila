@@ -67,10 +67,12 @@ final class Analyser(
                     // first request, store
                     case _ =>
                       lila.mon.fishnet.analysis.requestCount("game").increment()
-                      evalCache.skipPositions(work.game).flatMap { skipPositions =>
-                        lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                        repo.addAnalysis(work.copy(skipPositions = skipPositions))
-                      }
+                      evalCache
+                        .skipPositions(work.game)
+                        .mon(_.fishnet.analysis.skipPositions("game"))
+                        .flatMap: skipPositions =>
+                          lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                          repo.addAnalysis(work.copy(skipPositions = skipPositions))
                   }
               }
             }
@@ -115,10 +117,12 @@ final class Analyser(
                 repo.getSimilarAnalysis(work).flatMap {
                   _.isEmpty.so {
                     lila.mon.fishnet.analysis.requestCount("study").increment()
-                    evalCache.skipPositions(work.game).flatMap { skipPositions =>
-                      lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                      repo.addAnalysis(work.copy(skipPositions = skipPositions))
-                    }
+                    evalCache
+                      .skipPositions(work.game)
+                      .mon(_.fishnet.analysis.skipPositions("study"))
+                      .flatMap: skipPositions =>
+                        lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                        repo.addAnalysis(work.copy(skipPositions = skipPositions))
                   }
                 }
             }
