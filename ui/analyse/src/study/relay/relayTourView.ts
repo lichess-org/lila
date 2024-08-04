@@ -159,8 +159,14 @@ const overview = (ctx: RelayViewContext) => {
   ];
 };
 
-const share = (ctx: RelayViewContext) =>
-  h('div.relay-tour__share', [
+const share = (ctx: RelayViewContext) => {
+  const iframe = (path: string) =>
+    `<iframe src="${baseUrl()}/embed${path}" 'style="width: 100%; aspect-ratio: 4/3;" frameborder="0" />`;
+  const iframeHelp = h('div.form-help', [
+    'More options on the ',
+    h('a', { attrs: { href: '/developers#broadcast' } }, 'webmasters page'),
+  ]);
+  return h('div.relay-tour__share', [
     h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
     ...[
       [ctx.relay.data.tour.name, ctx.relay.tourPath()],
@@ -178,14 +184,17 @@ const share = (ctx: RelayViewContext) =>
           ' for faster and more efficient synchronisation.',
         ]),
       ],
+      ['Embed this broadcast in your website', iframe(ctx.relay.tourPath()), iframeHelp],
+      [`Embed ${ctx.study.data.name} in your website`, iframe(ctx.relay.roundPath()), iframeHelp],
     ].map(([i18n, path, help]: [string, string, VNode]) =>
       h('div.form-group', [
         h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
-        copyMeInput(`${baseUrl()}${path}`),
+        copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
         help,
       ]),
     ),
   ]);
+};
 
 const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const toggle = ctx.relay.groupSelectShow;
