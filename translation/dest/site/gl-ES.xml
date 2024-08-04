@@ -558,6 +558,9 @@
   <string name="cheat">Trampa</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
+  <string name="reportCheatBoostHelp">Pega a ligazón á(s) partida(s) e explica que ten de malo o comportamento deste usuario. Non digas soamente \"fai trampas\", mais cóntanos como chegaches a esta conclusión.</string>
+  <string name="reportUsernameHelp">Explica que ten de ofensivo este nome de usuario. Non digas soamente \"é ofensivo/inadecuado\". Cóntanos como chegaches a esta conclusión, especialmente se o insulto está camuflado, non está en inglés, é xerga ou é unha referencia histórica ou cultural.</string>
+  <string name="reportProcessedFasterInEnglish">A túa denuncia será procesada máis rápido se está escrita en Inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, incorpora cando menos unha ligazón a unha partida na que se fixeron trampas.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
