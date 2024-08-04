@@ -626,6 +626,9 @@
   <string name="cheat">Podvod</string>
   <string name="troll">Troll</string>
   <string name="other">Iné</string>
+  <string name="reportCheatBoostHelp">Vložte odkaz na partiu(/e) a vysvetlite, čo je na správaní tohto používateľa zlé. Nehovorte len „podvádza“, ale povedzte, ako ste k tomuto záveru dospeli.</string>
+  <string name="reportUsernameHelp">Vysvetlite, čo je na tomto používateľskom mene urážlivé. Nehovorte len „je to urážlivé/nevhodné“, ale povedzte nám, ako ste k tomuto záveru dospeli, najmä ak je urážka významovo zahmlená, nie je v angličtine, je v slangu alebo odkazuje na niečo z historie/kultúry.</string>
+  <string name="reportProcessedFasterInEnglish">Vaša správa bude spracovaná rýchlejšie, ak bude napísaná v angličtine.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Importoval %s</string>
