@@ -558,6 +558,7 @@
   <string name="cheat">Trampós</string>
   <string name="troll">Troll</string>
   <string name="other">Altres</string>
+  <string name="reportProcessedFasterInEnglish">El teu informe serà tractat més ràpidament si està escrit en anglès.</string>
   <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
   <string name="importedByX">Importat per %s</string>
