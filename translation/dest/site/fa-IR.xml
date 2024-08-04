@@ -652,7 +652,7 @@
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی‌ها</string>
   <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
-  <string name="watch">نگاه کردن</string>
+  <string name="watch">تماشا</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازها</string>
   <string name="mobileApp">گوشی‌افزار</string>
