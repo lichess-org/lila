@@ -626,6 +626,8 @@
   <string name="cheat">רמאות</string>
   <string name="troll">הטרלה</string>
   <string name="other">אחר</string>
+  <string name="reportCheatBoostHelp">הדביקו את הקישור למשחקים שעליהם תרצו לדווח והסבירו מה הבעיה בהתנהגות המשתמש כפי שהיא משתקפת בהם. אל תכתבו סתם ״השחקן מרמה״. הסבירו לנו כיצד הגעתם למסקנה הזו.</string>
+  <string name="reportUsernameHelp">הסבירו מה פוגעני בשם המשתמש הזה. אל תכתבו סתם ״שם המשתמש פוגעני״. הסבירו לנו כיצד הגעתם למסקנה הזו, במיוחד אם ההעלבה מוסווית, בשפה זרה (שאינה אנגלית), בלשון סלנג או תלויית תרבות והיסטוריה.</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על־ידי %s</string>
   <string name="importedByX">יובא ע\"י %s</string>
