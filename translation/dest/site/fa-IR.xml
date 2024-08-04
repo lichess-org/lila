@@ -180,7 +180,7 @@
   <string name="latestForumPosts">آخرین پست های انجمن</string>
   <string name="players">بازیکنان</string>
   <string name="friends">دوستان</string>
-  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">بازیکنان دیگر</string>
+  <string name="otherPlayers">بازیکنان دیگر</string>
   <string name="discussions">مکالمات</string>
   <string name="today">امروز</string>
   <string name="yesterday">دیروز</string>
@@ -538,8 +538,8 @@
   <string name="descPrivateHelp">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
-  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">وبگاه</string>
-  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">گوشی</string>
+  <string name="website">وبگاه</string>
+  <string name="mobile">گوشی</string>
   <string name="help">راهنما:</string>
   <string name="createANewTopic">ایجاد یک موضوع جدید</string>
   <string name="topics">مباحث</string>
@@ -558,7 +558,6 @@
   <string name="cheat">تقلب</string>
   <string name="troll">وِزُل</string>
   <string name="other">موضوعات دیگر</string>
-  <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>

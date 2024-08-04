@@ -23,7 +23,9 @@
   <string name="tournamentDescription">Txapelketaren deskribapen laburra</string>
   <string name="fullDescription">Ekitaldiaren deskribapen osoa</string>
   <string name="fullDescriptionHelp">Emanaldiaren azalpen luzea, hautazkoa da. %1$s badago. Luzera %2$s karaktere edo laburragoa izan behar da.</string>
+  <string name="sourceSingleUrl">PGNaren jatorrizko URLa</string>
   <string name="sourceUrlHelp">Lichessek PGNaren eguneraketak jasoko dituen URLa. Interneteko helbide bat izan behar da.</string>
+  <string name="sourceGameIds">Gehienez ere Lichesseko 64 partidren idak, espazioekin banatuta.</string>
   <string name="startDate">Zure ordu-zonako hasiera data</string>
   <string name="startDateHelp">Hautazkoa, ekitaldia noiz hasten den baldin badakizu</string>
   <string name="credits">Jatorria zein den esaiguzu</string>
@@ -41,4 +43,13 @@
   <string name="replacePlayerTags">Hautazkoa: aldatu jokalarien izen, puntuazio eta tituluak</string>
   <string name="periodInSeconds">Aldia segundotan</string>
   <string name="periodInSecondsHelp">Hautazkoa, zenbat itxaron eskaeren artean. Gutxienez 2 segundo, gehienez 60 segundo. Automatikora itzuliko da ikusle kopuruaren arabera.</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE federazioak</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">10 onenak</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE jokalariak</string>
+  <string name="fidePlayerNotFound">FIDE jokalaria ez da aurkitu</string>
+  <string name="fideProfile">FIDE profila</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Federazioa</string>
+  <string name="ageThisYear">Adina</string>
+  <string name="unrated">Ez du sailkapenik</string>
+  <string name="recentTournaments">Azken txapelketak</string>
 </resources>

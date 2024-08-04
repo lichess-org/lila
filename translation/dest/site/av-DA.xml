@@ -540,7 +540,6 @@
   <string name="cheat">ХӀилла</string>
   <string name="troll">Иришгъат гьави</string>
   <string name="other">Цогидаб</string>
-  <string name="reportDescriptionHelp">ХӀаял(з)де бухьен лъе цинги гьев хӀалесул хьвада-чӀвадиялда щиб мекъи бугебали бице. ЦохӀо \"гьес рекӀкӀ гьабунилан\" абуге, дуда кин гьедин ккараб бице. Дур гӀарзаялъухъ жеги хехго балагьила гьеб ингилис мацӀалъ хъван батани.</string>
   <string name="error.provideOneCheatedGameLink">РекӀкӀ гьабураб цо хӀаялдениги бухьен кье.</string>
   <string name="by">%s-(и)ца</string>
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>

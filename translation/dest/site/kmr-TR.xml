@@ -486,7 +486,6 @@
   <string name="cheat">Hîle</string>
   <string name="troll">Troll</string>
   <string name="other">Yên din</string>
-  <string name="reportDescriptionHelp">Ji bo lîstikê/an lînk pê ve bike û îzah bike ku çi xeletî hene di hal û hereketên vî bikarhênerê de. Tenê nebêje \"ew hîle dike\", bêje me ku tê çawa gihîştiye wê encamê. Ger bi îngîlîzî binivîsînî wê zûtir hel bibe giliya te.</string>
   <string name="error.provideOneCheatedGameLink">Ji kerema xwe bi kêmanî lînkek pêşkêş bike ji bo lîstika hîlekirî.</string>
   <string name="by">ji alî %s ve</string>
   <string name="thisTopicIsNowClosed">Ev mijar vêga girtî ye.</string>
