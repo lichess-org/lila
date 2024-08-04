@@ -68,7 +68,7 @@ object embed:
           page.ui.sitePreload(allModules, isInquiry = false),
           page.ui.lichessFontFaceCss
         ),
-        st.body(bodyModifiers)(style := "---zoom:80")(
+        st.body(bodyModifiers)(
           body,
           page.ui.modulesInit(allModules, ctx.nonce.some),
           pageModule.map { mod => frag(jsonScript(mod.data)) }
