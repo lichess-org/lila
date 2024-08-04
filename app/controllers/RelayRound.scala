@@ -267,7 +267,11 @@ final class RelayRound(
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
         videoUrls <-
           if (~embed).isEmpty then
-            fuccess(rt.tour.pinnedStream.flatMap(_.upstream).map(_.urls(netDomain).toPair))
+            fuccess:
+              rt.tour.pinnedStream
+                .ifFalse(rt.round.finished)
+                .flatMap(_.upstream)
+                .map(_.urls(netDomain).toPair)
           else if embed.contains("no") then fuccess(none)
           else
             embed
