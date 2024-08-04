@@ -6,7 +6,7 @@ export const apple = 50;
 export const capture = 50;
 export const scenario = 50;
 
-type Rank = 1 | 2 | 3;
+export type Rank = 1 | 2 | 3;
 
 const levelBonus: { [r in Rank]: number } = {
   1: 500,
