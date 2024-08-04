@@ -99,11 +99,11 @@ final private class RelayFetch(
         games = res.plan.input.games
         _ <- orphanNotifier.inspectPlan(rt, res.plan)
         allGamesHaveOutcome = games.nonEmpty && games.forall(_.outcome.isDefined)
-        // TODO only if the next round starts when this one completes?
         noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty && rt.round.startedAt.isDefined
+        nextRoundToStart <- noMoreGamesSelected.so(api.nextRoundThatStartsAfterThisOneCompletes(rt.round))
       yield res -> updating:
         _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-          .copy(finished = allGamesHaveOutcome || noMoreGamesSelected)
+          .copy(finished = allGamesHaveOutcome || nextRoundToStart.isDefined)
       syncFu
         .recover:
           case e: Exception =>
@@ -278,7 +278,7 @@ final private class RelayFetch(
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
             val lookForStart: Boolean =
-              rt.round.startsAt
+              rt.round.startsAtTime
                 .map(_.minusSeconds(rt.round.sync.delay.so(_.value) + 5 * 60))
                 .forall(_.isBeforeNow)
             round.pairings

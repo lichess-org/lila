@@ -59,6 +59,20 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       )
       .void
 
+  def nextRoundThatStartsAfterThisOneCompletes(round: RelayRound): Fu[Option[RelayRound]] =
+    coll
+      .find(
+        $doc(
+          "tourId"   -> round.tourId,
+          "finished" -> false,
+          "startsAt" -> BSONHandlers.startsAfterPrevious,
+          "createdAt".$gt(round.createdAt)
+        )
+      )
+      .sort($doc("createdAt" -> 1))
+      .cursor[RelayRound]()
+      .uno
+
 private object RelayRoundRepo:
 
   object sort:
