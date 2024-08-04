@@ -527,7 +527,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="cheat">Sohk</string>
   <string name="troll">Troll</string>
   <string name="other">Muu</string>
-  <string name="reportDescriptionHelp">Kleebi link mängu(de)st ja selgita, mis on valesti selle kasutaja käitumises. Ära ütle lihtsalt \"ta teeb sohki\", vaid seleta, kuidas sa selle järelduseni jõudsid. Sõnum käsitletakse kiiremini kui see on kirjutatud inglise keeles.</string>
   <string name="error.provideOneCheatedGameLink">Palun andke vähemalt üks link pettust sisaldavale mängule.</string>
   <string name="by">autor %s</string>
   <string name="importedByX">Importis %s</string>
