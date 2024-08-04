@@ -473,7 +473,6 @@
   <string name="cheat">بدعنوانی</string>
   <string name="troll">سیاپہ فروشی</string>
   <string name="other">دیگر</string>
-  <string name="reportDescriptionHelp">متاثرہ مقابلوں کے رابطے یہاں داخل کریں اور شکایت کی وجوہات بیان کریں</string>
   <string name="error.provideOneCheatedGameLink">کم از کم ایک بازی کا لنک دیں گس میں چیٹنگ کی گئی ہو.</string>
   <string name="by">منجانب: %s</string>
   <string name="thisTopicIsNowClosed">یہ موضوع مزید تبصروں کے لیے بند ہے</string>
