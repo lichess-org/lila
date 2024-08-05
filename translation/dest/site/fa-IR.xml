@@ -50,8 +50,8 @@
   <string name="blackResigned">سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">سفید بازی را ترک کرد</string>
   <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
-  <string name="whiteDidntMove">سفید تکان نخورد</string>
-  <string name="blackDidntMove">مشکی تکان نخورد</string>
+  <string name="whiteDidntMove">سفید بازی نکرد</string>
+  <string name="blackDidntMove">سیاه بازی نکرد</string>
   <string name="requestAComputerAnalysis">درخواست تحلیل رایانه‌ای</string>
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
@@ -431,8 +431,8 @@
   <string name="follow">دنبال کردن</string>
   <string name="following">افرادی که دنبال می کنید</string>
   <string name="unfollow">لغو دنبال کردن</string>
-  <string name="followX">دنبال کردن %s</string>
-  <string name="unfollowX">لغو دنبال کردن %s</string>
+  <string name="followX">دنبالیدن %s</string>
+  <string name="unfollowX">نادنبالیدن %s</string>
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
@@ -558,6 +558,9 @@
   <string name="cheat">تقلب</string>
   <string name="troll">وِزُل</string>
   <string name="other">موضوعات دیگر</string>
+  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
+  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر انگلیسی بنویسید، گزارش‌تان تندتر رسیدگی خواهد شد.</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
@@ -621,7 +624,7 @@
   <string name="learnMenu">یادگیری</string>
   <string name="studyMenu">مطالعه‌ها</string>
   <string name="practice">تمرین کردن</string>
-  <string name="community">انجمن</string>
+  <string name="community">همدارگان</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
   <string name="error.unknown">مقدار نامعتبر</string>
@@ -649,7 +652,7 @@
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی‌ها</string>
   <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
-  <string name="watch">نگاه کردن</string>
+  <string name="watch">تماشا</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازها</string>
   <string name="mobileApp">گوشی‌افزار</string>
@@ -778,7 +781,7 @@
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
   <string name="xHostsY">%1$s میزبان ها %2$s</string>
   <string name="xJoinsY">%1$s وارد می شود %2$s</string>
-  <string name="xLikesY">%1$s می پسندد %2$s</string>
+  <string name="xLikesY">%1$s، %2$s را می‌پسندد</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
   <string name="anonymous">ناشناس</string>
