@@ -24,7 +24,7 @@ final class Opening(env: Env) extends LilaController(env):
 
   def byKeyAndMoves(key: String, moves: String) = Open:
     val crawler = HTTPRequest.isCrawler(ctx.req)
-    if moves.sizeIs > 40 && crawler.yes then Forbidden
+    if moves.sizeIs > 10 && crawler.yes then Forbidden
     else
       env.opening.api.lookup(queryFromUrl(key, moves.some), isGrantedOpt(_.OpeningWiki), crawler).flatMap {
         case None => Redirect(routes.Opening.index(key.some))
