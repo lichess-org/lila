@@ -9,10 +9,18 @@ export const start = makeStart(patch, studyDeps);
 export const boot = makeBoot(start);
 
 export function initModule(cfg: any) {
-  site.socket = new site.StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
-    receive: (t: string, d: any) => analyse.socketReceive(t, d),
-    ...(cfg.embed ? { params: { flag: 'embed' } } : {}),
-  });
+  console.log(cfg);
+  if (cfg.embed && cfg.socketVersion == 0) {
+    console.log("Let's not connect to the socket");
+    site.socket = {
+      send: console.log,
+    };
+  } else {
+    site.socket = new site.StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
+      receive: (t: string, d: any) => analyse.socketReceive(t, d),
+      ...(cfg.embed ? { params: { flag: 'embed' } } : {}),
+    });
+  }
   cfg.socketSend = site.socket.send;
   const analyse = start(cfg);
 }

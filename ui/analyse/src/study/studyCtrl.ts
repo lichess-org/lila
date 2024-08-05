@@ -93,7 +93,7 @@ export default class StudyCtrl {
   members: StudyMemberCtrl;
   chapters: StudyChaptersCtrl;
   relay?: RelayCtrl;
-  multiCloudEval: MultiCloudEval;
+  multiCloudEval?: MultiCloudEval;
   multiBoard: MultiBoardCtrl;
   form: StudyForm;
   commentForm: CommentForm;
@@ -157,7 +157,10 @@ export default class StudyCtrl {
       () => this.data.federations,
       this.ctrl,
     );
-    this.multiCloudEval = new MultiCloudEval(this.redraw, this.chapters.list, this.send);
+    this.multiCloudEval =
+      ctrl.isEmbed && !site.socket.version
+        ? undefined
+        : new MultiCloudEval(this.redraw, this.chapters.list, this.send, ctrl.isEmbed);
     this.relay =
       relayData &&
       new RelayCtrl(
@@ -636,7 +639,7 @@ export default class StudyCtrl {
         sticky = d.s;
       this.setMemberActive(who);
       this.chapters.addNode(d);
-      this.multiCloudEval.addNode(d);
+      this.multiCloudEval?.addNode(d);
       if (sticky && !this.vm.mode.sticky) this.vm.behind++;
       if (this.wrongChapter(d)) {
         if (sticky && !this.vm.mode.sticky) this.redraw();
@@ -817,8 +820,8 @@ export default class StudyCtrl {
     },
     evalHitMulti: (e: EvalHitMulti | EvalHitMultiArray) => {
       ('multi' in e ? e.multi : [e]).forEach(ev => {
-        this.multiBoard.multiCloudEval.onCloudEval(ev);
-        this.relay?.teams?.multiCloudEval.onCloudEval(ev);
+        this.multiBoard.multiCloudEval?.onCloudEval(ev);
+        this.relay?.teams?.multiCloudEval?.onCloudEval(ev);
       });
     },
   };

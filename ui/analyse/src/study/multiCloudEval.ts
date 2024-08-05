@@ -37,8 +37,9 @@ export class MultiCloudEval {
     readonly redraw: () => void,
     private readonly chapters: StudyChapters,
     private readonly send: SocketSend,
+    isEmbed: boolean,
   ) {
-    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', true, () => {
+    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', !isEmbed, () => {
       this.redraw();
       this.requestNewEvals();
     });

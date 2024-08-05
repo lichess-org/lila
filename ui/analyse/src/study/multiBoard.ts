@@ -20,7 +20,7 @@ export class MultiBoardCtrl {
 
   constructor(
     readonly chapters: StudyChapters,
-    readonly multiCloudEval: MultiCloudEval,
+    readonly multiCloudEval: MultiCloudEval | undefined,
     readonly redraw: () => void,
     readonly trans: Trans,
   ) {
@@ -60,13 +60,14 @@ export class MultiBoardCtrl {
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
   const pager = ctrl.pager();
-  const cloudEval = ctrl.multiCloudEval.thisIfShowEval();
+  const cloudEval = ctrl.multiCloudEval?.thisIfShowEval();
   const baseUrl = study.embeddablePath(study.relay?.roundPath() || study.baseUrl());
   return h('div.study__multiboard', [
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),
       h('div.study__multiboard__options', [
-        h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), ctrl.trans.noarg('showEvalBar')]),
+        ctrl.multiCloudEval &&
+          h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), ctrl.trans.noarg('showEvalBar')]),
         renderPlayingToggle(ctrl),
       ]),
     ]),
