@@ -1,6 +1,7 @@
 package lila.evalCache
 
 import chess.format.{ BinaryFen, Fen }
+import chess.Situation
 import chess.variant.Variant
 
 import lila.core.chess.MultiPv
@@ -22,5 +23,7 @@ case class EvalCacheEntry(
 
 opaque type Id = BinaryFen
 object Id extends TotalWrapper[Id, BinaryFen]:
+  def apply(sit: Situation): Id = Id(BinaryFen.writeNormalized(sit))
+
   def from(variant: Variant, fen: Fen.Full): Option[Id] =
-    Fen.read(variant, fen).map(sit => Id(BinaryFen.writeNormalized(sit)))
+    Fen.read(variant, fen).map(Id.apply)

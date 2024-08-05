@@ -21,10 +21,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
             _.map { JsonView.writeEval(_, fen) }
           .addEffect(monitorRequest(fen))
 
-  val getSinglePvEval: CloudEval.GetSinglePvEval = (variant, fen) =>
-    Id.from(variant, fen)
-      .so: id =>
-        getEval(id, MultiPv(1))
+  val getSinglePvEval: CloudEval.GetSinglePvEval = sit => getEval(Id(sit), MultiPv(1))
 
   private def monitorRequest(fen: Fen.Full)(res: Option[Any]) =
     Fen
