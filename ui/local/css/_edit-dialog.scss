@@ -7,48 +7,6 @@
   z-index: $z-powertip-120;
 }
 
-.dev-view {
-  @extend %flex-column;
-  gap: 1em;
-
-  textarea,
-  select,
-  input {
-    padding: 5px;
-    &.invalid {
-      background-color: $m-bg_bad--mix-80;
-    }
-  }
-  span {
-    @extend %flex-center-nowrap;
-    white-space: nowrap;
-    gap: 1em;
-  }
-  input:not([type='text']) {
-    cursor: pointer;
-  }
-  .disabled label > span {
-    opacity: 0.5;
-  }
-  .disabled .hide-disabled {
-    display: none;
-  }
-  .preview-sound::before {
-    color: $c-secondary;
-    &:hover {
-      color: $m-secondary--lighten-11;
-    }
-  }
-  .icon-btn {
-    padding: 6px;
-  }
-  *:focus-visible,
-  input.range:focus-visible {
-    outline: 2px solid $c-font;
-    outline-offset: -2px;
-  }
-}
-
 .edit-view {
   background-color: $c-bg-zebra;
   height: min-content;
@@ -161,6 +119,8 @@
     .placard {
       padding: 0;
       width: 90%;
+      border: none;
+      background: none;
     }
   }
   .bot-unrate-one {
@@ -375,28 +335,17 @@
     position: relative;
     align-items: center;
     gap: 0.5em;
-    padding: 0.5em;
+    padding: 1.2em;
     border-radius: 8px;
     background: $c-bg-high;
     box-shadow: 0 0 5px 0 $c-border;
     .asset-preview {
       width: min-content;
     }
-    .remove {
+    .upper-right {
       z-index: $z-above-dialog-14;
-      position: absolute;
-      font-size: 1.25em;
       top: -4px;
-      right: 0;
-      color: $c-bad;
-      cursor: pointer;
-      &.show {
-        display: block;
-      }
-      &:hover {
-        color: $m-bad--lighten-11;
-        filter: saturate(1);
-      }
+      right: -4px;
     }
     .asset-label {
       font-size: 0.9em;

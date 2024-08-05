@@ -89,7 +89,7 @@ class AssetDialog {
         <div class="asset-preview"></div>
         <div class="asset-label">${key}</div>
       </div>`);
-    if (!this.isChooser) wrap.prepend(removeButton());
+    if (!this.isChooser) wrap.prepend(removeButton('upper-right'));
     wrap.querySelector('.asset-preview')!.prepend(this.active.preview(key));
     return wrap;
   };

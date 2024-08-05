@@ -1,6 +1,8 @@
+import { PropertyAccessEntityNameExpression } from 'typescript';
 import type { NetData } from './types';
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
 
+type AssetType = 'image' | 'book' | 'sound' | 'net';
 export class AssetDb {
   net: Map<string, NetData> = new Map();
   book: Map<string, OpeningBook> = new Map();
@@ -18,7 +20,7 @@ export class AssetDb {
     if (!key) return undefined;
     const cached = this.net.get(key);
     if (cached) return cached.data;
-    const data = await fetch(botAssetUrl(`nets/${key}`, false))
+    const data = await fetch(botAssetUrl('net', key, false))
       .then(res => res.arrayBuffer())
       .then(buf => new Uint8Array(buf));
     this.net.set(key, { key, data });
@@ -30,21 +32,21 @@ export class AssetDb {
     if (!key) return undefined;
     const cached = this.book.get(key);
     if (cached) return cached;
-    const buf = await fetch(botAssetUrl(`books/${key}.bin`)).then(res => res.arrayBuffer());
+    const buf = await fetch(botAssetUrl('book', `${key}.bin`, false)).then(res => res.arrayBuffer());
     const book = (await makeBookFromPolyglot(new DataView(buf))).getMoves;
     this.book.set(key, book);
     return book;
   }
 
   getImageUrl(key: string): string {
-    return botAssetUrl(`images/${key}`);
+    return botAssetUrl('image', key);
   }
 
   getSoundUrl(key: string): string {
-    return botAssetUrl(`sounds/${key}`);
+    return botAssetUrl('sound', key);
   }
 }
 
-export function botAssetUrl(name: string, version: string | false = 'bot000'): string {
-  return site.asset.url(`lifat/bots/${name}`, { version });
+export function botAssetUrl(type: AssetType, name: string, version: string | false = 'bot000'): string {
+  return site.asset.url(`lifat/bots/${type}s/${encodeURIComponent(name)}`, { version });
 }

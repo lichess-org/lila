@@ -4,23 +4,26 @@ body:has(.base-view.setup-view) {
 }
 
 .setup-view {
-  max-width: 720px;
+  max-width: 640px;
   max-height: 800px;
   user-select: none;
-  .vs {
-    @extend %flex-column;
-    align-items: center;
-  }
+
   div.player {
     aspect-ratio: 1;
     width: min(70%, 33vh);
+  }
+  .vs {
+    @extend %flex-column;
+    align-items: center;
+    gap: 0.5em;
   }
   .actions {
     @extend %flex-around;
     align-items: start;
     gap: calc(20px * $scale-factor);
-    font-size: calc(32px * $scale-factor);
+
     button {
+      font-size: calc(32px * $scale-factor);
       padding: calc(6px * $scale-factor);
       color: $c-font;
       &:hover {
@@ -29,35 +32,28 @@ body:has(.base-view.setup-view) {
     }
   }
 
-  .you {
-    @extend %flex-center;
+  .switch {
+    @extend %flex-around;
+    cursor: pointer;
     align-items: center;
+    padding: 1em;
     border-radius: 10px;
     width: min(70%, 33vh);
-
-    p {
-      padding: 1em;
-      text-align: center;
-      font-size: calc(0.4em + 0.8em * $scale-factor);
-      opacity: 0.87;
-      border-radius: 8px;
-    }
-
     &[data-color='white'] {
-      background-color: hsl(37, 12%, 92%);
-      p {
-        background-color: $c-body-gradient;
-        color: $c-font-clearer;
-        border: 1px solid $c-border;
-      }
+      background-color: hsl(37, 12%, 84%);
+      color: $c-dark;
     }
     &[data-color='black'] {
-      background-color: hsl(37, 5%, 23%);
-      p {
-        background-color: #242424;
-        color: white;
-        border: 1px solid #444;
-      }
+      background-color: hsl(37, 5%, 32%);
+      color: #bbb;
+    }
+    &:hover {
+      background-color: gray;
+      outline: 2px solid $c-primary;
+    }
+    &::after {
+      font-family: lichess;
+      content: $licon-Switch;
     }
   }
   .switch.disabled,

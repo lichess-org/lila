@@ -68,8 +68,8 @@ export function playersWithResults(results: Result[]): string[] {
   return [...new Set(results.flatMap(r => [r.white ?? '', r.black ?? ''].filter(x => x)))];
 }
 
-export function removeButton(): Node {
+export function removeButton(cls: string = ''): Node {
   return $as<Node>(
-    `<button class="button button-empty button-red icon-btn" tabindex="0" data-icon="${licon.Cancel}" data-click="remove">`,
+    `<button class="button button-empty button-red icon-btn ${cls}" tabindex="0" data-icon="${licon.Cancel}" data-click="remove">`,
   );
 }

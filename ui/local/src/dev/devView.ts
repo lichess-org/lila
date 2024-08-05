@@ -1,6 +1,6 @@
 import * as co from 'chessops';
 import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
-import { SetupDialog } from '../setupDialog';
+import * as licon from 'common/licon';
 import { storedBooleanProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
 import { EditDialog } from './editDialog';
@@ -52,9 +52,17 @@ function player(ctx: DevContext, color: Color): VNode {
       hook: onInsert(el => el.addEventListener('click', () => showBotSelector(ctx, el))),
     },
     [
-      h('img', {
-        attrs: { src: imgUrl, width: 120, height: 120 },
-      }),
+      botCtrl[color] &&
+        h('button.button.button-empty.button-red.icon-btn.upper-right', {
+          attrs: { 'data-click': 'remove', 'data-icon': licon.Cancel },
+          hook: bind('click', e => {
+            if (color === 'white') botCtrl.whiteUid = undefined;
+            else botCtrl.blackUid = undefined;
+            reset(ctx);
+            e.stopPropagation();
+          }),
+        }),
+      h('img', { attrs: { src: imgUrl } }),
       p &&
         !('level' in p) &&
         h('div.bot-actions', [
@@ -142,15 +150,27 @@ function dashboard(ctx: DevContext) {
     fen(ctx),
     clockOptions(ctx),
     h('span', [
-      h('span', [
-        h('input', {
-          attrs: { type: 'checkbox', checked: devCtrl.skipTheatrics },
-          hook: bind('change', e => {
-            devCtrl.skipTheatrics = (e.target as HTMLInputElement).checked;
-            localStorage.setItem('local.dev.skipTheatrics', devCtrl.skipTheatrics ? '1' : '0');
+      h('div', [
+        h('label', [
+          h('input', {
+            attrs: { type: 'checkbox', checked: devCtrl.hurry },
+            hook: bind('change', e => {
+              devCtrl.hurry = (e.target as HTMLInputElement).checked;
+              localStorage.setItem('local.dev.hurry', devCtrl.hurry ? '1' : '0');
+            }),
           }),
-        }),
-        'hurry',
+          'hurry',
+        ]),
+        h('label', [
+          h('input', {
+            attrs: { type: 'checkbox', checked: devCtrl.sandbox },
+            hook: bind('change', e => {
+              devCtrl.sandbox = (e.target as HTMLInputElement).checked;
+              localStorage.setItem('local.dev.sandbox', devCtrl.sandbox ? '1' : '0');
+            }),
+          }),
+          'sandbox',
+        ]),
       ]),
       h('div.spacer'),
       'games',
@@ -321,6 +341,10 @@ function showBotSelector(ctx: DevContext, clickedEl: HTMLElement) {
       if ((el ?? clickedEl).classList.contains('white')) botCtrl.whiteUid = uid;
       else botCtrl.blackUid = uid;
       reset(ctx);
+    },
+    onRemove: () => {
+      main.classList.remove('with-cards');
+      botSelector = undefined;
     },
     orientation: 'left',
     transient: true,

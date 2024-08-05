@@ -1,31 +1,34 @@
 import * as co from 'chessops';
-import { makeStub } from './roundStub';
+import { makeFakeLila } from './fakeLila';
 import { makeFen } from 'chessops/fen';
 import { type MoveResult, type GameStatus, LocalGame } from './localGame';
-import type { LocalStub, RoundOpts, RoundData, RoundController, ClockData } from 'round';
+import type { LocalLila, RoundOpts, RoundData, RoundController, ClockData } from 'round';
+import type { Source } from 'game';
 import type { LocalPlayOpts, LocalSetup, Automator, SoundEvent } from './types';
 import type { BotCtrl } from './botCtrl';
+import { deepFreeze } from 'common';
 import { statusOf } from 'game/status';
 
 export class GameCtrl {
   private stopped = true;
   game: LocalGame;
   history?: LocalGame;
-  stub: LocalStub;
+  stub: LocalLila;
   round: RoundController;
   clock?: ClockData;
   i18n: { [key: string]: string };
   setup: LocalSetup;
-  roundData: RoundData;
+  data: RoundData;
   cancelBotThink?: () => void;
-  automator?: Automator;
+  dev?: Automator;
 
   constructor(
     readonly opts: LocalPlayOpts,
     readonly botCtrl: BotCtrl,
     readonly redraw: () => void,
+    readonly source: Source = 'local',
   ) {
-    this.stub = makeStub(this);
+    this.stub = makeFakeLila(this);
     this.i18n = opts.i18n;
     if (opts.setup)
       this.setup = Object.fromEntries(
@@ -36,8 +39,12 @@ export class GameCtrl {
     this.game = new LocalGame(this.setup.fen);
     this.makeRoundData(this.setup);
     this.resetClock();
+    this.autoStart();
     site.pubsub.on('ply', ply => this.jump(ply));
-    ['white', 'black'].forEach(c => this.botCtrl.playSound(c as Color, ['greeting']));
+    //['white', 'black'].forEach(c => this.botCtrl.playSound(c as Color, ['greeting']));
+    /*setTimeout(() => {
+      if (!this.isUserTurn) this.start();
+    }, 1000);*/
   }
 
   get chess(): co.Chess {
@@ -77,7 +84,7 @@ export class GameCtrl {
   }
 
   get orientation(): Color {
-    return !this.setup.white ? 'white' : !this.setup.black ? 'black' : 'white';
+    return /*this.dev ? 'white' :*/ !this.setup.white ? 'white' : !this.setup.black ? 'black' : 'white';
   }
 
   get cgOrientation(): Color {
@@ -85,9 +92,13 @@ export class GameCtrl {
   }
 
   start(): void {
-    if (this.game.end) return;
     this.stopped = false;
-    this.updateTurn();
+    setTimeout(() => !this.game.end && this.updateTurn());
+  }
+
+  autoStart(): void {
+    ['white', 'black'].forEach(c => this.botCtrl.playSound(c as Color, ['greeting']));
+    setTimeout(() => !this.dev && !this.isUserTurn && this.start(), 600);
   }
 
   async stop(): Promise<void> {
@@ -109,36 +120,37 @@ export class GameCtrl {
     this.botCtrl.reset();
     this.updateTurn();
     this.resetClock();
-    this.automator?.onReset?.();
     this.syncClock();
     this.resetRound();
+    this.autoStart();
   }
 
   resetClock({ initial, increment }: { initial?: number; increment?: number } = this.setup): void {
     initial ??= this.clock?.initial ?? 0;
     increment ??= this.clock?.increment ?? 0;
-    this.clock =
-      initial > 0
-        ? {
-            running: false,
-            initial,
-            increment,
-            white: initial,
-            black: initial,
-            emerg: 0,
-            showTenths: this.opts.pref.clockTenths,
-            showBar: true,
-            moretime: 0,
-          }
-        : undefined;
+    if (initial === 0) {
+      this.data.game.speed = this.data.game.perf = 'classical';
+      this.clock = undefined;
+      return;
+    }
+    this.clock = Object.defineProperty(
+      {
+        running: false,
+        initial,
+        increment,
+        white: initial,
+        black: initial,
+        emerg: 0,
+        showTenths: this.opts.pref.clockTenths,
+        showBar: true,
+        moretime: 0,
+      },
+      'running',
+      { get: () => !this.isStopped && this.game.ply > 0 },
+    );
 
-    this.roundData.game.perf = 'classical';
-    if (!this.clock) return;
-
-    Object.defineProperty(this.clock, 'running', { get: () => !this.isStopped && this.game.ply > 0 });
-
-    const total = (initial === 0 ? Infinity : initial) + (increment ?? 0) * 40;
-    this.roundData.game.perf =
+    const total = initial + (increment ?? 0) * 40;
+    this.data.game.speed = this.data.game.perf =
       total < 30
         ? 'ultraBullet'
         : total < 180
@@ -158,25 +170,22 @@ export class GameCtrl {
   }
 
   move(uci: Uci): boolean {
-    if (this.history) {
-      this.game = this.history;
-    }
+    if (this.history) this.game = this.history;
     this.history = undefined;
     this.stopped = false;
 
     const moveResult = this.game.move({ uci, clock: this.clock });
     const { end, move, justPlayed } = moveResult;
-    const skipTheatrics = this.automator?.skipTheatrics ?? false;
 
+    this.data.steps.splice(this.game.ply);
+    this.dev?.preMove?.(moveResult);
     this.playSounds(moveResult);
-    this.roundData.steps.splice(this.game.ply);
-    this.round.chessground?.set({ animation: { enabled: !skipTheatrics } });
     this.round.apiMove!(moveResult);
 
     if (move?.promotion)
       this.round.chessground?.setPieces(
         new Map([[uci.slice(2, 4) as Cg.Key, { color: justPlayed, role: move.promotion, promoted: true }]]),
-      ); // forever haunted by promotion craplets
+      );
 
     if (end) this.gameOver(moveResult);
     if (this.clock?.increment && this.clock?.initial) {
@@ -200,46 +209,35 @@ export class GameCtrl {
     });
     if (!move) return;
 
-    if (!this.automator?.skipTheatrics)
+    if (!this.dev?.think(move.time))
       await new Promise<void>(r => setTimeout((this.cancelBotThink = r), move.time * 1000));
-    else if (this.clock) this.clock[this.turn] -= move.time;
 
-    if (move.uci !== '0000' && !this.isStopped && game === this.game && this.round.ply === game.ply)
-      this.move(move.uci);
+    if (!this.isStopped && game === this.game && this.round.ply === game.ply) this.move(move.uci);
     else setTimeout(() => this.updateTurn(), 200);
   }
 
   flag(): void {
-    this.stop();
     if (this.clock) this.clock[this.turn] = 0;
+    this.gameOver({ winner: this.pondering, status: statusOf('outoftime') });
     this.syncClock();
-    Object.freeze(this.game);
-    this.gameOver({
-      winner: this.pondering,
-      status: statusOf('outoftime'),
-    });
   }
 
   resign(): void {
-    this.stop();
-    this.gameOver({
-      winner: this.pondering,
-      status: statusOf('resign'),
-    });
+    this.gameOver({ winner: this.pondering, status: statusOf('resign') });
+  }
+
+  abort(): void {
+    this.gameOver({ winner: undefined, status: statusOf('aborted') });
   }
 
   draw(): void {
-    this.stop();
-    this.gameOver({
-      winner: undefined,
-      status: statusOf('draw'),
-    });
+    this.gameOver({ winner: undefined, status: statusOf('draw') });
   }
 
   private elapsed: Elapsed = { sum: 0, for: 'black' };
 
   private updateTurn(game = this.game) {
-    this.roundData.game.player = game.turn;
+    this.data.game.player = game.turn;
     this.round.chessground?.set({ movable: { color: game.turn, dests: game.cgDests } });
     if (this.clock) this.clock = { ...this.clock, ...game.clock };
     this.syncClock();
@@ -256,19 +254,23 @@ export class GameCtrl {
       for: this.turn,
       from: this.isLive && this.ply > 0 ? performance.now() : undefined,
     };
-    this.round.clock?.setClock(this.roundData, this.clock.white, this.clock.black);
+    this.round.clock?.setClock(this.data, this.clock.white, this.clock.black);
     if (this.isStopped || !this.isLive) this.round.clock?.stopClock();
   }
 
   private gameOver(gameStatus: Omit<GameStatus, 'end' | 'turn'>) {
+    this.game.finish(gameStatus);
+    this.stop();
     if (this.clock) this.round.clock?.stopClock();
-    if (!this.automator?.onGameOver({ ...gameStatus, end: true, turn: this.turn })) {
+    if (!this.dev?.onGameOver({ ...gameStatus, end: true, turn: this.turn })) {
+      this.reset();
       this.round.endWithData?.({ ...gameStatus, boosted: false });
     }
     this.redraw();
   }
 
   private playSounds(moveResult: MoveResult): void {
+    if (moveResult.silent) return;
     const { justPlayed, san, end } = moveResult;
     const sounds: SoundEvent[] = [];
     const prefix = this.botCtrl[justPlayed] ? 'bot' : 'player';
@@ -277,8 +279,7 @@ export class GameCtrl {
     if (end) sounds.push(`${prefix}Win`);
     sounds.push(`${prefix}Move`);
     const boardSoundVolume = sounds ? this.botCtrl.playSound(justPlayed, sounds) : 1;
-    if (boardSoundVolume > 0 && !this.automator?.skipTheatrics)
-      site.sound.move({ ...moveResult, volume: boardSoundVolume });
+    if (boardSoundVolume) site.sound.move({ ...moveResult, volume: boardSoundVolume });
   }
 
   private resetRound() {
@@ -289,13 +290,13 @@ export class GameCtrl {
       white: twoPlayers ? 'White player' : 'Player',
       black: twoPlayers ? 'Black player' : 'Player',
     };
-    this.roundData.game.fen = this.fen;
-    this.roundData.game.turns = 0;
-    this.roundData.game.status = { id: 20, name: 'started' };
-    this.roundData.steps = [{ ply: 0, san: '', uci: '', fen: this.fen }];
-    this.roundData.possibleMoves = this.game.dests;
-    this.roundData.player = this.player(bottom, this.botCtrl[bottom]?.name ?? playerName[bottom]);
-    this.roundData.opponent = this.player(top, this.botCtrl[top]?.name ?? playerName[top]);
+    this.data.game.fen = this.fen;
+    this.data.game.turns = 0;
+    this.data.game.status = { id: 20, name: 'started' };
+    this.data.steps = [{ ply: 0, san: '', uci: '', fen: this.fen }];
+    this.data.possibleMoves = this.game.dests;
+    this.data.player = this.player(bottom, this.botCtrl[bottom]?.name ?? playerName[bottom]);
+    this.data.opponent = this.player(top, this.botCtrl[top]?.name ?? playerName[top]);
     if (this.round) this.round.ply = 0;
     this.round?.chessground?.set({
       fen: this.fen,
@@ -308,7 +309,7 @@ export class GameCtrl {
   }
 
   makeRoundData(setup: LocalSetup): void {
-    this.roundData = Object.defineProperty(
+    this.data = Object.defineProperty(
       {
         game: {
           id: 'synthetic',
@@ -318,7 +319,7 @@ export class GameCtrl {
           rated: false,
           fen: this.fen,
           turns: this.ply,
-          source: 'local',
+          source: this.source,
           status: { id: 20, name: 'started' },
           player: this.ply % 2 ? 'black' : 'white',
         },
@@ -337,7 +338,6 @@ export class GameCtrl {
   }
 
   private player(color: Color, name: string): RoundData['player'] {
-    // TODO - figure out way to delete this shit
     return {
       color,
       user: {
@@ -356,7 +356,7 @@ export class GameCtrl {
 
   get roundOpts(): RoundOpts {
     return {
-      data: this.roundData,
+      data: this.data,
       i18n: this.opts.i18n,
       local: this.stub,
       onChange: (d: RoundData) => {

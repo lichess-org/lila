@@ -1,4 +1,4 @@
-import { looseH as h, VNode } from 'common/snabbdom';
+import { looseH as h, VNode, bind } from 'common/snabbdom';
 //import * as licon from 'common/licon';
 //import { bind } from 'common/snabbdom';
 import type { Libot } from './types';
@@ -37,12 +37,13 @@ export const rangeTicks: { [type: string]: [number, string][] } = {
     [30, '30 seconds'],
     [45, '45 seconds'],
     [60, '1 minute'],
-    [90, '1½ minutes'],
     [120, '2 minutes'],
     [180, '3 minutes'],
     [300, '5 minutes'],
     [600, '10 minutes'],
     [1800, '30 minutes'],
+    [3600, '60 minutes'],
+    [5400, '90 minutes'],
     [0, 'unlimited'],
   ],
   increment: [

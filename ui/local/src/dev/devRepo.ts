@@ -42,7 +42,7 @@ export class DevRepo extends AssetDb {
       this.db.sound.getAll(),
       this.db.bookCover.getAll(),
       this.db.book.updateKeys(),
-      ...(this.remote?.image.map(async key => [key, await fetch(botAssetUrl(`images/${key}`, false))]) ?? []),
+      ...(this.remote?.image.map(async key => [key, await fetch(botAssetUrl('image', key, false))]) ?? []),
     ]);
     for (const [key, data] of localSounds) {
       this.sound.set(key, URL.createObjectURL(new Blob([data], { type: 'audio/mpeg' })));
@@ -123,7 +123,7 @@ export class DevRepo extends AssetDb {
     if (cached) return cached;
     const bookBlob = await (this.db.book.keys.includes(key)
       ? this.db.book.get(key)
-      : fetch(botAssetUrl(`books/${key}.bin`)).then(res => res.blob()));
+      : fetch(botAssetUrl('book', `${key}.bin`, false)).then(res => res.blob()));
     const bytes = new DataView(await bookBlob.arrayBuffer());
     const book = await makeBookFromPolyglot(bytes);
     this.book.set(key, book.getMoves);
@@ -131,15 +131,15 @@ export class DevRepo extends AssetDb {
   }
 
   getImageUrl(key: string): string {
-    return this.image.get(key) ?? botAssetUrl(`images/${key}`);
+    return this.image.get(key) ?? botAssetUrl('image', key, false);
   }
 
   getSoundUrl(key: string): string {
-    return this.sound.get(key) ?? botAssetUrl(`sounds/${key}`);
+    return this.sound.get(key) ?? botAssetUrl('sound', key, false);
   }
 
   getBookCoverUrl(key: string): string {
-    return this.bookCover.get(key) ?? botAssetUrl(`books/${key}.png`);
+    return this.bookCover.get(key) ?? botAssetUrl('book', `${key}.png`, false);
   }
 }
 

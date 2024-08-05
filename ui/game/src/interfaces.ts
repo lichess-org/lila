@@ -140,7 +140,7 @@ export interface CorrespondenceClock {
   black: number;
 }
 
-export type Source = 'import' | 'lobby' | 'pool' | 'friend' | 'local';
+export type Source = 'import' | 'lobby' | 'pool' | 'friend' | 'local' | 'local-dev';
 
 export interface PlayerUser {
   id: string;

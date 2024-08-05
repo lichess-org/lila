@@ -290,6 +290,7 @@ class HandOfCardsImpl {
     for (const drop of this.drops) drop.el?.classList.remove('drag-over');
     this.view.querySelectorAll('.dragging')?.forEach(x => x.classList.remove('dragging'));
     if (!this.dragCard) return;
+
     this.dragCard.classList.remove('pull');
     this.dragCard.releasePointerCapture(e.pointerId);
     const target = this.dropTarget(e);

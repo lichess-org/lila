@@ -20,8 +20,7 @@ export class EditDialog implements HostView {
   uid: string;
   ctrl: PaneCtrl;
   scratch: { [uid: string]: ZerofishBotEditor } = {}; // scratchpad for bot edits, pre-apply
-  cleanups: (() => void)[] = []; // chart.js
-  wtf: number = wtf++;
+  cleanups: (() => void)[] = []; // for chart.js
   constructor(
     readonly botCtrl: BotCtrl,
     readonly gameCtrl: GameCtrl,

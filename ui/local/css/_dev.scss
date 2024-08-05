@@ -1,8 +1,66 @@
+.dev-view {
+  @extend %flex-column;
+  gap: 1em;
+
+  textarea,
+  select,
+  input {
+    padding: 5px;
+    &.invalid {
+      background-color: $m-bg_bad--mix-80;
+    }
+  }
+  span {
+    @extend %flex-center-nowrap;
+    white-space: nowrap;
+    gap: 1em;
+  }
+  input:not([type='text']) {
+    cursor: pointer;
+  }
+  .disabled label > span {
+    opacity: 0.5;
+  }
+  .disabled .hide-disabled {
+    display: none;
+  }
+  .preview-sound::before {
+    color: $c-secondary;
+    &:hover {
+      color: $m-secondary--lighten-11;
+    }
+  }
+  .icon-btn {
+    padding: 6px;
+  }
+  *:focus-visible,
+  input.range:focus-visible {
+    outline: 2px solid $c-font;
+    outline-offset: -2px;
+  }
+  .upper-right {
+    position: absolute;
+    font-size: 1.25em;
+    top: 0;
+    right: 0;
+    color: $c-bad;
+    cursor: pointer;
+    &.show {
+      display: block;
+    }
+    &:hover {
+      color: $m-bad--lighten-11;
+      filter: saturate(1);
+    }
+  }
+}
+
 .dev-side {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content 1fr min-content;
   height: 100%;
+  max-width: 20vw;
   flex-flow: column;
   justify-content: stretch;
 
@@ -18,12 +76,18 @@
 
   .player {
     @extend %flex-between;
+    position: relative;
     padding: 8px;
     border-radius: 5px;
     border: 1px solid $c-border;
     align-content: center;
     width: 100%;
     font-size: 1em;
+    img {
+      width: 10vh;
+      height: 10vh;
+      //aspect-ratio: 1;
+    }
     &:hover,
     &.drag-over {
       border-color: $c-primary;

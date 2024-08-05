@@ -1,7 +1,7 @@
 import type { RoundData } from 'round';
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
-import type { GameStatus } from './localGame';
+import type { GameStatus, MoveResult as LocalMove } from './localGame';
 import type { Chess } from 'chessops';
 
 export type { CardData };
@@ -103,9 +103,11 @@ export interface LocalSetupOpts extends LocalSetup {
 
 export interface Automator {
   onGameOver: (status: GameStatus) => boolean; // returns true to keep going
-  onMove?: (fen: string) => void;
-  onReset?: () => void;
-  skipTheatrics: boolean;
+  preMove: (moveResult: LocalMove) => void;
+  onReset: () => void;
+  think: (movetime: number) => boolean;
+  //hurry: boolean; // skip animations, sounds, and artificial move wait times (clock is still adjusted)
+  sandbox: boolean; // you can move anyone's pieces in sandbox mode, but premoves are disabled
 }
 
 export type NetData = {

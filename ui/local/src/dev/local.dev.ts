@@ -16,6 +16,7 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 }
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
+  console.log(opts.pref);
   const devRepo = new DevRepo(opts.assets);
   const botCtrl = new BotCtrl(devRepo);
   devRepo.share = new ShareCtrl(botCtrl);
@@ -29,7 +30,7 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     botCtrl.blackUid = opts.setup.black;
   }
 
-  const gameCtrl = new GameCtrl(opts, botCtrl, redraw);
+  const gameCtrl = new GameCtrl(opts, botCtrl, redraw, 'local-dev');
   const devCtrl = new DevCtrl(gameCtrl, redraw);
 
   const el = document.createElement('main');

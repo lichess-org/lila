@@ -450,7 +450,7 @@ export default class RoundController implements MoveRootCtrl {
         },
         check: !!o.check,
       });
-      if (o.check) site.sound.play('check');
+      if (o.check) site.sound.play('check', o.volume);
       blur.onMove();
       site.pubsub.emit('ply', this.ply);
     }

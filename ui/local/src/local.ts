@@ -3,7 +3,7 @@ import type { RoundController } from 'round';
 import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
 import { AssetDb } from './assetDb';
-import { SetupDialog } from './setupDialog';
+import { showSetupDialog } from './setupDialog';
 import view from './gameView';
 import type { LocalPlayOpts } from './types';
 
@@ -15,25 +15,25 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
   if (localStorage.getItem('local.setup')) {
     if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.setup')!);
   }
-  if (!opts.setup?.go) {
-    new SetupDialog(botCtrl, opts.setup, true);
-    return;
-  }
-  if (opts.setup.white) botCtrl.whiteUid = opts.setup.white;
-  else botCtrl.blackUid = opts.setup.black;
+  if (opts.setup?.white) botCtrl.whiteUid = opts.setup?.white;
+  else botCtrl.blackUid = opts.setup?.black;
 
-  const ctrl = new GameCtrl(opts, botCtrl, redraw);
+  const gameCtrl = new GameCtrl(opts, botCtrl, redraw);
   const el = document.createElement('main');
 
   document.getElementById('main-wrap')?.appendChild(el);
-  let vnode = patch(el, view(ctrl));
+  let vnode = patch(el, view(gameCtrl));
 
-  ctrl.round = await site.asset.loadEsm<RoundController>('round', { init: ctrl.roundOpts });
+  gameCtrl.round = await site.asset.loadEsm<RoundController>('round', { init: gameCtrl.roundOpts });
 
   redraw();
+  if (!opts.setup?.go) {
+    showSetupDialog(botCtrl, opts.setup, gameCtrl);
+    return;
+  }
 
   function redraw() {
-    vnode = patch(vnode, view(ctrl));
-    ctrl.round.redraw();
+    vnode = patch(vnode, view(gameCtrl));
+    gameCtrl.round.redraw();
   }
 }

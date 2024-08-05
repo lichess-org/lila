@@ -181,7 +181,6 @@ export class BotCtrl {
     serverBots.forEach((b: BotInfo) => (this.defaultBots[b.uid] = deepFreeze(b)));
     for (const b of [...serverBots, ...overrides]) {
       if (!b.name) delete this.bots[b.uid];
-      console.log(b);
       this.bots[b.uid] = new ZerofishBot(b, this.zerofish, this.assetDb);
     }
   }

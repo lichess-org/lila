@@ -5,7 +5,7 @@ import type { Automator, Libot } from '../types';
 import { statusOf } from 'game/status';
 import { defined } from 'common';
 import type { GameCtrl } from '../gameCtrl';
-import type { GameStatus } from '../localGame';
+import type { GameStatus, MoveResult } from '../localGame';
 
 interface Test {
   type: 'matchup' | 'roundRobin' | 'rate';
@@ -30,7 +30,8 @@ export interface Script extends Test {
 }
 
 export class DevCtrl implements Automator {
-  skipTheatrics: boolean;
+  hurry: boolean; // skip animations, sounds, and artificial move wait times (clock is still adjusted)
+  sandbox: boolean; // you can move anyone's pieces in sandbox mode, but premoves are disabled
   script: Script;
   log: Result[];
 
@@ -39,9 +40,9 @@ export class DevCtrl implements Automator {
     readonly redraw: () => void,
   ) {
     site.pubsub.on('theme', this.redraw);
-    gameCtrl.automator = this;
-    const skip = localStorage.getItem('local.dev.skipTheatrics');
-    this.skipTheatrics = skip ? skip === '1' : false;
+    gameCtrl.dev = this;
+    const skip = localStorage.getItem('local.dev.hurry');
+    this.hurry = skip ? skip === '1' : false;
     this.resetScript();
   }
 
@@ -60,9 +61,12 @@ export class DevCtrl implements Automator {
 
   resetScript(test?: Test): void {
     this.log ??= [];
+    const players = [this.gameCtrl.setup.white, this.gameCtrl.setup.black].filter(x =>
+      defined(x),
+    ) as string[];
     this.script = {
       type: 'matchup',
-      players: [this.gameCtrl.setup.white, this.gameCtrl.setup.black].filter(x => defined(x)),
+      players,
       games: [],
       ...test,
     };
@@ -70,7 +74,16 @@ export class DevCtrl implements Automator {
 
   onReset(): void {}
 
-  onMove(fen: string): void {}
+  think(movetime: number): boolean {
+    if (!this.hurry) return false;
+    if (this.gameCtrl.clock) this.gameCtrl.clock[this.gameCtrl.turn] -= movetime;
+    return true;
+  }
+
+  preMove(moveResult: MoveResult): void {
+    this.gameCtrl.round.chessground?.set({ animation: { enabled: !this.hurry } });
+    if (this.hurry) moveResult.silent = true;
+  }
 
   onGameOver({ winner, turn, reason, status }: GameStatus): boolean {
     console.log('devCtrl', winner, reason, status);
@@ -112,7 +125,7 @@ export class DevCtrl implements Automator {
   }
 
   get gameInProgress(): boolean {
-    return this.gameCtrl.roundData.steps.length > 1 && !this.gameCtrl.status.end;
+    return this.gameCtrl.data.steps.length > 1 && !this.gameCtrl.status.end;
   }
 
   private get white(): Libot | undefined {

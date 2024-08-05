@@ -8,7 +8,7 @@ import { game as gameRoute } from 'game/router';
 import { RoundData } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
-import { LooseVNodes, LooseVNode, looseH as h } from 'common/snabbdom';
+import { LooseVNodes, LooseVNode, looseH as h, bind } from 'common/snabbdom';
 
 export interface ButtonState {
   enabled: boolean;
@@ -246,9 +246,9 @@ export function followUp(ctrl: RoundController): VNode {
       !d.tournament &&
       !d.simul &&
       !d.swiss &&
-      !d.game.boosted,
-    newable =
-      (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
+      !d.game.boosted &&
+      d.game.source !== 'local-dev',
+    newable = (status.finished(d) || status.aborted(d)) && ['lobby', 'pool', 'local'].includes(d.game.source),
     rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return h('div.follow-up', [
     ...rematchZone,
@@ -257,11 +257,13 @@ export function followUp(ctrl: RoundController): VNode {
     d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, ctrl.noarg('viewTournament')),
     newable &&
       h(
-        'a.fbt',
+        'button.fbt',
         {
-          attrs: {
-            href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id,
-          },
+          hook: bind('click', () => {
+            if (d.game.source === 'local') ctrl.socket.send('new-opponent');
+            else if (d.game.source === 'pool') location.href = poolUrl(d.clock!, d.opponent.user);
+            else location.href = '/?hook_like=' + d.game.id;
+          }),
         },
         ctrl.noarg('newOpponent'),
       ),

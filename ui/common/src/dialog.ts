@@ -77,7 +77,7 @@ export async function confirm(msg: string): Promise<boolean> {
     (
       await domDialog({
         htmlText: `<div>${escapeHtml(msg)}</div>
-      <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
+          <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
@@ -209,11 +209,12 @@ class DialogWrapper implements Dialog {
 
     this.dialogEvents.addListener(dialog, 'cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
     this.dialogEvents.addListener(dialog, 'close', this.onRemove);
-    this.dialogEvents.addListener(
-      dialog.querySelector('.close-button-anchor > .close-button')!,
-      'click',
-      () => this.close('cancel'),
-    );
+    if (!o.noCloseButton)
+      this.dialogEvents.addListener(
+        dialog.querySelector('.close-button-anchor > .close-button')!,
+        'click',
+        () => this.close('cancel'),
+      );
 
     if (!o.noClickAway)
       setTimeout(() => {

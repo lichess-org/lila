@@ -4,7 +4,7 @@ import type { SearchResult } from 'zerofish';
 import type { MoveArgs } from './types';
 import type { ZerofishBot } from './zerofishBot';
 
-const LOG_MOVE_LOGIC = true;
+const LOG_MOVE_LOGIC = false; //true;
 
 export function zerofishThink(bot: ZerofishBot, args: MoveArgs): number {
   //const maxDelay = bot.operator('delay', args) ?? 4;

@@ -4,6 +4,7 @@ import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
 import { statusOf } from 'game/status';
 import { Status } from 'game';
+import { deepFreeze } from 'common';
 
 export interface GameStatus {
   end: boolean; // convenience, basically anything after status 'started'
@@ -25,6 +26,7 @@ export interface MoveResult extends GameStatus {
   check: boolean;
   fifty: boolean;
   winner?: Color;
+  silent?: boolean;
 }
 
 type LocalMove = { uci: Uci; clock?: { white: number; black: number } };
@@ -34,6 +36,7 @@ export class LocalGame {
   chess: co.Chess;
   threefoldFens: Map<string, number> = new Map();
   fiftyHalfMove: number = 0;
+  finished?: GameStatus;
 
   constructor(
     readonly initialFen: string = co.fen.INITIAL_FEN,
@@ -83,8 +86,13 @@ export class LocalGame {
     return fenCount >= 3;
   }
 
-  timeout(): void {
+  /*timeout(): void {
     Object.freeze(this);
+  }*/
+
+  finish(finishStatus: Omit<GameStatus, 'end' | 'turn'>): void {
+    this.finished = { ...this.status, ...finishStatus };
+    deepFreeze(this);
   }
 
   moveResultWith(fields: Partial<MoveResult>): MoveResult {
@@ -127,6 +135,7 @@ export class LocalGame {
       winner: this.chess.outcome()?.winner,
       turn: this.chess.turn,
       ...gameStatus,
+      ...this.finished,
     };
   }
 

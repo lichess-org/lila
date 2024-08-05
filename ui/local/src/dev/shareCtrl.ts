@@ -35,7 +35,6 @@ export class ShareCtrl {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bot),
       }).then(res => res.json());
-      console.log('sharing is caring!', bots);
       const deletes: { type: ShareType; key: string }[] = [];
       for (const b of localBlobs.filter(b => b.type !== 'book' || b.key.endsWith('.bin'))) {
         if (b.type === 'book') b.key = b.key.slice(0, -4); // books are 2 assets but we prefer to treat as 1
@@ -66,7 +65,7 @@ export class ShareCtrl {
           formData.append('file', file);
           const url = new URL('/local/dev/asset', window.location.origin);
           url.searchParams.set('tpe', type);
-          url.searchParams.set('name', key);
+          url.searchParams.set('name', encodeURIComponent(key));
           const xhr = new XMLHttpRequest();
           xhr.open('POST', url, true);
 

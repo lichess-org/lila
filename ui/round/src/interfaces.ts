@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom';
+import type { VNode } from 'common/snabbdom';
 import { GameData, Status, Seconds, Centis } from 'game';
 import { ClockData } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
@@ -85,7 +85,7 @@ interface CrazyData {
 export interface CrazyPocket {
   [role: string]: number;
 }
-export interface LocalStub extends RoundSocket {
+export interface LocalLila extends RoundSocket {
   analyseButton(isIcon: boolean): VNode | false;
 }
 
@@ -99,7 +99,7 @@ export interface RoundOpts {
   crosstableEl?: HTMLElement;
   i18n: I18nDict;
   chat?: ChatOpts;
-  local?: LocalStub;
+  local?: LocalLila;
 }
 
 export interface ChatOpts {
