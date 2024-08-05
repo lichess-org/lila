@@ -535,7 +535,6 @@
   <string name="cheat">வஞ்சகன்</string>
   <string name="troll">அக்கிரமி</string>
   <string name="other">வேறு</string>
-  <string name="reportDescriptionHelp">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்த பயனர் நடத்தை பற்றி தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி எங்களுக்கு சொல்ல. ஆங்கிலத்தில் எழுதப்பட்ட என்றால் உங்கள் அறிக்கை வேகமாக செயல்படுத்தப்படும்.</string>
   <string name="error.provideOneCheatedGameLink">ஏமாற்றப்பட்ட விளையாட்டிற்கு குறைந்தபட்சம் ஒரு இணைப்பை வழங்கவும்.</string>
   <string name="by">மூலம் %s</string>
   <string name="importedByX">%s ஆல் இறக்குமதி செய்யப்பட்டது</string>

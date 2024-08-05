@@ -118,7 +118,7 @@ final class RelayUi(helpers: Helpers)(
           " • ",
           if tr.display.hasStarted
           then trans.site.eventInProgress()
-          else tr.display.startsAt.map(momentFromNow(_)) | "Soon"
+          else tr.display.startsAtTime.map(momentFromNow(_)) | "Soon"
         )
       )
     )

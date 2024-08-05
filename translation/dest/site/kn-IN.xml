@@ -542,7 +542,6 @@
   <string name="cheat">ಮೋಸದಾಟ</string>
   <string name="troll">ಉಪದ್ರವಿ</string>
   <string name="other">ಇತರೆ</string>
-  <string name="reportDescriptionHelp">ಮೋಸ ನಡೆದಿದೆ ಎಂಬ ಸಂಶಯವಿರುವ ಆಟದ (ಆಟಗಳ) ಕೊಂಡಿ ಅಥವಾ ಲಿಂಕ್ ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ. ಹಾಗೂ, ಈ ವ್ಯಕ್ತಿಯ ಅಥವಾ ಖಾತೆಯ ವರ್ತನೆಯಲ್ಲಿ ಏನು ಸಮಸ್ಯೆ ಇದೆ ಎಂಬುದನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ವಿವರಿಸಿ. ಕೇವಲ \"ಅವರು ಮೋಸ ಮಾಡಿದ್ದಾರೆ\" ಎಂದಷ್ಟೇ ಬರೆದು ಬಿಡಬೇಡಿ. ಬದಲಾಗಿ, ಹೇಗೆ ಈ ನಿರ್ಧಾರಕ್ಕೆ ಬಂದಿರಿ ಎಂಬುದನ್ನು ವಿವರಿಸಿ. ನಿಮ್ಮ ದೂರು ಇಂಗ್ಲಿಷ್ ಭಾಷೆಯಲ್ಲಿದ್ದರೆ ಬೇಗನೆಯೇ ಪರಿಹಾರ ಸಿಗುವ ಸಾಧ್ಯತೆ ಇದೆ.</string>
   <string name="error.provideOneCheatedGameLink">ದಯವಿಟ್ಟು ಮೋಸಕ್ಕೊಳಗಾದ ಒಂದಾದರೂ ಆಟದ ಕೊಂಡಿಯನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ.</string>
   <string name="by">%s ಅವರಿಂದ</string>
   <string name="importedByX">%s import ಮಾಡಿದ್ದಾರೆ</string>

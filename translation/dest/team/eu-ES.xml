@@ -50,8 +50,26 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="entryCodeDescriptionForLeader">(Aukerakoa) Taldera sartzeko taldekideek idatzi beharko duten kodea.</string>
   <string name="incorrectEntryCode">Sarrera-kode okerra.</string>
   <string name="teamAlreadyExists">Talde hau badago.</string>
+  <string name="upcomingTournaments">Hurrengo txapelketak</string>
   <string name="completedTourns">Amaitutako txapelketak</string>
   <string name="declinedRequests">Ukatutako eskaerak</string>
   <string name="joinLichessVariantTeam">Sartu %s talde ofizialera, albiste eta txapelketen berri izateko</string>
   <string name="teamPage">Taldearen orria</string>
+  <string name="thisTeamBattleIsOver">Txapelketa hau amaituta dago eta taldeak ezin dira eguneratu.</string>
+  <string name="listTheTeamsThatWillCompete">Zerrendatu txapelketa honetan parte hartuko duten taldeak.</string>
+  <string name="oneTeamPerLine">Talde bat lerro bakoitzean. Erabili izena berez-betetzea.</string>
+  <string name="oneTeamPerLineHelp">Zerrenda hau txapelketa batetik bestera kopiatu dezakezu!
+
+Ezin duzu talde bat ezabatu bertako jokalari bat txapelketara sartu bada.</string>
+  <string name="numberOfLeadsPerTeam">Talde bateko lider kopurua. Euren puntuazioen baturak taldearen puntuazioa emango du.</string>
+  <string name="numberOfLeadsPerTeamHelp">Ez zenuke balio hau aldatu behar txapelketa bat hasi ostean!</string>
+  <string name="innerTeam">Barruko taldea</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Talde %sen arteko txapelketa</item>
+    <item quantity="other">%s talderen arteko txapelketa</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Lider bat talde bakoitzeko</item>
+    <item quantity="other">%s lider talde bakoitzeko</item>
+  </plurals>
 </resources>

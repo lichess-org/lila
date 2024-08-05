@@ -408,7 +408,6 @@
   <string name="cheat">Twyll</string>
   <string name="troll">Trôl</string>
   <string name="other">Arall</string>
-  <string name="reportDescriptionHelp">Gluda ddolen i\'r gêm ac esbonio be sydd o\'i le am ymddigiad y defnyddiwr hwn. Paid â dweud jyst ´\"Mae o\'n twyllo\", ond dwed pam wyt ti\'n meddwl hynny. Bydd dy adrodd yn cael ei brosesu yn gyflymach os ysgrifenni yn Saesneg.</string>
   <string name="error.provideOneCheatedGameLink">Rhowch o leiaf un dolen at gem lle bu twyllo.</string>
   <string name="by">gan %s</string>
   <string name="thisTopicIsNowClosed">Mae\'r pwnc ma wedi\'i gau rwan.</string>

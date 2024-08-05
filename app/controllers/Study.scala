@@ -242,7 +242,7 @@ final class Study(
         )
       )
       withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
-      studyJson <- env.study.jsonView(study, previews, chapter, fedNames.some, withMembers = withMembers)
+      studyJson <- env.study.jsonView.full(study, previews, chapter, fedNames.some, withMembers = withMembers)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData

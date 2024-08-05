@@ -117,13 +117,18 @@
   <string name="howToThreeDots">چگونه...</string>
   <string name="enableDisableNotificationPopUps">فعال یا غیرفعال سازی اعلان‌های بالاپَر؟</string>
   <string name="viewSiteInformationPopUp">دیدن بالاپَر اطلاعات وبگاه</string>
-  <string name="lichessCanOptionnalySendPopUps">وبگاه Lichess می‌تواند بااختیار اعلان‌های بالاپَر بفرستد، برای مثال زمانی که نوبت‌تان است یا پیام خصوصی دریافت کرده‌اید.
+  <string name="lichessCanOptionnalySendPopUps">وبگاه Lichess می‌تواند بااختیار اعلان‌های بالاپَر بفرستد، برای مثال زمانی که نوبت‌تان است یا پیام خصوصی گرفته‌اید.
 
 روی نقشک پس از قفل، در آغاز نشانی lichess.org در نوار URL مرورگرتان بزنید.
 
 سپس برگزینید که آیا اعلان‌های Lichess مجاز یا مسدود شوند.</string>
   <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
   <string name="desktop">رایانه</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">۱. روی سه نقطه در گوشه بالا راست بزنید
+۲. تنظیمات (Settings) را بزنید
+۳. رَدنماها و مجوزهای وبگاه (Cookies and Site Permissions) را بزنید
+۴. به پایین بِنَوَردید و پخش خودکار رسانه (Media autoplay) را بزنید
+۵. وبگاه lichess.org را به اجازه‌داران (Allow) بیفزایید</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">چگونه خودم را از بازی، بازدارم؟</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">وضعیت سلامت روانی خوداتکا</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">سبک‌های کاربری Lichess</string>

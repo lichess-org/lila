@@ -12,6 +12,6 @@
   <string name="hiddenBlogInfo">حتما دوباره %s ما را بخوانید.</string>
   <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">یک وقت فنی دارید.</string>
   <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">راهنمای ارتباطات</string>
-  <string name="blogRules">قواعد وبنوشت</string>
+  <string name="blogRules">قاعده‌های وبنوشت</string>
   <string name="fairPlay">پاکبازی</string>
 </resources>

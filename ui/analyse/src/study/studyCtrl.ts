@@ -601,8 +601,13 @@ export default class StudyCtrl {
     }
     return !!this.relay?.socketHandler(t, d);
   };
-  addEmbedPrefix = (path: string) =>
-    this.ctrl.isEmbed && !path.startsWith('/embed/') ? '/embed' + path : path;
+  embeddablePath = (path: string) => {
+    if (!this.ctrl.isEmbed) return path;
+    const p = `${path.startsWith('/embed/') ? '' : '/embed'}${path}`;
+    if (!location.search) return p;
+    const s = p.split('#');
+    return `${s[0]}${location.search}${s[1] ? `#${s[1]}` : ''}`;
+  };
 
   socketHandlers: Handlers = {
     path: d => {

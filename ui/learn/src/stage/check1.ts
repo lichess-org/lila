@@ -1,15 +1,16 @@
 import { check, not } from '../assert';
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
+import { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/winged-sword.svg';
 
-const common = () => ({
+const common = {
   nbMoves: 1,
   failure: not(check),
   success: check,
-});
+};
 
-export default {
+const stage: StageNoID = {
   key: 'check1',
   title: 'checkInOne',
   subtitle: 'attackTheOpponentsKing',
@@ -46,6 +47,7 @@ export default {
       goal: 'checkInOneGoal',
       fen: '7r/4k3/8/3n4/4N3/8/2R5/4Q3 w - -',
     },
-  ].map((l, i) => toLevel({ ...common(), ...l }, i)),
+  ].map((l, i) => toLevel({ ...common, ...l }, i)),
   complete: 'checkInOneComplete',
 };
+export default stage;

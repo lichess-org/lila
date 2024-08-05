@@ -98,9 +98,13 @@ final class ChatApi(
             logger.info(s"Can't post $line in $publicSource: chat is closed")
             funit
 
-    private def isGarbage(text: String) =
-      val letters = text.filter(_.isLetter).toLowerCase
-      letters == "last" || letters == "first"
+    private def isGarbage(text: String) = {
+      val x = text.filter(_.isLetter).toLowerCase
+      x == "last" || x == "first"
+    } || {
+      val x = text.filter(_.isLetterOrDigit).toLowerCase
+      x == "1st" || x == "1" || x == "2nd" || x == "2"
+    }
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)): s =>

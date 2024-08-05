@@ -167,4 +167,8 @@ Ikono gorria zu ohartarazteko erakusten dugu. Sarri lichess.org baimendu dezakez
 3. Egin klik Cookieak eta Gunearen baimenetan
 4. Joan behera eta egin klik \"Media autoplay\" aukeran
 5. Gehitu lichess.org Baimenduen zerrendara</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Jokatzeari utzi?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">osasun metaleko egoera</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess erabiltzaile motak</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">egongela multzo txikiagoak</string>
 </resources>

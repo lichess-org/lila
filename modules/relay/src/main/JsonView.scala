@@ -169,7 +169,7 @@ object JsonView:
       )
       .add("finished" -> r.finished)
       .add("ongoing" -> (r.hasStarted && !r.finished))
-      .add("startsAt" -> r.startsAt.orElse(r.startedAt))
+      .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
 
   given OWrites[RelayStats.RoundStats] = OWrites: r =>
     Json.obj(
@@ -184,6 +184,8 @@ object JsonView:
         "ongoing" -> s.ongoing,
         "log"     -> s.log.events
       )
+      .add("filter" -> s.onlyRound)
+      .add("slices" -> s.slices.map(_.mkString(", ")))
       .add("delay" -> s.delay) ++
       s.upstream.so:
         case Sync.Upstream.Url(url)   => Json.obj("url" -> url)

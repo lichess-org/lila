@@ -22,9 +22,9 @@
   <string name="tournamentDescription">锦标赛简短描述</string>
   <string name="fullDescription">赛事详情</string>
   <string name="fullDescriptionHelp">转播内容的详细描述 (可选）。可以使用 %1$s，字数少于 %2$s 个。</string>
-  <string name="sourceSingleUrl">PGN源URL</string>
+  <string name="sourceSingleUrl">PGN的URL源</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
-  <string name="sourceGameIds">多达64个巫妖游戏Id，由空格分隔。</string>
+  <string name="sourceGameIds">多达64个 Lichess 棋局Id，用空格隔开。</string>
   <string name="startDate">开始日期，在你的本地时区</string>
   <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
   <string name="credits">信任来源</string>
@@ -42,12 +42,12 @@
   <string name="replacePlayerTags">可选项：替换选手的名字、等级分和头衔</string>
   <string name="periodInSeconds">时长（秒）</string>
   <string name="periodInSecondsHelp">可选项，请求之间等待多长时间。最小2秒，最大60秒。默认值为基于观众数量的自动值。</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE联合会</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">十大评级</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE球员</string>
-  <string name="fidePlayerNotFound">FIDE播放器未找到</string>
+  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE 成员国</string>
+  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">前10名等级分</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE 棋手</string>
+  <string name="fidePlayerNotFound">未找到 FIDE 棋手</string>
   <string name="fideProfile">FIDE个人资料</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">联邦</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">棋联</string>
   <string name="ageThisYear">今年的年龄</string>
   <string name="unrated">未评级</string>
   <string name="recentTournaments">最近的比赛</string>

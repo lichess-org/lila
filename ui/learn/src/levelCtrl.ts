@@ -1,4 +1,4 @@
-import { PromotionRole, WithGround, arrow } from './util';
+import { PromotionRole, WithGround, arrow, oppColor } from './util';
 import { Items, ctrl as makeItems } from './item';
 import { Level } from './stage/list';
 import * as scoring from './score';
@@ -6,7 +6,7 @@ import * as timeouts from './timeouts';
 import * as sound from './sound';
 import makeChess, { ChessCtrl } from './chess';
 import makeScenario, { Scenario } from './scenario';
-import type { Square as Key } from 'chess.js';
+import { SquareName as Key, makeSquare, makeUci } from 'chessops';
 import { CgMove } from './chessground';
 import * as cg from 'chessground/types';
 import { PromotionCtrl } from './promotionCtrl';
@@ -46,7 +46,7 @@ export class LevelCtrl {
   };
 
   isAppleLevel: Prop<boolean>;
-  items: Items<'apple'>;
+  items: Items;
   chess: ChessCtrl;
   scenario: Scenario;
   promotionCtrl: PromotionCtrl;
@@ -74,7 +74,7 @@ export class LevelCtrl {
     withGround(this.initializeWithGround);
   }
 
-  makeChessDests = () => this.chess.dests({ illegal: this.blueprint.offerIllegalMove });
+  makeChessDests = () => this.chess.dests(this.chess.instance, { illegal: this.blueprint.offerIllegalMove });
 
   initializeWithGround = (ground: CgApi) => {
     const { chess, blueprint } = this;
@@ -85,13 +85,14 @@ export class LevelCtrl {
       selected: undefined,
       orientation: blueprint.color,
       coordinates: true,
-      turnColor: chess.color(),
-      check: chess.instance.in_check(),
+      turnColor: chess.getColor(),
+      check: chess.instance.isCheck(),
       autoCastle: blueprint.autoCastle,
       movable: {
         free: false,
-        color: chess.color(),
-        dests: chess.dests({ illegal: blueprint.offerIllegalMove }),
+        color: chess.getColor(),
+        dests: this.makeChessDests(),
+        rookCastle: false,
       },
       events: {
         move: (orig: Key, dest: Key) => {
@@ -122,12 +123,11 @@ export class LevelCtrl {
       if (failed) sound.failure();
       return failed;
     };
-    const detectSuccess = () =>
-      blueprint.success ? blueprint.success(assertData()) : !items.hasItem('apple');
+    const detectSuccess = () => (blueprint.success ? blueprint.success(assertData()) : items.isEmpty());
     const detectCapture = () => {
       if (!blueprint.detectCapture) return false;
-      const fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
-      const move = chess[fun]();
+      const move =
+        blueprint.detectCapture === 'unprotected' ? chess.findUnprotectedCapture() : chess.findCapture();
       if (!move) return false;
       vm.failed = true;
       ground.stop();
@@ -143,7 +143,7 @@ export class LevelCtrl {
       else {
         // moving into check
         vm.failed = true;
-        this.showCheckmate();
+        this.showKingAttackers();
         sound.failure();
         redraw();
         return;
@@ -151,18 +151,18 @@ export class LevelCtrl {
       let took = false,
         inScenario,
         captured = false;
-      items.withItem(move.to, () => {
+      items.doIfKeyExists(makeSquare(move.to), () => {
         vm.score += scoring.apple;
-        items.remove(move.to);
+        items.remove(makeSquare(move.to));
         took = true;
       });
-      if (!took && move.captured && blueprint.pointsForCapture) {
-        if (blueprint.showPieceValues) vm.score += scoring.pieceValue(move.captured);
-        else vm.score += scoring.capture;
+      const pieceAtKey = chess.instance.board.get(move.to);
+      if (!took && pieceAtKey && blueprint.pointsForCapture && pieceAtKey.role != 'king') {
+        vm.score += blueprint.showPieceValues ? scoring.pieceValue(pieceAtKey.role) : scoring.capture;
         took = true;
       }
       this.setCheck();
-      if (scenario.player(move.from + move.to + (move.promotion || ''))) {
+      if (scenario.player(makeUci(move))) {
         vm.score += scoring.scenario;
         inScenario = true;
       } else {
@@ -185,7 +185,7 @@ export class LevelCtrl {
       } else {
         ground.selectSquare(dest);
         if (!inScenario) {
-          chess.color(blueprint.color);
+          chess.setColor(blueprint.color);
           this.setColorDests(blueprint.color, this.makeChessDests());
         }
       }
@@ -193,16 +193,13 @@ export class LevelCtrl {
     };
   };
 
-  setFen = (fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key, ...unknown[]]) =>
+  setFen = (fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key]) =>
     this.withGround(g =>
       g.set({
         turnColor: color,
         fen,
         movable: { color, dests },
-        // Casting here instead of declaring lastMove as [Key, Key] right away
-        // allows the setFen function to accept [orig, dest, promotion] values
-        // for lastMove as well.
-        lastMove: lastMove as [Key, Key],
+        lastMove: lastMove,
       }),
     );
 
@@ -222,24 +219,22 @@ export class LevelCtrl {
       }, 600);
     });
 
-  showCheckmate = () =>
+  showKingAttackers = () =>
     this.withGround(ground => {
-      const turn = this.chess.instance.turn() === 'w' ? 'b' : 'w';
-      const fen = `${ground.getFen()} ${turn} - - 0 1`;
-      this.chess.instance.load(fen);
-      const kingKey = this.chess.kingKey(turn === 'w' ? 'black' : 'white');
-      const shapes = this.chess.instance
-        .moves({ verbose: true })
-        .filter(m => m.to === kingKey)
-        .map(m => arrow(m.from + m.to, 'red'));
-      ground.set({ check: turn === 'w' ? 'black' : 'white' });
+      const turn = this.chess.getColor();
+      const kingKey = this.chess.kingKey(oppColor(turn));
+      const shapes = this.chess
+        .moves(this.chess.instance)
+        .filter(m => makeSquare(m.to) === kingKey)
+        .map(m => arrow(makeUci(m), 'red'));
+      ground.set({ check: turn });
       this.setShapes(shapes);
     });
 
   setCheck = () =>
     this.withGround(ground => {
       const checks = this.chess.checks();
-      const turn = this.chess.instance.turn() === 'w' ? 'white' : 'black';
+      const turn = this.chess.instance.turn;
       ground.set({ check: !!checks && turn });
       if (checks) this.setShapes(checks.map(move => arrow(move.orig + move.dest, 'yellow')));
     });
@@ -254,7 +249,7 @@ export class LevelCtrl {
 
   start = () => {
     sound.levelStart();
-    if (this.chess.color() !== this.blueprint.color) timeouts.setTimeout(this.scenario.opponent, 1000);
+    if (this.chess.getColor() !== this.blueprint.color) timeouts.setTimeout(this.scenario.opponent, 1000);
   };
 
   complete = () => {

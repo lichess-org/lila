@@ -38,7 +38,7 @@
   <string name="kick">اخراج</string>
   <string name="leaveTheStudy">ترک مطالعه</string>
   <string name="youAreNowAContributor">شما یک مشارکت کننده جدید هستید</string>
-  <string name="youAreNowASpectator">شما حالا یک تماشاگرید</string>
+  <string name="youAreNowASpectator">شما اکنون یک تماشاگرید</string>
   <string name="pgnTags">نشان های PGN</string>
   <string name="like">پسندیدن</string>
   <string name="unlike">نمی‌پسندم</string>
@@ -51,7 +51,7 @@
   <string name="getAFullComputerAnalysis">یک تحلیل کامل رایانه‌ای کارساز-سو از شاخه اصلی بگیرید.</string>
   <string name="makeSureTheChapterIsComplete">مطمئن شوید که بخش کامل است. شما فقط یک بار می‌توانید درخواست تحلیل دهید.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">همه‌ی عضوهای همگام در وضعیت یکسانی باقی می‌مانند</string>
-  <string name="shareChanges">تغییرات را با تماشاگران به اشتراک بگذارید و آنها را در سرور ذخیره کنید</string>
+  <string name="shareChanges">تغییرها را در کارساز ذخیره کنید و با تماشاگران به اشتراک گذارید</string>
   <string name="playing">در حال انجام</string>
   <string name="showEvalBar">نوار ارزیابی</string>
   <string name="first">اولین</string>
@@ -132,7 +132,7 @@
   <string name="deleteStudy">پاکیدن مطالعه</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">کل مطالعه پاک شود؟ بازگشت وجود ندارد! برای تایید، نام مطالعه را بنویسید: %s</string>
   <string name="whereDoYouWantToStudyThat">کجا می‌خواهید آنرا مطالعه کنید؟</string>
-  <string name="goodMove">حرکت خوبی بود</string>
+  <string name="goodMove">حرکت خوب</string>
   <string name="mistake">اشتباه</string>
   <string name="brilliantMove">حرکت درخشان</string>
   <string name="blunder">اشتباه فاحش</string>
@@ -143,7 +143,7 @@
   <string name="equalPosition">وضعیت برابر</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">وضعیت ناروشن</string>
   <string name="whiteIsSlightlyBetter">سفید کمی بهتر است</string>
-  <string name="blackIsSlightlyBetter">مشکی کمی بهتر است</string>
+  <string name="blackIsSlightlyBetter">سیاه کمی بهتر است</string>
   <string name="whiteIsBetter">سفید بهتر است</string>
   <string name="blackIsBetter">سیاه بهتر است</string>
   <string name="whiteIsWinning">سفید می‌برد</string>

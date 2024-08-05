@@ -136,7 +136,8 @@ $hover-bg: $m-primary_bg--mix-30;
 
     h1 {
       @extend %break-word;
-      @include fluid-size('font-size', 14px, 32px);
+      @include line-clamp(2);
+      @include fluid-size('font-size', 14px, 31px);
       color: $c-brag;
     }
 
@@ -172,7 +173,7 @@ $hover-bg: $m-primary_bg--mix-30;
   &__mselect {
     position: unset;
     flex: auto;
-    @include fluid-size('font-size', 12px, 20px);
+    @include fluid-size('font-size', 12px, 19px);
     white-space: wrap;
     &.mselect__active {
       overflow: visible;
@@ -279,7 +280,7 @@ $hover-bg: $m-primary_bg--mix-30;
     span {
       @extend %box-radius;
       cursor: pointer;
-      padding: 0.8em 1.5em;
+      padding: 0.6em 1.5em;
       border: $border;
       &:hover {
         @extend %box-shadow;

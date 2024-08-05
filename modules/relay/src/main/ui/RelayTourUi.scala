@@ -202,7 +202,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
                   .map: nb =>
                     span(cls := "relay-card__crowd text", dataIcon := Icon.User)(nb.localize)
               )
-            else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
+            else tr.display.startedAt.orElse(tr.display.startsAtTime).map(momentFromNow(_))
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           if errors.nonEmpty

@@ -11,10 +11,9 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/chess.js": "0.10.1",
-    "chess.js": "github:ornicar/chess.js#learn",
     "common": "workspace:*",
-    "snabbdom": "3.5.1"
+    "snabbdom": "3.5.1",
+    "chessops": "^0.14.1"
   },
   "lichess": {
     "bundles": "src/learn.ts"

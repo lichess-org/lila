@@ -74,6 +74,10 @@
   <string name="verificationForm">ยืนยันจาก</string>
   <string name="canIbecomeLM">ฉันสามารถได้ตำแหน่ง Lichess Master (LM) ได้หรือไม่</string>
   <string name="noUpperCaseDot">ไม่</string>
+  <string name="whatUsernameCanIchoose">ชื่อผู้ใช้เป็นอะไรได้บ้าง</string>
+  <string name="usernamesNotOffensive">โดยปกติแล้ว ชื่อผู้ใช้ไม่ควรแสดงถึงการคุกคาม, ใส่ร้ายหรือคุกคามผู้อื่น, หรือการโฆษณา อ่านเพิ่มเติมเกี่ยวกับเรื่องนี้ที่ %1$s</string>
+  <string name="guidelines">หลักเกณฑ์</string>
   <string name="canIChangeMyUsername">ฉันสามารถเปลี่ยนชื่อผู้ใช้งานของฉันได้ไหม?</string>
+  <string name="uniqueTrophies">รางวัลที่ไม่ซ้ำใคร</string>
   <string name="enableAutoplayForSoundsQ">เปิดใช้งานการเล่นอัตโนมัติสำหรับเสียงไหม</string>
 </resources>

@@ -136,8 +136,8 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
   }
 }
 
-export const gameLinkAttrs = (basePath: string, game: { id: ChapterId }) => ({
-  href: `${basePath}/${game.id}`,
+export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({
+  href: `${roundPath}/${game.id}`,
 });
 export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
   (vnode.elm as HTMLElement).addEventListener(

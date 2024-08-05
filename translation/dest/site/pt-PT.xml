@@ -556,7 +556,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="cheat">Batota</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
-  <string name="reportDescriptionHelp">Inclui o link do(s) jogo(s) e explica o que há de errado com o comportamento deste utilizador. Não digas apenas \"ele faz batota\"; informa-nos como chegaste a essa conclusão. A tua denúncia será processada mais rapidamente se for escrita em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, fornece-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>

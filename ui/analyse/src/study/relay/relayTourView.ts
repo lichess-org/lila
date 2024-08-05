@@ -159,8 +159,14 @@ const overview = (ctx: RelayViewContext) => {
   ];
 };
 
-const share = (ctx: RelayViewContext) =>
-  h('div.relay-tour__share', [
+const share = (ctx: RelayViewContext) => {
+  const iframe = (path: string) =>
+    `<iframe src="${baseUrl()}/embed${path}" 'style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
+  const iframeHelp = h('div.form-help', [
+    'More options on the ',
+    h('a', { attrs: { href: '/developers#broadcast' } }, 'webmasters page'),
+  ]);
+  return h('div.relay-tour__share', [
     h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
     ...[
       [ctx.relay.data.tour.name, ctx.relay.tourPath()],
@@ -178,14 +184,17 @@ const share = (ctx: RelayViewContext) =>
           ' for faster and more efficient synchronisation.',
         ]),
       ],
+      ['Embed this broadcast in your website', iframe(ctx.relay.tourPath()), iframeHelp],
+      [`Embed ${ctx.study.data.name} in your website`, iframe(ctx.relay.roundPath()), iframeHelp],
     ].map(([i18n, path, help]: [string, string, VNode]) =>
       h('div.form-group', [
         h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
-        copyMeInput(`${baseUrl()}${path}`),
+        copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
         help,
       ]),
     ),
   ]);
+};
 
 const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
   const toggle = ctx.relay.groupSelectShow;
@@ -209,7 +218,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
               group.tours.map(tour =>
                 h(
                   `a.mselect__item${tour.id == ctx.relay.data.tour.id ? '.current' : ''}`,
-                  { attrs: { href: ctx.study.addEmbedPrefix(`/broadcast/-/${tour.id}`) } },
+                  { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
                   tour.name,
                 ),
               ),
@@ -260,7 +269,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         'td.name',
                         h(
                           'a',
-                          { attrs: { href: study.addEmbedPrefix(relay.roundUrlWithHash(round)) } },
+                          { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
                           round.name,
                         ),
                       ),
@@ -284,7 +293,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
 const games = (ctx: RelayViewContext) => [
   ...header(ctx),
   ctx.study.chapters.list.looksNew() ? undefined : multiBoardView(ctx.study.multiBoard, ctx.study),
-  showSource(ctx.relay.data),
+  !ctx.ctrl.isEmbed && showSource(ctx.relay.data),
 ];
 
 const teams = (ctx: RelayViewContext) => [

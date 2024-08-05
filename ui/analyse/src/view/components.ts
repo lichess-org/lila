@@ -313,6 +313,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
               ctrl.ceval.possible &&
                 ctrl.ceval.allowed() &&
                 !ctrl.isGamebook() &&
+                !ctrl.isEmbed &&
                 h('button.fbt', {
                   attrs: {
                     title: noarg('practiceWithComputer'),
