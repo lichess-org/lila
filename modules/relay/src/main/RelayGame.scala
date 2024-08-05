@@ -90,7 +90,8 @@ private object RelayGame:
       games.filter(_.tags.roundNumber.has(round))
 
   // 1-indexed, both inclusive
-  case class Slice(from: Int, to: Int)
+  case class Slice(from: Int, to: Int):
+    override def toString = s"$from-$to"
 
   object Slices:
     def filter(slices: List[Slice])(games: RelayGames): RelayGames =
@@ -118,7 +119,7 @@ private object RelayGame:
     def show(slices: List[Slice]): String = slices
       .map:
         case Slice(f, t) if f == t => f.toString
-        case Slice(f, t)           => s"$f-$t"
+        case slice                 => slice.toString
       .mkString(",")
 
     val iso: Iso.StringIso[List[Slice]] = Iso(parse, show)

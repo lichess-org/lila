@@ -184,6 +184,8 @@ object JsonView:
         "ongoing" -> s.ongoing,
         "log"     -> s.log.events
       )
+      .add("filter" -> s.onlyRound)
+      .add("slices" -> s.slices.map(_.mkString(", ")))
       .add("delay" -> s.delay) ++
       s.upstream.so:
         case Sync.Upstream.Url(url)   => Json.obj("url" -> url)
