@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Галасавыя каманды</string>
+  <string name="selectOrCaptureABishop">Выбраць альбо захапіць слана</string>
+  <string name="takeRookWithQueen">Захапіць ладдзю ферзём</string>
+  <string name="phoneticAlphabetIsBest">Фанетычны алфавіт найлепшы</string>
+</resources>
