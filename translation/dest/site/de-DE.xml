@@ -558,7 +558,9 @@
   <string name="cheat">Betrug</string>
   <string name="troll">Troll</string>
   <string name="other">Sonstiges</string>
-  <string name="reportCheatBoostHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst.</string>
+  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst.</string>
+  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Erklären Sie, was an diesem Benutzernamen anstößig ist. Sagen Sie nicht einfach „Es ist beleidigend oder unangemessen\", sondern begründen Sie, wie Sie zu diesem Schluss gekommen sind, insbesondere wenn die Beleidigung verwirrend ist, nicht auf Englisch, in der Umgangssprache oder auf einen historischen oder kulturellen Bezug zurückzuführen ist.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ihr Bericht wird schneller bearbeitet, wenn er auf Englisch verfasst ist.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einem Spiel an, in dem betrogen wurde.</string>
   <string name="by">von %s</string>
   <string name="importedByX">Importiert von %s</string>
