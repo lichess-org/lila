@@ -35,7 +35,7 @@
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
   <string name="serversAndDeveloper">اول از همه، کارسازهای قدرتمند.
 سپس به یک توسعه‌دهنده تمام‌وقت پرداخت می‌کنیم: %s، بنیان‌گذارِ Lichess.</string>
-  <string name="costBreakdown">جزئیات ساختار مخارج را مشاهده نمایید</string>
+  <string name="costBreakdown">ساختار ریز هزینه را ببینید</string>
   <string name="officialNonProfit">آیا Lichess به صورت رسمی غیرانتفاعی است؟</string>
   <string name="actOfCreation">بله، مصوبه تاسیس (به زبان فرانسوی) این‌جا است</string>
   <string name="changeMonthlySupport">آیا می‌توانم پشتیبانی ماهانه خود را تغییر یا حذف نمایم؟</string>
@@ -49,7 +49,7 @@
   <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>
   <string name="noPatronFeatures">نه، زیرا Lichess برای همیشه و برای همه، کاملا رایگان است. قول می‌دهیم.
 با این حال، حامیان با بال‌های معرکه‌ای که در رُخ‌نمای‌شان نشان داده می‌شود، حق پُز دادن دارند.</string>
-  <string name="featuresComparison">مقایسه جزئیاتِ ویژگیها را مشاهده کنید</string>
+  <string name="featuresComparison">همسنجی ریز آرنگ‌ها را ببینید</string>
   <plurals name="patronForMonths">
     <item quantity="one">پشتیبانِ Lichess برای یک ماه</item>
     <item quantity="other">پشتیبانِ Lichess برای %s ماه</item>
