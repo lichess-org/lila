@@ -79,4 +79,6 @@
   <string name="downgradeNextMonth">한달 안에 다시 지불하지 않는다면 당신의 Lichess 계정은 일반 계정으로 전환됩니다.</string>
   <string name="changeCurrency">통화 변경</string>
   <string name="paymentDetails">결제 세부사항</string>
+  <string name="updatePaymentMethod">결제 수단 업데이트</string>
+  <string name="stripeManageSub">구독 관리 및 청구서 및 영수증 다운로드</string>
 </resources>
