@@ -357,7 +357,7 @@
     <item quantity="one">%s سیمولتانه</item>
     <item quantity="other">%s سیمولتانه</item>
   </plurals>
-  <string name="viewTournament">مشاهده مسابقات</string>
+  <string name="viewTournament">دیدن مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
   <string name="noDrawBeforeSwissLimit">شما نمی‌توانید در مسابقات سوییس تا قبل از حرکت ۳۰ام بازی را مساوی کنید.</string>
   <string name="thematic">موضوعی</string>
@@ -535,7 +535,7 @@
   <string name="name">نام</string>
   <string name="description">شرح</string>
   <string name="descPrivate">توضیحات خصوصی</string>
-  <string name="descPrivateHelp">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
+  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین وصف همگانی برای هم‌تیمی‌ها می‌شود خواهد شد.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
   <string name="website">وبگاه</string>
@@ -827,7 +827,7 @@
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
   <string name="computerThinking">محاسبه رایانه‌ای ...</string>
-  <string name="seeBestMove">مشاهده بهترین حرکت</string>
+  <string name="seeBestMove">دیدن بهترین حرکت</string>
   <string name="hideBestMove">پنهان کردن بهترین حرکت</string>
   <string name="getAHint">راهنمایی</string>
   <string name="evaluatingYourMove">در حال بررسی حرکت شما...</string>
@@ -846,8 +846,8 @@
   <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
   <string name="solution">راه‌حل</string>
   <string name="waitingForAnalysis">در انتظار برای آنالیز</string>
-  <string name="noMistakesFoundForWhite">هیچ اشتباهی برای سفید مشاهده نشد</string>
-  <string name="noMistakesFoundForBlack">هیچ اشتباهی برای سیاه مشاهده نشد</string>
+  <string name="noMistakesFoundForWhite">هیچی اشتباهی از سفید یافت نشد</string>
+  <string name="noMistakesFoundForBlack">هیچی اشتباهی از سیاه یافت نشد</string>
   <string name="doneReviewingWhiteMistakes">اشتباهات سفید بررسی شد</string>
   <string name="doneReviewingBlackMistakes">اشتباهات سیاه بررسی شد.</string>
   <string name="doItAgain">دوباره</string>
