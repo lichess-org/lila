@@ -57,7 +57,7 @@
     <item quantity="one">یک دعوت‌نامه منتظر پاسخ</item>
     <item quantity="other">%s دعوت‌نامه منتظر پاسخ</item>
   </plurals>
-  <string name="onlyVisibleToTeachers">قابل مشاهده فقط برای معلم‌های کلاس</string>
+  <string name="onlyVisibleToTeachers">دسترس‌پذیر فقط برای آموزگاران کلاس</string>
   <string name="lastActiveDate">فعال</string>
   <string name="managed">مدیریت‌شده</string>
   <string name="thisStudentAccountIsManaged">حساب کاربری این دانشجو توسط معلم مدیریت و ایجاد شده است</string>
