@@ -397,7 +397,7 @@ Thank you all, you rock!""".some,
           // Because berserking lowers the player rating
           _.map { _.copy(noBerserk = true) }
         },
-      // hourly crazyhouse/chess960/KingOfTheHill tournaments!
+      // hourly threecheck/chess960/KingOfTheHill tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val when = atTopOfHour(rightNow, hourDelta)
         val speed = when.getHour % 7 match
@@ -408,7 +408,7 @@ Thank you all, you rock!""".some,
         val variant = when.getHour % 3 match
           case 0 => Chess960
           case 1 => KingOfTheHill
-          case _ => Crazyhouse
+          case _ => ThreeCheck
         List(Schedule(Hourly, speed, variant, none, when).plan) :::
           (speed == Bullet).so:
             List(
@@ -421,7 +421,7 @@ Thank you all, you rock!""".some,
               ).plan
             )
       },
-      // hourly atomic/antichess variant tournaments!
+      // hourly atomic/crazyhouse variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val when = atTopOfHour(rightNow, hourDelta)
         val speed = when.getHour % 7 match
@@ -429,7 +429,9 @@ Thank you all, you rock!""".some,
           case 1     => HippoBullet
           case 2 | 5 => Bullet
           case 3 | 6 => SuperBlitz
-        val variant = if when.getHour % 2 == 0 then Atomic else Antichess
+        val variant = when.getHour % 3 match
+          case 0 => Atomic
+          case _ => Crazyhouse
         List(Schedule(Hourly, speed, variant, none, when).plan) :::
           (speed == Bullet).so:
             List(
@@ -442,7 +444,7 @@ Thank you all, you rock!""".some,
               ).plan
             )
       },
-      // hourly threecheck/horde/racing variant tournaments!
+      // hourly antichess/horde/racing variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val when = atTopOfHour(rightNow, hourDelta)
         val speed = when.getHour % 7 match
@@ -451,7 +453,7 @@ Thank you all, you rock!""".some,
           case 2     => HippoBullet
           case 3 | 6 => Bullet
         val variant = when.getHour % 3 match
-          case 0 => ThreeCheck
+          case 0 => Antichess
           case 1 => Horde
           case _ => RacingKings
         List(Schedule(Hourly, speed, variant, none, when).plan) :::

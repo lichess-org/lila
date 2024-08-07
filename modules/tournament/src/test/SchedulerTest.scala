@@ -5,7 +5,7 @@ class SchedulerTest extends munit.FunSuite:
     TournamentScheduler.allWithConflicts(date).map(_.schedule).map(_.toString)
   test("morning"):
     assertEquals(
-      schedulesAt(instantOf(2023, 4, 5, 9, 11)),
+      schedulesAt(instantOf(2023, 4, 5, 9, 11)).mkString("\n"),
       List(
         """Unique standard rapid All(None,None,None,None,None,None,None) 2023-06-20T12:00:00Z""",
         """Yearly standard classical All(None,None,None,None,None,None,None) 2023-05-19T17:00:00Z""",
@@ -200,34 +200,34 @@ class SchedulerTest extends munit.FunSuite:
         """Hourly standard rapid All(Some(NbRatedGame(20)),Some(MaxRating(1700)),None,None,None,None,None) 2023-04-05T17:00:00Z""",
         """Hourly standard rapid All(Some(NbRatedGame(20)),Some(MaxRating(2000)),None,None,None,None,None) 2023-04-05T18:00:00Z""",
         """Hourly kingOfTheHill blitz All(None,None,None,None,None,None,None) 2023-04-05T10:00:00Z""",
-        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2023-04-05T11:00:00Z""",
-        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2023-04-05T11:30:00Z""",
+        """Hourly threeCheck bullet All(None,None,None,None,None,None,None) 2023-04-05T11:00:00Z""",
+        """Hourly threeCheck bullet All(None,None,None,None,None,None,None) 2023-04-05T11:30:00Z""",
         """Hourly chess960 superBlitz All(None,None,None,None,None,None,None) 2023-04-05T12:00:00Z""",
         """Hourly kingOfTheHill blitz All(None,None,None,None,None,None,None) 2023-04-05T13:00:00Z""",
-        """Hourly crazyhouse hippoBullet All(None,None,None,None,None,None,None) 2023-04-05T14:00:00Z""",
+        """Hourly threeCheck hippoBullet All(None,None,None,None,None,None,None) 2023-04-05T14:00:00Z""",
         """Hourly chess960 bullet All(None,None,None,None,None,None,None) 2023-04-05T15:00:00Z""",
         """Hourly chess960 bullet All(None,None,None,None,None,None,None) 2023-04-05T15:30:00Z""",
-        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2023-04-05T09:30:00Z""",
-        """Hourly atomic superBlitz All(None,None,None,None,None,None,None) 2023-04-05T10:00:00Z""",
-        """Hourly antichess blitz All(None,None,None,None,None,None,None) 2023-04-05T11:00:00Z""",
+        """Hourly atomic bullet All(None,None,None,None,None,None,None) 2023-04-05T09:30:00Z""",
+        """Hourly crazyhouse superBlitz All(None,None,None,None,None,None,None) 2023-04-05T10:00:00Z""",
+        """Hourly crazyhouse blitz All(None,None,None,None,None,None,None) 2023-04-05T11:00:00Z""",
         """Hourly atomic bullet All(None,None,None,None,None,None,None) 2023-04-05T12:00:00Z""",
         """Hourly atomic bullet All(None,None,None,None,None,None,None) 2023-04-05T12:30:00Z""",
-        """Hourly antichess superBlitz All(None,None,None,None,None,None,None) 2023-04-05T13:00:00Z""",
-        """Hourly atomic blitz All(None,None,None,None,None,None,None) 2023-04-05T14:00:00Z""",
-        """Hourly antichess hippoBullet All(None,None,None,None,None,None,None) 2023-04-05T15:00:00Z""",
+        """Hourly crazyhouse superBlitz All(None,None,None,None,None,None,None) 2023-04-05T13:00:00Z""",
+        """Hourly crazyhouse blitz All(None,None,None,None,None,None,None) 2023-04-05T14:00:00Z""",
+        """Hourly atomic hippoBullet All(None,None,None,None,None,None,None) 2023-04-05T15:00:00Z""",
         """Hourly horde bullet All(None,None,None,None,None,None,None) 2023-04-05T10:00:00Z""",
         """Hourly horde bullet All(None,None,None,None,None,None,None) 2023-04-05T10:30:00Z""",
         """Hourly racingKings superBlitz All(None,None,None,None,None,None,None) 2023-04-05T11:00:00Z""",
-        """Hourly threeCheck blitz All(None,None,None,None,None,None,None) 2023-04-05T12:00:00Z""",
+        """Hourly antichess blitz All(None,None,None,None,None,None,None) 2023-04-05T12:00:00Z""",
         """Hourly horde bullet All(None,None,None,None,None,None,None) 2023-04-05T13:00:00Z""",
         """Hourly horde bullet All(None,None,None,None,None,None,None) 2023-04-05T13:30:00Z""",
         """Hourly racingKings superBlitz All(None,None,None,None,None,None,None) 2023-04-05T14:00:00Z""",
-        """Hourly threeCheck blitz All(None,None,None,None,None,None,None) 2023-04-05T15:00:00Z"""
-      )
+        """Hourly antichess blitz All(None,None,None,None,None,None,None) 2023-04-05T15:00:00Z"""
+      ).mkString("\n")
     )
   test("evening"):
     assertEquals(
-      schedulesAt(instantOf(2023, 3, 31, 21, 58)),
+      schedulesAt(instantOf(2023, 3, 31, 21, 58)).mkString("\n"),
       List(
         """Unique standard rapid All(None,None,None,None,None,None,None) 2023-06-20T12:00:00Z""",
         """Yearly standard rapid All(None,None,None,None,None,None,None) 2023-04-13T17:00:00Z""",
@@ -399,28 +399,28 @@ class SchedulerTest extends munit.FunSuite:
         """Hourly standard rapid All(Some(NbRatedGame(20)),Some(MaxRating(2000)),None,None,None,None,None) 2023-04-01T06:00:00Z""",
         """Hourly kingOfTheHill bullet All(None,None,None,None,None,None,None) 2023-03-31T22:00:00Z""",
         """Hourly kingOfTheHill bullet All(None,None,None,None,None,None,None) 2023-03-31T22:30:00Z""",
-        """Hourly crazyhouse superBlitz All(None,None,None,None,None,None,None) 2023-03-31T23:00:00Z""",
+        """Hourly threeCheck superBlitz All(None,None,None,None,None,None,None) 2023-03-31T23:00:00Z""",
         """Hourly chess960 hippoBullet All(None,None,None,None,None,None,None) 2023-04-01T00:00:00Z""",
         """Hourly kingOfTheHill bullet All(None,None,None,None,None,None,None) 2023-04-01T01:00:00Z""",
         """Hourly kingOfTheHill bullet All(None,None,None,None,None,None,None) 2023-04-01T01:30:00Z""",
-        """Hourly crazyhouse superBlitz All(None,None,None,None,None,None,None) 2023-04-01T02:00:00Z""",
+        """Hourly threeCheck superBlitz All(None,None,None,None,None,None,None) 2023-04-01T02:00:00Z""",
         """Hourly chess960 blitz All(None,None,None,None,None,None,None) 2023-04-01T03:00:00Z""",
-        """Hourly atomic hippoBullet All(None,None,None,None,None,None,None) 2023-03-31T22:00:00Z""",
-        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2023-03-31T23:00:00Z""",
-        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2023-03-31T23:30:00Z""",
+        """Hourly crazyhouse hippoBullet All(None,None,None,None,None,None,None) 2023-03-31T22:00:00Z""",
+        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2023-03-31T23:00:00Z""",
+        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2023-03-31T23:30:00Z""",
         """Hourly atomic blitz All(None,None,None,None,None,None,None) 2023-04-01T00:00:00Z""",
-        """Hourly antichess hippoBullet All(None,None,None,None,None,None,None) 2023-04-01T01:00:00Z""",
-        """Hourly atomic bullet All(None,None,None,None,None,None,None) 2023-04-01T02:00:00Z""",
-        """Hourly atomic bullet All(None,None,None,None,None,None,None) 2023-04-01T02:30:00Z""",
-        """Hourly antichess superBlitz All(None,None,None,None,None,None,None) 2023-04-01T03:00:00Z""",
+        """Hourly crazyhouse hippoBullet All(None,None,None,None,None,None,None) 2023-04-01T01:00:00Z""",
+        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2023-04-01T02:00:00Z""",
+        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2023-04-01T02:30:00Z""",
+        """Hourly atomic superBlitz All(None,None,None,None,None,None,None) 2023-04-01T03:00:00Z""",
         """Hourly horde blitz All(None,None,None,None,None,None,None) 2023-03-31T22:00:00Z""",
         """Hourly racingKings hippoBullet All(None,None,None,None,None,None,None) 2023-03-31T23:00:00Z""",
-        """Hourly threeCheck superBlitz All(None,None,None,None,None,None,None) 2023-04-01T00:00:00Z""",
+        """Hourly antichess superBlitz All(None,None,None,None,None,None,None) 2023-04-01T00:00:00Z""",
         """Hourly horde blitz All(None,None,None,None,None,None,None) 2023-04-01T01:00:00Z""",
         """Hourly racingKings hippoBullet All(None,None,None,None,None,None,None) 2023-04-01T02:00:00Z""",
-        """Hourly threeCheck bullet All(None,None,None,None,None,None,None) 2023-04-01T03:00:00Z""",
-        """Hourly threeCheck bullet All(None,None,None,None,None,None,None) 2023-04-01T03:30:00Z"""
-      )
+        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2023-04-01T03:00:00Z""",
+        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2023-04-01T03:30:00Z"""
+      ).mkString("\n")
     )
   test("end of year"):
     assertEquals(
@@ -596,26 +596,26 @@ class SchedulerTest extends munit.FunSuite:
         """Hourly standard rapid All(Some(NbRatedGame(20)),Some(MaxRating(2000)),None,None,None,None,None) 2023-01-01T06:00:00Z""",
         """Hourly kingOfTheHill bullet All(None,None,None,None,None,None,None) 2022-12-31T22:00:00Z""",
         """Hourly kingOfTheHill bullet All(None,None,None,None,None,None,None) 2022-12-31T22:30:00Z""",
-        """Hourly crazyhouse superBlitz All(None,None,None,None,None,None,None) 2022-12-31T23:00:00Z""",
+        """Hourly threeCheck superBlitz All(None,None,None,None,None,None,None) 2022-12-31T23:00:00Z""",
         """Hourly chess960 hippoBullet All(None,None,None,None,None,None,None) 2023-01-01T00:00:00Z""",
         """Hourly kingOfTheHill bullet All(None,None,None,None,None,None,None) 2023-01-01T01:00:00Z""",
         """Hourly kingOfTheHill bullet All(None,None,None,None,None,None,None) 2023-01-01T01:30:00Z""",
-        """Hourly crazyhouse superBlitz All(None,None,None,None,None,None,None) 2023-01-01T02:00:00Z""",
+        """Hourly threeCheck superBlitz All(None,None,None,None,None,None,None) 2023-01-01T02:00:00Z""",
         """Hourly chess960 blitz All(None,None,None,None,None,None,None) 2023-01-01T03:00:00Z""",
-        """Hourly atomic hippoBullet All(None,None,None,None,None,None,None) 2022-12-31T22:00:00Z""",
-        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2022-12-31T23:00:00Z""",
-        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2022-12-31T23:30:00Z""",
+        """Hourly crazyhouse hippoBullet All(None,None,None,None,None,None,None) 2022-12-31T22:00:00Z""",
+        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2022-12-31T23:00:00Z""",
+        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2022-12-31T23:30:00Z""",
         """Hourly atomic blitz All(None,None,None,None,None,None,None) 2023-01-01T00:00:00Z""",
-        """Hourly antichess hippoBullet All(None,None,None,None,None,None,None) 2023-01-01T01:00:00Z""",
-        """Hourly atomic bullet All(None,None,None,None,None,None,None) 2023-01-01T02:00:00Z""",
-        """Hourly atomic bullet All(None,None,None,None,None,None,None) 2023-01-01T02:30:00Z""",
-        """Hourly antichess superBlitz All(None,None,None,None,None,None,None) 2023-01-01T03:00:00Z""",
+        """Hourly crazyhouse hippoBullet All(None,None,None,None,None,None,None) 2023-01-01T01:00:00Z""",
+        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2023-01-01T02:00:00Z""",
+        """Hourly crazyhouse bullet All(None,None,None,None,None,None,None) 2023-01-01T02:30:00Z""",
+        """Hourly atomic superBlitz All(None,None,None,None,None,None,None) 2023-01-01T03:00:00Z""",
         """Hourly horde blitz All(None,None,None,None,None,None,None) 2022-12-31T22:00:00Z""",
         """Hourly racingKings hippoBullet All(None,None,None,None,None,None,None) 2022-12-31T23:00:00Z""",
-        """Hourly threeCheck superBlitz All(None,None,None,None,None,None,None) 2023-01-01T00:00:00Z""",
+        """Hourly antichess superBlitz All(None,None,None,None,None,None,None) 2023-01-01T00:00:00Z""",
         """Hourly horde blitz All(None,None,None,None,None,None,None) 2023-01-01T01:00:00Z""",
         """Hourly racingKings hippoBullet All(None,None,None,None,None,None,None) 2023-01-01T02:00:00Z""",
-        """Hourly threeCheck bullet All(None,None,None,None,None,None,None) 2023-01-01T03:00:00Z""",
-        """Hourly threeCheck bullet All(None,None,None,None,None,None,None) 2023-01-01T03:30:00Z"""
+        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2023-01-01T03:00:00Z""",
+        """Hourly antichess bullet All(None,None,None,None,None,None,None) 2023-01-01T03:30:00Z"""
       ).mkString("\n")
     )
