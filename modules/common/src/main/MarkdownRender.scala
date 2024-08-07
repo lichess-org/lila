@@ -2,6 +2,7 @@ package lila.common
 
 import chess.format.pgn.PgnStr
 import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
+import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.{ TableBlock, TablesExtension }
@@ -51,6 +52,7 @@ final class MarkdownRender(
 ):
 
   private val extensions = java.util.ArrayList[Extension]()
+  if header then extensions.add(AnchorLinkExtension.create())
   if table then
     extensions.add(TablesExtension.create())
     extensions.add(MarkdownRender.tableWrapperExtension)
@@ -73,7 +75,8 @@ final class MarkdownRender(
 
   // configurable
   if table then options.set(TablesExtension.CLASS_NAME, "slist")
-  if !header then options.set(Parser.HEADING_PARSER, Boolean.box(false))
+  if header then options.set(AnchorLinkExtension.ANCHORLINKS_WRAP_TEXT, Boolean.box(false))
+  else options.set(Parser.HEADING_PARSER, Boolean.box(false))
   if !blockQuote then options.set(Parser.BLOCK_QUOTE_PARSER, Boolean.box(false))
   if !list then options.set(Parser.LIST_BLOCK_PARSER, Boolean.box(false))
 
