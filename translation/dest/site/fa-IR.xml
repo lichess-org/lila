@@ -845,7 +845,7 @@
   <string name="tryAnotherMoveForWhite">برای سفید،حرکت دیگری را امتحان کنید</string>
   <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
   <string name="solution">راه‌حل</string>
-  <string name="waitingForAnalysis">در انتظار برای آنالیز</string>
+  <string name="waitingForAnalysis">در انتظار تحلیل</string>
   <string name="noMistakesFoundForWhite">هیچی اشتباهی از سفید یافت نشد</string>
   <string name="noMistakesFoundForBlack">هیچی اشتباهی از سیاه یافت نشد</string>
   <string name="doneReviewingWhiteMistakes">اشتباهات سفید بررسی شد</string>
