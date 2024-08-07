@@ -50,7 +50,7 @@ final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)
         _ => fuccess(Nil),
         _.zipWithIndex
           .parallel: (sit, index) =>
-            getSinglePvEval(game.variant, Fen.write(sit)).dmap2 { index -> _ }
+            getSinglePvEval(sit).dmap2 { index -> _ }
           .map(_.flatten)
       )
 

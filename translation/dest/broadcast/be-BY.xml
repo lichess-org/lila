@@ -30,4 +30,7 @@
   <string name="deleteTournament">Выдаліць гэты турнір</string>
   <string name="definitivelyDeleteTournament">Канчаткова выдаліць увесь турнір, усе яго туры і ўсе гульні.</string>
   <string name="automaticLeaderboard">Аўтаматычная дошка лідэраў</string>
+  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Гульцы FIDE</string>
+  <string name="fideProfile">Профіль FIDE</string>
+  <string name="federation" comment="Shows which federation a player belongs to.">Федэрацыя</string>
 </resources>

@@ -27,6 +27,7 @@
   <string name="keepGoing">Працягвайце…</string>
   <string name="puzzleSuccess">Поспех!</string>
   <string name="puzzleComplete">Задача вырашана!</string>
+  <string name="puzzlesByOpenings">Задачы за дэбютамі</string>
   <string name="notTheMove">Гэта не той ход!</string>
   <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
   <string name="ratingX">Рэйтынг: %s</string>

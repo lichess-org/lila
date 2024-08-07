@@ -120,7 +120,7 @@
   <string name="enableSync">Kích hoạt tính năng đồng bộ hóa</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Có: giữ tất cả mọi người trên 1 thế cờ</string>
   <string name="noLetPeopleBrowseFreely">Không: để mọi người tự do xem xét</string>
-  <string name="pinnedStudyComment">Đã ghim bình luận nghiên cứu</string>
+  <string name="pinnedStudyComment">Bình luận nghiên cứu được ghim</string>
   <string name="start">Bắt đầu</string>
   <string name="save">Lưu</string>
   <string name="clearChat">Xóa trò chuyện</string>
