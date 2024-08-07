@@ -61,7 +61,7 @@
   <string name="usingServerAnalysis">با استفاده از کارسازِ تحلیل</string>
   <string name="loadingEngine">پردازشگر بارمی‌گذارد...</string>
   <string name="calculatingMoves">در حال محاسبه حرکات...</string>
-  <string name="engineFailed">خطا در بارگذاری پردازشگر شطرنج</string>
+  <string name="engineFailed">خطا در بارگذاری پردازشگر</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
   <string name="goDeeper">بررسی عمیق‌تر</string>
   <string name="showThreat">نمایش تهدید</string>
