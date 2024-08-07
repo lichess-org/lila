@@ -17,18 +17,14 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   console.log(opts.pref);
+  if (window.screen.width < 1260) return;
+
+  opts.setup ??= JSON.parse(localStorage.getItem('local.dev.setup') ?? '{}');
+
   const devRepo = new DevRepo(opts.assets);
   const botCtrl = new BotCtrl(devRepo);
   devRepo.share = new ShareCtrl(botCtrl);
   await botCtrl.init(opts.bots);
-
-  if (localStorage.getItem('local.dev.setup')) {
-    if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.dev.setup')!);
-  }
-  if (opts.setup) {
-    botCtrl.whiteUid = opts.setup.white;
-    botCtrl.blackUid = opts.setup.black;
-  }
 
   const gameCtrl = new GameCtrl(opts, botCtrl, redraw, 'local-dev');
   const devCtrl = new DevCtrl(gameCtrl, redraw);
@@ -38,7 +34,7 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
 
   let vnode = patch(el, renderGameView(gameCtrl, renderDevView(devCtrl)));
 
-  gameCtrl.round = await site.asset.loadEsm<RoundController>('round', { init: gameCtrl.roundOpts });
+  gameCtrl.round = await site.asset.loadEsm<RoundController>('round', { init: gameCtrl.proxy.roundOpts });
   redraw();
 
   function redraw() {

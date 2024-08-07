@@ -14,7 +14,6 @@ import lila.rating.{ Perf, PerfType }
 import lila.local.{ GameSetup, AssetType }
 
 final class Local(env: Env) extends LilaController(env):
-
   def index(
       white: Option[String],
       black: Option[String],

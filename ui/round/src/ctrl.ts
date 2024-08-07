@@ -420,6 +420,7 @@ export default class RoundController implements MoveRootCtrl {
     d.possibleDrops = activeColor ? o.drops : undefined;
     d.crazyhouse = o.crazyhouse;
     this.setTitle();
+    console.log('yaaaypiMove');
     if (!this.replaying()) {
       this.ply++;
       if (o.role)

@@ -14,7 +14,7 @@ export interface GameStatus {
   reason?: string;
 }
 
-export interface MoveResult extends GameStatus {
+export interface MoveContext extends GameStatus {
   justPlayed: Color;
   uci: Uci;
   san: San;
@@ -48,7 +48,7 @@ export class LocalGame {
     for (const move of moves ?? []) this.move(move);
   }
 
-  move(move: LocalMove): MoveResult {
+  move(move: LocalMove): MoveContext {
     if (this.end) return this.moveResultWith(move);
     const { move: coMove, uci } = normalMove(this.chess, move.uci) ?? {};
     if (!coMove || !uci) {
@@ -86,16 +86,12 @@ export class LocalGame {
     return fenCount >= 3;
   }
 
-  /*timeout(): void {
-    Object.freeze(this);
-  }*/
-
   finish(finishStatus: Omit<GameStatus, 'end' | 'turn'>): void {
-    this.finished = { ...this.status, ...finishStatus };
+    this.finished = { ...this.status, ...finishStatus, end: true };
     deepFreeze(this);
   }
 
-  moveResultWith(fields: Partial<MoveResult>): MoveResult {
+  moveResultWith(fields: Partial<MoveContext>): MoveContext {
     return {
       uci: '',
       san: '',
@@ -126,9 +122,9 @@ export class LocalGame {
       ? { reason: 'fifty', status: statusOf('draw') }
       : this.isThreefold
       ? { reason: 'threefold', status: statusOf('draw') }
-      : Object.isFrozen(this)
-      ? { status: statusOf('outoftime'), winner: co.opposite(this.turn) }
-      : { status: statusOf(this.ply > 0 ? 'started' : 'created') };
+      : //: Object.isFrozen(this)
+        //? { status: statusOf('outoftime'), winner: co.opposite(this.turn) }
+        { status: statusOf(this.ply > 0 ? 'started' : 'created') };
 
     return {
       end: this.end,

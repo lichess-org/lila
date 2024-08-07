@@ -15,7 +15,7 @@
     "version": 0,
     "author": "admin",
     "name": "T-Bone",
-    "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not very good at chess.",
+    "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not so good at chess.",
     "image": "t-bone.webp",
     "glicko": { "r": 800, "rd": 350 },
     "books": [{ "name": "komodo", "weight": 1 }],
@@ -68,7 +68,7 @@
     "version": 0,
     "author": "admin",
     "name": "Maia",
-    "description": "Maia was a famous author before she began modeling for Elle (see zero).",
+    "description": "Maia was a famous author before she began modeling for Elle (c0).",
     "image": "maia.webp",
     "glicko": { "r": 1200, "rd": 350 },
     "books": [
@@ -160,7 +160,7 @@
     "version": 0,
     "author": "admin",
     "name": "Thinman",
-    "description": "Thinman is pointing a laser gun at your face. It's not out of love.",
+    "description": "Thinman is not your friend. That's why he is pointing a laser gun at your face.",
     "image": "thinman.webp",
     "glicko": { "r": 2000, "rd": 350 },
     "zero": { "multipv": 1, "net": "evilgyal-6.pb" }

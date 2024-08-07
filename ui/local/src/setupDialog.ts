@@ -42,7 +42,7 @@ class SetupDialog {
         <div class="vs">
           <div class="player" data-color="black">
             <img class="z-remove" src="${site.asset.flairSrc('symbols.cancel')}">
-            <div class="placard" data-color="black">Human Player</div>
+            <div class="placard none" data-color="black">Human Player</div>
           </div>
           vs
           <div class="switch" data-color="white">
@@ -117,13 +117,14 @@ class SetupDialog {
   };
 
   private select(selection?: string) {
-    this.uid = selection;
     const bot = selection ? this.botCtrl.bots[selection] : undefined;
-    this.view.querySelector(`.placard`)!.textContent = bot?.description ?? 'Human Player';
-    this.setup[this.botColor] = bot?.uid;
-    if (!bot) this.hand.redraw();
+    const placard = this.view.querySelector('.placard') as HTMLElement;
+    placard.textContent = bot?.description ?? '';
+    placard.classList.toggle('none', !bot);
     this.dialog.view.querySelector(`img.z-remove`)?.classList.toggle('show', !!bot);
     this.dialog.view.querySelector('.random')!.classList.toggle('disabled', !bot);
+    this.setup[this.botColor] = this.uid = bot?.uid;
+    if (!bot) this.hand.redraw();
   }
 
   private updateClock = () => {

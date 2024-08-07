@@ -39,17 +39,20 @@ body:has(.base-view.setup-view) {
     padding: 1em;
     border-radius: 10px;
     width: min(70%, 33vh);
+
     &[data-color='white'] {
-      background-color: hsl(37, 12%, 84%);
+      @extend %metal-light;
       color: $c-dark;
+      &:hover {
+        @extend %metal-light-hover;
+      }
     }
     &[data-color='black'] {
-      background-color: hsl(37, 5%, 32%);
-      color: #bbb;
-    }
-    &:hover {
-      background-color: gray;
-      outline: 2px solid $c-primary;
+      @extend %metal-dark;
+      color: #ddd;
+      &:hover {
+        @extend %metal-dark-hover;
+      }
     }
     &::after {
       font-family: lichess;

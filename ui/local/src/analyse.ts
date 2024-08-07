@@ -3,7 +3,7 @@ import * as co from 'chessops';
 import { escapeHtml } from 'common';
 
 export function analyse(gameCtrl: GameCtrl): void {
-  const local = gameCtrl.game;
+  const local = gameCtrl.live;
   const root = new co.pgn.Node<co.pgn.PgnNodeData>();
   const chess = co.Chess.fromSetup(co.fen.parseFen(local.initialFen).unwrap()).unwrap();
   let node = root;

@@ -27,19 +27,17 @@ function analysisButton(ctrl: RoundController): VNode | false {
   const d = ctrl.data,
     url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return (
-    ctrl.opts.local?.analyseButton(false) ??
-    (game.replayable(d) &&
-      h(
-        'a.fbt',
-        {
-          attrs: { href: url },
-          hook: util.bind('click', _ => {
-            // force page load in case the URL is the same
-            if (location.pathname === url.split('#')[0]) location.reload();
-          }),
-        },
-        ctrl.noarg('analysis'),
-      ))
+    game.replayable(d) &&
+    h(
+      'button.fbt',
+      {
+        hook: bind('click', () => {
+          if (ctrl.opts.local) ctrl.opts.local.analyse();
+          else location.href = url;
+        }),
+      },
+      ctrl.noarg('analysis'),
+    )
   );
 }
 
@@ -246,8 +244,7 @@ export function followUp(ctrl: RoundController): VNode {
       !d.tournament &&
       !d.simul &&
       !d.swiss &&
-      !d.game.boosted &&
-      d.game.source !== 'local-dev',
+      !d.game.boosted,
     newable = (status.finished(d) || status.aborted(d)) && ['lobby', 'pool', 'local'].includes(d.game.source),
     rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return h('div.follow-up', [
@@ -260,7 +257,7 @@ export function followUp(ctrl: RoundController): VNode {
         'button.fbt',
         {
           hook: bind('click', () => {
-            if (d.game.source === 'local') ctrl.socket.send('new-opponent');
+            if (d.game.source === 'local') ctrl.opts.local?.newOpponent();
             else if (d.game.source === 'pool') location.href = poolUrl(d.clock!, d.opponent.user);
             else location.href = '/?hook_like=' + d.game.id;
           }),

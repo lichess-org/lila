@@ -10,21 +10,16 @@ import type { LocalPlayOpts } from './types';
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
+  opts.setup ??= JSON.parse(localStorage.getItem('local.setup') ?? '{}');
+
   const botCtrl = await new BotCtrl(new AssetDb()).init(opts.bots);
-
-  if (localStorage.getItem('local.setup')) {
-    if (!opts.setup) opts.setup = JSON.parse(localStorage.getItem('local.setup')!);
-  }
-  if (opts.setup?.white) botCtrl.whiteUid = opts.setup?.white;
-  else botCtrl.blackUid = opts.setup?.black;
-
   const gameCtrl = new GameCtrl(opts, botCtrl, redraw);
-  const el = document.createElement('main');
 
+  const el = document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);
   let vnode = patch(el, view(gameCtrl));
 
-  gameCtrl.round = await site.asset.loadEsm<RoundController>('round', { init: gameCtrl.roundOpts });
+  gameCtrl.round = await site.asset.loadEsm<RoundController>('round', { init: gameCtrl.proxy.roundOpts });
 
   redraw();
   if (!opts.setup?.go) {

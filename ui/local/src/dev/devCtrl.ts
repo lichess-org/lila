@@ -5,7 +5,7 @@ import type { Automator, Libot } from '../types';
 import { statusOf } from 'game/status';
 import { defined } from 'common';
 import type { GameCtrl } from '../gameCtrl';
-import type { GameStatus, MoveResult } from '../localGame';
+import type { GameStatus, MoveContext } from '../localGame';
 
 interface Test {
   type: 'matchup' | 'roundRobin' | 'rate';
@@ -74,13 +74,13 @@ export class DevCtrl implements Automator {
 
   onReset(): void {}
 
-  think(movetime: number): boolean {
+  skip(movetime: number): boolean {
     if (!this.hurry) return false;
     if (this.gameCtrl.clock) this.gameCtrl.clock[this.gameCtrl.turn] -= movetime;
     return true;
   }
 
-  preMove(moveResult: MoveResult): void {
+  preMove(moveResult: MoveContext): void {
     this.gameCtrl.round.chessground?.set({ animation: { enabled: !this.hurry } });
     if (this.hurry) moveResult.silent = true;
   }
@@ -93,7 +93,7 @@ export class DevCtrl implements Automator {
       console.error(
         `${this.white?.name ?? 'Player'} (white) vs ${
           this.black?.name ?? 'Player'
-        } (black) - ${turn} ${reason} - ${this.gameCtrl.fen} ${this.gameCtrl.game.moves.join(' ')}`,
+        } (black) - ${turn} ${reason} - ${this.gameCtrl.fen} ${this.gameCtrl.live.moves.join(' ')}`,
         JSON.stringify(this.gameCtrl.chess),
       );
       return false;

@@ -12,6 +12,7 @@ import type { DevCtrl } from './devCtrl';
 import type { GameCtrl } from '../gameCtrl';
 import { rangeTicks } from '../gameView';
 import { defined } from 'common';
+import { LocalSetup } from '../types';
 
 interface DevContext {
   devCtrl: DevCtrl;
@@ -29,6 +30,7 @@ function devContext(devCtrl: DevCtrl): DevContext {
 
 export function renderDevView(devCtrl: DevCtrl): VNode {
   const ctx = devContext(devCtrl);
+  console.log(ctx.gameCtrl.cgOrientation);
   return h('div.dev-side.dev-view', [
     h('div', player(ctx, co.opposite(ctx.gameCtrl.cgOrientation))),
     dashboard(ctx),
@@ -40,7 +42,7 @@ export function renderDevView(devCtrl: DevCtrl): VNode {
 function player(ctx: DevContext, color: Color): VNode {
   const { devCtrl, botCtrl } = ctx;
   const p = botCtrl[color];
-  const imgUrl = botCtrl.imageUrl(p) ?? site.asset.url(`lifat/bots/images/${color}-torso.webp`);
+  const imgUrl = botCtrl.imageUrl(p) ?? site.asset.url(`/lifat/bots/misc/${color}-torso.webp`);
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
@@ -56,9 +58,7 @@ function player(ctx: DevContext, color: Color): VNode {
         h('button.button.button-empty.button-red.icon-btn.upper-right', {
           attrs: { 'data-click': 'remove', 'data-icon': licon.Cancel },
           hook: bind('click', e => {
-            if (color === 'white') botCtrl.whiteUid = undefined;
-            else botCtrl.blackUid = undefined;
-            reset(ctx);
+            reset(ctx, { ...botCtrl.uids, [color]: undefined });
             e.stopPropagation();
           }),
         }),
@@ -120,7 +120,11 @@ function clockOptions(ctx: DevContext) {
       return h(
         `select.${type}`,
         {
-          hook: onInsert(el => el.addEventListener('change', () => reset(ctx))),
+          hook: onInsert(el =>
+            el.addEventListener('change', () =>
+              reset(ctx, { [type]: parseInt((el as HTMLSelectElement).value) }),
+            ),
+          ),
         },
         [
           ...rangeTicks[type].map(([secs, label]) =>
@@ -132,26 +136,21 @@ function clockOptions(ctx: DevContext) {
   ]);
 }
 
-function reset({ gameCtrl, botCtrl }: DevContext) {
-  const initial = parseInt((document.querySelector('.initial') as HTMLSelectElement).value);
-  const increment = parseInt((document.querySelector('.increment') as HTMLSelectElement).value);
-  const white = botCtrl.white?.uid;
-  const black = botCtrl.black?.uid;
-  const fen = (document.querySelector('.fen') as HTMLInputElement).value || co.fen.INITIAL_FEN;
-  gameCtrl.reset({ initial, increment, white, black, fen });
+function reset({ gameCtrl }: DevContext, params: Partial<LocalSetup>): void {
+  gameCtrl.reset(params);
   localStorage.setItem('local.dev.setup', JSON.stringify(gameCtrl.setup));
   gameCtrl.redraw();
 }
 
 function dashboard(ctx: DevContext) {
-  const { botCtrl, gameCtrl, devCtrl } = ctx;
+  const { gameCtrl, devCtrl } = ctx;
 
   return h('div.dev-dashboard', [
     fen(ctx),
     clockOptions(ctx),
     h('span', [
       h('div', [
-        h('label', [
+        h('label', { attrs: { title: 'instantly deduct move times and disable animations, sound' } }, [
           h('input', {
             attrs: { type: 'checkbox', checked: devCtrl.hurry },
             hook: bind('change', e => {
@@ -161,27 +160,33 @@ function dashboard(ctx: DevContext) {
           }),
           'hurry',
         ]),
-        h('label', [
-          h('input', {
-            attrs: { type: 'checkbox', checked: devCtrl.sandbox },
-            hook: bind('change', e => {
-              devCtrl.sandbox = (e.target as HTMLInputElement).checked;
-              localStorage.setItem('local.dev.sandbox', devCtrl.sandbox ? '1' : '0');
+        h(
+          'label',
+          { attrs: { title: 'make moves for either side, including bots. but premoves are disabled' } },
+          [
+            h('input', {
+              attrs: { type: 'checkbox', checked: devCtrl.sandbox },
+              hook: bind('change', e => {
+                devCtrl.sandbox = (e.target as HTMLInputElement).checked;
+                localStorage.setItem('local.dev.sandbox', devCtrl.sandbox ? '1' : '0');
+                gameCtrl.proxy.updateCg();
+              }),
             }),
-          }),
-          'sandbox',
-        ]),
+            'sandbox',
+          ],
+        ),
       ]),
-      h('div.spacer'),
-      'games',
-      h('input.num-games', {
-        attrs: { type: 'text', value: '1' },
-        hook: bind('input', e => {
-          const el = e.target as HTMLInputElement;
-          const val = Number(el.value);
-          el.classList.toggle('invalid', val < 1 || val > 1000 || isNaN(val));
+      h('label', [
+        'games',
+        h('input.num-games', {
+          attrs: { type: 'text', value: '1' },
+          hook: bind('input', e => {
+            const el = e.target as HTMLInputElement;
+            const val = Number(el.value);
+            el.classList.toggle('invalid', val < 1 || val > 1000 || isNaN(val));
+          }),
         }),
-      }),
+      ]),
     ]),
     h('span', [
       h(
@@ -193,7 +198,7 @@ function dashboard(ctx: DevContext) {
       h(`button.refresh.button.button-metal`, {
         hook: onInsert(el =>
           el.addEventListener('click', () => {
-            gameCtrl.resetBoard();
+            gameCtrl.reset();
             gameCtrl.redraw();
           }),
         ),
@@ -218,7 +223,7 @@ function progress(ctx: DevContext) {
 
 function renderPlayPause({ devCtrl, botCtrl, gameCtrl }: DevContext): VNode {
   const disabled = gameCtrl.isUserTurn;
-  const paused = gameCtrl.isStopped || gameCtrl.game.end;
+  const paused = gameCtrl.isStopped || gameCtrl.live.end;
   return h(
     `button.play-pause.button.button-metal${disabled ? '.play.disabled' : paused ? '.play' : '.pause'}`,
     {
@@ -263,7 +268,7 @@ function fen(ctx: DevContext): VNode {
         return;
       }
       el.classList.remove('invalid');
-      if (fen) reset(ctx);
+      if (fen) reset(ctx, { fen });
     }),
     props: { value: devCtrl.startingFen },
   });
@@ -320,8 +325,9 @@ function roundRobin({ devCtrl, botCtrl }: DevContext) {
 }
 
 let botSelector: HandOfCards | undefined;
+
 function showBotSelector(ctx: DevContext, clickedEl: HTMLElement) {
-  const { botCtrl } = ctx;
+  const { botCtrl, gameCtrl } = ctx;
   const cardData = [...Object.values(botCtrl.bots).map(b => botCtrl.card(b))].filter(defined);
   const main = document.querySelector('main') as HTMLElement;
   const drops: Drop[] = [];
@@ -331,6 +337,7 @@ function showBotSelector(ctx: DevContext, clickedEl: HTMLElement) {
     const selected = uidToDomId(botCtrl[el.classList.contains('white') ? 'white' : 'black']?.uid);
     drops.push({ el: el as HTMLElement, selected });
   });
+  gameCtrl.stop();
   botSelector?.remove();
   botSelector = handOfCards({
     getView: () => main,
@@ -338,9 +345,8 @@ function showBotSelector(ctx: DevContext, clickedEl: HTMLElement) {
     getCardData: () => cardData,
     select: (el, domId) => {
       const uid = domIdToUid(domId);
-      if ((el ?? clickedEl).classList.contains('white')) botCtrl.whiteUid = uid;
-      else botCtrl.blackUid = uid;
-      reset(ctx);
+      const color = (el ?? clickedEl).classList.contains('white') ? 'white' : 'black';
+      reset(ctx, { ...botCtrl.uids, [color]: uid });
     },
     onRemove: () => {
       main.classList.remove('with-cards');

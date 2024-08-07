@@ -25,11 +25,27 @@ export class BotCtrl {
   private defaultBots: BotInfos;
   private busy = false;
   private bestMove = { uci: 'e2e4', cp: 30 };
+  //private whiteUid?: string;
+  //blackUid?: string;
+  readonly uids: { white: string | undefined; black: string | undefined } = {
+    white: undefined,
+    black: undefined,
+  };
   bots: Libots = {};
-  whiteUid?: string;
-  blackUid?: string;
 
   constructor(readonly assetDb: AssetDb) {}
+
+  get white(): Libot | undefined {
+    return this.bot(this.uids.white);
+  }
+
+  get black(): Libot | undefined {
+    return this.bot(this.uids.black);
+  }
+
+  get isBusy(): boolean {
+    return this.busy;
+  }
 
   async init(serverBots: BotInfo[]): Promise<this> {
     this.zerofish = await makeZerofish({
@@ -65,16 +81,13 @@ export class BotCtrl {
     );
   }
 
-  get white(): Libot | undefined {
-    return this.bot(this.whiteUid);
+  setUid(c: Color, uid: string | undefined): void {
+    this.uids[c] = uid;
   }
 
-  get black(): Libot | undefined {
-    return this.bot(this.blackUid);
-  }
-
-  get isBusy(): boolean {
-    return this.busy;
+  setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
+    this.uids.white = white;
+    this.uids.black = black;
   }
 
   bot(uid: string | undefined): Libot | undefined {
@@ -133,8 +146,7 @@ export class BotCtrl {
   }
 
   async deleteBot(uid: string): Promise<void> {
-    if (this.whiteUid === uid) this.whiteUid = undefined;
-    if (this.blackUid === uid) this.blackUid = undefined;
+    Object.entries(this.uids).forEach(([c, u]) => u === uid && this.setUid(c as Color, undefined));
     await this.store.remove(uid);
     delete this.bots[uid];
     await this.resetBots();

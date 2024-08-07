@@ -74,10 +74,16 @@
     flex-wrap: nowrap;
   }
 
+  label {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0.5em;
+  }
   .player {
-    @extend %flex-between;
+    @extend %flex-between-nowrap;
     position: relative;
-    padding: 8px;
+    padding-inline-end: 8px;
     border-radius: 5px;
     border: 1px solid $c-border;
     align-content: center;
@@ -98,7 +104,7 @@
       color: #333;
       &:hover,
       &.drag-over {
-        background-color: white;
+        background-color: #e0e0e0;
       }
     }
     &.black {
@@ -209,7 +215,7 @@
     grid-auto-columns: minmax(120px, 1fr);
     grid-template-rows: repeat(8, 1fr);
     gap: 2px;
-    font-size: smaller;
+    font-size: 10px;
     font-family: monospace;
     > div {
       justify-self: start;
@@ -222,9 +228,37 @@
   width: 100%;
   background: $c-bg-high;
   gap: 1em;
-  padding: 2em 1.5em;
+  padding: 1.5em 1em;
 
   > hr {
     margin: 5px;
+  }
+}
+
+@media (max-width: at-most($x-large)) {
+  div#main-wrap {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 100vw;
+    > * {
+      display: none;
+    }
+    &::before {
+      content: '';
+      display: block;
+      background-image: url('/assets/lifat/bots/misc/not-worthy.webp');
+      background-size: contain;
+      background-repeat: no-repeat;
+      min-width: 320px;
+      min-height: 320px;
+    }
+    &::after {
+      content: '\A Your device is not worthy.';
+      font-size: 32px;
+      text-align: center;
+    }
   }
 }

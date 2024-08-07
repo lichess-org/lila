@@ -85,8 +85,9 @@ interface CrazyData {
 export interface CrazyPocket {
   [role: string]: number;
 }
-export interface LocalLila extends RoundSocket {
-  analyseButton(isIcon: boolean): VNode | false;
+export interface RoundProxy extends RoundSocket {
+  analyse(): void;
+  newOpponent(): void;
 }
 
 export interface RoundOpts {
@@ -99,7 +100,7 @@ export interface RoundOpts {
   crosstableEl?: HTMLElement;
   i18n: I18nDict;
   chat?: ChatOpts;
-  local?: LocalLila;
+  local?: RoundProxy;
 }
 
 export interface ChatOpts {
