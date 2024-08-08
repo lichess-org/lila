@@ -79,7 +79,7 @@ final private[memo] class Syncache[K, V](
 
   def preloadOne(k: K): Funit = async(k).void
 
-  // maybe optimize later with cach batching
+  // maybe optimize later with cache batching
   def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
   def preloadSet(ks: Set[K]): Funit  = ks.map(preloadOne).sequenceFu.void
 

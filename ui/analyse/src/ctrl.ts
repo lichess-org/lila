@@ -952,7 +952,7 @@ export default class AnalyseCtrl {
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 
   // plies respect color - it is even if it's sente turn and vice versa
-  // but move number is s separate thing
+  // but move number is a separate thing
   // so instead of sending both
   // let's just count the offset
   plyOffset = (): number => {
