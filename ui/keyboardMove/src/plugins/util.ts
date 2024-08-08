@@ -82,7 +82,7 @@ export function regexMatchAllSquares(str: string): Square[] {
   let match;
   while ((match = keyR.exec(str)) !== null) {
     const sq = toSquare(match[0]);
-    if (sq) matches.push(sq);
+    if (sq !== undefined) matches.push(sq);
   }
   return matches;
 }
