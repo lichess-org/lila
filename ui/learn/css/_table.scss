@@ -53,8 +53,11 @@
     text-align: center;
     cursor: pointer;
     @include transition();
-    padding: 0;
+    padding: 6px 0;
     font-size: 1.7em;
+    @include breakpoint($mq-col2) {
+      padding: 0;
+    }
 
     @keyframes shadow-glow {
       50% {
