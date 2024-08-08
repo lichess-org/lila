@@ -67,7 +67,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   }
   const instance = ctrl.getCeval();
   const hovering = instance.hovering();
-  const { eval: nEval = {}, sfen: nSfen, ceval: nCeval, threat: nThreat } = ctrl.node;
+  const { eval: nEval, sfen: nSfen, ceval: nCeval, threat: nThreat } = ctrl.node;
 
   let shapes: DrawShape[] = [];
   if (ctrl.retro && ctrl.retro.showBadNode()) {
@@ -75,7 +75,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   }
   if (hovering && hovering.sfen === nSfen) shapes = shapes.concat(makeShapesFromUsi(color, hovering.usi, 'engine'));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
-    if (nEval.best) shapes = shapes.concat(makeShapesFromUsi(rcolor, nEval.best, 'engine'));
+    if (nEval?.best) shapes = shapes.concat(makeShapesFromUsi(rcolor, nEval.best, 'engine'));
     if (!hovering && parseInt(instance.multiPv())) {
       const curNodeBest = instance.enabled() && nCeval,
         nextBest = curNodeBest ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();

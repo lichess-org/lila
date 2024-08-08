@@ -264,13 +264,16 @@ interface Paginator<A> {
 declare namespace Tree {
   export type Path = string;
 
-  interface ClientEvalBase {
+  interface EvalScore {
+    cp?: number;
+    mate?: number;
+  }
+
+  interface ClientEvalBase extends EvalScore {
     sfen: Sfen;
     depth: number;
     nodes: number;
     pvs: PvData[];
-    cp?: number;
-    mate?: number;
   }
   export interface CloudEval extends ClientEvalBase {
     cloud: true;
@@ -286,16 +289,23 @@ declare namespace Tree {
   }
   export type ClientEval = CloudEval | LocalEval;
 
-  export interface ServerEval {
-    cp?: number;
-    mate?: number;
+  export interface ServerEval extends EvalScore {
     best?: Usi;
+    sfen: Sfen;
+    path: string;
+    knodes: number;
+    depth: number;
+    pvs: PvDataServer[];
   }
 
   export interface PvData {
     moves: string[];
     mate?: number;
     cp?: number;
+  }
+
+  export interface PvDataServer extends EvalScore {
+    moves: string;
   }
 
   export interface TablebaseHit {
