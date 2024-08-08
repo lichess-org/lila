@@ -19,6 +19,8 @@ import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.web.{ RealPlayerApi, RealPlayers }
+import lila.gameSearch.GameSearchApi
+import smithy4s.Timestamp
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -33,7 +35,8 @@ final class GameApiV2(
     realPlayerApi: RealPlayerApi,
     gameProxy: GameProxyRepo,
     division: Divider,
-    bookmarkExists: lila.core.bookmark.BookmarkExists
+    bookmarkExists: lila.core.bookmark.BookmarkExists,
+    gameSearch: GameSearchApi
 )(using Executor, akka.actor.ActorSystem):
 
   import GameApiV2.*
@@ -117,18 +120,43 @@ final class GameApiV2(
               config.vs.map(_.id).fold(Query.nowPlaying(config.user.id)) {
                 Query.nowPlayingVs(config.user.id, _)
               }
-          gameRepo
-            .sortedCursor(
-              playerSelect ++
-                Query.createdBetween(config.since, config.until) ++ ((!config.ongoing).so(Query.finished)),
-              config.sort.bson,
-              batchSize = config.perSecond.value
-            )
-            .documentSource()
-            .map(g => config.postFilter(g).option(g))
-            .throttle(config.perSecond.value * 10, 1 second, e => if e.isDefined then 10 else 2)
-            .mapConcat(_.toList)
-            .take(config.max.fold(Int.MaxValue)(_.value))
+          val requiresElasticSearch =
+            config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty
+          val gameSource: Source[Game, ?] =
+            if requiresElasticSearch then
+              import lila.search.spec.DateRange
+              import lila.search.Size
+              import lila.gameSearch.{ SearchData, SearchPlayer }
+              def ts(i: Instant): Timestamp = Timestamp.fromEpochMilli(i.toEpochMilli)
+              val query = SearchData(
+                players = SearchPlayer(
+                  a = config.user.id.into(UserStr).some,
+                  white = config.color.exists(_.white).option(config.user.id.into(UserStr)),
+                  black = config.color.exists(_.black).option(config.user.id.into(UserStr))
+                ),
+                analysed = config.analysed.map(_.so(1))
+              ).query.copy(
+                date = DateRange(config.since.map(ts), config.until.map(ts)),
+                perf = config.perfKey.view.map(_.id.value).toList
+              )
+              gameSearch
+                .idStream(query, Size(config.max.fold(5_000)(_.value)), config.perSecond.into(MaxPerPage))
+                .mapAsync(1)(gameRepo.gamesFromSecondary)
+                .mapConcat(identity)
+            else
+              gameRepo
+                .sortedCursor(
+                  playerSelect ++
+                    Query.createdBetween(config.since, config.until) ++ ((!config.ongoing)
+                      .so(Query.finished)),
+                  config.sort.bson,
+                  batchSize = config.perSecond.value
+                )
+                .documentSource()
+                .take(config.max.fold(Int.MaxValue)(_.value))
+
+          gameSource
+            .throttle(config.perSecond.value, 1 second)
             .via(upgradeOngoingGame)
             .via(preparationFlow(config, realPlayers))
             .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
@@ -373,13 +401,7 @@ object GameApiV2:
       ongoing: Boolean = false,
       finished: Boolean = true
   )(using val by: Option[Me])
-      extends Config:
-    def postFilter(g: Game) =
-      rated.forall(g.rated ==) && {
-        perfKey.isEmpty || perfKey.contains(g.perfKey)
-      } && color.forall { c =>
-        g.player(c).userId.has(user.id)
-      } && analysed.forall(g.metadata.analysed ==)
+      extends Config
 
   case class ByIdsConfig(
       ids: Seq[GameId],
