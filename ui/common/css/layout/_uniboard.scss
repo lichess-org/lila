@@ -5,15 +5,8 @@ body {
     // ---zoom: 80; defined in the HTML, loaded from server
     ---board-scale: calc((var(---zoom) / 100) * 0.75 + 0.25);
   }
-
-  // use old fallback values for browsers that don't support min()
-  ---col2-uniboard-width: #{$col2-uniboard-fallback-width};
-  ---col3-uniboard-width: #{$col3-uniboard-fallback-width};
-
-  @supports (width: min(1px, 2px)) {
-    ---col2-uniboard-width: #{$col2-uniboard-width};
-    ---col3-uniboard-width: #{$col3-uniboard-width};
-  }
+  ---col2-uniboard-width: #{$col2-uniboard-width};
+  ---col3-uniboard-width: #{$col3-uniboard-width};
 }
 
 @include mq-is-col1 {

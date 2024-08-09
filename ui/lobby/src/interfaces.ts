@@ -139,10 +139,30 @@ export interface SetupStore {
   days: number;
 }
 
-export interface ForceSetupOptions {
+export interface SetupConstraints {
   variant?: VariantKey;
   fen?: string;
   timeMode?: TimeMode;
   time?: number;
   increment?: number;
+}
+
+export interface GameSetup {
+  id: string;
+  gameType: GameType | null;
+  color: Color | 'random';
+  variant: VariantKey;
+  timeMode: TimeMode;
+  gameMode: GameMode;
+  range: string;
+}
+
+export interface ParentCtrl {
+  readonly user?: string;
+  readonly ratingMap?: Record<Perf, RatingWithProvisional>;
+
+  redraw: () => void;
+  acquire?: (candidate: GameSetup) => boolean;
+  trans: Trans;
+  opts: { showRatings: boolean };
 }

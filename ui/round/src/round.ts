@@ -7,8 +7,8 @@ import { main as view } from './view/main';
 
 const patch = init([classModule, attributesModule]);
 
-export function initModule(opts: RoundOpts) {
-  boot(opts, app);
+export async function initModule(opts: RoundOpts): Promise<RoundController> {
+  return opts.local ? app(opts) : boot(opts, app);
 }
 
 export const firstPly = (d: RoundData): number => d.steps[0].ply;
@@ -32,16 +32,14 @@ export const massage = (d: RoundData): void => {
   if (d.expiration) d.expiration.movedAt = Date.now() - d.expiration.idleMillis;
 };
 
-function app(opts: RoundOpts, nvui?: NvuiPlugin) {
+async function app(opts: RoundOpts): Promise<RoundController> {
+  const nvui = site.blindMode ? await site.asset.loadEsm<NvuiPlugin>('round.nvui') : undefined;
   const ctrl = new RoundController(opts, redraw, nvui);
 
   const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
-  let vnode = patch(opts.element, blueprint);
+  const el = (opts.element ?? document.querySelector('.round__app')) as HTMLElement;
 
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
-  }
+  let vnode = patch(el, blueprint);
 
   window.addEventListener('resize', redraw); // col1 / col2+ transition
 
@@ -49,8 +47,9 @@ function app(opts: RoundOpts, nvui?: NvuiPlugin) {
 
   site.sound.preloadBoardSounds();
 
-  return {
-    socketReceive: ctrl.socket.receive,
-    moveOn: ctrl.moveOn,
-  };
+  return ctrl;
+
+  function redraw() {
+    vnode = patch(vnode, view(ctrl));
+  }
 }

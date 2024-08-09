@@ -1,12 +1,19 @@
 import { VNode } from 'snabbdom';
-import { GameData, Status } from 'game';
-import { ClockData, Seconds, Centis } from './clock/clockCtrl';
+import { GameData, Status, Seconds, Centis } from 'game';
+import { ClockData } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';
 import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
 import { EnhanceOpts } from 'common/richText';
+import { RoundSocket } from './socket';
+
+export { type RoundSocket } from './socket';
+export { type CorresClockData } from './corresClock/corresClockCtrl';
+
+export type { default as RoundController } from './ctrl';
+export type { ClockData } from './clock/clockCtrl';
 
 export interface Untyped {
   [key: string]: any;
@@ -52,7 +59,7 @@ export interface RoundData extends GameData {
   forecastCount?: number;
   opponentSignal?: number;
   crazyhouse?: CrazyData;
-  correspondence: CorresClockData;
+  correspondence?: CorresClockData;
   tv?: Tv;
   userTv?: {
     id: string;
@@ -75,20 +82,24 @@ interface CrazyData {
   pockets: [CrazyPocket, CrazyPocket];
 }
 
-interface CrazyPocket {
+export interface CrazyPocket {
   [role: string]: number;
+}
+export interface LocalStub extends RoundSocket {
+  analyseButton(isIcon: boolean): VNode | false;
 }
 
 export interface RoundOpts {
   data: RoundData;
   userId?: string;
   noab?: boolean;
-  socketSend: SocketSend;
+  socketSend?: SocketSend;
   onChange(d: RoundData): void;
-  element: HTMLElement;
-  crosstableEl: HTMLElement;
+  element?: HTMLElement;
+  crosstableEl?: HTMLElement;
   i18n: I18nDict;
   chat?: ChatOpts;
+  local?: LocalStub;
 }
 
 export interface ChatOpts {
@@ -111,19 +122,23 @@ export interface Step {
   crazy?: StepCrazy;
 }
 
-export interface ApiMove extends Step {
-  dests: EncodedDests;
+export interface ApiMove {
+  dests: string | { [key: string]: string };
+  ply: number;
+  fen: string;
+  san: string;
+  uci: string;
   clock?: {
     white: Seconds;
     black: Seconds;
     lag?: Centis;
   };
-  status: Status;
+  status?: Status;
   winner?: Color;
-  check: boolean;
-  threefold: boolean;
-  wDraw: boolean;
-  bDraw: boolean;
+  check?: boolean;
+  threefold?: boolean;
+  wDraw?: boolean;
+  bDraw?: boolean;
   crazyhouse?: CrazyData;
   role?: cg.Role;
   drops?: string;
@@ -138,6 +153,7 @@ export interface ApiMove extends Step {
   };
   isMove?: true;
   isDrop?: true;
+  volume?: number;
 }
 
 export interface ApiEnd {

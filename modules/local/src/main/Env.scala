@@ -1,0 +1,16 @@
+package lila.local
+
+import com.softwaremill.macwire.*
+import play.api.libs.ws.StandaloneWSClient
+
+import lila.core.config.CollName
+import lila.memo.CacheApi
+
+@Module
+final class Env(db: lila.db.Db, cacheApi: CacheApi, getFile: (String => java.io.File))(using
+    Executor,
+    akka.stream.Materializer
+)(using mode: play.api.Mode, scheduler: Scheduler):
+
+  val repo = LocalRepo(coll = db(CollName("local_bots")))
+  val api  = LocalApi(repo, getFile)

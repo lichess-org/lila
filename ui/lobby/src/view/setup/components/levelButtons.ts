@@ -1,23 +1,22 @@
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
+import { SetupCtrl } from '../../../setupCtrl';
 import { option } from './option';
 
-export const levelButtons = (ctrl: LobbyController) => {
-  const { trans, setupCtrl } = ctrl;
+export const levelButtons = (ctrl: SetupCtrl) => {
   return site.blindMode
     ? [
-        h('label', { attrs: { for: 'sf_level' } }, trans('strength')),
+        h('label', { attrs: { for: 'sf_level' } }, ctrl.root.trans('strength')),
         h(
           'select#sf_level',
           {
-            on: { change: (e: Event) => setupCtrl.aiLevel(parseInt((e.target as HTMLSelectElement).value)) },
+            on: { change: (e: Event) => ctrl.aiLevel(parseInt((e.target as HTMLSelectElement).value)) },
           },
-          '12345678'.split('').map(key => option({ key, name: key }, setupCtrl.aiLevel().toString())),
+          '12345678'.split('').map(key => option({ key, name: key }, ctrl.aiLevel().toString())),
         ),
       ]
     : [
         h('br'),
-        trans('strength'),
+        ctrl.root.trans('strength'),
         h('div.level.buttons', [
           h(
             'div.config_level',
@@ -30,10 +29,10 @@ export const levelButtons = (ctrl: LobbyController) => {
                       name: 'level',
                       type: 'radio',
                       value: level,
-                      checked: level === setupCtrl.aiLevel(),
+                      checked: level === ctrl.aiLevel(),
                     },
                     on: {
-                      change: (e: Event) => setupCtrl.aiLevel(parseInt((e.target as HTMLInputElement).value)),
+                      change: (e: Event) => ctrl.aiLevel(parseInt((e.target as HTMLInputElement).value)),
                     },
                   }),
                   h('label', { attrs: { for: `sf_level_${level}` } }, level),
@@ -44,8 +43,8 @@ export const levelButtons = (ctrl: LobbyController) => {
           h(
             'div.ai_info',
             h(
-              `div.sf_level_${setupCtrl.aiLevel()}`,
-              trans('aiNameLevelAiLevel', 'Fairy-Stockfish 14', setupCtrl.aiLevel()),
+              `div.sf_level_${ctrl.aiLevel()}`,
+              ctrl.root.trans('aiNameLevelAiLevel', 'Fairy-Stockfish 14', ctrl.aiLevel()),
             ),
           ),
         ]),

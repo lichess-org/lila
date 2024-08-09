@@ -7,6 +7,7 @@ case class ContentSecurityPolicy(
     frameSrc: List[String],
     workerSrc: List[String],
     imgSrc: List[String],
+    mediaSrc: List[String],
     scriptSrc: List[String],
     fontSrc: List[String],
     baseUri: List[String]

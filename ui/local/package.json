@@ -1,0 +1,33 @@
+{
+  "name": "local",
+  "private": true,
+  "author": "T-Bone Duplexus",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@types/lichess": "workspace:*",
+    "bits": "workspace:*",
+    "ceval": "workspace:*",
+    "chart.js": "4.4.3",
+    "chartjs-adapter-dayjs-4": "^1.0.4",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "chartjs-plugin-zoom": "^2.0.1",
+    "chess": "workspace:*",
+    "chessops": "^0.14.0",
+    "common": "workspace:*",
+    "game": "workspace:*",
+    "round": "workspace:*",
+    "snabbdom": "3.5.1",
+    "zerofish": "../../../zerofish"
+  },
+  "lichess": {
+    "bundles": [
+      "src/local.setup.ts",
+      "src/local.ts",
+      "src/dev/local.dev.ts"
+    ],
+    "sync": {
+      "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",
+      "json/*": "public/json"
+    }
+  }
+}

@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "noEmit": true
+    "outDir": "dist",
+    "rootDir": "src",
+    "composite": true
   },
-
   "references": [{ "path": "../common/tsconfig.json" }, { "path": "../dasher/tsconfig.json" }]
 }

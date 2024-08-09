@@ -58,11 +58,3 @@ $col2-uniboard-squeeze-width: minmax(
 );
 
 $col1-uniboard-controls: 5rem;
-
-// fallbacks for really old browsers that don't support css min() and max() functions
-$col3-uniboard-fallback-min-width: calc(70vmin * var(---board-scale));
-$col3-uniboard-fallback-max-width: calc(
-  100vh * var(---board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}
-);
-$col3-uniboard-fallback-width: minmax($col3-uniboard-fallback-min-width, $col3-uniboard-fallback-max-width);
-$col2-uniboard-fallback-width: $col3-uniboard-fallback-width;

@@ -40,7 +40,7 @@ export async function initModule() {
       window.getSelection()?.addRange(range);
     }, 0);
   $('.err', dlg.view).on('focus', select);
-  $('.clear', dlg.view).on('click', () => site.log.clear().then(dlg.close));
+  $('.clear', dlg.view).on('click', () => site.log.clear().then(() => dlg.close()));
   $('.copy', dlg.view).on('click', () =>
     navigator.clipboard.writeText(text).then(() => {
       const copied = $(`<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`);

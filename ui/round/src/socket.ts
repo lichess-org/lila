@@ -83,8 +83,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     cclock(o: { white: number; black: number }) {
       if (ctrl.corresClock) {
-        ctrl.data.correspondence.white = o.white;
-        ctrl.data.correspondence.black = o.black;
+        ctrl.data.correspondence!.white = o.white;
+        ctrl.data.correspondence!.black = o.black;
         ctrl.corresClock.update(o.white, o.black);
         ctrl.redraw();
       }
@@ -156,7 +156,12 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
   site.pubsub.on('ab.rep', n => send('rep', { n }));
 
   return {
-    send,
+    send: (typ: string, data?: any, opts?: any, noRetry?: boolean) => {
+      //console.log('socket send', typ, JSON.stringify(data, undefined, 2));
+      if (opts) console.log('send opts', JSON.stringify(opts, undefined, 2));
+      if (noRetry !== undefined) console.log('send noRetry', noRetry);
+      send(typ, data, opts, noRetry);
+    },
     handlers,
     moreTime: throttle(300, () => send('moretime')),
     outoftime: backoff(500, 1.1, () => send('flag', ctrl.data.game.player)),
@@ -166,6 +171,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       send(typ, data);
     },
     receive(typ: string, data: any): boolean {
+      //console.log('socket receive', typ, JSON.stringify(data, undefined, 2));
       const handler = handlers[typ];
       if (handler) {
         handler(data);

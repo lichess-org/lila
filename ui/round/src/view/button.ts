@@ -8,7 +8,7 @@ import { game as gameRoute } from 'game/router';
 import { RoundData } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
-import { LooseVNodes, looseH as h } from 'common/snabbdom';
+import { LooseVNodes, LooseVNode, looseH as h } from 'common/snabbdom';
 
 export interface ButtonState {
   enabled: boolean;
@@ -27,18 +27,19 @@ function analysisButton(ctrl: RoundController): VNode | false {
   const d = ctrl.data,
     url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return (
-    game.replayable(d) &&
-    h(
-      'a.fbt',
-      {
-        attrs: { href: url },
-        hook: util.bind('click', _ => {
-          // force page load in case the URL is the same
-          if (location.pathname === url.split('#')[0]) location.reload();
-        }),
-      },
-      ctrl.noarg('analysis'),
-    )
+    ctrl.opts.local?.analyseButton(false) ??
+    (game.replayable(d) &&
+      h(
+        'a.fbt',
+        {
+          attrs: { href: url },
+          hook: util.bind('click', _ => {
+            // force page load in case the URL is the same
+            if (location.pathname === url.split('#')[0]) location.reload();
+          }),
+        },
+        ctrl.noarg('analysis'),
+      ))
   );
 }
 
@@ -111,7 +112,7 @@ export function standard(
   );
 }
 
-export function opponentGone(ctrl: RoundController) {
+export function opponentGone(ctrl: RoundController): LooseVNode {
   const gone = ctrl.opponentGone();
   if (ctrl.data.game.rules?.includes('noClaimWin')) return null;
   return gone === true
@@ -128,7 +129,7 @@ export function opponentGone(ctrl: RoundController) {
           ctrl.noarg('forceDraw'),
         ),
       ])
-    : gone &&
+    : gone !== false &&
         h(
           'div.suggestion',
           h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone))),
@@ -175,14 +176,14 @@ export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) 
     h('span', '½'),
   );
 
-export function threefoldSuggestion(ctrl: RoundController) {
+export function threefoldSuggestion(ctrl: RoundController): LooseVNode {
   return (
     ctrl.data.game.threefold &&
     h('div.suggestion', [h('p', { hook: onSuggestionHook }, ctrl.noarg('threefoldRepetition'))])
   );
 }
 
-export function backToTournament(ctrl: RoundController) {
+export function backToTournament(ctrl: RoundController): LooseVNode {
   const d = ctrl.data;
   return (
     d.tournament?.running &&
@@ -203,7 +204,7 @@ export function backToTournament(ctrl: RoundController) {
   );
 }
 
-export function backToSwiss(ctrl: RoundController) {
+export function backToSwiss(ctrl: RoundController): LooseVNode {
   const d = ctrl.data;
   return (
     d.swiss?.running &&
@@ -221,7 +222,7 @@ export function backToSwiss(ctrl: RoundController) {
   );
 }
 
-export function moretime(ctrl: RoundController) {
+export function moretime(ctrl: RoundController): LooseVNode {
   return (
     game.moretimeable(ctrl.data) &&
     h('a.moretime', {
@@ -268,7 +269,7 @@ export function followUp(ctrl: RoundController): VNode {
   ]);
 }
 
-export function watcherFollowUp(ctrl: RoundController) {
+export function watcherFollowUp(ctrl: RoundController): LooseVNode {
   const d = ctrl.data,
     content = [
       d.game.rematch &&

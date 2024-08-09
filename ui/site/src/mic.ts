@@ -3,7 +3,7 @@ import { Selector, Selectable } from 'common/selector';
 import { storedStringProp } from 'common/storage';
 import { VoskModule } from 'voice';
 
-type Audio = { vosk?: AudioNode; source?: AudioNode; ctx?: AudioContext };
+type Audio = { source?: AudioNode; ctx?: AudioContext };
 
 class RecNode implements Selectable {
   listenerMap = new Map<string, Voice.Listener>();
@@ -46,7 +46,7 @@ export const mic = new (class implements Voice.Microphone {
   deviceId = storedStringProp('voice.micDeviceId', 'default');
   deviceIds?: string[];
 
-  recs = new Selector<RecNode, Audio>();
+  recs = new Selector<string, RecNode, Audio>();
   recId = 'default';
   ctrl: Voice.Listener;
   download?: XMLHttpRequest;
@@ -80,7 +80,7 @@ export const mic = new (class implements Voice.Microphone {
     const listening = this.isListening;
     site.mic.stop();
     this.deviceId(id);
-    this.recs.close();
+    this.recs.release();
     this.audioCtx?.close();
     this.audioCtx = undefined;
     if (listening) this.start();
@@ -111,20 +111,20 @@ export const mic = new (class implements Voice.Microphone {
     } = {},
   ) {
     if (words.length === 0) {
-      this.recs.delete(also.recId);
+      this.recs.remove(also.recId);
       return;
     }
     const recId = also.recId ?? 'default';
     const rec = new RecNode(words.slice(), also.partial === true);
     if (this.vosk?.isLoaded(this.lang)) this.initKaldi(recId, rec);
-    this.recs.set(recId, rec);
+    this.recs.add(recId, rec);
     if (also.listener) this.addListener(also.listener, { recId, listenerId: also.listenerId });
   }
 
   setRecognizer(recId = 'default') {
     this.recId = recId;
     if (!this.isListening) return;
-    this.recs.select(recId);
+    this.recs.set(recId);
     this.vosk?.select(recId);
   }
 
@@ -135,7 +135,7 @@ export const mic = new (class implements Voice.Microphone {
       await this.initModel();
       if (!this.busy) throw '';
       for (const [recId, rec] of this.recs.group) this.initKaldi(recId, rec);
-      this.recs.select(listen && this.recId);
+      this.recs.set(listen && this.recId);
       this.vosk?.select(listen && this.recId);
       this.micTrack!.enabled = listen;
       this.busy = false;
@@ -152,7 +152,7 @@ export const mic = new (class implements Voice.Microphone {
     this.download?.abort();
     this.download = undefined;
     this.busy = false;
-    this.recs.select(false);
+    this.recs.set(false);
     this.vosk?.select(false);
     this.broadcast(...reason);
   }
@@ -167,11 +167,11 @@ export const mic = new (class implements Voice.Microphone {
   resume() {
     this.paused = Math.min(this.paused - 1, 0);
     if (this.paused !== 0 || this.micTrack === undefined) return;
-    this.micTrack.enabled = !!this.recs.selected;
+    this.micTrack.enabled = !!this.recs.value;
   }
 
   get isListening(): boolean {
-    return !!this.recs.selected && !!(this.micTrack?.enabled || this.paused) && !this.isBusy;
+    return !!this.recs.value && !!(this.micTrack?.enabled || this.paused) && !this.isBusy;
   }
 
   get isBusy(): boolean {
@@ -236,7 +236,7 @@ export const mic = new (class implements Voice.Microphone {
       sampleRate: this.mediaStream.getAudioTracks()[0].getSettings().sampleRate,
     });
     this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
-    this.recs.ctx = { vosk: this.vosk, source: this.micSource, ctx: this.audioCtx };
+    this.recs.ctx = { source: this.micSource, ctx: this.audioCtx };
   }
 
   /*private*/ broadcast(text: string, msgType: Voice.MsgType = 'status', forMs = 0) {

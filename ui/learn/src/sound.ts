@@ -10,3 +10,4 @@ export const levelEnd = make('other/energy3');
 export const stageStart = make('other/guitar');
 export const stageEnd = make('other/gewonnen');
 export const failure = make('other/no-go');
+//

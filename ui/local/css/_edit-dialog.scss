@@ -1,0 +1,425 @@
+#imagept {
+  @extend %box-radius-force, %popup-shadow;
+  width: 192px;
+  height: 192px;
+  display: none;
+  position: absolute;
+  z-index: $z-powertip-120;
+}
+
+.dev-view {
+  @extend %flex-column;
+  gap: 1em;
+
+  textarea,
+  select,
+  input {
+    padding: 5px;
+    &.invalid {
+      background-color: $m-bg_bad--mix-80;
+    }
+  }
+  span {
+    @extend %flex-center-nowrap;
+    white-space: nowrap;
+    gap: 1em;
+  }
+  input:not([type='text']) {
+    cursor: pointer;
+  }
+  .disabled label > span {
+    opacity: 0.5;
+  }
+  .disabled .hide-disabled {
+    display: none;
+  }
+  .preview-sound::before {
+    color: $c-secondary;
+    &:hover {
+      color: $m-secondary--lighten-11;
+    }
+  }
+  .icon-btn {
+    padding: 6px;
+  }
+  *:focus-visible,
+  input.range:focus-visible {
+    outline: 2px solid $c-font;
+    outline-offset: -2px;
+  }
+}
+
+.edit-view {
+  background-color: $c-bg-zebra;
+  height: min-content;
+  max-height: unset;
+  max-width: min(1600px, 96vw);
+  padding-bottom: 0;
+
+  button {
+    padding: 0.8em 0.8em;
+  }
+  textarea {
+    white-space: pre-wrap;
+    width: 100%;
+    resize: none;
+  }
+  hr {
+    margin: 0;
+    flex: auto;
+  }
+  label {
+    @extend %flex-center-nowrap;
+    white-space: nowrap;
+    flex: initial;
+    gap: 12px;
+  }
+  canvas {
+    min-height: 300px;
+  }
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border: 1px solid $c-border;
+    border-radius: $box-radius-size;
+    padding: 0.75em 0 1em;
+    row-gap: 0.5em;
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      row-gap: 0.5em;
+    }
+    &.disabled {
+      padding: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+    }
+  }
+  legend {
+    @extend %flex-center;
+    z-index: $z-above-dialog-12; // get around safari z-index bug in legend / fieldset
+    align-self: start;
+    text-align: left;
+    margin: 0 0.5em;
+    > label {
+      font-weight: bold;
+    }
+  }
+}
+
+.deck {
+  position: absolute;
+  z-index: $z-above-dialog-14;
+  left: 2em;
+  bottom: 4em;
+  width: 192px;
+  height: 192px;
+  &.fanout {
+    z-index: $z-dialog-11;
+  }
+}
+
+.edit-bot {
+  @extend %flex-column;
+  display: grid;
+  height: calc(max(45vh, 400px) + $card-height + $chin-height);
+  grid-template-columns: min(36vh, 30vw) min(480px, 33vw) 1fr;
+  grid-template-rows: 1fr calc(160px * var(---scale-factor)) auto;
+  grid-template-areas: 'a b c' '. b c' '. d d';
+  column-gap: 1em;
+
+  .bot-card {
+    display: flex;
+    overflow-y: hidden;
+    flex-direction: column;
+    border-radius: 10px;
+    gap: 1em;
+    grid-area: a;
+
+    div {
+      padding: 0;
+    }
+    span {
+      z-index: $z-above-dialog-14;
+      font-size: 1.5em;
+      font-weight: bold;
+      font-style: italic;
+      padding: 0 4px;
+      color: $c-font-dim;
+    }
+    textarea {
+      text-align: center;
+    }
+    .player {
+      ---scale-factor: 0.7;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+    }
+    .placard {
+      padding: 0;
+      width: 90%;
+    }
+  }
+  .bot-unrate-one {
+    color: $m-primary_font--mix-70;
+    &:hover {
+      background-color: $m-bg_bad--mix-80;
+      color: $c-bad;
+    }
+  }
+  [data-click='remove'] {
+    cursor: pointer;
+    color: $c-bad;
+    &:hover {
+      color: $m-bad--lighten-11;
+    }
+  }
+  [data-click='add'] {
+    cursor: pointer;
+    color: $c-secondary;
+    &:hover {
+      color: $m-secondary--lighten-11;
+    }
+    &.disabled {
+      color: $c-border;
+      pointer-events: none;
+    }
+  }
+  .bot-actions {
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    gap: 1em;
+    padding: 1em;
+  }
+
+  .bot-info {
+    justify-content: space-between;
+    text-align: center;
+
+    #bot_name {
+      max-width: 50%;
+      flex: 1 1 auto;
+      padding: 0;
+    }
+  }
+  .setting {
+    @extend %flex-center;
+    padding: 0 1em;
+    display: flex;
+    width: 100%;
+    flex-flow: row nowrap;
+    gap: 1em;
+    input[data-type] {
+      width: 60px;
+      flex-grow: 1;
+    }
+    &.disabled > input[data-type] {
+      opacity: 0.5;
+    }
+  }
+  .books,
+  .sound-events {
+    input[type='text'] {
+      max-width: 5ch;
+    }
+  }
+  .sound-events {
+    padding: 0.5em 1em;
+    .hide-disabled {
+      width: 100%;
+    }
+  }
+  .sound-event > span > label {
+    width: 100%;
+  }
+  .total-chance.invalid {
+    color: $c-bad;
+  }
+  fieldset.sound {
+    @extend %flex-between;
+    flex-wrap: nowrap;
+    padding: 0.25em 0.5em 0.5em;
+    label {
+      gap: 6px;
+    }
+  }
+  .sources,
+  .operators {
+    overflow-y: auto;
+    overflow-x: visible;
+    scrollbar-width: thin;
+    scrollbar-color: $c-primary transparent;
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $c-primary;
+      background-clip: content-box;
+    }
+
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
+  }
+  .sources {
+    @extend %flex-column;
+    grid-area: b;
+    padding: 0 1em;
+    min-width: 300px;
+    justify-content: start;
+    gap: 1em;
+  }
+  .operators {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 1em;
+    grid-area: c;
+  }
+  .operator {
+    display: flex;
+    flex-direction: column;
+    border-radius: $box-radius-size;
+    label {
+      flex-flow: row nowrap;
+      height: 32px;
+      padding-inline-start: 0.5em;
+    }
+    .chart-wrapper {
+      border: 1px solid $c-border-light;
+      position: relative;
+      border-radius: $box-radius-size 0 $box-radius-size $box-radius-size;
+      background: $c-paper;
+      cursor: pointer;
+      padding: 1em 1em 0.5em 0.5em;
+    }
+    &.disabled .chart-wrapper {
+      display: none;
+    }
+    .btn-rack {
+      width: 100%;
+      border: none;
+    }
+    .by {
+      @extend %flex-center-nowrap;
+      z-index: $z-above-dialog-12;
+      justify-content: center;
+      background: $m-paper_dimmer--mix-50;
+      flex: auto;
+      height: 32px;
+      user-select: none;
+      color: $c-font;
+      white-space: nowrap;
+      border: 1px solid $c-border-light;
+      border-bottom: none;
+      border-radius: $box-radius-size $box-radius-size 0 0;
+      margin-inline-end: -1px;
+
+      &:last-child {
+        margin-inline-end: 0;
+      }
+      &.active {
+        background: $c-paper;
+        margin-bottom: -1px;
+        padding-bottom: 1px;
+        height: 33px;
+        color: #555;
+        cursor: default;
+      }
+
+      &:hover:not(.active) {
+        background: $m-paper_dimmer--mix-75;
+        color: $c-font-clearer;
+        cursor: pointer;
+      }
+    }
+  }
+  .global-actions {
+    padding: 1em 0;
+    grid-area: d;
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+  }
+}
+
+.asset-dialog {
+  @extend %flex-column;
+  min-width: 704px;
+  .asset-grid {
+    display: grid;
+    max-width: 70vw;
+    width: fit-content;
+    grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
+    grid-auto-rows: auto;
+    gap: 1em;
+  }
+  .tab {
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  img {
+    width: 192px;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+  }
+  .asset-item {
+    @extend %flex-column;
+    position: relative;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em;
+    border-radius: 8px;
+    background: $c-bg-high;
+    box-shadow: 0 0 5px 0 $c-border;
+    .asset-preview {
+      width: min-content;
+    }
+    .remove {
+      z-index: $z-above-dialog-14;
+      position: absolute;
+      font-size: 1.25em;
+      top: -4px;
+      right: 0;
+      color: $c-bad;
+      cursor: pointer;
+      &.show {
+        display: block;
+      }
+      &:hover {
+        color: $m-bad--lighten-11;
+        filter: saturate(1);
+      }
+    }
+    .asset-label {
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+    .preview-sound {
+      @extend %flex-center-nowrap;
+      text-transform: none;
+      color: $c-font-dim;
+      &::before {
+        margin-inline-end: 0.5em;
+        font-size: 24px;
+      }
+    }
+  }
+  .chooser .asset-item,
+  .asset-item[data-click='add'] {
+    &:hover {
+      cursor: pointer;
+    }
+    &:hover:not(:has(button:hover)) {
+      background: $m-bg_high--lighten-11;
+      outline: $c-primary 2px dashed;
+    }
+  }
+}

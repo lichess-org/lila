@@ -44,7 +44,7 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
   return drops?.includes(key) === true;
 }
 
-export function onEnd() {
+export function onEnd(): void {
   const store = site.storage.make('crazyKeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
@@ -56,7 +56,7 @@ export function onEnd() {
 
 export const crazyKeys: Array<number> = [];
 
-export function init(ctrl: RoundController) {
+export function init(ctrl: RoundController): void {
   const k = site.mousetrap;
 
   let activeCursor: string | undefined;
