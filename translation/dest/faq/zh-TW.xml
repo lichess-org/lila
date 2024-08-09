@@ -16,7 +16,8 @@
   <string name="otherWaysToHelp">其他尋求幫助的方法</string>
   <string name="areThereWebsitesBasedOnLichess">有基於Lichess的網頁嗎？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">有的，Lichess的確有啟發其他使用我們%1$s、%2$s或是%3$s的開源網站。</string>
-  <string name="keyboardShortcuts">有哪些鍵盤捷徑？</string>
+  <string name="keyboardShortcuts">有哪些快捷鍵？</string>
+  <string name="keyboardShortcutsExplanation">某些 Lichess 頁面有快捷鍵。嘗試在研究、分析、謎題、或下棋頁面中按下「？」以查看可用快捷鍵。</string>
   <string name="fairPlay">公平的下棋</string>
   <string name="whenAmIEligibleRatinRefund">我什麼時候可以有資格自動取回與作弊者對弈的積分？</string>
   <string name="ratingRefundExplanation">在一個棋手被標記的一分鐘後，他們最近的40局積分賽將在3天內無效。如過你是他們這幾局的對手並且積分不是浮動的狀態，你輸掉的積分(輸局或和局) 將會退回，退回的積分上限基於你的最高積分及在那些棋局之後的積分變化。
@@ -95,6 +96,7 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="usernamesNotOffensive">一般來說，用戶名不應該是：冒犯性的、冒充他人的或含有廣告的。您可以閱讀有關 %1$s 的更多信息。</string>
   <string name="guidelines">指南</string>
   <string name="canIChangeMyUsername">我可以更改我的使用者名稱嗎？</string>
+  <string name="usernamesCannotBeChanged">因為某些技術性原因無法更改使用者名稱。使用者名稱已太被廣泛使用：資料庫、導出、日誌、與其他人的腦中。你可以更改大小寫一次。</string>
   <string name="uniqueTrophies">獨一無二的獎盃</string>
   <string name="ownerUniqueTrophies">這個獎杯在 Lichess 的歷史上是獨一無二的，除了 %1$s 之外沒有人曾經擁有它。</string>
   <string name="wayOfBerserkExplanation">hiimgosu 為了贏得獎盃而以 berserk 比賽鍛鍊自己並且最終贏得每場%s</string>
@@ -135,6 +137,29 @@ Lichess上的電腦分析是基於Stockfish的。</string>
 單擊瀏覽器 URL 欄中 lichess.org 網址旁邊的鎖定圖標。
 然後選擇是否允許還是阻止來自 Lichess 的通知。</string>
   <string name="enableAutoplayForSoundsQ">如何啟用自動播放聲音？</string>
+  <string name="enableAutoplayForSoundsA">大多瀏覽器都會禁止網站在新載入分頁中播放影音以保護使用者。想像所有網站都可以以各種影音廣告轟炸您的耳朵。
+
+紅色靜音按鈕會在音效被阻擋時顯示。大多在點擊棋子時才會停用此種限制。在某些行動版瀏覽器上，拖曳一個棋子不會被認為為一種點擊方式。在那種情況下您必須在每個棋局開始後點擊棋盤以啟用音效。
+
+在此種限制發生時我們會以紅色圖示警告你。大多時候可以允許 lichess.org 播放音效。以下是如何在大多瀏覽器上啟用音效：</string>
+  <string name="desktop">電腦</string>
+  <string name="enableAutoplayForSoundsFirefox">1. 到 lichess.org
+2. 在 Linux/Windows 上按下 Ctrl-i  或是在 macOS 按下 cmd-i
+3. 點擊「權限」分頁
+4. 在 lichess.org 允許自動播放影音內容</string>
+  <string name="enableAutoplayForSoundsChrome">1. 到 lichess.org
+2. 在搜尋欄中點擊開關圖示
+3. 點擊網站設定
+4. 允許音效</string>
+  <string name="enableAutoplayForSoundsSafari">1. 到 lichess.org
+2. 點擊 Safari 的選單
+3. 點擊「lichess.org 的設定...」
+4. 允許自動播放</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. 點擊右上角的選單
+2. 點擊設定
+3. 點擊「Cookie 和網站權限」
+4. 捲動到底下並點擊媒體自動播放
+5. 增加 lichess.org 以允許</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">如何克制西洋棋成癮？</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">獨立的心理健康狀況</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess userstyles（與 stylus 一併使用）</string>
