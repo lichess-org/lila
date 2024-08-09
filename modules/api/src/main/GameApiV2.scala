@@ -131,8 +131,9 @@ final class GameApiV2(
               val query = SearchData(
                 players = SearchPlayer(
                   a = config.user.id.into(UserStr).some,
+                  b = config.vs.map(_.id.into(UserStr)),
                   white = config.color.exists(_.white).option(config.user.id.into(UserStr)),
-                  black = config.color.exists(_.black).option(config.user.id.into(UserStr))
+                  black = config.color.exists(_.black).option(config.user.id.into(UserStr)),
                 ),
                 analysed = config.analysed.map(_.so(1))
               ).query.copy(
