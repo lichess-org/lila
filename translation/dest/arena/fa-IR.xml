@@ -44,8 +44,8 @@
   <string name="minimumGameLength">حداقل طول بازی</string>
   <string name="history">تاریخچه مسابقات</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">مشاهده تیم</item>
-    <item quantity="other">مشاهده %s تیم</item>
+    <item quantity="one">دیدن تیم</item>
+    <item quantity="other">دیدن همه‌ی %s تیم</item>
   </plurals>
   <string name="newTeamBattle">مبارزه تیمی جدید</string>
   <string name="customStartDate">تنظیم تاریخ شروع</string>

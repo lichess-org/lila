@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="personalOpeningExplorerX">%1$s（亦可分析%2$s）</string>
+  <string name="downloadOrUploadAnyGameAsPgn">下載/上傳任何 PGN 棋譜</string>
+  <string name="contributeToLichessAndGetIcon">捐款給 Lichess 取得超酷的贊助者圖示！</string>
+  <string name="everybodyGetsAllFeaturesForFree">是的，兩種帳號皆有相同的功能！</string>
+  <string name="ifYouLoveLichess">如果你喜歡 Lichess，</string>
+  <string name="supportUsWithAPatronAccount">考慮成為贊助者！</string>
+</resources>

@@ -40,6 +40,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3회 동형반복시 자동으로 무승부 요청</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">피스를 움직이기 전에 물음</string>
+  <string name="explainCanThenBeTemporarilyDisabled">경기 도중 보드 메뉴에서 비활성화될 수 있습니다.</string>
   <string name="inCorrespondenceGames">긴 대국에서만</string>
   <string name="correspondenceAndUnlimited">긴 대국과 무제한</string>
   <string name="confirmResignationAndDrawOffers">기권 또는 무승부 제안시 물음</string>
