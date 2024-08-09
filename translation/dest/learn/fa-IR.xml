@@ -2,7 +2,7 @@
 <resources>
   <string name="learnChess">یادگیری شطرنج</string>
   <string name="byPlaying">با بازی کردن!</string>
-  <string name="menu">منو</string>
+  <string name="menu">نام‌چین</string>
   <string name="progressX">پیشرفت: %s</string>
   <string name="resetMyProgress">پیشروی را از نو می‌آغازم</string>
   <string name="youWillLoseAllYourProgress">شما همه پیشرفت خود را از دست خواهید داد!</string>
@@ -235,7 +235,7 @@
   <string name="stageXComplete">گامه‌ی %s کامل شد</string>
   <string name="next">بعدی</string>
   <string name="nextX">بعدی %s</string>
-  <string name="backToMenu">بازگشت به گزینگان</string>
+  <string name="backToMenu">بازگشت به نام‌چین</string>
   <string name="puzzleFailed">معما حل نشد!</string>
   <string name="retry">بازبِکوش</string>
 </resources>
