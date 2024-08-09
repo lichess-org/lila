@@ -124,23 +124,13 @@ final class GameApiV2(
             config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty
           val gameSource: Source[Game, ?] =
             if requiresElasticSearch then
-              import lila.search.spec.DateRange
               import lila.search.Size
-              import lila.gameSearch.{ SearchData, SearchPlayer }
-              def ts(i: Instant): Timestamp = Timestamp.fromEpochMilli(i.toEpochMilli)
-              val query = SearchData(
-                players = SearchPlayer(
-                  a = config.user.id.into(UserStr).some,
-                  white = config.color.exists(_.white).option(config.user.id.into(UserStr)),
-                  black = config.color.exists(_.black).option(config.user.id.into(UserStr))
-                ),
-                analysed = config.analysed.map(_.so(1))
-              ).query.copy(
-                date = DateRange(config.since.map(ts), config.until.map(ts)),
-                perf = config.perfKey.view.map(_.id.value).toList
-              )
               gameSearch
-                .idStream(query, Size(config.max.fold(5_000)(_.value)), config.perSecond.into(MaxPerPage))
+                .idStream(
+                  config.toGameQuery,
+                  Size(config.max.fold(5_000)(_.value)),
+                  config.perSecond.into(MaxPerPage)
+                )
                 .mapAsync(1)(gameRepo.gamesFromSecondary)
                 .mapConcat(identity)
             else
@@ -401,7 +391,25 @@ object GameApiV2:
       ongoing: Boolean = false,
       finished: Boolean = true
   )(using val by: Option[Me])
-      extends Config
+      extends Config:
+
+    private def ts(i: Instant): Timestamp = Timestamp.fromEpochMilli(i.toEpochMilli)
+    def toGameQuery =
+      import lila.search.spec.DateRange
+      import lila.gameSearch.{ SearchData, SearchPlayer }
+      SearchData(
+        players = SearchPlayer(
+          a = user.id.into(UserStr).some,
+          b = vs.map(_.id.into(UserStr)),
+          white = color.exists(_.white).option(user.id.into(UserStr)),
+          black = color.exists(_.black).option(user.id.into(UserStr))
+        ),
+        analysed = analysed.map(_.so(1))
+      ).query.copy(
+        date = DateRange(since.map(ts), until.map(ts)),
+        perf = perfKey.view.map(_.id.value).toList,
+        rated = rated
+      )
 
   case class ByIdsConfig(
       ids: Seq[GameId],
