@@ -602,11 +602,11 @@
   <string name="error.min">最少包含 %s 個字符</string>
   <string name="error.max">最多不能超過 %s</string>
   <string name="ifRatingIsPlusMinusX">允許評級範圍±%s</string>
-  <string name="ifRegistered">如已註冊</string>
+  <string name="ifRegistered">已登入者</string>
   <string name="onlyExistingConversations">僅目前對話</string>
   <string name="onlyFriends">只允許好友</string>
-  <string name="menu">菜单</string>
-  <string name="castling">王车易位</string>
+  <string name="menu">選單</string>
+  <string name="castling">王車易位</string>
   <string name="whiteCastlingKingside">白方短易位</string>
   <string name="blackCastlingKingside">黑方短易位</string>
   <plurals name="nbForumPosts">
@@ -614,7 +614,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的時間：%s</string>
   <string name="watchGames">觀看對局直播</string>
-  <string name="tpTimeSpentOnTV">花在Lichess TV觀看直播的時間：%s</string>
+  <string name="tpTimeSpentOnTV">花在Lichess TV的時間：%s</string>
   <string name="watch">觀看</string>
   <string name="videoLibrary">影片庫</string>
   <string name="streamersMenu">實況主</string>
@@ -622,7 +622,7 @@
   <string name="webmasters">網站管理員</string>
   <string name="about">關於</string>
   <string name="aboutX">關於 %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s是一個免費的(%2$s)，開放性的，無廣告，開放資源的網站</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s是一個完全免費(%2$s)、開放性、無廣告、並且開源的網站</string>
   <string name="really">真的</string>
   <string name="contribute">協助</string>
   <string name="termsOfService">服務條款</string>
@@ -630,22 +630,23 @@
   <string name="simultaneousExhibitions">車輪戰</string>
   <string name="host">主持</string>
   <string name="hostColorX">主持者使用旗子顏色:%s</string>
-  <string name="yourPendingSimuls">你待處理的車輪戰</string>
-  <string name="createdSimuls">最近开始的同步赛</string>
-  <string name="hostANewSimul">主持新同步赛</string>
+  <string name="yourPendingSimuls">正在載入比賽</string>
+  <string name="createdSimuls">觀看最近開始的車輪戰</string>
+  <string name="hostANewSimul">主持車輪戰</string>
   <string name="signUpToHostOrJoinASimul">註冊以舉辦或參與車輪戰</string>
   <string name="noSimulFound">找不到该同步赛</string>
   <string name="noSimulExplanation">此車輪戰不存在。</string>
-  <string name="returnToSimulHomepage">返回表演赛主页</string>
+  <string name="returnToSimulHomepage">返回車輪戰首頁</string>
   <string name="aboutSimul">車輪戰涉及到一個人同時和幾位棋手下棋。</string>
-  <string name="aboutSimulImage">在50个对手中，菲舍尔赢了47局，和了2局，输了1局。</string>
-  <string name="aboutSimulRealLife">这个概念来自真实的国际赛事。 在现实中，这涉及到主持在桌与桌之间来回穿梭走棋。</string>
-  <string name="aboutSimulRules">当表演赛开始的时候， 每个玩家都与主持开始对弈， 而主持用白方。 当所有的对局都结束时，表演赛就结束了。</string>
-  <string name="aboutSimulSettings">表演赛总是不定级的。 复赛、悔棋和\"加时\"功能将被禁用。</string>
-  <string name="create">创建</string>
+  <string name="aboutSimulImage">在50位對手中，費雪贏了47局、和了2局、並輸了1局。</string>
+  <string name="aboutSimulRealLife">這個賽制來自於真實的國際賽事。 在現實中，這涉及到主持人在棋局與棋局之間來回走棋。</string>
+  <string name="aboutSimulRules">当表演赛开始的时候， 每个玩家都与主持开始对弈， 而主持用白方。 当所有的对局都结束时，表演赛就结束了。
+當車輪賽開始時，每個玩家都會與主持人對奕，主持人持白。當所有對局結束表示車輪賽也一併結束。</string>
+  <string name="aboutSimulSettings">車輪賽事較為非正式的賽制。重賽、悔棋、以及加時功能皆會被禁用。</string>
+  <string name="create">建立</string>
   <string name="whenCreateSimul">當您創建車輪戰時，您要同時跟幾個棋手一起下棋。</string>
-  <string name="simulVariantsHint">如果您选择几个变体，每个玩家都要选择下哪一种。</string>
-  <string name="simulClockHint">菲舍爾時鐘設定。棋手越多，您需要的時間可能就越多。</string>
+  <string name="simulVariantsHint">如果您選擇多個變體，每個玩家可以選擇自己所好的變體。</string>
+  <string name="simulClockHint">費雪時鐘設定。棋手越多，您需要的時間可能就越多。</string>
   <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>
   <string name="simulHostExtraTime">主持人的额外时间</string>
   <string name="simulAddExtraTimePerPlayer">每有一個玩家加入車輪戰，您棋鐘的初始時間都將增加。</string>
