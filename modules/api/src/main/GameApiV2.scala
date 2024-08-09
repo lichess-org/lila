@@ -137,7 +137,8 @@ final class GameApiV2(
                 analysed = config.analysed.map(_.so(1))
               ).query.copy(
                 date = DateRange(config.since.map(ts), config.until.map(ts)),
-                perf = config.perfKey.view.map(_.id.value).toList
+                perf = config.perfKey.view.map(_.id.value).toList,
+                rated = config.rated
               )
               gameSearch
                 .idStream(query, Size(config.max.fold(5_000)(_.value)), config.perSecond.into(MaxPerPage))
