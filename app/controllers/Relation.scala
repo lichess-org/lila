@@ -29,9 +29,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       ,
       Ok:
         Json.obj(
-          "followable" -> followable,
-          "following"  -> relation.contains(true),
-          "blocking"   -> relation.contains(false)
+          "ok" -> true
         )
     )
   yield res
