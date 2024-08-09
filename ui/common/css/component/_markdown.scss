@@ -83,6 +83,15 @@
     @include fluid-size('font-size', 17px, 23px);
   }
 
+  h2:hover a[id]:before,
+  h3:hover a[id]:before,
+  h4:hover a[id]:before {
+    color: $c-font-dimmer;
+    content: $licon-Link;
+    font-family: 'lichess';
+    float: right;
+  }
+
   @if $img {
     img {
       display: block;
