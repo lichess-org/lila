@@ -98,7 +98,7 @@
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ممکنه بازی‌های بیشتری با توجه به گزینگان ترجیح‌ها، وجود داشته باشد؟</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید بازی‌های بیشتری با توجه به نام‌چین تنظیمات، وجود داشته باشد.</string>
   <string name="openings">گشایش‌ها</string>
   <string name="openingExplorer">پویشگر گشایش‌</string>
   <string name="openingEndgameExplorer">پویشگر گشایش/آخربازی</string>
@@ -641,7 +641,7 @@
   <string name="ifRegistered">اگر نام‌نویسی‌کرده</string>
   <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
-  <string name="menu">فهرست</string>
+  <string name="menu">نام‌چین</string>
   <string name="castling">قلعه‌روی</string>
   <string name="whiteCastlingKingside">O-O سفید</string>
   <string name="blackCastlingKingside">O-O سیاه</string>
