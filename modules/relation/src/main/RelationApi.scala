@@ -189,6 +189,11 @@ final class RelationApi(
       else funit
     })
 
+  def isBlockedByAny(by: Iterable[UserId])(using me: Option[Me]): Fu[Boolean] =
+    me.ifTrue(by.nonEmpty)
+      .so: me =>
+        coll.exists($doc("_id".$in(by.map(makeId(_, me.id)))))
+
   def searchFollowedBy(u: UserId, term: UserSearch, max: Int): Fu[List[UserId]] =
     repo
       .followingLike(u, term)

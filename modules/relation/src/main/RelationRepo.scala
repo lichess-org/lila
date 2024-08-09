@@ -8,8 +8,6 @@ import lila.db.dsl.{ *, given }
 
 final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(using Executor):
 
-  import RelationRepo.makeId
-
   val coll = colls.relation
 
   def following(userId: UserId): Fu[Set[UserId]] = relating(userId, Follow)
@@ -104,7 +102,3 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
 
   def filterBlocked(by: UserId, candidates: Iterable[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("u2", $doc("u2".$in(candidates), "u1" -> by, "r" -> Block))
-
-object RelationRepo:
-
-  def makeId(u1: UserId, u2: UserId) = s"$u1/$u2"
