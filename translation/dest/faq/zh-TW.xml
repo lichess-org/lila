@@ -123,4 +123,5 @@ Lichess上的電腦分析是基於Stockfish的。</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess 可以選擇發送彈出通知，例如當輪到您進行下一步或當您收到私人消息時。
 單擊瀏覽器 URL 欄中 lichess.org 網址旁邊的鎖定圖標。
 然後選擇是否允許還是阻止來自 Lichess 的通知。</string>
+  <string name="enableAutoplayForSoundsQ">如何啟用自動播放聲音？</string>
 </resources>
