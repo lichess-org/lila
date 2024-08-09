@@ -39,7 +39,7 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
     coll
       .byId[TitleRequest](id)
       .map:
-        _.filter(_.userId.is(me) || Granter(_.TitleRequest))
+        _.filter(_.userId.is(me) || Granter(_.Admin))
 
   def allOf(u: User): Fu[List[TitleRequest]] =
     coll.list[TitleRequest]($doc("userId" -> u.id))
