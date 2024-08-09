@@ -19,12 +19,17 @@
   <string name="toGetPersonalizedPuzzles">得到個人推薦題目:</string>
   <string name="puzzleId">謎題 %s</string>
   <string name="puzzleOfTheDay">每日一題</string>
+  <string name="dailyPuzzle">每日謎題</string>
   <string name="clickToSolve">點擊解題</string>
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳走法!</string>
   <string name="keepGoing">加油!</string>
   <string name="puzzleSuccess">成功！</string>
   <string name="puzzleComplete">解題完成!</string>
+  <string name="byOpenings">以開局區分</string>
+  <string name="puzzlesByOpenings">以開局區分謎題</string>
+  <string name="openingsYouPlayedTheMost">您最常使用的開局</string>
+  <string name="useFindInPage">在瀏覽器中使用「在頁面中尋找」以尋找你最喜歡的開局！</string>
   <string name="notTheMove">不是這步!</string>
   <string name="trySomethingElse">試試其他的移動</string>
   <string name="ratingX">評級：%s</string>
