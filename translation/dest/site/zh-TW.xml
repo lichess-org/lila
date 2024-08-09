@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，請分享這個網址</string>
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">等待對手</string>
+  <string name="orLetYourOpponentScanQrCode">或是讓對手掃描此 QR 碼</string>
   <string name="waiting">請稍等</string>
   <string name="yourTurn">該你走</string>
   <string name="aiNameLevelAiLevel">%1$s等級 %2$s</string>
@@ -68,6 +69,8 @@
   <string name="promoteVariation">增加變化</string>
   <string name="makeMainLine">將這步棋導入主要流程中</string>
   <string name="deleteFromHere">從這處開始刪除</string>
+  <string name="collapseVariations">隱藏分支</string>
+  <string name="expandVariations">顯示分支</string>
   <string name="forceVariation">移除變化</string>
   <string name="copyVariationPgn">複製變體 PGN</string>
   <string name="move">走棋</string>
