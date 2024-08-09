@@ -41,6 +41,9 @@ export default class CevalCtrl {
   showEnginePrefs: Toggle = toggle(false);
   customSearch?: Search;
 
+  addingSystem = false;
+  private systemEngines = site.storage.make('system-engines');
+
   private worker: CevalEngine | undefined;
 
   constructor(opts: CevalOpts) {
@@ -244,7 +247,14 @@ export default class CevalCtrl {
     this.opts.onSelectEngine?.();
   };
 
-  setHovering = (fen: FEN, uci?: Uci): void => {
+  getSystemEngines() {
+    return JSON.parse(this.systemEngines.get() ?? '[]') as { name: string; cmd: string[] }[];
+  }
+  addSystemEngine(name: string, cmd: string[]): void {
+    this.systemEngines.set(JSON.stringify([...this.getSystemEngines(), { name, cmd }]));
+  }
+
+  setHovering = (fen: FEN, uci?: Uci) => {
     this.hovering(uci ? { fen, uci } : null);
     this.opts.setAutoShapes();
   };

@@ -1,4 +1,11 @@
-import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine, Requires } from '../types';
+import {
+  BrowserEngineInfo,
+  ExternalEngineInfo,
+  EngineInfo,
+  CevalEngine,
+  Requires,
+  SystemEngineInfo,
+} from '../types';
 import CevalCtrl from '../ctrl';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
@@ -8,14 +15,17 @@ import { storedStringProp, StoredProp } from 'common/storage';
 import { isAndroid, isIOS, isIPad, getFirefoxMajorVersion, features, Feature } from 'common/device';
 import { xhrHeader } from 'common/xhr';
 import { lichessRules } from 'chessops/compat';
+import { SystemEngine } from './systemEngine';
 
 export class Engines {
   private _active: EngineInfo | undefined = undefined;
   localEngines: BrowserEngineInfo[];
   localEngineMap: Map<string, WithMake>;
   externalEngines: ExternalEngineInfo[];
+  systemEngines: SystemEngineInfo[];
   selectProp: StoredProp<string>;
   browserSupport: Requires[] = features().slice();
+  hasSystem = false;
 
   constructor(private ctrl: CevalCtrl) {
     if (
@@ -27,7 +37,15 @@ export class Engines {
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
+    this.systemEngines =
+      this.ctrl.getSystemEngines().map((e, i) => ({ tech: 'SYSTEM', id: `__sys-${i}`, ...e })) ?? [];
     this.selectProp = storedStringProp('ceval.engine', this.localEngines[0].id);
+    let socket = new WebSocket('ws://localhost:8017');
+    socket.addEventListener('open', () => {
+      this.hasSystem = true;
+      this.ctrl.opts.redraw();
+      socket.close();
+    });
   }
 
   status = (status: { download?: { bytes: number; total: number }; error?: string } = {}): void => {
@@ -274,27 +292,27 @@ export class Engines {
     return [
       ...this.localEngines.filter(e => e.variants?.includes(variant)),
       ...this.externalEngines.filter(e => externalEngineSupports(e, variant)),
+      ...this.systemEngines.filter(e => systemEngineSupports(e, variant)),
     ];
+  }
+
+  private engines() {
+    return [...this.localEngines, ...this.externalEngines, ...this.systemEngines];
   }
 
   getEngine(selector?: { id?: string; variant?: VariantKey }): EngineInfo | undefined {
     const id = selector?.id || this.selectProp();
     const variant = selector?.variant || 'standard';
-    return (
-      this.externalEngines.find(e => e.id === id && externalEngineSupports(e, variant)) ??
-      this.localEngines.find(e => e.id === id && e.variants?.includes(variant)) ??
-      this.localEngines.find(e => e.variants?.includes(variant)) ??
-      this.externalEngines.find(e => externalEngineSupports(e, variant))
-    );
+    return this.supporting(variant).find(e => e.id === id) ?? this.engines()[0];
   }
 
   make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
     const e = (this._active = this.getEngine(selector));
     if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}}`);
 
-    return e.tech !== 'EXTERNAL'
-      ? this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo)
-      : new ExternalEngine(e as ExternalEngineInfo, this.status);
+    if (e.tech === 'EXTERNAL') return new ExternalEngine(e as ExternalEngineInfo, this.status);
+    if (e.tech === 'SYSTEM') return new SystemEngine(e as SystemEngineInfo, this.status);
+    return this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo);
   }
 }
 
@@ -312,6 +330,10 @@ function externalEngineSupports(e: EngineInfo, v: VariantKey) {
   if (v === 'threeCheck') names.push('3check');
   if (v === 'antichess') names.push('giveaway');
   return (e.variants ?? []).filter(v => names.includes(v.toLowerCase())).length;
+}
+
+function systemEngineSupports(_: EngineInfo, v: VariantKey) {
+  return v === 'standard' || v === 'fromPosition' || v === 'chess960';
 }
 
 const withDefaults = (engine: BrowserEngineInfo): BrowserEngineInfo => ({
