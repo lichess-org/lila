@@ -2,22 +2,30 @@
 <resources>
   <string name="advancedPawn">升變兵</string>
   <string name="advancedPawnDescription">你的其中一個兵已經深入了對方的棋位，或許要威脅升變。</string>
-  <string name="advantage">擁有優勢</string>
+  <string name="advantage">取得優勢</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">把握機會以取得決定性優勢。（200 厘兵損失 ≤ 評估值 ≤ 600 厘兵損失）</string>
   <string name="anastasiaMate">阿納斯塔西亞殺法</string>
+  <string name="anastasiaMateDescription">馬與車或后聯手在棋盤邊困住對手國王以及另一對手棋子</string>
   <string name="arabianMate">阿拉伯殺法</string>
   <string name="arabianMateDescription">馬和車聯手把對方的王困住在角落的位置</string>
-  <string name="attackingF2F7">攻擊f2或f7</string>
+  <string name="attackingF2F7">攻擊 f2 或 f7</string>
+  <string name="attackingF2F7Description">專注於 f2 或 f7 兵的攻擊，像是 fried liver 攻擊</string>
   <string name="attraction">吸引</string>
+  <string name="attractionDescription">一種換子或犧牲強迫對手旗子到某格以好進行接下來的戰術。</string>
   <string name="backRankMate">後排將死</string>
-  <string name="backRankMateDescription">在對方的王在底線被自身的棋子困住時，將殺對方的王</string>
-  <string name="bishopEndgame">象殘局</string>
+  <string name="backRankMateDescription">在對方的王於底線被自身的棋子困住時，將死對方的王</string>
+  <string name="bishopEndgame">主教殘局</string>
   <string name="bishopEndgameDescription">只剩象和兵的殘局</string>
   <string name="bodenMate">波登殺法</string>
+  <string name="bodenMateDescription">以在對角線上的兩個主教將死被自身棋子困住的王。</string>
   <string name="castling">易位</string>
+  <string name="castlingDescription">讓國王回到安全，並讓車發動攻擊。</string>
   <string name="capturingDefender">吃子 - 防守者</string>
+  <string name="capturingDefenderDescription">移除防守其他棋子的防守者以攻擊未被保護的棋子</string>
   <string name="crushing">壓倒性優勢</string>
   <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">察覺對方的漏著並藉此取得巨大優勢。(大於600百分兵)</string>
   <string name="doubleBishopMate">雙主教將死</string>
+  <string name="doubleBishopMateDescription">相鄰對角線上的兩個主教將將死被自身棋子困住的王。</string>
   <string name="equality">均勢</string>
   <string name="kingsideAttack">王翼攻擊</string>
   <string name="clearance">騰挪</string>
