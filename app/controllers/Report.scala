@@ -147,7 +147,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
           val form = env.report.forms.create
           val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
             case (Some(u), Some(pid)) =>
-              form.fill(lila.report.ReportSetup(u.light, reason = "", text = s"$pid\n\n"))
+              form.fill(lila.report.ReportSetup(u.light, reason = ~get("reason"), text = s"$pid\n\n"))
             case _ => form
           views.report.ui.form(filledForm, user, get("from"))
     }

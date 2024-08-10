@@ -18,8 +18,8 @@ final class ReportUi(helpers: Helpers):
   import ReportUi.*
 
   def filterReason(from: Option[String])(reason: Reason): Boolean = from match
-    case Some("forum" | "inbox") => reason.isComm
-    case _                       => true
+    case Some("forum" | "inbox" | "ublog") => reason.isComm
+    case _                                 => true
 
   def inbox(form: Form[?], user: User, msgs: List[lila.core.msg.IdText])(using ctx: Context) =
     Page(trans.site.reportAUser.txt())
@@ -91,9 +91,7 @@ final class ReportUi(helpers: Helpers):
                 .getOrElse:
                   div(form3.input(f, klass = "user-autocomplete")(dataTag := "span", autofocus))
             ,
-            if ctx.req.queryString contains "reason"
-            then form3.hidden(form("reason"))
-            else reasonFormGroup(form, from),
+            reasonFormGroup(form, from),
             form3.group(form("text"), trans.site.description(), help = descriptionHelp(~defaultReason).some):
               form3.textarea(_)(rows := 8)
             ,
