@@ -12,7 +12,7 @@ import lila.rating.RatingRange.withinLimits
 case class HookConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
-    time: Double,
+    time: Double, // minutes
     increment: Clock.IncrementSeconds,
     days: Days,
     mode: Mode,
