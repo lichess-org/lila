@@ -1,4 +1,4 @@
-export function initModule() {
+export function initModule(): void {
   const script = document.createElement('script');
   script.src = 'https://hcaptcha.com/1/api.js';
 

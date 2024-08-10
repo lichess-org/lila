@@ -1,4 +1,4 @@
-export default function () {
+function contactEmail(): void {
   $('a.contact-email-obfuscated').one('click', function (this: HTMLLinkElement) {
     $(this).html('...');
     setTimeout(() => {
@@ -8,3 +8,5 @@ export default function () {
     return false;
   });
 }
+
+export default contactEmail;

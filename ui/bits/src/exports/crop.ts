@@ -7,7 +7,7 @@ export function wireCropDialog(
     selectClicks?: Cash;
     selectDrags?: Cash;
   },
-) {
+): void {
   if (!opts) {
     site.asset.loadEsm('bits.cropDialog'); // preload
     return;

@@ -3,7 +3,7 @@ import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
 import { escapeHtml } from 'common';
 
-export async function initModule() {
+export async function initModule(): Promise<void> {
   const ops = processQueryParams();
   const logs = await site.log.get();
   const text =
