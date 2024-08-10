@@ -1,7 +1,7 @@
 import { DrawBrush, DrawShape } from 'chessground/draw';
 import { to, from } from 'chess';
 
-export const brushes = new Map<string, DrawBrush>([
+export const brushes: Map<string, DrawBrush> = new Map<string, DrawBrush>([
   ['green', { key: 'vgn', color: '#15781B', opacity: 0.8, lineWidth: 12 }],
   ['blue', { key: 'vbl', color: '#003088', opacity: 0.8, lineWidth: 12 }],
   ['purple', { key: 'vpu', color: '#68217a', opacity: 0.85, lineWidth: 12 }],
