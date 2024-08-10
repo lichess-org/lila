@@ -24,7 +24,7 @@ export interface Work {
   emit: (ev: Tree.LocalEval) => void;
 }
 
-export interface EngineInfo {
+export interface BaseEngineInfo {
   id: string;
   name: string;
   tech?: 'HCE' | 'NNUE' | 'EXTERNAL';
@@ -36,18 +36,20 @@ export interface EngineInfo {
   requires?: Requires[];
 }
 
-export interface ExternalEngineInfo extends EngineInfo {
+export interface ExternalEngineInfo extends BaseEngineInfo {
   clientSecret: string;
   officialStockfish?: boolean;
   endpoint: string;
 }
 
-export interface BrowserEngineInfo extends EngineInfo {
+export interface BrowserEngineInfo extends BaseEngineInfo {
   minMem?: number;
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Requires[];
   obsoletedBy?: Feature;
 }
+
+export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
 
 export type Requires = Feature | 'allowLsfw'; // lsfw = lila-stockfish-web
 
