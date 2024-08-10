@@ -3,25 +3,25 @@ import { BackgroundData } from './background';
 import { BoardData } from './board';
 import { PieceData } from './piece';
 import { DasherCtrl } from './ctrl';
-import { VNode } from 'common/snabbdom';
+import { Redraw, VNode } from 'common/snabbdom';
 
 export { DasherCtrl };
 
 export abstract class PaneCtrl {
   constructor(readonly root: DasherCtrl) {}
-  get trans() {
+  get trans(): Trans {
     return this.root.trans;
   }
-  get redraw() {
+  get redraw(): Redraw {
     return this.root.redraw;
   }
-  get close() {
+  get close(): () => void {
     return this.root.close;
   }
-  get dimension() {
+  get dimension(): 'd2' | 'd3' {
     return this.root.data.board.is3d ? 'd3' : 'd2';
   }
-  get is3d() {
+  get is3d(): boolean {
     return this.root.data.board.is3d;
   }
 

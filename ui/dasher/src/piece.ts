@@ -45,7 +45,7 @@ export class PieceCtrl extends PaneCtrl {
     ]);
   }
 
-  apply = (t: Piece = this.dimData.current) => {
+  apply = (t: Piece = this.dimData.current): void => {
     this.dimData.current = t;
     document.body.dataset[this.is3d ? 'pieceSet3d' : 'pieceSet'] = t;
     if (!this.is3d) {

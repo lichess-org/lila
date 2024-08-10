@@ -1,15 +1,15 @@
 import * as licon from 'common/licon';
-import { bind, looseH as h } from 'common/snabbdom';
+import { bind, looseH as h, VNode } from 'common/snabbdom';
 import { memoize } from 'common';
 
-export const header = (name: string, close: () => void) =>
+export const header = (name: string, close: () => void): VNode =>
   h(
     'button.head.text',
     { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },
     name,
   );
 
-export const elementScrollBarWidthSlowGuess = memoize<number>(() => {
+export const elementScrollBarWidthSlowGuess: () => number = memoize<number>(() => {
   const ruler = document.createElement('div');
   ruler.style.position = 'absolute';
   ruler.style.overflow = 'scroll';
