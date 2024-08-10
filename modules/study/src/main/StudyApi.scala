@@ -148,8 +148,7 @@ final class StudyApi(
     sc = pre.copy(study = transform(pre.study))
     _ <- studyRepo.insert(sc.study)
     _ <- chapterRepo.insert(sc.chapter)
-  yield
-    sc.some
+  yield sc.some
 
   def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
     study <- justCloneNoChecks(me, prev, update)
@@ -628,8 +627,7 @@ final class StudyApi(
     _ <- chapterRepo.insert(chapter)
     newStudy = study.withChapter(chapter)
     _ <- if sticky then studyRepo.updateSomeFields(newStudy) else studyRepo.updateNow(study)
-  yield
-    sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
+  yield sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
 
   def setChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudy(studyId): study =>
