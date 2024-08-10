@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="welcome">நல்வரவு!</string>
+  <string name="welcomeToLichess">Lichess.org க்கு வரவேற்கிறோம்!</string>
   <string name="thisIsYourProfilePage">இது உங்கள் சுயவிவரப் பக்கம்.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">இந்தக் கணக்கை ஒரு சிறுவர் பயன்படுத்துவாரா? நீங்கள் %s ஐ இயக்க விரும்பலாம்.</string>
   <string name="whatNowSuggestions">இப்போது என்ன? இங்கே சில பரிந்துரைகள் உள்ளன:</string>
