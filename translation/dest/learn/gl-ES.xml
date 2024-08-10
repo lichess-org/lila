@@ -144,11 +144,11 @@ Móveo, despois enroca no flanco de rei.</string>
 Primeiro tes que sacar as pezas.</string>
   <string name="castleQueenSideMovePiecesFirst">Enroca en longo!
 Precisas sacar as pezas primeiro.</string>
-  <string name="youCannotCastleIfMoved">Non podes enrocar se
-o rei xa moveu
-ou a torre xa moveu.</string>
+  <string name="youCannotCastleIfMoved">Non podes enrocar
+se o rei ou a torre
+xa moveron.</string>
   <string name="youCannotCastleIfAttacked">Non podes enrocar se
-o rei está atacado no camiño.
+o rei pasa por unha casa atacada.
 Bloquea o xaque e despois enroca!</string>
   <string name="findAWayToCastleKingSide">Atopa o xeito de enrocar en curto!</string>
   <string name="findAWayToCastleQueenSide">Atopa o xeito de enrocar en longo!</string>
