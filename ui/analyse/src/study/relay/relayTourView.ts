@@ -391,7 +391,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
           },
           'Open in Lichess',
         )
-      : makeTab('stats', 'Stats'),
+      : undefined,
   ]);
 };
 
