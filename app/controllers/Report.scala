@@ -153,6 +153,9 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     }
   }
 
+  private val reportRateLimit =
+    env.security.ipTrust.rateLimit(30, 3.hours, "report.create", _.proxyMultiplier(3))
+
   def create = AuthBody { _ ?=> me ?=>
     bindForm(env.report.forms.create)(
       err =>
@@ -163,10 +166,11 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       data =>
         if me.is(data.user.id) then BadRequest("You cannot report yourself")
         else
-          for
-            _ <- api.create(data, Reporter(me), Nil)
-            _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
-          yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
+          reportRateLimit(rateLimited):
+            for
+              _ <- api.create(data, Reporter(me), Nil)
+              _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
+            yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
     )
   }
 
