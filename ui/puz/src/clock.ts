@@ -12,18 +12,18 @@ export class Clock {
     this.initialMillis = config.clock.initial * 1000 - (startedMillisAgo || 0);
   }
 
-  start = () => {
+  start = (): void => {
     if (!this.startAt) this.startAt = getNow();
   };
 
-  started = () => !!this.startAt;
+  started = (): boolean => !!this.startAt;
 
   millis = (): number =>
     this.startAt ? Math.max(0, this.startAt + this.initialMillis - getNow()) : this.initialMillis;
 
-  addSeconds = (seconds: number) => {
+  addSeconds = (seconds: number): void => {
     this.initialMillis += seconds * 1000;
   };
 
-  flag = () => !this.millis();
+  flag = (): boolean => !this.millis();
 }
