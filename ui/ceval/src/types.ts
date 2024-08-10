@@ -27,7 +27,7 @@ export interface Work {
 export interface EngineInfo {
   id: string;
   name: string;
-  tech?: 'HCE' | 'NNUE' | 'EXTERNAL';
+  tech?: 'HCE' | 'NNUE' | 'EXTERNAL' | 'SYSTEM';
   short?: string;
   variants?: VariantKey[];
   minThreads?: number;
@@ -47,6 +47,10 @@ export interface BrowserEngineInfo extends EngineInfo {
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Requires[];
   obsoletedBy?: Feature;
+}
+
+export interface SystemEngineInfo extends EngineInfo {
+  cmd: string[];
 }
 
 export type Requires = Feature | 'allowLsfw'; // lsfw = lila-stockfish-web

@@ -7,7 +7,7 @@ object ContentSecurityPolicy:
   def basic(assetDomain: AssetDomain, connectSrcs: List[String]) =
     lila.ui.ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
-      connectSrc = "'self'" :: "blob:" :: "data:" :: connectSrcs,
+      connectSrc = "'self'" :: "blob:" :: "data:" :: "ws://localhost:8017" :: connectSrcs,
       styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
       frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv", "player.vimeo.com"),
       workerSrc = List("'self'", assetDomain.value, "blob:"),
