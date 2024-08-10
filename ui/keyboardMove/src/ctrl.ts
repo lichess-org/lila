@@ -160,7 +160,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
   };
 }
 
-export function render(ctrl: KeyboardMove):VNode {
+export function render(ctrl: KeyboardMove): VNode {
   return h('div.keyboard-move', [
     h('input', {
       attrs: { spellcheck: 'false', autocomplete: 'off' },
