@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="zeroAdsAndNoTracking">零廣告與追蹤</string>
+  <string name="correspondenceWithConditionalPremoves">可以預先移動的通訊棋局</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">基本西洋棋與其他 %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">%s 深沉分析</string>
+  <plurals name="gamesPerDay">
+    <item quantity="other">每天 %s 局</item>
+  </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">棋盤編輯器並以 %s 分析</string>
+  <string name="cloudEngineAnalysis">雲端引擎分析</string>
+  <string name="studies">研究（可分享的永久性分析）</string>
+  <string name="chessInsights">對局洞察（對棋局更加的深刻分析）</string>
+  <string name="allChessBasicsLessons">所有基礎西洋棋課程</string>
+  <string name="tacticalPuzzlesFromUserGames">從他人棋局中生成謎題以提升西洋棋戰術</string>
   <string name="personalOpeningExplorerX">%1$s（亦可分析%2$s）</string>
   <string name="downloadOrUploadAnyGameAsPgn">下載/上傳任何 PGN 棋譜</string>
   <string name="contributeToLichessAndGetIcon">捐款給 Lichess 取得超酷的贊助者圖示！</string>
