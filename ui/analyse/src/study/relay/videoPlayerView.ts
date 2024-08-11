@@ -5,8 +5,8 @@ import { allowVideo } from './relayView';
 let player: VideoPlayer;
 
 export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
-  if (!relay.data.videoUrls) return undefined;
-  if (!player) player = new VideoPlayer(relay);
+  if (!relay.data.videoUrls?.[0]) return undefined;
+  if (!player) player = new VideoPlayer(relay, relay.data.videoUrls[0], location.search.includes('embed='));
   return h('div#video-player-placeholder', {
     hook: {
       insert: (vnode: VNode) => player.cover(vnode.elm as HTMLElement),
@@ -37,13 +37,20 @@ class VideoPlayer {
 
   animationFrameId: number;
 
-  constructor(readonly relay: RelayCtrl) {
+  constructor(
+    private relay: RelayCtrl,
+    private url: string,
+    private autoplay: boolean,
+  ) {
     this.iframe = document.createElement('iframe');
 
     this.iframe.id = 'video-player';
-    this.iframe.src = relay.data.videoUrls![0];
     this.iframe.setAttribute('credentialless', ''); // a feeble mewling ignored by all
-    this.iframe.allow = 'autoplay';
+    if (this.autoplay) {
+      this.url += '&autoplay=1';
+      this.iframe.allow = 'autoplay';
+    }
+    this.iframe.src = this.url;
     this.iframe.setAttribute('credentialless', 'credentialless');
     this.close = document.createElement('img');
     this.close.src = site.asset.flairSrc('symbols.cancel');

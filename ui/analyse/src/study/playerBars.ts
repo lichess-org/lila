@@ -19,33 +19,34 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 
   return (['white', 'black'] as Color[]).map(color =>
     renderPlayer(
+      ctrl,
       tags,
       clocks,
       materialDiffs,
       players,
       color,
       ticking === color,
-      ctrl.bottomColor() !== color,
       study.data.showRatings || !looksLikeLichessGame(tags),
     ),
   );
 }
 
 function renderPlayer(
+  ctrl: AnalyseCtrl,
   tags: TagArray[],
   clocks: [VNode, VNode] | undefined,
   materialDiffs: [VNode, VNode],
   players: ChapterPreviewPlayers | undefined,
   color: Color,
   ticking: boolean,
-  top: boolean,
   showRatings: boolean,
 ): VNode {
   const player = players?.[color],
     fideId = findTag(tags, `${color}fideid`),
     team = findTag(tags, `${color}team`),
     rating = showRatings && player?.rating,
-    result = resultOf(tags, color === 'white');
+    result = resultOf(tags, color === 'white'),
+    top = ctrl.bottomColor() !== color;
   return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     h('div.left', [
       result && h('span.result', result),
@@ -55,7 +56,11 @@ function renderPlayer(
         player && userTitle(player),
         player &&
           (fideId
-            ? h('a.name', { attrs: { href: `/fide/${fideId}/redirect` } }, player.name)
+            ? h(
+                'a.name',
+                { attrs: { href: `/fide/${fideId}/redirect`, target: ctrl.isEmbed ? '_blank' : '' } },
+                player.name,
+              )
             : h('span.name', player.name)),
         rating && h('span.elo', `${rating}`),
       ]),

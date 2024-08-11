@@ -309,7 +309,9 @@ final class RelayApi(
         _     <- roundRepo.coll.update.one($id(round.id), round).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
-        _ <- denormalizeTour(round.tourId)
+        _                <- denormalizeTour(round.tourId)
+        nextRoundToStart <- round.finished.so(nextRoundThatStartsAfterThisOneCompletes(round))
+        _                <- nextRoundToStart.so(next => requestPlay(next.id, v = true))
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
@@ -429,6 +431,7 @@ final class RelayApi(
       .take(max.fold(9999)(_.value))
 
   export tourRepo.{ isSubscribed, setSubscribed as subscribe }
+  export roundRepo.nextRoundThatStartsAfterThisOneCompletes
 
   object image:
     def rel(rt: RelayTour, tag: Option[String]) =
@@ -465,7 +468,7 @@ final class RelayApi(
       .flatMap:
         _.sequentiallyVoid: relay =>
           val earlyMinutes = Math.min(60, 30 + relay.sync.delay.so(_.value / 60))
-          relay.startsAt
+          relay.startsAtTime
             .exists(_.isBefore(nowInstant.plusMinutes(earlyMinutes)))
             .so:
               logger.info(s"Automatically start $relay")

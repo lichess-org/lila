@@ -10,7 +10,7 @@ export interface CropOpts {
   onCropped?: (result: Blob | boolean, error?: string) => void; // result callback
 }
 
-export async function initModule(o?: CropOpts) {
+export async function initModule(o?: CropOpts): Promise<void> {
   if (!defined(o)) return;
   const opts: CropOpts = { ...o };
 

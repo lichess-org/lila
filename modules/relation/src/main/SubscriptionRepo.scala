@@ -3,7 +3,6 @@ package lila.relation
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.relation.RelationRepo.makeId
 
 final class SubscriptionRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(using
     Executor

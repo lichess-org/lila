@@ -31,6 +31,7 @@ object embed:
     )
 
   private def bodyModifiers(using ctx: EmbedContext) = List(
+    cls                  := List("simple-board" -> ctx.pref.simpleBoard),
     page.ui.dataSoundSet := lila.pref.SoundSet.silent.key,
     page.ui.dataAssetUrl,
     page.ui.dataAssetVersion := assetVersion.value,
@@ -38,10 +39,11 @@ object embed:
     page.ui.dataPieceSet     := ctx.pieceSet.name,
     page.ui.dataBoard        := ctx.boardClass,
     page.ui.dataDev,
-    page.ui.dataSocketDomains
+    page.ui.dataSocketDomains,
+    style := page.boardStyle(zoomable = false)
   )
 
-  /* a heavier embed that loads site.ts */
+  /* a heavier embed that loads site.ts and connects to WS */
   def site(
       title: String,
       cssKeys: List[String] = Nil,
@@ -68,7 +70,7 @@ object embed:
           page.ui.sitePreload(allModules, isInquiry = false),
           page.ui.lichessFontFaceCss
         ),
-        st.body(bodyModifiers)(style := "---zoom:80")(
+        st.body(bodyModifiers)(
           body,
           page.ui.modulesInit(allModules, ctx.nonce.some),
           pageModule.map { mod => frag(jsonScript(mod.data)) }

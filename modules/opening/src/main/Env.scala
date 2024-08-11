@@ -16,7 +16,8 @@ final class Env(
     cacheApi: CacheApi,
     appConfig: Configuration,
     cookieBaker: lila.core.security.LilaCookie,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    ip2Proxy: lila.core.security.Ip2ProxyApi
 )(using Executor, Scheduler, lila.core.i18n.Translator):
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]

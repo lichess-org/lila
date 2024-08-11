@@ -37,7 +37,7 @@ object RelayPinnedStream:
     def urls(parent: NetDomain): Urls
   case class YouTube(id: String) extends Upstream:
     def urls(parent: NetDomain) = Urls(
-      s"https://www.youtube.com/embed/${id}?autoplay=1&disablekb=1&color=white",
+      s"https://www.youtube.com/embed/${id}?disablekb=1&modestbranding=1",
       s"https://www.youtube.com/watch?v=${id}"
     )
   case class Twitch(id: String) extends Upstream:

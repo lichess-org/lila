@@ -21,7 +21,7 @@ private final class RelayNotifyMissingFideIds(api: RelayApi, irc: IrcApi, previe
         val missing: List[(StudyChapterId, String)] = chapters.flatMap: chapter =>
           chapter.players
             .so(_.toList)
-            .find(_.fideId.isEmpty)
+            .filter(_.fideId.isEmpty)
             .map: player =>
               (chapter.id, player.name.fold("?")(_.value))
         missing.nonEmpty.so:

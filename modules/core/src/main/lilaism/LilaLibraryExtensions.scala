@@ -32,7 +32,7 @@ trait LilaLibraryExtensions extends CoreExports:
   extension [A](self: Option[A])
 
     def toTryWith(err: => Exception): Try[A] =
-      self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
+      self.fold(scala.util.Failure(err))(scala.util.Success.apply)
 
     def toTry(err: => String): Try[A] = toTryWith(LilaException(err))
 

@@ -1,4 +1,4 @@
-const $form = $('main.importer form');
+const $form: Cash = $('main.importer form');
 
 $form.on('submit', () => setTimeout(() => $form.html(site.spinnerHtml), 50));
 

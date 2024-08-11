@@ -188,15 +188,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
         ,
         form3.globalError(form),
-        form3.split(
-          form3.group(form("name"), trb.roundName(), half = true)(form3.input(_)(autofocus)),
-          form3.group(
-            form("startsAt"),
-            trb.startDate(),
-            help = trb.startDateHelp().some,
-            half = true
-          )(form3.flatpickr(_, minDate = None))
-        ),
+        form3.group(form("name"), trb.roundName())(form3.input(_)(autofocus)),
         form3.fieldset("Source", toggle = true.some)(cls := "box-pad")(
           form3.group(
             form("syncSource"),
@@ -222,7 +214,9 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 "s",
                 br,
                 "Start: ",
-                source.round.startedAt.orElse(source.round.startsAt).fold(frag("unscheduled"))(momentFromNow),
+                source.round.startedAt
+                  .orElse(source.round.startsAtTime)
+                  .fold(frag("unscheduled"))(momentFromNow),
                 br,
                 "Last sync: ",
                 source.round.sync.log.events.lastOption.map: event =>
@@ -293,6 +287,24 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               ).some,
               half = true
             )(form3.input(_))
+          )
+        ),
+        form3.fieldset("When does it start", toggle = true.some)(cls := "box-pad")(
+          form3.split(
+            form3.group(
+              form("startsAt"),
+              trb.startDate(),
+              help = trb.startDateHelp().some,
+              half = true
+            )(form3.flatpickr(_, minDate = None)),
+            form3.checkbox(
+              form("startsAfterPrevious"),
+              "When the previous round completes",
+              help = frag(
+                "The start date is unknown, and the round will start automatically when the previous round completes."
+              ).some,
+              half = true
+            )
           )
         ),
         form3.fieldset("Advanced", toggle = nav.round.exists(r => r.sync.delay.isDefined).some)(

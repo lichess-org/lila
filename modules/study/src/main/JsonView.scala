@@ -15,7 +15,7 @@ final class JsonView(
 
   import JsonView.given
 
-  def apply(
+  def full(
       study: Study,
       previews: ChapterPreview.AsJsons,
       chapter: Chapter,

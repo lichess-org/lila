@@ -1,12 +1,12 @@
 import * as licon from 'common/licon';
-import { onInsert, bind, looseH as h } from 'common/snabbdom';
+import { onInsert, bind, looseH as h, VNode } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { snabDialog, Dialog } from 'common/dialog';
 import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
 import { supportedLangs } from './voice';
 
-export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string) {
+export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string): VNode {
   return h(`div#voice-bar${cls ? '.' + cls : ''}`, [
     h('div#voice-status-row', [
       h('button#microphone-button', {
@@ -36,7 +36,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
   ]);
 }
 
-export function flash() {
+export function flash(): void {
   const div = $as<HTMLElement>('#voice-status-row');
   div.classList.add('flash');
   div.onanimationend = () => div.classList.remove('flash');

@@ -34,7 +34,7 @@ final class ActivityUi(helpers: Helpers)(
               a.racer.map(renderRacer),
               a.streak.map(renderStreak),
               a.games.map(renderGames),
-              a.forumPosts.map(renderForumPosts),
+              canSeeForumPosts(u).option(a.forumPosts.map(renderForumPosts)),
               ublogPosts(a),
               a.corresMoves.map(renderCorresMoves),
               a.corresEnds.map(renderCorresEnds),
@@ -51,6 +51,7 @@ final class ActivityUi(helpers: Helpers)(
     )
 
   private def subCount(count: Int) = if count >= maxSubEntries then s"$count+" else s"$count"
+  private def canSeeForumPosts(u: UserWithPerfs)(using ctx: Context) = ctx.is(u) || !u.marks.troll
 
   private def renderPatron(p: Patron)(using Context) =
     div(cls := "entry plan")(

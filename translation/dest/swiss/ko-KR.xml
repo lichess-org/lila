@@ -32,6 +32,16 @@
   <string name="roundInterval">라운드 간격</string>
   <string name="forbiddenPairings">금지된 페어링</string>
   <string name="forbiddenPairingsHelp">함께 플레이해서는 안되는 플레이어(예 : 형제)의 사용자 ID. 한 줄에 두 개의 ID를 공백으로 구분해서 입력합니다.</string>
+  <string name="manualPairings">다음 경기에 수동으로 페어링</string>
+  <string name="manualPairingsHelp">다음 라운드의 모든 페어를 수동으로 지정합니다. 한 줄에 하나의 플레이어 페어가 있습니다. 예:
+플레이어 A 플레이어 B
+플레이어 C 플레이어 D
+페어링 대신 플레이어에게 작별 인사(1점) 를 하려면 다음과 같은 행을 추가합니다:
+플레이어E1
+누락된 선수는 부재로 간주되며 0점을 받습니다.
+Lichess가 자동으로 쌍을 만들 수 있도록 하려면 이 필드를 비워 둡니다.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">그들의 최근 스위스 경기를 플레이했어야 함</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">플레이어가 마지막 스위스 게임을 플레이한 경우에만 참가할 수 있습니다. 만약 그들이 최근 스위스 이벤트에 나타나지 않으면, 그들은 여러분의 이벤트에 참가할 수 없습니다. 이것은 실제로 나타나는 플레이어에게 더 나은 스위스 경험을 가져다 줍니다.</string>
   <string name="newSwiss">새 스위스 토너먼트</string>
   <string name="swissVsArenaQ">언제 아레나 대신 스위스 토너먼트를 사용해야 하나요?</string>
   <string name="swissVsArenaA">스위스 토너먼트에서는 모든 참가자가 같은 수의 게임을 하고 서로 한 번만 플레이 할 수 있습니다.
@@ -108,5 +118,7 @@
   <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
   <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
   <string name="playYourGames">더 많은 게임을 시작하세요.</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Absences</string>
   <string name="tieBreak">타이 브레이크</string>
 </resources>

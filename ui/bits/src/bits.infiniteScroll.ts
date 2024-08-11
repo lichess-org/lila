@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 
-export function initModule(selector: string = '.infinite-scroll') {
+export function initModule(selector: string = '.infinite-scroll'): void {
   $(selector).each(function (this: HTMLElement) {
     register(this, selector);
   });

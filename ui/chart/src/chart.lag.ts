@@ -28,7 +28,7 @@ const v = {
   network: -1,
 };
 
-export async function initModule() {
+export async function initModule(): Promise<void> {
   site.StrongSocket.firstConnect.then(() => site.socket.send('moveLat', true));
   $('.meter canvas').each(function (this: HTMLCanvasElement, index) {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];

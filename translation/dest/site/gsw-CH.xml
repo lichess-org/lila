@@ -181,7 +181,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="latestForumPosts">Neuschti Forum-Biträg</string>
   <string name="players">Schpiller</string>
   <string name="friends">Fründe</string>
-  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">anderi Schpiller</string>
+  <string name="otherPlayers">anderi Schpiller</string>
   <string name="discussions">Underhaltige</string>
   <string name="today">Hüt</string>
   <string name="yesterday">Geschter</string>
@@ -540,8 +540,8 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="descPrivateHelp">Tegscht wo nur Team-Mitglider gsehnd. Wänn usgfüllt, ersetzt er für sie de Öffentlichi.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
-  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">Website</string>
-  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">Mobil</string>
+  <string name="website">Website</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Hilf:</string>
   <string name="createANewTopic">Erschtell es neus Thema</string>
   <string name="topics">Theme</string>
@@ -560,7 +560,9 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="cheat">Bschiss</string>
   <string name="troll">Troll</string>
   <string name="other">Suschtigs</string>
-  <string name="reportDescriptionHelp">Füeg de Link dere/dene Partie bi und erchlär, wie sich de Benutzer falsch benah hät. Säg nöd nur \"de bschisst\", schrib eus wie du da druf chunnsch. (änglisch gschribeni Mäldige, werded schnäller behandlet).</string>
+  <string name="reportCheatBoostHelp">Füeg de Link dere oder dene Partie bi und erchlär, was am Beneh vum Schpiller falsch isch. Säg nöd nur eifach \"de bschisst\", sondern schrib, wie du da druf chunnsch.</string>
+  <string name="reportUsernameHelp">Erchlär, was am Benutzername nöd in Ornig isch: Säg nöd eifach \"er isch beleidigend/unagmässe\", sondern schrib eus, wie du zu dere Folgerig cho bisch. B\'sunders wänn die Beleidigung verschleieret-, nöd uf Änglisch- oder in Dialäkt isch oder wänn sie en historische oder kulturelle Bezug hät.</string>
+  <string name="reportProcessedFasterInEnglish">Änglisch g\'schribeni Mäldige werded schnäller behandlet.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens 1 Link zume Schpiel a, wo bschisse worde isch.</string>
   <string name="by">vu %s</string>
   <string name="importedByX">Importiert vu %s</string>

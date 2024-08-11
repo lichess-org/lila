@@ -551,6 +551,7 @@
   <string name="ifNoneLeaveEmpty">Калі няма, пакіньце пустым</string>
   <string name="profile">Профіль</string>
   <string name="editProfile">Рэдагаваць профіль</string>
+  <string name="realName">Сапраўднае імя</string>
   <string name="biography">Біяграфія</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Краіна або рэгіён</string>
   <string name="thankYou">Дзякуй!</string>
@@ -573,12 +574,14 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтапераключэнне</string>
   <string name="puzzles">Задачы</string>
+  <string name="onlineBots">Анлайн боты</string>
   <string name="name">Назва</string>
   <string name="description">Апісанне</string>
   <string name="descPrivate">Прыватнае апісанне</string>
   <string name="descPrivateHelp">Дапамагчы зрабіць \"прыватнае апісанне\".</string>
   <string name="no">Не</string>
   <string name="yes">Так</string>
+  <string name="website">Вэб-сайт</string>
   <string name="help">Дапамога:</string>
   <string name="createANewTopic">Стварыць новую тэму</string>
   <string name="topics">Тэмы</string>
@@ -597,7 +600,6 @@
   <string name="cheat">Несумленная гульня</string>
   <string name="troll">Троль</string>
   <string name="other">Іншае</string>
-  <string name="reportDescriptionHelp">Пакіньце ніжэй спасылку на гульню (ці гульні) і патлумачце, што вас непакоіць у паводзінах гэтага карыстальніка. Не пішыце нешта кшталту «ён чмут!» – патлумачце, як вы прыйшлі да гэтага выніку. Мы хутчэй разбярэмся ў сітуацыі, калі вы напішаце нам па-англійску.</string>
   <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хаця б на адну гульню, дзе былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
   <string name="importedByX">Імпартваў/-ла %s</string>
@@ -630,6 +632,7 @@
   <string name="slow">Павольная</string>
   <string name="insideTheBoard">Унутры дошкі</string>
   <string name="outsideTheBoard">Па-за дошкай</string>
+  <string name="allSquaresOfTheBoard">Усе клеткі на дошцы</string>
   <string name="onSlowGames">У павольных гульнях</string>
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
@@ -823,6 +826,11 @@
   <string name="transparent">Празрысты</string>
   <string name="deviceTheme">Тэма прылады</string>
   <string name="backgroundImageUrl">Спасылка на фон:</string>
+  <string name="board">Дошка</string>
+  <string name="size">Размер</string>
+  <string name="opacity">Празрыстасць</string>
+  <string name="brightness">Яркасць</string>
+  <string name="hue">Адценне</string>
   <string name="pieceSet">Набор фігур</string>
   <string name="embedInYourWebsite">Убудаваць у свой сайт</string>
   <string name="usernameAlreadyUsed">Гэтае імя карыстальніка ўжо занятае. Калі ласка, паспрабуйце іншае.</string>

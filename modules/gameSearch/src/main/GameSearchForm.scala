@@ -54,7 +54,7 @@ final private[gameSearch] class GameSearchForm:
 private[gameSearch] object GameSearchForm:
   val dateField = optional(ISODateOrTimestamp.mapping)
 
-private[gameSearch] case class SearchData(
+case class SearchData(
     players: SearchPlayer = SearchPlayer(),
     winnerColor: Option[Int] = None,
     perf: Option[Int] = None,
@@ -110,7 +110,7 @@ private[gameSearch] case class SearchData(
 
   def nonEmptyQuery: Option[Query.Game] = query.some.filter(_.nonEmpty)
 
-private[gameSearch] case class SearchPlayer(
+case class SearchPlayer(
     a: Option[UserStr] = None,
     b: Option[UserStr] = None,
     winner: Option[UserStr] = None,

@@ -49,23 +49,26 @@ function renderLog(ctrl: RelayCtrl) {
 }
 
 function stateOn(ctrl: RelayCtrl) {
-  const sync = ctrl.data.sync,
-    url = sync?.url,
-    urls = sync?.urls,
-    ids = sync?.ids;
+  const sync = ctrl.data.sync;
   return h(
     'div.state.on.clickable',
     { hook: bind('click', _ => ctrl.setSync(false)), attrs: dataIcon(licon.ChasingArrows) },
     [
       h('div', [
         'Connected ',
-        sync?.delay ? `with ${sync.delay}s delay ` : null,
-        ...(url
-          ? ['to source', h('br'), url.replace(/https?:\/\//, '')]
-          : ids
-          ? ['to', h('br'), ids.length, ' game(s)']
-          : urls
-          ? ['to', h('br'), urls.length, ' sources']
+        ...(sync
+          ? [
+              sync.delay ? `with ${sync.delay}s delay ` : null,
+              ...(sync.url
+                ? ['to source', h('br'), sync.url.replace(/https?:\/\//, '')]
+                : sync.ids
+                ? ['to', h('br'), sync.ids.length, ' game(s)']
+                : sync.urls
+                ? ['to', h('br'), sync.urls.length, ' sources']
+                : []),
+              sync.filter ? ` (round ${sync.filter})` : null,
+              sync.slices ? ` (slice ${sync.slices})` : null,
+            ]
           : []),
       ]),
     ],

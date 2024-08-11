@@ -59,6 +59,8 @@ export interface RelaySync {
   ids?: string;
   log: LogEvent[];
   delay?: number;
+  filter?: number;
+  slices?: string;
 }
 
 export interface LogEvent {

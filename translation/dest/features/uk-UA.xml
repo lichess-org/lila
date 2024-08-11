@@ -11,7 +11,7 @@
     <item quantity="other">%s гри на день</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Редактор дошки та аналітична дошка з %s</string>
-  <string name="cloudEngineAnalysis">Аналіз хмарного двигуна</string>
+  <string name="cloudEngineAnalysis">Хмарний аналіз</string>
   <string name="studies">Дослідження (доступний і постійний аналіз)</string>
   <string name="chessInsights">Шаховий аналіз (детальний аналіз вашої гри)</string>
   <string name="allChessBasicsLessons">Всі уроки основ гри в шахи</string>

@@ -31,7 +31,12 @@ import division from './division';
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
-export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: Trans, hunter: boolean) {
+export default async function (
+  el: HTMLCanvasElement,
+  data: AnalyseData,
+  trans: Trans,
+  hunter: boolean,
+): Promise<PlyChart | undefined> {
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as PlyChart;
   const moveCentis = data.game.moveCentis;

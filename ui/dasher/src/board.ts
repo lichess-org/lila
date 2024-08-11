@@ -17,13 +17,13 @@ export interface BoardData {
 }
 
 export class BoardCtrl extends PaneCtrl {
-  sliderKey = Date.now(); // changing the value attribute doesn't always flush to DOM.
+  sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
 
   constructor(root: DasherCtrl) {
     super(root);
   }
 
-  render = () =>
+  render = (): VNode =>
     h(`div.sub.board.${this.dimension}`, [
       header(this.trans.noarg('board'), this.close),
       h('div.selector.large', [

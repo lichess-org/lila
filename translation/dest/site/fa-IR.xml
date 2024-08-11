@@ -50,8 +50,8 @@
   <string name="blackResigned">سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">سفید بازی را ترک کرد</string>
   <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
-  <string name="whiteDidntMove">سفید تکان نخورد</string>
-  <string name="blackDidntMove">مشکی تکان نخورد</string>
+  <string name="whiteDidntMove">سفید بازی نکرد</string>
+  <string name="blackDidntMove">سیاه بازی نکرد</string>
   <string name="requestAComputerAnalysis">درخواست تحلیل رایانه‌ای</string>
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
@@ -61,7 +61,7 @@
   <string name="usingServerAnalysis">با استفاده از کارسازِ تحلیل</string>
   <string name="loadingEngine">پردازشگر بارمی‌گذارد...</string>
   <string name="calculatingMoves">در حال محاسبه حرکات...</string>
-  <string name="engineFailed">خطا در بارگذاری پردازشگر شطرنج</string>
+  <string name="engineFailed">خطا در بارگذاری پردازشگر</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
   <string name="goDeeper">بررسی عمیق‌تر</string>
   <string name="showThreat">نمایش تهدید</string>
@@ -104,7 +104,7 @@
   <string name="openingEndgameExplorer">پویشگر گشایش/آخربازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی پویشگر را برو</string>
-  <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
+  <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت جلوی پیروزی را گرفت</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
   <string name="lossOr50MovesByPriorMistake">باخت یا ۵٠ حرکت از اشتباه قبلی</string>
@@ -180,7 +180,7 @@
   <string name="latestForumPosts">آخرین پست های انجمن</string>
   <string name="players">بازیکنان</string>
   <string name="friends">دوستان</string>
-  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">بازیکنان دیگر</string>
+  <string name="otherPlayers">بازیکنان دیگر</string>
   <string name="discussions">مکالمات</string>
   <string name="today">امروز</string>
   <string name="yesterday">دیروز</string>
@@ -357,7 +357,7 @@
     <item quantity="one">%s سیمولتانه</item>
     <item quantity="other">%s سیمولتانه</item>
   </plurals>
-  <string name="viewTournament">مشاهده مسابقات</string>
+  <string name="viewTournament">دیدن مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
   <string name="noDrawBeforeSwissLimit">شما نمی‌توانید در مسابقات سوییس تا قبل از حرکت ۳۰ام بازی را مساوی کنید.</string>
   <string name="thematic">موضوعی</string>
@@ -421,7 +421,7 @@
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
-  <string name="reconnecting">در حال اتصال دوباره</string>
+  <string name="reconnecting">در حال بازاتصال</string>
   <string name="noNetwork">بُرون‌خط</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s دوست بَرخط</item>
@@ -431,8 +431,8 @@
   <string name="follow">دنبال کردن</string>
   <string name="following">افرادی که دنبال می کنید</string>
   <string name="unfollow">لغو دنبال کردن</string>
-  <string name="followX">دنبال کردن %s</string>
-  <string name="unfollowX">لغو دنبال کردن %s</string>
+  <string name="followX">دنبالیدن %s</string>
+  <string name="unfollowX">نادنبالیدن %s</string>
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
@@ -535,11 +535,11 @@
   <string name="name">نام</string>
   <string name="description">شرح</string>
   <string name="descPrivate">توضیحات خصوصی</string>
-  <string name="descPrivateHelp">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
+  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین وصف همگانی برای هم‌تیمی‌ها می‌شود خواهد شد.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
-  <string name="website" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Mobile') for features on the mobile app. So this string should specifically be about the Lichess website.">وبگاه</string>
-  <string name="mobile" comment="Appears as a heading on https://lichess.org/features.&#10;&#10;There is a separate heading ('Website') for features on the website. So this string should specifically be about the Lichess mobile app.">گوشی</string>
+  <string name="website">وبگاه</string>
+  <string name="mobile">گوشی</string>
   <string name="help">راهنما:</string>
   <string name="createANewTopic">ایجاد یک موضوع جدید</string>
   <string name="topics">مباحث</string>
@@ -558,7 +558,9 @@
   <string name="cheat">تقلب</string>
   <string name="troll">وِزُل</string>
   <string name="other">موضوعات دیگر</string>
-  <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
+  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
+  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر انگلیسی بنویسید، زودتر به گزارش‌تان رسیدگی خواهد شد.</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
@@ -622,7 +624,7 @@
   <string name="learnMenu">یادگیری</string>
   <string name="studyMenu">مطالعه‌ها</string>
   <string name="practice">تمرین کردن</string>
-  <string name="community">انجمن</string>
+  <string name="community">همدارگان</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
   <string name="error.unknown">مقدار نامعتبر</string>
@@ -650,7 +652,7 @@
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی‌ها</string>
   <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
-  <string name="watch">نگاه کردن</string>
+  <string name="watch">تماشا</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازها</string>
   <string name="mobileApp">گوشی‌افزار</string>
@@ -779,7 +781,7 @@
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
   <string name="xHostsY">%1$s میزبان ها %2$s</string>
   <string name="xJoinsY">%1$s وارد می شود %2$s</string>
-  <string name="xLikesY">%1$s می پسندد %2$s</string>
+  <string name="xLikesY">%1$s، %2$s را می‌پسندد</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
   <string name="anonymous">ناشناس</string>
@@ -825,7 +827,7 @@
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
   <string name="computerThinking">محاسبه رایانه‌ای ...</string>
-  <string name="seeBestMove">مشاهده بهترین حرکت</string>
+  <string name="seeBestMove">دیدن بهترین حرکت</string>
   <string name="hideBestMove">پنهان کردن بهترین حرکت</string>
   <string name="getAHint">راهنمایی</string>
   <string name="evaluatingYourMove">در حال بررسی حرکت شما...</string>
@@ -843,9 +845,9 @@
   <string name="tryAnotherMoveForWhite">برای سفید،حرکت دیگری را امتحان کنید</string>
   <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
   <string name="solution">راه‌حل</string>
-  <string name="waitingForAnalysis">در انتظار برای آنالیز</string>
-  <string name="noMistakesFoundForWhite">هیچ اشتباهی برای سفید مشاهده نشد</string>
-  <string name="noMistakesFoundForBlack">هیچ اشتباهی برای سیاه مشاهده نشد</string>
+  <string name="waitingForAnalysis">در انتظار تحلیل</string>
+  <string name="noMistakesFoundForWhite">هیچی اشتباهی از سفید یافت نشد</string>
+  <string name="noMistakesFoundForBlack">هیچی اشتباهی از سیاه یافت نشد</string>
   <string name="doneReviewingWhiteMistakes">اشتباهات سفید بررسی شد</string>
   <string name="doneReviewingBlackMistakes">اشتباهات سیاه بررسی شد.</string>
   <string name="doItAgain">دوباره</string>
@@ -876,7 +878,7 @@
   <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
   <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
   <string name="potentialProblem">زمانی که مشکلی احتمالی شناسایی شد ، این پیام را نمایش می دهیم.</string>
-  <string name="howToAvoidThis">چگونه از این امر جلوگیری کنیم؟</string>
+  <string name="howToAvoidThis">چگونه از آن بپرهیزیم؟</string>
   <string name="playEveryGame">هر بازی‌ای که آغازیدید را، بازی کنید.</string>
   <string name="tryToWin">در هر بازی برای پیروزی (یا حداقل تساوی) تلاش کنید.</string>
   <string name="resignLostGames">بازی های از دست رفته را انصراف دهید(نگذارید زمان تمام شود).</string>

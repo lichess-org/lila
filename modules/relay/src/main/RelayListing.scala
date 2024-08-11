@@ -132,10 +132,10 @@ final class RelayListing(
         yield (tour, round, group)
         sorted = tours.sortBy: (tour, round, _) =>
           (
-            !round.hasStarted,                             // ongoing tournaments first
-            0 - ~tour.tier,                                // then by tier
-            0 - ~round.crowd,                              // then by viewers
-            round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
+            !round.hasStarted,                                 // ongoing tournaments first
+            0 - ~tour.tier,                                    // then by tier
+            0 - ~round.crowd,                                  // then by viewers
+            round.startsAtTime.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
         active <- sorted.parallel: (tour, round, group) =>
           defaultRoundToShow
@@ -147,7 +147,7 @@ final class RelayListing(
           .filter(_.tour.spotlight.exists(_.enabled))
           .filterNot(_.display.finished)
           .filter: tr =>
-            tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
+            tr.display.hasStarted || tr.display.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(30)))
         active
 
   val upcoming = cacheApi.unit[List[RelayTour.WithLastRound]]:
@@ -186,8 +186,8 @@ final class RelayListing(
         .map:
           _.sortBy: rt =>
             (
-              0 - ~rt.tour.tier,                                // tier sort
-              rt.round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
+              0 - ~rt.tour.tier,                                    // tier sort
+              rt.round.startsAtTime.fold(Long.MaxValue)(_.toMillis) // then by next round date
             )
 
   val defaultRoundToShow = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.lastAndNextRounds"):
@@ -209,7 +209,7 @@ final class RelayListing(
             .one[RelayRound]
         case (Some(last), Some(next)) => // show the next one if it's less than an hour away
           fuccess:
-            if next.startsAt.exists(_.isBefore(nowInstant.plusHours(1)))
+            if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
             then next.some
             else last.some
         case (Some(last), None) =>

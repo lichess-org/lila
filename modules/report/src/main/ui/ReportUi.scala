@@ -18,8 +18,8 @@ final class ReportUi(helpers: Helpers):
   import ReportUi.*
 
   def filterReason(from: Option[String])(reason: Reason): Boolean = from match
-    case Some("forum" | "inbox") => reason.isComm
-    case _                       => true
+    case Some("forum" | "inbox" | "ublog") => reason.isComm
+    case _                                 => true
 
   def inbox(form: Form[?], user: User, msgs: List[lila.core.msg.IdText])(using ctx: Context) =
     Page(trans.site.reportAUser.txt())
@@ -91,9 +91,7 @@ final class ReportUi(helpers: Helpers):
                 .getOrElse:
                   div(form3.input(f, klass = "user-autocomplete")(dataTag := "span", autofocus))
             ,
-            if ctx.req.queryString contains "reason"
-            then form3.hidden(form("reason"))
-            else reasonFormGroup(form, from),
+            reasonFormGroup(form, from),
             form3.group(form("text"), trans.site.description(), help = descriptionHelp(~defaultReason).some):
               form3.textarea(_)(rows := 8)
             ,
@@ -127,8 +125,7 @@ final class ReportUi(helpers: Helpers):
 
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
-    val englishPlease = "Your report will be processed faster if written in English."
-    val maxLength     = "Maximum 3000 characters."
+    val maxLength = "Maximum 3000 characters."
     translatedReasonChoices
       .map(_._1)
       .distinct
@@ -136,13 +133,13 @@ final class ReportUi(helpers: Helpers):
         span(
           cls := List(s"report-reason report-reason-${reason.key}" -> true, "none" -> (current != reason.key))
         )(
-          if reason == Cheat || reason == Boost then trans.site.reportDescriptionHelp()
-          else if reason == Username then "Please explain briefly what about this username is offensive."
+          if reason == Cheat || reason == Boost then trans.site.reportCheatBoostHelp()
+          else if reason == Username then trans.site.reportUsernameHelp()
           else
             "Please provide as much information as possible, including relevant game links, posts, and messages."
           ,
           " ",
-          englishPlease,
+          trans.site.reportProcessedFasterInEnglish(),
           " ",
           maxLength
         )
