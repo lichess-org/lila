@@ -4,7 +4,7 @@ export default class KeyboardChecker {
   kos = 0;
   prev = '';
 
-  press = (e: KeyboardEvent) => {
+  press = (e: KeyboardEvent): void => {
     const v = (e.target as HTMLInputElement).value;
     if (v == this.prev) return;
     this.prev = v;
@@ -23,7 +23,7 @@ export default class KeyboardChecker {
     }
   };
 
-  clear = () => {
+  clear = (): void => {
     this.keys = [];
   };
 }

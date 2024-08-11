@@ -2,7 +2,7 @@ import { chartYMax, chartYMin } from './common';
 import { Division } from './interface';
 import { ChartDataset, Point } from 'chart.js';
 
-export default function (trans: Trans, div?: Division) {
+export default function (trans: Trans, div?: Division): ChartDataset<'line'>[] {
   const lines: { div: string; loc: number }[] = [];
   if (div?.middle) {
     if (div.middle > 1) lines.push({ div: trans('opening'), loc: 1 });
@@ -17,7 +17,7 @@ export default function (trans: Trans, div?: Division) {
   /**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annotation
    *  @returns An array of vertical lines from {div,-1.05} to {div,+1.05}.
    * */
-  const annotations: ChartDataset<'line'>[] = lines.map(line => ({
+  return lines.map(line => ({
     type: 'line',
     xAxisID: 'x',
     yAxisID: 'y',
@@ -38,5 +38,4 @@ export default function (trans: Trans, div?: Division) {
       formatter: (val: Point) => (val.y > 0 ? line.div : ''),
     },
   }));
-  return annotations;
 }

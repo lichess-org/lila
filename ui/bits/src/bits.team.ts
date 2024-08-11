@@ -7,7 +7,7 @@ interface TeamOpts {
   chat?: any;
 }
 
-export function initModule(opts: TeamOpts) {
+export function initModule(opts: TeamOpts): void {
   site.socket = new site.StrongSocket('/team/' + opts.id, opts.socketVersion);
 
   if (opts.chat) site.makeChat(opts.chat);

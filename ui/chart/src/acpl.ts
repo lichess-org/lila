@@ -36,7 +36,7 @@ export default async function (
   data: AnalyseData,
   mainline: Tree.Node[],
   trans: Trans,
-) {
+): Promise<AcplChart> {
   const possibleChart = maybeChart(el);
   if (possibleChart) return possibleChart as AcplChart;
   const blurBackgroundColorWhite = 'white';

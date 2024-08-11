@@ -1,6 +1,6 @@
 import * as cg from 'chessground/types';
 import { SanToUci } from 'chess';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { propWithEffect, Prop } from 'common';
@@ -160,7 +160,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
   };
 }
 
-export function render(ctrl: KeyboardMove) {
+export function render(ctrl: KeyboardMove): VNode {
   return h('div.keyboard-move', [
     h('input', {
       attrs: { spellcheck: 'false', autocomplete: 'off' },
