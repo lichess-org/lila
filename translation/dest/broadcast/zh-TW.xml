@@ -10,6 +10,7 @@
   <string name="subscribedBroadcasts">已訂閱的直播</string>
   <string name="aboutBroadcasts">關於直播</string>
   <string name="howToUseLichessBroadcasts">如何使用 Lichess 比賽直播</string>
+  <string name="theNewRoundHelp">新的一局會有跟上一局相同的成員與貢獻者</string>
   <string name="addRound">新增回合</string>
   <string name="ongoing">進行中</string>
   <string name="upcoming">即將舉行</string>
