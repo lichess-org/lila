@@ -14,4 +14,5 @@
   <string name="takeRookWithQueen">以城堡捕捉皇后</string>
   <string name="castle">易位（任一翼）</string>
   <string name="phoneticAlphabetIsBest">音標字母是最容易辨識的</string>
+  <string name="cancelTimerOrDenyARequest">取消棋鐘或拒絕請求</string>
 </resources>
