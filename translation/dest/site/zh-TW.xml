@@ -711,7 +711,7 @@
   <string name="analysisShapesHowTo">按 shift 點及或右鍵棋盤上以繪製圓圈與箭頭。</string>
   <string name="letOtherPlayersMessageYou">允許其他人發送私訊給您</string>
   <string name="receiveForumNotifications">在論壇中被提及時接收通知</string>
-  <string name="shareYourInsightsData">顯示您的分析數據</string>
+  <string name="shareYourInsightsData">顯示您的洞察數據</string>
   <string name="withNobody">不顯示</string>
   <string name="withFriends">好友</string>
   <string name="withEverybody">所有人</string>
