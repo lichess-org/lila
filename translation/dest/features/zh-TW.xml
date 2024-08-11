@@ -14,7 +14,14 @@
   <string name="allChessBasicsLessons">所有基礎西洋棋課程</string>
   <string name="tacticalPuzzlesFromUserGames">從他人棋局中生成謎題以提升西洋棋戰術</string>
   <string name="personalOpeningExplorerX">%1$s（亦可分析%2$s）</string>
+  <string name="personalOpeningExplorer">個人開局瀏覽器</string>
+  <string name="globalOpeningExplorerInNbGames">全域開局瀏覽器（%s 個棋局！）</string>
+  <string name="endgameTablebase">7 子殘局分析器</string>
   <string name="downloadOrUploadAnyGameAsPgn">下載/上傳任何 PGN 棋譜</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">部落格、論壇、團隊、直播、聯絡、朋友、挑戰</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">亮暗主題、自訂棋盤、棋子、與背景</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet、Bullet、Blitz、快棋、經典、通訊棋</string>
+  <string name="allFeaturesToCome">所有將來開發的新功能！</string>
   <string name="contributeToLichessAndGetIcon">捐款給 Lichess 取得超酷的贊助者圖示！</string>
   <string name="everybodyGetsAllFeaturesForFree">是的，兩種帳號皆有相同的功能！</string>
   <string name="ifYouLoveLichess">如果你喜歡 Lichess，</string>
