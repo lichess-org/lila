@@ -160,7 +160,8 @@ final class Api(
             playerInfoExt = none,
             socketVersion = none,
             partial = false,
-            withScores = true
+            withScores = true,
+            withAllowList = true
           )
           .map(some)
       }
