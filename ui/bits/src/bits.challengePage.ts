@@ -6,7 +6,7 @@ interface ChallengeOpts {
   data: any;
 }
 
-export function initModule(opts: ChallengeOpts) {
+export function initModule(opts: ChallengeOpts): void {
   const selector = '.challenge-page';
   let accepting: boolean;
 

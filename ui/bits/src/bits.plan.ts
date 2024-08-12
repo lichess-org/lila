@@ -11,7 +11,7 @@ const changeForm = () => {
   });
 };
 
-export function stripeStart(publicKey: string) {
+export function stripeStart(publicKey: string): void {
   $('.update-payment-method').on('click', () => {
     const stripe = window.Stripe(publicKey);
     xhr.json('/patron/stripe/update-payment', { method: 'post' }).then(data => {
@@ -30,7 +30,7 @@ export function stripeStart(publicKey: string) {
   changeForm();
 }
 
-export function payPalStart() {
+export function payPalStart(): void {
   changeForm();
 }
 

@@ -8,7 +8,7 @@ export * from './move/interfaces';
 export { makeVoiceMove } from './move/voice.move';
 export { renderVoiceBar } from './view';
 
-export const supportedLangs = [['en', 'English']];
+export const supportedLangs: [string, string][] = [['en', 'English']];
 if (site.debug)
   supportedLangs.push(
     ['fr', 'Français'],

@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { Prop } from 'common';
 import { bind } from 'common/snabbdom';
 import { rangeConfig } from 'common/controls';
@@ -8,11 +8,11 @@ export function settingNodes(
   clarity: Prop<number>,
   timer: Prop<number>,
   redraw: () => void,
-) {
+): VNode[] {
   return [colorsSetting(colors, redraw), claritySetting(clarity, redraw), timerSetting(timer, redraw)];
 }
 
-export function colorsSetting(colors: Prop<boolean>, redraw: () => void) {
+export function colorsSetting(colors: Prop<boolean>, redraw: () => void): VNode {
   return h('div.voice-choices', [
     'Label with',
     h(
@@ -31,7 +31,7 @@ export function colorsSetting(colors: Prop<boolean>, redraw: () => void) {
   ]);
 }
 
-export function claritySetting(clarity: Prop<number>, redraw: () => void) {
+export function claritySetting(clarity: Prop<number>, redraw: () => void): VNode {
   return h('div.voice-setting', [
     h('label', { attrs: { for: 'voice-clarity' } }, 'Clarity'),
     h('input#voice-clarity', {
@@ -45,7 +45,7 @@ export function claritySetting(clarity: Prop<number>, redraw: () => void) {
   ]);
 }
 
-export function timerSetting(timer: Prop<number>, redraw: () => void) {
+export function timerSetting(timer: Prop<number>, redraw: () => void): VNode {
   return h('div.voice-setting', [
     h('label', { attrs: { for: 'voice-timer' } }, 'Timer'),
     h('input#voice-timer', {

@@ -28,6 +28,7 @@ export interface RelayRound {
   finished?: boolean;
   ongoing?: boolean;
   startsAt?: number;
+  startsAfterPrevious?: boolean;
 }
 
 export interface RelayTourInfo {

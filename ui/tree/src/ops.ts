@@ -51,7 +51,10 @@ export function removeChild(parent: Tree.Node, id: string): void {
   });
 }
 
-export function countChildrenAndComments(node: Tree.Node) {
+export function countChildrenAndComments(node: Tree.Node): {
+  nodes: number;
+  comments: number;
+} {
   const count = {
     nodes: 1,
     comments: (node.comments || []).length,

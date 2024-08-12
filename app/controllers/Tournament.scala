@@ -86,6 +86,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 socketVersion = version.some,
                 partial = false,
                 withScores = true,
+                withAllowList = false,
                 myInfo = Preload[Option[MyInfo]](myInfo)
               ).map(jsonView.addReloadEndpoint(_, tour, env.tournament.lilaHttp.handles))
               chat <- loadChat(tour, json)
@@ -110,7 +111,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 playerInfoExt = playerInfoExt,
                 socketVersion = socketVersion,
                 partial = partial,
-                withScores = getBoolOpt("scores") | true
+                withScores = getBoolOpt("scores") | true,
+                withAllowList = true
               )
               chatOpt <- (!partial).so(loadChat(tour, json))
               jsChat <- chatOpt.soFu: c =>
@@ -256,7 +258,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                       none,
                       none,
                       partial = false,
-                      withScores = false
+                      withScores = false,
+                      withAllowList = true
                     ).map { Ok(_) }
                   )
         )
@@ -276,7 +279,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                   none,
                   none,
                   partial = false,
-                  withScores = true
+                  withScores = true,
+                  withAllowList = true
                 ).map { Ok(_) }
               }
           )
@@ -339,7 +343,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                     none,
                     none,
                     partial = false,
-                    withScores = true
+                    withScores = true,
+                    withAllowList = true
                   )
                 }
                 .map { Ok(_) }
