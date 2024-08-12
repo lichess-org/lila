@@ -12,7 +12,11 @@
   <string name="moveToE4OrSelectE4Piece">移動到 e4 或選取 e4</string>
   <string name="selectOrCaptureABishop">選取或捕捉主教</string>
   <string name="takeRookWithQueen">以城堡捕捉皇后</string>
-  <string name="castle">易位（任一翼）</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">易位（任一翼）</string>
   <string name="phoneticAlphabetIsBest">音標字母是最容易辨識的</string>
   <string name="cancelTimerOrDenyARequest">取消棋鐘或拒絕請求</string>
+  <string name="playPreferredMoveOrConfirmSomething">下出已選擇的棋譜或是確認某項東西</string>
+  <string name="sleep">休眠（如果已使用喚起關鍵字喚醒）</string>
+  <string name="turnOffVoiceRecognition">關閉語音辨識</string>
+  <string name="showPuzzleSolution">顯示謎題答案</string>
 </resources>
