@@ -27,7 +27,7 @@ object Dependencies {
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.112.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.0-RC10"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.1" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.17.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
@@ -62,9 +62,10 @@ object Dependencies {
     val version = "0.64.8"
     val bundle =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
-        List("ext-tables", "ext-anchorlink", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter").map { ext =>
-          "com.vladsch.flexmark" % s"flexmark-$ext" % version
-        }
+        List("ext-tables", "ext-anchorlink", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter")
+          .map { ext =>
+            "com.vladsch.flexmark" % s"flexmark-$ext" % version
+          }
   }
 
   object macwire {
