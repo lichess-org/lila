@@ -278,7 +278,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                     'click',
                     () => {
                       xhr
-                        .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
+                        .text(`/study/${study.data.id}/${study.currentChapter().id}.pgn`)
                         .then(pgnData => $('#chapter-pgn').val(pgnData));
                       return false;
                     },
