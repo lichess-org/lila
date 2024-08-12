@@ -35,4 +35,10 @@
   <string name="definitivelyDeleteRound">刪除這局以及其所有棋局</string>
   <string name="deleteAllGamesOfThisRound">刪除所有此輪的棋局。直播來源必須是開啟的以成功重新建立棋局。</string>
   <string name="editRoundStudy">編輯此輪研究</string>
+  <string name="deleteTournament">刪除此錦標賽</string>
+  <string name="definitivelyDeleteTournament">刪除錦標賽以及所有棋局</string>
+  <string name="automaticLeaderboard">自動排行榜</string>
+  <string name="automaticLeaderboardHelp">依據玩家結果計算出簡單的排行榜</string>
+  <string name="replacePlayerTags">取代玩家名字、評級、以及頭銜（可選）</string>
+  <string name="periodInSeconds">週期（秒）</string>
 </resources>
