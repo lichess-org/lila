@@ -89,6 +89,7 @@ export function view(ctrl: StudyForm): VNode {
       ctrl.open(false);
       ctrl.redraw();
     },
+    noClickAway: true,
     vnodes: [
       h('h2', ctrl.trans.noarg(ctrl.relay ? 'editRoundStudy' : isNew ? 'createStudy' : 'editStudy')),
       h(
@@ -149,7 +150,13 @@ export function view(ctrl: StudyForm): VNode {
               h('input#study-name.form-control', {
                 attrs: { minlength: 3, maxlength: 100 },
                 hook: {
-                  insert: vnode => updateName(vnode, false),
+                  insert: vnode => {
+                    updateName(vnode, false);
+                    const el = vnode.elm as HTMLInputElement;
+                    el.addEventListener('focus', () => el.select());
+                    // set initial modal focus
+                    setTimeout(() => el.focus());
+                  },
                   postpatch: (_, vnode) => updateName(vnode, true),
                 },
               }),

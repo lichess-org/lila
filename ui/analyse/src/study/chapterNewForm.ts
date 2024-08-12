@@ -169,8 +169,10 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   el.value = trans('chapterX', ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
                   el.onchange = () => ctrl.isDefaultName(false);
                   el.select();
-                  el.focus();
                 }
+                el.addEventListener('focus', () => el.select());
+                // set initial modal focus
+                setTimeout(() => el.focus());
               }),
             }),
           ]),
@@ -271,11 +273,12 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h(
                 'button.button.button-empty.import-from__chapter',
                 {
+                  attrs: { type: 'button' },
                   hook: bind(
                     'click',
                     () => {
                       xhr
-                        .text(`/study/${study.data.id}/${currentChapter.id}.pgn`)
+                        .text(`/study/${study.data.id}/${study.vm.chapterId}.pgn`)
                         .then(pgnData => $('#chapter-pgn').val(pgnData));
                       return false;
                     },
