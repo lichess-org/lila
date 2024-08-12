@@ -263,7 +263,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         site.redirect($(target).parents('tr').find('a').attr('href')!);
                     }),
                   },
-                  relay.data.rounds.map(round =>
+                  relay.data.rounds.map((round, i) =>
                     h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
                       h(
                         'td.name',
@@ -273,7 +273,14 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                           round.name,
                         ),
                       ),
-                      h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+                      h(
+                        'td.time',
+                        round.startsAt
+                          ? site.dateFormat()(new Date(round.startsAt))
+                          : round.startsAfterPrevious
+                          ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
+                          : '',
+                      ),
                       h(
                         'td.status',
                         roundStateIcon(round, false) ||
