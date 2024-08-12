@@ -169,8 +169,10 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   el.value = trans('chapterX', ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
                   el.onchange = () => ctrl.isDefaultName(false);
                   el.select();
-                  el.focus();
                 }
+                el.addEventListener('focus', () => el.select());
+                // set initial modal focus
+                setTimeout(() => el.focus());
               }),
             }),
           ]),
