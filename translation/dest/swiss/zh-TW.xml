@@ -31,6 +31,7 @@
   <string name="numberOfRoundsHelp">奇數次數的棋局以達成雙色公平性。</string>
   <string name="roundInterval">每輪之間的時間間隔</string>
   <string name="forbiddenPairings">禁止配對</string>
+  <string name="manualPairings">在下局手動配對</string>
   <string name="pointsCalculationQ">分數是如何計算的?</string>
   <string name="tiebreaksCalculationQ">平局如何决勝？</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger 分制</string>
@@ -42,4 +43,6 @@
   <string name="startingSoon">即將開始</string>
   <string name="comparison">對比</string>
   <string name="tournDuration">比賽時長</string>
+  <string name="pairingSystem">配對系統</string>
+  <string name="pause">暫停</string>
 </resources>
