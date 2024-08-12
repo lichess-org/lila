@@ -59,7 +59,7 @@
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用伺服器分析</string>
   <string name="loadingEngine">正在載入引擎 ...</string>
-  <string name="calculatingMoves">計算著法中。。。</string>
+  <string name="calculatingMoves">計算著法中...</string>
   <string name="engineFailed">加載引擎出錯</string>
   <string name="cloudAnalysis">雲端分析</string>
   <string name="goDeeper">深入分析</string>
