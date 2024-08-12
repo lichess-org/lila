@@ -116,7 +116,7 @@ final class RelayApi(
     roundRepo.coll
       .aggregateOne(): framework =>
         import framework.*
-        Match($doc("tourId" -> tourId)) -> List(
+        Match($doc("tourId" -> tourId, "startsAt".$ne(BSONHandlers.startsAfterPrevious))) -> List(
           Project($doc("at" -> $doc("$ifNull" -> $arr("$startsAt", "$startedAt")))),
           Sort(Ascending("at")),
           Group(BSONNull)("at" -> PushField("at")),
