@@ -1,7 +1,7 @@
 import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { numberFormat } from 'common/number';
-import { perf } from 'game/perf';
+import perfIcons from 'common/perfIcons';
 import { bind, dataIcon, MaybeVNode, LooseVNodes, looseH as h } from 'common/snabbdom';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
@@ -137,7 +137,7 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
                 h(
                   'td',
                   game.speed &&
-                    h('i', { attrs: { title: ucfirst(game.speed), ...dataIcon(perf.icons[game.speed]) } }),
+                    h('i', { attrs: { title: ucfirst(game.speed), ...dataIcon(perfIcons[game.speed]) } }),
                 ),
             ]);
       }),
