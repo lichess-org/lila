@@ -50,6 +50,7 @@ final class JsonView(
       socketVersion: Option[SocketVersion],
       partial: Boolean,
       withScores: Boolean,
+      withAllowList: Boolean,
       myInfo: Preload[Option[MyInfo]] = Preload.none
   )(using me: Option[Me])(using
       getMyTeamIds: Condition.GetMyTeamIds,
@@ -138,6 +139,7 @@ final class JsonView(
           .add("minRatedGames", tour.conditions.nbRatedGame)
           .add("onlyTitled", tour.conditions.titled.isDefined)
           .add("teamMember", tour.conditions.teamMember.map(_.teamId))
+          .add("allowList", withAllowList.so(tour.conditions.allowList).map(_.userIds))
 
   def addReloadEndpoint(js: JsObject, tour: Tournament, useLilaHttp: Tournament => Boolean) =
     js + ("reloadEndpoint" -> JsString({
