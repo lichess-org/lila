@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess實況主</string>
-  <string name="lichessStreamer">Lichess實況主</string>
+  <string name="lichessStreamers">Lichess 實況主</string>
+  <string name="lichessStreamer">Lichess 實況主</string>
   <string name="live">直播</string>
   <string name="offline">離線</string>
   <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">正在直播: %s</string>
