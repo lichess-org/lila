@@ -271,6 +271,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h(
                 'button.button.button-empty.import-from__chapter',
                 {
+                  attrs: { type: 'button' },
                   hook: bind(
                     'click',
                     () => {
