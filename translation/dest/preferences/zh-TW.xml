@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">偏好設置</string>
+  <string name="preferences">偏好設定</string>
   <string name="display">顯示</string>
   <string name="privacy">隱私</string>
   <string name="notifications">通知</string>

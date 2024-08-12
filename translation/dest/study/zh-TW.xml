@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">所有的SYNC成員處於相同局面</string>
   <string name="shareChanges">向旁觀者分享這些變動並將其保留在伺服器中</string>
   <string name="playing">下棋中</string>
+  <string name="showEvalBar">評估條</string>
   <string name="first">第一頁</string>
   <string name="previous">上一頁</string>
   <string name="next">下一頁</string>
