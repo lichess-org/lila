@@ -34,4 +34,5 @@
   <string name="deleteRound">刪除此回合</string>
   <string name="definitivelyDeleteRound">刪除這局以及其所有棋局</string>
   <string name="deleteAllGamesOfThisRound">刪除所有此輪的棋局。直播來源必須是開啟的以成功重新建立棋局。</string>
+  <string name="editRoundStudy">編輯此輪研究</string>
 </resources>
