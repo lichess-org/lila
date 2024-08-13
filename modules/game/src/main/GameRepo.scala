@@ -151,7 +151,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       hint: Option[Bdoc] = none
   ): AkkaStreamCursor[Game] =
     val query = coll.find(selector).sort(sort).batchSize(batchSize)
-    hint.map(coll.hint).foldLeft(query)(_ hint _).cursor[Game](ReadPref.priTemp)
+    hint.map(coll.hint).foldLeft(query)(_.hint(_)).cursor[Game](ReadPref.priTemp)
 
   def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game] =
     sortedCursor(

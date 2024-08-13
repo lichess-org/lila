@@ -162,7 +162,7 @@ final private class YouTubeApi(
               case None    => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
           )
         )
-      .map(bulk many _)
+      .map(bulk.many(_))
 
   private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty.so {
     import akka.stream.scaladsl.*
