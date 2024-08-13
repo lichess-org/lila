@@ -195,7 +195,7 @@
   <string name="time">時間</string>
   <string name="rating">評級</string>
   <string name="ratingStats">評分數據</string>
-  <string name="username">用戶名</string>
+  <string name="username">使用者名稱</string>
   <string name="usernameOrEmail">使用者名稱或電郵地址</string>
   <string name="changeUsername">更改使用者名稱</string>
   <string name="changeUsernameNotSame">只能更改字母大小字。例如，將「johndoe」變成「JohnDoe」。</string>
@@ -317,7 +317,7 @@
   <string name="proposeATakeback">請求悔棋</string>
   <string name="takebackPropositionSent">悔棋請求已發送</string>
   <string name="takebackPropositionDeclined">悔棋請求被拒絕</string>
-  <string name="takebackPropositionAccepted">同意悔棋</string>
+  <string name="takebackPropositionAccepted">悔棋請求被接受</string>
   <string name="takebackPropositionCanceled">悔棋請求已取消</string>
   <string name="yourOpponentProposesATakeback">對手請求悔棋</string>
   <string name="bookmarkThisGame">收藏該棋局</string>
@@ -335,7 +335,7 @@
   </plurals>
   <string name="viewTournament">觀看錦標賽</string>
   <string name="backToTournament">返回錦標賽主頁</string>
-  <string name="noDrawBeforeSwissLimit">在瑞士錦標賽中，在下三十步棋前你不能提和.</string>
+  <string name="noDrawBeforeSwissLimit">在積分循環制錦標賽中，在下三十步棋前無法和局。</string>
   <string name="thematic">特殊開局</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">完成至少 %s 場排位賽</item>
@@ -372,20 +372,20 @@
   <string name="leaderboard">排行榜</string>
   <string name="screenshotCurrentPosition">截圖當前頁面</string>
   <string name="gameAsGIF">保存棋局為 GIF</string>
-  <string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
-  <string name="pasteThePgnStringHere">在此處黏貼PGN棋譜</string>
+  <string name="pasteTheFenStringHere">在此處貼上 FEN 棋譜</string>
+  <string name="pasteThePgnStringHere">在此處貼上 PGN 棋譜</string>
   <string name="orUploadPgnFile">或者上傳一個PGN文件</string>
   <string name="fromPosition">自定義局面</string>
-  <string name="continueFromHere">从此處繼續</string>
+  <string name="continueFromHere">從此處繼續</string>
   <string name="toStudy">研究</string>
   <string name="importGame">導入棋局</string>
   <string name="importGameExplanation">貼上PGN棋譜後可以重播棋局，使用電腦分析、對局聊天室及取得此棋局的分享連結。</string>
-  <string name="importGameCaveat">變著分支將被刪除。 若要保存這些變著，請通過導入PGN棋譜創建一個研究。</string>
+  <string name="importGameCaveat">變種分支將被刪除。 若要保存這些變種，請透過導入 PGN 棋譜建立一個研究。</string>
   <string name="importGameDataPrivacyWarning">此為公開 PGN。若要導入私人棋局，請使用研究。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">已導入%s盤棋局</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
+  <string name="thisIsAChessCaptcha">此為西洋棋驗證碼。</string>
   <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
   <string name="captcha.fail">請完成驗證。</string>
   <string name="notACheckmate">沒有將死</string>
