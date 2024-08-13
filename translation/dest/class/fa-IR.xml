@@ -21,7 +21,7 @@
   <string name="aLinkToTheClassWillBeAdded">یک لینک به کلاس به طور خودکار به انتهای پیام شما اضافه خواهد شد. پس شما نیازی ندارید که خودتان لینک را درج کنید.</string>
   <string name="className">نام کلاس</string>
   <string name="classDescription">توصیف کلاس</string>
-  <string name="visibleByBothStudentsAndTeachers">قابل مشاهده برای دانش آموزان و معلم این کلاس</string>
+  <string name="visibleByBothStudentsAndTeachers">دسترس‌پذیر برای شطرنج‌آموزان و آموزگاران این کلاس</string>
   <string name="teachersOfTheClass">معلمهای کلاس</string>
   <string name="addLichessUsernames">نام کاربری های lichess را وارد کنید تا آنها را به عنوان معلم دعوت کنید. هر خط یک نام کاربری.</string>
   <string name="resetPassword">بازنشانی گذرواژه</string>
@@ -52,12 +52,12 @@
   <string name="welcomeToClass">به کلاس %s خوش آمدید.
 این لینک برای ورود به کلاس است.</string>
   <string name="invitationToClass">شما به کلاس %s به عنوان دانش آموز دعوت شده اید.</string>
-  <string name="clickToViewInvitation">برای مشاهده دعوت‌نامه، روی پیوند کلیک کنید:</string>
+  <string name="clickToViewInvitation">برای دیدن دعوت‌نامه، روی پیوند بزنید:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">یک دعوت‌نامه منتظر پاسخ</item>
     <item quantity="other">%s دعوت‌نامه منتظر پاسخ</item>
   </plurals>
-  <string name="onlyVisibleToTeachers">قابل مشاهده فقط برای معلم‌های کلاس</string>
+  <string name="onlyVisibleToTeachers">دسترس‌پذیر فقط برای آموزگاران کلاس</string>
   <string name="lastActiveDate">فعال</string>
   <string name="managed">مدیریت‌شده</string>
   <string name="thisStudentAccountIsManaged">حساب کاربری این دانشجو توسط معلم مدیریت و ایجاد شده است</string>

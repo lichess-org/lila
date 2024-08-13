@@ -8,7 +8,7 @@
   <string name="newWeeklyHighscore">新的每周紀錄！</string>
   <string name="newMonthlyHighscore">新的每月紀錄！</string>
   <string name="newAllTimeHighscore">新歷史紀錄！</string>
-  <string name="previousHighscoreWasX">之前的紀錄:%s</string>
+  <string name="previousHighscoreWasX">之前的最高紀錄：%s</string>
   <string name="playAgain">再玩一次</string>
   <plurals name="xRuns">
     <item quantity="other">%s輪</item>
@@ -16,7 +16,7 @@
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="other">玩了%1$s輪的%2$s</item>
   </plurals>
-  <string name="highscoreX">最高紀錄:%s</string>
+  <string name="highscoreX">最高紀錄：%s</string>
   <string name="score">得分</string>
   <string name="moves">走棋</string>
   <string name="accuracy">精準度</string>
@@ -25,8 +25,8 @@
   <string name="timePerMove">平均走棋時間</string>
   <string name="highestSolved">最難解決的題目</string>
   <string name="puzzlesPlayed">解決過的題目</string>
-  <string name="newRun">新的一輪 (快捷鍵:空白鍵)</string>
-  <string name="endRun">結束此輪 (快捷鍵:Enter鍵)</string>
+  <string name="newRun">新的一輪 （快捷鍵：空白鍵）</string>
+  <string name="endRun">結束此輪 （快捷鍵：Enter 鍵）</string>
   <string name="highscores">最高紀錄</string>
   <string name="viewBestRuns">顯示最佳的一輪</string>
   <string name="bestRunOfDay">今日最佳的一輪</string>
@@ -48,12 +48,13 @@
   <string name="skip">跳過</string>
   <string name="skipHelp">每場賽可略一手棋</string>
   <string name="skipExplanation">跳過這一步來維持您的連擊紀錄！每次遊玩只能使用一次。</string>
-  <string name="failedPuzzles">失敗了的謎題</string>
-  <string name="slowPuzzles">慢 謎題</string>
+  <string name="failedPuzzles">失敗的謎題</string>
+  <string name="slowPuzzles">耗時謎題</string>
+  <string name="skippedPuzzle">已跳過的謎題</string>
   <string name="thisWeek">本星期</string>
   <string name="thisMonth">本月</string>
   <string name="allTime">總計</string>
   <string name="clickToReload">點擊以重新加載</string>
-  <string name="thisRunHasExpired">本次比賽已過期！</string>
-  <string name="thisRunWasOpenedInAnotherTab">本次沖刺已經在另一個標籤頁中打開！</string>
+  <string name="thisRunHasExpired">本輪已過期！</string>
+  <string name="thisRunWasOpenedInAnotherTab">本輪已經在另一個分頁中打開！</string>
 </resources>

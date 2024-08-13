@@ -11,6 +11,7 @@
   <string name="myTeams">我的團隊</string>
   <string name="noTeamFound">您不在任何團隊中</string>
   <string name="joinTeam">加入團隊</string>
+  <string name="onlyLeaderLeavesTeam">請在離開前決定新團長或是關閉團隊</string>
   <string name="quitTeam">退出團隊</string>
   <string name="manuallyReviewAdmissionRequests">手動審查錄取請求</string>
   <string name="manuallyReviewAdmissionRequestsHelp">如果被選中，玩家將需要編寫加入團隊的請求，您可以拒絕或接受。</string>
@@ -46,7 +47,23 @@
   <string name="entryCodeDescriptionForLeader">(可選) 新成員加入此團隊必須知道的進入代碼。</string>
   <string name="incorrectEntryCode">輸入代碼不正確。</string>
   <string name="teamAlreadyExists">此隊伍已存在。</string>
+  <string name="upcomingTournaments">即將到來的錦標賽</string>
   <string name="completedTourns">已結束的錦標賽</string>
   <string name="declinedRequests">拒絕的請求</string>
   <string name="joinLichessVariantTeam">加入官方的 %s團隊以獲取最新消息和參加活動</string>
+  <string name="teamPage">團隊頁面</string>
+  <string name="thisTeamBattleIsOver">此錦標賽已結束且團隊無法再被更新。</string>
+  <string name="listTheTeamsThatWillCompete">列出將對奕的團隊。</string>
+  <string name="oneTeamPerLine">一行一個團隊。可以使用自動完成。</string>
+  <string name="oneTeamPerLineHelp">您可以複製貼上此列表到其他錦標賽！
+
+您無法移除已加入錦標賽的團隊。</string>
+  <string name="numberOfLeadsPerTeam">每隊的團長人數。他們的分數加總即是整對的分數。</string>
+  <string name="numberOfLeadsPerTeamHelp">您不應該在錦標賽開始後改變此值！</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="other">%s 隊之間的戰鬥</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="other">每隊 %s 個隊長</item>
+  </plurals>
 </resources>

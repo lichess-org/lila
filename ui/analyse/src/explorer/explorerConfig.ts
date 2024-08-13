@@ -6,7 +6,7 @@ import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import AnalyseCtrl from '../ctrl';
-import { perf } from 'game/perf';
+import perfIcons from 'common/perfIcons';
 import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
@@ -232,7 +232,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
     h('label', ctrl.root.trans.noarg('timeControl')),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perfIcons[s])))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>

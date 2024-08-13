@@ -98,13 +98,14 @@
   }
   &__gauge {
     order: 1;
+    @extend %box-radius-right;
     position: relative;
     flex: 0 0 4%;
+    max-width: 1.5em;
     border: $border;
     border-left: 0;
     margin-top: -1px;
     overflow: hidden;
-    @extend %box-radius-right;
     opacity: 0.4;
     background: linear-gradient(to top, $white, $black);
 

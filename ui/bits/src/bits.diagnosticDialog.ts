@@ -3,7 +3,7 @@ import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
 import { escapeHtml } from 'common';
 
-export async function initModule() {
+export async function initModule(): Promise<void> {
   const ops = processQueryParams();
   const logs = await site.log.get();
   const text =
@@ -13,7 +13,9 @@ export async function initModule() {
     `Screen: ${window.screen.width}x${window.screen.height}, ` +
     `Lang: ${navigator.language}, ` +
     `Engine: ${site.storage.get('ceval.engine')}, ` +
-    `Threads: ${site.storage.get('ceval.threads')}` +
+    `Threads: ${site.storage.get('ceval.threads')}, ` +
+    `Blindfold: ${site.storage.boolean('blindfold.' + (document.body.dataset.user || 'anon')).get()}, ` +
+    `Pieces: ${document.body.dataset.pieceSet}` +
     (logs ? `\n\n${logs}` : '');
   const escaped = escapeHtml(text);
   const flash = ops > 0 ? `<p class="good">Changes applied</p>` : '';

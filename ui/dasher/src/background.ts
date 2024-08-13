@@ -59,7 +59,7 @@ export class BackgroundCtrl extends PaneCtrl {
     ]);
   }
 
-  set = throttlePromiseDelay(
+  set: (c: string) => Promise<void> = throttlePromiseDelay(
     () => 700,
     (c: string) => {
       this.data.current = c;

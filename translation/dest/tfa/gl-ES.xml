@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Autenticación en dous pasos</string>
   <string name="twoFactorHelp">A autenticación en dous pasos engade outra capa de seguridade á túa conta.</string>
-  <string name="twoFactorAppRecommend">Consigue unha aplicación para a autenticación en dous pasos. Recomendamos as seguintes aplicacións:</string>
+  <string name="twoFactorAppRecommend">Consigue unha aplicación para a autenticación en dous pasos. Recomendamos as seguintes:</string>
   <string name="scanTheCode">Escanea o código QR coa aplicación.</string>
   <string name="enterPassword">Introduce o teu contrasinal e o código de autenticación xerado pola aplicación para completar a configuración. Necesitarás un código de autenticación cada vez que comeces a sesión.</string>
   <string name="ifYouCannotScanEnterX">Se non podes escanear o código, introduce a chave secreta %s na túa aplicación.</string>

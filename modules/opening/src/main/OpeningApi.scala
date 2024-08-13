@@ -6,6 +6,8 @@ import lila.core.game.{ GameRepo, PgnDump }
 import lila.core.i18n.{ Translate, Translator }
 import lila.core.net.Crawler
 import lila.memo.CacheApi
+import lila.core.security.Ip2ProxyApi
+import lila.common.HTTPRequest
 
 final class OpeningApi(
     wikiApi: OpeningWikiApi,
@@ -13,7 +15,8 @@ final class OpeningApi(
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     explorer: OpeningExplorer,
-    configStore: OpeningConfigStore
+    configStore: OpeningConfigStore,
+    proxyApi: Ip2ProxyApi
 )(using Executor, Translator):
 
   import OpeningQuery.Query
@@ -38,18 +41,19 @@ final class OpeningApi(
       config: OpeningConfig,
       withWikiRevisions: Boolean,
       crawler: Crawler
-  ): Fu[Option[OpeningPage]] =
+  )(using RequestHeader): Fu[Option[OpeningPage]] =
     OpeningQuery(q, config).so { compute(_, withWikiRevisions, crawler) }
 
   private def compute(
       query: OpeningQuery,
       withWikiRevisions: Boolean,
       crawler: Crawler
-  ): Fu[Option[OpeningPage]] =
+  )(using req: RequestHeader): Fu[Option[OpeningPage]] =
     given Translate = summon[Translator].toDefault
     for
-      wiki <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
-      useExplorer = crawler.no || wiki.exists(_.hasMarkup)
+      wiki  <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
+      proxy <- proxyApi(HTTPRequest.ipAddress(req))
+      useExplorer = !proxy.is && (crawler.no || wiki.exists(_.hasMarkup))
       stats      <- (useExplorer.so(explorer.stats(query.uci, query.config, crawler)))
       allHistory <- allGamesHistory.get(query.config)
       games      <- gameRepo.gamesFromSecondary(stats.so(_.games).map(_.id))

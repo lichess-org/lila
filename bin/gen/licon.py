@@ -33,6 +33,39 @@ object Icon:
   given iconWrites: Writes[Icon] = icon => JsString(Icon.value(icon))
 """
 
+debug_preamble = """<!--""" + comment_preamble + """-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      @font-face {
+        font-family: 'lichess';
+        src: url('../font/lichess.woff2') format('woff2');
+        font-display: block;
+        font-weight: normal;
+        font-style: normal;
+      }
+      body {
+        font-family: lichess;
+        font-size: 82px;
+        display: flex;
+        flex-flow: row wrap;
+        align-content: flex-start;
+      }
+      i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.2em;
+        height: 1.2em;
+        font-style: normal;
+        color: #333;
+        outline: 1px solid #555;
+      }
+    </style>
+  </head>
+  <body>"""
+
 def main():
     parser = argparse.ArgumentParser(description='lichess.sfd helper')
     parser.add_argument('--check', action='store_true', help='report any embedded licon literals in your sources')
@@ -93,18 +126,22 @@ def parse_codes():
 
 def gen_sources(codes):
     with_type = lambda name: f'{name}: Icon'
-    longest = len(max(codes.keys(), key=len)) + 6
+    longest = len(max(codes.keys(), key=len)) + 11
 
     with open('../../modules/ui/src/main/Icon.scala', 'w') as scala, \
          open('../../ui/common/src/licon.ts', 'w') as ts, \
-         open('../../ui/common/css/abstract/_licon.scss', 'w') as scss:
+         open('../../ui/common/css/abstract/_licon.scss', 'w') as scss, \
+         open('../../public/oops/font.html', 'w') as debug:
         scala.write(scala_preamble)
         ts.write(comment_preamble + '\n')
         scss.write(comment_preamble + '\n')
+        debug.write(debug_preamble + '\n')
         for name in codes:
             scala.write(f'  val {with_type(name).ljust(longest)} = "{chr(codes[name])}" // {codes[name]:x}\n')
             ts.write(f"export const {name} = '{chr(codes[name])}'; // {codes[name]:x}\n")
             scss.write(f"$licon-{name}: '{chr(codes[name])}'; // {codes[name]:x}\n")
+            debug.write(f'    <i title="{name}">&#x{codes[name]:x};</i>\n')
+        debug.write('  </body>\n</html>\n')
 
 def gen_fonts():
     [f, name] = tempfile.mkstemp(suffix='.pe', dir='.')

@@ -30,8 +30,7 @@ final private class RelayFetch(
     gameProxy: lila.core.game.GameProxy,
     cacheApi: CacheApi,
     playersApi: RelayPlayersApi,
-    notifyMissingFideIds: RelayNotifyMissingFideIds,
-    orphanNotifier: RelayNotifyOrphanBoard,
+    notifyAdmin: RelayNotifierAdmin,
     onlyIds: Option[List[RelayTourId]] = None
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
@@ -97,7 +96,7 @@ final private class RelayFetch(
           .withTimeoutError(7 seconds, SyncResult.Timeout)
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
-        _ <- orphanNotifier.inspectPlan(rt, res.plan)
+        _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
         allGamesHaveOutcome = games.nonEmpty && games.forall(_.outcome.isDefined)
         noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty && rt.round.startedAt.isDefined
         nextRoundToStart <- noMoreGamesSelected.so(api.nextRoundThatStartsAfterThisOneCompletes(rt.round))
@@ -133,7 +132,7 @@ final private class RelayFetch(
         api.syncTargetsOfSource(round)
         if result.nbMoves > 0 then
           lila.mon.relay.moves(tour.official, tour.id, tour.slug).increment(result.nbMoves)
-          if tour.official then notifyMissingFideIds.schedule(round.id)
+          if tour.official then notifyAdmin.missingFideIds.schedule(round.id)
           if !round.hasStarted && !tour.official
           then irc.broadcastStart(round.id, round.withTour(tour).fullName)
           continueRelay(tour, updating(_.ensureStarted.resume(tour.official)))

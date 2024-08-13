@@ -17,7 +17,7 @@ const showErrorThenReload = (error: string) => {
   location.assign('/patron');
 };
 
-export default (window as any).checkoutStart = function (stripePublicKey: string, pricing: Pricing) {
+const checkoutStart = (stripePublicKey: string, pricing: Pricing): void => {
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
@@ -237,3 +237,6 @@ function stripeStart(
     window.stripeHandler.close();
   });
 }
+
+(window as any).checkoutStart = checkoutStart;
+export default checkoutStart;

@@ -6,11 +6,11 @@ import { init as initSnabbdom, VNode, classModule, attributesModule, h } from 's
 
 const patch = initSnabbdom([classModule, attributesModule]);
 
-export function load() {
+export function load(): Promise<DasherCtrl> {
   return site.asset.loadEsm<DasherCtrl>('dasher');
 }
 
-export default async function initModule() {
+export default async function initModule(): Promise<DasherCtrl> {
   let vnode: VNode,
     ctrl: DasherCtrl | undefined = undefined;
 

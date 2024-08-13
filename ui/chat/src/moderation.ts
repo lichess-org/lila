@@ -54,7 +54,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export function report(ctrl: ChatCtrl, line: HTMLElement) {
+export function report(ctrl: ChatCtrl, line: HTMLElement): void {
   const userA = line.querySelector('a.user-link') as HTMLLinkElement;
   const text = (line.querySelector('t') as HTMLElement).innerText;
   if (userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
@@ -63,7 +63,7 @@ function reportUserText(resourceId: string, username: string, text: string) {
   if (confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = () => h('action.mod', { attrs: { 'data-icon': licon.Agent } });
+export const lineAction = (): VNode => h('action.mod', { attrs: { 'data-icon': licon.Agent } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;

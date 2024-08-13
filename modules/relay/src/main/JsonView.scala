@@ -170,6 +170,7 @@ object JsonView:
       .add("finished" -> r.finished)
       .add("ongoing" -> (r.hasStarted && !r.finished))
       .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
+      .add("startsAfterPrevious" -> r.startsAfterPrevious)
 
   given OWrites[RelayStats.RoundStats] = OWrites: r =>
     Json.obj(

@@ -67,6 +67,9 @@ object RelayRound:
 
   def makeId = RelayRoundId(ThreadLocalRandom.nextString(8))
 
+  opaque type Order = Int
+  object Order extends OpaqueInt[Order]
+
   opaque type Name = String
   object Name extends OpaqueString[Name]
 

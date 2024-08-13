@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { Toggle, onClickAway } from 'common/common';
 import { bindMobileMousedown } from 'common/device';
 import * as licon from 'common/licon';
@@ -6,7 +6,7 @@ import { MaybeVNode, MaybeVNodes, dataIcon, onInsert } from 'common/snabbdom';
 import { Redraw } from 'chessground/types';
 import * as controls from 'common/controls';
 
-export const toggleButton = (toggle: Toggle, title: string) =>
+export const toggleButton = (toggle: Toggle, title: string): VNode =>
   h('button.fbt.board-menu-toggle', {
     class: { active: toggle() },
     attrs: { title, 'data-icon': licon.Hamburger },
@@ -28,14 +28,14 @@ export const menu = (
     : undefined;
 
 export class BoardMenu {
-  anonymous = document.querySelector('body[data-user]') === null;
+  anonymous: boolean = document.querySelector('body[data-user]') === null;
 
   constructor(
     readonly trans: Trans,
     readonly redraw: Redraw,
   ) {}
 
-  flip = (name: string, active: boolean, onChange: () => void) =>
+  flip = (name: string, active: boolean, onChange: () => void): VNode =>
     h(
       'button.button.text',
       {
@@ -46,7 +46,7 @@ export class BoardMenu {
       name,
     );
 
-  zenMode = (enabled = true) =>
+  zenMode = (enabled = true): VNode =>
     this.cmnToggle({
       name: 'Zen mode',
       id: 'zen',
@@ -55,7 +55,7 @@ export class BoardMenu {
       disabled: !enabled,
     });
 
-  voiceInput = (toggle: Toggle, enabled = true) =>
+  voiceInput = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
       name: 'Voice input',
       id: 'voice',
@@ -65,7 +65,7 @@ export class BoardMenu {
       disabled: this.anonymous || !enabled,
     });
 
-  keyboardInput = (toggle: Toggle, enabled = true) =>
+  keyboardInput = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
       name: 'Keyboard input',
       id: 'keyboard',
@@ -75,7 +75,7 @@ export class BoardMenu {
       disabled: this.anonymous || !enabled,
     });
 
-  blindfold = (toggle: Toggle, enabled = true) =>
+  blindfold = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
       name: 'Blindfold',
       id: 'blindfold',
@@ -83,7 +83,8 @@ export class BoardMenu {
       change: toggle,
       disabled: !enabled,
     });
-  confirmMove = (toggle: Toggle, enabled = true) =>
+
+  confirmMove = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
       name: 'Confirm move',
       id: 'confirmmove',

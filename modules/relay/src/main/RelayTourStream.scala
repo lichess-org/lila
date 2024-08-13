@@ -21,7 +21,7 @@ final class RelayTourStream(
     as = "rounds",
     local = "_id",
     foreign = "tourId",
-    pipe = List($doc("$sort" -> RelayRoundRepo.sort.start))
+    pipe = List($doc("$sort" -> RelayRoundRepo.sort.asc))
   )
 
   def officialTourStream(perSecond: MaxPerSecond, nb: Max)(using JsonView.Config): Source[JsObject, ?] =

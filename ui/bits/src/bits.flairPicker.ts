@@ -6,7 +6,7 @@ type Config = {
   onEmojiSelect: (i?: { id: string; src: string }) => void;
 };
 
-export function initModule(cfg: Config) {
+export function initModule(cfg: Config): void {
   if (cfg.element.classList.contains('emoji-done')) return;
   const opts = {
     ...cfg,

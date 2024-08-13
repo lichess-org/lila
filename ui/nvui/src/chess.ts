@@ -117,11 +117,11 @@ const skipToFile: { [letter: string]: string } = {
   '*': 'h',
 };
 
-export function symbolToFile(char: string) {
+export function symbolToFile(char: string): string {
   return skipToFile[char] ?? '';
 }
 
-export function supportedVariant(key: string) {
+export function supportedVariant(key: string): boolean {
   return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'horde'].includes(
     key,
   );
@@ -236,7 +236,7 @@ export function lastCaptured(
   return 'none';
 }
 
-export function renderSan(san: San, uci: Uci | undefined, style: Style) {
+export function renderSan(san: San, uci: Uci | undefined, style: Style): string {
   if (!san) return '';
   let move: string;
   if (san.includes('O-O-O')) move = 'long castling';
@@ -405,7 +405,7 @@ export function castlingFlavours(input: string): string {
 
 /* Listen to interactions on the chessboard */
 export function positionJumpHandler() {
-  return (ev: KeyboardEvent) => {
+  return (ev: KeyboardEvent): boolean => {
     const $btn = $(ev.target as HTMLElement);
     const $file = $btn.attr('file') ?? '';
     const $rank = $btn.attr('rank') ?? '';
@@ -433,7 +433,7 @@ export function positionJumpHandler() {
 }
 
 export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => void) {
-  return (ev: KeyboardEvent) => {
+  return (ev: KeyboardEvent): boolean => {
     if (!ev.key.match(/^[kqrbnp]$/i)) return true;
     const $currBtn = $(ev.target as HTMLElement);
 
@@ -479,7 +479,7 @@ export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => voi
 }
 
 export function arrowKeyHandler(pov: Color, borderSound: () => void) {
-  return (ev: KeyboardEvent) => {
+  return (ev: KeyboardEvent): boolean => {
     const $currBtn = $(ev.target as HTMLElement);
     const $isWhite = pov === 'white';
     let $file = $currBtn.attr('file') ?? ' ';
@@ -509,7 +509,7 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
 }
 
 export function selectionHandler(getOpponentColor: () => Color, selectSound: () => void) {
-  return (ev: MouseEvent) => {
+  return (ev: MouseEvent): boolean => {
     const opponentColor = getOpponentColor();
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
     const $evBtn = $(ev.target as HTMLElement);
@@ -556,7 +556,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
 }
 
 export function boardCommandsHandler() {
-  return (ev: KeyboardEvent) => {
+  return (ev: KeyboardEvent): boolean => {
     const $currBtn = $(ev.target as HTMLElement);
     const $boardLive = $('.boardstatus');
     const $position = ($currBtn.attr('file') ?? '') + ($currBtn.attr('rank') ?? '');
@@ -582,7 +582,7 @@ export function lastCapturedCommandHandler(
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
 ) {
-  return (ev: KeyboardEvent) => {
+  return (ev: KeyboardEvent): boolean => {
     const $boardLive = $('.boardstatus');
     if (ev.key === 'c') {
       $boardLive.text();
@@ -602,7 +602,7 @@ export function possibleMovesHandler(
   moveable: () => Map<string, Array<string>> | undefined,
   steps: () => RoundStep[],
 ) {
-  return (ev: KeyboardEvent) => {
+  return (ev: KeyboardEvent): boolean => {
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
     const pieces: Pieces = piecesFunc();
@@ -700,7 +700,11 @@ export function inputToLegalUci(input: string, fen: string, chessground: Api): s
   else return;
 }
 
-export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style) {
+export function renderMainline(
+  nodes: Tree.Node[],
+  currentPath: Tree.Path,
+  style: Style,
+): Array<string | VNode> {
   const res: Array<string | VNode> = [];
   let path: Tree.Path = '';
   nodes.forEach(node => {

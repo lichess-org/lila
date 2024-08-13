@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">偏好設置</string>
+  <string name="preferences">偏好設定</string>
   <string name="display">顯示</string>
   <string name="privacy">隱私</string>
   <string name="notifications">通知</string>
   <string name="pieceAnimation">棋子動畫</string>
   <string name="materialDifference">子力差距</string>
-  <string name="boardHighlights">棋盤高亮 (最後一步與將軍)</string>
+  <string name="boardHighlights">國王紅色亮光 (最後一步與將軍)</string>
   <string name="pieceDestinations">棋子目的地（有效走法與預先走棋）</string>
   <string name="boardCoordinates">棋盤座標（A-H, 1-8）</string>
   <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>

@@ -249,7 +249,7 @@ export class Engines {
     this.activate();
   }
 
-  get external(): EngineInfo | undefined {
+  get external(): ExternalEngineInfo | undefined {
     return this.active && 'endpoint' in this.active ? this.active : undefined;
   }
 

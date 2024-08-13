@@ -18,19 +18,19 @@ export default class CurrentPuzzle {
     this.startAt = getNow();
   }
 
-  position = (index = this.moveIndex + 1): Chess => {
+  position = (index: number = this.moveIndex + 1): Chess => {
     const pos = Chess.fromSetup(parseFen(this.puzzle.fen).unwrap()).unwrap();
     if (index >= 0) this.line.slice(0, index).forEach(uci => pos.play(parseUci(uci)!));
     return pos;
   };
 
-  expectedMove = () => this.line[this.moveIndex + 1];
+  expectedMove = (): string => this.line[this.moveIndex + 1];
 
-  lastMove = () => this.line[this.moveIndex];
+  lastMove = (): string => this.line[this.moveIndex];
 
-  isOver = () => this.moveIndex >= this.line.length - 1;
+  isOver = (): boolean => this.moveIndex >= this.line.length - 1;
 
-  playSound(prev?: CurrentPuzzle) {
+  playSound(prev?: CurrentPuzzle): void {
     // play a combined sound for both the user's move and the opponent move, preferring
     // capture & check. (prev !== this) is where we combine the last move of a previous
     // puzzle with the starting move of a new puzzle

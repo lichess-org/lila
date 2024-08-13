@@ -1,7 +1,7 @@
 import { init as initBoard } from 'common/miniBoard';
 import { frag } from 'common';
 
-export function initModule() {
+export function initModule(): void {
   $('main.lobby').each(function (this: HTMLElement) {
     // fake tv for debugging layout, ui/build with -d flag
     if (this.querySelector('.lobby__tv')) return;

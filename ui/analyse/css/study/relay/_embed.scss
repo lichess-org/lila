@@ -1,6 +1,6 @@
 $vp-min-width: 320px;
 $vp-max-width: 1200px;
-$embed-uniboard-table: minmax(#{$col3-uniboard-table-min}, auto);
+$embed-uniboard-table: minmax(#{$col3-uniboard-table-min}, 800px);
 
 body {
   ---site-header-height: 0px;
@@ -32,7 +32,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
   }
 
   .main-board {
-    margin-top: 1.6rem; /* space for the top player bar */
+    /* space for the top player bar */
     margin-top: calc((100vh - var(---col2-uniboard-width)) / 2);
     cg-resize {
       display: none;

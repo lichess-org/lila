@@ -61,7 +61,7 @@ export class MultiBoardCtrl {
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
   const pager = ctrl.pager();
   const cloudEval = ctrl.multiCloudEval.thisIfShowEval();
-  const baseUrl = study.embeddablePath(study.relay?.roundPath() || study.baseUrl());
+  const baseUrl = study.relay?.roundPath() || study.baseUrl();
   return h('div.study__multiboard', [
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),

@@ -38,7 +38,7 @@ trait RequestGetter:
     getLong(name).map(millisToInstant)
 
   protected def getBool(name: String)(using RequestHeader): Boolean =
-    (getInt(name).exists(trueish)) || (get(name).exists(trueish))
+    getInt(name).exists(trueish) || get(name).exists(trueish)
 
   protected def getBoolOpt(name: String)(using RequestHeader): Option[Boolean] =
     getInt(name).map(trueish).orElse(get(name).map(trueish))

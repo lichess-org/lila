@@ -184,7 +184,7 @@ final class RelayPager(
           local = "_id",
           foreign = "tourId",
           pipe = List(
-            $doc("$sort"      -> RelayRoundRepo.sort.start),
+            $doc("$sort"      -> RelayRoundRepo.sort.asc),
             $doc("$limit"     -> 1),
             $doc("$addFields" -> $doc("sync.log" -> $arr()))
           )

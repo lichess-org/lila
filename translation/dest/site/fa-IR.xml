@@ -61,7 +61,7 @@
   <string name="usingServerAnalysis">با استفاده از کارسازِ تحلیل</string>
   <string name="loadingEngine">پردازشگر بارمی‌گذارد...</string>
   <string name="calculatingMoves">در حال محاسبه حرکات...</string>
-  <string name="engineFailed">خطا در بارگذاری پردازشگر شطرنج</string>
+  <string name="engineFailed">خطا در بارگذاری پردازشگر</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
   <string name="goDeeper">بررسی عمیق‌تر</string>
   <string name="showThreat">نمایش تهدید</string>
@@ -98,13 +98,13 @@
   <string name="dtzWithRounding">DTZ50\'\' با گرد کردن، بر اساس تعداد حرکات نیمه تا زمان دستگیری یا حرکت پیاده بعدی</string>
   <string name="noGameFound">هیچ بازی یافت نشد</string>
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ممکنه بازی‌های بیشتری با توجه به گزینگان ترجیح‌ها، وجود داشته باشد؟</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید بازی‌های بیشتری با توجه به نام‌چین تنظیمات، وجود داشته باشد.</string>
   <string name="openings">گشایش‌ها</string>
   <string name="openingExplorer">پویشگر گشایش‌</string>
   <string name="openingEndgameExplorer">پویشگر گشایش/آخربازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی پویشگر را برو</string>
-  <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
+  <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت جلوی پیروزی را گرفت</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
   <string name="lossOr50MovesByPriorMistake">باخت یا ۵٠ حرکت از اشتباه قبلی</string>
@@ -357,7 +357,7 @@
     <item quantity="one">%s سیمولتانه</item>
     <item quantity="other">%s سیمولتانه</item>
   </plurals>
-  <string name="viewTournament">مشاهده مسابقات</string>
+  <string name="viewTournament">دیدن مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
   <string name="noDrawBeforeSwissLimit">شما نمی‌توانید در مسابقات سوییس تا قبل از حرکت ۳۰ام بازی را مساوی کنید.</string>
   <string name="thematic">موضوعی</string>
@@ -421,7 +421,7 @@
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
-  <string name="reconnecting">در حال اتصال دوباره</string>
+  <string name="reconnecting">در حال بازاتصال</string>
   <string name="noNetwork">بُرون‌خط</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s دوست بَرخط</item>
@@ -535,7 +535,7 @@
   <string name="name">نام</string>
   <string name="description">شرح</string>
   <string name="descPrivate">توضیحات خصوصی</string>
-  <string name="descPrivateHelp">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
+  <string name="descPrivateHelp">متنی که فقط هم‌تیمی‌ها خواهند دید. در صورت تعیین، جایگزین وصف همگانی برای هم‌تیمی‌ها می‌شود خواهد شد.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
   <string name="website">وبگاه</string>
@@ -560,7 +560,7 @@
   <string name="other">موضوعات دیگر</string>
   <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
   <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر انگلیسی بنویسید، گزارش‌تان تندتر رسیدگی خواهد شد.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر انگلیسی بنویسید، زودتر به گزارش‌تان رسیدگی خواهد شد.</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
@@ -641,7 +641,7 @@
   <string name="ifRegistered">اگر نام‌نویسی‌کرده</string>
   <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
-  <string name="menu">فهرست</string>
+  <string name="menu">نام‌چین</string>
   <string name="castling">قلعه‌روی</string>
   <string name="whiteCastlingKingside">O-O سفید</string>
   <string name="blackCastlingKingside">O-O سیاه</string>
@@ -827,7 +827,7 @@
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
   <string name="computerThinking">محاسبه رایانه‌ای ...</string>
-  <string name="seeBestMove">مشاهده بهترین حرکت</string>
+  <string name="seeBestMove">دیدن بهترین حرکت</string>
   <string name="hideBestMove">پنهان کردن بهترین حرکت</string>
   <string name="getAHint">راهنمایی</string>
   <string name="evaluatingYourMove">در حال بررسی حرکت شما...</string>
@@ -845,9 +845,9 @@
   <string name="tryAnotherMoveForWhite">برای سفید،حرکت دیگری را امتحان کنید</string>
   <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
   <string name="solution">راه‌حل</string>
-  <string name="waitingForAnalysis">در انتظار برای آنالیز</string>
-  <string name="noMistakesFoundForWhite">هیچ اشتباهی برای سفید مشاهده نشد</string>
-  <string name="noMistakesFoundForBlack">هیچ اشتباهی برای سیاه مشاهده نشد</string>
+  <string name="waitingForAnalysis">در انتظار تحلیل</string>
+  <string name="noMistakesFoundForWhite">هیچی اشتباهی از سفید یافت نشد</string>
+  <string name="noMistakesFoundForBlack">هیچی اشتباهی از سیاه یافت نشد</string>
   <string name="doneReviewingWhiteMistakes">اشتباهات سفید بررسی شد</string>
   <string name="doneReviewingBlackMistakes">اشتباهات سیاه بررسی شد.</string>
   <string name="doItAgain">دوباره</string>
@@ -878,7 +878,7 @@
   <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
   <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
   <string name="potentialProblem">زمانی که مشکلی احتمالی شناسایی شد ، این پیام را نمایش می دهیم.</string>
-  <string name="howToAvoidThis">چگونه از این امر جلوگیری کنیم؟</string>
+  <string name="howToAvoidThis">چگونه از آن بپرهیزیم؟</string>
   <string name="playEveryGame">هر بازی‌ای که آغازیدید را، بازی کنید.</string>
   <string name="tryToWin">در هر بازی برای پیروزی (یا حداقل تساوی) تلاش کنید.</string>
   <string name="resignLostGames">بازی های از دست رفته را انصراف دهید(نگذارید زمان تمام شود).</string>

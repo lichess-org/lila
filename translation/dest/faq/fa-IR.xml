@@ -124,6 +124,10 @@
 سپس برگزینید که آیا اعلان‌های Lichess مجاز یا مسدود شوند.</string>
   <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
   <string name="desktop">رایانه</string>
+  <string name="enableAutoplayForSoundsSafari">۱. به lichess.org بروید
+۲. در نوار نام‌چین روی Safari بزنید
+۳. در تنظیمات، lichess.org را بزنید ...
+۴. اجازه «پخش خودکار همه» (All Auto-Play) را دهید</string>
   <string name="enableAutoplayForSoundsMicrosoftEdge">۱. روی سه نقطه در گوشه بالا راست بزنید
 ۲. تنظیمات (Settings) را بزنید
 ۳. رَدنماها و مجوزهای وبگاه (Cookies and Site Permissions) را بزنید

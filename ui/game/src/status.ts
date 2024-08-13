@@ -1,4 +1,4 @@
-import { GameData, StatusName } from './interfaces';
+import { GameData, StatusName, Status } from './interfaces';
 
 // https://github.com/lichess-org/scalachess/blob/master/core/src/main/scala/Status.scala
 
@@ -17,7 +17,7 @@ export const ids: { [name in StatusName]: number } = {
   variantEnd: 60,
 };
 
-export const statusOf = (name: StatusName) => ({ id: ids[name], name });
+export const statusOf = (name: StatusName): Status => ({ id: ids[name], name });
 
 export const started = (data: GameData): boolean => data.game.status.id >= ids.started;
 

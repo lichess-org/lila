@@ -5,7 +5,7 @@ import { BackgroundCtrl } from './background';
 import { BoardCtrl } from './board';
 import { PieceCtrl } from './piece';
 import { LinksCtrl } from './links';
-import { Redraw } from 'common/snabbdom';
+import { MaybeVNode, Redraw } from 'common/snabbdom';
 import { DasherData, Mode, PaneCtrl } from './interfaces';
 import { Prop, prop } from 'common';
 
@@ -22,7 +22,7 @@ export class DasherCtrl implements ModeIndexed {
   board: BoardCtrl;
   piece: PieceCtrl;
   links: LinksCtrl;
-  opts = {
+  opts: { playing: boolean; zenable: boolean } = {
     playing: $('body').hasClass('playing'),
     zenable: $('body').hasClass('zenable'),
   };
@@ -43,10 +43,10 @@ export class DasherCtrl implements ModeIndexed {
   }
 
   mode: Prop<Mode> = prop(defaultMode as Mode);
-  render = () => this[this.mode()]?.render() || null;
-  setMode = (m: Mode) => {
+  render = (): MaybeVNode => this[this.mode()]?.render() || null;
+  setMode = (m: Mode): void => {
     this.mode(m);
     this.redraw();
   };
-  close = () => this.setMode(defaultMode);
+  close = (): void => this.setMode(defaultMode);
 }

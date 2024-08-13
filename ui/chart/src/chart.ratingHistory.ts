@@ -79,7 +79,7 @@ const dateFormat = memoize(() =>
     : (d: Date) => d.toLocaleDateString(),
 );
 
-export function initModule({ data, singlePerfName }: Opts) {
+export function initModule({ data, singlePerfName }: Opts): void {
   $('.spinner').remove();
 
   const $el = $('canvas.rating-history');
