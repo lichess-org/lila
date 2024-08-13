@@ -242,6 +242,7 @@ final class RelayApi(
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] = for
     last      <- roundRepo.lastByTour(tour)
+    nextOrder <- roundRepo.nextOrderByTour(tour.id)
     lastStudy <- last.so(r => studyRepo.byId(r.studyId))
     relay     <- copyRoundSourceSettings(data.make(me, tour))
     importGame = StudyMaker.ImportGame(
@@ -268,7 +269,8 @@ final class RelayApi(
         )
       )
       .orFail(s"Can't create study for relay $relay")
-    _     <- roundRepo.coll.insert.one(relay)
+    _ <- roundRepo.coll.insert.one:
+      toBdoc(relay).err(s"Can't write $relay") ++ $doc("order" -> nextOrder)
     dates <- computeDates(tour.id)
     _     <- tourRepo.denormalize(tour.id, true, relay.hasStarted, dates)
     _     <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
