@@ -1,4 +1,4 @@
-import type { Schema, InfoKey, PropertyValue, Requirement } from './types';
+import type { Schema, InfoKey, PropertyValue } from './devTypes';
 import { deepFreeze } from 'common';
 
 // give dialog constraints, describe dialog content, define direct mappings to BotInfo instances
@@ -45,7 +45,7 @@ export const schema: Schema = deepFreeze<Schema>({
       class: ['books'],
       template: {
         min: { weight: 0 },
-        max: { weight: 10 },
+        max: { weight: 100 },
         step: { weight: 1 },
         value: { weight: 1 },
       },
@@ -149,31 +149,31 @@ export const schema: Schema = deepFreeze<Schema>({
       requires: { and: ['sources_zero', 'sources_fish'] },
       required: true,
     },
-    acplMean: {
-      label: 'acpl mean',
+    cplTarget: {
+      label: 'cpl target',
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 150 }, from: 'score', data: [] },
       requires: { and: ['sources_fish', 'sources_fish_multipv > 1'] },
     },
-    acplStdev: {
-      label: 'acpl stdev',
+    cplStdev: {
+      label: 'cpl stdev',
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 100 }, from: 'score', data: [] },
-      requires: 'bot_operators_acplMean',
+      requires: 'bot_operators_cplTarget',
       required: true,
     },
-    decay: {
-      label: 'line probability decay',
+    lineDecay: {
+      label: 'line quality decay',
       type: 'operator',
       class: ['operator'],
       value: { range: { min: 0, max: 1 }, from: 'time', data: [] },
       requires: {
         or: [
+          'sources_fish_multipv > 1',
+          'sources_zero_multipv > 1',
           { and: ['sources_zero', 'sources_fish'] },
-          { and: ['sources_fish', 'sources_fish_multipv > 1'] },
-          { and: ['sources_zero', 'sources_zero_multipv > 1'] },
         ],
       },
     },

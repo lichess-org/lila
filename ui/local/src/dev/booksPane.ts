@@ -1,8 +1,9 @@
 import { Pane, RangeSetting } from './pane';
 import * as licon from 'common/licon';
-import type { PaneArgs, BooksInfo, RangeInfo } from './types';
+import { frag } from 'common';
+import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
 import type { Book } from '../types';
-import { removeButton } from './util';
+import { removeButton } from './devUtil';
 import { assetDialog } from './assetDialog';
 
 export class BookPane extends RangeSetting {
@@ -12,7 +13,7 @@ export class BookPane extends RangeSetting {
     super(p);
     this.el.append(removeButton());
     const span = this.label.firstElementChild as HTMLElement;
-    span.dataset.src = this.host.assetDb.getBookCoverUrl(span.textContent!);
+    span.dataset.src = this.host.assets.getBookCoverUrl(span.textContent!);
     span.classList.add('imagept');
     this.rangeInput.insertAdjacentHTML('afterend', 'wt');
   }
@@ -27,7 +28,7 @@ export class BookPane extends RangeSetting {
 
   update(e?: Event): void {
     if (!(e?.target instanceof HTMLElement)) return;
-    if (e.target.dataset.click === 'remove') {
+    if (e.target.dataset.action === 'remove') {
       this.parent.removeBook(this);
       this.el.remove();
       this.host.update();
@@ -49,17 +50,18 @@ export class BooksPane extends Pane {
   constructor(p: PaneArgs) {
     super(p);
     this.label?.prepend(
-      $as<Node>(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-click="add">`),
+      frag(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
     );
+    if (!this.value) this.setProperty([]);
     this.value.forEach((_, index) => this.makeBook(index));
   }
 
   update(e?: Event): void {
     if (!(e?.target instanceof HTMLElement)) return;
-    if (e.target.dataset.click === 'add') {
-      assetDialog(this.host.assetDb, 'book').then(b => {
+    if (e.target.dataset.action === 'add') {
+      assetDialog(this.host.assets, 'book').then(b => {
         if (!b) return;
-        this.value.push({ name: b, weight: this.template?.value ?? 1 });
+        this.value.push({ key: b, weight: this.template?.value ?? 1 });
         this.makeBook(this.value.length - 1);
       });
     }
@@ -92,7 +94,12 @@ export class BooksPane extends Pane {
     const book = this.value[index];
     const pargs = {
       host: this.host,
-      info: { ...this.template, label: book.name, value: book.weight, id: `${this.id}_${counter++}` },
+      info: {
+        ...this.template,
+        label: this.host.assets.nameOf(book.key),
+        value: book.weight,
+        id: `${this.id}_${counter++}`,
+      },
       parent: this,
     };
     this.el.appendChild(new BookPane(pargs).el);

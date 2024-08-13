@@ -1,6 +1,6 @@
 import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
-import { escapeHtml } from './common';
+import { escapeHtml, frag } from './common';
 import { eventJanitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';
@@ -102,7 +102,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   if (o.parent) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
-    const anchor = $as<Element>('<div class="close-button-anchor">');
+    const anchor = frag<Element>('<div class="close-button-anchor">');
     anchor.innerHTML = `<button class="close-button" aria-label="Close" data-icon="${licon.X}">`;
     dialog.appendChild(anchor);
   }
@@ -113,7 +113,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
-  const scrollable = $as<Element>(`<div class="${o.noScrollable ? 'not-' : ''}scrollable">`);
+  const scrollable = frag<Element>(`<div class="${o.noScrollable ? 'not-' : ''}scrollable">`);
   scrollable.appendChild(view);
   dialog.appendChild(scrollable);
 

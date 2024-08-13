@@ -1,5 +1,5 @@
 import type { VNode } from 'common/snabbdom';
-import { GameData, Status, Seconds, Centis } from 'game';
+import { GameData, Status } from 'game';
 import { ClockData } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';

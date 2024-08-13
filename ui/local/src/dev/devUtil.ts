@@ -1,7 +1,9 @@
 import * as co from 'chessops';
 import * as licon from 'common/licon';
-import type { NumberInfo, RangeInfo } from './types';
-import type { Script, Result } from './devCtrl';
+import type { BotInfo } from '../types';
+import { frag } from 'common';
+import type { NumberInfo, RangeInfo } from './devTypes';
+import type { Result } from './devCtrl';
 
 type ObjectPath = { obj: any; path: { keys: string[] } | { id: string } };
 
@@ -31,6 +33,49 @@ export function setObjectProperty({ obj, path, value }: ObjectPath & { value: an
   if (keys.length === 1) obj[keys[0]] = value;
   else if (!(keys[0] in obj)) obj[keys[0]] = {};
   setObjectProperty({ obj: obj[keys[0]], path: { keys: keys.slice(1) }, value });
+}
+
+function isEmpty(prop: any): boolean {
+  if (Array.isArray(prop)) return prop.length === 0;
+  if (typeof prop !== 'object') return false;
+  return Object.keys(prop).length === 0;
+}
+
+function filteredKeys(obj: any): string[] {
+  if (typeof obj !== 'object') return obj;
+  return Object.entries(obj)
+    .filter(([k, v]) => k !== 'ratings' && !isEmpty(v))
+    .map(([k]) => k);
+}
+
+//like isEquivalent but ignores empty objects & arrays.  for functional equivalence of bot infos.
+export function closeEnough(a: any, b: any): boolean {
+  if (a === b) return true;
+  if (typeof a !== typeof b) return false;
+  if (Array.isArray(a)) {
+    return Array.isArray(b) && a.length === b.length && a.every((x, i) => closeEnough(x, b[i]));
+  }
+  if (typeof a !== 'object') return false;
+  const [aKeys, bKeys] = [filteredKeys(a), filteredKeys(b)];
+  if (aKeys.length !== bKeys.length) return false;
+
+  for (const key of aKeys) {
+    if (!bKeys.includes(key) || !closeEnough(a[key], b[key])) return false;
+  }
+  return true;
+}
+
+export function deadStrip(info: BotInfo & { disabled: Set<string> }): BotInfo {
+  if (!('disabled' in info)) return info;
+
+  // clone and strip disabled properties, we have enough versions of closeEnough
+
+  const temp = structuredClone(info);
+
+  for (const id of info.disabled) {
+    removeObjectProperty({ obj: temp, path: { id } }, true);
+  }
+  return temp;
 }
 
 export function maxChars(info: NumberInfo | RangeInfo): number {
@@ -69,7 +114,7 @@ export function playersWithResults(results: Result[]): string[] {
 }
 
 export function removeButton(cls: string = ''): Node {
-  return $as<Node>(
-    `<button class="button button-empty button-red icon-btn ${cls}" tabindex="0" data-icon="${licon.Cancel}" data-click="remove">`,
+  return frag(
+    `<button class="button button-empty button-red icon-btn ${cls}" tabindex="0" data-icon="${licon.Cancel}" data-action="remove">`,
   );
 }

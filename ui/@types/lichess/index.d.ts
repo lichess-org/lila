@@ -384,6 +384,9 @@ declare type Key = 'a0' | `${Files}${Ranks}`;
 declare type Uci = string;
 declare type San = string;
 declare type Ply = number;
+declare type Seconds = number;
+declare type Centis = number;
+declare type Millis = number;
 
 interface Variant {
   key: VariantKey;

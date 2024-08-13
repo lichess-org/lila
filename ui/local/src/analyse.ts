@@ -1,6 +1,6 @@
 import { type GameCtrl } from './gameCtrl';
 import * as co from 'chessops';
-import { escapeHtml } from 'common';
+import { escapeHtml, frag } from 'common';
 
 export function analyse(gameCtrl: GameCtrl): void {
   const local = gameCtrl.live;
@@ -29,7 +29,7 @@ export function analyse(gameCtrl: GameCtrl): void {
   };
   const pgn = co.pgn.makePgn(game);
   console.log(pgn);
-  const formEl = $as<HTMLFormElement>(`<form method="post" action="/import">
+  const formEl = frag<HTMLFormElement>(`<form method="post" action="/import">
     <textarea name="pgn">${escapeHtml(pgn)}</textarea></form>`);
   document.body.appendChild(formEl);
   formEl.submit();

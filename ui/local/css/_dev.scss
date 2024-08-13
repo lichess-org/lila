@@ -2,6 +2,11 @@
   @extend %flex-column;
   gap: 1em;
 
+  span {
+    @extend %flex-center-nowrap;
+    white-space: nowrap;
+    gap: 1em;
+  }
   textarea,
   select,
   input {
@@ -10,13 +15,14 @@
       background-color: $m-bg_bad--mix-80;
     }
   }
-  span {
-    @extend %flex-center-nowrap;
-    white-space: nowrap;
-    gap: 1em;
-  }
+  select,
   input:not([type='text']) {
     cursor: pointer;
+  }
+  *:focus-visible,
+  input[type='range']:focus-visible {
+    outline: 2px solid $c-font;
+    outline-offset: -2px;
   }
   .disabled label > span {
     opacity: 0.5;
@@ -33,11 +39,6 @@
   .icon-btn {
     padding: 6px;
   }
-  *:focus-visible,
-  input.range:focus-visible {
-    outline: 2px solid $c-font;
-    outline-offset: -2px;
-  }
   .upper-right {
     position: absolute;
     font-size: 1.25em;
@@ -53,6 +54,21 @@
       filter: saturate(1);
     }
   }
+  .upper-left {
+    position: absolute;
+    font-size: 1.25em;
+    top: 0;
+    left: 0;
+    color: $c-primary;
+    cursor: pointer;
+    &.show {
+      display: block;
+    }
+    &:hover {
+      color: $m-primary--lighten-11;
+      filter: saturate(1);
+    }
+  }
 }
 
 .dev-side {
@@ -60,7 +76,7 @@
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content 1fr min-content;
   height: 100%;
-  max-width: 20vw;
+  width: 100%;
   flex-flow: column;
   justify-content: stretch;
 
@@ -69,19 +85,16 @@
   }
   span,
   h3 {
-    @extend %flex-between;
+    @extend %flex-between-nowrap;
     gap: 1em;
-    flex-wrap: nowrap;
   }
 
   label {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+    @extend %flex-center-nowrap;
     gap: 0.5em;
   }
   .player {
-    @extend %flex-between-nowrap;
+    @extend %flex-center-nowrap;
     position: relative;
     padding-inline-end: 8px;
     border-radius: 5px;
@@ -90,40 +103,42 @@
     width: 100%;
     font-size: 1em;
     img {
+      margin-inline-end: 0.5em;
       width: 10vh;
       height: 10vh;
-      //aspect-ratio: 1;
     }
-    &:hover,
-    &.drag-over {
-      border-color: $c-primary;
+    &:hover {
       cursor: pointer;
     }
-    &.white {
-      background-color: #f0f0f0;
+    &[data-color='white'] {
+      background-color: #eee;
       color: #333;
-      &:hover,
-      &.drag-over {
-        background-color: #e0e0e0;
+      &:hover:not(:has(button:hover)) {
+        background-color: hsl(209, 79%, 85%);
       }
     }
-    &.black {
+    &[data-color='black'] {
       background-color: #333;
       color: white;
-      &:hover,
-      &.drag-over {
-        background-color: #444;
+      &:hover:not(:has(button:hover)) {
+        background-color: hsl(209, 29%, 20%);
       }
     }
     .select-bot {
       width: 60%;
     }
-    .totals {
-      font-size: large;
-      text-align: center;
-      &.strong {
-        font-size: larger;
+    .stats {
+      @extend %flex-column;
+      align-items: center;
+      flex: auto;
+      span {
+        font-size: large;
       }
+    }
+    .upper-right {
+      background: none;
+      border: none;
+      outline: none;
     }
     .bot-actions {
       @extend %flex-column;
@@ -135,8 +150,8 @@
     flex: 1 1 auto;
   }
   .fen {
-    //font-family: monospace;
-    //font-size: smallest;
+    font-family: monospace;
+    font-size: 12px;
     &::placeholder {
       color: #888;
     }
@@ -215,7 +230,7 @@
     grid-auto-columns: minmax(120px, 1fr);
     grid-template-rows: repeat(8, 1fr);
     gap: 2px;
-    font-size: 10px;
+    font-size: 12px;
     font-family: monospace;
     > div {
       justify-self: start;
@@ -232,6 +247,35 @@
 
   > hr {
     margin: 5px;
+  }
+}
+
+.new-opponent {
+  display: none; // file://./../../round/src/view/button.ts
+}
+
+.with-cards {
+  .clean {
+    background-color: white;
+  }
+  .dirty {
+    &::after {
+      content: '';
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      border-radius: 100%;
+      border: 5px solid $c-bad;
+    }
+  }
+  .local-only {
+    background-color: $m-brag_white--mix-25;
+  }
+  .local-changes {
+    background-color: $m-clas_white--mix-28;
+  }
+  .upstream-changes {
+    background-color: $m-primary_white--mix-30;
   }
 }
 

@@ -1,68 +1,70 @@
-import makeZerofish, { type Zerofish } from 'zerofish';
-import { type AssetDb } from './assetDb';
-import { ZerofishBot, type ZerofishBots } from './zerofishBot';
+import makeZerofish, { type Zerofish, type Position } from 'zerofish';
+import * as co from 'chessops';
+import { type Assets } from './assets';
+import { Bot } from './bot';
 import { RateBot } from './dev/rateBot';
+import { closeEnough } from './dev/devUtil';
 import { type CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { deepFreeze } from 'common';
+import { deepFreeze, isEquivalent } from 'common';
 import { deepScore } from './util';
-import type {
-  Libot,
-  Libots,
-  BotInfo,
-  BotInfos,
-  ZerofishBotInfo,
-  Glicko,
-  SoundEvent,
-  MoveArgs,
-  MoveResult,
-} from './types';
+import type { BotInfo, Glicko, SoundEvent, Mover, MoveArgs, MoveResult, Ratings, LocalSpeed } from './types';
 
 export class BotCtrl {
+  zerofish: Zerofish;
+  assets: Assets;
+  serverBots: { [uid: string]: BotInfo };
+  localBots: { [uid: string]: BotInfo };
+  bots: { [uid: string]: Bot & Mover } = {};
+  ratings: { [uid: string]: Ratings } = {};
   readonly rateBots: RateBot[] = [];
-  private zerofish: Zerofish;
-  private store: ObjectStorage<BotInfo>;
-  private defaultBots: BotInfos;
-  private busy = false;
-  private bestMove = { uci: 'e2e4', cp: 30 };
-  //private whiteUid?: string;
-  //blackUid?: string;
   readonly uids: { white: string | undefined; black: string | undefined } = {
     white: undefined,
     black: undefined,
   };
-  bots: Libots = {};
+  private store: ObjectStorage<BotInfo>;
+  private localRatings: ObjectStorage<Ratings>;
+  private busy = false;
+  private bestMove = { uci: 'e2e4', cp: 30 };
 
-  constructor(readonly assetDb: AssetDb) {}
+  constructor() {}
 
-  get white(): Libot | undefined {
-    return this.bot(this.uids.white);
+  get white(): BotInfo | undefined {
+    return this.get(this.uids.white);
   }
 
-  get black(): Libot | undefined {
-    return this.bot(this.uids.black);
+  get black(): BotInfo | undefined {
+    return this.get(this.uids.black);
   }
 
   get isBusy(): boolean {
     return this.busy;
   }
 
-  async init(serverBots: BotInfo[]): Promise<this> {
+  sorted(by: 'alpha' | LocalSpeed = 'alpha'): BotInfo[] {
+    if (by === 'alpha') return Object.values(this.bots).sort((a, b) => a.name.localeCompare(b.name));
+    else
+      return Object.values(this.bots).sort((a, b) => (a.ratings[by]?.r ?? 1500) - (b.ratings[by]?.r ?? 1500));
+  }
+
+  async init(serverBots: BotInfo[], assets: Assets): Promise<this> {
+    this.assets = assets;
     this.zerofish = await makeZerofish({
       root: site.asset.url('npm', { documentOrigin: true }),
       wasm: site.asset.url('npm/zerofishEngine.wasm'),
-      dev: this.assetDb.dev,
+      dev: assets.dev,
     });
-    if (this.assetDb.dev) {
+    if (assets.dev) {
       for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
         this.rateBots.push(new RateBot(this.zerofish, i));
       }
     }
-    return this.initLibots(serverBots);
+    return this.initBots(serverBots, assets);
   }
 
-  async initLibots(serverBots: BotInfo[]): Promise<this> {
-    await Promise.all([this.resetBots(serverBots), this.assetDb.init()]);
+  async initBots(serverBots: BotInfo[], assets: Assets): Promise<this> {
+    this.assets = assets;
+    await Promise.all([this.resetBots(serverBots), this.assets?.init()]);
     return this;
   }
 
@@ -70,15 +72,9 @@ export class BotCtrl {
     return JSON.stringify(await this.store.getMany(), null, 2);
   }
 
-  async clearLocalBots(uids?: string[]): Promise<void> {
+  async clearStoredBots(uids?: string[]): Promise<void> {
     await (uids ? Promise.all(uids.map(uid => this.store.remove(uid))) : this.store.clear());
     return this.resetBots();
-  }
-
-  get zerofishBots(): ZerofishBots {
-    return Object.fromEntries(
-      Object.entries(this.bots).filter((e): e is [string, ZerofishBot] => e[1] instanceof ZerofishBot),
-    );
   }
 
   setUid(c: Color, uid: string | undefined): void {
@@ -90,18 +86,19 @@ export class BotCtrl {
     this.uids.black = black;
   }
 
-  bot(uid: string | undefined): Libot | undefined {
+  get(uid: string | undefined): BotInfo | undefined {
     if (uid === undefined) return;
-    return this.bots[uid] ?? this.rankBot(uid);
+    return this.bots[uid] ?? this.rateBots[Number(uid.slice(1))];
   }
 
   async move(args: MoveArgs): Promise<MoveResult | undefined> {
+    const bot = this[args.chess.turn] as BotInfo & Mover;
+    if (!bot) return undefined;
     if (this.busy) return undefined; // just ignore requests from different call stacks
     this.busy = true;
-
-    const move = await this[args.chess.turn]?.move({ ...args, score: this.bestMove.cp });
-    const best = (await this.zerofish.goFish(args.pos, { multipv: 1, by: { depth: 16 } })).lines[0];
-    this.bestMove = { uci: best.moves[0], cp: deepScore(best) };
+    const score = bot instanceof Bot && bot.needsScore ? (await this.fetchBestMove(args.pos)).cp : undefined;
+    const move = await bot?.move({ ...args, score });
+    if (!this[co.opposite(args.chess.turn)]) this.bestMove = await this.fetchBestMove(args.pos);
     this.busy = false;
     return move?.uci !== '0000' ? move : undefined;
   }
@@ -115,7 +112,7 @@ export class BotCtrl {
         r -= chance / 100;
         if (r > 0) continue;
         site.sound
-          .load(key, this.assetDb.getSoundUrl(key))
+          .load(key, this.assets.getSoundUrl(key))
           .then(() => setTimeout(() => site.sound.play(key, Math.min(1, mix * 2)), delay * 1000));
         return Math.min(1, (1 - mix) * 2);
       }
@@ -132,43 +129,49 @@ export class BotCtrl {
     return this.zerofish.reset();
   }
 
-  updateBot(bot: ZerofishBot): Promise<IDBValidKey> {
-    this.bots[bot.uid] = new ZerofishBot(bot, this.zerofish, this.assetDb);
+  saveBot(bot: Bot): Promise<void> {
+    this.bots[bot.uid] = new Bot(bot, this);
     return this.storeBot(bot.uid);
   }
 
-  storeBot(uid: string): Promise<IDBValidKey> {
+  storeBot(uid: string): Promise<any> {
+    if (closeEnough(this.serverBots[uid], this.bots[uid])) return this.store.remove(uid);
+    this.localBots[uid] = deepFreeze(structuredClone(this.bots[uid]));
     return this.store.put(uid, this.bots[uid]);
   }
 
-  defaultBot(uid: string = ''): BotInfo {
-    return uid in this.defaultBots ? this.defaultBots[uid] : this.default;
-  }
-
   async deleteBot(uid: string): Promise<void> {
-    Object.entries(this.uids).forEach(([c, u]) => u === uid && this.setUid(c as Color, undefined));
+    if (this.uids.white === uid) this.uids.white = undefined;
+    if (this.uids.black === uid) this.uids.black = undefined;
     await this.store.remove(uid);
     delete this.bots[uid];
     await this.resetBots();
   }
 
-  updateRating(bot: Libot | undefined, score: number, opp: Glicko | undefined = { r: 1500, rd: 350 }): void {
-    if (!bot || bot instanceof RateBot) return;
-    const q = Math.log(10) / 400;
-    const glicko = bot.glicko ?? { r: 1500, rd: 350 };
-    const expected = 1 / (1 + 10 ** ((opp.r - glicko.r) / 400));
-    const g = 1 / Math.sqrt(1 + (3 * q ** 2 * opp.rd ** 2) / Math.PI ** 2);
-    const dSquared = 1 / (q ** 2 * g ** 2 * expected * (1 - expected));
-    const deltaR = (q * g * (score - expected)) / (1 / dSquared + 1 / glicko.rd ** 2);
-    bot.glicko = {
-      r: Math.round(glicko.r + deltaR),
-      rd: Math.max(30, Math.sqrt(1 / (1 / glicko.rd ** 2 + 1 / dSquared))),
-    };
-    this.storeBot(bot.uid);
+  updateRatings(speed: LocalSpeed, winner: Color | undefined): Promise<any> {
+    const whiteScore = winner === 'white' ? 1 : winner === 'black' ? 0 : 0.5;
+    const ratings = [this.white, this.black].map(b => b?.ratings[speed] ?? { r: 1500, rd: 350 });
+
+    return Promise.all([
+      this.setRating(this.uids.white, speed, updateGlicko(ratings, whiteScore)),
+      this.setRating(this.uids.black, speed, updateGlicko(ratings.reverse(), 1 - whiteScore)),
+    ]);
+
+    function updateGlicko(glk: Glicko[], score: number): Glicko {
+      const q = Math.log(10) / 400;
+      const expected = 1 / (1 + 10 ** ((glk[1].r - glk[0].r) / 400));
+      const g = 1 / Math.sqrt(1 + (3 * q ** 2 * glk[1].rd ** 2) / Math.PI ** 2);
+      const dSquared = 1 / (q ** 2 * g ** 2 * expected * (1 - expected));
+      const deltaR = glk[0].rd <= 0 ? 0 : (q * g * (score - expected)) / (1 / dSquared + 1 / glk[0].rd ** 2);
+      return {
+        r: Math.round(glk[0].r + deltaR),
+        rd: Math.max(30, Math.sqrt(1 / (1 / glk[0].rd ** 2 + 1 / dSquared))),
+      };
+    }
   }
 
   imageUrl(bot: BotInfo | undefined): string | undefined {
-    return bot?.image && this.assetDb.getImageUrl(bot.image);
+    return bot?.image && this.assets.getImageUrl(bot.image);
   }
 
   card(bot: BotInfo | undefined): CardData | undefined {
@@ -177,27 +180,81 @@ export class BotCtrl {
         label: bot.name,
         domId: uidToDomId(bot.uid)!,
         imageUrl: this.imageUrl(bot),
+        classList: [],
       }
     );
   }
 
-  private async resetBots(defBots?: BotInfo[]) {
-    const [serverBots, overrides] = await Promise.all([
-      defBots ??
-        fetch('/local/list')
-          .then(res => res.json())
-          .then(res => res.bots),
-      this.getLocalOverrides(),
-    ]);
-    this.defaultBots = {};
-    serverBots.forEach((b: BotInfo) => (this.defaultBots[b.uid] = deepFreeze(b)));
-    for (const b of [...serverBots, ...overrides]) {
-      if (!b.name) delete this.bots[b.uid];
-      this.bots[b.uid] = new ZerofishBot(b, this.zerofish, this.assetDb);
+  classifiedCard(bot: BotInfo, isDirty?: (b: BotInfo) => boolean): CardData | undefined {
+    const cd = this.card(bot);
+    const local = this.localBots[bot.uid];
+    const server = this.serverBots[bot.uid];
+
+    if (isDirty?.(local ?? server)) cd?.classList.push('dirty');
+    if (server && !closeEnough(server, bot)) {
+      if (server.version > bot.version) cd?.classList.push('upstream-changes');
+      else if (local && !closeEnough(local, server)) cd?.classList.push('local-changes');
     }
+    if (!server) cd?.classList.push('local-only');
+    return cd;
   }
 
-  private getLocalOverrides() {
+  classifiedSort = (a: CardData, b: CardData): number => {
+    for (const c of ['dirty', 'local-only', 'local-changes', 'upstream-changes']) {
+      if (a.classList.includes(c) && !b.classList.includes(c)) return -1;
+      if (!a.classList.includes(c) && b.classList.includes(c)) return 1;
+    }
+    return 0;
+  };
+
+  ratingText(uid: string, speed: LocalSpeed): string {
+    const glicko = this.get(uid)?.ratings[speed] ?? { r: 1500, rd: 350 };
+    return `${glicko.r}${glicko.rd > 80 ? '?' : ''}`;
+  }
+
+  fullRatingText(uid: string, speed: LocalSpeed): string {
+    return this.ratingText(uid, speed) + ` (${Math.round(this.get(uid)?.ratings[speed]?.rd ?? 350)})`;
+  }
+
+  getRating(uid: string | undefined, speed: LocalSpeed): Glicko {
+    if (!uid) return { r: 1500, rd: 350 };
+    return this.ratings[uid][speed] ?? { r: 1500, rd: 350 };
+  }
+
+  setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<any> {
+    if (!uid || !this.bots[uid]) return Promise.resolve();
+    // mock ratings until there's a edit UI in place for it, then they'll be pretty much static i think
+    // bot.ratings[speed] = rating;
+    this.ratings[uid] ??= {};
+    this.ratings[uid][speed] = rating;
+    if (isEquivalent(this.serverBots[uid]?.ratings, this.bots[uid].ratings))
+      return this.localRatings.remove(uid);
+    return this.localRatings.put(uid, this.bots[uid].ratings);
+  }
+
+  private async resetBots(defBots?: BotInfo[]) {
+    const [localBots, serverBots] = await Promise.all([
+      this.getStoredBots(),
+      defBots ??
+        fetch('/local/bots')
+          .then(res => res.json())
+          .then(res => res.bots),
+      this.getStoredRatings(),
+    ]);
+    for (const b of [...serverBots, ...localBots]) {
+      this.bots[b.uid] = new Bot(b, this);
+    }
+    this.localBots = {};
+    this.serverBots = {};
+
+    const freezeIgnoreRatings = (b: BotInfo) =>
+      deepFreeze(Object.defineProperty(b, 'ratings', { enumerable: false }));
+
+    localBots.forEach((b: BotInfo) => (this.localBots[b.uid] = freezeIgnoreRatings(b)));
+    serverBots.forEach((b: BotInfo) => (this.serverBots[b.uid] = freezeIgnoreRatings(b)));
+  }
+
+  private getStoredBots() {
     return (
       this.store?.getMany() ??
       objectStorage<BotInfo>({ store: 'local.bots' }).then(s => {
@@ -207,19 +264,19 @@ export class BotCtrl {
     );
   }
 
-  private rankBot(uid: string) {
-    return this.rateBots[Number(uid.slice(1))];
+  private async getStoredRatings(): Promise<{ [uid: string]: Ratings }> {
+    if (!this.localRatings) this.localRatings = await objectStorage<Ratings>({ store: 'local.bot.ratings' });
+    const keys = await this.localRatings.list();
+    this.ratings = Object.fromEntries(
+      await Promise.all(keys.map(k => this.localRatings.get(k).then(v => [k, v]))),
+    );
+    return this.ratings;
   }
 
-  readonly default: ZerofishBotInfo = deepFreeze({
-    uid: '#default',
-    name: 'Name',
-    description: 'Description',
-    image: 'gray-torso.webp',
-    books: [],
-    fish: { multipv: 1, by: { depth: 1 } },
-    version: 0,
-  });
+  private async fetchBestMove(pos: Position): Promise<{ uci: string; cp: number }> {
+    const best = (await this.zerofish.goFish(pos, { multipv: 1, by: { depth: 12 } })).lines[0];
+    return { uci: best.moves[0], cp: deepScore(best) };
+  }
 }
 
 export function uidToDomId(uid: string | undefined): string | undefined {

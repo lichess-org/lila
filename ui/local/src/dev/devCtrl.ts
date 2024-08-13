@@ -1,23 +1,24 @@
 import * as co from 'chessops';
 import { rateBotMatchup } from './rateBot';
-import * as u from './util';
-import type { Automator, Libot } from '../types';
+import * as u from './devUtil';
+import type { Automator, BotInfo } from '../types';
 import { statusOf } from 'game/status';
+import { clockToSpeed } from 'game';
 import { defined } from 'common';
+import { storedBooleanProp } from 'common/storage';
 import type { GameCtrl } from '../gameCtrl';
 import type { GameStatus, MoveContext } from '../localGame';
-
-interface Test {
-  type: 'matchup' | 'roundRobin' | 'rate';
-  players: string[];
-  startingFen?: string;
-}
 
 export interface Result {
   winner: Color | undefined;
   white?: string;
   black?: string;
-  //reason: string;
+}
+
+interface Test {
+  type: 'matchup' | 'roundRobin' | 'rate';
+  players: string[];
+  startingFen?: string;
 }
 
 export interface Matchup {
@@ -30,20 +31,18 @@ export interface Script extends Test {
 }
 
 export class DevCtrl implements Automator {
-  hurry: boolean; // skip animations, sounds, and artificial move wait times (clock is still adjusted)
-  sandbox: boolean; // you can move anyone's pieces in sandbox mode, but premoves are disabled
+  hurry: boolean = storedBooleanProp('local.dev.hurry', false)();
+  // skip animations, sounds, and artificial move wait times (clock is still adjusted)
   script: Script;
+  gameCtrl: GameCtrl;
   log: Result[];
 
-  constructor(
-    readonly gameCtrl: GameCtrl,
-    readonly redraw: () => void,
-  ) {
-    site.pubsub.on('theme', this.redraw);
-    gameCtrl.dev = this;
-    const skip = localStorage.getItem('local.dev.hurry');
-    this.hurry = skip ? skip === '1' : false;
+  constructor(readonly redraw: () => void) {}
+
+  init(gameCtrl: GameCtrl): void {
+    this.gameCtrl = gameCtrl;
     this.resetScript();
+    site.pubsub.on('theme', this.redraw);
   }
 
   run(test?: Test, iterations: number = 1): boolean {
@@ -74,12 +73,6 @@ export class DevCtrl implements Automator {
 
   onReset(): void {}
 
-  skip(movetime: number): boolean {
-    if (!this.hurry) return false;
-    if (this.gameCtrl.clock) this.gameCtrl.clock[this.gameCtrl.turn] -= movetime;
-    return true;
-  }
-
   preMove(moveResult: MoveContext): void {
     this.gameCtrl.round.chessground?.set({ animation: { enabled: !this.hurry } });
     if (this.hurry) moveResult.silent = true;
@@ -98,14 +91,14 @@ export class DevCtrl implements Automator {
       );
       return false;
     }
+    if (!this.white?.uid || !this.black?.uid) return false;
+    this.botCtrl.updateRatings(this.gameCtrl.speed, winner);
 
-    const whiteRating = { r: this.white?.glicko?.r ?? 1500, rd: this.white?.glicko?.rd ?? 350 };
-    this.botCtrl.updateRating(this.white, u.score(winner, 'white'), this.black?.glicko);
-    this.botCtrl.updateRating(this.black, u.score(winner, 'black'), whiteRating);
-
-    if (this.script.type === 'rate')
-      this.script.games.push(...rateBotMatchup(this.botCtrl.bot(this.script.players[0])!, last));
-
+    if (this.script.type === 'rate') {
+      const uid = this.script.players[0]!;
+      const rating = this.botCtrl.get(uid)?.ratings[this.gameCtrl.speed] ?? { r: 1500, rd: 350 };
+      this.script.games.push(...rateBotMatchup(uid!, rating, last));
+    }
     if (this.testInProgress) return this.run();
     this.resetScript();
     this.redraw();
@@ -128,11 +121,11 @@ export class DevCtrl implements Automator {
     return this.gameCtrl.data.steps.length > 1 && !this.gameCtrl.status.end;
   }
 
-  private get white(): Libot | undefined {
+  private get white(): BotInfo | undefined {
     return this.botCtrl.white;
   }
 
-  private get black(): Libot | undefined {
+  private get black(): BotInfo | undefined {
     return this.botCtrl.black;
   }
 
@@ -143,7 +136,10 @@ export class DevCtrl implements Automator {
   private matchups(test: Test, iterations = 1): Matchup[] {
     const players = test.players;
     if (players.length < 2) return [];
-    if (test.type === 'rate') return rateBotMatchup(this.botCtrl.bot(players[0])!);
+    if (test.type === 'rate') {
+      const rating = this.botCtrl.get(players[0])?.ratings[this.gameCtrl.speed] ?? { r: 1500, rd: 350 };
+      return rateBotMatchup(players[0], rating);
+    }
     const games: Matchup[] = [];
     for (let it = 0; it < iterations; it++) {
       if (test.type === 'roundRobin') {

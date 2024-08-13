@@ -2,7 +2,7 @@ import { attributesModule, classModule, init } from 'snabbdom';
 import type { RoundController } from 'round';
 import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
-import { AssetDb } from './assetDb';
+import { Assets } from './assets';
 import { showSetupDialog } from './setupDialog';
 import view from './gameView';
 import type { LocalPlayOpts } from './types';
@@ -12,7 +12,7 @@ const patch = init([classModule, attributesModule]);
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
   opts.setup ??= JSON.parse(localStorage.getItem('local.setup') ?? '{}');
 
-  const botCtrl = await new BotCtrl(new AssetDb()).init(opts.bots);
+  const botCtrl = await new BotCtrl().init(opts.bots, new Assets());
   const gameCtrl = new GameCtrl(opts, botCtrl, redraw);
 
   const el = document.createElement('main');

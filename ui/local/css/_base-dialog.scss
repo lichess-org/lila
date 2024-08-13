@@ -1,10 +1,10 @@
 .base-view {
   ---white-image-url: url('/assets/lifat/bots/misc/white-torso.webp');
   ---black-image-url: url('/assets/lifat/bots/misc/black-torso.webp');
-
-  ---scale-factor: 1;
+  ---scale-factor: 1; // ---scale-factor adjusted in javascript
 
   @extend %flex-column;
+
   width: 100vw;
   height: 80vh;
   background-color: $c-body-gradient;
@@ -13,15 +13,10 @@
   @include if-transp {
     background-color: unset;
   }
-
-  @media (orientation: landscape) {
-    max-width: 1200px;
-    max-height: 800px;
-  }
 }
 
 dialog .with-cards {
-  padding: calc(2em * var(---scale-factor)); // ---scale-factor adjusted in javascript
+  padding: calc(2em * var(---scale-factor));
   padding-bottom: 0;
   flex-grow: 1;
   overflow: hidden;
@@ -35,11 +30,11 @@ dialog .with-cards {
   }
 
   .player {
+    @extend %flex-column;
     position: relative;
-    display: flex;
-    flex-direction: column;
     width: 100%;
     border-radius: 10px;
+
     &::before {
       position: absolute;
       content: '';
@@ -48,10 +43,6 @@ dialog .with-cards {
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-    }
-
-    &.drag-over {
-      outline: 2px dashed $c-primary;
     }
 
     &[data-color='white'] {

@@ -1,9 +1,9 @@
-import { PropertyAccessEntityNameExpression } from 'typescript';
 import type { NetData } from './types';
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
 
-type AssetType = 'image' | 'book' | 'sound' | 'net';
-export class AssetDb {
+export type AssetType = 'image' | 'book' | 'sound' | 'net';
+
+export class Assets {
   net: Map<string, NetData> = new Map();
   book: Map<string, OpeningBook> = new Map();
 
@@ -12,7 +12,7 @@ export class AssetDb {
   }
 
   async init(): Promise<this> {
-    // prefetch images here
+    // prefetch stuff here or in service worker install \o/
     return this;
   }
 

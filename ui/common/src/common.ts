@@ -153,7 +153,7 @@ export function as<T>(v: T, f: () => void): () => T {
 export function deepFreeze<T>(obj: T): T {
   if (obj !== null && typeof obj === 'object')
     Object.values(obj)
-      .filter(v => v && typeof v === 'object')
+      .filter(v => v !== null && typeof v === 'object')
       .forEach(o => deepFreeze(o));
   return Object.freeze(obj);
 }
@@ -181,4 +181,22 @@ export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
     result.push([arr1[i], arr2[i]]);
   }
   return result;
+}
+
+export function findMapped<T, U>(arr: T[], callback: (el: T) => U | undefined): U | undefined {
+  for (const el of arr) {
+    const result = callback(el);
+    if (result) return result;
+  }
+  return undefined;
+}
+
+export function frag<T extends Node = Node>(html: string): T {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+
+  const fragment: DocumentFragment = document.createDocumentFragment();
+  while (div.firstChild) fragment.appendChild(div.firstChild);
+
+  return (fragment.childElementCount === 1 ? fragment.firstElementChild : fragment) as unknown as T;
 }

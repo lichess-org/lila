@@ -1,11 +1,11 @@
 import * as co from 'chessops';
 import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
 import * as licon from 'common/licon';
-import { storedBooleanProp } from 'common/storage';
+import { storedBooleanProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
 import { EditDialog } from './editDialog';
-import { ZerofishBot } from '../zerofishBot';
-import { playerResults, playersWithResults } from './util';
+import { Bot } from '../bot';
+import { playerResults, playersWithResults } from './devUtil';
 import { handOfCards, type Drop, type HandOfCards } from '../handOfCards';
 import { domIdToUid, uidToDomId, type BotCtrl } from '../botCtrl';
 import type { DevCtrl } from './devCtrl';
@@ -30,7 +30,9 @@ function devContext(devCtrl: DevCtrl): DevContext {
 
 export function renderDevView(devCtrl: DevCtrl): VNode {
   const ctx = devContext(devCtrl);
-  console.log(ctx.gameCtrl.cgOrientation);
+  document
+    .querySelectorAll('div.rclock')
+    .forEach(el => el.classList.toggle('none', (ctx.gameCtrl.setup.initial ?? Infinity) === Infinity));
   return h('div.dev-side.dev-view', [
     h('div', player(ctx, co.opposite(ctx.gameCtrl.cgOrientation))),
     dashboard(ctx),
@@ -40,23 +42,25 @@ export function renderDevView(devCtrl: DevCtrl): VNode {
 }
 
 function player(ctx: DevContext, color: Color): VNode {
-  const { devCtrl, botCtrl } = ctx;
-  const p = botCtrl[color];
-  const imgUrl = botCtrl.imageUrl(p) ?? site.asset.url(`/lifat/bots/misc/${color}-torso.webp`);
+  const { devCtrl, botCtrl, gameCtrl } = ctx;
+  const p = botCtrl[color] as Bot | undefined;
+  const imgUrl = botCtrl.imageUrl(p) ?? `/assets/lifat/bots/misc/${color}-torso.webp`;
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
     black: isLight ? '.button-inverse' : '.button-metal',
   };
+  console.log(color, p?.uid);
   return h(
-    `div.${color}.player`,
+    `div.player`,
     {
+      attrs: { 'data-color': color },
       hook: onInsert(el => el.addEventListener('click', () => showBotSelector(ctx, el))),
     },
     [
       botCtrl[color] &&
-        h('button.button.button-empty.button-red.icon-btn.upper-right', {
-          attrs: { 'data-click': 'remove', 'data-icon': licon.Cancel },
+        h(`button.upper-right`, {
+          attrs: { 'data-action': 'remove', 'data-icon': licon.Cancel },
           hook: bind('click', e => {
             reset(ctx, { ...botCtrl.uids, [color]: undefined });
             e.stopPropagation();
@@ -66,7 +70,7 @@ function player(ctx: DevContext, color: Color): VNode {
       p &&
         !('level' in p) &&
         h('div.bot-actions', [
-          p instanceof ZerofishBot &&
+          p instanceof Bot &&
             h(
               'button.button' + buttonClass[color],
               {
@@ -84,7 +88,7 @@ function player(ctx: DevContext, color: Color): VNode {
             {
               hook: onInsert(el =>
                 el.addEventListener('click', e => {
-                  p.glicko = undefined;
+                  botCtrl.setRating(p.uid, gameCtrl.speed, { r: 1500, rd: 350 });
                   e.stopPropagation();
                   devCtrl.run({
                     type: 'rate',
@@ -97,8 +101,8 @@ function player(ctx: DevContext, color: Color): VNode {
           ),
         ]),
       h('div.stats', [
-        h('span.totals.strong', p?.name ? `${p.name} ${p.ratingText}` : `Player ${color}`),
-        p instanceof ZerofishBot && h('span.totals', p.statsText),
+        h('span', p?.name ? `${p.name} ${botCtrl.ratingText(p.uid, gameCtrl.speed)}` : `Player ${color}`),
+        p instanceof Bot && h('span.totals', p.statsText),
         h('span.totals', playerResults(devCtrl.log, botCtrl[color]?.uid)),
       ]),
     ],
@@ -114,24 +118,27 @@ async function editBot({ devCtrl, botCtrl }: DevContext, color: Color) {
 
 function clockOptions(ctx: DevContext) {
   return h('span', [
-    'clock',
     ...(['initial', 'increment'] as const).map(type => {
-      const val = ctx.gameCtrl.setup[type] ?? 0;
-      return h(
-        `select.${type}`,
-        {
-          hook: onInsert(el =>
-            el.addEventListener('change', () =>
-              reset(ctx, { [type]: parseInt((el as HTMLSelectElement).value) }),
+      const val = ctx.gameCtrl.setup[type] ?? (type === 'initial' ? Infinity : 0);
+      return h('label', [
+        type === 'initial' ? 'clock' : 'inc',
+        h(
+          `select.${type}`,
+          {
+            hook: onInsert(el =>
+              el.addEventListener('change', () => {
+                const newVal = Number((el as HTMLSelectElement).value);
+                reset(ctx, { [type]: newVal });
+              }),
             ),
-          ),
-        },
-        [
-          ...rangeTicks[type].map(([secs, label]) =>
-            h('option', { attrs: { value: secs, selected: secs === val } }, label),
-          ),
-        ],
-      );
+          },
+          [
+            ...rangeTicks[type].map(([secs, label]) =>
+              h('option', { attrs: { value: secs, selected: secs === val } }, label),
+            ),
+          ],
+        ),
+      ]);
     }),
   ]);
 }
@@ -139,6 +146,9 @@ function clockOptions(ctx: DevContext) {
 function reset({ gameCtrl }: DevContext, params: Partial<LocalSetup>): void {
   gameCtrl.reset(params);
   localStorage.setItem('local.dev.setup', JSON.stringify(gameCtrl.setup));
+  document
+    .querySelectorAll('div.rclock')
+    .forEach(el => el.classList.toggle('none', (gameCtrl.setup.initial ?? Infinity) === Infinity));
   gameCtrl.redraw();
 }
 
@@ -150,40 +160,27 @@ function dashboard(ctx: DevContext) {
     clockOptions(ctx),
     h('span', [
       h('div', [
-        h('label', { attrs: { title: 'instantly deduct move times and disable animations, sound' } }, [
+        h('label', { attrs: { title: 'instantly deduct bot move times. disable animations and sound' } }, [
           h('input', {
             attrs: { type: 'checkbox', checked: devCtrl.hurry },
             hook: bind('change', e => {
               devCtrl.hurry = (e.target as HTMLInputElement).checked;
-              localStorage.setItem('local.dev.hurry', devCtrl.hurry ? '1' : '0');
+              storedBooleanProp('local.dev.hurry', false)(devCtrl.hurry);
             }),
           }),
           'hurry',
         ]),
-        h(
-          'label',
-          { attrs: { title: 'make moves for either side, including bots. but premoves are disabled' } },
-          [
-            h('input', {
-              attrs: { type: 'checkbox', checked: devCtrl.sandbox },
-              hook: bind('change', e => {
-                devCtrl.sandbox = (e.target as HTMLInputElement).checked;
-                localStorage.setItem('local.dev.sandbox', devCtrl.sandbox ? '1' : '0');
-                gameCtrl.proxy.updateCg();
-              }),
-            }),
-            'sandbox',
-          ],
-        ),
       ]),
       h('label', [
         'games',
         h('input.num-games', {
-          attrs: { type: 'text', value: '1' },
+          attrs: { type: 'text', value: storedIntProp('local.dev.numGames', 1)() },
           hook: bind('input', e => {
             const el = e.target as HTMLInputElement;
             const val = Number(el.value);
-            el.classList.toggle('invalid', val < 1 || val > 1000 || isNaN(val));
+            const valid = val >= 1 && val <= 1000 && !isNaN(val);
+            el.classList.toggle('invalid', !valid);
+            if (valid) localStorage.setItem('local.dev.numGames', `${val}`);
           }),
         }),
       ]),
@@ -209,13 +206,16 @@ function dashboard(ctx: DevContext) {
 }
 
 function progress(ctx: DevContext) {
-  const { devCtrl, botCtrl } = ctx;
+  const { devCtrl, botCtrl, gameCtrl } = ctx;
   return h('div.dev-progress', [
     h(
       'div.results',
       playersWithResults(devCtrl.log).map(p => {
-        const bot = botCtrl.bot(p)!;
-        return h('div', `${bot?.name ?? p} ${bot.ratingText} ${playerResults(devCtrl.log, p)}`);
+        const bot = botCtrl.get(p)!;
+        return h(
+          'div',
+          `${bot?.name ?? p} ${botCtrl.ratingText(p, gameCtrl.speed)} ${playerResults(devCtrl.log, p)}`,
+        );
       }),
     ),
   ]);
@@ -243,7 +243,7 @@ function renderPlayPause({ devCtrl, botCtrl, gameCtrl }: DevContext): VNode {
               devCtrl.run({ type: 'matchup', players: [botCtrl.white!.uid, botCtrl.black!.uid] }, numGames);
             }
           }
-          devCtrl.gameCtrl.redraw();
+          gameCtrl.redraw();
         }),
       ),
     },
@@ -274,11 +274,11 @@ function fen(ctx: DevContext): VNode {
   });
 }
 
-function roundRobin({ devCtrl, botCtrl }: DevContext) {
+function roundRobin({ devCtrl, botCtrl, gameCtrl }: DevContext) {
   domDialog({
     class: 'round-robin-dialog',
-    htmlText: `<h2>Round robin</h2><h3>Select participants</h3>
-    <ul>${[...Object.values(botCtrl.bots), ...botCtrl.rateBots]
+    htmlText: `<h2>participants</h2>
+    <ul>${[...botCtrl.sorted(), ...botCtrl.rateBots.filter(b => b.ratings[gameCtrl.speed]!.r % 100 === 0)]
       .map(p => {
         const checked = isNaN(parseInt(p.uid.slice(1)))
           ? storedBooleanProp(`local.dev.tournament-${p.uid.slice(1)}`, true)()
@@ -286,7 +286,7 @@ function roundRobin({ devCtrl, botCtrl }: DevContext) {
         return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
           p.uid
         }">
-        <label for='${p.uid.slice(1)}'>${p.name} ${p.ratingText}</label></li>`;
+        <label for='${p.uid.slice(1)}'>${p.name} ${botCtrl.ratingText(p.uid, gameCtrl.speed)}</label></li>`;
       })
       .join('')}</ul>
     <span>Repeat: <input type="number" maxLength="3" value="1"><button class="button" id="start-tournament">Start</button></span>`,
@@ -299,7 +299,7 @@ function roundRobin({ devCtrl, botCtrl }: DevContext) {
           );
           if (participants.length < 2) return;
           const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
-          const iterations = parseInt(iterationField.value);
+          const iterations = Number(iterationField.value);
           devCtrl.run(
             {
               type: 'roundRobin',
@@ -327,26 +327,27 @@ function roundRobin({ devCtrl, botCtrl }: DevContext) {
 let botSelector: HandOfCards | undefined;
 
 function showBotSelector(ctx: DevContext, clickedEl: HTMLElement) {
+  if (botSelector) return;
   const { botCtrl, gameCtrl } = ctx;
-  const cardData = [...Object.values(botCtrl.bots).map(b => botCtrl.card(b))].filter(defined);
+  const cardData = [...botCtrl.sorted(gameCtrl.speed).map(b => botCtrl.classifiedCard(b))]
+    .filter(defined)
+    .sort(botCtrl.classifiedSort);
   const main = document.querySelector('main') as HTMLElement;
   const drops: Drop[] = [];
   main.classList.add('with-cards');
 
-  document.querySelectorAll('main .player')?.forEach(el => {
-    const selected = uidToDomId(botCtrl[el.classList.contains('white') ? 'white' : 'black']?.uid);
+  document.querySelectorAll<HTMLElement>('main .player')?.forEach(el => {
+    const selected = uidToDomId(botCtrl[el.dataset.color as Color]?.uid);
     drops.push({ el: el as HTMLElement, selected });
   });
-  gameCtrl.stop();
-  botSelector?.remove();
   botSelector = handOfCards({
-    getView: () => main,
+    view: main,
     getDrops: () => drops,
     getCardData: () => cardData,
     select: (el, domId) => {
-      const uid = domIdToUid(domId);
-      const color = (el ?? clickedEl).classList.contains('white') ? 'white' : 'black';
-      reset(ctx, { ...botCtrl.uids, [color]: uid });
+      const color = (el ?? clickedEl).dataset.color as Color;
+      gameCtrl.stop();
+      reset(ctx, { ...botCtrl.uids, [color]: domIdToUid(domId) });
     },
     onRemove: () => {
       main.classList.remove('with-cards');

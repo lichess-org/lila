@@ -1,5 +1,7 @@
-import { removeObjectProperty, setObjectProperty, maxChars } from './util';
+import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
+import { findMapped, frag } from 'common';
 import { getSchemaDefault, operatorRegex } from './schema';
+import type { EditDialog } from './editDialog';
 import type {
   PaneArgs,
   SelectInfo,
@@ -7,17 +9,16 @@ import type {
   TextareaInfo,
   NumberInfo,
   RangeInfo,
-  HostView,
   PaneInfo,
-  ObjectSelector,
+  PropertySource,
   PropertyValue,
   Requirement,
-} from './types';
+} from './devTypes';
 
 export class Pane<Info extends PaneInfo = PaneInfo> {
   input?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
   label?: HTMLLabelElement;
-  readonly host: HostView;
+  readonly host: EditDialog;
   readonly info: Info;
   readonly el: HTMLElement;
   readonly parent: Pane | undefined;
@@ -28,10 +29,10 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     this.el = document.createElement(this.isFieldset ? 'fieldset' : 'div');
     this.el.id = this.id;
     this.info.class?.forEach(c => this.el.classList.add(c));
-    this.host.ctrl.add(this);
+    this.host.panes.add(this);
     if (this.info.title) this.el.title = this.info.title;
     if (this.info.label) {
-      this.label = $as<HTMLLabelElement>(`<label><span>${this.info.label}</span></label>`);
+      this.label = frag<HTMLLabelElement>(`<label><span>${this.info.label}</span></label>`);
       if (this.info.class?.includes('setting')) this.el.appendChild(this.label);
       else {
         const header = document.createElement(this.isFieldset ? 'legend' : 'span');
@@ -48,14 +49,14 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
 
   setEnabled(enabled: boolean = this.canEnable): boolean {
     if (this.input || this.enabledCheckbox) {
-      const { ctrl: editor, view } = this.host;
+      const { panes: editor, view } = this.host;
       this.el.classList.toggle('disabled', !enabled);
 
       if (enabled) this.host.bot.disabled.delete(this.id);
       else this.host.bot.disabled.add(this.id);
 
       if (this.input && !this.input.value)
-        this.input.value = this.getStringProperty(['bot', 'default', 'schema']);
+        this.input.value = this.getStringProperty(['scratch', 'local', 'server', 'schema']);
 
       for (const kid of this.children) {
         kid.el.classList.toggle('none', !enabled);
@@ -63,7 +64,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         if (kid.isRequired) kid.update();
         else if (kid.info.type !== 'radioGroup') continue;
         const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
-        const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['default']));
+        const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['local', 'server']));
         if (active) active.update();
         else if (radios.length) radios[0].update();
       }
@@ -76,7 +77,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
           radio?.setEnabled(false);
         });
     }
-    for (const r of this.host.ctrl.dependsOn(this.id)) r.setEnabled();
+    for (const r of this.host.panes.dependsOn(this.id)) r.setEnabled();
     return enabled;
   }
 
@@ -90,23 +91,23 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     if (value === undefined) {
       if (this.paneValue) removeObjectProperty({ obj: this.host.bot, path: { id: this.id } });
     } else setObjectProperty({ obj: this.host.bot, path: { id: this.id }, value });
-    console.log('setProperty', this.id, value, this.host.bot);
   }
 
-  getProperty(sel: ObjectSelector[] = ['bot']): PropertyValue {
-    for (const s of sel) {
+  getProperty(from: PropertySource[] = ['scratch']): PropertyValue {
+    return findMapped(from, src => {
       const prop =
-        s === 'schema'
+        src === 'schema'
           ? getSchemaDefault(this.id)
-          : this.path.reduce((o, key) => o?.[key], s === 'bot' ? this.host.bot : this.host.defaultBot);
-      //if (prop !== undefined) console.log(this.id, s, prop);
-      if (prop !== undefined) return s === 'bot' ? prop : structuredClone(prop);
-    }
-    return undefined;
+          : this.path.reduce(
+              (o, key) => o?.[key],
+              src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
+            );
+      return src === 'scratch' ? prop : structuredClone(prop);
+    });
   }
 
-  getStringProperty(sel: ObjectSelector[] = ['bot']): string {
-    const prop = this.getProperty(sel);
+  getStringProperty(src: PropertySource[] = ['scratch']): string {
+    const prop = this.getProperty(src);
     return typeof prop === 'object' ? JSON.stringify(prop) : prop !== undefined ? String(prop) : '';
   }
 
@@ -119,7 +120,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   get enabled(): boolean {
-    if (this.host.bot.disabled.has(this.id)) return false;
+    if (this.isDisabled) return false;
     const kids = this.children;
     if (!kids.length) return this.isDefined && this.requirementsAllow;
     return kids.every(x => x.enabled || !x.isRequired);
@@ -150,11 +151,15 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     return this.getProperty() !== undefined;
   }
 
+  protected get isDisabled(): boolean {
+    return this.host.bot.disabled.has(this.id) || (this.parent !== undefined && this.parent.isDisabled);
+  }
+
   protected get children(): Pane[] {
     if (!this.id) return [];
-    return Object.keys(this.host.ctrl.byId)
+    return Object.keys(this.host.panes.byId)
       .filter(id => id.startsWith(this.id) && id.split('_').length === this.id.split('_').length + 1)
-      .map(id => this.host.ctrl.byId[id]);
+      .map(id => this.host.panes.byId[id]);
   }
 
   protected get isRequired(): boolean {
@@ -176,15 +181,17 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       const req = requirement.trim();
       if (req.startsWith('!')) {
         const paneId = req.slice(1).trim();
-        const pane = this.host.ctrl.byId[paneId];
+        const pane = this.host.panes.byId[paneId];
         return pane ? !pane.enabled : true;
       }
 
       const op = req.match(operatorRegex)?.[0] as string;
-
       const [left, right] = req.split(op).map(x => x.trim());
-      const maybeLeftPane = this.host.ctrl.byId[left];
-      const maybeRightPane = this.host.ctrl.byId[right];
+
+      if ([left, right].some(x => this.host.panes.byId[x]?.enabled === false)) return false;
+
+      const maybeLeftPane = this.host.panes.byId[left];
+      const maybeRightPane = this.host.panes.byId[right];
       const leftValue = maybeLeftPane ? maybeLeftPane.paneValue : left;
       const rightValue = maybeRightPane ? maybeRightPane.paneValue : right;
 
@@ -201,7 +208,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
           return Number(leftValue) <= Number(rightValue);
         case '<':
           return Number(leftValue) < Number(rightValue);
-        case undefined:
+        default:
           return maybeLeftPane?.enabled;
       }
     } else if (Array.isArray(requirement)) {
@@ -218,7 +225,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
 
   private initEnabledCheckbox() {
     if (this.radioGroup) {
-      this.enabledCheckbox = $as<HTMLInputElement>(
+      this.enabledCheckbox = frag<HTMLInputElement>(
         `<input type="radio" name="${this.radioGroup}" tabindex="-1">`,
       );
     } else if (
@@ -227,13 +234,13 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       this.info.type !== 'books' &&
       this.info.type !== 'soundEvent'
     ) {
-      this.enabledCheckbox = $as<HTMLInputElement>(`<input type="checkbox">`);
+      this.enabledCheckbox = frag<HTMLInputElement>(`<input type="checkbox">`);
     }
   }
 }
 
 export class SelectSetting extends Pane<SelectInfo> {
-  input: HTMLSelectElement = $as<HTMLSelectElement>('<select data-type="string">');
+  input: HTMLSelectElement = frag<HTMLSelectElement>('<select data-type="string">');
   constructor(p: PaneArgs) {
     super(p);
     for (const c of this.choices) {
@@ -248,7 +255,10 @@ export class SelectSetting extends Pane<SelectInfo> {
   }
   get choices(): { name: string; value: string }[] {
     if (!this.info.assetType) return this.info.choices ?? [];
-    return this.host.assetDb.all(this.info.assetType).map(x => ({ name: x, value: x }));
+    return [...this.host.assets.all(this.info.assetType).entries()].map(([key, name]) => ({
+      name,
+      value: key,
+    }));
   }
   get paneValue(): string {
     return this.input.value;
@@ -256,7 +266,7 @@ export class SelectSetting extends Pane<SelectInfo> {
 }
 
 export class TextSetting extends Pane<TextInfo> {
-  input: HTMLInputElement = $as<HTMLInputElement>(
+  input: HTMLInputElement = frag<HTMLInputElement>(
     '<input type="text" data-type="string" spellcheck="false">',
   );
   constructor(p: PaneArgs) {
@@ -269,7 +279,7 @@ export class TextSetting extends Pane<TextInfo> {
 }
 
 export class TextareaSetting extends Pane<TextareaInfo> {
-  input: HTMLTextAreaElement = $as<HTMLTextAreaElement>('<textarea data-type="string" spellcheck="false">');
+  input: HTMLTextAreaElement = frag<HTMLTextAreaElement>('<textarea data-type="string" spellcheck="false">');
   constructor(p: PaneArgs) {
     super(p);
     this.init();
@@ -281,7 +291,7 @@ export class TextareaSetting extends Pane<TextareaInfo> {
 }
 
 export class NumberSetting<Info extends NumberInfo = NumberInfo> extends Pane<Info> {
-  input: HTMLInputElement = $as<HTMLInputElement>('<input type="text" data-type="number">');
+  input: HTMLInputElement = frag<HTMLInputElement>('<input type="text" data-type="number">');
   constructor(p: PaneArgs) {
     super(p);
     this.el.appendChild(document.createElement('hr'));
@@ -308,7 +318,7 @@ export class NumberSetting<Info extends NumberInfo = NumberInfo> extends Pane<In
 }
 
 export class RangeSetting<Info extends RangeInfo = RangeInfo> extends NumberSetting<Info> {
-  rangeInput: HTMLInputElement = $as<HTMLInputElement>('<input type="range" data-type="number">');
+  rangeInput: HTMLInputElement = frag<HTMLInputElement>('<input type="range" data-type="number">');
   constructor(p: PaneArgs) {
     super(p);
     this.rangeInput.min = String(this.info.min);

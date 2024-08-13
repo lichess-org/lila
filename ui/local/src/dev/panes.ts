@@ -3,10 +3,11 @@ import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, Number
 import { OperatorPane } from './operatorPane';
 import { SoundEventPane } from './soundEventPane';
 import { BooksPane } from './booksPane';
-import type { HostView, PaneInfo, InfoKey } from './types';
+import type { EditDialog } from './editDialog';
+import type { PaneInfo, InfoKey } from './devTypes';
 import type { ActionListener, Action } from 'common/dialog';
 
-export class PaneCtrl {
+export class Panes {
   byId: { [id: string]: Pane } = {};
 
   byEl(el: Element): Pane | undefined {
@@ -33,7 +34,7 @@ export class PaneCtrl {
   get actions(): Action[] {
     return [
       { selector: '[data-type]', event: 'input', listener: this.updateProperty },
-      { selector: '[data-click]', listener: this.updateProperty },
+      { selector: '[data-action]', listener: this.updateProperty },
       { selector: 'canvas', listener: this.updateProperty },
       { selector: '.toggle', event: 'change', listener: this.toggleEnabled },
     ];
@@ -48,14 +49,13 @@ export class PaneCtrl {
   };
 
   private updateProperty: ActionListener = e => {
-    console.log('got one!', e);
     const pane = this.byEvent(e)!;
     pane.update(e);
     pane.host.update();
   };
 }
 
-export function buildFromSchema(host: HostView, path: string[], parent?: Pane): Pane {
+export function buildFromSchema(host: EditDialog, path: string[], parent?: Pane): Pane {
   const id = path.join('_');
   const iter = path.reduce<any>((acc, key) => acc[key], schema);
   const s = buildFromInfo(host, { id, ...iter }, parent);
@@ -65,7 +65,7 @@ export function buildFromSchema(host: HostView, path: string[], parent?: Pane): 
   return s;
 }
 
-function buildFromInfo(host: HostView, info: PaneInfo, parent?: Pane): Pane {
+function buildFromInfo(host: EditDialog, info: PaneInfo, parent?: Pane): Pane {
   const p = { host, info, parent };
   switch (info?.type) {
     case 'select':
@@ -88,10 +88,3 @@ function buildFromInfo(host: HostView, info: PaneInfo, parent?: Pane): Pane {
       return new Pane(p);
   }
 }
-/*
-function require(requireId: string) {
-  const [id, conf] = requireId.split(/=|\^=|$=|<|>|<=|>=/).map(x => x.trim());
-  const op = conf ? requireId.match(/=|\^=|$=|<|>|<=|>=/)![0] : undefined;
-  // stretch goal - support advanced requirements
-}
-  */

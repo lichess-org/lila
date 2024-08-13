@@ -15,4 +15,4 @@ case class GameSetup(
 
 case class BotMeta(uid: UserId, author: UserId, version: Int)
 
-type AssetType = "net" | "sound" | "image" | "book"
+type AssetType = "sound" | "image" | "book"

@@ -12,5 +12,5 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, getFile: (String => java.io.
     akka.stream.Materializer
 )(using mode: play.api.Mode, scheduler: Scheduler):
 
-  val repo = LocalRepo(coll = db(CollName("local_bots")))
+  val repo = LocalRepo(db(CollName("local_bots")), db(CollName("local_assets")))
   val api  = LocalApi(repo, getFile)

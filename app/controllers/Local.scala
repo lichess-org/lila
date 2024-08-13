@@ -28,51 +28,61 @@ final class Local(env: Env) extends LilaController(env):
         GameSetup(white, black, fen, initial, increment, optTrue(go)).some
       else none
     for
-      bots <- env.local.repo.getLatest()
-      page <- renderPage(indexPage(setup, bots, false))
+      bots <- env.local.repo.getLatestBots()
+      page <- renderPage(indexPage(setup, bots, none))
     yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
-  def dev = AuthBody: _ ?=>
-    for
-      bots <- env.local.repo.getLatest()
-      page <- renderPage(indexPage(none, bots, true))
-    yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
-
-  def assetList = Open: ctx ?=> // for service worker
-    localOk(env.local.api.assets)
-
-  def botList = Open: ctx ?=>
+  def bots = Open:
     env.local.repo
-      .getLatest()
+      .getLatestBots()
       .map: bots =>
-        localOk(Json.obj("bots" -> bots))
+        JsonOk(Json.obj("bots" -> bots))
 
-  // for bot devs
-  def botHistory = AuthBody: ctx ?=>
+  def assetKeys = Open: // for service worker
+    JsonOk(env.local.api.assetKeys)
+
+  def devIndex = AuthBody: _ ?=>
+    for
+      bots   <- env.local.repo.getLatestBots()
+      assets <- getDevAssets
+      page   <- renderPage(indexPage(none, bots, assets.some))
+    yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
+
+  def devBotHistory = AuthBody: _ ?=>
     env.local.repo
-      .getAll()
+      .getAllBots()
       .map: history =>
-        localOk(Json.obj("bots" -> history))
+        JsonOk(Json.obj("bots" -> history))
 
-  // for bot devs
-  def postBot = AuthBody(parse.json) { ctx ?=> me ?=>
-    ctx.pp.body.body
+  def devPostBot = AuthBody(parse.json) { ctx ?=> me ?=>
+    ctx.body.body
       .validate[JsObject]
       .fold(
         err => BadRequest(Json.obj("error" -> err.toString)),
         bot =>
           env.local.repo
-            .put(bot, me.userId)
+            .putBot(bot, me.userId)
             .map: updatedBot =>
-              localOk(updatedBot)
+              JsonOk(updatedBot)
       )
   }
 
-  // for bot devs
-  def postAsset(tpe: String, name: String) = Action.async(parse.multipartFormData): request =>
+  def devNameAsset(key: String, name: String) = AuthBody: _ ?=>
+    env.local.repo
+      .nameAsset(key, name)
+    fuccess(JsonOk(Json.obj("key" -> key, "name" -> name)))
+
+  def devDeleteAsset(key: String) = AuthBody: _ ?=>
+    env.local.repo
+      .deleteAsset(key)
+    fuccess(JsonOk(Json.obj("key" -> key)))
+
+  def devAssets = AuthBody: ctx ?=>
+    getDevAssets.map(JsonOk)
+
+  def devPostAsset(tpe: String, key: String, name: String) = Action.async(parse.multipartFormData): request =>
     val assetType: Option[AssetType] = tpe match
       case "image" => "image".some
-      case "net"   => "net".some
       case "book"  => "book".some
       case "sound" => "sound".some
       case _       => none
@@ -84,25 +94,43 @@ final class Local(env: Env) extends LilaController(env):
             env.local.api
               .storeAsset(tpe, name, file)
               .map:
-                case Left(error)   => InternalServerError(Json.obj("error" -> error.toString)).as(JSON)
-                case Right(assets) => localOk(assets)
+                case Left(error) => InternalServerError(Json.obj("error" -> error.toString)).as(JSON)
+                case Right(assets) =>
+                  env.local.repo.nameAsset(key, name)
+                  JsonOk(Json.obj("key" -> key, "name" -> name))
           .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
       case _ => fuccess(BadRequest(Json.obj("error" -> "bad asset type")).as(JSON))
 
-  private def indexPage(setup: Option[GameSetup], bots: JsArray, dev: Boolean)(using ctx: Context) =
+  private def indexPage(setup: Option[GameSetup], bots: JsArray, devAssets: Option[JsObject] = none)(using
+      ctx: Context
+  ) =
     given setupFormat: Format[GameSetup] = Json.format[GameSetup]
     views.local.index(
       Json
         .obj("pref" -> pref, "bots" -> bots)
         .add("setup", setup)
-        .add("assets", dev.option(env.local.api.assets)),
-      if dev then "local.dev" else "local"
+        .add("assets", devAssets),
+      if devAssets.isDefined then "local.dev" else "local"
     )
 
+  private def getDevAssets =
+    env.local.repo.getAssets.map: m =>
+      JsObject:
+        env.local.api.assetKeys
+          .as[JsObject]
+          .fields
+          .collect:
+            case (category, JsArray(keys)) =>
+              category -> JsArray:
+                keys.collect:
+                  case JsString(key) if m.contains(key) =>
+                    Json.obj("key" -> key, "name" -> m(key))
+
   private def pref(using ctx: Context) =
-    lila.pref.JsonView.write(ctx.pref, false).add("animationDuration", ctx.pref.animationMillis.some)
+    lila.pref.JsonView
+      .write(ctx.pref, false)
+      .add("animationDuration", ctx.pref.animationMillis.some)
+      .add("enablePremove", ctx.pref.premove.some)
 
   private def optTrue(s: Option[String]) =
     s.exists(v => v == "" || v == "1" || v == "true")
-
-  private def localOk(obj: JsObject) = JsonOk(obj).withHeaders("Service-Worker-Allowed" -> "/")

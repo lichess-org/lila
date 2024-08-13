@@ -1,9 +1,10 @@
 import { Pane } from './pane';
 import * as licon from 'common/licon';
+import { frag } from 'common';
 import { assetDialog } from './assetDialog';
-import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './types';
+import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './devTypes';
 import type { Sound } from '../types';
-import { removeButton } from './util';
+import { removeButton } from './devUtil';
 
 export class SoundEventPane extends Pane {
   info: SoundEventInfo;
@@ -13,11 +14,9 @@ export class SoundEventPane extends Pane {
     super(p);
     this.template = (p.parent!.info as SoundsInfo).template!;
     this.label.prepend(
-      $as<Node>(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-click="add">`),
+      frag(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
     );
-    this.label.append(
-      $as<Node>(`<span class="hide-disabled"><hr><span class="total-chance dim"></span></span>`),
-    );
+    this.label.append(frag(`<span class="hide-disabled"><hr><span class="total-chance dim"></span></span>`));
     this.value?.forEach((_, index) => this.makeSound(index));
   }
 
@@ -27,9 +26,9 @@ export class SoundEventPane extends Pane {
     if (!(e?.target instanceof HTMLElement)) return;
     const index = this.index(e);
     if (e.target.dataset.type === 'sound') this.updateField(index, e.target as HTMLInputElement);
-    else if (e.target.dataset.click === 'remove') this.removeSound(index);
-    else if (e.target.dataset.click === 'add') {
-      const s = await assetDialog(this.host.assetDb, 'sound');
+    else if (e.target.dataset.action === 'remove') this.removeSound(index);
+    else if (e.target.dataset.action === 'add') {
+      const s = await assetDialog(this.host.assets, 'sound');
       if (!s) return;
       if (!this.value) this.setProperty([]);
       this.value.push({ ...this.template.value, key: s });
@@ -50,7 +49,7 @@ export class SoundEventPane extends Pane {
 
   private makeSound(index: number) {
     const { key, chance, delay, mix } = this.value[index];
-    const soundEl = $as<Element>(`<fieldset class="sound dim">
+    const soundEl = frag<Element>(`<fieldset class="sound dim">
         ${this.fieldHtml('chance', chance, 'percentage chance of this sound being played')}
         ${this.fieldHtml('delay', delay, 'delay in seconds from event trigger')}
         ${this.fieldHtml(
@@ -59,13 +58,13 @@ export class SoundEventPane extends Pane {
           'mix controls the volume relationship between this and the standard board sound.\nvalues from 0 to 0.5 adjust this sound from mute to full.\nvalues from 0.5 to 1 adjust the standard board sound from full to mute.\nwhen either sound is played below full volume, the other is played at full.',
         )}
       </fieldset>`);
-    const buttonEl = $as<Node>(
+    const buttonEl = frag(
       `<button class="button button-empty preview-sound icon-btn" data-icon="${licon.PlayTriangle}"></button>`,
     );
-    const audioEl = $as<HTMLAudioElement>(`<audio src="${this.host.assetDb.getSoundUrl(key)}"></audio>`);
+    const audioEl = frag<HTMLAudioElement>(`<audio src="${this.host.assets.getSoundUrl(key)}"></audio>`);
     buttonEl.addEventListener('click', () => audioEl.play());
     buttonEl.appendChild(audioEl);
-    soundEl.prepend($as<Node>(`<legend>${key}</legend>`), buttonEl);
+    soundEl.prepend(frag(`<legend>${key}</legend>`), buttonEl);
     soundEl.append(removeButton());
     this.el.append(soundEl);
   }

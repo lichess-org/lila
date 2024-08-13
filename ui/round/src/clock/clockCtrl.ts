@@ -1,6 +1,6 @@
 import { updateElements } from './clockView';
 import { RoundData } from '../interfaces';
-import { playedTurns, playable, Seconds, Centis, Millis } from 'game';
+import { playedTurns, playable } from 'game';
 import * as Prefs from 'common/prefs';
 import { reducedMotion } from 'common/device';
 

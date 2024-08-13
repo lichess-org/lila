@@ -17,8 +17,8 @@ final private class LocalApi(repo: LocalRepo, getFile: (String => java.io.File))
   @volatile private var cachedAssets: Option[JsObject] = None
 
   def storeAsset(
-      tpe: "image" | "net" | "book" | "sound",
-      name: String, // already url encoded
+      tpe: "image" | "book" | "sound",
+      name: String,
       file: MultipartFormData.FilePart[Files.TemporaryFile]
   ): Fu[Either[String, JsObject]] =
     FileIO
@@ -30,20 +30,20 @@ final private class LocalApi(repo: LocalRepo, getFile: (String => java.io.File))
       .recover:
         case e: Exception => Left(s"Exception: ${e.getMessage}")
 
-  def assets: JsObject = cachedAssets.getOrElse(updateAssets)
+  def assetKeys: JsObject = cachedAssets.getOrElse(updateAssets)
 
-  private def listAssets(tpe: String): List[String] =
+  private def listFiles(tpe: String): List[String] =
     getFile(s"public/lifat/bots/${tpe}s")
       .listFiles()
       .toList
-      .flatMap(f => lila.common.String.decodeUriPath(f.getName))
+      .map(_.getName)
 
   def updateAssets: JsObject =
     val newAssets = Json.obj(
-      "image" -> listAssets("image"),
-      "net"   -> listAssets("net"),
-      "sound" -> listAssets("sound"),
-      "book" -> listAssets("book")
+      "image" -> listFiles("image"),
+      "net"   -> listFiles("net"),
+      "sound" -> listFiles("sound"),
+      "book" -> listFiles("book")
         .filter(_.endsWith(".bin"))
         .map(_.dropRight(4))
     )

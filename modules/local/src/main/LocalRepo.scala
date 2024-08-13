@@ -8,12 +8,12 @@ import play.api.libs.json.*
 
 import lila.db.dsl.{ *, given }
 
-final private class LocalRepo(private[local] val coll: Coll)(using Executor):
-  given handler: BSONDocumentHandler[BotMeta] = Macros.handler
-  given Format[BotMeta]                       = Json.format
+final private class LocalRepo(private[local] val bots: Coll, private[local] val assets: Coll)(using Executor):
+  // given botMetaHandler: BSONDocumentHandler[BotMeta] = Macros.handler
+  given Format[BotMeta] = Json.format
 
-  def getAll(): Fu[JsArray] =
-    coll
+  def getAllBots(): Fu[JsArray] =
+    bots
       .find($doc(), $doc("_id" -> 0).some)
       .sort($doc("version" -> -1))
       .cursor[Bdoc]()
@@ -21,8 +21,8 @@ final private class LocalRepo(private[local] val coll: Coll)(using Executor):
       .map: docs =>
         JsArray(docs.map(JSON.jval))
 
-  def getLatest(): Fu[JsArray] =
-    coll
+  def getLatestBots(): Fu[JsArray] =
+    bots
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
@@ -34,17 +34,38 @@ final private class LocalRepo(private[local] val coll: Coll)(using Executor):
       .list(Int.MaxValue)
       .map: docs =>
         JsArray(docs.flatMap(JSON.jval(_).asOpt[JsObject]))
-//
-  def put(bot: JsObject, author: UserId): Fu[JsObject] =
+
+  def putBot(bot: JsObject, author: UserId): Fu[JsObject] =
     val botId = (bot \ "uid").as[UserId]
     for
-      nextVersion <- coll
+      nextVersion <- bots
         .find($doc("uid" -> botId))
         .sort($doc("version" -> -1))
         .one[Bdoc]
         .map(_.flatMap(_.getAsOpt[Int]("version")).getOrElse(-1) + 1) // race condition
       botMeta = BotMeta(botId, author, nextVersion)
       newBot  = bot ++ Json.toJson(botMeta).as[JsObject]
-      _ <- coll.insert.one(JSON.bdoc(newBot))
+      _ <- bots.insert.one(JSON.bdoc(newBot))
     yield newBot
+
+  def getAssets: Fu[Map[String, String]] =
+    assets
+      .find($doc())
+      .cursor[Bdoc]()
+      .list(Int.MaxValue)
+      .map { docs =>
+        docs.flatMap { doc =>
+          for
+            id   <- doc.getAsOpt[String]("_id")
+            name <- doc.getAsOpt[String]("name")
+          yield id -> name
+        }.toMap
+      }
+
+  def nameAsset(key: String, name: String): Funit =
+    assets.update.one($doc("_id" -> key), $doc("$set" -> $doc("name" -> name)), upsert = true).void
+
+  def deleteAsset(key: String): Funit =
+    assets.delete.one($doc("_id" -> key)).void
+
 end LocalRepo

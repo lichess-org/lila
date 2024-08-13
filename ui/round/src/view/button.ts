@@ -254,7 +254,7 @@ export function followUp(ctrl: RoundController): VNode {
     d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, ctrl.noarg('viewTournament')),
     newable &&
       h(
-        'button.fbt',
+        'button.fbt.new-opponent',
         {
           hook: bind('click', () => {
             if (d.game.source === 'local') ctrl.opts.local?.newOpponent();

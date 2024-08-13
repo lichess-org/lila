@@ -1,51 +1,55 @@
-import { ZerofishBotInfo } from '../types';
-import { BotCtrl } from '../botCtrl';
-import { DevRepo } from './devRepo';
-
-export type ShareType = 'image' | 'book' | 'sound';
-export type AssetBlob = { type: ShareType; key: string; blob: Promise<Blob> };
+import type { BotInfo } from '../types';
+import type { BotCtrl } from '../botCtrl';
+import { defined } from 'common';
+import type { DevAssets, AssetBlob, AssetType } from './devAssets';
 
 export class ShareCtrl {
-  private db: DevRepo;
+  readonly user: string = document.body.getAttribute('data-user') ?? 'Anonymous';
 
-  constructor(readonly botCtrl: BotCtrl) {
-    this.db = botCtrl.assetDb as DevRepo;
+  constructor(readonly botCtrl: BotCtrl) {}
+
+  get assets(): DevAssets {
+    return this.botCtrl.assets as DevAssets;
   }
-
-  async postBot(bot: ZerofishBotInfo, progress?: (e: ProgressEvent, key: string) => void): Promise<boolean> {
-    const localBlobs: AssetBlob[] = [];
-    if (bot.image && this.db.local('image').includes(bot.image))
-      localBlobs.push({ type: 'image', key: bot.image, blob: this.db.blob('image', bot.image) });
-    const soundKeys = [
-      ...new Set<string>(
-        Object.values(bot.sounds ?? {})
-          .flat()
-          .map(s => s.key),
-      ),
-    ];
-    soundKeys.forEach(key => localBlobs.push({ type: 'sound', key, blob: this.db.blob('sound', key) }));
-    for (const book of (bot.books ?? []).filter(b => this.db.local('book').includes(b.name))) {
-      localBlobs.push({ type: 'book', key: `${book.name}.bin`, blob: this.db.blob('book', book.name) });
-      localBlobs.push({ type: 'book', key: `${book.name}.png`, blob: this.db.blob('bookCover', book.name) });
+  async postBot(bot: BotInfo, progress?: (e: ProgressEvent, key: string) => void): Promise<boolean> {
+    const localBlobs: (AssetBlob | undefined)[] = [];
+    if (bot.image) localBlobs.push(this.assets.assetBlob('image', bot.image));
+    for (const key of new Set(
+      Object.values(bot.sounds ?? {})
+        .flat()
+        .map(s => s.key),
+    )) {
+      localBlobs.push(this.assets.assetBlob('sound', key));
     }
+    for (const book of (bot.books ?? []).map(b => this.assets.assetBlob('book', b.key))) {
+      if (!book) continue;
+      localBlobs.push({ ...book, key: `${book.key}.bin` });
+      const bookCover = this.assets.assetBlob('bookCover', book.key);
+      if (!bookCover) continue;
+      localBlobs.push({ ...bookCover, key: `${book.key}.png` });
+    }
+
     try {
-      await Promise.all(localBlobs.map(b => this.postAsset(b, progress)));
-      const bots = await fetch('/local/dev/bot', {
+      await Promise.all(localBlobs.map(b => b && this.postAsset(b, progress)));
+      const res = await fetch('/local/dev/bot', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bot),
-      }).then(res => res.json());
-      const deletes: { type: ShareType; key: string }[] = [];
-      for (const b of localBlobs.filter(b => b.type !== 'book' || b.key.endsWith('.bin'))) {
-        if (b.type === 'book') b.key = b.key.slice(0, -4); // books are 2 assets but we prefer to treat as 1
-        deletes.push(b);
+      });
+      if (!res.ok) throw new Error(res.statusText);
+
+      const clearLocals: { type: AssetType; key: string }[] = [];
+      for (const b of localBlobs.filter(defined)) {
+        if (b.type === 'book' || b.type === 'bookCover') b.key = b.key.slice(0, -4);
+        clearLocals.push(b);
       }
-      await Promise.all(deletes.map(b => this.db.delete(b.type, b.key)));
+      await Promise.all(clearLocals.map(b => this.assets.clearLocal(b.type, b.key)));
       return true;
     } catch (x) {
       console.error('share failed', x);
       return false;
     }
+    return false;
   }
 
   async deleteBot(uid: string): Promise<void> {
@@ -54,18 +58,17 @@ export class ShareCtrl {
     }
   }
 
-  private postAsset = (
-    { type, key, blob }: AssetBlob,
+  postAsset(
+    { type, key, name, blob }: AssetBlob,
     progress?: (e: ProgressEvent, key: string) => void,
-  ): Promise<any> => {
+  ): Promise<any> {
+    console.log('postAsset', type, key, name);
     return new Promise((resolve, reject) =>
       blob
         .then(file => {
           const formData = new FormData();
           formData.append('file', file);
-          const url = new URL('/local/dev/asset', window.location.origin);
-          url.searchParams.set('tpe', type);
-          url.searchParams.set('name', encodeURIComponent(key));
+          const url = new URL(`/local/dev/asset/new/${type}/${key}/${name}`, window.location.origin);
           const xhr = new XMLHttpRequest();
           xhr.open('POST', url, true);
 
@@ -81,7 +84,7 @@ export class ShareCtrl {
             if (xhr.status === 200) {
               const rsp = JSON.parse(xhr.responseText);
               console.log('upload successful:', rsp);
-              this.db.update(rsp);
+              //this.assets.update(rsp);
               resolve(rsp);
             } else {
               console.error('upload failed');
@@ -100,5 +103,5 @@ export class ShareCtrl {
           reject(x);
         }),
     );
-  };
+  }
 }

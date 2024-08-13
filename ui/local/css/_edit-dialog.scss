@@ -8,11 +8,10 @@
 }
 
 .edit-view {
-  background-color: $c-bg-zebra;
-  height: min-content;
-  max-height: unset;
+  height: 90vh;
   max-width: min(1600px, 96vw);
   padding-bottom: 0;
+  background-color: $c-bg-zebra;
 
   button {
     padding: 0.8em 0.8em;
@@ -28,7 +27,6 @@
   }
   label {
     @extend %flex-center-nowrap;
-    white-space: nowrap;
     flex: initial;
     gap: 12px;
   }
@@ -36,16 +34,14 @@
     min-height: 300px;
   }
   fieldset {
-    display: flex;
-    flex-direction: column;
+    @extend %flex-column;
     align-items: stretch;
     border: 1px solid $c-border;
     border-radius: $box-radius-size;
     padding: 0.75em 0 1em;
     row-gap: 0.5em;
     > div {
-      display: flex;
-      flex-direction: column;
+      @extend %flex-column;
       align-items: stretch;
       row-gap: 0.5em;
     }
@@ -66,36 +62,78 @@
       font-weight: bold;
     }
   }
-}
+  .deck {
+    @extend %flex-between-nowrap;
+    grid-area: deck;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 
-.deck {
-  position: absolute;
-  z-index: $z-above-dialog-14;
-  left: 2em;
-  bottom: 4em;
-  width: 192px;
-  height: 192px;
-  &.fanout {
-    z-index: $z-dialog-11;
+    .placeholder {
+      height: 100%;
+      aspect-ratio: 1/1;
+    }
+  }
+  .deck-legend {
+    padding: 0.5em;
+    row-gap: 0;
+    label {
+      @extend %flex-around;
+      flex-wrap: nowrap;
+      font-size: 12px;
+      padding: 4px 12px;
+      color: black;
+      position: relative;
+      height: 32px;
+    }
   }
 }
 
 .edit-bot {
-  @extend %flex-column;
   display: grid;
-  height: calc(max(45vh, 400px) + $card-height + $chin-height);
-  grid-template-columns: min(36vh, 30vw) min(480px, 33vw) 1fr;
-  grid-template-rows: 1fr calc(160px * var(---scale-factor)) auto;
-  grid-template-areas: 'a b c' '. b c' '. d d';
+  height: 100%;
   column-gap: 1em;
+  grid-template-columns: min(36vh, 30vw) min(480px, 33vw) 1fr;
+  grid-template-rows: 74% auto fit-content(0);
+  grid-template-areas:
+    'info sources operators'
+    'deck sources operators'
+    'deck actions actions';
+
+  [data-bot-action='unrate-one'] {
+    color: $c-brag;
+    padding: 0;
+    background: none;
+    border: none;
+    outline: none;
+    &:hover {
+      color: $c-bad;
+    }
+  }
+  [data-action='remove'] {
+    cursor: pointer;
+    color: $c-bad;
+    &:hover {
+      color: $m-bad--lighten-11;
+    }
+  }
+  [data-action='add'] {
+    cursor: pointer;
+    color: $c-secondary;
+    &:hover {
+      color: $m-secondary--lighten-11;
+    }
+    &.disabled {
+      color: $c-border;
+      pointer-events: none;
+    }
+  }
 
   .bot-card {
-    display: flex;
-    overflow-y: hidden;
-    flex-direction: column;
+    @extend %flex-column;
     border-radius: 10px;
     gap: 1em;
-    grid-area: a;
+    grid-area: info;
 
     div {
       padding: 0;
@@ -115,6 +153,7 @@
       ---scale-factor: 0.7;
       aspect-ratio: 1/1;
       cursor: pointer;
+      background-color: $c-bg-zebra2;
     }
     .placard {
       padding: 0;
@@ -123,33 +162,8 @@
       background: none;
     }
   }
-  .bot-unrate-one {
-    color: $m-primary_font--mix-70;
-    &:hover {
-      background-color: $m-bg_bad--mix-80;
-      color: $c-bad;
-    }
-  }
-  [data-click='remove'] {
-    cursor: pointer;
-    color: $c-bad;
-    &:hover {
-      color: $m-bad--lighten-11;
-    }
-  }
-  [data-click='add'] {
-    cursor: pointer;
-    color: $c-secondary;
-    &:hover {
-      color: $m-secondary--lighten-11;
-    }
-    &.disabled {
-      color: $c-border;
-      pointer-events: none;
-    }
-  }
   .bot-actions {
-    display: flex;
+    @extend %flex-wrap;
     justify-content: end;
     align-items: start;
     gap: 1em;
@@ -167,11 +181,9 @@
     }
   }
   .setting {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
     padding: 0 1em;
-    display: flex;
     width: 100%;
-    flex-flow: row nowrap;
     gap: 1em;
     input[data-type] {
       width: 60px;
@@ -229,22 +241,20 @@
   }
   .sources {
     @extend %flex-column;
-    grid-area: b;
+    grid-area: sources;
     padding: 0 1em;
     min-width: 300px;
     justify-content: start;
     gap: 1em;
   }
   .operators {
-    display: flex;
-    flex-direction: column;
+    @extend %flex-column;
     min-width: 0;
     gap: 1em;
-    grid-area: c;
+    grid-area: operators;
   }
   .operator {
-    display: flex;
-    flex-direction: column;
+    @extend %flex-column;
     border-radius: $box-radius-size;
     label {
       flex-flow: row nowrap;
@@ -301,74 +311,10 @@
     }
   }
   .global-actions {
-    padding: 1em 0;
-    grid-area: d;
     display: flex;
     justify-content: end;
+    padding: 1em 0;
+    grid-area: actions;
     gap: 1em;
-  }
-}
-
-.asset-dialog {
-  @extend %flex-column;
-  min-width: 704px;
-  .asset-grid {
-    display: grid;
-    max-width: 70vw;
-    width: fit-content;
-    grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
-    grid-auto-rows: auto;
-    gap: 1em;
-  }
-  .tab {
-    justify-content: center;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  img {
-    width: 192px;
-    aspect-ratio: 1/1;
-    border-radius: 8px;
-  }
-  .asset-item {
-    @extend %flex-column;
-    position: relative;
-    align-items: center;
-    gap: 0.5em;
-    padding: 1.2em;
-    border-radius: 8px;
-    background: $c-bg-high;
-    box-shadow: 0 0 5px 0 $c-border;
-    .asset-preview {
-      width: min-content;
-    }
-    .upper-right {
-      z-index: $z-above-dialog-14;
-      top: -4px;
-      right: -4px;
-    }
-    .asset-label {
-      font-size: 0.9em;
-      font-weight: bold;
-    }
-    .preview-sound {
-      @extend %flex-center-nowrap;
-      text-transform: none;
-      color: $c-font-dim;
-      &::before {
-        margin-inline-end: 0.5em;
-        font-size: 24px;
-      }
-    }
-  }
-  .chooser .asset-item,
-  .asset-item[data-click='add'] {
-    &:hover {
-      cursor: pointer;
-    }
-    &:hover:not(:has(button:hover)) {
-      background: $m-bg_high--lighten-11;
-      outline: $c-primary 2px dashed;
-    }
   }
 }

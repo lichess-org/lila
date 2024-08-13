@@ -7,7 +7,7 @@ import { defined } from 'common';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { type GameCtrl } from './gameCtrl';
 import { rangeTicks } from './gameView';
-import type { Libots, BotInfo, LocalSetup } from './types';
+import type { LocalSetup } from './types';
 
 export function showSetupDialog(botCtrl: BotCtrl, setup: LocalSetup = {}, gameCtrl?: GameCtrl): void {
   new SetupDialog(botCtrl, setup, gameCtrl);
@@ -73,13 +73,16 @@ class SetupDialog {
       this.dialog = dlg;
       this.view = dlg.view.querySelector('.with-cards')!;
       this.setPlayerColor(this.setup.black ? 'white' : this.setup.white ? 'black' : 'white');
-      const cardData = [...Object.values(this.botCtrl.bots).map(b => this.botCtrl.card(b))].filter(defined);
+      const cardData = this.botCtrl
+        .sorted('classical')
+        .map(b => this.botCtrl.card(b))
+        .filter(defined);
       this.hand = handOfCards({
-        getView: () => this.view,
+        getCardData: () => cardData,
         getDrops: () => [
           { el: this.view.querySelector('.player')!, selected: uidToDomId(this.setup[this.botColor]) },
         ],
-        getCardData: () => cardData,
+        view: this.view,
         select: this.dropSelect,
         orientation: 'bottom',
       });
@@ -117,7 +120,7 @@ class SetupDialog {
   };
 
   private select(selection?: string) {
-    const bot = selection ? this.botCtrl.bots[selection] : undefined;
+    const bot = this.botCtrl.get(selection);
     const placard = this.view.querySelector('.placard') as HTMLElement;
     placard.textContent = bot?.description ?? '';
     placard.classList.toggle('none', !bot);

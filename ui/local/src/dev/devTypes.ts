@@ -1,28 +1,18 @@
 import type { BotInfo, Operator, Book, SoundEvent, Sound as NamedSound } from '../types';
-import type { PaneCtrl } from './paneCtrl';
 import type { Pane } from './pane';
-import type { AssetType, DevRepo } from './devRepo';
-import type { ZerofishBot } from '../zerofishBot';
+import type { AssetType } from './devAssets';
+import type { EditDialog } from './editDialog';
+import type { Bot } from '../bot';
 
 export type Sound = Omit<NamedSound, 'key'>;
 
-export interface BotInfoReader extends BotInfo {
+export interface ReadableBot extends BotInfo {
   readonly [key: string]: any;
 }
 
-export interface ZerofishBotEditor extends ZerofishBot {
+export interface WritableBot extends Bot {
   [key: string]: any;
   disabled: Set<string>;
-}
-
-export interface HostView {
-  readonly view: HTMLElement;
-  readonly ctrl: PaneCtrl;
-  readonly bot: ZerofishBotEditor;
-  readonly defaultBot: BotInfoReader;
-  readonly assetDb: DevRepo;
-  readonly cleanups: (() => void)[];
-  update(): void;
 }
 
 export interface Template<T extends object = any> {
@@ -131,8 +121,8 @@ export interface Schema extends PaneInfo {
   type?: undefined | 'group' | 'radioGroup';
 }
 
-export type PaneArgs = { host: HostView; info: PaneInfo; parent?: Pane };
+export type PaneArgs = { host: EditDialog; info: PaneInfo; parent?: Pane };
 
-export type ObjectSelector = 'bot' | 'default' | 'schema';
+export type PropertySource = 'scratch' | 'local' | 'server' | 'schema';
 
 export type Requirement = string | { and: Requirement[] } | { or: Requirement[] };

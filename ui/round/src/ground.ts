@@ -14,7 +14,6 @@ export function makeConfig(ctrl: RoundController): Config {
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying();
-  console.log(data.pref);
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),

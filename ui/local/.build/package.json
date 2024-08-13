@@ -1,0 +1,17 @@
+{
+  "name": "make-bots",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "bots.js",
+  "type": "commonjs",
+  "scripts": {
+    "json": "tsc && node dist/bots.js",
+    "mongo": "pnpm json && bin/import.sh --drop"
+  },
+  "keywords": [],
+  "author": "T-Bone Duplexus",
+  "license": "GPL-3.0"
+}

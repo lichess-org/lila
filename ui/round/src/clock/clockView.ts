@@ -46,7 +46,7 @@ const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 const sepHigh = '<sep>:</sep>';
 const sepLow = '<sep class="low">:</sep>';
 
-function formatClockTime(time: game.Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
+function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
   const date = new Date(time);
   if (nvui)
     return (
@@ -111,7 +111,7 @@ function showBar(ctrl: RoundController, color: Color) {
   });
 }
 
-export function updateElements(clock: ClockController, els: ClockElements, millis: game.Millis): void {
+export function updateElements(clock: ClockController, els: ClockElements, millis: Millis): void {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock) {

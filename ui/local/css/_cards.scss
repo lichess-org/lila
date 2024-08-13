@@ -9,7 +9,7 @@
     left: 0;
     border-radius: 6px;
     background-color: #f0f0f0;
-    border: 1px solid $c-border;
+    border: 1px solid gray;
     transition:
       transform 0.3s,
       background-color 0.2s;
@@ -21,15 +21,10 @@
       font-size: 1.3em;
       text-align: center;
       position: absolute;
-      top: -1.5em;
+      top: -32px;
       left: 0;
       right: 0;
       display: none;
-    }
-    &.pull:not(&.selected) {
-      label {
-        display: block;
-      }
     }
     &.dragging {
       transition: none;
@@ -38,10 +33,24 @@
       pointer-events: none;
       border: none;
     }
+    &.pull:not(&.selected) {
+      label {
+        display: block;
+      }
+    }
+  }
+
+  .card-container {
+    position: absolute;
+    overflow: visible;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
   }
 }
 
-.with-cards.no-capture .card {
+.with-cards.no-transition .card {
   transition: none;
 }
 

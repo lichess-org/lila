@@ -1,7 +1,7 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import { GameCtrl } from '../gameCtrl';
 import { DevCtrl } from './devCtrl';
-import { DevRepo, AssetList } from './devRepo';
+import { DevAssets, AssetList } from './devAssets';
 import { renderDevView } from './devView';
 import { BotCtrl } from '../botCtrl';
 import { ShareCtrl } from './shareCtrl';
@@ -21,13 +21,11 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
 
   opts.setup ??= JSON.parse(localStorage.getItem('local.dev.setup') ?? '{}');
 
-  const devRepo = new DevRepo(opts.assets);
-  const botCtrl = new BotCtrl(devRepo);
-  devRepo.share = new ShareCtrl(botCtrl);
-  await botCtrl.init(opts.bots);
-
-  const gameCtrl = new GameCtrl(opts, botCtrl, redraw, 'local-dev');
-  const devCtrl = new DevCtrl(gameCtrl, redraw);
+  const botCtrl = new BotCtrl();
+  const assetRepo = new DevAssets(opts.assets, new ShareCtrl(botCtrl));
+  await botCtrl.init(opts.bots, assetRepo);
+  const devCtrl = new DevCtrl(redraw);
+  const gameCtrl = new GameCtrl(opts, botCtrl, redraw, devCtrl);
 
   const el = document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);

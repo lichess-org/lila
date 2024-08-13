@@ -1,12 +1,13 @@
-import { domDialog, type Dialog } from 'common/dialog';
-import { DevRepo } from './devRepo';
+import { domDialog, alert, type Dialog } from 'common/dialog';
+import { DevAssets } from './devAssets';
+import { frag } from 'common';
 import * as licon from 'common/licon';
-import { removeButton } from './util';
+import { removeButton } from './devUtil';
 import { wireCropDialog } from 'bits/crop';
 
 type AssetType = 'image' | 'book' | 'sound';
 
-export function assetDialog(db: DevRepo, type?: AssetType): Promise<string | undefined> {
+export function assetDialog(db: DevAssets, type?: AssetType): Promise<string | undefined> {
   if (!type || type === 'image') wireCropDialog();
   return new AssetDialog(db, type).show();
 }
@@ -24,7 +25,7 @@ class AssetDialog {
   private isChooser: boolean;
 
   constructor(
-    readonly db: DevRepo,
+    readonly assets: DevAssets,
     type?: AssetType,
   ) {
     this.isChooser = type !== undefined;
@@ -35,16 +36,20 @@ class AssetDialog {
     return this.categories[this.type];
   }
 
-  get remote() {
-    return this.db.remote?.[this.type];
-  }
-
   get tab() {
     return this.type;
   }
 
   get local() {
-    return this.db.local(this.type);
+    return this.assets.localNames(this.type);
+  }
+
+  get server() {
+    return this.assets.serverNames(this.type);
+  }
+
+  get user() {
+    return this.assets.user;
   }
 
   show(): Promise<string | undefined> {
@@ -62,19 +67,20 @@ class AssetDialog {
           onClose: () => this.resolve?.(undefined),
           actions: [
             { selector: '.asset-grid', event: ['dragover', 'drop'], listener: this.dragDrop },
-            { selector: '[data-click="add"]', listener: this.addItem },
-            { selector: '[data-click="remove"]', listener: this.remove },
+            { selector: '[data-action="add"]', listener: this.addItem },
+            { selector: '[data-action="remove"]', listener: this.remove },
+            { selector: '[data-action="share"]', listener: this.share },
             { selector: '.asset-item', listener: this.clickItem },
             { selector: '.tab', listener: this.clickTab },
           ],
         });
         this.refresh();
-        this.dlg.showModal();
+        this.dlg.show();
       })(),
     );
   }
 
-  bodyHtml = () => {
+  bodyHtml() {
     if (this.isChooser) return `<div class="asset-grid chooser"></div>`;
     return `<div class="tabs-horiz" role="tabList">
       <span class="tab ${this.type === 'image' ? 'active' : ''}" role="tab">images</span>
@@ -82,17 +88,35 @@ class AssetDialog {
       <span class="tab ${this.type === 'book' ? 'active' : ''}" role="tab">books</span>
       </div>
       <div class="asset-grid"></div>`;
-  };
+  }
 
-  renderAsset = (key: string) => {
-    const wrap = $as<HTMLElement>(`<div class="asset-item" data-asset="${key}">
+  renderAsset([key, name]: [string, string]) {
+    const wrap = frag<HTMLElement>(`<div class="asset-item" data-asset="${key}">
         <div class="asset-preview"></div>
-        <div class="asset-label">${key}</div>
+        <div class="asset-label">${name}</div>
       </div>`);
-    if (!this.isChooser) wrap.prepend(removeButton('upper-right'));
+    if (!this.isChooser) {
+      wrap.prepend(
+        frag(
+          `<button class="button button-empty icon-btn upper-left" tabindex="0" data-icon="${licon.UploadCloud}" data-action="share">`,
+        ),
+      );
+      wrap.prepend(removeButton('upper-right'));
+    }
     wrap.querySelector('.asset-preview')!.prepend(this.active.preview(key));
     return wrap;
-  };
+  }
+
+  refresh(): void {
+    const grid = this.dlg.view.querySelector('.asset-grid') as HTMLElement;
+    grid.innerHTML = `<div class="asset-item" data-action="add">
+        <div class="asset-preview">${this.active.placeholder}</div>
+        <div class="asset-label">Add new ${this.type}</div>
+      </div></div>`;
+    this.local.forEach((name, key) => grid.append(this.renderAsset([key, name])));
+    if (this.isChooser) this.server.forEach((name, key) => grid.append(this.renderAsset([key, name])));
+    this.dlg.updateActions();
+  }
 
   dragDrop = (e: DragEvent): void => {
     e.preventDefault();
@@ -102,8 +126,8 @@ class AssetDialog {
     }
     const files = e.dataTransfer?.files;
     if (files && files.length > 0) {
-      this.active.process(files[0], async (newKey: string, result: Blob) => {
-        await this.db.add(this.type, newKey, result);
+      this.active.process(files[0], async (key: string, result: Blob) => {
+        const newKey = await this.assets.add(this.type, key, result);
         if (this.resolve) this.resolve(newKey);
         else this.refresh();
       });
@@ -114,8 +138,48 @@ class AssetDialog {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item')!;
     const key = el.getAttribute('data-asset')!;
-    await this.db.delete(this.type, key);
+    await this.assets.delete(this.type, key);
     this.refresh();
+  };
+
+  share = async (e: Event): Promise<string | undefined> => {
+    console.log('fuuuu');
+    e.stopPropagation();
+    const el = (e.currentTarget as Element).closest('.asset-item') as HTMLElement;
+    const key = el.dataset.asset!;
+    const name = this.local.get(key) ?? key;
+    const assetName = (
+      await domDialog({
+        class: 'alert',
+        htmlText: `<div>share as: <input type="text" value="${name}"></div>
+        <span><button class="button">upload</button></span>`,
+        actions: {
+          selector: 'button',
+          listener: async (_, dlg) => {
+            const name = (dlg.view.querySelector('input') as HTMLInputElement).value;
+            if (!name) dlg.close();
+            if (name.includes('/')) return alert('name cannot contain /');
+            const fullname = name; //`${this.user}/${name}${ext ? '.' + ext : ''}`;
+            if ([...this.server.values()].includes(fullname)) {
+              await alert('that name is already used.');
+              return;
+            }
+            dlg.close(fullname);
+          },
+        },
+        show: true,
+      })
+    ).returnValue;
+    if (!assetName || assetName === 'cancel') return key;
+    try {
+      await this.assets.shareCtrl.postAsset({ ...this.assets.assetBlob(this.type, key)!, name: assetName });
+      if (assetName !== name) await this.assets.rename(this.type, name, assetName);
+    } catch (x) {
+      console.error('share failed', x);
+      return undefined;
+    }
+    this.refresh();
+    return assetName;
   };
 
   clickTab = (e: Event): void => {
@@ -132,7 +196,6 @@ class AssetDialog {
     const item = (e.currentTarget as HTMLElement).closest('.asset-item') as HTMLElement;
     const oldKey = item?.getAttribute('data-asset');
     if (oldKey && this.isChooser) return this.resolve?.(oldKey);
-    else if (!oldKey) this.addItem();
   };
 
   addItem = () => {
@@ -143,8 +206,8 @@ class AssetDialog {
     const onchange = () => {
       fileInputEl.removeEventListener('change', onchange);
       if (!fileInputEl.files || fileInputEl.files.length < 1) return;
-      this.active.process(fileInputEl.files[0], async (newKey: string, result: Blob) => {
-        await this.db.add(this.type, newKey, result);
+      this.active.process(fileInputEl.files[0], async (key: string, result: Blob) => {
+        const newKey = await this.assets.add(this.type, key, result);
         if (this.resolve) this.resolve(newKey);
         else this.refresh();
       });
@@ -155,23 +218,11 @@ class AssetDialog {
     fileInputEl.remove();
   };
 
-  refresh(): void {
-    const grid = this.dlg.view.querySelector('.asset-grid') as HTMLElement;
-    grid.innerHTML = `<div class="asset-item" data-click="add">
-        <div class="asset-preview">${this.active.placeholder}</div>
-        <div class="asset-label">Add new ${this.type}</div>
-      </div></div>`;
-    this.local.forEach(asset => grid.append(this.renderAsset(asset)));
-    if (this.isChooser) this.remote?.forEach(asset => grid.append(this.renderAsset(asset)));
-    this.dlg.updateActions();
-  }
-
   categories = {
     image: {
-      placeholder: '<img src="/assets/lifat/bots/images/black-torso.webp">',
-      preview: (key: string) => $as<HTMLElement>(`<img src="${this.db.getImageUrl(key)}">`),
+      placeholder: '<img src="/assets/lifat/bots/images/gray-torso.webp">',
+      preview: (key: string) => frag<HTMLElement>(`<img src="${this.assets.getImageUrl(key)}">`),
       process: (file: File, onSuccess: (key: string, result: Blob) => void) => {
-        //if (this.isChooser && item) return onSuccess(file.name, file);
         site.asset.loadEsm('bits.cropDialog', {
           init: {
             aspectRatio: 1,
@@ -179,7 +230,7 @@ class AssetDialog {
             max: { megabytes: 0.05, pixels: 500 },
             onCropped: (r: Blob | boolean) => {
               if (!(r instanceof Blob)) return;
-              this.db.add(this.type, file.name, r).then(() => onSuccess(file.name, r));
+              this.assets.add(this.type, file.name, r).then(() => onSuccess(file.name, r));
             },
           },
         });
@@ -188,9 +239,9 @@ class AssetDialog {
     book: {
       placeholder: '',
       preview: (key: string) => {
-        const divEl = $as<HTMLElement>(`<div></div>`);
-        const imgEl = $as<HTMLImageElement>('<img>');
-        imgEl.src = this.db.getBookCoverUrl(key);
+        const divEl = document.createElement('div');
+        const imgEl = document.createElement('img');
+        imgEl.src = this.assets.getBookCoverUrl(key);
         divEl.append(imgEl);
         return divEl;
       },
@@ -201,9 +252,9 @@ class AssetDialog {
     sound: {
       placeholder: '',
       preview: (key: string) => {
-        const soundEl = $as<Element>('<span></span>');
-        const audioEl = $as<HTMLAudioElement>(`<audio src="${this.db.getSoundUrl(key)}"></audio>`);
-        const buttonEl = $as<Node>(
+        const soundEl = document.createElement('span');
+        const audioEl = frag<HTMLAudioElement>(`<audio src="${this.assets.getSoundUrl(key)}"></audio>`);
+        const buttonEl = frag<Node>(
           `<button class="button button-empty preview-sound" data-icon="${licon.PlayTriangle}" data-play="${key}">0.00s</button>`,
         );
         buttonEl.addEventListener('click', e => {

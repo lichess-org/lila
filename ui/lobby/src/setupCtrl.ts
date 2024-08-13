@@ -2,6 +2,7 @@ import { Prop, propWithEffect } from 'common';
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import { storedJsonProp, StoredJsonProp } from 'common/storage';
+import { clockToSpeed } from 'game';
 
 import {
   SetupConstraints,
@@ -27,17 +28,7 @@ import renderSetup from './view/setup/modal';
 const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf => {
   if (!['standard', 'fromPosition'].includes(variant)) return variant as Perf;
   if (timeMode !== 'realTime') return 'correspondence';
-
-  const totalGameTime = time * 60 + increment * 40;
-  return totalGameTime < 30
-    ? 'ultraBullet'
-    : totalGameTime < 180
-    ? 'bullet'
-    : totalGameTime < 480
-    ? 'blitz'
-    : totalGameTime < 1500
-    ? 'rapid'
-    : 'classical';
+  return clockToSpeed(time * 60, increment);
 };
 
 export class SetupCtrl {

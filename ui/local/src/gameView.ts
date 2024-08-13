@@ -1,7 +1,7 @@
 import { looseH as h, VNode, bind } from 'common/snabbdom';
 //import * as licon from 'common/licon';
 //import { bind } from 'common/snabbdom';
-import type { Libot } from './types';
+import type { BotInfo } from './types';
 import type { GameCtrl } from './gameCtrl';
 
 export default function (ctrl?: GameCtrl, side?: VNode): VNode {
@@ -23,7 +23,7 @@ export default function (ctrl?: GameCtrl, side?: VNode): VNode {
   ]);
 }
 
-function botView(ctrl: GameCtrl, bot: Libot): VNode {
+function botView(ctrl: GameCtrl, bot: BotInfo): VNode {
   const imageUrl = ctrl.botCtrl.imageUrl(bot);
   return h('div.fancy-bot', [
     imageUrl && h('img', { attrs: { src: imageUrl } }),
@@ -44,7 +44,7 @@ export const rangeTicks: { [type: string]: [number, string][] } = {
     [1800, '30 minutes'],
     [3600, '60 minutes'],
     [5400, '90 minutes'],
-    [0, 'unlimited'],
+    [Infinity, 'unlimited'],
   ],
   increment: [
     [0, 'none'],

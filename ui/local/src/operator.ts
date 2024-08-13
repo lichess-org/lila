@@ -1,5 +1,15 @@
-import type { Operator, Point } from './types';
 import type { Point as CjsPoint } from 'chart.js';
+import { clamp } from 'common';
+
+export type Point = [number, number];
+
+export interface Operator {
+  readonly range: { min: number; max: number };
+  from: 'move' | 'score' | 'time';
+  data: Point[];
+}
+
+export type Operators = { [key: string]: Operator };
 
 const DOMAIN_CAP_DELTA = 10;
 
@@ -29,12 +39,11 @@ export function asData(m: Operator): CjsPoint[] {
 }
 
 export function quantizeX(x: number, m: Operator): number {
-  const qu = m.from === 'move' ? 1 : 0.01;
+  const qu = m.from === 'score' ? 0.01 : 1;
   return Math.round(x / qu) * qu;
 }
 
 export function normalize(m: Operator): void {
-  // TODO - not in place
   const newData = m.data.reduce((acc: Point[], p) => {
     const x = quantizeX(p[0], m);
     const i = acc.findIndex(q => q[0] === x);
@@ -47,16 +56,17 @@ export function normalize(m: Operator): void {
 }
 
 export function interpolate(m: Operator, x: number): number {
+  const constrain = (x: number) => clamp(x, m.range);
   const to = m.data;
-  // if (to.length === 0) return undefined; // TODO explicit default?
+
   if (to.length === 0) return (m.range.max + m.range.min) / 2;
-  if (to.length === 1) return to[0][1];
-  for (let i = 1; i < to.length - 1; i++) {
+  if (to.length === 1 || x <= to[0][0]) return constrain(to[0][1]);
+  for (let i = 0; i < to.length - 1; i++) {
     const p1 = to[i];
     const p2 = to[i + 1];
     if (p1[0] <= x && x <= p2[0]) {
       const m = (p2[1] - p1[1]) / (p2[0] - p1[0]);
-      return p1[1] + m * (x - p1[0]);
+      return constrain(p1[1] + m * (x - p1[0]));
     }
   }
   return to[to.length - 1][1];
@@ -68,8 +78,8 @@ export function domain(m: Operator): { min: number; max: number } {
       return { min: 1, max: 60 };
     case 'score':
       return { min: 0, max: 1 };
-    case 'time':
-      return { min: 0, max: 120 };
+    case 'time': // this is log2 of the thinktime seconds
+      return { min: -2, max: 8 };
     default:
       return { min: NaN, max: NaN };
   }

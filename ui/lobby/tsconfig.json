@@ -5,5 +5,9 @@
     "rootDir": "src",
     "composite": true
   },
-  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../dasher/tsconfig.json" }]
+  "references": [
+    { "path": "../common/tsconfig.json" },
+    { "path": "../dasher/tsconfig.json" },
+    { "path": "../game/tsconfig.json" }
+  ]
 }
