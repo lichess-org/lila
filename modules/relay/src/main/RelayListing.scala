@@ -11,7 +11,7 @@ final class RelayListing(
 )(using Executor):
 
   import RelayListing.*
-  import BSONHandlers.{ given }
+  import BSONHandlers.{ *, given }
 
   private var spotlightCache: List[RelayTour.ActiveWithSomeRounds] = Nil
 
@@ -27,7 +27,7 @@ final class RelayListing(
         foreign = "tourId",
         pipe = List(
           $doc("$match" -> $doc("finished" -> false)),
-          $doc("$sort"  -> RelayRoundRepo.sort.chrono),
+          $doc("$sort"  -> RelayRoundRepo.sort.asc),
           $doc("$limit" -> 1)
         )
       )
@@ -167,9 +167,19 @@ final class RelayListing(
                 local = "_id",
                 foreign = "tourId",
                 pipe = List(
-                  $doc("$sort"  -> $sort.asc("startsAt")),
+                  $doc("$sort"  -> RelayRoundRepo.sort.asc),
                   $doc("$limit" -> 1),
-                  $doc("$match" -> $doc("finished" -> false, "startsAt".$gte(nowInstant)))
+                  $doc(
+                    "$match" -> $doc(
+                      "finished" -> false,
+                      $doc(
+                        "$or" -> $arr(
+                          $doc("startsAt".$gte(nowInstant)),
+                          $doc("startsAt".$eq(startsAfterPrevious))
+                        )
+                      )
+                    )
+                  )
                 )
               )
             ,
@@ -192,20 +202,20 @@ final class RelayListing(
 
   val defaultRoundToShow = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.lastAndNextRounds"):
     _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
-      val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
+      import RelayRoundRepo.sort
       val lastStarted = colls.round
         .find($doc("tourId" -> tourId, "startedAt".$exists(true)))
         .sort($doc("startedAt" -> -1))
         .one[RelayRound]
       val next = colls.round
         .find($doc("tourId" -> tourId, "finished" -> false))
-        .sort(chronoSort)
+        .sort(sort.asc)
         .one[RelayRound]
       lastStarted.zip(next).flatMap {
         case (None, _) => // no round started yet, show the first one
           colls.round
             .find($doc("tourId" -> tourId))
-            .sort(chronoSort)
+            .sort(sort.asc)
             .one[RelayRound]
         case (Some(last), Some(next)) => // show the next one if it's less than an hour away
           fuccess:
