@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">Brak reklam, brak śledzenia</string>
+  <string name="correspondenceWithConditionalPremoves">Szachy korespondencyjne z ruchami warunkowymi</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Szachy i %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Głęboka analiza poprzez %s</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Edytor pozycji i analiza z %s</string>
+  <string name="cloudEngineAnalysis">Analiza silnika w chmurze</string>
+  <string name="chessInsights">Wgląd w szachy (szczegółowa analiza Twojej gry)</string>
+  <string name="allChessBasicsLessons">Wszystkie lekcje podstawowe</string>
   <string name="tacticalPuzzlesFromUserGames">Zagadki taktyczne z partii użytkownika</string>
+  <string name="personalOpeningExplorer">Osobista biblioteka debiutów</string>
+  <string name="endgameTablebase">Baza końcówek aż do 7 figur</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Pobierz/Prześlij dowolną grę jako PGN</string>
+  <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blogi, fora, kluby, TV, wiadomości, znajomi, wyzwania</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Jasny/ciemny motyw, niestandardowe szachownice, bierki i tło</string>
+  <string name="allFeaturesToCome">Wszystkie przyszłe funkcje, na zawsze!</string>
   <string name="supportLichess">Wesprzyj Lichess</string>
+  <string name="everybodyGetsAllFeaturesForFree">Tak, obie opcje mają te same funkcje!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Wierzymy, że każdy szachowy gracz zasługuje na najlepsze więc</string>
   <string name="allFeaturesAreFreeForEverybody">Pełna funkcjonalność jest darmowa dla wszystkich, po wieki !</string>
   <string name="ifYouLoveLichess">Jeśli kochasz Lichess,</string>
   <string name="supportUsWithAPatronAccount">Wspomóż nas kontem Patrona!</string>
