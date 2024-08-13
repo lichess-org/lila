@@ -634,21 +634,20 @@
   <string name="createdSimuls">觀看最近開始的車輪戰</string>
   <string name="hostANewSimul">主持車輪戰</string>
   <string name="signUpToHostOrJoinASimul">註冊以舉辦或參與車輪戰</string>
-  <string name="noSimulFound">找不到该同步赛</string>
+  <string name="noSimulFound">找不到該車輪戰</string>
   <string name="noSimulExplanation">此車輪戰不存在。</string>
   <string name="returnToSimulHomepage">返回車輪戰首頁</string>
   <string name="aboutSimul">車輪戰涉及到一個人同時和幾位棋手下棋。</string>
   <string name="aboutSimulImage">在50位對手中，費雪贏了47局、和了2局、並輸了1局。</string>
-  <string name="aboutSimulRealLife">這個賽制來自於真實的國際賽事。 在現實中，這涉及到主持人在棋局與棋局之間來回走棋。</string>
-  <string name="aboutSimulRules">当表演赛开始的时候， 每个玩家都与主持开始对弈， 而主持用白方。 当所有的对局都结束时，表演赛就结束了。
-當車輪賽開始時，每個玩家都會與主持人對奕，主持人持白。當所有對局結束表示車輪賽也一併結束。</string>
+  <string name="aboutSimulRealLife">這種賽制來自於真實的國際賽事。 在現實中，這涉及到主持人在棋局與棋局之間來回走棋。</string>
+  <string name="aboutSimulRules">當車輪賽開始時，每個玩家都會與主持人對奕，主持人持白。當所有對局結束表示車輪賽也一併結束。</string>
   <string name="aboutSimulSettings">車輪賽事較為非正式的賽制。重賽、悔棋、以及加時功能皆會被禁用。</string>
   <string name="create">建立</string>
   <string name="whenCreateSimul">當您創建車輪戰時，您要同時跟幾個棋手一起下棋。</string>
   <string name="simulVariantsHint">如果您選擇多個變體，每個玩家可以選擇自己所好的變體。</string>
-  <string name="simulClockHint">費雪時鐘設定。棋手越多，您需要的時間可能就越多。</string>
+  <string name="simulClockHint">費雪棋鐘設定。棋手越多，您所需的時間可能就越多。</string>
   <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>
-  <string name="simulHostExtraTime">主持人的额外时间</string>
+  <string name="simulHostExtraTime">主持人的額外時間</string>
   <string name="simulAddExtraTimePerPlayer">每有一個玩家加入車輪戰，您棋鐘的初始時間都將增加。</string>
   <string name="simulHostExtraTimePerPlayer">於每位玩家加入後棋鐘增加的額外時間</string>
   <string name="lichessTournaments">Lichess 錦標賽</string>
@@ -656,7 +655,7 @@
   <string name="timeBeforeTournamentStarts">錦標賽準備時間</string>
   <string name="averageCentipawnLoss">平均厘兵損失</string>
   <string name="accuracy">精準度</string>
-  <string name="keyboardShortcuts">快捷建</string>
+  <string name="keyboardShortcuts">快捷鍵</string>
   <string name="keyMoveBackwardOrForward">後退/前進</string>
   <string name="keyGoToStartOrEnd">跳轉到開始/結束</string>
   <string name="keyCycleSelectedVariation">循環已選取的變體</string>
@@ -700,7 +699,7 @@
   <string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">註冊帳號表示同意並且遵守 %s</string>
   <string name="readAboutOur">閱讀我們的%s</string>
-  <string name="networkLagBetweenYouAndLichess">您和 lichess 之間的網路停滯</string>
+  <string name="networkLagBetweenYouAndLichess">您和 Lichess 之間的網路停滯</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
   <string name="downloadAnnotated">下載含有棋子走動方向的棋局</string>
   <string name="downloadRaw">下載純文字</string>
@@ -767,16 +766,16 @@
   <string name="usernamePrefixInvalid">使用者名稱必須以字母開頭</string>
   <string name="usernameSuffixInvalid">使用者名稱的結尾必須為字母或數字</string>
   <string name="usernameCharsInvalid">使用者名稱只能包含字母、 數字、 底線和短劃線。</string>
-  <string name="usernameUnacceptable">此使用者名稱不可用</string>
+  <string name="usernameUnacceptable">無法套用此使用者名稱</string>
   <string name="playChessInStyle">下棋也要穿得好看</string>
   <string name="chessBasics">基本常識</string>
   <string name="coaches">教練</string>
-  <string name="invalidPgn">無效的PGN</string>
-  <string name="invalidFen">無效的FEN</string>
+  <string name="invalidPgn">無效的 PGN</string>
+  <string name="invalidFen">無效的 FEN</string>
   <string name="custom">自訂設定</string>
   <string name="notifications">通知</string>
-  <string name="notificationsX">通知: %1$s</string>
-  <string name="perfRatingX">評分:%s</string>
+  <string name="notificationsX">通知：%1$s</string>
+  <string name="perfRatingX">評分：%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">在%s秒前須下出第一步</item>
   </plurals>
@@ -801,8 +800,8 @@
   <string name="xWasPlayed">走了%s</string>
   <string name="findBetterMoveForWhite">找出白方的最佳著法</string>
   <string name="findBetterMoveForBlack">找出黑方的最佳著法</string>
-  <string name="resumeLearning">回復學習</string>
-  <string name="youCanDoBetter">您還可以做得更好</string>
+  <string name="resumeLearning">繼續學習</string>
+  <string name="youCanDoBetter">還有更好的移動</string>
   <string name="tryAnotherMoveForWhite">嘗試白方更好其他的著法</string>
   <string name="tryAnotherMoveForBlack">嘗試黑方更好其他的著法</string>
   <string name="solution">解決方案</string>
@@ -822,7 +821,7 @@
   <string name="middlegame">中場</string>
   <string name="endgame">殘局</string>
   <string name="conditionalPremoves">預設棋譜</string>
-  <string name="addCurrentVariation">加入現有變化</string>
+  <string name="addCurrentVariation">加入現有變種</string>
   <string name="playVariationToCreateConditionalPremoves">走一種變種以建立棋譜</string>
   <string name="noConditionalPremoves">無預設棋譜</string>
   <string name="playX">移動至%s</string>
@@ -831,7 +830,7 @@
   </plurals>
   <string name="showUnreadLichessMessage">你收到一個來自 Lichess 的私訊。</string>
   <string name="clickHereToReadIt">點擊以閱讀</string>
-  <string name="sorry">抱歉:(</string>
+  <string name="sorry">抱歉：（</string>
   <string name="weHadToTimeYouOutForAWhile">我們必須將您暫時封鎖</string>
   <string name="why">為什麼？</string>
   <string name="pleasantChessExperience">我們的目的在於維持良好的下棋環境</string>
@@ -840,9 +839,9 @@
   <string name="howToAvoidThis">如何避免這件事發生?</string>
   <string name="playEveryGame">避免在棋局中任意退出</string>
   <string name="tryToWin">試著在每個棋局裡獲勝(或至少平手)</string>
-  <string name="resignLostGames">投降(不要讓時間耗盡)</string>
+  <string name="resignLostGames">投降（不要讓時間耗盡）</string>
   <string name="temporaryInconvenience">我們對於給您帶來的不便深表歉意</string>
-  <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
+  <string name="wishYouGreatGames">並祝您在 lichess.org 上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀！</string>
   <string name="lifetimeScore">帳戶總分</string>
   <string name="currentMatchScore">現時的對局分數</string>
@@ -861,7 +860,7 @@
   <string name="blitzDesc">快速模式：3到8分鐘</string>
   <string name="rapidDesc">一般模式：8到25分鐘</string>
   <string name="classicalDesc">經典模式：25分鐘以上</string>
-  <string name="correspondenceDesc">長期模式：一天或好幾天一步</string>
+  <string name="correspondenceDesc">通信模式：一天或好幾天一步</string>
   <string name="puzzleDesc">西洋棋戰術教練</string>
   <string name="important">重要</string>
   <string name="yourQuestionMayHaveBeenAnswered">您的問題可能已經有答案了%1$s</string>
@@ -891,7 +890,7 @@
   <string name="lostAgainstTOSViolator">你輸給了違反了服務條款的棋手</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
-  <string name="clickToRevealEmailAddress">[點擊以展示電郵位置]</string>
+  <string name="clickToRevealEmailAddress">[點擊以顯示電子郵件]</string>
   <string name="download">下載</string>
   <string name="coachManager">教練管理</string>
   <string name="streamerManager">直播管理</string>
@@ -905,10 +904,10 @@
   <string name="minimumRatedGames">評分局遊玩次數下限</string>
   <string name="minimumRating">評分下限</string>
   <string name="maximumWeeklyRating">每週最高評分</string>
-  <string name="positionInputHelp">將一個有效的 FEN 粘貼於此作為所有對局的起始位置。
-僅適用於標準國際象棋，對變體無效。
-你可以試用 %s 來生成 FEN，然後將其粘貼到這裡。
-置空表示以標準位置開始比賽。</string>
+  <string name="positionInputHelp">將一個有效的 FEN 貼上於此作為所有對局的起始位置。
+僅適用於標準西洋棋，對變種無效。
+你可以試用 %s 來生成 FEN，然後將其貼上到這裡。
+置空表示以預設位置開始比賽。</string>
   <string name="cancelSimul">取消車輪戰</string>
   <string name="simulHostcolor">主持所執方</string>
   <string name="estimatedStart">預計開始時間</string>
@@ -917,8 +916,8 @@
   <string name="simulDescription">車輪戰描述</string>
   <string name="simulDescriptionHelp">有甚麼要告訴參賽者的嗎？</string>
   <string name="markdownAvailable">%s 可用於更高級的格式。</string>
-  <string name="embedsAvailable">粘貼對局URL或學習章節URL來嵌入。</string>
-  <string name="inYourLocalTimezone">在你的時區內</string>
+  <string name="embedsAvailable">貼上對局或學習章節網址來嵌入。</string>
+  <string name="inYourLocalTimezone">在您的時區內</string>
   <string name="tournChat">錦標賽聊天室</string>
   <string name="noChat">無聊天室</string>
   <string name="onlyTeamLeaders">僅限各隊隊長</string>
@@ -933,7 +932,7 @@
   <string name="showHelpDialog">顯示此說明欄</string>
   <string name="reopenYourAccount">重新開啟帳戶</string>
   <string name="closedAccountChangedMind">如果你停用了自己的帳號，但是改變了心意，你有一次的機會可以拿回帳號。</string>
-  <string name="onlyWorksOnce">這只能復原一次</string>
+  <string name="onlyWorksOnce">這只能復原一次。</string>
   <string name="cantDoThisTwice">如果你決定再次停用你的帳號，則不會有任何方式去復原。</string>
   <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
   <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
