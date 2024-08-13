@@ -7,11 +7,11 @@ import { jsManifest } from './manifest';
 const bundles = new Map<string, string>();
 const esbuildCtx: es.BuildContext[] = [];
 
-export async function stopEsbuild() {
+export async function stopEsbuild(): Promise<void> {
   const proof = Promise.allSettled(esbuildCtx.map(x => x.dispose()));
   esbuildCtx.length = 0;
   bundles.clear();
-  return proof;
+  await proof;
 }
 
 export async function esbuild(tsc?: Promise<void>): Promise<void> {
@@ -44,6 +44,7 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
     outdir: env.jsDir,
     entryNames: '[name].[hash]',
     chunkNames: 'common.[hash]',
+    loader: { '.ts': 'ts' },
     plugins: [onEndPlugin],
   });
   if (env.watch) {

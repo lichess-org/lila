@@ -6,7 +6,7 @@ import JSON5 from 'json5';
 
 let tscPs: cps.ChildProcessWithoutNullStreams | undefined;
 
-export function stopTsc() {
+export function stopTsc(): void {
   tscPs?.kill();
   tscPs = undefined;
 }
@@ -21,7 +21,7 @@ export async function tsc(): Promise<void> {
       .filter(x => x.hasTsconfig)
       .sort((a, b) => a.name.localeCompare(b.name))
       .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
-    const notIsolated: string[] = [];
+
     const declModules = new Set<string>();
     // verify that tsconfig references are correct
     for (const tsconfig of cfg.references) {
@@ -38,16 +38,8 @@ export async function tsc(): Promise<void> {
             'tsc',
           );
       }
-      if (!ref.compilerOptions?.isolatedDeclarations) notIsolated.push(module);
       ref.references?.forEach((x: any) => declModules.add(/\/([^/]+)\/tsconfig\.json/.exec(x.path)![1]));
     }
-    notIsolated
-      .filter(m => declModules.has(m))
-      .forEach(module =>
-        env.log(`[${c.grey(module)}] - Convert to ${c.blue('isolatedDeclarations')} (typescript 5.5)`, {
-          ctx: 'tsc',
-        }),
-      );
 
     await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
     const thisPs = (tscPs = cps.spawn('.build/node_modules/.bin/tsc', [

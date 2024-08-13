@@ -567,6 +567,7 @@ class TooltipController {
         if (collisions === Collision.none) {
           return false;
         }
+        return true;
       });
     } else {
       // if we're not going to use the smart placement feature then just

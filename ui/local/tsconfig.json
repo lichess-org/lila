@@ -1,14 +1,10 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "src",
     "emitDeclarationOnly": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "allowUnreachableCode": true,
-    "composite": true,
-    "isolatedDeclarations": true
+    "allowUnreachableCode": true
   },
   "isolatedModules": true,
   "references": [

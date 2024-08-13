@@ -11,7 +11,7 @@ import { writeManifest } from './manifest';
 import { clean } from './clean';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
-export async function build(mods: string[]) {
+export async function build(mods: string[]): Promise<void> {
   await stop();
   await clean();
 
@@ -42,7 +42,7 @@ export async function build(mods: string[]) {
   await Promise.all([sass(), copies(), esbuild(tsc())]);
 }
 
-export async function stop() {
+export async function stop(): Promise<void> {
   stopMonitor();
   stopSass();
   stopTsc();
@@ -50,7 +50,7 @@ export async function stop() {
   await stopEsbuild();
 }
 
-export function postBuild() {
+export function postBuild(): void {
   writeManifest();
   for (const mod of env.building) {
     mod.post.forEach((args: string[]) => {
@@ -61,7 +61,7 @@ export function postBuild() {
   }
 }
 
-export function preModule(mod: LichessModule | undefined) {
+export function preModule(mod: LichessModule | undefined): void {
   mod?.pre.forEach((args: string[]) => {
     env.log(`[${c.grey(mod.name)}] exec - ${c.cyanBold(args.join(' '))}`);
     const stdout = cps.execSync(`${args.join(' ')}`, { cwd: mod.root });

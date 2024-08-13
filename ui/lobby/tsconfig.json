@@ -1,10 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "composite": true
-  },
+  "compilerOptions": { "noEmit": true },
   "references": [
     { "path": "../common/tsconfig.json" },
     { "path": "../dasher/tsconfig.json" },

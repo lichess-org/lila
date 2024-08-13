@@ -7,14 +7,14 @@ import { Sync, env, errorMark, colors as c } from './main';
 const syncWatch: fs.FSWatcher[] = [];
 let watchTimeout: NodeJS.Timeout | undefined;
 
-export function stopCopies() {
+export function stopCopies(): void {
   clearTimeout(watchTimeout);
   watchTimeout = undefined;
   for (const watcher of syncWatch) watcher.close();
   syncWatch.length = 0;
 }
 
-export async function copies() {
+export async function copies(): Promise<void> {
   if (!env.copies) return;
   const updated = new Set<string>();
   const watched = new Map<string, Sync[]>();
@@ -55,7 +55,7 @@ export async function copies() {
   hashedManifest();
 }
 
-export function isUnmanagedAsset(absfile: string) {
+export function isUnmanagedAsset(absfile: string): boolean {
   if (!absfile.startsWith(env.outDir)) return false;
   const name = absfile.slice(env.outDir.length + 1);
   if (['compiled/', 'hashed/', 'css/'].some(dir => name.startsWith(dir))) return false;

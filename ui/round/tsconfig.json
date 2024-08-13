@@ -1,13 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "composite": true,
-    //"declaration": true,
-    "emitDeclarationOnly": true,
-    "isolatedDeclarations": true
-  },
+  "compilerOptions": { "emitDeclarationOnly": true },
   "references": [
     { "path": "../board/tsconfig.json" },
     { "path": "../chat/tsconfig.json" },
