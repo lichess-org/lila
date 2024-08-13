@@ -77,9 +77,9 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC12"
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC12"
-    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC12"
+    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC13"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC13"
+    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC13"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }
