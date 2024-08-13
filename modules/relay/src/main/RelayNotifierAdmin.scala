@@ -12,7 +12,7 @@ private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: C
 
   object orphanBoards:
 
-    private val notifyAfterMisses = 5
+    private val notifyAfterMisses = 10
 
     private val counter: Cache[StudyChapterId, Int] = scalalib.cache.scaffeineNoScheduler
       .expireAfterWrite(3 minutes)
