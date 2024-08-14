@@ -65,6 +65,7 @@
   <string name="earlyDrawsAnswer">在積分循環制內，玩家無法在三十步內和局。雖然在此機制下無法防止已規劃的和局，其機制至少能防止過早的和局。</string>
   <string name="whatIfOneDoesntPlayQ">如果有玩家缺該怎麼處理？</string>
   <string name="lateJoinQ">玩家可以稍後加入嗎？</string>
+  <string name="willSwissReplaceArenasQ">積分循環制會取代競技場錦標賽嗎？</string>
   <string name="willSwissReplaceArenasA">不會。他們是額外的功能。</string>
   <string name="roundRobinQ">那循環賽（Round Robin）呢？</string>
   <string name="joinOrCreateTeam">加入或創建團隊</string>
