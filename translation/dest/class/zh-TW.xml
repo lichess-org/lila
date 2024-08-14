@@ -47,7 +47,7 @@
   <string name="createDesc3">注意：學生不得擁有多個帳號。</string>
   <string name="createDesc4">如果他們已經有帳號，請使用邀請。</string>
   <string name="createStudentWarning">僅為每個真實的學生創建賬戶，不要用此功能為你自己創建多個賬戶，否則你會被封號。</string>
-  <string name="lichessUsername">Lichess上的使用者名稱</string>
+  <string name="lichessUsername">Lichess 使用者名稱</string>
   <string name="generateANewUsername">產生一個新的使用者名稱</string>
   <string name="welcomeToClass">歡迎來到你的班級：%s。
 這裏是訪問班級的鏈接。</string>
