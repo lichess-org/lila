@@ -31,7 +31,7 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
 
   if mode.isProd then
     scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>
-      if nowDateTime.getDayOfWeek == java.time.DayOfWeek.SUNDAY && nowDateTime.getHour == 4
+      if nowDateTime.getHour == 4
       then fideSync()
 
   def cli = new lila.common.Cli:
