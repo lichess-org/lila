@@ -12,10 +12,13 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor) extends lila.core.ga
 
   def game: Fu[GameId] =
     val id = uncheckedGame
-    gameRepo.exists(id).flatMap {
-      if _ then game
-      else fuccess(id)
-    }
+    gameRepo
+      .exists(id)
+      .monValue: collision =>
+        _.game.idGenerator(collision)
+      .flatMap:
+        if _ then game
+        else fuccess(id)
 
   def games(nb: Int): Fu[Set[GameId]] =
     if nb < 1 then fuccess(Set.empty)

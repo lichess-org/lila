@@ -564,7 +564,8 @@ object mon:
     object pgn:
       def encode(format: String) = timer("game.pgn.encode").withTag("format", format)
       def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
-    val idCollision = counter("game.idCollision").withoutTags()
+    val idCollision                     = counter("game.idCollision").withoutTags()
+    def idGenerator(collision: Boolean) = timer("game.idGenerator").withTags(tags("collision" -> collision))
   object chat:
     def message(parent: String, troll: Boolean) =
       counter("chat.message").withTags:
