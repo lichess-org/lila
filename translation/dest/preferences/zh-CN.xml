@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">偏好设置</string>
-  <string name="display">显示</string>
+  <string name="display">界面设置</string>
   <string name="privacy">隐私设置</string>
   <string name="notifications">通知</string>
   <string name="pieceAnimation">棋子动画</string>

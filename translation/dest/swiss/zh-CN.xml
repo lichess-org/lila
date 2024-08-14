@@ -31,20 +31,20 @@
   <string name="numberOfRoundsHelp">奇数回合可以使执色得到最佳平衡。</string>
   <string name="roundInterval">回合间歇时间</string>
   <string name="forbiddenPairings">禁止配对</string>
-  <string name="forbiddenPairingsHelp">不能配对的玩家用户名(例如空格)。每行两个用户名用空格隔开。</string>
+  <string name="forbiddenPairingsHelp">不能配对的玩家用户名（例如家人或兄弟）。每行两个用户名用空格隔开。</string>
   <string name="manualPairings">在下一轮中手动匹配</string>
-  <string name="manualPairingsHelp">手动指定下一轮的所有配对。每行配对一次。 例如：
+  <string name="manualPairingsHelp">手动指定下一轮的所有配对。每队玩家一行。 例如：
 玩家A 玩家B
 玩家C 玩家D
-如果要给某玩家一个bye (1分)，而不是配对， 添加这样的一行：
+如果轮空某位玩家不分配 (1分)，添加一行：
 玩家E 1
 缺失的玩家将被视为缺席并获得零分。
-将此字段留空以允许lichess自动创建配对。</string>
+将此字段留空以允许 Lichess 自动创建配对。</string>
   <string name="mustHavePlayedTheirLastSwissGame">必须已经完成他们最近一轮Swiss游戏</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">只允许完成他们最近一轮Swiss游戏的玩家加入。如果他们未能在最近的Swiss赛事中出现，他们将无法进入您的比赛。 这给实际出现的玩家带来更好的Swiss体验。</string>
-  <string name="newSwiss">新瑞士锦标赛</string>
-  <string name="swissVsArenaQ">什么时候适合用瑞士锦标赛而不是竞技场？</string>
-  <string name="swissVsArenaA">在瑞士锦标赛中，所有选手将参与相同数量的棋局，并且每位对手只会遇到一次。因此适合俱乐部或正式比赛。</string>
+  <string name="newSwiss">新 Swiss 锦标赛</string>
+  <string name="swissVsArenaQ">什么时候适合用 Swiss 锦标赛而不是竞技场？</string>
+  <string name="swissVsArenaA">在 Swiss 锦标赛中，所有选手将参与相同数量的棋局，并且每位对手只会遇到一次。因此适合俱乐部或正式比赛。</string>
   <string name="pointsCalculationQ">如何计算积分？</string>
   <string name="pointsCalculationA">获胜得一分，平局得半分，失败得零分。
 若玩家在某回合中无法配对，他将被轮空并得一分。</string>
