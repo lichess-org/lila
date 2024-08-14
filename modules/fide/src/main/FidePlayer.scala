@@ -14,8 +14,11 @@ case class FidePlayer(
     fed: Option[lila.core.fide.Federation.Id],
     title: Option[PlayerTitle],
     standard: Option[Int],
+    standardK: Option[Int],
     rapid: Option[Int],
+    rapidK: Option[Int],
     blitz: Option[Int],
+    blitzK: Option[Int],
     year: Option[Int],
     inactive: Option[Boolean],
     fetchedAt: Instant
