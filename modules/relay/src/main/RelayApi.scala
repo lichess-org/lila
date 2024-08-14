@@ -269,12 +269,16 @@ final class RelayApi(
         )
       )
       .orFail(s"Can't create study for relay $relay")
-    _ <- roundRepo.coll.insert.one:
-      toBdoc(relay).err(s"Can't write $relay") ++ $doc("order" -> nextOrder)
+    bdoc  <- toBdocWithOrder(relay, nextOrder)
+    _     <- roundRepo.coll.insert.one(bdoc)
     dates <- computeDates(tour.id)
     _     <- tourRepo.denormalize(tour.id, true, relay.hasStarted, dates)
     _     <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
   yield relay.withTour(tour).withStudy(study.study)
+
+  private def toBdocWithOrder(relay: RelayRound, order: RelayRound.Order): Fu[Bdoc] =
+    tryBdoc(relay).toEither.toFuture.map:
+      _ ++ $doc("order" -> order)
 
   private def copyRoundSourceSettings(relay: RelayRound): Fu[RelayRound] =
     relay.sync.upstream
@@ -308,7 +312,8 @@ final class RelayApi(
       for
         round <- copyRoundSourceSettings(updated)
         _     <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
-        _     <- roundRepo.coll.update.one($id(round.id), round).void
+        bdoc  <- tryBdoc(round).toEither.toFuture
+        _     <- roundRepo.coll.update.one($id(round.id), $set(bdoc)).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _                <- denormalizeTour(round.tourId)
@@ -418,7 +423,9 @@ final class RelayApi(
               )
             ) >>
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
-      _ <- roundRepo.coll.insert.one(round)
+      order <- roundRepo.orderOf(from.id)
+      bdoc  <- toBdocWithOrder(round, order.map(_ + 1))
+      _     <- roundRepo.coll.insert.one(round)
     yield round
 
   def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using

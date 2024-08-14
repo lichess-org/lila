@@ -52,6 +52,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
         case None        => RelayRound.Order(1)
         case Some(order) => order.map(_ + 1)
 
+  def orderOf(roundId: RelayRoundId): Fu[RelayRound.Order] =
+    coll.primitiveOne[RelayRound.Order]($id(roundId), "order").dmap(_ | RelayRound.Order(1))
+
   def deleteByTour(tour: RelayTour): Funit =
     coll.delete.one(selectors.tour(tour.id)).void
 
