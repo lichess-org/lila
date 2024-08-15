@@ -83,7 +83,7 @@ final class Env(
 
   lazy val playerTour = wire[RelayPlayerTour]
 
-  lazy val playerCardApi = wire[RelayPlayerCardApi]
+  // lazy val playerCardApi = wire[RelayPlayerCardApi]
 
   def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
     active   <- (page == 1).so(listing.active.get({}))

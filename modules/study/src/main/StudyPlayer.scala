@@ -17,6 +17,9 @@ case class StudyPlayer(
 
 object StudyPlayer:
 
+  case class WithFed(player: StudyPlayer, fed: Option[Federation.Id]):
+    export player.*
+
   type Id = FideId | PlayerName
 
   def fromTags(tags: Tags): Option[Players] =
@@ -27,24 +30,25 @@ object StudyPlayer:
   object json:
     import play.api.libs.json.*
     import lila.common.Json.given
-    given (using federations: Federation.ByFideIds): OWrites[StudyPlayer] =
+    given studyPlayerWithFedWrites: OWrites[StudyPlayer.WithFed] =
       OWrites: p =>
         Json
           .obj("name" -> p.name)
           .add("title" -> p.title)
           .add("rating" -> p.rating)
           .add("fideId" -> p.fideId)
-          .add("fed" -> p.fideId.flatMap(federations.get))
-    given (using federations: Federation.ByFideIds): OWrites[ChapterPlayer] =
-      OWrites: p =>
-        Json.toJsObject(p.player).add("clock" -> p.clock)
+          .add("fed" -> p.fed)
+    given chapterPlayerWrites: OWrites[ChapterPlayer] = OWrites: p =>
+      Json.toJsObject(StudyPlayer.WithFed(p.player, p.fed)).add("clock" -> p.clock)
 
-case class ChapterPlayer(player: StudyPlayer, clock: Option[Centis]):
+case class ChapterPlayer(player: StudyPlayer, fed: Option[Federation.Id], clock: Option[Centis]):
   export player.*
 
 object ChapterPlayer:
+
   def fromTags(tags: Tags, clocks: Chapter.BothClocks): Option[ByColor[ChapterPlayer]] =
     StudyPlayer
       .fromTags(tags)
       .map:
-        _.zip(clocks).map(ChapterPlayer.apply)
+        _.zip(clocks).map: (player, clock) =>
+          ChapterPlayer(player, fed = none, clock)
