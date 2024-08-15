@@ -5,6 +5,7 @@ import chess.{ FideId, PlayerName }
 
 import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
+import lila.study.StudyPlayer
 
 type TeamName = String
 
@@ -102,7 +103,7 @@ final class RelayTeamTable(
       def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
       def add(
           chap: ChapterPreview,
-          playerAndTeam: Pair[(ChapterPreview.Player, TeamName)],
+          playerAndTeam: Pair[(StudyPlayer, TeamName)],
           outcome: Option[Outcome]
       ) =
         val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
@@ -119,8 +120,8 @@ final class RelayTeamTable(
           outcome <- chap.result
           players <- chap.players
           teams   <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
-          m0       = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
-          m1       = m0.add(chap, Pair(players.white -> teams.a, players.black -> teams.b), outcome)
+          m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
+          m1 = m0.add(chap, Pair(players.white.player -> teams.a, players.black.player -> teams.b), outcome)
           newTable = m1 :: table.filterNot(_.is(teams))
         yield newTable) | table
 

@@ -105,7 +105,7 @@ case class Chapter(
   def preview = ChapterPreview(
     id = id,
     name = name,
-    players = ChapterPreview.players(denorm.so(_.clocks))(tags),
+    players = ChapterPlayer.fromTags(tags, denorm.so(_.clocks)),
     orientation = setup.orientation,
     fen = denorm.fold(Fen.initial)(_.fen),
     lastMove = denorm.flatMap(_.uci),

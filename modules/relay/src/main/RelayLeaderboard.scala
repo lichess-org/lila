@@ -5,20 +5,13 @@ import chess.{ Elo, FideId, Outcome, PlayerName, PlayerTitle }
 import lila.core.fide.Federation
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.study.ChapterRepo
+import lila.study.{ ChapterRepo, StudyPlayer }
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])
 
 object RelayLeaderboard:
-  case class Player(
-      name: PlayerName,
-      score: Double,
-      played: Int,
-      rating: Option[Elo],
-      title: Option[PlayerTitle],
-      fideId: Option[FideId],
-      fed: Option[Federation.Id]
-  )
+  case class Player(player: StudyPlayer, fed: Option[Federation.Id], score: Double, played: Int):
+    export player.*
 
   import play.api.libs.json.*
   import lila.common.Json.given
@@ -28,7 +21,6 @@ object RelayLeaderboard:
       .add("rating", p.rating)
       .add("title", p.title)
       .add("fideId", p.fideId)
-      .add("fed", p.fed)
 
 final class RelayLeaderboardApi(
     tourRepo: RelayTourRepo,
@@ -60,7 +52,7 @@ final class RelayLeaderboardApi(
 
   private def compute(id: RelayTourId): Fu[RelayLeaderboard] = for
     tour     <- tourRepo.coll.byId[RelayTour](id).orFail(s"No such relay tour $id")
-    roundIds <- roundRepo.idsByTourOrdered(tour)
+    roundIds <- roundRepo.idsByTourOrdered(tour.id)
     tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
     players = tags.foldLeft(
       Map.empty[PlayerName, (Double, Int, Option[Elo], Option[PlayerTitle], Option[FideId])]
@@ -92,5 +84,6 @@ final class RelayLeaderboardApi(
         (-player._1, -player._3.so(_.value))
       .map:
         case (name, (score, played, rating, title, fideId)) =>
-          val fed = fideId.flatMap(federations.get)
-          RelayLeaderboard.Player(name, score, played, rating, title, fideId, fed)
+          val fed    = fideId.flatMap(federations.get)
+          val player = StudyPlayer(fideId, title, name.some, rating, team = none)
+          RelayLeaderboard.Player(player, fed, score, played)

@@ -12,7 +12,7 @@ import lila.db.dsl.{ *, given }
 case class ChapterPreview(
     id: StudyChapterId,
     name: StudyChapterName,
-    players: Option[ChapterPreview.Players],
+    players: Option[ByColor[ChapterPlayer]],
     orientation: Color,
     fen: Fen.Full,
     lastMove: Option[Uci],
@@ -96,26 +96,11 @@ final class ChapterPreviewApi(
 
 object ChapterPreview:
 
-  type Players = ByColor[Player]
   type AsJsons = JsValue
-
-  case class Player(
-      name: Option[PlayerName],
-      title: Option[PlayerTitle],
-      rating: Option[Elo],
-      clock: Option[Centis],
-      fideId: Option[FideId],
-      team: Option[String]
-  )
-
-  def players(clocks: Chapter.BothClocks)(tags: Tags): Option[Players] =
-    val names = tags.names
-    Option.when(names.exists(_.isDefined)):
-      (names, tags.fideIds, tags.titles, tags.elos, tags.teams, clocks).mapN: (n, f, t, e, te, c) =>
-        Player(n, t, e, c, f, te)
 
   object json:
     import lila.common.Json.{ given }
+    import StudyPlayer.json.given
 
     def readFirstId(js: AsJsons): Option[StudyChapterId] = for
       arr <- js.asOpt[JsArray]
@@ -126,14 +111,6 @@ object ChapterPreview:
     def write(chapters: List[ChapterPreview])(using Federation.ByFideIds): AsJsons =
       given OWrites[ChapterPreview] = writesWithFederations
       Json.toJson(chapters)
-
-    private def playerWithFederations(p: ChapterPreview.Player)(using federations: Federation.ByFideIds) =
-      Json
-        .obj("name" -> p.name)
-        .add("title" -> p.title)
-        .add("rating" -> p.rating)
-        .add("clock" -> p.clock)
-        .add("fed" -> p.fideId.flatMap(federations.get))
 
     private given Writes[Chapter.Check] = Writes:
       case Chapter.Check.Check => JsString("+")
@@ -146,7 +123,7 @@ object ChapterPreview:
           "name" -> c.name
         )
         .add("fen", Option.when(!c.fen.isInitial)(c.fen))
-        .add("players", c.players.map(_.mapList(playerWithFederations)))
+        .add("players", c.players.map(_.toList))
         .add("orientation", c.orientation.some.filter(_.black))
         .add("lastMove", c.lastMove)
         .add("check", c.check)
@@ -176,7 +153,7 @@ object ChapterPreview:
       yield ChapterPreview(
         id = id,
         name = name,
-        players = tags.flatMap(ChapterPreview.players(lastPos.so(_.clocks))),
+        players = tags.flatMap(ChapterPlayer.fromTags(_, lastPos.so(_.clocks))),
         orientation = orientation,
         fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Full]("rootFen")).getOrElse(Fen.initial),
         lastMove = lastPos.flatMap(_.uci),

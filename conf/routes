@@ -286,6 +286,7 @@ POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roun
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId: RelayRoundId)
 GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId: RelayRoundId)
 GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardView(tourId: RelayTourId)
+GET   /broadcast/$tourId<\w{8}>/players       controllers.RelayTour.playersView(tourId: RelayTourId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: RelayRoundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: RelayRoundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex

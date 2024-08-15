@@ -21,9 +21,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def byTourOrdered(tourId: RelayTourId): Fu[List[RelayRound]] =
     byTourOrderedCursor(tourId).list(RelayTour.maxRelays)
 
-  def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRoundId]] =
+  def idsByTourOrdered(tour: RelayTourId): Fu[List[RelayRoundId]] =
     coll.primitive[RelayRoundId](
-      selector = selectors.tour(tour.id),
+      selector = selectors.tour(tour),
       sort = sort.asc,
       nb = RelayTour.maxRelays,
       field = "_id"

@@ -367,7 +367,7 @@ final class RelayApi(
       .so:
         for
           _      <- tourRepo.delete(tour)
-          rounds <- roundRepo.idsByTourOrdered(tour)
+          rounds <- roundRepo.idsByTourOrdered(tour.id)
           _      <- roundRepo.deleteByTour(tour)
           _      <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
         yield true

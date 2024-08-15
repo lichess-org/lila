@@ -143,6 +143,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     WithTour(id): tour =>
       tour.autoLeaderboard.so(env.relay.leaderboard(tour)).map(_.fold(notFoundJson())(JsonStrOk))
 
+  def playersView(id: RelayTourId) = Open:
+    WithTour(id): tour =>
+      env.relay.playerCardApi.cardsJson(tour).map(JsonStrOk)
+
   def subscribe(id: RelayTourId, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
     env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
   }

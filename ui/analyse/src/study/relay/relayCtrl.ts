@@ -9,8 +9,9 @@ import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
 import { onWindowResize as videoPlayerOnWindowResize } from './videoPlayerView';
 import RelayStats from './relayStats';
+import RelayPlayerCards from './relayPlayerCards';
 
-export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard', 'stats'] as const;
+export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
@@ -22,6 +23,7 @@ export default class RelayCtrl {
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   leaderboard?: RelayLeaderboard;
+  playerCards?: RelayPlayerCards;
   stats: RelayStats;
   streams: [string, string][] = [];
   showStreamerMenu = toggle(false);
@@ -52,6 +54,7 @@ export default class RelayCtrl {
     this.leaderboard = data.tour.leaderboard
       ? new RelayLeaderboard(data.tour.id, this.federations, redraw)
       : undefined;
+    this.playerCards = new RelayPlayerCards(data.tour.id, redraw);
     this.stats = new RelayStats(this.currentRound(), redraw);
     setInterval(() => this.redraw(true), 1000);
 

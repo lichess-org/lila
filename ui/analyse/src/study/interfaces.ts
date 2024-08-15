@@ -15,6 +15,7 @@ export type OutcomeStr = '1-0' | '0-1' | '½-½';
 export type StatusStr = OutcomeStr | '*';
 export type ClockCentis = number;
 export type BothClocks = [ClockCentis?, ClockCentis?];
+export type FideId = number;
 
 export interface StudyTour {
   study(ctrl: AnalyseCtrl): void;
@@ -209,7 +210,7 @@ export interface ChapterPreviewPlayerBase {
   title?: string;
   rating?: number;
   clock?: ClockCentis;
-  team?: string;
+  fideId?: FideId;
 }
 export interface ChapterPreviewPlayerFromServer extends ChapterPreviewPlayerBase {
   fed?: string;
