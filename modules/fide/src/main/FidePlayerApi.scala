@@ -36,6 +36,8 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](4096, "player.fidePlayer.byId"):
     _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)
 
+  export idToPlayerCache.get
+
   def urlToTitle(url: String): Fu[Option[PlayerTitle]] =
     FideWebsite.urlToFideId(url).so(fetch).map(_.flatMap(_.title))
 

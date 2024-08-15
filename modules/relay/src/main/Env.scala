@@ -29,6 +29,7 @@ final class Env(
     gameProxy: lila.core.game.GameProxy,
     federations: lila.core.fide.Federation.FedsOf,
     guessPlayer: lila.core.fide.GuessPlayer,
+    getPlayer: lila.core.fide.GetPlayer,
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.core.irc.IrcApi,
@@ -40,7 +41,6 @@ final class Env(
 )(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
     scheduler: Scheduler
 ):
-
   lazy val roundForm = wire[RelayRoundForm]
 
   lazy val tourForm = wire[RelayTourForm]
@@ -52,8 +52,6 @@ final class Env(
   private lazy val tourRepo = RelayTourRepo(colls.tour)
 
   private lazy val groupRepo = RelayGroupRepo(colls.group)
-
-  lazy val leaderboard = wire[RelayLeaderboardApi]
 
   private lazy val playerEnrich = wire[RelayPlayerEnrich]
 

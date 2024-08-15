@@ -29,6 +29,13 @@ case class FidePlayer(
     case FideTC.rapid    => rapid
     case FideTC.blitz    => blitz
 
+  def kFactorOf(tc: FideTC): Int = tc
+    .match
+      case FideTC.standard => standardK
+      case FideTC.rapid    => rapidK
+      case FideTC.blitz    => blitzK
+    .|(FidePlayer.defaultKFactor)
+
   def slug: String = FidePlayer.slugify(name)
 
   def age: Option[Int] = year.map(nowInstant.date.getYear - _)
@@ -42,6 +49,8 @@ case class FidePlayer(
   .mkString(", ")
 
 object FidePlayer:
+
+  private val defaultKFactor = 40
 
   private[fide] val tokenize: Tokenize =
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r

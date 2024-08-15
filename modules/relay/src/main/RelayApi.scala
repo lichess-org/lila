@@ -32,7 +32,7 @@ final class RelayApi(
     jsonView: JsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
-    leaderboard: RelayLeaderboardApi,
+    players: RelayPlayerApi,
     picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer, play.api.Mode):
 
@@ -232,7 +232,7 @@ final class RelayApi(
       _ <- data.grouping.so(updateGrouping(tour, _))
       _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
     yield
-      leaderboard.invalidate(tour.id)
+      players.invalidate(tour.id)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
   private def updateGrouping(tour: RelayTour, data: RelayGroup.form.Data)(using me: Me): Funit =
@@ -352,7 +352,7 @@ final class RelayApi(
         _ <- old.hasStartedEarly.so:
           roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
-      yield leaderboard.invalidate(relay.tourId)
+      yield players.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =

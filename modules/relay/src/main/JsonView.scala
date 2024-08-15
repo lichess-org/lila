@@ -11,12 +11,7 @@ import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 
-final class JsonView(
-    baseUrl: BaseUrl,
-    markup: RelayMarkup,
-    leaderboardApi: RelayLeaderboardApi,
-    picfitUrl: PicfitUrl
-)(using Executor):
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl)(using Executor):
 
   import JsonView.{ Config, given }
 

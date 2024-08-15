@@ -41,12 +41,11 @@ object RelayPlayer:
       )
 
 private final class RelayPlayerApi(
-    colls: RelayColls,
     roundRepo: RelayRoundRepo,
     chapterRepo: lila.study.ChapterRepo,
     chapterPreviewApi: ChapterPreviewApi,
-    federationsOf: Federation.FedsOf,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    fidePlayerGet: lila.core.fide.GetPlayer
 )(using Executor, Scheduler):
   import RelayPlayer.*
   import RelayPlayer.json.given
@@ -113,3 +112,26 @@ private final class RelayPlayerApi(
             case (players, (id, p)) =>
               if players.contains(id) then players
               else players.updated(id, p.studyPlayer)
+
+  private def computeRatingDiffs(tour: RelayTour, players: RelayPlayers): Fu[RelayPlayers] =
+    val tc = RelayFidePlayerApi.guessTimeControl(tour)
+    players.toList
+      .traverse: (id, player) =>
+        player.fideId
+          .so(fidePlayerGet)
+          .map:
+            _.fold(id -> player): fidePlayer =>
+              val kFactor = fidePlayer.kFactorOf(tc)
+              id -> player
+      .map(_.to(SeqMap))
+
+  private def computeNewEloRating(
+      playerRating: Int,
+      opponentRating: Int,
+      playerKFactor: Int,
+      outcome: Option[Boolean]
+  ): Int =
+    val playerExpectedScore = 1 / (1 + Math.pow(10, (opponentRating - playerRating) / 400))
+    val playerScore         = outcome.fold(0.5d)(_.so(1d))
+    val playerNewRating = playerRating + Math.round(playerKFactor * (playerScore - playerExpectedScore)).toInt
+    playerNewRating

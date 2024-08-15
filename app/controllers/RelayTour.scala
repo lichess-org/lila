@@ -139,10 +139,6 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         case None => env.relay.api.image.delete(nav.tour, tag) >> Ok
   }
 
-  def leaderboardView(id: RelayTourId) = Open:
-    WithTour(id): tour =>
-      tour.autoLeaderboard.so(env.relay.leaderboard(tour)).map(_.fold(notFoundJson())(JsonStrOk))
-
   def playersView(id: RelayTourId) = Open:
     WithTour(id): tour =>
       env.relay.playerApi.json(tour.id).map(JsonStrOk)
