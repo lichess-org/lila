@@ -63,7 +63,7 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="pairingsQ">Korleis vert parsamansetjingane avgjord?</string>
   <string name="dutchSystem">Hollandsk system</string>
   <string name="FIDEHandbook">FIDE handbok</string>
-  <string name="pairingsA">Med %1$s, sett i verk av %2$s, i fylgje %3$s.</string>
+  <string name="pairingsA">Med %1$s, sett i verk av %2$s, i samsvar med %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Kva skjer dersom turneringa har fleire rundar enn spelarar?</string>
   <string name="moreRoundsThanPlayersA">Når alle parsamansetjingar har spela ferdig vil turneringa avsluttast og ein vinnar utropa.</string>
   <string name="restrictedToTeamsQ">Kvifor avgrensinga til lag?</string>
