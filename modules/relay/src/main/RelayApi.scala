@@ -26,7 +26,7 @@ final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
-    playersUpdate: RelayPlayersUpdate,
+    playerEnrich: RelayPlayerEnrich,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
     jsonView: JsonView,
@@ -230,7 +230,7 @@ final class RelayApi(
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))
-      _ <- playersUpdate(tour, prev)
+      _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
     yield
       leaderboard.invalidate(tour.id)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)

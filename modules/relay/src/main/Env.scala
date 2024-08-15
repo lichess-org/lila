@@ -55,7 +55,7 @@ final class Env(
 
   lazy val leaderboard = wire[RelayLeaderboardApi]
 
-  private lazy val playersApi = wire[RelayPlayersApi]
+  private lazy val playerEnrich = wire[RelayPlayerEnrich]
 
   private lazy val notifyAdmin = wire[RelayNotifierAdmin]
 
@@ -66,8 +66,6 @@ final class Env(
   lazy val listing: RelayListing = wire[RelayListing]
 
   lazy val stats = wire[RelayStatsApi]
-
-  private lazy val playersUpdate = wire[RelayPlayersUpdate]
 
   lazy val api: RelayApi = wire[RelayApi]
 

@@ -29,7 +29,7 @@ final private class RelayFetch(
     pgnDump: PgnDump,
     gameProxy: lila.core.game.GameProxy,
     cacheApi: CacheApi,
-    playersApi: RelayPlayersApi,
+    playerEnrich: RelayPlayerEnrich,
     notifyAdmin: RelayNotifierAdmin,
     onlyIds: Option[List[RelayTourId]] = None
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
@@ -88,7 +88,7 @@ final private class RelayFetch(
         _ = lila.mon.relay.games(rt.tour.official, rt.tour.id, rt.round.slug).update(allGamesInSource.size)
         filtered = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced   = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
-        withPlayers <- playersApi.updateAndReportAmbiguous(rt)(sliced)
+        withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(sliced)
         enriched    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         withTeams = rt.tour.teams.fold(enriched)(_.update(enriched))
         res <- sync
