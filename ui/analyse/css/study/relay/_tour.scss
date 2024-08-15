@@ -329,9 +329,7 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__players {
-    width: auto;
     overflow-x: auto;
-    margin: 0 auto 1rem;
     thead {
       background: none;
       th {
@@ -341,7 +339,7 @@ $hover-bg: $m-primary_bg--mix-30;
     thead {
       th {
         text-align: end;
-        padding: 0 2rem 0.5rem 2rem;
+        padding: 0.5rem 2rem 0.5rem 2rem;
       }
     }
     th {

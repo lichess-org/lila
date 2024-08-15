@@ -1,10 +1,13 @@
-import { Redraw, VNode, looseH as h } from 'common/snabbdom';
+/// <reference types="../../../../bits/types/tablesort" />
+import { Redraw, VNode, looseH as h, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { RoundId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
 import { Federation, Federations, StudyPlayerFromServer } from '../interfaces';
+import tablesort from 'tablesort';
+import extendTablesortNumber from 'common/tablesortNumber';
 
 interface RelayPlayer extends StudyPlayerFromServer {
   score: number;
@@ -54,35 +57,51 @@ export const playersView = (ctrl: RelayPlayers): VNode =>
 
 const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withRating = !!players.find(p => p.rating);
-  return h('table.relay-tour__players.slist.slist-invert.slist-pad', [
-    h(
-      'thead',
-      h('tr', [
-        h('th'),
-        withRating ? h('th', 'Elo') : undefined,
-        ctrl.showScores && h('th', 'Score'),
-        h('th', 'Games'),
-      ]),
-    ),
-    h(
-      'tbody',
-      players.map(player =>
+  const defaultSort = { attrs: { 'data-sort-default': 1 } };
+  return h(
+    'table.relay-tour__players.slist.slist-invert.slist-pad',
+    {
+      hook: onInsert(tableAugment),
+    },
+    [
+      h(
+        'thead',
         h('tr', [
-          h(
-            'th',
-            player.fideId
-              ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, [
-                  playerFed(ctrl.expandFederation(player)),
-                  userTitle(player),
-                  player.name,
-                ])
-              : player.name,
-          ),
-          h('td', withRating && player.rating ? `${player.rating}` : undefined),
-          ctrl.showScores && h('td', `${player.score}`),
-          h('td', `${player.played}`),
+          h('th', 'Player'),
+          withRating ? h('th', defaultSort, 'Elo') : undefined,
+          ctrl.showScores && h('th', 'Score'),
+          h('th', 'Games'),
         ]),
       ),
-    ),
-  ]);
+      h(
+        'tbody',
+        players.map(player =>
+          h('tr', [
+            h(
+              'th',
+              player.fideId
+                ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, [
+                    playerFed(ctrl.expandFederation(player)),
+                    userTitle(player),
+                    player.name,
+                  ])
+                : player.name,
+            ),
+            h('td', withRating && player.rating ? `${player.rating}` : undefined),
+            ctrl.showScores && h('td', `${player.score}`),
+            h('td', `${player.played}`),
+          ]),
+        ),
+      ),
+    ],
+  );
+};
+
+const tableAugment = (el: HTMLTableElement) => {
+  extendTablesortNumber();
+  $(el).each(function (this: HTMLElement) {
+    tablesort(this, {
+      descending: true,
+    });
+  });
 };
