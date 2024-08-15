@@ -141,7 +141,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def playersView(id: RelayTourId) = Open:
     WithTour(id): tour =>
-      env.relay.playerApi.json(tour.id).map(JsonStrOk)
+      env.relay.playerApi.jsonList(tour.id).map(JsonStrOk)
 
   def subscribe(id: RelayTourId, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
     env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
@@ -214,6 +214,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
     Found(env.relay.api.tourById(id)): tour =>
       Found(env.relay.listing.defaultRoundToShow.get(tour.id)): round =>
         roundC.doApiShow(round.withTour(tour))
+
+  def player(tourId: RelayTourId, id: String) = Anon:
+    Found(env.relay.api.tourById(tourId)): tour =>
+      Found(env.relay.playerApi.player(tour.id, id))(JsonOk)
 
   private given (using RequestHeader): JsonView.Config = JsonView.Config(html = getBool("html"))
 

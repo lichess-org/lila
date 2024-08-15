@@ -2,18 +2,27 @@
 import { Redraw, VNode, looseH as h, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { RoundId } from './interfaces';
+import { TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
-import { Federation, Federations, StudyPlayerFromServer } from '../interfaces';
+import { ChapterId, Federation, Federations, FideId, StudyPlayerFromServer } from '../interfaces';
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
 import { defined } from 'common';
+import { Attrs, Hooks } from 'snabbdom';
 
 interface RelayPlayer extends StudyPlayerFromServer {
+  id: FideId | string; // fide ID or full name
   score: number;
   played: number;
   ratingDiff?: number;
+}
+
+interface RelayPlayerGame {
+  id: ChapterId;
+  opponent: RelayPlayer;
+  color: Color;
+  outcome?: Outcome;
 }
 
 export default class RelayPlayers {
@@ -21,7 +30,7 @@ export default class RelayPlayers {
   players?: RelayPlayer[];
 
   constructor(
-    private readonly roundId: RoundId,
+    private readonly tourId: TourId,
     readonly showScores: boolean,
     private readonly federations: () => Federations | undefined,
     private readonly redraw: Redraw,
@@ -32,9 +41,11 @@ export default class RelayPlayers {
       this.loading = true;
       this.redraw();
     }
-    this.players = await xhr.json(`/broadcast/${this.roundId}/players`);
+    this.players = await xhr.json(`/broadcast/${this.tourId}/players`);
     this.redraw();
   };
+
+  playerXhrUrl = (p: RelayPlayer) => `/broadcast/${this.tourId}/players/${p.id}`;
 
   expandFederation = (p: RelayPlayer): Federation | undefined =>
     p.fed
@@ -82,11 +93,14 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
             h(
               'th',
               player.fideId
-                ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, [
-                    playerFed(ctrl.expandFederation(player)),
-                    userTitle(player),
-                    player.name,
-                  ])
+                ? h(
+                    'a',
+                    {
+                      attrs: playerLinkAttrs(player),
+                      hook: playerPowerTipHook(ctrl, player),
+                    },
+                    [playerFed(ctrl.expandFederation(player)), userTitle(player), player.name],
+                  )
                 : player.name,
             ),
             h('td', withRating && player.rating ? [`${player.rating}`, ratingDiff(player)] : undefined),
@@ -98,6 +112,79 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
     ],
   );
 };
+
+const playerLinkAttrs = (p: RelayPlayer): Attrs => ({
+  href: `/fide/${p.fideId}/redirect`,
+});
+
+import { init as initSnabbdom, classModule, attributesModule } from 'snabbdom';
+import { Outcome } from 'chessops';
+const playerTipId = 'tour-player-tip';
+
+const playerPowerTipHook = (ctrl: RelayPlayers, p: RelayPlayer): Hooks => ({
+  insert(vnode) {
+    $(vnode.elm as HTMLElement).powerTip({
+      placement: 's',
+      closeDelay: 200000,
+      popupId: playerTipId,
+      preRender() {
+        xhr.json(ctrl.playerXhrUrl(p)).then(json => {
+          const patch = initSnabbdom([classModule, attributesModule]);
+          const vdom = renderPlayerWithGames(ctrl, p, json.games as RelayPlayerGame[]);
+          const el = document.getElementById(playerTipId) as HTMLElement;
+          patch(el, h(`div#${playerTipId}`, vdom));
+          site.contentLoaded(el);
+        });
+      },
+    });
+    setTimeout(function () {
+      (vnode.elm as HTMLElement).classList.remove('new');
+    }, 20);
+  },
+  destroy(vnode) {
+    $.powerTip.hide(vnode.elm as HTMLElement, true);
+    $.powerTip.destroy(vnode.elm as HTMLElement);
+  },
+});
+
+const renderPlayerWithGames = (ctrl: RelayPlayers, p: RelayPlayer, games: RelayPlayerGame[]): VNode =>
+  h('div.tpp', [
+    h('div.tpp__player', [
+      h('div.tpp__player__name', [userTitle(p), p.name]),
+      h('div.tpp__player__info', [
+        h('div', [playerFed(ctrl.expandFederation(p)), ...(p.rating ? [`${p.rating}`, ratingDiff(p)] : [])]),
+        h('div', [p.score, ' / ', p.played]),
+      ]),
+    ]),
+    h(
+      'div.tpp__games',
+      h(
+        'table',
+        h(
+          'tbody',
+          games.map((game, i) => {
+            const op = game.opponent;
+            return h('tr', [
+              h('td', `${i + 1}`),
+              h('td', [playerFed(ctrl.expandFederation(op)), userTitle(op), op.name]),
+              h('td', op.rating?.toString()),
+              h('td.is.color-icon.' + game.color),
+              h(
+                'td.tpp__games__status',
+                game.outcome
+                  ? game.outcome.winner
+                    ? game.outcome.winner == game.color
+                      ? h('good', '1')
+                      : h('bad', '0')
+                    : h('span', '½')
+                  : '*',
+              ),
+            ]);
+          }),
+        ),
+      ),
+    ),
+  ]);
 
 const ratingDiff = (p: RelayPlayer) => {
   const rd = p.ratingDiff;

@@ -41,7 +41,10 @@ object RelayPlayer:
           "score"  -> p.score,
           "played" -> p.games.size
         )
+        .add("id" -> p.player.id.map(_.toString))
         .add("ratingDiff" -> p.ratingDiff)
+    def withGames(p: RelayPlayer): JsObject =
+      Json.toJsObject(p) ++ Json.obj("games" -> p.games)
 
 private final class RelayPlayerApi(
     tourRepo: RelayTourRepo,
@@ -68,7 +71,11 @@ private final class RelayPlayerApi(
           JsonStr(Json.stringify(Json.toJson(players.values.toList)))
 
   export cache.get
-  export jsonCache.{ get as json }
+  export jsonCache.{ get as jsonList }
+
+  def player(tourId: RelayTourId, str: String): Fu[Option[JsObject]] =
+    val id = FideId.from(str.toIntOption) | PlayerName(str)
+    cache.get(tourId).map(_.get(id).map(json.withGames))
 
   def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 
@@ -136,24 +143,14 @@ private final class RelayPlayerApi(
       .map(_.to(SeqMap))
 
   private def computeNewEloRating(
-      playerRating: Elo,
-      playerKFactor: Int,
+      rating: Elo,
+      kFactor: Int,
       games: Vector[RelayPlayer.Game]
   ): Elo =
     val ratedGames = games.flatMap: game =>
       game.opponent.rating.map(_ -> game.outcome)
     val playerExpectedScore = ratedGames.foldLeft(0d):
-      case (score, (opRating, _)) => score + 1 / (1 + Math.pow(10, (opRating - playerRating).value / 400))
+      case (score, (opRating, _)) => score + 1 / (1 + Math.pow(10, (opRating - rating).value / 400))
     val playerScore = games.foldLeft(0d): (score, game) =>
       score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
-    playerRating + Math.round(playerKFactor * (playerScore - playerExpectedScore)).toInt
-  //
-  // private def computeNewEloRating(
-  //     playerRating: Elo,
-  //     playerKFactor: Int,
-  //     opponentRating: Elo,
-  //     outcome: Option[Boolean]
-  // ): Elo =
-  //   val playerExpectedScore = 1 / (1 + Math.pow(10, (opponentRating - playerRating).value / 400))
-  //   val playerScore         = outcome.fold(0.5d)(_.so(1d))
-  //   playerRating + Math.round(playerKFactor * (playerScore - playerExpectedScore)).toInt
+    rating + Math.round(kFactor * (playerScore - playerExpectedScore)).toInt

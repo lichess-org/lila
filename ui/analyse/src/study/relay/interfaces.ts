@@ -14,12 +14,13 @@ export interface RelayGroup {
   tours: RelayTourIdName[];
 }
 
+export type TourId = string;
+export type RoundId = string;
+
 export interface RelayTourIdName {
-  id: string;
+  id: TourId;
   name: string;
 }
-
-export type RoundId = string;
 
 export interface RelayRound {
   id: RoundId;
@@ -40,7 +41,7 @@ export interface RelayTourInfo {
 export type RelayTourDates = [number] | [number, number];
 
 export interface RelayTour {
-  id: string;
+  id: TourId;
   name: string;
   slug: string;
   description?: string;

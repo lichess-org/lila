@@ -531,3 +531,54 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
 }
+
+#tour-player-tip {
+  @extend %box-radius-force, %popup-shadow;
+  display: none;
+  background: $c-bg-box;
+  position: absolute;
+  z-index: $z-powertip-120;
+
+  border: 1px solid $c-brag;
+}
+.tpp {
+  &__player {
+    padding: 1.5em 2em;
+    background: $c-bg-popup;
+    font-size: 1.1em;
+    &__name {
+      @extend %flex-center-nowrap, %ellipsis;
+      font-size: 1.3em;
+      margin-bottom: 0.7rem;
+    }
+    &__info {
+      @extend %flex-between;
+      font-weight: bold;
+    }
+  }
+  &__games {
+    margin-bottom: 0.3em;
+    max-height: 40vh;
+    overflow-y: auto;
+    &__status {
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+    }
+    td {
+      padding: 0.4rem;
+      border-top: $border;
+    }
+    tr:first-child td {
+      border-top: none;
+    }
+    td:first-child {
+      padding-inline-start: 1.5rem;
+      text-align: end;
+    }
+    td:last-child {
+      padding-inline-end: 1.5rem;
+    }
+  }
+}
