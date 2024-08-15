@@ -8,7 +8,7 @@
   <string name="isNotRated">Turneringa er *ikkje* rangert og vil *ikkje* påverke ratinga di.</string>
   <string name="someRated">Nokre av turneringane er rangerte og vil påverke ratingen din.</string>
   <string name="howAreScoresCalculated">Korleis vert poenga rekna ut?</string>
-  <string name="howAreScoresCalculatedAnswer">Ein siger gjev to basispoeng, ein remis eitt poeng og eit tap null poeng. Vinn du to parti på rad vert det starta ein dobbelpoeng-serie, det kjem då fram ein flamme som ikon. Partia som fylgjer er då verde doble poeng heilt til du mislukkast i å vinne eit parti. Dette vil seie at ein siger er verd fire poeng, ein remis to poeng og eit tap null poeng.
+  <string name="howAreScoresCalculatedAnswer">Ein siger gjev to basispoeng, ein remis eitt poeng og eit tap null poeng. Vinn du to parti på rad vert det starta ein dobbelpoeng-serie, det kjem då fram ein flamme som ikon. Partia som følgjer er då verde doble poeng heilt til du mislukkast i å vinne eit parti. Dette vil seie at ein siger er verd fire poeng, ein remis to poeng og eit tap null poeng.
 
 Til dømes gjev to sigrar med ein remis etterpå seks poeng: 2 + 2 + (2 *1)</string>
   <string name="berserk">Arena Berserk</string>
