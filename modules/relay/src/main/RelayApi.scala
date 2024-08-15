@@ -425,7 +425,7 @@ final class RelayApi(
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
       order <- roundRepo.orderOf(from.id)
       bdoc  <- toBdocWithOrder(round, order.map(_ + 1))
-      _     <- roundRepo.coll.insert.one(round)
+      _     <- roundRepo.coll.insert.one(bdoc)
     yield round
 
   def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using
