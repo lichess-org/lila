@@ -34,7 +34,7 @@ final class GameSearchApi(
         client
           .search(query, From(from), size)
           .map: res =>
-            Some((from + pageSize.value) -> res.hitIds.map(GameId.apply))
+            Option.when(res.hitIds.nonEmpty)((from + pageSize.value) -> res.hitIds.map(GameId.apply))
 
   def store(game: Game) =
     storable(game).so:
