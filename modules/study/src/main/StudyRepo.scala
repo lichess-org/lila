@@ -173,7 +173,10 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     .void
 
   def updateNow(s: Study): Funit =
-    coll.map(_.updateFieldUnchecked($id(s.id), "updatedAt", nowInstant))
+    updateNow(s.id)
+
+  def updateNow(id: StudyId): Funit =
+    coll.map(_.updateFieldUnchecked($id(id), "updatedAt", nowInstant))
 
   def addMember(study: Study, member: StudyMember): Funit =
     coll:
@@ -269,6 +272,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
                 $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
               )
               .inject(likes)
+              .andDo(updateNow(studyId))
       }
 
   def liked(study: Study, user: User): Fu[Boolean] =
