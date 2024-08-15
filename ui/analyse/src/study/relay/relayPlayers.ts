@@ -4,38 +4,34 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { RoundId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
-import { Federation, Federations } from '../interfaces';
+import { Federation, Federations, StudyPlayerFromServer } from '../interfaces';
 
-interface LeadPlayer {
-  name: string;
-  rating?: number;
-  title?: string;
-  fideId?: number;
-  fed?: string;
+interface RelayPlayer extends StudyPlayerFromServer {
   score: number;
   played: number;
 }
 
-export default class RelayLeaderboard {
+export default class RelayPlayers {
   loading = false;
-  leaderboard?: LeadPlayer[];
+  players?: RelayPlayer[];
 
   constructor(
     private readonly roundId: RoundId,
+    readonly showScores: boolean,
     private readonly federations: () => Federations | undefined,
     private readonly redraw: Redraw,
   ) {}
 
   loadFromXhr = async (onInsert?: boolean) => {
-    if (this.leaderboard && !onInsert) {
+    if (this.players && !onInsert) {
       this.loading = true;
       this.redraw();
     }
-    this.leaderboard = await xhr.json(`/broadcast/${this.roundId}/leaderboard`);
+    this.players = await xhr.json(`/broadcast/${this.roundId}/players`);
     this.redraw();
   };
 
-  expandFederation = (p: LeadPlayer): Federation | undefined =>
+  expandFederation = (p: RelayPlayer): Federation | undefined =>
     p.fed
       ? {
           id: p.fed,
@@ -44,27 +40,29 @@ export default class RelayLeaderboard {
       : undefined;
 }
 
-export const leaderboardView = (ctrl: RelayLeaderboard): VNode =>
+export const playersView = (ctrl: RelayPlayers): VNode =>
   h(
-    'div.relay-tour__leaderboard',
+    'div.relay-tour__players',
     {
-      class: { loading: ctrl.loading, nodata: !ctrl.leaderboard },
+      class: { loading: ctrl.loading, nodata: !ctrl.players },
       hook: {
         insert: () => ctrl.loadFromXhr(true),
       },
     },
-    ctrl.leaderboard ? renderPlayers(ctrl.leaderboard, ctrl.expandFederation) : [spinner()],
+    ctrl.players ? renderPlayers(ctrl, ctrl.players) : [spinner()],
   );
 
-const renderPlayers = (
-  players: LeadPlayer[],
-  expandFederation: (p: LeadPlayer) => Federation | undefined,
-): VNode => {
+const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withRating = !!players.find(p => p.rating);
-  return h('table.relay-tour__leaderboard.slist.slist-invert.slist-pad', [
+  return h('table.relay-tour__players.slist.slist-invert.slist-pad', [
     h(
       'thead',
-      h('tr', [h('th'), withRating ? h('th', 'Elo') : undefined, h('th', 'Score'), h('th', 'Games')]),
+      h('tr', [
+        h('th'),
+        withRating ? h('th', 'Elo') : undefined,
+        ctrl.showScores && h('th', 'Score'),
+        h('th', 'Games'),
+      ]),
     ),
     h(
       'tbody',
@@ -74,14 +72,14 @@ const renderPlayers = (
             'th',
             player.fideId
               ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, [
-                  playerFed(expandFederation(player)),
+                  playerFed(ctrl.expandFederation(player)),
                   userTitle(player),
                   player.name,
                 ])
               : player.name,
           ),
           h('td', withRating && player.rating ? `${player.rating}` : undefined),
-          h('td', `${player.score}`),
+          ctrl.showScores && h('td', `${player.score}`),
           h('td', `${player.played}`),
         ]),
       ),

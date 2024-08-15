@@ -39,10 +39,11 @@ object StudyPlayer:
           .add("fideId" -> p.fideId)
           .add("fed" -> p.fed)
     given chapterPlayerWrites: OWrites[ChapterPlayer] = OWrites: p =>
-      Json.toJsObject(StudyPlayer.WithFed(p.player, p.fed)).add("clock" -> p.clock)
+      Json.toJsObject(p.studyPlayer).add("clock" -> p.clock)
 
 case class ChapterPlayer(player: StudyPlayer, fed: Option[Federation.Id], clock: Option[Centis]):
   export player.*
+  def studyPlayer = StudyPlayer.WithFed(player, fed)
 
 object ChapterPlayer:
 

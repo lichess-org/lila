@@ -4,14 +4,13 @@ import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, defined, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
-import RelayLeaderboard from './relayLeaderboard';
+import RelayPlayers from './relayPlayers';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
 import { onWindowResize as videoPlayerOnWindowResize } from './videoPlayerView';
 import RelayStats from './relayStats';
-import RelayPlayerCards from './relayPlayerCards';
 
-export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard', 'players', 'stats'] as const;
+export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
@@ -22,8 +21,7 @@ export default class RelayCtrl {
   groupSelectShow = toggle(false);
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
-  leaderboard?: RelayLeaderboard;
-  playerCards?: RelayPlayerCards;
+  players: RelayPlayers;
   stats: RelayStats;
   streams: [string, string][] = [];
   showStreamerMenu = toggle(false);
@@ -51,10 +49,7 @@ export default class RelayCtrl {
     this.teams = data.tour.teamTable
       ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, redraw)
       : undefined;
-    this.leaderboard = data.tour.leaderboard
-      ? new RelayLeaderboard(data.tour.id, this.federations, redraw)
-      : undefined;
-    this.playerCards = new RelayPlayerCards(data.tour.id, redraw);
+    this.players = new RelayPlayers(data.tour.id, !!data.tour.leaderboard, this.federations, redraw);
     this.stats = new RelayStats(this.currentRound(), redraw);
     setInterval(() => this.redraw(true), 1000);
 

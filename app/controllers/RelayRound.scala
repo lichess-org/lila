@@ -282,7 +282,6 @@ final class RelayRound(
               .map:
                 _.flatMap(_.stream).map(_.urls(netDomain).toPair)
         crossSiteIsolation = videoUrls.isEmpty
-        _ <- env.relay.playerCardApi.cardsOf(rt.tour.id)
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,

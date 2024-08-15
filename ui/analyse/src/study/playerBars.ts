@@ -3,7 +3,7 @@ import { looseH as h } from 'common/snabbdom';
 import renderClocks from '../view/clocks';
 import AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
-import { ChapterPreviewPlayers, Federation, TagArray } from './interfaces';
+import { StudyPlayers, Federation, TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'common/userLink';
 
@@ -36,7 +36,7 @@ function renderPlayer(
   tags: TagArray[],
   clocks: [VNode, VNode] | undefined,
   materialDiffs: [VNode, VNode],
-  players: ChapterPreviewPlayers | undefined,
+  players: StudyPlayers | undefined,
   color: Color,
   ticking: boolean,
   showRatings: boolean,

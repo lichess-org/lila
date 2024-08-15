@@ -1,7 +1,7 @@
 import { MaybeVNodes, Redraw, VNode, onInsert, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { RoundId } from './interfaces';
-import { ChapterId, ChapterPreview, ChapterPreviewPlayer, ChapterSelect, StatusStr } from '../interfaces';
+import { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
 import { MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
@@ -102,7 +102,7 @@ const renderTeams = (
     ]);
   });
 
-const playerView = (p: ChapterPreviewPlayer) =>
+const playerView = (p: StudyPlayer) =>
   h('span.relay-tour__team-match__game__player', [
     h('span.mini-game__user', [playerFed(p.fed), h('span.name', [userTitle(p), p.name])]),
     p.rating && h('rating', `${p.rating}`),

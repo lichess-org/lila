@@ -50,40 +50,41 @@ final class RelayLeaderboardApi(
   private def computeJson(id: RelayTourId): Fu[JsonStr] =
     compute(id).map(lead => JsonStr(Json.stringify(Json.toJson(lead))))
 
-  private def compute(id: RelayTourId): Fu[RelayLeaderboard] = for
-    tour     <- tourRepo.coll.byId[RelayTour](id).orFail(s"No such relay tour $id")
-    roundIds <- roundRepo.idsByTourOrdered(tour.id)
-    tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
-    players = tags.foldLeft(
-      Map.empty[PlayerName, (Double, Int, Option[Elo], Option[PlayerTitle], Option[FideId])]
-    ): (lead, game) =>
-      Color.all.foldLeft(lead): (lead, color) =>
-        game
-          .names(color)
-          .fold(lead): name =>
-            val (score, played) = game.outcome.fold((0d, 0)):
-              case Outcome(None)                            => (0.5, 1)
-              case Outcome(Some(winner)) if winner == color => (1d, 1)
-              case _                                        => (0d, 1)
-            val (prevScore, prevPlayed, prevRating, prevTitle, prevFideId) =
-              lead.getOrElse(name, (0d, 0, none, none, none))
-            lead.updated(
-              name,
-              (
-                prevScore + score,
-                prevPlayed + played,
-                game.elos(color).orElse(prevRating),
-                prevTitle.orElse(game.titles(color)),
-                prevFideId.orElse(game.fideIds(color))
-              )
-            )
-    federations <- federationsOf(players.values.flatMap(_._5).toList)
-  yield RelayLeaderboard:
-    players.toList
-      .sortBy: (_, player) =>
-        (-player._1, -player._3.so(_.value))
-      .map:
-        case (name, (score, played, rating, title, fideId)) =>
-          val fed    = fideId.flatMap(federations.get)
-          val player = StudyPlayer(fideId, title, name.some, rating, team = none)
-          RelayLeaderboard.Player(player, fed, score, played)
+  private def compute(id: RelayTourId): Fu[RelayLeaderboard] = ???
+  // for
+  //   tour     <- tourRepo.coll.byId[RelayTour](id).orFail(s"No such relay tour $id")
+  //   roundIds <- roundRepo.idsByTourOrdered(tour.id)
+  //   tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
+  //   players = tags.foldLeft(
+  //     Map.empty[PlayerName, (Double, Int, Option[Elo], Option[PlayerTitle], Option[FideId])]
+  //   ): (lead, game) =>
+  //     Color.all.foldLeft(lead): (lead, color) =>
+  //       game
+  //         .names(color)
+  //         .fold(lead): name =>
+  //           val (score, played) = game.outcome.fold((0d, 0)):
+  //             case Outcome(None)                            => (0.5, 1)
+  //             case Outcome(Some(winner)) if winner == color => (1d, 1)
+  //             case _                                        => (0d, 1)
+  //           val (prevScore, prevPlayed, prevRating, prevTitle, prevFideId) =
+  //             lead.getOrElse(name, (0d, 0, none, none, none))
+  //           lead.updated(
+  //             name,
+  //             (
+  //               prevScore + score,
+  //               prevPlayed + played,
+  //               game.elos(color).orElse(prevRating),
+  //               prevTitle.orElse(game.titles(color)),
+  //               prevFideId.orElse(game.fideIds(color))
+  //             )
+  //           )
+  //   federations <- federationsOf(players.values.flatMap(_._5).toList)
+  // yield RelayLeaderboard:
+  //   players.toList
+  //     .sortBy: (_, player) =>
+  //       (-player._1, -player._3.so(_.value))
+  //     .map:
+  //       case (name, (score, played, rating, title, fideId)) =>
+  //         val fed    = fideId.flatMap(federations.get)
+  //         val player = StudyPlayer(fideId, title, name.some, rating, team = none)
+  //         RelayLeaderboard.Player(player, fed, score, played)

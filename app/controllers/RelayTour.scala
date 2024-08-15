@@ -145,7 +145,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def playersView(id: RelayTourId) = Open:
     WithTour(id): tour =>
-      env.relay.playerCardApi.cardsJson(tour).map(JsonStrOk)
+      env.relay.playerApi.json(tour.id).map(JsonStrOk)
 
   def subscribe(id: RelayTourId, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
     env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)

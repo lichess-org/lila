@@ -16,8 +16,8 @@ import {
   ChapterPreviewFromServer,
   ChapterId,
   Federations,
-  ChapterPreviewPlayerFromServer,
-  ChapterPreviewPlayer,
+  StudyPlayerFromServer,
+  StudyPlayer,
   ChapterSelect,
 } from './interfaces';
 import StudyCtrl from './studyCtrl';
@@ -81,9 +81,9 @@ export default class StudyChaptersCtrl {
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
     );
-  private convertPlayersFromServer = (players: PairOf<ChapterPreviewPlayerFromServer>) => {
+  private convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
     const feds = this.federations(),
-      conv: ChapterPreviewPlayer[] = players.map(p => ({
+      conv: StudyPlayer[] = players.map(p => ({
         ...p,
         fed: p.fed ? { id: p.fed, name: feds?.[p.fed] || p.fed } : undefined,
       }));
