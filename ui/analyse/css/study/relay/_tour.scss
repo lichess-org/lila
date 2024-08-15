@@ -360,11 +360,15 @@ $hover-bg: $m-primary_bg--mix-30;
       }
     }
     td {
+      font-family: monospace;
       text-align: end;
       padding: 1rem 2rem;
       &:last-child {
         font-weight: bold;
       }
+    }
+    .rp {
+      margin-inline-start: 1ch;
     }
   }
 

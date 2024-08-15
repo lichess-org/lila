@@ -11,13 +11,13 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
   import RelayFidePlayerApi.*
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
-    val tc = guessTimeControl(tour)
+    val tc = guessTimeControl(tour.info)
     games.traverse: game =>
       enrichTags(game.tags, tc).map: tags =>
         game.copy(tags = tags)
 
   def enrichTags(tour: RelayTour): Tags => Fu[Tags] =
-    val tc = guessTimeControl(tour)
+    val tc = guessTimeControl(tour.info)
     tags => enrichTags(tags, tc)
 
   private def enrichTags(tags: Tags, tc: FideTC): Fu[Tags] =
@@ -44,8 +44,9 @@ final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(
 
 private object RelayFidePlayerApi:
 
-  def guessTimeControl(tour: RelayTour): FideTC =
-    tour.info.tc
+  def guessTimeControl(info: RelayTour.Info): FideTC = guessTimeControl(info.tc)
+  def guessTimeControl(infoTc: Option[String]): FideTC =
+    infoTc
       .map(_.trim.toLowerCase.replace("classical", "standard"))
       .so: tcStr =>
         FideTC.values.find(tc => tcStr.contains(tc.toString))

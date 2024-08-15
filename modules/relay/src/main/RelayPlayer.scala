@@ -14,6 +14,7 @@ import play.api.libs.json.*
 import lila.core.fide.Federation
 import lila.common.Json.given
 import lila.common.Debouncer
+import lila.core.fide.FideTC
 
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
@@ -35,12 +36,15 @@ object RelayPlayer:
     given Writes[Outcome]          = Json.writes
     given Writes[RelayPlayer.Game] = Json.writes
     given OWrites[RelayPlayer] = OWrites: p =>
-      Json.toJsObject(p.player) ++ Json.obj(
-        "score"  -> p.score,
-        "played" -> p.games.size
-      )
+      Json.toJsObject(p.player) ++ Json
+        .obj(
+          "score"  -> p.score,
+          "played" -> p.games.size
+        )
+        .add("ratingDiff" -> p.ratingDiff)
 
 private final class RelayPlayerApi(
+    tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
     chapterRepo: lila.study.ChapterRepo,
     chapterPreviewApi: ChapterPreviewApi,
@@ -74,6 +78,7 @@ private final class RelayPlayerApi(
     jsonCache.invalidate(id)
 
   private def compute(tourId: RelayTourId): Fu[RelayPlayers] = for
+    tourInfo     <- tourRepo.info(tourId)
     roundIds     <- roundRepo.idsByTourOrdered(tourId)
     studyPlayers <- fetchStudyPlayers(roundIds)
     rounds       <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
@@ -99,7 +104,9 @@ private final class RelayPlayerApi(
                         .getOrElse(playerId, RelayPlayer(player, None, Vector.empty))
                         .withGame(game)
                     )
-  yield players
+    tc = RelayFidePlayerApi.guessTimeControl(tourInfo.flatMap(_.tc))
+    withRatingDiff <- computeRatingDiffs(tc, players)
+  yield withRatingDiff
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
   private def fetchStudyPlayers(roundIds: List[RelayRoundId]): Fu[StudyPlayers] =
@@ -113,25 +120,40 @@ private final class RelayPlayerApi(
               if players.contains(id) then players
               else players.updated(id, p.studyPlayer)
 
-  private def computeRatingDiffs(tour: RelayTour, players: RelayPlayers): Fu[RelayPlayers] =
-    val tc = RelayFidePlayerApi.guessTimeControl(tour)
+  private def computeRatingDiffs(tc: FideTC, players: RelayPlayers): Fu[RelayPlayers] =
     players.toList
       .traverse: (id, player) =>
         player.fideId
           .so(fidePlayerGet)
           .map:
             _.fold(id -> player): fidePlayer =>
-              val kFactor = fidePlayer.kFactorOf(tc)
-              id -> player
+              (player.rating
+                .orElse(fidePlayer.ratingOf(tc)))
+                .fold(id -> player): rating =>
+                  val kFactor    = fidePlayer.kFactorOf(tc)
+                  val postRating = computeNewEloRating(rating, kFactor, player.games)
+                  id -> player.copy(ratingDiff = (postRating - rating).value.some)
       .map(_.to(SeqMap))
 
   private def computeNewEloRating(
-      playerRating: Int,
-      opponentRating: Int,
+      playerRating: Elo,
       playerKFactor: Int,
-      outcome: Option[Boolean]
-  ): Int =
-    val playerExpectedScore = 1 / (1 + Math.pow(10, (opponentRating - playerRating) / 400))
-    val playerScore         = outcome.fold(0.5d)(_.so(1d))
-    val playerNewRating = playerRating + Math.round(playerKFactor * (playerScore - playerExpectedScore)).toInt
-    playerNewRating
+      games: Vector[RelayPlayer.Game]
+  ): Elo =
+    val ratedGames = games.flatMap: game =>
+      game.opponent.rating.map(_ -> game.outcome)
+    val playerExpectedScore = ratedGames.foldLeft(0d):
+      case (score, (opRating, _)) => score + 1 / (1 + Math.pow(10, (opRating - playerRating).value / 400))
+    val playerScore = games.foldLeft(0d): (score, game) =>
+      score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
+    playerRating + Math.round(playerKFactor * (playerScore - playerExpectedScore)).toInt
+  //
+  // private def computeNewEloRating(
+  //     playerRating: Elo,
+  //     playerKFactor: Int,
+  //     opponentRating: Elo,
+  //     outcome: Option[Boolean]
+  // ): Elo =
+  //   val playerExpectedScore = 1 / (1 + Math.pow(10, (opponentRating - playerRating).value / 400))
+  //   val playerScore         = outcome.fold(0.5d)(_.so(1d))
+  //   playerRating + Math.round(playerKFactor * (playerScore - playerExpectedScore)).toInt

@@ -53,6 +53,9 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
     coll.exists($doc($inIds(ids), "ownerId".$ne(u))).not
 
+  def info(tourId: RelayTourId): Fu[Option[RelayTour.Info]] =
+    coll.primitiveOne[RelayTour.Info]($id(tourId), "info")
+
 private object RelayTourRepo:
   object selectors:
     val official                = $doc("tier".$exists(true))

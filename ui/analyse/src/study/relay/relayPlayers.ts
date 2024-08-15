@@ -8,10 +8,12 @@ import { userTitle } from 'common/userLink';
 import { Federation, Federations, StudyPlayerFromServer } from '../interfaces';
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
+import { defined } from 'common';
 
 interface RelayPlayer extends StudyPlayerFromServer {
   score: number;
   played: number;
+  ratingDiff?: number;
 }
 
 export default class RelayPlayers {
@@ -87,7 +89,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                   ])
                 : player.name,
             ),
-            h('td', withRating && player.rating ? `${player.rating}` : undefined),
+            h('td', withRating && player.rating ? [`${player.rating}`, ratingDiff(player)] : undefined),
             ctrl.showScores && h('td', `${player.score}`),
             h('td', `${player.played}`),
           ]),
@@ -95,6 +97,17 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
       ),
     ],
   );
+};
+
+const ratingDiff = (p: RelayPlayer) => {
+  const rd = p.ratingDiff;
+  return !defined(rd)
+    ? undefined
+    : rd > 0
+    ? h('good.rp', '+' + rd)
+    : rd < 0
+    ? h('bad.rp', '−' + -rd)
+    : h('span', ' ==');
 };
 
 const tableAugment = (el: HTMLTableElement) => {
