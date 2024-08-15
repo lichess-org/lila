@@ -392,11 +392,17 @@ object GameApiV2:
       finished: Boolean = true
   )(using val by: Option[Me])
       extends Config:
+    import lila.search.spec.DateRange
+    import lila.gameSearch.*
 
     private def ts(i: Instant): Timestamp = Timestamp.fromEpochMilli(i.toEpochMilli)
+
+    def toSorting =
+      sort match
+        case GameSort.DateAsc  => SearchSort(Fields.date, "asc")
+        case GameSort.DateDesc => SearchSort(Fields.date, "desc")
+
     def toGameQuery =
-      import lila.search.spec.DateRange
-      import lila.gameSearch.{ SearchData, SearchPlayer }
       SearchData(
         players = SearchPlayer(
           a = user.id.into(UserStr).some,
@@ -404,7 +410,8 @@ object GameApiV2:
           white = color.exists(_.white).option(user.id.into(UserStr)),
           black = color.exists(_.black).option(user.id.into(UserStr))
         ),
-        analysed = analysed.map(_.so(1))
+        analysed = analysed.map(_.so(1)),
+        sort = toSorting.some
       ).query.copy(
         date = DateRange(since.map(ts), until.map(ts)),
         perf = perfKey.view.map(_.id.value).toList,

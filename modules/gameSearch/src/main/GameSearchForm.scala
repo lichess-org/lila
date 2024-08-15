@@ -128,7 +128,7 @@ case class SearchPlayer(
 
   private def oneOf(s: Option[UserStr]) = s.map(_.id).filter(List(cleanA, cleanB).flatten.contains)
 
-private[gameSearch] case class SearchSort(
+case class SearchSort(
     field: String = Sorting.default.f,
     order: String = Sorting.default.order
 )
