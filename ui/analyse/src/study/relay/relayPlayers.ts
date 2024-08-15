@@ -2,7 +2,7 @@
 import { Redraw, VNode, looseH as h, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { TourId } from './interfaces';
+import { RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
 import { ChapterId, Federation, Federations, FideId, StudyPlayerFromServer } from '../interfaces';
@@ -20,6 +20,7 @@ interface RelayPlayer extends StudyPlayerFromServer {
 
 interface RelayPlayerGame {
   id: ChapterId;
+  round: RoundId;
   opponent: RelayPlayer;
   color: Color;
   outcome?: Outcome;
@@ -164,22 +165,42 @@ const renderPlayerWithGames = (ctrl: RelayPlayers, p: RelayPlayer, games: RelayP
           'tbody',
           games.map((game, i) => {
             const op = game.opponent;
-            return h('tr', [
-              h('td', `${i + 1}`),
-              h('td', [playerFed(ctrl.expandFederation(op)), userTitle(op), op.name]),
-              h('td', op.rating?.toString()),
-              h('td.is.color-icon.' + game.color),
-              h(
-                'td.tpp__games__status',
-                game.outcome
-                  ? game.outcome.winner
-                    ? game.outcome.winner == game.color
-                      ? h('good', '1')
-                      : h('bad', '0')
-                    : h('span', '½')
-                  : '*',
-              ),
-            ]);
+            return h(
+              'tr',
+              {
+                hook: onInsert(el =>
+                  el.addEventListener('click', (e: Event) => {
+                    let tr = e.target as HTMLLinkElement;
+                    while (tr && tr.tagName !== 'TR') tr = tr.parentNode as HTMLLinkElement;
+                    const href = tr.querySelector('a')?.href;
+                    if (href) location.href = href;
+                  }),
+                ),
+              },
+              [
+                h('td', `${i + 1}`),
+                h(
+                  'td',
+                  h('a', { attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` } }, [
+                    playerFed(ctrl.expandFederation(op)),
+                    userTitle(op),
+                    op.name,
+                  ]),
+                ),
+                h('td', op.rating?.toString()),
+                h('td.is.color-icon.' + game.color),
+                h(
+                  'td.tpp__games__status',
+                  game.outcome
+                    ? game.outcome.winner
+                      ? game.outcome.winner == game.color
+                        ? h('good', '1')
+                        : h('bad', '0')
+                      : h('span', '½')
+                    : '*',
+                ),
+              ],
+            );
           }),
         ),
       ),

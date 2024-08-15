@@ -542,6 +542,9 @@ $hover-bg: $m-primary_bg--mix-30;
   border: 1px solid $c-brag;
 }
 .tpp {
+  a {
+    color: $c-font;
+  }
   &__player {
     padding: 1.5em 2em;
     background: $c-bg-popup;
@@ -569,6 +572,13 @@ $hover-bg: $m-primary_bg--mix-30;
     td {
       padding: 0.4rem;
       border-top: $border;
+      cursor: pointer;
+    }
+    tr {
+      cursor: pointer;
+      &:hover {
+        background: $c-bg-zebra;
+      }
     }
     tr:first-child td {
       border-top: none;
@@ -576,6 +586,8 @@ $hover-bg: $m-primary_bg--mix-30;
     td:first-child {
       padding-inline-start: 1.5rem;
       text-align: end;
+      color: $c-font-dimmer;
+      font-weight: bold;
     }
     td:last-child {
       padding-inline-end: 1.5rem;

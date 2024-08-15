@@ -28,7 +28,13 @@ case class RelayPlayer(
     score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
 
 object RelayPlayer:
-  case class Game(id: StudyChapterId, opponent: StudyPlayer.WithFed, color: Color, outcome: Option[Outcome]):
+  case class Game(
+      round: RelayRoundId,
+      id: StudyChapterId,
+      opponent: StudyPlayer.WithFed,
+      color: Color,
+      outcome: Option[Outcome]
+  ):
     def playerOutcome: Option[Option[Boolean]] =
       outcome.map(_.winner.map(_ == color))
 
@@ -91,6 +97,7 @@ private final class RelayPlayerApi(
     rounds       <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
     players = rounds.foldLeft(SeqMap.empty: RelayPlayers):
       case (players, (studyId, chapters)) =>
+        val roundId = studyId.into(RelayRoundId)
         chapters.foldLeft(players):
           case (players, (chapterId, tags)) =>
             StudyPlayer
@@ -104,7 +111,7 @@ private final class RelayPlayerApi(
                   case (players, (color, (playerId, player))) =>
                     val (_, opponent) = gamePlayers(!color)
                     val outcome       = tags.outcome
-                    val game          = RelayPlayer.Game(chapterId, opponent, color, tags.outcome)
+                    val game          = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.outcome)
                     players.updated(
                       playerId,
                       players
