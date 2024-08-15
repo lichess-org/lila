@@ -47,7 +47,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       Found(env.user.lightUser(owner.id)): owner =>
         env.relay.pager
           .byOwner(owner.id, page)
-          .map(_.mapResults(env.relay.jsonView(_)))
+          .map(_.mapResults(env.relay.jsonView.tourWithAnyRound(_)))
           .map(JsonOk(_))
 
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>

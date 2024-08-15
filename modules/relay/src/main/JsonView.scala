@@ -63,7 +63,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       )
       .add("group" -> group)
 
-  def apply(t: RelayTour | WithLastRound | ActiveWithSomeRounds)(using Config): JsObject = t match
+  def tourWithAnyRound(t: RelayTour | WithLastRound | ActiveWithSomeRounds)(using Config): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
@@ -138,9 +138,9 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       past: Paginator[WithLastRound]
   )(using Config) =
     Json.obj(
-      "active"   -> active.sortBy(t => -(~t.tour.tier)).map(apply(_)),
-      "upcoming" -> upcoming.map(apply(_)),
-      "past"     -> paginatorWriteNoNbResults.writes(past.map(apply(_)))
+      "active"   -> active.sortBy(t => -(~t.tour.tier)).map(tourWithAnyRound(_)),
+      "upcoming" -> upcoming.map(tourWithAnyRound(_)),
+      "past"     -> paginatorWriteNoNbResults.writes(past.map(tourWithAnyRound(_)))
     )
 
 object JsonView:
