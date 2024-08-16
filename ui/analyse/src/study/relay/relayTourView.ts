@@ -383,8 +383,8 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
   return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
     makeTab('overview', 'Overview'),
     makeTab('boards', 'Boards'),
-    relay.teams && makeTab('teams', 'Teams'),
     makeTab('players', 'Players'),
+    relay.teams && makeTab('teams', 'Teams'),
     study.members.myMember() && relay.data.tour.tier
       ? makeTab('stats', 'Stats')
       : ctrl.isEmbed

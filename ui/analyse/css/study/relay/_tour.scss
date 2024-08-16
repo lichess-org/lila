@@ -544,6 +544,9 @@ $hover-bg: $m-primary_bg--mix-30;
 .tpp {
   a {
     color: $c-font;
+    &:hover {
+      color: $c-primary;
+    }
   }
   &__player {
     padding: 1.5em 2em;

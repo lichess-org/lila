@@ -118,29 +118,23 @@ const playerLinkAttrs = (p: RelayPlayer): Attrs => ({
   href: `/fide/${p.fideId}/redirect`,
 });
 
-import { init as initSnabbdom, classModule, attributesModule } from 'snabbdom';
+import { init as initSnabbdom, attributesModule } from 'snabbdom';
 import { Outcome } from 'chessops';
 const playerTipId = 'tour-player-tip';
 
 const playerPowerTipHook = (ctrl: RelayPlayers, p: RelayPlayer): Hooks => ({
   insert(vnode) {
     $(vnode.elm as HTMLElement).powerTip({
-      placement: 's',
-      closeDelay: 200000,
+      closeDelay: 200,
       popupId: playerTipId,
       preRender() {
         xhr.json(ctrl.playerXhrUrl(p)).then(json => {
-          const patch = initSnabbdom([classModule, attributesModule]);
           const vdom = renderPlayerWithGames(ctrl, p, json.games as RelayPlayerGame[]);
           const el = document.getElementById(playerTipId) as HTMLElement;
-          patch(el, h(`div#${playerTipId}`, vdom));
-          site.contentLoaded(el);
+          initSnabbdom([attributesModule])(el, h(`div#${playerTipId}`, vdom));
         });
       },
     });
-    setTimeout(function () {
-      (vnode.elm as HTMLElement).classList.remove('new');
-    }, 20);
   },
   destroy(vnode) {
     $.powerTip.hide(vnode.elm as HTMLElement, true);
@@ -151,7 +145,7 @@ const playerPowerTipHook = (ctrl: RelayPlayers, p: RelayPlayer): Hooks => ({
 const renderPlayerWithGames = (ctrl: RelayPlayers, p: RelayPlayer, games: RelayPlayerGame[]): VNode =>
   h('div.tpp', [
     h('div.tpp__player', [
-      h('div.tpp__player__name', [userTitle(p), p.name]),
+      h('a.tpp__player__name', { attrs: playerLinkAttrs(p) }, [userTitle(p), p.name]),
       h('div.tpp__player__info', [
         h('div', [playerFed(ctrl.expandFederation(p)), ...(p.rating ? [`${p.rating}`, ratingDiff(p)] : [])]),
         h('div', [p.score, ' / ', p.played]),
