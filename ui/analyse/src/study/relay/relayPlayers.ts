@@ -142,17 +142,19 @@ const playerTipId = 'tour-player-tip';
 
 export const playerPowerTipHook = (ctrl: RelayPlayers, p: StudyPlayer, id: RelayPlayerId): Hooks => ({
   insert(vnode) {
-    $(vnode.elm as HTMLElement).powerTip({
+    const el = vnode.elm as HTMLElement;
+    $(el).powerTip({
       closeDelay: 200,
       popupId: playerTipId,
       preRender() {
-        const el = document.getElementById(playerTipId) as HTMLElement;
+        const tipEl = document.getElementById(playerTipId) as HTMLElement;
         const patch = initSnabbdom([attributesModule]);
-        patch(el, h(`div#${playerTipId}`, renderPlayerPreload(ctrl, p)));
+        patch(tipEl, h(`div#${playerTipId}`, renderPlayerPreload(ctrl, p)));
         ctrl.loadPlayerFull(id).then((p: RelayPlayerWithGames) => {
           const vdom = renderPlayerWithGames(ctrl, p);
-          el.innerHTML = '';
-          patch(el, h(`div#${playerTipId}`, vdom));
+          tipEl.innerHTML = '';
+          patch(tipEl, h(`div#${playerTipId}`, vdom));
+          $.powerTip.reposition(el);
         });
       },
     });
