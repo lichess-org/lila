@@ -72,7 +72,7 @@ final class RelayPush(
 
   private def pgnToGames(pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
     MultiPgn
-      .split(pgnBody, RelayFetch.maxChapters)
+      .split(pgnBody, RelayFetch.maxChaptersToShow)
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>

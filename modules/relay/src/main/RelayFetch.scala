@@ -84,11 +84,16 @@ final private class RelayFetch(
     if !rt.round.sync.playing then fuccess(updating(_.withSync(_.play(rt.tour.official))))
     else
       val syncFu = for
-        allGamesInSource <- fetchGames(rt).mon(_.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug))
-        _ = lila.mon.relay.games(rt.tour.official, rt.tour.id, rt.round.slug).update(allGamesInSource.size)
-        filtered = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
-        sliced   = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
-        withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(sliced)
+        allGamesInSourceNoLimit <- fetchGames(rt).mon:
+          _.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
+        _ = lila.mon.relay
+          .games(rt.tour.official, rt.tour.id, rt.round.slug)
+          .update(allGamesInSourceNoLimit.size)
+        allGamesInSource = allGamesInSourceNoLimit.take(RelayFetch.maxGamesToRead(rt.tour.official).value)
+        filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
+        sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
+        limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
+        withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
         enriched    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         withTeams = rt.tour.teams.fold(enriched)(_.update(enriched))
         res <- sync
@@ -273,7 +278,9 @@ final private class RelayFetch(
             .orderedByStudyLoadingAllInMemory(id.into(StudyId))
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
-          httpGetPgn(url).map { MultiPgn.split(_, RelayFetch.maxChapters) }.flatMap(multiPgnToGames.future)
+          httpGetPgn(url)
+            .map { MultiPgn.split(_, RelayFetch.maxGamesToRead) }
+            .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
             val lookForStart: Boolean =
@@ -315,7 +322,10 @@ final private class RelayFetch(
 
 private object RelayFetch:
 
-  export lila.study.Study.maxChapters
+  val maxChaptersToShow: Max                 = lila.study.Study.maxChapters
+  val maxGamesToRead: Max                    = Max(256)
+  val maxGamesToReadOfficial: Max            = maxGamesToRead.map(_ * 2)
+  def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
   private[relay] object DgtJson:
     case class PairingPlayer(

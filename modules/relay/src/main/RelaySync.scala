@@ -51,7 +51,7 @@ final private class RelaySync(
     chapterRepo
       .countByStudyId(study.id)
       .flatMap: nb =>
-        (RelayFetch.maxChapters > nb).so:
+        (RelayFetch.maxChaptersToShow > nb).so:
           createChapter(study, game)(using rt.tour).map: chapter =>
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
 
