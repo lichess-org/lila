@@ -399,7 +399,8 @@ private object RelayFetch:
       CacheApi
         .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
         .expireAfterAccess(2 minutes)
-        .maximumSize(1024)
+        .initialCapacity(1024)
+        .maximumSize(4096)
         .build(compute)
 
     private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
