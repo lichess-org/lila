@@ -59,16 +59,14 @@ function renderPlayer(
         playerFed(player?.fed),
         player && userTitle(player),
         player &&
-          (fideId
-            ? h(
-                fideId ? 'a.name' : 'span.name',
-                {
-                  attrs: playerLinkAttrs(fideId, ctrl.isEmbed),
-                  hook: player ? relayPlayers?.playerPowerTipHook(player) : undefined,
-                },
-                player.name,
-              )
-            : h('span.name', player.name)),
+          h(
+            fideId ? 'a.name' : 'span.name',
+            {
+              attrs: playerLinkAttrs(fideId, ctrl.isEmbed),
+              hook: player ? relayPlayers?.playerPowerTipHook(player) : undefined,
+            },
+            player.name,
+          ),
         rating && h('span.elo', `${rating}`),
       ]),
     ]),

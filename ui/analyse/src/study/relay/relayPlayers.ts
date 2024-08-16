@@ -60,7 +60,7 @@ export default class RelayPlayers {
 
   loadPlayerFull = async (id: RelayPlayerId) => {
     const full: RelayPlayerWithGames = await xhr
-      .json(`/broadcast/${this.tourId}/players/${id}`)
+      .json(`/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`)
       .then(convertPlayerFromServer);
     const feds = this.federations();
     full.games.forEach((g: RelayPlayerGame) => {
@@ -167,7 +167,10 @@ const isRelayPlayer = (p: StudyPlayer | RelayPlayer): p is RelayPlayer => 'score
 
 const renderPlayer = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =>
   h('div.tpp__player', [
-    h('a.tpp__player__name', { attrs: playerLinkAttrs(p.fideId, ctrl.isEmbed) }, [userTitle(p), p.name]),
+    h(`${p.fideId ? 'a' : 'span'}.tpp__player__name`, { attrs: playerLinkAttrs(p.fideId, ctrl.isEmbed) }, [
+      userTitle(p),
+      p.name,
+    ]),
     p.team ? h('div.tpp__player__team', p.team) : undefined,
     h('div.tpp__player__info', [
       h('div', [
