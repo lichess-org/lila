@@ -302,7 +302,7 @@ const games = (ctx: RelayViewContext) => [
 
 const teams = (ctx: RelayViewContext) => [
   ...header(ctx),
-  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list),
+  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players),
 ];
 
 const stats = (ctx: RelayViewContext) => [...header(ctx), statsView(ctx.relay.stats)];
