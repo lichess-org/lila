@@ -83,10 +83,7 @@ export default class StudyChaptersCtrl {
     );
   private convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
     const feds = this.federations(),
-      conv: StudyPlayer[] = players.map(p => ({
-        ...p,
-        fed: p.fed ? { id: p.fed, name: feds?.[p.fed] || p.fed } : undefined,
-      }));
+      conv: StudyPlayer[] = players.map(p => convertPlayerFromServer(p, feds));
     return { white: conv[0], black: conv[1] };
   };
 
@@ -109,6 +106,14 @@ export default class StudyChaptersCtrl {
     }
   };
 }
+
+export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
+  player: A,
+  federations?: Federations,
+) => ({
+  ...player,
+  fed: player.fed ? { id: player.fed, name: federations?.[player.fed] || player.fed } : undefined,
+});
 
 export function isFinished(c: StudyChapter) {
   const result = findTag(c.tags, 'result');

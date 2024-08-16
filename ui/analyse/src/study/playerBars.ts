@@ -64,7 +64,7 @@ function renderPlayer(
                 fideId ? 'a.name' : 'span.name',
                 {
                   attrs: playerLinkAttrs(fideId, ctrl.isEmbed),
-                  hook: relayPlayers?.playerPowerTipHook(fideId || player.name),
+                  hook: player ? relayPlayers?.playerPowerTipHook(player) : undefined,
                 },
                 player.name,
               )
