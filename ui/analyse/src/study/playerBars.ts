@@ -3,13 +3,15 @@ import { looseH as h } from 'common/snabbdom';
 import renderClocks from '../view/clocks';
 import AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
-import { ChapterPreviewPlayers, Federation, TagArray } from './interfaces';
+import { StudyPlayers, Federation, TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'common/userLink';
+import RelayPlayers, { playerLinkAttrs } from './relay/relayPlayers';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
+  const relayPlayers = study.relay?.players;
 
   const players = study.currentChapter().players,
     tags = study.data.chapter.tags,
@@ -27,6 +29,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       color,
       ticking === color,
       study.data.showRatings || !looksLikeLichessGame(tags),
+      relayPlayers,
     ),
   );
 }
@@ -36,13 +39,14 @@ function renderPlayer(
   tags: TagArray[],
   clocks: [VNode, VNode] | undefined,
   materialDiffs: [VNode, VNode],
-  players: ChapterPreviewPlayers | undefined,
+  players: StudyPlayers | undefined,
   color: Color,
   ticking: boolean,
   showRatings: boolean,
+  relayPlayers?: RelayPlayers,
 ): VNode {
   const player = players?.[color],
-    fideId = findTag(tags, `${color}fideid`),
+    fideId = parseInt(findTag(tags, `${color}fideid`) || ''),
     team = findTag(tags, `${color}team`),
     rating = showRatings && player?.rating,
     result = resultOf(tags, color === 'white'),
@@ -55,13 +59,14 @@ function renderPlayer(
         playerFed(player?.fed),
         player && userTitle(player),
         player &&
-          (fideId
-            ? h(
-                'a.name',
-                { attrs: { href: `/fide/${fideId}/redirect`, target: ctrl.isEmbed ? '_blank' : '' } },
-                player.name,
-              )
-            : h('span.name', player.name)),
+          h(
+            fideId ? 'a.name' : 'span.name',
+            {
+              attrs: playerLinkAttrs(fideId, ctrl.isEmbed),
+              hook: player ? relayPlayers?.playerPowerTipHook(player) : undefined,
+            },
+            player.name,
+          ),
         rating && h('span.elo', `${rating}`),
       ]),
     ]),

@@ -15,6 +15,7 @@ export type OutcomeStr = '1-0' | '0-1' | '½-½';
 export type StatusStr = OutcomeStr | '*';
 export type ClockCentis = number;
 export type BothClocks = [ClockCentis?, ClockCentis?];
+export type FideId = number;
 
 export interface StudyTour {
   study(ctrl: AnalyseCtrl): void;
@@ -98,8 +99,6 @@ export interface StudyFeatures {
   sticky: boolean;
 }
 
-export type RelayPlayer = [string?, string?, number?];
-
 export interface StudyChapterConfig {
   id: string;
   name: string;
@@ -163,6 +162,14 @@ export interface StudyMemberMap {
   [id: string]: StudyMember;
 }
 
+export interface StudyPlayer {
+  name?: string;
+  title?: string;
+  rating?: number;
+  fideId?: FideId;
+  fed?: Federation;
+}
+
 export type TagTypes = string[];
 export type TagArray = [string, string];
 
@@ -180,7 +187,7 @@ export interface ChapterPreviewBase {
 
 export interface ChapterPreviewFromServer extends ChapterPreviewBase {
   fen?: string; // defaults to initial
-  players?: PairOf<ChapterPreviewPlayerFromServer>;
+  players?: PairOf<StudyPlayerFromServer>;
   thinkTime?: number; // seconds since last move
   orientation?: Color; // defaults to white
   variant?: VariantKey; // defaults to standard
@@ -188,33 +195,35 @@ export interface ChapterPreviewFromServer extends ChapterPreviewBase {
 
 export interface ChapterPreview extends ChapterPreviewBase {
   fen: string;
-  players?: ChapterPreviewPlayers;
+  players?: StudyPlayers;
   lastMoveAt?: number;
   orientation: Color;
   variant: VariantKey;
   playing: boolean;
 }
 
-export interface ChapterPreviewPlayers {
-  white: ChapterPreviewPlayer;
-  black: ChapterPreviewPlayer;
+export interface StudyPlayers {
+  white: StudyPlayer;
+  black: StudyPlayer;
 }
 
+export type FederationId = string;
 export interface Federation {
-  id: string;
+  id: FederationId;
   name: string;
 }
-export interface ChapterPreviewPlayerBase {
+export interface StudyPlayerBase {
   name?: string;
   title?: string;
   rating?: number;
   clock?: ClockCentis;
+  fideId?: FideId;
   team?: string;
 }
-export interface ChapterPreviewPlayerFromServer extends ChapterPreviewPlayerBase {
-  fed?: string;
+export interface StudyPlayerFromServer extends StudyPlayerBase {
+  fed?: FederationId;
 }
-export interface ChapterPreviewPlayer extends ChapterPreviewPlayerBase {
+export interface StudyPlayer extends StudyPlayerBase {
   fed?: Federation;
 }
 

@@ -21,9 +21,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def byTourOrdered(tourId: RelayTourId): Fu[List[RelayRound]] =
     byTourOrderedCursor(tourId).list(RelayTour.maxRelays)
 
-  def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRoundId]] =
+  def idsByTourOrdered(tour: RelayTourId): Fu[List[RelayRoundId]] =
     coll.primitive[RelayRoundId](
-      selector = selectors.tour(tour.id),
+      selector = selectors.tour(tour),
       sort = sort.asc,
       nb = RelayTour.maxRelays,
       field = "_id"
@@ -51,6 +51,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       .dmap:
         case None        => RelayRound.Order(1)
         case Some(order) => order.map(_ + 1)
+
+  def orderOf(roundId: RelayRoundId): Fu[RelayRound.Order] =
+    coll.primitiveOne[RelayRound.Order]($id(roundId), "order").dmap(_ | RelayRound.Order(1))
 
   def deleteByTour(tour: RelayTour): Funit =
     coll.delete.one(selectors.tour(tour.id)).void

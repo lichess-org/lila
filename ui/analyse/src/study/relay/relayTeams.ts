@@ -1,12 +1,13 @@
 import { MaybeVNodes, Redraw, VNode, onInsert, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { RoundId } from './interfaces';
-import { ChapterId, ChapterPreview, ChapterPreviewPlayer, ChapterSelect, StatusStr } from '../interfaces';
+import { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
 import { MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'common/userLink';
+import RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {
   name: string;
@@ -46,7 +47,7 @@ export default class RelayTeams {
   };
 }
 
-export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters) =>
+export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: RelayPlayers) =>
   h(
     'div.relay-tour__team-table',
     {
@@ -59,7 +60,7 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters) =>
       },
     },
     ctrl.teams
-      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), ctrl.multiCloudEval.thisIfShowEval())
+      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), players, ctrl.multiCloudEval.thisIfShowEval())
       : [spinner()],
   );
 
@@ -67,6 +68,7 @@ const renderTeams = (
   teams: TeamTable,
   chapters: StudyChapters,
   roundPath: string,
+  playersCtrl: RelayPlayers,
   cloudEval?: MultiCloudEval,
 ): MaybeVNodes =>
   teams.table.map(row => {
@@ -92,9 +94,9 @@ const renderTeams = (
           return (
             chap &&
             h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
-              playerView(sortedPlayers[0]),
+              playerView(playersCtrl, sortedPlayers[0]),
               statusView(chap, game.pov, chapters, cloudEval),
-              playerView(sortedPlayers[1]),
+              playerView(playersCtrl, sortedPlayers[1]),
             ])
           );
         }),
@@ -102,9 +104,12 @@ const renderTeams = (
     ]);
   });
 
-const playerView = (p: ChapterPreviewPlayer) =>
+const playerView = (players: RelayPlayers, p: StudyPlayer) =>
   h('span.relay-tour__team-match__game__player', [
-    h('span.mini-game__user', [playerFed(p.fed), h('span.name', [userTitle(p), p.name])]),
+    h('span.mini-game__user', { hook: players.playerPowerTipHook(p) }, [
+      playerFed(p.fed),
+      h('span.name', [userTitle(p), p.name]),
+    ]),
     p.rating && h('rating', `${p.rating}`),
   ]);
 

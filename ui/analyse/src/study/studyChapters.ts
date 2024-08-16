@@ -16,8 +16,8 @@ import {
   ChapterPreviewFromServer,
   ChapterId,
   Federations,
-  ChapterPreviewPlayerFromServer,
-  ChapterPreviewPlayer,
+  StudyPlayerFromServer,
+  StudyPlayer,
   ChapterSelect,
 } from './interfaces';
 import StudyCtrl from './studyCtrl';
@@ -81,12 +81,9 @@ export default class StudyChaptersCtrl {
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
     );
-  private convertPlayersFromServer = (players: PairOf<ChapterPreviewPlayerFromServer>) => {
+  private convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
     const feds = this.federations(),
-      conv: ChapterPreviewPlayer[] = players.map(p => ({
-        ...p,
-        fed: p.fed ? { id: p.fed, name: feds?.[p.fed] || p.fed } : undefined,
-      }));
+      conv: StudyPlayer[] = players.map(p => convertPlayerFromServer(p, feds));
     return { white: conv[0], black: conv[1] };
   };
 
@@ -109,6 +106,14 @@ export default class StudyChaptersCtrl {
     }
   };
 }
+
+export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
+  player: A,
+  federations?: Federations,
+) => ({
+  ...player,
+  fed: player.fed ? { id: player.fed, name: federations?.[player.fed] || player.fed } : undefined,
+});
 
 export function isFinished(c: StudyChapter) {
   const result = findTag(c.tags, 'result');

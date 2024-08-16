@@ -7,11 +7,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.*
 
-final class RelayTourStream(
-    colls: RelayColls,
-    jsonView: JsonView,
-    leaderboard: RelayLeaderboardApi
-)(using Executor, akka.stream.Materializer):
+final class RelayTourStream(colls: RelayColls, jsonView: JsonView)(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.given
   import RelayTourRepo.selectors

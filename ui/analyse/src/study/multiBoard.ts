@@ -3,7 +3,7 @@ import { otbClockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
 import { MaybeVNode, VNode, bind, onInsert } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
-import { ChapterId, ChapterPreview, ChapterPreviewPlayer } from './interfaces';
+import { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { CloudEval, MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from './multiCloudEval';
 import { Toggle, defined, notNull, toggle } from 'common';
@@ -209,7 +209,7 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
       );
 };
 
-const renderUser = (player: ChapterPreviewPlayer): VNode =>
+const renderUser = (player: StudyPlayer): VNode =>
   h('span.mini-game__user', [
     playerFed(player.fed),
     h('span.name', [userTitle(player), player.name || '?']),

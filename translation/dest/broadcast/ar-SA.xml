@@ -50,4 +50,5 @@
   <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">لاعبين FIDE</string>
   <string name="fideProfile">مِلَفّ FIDE</string>
   <string name="ageThisYear">العمر هذا العام</string>
+  <string name="unrated">غير مقيم</string>
 </resources>

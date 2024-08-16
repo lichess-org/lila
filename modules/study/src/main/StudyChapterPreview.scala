@@ -1,5 +1,6 @@
 package lila.study
 
+import scala.collection.immutable.SeqMap
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import chess.{ ByColor, Centis, Color, Elo, FideId, Outcome, PlayerName, PlayerTitle }
@@ -12,7 +13,7 @@ import lila.db.dsl.{ *, given }
 case class ChapterPreview(
     id: StudyChapterId,
     name: StudyChapterName,
-    players: Option[ChapterPreview.Players],
+    players: Option[ByColor[ChapterPlayer]],
     orientation: Color,
     fen: Fen.Full,
     lastMove: Option[Uci],
@@ -36,6 +37,7 @@ final class ChapterPreviewApi(
 )(using Executor):
 
   import ChapterPreview.AsJsons
+  import ChapterPreview.json.given
   import ChapterPreview.bson.{ projection, given }
 
   object jsonList:
@@ -43,12 +45,9 @@ final class ChapterPreviewApi(
     // because of Preview.secondsSinceLastMove
     private val cacheDuration = 1 second
     private[ChapterPreviewApi] val cache =
-      cacheApi[StudyId, AsJsons](256, "study.chapterPreview.json"):
+      cacheApi[StudyId, AsJsons](32, "study.chapterPreview.json"):
         _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>
-          for
-            chapters    <- listAll(studyId)
-            federations <- federationsOf(chapters.flatMap(_.fideIds))
-          yield ChapterPreview.json.write(chapters)(using federations)
+          listAll(studyId).map(Json.toJson)
 
     def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
 
@@ -71,15 +70,47 @@ final class ChapterPreviewApi(
 
     def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)
 
+    def uniquePlayers(studyId: StudyId): Fu[SeqMap[StudyPlayer.Id, ChapterPlayer]] =
+      apply(studyId).map:
+        _.flatMap(_.players.so(_.toList)).distinct
+          .foldLeft(SeqMap.empty[StudyPlayer.Id, ChapterPlayer]): (players, p) =>
+            p.player.id.fold(players): id =>
+              if players.contains(id) then players
+              else players.updated(id, p)
+
   def firstId(studyId: StudyId): Fu[Option[StudyChapterId]] =
     jsonList(studyId).map(ChapterPreview.json.readFirstId)
 
   private def listAll(studyId: StudyId): Fu[List[ChapterPreview]] =
-    chapterRepo.coll:
-      _.find(chapterRepo.$studyId(studyId), projection.some)
-        .sort(chapterRepo.$sortOrder)
-        .cursor[ChapterPreview]()
-        .listAll()
+    def listWithoutFeds =
+      chapterRepo.coll:
+        _.find(chapterRepo.$studyId(studyId), projection.some)
+          .sort(chapterRepo.$sortOrder)
+          .cursor[ChapterPreview]()
+          .listAll()
+    for
+      withoutFeds <- listWithoutFeds
+      federations <- federationsOf(withoutFeds.flatMap(_.fideIds))
+    yield withoutFeds.map: chap =>
+      chap.copy(
+        players = chap.players.map:
+          _.map: player =>
+            player.copy(fed = player.fideId.flatMap(federations.get))
+      )
+
+  def fromChapter(chapter: Chapter)(using Federation.ByFideIds) =
+    import chapter.*
+    ChapterPreview(
+      id = id,
+      name = name,
+      players = ChapterPlayer.fromTags(tags, denorm.so(_.clocks)),
+      orientation = setup.orientation,
+      fen = denorm.fold(Fen.initial)(_.fen),
+      lastMove = denorm.flatMap(_.uci),
+      lastMoveAt = relay.map(_.lastMoveAt),
+      check = denorm.flatMap(_.check),
+      result = tags.outcome.isDefined.option(tags.outcome)
+    )
 
   object federations:
     private val cache = cacheApi[StudyId, JsObject](256, "study.chapterPreview.federations"):
@@ -96,26 +127,11 @@ final class ChapterPreviewApi(
 
 object ChapterPreview:
 
-  type Players = ByColor[Player]
   type AsJsons = JsValue
-
-  case class Player(
-      name: Option[PlayerName],
-      title: Option[PlayerTitle],
-      rating: Option[Elo],
-      clock: Option[Centis],
-      fideId: Option[FideId],
-      team: Option[String]
-  )
-
-  def players(clocks: Chapter.BothClocks)(tags: Tags): Option[Players] =
-    val names = tags.names
-    Option.when(names.exists(_.isDefined)):
-      (names, tags.fideIds, tags.titles, tags.elos, tags.teams, clocks).mapN: (n, f, t, e, te, c) =>
-        Player(n, t, e, c, f, te)
 
   object json:
     import lila.common.Json.{ given }
+    import StudyPlayer.json.given
 
     def readFirstId(js: AsJsons): Option[StudyChapterId] = for
       arr <- js.asOpt[JsArray]
@@ -123,30 +139,18 @@ object ChapterPreview:
       id  <- obj.get[StudyChapterId]("id")
     yield id
 
-    def write(chapters: List[ChapterPreview])(using Federation.ByFideIds): AsJsons =
-      given OWrites[ChapterPreview] = writesWithFederations
-      Json.toJson(chapters)
-
-    private def playerWithFederations(p: ChapterPreview.Player)(using federations: Federation.ByFideIds) =
-      Json
-        .obj("name" -> p.name)
-        .add("title" -> p.title)
-        .add("rating" -> p.rating)
-        .add("clock" -> p.clock)
-        .add("fed" -> p.fideId.flatMap(federations.get))
-
     private given Writes[Chapter.Check] = Writes:
       case Chapter.Check.Check => JsString("+")
       case Chapter.Check.Mate  => JsString("#")
 
-    private def writesWithFederations(using Federation.ByFideIds): OWrites[ChapterPreview] = c =>
+    given OWrites[ChapterPreview] = OWrites: c =>
       Json
         .obj(
           "id"   -> c.id,
           "name" -> c.name
         )
         .add("fen", Option.when(!c.fen.isInitial)(c.fen))
-        .add("players", c.players.map(_.mapList(playerWithFederations)))
+        .add("players", c.players.map(_.toList))
         .add("orientation", c.orientation.some.filter(_.black))
         .add("lastMove", c.lastMove)
         .add("check", c.check)
@@ -165,22 +169,23 @@ object ChapterPreview:
       "rootFen"     -> "$root._.f"
     )
 
-    given BSONDocumentReader[ChapterPreview] = BSONDocumentReader.option[ChapterPreview]: doc =>
-      for
-        id   <- doc.getAsOpt[StudyChapterId]("_id")
-        name <- doc.getAsOpt[StudyChapterName]("name")
-        lastMoveAt  = doc.getAsOpt[Instant]("lastMoveAt")
-        lastPos     = doc.getAsOpt[Chapter.LastPosDenorm]("denorm")
-        tags        = doc.getAsOpt[Tags]("tags")
-        orientation = doc.getAsOpt[Color]("orientation") | Color.White
-      yield ChapterPreview(
-        id = id,
-        name = name,
-        players = tags.flatMap(ChapterPreview.players(lastPos.so(_.clocks))),
-        orientation = orientation,
-        fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Full]("rootFen")).getOrElse(Fen.initial),
-        lastMove = lastPos.flatMap(_.uci),
-        lastMoveAt = lastMoveAt,
-        check = lastPos.flatMap(_.check),
-        result = tags.flatMap(_(_.Result)).map(Outcome.fromResult)
-      )
+    given BSONDocumentReader[ChapterPreview] =
+      BSONDocumentReader.option[ChapterPreview]: doc =>
+        for
+          id   <- doc.getAsOpt[StudyChapterId]("_id")
+          name <- doc.getAsOpt[StudyChapterName]("name")
+          lastMoveAt  = doc.getAsOpt[Instant]("lastMoveAt")
+          lastPos     = doc.getAsOpt[Chapter.LastPosDenorm]("denorm")
+          tags        = doc.getAsOpt[Tags]("tags")
+          orientation = doc.getAsOpt[Color]("orientation") | Color.White
+        yield ChapterPreview(
+          id = id,
+          name = name,
+          players = tags.flatMap(ChapterPlayer.fromTags(_, lastPos.so(_.clocks))),
+          orientation = orientation,
+          fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Full]("rootFen")).getOrElse(Fen.initial),
+          lastMove = lastPos.flatMap(_.uci),
+          lastMoveAt = lastMoveAt,
+          check = lastPos.flatMap(_.check),
+          result = tags.flatMap(_(_.Result)).map(Outcome.fromResult)
+        )

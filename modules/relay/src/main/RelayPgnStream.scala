@@ -15,7 +15,7 @@ final class RelayPgnStream(
 
   def exportFullTourAs(tour: RelayTour, me: Option[User]): Source[PgnStr, ?] = Source.futureSource:
     roundRepo
-      .idsByTourOrdered(tour)
+      .idsByTourOrdered(tour.id)
       .flatMap: ids =>
         studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)).map { studies =>
           val visible = studies.filter(_.canView(me.map(_.id)))

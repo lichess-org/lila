@@ -5,8 +5,8 @@ db.relay_tour
   .find({}, { _id: 1, name: 1 })
   .sort({ $natural: -1 })
   .forEach(tour => {
-    const relays = db.relay.find({ tourId: tour._id }, { _id: 1 }).toArray();
-    if (relays.length === 0) return;
+    const relays = db.relay.find({ tourId: tour._id }, { _id: 1, order: 1 }).toArray();
+    if (relays.every(r => !!r.order)) return;
     relays.sort((a, b) => {
       for (k in ['startedAt', 'startsAt', 'createdAt']) {
         const aVal = sortWith(a);

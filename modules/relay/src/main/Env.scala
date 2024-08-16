@@ -29,6 +29,7 @@ final class Env(
     gameProxy: lila.core.game.GameProxy,
     federations: lila.core.fide.Federation.FedsOf,
     guessPlayer: lila.core.fide.GuessPlayer,
+    getPlayer: lila.core.fide.GetPlayer,
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.core.irc.IrcApi,
@@ -40,7 +41,6 @@ final class Env(
 )(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
     scheduler: Scheduler
 ):
-
   lazy val roundForm = wire[RelayRoundForm]
 
   lazy val tourForm = wire[RelayTourForm]
@@ -53,9 +53,7 @@ final class Env(
 
   private lazy val groupRepo = RelayGroupRepo(colls.group)
 
-  lazy val leaderboard = wire[RelayLeaderboardApi]
-
-  private lazy val playersApi = wire[RelayPlayersApi]
+  private lazy val playerEnrich = wire[RelayPlayerEnrich]
 
   private lazy val notifyAdmin = wire[RelayNotifierAdmin]
 
@@ -66,8 +64,6 @@ final class Env(
   lazy val listing: RelayListing = wire[RelayListing]
 
   lazy val stats = wire[RelayStatsApi]
-
-  private lazy val playersUpdate = wire[RelayPlayersUpdate]
 
   lazy val api: RelayApi = wire[RelayApi]
 
@@ -84,6 +80,8 @@ final class Env(
   lazy val teamTable = wire[RelayTeamTable]
 
   lazy val playerTour = wire[RelayPlayerTour]
+
+  lazy val playerApi = wire[RelayPlayerApi]
 
   def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
     active   <- (page == 1).so(listing.active.get({}))

@@ -37,7 +37,10 @@ final class RelayRoundForm(using mode: Mode):
         GameId.from(i.trim).toRight(s"Invalid game ID: $i")
       .left
       .map(_.mkString(", "))
-      .filterOrElse(_.sizeIs <= RelayFetch.maxChapters.value, s"Max games: ${RelayFetch.maxChapters}")
+      .filterOrElse(
+        _.sizeIs <= RelayFetch.maxChaptersToShow.value,
+        s"Max games: ${RelayFetch.maxChaptersToShow}"
+      )
       .map(_.distinct)
       .map(Upstream.Ids.apply),
     _.ids.mkString(" ")
