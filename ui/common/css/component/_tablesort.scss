@@ -26,6 +26,7 @@ th[aria-sort]:not(.no-sort) {
   &:after {
     visibility: visible;
     opacity: 0.7;
+    margin-inline-start: 1ch;
   }
 }
 

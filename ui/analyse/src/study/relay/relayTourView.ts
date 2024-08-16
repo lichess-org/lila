@@ -16,7 +16,7 @@ import { makeChat, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
-import { leaderboardView } from './relayLeaderboard';
+import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { copyMeInput } from 'common/copyMe';
 import { baseUrl } from '../../view/util';
@@ -24,15 +24,15 @@ import { baseUrl } from '../../view/util';
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
   const content =
-    tab == 'overview'
-      ? overview(ctx)
-      : tab == 'boards'
+    tab == 'boards'
       ? games(ctx)
       : tab == 'teams'
       ? teams(ctx)
       : tab == 'stats'
       ? stats(ctx)
-      : leaderboard(ctx);
+      : tab == 'players'
+      ? players(ctx)
+      : overview(ctx);
 
   return h('div.box.relay-tour', content);
 }
@@ -100,10 +100,7 @@ const startCountdown = (relay: RelayCtrl) => {
   ]);
 };
 
-const leaderboard = (ctx: RelayViewContext) => [
-  ...header(ctx),
-  ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
-];
+const players = (ctx: RelayViewContext) => [...header(ctx), playersView(ctx.relay.players)];
 
 const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
   const contents = [
@@ -386,8 +383,8 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
   return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
     makeTab('overview', 'Overview'),
     makeTab('boards', 'Boards'),
+    makeTab('players', 'Players'),
     relay.teams && makeTab('teams', 'Teams'),
-    relay.data.tour.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
     study.members.myMember() && relay.data.tour.tier
       ? makeTab('stats', 'Stats')
       : ctrl.isEmbed

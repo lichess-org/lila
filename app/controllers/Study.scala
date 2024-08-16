@@ -361,8 +361,9 @@ final class Study(
       jsonFormError,
       data =>
         doImportPgn(id, data, Sri("api")): chapters =>
-          import lila.study.ChapterPreview.json.write
-          JsonOk(Json.obj("chapters" -> write(chapters.map(_.preview))(using Map.empty)))
+          import lila.study.ChapterPreview.json.given
+          val previews = chapters.map(env.study.preview.fromChapter(_)(using Map.empty))
+          JsonOk(Json.obj("chapters" -> previews))
     )
   }
 

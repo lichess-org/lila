@@ -26,13 +26,13 @@ final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
-    playersUpdate: RelayPlayersUpdate,
+    playerEnrich: RelayPlayerEnrich,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
     jsonView: JsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
-    leaderboard: RelayLeaderboardApi,
+    players: RelayPlayerApi,
     picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer, play.api.Mode):
 
@@ -230,9 +230,9 @@ final class RelayApi(
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))
-      _ <- playersUpdate(tour, prev)
+      _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
     yield
-      leaderboard.invalidate(tour.id)
+      players.invalidate(tour.id)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
   private def updateGrouping(tour: RelayTour, data: RelayGroup.form.Data)(using me: Me): Funit =
@@ -352,7 +352,7 @@ final class RelayApi(
         _ <- old.hasStartedEarly.so:
           roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
-      yield leaderboard.invalidate(relay.tourId)
+      yield players.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
@@ -367,7 +367,7 @@ final class RelayApi(
       .so:
         for
           _      <- tourRepo.delete(tour)
-          rounds <- roundRepo.idsByTourOrdered(tour)
+          rounds <- roundRepo.idsByTourOrdered(tour.id)
           _      <- roundRepo.deleteByTour(tour)
           _      <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
         yield true

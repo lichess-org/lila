@@ -12,7 +12,7 @@ final private class RelaySync(
     preview: ChapterPreviewApi,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
-    leaderboard: RelayLeaderboardApi,
+    players: RelayPlayerApi,
     notifier: RelayNotifier
 )(using Executor):
 
@@ -159,7 +159,7 @@ final private class RelaySync(
   yield
     preview.invalidate(study.id)
     studyApi.reloadChapters(study)
-    leaderboard.invalidate(tour.id)
+    players.invalidate(tour.id)
 
   private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =
     Chapter.Relay(
