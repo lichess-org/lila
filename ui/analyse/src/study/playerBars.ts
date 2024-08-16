@@ -6,10 +6,12 @@ import { renderMaterialDiffs } from '../view/components';
 import { StudyPlayers, Federation, TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'common/userLink';
+import RelayPlayers, { playerLinkAttrs } from './relay/relayPlayers';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
+  const relayPlayers = study.relay?.players;
 
   const players = study.currentChapter().players,
     tags = study.data.chapter.tags,
@@ -27,6 +29,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       color,
       ticking === color,
       study.data.showRatings || !looksLikeLichessGame(tags),
+      relayPlayers,
     ),
   );
 }
@@ -40,9 +43,10 @@ function renderPlayer(
   color: Color,
   ticking: boolean,
   showRatings: boolean,
+  relayPlayers?: RelayPlayers,
 ): VNode {
   const player = players?.[color],
-    fideId = findTag(tags, `${color}fideid`),
+    fideId = parseInt(findTag(tags, `${color}fideid`) || ''),
     team = findTag(tags, `${color}team`),
     rating = showRatings && player?.rating,
     result = resultOf(tags, color === 'white'),
@@ -57,8 +61,11 @@ function renderPlayer(
         player &&
           (fideId
             ? h(
-                'a.name',
-                { attrs: { href: `/fide/${fideId}/redirect`, target: ctrl.isEmbed ? '_blank' : '' } },
+                fideId ? 'a.name' : 'span.name',
+                {
+                  attrs: playerLinkAttrs(fideId, ctrl.isEmbed),
+                  hook: relayPlayers?.playerPowerTipHook(fideId || player.name),
+                },
                 player.name,
               )
             : h('span.name', player.name)),
