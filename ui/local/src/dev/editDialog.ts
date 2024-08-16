@@ -1,17 +1,15 @@
-import { type BotCtrl, domIdToUid, uidToDomId } from '../botCtrl';
+import { domIdToUid, uidToDomId } from '../botCtrl';
 import { handOfCards, type HandOfCards, type CardData } from '../handOfCards';
 import { defined, escapeHtml, frag, deepFreeze } from 'common';
 import { buildFromSchema, Panes } from './panes';
 import { removeObjectProperty, closeEnough, deadStrip } from './devUtil';
 import * as licon from 'common/licon';
-import { domDialog, alert, confirm, type Dialog, type Action } from 'common/dialog';
+import { domDialog, confirm, alert, type Dialog, type Action } from 'common/dialog';
 import type { BotInfo } from '../types';
-import { Bot, type Bots } from '../bot';
-import type { ReadableBot, WritableBot } from './devTypes';
-import type { GameCtrl } from '../gameCtrl';
-import type { DevAssets } from './devAssets';
+import { Bot } from '../bot';
 import { assetDialog } from './assetDialog';
 import { shareDialog } from './shareDialog';
+import { env } from '../localEnv';
 
 export class EditDialog {
   static default: BotInfo = deepFreeze<BotInfo>({
@@ -22,7 +20,7 @@ export class EditDialog {
     books: [],
     fish: { multipv: 1, by: { depth: 1 } },
     version: 0,
-    ratings: {},
+    ratings: { classical: 1500, rapid: 1500, blitz: 1500, bullet: 1500, ultraBullet: 1500 },
     operators: {},
     sounds: {},
   });
@@ -32,15 +30,10 @@ export class EditDialog {
   dlg: Dialog;
   uid: string;
   panes: Panes;
-  scratch: { [uid: string]: WritableBot } = {}; // scratchpad for bot edits, pre-apply
+  scratch: Record<string, WritableBot> = {}; // scratchpad for bot edits, pre-apply
   cleanups: (() => void)[] = []; // for chart.js
 
-  constructor(
-    readonly botCtrl: BotCtrl,
-    readonly gameCtrl: GameCtrl,
-    readonly color: Color = 'white',
-    readonly onSelectBot?: (uid: string) => void,
-  ) {
+  constructor(readonly color: Color) {
     this.view = frag<HTMLElement>(`<div class="base-view dev-view edit-view with-cards">
         <div class="edit-bot"></div>
       </div>`);
@@ -51,6 +44,7 @@ export class EditDialog {
       deck: this.view.querySelector('.placeholder') as HTMLElement,
       getCardData: () => this.cardData,
       select: (_, domId?: string) => this.selectBot(domIdToUid(domId)),
+      opaque: true,
     });
   }
 
@@ -68,18 +62,16 @@ export class EditDialog {
     return this.dlg.show();
   }
 
-  private lastCardData: CardData[];
-
   update(): void {
     this.dlg?.updateActions(this.actions);
     this.deck?.update();
-    const isClean = !this.isDirty(this.botCtrl.get(this.uid)!);
-    const canShare = isClean && this.localChanges;
-    this.dlg?.view.querySelector('[data-bot-action="save-one"]')?.classList.toggle('none', isClean);
-    this.dlg?.view
+    this.view.querySelector('[data-bot-action="save-one"]')?.classList.toggle('none', !this.isDirty());
+    this.view
       .querySelector('[data-bot-action="pull-one"]')
-      ?.classList.toggle('none', !this.localChanges);
-    this.dlg?.view.querySelector('[data-bot-action="share-one"]')?.classList.toggle('none', !canShare);
+      ?.classList.toggle('none', !this.isDirty() && !this.localChanges);
+    this.view
+      .querySelector('[data-bot-action="share-one"]')
+      ?.classList.toggle('none', this.isDirty() || !this.localChanges);
   }
 
   get bot(): WritableBot {
@@ -90,19 +82,15 @@ export class EditDialog {
   }
 
   get localBot(): ReadableBot | undefined {
-    return this.botCtrl.localBots[this.uid];
+    return env.bot.localBots[this.uid];
   }
 
   get serverBot(): ReadableBot | undefined {
-    return this.botCtrl.serverBots[this.uid];
+    return env.bot.serverBots[this.uid];
   }
 
-  get assets(): DevAssets {
-    return this.botCtrl.assets as DevAssets;
-  }
-
-  private get bots(): Bots {
-    return this.botCtrl.bots;
+  private get bots(): Record<string, Bot> {
+    return env.bot.bots;
   }
 
   private get actions(): Action[] {
@@ -114,17 +102,20 @@ export class EditDialog {
       { selector: '[data-bot-action="json-one"]', listener: () => this.showJson([this.bot.uid]) },
       { selector: '[data-bot-action="json-all"]', listener: () => this.showJson() },
       //{ selector: '[data-bot-action="unrate-one"]', listener: () => this.clearRatings([this.bot.uid]) },
-      { selector: '[data-bot-action="assets"]', listener: () => assetDialog(this.assets) },
-      { selector: '[data-bot-action="share-one"]', listener: () => shareDialog(this, this.bot.uid) },
+      { selector: '[data-bot-action="assets"]', listener: () => assetDialog() },
+      { selector: '[data-bot-action="share-one"]', listener: () => this.share() },
       { selector: '[data-bot-action="pull-one"]', listener: () => this.clearBots([this.bot.uid]) },
       { selector: '[data-bot-action="pull-all"]', listener: () => this.clearBots() },
       { selector: '.player', listener: e => this.clickImage(e) },
     ];
   }
 
-  private isDirty = (other: BotInfo | undefined): boolean => {
-    if (!other || !this.scratch[other.uid]) return false;
-    return !closeEnough(other, deadStrip(this.scratch[other.uid]));
+  private isDirty = (other: BotInfo | undefined = env.bot.get(this.uid)): boolean => {
+    return (
+      other !== undefined &&
+      this.scratch[other.uid] !== undefined &&
+      !closeEnough(other, deadStrip(this.scratch[other.uid]))
+    );
   };
 
   private get localChanges(): boolean {
@@ -132,39 +123,46 @@ export class EditDialog {
   }
 
   private get cardData() {
-    const speed = 'classical'; //this.gameCtrl.speed;
+    const speed = 'classical'; //env.game.speed;
     return Object.values({ ...this.bots, ...this.scratch })
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .sort((a, b) => (a.ratings[speed]?.r ?? 1500) - (b.ratings[speed]?.r ?? 1500))
-      .map(bot => this.botCtrl.classifiedCard(bot, this.isDirty))
+      .map(bot => env.bot.classifiedCard(bot, this.isDirty))
       .filter(defined)
-      .sort(this.botCtrl.classifiedSort);
+      .sort(env.bot.classifiedSort(speed));
+  }
+
+  private share() {
+    env.share.postBot(this.bot).then(err => {
+      if (err) {
+        alert(err);
+        return;
+      }
+      delete this.scratch[this.uid];
+      this.update();
+    });
   }
 
   private save() {
-    const [sourcesScroll, operatorsScroll] = [
-      this.view.querySelector('.sources')!.scrollTop,
-      this.view.querySelector('.operators')!.scrollTop,
-    ];
+    const sourcesScroll = this.view.querySelector('.sources')!.scrollTop;
+    const operatorsScroll = this.view.querySelector('.operators')!.scrollTop;
     for (const id of this.bot.disabled) removeObjectProperty({ obj: this.bot, path: { id } }, true);
     this.bot.disabled.clear();
-    this.botCtrl.saveBot(this.bot);
+    env.bot.saveBot(this.bot);
     delete this.scratch[this.uid];
     this.selectBot();
     this.view.querySelector('.sources')!.scrollTop = sourcesScroll ?? 0;
     this.view.querySelector('.operators')!.scrollTop = operatorsScroll ?? 0;
   }
 
-  private selectBot(uid = this.uid ?? this.botCtrl[this.color]?.uid) {
+  private selectBot(uid = this.uid ?? env.bot[this.color]?.uid) {
     this.uid = uid;
     this.makeEditView();
     this.update();
-    this.onSelectBot?.(this.uid);
+    //this.onSelectBot?.(this.uid);
   }
 
   private async clickImage(e: Event) {
     if (e.target !== e.currentTarget) return;
-    const newImage = await assetDialog(this.assets, 'image');
+    const newImage = await assetDialog('image');
     if (!newImage) return;
     this.bot.image = newImage;
     this.update();
@@ -177,9 +175,7 @@ export class EditDialog {
     const el = this.view.querySelector('.edit-bot') as HTMLElement;
     el.innerHTML = '';
     el.appendChild(this.botCardEl);
-    const sources = buildFromSchema(this, ['sources']).el;
-    sources.prepend(this.botInfoEl);
-    el.appendChild(sources);
+    el.appendChild(buildFromSchema(this, ['sources']).el);
     el.appendChild(buildFromSchema(this, ['bot_operators']).el);
     el.appendChild(this.deckEl);
     el.appendChild(this.globalActionsEl);
@@ -191,21 +187,10 @@ export class EditDialog {
     for (const uid of uids ?? Object.keys(this.bots)) {
       delete this.scratch[uid];
     }
-    await this.botCtrl.clearStoredBots(uids);
+    await env.bot.clearStoredBots(uids);
     this.selectBot(this.bot.uid in this.bots ? this.bot.uid : Object.keys(this.bots)[0]);
-    //alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // need a flash for this stuff
+    //alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // flash for this stuff
   };
-
-  // private clearRatings = (uids: string[] = Object.keys(this.bots)) => {
-  //   for (const uid of uids) {
-  //     if (this.scratch[uid]) this.scratch[uid].glicko = undefined;
-  //     if (!Object.keys(this.bots[uid].ratings)) continue;
-  //     this.bots[uid].ratings = {};
-  //     this.botCtrl.storeRating(uid);
-  //   }
-  //   this.selectBot();
-  //   this.gameCtrl.redraw();
-  // };
 
   private async showJson(uids?: string[]): Promise<void> {
     const text = escapeHtml(
@@ -243,7 +228,7 @@ export class EditDialog {
     confirm(`Delete ${this.uid}?`).then(async ok => {
       if (!ok) return;
       delete this.scratch[this.uid];
-      this.botCtrl.deleteBot(this.uid).then(() => this.selectBot());
+      env.bot.deleteBot(this.uid).then(() => this.selectBot());
       this.update();
     });
   }
@@ -287,7 +272,7 @@ export class EditDialog {
               uid: input.dataset.uid,
               name: input.dataset.uid.slice(1),
             } as WritableBot;
-            this.botCtrl.saveBot(newBot);
+            env.bot.saveBot(newBot);
             this.selectBot(newBot.uid);
             dlg.close();
           },
@@ -300,51 +285,49 @@ export class EditDialog {
   }
 
   private deckEl = frag<HTMLElement>(`<div class="deck">
-        <div class="placeholder"></div>
-        <fieldset class="deck-legend">
-          <legend>legend</legend>
-          <label class="clean dirty">dirty</label>
-          <label class="local-only">unshared</label>
-          <label class="local-changes">local changes</label>
-          <label class="upstream-changes">upstream changes</label>
-        </fieldset>
-      </div>`);
+      <div class="placeholder"></div>
+      <fieldset class="deck-legend">
+        <legend>legend</legend>
+        <label class="clean dirty">dirty</label>
+        <label class="local-only">unshared</label>
+        <label class="local-changes">local changes</label>
+        <label class="upstream-changes">upstream changes</label>
+      </fieldset>
+    </div>`);
 
   private globalActionsEl = frag<HTMLElement>(`<div class="global-actions">
-        <button class="button button-empty button-green" data-bot-action="new">new bot</button>
-        <button class="button button-empty button-brag" data-bot-action="assets">assets</button>
-        <button class="button button-empty" data-bot-action="pull-all">pull all server</button>
-      </div>`);
+      <button class="button button-empty button-green" data-bot-action="new">new bot</button>
+      <button class="button button-empty button-brag" data-bot-action="assets">assets</button>
+      <button class="button button-empty" data-bot-action="pull-all">pull all server</button>
+    </div>`);
 
   private botActionsEl = frag<HTMLElement>(`<div class="bot-actions">
-          <button class="button button-empty button-red" data-bot-action="delete">delete</button>
-          <button class="button button-empty button-dim" data-bot-action="json-one">json</button>
-          <button class="button button-empty none" data-bot-action="pull-one">server</button>
-          <button class="button button-empty button-brag none" data-bot-action="share-one">share</button>
-          <button class="button button-green none" data-bot-action="save-one">save</button>
-        </div>`);
+      <button class="button button-empty button-red" data-bot-action="delete">delete</button>
+      <button class="button button-empty button-dim" data-bot-action="json-one">json</button>
+      <button class="button button-empty none" data-bot-action="pull-one">server</button>
+      <button class="button button-empty button-brag none" data-bot-action="share-one">share</button>
+      <button class="button button-green none" data-bot-action="save-one">save</button>
+    </div>`);
 
   private get botCardEl(): Node {
     const botCard = frag<Element>(`<div class="bot-card">
-        <div class="player ${this.color}"><span>${this.uid}</span></div>
+        <div class="player" data-color="${this.color}"><span class="uid">${this.uid}</span></div>
       </div>`);
+
+    buildFromSchema(this, ['info']);
+    botCard.firstElementChild?.appendChild(this.panes.byId['info_description'].el);
+    botCard.append(this.panes.byId['info_name'].el);
+    botCard.append(this.panes.byId['info_ratings_classical'].el);
     botCard.append(this.botActionsEl);
-    botCard.firstElementChild?.appendChild(buildFromSchema(this, ['bot_description']).el);
     return botCard;
   }
+}
 
-  private get botInfoEl(): Node {
-    //const bot = this.botCtrl.get(this.uid) as WritableBot;
-    //const glicko = bot.glicko ?? { r: 1500, rd: 350 };
-    const info = frag<Element>(`<span class="bot-info">`);
-    /*if (glicko.rd !== 350)
-      info.append(
-        frag(
-          `<span><label>rating</label><button data-bot-action="unrate-one">${bot.fullRatingText}</button></span>`,
-        ),
-      );
-    else */ info.append(frag(`<label>rating ${this.botCtrl.fullRatingText(this.uid, 'classical')}?</label>`));
-    info.prepend(buildFromSchema(this, ['bot_name']).el);
-    return info;
-  }
+interface ReadableBot extends BotInfo {
+  readonly [key: string]: any;
+}
+
+interface WritableBot extends Bot {
+  [key: string]: any;
+  disabled: Set<string>;
 }

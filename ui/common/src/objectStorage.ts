@@ -19,7 +19,7 @@ export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   count(key?: K | IDBKeyRange): Promise<number>;
   remove(key: K | IDBKeyRange): Promise<void>;
   clear(): Promise<void>; // remove all
-  cursor(range?: IDBKeyRange, direction?: IDBCursorDirection): Promise<IDBCursorWithValue | undefined>;
+  cursor(range?: IDBKeyRange, dir?: IDBCursorDirection): Promise<IDBCursorWithValue | undefined>;
   txn(mode: IDBTransactionMode): IDBTransaction; // do anything else
 }
 

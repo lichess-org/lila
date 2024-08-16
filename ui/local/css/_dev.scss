@@ -102,8 +102,8 @@
     align-content: center;
     width: 100%;
     font-size: 1em;
+    gap: 0.5em;
     img {
-      margin-inline-end: 0.5em;
       width: 10vh;
       height: 10vh;
     }
@@ -132,7 +132,14 @@
       align-items: center;
       flex: auto;
       span {
-        font-size: large;
+        @extend %flex-center-nowrap;
+        justify-content: center;
+        font-size: 1.2em;
+        gap: 0;
+      }
+      i {
+        padding-inline: 6px 2px;
+        font-size: 0.8em;
       }
     }
     .upper-right {
@@ -163,9 +170,7 @@
   .results-action {
     flex: auto;
   }
-  .refresh::before {
-    @extend %data-icon;
-    content: $licon-Reload;
+  .board-action::before {
     color: $c-font;
     &:hover {
       color: $c-font-clearer;
@@ -226,9 +231,8 @@
 
   .results {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(120px, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
     gap: 2px;
     font-size: 12px;
     font-family: monospace;
@@ -293,7 +297,7 @@
     &::before {
       content: '';
       display: block;
-      background-image: url('/assets/lifat/bots/misc/not-worthy.webp');
+      background-image: url('/assets/lifat/bots/images/not-worthy.webp');
       background-size: contain;
       background-repeat: no-repeat;
       min-width: 320px;

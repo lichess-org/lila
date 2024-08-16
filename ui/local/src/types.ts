@@ -1,8 +1,6 @@
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
-import type { GameStatus, MoveContext as LocalMove } from './localGame';
 import type { Chess } from 'chessops';
-import type { GameCtrl } from './gameCtrl';
 import type { Operator, Operators, Point } from './operator';
 
 export type { CardData, Operator, Operators, Point };
@@ -28,13 +26,11 @@ export type SoundEvents = { [key in SoundEvent]?: Sound[] };
 
 export type ZeroSearch = { multipv: number; net: string };
 
-export type Book = { key: string; weight?: number };
-
-export type Glicko = { r: number; rd: number };
+export type Book = { key: string; weight: number };
 
 export type LocalSpeed = Exclude<Speed, 'correspondence'>;
 
-export type Ratings = Partial<{ [speed in LocalSpeed]: Glicko }>;
+export type Ratings = { [speed in LocalSpeed]: number };
 
 export interface BotInfo {
   readonly uid: string;
@@ -62,18 +58,10 @@ export interface MoveArgs {
   increment: Seconds | undefined;
   remaining: Seconds | undefined;
   thinktime?: Seconds;
-  score?: number;
+  cp?: number;
 }
 
 export type MoveResult = { uci: string; thinktime?: Seconds };
-
-export interface LocalPlayOpts {
-  pref: any;
-  i18n: any;
-  bots: BotInfo[];
-  setup?: LocalSetup;
-  devUi?: boolean;
-}
 
 export interface LocalSetup {
   white?: string;
@@ -88,15 +76,10 @@ export interface LocalSetupOpts extends LocalSetup {
   bots?: BotInfo[];
 }
 
-export interface Automator {
-  init: (ctrl: GameCtrl) => void;
-  onGameOver: (status: GameStatus) => boolean; // returns true to keep going
-  preMove: (moveResult: LocalMove) => void;
-  onReset: () => void;
-  hurry: boolean; // skip animations, sounds, and artificial move wait times (clock is still adjusted)
+export interface LocalPlayOpts {
+  pref: any;
+  i18n: any;
+  setup?: LocalSetup;
+  bots: BotInfo[];
+  dev?: boolean;
 }
-
-export type NetData = {
-  key: string;
-  data: Uint8Array;
-};

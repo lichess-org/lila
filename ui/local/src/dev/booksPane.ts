@@ -5,6 +5,7 @@ import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
 import type { Book } from '../types';
 import { removeButton } from './devUtil';
 import { assetDialog } from './assetDialog';
+import { env } from '../localEnv';
 
 export class BookPane extends RangeSetting {
   label: HTMLLabelElement;
@@ -13,7 +14,7 @@ export class BookPane extends RangeSetting {
     super(p);
     this.el.append(removeButton());
     const span = this.label.firstElementChild as HTMLElement;
-    span.dataset.src = this.host.assets.getBookCoverUrl(span.textContent!);
+    span.dataset.src = env.repo.getBookCoverUrl(span.textContent!);
     span.classList.add('imagept');
     this.rangeInput.insertAdjacentHTML('afterend', 'wt');
   }
@@ -59,7 +60,7 @@ export class BooksPane extends Pane {
   update(e?: Event): void {
     if (!(e?.target instanceof HTMLElement)) return;
     if (e.target.dataset.action === 'add') {
-      assetDialog(this.host.assets, 'book').then(b => {
+      assetDialog('book').then(b => {
         if (!b) return;
         this.value.push({ key: b, weight: this.template?.value ?? 1 });
         this.makeBook(this.value.length - 1);
@@ -96,7 +97,7 @@ export class BooksPane extends Pane {
       host: this.host,
       info: {
         ...this.template,
-        label: this.host.assets.nameOf(book.key),
+        label: env.repo.nameOf(book.key) ?? `unknown '${book.key}'`,
         value: book.weight,
         id: `${this.id}_${counter++}`,
       },

@@ -1,16 +1,28 @@
 package lila.local
 
 import com.softwaremill.macwire.*
-import play.api.libs.ws.StandaloneWSClient
+import play.api.Configuration
 
-import lila.core.config.CollName
-import lila.memo.CacheApi
+import lila.common.autoconfig.{ *, given }
+import lila.core.config.*
 
 @Module
-final class Env(db: lila.db.Db, cacheApi: CacheApi, getFile: (String => java.io.File))(using
+final private class LocalConfig(
+    @ConfigName("asset_path") val assetPath: String
+)
+
+@Module
+final class Env(
+    appConfig: Configuration,
+    db: lila.db.Db,
+    getFile: (String => java.io.File)
+)(using
     Executor,
     akka.stream.Materializer
 )(using mode: play.api.Mode, scheduler: Scheduler):
 
+  private val config: LocalConfig = appConfig.get[LocalConfig]("local")(AutoConfig.loader)
+
   val repo = LocalRepo(db(CollName("local_bots")), db(CollName("local_assets")))
-  val api  = LocalApi(repo, getFile)
+
+  val api: LocalApi = wire[LocalApi]

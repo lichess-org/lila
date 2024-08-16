@@ -229,6 +229,9 @@ class DialogWrapper implements Dialog {
       else where.appendChild(app.node);
     }
     this.updateActions();
+    this.dialogEvents.addListener(this.dialog, 'keydown', onKeydown);
+    if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
+    else (this.view.querySelectorAll(focusQuery)[1] as HTMLElement)?.focus();
   }
 
   get open(): boolean {
@@ -244,27 +247,13 @@ class DialogWrapper implements Dialog {
   }
 
   show = (): Promise<Dialog> => {
-    // this.restore = {
-    //   overflow: document.body.style.overflow,
-    // };
-    if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
-    //document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.show();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   showModal = (): Promise<Dialog> => {
-    // this.restore = {
-    //   focus: document.activeElement as HTMLElement,
-    //   overflow: document.body.style.overflow,
-    // };
-    if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
-    else (this.view.querySelectorAll(focusQuery)[1] as HTMLElement)?.focus();
-
-    this.dialogEvents.addListener(this.dialog, 'keydown', onModalKeydown);
     this.view.scrollTop = 0;
-    //document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.showModal();
     return new Promise(resolve => (this.resolve = resolve));
@@ -320,12 +309,13 @@ function loadAssets(o: DialogOpts) {
   ]);
 }
 
-function onModalKeydown(e: KeyboardEvent) {
+function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Tab') {
     const $focii = $(focusQuery, e.currentTarget as Element),
       first = $as<HTMLElement>($focii.first()),
       last = $as<HTMLElement>($focii.last()),
       focus = document.activeElement as HTMLElement;
+    $focii.each((_, el) => console.log(el.id));
     if (focus === last && !e.shiftKey) first.focus();
     else if (focus === first && e.shiftKey) last.focus();
     else return;
@@ -341,5 +331,5 @@ function onResize() {
 
 const focusQuery = ['button', 'input', 'select', 'textarea']
   .map(sel => `${sel}:not(:disabled)`)
-  .concat(['[href]', '[tabindex="0"]', '[role="tab"]'])
+  .concat(['[href]', '[tabindex]', '[role="tab"]'])
   .join(',');

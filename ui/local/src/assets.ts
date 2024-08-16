@@ -1,4 +1,3 @@
-import type { NetData } from './types';
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
@@ -50,3 +49,8 @@ export class Assets {
 export function botAssetUrl(type: AssetType, name: string, version: string | false = 'bot000'): string {
   return site.asset.url(`lifat/bots/${type}s/${encodeURIComponent(name)}`, { version });
 }
+
+type NetData = {
+  key: string;
+  data: Uint8Array;
+};

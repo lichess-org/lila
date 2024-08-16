@@ -5,6 +5,7 @@ import { assetDialog } from './assetDialog';
 import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './devTypes';
 import type { Sound } from '../types';
 import { removeButton } from './devUtil';
+import { env } from '../localEnv';
 
 export class SoundEventPane extends Pane {
   info: SoundEventInfo;
@@ -28,7 +29,7 @@ export class SoundEventPane extends Pane {
     if (e.target.dataset.type === 'sound') this.updateField(index, e.target as HTMLInputElement);
     else if (e.target.dataset.action === 'remove') this.removeSound(index);
     else if (e.target.dataset.action === 'add') {
-      const s = await assetDialog(this.host.assets, 'sound');
+      const s = await assetDialog('sound');
       if (!s) return;
       if (!this.value) this.setProperty([]);
       this.value.push({ ...this.template.value, key: s });
@@ -61,10 +62,10 @@ export class SoundEventPane extends Pane {
     const buttonEl = frag(
       `<button class="button button-empty preview-sound icon-btn" data-icon="${licon.PlayTriangle}"></button>`,
     );
-    const audioEl = frag<HTMLAudioElement>(`<audio src="${this.host.assets.getSoundUrl(key)}"></audio>`);
+    const audioEl = frag<HTMLAudioElement>(`<audio src="${env.assets.getSoundUrl(key)}"></audio>`);
     buttonEl.addEventListener('click', () => audioEl.play());
     buttonEl.appendChild(audioEl);
-    soundEl.prepend(frag(`<legend>${key}</legend>`), buttonEl);
+    soundEl.prepend(frag(`<legend>${env.repo.nameOf(key)}</legend>`), buttonEl);
     soundEl.append(removeButton());
     this.el.append(soundEl);
   }

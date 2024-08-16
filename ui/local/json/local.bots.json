@@ -1,387 +1,251 @@
 [
   {
-    "uid": "#terrence",
-    "version": 4,
-    "author": "admin",
-    "name": "Terrence",
-    "description": "Terrence just learned how the pieces move. Now he wants blood.",
-    "image": "terrence.webp",
-    "ratings": {
-      "classical": {
-        "r": 700,
-        "rd": 350
-      }
-    },
-    "books": [
-      {
-        "key": "Performance",
-        "weight": 1
-      }
-    ],
-    "zero": {
-      "multipv": 1,
-      "net": "tinygyal-8.pb"
-    },
-    "operators": {},
-    "sounds": {}
-  },
-  {
-    "uid": "#tbone",
-    "version": 4,
-    "author": "admin",
-    "name": "T-Bone",
-    "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not so good at chess.",
-    "image": "t-bone.webp",
-    "ratings": {
-      "classical": {
-        "r": 800,
-        "rd": 350
-      }
-    },
-    "books": [
-      {
-        "key": "komodo",
-        "weight": 1
-      }
-    ],
-    "zero": {
-      "multipv": 1,
-      "net": "naise700.pb"
-    },
-    "operators": {},
-    "sounds": {}
-  },
-  {
-    "uid": "#nacho",
-    "version": 4,
-    "author": "admin",
-    "name": "Nacho",
-    "description": "Nacho might try to cheese you.",
-    "image": "nacho.webp",
-    "ratings": {
-      "classical": {
-        "r": 900,
-        "rd": 350
-      }
-    },
-    "books": [
-      {
-        "key": "varied",
-        "weight": 1
-      },
-      {
-        "key": "komodo",
-        "weight": 1
-      }
-    ],
-    "zero": {
-      "multipv": 1,
-      "net": "nocap2000.pb"
-    },
-    "operators": {},
-    "sounds": {}
-  },
-  {
-    "uid": "#marco",
-    "version": 3,
-    "author": "admin",
-    "name": "Marco",
-    "description": "They never asked Marco to star in a video game. He is not pleased.",
-    "image": "marco.webp",
-    "ratings": {
-      "classical": {
-        "r": 1000,
-        "rd": 350
-      }
-    },
-    "books": [
-      {
-        "key": "gm2600",
-        "weight": 1
-      },
-      {
-        "key": "Performance",
-        "weight": 1
-      }
-    ],
-    "zero": {
-      "multipv": 1,
-      "net": "tinygyal-8.pb"
-    },
-    "operators": {},
-    "sounds": {}
-  },
-  {
-    "uid": "#ghost",
-    "version": 3,
-    "author": "admin",
-    "name": "Ghost",
-    "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
-    "image": "ghost.webp",
-    "ratings": {
-      "classical": {
-        "r": 1100,
-        "rd": 350
-      }
-    },
-    "books": [
-      {
-        "key": "final-book",
-        "weight": 1
-      },
-      {
-        "key": "KomodoVariety",
-        "weight": 1
-      }
-    ],
-    "zero": {
-      "multipv": 1,
-      "net": "evilgyal-6.pb"
-    },
-    "operators": {},
-    "sounds": {}
-  },
-  {
-    "uid": "#maia",
-    "version": 4,
-    "author": "admin",
-    "name": "Maia",
-    "description": "Maia was a famous author before she began modeling for Elle (c0).",
-    "image": "maia.webp",
-    "ratings": {
-      "classical": {
-        "r": 1200,
-        "rd": 350
-      }
-    },
-    "books": [
-      {
-        "key": "gm2600",
-        "weight": 1
-      },
-      {
-        "key": "komodo",
-        "weight": 1
-      }
-    ],
-    "zero": {
-      "multipv": 1,
-      "net": "maia-1700.pb"
-    },
-    "operators": {},
-    "sounds": {}
-  },
-  {
+    "_id": { "$oid": "66bd2896c33a2d98247c9757" },
     "uid": "#gerard",
     "version": 4,
     "author": "admin",
     "name": "Gerard",
     "description": "It appears that Gerard has brought a sword to a chess match.",
-    "image": "gerard.webp",
-    "ratings": {
-      "classical": {
-        "r": 1300,
-        "rd": 350
-      }
-    },
+    "image": "5903da6ad40d.webp",
+    "ratings": { "classical": 1300 },
     "books": [
-      {
-        "key": "gm2600",
-        "weight": 1
-      },
-      {
-        "key": "komodo",
-        "weight": 1
-      }
+      { "key": "gm2600", "weight": 1 },
+      { "key": "komodo", "weight": 1 }
     ],
-    "zero": {
-      "multipv": 1,
-      "net": "maia-1800.pb"
-    },
+    "zero": { "multipv": 1, "net": "maia-1800.pb" },
     "operators": {},
     "sounds": {}
   },
   {
-    "uid": "#bionica",
-    "version": 5,
-    "author": "admin",
-    "name": "Bionica",
-    "description": "Bionica was programmed with a full range of emotions, but she prefers contempt.",
-    "image": "bionica.webp",
-    "ratings": {
-      "classical": {
-        "r": 1400,
-        "rd": 350
-      }
-    },
-    "books": [
-      {
-        "key": "gm2600",
-        "weight": 1
-      },
-      {
-        "key": "komodo",
-        "weight": 1
-      }
-    ],
-    "zero": {
-      "multipv": 1,
-      "net": "maia-1900.pb"
-    },
-    "operators": {},
-    "sounds": {}
-  },
-  {
-    "uid": "#mitsoko",
-    "version": 5,
-    "author": "admin",
-    "name": "Mitsoko",
-    "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
-    "image": "mitsoko.webp",
-    "ratings": {
-      "classical": {
-        "r": 1500,
-        "rd": 350
-      }
-    },
-    "fish": {
-      "multipv": 12,
-      "by": {
-        "depth": 12
-      }
-    },
-    "books": [],
-    "operators": {},
-    "sounds": {}
-  },
-  {
-    "uid": "#spectre",
-    "version": 3,
-    "author": "admin",
-    "name": "Spectre",
-    "description": "Spectre will strike without warning. You have been warned.",
-    "image": "spectre.webp",
-    "ratings": {
-      "classical": {
-        "r": 1600,
-        "rd": 350
-      }
-    },
-    "fish": {
-      "multipv": 1,
-      "by": {
-        "depth": 10
-      }
-    },
-    "books": [],
-    "operators": {},
-    "sounds": {}
-  },
-  {
+    "_id": { "$oid": "66bd2896c33a2d98247c975b" },
     "uid": "#aurora",
     "version": 4,
     "author": "admin",
     "name": "Aurora",
     "description": "Aurora can see the future. She sees your defeat.",
-    "image": "aurora.webp",
-    "ratings": {
-      "classical": {
-        "r": 1700,
-        "rd": 350
-      }
-    },
-    "fish": {
-      "multipv": 12,
-      "by": {
-        "depth": 12
-      }
-    },
+    "image": "c8ae8c391dae.webp",
+    "ratings": { "classical": 1700 },
+    "fish": { "multipv": 12, "by": { "depth": 12 } },
     "books": [],
     "operators": {},
     "sounds": {}
   },
   {
+    "_id": { "$oid": "66bd2896c33a2d98247c975d" },
+    "uid": "#bionica",
+    "version": 5,
+    "author": "admin",
+    "name": "Bionica",
+    "description": "Bionica was programmed with a full range of emotions, but she prefers contempt.",
+    "image": "fa41532a4b3d.webp",
+    "ratings": { "classical": 1400 },
+    "books": [
+      { "key": "gm2600", "weight": 1 },
+      { "key": "komodo", "weight": 1 }
+    ],
+    "zero": { "multipv": 1, "net": "maia-1900.pb" },
+    "operators": {},
+    "sounds": {}
+  },
+  {
+    "_id": { "$oid": "66bd2896c33a2d98247c975f" },
     "uid": "#hanzo",
     "version": 4,
     "author": "admin",
     "name": "Hanzo",
     "description": "Hanzo will not rest until he has defeated you. But then he will rest.",
-    "image": "nullzo.webp",
-    "ratings": {
-      "classical": {
-        "r": 1800,
-        "rd": 350
-      }
-    },
-    "zero": {
-      "multipv": 1,
-      "net": "badgyal-8.pb"
-    },
+    "image": "b856ee7effa0.webp",
+    "ratings": { "classical": 1800 },
+    "zero": { "multipv": 1, "net": "badgyal-8.pb" },
     "books": [],
     "operators": {},
     "sounds": {}
   },
   {
-    "uid": "#eliza",
-    "version": 3,
-    "author": "admin",
-    "name": "Eliza",
-    "description": "Some say Eliza is an engine, but that's probably just transistor bias.",
-    "image": "eliza.webp",
-    "ratings": {
-      "classical": {
-        "r": 1900,
-        "rd": 350
-      }
+    "_id": { "$oid": "66be0a9466a9c42a1176b2cf" },
+    "version": 5.0,
+    "uid": "#tbone",
+    "author": "ana",
+    "name": "T-Bone",
+    "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not so good at chess.",
+    "image": "a2ccb87c62ca.webp",
+    "ratings": { "classical": 800.0 },
+    "books": [{ "key": "46e8ad19a960", "weight": 1.0 }],
+    "zero": { "multipv": 4.0, "net": "e55a27d8c06d.pb" },
+    "operators": {
+      "lineDecay": { "range": { "min": 0.0, "max": 1.0 }, "from": "time", "data": [[3.0, 1.0]] }
     },
-    "zero": {
-      "multipv": 1,
-      "net": "badgyal-8.pb"
-    },
-    "books": [],
-    "operators": {},
     "sounds": {}
   },
   {
-    "uid": "#thinman",
-    "version": 3,
-    "author": "admin",
-    "name": "Thinman",
-    "description": "Thinman is not your friend. That's why he is pointing a laser gun at your face.",
-    "image": "thinman.webp",
-    "ratings": {
-      "classical": {
-        "r": 2000,
-        "rd": 350
+    "_id": { "$oid": "66be0aa766a9c42a1176b3ba" },
+    "version": 4.0,
+    "uid": "#ghost",
+    "author": "ana",
+    "name": "Ghost",
+    "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
+    "image": "11fb009922b7.webp",
+    "ratings": { "classical": 1100.0 },
+    "books": [{ "key": "82abc767e9e3", "weight": 1.0 }],
+    "zero": { "multipv": 8.0, "net": "1a36a309ccd5.pb" },
+    "operators": {
+      "lineDecay": {
+        "range": { "min": 0.0, "max": 1.0 },
+        "from": "time",
+        "data": [[3.0, 0.29182792887029285]]
       }
     },
-    "zero": {
-      "multipv": 1,
-      "net": "evilgyal-6.pb"
-    },
-    "books": [],
-    "operators": {},
     "sounds": {}
   },
   {
+    "_id": { "$oid": "66be119c66a9c42a11770593" },
+    "version": 7.0,
+    "uid": "#terrence",
+    "author": "ana",
+    "name": "Terrence",
+    "description": "Terrence just learned how the pieces move. Now he wants blood.",
+    "image": "bd6416313d29.webp",
+    "ratings": { "classical": 700.0 },
+    "books": [{ "key": "46e8ad19a960", "weight": 1.0 }],
+    "zero": { "multipv": 8.0, "net": "e55a27d8c06d.pb" },
+    "operators": {
+      "lineDecay": { "range": { "min": 0.0, "max": 1.0 }, "from": "time", "data": [[3.0, 1.0]] }
+    },
+    "sounds": {}
+  },
+  {
+    "_id": { "$oid": "66be11da66a9c42a1177088d" },
+    "version": 6.0,
+    "uid": "#nacho",
+    "author": "ana",
+    "name": "Nacho",
+    "description": "Nacho might try to cheese you.",
+    "image": "985d5b64dfb8.webp",
+    "ratings": { "classical": 900.0 },
+    "books": [{ "key": "46e8ad19a960", "weight": 1.0 }],
+    "zero": { "multipv": 8.0, "net": "e55a27d8c06d.pb" },
+    "operators": { "lineDecay": { "range": { "min": 0.0, "max": 1.0 }, "from": "time", "data": [] } },
+    "sounds": {}
+  },
+  {
+    "_id": { "$oid": "66be139f66a9c42a11771d80" },
+    "version": 6.0,
     "uid": "#listress",
-    "version": 4,
-    "author": "admin",
+    "author": "ana",
     "name": "Listress",
     "description": "You are a wretched, pitiful worm. Listress will not be merciful.",
-    "image": "listress.webp",
-    "ratings": {
-      "classical": {
-        "r": 2100,
-        "rd": 350
+    "image": "e3a4fbdf7d34.webp",
+    "ratings": { "classical": 2100.0 },
+    "books": [{ "key": "793aa087c10e", "weight": 1.0 }],
+    "sounds": { "greeting": [{ "chance": 20.0, "delay": 1.0, "mix": 0.5, "key": "eb8c190237e3.mp3" }] },
+    "fish": { "multipv": 12.0, "by": { "depth": 12.0 } },
+    "operators": {
+      "cplTarget": {
+        "range": { "min": 0.0, "max": 150.0 },
+        "from": "score",
+        "data": [[0.5, 20.552432008368193]]
+      },
+      "cplStdev": {
+        "range": { "min": 0.0, "max": 100.0 },
+        "from": "score",
+        "data": [
+          [0.5, 9.517520920502086],
+          [0.99, 98.63885983263599]
+        ]
+      },
+      "lineDecay": {
+        "range": { "min": 0.0, "max": 1.0 },
+        "from": "time",
+        "data": [
+          [-2.0, 0.5972672594142259],
+          [4.0, 0.09935930962343087]
+        ]
+      }
+    }
+  },
+  {
+    "_id": { "$oid": "66be187f66a9c42a117756c9" },
+    "version": 5.0,
+    "uid": "#marco",
+    "author": "ana",
+    "name": "Marco",
+    "description": "They never asked Marco to star in a video game. He is not pleased.",
+    "image": "a59d8ef4d251.webp",
+    "ratings": { "classical": 1000.0 },
+    "books": [{ "key": "82abc767e9e3", "weight": 1.0 }],
+    "zero": { "multipv": 8.0, "net": "1a36a309ccd5.pb" },
+    "operators": {
+      "lineDecay": {
+        "range": { "min": 0.0, "max": 1.0 },
+        "from": "time",
+        "data": [[3.0, 0.7353425732217573]]
       }
     },
-    "zero": {
-      "multipv": 1,
-      "net": "tinygyal-8.pb"
-    },
+    "sounds": {}
+  },
+  {
+    "_id": { "$oid": "66be1c8566a9c42a11778601" },
+    "version": 6.0,
+    "uid": "#mitsoko",
+    "author": "ana",
+    "name": "Mitsoko",
+    "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
+    "image": "317b669cc800.webp",
+    "ratings": { "classical": 1500.0 },
+    "fish": { "multipv": 12.0, "by": { "depth": 12.0 } },
     "books": [],
-    "operators": {},
+    "sounds": {}
+  },
+  {
+    "_id": { "$oid": "66be1c9366a9c42a117786ae" },
+    "version": 4.0,
+    "uid": "#spectre",
+    "author": "ana",
+    "name": "Spectre",
+    "description": "Spectre will strike without warning. You have been warned.",
+    "image": "21f3b4e59f17.webp",
+    "ratings": { "classical": 1600.0 },
+    "fish": { "multipv": 1.0, "by": { "depth": 10.0 } },
+    "books": [],
+    "sounds": {}
+  },
+  {
+    "_id": { "$oid": "66be1cdb66a9c42a11778a0b" },
+    "version": 5.0,
+    "uid": "#maia",
+    "author": "ana",
+    "name": "Maia",
+    "description": "Maia was a famous author before she began modeling for Elle (c0).",
+    "image": "77363e67dd47.webp",
+    "ratings": { "classical": 1200.0 },
+    "books": [],
+    "zero": { "multipv": 1.0, "net": "cd3a8d47a2cc.pb" },
+    "sounds": {}
+  },
+  {
+    "_id": { "$oid": "66be1cf066a9c42a11778b03" },
+    "version": 4.0,
+    "uid": "#eliza",
+    "author": "ana",
+    "name": "Eliza",
+    "description": "Some say Eliza is an engine, but that's probably just transistor bias.",
+    "image": "28e3d9bce0d6.webp",
+    "ratings": { "classical": 1900.0 },
+    "zero": { "multipv": 1.0, "net": "cd3a8d47a2cc.pb" },
+    "books": [],
+    "sounds": {}
+  },
+  {
+    "_id": { "$oid": "66be1d0166a9c42a11778bce" },
+    "version": 4.0,
+    "uid": "#thinman",
+    "author": "ana",
+    "name": "Thinman",
+    "description": "Thinman is not your friend. That's why he is pointing a laser gun at your face.",
+    "image": "aef91d12d63e.webp",
+    "ratings": { "classical": 2000.0 },
+    "zero": { "multipv": 1.0, "net": "cd3a8d47a2cc.pb" },
+    "books": [],
     "sounds": {}
   }
 ]

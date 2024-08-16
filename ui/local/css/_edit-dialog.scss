@@ -70,6 +70,7 @@
     overflow: hidden;
 
     .placeholder {
+      margin-inline-start: -2em;
       height: 100%;
       aspect-ratio: 1/1;
     }
@@ -138,7 +139,7 @@
     div {
       padding: 0;
     }
-    span {
+    .uid {
       z-index: $z-above-dialog-14;
       font-size: 1.5em;
       font-weight: bold;
@@ -150,10 +151,10 @@
       text-align: center;
     }
     .player {
-      ---scale-factor: 0.7;
+      ---scale-factor: 0.8;
       aspect-ratio: 1/1;
       cursor: pointer;
-      background-color: $c-bg-zebra2;
+      //background-color: $c-bg-zebra2;
     }
     .placard {
       padding: 0;
@@ -174,7 +175,7 @@
     justify-content: space-between;
     text-align: center;
 
-    #bot_name {
+    #info_name {
       max-width: 50%;
       flex: 1 1 auto;
       padding: 0;

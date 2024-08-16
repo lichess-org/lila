@@ -44,7 +44,6 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
     outdir: env.jsDir,
     entryNames: '[name].[hash]',
     chunkNames: 'common.[hash]',
-    loader: { '.ts': 'ts' },
     plugins: [onEndPlugin],
   });
   if (env.watch) {

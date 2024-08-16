@@ -38,6 +38,10 @@
         display: block;
       }
     }
+    &:focus {
+      background-color: $c-bad;
+      outline: $c-primary solid 2px;
+    }
   }
 
   .card-container {

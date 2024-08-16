@@ -5,64 +5,46 @@ import { storedBooleanProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
 import { EditDialog } from './editDialog';
 import { Bot } from '../bot';
-import { playerResults, playersWithResults } from './devUtil';
+import { resultsString, playersWithResults } from './devUtil';
 import { handOfCards, type Drop, type HandOfCards } from '../handOfCards';
-import { domIdToUid, uidToDomId, type BotCtrl } from '../botCtrl';
-import type { DevCtrl } from './devCtrl';
-import type { GameCtrl } from '../gameCtrl';
+import { domIdToUid, uidToDomId } from '../botCtrl';
 import { rangeTicks } from '../gameView';
 import { defined } from 'common';
-import { LocalSetup } from '../types';
+import { LocalSetup, LocalSpeed } from '../types';
+import { env } from '../localEnv';
 
-interface DevContext {
-  devCtrl: DevCtrl;
-  botCtrl: BotCtrl;
-  gameCtrl: GameCtrl;
-}
-
-function devContext(devCtrl: DevCtrl): DevContext {
-  return {
-    devCtrl,
-    gameCtrl: devCtrl.gameCtrl,
-    botCtrl: devCtrl.gameCtrl.botCtrl,
-  };
-}
-
-export function renderDevView(devCtrl: DevCtrl): VNode {
-  const ctx = devContext(devCtrl);
+export function renderDevView(): VNode {
   document
     .querySelectorAll('div.rclock')
-    .forEach(el => el.classList.toggle('none', (ctx.gameCtrl.setup.initial ?? Infinity) === Infinity));
+    .forEach(el => el.classList.toggle('none', (env.game.setup.initial ?? Infinity) === Infinity));
   return h('div.dev-side.dev-view', [
-    h('div', player(ctx, co.opposite(ctx.gameCtrl.cgOrientation))),
-    dashboard(ctx),
-    progress(ctx),
-    h('div', player(ctx, ctx.gameCtrl.cgOrientation)),
+    h('div', player(co.opposite(env.game.cgOrientation))),
+    dashboard(),
+    progress(),
+    h('div', player(env.game.cgOrientation)),
   ]);
 }
 
-function player(ctx: DevContext, color: Color): VNode {
-  const { devCtrl, botCtrl, gameCtrl } = ctx;
-  const p = botCtrl[color] as Bot | undefined;
-  const imgUrl = botCtrl.imageUrl(p) ?? `/assets/lifat/bots/misc/${color}-torso.webp`;
+function player(color: Color): VNode {
+  const p = env.bot[color] as Bot | undefined;
+  const imgUrl = env.bot.imageUrl(p) ?? `/assets/lifat/bots/images/${color}-torso.webp`;
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
     black: isLight ? '.button-inverse' : '.button-metal',
   };
-  console.log(color, p?.uid);
   return h(
     `div.player`,
     {
       attrs: { 'data-color': color },
-      hook: onInsert(el => el.addEventListener('click', () => showBotSelector(ctx, el))),
+      hook: onInsert(el => el.addEventListener('click', () => showBotSelector(el))),
     },
     [
-      botCtrl[color] &&
+      env.bot[color] &&
         h(`button.upper-right`, {
           attrs: { 'data-action': 'remove', 'data-icon': licon.Cancel },
           hook: bind('click', e => {
-            reset(ctx, { ...botCtrl.uids, [color]: undefined });
+            reset({ ...env.bot.uids, [color]: undefined });
             e.stopPropagation();
           }),
         }),
@@ -76,7 +58,7 @@ function player(ctx: DevContext, color: Color): VNode {
               {
                 hook: onInsert(el =>
                   el.addEventListener('click', e => {
-                    editBot(ctx, color);
+                    editBot(color);
                     e.stopPropagation();
                   }),
                 ),
@@ -88,11 +70,11 @@ function player(ctx: DevContext, color: Color): VNode {
             {
               hook: onInsert(el =>
                 el.addEventListener('click', e => {
-                  botCtrl.setRating(p.uid, gameCtrl.speed, { r: 1500, rd: 350 });
+                  env.dev.setRating(p.uid, env.game.speed, { r: 1500, rd: 350 });
                   e.stopPropagation();
-                  devCtrl.run({
+                  env.dev.run({
                     type: 'rate',
-                    players: [p.uid, ...botCtrl.rateBots.map(b => b.uid)],
+                    players: [p.uid, ...env.bot.rateBots.map(b => b.uid)],
                   });
                 }),
               ),
@@ -101,25 +83,57 @@ function player(ctx: DevContext, color: Color): VNode {
           ),
         ]),
       h('div.stats', [
-        h('span', p?.name ? `${p.name} ${botCtrl.ratingText(p.uid, gameCtrl.speed)}` : `Player ${color}`),
+        titleSpan(p, color),
         p instanceof Bot && h('span.totals', p.statsText),
-        h('span.totals', playerResults(devCtrl.log, botCtrl[color]?.uid)),
+        h('span.totals', resultsString(env.dev.log, env.bot[color]?.uid)),
       ]),
     ],
   );
 }
 
-async function editBot({ devCtrl, botCtrl }: DevContext, color: Color) {
-  const selected = botCtrl[color]?.uid;
-  if (!selected) return;
-  await new EditDialog(botCtrl, devCtrl.gameCtrl, color, () => devCtrl.redraw()).show();
-  devCtrl.redraw();
+function ratingText(uid: string, speed: LocalSpeed): string {
+  const glicko = env.dev.getRating(uid, speed);
+  return `${glicko.r}${glicko.rd > 80 ? '?' : ''}`;
 }
 
-function clockOptions(ctx: DevContext) {
+function titleSpan(p: Bot | undefined, color: Color): VNode {
+  const glicko = p && env.dev.getRating(p.uid, env.game.speed);
+  const text = p?.name ?? `${color.charAt(0).toUpperCase()}${color.slice(1)} Player`;
+  return h('span', [
+    text,
+    glicko && h('i', { attrs: { 'data-icon': speedIcon(env.game.speed) } }),
+    glicko && `${glicko.r}${glicko.rd > 80 ? '?' : ''}`,
+  ]);
+}
+
+function fullRatingText(uid: string, speed: LocalSpeed): string {
+  return ratingText(uid, speed) + ` (${env.dev.getRating(uid, speed).rd})`;
+}
+
+function speedIcon(speed: LocalSpeed = env.game.speed): string {
+  switch (speed) {
+    case 'classical':
+      return licon.Turtle;
+    case 'rapid':
+      return licon.Rabbit;
+    case 'blitz':
+      return licon.Fire;
+    case 'bullet':
+    case 'ultraBullet':
+      return licon.Bullet;
+  }
+}
+async function editBot(color: Color) {
+  const selected = env.bot[color]?.uid;
+  if (!selected) return;
+  await new EditDialog(color).show();
+  env.redraw();
+}
+
+function clockOptions() {
   return h('span', [
     ...(['initial', 'increment'] as const).map(type => {
-      const val = ctx.gameCtrl.setup[type] ?? (type === 'initial' ? Infinity : 0);
+      const val = env.game.setup[type] ?? (type === 'initial' ? Infinity : 0);
       return h('label', [
         type === 'initial' ? 'clock' : 'inc',
         h(
@@ -128,7 +142,7 @@ function clockOptions(ctx: DevContext) {
             hook: onInsert(el =>
               el.addEventListener('change', () => {
                 const newVal = Number((el as HTMLSelectElement).value);
-                reset(ctx, { [type]: newVal });
+                reset({ [type]: newVal });
               }),
             ),
           },
@@ -143,29 +157,27 @@ function clockOptions(ctx: DevContext) {
   ]);
 }
 
-function reset({ gameCtrl }: DevContext, params: Partial<LocalSetup>): void {
-  gameCtrl.reset(params);
-  localStorage.setItem('local.dev.setup', JSON.stringify(gameCtrl.setup));
+function reset(params: Partial<LocalSetup>): void {
+  env.game.reset(params);
+  localStorage.setItem('local.dev.setup', JSON.stringify(env.game.setup));
   document
     .querySelectorAll('div.rclock')
-    .forEach(el => el.classList.toggle('none', (gameCtrl.setup.initial ?? Infinity) === Infinity));
-  gameCtrl.redraw();
+    .forEach(el => el.classList.toggle('none', (env.game.setup.initial ?? Infinity) === Infinity));
+  env.redraw();
 }
 
-function dashboard(ctx: DevContext) {
-  const { gameCtrl, devCtrl } = ctx;
-
+function dashboard() {
   return h('div.dev-dashboard', [
-    fen(ctx),
-    clockOptions(ctx),
+    fen(),
+    clockOptions(),
     h('span', [
       h('div', [
         h('label', { attrs: { title: 'instantly deduct bot move times. disable animations and sound' } }, [
           h('input', {
-            attrs: { type: 'checkbox', checked: devCtrl.hurry },
+            attrs: { type: 'checkbox', checked: env.dev.hurry },
             hook: bind('change', e => {
-              devCtrl.hurry = (e.target as HTMLInputElement).checked;
-              storedBooleanProp('local.dev.hurry', false)(devCtrl.hurry);
+              env.dev.hurry = (e.target as HTMLInputElement).checked;
+              storedBooleanProp('local.dev.hurry', false)(env.dev.hurry);
             }),
           }),
           'hurry',
@@ -186,53 +198,57 @@ function dashboard(ctx: DevContext) {
       ]),
     ]),
     h('span', [
-      h(
-        'button.button.button-metal',
-        { hook: onInsert(el => el.addEventListener('click', () => roundRobin(ctx))) },
-        'round robin',
-      ),
+      h('button.button.button-metal', { hook: bind('click', () => roundRobin()) }, 'round robin'),
       h('div.spacer'),
-      h(`button.refresh.button.button-metal`, {
+      h(`button.board-action.button.button-metal`, {
+        attrs: { 'data-icon': licon.Switch },
+        hook: bind('click', () => {
+          //env.game.originalOrientation = co.opposite(env.game.originalOrientation);
+          env.game.reset({ white: env.bot.uids.black, black: env.bot.uids.white });
+          env.redraw();
+        }),
+      }),
+      h(`button.board-action.button.button-metal`, {
+        attrs: { 'data-icon': licon.Reload },
         hook: onInsert(el =>
           el.addEventListener('click', () => {
-            gameCtrl.reset();
-            gameCtrl.redraw();
+            env.game.reset();
+            env.redraw();
           }),
         ),
       }),
-      renderPlayPause(ctx),
+      renderPlayPause(),
     ]),
   ]);
 }
 
-function progress(ctx: DevContext) {
-  const { devCtrl, botCtrl, gameCtrl } = ctx;
+function progress() {
   return h('div.dev-progress', [
     h(
       'div.results',
-      playersWithResults(devCtrl.log).map(p => {
-        const bot = botCtrl.get(p)!;
+      playersWithResults(env.dev.log).map(p => {
+        const bot = env.bot.get(p)!;
         return h(
           'div',
-          `${bot?.name ?? p} ${botCtrl.ratingText(p, gameCtrl.speed)} ${playerResults(devCtrl.log, p)}`,
+          `${bot?.name ?? p} ${ratingText(p, env.game.speed)} ${resultsString(env.dev.log, p)}`,
         );
       }),
     ),
   ]);
 }
 
-function renderPlayPause({ devCtrl, botCtrl, gameCtrl }: DevContext): VNode {
-  const disabled = gameCtrl.isUserTurn;
-  const paused = gameCtrl.isStopped || gameCtrl.live.end;
+function renderPlayPause(): VNode {
+  const disabled = env.game.isUserTurn;
+  const paused = env.game.isStopped || env.game.live.end;
   return h(
     `button.play-pause.button.button-metal${disabled ? '.play.disabled' : paused ? '.play' : '.pause'}`,
     {
       hook: onInsert(el =>
         el.addEventListener('click', () => {
-          if (devCtrl.hasUser && gameCtrl.isStopped) gameCtrl.start();
-          else if (!paused) gameCtrl.stop();
+          if (env.dev.hasUser && env.game.isStopped) env.game.start();
+          else if (!paused) env.game.stop();
           else {
-            if (devCtrl.gameInProgress) gameCtrl.start();
+            if (env.dev.gameInProgress) env.game.start();
             else {
               const numGamesField = document.querySelector('.num-games') as HTMLInputElement;
               if (numGamesField.classList.contains('invalid')) {
@@ -240,22 +256,21 @@ function renderPlayPause({ devCtrl, botCtrl, gameCtrl }: DevContext): VNode {
                 return;
               }
               const numGames = Number(numGamesField.value);
-              devCtrl.run({ type: 'matchup', players: [botCtrl.white!.uid, botCtrl.black!.uid] }, numGames);
+              env.dev.run({ type: 'matchup', players: [env.bot.white!.uid, env.bot.black!.uid] }, numGames);
             }
           }
-          gameCtrl.redraw();
+          env.redraw();
         }),
       ),
     },
   );
 }
 
-function fen(ctx: DevContext): VNode {
-  const { devCtrl, gameCtrl } = ctx;
+function fen(): VNode {
   return h('input.fen', {
     attrs: {
       type: 'text',
-      value: gameCtrl.fen === co.fen.INITIAL_FEN ? '' : gameCtrl.fen,
+      value: env.game.fen === co.fen.INITIAL_FEN ? '' : env.game.fen,
       spellcheck: 'false',
       placeholder: co.fen.INITIAL_FEN,
     },
@@ -268,17 +283,17 @@ function fen(ctx: DevContext): VNode {
         return;
       }
       el.classList.remove('invalid');
-      if (fen) reset(ctx, { fen });
+      if (fen) reset({ fen });
     }),
-    props: { value: devCtrl.startingFen },
+    props: { value: env.dev.startingFen },
   });
 }
 
-function roundRobin({ devCtrl, botCtrl, gameCtrl }: DevContext) {
+function roundRobin() {
   domDialog({
     class: 'round-robin-dialog',
     htmlText: `<h2>participants</h2>
-    <ul>${[...botCtrl.sorted(), ...botCtrl.rateBots.filter(b => b.ratings[gameCtrl.speed]!.r % 100 === 0)]
+    <ul>${[...env.bot.sorted(), ...env.bot.rateBots.filter(b => b.ratings[env.game.speed] % 100 === 0)]
       .map(p => {
         const checked = isNaN(parseInt(p.uid.slice(1)))
           ? storedBooleanProp(`local.dev.tournament-${p.uid.slice(1)}`, true)()
@@ -286,7 +301,7 @@ function roundRobin({ devCtrl, botCtrl, gameCtrl }: DevContext) {
         return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
           p.uid
         }">
-        <label for='${p.uid.slice(1)}'>${p.name} ${botCtrl.ratingText(p.uid, gameCtrl.speed)}</label></li>`;
+        <label for='${p.uid.slice(1)}'>${p.name} ${ratingText(p.uid, env.game.speed)}</label></li>`;
       })
       .join('')}</ul>
     <span>Repeat: <input type="number" maxLength="3" value="1"><button class="button" id="start-tournament">Start</button></span>`,
@@ -300,7 +315,7 @@ function roundRobin({ devCtrl, botCtrl, gameCtrl }: DevContext) {
           if (participants.length < 2) return;
           const iterationField = dlg.view.querySelector('input[type="number"]') as HTMLInputElement;
           const iterations = Number(iterationField.value);
-          devCtrl.run(
+          env.dev.run(
             {
               type: 'roundRobin',
               players: participants,
@@ -326,18 +341,15 @@ function roundRobin({ devCtrl, botCtrl, gameCtrl }: DevContext) {
 
 let botSelector: HandOfCards | undefined;
 
-function showBotSelector(ctx: DevContext, clickedEl: HTMLElement) {
+function showBotSelector(clickedEl: HTMLElement) {
   if (botSelector) return;
-  const { botCtrl, gameCtrl } = ctx;
-  const cardData = [...botCtrl.sorted(gameCtrl.speed).map(b => botCtrl.classifiedCard(b))]
-    .filter(defined)
-    .sort(botCtrl.classifiedSort);
+  const cardData = [...env.bot.sorted(env.game.speed).map(b => env.bot.card(b))].filter(defined);
   const main = document.querySelector('main') as HTMLElement;
   const drops: Drop[] = [];
   main.classList.add('with-cards');
 
   document.querySelectorAll<HTMLElement>('main .player')?.forEach(el => {
-    const selected = uidToDomId(botCtrl[el.dataset.color as Color]?.uid);
+    const selected = uidToDomId(env.bot[el.dataset.color as Color]?.uid);
     drops.push({ el: el as HTMLElement, selected });
   });
   botSelector = handOfCards({
@@ -346,8 +358,9 @@ function showBotSelector(ctx: DevContext, clickedEl: HTMLElement) {
     getCardData: () => cardData,
     select: (el, domId) => {
       const color = (el ?? clickedEl).dataset.color as Color;
-      gameCtrl.stop();
-      reset(ctx, { ...botCtrl.uids, [color]: domIdToUid(domId) });
+      env.game.stop();
+      reset({ ...env.bot.uids, [color]: domIdToUid(domId) });
+      console.log(color, env.game.setup);
     },
     onRemove: () => {
       main.classList.remove('with-cards');

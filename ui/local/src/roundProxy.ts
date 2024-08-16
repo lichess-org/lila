@@ -1,23 +1,22 @@
-import type { GameCtrl } from './gameCtrl';
-import type { BotCtrl } from './botCtrl';
 import * as co from 'chessops';
 import { showSetupDialog } from './setupDialog';
 import { LocalGame } from './localGame';
 import { clockToSpeed } from 'game';
-import type { RoundProxy as IRoundProxy, RoundController, RoundData, RoundOpts } from 'round';
+import type { RoundProxy as IRoundProxy, RoundData, RoundOpts } from 'round';
 import { analyse } from './analyse';
+import { env } from './localEnv';
 
 export class RoundProxy implements IRoundProxy {
   data: RoundData;
   handlers: SocketHandlers = {
-    move: (d: any) => this.gameCtrl.move(d.u),
-    resign: () => this.gameCtrl.resign(),
+    move: (d: any) => env.game.move(d.u),
+    resign: () => env.game.resign(),
     'blindfold-no': () => {},
     'blindfold-yes': () => {},
-    'rematch-yes': () => this.gameCtrl.reset(),
-    'draw-yes': () => this.gameCtrl.draw(),
+    'rematch-yes': () => env.game.reset(),
+    'draw-yes': () => env.game.draw(),
   };
-  constructor(readonly gameCtrl: GameCtrl) {
+  constructor() {
     this.data = Object.defineProperties(
       {
         game: {
@@ -26,22 +25,22 @@ export class RoundProxy implements IRoundProxy {
           speed: 'classical',
           perf: 'unlimited',
           rated: false,
-          fen: gameCtrl.fen,
-          turns: gameCtrl.ply,
+          fen: env.game.fen,
+          turns: env.game.ply,
           source: 'local',
           status: { id: 20, name: 'started' },
-          player: gameCtrl.ply % 2 ? 'black' : 'white',
+          player: env.game.ply % 2 ? 'black' : 'white',
         },
         player: this.player('white', ''),
         opponent: this.player('black', ''),
-        pref: this.gameCtrl.opts.pref,
-        steps: [{ ply: 0, san: '', uci: '', fen: gameCtrl.fen }],
+        pref: env.game.opts.pref,
+        steps: [{ ply: 0, san: '', uci: '', fen: env.game.fen }],
         takebackable: false,
         moretimeable: false,
-        possibleMoves: this.gameCtrl.live.dests,
+        possibleMoves: env.game.live.dests,
       },
       {
-        clock: { get: () => gameCtrl.clock },
+        clock: { get: () => env.game.clock },
       },
     );
     this.reset();
@@ -50,10 +49,10 @@ export class RoundProxy implements IRoundProxy {
     if (this.handlers[t]) this.handlers[t]?.(d);
     else console.log('send: no handler for', t, d);
   }
-  newOpponent = (): void => showSetupDialog(this.botCtrl, this.gameCtrl.setup, this.gameCtrl);
-  analyse = (): void => analyse(this.gameCtrl);
+  newOpponent = (): void => showSetupDialog(env.bot, env.game.setup);
+  analyse = (): void => analyse(env.game);
   moreTime = (): void => {};
-  outoftime = (): void => this.gameCtrl.flag();
+  outoftime = (): void => env.game.flag();
   berserk = (): void => {};
   sendLoading = (typ: string, data?: any): void => this.send(typ, data);
   receive = (typ: string, data: any): boolean => {
@@ -69,39 +68,35 @@ export class RoundProxy implements IRoundProxy {
       gameUpdates.fen = game.fen;
       gameUpdates.check = game.chess.isCheck();
       gameUpdates.turnColor = game.turn;
-      if (this.gameCtrl.history || this.gameCtrl.isUserTurn)
+      if (env.game.history || env.game.isUserTurn)
         gameUpdates.movable = {
           color: game.turn,
           dests: game.cgDests,
         };
     }
-    this.round.chessground?.set({ ...gameUpdates, ...cgOpts });
+    env.round.chessground?.set({ ...gameUpdates, ...cgOpts });
   }
 
   reset(): void {
-    const bottom = this.gameCtrl.originalOrientation;
+    const bottom = env.game.originalOrientation;
     const top = co.opposite(bottom);
-    const twoPlayers = !this.gameCtrl.setup.white && !this.gameCtrl.setup.black;
+    const twoPlayers = !env.game.setup.white && !env.game.setup.black;
     const playerName = {
       white: twoPlayers ? 'White player' : 'Player',
       black: twoPlayers ? 'Black player' : 'Player',
     };
-    this.data.game.fen = this.gameCtrl.fen;
+    this.data.game.fen = env.game.fen;
     this.data.game.turns = 0;
     this.data.game.status = { id: 20, name: 'started' };
-    this.data.steps = [{ ply: 0, san: '', uci: '', fen: this.gameCtrl.fen }];
-    this.data.possibleMoves = this.gameCtrl.live.dests;
-    this.data.player = this.player(bottom, this.botCtrl[bottom]?.name ?? playerName[bottom]);
-    this.data.opponent = this.player(top, this.botCtrl[top]?.name ?? playerName[top]);
-    if (this.round) this.round.ply = 0;
+    this.data.steps = [{ ply: 0, san: '', uci: '', fen: env.game.fen }];
+    this.data.possibleMoves = env.game.live.dests;
+    this.data.player = this.player(bottom, env.bot[bottom]?.name ?? playerName[bottom]);
+    this.data.opponent = this.player(top, env.bot[top]?.name ?? playerName[top]);
+    if (env.round) env.round.ply = 0;
     this.data.game.speed = this.data.game.perf = clockToSpeed(
-      this.gameCtrl.setup.initial ?? Infinity,
-      this.gameCtrl.setup.increment ?? 0,
+      env.game.setup.initial ?? Infinity,
+      env.game.setup.increment ?? 0,
     );
-  }
-
-  get round(): RoundController {
-    return this.gameCtrl.round;
   }
 
   get roundOpts(): RoundOpts {
@@ -110,21 +105,17 @@ export class RoundProxy implements IRoundProxy {
       data: this.data,
       userId: '',
       noab: false,
-      i18n: this.gameCtrl.opts.i18n,
+      i18n: env.game.opts.i18n,
       //socketSend: this.send,
       onChange: () => {
-        if (this.round.ply === 0)
+        if (env.round.ply === 0)
           this.updateCg(undefined, {
             lastMove: undefined,
-            orientation: this.gameCtrl.originalOrientation,
+            orientation: env.game.originalOrientation,
             events: { move: undefined },
           });
       },
     };
-  }
-
-  private get botCtrl(): BotCtrl {
-    return this.gameCtrl.botCtrl;
   }
 
   private player(color: Color, name: string): RoundData['player'] {

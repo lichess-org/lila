@@ -2,8 +2,7 @@ import { Line } from 'zerofish';
 import { clamp } from 'common';
 
 export function outcomeExpectancy(turn: Color, cp: number): number {
-  if (turn === 'black') cp = -cp;
-  return 1 / (1 + 10 ** (-cp / 400)) - 1;
+  return 1 / (1 + 10 ** ((turn === 'black' ? cp : -cp) / 400));
 }
 
 let nextNormal: number | undefined;

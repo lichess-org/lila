@@ -5,7 +5,8 @@ import { DevAssets, AssetList } from './devAssets';
 import { renderDevView } from './devView';
 import { BotCtrl } from '../botCtrl';
 import { ShareCtrl } from './shareCtrl';
-import renderGameView from '../gameView';
+import { env } from '../localEnv';
+import { renderGameView } from '../gameView';
 import type { RoundController } from 'round';
 import type { LocalPlayOpts } from '../types';
 
@@ -16,27 +17,30 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
 }
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
-  console.log(opts.pref);
   if (window.screen.width < 1260) return;
 
   opts.setup ??= JSON.parse(localStorage.getItem('local.dev.setup') ?? '{}');
+  opts.dev = true;
 
-  const botCtrl = new BotCtrl();
-  const assetRepo = new DevAssets(opts.assets, new ShareCtrl(botCtrl));
-  await botCtrl.init(opts.bots, assetRepo);
-  const devCtrl = new DevCtrl(redraw);
-  const gameCtrl = new GameCtrl(opts, botCtrl, redraw, devCtrl);
+  env.redraw = redraw;
+  env.bot = new BotCtrl();
+  env.share = new ShareCtrl();
+  env.assets = new DevAssets(opts.assets);
+  env.dev = new DevCtrl();
+  env.game = new GameCtrl(opts);
+  await Promise.all([env.bot.init(opts.bots), env.dev.init()]);
+  env.game.init();
 
   const el = document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);
 
-  let vnode = patch(el, renderGameView(gameCtrl, renderDevView(devCtrl)));
+  let vnode = patch(el, renderGameView(renderDevView()));
 
-  gameCtrl.round = await site.asset.loadEsm<RoundController>('round', { init: gameCtrl.proxy.roundOpts });
+  env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
 
   function redraw() {
-    vnode = patch(vnode, renderGameView(gameCtrl, renderDevView(devCtrl)));
-    gameCtrl.round.redraw();
+    vnode = patch(vnode, renderGameView(renderDevView()));
+    env.round.redraw();
   }
 }

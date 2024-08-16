@@ -9,7 +9,7 @@ import akka.util.ByteString
 
 // this stuff is for bot devs
 
-final private class LocalApi(repo: LocalRepo, getFile: (String => java.io.File))(using
+final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (String => java.io.File))(using
     Executor,
     akka.stream.Materializer
 ):
@@ -33,10 +33,15 @@ final private class LocalApi(repo: LocalRepo, getFile: (String => java.io.File))
   def assetKeys: JsObject = cachedAssets.getOrElse(updateAssets)
 
   private def listFiles(tpe: String): List[String] =
-    getFile(s"public/lifat/bots/${tpe}s")
-      .listFiles()
-      .toList
-      .map(_.getName)
+    val path = getFile(s"public/lifat/bots/${tpe}s")
+    if !path.exists() then
+      NioFiles.createDirectories(path.toPath)
+      Nil
+    else
+      path
+        .listFiles()
+        .toList
+        .map(_.getName)
 
   def updateAssets: JsObject =
     val newAssets = Json.obj(

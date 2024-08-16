@@ -2,6 +2,7 @@ import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
 import { findMapped, frag } from 'common';
 import { getSchemaDefault, operatorRegex } from './schema';
 import type { EditDialog } from './editDialog';
+import { env } from '../localEnv';
 import type {
   PaneArgs,
   SelectInfo,
@@ -102,7 +103,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
               (o, key) => o?.[key],
               src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
             );
-      return src === 'scratch' ? prop : structuredClone(prop);
+      return prop; //['local', 'server'].includes(src) ? structuredClone(prop) : prop; // ?? TODO clone even needed?
     });
   }
 
@@ -255,7 +256,7 @@ export class SelectSetting extends Pane<SelectInfo> {
   }
   get choices(): { name: string; value: string }[] {
     if (!this.info.assetType) return this.info.choices ?? [];
-    return [...this.host.assets.all(this.info.assetType).entries()].map(([key, name]) => ({
+    return [...env.repo.all(this.info.assetType).entries()].map(([key, name]) => ({
       name,
       value: key,
     }));

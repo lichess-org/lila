@@ -1,13 +1,13 @@
 import * as co from 'chessops';
-import { rateBotMatchup } from './rateBot';
-import * as u from './devUtil';
-import type { Automator, BotInfo } from '../types';
+import { rateBotMatchup, RateBot } from './rateBot';
+import type { BotInfo, LocalSpeed } from '../types';
 import { statusOf } from 'game/status';
-import { clockToSpeed } from 'game';
 import { defined } from 'common';
+import * as licon from 'common/licon';
+import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { storedBooleanProp } from 'common/storage';
-import type { GameCtrl } from '../gameCtrl';
 import type { GameStatus, MoveContext } from '../localGame';
+import { env } from '../localEnv';
 
 export interface Result {
   winner: Color | undefined;
@@ -30,19 +30,24 @@ export interface Script extends Test {
   games: Matchup[];
 }
 
-export class DevCtrl implements Automator {
+export type Glicko = { r: number; rd: number };
+
+export type DevRatings = { [speed in LocalSpeed]?: Glicko };
+
+export class DevCtrl {
   hurry: boolean = storedBooleanProp('local.dev.hurry', false)();
-  // skip animations, sounds, and artificial move wait times (clock is still adjusted)
+  // skip animations, sounds, and artificial think times (clock is still adjusted)
   script: Script;
-  gameCtrl: GameCtrl;
   log: Result[];
+  ratings: { [uid: string]: DevRatings } = {};
+  private localRatings: ObjectStorage<DevRatings>;
 
-  constructor(readonly redraw: () => void) {}
+  constructor() {}
 
-  init(gameCtrl: GameCtrl): void {
-    this.gameCtrl = gameCtrl;
+  async init(): Promise<void> {
     this.resetScript();
-    site.pubsub.on('theme', this.redraw);
+    await this.getStoredRatings();
+    site.pubsub.on('theme', env.redraw);
   }
 
   run(test?: Test, iterations: number = 1): boolean {
@@ -52,17 +57,15 @@ export class DevCtrl implements Automator {
     }
     const game = this.script.games.shift();
     if (!game) return false;
-    this.gameCtrl.reset({ ...game, fen: this.startingFen });
-    this.gameCtrl.start();
-    this.redraw();
+    env.game.reset({ ...game, fen: this.startingFen });
+    env.game.start();
+    env.redraw();
     return true;
   }
 
   resetScript(test?: Test): void {
     this.log ??= [];
-    const players = [this.gameCtrl.setup.white, this.gameCtrl.setup.black].filter(x =>
-      defined(x),
-    ) as string[];
+    const players = [env.game.setup.white, env.game.setup.black].filter(x => defined(x)) as string[];
     this.script = {
       type: 'matchup',
       players,
@@ -74,39 +77,39 @@ export class DevCtrl implements Automator {
   onReset(): void {}
 
   preMove(moveResult: MoveContext): void {
-    this.gameCtrl.round.chessground?.set({ animation: { enabled: !this.hurry } });
+    env.round.chessground?.set({ animation: { enabled: !this.hurry } });
     if (this.hurry) moveResult.silent = true;
   }
 
   onGameOver({ winner, turn, reason, status }: GameStatus): boolean {
-    console.log('devCtrl', winner, reason, status);
+    console.log(winner, reason, status);
     const last = { winner, white: this.white?.uid, black: this.black?.uid };
     this.log.push(last);
     if (status === statusOf('cheat')) {
       console.error(
         `${this.white?.name ?? 'Player'} (white) vs ${
           this.black?.name ?? 'Player'
-        } (black) - ${turn} ${reason} - ${this.gameCtrl.fen} ${this.gameCtrl.live.moves.join(' ')}`,
-        JSON.stringify(this.gameCtrl.chess),
+        } (black) - ${turn} ${reason} - ${env.game.fen} ${env.game.live.moves.join(' ')}`,
+        JSON.stringify(env.game.chess),
       );
       return false;
     }
     if (!this.white?.uid || !this.black?.uid) return false;
-    this.botCtrl.updateRatings(this.gameCtrl.speed, winner);
+    this.updateRatings(this.white.uid, this.black.uid, winner);
 
     if (this.script.type === 'rate') {
       const uid = this.script.players[0]!;
-      const rating = this.botCtrl.get(uid)?.ratings[this.gameCtrl.speed] ?? { r: 1500, rd: 350 };
-      this.script.games.push(...rateBotMatchup(uid!, rating, last));
+      const rating = this.getRating(uid, env.game.speed);
+      this.script.games.push(...rateBotMatchup(uid, rating, last));
     }
     if (this.testInProgress) return this.run();
     this.resetScript();
-    this.redraw();
+    env.redraw();
     return false;
   }
 
   get startingFen(): string {
-    return this.gameCtrl.setup.fen ?? co.fen.INITIAL_FEN;
+    return env.game.setup.fen ?? co.fen.INITIAL_FEN;
   }
 
   get hasUser(): boolean {
@@ -118,26 +121,22 @@ export class DevCtrl implements Automator {
   }
 
   get gameInProgress(): boolean {
-    return this.gameCtrl.data.steps.length > 1 && !this.gameCtrl.status.end;
+    return env.game.data.steps.length > 1 && !env.game.status.end;
   }
 
   private get white(): BotInfo | undefined {
-    return this.botCtrl.white;
+    return env.bot.white;
   }
 
   private get black(): BotInfo | undefined {
-    return this.botCtrl.black;
-  }
-
-  private get botCtrl() {
-    return this.gameCtrl.botCtrl;
+    return env.bot.black;
   }
 
   private matchups(test: Test, iterations = 1): Matchup[] {
     const players = test.players;
     if (players.length < 2) return [];
     if (test.type === 'rate') {
-      const rating = this.botCtrl.get(players[0])?.ratings[this.gameCtrl.speed] ?? { r: 1500, rd: 350 };
+      const rating = this.getRating(players[0], env.game.speed);
       return rateBotMatchup(players[0], rating);
     }
     const games: Matchup[] = [];
@@ -152,5 +151,49 @@ export class DevCtrl implements Automator {
       } else games.push({ white: test.players[it % 2], black: test.players[(it + 1) % 2] });
     }
     return games;
+  }
+
+  private async getStoredRatings(): Promise<void> {
+    if (!this.localRatings)
+      this.localRatings = await objectStorage<DevRatings>({ store: 'local.bot.ratings' });
+    const keys = await this.localRatings.list();
+    this.ratings = Object.fromEntries(
+      await Promise.all(keys.map(k => this.localRatings.get(k).then(v => [k, v]))),
+    );
+  }
+
+  private updateRatings(whiteUid: string, blackUid: string, winner: Color | undefined): Promise<any> {
+    const whiteScore = winner === 'white' ? 1 : winner === 'black' ? 0 : 0.5;
+    const rats = [whiteUid, blackUid].map(uid => this.getRating(uid, env.game.speed));
+
+    return Promise.all([
+      this.setRating(whiteUid, env.game.speed, updateGlicko(rats, whiteScore)),
+      this.setRating(blackUid, env.game.speed, updateGlicko(rats.reverse(), 1 - whiteScore)),
+    ]);
+
+    function updateGlicko(glk: Glicko[], score: number): Glicko {
+      const q = Math.log(10) / 400;
+      const expected = 1 / (1 + 10 ** ((glk[1].r - glk[0].r) / 400));
+      const g = 1 / Math.sqrt(1 + (3 * q ** 2 * glk[1].rd ** 2) / Math.PI ** 2);
+      const dSquared = 1 / (q ** 2 * g ** 2 * expected * (1 - expected));
+      const deltaR = glk[0].rd <= 0 ? 0 : (q * g * (score - expected)) / (1 / dSquared + 1 / glk[0].rd ** 2);
+      return {
+        r: Math.round(glk[0].r + deltaR),
+        rd: Math.max(30, Math.sqrt(1 / (1 / glk[0].rd ** 2 + 1 / dSquared))),
+      };
+    }
+  }
+
+  getRating(uid: string | undefined, speed: LocalSpeed): Glicko {
+    if (!uid) return { r: 1500, rd: 350 };
+    if (env.bot.get(uid) instanceof RateBot) return { r: env.bot.get(uid)!.ratings[speed], rd: 0.01 };
+    return this.ratings[uid]?.[speed] ?? { r: 1500, rd: 350 };
+  }
+
+  setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<any> {
+    if (!uid || !env.bot.bots[uid]) return Promise.resolve();
+    this.ratings[uid] ??= {};
+    this.ratings[uid][speed] = rating;
+    return this.localRatings.put(uid, this.ratings[uid]);
   }
 }

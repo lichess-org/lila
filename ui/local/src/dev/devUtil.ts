@@ -36,19 +36,21 @@ export function setObjectProperty({ obj, path, value }: ObjectPath & { value: an
 }
 
 function isEmpty(prop: any): boolean {
-  if (Array.isArray(prop)) return prop.length === 0;
-  if (typeof prop !== 'object') return false;
-  return Object.keys(prop).length === 0;
+  return Array.isArray(prop)
+    ? prop.length === 0
+    : typeof prop === 'object'
+    ? Object.keys(prop).length === 0
+    : false;
 }
 
 function filteredKeys(obj: any): string[] {
   if (typeof obj !== 'object') return obj;
   return Object.entries(obj)
-    .filter(([k, v]) => k !== 'ratings' && !isEmpty(v))
+    .filter(([, v]) => !isEmpty(v))
     .map(([k]) => k);
 }
 
-//like isEquivalent but ignores empty objects & arrays.  for functional equivalence of bot infos.
+// ignores empty objects & arrays for BotInfo equivalence.
 export function closeEnough(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;
@@ -56,6 +58,7 @@ export function closeEnough(a: any, b: any): boolean {
     return Array.isArray(b) && a.length === b.length && a.every((x, i) => closeEnough(x, b[i]));
   }
   if (typeof a !== 'object') return false;
+
   const [aKeys, bKeys] = [filteredKeys(a), filteredKeys(b)];
   if (aKeys.length !== bKeys.length) return false;
 
@@ -67,8 +70,6 @@ export function closeEnough(a: any, b: any): boolean {
 
 export function deadStrip(info: BotInfo & { disabled: Set<string> }): BotInfo {
   if (!('disabled' in info)) return info;
-
-  // clone and strip disabled properties, we have enough versions of closeEnough
 
   const temp = structuredClone(info);
 
@@ -93,7 +94,10 @@ export function botScore(r: Result, uid: string): number {
   return r.winner === undefined ? 0.5 : r[r.winner] === uid ? 1 : 0;
 }
 
-export function outcomesFor(results: Result[], uid: string | undefined): { w: number; d: number; l: number } {
+export function resultsObject(
+  results: Result[],
+  uid: string | undefined,
+): { w: number; d: number; l: number } {
   return results.reduce(
     (a, r) => ({
       w: a.w + (r.winner !== undefined && r[r.winner] === uid ? 1 : 0),
@@ -104,8 +108,8 @@ export function outcomesFor(results: Result[], uid: string | undefined): { w: nu
   );
 }
 
-export function playerResults(results: Result[], uid?: string): string {
-  const { w, d, l } = outcomesFor(results, uid);
+export function resultsString(results: Result[], uid?: string): string {
+  const { w, d, l } = resultsObject(results, uid);
   return `${w}/${d}/${l}`;
 }
 

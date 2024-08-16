@@ -353,9 +353,9 @@ GET   /local/dev                       controllers.Local.devIndex
 GET   /local/dev/history               controllers.Local.devBotHistory
 POST  /local/dev/bot                   controllers.Local.devPostBot
 GET   /local/dev/assets                controllers.Local.devAssets
-POST  /local/dev/asset/new/$tpe<sound|image|book>/$key<\w{12}>/:name controllers.Local.devPostAsset(tpe: String, key: String, name: String)
-POST  /local/dev/asset/mv/$key<\w{12}>/:name            controllers.Local.devNameAsset(key: String, name: String)
-POST  /local/dev/asset/rm/$key<\w{12}>            controllers.Local.devDeleteAsset(key: String)
+POST  /local/dev/asset/new/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?>/:name controllers.Local.devPostAsset(tpe: String, key: String, name: String)
+POST  /local/dev/asset/mv/$key<\w{12}(\.\w{2,4})?>/:name            controllers.Local.devNameAsset(key: String, name: String)
+POST  /local/dev/asset/rm/$key<\w{12}(\.\w{2,4})?>            controllers.Local.devDeleteAsset(key: String)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)

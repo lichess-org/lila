@@ -1,7 +1,7 @@
 import { domDialog, alert, type Dialog } from 'common/dialog';
 import { frag } from 'common';
 import type { EditDialog } from './editDialog';
-import { ShareCtrl } from './shareCtrl';
+import { env } from '../localEnv';
 
 export function shareDialog(host: EditDialog, uid?: string): Promise<ShareDialog> {
   return new ShareDialog(host, uid).show();
@@ -15,14 +15,6 @@ class ShareDialog {
     readonly host: EditDialog,
     readonly uid?: string,
   ) {}
-
-  private get botCtrl() {
-    return this.host.botCtrl;
-  }
-
-  private get assets() {
-    return this.host.assets;
-  }
 
   async show(): Promise<this> {
     this.view = frag<HTMLElement>(`<div class="dev-view share-dialog">
@@ -39,8 +31,8 @@ class ShareDialog {
   }
 
   private shareGridItemHtml() {
-    const serverBots = this.botCtrl.serverBots;
-    const localBots = this.botCtrl.localBots;
+    const serverBots = env.bot.serverBots;
+    const localBots = env.bot.localBots;
     const scratchBots = this.host.scratch;
     const uidSet = new Set<string>();
     Object.keys({ ...serverBots, ...localBots, ...scratchBots }).forEach(uid => uidSet.add(uid));
@@ -59,9 +51,9 @@ class ShareDialog {
   private share = (_: Event): void => {
     console.log('we jammin');
     if (!this.uid) return;
-    const bot = this.botCtrl.get(this.uid);
+    const bot = env.bot.get(this.uid);
     if (!bot) return;
-    this.assets.shareCtrl.postBot(bot).then(success =>
+    env.share.postBot(bot).then(success =>
       alert(success ? 'shared!' : 'failed').then(() => {
         if (success) this.dlg.close();
       }),

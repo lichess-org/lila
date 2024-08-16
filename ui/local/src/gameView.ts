@@ -3,8 +3,9 @@ import { looseH as h, VNode, bind } from 'common/snabbdom';
 //import { bind } from 'common/snabbdom';
 import type { BotInfo } from './types';
 import type { GameCtrl } from './gameCtrl';
+import { env } from './localEnv';
 
-export default function (ctrl?: GameCtrl, side?: VNode): VNode {
+export function renderGameView(side?: VNode): VNode {
   return h('main.round', [
     side ? h('aside.round__side', side) : undefined /* ??
         h('section#bot-view', [
@@ -23,8 +24,8 @@ export default function (ctrl?: GameCtrl, side?: VNode): VNode {
   ]);
 }
 
-function botView(ctrl: GameCtrl, bot: BotInfo): VNode {
-  const imageUrl = ctrl.botCtrl.imageUrl(bot);
+function botView(bot: BotInfo): VNode {
+  const imageUrl = env.bot.imageUrl(bot);
   return h('div.fancy-bot', [
     imageUrl && h('img', { attrs: { src: imageUrl } }),
     h('div.overview', [h('h2', bot.name), h('p', bot.description)]),

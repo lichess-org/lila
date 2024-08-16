@@ -23,6 +23,7 @@ export interface HandOwner {
   autoResize?: boolean; // default false
   transient?: boolean; // default false
   orientation?: 'bottom' | 'left'; // default bottom
+  opaque?: boolean; // default false. when selected, card is fully opaque over target background
 }
 
 export interface HandOfCards {
@@ -64,41 +65,39 @@ class HandOfCardsImpl {
   }
 
   resize: () => void = () => {
-    const newRect = this.view.getBoundingClientRect();
-    if (this.rect && newRect.width === this.rect.width && newRect.height === this.rect.height) return;
-    this.rect = newRect;
-    this.scaleFactor = 0.8 + 0.3 * clamp((newRect.width - 720) / 360, { min: 0, max: 1 });
+    const r = this.view.getBoundingClientRect();
+    if (this.deck) this.deckRect = this.deck.getBoundingClientRect();
+    if (this.rect && r.width === this.rect.width && r.height === this.rect.height) return;
+    this.rect = r;
+    this.scaleFactor = 0.8 + 0.3 * clamp((r.width - 720) / 360, { min: 0, max: 1 });
     this.view.style.setProperty('---scale-factor', String(this.scaleFactor));
     const h2 = this.cardSize - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
-    this.originX = this.isLeft
-      ? -Math.sqrt(3 / 4) * this.fanRadius
-      : Math.min(this.view.offsetWidth, 1080) / 2; // Math.min keeps the fan origin left of center for hires
-    this.originY = this.isLeft
-      ? (this.view.offsetHeight - h2) / 2
-      : this.view.offsetHeight + Math.sqrt(3 / 4) * this.fanRadius - h2;
-    if (this.deck) this.deckRect = this.deck.getBoundingClientRect();
+    this.originX = this.isLeft ? -Math.sqrt(3 / 4) * this.fanRadius : r.width / 3;
+    this.originY = this.isLeft ? (r.height - h2) / 2 : r.height + Math.sqrt(3 / 4) * this.fanRadius - h2;
     this.redraw();
   };
 
   update(): void {
     const data = [...this.owner.getCardData()].reverse();
     if (isEquivalent(data, this.lastCardData)) return;
-    const frag = document.createDocumentFragment();
+    const fragment = document.createDocumentFragment();
     this.lastCardData = data;
     const cards: HTMLElement[] = [];
+    //let i = data.length;
     for (const cd of data) {
       const card = this.cards.find(x => x.id === cd.domId) ?? this.createCard(cd);
-      frag.appendChild(card);
+      fragment.appendChild(card);
       const label = card.lastElementChild as HTMLElement;
       if (cd.label !== label.textContent) label.textContent = cd.label;
       const img = card.firstElementChild as HTMLImageElement;
       if (cd.imageUrl !== img.src) img.src = cd.imageUrl ?? '';
+      //card.tabIndex = i--;
       card.className = 'card';
       cd.classList.forEach(c => card.classList.add(c));
       cards.push(card);
     }
     for (const removed of this.cards.filter(x => !cards.includes(x))) removed.remove();
-    this.container.appendChild(frag);
+    this.container.appendChild(fragment);
     this.cards = cards;
     this.redraw();
   }
@@ -127,9 +126,9 @@ class HandOfCardsImpl {
 
   private createCard(c: CardData) {
     const card = frag<HTMLElement>(`<div id="${c.domId}" class="card">
-      <img src="${c.imageUrl}">
-      <label>${c.label}</label>
-    </div>`);
+        <img src="${c.imageUrl}">
+        <label>${c.label}</label>
+      </div>`);
     c.classList.forEach(x => card.classList.add(x));
     this.events.addListener(card, 'pointerdown', this.pointerDown);
     this.events.addListener(card, 'pointermove', this.pointerMove);
@@ -143,11 +142,9 @@ class HandOfCardsImpl {
   private placeCards() {
     const hovered = this.view.querySelector('.card.pull');
     const hoverIndex = this.cards.findIndex(x => x == hovered);
-    const deck = this.cards.filter(x => x !== this.dragCard);
-    const unplaced = deck.filter(x => !this.selectedTransform(x));
-
+    const unplaced = this.cards.filter(x => !this.selectedTransform(x));
     for (const [i, card] of unplaced.entries()) {
-      card.style.backgroundColor = '';
+      if (!this.owner.opaque) card.style.backgroundColor = '';
       if (this.fanout) this.fanoutTransform(card, hoverIndex);
       else if (this.owner.transient) card.style.transform = `translate(${this.originX}px, ${this.originY}px)`;
       else this.deckTransform(card, i);
@@ -159,13 +156,15 @@ class HandOfCardsImpl {
     const to = this.deck;
     const toSide = Math.min(to.offsetWidth, to.offsetHeight);
     const cardSide = Math.min(card.offsetWidth, card.offsetHeight);
+    const scale = (0.8 * toSide) / cardSide;
     const x = to.offsetLeft - card.offsetLeft + (toSide - cardSide) / 2 + i;
     const y = to.offsetTop - card.offsetTop + (toSide - cardSide) / 2 - i;
-    card.style.transform = `translate(${x}px, ${y}px) rotate(-5deg) scale(${(0.8 * toSide) / cardSide})`;
+    card.style.transform = `translate(${x}px, ${y}px) rotate(-5deg) scale(${scale})`;
     return true;
   }
 
   private fanoutTransform(card: HTMLElement, hoverIndex: number) {
+    // could make half of this function disappear with better symmetry
     const fanArc = Math.PI / 5;
     const centerCard = -this.cardSize / 2;
     const index = this.cards.indexOf(card);
@@ -174,16 +173,14 @@ class HandOfCardsImpl {
     const bottomPull =
       hoverIndex === -1
         ? 0
-        : index <= hoverIndex
-        ? (Math.PI * this.cardSize) / (this.fanRadius * visibleCards)
-        : (-Math.PI * this.cardSize) / (this.fanRadius * visibleCards);
+        : ((index > hoverIndex ? -1 : 1) * (Math.PI * this.cardSize)) / (this.fanRadius * visibleCards);
     const pull = this.isLeft ? leftPull : bottomPull;
     const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards - 0.5);
     const isHovered = card.classList.contains('pull');
     const magLeft =
       this.fanRadius +
       (isHovered ? this.cardSize / 4 : 0) +
-      (hoverIndex === -1 ? 0 : index > hoverIndex ? centerCard : 0);
+      (hoverIndex > -1 && index > hoverIndex ? centerCard : 0);
     const magBottom = this.fanRadius + centerCard / (isHovered ? 2 : 1);
     const mag = this.isLeft ? magLeft : magBottom;
     const x = this.isLeft ? this.originX + mag * Math.cos(angle) : this.originX + mag * Math.sin(angle);
@@ -200,7 +197,7 @@ class HandOfCardsImpl {
   }
 
   private selectedTransform(card: HTMLElement) {
-    if (this.owner.transient) return false;
+    if (this.owner.transient || card === this.dragCard) return false;
     const dindex = this.drops.findIndex(x => x.selected === card.id);
     card.classList.toggle('selected', dindex >= 0);
     if (dindex < 0) return false;
@@ -209,24 +206,24 @@ class HandOfCardsImpl {
     const x = to.offsetLeft - card.offsetLeft + (to.offsetWidth - card.offsetWidth) / 2;
     const y = to.offsetTop - card.offsetTop + (to.offsetHeight - card.offsetHeight) / 2;
     card.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-    card.style.backgroundColor = window.getComputedStyle(to).backgroundColor;
+    if (!this.owner.opaque) card.style.backgroundColor = window.getComputedStyle(to).backgroundColor;
     return true;
   }
 
   private clientToOriginOffset(client: [number, number]): [number, number] {
-    // origin is the midpoint of the fanout circle in viewport coords
+    // origin is the midpoint of the fanout circle relative to this.view top left
     const ooX = client[0] - (this.rect.left + window.scrollX) - this.originX;
     const ooY = this.rect.top + window.scrollY + this.originY - client[1];
     return [ooX, ooY];
   }
 
-  private clientToElementOffset(client: [number, number]): [number, number] {
+  private clientToViewOffset(client: [number, number]): [number, number] {
     const elX = client[0] - (this.rect.left + window.scrollX);
     const elY = client[1] - (this.rect.top + window.scrollY);
     return [elX, elY];
   }
 
-  private getAngle(client: [number, number]): number {
+  private clientToOriginAngle(client: [number, number]): number {
     const translated = this.clientToOriginOffset(client);
     return Math.atan2(translated[0], translated[1]);
   }
@@ -285,10 +282,10 @@ class HandOfCardsImpl {
     e.preventDefault();
     this.dragCard.classList.add('dragging');
 
-    const offsetPt = this.clientToElementOffset([e.clientX, e.clientY]);
+    const offsetPt = this.clientToViewOffset([e.clientX, e.clientY]);
     const offsetX = offsetPt[0] - this.cardSize / 2;
     const offsetY = offsetPt[1] - this.cardSize / 2;
-    const newAngle = this.getAngle([e.clientX, e.clientY]);
+    const newAngle = this.clientToOriginAngle([e.clientX, e.clientY]);
     this.dragCard.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${newAngle}rad)`;
     for (const drop of this.drops) drop.el?.classList.remove('drag-over');
     this.dropTarget(e)?.classList.add('drag-over');

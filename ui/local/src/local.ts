@@ -4,7 +4,8 @@ import { GameCtrl } from './gameCtrl';
 import { BotCtrl } from './botCtrl';
 import { Assets } from './assets';
 import { showSetupDialog } from './setupDialog';
-import view from './gameView';
+import { env } from './localEnv';
+import { renderGameView } from './gameView';
 import type { LocalPlayOpts } from './types';
 
 const patch = init([classModule, attributesModule]);
@@ -12,23 +13,25 @@ const patch = init([classModule, attributesModule]);
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
   opts.setup ??= JSON.parse(localStorage.getItem('local.setup') ?? '{}');
 
-  const botCtrl = await new BotCtrl().init(opts.bots, new Assets());
-  const gameCtrl = new GameCtrl(opts, botCtrl, redraw);
+  env.redraw = redraw;
+  env.assets = new Assets();
+  env.bot = await new BotCtrl().init(opts.bots);
+  env.game = new GameCtrl(opts);
+  env.game.init();
 
   const el = document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);
-  let vnode = patch(el, view(gameCtrl));
+  let vnode = patch(el, renderGameView());
 
-  gameCtrl.round = await site.asset.loadEsm<RoundController>('round', { init: gameCtrl.proxy.roundOpts });
-
+  env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
   if (!opts.setup?.go) {
-    showSetupDialog(botCtrl, opts.setup, gameCtrl);
+    showSetupDialog(env.bot, opts.setup);
     return;
   }
 
   function redraw() {
-    vnode = patch(vnode, view(gameCtrl));
-    gameCtrl.round.redraw();
+    vnode = patch(vnode, renderGameView());
+    env.round.redraw();
   }
 }

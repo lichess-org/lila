@@ -1,6 +1,6 @@
 .base-view {
-  ---white-image-url: url('/assets/lifat/bots/misc/white-torso.webp');
-  ---black-image-url: url('/assets/lifat/bots/misc/black-torso.webp');
+  ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp');
+  ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp');
   ---scale-factor: 1; // ---scale-factor adjusted in javascript
 
   @extend %flex-column;

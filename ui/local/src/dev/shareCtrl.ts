@@ -1,30 +1,30 @@
 import type { BotInfo } from '../types';
-import type { BotCtrl } from '../botCtrl';
-import { defined } from 'common';
-import type { DevAssets, AssetBlob, AssetType } from './devAssets';
+import { defined, deepFreeze } from 'common';
+import type { AssetBlob, AssetType } from './devAssets';
+import { env } from '../localEnv';
+
+// not sure why this is a class yet
 
 export class ShareCtrl {
-  readonly user: string = document.body.getAttribute('data-user') ?? 'Anonymous';
+  constructor() {}
 
-  constructor(readonly botCtrl: BotCtrl) {}
-
-  get assets(): DevAssets {
-    return this.botCtrl.assets as DevAssets;
-  }
-  async postBot(bot: BotInfo, progress?: (e: ProgressEvent, key: string) => void): Promise<boolean> {
+  async postBot(
+    bot: BotInfo,
+    progress?: (e: ProgressEvent, key: string) => void,
+  ): Promise<undefined | string> {
     const localBlobs: (AssetBlob | undefined)[] = [];
-    if (bot.image) localBlobs.push(this.assets.assetBlob('image', bot.image));
+    if (bot.image) localBlobs.push(env.repo.assetBlob('image', bot.image));
     for (const key of new Set(
       Object.values(bot.sounds ?? {})
         .flat()
         .map(s => s.key),
     )) {
-      localBlobs.push(this.assets.assetBlob('sound', key));
+      localBlobs.push(env.repo.assetBlob('sound', key));
     }
-    for (const book of (bot.books ?? []).map(b => this.assets.assetBlob('book', b.key))) {
+    for (const book of (bot.books ?? []).map(b => env.repo.assetBlob('book', b.key))) {
       if (!book) continue;
       localBlobs.push({ ...book, key: `${book.key}.bin` });
-      const bookCover = this.assets.assetBlob('bookCover', book.key);
+      const bookCover = env.repo.assetBlob('bookCover', book.key);
       if (!bookCover) continue;
       localBlobs.push({ ...bookCover, key: `${book.key}.png` });
     }
@@ -38,23 +38,24 @@ export class ShareCtrl {
       });
       if (!res.ok) throw new Error(res.statusText);
 
+      await env.bot.pullBot(await res.json());
+
       const clearLocals: { type: AssetType; key: string }[] = [];
       for (const b of localBlobs.filter(defined)) {
         if (b.type === 'book' || b.type === 'bookCover') b.key = b.key.slice(0, -4);
         clearLocals.push(b);
       }
-      await Promise.all(clearLocals.map(b => this.assets.clearLocal(b.type, b.key)));
-      return true;
+      await Promise.all(clearLocals.map(b => env.repo.clearLocal(b.type, b.key)));
+      return undefined;
     } catch (x) {
       console.error('share failed', x);
-      return false;
+      return `share failed: ${JSON.stringify(x)}`;
     }
-    return false;
   }
 
   async deleteBot(uid: string): Promise<void> {
     if (await fetch(`/local/dev/bot`, { method: 'post', body: `{"uid":"${uid}"}` }).then(rsp => rsp.ok)) {
-      await this.botCtrl.deleteBot(uid);
+      await env.bot.deleteBot(uid);
     }
   }
 
@@ -68,7 +69,10 @@ export class ShareCtrl {
         .then(file => {
           const formData = new FormData();
           formData.append('file', file);
-          const url = new URL(`/local/dev/asset/new/${type}/${key}/${name}`, window.location.origin);
+          const url = new URL(
+            `/local/dev/asset/new/${type}/${key}/${encodeURIComponent(name)}`,
+            window.location.origin,
+          );
           const xhr = new XMLHttpRequest();
           xhr.open('POST', url, true);
 
@@ -84,7 +88,7 @@ export class ShareCtrl {
             if (xhr.status === 200) {
               const rsp = JSON.parse(xhr.responseText);
               console.log('upload successful:', rsp);
-              //this.assets.update(rsp);
+              //env.repo.update(rsp);
               resolve(rsp);
             } else {
               console.error('upload failed');

@@ -1,19 +1,9 @@
-import type { BotInfo, Operator, Book, SoundEvent, Sound as NamedSound } from '../types';
+import type { Operator, Book, SoundEvent, Sound as NamedSound } from '../types';
 import type { Pane } from './pane';
 import type { AssetType } from './devAssets';
 import type { EditDialog } from './editDialog';
-import type { Bot } from '../bot';
 
 export type Sound = Omit<NamedSound, 'key'>;
-
-export interface ReadableBot extends BotInfo {
-  readonly [key: string]: any;
-}
-
-export interface WritableBot extends Bot {
-  [key: string]: any;
-  disabled: Set<string>;
-}
 
 export interface Template<T extends object = any> {
   min: Record<keyof T, number>;

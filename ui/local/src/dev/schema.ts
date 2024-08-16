@@ -1,7 +1,7 @@
 import type { Schema, InfoKey, PropertyValue } from './devTypes';
 import { deepFreeze } from 'common';
 
-// give dialog constraints, describe dialog content, define direct mappings to BotInfo instances
+// describe dialog content, define constraints, map to Bot instances
 
 export const infoKeys: InfoKey[] = [
   'type',
@@ -19,23 +19,46 @@ export const infoKeys: InfoKey[] = [
   'template',
   'requires',
   'required',
-]; // keep in sync with InfoKey in file://./types.ts
+]; // InfoKey in file://./types.ts
 
 export const operatorRegex: RegExp = /==|>=|>|<=|<|!=/;
 
 export const schema: Schema = deepFreeze<Schema>({
-  bot_name: {
-    type: 'text',
-    class: ['setting'],
-    value: 'bot name',
-    required: true,
-  },
-  bot_description: {
-    type: 'textarea',
-    rows: 3,
-    class: ['placard'],
-    value: 'short description',
-    required: true,
+  info: {
+    description: {
+      type: 'textarea',
+      rows: 3,
+      class: ['placard'],
+      value: 'short description',
+      required: true,
+    },
+    name: {
+      type: 'text',
+      label: 'name',
+      class: ['setting'],
+      value: 'bot name',
+      required: true,
+    },
+    // ratings: {
+    //   label: 'advertised',
+    //   type: 'group',
+    //   required: true,
+    //   ultraBullet: { label: 'ultra bullet', type: 'range', class: ['setting'], value: 1500, min: 600, max: 2400, step: 50, required: true },
+    //   bullet: { label: 'bullet', type: 'range', class: ['setting'], value: 1500, min: 600, max: 2400, step: 50, required: true },
+    //   blitz: { label: 'blitz', type: 'range', class: ['setting'], value: 1500, min: 600, max: 2400, step: 50, required: true },
+    //   rapid: { label: 'rapid', type: 'range', class: ['setting'], value: 1500, min: 600, max: 2400, step: 50, required: true },
+    //   classical: { label: 'classical', type: 'range', class: ['setting'], value: 1500, min: 600, max: 2400, step: 50, required: true },
+    // },
+    ratings_classical: {
+      type: 'range',
+      label: 'classical rating',
+      class: ['setting'],
+      value: 1500,
+      min: 600,
+      max: 2400,
+      step: 50,
+      required: true,
+    },
   },
   sources: {
     class: ['sources'],
@@ -182,5 +205,5 @@ export const schema: Schema = deepFreeze<Schema>({
 
 export function getSchemaDefault(id: string): PropertyValue {
   const setting = schema[id] ?? id.split('_').reduce((obj, key) => obj[key], schema);
-  return typeof setting === 'object' && 'value' in setting ? structuredClone(setting.value) : undefined;
+  return typeof setting === 'object' && 'value' in setting ? setting.value : undefined;
 }

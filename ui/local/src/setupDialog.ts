@@ -8,9 +8,10 @@ import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { type GameCtrl } from './gameCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
+import { env } from './localEnv';
 
-export function showSetupDialog(botCtrl: BotCtrl, setup: LocalSetup = {}, gameCtrl?: GameCtrl): void {
-  new SetupDialog(botCtrl, setup, gameCtrl);
+export function showSetupDialog(botCtrl: BotCtrl, setup: LocalSetup = {}): void {
+  new SetupDialog(botCtrl, setup);
 }
 
 class SetupDialog {
@@ -24,7 +25,6 @@ class SetupDialog {
   constructor(
     readonly botCtrl: BotCtrl,
     setup: LocalSetup,
-    readonly gameCtrl: GameCtrl | undefined,
   ) {
     this.setup = { ...setup };
     this.show();
@@ -67,8 +67,8 @@ class SetupDialog {
         { selector: '[data-type]', event: 'input', listener: this.updateClock },
         { selector: 'img.z-remove', listener: () => this.select() },
       ],
-      noCloseButton: this.gameCtrl !== undefined,
-      noClickAway: this.gameCtrl !== undefined,
+      noCloseButton: env.game !== undefined,
+      noClickAway: env.game !== undefined,
     }).then(dlg => {
       this.dialog = dlg;
       this.view = dlg.view.querySelector('.with-cards')!;
@@ -140,10 +140,10 @@ class SetupDialog {
     this.updateClock();
     this.setup.go = true;
     localStorage.setItem('local.setup', JSON.stringify(this.setup));
-    if (this.gameCtrl) this.gameCtrl.reset(this.setup);
+    if (env.game) env.game.reset(this.setup);
     else window.location.href = `/local`;
     this.dialog.close(this.uid);
-    this.gameCtrl?.round?.redraw();
+    env.redraw();
   };
 
   private switch = () => {

@@ -40,6 +40,15 @@
       font-size: 0.9em;
       font-weight: bold;
     }
+    input.asset-label {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      padding: 0;
+      &:focus {
+        background-color: $m-primary_bg--mix-80;
+      }
+    }
     .preview-sound {
       @extend %flex-center-nowrap;
       text-transform: none;

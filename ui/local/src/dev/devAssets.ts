@@ -4,6 +4,7 @@ import { makeBookFromPolyglot, type OpeningBook } from 'bits/polyglot';
 import { type ShareCtrl } from './shareCtrl';
 import { type BotCtrl } from '../botCtrl';
 import { zip } from 'common';
+import { env } from '../localEnv';
 
 // asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
 // asset names come from the original filename but can be renamed whatever
@@ -39,10 +40,7 @@ export class DevAssets extends Assets {
     {} as Record<AssetType, NameMap>,
   );
 
-  constructor(
-    public rlist: AssetList,
-    readonly shareCtrl: ShareCtrl,
-  ) {
+  constructor(public rlist: AssetList) {
     super();
     this.update(rlist);
   }
@@ -130,7 +128,7 @@ export class DevAssets extends Assets {
     if (extpos === -1) throw new Error('filename must have extension');
     const [name, ext] = [filename.slice(0, extpos), filename.slice(extpos + 1)];
     const key = `${await hashBlob(file)}.${ext}`;
-    const asset = { blob: file, name, user: this.user };
+    const asset = { blob: file, name, user: env.user };
     await this.idb[type].put(key, asset);
     if (type === 'image' || type === 'sound') {
       const oldUrl = this.urls[type].get(key);
@@ -146,8 +144,8 @@ export class DevAssets extends Assets {
     if (!book.cover) throw new Error(`error parsing ${filename}`);
     const key = await hashBlob(file);
     const name = filename.split('.')[0];
-    const asset = { blob: file, name, user: this.user };
-    const cover = { blob: book.cover, name: `${name}.png`, user: this.user };
+    const asset = { blob: file, name, user: env.user };
+    const cover = { blob: book.cover, name: `${name}.png`, user: env.user };
     await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
     this.book.set(key, book.getMoves);
     this.urls.bookCover.set(key, URL.createObjectURL(new Blob([book.cover], { type: 'image/png' })));
@@ -169,8 +167,12 @@ export class DevAssets extends Assets {
     if (type === 'book') this.clearLocal('bookCover', key);
   }
 
-  async rename(type: AssetType, key: string, newKey: string): Promise<void> {
-    await Promise.allSettled([this.idb[type].mv(key, newKey), fetch(`/local/dev/asset/mv/${key}/${newKey}`)]);
+  async renameAsset(type: AssetType, key: string, newName: string): Promise<void> {
+    if (this.nameOf(key) === newName) return;
+    await Promise.allSettled([
+      this.idb[type].mv(key, newName),
+      fetch(`/local/dev/asset/mv/${key}/${encodeURIComponent(newName)}`),
+    ]);
   }
 
   async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
@@ -283,8 +285,8 @@ class Store {
   }
 
   async mv(key: string, newName: string): Promise<void> {
+    if (this.keyNames.get(key) === newName) return;
     const asset = await this.store.get(key);
-    this.keyNames.delete(key);
     this.keyNames.set(key, newName);
     await this.store.put(key, { ...asset, name: newName });
   }

@@ -1,17 +1,19 @@
 {
-  "name": "make-bots",
-  "version": "1.0.0",
-  "description": "",
-  "engines": {
-    "node": ">=18"
-  },
-  "main": "bots.js",
-  "type": "commonjs",
-  "scripts": {
-    "json": "tsc && node dist/bots.js",
-    "mongo": "pnpm json && bin/import.sh --drop"
-  },
-  "keywords": [],
+  "name": "build-bots",
+  "private": true,
   "author": "T-Bone Duplexus",
-  "license": "GPL-3.0"
+  "license": "AGPL-3.0-or-later",
+  "type": "commonjs",
+  "dependencies": {
+    "@types/node": "^22.2.0",
+    "fast-glob": "^3.3.2",
+    "json5": "^2.2.3",
+    "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "bots": "tsc && node dist/bots.js",
+    "assets": "tsc && node dist/assets.js",
+    "mongo-import": "bin/import.sh --drop",
+    "mongo-export": "bin/export.sh"
+  }
 }

@@ -3,9 +3,10 @@ import { RoundProxy } from './roundProxy';
 import { makeFen } from 'chessops/fen';
 import { type MoveContext, type GameStatus, LocalGame } from './localGame';
 import { clockToSpeed } from 'game';
-import type { RoundData, RoundController, ClockData } from 'round';
-import type { LocalPlayOpts, LocalSetup, Automator, SoundEvent, LocalSpeed } from './types';
-import type { BotCtrl } from './botCtrl';
+import { notNull } from 'common';
+import type { RoundData, ClockData } from 'round';
+import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
+import { env } from './localEnv';
 import { statusOf } from 'game/status';
 
 export class GameCtrl {
@@ -13,31 +14,27 @@ export class GameCtrl {
   live: LocalGame;
   history?: LocalGame;
   proxy: RoundProxy;
-  round: RoundController;
   clock?: ClockData & { since?: number };
   i18n: { [key: string]: string };
   setup: LocalSetup;
   originalOrientation: Color;
   resolveThink?: () => void;
 
-  constructor(
-    readonly opts: LocalPlayOpts,
-    readonly botCtrl: BotCtrl,
-    readonly redraw: () => void,
-    readonly dev?: Automator | undefined,
-  ) {
+  constructor(readonly opts: LocalPlayOpts) {
     this.setup = opts.setup ?? {};
+    env.bot.setUids(this.setup);
     this.originalOrientation = this.setup.black ? 'white' : this.setup.white ? 'black' : 'white';
-    this.botCtrl.setUids(this.setup);
     this.i18n = opts.i18n;
     this.setup.fen ??= co.fen.INITIAL_FEN;
     this.resetClock();
     this.live = new LocalGame(this.setup.fen);
-    this.proxy = new RoundProxy(this);
-    this.triggerStart();
     site.pubsub.on('ply', this.jump);
-    site.pubsub.on('flip', this.redraw);
-    dev?.init(this);
+    site.pubsub.on('flip', env.redraw);
+  }
+
+  init(): void {
+    this.proxy = new RoundProxy();
+    this.triggerStart();
   }
 
   get data(): RoundData {
@@ -65,7 +62,7 @@ export class GameCtrl {
   }
 
   get isUserTurn(): boolean {
-    return this.history === undefined && !this.botCtrl[this.turn];
+    return this.history === undefined && !env.bot[this.turn];
   }
 
   get isStopped(): boolean {
@@ -85,7 +82,7 @@ export class GameCtrl {
   }
 
   get cgOrientation(): Color {
-    return this.round?.flip ? co.opposite(this.originalOrientation) : this.originalOrientation;
+    return env.round?.flip ? co.opposite(this.originalOrientation) : this.originalOrientation;
   }
 
   get speed(): LocalSpeed {
@@ -94,11 +91,11 @@ export class GameCtrl {
 
   reset(params: LocalSetup = this.setup): void {
     this.setup = { ...this.setup, ...params };
-    this.botCtrl.setUids(this.setup);
     this.history = undefined;
-    this.live = new LocalGame(this.setup.fen ?? co.fen.INITIAL_FEN);
     this.stop();
-    this.botCtrl.reset();
+    env.bot.reset();
+    env.bot.setUids(this.setup);
+    this.live = new LocalGame(this.setup.fen ?? co.fen.INITIAL_FEN);
     this.updateTurn();
     this.resetClock();
     this.updateClockUi();
@@ -132,10 +129,9 @@ export class GameCtrl {
   }
 
   async botMove(): Promise<void> {
-    console.log('yiiiiiiiha!');
-    const [bot, game] = [this.botCtrl[this.turn], this.live];
+    const [bot, game] = [env.bot[this.turn], this.live];
     if (!bot || game.end || this.isStopped || this.resolveThink) return;
-    const move = await this.botCtrl.move({
+    const move = await env.bot.move({
       pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
       chess: this.chess,
       remaining: this.clock?.[this.turn],
@@ -146,7 +142,7 @@ export class GameCtrl {
     await new Promise<void>(resolve => {
       if (!this.clock || !move.thinktime) return resolve();
       this.clock[this.turn] -= move.thinktime;
-      if (this.dev?.hurry) return resolve();
+      if (env.dev?.hurry) return resolve();
       this.resolveThink = resolve;
       this.clock.since = undefined;
       const realtime = Math.min(move.thinktime, this.clock[this.turn], 2 * (0.5 + Math.random()));
@@ -154,7 +150,7 @@ export class GameCtrl {
     });
     this.resolveThink = undefined;
 
-    if (!this.isStopped && game === this.live && this.round.ply === game.ply) this.move(move.uci);
+    if (!this.isStopped && game === this.live && env.round.ply === game.ply) this.move(move.uci);
     else setTimeout(() => this.updateTurn(), 200);
   }
 
@@ -162,17 +158,18 @@ export class GameCtrl {
     if (this.history) this.live = this.history;
     this.history = undefined;
     this.stopped = false;
+
     if (this.clock?.since) this.clock[this.turn] -= (performance.now() - this.clock.since) / 1000;
     const moveCtx = this.live.move({ uci, clock: this.clock });
     const { end, move, justPlayed } = moveCtx;
 
     this.data.steps.splice(this.live.ply);
-    this.dev?.preMove?.(moveCtx);
+    env.dev?.preMove?.(moveCtx);
     this.playSounds(moveCtx);
-    this.round.apiMove(moveCtx);
+    env.round.apiMove(moveCtx);
 
     if (move?.promotion)
-      this.round.chessground?.setPieces(
+      env.round.chessground?.setPieces(
         new Map([[uci.slice(2, 4) as Cg.Key, { color: justPlayed, role: move.promotion, promoted: true }]]),
       );
 
@@ -181,7 +178,7 @@ export class GameCtrl {
       this.clock[justPlayed] += this.clock.increment;
       this.updateClockUi();
     }
-    this.redraw();
+    env.redraw();
     return !end;
   }
 
@@ -202,55 +199,60 @@ export class GameCtrl {
   private updateClockUi(): void {
     if (!this.clock) return;
     this.clock.running = this.isLive && this.live.ply > 0;
-    this.round.clock?.setClock(this.data, this.clock.white, this.clock.black);
-    if (this.isStopped || !this.isLive) this.round.clock?.stopClock();
+    env.round.clock?.setClock(this.data, this.clock.white, this.clock.black);
+    if (this.isStopped || !this.isLive) env.round.clock?.stopClock();
   }
 
   private playSounds(moveCtx: MoveContext): void {
     if (moveCtx.silent) return;
     const { justPlayed, san, end } = moveCtx;
     const sounds: SoundEvent[] = [];
-    const prefix = this.botCtrl[justPlayed] ? 'bot' : 'player';
+    const prefix = env.bot[justPlayed] ? 'bot' : 'player';
     if (san.includes('x')) sounds.push(`${prefix}Capture`);
     if (this.chess.isCheck()) sounds.push(`${prefix}Check`);
     if (end) sounds.push(`${prefix}Win`);
     sounds.push(`${prefix}Move`);
-    const boardSoundVolume = sounds ? this.botCtrl.playSound(justPlayed, sounds) : 1;
+    const boardSoundVolume = sounds ? env.bot.playSound(justPlayed, sounds) : 1;
     if (boardSoundVolume) site.sound.move({ ...moveCtx, volume: boardSoundVolume });
   }
 
   private triggerStart(): void {
-    ['white', 'black'].forEach(c => this.botCtrl.playSound(c as Color, ['greeting']));
-    setTimeout(() => !this.dev && !this.isUserTurn && this.start(), 500);
+    ['white', 'black'].forEach(c => env.bot.playSound(c as Color, ['greeting']));
+    setTimeout(() => !env.dev && !this.isUserTurn && this.start(), 500);
   }
 
   private gameOver(final: Omit<GameStatus, 'end' | 'turn'>) {
     this.live.finish(final);
     this.stop();
-    if (this.clock) this.round.clock?.stopClock();
-    if (!this.dev?.onGameOver({ ...final, end: true, turn: this.turn })) {
-      this.round.endWithData?.({ ...final, boosted: false });
+    if (this.clock) env.round.clock?.stopClock();
+    if (!env.dev?.onGameOver({ ...final, end: true, turn: this.turn })) {
+      env.round.endWithData?.({ ...final, boosted: false });
     }
-    this.redraw();
+    env.redraw();
   }
 
   private resetClock(): void {
-    const initial = this.setup.initial ?? (this.dev ? 3600 * 24 : Infinity);
-    const increment = this.setup.increment ?? 0;
-    this.clock =
-      initial === Infinity
-        ? undefined
-        : {
-            initial,
-            increment,
-            white: initial,
-            black: initial,
-            emerg: 0,
-            showTenths: this.opts.pref.clockTenths,
-            showBar: true,
-            moretime: 0,
-            running: false,
-            since: undefined,
-          };
+    // in dev mode unlimited, set initial to 999999 because round/ctrl.ts will not create a clock
+    // controller unless there's a clock object, meaning we cannot switch from unlimited to realtime
+    // without reloads. clockCtrl does not like Infinity and i don't want to pull any jenga pieces,
+    // but it wouldn't be the worst thing if someone fixed this in round/ctrl.ts
+    const initial = Number.isFinite(this.setup.initial)
+      ? this.setup.initial
+      : this.opts.dev
+      ? 999999
+      : undefined;
+    if (initial === undefined) return (this.clock = undefined);
+    this.clock = {
+      initial: initial,
+      increment: this.setup.increment ?? 0,
+      white: initial,
+      black: initial,
+      emerg: 0,
+      showTenths: this.opts.pref.clockTenths,
+      showBar: true,
+      moretime: 0,
+      running: false,
+      since: undefined,
+    };
   }
 }
