@@ -549,13 +549,14 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
   &__player {
+    @extend %flex-column;
+    gap: 0.5em;
     padding: 1.5em 2em;
     background: $c-bg-popup;
     font-size: 1.1em;
     &__name {
       @extend %flex-center-nowrap, %ellipsis;
       font-size: 1.3em;
-      margin-bottom: 0.7rem;
     }
     &__info {
       @extend %flex-between;

@@ -157,6 +157,7 @@ const renderPlayerWithGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames): VNo
   h('div.tpp', [
     h('div.tpp__player', [
       h('a.tpp__player__name', { attrs: playerLinkAttrs(p.fideId, ctrl.isEmbed) }, [userTitle(p), p.name]),
+      p.team ? h('div.tpp__player__team', p.team) : undefined,
       h('div.tpp__player__info', [
         h('div', [playerFed(ctrl.expandFederation(p)), ...(p.rating ? [`${p.rating}`, ratingDiff(p)] : [])]),
         h('div', [p.score, ' / ', p.played]),

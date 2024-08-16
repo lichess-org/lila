@@ -218,6 +218,7 @@ export interface StudyPlayerBase {
   rating?: number;
   clock?: ClockCentis;
   fideId?: FideId;
+  team?: string;
 }
 export interface StudyPlayerFromServer extends StudyPlayerBase {
   fed?: FederationId;

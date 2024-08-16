@@ -37,6 +37,7 @@ object StudyPlayer:
           .add("title" -> p.title)
           .add("rating" -> p.rating)
           .add("fideId" -> p.fideId)
+          .add("team" -> p.team)
           .add("fed" -> p.fed)
     given chapterPlayerWrites: OWrites[ChapterPlayer] = OWrites: p =>
       Json.toJsObject(p.studyPlayer).add("clock" -> p.clock)
