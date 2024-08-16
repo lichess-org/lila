@@ -9,7 +9,9 @@ import { ChapterId, Federations, FideId, StudyPlayer, StudyPlayerFromServer } fr
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
 import { defined } from 'common';
-import { Attrs, Hooks } from 'snabbdom';
+import { Attrs, Hooks, init as initSnabbdom, attributesModule } from 'snabbdom';
+import { Outcome } from 'chessops';
+import { convertPlayerFromServer } from '../studyChapters';
 
 type RelayPlayerId = FideId | string;
 
@@ -136,9 +138,6 @@ export const playerLinkAttrs = (fideId: FideId | undefined, isEmbed: boolean): A
       }
     : {};
 
-import { init as initSnabbdom, attributesModule } from 'snabbdom';
-import { Outcome } from 'chessops';
-import { convertPlayerFromServer } from '../studyChapters';
 const playerTipId = 'tour-player-tip';
 
 export const playerPowerTipHook = (ctrl: RelayPlayers, p: StudyPlayer, id: RelayPlayerId): Hooks => ({
