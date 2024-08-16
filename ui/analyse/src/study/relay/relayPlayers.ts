@@ -111,6 +111,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
           h('tr', [
             h(
               'th',
+              { attrs: { 'data-sort': player.name || '' } },
               h(
                 player.fideId ? 'a' : 'span',
                 {
