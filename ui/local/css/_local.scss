@@ -11,11 +11,14 @@
 }
 
 .fancy-bot {
-  display: flex;
-  align-items: center;
+  @extend %flex-center;
+
   img {
-    width: 64px;
-    flex: 0 0 64px;
+    margin-inline-start: auto;
+    width: 80px;
+  }
+  span {
+    @extend %flex-center-nowrap;
   }
 }
 

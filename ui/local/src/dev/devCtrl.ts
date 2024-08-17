@@ -18,7 +18,7 @@ export interface Result {
 interface Test {
   type: 'matchup' | 'roundRobin' | 'rate';
   players: string[];
-  startingFen?: string;
+  initialFen?: string;
 }
 
 export interface Matchup {
@@ -36,7 +36,7 @@ export type DevRatings = { [speed in LocalSpeed]?: Glicko };
 
 export class DevCtrl {
   hurry: boolean = storedBooleanProp('local.dev.hurry', false)();
-  // skip animations, sounds, and artificial think times (clock is still adjusted)
+  // skip animations, sounds, and artificial think times (clock still adjusted)
   script: Script;
   log: Result[];
   ratings: { [uid: string]: DevRatings } = {};
@@ -57,7 +57,7 @@ export class DevCtrl {
     }
     const game = this.script.games.shift();
     if (!game) return false;
-    env.game.reset({ ...game, fen: this.startingFen });
+    env.game.reset({ ...game, initialFen: env.game.initialFen });
     env.game.start();
     env.redraw();
     return true;
@@ -65,7 +65,7 @@ export class DevCtrl {
 
   resetScript(test?: Test): void {
     this.log ??= [];
-    const players = [env.game.setup.white, env.game.setup.black].filter(x => defined(x)) as string[];
+    const players = [env.game.white, env.game.black].filter(x => defined(x)) as string[];
     this.script = {
       type: 'matchup',
       players,
@@ -82,15 +82,15 @@ export class DevCtrl {
   }
 
   onGameOver({ winner, turn, reason, status }: GameStatus): boolean {
-    console.log(winner, reason, status);
+    console.info(`game ${this.log.length}:`, winner ?? 'draw', status, reason ?? '');
     const last = { winner, white: this.white?.uid, black: this.black?.uid };
     this.log.push(last);
     if (status === statusOf('cheat')) {
       console.error(
-        `${this.white?.name ?? 'Player'} (white) vs ${
-          this.black?.name ?? 'Player'
-        } (black) - ${turn} ${reason} - ${env.game.fen} ${env.game.live.moves.join(' ')}`,
-        JSON.stringify(env.game.chess),
+        `${this.white?.name ?? 'player'} (white) vs ${
+          this.black?.name ?? 'player'
+        } (black) - ${turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`,
+        JSON.stringify(env.game.live.chess),
       );
       return false;
     }
@@ -108,28 +108,25 @@ export class DevCtrl {
     return false;
   }
 
-  get startingFen(): string {
-    return env.game.setup.fen ?? co.fen.INITIAL_FEN;
+  getRating(uid: string | undefined, speed: LocalSpeed): Glicko {
+    if (!uid) return { r: 1500, rd: 350 };
+    if (env.bot.get(uid) instanceof RateBot) return { r: env.bot.get(uid)!.ratings[speed], rd: 0.01 };
+    return this.ratings[uid]?.[speed] ?? { r: 1500, rd: 350 };
+  }
+
+  setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<any> {
+    if (!uid || !env.bot.bots[uid]) return Promise.resolve();
+    this.ratings[uid] ??= {};
+    this.ratings[uid][speed] = rating;
+    return this.localRatings.put(uid, this.ratings[uid]);
   }
 
   get hasUser(): boolean {
     return !(this.white && this.black);
   }
 
-  get testInProgress(): boolean {
-    return this.script.games.length !== 0;
-  }
-
   get gameInProgress(): boolean {
-    return env.game.data.steps.length > 1 && !env.game.status.end;
-  }
-
-  private get white(): BotInfo | undefined {
-    return env.bot.white;
-  }
-
-  private get black(): BotInfo | undefined {
-    return env.bot.black;
+    return env.game.live.ply > 0 && !env.game.live.status.end;
   }
 
   private matchups(test: Test, iterations = 1): Matchup[] {
@@ -142,12 +139,15 @@ export class DevCtrl {
     const games: Matchup[] = [];
     for (let it = 0; it < iterations; it++) {
       if (test.type === 'roundRobin') {
+        const tourney: Matchup[] = [];
         for (let i = 0; i < players.length; i++) {
           for (let j = i + 1; j < players.length; j++) {
-            games.push({ white: players[i], black: players[j] });
-            games.push({ white: players[j], black: players[i] });
+            tourney.push({ white: players[i], black: players[j] });
+            tourney.push({ white: players[j], black: players[i] });
           }
         }
+        shuffle(tourney);
+        games.push(...tourney);
       } else games.push({ white: test.players[it % 2], black: test.players[(it + 1) % 2] });
     }
     return games;
@@ -184,16 +184,23 @@ export class DevCtrl {
     }
   }
 
-  getRating(uid: string | undefined, speed: LocalSpeed): Glicko {
-    if (!uid) return { r: 1500, rd: 350 };
-    if (env.bot.get(uid) instanceof RateBot) return { r: env.bot.get(uid)!.ratings[speed], rd: 0.01 };
-    return this.ratings[uid]?.[speed] ?? { r: 1500, rd: 350 };
+  private get white(): BotInfo | undefined {
+    return env.bot.white;
   }
 
-  setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<any> {
-    if (!uid || !env.bot.bots[uid]) return Promise.resolve();
-    this.ratings[uid] ??= {};
-    this.ratings[uid][speed] = rating;
-    return this.localRatings.put(uid, this.ratings[uid]);
+  private get black(): BotInfo | undefined {
+    return env.bot.black;
   }
+
+  private get testInProgress(): boolean {
+    return this.script.games.length !== 0;
+  }
+}
+
+function shuffle<T>(array: T[]): T[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }

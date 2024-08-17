@@ -15,6 +15,7 @@
     "chessops": "^0.14.0",
     "common": "workspace:*",
     "game": "workspace:*",
+    "json-stringify-pretty-compact": "4.0.0",
     "round": "workspace:*",
     "snabbdom": "3.5.1",
     "zerofish": "../../../zerofish"

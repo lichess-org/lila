@@ -36,7 +36,7 @@ final class Local(env: Env) extends LilaController(env):
     env.local.repo
       .getLatestBots()
       .map: bots =>
-        JsonOk(Json.obj("bots" -> bots))
+        JsonOk(Json.obj("bots" -> bots.pp))
 
   def assetKeys = Open: // for service worker
     JsonOk(env.local.api.assetKeys)
@@ -70,12 +70,12 @@ final class Local(env: Env) extends LilaController(env):
   def devNameAsset(key: String, name: String) = AuthBody: _ ?=>
     env.local.repo
       .nameAsset(key, name)
-    fuccess(JsonOk(Json.obj("key" -> key, "name" -> name)))
+      .flatMap(_ => getDevAssets.map(JsonOk))
 
   def devDeleteAsset(key: String) = AuthBody: _ ?=>
     env.local.repo
       .deleteAsset(key)
-    fuccess(JsonOk(Json.obj("key" -> key)))
+      .flatMap(_ => getDevAssets.map(JsonOk))
 
   def devAssets = AuthBody: ctx ?=>
     getDevAssets.map(JsonOk)
@@ -92,12 +92,13 @@ final class Local(env: Env) extends LilaController(env):
           .file("file")
           .map: file =>
             env.local.api
-              .storeAsset(tpe, name, file)
-              .map:
+              .storeAsset(tpe, key, file)
+              .flatMap:
                 case Left(error) => InternalServerError(Json.obj("error" -> error.toString)).as(JSON)
                 case Right(assets) =>
-                  env.local.repo.nameAsset(key, name)
-                  JsonOk(Json.obj("key" -> key, "name" -> name))
+                  env.local.repo
+                    .nameAsset(key, name)
+                    .flatMap(_ => (JsonOk(Json.obj("key" -> key, "name" -> name))))
           .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
       case _ => fuccess(BadRequest(Json.obj("error" -> "bad asset type")).as(JSON))
 
@@ -109,7 +110,9 @@ final class Local(env: Env) extends LilaController(env):
       Json
         .obj("pref" -> pref, "bots" -> bots)
         .add("setup", setup)
-        .add("assets", devAssets),
+        .add("assets", devAssets)
+        .add("userId", ctx.me.map(_.userId))
+        .add("username", ctx.me.map(_.username)),
       if devAssets.isDefined then "local.dev" else "local"
     )
 

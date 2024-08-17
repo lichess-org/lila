@@ -1,8 +1,9 @@
 import * as co from 'chessops';
+import { looseH as h, VNode } from 'common/snabbdom';
 import { showSetupDialog } from './setupDialog';
 import { LocalGame } from './localGame';
-import { clockToSpeed } from 'game';
-import type { RoundProxy as IRoundProxy, RoundData, RoundOpts } from 'round';
+import { clockToSpeed, type Player } from 'game';
+import type { RoundProxy as IRoundProxy, RoundData, RoundOpts, Position } from 'round';
 import { analyse } from './analyse';
 import { env } from './localEnv';
 
@@ -17,50 +18,47 @@ export class RoundProxy implements IRoundProxy {
     'draw-yes': () => env.game.draw(),
   };
   constructor() {
-    this.data = Object.defineProperties(
-      {
-        game: {
-          id: 'synthetic',
-          variant: { key: 'standard', name: 'Standard', short: 'Std' },
-          speed: 'classical',
-          perf: 'unlimited',
-          rated: false,
-          fen: env.game.fen,
-          turns: env.game.ply,
-          source: 'local',
-          status: { id: 20, name: 'started' },
-          player: env.game.ply % 2 ? 'black' : 'white',
-        },
-        player: this.player('white', ''),
-        opponent: this.player('black', ''),
-        pref: env.game.opts.pref,
-        steps: [{ ply: 0, san: '', uci: '', fen: env.game.fen }],
-        takebackable: false,
-        moretimeable: false,
-        possibleMoves: env.game.live.dests,
+    this.data = {
+      game: {
+        id: 'synthetic',
+        variant: { key: 'standard', name: 'Standard', short: 'Std' },
+        speed: 'classical',
+        perf: 'unlimited',
+        rated: false,
+        fen: env.game.initialFen,
+        turns: env.game.live.ply,
+        source: 'local',
+        status: { id: 20, name: 'started' },
+        player: env.game.live.turn,
       },
-      {
-        clock: { get: () => env.game.clock },
-      },
-    );
+      player: this.player('white'),
+      opponent: this.player('black'),
+      pref: env.game.opts.pref,
+      steps: [{ ply: 0, san: '', uci: '', fen: env.game.initialFen }],
+      takebackable: false,
+      moretimeable: false,
+      possibleMoves: env.game.live.dests,
+      clock: env.game.clock,
+    };
     this.reset();
   }
   send(t: string, d?: any): void {
     if (this.handlers[t]) this.handlers[t]?.(d);
     else console.log('send: no handler for', t, d);
   }
-  newOpponent = (): void => showSetupDialog(env.bot, env.game.setup);
+  newOpponent = (): void => showSetupDialog(env.bot, env.game);
   analyse = (): void => analyse(env.game);
   moreTime = (): void => {};
   outoftime = (): void => env.game.flag();
   berserk = (): void => {};
   sendLoading = (typ: string, data?: any): void => this.send(typ, data);
+  userVNode = (player: Player, position: Position): VNode | undefined => botVNode(player, position);
   receive = (typ: string, data: any): boolean => {
     if (this.handlers[typ]) this.handlers[typ]?.(data);
     else console.log('recv: no handler for', typ, data);
     return true;
   };
-  reload = (): void => site.reload();
+  reload: () => void = site.reload;
 
   updateCg(game: LocalGame | undefined, cgOpts?: CgConfig): void {
     const gameUpdates: CgConfig = {};
@@ -80,33 +78,24 @@ export class RoundProxy implements IRoundProxy {
   reset(): void {
     const bottom = env.game.originalOrientation;
     const top = co.opposite(bottom);
-    const twoPlayers = !env.game.setup.white && !env.game.setup.black;
-    const playerName = {
-      white: twoPlayers ? 'White player' : 'Player',
-      black: twoPlayers ? 'Black player' : 'Player',
-    };
-    this.data.game.fen = env.game.fen;
+    this.data.game.fen = env.game.initialFen;
     this.data.game.turns = 0;
     this.data.game.status = { id: 20, name: 'started' };
-    this.data.steps = [{ ply: 0, san: '', uci: '', fen: env.game.fen }];
+    this.data.steps = [{ ply: 0, san: '', uci: '', fen: env.game.initialFen }];
     this.data.possibleMoves = env.game.live.dests;
-    this.data.player = this.player(bottom, env.bot[bottom]?.name ?? playerName[bottom]);
-    this.data.opponent = this.player(top, env.bot[top]?.name ?? playerName[top]);
+    this.data.player = this.player(bottom);
+    this.data.opponent = this.player(top);
     if (env.round) env.round.ply = 0;
-    this.data.game.speed = this.data.game.perf = clockToSpeed(
-      env.game.setup.initial ?? Infinity,
-      env.game.setup.increment ?? 0,
-    );
+    this.data.game.speed = this.data.game.perf = clockToSpeed(env.game.initial, env.game.increment);
   }
 
   get roundOpts(): RoundOpts {
     return {
       local: this,
       data: this.data,
-      userId: '',
+      userId: env.user,
       noab: false,
       i18n: env.game.opts.i18n,
-      //socketSend: this.send,
       onChange: () => {
         if (env.round.ply === 0)
           this.updateCg(undefined, {
@@ -118,20 +107,32 @@ export class RoundProxy implements IRoundProxy {
     };
   }
 
-  private player(color: Color, name: string): RoundData['player'] {
+  private player(color: Color): RoundData['player'] {
+    const bot = env.bot.get(env.game.idOf(color));
     return {
       color,
       user: {
-        id: '',
-        username: name,
+        id: env.game.idOf(color),
+        username: env.game.nameOf(color),
         online: true,
         perfs: {},
       },
-      id: '',
+      id: env.game.idOf(color),
       isGone: false,
-      name,
+      name: env.game.nameOf(color),
+      rating: bot?.ratings[env.game.speed],
+      image: bot ? site.asset.url(`lifat/bots/images/${bot?.image}`) : undefined,
       onGame: true,
       version: 0,
     };
   }
+}
+
+function botVNode(player: Player, position: Position): VNode | undefined {
+  console.log('hayo!');
+  if (!player.id.startsWith('#') && player.name !== 'White' && player.name !== 'Black') return;
+  return h(`div.ruser-${position}.ruser.user-link.fancy-bot.online`, [
+    h('span', [h('i.line.patron', {}), h('name', player.name)]),
+    !!player.image && h('img', { attrs: { src: player.image } }),
+  ]);
 }

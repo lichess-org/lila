@@ -6,10 +6,6 @@ export class Assets {
   net: Map<string, NetData> = new Map();
   book: Map<string, OpeningBook> = new Map();
 
-  get dev(): boolean {
-    return false;
-  }
-
   async init(): Promise<this> {
     // prefetch stuff here or in service worker install \o/
     return this;

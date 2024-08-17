@@ -1,4 +1,4 @@
-import { domDialog, alert, type Dialog } from 'common/dialog';
+import { domDialog, alert, confirm, type Dialog } from 'common/dialog';
 import { frag } from 'common';
 import * as licon from 'common/licon';
 import { removeButton } from './devUtil';
@@ -23,7 +23,6 @@ class AssetDialog {
   private resolve?: (key: string | undefined) => void;
   private type: AssetType;
   private isChooser: boolean;
-
   constructor(type?: AssetType) {
     this.isChooser = type !== undefined;
     this.type = type ?? 'image';
@@ -38,11 +37,11 @@ class AssetDialog {
   }
 
   get local() {
-    return env.repo.localNames(this.type);
+    return env.repo.localMap(this.type);
   }
 
   get server() {
-    return env.repo.serverNames(this.type);
+    return env.repo.server[this.type];
   }
 
   get user() {
@@ -59,13 +58,13 @@ class AssetDialog {
             this.dlg.close();
           };
         this.dlg = await domDialog({
-          class: 'dev-view asset-dialog',
+          class: `dev-view asset-dialog${this.isChooser ? ' chooser' : ''}`,
           htmlText: this.bodyHtml(),
           onClose: () => this.resolve?.(undefined),
           actions: [
             { selector: '.asset-grid', event: ['dragover', 'drop'], listener: this.dragDrop },
             { selector: '[data-action="add"]', listener: this.addItem },
-            { selector: '[data-action="remove"]', listener: this.remove },
+            { selector: '[data-action="remove"]', listener: this.delete },
             { selector: '[data-action="share"]', listener: this.share },
             { selector: '[data-type="string"]', event: 'keydown', listener: this.nameKeyDown },
             { selector: '[data-type="string"]', event: 'change', listener: this.nameChange },
@@ -82,25 +81,30 @@ class AssetDialog {
   bodyHtml() {
     if (this.isChooser) return `<div class="asset-grid chooser"></div>`;
     return `<div class="tabs-horiz" role="tabList">
-      <span class="tab ${this.type === 'image' ? 'active' : ''}" role="tab">images</span>
-      <span class="tab ${this.type === 'sound' ? 'active' : ''}" role="tab">sounds</span>
-      <span class="tab ${this.type === 'book' ? 'active' : ''}" role="tab">books</span>
+        <span class="tab ${this.type === 'image' ? 'active' : ''}" role="tab">images</span>
+        <span class="tab ${this.type === 'sound' ? 'active' : ''}" role="tab">sounds</span>
+        <span class="tab ${this.type === 'book' ? 'active' : ''}" role="tab">books</span>
       </div>
       <div class="asset-grid"></div>`;
   }
 
   renderAsset([key, name]: [string, string]) {
-    const wrap = frag<HTMLElement>(`<div class="asset-item" data-asset="${key}">
+    const wrap = frag<HTMLElement>(`<div class="asset-item${
+      env.repo.isLocalOnly(key) ? ' local-only' : ''
+    }" data-asset="${key}">
         <div class="asset-preview"></div>
-        <input type="text" class="asset-label" data-type="string" value="${name}"></input>
+        <input type="text" class="asset-label" data-type="string" value="${name}"${
+          this.isChooser ? ' disabled' : ''
+        } spellcheck="false"></input>
       </div>`);
-    if (!this.isChooser && env.repo.isLocalOnly(this.type, key)) {
-      wrap.prepend(
-        frag(
-          `<button class="button button-empty icon-btn upper-left" tabindex="0" data-icon="${licon.UploadCloud}" data-action="share">`,
-        ),
-      );
-      wrap.prepend(removeButton('upper-right'));
+    if (!this.isChooser) {
+      wrap.append(removeButton('upper-right'));
+      if (env.repo.isLocalOnly(key)) {
+        wrap.append(
+          frag(`<button class="button button-empty icon-btn upper-left" tabindex="0"
+          data-icon="${licon.UploadCloud}" data-action="share" title="upload asset to server">`),
+        );
+      }
     }
     wrap.querySelector('.asset-preview')!.prepend(this.active.preview(key));
     return wrap;
@@ -108,12 +112,12 @@ class AssetDialog {
 
   refresh(): void {
     const grid = this.dlg.view.querySelector('.asset-grid') as HTMLElement;
-    grid.innerHTML = `<div class="asset-item" data-action="add">
+    grid.innerHTML = `<div class="asset-item local-only" data-action="add">
         <div class="asset-preview">${this.active.placeholder}</div>
         <div class="asset-label">Add new ${this.type}</div>
       </div></div>`;
     this.local.forEach((name, key) => grid.append(this.renderAsset([key, name])));
-    this.server.forEach((name, key) => grid.append(this.renderAsset([key, name])));
+    this.server.forEach((name, key) => !name.startsWith('.') && grid.append(this.renderAsset([key, name])));
     this.dlg.updateActions();
   }
 
@@ -136,7 +140,7 @@ class AssetDialog {
     const el = e.target as HTMLInputElement;
     const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
     if (this.local.get(key) === el.value) return;
-    if (this.validName(el.value)) env.repo.renameAsset(this.type, key, el.value);
+    if (this.validName(el.value)) env.repo.rename(this.type, key, el.value);
   };
 
   nameKeyDown = (e: KeyboardEvent): void => {
@@ -144,7 +148,7 @@ class AssetDialog {
     if (e.key === 'Enter') {
       const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
       const name = (el as HTMLInputElement).value;
-      if (this.validName(name)) env.repo.renameAsset(this.type, key, name);
+      if (this.validName(name)) env.repo.rename(this.type, key, name);
       el.blur();
     } else if (e.key === 'Escape') {
       const key = el.closest('.asset-item')!.getAttribute('data-asset')!;
@@ -153,16 +157,16 @@ class AssetDialog {
     }
   };
 
-  remove = async (e: Event): Promise<void> => {
+  delete = async (e: Event): Promise<void> => {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item')!;
     const key = el.getAttribute('data-asset')!;
+    if (!env.repo.isLocalOnly(key) && !(await confirm('delete this asset from the server?'))) return;
     await env.repo.delete(this.type, key);
     this.refresh();
   };
 
   share = async (e: Event): Promise<string | undefined> => {
-    console.log('fuuuu');
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item') as HTMLElement;
     const key = el.dataset.asset!;
@@ -234,6 +238,8 @@ class AssetDialog {
         ? 'name must be three characters or more'
         : name.includes('/')
         ? 'name cannot contain /'
+        : name.startsWith('.')
+        ? 'name cannot start with period'
         : [...this.server.values()].includes(name)
         ? 'that name is already in use'
         : undefined;
@@ -269,7 +275,7 @@ class AssetDialog {
         return divEl;
       },
       process: (file: File, onSuccess: (key: string) => void) => {
-        env.repo.addBook(file.name, file).then(onSuccess);
+        env.repo.add('book', file.name, file).then(onSuccess);
       },
     },
     sound: {

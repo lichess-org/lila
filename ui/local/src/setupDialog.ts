@@ -1,17 +1,15 @@
 import { handOfCards, HandOfCards } from './handOfCards';
-//import { clamp } from 'common';
 import * as co from 'chessops';
 import * as licon from 'common/licon';
 import { domDialog, Dialog } from 'common/dialog';
 import { defined } from 'common';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
-import { type GameCtrl } from './gameCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
 import { env } from './localEnv';
 
 export function showSetupDialog(botCtrl: BotCtrl, setup: LocalSetup = {}): void {
-  new SetupDialog(botCtrl, setup);
+  new SetupDialog(botCtrl, setup).show();
 }
 
 class SetupDialog {
@@ -27,14 +25,10 @@ class SetupDialog {
     setup: LocalSetup,
   ) {
     this.setup = { ...setup };
-    this.show();
+    console.log(botCtrl.all);
   }
 
-  private get botColor() {
-    return co.opposite(this.playerColor);
-  }
-
-  private show() {
+  show() {
     domDialog({
       class: 'game-setup base-view setup-view',
       css: [{ hashed: 'local.setup' }],
@@ -67,6 +61,7 @@ class SetupDialog {
         { selector: '[data-type]', event: 'input', listener: this.updateClock },
         { selector: 'img.z-remove', listener: () => this.select() },
       ],
+      onClose: () => localStorage.setItem('local.setup', JSON.stringify(this.setup)),
       noCloseButton: env.game !== undefined,
       noClickAway: env.game !== undefined,
     }).then(dlg => {
@@ -88,10 +83,8 @@ class SetupDialog {
       });
       window.addEventListener('resize', this.hand.resize);
       dlg.showModal();
-      setTimeout(() => {
-        this.select(this.setup[this.botColor]);
-        this.hand.resize();
-      });
+      this.select(this.setup[this.botColor]);
+      this.hand.resize();
     });
   }
 
@@ -103,7 +96,7 @@ class SetupDialog {
     });
     this.view.querySelector<HTMLElement>('.switch')!.textContent = `You play as ${
       this.playerColor[0].toUpperCase() + this.playerColor.slice(1)
-    }`;
+    }`; // i18n
     this.setup[this.botColor] = this.uid;
     this.setup[this.playerColor] = undefined;
   }
@@ -139,11 +132,14 @@ class SetupDialog {
   private fight = () => {
     this.updateClock();
     this.setup.go = true;
+    if (env.game) {
+      env.game.reset(this.setup);
+      this.dialog.close(this.uid);
+      env.redraw();
+      return;
+    }
     localStorage.setItem('local.setup', JSON.stringify(this.setup));
-    if (env.game) env.game.reset(this.setup);
-    else window.location.href = `/local`;
-    this.dialog.close(this.uid);
-    env.redraw();
+    window.location.href = `/local`;
   };
 
   private switch = () => {
@@ -152,7 +148,13 @@ class SetupDialog {
   };
 
   private random = () => {
-    if (Math.random() < 0.5) this.switch();
-    this.fight();
+    if (Math.random() < 0.5) {
+      this.switch();
+      setTimeout(this.fight, 300);
+    } else this.fight();
   };
+
+  private get botColor() {
+    return co.opposite(this.playerColor);
+  }
 }

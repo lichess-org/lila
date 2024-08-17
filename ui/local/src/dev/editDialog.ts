@@ -8,7 +8,7 @@ import { domDialog, confirm, alert, type Dialog, type Action } from 'common/dial
 import type { BotInfo } from '../types';
 import { Bot } from '../bot';
 import { assetDialog } from './assetDialog';
-import { shareDialog } from './shareDialog';
+import stringify from 'json-stringify-pretty-compact';
 import { env } from '../localEnv';
 
 export class EditDialog {
@@ -16,7 +16,7 @@ export class EditDialog {
     uid: '#default',
     name: 'Name',
     description: 'Description',
-    image: 'gray-torso.png',
+    image: 'gray-torso.webp',
     books: [],
     fish: { multipv: 1, by: { depth: 1 } },
     version: 0,
@@ -45,6 +45,7 @@ export class EditDialog {
       getCardData: () => this.cardData,
       select: (_, domId?: string) => this.selectBot(domIdToUid(domId)),
       opaque: true,
+      center: 1 / 3,
     });
   }
 
@@ -52,6 +53,7 @@ export class EditDialog {
     this.dlg = await domDialog({
       append: [{ node: this.view }],
       actions: this.actions,
+      noClickAway: true,
       onClose: () => {
         window.removeEventListener('resize', this.deck.resize);
         for (const cleanup of this.cleanups) cleanup();
@@ -146,19 +148,46 @@ export class EditDialog {
     const operatorsScroll = this.view.querySelector('.operators')!.scrollTop;
     for (const id of this.bot.disabled) removeObjectProperty({ obj: this.bot, path: { id } }, true);
     this.bot.disabled.clear();
-    env.bot.saveBot(this.bot);
+    env.bot.save(this.bot);
     delete this.scratch[this.uid];
     this.selectBot();
     this.view.querySelector('.sources')!.scrollTop = sourcesScroll ?? 0;
     this.view.querySelector('.operators')!.scrollTop = operatorsScroll ?? 0;
   }
 
-  private selectBot(uid = this.uid ?? env.bot[this.color]?.uid) {
+  private selectBot(uid = this.uid ?? env.bot[this.color]?.uid ?? env.bot.firstUid): void {
+    if (!uid) return this.dlg.close();
     this.uid = uid;
     this.makeEditView();
     this.update();
     //this.onSelectBot?.(this.uid);
   }
+
+  private deleteBot(): void {
+    confirm(`Delete ${this.uid}?`).then(ok => {
+      if (!ok) return;
+      fetch('/local/dev/bot', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: `{"uid":"${this.uid}"}`,
+      }).then(async rsp => {
+        if (!rsp.ok) return;
+        delete this.scratch[this.uid];
+        await env.bot.delete(this.uid).then(() => this.selectBot(env.bot.firstUid));
+        this.update();
+      });
+    });
+  }
+
+  private clearBots = async (uids?: string[]) => {
+    if (!(await confirm(uids ? `Pull ${uids.join(' ')}?` : 'Pull all server bots?'))) return;
+    for (const uid of uids ?? Object.keys(this.bots)) {
+      delete this.scratch[uid];
+    }
+    await env.bot.clearStoredBots(uids);
+    this.selectBot(this.bot.uid in this.bots ? this.bot.uid : Object.keys(this.bots)[0]);
+    //alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // flash for this stuff
+  };
 
   private async clickImage(e: Event) {
     if (e.target !== e.currentTarget) return;
@@ -182,19 +211,12 @@ export class EditDialog {
     this.panes.forEach(el => el.setEnabled());
   }
 
-  private clearBots = async (uids?: string[]) => {
-    if (!(await confirm(uids ? `Pull ${uids.join(' ')}?` : 'Pull all server bots?'))) return;
-    for (const uid of uids ?? Object.keys(this.bots)) {
-      delete this.scratch[uid];
-    }
-    await env.bot.clearStoredBots(uids);
-    this.selectBot(this.bot.uid in this.bots ? this.bot.uid : Object.keys(this.bots)[0]);
-    //alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // flash for this stuff
-  };
-
   private async showJson(uids?: string[]): Promise<void> {
     const text = escapeHtml(
-      JSON.stringify(uids ? uids.map(id => this.bots[id]) : [...Object.values(this.bots)], null, 2),
+      stringify(uids ? uids.map(id => this.bots[id]) : [...Object.values(this.bots)], {
+        indent: 2,
+        maxLength: 80,
+      }),
     );
     const clear = text ? `<button class="button button-empty button-red clear">clear local</button>` : '';
     const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
@@ -224,15 +246,6 @@ export class EditDialog {
     dlg.showModal();
   }
 
-  private deleteBot(): void {
-    confirm(`Delete ${this.uid}?`).then(async ok => {
-      if (!ok) return;
-      delete this.scratch[this.uid];
-      env.bot.deleteBot(this.uid).then(() => this.selectBot());
-      this.update();
-    });
-  }
-
   private newBot(): void {
     const ok = frag<HTMLButtonElement>('<button class="button ok disabled">ok</button>');
     const input = frag<HTMLInputElement>(`<input class="invalid" spellcheck="false" type="text" value="#">`);
@@ -260,7 +273,10 @@ export class EditDialog {
           selector: 'input',
           event: ['keydown'],
           listener: e => {
-            if ('key' in e && e.key === 'Enter') ok.click();
+            if ('key' in e && e.key === 'Enter') {
+              ok.click();
+              e.stopPropagation();
+            }
           },
         },
         {
@@ -272,7 +288,7 @@ export class EditDialog {
               uid: input.dataset.uid,
               name: input.dataset.uid.slice(1),
             } as WritableBot;
-            env.bot.saveBot(newBot);
+            env.bot.save(newBot);
             this.selectBot(newBot.uid);
             dlg.close();
           },
@@ -311,7 +327,7 @@ export class EditDialog {
 
   private get botCardEl(): Node {
     const botCard = frag<Element>(`<div class="bot-card">
-        <div class="player" data-color="${this.color}"><span class="uid">${this.uid}</span></div>
+        <div class="player"><span class="uid">${this.uid}</span></div>
       </div>`);
 
     buildFromSchema(this, ['info']);

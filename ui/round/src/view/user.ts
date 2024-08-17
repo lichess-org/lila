@@ -8,25 +8,6 @@ import { ratingDiff, userLink } from 'common/userLink';
 export const aiName = (ctrl: RoundController, level: number): string =>
   ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
 
-/*export function botHtml(ctrl: RoundController, player: Player, position: Position): VNode {
-  ctrl;
-  return h(
-    `div.ruser-${position}.ruser.fancy-bot`,
-    {
-      class: {
-        online: true,
-        offline: false,
-      },
-    },
-    [
-      h('i.line', [h('img', { attrs: { src: player.image! } })]),
-      h('a.text', h('name', player.name)),
-      h('rating', `${player.rating}`),
-      //h('rating', player.ratingDiff),
-    ],
-  );
-}*/
-
 export function userHtml(ctrl: RoundController, player: Player, position: Position): VNode {
   const d = ctrl.data,
     user = player.user,
@@ -59,7 +40,10 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         userLink({
           name: user.username,
           ...user,
-          attrs: { 'data-pt-pos': 's', ...(ctrl.isPlaying() ? { target: '_blank', rel: 'noopener' } : {}) },
+          attrs: {
+            'data-pt-pos': 's',
+            ...(ctrl.isPlaying() ? { target: '_blank', rel: 'noopener' } : {}),
+          },
           online: false,
           line: false,
         }),

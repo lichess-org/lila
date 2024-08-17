@@ -16,7 +16,9 @@ import { env } from '../localEnv';
 export function renderDevView(): VNode {
   document
     .querySelectorAll('div.rclock')
-    .forEach(el => el.classList.toggle('none', (env.game.setup.initial ?? Infinity) === Infinity));
+    .forEach(el => el.classList.toggle('none', !Number.isFinite(env.game.localSetup.initial)));
+  // see resetClock at end of file://./../gameCtrl.ts
+
   return h('div.dev-side.dev-view', [
     h('div', player(co.opposite(env.game.cgOrientation))),
     dashboard(),
@@ -83,9 +85,10 @@ function player(color: Color): VNode {
           ),
         ]),
       h('div.stats', [
-        titleSpan(p, color),
-        p instanceof Bot && h('span.totals', p.statsText),
-        h('span.totals', resultsString(env.dev.log, env.bot[color]?.uid)),
+        h('span', env.game.nameOf(color)),
+        p && ratingSpan(p),
+        p instanceof Bot && h('span.stats', p.statsText),
+        h('span', resultsString(env.dev.log, env.bot[color]?.uid)),
       ]),
     ],
   );
@@ -96,18 +99,12 @@ function ratingText(uid: string, speed: LocalSpeed): string {
   return `${glicko.r}${glicko.rd > 80 ? '?' : ''}`;
 }
 
-function titleSpan(p: Bot | undefined, color: Color): VNode {
-  const glicko = p && env.dev.getRating(p.uid, env.game.speed);
-  const text = p?.name ?? `${color.charAt(0).toUpperCase()}${color.slice(1)} Player`;
-  return h('span', [
-    text,
-    glicko && h('i', { attrs: { 'data-icon': speedIcon(env.game.speed) } }),
-    glicko && `${glicko.r}${glicko.rd > 80 ? '?' : ''}`,
+function ratingSpan(p: Bot): VNode {
+  const glicko = env.dev.getRating(p.uid, env.game.speed);
+  return h('span.stats', [
+    h('i', { attrs: { 'data-icon': speedIcon(env.game.speed) } }),
+    `${glicko.r}${glicko.rd > 80 ? '?' : ''}`,
   ]);
-}
-
-function fullRatingText(uid: string, speed: LocalSpeed): string {
-  return ratingText(uid, speed) + ` (${env.dev.getRating(uid, speed).rd})`;
 }
 
 function speedIcon(speed: LocalSpeed = env.game.speed): string {
@@ -133,7 +130,6 @@ async function editBot(color: Color) {
 function clockOptions() {
   return h('span', [
     ...(['initial', 'increment'] as const).map(type => {
-      const val = env.game.setup[type] ?? (type === 'initial' ? Infinity : 0);
       return h('label', [
         type === 'initial' ? 'clock' : 'inc',
         h(
@@ -148,7 +144,7 @@ function clockOptions() {
           },
           [
             ...rangeTicks[type].map(([secs, label]) =>
-              h('option', { attrs: { value: secs, selected: secs === val } }, label),
+              h('option', { attrs: { value: secs, selected: secs === env.game[type] } }, label),
             ),
           ],
         ),
@@ -159,10 +155,10 @@ function clockOptions() {
 
 function reset(params: Partial<LocalSetup>): void {
   env.game.reset(params);
-  localStorage.setItem('local.dev.setup', JSON.stringify(env.game.setup));
+  localStorage.setItem('local.dev.setup', JSON.stringify(env.game.localSetup));
   document
     .querySelectorAll('div.rclock')
-    .forEach(el => el.classList.toggle('none', (env.game.setup.initial ?? Infinity) === Infinity));
+    .forEach(el => el.classList.toggle('none', env.game.initial === Infinity));
   env.redraw();
 }
 
@@ -270,7 +266,7 @@ function fen(): VNode {
   return h('input.fen', {
     attrs: {
       type: 'text',
-      value: env.game.fen === co.fen.INITIAL_FEN ? '' : env.game.fen,
+      value: env.game.live.fen === co.fen.INITIAL_FEN ? '' : env.game.live.fen,
       spellcheck: 'false',
       placeholder: co.fen.INITIAL_FEN,
     },
@@ -283,9 +279,8 @@ function fen(): VNode {
         return;
       }
       el.classList.remove('invalid');
-      if (fen) reset({ fen });
+      if (fen) reset({ initialFen: fen });
     }),
-    props: { value: env.dev.startingFen },
   });
 }
 
@@ -360,7 +355,6 @@ function showBotSelector(clickedEl: HTMLElement) {
       const color = (el ?? clickedEl).dataset.color as Color;
       env.game.stop();
       reset({ ...env.bot.uids, [color]: domIdToUid(domId) });
-      console.log(color, env.game.setup);
     },
     onRemove: () => {
       main.classList.remove('with-cards');

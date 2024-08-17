@@ -49,7 +49,6 @@ class ShareDialog {
   }
 
   private share = (_: Event): void => {
-    console.log('we jammin');
     if (!this.uid) return;
     const bot = env.bot.get(this.uid);
     if (!bot) return;

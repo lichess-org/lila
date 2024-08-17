@@ -81,7 +81,7 @@ export async function confirm(msg: string): Promise<boolean> {
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
-        show: true,
+        show: 'modal',
         actions: [
           { selector: '.yes', result: 'yes' },
           { selector: '.no', result: 'no' },
@@ -247,14 +247,12 @@ class DialogWrapper implements Dialog {
   }
 
   show = (): Promise<Dialog> => {
-    this.returnValue = '';
     this.dialog.show();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   showModal = (): Promise<Dialog> => {
     this.view.scrollTop = 0;
-    this.returnValue = '';
     this.dialog.showModal();
     return new Promise(resolve => (this.resolve = resolve));
   };

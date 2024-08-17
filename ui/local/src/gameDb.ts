@@ -1,7 +1,7 @@
 import { objectStorage, type ObjectStorage } from 'common/objectStorage';
 //import type { GameState } from './game';
 export interface GameState {
-  startingFen: string;
+  initialFen: string;
   moves: Uci[];
   threefoldFens?: Map<string, number>;
   fiftyHalfMove?: number;

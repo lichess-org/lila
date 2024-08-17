@@ -23,7 +23,7 @@ body:has(.base-view.setup-view) {
     gap: calc(20px * $scale-factor);
 
     button {
-      font-size: calc(32px * $scale-factor);
+      font-size: calc(40px * $scale-factor);
       padding: calc(6px * $scale-factor);
       color: $c-font;
       &:hover {
@@ -34,9 +34,10 @@ body:has(.base-view.setup-view) {
 
   .switch {
     @extend %flex-around;
+    font-size: 1.5em;
     cursor: pointer;
     align-items: center;
-    padding: 1em;
+    padding: 0.5em;
     border-radius: 10px;
     width: min(70%, 33vh);
 
@@ -56,6 +57,7 @@ body:has(.base-view.setup-view) {
     }
     &::after {
       font-family: lichess;
+      font-size: 32px;
       content: $licon-Switch;
     }
   }
@@ -64,6 +66,10 @@ body:has(.base-view.setup-view) {
     pointer-events: none;
   }
 
+  .clock {
+    @extend %flex-column;
+    gap: 4px;
+  }
   .chin {
     @extend %flex-around;
     align-items: center;
@@ -74,6 +80,11 @@ body:has(.base-view.setup-view) {
     background-color: $c-bg-zebra2;
     label {
       @extend %flex-center;
+      justify-content: end;
+      gap: 1ch;
+    }
+    select {
+      padding: 4px;
     }
   }
 }

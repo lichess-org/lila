@@ -1,6 +1,5 @@
 import makeZerofish, { type Zerofish, type Position } from 'zerofish';
 import * as co from 'chessops';
-import { type Assets } from './assets';
 import { Bot } from './bot';
 import { RateBot } from './dev/rateBot';
 import { closeEnough } from './dev/devUtil';
@@ -36,55 +35,45 @@ export class BotCtrl {
     return this.busy;
   }
 
-  sorted(by: 'alpha' | LocalSpeed = 'alpha'): BotInfo[] {
-    if (by === 'alpha') return Object.values(this.bots).sort((a, b) => a.name.localeCompare(b.name));
-    else return Object.values(this.bots).sort((a, b) => (a.ratings[by] ?? 1500) - (b.ratings[by] ?? 1500));
+  get firstUid(): string | undefined {
+    return Object.keys(this.bots)[0];
+  }
+
+  get all(): Bot[] {
+    // except for rate bots
+    return Object.values(this.bots) as Bot[];
   }
 
   async init(serverBots: BotInfo[]): Promise<this> {
     this.zerofish = await makeZerofish({
       root: site.asset.url('npm', { documentOrigin: true }),
       wasm: site.asset.url('npm/zerofishEngine.wasm'),
-      dev: env.assets.dev,
+      dev: env.isDev,
     });
-    if (env.assets.dev) {
+    if (env.isDev) {
       for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
         this.rateBots.push(new RateBot(i));
       }
     }
-    return this.initBots(serverBots);
+    return this.initBots(serverBots!);
   }
 
-  async initBots(serverBots: BotInfo[]): Promise<this> {
-    await Promise.all([this.resetBots(serverBots), env.assets?.init()]);
+  async initBots(defBots?: BotInfo[]): Promise<this> {
+    const [localBots, serverBots] = await Promise.all([
+      this.getSavedBots(),
+      defBots ??
+        fetch('/local/bots')
+          .then(res => res.json())
+          .then(res => res.bots),
+    ]);
+    for (const b of [...serverBots, ...localBots]) {
+      if (Bot.viable(b)) this.bots[b.uid] = new Bot(b);
+    }
+    this.localBots = {};
+    this.serverBots = {};
+    localBots.forEach((b: BotInfo) => (this.localBots[b.uid] = deepFreeze(b)));
+    serverBots.forEach((b: BotInfo) => (this.serverBots[b.uid] = deepFreeze(b)));
     return this;
-  }
-
-  async localJson(): Promise<string> {
-    return JSON.stringify(await this.store.getMany(), null, 2);
-  }
-
-  async clearStoredBots(uids?: string[]): Promise<void> {
-    await (uids ? Promise.all(uids.map(uid => this.store.remove(uid))) : this.store.clear());
-    return this.resetBots();
-  }
-
-  setUid(c: Color, uid: string | undefined): void {
-    this.uids[c] = uid;
-  }
-
-  setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
-    this.uids.white = white;
-    this.uids.black = black;
-  }
-
-  get(uid: string | undefined): BotInfo | undefined {
-    if (uid === undefined) return;
-    return this.bots[uid] ?? this.rateBots[Number(uid.slice(1))];
-  }
-
-  rating(uid: string | undefined, speed: LocalSpeed = 'classical'): number {
-    return this.get(uid)?.ratings[speed] ?? 1500;
   }
 
   async move(args: MoveArgs): Promise<MoveResult | undefined> {
@@ -99,21 +88,19 @@ export class BotCtrl {
     return move?.uci !== '0000' ? move : undefined;
   }
 
-  playSound(c: Color, events: SoundEvent[]): number {
-    const prioritized = soundPriority.filter(e => events.includes(e));
-    const sounds = prioritized.map(priority => this[c]?.sounds?.[priority] ?? []);
-    for (const set of sounds) {
-      let r = Math.random();
-      for (const { key, chance, delay, mix } of set) {
-        r -= chance / 100;
-        if (r > 0) continue;
-        site.sound
-          .load(key, env.assets.getSoundUrl(key))
-          .then(() => setTimeout(() => site.sound.play(key, Math.min(1, mix * 2)), delay * 1000));
-        return Math.min(1, (1 - mix) * 2);
-      }
-    }
-    return 1;
+  get(uid: string | undefined): BotInfo | undefined {
+    if (uid === undefined) return;
+    return this.bots[uid] ?? this.rateBots[Number(uid.slice(1))];
+  }
+
+  sorted(by: 'alpha' | LocalSpeed = 'alpha'): BotInfo[] {
+    if (by === 'alpha') return Object.values(this.bots).sort((a, b) => a.name.localeCompare(b.name));
+    else return Object.values(this.bots).sort((a, b) => (a.ratings[by] ?? 1500) - (b.ratings[by] ?? 1500));
+  }
+
+  setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
+    this.uids.white = white;
+    this.uids.black = black;
   }
 
   stop(): void {
@@ -125,26 +112,27 @@ export class BotCtrl {
     return this.zerofish.reset();
   }
 
-  saveBot(bot: Bot): Promise<any> {
+  save(bot: Bot): Promise<any> {
+    delete this.localBots[bot.uid];
     this.bots[bot.uid] = new Bot(bot);
     if (closeEnough(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);
     this.localBots[bot.uid] = deepFreeze(structuredClone(bot));
     return this.store.put(bot.uid, bot);
   }
 
-  async pullBot(bot: BotInfo): Promise<void> {
+  async setServer(bot: BotInfo): Promise<void> {
     this.bots[bot.uid] = new Bot(bot);
     this.serverBots[bot.uid] = deepFreeze(structuredClone(bot));
     delete this.localBots[bot.uid];
     await this.store.remove(bot.uid);
   }
 
-  async deleteBot(uid: string): Promise<void> {
+  async delete(uid: string): Promise<void> {
     if (this.uids.white === uid) this.uids.white = undefined;
     if (this.uids.black === uid) this.uids.black = undefined;
     await this.store.remove(uid);
     delete this.bots[uid];
-    await this.resetBots();
+    await this.initBots();
   }
 
   imageUrl(bot: BotInfo | undefined): string | undefined {
@@ -185,21 +173,26 @@ export class BotCtrl {
     };
   }
 
-  private async resetBots(defBots?: BotInfo[]) {
-    const [localBots, serverBots] = await Promise.all([
-      this.getSavedBots(),
-      defBots ??
-        fetch('/local/bots')
-          .then(res => res.json())
-          .then(res => res.bots),
-    ]);
-    for (const b of [...serverBots, ...localBots]) {
-      this.bots[b.uid] = new Bot(b);
+  async clearStoredBots(uids?: string[]): Promise<void> {
+    await (uids ? Promise.all(uids.map(uid => this.store.remove(uid))) : this.store.clear());
+    await this.initBots();
+  }
+
+  playSound(c: Color, events: SoundEvent[]): number {
+    const prioritized = soundPriority.filter(e => events.includes(e));
+    const sounds = prioritized.map(priority => this[c]?.sounds?.[priority] ?? []);
+    for (const set of sounds) {
+      let r = Math.random();
+      for (const { key, chance, delay, mix } of set) {
+        r -= chance / 100;
+        if (r > 0) continue;
+        site.sound
+          .load(key, env.assets.getSoundUrl(key))
+          .then(() => setTimeout(() => site.sound.play(key, Math.min(1, mix * 2)), delay * 1000));
+        return Math.min(1, (1 - mix) * 2);
+      }
     }
-    this.localBots = {};
-    this.serverBots = {};
-    localBots.forEach((b: BotInfo) => (this.localBots[b.uid] = deepFreeze(b)));
-    serverBots.forEach((b: BotInfo) => (this.serverBots[b.uid] = deepFreeze(b)));
+    return 1;
   }
 
   private getSavedBots() {

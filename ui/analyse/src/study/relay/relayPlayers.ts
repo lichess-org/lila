@@ -1,4 +1,3 @@
-/// <reference types="../../../../bits/types/tablesort" />
 import { Redraw, VNode, looseH as h, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { spinnerVdom as spinner, spinnerVdom } from 'common/spinner';
@@ -46,7 +45,7 @@ export default class RelayPlayers {
     private readonly redraw: Redraw,
   ) {}
 
-  loadFromXhr = async (onInsert?: boolean) => {
+  loadFromXhr = async (onInsert?: boolean): Promise<void> => {
     if (this.players && !onInsert) {
       this.loading = true;
       this.redraw();
@@ -58,7 +57,7 @@ export default class RelayPlayers {
     this.redraw();
   };
 
-  loadPlayerFull = async (id: RelayPlayerId) => {
+  loadPlayerFull = async (id: RelayPlayerId): Promise<RelayPlayerWithGames> => {
     const full: RelayPlayerWithGames = await xhr
       .json(`/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`)
       .then(convertPlayerFromServer);

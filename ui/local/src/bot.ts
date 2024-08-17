@@ -45,6 +45,10 @@ export class Bot implements BotInfo, Mover {
     });
   }
 
+  static viable(info: BotInfo): boolean {
+    return Boolean(info.uid && info.name && (info.zero || info.fish));
+  }
+
   get statsText(): string {
     return this.stats.cplMoves ? `acpl ${Math.round(this.stats.cpl / this.stats.cplMoves)}` : '';
   }
@@ -161,7 +165,7 @@ export class Bot implements BotInfo, Mover {
       .map(v => v.moves[0])
       .filter(Boolean)
       .forEach(uci => {
-        let existing = parsed.find(move => move.uci === uci);
+        const existing = parsed.find(move => move.uci === uci);
         if (existing) existing.weights.lc0bias = lc0bias;
         else parsed.push({ uci, weights: { lc0bias } });
       });

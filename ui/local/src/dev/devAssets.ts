@@ -1,14 +1,13 @@
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { botAssetUrl, Assets } from '../assets';
-import { makeBookFromPolyglot, type OpeningBook } from 'bits/polyglot';
-import { type ShareCtrl } from './shareCtrl';
-import { type BotCtrl } from '../botCtrl';
+import { makeBookFromPolyglot, makeBookFromPgn, type OpeningBook } from 'bits/polyglot';
+import { domDialog, confirm } from 'common/dialog';
 import { zip } from 'common';
 import { env } from '../localEnv';
 
-// asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
-// asset names come from the original filename but can be renamed whatever
-// asset blobs are stored in indexeddb
+// dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
+// dev asset names come from the original filename but can be renamed whatever
+// dev asset blobs are stored in idb
 
 export type ShareType = 'image' | 'sound' | 'book';
 export type AssetType = ShareType | 'bookCover' | 'net';
@@ -25,14 +24,14 @@ export type AssetList = Record<AssetType, KeyName[]>;
 export class DevAssets extends Assets {
   readonly user: string = document.body.getAttribute('data-user') ?? 'Anonymous';
 
+  readonly server: Record<AssetType, NameMap> = assetTypes.reduce(
+    (obj, type) => ({ ...obj, [type]: new Map() }),
+    {} as Record<AssetType, NameMap>,
+  );
+
   private idb = assetTypes.reduce(
     (obj, type) => ({ ...obj, [type]: new Store(type) }),
     {} as Record<AssetType, Store>,
-  );
-
-  private server = assetTypes.reduce(
-    (obj, type) => ({ ...obj, [type]: new Map() }),
-    {} as Record<AssetType, NameMap>,
   );
 
   private urls = urlTypes.reduce(
@@ -40,19 +39,15 @@ export class DevAssets extends Assets {
     {} as Record<AssetType, NameMap>,
   );
 
-  constructor(public rlist: AssetList) {
+  constructor(public rlist?: AssetList | undefined) {
     super();
     this.update(rlist);
-  }
-
-  get dev() {
-    return true;
   }
 
   async init(): Promise<this> {
     const then = Date.now();
     const [localImages, localSounds, localBookCovers] = await Promise.all(
-      urlTypes.map(t => this.idb[t].init()),
+      ([...urlTypes, 'book'] as const).map(t => this.idb[t].init()),
     );
     const urlAssets = { image: localImages, sound: localSounds, bookCover: localBookCovers };
     urlTypes.forEach(type => {
@@ -64,54 +59,48 @@ export class DevAssets extends Assets {
     return this;
   }
 
-  update(rlist: AssetList): void {
+  async update(rlist?: AssetList): Promise<void> {
+    if (!rlist) rlist = await fetch('/local/dev/assets').then(res => res.json());
     Object.values(this.server).forEach(m => m.clear());
-    assetTypes.forEach(type => rlist[type]?.forEach(a => this.server[type].set(a.key, a.name)));
+    assetTypes.forEach(type => rlist?.[type]?.forEach(a => this.server[type].set(a.key, a.name)));
     const books = Object.entries(this.server.book);
     this.server.bookCover = new Map(books.map(([k, v]) => [`${k}.png`, v]));
     assetTypes.forEach(type => (this.server[type] = valueSorted(this.server[type])));
-    console.log(this.server);
   }
 
-  localKeys(type: AssetType): string[] {
-    if (type === 'net') return [];
-    return [...this.idb[type].keys].filter(k => !this.server[type].has(k));
+  localMap(type: AssetType): NameMap {
+    return this.idb[type].keyNames;
   }
 
-  localNames(type: AssetType): NameMap {
-    return structuredClone(this.idb[type].keyNames);
-  }
-
-  isLocalOnly(type: AssetType, key: string): boolean {
-    return this.idb[type].keys.includes(key) && !this.server[type].has(key);
-  }
-
-  serverNames(type: AssetType): NameMap {
-    return structuredClone(this.server[type]);
-  }
-
-  allKeys(type: AssetType): string[] {
-    return [...new Set([...this.server[type].keys(), ...this.idb[type].keys])];
-  }
-
-  all(t: AssetType): NameMap {
-    const allMap = this.idb[t].keyNames;
-    this.server[t].forEach((v, k) => allMap.set(k, v));
+  allMap(type: AssetType): NameMap {
+    const allMap = new Map(this.idb[type].keyNames);
+    for (const [k, v] of this.server[type]) {
+      if (!v.startsWith('.')) allMap.set(k, v);
+    }
     return allMap;
   }
 
-  nameOf(key: string): string | undefined {
+  deleted(type: AssetType): string[] {
+    return [...this.server[type].entries()].filter(([, v]) => v.startsWith('.')).map(([k]) => k);
+  }
+
+  isLocalOnly(key: string): boolean {
+    return Boolean(this.traverse(k => k === key, 'local') && !this.traverse(k => k === key, 'server'));
+  }
+
+  isDeleted(key: string): boolean {
     for (const map of Object.values(this.server)) {
-      if (map.has(key)) return map.get(key);
+      if (map.get(key)?.startsWith('.')) return true;
     }
-    for (const store of Object.values(this.idb)) {
-      if (store.keyNames.has(key)) return store.keyNames.get(key);
-    }
-    return undefined;
+    return false;
+  }
+
+  nameOf(key: string): string | undefined {
+    return this.traverse(k => k === key)?.[1];
   }
 
   assetBlob(type: AssetType, key: string): AssetBlob | undefined {
-    return this.isLocalOnly(type, key)
+    return this.isLocalOnly(key)
       ? {
           key,
           type,
@@ -138,18 +127,51 @@ export class DevAssets extends Assets {
     return key;
   }
 
-  async addBook(filename: string, file: Blob): Promise<string> {
-    const data = await arrayBuffer(file);
-    const book = await makeBookFromPolyglot(new DataView(data), { depth: 2, boardSize: 192 });
-    if (!book.cover) throw new Error(`error parsing ${filename}`);
-    const key = await hashBlob(file);
-    const name = filename.split('.')[0];
-    const asset = { blob: file, name, user: env.user };
-    const cover = { blob: book.cover, name: `${name}.png`, user: env.user };
+  async importBook(pgn: string, studyName: string): Promise<void> {
+    const name = (
+      await domDialog({
+        class: 'alert',
+        htmlText: `<div>book name: <input type="text" value="${studyName}"></div>
+      <span><button class="button">export</button></span>`,
+        actions: {
+          selector: 'button',
+          listener: async (_, dlg) => {
+            const name = (dlg.view.querySelector('input') as HTMLInputElement).value;
+            if (!name) dlg.close();
+            if ([...this.idb['book'].keyNames.values()].includes(name)) {
+              const ok = await confirm('That book already exists. Replace?');
+              if (ok) dlg.close(name);
+            } else dlg.close(name);
+          },
+        },
+        show: true,
+      })
+    ).returnValue;
+    if (!name || name === 'cancel') return;
+    // a study or chapter can be repeatedly updated with the same name after
+    // making/testing edits. in that case, we need to patch all bots using that old book to
+    // the new key when we import the change because bot.books is a list of keys, not names
+    const result = await makeBookFromPgn(pgn, { depth: 10, boardSize: 192 });
+    if (!result.polyglot || !result.cover) {
+      console.error(result);
+      alert('OhNoesError: ' + pgn);
+      return;
+    }
+    const oldKey = [...this.idb.book.keyNames.entries()].find(([, n]) => n === name)?.[0];
+    const key = await hashBlob(result.polyglot);
+    const asset = { blob: result.polyglot, name, user: env.user };
+    const cover = { blob: result.cover, name, user: env.user };
     await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
-    this.book.set(key, book.getMoves);
-    this.urls.bookCover.set(key, URL.createObjectURL(new Blob([book.cover], { type: 'image/png' })));
-    return key;
+    if (!oldKey || oldKey === key) return;
+    const promises: Promise<void>[] = [];
+    for (const bot of env.bot.all) {
+      const existing = bot.books?.find(b => b.key === oldKey);
+      if (existing) {
+        existing.key = key;
+        promises.push(env.bot.save(bot));
+      }
+    }
+    await Promise.allSettled([...promises, this.idb.book.rm(oldKey), this.idb.bookCover.rm(oldKey)]);
   }
 
   async clearLocal(type: AssetType, key: string): Promise<void> {
@@ -162,17 +184,21 @@ export class DevAssets extends Assets {
   }
 
   async delete(type: AssetType, key: string): Promise<void> {
-    if (type === 'net') throw new Error('no');
-    await Promise.allSettled([this.clearLocal(type, key), fetch(`/local/dev/asset/rm/${key}`)]);
+    const [assetList] = await Promise.allSettled([
+      fetch(`/local/dev/asset/mv/${key}/.${encodeURIComponent(this.nameOf(key)!)}`, { method: 'post' }),
+      this.clearLocal(type, key),
+    ]);
     if (type === 'book') this.clearLocal('bookCover', key);
+    if (assetList.status === 'fulfilled') return this.update(await assetList.value.json());
   }
 
-  async renameAsset(type: AssetType, key: string, newName: string): Promise<void> {
+  async rename(type: AssetType, key: string, newName: string): Promise<void> {
     if (this.nameOf(key) === newName) return;
-    await Promise.allSettled([
+    const [assetList] = await Promise.allSettled([
+      fetch(`/local/dev/asset/mv/${key}/${encodeURIComponent(newName)}`, { method: 'post' }),
       this.idb[type].mv(key, newName),
-      fetch(`/local/dev/asset/mv/${key}/${encodeURIComponent(newName)}`),
     ]);
+    if (assetList.status === 'fulfilled') return this.update(await assetList.value.json());
   }
 
   async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
@@ -180,7 +206,7 @@ export class DevAssets extends Assets {
     if (key.endsWith('.bin')) key = key.slice(0, -4);
     const cached = this.book.get(key);
     if (cached) return cached;
-    const bookBlob = [...this.idb.book.keys].includes(key)
+    const bookBlob = this.idb.book.keyNames.has(key)
       ? (await this.idb.book.get(key)).blob
       : await fetch(botAssetUrl('book', `${key}.bin`, false)).then(res => res.blob());
     const bytes = new DataView(await bookBlob.arrayBuffer());
@@ -199,6 +225,37 @@ export class DevAssets extends Assets {
 
   getBookCoverUrl(key: string): string {
     return this.urls.bookCover.get(key) ?? botAssetUrl('book', `${key}.png`, false);
+  }
+
+  private async addBook(filename: string, file: Blob): Promise<string> {
+    const data = await arrayBuffer(file);
+    const book = await makeBookFromPolyglot(new DataView(data), { depth: 2, boardSize: 192 });
+    if (!book.cover) throw new Error(`error parsing ${filename}`);
+    const key = await hashBlob(file);
+    const name = filename.split('.')[0];
+    const asset = { blob: file, name, user: env.user };
+    const cover = { blob: book.cover, name, user: env.user };
+    await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
+    this.book.set(key, book.getMoves);
+    this.urls.bookCover.set(key, URL.createObjectURL(new Blob([book.cover], { type: 'image/png' })));
+    return key;
+  }
+
+  private traverse(
+    fn: (key: string, name: string, type: AssetType) => boolean,
+    maps: 'local' | 'server' | 'both' = 'both',
+  ): [key: string, name: string, type: AssetType] | undefined {
+    for (const type of assetTypes) {
+      if (maps !== 'server')
+        for (const [key, name] of this.idb[type].keyNames) {
+          if (fn(key, name, type)) return [key, name, type];
+        }
+      if (maps === 'local') continue;
+      for (const [key, name] of this.server[type]) {
+        if (fn(key, name, type)) return [key, name, type];
+      }
+    }
+    return undefined;
   }
 }
 
@@ -241,8 +298,7 @@ function extToMime(filename: string) {
 }
 
 function valueSorted(map: NameMap | undefined) {
-  if (!map) return new Map();
-  return new Map([...map].sort((a, b) => a[1].localeCompare(b[1])));
+  return new Map(map ? [...map.entries()].sort((a, b) => a[1].localeCompare(b[1])) : []);
 }
 
 type NamedBlob = {
@@ -257,13 +313,10 @@ class Store {
 
   constructor(readonly type: AssetType) {}
 
-  get keys(): string[] {
-    return [...this.keyNames.keys()];
-  }
-
   async init() {
     this.store = await objectStorage<NamedBlob, string>({ store: `local.${this.type}s` });
-    const all = await this.getAll();
+    const [keys, assets] = await Promise.all([this.store.list(), this.store.getMany()]);
+    const all = zip(keys, assets);
     all.forEach(([k, a]) => this.keyNames.set(k, a.name));
     this.keyNames = valueSorted(this.keyNames);
     return all;
@@ -274,11 +327,6 @@ class Store {
     return await this.store.put(key, value);
   }
 
-  async getAll(): Promise<[string, NamedBlob][]> {
-    const [keys, assets] = await Promise.all([this.store.list(), this.store.getMany()]);
-    return zip(keys, assets);
-  }
-
   async rm(key: string): Promise<void> {
     await this.store.remove(key);
     this.keyNames.delete(key);
@@ -287,15 +335,12 @@ class Store {
   async mv(key: string, newName: string): Promise<void> {
     if (this.keyNames.get(key) === newName) return;
     const asset = await this.store.get(key);
+    if (!asset) return;
     this.keyNames.set(key, newName);
     await this.store.put(key, { ...asset, name: newName });
   }
 
   async get(key: string): Promise<NamedBlob> {
     return await this.store?.get(key);
-  }
-
-  name(key: string): string | undefined {
-    return this.keyNames.get(key);
   }
 }

@@ -99,7 +99,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');
         },
-        'image/png',
+        'image/webp',
         quality,
       );
     };

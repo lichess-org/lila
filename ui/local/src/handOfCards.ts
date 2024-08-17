@@ -24,6 +24,7 @@ export interface HandOwner {
   transient?: boolean; // default false
   orientation?: 'bottom' | 'left'; // default bottom
   opaque?: boolean; // default false. when selected, card is fully opaque over target background
+  center?: number; // default 0.5
 }
 
 export interface HandOfCards {
@@ -72,8 +73,10 @@ class HandOfCardsImpl {
     this.scaleFactor = 0.8 + 0.3 * clamp((r.width - 720) / 360, { min: 0, max: 1 });
     this.view.style.setProperty('---scale-factor', String(this.scaleFactor));
     const h2 = this.cardSize - (1 - Math.sqrt(3 / 4)) * this.fanRadius;
-    this.originX = this.isLeft ? -Math.sqrt(3 / 4) * this.fanRadius : r.width / 3;
-    this.originY = this.isLeft ? (r.height - h2) / 2 : r.height + Math.sqrt(3 / 4) * this.fanRadius - h2;
+    this.originX = this.isLeft ? -Math.sqrt(3 / 4) * this.fanRadius : r.width * this.center;
+    this.originY = this.isLeft
+      ? (r.height - h2) * this.center
+      : r.height + Math.sqrt(3 / 4) * this.fanRadius - h2;
     this.redraw();
   };
 
@@ -169,29 +172,26 @@ class HandOfCardsImpl {
     const centerCard = -this.cardSize / 2;
     const index = this.cards.indexOf(card);
     const visibleCards = this.cards.length; // this will do for the few cards we have now
-    const leftPull = hoverIndex === -1 || index <= hoverIndex ? 0 : -Math.PI / visibleCards / 2;
-    const bottomPull =
-      hoverIndex === -1
-        ? 0
-        : ((index > hoverIndex ? -1 : 1) * (Math.PI * this.cardSize)) / (this.fanRadius * visibleCards);
-    const pull = this.isLeft ? leftPull : bottomPull;
-    const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards - 0.5);
-    const isHovered = card.classList.contains('pull');
-    const magLeft =
-      this.fanRadius +
-      (isHovered ? this.cardSize / 4 : 0) +
-      (hoverIndex > -1 && index > hoverIndex ? centerCard : 0);
-    const magBottom = this.fanRadius + centerCard / (isHovered ? 2 : 1);
-    const mag = this.isLeft ? magLeft : magBottom;
-    const x = this.isLeft ? this.originX + mag * Math.cos(angle) : this.originX + mag * Math.sin(angle);
-    const y = this.isLeft ? this.originY + mag * Math.sin(angle) : this.originY - mag * Math.cos(angle);
-    const cardRotation =
-      angle +
-      (this.isBottom
-        ? isHovered
-          ? Math.PI / 12
-          : 0
-        : Math.PI / 6 + (hoverIndex === -1 ? 0 : index <= hoverIndex ? 0 : -Math.PI / 6));
+    let x, y, cardRotation;
+    if (this.isLeft) {
+      const pull = hoverIndex === -1 || index <= hoverIndex ? 0 : -Math.PI / visibleCards / 2;
+      const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards - 0.5);
+      const mag = this.fanRadius + (hoverIndex > -1 && index > hoverIndex ? centerCard : 0);
+      x = this.originX + mag * Math.cos(angle);
+      y = this.originY + mag * Math.sin(angle);
+      cardRotation = angle + (hoverIndex === -1 ? 0 : index <= hoverIndex ? 0 : -Math.PI / 6);
+    } else {
+      const isPulled = card.classList.contains('pull');
+      const pull =
+        hoverIndex === -1
+          ? 0
+          : ((index > hoverIndex ? -1 : 1) * (Math.PI * this.cardSize)) / (this.fanRadius * visibleCards);
+      const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards - 0.5);
+      const mag = this.fanRadius + centerCard / (isPulled ? 2 : 1);
+      x = this.originX + mag * Math.sin(angle);
+      y = this.originY - mag * Math.cos(angle);
+      cardRotation = angle + (isPulled ? Math.PI / 12 : 0);
+    }
 
     card.style.transform = `translate(${x + centerCard}px, ${y + centerCard}px) rotate(${cardRotation}rad)`;
   }
@@ -359,6 +359,9 @@ class HandOfCardsImpl {
   }
   private get isBottom() {
     return !this.isLeft;
+  }
+  private get center() {
+    return this.owner.center ?? 0.5;
   }
 }
 

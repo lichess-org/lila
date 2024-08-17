@@ -66,19 +66,17 @@ export type MoveResult = { uci: string; thinktime?: Seconds };
 export interface LocalSetup {
   white?: string;
   black?: string;
-  fen?: string;
+  initialFen?: string;
   initial?: Seconds;
   increment?: Seconds;
   go?: boolean;
 }
 
-export interface LocalSetupOpts extends LocalSetup {
-  bots?: BotInfo[];
-}
-
 export interface LocalPlayOpts {
   pref: any;
   i18n: any;
+  userId: string;
+  username: string;
   setup?: LocalSetup;
   bots: BotInfo[];
   dev?: boolean;

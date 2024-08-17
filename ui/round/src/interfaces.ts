@@ -1,13 +1,13 @@
 import type { VNode } from 'common/snabbdom';
-import { GameData, Status } from 'game';
-import { ClockData } from './clock/clockCtrl';
-import { CorresClockData } from './corresClock/corresClockCtrl';
-import RoundController from './ctrl';
-import { ChatCtrl, ChatPlugin } from 'chat';
+import type { GameData, Status, Player } from 'game';
+import type { ClockData } from './clock/clockCtrl';
+import type { CorresClockData } from './corresClock/corresClockCtrl';
+import type RoundController from './ctrl';
+import type { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
-import { EnhanceOpts } from 'common/richText';
-import { RoundSocket } from './socket';
+import type { EnhanceOpts } from 'common/richText';
+import type { RoundSocket } from './socket';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
@@ -88,6 +88,7 @@ export interface CrazyPocket {
 export interface RoundProxy extends RoundSocket {
   analyse(): void;
   newOpponent(): void;
+  userVNode(player: Player, postion: Position): VNode | undefined;
 }
 
 export interface RoundOpts {

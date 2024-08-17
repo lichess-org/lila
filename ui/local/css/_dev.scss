@@ -69,6 +69,28 @@
       filter: saturate(1);
     }
   }
+  .clean {
+    background-color: white;
+  }
+  .dirty {
+    &::after {
+      content: '';
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      border-radius: 100%;
+      border: 5px solid $c-bad;
+    }
+  }
+  .local-only {
+    background-color: $m-brag_white--mix-25;
+  }
+  .local-changes {
+    background-color: $m-clas_white--mix-28;
+  }
+  .upstream-changes {
+    background-color: $m-primary_white--mix-30;
+  }
 }
 
 .dev-side {
@@ -135,11 +157,7 @@
         @extend %flex-center-nowrap;
         justify-content: center;
         font-size: 1.2em;
-        gap: 0;
-      }
-      i {
-        padding-inline: 6px 2px;
-        font-size: 0.8em;
+        gap: 0.5em;
       }
     }
     .upper-right {
@@ -256,31 +274,6 @@
 
 .new-opponent {
   display: none; // file://./../../round/src/view/button.ts
-}
-
-.with-cards {
-  .clean {
-    background-color: white;
-  }
-  .dirty {
-    &::after {
-      content: '';
-      position: absolute;
-      right: 4px;
-      top: 4px;
-      border-radius: 100%;
-      border: 5px solid $c-bad;
-    }
-  }
-  .local-only {
-    background-color: $m-brag_white--mix-25;
-  }
-  .local-changes {
-    background-color: $m-clas_white--mix-28;
-  }
-  .upstream-changes {
-    background-color: $m-primary_white--mix-30;
-  }
 }
 
 @media (max-width: at-most($x-large)) {

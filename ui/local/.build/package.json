@@ -7,13 +7,14 @@
   "dependencies": {
     "@types/node": "^22.2.0",
     "fast-glob": "^3.3.2",
-    "json5": "^2.2.3",
     "typescript": "^5.5.4"
   },
   "scripts": {
     "bots": "tsc && node dist/bots.js",
     "assets": "tsc && node dist/assets.js",
-    "mongo-import": "bin/import.sh --drop",
-    "mongo-export": "bin/export.sh"
+    "import-bots": "mongoimport --db=lichess --collection=local_bots --file=../json/local.bots.json --jsonArray",
+    "export-bots": "mongosh lichess bin/export-bots.js > ../json/local.bots.json",
+    "import-assets": "mongoimport --db=lichess --collection=local_assets --drop --file=../json/local.assets.json --jsonArray",
+    "export-assets": "mongoexport --db=lichess --collection=local_assets --out=../json/local.assets.json --jsonArray"
   }
 }

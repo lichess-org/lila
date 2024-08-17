@@ -10,12 +10,12 @@ import { env } from '../localEnv';
 export class BookPane extends RangeSetting {
   label: HTMLLabelElement;
   parent: BooksPane;
-  constructor(p: PaneArgs) {
+  constructor(p: PaneArgs, key: string) {
     super(p);
     this.el.append(removeButton());
     const span = this.label.firstElementChild as HTMLElement;
-    span.dataset.src = env.repo.getBookCoverUrl(span.textContent!);
-    span.classList.add('imagept');
+    span.dataset.src = env.repo.getBookCoverUrl(key);
+    span.classList.add('image-powertip');
     this.rangeInput.insertAdjacentHTML('afterend', 'wt');
   }
 
@@ -103,7 +103,7 @@ export class BooksPane extends Pane {
       },
       parent: this,
     };
-    this.el.appendChild(new BookPane(pargs).el);
+    this.el.appendChild(new BookPane(pargs, book.key).el);
     this.setEnabled();
     this.host.update();
   }

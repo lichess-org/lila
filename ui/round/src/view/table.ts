@@ -15,6 +15,7 @@ import { toggleButton as boardMenuToggleButton } from 'board/menu';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
+  console.log(ctrl.opts.local);
   return ctrl.nvui
     ? undefined
     : player.ai
@@ -22,7 +23,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
         h('i.line'),
         h('name', renderUser.aiName(ctrl, player.ai)),
       ])
-    : renderUser.userHtml(ctrl, player, position);
+    : ctrl.opts.local?.userVNode(player, position) ?? renderUser.userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;

@@ -1,4 +1,4 @@
-body:has(dialog) {
+body:has(dialog.touch-scroll) {
   overflow: hidden !important;
 }
 

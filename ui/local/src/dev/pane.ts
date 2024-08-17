@@ -256,7 +256,7 @@ export class SelectSetting extends Pane<SelectInfo> {
   }
   get choices(): { name: string; value: string }[] {
     if (!this.info.assetType) return this.info.choices ?? [];
-    return [...env.repo.all(this.info.assetType).entries()].map(([key, name]) => ({
+    return [...env.repo.allMap(this.info.assetType).entries()].map(([key, name]) => ({
       name,
       value: key,
     }));

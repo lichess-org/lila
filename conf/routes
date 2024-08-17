@@ -350,14 +350,13 @@ POST  /streamer/:username/check        controllers.Streamer.checkOnline(username
 
 GET   /local                           controllers.Local.index(white: Option[String], black: Option[String], fen: Option[String], time: Option[String], go: Option[String])
 GET   /local/bots                      controllers.Local.bots
-GET   /local/asset-keys                controllers.Local.assetKeys
+GET   /local/assets                    controllers.Local.assetKeys
 GET   /local/dev                       controllers.Local.devIndex
 GET   /local/dev/history               controllers.Local.devBotHistory
 POST  /local/dev/bot                   controllers.Local.devPostBot
 GET   /local/dev/assets                controllers.Local.devAssets
-POST  /local/dev/asset/new/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?>/:name controllers.Local.devPostAsset(tpe: String, key: String, name: String)
-POST  /local/dev/asset/mv/$key<\w{12}(\.\w{2,4})?>/:name            controllers.Local.devNameAsset(key: String, name: String)
-POST  /local/dev/asset/rm/$key<\w{12}(\.\w{2,4})?>            controllers.Local.devDeleteAsset(key: String)
+POST  /local/dev/asset/$tpe<sound|image|book>/$key<\w{12}(\.\w{2,4})?>/:name controllers.Local.devPostAsset(tpe: String, key: String, name: String)
+POST  /local/dev/asset/mv/$key<\w{12}(\.\w{2,4})?>/:name  controllers.Local.devNameAsset(key: String, name: String)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: GameId, color: Color = Color.white)

@@ -3,13 +3,10 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { copyMeInput } from 'common/copyMe';
 import { text as xhrText, url as xhrUrl } from 'common/xhr';
-import { objectStorage } from 'common/objectStorage';
 import { VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
 import { ChapterPreview, StudyData } from './interfaces';
-import { makeBookFromPgn } from 'bits/polyglot';
-import { domDialog, confirm } from 'common/dialog';
 import RelayCtrl from './relay/relayCtrl';
 
 function fromPly(ctrl: StudyShare): VNode {
@@ -189,7 +186,9 @@ export function view(ctrl: StudyShare): VNode {
               'button.button.text',
               {
                 hook: bind('click', () =>
-                  xhrText(`/study/${studyId}.pgn`).then(pgn => exportToBotEditor(pgn, ctrl.data.name)),
+                  xhrText(`/study/${studyId}.pgn`).then(pgn =>
+                    site.asset.loadEsm('local.dev', { init: { pgn, name: ctrl.data.name } }),
+                  ),
                 ),
               },
               'study to bot editor',
@@ -199,7 +198,7 @@ export function view(ctrl: StudyShare): VNode {
               {
                 hook: bind('click', () =>
                   xhrText(`/study/${studyId}/${chapter.id}.pgn`).then(pgn =>
-                    exportToBotEditor(pgn, chapter.name),
+                    site.asset.loadEsm('local.dev', { init: { pgn, name: chapter.name } }),
                   ),
                 ),
               },
@@ -260,39 +259,4 @@ export function view(ctrl: StudyShare): VNode {
         ]
       : h('div', 'Sharing and exporting were disabled by the study owner.'),
   );
-}
-
-async function exportToBotEditor(pgn: string, name: string): Promise<void> {
-  const [result, bookStore, coverStore] = await Promise.all([
-    makeBookFromPgn(pgn, { depth: 10, boardSize: 192 }),
-    objectStorage<Blob, string>({ store: 'local.books' }),
-    objectStorage<Blob, string>({ store: 'local.bookCovers' }),
-  ]);
-  if (!result.polyglot || !result.cover) {
-    console.log(result);
-    alert('OhNoesError: ' + pgn);
-    return;
-  }
-  const bookname = (
-    await domDialog({
-      class: 'alert',
-      htmlText: `<div>book name: <input type="text" value="${name}"></div>
-      <span><button class="button">export</button></span>`,
-      actions: {
-        selector: 'button',
-        listener: async (_, dlg) => {
-          const name = (dlg.view.querySelector('input') as HTMLInputElement).value;
-          if (!name) dlg.close();
-          if ((await bookStore.list()).includes(name)) {
-            const ok = await confirm('That book already exists. Replace?');
-            if (ok) dlg.close(name);
-          } else dlg.close(name);
-        },
-      },
-      show: true,
-    })
-  ).returnValue;
-  if (!bookname || bookname === 'cancel') return;
-  await bookStore.put(bookname, result.polyglot);
-  await coverStore.put(bookname, result.cover);
 }

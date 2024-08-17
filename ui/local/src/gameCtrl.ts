@@ -1,92 +1,38 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
-import { makeFen } from 'chessops/fen';
 import { type MoveContext, type GameStatus, LocalGame } from './localGame';
 import { clockToSpeed } from 'game';
-import { notNull } from 'common';
-import type { RoundData, ClockData } from 'round';
+import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
 import { env } from './localEnv';
 import { statusOf } from 'game/status';
 
-export class GameCtrl {
+export class GameCtrl implements LocalSetup {
   private stopped = true;
+  private setup: LocalSetup;
+  private trans: Trans;
   live: LocalGame;
   history?: LocalGame;
   proxy: RoundProxy;
   clock?: ClockData & { since?: number };
-  i18n: { [key: string]: string };
-  setup: LocalSetup;
   originalOrientation: Color;
   resolveThink?: () => void;
 
   constructor(readonly opts: LocalPlayOpts) {
     this.setup = opts.setup ?? {};
-    env.bot.setUids(this.setup);
-    this.originalOrientation = this.setup.black ? 'white' : this.setup.white ? 'black' : 'white';
-    this.i18n = opts.i18n;
-    this.setup.fen ??= co.fen.INITIAL_FEN;
+    this.setup.initialFen ??= co.fen.INITIAL_FEN;
+    this.originalOrientation = this.black ? 'white' : this.white ? 'black' : 'white';
+    this.trans = site.trans(opts.i18n);
     this.resetClock();
-    this.live = new LocalGame(this.setup.fen);
+    this.live = new LocalGame(this.initialFen);
     site.pubsub.on('ply', this.jump);
     site.pubsub.on('flip', env.redraw);
   }
 
-  init(): void {
+  async init(): Promise<void> {
+    env.bot.setUids(this.setup);
     this.proxy = new RoundProxy();
     this.triggerStart();
-  }
-
-  get data(): RoundData {
-    return this.proxy.data;
-  }
-
-  get chess(): co.Chess {
-    return this.live.chess;
-  }
-
-  get turn(): Color {
-    return this.chess.turn;
-  }
-
-  get viewing(): LocalGame {
-    return this.history ?? this.live;
-  }
-
-  get pondering(): Color {
-    return co.opposite(this.turn);
-  }
-
-  get status(): GameStatus {
-    return this.live.status;
-  }
-
-  get isUserTurn(): boolean {
-    return this.history === undefined && !env.bot[this.turn];
-  }
-
-  get isStopped(): boolean {
-    return this.stopped; // ??
-  }
-
-  get fen(): string {
-    return makeFen(this.chess.toSetup());
-  }
-
-  get isLive(): boolean {
-    return this.history === undefined && !this.isStopped;
-  }
-
-  get ply(): number {
-    return 2 * (this.chess.fullmoves - 1) + (this.turn === 'black' ? 1 : 0);
-  }
-
-  get cgOrientation(): Color {
-    return env.round?.flip ? co.opposite(this.originalOrientation) : this.originalOrientation;
-  }
-
-  get speed(): LocalSpeed {
-    return clockToSpeed(this.clock?.initial ?? Infinity, this.clock?.increment ?? 0);
   }
 
   reset(params: LocalSetup = this.setup): void {
@@ -95,7 +41,7 @@ export class GameCtrl {
     this.stop();
     env.bot.reset();
     env.bot.setUids(this.setup);
-    this.live = new LocalGame(this.setup.fen ?? co.fen.INITIAL_FEN);
+    this.live = new LocalGame(this.initialFen);
     this.updateTurn();
     this.resetClock();
     this.updateClockUi();
@@ -105,12 +51,12 @@ export class GameCtrl {
 
   flag(): void {
     if (this.clock) this.clock[this.turn] = 0;
-    this.gameOver({ winner: this.pondering, status: statusOf('outoftime') });
+    this.gameOver({ winner: this.awaitingTurn, status: statusOf('outoftime') });
     this.updateClockUi();
   }
 
   resign(): void {
-    this.gameOver({ winner: this.pondering, status: statusOf('resign') });
+    this.gameOver({ winner: this.awaitingTurn, status: statusOf('resign') });
   }
 
   draw(): void {
@@ -133,7 +79,7 @@ export class GameCtrl {
     if (!bot || game.end || this.isStopped || this.resolveThink) return;
     const move = await env.bot.move({
       pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
-      chess: this.chess,
+      chess: this.live.chess,
       remaining: this.clock?.[this.turn],
       initial: this.clock?.initial,
       increment: this.clock?.increment,
@@ -163,7 +109,7 @@ export class GameCtrl {
     const moveCtx = this.live.move({ uci, clock: this.clock });
     const { end, move, justPlayed } = moveCtx;
 
-    this.data.steps.splice(this.live.ply);
+    this.proxy.data.steps.splice(this.live.ply);
     env.dev?.preMove?.(moveCtx);
     this.playSounds(moveCtx);
     env.round.apiMove(moveCtx);
@@ -182,9 +128,73 @@ export class GameCtrl {
     return !end;
   }
 
+  nameOf(color: Color): string {
+    console.log(this.trans(color));
+    if (!this[color] && this[co.opposite(color)]) return env.username;
+    return this[color] ? env.bot.get(this[color])!.name : this.trans(color);
+  }
+
+  idOf(color: Color): string {
+    return this[color] ?? env.user;
+  }
+
+  get turn(): Color {
+    return this.live.chess.turn;
+  }
+
+  get awaitingTurn(): Color {
+    return co.opposite(this.live.chess.turn);
+  }
+
+  get isUserTurn(): boolean {
+    return this.history === undefined && !env.bot[this.turn];
+  }
+
+  get isStopped(): boolean {
+    return this.stopped; // ??
+  }
+
+  get isLive(): boolean {
+    return this.history === undefined && !this.isStopped;
+  }
+
+  get cgOrientation(): Color {
+    return env.round?.flip ? co.opposite(this.originalOrientation) : this.originalOrientation;
+  }
+
+  get speed(): LocalSpeed {
+    return clockToSpeed(this.initial, this.increment);
+  }
+
+  get white(): string | undefined {
+    return this.setup.white;
+  }
+
+  get black(): string | undefined {
+    return this.setup.black;
+  }
+
+  get initial(): number {
+    return this.clock?.initial ?? Infinity;
+  }
+
+  get increment(): number {
+    return this.clock?.increment ?? 0;
+  }
+
+  get initialFen(): string {
+    return this.setup.initialFen ?? co.fen.INITIAL_FEN;
+  }
+
+  get localSetup(): LocalSetup {
+    return { ...this.setup };
+  }
+
   private jump = (ply: number): void => {
     this.history =
-      ply < this.live.moves.length ? new LocalGame(this.setup.fen, this.live.moves.slice(0, ply)) : undefined;
+      ply < this.live.moves.length
+        ? new LocalGame(this.initialFen, this.live.moves.slice(0, ply))
+        : undefined;
     if (this.clock) this.clock.since = this.history ? undefined : performance.now();
     this.updateTurn();
   };
@@ -199,7 +209,7 @@ export class GameCtrl {
   private updateClockUi(): void {
     if (!this.clock) return;
     this.clock.running = this.isLive && this.live.ply > 0;
-    env.round.clock?.setClock(this.data, this.clock.white, this.clock.black);
+    env.round.clock?.setClock(this.proxy.data, this.clock.white, this.clock.black);
     if (this.isStopped || !this.isLive) env.round.clock?.stopClock();
   }
 
@@ -209,7 +219,7 @@ export class GameCtrl {
     const sounds: SoundEvent[] = [];
     const prefix = env.bot[justPlayed] ? 'bot' : 'player';
     if (san.includes('x')) sounds.push(`${prefix}Capture`);
-    if (this.chess.isCheck()) sounds.push(`${prefix}Check`);
+    if (this.live.chess.isCheck()) sounds.push(`${prefix}Check`);
     if (end) sounds.push(`${prefix}Win`);
     sounds.push(`${prefix}Move`);
     const boardSoundVolume = sounds ? env.bot.playSound(justPlayed, sounds) : 1;
@@ -234,8 +244,8 @@ export class GameCtrl {
   private resetClock(): void {
     // in dev mode unlimited, set initial to 999999 because round/ctrl.ts will not create a clock
     // controller unless there's a clock object, meaning we cannot switch from unlimited to realtime
-    // without reloads. clockCtrl does not like Infinity and i don't want to pull any jenga pieces,
-    // but it wouldn't be the worst thing if someone fixed this in round/ctrl.ts
+    // without reloads. clockCtrl does not like Infinity and i don't want to pull any of those jenga
+    // pieces. but it wouldn't be the worst thing if this were fixed in round/ctrl.ts and clockCtrl.ts
     const initial = Number.isFinite(this.setup.initial)
       ? this.setup.initial
       : this.opts.dev
