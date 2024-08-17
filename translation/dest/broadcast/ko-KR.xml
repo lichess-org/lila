@@ -37,17 +37,15 @@
   <string name="editRoundStudy">경기 연구 편집</string>
   <string name="deleteTournament">이 토너먼트 삭제</string>
   <string name="definitivelyDeleteTournament">토너먼트 전체의 모든 라운드와 게임을 완전히 삭제합니다.</string>
-  <string name="automaticLeaderboard">자동 순위표</string>
-  <string name="automaticLeaderboardHelp">경기 결과에 따른 간단한 리더보드 계산 및 표시</string>
   <string name="replacePlayerTags">선택 사항: 플레이어 이름, 레이팅 및 타이틀 바꾸기</string>
   <string name="periodInSeconds">초 딘위에 점 표시</string>
   <string name="periodInSecondsHelp">옵션, 요청 간 대기 시간. 최소 2초, 최대 60초. 기본 시청자 수에 따라 자동으로 설정됩니다.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE 연맹</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Top 10 레이팅</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE 선수들</string>
+  <string name="fideFederations">FIDE 연맹</string>
+  <string name="top10Rating">Top 10 레이팅</string>
+  <string name="fidePlayers">FIDE 선수들</string>
   <string name="fidePlayerNotFound">FIDE 선수 찾지 못함</string>
   <string name="fideProfile">FIDE 프로필</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">연맹</string>
+  <string name="federation">연맹</string>
   <string name="ageThisYear">이번 해의 나이</string>
   <string name="unrated">비레이팅</string>
   <string name="recentTournaments">최근 토너먼트</string>
