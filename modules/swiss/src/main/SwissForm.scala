@@ -3,7 +3,7 @@ package lila.swiss
 import chess.Clock.{ Config as ClockConfig, IncrementSeconds, LimitSeconds }
 import chess.Speed
 import chess.format.Fen
-import chess.variant.Variant
+import chess.variant.{ Chess960, Variant }
 import play.api.data.*
 import play.api.data.Forms.*
 
@@ -181,12 +181,18 @@ object SwissForm:
       (roundInterval | Swiss.RoundInterval.auto) match
         case Swiss.RoundInterval.auto => autoInterval(clock)
         case i                        => i.seconds
-    def realPosition = position.ifTrue(realVariant.standard)
+    def realPosition =
+      position.ifTrue(!isRated && validCustomPositionVariant)
 
     def isRated = rated | true
     def validRatedVariant =
       !isRated ||
         lila.core.game.allowRated(realVariant, clock.some)
+
+    def validCustomPositionVariant =
+      realVariant.standard || realVariant.fromPosition || (realVariant.chess960 && position
+        .flatMap(Chess960.positionNumber(_))
+        .nonEmpty)
 
   def autoInterval(clock: ClockConfig) = {
     import Speed.*
