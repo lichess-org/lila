@@ -38,6 +38,7 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringa</string>
   <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
+  <string name="showScores">Vis poengsummane til spelarar basert på spelresultatet deira</string>
   <string name="replacePlayerTags">Valfritt: bytt ut spelarnamn, rangeringar og titlar</string>
   <string name="periodInSeconds">Periode i sekund</string>
   <string name="periodInSecondsHelp">Ventetida mellom førespurnadene er valfri frå 2 til 60 sekund. Default tid er basert på sjåartalet.</string>
