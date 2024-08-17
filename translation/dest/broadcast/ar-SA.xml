@@ -42,12 +42,10 @@
   <string name="editRoundStudy">تعديل دراسة الجولة</string>
   <string name="deleteTournament">حذف هذه المسابقة</string>
   <string name="definitivelyDeleteTournament">قم بحذف البطولة جميعها و جميع جولاتها و جميع ألعابها.</string>
-  <string name="automaticLeaderboard">لوحة متصدرين تلقائية</string>
-  <string name="automaticLeaderboardHelp">حساب النتائج وعرض لوحة متصدرين بسيطة بناء على تلك النتائج</string>
   <string name="replacePlayerTags">اختياري: استبدل أسماء اللاعبين وتقييماتهم وألقابهم</string>
   <string name="periodInSeconds">المدّة بالثواني</string>
   <string name="periodInSecondsHelp">أختياري، كم مدة الانتظار بين الطلبات، تتراوح المدة بين الثانيتين والدقيقة، يحدد الإعداد الافتراضي بناء على عدد المشاهدين.</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">لاعبين FIDE</string>
+  <string name="fidePlayers">لاعبين FIDE</string>
   <string name="fideProfile">مِلَفّ FIDE</string>
   <string name="ageThisYear">العمر هذا العام</string>
   <string name="unrated">غير مقيم</string>
