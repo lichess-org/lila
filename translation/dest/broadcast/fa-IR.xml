@@ -38,6 +38,7 @@
   <string name="editRoundStudy">ویرایش مطالعه دور</string>
   <string name="deleteTournament">حذف این مسابقات</string>
   <string name="definitivelyDeleteTournament">کل مسابقات، شامل همه دورها و بازی‌هایش را به طور کامل حذف کن.</string>
+  <string name="showScores">نمایش امتیاز بازیکنان بر پایه نتیجه بازی‌ها</string>
   <string name="replacePlayerTags">اختیاری: عوض کردن نام، درجه‌بندی و عنوان بازیکنان</string>
   <string name="periodInSeconds">مدت در واحد ثانیه</string>
   <string name="periodInSecondsHelp">اختیاری است، چه مدت باید بین درخواست‌ها صبر کرد. حداقل 2 ثانیه، حداکثر 60 ثانیه. بر اساس تعداد بینندگان، پیشفرض‌ها، به صورت خودکار مقدار می‌گیرند.</string>
