@@ -40,17 +40,15 @@
   <string name="editRoundStudy">Редагувати дослідження раунду</string>
   <string name="deleteTournament">Видалити турнір</string>
   <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
-  <string name="automaticLeaderboard">Автоматична таблиця лідерів</string>
-  <string name="automaticLeaderboardHelp">Розрахунки та показ простої таблиці лідерів на основі результатів гри</string>
   <string name="replacePlayerTags">За бажанням: замінити імена, рейтинги та титули гравців</string>
   <string name="periodInSeconds">Період у секундах</string>
   <string name="periodInSecondsHelp">Опціонально: час очікування між запитами. Мінімально 2 с, максимально 60 с. За замовчуванням - автоматично, виходячи з кількості запитів глядачів.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Федерації FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Топ 10 рейтингу</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Гравці FIDE</string>
+  <string name="fideFederations">Федерації FIDE</string>
+  <string name="top10Rating">Топ 10 рейтингу</string>
+  <string name="fidePlayers">Гравці FIDE</string>
   <string name="fidePlayerNotFound">Гравця FIDE не знайдено</string>
   <string name="fideProfile">Профіль FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Федерація</string>
+  <string name="federation">Федерація</string>
   <string name="ageThisYear">Вік цього року</string>
   <string name="unrated">Без рейтингу</string>
   <string name="recentTournaments">Нещодавні турніри</string>
