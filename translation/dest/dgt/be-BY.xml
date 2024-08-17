@@ -17,11 +17,15 @@
   <string name="timeControlsForRatedGames">Абмежаванне часу для рэйтынгавых гульняў: класічныя, па ліставанні і некаторыя рапіды, уключаючы 15+10 і 20+0</string>
   <string name="whenReadySetupBoard">Калі ўсе будзе гатова, наладзьце вашу дошку і націсніце %s.</string>
   <string name="ifMoveNotDetected">Калі ход не быў распазнаны</string>
+  <string name="reloadThisPage">Абнавіць гэту старонку</string>
   <string name="dgtConfigure">DGT - Канфігурацыя</string>
   <string name="lichessConnectivity">Злучэнне з Lichess</string>
   <string name="dgtBoardConnectivity">Злучэнне з DGT дошкай</string>
+  <string name="webSocketUrl">Адрас WebSocket для %s</string>
   <string name="textToSpeech">Сінтэз маўлення</string>
   <string name="keywords">Ключавыя словы</string>
   <string name="debug">Адладка</string>
+  <string name="verboseLogging">Падрабязны часопіс</string>
+  <string name="playWithDgtBoard">Гуляць на дошцы DGT</string>
   <string name="configure">Канфігурацыя</string>
 </resources>

@@ -2,6 +2,7 @@ package lila.gameSearch
 
 import com.softwaremill.macwire.*
 import play.api.Configuration
+import akka.stream.Materializer
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.ConfigName
@@ -22,7 +23,7 @@ final class Env(
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi,
     client: SearchClient
-)(using Executor, Scheduler, lila.core.i18n.Translator):
+)(using Executor, Scheduler, Materializer, lila.core.i18n.Translator):
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
 

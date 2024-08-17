@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">此帳號目前未被標記為被限制。一切無恙！</string>
+  <string name="engineMarked">您的帳號被指控在遊戲中使用外部協助。</string>
+  <string name="engineMarkedInfo">我們將「使用外部協助」定義為在棋局中使用任何外部幫助以取得不公平的優勢。查看%s取得資訊</string>
+  <string name="arenaBanned">您的帳號已被競技場封禁並無法加入。</string>
+  <string name="prizeBanned">您的帳號已被擁有真實獎品的錦標賽中封禁。</string>
+  <string name="boosterMarked">您的帳號已被標記為「在評分上動手腳」</string>
+  <string name="boosterMarkedInfo">我們認為您常常故意輸棋局或是與頻頻輸棋的對手對弈。</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">您的帳號已被禁言。</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">請閱讀我們的%s。無法遵守溝通指南的帳號可能會導致帳號被封禁。</string>
+  <string name="excludedFromLeaderboards">您的帳號已被排除在排行榜外。</string>
+  <string name="excludedFromLeaderboardsInfo">我們認為您使用不公平的方式攀登上排行榜。</string>
+  <string name="closedByModerators">您的帳號已被管理者關閉。</string>
+  <string name="hiddenBlog">您的部落格已被管理者隱藏。</string>
+  <string name="hiddenBlogInfo">請再次閱讀我們的%s。</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">您目前暫時無法參加對局。</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">溝通指南</string>
+  <string name="blogRules">部落格規則</string>
+  <string name="fairPlay">公平棋局</string>
+</resources>

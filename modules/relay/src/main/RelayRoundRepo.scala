@@ -15,16 +15,16 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def byTourOrderedCursor(tourId: RelayTourId) =
     coll
       .find(selectors.tour(tourId))
-      .sort(sort.chrono)
+      .sort(sort.asc)
       .cursor[RelayRound]()
 
   def byTourOrdered(tourId: RelayTourId): Fu[List[RelayRound]] =
     byTourOrderedCursor(tourId).list(RelayTour.maxRelays)
 
-  def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRoundId]] =
+  def idsByTourOrdered(tour: RelayTourId): Fu[List[RelayRoundId]] =
     coll.primitive[RelayRoundId](
-      selector = selectors.tour(tour.id),
-      sort = sort.chrono,
+      selector = selectors.tour(tour),
+      sort = sort.asc,
       nb = RelayTour.maxRelays,
       field = "_id"
     )
@@ -42,8 +42,18 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll
       .find(selectors.tour(tour.id))
-      .sort(sort.reverseChrono)
+      .sort(sort.desc)
       .one[RelayRound]
+
+  def nextOrderByTour(tourId: RelayTourId): Fu[RelayRound.Order] =
+    coll
+      .primitiveOne[RelayRound.Order]($doc("tourId" -> tourId), sort.desc, "order")
+      .dmap:
+        case None        => RelayRound.Order(1)
+        case Some(order) => order.map(_ + 1)
+
+  def orderOf(roundId: RelayRoundId): Fu[RelayRound.Order] =
+    coll.primitiveOne[RelayRound.Order]($id(roundId), "order").dmap(_ | RelayRound.Order(1))
 
   def deleteByTour(tour: RelayTour): Funit =
     coll.delete.one(selectors.tour(tour.id)).void
@@ -59,12 +69,25 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       )
       .void
 
+  def nextRoundThatStartsAfterThisOneCompletes(round: RelayRound): Fu[Option[RelayRound]] =
+    coll
+      .find(
+        $doc(
+          "tourId"   -> round.tourId,
+          "finished" -> false,
+          "startsAt" -> BSONHandlers.startsAfterPrevious,
+          "createdAt".$gt(round.createdAt)
+        )
+      )
+      .sort($doc("createdAt" -> 1))
+      .cursor[RelayRound]()
+      .uno
+
 private object RelayRoundRepo:
 
   object sort:
-    val chrono        = $doc("createdAt" -> 1)
-    val reverseChrono = $doc("createdAt" -> -1)
-    val start         = $doc("startedAt" -> -1, "startsAt" -> -1, "name" -> -1)
+    val asc  = $doc("order" -> 1)
+    val desc = $doc("order" -> -1)
 
   object selectors:
     def tour(id: RelayTourId) = $doc("tourId" -> id)

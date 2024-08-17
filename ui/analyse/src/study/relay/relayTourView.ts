@@ -16,7 +16,7 @@ import { makeChat, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
-import { leaderboardView } from './relayLeaderboard';
+import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { copyMeInput } from 'common/copyMe';
 import { baseUrl } from '../../view/util';
@@ -24,15 +24,15 @@ import { baseUrl } from '../../view/util';
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
   const content =
-    tab == 'overview'
-      ? overview(ctx)
-      : tab == 'boards'
+    tab == 'boards'
       ? games(ctx)
       : tab == 'teams'
       ? teams(ctx)
       : tab == 'stats'
       ? stats(ctx)
-      : leaderboard(ctx);
+      : tab == 'players'
+      ? players(ctx)
+      : overview(ctx);
 
   return h('div.box.relay-tour', content);
 }
@@ -100,10 +100,7 @@ const startCountdown = (relay: RelayCtrl) => {
   ]);
 };
 
-const leaderboard = (ctx: RelayViewContext) => [
-  ...header(ctx),
-  ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
-];
+const players = (ctx: RelayViewContext) => [...header(ctx), playersView(ctx.relay.players)];
 
 const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
   const contents = [
@@ -218,7 +215,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
               group.tours.map(tour =>
                 h(
                   `a.mselect__item${tour.id == ctx.relay.data.tour.id ? '.current' : ''}`,
-                  { attrs: { href: ctx.study.addEmbedPrefix(`/broadcast/-/${tour.id}`) } },
+                  { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
                   tour.name,
                 ),
               ),
@@ -263,17 +260,24 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         site.redirect($(target).parents('tr').find('a').attr('href')!);
                     }),
                   },
-                  relay.data.rounds.map(round =>
+                  relay.data.rounds.map((round, i) =>
                     h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
                       h(
                         'td.name',
                         h(
                           'a',
-                          { attrs: { href: study.addEmbedPrefix(relay.roundUrlWithHash(round)) } },
+                          { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
                           round.name,
                         ),
                       ),
-                      h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+                      h(
+                        'td.time',
+                        round.startsAt
+                          ? site.dateFormat()(new Date(round.startsAt))
+                          : round.startsAfterPrevious
+                          ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
+                          : '',
+                      ),
                       h(
                         'td.status',
                         roundStateIcon(round, false) ||
@@ -293,12 +297,12 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
 const games = (ctx: RelayViewContext) => [
   ...header(ctx),
   ctx.study.chapters.list.looksNew() ? undefined : multiBoardView(ctx.study.multiBoard, ctx.study),
-  showSource(ctx.relay.data),
+  !ctx.ctrl.isEmbed && showSource(ctx.relay.data),
 ];
 
 const teams = (ctx: RelayViewContext) => [
   ...header(ctx),
-  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list),
+  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list, ctx.relay.players),
 ];
 
 const stats = (ctx: RelayViewContext) => [...header(ctx), statsView(ctx.relay.stats)];
@@ -379,8 +383,8 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
   return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
     makeTab('overview', 'Overview'),
     makeTab('boards', 'Boards'),
+    makeTab('players', 'Players'),
     relay.teams && makeTab('teams', 'Teams'),
-    relay.data.tour.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
     study.members.myMember() && relay.data.tour.tier
       ? makeTab('stats', 'Stats')
       : ctrl.isEmbed
@@ -391,7 +395,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
           },
           'Open in Lichess',
         )
-      : makeTab('stats', 'Stats'),
+      : undefined,
   ]);
 };
 

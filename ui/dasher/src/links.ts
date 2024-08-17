@@ -7,7 +7,7 @@ export class LinksCtrl extends PaneCtrl {
     super(root);
   }
 
-  render = () => {
+  render = (): VNode => {
     const modeCfg = this.modeCfg,
       noarg = this.trans.noarg;
     return h('div', [

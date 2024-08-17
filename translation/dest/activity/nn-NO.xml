@@ -35,12 +35,12 @@
     <item quantity="other">Har spela %s fjernsjakkparti</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Fylgjer %s spelar</item>
-    <item quantity="other">Fylgjer %s spelarar</item>
+    <item quantity="one">Følgjer %s spelar</item>
+    <item quantity="other">Følgjer %s spelarar</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Har %s nye fylgjarar</item>
-    <item quantity="other">Har %s nye fylgjarar</item>
+    <item quantity="one">Har %s ny følgjar</item>
+    <item quantity="other">Har %s nye følgjarar</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Har vore vert for %s simultanframsyningar</item>

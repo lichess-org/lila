@@ -3,7 +3,7 @@ import { otbClockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
 import { MaybeVNode, VNode, bind, onInsert } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
-import { ChapterId, ChapterPreview, ChapterPreviewPlayer } from './interfaces';
+import { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { CloudEval, MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from './multiCloudEval';
 import { Toggle, defined, notNull, toggle } from 'common';
@@ -61,7 +61,7 @@ export class MultiBoardCtrl {
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
   const pager = ctrl.pager();
   const cloudEval = ctrl.multiCloudEval.thisIfShowEval();
-  const basePath = study.addEmbedPrefix(study.relay?.roundPath() || study.baseUrl());
+  const baseUrl = study.relay?.roundPath() || study.baseUrl();
   return h('div.study__multiboard', [
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),
@@ -77,7 +77,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
           insert: gameLinksListener(study.chapterSelect),
         },
       },
-      pager.currentPageResults.map(makePreview(basePath, study.vm.chapterId, cloudEval)),
+      pager.currentPageResults.map(makePreview(baseUrl, study.vm.chapterId, cloudEval)),
     ),
   ]);
 }
@@ -125,13 +125,13 @@ const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
 });
 
 const makePreview =
-  (basePath: string, current: ChapterId, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
+  (roundPath: string, current: ChapterId, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
     const orientation = preview.orientation || 'white';
     return h(
       `a.mini-game.is2d.chap-${preview.id}`,
       {
         class: { active: preview.id === current },
-        attrs: gameLinkAttrs(basePath, preview),
+        attrs: gameLinkAttrs(roundPath, preview),
       },
       [
         boardPlayer(preview, CgOpposite(orientation)),
@@ -209,7 +209,7 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
       );
 };
 
-const renderUser = (player: ChapterPreviewPlayer): VNode =>
+const renderUser = (player: StudyPlayer): VNode =>
   h('span.mini-game__user', [
     playerFed(player.fed),
     h('span.name', [userTitle(player), player.name || '?']),

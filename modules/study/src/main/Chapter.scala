@@ -102,18 +102,6 @@ case class Chapter(
       createdAt = nowInstant
     )
 
-  def preview = ChapterPreview(
-    id = id,
-    name = name,
-    players = ChapterPreview.players(denorm.so(_.clocks))(tags),
-    orientation = setup.orientation,
-    fen = denorm.fold(Fen.initial)(_.fen),
-    lastMove = denorm.flatMap(_.uci),
-    lastMoveAt = relay.map(_.lastMoveAt),
-    check = denorm.flatMap(_.check),
-    result = tags.outcome.isDefined.option(tags.outcome)
-  )
-
   def isPractice = ~practice
   def isGamebook = ~gamebook
   def isConceal  = conceal.isDefined

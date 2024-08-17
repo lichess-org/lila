@@ -13,18 +13,26 @@
   <string name="specialMoves">特殊移動</string>
   <string name="didYouLikeThisPuzzle">您喜歡這道謎題嗎？</string>
   <string name="voteToLoadNextOne">告訴我們加載下一題!</string>
+  <string name="upVote">投票為好謎題</string>
+  <string name="downVote">投票為壞謎題</string>
   <string name="yourPuzzleRatingWillNotChange">您的謎題評級不會改變。請注意，謎題不是比賽。您的評分有助於選擇最適合您當前技能的謎題。</string>
   <string name="findTheBestMoveForWhite">為白方找出最佳移動</string>
   <string name="findTheBestMoveForBlack">為黑方找出最佳移動</string>
   <string name="toGetPersonalizedPuzzles">得到個人推薦題目:</string>
   <string name="puzzleId">謎題 %s</string>
   <string name="puzzleOfTheDay">每日一題</string>
+  <string name="dailyPuzzle">每日謎題</string>
   <string name="clickToSolve">點擊解題</string>
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳走法!</string>
   <string name="keepGoing">加油!</string>
   <string name="puzzleSuccess">成功！</string>
   <string name="puzzleComplete">解題完成!</string>
+  <string name="byOpenings">以開局區分</string>
+  <string name="puzzlesByOpenings">以開局區分謎題</string>
+  <string name="openingsYouPlayedTheMost">您最常使用的開局</string>
+  <string name="useFindInPage">在瀏覽器中使用「在頁面中尋找」以尋找你最喜歡的開局！</string>
+  <string name="useCtrlF">按下 Ctrl+f 以找出您最喜歡的開局方式！</string>
   <string name="notTheMove">不是這步!</string>
   <string name="trySomethingElse">試試其他的移動</string>
   <string name="ratingX">評級：%s</string>
@@ -48,6 +56,7 @@
   </plurals>
   <string name="example">範例</string>
   <string name="addAnotherTheme">加入其他主題</string>
+  <string name="nextPuzzle">下個謎題</string>
   <string name="jumpToNextPuzzleImmediately">立即跳到下一個謎題</string>
   <string name="puzzleDashboard">謎題能力分析</string>
   <string name="improvementAreas">弱點</string>
@@ -65,8 +74,8 @@
   <string name="lookupOfPlayer">尋找其他棋手的棋局謎題</string>
   <string name="fromXGames">來自%s棋局的謎題</string>
   <string name="searchPuzzles">尋找謎題</string>
-  <string name="fromMyGamesNone">你在數據庫中沒有謎題，但 Lichess 仍然非常愛你。
-遊玩一些快速和經典遊戲，以增加添加拼圖的機會！</string>
+  <string name="fromMyGamesNone">你在資料庫中沒有謎題，但 Lichess 仍然非常愛你。
+遊玩一些快速和經典遊戲，以增加從你的棋局中生成謎題的機會！</string>
   <string name="fromXGamesFound">在%2$s中找到%1$s個謎題</string>
   <string name="puzzleDashboardDescription">訓練、分析、改進</string>
   <plurals name="nbPlayed">

@@ -14,6 +14,7 @@ import lila.core.game.Blurs
 trait Handlers:
 
   def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
+  def tryBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Try[BSONDocument]   = writer.writeTry(a)
 
   // free writer for all types with TotalWrapper
   // unless they are given an instance of lila.db.NoBSONWriter[T]

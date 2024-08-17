@@ -543,7 +543,6 @@
   <string name="cheat">Чит, алдап ойнау</string>
   <string name="troll">Троль, кемсіту</string>
   <string name="other">Басқа</string>
-  <string name="reportDescriptionHelp">Ойынның (-дардың) сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" деп жаза салмай, осы ойға қалай келгеніңізді айтып беріңіз. Сіздің шағымыңыз ағылшын тілінде жазылса, тезірек тексеруден өтеді.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
   <string name="by">жасаған – %s</string>
   <string name="importedByX">Жүктеп салған – %s</string>

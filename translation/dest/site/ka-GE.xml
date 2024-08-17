@@ -498,6 +498,7 @@
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
+  <string name="flair">ემოჯი</string>
   <string name="biography">ბიოგრაფია</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
   <string name="socialMediaLinks">სოციალური მედიის ბმულები</string>
@@ -541,7 +542,6 @@
   <string name="cheat">ტყული</string>
   <string name="troll">პროვოკაცია</string>
   <string name="other">სხვა</string>
-  <string name="reportDescriptionHelp">ჩასვით თამაშ(ებ)ის ბმული და მიუთითეთ თუ რა არის საეჭვო მომხმარებლის ქცევაში.</string>
   <string name="error.provideOneCheatedGameLink">გთხოვთ მიუთითო სულ მცირე ერთი პარტიის ბმული სადაც თვლით რომ მოწინააღმდეგემ წესების დარღვევით ითამაშა.</string>
   <string name="by">%s-ის</string>
   <string name="importedByX">დააიმპორტა %s - მა</string>
@@ -761,6 +761,9 @@
   <string name="transparent">გამჭვირვალე</string>
   <string name="deviceTheme">მოწყობილობის თემა</string>
   <string name="backgroundImageUrl">ფონის სურათის მისამართი:</string>
+  <string name="board">დაფა</string>
+  <string name="size">ზომა</string>
+  <string name="hue">ტონ</string>
   <string name="pieceSet">ფიგურების კომპლექტი</string>
   <string name="embedInYourWebsite">ჩააშენეთ თქვენს საიტში</string>
   <string name="usernameAlreadyUsed">ეს მომხმარებლის სახელი უკვე მოხმარებაშია, გთხოვთ სცადეთ სხვა სახელი.</string>

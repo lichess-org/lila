@@ -70,6 +70,7 @@
   <string name="promoteVariation">বিজ্ঞাপন</string>
   <string name="makeMainLine">প্রাধান সীমা করা</string>
   <string name="deleteFromHere">এখান থেকে মুছুন</string>
+  <string name="collapseVariations">ভেরিয়েশন সঙ্কুচিত করুন</string>
   <string name="forceVariation">জোর করে পরিবর্তন</string>
   <string name="move">চাল</string>
   <string name="variantLoss">ভিন্ন ক্ষতি</string>
@@ -175,6 +176,7 @@
   <string name="latestForumPosts">সর্বশেষ ফোরাম বার্তা</string>
   <string name="players">খেলোয়াড়</string>
   <string name="friends">বন্ধুরা</string>
+  <string name="otherPlayers">অন্যান্য খেলোয়াড়</string>
   <string name="discussions">বার্তাগুলি</string>
   <string name="today">আজ</string>
   <string name="yesterday">গতকাল</string>
@@ -531,6 +533,7 @@
   <string name="descPrivateHelp">যে লেখা শুধু দলের সদস্য দেখতে পাবে.</string>
   <string name="no">না</string>
   <string name="yes">হ্যা</string>
+  <string name="mobile">মোবাইল</string>
   <string name="help">সাহায্য</string>
   <string name="createANewTopic">নতুন বিষয়  তৈরি করুন</string>
   <string name="topics">বিষয়</string>
@@ -549,7 +552,6 @@
   <string name="cheat">চিটিং করছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
   <string name="other">অন্য কোনো কারণ</string>
-  <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
   <string name="by">%s এর দ্বারা</string>
   <string name="importedByX">খেলাটি এনেছেন %s</string>

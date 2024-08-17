@@ -18,7 +18,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
-export async function initModule(data: DistributionData) {
+export async function initModule(data: DistributionData): Promise<void> {
   $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
     const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);

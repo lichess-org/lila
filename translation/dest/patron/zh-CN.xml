@@ -2,7 +2,7 @@
 <resources>
   <string name="donate">捐赠</string>
   <string name="donateAsX">以 %s 的名义捐赠</string>
-  <string name="lichessPatron">赞助 Lichess</string>
+  <string name="lichessPatron">Lichess赞助者账号</string>
   <string name="freeAccount">免费账户</string>
   <string name="becomePatron">成为 Lichess 赞助者</string>
   <string name="xBecamePatron">%s 成为了 Lichess 的赞助者</string>

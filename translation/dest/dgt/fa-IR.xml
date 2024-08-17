@@ -14,6 +14,7 @@
   <string name="reloadThisPage">بارگذاری مجدد صفحه</string>
   <string name="dgtConfigure">DGT - پیکربندی</string>
   <string name="lichessConnectivity">اتصال به لیچس</string>
+  <string name="dgtPlayMenuEntryAdded">دَرآیه %s به نام‌چین پخش‌تان در بالا افزوده شد.</string>
   <string name="clickToGenerateOne">برای تولید یکی، اینجا کلیک کنید</string>
   <string name="useWebSocketUrl">از «%1$s» استفاده کنید، مگر اینکه %2$s روی دستگاه یا درگاه دیگری اجرا می‌شود.</string>
   <string name="textToSpeech">متن به گفتار</string>

@@ -20,14 +20,14 @@ object Dependencies {
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.24.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.24.1"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.4.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.112.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.0-RC10"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.1" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.17.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.2.1"
+    val version  = "16.2.3"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -62,9 +62,10 @@ object Dependencies {
     val version = "0.64.8"
     val bundle =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
-        List("ext-tables", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter").map { ext =>
-          "com.vladsch.flexmark" % s"flexmark-$ext" % version
-        }
+        List("ext-tables", "ext-anchorlink", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter")
+          .map { ext =>
+            "com.vladsch.flexmark" % s"flexmark-$ext" % version
+          }
   }
 
   object macwire {
@@ -76,9 +77,9 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC12"
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC12"
-    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC12"
+    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC13"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC13"
+    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC13"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }

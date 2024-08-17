@@ -26,13 +26,13 @@ final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
-    playersUpdate: RelayPlayersUpdate,
+    playerEnrich: RelayPlayerEnrich,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
     jsonView: JsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
-    leaderboard: RelayLeaderboardApi,
+    players: RelayPlayerApi,
     picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer, play.api.Mode):
 
@@ -116,7 +116,7 @@ final class RelayApi(
     roundRepo.coll
       .aggregateOne(): framework =>
         import framework.*
-        Match($doc("tourId" -> tourId)) -> List(
+        Match($doc("tourId" -> tourId, "startsAt".$ne(BSONHandlers.startsAfterPrevious))) -> List(
           Project($doc("at" -> $doc("$ifNull" -> $arr("$startsAt", "$startedAt")))),
           Sort(Ascending("at")),
           Group(BSONNull)("at" -> PushField("at")),
@@ -216,23 +216,23 @@ final class RelayApi(
       _ <- tourRepo.coll.update.one(
         $id(tour.id),
         $setsAndUnsets(
-          "name"            -> tour.name.some,
-          "info"            -> tour.info.some,
-          "markup"          -> tour.markup,
-          "tier"            -> tour.tier,
-          "autoLeaderboard" -> tour.autoLeaderboard.some,
-          "teamTable"       -> tour.teamTable.some,
-          "players"         -> tour.players,
-          "teams"           -> tour.teams,
-          "spotlight"       -> tour.spotlight,
-          "ownerId"         -> tour.ownerId.some,
-          "pinnedStream"    -> tour.pinnedStream
+          "name"         -> tour.name.some,
+          "info"         -> tour.info.some,
+          "markup"       -> tour.markup,
+          "tier"         -> tour.tier,
+          "showScores"   -> tour.showScores.some,
+          "teamTable"    -> tour.teamTable.some,
+          "players"      -> tour.players,
+          "teams"        -> tour.teams,
+          "spotlight"    -> tour.spotlight,
+          "ownerId"      -> tour.ownerId.some,
+          "pinnedStream" -> tour.pinnedStream
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))
-      _ <- playersUpdate(tour, prev)
+      _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
     yield
-      leaderboard.invalidate(tour.id)
+      players.invalidate(tour.id)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
   private def updateGrouping(tour: RelayTour, data: RelayGroup.form.Data)(using me: Me): Funit =
@@ -242,6 +242,7 @@ final class RelayApi(
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] = for
     last      <- roundRepo.lastByTour(tour)
+    nextOrder <- roundRepo.nextOrderByTour(tour.id)
     lastStudy <- last.so(r => studyRepo.byId(r.studyId))
     relay     <- copyRoundSourceSettings(data.make(me, tour))
     importGame = StudyMaker.ImportGame(
@@ -268,11 +269,16 @@ final class RelayApi(
         )
       )
       .orFail(s"Can't create study for relay $relay")
-    _     <- roundRepo.coll.insert.one(relay)
+    bdoc  <- toBdocWithOrder(relay, nextOrder)
+    _     <- roundRepo.coll.insert.one(bdoc)
     dates <- computeDates(tour.id)
     _     <- tourRepo.denormalize(tour.id, true, relay.hasStarted, dates)
     _     <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
   yield relay.withTour(tour).withStudy(study.study)
+
+  private def toBdocWithOrder(relay: RelayRound, order: RelayRound.Order): Fu[Bdoc] =
+    tryBdoc(relay).toEither.toFuture.map:
+      _ ++ $doc("order" -> order)
 
   private def copyRoundSourceSettings(relay: RelayRound): Fu[RelayRound] =
     relay.sync.upstream
@@ -306,10 +312,13 @@ final class RelayApi(
       for
         round <- copyRoundSourceSettings(updated)
         _     <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
-        _     <- roundRepo.coll.update.one($id(round.id), round).void
+        bdoc  <- tryBdoc(round).toEither.toFuture
+        _     <- roundRepo.coll.update.one($id(round.id), $set(bdoc)).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
-        _ <- denormalizeTour(round.tourId)
+        _                <- denormalizeTour(round.tourId)
+        nextRoundToStart <- round.finished.so(nextRoundThatStartsAfterThisOneCompletes(round))
+        _                <- nextRoundToStart.so(next => requestPlay(next.id, v = true))
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
@@ -343,7 +352,7 @@ final class RelayApi(
         _ <- old.hasStartedEarly.so:
           roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
-      yield leaderboard.invalidate(relay.tourId)
+      yield players.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
@@ -358,7 +367,7 @@ final class RelayApi(
       .so:
         for
           _      <- tourRepo.delete(tour)
-          rounds <- roundRepo.idsByTourOrdered(tour)
+          rounds <- roundRepo.idsByTourOrdered(tour.id)
           _      <- roundRepo.deleteByTour(tour)
           _      <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
         yield true
@@ -414,7 +423,9 @@ final class RelayApi(
               )
             ) >>
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
-      _ <- roundRepo.coll.insert.one(round)
+      order <- roundRepo.orderOf(from.id)
+      bdoc  <- toBdocWithOrder(round, order.map(_ + 1))
+      _     <- roundRepo.coll.insert.one(bdoc)
     yield round
 
   def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using
@@ -429,6 +440,7 @@ final class RelayApi(
       .take(max.fold(9999)(_.value))
 
   export tourRepo.{ isSubscribed, setSubscribed as subscribe }
+  export roundRepo.nextRoundThatStartsAfterThisOneCompletes
 
   object image:
     def rel(rt: RelayTour, tag: Option[String]) =
@@ -465,7 +477,7 @@ final class RelayApi(
       .flatMap:
         _.sequentiallyVoid: relay =>
           val earlyMinutes = Math.min(60, 30 + relay.sync.delay.so(_.value / 60))
-          relay.startsAt
+          relay.startsAtTime
             .exists(_.isBefore(nowInstant.plusMinutes(earlyMinutes)))
             .so:
               logger.info(s"Automatically start $relay")

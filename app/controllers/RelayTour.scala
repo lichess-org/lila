@@ -47,7 +47,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
       Found(env.user.lightUser(owner.id)): owner =>
         env.relay.pager
           .byOwner(owner.id, page)
-          .map(_.mapResults(env.relay.jsonView(_)))
+          .map(_.mapResults(env.relay.jsonView.tourWithAnyRound(_)))
           .map(JsonOk(_))
 
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>
@@ -139,9 +139,9 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         case None => env.relay.api.image.delete(nav.tour, tag) >> Ok
   }
 
-  def leaderboardView(id: RelayTourId) = Open:
+  def playersView(id: RelayTourId) = Open:
     WithTour(id): tour =>
-      tour.autoLeaderboard.so(env.relay.leaderboard(tour)).map(_.fold(notFoundJson())(JsonStrOk))
+      env.relay.playerApi.jsonList(tour.id).map(JsonStrOk)
 
   def subscribe(id: RelayTourId, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
     env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
@@ -209,6 +209,10 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         (active, upcoming, past) <- env.relay.top(page)
         res                      <- JsonOk(env.relay.jsonView.top(active, upcoming, past))
       yield res
+
+  def player(tourId: RelayTourId, id: String) = Anon:
+    Found(env.relay.api.tourById(tourId)): tour =>
+      Found(env.relay.playerApi.player(tour.id, id))(JsonOk)
 
   private given (using RequestHeader): JsonView.Config = JsonView.Config(html = getBool("html"))
 

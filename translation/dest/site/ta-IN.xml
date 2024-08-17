@@ -70,6 +70,8 @@
   <string name="promoteVariation">மாறுபாடு ஊக்குவித்தல்</string>
   <string name="makeMainLine">பிரதான தொடர்ச்சி ஆக்கு</string>
   <string name="deleteFromHere">இங்கிருந்து நீக்கு</string>
+  <string name="collapseVariations">மாறுபாடுகளைச் சுருக்கவும்</string>
+  <string name="expandVariations">மாறுபாடுகளை விரிவாக்குக</string>
   <string name="forceVariation">ஆராய்ச்சியை தனியாக காமி</string>
   <string name="copyVariationPgn">மாறுபாடுகள் கொண்ட PGN ஐ நகலெடு</string>
   <string name="move">நகர்த்து</string>
@@ -178,6 +180,7 @@
   <string name="latestForumPosts">சமீபத்திய மன்ற பதிவுகள்</string>
   <string name="players">சதுரங்க விளையாடிகள்</string>
   <string name="friends">நண்பர்கள்</string>
+  <string name="otherPlayers">ஏனய வீரர்கள்</string>
   <string name="discussions">உரையாடல்கள்</string>
   <string name="today">இன்று</string>
   <string name="yesterday">நேற்று</string>
@@ -397,6 +400,7 @@
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>
   <string name="importGameExplanation">கணினி பகுப்பாய்வு, உலாவக்கூடிய மீளாடல், விளையாட்டு அரட்டை, மற்றும் பகிறக்கூடிய URL பெற விளையாட்டின் PGN ஐ ஒட்டவும்.</string>
   <string name="importGameCaveat">மாறுபடு வரிகள் அழிக்கப்படும். அவற்றை வைத்திருக்க, ஆய்வுமூலம் PGN ஐ இறக்குமதி செய்யவும்.</string>
+  <string name="importGameDataPrivacyWarning">இந்த PGN-ஐ பொதுமக்கள் அணுகலாம். தனிப்பட்ட முறையில் விளையாட்டை இறக்குமதி செய்ய, ஒரு ஆய்வைப் பயன்படுத்தவும்.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s உள்ளேற்றின ஆட்டங்கள்</item>
     <item quantity="other">%s உள்ளேற்றின ஆட்டங்கள்</item>
@@ -409,6 +413,11 @@
   <string name="blackCheckmatesInOneMove">கறுப்பின் அடுத்த நகர்வில் நிகர்தடை</string>
   <string name="retry">மீள்முயற்சி</string>
   <string name="reconnecting">மீண்டும் இணைகிறது</string>
+  <string name="noNetwork">ஆஃப்லைன்</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s நண்பர் இணைப்பிலுள்ளார்</item>
+    <item quantity="other">%s நண்பர்கள் இணைப்பிலுள்ளனர்</item>
+  </plurals>
   <string name="favoriteOpponents">பிடித்தமான எதிராளிகள்</string>
   <string name="follow">பின்தொடர்</string>
   <string name="following">பின்தொடர்கின்றார்</string>
@@ -489,6 +498,7 @@
   <string name="ifNoneLeaveEmpty">இல்லையென்றால் காலியாக விடலாம்</string>
   <string name="profile">குறிப்புகள்</string>
   <string name="editProfile">தகவல்களை  மாற்று</string>
+  <string name="realName">உண்மையான பெயர்</string>
   <string name="setFlair">உங்கள் திறமையை அமைக்கவும்</string>
   <string name="youCanHideFlair">தளம் முழுவதும் அனைத்து பயனர் திறமைகளையும் மறைக்க ஒரு அமைப்பு உள்ளது.</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
@@ -517,6 +527,8 @@
   <string name="descPrivateHelp">குழு உறுப்பினர்கள் மட்டுமே பார்க்கும் உரை. அமைக்கப்பட்டால், குழு உறுப்பினர்களுக்கான பொது விளக்கமாக மாற்றப்படலாம்.</string>
   <string name="no">வேண்டா</string>
   <string name="yes">சரி</string>
+  <string name="website">இணையதளம்</string>
+  <string name="mobile">செல்பேசி</string>
   <string name="help">உதவி:</string>
   <string name="createANewTopic">ஒரு புதிய தலைப்பை உருவாக்க</string>
   <string name="topics">தலைப்புகள்</string>
@@ -535,7 +547,9 @@
   <string name="cheat">வஞ்சகன்</string>
   <string name="troll">அக்கிரமி</string>
   <string name="other">வேறு</string>
-  <string name="reportDescriptionHelp">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்த பயனர் நடத்தை பற்றி தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி எங்களுக்கு சொல்ல. ஆங்கிலத்தில் எழுதப்பட்ட என்றால் உங்கள் அறிக்கை வேகமாக செயல்படுத்தப்படும்.</string>
+  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்தப் பயனர் நடத்தைபற்றித் தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி என்பதை எங்களுக்குச் சொல்ல.</string>
+  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">இந்த பயனர் பெயர் புண்படுத்தக்கூடியது என்ன என்பதை விளக்குங்கள். \"இது புண்படுத்தும்/பொருத்தமற்றது\" என்று மட்டும் சொல்லாதீர்கள், ஆனால் நீங்கள் எப்படி இந்த முடிவுக்கு வந்தீர்கள் என்று எங்களிடம் கூறுங்கள், குறிப்பாக ஆங்கிலத்தில் அல்ல, ஸ்லாங்கில் அல்லது ஒரு வரலாற்று/கலாச்சாரக் குறிப்பால் அவமதிப்பு தெளிவற்றதாக இருந்தால்.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">உங்கள் அறிக்கை ஆங்கிலத்தில் எழுதப்பட்டால் வேகமாக செயலாக்கப்படும்.</string>
   <string name="error.provideOneCheatedGameLink">ஏமாற்றப்பட்ட விளையாட்டிற்கு குறைந்தபட்சம் ஒரு இணைப்பை வழங்கவும்.</string>
   <string name="by">மூலம் %s</string>
   <string name="importedByX">%s ஆல் இறக்குமதி செய்யப்பட்டது</string>
@@ -568,6 +582,7 @@
   <string name="slow">மெதுவாக</string>
   <string name="insideTheBoard">பலகையின் உள்ளே</string>
   <string name="outsideTheBoard">பலகைக்கு வெளியே</string>
+  <string name="allSquaresOfTheBoard">பலகையின் அனைத்து சதுரங்களும்</string>
   <string name="onSlowGames">மெதுவான விளையாட்டுகளில்</string>
   <string name="always">எப்போதும்</string>
   <string name="never">ஒருபோதும்</string>

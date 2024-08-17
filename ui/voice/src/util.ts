@@ -10,7 +10,7 @@ export function findTransforms(
   pos = 0, // for recursion
   line: Transform[] = [], // for recursion
   lines: Transform[][] = [], // for recursion
-  crumbs = new Map<string, number>(), // for (finite) recursion
+  crumbs: Map<string, number> = new Map<string, number>(), // for (finite) recursion
 ): Transform[][] {
   if (h === x) return [line];
   if (pos >= x.length && !mode.del) return [];

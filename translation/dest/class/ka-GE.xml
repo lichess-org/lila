@@ -58,6 +58,7 @@
   <string name="noStudents">მოსწავლეები ჯერ არ არიან კლასში.</string>
   <string name="noRemovedStudents">უარყოფილი მოსწავლეები არ არის.</string>
   <string name="timePlaying">ნათამაშები დრო</string>
+  <string name="news">სიახლეები</string>
   <string name="invite">დაპატიჟეთ</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ან</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">შექმენი ახალი კლასები</string>

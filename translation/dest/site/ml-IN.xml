@@ -483,7 +483,6 @@
   <string name="cheat">ചതി</string>
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
-  <string name="reportDescriptionHelp">ഗെയിമിന്റെ ലിങ്ക് ഇവിടെ പേസ്റ്റ് ചെയ്യുക. ശേഷം യുസറിന്റെ പെരുമാറ്റത്തിലെ അപാകത ഞങ്ങളോട് വിശദമായി പറയുക. \"they cheat\" എന്ന് പറയരുത്. പക്ഷെ എന്തുകൊണ്ട് നിങ്ങൾ ആ അഭിപ്രായത്തിലേക്ക് എത്തി എന്നാണ് പറയേണ്ടത്. ഇംഗ്ലീഷിൽ എഴുതിയാൽ നിങ്ങളുടെ റിപ്പോർട്ട് വേഗത്തിൽ വിശകലനം ചെയ്യപ്പെടും.</string>
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="thisTopicIsNowClosed">ഈ വിഷയം സമാപിച്ചിരിക്കുന്നു.</string>

@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">30 segundo dituzu ahal bezain beste lauki asmatzeko!</string>
   <string name="goAsLongAsYouWant">Nahi duzun arte aritu honetan, ez dago denbora mugarik!</string>
   <string name="showCoordinates">Erakutsi koordenatuak</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordenatuak lauki guztietan</string>
   <string name="showPieces">Erakutsi piezak</string>
   <string name="startTraining">Entrenatzen hasi</string>
   <string name="findSquare">Bilatu laukia</string>

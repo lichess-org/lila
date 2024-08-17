@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">所有的SYNC成員處於相同局面</string>
   <string name="shareChanges">向旁觀者分享這些變動並將其保留在伺服器中</string>
   <string name="playing">下棋中</string>
+  <string name="showEvalBar">評估條</string>
   <string name="first">第一頁</string>
   <string name="previous">上一頁</string>
   <string name="next">下一頁</string>
@@ -160,6 +161,6 @@
   <string name="manageTopics">管理主題</string>
   <string name="back">後退</string>
   <string name="playAgain">再玩一次</string>
-  <string name="whatWouldYouPlay">你會在這个位置上怎麼走？</string>
+  <string name="whatWouldYouPlay">你會在這個位置上怎麼走？</string>
   <string name="youCompletedThisLesson">恭喜！您完成了這個課程。</string>
 </resources>

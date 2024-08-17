@@ -1,5 +1,7 @@
 package lila.relation
 
+def makeId(u1: UserId, u2: UserId) = s"$u1/$u2"
+
 case class Follower(u1: UserId):
   def userId = u1
 

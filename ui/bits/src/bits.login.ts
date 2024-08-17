@@ -3,7 +3,7 @@ import debounce from 'common/debounce';
 import { addPasswordVisibilityToggleListener } from 'common/password';
 import { storedJsonProp } from 'common/storage';
 
-export function initModule(mode: 'login' | 'signup' | 'reset') {
+export function initModule(mode: 'login' | 'signup' | 'reset'): void {
   mode === 'login' ? loginStart() : mode === 'signup' ? signupStart() : resetStart();
 
   addPasswordVisibilityToggleListener();

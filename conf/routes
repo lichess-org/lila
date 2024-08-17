@@ -272,6 +272,8 @@ POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(to
 POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId: RelayTourId, set: Boolean)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: RelayTourId)
+GET   /broadcast/$tourId<\w{8}>/players       controllers.RelayTour.playersView(tourId: RelayTourId)
+GET   /broadcast/$tourId<\w{8}>/players/:id   controllers.RelayTour.player(tourId: RelayTourId, id:  String)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId: RelayRoundId, embed: Option[String] ?= None)
 GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId: RelayRoundId)
 GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}> controllers.RelayRound.embedShow(ts, rs, roundId: RelayRoundId)
@@ -285,7 +287,6 @@ GET   /broadcast/round/$roundId<\w{8}>/stats  controllers.RelayRound.stats(round
 POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId: RelayRoundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId: RelayRoundId)
 GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId: RelayRoundId)
-GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardView(tourId: RelayTourId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: RelayRoundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: RelayRoundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex

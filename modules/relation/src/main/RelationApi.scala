@@ -24,8 +24,6 @@ final class RelationApi(
 )(using Executor, lila.core.config.RateLimit)
     extends lila.core.relation.RelationApi(repo.coll):
 
-  import RelationRepo.makeId
-
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =
     (u1 != u2).so(coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r"))
 
@@ -188,6 +186,11 @@ final class RelationApi(
         }
       else funit
     })
+
+  def isBlockedByAny(by: Iterable[UserId])(using me: Option[Me]): Fu[Boolean] =
+    me.ifTrue(by.nonEmpty)
+      .so: me =>
+        coll.exists($doc("_id".$in(by.map(makeId(_, me.userId))), "r" -> Block))
 
   def searchFollowedBy(u: UserId, term: UserSearch, max: Int): Fu[List[UserId]] =
     repo

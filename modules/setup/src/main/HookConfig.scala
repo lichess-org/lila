@@ -12,7 +12,7 @@ import lila.rating.RatingRange.withinLimits
 case class HookConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
-    time: Double,
+    time: Double, // minutes
     increment: Clock.IncrementSeconds,
     days: Days,
     mode: Mode,
@@ -78,7 +78,7 @@ case class HookConfig(
             )
 
   def updateFrom(game: Game) =
-    copy(
+    val h1 = copy(
       variant = game.variant,
       timeMode = TimeMode.ofGame(game),
       time = game.clock.map(_.limitInMinutes) | time,
@@ -86,6 +86,8 @@ case class HookConfig(
       days = game.daysPerTurn | days,
       mode = game.mode
     )
+    val h2 = if h1.isRatedUnlimited then h1.copy(mode = Mode.Casual) else h1
+    if !h2.validClock then h2.copy(time = 1) else h2
 
   def withRatingRange(ratingRange: String) =
     copy(ratingRange = RatingRange.orDefault(ratingRange))

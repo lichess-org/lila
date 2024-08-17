@@ -136,7 +136,8 @@ $hover-bg: $m-primary_bg--mix-30;
 
     h1 {
       @extend %break-word;
-      @include fluid-size('font-size', 14px, 32px);
+      @include line-clamp(2);
+      @include fluid-size('font-size', 14px, 31px);
       color: $c-brag;
     }
 
@@ -172,7 +173,7 @@ $hover-bg: $m-primary_bg--mix-30;
   &__mselect {
     position: unset;
     flex: auto;
-    @include fluid-size('font-size', 12px, 20px);
+    @include fluid-size('font-size', 12px, 19px);
     white-space: wrap;
     &.mselect__active {
       overflow: visible;
@@ -279,7 +280,7 @@ $hover-bg: $m-primary_bg--mix-30;
     span {
       @extend %box-radius;
       cursor: pointer;
-      padding: 0.8em 1.5em;
+      padding: 0.6em 1.5em;
       border: $border;
       &:hover {
         @extend %box-shadow;
@@ -327,10 +328,8 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
 
-  &__leaderboard {
-    width: auto;
+  &__players {
     overflow-x: auto;
-    margin: 0 auto 1rem;
     thead {
       background: none;
       th {
@@ -340,7 +339,7 @@ $hover-bg: $m-primary_bg--mix-30;
     thead {
       th {
         text-align: end;
-        padding: 0 2rem 0.5rem 2rem;
+        padding: 0.5rem 2rem 0.5rem 2rem;
       }
     }
     th {
@@ -361,11 +360,15 @@ $hover-bg: $m-primary_bg--mix-30;
       }
     }
     td {
+      font-family: monospace;
       text-align: end;
       padding: 1rem 2rem;
       &:last-child {
         font-weight: bold;
       }
+    }
+    .rp {
+      margin-inline-start: 1ch;
     }
   }
 
@@ -525,6 +528,77 @@ $hover-bg: $m-primary_bg--mix-30;
       &::before {
         color: $c-font-clearer;
       }
+    }
+  }
+}
+
+#tour-player-tip {
+  @extend %box-radius-force, %popup-shadow;
+  display: none;
+  background: $c-bg-box;
+  position: absolute;
+  z-index: $z-powertip-120;
+
+  border: 1px solid $c-brag;
+  min-width: 330px;
+}
+.tpp {
+  a {
+    color: $c-font;
+    &:hover {
+      color: $c-primary;
+    }
+  }
+  &__player {
+    @extend %flex-column;
+    gap: 0.5em;
+    padding: 1.5em 2em;
+    background: $c-bg-popup;
+    font-size: 1.1em;
+    &__name {
+      @extend %flex-center-nowrap, %ellipsis;
+      font-size: 1.3em;
+    }
+    &__info {
+      @extend %flex-between;
+      font-weight: bold;
+    }
+  }
+  &__preload {
+    margin: 1em auto;
+  }
+  &__games {
+    margin-bottom: 0.3em;
+    max-height: 40vh;
+    overflow-y: auto;
+    &__status {
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+    }
+    td {
+      padding: 0.4rem;
+      border-top: $border;
+      cursor: pointer;
+    }
+    tr {
+      cursor: pointer;
+      &:hover {
+        background: $c-bg-zebra;
+      }
+    }
+    tr:first-child td {
+      border-top: none;
+    }
+    td:first-child {
+      padding-inline-start: 1.5rem;
+      text-align: end;
+      color: $c-font-dimmer;
+      font-weight: bold;
+    }
+    td:last-child {
+      padding-inline-end: 1.5rem;
     }
   }
 }

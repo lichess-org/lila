@@ -6,7 +6,8 @@
     "rootDir": "src",
     "noImplicitAny": false,
     "declaration": true,
-    "composite": true
+    "composite": true,
+    "isolatedDeclarations": true
   },
 
   "references": [{ "path": "../common/tsconfig.json" }]

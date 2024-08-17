@@ -67,4 +67,5 @@
     <item quantity="few">prije %s godine</item>
     <item quantity="other">prije %s godina</item>
   </plurals>
+  <string name="completed">završeno</string>
 </resources>

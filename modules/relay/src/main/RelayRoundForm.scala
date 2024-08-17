@@ -37,7 +37,10 @@ final class RelayRoundForm(using mode: Mode):
         GameId.from(i.trim).toRight(s"Invalid game ID: $i")
       .left
       .map(_.mkString(", "))
-      .filterOrElse(_.sizeIs <= RelayFetch.maxChapters.value, s"Max games: ${RelayFetch.maxChapters}")
+      .filterOrElse(
+        _.sizeIs <= RelayFetch.maxChaptersToShow.value,
+        s"Max games: ${RelayFetch.maxChaptersToShow}"
+      )
       .map(_.distinct)
       .map(Upstream.Ids.apply),
     _.ids.mkString(" ")
@@ -59,13 +62,14 @@ final class RelayRoundForm(using mode: Mode):
             u => !u.url.host.toString.endsWith("lichess.org") || Granter(_.Relay)
           )
       ),
-      "syncUrls"  -> optional(of[Upstream.Urls]),
-      "syncIds"   -> optional(of[Upstream.Ids]),
-      "startsAt"  -> optional(ISOInstantOrTimestamp.mapping),
-      "finished"  -> optional(boolean),
-      "period"    -> optional(number(min = 2, max = 60).into[Seconds]),
-      "delay"     -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
-      "onlyRound" -> optional(number(min = 1, max = 999)),
+      "syncUrls"            -> optional(of[Upstream.Urls]),
+      "syncIds"             -> optional(of[Upstream.Ids]),
+      "startsAt"            -> optional(ISOInstantOrTimestamp.mapping),
+      "startsAfterPrevious" -> optional(boolean),
+      "finished"            -> optional(boolean),
+      "period"              -> optional(number(min = 2, max = 60).into[Seconds]),
+      "delay"               -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
+      "onlyRound"           -> optional(number(min = 1, max = 999)),
       "slices" -> optional:
         nonEmptyText
           .transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
@@ -118,10 +122,10 @@ object RelayRoundForm:
           roundNumberIn(old.name.value).contains(n - 1)
       p <- prev
     yield replaceRoundNumber(p.name.value, nextNumber)
-    val guessDate = for
+    val guessStartsAtTime = for
       (prev, old) <- prevs
-      prevDate    <- prev.startsAt
-      oldDate     <- old.startsAt
+      prevDate    <- prev.startsAtTime
+      oldDate     <- old.startsAtTime
       delta = prevDate.toEpochMilli - oldDate.toEpochMilli
     yield prevDate.plusMillis(delta)
     val nextUrl: Option[URL] = for
@@ -136,7 +140,8 @@ object RelayRoundForm:
       caption = prev.flatMap(_.caption),
       syncSource = prev.map(Data.make).flatMap(_.syncSource),
       syncUrl = nextUrl.map(Upstream.Url.apply),
-      startsAt = guessDate,
+      startsAt = guessStartsAtTime,
+      startsAfterPrevious = prev.exists(_.startsAfterPrevious).option(true),
       period = prev.flatMap(_.sync.period),
       delay = prev.flatMap(_.sync.delay),
       onlyRound = prev.flatMap(_.sync.onlyRound).map(_ + 1),
@@ -192,6 +197,7 @@ object RelayRoundForm:
       syncUrls: Option[Upstream.Urls] = None,
       syncIds: Option[Upstream.Ids] = None,
       startsAt: Option[Instant] = None,
+      startsAfterPrevious: Option[Boolean] = None,
       finished: Option[Boolean] = None,
       period: Option[Seconds] = None,
       delay: Option[Seconds] = None,
@@ -205,13 +211,17 @@ object RelayRoundForm:
       case Some("ids")  => syncIds
       case _            => None
 
+    private def relayStartsAt: Option[RelayRound.Starts] = startsAt
+      .map(RelayRound.Starts.At(_))
+      .orElse((~startsAfterPrevious).option(RelayRound.Starts.AfterPrevious))
+
     def update(official: Boolean)(relay: RelayRound)(using me: Me)(using mode: Mode) =
       val sync = makeSync(me)
       relay.copy(
         name = name,
         caption = caption,
         sync = if relay.sync.playing then sync.play(official) else sync,
-        startsAt = startsAt,
+        startsAt = relayStartsAt,
         finished = ~finished
       )
 
@@ -237,7 +247,7 @@ object RelayRoundForm:
         createdAt = nowInstant,
         crowd = none,
         finished = ~finished,
-        startsAt = startsAt,
+        startsAt = relayStartsAt,
         startedAt = none
       )
 
@@ -260,7 +270,8 @@ object RelayRoundForm:
           case urls: Upstream.Urls => urls,
         syncIds = relay.sync.upstream.collect:
           case ids: Upstream.Ids => ids,
-        startsAt = relay.startsAt,
+        startsAt = relay.startsAtTime,
+        startsAfterPrevious = relay.startsAfterPrevious.option(true),
         finished = relay.finished.option(true),
         period = relay.sync.period,
         onlyRound = relay.sync.onlyRound,

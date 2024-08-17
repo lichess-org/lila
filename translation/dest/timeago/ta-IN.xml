@@ -58,5 +58,9 @@
     <item quantity="one">%s நிமிடம் மீதமுள்ளது</item>
     <item quantity="other">%s நிமிடங்கள் மீதமுள்ளன</item>
   </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s மணி நேரம் மீதமுள்ளது</item>
+    <item quantity="other">%s மணி நேரம் மீதமுள்ளது</item>
+  </plurals>
   <string name="completed">நிறைவுற்றது</string>
 </resources>

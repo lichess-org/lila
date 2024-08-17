@@ -7,11 +7,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.*
 
-final class RelayTourStream(
-    colls: RelayColls,
-    jsonView: JsonView,
-    leaderboard: RelayLeaderboardApi
-)(using Executor, akka.stream.Materializer):
+final class RelayTourStream(colls: RelayColls, jsonView: JsonView)(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.given
   import RelayTourRepo.selectors
@@ -21,7 +17,7 @@ final class RelayTourStream(
     as = "rounds",
     local = "_id",
     foreign = "tourId",
-    pipe = List($doc("$sort" -> RelayRoundRepo.sort.start))
+    pipe = List($doc("$sort" -> RelayRoundRepo.sort.asc))
   )
 
   def officialTourStream(perSecond: MaxPerSecond, nb: Max)(using JsonView.Config): Source[JsObject, ?] =

@@ -11,12 +11,7 @@ import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 
-final class JsonView(
-    baseUrl: BaseUrl,
-    markup: RelayMarkup,
-    leaderboardApi: RelayLeaderboardApi,
-    picfitUrl: PicfitUrl
-)(using Executor):
+final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl)(using Executor):
 
   import JsonView.{ Config, given }
 
@@ -57,7 +52,7 @@ final class JsonView(
         if config.html then markup(tour)(md).value
         else md.value)
       .add("teamTable" -> tour.teamTable)
-      .add("leaderboard" -> tour.autoLeaderboard)
+      .add("showScores" -> tour.showScores)
 
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json
@@ -67,8 +62,9 @@ final class JsonView(
           withUrl(round.withTour(trs.tour), withTour = false)
       )
       .add("group" -> group)
+      .add("defaultRoundId" -> RelayListing.defaultRoundToShow(trs).map(_.id))
 
-  def apply(t: RelayTour | WithLastRound | ActiveWithSomeRounds)(using Config): JsObject = t match
+  def tourWithAnyRound(t: RelayTour | WithLastRound | ActiveWithSomeRounds)(using Config): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
@@ -143,9 +139,9 @@ final class JsonView(
       past: Paginator[WithLastRound]
   )(using Config) =
     Json.obj(
-      "active"   -> active.sortBy(t => -(~t.tour.tier)).map(apply(_)),
-      "upcoming" -> upcoming.map(apply(_)),
-      "past"     -> paginatorWriteNoNbResults.writes(past.map(apply(_)))
+      "active"   -> active.sortBy(t => -(~t.tour.tier)).map(tourWithAnyRound(_)),
+      "upcoming" -> upcoming.map(tourWithAnyRound(_)),
+      "past"     -> paginatorWriteNoNbResults.writes(past.map(tourWithAnyRound(_)))
     )
 
 object JsonView:
@@ -169,7 +165,8 @@ object JsonView:
       )
       .add("finished" -> r.finished)
       .add("ongoing" -> (r.hasStarted && !r.finished))
-      .add("startsAt" -> r.startsAt.orElse(r.startedAt))
+      .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
+      .add("startsAfterPrevious" -> r.startsAfterPrevious)
 
   given OWrites[RelayStats.RoundStats] = OWrites: r =>
     Json.obj(
@@ -184,6 +181,8 @@ object JsonView:
         "ongoing" -> s.ongoing,
         "log"     -> s.log.events
       )
+      .add("filter" -> s.onlyRound)
+      .add("slices" -> s.slices.map(_.mkString(", ")))
       .add("delay" -> s.delay) ++
       s.upstream.so:
         case Sync.Upstream.Url(url)   => Json.obj("url" -> url)

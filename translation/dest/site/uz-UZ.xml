@@ -552,7 +552,6 @@
   <string name="cheat">Firibgarlik</string>
   <string name="troll">Yo\'q joydan janjal chiqarish</string>
   <string name="other">Boshqa</string>
-  <string name="reportDescriptionHelp">O\'yin(lar)ga murojaatni bering va ushbu o\'yinchini tutishini nimasi yaxshi emas izohlang. Faqatgina \"u aldayabdi\" deb qo\'ya qolmasdan, balkim nima uchun bunday xulosaga kelganingizni ingliz tilida tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga murojatni keltiring.</string>
   <string name="by">%s tomonidan</string>
   <string name="importedByX">%s tomonidan import qilingan</string>

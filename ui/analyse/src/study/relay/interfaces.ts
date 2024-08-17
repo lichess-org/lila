@@ -14,12 +14,13 @@ export interface RelayGroup {
   tours: RelayTourIdName[];
 }
 
+export type TourId = string;
+export type RoundId = string;
+
 export interface RelayTourIdName {
-  id: string;
+  id: TourId;
   name: string;
 }
-
-export type RoundId = string;
 
 export interface RelayRound {
   id: RoundId;
@@ -28,6 +29,7 @@ export interface RelayRound {
   finished?: boolean;
   ongoing?: boolean;
   startsAt?: number;
+  startsAfterPrevious?: boolean;
 }
 
 export interface RelayTourInfo {
@@ -39,7 +41,7 @@ export interface RelayTourInfo {
 export type RelayTourDates = [number] | [number, number];
 
 export interface RelayTour {
-  id: string;
+  id: TourId;
   name: string;
   slug: string;
   description?: string;
@@ -47,7 +49,7 @@ export interface RelayTour {
   official?: boolean;
   image?: string;
   teamTable?: boolean;
-  leaderboard?: boolean;
+  showScores?: boolean;
   tier?: number;
   dates?: RelayTourDates;
 }
@@ -59,6 +61,8 @@ export interface RelaySync {
   ids?: string;
   log: LogEvent[];
   delay?: number;
+  filter?: number;
+  slices?: string;
 }
 
 export interface LogEvent {

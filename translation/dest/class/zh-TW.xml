@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">課程</string>
-  <string name="teachClassesOfChessStudents">使用Lichess班級工具包教象棋學生班。</string>
+  <string name="teachClassesOfChessStudents">使用 Lichess 班級管理工具包將西洋棋的技術交給學生。</string>
   <string name="features">功能</string>
   <string name="quicklyGenerateSafeUsernames">快速為學生建立安全的使用者名稱及密碼</string>
-  <string name="trackStudentProgress">跟蹤學生在棋局和棋題中的進度</string>
-  <string name="messageAllStudents">向所有學生發送關於新班級材料的消息</string>
+  <string name="trackStudentProgress">紀錄學生在棋局和謎題中的進度</string>
+  <string name="messageAllStudents">通知所有學生關於新教材</string>
   <string name="freeForAllForever">完全免費，一視同仁。且無廣告及追蹤器</string>
-  <string name="applyToBeLichessTeacher">申請成為 Lichess 的的教師</string>
+  <string name="applyToBeLichessTeacher">申請成為 Lichess 的教師</string>
   <string name="noClassesYet">還沒有課程</string>
   <string name="teachersX">%s個教師</string>
   <string name="newClass">新的課程</string>
@@ -18,12 +18,12 @@
   <string name="removedStudents">移除</string>
   <string name="inviteTheStudentBack">邀請退出的學生回來</string>
   <string name="sendAMessage">傳送訊息給所有的學生</string>
-  <string name="aLinkToTheClassWillBeAdded">班級的超鏈接將會自動添加到消息尾部，所以您不需要自己添加它。</string>
+  <string name="aLinkToTheClassWillBeAdded">班級的鏈接將會自動添加到訊息尾部，所以您不需要自己添加它。</string>
   <string name="className">課程名稱</string>
   <string name="classDescription">課程描述</string>
   <string name="visibleByBothStudentsAndTeachers">課程的學生及教師皆可見</string>
   <string name="teachersOfTheClass">這堂課程的教師</string>
-  <string name="addLichessUsernames">加入Lichess使用者名稱邀請他們做老師，每行一個</string>
+  <string name="addLichessUsernames">加入 Lichess 使用者名稱邀請他們做老師，每行一個</string>
   <string name="resetPassword">重設密碼</string>
   <string name="makeSureToCopy">確認你已複製或記下密碼。 你將無法再次看到它！</string>
   <string name="passwordX">密碼:%s</string>
@@ -47,7 +47,7 @@
   <string name="createDesc3">注意：學生不得擁有多個帳號。</string>
   <string name="createDesc4">如果他們已經有帳號，請使用邀請。</string>
   <string name="createStudentWarning">僅為每個真實的學生創建賬戶，不要用此功能為你自己創建多個賬戶，否則你會被封號。</string>
-  <string name="lichessUsername">Lichess上的使用者名稱</string>
+  <string name="lichessUsername">Lichess 使用者名稱</string>
   <string name="generateANewUsername">產生一個新的使用者名稱</string>
   <string name="welcomeToClass">歡迎來到你的班級：%s。
 這裏是訪問班級的鏈接。</string>

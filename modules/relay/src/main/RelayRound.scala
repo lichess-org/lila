@@ -15,7 +15,7 @@ case class RelayRound(
     caption: Option[RelayRound.Caption],
     sync: RelayRound.Sync,
     /* When it's planned to start */
-    startsAt: Option[Instant],
+    startsAt: Option[RelayRound.Starts],
     /* When it actually starts */
     startedAt: Option[Instant],
     /* at least it *looks* finished... but maybe it's not
@@ -29,6 +29,11 @@ case class RelayRound(
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)
     if s.isEmpty then "-" else s
+
+  def startsAtTime = startsAt.flatMap:
+    case RelayRound.Starts.At(at) => at.some
+    case _                        => none
+  def startsAfterPrevious = startsAt.contains(RelayRound.Starts.AfterPrevious)
 
   def finish =
     copy(
@@ -44,11 +49,11 @@ case class RelayRound(
 
   def ensureStarted     = copy(startedAt = startedAt.orElse(nowInstant.some))
   def hasStarted        = startedAt.isDefined
-  def hasStartedEarly   = startedAt.exists(at => startsAt.exists(_.isAfter(at)))
-  def shouldHaveStarted = hasStarted || startsAt.exists(_.isBefore(nowInstant))
+  def hasStartedEarly   = startedAt.exists(at => startsAtTime.exists(_.isAfter(at)))
+  def shouldHaveStarted = hasStarted || startsAtTime.exists(_.isBefore(nowInstant))
 
   def shouldGiveUp =
-    !hasStarted && startsAt.match
+    !hasStarted && startsAtTime.match
       case Some(at) => at.isBefore(nowInstant.minusHours(3))
       case None     => createdAt.isBefore(nowInstant.minusDays(1))
 
@@ -62,11 +67,18 @@ object RelayRound:
 
   def makeId = RelayRoundId(ThreadLocalRandom.nextString(8))
 
+  opaque type Order = Int
+  object Order extends OpaqueInt[Order]
+
   opaque type Name = String
   object Name extends OpaqueString[Name]
 
   opaque type Caption = String
   object Caption extends OpaqueString[Caption]
+
+  enum Starts:
+    case At(at: Instant)
+    case AfterPrevious
 
   case class Sync(
       upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN

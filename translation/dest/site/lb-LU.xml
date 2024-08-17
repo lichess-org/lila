@@ -553,7 +553,6 @@
   <string name="cheat">Bedruch</string>
   <string name="troll">Troll</string>
   <string name="other">Aner</string>
-  <string name="reportDescriptionHelp">Post den Link vun Partie(n) and erklär wat den Problem mat dësem Benotzer sengem Verhalen ass. So net just \"Hien fuddelt\", mee so eis wéi du zu dëser Konklusioun komm bass. Däin Rapport gëtt méi schnell veraarbecht wann en op Englesch ass.</string>
   <string name="error.provideOneCheatedGameLink">Wannechgelift gëff eis op mannst een Link zu enger Partie mat Bedruch.</string>
   <string name="by">vum %s</string>
   <string name="importedByX">Importéiert vun %s</string>

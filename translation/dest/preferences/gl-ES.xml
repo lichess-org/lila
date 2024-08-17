@@ -46,7 +46,7 @@
   <string name="confirmResignationAndDrawOffers">Confirmar abandono e ofertas de táboas</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enroque</string>
   <string name="castleByMovingTwoSquares">Movendo o rei dúas casas</string>
-  <string name="castleByMovingOntoTheRook">Movendo rei ata a torre</string>
+  <string name="castleByMovingOntoTheRook">Movendo o rei cara a torre</string>
   <string name="inputMovesWithTheKeyboard">Introdución de movementos co teclado</string>
   <string name="inputMovesWithVoice">Introdución de xogadas coa voz</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Adherir frechas a movementos válidos</string>

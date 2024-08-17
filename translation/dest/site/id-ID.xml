@@ -513,7 +513,6 @@
   <string name="cheat">Cheat</string>
   <string name="troll">Jebakan</string>
   <string name="other">Lainnya</string>
-  <string name="reportDescriptionHelp">Paste link berikut ke dalam permainan dan jelaskan apa masalah tentang pengguna ini.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
   <string name="importedByX">Diimpor oleh %s</string>

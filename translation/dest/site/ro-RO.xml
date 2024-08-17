@@ -187,7 +187,7 @@
   <string name="latestForumPosts">Ultimele postări pe forum</string>
   <string name="players">Jucători</string>
   <string name="friends">Prieteni</string>
-  <string name="otherPlayers" comment="Part of a longer string, &quot;Personal opening explorer (also works on other players)&quot;&#10;&#10;This is string appears as a feature listed on the https://lichess.org/features page.">alți jucători</string>
+  <string name="otherPlayers">alți jucători</string>
   <string name="discussions">Discuții</string>
   <string name="today">Astăzi</string>
   <string name="yesterday">Ieri</string>
@@ -585,7 +585,9 @@
   <string name="cheat">Trișează</string>
   <string name="troll">Troll</string>
   <string name="other">Altceva</string>
-  <string name="reportDescriptionHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorului. Nu preciza doar ”trișează”, ci spune-ne cum ai ajuns la această concluzie. Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
+  <string name="reportCheatBoostHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorului. Nu preciza doar \"trișează\", ci spune-ne cum ai ajuns la această concluzie.</string>
+  <string name="reportUsernameHelp">Explică de ce acest nume de utilizator este jignitor. Nu spune doar \"e ofensiv/inadecvat\", ci spune-ne cum ai ajuns la această concluzie, mai ales în cazul în care insulta este obscură, nu este în engleză, este jargon sau este o referință istorică/culturală.</string>
+  <string name="reportProcessedFasterInEnglish">Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
   <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importat de %s</string>

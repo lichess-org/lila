@@ -36,7 +36,7 @@ const dateFormat = memoize(() =>
     : (d: Date) => d.toLocaleDateString(),
 );
 
-export default function initModule(data: RoundStats) {
+export default function initModule(data: RoundStats): void {
   const $el = $('.relay-tour__stats canvas');
   makeChart($el, data);
 }

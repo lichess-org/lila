@@ -1,4 +1,4 @@
-export async function initModule(args: { selector: string; ops: string }) {
+export async function initModule(args: { selector: string; ops: string }): Promise<void> {
   await site.load;
   const el = document.querySelector(args.selector) as HTMLElement;
   const oplist = args.ops.split(' ');

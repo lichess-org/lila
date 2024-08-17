@@ -88,7 +88,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
                     Map(
                       "username" -> user.username.value,
                       "postUrl"  -> s"$netBaseUrl${ui.urlOfPost(post)}",
-                      "reason"   -> "comm"
+                      "from"     -> "ublog"
                     )
                   ),
                   dataIcon := Icon.CautionTriangle

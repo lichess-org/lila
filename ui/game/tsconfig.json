@@ -4,7 +4,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",
-    "composite": true
+    "composite": true,
+    "isolatedDeclarations": true
   },
 
   "references": [{ "path": "../common/tsconfig.json" }]

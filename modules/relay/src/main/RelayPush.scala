@@ -16,7 +16,7 @@ final class RelayPush(
     stats: RelayStatsApi,
     chapterPreview: ChapterPreviewApi,
     fidePlayers: RelayFidePlayerApi,
-    playersApi: RelayPlayersApi,
+    playerEnrich: RelayPlayerEnrich,
     irc: lila.core.irc.IrcApi
 )(using ActorSystem, Executor, Scheduler):
 
@@ -50,7 +50,7 @@ final class RelayPush(
   private def push(rt: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
     workQueue(rt.round.id):
       for
-        withPlayers <- playersApi.updateAndReportAmbiguous(rt)(rawGames)
+        withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
         games       <- fidePlayers.enrichGames(rt.tour)(withPlayers)
         event <- sync
           .updateStudyChapters(rt, games)
@@ -72,7 +72,7 @@ final class RelayPush(
 
   private def pgnToGames(pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
     MultiPgn
-      .split(pgnBody, RelayFetch.maxChapters)
+      .split(pgnBody, RelayFetch.maxChaptersToShow)
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>
