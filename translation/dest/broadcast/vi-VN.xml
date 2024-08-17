@@ -37,17 +37,15 @@
   <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
-  <string name="automaticLeaderboard">Bảng xếp hạng tự động</string>
-  <string name="automaticLeaderboardHelp">Tính toán và hiển thị bảng xếp hạng đơn giản dựa trên kết quả ván đấu</string>
   <string name="replacePlayerTags">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
   <string name="periodInSeconds">Khoảng thời gian tính bằng giây</string>
   <string name="periodInSecondsHelp">Tùy chọn, thời gian chờ đợi giữa các yêu cầu. Tối thiểu 2 giây, tối đa 60 giây. Mặc định là tự động dựa trên số lượng người xem.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Các liên đoàn FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Hệ số Elo top 10</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Các kỳ thủ FIDE</string>
+  <string name="fideFederations">Các liên đoàn FIDE</string>
+  <string name="top10Rating">Hệ số Elo top 10</string>
+  <string name="fidePlayers">Các kỳ thủ FIDE</string>
   <string name="fidePlayerNotFound">Không tìm thấy kỳ thủ FIDE</string>
   <string name="fideProfile">Hồ sơ FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Liên đoàn</string>
+  <string name="federation">Liên đoàn</string>
   <string name="ageThisYear">Tuổi năm nay</string>
   <string name="unrated">Chưa xếp hạng</string>
   <string name="recentTournaments">Các giải đấu tham gia gần đây</string>
