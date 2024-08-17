@@ -36,7 +36,10 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
   def show(id: TitleRequestId) = Auth { _ ?=> me ?=>
     Found(api.getForMe(id)): req =>
       if req.userId.is(me)
-      then Ok.async(ui.edit(inSiteMenu(), env.title.form.edit(req.data), req))
+      then
+        if req.isRejectedButCanTryAgain
+        then api.tryAgain(req).inject(Redirect(routes.TitleVerify.show(id)))
+        else Ok.async(ui.edit(inSiteMenu(), env.title.form.edit(req.data), req))
       else
         for
           data    <- getModData(req)
