@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">Σκακιέρα DGT</string>
+  <string name="lichessAndDgt">Το Lichess &amp; η σκακιέρα DGT</string>
+  <string name="ifMoveNotDetected">Εάν δεν εντοπιστεί κάποια κίνηση</string>
+  <string name="lichessConnectivity">Σύνδεση με το Lichess</string>
+  <string name="dgtBoardConnectivity">Σύνδεση σκακιέρας DGT</string>
+  <string name="clickToGenerateOne">Κάντε κλικ για να δημιουργήσετε ένα</string>
+  <string name="textToSpeech">Κείμενο σε ομιλία</string>
+  <string name="enableSpeechSynthesis">Ενεργοποίηση Σύνθεσης Ομιλίας</string>
+  <string name="speechSynthesisVoice">Επιλογή φωνής για τη σύνθεση ομιλίας</string>
+  <string name="announceAllMoves">Ανακοίνωση Όλων Των Κινήσεων</string>
 </resources>
