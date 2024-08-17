@@ -40,17 +40,15 @@
   <string name="editRoundStudy">Редактировать студию тура</string>
   <string name="deleteTournament">Удалить этот турнир</string>
   <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
-  <string name="automaticLeaderboard">Автоматическая таблица лидеров</string>
-  <string name="automaticLeaderboardHelp">Вычислять и отображать простую таблицу лидеров на основе результатов партий</string>
   <string name="replacePlayerTags">Необязательно: заменить имена игроков, рейтинги и звания</string>
   <string name="periodInSeconds">Период в секундах</string>
   <string name="periodInSecondsHelp">Необязательно: сколько времени ждать между запросами. Минимум 2 сек, максимум 60 сек. По умолчанию устанавливается автоматически, в зависимости от количества зрителей.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Федерации FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Топ-10</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Игроки FIDE</string>
+  <string name="fideFederations">Федерации FIDE</string>
+  <string name="top10Rating">Топ-10</string>
+  <string name="fidePlayers">Игроки FIDE</string>
   <string name="fidePlayerNotFound">Профиль FIDE не найден</string>
   <string name="fideProfile">Профиль FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Федерация</string>
+  <string name="federation">Федерация</string>
   <string name="ageThisYear">Возраст в этом году</string>
   <string name="unrated">Без рейтинга</string>
   <string name="recentTournaments">Недавние турниры</string>
