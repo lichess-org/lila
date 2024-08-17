@@ -23,6 +23,13 @@ case class TitleRequest(
 
   def approved = status == Status.approved
 
+  def isRejectedButCanTryAgain = status.is(_.rejected) &&
+    history.head.at.isBefore(nowInstant.minus(14.days))
+
+  def tryAgain =
+    if isRejectedButCanTryAgain then pushStatus(Status.building)
+    else this
+
   def pushStatus(s: TitleRequest.Status): TitleRequest = copy(
     history =
       if status != s then s.now :: history

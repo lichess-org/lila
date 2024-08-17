@@ -84,6 +84,9 @@ final class TitleApi(coll: Coll, picfitApi: PicfitApi)(using Executor, BaseUrl):
       case _                         =>
     coll.update.one($id(req.id), newReq).inject(newReq)
 
+  def tryAgain(req: TitleRequest) =
+    coll.update.one($id(req.id), req.tryAgain).void
+
   private def sendFeedback(to: UserId, feedback: String): Unit =
     val pm = s"""
 Your title request has been reviewed by the Lichess team.
