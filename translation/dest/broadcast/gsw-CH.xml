@@ -38,17 +38,15 @@
   <string name="editRoundStudy">Schtudie Rundi bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
   <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Partie definitiv lösche.</string>
-  <string name="automaticLeaderboard">Automatischi Ranglischte</string>
-  <string name="automaticLeaderboardHelp">Eifachi Ranglischte, uf Grund vu Schpielergäbnis berächnet, azeige</string>
   <string name="replacePlayerTags">Optional: Schpillernäme, Wertige und Titel weg lah</string>
   <string name="periodInSeconds">Periode i Sekunde</string>
   <string name="periodInSecondsHelp">Optional, wie lang zwüsche Afrage gwartet werden söll. Minimal 2, maximal 60 Sekunde. Die Standardischtellig isch automatisch, basierend uf der Azahl vu de Zueschauer.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE Wältschachverband</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Top 10 Ratings</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE Schpiller</string>
+  <string name="fideFederations">FIDE Wältschachverband</string>
+  <string name="top10Rating">Top 10 Ratings</string>
+  <string name="fidePlayers">FIDE Schpiller</string>
   <string name="fidePlayerNotFound">FIDE Schpiller nöd g\'funde</string>
   <string name="fideProfile">FIDE Profil</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Verband</string>
+  <string name="federation">Verband</string>
   <string name="ageThisYear">Alter i dem Jahr</string>
   <string name="unrated">Ungwertet</string>
   <string name="recentTournaments">Aktuellschti Turnier</string>
