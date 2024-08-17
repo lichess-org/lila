@@ -1,3 +1,7 @@
+body:has(dialog.touch-scroll) {
+  overflow: hidden !important;
+}
+
 dialog {
   @extend %box-radius, %popup-shadow;
   position: fixed;
@@ -92,6 +96,10 @@ dialog {
       display: flex;
       justify-content: end;
       gap: 2em;
+    }
+
+    button {
+      flex: 0;
     }
   }
 }

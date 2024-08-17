@@ -65,7 +65,7 @@ export async function alert(msg: string): Promise<void> {
   await domDialog({
     htmlText: escapeHtml(msg),
     class: 'alert',
-    show: 'modal',
+    show: true,
   });
 }
 
@@ -172,7 +172,6 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private restore?: { focus?: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
   private actionCleanup: { el: Element; type: string; listener: EventListener }[] = [];
   private dialogCleanup: { el: Element; type: string; listener: EventListener }[] = [];
@@ -239,25 +238,16 @@ class DialogWrapper implements Dialog {
   }
 
   show = (): Promise<Dialog> => {
-    this.restore = {
-      overflow: document.body.style.overflow,
-    };
-    document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.show();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   showModal = (): Promise<Dialog> => {
-    this.restore = {
-      focus: document.activeElement as HTMLElement,
-      overflow: document.body.style.overflow,
-    };
     (this.view.querySelectorAll(focusQuery)[1] as HTMLElement)?.focus();
 
     this.addEventListener(this.dialog, 'keydown', onModalKeydown);
     this.view.scrollTop = 0;
-    document.body.style.overflow = 'hidden';
     this.returnValue = '';
     this.dialog.showModal();
     return new Promise(resolve => (this.resolve = resolve));
@@ -295,9 +285,6 @@ class DialogWrapper implements Dialog {
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    this.restore?.focus?.focus(); // one modal at a time please
-    if (this.restore?.overflow !== undefined) document.body.style.overflow = this.restore.overflow;
-    this.restore = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
     this.dialog.remove();
