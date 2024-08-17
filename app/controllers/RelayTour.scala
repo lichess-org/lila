@@ -210,11 +210,6 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         res                      <- JsonOk(env.relay.jsonView.top(active, upcoming, past))
       yield res
 
-  def defaultRound(id: RelayTourId) = Anon:
-    Found(env.relay.api.tourById(id)): tour =>
-      Found(env.relay.listing.defaultRoundToShow.get(tour.id)): round =>
-        roundC.doApiShow(round.withTour(tour))
-
   def player(tourId: RelayTourId, id: String) = Anon:
     Found(env.relay.api.tourById(tourId)): tour =>
       Found(env.relay.playerApi.player(tour.id, id))(JsonOk)
