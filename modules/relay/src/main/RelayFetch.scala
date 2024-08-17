@@ -322,7 +322,7 @@ final private class RelayFetch(
 
 private object RelayFetch:
 
-  val maxChaptersToShow: Max                 = lila.study.Study.maxChapters
+  val maxChaptersToShow: Max                 = Max(100)
   val maxGamesToRead: Max                    = Max(256)
   val maxGamesToReadOfficial: Max            = maxGamesToRead.map(_ * 2)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
