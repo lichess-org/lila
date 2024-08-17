@@ -52,7 +52,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
         if config.html then markup(tour)(md).value
         else md.value)
       .add("teamTable" -> tour.teamTable)
-      .add("leaderboard" -> tour.autoLeaderboard)
+      .add("showScores" -> tour.showScores)
 
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json

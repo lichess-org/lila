@@ -454,12 +454,11 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(form3.textarea(_)(rows := 10))
         ),
         form3
-          .fieldset("Features", toggle = tg.map(_.tour).exists(t => t.autoLeaderboard || t.teamTable).some)(
+          .fieldset("Features", toggle = tg.map(_.tour).exists(t => !t.showScores || t.teamTable).some)(
             form3.split(
               form3.checkbox(
-                form("autoLeaderboard"),
-                trb.automaticLeaderboard(),
-                help = trb.automaticLeaderboardHelp().some
+                form("showScores"),
+                trb.showScores()
               ),
               form3.checkbox(
                 form("teamTable"),

@@ -51,7 +51,7 @@ export default class RelayCtrl {
       : undefined;
     this.players = new RelayPlayers(
       data.tour.id,
-      !!data.tour.leaderboard,
+      !!data.tour.showScores,
       this.isEmbed,
       this.federations,
       redraw,

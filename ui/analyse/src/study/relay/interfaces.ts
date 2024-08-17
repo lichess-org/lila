@@ -49,7 +49,7 @@ export interface RelayTour {
   official?: boolean;
   image?: string;
   teamTable?: boolean;
-  leaderboard?: boolean;
+  showScores?: boolean;
   tier?: number;
   dates?: RelayTourDates;
 }
