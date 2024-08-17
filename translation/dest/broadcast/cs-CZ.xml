@@ -37,8 +37,6 @@
   <string name="editRoundStudy">Upravit studie kola</string>
   <string name="deleteTournament">Smazat tento turnaj</string>
   <string name="definitivelyDeleteTournament">Opravdu smazat celý turnaj, všechna kola a hry.</string>
-  <string name="automaticLeaderboard">Automatický žebříček</string>
-  <string name="automaticLeaderboardHelp">Vypočítejte a zobrazte jednoduchý žebříček na základě výsledků hry</string>
   <string name="periodInSeconds">Doba v sekundách</string>
   <string name="periodInSecondsHelp">Volitelné, jak dlouho se má čekat mezi jednotlivými požadavky. Min. 2s, max. 60s. Výchozí hodnota je automatická podle počtu diváků.</string>
 </resources>
