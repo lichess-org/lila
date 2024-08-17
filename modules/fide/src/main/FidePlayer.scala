@@ -1,6 +1,6 @@
 package lila.fide
 
-import chess.{ FideId, PlayerName, PlayerTitle, Elo }
+import chess.{ FideId, PlayerName, PlayerTitle, Elo, KFactor }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.text.Normalizer
@@ -14,11 +14,11 @@ case class FidePlayer(
     fed: Option[lila.core.fide.Federation.Id],
     title: Option[PlayerTitle],
     standard: Option[Elo],
-    standardK: Option[Int],
+    standardK: Option[KFactor],
     rapid: Option[Elo],
-    rapidK: Option[Int],
+    rapidK: Option[KFactor],
     blitz: Option[Elo],
-    blitzK: Option[Int],
+    blitzK: Option[KFactor],
     year: Option[Int],
     inactive: Option[Boolean],
     fetchedAt: Instant
@@ -29,12 +29,12 @@ case class FidePlayer(
     case FideTC.rapid    => rapid
     case FideTC.blitz    => blitz
 
-  def kFactorOf(tc: FideTC): Int = tc
+  def kFactorOf(tc: FideTC): KFactor = tc
     .match
       case FideTC.standard => standardK
       case FideTC.rapid    => rapidK
       case FideTC.blitz    => blitzK
-    .|(FidePlayer.defaultKFactor)
+    .|(KFactor.default)
 
   def slug: String = FidePlayer.slugify(name)
 
@@ -49,8 +49,6 @@ case class FidePlayer(
   .mkString(", ")
 
 object FidePlayer:
-
-  private val defaultKFactor = 40
 
   private[fide] val tokenize: Tokenize =
     val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r

@@ -139,25 +139,15 @@ private final class RelayPlayerApi(
       .traverse: (id, player) =>
         player.fideId
           .so(fidePlayerGet)
-          .map:
-            _.fold(id -> player): fidePlayer =>
-              (player.rating
-                .orElse(fidePlayer.ratingOf(tc)))
-                .fold(id -> player): rating =>
-                  val kFactor    = fidePlayer.kFactorOf(tc)
-                  val postRating = computeNewEloRating(rating, kFactor, player.games)
-                  id -> player.copy(ratingDiff = (postRating - rating).value.some)
+          .map: fidePlayerOpt =>
+            for
+              fidePlayer <- fidePlayerOpt
+              r          <- player.rating.orElse(fidePlayer.ratingOf(tc))
+              p = Elo.Player(r, fidePlayer.kFactorOf(tc))
+              games = player.games.flatMap: g =>
+                g.opponent.rating.map: opRating =>
+                  Elo.Game(g.outcome.flatMap(_.winner.map(_ == g.color)), opRating)
+            yield player.copy(ratingDiff = games.nonEmpty.option(Elo.computeRatingDiff(p, games)))
+          .map: newPlayer =>
+            id -> (newPlayer | player)
       .map(_.to(SeqMap))
-
-  private def computeNewEloRating(
-      rating: Elo,
-      kFactor: Int,
-      games: Vector[RelayPlayer.Game]
-  ): Elo =
-    val ratedGames = games.flatMap: game =>
-      game.opponent.rating.map(_ -> game.outcome)
-    val playerExpectedScore = ratedGames.foldLeft(0d):
-      case (score, (opRating, _)) => score + 1 / (1 + Math.pow(10, (opRating - rating).value / 400))
-    val playerScore = games.foldLeft(0d): (score, game) =>
-      score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
-    rating + Math.round(kFactor * (playerScore - playerExpectedScore)).toInt

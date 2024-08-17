@@ -2,10 +2,9 @@ package lila.fide
 
 import akka.stream.contrib.ZipInputStreamSource
 import akka.stream.scaladsl.*
-import chess.{ FideId, PlayerName, PlayerTitle, Elo }
+import chess.{ FideId, PlayerName, PlayerTitle, Elo, KFactor }
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
-
 import java.util.zip.ZipInputStream
 
 import lila.core.fide.{ Federation, FideTC }
@@ -133,7 +132,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
       def string(start: Int, end: Int) = line.substring(start, end).trim.some.filter(_.nonEmpty)
       def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
       def rating(start: Int)           = Elo.from(number(start, start + 4).filter(_ >= 1400))
-      def kFactor(start: Int)          = number(start, start + 2).filter(_ > 0)
+      def kFactor(start: Int)          = KFactor.from(number(start, start + 2).filter(_ > 0))
       for
         id    <- number(0, 15)
         name1 <- string(15, 76)
