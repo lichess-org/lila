@@ -38,6 +38,7 @@
   <string name="editRoundStudy">Schtudie Rundi bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
   <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Partie definitiv lösche.</string>
+  <string name="showScores">Zeigt d\'Erfolg vu de Schpiller, anhand vu Schpiel-Ergäbnis</string>
   <string name="replacePlayerTags">Optional: Schpillernäme, Wertige und Titel weg lah</string>
   <string name="periodInSeconds">Periode i Sekunde</string>
   <string name="periodInSecondsHelp">Optional, wie lang zwüsche Afrage gwartet werden söll. Minimal 2, maximal 60 Sekunde. Die Standardischtellig isch automatisch, basierend uf der Azahl vu de Zueschauer.</string>
