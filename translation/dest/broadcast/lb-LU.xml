@@ -33,11 +33,11 @@
   <string name="definitivelyDeleteTournament">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
   <string name="replacePlayerTags">Optional: Spillernimm, Wäertungen an Titelen ersetzen</string>
   <string name="periodInSeconds">Period a Sekonnen</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE-Federatiounen</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE-Spiller</string>
+  <string name="fideFederations">FIDE-Federatiounen</string>
+  <string name="fidePlayers">FIDE-Spiller</string>
   <string name="fidePlayerNotFound">FIDE-Spiller net tfonnt</string>
   <string name="fideProfile">FIDE-Profil</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Federatioun</string>
+  <string name="federation">Federatioun</string>
   <string name="ageThisYear">Alter dëst Joer</string>
   <string name="unrated">Ongewäert</string>
   <string name="recentTournaments">Rezent Turnéieren</string>

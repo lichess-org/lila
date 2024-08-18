@@ -38,17 +38,15 @@
   <string name="editRoundStudy">Editar estudo da rodada</string>
   <string name="deleteTournament">Excluir este torneio</string>
   <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
-  <string name="automaticLeaderboard">Tabela de classificação automática</string>
-  <string name="automaticLeaderboardHelp">Calcula e exibe um placar simples baseado nos resultados dos jogos</string>
   <string name="replacePlayerTags">Opcional: substituir nomes de jogador, ratings e títulos</string>
   <string name="periodInSeconds">Período em segundos</string>
   <string name="periodInSecondsHelp">Opcional: tempo entre as solicitações. Mín. 2s, máx. 60s. Por padrão, é calculado com base no número de espectadores.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federações FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Classificação top 10</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Jogadores FIDE</string>
+  <string name="fideFederations">Federações FIDE</string>
+  <string name="top10Rating">Classificação top 10</string>
+  <string name="fidePlayers">Jogadores FIDE</string>
   <string name="fidePlayerNotFound">Jogador não encontrando na FIDE</string>
   <string name="fideProfile">Perfil FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Federação</string>
+  <string name="federation">Federação</string>
   <string name="ageThisYear">Idade atual</string>
   <string name="unrated">Sem rating</string>
   <string name="recentTournaments">Torneios recentes</string>

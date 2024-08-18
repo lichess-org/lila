@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Ιστολόγια κοινότητας</string>
   <string name="friendBlogs">Μπλογκ φίλων</string>
+  <string name="likedBlogs">Αναρτήσεις που σας άρεσαν</string>
+  <string name="blogTopics">Ιστολόγια ανά θεματολογία</string>
+  <string name="lichessOfficialBlog">Επίσημο Ιστολόγιο του Lichess</string>
+  <string name="continueReadingPost">Συνεχίστε εδώ για να διαβάσετε αυτή την ανάρτηση</string>
+  <string name="lichessBlogPostsFromXYear">Αναρτήσεις στο ιστολόγιο του Lichess το \"%s\"</string>
+  <string name="previousBlogPosts">Προηγούμενες αναρτήσεις ιστολογίου</string>
   <string name="xBlog">Ιστολόγιο του χρήστη %s</string>
   <string name="newPost">Νέα ανάρτηση</string>
   <string name="editYourBlogPost">Επεξεργασία δημοσίευσης</string>

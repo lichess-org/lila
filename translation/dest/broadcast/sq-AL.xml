@@ -37,17 +37,15 @@
   <string name="editRoundStudy">Përpunoni analizë raundi</string>
   <string name="deleteTournament">Fshije këtë turne</string>
   <string name="definitivelyDeleteTournament">Fshihe përfundimisht krejt turneun, krejt raundet e tij dhe krejt lojërat në të.</string>
-  <string name="automaticLeaderboard">Tabelë automatike</string>
-  <string name="automaticLeaderboardHelp">Harto dhe shfaq një tabelë të thjeshtë bazuar në përfundime lojërash</string>
   <string name="replacePlayerTags">Opsionale: zëvendësoni emra lojëtarësh, vlerësime dhe tituj</string>
   <string name="periodInSeconds">Periudhë, në sekonda</string>
   <string name="periodInSecondsHelp">Opsionale, sa gjatë të pritet mes kërkesash. Min. 2s, maks. 60s. Si parazgjedhje, përdoret vlera automatike bazuar në numrin e parësve.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federata FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">10 vlerësimet kryesuese</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Lojtarë FIDE</string>
+  <string name="fideFederations">Federata FIDE</string>
+  <string name="top10Rating">10 vlerësimet kryesuese</string>
+  <string name="fidePlayers">Lojtarë FIDE</string>
   <string name="fidePlayerNotFound">S’u gjet lojtar FIDE</string>
   <string name="fideProfile">Profil FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Federim</string>
+  <string name="federation">Federim</string>
   <string name="ageThisYear">Moshë këtë vit</string>
   <string name="unrated">Pa pikë</string>
   <string name="recentTournaments">Turne së fundi</string>

@@ -70,6 +70,8 @@
   <string name="promoteVariation">Προώθηση βαριάντας</string>
   <string name="makeMainLine">Δημιουργία κύριας γραμμής</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
+  <string name="collapseVariations">Σύμπτυξη παραλλαγών</string>
+  <string name="expandVariations">Εμφάνιση βαριάντων</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
   <string name="copyVariationPgn">Αντιγραφή PGN αρχείου κινήσεων</string>
   <string name="move">Κίνηση</string>
@@ -178,6 +180,7 @@
   <string name="latestForumPosts">Τελευταίες δημοσιεύσεις στο φόρουμ</string>
   <string name="players">Παίκτες</string>
   <string name="friends">Φίλοι</string>
+  <string name="otherPlayers">άλλους παίκτες</string>
   <string name="discussions">Συζητήσεις</string>
   <string name="today">Σήμερα</string>
   <string name="yesterday">Χθες</string>
@@ -505,6 +508,7 @@
   <string name="ifNoneLeaveEmpty">Αν δεν υπάρχει, αφήστε κενό</string>
   <string name="profile">Προφίλ</string>
   <string name="editProfile">Επεξεργασία προφίλ</string>
+  <string name="realName">Πραγματικό όνομα</string>
   <string name="setFlair">Ορίστε τη νιφάδα σας</string>
   <string name="flair">Νιφάδα</string>
   <string name="youCanHideFlair">Υπάρχει μια ρύθμιση για να κρύψει όλες τις νιφάδες χρήστη σε ολόκληρη την ιστοσελίδα.</string>
@@ -535,6 +539,8 @@
   <string name="descPrivateHelp">Κείμενο που θα δουν μόνο τα μέλη της ομάδας. Εάν οριστεί, αντικαθιστά τη δημόσια περιγραφή για τα μέλη της ομάδας.</string>
   <string name="no">Όχι</string>
   <string name="yes">Ναι</string>
+  <string name="website">Ιστοσελίδα</string>
+  <string name="mobile">Εφαρμογή Κινητού</string>
   <string name="help">Βοήθεια:</string>
   <string name="createANewTopic">Δημιουργήστε καινούριο θέμα</string>
   <string name="topics">Θέματα</string>
@@ -553,6 +559,9 @@
   <string name="cheat">Απάτη</string>
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλο</string>
+  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Επικολλήστε τους συνδέσμους με τα παιχνίδια και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Η αναφορά σας θα επεξεργαστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
   <string name="by">από τον %s</string>
   <string name="importedByX">Εισήχθη από τον χρήστη %s</string>

@@ -35,12 +35,12 @@
   <string name="deleteTournament">ئەم پاڵەوانێتییە بسڕەوە</string>
   <string name="definitivelyDeleteTournament">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
   <string name="replacePlayerTags">ئارەزوومەندانە: گۆڕینی ناوی یاریزانان، هەڵسەنگاندن و نازناوەکان</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">فیدراسیۆنی FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">ڕیزبەندی ١٠ باشترینەکان</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">یاریزانەکانی FIDE</string>
+  <string name="fideFederations">فیدراسیۆنی FIDE</string>
+  <string name="top10Rating">ڕیزبەندی ١٠ باشترینەکان</string>
+  <string name="fidePlayers">یاریزانەکانی FIDE</string>
   <string name="fidePlayerNotFound">یاریزانی FIDE نەدۆزرایەوە</string>
   <string name="fideProfile">پرۆفایلی FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">فیدراسیۆن</string>
+  <string name="federation">فیدراسیۆن</string>
   <string name="ageThisYear">تەمەنی ئەمساڵ</string>
   <string name="unrated">ڕیزبەندی نەکراوە</string>
   <string name="recentTournaments">پاڵەوانێتییەکانی ئەم دواییە</string>

@@ -40,17 +40,16 @@
   <string name="editRoundStudy">עריכת לוח הלמידה של הסבב</string>
   <string name="deleteTournament">מחיקת הטורניר הזה</string>
   <string name="definitivelyDeleteTournament">מחיקה לצמיתות של הטורניר הזה, על כל סבביו והמשחקים שבו.</string>
-  <string name="automaticLeaderboard">טבלה אוטומטית</string>
-  <string name="automaticLeaderboardHelp">הצגת טבלה פשוטה שמתבססת על תוצאות המשחקים</string>
+  <string name="showScores">הצגת הניקוד של השחקנים בהתבסס על תוצאות המשחקים</string>
   <string name="replacePlayerTags">אופציונאלי: החלפה של שמות השחקנים, דירוגיהם ותאריהם</string>
   <string name="periodInSeconds">תדירות בשניות</string>
   <string name="periodInSecondsHelp">אופציונאלי. משפיע על משך הזמן שעובר בין משיכות הנתונים מהמקור. בין 2 ל־60 שניות. כתלות במספר הצופים, הקצב עשוי לחזור לברירת המחדל.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">איגודי FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">דירוג עשרת המובילים</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">שחקני FIDE</string>
+  <string name="fideFederations">איגודי FIDE</string>
+  <string name="top10Rating">דירוג עשרת המובילים</string>
+  <string name="fidePlayers">שחקני FIDE</string>
   <string name="fidePlayerNotFound">לא נמצא שחקן FIDE</string>
   <string name="fideProfile">פרופיל FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">איגוד</string>
+  <string name="federation">איגוד</string>
   <string name="ageThisYear">גיל השנה</string>
   <string name="unrated">לא מדורג</string>
   <string name="recentTournaments">טורנירים אחרונים</string>
