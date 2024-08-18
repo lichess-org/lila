@@ -26,11 +26,12 @@ final class SwissJson(
   import lila.gathering.ConditionHandlers.JSONHandlers.*
 
   def api(swiss: Swiss, verdicts: WithVerdicts)(using lang: Lang) = statsApi(swiss).map { stats =>
-    swissJsonBase(swiss) ++ Json.obj(
-      "verdicts" -> verdictsFor(verdicts, swiss.perfType),
-      "stats"    -> stats,
-      "rated"    -> swiss.settings.rated
-    )
+    swissJsonBase(swiss) ++ Json
+      .obj(
+        "verdicts" -> verdictsFor(verdicts, swiss.perfType),
+        "rated"    -> swiss.settings.rated
+      )
+      .add("stats" -> stats)
   }
 
   def apply(
