@@ -23,6 +23,9 @@ $col2-panel-height: 240px;
       padding: 0.4em 0.1em;
       cursor: pointer;
       position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       &:hover {
         background: $c-body-gradient;

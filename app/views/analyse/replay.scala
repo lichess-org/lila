@@ -118,20 +118,33 @@ def replay(
                   lila.game.GameExt
                     .analysable(game)
                     .option(
-                      span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                      span(
+                        role      := "tab",
+                        cls       := "computer-analysis",
+                        dataPanel := "computer-analysis",
+                        title     := trans.site.computerAnalysis.txt()
+                      )(
                         trans.site.computerAnalysis()
                       )
                     ),
                   (!game.isPgnImport).option(
                     frag(
                       (game.ply > 1)
-                        .option(span(role := "tab", dataPanel := "move-times")(trans.site.moveTimes())),
+                        .option(
+                          span(role := "tab", dataPanel := "move-times", title := trans.site.moveTimes.txt())(
+                            trans.site.moveTimes()
+                          )
+                        ),
                       cross.isDefined.option(
-                        span(role := "tab", dataPanel := "ctable")(trans.site.crosstable())
+                        span(role := "tab", dataPanel := "ctable", title := trans.site.crosstable.txt())(
+                          trans.site.crosstable()
+                        )
                       )
                     )
                   ),
-                  span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
+                  span(role := "tab", dataPanel := "fen-pgn", title := trans.study.shareAndExport.txt())(
+                    trans.study.shareAndExport()
+                  )
                 ),
                 div(cls := "analyse__underboard__panels")(
                   lila.game.GameExt
