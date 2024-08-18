@@ -102,12 +102,16 @@ final private class RelayFetch(
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
-        allGamesHaveOutcome = games.nonEmpty && games.forall(_.outcome.isDefined)
-        noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty && rt.round.startedAt.isDefined
-        nextRoundToStart <- noMoreGamesSelected.so(api.nextRoundThatStartsAfterThisOneCompletes(rt.round))
+        nbGamesFinished  = games.count(_.outcome.isDefined)
+        nbGamesUnstarted = games.count(!_.hasMoves)
+        allGamesFinishedOrUnstarted = games.nonEmpty &&
+          nbGamesFinished + nbGamesUnstarted == games.size &&
+          nbGamesFinished > nbGamesUnstarted
+        noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty
+        autoFinishNow       = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
       yield res -> updating:
         _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-          .copy(finished = allGamesHaveOutcome || nextRoundToStart.isDefined)
+          .copy(finished = autoFinishNow)
       syncFu
         .recover:
           case e: Exception =>
@@ -165,7 +169,7 @@ final private class RelayFetch(
               seconds.atLeast {
                 if round.sync.log.justTimedOut then 10 else 2
               }.value
-            } some
+            }.some
           )
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:

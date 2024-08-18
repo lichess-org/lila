@@ -28,7 +28,9 @@ case class RelayGame(
   private def allSame(otherTags: Tags, tagNames: RelayGame.TagNames) = tagNames.forall: tag =>
     otherTags(tag) == tags(tag)
 
-  def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
+  def hasMoves = root.children.nodes.nonEmpty
+
+  def isEmpty = tags.value.isEmpty && !hasMoves
 
   def resetToSetup = copy(
     root = root.withoutChildren,
