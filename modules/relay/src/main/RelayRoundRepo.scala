@@ -69,19 +69,26 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       )
       .void
 
-  def nextRoundThatStartsAfterThisOneCompletes(round: RelayRound): Fu[Option[RelayRound]] =
-    coll
+  def nextRoundThatStartsAfterThisOneCompletes(round: RelayRound): Fu[Option[RelayRound]] = for
+    next <- coll
       .find(
         $doc(
-          "tourId"   -> round.tourId,
-          "finished" -> false,
-          "startsAt" -> BSONHandlers.startsAfterPrevious,
-          "createdAt".$gt(round.createdAt)
+          "tourId" -> round.tourId,
+          "startedAt".$exists(false),
+          "startsAt" -> BSONHandlers.startsAfterPrevious
         )
       )
-      .sort($doc("createdAt" -> 1))
+      .sort(sort.asc)
       .cursor[RelayRound]()
       .uno
+    nextOrder <- next.soFu(n => orderOf(n.id))
+    curOrder  <- next.isDefined.soFu(orderOf(round.id))
+  yield for
+    n  <- next
+    no <- nextOrder
+    co <- curOrder
+    if no == co.map(_ + 1)
+  yield n
 
 private object RelayRoundRepo:
 
