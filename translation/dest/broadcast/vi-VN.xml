@@ -37,6 +37,7 @@
   <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
+  <string name="showScores">Hiển thị điểm số của người chơi dựa trên kết quả ván đấu</string>
   <string name="replacePlayerTags">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
   <string name="periodInSeconds">Khoảng thời gian tính bằng giây</string>
   <string name="periodInSecondsHelp">Tùy chọn, thời gian chờ đợi giữa các yêu cầu. Tối thiểu 2 giây, tối đa 60 giây. Mặc định là tự động dựa trên số lượng người xem.</string>
