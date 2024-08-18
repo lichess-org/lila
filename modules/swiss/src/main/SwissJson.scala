@@ -1,5 +1,6 @@
 package lila.swiss
 
+import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
@@ -179,6 +180,7 @@ object SwissJson:
       })
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
       .add("password" -> swiss.settings.password.isDefined)
+      .add("position" -> swiss.settings.position.map(fullFen => positionJson(fullFen.opening)))
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(view, performance = false) ++ Json
@@ -295,6 +297,24 @@ object SwissJson:
       "rating" -> player.rating,
       "user"   -> player.user
     )
+
+  // duplicate modules/tournament/src/main/JsonView.scala
+  private[swiss] def positionJson(fen: Fen.Standard): JsObject =
+    lila.gathering.Thematic.byFen(fen) match
+      case Some(pos) =>
+        Json
+          .obj(
+            "eco"  -> pos.eco,
+            "name" -> pos.name,
+            "fen"  -> pos.fen,
+            "url"  -> pos.url
+          )
+      case None =>
+        Json
+          .obj(
+            "name" -> "Custom position",
+            "fen"  -> fen
+          )
 
   private given Writes[SwissRoundNumber]  = Writes(n => JsNumber(n.value))
   private given Writes[SwissPoints]       = Writes(p => JsNumber(BigDecimal(p.value)))
