@@ -16,7 +16,7 @@ import { h } from 'snabbdom';
 export class MultiBoardCtrl {
   playing: Toggle;
   page: number = 1;
-  maxPerPage: number = 12;
+  maxPerPageStorage = site.storage.make('study.multiBoard.maxPerPage');
 
   constructor(
     readonly chapters: StudyChapters,
@@ -29,17 +29,22 @@ export class MultiBoardCtrl {
 
   private chapterFilter = (c: ChapterPreview) => !this.playing() || c.playing;
 
+  maxPerPage = () => Math.min(32, parseInt(this.maxPerPageStorage.get() || '12'));
+
+  setMaxPerPage = (nb: string) => {
+    this.maxPerPageStorage.set(nb);
+    this.redraw();
+  };
+
   pager = (): Paginator<ChapterPreview> => {
+    const maxPerPage = this.maxPerPage();
     const filteredResults = this.chapters.all().filter(this.chapterFilter);
-    const currentPageResults = filteredResults.slice(
-      (this.page - 1) * this.maxPerPage,
-      this.page * this.maxPerPage,
-    );
+    const currentPageResults = filteredResults.slice((this.page - 1) * maxPerPage, this.page * maxPerPage);
     const nbResults = filteredResults.length;
-    const nbPages = Math.floor((nbResults + this.maxPerPage - 1) / this.maxPerPage);
+    const nbPages = Math.floor((nbResults + maxPerPage - 1) / maxPerPage);
     return {
       currentPage: this.page,
-      maxPerPage: this.maxPerPage,
+      maxPerPage: maxPerPage,
       currentPageResults,
       nbResults,
       previousPage: this.page > 1 ? this.page - 1 : undefined,
@@ -85,13 +90,21 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
   const page = ctrl.page,
     from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
-    to = Math.min(pager.nbResults, page * pager.maxPerPage);
+    to = Math.min(pager.nbResults, page * pager.maxPerPage),
+    max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
     pagerButton('first', licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton('previous', licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
     pagerButton('next', licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
     pagerButton('last', licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
+    h(
+      'select',
+      { hook: bind('change', (e: Event) => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
+      [4, 6, 8, 10, 12, 16, 20, 24, 32].map(nb =>
+        h('option', { attrs: { value: nb, selected: nb == max } }, `${nb} per page`),
+      ),
+    ),
   ]);
 }
 
