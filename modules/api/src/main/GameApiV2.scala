@@ -419,12 +419,7 @@ object GameApiV2:
         rated = rated
       )
 
-    def postFilter(g: Game) =
-      rated.forall(g.rated ==) && {
-        perfKey.isEmpty || perfKey.contains(g.perfKey)
-      } && color.forall { c =>
-        g.player(c).userId.has(user.id)
-      } && analysed.forall(g.metadata.analysed ==)
+    def postFilter(g: Game) = rated.forall(g.rated ==)
 
   case class ByIdsConfig(
       ids: Seq[GameId],
