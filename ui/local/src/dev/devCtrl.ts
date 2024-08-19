@@ -1,9 +1,7 @@
-import * as co from 'chessops';
-import { rateBotMatchup, RateBot } from './rateBot';
+import { RateBot, rateBotMatchup } from './rateBot';
 import type { BotInfo, LocalSpeed } from '../types';
 import { statusOf } from 'game/status';
 import { defined } from 'common';
-import * as licon from 'common/licon';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { storedBooleanProp } from 'common/storage';
 import type { GameStatus, MoveContext } from '../localGame';
@@ -26,13 +24,13 @@ export interface Matchup {
   black: string;
 }
 
-export interface Script extends Test {
+interface Script extends Test {
   games: Matchup[];
 }
 
 export type Glicko = { r: number; rd: number };
 
-export type DevRatings = { [speed in LocalSpeed]?: Glicko };
+type DevRatings = { [speed in LocalSpeed]?: Glicko };
 
 export class DevCtrl {
   hurry: boolean = storedBooleanProp('local.dev.hurry', false)();
@@ -82,18 +80,23 @@ export class DevCtrl {
   }
 
   onGameOver({ winner, turn, reason, status }: GameStatus): boolean {
-    console.info(`game ${this.log.length}:`, winner ?? 'draw', status, reason ?? '');
     const last = { winner, white: this.white?.uid, black: this.black?.uid };
     this.log.push(last);
     if (status === statusOf('cheat')) {
       console.error(
-        `${this.white?.name ?? 'player'} (white) vs ${
-          this.black?.name ?? 'player'
-        } (black) - ${turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`,
+        `${env.game.nameOf('white')} vs ${env.game.nameOf('black')} - ${turn} ${reason} - ${
+          env.game.live.fen
+        } ${env.game.live.moves.join(' ')}`,
         JSON.stringify(env.game.live.chess),
       );
       return false;
-    }
+    } else
+      console.info(
+        `game ${this.log.length} ${env.game.nameOf('white')} vs ${env.game.nameOf('black')}:`,
+        winner ? `${env.game.nameOf(winner)} wins by` : 'draw',
+        status.name,
+        reason ?? '',
+      );
     if (!this.white?.uid || !this.black?.uid) return false;
     this.updateRatings(this.white.uid, this.black.uid, winner);
 
@@ -127,6 +130,11 @@ export class DevCtrl {
 
   get gameInProgress(): boolean {
     return env.game.live.ply > 0 && !env.game.live.status.end;
+  }
+
+  async clearRatings(): Promise<void> {
+    await this.localRatings.clear();
+    this.ratings = {};
   }
 
   private matchups(test: Test, iterations = 1): Matchup[] {

@@ -65,7 +65,7 @@ class AssetDialog {
             { selector: '.asset-grid', event: ['dragover', 'drop'], listener: this.dragDrop },
             { selector: '[data-action="add"]', listener: this.addItem },
             { selector: '[data-action="remove"]', listener: this.delete },
-            { selector: '[data-action="share"]', listener: this.share },
+            { selector: '[data-action="push"]', listener: this.push },
             { selector: '[data-type="string"]', event: 'keydown', listener: this.nameKeyDown },
             { selector: '[data-type="string"]', event: 'change', listener: this.nameChange },
             { selector: '.asset-item', listener: this.clickItem },
@@ -102,7 +102,7 @@ class AssetDialog {
       if (env.repo.isLocalOnly(key)) {
         wrap.append(
           frag(`<button class="button button-empty icon-btn upper-left" tabindex="0"
-          data-icon="${licon.UploadCloud}" data-action="share" title="upload asset to server">`),
+          data-icon="${licon.UploadCloud}" data-action="push" title="upload asset to server">`),
         );
       }
     }
@@ -166,14 +166,14 @@ class AssetDialog {
     this.refresh();
   };
 
-  share = async (e: Event): Promise<string | undefined> => {
+  push = async (e: Event): Promise<string | undefined> => {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item') as HTMLElement;
     const key = el.dataset.asset!;
     const name = (
       await domDialog({
         class: 'alert',
-        htmlText: `<div>share as: <input type="text" value="${this.local.get(key) ?? key}"></div>
+        htmlText: `<div>push as: <input type="text" value="${this.local.get(key) ?? key}"></div>
           <span><button class="button">upload</button></span>`,
         actions: {
           selector: 'button',
@@ -188,9 +188,9 @@ class AssetDialog {
     ).returnValue;
     if (!name || name === 'cancel') return key;
     try {
-      await env.share.postAsset({ ...env.repo.assetBlob(this.type, key)!, name });
+      await env.push.postAsset({ ...env.repo.assetBlob(this.type, key)!, name });
     } catch (x) {
-      console.error('share failed', x);
+      console.error('push failed', x);
       return undefined;
     }
     this.refresh();

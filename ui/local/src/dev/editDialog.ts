@@ -3,12 +3,11 @@ import { handOfCards, type HandOfCards, type CardData } from '../handOfCards';
 import { defined, escapeHtml, frag, deepFreeze } from 'common';
 import { buildFromSchema, Panes } from './panes';
 import { removeObjectProperty, closeEnough, deadStrip } from './devUtil';
-import * as licon from 'common/licon';
 import { domDialog, confirm, alert, type Dialog, type Action } from 'common/dialog';
 import type { BotInfo } from '../types';
 import { Bot } from '../bot';
 import { assetDialog } from './assetDialog';
-import stringify from 'json-stringify-pretty-compact';
+import { historyDialog } from './historyDialog';
 import { env } from '../localEnv';
 
 export class EditDialog {
@@ -72,7 +71,7 @@ export class EditDialog {
       .querySelector('[data-bot-action="pull-one"]')
       ?.classList.toggle('none', !this.isDirty() && !this.localChanges);
     this.view
-      .querySelector('[data-bot-action="share-one"]')
+      .querySelector('[data-bot-action="push-one"]')
       ?.classList.toggle('none', this.isDirty() || !this.localChanges);
   }
 
@@ -101,13 +100,13 @@ export class EditDialog {
       { selector: '[data-bot-action="save-one"]', listener: () => this.save() },
       { selector: '[data-bot-action="new"]', listener: () => this.newBot() },
       { selector: '[data-bot-action="delete"]', listener: () => this.deleteBot() },
-      { selector: '[data-bot-action="json-one"]', listener: () => this.showJson([this.bot.uid]) },
-      { selector: '[data-bot-action="json-all"]', listener: () => this.showJson() },
-      //{ selector: '[data-bot-action="unrate-one"]', listener: () => this.clearRatings([this.bot.uid]) },
+      { selector: '[data-bot-action="history-one"]', listener: () => historyDialog(this, this.uid) },
+      //{ selector: '[data-bot-action="history-all"]', listener: () => historyDialog(this) },
+      { selector: '[data-bot-action="unrate-all"]', listener: () => this.clearRatings() },
       { selector: '[data-bot-action="assets"]', listener: () => assetDialog() },
-      { selector: '[data-bot-action="share-one"]', listener: () => this.share() },
-      { selector: '[data-bot-action="pull-one"]', listener: () => this.clearBots([this.bot.uid]) },
-      { selector: '[data-bot-action="pull-all"]', listener: () => this.clearBots() },
+      { selector: '[data-bot-action="push-one"]', listener: () => this.push() },
+      { selector: '[data-bot-action="pull-one"]', listener: () => this.pullBots([this.bot.uid]) },
+      { selector: '[data-bot-action="pull-all"]', listener: () => this.pullBots() },
       { selector: '.player', listener: e => this.clickImage(e) },
     ];
   }
@@ -132,15 +131,11 @@ export class EditDialog {
       .sort(env.bot.classifiedSort(speed));
   }
 
-  private share() {
-    env.share.postBot(this.bot).then(err => {
-      if (err) {
-        alert(err);
-        return;
-      }
-      delete this.scratch[this.uid];
-      this.update();
-    });
+  private async push() {
+    const err = await env.push.postBot(this.bot);
+    if (err) return alert(err);
+    delete this.scratch[this.uid];
+    this.update();
   }
 
   private save() {
@@ -160,33 +155,29 @@ export class EditDialog {
     this.uid = uid;
     this.makeEditView();
     this.update();
-    //this.onSelectBot?.(this.uid);
   }
 
-  private deleteBot(): void {
-    confirm(`Delete ${this.uid}?`).then(ok => {
-      if (!ok) return;
-      fetch('/local/dev/bot', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: `{"uid":"${this.uid}"}`,
-      }).then(async rsp => {
-        if (!rsp.ok) return;
-        delete this.scratch[this.uid];
-        await env.bot.delete(this.uid).then(() => this.selectBot(env.bot.firstUid));
-        this.update();
-      });
+  private async deleteBot(): Promise<void> {
+    if (!(await confirm(`Delete ${this.uid}?`))) return;
+
+    const rsp = await fetch('/local/dev/bot', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: `{"uid":"${this.uid}"}`,
     });
+
+    if (!rsp.ok) return;
+    delete this.scratch[this.uid];
+    await env.bot.delete(this.uid).then(() => this.selectBot(env.bot.firstUid));
+    this.update();
   }
 
-  private clearBots = async (uids?: string[]) => {
+  private pullBots = async (uids?: string[]) => {
     if (!(await confirm(uids ? `Pull ${uids.join(' ')}?` : 'Pull all server bots?'))) return;
-    for (const uid of uids ?? Object.keys(this.bots)) {
-      delete this.scratch[uid];
-    }
-    await env.bot.clearStoredBots(uids);
+    const clear = (uids ?? Object.keys(this.bots)).filter(uid => env.bot.serverBots[uid]);
+    clear.forEach(uid => delete this.scratch[uid]);
+    await env.bot.clearStoredBots(clear);
     this.selectBot(this.bot.uid in this.bots ? this.bot.uid : Object.keys(this.bots)[0]);
-    //alert(uids ? `Cleared ${uids.join(' ')}` : 'Local bots cleared'); // flash for this stuff
   };
 
   private async clickImage(e: Event) {
@@ -211,39 +202,11 @@ export class EditDialog {
     this.panes.forEach(el => el.setEnabled());
   }
 
-  private async showJson(uids?: string[]): Promise<void> {
-    const text = escapeHtml(
-      stringify(uids ? uids.map(id => this.bots[id]) : [...Object.values(this.bots)], {
-        indent: 2,
-        maxLength: 80,
-      }),
-    );
-    const clear = text ? `<button class="button button-empty button-red clear">clear local</button>` : '';
-    const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
-    const dlg = await domDialog({
-      class: 'diagnostic',
-      css: [{ hashed: 'bits.diagnosticDialog' }],
-      htmlText: `
-      <h2>bots.json</h2>
-      <pre tabindex="0" class="json">${text}</pre>
-      <span class="actions">${clear}<div class="spacer"></div>${copy}</span>`,
-    });
-    const select = () =>
-      setTimeout(() => {
-        const range = document.createRange();
-        range.selectNodeContents(dlg.view.querySelector('.json')!);
-        window.getSelection()?.removeAllRanges();
-        window.getSelection()?.addRange(range);
-      }, 0);
-    $('.json', dlg.view).on('focus', select);
-    $('.copy', dlg.view).on('click', () =>
-      navigator.clipboard.writeText(text).then(() => {
-        const copied = $(`<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`);
-        $('.copy', dlg.view).before(copied);
-        setTimeout(() => copied.remove(), 2000);
-      }),
-    );
-    dlg.showModal();
+  private async showHistory(uids?: string[]): Promise<void> {}
+
+  private async clearRatings(): Promise<void> {
+    await env.dev.clearRatings();
+    alert('ratings cleared');
   }
 
   private newBot(): void {
@@ -314,14 +277,15 @@ export class EditDialog {
   private globalActionsEl = frag<HTMLElement>(`<div class="global-actions">
       <button class="button button-empty button-green" data-bot-action="new">new bot</button>
       <button class="button button-empty button-brag" data-bot-action="assets">assets</button>
-      <button class="button button-empty" data-bot-action="pull-all">pull all server</button>
+      <button class="button button-empty" data-bot-action="pull-all">pull all</button>
+      <button class="button button-empty button-dim" data-bot-action="unrate-all">clear all ratings</button>
     </div>`);
 
   private botActionsEl = frag<HTMLElement>(`<div class="bot-actions">
       <button class="button button-empty button-red" data-bot-action="delete">delete</button>
-      <button class="button button-empty button-dim" data-bot-action="json-one">json</button>
-      <button class="button button-empty none" data-bot-action="pull-one">server</button>
-      <button class="button button-empty button-brag none" data-bot-action="share-one">share</button>
+      <button class="button button-empty button-brag" data-bot-action="history-one">history</button>
+      <button class="button button-empty none" data-bot-action="pull-one">pull</button>
+      <button class="button button-empty button-clas none" data-bot-action="push-one">push</button>
       <button class="button button-green none" data-bot-action="save-one">save</button>
     </div>`);
 

@@ -100,11 +100,11 @@ export type AnyInfo =
 
 type ExtractType<T> = T extends { type: infer U } ? U : never;
 
-export type InfoType = ExtractType<AnyInfo> | 'group' | 'radioGroup';
+type InfoType = ExtractType<AnyInfo> | 'group' | 'radioGroup';
 
 export type PropertyValue = Operator | Book[] | Sound[] | string | number | boolean | undefined;
 
-export type SchemaValue = Schema | AnyInfo | PropertyValue | Requirement | string[];
+type SchemaValue = Schema | AnyInfo | PropertyValue | Requirement | string[];
 
 export interface Schema extends PaneInfo {
   [key: string]: SchemaValue;

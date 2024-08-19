@@ -191,9 +191,9 @@ export function view(ctrl: StudyShare): VNode {
                   ),
                 ),
               },
-              'study to bot editor',
+              'bot editor',
             ),
-            h(
+            /*h(
               'button.button.text',
               {
                 hook: bind('click', () =>
@@ -203,7 +203,7 @@ export function view(ctrl: StudyShare): VNode {
                 ),
               },
               'chapter to bot editor',
-            ),
+            ),*/
           ]),
           h('form.form3', [
             ...(ctrl.relay

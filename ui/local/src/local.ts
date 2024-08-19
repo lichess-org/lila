@@ -13,11 +13,8 @@ const patch = init([classModule, attributesModule]);
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
   opts.setup ??= JSON.parse(localStorage.getItem('local.setup') ?? '{}');
 
-  initEnv(opts.userId, opts.username);
-
-  env.redraw = redraw;
-  [env.bot, env.assets] = await Promise.all([new BotCtrl().init(opts.bots), new Assets().init()]);
-  env.game = new GameCtrl(opts);
+  initEnv({ redraw, bot: new BotCtrl(), assets: new Assets(), game: new GameCtrl(opts) });
+  await Promise.all([env.bot.init(opts.bots), env.assets.init()]);
   await env.game.init();
 
   const el = document.createElement('main');
@@ -26,7 +23,7 @@ export async function initModule(opts: LocalPlayOpts): Promise<void> {
 
   env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
-  if (!opts.setup?.go) {
+  if (!opts.setup?.go || location.hash === '#new') {
     showSetupDialog(env.bot, opts.setup);
     return;
   }

@@ -46,8 +46,8 @@ export class BotCtrl {
 
   async init(serverBots: BotInfo[]): Promise<this> {
     this.zerofish = await makeZerofish({
-      root: site.asset.url('npm', { documentOrigin: true }),
-      wasm: site.asset.url('npm/zerofishEngine.wasm'),
+      root: site.asset.url('npm', { documentOrigin: true, version: false }),
+      wasm: site.asset.url('npm/zerofishEngine.wasm', { version: false }),
       dev: env.isDev,
     });
     if (env.isDev) {
@@ -112,7 +112,7 @@ export class BotCtrl {
     return this.zerofish.reset();
   }
 
-  save(bot: Bot): Promise<any> {
+  save(bot: BotInfo): Promise<any> {
     delete this.localBots[bot.uid];
     this.bots[bot.uid] = new Bot(bot);
     if (closeEnough(this.serverBots[bot.uid], bot)) return this.store.remove(bot.uid);

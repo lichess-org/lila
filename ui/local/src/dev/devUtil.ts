@@ -7,12 +7,6 @@ import type { Result } from './devCtrl';
 
 type ObjectPath = { obj: any; path: { keys: string[] } | { id: string } };
 
-function pathToKeys({ path, obj }: ObjectPath): string[] {
-  if ('keys' in path) return path.keys;
-  const keys = path.id.split('_');
-  return keys[0] in obj ? keys : keys.slice(1);
-}
-
 export function resolveObjectProperty(op: ObjectPath): string[] {
   return pathToKeys(op).reduce((o, key) => o?.[key], op.obj);
 }
@@ -33,21 +27,6 @@ export function setObjectProperty({ obj, path, value }: ObjectPath & { value: an
   if (keys.length === 1) obj[keys[0]] = value;
   else if (!(keys[0] in obj)) obj[keys[0]] = {};
   setObjectProperty({ obj: obj[keys[0]], path: { keys: keys.slice(1) }, value });
-}
-
-function isEmpty(prop: any): boolean {
-  return Array.isArray(prop)
-    ? prop.length === 0
-    : typeof prop === 'object'
-    ? Object.keys(prop).length === 0
-    : false;
-}
-
-function filteredKeys(obj: any): string[] {
-  if (typeof obj !== 'object') return obj;
-  return Object.entries(obj)
-    .filter(([, v]) => !isEmpty(v))
-    .map(([k]) => k);
 }
 
 // ignores empty objects & arrays for BotInfo equivalence.
@@ -121,4 +100,25 @@ export function removeButton(cls: string = ''): Node {
   return frag(
     `<button class="button button-empty button-red icon-btn ${cls}" tabindex="0" data-icon="${licon.Cancel}" data-action="remove">`,
   );
+}
+
+function pathToKeys({ path, obj }: ObjectPath): string[] {
+  if ('keys' in path) return path.keys;
+  const keys = path.id.split('_');
+  return keys[0] in obj ? keys : keys.slice(1);
+}
+
+function isEmpty(prop: any): boolean {
+  return Array.isArray(prop)
+    ? prop.length === 0
+    : typeof prop === 'object'
+    ? Object.keys(prop).length === 0
+    : false;
+}
+
+function filteredKeys(obj: any): string[] {
+  if (typeof obj !== 'object') return obj;
+  return Object.entries(obj)
+    .filter(([, v]) => !isEmpty(v))
+    .map(([k]) => k);
 }

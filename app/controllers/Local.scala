@@ -36,7 +36,7 @@ final class Local(env: Env) extends LilaController(env):
     env.local.repo
       .getLatestBots()
       .map: bots =>
-        JsonOk(Json.obj("bots" -> bots.pp))
+        JsonOk(Json.obj("bots" -> bots))
 
   def assetKeys = Open: // for service worker
     JsonOk(env.local.api.assetKeys)
@@ -48,9 +48,9 @@ final class Local(env: Env) extends LilaController(env):
       page   <- renderPage(indexPage(none, bots, assets.some))
     yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
-  def devBotHistory = AuthBody: _ ?=>
+  def devBotHistory(botId: Option[String]) = AuthBody: _ ?=>
     env.local.repo
-      .getAllBots()
+      .getVersions(botId.map(UserId.apply))
       .map: history =>
         JsonOk(Json.obj("bots" -> history))
 

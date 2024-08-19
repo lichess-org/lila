@@ -1,19 +1,19 @@
 import * as co from 'chessops';
-import { looseH as h, VNode, onInsert, bind } from 'common/snabbdom';
+import { type VNode, looseH as h, onInsert, bind } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import { storedBooleanProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
 import { EditDialog } from './editDialog';
 import { Bot } from '../bot';
 import { resultsString, playersWithResults } from './devUtil';
-import { handOfCards, type Drop, type HandOfCards } from '../handOfCards';
+import { type Drop, type HandOfCards, handOfCards } from '../handOfCards';
 import { domIdToUid, uidToDomId } from '../botCtrl';
 import { rangeTicks } from '../gameView';
 import { defined } from 'common';
-import { LocalSetup, LocalSpeed } from '../types';
+import type { LocalSetup, LocalSpeed } from '../types';
 import { env } from '../localEnv';
 
-export function renderDevView(): VNode {
+export function devSideView(): VNode {
   document
     .querySelectorAll('div.rclock')
     .forEach(el => el.classList.toggle('none', !Number.isFinite(env.game.localSetup.initial)));
@@ -72,11 +72,13 @@ function player(color: Color): VNode {
             {
               hook: onInsert(el =>
                 el.addEventListener('click', e => {
-                  env.dev.setRating(p.uid, env.game.speed, { r: 1500, rd: 350 });
+                  const bot = env.bot[color] as Bot;
+                  if (!bot) return;
+                  env.dev.setRating(bot.uid, env.game.speed, { r: 1500, rd: 350 });
                   e.stopPropagation();
                   env.dev.run({
                     type: 'rate',
-                    players: [p.uid, ...env.bot.rateBots.map(b => b.uid)],
+                    players: [bot.uid, ...env.bot.rateBots.map(b => b.uid)],
                   });
                 }),
               ),
@@ -131,7 +133,7 @@ function clockOptions() {
   return h('span', [
     ...(['initial', 'increment'] as const).map(type => {
       return h('label', [
-        type === 'initial' ? 'clock' : 'inc',
+        type === 'initial' ? 'clk' : 'inc',
         h(
           `select.${type}`,
           {

@@ -25,7 +25,6 @@ class SetupDialog {
     setup: LocalSetup,
   ) {
     this.setup = { ...setup };
-    console.log(botCtrl.all);
   }
 
   show() {

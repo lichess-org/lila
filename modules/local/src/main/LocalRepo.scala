@@ -12,9 +12,9 @@ final private class LocalRepo(private[local] val bots: Coll, private[local] val 
   // given botMetaHandler: BSONDocumentHandler[BotMeta] = Macros.handler
   given Format[BotMeta] = Json.format
 
-  def getAllBots(): Fu[JsArray] =
+  def getVersions(botId: Option[UserId] = none): Fu[JsArray] =
     bots
-      .find($doc(), $doc("_id" -> 0).some)
+      .find(botId.fold[Bdoc]($doc())(v => $doc("uid" -> v)), $doc("_id" -> 0).some)
       .sort($doc("version" -> -1))
       .cursor[Bdoc]()
       .list(Int.MaxValue)

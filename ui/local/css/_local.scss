@@ -14,11 +14,11 @@
   @extend %flex-center;
 
   img {
-    margin-inline-start: auto;
     width: 80px;
   }
   span {
     @extend %flex-center-nowrap;
+    margin-inline-end: auto;
   }
 }
 

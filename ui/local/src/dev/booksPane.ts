@@ -7,36 +7,6 @@ import { removeButton } from './devUtil';
 import { assetDialog } from './assetDialog';
 import { env } from '../localEnv';
 
-export class BookPane extends RangeSetting {
-  label: HTMLLabelElement;
-  parent: BooksPane;
-  constructor(p: PaneArgs, key: string) {
-    super(p);
-    this.el.append(removeButton());
-    const span = this.label.firstElementChild as HTMLElement;
-    span.dataset.src = env.repo.getBookCoverUrl(key);
-    span.classList.add('image-powertip');
-    this.rangeInput.insertAdjacentHTML('afterend', 'wt');
-  }
-
-  getProperty(): number {
-    return this.parent.getWeight(this) ?? this.info.value ?? 1;
-  }
-
-  setProperty(value: number): void {
-    this.parent.setWeight(this, value);
-  }
-
-  update(e?: Event): void {
-    if (!(e?.target instanceof HTMLElement)) return;
-    if (e.target.dataset.action === 'remove') {
-      this.parent.removeBook(this);
-      this.el.remove();
-      this.host.update();
-    } else super.update(e);
-  }
-}
-
 export class BooksPane extends Pane {
   info: BooksInfo;
   template: RangeInfo = {
@@ -99,7 +69,7 @@ export class BooksPane extends Pane {
         ...this.template,
         label: env.repo.nameOf(book.key) ?? `unknown '${book.key}'`,
         value: book.weight,
-        id: `${this.id}_${counter++}`,
+        id: `${this.id}_${idCounter++}`,
       },
       parent: this,
     };
@@ -117,4 +87,34 @@ export class BooksPane extends Pane {
   }
 }
 
-let counter = 0;
+let idCounter = 0;
+
+class BookPane extends RangeSetting {
+  label: HTMLLabelElement;
+  parent: BooksPane;
+  constructor(p: PaneArgs, key: string) {
+    super(p);
+    this.el.append(removeButton());
+    const span = this.label.firstElementChild as HTMLElement;
+    span.dataset.src = env.repo.getBookCoverUrl(key);
+    span.classList.add('image-powertip');
+    this.rangeInput.insertAdjacentHTML('afterend', 'wt');
+  }
+
+  getProperty(): number {
+    return this.parent.getWeight(this) ?? this.info.value ?? 1;
+  }
+
+  setProperty(value: number): void {
+    this.parent.setWeight(this, value);
+  }
+
+  update(e?: Event): void {
+    if (!(e?.target instanceof HTMLElement)) return;
+    if (e.target.dataset.action === 'remove') {
+      this.parent.removeBook(this);
+      this.el.remove();
+      this.host.update();
+    } else super.update(e);
+  }
+}

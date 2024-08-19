@@ -115,6 +115,9 @@
     @extend %flex-center-nowrap;
     gap: 0.5em;
   }
+  button {
+    padding: 0.5em;
+  }
   .player {
     @extend %flex-center-nowrap;
     position: relative;
@@ -266,7 +269,6 @@
   background: $c-bg-high;
   gap: 1em;
   padding: 1.5em 1em;
-
   > hr {
     margin: 5px;
   }

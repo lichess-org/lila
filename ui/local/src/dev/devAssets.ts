@@ -1,7 +1,6 @@
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { botAssetUrl, Assets } from '../assets';
-import { makeBookFromPolyglot, makeBookFromPgn, type OpeningBook } from 'bits/polyglot';
-import { domDialog, confirm } from 'common/dialog';
+import { type OpeningBook, makeBookFromPolyglot, makeBookFromPgn } from 'bits/polyglot';
 import { zip } from 'common';
 import { env } from '../localEnv';
 
@@ -9,7 +8,7 @@ import { env } from '../localEnv';
 // dev asset names come from the original filename but can be renamed whatever
 // dev asset blobs are stored in idb
 
-export type ShareType = 'image' | 'sound' | 'book';
+type ShareType = 'image' | 'sound' | 'book';
 export type AssetType = ShareType | 'bookCover' | 'net';
 
 const assetTypes: AssetType[] = ['image', 'sound', 'book', 'bookCover', 'net'];
@@ -127,30 +126,31 @@ export class DevAssets extends Assets {
     return key;
   }
 
-  async importBook(pgn: string, studyName: string): Promise<void> {
-    const name = (
-      await domDialog({
-        class: 'alert',
-        htmlText: `<div>book name: <input type="text" value="${studyName}"></div>
-      <span><button class="button">export</button></span>`,
-        actions: {
-          selector: 'button',
-          listener: async (_, dlg) => {
-            const name = (dlg.view.querySelector('input') as HTMLInputElement).value;
-            if (!name) dlg.close();
-            if ([...this.idb['book'].keyNames.values()].includes(name)) {
-              const ok = await confirm('That book already exists. Replace?');
-              if (ok) dlg.close(name);
-            } else dlg.close(name);
-          },
-        },
-        show: true,
-      })
-    ).returnValue;
-    if (!name || name === 'cancel') return;
-    // a study or chapter can be repeatedly updated with the same name after
-    // making/testing edits. in that case, we need to patch all bots using that old book to
-    // the new key when we import the change because bot.books is a list of keys, not names
+  async importBook(pgn: string, name: string): Promise<void> {
+    // const name = (
+    //   await domDialog({
+    //     class: 'alert',
+    //     htmlText: `<div>book name: <input type="text" value="${studyName}"></div>
+    //   <span><button class="button">export</button></span>`,
+    //     actions: {
+    //       selector: 'button',
+    //       listener: async (_, dlg) => {
+    //         const name = (dlg.view.querySelector('input') as HTMLInputElement).value;
+    //         if (!name) dlg.close();
+    //         if ([...this.idb['book'].keyNames.values()].includes(name)) {
+    //           const ok = await confirm('That book already exists. Replace?');
+    //           if (ok) dlg.close(name);
+    //         } else dlg.close(name);
+    //       },
+    //     },
+    //     show: true,
+    //   })
+    // ).returnValue;
+    // if (!name || name === 'cancel') return;
+
+    // a study can be repeatedly updated with the same name after making/testing edits. in that
+    // case, we need to patch all bots using that old book to the new key when we import the
+    // change because bot.books is a list of keys, not names
     const result = await makeBookFromPgn(pgn, { depth: 10, boardSize: 192 });
     if (!result.polyglot || !result.cover) {
       console.error(result);
@@ -162,7 +162,7 @@ export class DevAssets extends Assets {
     const asset = { blob: result.polyglot, name, user: env.user };
     const cover = { blob: result.cover, name, user: env.user };
     await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
-    if (!oldKey || oldKey === key) return;
+    if (!oldKey || oldKey === key) return alert(`${name} exported to bot studio`);
     const promises: Promise<void>[] = [];
     for (const bot of env.bot.all) {
       const existing = bot.books?.find(b => b.key === oldKey);
@@ -172,6 +172,7 @@ export class DevAssets extends Assets {
       }
     }
     await Promise.allSettled([...promises, this.idb.book.rm(oldKey), this.idb.bookCover.rm(oldKey)]);
+    alert(`${name} exported to bot studio. ${promises.length} bots updated`);
   }
 
   async clearLocal(type: AssetType, key: string): Promise<void> {
@@ -208,7 +209,7 @@ export class DevAssets extends Assets {
     if (cached) return cached;
     const bookBlob = this.idb.book.keyNames.has(key)
       ? (await this.idb.book.get(key)).blob
-      : await fetch(botAssetUrl('book', `${key}.bin`, false)).then(res => res.blob());
+      : await fetch(botAssetUrl('book', `${key}.bin`)).then(res => res.blob());
     const bytes = new DataView(await bookBlob.arrayBuffer());
     const book = await makeBookFromPolyglot(bytes);
     this.book.set(key, book.getMoves);
@@ -216,15 +217,15 @@ export class DevAssets extends Assets {
   }
 
   getImageUrl(key: string): string {
-    return this.urls.image.get(key) ?? botAssetUrl('image', key, false);
+    return this.urls.image.get(key) ?? botAssetUrl('image', key);
   }
 
   getSoundUrl(key: string): string {
-    return this.urls.sound.get(key) ?? botAssetUrl('sound', key, false);
+    return this.urls.sound.get(key) ?? botAssetUrl('sound', key);
   }
 
   getBookCoverUrl(key: string): string {
-    return this.urls.bookCover.get(key) ?? botAssetUrl('book', `${key}.png`, false);
+    return this.urls.bookCover.get(key) ?? botAssetUrl('book', `${key}.png`);
   }
 
   private async addBook(filename: string, file: Blob): Promise<string> {

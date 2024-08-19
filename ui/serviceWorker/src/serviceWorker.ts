@@ -3,11 +3,13 @@ const sw = self as ServiceWorkerGlobalScope & typeof globalThis;
 
 const searchParams = new URL(sw.location.href).searchParams;
 const assetBase = new URL(searchParams.get('asset-url')!, sw.location.href).href;
+let hasLocalCache = caches.has('local');
 
-sw.addEventListener('install', () => {
-  sw.skipWaiting();
-  //caches.open('local').then(cache => cache.addAll([]));
-});
+function assetUrl(path: string): string {
+  return `${assetBase}assets/${path}`;
+}
+
+sw.addEventListener('install', () => sw.skipWaiting());
 
 sw.addEventListener('activate', e => {
   e.waitUntil(clients.claim());
@@ -26,10 +28,6 @@ sw.addEventListener('push', e => {
     }),
   );
 });
-
-function assetUrl(path: string): string {
-  return `${assetBase}assets/${path}`;
-}
 
 async function handleNotificationClick(e: NotificationEvent) {
   const notifications = await sw.registration.getNotifications();
@@ -68,21 +66,87 @@ async function handleNotificationClick(e: NotificationEvent) {
 
 sw.addEventListener('notificationclick', e => e.waitUntil(handleNotificationClick(e)));
 
-sw.addEventListener('fetch', e => {
-  const path = new URL(e.request.url).pathname.match(/(\/local$|\/local\?.*|\/local\/dev)/)?.[1];
-  if (!path) return;
-  e.respondWith(resolveFetch(path, e));
+sw.addEventListener('message', e => {
+  if (e.data && e.data.type !== 'cache') return;
+  e.waitUntil(
+    (async () => {
+      if (e.data.value) {
+        const cache = await caches.open('local');
+        hasLocalCache = Promise.resolve(true);
+        await cacheLocalAssets(cache);
+      } else {
+        await caches.delete('local');
+        hasLocalCache = Promise.resolve(false);
+      }
+    })(),
+  );
 });
 
-async function resolveFetch(path: string, e: FetchEvent): Promise<Response> {
+// experimental stuff below
+
+sw.addEventListener('fetch', e => {
+  const path = new URL(e.request.url).pathname.match(
+    /^\/local(?:[/?#]?.*)?$|^\/assets\/lifat\/bots\/.+$|\/assets\/npm\/zerofish.+$/,
+  )?.[0];
+  if (!path) return;
+  e.respondWith(hasLocalCache.then(haz => (haz ? fetchLocalCache(e, path) : fetch(e.request))));
+});
+
+async function fetchLocalCache(e: FetchEvent, path: string): Promise<Response> {
+  const cache = await caches.open('local');
+
   try {
+    if (!sw.navigator.onLine) throw new Response('offline', { status: 503 });
+    if (path.startsWith('/assets')) {
+      const rsp = await cache.match(e.request);
+      if (rsp) return rsp;
+    }
     const rsp = await fetch(e.request);
     if (!rsp.ok) throw rsp;
-    await caches.open('local').then(cache => cache.put(path, rsp.clone()));
+
+    cache.put(e.request, rsp.clone());
+    cacheLocalAssets(cache);
+
     return rsp;
-  } catch (rsp) {
+  } catch (err) {
+    console.log('serving cached content', err);
+
     return (
-      (await caches.match(path)) ?? (rsp instanceof Response ? rsp : new Response('bad', { status: 500 }))
+      (await caches.match(e.request)) ??
+      (err instanceof Response ? err : new Response('bad', { status: 500 }))
     );
   }
+}
+
+async function cacheLocalAssets(cache: Cache): Promise<void[]> {
+  const promises: Promise<void>[] = [];
+  const assetPaths: string[] = [];
+  const assets: Record<string, string[]> = await fetch('/local/assets').then(res => res.json());
+
+  console.log('caching assets');
+  for (const [type, list] of Object.entries(assets)) {
+    for (const key of list) {
+      assetPaths.push(
+        ...(type === 'book'
+          ? [`lifat/bots/books/${key}.bin`, `lifat/bots/books/${key}.png`]
+          : [`lifat/bots/${type}s/${key}`]),
+      );
+    }
+  }
+
+  for (const path of assetPaths) {
+    const assetRequest = new Request(assetUrl(path));
+    const cachedAsset = await cache.match(assetRequest);
+
+    if (cachedAsset) continue;
+    promises.push(
+      fetch(assetRequest).then(assetRsp => {
+        if (assetRsp.ok) {
+          return cache.put(assetRequest, assetRsp.clone());
+        }
+      }),
+    );
+  }
+
+  return Promise.all(promises);
 }

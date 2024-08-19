@@ -15,7 +15,7 @@ export class Assets {
     if (!key) return undefined;
     const cached = this.net.get(key);
     if (cached) return cached.data;
-    const data = await fetch(botAssetUrl('net', key, false))
+    const data = await fetch(botAssetUrl('net', key))
       .then(res => res.arrayBuffer())
       .then(buf => new Uint8Array(buf));
     this.net.set(key, { key, data });
@@ -27,7 +27,7 @@ export class Assets {
     if (!key) return undefined;
     const cached = this.book.get(key);
     if (cached) return cached;
-    const buf = await fetch(botAssetUrl('book', `${key}.bin`, false)).then(res => res.arrayBuffer());
+    const buf = await fetch(botAssetUrl('book', `${key}.bin`)).then(res => res.arrayBuffer());
     const book = (await makeBookFromPolyglot(new DataView(buf))).getMoves;
     this.book.set(key, book);
     return book;
@@ -42,8 +42,8 @@ export class Assets {
   }
 }
 
-export function botAssetUrl(type: AssetType, name: string, version: string | false = 'bot000'): string {
-  return site.asset.url(`lifat/bots/${type}s/${encodeURIComponent(name)}`, { version });
+export function botAssetUrl(type: AssetType, name: string): string {
+  return site.asset.url(`lifat/bots/${type}s/${encodeURIComponent(name)}`, { version: false });
 }
 
 type NetData = {

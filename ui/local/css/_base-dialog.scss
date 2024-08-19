@@ -1,3 +1,5 @@
+$scale-factor: var(---scale-factor);
+
 .base-view {
   ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp');
   ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp');

@@ -23,22 +23,22 @@ export class GameCtrl implements LocalSetup {
     this.setup.initialFen ??= co.fen.INITIAL_FEN;
     this.originalOrientation = this.black ? 'white' : this.white ? 'black' : 'white';
     this.trans = site.trans(opts.i18n);
-    this.resetClock();
-    this.live = new LocalGame(this.initialFen);
-    site.pubsub.on('ply', this.jump);
-    site.pubsub.on('flip', env.redraw);
   }
 
   async init(): Promise<void> {
+    this.live = new LocalGame(this.initialFen);
+    this.resetClock();
     env.bot.setUids(this.setup);
+    site.pubsub.on('ply', this.jump);
+    site.pubsub.on('flip', env.redraw);
     this.proxy = new RoundProxy();
     this.triggerStart();
   }
 
   reset(params: LocalSetup = this.setup): void {
     this.setup = { ...this.setup, ...params };
-    this.history = undefined;
     this.stop();
+    this.history = undefined;
     env.bot.reset();
     env.bot.setUids(this.setup);
     this.live = new LocalGame(this.initialFen);
@@ -129,7 +129,6 @@ export class GameCtrl implements LocalSetup {
   }
 
   nameOf(color: Color): string {
-    console.log(this.trans(color));
     if (!this[color] && this[co.opposite(color)]) return env.username;
     return this[color] ? env.bot.get(this[color])!.name : this.trans(color);
   }
@@ -246,11 +245,7 @@ export class GameCtrl implements LocalSetup {
     // controller unless there's a clock object, meaning we cannot switch from unlimited to realtime
     // without reloads. clockCtrl does not like Infinity and i don't want to pull any of those jenga
     // pieces. but it wouldn't be the worst thing if this were fixed in round/ctrl.ts and clockCtrl.ts
-    const initial = Number.isFinite(this.setup.initial)
-      ? this.setup.initial
-      : this.opts.dev
-      ? 999999
-      : undefined;
+    const initial = Number.isFinite(this.setup.initial) ? this.setup.initial : env.dev ? 999999 : undefined;
     if (initial === undefined) return (this.clock = undefined);
     this.clock = {
       initial: initial,

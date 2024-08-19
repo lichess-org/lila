@@ -5,7 +5,7 @@ import { env } from '../localEnv';
 
 // not sure why this is a class yet
 
-export class ShareCtrl {
+export class PushCtrl {
   constructor() {}
 
   async postBot(

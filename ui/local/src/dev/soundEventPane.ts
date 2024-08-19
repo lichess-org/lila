@@ -94,10 +94,6 @@ export class SoundEventPane extends Pane {
     return true;
   }
 
-  /*private redistributeChances(index: number): void {
-
-  }*/
-
   private get value(): Sound[] {
     return this.getProperty() as Sound[];
   }

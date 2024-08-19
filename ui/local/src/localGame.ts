@@ -5,6 +5,7 @@ import { makeSanAndPlay } from 'chessops/san';
 import { statusOf } from 'game/status';
 import { Status } from 'game';
 import { deepFreeze } from 'common';
+import { env } from './localEnv';
 
 export interface GameStatus {
   end: boolean; // convenience, basically anything after status 'started'
@@ -56,7 +57,7 @@ export class LocalGame {
         end: true,
         uci: move.uci,
         reason: `${this.turn} made illegal move ${move.uci} at ${makeFen(this.chess.toSetup())}`,
-        status: statusOf('cheat'), // engines are sneaky
+        status: statusOf('cheat'), // bots are sneaky
       });
     }
     const san = makeSanAndPlay(this.chess, coMove);
@@ -68,7 +69,7 @@ export class LocalGame {
   }
 
   fifty(move?: co.NormalMove): boolean {
-    // TODO: replace with chessops function
+    // TODO: replace with chessops
     if (move) {
       if (this.chess.board.getRole(move.from) === 'pawn' || this.chess.board.get(move.to)) {
         this.fiftyHalfMove = 0;
@@ -108,7 +109,11 @@ export class LocalGame {
   }
 
   get clock(): { white: number; black: number } | undefined {
-    return this.moves.length ? this.moves[this.moves.length - 1].clock : undefined;
+    return this.moves.length
+      ? this.moves[this.moves.length - 1].clock
+      : Number.isFinite(env.game.initial)
+      ? { white: env.game.initial, black: env.game.initial }
+      : undefined;
   }
 
   get status(): GameStatus {
@@ -122,9 +127,7 @@ export class LocalGame {
       ? { reason: 'fifty', status: statusOf('draw') }
       : this.isThreefold
       ? { reason: 'threefold', status: statusOf('draw') }
-      : //: Object.isFrozen(this)
-        //? { status: statusOf('outoftime'), winner: co.opposite(this.turn) }
-        { status: statusOf(this.ply > 0 ? 'started' : 'created') };
+      : { status: statusOf(this.ply > 0 ? 'started' : 'created') };
 
     return {
       end: this.end,
@@ -164,7 +167,7 @@ export class LocalGame {
   }
 
   get cgDests(): Map<Cg.Key, Cg.Key[]> {
-    // TODO: chessops
+    // TODO: use chessops
     const dec = new Map();
     const dests = this.dests;
     if (!dests) return dec;

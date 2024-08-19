@@ -121,7 +121,7 @@ export class RoundProxy implements IRoundProxy {
       isGone: false,
       name: env.game.nameOf(color),
       rating: bot?.ratings[env.game.speed],
-      image: bot ? site.asset.url(`lifat/bots/images/${bot?.image}`) : undefined,
+      image: bot ? env.bot.imageUrl(bot) : undefined,
       onGame: true,
       version: 0,
     };
@@ -129,10 +129,12 @@ export class RoundProxy implements IRoundProxy {
 }
 
 function botVNode(player: Player, position: Position): VNode | undefined {
-  console.log('hayo!');
-  if (!player.id.startsWith('#') && player.name !== 'White' && player.name !== 'Black') return;
-  return h(`div.ruser-${position}.ruser.user-link.fancy-bot.online`, [
-    h('span', [h('i.line.patron', {}), h('name', player.name)]),
-    !!player.image && h('img', { attrs: { src: player.image } }),
-  ]);
+  return player.id.startsWith('#') || player.name === 'White' || player.name === 'Black'
+    ? h(`div.ruser-${position}.ruser.user-link.fancy-bot.online`, [
+        h('span', [h('i.line.patron', {}), h('name', player.name)]),
+        env.dev
+          ? h('rating', player.rating ? `${player.rating}` : '')
+          : !!player.image && h('img', { attrs: { src: player.image } }),
+      ])
+    : undefined;
 }
