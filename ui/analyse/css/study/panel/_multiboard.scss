@@ -28,6 +28,12 @@
     .page {
       margin: 0 0.4em;
     }
+
+    select {
+      @media (max-width: at-most($x-large)) {
+        display: none;
+      }
+    }
   }
 
   .fbt {
