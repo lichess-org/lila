@@ -39,6 +39,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
     //     _.foreach: manifestJson =>
     //       maps = readMaps(manifestJson)
     // else
+    "have i gone insane?".pp
     val pathname = environment.getFile(s"public/json/$filename").toPath
     try
       val current = Files.getLastModifiedTime(pathname).toInstant
