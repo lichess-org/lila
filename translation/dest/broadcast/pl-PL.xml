@@ -40,6 +40,7 @@
   <string name="editRoundStudy">Edytuj opracowanie rundy</string>
   <string name="deleteTournament">Usuń ten turniej</string>
   <string name="definitivelyDeleteTournament">Ostatecznie usuń cały turniej, jego wszystkie rundy i partie.</string>
+  <string name="showScores">Pokaż wyniki graczy na podstawie wyników gry</string>
   <string name="replacePlayerTags">Opcjonalnie: zmień nazwy, rankingi oraz tytuły gracza</string>
   <string name="periodInSeconds">Przedział czasu w sekundach</string>
   <string name="periodInSecondsHelp">Opcjonalnie, jak długo czekać pomiędzy odpytaniami. Min 2s, max 60s. Domyślnie jest to ustawiane automatycznie na podstawie liczby widzów.</string>
