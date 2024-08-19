@@ -3,7 +3,7 @@ package lila.user
 import reactivemongo.api.bson.*
 
 import lila.core.security.HashedPassword
-import lila.core.user.{ Count, Plan, PlayTime, Profile, TotpSecret, UserEnabled, UserMarks }
+import lila.core.user.{ Count, Plan, PlayTime, Profile, TotpSecret, UserEnabled, UserMarks, RoleDbKey }
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
@@ -86,7 +86,7 @@ object BSONHandlers:
         username = r.get[UserName](username),
         count = r.get[lila.core.user.Count](count),
         enabled = r.get[UserEnabled](enabled),
-        roles = ~r.getO[List[String]](roles),
+        roles = ~r.getO[List[RoleDbKey]](roles),
         profile = r.getO[Profile](profile),
         toints = r.nIntD(toints),
         playTime = r.getO[PlayTime](playTime),
