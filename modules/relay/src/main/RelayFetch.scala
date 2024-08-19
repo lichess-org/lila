@@ -264,13 +264,24 @@ final private class RelayFetch(
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
               else if index >= lccCache.tailAt then tailGames.put(key, game)
 
+  // used to return the last successful result when a source fails
+  // games are stripped of their moves, only tags are kept.
+  // the point is to avoid messing up slices in multi-URL setups.
+  // if a single URL fails, it should not moves the games of the following URLs.
+  private val multiUrlFetchRecoverCache =
+    cacheApi.notLoadingSync[URL, RelayGames](256, "relay.fetch.recoverCache"):
+      _.expireAfterWrite(1 hour).build()
+
   private def fetchFromUpstreamWithRecover(rt: RelayRound.WithTour)(url: URL)(using
       CanProxy
   ): Fu[RelayGames] =
-    fetchFromUpstream(rt)(url).recover:
-      case e: Exception =>
-        logger.info(s"Fetch error in multi-url ${rt.round.id} $url ${e.getMessage.take(80)}", e)
-        Vector.empty
+    fetchFromUpstream(rt)(url)
+      .addEffect: games =>
+        multiUrlFetchRecoverCache.put(url, games.map(_.withoutMoves))
+      .recover:
+        case e: Exception =>
+          logger.info(s"Fetch error in multi-url ${rt.round.id} $url ${e.getMessage.take(80)}", e)
+          ~multiUrlFetchRecoverCache.getIfPresent(url)
 
   private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
