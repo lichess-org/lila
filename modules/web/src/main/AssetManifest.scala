@@ -34,19 +34,19 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def jsName(key: String): String = js(key).fold(key)(_.name)
 
   def update(): Unit =
-    if environment.mode.isProd || net.externalManifest then
-      fetchManifestJson(filename).foreach:
-        _.foreach: manifestJson =>
-          maps = readMaps(manifestJson)
-    else
-      val pathname = environment.getFile(s"public/json/$filename").toPath
-      try
-        val current = Files.getLastModifiedTime(pathname).toInstant
-        if current.isAfter(maps.modified)
-        then maps = readMaps(Json.parse(Files.newInputStream(pathname)))
-      catch
-        case e: Throwable =>
-          logger.warn(s"Error reading $pathname")
+    // if environment.mode.isProd || net.externalManifest then
+    //   fetchManifestJson(filename).foreach:
+    //     _.foreach: manifestJson =>
+    //       maps = readMaps(manifestJson)
+    // else
+    val pathname = environment.getFile(s"public/json/$filename").toPath
+    try
+      val current = Files.getLastModifiedTime(pathname).toInstant
+      if current.isAfter(maps.modified)
+      then maps = readMaps(Json.parse(Files.newInputStream(pathname)))
+    catch
+      case e: Throwable =>
+        logger.warn(s"Error reading $pathname")
 
   private val keyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
   private def keyOf(fullName: String): String =
