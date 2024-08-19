@@ -417,6 +417,7 @@ final class StudyApi(
   ): Unit =
     sendTo(study.id)(_.reloadMembers(members, sendToUserIds))
     studyRepo.updateNow(study)
+    Bus.pub(StudyMembers.OnChange(study))
 
   def setShapes(studyId: StudyId, position: Position.Ref, shapes: Shapes)(who: Who) =
     sequenceStudy(studyId): study =>
@@ -834,7 +835,11 @@ final class StudyApi(
         chapterRepo.deleteByStudy(study).andDo(preview.invalidate(study.id))
 
   def becomeAdmin(studyId: StudyId, me: MyId): Funit =
-    sequenceStudy(studyId)(inviter.becomeAdmin(me))
+    sequenceStudy(studyId): study =>
+      inviter
+        .becomeAdmin(me)(study)
+        .andDo:
+          Bus.pub(StudyMembers.OnChange(study))
 
   private def reloadSriBecauseOf(study: Study, sri: Sri, chapterId: StudyChapterId) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
