@@ -384,18 +384,12 @@ final class StudyApi(
       byUserId: UserId,
       studyId: StudyId,
       username: UserStr,
-      isPresent: UserId => Fu[Boolean],
-      onError: String => Unit
+      isPresent: UserId => Fu[Boolean]
   ) =
     sequenceStudy(studyId): study =>
-      inviter(byUserId, study, username, isPresent)
-        .addEffects(
-          err => onError(err.getMessage),
-          user =>
-            val members = study.members + StudyMember.make(user)
-            onMembersChange(study, members, members.ids)
-        )
-        .void
+      inviter(byUserId, study, username, isPresent).map: user =>
+        val members = study.members + StudyMember.make(user)
+        onMembersChange(study, members, members.ids)
 
   def kick(studyId: StudyId, userId: UserId, who: MyId) =
     sequenceStudy(studyId): study =>
