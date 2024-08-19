@@ -206,7 +206,7 @@ final private class RelayFetch(
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
-            delayer(url, rt.round, fetchFromUpstreamWithRecover(rt))
+            delayer(url, rt.round, fetchFromUpstreamWithRecovery(rt))
           .map(_.flatten)
 
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
@@ -272,7 +272,7 @@ final private class RelayFetch(
     cacheApi.notLoadingSync[URL, RelayGames](256, "relay.fetch.recoverCache"):
       _.expireAfterWrite(1 hour).build()
 
-  private def fetchFromUpstreamWithRecover(rt: RelayRound.WithTour)(url: URL)(using
+  private def fetchFromUpstreamWithRecovery(rt: RelayRound.WithTour)(url: URL)(using
       CanProxy
   ): Fu[RelayGames] =
     fetchFromUpstream(rt)(url)
@@ -281,7 +281,10 @@ final private class RelayFetch(
       .recover:
         case e: Exception =>
           logger.info(s"Fetch error in multi-url ${rt.round.id} $url ${e.getMessage.take(80)}", e)
-          ~multiUrlFetchRecoverCache.getIfPresent(url)
+          val recovery = multiUrlFetchRecoverCache.getIfPresent(url)
+          logger.info:
+            recovery.fold(s"No recovery found for $url")(r => s"Recovery found for $url with ${r.size} games")
+          ~recovery
 
   private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
