@@ -47,7 +47,6 @@ object RelayPlayer:
           "score"  -> p.score,
           "played" -> p.games.count(_.outcome.isDefined)
         )
-        .add("id" -> p.player.id.map(_.toString))
         .add("ratingDiff" -> p.ratingDiff)
     def withGames(p: RelayPlayer): JsObject =
       Json.toJsObject(p) ++ Json.obj("games" -> p.games)
