@@ -26,15 +26,16 @@ final class GameSearchApi(
   def validateAccounts(query: Query.Game, forMod: Boolean): Fu[Boolean] =
     fuccess(forMod) >>| userApi.containsDisabled(query.userIds).not
 
-  def idStream(query: Query.Game, size: Size, batchSize: MaxPerPage): Source[List[GameId], ?] =
-    val pageSize = Size(batchSize.value.atMost(size.value))
+  def idStream(query: Query.Game, total: Size, batchSize: MaxPerPage): Source[List[GameId], ?] =
+    val pageSize = Size(batchSize.value.atMost(total.value))
     Source.unfoldAsync(0): from =>
-      if from >= size.value then fuccess(none)
+      if from >= total.value then fuccess(none)
       else
         client
-          .search(query, From(from), size)
+          .search(query, From(from), pageSize)
           .map: res =>
-            Option.when(res.hitIds.nonEmpty)((from + pageSize.value) -> res.hitIds.map(GameId.apply))
+            Option.when(res.hitIds.nonEmpty && from < total.value):
+              (from + pageSize.value) -> res.hitIds.map(GameId.apply)
 
   def store(game: Game) =
     storable(game).so:
