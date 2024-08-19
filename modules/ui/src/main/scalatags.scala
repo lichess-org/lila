@@ -8,6 +8,7 @@ import scalalib.Render
 import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
+import lila.core.i18n.{ I18nKey, Translate }
 
 // collection of lila attrs
 trait ScalatagsAttrs:
@@ -166,5 +167,10 @@ trait ScalatagsExtensions:
     val value = Builder.GenericAttrValueSource(v)
     t.setAttr("title", value)
     t.setAttr("aria-label", value)
+
+  def textAndTitle(i18n: I18nKey)(using Translate): Modifier = (t: Builder) =>
+    val value = Builder.GenericAttrValueSource(i18n.txt())
+    t.setAttr("title", Builder.GenericAttrValueSource(i18n.txt()))
+    t.addChild(i18n())
 
 object ScalatagsExtensions extends ScalatagsExtensions
