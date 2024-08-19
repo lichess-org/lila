@@ -6,6 +6,7 @@ import lila.common.Json.given
 import lila.core.i18n.Translate
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
+import lila.gathering.GatheringJson.*
 import lila.rating.PerfType
 
 final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executor):
@@ -63,7 +64,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
       .add("onlyTitled", tour.conditions.titled.isDefined)
       .add("teamMember", tour.conditions.teamMember.map(_.teamId))
       .add("private", tour.isPrivate)
-      .add("position", tour.position.map(positionJson))
+      .add("position", tour.position.map(position))
       .add("schedule", tour.schedule.map(scheduleJson))
       .add(
         "teamBattle",
