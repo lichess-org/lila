@@ -34,12 +34,6 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def jsName(key: String): String = js(key).fold(key)(_.name)
 
   def update(): Unit =
-    // if environment.mode.isProd || net.externalManifest then
-    //   fetchManifestJson(filename).foreach:
-    //     _.foreach: manifestJson =>
-    //       maps = readMaps(manifestJson)
-    // else
-    "have i gone insane?".pp
     val pathname = environment.getFile(s"public/json/$filename").toPath
     try
       val current = Files.getLastModifiedTime(pathname).toInstant
@@ -66,12 +60,6 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         asset.imports.flatMap: importName =>
           importName :: closure(importName, jsMap, visited + name)
       case _ => Nil
-// function asHashed(path: string, hash: string) {
-//   const extensionLoc = path.lastIndexOf('.');
-//   const nameLoc = path.lastIndexOf('/') + 1;
-//   if (extensionLoc < 0 || nameLoc > extensionLoc) return `${path.slice(nameLoc)}.${hash}`;
-//   else return `${path.slice(nameLoc, extensionLoc)}.${hash}${path.slice(extensionLoc)}`;
-// }
 
   // throws an Exception if JsValue is not as expected
   private def readMaps(manifest: JsValue): AssetMaps =
@@ -114,19 +102,5 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .toMap
 
     AssetMaps(js.toMap, css, hashed, nowInstant)
-
-  private def fetchManifestJson(filename: String) =
-    val resource = s"${net.assetBaseUrlInternal}/assets/json/$filename"
-    ws.url(resource)
-      .get()
-      .map:
-        case res if res.status == 200 => res.body[JsValue].some
-        case res =>
-          logger.error(s"${res.status} fetching $resource")
-          none
-      .recoverWith:
-        case e: Exception =>
-          logger.error(s"fetching $resource", e)
-          fuccess(none)
 
   update()

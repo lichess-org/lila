@@ -299,8 +299,8 @@ def deploy_script(profile, session, run, url):
         ]
     elif not profile.get("symlinks"):
         commands += [
-            f"mv -f {artifact_unzipped}/d/bin {deploy_dir}/bin",
-            f"mv -f {artifact_unzipped}/d/lib {deploy_dir}/lib",
+            f"rsync -a --delete {artifact_unzipped}/d/bin {deploy_dir}/bin",
+            f"rsync -a --delete {artifact_unzipped}/d/lib {deploy_dir}/lib",
             f"chmod -f +x {deploy_dir}/bin/lila || true",
         ]
     else:
