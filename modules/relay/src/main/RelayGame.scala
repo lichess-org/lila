@@ -30,8 +30,11 @@ case class RelayGame(
 
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
 
-  def resetToSetup = copy(
-    root = root.withoutChildren,
+  def hasMoves = root.children.nodes.nonEmpty
+
+  def withoutMoves = copy(root = root.withoutChildren)
+
+  def resetToSetup = withoutMoves.copy(
     tags = tags.copy(value = tags.value.filter(_.name != Tag.Result)),
     outcome = None
   )
