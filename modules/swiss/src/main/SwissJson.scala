@@ -1,5 +1,6 @@
 package lila.swiss
 
+import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
@@ -9,6 +10,7 @@ import lila.core.socket.SocketVersion
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
+import lila.gathering.GatheringJson.*
 import lila.quote.Quote.given
 
 final class SwissJson(
@@ -179,6 +181,7 @@ object SwissJson:
       })
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
       .add("password" -> swiss.settings.password.isDefined)
+      .add("position" -> swiss.settings.position.map(fullFen => position(fullFen.opening)))
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(view, performance = false) ++ Json
