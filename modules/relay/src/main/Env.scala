@@ -151,7 +151,7 @@ final class Env(
   )
 
   lila.common.Bus.sub[lila.study.StudyMembers.OnChange]: change =>
-    api.onStudyMembersChange(change.id)
+    api.onStudyMembersChange(change.study)
 
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))
