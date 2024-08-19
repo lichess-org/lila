@@ -25,12 +25,11 @@ final private class MsgSecurity(
   import MsgSecurity.*
 
   private object limitCost:
-    val normal   = 25
-    val verified = 5
-    val hog      = 1
+    val normal = 25
     def apply(u: Contact): Int =
-      if u.isApiHog then hog
-      else if u.isVerified then verified
+      if u.isApiHog then 1
+      else if u.isVerified then 5
+      else if u.isBroadcastManager then 5
       else if u.isDaysOld(30) then normal
       else if u.isDaysOld(7) then normal * 2
       else if u.isDaysOld(3) then normal * 3

@@ -18,6 +18,7 @@ private case class Contact(
   def isTroll                              = marks.exists(_.troll)
   def isVerified                           = Granter.ofDbKeys(_.Verified, ~roles)
   def isApiHog                             = Granter.ofDbKeys(_.ApiHog, ~roles)
+  def isBroadcastManager                   = Granter.ofDbKeys(_.Relay, ~roles)
   def isDaysOld(days: Int)                 = createdAt.isBefore(nowInstant.minusDays(days))
   def isHoursOld(hours: Int)               = createdAt.isBefore(nowInstant.minusHours(hours))
   def isLichess                            = id.is(UserId.lichess)
