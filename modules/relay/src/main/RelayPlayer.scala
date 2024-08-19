@@ -19,13 +19,12 @@ import lila.core.fide.FideTC
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
     player: StudyPlayer.WithFed,
+    score: Option[Double],
     ratingDiff: Option[Int],
     games: Vector[RelayPlayer.Game]
 ):
   export player.player.*
   def withGame(game: RelayPlayer.Game) = copy(games = games :+ game)
-  def score: Double = games.foldLeft(0d): (score, game) =>
-    score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
 
 object RelayPlayer:
   case class Game(
@@ -117,11 +116,13 @@ private final class RelayPlayerApi(
                           players.updated(
                             playerId,
                             players
-                              .getOrElse(playerId, RelayPlayer(player, None, Vector.empty))
+                              .getOrElse(playerId, RelayPlayer(player, None, None, Vector.empty))
                               .withGame(game)
                           )
-          tc = RelayFidePlayerApi.guessTimeControl(tour.info.tc)
-          withRatingDiff <- if tour.showRatingDiffs then computeRatingDiffs(tc, players) else fuccess(players)
+          tc        = RelayFidePlayerApi.guessTimeControl(tour.info.tc)
+          withScore = if tour.showScores then computeScores(players) else players
+          withRatingDiff <-
+            if tour.showRatingDiffs then computeRatingDiffs(tc, withScore) else fuccess(withScore)
         yield withRatingDiff
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
@@ -135,6 +136,17 @@ private final class RelayPlayerApi(
             case (players, (id, p)) =>
               if players.contains(id) then players
               else players.updated(id, p.studyPlayer)
+
+  private def computeScores(players: RelayPlayers): RelayPlayers =
+    players.view
+      .mapValues: p =>
+        p.copy(score =
+          p.games
+            .foldLeft(0d): (score, game) =>
+              score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
+            .some
+        )
+      .to(SeqMap)
 
   private def computeRatingDiffs(tc: FideTC, players: RelayPlayers): Fu[RelayPlayers] =
     players.toList
