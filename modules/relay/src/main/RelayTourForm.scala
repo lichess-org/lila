@@ -28,12 +28,13 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
 
   val form = Form(
     mapping(
-      "name"       -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
-      "info"       -> infoMapping,
-      "markdown"   -> optional(cleanText(maxLength = 20_000).into[Markdown]),
-      "tier"       -> optional(numberIn(RelayTour.Tier.keys.keySet)),
-      "showScores" -> boolean,
-      "teamTable"  -> boolean,
+      "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
+      "info"            -> infoMapping,
+      "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
+      "tier"            -> optional(numberIn(RelayTour.Tier.keys.keySet)),
+      "showScores"      -> boolean,
+      "showRatingDiffs" -> boolean,
+      "teamTable"       -> boolean,
       "players" -> optional(
         of(formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
       ),
@@ -58,6 +59,7 @@ object RelayTourForm:
       markup: Option[Markdown],
       tier: Option[RelayTour.Tier],
       showScores: Boolean,
+      showRatingDiffs: Boolean,
       teamTable: Boolean,
       players: Option[RelayPlayersTextarea],
       teams: Option[RelayTeamsTextarea],
@@ -74,6 +76,7 @@ object RelayTourForm:
           markup = markup,
           tier = if Granter(_.Relay) then tier else tour.tier,
           showScores = showScores,
+          showRatingDiffs = showRatingDiffs,
           teamTable = teamTable,
           players = players,
           teams = teams,
@@ -95,6 +98,7 @@ object RelayTourForm:
         createdAt = nowInstant,
         syncedAt = none,
         showScores = showScores,
+        showRatingDiffs = showRatingDiffs,
         teamTable = teamTable,
         players = players,
         teams = teams,
@@ -112,6 +116,7 @@ object RelayTourForm:
         markup = tour.markup,
         tier = tour.tier,
         showScores = tour.showScores,
+        showRatingDiffs = tour.showRatingDiffs,
         teamTable = tour.teamTable,
         players = tour.players,
         teams = tour.teams,

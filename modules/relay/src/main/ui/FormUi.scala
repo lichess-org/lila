@@ -4,7 +4,7 @@ import play.api.data.Form
 
 import lila.ui.*
 
-import ScalatagsTemplate.{ *, given }
+import ScalatagsTemplate.{ given, * }
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -454,16 +454,28 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(form3.textarea(_)(rows := 10))
         ),
         form3
-          .fieldset("Features", toggle = tg.map(_.tour).exists(t => !t.showScores || t.teamTable).some)(
+          .fieldset(
+            "Features",
+            toggle = tg.map(_.tour).exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable).some
+          )(
             form3.split(
               form3.checkbox(
                 form("showScores"),
-                trb.showScores()
+                trb.showScores(),
+                half = true
               ),
+              form3.checkbox(
+                form("showRatingDiffs"),
+                "Show player's rating diffs",
+                half = true
+              )
+            ),
+            form3.split(
               form3.checkbox(
                 form("teamTable"),
                 "Team tournament",
-                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
+                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
+                half = true
               )
             )
           ),

@@ -226,8 +226,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   // ordered like studyIds, then tags with the chapter order field
   def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[SeqMap[StudyId, SeqMap[StudyChapterId, Tags]]] =
-    if studyIds.isEmpty then fuccess(SeqMap.empty)
-    else
+    studyIds.nonEmpty.so:
       coll:
         _.find($doc("studyId".$in(studyIds)), $doc("studyId" -> true, "tags" -> true).some)
           .sort($sortOrder)
@@ -251,7 +250,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
           .map: hash =>
             studyIds.view
               .map: id =>
-                id -> hash.getOrElse(id, SeqMap.empty)
+                id -> ~hash.get(id)
               .to(SeqMap)
 
   def startServerEval(chapter: Chapter) =

@@ -19,6 +19,7 @@ case class RelayTour(
     syncedAt: Option[Instant],    // last time a round was synced
     spotlight: Option[RelayTour.Spotlight] = None,
     showScores: Boolean = true,
+    showRatingDiffs: Boolean = true,
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,

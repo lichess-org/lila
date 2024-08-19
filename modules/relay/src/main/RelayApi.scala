@@ -216,17 +216,18 @@ final class RelayApi(
       _ <- tourRepo.coll.update.one(
         $id(tour.id),
         $setsAndUnsets(
-          "name"         -> tour.name.some,
-          "info"         -> tour.info.some,
-          "markup"       -> tour.markup,
-          "tier"         -> tour.tier,
-          "showScores"   -> tour.showScores.some,
-          "teamTable"    -> tour.teamTable.some,
-          "players"      -> tour.players,
-          "teams"        -> tour.teams,
-          "spotlight"    -> tour.spotlight,
-          "ownerId"      -> tour.ownerId.some,
-          "pinnedStream" -> tour.pinnedStream
+          "name"            -> tour.name.some,
+          "info"            -> tour.info.some,
+          "markup"          -> tour.markup,
+          "tier"            -> tour.tier,
+          "showScores"      -> tour.showScores.some,
+          "showRatingDiffs" -> tour.showRatingDiffs.some,
+          "teamTable"       -> tour.teamTable.some,
+          "players"         -> tour.players,
+          "teams"           -> tour.teams,
+          "spotlight"       -> tour.spotlight,
+          "ownerId"         -> tour.ownerId.some,
+          "pinnedStream"    -> tour.pinnedStream
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))

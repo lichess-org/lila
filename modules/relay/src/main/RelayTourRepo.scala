@@ -8,6 +8,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   import RelayTourRepo.*
   import RelayTour.IdName
 
+  def byId(tourId: RelayTourId): Fu[Option[RelayTour]] = coll.byId[RelayTour](tourId)
+
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField($id(tour.id), "syncedAt", nowInstant).void
 

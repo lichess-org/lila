@@ -53,6 +53,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
         else md.value)
       .add("teamTable" -> tour.teamTable)
       .add("showScores" -> tour.showScores)
+      .add("showRatingDiffs" -> tour.showRatingDiffs)
 
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json

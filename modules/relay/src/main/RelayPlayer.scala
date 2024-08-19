@@ -90,37 +90,40 @@ private final class RelayPlayerApi(
     cache.invalidate(id)
     jsonCache.invalidate(id)
 
-  private def compute(tourId: RelayTourId): Fu[RelayPlayers] = for
-    tourInfo     <- tourRepo.info(tourId)
-    roundIds     <- roundRepo.idsByTourOrdered(tourId)
-    studyPlayers <- fetchStudyPlayers(roundIds)
-    rounds       <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
-    players = rounds.foldLeft(SeqMap.empty: RelayPlayers):
-      case (players, (studyId, chapters)) =>
-        val roundId = studyId.into(RelayRoundId)
-        chapters.foldLeft(players):
-          case (players, (chapterId, tags)) =>
-            StudyPlayer
-              .fromTags(tags)
-              .flatMap:
-                _.traverse: p =>
-                  p.id.flatMap: id =>
-                    studyPlayers.get(id).map(id -> _)
-              .fold(players): gamePlayers =>
-                gamePlayers.zipColor.foldLeft(players):
-                  case (players, (color, (playerId, player))) =>
-                    val (_, opponent) = gamePlayers(!color)
-                    val outcome       = tags.outcome
-                    val game          = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.outcome)
-                    players.updated(
-                      playerId,
-                      players
-                        .getOrElse(playerId, RelayPlayer(player, None, Vector.empty))
-                        .withGame(game)
-                    )
-    tc = RelayFidePlayerApi.guessTimeControl(tourInfo.flatMap(_.tc))
-    withRatingDiff <- computeRatingDiffs(tc, players)
-  yield withRatingDiff
+  private def compute(tourId: RelayTourId): Fu[RelayPlayers] =
+    tourRepo
+      .byId(tourId)
+      .flatMapz: tour =>
+        for
+          roundIds     <- roundRepo.idsByTourOrdered(tourId)
+          studyPlayers <- fetchStudyPlayers(roundIds)
+          rounds       <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
+          players = rounds.foldLeft(SeqMap.empty: RelayPlayers):
+            case (players, (studyId, chapters)) =>
+              val roundId = studyId.into(RelayRoundId)
+              chapters.foldLeft(players):
+                case (players, (chapterId, tags)) =>
+                  StudyPlayer
+                    .fromTags(tags)
+                    .flatMap:
+                      _.traverse: p =>
+                        p.id.flatMap: id =>
+                          studyPlayers.get(id).map(id -> _)
+                    .fold(players): gamePlayers =>
+                      gamePlayers.zipColor.foldLeft(players):
+                        case (players, (color, (playerId, player))) =>
+                          val (_, opponent) = gamePlayers(!color)
+                          val outcome       = tags.outcome
+                          val game = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.outcome)
+                          players.updated(
+                            playerId,
+                            players
+                              .getOrElse(playerId, RelayPlayer(player, None, Vector.empty))
+                              .withGame(game)
+                          )
+          tc = RelayFidePlayerApi.guessTimeControl(tour.info.tc)
+          withRatingDiff <- if tour.showRatingDiffs then computeRatingDiffs(tc, players) else fuccess(players)
+        yield withRatingDiff
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
   private def fetchStudyPlayers(roundIds: List[RelayRoundId]): Fu[StudyPlayers] =
