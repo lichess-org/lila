@@ -19,13 +19,12 @@ import lila.core.fide.FideTC
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
     player: StudyPlayer.WithFed,
+    score: Option[Double],
     ratingDiff: Option[Int],
     games: Vector[RelayPlayer.Game]
 ):
   export player.player.*
   def withGame(game: RelayPlayer.Game) = copy(games = games :+ game)
-  def score: Double = games.foldLeft(0d): (score, game) =>
-    score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
 
 object RelayPlayer:
   case class Game(
@@ -45,9 +44,8 @@ object RelayPlayer:
       Json.toJsObject(p.player) ++ Json
         .obj(
           "score"  -> p.score,
-          "played" -> p.games.size
+          "played" -> p.games.count(_.outcome.isDefined)
         )
-        .add("id" -> p.player.id.map(_.toString))
         .add("ratingDiff" -> p.ratingDiff)
     def withGames(p: RelayPlayer): JsObject =
       Json.toJsObject(p) ++ Json.obj("games" -> p.games)
@@ -90,37 +88,42 @@ private final class RelayPlayerApi(
     cache.invalidate(id)
     jsonCache.invalidate(id)
 
-  private def compute(tourId: RelayTourId): Fu[RelayPlayers] = for
-    tourInfo     <- tourRepo.info(tourId)
-    roundIds     <- roundRepo.idsByTourOrdered(tourId)
-    studyPlayers <- fetchStudyPlayers(roundIds)
-    rounds       <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
-    players = rounds.foldLeft(SeqMap.empty: RelayPlayers):
-      case (players, (studyId, chapters)) =>
-        val roundId = studyId.into(RelayRoundId)
-        chapters.foldLeft(players):
-          case (players, (chapterId, tags)) =>
-            StudyPlayer
-              .fromTags(tags)
-              .flatMap:
-                _.traverse: p =>
-                  p.id.flatMap: id =>
-                    studyPlayers.get(id).map(id -> _)
-              .fold(players): gamePlayers =>
-                gamePlayers.zipColor.foldLeft(players):
-                  case (players, (color, (playerId, player))) =>
-                    val (_, opponent) = gamePlayers(!color)
-                    val outcome       = tags.outcome
-                    val game          = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.outcome)
-                    players.updated(
-                      playerId,
-                      players
-                        .getOrElse(playerId, RelayPlayer(player, None, Vector.empty))
-                        .withGame(game)
-                    )
-    tc = RelayFidePlayerApi.guessTimeControl(tourInfo.flatMap(_.tc))
-    withRatingDiff <- computeRatingDiffs(tc, players)
-  yield withRatingDiff
+  private def compute(tourId: RelayTourId): Fu[RelayPlayers] =
+    tourRepo
+      .byId(tourId)
+      .flatMapz: tour =>
+        for
+          roundIds     <- roundRepo.idsByTourOrdered(tourId)
+          studyPlayers <- fetchStudyPlayers(roundIds)
+          rounds       <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
+          players = rounds.foldLeft(SeqMap.empty: RelayPlayers):
+            case (players, (studyId, chapters)) =>
+              val roundId = studyId.into(RelayRoundId)
+              chapters.foldLeft(players):
+                case (players, (chapterId, tags)) =>
+                  StudyPlayer
+                    .fromTags(tags)
+                    .flatMap:
+                      _.traverse: p =>
+                        p.id.flatMap: id =>
+                          studyPlayers.get(id).map(id -> _)
+                    .fold(players): gamePlayers =>
+                      gamePlayers.zipColor.foldLeft(players):
+                        case (players, (color, (playerId, player))) =>
+                          val (_, opponent) = gamePlayers(!color)
+                          val outcome       = tags.outcome
+                          val game = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.outcome)
+                          players.updated(
+                            playerId,
+                            players
+                              .getOrElse(playerId, RelayPlayer(player, None, None, Vector.empty))
+                              .withGame(game)
+                          )
+          tc        = RelayFidePlayerApi.guessTimeControl(tour.info.tc)
+          withScore = if tour.showScores then computeScores(players) else players
+          withRatingDiff <-
+            if tour.showRatingDiffs then computeRatingDiffs(tc, withScore) else fuccess(withScore)
+        yield withRatingDiff
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
   private def fetchStudyPlayers(roundIds: List[RelayRoundId]): Fu[StudyPlayers] =
@@ -134,30 +137,33 @@ private final class RelayPlayerApi(
               if players.contains(id) then players
               else players.updated(id, p.studyPlayer)
 
+  private def computeScores(players: RelayPlayers): RelayPlayers =
+    players.view
+      .mapValues: p =>
+        p.copy(score =
+          p.games
+            .foldLeft(0d): (score, game) =>
+              score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
+            .some
+        )
+      .to(SeqMap)
+
   private def computeRatingDiffs(tc: FideTC, players: RelayPlayers): Fu[RelayPlayers] =
     players.toList
       .traverse: (id, player) =>
         player.fideId
           .so(fidePlayerGet)
-          .map:
-            _.fold(id -> player): fidePlayer =>
-              (player.rating
-                .orElse(fidePlayer.ratingOf(tc)))
-                .fold(id -> player): rating =>
-                  val kFactor    = fidePlayer.kFactorOf(tc)
-                  val postRating = computeNewEloRating(rating, kFactor, player.games)
-                  id -> player.copy(ratingDiff = (postRating - rating).value.some)
+          .map: fidePlayerOpt =>
+            for
+              fidePlayer <- fidePlayerOpt
+              r          <- player.rating.orElse(fidePlayer.ratingOf(tc))
+              p = Elo.Player(r, fidePlayer.kFactorOf(tc))
+              games = for
+                g        <- player.games
+                outcome  <- g.outcome
+                opRating <- g.opponent.rating
+              yield Elo.Game(outcome.winner.map(_ == g.color), opRating)
+            yield player.copy(ratingDiff = games.nonEmpty.option(Elo.computeRatingDiff(p, games)))
+          .map: newPlayer =>
+            id -> (newPlayer | player)
       .map(_.to(SeqMap))
-
-  private def computeNewEloRating(
-      rating: Elo,
-      kFactor: Int,
-      games: Vector[RelayPlayer.Game]
-  ): Elo =
-    val ratedGames = games.flatMap: game =>
-      game.opponent.rating.map(_ -> game.outcome)
-    val playerExpectedScore = ratedGames.foldLeft(0d):
-      case (score, (opRating, _)) => score + 1 / (1 + Math.pow(10, (opRating - rating).value / 400))
-    val playerScore = games.foldLeft(0d): (score, game) =>
-      score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
-    rating + Math.round(kFactor * (playerScore - playerExpectedScore)).toInt

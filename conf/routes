@@ -264,7 +264,6 @@ GET   /broadcast/:ts/$id<\w{8}>               controllers.RelayTour.show(ts, id:
 GET   /embed/broadcast/:ts/$id<\w{8}>         controllers.RelayTour.embedShow(ts, id: RelayTourId)
 GET   /api/broadcast/$id<\w{8}>               controllers.RelayTour.apiShow(id: RelayTourId)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId: RelayTourId)
-GET   /api/broadcast/$tourId<\w{8}>/default-round controllers.RelayTour.defaultRound(tourId: RelayTourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId: RelayTourId)

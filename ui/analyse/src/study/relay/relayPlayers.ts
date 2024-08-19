@@ -39,7 +39,6 @@ export default class RelayPlayers {
 
   constructor(
     private readonly tourId: TourId,
-    readonly showScores: boolean,
     readonly isEmbed: boolean,
     private readonly federations: () => Federations | undefined,
     private readonly redraw: Redraw,
@@ -88,6 +87,7 @@ export const playersView = (ctrl: RelayPlayers): VNode =>
 
 const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withRating = !!players.find(p => p.rating);
+  const withScores = !!players.find(p => p.score);
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
   return h(
     'table.relay-tour__players.slist.slist-invert.slist-pad',
@@ -100,7 +100,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
         h('tr', [
           h('th', 'Player'),
           withRating ? h('th', defaultSort, 'Elo') : undefined,
-          ctrl.showScores && h('th', 'Score'),
+          withScores && h('th', 'Score'),
           h('th', 'Games'),
         ]),
       ),
@@ -121,7 +121,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
               ),
             ),
             h('td', withRating && player.rating ? [`${player.rating}`, ratingDiff(player)] : undefined),
-            ctrl.showScores && h('td', `${player.score}`),
+            withScores && h('td', `${player.score}`),
             h('td', `${player.played}`),
           ]),
         ),

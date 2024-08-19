@@ -228,6 +228,26 @@ final class RelayListing(
 
 private object RelayListing:
 
+  // same logic but we have all the rounds in memory already
+  def defaultRoundToShow(trs: RelayTour.WithRounds): Option[RelayRound] =
+    if !trs.tour.active then trs.rounds.headOption
+    else
+      trs.rounds
+        .flatMap: round =>
+          round.startedAt.map(_ -> round)
+        .sortBy(-_._1.getEpochSecond)
+        .headOption
+        .map(_._2)
+        .match
+          case None => trs.rounds.headOption
+          case Some(last) =>
+            trs.rounds.find(!_.finished) match
+              case None => last.some
+              case Some(next) =>
+                if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
+                then next.some
+                else last.some
+
   object group:
 
     // look at the groups where the tour appears.

@@ -18,7 +18,8 @@ case class RelayTour(
     live: Option[Boolean],        // a round is live, i.e. started and not finished
     syncedAt: Option[Instant],    // last time a round was synced
     spotlight: Option[RelayTour.Spotlight] = None,
-    autoLeaderboard: Boolean = true,
+    showScores: Boolean = true,
+    showRatingDiffs: Boolean = true,
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,

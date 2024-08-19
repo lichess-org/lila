@@ -5,8 +5,8 @@
   <string name="standardChessAndX" comment="%s is 8 variants">Szachy i %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Głęboka analiza poprzez %s</string>
   <plurals name="gamesPerDay">
-    <item quantity="one">%s partii dziennie</item>
-    <item quantity="few">%s partii dziennie</item>
+    <item quantity="one">%s partia dziennie</item>
+    <item quantity="few">%s partie dziennie</item>
     <item quantity="many">%s partii dziennie</item>
     <item quantity="other">%s partii dziennie</item>
   </plurals>
@@ -27,9 +27,9 @@
   <string name="allFeaturesToCome">Wszystkie przyszłe funkcje, na zawsze!</string>
   <string name="landscapeSupportOnApp">Wsparcie na Iphone, Android, tabletach oraz w trybie krajobrazu</string>
   <string name="supportLichess">Wesprzyj Lichess</string>
-  <string name="contributeToLichessAndGetIcon">Wspomóż finansowo Lichess poprzez Patron i dostań ikonkę wspierającego</string>
-  <string name="everybodyGetsAllFeaturesForFree">Tak, obie opcje mają te same funkcje!</string>
-  <string name="weBelieveEveryChessPlayerDeservesTheBest">Wierzymy, że każdy szachowy gracz zasługuje na najlepsze więc</string>
+  <string name="contributeToLichessAndGetIcon">Wnieś swój wkład w rozwój Lichess i zdobądź odlotową ikonę Patrona</string>
+  <string name="everybodyGetsAllFeaturesForFree">Tak, oba rodzaje kont mają taką samą funkcjonalność!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Wierzymy, że każdy szachowy gracz zasługuje na to, co najlepsze, i dlatego:</string>
   <string name="allFeaturesAreFreeForEverybody">Pełna funkcjonalność jest darmowa dla wszystkich, po wieki !</string>
   <string name="ifYouLoveLichess">Jeśli kochasz Lichess,</string>
   <string name="supportUsWithAPatronAccount">Wspomóż nas kontem Patrona!</string>

@@ -140,7 +140,7 @@ object MarkdownRender:
       )
 
     private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
-      url <- Try(URL.parse(src)).toOption
+      url <- lila.common.url.parse(src).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       if (assetDomain.toList ::: whitelist).exists(h => host == h.value || host.endsWith(s".$h"))

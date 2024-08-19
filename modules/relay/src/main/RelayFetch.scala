@@ -102,12 +102,16 @@ final private class RelayFetch(
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
-        allGamesHaveOutcome = games.nonEmpty && games.forall(_.outcome.isDefined)
-        noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty && rt.round.startedAt.isDefined
-        nextRoundToStart <- noMoreGamesSelected.so(api.nextRoundThatStartsAfterThisOneCompletes(rt.round))
+        nbGamesFinished  = games.count(_.outcome.isDefined)
+        nbGamesUnstarted = games.count(!_.hasMoves)
+        allGamesFinishedOrUnstarted = games.nonEmpty &&
+          nbGamesFinished + nbGamesUnstarted == games.size &&
+          nbGamesFinished > nbGamesUnstarted
+        noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty
+        autoFinishNow       = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
       yield res -> updating:
         _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-          .copy(finished = allGamesHaveOutcome || nextRoundToStart.isDefined)
+          .copy(finished = autoFinishNow)
       syncFu
         .recover:
           case e: Exception =>
@@ -165,7 +169,7 @@ final private class RelayFetch(
               seconds.atLeast {
                 if round.sync.log.justTimedOut then 10 else 2
               }.value
-            } some
+            }.some
           )
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
@@ -202,7 +206,7 @@ final private class RelayFetch(
       case Sync.Upstream.Urls(urls) =>
         urls.toVector
           .parallel: url =>
-            delayer(url, rt.round, fetchFromUpstreamWithRecover(rt))
+            delayer(url, rt.round, fetchFromUpstreamWithRecovery(rt))
           .map(_.flatten)
 
   private def fetchFromGameIds(tour: RelayTour, ids: List[GameId]): Fu[RelayGames] =
@@ -260,13 +264,27 @@ final private class RelayFetch(
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
               else if index >= lccCache.tailAt then tailGames.put(key, game)
 
-  private def fetchFromUpstreamWithRecover(rt: RelayRound.WithTour)(url: URL)(using
+  // used to return the last successful result when a source fails
+  // games are stripped of their moves, only tags are kept.
+  // the point is to avoid messing up slices in multi-URL setups.
+  // if a single URL fails, it should not moves the games of the following URLs.
+  private val multiUrlFetchRecoverCache =
+    cacheApi.notLoadingSync[URL, RelayGames](256, "relay.fetch.recoverCache"):
+      _.expireAfterWrite(1 hour).build()
+
+  private def fetchFromUpstreamWithRecovery(rt: RelayRound.WithTour)(url: URL)(using
       CanProxy
   ): Fu[RelayGames] =
-    fetchFromUpstream(rt)(url).recover:
-      case e: Exception =>
-        logger.info(s"Fetch error in multi-url ${rt.round.id} $url ${e.getMessage.take(80)}", e)
-        Vector.empty
+    fetchFromUpstream(rt)(url)
+      .addEffect: games =>
+        multiUrlFetchRecoverCache.put(url, games.map(_.withoutMoves))
+      .recover:
+        case e: Exception =>
+          logger.info(s"Fetch error in multi-url ${rt.round.id} $url ${e.getMessage.take(80)}", e)
+          val recovery = multiUrlFetchRecoverCache.getIfPresent(url)
+          logger.info:
+            recovery.fold(s"No recovery found for $url")(r => s"Recovery found for $url with ${r.size} games")
+          ~recovery
 
   private def fetchFromUpstream(rt: RelayRound.WithTour)(url: URL)(using CanProxy): Fu[RelayGames] =
     import DgtJson.*
@@ -322,7 +340,7 @@ final private class RelayFetch(
 
 private object RelayFetch:
 
-  val maxChaptersToShow: Max                 = lila.study.Study.maxChapters
+  val maxChaptersToShow: Max                 = Max(100)
   val maxGamesToRead: Max                    = Max(256)
   val maxGamesToReadOfficial: Max            = maxGamesToRead.map(_ * 2)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead

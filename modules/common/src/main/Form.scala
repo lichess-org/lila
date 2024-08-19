@@ -224,14 +224,9 @@ object Form:
       }
 
   object url:
-    import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
-    private val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
-    given Formatter[URL] = formatter.stringTryFormatter(s =>
-      Try(URL.parse(parser, s)).fold(
-        err => Left(s"Invalid URL: ${err.getMessage}"),
-        Right(_)
-      )
-    )
+    import io.mola.galimatias.URL
+    given Formatter[URL] = formatter.stringTryFormatter: s =>
+      lila.common.url.parse(s).toEither.fold(err => Left(s"Invalid URL: ${err.getMessage}"), Right(_))
     val field: Mapping[URL] = of[URL]
 
   object username:

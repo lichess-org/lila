@@ -158,10 +158,9 @@ object RelayRound:
         case _          => Nil
 
     case class Lcc(id: String, round: Int):
-      def pageUrl  = URL.parse(s"https://view.livechesscloud.com/#$id/$round")
-      def indexUrl = URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json")
-      def gameUrl(game: Int) =
-        URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/game-$game.json")
+      def pageUrl         = URL.parse(s"https://view.livechesscloud.com/#$id/$round")
+      def indexUrl        = URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json")
+      def gameUrl(g: Int) = URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/game-$g.json")
 
     private val lccRegex               = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
     private def looksLikeLcc(url: URL) = url.toString.contains(".livechesscloud.com/")

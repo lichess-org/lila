@@ -22,7 +22,7 @@ object user:
       username: UserName,
       count: Count,
       enabled: UserEnabled,
-      roles: List[String],
+      roles: List[RoleDbKey],
       profile: Option[Profile] = None,
       toints: Int = 0,
       playTime: Option[PlayTime],
@@ -79,7 +79,7 @@ object user:
 
     def withPerf(perf: Perf): WithPerf = WithPerf(this, perf)
 
-    def addRole(role: String) = copy(roles = role :: roles)
+    def addRole(role: RoleDbKey) = copy(roles = role :: roles)
 
     import lila.core.perm.Granter
     def isSuperAdmin               = Granter.ofUser(_.SuperAdmin)(this)
@@ -89,6 +89,9 @@ object user:
     def isVerifiedOrAdmin          = isVerified || isAdmin
     def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || Granter.ofUser(_.ApiChallengeAdmin)(this)
   end User
+
+  opaque type RoleDbKey = String
+  object RoleDbKey extends OpaqueString[RoleDbKey]
 
   opaque type KidMode = Boolean
   object KidMode extends YesNo[KidMode]
@@ -197,7 +200,7 @@ object user:
     def perfsOf[U: UserIdOf](us: PairOf[U], primary: Boolean): Fu[PairOf[UserPerfs]]
     def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean]
     def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit
-    def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]]
+    def userIdsWithRoles(roles: List[RoleDbKey]): Fu[Set[UserId]]
     def incColor(userId: UserId, value: Int): Unit
     def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean]
     def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean]

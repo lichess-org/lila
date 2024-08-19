@@ -7,6 +7,7 @@ import scalalib.Iso
 
 import lila.core.perm.{ Granter, Permission }
 import lila.memo.SettingStore.{ Formable, StringReader }
+import lila.core.user.RoleDbKey
 
 final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 
@@ -77,13 +78,14 @@ object ModPresets:
               yield ModPreset(
                 name,
                 text.dropWhile(_.isEmpty).mkString("\n"),
-                toPermisssions(perms)
+                toPermissions(perms)
               )
             case _ => none
           }
 
-    private def toPermisssions(s: String): Set[Permission] =
-      Permission.ofDbKeys(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList) match
+    private def toPermissions(s: String): Set[Permission] =
+      val roles = RoleDbKey.from(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList)
+      Permission.ofDbKeys(roles) match
         case set if set.nonEmpty => set
         case _                   => Set(Permission.Admin)
 

@@ -40,17 +40,15 @@
   <string name="editRoundStudy">Keisti raundo studiją</string>
   <string name="deleteTournament">Ištrinti šį turnyrą</string>
   <string name="definitivelyDeleteTournament">Užtikrintai ištrinti visą turnyrą, visus raundus ir visas jų partijas.</string>
-  <string name="automaticLeaderboard">Automatinė lyderių lentelė</string>
-  <string name="automaticLeaderboardHelp">Apskaičiuokite ir parodykite paprastą lyderių lentelę pagal žaidimo rezultatus</string>
   <string name="replacePlayerTags">Pasirenkama: pakeiskite žaidėjų vardus, reitingus ir titulus</string>
   <string name="periodInSeconds">Laikotarpis sekundėmis</string>
   <string name="periodInSecondsHelp">Pasirinkimas, kiek laiko reikės laukti tarp užklausų. Min 2s, max 60s. Pagal numatytuosius nustatymus-automatinis, atsižvelgiant į žiūrinčiųjų skaičių.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE federacijos</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">10 aukščiausių reitingų</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE žaidėjai</string>
+  <string name="fideFederations">FIDE federacijos</string>
+  <string name="top10Rating">10 aukščiausių reitingų</string>
+  <string name="fidePlayers">FIDE žaidėjai</string>
   <string name="fidePlayerNotFound">FIDE žaidėjas nerastas</string>
   <string name="fideProfile">FIDE profilis</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Federacija</string>
+  <string name="federation">Federacija</string>
   <string name="ageThisYear">Amžius šiemet</string>
   <string name="unrated">Nereitinguota(s)</string>
   <string name="recentTournaments">Neseniai sukurti turnyrai</string>

@@ -38,17 +38,15 @@
   <string name="editRoundStudy">Editatu txandako azterlana</string>
   <string name="deleteTournament">Ezabatu txapelketa hau</string>
   <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
-  <string name="automaticLeaderboard">Sailkapen automatikoa</string>
-  <string name="automaticLeaderboardHelp">Partiden emaitzetan oinarritutako sailkapen sinplea kalkulatu eta erakutsi</string>
   <string name="replacePlayerTags">Hautazkoa: aldatu jokalarien izen, puntuazio eta tituluak</string>
   <string name="periodInSeconds">Aldia segundotan</string>
   <string name="periodInSecondsHelp">Hautazkoa, zenbat itxaron eskaeren artean. Gutxienez 2 segundo, gehienez 60 segundo. Automatikora itzuliko da ikusle kopuruaren arabera.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">FIDE federazioak</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">10 onenak</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">FIDE jokalariak</string>
+  <string name="fideFederations">FIDE federazioak</string>
+  <string name="top10Rating">10 onenak</string>
+  <string name="fidePlayers">FIDE jokalariak</string>
   <string name="fidePlayerNotFound">FIDE jokalaria ez da aurkitu</string>
   <string name="fideProfile">FIDE profila</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Federazioa</string>
+  <string name="federation">Federazioa</string>
   <string name="ageThisYear">Adina</string>
   <string name="unrated">Ez du sailkapenik</string>
   <string name="recentTournaments">Azken txapelketak</string>

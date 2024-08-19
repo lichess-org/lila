@@ -152,7 +152,7 @@ object RelayRoundForm:
 
   private def cleanUrl(source: String)(using mode: Mode): Option[URL] =
     for
-      url <- Try(URL.parse(source)).toOption
+      url <- lila.common.url.parse(source).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
       // prevent common mistakes (not for security)

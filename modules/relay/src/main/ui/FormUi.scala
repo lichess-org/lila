@@ -4,7 +4,7 @@ import play.api.data.Form
 
 import lila.ui.*
 
-import ScalatagsTemplate.{ *, given }
+import ScalatagsTemplate.{ given, * }
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -454,17 +454,28 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(form3.textarea(_)(rows := 10))
         ),
         form3
-          .fieldset("Features", toggle = tg.map(_.tour).exists(t => t.autoLeaderboard || t.teamTable).some)(
+          .fieldset(
+            "Features",
+            toggle = tg.map(_.tour).exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable).some
+          )(
             form3.split(
               form3.checkbox(
-                form("autoLeaderboard"),
-                trb.automaticLeaderboard(),
-                help = trb.automaticLeaderboardHelp().some
+                form("showScores"),
+                trb.showScores(),
+                half = true
               ),
+              form3.checkbox(
+                form("showRatingDiffs"),
+                "Show player's rating diffs",
+                half = true
+              )
+            ),
+            form3.split(
               form3.checkbox(
                 form("teamTable"),
                 "Team tournament",
-                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
+                help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
+                half = true
               )
             )
           ),
@@ -604,21 +615,20 @@ Team Dogs ; Scooby Doo"""),
       )
 
   private def grouping(form: Form[RelayTourForm.Data])(using Context) =
-    form3.split(cls := "relay-form__grouping")(
+    div(cls := "relay-form__grouping")(
       form3.group(
         form("grouping"),
         "Optional: assign tournaments to a group",
-        half = true
-      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace")),
-      div(cls := "form-group form-half form-help")( // do not translate
-        "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
-        br,
-        "You can add, remove, and re-order tournaments; and you can rename the group.",
-        br,
-        "Example:",
-        pre("""Youth Championship 2024
+        help = frag( // do not translate
+          "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
+          br,
+          "You can add, remove, and re-order tournaments; and you can rename the group.",
+          br,
+          "Example:",
+          pre("""Youth Championship 2024
 tour1-id Youth Championship 2024 | G20
 tour2-id Youth Championship 2024 | G16
 """)
-      )
+        ).some
+      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace"))
     )

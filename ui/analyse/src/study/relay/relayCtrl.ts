@@ -49,13 +49,7 @@ export default class RelayCtrl {
     this.teams = data.tour.teamTable
       ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, redraw)
       : undefined;
-    this.players = new RelayPlayers(
-      data.tour.id,
-      !!data.tour.leaderboard,
-      this.isEmbed,
-      this.federations,
-      redraw,
-    );
+    this.players = new RelayPlayers(data.tour.id, this.isEmbed, this.federations, redraw);
     this.stats = new RelayStats(this.currentRound(), redraw);
     setInterval(() => this.redraw(true), 1000);
 

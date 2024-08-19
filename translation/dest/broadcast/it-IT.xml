@@ -38,17 +38,15 @@
   <string name="editRoundStudy">Modifica lo studio del turno</string>
   <string name="deleteTournament">Elimina questo torneo</string>
   <string name="definitivelyDeleteTournament">Elimina definitivamente l\'intero torneo, tutti i turni e tutte le partite.</string>
-  <string name="automaticLeaderboard">Classifica automatica</string>
-  <string name="automaticLeaderboardHelp">Calcola e mostra una semplice classifica basata sui risultati delle partite</string>
   <string name="replacePlayerTags">Facoltativo: sostituisci i nomi dei giocatori, i punteggi e i titoli</string>
   <string name="periodInSeconds">Intervallo in secondi</string>
   <string name="periodInSecondsHelp">Facoltativo: quanto a lungo aspettare tra le richieste. Minimo 2s, massimo 60s. Il default è scelto in base al numero di spettatori.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federazioni FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Migliori 10 punteggi</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Giocatori FIDE</string>
+  <string name="fideFederations">Federazioni FIDE</string>
+  <string name="top10Rating">Migliori 10 punteggi</string>
+  <string name="fidePlayers">Giocatori FIDE</string>
   <string name="fidePlayerNotFound">Giocatore FIDE non trovato</string>
   <string name="fideProfile">Profilo FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Federazione</string>
+  <string name="federation">Federazione</string>
   <string name="ageThisYear">Età quest\'anno</string>
   <string name="unrated">Non classificato</string>
   <string name="recentTournaments">Tornei recenti</string>

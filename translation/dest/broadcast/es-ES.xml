@@ -38,17 +38,16 @@
   <string name="editRoundStudy">Editar estudio de ronda</string>
   <string name="deleteTournament">Elimina este torneo</string>
   <string name="definitivelyDeleteTournament">Elimina definitivamente todo el torneo, rondas y partidas incluidas.</string>
-  <string name="automaticLeaderboard">Tabla de clasificación automática</string>
-  <string name="automaticLeaderboardHelp">Calcula y muestra una tabla de clasificación simple según los resultados de la partida</string>
+  <string name="showScores">Mostrar las puntuaciones de los jugadores según los resultados de las partidas</string>
   <string name="replacePlayerTags">Opcional: reemplazar nombres de jugadores, puntuaciones y títulos</string>
   <string name="periodInSeconds">Período en segundos</string>
   <string name="periodInSecondsHelp">Opcional, cuánto tiempo esperar entre peticiones. Mín. 2 s., máx. 60 s. Por defecto es automático según el número de espectadores.</string>
-  <string name="fideFederations" comment="A link and heading for a page listing the different federations under FIDE: https://lichess.org/fide/federation">Federaciones FIDE</string>
-  <string name="top10Rating" comment="The average rating in the 10 strongest players of a FIDE federation. Example: https://lichess.org/fide/federation/United_States_of_America">Los 10 mejores</string>
-  <string name="fidePlayers" comment="A link and heading for a page listing players who play under FIDE: https://lichess.org/fide">Jugadores FIDE</string>
+  <string name="fideFederations">Federaciones FIDE</string>
+  <string name="top10Rating">Los 10 mejores</string>
+  <string name="fidePlayers">Jugadores FIDE</string>
   <string name="fidePlayerNotFound">Jugador FIDE no encontrado</string>
   <string name="fideProfile">Perfil FIDE</string>
-  <string name="federation" comment="Shows which federation a player belongs to.">Federación</string>
+  <string name="federation">Federación</string>
   <string name="ageThisYear">Edad actual</string>
   <string name="unrated">Sin puntuación</string>
   <string name="recentTournaments">Torneos recientes</string>

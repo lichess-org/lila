@@ -1,7 +1,7 @@
 package lila.core
 package fide
 
-import _root_.chess.{ FideId, PlayerName, PlayerTitle, Elo }
+import _root_.chess.{ FideId, PlayerName, PlayerTitle, Elo, KFactor }
 
 enum FideTC:
   case standard, rapid, blitz
@@ -24,7 +24,7 @@ trait Player:
   def fed: Option[Federation.Id]
   def title: Option[PlayerTitle]
   def ratingOf(tc: FideTC): Option[Elo]
-  def kFactorOf(tc: FideTC): Int
+  def kFactorOf(tc: FideTC): KFactor
 
 type PlayerToken = String
 type GuessPlayer = (Option[FideId], Option[PlayerName], Option[PlayerTitle]) => Fu[Option[Player]]

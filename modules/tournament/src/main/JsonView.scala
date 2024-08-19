@@ -16,6 +16,7 @@ import lila.core.i18n.Translate
 import lila.core.socket.SocketVersion
 import lila.core.user.LightUserApi
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
+import lila.gathering.GatheringJson.*
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.PerfType
@@ -114,7 +115,7 @@ final class JsonView(
           .add("spotlight" -> tour.spotlight)
           .add("berserkable" -> tour.berserkable)
           .add("noStreak" -> tour.noStreak)
-          .add("position" -> tour.position.ifTrue(full).map(positionJson))
+          .add("position" -> tour.position.ifTrue(full).map(position))
           .add("verdicts" -> verdicts.map(verdictsFor(_, tour.perfType)))
           .add("schedule" -> tour.schedule.map(scheduleJson))
           .add("private" -> tour.isPrivate)
@@ -557,23 +558,6 @@ object JsonView:
       "limit"     -> clock.limitSeconds,
       "increment" -> clock.incrementSeconds
     )
-
-  private[tournament] def positionJson(fen: Fen.Standard): JsObject =
-    lila.gathering.Thematic.byFen(fen) match
-      case Some(pos) =>
-        Json
-          .obj(
-            "eco"  -> pos.eco,
-            "name" -> pos.name,
-            "fen"  -> pos.fen,
-            "url"  -> pos.url
-          )
-      case None =>
-        Json
-          .obj(
-            "name" -> "Custom position",
-            "fen"  -> fen
-          )
 
   private[tournament] given OWrites[Spotlight] = OWrites: s =>
     Json

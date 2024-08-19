@@ -228,13 +228,10 @@ final private class StudySocket(
           for
             w        <- who
             username <- o.get[UserStr]("d")
-          yield api.invite(
-            w.u,
-            studyId,
-            username,
-            isPresent = userId => isPresent(studyId, userId),
-            onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err)))
-          )
+          yield api
+            .invite(w.u, studyId, username, isPresent(studyId, _))
+            .recover:
+              case err: Exception => send(P.Out.tellSri(w.sri, makeMessage("error", err.getMessage)))
 
         case "relaySync" =>
           applyWho: w =>
@@ -289,6 +286,11 @@ final private class StudySocket(
       who: Who
   ) =
     val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.some)
+    val relayPathDedup = relay
+      .map(_.path)
+      .map: path =>
+        if path == pos.path.+(node.id) then "!"
+        else path.toString
     version(
       "addNode",
       Json
@@ -299,7 +301,7 @@ final private class StudySocket(
           "s" -> sticky
         )
         .add("w", Option.when(relay.isEmpty)(who))
-        .add("relayPath", relay.map(_.path))
+        .add("relayPath", relayPathDedup)
     )
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =

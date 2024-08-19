@@ -205,6 +205,12 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         )
     .void
 
+  def membersDoc(id: StudyId): Fu[Option[Bdoc]] =
+    coll(_.primitiveOne[Bdoc]($id(id), "members"))
+
+  def setMembersDoc(ids: Seq[StudyId], members: Bdoc): Funit =
+    coll(_.update.one($inIds(ids), $set("members" -> members), multi = true)).void
+
   def uids(studyId: StudyId): Fu[Set[UserId]] =
     coll(_.primitiveOne[Set[UserId]]($id(studyId), F.uids)).dmap(~_)
 

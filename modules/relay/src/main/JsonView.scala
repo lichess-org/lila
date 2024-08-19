@@ -52,7 +52,6 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
         if config.html then markup(tour)(md).value
         else md.value)
       .add("teamTable" -> tour.teamTable)
-      .add("leaderboard" -> tour.autoLeaderboard)
 
   def fullTourWithRounds(trs: WithRounds, group: Option[RelayGroup.WithTours])(using Config): JsObject =
     Json
@@ -62,6 +61,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
           withUrl(round.withTour(trs.tour), withTour = false)
       )
       .add("group" -> group)
+      .add("defaultRoundId" -> RelayListing.defaultRoundToShow(trs).map(_.id))
 
   def tourWithAnyRound(t: RelayTour | WithLastRound | ActiveWithSomeRounds)(using Config): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
@@ -181,7 +181,7 @@ object JsonView:
         "log"     -> s.log.events
       )
       .add("filter" -> s.onlyRound)
-      .add("slices" -> s.slices.map(_.mkString(", ")))
+      .add("slices" -> s.slices.map(RelayGame.Slices.show))
       .add("delay" -> s.delay) ++
       s.upstream.so:
         case Sync.Upstream.Url(url)   => Json.obj("url" -> url)

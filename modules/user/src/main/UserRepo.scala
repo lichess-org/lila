@@ -11,7 +11,7 @@ import lila.core.LightUser
 import lila.core.email.NormalizedEmailAddress
 import lila.core.net.ApiVersion
 import lila.core.security.HashedPassword
-import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark }
+import lila.core.user.{ Plan, PlayTime, Profile, TotpSecret, UserMark, RoleDbKey }
 import lila.core.userId.UserSearch
 import lila.db.dsl.{ *, given }
 
@@ -247,7 +247,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
     coll.primitive[UserId]($inIds(ids), F.id)
 
-  def userIdsLikeWithRole(text: UserSearch, role: String, max: Int = 10): Fu[List[UserId]] =
+  def userIdsLikeWithRole(text: UserSearch, role: RoleDbKey, max: Int = 10): Fu[List[UserId]] =
     userIdsLikeFilter(text, $doc(F.roles -> role), max)
 
   private[user] def userIdsLikeFilter(text: UserSearch, filter: Bdoc, max: Int): Fu[List[UserId]] =
@@ -297,11 +297,11 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def isCreatedSince(id: UserId, since: Instant): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.createdAt.$lt(since)))
 
-  def setRoles(id: UserId, roles: List[String]): Funit =
+  def setRoles(id: UserId, roles: List[RoleDbKey]): Funit =
     coll.updateField($id(id), F.roles, roles).void
 
-  def getRoles[U: UserIdOf](u: U): Fu[List[String]] =
-    coll.primitiveOne[List[String]]($id(u), BSONFields.roles).dmap(_.orZero)
+  def getRoles[U: UserIdOf](u: U): Fu[List[RoleDbKey]] =
+    coll.primitiveOne[List[RoleDbKey]]($id(u), BSONFields.roles).dmap(_.orZero)
 
   def addPermission(id: UserId, perm: lila.core.perm.Permission): Funit =
     coll.update.one($id(id), $push(F.roles -> perm.dbKey)).void
@@ -455,7 +455,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     userIds.nonEmpty.so:
       coll.secondaryPreferred.exists($inIds(userIds) ++ disabledSelect)
 
-  def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]] =
+  def userIdsWithRoles(roles: List[RoleDbKey]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("_id", $doc("roles".$in(roles)))
 
   def countEngines(userIds: List[UserId]): Fu[Int] =

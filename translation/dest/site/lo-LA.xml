@@ -2,11 +2,24 @@
 <resources>
   <string name="playWithAFriend">ຫຼິ້ນກັບເພື່ອນ</string>
   <string name="playWithTheMachine">ຫຼິ້ນກັບຄອມພິວເຕີ</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">ເພື່ອເຊີນຄົນມາຫຼິ້ນ, ໃຫ້ URL ນີ້</string>
+  <string name="gameOver">ເກມເກີນ</string>
   <string name="waitingForOpponent">​ກຳ​ລັງ​ລໍ​ຖ້າ opponent</string>
+  <string name="orLetYourOpponentScanQrCode">ຫຼືໃຫ້ opponent ຂອງທ່ານສະແກນລະຫັດ QR ນີ້</string>
   <string name="waiting">​ກຳ​ລັງ​ລໍ​ຖ້າ</string>
   <string name="yourTurn">ຫັນຂອງທ່ານ</string>
+  <string name="aiNameLevelAiLevel">%1$sລະດັບ%2$s</string>
+  <string name="level">ລະດັບ</string>
+  <string name="strength">ຄວາມເຂັ້ມແຂງ</string>
+  <string name="toggleTheChat">ສະຫຼັບການສົນທະນາ</string>
   <string name="chat">ສົນທະນາ</string>
   <string name="resign">ລາອອກ</string>
+  <string name="checkmate">ເພື່ອນຮ່ວມເພດ</string>
+  <string name="stalemate">stalemate</string>
+  <string name="white">ສີຂາວ</string>
+  <string name="black">ສີດໍາ</string>
+  <string name="asWhite">ເປັນສີຂາວ</string>
+  <string name="asBlack">ເປັນສີດໍາ</string>
   <string name="cancel">ຍົກເລີກການ</string>
   <string name="language">ພາສາ</string>
 </resources>

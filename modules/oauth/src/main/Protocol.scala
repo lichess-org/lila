@@ -1,7 +1,7 @@
 package lila.oauth
 
 import com.roundeights.hasher.Algo
-import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+import io.mola.galimatias.URL
 import play.api.libs.json.Json
 import scalalib.SecureRandom
 
@@ -83,12 +83,11 @@ object Protocol:
     def matches(other: UncheckedRedirectUri) = value.toString == other.value
   object RedirectUri:
     def from(redirectUri: String): Either[Error, RedirectUri] =
-      Either
-        .catchNonFatal {
-          URL.parse(URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance), redirectUri)
-        }
+      lila.common.url
+        .parse(redirectUri)
+        .toEither
         .leftMap(_ => Error.RedirectUriInvalid)
-        .ensure(Error.RedirectSchemeNotAllowed)(url =>
+        .ensure(Error.RedirectSchemeNotAllowed): url =>
           List(
             // standard
             "http",
@@ -103,10 +102,7 @@ object Protocol:
             "chesscomopse",
             "tectootb"
           ).has(url.scheme) || url.scheme.contains(".")
-        )
         .map(RedirectUri.apply)
-
-    def unchecked(trusted: String): RedirectUri = RedirectUri(URL.parse(trusted))
 
   case class UncheckedRedirectUri(value: String) extends AnyVal
 

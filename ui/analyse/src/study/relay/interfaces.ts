@@ -49,7 +49,6 @@ export interface RelayTour {
   official?: boolean;
   image?: string;
   teamTable?: boolean;
-  leaderboard?: boolean;
   tier?: number;
   dates?: RelayTourDates;
 }

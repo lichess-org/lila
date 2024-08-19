@@ -19,7 +19,7 @@ object Links:
 
   private def toLink(line: String): Option[Link] =
     for
-      url <- Try(URL.parse(line)).toOption
+      url <- lila.common.url.parse(line).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
     yield Site.allKnown.find(_.matches(host)).map(site => Link(site, url.toString)) | Link(
