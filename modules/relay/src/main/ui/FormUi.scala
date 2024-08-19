@@ -615,21 +615,20 @@ Team Dogs ; Scooby Doo"""),
       )
 
   private def grouping(form: Form[RelayTourForm.Data])(using Context) =
-    form3.split(cls := "relay-form__grouping")(
+    div(cls := "relay-form__grouping")(
       form3.group(
         form("grouping"),
         "Optional: assign tournaments to a group",
-        half = true
-      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace")),
-      div(cls := "form-group form-half form-help")( // do not translate
-        "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
-        br,
-        "You can add, remove, and re-order tournaments; and you can rename the group.",
-        br,
-        "Example:",
-        pre("""Youth Championship 2024
+        help = frag( // do not translate
+          "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
+          br,
+          "You can add, remove, and re-order tournaments; and you can rename the group.",
+          br,
+          "Example:",
+          pre("""Youth Championship 2024
 tour1-id Youth Championship 2024 | G20
 tour2-id Youth Championship 2024 | G16
 """)
-      )
+        ).some
+      )(form3.textarea(_)(rows := 5, spellcheck := "false", cls := "monospace"))
     )
