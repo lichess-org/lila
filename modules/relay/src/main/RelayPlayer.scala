@@ -147,9 +147,11 @@ private final class RelayPlayerApi(
               fidePlayer <- fidePlayerOpt
               r          <- player.rating.orElse(fidePlayer.ratingOf(tc))
               p = Elo.Player(r, fidePlayer.kFactorOf(tc))
-              games = player.games.flatMap: g =>
-                g.opponent.rating.map: opRating =>
-                  Elo.Game(g.outcome.flatMap(_.winner.map(_ == g.color)), opRating)
+              games = for
+                g        <- player.games
+                outcome  <- g.outcome
+                opRating <- g.opponent.rating
+              yield Elo.Game(outcome.winner.map(_ == g.color), opRating)
             yield player.copy(ratingDiff = games.nonEmpty.option(Elo.computeRatingDiff(p, games)))
           .map: newPlayer =>
             id -> (newPlayer | player)
