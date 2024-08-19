@@ -121,7 +121,7 @@ final class GameApiV2(
                 Query.nowPlayingVs(config.user.id, _)
               }
           val requiresElasticSearch =
-            config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty
+            config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty
           val gameSource: Source[Game, ?] =
             if requiresElasticSearch then
               import lila.search.Size
@@ -144,7 +144,6 @@ final class GameApiV2(
                 )
                 .documentSource()
                 .take(config.max.fold(Int.MaxValue)(_.value))
-                .filter(config.postFilter)
 
           gameSource
             .throttle(config.perSecond.value, 1 second)
@@ -418,8 +417,6 @@ object GameApiV2:
         perf = perfKey.view.map(_.id.value).toList,
         rated = rated
       )
-
-    def postFilter(g: Game) = rated.forall(g.rated ==)
 
   case class ByIdsConfig(
       ids: Seq[GameId],
