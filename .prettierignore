@@ -27,6 +27,7 @@
 
 *.min.js
 readme
+routes
 
 /.bloop/
 /.bsp/

@@ -1,0 +1,579 @@
+[
+  {
+    "_id": "66bf540066a9c42a1185a113",
+    "version": 0,
+    "uid": "#listress",
+    "author": "schlawg",
+    "name": "Listress",
+    "description": "You are a wretched, pitiful worm. Listress will not be merciful.",
+    "image": "e3a4fbdf7d34.webp",
+    "ratings": {
+      "classical": 2100
+    },
+    "books": [],
+    "sounds": {
+      "greeting": [
+        {
+          "chance": 20,
+          "delay": 1,
+          "mix": 0.5,
+          "key": "eb8c190237e3.mp3"
+        }
+      ]
+    },
+    "fish": {
+      "multipv": 12,
+      "by": {
+        "depth": 12
+      }
+    },
+    "operators": {
+      "cplTarget": {
+        "range": {
+          "min": 0,
+          "max": 150
+        },
+        "from": "time",
+        "data": [
+          [-2, 29.93723849372385],
+          [2, 11.736401673640163]
+        ]
+      },
+      "cplStdev": {
+        "range": {
+          "min": 0,
+          "max": 100
+        },
+        "from": "score",
+        "data": [
+          [0.5, 9.517520920502086],
+          [1, 25.397489539748953]
+        ]
+      }
+    }
+  },
+  {
+    "_id": "66bf537966a9c42a11859af0",
+    "version": 0,
+    "uid": "#hanzo",
+    "author": "schlawg",
+    "name": "Hanzo",
+    "description": "Hanzo will not rest until he has defeated you. But then he will rest.",
+    "image": "b856ee7effa0.webp",
+    "ratings": {
+      "classical": 1800
+    },
+    "books": [
+      {
+        "key": "82abc767e9e3",
+        "weight": 1
+      }
+    ],
+    "sounds": {},
+    "fish": {
+      "multipv": 12,
+      "by": {
+        "depth": 4
+      }
+    },
+    "operators": {
+      "cplTarget": {
+        "range": {
+          "min": 0,
+          "max": 150
+        },
+        "from": "time",
+        "data": [
+          [-2, 51.27615062761505],
+          [2, 22.405857740585773]
+        ]
+      },
+      "cplStdev": {
+        "range": {
+          "min": 0,
+          "max": 100
+        },
+        "from": "move",
+        "data": [
+          [25, 29.163179916317983],
+          [60, 40.0418410041841]
+        ]
+      }
+    }
+  },
+  {
+    "_id": "66bf522366a9c42a11858b68",
+    "version": 0,
+    "uid": "#mitsoko",
+    "author": "schlawg",
+    "name": "Mitsoko",
+    "description": "Mitsoko, like most anime women, is an inexplicably powerful warrior.",
+    "image": "317b669cc800.webp",
+    "ratings": {
+      "classical": 1500
+    },
+    "fish": {
+      "multipv": 12,
+      "by": {
+        "depth": 1
+      }
+    },
+    "books": [],
+    "sounds": {},
+    "operators": {
+      "cplTarget": {
+        "range": {
+          "min": 0,
+          "max": 150
+        },
+        "from": "time",
+        "data": [
+          [-2, 99.60251046025104],
+          [2, 39.35146443514645]
+        ]
+      },
+      "cplStdev": {
+        "range": {
+          "min": 0,
+          "max": 100
+        },
+        "from": "score",
+        "data": []
+      }
+    }
+  },
+  {
+    "_id": "66be11da66a9c42a1177088d",
+    "version": 0,
+    "uid": "#nacho",
+    "author": "schlawg",
+    "name": "Nacho",
+    "description": "Nacho might try to cheese you.",
+    "image": "985d5b64dfb8.webp",
+    "ratings": {
+      "classical": 900
+    },
+    "books": [
+      {
+        "key": "46e8ad19a960",
+        "weight": 1
+      }
+    ],
+    "zero": {
+      "multipv": 8,
+      "net": "e55a27d8c06d.pb"
+    },
+    "operators": {
+      "lineDecay": {
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "from": "time",
+        "data": []
+      }
+    },
+    "sounds": {}
+  },
+  {
+    "_id": "66bf52bf66a9c42a11859283",
+    "version": 0,
+    "uid": "#aurora",
+    "author": "schlawg",
+    "name": "Aurora",
+    "description": "Aurora can see the future. She sees your defeat.",
+    "image": "c8ae8c391dae.webp",
+    "ratings": {
+      "classical": 1700
+    },
+    "fish": {
+      "multipv": 12,
+      "by": {
+        "depth": 3
+      }
+    },
+    "books": [],
+    "operators": {
+      "cplTarget": {
+        "range": {
+          "min": 0,
+          "max": 150
+        },
+        "from": "time",
+        "data": [
+          [-2, 58.80753138075313],
+          [2, 25.543933054393303]
+        ]
+      },
+      "cplStdev": {
+        "range": {
+          "min": 0,
+          "max": 100
+        },
+        "from": "score",
+        "data": [[0.5, 34.18410041841003]]
+      }
+    },
+    "sounds": {}
+  },
+  {
+    "_id": "66be187f66a9c42a117756c9",
+    "version": 0,
+    "uid": "#marco",
+    "author": "schlawg",
+    "name": "Marco",
+    "description": "They never asked Marco to star in a video game. He is not pleased.",
+    "image": "a59d8ef4d251.webp",
+    "ratings": {
+      "classical": 1000
+    },
+    "books": [
+      {
+        "key": "82abc767e9e3",
+        "weight": 1
+      }
+    ],
+    "zero": {
+      "multipv": 8,
+      "net": "1a36a309ccd5.pb"
+    },
+    "operators": {
+      "lineDecay": {
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "from": "time",
+        "data": [[3, 0.7353425732217573]]
+      }
+    },
+    "sounds": {}
+  },
+  {
+    "_id": "66be119c66a9c42a11770593",
+    "version": 0,
+    "uid": "#terrence",
+    "author": "schlawg",
+    "name": "Terrence",
+    "description": "Terrence just learned how the pieces move. Now he wants blood.",
+    "image": "bd6416313d29.webp",
+    "ratings": {
+      "classical": 700
+    },
+    "books": [
+      {
+        "key": "46e8ad19a960",
+        "weight": 1
+      }
+    ],
+    "zero": {
+      "multipv": 8,
+      "net": "e55a27d8c06d.pb"
+    },
+    "operators": {
+      "lineDecay": {
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "from": "time",
+        "data": [[3, 1]]
+      }
+    },
+    "sounds": {}
+  },
+  {
+    "_id": "66bf53ba66a9c42a11859de3",
+    "version": 0,
+    "uid": "#thinman",
+    "author": "schlawg",
+    "name": "Thinman",
+    "description": "Thinman is not your friend. That's why he is pointing a laser gun at your face.",
+    "image": "aef91d12d63e.webp",
+    "ratings": {
+      "classical": 2000
+    },
+    "books": [],
+    "sounds": {},
+    "fish": {
+      "multipv": 12,
+      "by": {
+        "depth": 6
+      }
+    },
+    "operators": {
+      "cplTarget": {
+        "range": {
+          "min": 0,
+          "max": 150
+        },
+        "from": "time",
+        "data": [
+          [-2, 38.723849372384926],
+          [2, 14.874476987447693]
+        ]
+      },
+      "cplStdev": {
+        "range": {
+          "min": 0,
+          "max": 100
+        },
+        "from": "move",
+        "data": [
+          [30, 19.12133891213389],
+          [60, 34.60251046025105]
+        ]
+      }
+    }
+  },
+  {
+    "_id": "66be0a9466a9c42a1176b2cf",
+    "version": 0,
+    "uid": "#tbone",
+    "author": "schlawg",
+    "name": "T-Bone",
+    "description": "T-Bone Duplexus is a retired professional alligator wrestler. He's not so good at chess.",
+    "image": "a2ccb87c62ca.webp",
+    "ratings": {
+      "classical": 800
+    },
+    "books": [
+      {
+        "key": "46e8ad19a960",
+        "weight": 1
+      }
+    ],
+    "zero": {
+      "multipv": 4,
+      "net": "e55a27d8c06d.pb"
+    },
+    "operators": {
+      "lineDecay": {
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "from": "time",
+        "data": [[3, 1]]
+      }
+    },
+    "sounds": {}
+  },
+  {
+    "_id": "66bf3b9766a9c42a118485f5",
+    "version": 0,
+    "uid": "#gerard",
+    "author": "schlawg",
+    "name": "Gerard",
+    "description": "It appears that Gerard has brought a sword to a chess match.",
+    "image": "5903da6ad40d.webp",
+    "ratings": {
+      "classical": 1300
+    },
+    "books": [
+      {
+        "key": "82abc767e9e3",
+        "weight": 1
+      }
+    ],
+    "zero": {
+      "multipv": 8,
+      "net": "4b8689f61fa9.pb"
+    },
+    "operators": {
+      "lineDecay": {
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "from": "time",
+        "data": [[3, 0.19559361924686192]]
+      }
+    },
+    "sounds": {}
+  },
+  {
+    "_id": "66bf51cb66a9c42a11858759",
+    "version": 0,
+    "uid": "#bionica",
+    "author": "schlawg",
+    "name": "Bionica",
+    "description": "Bionica was programmed with a full range of emotions, but she prefers contempt.",
+    "image": "fa41532a4b3d.webp",
+    "ratings": {
+      "classical": 1400
+    },
+    "books": [
+      {
+        "key": "793aa087c10e",
+        "weight": 1
+      }
+    ],
+    "zero": {
+      "multipv": 8,
+      "net": "851bf7ab180c.pb"
+    },
+    "sounds": {},
+    "operators": {
+      "lineDecay": {
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "from": "time",
+        "data": [[3, 0.199581589958159]]
+      }
+    }
+  },
+  {
+    "_id": "66be3ea366a9c42a11790fa6",
+    "version": 0,
+    "uid": "#maia",
+    "author": "schlawg",
+    "name": "Maia",
+    "description": "Maia was a famous author before she began modeling for Elle (c0).",
+    "image": "77363e67dd47.webp",
+    "ratings": {
+      "classical": 1200
+    },
+    "books": [
+      {
+        "key": "82abc767e9e3",
+        "weight": 1
+      }
+    ],
+    "zero": {
+      "multipv": 5,
+      "net": "67c57f99ae55.pb"
+    },
+    "sounds": {},
+    "operators": {
+      "lineDecay": {
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "from": "time",
+        "data": [[3, 0.19559361924686192]]
+      }
+    }
+  },
+  {
+    "_id": "66bf528f66a9c42a11859031",
+    "version": 0,
+    "uid": "#spectre",
+    "author": "schlawg",
+    "name": "Spectre",
+    "description": "Spectre will strike without warning. You have been warned.",
+    "image": "21f3b4e59f17.webp",
+    "ratings": {
+      "classical": 1600
+    },
+    "fish": {
+      "multipv": 12,
+      "by": {
+        "depth": 2
+      }
+    },
+    "books": [],
+    "sounds": {},
+    "operators": {
+      "cplTarget": {
+        "range": {
+          "min": 0,
+          "max": 150
+        },
+        "from": "time",
+        "data": [
+          [-2, 78.89121338912135],
+          [2, 29.93723849372385]
+        ]
+      },
+      "cplStdev": {
+        "range": {
+          "min": 0,
+          "max": 100
+        },
+        "from": "score",
+        "data": [[0.5, 40.0418410041841]]
+      }
+    }
+  },
+  {
+    "_id": "66bf537766a9c42a11859ad9",
+    "version": 0,
+    "uid": "#eliza",
+    "author": "schlawg",
+    "name": "Eliza",
+    "description": "Some say Eliza is an engine, but that's probably just transistor bias.",
+    "image": "28e3d9bce0d6.webp",
+    "ratings": {
+      "classical": 1900
+    },
+    "books": [],
+    "sounds": {},
+    "fish": {
+      "multipv": 12,
+      "by": {
+        "depth": 5
+      }
+    },
+    "operators": {
+      "cplTarget": {
+        "range": {
+          "min": 0,
+          "max": 150
+        },
+        "from": "time",
+        "data": [
+          [-2, 39.97907949790795],
+          [2, 18.640167364016726]
+        ]
+      },
+      "cplStdev": {
+        "range": {
+          "min": 0,
+          "max": 100
+        },
+        "from": "move",
+        "data": [
+          [30, 19.53974895397489],
+          [60, 39.623430962343086]
+        ]
+      }
+    }
+  },
+  {
+    "_id": "66be0aa766a9c42a1176b3ba",
+    "version": 0,
+    "uid": "#ghost",
+    "author": "schlawg",
+    "name": "Ghost",
+    "description": "Ghost was kidnapped as a young grandmaster and raised by a tribe of beginners.",
+    "image": "11fb009922b7.webp",
+    "ratings": {
+      "classical": 1100
+    },
+    "books": [
+      {
+        "key": "82abc767e9e3",
+        "weight": 1
+      }
+    ],
+    "zero": {
+      "multipv": 8,
+      "net": "1a36a309ccd5.pb"
+    },
+    "operators": {
+      "lineDecay": {
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "from": "time",
+        "data": [[3, 0.29182792887029285]]
+      }
+    },
+    "sounds": {}
+  }
+]

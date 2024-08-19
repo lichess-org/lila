@@ -1,6 +1,6 @@
 import { lastStep } from './round';
 import RoundController from './ctrl';
-import { ApiMove, RoundData } from './interfaces';
+import { RoundData, ApiMove } from './interfaces';
 import * as xhr from 'common/xhr';
 import { FEN } from 'chessground/types';
 
@@ -35,6 +35,6 @@ export function subscribe(ctrl: RoundController): void {
   });
 }
 
-export function publish(d: RoundData, move: ApiMove) {
+export function publish(d: RoundData, move: ApiMove): void {
   if (d.opponent.ai) site.storage.fire('ceval.fen', move.fen);
 }

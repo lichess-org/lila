@@ -5,6 +5,7 @@ import * as round from './round';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
+import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import * as ground from './ground';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
@@ -13,8 +14,6 @@ import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'game/view/status';
 import * as cg from 'chessground/types';
-import { Config as CgConfig } from 'chessground/config';
-import { Api as CgApi } from 'chessground/api';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
@@ -23,7 +22,6 @@ import * as atomic from './atomic';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, VoiceMove } from 'voice';
 import * as renderUser from './view/user';
@@ -35,10 +33,10 @@ import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { endGameView } from './view/main';
 import {
+  Step,
+  CrazyPocket,
   RoundOpts,
   RoundData,
-  ApiMove,
-  ApiEnd,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -46,6 +44,8 @@ import {
   Position,
   NvuiPlugin,
   RoundTour,
+  ApiMove,
+  ApiEnd,
 } from './interfaces';
 import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
@@ -77,7 +77,7 @@ export default class RoundController implements MoveRootCtrl {
   loading = false;
   loadingTimeout: number;
   redirecting = false;
-  transientMove: TransientMove;
+  transientMove?: TransientMove;
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
   goneBerserk: GoneBerserk = {};
@@ -97,7 +97,7 @@ export default class RoundController implements MoveRootCtrl {
   constructor(
     readonly opts: RoundOpts,
     readonly redraw: Redraw,
-    readonly nvui?: NvuiPlugin,
+    readonly nvui?: NvuiPlugin | undefined,
   ) {
     round.massage(opts.data);
 
@@ -110,8 +110,7 @@ export default class RoundController implements MoveRootCtrl {
       this.firstSeconds = false;
       this.redraw();
     }, 3000);
-
-    this.socket = makeSocket(opts.socketSend, this);
+    this.socket = opts.local ?? makeSocket(opts.socketSend!, this);
     this.blindfoldStorage = site.storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
     if (d.clock)
@@ -138,7 +137,7 @@ export default class RoundController implements MoveRootCtrl {
     this.setQuietMode();
 
     this.moveOn = new MoveOn(this, 'move-on');
-    this.transientMove = new TransientMove(this.socket);
+    if (!opts.local) this.transientMove = new TransientMove(this.socket);
 
     this.menu = toggle(false, redraw);
 
@@ -230,9 +229,9 @@ export default class RoundController implements MoveRootCtrl {
     return true;
   };
 
-  lastPly = () => round.lastPly(this.data);
+  lastPly = (): number => round.lastPly(this.data);
 
-  makeCgHooks = () => ({
+  makeCgHooks = (): any => ({
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
     onMove: this.onMove,
@@ -242,7 +241,7 @@ export default class RoundController implements MoveRootCtrl {
     onPredrop: this.onPredrop,
   });
 
-  replaying = (): boolean => this.ply !== this.lastPly();
+  replaying = (): boolean => this.ply !== this.lastPly() && !this.opts.local;
 
   userJump = (ply: Ply): void => {
     this.cancelMove();
@@ -251,9 +250,9 @@ export default class RoundController implements MoveRootCtrl {
     else this.redraw();
   };
 
-  userJumpPlyDelta = (plyDelta: Ply) => this.userJump(this.ply + plyDelta);
+  userJumpPlyDelta = (plyDelta: Ply): void => this.userJump(this.ply + plyDelta);
 
-  isPlaying = () => game.isPlayerPlaying(this.data);
+  isPlaying = (): boolean => game.isPlayerPlaying(this.data);
 
   jump = (ply: Ply): boolean => {
     ply = Math.max(round.firstPly(this.data), Math.min(this.lastPly(), ply));
@@ -261,7 +260,7 @@ export default class RoundController implements MoveRootCtrl {
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = this.stepAt(ply),
+    const s = this.stepAt(this.ply),
       config: CgConfig = {
         fen: s.fen,
         lastMove: uciToMove(s.uci),
@@ -278,11 +277,11 @@ export default class RoundController implements MoveRootCtrl {
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
     this.pluginUpdate(s.fen);
-    site.pubsub.emit('ply', ply);
+    site.pubsub.emit('ply', this.ply);
     return true;
   };
 
-  canMove = () => !this.replaying() && this.data.player.color === this.chessground.state.turnColor;
+  canMove = (): boolean => !this.replaying() && this.data.player.color === this.chessground.state.turnColor;
 
   replayEnabledByPref = (): boolean => {
     const d = this.data;
@@ -293,22 +292,23 @@ export default class RoundController implements MoveRootCtrl {
     );
   };
 
-  isLate = () => this.replaying() && status.playing(this.data);
+  isLate = (): boolean => this.replaying() && status.playing(this.data);
 
   playerAt = (position: Position): game.Player =>
     (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
 
-  flipNow = () => {
+  flipNow = (): void => {
     this.flip = !this.nvui && !this.flip;
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip),
     });
+    site.pubsub.emit('flip', this.flip);
     this.redraw();
   };
 
-  setTitle = () => title.set(this);
+  setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}) => {
+  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}): void => {
     const socketOpts: SocketOpts = {
       sign: this.sign,
       ackable: true,
@@ -330,14 +330,13 @@ export default class RoundController implements MoveRootCtrl {
     this.justDropped = meta.justDropped;
     this.justCaptured = meta.justCaptured;
     this.preDrop = undefined;
-    this.transientMove.register();
+    this.transientMove?.register();
     this.redraw();
   };
 
-  pluginMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
+  pluginMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role): void => {
     if (!role) {
       this.chessground.move(orig, dest);
-      // TODO look into possibility of making cg.Api.move function update player turn itself.
       this.chessground.state.movable.dests = undefined;
       this.chessground.state.turnColor = opposite(this.chessground.state.turnColor);
 
@@ -346,12 +345,12 @@ export default class RoundController implements MoveRootCtrl {
     this.sendMove(orig, dest, role, { premove: false });
   };
 
-  pluginUpdate = (fen: string) => {
+  pluginUpdate = (fen: string): void => {
     this.voiceMove?.update({ fen, canMove: this.canMove() });
     this.keyboardMove?.update({ fen, canMove: this.canMove() });
   };
 
-  sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
+  sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata): void => {
     const move: SocketMove = {
       u: orig + dest,
     };
@@ -384,7 +383,8 @@ export default class RoundController implements MoveRootCtrl {
     }
   };
 
-  showYourMoveNotification = () => {
+  showYourMoveNotification = (): void => {
+    if (this.opts.local) return;
     const d = this.data;
     const opponent = $('body').hasClass('zen') ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
     const joined = `${opponent}\njoined the game.`;
@@ -403,7 +403,7 @@ export default class RoundController implements MoveRootCtrl {
     else if (this.isPlaying() && this.ply < 1) notify(joined);
   };
 
-  playerByColor = (c: Color) => this.data[c === this.data.player.color ? 'player' : 'opponent'];
+  playerByColor = (c: Color): game.Player => this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): true => {
     const d = this.data,
@@ -450,7 +450,7 @@ export default class RoundController implements MoveRootCtrl {
         },
         check: !!o.check,
       });
-      if (o.check) site.sound.play('check');
+      if (o.check) site.sound.play('check', o.volume);
       blur.onMove();
       site.pubsub.emit('ply', this.ply);
     }
@@ -481,7 +481,7 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.redraw();
     if (playing && playedColor == d.player.color) {
-      this.transientMove.clear();
+      this.transientMove?.clear();
       this.moveOn.next();
       cevalSub.publish(d, o);
     }
@@ -501,14 +501,14 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.pluginUpdate(step.fen);
-    site.sound.move({ ...o, filter: 'music' });
+    if (!this.opts.local) site.sound.move({ ...o, filter: 'music' });
     site.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
 
-  crazyValid = (role: cg.Role, key: cg.Key) => crazyValid(this.data, role, key);
+  crazyValid = (role: cg.Role, key: cg.Key): boolean => crazyValid(this.data, role, key);
 
-  getCrazyhousePockets = () => this.data.crazyhouse?.pockets;
+  getCrazyhousePockets = (): [CrazyPocket, CrazyPocket] | undefined => this.data.crazyhouse?.pockets;
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
@@ -529,7 +529,7 @@ export default class RoundController implements MoveRootCtrl {
     this.clearJust();
     this.shouldSendMoveTime = false;
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
-    if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
+    if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();
     this.moveOn.next();
@@ -592,8 +592,8 @@ export default class RoundController implements MoveRootCtrl {
     else site.sound.say(viewStatus(this), false, false, true);
   };
 
-  challengeRematch = async () => {
-    await xhr.challengeRematch(this.data.game.id);
+  challengeRematch = async (): Promise<void> => {
+    if (this.data.game.id !== 'synthetic') await xhr.challengeRematch(this.data.game.id);
     site.pubsub.emit('challenge-app.open');
     if (site.once('rematch-challenge')) {
       setTimeout(async () => {
@@ -661,14 +661,14 @@ export default class RoundController implements MoveRootCtrl {
     else return false;
   };
 
-  opponentRequest(req: string, i18nKey: string) {
+  opponentRequest(req: string, i18nKey: string): void {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
       this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );
     notify(this.noarg(i18nKey));
   }
 
-  takebackYes = () => {
+  takebackYes = (): void => {
     this.socket.sendLoading('takeback-yes');
     this.chessground.cancelPremove();
     this.promotion.cancel();
@@ -690,7 +690,7 @@ export default class RoundController implements MoveRootCtrl {
     }
   };
 
-  goBerserk = () => {
+  goBerserk = (): void => {
     if (!game.berserkableBy(this.data)) return;
     if (this.goneBerserk[this.data.player.color]) return;
     this.socket.berserk();
@@ -705,7 +705,7 @@ export default class RoundController implements MoveRootCtrl {
     $(`<i data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
-  setLoading = (v: boolean, duration = 1500) => {
+  setLoading = (v: boolean, duration = 1500): void => {
     clearTimeout(this.loadingTimeout);
     if (v) {
       this.loading = true;
@@ -720,7 +720,7 @@ export default class RoundController implements MoveRootCtrl {
     }
   };
 
-  setRedirecting = () => {
+  setRedirecting = (): void => {
     this.redirecting = true;
     site.unload.expected = true;
     setTimeout(() => {
@@ -755,7 +755,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private goneTick?: number;
-  setGone = (gone: number | boolean) => {
+  setGone = (gone: number | boolean): void => {
     game.setGone(this.data, this.data.opponent.color, gone);
     clearTimeout(this.goneTick);
     if (Number(gone) > 1)
@@ -798,7 +798,7 @@ export default class RoundController implements MoveRootCtrl {
     game.drawable(this.data) &&
     (this.data.player.lastDrawOfferAtPly || -99) < this.ply - 20;
 
-  cancelTakebackPreventDraws = () => {
+  cancelTakebackPreventDraws = (): void => {
     this.socket.sendLoading('takeback-no');
     clearTimeout(this.preventDrawOffer);
     this.preventDrawOffer = setTimeout(() => {
@@ -829,7 +829,7 @@ export default class RoundController implements MoveRootCtrl {
     this.socket.sendLoading('draw-yes', null);
   };
 
-  setChessground = (cg: CgApi) => {
+  setChessground = (cg: CgApi): void => {
     this.chessground = cg;
     const up = { fen: this.stepAt(this.ply).fen, canMove: this.canMove(), cg };
     if (!this.isPlaying()) return;
@@ -848,9 +848,9 @@ export default class RoundController implements MoveRootCtrl {
     });
   };
 
-  stepAt = (ply: Ply) => round.plyStep(this.data, ply);
+  stepAt = (ply: Ply): Step => round.plyStep(this.data, ply);
 
-  speakClock = () => {
+  speakClock = (): void => {
     this.clock?.speak();
   };
 
@@ -874,7 +874,7 @@ export default class RoundController implements MoveRootCtrl {
 
         if (d.crazyhouse) crazyInit(this);
 
-        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost())
+        if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost() && !this.opts.local)
           window.addEventListener('beforeunload', e => {
             if (site.unload.expected || !this.isPlaying()) return;
             this.socket.send('bye2');
@@ -896,12 +896,6 @@ export default class RoundController implements MoveRootCtrl {
 
       if (!this.nvui) keyboard.init(this);
       if (this.isPlaying() && d.steps.length === 1) {
-        if (site.storage.get('blindfold') === 'true') {
-          // TODO - delete this if block & storage.set once a few weeks pass
-          site.storage.remove('blindfold');
-          this.blindfoldStorage.set(true);
-        }
-
         this.blindfold(this.blindfoldStorage.get());
       }
       wakeLock.request();
@@ -914,7 +908,6 @@ export default class RoundController implements MoveRootCtrl {
           location.href = '/page/play-extensions';
         }
       }, 1000);
-
       this.onChange();
     }, 800);
   };

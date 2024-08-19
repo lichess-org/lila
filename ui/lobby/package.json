@@ -11,11 +11,24 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "typings": "setup",
+  "exports": {
+    ".": "./dist/setup.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "dependencies": {
     "@types/debounce-promise": "^3.1.9",
     "common": "workspace:*",
     "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
+    "game": "workspace:*",
     "snabbdom": "3.5.1"
   },
   "lichess": {

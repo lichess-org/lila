@@ -11,7 +11,7 @@ export const hooks = (ctrl: LobbyController): Hooks =>
       const id =
         (e.target as HTMLElement).dataset['id'] ||
         ((e.target as HTMLElement).parentNode as HTMLElement).dataset['id'];
-      if (id === 'custom') ctrl.setupCtrl.openModal('hook');
+      if (id === 'custom') ctrl.setupCtrl.initModal('hook');
       else if (id) ctrl.clickPool(id);
     },
     ctrl.redraw,

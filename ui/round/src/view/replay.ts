@@ -11,7 +11,7 @@ import { game as gameRoute } from 'game/router';
 import { VNode } from 'snabbdom';
 import { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
-import { LooseVNodes, looseH as h } from 'common/snabbdom';
+import { LooseVNodes, LooseVNode, looseH as h } from 'common/snabbdom';
 import boardMenu from './boardMenu';
 
 const scrollMax = 99999,
@@ -112,7 +112,7 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
   return els;
 }
 
-export function analysisButton(ctrl: RoundController) {
+export function analysisButton(ctrl: RoundController): LooseVNode {
   const forecastCount = ctrl.data.forecastCount;
   return (
     game.userAnalysable(ctrl.data) &&
@@ -194,7 +194,7 @@ const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: 
     }),
   });
 
-export function render(ctrl: RoundController) {
+export function render(ctrl: RoundController): LooseVNode {
   const d = ctrl.data,
     moves =
       ctrl.replayEnabledByPref() &&

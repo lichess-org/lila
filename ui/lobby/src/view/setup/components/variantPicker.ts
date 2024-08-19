@@ -1,23 +1,22 @@
 import { onInsert } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
+import { SetupCtrl } from '../../../setupCtrl';
 import { variantsBlindMode, variants, variantsForGameType } from '../../../options';
 import { option } from './option';
 
-export const variantPicker = (ctrl: LobbyController) => {
-  const { trans, setupCtrl } = ctrl;
+export const variantPicker = (ctrl: SetupCtrl) => {
   const baseVariants = site.blindMode ? variantsBlindMode : variants;
   return h('div.variant.label-select', [
-    h('label', { attrs: { for: 'sf_variant' } }, trans('variant')),
+    h('label', { attrs: { for: 'sf_variant' } }, ctrl.root.trans('variant')),
     h(
       'select#sf_variant',
       {
-        on: { change: (e: Event) => setupCtrl.variant((e.target as HTMLSelectElement).value as VariantKey) },
+        on: {
+          change: (e: Event) => ctrl.variant((e.target as HTMLSelectElement).value as VariantKey),
+        },
         hook: onInsert<HTMLSelectElement>(element => element.focus()),
       },
-      variantsForGameType(baseVariants, setupCtrl.gameType!).map(variant =>
-        option(variant, setupCtrl.variant()),
-      ),
+      variantsForGameType(baseVariants, ctrl.gameType!).map(variant => option(variant, ctrl.variant())),
     ),
   ]);
 };

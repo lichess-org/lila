@@ -1,0 +1,21 @@
+{
+  "include": ["src/*.ts"],
+  "compilerOptions": {
+    "strict": true,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "target": "es2022",
+    "module": "CommonJS",
+    "lib": ["es2022"],
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "types": ["node"],
+    "declaration": false,
+    "noUnusedLocals": true,
+    "composite": false
+  }
+}

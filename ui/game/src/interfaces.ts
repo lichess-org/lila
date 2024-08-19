@@ -43,6 +43,7 @@ export interface Status {
 }
 
 export type StatusName =
+  | 'created'
   | 'started'
   | 'aborted'
   | 'mate'
@@ -53,8 +54,7 @@ export type StatusName =
   | 'outoftime'
   | 'noStart'
   | 'cheat'
-  | 'variantEnd'
-  | 'unknownFinish';
+  | 'variantEnd';
 
 export type StatusId = number;
 
@@ -80,6 +80,7 @@ export interface Player {
   engine?: boolean;
   berserk?: boolean;
   version: number;
+  image?: string;
   blindfold?: boolean;
 }
 
@@ -135,7 +136,7 @@ export interface CorrespondenceClock {
   black: number;
 }
 
-export type Source = 'import' | 'lobby' | 'pool' | 'friend';
+export type Source = 'import' | 'lobby' | 'pool' | 'friend' | 'local';
 
 export interface PlayerUser {
   id: string;

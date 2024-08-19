@@ -2,11 +2,11 @@ import RoundController from './ctrl';
 import { VNode } from 'snabbdom';
 import { snabDialog } from 'common/dialog';
 
-export const prev = (ctrl: RoundController) => ctrl.userJump(ctrl.ply - 1);
+export const prev = (ctrl: RoundController): void => ctrl.userJump(ctrl.ply - 1);
 
-export const next = (ctrl: RoundController) => ctrl.userJump(ctrl.ply + 1);
+export const next = (ctrl: RoundController): void => ctrl.userJump(ctrl.ply + 1);
 
-export const init = (ctrl: RoundController) =>
+export const init = (ctrl: RoundController): LichessMousetrap =>
   site.mousetrap
     .bind(['left', 'k'], () => {
       prev(ctrl);

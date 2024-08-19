@@ -85,8 +85,6 @@ export default function status(ctrl: Ctrl): string {
           return noarg('threeChecks') + winnerSuffix;
       }
       return noarg('variantEnding') + winnerSuffix;
-    case 'unknownFinish':
-      return d.game.winner ? noarg(d.game.winner + 'IsVictorious') : 'Finished';
     default:
       return d.game.status.name + winnerSuffix;
   }

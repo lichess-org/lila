@@ -2,7 +2,6 @@ import { h, thunk } from 'snabbdom';
 import { bind, onInsert } from 'common/snabbdom';
 import LobbyController from '../ctrl';
 import { GameType } from '../interfaces';
-import renderSetupModal from './setup/modal';
 import { numberFormat } from 'common/number';
 
 export default function table(ctrl: LobbyController) {
@@ -19,17 +18,21 @@ export default function table(ctrl: LobbyController) {
           ['hook', 'createAGame', hookDisabled],
           ['friend', 'playWithAFriend', hasOngoingRealTimeGame],
           ['ai', 'playWithTheMachine', hasOngoingRealTimeGame],
-        ].map(([gameType, transKey, disabled]: [GameType, string, boolean]) =>
+          //['local', 'privatePlay', false],
+        ].map(([gameType, transKey, disabled]: [GameType | 'local', string, boolean]) =>
           h(
             `button.button.button-metal.config_${gameType}`,
             {
-              class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
+              class: { active: ctrl.setupCtrl?.gameType === gameType, disabled },
               attrs: { type: 'button' },
               hook: disabled
                 ? {}
                 : bind(
                     site.blindMode ? 'click' : 'mousedown',
-                    () => ctrl.setupCtrl.openModal(gameType),
+                    () => {
+                      if (gameType === 'local') site.asset.loadEsm('local.setup');
+                      else ctrl.showSetupModal(gameType);
+                    },
                     ctrl.redraw,
                   ),
             },
@@ -38,7 +41,7 @@ export default function table(ctrl: LobbyController) {
         ),
       ),
     ),
-    renderSetupModal(ctrl),
+    ctrl.setupCtrl?.renderModal(),
     // Use a thunk here so that snabbdom does not rerender; we will do so manually after insert
     thunk(
       'div.lobby__counters',

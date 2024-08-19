@@ -6,16 +6,6 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
-export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
-  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
-
-export function as<T>(v: T, f: () => void): () => T {
-  return () => {
-    f();
-    return v;
-  };
-}
-
 export interface Prop<T> {
   (): T;
   (v: T): T;
@@ -149,3 +139,64 @@ export const escapeHtml = (str: string): string =>
         .replace(/'/g, '&#39;')
         .replace(/"/g, '&quot;')
     : str;
+
+export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
+  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
+
+export function as<T>(v: T, f: () => void): () => T {
+  return () => {
+    f();
+    return v;
+  };
+}
+
+export function deepFreeze<T>(obj: T): T {
+  if (obj !== null && typeof obj === 'object')
+    Object.values(obj)
+      .filter(v => v !== null && typeof v === 'object')
+      .forEach(o => deepFreeze(o));
+  return Object.freeze(obj);
+}
+
+// does not compare complex objects or non-enumerable properties
+export function isEquivalent(a: any, b: any): boolean {
+  if (a === b) return true;
+  if (typeof a !== typeof b) return false;
+  if (Array.isArray(a)) {
+    return Array.isArray(b) && a.length === b.length && a.every((x, i) => isEquivalent(x, b[i]));
+  }
+  if (typeof a !== 'object') return false;
+  const [aKeys, bKeys] = [Object.keys(a), Object.keys(b)];
+  if (aKeys.length !== bKeys.length) return false;
+  for (const key of aKeys) {
+    if (!bKeys.includes(key) || !isEquivalent(a[key], b[key])) return false;
+  }
+  return true;
+}
+
+export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
+  const length = Math.min(arr1.length, arr2.length);
+  const result: [T, U][] = [];
+  for (let i = 0; i < length; i++) {
+    result.push([arr1[i], arr2[i]]);
+  }
+  return result;
+}
+
+export function findMapped<T, U>(arr: T[], callback: (el: T) => U | undefined): U | undefined {
+  for (const el of arr) {
+    const result = callback(el);
+    if (result) return result;
+  }
+  return undefined;
+}
+
+export function frag<T extends Node = Node>(html: string): T {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+
+  const fragment: DocumentFragment = document.createDocumentFragment();
+  while (div.firstChild) fragment.appendChild(div.firstChild);
+
+  return (fragment.childElementCount === 1 ? fragment.firstElementChild : fragment) as unknown as T;
+}
