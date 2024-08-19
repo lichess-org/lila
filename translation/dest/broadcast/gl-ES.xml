@@ -38,7 +38,7 @@
   <string name="editRoundStudy">Editar o estudo da rolda</string>
   <string name="deleteTournament">Eliminar este torneo</string>
   <string name="definitivelyDeleteTournament">Eliminar o torneo de forma definitiva, con todas as súas roldas e partidas.</string>
-  <string name="showScores">Amosar resultados dos/as xogadores/as baseado en resultados do xogo</string>
+  <string name="showScores">Amosar os puntos dos xogadores en función dos resultados das partidas</string>
   <string name="replacePlayerTags">Opcional: substituír os nomes dos xogadores, as puntuacións e os títulos</string>
   <string name="periodInSeconds">Período en segundos</string>
   <string name="periodInSecondsHelp">Opcional: canto tempo se agarda entre peticións. Min 2s, max 60s. Por defecto é automático baseado no número de espectadores.</string>
