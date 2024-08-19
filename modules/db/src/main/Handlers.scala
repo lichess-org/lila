@@ -225,10 +225,8 @@ trait Handlers:
   )
 
   given BSONHandler[io.mola.galimatias.URL] =
-    import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
-    val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
     tryHandler(
-      { case BSONString(url) => Try(URL.parse(parser, url)) },
+      { case BSONString(url) => lila.common.url.parse(url) },
       t => BSONString(t.toString)
     )
 

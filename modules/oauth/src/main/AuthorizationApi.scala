@@ -3,6 +3,7 @@ package lila.oauth
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.*
+import io.mola.galimatias.URL
 
 final class AuthorizationApi(val coll: Coll)(using Executor):
   import AuthorizationApi.{ BSONFields as F, PendingAuthorization, PendingAuthorizationBSONHandler }
@@ -78,7 +79,7 @@ private object AuthorizationApi:
         hashedCode = r.str(F.hashedCode),
         clientId = Protocol.ClientId(r.str(F.clientId)),
         userId = r.get[UserId](F.userId),
-        redirectUri = Protocol.RedirectUri.unchecked(r.str(F.redirectUri)),
+        redirectUri = Protocol.RedirectUri(r.get[URL](F.redirectUri)),
         challenge = r.strO(F.hashedClientSecret) match
           case Some(hashedClientSecret) => Left(LegacyClientApi.HashedClientSecret(hashedClientSecret))
           case None                     => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
