@@ -100,9 +100,8 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
         'thead',
         h('tr', [
           h('th', 'Player'),
-          withRating ? h('th', defaultSort, 'Elo') : undefined,
-          ctrl.showScores && h('th', 'Score'),
-          h('th', 'Games'),
+          withRating ? h('th', !ctrl.showScores && defaultSort, 'Elo') : undefined,
+          ctrl.showScores ? h('th', defaultSort, 'Score') : h('th', 'Games'),
         ]),
       ),
       h(
@@ -122,8 +121,9 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
               ),
             ),
             h('td', withRating && player.rating ? [`${player.rating}`, ratingDiff(player)] : undefined),
-            ctrl.showScores && h('td', `${player.score}`),
-            h('td', `${player.played}`),
+            ctrl.showScores
+              ? h('td', { attrs: { 'data-sort': player.score } }, `${player.score}/${player.played}`)
+              : h('td', `${player.played}`),
           ]),
         ),
       ),
