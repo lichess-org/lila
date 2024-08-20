@@ -9,16 +9,15 @@ import { ChapterId, Federations, FideId, StudyPlayer, StudyPlayerFromServer } fr
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
 import { defined } from 'common';
-import { Attrs, Hooks, init as initSnabbdom, attributesModule } from 'snabbdom';
+import { Attrs, Hooks, init as initSnabbdom, attributesModule, VNodeData } from 'snabbdom';
 import { Outcome } from 'chessops';
 import { convertPlayerFromServer } from '../studyChapters';
 
-type RelayPlayerId = FideId | string;
+export type RelayPlayerId = FideId | string;
 
 interface RelayPlayer extends StudyPlayer {
-  id: RelayPlayerId; // fide ID or full name
-  score: number;
-  played: number;
+  score?: number;
+  played?: number;
   ratingDiff?: number;
 }
 
@@ -34,16 +33,47 @@ interface RelayPlayerWithGames extends RelayPlayer {
   games: RelayPlayerGame[];
 }
 
+interface PlayerToShow {
+  id?: RelayPlayerId;
+  player?: RelayPlayerWithGames;
+}
+
+const playerId = (p: StudyPlayer) => p.fideId || p.name;
+
 export default class RelayPlayers {
   loading = false;
   players?: RelayPlayer[];
+  show?: PlayerToShow;
 
   constructor(
     private readonly tourId: TourId,
+    readonly switchToPlayerTab: () => void,
     readonly isEmbed: boolean,
     private readonly federations: () => Federations | undefined,
     private readonly redraw: Redraw,
-  ) {}
+  ) {
+    const locationPlayer = location.hash.startsWith('#players/') && location.hash.slice(9);
+    if (locationPlayer) this.showPlayer(locationPlayer);
+  }
+
+  tabHash = () => (this.show ? `#players/${this.show.id}` : '#players');
+
+  switchTabAndShowPlayer = async (id: RelayPlayerId) => {
+    this.switchToPlayerTab();
+    this.showPlayer(id);
+    this.redraw();
+  };
+
+  showPlayer = async (id: RelayPlayerId) => {
+    this.show = { id };
+    const player = await this.loadPlayerWithGames(id);
+    this.show = { id, player };
+    this.redraw();
+  };
+
+  closePlayer = () => {
+    this.show = undefined;
+  };
 
   loadFromXhr = async (onInsert?: boolean) => {
     if (this.players && !onInsert) {
@@ -57,24 +87,63 @@ export default class RelayPlayers {
     this.redraw();
   };
 
-  loadPlayerFull = async (id: RelayPlayerId) => {
+  loadPlayerWithGames = async (id: RelayPlayerId) => {
+    const feds = this.federations();
     const full: RelayPlayerWithGames = await xhr
       .json(`/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`)
-      .then(convertPlayerFromServer);
-    const feds = this.federations();
+      .then(p => convertPlayerFromServer(p, feds));
     full.games.forEach((g: RelayPlayerGame) => {
       g.opponent = convertPlayerFromServer(g.opponent as RelayPlayer & StudyPlayerFromServer, feds);
     });
     return full;
   };
 
-  playerPowerTipHook = (p: StudyPlayer): Hooks | undefined => {
-    const id = p.fideId || p.name;
-    return id ? playerPowerTipHook(this, p, id) : undefined;
-  };
+  playerLinkConfig = (p: StudyPlayer): VNodeData | undefined => playerLinkConfig(this, p, true);
 }
 
 export const playersView = (ctrl: RelayPlayers): VNode =>
+  ctrl.show ? playerView(ctrl, ctrl.show) : playersList(ctrl);
+
+const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
+  const p = show.player;
+  return h(
+    'div.relay-tour__player',
+    {
+      class: { loading: !show.player },
+    },
+    p
+      ? [
+          h('div.relay-tour__player__person', [
+            h(`div.relay-tour__player__name-rating`, [
+              h(`a.relay-tour__player__name`, { attrs: fidePageLinkAttrs(p, ctrl.isEmbed) }, [
+                userTitle(p),
+                p.name,
+              ]),
+              p.rating && h('div', [`${p.rating}`, ratingDiff(p)]),
+            ]),
+            p.team ? h('div.relay-tour__player__team', p.team) : undefined,
+            h('div.relay-tour__player__info', [
+              p.fed
+                ? h('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
+                    h('img.mini-game__flag', {
+                      attrs: { src: site.asset.url(`images/fide-fed/${p.fed.id}.svg`) },
+                    }),
+                    p.fed.name,
+                  ])
+                : undefined,
+              h('div', [p.score, ' / ', p.played]),
+            ]),
+          ]),
+          h('table.slist.slist-pad', [
+            h('thead', h('tr', h('td', { attrs: { colspan: 69 } }, 'Games in this tournament'))),
+            renderPlayerGames(ctrl, p, true),
+          ]),
+        ]
+      : [spinner()],
+  );
+};
+
+const playersList = (ctrl: RelayPlayers): VNode =>
   h(
     'div.relay-tour__players',
     {
@@ -114,24 +183,25 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
             h(
               'th',
               { attrs: { 'data-sort': player.name || '' } },
-              h(
-                player.fideId ? 'a' : 'span',
-                {
-                  attrs: playerLinkAttrs(player.fideId, ctrl.isEmbed),
-                  hook: ctrl.playerPowerTipHook(player),
-                },
-                [playerFed(player.fed), userTitle(player), player.name],
-              ),
+              h('a', playerLinkConfig(ctrl, player, true), [
+                playerFed(player.fed),
+                userTitle(player),
+                player.name,
+              ]),
             ),
             withRating
               ? h(
                   'td',
-                  sortByBoth(player.rating, player.score * 10),
+                  sortByBoth(player.rating, (player.score || 0) * 10),
                   player.rating ? [`${player.rating}`, ratingDiff(player)] : undefined,
                 )
               : undefined,
             withScores
-              ? h('td', sortByBoth(player.score * 10, player.rating), `${player.score}/${player.played}`)
+              ? h(
+                  'td',
+                  sortByBoth((player.score || 0) * 10, player.rating),
+                  `${player.score}/${player.played}`,
+                )
               : h('td', sortByBoth(player.played, player.rating), `${player.played}`),
           ]),
         ),
@@ -140,46 +210,53 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   );
 };
 
-export const playerLinkAttrs = (fideId: FideId | undefined, isEmbed: boolean): Attrs =>
-  fideId
+const playerTipId = 'tour-player-tip';
+export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip: boolean): Hooks => {
+  const id = playerId(player);
+  return id
     ? {
-        href: `/fide/${fideId}/redirect`,
-        target: isEmbed ? '_blank' : '',
+        ...onInsert(el => {
+          el.addEventListener('click', e => {
+            e.preventDefault();
+            ctrl.switchTabAndShowPlayer(id);
+          });
+          if (withTip)
+            $(el).powerTip({
+              closeDelay: 200,
+              popupId: playerTipId,
+              preRender() {
+                const tipEl = document.getElementById(playerTipId) as HTMLElement;
+                const patch = initSnabbdom([attributesModule]);
+                patch(tipEl, h(`div#${playerTipId}`, renderPlayerTipPreload(ctrl, player)));
+                ctrl.loadPlayerWithGames(id).then((p: RelayPlayerWithGames) => {
+                  const vdom = renderPlayerTipWithGames(ctrl, p);
+                  tipEl.innerHTML = '';
+                  patch(tipEl, h(`div#${playerTipId}`, vdom));
+                  $.powerTip.reposition(el);
+                });
+              },
+            });
+        }),
+        ...(withTip ? { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) } : {}),
       }
     : {};
+};
 
-const playerTipId = 'tour-player-tip';
-
-export const playerPowerTipHook = (ctrl: RelayPlayers, p: StudyPlayer, id: RelayPlayerId): Hooks => ({
-  insert(vnode) {
-    const el = vnode.elm as HTMLElement;
-    $(el).powerTip({
-      closeDelay: 200,
-      popupId: playerTipId,
-      preRender() {
-        const tipEl = document.getElementById(playerTipId) as HTMLElement;
-        const patch = initSnabbdom([attributesModule]);
-        patch(tipEl, h(`div#${playerTipId}`, renderPlayerPreload(ctrl, p)));
-        ctrl.loadPlayerFull(id).then((p: RelayPlayerWithGames) => {
-          const vdom = renderPlayerWithGames(ctrl, p);
-          tipEl.innerHTML = '';
-          patch(tipEl, h(`div#${playerTipId}`, vdom));
-          $.powerTip.reposition(el);
-        });
-      },
-    });
+export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTip: boolean): VNodeData => ({
+  attrs: {
+    href: `#players/${playerId(player)}`,
   },
-  destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
+  hook: playerLinkHook(ctrl, player, withTip),
 });
+
+export const fidePageLinkAttrs = (p: StudyPlayer, blank?: boolean): Attrs | undefined =>
+  p.fideId ? { href: `/fide/${p.fideId}/redirect`, ...(blank ? { target: '_blank' } : {}) } : undefined;
 
 const isRelayPlayer = (p: StudyPlayer | RelayPlayer): p is RelayPlayer => 'score' in p;
 
-const renderPlayer = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =>
+const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =>
   h('div.tpp__player', [
-    h(`${p.fideId ? 'a' : 'span'}.tpp__player__name`, { attrs: playerLinkAttrs(p.fideId, ctrl.isEmbed) }, [
-      userTitle(p),
-      p.name,
-    ]),
+    h(`a.tpp__player__name`, playerLinkConfig(ctrl, p, false), [userTitle(p), p.name]),
     p.team ? h('div.tpp__player__team', p.team) : undefined,
     h('div.tpp__player__info', [
       h('div', [
@@ -190,61 +267,61 @@ const renderPlayer = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): VNode =
     ]),
   ]);
 
-const renderPlayerPreload = (ctrl: RelayPlayers, p: StudyPlayer): VNode =>
-  h('div.tpp', [renderPlayer(ctrl, p), h('div.tpp__preload', spinnerVdom())]);
+const renderPlayerTipPreload = (ctrl: RelayPlayers, p: StudyPlayer): VNode =>
+  h('div.tpp', [renderPlayerTipHead(ctrl, p), h('div.tpp__preload', spinnerVdom())]);
 
-const renderPlayerWithGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames): VNode =>
+const renderPlayerTipWithGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames): VNode =>
   h('div.tpp', [
-    renderPlayer(ctrl, p),
-    h(
-      'div.tpp__games',
-      h(
-        'table',
-        h(
-          'tbody',
-          p.games.map((game, i) => {
-            const op = game.opponent;
-            return h(
-              'tr',
-              {
-                hook: onInsert(el =>
-                  el.addEventListener('click', (e: Event) => {
-                    let tr = e.target as HTMLLinkElement;
-                    while (tr && tr.tagName !== 'TR') tr = tr.parentNode as HTMLLinkElement;
-                    const href = tr.querySelector('a')?.href;
-                    if (href) location.href = href;
-                  }),
-                ),
-              },
-              [
-                h('td', `${i + 1}`),
-                h(
-                  'td',
-                  h('a', { attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` } }, [
-                    playerFed(op.fed),
-                    userTitle(op),
-                    op.name,
-                  ]),
-                ),
-                h('td', op.rating?.toString()),
-                h('td.is.color-icon.' + game.color),
-                h(
-                  'td.tpp__games__status',
-                  game.outcome
-                    ? game.outcome.winner
-                      ? game.outcome.winner == game.color
-                        ? h('good', '1')
-                        : h('bad', '0')
-                      : h('span', '½')
-                    : '*',
-                ),
-              ],
-            );
-          }),
-        ),
-      ),
-    ),
+    renderPlayerTipHead(ctrl, p),
+    h('div.tpp__games', h('table', renderPlayerGames(ctrl, p, false))),
   ]);
+
+const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips: boolean): VNode =>
+  h(
+    'tbody',
+    p.games.map((game, i) => {
+      const op = game.opponent;
+      return h(
+        'tr',
+        {
+          hook: onInsert(el =>
+            el.addEventListener('click', (e: Event) => {
+              let tr = e.target as HTMLLinkElement;
+              while (tr && tr.tagName !== 'TR') tr = tr.parentNode as HTMLLinkElement;
+              const href = tr.querySelector('a')?.href;
+              if (href) location.href = href;
+            }),
+          ),
+        },
+        [
+          h('td', `${i + 1}`),
+          h(
+            'td',
+            h(
+              'a',
+              {
+                hook: withTips ? playerLinkHook(ctrl, op, true) : {},
+                attrs: { href: `/broadcast/-/-/${game.round}/${game.id}` },
+              },
+              [playerFed(op.fed), userTitle(op), op.name],
+            ),
+          ),
+          h('td', op.rating?.toString()),
+          h('td.is.color-icon.' + game.color),
+          h(
+            'td.tpp__games__status',
+            game.outcome
+              ? game.outcome.winner
+                ? game.outcome.winner == game.color
+                  ? h('good', '1')
+                  : h('bad', '0')
+                : h('span', '½')
+              : '*',
+          ),
+        ],
+      );
+    }),
+  );
 
 const ratingDiff = (p: RelayPlayer) => {
   const rd = p.ratingDiff;

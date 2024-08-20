@@ -372,6 +372,39 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
 
+  &__player {
+    a {
+      color: $c-font;
+      &:hover {
+        color: $c-primary;
+      }
+    }
+    &__person {
+      @extend %flex-column;
+      @extend %tour-margin-horiz;
+      gap: 0.5em;
+      margin-bottom: 2em;
+      .mini-game__flag {
+        width: 2.5em;
+      }
+    }
+    &__name-rating {
+      @extend %flex-between;
+    }
+    &__name {
+      @extend %flex-center-nowrap, %ellipsis;
+      font-size: 1.5em;
+    }
+    &__info {
+      @extend %flex-between;
+      font-weight: bold;
+    }
+    &__fed-team {
+      @extend %flex-center;
+      gap: 1em;
+    }
+  }
+
   .study__multiboard {
     @media (min-width: at-least($xx-large)) {
       margin: 0 0.5em;
