@@ -212,9 +212,8 @@ $.powerTip = {
     return element;
   },
 
-  destroy(element: WithTooltip) {
-    $(element).off('.powertip');
-    return element;
+  destroy(element: Partial<WithTooltip>) {
+    element.displayController?.hide(true);
   },
 };
 
