@@ -15,22 +15,25 @@ export class GameCtrl implements LocalSetup {
   history?: LocalGame;
   proxy: RoundProxy;
   clock?: ClockData & { since?: number };
-  originalOrientation: Color;
+  orientation: Color;
   resolveThink?: () => void;
 
   constructor(readonly opts: LocalPlayOpts) {
-    this.setup = opts.setup ?? {};
+    this.trans = site.trans(this.opts.i18n);
+    this.setup =
+      opts.setup ??
+      JSON.parse(localStorage.getItem('assets' in opts ? 'local.dev.setup' : 'local.setup') ?? '{}');
+    this.setup.initial ??= Infinity;
     this.setup.initialFen ??= co.fen.INITIAL_FEN;
-    this.originalOrientation = this.black ? 'white' : this.white ? 'black' : 'white';
-    this.trans = site.trans(opts.i18n);
+    this.orientation = this.black ? 'white' : this.white ? 'black' : 'white';
+    this.live = new LocalGame(this.initialFen);
   }
 
   async init(): Promise<void> {
-    this.live = new LocalGame(this.initialFen);
-    this.resetClock();
     env.bot.setUids(this.setup);
     site.pubsub.on('ply', this.jump);
     site.pubsub.on('flip', env.redraw);
+    this.resetClock();
     this.proxy = new RoundProxy();
     this.triggerStart();
   }
@@ -44,8 +47,8 @@ export class GameCtrl implements LocalSetup {
     this.live = new LocalGame(this.initialFen);
     this.updateTurn();
     this.resetClock();
-    this.updateClockUi();
     this.proxy.reset();
+    this.updateClockUi();
     this.triggerStart();
   }
 
@@ -157,8 +160,8 @@ export class GameCtrl implements LocalSetup {
     return this.history === undefined && !this.isStopped;
   }
 
-  get cgOrientation(): Color {
-    return env.round?.flip ? co.opposite(this.originalOrientation) : this.originalOrientation;
+  get orientationForReal(): Color {
+    return env.round?.flip ? co.opposite(this.orientation) : this.orientation;
   }
 
   get speed(): LocalSpeed {
@@ -241,23 +244,20 @@ export class GameCtrl implements LocalSetup {
   }
 
   private resetClock(): void {
-    // in dev mode unlimited, set initial to 999999 because round/ctrl.ts will not create a clock
-    // controller unless there's a clock object, meaning we cannot switch from unlimited to realtime
-    // without reloads. clockCtrl does not like Infinity and i don't want to pull any of those jenga
-    // pieces. but it wouldn't be the worst thing if this were fixed in round/ctrl.ts and clockCtrl.ts
-    const initial = Number.isFinite(this.setup.initial) ? this.setup.initial : env.dev ? 999999 : undefined;
-    if (initial === undefined) return (this.clock = undefined);
-    this.clock = {
-      initial: initial,
-      increment: this.setup.increment ?? 0,
-      white: initial,
-      black: initial,
-      emerg: 0,
-      showTenths: this.opts.pref.clockTenths,
-      showBar: true,
-      moretime: 0,
-      running: false,
-      since: undefined,
-    };
+    const initial = this.setup.initial as number;
+    this.clock = Number.isFinite(initial)
+      ? {
+          initial: initial,
+          increment: this.setup.increment ?? 0,
+          white: initial,
+          black: initial,
+          emerg: 0,
+          showTenths: this.opts.pref.clockTenths,
+          showBar: true,
+          moretime: 0,
+          running: false,
+          since: undefined,
+        }
+      : undefined;
   }
 }

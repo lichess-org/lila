@@ -1,8 +1,7 @@
 import * as co from 'chessops';
-import { zip } from 'common';
+import { zip, clamp } from 'common';
 import { normalize, interpolate } from './operator';
-import { outcomeExpectancy, getNormal, deepScore } from './util';
-import type { FishSearch, SearchResult } from 'zerofish';
+import type { FishSearch, SearchResult, Line } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
 import type {
@@ -16,6 +15,11 @@ import type {
   SoundEvents,
   Ratings,
 } from './types';
+
+export function score(pv: Line, depth: number = pv.scores.length - 1): number {
+  const sc = pv.scores[clamp(depth, { min: 0, max: pv.scores.length - 1 })];
+  return isNaN(sc) ? 0 : clamp(sc, { min: -10000, max: 10000 });
+}
 
 export class Bot implements BotInfo, Mover {
   private openings: Promise<OpeningBook[]>;
@@ -103,7 +107,6 @@ export class Bot implements BotInfo, Mover {
     if (!args.remaining || !args.initial || args.initial > 99999) return undefined;
     const { initial, remaining } = args;
     const increment = args.increment ?? 0;
-    const total = initial + increment * 40;
     const pace = 45 * (remaining < initial / Math.log2(initial) && !increment ? 2 : 1);
     const quickest = Math.min(initial / 150, 1);
     const variateMax = Math.min(remaining, initial / pace + (increment ?? 0));
@@ -159,7 +162,7 @@ export class Bot implements BotInfo, Mover {
 
     fish?.lines
       .filter(v => v.moves[0])
-      .forEach(v => parsed.push({ uci: v.moves[0], cpl: Math.abs(cp - deepScore(v)), weights: {} }));
+      .forEach(v => parsed.push({ uci: v.moves[0], cpl: Math.abs(cp - score(v)), weights: {} }));
 
     zero?.lines
       .map(v => v.moves[0])
@@ -212,4 +215,22 @@ function lineDecay(sorted: SearchMove[], decay: number) {
 function weightSort(a: SearchMove, b: SearchMove) {
   const wScore = (mv: SearchMove) => Object.values(mv.weights).reduce((acc, w) => acc + (w ?? 0), 0);
   return wScore(b) - wScore(a);
+}
+
+function outcomeExpectancy(turn: Color, cp: number): number {
+  return 1 / (1 + 10 ** ((turn === 'black' ? cp : -cp) / 400));
+}
+
+let nextNormal: number | undefined;
+
+function getNormal(): number {
+  if (nextNormal !== undefined) {
+    const normal = nextNormal;
+    nextNormal = undefined;
+    return normal;
+  }
+  const r = Math.sqrt(-2.0 * Math.log(Math.random()));
+  const theta = 2.0 * Math.PI * Math.random();
+  nextNormal = r * Math.sin(theta);
+  return r * Math.cos(theta);
 }

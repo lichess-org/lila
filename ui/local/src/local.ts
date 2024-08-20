@@ -11,8 +11,6 @@ import type { LocalPlayOpts } from './types';
 const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts): Promise<void> {
-  opts.setup ??= JSON.parse(localStorage.getItem('local.setup') ?? '{}');
-
   initEnv({ redraw, bot: new BotCtrl(), assets: new Assets(), game: new GameCtrl(opts) });
   await Promise.all([env.bot.init(opts.bots), env.assets.init()]);
   await env.game.init();

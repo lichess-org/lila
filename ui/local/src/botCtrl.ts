@@ -1,12 +1,11 @@
 import makeZerofish, { type Zerofish, type Position } from 'zerofish';
 import * as co from 'chessops';
-import { Bot } from './bot';
+import { Bot, score } from './bot';
 import { RateBot } from './dev/rateBot';
 import { closeEnough } from './dev/devUtil';
 import { type CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { deepFreeze } from 'common';
-import { deepScore } from './util';
 import type { BotInfo, SoundEvent, Mover, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
 
@@ -207,7 +206,7 @@ export class BotCtrl {
 
   private async fetchBestMove(pos: Position): Promise<{ uci: string; cp: number }> {
     const best = (await this.zerofish.goFish(pos, { multipv: 1, by: { depth: 12 } })).lines[0];
-    return { uci: best.moves[0], cp: deepScore(best) };
+    return { uci: best.moves[0], cp: score(best) };
   }
 }
 

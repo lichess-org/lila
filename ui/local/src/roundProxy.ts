@@ -76,7 +76,7 @@ export class RoundProxy implements IRoundProxy {
   }
 
   reset(): void {
-    const bottom = env.game.originalOrientation;
+    const bottom = env.game.orientation;
     const top = co.opposite(bottom);
     this.data.game.fen = env.game.initialFen;
     this.data.game.turns = 0;
@@ -85,8 +85,10 @@ export class RoundProxy implements IRoundProxy {
     this.data.possibleMoves = env.game.live.dests;
     this.data.player = this.player(bottom);
     this.data.opponent = this.player(top);
-    if (env.round) env.round.ply = 0;
     this.data.game.speed = this.data.game.perf = clockToSpeed(env.game.initial, env.game.increment);
+    if (!env.round) return;
+    env.round.ply = 0;
+    env.round.reload(this.data);
   }
 
   get roundOpts(): RoundOpts {
@@ -100,7 +102,7 @@ export class RoundProxy implements IRoundProxy {
         if (env.round.ply === 0)
           this.updateCg(undefined, {
             lastMove: undefined,
-            orientation: env.game.originalOrientation,
+            orientation: env.game.orientation,
             events: { move: undefined },
           });
       },

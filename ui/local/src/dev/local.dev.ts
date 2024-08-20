@@ -27,8 +27,6 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   }
   if (window.screen.width < 1260) return;
 
-  opts.setup ??= JSON.parse(localStorage.getItem('local.dev.setup') ?? '{}');
-
   initEnv({
     redraw,
     bot: new BotCtrl(),

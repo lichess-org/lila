@@ -298,9 +298,14 @@ def deploy_script(profile, session, run, url):
             f"rm -rf {artifact_unzipped}",
         ]
     elif not profile.get("symlinks"):
+        # testy runs in podman and cannot escape a volume mapping via symlink. so we just shuffle things around
+        # rather than copying
         commands += [
-            f"rsync -a --delete {artifact_unzipped}/d/bin {deploy_dir}/bin",
-            f"rsync -a --delete {artifact_unzipped}/d/lib {deploy_dir}/lib",
+            f"rm -rf {deploy_dir}/bin~ {deploy_dir}/lib~",
+            f"mv -f {deploy_dir}/bin {deploy_dir}/bin~",
+            f"mv -f {deploy_dir}/lib {deploy_dir}/lib~",
+            f"mv -f {artifact_unzipped}/d/bin {deploy_dir}/bin",
+            f"mv -f {artifact_unzipped}/d/lib {deploy_dir}/lib",
             f"chmod -f +x {deploy_dir}/bin/lila || true",
         ]
     else:

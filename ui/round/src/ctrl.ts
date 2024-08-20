@@ -113,17 +113,7 @@ export default class RoundController implements MoveRootCtrl {
     this.socket = opts.local ?? makeSocket(opts.socketSend!, this);
     this.blindfoldStorage = site.storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
-    if (d.clock)
-      this.clock = new ClockController(d, {
-        onFlag: this.socket.outoftime,
-        soundColor: d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
-        nvui: !!this.nvui,
-      });
-    else {
-      this.makeCorrespondenceClock();
-      setInterval(this.corresClockTick, 1000);
-    }
-
+    this.updateClockCtrl();
     this.promotion = new PromotionCtrl(
       f => f(this.chessground),
       () => {
@@ -528,6 +518,7 @@ export default class RoundController implements MoveRootCtrl {
     this.data = d;
     this.clearJust();
     this.shouldSendMoveTime = false;
+    this.updateClockCtrl();
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
     if (!this.replaying()) ground.reload(this);
@@ -606,17 +597,21 @@ export default class RoundController implements MoveRootCtrl {
     }
   };
 
-  private makeCorrespondenceClock = (): void => {
-    if (this.data.correspondence && !this.corresClock)
-      this.corresClock = new CorresClockController(this, this.data.correspondence, this.socket.outoftime);
-  };
-
-  private corresClockTick = (): void => {
-    if (this.corresClock && game.playable(this.data)) {
-      this.corresClock.tick(this.data.game.player);
-      this.redraw();
+  private updateClockCtrl() {
+    const d = this.data;
+    if (d.clock) {
+      this.corresClock = undefined;
+      this.clock ??= new ClockController(d, {
+        onFlag: this.socket.outoftime,
+        soundColor: d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
+        nvui: !!this.nvui,
+      });
+    } else {
+      this.clock = undefined;
+      if (d.correspondence)
+        this.corresClock ??= new CorresClockController(this, d.correspondence, this.socket.outoftime);
     }
-  };
+  }
 
   private setQuietMode = () => {
     const was = site.quietMode;

@@ -14,16 +14,11 @@ import type { LocalSetup, LocalSpeed } from '../types';
 import { env } from '../localEnv';
 
 export function devSideView(): VNode {
-  document
-    .querySelectorAll('div.rclock')
-    .forEach(el => el.classList.toggle('none', !Number.isFinite(env.game.localSetup.initial)));
-  // see resetClock at end of file://./../gameCtrl.ts
-
   return h('div.dev-side.dev-view', [
-    h('div', player(co.opposite(env.game.cgOrientation))),
+    h('div', player(co.opposite(env.game.orientationForReal))),
     dashboard(),
     progress(),
-    h('div', player(env.game.cgOrientation)),
+    h('div', player(env.game.orientationForReal)),
   ]);
 }
 
@@ -130,6 +125,7 @@ async function editBot(color: Color) {
 }
 
 function clockOptions() {
+  console.log('devSideView', env.game['initial']);
   return h('span', [
     ...(['initial', 'increment'] as const).map(type => {
       return h('label', [
@@ -158,9 +154,7 @@ function clockOptions() {
 function reset(params: Partial<LocalSetup>): void {
   env.game.reset(params);
   localStorage.setItem('local.dev.setup', JSON.stringify(env.game.localSetup));
-  document
-    .querySelectorAll('div.rclock')
-    .forEach(el => el.classList.toggle('none', env.game.initial === Infinity));
+  document.querySelectorAll('div.rclock').forEach(el => el.classList.toggle('none', env.game.initial > 5400));
   env.redraw();
 }
 
