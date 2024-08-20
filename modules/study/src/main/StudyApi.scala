@@ -384,18 +384,12 @@ final class StudyApi(
       byUserId: UserId,
       studyId: StudyId,
       username: UserStr,
-      isPresent: UserId => Fu[Boolean],
-      onError: String => Unit
+      isPresent: UserId => Fu[Boolean]
   ) =
     sequenceStudy(studyId): study =>
-      inviter(byUserId, study, username, isPresent)
-        .addEffects(
-          err => onError(err.getMessage),
-          user =>
-            val members = study.members + StudyMember.make(user)
-            onMembersChange(study, members, members.ids)
-        )
-        .void
+      inviter(byUserId, study, username, isPresent).map: user =>
+        val members = study.members + StudyMember.make(user)
+        onMembersChange(study, members, members.ids)
 
   def kick(studyId: StudyId, userId: UserId, who: MyId) =
     sequenceStudy(studyId): study =>
@@ -423,6 +417,7 @@ final class StudyApi(
   ): Unit =
     sendTo(study.id)(_.reloadMembers(members, sendToUserIds))
     studyRepo.updateNow(study)
+    Bus.pub(StudyMembers.OnChange(study))
 
   def setShapes(studyId: StudyId, position: Position.Ref, shapes: Shapes)(who: Who) =
     sequenceStudy(studyId): study =>
@@ -840,7 +835,11 @@ final class StudyApi(
         chapterRepo.deleteByStudy(study).andDo(preview.invalidate(study.id))
 
   def becomeAdmin(studyId: StudyId, me: MyId): Funit =
-    sequenceStudy(studyId)(inviter.becomeAdmin(me))
+    sequenceStudy(studyId): study =>
+      inviter
+        .becomeAdmin(me)(study)
+        .andDo:
+          Bus.pub(StudyMembers.OnChange(study))
 
   private def reloadSriBecauseOf(study: Study, sri: Sri, chapterId: StudyChapterId) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
