@@ -90,6 +90,9 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
   const withRating = !!players.find(p => p.rating);
   const withScores = !!players.find(p => p.score);
   const defaultSort = { attrs: { 'data-sort-default': 1 } };
+  const sortByBoth = (x?: number, y?: number) => ({
+    attrs: { 'data-sort': (x || 0) * 100000 + (y || 0) },
+  });
   return h(
     'table.relay-tour__players.slist.slist-invert.slist-pad',
     {
@@ -120,10 +123,16 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
                 [playerFed(player.fed), userTitle(player), player.name],
               ),
             ),
-            h('td', withRating && player.rating ? [`${player.rating}`, ratingDiff(player)] : undefined),
+            withRating
+              ? h(
+                  'td',
+                  sortByBoth(player.rating, player.score * 10),
+                  player.rating ? [`${player.rating}`, ratingDiff(player)] : undefined,
+                )
+              : undefined,
             withScores
-              ? h('td', { attrs: { 'data-sort': player.score } }, `${player.score}/${player.played}`)
-              : h('td', `${player.played}`),
+              ? h('td', sortByBoth(player.score * 10, player.rating), `${player.score}/${player.played}`)
+              : h('td', sortByBoth(player.played, player.rating), `${player.played}`),
           ]),
         ),
       ),
