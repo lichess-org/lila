@@ -32,6 +32,7 @@ object PieceSet extends PieceSetObject:
     PieceSet("reillycraig"),
     PieceSet("companion"),
     PieceSet("riohacha"),
+    PieceSet("libra"),
     PieceSet("kosal"),
     PieceSet("leipzig"),
     PieceSet("fantasy"),
