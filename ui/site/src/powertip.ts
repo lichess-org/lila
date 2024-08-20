@@ -213,13 +213,7 @@ $.powerTip = {
   },
 
   destroy(element: WithTooltip) {
-    $(element)
-      .off('.powertip')
-      .each(() => {
-        delete this.displayController;
-        delete this.hasActiveHover;
-        delete this.forcedOpen;
-      });
+    $(element).off('.powertip');
     return element;
   },
 };
