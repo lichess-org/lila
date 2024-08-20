@@ -121,7 +121,7 @@ final class GameApiV2(
                 Query.nowPlayingVs(config.user.id, _)
               }
           val requiresElasticSearch =
-            config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty
+            config.perfKey.nonEmpty || config.analysed.nonEmpty || config.color.nonEmpty || config.rated.nonEmpty
           val gameSource: Source[Game, ?] =
             if requiresElasticSearch then
               import lila.search.Size
