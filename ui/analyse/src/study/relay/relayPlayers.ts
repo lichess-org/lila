@@ -160,10 +160,7 @@ export const playerPowerTipHook = (ctrl: RelayPlayers, p: StudyPlayer, id: Relay
       },
     });
   },
-  destroy(vnode) {
-    $.powerTip.hide(vnode.elm as HTMLElement, true);
-    $.powerTip.destroy(vnode.elm as HTMLElement);
-  },
+  destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
 });
 
 const isRelayPlayer = (p: StudyPlayer | RelayPlayer): p is RelayPlayer => 'score' in p;
