@@ -374,10 +374,7 @@ $hover-bg: $m-primary_bg--mix-30;
 
   .study__multiboard {
     @media (min-width: at-least($xx-large)) {
-      margin: 0 2em;
-      .now-playing a {
-        padding: 0.8em;
-      }
+      margin: 0 0.5em;
     }
   }
 }
