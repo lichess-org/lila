@@ -87,7 +87,7 @@ const statePush = () =>
 
 const dateFormatter = memoize(() =>
   window.Intl && Intl.DateTimeFormat
-    ? new Intl.DateTimeFormat(document.documentElement.lang, {
+    ? new Intl.DateTimeFormat(site.displayLocale, {
         month: 'short',
         day: 'numeric',
         hour: 'numeric',

@@ -39,7 +39,7 @@ export default class RelayCtrl {
     chapterSelect: ChapterSelect,
   ) {
     this.tourShow = toggle((location.pathname.split('/broadcast/')[1].match(/\//g) || []).length < 3);
-    const locationTab = location.hash.replace(/^#/, '') as RelayTab;
+    const locationTab = location.hash.replace(/^#(\w+).*$/, '$1') as RelayTab;
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
       : this.chapters.looksNew()
@@ -49,7 +49,13 @@ export default class RelayCtrl {
     this.teams = data.tour.teamTable
       ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, redraw)
       : undefined;
-    this.players = new RelayPlayers(data.tour.id, this.isEmbed, this.federations, redraw);
+    this.players = new RelayPlayers(
+      data.tour.id,
+      () => this.openTab('players'),
+      this.isEmbed,
+      this.federations,
+      redraw,
+    );
     this.stats = new RelayStats(this.currentRound(), redraw);
     setInterval(() => this.redraw(true), 1000);
 
@@ -67,6 +73,7 @@ export default class RelayCtrl {
   }
 
   openTab = (t: RelayTab) => {
+    this.players.closePlayer();
     this.tab(t);
     this.tourShow(true);
     this.redraw();
@@ -102,7 +109,9 @@ export default class RelayCtrl {
   };
   roundUrlWithHash = (round?: RelayRound) => `${this.roundPath(round)}#${this.tab()}`;
   updateAddressBar = (tourUrl: string, roundUrl: string) => {
-    const url = this.tourShow() ? `${tourUrl}${this.tab() === 'overview' ? '' : `#${this.tab()}`}` : roundUrl;
+    const tab = this.tab();
+    const tabHash = () => (tab === 'overview' ? '' : tab === 'players' ? this.players.tabHash() : `#${tab}`);
+    const url = this.tourShow() ? `${tourUrl}${tabHash()}` : roundUrl;
     // when jumping from a tour tab to another page, remember which tour tab we were on.
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
     else history.replaceState({}, '', url);

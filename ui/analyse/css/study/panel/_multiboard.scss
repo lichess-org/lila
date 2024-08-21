@@ -55,14 +55,14 @@
 
   .now-playing {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(220px, 100%/4)), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(210px, 100%/6)), 1fr));
 
     a {
       @extend %box-radius;
       container-type: inline-size;
 
       color: $c-font;
-      padding: 0.5em;
+      padding: 0.4em 0.3em;
       border: 1px solid transparent;
 
       overflow: hidden;

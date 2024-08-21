@@ -56,10 +56,12 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
     private val cache =
       cacheApi[TitleName, Option[FidePlayer]](1024, "player.fidePlayer.byName"):
         _.expireAfterWrite(5.minutes).buildAsyncFuture: p =>
-          repo.playerColl
-            .find($doc("token" -> FidePlayer.tokenize(p.name.value), "title" -> p.title))
-            .cursor[FidePlayer]()
-            .list(2)
-            .map:
-              case List(onlyMatch) => onlyMatch.some
-              case _               => none
+          val token = FidePlayer.tokenize(p.name.value)
+          (token.sizeIs > 2).so:
+            repo.playerColl
+              .find($doc("token" -> token, "title" -> p.title))
+              .cursor[FidePlayer]()
+              .list(2)
+              .map:
+                case List(onlyMatch) => onlyMatch.some
+                case _               => none

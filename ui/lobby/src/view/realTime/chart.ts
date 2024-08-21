@@ -59,10 +59,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
           (vnode.elm as HTMLElement).classList.remove('new');
         }, 20);
       },
-      destroy(vnode) {
-        $.powerTip.hide(vnode.elm as HTMLElement, true);
-        $.powerTip.destroy(vnode.elm as HTMLElement);
-      },
+      destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
     },
   });
 }

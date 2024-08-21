@@ -142,10 +142,12 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         wTitle = string(89, 105).flatMap(PlayerTitle.get)
         year   = number(152, 156).filter(_ > 1000)
         flags  = string(158, 160)
+        token  = FidePlayer.tokenize(name)
+        if token.sizeIs > 2
       yield FidePlayer(
         id = FideId(id),
         name = PlayerName(name),
-        token = FidePlayer.tokenize(name),
+        token = token,
         fed = Federation.Id.from(string(76, 79).filter(_ != "NON")),
         title = PlayerTitle.mostValuable(title, wTitle),
         standard = rating(113),

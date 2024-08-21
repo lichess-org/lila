@@ -100,7 +100,7 @@ final class ChatApi(
 
     private def isGarbage(text: String) = {
       val x = text.filter(_.isLetter).toLowerCase
-      x == "last" || x == "first"
+      x == "last" || x == "first" || x == "second" || x == "third"
     } || {
       val x = text.filter(_.isLetterOrDigit).toLowerCase
       x == "1st" || x == "1" || x == "2nd" || x == "2"

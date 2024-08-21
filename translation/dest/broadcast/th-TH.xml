@@ -23,6 +23,7 @@
   <string name="startDateHelp">ไม่บังคับ, ถ้าคุณรู้ว่ารายการจะเริ่มเมื่อใด</string>
   <string name="credits">เครดิตแหล่ง</string>
   <string name="currentGameUrl">URL เกมปัจจุบัน</string>
+  <string name="showScores">แสดงคะแนนผู้เล่นอ้างอิงจากผลของเกม</string>
   <string name="replacePlayerTags">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
   <string name="fideFederations">สหพันธ์ FIDE</string>
   <string name="top10Rating">10 ผู้เล่นที่แต้มสูงสุด</string>

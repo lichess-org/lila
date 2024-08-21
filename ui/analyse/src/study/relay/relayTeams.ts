@@ -106,7 +106,7 @@ const renderTeams = (
 
 const playerView = (players: RelayPlayers, p: StudyPlayer) =>
   h('span.relay-tour__team-match__game__player', [
-    h('span.mini-game__user', { hook: players.playerPowerTipHook(p) }, [
+    h('span.mini-game__user', players.playerLinkConfig(p), [
       playerFed(p.fed),
       h('span.name', [userTitle(p), p.name]),
     ]),

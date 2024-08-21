@@ -152,7 +152,7 @@ $.fn.powerTip = function (opts) {
     // handle repeated powerTip calls on the same element by destroying the
     // original instance hooked to it and replacing it with this call
     if ('displayController' in el) {
-      $.powerTip.destroy($this);
+      $.powerTip.destroy(el);
     }
 
     // create hover controllers for each element
@@ -226,21 +226,10 @@ $.powerTip = {
     return element;
   },
 
-  destroy(element: WithTooltip) {
-    $(element)
-      .off('.powertip')
-      .each(() => {
-        delete this.displayController;
-        delete this.hasActiveHover;
-        delete this.forcedOpen;
-      });
-    return element;
+  destroy(element: Partial<WithTooltip>) {
+    element.displayController?.hide(true);
   },
 };
-
-// API aliasing
-$.powerTip.showTip = $.powerTip.show;
-$.powerTip.closeTip = $.powerTip.hide;
 
 // csscoordinates.js
 

@@ -165,6 +165,7 @@
   <string name="latestForumPosts">Pesan forum terbaru</string>
   <string name="players">Pemain</string>
   <string name="friends">Teman</string>
+  <string name="otherPlayers">pemain lainnya</string>
   <string name="discussions">Diskusi</string>
   <string name="today">Hari ini</string>
   <string name="yesterday">Kemarin</string>
@@ -467,6 +468,7 @@
   <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
+  <string name="realName">Nama asli</string>
   <string name="setFlair">Sunting flair anda</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Terdapat setting untuk menyembunyikan semua flair pengguna pada seluruh situs.</string>
@@ -495,6 +497,7 @@
   <string name="descPrivateHelp">Teks yang hanya bisa dilihat oleh anggota tim. Jika ditetapkan, akan menggantikan deskripsi publik untuk anggota tim.</string>
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
+  <string name="website">Situs Web</string>
   <string name="help">Bantuan:</string>
   <string name="createANewTopic">Buat topik baru</string>
   <string name="topics">Topik</string>
@@ -730,6 +733,12 @@
   <string name="transparent">Tembus pandang</string>
   <string name="deviceTheme">Tema perangkat</string>
   <string name="backgroundImageUrl">URL gambar latar belakang:</string>
+  <string name="board">Papan</string>
+  <string name="size">Ukuran</string>
+  <string name="opacity">Transparansi</string>
+  <string name="brightness">Kecerahan</string>
+  <string name="hue">Rona</string>
+  <string name="boardReset">Kembalikan warna ke pengaturan semula</string>
   <string name="pieceSet">Susunan buah catur</string>
   <string name="embedInYourWebsite">Salin dalam website Anda</string>
   <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan, coba yang lain.</string>
@@ -798,6 +807,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">dan simpan %s baris pra-langkah</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Anda telah menerima pesan pribadi dari Lichess.</string>
+  <string name="clickHereToReadIt">Klik di sini untuk membaca</string>
   <string name="sorry">Maaf :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kami harus mengatur waktu Anda untuk sementara waktu.</string>
   <string name="why">Mengapa?</string>
@@ -819,6 +830,8 @@
   <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
   <string name="edit">Ubah</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Peluru</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Cepat</string>
   <string name="classical">Klasikal</string>
   <string name="ultraBulletDesc">Sangat-sangat cepat: kurang dari 30 detik</string>
@@ -913,6 +926,9 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="switchSides">Tukar Sisi</string>
   <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
   <string name="ourEventTips">Tips dari kami terkait penyelenggaraan acara</string>
+  <string name="instructions">Instruksi</string>
+  <string name="showMeEverything">Tunjukkan semuanya</string>
   <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
 Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
+  <string name="nothingToSeeHere">Tidak ada yang bisa dilihat untuk saat ini.</string>
 </resources>

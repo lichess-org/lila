@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena turnamen</string>
   <string name="isItRated">Apakah ini di-rating?</string>
   <string name="willBeNotified">Anda akan diberitahu ketika turnamen dimulai, sehingga aman untuk bermain di tab lain sambil menunggu.</string>
@@ -39,4 +40,21 @@
   <string name="averagePerformance">Performa rata-rata</string>
   <string name="averageScore">Skor rata-rata</string>
   <string name="myTournaments">Turnamen saya</string>
+  <string name="editTournament">Sunting turnamen</string>
+  <string name="editTeamBattle">Sunting pertandingan tim</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Defender</string>
+  <string name="pickYourTeam">Pilih tim Anda</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Anda harus bergabung dengan salah satu tim berikut untuk berpartisipasi!</string>
+  <string name="created">Dibuat</string>
+  <string name="recentlyPlayed">Baru saja dimainkan</string>
+  <string name="bestResults">Hasil terbaik</string>
+  <string name="stats">Statistik</string>
+  <string name="tournamentStats">Statistik turnamen</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">median</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Poin rata-rata</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Peringkat rata-rata</string>
+  <string name="tournamentWinners">Pemenang turnamen</string>
+  <string name="onlyTitled">Hanya pemain yang memiliki gelar</string>
+  <string name="onlyTitledHelp">Diperlukan sebuah gelar resmi untuk mengikuti turnamen</string>
 </resources>

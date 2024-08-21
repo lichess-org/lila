@@ -40,6 +40,7 @@
   <string name="editRoundStudy">Редактировать студию тура</string>
   <string name="deleteTournament">Удалить этот турнир</string>
   <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
+  <string name="showScores">Показать очки игроков по результатам партий</string>
   <string name="replacePlayerTags">Необязательно: заменить имена игроков, рейтинги и звания</string>
   <string name="periodInSeconds">Период в секундах</string>
   <string name="periodInSecondsHelp">Необязательно: сколько времени ждать между запросами. Минимум 2 сек, максимум 60 сек. По умолчанию устанавливается автоматически, в зависимости от количества зрителей.</string>

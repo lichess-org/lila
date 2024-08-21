@@ -121,7 +121,7 @@ private object RelayGame:
     def show(slices: List[Slice]): String = slices
       .map:
         case Slice(f, t) if f == t => f.toString
-        case slice                 => slice.toString
+        case Slice(f, t)           => s"$f-$t"
       .mkString(", ")
 
     val iso: Iso.StringIso[List[Slice]] = Iso(parse, show)
