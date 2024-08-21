@@ -12,6 +12,7 @@ import { defined } from 'common';
 import { Attrs, Hooks, init as initSnabbdom, attributesModule, VNodeData } from 'snabbdom';
 import { Outcome } from 'chessops';
 import { convertPlayerFromServer } from '../studyChapters';
+import { isTouchDevice } from 'common/device';
 
 export type RelayPlayerId = FideId | string;
 
@@ -213,6 +214,7 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
 const playerTipId = 'tour-player-tip';
 export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip: boolean): Hooks => {
   const id = playerId(player);
+  withTip = withTip && !isTouchDevice();
   return id
     ? {
         ...onInsert(el => {
