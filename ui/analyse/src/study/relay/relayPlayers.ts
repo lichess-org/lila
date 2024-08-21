@@ -242,12 +242,17 @@ export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip:
     : {};
 };
 
-export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTip: boolean): VNodeData => ({
-  attrs: {
-    href: `#players/${playerId(player)}`,
-  },
-  hook: playerLinkHook(ctrl, player, withTip),
-});
+export const playerLinkConfig = (ctrl: RelayPlayers, player: StudyPlayer, withTip: boolean): VNodeData => {
+  const id = playerId(player);
+  return id
+    ? {
+        attrs: {
+          href: `#players/${playerId(player)}`,
+        },
+        hook: playerLinkHook(ctrl, player, withTip),
+      }
+    : {};
+};
 
 export const fidePageLinkAttrs = (p: StudyPlayer, blank?: boolean): Attrs | undefined =>
   p.fideId ? { href: `/fide/${p.fideId}/redirect`, ...(blank ? { target: '_blank' } : {}) } : undefined;
