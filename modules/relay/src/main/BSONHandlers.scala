@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.core.fide.FideTC
 
 object BSONHandlers:
 
@@ -50,6 +51,8 @@ object BSONHandlers:
       case Starts.AfterPrevious => BSONString("afterPrevious")
     }
   )
+
+  given BSONHandler[FideTC] = stringAnyValHandler[FideTC](_.toString, FideTC.valueOf)
 
   given BSONDocumentHandler[RelayRound] = Macros.handler
 

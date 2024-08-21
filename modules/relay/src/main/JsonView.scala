@@ -4,12 +4,13 @@ import play.api.libs.json.*
 import scalalib.Json.paginatorWriteNoNbResults
 import scalalib.paginator.Paginator
 
-import lila.common.Json.given
+import lila.common.Json.{ *, given }
 import lila.core.config.BaseUrl
 import lila.core.id.ImageId
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound, WithRounds }
 import lila.study.ChapterPreview
+import lila.core.fide.FideTC
 
 final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl)(using Executor):
 
@@ -17,6 +18,8 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
 
   given Writes[Option[RelayTour.Tier]] = Writes: t =>
     JsString(t.flatMap(RelayTour.Tier.keys.get) | "user")
+
+  given Writes[FideTC] = writeAs(_.toString)
 
   given OWrites[RelayTour.Info] = Json.writes
 

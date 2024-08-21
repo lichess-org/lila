@@ -23,8 +23,10 @@ trait Player:
   def name: PlayerName
   def fed: Option[Federation.Id]
   def title: Option[PlayerTitle]
+  def year: Option[Int]
   def ratingOf(tc: FideTC): Option[Elo]
   def kFactorOf(tc: FideTC): KFactor
+  def ratingsMap: Map[FideTC, Elo]
 
 type PlayerToken = String
 type GuessPlayer = (Option[FideId], Option[PlayerName], Option[PlayerTitle]) => Fu[Option[Player]]

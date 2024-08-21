@@ -2,9 +2,11 @@ package lila.relay
 
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.data.format.Formatter
 
-import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, url }
+import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, typeIn, url }
 import lila.core.perm.Granter
+import lila.core.fide.FideTC
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
@@ -15,9 +17,13 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       RelayTour.Spotlight.apply
     )(unapply)
 
+  private given Formatter[FideTC]            = formatter.stringFormatter(_.toString, FideTC.valueOf)
+  private val fideTcMapping: Mapping[FideTC] = typeIn[FideTC](FideTC.values.toSet)
+
   private val infoMapping = mapping(
     "format"  -> optional(cleanText(maxLength = 80)),
     "tc"      -> optional(cleanText(maxLength = 80)),
+    "fideTc"  -> optional(fideTcMapping),
     "players" -> optional(cleanText(maxLength = 120))
   )(RelayTour.Info.apply)(unapply)
 
@@ -112,7 +118,7 @@ object RelayTourForm:
       import tg.*
       Data(
         name = tour.name,
-        info = tour.info,
+        info = tour.info.copy(fideTc = tour.info.fideTcOrGuess.some),
         markup = tour.markup,
         tier = tour.tier,
         showScores = tour.showScores,

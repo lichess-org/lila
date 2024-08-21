@@ -428,17 +428,31 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               half = true
             )(form3.input(_)),
             form3.group(
+              form("info.players"),
+              "Top players",
+              help = frag("Mention up to 4 of the best players participating").some,
+              half = true
+            )(form3.input(_))
+          ),
+          form3.split(
+            form3.group(
               form("info.tc"),
               "Time control",
               help = frag(""""Classical" or "Rapid" or "Rapid & Blitz"""").some,
               half = true
-            )(form3.input(_))
+            )(form3.input(_)),
+            form3.group(
+              form("info.fideTc"),
+              "FIDE rating category",
+              help = frag("Which FIDE ratings to use").some,
+              half = true
+            ):
+              form3.select(
+                _,
+                lila.core.fide.FideTC.values.map: tc =>
+                  tc.toString -> tc.toString.capitalize
+              )
           ),
-          form3.group(
-            form("info.players"),
-            "Top players",
-            help = frag("Mention up to 4 of the best players participating").some
-          )(form3.input(_)),
           form3.group(
             form("markdown"),
             trb.fullDescription(),
