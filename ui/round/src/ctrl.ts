@@ -224,7 +224,7 @@ export default class RoundController implements MoveRootCtrl {
   makeCgHooks = (): any => ({
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
-    onMove: this.onMove,
+    onMove: this.opts.local ? undefined : this.onMove,
     onNewPiece: this.onNewPiece,
     onPremove: this.onPremove,
     onCancelPremove: this.onCancelPremove,
@@ -521,7 +521,7 @@ export default class RoundController implements MoveRootCtrl {
     this.updateClockCtrl();
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
-    if (!this.replaying()) ground.reload(this);
+    if (!this.replaying() && !this.opts.local) ground.reload(this);
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
@@ -606,7 +606,9 @@ export default class RoundController implements MoveRootCtrl {
         soundColor: d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
         nvui: !!this.nvui,
       });
+      console.log(d.clock, this.clock);
     } else {
+      console.log('nope');
       this.clock = undefined;
       if (d.correspondence)
         this.corresClock ??= new CorresClockController(this, d.correspondence, this.socket.outoftime);

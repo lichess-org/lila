@@ -86,6 +86,7 @@ export class RoundProxy implements IRoundProxy {
     this.data.player = this.player(bottom);
     this.data.opponent = this.player(top);
     this.data.game.speed = this.data.game.perf = clockToSpeed(env.game.initial, env.game.increment);
+    this.data.clock = env.game.clock;
     if (!env.round) return;
     env.round.ply = 0;
     env.round.reload(this.data);
@@ -100,11 +101,7 @@ export class RoundProxy implements IRoundProxy {
       i18n: env.game.opts.i18n,
       onChange: () => {
         if (env.round.ply === 0)
-          this.updateCg(undefined, {
-            lastMove: undefined,
-            orientation: env.game.orientation,
-            events: { move: undefined },
-          });
+          this.updateCg(undefined, { lastMove: undefined, orientation: env.game.orientation });
       },
     };
   }

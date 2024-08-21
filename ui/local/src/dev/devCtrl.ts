@@ -56,8 +56,8 @@ export class DevCtrl {
     const game = this.script.games.shift();
     if (!game) return false;
     env.game.reset({ ...game, initialFen: env.game.initialFen });
-    env.game.start();
     env.redraw();
+    env.game.start();
     return true;
   }
 

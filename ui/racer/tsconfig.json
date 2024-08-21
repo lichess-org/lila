@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": { "noEmit": true },
+  "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
   "references": [
     { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },

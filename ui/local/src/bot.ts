@@ -103,13 +103,13 @@ export class Bot implements BotInfo, Mover {
     return val;
   }
 
-  private thinktime(args: MoveArgs): number | undefined {
-    if (!args.remaining || !args.initial || args.initial > 99999) return undefined;
-    const { initial, remaining } = args;
-    const increment = args.increment ?? 0;
+  private thinktime({ initial, remaining, increment }: MoveArgs): number | undefined {
+    initial ??= Infinity;
+    increment ??= 0;
+    if (!remaining || !Number.isFinite(initial)) return undefined;
     const pace = 45 * (remaining < initial / Math.log2(initial) && !increment ? 2 : 1);
     const quickest = Math.min(initial / 150, 1);
-    const variateMax = Math.min(remaining, initial / pace + (increment ?? 0));
+    const variateMax = Math.min(remaining, increment + initial / pace);
     return quickest + Math.random() * variateMax;
   }
 
@@ -154,15 +154,15 @@ export class Bot implements BotInfo, Mover {
 
   private parseMoves([fish, zero]: (SearchResult | undefined)[], args: MoveArgs): SearchMove[] {
     if ((!fish || fish.bestmove === '0000') && (!zero || zero.bestmove === '0000'))
-      return [{ uci: '0000', cpl: 0, weights: {} }];
+      return [{ uci: '0000', weights: {} }];
 
     const parsed: SearchMove[] = [];
-    const cp = fish?.lines[0]?.scores[0] ?? args.cp ?? 0;
+    const cp = fish?.lines[0] ? score(fish.lines[0]) : args.cp ?? 0;
     const lc0bias = this.operator('lc0bias', args) ?? 0;
 
     fish?.lines
-      .filter(v => v.moves[0])
-      .forEach(v => parsed.push({ uci: v.moves[0], cpl: Math.abs(cp - score(v)), weights: {} }));
+      .filter(line => line.moves[0])
+      .forEach(line => parsed.push({ uci: line.moves[0], cpl: Math.abs(cp - score(line)), weights: {} }));
 
     zero?.lines
       .map(v => v.moves[0])
@@ -180,14 +180,13 @@ export class Bot implements BotInfo, Mover {
     const mean = this.operator('cplTarget', args) ?? 0;
     const stdev = this.operator('cplStdev', args) ?? 80;
     const cplTarget = Math.abs(mean + stdev * getNormal());
-    // folding (vs truncating) the normal at zero will skew the distribution mean further from the
-    // target, but is slightly more interesting. hey it's "cplTarget" not "cplMean".
+    // folding (vs truncating) the normal at zero skews the distribution mean a bit further from the target
     for (const mv of sorted) {
       if (mv.cpl === undefined) continue;
       const distance = Math.abs((mv.cpl ?? 0) - cplTarget);
       const offset = 80;
       const sensitivity = 0.06;
-      // use a signmoid to cram cpl into 0-1 weight
+      // cram cpl into [0, 1] with sigmoid
       mv.weights.acpl = distance === 0 ? 1 : 1 / (1 + Math.E ** (sensitivity * (distance - offset)));
     }
   }
@@ -205,8 +204,8 @@ interface SearchMove {
 
 function lineDecay(sorted: SearchMove[], decay: number) {
   // in this weighted random selection, each move's probability is given by a quality decay parameter
-  // raised to the power of the move's index as sorted by previous operators. a random number is
-  // chosen between 0 and the probability sum to identify the final move
+  // raised to the power of the move's index as sorted by previous operators. a random number between
+  // 0 and the probability sum will identify the final move
 
   let variate = sorted.reduce((sum, mv, i) => (sum += mv.P = decay ** i), 0) * Math.random();
   return sorted.find(mv => (variate -= mv.P!) <= 0);

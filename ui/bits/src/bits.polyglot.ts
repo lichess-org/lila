@@ -1,28 +1,3 @@
-/**
- * 1. get a function that retrieves the opening moves for any position from a polyglot binary or pgn
- *
- *   import { makeBook, makeCover, PolyglotBook } from 'bits/polyglot';
- *   import { Chess } from 'chessops';
- *
- *   const book: PolyglotResult = await makeBook(new DataView(myPolyglotBuffer));
- *
- *   const position = Chess.default();
- *   for (const move of book.getMoves(position)) {
- *     console.log(move.uci, move.weight, move.app);
- *   }
- *
- * by default, move.weight is normalized to sum to 1 within a move array. pass false as the
- * second argument on lookup to suppress this and get the raw weight integers.
- *
- * 2. create a cover thumbnail as a png blob. covers are rendered with piece transparency to suggest
- * move frequency up to a specified depth.
- *
- *   const cover: Blob = await makeCover(book.getMoves, { depth: 2, boardSize: 192 });
- *
- * cover will be a Blob. depth is the number of fullmoves from starting position to
- * traverse while rendering pieces. boardSize is in pixels and should be divisible by 8.
- */
-
 import * as co from 'chessops';
 import { normalMove } from 'chess';
 
@@ -68,7 +43,7 @@ function makeBookPgn(pgn: string): PolyglotResult {
       return buffer;
     }),
   );
-  return { ...makeGetMoves(book), polyglot };
+  return { ...makeOpeningMoves(book), polyglot };
 
   function traverseTree(chess: co.Chess, node: co.pgn.Node<co.pgn.PgnNodeData>) {
     const moves = book.get(hashBoard(chess)) ?? [];
@@ -103,10 +78,10 @@ function makeBookPolyglot(bytes: DataView): PolyglotResult {
     moves.push({ uci: shortToUci(move), weight });
     book.set(hash, moves);
   }
-  return makeGetMoves(book);
+  return makeOpeningMoves(book);
 }
 
-function makeGetMoves(book: Map<bigint, OpeningMove[]>): PolyglotResult {
+function makeOpeningMoves(book: Map<bigint, OpeningMove[]>): PolyglotResult {
   return {
     getMoves: (pos: co.Chess, normalized = true) => {
       const moves = book.get(hashBoard(pos)) ?? [];

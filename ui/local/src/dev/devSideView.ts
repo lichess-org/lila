@@ -125,7 +125,6 @@ async function editBot(color: Color) {
 }
 
 function clockOptions() {
-  console.log('devSideView', env.game['initial']);
   return h('span', [
     ...(['initial', 'increment'] as const).map(type => {
       return h('label', [
@@ -154,7 +153,6 @@ function clockOptions() {
 function reset(params: Partial<LocalSetup>): void {
   env.game.reset(params);
   localStorage.setItem('local.dev.setup', JSON.stringify(env.game.localSetup));
-  document.querySelectorAll('div.rclock').forEach(el => el.classList.toggle('none', env.game.initial > 5400));
   env.redraw();
 }
 

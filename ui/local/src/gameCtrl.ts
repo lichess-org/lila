@@ -1,6 +1,7 @@
 import * as co from 'chessops';
 import { RoundProxy } from './roundProxy';
 import { type MoveContext, type GameStatus, LocalGame } from './localGame';
+import { clamp } from 'common';
 import { clockToSpeed } from 'game';
 import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
@@ -31,6 +32,7 @@ export class GameCtrl implements LocalSetup {
 
   async init(): Promise<void> {
     env.bot.setUids(this.setup);
+    env.assets.preload();
     site.pubsub.on('ply', this.jump);
     site.pubsub.on('flip', env.redraw);
     this.resetClock();
@@ -44,6 +46,7 @@ export class GameCtrl implements LocalSetup {
     this.history = undefined;
     env.bot.reset();
     env.bot.setUids(this.setup);
+    env.assets.preload();
     this.live = new LocalGame(this.initialFen);
     this.updateTurn();
     this.resetClock();
@@ -68,7 +71,7 @@ export class GameCtrl implements LocalSetup {
 
   start(): void {
     this.stopped = false;
-    setTimeout(() => !this.live.end && this.updateTurn()); // ??
+    if (!this.live.end) this.updateTurn(); // ??
   }
 
   stop(): void {
@@ -89,13 +92,12 @@ export class GameCtrl implements LocalSetup {
     });
     if (!move) return;
     await new Promise<void>(resolve => {
-      if (!this.clock || !move.thinktime) return resolve();
-      this.clock[this.turn] -= move.thinktime;
+      if (this.clock && move.thinktime) this.clock[this.turn] -= move.thinktime;
+      if (this.clock) this.clock.since = undefined;
       if (env.dev?.hurry) return resolve();
       this.resolveThink = resolve;
-      this.clock.since = undefined;
-      const realtime = Math.min(move.thinktime, this.clock[this.turn], 2 * (0.5 + Math.random()));
-      setTimeout(resolve, realtime * 1000);
+      const realWait = Math.min(1 + 2 * Math.random(), this.live.ply > 0 ? move.thinktime ?? 3 : 0);
+      setTimeout(resolve, realWait * 1000);
     });
     this.resolveThink = undefined;
 

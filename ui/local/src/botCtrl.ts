@@ -177,14 +177,15 @@ export class BotCtrl {
     await this.initBots();
   }
 
-  playSound(c: Color, events: SoundEvent[]): number {
-    const prioritized = soundPriority.filter(e => events.includes(e));
-    const sounds = prioritized.map(priority => this[c]?.sounds?.[priority] ?? []);
-    for (const set of sounds) {
+  playSound(c: Color, eventList: SoundEvent[]): number {
+    const prioritized = soundPriority.filter(e => eventList.includes(e));
+    for (const soundList of prioritized.map(priority => this[c]?.sounds?.[priority] ?? [])) {
       let r = Math.random();
-      for (const { key, chance, delay, mix } of set) {
+      for (const { key, chance, delay, mix } of soundList) {
         r -= chance / 100;
         if (r > 0) continue;
+        // right now we play at most one sound per move, might want to revisit this.
+        // also definitely need cancelation of the timeout
         site.sound
           .load(key, env.assets.getSoundUrl(key))
           .then(() => setTimeout(() => site.sound.play(key, Math.min(1, mix * 2)), delay * 1000));

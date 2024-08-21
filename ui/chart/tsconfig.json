@@ -1,5 +1,4 @@
 {
   "extends": "../tsconfig.base.json",
-  //"compilerOptions": {},
   "references": [{ "path": "../common/tsconfig.json" }, { "path": "../ceval/tsconfig.json" }]
 }

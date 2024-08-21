@@ -1,12 +1,14 @@
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { botAssetUrl, Assets } from '../assets';
 import { type OpeningBook, makeBookFromPolyglot, makeBookFromPgn } from 'bits/polyglot';
+import { alert } from 'common/dialog';
 import { zip } from 'common';
 import { env } from '../localEnv';
 
 // dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
-// dev asset names come from the original filename but can be renamed whatever
+// dev asset names are strictly cosmetic and can be renamed at any time
 // dev asset blobs are stored in idb
+// sharing an asset will post it to lila with the asset key as the filename and remove the local copy
 
 type ShareType = 'image' | 'sound' | 'book';
 export type AssetType = ShareType | 'bookCover' | 'net';
@@ -44,7 +46,6 @@ export class DevAssets extends Assets {
   }
 
   async init(): Promise<this> {
-    const then = Date.now();
     const [localImages, localSounds, localBookCovers] = await Promise.all(
       ([...urlTypes, 'book'] as const).map(t => this.idb[t].init()),
     );
@@ -54,7 +55,6 @@ export class DevAssets extends Assets {
         this.urls[type].set(key, URL.createObjectURL(new Blob([data.blob], { type: extToMime(key) })));
       }
     });
-    console.log('DevAssets init', Date.now() - then, 'ms');
     return this;
   }
 
@@ -127,34 +127,13 @@ export class DevAssets extends Assets {
   }
 
   async importBook(pgn: string, name: string): Promise<void> {
-    // const name = (
-    //   await domDialog({
-    //     class: 'alert',
-    //     htmlText: `<div>book name: <input type="text" value="${studyName}"></div>
-    //   <span><button class="button">export</button></span>`,
-    //     actions: {
-    //       selector: 'button',
-    //       listener: async (_, dlg) => {
-    //         const name = (dlg.view.querySelector('input') as HTMLInputElement).value;
-    //         if (!name) dlg.close();
-    //         if ([...this.idb['book'].keyNames.values()].includes(name)) {
-    //           const ok = await confirm('That book already exists. Replace?');
-    //           if (ok) dlg.close(name);
-    //         } else dlg.close(name);
-    //       },
-    //     },
-    //     show: true,
-    //   })
-    // ).returnValue;
-    // if (!name || name === 'cancel') return;
-
-    // a study can be repeatedly updated with the same name after making/testing edits. in that
-    // case, we need to patch all bots using that old book to the new key when we import the
-    // change because bot.books is a list of keys, not names
+    // a study can be repeatedly imported with the same name during the play balancing cycle. in
+    // that case, we need to patch all bots using the key associated with the previous version
+    // to the new key right when we import the change.
     const result = await makeBookFromPgn(pgn, { depth: 10, boardSize: 192 });
     if (!result.polyglot || !result.cover) {
       console.error(result);
-      alert('OhNoesError: ' + pgn);
+      alert('bad: ' + pgn);
       return;
     }
     const oldKey = [...this.idb.book.keyNames.entries()].find(([, n]) => n === name)?.[0];
@@ -204,16 +183,18 @@ export class DevAssets extends Assets {
 
   async getBook(key: string | undefined): Promise<OpeningBook | undefined> {
     if (!key) return undefined;
-    if (key.endsWith('.bin')) key = key.slice(0, -4);
-    const cached = this.book.get(key);
-    if (cached) return cached;
-    const bookBlob = this.idb.book.keyNames.has(key)
-      ? (await this.idb.book.get(key)).blob
-      : await fetch(botAssetUrl('book', `${key}.bin`)).then(res => res.blob());
-    const bytes = new DataView(await bookBlob.arrayBuffer());
-    const book = await makeBookFromPolyglot(bytes);
-    this.book.set(key, book.getMoves);
-    return book.getMoves;
+    if (this.book.has(key)) return this.book.get(key);
+    if (!this.idb.book.keyNames.has(key)) return super.getBook(key);
+    const bookPromise = new Promise<OpeningBook>((resolve, reject) =>
+      this.idb.book
+        .get(key)
+        .then(res => res.blob.arrayBuffer())
+        .then(buf => makeBookFromPolyglot(new DataView(buf)))
+        .then(result => resolve(result.getMoves))
+        .catch(reject),
+    );
+    this.book.set(key, bookPromise);
+    return bookPromise;
   }
 
   getImageUrl(key: string): string {
@@ -237,7 +218,6 @@ export class DevAssets extends Assets {
     const asset = { blob: file, name, user: env.user };
     const cover = { blob: book.cover, name, user: env.user };
     await Promise.all([this.idb.book.put(key, asset), this.idb.bookCover.put(key, cover)]);
-    this.book.set(key, book.getMoves);
     this.urls.bookCover.set(key, URL.createObjectURL(new Blob([book.cover], { type: 'image/png' })));
     return key;
   }
