@@ -373,35 +373,58 @@ $hover-bg: $m-primary_bg--mix-30;
   }
 
   &__player {
+    @extend %flex-column;
+    gap: 2em;
     a {
       color: $c-font;
       &:hover {
         color: $c-primary;
       }
     }
-    &__person {
-      @extend %flex-column;
+    &__name {
       @extend %tour-margin-horiz;
-      gap: 0.5em;
-      margin-bottom: 2em;
-      .mini-game__flag {
-        width: 2.5em;
+      font-size: 1.7em;
+    }
+    &__cards {
+      @extend %tour-margin-horiz;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      grid-gap: 1em;
+      @media (min-width: at-least($medium)) {
+        grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+        font-size: 1.1em;
       }
     }
-    &__name-rating {
-      @extend %flex-between;
+    &__card {
+      @extend %box-neat, %flex-column;
+      align-items: center;
+      gap: 0.5em;
+      background: $c-bg-zebra;
+      padding: 1em 1em;
+      &.active span {
+        color: $c-brag;
+        font-weight: bold;
+      }
+      em {
+        @extend %roboto;
+        text-transform: uppercase;
+        color: $c-font-dim;
+      }
     }
-    &__name {
-      @extend %flex-center-nowrap, %ellipsis;
-      font-size: 1.5em;
-    }
-    &__info {
-      @extend %flex-between;
-      font-weight: bold;
+    .mini-game__flag {
+      height: 1em;
     }
     &__fed-team {
       @extend %flex-center;
       gap: 1em;
+    }
+    &__games {
+      tr {
+        cursor: pointer;
+        &:hover {
+          background: $m-primary_bg--mix-15 !important;
+        }
+      }
     }
   }
 

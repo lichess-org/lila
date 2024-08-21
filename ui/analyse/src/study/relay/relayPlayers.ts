@@ -2,7 +2,7 @@
 import { Redraw, VNode, looseH as h, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { spinnerVdom as spinner, spinnerVdom } from 'common/spinner';
-import { RoundId, TourId } from './interfaces';
+import { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
 import { ChapterId, Federations, FideId, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
@@ -20,6 +20,7 @@ interface RelayPlayer extends StudyPlayer {
   score?: number;
   played?: number;
   ratingDiff?: number;
+  performance?: number;
 }
 
 interface RelayPlayerGame {
@@ -32,6 +33,14 @@ interface RelayPlayerGame {
 
 interface RelayPlayerWithGames extends RelayPlayer {
   games: RelayPlayerGame[];
+  fide?: FidePlayer;
+}
+
+interface FidePlayer {
+  ratings: {
+    [key: string]: number;
+  };
+  year?: number;
 }
 
 interface PlayerToShow {
@@ -102,11 +111,21 @@ export default class RelayPlayers {
   playerLinkConfig = (p: StudyPlayer): VNodeData | undefined => playerLinkConfig(this, p, true);
 }
 
-export const playersView = (ctrl: RelayPlayers): VNode =>
-  ctrl.show ? playerView(ctrl, ctrl.show) : playersList(ctrl);
+export const playersView = (ctrl: RelayPlayers, tour: RelayTour): VNode =>
+  ctrl.show ? playerView(ctrl, ctrl.show, tour) : playersList(ctrl);
 
-const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
+const ratingCategs = [
+  ['standard', 'Classical'],
+  ['rapid', 'Rapid'],
+  ['blitz', 'Blitz'],
+];
+
+const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VNode => {
   const p = show.player;
+  const year = (tour.dates?.[0] ? new Date(tour.dates[0]) : new Date()).getFullYear();
+  const tc = tour.info.fideTc || 'standard';
+  const age: number | undefined = p?.fide?.year && year - p.fide.year;
+  const fidePageData = p && { attrs: fidePageLinkAttrs(p, ctrl.isEmbed) };
   return h(
     'div.relay-tour__player',
     {
@@ -114,28 +133,47 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow): VNode => {
     },
     p
       ? [
-          h('div.relay-tour__player__person', [
-            h(`div.relay-tour__player__name-rating`, [
-              h(`a.relay-tour__player__name`, { attrs: fidePageLinkAttrs(p, ctrl.isEmbed) }, [
-                userTitle(p),
-                p.name,
-              ]),
-              p.rating && h('div', [`${p.rating}`, ratingDiff(p)]),
-            ]),
-            p.team ? h('div.relay-tour__player__team', p.team) : undefined,
-            h('div.relay-tour__player__info', [
-              p.fed
-                ? h('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
+          h(`a.relay-tour__player__name`, fidePageData, [userTitle(p), p.name]),
+          p.team ? h('div.relay-tour__player__team', p.team) : undefined,
+          h('div.relay-tour__player__cards', [
+            ...(p.fide?.ratings
+              ? ratingCategs.map(([key, name]) =>
+                  h(`div.relay-tour__player__card${key == tc ? '.active' : ''}`, [
+                    h('em', name),
+                    h('span', [p.fide?.ratings[key] || '-']),
+                  ]),
+                )
+              : []),
+            age ? h('div.relay-tour__player__card', [h('em', 'Age'), h('span', [age])]) : undefined,
+            p.fed
+              ? h('div.relay-tour__player__card', [
+                  h('em', 'Federation'),
+                  h('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
                     h('img.mini-game__flag', {
                       attrs: { src: site.asset.url(`images/fide-fed/${p.fed.id}.svg`) },
                     }),
                     p.fed.name,
-                  ])
-                : undefined,
-              h('div', [p.score, ' / ', p.played]),
-            ]),
+                  ]),
+                ])
+              : undefined,
+            p.fideId
+              ? h('div.relay-tour__player__card', [
+                  h('em', 'FIDE ID'),
+                  h('a', fidePageData, p.fideId.toString()),
+                ])
+              : undefined,
+            p.score
+              ? h('div.relay-tour__player__card', [h('em', 'Score'), h('span', [p.score, ' / ', p.played])])
+              : undefined,
+            p.performance
+              ? h('div.relay-tour__player__card', [
+                  h('em', 'Performance'),
+                  h('span', [p.performance, p.games.length < 4 ? '?' : '']),
+                ])
+              : undefined,
+            p.ratingDiff && h('div.relay-tour__player__card', [h('em', 'Rating diff'), ratingDiff(p)]),
           ]),
-          h('table.slist.slist-pad', [
+          h('table.relay-tour__player__games.slist.slist-pad', [
             h('thead', h('tr', h('td', { attrs: { colspan: 69 } }, 'Games in this tournament'))),
             renderPlayerGames(ctrl, p, true),
           ]),

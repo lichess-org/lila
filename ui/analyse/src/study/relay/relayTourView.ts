@@ -100,7 +100,10 @@ const startCountdown = (relay: RelayCtrl) => {
   ]);
 };
 
-const players = (ctx: RelayViewContext) => [...header(ctx), playersView(ctx.relay.players)];
+const players = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  playersView(ctx.relay.players, ctx.relay.data.tour),
+];
 
 const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
   const contents = [
