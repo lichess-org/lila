@@ -49,6 +49,8 @@ class VideoPlayer {
     if (this.autoplay) {
       this.url += '&autoplay=1';
       this.iframe.allow = 'autoplay';
+    } else {
+      this.url += '&autoplay=false'; // needs to be "false" for twitch
     }
     this.iframe.src = this.url;
     this.iframe.setAttribute('credentialless', 'credentialless');
