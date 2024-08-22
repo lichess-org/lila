@@ -470,7 +470,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         form3
           .fieldset(
             "Features",
-            toggle = tg.map(_.tour).exists(t => !t.showScores || !t.showRatingDiffs || t.teamTable).some
+            toggle = tg.map(_.tour).exists(t => t.showScores || !t.showRatingDiffs || t.teamTable).some
           )(
             form3.split(
               form3.checkbox(
@@ -479,7 +479,9 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 half = true
               ),
               form3.checkbox(
-                form("showRatingDiffs"),
+                if form("showRatingDiffs").value.isDefined || form.hasErrors
+                then form("showRatingDiffs")
+                else form("showRatingDiffs").copy(value = "true".some),
                 "Show player's rating diffs",
                 half = true
               )
