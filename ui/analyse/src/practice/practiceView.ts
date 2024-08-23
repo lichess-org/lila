@@ -50,8 +50,8 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
       end.winner
         ? h('em', h('color', root.trans.noarg(end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame')))
         : isFiftyMoves
-        ? root.trans.noarg('drawByFiftyMoves')
-        : h('em', root.trans.noarg('theGameIsADraw')),
+          ? root.trans.noarg('drawByFiftyMoves')
+          : h('em', root.trans.noarg('theGameIsADraw')),
     ]),
   ]);
 }

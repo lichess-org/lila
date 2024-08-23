@@ -54,8 +54,8 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
                   ? [renderStart(ctrl)]
                   : []
                 : ctrl.isPlayer()
-                ? [renderLink(ctrl), renderStart(ctrl)]
-                : [renderJoin(ctrl)]),
+                  ? [renderLink(ctrl), renderStart(ctrl)]
+                  : [renderJoin(ctrl)]),
               povMsg,
             ]),
             comboZone(ctrl),

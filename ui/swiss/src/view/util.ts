@@ -27,10 +27,10 @@ export function numberRow(name: string, value: any, typ?: string) {
       typ === 'raw'
         ? value
         : typ === 'percent'
-        ? value[1] > 0
-          ? ratio2percent(value[0] / value[1])
-          : 0
-        : numberFormat(value),
+          ? value[1] > 0
+            ? ratio2percent(value[0] / value[1])
+            : 0
+          : numberFormat(value),
     ),
   ]);
 }

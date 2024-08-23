@@ -167,12 +167,12 @@ async function buildColorMixes() {
         mix.op === 'mix'
           ? clr.mix(c2!, c1, clamp(mix.val, { min: 0, max: 100 }))
           : mix.op === 'lighten'
-          ? c1.lighten(clamp(mix.val, { min: 0, max: 100 }))
-          : mix.op === 'alpha'
-          ? c1.setAlpha(clamp(mix.val / 100, { min: 0, max: 1 }))
-          : mix.op === 'fade'
-          ? c1.setAlpha(c1.getAlpha() * (1 - clamp(mix.val / 100, { min: 0, max: 1 })))
-          : undefined;
+            ? c1.lighten(clamp(mix.val, { min: 0, max: 100 }))
+            : mix.op === 'alpha'
+              ? c1.setAlpha(clamp(mix.val / 100, { min: 0, max: 1 }))
+              : mix.op === 'fade'
+                ? c1.setAlpha(c1.getAlpha() * (1 - clamp(mix.val / 100, { min: 0, max: 1 })))
+                : undefined;
       if (mixed) colors.push(`  --m-${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};`);
       else env.log(`${errorMark} - invalid mix op: '${c.magenta(colorMix)}'`, { ctx: 'sass' });
     }

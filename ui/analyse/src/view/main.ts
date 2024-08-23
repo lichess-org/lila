@@ -61,25 +61,25 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
           ctrl.studyPractice
             ? [deps?.studyPracticeView.side(study!)]
             : study
-            ? [deps?.studyView.side(study, true)]
-            : [
-                ctrl.forecast && forecastView(ctrl, ctrl.forecast),
-                !ctrl.synthetic &&
-                  playable(ctrl.data) &&
-                  h(
-                    'div.back-to-game',
+              ? [deps?.studyView.side(study, true)]
+              : [
+                  ctrl.forecast && forecastView(ctrl, ctrl.forecast),
+                  !ctrl.synthetic &&
+                    playable(ctrl.data) &&
                     h(
-                      'a.button.button-empty.text',
-                      {
-                        attrs: {
-                          href: router.game(ctrl.data, ctrl.data.player.color),
-                          'data-icon': licon.Back,
+                      'div.back-to-game',
+                      h(
+                        'a.button.button-empty.text',
+                        {
+                          attrs: {
+                            href: router.game(ctrl.data, ctrl.data.player.color),
+                            'data-icon': licon.Back,
+                          },
                         },
-                      },
-                      ctrl.trans.noarg('backToGame'),
+                        ctrl.trans.noarg('backToGame'),
+                      ),
                     ),
-                  ),
-              ],
+                ],
         ),
     h('div.chat__members.none', { hook: onInsert(site.watchers) }),
   ]);

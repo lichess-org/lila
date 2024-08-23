@@ -26,10 +26,10 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
       convo.relations.out === false || convo.relations.in === false
         ? blocked('This conversation is blocked.')
         : ctrl.data.me.bot
-        ? blocked('Bot accounts cannot send nor receive messages.')
-        : convo.postable
-        ? renderInteract(ctrl, user)
-        : blocked(`${user.name} doesn't accept new messages.`),
+          ? blocked('Bot accounts cannot send nor receive messages.')
+          : convo.postable
+            ? renderInteract(ctrl, user)
+            : blocked(`${user.name} doesn't accept new messages.`),
     ]),
   ]);
 }

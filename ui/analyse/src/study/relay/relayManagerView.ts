@@ -62,10 +62,10 @@ function stateOn(ctrl: RelayCtrl) {
               ...(sync.url
                 ? ['to source', h('br'), sync.url.replace(/https?:\/\//, '')]
                 : sync.ids
-                ? ['to', h('br'), sync.ids.length, ' game(s)']
-                : sync.urls
-                ? ['to', h('br'), sync.urls.length, ' sources']
-                : []),
+                  ? ['to', h('br'), sync.ids.length, ' game(s)']
+                  : sync.urls
+                    ? ['to', h('br'), sync.urls.length, ' sources']
+                    : []),
               sync.filter ? ` (round ${sync.filter})` : null,
               sync.slices ? ` (slice ${sync.slices})` : null,
             ]

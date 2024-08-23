@@ -31,12 +31,12 @@ const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, incre
   return totalGameTime < 30
     ? 'ultraBullet'
     : totalGameTime < 180
-    ? 'bullet'
-    : totalGameTime < 480
-    ? 'blitz'
-    : totalGameTime < 1500
-    ? 'rapid'
-    : 'classical';
+      ? 'bullet'
+      : totalGameTime < 480
+        ? 'blitz'
+        : totalGameTime < 1500
+          ? 'rapid'
+          : 'classical';
 };
 
 export default class SetupController {

@@ -107,10 +107,10 @@ export class StockfishWebEngine implements CevalEngine {
     return this.failed
       ? CevalState.Failed
       : !this.module
-      ? CevalState.Loading
-      : this.protocol.isComputing()
-      ? CevalState.Computing
-      : CevalState.Idle;
+        ? CevalState.Loading
+        : this.protocol.isComputing()
+          ? CevalState.Computing
+          : CevalState.Idle;
   }
 
   start = (work?: Work): void => this.protocol.compute(work);

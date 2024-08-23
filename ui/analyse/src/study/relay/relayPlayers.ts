@@ -373,10 +373,10 @@ const ratingDiff = (p: RelayPlayer) => {
   return !defined(rd)
     ? undefined
     : rd > 0
-    ? h('good.rp', '+' + rd)
-    : rd < 0
-    ? h('bad.rp', '−' + -rd)
-    : h('span', ' ==');
+      ? h('good.rp', '+' + rd)
+      : rd < 0
+        ? h('bad.rp', '−' + -rd)
+        : h('span', ' ==');
 };
 
 const tableAugment = (el: HTMLTableElement) => {
