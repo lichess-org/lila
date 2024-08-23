@@ -522,8 +522,7 @@ export const registerMultipleSelect = () => {
     | 'uncheckAll'
     | 'focus'
     | 'blur'
-    | 'refresh'
-    | 'close';
+    | 'refresh';
   $.fn.multipleSelect = function (this: Cash) {
     const option = arguments[0],
       args = arguments;
