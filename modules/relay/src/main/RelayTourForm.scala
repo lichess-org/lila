@@ -51,7 +51,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "grouping"     -> RelayGroup.form.mapping,
       "pinnedStream" -> optional(pinnedStreamMapping)
     )(Data.apply)(unapply)
-  )
+  ).fill(Data.empty)
 
   def create = form
 
@@ -62,16 +62,16 @@ object RelayTourForm:
   case class Data(
       name: RelayTour.Name,
       info: RelayTour.Info,
-      markup: Option[Markdown],
-      tier: Option[RelayTour.Tier],
-      showScores: Boolean,
-      showRatingDiffs: Boolean,
-      teamTable: Boolean,
-      players: Option[RelayPlayersTextarea],
-      teams: Option[RelayTeamsTextarea],
-      spotlight: Option[RelayTour.Spotlight],
-      grouping: Option[RelayGroup.form.Data],
-      pinnedStream: Option[RelayPinnedStream]
+      markup: Option[Markdown] = none,
+      tier: Option[RelayTour.Tier] = none,
+      showScores: Boolean = true,
+      showRatingDiffs: Boolean = true,
+      teamTable: Boolean = false,
+      players: Option[RelayPlayersTextarea] = none,
+      teams: Option[RelayTeamsTextarea] = none,
+      spotlight: Option[RelayTour.Spotlight] = none,
+      grouping: Option[RelayGroup.form.Data] = none,
+      pinnedStream: Option[RelayPinnedStream] = none
   ):
 
     def update(tour: RelayTour)(using me: Me) =
@@ -113,6 +113,8 @@ object RelayTourForm:
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
+
+    val empty = Data(RelayTour.Name(""), RelayTour.Info(none, none, none, none))
 
     def make(tg: RelayTour.WithGroupTours) =
       import tg.*
