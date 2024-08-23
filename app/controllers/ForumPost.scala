@@ -114,11 +114,11 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         .value
         .so: to =>
           env.forum.topicApi
-            .relocate(post.topic.id, to)
-            .inject:
+            .relocate(post.topic, to)
+            .map: topic =>
               post.post.userId.foreach: op =>
-                val newUrl = routes.ForumTopic.show(to, post.topic.slug, 1).url
-                env.msg.api.systemPost(op, MsgPreset.forumRelocation(post.topic.name, newUrl))
+                val newUrl = routes.ForumTopic.show(to, topic.slug, 1).url
+                env.msg.api.systemPost(op, MsgPreset.forumRelocation(topic.name, newUrl))
               Redirect(routes.ForumCateg.show(to)).flashSuccess
   }
 

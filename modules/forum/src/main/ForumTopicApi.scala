@@ -216,8 +216,11 @@ final private class ForumTopicApi(
                 .one($id(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
             yield ()
 
-  def relocate(topic: ForumTopicId, to: ForumCategId)(using Me): Funit =
+  def relocate(fromTopic: ForumTopic, to: ForumCategId)(using Me): Fu[ForumTopic] =
+    val topic = fromTopic.copy(
+      slug = s"${fromTopic.slug}-${scalalib.ThreadLocalRandom.nextString(4)}"
+    )
     for
-      _ <- topicRepo.coll.update.one($id(topic), $set("categId" -> to))
-      _ <- postRepo.coll.update.one($doc("topicId" -> topic), $set("categId" -> to))
-    yield ()
+      _ <- topicRepo.coll.update.one($id(topic.id), $set("categId" -> to, "slug" -> topic.slug))
+      _ <- postRepo.coll.update.one($doc("topicId" -> topic.id), $set("categId" -> to))
+    yield topic
