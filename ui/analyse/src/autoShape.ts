@@ -85,7 +85,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
       shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && instance.search.multiPv) {
       const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
-      if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue', undefined));
+      if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (
         instance.enabled() &&
         nCeval &&
