@@ -1,10 +1,12 @@
 package lila.plan
 package ui
+
 import java.util.Currency
 
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.core.LightUser
+import scalalib.paginator.Paginator
 
 final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   import helpers.{ *, given }
@@ -20,7 +22,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
       payPalPublicKey: String,
       patron: Option[Patron],
       recentIds: List[UserId],
-      bestIds: List[UserId],
+      bestScores: Paginator[LightUser],
       pricing: PlanPricing
   )(using ctx: Context) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
@@ -48,9 +50,10 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
         )
       .js(ctx.isAuth.option(embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")))
       .js(EsmInit("bits.checkout"))
+      .js(infiniteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
-        url = s"$netBaseUrl${routes.Plan.index.url}",
+        url = s"$netBaseUrl${routes.Plan.index().url}",
         description = trans.patron.freeChess.txt()
       )
       .csp(paymentCsp):
@@ -253,14 +256,18 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               faq,
               div(cls := "best_patrons")(
                 h2(trp.celebratedPatrons()),
-                div(cls := "list")(
-                  bestIds.map: userId =>
-                    div(userIdLink(userId.some))
-                )
+                topPatrons(bestScores)
               )
             )
           )
         )
+
+  def topPatrons(users: Paginator[LightUser])(using Context) =
+    div(cls := "list infinite-scroll")(
+      users.currentPageResults.map: u =>
+        div(cls := "paginated")(lightUserLink(u)),
+      pagerNext(users, np => s"${routes.Plan.index(np).url}")
+    )
 
   private def showCurrency(cur: Currency)(using ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"

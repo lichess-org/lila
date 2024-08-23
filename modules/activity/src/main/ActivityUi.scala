@@ -57,9 +57,10 @@ final class ActivityUi(helpers: Helpers)(
     div(cls := "entry plan")(
       iconTag(Icon.Wings),
       div(
-        if p.months == 0 then a(href := routes.Plan.index)("Lifetime Patron!")
+        if p.months == 0 then a(href := routes.Plan.index())("Lifetime Patron!")
         else
-          trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
+          trans.activity.supportedNbMonths
+            .plural(p.months, p.months, a(href := routes.Plan.index())("Patron"))
       )
     )
 
