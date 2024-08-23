@@ -27,12 +27,12 @@ export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
     tab == 'boards'
       ? games(ctx)
       : tab == 'teams'
-      ? teams(ctx)
-      : tab == 'stats'
-      ? stats(ctx)
-      : tab == 'players'
-      ? players(ctx)
-      : overview(ctx);
+        ? teams(ctx)
+        : tab == 'stats'
+          ? stats(ctx)
+          : tab == 'players'
+            ? players(ctx)
+            : overview(ctx);
 
   return h('div.box.relay-tour', content);
 }
@@ -278,8 +278,8 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         round.startsAt
                           ? site.dateFormat()(new Date(round.startsAt))
                           : round.startsAfterPrevious
-                          ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
-                          : '',
+                            ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
+                            : '',
                       ),
                       h(
                         'td.status',
@@ -330,14 +330,14 @@ const header = (ctx: RelayViewContext) => {
         embedVideo
           ? renderVideoPlayer(relay)
           : d.tour.image
-          ? h('img', { attrs: { src: d.tour.image } })
-          : ctx.study.members.isOwner()
-          ? h(
-              'a.button.relay-tour__header__image-upload',
-              { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
-              'Upload tournament image',
-            )
-          : undefined,
+            ? h('img', { attrs: { src: d.tour.image } })
+            : ctx.study.members.isOwner()
+              ? h(
+                  'a.button.relay-tour__header__image-upload',
+                  { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
+                  'Upload tournament image',
+                )
+              : undefined,
       ),
     ]),
     h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
@@ -391,14 +391,14 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     study.members.myMember() && relay.data.tour.tier
       ? makeTab('stats', 'Stats')
       : ctrl.isEmbed
-      ? h(
-          'a.relay-tour__tabs--open.text',
-          {
-            attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
-          },
-          'Open in Lichess',
-        )
-      : undefined,
+        ? h(
+            'a.relay-tour__tabs--open.text',
+            {
+              attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
+            },
+            'Open in Lichess',
+          )
+        : undefined,
   ]);
 };
 

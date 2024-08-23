@@ -50,12 +50,12 @@ export class ThreadedEngine implements CevalEngine {
     return !this.protocol
       ? CevalState.Initial
       : this.failed
-      ? CevalState.Failed
-      : !this.protocol.engineName
-      ? CevalState.Loading
-      : this.protocol.isComputing()
-      ? CevalState.Computing
-      : CevalState.Idle;
+        ? CevalState.Failed
+        : !this.protocol.engineName
+          ? CevalState.Loading
+          : this.protocol.isComputing()
+            ? CevalState.Computing
+            : CevalState.Idle;
   }
 
   private async boot() {

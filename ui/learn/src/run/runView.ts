@@ -66,8 +66,8 @@ export const runView = (ctrl: LearnCtrl) => {
           levelCtrl.vm.failed
             ? renderFailed(runCtrl)
             : levelCtrl.vm.completed
-            ? renderCompleted(runCtrl, levelCtrl)
-            : h('div.goal', util.withLinebreaks(ctrl.trans.noarg(levelCtrl.blueprint.goal))),
+              ? renderCompleted(runCtrl, levelCtrl)
+              : h('div.goal', util.withLinebreaks(ctrl.trans.noarg(levelCtrl.blueprint.goal))),
           progressView(runCtrl),
         ]),
       ]),

@@ -26,34 +26,34 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
             ? isHost
               ? [startOrCancel(ctrl, accepted), randomButton(ctrl)]
               : ctrl.containsMe()
-              ? h(
-                  'a.button',
-                  { hook: bind('click', () => xhr.withdraw(ctrl.data.id)) },
-                  ctrl.trans('withdraw'),
-                )
-              : h(
-                  'a.button.text' + (canJoin ? '' : '.disabled'),
-                  {
-                    attrs: { disabled: !canJoin, 'data-icon': licon.PlayTriangle },
-                    hook: canJoin
-                      ? bind('click', () => {
-                          if (ctrl.data.variants.length === 1)
-                            xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
-                          else
-                            domDialog({
-                              cash: $('.simul .continue-with'),
-                            }).then(dlg => {
-                              $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
-                                xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
-                                dlg.close();
+                ? h(
+                    'a.button',
+                    { hook: bind('click', () => xhr.withdraw(ctrl.data.id)) },
+                    ctrl.trans('withdraw'),
+                  )
+                : h(
+                    'a.button.text' + (canJoin ? '' : '.disabled'),
+                    {
+                      attrs: { disabled: !canJoin, 'data-icon': licon.PlayTriangle },
+                      hook: canJoin
+                        ? bind('click', () => {
+                            if (ctrl.data.variants.length === 1)
+                              xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
+                            else
+                              domDialog({
+                                cash: $('.simul .continue-with'),
+                              }).then(dlg => {
+                                $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
+                                  xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
+                                  dlg.close();
+                                });
+                                dlg.showModal();
                               });
-                              dlg.showModal();
-                            });
-                        })
-                      : {},
-                  },
-                  ctrl.trans('join'),
-                )
+                          })
+                        : {},
+                    },
+                    ctrl.trans('join'),
+                  )
             : h(
                 'a.button.text',
                 {

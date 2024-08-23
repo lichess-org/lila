@@ -222,16 +222,16 @@ export const overboard = (ctrl: StudyCtrl) =>
   ctrl.chapters.newForm.isOpen()
     ? chapterNewFormView(ctrl.chapters.newForm)
     : ctrl.chapters.editForm.current()
-    ? chapterEditFormView(ctrl.chapters.editForm)
-    : ctrl.members.inviteForm.open()
-    ? inviteFormView(ctrl.members.inviteForm)
-    : ctrl.topics.open()
-    ? topicsFormView(ctrl.topics, ctrl.members.opts.myId)
-    : ctrl.form.open()
-    ? studyFormView(ctrl.form)
-    : ctrl.search.open()
-    ? searchView(ctrl.search)
-    : undefined;
+      ? chapterEditFormView(ctrl.chapters.editForm)
+      : ctrl.members.inviteForm.open()
+        ? inviteFormView(ctrl.members.inviteForm)
+        : ctrl.topics.open()
+          ? topicsFormView(ctrl.topics, ctrl.members.opts.myId)
+          : ctrl.form.open()
+            ? studyFormView(ctrl.form)
+            : ctrl.search.open()
+              ? searchView(ctrl.search)
+              : undefined;
 
 export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   if (ctrl.studyPractice) return practiceView.underboard(ctrl.study!);

@@ -75,8 +75,8 @@ function header(ctrl: Ctrl) {
     isAtLeastXSmall(mainW())
       ? h('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Chess Insights')
       : isAtLeastXXSmall(mainW())
-      ? h('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Insights')
-      : mainW() >= 460 && h('h2.text', 'Insights'),
+        ? h('h2.text', { attrs: { 'data-icon': licon.Target } }, 'Insights')
+        : mainW() >= 460 && h('h2.text', 'Insights'),
     axis(ctrl, mainW() < 460 ? { attrs: { style: 'justify-content: space-evenly;' } } : null),
   ]);
 }

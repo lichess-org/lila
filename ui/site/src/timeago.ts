@@ -36,8 +36,8 @@ const formatRemaining = (seconds: number): string =>
   seconds < 1
     ? siteTrans.noarg('completed')
     : seconds < 3600
-    ? siteTrans.pluralSame('nbMinutesRemaining', Math.floor(seconds / 60))
-    : siteTrans.pluralSame('nbHoursRemaining', Math.floor(seconds / 3600));
+      ? siteTrans.pluralSame('nbMinutesRemaining', Math.floor(seconds / 60))
+      : siteTrans.pluralSame('nbHoursRemaining', Math.floor(seconds / 3600));
 
 // for many users, using the islamic calendar is not practical on the internet
 // due to international context, so we make sure it's displayed using the gregorian calendar

@@ -493,8 +493,8 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     return p === '' || p === undefined
       ? undefined
       : cg.state.turnColor === 'white'
-      ? p.toUpperCase() === p
-      : p.toLowerCase() === p;
+        ? p.toUpperCase() === p
+        : p.toLowerCase() === p;
   }
 
   function clearMoveProgress() {
@@ -540,10 +540,10 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     return command?.key === 'resign'
       ? mkOpts('Confirm resignation', licon.FlagOutline)
       : command?.key === 'draw'
-      ? mkOpts('Confirm draw offer', licon.OneHalf)
-      : command?.key === 'takeback'
-      ? mkOpts('Confirm takeback request', licon.Back)
-      : false;
+        ? mkOpts('Confirm draw offer', licon.OneHalf)
+        : command?.key === 'takeback'
+          ? mkOpts('Confirm takeback request', licon.Back)
+          : false;
   }
 
   function prefNodes() {
@@ -578,8 +578,8 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     return tags === undefined
       ? entries
       : intersect
-      ? entries.filter(e => e.tags.every(tag => tags.includes(tag)))
-      : entries.filter(e => e.tags.some(tag => tags.includes(tag)));
+        ? entries.filter(e => e.tags.every(tag => tags.includes(tag)))
+        : entries.filter(e => e.tags.some(tag => tags.includes(tag)));
   }
 
   function wordTok(word: string) {

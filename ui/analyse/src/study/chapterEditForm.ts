@@ -107,10 +107,10 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
   const mode = data.practice
       ? 'practice'
       : defined(data.conceal)
-      ? 'conceal'
-      : data.gamebook
-      ? 'gamebook'
-      : 'normal',
+        ? 'conceal'
+        : data.gamebook
+          ? 'gamebook'
+          : 'normal',
     noarg = ctrl.trans.noarg;
   return [
     h('div.form-split', [

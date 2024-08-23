@@ -43,8 +43,8 @@ export default class RelayCtrl {
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
       : this.chapters.looksNew()
-      ? 'overview'
-      : 'boards';
+        ? 'overview'
+        : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
       ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, redraw)

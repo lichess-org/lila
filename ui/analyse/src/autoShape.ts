@@ -143,8 +143,8 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
         ? 'paleGreen'
         : 'paleRed'
       : existing
-      ? existing.brush
-      : 'white';
+        ? existing.brush
+        : 'white';
     if (existing) {
       if (i === ctrl.fork.selected()) {
         existing.brush = brush;

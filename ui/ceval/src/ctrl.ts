@@ -224,7 +224,7 @@ export default class CevalCtrl {
       this.engines.external?.maxThreads ??
       (fewerCores()
         ? Math.min(this.engines.active?.maxThreads ?? 32, navigator.hardwareConcurrency)
-        : this.engines.active?.maxThreads ?? 32)
+        : (this.engines.active?.maxThreads ?? 32))
     );
   }
 

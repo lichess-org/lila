@@ -34,10 +34,8 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
               site.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             if (hasMod)
-              $el.on(
-                'click',
-                '.mod',
-                (e: Event) => ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
+              $el.on('click', '.mod', (e: Event) =>
+                ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
             else
               $el.on('click', '.flag', (e: Event) =>

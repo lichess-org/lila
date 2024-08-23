@@ -46,16 +46,16 @@ export const colorButtons = (ctrl: LobbyController) => {
     site.blindMode
       ? renderBlindModeColorPicker(ctrl)
       : setupCtrl.loading
-      ? spinnerVdom()
-      : colors(ctrl.trans).map(({ key, name }) =>
-          h(
-            `button.button.button-metal.color-submits__button.${key}`,
-            {
-              attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
-              on: { click: () => ctrl.setupCtrl.submit(key) },
-            },
-            h('i'),
+        ? spinnerVdom()
+        : colors(ctrl.trans).map(({ key, name }) =>
+            h(
+              `button.button.button-metal.color-submits__button.${key}`,
+              {
+                attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
+                on: { click: () => ctrl.setupCtrl.submit(key) },
+              },
+              h('i'),
+            ),
           ),
-        ),
   );
 };

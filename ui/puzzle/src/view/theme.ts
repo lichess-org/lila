@@ -17,30 +17,33 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   return ctrl.streak
     ? null
     : ctrl.isDaily
-    ? h(
-        'div.puzzle__side__theme.puzzle__side__theme--daily',
-        puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle'))),
-      )
-    : h('div.puzzle__side__theme', [
-        puzzleMenu(h('h2', { class: { long: angle.name.length > 20 } }, ['« ', angle.name])),
-        angle.opening
-          ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, [
-              'Learn more about ',
-              angle.opening.name,
-            ])
-          : h('p', [
-              angle.desc,
-              angle.chapter &&
-                h(
-                  'a.puzzle__side__theme__chapter.text',
-                  { attrs: { href: `${studyUrl}/${angle.chapter}`, target: '_blank', rel: 'noopener' } },
-                  [' ', ctrl.trans.noarg('example')],
-                ),
-            ]),
-        showEditor
-          ? h('div.puzzle__themes', editor(ctrl))
-          : !data.replay && !ctrl.streak && (angle.opening || angle.openingAbstract) && renderColorForm(ctrl),
-      ]);
+      ? h(
+          'div.puzzle__side__theme.puzzle__side__theme--daily',
+          puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle'))),
+        )
+      : h('div.puzzle__side__theme', [
+          puzzleMenu(h('h2', { class: { long: angle.name.length > 20 } }, ['« ', angle.name])),
+          angle.opening
+            ? h('a', { attrs: { href: `/opening/${angle.opening.key}` } }, [
+                'Learn more about ',
+                angle.opening.name,
+              ])
+            : h('p', [
+                angle.desc,
+                angle.chapter &&
+                  h(
+                    'a.puzzle__side__theme__chapter.text',
+                    { attrs: { href: `${studyUrl}/${angle.chapter}`, target: '_blank', rel: 'noopener' } },
+                    [' ', ctrl.trans.noarg('example')],
+                  ),
+              ]),
+          showEditor
+            ? h('div.puzzle__themes', editor(ctrl))
+            : !data.replay &&
+              !ctrl.streak &&
+              (angle.opening || angle.openingAbstract) &&
+              renderColorForm(ctrl),
+        ]);
 }
 
 const invisibleThemes = new Set(['master', 'masterVsMaster', 'superGM']);

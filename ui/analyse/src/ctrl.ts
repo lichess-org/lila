@@ -341,10 +341,10 @@ export default class AnalyseCtrl {
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
         : this.practice
-        ? this.bottomColor()
-        : (dests && dests.size > 0) || drops === null || drops.length
-        ? color
-        : undefined,
+          ? this.bottomColor()
+          : (dests && dests.size > 0) || drops === null || drops.length
+            ? color
+            : undefined,
       config: ChessgroundConfig = {
         fen: node.fen,
         turnColor: color,
