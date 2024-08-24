@@ -105,7 +105,7 @@ final private class RelayFetch(
         nbGamesFinished  = games.count(_.outcome.isDefined)
         nbGamesUnstarted = games.count(!_.hasMoves)
         allGamesFinishedOrUnstarted = games.nonEmpty &&
-          nbGamesFinished + nbGamesUnstarted == games.size &&
+          nbGamesFinished + nbGamesUnstarted >= games.size &&
           nbGamesFinished > nbGamesUnstarted
         noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty
         autoFinishNow       = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
