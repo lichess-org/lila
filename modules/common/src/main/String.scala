@@ -18,6 +18,10 @@ object String:
     try play.utils.UriEncoding.decodePath(input, "UTF-8").some
     catch case _: play.utils.InvalidUriEncodingException => None
 
+  def decodeUriPathSegment(input: String): Option[String] =
+    try play.utils.UriEncoding.decodePathSegment(input, "UTF-8").some
+    catch case _: play.utils.InvalidUriEncodingException => None
+
   def isShouting(text: String) =
     text.lengthIs >= 5 && {
       import java.lang.Character.*
