@@ -127,7 +127,6 @@ export default class RelayCtrl {
   closeVideoPlayer = () => {
     const url = new URL(location.href);
     url.searchParams.set('embed', 'no');
-    url.searchParams.set('nonce', `${Date.now()}`);
     window.location.replace(url);
   };
 
