@@ -1,37 +1,43 @@
 import { h } from 'snabbdom';
 import { spinnerVdom } from 'common/spinner';
-import { SetupCtrl } from '../../../setupCtrl';
+import LobbyController from '../../../ctrl';
 import { colors, variantsWhereWhiteIsBetter } from '../../../options';
 import { option } from './option';
 
-const renderBlindModeColorPicker = (ctrl: SetupCtrl) => [
-  ...(ctrl.gameType === 'hook'
+const renderBlindModeColorPicker = (ctrl: LobbyController) => [
+  ...(ctrl.setupCtrl.gameType === 'hook'
     ? []
     : [
-        h('label', { attrs: { for: 'sf_color' } }, ctrl.root.trans('side')),
+        h('label', { attrs: { for: 'sf_color' } }, ctrl.trans('side')),
         h(
           'select#sf_color',
           {
             on: {
               change: (e: Event) =>
-                ctrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
+                ctrl.setupCtrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
             },
           },
-          colors(ctrl.root.trans).map(color => option(color, ctrl.blindModeColor())),
+          colors(ctrl.trans).map(color => option(color, ctrl.setupCtrl.blindModeColor())),
         ),
       ]),
-  h('button', { on: { click: () => ctrl.submit(ctrl.blindModeColor()) } }, 'Create the game'),
+  h(
+    'button',
+    { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } },
+    'Create the game',
+  ),
 ];
 
-export const colorButtons = (ctrl: SetupCtrl) => {
+export const colorButtons = (ctrl: LobbyController) => {
+  const { setupCtrl } = ctrl;
+
   const enabledColors: (Color | 'random')[] = [];
-  if (ctrl.valid()) {
+  if (setupCtrl.valid()) {
     enabledColors.push('random');
 
     const randomColorOnly =
-      ctrl.gameType !== 'ai' &&
-      ctrl.gameMode() === 'rated' &&
-      variantsWhereWhiteIsBetter.includes(ctrl.variant());
+      setupCtrl.gameType !== 'ai' &&
+      setupCtrl.gameMode() === 'rated' &&
+      variantsWhereWhiteIsBetter.includes(setupCtrl.variant());
     if (!randomColorOnly) enabledColors.push('white', 'black');
   }
 
@@ -39,17 +45,17 @@ export const colorButtons = (ctrl: SetupCtrl) => {
     'div.color-submits',
     site.blindMode
       ? renderBlindModeColorPicker(ctrl)
-      : ctrl.loading
-      ? spinnerVdom()
-      : colors(ctrl.root.trans).map(({ key, name }) =>
-          h(
-            `button.button.button-metal.color-submits__button.${key}`,
-            {
-              attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
-              on: { click: () => ctrl.submit(key) },
-            },
-            h('i'),
+      : setupCtrl.loading
+        ? spinnerVdom()
+        : colors(ctrl.trans).map(({ key, name }) =>
+            h(
+              `button.button.button-metal.color-submits__button.${key}`,
+              {
+                attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
+                on: { click: () => ctrl.setupCtrl.submit(key) },
+              },
+              h('i'),
+            ),
           ),
-        ),
   );
 };

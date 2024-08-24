@@ -64,7 +64,8 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       for (const kid of this.children) {
         kid.el.classList.toggle('none', !enabled || !kid.requirementsAllow);
         if (!enabled) continue;
-        if (!kid.isOptional) kid.update(); // ?? why update if not optional?
+        if (!kid.isOptional)
+          kid.update(); // ?? why update if not optional?
         else if (kid.info.type !== 'radioGroup') continue;
         const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
         const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['local', 'server']));

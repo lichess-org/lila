@@ -112,22 +112,22 @@ export class LocalGame {
     return this.moves.length
       ? this.moves[this.moves.length - 1].clock
       : Number.isFinite(env.game.initial)
-      ? { white: env.game.initial, black: env.game.initial }
-      : undefined;
+        ? { white: env.game.initial, black: env.game.initial }
+        : undefined;
   }
 
   get status(): GameStatus {
     const gameStatus: { status: Status; reason?: string; winner?: Color } = this.chess.isCheckmate()
       ? { status: statusOf('mate') }
       : this.chess.isInsufficientMaterial()
-      ? { reason: 'insufficient', status: statusOf('draw') }
-      : this.chess.isStalemate()
-      ? { status: statusOf('stalemate') }
-      : this.fifty()
-      ? { reason: 'fifty', status: statusOf('draw') }
-      : this.isThreefold
-      ? { reason: 'threefold', status: statusOf('draw') }
-      : { status: statusOf(this.ply > 0 ? 'started' : 'created') };
+        ? { reason: 'insufficient', status: statusOf('draw') }
+        : this.chess.isStalemate()
+          ? { status: statusOf('stalemate') }
+          : this.fifty()
+            ? { reason: 'fifty', status: statusOf('draw') }
+            : this.isThreefold
+              ? { reason: 'threefold', status: statusOf('draw') }
+              : { status: statusOf(this.ply > 0 ? 'started' : 'created') };
 
     return {
       end: this.end,

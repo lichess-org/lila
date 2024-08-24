@@ -42,7 +42,7 @@ export class BooksPane extends Pane {
 
   getWeight(pane: BookPane): number | undefined {
     const index = this.index(pane);
-    return index == -1 ? undefined : this.value[this.index(pane)]?.weight ?? 1;
+    return index == -1 ? undefined : (this.value[this.index(pane)]?.weight ?? 1);
   }
 
   setEnabled(): boolean {

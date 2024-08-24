@@ -13,7 +13,7 @@ case class StudyPlayer(
     rating: Option[Elo],
     team: Option[String]
 ):
-  def id: Option[StudyPlayer.Id] = fideId.orElse(name)
+  def id: Option[StudyPlayer.Id] = fideId.filter(_ != FideId(0)).orElse(name)
 
 object StudyPlayer:
 

@@ -230,12 +230,12 @@ export class AssetDialog {
       name.length < 3
         ? 'name must be three characters or more'
         : name.includes('/')
-        ? 'name cannot contain /'
-        : name.startsWith('.')
-        ? 'name cannot start with period'
-        : [...this.server.values()].includes(name)
-        ? 'that name is already in use'
-        : undefined;
+          ? 'name cannot contain /'
+          : name.startsWith('.')
+            ? 'name cannot start with period'
+            : [...this.server.values()].includes(name)
+              ? 'that name is already in use'
+              : undefined;
     if (error) alert(error);
     return error === undefined;
   }

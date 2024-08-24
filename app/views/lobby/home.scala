@@ -137,7 +137,7 @@ object home:
             views.feed.lobbyUpdates(lastUpdates)
           ,
           div(cls := "lobby__support")(
-            a(href := routes.Plan.index)(
+            a(href := routes.Plan.index())(
               iconTag(patronIconChar),
               span(cls := "lobby__support__text")(
                 strong(trans.patron.donate()),

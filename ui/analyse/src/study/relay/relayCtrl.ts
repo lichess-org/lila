@@ -7,7 +7,7 @@ import RelayTeams from './relayTeams';
 import RelayPlayers from './relayPlayers';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
-import { onWindowResize as videoPlayerOnWindowResize } from './videoPlayerView';
+import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
@@ -25,6 +25,7 @@ export default class RelayCtrl {
   stats: RelayStats;
   streams: [string, string][] = [];
   showStreamerMenu = toggle(false);
+  videoPlayer?: VideoPlayer;
 
   constructor(
     readonly id: RoundId,
@@ -43,8 +44,8 @@ export default class RelayCtrl {
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
       : this.chapters.looksNew()
-      ? 'overview'
-      : 'boards';
+        ? 'overview'
+        : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
       ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, redraw)
@@ -57,10 +58,12 @@ export default class RelayCtrl {
       redraw,
     );
     this.stats = new RelayStats(this.currentRound(), redraw);
+    this.videoPlayer = this.data.videoUrls?.[0]
+      ? new VideoPlayer(this.data.videoUrls[0], location.search.includes('embed='), redraw)
+      : undefined;
     setInterval(() => this.redraw(true), 1000);
 
     const pinned = data.pinnedStream;
-    if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
     if (pinned && this.pinStreamer()) this.streams.push(['', pinned.name]);
 
     site.pubsub.on('socket.in.crowd', d => {
@@ -123,13 +126,6 @@ export default class RelayCtrl {
     defined(this.data.pinnedStream) &&
     !this.currentRound().finished &&
     Date.now() > this.currentRound().startsAt! - 1000 * 3600;
-
-  closeVideoPlayer = () => {
-    const url = new URL(location.href);
-    url.searchParams.set('embed', 'no');
-    url.searchParams.set('nonce', `${Date.now()}`);
-    window.location.replace(url);
-  };
 
   private socketHandlers = {
     relayData: (d: RelayData) => {

@@ -144,8 +144,8 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
     ctrl.data.db() === 'masters'
       ? masterDb(ctrl)
       : ctrl.data.db() === 'lichess'
-      ? lichessDb(ctrl)
-      : playerDb(ctrl),
+        ? lichessDb(ctrl)
+        : playerDb(ctrl),
     h(
       'section.save',
       h(

@@ -104,8 +104,8 @@ export class FilterPane extends Pane {
                 m.by === 'move'
                   ? 'full moves'
                   : m.by === 'time'
-                  ? 'think time'
-                  : `outcome expectancy for ${this.host.bot.name.toLowerCase()}`,
+                    ? 'think time'
+                    : `outcome expectancy for ${this.host.bot.name.toLowerCase()}`,
             },
           },
           y: {

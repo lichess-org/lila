@@ -11,7 +11,7 @@ import lila.study.StudyPlayer.json.given
 import scala.collection.immutable.SeqMap
 import lila.memo.CacheApi
 import play.api.libs.json.*
-import lila.core.fide.Federation
+import lila.core.fide.{ Player as FidePlayer, Federation }
 import lila.common.Json.given
 import lila.common.Debouncer
 import lila.core.fide.FideTC
@@ -21,10 +21,16 @@ case class RelayPlayer(
     player: StudyPlayer.WithFed,
     score: Option[Double],
     ratingDiff: Option[Int],
+    performance: Option[Elo],
     games: Vector[RelayPlayer.Game]
 ):
   export player.player.*
   def withGame(game: RelayPlayer.Game) = copy(games = games :+ game)
+  def eloGames: Vector[Elo.Game] = for
+    g        <- games
+    outcome  <- g.outcome
+    opRating <- g.opponent.rating
+  yield Elo.Game(outcome.winner.map(_ == g.color), opRating)
 
 object RelayPlayer:
   case class Game(
@@ -47,8 +53,11 @@ object RelayPlayer:
           "played" -> p.games.count(_.outcome.isDefined)
         )
         .add("ratingDiff" -> p.ratingDiff)
+        .add("performance" -> p.performance)
     def withGames(p: RelayPlayer): JsObject =
       Json.toJsObject(p) ++ Json.obj("games" -> p.games)
+    given OWrites[FidePlayer] = OWrites: p =>
+      Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
 
 private final class RelayPlayerApi(
     tourRepo: RelayTourRepo,
@@ -79,7 +88,16 @@ private final class RelayPlayerApi(
 
   def player(tourId: RelayTourId, str: String): Fu[Option[JsObject]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)
-    cache.get(tourId).map(_.get(id).map(json.withGames))
+    cache
+      .get(tourId)
+      .flatMap: players =>
+        players
+          .get(id)
+          .soFu: player =>
+            player.fideId
+              .so(fidePlayerGet)
+              .map: fidePlayer =>
+                json.withGames(player).add("fide", fidePlayer)
 
   def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 
@@ -116,13 +134,13 @@ private final class RelayPlayerApi(
                           players.updated(
                             playerId,
                             players
-                              .getOrElse(playerId, RelayPlayer(player, None, None, Vector.empty))
+                              .getOrElse(playerId, RelayPlayer(player, None, None, None, Vector.empty))
                               .withGame(game)
                           )
-          tc        = RelayFidePlayerApi.guessTimeControl(tour.info.tc)
           withScore = if tour.showScores then computeScores(players) else players
           withRatingDiff <-
-            if tour.showRatingDiffs then computeRatingDiffs(tc, withScore) else fuccess(withScore)
+            if tour.showRatingDiffs then computeRatingDiffs(tour.info.fideTcOrGuess, withScore)
+            else fuccess(withScore)
         yield withRatingDiff
 
   type StudyPlayers = SeqMap[StudyPlayer.Id, StudyPlayer.WithFed]
@@ -140,11 +158,12 @@ private final class RelayPlayerApi(
   private def computeScores(players: RelayPlayers): RelayPlayers =
     players.view
       .mapValues: p =>
-        p.copy(score =
-          p.games
+        p.copy(
+          score = p.games
             .foldLeft(0d): (score, game) =>
               score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
-            .some
+            .some,
+          performance = Elo.computePerformanceRating(p.eloGames)
         )
       .to(SeqMap)
 
@@ -157,12 +176,8 @@ private final class RelayPlayerApi(
             for
               fidePlayer <- fidePlayerOpt
               r          <- player.rating.orElse(fidePlayer.ratingOf(tc))
-              p = Elo.Player(r, fidePlayer.kFactorOf(tc))
-              games = for
-                g        <- player.games
-                outcome  <- g.outcome
-                opRating <- g.opponent.rating
-              yield Elo.Game(outcome.winner.map(_ == g.color), opRating)
+              p     = Elo.Player(r, fidePlayer.kFactorOf(tc))
+              games = player.eloGames
             yield player.copy(ratingDiff = games.nonEmpty.option(Elo.computeRatingDiff(p, games)))
           .map: newPlayer =>
             id -> (newPlayer | player)

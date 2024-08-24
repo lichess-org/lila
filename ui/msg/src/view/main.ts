@@ -20,7 +20,7 @@ export default function (ctrl: MsgCtrl): VNode {
     ctrl.data.convo
       ? renderConvo(ctrl, ctrl.data.convo)
       : ctrl.loading
-      ? h('div.msg-app__convo', { key: ':' }, [h('div.msg-app__convo__head'), spinner()])
-      : '',
+        ? h('div.msg-app__convo', { key: ':' }, [h('div.msg-app__convo__head'), spinner()])
+        : '',
   ]);
 }

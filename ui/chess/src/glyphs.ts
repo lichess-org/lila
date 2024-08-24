@@ -11,8 +11,8 @@ export function annotationShapes(node: Tree.Node): DrawShape[] {
           ? 'c1'
           : 'g1'
         : san.startsWith('O-O-O')
-        ? 'c8'
-        : 'g8'
+          ? 'c8'
+          : 'g8'
       : makeSquare(move.to);
     const symbol = glyphs[0].symbol;
     const prerendered = glyphToSvg[symbol];

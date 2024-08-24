@@ -18,11 +18,11 @@ function renderPlayer(ctrl: RoundController, position: Position) {
   return ctrl.nvui
     ? undefined
     : player.ai
-    ? h('div.user-link.online.ruser.ruser-' + position, [
-        h('i.line'),
-        h('name', renderUser.aiName(ctrl, player.ai)),
-      ])
-    : ctrl.opts.local?.userVNode(player, position) ?? renderUser.userHtml(ctrl, player, position);
+      ? h('div.user-link.online.ruser.ruser-' + position, [
+          h('i.line'),
+          h('name', renderUser.aiName(ctrl, player.ai)),
+        ])
+      : (ctrl.opts.local?.userVNode(player, position) ?? renderUser.userHtml(ctrl, player, position));
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
@@ -86,24 +86,24 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
             ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
               : ctrl.data.game.threefold
-              ? button.claimThreefold(ctrl, d => {
-                  const threefoldable = game.drawableSwiss(d);
-                  return {
-                    enabled: threefoldable,
-                    overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit',
-                  };
-                })
-              : button.standard(
-                  ctrl,
-                  d => ({
-                    enabled: ctrl.canOfferDraw(),
-                    overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
-                  }),
-                  licon.OneHalf,
-                  'offerDraw',
-                  'draw-yes',
-                  () => ctrl.offerDraw(true),
-                ),
+                ? button.claimThreefold(ctrl, d => {
+                    const threefoldable = game.drawableSwiss(d);
+                    return {
+                      enabled: threefoldable,
+                      overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit',
+                    };
+                  })
+                : button.standard(
+                    ctrl,
+                    d => ({
+                      enabled: ctrl.canOfferDraw(),
+                      overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
+                    }),
+                    licon.OneHalf,
+                    'offerDraw',
+                    'draw-yes',
+                    () => ctrl.offerDraw(true),
+                  ),
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
               : button.standard(
@@ -159,8 +159,8 @@ export const renderTable = (ctrl: RoundController): LooseVNodes => [
   ...(ctrl.data.player.spectator
     ? renderTableWatch(ctrl)
     : game.playable(ctrl.data)
-    ? renderTablePlay(ctrl)
-    : renderTableEnd(ctrl)),
+      ? renderTablePlay(ctrl)
+      : renderTableEnd(ctrl)),
   renderPlayer(ctrl, 'bottom'),
   /* render clocks after players so they display on top of them in col1,
    * since they occupy the same grid cell. This is required to avoid

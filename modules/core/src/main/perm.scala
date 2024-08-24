@@ -141,7 +141,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           SeeReport,
           ModLog,
           SeeInsight,
-          UserSearch,
           ModMessage,
           ModNote,
           ViewPrintNoIP,

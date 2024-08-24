@@ -72,7 +72,7 @@ export const ratingDiff = (u: HasRatingDiff): VNode | undefined =>
   u.ratingDiff === 0
     ? h('span', '±0')
     : u.ratingDiff && u.ratingDiff > 0
-    ? h('good', '+' + u.ratingDiff)
-    : u.ratingDiff && u.ratingDiff < 0
-    ? h('bad', '−' + -u.ratingDiff)
-    : undefined;
+      ? h('good', '+' + u.ratingDiff)
+      : u.ratingDiff && u.ratingDiff < 0
+        ? h('bad', '−' + -u.ratingDiff)
+        : undefined;

@@ -33,8 +33,8 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
             title: connecting
               ? 'Connecting to the game'
               : player.onGame
-              ? 'Joined the game'
-              : 'Left the game',
+                ? 'Joined the game'
+                : 'Left the game',
           },
         }),
         userLink({
@@ -82,5 +82,5 @@ export const userTxt = (ctrl: RoundController, player: Player): string =>
   player.user
     ? (player.user.title ? player.user.title + ' ' : '') + player.user.username
     : player.ai
-    ? aiName(ctrl, player.ai)
-    : ctrl.noarg('anonymous');
+      ? aiName(ctrl, player.ai)
+      : ctrl.noarg('anonymous');

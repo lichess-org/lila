@@ -95,10 +95,10 @@ export class Bot implements BotInfo, Mover {
       o.by === 'move'
         ? chess.fullmoves
         : o.by === 'score'
-        ? outcomeExpectancy(chess.turn, cp ?? 0)
-        : thinktime
-        ? Math.log2(thinktime)
-        : 240,
+          ? outcomeExpectancy(chess.turn, cp ?? 0)
+          : thinktime
+            ? Math.log2(thinktime)
+            : 240,
     );
     return val;
   }
@@ -161,7 +161,7 @@ export class Bot implements BotInfo, Mover {
       return [{ uci: '0000', weights: {} }];
 
     const parsed: SearchMove[] = [];
-    const cp = fish?.lines[0] ? score(fish.lines[0]) : args.cp ?? 0;
+    const cp = fish?.lines[0] ? score(fish.lines[0]) : (args.cp ?? 0);
     const lc0bias = this.filter('lc0bias', args) ?? 0;
     const stockfishVariate = lc0bias ? (this.filters?.cplTarget ? 0 : Math.random()) : 0;
 

@@ -112,8 +112,8 @@ function isEmpty(prop: any): boolean {
   return Array.isArray(prop)
     ? prop.length === 0
     : typeof prop === 'object'
-    ? Object.keys(prop).length === 0
-    : false;
+      ? Object.keys(prop).length === 0
+      : false;
 }
 
 function filteredKeys(obj: any): string[] {

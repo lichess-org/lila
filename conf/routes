@@ -301,7 +301,7 @@ POST  /learn/reset                     controllers.Learn.reset
 GET   /$lang<\w\w\w?>/learn            controllers.Learn.indexLang(lang: Language)
 
 # Patron
-GET   /patron                          controllers.Plan.index
+GET   /patron                          controllers.Plan.index(page: Int ?= 1)
 GET   /patron/thanks                   controllers.Plan.thanks
 GET   /patron/list                     controllers.Plan.list
 POST  /patron/switch                   controllers.Plan.switch

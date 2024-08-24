@@ -1,16 +1,17 @@
 import { h } from 'snabbdom';
-import { SetupCtrl } from '../../../setupCtrl';
+import LobbyController from '../../../ctrl';
 
-export const ratingDifferenceSliders = (ctrl: SetupCtrl) => {
-  if (!ctrl.root.user || site.blindMode || !ctrl.root.ratingMap) return null;
+export const ratingDifferenceSliders = (ctrl: LobbyController) => {
+  if (!ctrl.me || site.blindMode || !ctrl.data.ratingMap) return null;
 
-  const selectedPerf = ctrl.selectedPerf();
-  const isProvisional = !!ctrl.root.ratingMap[selectedPerf].prov;
+  const { trans, setupCtrl } = ctrl;
+  const selectedPerf = ctrl.setupCtrl.selectedPerf();
+  const isProvisional = !!ctrl.data.ratingMap[selectedPerf].prov;
   const disabled = isProvisional ? '.disabled' : '';
 
   // Get current rating values or use default values if isProvisional
-  const currentRatingMin = isProvisional ? -500 : ctrl.ratingMin();
-  const currentRatingMax = isProvisional ? 500 : ctrl.ratingMax();
+  const currentRatingMin = isProvisional ? -500 : setupCtrl.ratingMin();
+  const currentRatingMax = isProvisional ? 500 : setupCtrl.ratingMax();
 
   return h(
     `div.rating-range-config.optional-config${disabled}`,
@@ -20,7 +21,7 @@ export const ratingDifferenceSliders = (ctrl: SetupCtrl) => {
         : undefined,
     },
     [
-      ctrl.root.trans('ratingRange'),
+      trans('ratingRange'),
       h('div.rating-range', [
         h('input.range.rating-range__min', {
           attrs: {
@@ -34,8 +35,8 @@ export const ratingDifferenceSliders = (ctrl: SetupCtrl) => {
           on: {
             input: (e: Event) => {
               const newVal = parseInt((e.target as HTMLInputElement).value);
-              if (newVal === 0 && ctrl.ratingMax() === 0) ctrl.ratingMax(50);
-              ctrl.ratingMin(newVal);
+              if (newVal === 0 && setupCtrl.ratingMax() === 0) setupCtrl.ratingMax(50);
+              setupCtrl.ratingMin(newVal);
             },
           },
         }),
@@ -54,8 +55,8 @@ export const ratingDifferenceSliders = (ctrl: SetupCtrl) => {
           on: {
             input: (e: Event) => {
               const newVal = parseInt((e.target as HTMLInputElement).value);
-              if (newVal === 0 && ctrl.ratingMin() === 0) ctrl.ratingMin(-50);
-              ctrl.ratingMax(newVal);
+              if (newVal === 0 && setupCtrl.ratingMin() === 0) setupCtrl.ratingMin(-50);
+              setupCtrl.ratingMax(newVal);
             },
           },
         }),

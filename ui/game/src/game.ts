@@ -90,10 +90,10 @@ export const clockToSpeed = (initial: Seconds, increment: Seconds): Exclude<Spee
   return total < 30
     ? 'ultraBullet'
     : total < 180
-    ? 'bullet'
-    : total < 480
-    ? 'blitz'
-    : total < 1500
-    ? 'rapid'
-    : 'classical';
+      ? 'bullet'
+      : total < 480
+        ? 'blitz'
+        : total < 1500
+          ? 'rapid'
+          : 'classical';
 };

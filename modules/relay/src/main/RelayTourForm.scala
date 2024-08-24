@@ -2,9 +2,11 @@ package lila.relay
 
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.data.format.Formatter
 
-import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, url }
+import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, typeIn, url }
 import lila.core.perm.Granter
+import lila.core.fide.FideTC
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
@@ -15,9 +17,13 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       RelayTour.Spotlight.apply
     )(unapply)
 
+  private given Formatter[FideTC]            = formatter.stringFormatter(_.toString, FideTC.valueOf)
+  private val fideTcMapping: Mapping[FideTC] = typeIn[FideTC](FideTC.values.toSet)
+
   private val infoMapping = mapping(
     "format"  -> optional(cleanText(maxLength = 80)),
     "tc"      -> optional(cleanText(maxLength = 80)),
+    "fideTc"  -> optional(fideTcMapping),
     "players" -> optional(cleanText(maxLength = 120))
   )(RelayTour.Info.apply)(unapply)
 
@@ -45,7 +51,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "grouping"     -> RelayGroup.form.mapping,
       "pinnedStream" -> optional(pinnedStreamMapping)
     )(Data.apply)(unapply)
-  )
+  ).fill(Data.empty)
 
   def create = form
 
@@ -56,16 +62,16 @@ object RelayTourForm:
   case class Data(
       name: RelayTour.Name,
       info: RelayTour.Info,
-      markup: Option[Markdown],
-      tier: Option[RelayTour.Tier],
-      showScores: Boolean,
-      showRatingDiffs: Boolean,
-      teamTable: Boolean,
-      players: Option[RelayPlayersTextarea],
-      teams: Option[RelayTeamsTextarea],
-      spotlight: Option[RelayTour.Spotlight],
-      grouping: Option[RelayGroup.form.Data],
-      pinnedStream: Option[RelayPinnedStream]
+      markup: Option[Markdown] = none,
+      tier: Option[RelayTour.Tier] = none,
+      showScores: Boolean = true,
+      showRatingDiffs: Boolean = true,
+      teamTable: Boolean = false,
+      players: Option[RelayPlayersTextarea] = none,
+      teams: Option[RelayTeamsTextarea] = none,
+      spotlight: Option[RelayTour.Spotlight] = none,
+      grouping: Option[RelayGroup.form.Data] = none,
+      pinnedStream: Option[RelayPinnedStream] = none
   ):
 
     def update(tour: RelayTour)(using me: Me) =
@@ -108,11 +114,13 @@ object RelayTourForm:
 
   object Data:
 
+    val empty = Data(RelayTour.Name(""), RelayTour.Info(none, none, none, none))
+
     def make(tg: RelayTour.WithGroupTours) =
       import tg.*
       Data(
         name = tour.name,
-        info = tour.info,
+        info = tour.info.copy(fideTc = tour.info.fideTcOrGuess.some),
         markup = tour.markup,
         tier = tour.tier,
         showScores = tour.showScores,

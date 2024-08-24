@@ -5,6 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.i18n.Language
 import lila.core.id.ImageId
 import lila.core.misc.PicfitUrl
+import lila.core.fide.FideTC
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
@@ -78,11 +79,18 @@ object RelayTour:
   case class Info(
       format: Option[String],
       tc: Option[String],
+      fideTc: Option[FideTC],
       players: Option[String]
   ):
-    val all = List(format, tc, players).flatten
+    val all = List(format, tc, fideTc, players).flatten
     export all.nonEmpty
     override def toString = all.mkString(" | ")
+    def fideTcOrGuess: FideTC = fideTc |
+      tc
+        .map(_.trim.toLowerCase.replace("classical", "standard"))
+        .flatMap: tcStr =>
+          FideTC.values.find(tc => tcStr.contains(tc.toString))
+        .|(FideTC.standard)
 
   case class Dates(start: Instant, end: Option[Instant])
 

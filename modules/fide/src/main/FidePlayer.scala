@@ -40,6 +40,10 @@ case class FidePlayer(
 
   def age: Option[Int] = year.map(nowInstant.date.getYear - _)
 
+  def ageAt(date: Instant): Option[Int] = year.map(date.date.getYear - _)
+
+  def ratingsMap: Map[FideTC, Elo] = FideTC.values.flatMap(tc => ratingOf(tc).map(tc -> _)).toMap
+
   def ratingsStr = List(
     "Standard" -> standard,
     "Rapid"    -> rapid,

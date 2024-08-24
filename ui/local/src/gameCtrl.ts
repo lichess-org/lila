@@ -96,7 +96,7 @@ export class GameCtrl implements LocalSetup {
       if (this.clock) this.clock.since = undefined;
       if (env.dev?.hurry) return resolve();
       this.resolveThink = resolve;
-      const realWait = Math.min(1 + 2 * Math.random(), this.live.ply > 0 ? move.thinktime ?? 3 : 0);
+      const realWait = Math.min(1 + 2 * Math.random(), this.live.ply > 0 ? (move.thinktime ?? 3) : 0);
       setTimeout(resolve, realWait * 1000);
     });
     this.resolveThink = undefined;

@@ -18,8 +18,8 @@ export async function initModule(o?: CropOpts): Promise<void> {
     opts.source instanceof Blob
       ? URL.createObjectURL(opts.source)
       : typeof opts.source == 'string'
-      ? URL.createObjectURL((opts.source = await (await fetch(opts.source)).blob()))
-      : URL.createObjectURL((opts.source = await chooseImage()));
+        ? URL.createObjectURL((opts.source = await (await fetch(opts.source)).blob()))
+        : URL.createObjectURL((opts.source = await chooseImage()));
   if (!url) {
     opts.onCropped?.(false, 'Cancelled');
     return;

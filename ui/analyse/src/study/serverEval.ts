@@ -66,17 +66,17 @@ function requestButton(ctrl: ServerEval) {
     root.mainline.length < 5
       ? h('p', noarg('theChapterIsTooShortToBeAnalysed'))
       : !root.study!.members.canContribute()
-      ? [noarg('onlyContributorsCanRequestAnalysis')]
-      : [
-          h('p', [noarg('getAFullComputerAnalysis'), h('br'), noarg('makeSureTheChapterIsComplete')]),
-          h(
-            'a.button.text',
-            {
-              attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
-              hook: bind('click', ctrl.request, root.redraw),
-            },
-            noarg('requestAComputerAnalysis'),
-          ),
-        ],
+        ? [noarg('onlyContributorsCanRequestAnalysis')]
+        : [
+            h('p', [noarg('getAFullComputerAnalysis'), h('br'), noarg('makeSureTheChapterIsComplete')]),
+            h(
+              'a.button.text',
+              {
+                attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
+                hook: bind('click', ctrl.request, root.redraw),
+              },
+              noarg('requestAComputerAnalysis'),
+            ),
+          ],
   );
 }

@@ -3,7 +3,7 @@ import { FEN } from 'chessground/types';
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
-export type GameType = 'hook' | 'friend' | 'ai';
+export type GameType = 'hook' | 'friend' | 'ai' | 'local';
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 export type GameMode = 'casual' | 'rated';
 
@@ -139,30 +139,10 @@ export interface SetupStore {
   days: number;
 }
 
-export interface SetupConstraints {
+export interface ForceSetupOptions {
   variant?: VariantKey;
   fen?: string;
   timeMode?: TimeMode;
   time?: number;
   increment?: number;
-}
-
-export interface GameSetup {
-  id: string;
-  gameType: GameType | null;
-  color: Color | 'random';
-  variant: VariantKey;
-  timeMode: TimeMode;
-  gameMode: GameMode;
-  range: string;
-}
-
-export interface ParentCtrl {
-  readonly user?: string;
-  readonly ratingMap?: Record<Perf, RatingWithProvisional>;
-
-  redraw: () => void;
-  acquire?: (candidate: GameSetup) => boolean;
-  trans: Trans;
-  opts: { showRatings: boolean };
 }

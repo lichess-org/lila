@@ -95,8 +95,8 @@ const showResult = (winner?: Color): VNode =>
   winner === 'white'
     ? h('result.white', '1-0')
     : winner === 'black'
-    ? h('result.black', '0-1')
-    : h('result.draws', '½-½');
+      ? h('result.black', '0-1')
+      : h('result.draws', '½-½');
 
 function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;

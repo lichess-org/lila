@@ -157,12 +157,12 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
             ctrl.trans.noarg('join'),
           )
       : ctrl.joinSpinner
-      ? spinner()
-      : h(
-          'button.fbt.text',
-          { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
-          ctrl.trans.noarg('withdraw'),
-        );
+        ? spinner()
+        : h(
+            'button.fbt.text',
+            { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
+            ctrl.trans.noarg('withdraw'),
+          );
 
   return;
 }

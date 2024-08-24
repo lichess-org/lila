@@ -35,6 +35,7 @@ export interface RelayRound {
 export interface RelayTourInfo {
   format?: string;
   tc?: string;
+  fideTc?: string;
   players?: string;
 }
 
@@ -51,6 +52,7 @@ export interface RelayTour {
   teamTable?: boolean;
   tier?: number;
   dates?: RelayTourDates;
+  tc?: 'standard' | 'rapid' | 'blitz';
 }
 
 export interface RelaySync {

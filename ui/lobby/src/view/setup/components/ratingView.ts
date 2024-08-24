@@ -1,12 +1,13 @@
 import { MaybeVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import { SetupCtrl } from '../../../setupCtrl';
+import LobbyController from '../../../ctrl';
 import { speeds, variants } from '../../../options';
 
-export const ratingView = (ctrl: SetupCtrl): MaybeVNode => {
-  if (site.blindMode || !ctrl.root.ratingMap) return null;
+export const ratingView = (ctrl: LobbyController): MaybeVNode => {
+  const { opts, data } = ctrl;
+  if (site.blindMode || !data.ratingMap) return null;
 
-  const selectedPerf = ctrl.selectedPerf();
+  const selectedPerf = ctrl.setupCtrl.selectedPerf();
 
   const perfOrSpeed: { key: string; icon: string; name: string } | undefined =
     variants.find(({ key }) => key === selectedPerf) || speeds.find(({ key }) => key === selectedPerf);
@@ -15,16 +16,15 @@ export const ratingView = (ctrl: SetupCtrl): MaybeVNode => {
     const perfIconAttrs = { attrs: { 'data-icon': perfOrSpeed.icon } };
     return h(
       'div.ratings',
-      !ctrl.root.opts.showRatings
+      !opts.showRatings
         ? [h('i', perfIconAttrs), perfOrSpeed.name]
         : [
-            ...ctrl.root.trans.vdom(
+            ...ctrl.trans.vdom(
               'perfRatingX',
               h(
                 'strong',
                 perfIconAttrs,
-                ctrl.root.ratingMap[selectedPerf].rating +
-                  (ctrl.root.ratingMap[selectedPerf].prov ? '?' : ''),
+                data.ratingMap[selectedPerf].rating + (data.ratingMap[selectedPerf].prov ? '?' : ''),
               ),
             ),
             perfOrSpeed.name,

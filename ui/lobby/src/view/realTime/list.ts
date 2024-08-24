@@ -19,8 +19,8 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
         title: hook.disabled
           ? ''
           : hook.action === 'join'
-          ? noarg('joinTheGame') + ' | ' + perfNames[hook.perf]
-          : noarg('cancel'),
+            ? noarg('joinTheGame') + ' | ' + perfNames[hook.perf]
+            : noarg('cancel'),
         'data-id': hook.id,
       },
     },

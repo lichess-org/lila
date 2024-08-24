@@ -1,12 +1,12 @@
 import { view as cevalView } from 'ceval';
 import { onClickAway } from 'common';
-import { looseH as h, onInsert, MaybeVNode, VNode } from 'common/snabbdom';
+import { looseH as h, onInsert, VNode } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../studyDeps';
 import { tourSide, renderRelayTour } from './relayTourView';
-import { renderVideoPlayer } from './videoPlayerView';
+import { renderVideoPlayer } from './videoPlayer';
 import {
   type RelayViewContext,
   viewContext,
@@ -69,14 +69,10 @@ function renderBoardView(ctx: RelayViewContext) {
   return [
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
-    renderTools(ctx, renderEmbedPlaceholder(ctx)),
+    renderTools(ctx, renderVideoPlayer(ctx.relay)),
     renderControls(ctrl),
     !ctrl.isEmbed && renderUnderboard(ctx),
     tourSide(ctx),
     deps.relayManager(relay, study),
   ];
-}
-
-function renderEmbedPlaceholder(ctx: RelayViewContext): MaybeVNode {
-  return ctx.relay.data.videoUrls ? renderVideoPlayer(ctx.relay) : undefined;
 }

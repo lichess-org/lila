@@ -4,9 +4,9 @@ import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
+import { ready as oldSafariDialogPolyfillReady } from 'common/dialog';
 import * as poolRangeStorage from './poolRangeStorage';
 import {
-  ParentCtrl,
   LobbyOpts,
   LobbyData,
   Tab,
@@ -17,15 +17,14 @@ import {
   Pool,
   PoolMember,
   GameType,
-  GameSetup,
-  SetupConstraints,
+  ForceSetupOptions,
   LobbyMe,
 } from './interfaces';
-import { SetupCtrl } from './setupCtrl';
 import LobbySocket from './socket';
 import Filter from './filter';
+import SetupController from './setupCtrl';
 
-export default class LobbyController implements ParentCtrl {
+export default class LobbyController {
   data: LobbyData;
   playban: any;
   me?: LobbyMe;
@@ -41,7 +40,7 @@ export default class LobbyController implements ParentCtrl {
   trans: Trans;
   pools: Pool[];
   filter: Filter;
-  setupCtrl = new SetupCtrl(this);
+  setupCtrl: SetupController;
 
   private poolInStorage: LichessStorage;
   private flushHooksTimeout?: number;
@@ -57,7 +56,7 @@ export default class LobbyController implements ParentCtrl {
     this.pools = opts.pools;
     this.playban = opts.playban;
     this.filter = new Filter(site.storage.make('lobby.filter'), this);
-    this.redraw = redraw;
+    this.setupCtrl = new SetupController(this);
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);
@@ -72,9 +71,41 @@ export default class LobbyController implements ParentCtrl {
     this.sort = this.stores.sort.get();
     this.trans = opts.trans;
 
-    const { gameType, forceOptions, friendUser } = this.parseUrlParams();
-    if (gameType) this.showSetupModal(gameType, forceOptions, friendUser);
-    history.replaceState(null, '', '/');
+    const locationHash = location.hash.replace('#', '');
+    if (['ai', 'friend', 'hook'].includes(locationHash)) {
+      const forceOptions: ForceSetupOptions = {};
+      const urlParams = new URLSearchParams(location.search);
+      const friendUser = urlParams.get('user') ?? undefined;
+      const minutesPerSide = urlParams.get('minutesPerSide');
+      const increment = urlParams.get('increment');
+
+      if (minutesPerSide) {
+        forceOptions.time = parseInt(minutesPerSide);
+      }
+
+      if (increment) {
+        forceOptions.increment = parseInt(increment);
+      }
+
+      if (locationHash === 'hook') {
+        if (urlParams.get('time') === 'realTime') {
+          this.tab = 'real_time';
+          forceOptions.timeMode = 'realTime';
+        } else if (urlParams.get('time') === 'correspondence') {
+          this.tab = 'seeks';
+          forceOptions.timeMode = 'correspondence';
+        }
+      } else if (urlParams.get('fen')) {
+        forceOptions.fen = urlParams.get('fen')!;
+        forceOptions.variant = 'fromPosition';
+      }
+
+      oldSafariDialogPolyfillReady.then(() => {
+        this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
+        redraw();
+      });
+      history.replaceState(null, '', '/');
+    }
 
     this.poolInStorage = site.storage.make('lobby.pool-in');
     this.poolInStorage.listen(_ => {
@@ -96,7 +127,7 @@ export default class LobbyController implements ParentCtrl {
       }, 10 * 1000);
       this.joinPoolFromLocationHash();
     }
-    //this.setupCtrl = new SetupCtrl(this);
+
     site.pubsub.on('socket.open', () => {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
@@ -221,24 +252,6 @@ export default class LobbyController implements ParentCtrl {
     this.socket.poolIn(this.poolMember);
   };
 
-  acquire = ({ id, gameType, color, variant, timeMode, gameMode, range }: GameSetup) => {
-    const pool =
-      color == 'random' &&
-      gameType === 'hook' &&
-      variant == 'standard' &&
-      gameMode == 'rated' &&
-      timeMode == 'realTime' &&
-      this.pools.find(p => p.id === id)
-        ? {
-            id,
-            range: range,
-          }
-        : null;
-    if (!pool && gameType === 'hook') this.setTab(timeMode === 'realTime' ? 'real_time' : 'seeks');
-    if (pool) this.enterPool(pool);
-    return pool !== null;
-  };
-
   hasOngoingRealTimeGame = () =>
     !!this.data.nowPlaying.find(nowPlaying => nowPlaying.isMyTurn && nowPlaying.speed !== 'correspondence');
 
@@ -278,57 +291,6 @@ export default class LobbyController implements ParentCtrl {
         xhr.seeks().then(this.setSeeks);
         break;
     }
-  };
-
-  get user() {
-    return this.me?.username.toLowerCase();
-  }
-
-  get ratingMap() {
-    return this.data.ratingMap ? this.data.ratingMap : undefined;
-  }
-
-  hasPool = (id: string) => this.pools.some(p => p.id === id);
-
-  showSetupModal = async (gameType: GameType, opts?: SetupConstraints, friendUser?: string) => {
-    this.leavePool();
-    this.setupCtrl.initModal(gameType, opts, friendUser);
-    this.redraw();
-  };
-
-  private parseUrlParams = () => {
-    const locationHash = location.hash.replace('#', '');
-    if (!['ai', 'friend', 'hook', 'local'].includes(locationHash)) return {};
-
-    const gameType = locationHash as GameType;
-    let friendUser: string | undefined;
-    const forceOptions: SetupConstraints = {};
-    const urlParams = new URLSearchParams(location.search);
-    const minutesPerSide = urlParams.get('minutesPerSide');
-    const increment = urlParams.get('increment');
-
-    if (minutesPerSide) {
-      forceOptions.time = parseInt(minutesPerSide);
-    }
-
-    if (increment) {
-      forceOptions.increment = parseInt(increment);
-    }
-    if (locationHash === 'hook') {
-      if (urlParams.get('time') === 'realTime') {
-        this.tab = 'real_time';
-        forceOptions.timeMode = 'realTime';
-      } else if (urlParams.get('time') === 'correspondence') {
-        this.tab = 'seeks';
-        forceOptions.timeMode = 'correspondence';
-      }
-    } else if (urlParams.get('fen')) {
-      forceOptions.fen = urlParams.get('fen')!;
-      forceOptions.variant = 'fromPosition';
-    } else {
-      friendUser = urlParams.get('user')!;
-    }
-    return { gameType, forceOptions, friendUser };
   };
 
   // after click on round "new opponent" button

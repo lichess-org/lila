@@ -23,8 +23,8 @@ export async function initModule(o: PolyglotOpts): Promise<PolyglotResult> {
     'bytes' in o
       ? makeBookPolyglot(o.bytes)
       : 'pgn' in o
-      ? await makeBookPgn(o.pgn, o.ply, o.progress)
-      : { getMoves: o.getMoves };
+        ? await makeBookPgn(o.pgn, o.ply, o.progress)
+        : { getMoves: o.getMoves };
   return {
     ...book,
     cover: o.cover

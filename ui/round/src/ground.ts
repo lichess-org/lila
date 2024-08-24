@@ -99,8 +99,8 @@ export const boardOrientation = (data: RoundData, flip: boolean): Color =>
       ? 'black'
       : 'white'
     : flip
-    ? data.opponent.color
-    : data.player.color;
+      ? data.opponent.color
+      : data.player.color;
 
 export const render = (ctrl: RoundController): VNode =>
   h('div.cg-wrap', {

@@ -121,10 +121,10 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const mode = currentChapter.practice
     ? 'practice'
     : defined(currentChapter.conceal)
-    ? 'conceal'
-    : currentChapter.gamebook
-    ? 'gamebook'
-    : 'normal';
+      ? 'conceal'
+      : currentChapter.gamebook
+        ? 'gamebook'
+        : 'normal';
   const noarg = trans.noarg;
 
   return snabDialog({
@@ -319,9 +319,8 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h(
                 'select#chapter-orientation.form-control',
                 {
-                  hook: bind(
-                    'change',
-                    e => ctrl.editor?.setOrientation((e.target as HTMLInputElement).value as Color),
+                  hook: bind('change', e =>
+                    ctrl.editor?.setOrientation((e.target as HTMLInputElement).value as Color),
                   ),
                 },
                 [...(activeTab === 'pgn' ? ['automatic'] : []), 'white', 'black'].map(c =>

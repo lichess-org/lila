@@ -39,8 +39,8 @@ importers:
         specifier: ^7.1.0
         version: 7.1.0
       prettier:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: ^3.3.3
+        version: 3.3.3
       typescript:
         specifier: ^5.5.3
         version: 5.5.3
@@ -445,9 +445,6 @@ importers:
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
-      game:
-        specifier: workspace:*
-        version: link:../game
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
@@ -2067,6 +2064,11 @@ packages:
 
   prettier@3.0.2:
     resolution: {integrity: sha512-o2YR9qtniXvwEZlOKbveKfDQVyqxbEIWn48Z8m3ZJjBjcCmUy3xZGIv+7AkaeuaTr6yPXJjwv07ZWlsWbEy1rQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+
+  prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -3766,6 +3768,8 @@ snapshots:
   prelude-ls@1.2.1: {}
 
   prettier@3.0.2: {}
+
+  prettier@3.3.3: {}
 
   prop-types@15.8.1:
     dependencies:
