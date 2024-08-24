@@ -9,7 +9,6 @@ export class VideoPlayer {
   animationFrameId: number;
 
   constructor(
-    private relay: RelayCtrl,
     private url: string,
     private autoplay: boolean,
     private redraw: Redraw,
@@ -29,10 +28,20 @@ export class VideoPlayer {
     this.close = document.createElement('img');
     this.close.src = site.asset.flairSrc('symbols.cancel');
     this.close.className = 'video-player-close';
-    this.close.addEventListener('click', this.relay.closeVideoPlayer, true);
 
-    if (relay.data.videoUrls) this.onWindowResize();
+    this.close.addEventListener('click', this.onClose, true);
+
+    this.onWindowResize();
   }
+
+  private onClose = () => {
+    // we need to reload the page unfortunately,
+    // so that a better local engine can be loaded
+    // once the iframe and its CSP are gone
+    const url = new URL(location.href);
+    url.searchParams.set('embed', 'no');
+    window.location.replace(url);
+  };
 
   cover = (el?: HTMLElement) => {
     cancelAnimationFrame(this.animationFrameId);

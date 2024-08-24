@@ -59,7 +59,7 @@ export default class RelayCtrl {
     );
     this.stats = new RelayStats(this.currentRound(), redraw);
     this.videoPlayer = this.data.videoUrls?.[0]
-      ? new VideoPlayer(this, this.data.videoUrls[0], location.search.includes('embed='), this.redraw)
+      ? new VideoPlayer(this.data.videoUrls[0], location.search.includes('embed='), redraw)
       : undefined;
     setInterval(() => this.redraw(true), 1000);
 
@@ -126,15 +126,6 @@ export default class RelayCtrl {
     defined(this.data.pinnedStream) &&
     !this.currentRound().finished &&
     Date.now() > this.currentRound().startsAt! - 1000 * 3600;
-
-  closeVideoPlayer = () => {
-    // we need to reload the page unfortunately,
-    // so that a better local engine can be loaded
-    // once the iframe and its CSP are gone
-    const url = new URL(location.href);
-    url.searchParams.set('embed', 'no');
-    window.location.replace(url);
-  };
 
   private socketHandlers = {
     relayData: (d: RelayData) => {
