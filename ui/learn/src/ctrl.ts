@@ -28,7 +28,7 @@ export class LearnCtrl {
     window.addEventListener('hashchange', () => {
       this.setStageLevelFromHash();
       this.sideCtrl.updateCategId();
-      this.runCtrl.initializeLevel();
+      if (this.opts.stageId !== null) this.runCtrl.initializeLevel();
       this.redraw();
     });
   }
