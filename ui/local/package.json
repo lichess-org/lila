@@ -17,6 +17,12 @@
     "snabbdom": "3.5.1",
     "zerofish": "link:../../../zerofish"
   },
+  "scripts": {
+    "import-bots": "mongoimport --db=lichess --collection=local_bots --drop --jsonArray --file",
+    "export-bots": "mongosh lichess bin/export-bots.js > ",
+    "import-assets": "mongoimport --db=lichess --collection=local_assets --drop --jsonArray --file",
+    "export-assets": "mongoexport --db=lichess --collection=local_assets --jsonArray --out"
+  },
   "lichess": {
     "bundles": [
       "src/local.setup.ts",
@@ -24,8 +30,7 @@
       "src/dev/local.dev.ts"
     ],
     "sync": {
-      "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",
-      "json/*": "public/json"
+      "node_modules/zerofish/dist/zerofishEngine.*": "public/npm"
     }
   }
 }

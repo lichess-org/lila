@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const docs = [];
 
 db.local_bots
