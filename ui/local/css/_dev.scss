@@ -246,6 +246,7 @@
   }
 }
 .dev-progress {
+  position: relative;
   padding: 0.5em;
   width: 100%;
   background: $c-bg-high;
@@ -292,7 +293,7 @@
     &::before {
       content: '';
       display: block;
-      background-image: url('/assets/lifat/bots/images/not-worthy.webp');
+      background-image: url('/assets/lifat/bots/image/not-worthy.webp');
       background-size: contain;
       background-repeat: no-repeat;
       min-width: 320px;

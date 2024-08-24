@@ -1,6 +1,6 @@
 import { schema, infoKeys } from './schema';
 import { Pane, SelectSetting, RangeSetting, TextareaSetting, TextSetting, NumberSetting } from './pane';
-import { OperatorPane } from './operatorPane';
+import { FilterPane } from './filterPane';
 import { SoundEventPane } from './soundEventPane';
 import { BooksPane } from './booksPane';
 import type { EditDialog } from './editDialog';
@@ -58,14 +58,14 @@ export class Panes {
 export function buildFromSchema(host: EditDialog, path: string[], parent?: Pane): Pane {
   const id = path.join('_');
   const iter = path.reduce<any>((acc, key) => acc[key], schema);
-  const s = buildFromInfo(host, { id, ...iter }, parent);
+  const s = makePane(host, { id, ...iter }, parent);
   for (const key of Object.keys(iter).filter(k => !infoKeys.includes(k as InfoKey))) {
     s.el.appendChild(buildFromSchema(host, [...path, key], s).el);
   }
   return s;
 }
 
-function buildFromInfo(host: EditDialog, info: PaneInfo, parent?: Pane): Pane {
+function makePane(host: EditDialog, info: PaneInfo, parent?: Pane): Pane {
   const p = { host, info, parent };
   switch (info?.type) {
     case 'select':
@@ -82,8 +82,8 @@ function buildFromInfo(host: EditDialog, info: PaneInfo, parent?: Pane): Pane {
       return new BooksPane(p);
     case 'soundEvent':
       return new SoundEventPane(p);
-    case 'operator':
-      return new OperatorPane(p);
+    case 'filter':
+      return new FilterPane(p);
     default:
       return new Pane(p);
   }

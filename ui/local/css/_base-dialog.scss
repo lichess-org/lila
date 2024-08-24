@@ -1,8 +1,12 @@
 $scale-factor: var(---scale-factor);
 
+html.transp dialog::before {
+  backdrop-filter: blur(18px);
+}
+
 .base-view {
-  ---white-image-url: url('/assets/lifat/bots/images/white-torso.webp');
-  ---black-image-url: url('/assets/lifat/bots/images/black-torso.webp');
+  ---white-image-url: url('/assets/lifat/bots/image/white-torso.webp');
+  ---black-image-url: url('/assets/lifat/bots/image/black-torso.webp');
   ---scale-factor: 1; // ---scale-factor adjusted in javascript
 
   @extend %flex-column;
@@ -12,9 +16,9 @@ $scale-factor: var(---scale-factor);
   background-color: $c-body-gradient;
   border-radius: 5px;
 
-  @include if-transp {
-    background-color: unset;
-  }
+  // @include if-transp {
+  //   background-color: unset;
+  // }
 }
 
 dialog .with-cards {

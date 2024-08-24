@@ -3,8 +3,7 @@ import * as licon from 'common/licon';
 import { frag } from 'common';
 import type { PaneArgs, BooksInfo, RangeInfo } from './devTypes';
 import type { Book } from '../types';
-import { removeButton } from './devUtil';
-import { assetDialog } from './assetDialog';
+import { renderRemoveButton } from './devUtil';
 import { env } from '../localEnv';
 
 export class BooksPane extends Pane {
@@ -16,7 +15,6 @@ export class BooksPane extends Pane {
     min: 1,
     max: 10,
     step: 1,
-    required: true,
   };
   constructor(p: PaneArgs) {
     super(p);
@@ -30,7 +28,7 @@ export class BooksPane extends Pane {
   update(e?: Event): void {
     if (!(e?.target instanceof HTMLElement)) return;
     if (e.target.dataset.action === 'add') {
-      assetDialog('book').then(b => {
+      this.host.assetDialog('book').then(b => {
         if (!b) return;
         this.value.push({ key: b, weight: this.template?.value ?? 1 });
         this.makeBook(this.value.length - 1);
@@ -94,7 +92,7 @@ class BookPane extends RangeSetting {
   parent: BooksPane;
   constructor(p: PaneArgs, key: string) {
     super(p);
-    this.el.append(removeButton());
+    this.el.append(renderRemoveButton());
     const span = this.label.firstElementChild as HTMLElement;
     span.dataset.src = env.repo.getBookCoverUrl(key);
     span.classList.add('image-powertip');

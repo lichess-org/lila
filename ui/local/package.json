@@ -15,7 +15,7 @@
     "json-stringify-pretty-compact": "4.0.0",
     "round": "workspace:*",
     "snabbdom": "3.5.1",
-    "zerofish": "0.0.29"
+    "zerofish": "link:../../../zerofish"
   },
   "lichess": {
     "bundles": [

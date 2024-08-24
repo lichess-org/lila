@@ -3,17 +3,17 @@ import { clamp } from 'common';
 
 export type Point = [number, number];
 
-export interface Operator {
+export interface Filter {
   readonly range: { min: number; max: number };
-  from: 'move' | 'score' | 'time';
+  by: 'move' | 'score' | 'time';
   data: Point[];
 }
 
-export type Operators = { [key: string]: Operator };
+export type Filters = { [key: string]: Filter };
 
 const DOMAIN_CAP_DELTA = 10;
 
-export function addPoint(m: Operator, add: Point): void {
+export function addPoint(m: Filter, add: Point): void {
   normalize(m);
   const qX = quantizeX(add[0], m);
   const data = m.data;
@@ -24,7 +24,7 @@ export function addPoint(m: Operator, add: Point): void {
   } else data.push([qX, add[1]]);
 }
 
-export function asData(m: Operator): CjsPoint[] {
+export function asData(m: Filter): CjsPoint[] {
   const pts = m.data.slice();
   const xs = domain(m);
   const defaultVal = (m.range.max - m.range.min) / 2;
@@ -38,12 +38,12 @@ export function asData(m: Operator): CjsPoint[] {
   return pts.map(p => ({ x: p[0], y: p[1] }));
 }
 
-export function quantizeX(x: number, m: Operator): number {
-  const qu = m.from === 'score' ? 0.01 : 1;
+export function quantizeX(x: number, m: Filter): number {
+  const qu = m.by === 'score' ? 0.01 : 1;
   return Math.round(x / qu) * qu;
 }
 
-export function normalize(m: Operator): void {
+export function normalize(m: Filter): void {
   const newData = m.data.reduce((acc: Point[], p) => {
     const x = quantizeX(p[0], m);
     const i = acc.findIndex(q => q[0] === x);
@@ -55,7 +55,7 @@ export function normalize(m: Operator): void {
   m.data = newData;
 }
 
-export function interpolate(m: Operator, x: number): number {
+export function interpolate(m: Filter, x: number): number {
   const constrain = (x: number) => clamp(x, m.range);
   const to = m.data;
 
@@ -72,8 +72,8 @@ export function interpolate(m: Operator, x: number): number {
   return to[to.length - 1][1];
 }
 
-export function domain(m: Operator): { min: number; max: number } {
-  switch (m.from) {
+export function domain(m: Filter): { min: number; max: number } {
+  switch (m.by) {
     case 'move':
       return { min: 1, max: 60 };
     case 'score':

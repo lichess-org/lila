@@ -1,13 +1,13 @@
 import * as co from 'chessops';
 import { zip, clamp } from 'common';
-import { normalize, interpolate } from './operator';
+import { normalize, interpolate } from './filter';
 import type { FishSearch, SearchResult, Line } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
 import type {
   BotInfo,
   ZeroSearch,
-  Operators,
+  Filters,
   Book,
   Mover,
   MoveArgs,
@@ -32,13 +32,13 @@ export class Bot implements BotInfo, Mover {
   ratings: Ratings;
   books?: Book[];
   sounds?: SoundEvents;
-  operators?: Operators;
+  filters?: Filters;
   zero?: ZeroSearch;
   fish?: FishSearch;
 
   constructor(info: BotInfo) {
     Object.assign(this, structuredClone(info));
-    if (this.operators) Object.values(this.operators).forEach(normalize);
+    if (this.filters) Object.values(this.filters).forEach(normalize);
 
     // keep these from being stored or cloned with the bot
     Object.defineProperties(this, {
@@ -58,7 +58,7 @@ export class Bot implements BotInfo, Mover {
   }
 
   get needsScore(): boolean {
-    return Object.values(this.operators ?? {}).some(o => o.from === 'score');
+    return Object.values(this.filters ?? {}).some(o => o.by === 'score');
   }
 
   async move(args: MoveArgs): Promise<MoveResult> {
@@ -87,18 +87,18 @@ export class Bot implements BotInfo, Mover {
     return { uci, thinktime: moveArgs.thinktime };
   }
 
-  private operator(op: string, { chess, cp, thinktime }: MoveArgs): undefined | number {
-    const o = this.operators?.[op];
+  private filter(op: string, { chess, cp, thinktime }: MoveArgs): undefined | number {
+    const o = this.filters?.[op];
     if (!o) return undefined;
     const val = interpolate(
       o,
-      o.from === 'move'
+      o.by === 'move'
         ? chess.fullmoves
-        : o.from === 'score'
+        : o.by === 'score'
         ? outcomeExpectancy(chess.turn, cp ?? 0)
         : thinktime
         ? Math.log2(thinktime)
-        : 8,
+        : 240,
     );
     return val;
   }
@@ -115,7 +115,7 @@ export class Bot implements BotInfo, Mover {
 
   private async bookMove(chess: co.Chess) {
     // first decide on a book from those with a move for the current position using book
-    // relative weights. then choose a move within that book using the polyglot weights
+    // relative weights. then choose a move within that book using the move weights
     if (!this.books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; bookWeight: number }[] = [];
     let bookChance = 0;
@@ -141,15 +141,19 @@ export class Bot implements BotInfo, Mover {
 
   private chooseMove(results: (SearchResult | undefined)[], args: MoveArgs): { uci: Uci; cpl?: number } {
     const moves = this.parseMoves(results, args);
-    this.scoreByCpl(moves, args);
+
+    if (this.filters?.cplTarget) this.scoreByCpl(moves, args);
+
     moves.sort(weightSort);
 
     if (args.pos.moves?.length) {
       const last = args.pos.moves[args.pos.moves.length - 1].slice(2, 4);
-      // if the current favorite is a capture of the opponent's last moved piece, just take it
+
+      // our one global rule - if the current favorite is a capture of the opponent's last moved piece,
+      // always take it, regardless of move quality decay
       if (moves[0].uci.slice(2, 4) === last) return moves[0];
     }
-    return lineDecay(moves, this.operator('lineDecay', args) ?? 0) ?? moves[0];
+    return moveQualityDecay(moves, this.filter('moveDecay', args) ?? 0) ?? moves[0];
   }
 
   private parseMoves([fish, zero]: (SearchResult | undefined)[], args: MoveArgs): SearchMove[] {
@@ -158,11 +162,18 @@ export class Bot implements BotInfo, Mover {
 
     const parsed: SearchMove[] = [];
     const cp = fish?.lines[0] ? score(fish.lines[0]) : args.cp ?? 0;
-    const lc0bias = this.operator('lc0bias', args) ?? 0;
+    const lc0bias = this.filter('lc0bias', args) ?? 0;
+    const stockfishVariate = lc0bias ? (this.filters?.cplTarget ? 0 : Math.random()) : 0;
 
     fish?.lines
       .filter(line => line.moves[0])
-      .forEach(line => parsed.push({ uci: line.moves[0], cpl: Math.abs(cp - score(line)), weights: {} }));
+      .forEach(line =>
+        parsed.push({
+          uci: line.moves[0],
+          cpl: Math.abs(cp - score(line)),
+          weights: { lc0bias: stockfishVariate },
+        }),
+      );
 
     zero?.lines
       .map(v => v.moves[0])
@@ -176,9 +187,9 @@ export class Bot implements BotInfo, Mover {
   }
 
   private scoreByCpl(sorted: SearchMove[], args: MoveArgs) {
-    if (!this.operators?.cplTarget) return;
-    const mean = this.operator('cplTarget', args) ?? 0;
-    const stdev = this.operator('cplStdev', args) ?? 80;
+    if (!this.filters?.cplTarget) return;
+    const mean = this.filter('cplTarget', args) ?? 0;
+    const stdev = this.filter('cplStdev', args) ?? 80;
     const cplTarget = Math.abs(mean + stdev * getNormal());
     // folding (vs truncating) the normal at zero skews the distribution mean a bit further from the target
     for (const mv of sorted) {
@@ -202,9 +213,9 @@ interface SearchMove {
   P?: number;
 }
 
-function lineDecay(sorted: SearchMove[], decay: number) {
+function moveQualityDecay(sorted: SearchMove[], decay: number) {
   // in this weighted random selection, each move's probability is given by a quality decay parameter
-  // raised to the power of the move's index as sorted by previous operators. a random number between
+  // raised to the power of the move's index as sorted by previous filters. a random number between
   // 0 and the probability sum will identify the final move
 
   let variate = sorted.reduce((sum, mv, i) => (sum += mv.P = decay ** i), 0) * Math.random();

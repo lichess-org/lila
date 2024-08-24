@@ -13,7 +13,7 @@ import { defined } from 'common';
 import type { LocalSetup, LocalSpeed } from '../types';
 import { env } from '../localEnv';
 
-export function devSideView(): VNode {
+export function renderDevSide(): VNode {
   return h('div.dev-side.dev-view', [
     h('div', player(co.opposite(env.game.orientationForReal))),
     dashboard(),
@@ -24,7 +24,7 @@ export function devSideView(): VNode {
 
 function player(color: Color): VNode {
   const p = env.bot[color] as Bot | undefined;
-  const imgUrl = env.bot.imageUrl(p) ?? `/assets/lifat/bots/images/${color}-torso.webp`;
+  const imgUrl = env.bot.imageUrl(p) ?? `/assets/lifat/bots/image/${color}-torso.webp`;
   const isLight = document.documentElement.classList.contains('light');
   const buttonClass = {
     white: isLight ? '.button-metal' : '.button-inverse',
@@ -193,7 +193,6 @@ function dashboard() {
       h(`button.board-action.button.button-metal`, {
         attrs: { 'data-icon': licon.Switch },
         hook: bind('click', () => {
-          //env.game.originalOrientation = co.opposite(env.game.originalOrientation);
           env.game.reset({ white: env.bot.uids.black, black: env.bot.uids.white });
           env.redraw();
         }),
@@ -214,16 +213,23 @@ function dashboard() {
 
 function progress() {
   return h('div.dev-progress', [
-    h(
-      'div.results',
-      playersWithResults(env.dev.log).map(p => {
+    h('div.results', [
+      env.dev.log.length > 0 &&
+        h('button.button.button-empty.button-red.icon-btn.upper-right', {
+          attrs: { 'data-icon': licon.Cancel },
+          hook: bind('click', () => {
+            env.dev.log = [];
+            env.redraw();
+          }),
+        }),
+      ...playersWithResults(env.dev.log).map(p => {
         const bot = env.bot.get(p)!;
         return h(
           'div',
           `${bot?.name ?? p} ${ratingText(p, env.game.speed)} ${resultsString(env.dev.log, p)}`,
         );
       }),
-    ),
+    ]),
   ]);
 }
 
@@ -281,7 +287,7 @@ function fen(): VNode {
 function roundRobin() {
   domDialog({
     class: 'round-robin-dialog',
-    htmlText: `<h2>participants</h2>
+    htmlText: `<h2>round robin participants</h2>
     <ul>${[...env.bot.sorted(), ...env.bot.rateBots.filter(b => b.ratings[env.game.speed] % 100 === 0)]
       .map(p => {
         const checked = isNaN(parseInt(p.uid.slice(1)))

@@ -49,9 +49,10 @@ export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
 
 // Actions are managed listeners / results that are easily refreshed on DOM changes
 // if no event is specified, then 'click' is assumed
+// if no selector is given, then the handler is attached to the view div
 export type Action =
-  | { selector: string; event?: string | string[]; listener: ActionListener }
-  | { selector: string; event?: string | string[]; result: string };
+  | { selector?: string; event?: string | string[]; listener: ActionListener }
+  | { selector?: string; event?: string | string[]; result: string };
 
 // Safari versions before 15.4 need a polyfill for dialog. this "ready" promise resolves when that's loaded
 export const ready: Promise<boolean> = site.load.then(async () => {
@@ -229,8 +230,6 @@ class DialogWrapper implements Dialog {
     }
     this.updateActions();
     this.dialogEvents.addListener(this.dialog, 'keydown', onKeydown);
-    if (this.o.focus) (this.view.querySelector(this.o.focus) as HTMLElement)?.focus();
-    else (this.view.querySelectorAll(focusQuery)[1] as HTMLElement)?.focus();
   }
 
   get open(): boolean {
@@ -247,12 +246,14 @@ class DialogWrapper implements Dialog {
 
   show = (): Promise<Dialog> => {
     this.dialog.show();
+    this.autoFocus();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   showModal = (): Promise<Dialog> => {
     this.view.scrollTop = 0;
     this.dialog.showModal();
+    this.autoFocus();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
@@ -266,7 +267,7 @@ class DialogWrapper implements Dialog {
     if (!actions) return;
     for (const a of Array.isArray(actions) ? actions : [actions]) {
       for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
-        for (const el of this.view.querySelectorAll(a.selector)) {
+        for (const el of a.selector ? this.view.querySelectorAll(a.selector) : [this.view]) {
           const listener =
             'listener' in a ? (e: Event) => a.listener(e, this, a) : () => this.close(a.result);
           this.actionEvents.addListener(el, event, listener);
@@ -275,6 +276,14 @@ class DialogWrapper implements Dialog {
     }
   };
 
+  private autoFocus() {
+    const focus = (
+      this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelectorAll(focusQuery)[1]
+    ) as HTMLElement;
+    if (!focus) return;
+    focus.focus();
+    if (focus instanceof HTMLInputElement) focus.select();
+  }
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';

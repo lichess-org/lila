@@ -124,7 +124,7 @@ class HistoryDialog {
   };
 
   push = async () => {
-    const err = await env.push.postBot(this.selected as BotInfo);
+    const err = await env.push.pushBot(this.selected as BotInfo);
     if (err) {
       alert(`push failed: ${escapeHtml(err)}`);
       return;

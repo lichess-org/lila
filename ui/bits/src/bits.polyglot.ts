@@ -1,36 +1,62 @@
 import * as co from 'chessops';
+import { deepFreeze } from 'common';
 import { normalMove } from 'chess';
 
 export type OpeningMove = { uci: string; weight: number };
 
 export type OpeningBook = (pos: co.Chess, normalized?: boolean /* = true */) => OpeningMove[];
 
-export type PolyglotOpts = { cover?: { depth: number; boardSize: number } } & (
-  | { pgn: string }
+export type PgnProgress = (processed: number, total: number) => boolean | undefined; // return false to stop
+
+export type PgnFilter = (game: co.pgn.Game<co.pgn.PgnNodeData>) => boolean;
+
+export type PolyglotOpts = { cover?: boolean | { boardSize: number } } & (
+  | { pgn: Blob; ply: number; progress?: PgnProgress }
   | { bytes: DataView }
   | { getMoves: OpeningBook }
 );
 
-export type PolyglotResult = { getMoves: OpeningBook; polyglot?: Blob; cover?: Blob };
+export type PolyglotResult = { getMoves: OpeningBook; positions?: number; polyglot?: Blob; cover?: Blob };
 
 export async function initModule(o: PolyglotOpts): Promise<PolyglotResult> {
   const book =
-    'bytes' in o ? makeBookPolyglot(o.bytes) : 'pgn' in o ? makeBookPgn(o.pgn) : { getMoves: o.getMoves };
+    'bytes' in o
+      ? makeBookPolyglot(o.bytes)
+      : 'pgn' in o
+      ? await makeBookPgn(o.pgn, o.ply, o.progress)
+      : { getMoves: o.getMoves };
   return {
     ...book,
-    cover: o.cover ? await makeCover(book.getMoves, o.cover.depth, o.cover.boardSize) : undefined,
+    cover: o.cover
+      ? await makeCover(book.getMoves, typeof o.cover === 'object' ? o.cover.boardSize : 192, book.positions)
+      : undefined,
   };
 }
 
-type Composition = { boards: number; squares: Map<number, Map<Color, Map<co.Role, number>>> };
-
-function makeBookPgn(pgn: string): PolyglotResult {
-  const book = new Map<bigint, OpeningMove[]>();
-  for (const game of co.pgn.parsePgn(pgn)) {
-    traverseTree(co.pgn.startingPosition(game.headers).unwrap(), game.moves);
+async function makeBookPgn(
+  blob: Blob,
+  maxPly: number,
+  progress?: PgnProgress,
+  filter?: PgnFilter,
+): Promise<PolyglotResult> {
+  let bigMap: Map<bigint, Map<string, number>> | undefined = new Map();
+  for await (const game of pgnFromBlob(blob, 8 * 1024 * 1024, progress)) {
+    if (!game) return { getMoves: () => [], positions: 0 };
+    if (filter && !filter(game)) continue;
+    traverseTree(co.pgn.startingPosition(game.headers).unwrap(), game.moves, maxPly);
   }
+  // calc weights and collapse secondary maps into arrays for less memory overhead
+  const posMap = new Map<bigint, OpeningMove[]>();
+  for (const [hash, map] of bigMap) {
+    const moves = Array.from(map, ([uci, weight]) => ({ uci, weight }));
+    const sum = moves.reduce((sum, m) => sum + m.weight, 0);
+    for (const m of moves) m.weight = Math.round((m.weight / sum) * 65535);
+    posMap.set(hash, moves);
+  }
+  bigMap = undefined; // phew
+  deepFreeze(posMap);
   const polyglot = new Blob(
-    [...book].map(([hash, moves]) => {
+    Array.from(posMap, ([hash, moves]) => {
       const buffer = new ArrayBuffer(16 * moves.length);
       const view = new DataView(buffer);
       let pos = 0;
@@ -43,27 +69,32 @@ function makeBookPgn(pgn: string): PolyglotResult {
       return buffer;
     }),
   );
-  return { ...makeOpeningMoves(book), polyglot };
+  return { getMoves: getMoves(posMap), polyglot, positions: posMap.size };
 
-  function traverseTree(chess: co.Chess, node: co.pgn.Node<co.pgn.PgnNodeData>) {
-    const moves = book.get(hashBoard(chess)) ?? [];
-    for (const nextNode of node.children) {
-      const move = co.san.parseSan(chess, nextNode.data.san);
-      if (!move) continue;
-      const nextChess = chess.clone();
-      moves.push({ uci: co.makeUci(move), weight: getWeightThatIsAlmostCertainlyWrong(nextNode) });
-      nextChess.play(move);
-      traverseTree(nextChess, nextNode);
-    }
-    book.set(hashBoard(chess), moves);
+  function traverseTree(chess: co.Chess, node: co.pgn.Node<co.pgn.PgnNodeData>, plyToGo: number) {
+    if (plyToGo === 0) return;
+    const zobrist = hashBoard(chess);
+    const moves = bigMap!.get(zobrist) ?? new Map<string, number>();
+    if (plyToGo > 1)
+      for (const nextNode of node.children) {
+        const move = co.san.parseSan(chess, nextNode.data.san);
+        if (!move) continue;
+        const nextChess = chess.clone();
+        const uci = co.makeUci(move);
+        moves.set(uci, (moves.get(uci) ?? 0) + 1);
+        nextChess.play(move);
+        traverseTree(nextChess, nextNode, plyToGo - 1);
+      }
+    bigMap!.set(zobrist, moves);
   }
 
-  function getWeightThatIsAlmostCertainlyWrong(node: co.pgn.ChildNode<co.pgn.PgnNodeData>) {
-    const weightstr = node.data.comments?.find(x => /W[^:]*:\s*([0-9.]+)/.exec(x))?.[1];
-    const weight = weightstr ? parseFloat(weightstr) : 1;
-    // in case weights are from 0 to 1. crush the top because you cannot have big weights AND nice things
-    return weight < 100 ? weight * 100 : Math.min(65535, 9900 + weight);
-  }
+  // commenting this out because we're just going to count moves for now
+  // function getWeightThatIsAlmostCertainlyWrong(node: co.pgn.ChildNode<co.pgn.PgnNodeData>) {
+  //   const weightstr = node.data.comments?.find(x => /W[^:]*:\s*([0-9.]+)/.exec(x))?.[1];
+  //   const weight = weightstr ? parseFloat(weightstr) : 1;
+  //   // in case weights are from 0 to 1. crush the top because you cannot have big weights AND nice things
+  //   return weight < 100 ? weight * 100 : Math.min(65535, 9900 + weight);
+  // }
 }
 
 function makeBookPolyglot(bytes: DataView): PolyglotResult {
@@ -78,17 +109,117 @@ function makeBookPolyglot(bytes: DataView): PolyglotResult {
     moves.push({ uci: shortToUci(move), weight });
     book.set(hash, moves);
   }
-  return makeOpeningMoves(book);
+  deepFreeze(book);
+  return { getMoves: getMoves(book), positions: book.size };
 }
 
-function makeOpeningMoves(book: Map<bigint, OpeningMove[]>): PolyglotResult {
-  return {
-    getMoves: (pos: co.Chess, normalized = true) => {
-      const moves = book.get(hashBoard(pos)) ?? [];
-      if (!normalized) return moves;
-      const sum = moves.reduce((sum: number, m) => sum + m.weight, 0);
-      return moves.map(m => ({ uci: m.uci, weight: m.weight / sum }));
-    },
+async function* pgnFromBlob(blob: Blob, chunkSize: number, progress?: PgnProgress) {
+  const totalSize = blob.size;
+  let offset = 0;
+  let residual = '';
+  while (offset < totalSize) {
+    if (progress?.(offset, totalSize) === false) {
+      yield undefined;
+      return;
+    }
+    const chunk = blob.slice(offset, offset + chunkSize);
+    const textChunk = await chunk.text();
+    const gamesThisChunk =
+      offset + chunk.size === totalSize || textChunk.lastIndexOf('\n\n[') === -1
+        ? textChunk
+        : textChunk.slice(0, textChunk.lastIndexOf('\n\n[') + 2);
+    const games = co.pgn.parsePgn(residual + gamesThisChunk).filter(game => {
+      const tag = game.headers.get('Variant');
+      return !tag || tag.toLowerCase() === 'standard';
+    });
+    for (const game of games) yield game;
+    residual = textChunk.slice(gamesThisChunk.length);
+    offset += chunkSize;
+  }
+}
+
+type Composition = { boards: number; squares: Map<number, Map<Color, Map<co.Role, number>>> };
+
+async function makeCover(polyglotBook: OpeningBook, boardSize: number, numMoves?: number): Promise<Blob> {
+  const squareSize = boardSize / 8;
+  const canvas = new OffscreenCanvas(boardSize, boardSize);
+  const ctx = canvas.getContext('2d')!;
+  const composition: Composition = { boards: 1, squares: new Map() };
+
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const isLightSquare = (row + col) % 2 === 0;
+      ctx.fillStyle = isLightSquare ? '#f0d9b5' : '#b58863';
+      ctx.fillRect(col * squareSize, row * squareSize, squareSize, squareSize);
+    }
+  }
+
+  traverseTree(co.Chess.default(), 4);
+
+  for (const [sq, comp] of composition.squares) {
+    const [x, y] = [co.squareFile(sq) * squareSize, (7 - co.squareRank(sq)) * squareSize];
+    for (const color of comp.keys()) {
+      for (const role of comp.get(color)?.keys() ?? []) {
+        ctx.globalAlpha = 0.4 + (0.6 * (comp.get(color)?.get(role) ?? 0)) / composition.boards;
+        ctx.drawImage(pieces[color][role], x, y, squareSize, squareSize);
+      }
+    }
+  }
+  if (numMoves) {
+    const moveText = numMoves.toLocaleString('en-US');
+    ctx.font = `bold ${Math.floor(squareSize)}px Noto Sans`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.strokeStyle = 'black';
+    ctx.globalAlpha = 0.8;
+    ctx.lineWidth = 6;
+    ctx.strokeText(moveText, boardSize / 2, (boardSize * 7) / 8);
+    ctx.fillStyle = 'white';
+    ctx.fillText(moveText, boardSize / 2, (boardSize * 7) / 8);
+  }
+  return await canvas.convertToBlob({ type: 'image/png' });
+
+  function traverseTree(chess: co.Chess, plyToGo: number) {
+    if (plyToGo === 0) return;
+    for (const om of polyglotBook(chess)) {
+      const { move } = normalMove(chess, om.uci) ?? {};
+      if (!move) continue;
+      const nextChess = chess.clone();
+      nextChess.play(move);
+      traverseTree(nextChess, plyToGo - 1);
+      composeBoard(nextChess);
+    }
+  }
+
+  function composeBoard(chess: co.Chess) {
+    [...chess.board.occupied].forEach(sq => {
+      const { color, role } = chess.board.get(sq) ?? {};
+      if (!color || !role) return;
+      if (!composition.squares.has(sq)) composition.squares.set(sq, new Map());
+      const sqcomp = composition.squares.get(sq)!;
+      if (!sqcomp.has(color)) sqcomp.set(color, new Map());
+      const colorMap = sqcomp.get(color)!;
+      colorMap.set(role, (colorMap.get(role) ?? 0) + 1);
+    });
+    composition.boards++;
+  }
+}
+
+function makeImage(svg: string) {
+  const src =
+    'data:image/svg+xml;base64,' +
+    btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">${svg}</svg>`);
+  const img = new Image();
+  img.src = src;
+  return img;
+}
+
+function getMoves(book: Map<bigint, OpeningMove[]>): OpeningBook {
+  return (pos: co.Chess, normalized = true) => {
+    const moves = book.get(hashBoard(pos)) ?? [];
+    if (!normalized) return moves;
+    const sum = moves.reduce((sum: number, m) => sum + m.weight, 0);
+    return moves.map(m => ({ uci: m.uci, weight: m.weight / sum }));
   };
 }
 
@@ -131,73 +262,10 @@ function charDiff(a: string, b: string) {
 }
 
 function uciToShort(uci: Uci): number {
-  const from = (charDiff(uci[0], 'a') << 3) | charDiff(uci[1], '1');
-  const to = (charDiff(uci[2], 'a') << 3) | charDiff(uci[3], '1');
+  const from = (charDiff(uci[1], '1') << 3) | charDiff(uci[0], 'a');
+  const to = (charDiff(uci[3], '1') << 3) | charDiff(uci[2], 'a');
   const promotion = uci.length === 5 ? promotes.indexOf(uci[4]) : 0;
   return (promotion << 12) | (from << 6) | to;
-}
-
-async function makeCover(polyglotBook: OpeningBook, depth: number, boardSize: number): Promise<Blob> {
-  const squareSize = boardSize / 8;
-  const canvas = new OffscreenCanvas(boardSize, boardSize);
-  const ctx = canvas.getContext('2d')!;
-  const composition: Composition = { boards: 1, squares: new Map() };
-
-  for (let row = 0; row < 8; row++) {
-    for (let col = 0; col < 8; col++) {
-      const isLightSquare = (row + col) % 2 === 0;
-      ctx.fillStyle = isLightSquare ? '#f0d9b5' : '#b58863';
-      ctx.fillRect(col * squareSize, row * squareSize, squareSize, squareSize);
-    }
-  }
-
-  traverseTree(co.Chess.default(), 0);
-
-  for (const [sq, comp] of composition.squares) {
-    const [x, y] = [co.squareFile(sq) * squareSize, (7 - co.squareRank(sq)) * squareSize];
-    for (const color of comp.keys()) {
-      for (const role of comp.get(color)?.keys() ?? []) {
-        ctx.globalAlpha = 0.4 + (0.6 * (comp.get(color)?.get(role) ?? 0)) / composition.boards;
-        ctx.drawImage(pieces[color][role], x, y, squareSize, squareSize);
-      }
-    }
-  }
-
-  return await canvas.convertToBlob({ type: 'image/png' });
-
-  function traverseTree(chess: co.Chess, halfmoves: number) {
-    if (halfmoves > depth * 2) return;
-    for (const om of polyglotBook(chess)) {
-      const { move } = normalMove(chess, om.uci) ?? {};
-      if (!move) continue;
-      const nextChess = chess.clone();
-      nextChess.play(move);
-      traverseTree(nextChess, halfmoves + 1);
-      composeBoard(nextChess);
-    }
-  }
-
-  function composeBoard(chess: co.Chess) {
-    [...chess.board.occupied].forEach(sq => {
-      const { color, role } = chess.board.get(sq) ?? {};
-      if (!color || !role) return;
-      if (!composition.squares.has(sq)) composition.squares.set(sq, new Map());
-      const sqcomp = composition.squares.get(sq)!;
-      if (!sqcomp.has(color)) sqcomp.set(color, new Map());
-      const colorMap = sqcomp.get(color)!;
-      colorMap.set(role, (colorMap.get(role) ?? 0) + 1);
-    });
-    composition.boards++;
-  }
-}
-
-function makeImage(svg: string) {
-  const src =
-    'data:image/svg+xml;base64,' +
-    btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45">${svg}</svg>`);
-  const img = new Image();
-  img.src = src;
-  return img;
 }
 
 const promotes = ['', 'n', 'b', 'r', 'q', '?', '?', '?'];

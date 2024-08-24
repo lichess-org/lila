@@ -1,4 +1,4 @@
-import type { Operator, Book, SoundEvent, Sound as NamedSound } from '../types';
+import type { Filter, Book, SoundEvent, Sound as NamedSound } from '../types';
 import type { Pane } from './pane';
 import type { AssetType } from './devAssets';
 import type { EditDialog } from './editDialog';
@@ -18,9 +18,9 @@ export interface PaneInfo {
   class?: string[];
   label?: string;
   title?: string;
-  required?: boolean;
+  toggle?: boolean;
   requires?: Requirement;
-  value?: string | number | boolean | Operator;
+  value?: string | number | boolean | Filter;
   assetType?: AssetType;
 }
 
@@ -71,9 +71,9 @@ export type SoundsInfo = BaseSoundsInfo & {
   [key in SoundEvent]: SoundEventInfo;
 };
 
-export interface OperatorInfo extends PaneInfo {
-  type: 'operator';
-  value: Operator;
+export interface FilterInfo extends PaneInfo {
+  type: 'filter';
+  value: Filter;
 }
 
 export type InfoKey =
@@ -84,7 +84,7 @@ export type InfoKey =
   | keyof NumberInfo
   | keyof BooksInfo
   | keyof SoundEventInfo
-  | keyof OperatorInfo;
+  | keyof FilterInfo;
 
 export type AnyInfo =
   | SelectInfo
@@ -95,14 +95,14 @@ export type AnyInfo =
   | BooksInfo
   | SoundsInfo
   | SoundEventInfo
-  | OperatorInfo
+  | FilterInfo
   | AnyInfo[];
 
 type ExtractType<T> = T extends { type: infer U } ? U : never;
 
 type InfoType = ExtractType<AnyInfo> | 'group' | 'radioGroup';
 
-export type PropertyValue = Operator | Book[] | Sound[] | string | number | boolean | undefined;
+export type PropertyValue = Filter | Book[] | Sound[] | string | number | boolean | undefined;
 
 type SchemaValue = Schema | AnyInfo | PropertyValue | Requirement | string[];
 
@@ -115,4 +115,4 @@ export type PaneArgs = { host: EditDialog; info: PaneInfo; parent?: Pane };
 
 export type PropertySource = 'scratch' | 'local' | 'server' | 'schema';
 
-export type Requirement = string | { and: Requirement[] } | { or: Requirement[] };
+export type Requirement = string | { every: Requirement[] } | { some: Requirement[] };

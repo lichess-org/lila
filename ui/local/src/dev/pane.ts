@@ -1,6 +1,6 @@
 import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
 import { findMapped, frag } from 'common';
-import { getSchemaDefault, operatorRegex } from './schema';
+import { getSchemaDefault, requiresOpRe } from './schema';
 import type { EditDialog } from './editDialog';
 import { env } from '../localEnv';
 import type {
@@ -23,7 +23,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   readonly info: Info;
   readonly el: HTMLElement;
   readonly parent: Pane | undefined;
-  enabledCheckbox?: HTMLInputElement;
+  enabledToggle?: HTMLInputElement;
 
   constructor(args: PaneArgs) {
     Object.assign(this, args);
@@ -41,15 +41,17 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         this.el.appendChild(header);
       }
     }
-    this.initEnabledCheckbox();
-    if (!this.enabledCheckbox) return;
-    this.enabledCheckbox.classList.add('toggle');
-    this.enabledCheckbox.checked = this.isDefined;
-    this.label?.prepend(this.enabledCheckbox);
+    this.initEnabledToggle();
+    if (!this.enabledToggle) return;
+    this.enabledToggle.classList.add('toggle');
+    this.enabledToggle.checked = this.isDefined;
+    this.label?.prepend(this.enabledToggle);
   }
 
   setEnabled(enabled: boolean = this.canEnable): boolean {
-    if (this.input || this.enabledCheckbox) {
+    this.el.classList.toggle('none', !this.requirementsAllow);
+
+    if (this.input || this.enabledToggle) {
       const { panes: editor, view } = this.host;
       this.el.classList.toggle('disabled', !enabled);
 
@@ -60,9 +62,9 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         this.input.value = this.getStringProperty(['scratch', 'local', 'server', 'schema']);
 
       for (const kid of this.children) {
-        kid.el.classList.toggle('none', !enabled);
+        kid.el.classList.toggle('none', !enabled || !kid.requirementsAllow);
         if (!enabled) continue;
-        if (kid.isRequired) kid.update();
+        if (!kid.isOptional) kid.update(); // ?? why update if not optional?
         else if (kid.info.type !== 'radioGroup') continue;
         const radios = Object.values(editor.byId).filter(x => x.radioGroup === kid.id);
         const active = radios?.find(x => x.enabled) ?? radios?.find(x => x.getProperty(['local', 'server']));
@@ -70,7 +72,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         else if (radios.length) radios[0].update();
       }
 
-      if (this.enabledCheckbox) this.enabledCheckbox.checked = enabled;
+      if (this.enabledToggle) this.enabledToggle.checked = enabled;
       if (this.radioGroup && enabled)
         view.querySelectorAll(`[name="${this.radioGroup}"]`).forEach(el => {
           const radio = editor.byEl(el);
@@ -95,16 +97,14 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   getProperty(from: PropertySource[] = ['scratch']): PropertyValue {
-    return findMapped(from, src => {
-      const prop =
-        src === 'schema'
-          ? getSchemaDefault(this.id)
-          : this.path.reduce(
-              (o, key) => o?.[key],
-              src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
-            );
-      return prop; //['local', 'server'].includes(src) ? structuredClone(prop) : prop; // ?? TODO clone even needed?
-    });
+    return findMapped(from, src =>
+      src === 'schema'
+        ? getSchemaDefault(this.id)
+        : this.path.reduce(
+            (o, key) => o?.[key],
+            src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
+          ),
+    );
   }
 
   getStringProperty(src: PropertySource[] = ['scratch']): string {
@@ -124,7 +124,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     if (this.isDisabled) return false;
     const kids = this.children;
     if (!kids.length) return this.isDefined && this.requirementsAllow;
-    return kids.every(x => x.enabled || !x.isRequired);
+    return kids.every(x => x.enabled || x.isOptional);
   }
 
   get requires(): string[] {
@@ -163,18 +163,18 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       .map(id => this.host.panes.byId[id]);
   }
 
-  protected get isRequired(): boolean {
-    return this.info.required ?? false;
+  protected get isOptional(): boolean {
+    return this.info.toggle === true;
   }
 
   protected get requirementsAllow(): boolean {
-    return this.evaluate(this.info.requires);
+    return !this.parent?.isDisabled && this.evaluate(this.info.requires);
   }
 
   protected get canEnable(): boolean {
     const kids = this.children;
     if (this.input && !kids.length) return this.isDefined;
-    return kids.every(x => x.enabled || !x.isRequired) && this.requirementsAllow;
+    return kids.every(x => x.enabled || x.isOptional) && this.requirementsAllow;
   }
 
   private evaluate(requirement: Requirement | undefined): boolean {
@@ -186,7 +186,7 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
         return pane ? !pane.enabled : true;
       }
 
-      const op = req.match(operatorRegex)?.[0] as string;
+      const op = req.match(requiresOpRe)?.[0] as string;
       const [left, right] = req.split(op).map(x => x.trim());
 
       if ([left, right].some(x => this.host.panes.byId[x]?.enabled === false)) return false;
@@ -201,6 +201,8 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
           return String(leftValue) === String(rightValue);
         case '!=':
           return String(leftValue) !== String(rightValue);
+        case '<<=':
+          return String(leftValue).startsWith(String(rightValue));
         case '>=':
           return Number(leftValue) >= Number(rightValue);
         case '>':
@@ -215,27 +217,27 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
     } else if (Array.isArray(requirement)) {
       return requirement.every(r => this.evaluate(r));
     } else if (typeof requirement === 'object') {
-      if ('and' in requirement) {
-        return requirement.and.every(r => this.evaluate(r));
-      } else if ('or' in requirement) {
-        return requirement.or.some(r => this.evaluate(r));
+      if ('every' in requirement) {
+        return requirement.every.every(r => this.evaluate(r));
+      } else if ('some' in requirement) {
+        return requirement.some.some(r => this.evaluate(r));
       }
     }
     return true;
   }
 
-  private initEnabledCheckbox() {
+  private initEnabledToggle() {
     if (this.radioGroup) {
-      this.enabledCheckbox = frag<HTMLInputElement>(
+      this.enabledToggle = frag<HTMLInputElement>(
         `<input type="radio" name="${this.radioGroup}" tabindex="-1">`,
       );
     } else if (
-      !this.isRequired &&
+      this.isOptional &&
       this.info.label &&
       this.info.type !== 'books' &&
       this.info.type !== 'soundEvent'
     ) {
-      this.enabledCheckbox = frag<HTMLInputElement>(`<input type="checkbox">`);
+      this.enabledToggle = frag<HTMLInputElement>(`<input type="checkbox">`);
     }
   }
 }
@@ -256,7 +258,7 @@ export class SelectSetting extends Pane<SelectInfo> {
   }
   get choices(): { name: string; value: string }[] {
     if (!this.info.assetType) return this.info.choices ?? [];
-    return [...env.repo.allMap(this.info.assetType).entries()].map(([key, name]) => ({
+    return [...env.repo.allKeyNames(this.info.assetType).entries()].map(([key, name]) => ({
       name,
       value: key,
     }));
@@ -345,7 +347,7 @@ function getRequirementIds(r: Requirement | undefined): string[] {
   if (typeof r === 'string') {
     const req = r.trim();
     if (req.startsWith('!')) return [`${req.slice(1).trim()}`];
-    const [left, right] = req.split(operatorRegex).map(x => x.trim());
+    const [left, right] = req.split(requiresOpRe).map(x => x.trim());
     const ids = [];
     if (left && isNaN(Number(left))) ids.push(left);
     if (right && isNaN(Number(right))) ids.push(right);
@@ -353,8 +355,8 @@ function getRequirementIds(r: Requirement | undefined): string[] {
   } else if (Array.isArray(r)) {
     return r.flatMap(getRequirementIds);
   } else if (typeof r === 'object' && r !== null) {
-    if ('and' in r) return r.and.flatMap(getRequirementIds);
-    if ('or' in r) return r.or.flatMap(getRequirementIds);
+    if ('every' in r) return r.every.flatMap(getRequirementIds);
+    if ('some' in r) return r.some.flatMap(getRequirementIds);
   }
   return [];
 }

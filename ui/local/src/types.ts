@@ -1,9 +1,9 @@
 import type { Position, FishSearch } from 'zerofish';
 import type { CardData } from './handOfCards';
 import type { Chess } from 'chessops';
-import type { Operator, Operators, Point } from './operator';
+import type { Filter, Filters, Point } from './filter';
 
-export type { CardData, Operator, Operators, Point };
+export type { CardData, Filter, Filters, Point };
 
 export interface Quirks {
   // tbd
@@ -24,7 +24,7 @@ export type Sound = { key: string; chance: number; delay: Seconds; mix: number }
 
 export type SoundEvents = { [key in SoundEvent]?: Sound[] };
 
-export type ZeroSearch = { multipv: number; net: string };
+export type ZeroSearch = { multipv: number; net: string; nodes?: number };
 
 export type Book = { key: string; weight: number };
 
@@ -41,7 +41,7 @@ export interface BotInfo {
   readonly image: string;
   readonly books?: Book[];
   readonly sounds?: SoundEvents;
-  readonly operators?: Operators;
+  readonly filters?: Filters;
   readonly zero?: ZeroSearch;
   readonly fish?: FishSearch;
   readonly quirks?: Quirks;

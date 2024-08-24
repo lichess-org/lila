@@ -44,6 +44,7 @@ export class BotCtrl {
   }
 
   async init(serverBots: BotInfo[]): Promise<this> {
+    console.log(serverBots);
     this.zerofish = await makeZerofish({
       root: site.asset.url('npm', { documentOrigin: true, version: false }),
       wasm: site.asset.url('npm/zerofishEngine.wasm', { version: false }),
@@ -53,6 +54,7 @@ export class BotCtrl {
       for (let i = 0; i <= RateBot.MAX_LEVEL; i++) {
         this.rateBots.push(new RateBot(i));
       }
+      //site.pubsub.on('local.dev.import.book', this.onBookImported);
     }
     return this.initBots(serverBots!);
   }
@@ -194,6 +196,11 @@ export class BotCtrl {
     }
     return 1;
   }
+
+  // private onBookImported = (key: string, oldKey?: string): void => {
+  //   if (!oldKey) return;
+
+  // }
 
   private getSavedBots() {
     return (

@@ -69,7 +69,7 @@ final class Local(env: Env) extends LilaController(env):
 
   def devNameAsset(key: String, name: String) = AuthBody: _ ?=>
     env.local.repo
-      .nameAsset(key, name)
+      .nameAsset(none, key, name, none)
       .flatMap(_ => getDevAssets.map(JsonOk))
 
   def devDeleteAsset(key: String) = AuthBody: _ ?=>
@@ -80,27 +80,22 @@ final class Local(env: Env) extends LilaController(env):
   def devAssets = AuthBody: ctx ?=>
     getDevAssets.map(JsonOk)
 
-  def devPostAsset(tpe: String, key: String, name: String) = Action.async(parse.multipartFormData): request =>
-    val assetType: Option[AssetType] = tpe match
-      case "image" => "image".some
-      case "book"  => "book".some
-      case "sound" => "sound".some
-      case _       => none
-    assetType match
-      case Some(tpe) =>
-        request.body
-          .file("file")
-          .map: file =>
-            env.local.api
-              .storeAsset(tpe, key, file)
-              .flatMap:
-                case Left(error) => InternalServerError(Json.obj("error" -> error.toString)).as(JSON)
-                case Right(assets) =>
-                  env.local.repo
-                    .nameAsset(key, name)
-                    .flatMap(_ => (JsonOk(Json.obj("key" -> key, "name" -> name))))
-          .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
-      case _ => fuccess(BadRequest(Json.obj("error" -> "bad asset type")).as(JSON))
+  def devPostAsset(notAString: String, key: String) = Action.async(parse.multipartFormData): request =>
+    val tpe: AssetType         = notAString.asInstanceOf[AssetType]
+    val author: Option[String] = request.body.dataParts.get("author").flatMap(_.headOption)
+    val name                   = request.body.dataParts.get("name").flatMap(_.headOption).getOrElse(key)
+    request.body
+      .file("file")
+      .map: file =>
+        env.local.api
+          .storeAsset(tpe, key, file)
+          .flatMap:
+            case Left(error) => InternalServerError(Json.obj("error" -> error.toString)).as(JSON)
+            case Right(assets) =>
+              env.local.repo
+                .nameAsset(tpe.some, key, name, author)
+                .flatMap(_ => (JsonOk(Json.obj("key" -> key, "name" -> name))))
+      .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
 
   private def indexPage(setup: Option[GameSetup], bots: JsArray, devAssets: Option[JsObject] = none)(using
       ctx: Context

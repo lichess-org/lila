@@ -97,8 +97,8 @@
   grid-template-columns: min(36vh, 30vw) min(480px, 33vw) 1fr;
   grid-template-rows: 74% auto fit-content(0);
   grid-template-areas:
-    'info sources operators'
-    'deck sources operators'
+    'info sources filters'
+    'deck sources filters'
     'deck actions actions';
 
   [data-bot-action='unrate-one'] {
@@ -221,7 +221,7 @@
     }
   }
   .sources,
-  .operators {
+  .filters {
     overflow-y: auto;
     overflow-x: visible;
     scrollbar-width: thin;
@@ -248,13 +248,13 @@
     justify-content: start;
     gap: 1em;
   }
-  .operators {
+  .filters {
     @extend %flex-column;
     min-width: 0;
     gap: 1em;
-    grid-area: operators;
+    grid-area: filters;
   }
-  .operator {
+  .filter {
     @extend %flex-column;
     border-radius: $box-radius-size;
     label {

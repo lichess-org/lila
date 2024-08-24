@@ -35,12 +35,13 @@
     padding: 1.2em;
     border-radius: 8px;
     box-shadow: 0 0 5px 0 $c-border;
+    background: $c-bg-zebra;
 
     .asset-preview {
       width: min-content;
     }
     &.local-only {
-      background: $c-bg-zebra;
+      background: $c-bg-low;
     }
     .upper-right {
       z-index: $z-above-dialog-14;
@@ -92,5 +93,36 @@
       background: $m-bg_high--lighten-11;
       outline: $c-primary 2px dashed;
     }
+  }
+}
+
+div.import-dialog {
+  &,
+  > div {
+    @extend %flex-column;
+    gap: 2em;
+  }
+  .options {
+    .name {
+      width: 160px;
+    }
+    .ply {
+      width: 50px;
+    }
+  }
+  .progress {
+    .bar {
+      height: 16px;
+      width: 0%;
+      border: $border;
+      background-color: $c-primary;
+      transition: width 0.3s;
+    }
+    .text {
+      color: $c-font-dim;
+    }
+  }
+  button {
+    align-self: end;
   }
 }

@@ -51,11 +51,10 @@
     left: 0;
     width: 0;
     height: 0;
+    &.no-transition .card {
+      transition: none;
+    }
   }
-}
-
-.with-cards.no-transition .card {
-  transition: none;
 }
 
 .z-remove {

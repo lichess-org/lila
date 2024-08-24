@@ -1,10 +1,9 @@
 import { Pane } from './pane';
 import * as licon from 'common/licon';
 import { frag } from 'common';
-import { assetDialog } from './assetDialog';
 import type { PaneArgs, SoundEventInfo, Template, SoundsInfo, Sound as TemplateSound } from './devTypes';
 import type { Sound } from '../types';
-import { removeButton } from './devUtil';
+import { renderRemoveButton } from './devUtil';
 import { env } from '../localEnv';
 
 export class SoundEventPane extends Pane {
@@ -29,7 +28,7 @@ export class SoundEventPane extends Pane {
     if (e.target.dataset.type === 'sound') this.updateField(index, e.target as HTMLInputElement);
     else if (e.target.dataset.action === 'remove') this.removeSound(index);
     else if (e.target.dataset.action === 'add') {
-      const s = await assetDialog('sound');
+      const s = await this.host.assetDialog('sound');
       if (!s) return;
       if (!this.value) this.setProperty([]);
       this.value.push({ ...this.template.value, key: s });
@@ -66,7 +65,7 @@ export class SoundEventPane extends Pane {
     buttonEl.addEventListener('click', () => audioEl.play());
     buttonEl.appendChild(audioEl);
     soundEl.prepend(frag(`<legend>${env.repo.nameOf(key)}</legend>`), buttonEl);
-    soundEl.append(removeButton());
+    soundEl.append(renderRemoveButton());
     this.el.append(soundEl);
   }
 

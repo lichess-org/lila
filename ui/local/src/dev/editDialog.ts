@@ -6,7 +6,7 @@ import { removeObjectProperty, closeEnough, deadStrip } from './devUtil';
 import { domDialog, confirm, alert, type Dialog, type Action } from 'common/dialog';
 import type { BotInfo } from '../types';
 import { Bot } from '../bot';
-import { assetDialog } from './assetDialog';
+import { AssetDialog, type AssetType } from './assetDialog';
 import { historyDialog } from './historyDialog';
 import { env } from '../localEnv';
 
@@ -20,17 +20,18 @@ export class EditDialog {
     fish: { multipv: 1, by: { depth: 1 } },
     version: 0,
     ratings: { classical: 1500, rapid: 1500, blitz: 1500, bullet: 1500, ultraBullet: 1500 },
-    operators: {},
+    filters: {},
     sounds: {},
   });
 
   view: HTMLElement;
   deck: HandOfCards;
   dlg: Dialog;
+  assetDlg: AssetDialog | undefined;
   uid: string;
   panes: Panes;
-  scratch: Record<string, WritableBot> = {}; // scratchpad for bot edits, pre-apply
-  cleanups: (() => void)[] = []; // for chart.js
+  scratch: Record<string, WritableBot> = {}; // scratchpad for bot edits
+  chartjsCleanups: (() => void)[] = []; // for chart.js
 
   constructor(readonly color: Color) {
     this.view = frag<HTMLElement>(`<div class="base-view dev-view edit-view with-cards">
@@ -54,10 +55,12 @@ export class EditDialog {
       actions: this.actions,
       noClickAway: true,
       onClose: () => {
+        site.pubsub.off('local.dev.import.book', this.onBookImported);
         window.removeEventListener('resize', this.deck.resize);
-        for (const cleanup of this.cleanups) cleanup();
+        this.chartjsCleanups.forEach(cleanup => cleanup());
       },
     });
+    site.pubsub.on('local.dev.import.book', this.onBookImported);
     window.addEventListener('resize', this.deck.resize);
     setTimeout(this.deck.resize);
     return this.dlg.show();
@@ -75,10 +78,18 @@ export class EditDialog {
       ?.classList.toggle('none', this.isDirty() || !this.localChanges);
   }
 
+  assetDialog = async (type?: AssetType): Promise<string | undefined> => {
+    this.assetDlg = new AssetDialog(type);
+    const asset = await this.assetDlg.show();
+    this.assetDlg = undefined;
+    return asset;
+  };
+
   get bot(): WritableBot {
+    // side effects on a getter are horrible, but this one is lovely and wonderful
     this.scratch[this.uid] ??= Object.defineProperty(structuredClone(this.bots[this.uid]), 'disabled', {
       value: new Set<string>(),
-    }) as WritableBot; // scratchpad for bot edits
+    }) as WritableBot;
     return this.scratch[this.uid];
   }
 
@@ -103,7 +114,7 @@ export class EditDialog {
       { selector: '[data-bot-action="history-one"]', listener: () => historyDialog(this, this.uid) },
       //{ selector: '[data-bot-action="history-all"]', listener: () => historyDialog(this) },
       { selector: '[data-bot-action="unrate-all"]', listener: () => this.clearRatings() },
-      { selector: '[data-bot-action="assets"]', listener: () => assetDialog() },
+      { selector: '[data-bot-action="assets"]', listener: () => this.assetDialog() },
       { selector: '[data-bot-action="push-one"]', listener: () => this.push() },
       { selector: '[data-bot-action="pull-one"]', listener: () => this.pullBots([this.bot.uid]) },
       { selector: '[data-bot-action="pull-all"]', listener: () => this.pullBots() },
@@ -132,7 +143,7 @@ export class EditDialog {
   }
 
   private async push() {
-    const err = await env.push.postBot(this.bot);
+    const err = await env.push.pushBot(this.bot);
     if (err) return alert(err);
     delete this.scratch[this.uid];
     this.update();
@@ -140,14 +151,14 @@ export class EditDialog {
 
   private save() {
     const sourcesScroll = this.view.querySelector('.sources')!.scrollTop;
-    const operatorsScroll = this.view.querySelector('.operators')!.scrollTop;
+    const filtersScroll = this.view.querySelector('.filters')!.scrollTop;
     for (const id of this.bot.disabled) removeObjectProperty({ obj: this.bot, path: { id } }, true);
     this.bot.disabled.clear();
     env.bot.save(this.bot);
     delete this.scratch[this.uid];
     this.selectBot();
     this.view.querySelector('.sources')!.scrollTop = sourcesScroll ?? 0;
-    this.view.querySelector('.operators')!.scrollTop = operatorsScroll ?? 0;
+    this.view.querySelector('.filters')!.scrollTop = filtersScroll ?? 0;
   }
 
   private selectBot(uid = this.uid ?? env.bot[this.color]?.uid ?? env.bot.firstUid): void {
@@ -182,27 +193,38 @@ export class EditDialog {
 
   private async clickImage(e: Event) {
     if (e.target !== e.currentTarget) return;
-    const newImage = await assetDialog('image');
+    const newImage = await this.assetDialog('image');
     if (!newImage) return;
     this.bot.image = newImage;
     this.update();
   }
 
   private makeEditView(): void {
-    for (const cleanup of this.cleanups) cleanup();
-    this.cleanups = [];
+    this.chartjsCleanups.forEach(cleanup => cleanup());
+    this.chartjsCleanups = [];
     this.panes = new Panes();
     const el = this.view.querySelector('.edit-bot') as HTMLElement;
     el.innerHTML = '';
     el.appendChild(this.botCardEl);
     el.appendChild(buildFromSchema(this, ['sources']).el);
-    el.appendChild(buildFromSchema(this, ['bot_operators']).el);
+    el.appendChild(buildFromSchema(this, ['bot_filters']).el);
     el.appendChild(this.deckEl);
     el.appendChild(this.globalActionsEl);
     this.panes.forEach(el => el.setEnabled());
   }
 
-  private async showHistory(uids?: string[]): Promise<void> {}
+  private onBookImported = (key: string, oldKey?: string) => {
+    this.assetDlg?.update();
+    if (!oldKey) return;
+    for (const bot of new Set<WritableBot>([this.bot, ...Object.values(this.scratch)])) {
+      const existing = bot.books?.find(b => b.key === oldKey);
+      if (existing) {
+        existing.key = key;
+        if (bot.uid === this.uid) this.selectBot();
+      }
+    }
+    this.update();
+  };
 
   private async clearRatings(): Promise<void> {
     await env.dev.clearRatings();

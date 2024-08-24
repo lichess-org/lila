@@ -13,7 +13,7 @@ export class RateBot implements BotInfo, Mover {
   ratings: Ratings;
   books: Book[] = [];
   sounds = {};
-  operators = {};
+  filters = {};
 
   constructor(readonly level: number) {
     const rating = (this.level + 8) * 75;

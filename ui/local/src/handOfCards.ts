@@ -61,6 +61,7 @@ class HandOfCardsImpl {
     if (opts.transient) this.events.addListener(window, 'pointerdown', this.clickToDismiss);
     if (opts.autoResize) this.events.addListener(window, 'resize', this.resize);
     this.events.addListener(this.view, 'mousemove', this.mouseMove);
+    this.events.addListener(document, 'visibilitychange', () => this.placeCards(true));
     this.update();
     setTimeout(this.resize);
   }
@@ -142,12 +143,14 @@ class HandOfCardsImpl {
     return card;
   }
 
-  private placeCards() {
+  private placeCards(now = false) {
+    this.container.classList.toggle('no-transition', now || !!this.dragCard);
     const hovered = this.view.querySelector('.card.pull');
     const hoverIndex = this.cards.findIndex(x => x == hovered);
     const unplaced = this.cards.filter(x => !this.selectedTransform(x));
     for (const [i, card] of unplaced.entries()) {
       if (!this.opts.opaque) card.style.backgroundColor = '';
+      if (card === this.dragCard) continue;
       if (this.fanout) this.fanoutTransform(card, hoverIndex);
       else if (this.opts.transient) card.style.transform = `translate(${this.originX}px, ${this.originY}px)`;
       else this.deckTransform(card, i);
@@ -258,7 +261,7 @@ class HandOfCardsImpl {
     e.stopPropagation();
     this.pointerDownTime = Date.now();
     if (e.pointerType === 'touch') {
-      this.view.classList.add('no-transition');
+      this.container.classList.add('no-transition');
       this.touchDragShape = new TouchDragShape(e, this.cards, card, this.rect.width / this.cards.length);
       this.select(this.drops[0].el, card.id);
       this.redraw();
@@ -281,11 +284,10 @@ class HandOfCardsImpl {
     if (!this.pointerDownTime || !this.dragCard) return;
     e.preventDefault();
     this.dragCard.classList.add('dragging');
-
     const offsetPt = this.clientToViewOffset([e.clientX, e.clientY]);
     const offsetX = offsetPt[0] - this.cardSize / 2;
     const offsetY = offsetPt[1] - this.cardSize / 2;
-    const newAngle = this.clientToOriginAngle([e.clientX, e.clientY]);
+    const newAngle = this.clientToOriginAngle([e.clientX, e.clientY]) - (this.isLeft ? Math.PI / 2 : 0);
     this.dragCard.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${newAngle}rad)`;
     for (const drop of this.drops) drop.el?.classList.remove('drag-over');
     this.dropTarget(e)?.classList.add('drag-over');
@@ -294,7 +296,7 @@ class HandOfCardsImpl {
 
   private pointerUp = (e: PointerEvent) => {
     if (e.pointerType === 'touch') {
-      this.view.classList.remove('no-transition');
+      this.container.classList.remove('no-transition');
       this.touchDragShape = undefined;
       return;
     }

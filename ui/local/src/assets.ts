@@ -44,7 +44,7 @@ export class Assets {
     const bookPromise = new Promise<OpeningBook>((resolve, reject) =>
       fetch(botAssetUrl('book', `${key}.bin`))
         .then(res => res.arrayBuffer())
-        .then(buf => makeBookFromPolyglot(new DataView(buf)))
+        .then(buf => makeBookFromPolyglot({ bytes: new DataView(buf) }))
         .then(result => resolve(result.getMoves))
         .catch(reject),
     );
@@ -62,7 +62,7 @@ export class Assets {
 }
 
 export function botAssetUrl(type: AssetType, name: string): string {
-  return site.asset.url(`lifat/bots/${type}s/${encodeURIComponent(name)}`, { version: false });
+  return site.asset.url(`lifat/bots/${type}/${encodeURIComponent(name)}`, { version: false });
 }
 
 type NetData = {

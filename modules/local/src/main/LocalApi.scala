@@ -23,7 +23,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
   ): Fu[Either[String, JsObject]] =
     FileIO
       .fromPath(file.ref.path)
-      .runWith(FileIO.toPath(getFile(s"public/lifat/bots/${tpe}s/$name").toPath))
+      .runWith(FileIO.toPath(getFile(s"public/lifat/bots/${tpe}/$name").toPath))
       .map: result =>
         if result.wasSuccessful then Right(updateAssets)
         else Left(s"Error uploading asset $tpe $name")
@@ -33,7 +33,7 @@ final private class LocalApi(config: LocalConfig, repo: LocalRepo, getFile: (Str
   def assetKeys: JsObject = cachedAssets.getOrElse(updateAssets)
 
   private def listFiles(tpe: String): List[String] =
-    val path = getFile(s"public/lifat/bots/${tpe}s")
+    val path = getFile(s"public/lifat/bots/${tpe}")
     if !path.exists() then
       NioFiles.createDirectories(path.toPath)
       Nil

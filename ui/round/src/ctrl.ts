@@ -606,9 +606,7 @@ export default class RoundController implements MoveRootCtrl {
         soundColor: d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
         nvui: !!this.nvui,
       });
-      console.log(d.clock, this.clock);
     } else {
-      console.log('nope');
       this.clock = undefined;
       if (d.correspondence)
         this.corresClock ??= new CorresClockController(this, d.correspondence, this.socket.outoftime);

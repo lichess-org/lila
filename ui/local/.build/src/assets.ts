@@ -22,7 +22,7 @@ function process(filename: string) {
   const ext = path.extname(filename);
   const name = path.basename(filename, ext);
   const dir = path.dirname(filename);
-  const booksDir = dir.includes('books');
+  const booksDir = dir.includes('book');
   const hash = hashfile(filename);
   const newfilename = path.join(dir, hash + ext);
 
@@ -42,7 +42,7 @@ async function main() {
   const files = await globArray('**/*', { cwd: rootDir });
   for (const file of files) {
     if (file.endsWith('-torso.webp') || file.endsWith('not-worthy.webp')) continue;
-    if (file.includes('/books/') && file.endsWith('.png')) continue;
+    if (file.includes('/book/') && file.endsWith('.png')) continue;
     const [_id, name] = process(file);
     keyNames.set(_id, name);
   }

@@ -13,7 +13,7 @@ const bots = [
     },
     books: [{ key: 'Performance', weight: 1 }],
     zero: { multipv: 1, net: 'tinygyal-8.pb' },
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -26,7 +26,7 @@ const bots = [
     ratings: { classical: 800 },
     books: [{ key: 'komodo', weight: 1 }],
     zero: { multipv: 1, net: 'naise700.pb' },
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -42,7 +42,7 @@ const bots = [
       { key: 'komodo', weight: 1 },
     ],
     zero: { multipv: 1, net: 'nocap2000.pb' },
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -58,7 +58,7 @@ const bots = [
       { key: 'Performance', weight: 1 },
     ],
     zero: { multipv: 1, net: 'tinygyal-8.pb' },
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -74,7 +74,7 @@ const bots = [
       { key: 'KomodoVariety', weight: 1 },
     ],
     zero: { multipv: 1, net: 'evilgyal-6.pb' },
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -90,7 +90,7 @@ const bots = [
       { key: 'komodo', weight: 1 },
     ],
     zero: { multipv: 1, net: 'maia-1700.pb' },
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -106,7 +106,7 @@ const bots = [
       { key: 'komodo', weight: 1 },
     ],
     zero: { multipv: 1, net: 'maia-1800.pb' },
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -122,7 +122,7 @@ const bots = [
       { key: 'komodo', weight: 1 },
     ],
     zero: { multipv: 1, net: 'maia-1900.pb' },
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -135,7 +135,7 @@ const bots = [
     ratings: { classical: 1500 },
     fish: { multipv: 12, by: { depth: 12 } },
     books: [],
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -148,7 +148,7 @@ const bots = [
     ratings: { classical: 1600 },
     fish: { multipv: 1, by: { depth: 10 } },
     books: [],
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -161,7 +161,7 @@ const bots = [
     ratings: { classical: 1700 },
     fish: { multipv: 12, by: { depth: 12 } },
     books: [],
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -174,7 +174,7 @@ const bots = [
     ratings: { classical: 1800 },
     zero: { multipv: 1, net: 'badgyal-8.pb' },
     books: [],
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -187,7 +187,7 @@ const bots = [
     ratings: { classical: 1900 },
     zero: { multipv: 1, net: 'badgyal-8.pb' },
     books: [],
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -200,7 +200,7 @@ const bots = [
     ratings: { classical: 2000 },
     zero: { multipv: 1, net: 'evilgyal-6.pb' },
     books: [],
-    operators: {},
+    filters: {},
     sounds: {},
   },
   {
@@ -213,7 +213,7 @@ const bots = [
     ratings: { classical: 2100 },
     zero: { multipv: 1, net: 'tinygyal-8.pb' },
     books: [],
-    operators: {},
+    filters: {},
     sounds: {},
   },
 ];

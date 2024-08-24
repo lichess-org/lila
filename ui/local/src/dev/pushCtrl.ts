@@ -1,6 +1,6 @@
 import type { BotInfo } from '../types';
 import { defined } from 'common';
-import type { AssetBlob, AssetType } from './devAssets';
+import type { AssetBlob, AssetType, ShareType } from './devAssets';
 import { env } from '../localEnv';
 
 // not sure why this is a class yet
@@ -8,7 +8,7 @@ import { env } from '../localEnv';
 export class PushCtrl {
   constructor() {}
 
-  async postBot(
+  async pushBot(
     bot: BotInfo,
     progress?: (e: ProgressEvent, key: string) => void,
   ): Promise<undefined | string> {
@@ -30,7 +30,7 @@ export class PushCtrl {
     }
 
     try {
-      await Promise.all(localBlobs.map(b => b && this.postAsset(b, progress)));
+      await Promise.all(localBlobs.map(b => b && this.postFile(b, progress)));
       const res = await fetch('/local/dev/bot', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
@@ -59,7 +59,30 @@ export class PushCtrl {
     }
   }
 
-  postAsset(
+  async pushAsset(
+    asset: AssetBlob | undefined,
+    progress?: (e: ProgressEvent, key: string) => void,
+  ): Promise<void> {
+    if (!asset) return;
+    const type = asset.type;
+    if (type === 'bookCover' || type === 'net') throw new Error('invalid asset type');
+    const key = type === 'book' ? `${asset.key}.bin` : asset.key;
+    const posts = [this.postFile({ ...asset, key, type }, progress)];
+    if (type === 'book')
+      posts.push(
+        env.push.postFile({
+          ...env.repo.assetBlob('bookCover', asset.key)!,
+          type: 'book',
+          key: `${asset.key}.png`,
+        }),
+      );
+    await Promise.all(posts);
+    const clears = [env.repo.clearLocal(asset.type, asset.key)];
+    if (type === 'book') clears.push(env.repo.clearLocal('bookCover', asset.key));
+    await Promise.all(clears);
+  }
+
+  private postFile(
     { type, key, name, blob }: AssetBlob,
     progress?: (e: ProgressEvent, key: string) => void,
   ): Promise<any> {
@@ -68,10 +91,9 @@ export class PushCtrl {
         .then(file => {
           const formData = new FormData();
           formData.append('file', file);
-          const url = new URL(
-            `/local/dev/asset/${type}/${key}/${encodeURIComponent(name)}`,
-            window.location.origin,
-          );
+          formData.append('author', env.user);
+          formData.append('name', name);
+          const url = new URL(`/local/dev/asset/${type}/${key}`, window.location.origin);
           const xhr = new XMLHttpRequest();
           xhr.open('POST', url, true);
           xhr.upload.onprogress = e => progress?.(e, key);

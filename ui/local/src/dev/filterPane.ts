@@ -1,29 +1,30 @@
 import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
-import { addPoint, asData, domain } from '../operator';
+import { addPoint, asData, domain } from '../filter';
 import { clamp, frag } from 'common';
-import type { PaneArgs, OperatorInfo } from './devTypes';
-import type { Operator } from '../types';
+import type { PaneArgs, FilterInfo } from './devTypes';
+import type { Filter } from '../types';
 
-export class OperatorPane extends Pane {
-  info: OperatorInfo;
+export class FilterPane extends Pane {
+  info: FilterInfo;
   canvas: HTMLCanvasElement;
   chart: Chart;
 
   constructor(p: PaneArgs) {
     super(p);
+    if (this.info.title && this.label) this.label.title = this.info.title;
+    this.el.title = '';
     this.el.firstElementChild?.append(this.toggleGroup());
     this.canvas = document.createElement('canvas');
     const wrapper = frag<HTMLElement>(`<div class="chart-wrapper">`);
     wrapper.append(this.canvas);
     this.el.append(wrapper);
-    this.host.cleanups.push(() => this.chart?.destroy());
+    this.host.chartjsCleanups.push(() => this.chart?.destroy());
     this.render();
   }
 
   setEnabled(enabled?: boolean): boolean {
-    const canEnable = this.canEnable;
-    if (canEnable) enabled ??= this.isRequired || (this.isDefined && !this.isDisabled);
+    if (this.requirementsAllow) enabled ??= !this.isOptional || (this.isDefined && !this.isDisabled);
     else enabled = false;
     if (enabled && !this.isDefined) {
       this.setProperty(structuredClone(this.info.value));
@@ -31,7 +32,6 @@ export class OperatorPane extends Pane {
     }
     super.setEnabled(enabled);
     this.el.querySelectorAll('.chart-wrapper, .btn-rack')?.forEach(x => x.classList.toggle('none', !enabled));
-    this.el.classList.toggle('none', !canEnable);
     if (enabled) this.host.bot.disabled.delete(this.id);
     else this.host.bot.disabled.add(this.id);
     return enabled;
@@ -43,7 +43,7 @@ export class OperatorPane extends Pane {
       if (e.target.classList.contains('active')) return;
       this.el.querySelector('.by.active')?.classList.remove('active');
       e.target.classList.add('active');
-      this.paneValue.from = e.target.dataset.action as 'move' | 'score' | 'time';
+      this.paneValue.by = e.target.dataset.action as 'move' | 'score' | 'time';
       this.paneValue.data = [];
       this.render();
     }
@@ -65,8 +65,8 @@ export class OperatorPane extends Pane {
     }
   }
 
-  get paneValue(): Operator {
-    return this.getProperty() as Operator;
+  get paneValue(): Filter {
+    return this.getProperty() as Filter;
   }
 
   private render() {
@@ -95,15 +95,15 @@ export class OperatorPane extends Pane {
             type: 'linear',
             min: domain(m).min,
             max: domain(m).max,
-            reverse: m.from === 'time',
+            reverse: m.by === 'time',
             ticks: getTicks(m),
             title: {
               display: true,
               color: '#555',
               text:
-                m.from === 'move'
+                m.by === 'move'
                   ? 'full moves'
-                  : m.from === 'time'
+                  : m.by === 'time'
                   ? 'think time'
                   : `outcome expectancy for ${this.host.bot.name.toLowerCase()}`,
             },
@@ -123,51 +123,50 @@ export class OperatorPane extends Pane {
   }
 
   private toggleGroup() {
-    const active = (this.paneValue ?? this.info.value).from;
+    const active = (this.paneValue ?? this.info.value).by;
     const by = frag<HTMLElement>(`<div class="btn-rack">
-        <div data-action="move" class="by${active === 'move' ? ' active' : ''}">by move</div>
-        <div data-action="score" class="by${active === 'score' ? ' active' : ''}">by score</div>
-        <div data-action="time" class="by${active === 'time' ? ' active' : ''}">by time</div>
+        <div data-action="move" class="by${active === 'move' ? ' active' : ''}" title="${
+          tooltips.byMove
+        }">by move</div>
+        <div data-action="score" class="by${active === 'score' ? ' active' : ''}" title="${
+          tooltips.byScore
+        }">by score</div>
+        <div data-action="time" class="by${active === 'time' ? ' active' : ''}" title="${
+          tooltips.byTime
+        }">by time</div>
       </div>`);
     return by;
   }
 }
 
-function getTicks(o: Operator) {
-  return o.from === 'time'
+function getTicks(o: Filter) {
+  return o.by === 'time'
     ? {
-        callback: (value: number) => {
-          switch (value) {
-            case -2:
-              return '¼s';
-            case -1:
-              return '½s';
-            case 0:
-              return '1s';
-            case 1:
-              return '2s';
-            case 2:
-              return '4s';
-            case 3:
-              return '8s';
-            case 4:
-              return '15s';
-            case 5:
-              return '30s';
-            case 6:
-              return '1m';
-            case 7:
-              return '2m';
-            case 8:
-              return '4m';
-            default:
-              return '';
-          }
-        },
+        callback: (value: number) => ticks[value] ?? '',
         maxTicksLimit: 11,
         stepSize: 1,
       }
     : undefined;
 }
+
+const ticks: Record<number, string> = {
+  '-2': '¼s',
+  '-1': '½s',
+  0: '1s',
+  1: '2s',
+  2: '4s',
+  3: '8s',
+  4: '15s',
+  5: '30s',
+  6: '1m',
+  7: '2m',
+  8: '4m',
+};
+
+const tooltips = {
+  byMove: 'vary the filter parameter by number of full moves since start of game',
+  byScore: `vary the filter parameter by current outcome expectancy for bot`,
+  byTime: 'vary the filter parameter by think time in seconds per move',
+};
 
 Chart.register(PointElement, LinearScale, LineController, LineElement);

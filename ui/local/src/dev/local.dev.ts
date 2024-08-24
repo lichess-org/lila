@@ -2,7 +2,7 @@ import { attributesModule, classModule, init } from 'snabbdom';
 import { GameCtrl } from '../gameCtrl';
 import { DevCtrl } from './devCtrl';
 import { DevAssets, type AssetList } from './devAssets';
-import { devSideView } from './devSideView';
+import { renderDevSide } from './devSideView';
 import { BotCtrl } from '../botCtrl';
 import { PushCtrl } from './pushCtrl';
 import { env, initEnv } from '../localEnv';
@@ -22,7 +22,7 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   if (opts.pgn && opts.name) {
     initEnv({ bot: new BotCtrl(), assets: new DevAssets() });
     await Promise.all([env.bot.initBots(), env.assets.init()]);
-    env.repo.importBook(opts.pgn, opts.name);
+    await env.repo.importPgn(opts.name, new Blob([opts.pgn], { type: 'application/x-chess-pgn' }), 16, true);
     return;
   }
   if (window.screen.width < 1260) return;
@@ -42,13 +42,13 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
   const el = document.createElement('main');
   document.getElementById('main-wrap')?.appendChild(el);
 
-  let vnode = patch(el, renderGameView(devSideView()));
+  let vnode = patch(el, renderGameView(renderDevSide()));
 
   env.round = await site.asset.loadEsm<RoundController>('round', { init: env.game.proxy.roundOpts });
   redraw();
 
   function redraw() {
-    vnode = patch(vnode, renderGameView(devSideView()));
+    vnode = patch(vnode, renderGameView(renderDevSide()));
     env.round.redraw();
   }
 }

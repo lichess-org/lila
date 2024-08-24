@@ -85,6 +85,7 @@ sw.addEventListener('message', e => {
 // experimental stuff below
 
 sw.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
   const path = new URL(e.request.url).pathname.match(
     /^\/local(?:[/?#]?.*)?$|^\/assets\/lifat\/bots\/.+$|\/assets\/npm\/zerofish.+$/,
   )?.[0];
@@ -101,13 +102,18 @@ async function fetchLocalCache(e: FetchEvent, path: string): Promise<Response> {
       const rsp = await cache.match(e.request);
       if (rsp) return rsp;
     }
-    const rsp = await fetch(e.request);
-    if (!rsp.ok) throw rsp;
+    const netRsp = await fetch(e.request);
+    if (netRsp.status >= 300 && netRsp.status < 400) {
+      const redirectUrl = netRsp.headers.get('Location');
+      if (redirectUrl) return await fetch(redirectUrl);
+    }
+    //
+    if (!netRsp.ok) throw netRsp;
 
-    cache.put(e.request, rsp.clone());
+    cache.put(e.request, netRsp.clone());
     cacheLocalAssets(cache);
 
-    return rsp;
+    return netRsp;
   } catch (err) {
     console.log('serving cached content', err);
 
@@ -128,8 +134,8 @@ async function cacheLocalAssets(cache: Cache): Promise<void[]> {
     for (const key of list) {
       assetPaths.push(
         ...(type === 'book'
-          ? [`lifat/bots/books/${key}.bin`, `lifat/bots/books/${key}.png`]
-          : [`lifat/bots/${type}s/${key}`]),
+          ? [`lifat/bots/book/${key}.bin`, `lifat/bots/book/${key}.png`]
+          : [`lifat/bots/${type}/${key}`]),
       );
     }
   }
