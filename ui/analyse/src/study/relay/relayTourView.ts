@@ -15,7 +15,7 @@ import { statsView } from './relayStats';
 import { makeChat, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
-import { renderVideoPlayer } from './videoPlayerView';
+import { renderVideoPlayer } from './videoPlayer';
 import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { copyMeInput } from 'common/copyMe';
