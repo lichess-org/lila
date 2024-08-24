@@ -204,15 +204,14 @@ export const schema: Schema = deepFreeze<Schema>({
         `cpl target influences the average centipawn loss relative to bestmove according
         to stockfish.
         
-        it identifies the mean of a normal probability distribution where the standard
-        deviation is given by the subsequent cpl stdev filter (default 50). 
+        it identifies the mean of a folded normal distribution of target cpl values. 
         
-        a randomized cpl target is chosen from this distribution on each turn.
+        each turn, a randomized cpl target is chosen from this distribution.
         the distance from a move's
-        cpl to this randomized target is converted to a weight between 0 and 1 with a
+        actual cpl to this randomized target is converted to a weight between 0 and 1 with a
         sigmoid function.
         
-        these weights are summed with any lc0 bias in the move selection.`,
+        moves are sorted in descending order by the sum of their weights (lc0 bias and/or cpl).`,
       ),
     },
     cplStdev: {
@@ -221,8 +220,8 @@ export const schema: Schema = deepFreeze<Schema>({
       class: ['filter'],
       value: { range: { min: 0, max: 100 }, by: 'move', data: [] },
       requires: 'bot_filters_cplTarget',
-      title: `cpl stdev describes the standard deviation of the normal for the
-        probability distribution function used to randomize the cpl target.`,
+      title: `cpl stdev describes the standard deviation of the normal distribution
+        from which noisy cpl targets are chosen.`,
     },
     moveDecay: {
       label: 'move quality decay',
@@ -241,12 +240,13 @@ export const schema: Schema = deepFreeze<Schema>({
       title: condense(
         `move quality decay is the final stage of move selection.
 
-        if any previous filters assign weights, they are used to sort moves in descending order
+        if any previous filter assigns weights, they are first used to sort moves in
+        descending order
         of the weight sums. when move quality decay is off or zero,
         the first move in that sort order is chosen. with a non-zero move quality decay,
-        each move's probability is equal to that decay raised to the power of the move's
+        each move's quality weight is equal to that decay raised to the power of the move's
         sort order index (counting from zero). a random number between
-        0 and the total probability sum will then select the final move.
+        0 and the sum of all quality weights will then select the final move.
 
         for example, with a decay of 0.5, the first move has a 50% chance of being chosen,
         the second move 25%, the third 12.5%, and so on. with a decay of 1, all moves
@@ -255,7 +255,7 @@ export const schema: Schema = deepFreeze<Schema>({
         move quality decay is engine independent and can be used to resolve between
         scored stockfish and unscored lc0 moves.
         it operates on the full list provided by engine sources and pairs well
-        with the think time tab.`,
+        with the think time tab and a crisp chardonnay.`,
       ),
     },
   },

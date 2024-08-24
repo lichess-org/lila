@@ -30,7 +30,7 @@ export type Book = { key: string; weight: number };
 
 export type LocalSpeed = Exclude<Speed, 'correspondence'>;
 
-export type Ratings = { [speed in LocalSpeed]: number };
+export type Ratings = { [speed in LocalSpeed]?: number };
 
 export interface BotInfo {
   readonly uid: string;

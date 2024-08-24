@@ -143,11 +143,12 @@ export const escapeHtml = (str: string): string =>
 export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
   Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
 
-export function as<T>(v: T, f: () => void): () => T {
-  return () => {
-    f();
-    return v;
-  };
+export function shuffle<T>(array: T[]): T[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 export function deepFreeze<T>(obj: T): T {
@@ -158,7 +159,7 @@ export function deepFreeze<T>(obj: T): T {
   return Object.freeze(obj);
 }
 
-// does not compare complex objects or non-enumerable properties
+// recursive comparison of enumerable primitives. complex properties get reference equality only
 export function isEquivalent(a: any, b: any): boolean {
   if (a === b) return true;
   if (typeof a !== typeof b) return false;

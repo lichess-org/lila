@@ -4,13 +4,20 @@ import type { BotInfo, Mover, MoveResult, MoveArgs, Book, Ratings } from '../typ
 import type { Result, Matchup, Glicko } from './devCtrl';
 import { env } from '../localEnv';
 
+// by virtue of the Stockfish implementation of the UCI_Elo parameter, all measured ratings are
+// anchored to classical Computer Chess Rating Lists (CCRL) where goldfish 1.13 = 2000
+// goldfish is an intentionally weakened Stockfish derivative that (AFAICT) serves as an approximate
+// bridge to FIDE Elo.
+//
+// https://github.com/official-stockfish/Stockfish/blob/9587eeeb5ed29f834d4f956b92e0e732877c47a7/src/search.cpp#L333
+
 export class RateBot implements BotInfo, Mover {
-  static readonly MAX_LEVEL = 30;
+  static readonly MAX_LEVEL = 29;
 
   image = '3d4c495c229b.webp';
   version = 0;
   name = 'Stockfish';
-  ratings: Ratings;
+  ratings: Required<Ratings>;
   books: Book[] = [];
   sounds = {};
   filters = {};
@@ -31,6 +38,8 @@ export class RateBot implements BotInfo, Mover {
   }
 
   get depth(): number {
+    // this might be redundant due to
+    // https://github.com/official-stockfish/Stockfish/blob/9587eeeb5ed29f834d4f956b92e0e732877c47a7/src/search.cpp#L99
     return clamp(this.level - 9, { min: 1, max: 20 });
   }
 

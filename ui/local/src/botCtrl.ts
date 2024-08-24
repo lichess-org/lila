@@ -5,7 +5,7 @@ import { RateBot } from './dev/rateBot';
 import { closeEnough } from './dev/devUtil';
 import { type CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { deepFreeze } from 'common';
+import { deepFreeze, defined } from 'common';
 import type { BotInfo, SoundEvent, Mover, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
 
@@ -38,9 +38,13 @@ export class BotCtrl {
     return Object.keys(this.bots)[0];
   }
 
-  get all(): Bot[] {
+  get all(): BotInfo[] {
     // except for rate bots
     return Object.values(this.bots) as Bot[];
+  }
+
+  get playing(): BotInfo[] {
+    return [this.white, this.black].filter(defined);
   }
 
   async init(serverBots: BotInfo[]): Promise<this> {

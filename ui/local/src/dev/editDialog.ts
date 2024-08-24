@@ -19,7 +19,7 @@ export class EditDialog {
     books: [],
     fish: { multipv: 1, by: { depth: 1 } },
     version: 0,
-    ratings: { classical: 1500, rapid: 1500, blitz: 1500, bullet: 1500, ultraBullet: 1500 },
+    ratings: { classical: 1500 },
     filters: {},
     sounds: {},
   });
@@ -308,7 +308,7 @@ export class EditDialog {
       <button class="button button-empty button-brag" data-bot-action="history-one">history</button>
       <button class="button button-empty none" data-bot-action="pull-one">pull</button>
       <button class="button button-empty button-clas none" data-bot-action="push-one">push</button>
-      <button class="button button-green none" data-bot-action="save-one">save</button>
+      <button class="button none" data-bot-action="save-one">save</button>
     </div>`);
 
   private get botCardEl(): Node {

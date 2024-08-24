@@ -164,11 +164,8 @@ function dashboard() {
       h('div', [
         h('label', { attrs: { title: 'instantly deduct bot move times. disable animations and sound' } }, [
           h('input', {
-            attrs: { type: 'checkbox', checked: env.dev.hurry },
-            hook: bind('change', e => {
-              env.dev.hurry = (e.target as HTMLInputElement).checked;
-              storedBooleanProp('local.dev.hurry', false)(env.dev.hurry);
-            }),
+            attrs: { type: 'checkbox', checked: env.dev.hurryProp() },
+            hook: bind('change', e => env.dev.hurryProp((e.target as HTMLInputElement).checked)),
           }),
           'hurry',
         ]),

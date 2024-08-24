@@ -1,11 +1,12 @@
 import { RateBot, rateBotMatchup } from './rateBot';
 import type { BotInfo, LocalSpeed } from '../types';
 import { statusOf } from 'game/status';
-import { defined } from 'common';
+import { defined, shuffle, Prop } from 'common';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { storedBooleanProp } from 'common/storage';
 import type { GameStatus, MoveContext } from '../localGame';
 import { env } from '../localEnv';
+import stringify from 'json-stringify-pretty-compact';
 
 export interface Result {
   winner: Color | undefined;
@@ -33,7 +34,7 @@ export type Glicko = { r: number; rd: number };
 type DevRatings = { [speed in LocalSpeed]?: Glicko };
 
 export class DevCtrl {
-  hurry: boolean = storedBooleanProp('local.dev.hurry', false)();
+  hurryProp: Prop<boolean> = storedBooleanProp('local.dev.hurry', false);
   // skip animations, sounds, and artificial think times (clock still adjusted)
   script: Script;
   log: Result[];
@@ -46,6 +47,10 @@ export class DevCtrl {
     this.resetScript();
     await this.getStoredRatings();
     site.pubsub.on('theme', env.redraw);
+  }
+
+  get hurry(): boolean {
+    return this.hurryProp() || (this.gameInProgress && env.bot.playing.some(x => 'level' in x));
   }
 
   run(test?: Test, iterations: number = 1): boolean {
@@ -87,7 +92,7 @@ export class DevCtrl {
         `${env.game.nameOf('white')} vs ${env.game.nameOf('black')} - ${turn} ${reason} - ${
           env.game.live.fen
         } ${env.game.live.moves.join(' ')}`,
-        JSON.stringify(env.game.live.chess),
+        stringify(env.game.live.chess),
       );
       return false;
     } else
@@ -113,8 +118,9 @@ export class DevCtrl {
 
   getRating(uid: string | undefined, speed: LocalSpeed): Glicko {
     if (!uid) return { r: 1500, rd: 350 };
-    if (env.bot.get(uid) instanceof RateBot) return { r: env.bot.get(uid)!.ratings[speed], rd: 0.01 };
-    return this.ratings[uid]?.[speed] ?? { r: 1500, rd: 350 };
+    const bot = env.bot.get(uid);
+    if (bot instanceof RateBot) return { r: bot.ratings[speed], rd: 0.01 };
+    else return this.ratings[uid]?.[speed] ?? { r: 1500, rd: 350 };
   }
 
   setRating(uid: string | undefined, speed: LocalSpeed, rating: Glicko): Promise<any> {
@@ -203,12 +209,4 @@ export class DevCtrl {
   private get testInProgress(): boolean {
     return this.script.games.length !== 0;
   }
-}
-
-function shuffle<T>(array: T[]): T[] {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
 }
