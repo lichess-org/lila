@@ -44,8 +44,8 @@ export default class RelayCtrl {
     const initialTab = relayTabs.includes(locationTab)
       ? locationTab
       : this.chapters.looksNew()
-        ? 'overview'
-        : 'boards';
+      ? 'overview'
+      : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
       ? new RelayTeams(id, this.multiCloudEval, chapterSelect, this.roundPath, redraw)
@@ -58,9 +58,7 @@ export default class RelayCtrl {
       redraw,
     );
     this.stats = new RelayStats(this.currentRound(), redraw);
-    this.videoPlayer = this.data.videoUrls?.[0]
-      ? new VideoPlayer(this.data.videoUrls[0], location.search.includes('embed='), redraw)
-      : undefined;
+    this.videoPlayer = this.data.videoUrls?.[0] ? new VideoPlayer(this.data.videoUrls[0], redraw) : undefined;
     setInterval(() => this.redraw(true), 1000);
 
     const pinned = data.pinnedStream;

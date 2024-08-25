@@ -11,6 +11,8 @@ import lila.common.HTTPRequest
 import lila.core.id.{ RelayRoundId, RelayTourId }
 import lila.relay.ui.FormNavigation
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.core.security.LilaCookie
+import lila.ublog.UblogPost.Views
 
 final class RelayRound(
     env: Env,
@@ -99,7 +101,7 @@ final class RelayRound(
       env.relay.api.reset(rt.round) >> negotiate(Redirect(rt.path), jsonOkResult)
   }
 
-  def show(ts: String, rs: String, id: RelayRoundId, embed: Option[String]) =
+  def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read): ctx ?=>
       negotiate(
         html = WithRoundAndTour(ts, rs, id): rt =>
@@ -109,7 +111,10 @@ final class RelayRound(
               // there might be no chapter after a round reset, let a new one be created
               case None              => env.study.api.byIdWithChapter(rt.round.studyId)
               case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
-          sc.orNotFound { doShow(rt, _, embed) }
+          sc.orNotFound:
+            val embed = VideoEmbedState.read
+            doShow(rt, _, embed.pp("embed")).map:
+              _.withCookies(VideoEmbedState.write(embed))
         ,
         json = doApiShow(id)
       )
@@ -194,11 +199,13 @@ final class RelayRound(
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
       }(Unauthorized, Forbidden)
 
-  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId, embed: Option[String]) =
+  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
     Open:
       WithRoundAndTour(ts, rs, id, chapterId.some): rt =>
         Found(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId)):
-          doShow(rt, _, embed)
+          val embed = VideoEmbedState.read
+          doShow(rt, _, embed).map:
+            _.withCookies(VideoEmbedState.write(embed))
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
@@ -258,7 +265,7 @@ final class RelayRound(
         .elseNotFound:
           env.relay.api.formNavigation(tour).flatMap(f)
 
-  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter, embed: Option[String])(
+  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter, embed: VideoEmbedState)(
       using ctx: Context
   ): Fu[Result] =
     studyC.CanView(oldSc.study)(
@@ -305,6 +312,38 @@ final class RelayRound(
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)
+    )
+
+  private enum VideoEmbedState:
+    case No
+    case Auto
+    case Stream(name: String)
+    override def toString = this match
+      case No           => "no"
+      case Auto         => ""
+      case Stream(name) => name
+
+  private object VideoEmbedState:
+
+    private val cookieName = "relayVideo"
+
+    def read(using req: RequestHeader): VideoEmbedState =
+      def fromCookie = req.cookies.get(cookieName).map(_.value).filter(_.nonEmpty) match
+        case None       => Auto
+        case Some("")   => Auto
+        case Some("no") => No
+      req.queryString.get("embed").pp match
+        case Some(Nil)       => fromCookie
+        case Some(Seq(""))   => Auto
+        case Some(Seq("no")) => No
+        case Some(Seq(name)) => Stream(name)
+        case _               => fromCookie
+
+    def write(embed: VideoEmbedState)(using RequestHeader) = env.security.lilaCookie.cookie(
+      name = cookieName,
+      value = embed.toString,
+      maxAge = some(60 * 60 * 3), // 3h
+      httpOnly = false.some
     )
 
   private[controllers] def rateLimitCreation(fail: => Fu[Result])(
