@@ -10,7 +10,7 @@ import lila.db.dsl.*
 
 /* An expensive API detecting disposable email.
  * Only hit after trying everything else (DnsApi)
- * and save the result forever.
+ * and save the result for a long time.
  * https://verifymail.io/api-documentation
  */
 final private class VerifyMail(
@@ -47,7 +47,7 @@ final private class VerifyMail(
 
   private val prefix = "security:check_mail"
 
-  private val cache = mongoCache[Domain.Lower, Boolean](512, prefix, 100 days, _.toString): loader =>
+  private val cache = mongoCache[Domain.Lower, Boolean](512, prefix, 30.days, _.toString): loader =>
     _.maximumSize(512).buildAsyncFuture(loader(fetch))
 
   export cache.invalidate
