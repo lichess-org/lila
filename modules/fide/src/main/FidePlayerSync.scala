@@ -157,7 +157,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         blitz = rating(139),
         blitzK = kFactor(149),
         year = year,
-        inactive = flags.exists(_.contains("i")).some,
+        inactive = flags.exists(_.contains("i")),
         fetchedAt = nowInstant
       )
 
