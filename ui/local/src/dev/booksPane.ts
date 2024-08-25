@@ -8,19 +8,26 @@ import { env } from '../localEnv';
 
 export class BooksPane extends Pane {
   info: BooksInfo;
-  template: RangeInfo = {
+  template: RangeInfo /* = {
     type: 'range',
     class: ['setting', 'book'],
     value: 1,
     min: 1,
     max: 10,
     step: 1,
-  };
+  }*/;
   constructor(p: PaneArgs) {
     super(p);
     this.label?.prepend(
       frag(`<i role="button" tabindex="0" data-icon="${licon.PlusButton}" data-action="add">`),
     );
+    this.template = {
+      type: 'range',
+      class: ['setting', 'book'],
+      ...Object.fromEntries(
+        [...Object.entries((p.info as BooksInfo).template)].map(([k, v]) => [k, v.weight]),
+      ),
+    } as RangeInfo;
     if (!this.value) this.setProperty([]);
     this.value.forEach((_, index) => this.makeBook(index));
   }

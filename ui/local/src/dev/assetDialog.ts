@@ -9,7 +9,7 @@ export type AssetType = 'image' | 'book' | 'sound';
 
 const mimeTypes: { [type in AssetType]?: string[] } = {
   image: ['image/jpeg', 'image/png', 'image/webp'],
-  book: ['application/x-chess-pgn', 'application/vnd.chess-pgn', 'application/octet-stream'],
+  book: ['application/x-chess-pgn', 'application/vnd.chess-pgn', 'application/octet-stream', '.pgn'],
   sound: ['audio/mpeg', 'audio/aac'],
 };
 

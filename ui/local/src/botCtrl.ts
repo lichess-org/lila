@@ -100,7 +100,10 @@ export class BotCtrl {
 
   sorted(by: 'alpha' | LocalSpeed = 'alpha'): BotInfo[] {
     if (by === 'alpha') return Object.values(this.bots).sort((a, b) => a.name.localeCompare(b.name));
-    else return Object.values(this.bots).sort((a, b) => (a.ratings[by] ?? 1500) - (b.ratings[by] ?? 1500));
+    else
+      return Object.values(this.bots).sort((a, b) => {
+        return (a.ratings[by] ?? 1500) - (b.ratings[by] ?? 1500) || a.name.localeCompare(b.name);
+      });
   }
 
   setUids({ white, black }: { white?: string | undefined; black?: string | undefined }): void {
