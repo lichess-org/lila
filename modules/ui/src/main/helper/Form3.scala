@@ -244,6 +244,9 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")
+
+  private lazy val relayEmojis = data("except-emojis") := flairApi.relayFlairs.mkString(" ")
+
   def flairPickerGroup(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using Context): Tag =
     group(field, trans.site.flair(), half = true): f =>
       flairPicker(f, current, label)(view)
@@ -262,6 +265,7 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
         hidden(field, current.map(_.value)),
         div(
           cls := "flair-picker",
+          (!ctx.me.exists(_.isStudyAdmin) && !anyFlair).option(relayEmojis),
           (!ctx.me.exists(_.isAdmin) && !anyFlair).option(exceptEmojis)
         )
       ),

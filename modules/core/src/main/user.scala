@@ -86,6 +86,7 @@ object user:
     def isAdmin                    = Granter.ofUser(_.Admin)(this)
     def isVerified                 = Granter.ofUser(_.Verified)(this)
     def isApiHog                   = Granter.ofUser(_.ApiHog)(this)
+    def isStudyAdmin               = Granter.ofUser(_.StudyAdmin)(this)
     def isVerifiedOrAdmin          = isVerified || isAdmin
     def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || Granter.ofUser(_.ApiChallengeAdmin)(this)
   end User
@@ -306,6 +307,7 @@ object user:
     given flairOf: FlairGet
     given flairsOf: FlairGetMap
     val adminFlairs: Set[Flair]
+    val relayFlairs: Set[Flair]
     def formField(anyFlair: Boolean = false, asAdmin: Boolean = false): play.api.data.Mapping[Option[Flair]]
     def find(name: String): Option[Flair]
 

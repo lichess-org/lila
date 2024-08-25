@@ -17,18 +17,20 @@ object FlairApi:
       text
         .into[Flair]
         .verifying(exists)
-        .verifying(f => anyFlair || !adminFlairs(f) || asAdmin)
+        .verifying(f => anyFlair || !adminFlairs(f) || !relayFlairs(f) || asAdmin)
 
   def formPair(anyFlair: Boolean = false, asAdmin: Boolean = false) =
     "flair" -> formField(anyFlair, asAdmin)
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
+  val relayFlairs: Set[Flair] = Set(Flair("activity.lichess-broadcast"))
+
 final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: Scheduler)
     extends lila.core.user.FlairApi:
 
   import FlairApi.*
-  export FlairApi.{ find, formField, adminFlairs }
+  export FlairApi.{ find, formField, adminFlairs, relayFlairs }
 
   given flairOf: FlairGet = id => lightUserApi.async(id).dmap(_.flatMap(_.flair))
 
