@@ -152,15 +152,20 @@ final class User(
         notFoundJson("Deleted user")
       )
     else
+      def notFound(canCreate: Boolean) = negotiate(
+        NotFound.page(views.user.show.page.deleted(canCreate)),
+        NotFound(jsonError("No such player, or account closed"))
+      )
       meOrFetch(username).flatMap:
-        case None if isGrantedOpt(_.UserModView) =>
-          ctx.me.soUse(modC.searchTerm(username.value))
+        case None =>
+          env.api.anySearch
+            .redirect(username.value)
+            .flatMap:
+              case Some(url)                           => Redirect(url).toFuccess
+              case None if isGrantedOpt(_.UserModView) => ctx.me.soUse(modC.searchTerm(username.value))
+              case None                                => notFound(true)
         case Some(u) if u.enabled.yes || isGrantedOpt(_.UserModView) => f(u)
-        case u =>
-          negotiate(
-            NotFound.page(views.user.show.page.deleted(u.isEmpty)),
-            NotFound(jsonError("No such player, or account closed"))
-          )
+        case u                                                       => notFound(u.isEmpty)
   def showMini(username: UserStr) = Open:
     Found(env.user.api.withPerfs(username)): user =>
       ctx.userId

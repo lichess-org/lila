@@ -36,6 +36,7 @@ final class Env(
     userEnv: lila.user.Env,
     streamerEnv: lila.streamer.Env,
     relationEnv: lila.relation.Env,
+    relayEnv: lila.relay.Env,
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
     simulEnv: lila.simul.Env,
@@ -92,6 +93,8 @@ final class Env(
   lazy val personalDataExport = wire[PersonalDataExport]
 
   lazy val accountClosure = wire[AccountClosure]
+
+  lazy val anySearch = wire[AnySearch]
 
   lazy val cli = wire[Cli]
 

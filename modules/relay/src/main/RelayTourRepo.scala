@@ -8,6 +8,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   import RelayTourRepo.*
   import RelayTour.IdName
 
+  def exists(id: RelayRoundId): Fu[Boolean] = coll.exists($id(id))
+
   def byId(tourId: RelayTourId): Fu[Option[RelayTour]] = coll.byId[RelayTour](tourId)
 
   def setSyncedNow(tour: RelayTour): Funit =

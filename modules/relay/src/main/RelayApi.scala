@@ -147,8 +147,6 @@ final class RelayApi(
         )
       .map(_.exists(_.contains("tier")))
 
-  def tourById(id: RelayTourId) = tourRepo.coll.byId[RelayTour](id)
-
   object withTours:
     private val cache = cacheApi[RelayTourId, Option[RelayGroup.WithTours]](256, "relay.groupWithTours"):
       _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
@@ -441,7 +439,7 @@ final class RelayApi(
       .throttle(perSecond.value, 1 second)
       .take(max.fold(9999)(_.value))
 
-  export tourRepo.{ isSubscribed, setSubscribed as subscribe }
+  export tourRepo.{ isSubscribed, setSubscribed as subscribe, byId as tourById }
   export roundRepo.nextRoundThatStartsAfterThisOneCompletes
 
   object image:
