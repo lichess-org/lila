@@ -11,9 +11,9 @@
   }
   .asset-grid {
     display: grid;
-    max-width: 100%;
-    align-self: center;
-    grid-template-columns: repeat(auto-fit, minmax(208px, 240px));
+    width: 100%;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(208px, 240px));
     grid-auto-rows: auto;
     gap: 1em;
   }
