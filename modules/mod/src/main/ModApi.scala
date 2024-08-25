@@ -73,17 +73,20 @@ final class ModApi(
         sus
 
   def setTroll(prev: Suspect, value: Boolean)(using me: MyId): Fu[Suspect] =
-    val changed = value != prev.user.marks.troll
-    val sus     = prev.set(_.withMarks(_.set(_.troll, value)))
-    changed
-      .so:
-        userRepo.updateTroll(sus.user).void.andDo {
-          logApi.troll(sus)
-          Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
-        }
-      .andDo:
-        if value then notifier.reporters(me.modId, sus)
-      .inject(sus)
+    if !value && prev.user.marks.isolate
+    then setIsolate(prev, value).flatMap(setTroll(_, value))
+    else
+      val changed = value != prev.user.marks.troll
+      val sus     = prev.set(_.withMarks(_.set(_.troll, value)))
+      changed
+        .so:
+          userRepo.updateTroll(sus.user).void.andDo {
+            logApi.troll(sus)
+            Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
+          }
+        .andDo:
+          if value then notifier.reporters(me.modId, sus)
+        .inject(sus)
 
   def autoTroll(sus: Suspect, note: String): Funit =
     given MyId = UserId.lichessAsMe
