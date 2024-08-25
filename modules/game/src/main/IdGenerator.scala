@@ -13,7 +13,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor, Scheduler) extends l
   private val batchProvider = BatchProvider[GameId]("idGenerator"): () =>
     // must NOT use `games(nb)` for it would cause a deadlock
     // due to `games` calling `game` which calls `batchProvider.one`
-    val ids = List.fill(128)(uncheckedGame)
+    val ids = List.fill(256)(uncheckedGame).distinct
     gameRepo.coll
       .distinctEasy[GameId, List]("_id", $inIds(ids))
       .monValue: collisions =>
