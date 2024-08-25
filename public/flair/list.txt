@@ -44,6 +44,7 @@ activity.kite
 activity.lacrosse
 activity.lichess-berserk
 activity.lichess-blitz
+activity.lichess-broadcast
 activity.lichess-bullet
 activity.lichess-classical
 activity.lichess-correspondence
@@ -3043,6 +3044,7 @@ symbols.blue-heart
 symbols.bright-button
 symbols.broken-heart
 symbols.brown-heart
+symbols.cancel
 symbols.cancer
 symbols.capricorn
 symbols.chequered-flag
