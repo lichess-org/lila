@@ -37,7 +37,8 @@ final class Env(
     notifyApi: lila.core.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
-    langList: lila.core.i18n.LangList
+    langList: lila.core.i18n.LangList,
+    baker: lila.core.security.LilaCookie
 )(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
     scheduler: Scheduler
 ):
@@ -82,6 +83,8 @@ final class Env(
   lazy val playerTour = wire[RelayPlayerTour]
 
   lazy val playerApi = wire[RelayPlayerApi]
+
+  lazy val videoEmbed = wire[lila.relay.RelayVideoEmbedStore]
 
   def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
     active   <- (page == 1).so(listing.active.get({}))

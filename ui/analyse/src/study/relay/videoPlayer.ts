@@ -5,16 +5,17 @@ import { allowVideo } from './relayView';
 export class VideoPlayer {
   private iframe: HTMLIFrameElement;
   private close: HTMLImageElement;
+  private autoplay: boolean;
 
   animationFrameId: number;
 
   constructor(
     private url: string,
-    private autoplay: boolean,
     private redraw: Redraw,
   ) {
-    this.iframe = document.createElement('iframe');
+    this.autoplay = location.search.includes('embed=');
 
+    this.iframe = document.createElement('iframe');
     this.iframe.id = 'video-player';
     this.iframe.setAttribute('credentialless', ''); // a feeble mewling ignored by all
     if (this.autoplay) {

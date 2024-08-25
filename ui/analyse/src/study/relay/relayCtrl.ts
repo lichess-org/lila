@@ -58,9 +58,7 @@ export default class RelayCtrl {
       redraw,
     );
     this.stats = new RelayStats(this.currentRound(), redraw);
-    this.videoPlayer = this.data.videoUrls?.[0]
-      ? new VideoPlayer(this.data.videoUrls[0], location.search.includes('embed='), redraw)
-      : undefined;
+    this.videoPlayer = this.data.videoUrls?.[0] ? new VideoPlayer(this.data.videoUrls[0], redraw) : undefined;
     setInterval(() => this.redraw(true), 1000);
 
     const pinned = data.pinnedStream;
