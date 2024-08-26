@@ -26,11 +26,7 @@ case class RelayPlayer(
 ):
   export player.player.*
   def withGame(game: RelayPlayer.Game) = copy(games = games :+ game)
-  def eloGames: Vector[Elo.Game] = for
-    g        <- games
-    outcome  <- g.outcome
-    opRating <- g.opponent.rating
-  yield Elo.Game(outcome.winner.map(_ == g.color), opRating)
+  def eloGames: Vector[Elo.Game]       = games.flatMap(_.eloGame)
 
 object RelayPlayer:
   case class Game(
@@ -40,8 +36,11 @@ object RelayPlayer:
       color: Color,
       outcome: Option[Outcome]
   ):
-    def playerOutcome: Option[Option[Boolean]] =
-      outcome.map(_.winner.map(_ == color))
+    def playerOutcome: Option[Option[Boolean]] = outcome.map(_.winner.map(_ == color))
+    def eloGame = for
+      o        <- outcome
+      opRating <- opponent.rating
+    yield Elo.Game(o.winner.map(_ == color), opRating)
 
   object json:
     given Writes[Outcome]          = Json.writes
@@ -54,8 +53,19 @@ object RelayPlayer:
         )
         .add("ratingDiff" -> p.ratingDiff)
         .add("performance" -> p.performance)
-    def withGames(p: RelayPlayer): JsObject =
-      Json.toJsObject(p) ++ Json.obj("games" -> p.games)
+    def withGames(p: RelayPlayer, tc: FideTC): JsObject =
+      val eloPlayer = Elo.Player(p, p.kFactorOf(tc))
+      Json.toJsObject(p) ++ Json.obj("games" -> p.games.map: g =>
+        Json
+          .obj(
+            "round"    -> g.round,
+            "id"       -> g.id,
+            "opponent" -> g.opponent,
+            "color"    -> g.color,
+            "outcome"  -> g.outcome
+          )
+          .add("ratingDiff" -> g.eloGame.map: eg =>
+            Elo.computeRatingDiff(p, List(eg))))
     given OWrites[FidePlayer] = OWrites: p =>
       Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
 
