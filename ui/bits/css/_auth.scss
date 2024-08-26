@@ -51,7 +51,7 @@
 }
 
 /* presumably the keyboard is up */
-@media (max-width: at-most($x-short)) {
+@media (max-height: at-most($x-short)) {
   #top {
     display: none;
   }
