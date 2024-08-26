@@ -148,14 +148,8 @@ final class UserApi(
 
   def getTrophiesAndAwards(u: User) =
     (trophyApi.findByUser(u), shieldApi.active(u), revolutionApi.active(u)).mapN:
-      case (trophies, shields, revols) =>
-        val roleTrophies = trophyApi.roleBasedTrophies(
-          u,
-          Granter.ofUser(_.PublicMod)(u),
-          Granter.ofUser(_.Developer)(u),
-          Granter.ofUser(_.Verified)(u),
-          Granter.ofUser(_.ContentTeam)(u)
-        )
+      (trophies, shields, revols) =>
+        val roleTrophies = trophyApi.roleBasedTrophies(u)
         UserApi.TrophiesAndAwards(userCache.rankingsOf(u.id), trophies ::: roleTrophies, shields, revols)
 
   private def trophiesJson(all: UserApi.TrophiesAndAwards)(using Lang): JsArray =
