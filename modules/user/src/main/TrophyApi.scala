@@ -77,6 +77,17 @@ final class TrophyApi(
             date = nowInstant,
             url = none
           )
+      ,
+      Granter
+        .ofUser(_.BroadcastTeam)(user)
+        .option:
+          Trophy(
+            _id = "",
+            user = user.id,
+            kind = kindCache.sync(TrophyKind.broadcastTeam),
+            date = nowInstant,
+            url = none
+          )
     ).flatten
 
   def award(trophyUrl: String, userId: UserId, kindKey: String): Funit =

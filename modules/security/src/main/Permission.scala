@@ -85,7 +85,8 @@ object Permission:
       Developer,
       PublicMod,
       Verified,
-      ContentTeam
+      ContentTeam,
+      BroadcastTeam
     ),
     "Package" -> List(
       LichessTeam,
