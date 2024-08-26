@@ -161,7 +161,7 @@ const overview = (ctx: RelayViewContext) => {
 
 const share = (ctx: RelayViewContext) => {
   const iframe = (path: string) =>
-    `<iframe src="${baseUrl()}/embed${path}" 'style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
+    `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
   const iframeHelp = h('div.form-help', [
     'More options on the ',
     h('a', { attrs: { href: '/developers#broadcast' } }, 'webmasters page'),
