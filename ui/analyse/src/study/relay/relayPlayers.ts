@@ -352,7 +352,6 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
             ),
           ),
           h('td', op.rating?.toString()),
-          h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
           h('td.is.color-icon.' + game.color),
           h(
             'td.tpp__games__status',
@@ -364,6 +363,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
                 : h('span', '½')
               : '*',
           ),
+          h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
         ],
       );
     }),
