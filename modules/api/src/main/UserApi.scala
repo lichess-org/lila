@@ -168,7 +168,7 @@ final class UserApi(
           case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
           case (perf, rank) if rank <= 10  => perfTopTrophy(perf, 10, "Top 10")
           case (perf, rank) if rank <= 50  => perfTopTrophy(perf, 50, "Top 50")
-          case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 10, "Top 100")
+          case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 100, "Top 100")
         } ::: all.trophies.map { t =>
         Json
           .obj(
