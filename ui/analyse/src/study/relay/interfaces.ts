@@ -6,6 +6,7 @@ export interface RelayData {
   isSubscribed?: boolean; // undefined if anon
   videoUrls?: [string, string];
   pinnedStream?: { name: string; youtube?: string; twitch?: string };
+  note?: string;
   lcc?: boolean;
 }
 

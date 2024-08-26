@@ -49,7 +49,8 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       ),
       "spotlight"    -> optional(spotlightMapping),
       "grouping"     -> RelayGroup.form.mapping,
-      "pinnedStream" -> optional(pinnedStreamMapping)
+      "pinnedStream" -> optional(pinnedStreamMapping),
+      "note"         -> optional(nonEmptyText(maxLength = 20_000))
     )(Data.apply)(unapply)
   ).fill(Data.empty)
 
@@ -71,7 +72,8 @@ object RelayTourForm:
       teams: Option[RelayTeamsTextarea] = none,
       spotlight: Option[RelayTour.Spotlight] = none,
       grouping: Option[RelayGroup.form.Data] = none,
-      pinnedStream: Option[RelayPinnedStream] = none
+      pinnedStream: Option[RelayPinnedStream] = none,
+      note: Option[String] = none
   ):
 
     def update(tour: RelayTour)(using me: Me) =
@@ -87,7 +89,8 @@ object RelayTourForm:
           players = players,
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty),
-          pinnedStream = pinnedStream
+          pinnedStream = pinnedStream,
+          note = note
         )
         .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
@@ -109,7 +112,8 @@ object RelayTourForm:
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty),
-        pinnedStream = pinnedStream
+        pinnedStream = pinnedStream,
+        note = note
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
@@ -130,5 +134,6 @@ object RelayTourForm:
         teams = tour.teams,
         spotlight = tour.spotlight,
         grouping = group.map(RelayGroup.form.Data.apply),
-        pinnedStream = tour.pinnedStream
+        pinnedStream = tour.pinnedStream,
+        note = tour.note
       )

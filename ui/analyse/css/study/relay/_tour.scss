@@ -261,6 +261,21 @@ $hover-bg: $m-primary_bg--mix-30;
     }
   }
 
+  &__note {
+    @extend %box-neat, %flex-center-nowrap, %tour-margin-horiz;
+    gap: 1.5vw;
+    background: $c-bg-zebra;
+    padding: 1em 2vw;
+    white-space: pre-line;
+    &::before {
+      @extend %data-icon;
+      content: $licon-InfoCircle;
+      font-size: 2.5em;
+    }
+    small {
+      color: $c-font-dim;
+    }
+  }
   &__nav {
     @extend %flex-between, %tour-margin-horiz;
     gap: 1em;

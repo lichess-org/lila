@@ -340,6 +340,11 @@ const header = (ctx: RelayViewContext) => {
               : undefined,
       ),
     ]),
+    d.note &&
+      h(
+        'div.relay-tour__note',
+        h('div', [, h('div', d.note), h('small', 'This note is visible to contributors only.')]),
+      ),
     h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
   ];
 };
