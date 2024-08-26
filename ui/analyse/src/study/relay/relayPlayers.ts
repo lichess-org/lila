@@ -1,4 +1,3 @@
-/// <reference types="../../../../bits/types/tablesort" />
 import { Redraw, VNode, looseH as h, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { spinnerVdom as spinner, spinnerVdom } from 'common/spinner';
@@ -29,6 +28,7 @@ interface RelayPlayerGame {
   opponent: RelayPlayer;
   color: Color;
   outcome?: Outcome;
+  ratingDiff?: number;
 }
 
 interface RelayPlayerWithGames extends RelayPlayer {
@@ -352,6 +352,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
             ),
           ),
           h('td', op.rating?.toString()),
+          h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
           h('td.is.color-icon.' + game.color),
           h(
             'td.tpp__games__status',
@@ -368,7 +369,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
     }),
   );
 
-const ratingDiff = (p: RelayPlayer) => {
+const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
   const rd = p.ratingDiff;
   return !defined(rd)
     ? undefined
