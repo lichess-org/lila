@@ -187,6 +187,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         "ADMIN",
         List(
           LichessTeam,
+          UserSearch,
           PrizeBan,
           RemoveRanking,
           BoostHunter,
