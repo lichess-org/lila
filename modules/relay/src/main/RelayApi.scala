@@ -127,7 +127,7 @@ final class RelayApi(
           for
             start <- doc.getAsOpt[Instant]("start")
             end   <- doc.getAsOpt[Instant]("end")
-            singleDay = end.isBefore(start.plusDays(1))
+            singleDay = end.isBefore(start.plusHours(18))
             endMaybe  = Option.when(!singleDay)(end)
           yield RelayTour.Dates(start, endMaybe)
 
