@@ -75,7 +75,7 @@ enum Source(val id: Int) derives Eq:
 
 object Source:
   val byId                           = values.mapBy(_.id)
-  val searchable                     = List(Lobby, Friend, Ai, Position, Import, Arena, Simul, Pool, Swiss)
+  val searchable                     = List(Lobby, Friend, Ai, Position, Arena, Simul, Pool, Swiss)
   val expirable                      = Set(Lobby, Arena, Pool, Swiss)
   def apply(id: Int): Option[Source] = byId.get(id)
 
