@@ -53,9 +53,16 @@ object RelayPlayer:
         )
         .add("ratingDiff" -> p.ratingDiff)
         .add("performance" -> p.performance)
-    def withGames(p: RelayPlayer, tc: FideTC): JsObject =
-      val eloPlayer = Elo.Player(p, p.kFactorOf(tc))
-      Json.toJsObject(p) ++ Json.obj("games" -> p.games.map: g =>
+    def full(p: RelayPlayer, fidePlayer: Option[FidePlayer], tc: FideTC): JsObject =
+      val eloPlayer = p.rating
+        .orElse(fidePlayer.flatMap(_.ratingOf(tc)))
+        .map:
+          Elo.Player(_, fidePlayer.fold(chess.KFactor.default)(_.kFactorOf(tc)))
+      val gamesJson = p.games.map: g =>
+        val rd = for
+          ep <- eloPlayer
+          eg <- g.eloGame
+        yield Elo.computeRatingDiff(ep, List(eg))
         Json
           .obj(
             "round"    -> g.round,
@@ -64,8 +71,8 @@ object RelayPlayer:
             "color"    -> g.color,
             "outcome"  -> g.outcome
           )
-          .add("ratingDiff" -> g.eloGame.map: eg =>
-            Elo.computeRatingDiff(p, List(eg))))
+          .add("ratingDiff" -> rd)
+      Json.toJsObject(p).add("fide", fidePlayer) ++ Json.obj("games" -> gamesJson)
     given OWrites[FidePlayer] = OWrites: p =>
       Json.obj("ratings" -> p.ratingsMap.mapKeys(_.toString), "year" -> p.year)
 
@@ -98,16 +105,13 @@ private final class RelayPlayerApi(
 
   def player(tourId: RelayTourId, str: String): Fu[Option[JsObject]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)
-    cache
-      .get(tourId)
-      .flatMap: players =>
-        players
-          .get(id)
-          .soFu: player =>
-            player.fideId
-              .so(fidePlayerGet)
-              .map: fidePlayer =>
-                json.withGames(player).add("fide", fidePlayer)
+    for
+      players <- cache.get(tourId)
+      info    <- tourRepo.info(tourId)
+      tc     = info.fold(FideTC.standard)(_.fideTcOrGuess)
+      player = players.get(id)
+      fidePlayer <- player.flatMap(_.fideId).so(fidePlayerGet)
+    yield player.map(json.full(_, fidePlayer, tc))
 
   def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 
