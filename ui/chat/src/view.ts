@@ -75,12 +75,24 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
       h('span', ctrl.data.name),
       ctrl.opts.alwaysEnabled
         ? undefined
-        : h('input', {
-            attrs: { type: 'checkbox', title: ctrl.trans.noarg('toggleTheChat'), checked: ctrl.vm.enabled },
-            hook: bind('change', (e: Event) => {
-              ctrl.setEnabled((e.target as HTMLInputElement).checked);
+        : h('div.switch', [
+            h('input.cmn-toggle.cmn-toggle--subtle', {
+              attrs: {
+                id: ctrl.data.id,
+                type: 'checkbox',
+                title: ctrl.trans.noarg('toggleTheChat'),
+                checked: ctrl.vm.enabled,
+              },
+              hook: bind('change', (e: Event) => {
+                ctrl.setEnabled((e.target as HTMLInputElement).checked);
+              }),
             }),
-          }),
+            h('label', {
+              attrs: {
+                for: ctrl.data.id,
+              },
+            }),
+          ]),
     ];
   if (tab === 'note') return [h('span', ctrl.trans.noarg('notes'))];
   if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('span', ctrl.plugin.tab.name)];
