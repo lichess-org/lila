@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="welcome">Maligayang Pagdating!</string>
+  <string name="welcomeToLichess">Maligayang pagdating sa lichess.org!</string>
   <string name="thisIsYourProfilePage">Ito ang iyong profile page.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Isang bata ba ang gagamit ng account na ito? Baka gusto mong paganahin ang%s.</string>
+  <string name="whatNowSuggestions">Ano na ang gagawin? Ito ay mga ilang minumungkahi:</string>
   <string name="playInTournaments">Maglaro sa mga paligsahan.</string>
 </resources>
