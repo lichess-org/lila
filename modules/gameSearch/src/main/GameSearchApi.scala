@@ -49,7 +49,7 @@ final class GameSearchApi(
           )
       }
 
-  private def storable(game: Game) = game.finished || game.sourceIs(_.Import)
+  private def storable(game: Game) = game.finished
 
   private def status(game: Game) = game.status match
     case s if s.is(_.Timeout) => chess.Status.Resign
