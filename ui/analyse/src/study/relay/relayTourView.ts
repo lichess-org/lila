@@ -314,7 +314,8 @@ const header = (ctx: RelayViewContext) => {
   const { ctrl, relay, allowVideo } = ctx;
   const d = relay.data,
     group = d.group,
-    embedVideo = d.videoUrls && allowVideo;
+    embedVideo = d.videoUrls && allowVideo,
+    studyD = ctrl.study?.data.description;
 
   return [
     h('div.relay-tour__header', [
@@ -340,6 +341,7 @@ const header = (ctx: RelayViewContext) => {
               : undefined,
       ),
     ]),
+    studyD && h('div.relay-tour__note.pinned', h('div', [h('div', studyD)])),
     d.note &&
       h(
         'div.relay-tour__note',
