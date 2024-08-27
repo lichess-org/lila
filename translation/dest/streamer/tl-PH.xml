@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Mga Lichess streamer</string>
+  <string name="lichessStreamer">Lichess streamer</string>
+  <string name="live">KASALUKUYANG NANGYAYARI!</string>
+  <string name="offline">OFFLINE</string>
+</resources>
