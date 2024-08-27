@@ -272,6 +272,9 @@ $hover-bg: $m-primary_bg--mix-30;
       content: $licon-InfoCircle;
       font-size: 2.5em;
     }
+    &.pinned::before {
+      content: $licon-RadioTower;
+    }
     small {
       color: $c-font-dim;
     }
