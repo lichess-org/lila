@@ -16,7 +16,6 @@ case class HookConfig(
     increment: Clock.IncrementSeconds,
     days: Days,
     mode: Mode,
-    color: TriColor,
     ratingRange: RatingRange
 ) extends HumanConfig:
 
@@ -24,17 +23,7 @@ case class HookConfig(
     if me.isEmpty then this
     else copy(ratingRange = ratingRange.withinLimits(perf.intRating, 500))
 
-  def fixColor = copy(
-    color =
-      if mode == Mode.Rated &&
-        variantsWhereWhiteIsBetter(variant) &&
-        color != TriColor.Random
-      then TriColor.Random
-      else color
-  )
-
-  def >> =
-    (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
+  def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some).some
 
   def withTimeModeString(tc: Option[String]) =
     tc match
@@ -101,8 +90,7 @@ object HookConfig extends BaseHumanConfig:
       i: Clock.IncrementSeconds,
       d: Days,
       m: Option[Int],
-      e: Option[String],
-      c: String
+      e: Option[String]
   ) =
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
@@ -112,8 +100,7 @@ object HookConfig extends BaseHumanConfig:
       increment = i,
       days = d,
       mode = realMode,
-      ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
-      color = TriColor(c).err(s"Invalid color $c")
+      ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault)
     )
 
   def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))
@@ -125,8 +112,7 @@ object HookConfig extends BaseHumanConfig:
     increment = Clock.IncrementSeconds(3),
     days = Days(2),
     mode = Mode.default,
-    ratingRange = RatingRange.default,
-    color = TriColor.default
+    ratingRange = RatingRange.default
   )
 
   import lila.db.BSON
@@ -142,7 +128,6 @@ object HookConfig extends BaseHumanConfig:
         increment = r.get("i"),
         days = r.get("d"),
         mode = Mode.orDefault(r.int("m")),
-        color = TriColor.Random,
         ratingRange = r.strO("e").flatMap(RatingRange.parse).getOrElse(RatingRange.default)
       )
 
