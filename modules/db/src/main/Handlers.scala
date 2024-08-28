@@ -16,6 +16,8 @@ trait Handlers:
   def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
   def tryBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Try[BSONDocument]   = writer.writeTry(a)
 
+  def toBson[A](a: A)(using writer: BSONWriter[A]): Option[BSONValue] = writer.writeOpt(a)
+
   // free writer for all types with TotalWrapper
   // unless they are given an instance of lila.db.NoBSONWriter[T]
   given opaqueWriter[T, A](using
@@ -33,10 +35,6 @@ trait Handlers:
     def readTry(bson: BSONValue) = reader.readTry(bson).map(sr.apply)
 
   given NoDbHandler[Blurs] with {}
-
-  given userIdOfWriter[U: UserIdOf](using writer: BSONWriter[UserId]): BSONWriter[U] with
-    inline def writeTry(u: U) = writer.writeTry(u.id)
-  given noUserIdOf[A: lila.core.userId.UserIdOf]: NoBSONWriter[A] with {}
 
   given NoBSONWriter[UserId] with {}
   given userIdHandler: BSONHandler[UserId] = stringIsoHandler
