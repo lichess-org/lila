@@ -42,7 +42,6 @@ case class TvSelect(gameId: GameId, speed: Speed, channel: String, data: JsObjec
 case class ChangeFeatured(mgs: JsObject)
 
 case class StartGame(game: Game)
-case class InsertGame(game: Game)
 case class FinishGame(
     game: Game,
     // users and perfs BEFORE the game result is applied
