@@ -177,12 +177,24 @@ class HandOfCardsImpl {
     const visibleCards = this.cards.length; // for the few cards we have now
     let x, y, cardRotation;
     if (this.isLeft) {
-      const pull = hoverIndex === -1 || index <= hoverIndex ? 0 : -Math.PI / visibleCards / 2;
-      const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards - 0.5);
-      const mag = this.fanRadius + (hoverIndex > -1 && index > hoverIndex ? centerCard : 0);
+      // const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards - 0.5);
+      const mag =
+        this.fanRadius +
+        (hoverIndex === index ? this.cardSize / 8 : 0) -
+        (hoverIndex > -1 && index > hoverIndex ? this.cardSize / 3 : 0);
+      const pull = hoverIndex === -1 || index <= hoverIndex ? 0 : (-Math.PI * 3) / visibleCards / 4;
+      const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards) - 0.3;
       x = this.originX + mag * Math.cos(angle);
       y = this.originY + mag * Math.sin(angle);
-      cardRotation = angle + (hoverIndex === -1 ? 0 : index <= hoverIndex ? 0 : -Math.PI / 6);
+      cardRotation =
+        angle +
+        (hoverIndex === -1
+          ? 0
+          : hoverIndex === index
+            ? -Math.PI / 48
+            : index < hoverIndex
+              ? 0
+              : -Math.PI / 16);
     } else {
       const isPulled = card.classList.contains('pull');
       const pull =
