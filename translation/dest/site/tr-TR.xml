@@ -180,6 +180,7 @@
   <string name="latestForumPosts">En son forum gönderileri</string>
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
+  <string name="otherPlayers">ddiğer oyuncular</string>
   <string name="discussions">Sohbetler</string>
   <string name="today">Bugün</string>
   <string name="yesterday">Dün</string>
@@ -537,6 +538,8 @@
   <string name="descPrivateHelp">Sadece takım üyelerinin görebileceği metindir. Kullanılması halinde, takım üyeleri genel açıklama yerine bunu görür.</string>
   <string name="no">Hayır</string>
   <string name="yes">Evet</string>
+  <string name="website">Web sitesi</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Yardım:</string>
   <string name="createANewTopic">Yeni bir bildiri oluştur.</string>
   <string name="topics">Konular</string>
@@ -555,6 +558,9 @@
   <string name="cheat">Hile</string>
   <string name="troll">Trol</string>
   <string name="other">Diğer</string>
+  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Oyunun (oyunların) bağlantısını yapıştırın ve kullanıcının hangi davranışı yanlış açıklayın. Sadece \"bu hile\" demeyin, bize bu sonuca nasıl vardığınızı söyleyin.</string>
+  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Bu kullanıcı adı hakkında neyin saldırganca olduğunu açıklayın. Sadece \"bu saldırganca/uygunsuz\" demeyin, bu sonuca nasıl vardığınızı söyleyin bize, özellikle de hakaret gizlenmiş, ingilizce olmayan, argo, veya tarihsel/kültürel referansalar varsa.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Eğer İngilizce yazarsanız raporunuz daha hızlı işleme alınır.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
   <string name="by">%s oluşturdu</string>
   <string name="importedByX">%s tarafından yüklendi</string>
@@ -587,6 +593,7 @@
   <string name="slow">Yavaş</string>
   <string name="insideTheBoard">Karelerin üzerinde</string>
   <string name="outsideTheBoard">Karelerin dışında</string>
+  <string name="allSquaresOfTheBoard">Tahtadaki tüm karelerde</string>
   <string name="onSlowGames">Yavaş oyunlarda</string>
   <string name="always">Her zaman</string>
   <string name="never">Asla</string>
