@@ -58,7 +58,6 @@ case class HookConfig(
             variant = variant,
             clock = clock,
             mode = if lila.core.game.allowRated(variant, clock.some) then mode else Mode.Casual,
-            color = color.name,
             user = user,
             blocking = blocking,
             sid = sid,
@@ -71,7 +70,6 @@ case class HookConfig(
               variant = variant,
               daysPerTurn = makeDaysPerTurn,
               mode = mode,
-              color = color.name,
               user = u,
               blocking = blocking,
               ratingRange = ratingRange
