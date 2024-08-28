@@ -3,7 +3,7 @@ import RelayCtrl, { RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
-import { innerHTML } from 'common/richText';
+import { innerHTML, richHTML } from 'common/richText';
 import { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'common';
@@ -161,7 +161,7 @@ const overview = (ctx: RelayViewContext) => {
 
 const share = (ctx: RelayViewContext) => {
   const iframe = (path: string) =>
-    `<iframe src="${baseUrl()}/embed${path}" 'style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
+    `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
   const iframeHelp = h('div.form-help', [
     'More options on the ',
     h('a', { attrs: { href: '/developers#broadcast' } }, 'webmasters page'),
@@ -314,7 +314,8 @@ const header = (ctx: RelayViewContext) => {
   const { ctrl, relay, allowVideo } = ctx;
   const d = relay.data,
     group = d.group,
-    embedVideo = d.videoUrls && allowVideo;
+    embedVideo = d.videoUrls && allowVideo,
+    studyD = ctrl.study?.data.description;
 
   return [
     h('div.relay-tour__header', [
@@ -340,6 +341,15 @@ const header = (ctx: RelayViewContext) => {
               : undefined,
       ),
     ]),
+    studyD && h('div.relay-tour__note.pinned', h('div', [h('div', { hook: richHTML(studyD) })])),
+    d.note &&
+      h(
+        'div.relay-tour__note',
+        h('div', [
+          h('div', { hook: richHTML(d.note) }),
+          h('small', 'This note is visible to contributors only.'),
+        ]),
+      ),
     h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
   ];
 };

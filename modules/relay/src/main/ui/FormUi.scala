@@ -604,7 +604,13 @@ Team Dogs ; Scooby Doo"""),
                 )
               )
           )
-        else form3.hidden(form("tier"))
+        else form3.hidden(form("tier")),
+        form3.fieldset("Broadcaster note", toggle = tg.flatMap(_.tour.note).isDefined.some)(
+          form3.group(
+            form("note"),
+            "Note for contributors. This is not shown to viewers."
+          )(form3.textarea(_)(rows := 4))
+        )
       )
 
   private def image(t: RelayTour)(using ctx: Context) =

@@ -10,7 +10,9 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.{ RelayRoundId, RelayTourId }
 import lila.relay.ui.FormNavigation
-import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel, RelayVideoEmbed as VideoEmbed }
+import lila.core.security.LilaCookie
+import lila.ublog.UblogPost.Views
 
 final class RelayRound(
     env: Env,
@@ -99,7 +101,7 @@ final class RelayRound(
       env.relay.api.reset(rt.round) >> negotiate(Redirect(rt.path), jsonOkResult)
   }
 
-  def show(ts: String, rs: String, id: RelayRoundId, embed: Option[String]) =
+  def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read): ctx ?=>
       negotiate(
         html = WithRoundAndTour(ts, rs, id): rt =>
@@ -109,7 +111,9 @@ final class RelayRound(
               // there might be no chapter after a round reset, let a new one be created
               case None              => env.study.api.byIdWithChapter(rt.round.studyId)
               case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
-          sc.orNotFound { doShow(rt, _, embed) }
+          sc.orNotFound: study =>
+            env.relay.videoEmbed.withCookie:
+              doShow(rt, study, _)
         ,
         json = doApiShow(id)
       )
@@ -194,11 +198,12 @@ final class RelayRound(
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
       }(Unauthorized, Forbidden)
 
-  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId, embed: Option[String]) =
+  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
     Open:
       WithRoundAndTour(ts, rs, id, chapterId.some): rt =>
-        Found(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId)):
-          doShow(rt, _, embed)
+        Found(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId)): study =>
+          env.relay.videoEmbed.withCookie:
+            doShow(rt, study, _)
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
@@ -258,8 +263,8 @@ final class RelayRound(
         .elseNotFound:
           env.relay.api.formNavigation(tour).flatMap(f)
 
-  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter, embed: Option[String])(
-      using ctx: Context
+  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter, embed: VideoEmbed)(using
+      ctx: Context
   ): Fu[Result] =
     studyC.CanView(oldSc.study)(
       for
@@ -268,18 +273,17 @@ final class RelayRound(
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
-        videoUrls <-
-          if (~embed).isEmpty then
+        videoUrls <- embed match
+          case VideoEmbed.Auto =>
             fuccess:
               rt.tour.pinnedStream
                 .ifFalse(rt.round.finished)
                 .flatMap(_.upstream)
                 .map(_.urls(netDomain).toPair)
-          else if embed.contains("no") then fuccess(none)
-          else
-            embed
-              .flatMap(UserStr.read)
-              .so(env.streamer.api.find)
+          case VideoEmbed.No => fuccess(none)
+          case VideoEmbed.Stream(userId) =>
+            env.streamer.api
+              .find(userId)
               .flatMapz(s => env.streamer.liveStreamApi.of(s).dmap(some))
               .map:
                 _.flatMap(_.stream).map(_.urls(netDomain).toPair)

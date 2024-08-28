@@ -12,6 +12,7 @@ case class RelayGame(
     root: Root,
     outcome: Option[Outcome]
 ):
+  override def toString = s"RelayGame ${root.mainlineNodeList.size} ${tags.outcome} ${tags.names}"
 
   // We don't use tags.boardNumber.
   // Organizers change it at any time while reordering the boards.

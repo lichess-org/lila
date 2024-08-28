@@ -132,7 +132,7 @@ def communication(
         else
           ul(cls := "public_chats")(
             publicLines.reverse.map: line =>
-              li(cls := "line author")(
+              li(
                 line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
                 line.from.map:
@@ -147,7 +147,7 @@ def communication(
                   case PublicSource.Ublog(id) => a(href := routes.Ublog.redirect(id))("User blog #", id)
                 ,
                 nbsp,
-                span(cls := "message")(Analyser.highlightBad(line.text))
+                span(cls := "line author")(span(cls := "message")(Analyser.highlightBad(line.text)))
               )
           )
         ,

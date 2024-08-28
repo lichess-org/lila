@@ -9,7 +9,7 @@
   <string name="someRated">Beberapa turnamen berperingkat, dan akan mempengaruhi peringkat Anda.</string>
   <string name="howAreScoresCalculated">Bagaimana menghitung Skor?</string>
   <string name="howAreScoresCalculatedAnswer">Menang memiliki nilai dasar 2 poin, remis: 1 poin, dan kalah bernilai 0 poin. Jika Anda memenangkan dua pertandingan berturut-turut, Anda akan mulai tahap nilai ganda, diwakili oleh sebuah ikon api. Permainan berikut akan terus bernilai poin ganda sampai Anda gagal untuk memenangkan permainan. Yang menang akan bernilai 4 poin, remis: 2 poin, dan kalah akan tetap tidak ada poin. Misalnya, dua menang, diikuti oleh seri akan bernilai 6 poin: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk">Tempat beruntun</string>
   <string name="berserkAnswer">Ketika seorang pemain mengklik tombol Berserk pada awal permainan, mereka kehilangan setengah dari mereka jam waktu, tapi menang bernilai satu nilai turnamen tambahan. Berserk dengan waktu kontrol berjenjang juga membatalkan kenaikan berjenjang tersebut. (1 + 2 pengecualian, itu memberikan 1 + 0) Berserk ini tidak tersedia untuk game dengan waktu nol awal (0 + 1, 0 + 2). Berserk hanya ada nilai tambahan jika Anda bermain minimal 7 langkah dalam permainan.</string>
   <string name="howIsTheWinnerDecided">Bagaimana pemenang ditentukan?</string>
   <string name="howIsTheWinnerDecidedAnswer">Para pemain dengan poin terbanyak di akhir turnamen pada saat selesai sesuai batas waktu yang turnamen yang akan diumumkan sebagai para pemenang.</string>
@@ -37,6 +37,7 @@
   <string name="allowChatHelp">Biarkan pemain berdiskusi dalam sebuah ruang obrol</string>
   <string name="arenaStreaks">Streak arena</string>
   <string name="arenaStreaksHelp">Setelah 2 kemenangan, secar berurutan akan mendapatkan 4 poin alih-alih 2.</string>
+  <string name="noArenaStreaks">Arena tanpa beruntun</string>
   <string name="averagePerformance">Performa rata-rata</string>
   <string name="averageScore">Skor rata-rata</string>
   <string name="myTournaments">Turnamen saya</string>
@@ -44,15 +45,20 @@
   <string name="editTeamBattle">Sunting pertandingan tim</string>
   <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Defender</string>
   <string name="pickYourTeam">Pilih tim Anda</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Tim mana yang akan Anda wakili dalam pertarungan ini?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Anda harus bergabung dengan salah satu tim berikut untuk berpartisipasi!</string>
   <string name="created">Dibuat</string>
   <string name="recentlyPlayed">Baru saja dimainkan</string>
   <string name="bestResults">Hasil terbaik</string>
   <string name="stats">Statistik</string>
   <string name="tournamentStats">Statistik turnamen</string>
+  <string name="rankAvgHelp">Rata-rata peringkat adalah persentase peringkat Anda. Lebih rendah lebih baik.
+
+Misalnya, menjadi peringkat 3 dalam turnamen yang terdiri dari 100 pemain = 3%. Menjadi peringkat 10 dalam turnamen 1000 pemain = 1%.</string>
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">median</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Poin rata-rata</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Jumlah Points</string>
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Peringkat rata-rata</string>
   <string name="tournamentWinners">Pemenang turnamen</string>
   <string name="onlyTitled">Hanya pemain yang memiliki gelar</string>

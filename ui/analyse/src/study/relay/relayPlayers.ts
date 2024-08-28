@@ -28,6 +28,7 @@ interface RelayPlayerGame {
   opponent: RelayPlayer;
   color: Color;
   outcome?: Outcome;
+  ratingDiff?: number;
 }
 
 interface RelayPlayerWithGames extends RelayPlayer {
@@ -362,12 +363,13 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
                 : h('span', '½')
               : '*',
           ),
+          h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
         ],
       );
     }),
   );
 
-const ratingDiff = (p: RelayPlayer) => {
+const ratingDiff = (p: RelayPlayer | RelayPlayerGame) => {
   const rd = p.ratingDiff;
   return !defined(rd)
     ? undefined

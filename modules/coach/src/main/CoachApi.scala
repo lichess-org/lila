@@ -16,7 +16,7 @@ final class CoachApi(
 
   import BsonHandlers.given
 
-  def byId[U: UserIdOf](u: U): Fu[Option[Coach]] = coachColl.byId[Coach](u)
+  def byId[U: UserIdOf](u: U): Fu[Option[Coach]] = coachColl.byId[Coach](u.id)
 
   def find(username: UserStr): Fu[Option[Coach.WithUser]] =
     userApi.byId(username).flatMapz(find)

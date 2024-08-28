@@ -11,7 +11,7 @@
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor de taboleiro e taboleiro de análise con %s</string>
   <string name="cloudEngineAnalysis">Motor de análise dende a nube</string>
   <string name="studies">Estudos (compartidos e análise persistente)</string>
-  <string name="chessInsights">Estatísticas (análise detallado do teu xogo)</string>
+  <string name="chessInsights">Estatísticas (análise detallada do teu xogo)</string>
   <string name="allChessBasicsLessons">Todas as leccións básicas de xadrez</string>
   <string name="tacticalPuzzlesFromUserGames">Crebacabezas de partidas dos xogadores</string>
   <string name="personalOpeningExplorerX">%1$s (tamén funciona con %2$s)</string>

@@ -129,7 +129,8 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
         .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
-        .add("pinnedStream" -> pinned),
+        .add("pinnedStream" -> pinned)
+        .add("note" -> trs.tour.note.ifTrue(canContribute)),
       study = studyData.study,
       analysis = studyData.analysis,
       group = group.map(_.group.name)

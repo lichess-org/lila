@@ -26,7 +26,8 @@ case class RelayTour(
     teams: Option[RelayTeamsTextarea] = None,
     image: Option[ImageId] = None,
     dates: Option[RelayTour.Dates] = None, // denormalized from round dates
-    pinnedStream: Option[RelayPinnedStream] = None
+    pinnedStream: Option[RelayPinnedStream] = None,
+    note: Option[String] = None
 ):
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)
