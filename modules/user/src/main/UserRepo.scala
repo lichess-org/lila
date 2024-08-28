@@ -28,7 +28,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
     u.id.noGhost.so:
       coll
-        .byId[User](u)
+        .byId[User](u.id)
         .recover:
           case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
             none // probably GDPRed user
@@ -41,7 +41,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.byIds[User, UserId](ids, _.sec)
 
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
-    u.id.noGhost.so(coll.one[User](enabledSelect ++ $id(u)))
+    u.id.noGhost.so(coll.one[User](enabledSelect ++ $id(u.id)))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
@@ -277,7 +277,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
 
-  def isKid[U: UserIdOf](id: U) = coll.exists($id(id) ++ $doc(F.kid -> true))
+  def isKid[U: UserIdOf](u: U) = coll.exists($id(u.id) ++ $doc(F.kid -> true))
 
   def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
 
@@ -301,7 +301,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.updateField($id(id), F.roles, roles).void
 
   def getRoles[U: UserIdOf](u: U): Fu[List[RoleDbKey]] =
-    coll.primitiveOne[List[RoleDbKey]]($id(u), BSONFields.roles).dmap(_.orZero)
+    coll.primitiveOne[List[RoleDbKey]]($id(u.id), BSONFields.roles).dmap(_.orZero)
 
   def addPermission(id: UserId, perm: lila.core.perm.Permission): Funit =
     coll.update.one($id(id), $push(F.roles -> perm.dbKey)).void
