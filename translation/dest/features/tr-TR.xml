@@ -4,4 +4,9 @@
   <string name="correspondenceWithConditionalPremoves">Koşullu ön hamlelerle yazışmalı satranç</string>
   <string name="standardChessAndX" comment="%s is 8 variants">Standart satranç ve %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Derin %s sunucu analizi</string>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">%s ile tahta düzenleyici ve analiz panosu</string>
+  <string name="cloudEngineAnalysis">Bulut tabanlı analizler</string>
+  <string name="studies">Çalışmalar (paylaşılabilir ve kalıcı analiz)</string>
+  <string name="chessInsights">Satranç içgörüleri (Oyununuzun detaylı analizi)</string>
+  <string name="allChessBasicsLessons">Tüm temel satranç dersleri</string>
 </resources>
