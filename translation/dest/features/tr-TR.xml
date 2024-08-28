@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="zeroAdsAndNoTracking">Reklam ve takip yok</string>
+  <string name="correspondenceWithConditionalPremoves">Koşullu ön hamlelerle yazışmalı satranç</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Standart satranç ve %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Derin %s sunucu analizi</string>
+</resources>
