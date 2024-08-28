@@ -64,17 +64,18 @@ export class Bot implements BotInfo, Mover {
   async move(args: MoveArgs): Promise<MoveResult> {
     const moveArgs = { ...args, thinktime: this.thinktime(args) };
     const { pos, chess } = moveArgs;
+    const { fish, zero } = this;
     const opening = await this.bookMove(chess);
     if (opening) return { uci: opening, thinktime: moveArgs.thinktime };
     const { uci, cpl } = this.chooseMove(
       await Promise.all([
-        this.fish && env.bot.zerofish.goFish(pos, this.fish),
-        this.zero &&
+        fish && env.bot.zerofish.goFish(pos, fish),
+        zero &&
           env.bot.zerofish.goZero(pos, {
-            ...this.zero,
+            ...zero,
             net: {
-              key: this.name + '-' + this.zero.net,
-              fetch: async () => (await env.assets.getNet(this.zero?.net))!,
+              key: this.name + '-' + zero.net,
+              fetch: () => env.assets.getNet(zero.net),
             },
           }),
       ]),
@@ -191,14 +192,14 @@ export class Bot implements BotInfo, Mover {
     const mean = this.filter('cplTarget', args) ?? 0;
     const stdev = this.filter('cplStdev', args) ?? 80;
     const cplTarget = Math.abs(mean + stdev * getNormal());
-    // folding (vs truncating) the normal at zero skews the distribution mean a bit further from the target
+    // folding the normal at zero skews the observed distribution mean a bit further from the target
+    const gain = 0.06;
+    const threshold = 80; // we could go with something like clamp(stdev, { min: 50, max: 100 }) here
     for (const mv of sorted) {
       if (mv.cpl === undefined) continue;
       const distance = Math.abs((mv.cpl ?? 0) - cplTarget);
-      const offset = 80;
-      const sensitivity = 0.06;
       // cram cpl into [0, 1] with sigmoid
-      mv.weights.acpl = distance === 0 ? 1 : 1 / (1 + Math.E ** (sensitivity * (distance - offset)));
+      mv.weights.acpl = distance === 0 ? 1 : 1 / (1 + Math.E ** (gain * (distance - threshold)));
     }
   }
 }
@@ -214,9 +215,9 @@ interface SearchMove {
 }
 
 function moveQualityDecay(sorted: SearchMove[], decay: number) {
-  // in this weighted random selection, each move's probability is given by a quality decay parameter
+  // in this weighted random selection, each move's weight is given by a quality decay parameter
   // raised to the power of the move's index as sorted by previous filters. a random number between
-  // 0 and the probability sum will identify the final move
+  // 0 and the sum of all weights will identify the final move
 
   let variate = sorted.reduce((sum, mv, i) => (sum += mv.P = decay ** i), 0) * Math.random();
   return sorted.find(mv => (variate -= mv.P!) <= 0);

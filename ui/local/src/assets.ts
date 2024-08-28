@@ -24,8 +24,7 @@ export class Assets {
     books.forEach(book => this.getBook(book));
   }
 
-  async getNet(key: string | undefined): Promise<Uint8Array | undefined> {
-    if (!key) return undefined;
+  async getNet(key: string): Promise<Uint8Array> {
     if (this.net.has(key)) return (await this.net.get(key)!).data;
     const netPromise = new Promise<NetData>((resolve, reject) => {
       fetch(botAssetUrl('net', key))

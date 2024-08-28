@@ -336,6 +336,7 @@ let botSelector: HandOfCards | undefined;
 function showBotSelector(clickedEl: HTMLElement) {
   if (botSelector) return;
   const cardData = [...env.bot.sorted('classical').map(b => env.bot.card(b))].filter(defined);
+  cardData.forEach(c => c.classList.push('left'));
   const main = document.querySelector('main') as HTMLElement;
   const drops: Drop[] = [];
   main.classList.add('with-cards');

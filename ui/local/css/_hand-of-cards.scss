@@ -26,6 +26,12 @@
       right: 0;
       display: none;
     }
+    &.left label {
+      text-align: start;
+      top: 50%;
+      left: 110%;
+      //transform: translateY(-50%); // rotate(90deg);
+    }
     &.dragging {
       transition: none;
     }
