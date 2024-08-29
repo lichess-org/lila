@@ -1,4 +1,4 @@
-import { clamp, isEquivalent, frag } from 'common';
+import { clamp, isEquivalent, frag, defined } from 'common';
 import { type EventJanitor, eventJanitor } from 'common/event';
 
 export interface CardData {
@@ -144,7 +144,7 @@ class HandOfCardsImpl {
   }
 
   private placeCards(now = false) {
-    this.container.classList.toggle('no-transition', now || !!this.dragCard);
+    this.container.classList.toggle('no-transition', now || this.suppressAnimation); //!!this.dragCard);
     const hovered = this.view.querySelector('.card.pull');
     const hoverIndex = this.cards.findIndex(x => x == hovered);
     const unplaced = this.cards.filter(x => !this.selectedTransform(x));
@@ -170,44 +170,35 @@ class HandOfCardsImpl {
   }
 
   private fanoutTransform(card: HTMLElement, hoverIndex: number) {
-    // could make half of this function disappear with better symmetry
     const fanArc = Math.PI / 5;
     const centerCard = -this.cardSize / 2;
+    const visibleCards = this.cards.length; // this works for what few cards we have now
     const index = this.cards.indexOf(card);
-    const visibleCards = this.cards.length; // for the few cards we have now
-    let x, y, cardRotation;
-    if (this.isLeft) {
-      // const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards - 0.5);
-      const mag =
-        this.fanRadius +
-        (hoverIndex === index ? this.cardSize / 8 : 0) -
-        (hoverIndex > -1 && index > hoverIndex ? this.cardSize / 3 : 0);
-      const pull = hoverIndex === -1 || index <= hoverIndex ? 0 : (-Math.PI * 3) / visibleCards / 4;
-      const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards) - 0.3;
-      x = this.originX + mag * Math.cos(angle);
-      y = this.originY + mag * Math.sin(angle);
-      cardRotation =
-        angle +
-        (hoverIndex === -1
-          ? 0
-          : hoverIndex === index
-            ? -Math.PI / 48
-            : index < hoverIndex
-              ? 0
-              : -Math.PI / 16);
-    } else {
-      const isPulled = card.classList.contains('pull');
-      const pull =
-        hoverIndex === -1
-          ? 0
-          : ((index > hoverIndex ? -1 : 1) * (Math.PI * this.cardSize)) / (this.fanRadius * visibleCards);
-      const angle = pull + fanArc * ((this.cards.length - index - 0.5) / visibleCards - 0.5);
-      const mag = this.fanRadius + centerCard / (isPulled ? 2 : 1);
-      x = this.originX + mag * Math.sin(angle);
-      y = this.originY - mag * Math.cos(angle);
-      cardRotation = angle + (isPulled ? Math.PI / 12 : 0);
-    }
+    const rindex = this.cards.length - index - 0.5;
+    const isHovered = hoverIndex === index;
+    const isAfterHovered = hoverIndex > -1 && index > hoverIndex;
 
+    let x, y, cardRotation;
+    let angle = fanArc * (rindex / visibleCards - 0.5);
+
+    if (this.isLeft) {
+      if (isAfterHovered) angle -= (Math.PI * 0.666) / visibleCards;
+      cardRotation = angle - (isAfterHovered ? Math.PI / 16 : 0);
+
+      const radiusOffset = isAfterHovered ? 0 : isHovered ? this.cardSize / 4 : this.cardSize / 8;
+
+      x = this.originX + (this.fanRadius + radiusOffset) * Math.cos(angle);
+      y = this.originY + (this.fanRadius + radiusOffset) * Math.sin(angle);
+    } else {
+      const hoverFactor = hoverIndex === -1 ? 0 : isAfterHovered ? -1 : 1;
+      angle += (hoverFactor * (Math.PI * this.cardSize)) / (this.fanRadius * visibleCards);
+      cardRotation = angle + (isHovered ? Math.PI / 12 : 0);
+
+      const radiusOffset = centerCard / (isHovered ? 2 : 1);
+
+      x = this.originX + (this.fanRadius + radiusOffset) * Math.sin(angle);
+      y = this.originY - (this.fanRadius + radiusOffset) * Math.cos(angle);
+    }
     card.style.transform = `translate(${x + centerCard}px, ${y + centerCard}px) rotate(${cardRotation}rad)`;
   }
 
@@ -282,6 +273,7 @@ class HandOfCardsImpl {
     this.dragCard?.releasePointerCapture(e.pointerId);
     this.dragCard = card;
     this.dragCard.setPointerCapture(e.pointerId);
+    this.pointerDrag(e);
     this.redraw();
   };
 
@@ -295,15 +287,20 @@ class HandOfCardsImpl {
     }
     if (!this.pointerDownTime || !this.dragCard) return;
     e.preventDefault();
+    this.pointerDrag(e);
     this.dragCard.classList.add('dragging');
+    for (const drop of this.drops) drop.el?.classList.remove('drag-over');
+    this.dropTarget(e)?.classList.add('drag-over');
+    this.redraw();
+  };
+
+  private pointerDrag = (e: PointerEvent) => {
+    if (!this.dragCard) return;
     const offsetPt = this.clientToViewOffset([e.clientX, e.clientY]);
     const offsetX = offsetPt[0] - this.cardSize / 2;
     const offsetY = offsetPt[1] - this.cardSize / 2;
     const newAngle = this.clientToOriginAngle([e.clientX, e.clientY]) - (this.isLeft ? Math.PI / 2 : 0);
     this.dragCard.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${newAngle}rad)`;
-    for (const drop of this.drops) drop.el?.classList.remove('drag-over');
-    this.dropTarget(e)?.classList.add('drag-over');
-    this.redraw();
   };
 
   private pointerUp = (e: PointerEvent) => {
@@ -376,6 +373,9 @@ class HandOfCardsImpl {
   }
   private get center() {
     return this.opts.center ?? 0.5;
+  }
+  private get suppressAnimation() {
+    return defined(this.dragCard) && defined(this.pointerDownTime) && Date.now() - this.pointerDownTime > 300;
   }
 }
 

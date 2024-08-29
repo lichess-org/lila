@@ -261,6 +261,7 @@ export class EditDialog {
             if ('key' in e && e.key === 'Enter') {
               ok.click();
               e.stopPropagation();
+              e.preventDefault();
             }
           },
         },

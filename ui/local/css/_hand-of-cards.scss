@@ -30,10 +30,9 @@
       text-align: start;
       top: 50%;
       left: 110%;
-      //transform: translateY(-50%); // rotate(90deg);
     }
     &.dragging {
-      transition: none;
+      transition: 0.05s;
     }
     &.selected {
       pointer-events: none;
