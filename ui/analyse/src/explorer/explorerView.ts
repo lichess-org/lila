@@ -328,7 +328,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       nodes,
     );
   const playerName = explorer.config.data.playerName.value();
-  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2022-10'),
+  const masterDbExplanation = explorer.root.trans('masterDbExplanation', 2200, '1952', '2024-08'),
     lichessDbExplanation = explorer.root.trans('lichessDbExplanation');
   const data = explorer.current();
   const queuePosition = data && isOpening(data) && data.queuePosition;
