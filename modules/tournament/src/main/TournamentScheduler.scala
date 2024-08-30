@@ -248,6 +248,11 @@ Thank you all, you rock!""".some,
           Schedule(Weekend, speed, Standard, none, date.pipe(orNextWeek)).plan
         }
       },
+      List( // Saturday elite crazyhouse!
+        at(nextSaturday, 19).map { date =>
+          Schedule(Weekend, Blitz, Crazyhouse, none, date.pipe(orNextWeek)).plan
+        }
+      ).flatten,
       List( // daily tournaments!
         at(today, 16).map { date =>
           Schedule(Daily, Bullet, Standard, none, date.pipe(orTomorrow)).plan
@@ -397,62 +402,62 @@ Thank you all, you rock!""".some,
           // Because berserking lowers the player rating
           _.map { _.copy(noBerserk = true) }
         },
-      // hourly crazyhouse/chess960/KingOfTheHill tournaments!
-      (0 to 6).toList.flatMap { hourDelta =>
-        val when = atTopOfHour(rightNow, hourDelta)
-        val speed = when.getHour % 7 match
-          case 0     => HippoBullet
-          case 1 | 4 => Bullet
-          case 2 | 5 => SuperBlitz
-          case 3 | 6 => Blitz
-        val variant = when.getHour % 3 match
-          case 0 => Chess960
-          case 1 => KingOfTheHill
-          case _ => Crazyhouse
-        List(Schedule(Hourly, speed, variant, none, when).plan) :::
-          (speed == Bullet).so:
-            List(
-              Schedule(
-                Hourly,
-                if when.getHour == 17 then HyperBullet else Bullet,
-                variant,
-                none,
-                when.plusMinutes(30)
-              ).plan
-            )
+      // fast popular variant tournaments!
+      List(Atomic, Antichess).flatMap { variant =>
+        (-1 to 6).toList.flatMap { hourDelta =>
+          val when = atTopOfHour(rightNow, hourDelta)
+          val speed = (when.getHour + variant.id.value) % 7 match
+            case 0 | 4 => Blitz
+            case 1     => HippoBullet
+            case 2 | 5 => Bullet
+            case 3 | _ => SuperBlitz
+          List(Schedule(Hourly, speed, variant, none, when).plan) :::
+            (speed == Bullet).so:
+              List(
+                Schedule(
+                  Hourly,
+                  if when.getHour == 18 then HyperBullet else Bullet,
+                  variant,
+                  none,
+                  when.plusMinutes(30)
+                ).plan
+              )
+        }
       },
-      // hourly atomic/antichess variant tournaments!
-      (0 to 6).toList.flatMap { hourDelta =>
-        val when = atTopOfHour(rightNow, hourDelta)
-        val speed = when.getHour % 7 match
-          case 0 | 4 => Blitz
-          case 1     => HippoBullet
-          case 2 | 5 => Bullet
-          case 3 | 6 => SuperBlitz
-        val variant = if when.getHour % 2 == 0 then Atomic else Antichess
-        List(Schedule(Hourly, speed, variant, none, when).plan) :::
-          (speed == Bullet).so:
-            List(
-              Schedule(
-                Hourly,
-                if when.getHour == 18 then HyperBullet else Bullet,
-                variant,
-                none,
-                when.plusMinutes(30)
-              ).plan
-            )
+      // slower popular variant tournaments!
+      List(Crazyhouse, Chess960).flatMap { variant =>
+        (-1 to 6).toList.flatMap { hourDelta =>
+          val when = atTopOfHour(rightNow, hourDelta)
+          val speed = (when.getHour + variant.id.value) % 7 match
+            case 0 | 2 | 4 => Blitz
+            case 1         => HippoBullet
+            case 3 | 5     => SuperBlitz
+            case _         => Bullet
+          List(Schedule(Hourly, speed, variant, none, when).plan) :::
+            (speed == Bullet).so:
+              List(
+                Schedule(
+                  Hourly,
+                  Bullet,
+                  variant,
+                  none,
+                  when.plusMinutes(30)
+                ).plan
+              )
+        }
       },
-      // hourly threecheck/horde/racing variant tournaments!
-      (0 to 6).toList.flatMap { hourDelta =>
+      // hourly exotic variant tournaments!
+      (-1 to 6).toList.flatMap { hourDelta =>
         val when = atTopOfHour(rightNow, hourDelta)
         val speed = when.getHour % 7 match
           case 0 | 4 => SuperBlitz
           case 1 | 5 => Blitz
           case 2     => HippoBullet
-          case 3 | 6 => Bullet
-        val variant = when.getHour % 3 match
+          case 3 | _ => Bullet
+        val variant = when.getHour % 4 match
           case 0 => ThreeCheck
           case 1 => Horde
+          case 2 => KingOfTheHill
           case _ => RacingKings
         List(Schedule(Hourly, speed, variant, none, when).plan) :::
           (speed == Bullet).so:

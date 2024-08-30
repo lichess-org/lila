@@ -41,11 +41,17 @@ function leftPos(time: number) {
   return (scale * (rounded - startTime)) / 1000 / 60;
 }
 
+const lanedVariants: VariantKey[] = ['crazyhouse', 'chess960', 'atomic', 'antichess'];
+
 function laneGrouper(t: Tournament): number {
   if (t.schedule && t.schedule.freq === 'unique') {
     return -1;
   } else if (t.variant.key !== 'standard') {
-    return 99;
+    if (lanedVariants.includes(t.variant.key)) {
+      return lanedVariants.indexOf(t.variant.key) + 90;
+    } else {
+      return 99;
+    }
   } else if (t.schedule && t.hasMaxRating) {
     return 50 + parseInt(t.fullName.slice(1, 5)) / 10000;
   } else if (t.schedule && t.schedule.speed === 'superBlitz') {
@@ -64,7 +70,7 @@ function group(arr: Tournament[], grouper: (t: Tournament) => number): Lane[] {
   let g;
   arr.forEach(e => {
     g = grouper(e);
-    if (groups[g]) groups[g]?.push(e);
+    if (groups[g]) groups[g]!.push(e);
     else groups[g] = [e];
   });
   return Object.keys(groups)
