@@ -33,6 +33,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
+  def app      = page("broadcaster-app", "app")
 
   def by(owner: UserStr, page: Int) = Open:
     Reasonable(page, Max(20)):
