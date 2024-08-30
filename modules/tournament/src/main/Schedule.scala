@@ -279,7 +279,7 @@ object Schedule:
 
   private val standardIncHours         = Set(1, 7, 13, 19)
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
-  private def variantInc(s: Schedule)  = s.at.getHour % 4 < 2
+  private def variantInc(s: Schedule)  = (s.at.getHour + s.variant.id.value) % 4 < 2
   private def topOfHour(s: Schedule)   = s.at.getMinute < 20
 
   private given Conversion[Int, LimitSeconds]     = LimitSeconds(_)
