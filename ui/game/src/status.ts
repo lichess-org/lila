@@ -15,6 +15,7 @@ export const ids: { [name in StatusName]: number } = {
   cheat: 36,
   noStart: 37,
   variantEnd: 60,
+  unknownFinish: 70,
 };
 
 export const statusOf = (name: StatusName): Status => ({ id: ids[name], name });
