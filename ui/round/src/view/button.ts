@@ -8,7 +8,7 @@ import { game as gameRoute } from 'game/router';
 import { RoundData } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
-import { LooseVNodes, LooseVNode, looseH as h, bind } from 'common/snabbdom';
+import { LooseVNodes, LooseVNode, looseH as h } from 'common/snabbdom';
 
 export interface ButtonState {
   enabled: boolean;
