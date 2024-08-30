@@ -228,6 +228,7 @@ class SchedulerTest extends munit.FunSuite:
   test("evening"):
     assertEquals(
       schedulesAt(instantOf(2023, 3, 31, 21, 58)).mkString("\n"),
+      schedulesAt(instantOf(2023, 3, 31, 21, 58)).mkString("\n"),
       List(
         """Unique standard rapid (10+0) Conditions() 2023-06-20T12:00:00Z""",
         """Yearly standard rapid (10+0) Conditions() 2023-04-13T17:00:00Z""",
