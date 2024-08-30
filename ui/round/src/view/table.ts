@@ -72,17 +72,16 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
       loading || isQuestion
         ? []
         : [
-            !d.game.source.startsWith('local') &&
-              (game.abortable(d)
-                ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
-                : button.standard(
-                    ctrl,
-                    d => ({ enabled: game.takebackable(d) }),
-                    licon.Back,
-                    'proposeATakeback',
-                    'takeback-yes',
-                    ctrl.takebackYes,
-                  )),
+            game.abortable(d)
+              ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
+              : button.standard(
+                  ctrl,
+                  d => ({ enabled: game.takebackable(d) }),
+                  licon.Back,
+                  'proposeATakeback',
+                  'takeback-yes',
+                  ctrl.takebackYes,
+                ),
             ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
               : ctrl.data.game.threefold
