@@ -22,7 +22,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
           h('i.line'),
           h('name', renderUser.aiName(ctrl, player.ai)),
         ])
-      : renderUser.userHtml(ctrl, player, position);
+      : (ctrl.opts.local?.userVNode(player, position) ?? renderUser.userHtml(ctrl, player, position));
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
@@ -34,14 +34,14 @@ const renderTableWith = (ctrl: RoundController, buttons: LooseVNodes) => [
   buttons.find(x => !!x) && h('div.rcontrols', buttons),
 ];
 
-export const renderTableEnd = (ctrl: RoundController) =>
+export const renderTableEnd = (ctrl: RoundController): LooseVNodes =>
   renderTableWith(ctrl, [
     isLoading(ctrl)
       ? loader()
       : button.backToTournament(ctrl) || button.backToSwiss(ctrl) || button.followUp(ctrl),
   ]);
 
-export const renderTableWatch = (ctrl: RoundController) =>
+export const renderTableWatch = (ctrl: RoundController): LooseVNodes =>
   renderTableWith(ctrl, [
     isLoading(ctrl) ? loader() : game.playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
   ]);
@@ -64,7 +64,7 @@ const prompt = (ctrl: RoundController) => {
   };
 };
 
-export const renderTablePlay = (ctrl: RoundController) => {
+export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
     { promptVNode, isQuestion } = prompt(ctrl),
@@ -72,16 +72,17 @@ export const renderTablePlay = (ctrl: RoundController) => {
       loading || isQuestion
         ? []
         : [
-            game.abortable(d)
-              ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
-              : button.standard(
-                  ctrl,
-                  d => ({ enabled: game.takebackable(d) }),
-                  licon.Back,
-                  'proposeATakeback',
-                  'takeback-yes',
-                  ctrl.takebackYes,
-                ),
+            !d.game.source.startsWith('local') &&
+              (game.abortable(d)
+                ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
+                : button.standard(
+                    ctrl,
+                    d => ({ enabled: game.takebackable(d) }),
+                    licon.Back,
+                    'proposeATakeback',
+                    'takeback-yes',
+                    ctrl.takebackYes,
+                  )),
             ctrl.drawConfirm
               ? button.drawConfirm(ctrl)
               : ctrl.data.game.threefold

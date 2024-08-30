@@ -35,6 +35,6 @@ export function subscribe(ctrl: RoundController): void {
   });
 }
 
-export function publish(d: RoundData, move: ApiMove) {
+export function publish(d: RoundData, move: ApiMove): void {
   if (d.opponent.ai) site.storage.fire('ceval.fen', move.fen);
 }

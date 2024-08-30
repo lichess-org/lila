@@ -41,8 +41,8 @@ const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, incre
 
 export default class SetupController {
   root: LobbyController;
-  store: Record<GameType, StoredJsonProp<SetupStore>>;
-  gameType: GameType | null = null;
+  store: Record<Exclude<GameType, 'local'>, StoredJsonProp<SetupStore>>;
+  gameType: Exclude<GameType, 'local'> | null = null;
   lastValidFen = '';
   fenError = false;
   friendUser = '';
@@ -190,7 +190,11 @@ export default class SetupController {
 
   private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
-  openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
+  openModal = (
+    gameType: Exclude<GameType, 'local'>,
+    forceOptions?: ForceSetupOptions,
+    friendUser?: string,
+  ) => {
     this.root.leavePool();
     this.gameType = gameType;
     this.loading = false;

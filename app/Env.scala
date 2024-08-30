@@ -138,7 +138,6 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       assetBaseUrl = get[AssetBaseUrl]("asset.base_url"),
       assetBaseUrlInternal = get[AssetBaseUrlInternal]("asset.base_url_internal"),
       minifiedAssets = get[Boolean]("asset.minified"),
-      externalManifest = get[Boolean]("asset.external_manifest"),
       stageBanner = get[Boolean]("stage.banner"),
       siteName = get[String]("site.name"),
       socketDomains = get[List[String]]("socket.domains"),

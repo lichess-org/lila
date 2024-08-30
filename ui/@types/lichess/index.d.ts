@@ -150,18 +150,20 @@ interface QuestionOpts {
   no?: QuestionChoice;
 }
 
-type SoundMove = (opts?: {
-  // file://./../../site/src/sound.ts
+type SoundMoveOpts = {
   name?: string; // either provide this or valid san/uci
   san?: string;
   uci?: string;
-  filter?: 'music' | 'game'; // undefined allows either
-}) => void;
+  volume?: number;
+  filter?: 'music' | 'game';
+};
+
+type SoundMove = (opts?: SoundMoveOpts) => void;
 
 interface SoundI {
   // file://./../../site/src/sound.ts
   ctx?: AudioContext;
-  load(name: string, path?: string): void;
+  load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
   move: SoundMove;
@@ -255,7 +257,7 @@ interface LichessAnnouncement {
 }
 
 interface LichessEditor {
-  getFen(): CgFEN;
+  getFen(): Cg.FEN;
   setOrientation(o: Color): void;
 }
 
@@ -367,6 +369,9 @@ declare type Key = 'a0' | `${Files}${Ranks}`;
 declare type Uci = string;
 declare type San = string;
 declare type Ply = number;
+declare type Seconds = number;
+declare type Centis = number;
+declare type Millis = number;
 
 interface Variant {
   key: VariantKey;
@@ -391,7 +396,7 @@ interface EvalScore {
 }
 
 interface MiniGameUpdateData {
-  fen: CgFEN;
+  fen: Cg.FEN;
   lm: Uci;
   wc?: number;
   bc?: number;

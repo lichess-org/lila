@@ -28,7 +28,7 @@ const longArgs = args.map(x => x[0]);
 const shortArgs = args.map(x => x[1] && x[1][1]).filter(x => x);
 type Builder = 'sass' | 'tsc' | 'esbuild';
 
-export function main() {
+export function main(): void {
   const args = ps.argv.slice(2);
   const oneDashArgs = args.filter(x => /^-([a-z]+)$/.test(x))?.flatMap(x => x.slice(1).split(''));
   oneDashArgs.filter(x => !shortArgs.includes(x)).forEach(arg => env.exit(`Unknown flag '-${arg}'`));
@@ -96,7 +96,7 @@ const colorLines = (text: string, code: string) =>
     .map(t => (env.color ? escape(t, code) : t))
     .join('\n');
 
-export const colors = {
+export const colors: Record<string, (text: string) => string> = {
   red: (text: string): string => colorLines(text, codes.red),
   green: (text: string): string => colorLines(text, codes.green),
   yellow: (text: string): string => colorLines(text, codes.yellow),
@@ -112,11 +112,11 @@ export const colors = {
 };
 
 class Env {
-  rootDir = path.resolve(__dirname, '../../..'); // absolute path to lila project root
+  rootDir: string = path.resolve(__dirname, '../../..'); // absolute path to lila project root
 
-  deps: Map<string, string[]>;
-  modules: Map<string, LichessModule>;
-  building: LichessModule[];
+  deps: Map<string, string[]> = new Map();
+  modules: Map<string, LichessModule> = new Map();
+  building: LichessModule[] = [];
 
   watch = false;
   rebuild = false;
@@ -126,7 +126,7 @@ class Env {
   rgb = false;
   install = true;
   copies = true;
-  exitCode = new Map<Builder, number | false>();
+  exitCode: Map<Builder, number | false> = new Map();
   startTime: number | undefined = Date.now();
   logTime = true;
   logContext = true;
@@ -148,8 +148,8 @@ class Env {
     return this.exitCode.get('esbuild') !== false;
   }
   get manifestOk(): boolean {
-    return ['tsc', 'esbuild', 'sass'].every(
-      (x: Builder) => this.exitCode.get(x) === 0 || this.exitCode.get(x) === false,
+    return (['tsc', 'esbuild', 'sass'] as const).every(
+      x => this.exitCode.get(x) === 0 || this.exitCode.get(x) === false,
     );
   }
   get uiDir(): string {
@@ -185,20 +185,20 @@ class Env {
   get manifestFile(): string {
     return path.join(this.jsDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
   }
-  warn(d: any, ctx = 'build') {
+  warn(d: any, ctx = 'build'): void {
     this.log(d, { ctx: ctx, warn: true });
   }
-  error(d: any, ctx = 'build') {
+  error(d: any, ctx = 'build'): void {
     this.log(d, { ctx: ctx, error: true });
   }
-  exit(d: any, ctx = 'build') {
+  exit(d: any, ctx = 'build'): void {
     this.log(d, { ctx: ctx, error: true });
     process.exit(1);
   }
-  good(ctx = 'build') {
+  good(ctx = 'build'): void {
     this.log(colors.good('No errors') + env.watch ? ` - ${colors.grey('Watching')}...` : '', { ctx: ctx });
   }
-  log(d: any, { ctx = 'build', error = false, warn = false } = {}) {
+  log(d: any, { ctx = 'build', error = false, warn = false }: any = {}): void {
     let text: string =
       !d || typeof d === 'string' || d instanceof Buffer
         ? String(d)
@@ -235,7 +235,6 @@ class Env {
         ctx: ctx,
       },
     );
-
     if (allDone) {
       if (!err) postBuild();
       if (this.startTime && !err)
@@ -248,9 +247,9 @@ class Env {
   }
 }
 
-export const env = new Env();
+export const env: Env = new Env();
 
-export const codes: any = {
+export const codes: Record<string, string> = {
   black: '30',
   red: '31',
   green: '32',
@@ -275,8 +274,8 @@ function stripColorEscapes(text: string) {
   return text.replace(/\x1b\[[0-9;]*m/, '');
 }
 
-export const errorMark = colors.red('✘ ') + colors.error('[ERROR]');
-export const warnMark = colors.yellow('⚠ ') + colors.warn('[WARNING]');
+export const errorMark: string = colors.red('✘ ') + colors.error('[ERROR]');
+export const warnMark: string = colors.yellow('⚠ ') + colors.warn('[WARNING]');
 
 function prettyTime() {
   const now = new Date();

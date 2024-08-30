@@ -103,6 +103,21 @@
     &.button-green:hover {
       color: $c-secondary;
     }
+
+    &.button-brag,
+    &.button-brag:hover {
+      color: $c-brag;
+    }
+
+    &.button-dim,
+    &.button-dim:hover {
+      color: $c-font-dim;
+    }
+
+    &.button-clas,
+    &.button-clas:hover {
+      color: $c-clas;
+    }
   }
 
   &.button-metal {
@@ -115,6 +130,14 @@
 
     &:not(.disabled):hover {
       @extend %metal-hover;
+    }
+  }
+
+  &.button-inverse {
+    @extend %metal-inverse;
+
+    &:not(.disabled):hover {
+      @extend %metal-inverse-hover;
     }
   }
 

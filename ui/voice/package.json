@@ -16,6 +16,7 @@
     "@types/audioworklet": "^0.0.54",
     "chess": "workspace:*",
     "common": "workspace:*",
+    "game": "workspace:*",
     "snabbdom": "3.5.1",
     "vosk-browser": "^0.0.8"
   },

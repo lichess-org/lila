@@ -10,12 +10,12 @@ export default class MoveOn {
     private key: string,
   ) {}
 
-  toggle = () => {
+  toggle = (): void => {
     this.storage.toggle();
     this.next(true);
   };
 
-  get = this.storage.get;
+  get: () => boolean = this.storage.get;
 
   private redirect = (href: string) => {
     this.ctrl.setRedirecting();

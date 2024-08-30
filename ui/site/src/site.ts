@@ -55,6 +55,6 @@ s.displayLocale = displayLocale;
 s.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
 s.blindMode = document.body.classList.contains('blind-mode');
 s.makeChat = data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
-s.makeChessground = Chessground;
+s.makeChessground = (element: HTMLElement, config?: CgConfig) => Chessground(element, config);
 s.log = makeLog();
 s.load.then(boot);

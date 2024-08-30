@@ -1,6 +1,7 @@
 import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
-import { escapeHtml } from './common';
+import { escapeHtml, frag } from './common';
+import { eventJanitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';
 
@@ -14,7 +15,7 @@ export interface Dialog {
   showModal(): Promise<Dialog>; // resolves on close
   show(): Promise<Dialog>; // resolves on close
   updateActions(actions?: Action | Action[]): void; // set new actions, reattach existing if no arg provided
-  close(): void;
+  close(returnValue?: string): void;
 }
 
 export interface DialogOpts {
@@ -25,7 +26,8 @@ export interface DialogOpts {
   htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
   append?: { node: HTMLElement; where?: string; how?: 'after' | 'before' | 'child' }[]; // default 'child'
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
-  actions?: Action | Action[]; // if present, add listeners to action buttons
+  focus?: string; // query selector for element to focus on show
+  actions?: Action | Action[]; // add listeners to controls
   onClose?: (dialog: Dialog) => void; // called when dialog closes
   noCloseButton?: boolean; // if true, no upper right corner close button
   noClickAway?: boolean; // if true, no click-away-to-close
@@ -47,9 +49,10 @@ export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
 
 // Actions are managed listeners / results that are easily refreshed on DOM changes
 // if no event is specified, then 'click' is assumed
+// if no selector is given, then the handler is attached to the view div
 export type Action =
-  | { selector: string; event?: string | string[]; listener: ActionListener }
-  | { selector: string; event?: string | string[]; result: string };
+  | { selector?: string; event?: string | string[]; listener: ActionListener }
+  | { selector?: string; event?: string | string[]; result: string };
 
 // Safari versions before 15.4 need a polyfill for dialog. this "ready" promise resolves when that's loaded
 export const ready: Promise<boolean> = site.load.then(async () => {
@@ -75,7 +78,7 @@ export async function confirm(msg: string): Promise<boolean> {
     (
       await domDialog({
         htmlText: `<div>${escapeHtml(msg)}</div>
-      <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
+          <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
@@ -90,7 +93,7 @@ export async function confirm(msg: string): Promise<boolean> {
 }
 
 // when opts contains 'show', this promise resolves as show/showModal (on dialog close) so check returnValue
-// if not, this promise resolves once assets are loaded and things are fully constructed but not shown
+// otherwise, this promise resolves once assets are loaded and things are fully constructed but not shown
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   const [html] = await loadAssets(o);
 
@@ -100,7 +103,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   if (o.parent) dialog.style.position = 'absolute';
 
   if (!o.noCloseButton) {
-    const anchor = $as<Element>('<div class="close-button-anchor">');
+    const anchor = frag<Element>('<div class="close-button-anchor">');
     anchor.innerHTML = `<button class="close-button" aria-label="Close" data-icon="${licon.X}">`;
     dialog.appendChild(anchor);
   }
@@ -111,7 +114,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
-  const scrollable = $as<Element>(`<div class="${o.noScrollable ? 'not-' : ''}scrollable">`);
+  const scrollable = frag<Element>(`<div class="${o.noScrollable ? 'not-' : ''}scrollable">`);
   scrollable.appendChild(view);
   dialog.appendChild(scrollable);
 
@@ -174,8 +177,8 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 class DialogWrapper implements Dialog {
   private restore?: { focus?: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
-  private actionCleanup: { el: Element; type: string; listener: EventListener }[] = [];
-  private dialogCleanup: { el: Element; type: string; listener: EventListener }[] = [];
+  private actionEvents = eventJanitor();
+  private dialogEvents = eventJanitor();
   private observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
@@ -203,18 +206,21 @@ class DialogWrapper implements Dialog {
     };
     this.observer.observe(document.body, { childList: true, subtree: true });
     view.parentElement?.style.setProperty('---viewport-height', `${window.innerHeight}px`);
-    this.addEventListener(view, 'click', e => e.stopPropagation());
+    this.dialogEvents.addListener(view, 'click', e => e.stopPropagation());
 
-    this.addEventListener(dialog, 'cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
-    this.addEventListener(dialog, 'close', this.onRemove);
-    this.addEventListener(dialog.querySelector('.close-button-anchor > .close-button'), 'click', () =>
-      this.close('cancel'),
-    );
+    this.dialogEvents.addListener(dialog, 'cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
+    this.dialogEvents.addListener(dialog, 'close', this.onRemove);
+    if (!o.noCloseButton)
+      this.dialogEvents.addListener(
+        dialog.querySelector('.close-button-anchor > .close-button')!,
+        'click',
+        () => this.close('cancel'),
+      );
 
     if (!o.noClickAway)
       setTimeout(() => {
-        this.addEventListener(document.body, 'click', cancelOnInterval);
-        this.addEventListener(dialog, 'click', cancelOnInterval);
+        this.dialogEvents.addListener(document.body, 'click', cancelOnInterval);
+        this.dialogEvents.addListener(dialog, 'click', cancelOnInterval);
       });
     for (const app of o.append ?? []) {
       if (app.node === view) break;
@@ -224,6 +230,7 @@ class DialogWrapper implements Dialog {
       else where.appendChild(app.node);
     }
     this.updateActions();
+    this.dialogEvents.addListener(this.dialog, 'keydown', onKeydown);
   }
 
   get open(): boolean {
@@ -239,59 +246,45 @@ class DialogWrapper implements Dialog {
   }
 
   show = (): Promise<Dialog> => {
-    this.restore = {
-      overflow: document.body.style.overflow,
-    };
-    document.body.style.overflow = 'hidden';
-    this.returnValue = '';
     this.dialog.show();
+    this.autoFocus();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   showModal = (): Promise<Dialog> => {
-    this.restore = {
-      focus: document.activeElement as HTMLElement,
-      overflow: document.body.style.overflow,
-    };
-    (this.view.querySelectorAll(focusQuery)[1] as HTMLElement)?.focus();
-
-    this.addEventListener(this.dialog, 'keydown', onModalKeydown);
     this.view.scrollTop = 0;
-    document.body.style.overflow = 'hidden';
-    this.returnValue = '';
     this.dialog.showModal();
+    this.autoFocus();
     return new Promise(resolve => (this.resolve = resolve));
   };
 
   close = (v?: string) => {
-    this.dialog.close(this.returnValue || v || 'ok');
+    this.dialog.close(v || this.returnValue || 'ok');
   };
 
   // attach/reattach existing listeners or provide a set of new ones
   updateActions = (actions = this.o.actions) => {
-    for (const { el, type, listener } of this.actionCleanup) {
-      el.removeEventListener(type, listener);
-    }
-    this.actionCleanup = [];
+    this.actionEvents.removeAll();
     if (!actions) return;
     for (const a of Array.isArray(actions) ? actions : [actions]) {
       for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
-        for (const el of this.view.querySelectorAll(a.selector)) {
+        for (const el of a.selector ? this.view.querySelectorAll(a.selector) : [this.view]) {
           const listener =
             'listener' in a ? (e: Event) => a.listener(e, this, a) : () => this.close(a.result);
-          this.actionCleanup.push({ el, type: event, listener });
-          el.addEventListener(event, listener);
+          this.actionEvents.addListener(el, event, listener);
         }
       }
     }
   };
 
-  private addEventListener = (el: Element | null, type: string, listener: EventListener) => {
-    if (!el) return;
-    this.dialogCleanup.push({ el, type, listener });
-    el.addEventListener(type, listener);
-  };
-
+  private autoFocus() {
+    const focus = (
+      this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelectorAll(focusQuery)[1]
+    ) as HTMLElement;
+    if (!focus) return;
+    focus.focus();
+    if (focus instanceof HTMLInputElement) focus.select();
+  }
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
@@ -305,9 +298,8 @@ class DialogWrapper implements Dialog {
       if ('hashed' in css) site.asset.removeCssPath(css.hashed);
       else if ('url' in css) site.asset.removeCss(css.url);
     }
-    for (const { el, type, listener } of this.dialogCleanup) {
-      el.removeEventListener(type, listener);
-    }
+    this.actionEvents.removeAll();
+    this.dialogEvents.removeAll();
   };
 }
 
@@ -324,7 +316,7 @@ function loadAssets(o: DialogOpts) {
   ]);
 }
 
-function onModalKeydown(e: KeyboardEvent) {
+function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Tab') {
     const $focii = $(focusQuery, e.currentTarget as Element),
       first = $as<HTMLElement>($focii.first()),

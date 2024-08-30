@@ -83,8 +83,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     cclock(o: { white: number; black: number }) {
       if (ctrl.corresClock) {
-        ctrl.data.correspondence.white = o.white;
-        ctrl.data.correspondence.black = o.black;
+        ctrl.data.correspondence!.white = o.white;
+        ctrl.data.correspondence!.black = o.black;
         ctrl.corresClock.update(o.white, o.black);
         ctrl.redraw();
       }
