@@ -1,10 +1,6 @@
-// eslint-disable-next-line
 /// <reference path="./tree.d.ts" />
-// eslint-disable-next-line
 /// <reference path="./chessground.d.ts" />
-// eslint-disable-next-line
 /// <reference path="./voice.d.ts" />
-// eslint-disable-next-line
 /// <reference path="./cash.d.ts" />
 
 // file://./../../site/src/site.ts

@@ -45,7 +45,7 @@
     "watch-format": "onchange \"**/*\" -- prettier --write --log-level warn {{changed}}",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint ui",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",

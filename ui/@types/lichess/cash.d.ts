@@ -18,7 +18,6 @@ interface CashStatic {
   each<T>(arr: ArrayLike<T>, callback: EachCallback<T>): void;
   guid: number;
   isWindow(x: any): x is Window;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   isFunction(x: any): x is Function;
   isNumeric(x: any): boolean;
   isArray(x: any): x is Array<any>;
@@ -100,7 +99,6 @@ declare class Cash {
   one(events: string, selector: string, callback: EventCallback): this;
   one(events: string, data: any, callback: EventCallback): this;
   one(events: string, selector: string | null | undefined, data: any, callback: EventCallback): this;
-  // eslint-disable-next-line @typescript-eslint/ban-types
   ready(callback: Function): this;
   trigger(event: Event | string, data?: any): this;
   val(): string | string[];

@@ -316,7 +316,7 @@ export default class SetupController {
         method: 'post',
         body: this.propsToFormData(color),
       });
-    } catch (e) {
+    } catch (_) {
       this.loading = false;
       this.root.redraw();
       alert('Sorry, we encountered an error while creating your game. Please try again.');

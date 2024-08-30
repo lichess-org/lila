@@ -12,63 +12,65 @@ export function stopTsc(): void {
 }
 
 export async function tsc(): Promise<void> {
-  return new Promise(async (resolve, reject) => {
-    if (!env.tsc) return resolve();
+  return new Promise((resolve, reject) =>
+    (async () => {
+      if (!env.tsc) return resolve();
 
-    const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
-    const cfg: any = { files: [] };
-    cfg.references = env.building
-      .filter(x => x.hasTsconfig)
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
+      const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
+      const cfg: any = { files: [] };
+      cfg.references = env.building
+        .filter(x => x.hasTsconfig)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
 
-    const declModules = new Set<string>();
-    // verify that tsconfig references are correct
-    for (const tsconfig of cfg.references) {
-      if (!tsconfig?.path) continue;
-      if (!fs.existsSync(tsconfig.path)) env.exit(`${errorMark} - Missing: '${c.cyan(tsconfig.path)}'`);
-      const ref = JSON5.parse(await fs.promises.readFile(tsconfig.path, 'utf8'));
-      const module = path.basename(path.dirname(tsconfig.path));
-      for (const dep of env.deps.get(module) ?? []) {
-        if (!ref.references?.some((x: any) => x.path.endsWith(path.join(dep, 'tsconfig.json'))))
-          env.warn(
-            `${warnMark} - Module ${c.grey(module)} depends on ${c.grey(dep)} with no reference in '${c.cyan(
-              module + '/tsconfig.json',
-            )}'`,
-            'tsc',
-          );
-      }
-      ref.references?.forEach((x: any) => declModules.add(/\/([^/]+)\/tsconfig\.json/.exec(x.path)![1]));
-    }
-
-    await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
-    const thisPs = (tscPs = cps.spawn('.build/node_modules/.bin/tsc', [
-      '-b',
-      cfgPath,
-      ...(env.watch ? ['-w', '--preserveWatchOutput'] : ['--incremental']),
-    ]));
-
-    env.log(`Compiling typescript`, { ctx: 'tsc' });
-
-    thisPs.stdout?.on('data', (buf: Buffer) => {
-      const txts = lines(buf.toString('utf8'));
-      for (const txt of txts) {
-        if (txt.includes('Found 0 errors')) {
-          resolve();
-          env.done(0, 'tsc');
-        } else {
-          tscLog(txt);
+      const declModules = new Set<string>();
+      // verify that tsconfig references are correct
+      for (const tsconfig of cfg.references) {
+        if (!tsconfig?.path) continue;
+        if (!fs.existsSync(tsconfig.path)) env.exit(`${errorMark} - Missing: '${c.cyan(tsconfig.path)}'`);
+        const ref = JSON5.parse(await fs.promises.readFile(tsconfig.path, 'utf8'));
+        const module = path.basename(path.dirname(tsconfig.path));
+        for (const dep of env.deps.get(module) ?? []) {
+          if (!ref.references?.some((x: any) => x.path.endsWith(path.join(dep, 'tsconfig.json'))))
+            env.warn(
+              `${warnMark} - Module ${c.grey(module)} depends on ${c.grey(dep)} with no reference in '${c.cyan(
+                module + '/tsconfig.json',
+              )}'`,
+              'tsc',
+            );
         }
+        ref.references?.forEach((x: any) => declModules.add(/\/([^/]+)\/tsconfig\.json/.exec(x.path)![1]));
       }
-    });
-    thisPs.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
-    thisPs.addListener('close', code => {
-      thisPs.removeAllListeners();
-      if (code !== null) env.done(code, 'tsc');
-      if (code === 0) resolve();
-      else reject();
-    });
-  });
+
+      await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
+      const thisPs = (tscPs = cps.spawn('.build/node_modules/.bin/tsc', [
+        '-b',
+        cfgPath,
+        ...(env.watch ? ['-w', '--preserveWatchOutput'] : ['--incremental']),
+      ]));
+
+      env.log(`Compiling typescript`, { ctx: 'tsc' });
+
+      thisPs.stdout?.on('data', (buf: Buffer) => {
+        const txts = lines(buf.toString('utf8'));
+        for (const txt of txts) {
+          if (txt.includes('Found 0 errors')) {
+            resolve();
+            env.done(0, 'tsc');
+          } else {
+            tscLog(txt);
+          }
+        }
+      });
+      thisPs.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
+      thisPs.addListener('close', code => {
+        thisPs.removeAllListeners();
+        if (code !== null) env.done(code, 'tsc');
+        if (code === 0) resolve();
+        else reject();
+      });
+    })(),
+  );
 }
 
 function tscLog(text: string): void {
