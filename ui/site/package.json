@@ -19,7 +19,8 @@
       "src/site.ts",
       "src/site.tvEmbed.ts",
       "src/site.puzzleEmbed.ts",
-      "src/site.lpvEmbed.ts"
+      "src/site.lpvEmbed.ts",
+      "src/mic.ts"
     ],
     "sync": {
       "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "public/npm"

@@ -838,8 +838,10 @@ export default class RoundController implements MoveRootCtrl {
       this.keyboardMove.update(up);
     }
     if (this.data.pref.voiceMove) {
-      if (this.voiceMove) this.voiceMove.update(up);
-      else this.voiceMove = makeVoiceMove(this, up);
+      site.asset.loadEsm('mic').then(() => {
+        if (this.voiceMove) this.voiceMove.update(up);
+        else this.voiceMove = makeVoiceMove(this, up);
+      });
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
     site.pubsub.on('board.change', (is3d: boolean) => {
