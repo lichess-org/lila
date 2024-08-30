@@ -62,7 +62,7 @@ const checkoutStart = (stripePublicKey: string, pricing: Pricing): void => {
     const raw: string = prompt(this.title) || '';
     try {
       amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
-    } catch (e) {
+    } catch (_) {
       return false;
     }
     if (!amount) {

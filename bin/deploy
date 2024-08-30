@@ -104,41 +104,12 @@ def server_profile(ssh, *,
     }
 
 PROFILES = {
-    "http3-assets": asset_profile(
-        "root@http3.lichess.ovh",
-        post=curl_cli("change asset version", url="https://lichess.dev/run/cli"),
-        stage=True,
-    ),
-    "http3-server": server_profile(
-        "root@http3.lichess.ovh", post="systemctl restart lichess-stage", stage=True
-    ),
-    "snafu-assets": asset_profile(
-        "root@snafu.lichess.ovh",
-        post=curl_cli("change asset version", url="https://lichess.dev/run/cli"),
-        stage=True,
-    ),
-    "snafu-server": server_profile(
-        "root@snafu.lichess.ovh", post="systemctl restart lichess-stage", stage=True
-    ),
-    "testy-assets": asset_profile(
-        "root@snafu.lichess.ovh",
-        deploy_dir="/home/testy/deploy",
-        post=curl_cli(
-            "change asset version",
-            url="https://testy.lichess.dev/run/cli",
-            token_file="/home/testy/.testy-cli",
-        ),
-        stage=True,
-        user="testy",
-    ),
-    "testy-server": server_profile(
-        "root@snafu.lichess.ovh",
-        deploy_dir="/home/testy/deploy",
-        post="systemctl restart testy",
-        stage=True,
-        user="testy",
-        symlinks=None,
-    ),
+    "http3-assets": asset_profile("root@http3.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
+    "http3-server": server_profile("root@http3.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
+    "snafu-assets": asset_profile("root@snafu.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
+    "snafu-server": server_profile("root@snafu.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
+    "testy-assets": asset_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post=curl_cli("change asset version", url="https://testy.lichess.dev/run/cli", token_file="/home/testy/.testy-cli"), stage=True, user="testy"),
+    "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy", symlinks=None),
     "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
 }

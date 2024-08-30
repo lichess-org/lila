@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as fg from 'fast-glob';
-import { LichessModule, env, colors as c } from './main';
+import { LichessModule, env } from './main';
 
 export async function parseModules(): Promise<[Map<string, LichessModule>, Map<string, string[]>]> {
   const modules = new Map<string, LichessModule>();

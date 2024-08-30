@@ -6,9 +6,9 @@
   "license": "AGPL-3.0-or-later",
   "type": "commonjs",
   "dependencies": {
-    "@types/node": "^22.2.0",
+    "@types/node": "^22.5.1",
     "@types/tinycolor2": "^1.4.6",
-    "esbuild": "^0.23.0",
+    "esbuild": "^0.23.1",
     "fast-glob": "^3.3.2",
     "json5": "^2.2.3",
     "tinycolor2": "^1.6.0",

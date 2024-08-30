@@ -3,7 +3,6 @@ import { TournamentOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-// eslint-disable-next-line no-duplicate-imports
 import makeCtrl from './ctrl';
 import view from './view/main';
 

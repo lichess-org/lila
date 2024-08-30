@@ -273,7 +273,6 @@ const escape = (text: string, code: string): string => `\x1b[${code}m${stripColo
 const pad2 = (n: number) => (n < 10 ? `0${n}` : `${n}`);
 
 function stripColorEscapes(text: string) {
-  // eslint-disable-next-line no-control-regex
   return text.replace(/\x1b\[[0-9;]*m/, '');
 }
 

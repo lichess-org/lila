@@ -8,10 +8,6 @@ export function init(withBlur: boolean): void {
   window.addEventListener('focus', () => (lastFocus = Date.now()));
 }
 
-export function get(): boolean {
-  return lastFocus >= focusCutoff;
-}
+export const get = (): boolean => lastFocus >= focusCutoff;
 
-export function onMove(): number {
-  return (focusCutoff = Date.now() + 1000);
-}
+export const onMove = (): number => (focusCutoff = Date.now() + 1000);
