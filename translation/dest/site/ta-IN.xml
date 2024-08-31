@@ -364,6 +364,10 @@
     <item quantity="one">%s முக்கியமான விளையாட்டு தேவை</item>
     <item quantity="other">%s முக்கியமான விளையாட்டுகள் தேவை</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">நீங்கள் %1$s எண்ணிக்கைக்கும் அதிகமான %2$s ஆட்டங்கள் ஆடியிருக்க வேண்டும்</item>
+    <item quantity="other">நீங்கள் %1$s எண்ணிக்கைக்கும் அதிகமான %2$s ஆட்டங்கள் ஆடியிருக்க வேண்டும்</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டை விளையாட வேண்டும்</item>
     <item quantity="other">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டுகளை விளையாட வேண்டும்</item>
@@ -500,6 +504,7 @@
   <string name="editProfile">தகவல்களை  மாற்று</string>
   <string name="realName">உண்மையான பெயர்</string>
   <string name="setFlair">உங்கள் திறமையை அமைக்கவும்</string>
+  <string name="flair">உருவச்சிலை</string>
   <string name="youCanHideFlair">தளம் முழுவதும் அனைத்து பயனர் திறமைகளையும் மறைக்க ஒரு அமைப்பு உள்ளது.</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">நாடு அல்லது வட்டாரம்</string>
