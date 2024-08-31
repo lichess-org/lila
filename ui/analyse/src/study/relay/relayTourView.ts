@@ -346,7 +346,7 @@ const header = (ctx: RelayViewContext) => {
       h(
         'div.relay-tour__note',
         h('div', [
-          h('div', { hook: richHTML(d.note) }),
+          h('div', { hook: richHTML(d.note, false) }),
           h('small', 'This note is visible to contributors only.'),
         ]),
       ),
