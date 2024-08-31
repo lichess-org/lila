@@ -25,7 +25,6 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       },
     },
     tds([
-      h('span.is.color-icon.' + (hook.c || 'random')),
       hook.rating
         ? h('span.ulink.ulpt', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
         : noarg('anonymous'),
@@ -76,7 +75,6 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
       'thead',
       h('tr', [
         h('th'),
-        h('th', ctrl.trans('player')),
         h(
           'th',
           {

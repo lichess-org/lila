@@ -38,6 +38,7 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slett denne turneringen</string>
   <string name="definitivelyDeleteTournament">Slett hele turneringen for godt, sammen med alle rundene og alle partiene.</string>
+  <string name="showScores">Vis poeng for spillerne basert på resultater av partiene</string>
   <string name="replacePlayerTags">Valgfritt: erstatt spillernavn, ratinger og titler</string>
   <string name="periodInSeconds">Tidsrom i sekunder</string>
   <string name="periodInSecondsHelp">Valgfritt, hvor lenge man skal vente mellom forespørslene. Minst 2 sekunder, maks 60 sekunder. Standardinnstillingen er automatisk basert på antall seere.</string>

@@ -22,7 +22,6 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       },
     },
     tds([
-      h('span.is.color-icon.' + (seek.color || 'random')),
       seek.rating
         ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.username } }, seek.username)
         : 'Anonymous',
@@ -61,7 +60,7 @@ export default function (ctrl: LobbyController): MaybeVNodes {
         'thead',
         h(
           'tr',
-          ['', 'player', 'rating', 'time', 'mode'].map(header => h('th', ctrl.trans(header))),
+          ['player', 'rating', 'time', 'mode'].map(header => h('th', ctrl.trans(header))),
         ),
       ),
       h(

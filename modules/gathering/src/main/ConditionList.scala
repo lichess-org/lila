@@ -27,3 +27,5 @@ abstract class ConditionList(options: List[Option[Condition]]):
   def validRatings = (minRating, maxRating) match
     case (Some(min), Some(max)) => min.rating < max.rating
     case _                      => true
+
+  override def toString() = s"Conditions(${list.mkString(",")})"

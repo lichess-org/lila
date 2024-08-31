@@ -32,7 +32,6 @@ export interface Hook {
   u?: string; // username
   rating?: number;
   ra?: 1; // rated
-  c?: Color;
   action: 'cancel' | 'join';
   disabled?: boolean;
 }
@@ -43,7 +42,6 @@ export interface Seek {
   rating: number;
   mode: number;
   days?: number;
-  color: string;
   perf: {
     key: Exclude<Perf, 'fromPosition'>;
   };
