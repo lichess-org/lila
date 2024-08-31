@@ -341,7 +341,7 @@ const header = (ctx: RelayViewContext) => {
               : undefined,
       ),
     ]),
-    studyD && h('div.relay-tour__note.pinned', h('div', [h('div', { hook: richHTML(studyD) })])),
+    studyD && h('div.relay-tour__note.pinned', h('div', [h('div', { hook: richHTML(studyD, false) })])),
     d.note &&
       h(
         'div.relay-tour__note',
