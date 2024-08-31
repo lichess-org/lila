@@ -153,7 +153,7 @@ final class Setup(
             me       <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             uniqId = author.fold(_.value, u => s"sri:${u.id}")
-            res <- config.fixColor
+            res <- config
               .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
               .match
                 case Left(hook) =>
