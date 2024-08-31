@@ -112,7 +112,7 @@
   <string name="howToHideRatingWhilePlaying">چگونه هنگام بازی کردن درجه‌بندی‌ها را پنهان کنیم؟</string>
   <string name="enableZenMode">با فعال‌سازی حالت ذِن در %1$s، یا با زدن کلید %2$s حین بازی.</string>
   <string name="displayPreferences">تنظیمات نمایش</string>
-  <string name="connexionLostCanIGetMyRatingBack">من یک بازی را به خاطر قطعی/وقفه اینترنت باختم. آیا می‌توانم امتیاز درجه‌بندی‌ام را پس بگیرم؟</string>
+  <string name="connexionLostCanIGetMyRatingBack">من یک بازی را به خاطر وقفه/قطعی اینترنت باختم. آیا می‌توانم امتیاز درجه‌بندی‌ام را پس بگیرم؟</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">صرف‌نظر از اینکه مشکل از سمت شما بوده یا ما، متاسفانه ما نمی‌توانیم برای بازی‌های باخته به خاطر قطعی/وقفه اینترنت، امتیاز پس دهیم. هر چند حالت دوم بسیار نادر است. همچنین توجه داشته باشید که وقتی Lichess بازراه‌اندازی می‌شود و به همین خاطر، آن لحظه شما می‌بازید، ما بازی را لغو می‌کنیم تا از باخت ناعادلانه جلوگیری کنیم.</string>
   <string name="howToThreeDots">چگونه...</string>
   <string name="enableDisableNotificationPopUps">فعال یا غیرفعال سازی اعلان‌های بالاپَر؟</string>
