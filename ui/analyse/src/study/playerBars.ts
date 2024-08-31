@@ -60,7 +60,7 @@ function renderPlayer(
         player && userTitle(player),
         player &&
           (relayPlayers
-            ? h('a.name', relayPlayers.playerLinkConfig(player), player.name)
+            ? h(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
             : h(
                 fideId ? 'a.name' : 'span.name',
                 { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
