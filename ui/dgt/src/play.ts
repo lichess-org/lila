@@ -5,7 +5,7 @@ import { NormalMove } from 'chessops/types';
 import { board } from 'chessops/debug';
 import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
 
-export default function (token: string) {
+export default function (token: string): void {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
   const consoleOutput = document.getElementById('dgt-play-zone-log') as HTMLPreElement;
 

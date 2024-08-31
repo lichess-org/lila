@@ -3,11 +3,11 @@
 let lastFocus = 0;
 let focusCutoff = 0;
 
-export function init(withBlur: boolean) {
+export function init(withBlur: boolean): void {
   if (!withBlur) focusCutoff = Date.now() + 10000;
   window.addEventListener('focus', () => (lastFocus = Date.now()));
 }
 
-export const get = () => lastFocus >= focusCutoff;
+export const get = (): boolean => lastFocus >= focusCutoff;
 
-export const onMove = () => (focusCutoff = Date.now() + 1000);
+export const onMove = (): number => (focusCutoff = Date.now() + 1000);

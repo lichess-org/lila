@@ -3,10 +3,7 @@ import { storage } from './storage';
 
 export default async function () {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;
-  const workerUrl = new URL(
-    assetUrl(jsModule('serviceWorker'), { pathOnly: true }),
-    self.location.href, // eslint-disable-line no-restricted-globals
-  );
+  const workerUrl = new URL(assetUrl(jsModule('serviceWorker'), { pathOnly: true }), self.location.href);
   workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
   const reg = await navigator.serviceWorker.register(workerUrl.href, {
     scope: '/',

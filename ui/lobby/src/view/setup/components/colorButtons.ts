@@ -27,7 +27,7 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
   ),
 ];
 
-export const colorButtons = (ctrl: LobbyController) => {
+export const createButtons = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
 
   const enabledColors: (Color | 'random')[] = [];
@@ -35,9 +35,10 @@ export const colorButtons = (ctrl: LobbyController) => {
     enabledColors.push('random');
 
     const randomColorOnly =
-      setupCtrl.gameType !== 'ai' &&
-      setupCtrl.gameMode() === 'rated' &&
-      variantsWhereWhiteIsBetter.includes(setupCtrl.variant());
+      setupCtrl.gameType === 'hook' ||
+      (setupCtrl.gameType !== 'ai' &&
+        setupCtrl.gameMode() === 'rated' &&
+        variantsWhereWhiteIsBetter.includes(setupCtrl.variant()));
     if (!randomColorOnly) enabledColors.push('white', 'black');
   }
 
@@ -52,7 +53,7 @@ export const colorButtons = (ctrl: LobbyController) => {
               `button.button.button-metal.color-submits__button.${key}`,
               {
                 attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
-                on: { click: () => ctrl.setupCtrl.submit(key) },
+                on: { click: () => setupCtrl.submit(key) },
               },
               h('i'),
             ),

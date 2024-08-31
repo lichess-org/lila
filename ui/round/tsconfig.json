@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": { "noEmit": true },
-
+  "compilerOptions": { "emitDeclarationOnly": true },
   "references": [
     { "path": "../board/tsconfig.json" },
     { "path": "../chat/tsconfig.json" },

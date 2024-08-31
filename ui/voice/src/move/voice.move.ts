@@ -8,8 +8,8 @@ import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap, as } from 'common';
-import { type Transform, movesTo, findTransforms } from '../util';
+import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap } from 'common';
+import { type Transform, movesTo, findTransforms, as } from '../util';
 
 // shimmed to prevent pop-in while not overly complicating root controller's view construction <- wtf?
 export function makeVoiceMove(ctrl: MoveRootCtrl, initial: MoveUpdate): VoiceMove {

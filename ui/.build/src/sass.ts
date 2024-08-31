@@ -15,7 +15,7 @@ let sassPs: cps.ChildProcessWithoutNullStreams | undefined;
 let watcher: SassWatch | undefined;
 let awaitingFullBuild: boolean | undefined = undefined;
 
-export function stopSass() {
+export function stopSass(): void {
   sassPs?.removeAllListeners();
   sassPs?.kill();
   sassPs = undefined;

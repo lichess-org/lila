@@ -29,6 +29,9 @@
     @media (max-width: 600px) {
       flex-direction: column;
     }
+    td:first-child {
+      padding-inline-start: 2em;
+    }
   }
 
   .all-phrases-button {
