@@ -19,13 +19,13 @@ const current: { js: Manifest; css: Manifest; hashed: Manifest; dirty: boolean }
 
 let writeTimer: NodeJS.Timeout;
 
-export function writeManifest() {
+export function writeManifest(): void {
   if (!current.dirty) return;
   clearTimeout(writeTimer);
   writeTimer = setTimeout(write, 500);
 }
 
-export async function jsManifest(meta: es.Metafile) {
+export function jsManifest(meta: es.Metafile): void {
   const newJsManifest: Manifest = {};
   for (const [filename, info] of Object.entries(meta.outputs)) {
     const out = parsePath(filename);
@@ -48,7 +48,7 @@ export async function jsManifest(meta: es.Metafile) {
   current.dirty = true;
 }
 
-export async function cssManifest() {
+export async function cssManifest(): Promise<void> {
   const files = await globArray(path.join(env.cssTempDir, '*.css'));
   const css: { name: string; hash: string }[] = await Promise.all(files.map(hashMoveCss));
   const newCssManifest: Manifest = {};
@@ -59,7 +59,7 @@ export async function cssManifest() {
   writeManifest();
 }
 
-export async function hashedManifest() {
+export async function hashedManifest(): Promise<void> {
   const newHashLinks = new Map<string, number>();
   const alreadyHashed = new Map<string, string>();
   const sources: string[] = (

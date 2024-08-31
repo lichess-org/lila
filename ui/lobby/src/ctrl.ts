@@ -101,7 +101,7 @@ export default class LobbyController {
       }
 
       oldSafariDialogPolyfillReady.then(() => {
-        this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
+        this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();
       });
       history.replaceState(null, '', '/');

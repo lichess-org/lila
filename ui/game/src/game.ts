@@ -84,3 +84,16 @@ export const nbMoves = (data: GameData, color: Color): number =>
 
 export const isSwitchable = (data: GameData): boolean =>
   !hasAi(data) && (!!data.simul || isCorrespondence(data));
+
+export const clockToSpeed = (initial: Seconds, increment: Seconds): Exclude<Speed, 'correspondence'> => {
+  const total = initial + increment * 40;
+  return total < 30
+    ? 'ultraBullet'
+    : total < 180
+      ? 'bullet'
+      : total < 480
+        ? 'blitz'
+        : total < 1500
+          ? 'rapid'
+          : 'classical';
+};

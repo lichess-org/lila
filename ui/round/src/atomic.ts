@@ -2,7 +2,7 @@ import * as util from 'chessground/util';
 import * as cg from 'chessground/types';
 import RoundController from './ctrl';
 
-export function capture(ctrl: RoundController, key: cg.Key) {
+export function capture(ctrl: RoundController, key: cg.Key): void {
   const exploding: cg.Key[] = [],
     diff: cg.PiecesDiff = new Map(),
     orig = util.key2pos(key),

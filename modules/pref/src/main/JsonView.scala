@@ -40,6 +40,7 @@ object JsonView:
       "confirmResign" -> p.confirmResign,
       "insightShare"  -> p.insightShare,
       "keyboardMove"  -> p.keyboardMove,
+      "voiceMove"     -> p.hasVoice,
       "zen"           -> p.zen,
       "ratings"       -> p.ratings,
       "moveEvent"     -> p.moveEvent,

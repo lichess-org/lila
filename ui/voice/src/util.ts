@@ -76,3 +76,10 @@ export type Transform = {
   to: string; // zero or more tokens, (empty string for erasure)
   at: number; // index (unused now, previously for breadcrumbs)
 };
+
+export function as<T>(v: T, f: () => void): () => T {
+  return () => {
+    f();
+    return v;
+  };
+}

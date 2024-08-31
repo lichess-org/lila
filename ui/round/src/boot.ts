@@ -1,8 +1,9 @@
 import * as xhr from 'common/xhr';
-import { RoundOpts, RoundData, NvuiPlugin } from './interfaces';
+import { RoundOpts, RoundData } from './interfaces';
 import MoveOn from './moveOn';
 import { ChatCtrl } from 'chat';
 import { TourPlayer } from 'game';
+import RoundController from './ctrl';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
 
 interface RoundApi {
@@ -10,7 +11,10 @@ interface RoundApi {
   moveOn: MoveOn;
 }
 
-export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvui?: NvuiPlugin) => RoundApi) {
+export default async function (
+  opts: RoundOpts,
+  roundMain: (opts: RoundOpts) => Promise<RoundController>,
+): Promise<RoundController> {
   const data = opts.data;
   if (data.tournament) document.body.dataset.tournamentId = data.tournament.id;
   const socketUrl = opts.data.player.spectator
@@ -52,6 +56,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
       },
     },
   });
+  opts.socketSend = site.socket.send;
 
   const startTournamentClock = () => {
     if (data.tournament)
@@ -67,13 +72,8 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
     else if (d.game.status.id >= 30) return 'end';
     return;
   };
-  opts.element = document.querySelector('.round__app') as HTMLElement;
-  opts.socketSend = site.socket.send;
-
-  const round: RoundApi = roundMain(
-    opts,
-    site.blindMode ? await site.asset.loadEsm<NvuiPlugin>('round.nvui') : undefined,
-  );
+  const ctrl = await roundMain(opts);
+  const round: RoundApi = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };
   const chatOpts = opts.chat;
   if (chatOpts) {
     if (data.tournament?.top) {
@@ -106,4 +106,5 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
     alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
     site.socket.destroy();
   }
+  return ctrl;
 }

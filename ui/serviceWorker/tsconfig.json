@@ -1,7 +1,9 @@
 {
-  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["ES2017"],
+    "strict": true,
+    "module": "esnext",
+    "target": "es2017",
+    "lib": ["es2017"],
     "types": ["types-serviceworker"],
     "noEmit": true
   }

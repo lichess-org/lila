@@ -2,7 +2,7 @@ import * as xhr from 'common/xhr';
 import debounce from 'debounce-promise';
 import { initAll as initMiniBoards } from 'common/miniBoard';
 
-export function init() {
+export function init(): void {
   const debounced = debounce((str: string) => {
     const q = str.trim();
     if (q)
@@ -12,7 +12,6 @@ export function init() {
       });
     else {
       selectResults().addClass('none');
-      Promise.resolve();
     }
   }, 150);
   $('.opening__search-form__input').on('input', e => {
