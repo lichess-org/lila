@@ -3,9 +3,6 @@ import { Selector, Selectable } from 'common/selector';
 import { storedStringProp } from 'common/storage';
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
 
-// do not import this directly from './mic', use the export from the 'voice.ts' barrel
-// otherwise, we can end up with multiple instances due to code splitter confusion
-
 export const mic: Microphone = new (class implements Microphone {
   language = 'en';
 
@@ -14,7 +11,7 @@ export const mic: Microphone = new (class implements Microphone {
   micSource: AudioNode;
   vosk: VoskModule;
 
-  deviceId = storedStringProp('micDeviceId', 'default');
+  deviceId = storedStringProp('voice.micDeviceId', 'default');
   deviceIds?: string[];
 
   recs = new Selector<string, RecNode, Audio>();
@@ -27,9 +24,6 @@ export const mic: Microphone = new (class implements Microphone {
   interrupt = false;
   paused = 0;
 
-  constructor() {
-    console.log('we constructing');
-  }
   get lang() {
     return this.language;
   }

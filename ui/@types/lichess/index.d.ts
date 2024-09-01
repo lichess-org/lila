@@ -154,7 +154,7 @@ type SoundMoveOpts = {
 
 type SoundMove = (opts?: SoundMoveOpts) => void;
 
-type SoundListener = (event: 'start' | 'stop') => void;
+type SoundListener = (event: 'start' | 'stop', text?: string) => void;
 
 interface SoundI {
   // file://./../../site/src/sound.ts

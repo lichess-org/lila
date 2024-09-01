@@ -136,7 +136,7 @@ export default new (class implements SoundI {
       msg.lang = translated ? document.documentElement.lang : 'en-US';
       if (!isIOS()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
-        msg.onstart = () => this.listeners.forEach(l => l('start'));
+        msg.onstart = () => this.listeners.forEach(l => l('start', text));
         msg.onend = () => this.listeners.forEach(l => l('stop'));
       }
       speechSynthesis.speak(msg);
