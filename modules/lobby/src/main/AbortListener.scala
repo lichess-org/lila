@@ -1,6 +1,6 @@
 package lila.lobby
 
-import lila.core.game.Source
+import lila.core.game.*
 
 final private class AbortListener(
     userApi: lila.core.user.UserApi,
@@ -10,17 +10,29 @@ final private class AbortListener(
     fixedColor: scalalib.cache.ExpireSetMemo[GameId]
 )(using Executor):
 
-  def apply(pov: Pov): Funit =
-    pov.game.isCorrespondence
-      .so(recreateSeek(pov))
-      .andDo(cancelColorIncrement(pov))
-      .andDo(lobbyActor.registerAbortedGame(pov.game))
+  lila.common.Bus.subscribeFun("abortGame"):
+    case AbortedBy(pov) => onAbort(pov)
 
-  private def cancelColorIncrement(pov: Pov): Unit =
-    if pov.game.source.exists: s =>
-        s == Source.Lobby || s == Source.Pool && !fixedColor.get(pov.game.id)
+  lila.common.Bus.subscribeFun("finishGame"):
+    case FinishGame(game, _) if game.playedTurns < 12 => onEarlyResign(game)
+
+  private def filter(g: Game) = g.source.exists: s =>
+    s == Source.Lobby || s == Source.Pool
+
+  private def onAbort(pov: Pov): Funit =
+    filter(pov.game).so:
+      cancelBothColorIncrements(pov.game)
+      lobbyActor.registerAbortedGame(pov.game)
+      pov.game.isCorrespondence.so(recreateSeek(pov))
+
+  private def onEarlyResign(game: Game): Unit =
+    if filter(game)
+    then cancelBothColorIncrements(game)
+
+  private def cancelBothColorIncrements(game: Game): Unit =
+    if !fixedColor.get(game.id)
     then
-      pov.game.userIds match
+      game.userIds match
         case List(u1, u2) =>
           userApi.incColor(u1, Color.black)
           userApi.incColor(u2, Color.white)
