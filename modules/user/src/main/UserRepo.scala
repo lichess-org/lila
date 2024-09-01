@@ -136,19 +136,20 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         _.fold(ThreadLocalRandom.nextBoolean()): doc =>
           doc.string("_id") contains u1
       .addEffect: v =>
-        incColor(u1, if v then 1 else -1)
-        incColor(u2, if v then -1 else 1)
+        val u1Color = Color.fromWhite(v)
+        incColor(u1, u1Color)
+        incColor(u2, !u1Color)
 
   def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean] =
     (u1O, u2O).mapN(firstGetsWhite) | fuccess(ThreadLocalRandom.nextBoolean())
 
-  def incColor(userId: UserId, value: Int): Unit =
+  def incColor(userId: UserId, color: Color): Unit =
     coll
       .update(ordered = false, WriteConcern.Unacknowledged)
       .one(
         // limit to -3 <= colorIt <= 5 but set when undefined
-        $id(userId) ++ $doc(F.colorIt -> $not(if value < 0 then $lte(-3) else $gte(5))),
-        $inc(F.colorIt -> value)
+        $id(userId) ++ $doc(F.colorIt -> $not(color.fold($gte(5), $lte(-3)))),
+        $inc(F.colorIt -> color.fold(1, -1))
       )
 
   def setProfile(id: UserId, profile: Profile): Funit =
