@@ -44,11 +44,11 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
                 logger.info(s"Relay dedup cache hit ${round.id} ${round.name} ${url.toString}")
                 GamesSeenBy(games, seenBy + round.id)
               case _ =>
-                val futureGames = doFetch().addEffect: games =>
-                  if round.sync.hasDelay then store.putIfNew(url, games)
-                GamesSeenBy(futureGames, Set(round.id))
+                GamesSeenBy(doFetch(), Set(round.id))
         )
         .games
+        .addEffect: games =>
+          if round.sync.hasDelay then store.putIfNew(url, games)
 
   private object store:
 
