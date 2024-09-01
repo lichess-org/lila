@@ -238,15 +238,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     spinnerMask
   )
 
-  def userInTestBucket(using ctx: Context): Boolean =
-    ctx.userId.match
-      case Some(uid) =>
-        val hashBytes = java.security.MessageDigest.getInstance("SHA-256").digest(uid.value.getBytes("UTF-8"))
-        // hashBytes(0).toInt % 128 == 0
-        true
-      case _ =>
-        false
-
   object siteHeader:
 
     private val topnavToggle = spaceless:
