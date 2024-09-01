@@ -65,6 +65,7 @@ export default class StrongSocket {
   averageLag = 0;
   tryOtherUrl = false;
   autoReconnect = true;
+  pageWasUnloaded = false;
   nbConnects = 0;
   storage: LichessStorage = makeStorage.make(
     document.body.dataset.socketAlternates ? 'surl-alt' : 'surl17',
@@ -113,6 +114,7 @@ export default class StrongSocket {
     this.version = version;
     this.pubsub.on('socket.send', this.send);
     this.connect();
+    window.addEventListener('pagehide', () => (this.pageWasUnloaded = true));
   }
 
   sign = (s: string) => {
@@ -145,10 +147,11 @@ export default class StrongSocket {
         const cl = document.body.classList;
         cl.remove('offline');
         cl.add('online');
-        cl.toggle('reconnected', this.nbConnects > 1);
+        if (!this.pageWasUnloaded) cl.toggle('reconnected', this.nbConnects > 1);
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
         this.resendWhenOpen = [];
+        this.pageWasUnloaded = false;
         this.pubsub.emit('socket.open');
         this.ackable.resend();
       };
@@ -206,9 +209,11 @@ export default class StrongSocket {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.connectSchedule = setTimeout(() => {
-      document.body.classList.add('offline');
-      document.body.classList.remove('online');
-      $('#network-status').text(site ? siteTrans('reconnecting') : 'Reconnecting');
+      if (!this.pageWasUnloaded) {
+        document.body.classList.add('offline');
+        document.body.classList.remove('online');
+        $('#network-status').text(site ? siteTrans('reconnecting') : 'Reconnecting');
+      }
       if (!this.tryOtherUrl && isOnline()) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;

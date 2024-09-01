@@ -1,41 +1,12 @@
 import { objectStorage } from 'common/objectStorage';
 import { Selector, Selectable } from 'common/selector';
 import { storedStringProp } from 'common/storage';
-import { VoskModule } from 'voice';
+import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
 
-type Audio = { source?: AudioNode; ctx?: AudioContext };
+// do not import this directly from './mic', use the export from the 'voice.ts' barrel
+// otherwise, we can end up with multiple instances due to code splitter confusion
 
-class RecNode implements Selectable {
-  listenerMap = new Map<string, Voice.Listener>();
-  words: string[];
-  node?: AudioNode;
-  partial: boolean;
-
-  constructor(words: string[], partial: boolean) {
-    this.words = words;
-    this.partial = partial;
-  }
-
-  select(audio?: Audio) {
-    if (!audio?.source || !this.node) return;
-    audio.source.connect(this.node);
-    this.node.connect(audio.ctx!.destination);
-  }
-
-  deselect() {
-    this.node?.disconnect();
-  }
-
-  close() {
-    this.node = undefined;
-  }
-
-  get listeners(): Voice.Listener[] {
-    return [...this.listenerMap.values()].reverse(); // LIFO for interrupt
-  }
-}
-
-export const mic = new (class implements Voice.Microphone {
+export const mic: Microphone = new (class implements Microphone {
   language = 'en';
 
   audioCtx: AudioContext | undefined;
@@ -43,12 +14,12 @@ export const mic = new (class implements Voice.Microphone {
   micSource: AudioNode;
   vosk: VoskModule;
 
-  deviceId = storedStringProp('voice.micDeviceId', 'default');
+  deviceId = storedStringProp('micDeviceId', 'default');
   deviceIds?: string[];
 
   recs = new Selector<string, RecNode, Audio>();
   recId = 'default';
-  ctrl: Voice.Listener;
+  ctrl: Listener;
   download?: XMLHttpRequest;
   broadcastTimeout?: number;
   voskStatus = '';
@@ -56,6 +27,9 @@ export const mic = new (class implements Voice.Microphone {
   interrupt = false;
   paused = 0;
 
+  constructor() {
+    console.log('we constructing');
+  }
   get lang() {
     return this.language;
   }
@@ -78,7 +52,7 @@ export const mic = new (class implements Voice.Microphone {
 
   setMic(id: string) {
     const listening = this.isListening;
-    site.mic.stop();
+    this.stop();
     this.deviceId(id);
     this.recs.release();
     this.audioCtx?.close();
@@ -86,12 +60,12 @@ export const mic = new (class implements Voice.Microphone {
     if (listening) this.start();
   }
 
-  setController(ctrl: Voice.Listener) {
+  setController(ctrl: Listener) {
     this.ctrl = ctrl;
     this.ctrl('', 'status'); // hello
   }
 
-  addListener(listener: Voice.Listener, also: { recId?: string; listenerId?: string } = {}) {
+  addListener(listener: Listener, also: { recId?: string; listenerId?: string } = {}) {
     const recId = also.recId ?? 'default';
     if (!this.recs.group.has(recId)) throw `No recognizer for '${recId}'`;
     this.recs.group.get(recId)!.listenerMap.set(also.listenerId ?? recId, listener);
@@ -106,7 +80,7 @@ export const mic = new (class implements Voice.Microphone {
     also: {
       recId?: string;
       partial?: boolean;
-      listener?: Voice.Listener;
+      listener?: Listener;
       listenerId?: string;
     } = {},
   ) {
@@ -139,6 +113,7 @@ export const mic = new (class implements Voice.Microphone {
       this.vosk?.select(listen && this.recId);
       this.micTrack!.enabled = listen;
       this.busy = false;
+      site.sound.listeners.add(this.soundListener);
       this.broadcast(listen ? 'Listening...' : '', 'start');
     } catch (e: any) {
       if (e instanceof DOMException && e.name === 'NotAllowedError') this.stop(['No permission', 'error']);
@@ -147,7 +122,8 @@ export const mic = new (class implements Voice.Microphone {
     }
   }
 
-  stop(reason: [string, Voice.MsgType] = ['', 'stop']) {
+  stop(reason: [string, MsgType] = ['', 'stop']) {
+    site.sound.listeners.delete(this.soundListener);
     if (this.micTrack) this.micTrack.enabled = false;
     this.download?.abort();
     this.download = undefined;
@@ -155,19 +131,6 @@ export const mic = new (class implements Voice.Microphone {
     this.recs.set(false);
     this.vosk?.select(false);
     this.broadcast(...reason);
-  }
-
-  // pause/resume use a counter so calls must be balanced.
-  // short duration interruptions, use start/stop otherwise
-  pause() {
-    if (++this.paused !== 1 || !this.micTrack?.enabled) return;
-    this.micTrack.enabled = false;
-  }
-
-  resume() {
-    this.paused = Math.min(this.paused - 1, 0);
-    if (this.paused !== 0 || this.micTrack === undefined) return;
-    this.micTrack.enabled = !!this.recs.value;
   }
 
   get isListening(): boolean {
@@ -186,11 +149,11 @@ export const mic = new (class implements Voice.Microphone {
     this.interrupt = true;
   }
 
-  /*private*/ get micTrack(): MediaStreamTrack | undefined {
+  private get micTrack(): MediaStreamTrack | undefined {
     return this.mediaStream?.getAudioTracks()[0];
   }
 
-  /*private*/ initKaldi(recId: string, rec: RecNode) {
+  private initKaldi(recId: string, rec: RecNode) {
     if (rec.node) return;
     rec.node = this.vosk?.initRecognizer({
       recId: recId,
@@ -201,7 +164,7 @@ export const mic = new (class implements Voice.Microphone {
     });
   }
 
-  /*private*/ async initModel(): Promise<void> {
+  private async initModel(): Promise<void> {
     if (this.vosk?.isLoaded(this.lang)) {
       await this.initAudio();
       return;
@@ -213,13 +176,12 @@ export const mic = new (class implements Voice.Microphone {
     const audioAsync = this.initAudio();
 
     this.vosk ??= await site.asset.loadEsm<VoskModule>('voice.vosk');
-
     await downloadAsync;
     await this.vosk.initModel(modelUrl, this.lang);
     await audioAsync;
   }
 
-  /*private*/ async initAudio(): Promise<void> {
+  private async initAudio(): Promise<void> {
     if (this.audioCtx?.state === 'suspended') await this.audioCtx.resume();
     if (this.audioCtx?.state === 'running') return;
     else if (this.audioCtx) throw `Error ${this.audioCtx.state}`;
@@ -239,7 +201,7 @@ export const mic = new (class implements Voice.Microphone {
     this.recs.ctx = { source: this.micSource, ctx: this.audioCtx };
   }
 
-  /*private*/ broadcast(text: string, msgType: Voice.MsgType = 'status', forMs = 0) {
+  private broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
     this.ctrl?.call(this, text, msgType);
     if (msgType === 'status' || msgType === 'full') window.clearTimeout(this.broadcastTimeout);
     this.voskStatus = text;
@@ -250,7 +212,7 @@ export const mic = new (class implements Voice.Microphone {
     this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
   }
 
-  /*private*/ async downloadModel(emscriptenPath: string): Promise<void> {
+  private async downloadModel(emscriptenPath: string): Promise<void> {
     const voskStore = await objectStorage<any>({
       db: '/vosk',
       store: 'FILE_DATA',
@@ -297,6 +259,28 @@ export const mic = new (class implements Voice.Microphone {
     });
     voskStore.txn('readwrite').objectStore('FILE_DATA').index('timestamp');
   }
+
+  private soundListener = (event: 'start' | 'stop') => {
+    switch (event) {
+      case 'start':
+        return this.pause();
+      case 'stop':
+        return this.resume();
+    }
+  };
+
+  // pause/resume use a counter so calls must be balanced.
+  // short duration interruptions, use start/stop otherwise
+  private pause() {
+    if (++this.paused !== 1 || !this.micTrack?.enabled) return;
+    this.micTrack.enabled = false;
+  }
+
+  private resume() {
+    this.paused = Math.min(this.paused - 1, 0);
+    if (this.paused !== 0 || this.micTrack === undefined) return;
+    this.micTrack.enabled = !!this.recs.value;
+  }
 })();
 
 const models = new Map([
@@ -323,3 +307,35 @@ const models = new Map([
   ['uz', 'lifat/vosk/model-uz-0.22.tar.gz'],
   ['vi', 'lifat/vosk/model-vi-0.4.tar.gz'],
 ]);
+
+type Audio = { source?: AudioNode; ctx?: AudioContext };
+
+class RecNode implements Selectable {
+  listenerMap: Map<string, Listener> = new Map();
+  words: string[];
+  node?: AudioNode;
+  partial: boolean;
+
+  constructor(words: string[], partial: boolean) {
+    this.words = words;
+    this.partial = partial;
+  }
+
+  select(audio?: Audio): void {
+    if (!audio?.source || !this.node) return;
+    audio.source.connect(this.node);
+    this.node.connect(audio.ctx!.destination);
+  }
+
+  deselect(): void {
+    this.node?.disconnect();
+  }
+
+  close(): void {
+    this.node = undefined;
+  }
+
+  get listeners(): Listener[] {
+    return [...this.listenerMap.values()].reverse(); // LIFO for interrupt
+  }
+}

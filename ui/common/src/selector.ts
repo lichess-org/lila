@@ -56,8 +56,8 @@ export class Selector<K extends string = string, V extends Selectable = any, C =
     return false;
   }
 
-  has(key: string): boolean {
-    return this.group.has(key as K);
+  has(key: K): boolean {
+    return this.group.has(key);
   }
 
   release(key?: K): void {
