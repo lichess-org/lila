@@ -11,8 +11,8 @@ final private class AbortListener(
 )(using Executor):
 
   def apply(pov: Pov): Funit =
-    (pov.game.isCorrespondence
-      .so(recreateSeek(pov)))
+    pov.game.isCorrespondence
+      .so(recreateSeek(pov))
       .andDo(cancelColorIncrement(pov))
       .andDo(lobbyActor.registerAbortedGame(pov.game))
 
@@ -22,8 +22,8 @@ final private class AbortListener(
     then
       pov.game.userIds match
         case List(u1, u2) =>
-          userApi.incColor(u1, -1)
-          userApi.incColor(u2, 1)
+          userApi.incColor(u1, Color.black)
+          userApi.incColor(u2, Color.white)
         case _ =>
 
   private def recreateSeek(pov: Pov): Funit =
