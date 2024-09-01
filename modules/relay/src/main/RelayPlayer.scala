@@ -53,16 +53,16 @@ object RelayPlayer:
         )
         .add("ratingDiff" -> p.ratingDiff)
         .add("performance" -> p.performance)
-    def full(p: RelayPlayer, fidePlayer: Option[FidePlayer], tc: FideTC): JsObject =
-      val eloPlayer = p.rating
+    def full(tour: RelayTour)(p: RelayPlayer, fidePlayer: Option[FidePlayer]): JsObject =
+      val tc = tour.info.fideTcOrGuess
+      lazy val eloPlayer = p.rating
         .orElse(fidePlayer.flatMap(_.ratingOf(tc)))
         .map:
           Elo.Player(_, fidePlayer.fold(chess.KFactor.default)(_.kFactorOf(tc)))
       val gamesJson = p.games.map: g =>
-        val rd = for
-          ep <- eloPlayer
-          eg <- g.eloGame
-        yield Elo.computeRatingDiff(ep, List(eg))
+        val rd = tour.showRatingDiffs.so:
+          (eloPlayer, g.eloGame).tupled.map: (ep, eg) =>
+            Elo.computeRatingDiff(ep, List(eg))
         Json
           .obj(
             "round"    -> g.round,
@@ -103,15 +103,13 @@ private final class RelayPlayerApi(
   export cache.get
   export jsonCache.{ get as jsonList }
 
-  def player(tourId: RelayTourId, str: String): Fu[Option[JsObject]] =
+  def player(tour: RelayTour, str: String): Fu[Option[JsObject]] =
     val id = FideId.from(str.toIntOption) | PlayerName(str)
     for
-      players <- cache.get(tourId)
-      info    <- tourRepo.info(tourId)
-      tc     = info.fold(FideTC.standard)(_.fideTcOrGuess)
+      players <- cache.get(tour.id)
       player = players.get(id)
       fidePlayer <- player.flatMap(_.fideId).so(fidePlayerGet)
-    yield player.map(json.full(_, fidePlayer, tc))
+    yield player.map(json.full(tour)(_, fidePlayer))
 
   def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 

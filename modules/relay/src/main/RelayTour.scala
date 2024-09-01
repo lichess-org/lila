@@ -86,7 +86,7 @@ object RelayTour:
     val all = List(format, tc, fideTc, players).flatten
     export all.nonEmpty
     override def toString = all.mkString(" | ")
-    def fideTcOrGuess: FideTC = fideTc |
+    lazy val fideTcOrGuess: FideTC = fideTc |
       tc
         .map(_.trim.toLowerCase.replace("classical", "standard"))
         .flatMap: tcStr =>

@@ -216,7 +216,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def player(tourId: RelayTourId, id: String) = Anon:
     Found(env.relay.api.tourById(tourId)): tour =>
       val decoded = lila.common.String.decodeUriPathSegment(id) | id
-      val player  = env.relay.playerApi.player(tour.id, decoded)
+      val player  = env.relay.playerApi.player(tour, decoded)
       Found(player)(JsonOk)
 
   private given (using RequestHeader): JsonView.Config = JsonView.Config(html = getBool("html"))
