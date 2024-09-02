@@ -3,13 +3,12 @@ import * as prop from 'common/storage';
 import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import type { VoiceCtrl, VoiceModule } from './interfaces';
 import type { VoiceMove } from './move/interfaces';
-import { mic } from './mic';
+import { Mic } from './mic';
 import { flash } from './view';
 
 export * from './interfaces';
 export * from './move/interfaces';
 export { renderVoiceBar } from './view';
-export { mic } from './mic';
 
 export const supportedLangs: [string, string][] = [['en', 'English']];
 
@@ -29,20 +28,10 @@ export function makeVoice(opts: {
   module?: () => VoiceModule;
   tpe: 'move' | 'coords';
 }): VoiceCtrl {
-  function toggle() {
-    if (pushTalk()) {
-      enabled(false);
-      pushTalk(false);
-    } else enabled(!enabled()) ? mic.start() : mic.stop();
-    if (opts.tpe === 'move' && site.once('voice.rtfm')) showHelp(true);
-  }
-
-  function micId(deviceId?: string) {
-    if (deviceId) mic.setMic(deviceId);
-    return mic.micId;
-  }
-
+  let keyupTimeout: number;
+  const mic = new Mic();
   const enabled = prop.storedBooleanProp('voice.on', false);
+  const showHelp = propWithEffect<boolean | 'list'>(false, opts.redraw);
 
   const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
     mic.stop();
@@ -60,9 +49,8 @@ export function makeVoice(opts: {
         if (enabled()) mic.start(!pushTalk());
       });
   });
-  const showHelp = propWithEffect<boolean | 'list'>(false, opts.redraw);
+  mic.setLang(lang());
 
-  let keyupTimeout: number;
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key !== 'Shift' || !pushTalk()) return;
     mic.start();
@@ -74,11 +62,11 @@ export function makeVoice(opts: {
     keyupTimeout = setTimeout(() => mic.stop(), 600);
   });
 
-  mic.setLang(lang());
   if (pushTalk()) mic.start(false);
   else if (enabled()) mic.start(true);
 
   return {
+    mic,
     lang,
     micId,
     enabled,
@@ -90,16 +78,27 @@ export function makeVoice(opts: {
     module: () => opts.module?.(),
     moduleId: opts.tpe,
   };
+
+  function toggle() {
+    if (pushTalk()) {
+      enabled(false);
+      pushTalk(false);
+    } else enabled(!enabled()) ? mic.start() : mic.stop();
+    if (opts.tpe === 'move' && site.once('voice.rtfm')) showHelp(true);
+  }
+
+  function micId(deviceId?: string) {
+    if (deviceId) mic.setMic(deviceId);
+    return mic.micId;
+  }
 }
 
 export function makeVoiceMove(ctrl: MoveRootCtrl, initial: MoveUpdate): VoiceMove {
   let move: VoiceMove; // shim
-  const ui = makeVoice({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
-  site.asset
-    .loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, mic, initial } })
-    .then(x => (move = x));
+  const voice = makeVoice({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
+  site.asset.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, voice, initial } }).then(x => (move = x));
   return {
-    ui,
+    ctrl: voice,
     initGrammar: () => move?.initGrammar(),
     update: (up: MoveUpdate) => move?.update(up),
     listenForResponse: (key, action) => move?.listenForResponse(key, action),

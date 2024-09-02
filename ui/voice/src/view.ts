@@ -5,7 +5,6 @@ import { snabDialog, Dialog } from 'common/dialog';
 import { onClickAway } from 'common';
 import { Entry, VoiceCtrl, MsgType } from './interfaces';
 import { supportedLangs } from './voice';
-import { mic } from './mic';
 
 export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string): VNode {
   return h(`div#voice-bar${cls ? '.' + cls : ''}`, [
@@ -14,7 +13,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         hook: onInsert(el => el.addEventListener('click', () => ctrl.toggle())),
       }),
       h('span#voice-status', {
-        hook: onInsert(el => mic.setController(voiceBarUpdater(ctrl, el))),
+        hook: onInsert(el => ctrl.mic.setController(voiceBarUpdater(ctrl, el))),
       }),
       h('button#voice-help-button', {
         attrs: { 'data-icon': licon.InfoCircle, title: 'Voice help' },
@@ -46,10 +45,10 @@ export function flash(): void {
 function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
   const voiceBtn = $('button#microphone-button');
   return (txt: string, tpe: MsgType) => {
-    voiceBtn.toggleClass('listening', mic.isListening);
-    voiceBtn.toggleClass('busy', mic.isBusy);
-    voiceBtn.toggleClass('push-to-talk', ctrl.pushTalk() && !mic.isListening && !mic.isBusy);
-    voiceBtn.attr('data-icon', mic.isBusy ? licon.Cancel : licon.Voice);
+    voiceBtn.toggleClass('listening', ctrl.mic.isListening);
+    voiceBtn.toggleClass('busy', ctrl.mic.isBusy);
+    voiceBtn.toggleClass('push-to-talk', ctrl.pushTalk() && !ctrl.mic.isListening && !ctrl.mic.isBusy);
+    voiceBtn.attr('data-icon', ctrl.mic.isBusy ? licon.Cancel : licon.Voice);
 
     if (tpe !== 'partial') el.innerText = txt;
   };
@@ -110,7 +109,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
       {
         hook: onInsert((el: HTMLSelectElement) => {
           el.addEventListener('change', () => ctrl.micId(el.value));
-          mic.getMics().then(ds => {
+          ctrl.mic.getMics().then(ds => {
             devices = ds.length ? ds : [nullMic];
             redraw();
           });

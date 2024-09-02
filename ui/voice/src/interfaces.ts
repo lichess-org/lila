@@ -45,6 +45,7 @@ export interface Microphone {
 }
 
 export interface VoiceCtrl {
+  mic: Microphone;
   lang: (lang?: string) => string;
   micId: (deviceId?: string) => string;
   enabled: (enabled?: boolean) => boolean;
@@ -58,7 +59,7 @@ export interface VoiceCtrl {
 }
 
 export interface VoiceModule {
-  ui: VoiceCtrl;
+  ctrl: VoiceCtrl;
   initGrammar: (recId?: string) => Promise<void>;
   prefNodes: (redraw?: () => void) => VNode[];
   allPhrases: () => [string, string][];

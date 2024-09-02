@@ -2,7 +2,7 @@ import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
 import { throttlePromiseDelay } from 'common/throttle';
 import { withEffect } from 'common';
-import { makeVoice as makeVoiceCtrl, VoiceCtrl, mic } from 'voice';
+import { makeVoice, VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'common/storage';
 import { Api as CgApi } from 'chessground/api';
 import {
@@ -101,8 +101,8 @@ export default class CoordinateTrainerCtrl {
     site.mousetrap.bind('enter', () => (this.playing ? null : this.start()));
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
-    this.voice = makeVoiceCtrl({ redraw: this.redraw, tpe: 'coords' });
-    mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
+    this.voice = makeVoice({ redraw: this.redraw, tpe: 'coords' });
+    this.voice.mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
       partial: true,
       listener: this.onVoice.bind(this),
     });

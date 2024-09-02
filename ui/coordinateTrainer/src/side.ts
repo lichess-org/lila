@@ -3,7 +3,6 @@ import { bind } from 'common/snabbdom';
 import CoordinateTrainerCtrl from './ctrl';
 import { ColorChoice, TimeControl, Mode } from './interfaces';
 import { toggle } from 'common/controls';
-import { mic } from 'voice';
 
 const colors: [ColorChoice, string][] = [
   ['black', 'asBlack'],
@@ -97,9 +96,9 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
                 const target = e.target as HTMLInputElement;
                 ctrl.mode(target.value as Mode);
                 if (target.value === 'nameSquare') {
-                  if (ctrl.voice.enabled()) mic.start();
+                  if (ctrl.voice.enabled()) ctrl.voice.mic.start();
                 } else {
-                  mic.stop();
+                  ctrl.voice.mic.stop();
                 }
               },
               keyup: ctrl.onRadioInputKeyUp,

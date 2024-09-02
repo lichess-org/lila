@@ -3,48 +3,45 @@ import { Selector, Selectable } from 'common/selector';
 import { storedStringProp } from 'common/storage';
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
 
-export const mic: Microphone = new (class implements Microphone {
-  language = 'en';
-
-  audioCtx: AudioContext | undefined;
-  mediaStream: MediaStream;
-  micSource: AudioNode;
-  vosk: VoskModule;
-
-  deviceId = storedStringProp('voice.micDeviceId', 'default');
-  deviceIds?: string[];
-
-  recs = new Selector<string, RecNode, Audio>();
+export class Mic implements Microphone {
   recId = 'default';
-  ctrl: Listener;
-  download?: XMLHttpRequest;
-  broadcastTimeout?: number;
-  voskStatus = '';
-  busy = false;
-  interrupt = false;
-  paused = 0;
 
-  get lang() {
+  private language = 'en';
+  private audioCtx: AudioContext | undefined;
+  private mediaStream: MediaStream;
+  private micSource: AudioNode;
+  private vosk: VoskModule;
+  private deviceId = storedStringProp('voice.micDeviceId', 'default');
+  private recs = new Selector<string, RecNode, Audio>();
+  private ctrl: Listener;
+  private download?: XMLHttpRequest;
+  private broadcastTimeout?: number;
+  private voskStatus = '';
+  private busy = false;
+  private interrupt = false;
+  private paused = 0;
+
+  get lang(): string {
     return this.language;
   }
 
-  setLang(lang: string) {
+  setLang(lang: string): void {
     if (lang === this.language) return;
     this.stop();
     this.language = lang;
   }
 
-  async getMics() {
+  async getMics(): Promise<MediaDeviceInfo[]> {
     return navigator.mediaDevices
       .enumerateDevices()
       .then(d => d.filter(d => d.kind == 'audioinput' && d.label));
   }
 
-  get micId() {
+  get micId(): string {
     return this.deviceId();
   }
 
-  setMic(id: string) {
+  setMic(id: string): void {
     const listening = this.isListening;
     this.stop();
     this.deviceId(id);
@@ -54,18 +51,18 @@ export const mic: Microphone = new (class implements Microphone {
     if (listening) this.start();
   }
 
-  setController(ctrl: Listener) {
+  setController(ctrl: Listener): void {
     this.ctrl = ctrl;
     this.ctrl('', 'status'); // hello
   }
 
-  addListener(listener: Listener, also: { recId?: string; listenerId?: string } = {}) {
+  addListener(listener: Listener, also: { recId?: string; listenerId?: string } = {}): void {
     const recId = also.recId ?? 'default';
     if (!this.recs.group.has(recId)) throw `No recognizer for '${recId}'`;
     this.recs.group.get(recId)!.listenerMap.set(also.listenerId ?? recId, listener);
   }
 
-  removeListener(listenerId: string) {
+  removeListener(listenerId: string): void {
     this.recs.group.forEach(v => v.listenerMap.delete(listenerId));
   }
 
@@ -77,7 +74,7 @@ export const mic: Microphone = new (class implements Microphone {
       listener?: Listener;
       listenerId?: string;
     } = {},
-  ) {
+  ): void {
     if (words.length === 0) {
       this.recs.remove(also.recId);
       return;
@@ -89,7 +86,7 @@ export const mic: Microphone = new (class implements Microphone {
     if (also.listener) this.addListener(also.listener, { recId, listenerId: also.listenerId });
   }
 
-  setRecognizer(recId = 'default') {
+  setRecognizer(recId = 'default'): void {
     this.recId = recId;
     if (!this.isListening) return;
     this.recs.set(recId);
@@ -116,7 +113,7 @@ export const mic: Microphone = new (class implements Microphone {
     }
   }
 
-  stop(reason: [string, MsgType] = ['', 'stop']) {
+  stop(reason: [string, MsgType] = ['', 'stop']): void {
     site.sound.listeners.delete(this.soundListener);
     if (this.micTrack) this.micTrack.enabled = false;
     this.download?.abort();
@@ -139,7 +136,7 @@ export const mic: Microphone = new (class implements Microphone {
     return this.voskStatus;
   }
 
-  stopPropagation() {
+  stopPropagation(): void {
     this.interrupt = true;
   }
 
@@ -275,7 +272,7 @@ export const mic: Microphone = new (class implements Microphone {
     if (this.paused !== 0 || this.micTrack === undefined) return;
     this.micTrack.enabled = !!this.recs.value;
   }
-})();
+}
 
 const models = new Map([
   ['ca', 'lifat/vosk/model-ca-0.4.tar.gz'],
