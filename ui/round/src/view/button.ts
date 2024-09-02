@@ -8,7 +8,7 @@ import { game as gameRoute } from 'game/router';
 import { RoundData } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
-import { LooseVNodes, LooseVNode, looseH as h, bind } from 'common/snabbdom';
+import { LooseVNodes, LooseVNode, looseH as h } from 'common/snabbdom';
 
 export interface ButtonState {
   enabled: boolean;
@@ -29,11 +29,12 @@ function analysisButton(ctrl: RoundController): VNode | false {
   return (
     game.replayable(d) &&
     h(
-      'button.fbt',
+      'a.fbt',
       {
-        hook: bind('click', () => {
-          if (ctrl.opts.local) ctrl.opts.local.analyse();
-          else location.href = url;
+        attrs: { href: url },
+        hook: util.bind('click', _ => {
+          // force page load in case the URL is the same
+          if (location.pathname === url.split('#')[0]) location.reload();
         }),
       },
       ctrl.noarg('analysis'),
@@ -254,13 +255,11 @@ export function followUp(ctrl: RoundController): VNode {
     d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, ctrl.noarg('viewTournament')),
     newable &&
       h(
-        'button.fbt.new-opponent',
+        'a.fbt',
         {
-          hook: bind('click', () => {
-            if (d.game.source === 'local') ctrl.opts.local?.newOpponent();
-            else if (d.game.source === 'pool') location.href = poolUrl(d.clock!, d.opponent.user);
-            else location.href = '/?hook_like=' + d.game.id;
-          }),
+          attrs: {
+            href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id,
+          },
         },
         ctrl.noarg('newOpponent'),
       ),

@@ -49,11 +49,9 @@ final class Env(
   ): () =>
     wire[LobbySyncActor]
 
-  private lazy val abortListener = wire[AbortListener]
+  // eager initialization for Bus subscription
+  private val abortListener = wire[AbortListener]
 
   private lazy val biter = wire[Biter]
 
   val socket = wire[LobbySocket]
-
-  lila.common.Bus.subscribeFun("abortGame"):
-    case lila.core.game.AbortedBy(pov) => abortListener(pov)

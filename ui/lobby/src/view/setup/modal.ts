@@ -7,7 +7,7 @@ import { variantPicker } from './components/variantPicker';
 import { timePickerAndSliders } from './components/timePickerAndSliders';
 import { gameModeButtons } from './components/gameModeButtons';
 import { ratingDifferenceSliders } from './components/ratingDifferenceSliders';
-import { colorButtons } from './components/colorButtons';
+import { createButtons } from './components/colorButtons';
 import { ratingView } from './components/ratingView';
 import { fenInput } from './components/fenInput';
 import { levelButtons } from './components/levelButtons';
@@ -31,7 +31,7 @@ const views = {
       timePickerAndSliders(ctrl),
       gameModeButtons(ctrl),
       ratingDifferenceSliders(ctrl),
-      colorButtons(ctrl),
+      createButtons(ctrl),
     ]),
   ],
   friend: (ctrl: LobbyController): MaybeVNodes => [
@@ -42,7 +42,7 @@ const views = {
       fenInput(ctrl),
       timePickerAndSliders(ctrl, true),
       gameModeButtons(ctrl),
-      colorButtons(ctrl),
+      createButtons(ctrl),
     ]),
   ],
   ai: (ctrl: LobbyController): MaybeVNodes => [
@@ -52,7 +52,7 @@ const views = {
       fenInput(ctrl),
       timePickerAndSliders(ctrl, true),
       ...levelButtons(ctrl),
-      colorButtons(ctrl),
+      createButtons(ctrl),
     ]),
   ],
   local: (): MaybeVNodes => [],

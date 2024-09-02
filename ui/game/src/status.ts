@@ -14,6 +14,7 @@ export const ids: { [name in StatusName]: number } = {
   outoftime: 35,
   cheat: 36,
   noStart: 37,
+  unknownFinish: 38,
   variantEnd: 60,
 };
 

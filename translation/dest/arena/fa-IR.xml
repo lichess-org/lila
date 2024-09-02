@@ -79,7 +79,7 @@
   <string name="total">همه</string>
   <string name="pointsAvg">میانگین امتیازات</string>
   <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">جمع امتیازات</string>
-  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">میانگین رتبه بندی</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">میانگین رتبه</string>
   <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="tournamentShields">مسابقات سپرها</string>
   <string name="onlyTitled">تنها بازیکنان عنوان دار</string>

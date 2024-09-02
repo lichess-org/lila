@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Klase</string>
+  <string name="features">Mga tampok</string>
+  <string name="studentCredentials">Mag-aaral: %1$s
+Username: %2$s
+Password: %3$s</string>
+  <string name="inviteALichessAccount">Imbitahin ang isang Lichess akawnt</string>
+  <string name="inviteDesc1">Kapag mayroon nang Lichess akawnt ang mag-aaral, maaari mo silang imbitahin sa klase.</string>
+  <string name="lichessUsername">Lichess username</string>
+  <string name="invitationToClass">Inimbita ka na sumali sa klaseng \"%s\" bilang isang mag-aaral.</string>
+  <string name="clickToViewInvitation">Pindutin ang link para matingnan ang imbitasyon:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Isang nakabinbing imibitasyon</item>
+    <item quantity="other">%s mga nakabinbing imbitasyon</item>
+  </plurals>
+  <string name="releaseDesc2">Ang mag-aaral ay mananatili sa klase matapos magtapos ang akawnt niya.</string>
+  <string name="closeStudent">Isara ang akawnt</string>
+  <string name="closeTheAccount">Permanenteng isara ang akawnt ng mag-aaral.</string>
+  <string name="closeDesc1">Hindi na muli magagamit ng mag-aaral ang akawnt na ito. Ang pagsasarado ay pinal na. Siguraduhing naiintindihan at sumang-ayon ang mag-aaral.</string>
+  <string name="teachers">Mga guro</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Guro</item>
+    <item quantity="other">%s Mga guro</item>
+  </plurals>
+  <string name="noStudents">Wala pang mga mag-aaral sa klase sa ngayon.</string>
+  <string name="news">Mga balita</string>
+  <string name="classNews">Balita sa klase</string>
 </resources>

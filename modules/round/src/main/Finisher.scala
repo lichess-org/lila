@@ -66,7 +66,8 @@ final private class Finisher(
       winner: Option[Color],
       message: Option[Messenger.SystemMessage] = None
   )(using GameProxy): Fu[Events] =
-    apply(game, status, winner, message).andDo(playban.other(game, status, winner))
+    apply(game, status, winner, message).andDo:
+      playban.other(game, status(Status), winner)
 
   private def recordLagStats(game: Game) = for
     clock  <- game.clock

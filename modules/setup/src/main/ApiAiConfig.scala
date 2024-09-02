@@ -17,7 +17,8 @@ final case class ApiAiConfig(
     level: Int,
     fen: Option[Fen.Full] = None
 ) extends Config
-    with Positional:
+    with Positional
+    with WithColor:
 
   val strictFen = false
 

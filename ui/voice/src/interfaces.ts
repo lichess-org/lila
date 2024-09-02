@@ -1,7 +1,51 @@
 import { Toggle } from 'common';
 import { VNode } from 'snabbdom';
 
+export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
+export type ListenMode = 'full' | 'partial';
+export type Listener = (msgText: string, msgType: MsgType) => void;
+
+export interface Microphone {
+  setLang(language: string): void;
+
+  getMics(): Promise<MediaDeviceInfo[]>;
+  setMic(micId: string): void;
+
+  initRecognizer(
+    words: string[],
+    also?: {
+      recId?: string; // = 'default' if not provided
+      partial?: boolean; // = false
+      listener?: Listener; // = undefined
+      listenerId?: string; // = recId (specify for multiple listeners on same recId)
+    },
+  ): void;
+  setRecognizer(recId: string): void;
+
+  addListener(
+    listener: Listener,
+    also?: {
+      recId?: string; // = 'default'
+      listenerId?: string; // = recId
+    },
+  ): void;
+  removeListener(listenerId: string): void;
+  setController(listener: Listener): void; // for status display, indicators, etc
+  stopPropagation(): void; // interrupt broadcast propagation on current rec (for modal interactions)
+
+  start(listen?: boolean): Promise<void>; // listen = true if not provided, if false just initialize
+  stop(): void; // stop listening/downloading/whatever
+
+  readonly isListening: boolean;
+  readonly isBusy: boolean; // are we downloading, extracting, or loading?
+  readonly status: string; // status display for setController listener
+  readonly recId: string; // get current recognizer
+  readonly micId: string;
+  readonly lang: string; // defaults to 'en'
+}
+
 export interface VoiceCtrl {
+  mic: Microphone;
   lang: (lang?: string) => string;
   micId: (deviceId?: string) => string;
   enabled: (enabled?: boolean) => boolean;
@@ -15,7 +59,7 @@ export interface VoiceCtrl {
 }
 
 export interface VoiceModule {
-  ui: VoiceCtrl;
+  ctrl: VoiceCtrl;
   initGrammar: (recId?: string) => Promise<void>;
   prefNodes: (redraw?: () => void) => VNode[];
   allPhrases: () => [string, string][];
@@ -33,7 +77,7 @@ export interface RecognizerOpts {
   recId: string;
   partial: boolean;
   audioCtx: AudioContext;
-  broadcast: (text: string, msgType: Voice.MsgType, forMs: number) => void;
+  broadcast: (text: string, msgType: MsgType, forMs: number) => void;
 }
 
 export type Sub = {

@@ -34,10 +34,11 @@ final class PlaybanApi(
   private given BSONDocumentHandler[TempBan]    = Macros.handler
   private given BSONDocumentHandler[UserRecord] = Macros.handler
 
-  private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Arena)
+  private def blameableSource(game: Game): Boolean = game.source.exists: s =>
+    s == Source.Lobby || s == Source.Pool || s == Source.Arena
 
   private def blameable(game: Game): Fu[Boolean] =
-    (game.source.exists(blameableSources.contains) && game.hasClock).so {
+    (blameableSource(game) && game.hasClock).so {
       if game.rated then fuTrue
       else userApi.containsEngine(game.userIds).not
     }
@@ -100,7 +101,7 @@ final class PlaybanApi(
             propagateSitting(game, userId)).andDo(feedback.sitting(Pov(game, flaggerColor)))
 
     IfBlameable(game):
-      sitting.orElse(sitMoving).getOrElse(good(game, flaggerColor))
+      sitting.orElse(sitMoving).getOrElse(good(game, Status.Outoftime, flaggerColor))
 
   private def propagateSitting(game: Game, userId: UserId): Funit =
     game.tournamentId.so: tourId =>
@@ -109,43 +110,52 @@ final class PlaybanApi(
         then Bus.publish(lila.core.playban.SittingDetected(tourId, userId), "playban")
       }
 
-  def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
-    IfBlameable(game) {
-      ~(for
-        w <- winner
-        loser = game.player(!w)
-        loserId <- loser.userId
-      yield
-        if Status.NoStart.is(status) then
-          save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source)
-            .andDo(feedback.noStart(Pov(game, !w)))
-        else
-          game.clock
-            .filter:
-              _.remainingTime(loser.color) < Centis(1000) &&
-                game.turnOf(loser) &&
-                Status.Resign.is(status)
-            .map: c =>
-              (c.estimateTotalSeconds / 10).atLeast(30).atMost(3 * 60)
-            .exists(_ < nowSeconds - game.movedAt.toSeconds)
-            .option:
-              (save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source) >>
-                propagateSitting(game, loserId)).andDo(feedback.sitting(Pov(game, loser.color)))
-            .getOrElse:
-              good(game, !w)
-      )
-    }
+  def other(game: Game, status: Status, winner: Option[Color]): Funit =
+    if game.casual && blameableSource(game) && isQuickResign(game, status)
+    then
+      winner
+        .map(game.opponent)
+        .flatMap(_.userId)
+        .so: loserId =>
+          save(Outcome.Sandbag, loserId, RageSit.Update.Noop, game.source)
+    else
+      IfBlameable(game) {
+        ~(for
+          w <- winner
+          loser = game.opponent(w)
+          loserId <- loser.userId
+        yield
+          if status.is(_.NoStart) then
+            save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source)
+              .andDo(feedback.noStart(Pov(game, !w)))
+          else
+            game.clock
+              .filter:
+                _.remainingTime(loser.color) < Centis(1000) &&
+                  game.turnOf(loser) &&
+                  status.is(_.Resign)
+              .map: c =>
+                (c.estimateTotalSeconds / 10).atLeast(30).atMost(3 * 60)
+              .exists(_ < nowSeconds - game.movedAt.toSeconds)
+              .option:
+                (save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source) >>
+                  propagateSitting(game, loserId)).andDo(feedback.sitting(Pov(game, loser.color)))
+              .getOrElse:
+                good(game, status, !w)
+        )
+      }
 
-  private def good(game: Game, loserColor: Color): Funit =
+  private def isQuickResign(game: Game, status: Status) =
     import chess.variant.*
-    val quickResign = game.status == Status.Resign &&
-      game.durationSeconds.exists(_ < 60) &&
-      game.playedTurns >= game.variant.match
-        case Standard | Chess960 | Horde            => 20
-        case Antichess | Crazyhouse | KingOfTheHill => 15
-        case ThreeCheck | Atomic | RacingKings      => 10
+    status.is(_.Resign) &&
+    game.durationSeconds.exists(_ < 60) &&
+    game.playedTurns <= game.variant.match
+      case Standard | Chess960 | Horde            => 20
+      case Antichess | Crazyhouse | KingOfTheHill => 15
+      case ThreeCheck | Atomic | RacingKings      => 10
 
-    if quickResign then
+  private def good(game: Game, status: Status, loserColor: Color): Funit =
+    if isQuickResign(game, status) then
       game.userIds.parallelVoid: userId =>
         save(Outcome.Sandbag, userId, RageSit.Update.Noop, game.source)
     else

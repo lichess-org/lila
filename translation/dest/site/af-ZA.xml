@@ -279,6 +279,7 @@
   <string name="abortGame">Staak spel</string>
   <string name="gameAborted">Spel gestaak</string>
   <string name="standard">Standaard</string>
+  <string name="customPosition">Gebruiklike Posisie</string>
   <string name="unlimited">Oneindig</string>
   <string name="mode">Modus</string>
   <string name="casual">Vriendskaplik</string>
@@ -352,6 +353,10 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studies</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simulasie</item>
+    <item quantity="other">%s simulasies</item>
+  </plurals>
   <string name="viewTournament">Sien toernooi</string>
   <string name="backToTournament">Terug na toernooi</string>
   <string name="noDrawBeforeSwissLimit">Geen gelykop voor 30 skuiwe tydens \'n Switserse toernooi nie.</string>
@@ -418,6 +423,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="blackCheckmatesInOneMove">Swart om te skaakmat in een skuif</string>
   <string name="retry">Probeer weer</string>
   <string name="reconnecting">Konnekteer weer</string>
+  <string name="noNetwork">Vanlyn af</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s aanlyn vriend</item>
     <item quantity="other">%s aanlyn vriende</item>
@@ -502,6 +508,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="ifNoneLeaveEmpty">As geen, los oop</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Verander profiel</string>
+  <string name="realName">Regte naam</string>
+  <string name="setFlair">Stel jou Vlam</string>
+  <string name="flair">Vlam</string>
   <string name="biography">Biografie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of streek</string>
   <string name="thankYou">Dankie!</string>

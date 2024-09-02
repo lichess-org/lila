@@ -66,8 +66,7 @@ object SetupForm:
       "increment"   -> increment,
       "days"        -> days,
       "mode"        -> mode(me.isDefined),
-      "ratingRange" -> optional(ratingRange),
-      "color"       -> color
+      "ratingRange" -> optional(ratingRange)
     )(HookConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited game", !_.isRatedUnlimited)
@@ -79,9 +78,8 @@ object SetupForm:
       "days"        -> optional(days),
       "variant"     -> optional(boardApiVariantKeys),
       "rated"       -> optional(boolean),
-      "color"       -> optional(color),
       "ratingRange" -> optional(ratingRange)
-    )((t, i, d, v, r, c, g) =>
+    )((t, i, d, v, r, g) =>
       HookConfig(
         variant = Variant.orDefault(v),
         timeMode = if d.isDefined then TimeMode.Correspondence else TimeMode.RealTime,
@@ -89,7 +87,6 @@ object SetupForm:
         increment = i | Clock.IncrementSeconds(5),
         days = d | Days(7),
         mode = chess.Mode(~r),
-        color = lila.lobby.TriColor.orDefault(c),
         ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
       )
     )(_ => none)

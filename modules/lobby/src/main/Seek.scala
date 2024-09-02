@@ -17,15 +17,11 @@ case class Seek(
     variant: Variant.Id,
     daysPerTurn: Option[Days],
     mode: Int,
-    color: String,
     user: LobbyUser,
     ratingRange: String,
     createdAt: Instant
 ):
-
   inline def id = _id
-
-  val realColor = TriColor.orDefault(color)
 
   val realVariant = Variant.orDefault(variant)
 
@@ -34,7 +30,6 @@ case class Seek(
   def compatibleWith(h: Seek) =
     user.id != h.user.id &&
       compatibilityProperties == h.compatibilityProperties &&
-      (realColor.compatibleWith(h.realColor)) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
   private def ratingRangeCompatibleWith(s: Seek) =
@@ -57,8 +52,7 @@ case class Seek(
         "rating"   -> rating,
         "variant"  -> Json.obj("key" -> realVariant.key),
         "perf"     -> Json.obj("key" -> perfType.key),
-        "mode"     -> realMode.id,
-        "color"    -> (Color.fromName(color).so(_.name): String)
+        "mode"     -> realMode.id
       )
       .add("days" -> daysPerTurn)
       .add("provisional" -> perf.provisional.yes)
@@ -68,32 +62,30 @@ object Seek:
   given UserIdOf[Seek] = _.user.id
 
   val idSize = 8
+  def makeId = ThreadLocalRandom.nextString(idSize)
 
   def make(
       variant: chess.variant.Variant,
       daysPerTurn: Option[Days],
       mode: Mode,
-      color: String,
       user: UserWithPerfs,
       ratingRange: RatingRange,
       blocking: lila.core.pool.Blocking
   ): Seek = Seek(
-    _id = ThreadLocalRandom.nextString(idSize),
+    _id = makeId,
     variant = variant.id,
     daysPerTurn = daysPerTurn,
     mode = mode.id,
-    color = color,
     user = LobbyUser.make(user, blocking),
     ratingRange = ratingRange.toString,
     createdAt = nowInstant
   )
 
   def renew(seek: Seek) = Seek(
-    _id = ThreadLocalRandom.nextString(idSize),
+    _id = makeId,
     variant = seek.variant,
     daysPerTurn = seek.daysPerTurn,
     mode = seek.mode,
-    color = seek.color,
     user = seek.user,
     ratingRange = seek.ratingRange,
     createdAt = nowInstant

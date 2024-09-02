@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Hindi minarkahan o hinigpitan ang iyong akawnt. Ayos kana!</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Minarkahan ang iyong akawnt dahil sa paggamit ng panlabas na tulong sa mga laro.</string>
+  <string name="arenaBanned">Ipinagbawal na ang iyong akawnt sa pagsali sa mga arena.</string>
+  <string name="prizeBanned">Ipinagbawal na ang iyong akawnt sa mga torneo na mayroong mga totong premyo.</string>
+  <string name="boosterMarked">Minarkahan ang iyong akawnt dahil sa pagmamanipula ng rating.</string>
+</resources>
