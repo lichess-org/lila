@@ -190,36 +190,36 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
   }`;
   return chap.check == '#'
     ? h(tag, { attrs: { 'data-id': chap.id, title: 'Checkmate' } }, [
-        h('span.mini-game__gauge__black', {
-          attrs: { style: `height: ${fenColor(chap.fen) == 'white' ? 100 : 0}%` },
-        }),
-        h('tick'),
-      ])
+      h('span.mini-game__gauge__black', {
+        attrs: { style: `height: ${fenColor(chap.fen) == 'white' ? 100 : 0}%` },
+      }),
+      h('tick'),
+    ])
     : h(
-        tag,
-        {
-          attrs: { 'data-id': chap.id },
-          hook: {
-            ...onInsert(cloudEval.observe),
-            postpatch(old, vnode) {
-              const elm = vnode.elm as HTMLElement;
-              const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
-              const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
-              if (cev?.chances != prevNodeCloud?.chances) {
-                (elm.firstChild as HTMLElement).style.height = `${Math.round(
-                  ((1 - (cev?.chances || 0)) / 2) * 100,
-                )}%`;
-                if (cev) {
-                  elm.title = renderScoreAtDepth(cev);
-                  elm.classList.add('mini-game__gauge--set');
-                }
+      tag,
+      {
+        attrs: { 'data-id': chap.id },
+        hook: {
+          ...onInsert(cloudEval.observe),
+          postpatch(old, vnode) {
+            const elm = vnode.elm as HTMLElement;
+            const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
+            const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
+            if (cev?.chances != prevNodeCloud?.chances) {
+              (elm.firstChild as HTMLElement).style.height = `${Math.round(
+                ((1 - (cev?.chances || 0)) / 2) * 100,
+              )}%`;
+              if (cev) {
+                elm.title = renderScoreAtDepth(cev);
+                elm.classList.add('mini-game__gauge--set');
               }
-              vnode.data!.cloud = cev;
-            },
+            }
+            vnode.data!.cloud = cev;
           },
         },
-        [h('span.mini-game__gauge__black'), h('tick')],
-      );
+      },
+      [h('span.mini-game__gauge__black'), h('tick')],
+    );
 };
 
 const renderUser = (player: StudyPlayer): VNode =>
@@ -235,10 +235,10 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
   const ticking = turnColor == color && otbClockIsRunning(chapter.fen);
   return defined(timeleft)
     ? h(
-        'span.mini-game__clock.mini-game__clock',
-        { class: { 'clock--run': ticking } },
-        formatMs(timeleft * 1000),
-      )
+      'span.mini-game__clock.mini-game__clock',
+      { class: { 'clock--run': ticking } },
+      formatMs(timeleft * 1000),
+    )
     : undefined;
 };
 

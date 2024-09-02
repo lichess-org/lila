@@ -13,7 +13,7 @@ export function stopTsc(): void {
 
 export async function tsc(): Promise<void> {
   return new Promise((resolve, reject) =>
-    (async () => {
+    (async() => {
       if (!env.tsc) return resolve();
 
       const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');

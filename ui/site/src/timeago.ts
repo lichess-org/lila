@@ -48,12 +48,12 @@ export const displayLocale = document.documentElement.lang.startsWith('ar-')
 export const formatter = memoize(() =>
   window.Intl
     ? new Intl.DateTimeFormat(displayLocale, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-      }).format
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    }).format
     : (d: Date) => d.toLocaleString(),
 );
 

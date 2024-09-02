@@ -59,11 +59,11 @@ export default class ChatCtrl {
 
     this.note = opts.noteId
       ? noteCtrl({
-          id: opts.noteId,
-          text: opts.noteText,
-          trans: this.trans,
-          redraw: this.redraw,
-        })
+        id: opts.noteId,
+        text: opts.noteText,
+        trans: this.trans,
+        redraw: this.redraw,
+      })
       : undefined;
 
     this.preset = presetCtrl({

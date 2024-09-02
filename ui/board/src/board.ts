@@ -14,10 +14,10 @@ export const menu = (
 ): MaybeVNode =>
   toggle()
     ? h(
-        'div.board-menu',
-        { hook: onInsert(onClickAway(() => toggle(false))) },
-        content(new BoardMenu(trans, redraw)),
-      )
+      'div.board-menu',
+      { hook: onInsert(onClickAway(() => toggle(false))) },
+      content(new BoardMenu(trans, redraw)),
+    )
     : undefined;
 
 export class BoardMenu {

@@ -12,7 +12,7 @@ export function storedProp<V>(
 ): StoredProp<V> {
   const compatKey = 'analyse.' + key;
   let cached: V;
-  return function (replacement?: V) {
+  return function(replacement?: V) {
     if (defined(replacement) && replacement != cached) {
       cached = replacement;
       site.storage.set(key, toStr(replacement));
@@ -75,14 +75,14 @@ export type StoredJsonProp<V> = Prop<V>;
 
 export const storedJsonProp =
   <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
-  (v?: V) => {
-    if (defined(v)) {
-      site.storage.set(key, JSON.stringify(v));
-      return v;
-    }
-    const ret = JSON.parse(site.storage.get(key)!);
-    return ret !== null ? ret : defaultValue();
-  };
+    (v?: V) => {
+      if (defined(v)) {
+        site.storage.set(key, JSON.stringify(v));
+        return v;
+      }
+      const ret = JSON.parse(site.storage.get(key)!);
+      return ret !== null ? ret : defaultValue();
+    };
 
 export interface StoredMap<V> {
   (key: string): V;

@@ -23,19 +23,19 @@ export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, red
 
 export const bindMobileMousedown =
   (f: (e: Event) => unknown, redraw?: () => void) =>
-  (el: HTMLElement): void => {
-    for (const mousedownEvent of ['touchstart', 'mousedown']) {
-      el.addEventListener(
-        mousedownEvent,
-        e => {
-          f(e);
-          e.preventDefault();
-          if (redraw) redraw();
-        },
-        { passive: false },
-      );
-    }
-  };
+    (el: HTMLElement): void => {
+      for (const mousedownEvent of ['touchstart', 'mousedown']) {
+        el.addEventListener(
+          mousedownEvent,
+          e => {
+            f(e);
+            e.preventDefault();
+            if (redraw) redraw();
+          },
+          { passive: false },
+        );
+      }
+    };
 
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);

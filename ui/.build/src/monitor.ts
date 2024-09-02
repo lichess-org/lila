@@ -36,7 +36,7 @@ export async function startMonitor(mods: string[]): Promise<void> {
       esbuild(tsc());
     }, 2000);
   };
-  const packageChange = async () => {
+  const packageChange = async() => {
     if (env.rebuild) {
       clearTimeout(tscTimeout);
       clearTimeout(reinitTimeout);

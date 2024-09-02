@@ -33,7 +33,7 @@ export const trans = (i18n: I18nDict) => {
   trans.pluralSame = (key: I18nKey, count: number, ...args: Array<string | number>) =>
     trans.plural(key, count, count, ...args);
 
-  trans.plural = function (key: I18nKey, count: number, ...args: Array<string | number>) {
+  trans.plural = function(key: I18nKey, count: number, ...args: Array<string | number>) {
     const str = resolvePlural(key, count);
     return str ? format(str, args) : key;
   };

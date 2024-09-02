@@ -104,8 +104,8 @@ export class BackgroundCtrl extends PaneCtrl {
       bgData
         ? (bgData.innerHTML = 'html.transp::before{background-image:url(' + this.data.image + ');}')
         : $('head').append(
-            '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
-          );
+          '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
+        );
     }
     site.pubsub.emit('theme', key);
   };

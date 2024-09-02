@@ -6,7 +6,7 @@ interface Opts {
   time: number;
 }
 
-export default function (el: HTMLElement, opts: Opts) {
+export default function(el: HTMLElement, opts: Opts) {
   const instance = data.get(el, 'clock') as ClockWidget;
   if (instance) instance.set(opts);
   else data.set(el, 'clock', new ClockWidget(el, opts));

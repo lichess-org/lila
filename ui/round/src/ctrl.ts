@@ -583,11 +583,11 @@ export default class RoundController implements MoveRootCtrl {
     else site.sound.say(viewStatus(this), false, false, true);
   };
 
-  challengeRematch = async (): Promise<void> => {
+  challengeRematch = async(): Promise<void> => {
     if (this.data.game.id !== 'synthetic') await xhr.challengeRematch(this.data.game.id);
     site.pubsub.emit('challenge-app.open');
     if (site.once('rematch-challenge')) {
-      setTimeout(async () => {
+      setTimeout(async() => {
         const [tour] = await Promise.all([
           site.asset.loadEsm<RoundTour>('round.tour'),
           site.asset.loadCssPath('bits.shepherd'),

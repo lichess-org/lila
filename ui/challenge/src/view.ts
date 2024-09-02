@@ -59,13 +59,13 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
         ]),
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {
-              attrs: { 'data-state': `${c.initialFen},${myColor}` },
-              hook: {
-                insert(vnode) {
-                  site.miniBoard.init(vnode.elm as HTMLElement);
-                },
+            attrs: { 'data-state': `${c.initialFen},${myColor}` },
+            hook: {
+              insert(vnode) {
+                site.miniBoard.init(vnode.elm as HTMLElement);
               },
-            })
+            },
+          })
           : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
       ],

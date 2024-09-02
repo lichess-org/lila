@@ -132,7 +132,7 @@ const Collision = {
   right: 8,
 };
 
-$.fn.powerTip = function (opts) {
+$.fn.powerTip = function(opts) {
   // don't do any work if there were no matched elements
   if (!this.length) {
     return this;
@@ -162,10 +162,10 @@ $.fn.powerTip = function (opts) {
   // attach events to matched elements if the manual options is not enabled
   this.on({
     // mouse events
-    mouseenter: function (event) {
+    mouseenter: function(event) {
       $.powerTip.show(this, event);
     },
-    mouseleave: function () {
+    mouseleave: function() {
       $.powerTip.hide(this);
     },
   });
@@ -662,7 +662,7 @@ function initTracking() {
     // hook viewport dimensions tracking
     window.addEventListener(
       'resize',
-      function () {
+      function() {
         session.windowWidth = $window.width();
         session.windowHeight = $window.height();
       },
@@ -671,7 +671,7 @@ function initTracking() {
 
     window.addEventListener(
       'scroll',
-      function () {
+      function() {
         const x = window.scrollX,
           y = window.scrollY;
         if (x !== session.scrollLeft) {

@@ -9,12 +9,12 @@ export function throttlePromiseWithResult<R, T extends (...args: any) => Promise
   let current: Promise<R> | undefined;
   let pending:
     | {
-        run: () => Promise<R>;
-        reject: () => void;
-      }
+      run: () => Promise<R>;
+      reject: () => void;
+    }
     | undefined;
 
-  return function (this: any, ...args: Parameters<T>): Promise<R> {
+  return function(this: any, ...args: Parameters<T>): Promise<R> {
     const self = this;
 
     const runCurrent = () => {
@@ -56,7 +56,7 @@ export function throttlePromise<T extends (...args: any) => Promise<void>>(
   wrapped: T,
 ): (...args: Parameters<T>) => Promise<void> {
   const throttler = throttlePromiseWithResult<void, T>(wrapped);
-  return function (this: any, ...args: Parameters<T>): Promise<void> {
+  return function(this: any, ...args: Parameters<T>): Promise<void> {
     return throttler.apply(this, args).catch(() => {});
   };
 }
@@ -70,7 +70,7 @@ export function finallyDelay<T extends (...args: any) => Promise<any>>(
   delay: (...args: Parameters<T>) => number,
   wrapped: T,
 ): (...args: Parameters<T>) => Promise<void> {
-  return function (this: any, ...args: Parameters<T>): Promise<void> {
+  return function(this: any, ...args: Parameters<T>): Promise<void> {
     const self = this;
     return new Promise(resolve => {
       wrapped.apply(self, args).finally(() => setTimeout(resolve, delay.apply(self, args)));
@@ -97,7 +97,7 @@ export default function throttle<T extends (...args: any) => void>(
   delay: number,
   wrapped: T,
 ): (...args: Parameters<T>) => void {
-  return throttlePromise(function (this: any, ...args: Parameters<T>) {
+  return throttlePromise(function(this: any, ...args: Parameters<T>) {
     wrapped.apply(this, args);
     return new Promise(resolve => setTimeout(resolve, delay));
   });

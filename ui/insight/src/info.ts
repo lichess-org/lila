@@ -8,7 +8,7 @@ import { registerFormHandler } from './insight';
 
 const shareStates = ['nobody', 'friends only', 'everybody'];
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   const shareText = 'Shared with ' + shareStates[ctrl.user.shareId] + '.';
   return h('div.info.box', [
     h('div.top', userLink(ctrl.user)),
@@ -18,16 +18,16 @@ export default function (ctrl: Ctrl) {
         'p.share',
         ctrl.own
           ? h(
-              'a',
-              {
-                attrs: {
-                  href: '/account/preferences/privacy#shareYourInsightsData',
-                  target: '_blank',
-                  rel: 'noopener',
-                },
+            'a',
+            {
+              attrs: {
+                href: '/account/preferences/privacy#shareYourInsightsData',
+                target: '_blank',
+                rel: 'noopener',
               },
-              shareText,
-            )
+            },
+            shareText,
+          )
           : shareText,
       ),
     ]),
@@ -35,28 +35,28 @@ export default function (ctrl: Ctrl) {
       'div.refresh',
       ctrl.env.user.stale
         ? h('div.insight-stale', [
-            h('p', 'There are new games to learn from!'),
-            h(
-              'form.insight-refresh',
-              {
-                attrs: {
-                  action: `/insights/refresh/${ctrl.env.user.id}`,
-                  method: 'post',
-                },
-                hook: onInsert(_el => registerFormHandler()),
+          h('p', 'There are new games to learn from!'),
+          h(
+            'form.insight-refresh',
+            {
+              attrs: {
+                action: `/insights/refresh/${ctrl.env.user.id}`,
+                method: 'post',
               },
-              [
-                h('button.button.text', { attrs: { 'data-icon': licon.Checkmark } }, 'Update insights'),
-                h(
-                  'div.crunching.none',
-                  {
-                    hook: onInsert(el => el.insertAdjacentHTML('afterbegin', site.spinnerHtml)),
-                  },
-                  [h('br'), h('p', h('strong', 'Now crunching data just for you!'))],
-                ),
-              ],
-            ),
-          ])
+              hook: onInsert(_el => registerFormHandler()),
+            },
+            [
+              h('button.button.text', { attrs: { 'data-icon': licon.Checkmark } }, 'Update insights'),
+              h(
+                'div.crunching.none',
+                {
+                  hook: onInsert(el => el.insertAdjacentHTML('afterbegin', site.spinnerHtml)),
+                },
+                [h('br'), h('p', h('strong', 'Now crunching data just for you!'))],
+              ),
+            ],
+          ),
+        ])
         : null,
     ),
   ]);

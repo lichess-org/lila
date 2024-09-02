@@ -47,9 +47,9 @@ const renderDrawOffer = () => h('draw', { attrs: { title: 'Draw offer' } }, '½?
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? h(moveTag, { class: { a1t: step.ply === curPly } }, [
-        step.san[0] === 'P' ? step.san.slice(1) : step.san,
-        drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
-      ])
+      step.san[0] === 'P' ? step.san.slice(1) : step.san,
+      drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
+    ])
     : orEmpty && h(moveTag, '…');
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
@@ -230,10 +230,10 @@ export function render(ctrl: RoundController): LooseVNode {
       initMessage(ctrl) ||
         (isCol1()
           ? h('div.col1-moves', [
-              col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == round.firstPly(d)),
-              renderMovesOrResult,
-              col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == round.lastPly(d)),
-            ])
+            col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == round.firstPly(d)),
+            renderMovesOrResult,
+            col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == round.lastPly(d)),
+          ])
           : renderMovesOrResult),
     ])
   );

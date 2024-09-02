@@ -62,7 +62,7 @@ function controls(ctrl: PuzzleCtrl): VNode {
 
 let cevalShown = false;
 
-export default function (ctrl: PuzzleCtrl): VNode {
+export default function(ctrl: PuzzleCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const showCeval = ctrl.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
@@ -101,21 +101,21 @@ export default function (ctrl: PuzzleCtrl): VNode {
             'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
               ? undefined
               : bindNonPassive(
-                  'wheel',
-                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                    const target = e.target as HTMLElement;
-                    if (
-                      target.tagName !== 'PIECE' &&
+                'wheel',
+                stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                  const target = e.target as HTMLElement;
+                  if (
+                    target.tagName !== 'PIECE' &&
                       target.tagName !== 'SQUARE' &&
                       target.tagName !== 'CG-BOARD'
-                    )
-                      return;
-                    e.preventDefault();
-                    if (e.deltaY > 0 && scroll) control.next(ctrl);
-                    else if (e.deltaY < 0 && scroll) control.prev(ctrl);
-                    ctrl.redraw();
-                  }),
-                ),
+                  )
+                    return;
+                  e.preventDefault();
+                  if (e.deltaY > 0 && scroll) control.next(ctrl);
+                  else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                  ctrl.redraw();
+                }),
+              ),
         },
         [chessground(ctrl), ctrl.promotion.view()],
       ),
@@ -169,9 +169,9 @@ function session(ctrl: PuzzleCtrl) {
       ? !ctrl.streak &&
         lh('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
       : lh(
-          'a.result-cursor.current',
-          { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
-          ctrl.streak && (ctrl.streak.data.index + 1).toString(),
-        ),
+        'a.result-cursor.current',
+        { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
+        ctrl.streak && (ctrl.streak.data.index + 1).toString(),
+      ),
   ]);
 }

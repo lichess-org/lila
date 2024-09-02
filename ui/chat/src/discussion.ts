@@ -10,7 +10,7 @@ import ChatCtrl from './ctrl';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
-export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
+export default function(ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
       const el = vnode.elm as HTMLElement;
@@ -102,7 +102,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
         pub = ctrl.opts.public;
 
       if (txt === '')
-        $('.input-move input').each(function (this: HTMLInputElement) {
+        $('.input-move input').each(function(this: HTMLInputElement) {
           this.focus();
         });
       else {
@@ -214,14 +214,14 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     ctrl.moderation
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          myUserId && line.u && myUserId != line.u
-            ? h('action.flag', {
-                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
-              })
-            : null,
-          userNode,
-          ' ',
-          textNode,
-        ],
+        myUserId && line.u && myUserId != line.u
+          ? h('action.flag', {
+            attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
+          })
+          : null,
+        userNode,
+        ' ',
+        textNode,
+      ],
   );
 }

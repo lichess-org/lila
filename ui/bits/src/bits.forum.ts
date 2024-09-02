@@ -5,7 +5,7 @@ import { TextareaEditor } from '@textcomplete/textarea';
 
 site.load.then(() => {
   $('.forum')
-    .on('click', 'a.delete', function (this: HTMLAnchorElement) {
+    .on('click', 'a.delete', function(this: HTMLAnchorElement) {
       const link = this;
       domDialog({
         cash: $('.forum-delete-modal'),
@@ -14,7 +14,7 @@ site.load.then(() => {
         $(dlg.view)
           .find('form')
           .attr('action', link.href)
-          .on('submit', function (this: HTMLFormElement, e: Event) {
+          .on('submit', function(this: HTMLFormElement, e: Event) {
             e.preventDefault();
             xhr.formToXhr(this);
             $(link).closest('.forum-post').hide();
@@ -25,7 +25,7 @@ site.load.then(() => {
       });
       return false;
     })
-    .on('click', 'a.mod-relocate', function (this: HTMLAnchorElement) {
+    .on('click', 'a.mod-relocate', function(this: HTMLAnchorElement) {
       const link = this;
       domDialog({
         cash: $('.forum-relocate-modal'),
@@ -37,7 +37,7 @@ site.load.then(() => {
       });
       return false;
     })
-    .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
+    .on('click', 'form.unsub button', function(this: HTMLButtonElement) {
       const form = $(this).parent().toggleClass('on off')[0] as HTMLFormElement;
       xhr.text(`${form.action}?unsub=${this.dataset.unsub}`, { method: 'post' });
       return false;
@@ -46,7 +46,7 @@ site.load.then(() => {
     const el = (e.target as HTMLElement).parentElement!;
     $(el).replaceWith($('.forum-post__message', el));
   });
-  $('.forum-post__message').each(function (this: HTMLElement) {
+  $('.forum-post__message').each(function(this: HTMLElement) {
     if (this.innerHTML.match(/(^|<br>)&gt;/)) {
       const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
@@ -68,7 +68,7 @@ site.load.then(() => {
 
   $('.edit.button')
     .add('.edit-post-cancel')
-    .on('click', function (this: HTMLButtonElement, e) {
+    .on('click', function(this: HTMLButtonElement, e) {
       e.preventDefault();
 
       const $post = $(this).closest('.forum-post'),
@@ -81,7 +81,7 @@ site.load.then(() => {
 
   const quoted = new Set<string>();
 
-  $('.quote.button').on('click', function (this: HTMLButtonElement) {
+  $('.quote.button').on('click', function(this: HTMLButtonElement) {
     const $post = $(this).closest('.forum-post'),
       authorUsername = $post.find('.author').attr('href')?.substring(3),
       author = authorUsername ? '@' + authorUsername : $post.find('.author').text(),
@@ -112,13 +112,13 @@ site.load.then(() => {
     }
   });
 
-  $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
+  $('.post-text-area').one('focus', function(this: HTMLTextAreaElement) {
     const textarea = this,
       topicId = $(this).attr('data-topic');
 
     if (!topicId) return;
 
-    const searchCandidates = function (term: string, candidateUsers: string[]) {
+    const searchCandidates = function(term: string, candidateUsers: string[]) {
       return candidateUsers.filter((user: string) => user.toLowerCase().startsWith(term.toLowerCase()));
     };
 
@@ -131,10 +131,10 @@ site.load.then(() => {
       {
         index: 2,
         match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
-        search: function (term: string, callback: (names: string[]) => void) {
+        search: function(term: string, callback: (names: string[]) => void) {
           // Initially we only autocomplete by participants in the thread. As the user types more,
           // we can autocomplete against all users on the site.
-          threadParticipants.then(function (participants) {
+          threadParticipants.then(function(participants) {
             const forumParticipantCandidates = searchCandidates(term, participants);
 
             if (forumParticipantCandidates.length != 0) {

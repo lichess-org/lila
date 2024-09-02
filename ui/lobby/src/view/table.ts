@@ -28,10 +28,10 @@ export default function table(ctrl: LobbyController) {
               hook: disabled
                 ? {}
                 : bind(
-                    site.blindMode ? 'click' : 'mousedown',
-                    () => ctrl.setupCtrl.openModal(gameType),
-                    ctrl.redraw,
-                  ),
+                  site.blindMode ? 'click' : 'mousedown',
+                  () => ctrl.setupCtrl.openModal(gameType),
+                  ctrl.redraw,
+                ),
             },
             trans(transKey),
           ),
