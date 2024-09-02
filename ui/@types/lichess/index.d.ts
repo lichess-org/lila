@@ -1,6 +1,5 @@
 /// <reference path="./tree.d.ts" />
 /// <reference path="./chessground.d.ts" />
-/// <reference path="./voice.d.ts" />
 /// <reference path="./cash.d.ts" />
 
 // file://./../../site/src/site.ts
@@ -48,7 +47,6 @@ interface Site {
   announce(d: LichessAnnouncement): void;
   trans(i18n: I18nDict): Trans;
   sound: SoundI; // file://./../../site/src/sound.ts
-  mic: Voice.Microphone; // file://./../../site/src/mic.ts
   miniBoard: {
     // file://./../../common/src/miniBoard.ts
     init(node: HTMLElement): void;
@@ -156,9 +154,12 @@ type SoundMoveOpts = {
 
 type SoundMove = (opts?: SoundMoveOpts) => void;
 
+type SoundListener = (event: 'start' | 'stop', text?: string) => void;
+
 interface SoundI {
   // file://./../../site/src/sound.ts
   ctx?: AudioContext;
+  listeners: Set<SoundListener>;
   load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;

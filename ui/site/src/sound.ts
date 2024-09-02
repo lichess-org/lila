@@ -9,6 +9,7 @@ type Path = string;
 
 export default new (class implements SoundI {
   ctx = makeAudioContext();
+  listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
   theme = document.body.dataset.soundSet!;
@@ -135,8 +136,8 @@ export default new (class implements SoundI {
       msg.lang = translated ? document.documentElement.lang : 'en-US';
       if (!isIOS()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
-        msg.onstart = _ => site.mic.pause();
-        msg.onend = msg.onerror = _ => site.mic.resume();
+        msg.onstart = () => this.listeners.forEach(l => l('start', text));
+        msg.onend = () => this.listeners.forEach(l => l('stop'));
       }
       speechSynthesis.speak(msg);
       return true;
