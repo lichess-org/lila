@@ -64,7 +64,7 @@ final class Env(
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
     case lila.core.team.TeamCreate(t)   => categApi.makeTeam(t.id, t.name, t.userId)
-    case lila.core.user.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
+    case lila.core.user.GDPRErase(user) => postApi.eraseUsername(user)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType

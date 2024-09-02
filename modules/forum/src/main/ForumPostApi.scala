@@ -223,10 +223,14 @@ final class ForumPostApi(
       .one($id(post.id), post.erase)
       .void
 
-  def eraseFromSearchIndex(user: User): Funit =
-    postRepo.coll
-      .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
-      .map(ids => Bus.pub(BusForum.ErasePosts(ids)))
+  def eraseUsername(user: User): Funit =
+    postRepo.coll.update
+      .one(
+        $doc("userId" -> user.id),
+        $unset("userId") ++ $set("updatedAt" -> nowInstant),
+        multi = true
+      )
+      .void
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId).flatMapz { post =>
