@@ -34,6 +34,7 @@
   <string name="editRoundStudy">دەسکاری کردنی خولی فێربون</string>
   <string name="deleteTournament">ئەم پاڵەوانێتییە بسڕەوە</string>
   <string name="definitivelyDeleteTournament">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
+  <string name="showScores">نمرەکانی یاریزانان پیشان بدە بە پشتبەستن بە ئەنجامی یارییەکان</string>
   <string name="replacePlayerTags">ئارەزوومەندانە: گۆڕینی ناوی یاریزانان، هەڵسەنگاندن و نازناوەکان</string>
   <string name="fideFederations">فیدراسیۆنی FIDE</string>
   <string name="top10Rating">ڕیزبەندی ١٠ باشترینەکان</string>
