@@ -702,7 +702,7 @@ export default class AnalyseCtrl {
           this.retro?.onCeval();
           this.practice?.onCeval();
           this.studyPractice?.onCeval();
-          this.study?.multiCloudEval.onLocalCeval(node, ev);
+          this.study?.multiCloudEval?.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
         this.redraw();
@@ -714,7 +714,7 @@ export default class AnalyseCtrl {
     const opts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
-      possible: this.synthetic || !game.playable(this.data),
+      possible: (this.synthetic || !game.playable(this.data)) && !location.search.includes('evals=0'),
       emit: (ev: Tree.ClientEval, work: EvalMeta) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },

@@ -35,7 +35,7 @@ export default class RelayCtrl {
     readonly isEmbed: boolean,
     readonly members: StudyMemberCtrl,
     private readonly chapters: StudyChapters,
-    private readonly multiCloudEval: MultiCloudEval,
+    private readonly multiCloudEval: MultiCloudEval | undefined,
     private readonly federations: () => Federations | undefined,
     chapterSelect: ChapterSelect,
   ) {
