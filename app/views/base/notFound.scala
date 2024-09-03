@@ -32,3 +32,16 @@ def notFound(msg: Option[String])(using Context) =
         )
       )
     )
+
+def notFoundEmbed(msg: Option[String])(using EmbedContext) =
+  views.base.embed.site(title = msg | "Page not found", cssKeys = List("bits.embed-not-found"))(
+    main(cls := "not-found page-small box box-pad")(
+      header(
+        h1("404"),
+        div(
+          strong("Page not found!"),
+          msg.map(em(_))
+        )
+      )
+    )
+  )

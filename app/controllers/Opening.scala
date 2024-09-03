@@ -71,7 +71,11 @@ final class Opening(env: Env) extends LilaController(env):
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
         bindForm(lila.opening.OpeningWiki.form)(
           _ => redirect,
-          text => env.opening.wiki.write(op, text, me.userId).inject(redirect)
+          text =>
+            env.opening.wiki
+              .write(op, text, me.userId)
+              .andDo(env.irc.api.openingEdit(me.light, key, moves))
+              .inject(redirect)
         )
   }
 

@@ -10,7 +10,7 @@ import { h } from 'snabbdom';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
-  const cloudEval = study.multiCloudEval.thisIfShowEval();
+  const cloudEval = study.multiCloudEval?.thisIfShowEval();
   const roundPath = relay.roundPath();
   return h(
     'div.relay-games',
