@@ -821,7 +821,6 @@ export default class StudyCtrl {
     evalHitMulti: (e: EvalHitMulti | EvalHitMultiArray) => {
       ('multi' in e ? e.multi : [e]).forEach(ev => {
         this.multiBoard.multiCloudEval?.onCloudEval(ev);
-        this.relay?.teams?.multiCloudEval?.onCloudEval(ev);
       });
     },
   };
