@@ -40,8 +40,8 @@ private[lobby] object LobbyUser:
         pk -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
 
-opaque type LobbyPerf = Int
-object LobbyPerf extends OpaqueInt[LobbyPerf]:
+private opaque type LobbyPerf = Int
+private object LobbyPerf extends OpaqueInt[LobbyPerf]:
   def apply(rating: IntRating, provisional: RatingProvisional): LobbyPerf =
     LobbyPerf(rating.value * (if provisional.yes then -1 else 1))
   extension (lp: LobbyPerf)
