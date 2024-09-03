@@ -33,7 +33,7 @@ import { make as makeFork, ForkCtrl } from './fork';
 import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, Socket } from './socket';
-import { nextGlyphSymbol } from './nodeFinder';
+import { nextGlyphSymbol, add35FoldGlyphs } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
 import { Outcome, isNormal } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
@@ -214,6 +214,7 @@ export default class AnalyseCtrl {
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(util.treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
+    add35FoldGlyphs(treeOps.mainlineNodeList(this.tree.root))
 
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
