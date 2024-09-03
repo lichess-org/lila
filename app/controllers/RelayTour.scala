@@ -173,7 +173,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def embedShow(slug: String, id: RelayTourId) = Anon:
     InEmbedContext:
-      Found(env.relay.api.tourById(id)): tour =>
+      FoundEmbed(env.relay.api.tourById(id)): tour =>
         env.relay.listing.defaultRoundToShow
           .get(tour.id)
           .flatMap:
