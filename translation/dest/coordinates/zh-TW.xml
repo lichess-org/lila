@@ -9,7 +9,7 @@
   <string name="talkToYourChessFriends">這讓你跟和棋友更容易聊天，因為你們都知道「西洋棋的共同語言」。</string>
   <string name="youCanAnalyseAGameMoreEffectively">如果能夠快速地辨認座標，可以更有效率的分析一場棋局。</string>
   <string name="aCoordinateAppears">座標將在棋盤上出現，您必須點擊對應的棋格。</string>
-  <string name="aSquareIsHighlightedExplanation">棋格將在棋盤上高亮顯示，您必須輸入它的座標（例如“e4”）。</string>
+  <string name="aSquareIsHighlightedExplanation">棋格將在棋盤上以紅色光提示，您必須輸入它的座標（例如「e4」）。</string>
   <string name="youHaveThirtySeconds">您有30秒時間正確配對盡可能多的棋格。</string>
   <string name="goAsLongAsYouWant">沒有時間限制，盡情練習吧！</string>
   <string name="showCoordinates">顯示座標</string>
