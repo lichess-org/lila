@@ -76,7 +76,6 @@ export interface LichessModule {
   pkg: any; // the entire package.json object
   pre: string[][]; // pre-bundle build steps from package.json scripts
   post: string[][]; // post-bundle build steps from package.json scripts
-  hasTsconfig?: boolean; // fileExists('tsconfig.json')
   bundles?: string[];
   hashGlobs?: string[];
   sync?: Sync[]; // pre-bundle filesystem copies from package json

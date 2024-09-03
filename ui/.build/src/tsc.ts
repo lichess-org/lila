@@ -3,6 +3,7 @@ import * as cps from 'node:child_process';
 import * as path from 'node:path';
 import { env, colors as c, errorMark, warnMark, lines } from './main';
 import JSON5 from 'json5';
+import { globArray } from './parse';
 
 let tscPs: cps.ChildProcessWithoutNullStreams | undefined;
 
@@ -16,14 +17,14 @@ export async function tsc(): Promise<void> {
     (async() => {
       if (!env.tsc) return resolve();
 
-      const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
       const cfg: any = { files: [] };
-      cfg.references = env.building
-        .filter(x => x.hasTsconfig)
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
+      const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
 
-      const declModules = new Set<string>();
+      cfg.references = (await globArray('*/tsconfig*.json', { cwd: env.uiDir }))
+        .sort((a, b) => a.localeCompare(b))
+        .filter(x => env.building.some(mod => x.startsWith(`${mod.root}/`)))
+        .map(x => ({ path: x }));
+
       // verify that tsconfig references are correct
       for (const tsconfig of cfg.references) {
         if (!tsconfig?.path) continue;
@@ -39,7 +40,6 @@ export async function tsc(): Promise<void> {
               'tsc',
             );
         }
-        ref.references?.forEach((x: any) => declModules.add(/\/([^/]+)\/tsconfig\.json/.exec(x.path)![1]));
       }
 
       await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
