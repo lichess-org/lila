@@ -8,7 +8,7 @@ import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap } from 'common/sparse';
+import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap } from 'common/algo';
 import { type Transform, movesTo, findTransforms, as } from '../util';
 import { MsgType } from '../interfaces';
 
