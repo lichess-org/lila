@@ -6,7 +6,7 @@ import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { CloudEval, MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from './multiCloudEval';
-import { Toggle, defined, notNull, toggle } from 'common';
+import { Prop, Toggle, defined, notNull, prop, toggle } from 'common';
 import { Color } from 'chessops';
 import { StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
 import { playerFed } from './playerBars';
@@ -15,6 +15,7 @@ import { h } from 'snabbdom';
 
 export class MultiBoardCtrl {
   playing: Toggle;
+  teamSelect: Prop<string | undefined> = prop(undefined);
   page: number = 1;
   maxPerPageStorage = site.storage.make('study.multiBoard.maxPerPage');
 
@@ -27,9 +28,12 @@ export class MultiBoardCtrl {
     this.playing = toggle(false, this.redraw);
   }
 
-  private chapterFilter = (c: ChapterPreview) => !this.playing() || c.playing;
-
   maxPerPage = () => Math.min(32, parseInt(this.maxPerPageStorage.get() || '12'));
+
+  private chapterFilter = (c: ChapterPreview) => {
+    const t = this.teamSelect();
+    return (!this.playing() || c.playing) && (!t || c.players?.white.team == t || c.players?.black.team == t);
+  };
 
   setMaxPerPage = (nb: string) => {
     this.maxPerPageStorage.set(nb);
@@ -61,6 +65,15 @@ export class MultiBoardCtrl {
   nextPage = () => this.setPage(this.page + 1);
   prevPage = () => this.setPage(this.page - 1);
   lastPage = () => this.setPage(this.pager().nbPages);
+
+  computeTeamList = () => {
+    const teams = new Set<string>();
+    this.chapters.all().forEach(c => {
+      if (c.players?.white.team) teams.add(c.players.white.team);
+      if (c.players?.black.team) teams.add(c.players.black.team);
+    });
+    return Array.from(teams).sort();
+  };
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
@@ -99,6 +112,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
     pagerButton('next', licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
     pagerButton('last', licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
+    teamSelector(ctrl),
     h(
       'select',
       { hook: bind('change', (e: Event) => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
@@ -108,6 +122,24 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     ),
   ]);
 }
+
+const teamSelector = (ctrl: MultiBoardCtrl) => {
+  const allTeams = ctrl.computeTeamList();
+  const currentTeam = ctrl.teamSelect();
+  return allTeams.length
+    ? h('div.study__multiboard__teams', [
+        h(
+          'select',
+          {
+            hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
+          },
+          ['All teams', ...allTeams].map((t, i) =>
+            h('option', { attrs: { value: i ? t : '', selected: i && t == currentTeam } }, t),
+          ),
+        ),
+      ])
+    : undefined;
+};
 
 function pagerButton(
   transKey: string,
