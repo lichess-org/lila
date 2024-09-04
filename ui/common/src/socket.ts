@@ -67,7 +67,7 @@ export default class StrongSocket {
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
   private baseUrls = (document.body.dataset.socketAlts || document.body.dataset.socketDomains!).split(',');
-  static defaultOptions: Options = {
+  private static defaultOptions: Options = {
     idle: false,
     pingMaxLag: 9000, // time to wait for pong before resetting the connection
     pingDelay: 2500, // time between pong and ping
@@ -75,7 +75,6 @@ export default class StrongSocket {
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     isAuth: document.body.hasAttribute('data-user'),
   };
-  static defaultParams: Params = {};
 
   static resolveFirstConnect: (send: Send) => void;
   static firstConnect: Promise<Send> = new Promise<Send>(r => {
@@ -87,13 +86,11 @@ export default class StrongSocket {
     version: number | false,
     settings: Partial<Settings> = {},
   ) {
-    console.log('wtf');
     this.settings = {
       receive: settings.receive,
       events: settings.events || {},
       params: {
         sri: site?.sri,
-        ...StrongSocket.defaultParams,
         ...(settings.params || {}),
       },
     };

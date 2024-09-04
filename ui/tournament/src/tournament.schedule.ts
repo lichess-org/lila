@@ -20,7 +20,7 @@ export interface Ctrl {
 }
 
 export function initModule(opts: { data: Data; i18n: I18nDict }) {
-  StrongSocket.defaultParams.flag = 'tournament';
+  site.socket = new StrongSocket('/socket/v5', false, { params: { flag: 'tournament' } });
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
 
