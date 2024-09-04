@@ -205,7 +205,7 @@ final class User(
               .map: u =>
                 env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)
 
-  def ratingHistory(username: UserStr) = OpenBody:
+  def ratingHistory(username: UserStr) = Open:
     EnabledUser(username): u =>
       env.history
         .ratingChartApi(u)
