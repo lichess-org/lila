@@ -78,24 +78,40 @@ export default class LobbyController {
       const friendUser = urlParams.get('user') ?? undefined;
       const minutesPerSide = urlParams.get('minutesPerSide');
       const increment = urlParams.get('increment');
+      const variant = urlParams.get('variant');
 
-      if (minutesPerSide) {
-        forceOptions.time = parseInt(minutesPerSide);
-      }
-
-      if (increment) {
-        forceOptions.increment = parseInt(increment);
-      }
-
-      if (locationHash === 'hook') {
-        if (urlParams.get('time') === 'realTime') {
-          this.tab = 'real_time';
-          forceOptions.timeMode = 'realTime';
-        } else if (urlParams.get('time') === 'correspondence') {
-          this.tab = 'seeks';
-          forceOptions.timeMode = 'correspondence';
+      if (variant)
+        switch (variant) {
+          case 'antichess':
+          case 'atomic':
+          case 'chess960':
+          case 'crazyhouse':
+          case 'horde':
+          case 'kingOfTheHill':
+          case 'racingKings':
+          case 'threeCheck':
+            forceOptions.variant = variant;
+          default:
+            forceOptions.variant = 'standard';
         }
-      } else if (urlParams.get('fen')) {
+
+      if (urlParams.get('time') === 'realTime') {
+        this.tab = 'real_time';
+        forceOptions.timeMode = 'realTime';
+
+        if (minutesPerSide) {
+          forceOptions.time = parseInt(minutesPerSide);
+        }
+
+        if (increment) {
+          forceOptions.increment = parseInt(increment);
+        }
+      } else if (urlParams.get('time') === 'correspondence') {
+        this.tab = 'seeks';
+        forceOptions.timeMode = 'correspondence';
+      }
+
+      if (!(locationHash === 'hook') && urlParams.get('fen')) {
         forceOptions.fen = urlParams.get('fen')!;
         forceOptions.variant = 'fromPosition';
       }
