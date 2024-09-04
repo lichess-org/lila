@@ -15,6 +15,7 @@ import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
+import { trans } from 'common/trans';
 
 export default class EditorCtrl {
   options: Editor.Options;
@@ -40,7 +41,7 @@ export default class EditorCtrl {
   ) {
     this.options = cfg.options || {};
 
-    this.trans = site.trans(this.cfg.i18n);
+    this.trans = trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
 
@@ -216,9 +217,9 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition = () => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
+  startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
-  clearBoard = () => this.setFen(EMPTY_FEN);
+  clearBoard = (): boolean => this.setFen(EMPTY_FEN);
 
   loadNewFen(fen: string | 'prompt'): void {
     if (fen === 'prompt') {

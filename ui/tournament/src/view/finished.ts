@@ -10,9 +10,10 @@ import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { numberRow } from './util';
 import { MaybeVNodes } from 'common/snabbdom';
+import { once } from 'common/storage';
 
 function confetti(data: TournamentData): VNode | undefined {
-  if (data.me && data.isRecentlyFinished && site.once('tournament.end.canvas.' + data.id))
+  if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
       hook: { insert: _ => site.asset.loadIife('javascripts/confetti.js') },
     });

@@ -8,6 +8,7 @@ import { plyStep } from './round';
 import { RoundData } from './interfaces';
 import { uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
+import { storage } from 'common/storage';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -85,7 +86,7 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     disableContextMenu: true,
   };

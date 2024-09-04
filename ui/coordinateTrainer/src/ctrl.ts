@@ -1,6 +1,7 @@
 import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
+import { trans } from 'common/trans';
 import { withEffect } from 'common';
 import { makeVoice, VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'common/storage';
@@ -71,7 +72,7 @@ export default class CoordinateTrainerCtrl {
   score = 0;
   timeAtStart: Date;
   timeLeft = DURATION;
-  trans: Trans = site.trans(this.config.i18n);
+  trans: Trans = trans(this.config.i18n);
   wrong: boolean;
   wrongTimeout: number;
   zen: boolean;

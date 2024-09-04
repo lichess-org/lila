@@ -1,3 +1,5 @@
+import { type LichessStorage } from 'common/storage';
+
 export interface FormLines {
   [key: string]: string;
 }

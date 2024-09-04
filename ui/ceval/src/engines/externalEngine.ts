@@ -1,7 +1,7 @@
 import { Work, ExternalEngineInfo, CevalEngine, CevalState, EngineNotifier } from '../types';
 import { randomToken } from 'common/random';
 import { readNdJson } from 'common/ndjson';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 
 interface ExternalEngineOutput {
   time: number;

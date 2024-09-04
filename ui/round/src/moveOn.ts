@@ -1,9 +1,10 @@
 import * as game from 'game';
 import * as xhr from './xhr';
 import RoundController from './ctrl';
+import { storage } from 'common/storage';
 
 export default class MoveOn {
-  private storage = site.storage.boolean(this.key);
+  private storage = storage.boolean(this.key);
 
   constructor(
     private ctrl: RoundController,

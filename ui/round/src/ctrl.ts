@@ -49,6 +49,8 @@ import {
 } from './interfaces';
 import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
+import { storage, once, type LichessBooleanStorage } from 'common/storage';
+import { trans } from 'common/trans';
 
 interface GoneBerserk {
   white?: boolean;
@@ -111,7 +113,7 @@ export default class RoundController implements MoveRootCtrl {
       this.redraw();
     }, 3000);
     this.socket = opts.local ?? makeSocket(opts.socketSend!, this);
-    this.blindfoldStorage = site.storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
+    this.blindfoldStorage = storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
     this.updateClockCtrl();
     this.promotion = new PromotionCtrl(
@@ -131,7 +133,7 @@ export default class RoundController implements MoveRootCtrl {
 
     this.menu = toggle(false, redraw);
 
-    this.trans = site.trans(opts.i18n);
+    this.trans = trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
     setTimeout(this.delayedInit, 200);
@@ -562,7 +564,7 @@ export default class RoundController implements MoveRootCtrl {
         d.game.turns > 6 &&
         !d.tournament &&
         !d.swiss &&
-        site.storage.boolean('courtesy').get()
+        storage.boolean('courtesy').get()
       )
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
@@ -586,7 +588,7 @@ export default class RoundController implements MoveRootCtrl {
   challengeRematch = async (): Promise<void> => {
     if (this.data.game.id !== 'synthetic') await xhr.challengeRematch(this.data.game.id);
     site.pubsub.emit('challenge-app.open');
-    if (site.once('rematch-challenge')) {
+    if (once('rematch-challenge')) {
       setTimeout(async () => {
         const [tour] = await Promise.all([
           site.asset.loadEsm<RoundTour>('round.tour'),

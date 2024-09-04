@@ -8,6 +8,7 @@ import { stockfishName } from 'common/spinner';
 import { domDialog } from 'common/dialog';
 import { FEN } from 'chessground/types';
 import { escapeHtml } from 'common';
+import { storage } from 'common/storage';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
@@ -84,7 +85,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  const storage = site.storage.make('analysis.panel');
+  const store = storage.make('analysis.panel');
   const setPanel = function (panel: string) {
     $menu.children('.active').removeClass('active');
     $menu.find(`[data-panel="${panel}"]`).addClass('active');
@@ -102,10 +103,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   };
   $menu.on('mousedown', 'span', function (this: HTMLElement) {
     const panel = this.dataset.panel!;
-    storage.set(panel);
+    store.set(panel);
     setPanel(panel);
   });
-  const stored = storage.get();
+  const stored = store.get();
   const foundStored =
     stored &&
     $menu.children(`[data-panel="${stored}"]`).filter(function (this: HTMLElement) {

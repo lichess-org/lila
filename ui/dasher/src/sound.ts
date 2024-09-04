@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import throttle, { throttlePromiseDelay } from 'common/throttle';
+import { throttle, throttlePromiseDelay } from 'common/timing';
 import { h, VNode } from 'snabbdom';
 import { header } from './util';
 import { bind } from 'common/snabbdom';

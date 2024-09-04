@@ -7,6 +7,7 @@ import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, report } from './moderation';
 import { presetView } from './preset';
 import ChatCtrl from './ctrl';
+import { tempStorage } from 'common/storage';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
@@ -85,7 +86,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
-  const storage = site.tempStorage.make('chat.input');
+  const storage = tempStorage.make('chat.input');
   const previousText = storage.get();
   if (previousText) {
     chatEl.value = previousText;

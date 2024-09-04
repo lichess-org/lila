@@ -1,4 +1,4 @@
-import { finallyDelay, throttlePromiseDelay } from 'common/throttle';
+import { finallyDelay, throttlePromiseDelay } from 'common/timing';
 import * as xhr from 'common/xhr';
 import TournamentController from './ctrl';
 

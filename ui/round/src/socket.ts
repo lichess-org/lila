@@ -1,5 +1,5 @@
 import * as game from 'game';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import * as xhr from './xhr';
 import RoundController from './ctrl';
 import { defined } from 'common';

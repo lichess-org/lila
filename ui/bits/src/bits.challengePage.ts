@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import StrongSocket from 'common/socket';
 
 interface ChallengeOpts {
   xhrUrl: string;
@@ -10,21 +11,17 @@ export function initModule(opts: ChallengeOpts): void {
   const selector = '.challenge-page';
   let accepting: boolean;
 
-  site.socket = new site.StrongSocket(
-    `/challenge/${opts.data.challenge.id}/socket/v5`,
-    opts.data.socketVersion,
-    {
-      events: {
-        reload() {
-          xhr.text(opts.xhrUrl).then(html => {
-            $(selector).replaceWith($(html).find(selector));
-            init();
-            site.contentLoaded($(selector)[0]);
-          });
-        },
+  site.socket = new StrongSocket(`/challenge/${opts.data.challenge.id}/socket/v5`, opts.data.socketVersion, {
+    events: {
+      reload() {
+        xhr.text(opts.xhrUrl).then(html => {
+          $(selector).replaceWith($(html).find(selector));
+          init();
+          site.contentLoaded($(selector)[0]);
+        });
       },
     },
-  );
+  });
 
   function init() {
     if (!accepting)

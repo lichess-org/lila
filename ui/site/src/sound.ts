@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
-import { storage } from './storage';
+import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { charRole } from 'chess';
 
 type Name = string;
@@ -103,9 +103,9 @@ export default new (class implements SoundI {
   playOnce(name: string): void {
     // increase chances that the first tab can put a local storage lock
     const doIt = () => {
-      const storage = site.storage.make('just-played');
-      if (Date.now() - parseInt(storage.get()!, 10) < 2000) return;
-      storage.set('' + Date.now());
+      const store = storage.make('just-played');
+      if (Date.now() - parseInt(store.get()!, 10) < 2000) return;
+      store.set('' + Date.now());
       this.play(name);
     };
     if (document.hasFocus()) doIt();
