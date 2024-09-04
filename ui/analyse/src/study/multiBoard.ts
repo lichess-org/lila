@@ -15,18 +15,24 @@ import { h } from 'snabbdom';
 
 export class MultiBoardCtrl {
   playing: Toggle;
-  teamSelect: Prop<string | undefined> = prop(undefined);
+  teamSelect: Prop<string> = prop('');
   page: number = 1;
   maxPerPageStorage = site.storage.make('study.multiBoard.maxPerPage');
 
   constructor(
     readonly chapters: StudyChapters,
     readonly multiCloudEval: MultiCloudEval | undefined,
+    private readonly initialTeamSelect: ChapterId | undefined,
     readonly redraw: () => void,
     readonly trans: Trans,
   ) {
     this.playing = toggle(false, this.redraw);
+    if (this.initialTeamSelect) this.onChapterChange(this.initialTeamSelect);
   }
+
+  gameTeam = (id: ChapterId): string | undefined => this.chapters.get(id)?.players?.white.team;
+
+  onChapterChange = (id: ChapterId) => this.teamSelect(this.gameTeam(id) || '');
 
   maxPerPage = () => Math.min(32, parseInt(this.maxPerPageStorage.get() || '12'));
 
