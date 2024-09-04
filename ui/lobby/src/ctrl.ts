@@ -79,6 +79,7 @@ export default class LobbyController {
       const minutesPerSide = urlParams.get('minutesPerSide');
       const increment = urlParams.get('increment');
       const variant = urlParams.get('variant');
+      const time = urlParams.get('time');
 
       if (variant)
         switch (variant) {
@@ -95,8 +96,8 @@ export default class LobbyController {
             forceOptions.variant = 'standard';
         }
 
-      if (urlParams.get('time') === 'realTime') {
-        this.tab = 'real_time';
+      if (time === 'realTime') {
+        if (locationHash === 'hook') this.tab = 'real_time';
         forceOptions.timeMode = 'realTime';
 
         if (minutesPerSide) {
@@ -106,8 +107,8 @@ export default class LobbyController {
         if (increment) {
           forceOptions.increment = parseInt(increment);
         }
-      } else if (urlParams.get('time') === 'correspondence') {
-        this.tab = 'seeks';
+      } else if (time === 'correspondence') {
+        if (locationHash === 'hook') this.tab = 'seeks';
         forceOptions.timeMode = 'correspondence';
       }
 
