@@ -7,10 +7,11 @@ import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, report } from './moderation';
 import { presetView } from './preset';
 import ChatCtrl from './ctrl';
+import { tempStorage } from 'common/storage';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
-export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
+export default function(ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
       const el = vnode.elm as HTMLElement;
@@ -85,7 +86,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
-  const storage = site.tempStorage.make('chat.input');
+  const storage = tempStorage.make('chat.input');
   const previousText = storage.get();
   if (previousText) {
     chatEl.value = previousText;
@@ -102,7 +103,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
         pub = ctrl.opts.public;
 
       if (txt === '')
-        $('.input-move input').each(function (this: HTMLInputElement) {
+        $('.input-move input').each(function(this: HTMLInputElement) {
           this.focus();
         });
       else {
@@ -214,14 +215,14 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     ctrl.moderation
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          myUserId && line.u && myUserId != line.u
-            ? h('action.flag', {
-                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
-              })
-            : null,
-          userNode,
-          ' ',
-          textNode,
-        ],
+        myUserId && line.u && myUserId != line.u
+          ? h('action.flag', {
+            attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
+          })
+          : null,
+        userNode,
+        ' ',
+        textNode,
+      ],
   );
 }

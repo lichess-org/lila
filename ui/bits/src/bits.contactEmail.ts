@@ -1,5 +1,5 @@
 function contactEmail(): void {
-  $('a.contact-email-obfuscated').one('click', function (this: HTMLLinkElement) {
+  $('a.contact-email-obfuscated').one('click', function(this: HTMLLinkElement) {
     $(this).html('...');
     setTimeout(() => {
       const address = atob(this.dataset.email!);

@@ -326,9 +326,9 @@ class Builder {
     return this.wordTok.has(phrase)
       ? this.tokenOf(phrase)
       : phrase
-          .split(' ')
-          .map(word => this.tokenOf(word))
-          .join('');
+        .split(' ')
+        .map(word => this.tokenOf(word))
+        .join('');
   }
   decode(tokens: string) {
     return [...tokens].map(token => this.fromToken(token)).join(' ');
@@ -351,12 +351,12 @@ class Builder {
             `tags: [${e.tags?.map(t => `'${t}'`).join(', ')}],` +
             (e.subs
               ? `\n    subs: [${e.subs.length > 1 ? '\n      ' : ''}${e.subs
-                  .map(s => {
-                    let c = s.cost.toFixed(2);
-                    if (c.slice(-1) === '0') c = c.slice(0, -1);
-                    return `{ to: '${s.to}', cost: ${c} }`;
-                  })
-                  .join(',\n      ')}${e.subs.length > 1 ? ',\n    ],' : '],'}`
+                .map(s => {
+                  let c = s.cost.toFixed(2);
+                  if (c.slice(-1) === '0') c = c.slice(0, -1);
+                  return `{ to: '${s.to}', cost: ${c} }`;
+                })
+                .join(',\n      ')}${e.subs.length > 1 ? ',\n    ],' : '],'}`
               : ''),
         )
         .join('\n  },\n  {\n    ') +

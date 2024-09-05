@@ -44,7 +44,7 @@ export default class ForecastCtrl {
     this.cfg.onMyTurn
       ? (fc.length % 2 !== 1 ? fc.slice(0, -1) : fc).slice(0, 30)
       : // must end with player move
-        (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
+      (fc.length % 2 !== 0 ? fc.slice(0, -1) : fc).slice(0, 30);
 
   isLongEnough = (fc: ForecastStep[]): boolean => fc.length >= (this.cfg.onMyTurn ? 1 : 2);
 

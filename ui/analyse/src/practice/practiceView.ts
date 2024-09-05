@@ -8,23 +8,23 @@ import { renderNextChapter } from '../study/nextChapter';
 function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best
     ? root.trans.vdom(
-        c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX',
-        h(
-          'move',
-          {
-            hook: {
-              insert: vnode => {
-                const el = vnode.elm as HTMLElement;
-                el.addEventListener('click', ctrl.playCommentBest);
-                el.addEventListener('mouseover', () => ctrl.commentShape(true));
-                el.addEventListener('mouseout', () => ctrl.commentShape(false));
-              },
-              destroy: () => ctrl.commentShape(false),
+      c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX',
+      h(
+        'move',
+        {
+          hook: {
+            insert: vnode => {
+              const el = vnode.elm as HTMLElement;
+              el.addEventListener('click', ctrl.playCommentBest);
+              el.addEventListener('mouseover', () => ctrl.commentShape(true));
+              el.addEventListener('mouseout', () => ctrl.commentShape(false));
             },
+            destroy: () => ctrl.commentShape(false),
           },
-          c.best.san,
-        ),
-      )
+        },
+        c.best.san,
+      ),
+    )
     : [];
 }
 
@@ -80,19 +80,19 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
       (ctrl.isMyTurn()
         ? [h('strong', root.trans.noarg('yourTurn'))]
         : [
-            h('strong', root.trans.noarg('computerThinking')),
-            renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth()),
-          ]
+          h('strong', root.trans.noarg('computerThinking')),
+          renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth()),
+        ]
       ).concat(
         h('div.choices', [
           ctrl.isMyTurn()
             ? h(
-                'a',
-                { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
-                root.trans.noarg(
-                  hint ? (hint.mode === 'piece' ? 'seeBestMove' : 'hideBestMove') : 'getAHint',
-                ),
-              )
+              'a',
+              { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
+              root.trans.noarg(
+                hint ? (hint.mode === 'piece' ? 'seeBestMove' : 'hideBestMove') : 'getAHint',
+              ),
+            )
             : '',
         ]),
       ),
@@ -100,7 +100,7 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   ]);
 }
 
-export default function (root: AnalyseCtrl): VNode | undefined {
+export default function(root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.practice;
   if (!ctrl) return;
   const comment: Comment | null = ctrl.comment();
@@ -115,14 +115,14 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     ),
     running
       ? h(
-          'div.comment',
-          (end && !root.study?.practice ? renderNextChapter(root) : null) ||
+        'div.comment',
+        (end && !root.study?.practice ? renderNextChapter(root) : null) ||
             (comment
               ? ([h('span.verdict', root.trans.noarg(comment.verdict)), ' '] as MaybeVNodes).concat(
-                  commentBest(comment, root, ctrl),
-                )
+                commentBest(comment, root, ctrl),
+              )
               : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))]),
-        )
+      )
       : null,
   ]);
 }

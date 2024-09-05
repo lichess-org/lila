@@ -39,7 +39,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
   ]),
 ];
 
-export default function (ctrl: PuzzleCtrl): VNode {
+export default function(ctrl: PuzzleCtrl): VNode {
   const data = ctrl.data;
   const win = ctrl.lastFeedback == 'win';
   return h(
@@ -47,26 +47,26 @@ export default function (ctrl: PuzzleCtrl): VNode {
     ctrl.streak && !win
       ? renderStreak(ctrl)
       : [
-          h('div.complete', ctrl.trans.noarg(win ? 'puzzleSuccess' : 'puzzleComplete')),
-          data.user ? renderVote(ctrl) : renderContinue(ctrl),
-          h('div.puzzle__more', [
-            h('a', {
-              attrs: {
-                'data-icon': licon.Bullseye,
-                href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
-                title: ctrl.trans.noarg('playWithTheMachine'),
-                target: '_blank',
-                rel: 'noopener',
-              },
-            }),
-            data.user &&
+        h('div.complete', ctrl.trans.noarg(win ? 'puzzleSuccess' : 'puzzleComplete')),
+        data.user ? renderVote(ctrl) : renderContinue(ctrl),
+        h('div.puzzle__more', [
+          h('a', {
+            attrs: {
+              'data-icon': licon.Bullseye,
+              href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
+              title: ctrl.trans.noarg('playWithTheMachine'),
+              target: '_blank',
+              rel: 'noopener',
+            },
+          }),
+          data.user &&
               !ctrl.autoNexting() &&
               h(
                 'a',
                 { hook: bind('click', ctrl.nextPuzzle) },
                 ctrl.trans.noarg(ctrl.streak ? 'continueTheStreak' : 'continueTraining'),
               ),
-          ]),
-        ],
+        ]),
+      ],
   );
 }

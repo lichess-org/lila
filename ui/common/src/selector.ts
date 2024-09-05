@@ -1,3 +1,5 @@
+import { storage } from './storage';
+
 // mutually exclusive group selector with state change hooks for resource management
 
 export interface Selectable {
@@ -90,13 +92,12 @@ export class StoredSelector<K extends string = string, V extends Selectable = an
     opts?: { group?: Map<K, V>; context?: C; defaultKey?: K; name?: string },
   ) {
     super(opts);
-    this.key = (site.storage.get(`${this.storageKey}:${user}`) ||
-      (opts?.defaultKey ?? false)) as typeof this.key;
+    this.key = (storage.get(`${this.storageKey}:${user}`) || (opts?.defaultKey ?? false)) as typeof this.key;
   }
 
   set(key: K | false): void {
     super.set(key);
-    if (key === false) site.storage.remove(`${this.storageKey}:${user}`);
-    else site.storage.set(`${this.storageKey}:${user}`, String(this.key));
+    if (key === false) storage.remove(`${this.storageKey}:${user}`);
+    else storage.set(`${this.storageKey}:${user}`, String(this.key));
   }
 }

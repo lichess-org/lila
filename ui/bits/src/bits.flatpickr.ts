@@ -1,7 +1,7 @@
 import flatpickr from 'flatpickr';
 
 site.load.then(() => {
-  $('.flatpickr').each(function (this: HTMLInputElement) {
+  $('.flatpickr').each(function(this: HTMLInputElement) {
     const minDate = this.dataset['mindate'];
     const config = this.classList.contains('flatpickr-utc')
       ? {}

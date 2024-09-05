@@ -8,7 +8,7 @@ import debounce from 'common/debounce';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'common/device';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import {
   AnalyseOpts,
   AnalyseData,

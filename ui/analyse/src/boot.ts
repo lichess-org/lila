@@ -1,9 +1,10 @@
 import { AnalyseApi, AnalyseOpts } from './interfaces';
+import StrongSocket from 'common/socket';
 
-export default function (start: (opts: AnalyseOpts) => AnalyseApi) {
-  return function (cfg: AnalyseOpts) {
+export default function(start: (opts: AnalyseOpts) => AnalyseApi) {
+  return function(cfg: AnalyseOpts) {
     const socketUrl = `/watch/${cfg.data.game.id}/${cfg.data.player.color}/v6`;
-    site.socket = new site.StrongSocket(socketUrl, cfg.data.player.version, {
+    site.socket = new StrongSocket(socketUrl, cfg.data.player.version, {
       params: {
         userTv: cfg.data.userTv && cfg.data.userTv.id,
       },

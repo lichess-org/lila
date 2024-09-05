@@ -74,7 +74,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
     {
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('click', 'div.symbol', function (this: HTMLElement) {
+          $(vnode.elm as HTMLElement).on('click', 'div.symbol', function(this: HTMLElement) {
             ctrl.jumpToGlyphSymbol(this.dataset.color as Color, this.dataset.symbol!);
           });
         },
@@ -85,14 +85,14 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
       ctrl.study
         ? null
         : h(
-            'a.button.text',
-            {
-              class: { active: !!ctrl.retro },
-              attrs: dataIcon(licon.PlayTriangle),
-              hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
-            },
-            ctrl.trans.noarg('learnFromYourMistakes'),
-          ),
+          'a.button.text',
+          {
+            class: { active: !!ctrl.retro },
+            attrs: dataIcon(licon.PlayTriangle),
+            hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
+          },
+          ctrl.trans.noarg('learnFromYourMistakes'),
+        ),
       playerTable(ctrl, 'black'),
     ],
   );

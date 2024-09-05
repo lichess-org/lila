@@ -78,7 +78,7 @@ export class StudyChapterNewForm {
     this.isOpen(false);
     this.setTab();
   };
-  startTour = async () => {
+  startTour = async() => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
       site.asset.loadCssPath('bits.shepherd'),
@@ -295,7 +295,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                     const file = (e.target as HTMLInputElement).files![0];
                     if (!file) return;
                     const reader = new FileReader();
-                    reader.onload = function () {
+                    reader.onload = function() {
                       (document.getElementById('chapter-pgn') as HTMLTextAreaElement).value =
                         reader.result as string;
                     };

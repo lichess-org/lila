@@ -5,7 +5,7 @@ import { menu as menuDropdown } from 'board/menu';
 import { toggle } from 'common';
 import { boolPrefXhrToggle } from 'common/controls';
 
-export default function (ctrl: RoundController): LooseVNode {
+export default function(ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => {
     const d = ctrl.data,
       spectator = d.player.spectator;

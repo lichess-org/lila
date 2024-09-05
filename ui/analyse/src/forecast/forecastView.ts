@@ -14,7 +14,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   if (!firstNode) return;
   const fcs = fctrl.findStartingWithNode(firstNode);
   if (!fcs.length) return;
-  const lines = fcs.filter(function (fc) {
+  const lines = fcs.filter(function(fc) {
     return fc.length > 1;
   });
   return h(
@@ -47,7 +47,7 @@ function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
   );
 }
 
-export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
+export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
   const cNodes = makeCnodes(ctrl, fctrl);
   const isCandidate = fctrl.isCandidate(cNodes);
   return h('div.forecast', { class: { loading: fctrl.loading() } }, [
@@ -90,9 +90,9 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         [
           isCandidate
             ? h('span', [
-                h('span', ctrl.trans.noarg('addCurrentVariation')),
-                h('sans', renderNodesHtml(cNodes)),
-              ])
+              h('span', ctrl.trans.noarg('addCurrentVariation')),
+              h('sans', renderNodesHtml(cNodes)),
+            ])
             : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
         ],
       ),

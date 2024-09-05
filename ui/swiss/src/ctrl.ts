@@ -1,8 +1,10 @@
 import { makeSocket, SwissSocket } from './socket';
 import xhr from './xhr';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import { maxPerPage, myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
+import { storage } from 'common/storage';
+import { trans } from 'common/trans';
 
 export default class SwissCtrl {
   data: SwissData;
@@ -17,14 +19,14 @@ export default class SwissCtrl {
   disableClicks = true;
   searching = false;
 
-  private lastStorage = site.storage.make('last-redirect');
+  private lastStorage = storage.make('last-redirect');
 
   constructor(
     readonly opts: SwissOpts,
     readonly redraw: () => void,
   ) {
     this.data = this.readData(opts.data);
-    this.trans = site.trans(opts.i18n);
+    this.trans = trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();

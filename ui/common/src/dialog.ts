@@ -55,7 +55,7 @@ export type Action =
   | { selector?: string; event?: string | string[]; result: string };
 
 // Safari versions before 15.4 need a polyfill for dialog. this "ready" promise resolves when that's loaded
-export const ready: Promise<boolean> = site.load.then(async () => {
+export const ready: Promise<boolean> = site.load.then(async() => {
   window.addEventListener('resize', onResize);
   if (window.HTMLDialogElement) return true;
   dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
@@ -308,8 +308,8 @@ function loadAssets(o: DialogOpts) {
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
       : Promise.resolve(
-          o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
-        ),
+        o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
+      ),
     ...(o.css ?? []).map(css =>
       'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
     ),

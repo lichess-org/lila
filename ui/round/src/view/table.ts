@@ -19,9 +19,9 @@ function renderPlayer(ctrl: RoundController, position: Position) {
     ? undefined
     : player.ai
       ? h('div.user-link.online.ruser.ruser-' + position, [
-          h('i.line'),
-          h('name', renderUser.aiName(ctrl, player.ai)),
-        ])
+        h('i.line'),
+        h('name', renderUser.aiName(ctrl, player.ai)),
+      ])
       : (ctrl.opts.local?.userVNode(player, position) ?? renderUser.userHtml(ctrl, player, position));
 }
 
@@ -72,50 +72,50 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
       loading || isQuestion
         ? []
         : [
-            game.abortable(d)
-              ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
+          game.abortable(d)
+            ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
+            : button.standard(
+              ctrl,
+              d => ({ enabled: game.takebackable(d) }),
+              licon.Back,
+              'proposeATakeback',
+              'takeback-yes',
+              ctrl.takebackYes,
+            ),
+          ctrl.drawConfirm
+            ? button.drawConfirm(ctrl)
+            : ctrl.data.game.threefold
+              ? button.claimThreefold(ctrl, d => {
+                const threefoldable = game.drawableSwiss(d);
+                return {
+                  enabled: threefoldable,
+                  overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit',
+                };
+              })
               : button.standard(
-                  ctrl,
-                  d => ({ enabled: game.takebackable(d) }),
-                  licon.Back,
-                  'proposeATakeback',
-                  'takeback-yes',
-                  ctrl.takebackYes,
-                ),
-            ctrl.drawConfirm
-              ? button.drawConfirm(ctrl)
-              : ctrl.data.game.threefold
-                ? button.claimThreefold(ctrl, d => {
-                    const threefoldable = game.drawableSwiss(d);
-                    return {
-                      enabled: threefoldable,
-                      overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit',
-                    };
-                  })
-                : button.standard(
-                    ctrl,
-                    d => ({
-                      enabled: ctrl.canOfferDraw(),
-                      overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
-                    }),
-                    licon.OneHalf,
-                    'offerDraw',
-                    'draw-yes',
-                    () => ctrl.offerDraw(true),
-                  ),
-            ctrl.resignConfirm
-              ? button.resignConfirm(ctrl)
-              : button.standard(
-                  ctrl,
-                  d => ({ enabled: game.resignable(d) }),
-                  licon.FlagOutline,
-                  'resign',
-                  'resign',
-                  () => ctrl.resign(true),
-                ),
-            replay.analysisButton(ctrl),
-            boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
-          ],
+                ctrl,
+                d => ({
+                  enabled: ctrl.canOfferDraw(),
+                  overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
+                }),
+                licon.OneHalf,
+                'offerDraw',
+                'draw-yes',
+                () => ctrl.offerDraw(true),
+              ),
+          ctrl.resignConfirm
+            ? button.resignConfirm(ctrl)
+            : button.standard(
+              ctrl,
+              d => ({ enabled: game.resignable(d) }),
+              licon.FlagOutline,
+              'resign',
+              'resign',
+              () => ctrl.resign(true),
+            ),
+          replay.analysisButton(ctrl),
+          boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
+        ],
     buttons = loading
       ? [loader()]
       : [promptVNode, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];

@@ -193,28 +193,28 @@ export function side(ctrl: StudyCtrl, withSearch: boolean): VNode {
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
   return ctrl.vm.mode.write
     ? [
-        h(
-          'a',
-          {
-            attrs: dataIcon(licon.BubbleSpeech),
-            hook: bind('click', () => {
-              ctrl.vm.toolTab('comments');
-              ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
-            }),
-          },
-          ctrl.trans.noarg('commentThisMove'),
-        ),
-        h(
-          'a.glyph-icon',
-          {
-            hook: bind('click', () => {
-              ctrl.vm.toolTab('glyphs');
-              ctrl.ctrl.userJump(path);
-            }),
-          },
-          ctrl.trans.noarg('annotateWithGlyphs'),
-        ),
-      ]
+      h(
+        'a',
+        {
+          attrs: dataIcon(licon.BubbleSpeech),
+          hook: bind('click', () => {
+            ctrl.vm.toolTab('comments');
+            ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
+          }),
+        },
+        ctrl.trans.noarg('commentThisMove'),
+      ),
+      h(
+        'a.glyph-icon',
+        {
+          hook: bind('click', () => {
+            ctrl.vm.toolTab('glyphs');
+            ctrl.ctrl.userJump(path);
+          }),
+        },
+        ctrl.trans.noarg('annotateWithGlyphs'),
+      ),
+    ]
     : [];
 }
 
@@ -248,11 +248,11 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       panel = study.vm.mode.write
         ? commentForm.view(ctrl)
         : commentForm.viewDisabled(
-            ctrl,
-            study.members.canContribute()
-              ? 'Press REC to comment moves'
-              : 'Only the study members can comment on moves',
-          );
+          ctrl,
+          study.members.canContribute()
+            ? 'Press REC to comment moves'
+            : 'Only the study members can comment on moves',
+        );
       break;
     case 'glyphs':
       panel = ctrl.path

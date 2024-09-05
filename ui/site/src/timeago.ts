@@ -1,5 +1,4 @@
 import { memoize } from 'common';
-import { siteTrans } from './trans';
 
 type DateLike = Date | number | string;
 
@@ -28,16 +27,16 @@ const formatAgo = (seconds: number): string => {
   const absSeconds = Math.abs(seconds);
   const strIndex = seconds < 0 ? 1 : 0;
   const unit = agoUnits.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
-  return siteTrans.pluralSame(unit[strIndex]!, Math.floor(absSeconds / unit[2]));
+  return site.trans.pluralSame(unit[strIndex]!, Math.floor(absSeconds / unit[2]));
 };
 
 // format the diff second to *** time remaining
 const formatRemaining = (seconds: number): string =>
   seconds < 1
-    ? siteTrans.noarg('completed')
+    ? site.trans.noarg('completed')
     : seconds < 3600
-      ? siteTrans.pluralSame('nbMinutesRemaining', Math.floor(seconds / 60))
-      : siteTrans.pluralSame('nbHoursRemaining', Math.floor(seconds / 3600));
+      ? site.trans.pluralSame('nbMinutesRemaining', Math.floor(seconds / 60))
+      : site.trans.pluralSame('nbHoursRemaining', Math.floor(seconds / 3600));
 
 // for many users, using the islamic calendar is not practical on the internet
 // due to international context, so we make sure it's displayed using the gregorian calendar
@@ -48,12 +47,12 @@ export const displayLocale = document.documentElement.lang.startsWith('ar-')
 export const formatter = memoize(() =>
   window.Intl
     ? new Intl.DateTimeFormat(displayLocale, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-      }).format
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    }).format
     : (d: Date) => d.toLocaleString(),
 );
 

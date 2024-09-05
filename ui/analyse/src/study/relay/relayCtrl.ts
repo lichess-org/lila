@@ -80,6 +80,13 @@ export default class RelayCtrl {
     this.redraw();
   };
 
+  onChapterChange = () => {
+    if (this.tourShow()) {
+      this.tourShow(false);
+      this.redraw();
+    }
+  };
+
   lastMoveAt = (id: ChapterId): number | undefined => this.chapters.get(id)?.lastMoveAt;
 
   setSync = (v: boolean) => {

@@ -1,7 +1,7 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
 import { prop, defined } from 'common';
-import throttle, { throttlePromise } from 'common/throttle';
+import { throttle, throttlePromise } from 'common/timing';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
@@ -177,6 +177,7 @@ export default class StudyCtrl {
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
       this.multiCloudEval,
+      this.relay?.tourShow() ? undefined : this.data.chapter.id,
       this.redraw,
       this.ctrl.trans,
     );
@@ -263,7 +264,7 @@ export default class StudyCtrl {
   send = this.ctrl.socket.send;
   redraw = this.ctrl.redraw;
 
-  startTour = async () => {
+  startTour = async() => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
       site.asset.loadCssPath('bits.shepherd'),
@@ -449,16 +450,20 @@ export default class StudyCtrl {
 
   likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
 
-  setChapter = async (idOrNumber: ChapterId | number, force?: boolean): Promise<boolean> => {
+  setChapter = async(idOrNumber: ChapterId | number, force?: boolean): Promise<boolean> => {
     const prev = this.chapters.list.get(idOrNumber);
     const id = prev?.id;
     if (!id) {
       console.warn(`Chapter ${idOrNumber} not found`);
       return false;
     }
+    const componentCallbacks = () => {
+      this.relay?.onChapterChange();
+      this.multiBoard.onChapterChange(this.data.chapter.id);
+    };
     const alreadySet = id === this.vm.chapterId && !force;
     if (alreadySet) {
-      this.relay?.tourShow(false);
+      componentCallbacks();
       this.redraw();
       return true;
     }
@@ -475,10 +480,7 @@ export default class StudyCtrl {
       if (!this.vm.behind) this.vm.behind = 1;
       this.vm.chapterId = id;
       await this.xhrReload();
-      if (this.relay?.tourShow) {
-        this.relay?.tourShow(false);
-        this.redraw();
-      }
+      componentCallbacks();
     }
     window.scrollTo(0, 0);
     return true;

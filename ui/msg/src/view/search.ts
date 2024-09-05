@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';
 import renderContacts, { userIcon } from './contact';

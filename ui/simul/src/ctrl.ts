@@ -1,6 +1,8 @@
 import { makeSocket, SimulSocket } from './socket';
 import xhr from './xhr';
 import { SimulData, SimulOpts } from './interfaces';
+import { storage } from 'common/storage';
+import { trans } from 'common/trans';
 
 export default class SimulCtrl {
   data: SimulData;
@@ -12,13 +14,13 @@ export default class SimulCtrl {
     readonly redraw: () => void,
   ) {
     this.data = opts.data;
-    this.trans = site.trans(opts.i18n);
+    this.trans = trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     if (this.createdByMe() && this.data.isCreated) this.setupCreatedHost();
   }
 
   private setupCreatedHost = () => {
-    site.storage.set('site.move_on', '1'); // hideous hack :D
+    storage.set('site.move_on', '1'); // hideous hack :D
     let hostIsAround = true;
     site.idleTimer(
       15 * 60 * 1000,

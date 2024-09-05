@@ -1,13 +1,14 @@
 import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
 
 import * as xhr from 'common/xhr';
+import { storage } from 'common/storage';
 
 export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   let data: NotifyData | undefined,
     initiating = true,
     scrolling = false;
 
-  const readAllStorage = site.storage.make('notify-read-all');
+  const readAllStorage = storage.make('notify-read-all');
 
   readAllStorage.listen(_ => setAllRead(false));
 
@@ -29,7 +30,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   function attention() {
     const id = data?.pager.currentPageResults.find(n => !n.read)?.content.user?.id;
-    const playBell = site.storage.boolean('playBellSound').getOrDefault(true);
+    const playBell = storage.boolean('playBellSound').getOrDefault(true);
     if ((!site.quietMode || id == 'lichess') && playBell) site.sound.playOnce('newPM');
     opts.pulse();
   }

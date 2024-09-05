@@ -10,7 +10,7 @@ site.load.then(() => {
 
   const $source = $('#form3-syncSource'),
     showSource = () =>
-      $('.relay-form__sync').each(function (this: HTMLElement) {
+      $('.relay-form__sync').each(function(this: HTMLElement) {
         this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
       });
 
