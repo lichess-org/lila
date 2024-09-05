@@ -1,6 +1,7 @@
 import { winningChances } from 'ceval';
 import { FEN } from 'chessground/types';
-import { defined, zip } from 'common';
+import { defined } from 'common';
+import { zip } from 'common/algo';
 
 const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
 
