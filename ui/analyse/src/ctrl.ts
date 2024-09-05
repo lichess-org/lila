@@ -4,11 +4,10 @@ import * as game from 'game';
 import * as keyboard from './keyboard';
 import * as util from './util';
 import { plural } from './view/util';
-import { debounce } from 'common/timing';
+import { debounce, throttle } from 'common/timing';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'common/device';
-import { throttle } from 'common/timing';
 import {
   AnalyseOpts,
   AnalyseData,
