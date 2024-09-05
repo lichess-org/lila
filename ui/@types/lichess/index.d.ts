@@ -207,7 +207,7 @@ interface Pubsub {
   on(msg: string, f: PubsubCallback): void;
   off(msg: string, f: PubsubCallback): void;
   emit(msg: string, ...args: any[]): void;
-  once(event: string): Promise<any>;
+  once<T = any>(event: string): Promise<T>;
   complete(event: string, data: any): void;
 }
 

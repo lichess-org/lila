@@ -11,10 +11,10 @@ const pubsub: Pubsub = {
   emit(name: string, ...args: any[]) {
     for (const fn of subs[name] || []) fn.apply(null, args);
   },
-  once(name: string): Promise<any> {
+  once<T = any>(name: string): Promise<T> {
     if (!onces[name]) {
       onces[name] = {};
-      onces[name].promise = new Promise<any>(resolve => onces[name].resolve = resolve);
+      onces[name].promise = new Promise<T>(resolve => onces[name].resolve = resolve);
     }
     return onces[name].promise;
   },

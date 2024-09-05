@@ -17,7 +17,7 @@ interface MsgOut extends MsgBase {}
 interface MsgAck extends MsgOut {
   at: number;
 }
-type Send = (t: Tpe, d: Payload, o?: any) => void;
+export type Send = (t: Tpe, d: Payload, o?: any) => void;
 
 interface Options {
   idle: boolean;
