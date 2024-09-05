@@ -82,20 +82,7 @@ export default class LobbyController {
       const variant = urlParams.get('variant');
       const time = urlParams.get('time');
 
-      if (variant)
-        switch (variant) {
-          case 'antichess':
-          case 'atomic':
-          case 'chess960':
-          case 'crazyhouse':
-          case 'horde':
-          case 'kingOfTheHill':
-          case 'racingKings':
-          case 'threeCheck':
-            forceOptions.variant = variant;
-          default:
-            forceOptions.variant = 'standard';
-        }
+      if (variant) forceOptions.variant = variant as VariantKey;
 
       if (time === 'realTime') {
         if (locationHash === 'hook') this.tab = 'real_time';
