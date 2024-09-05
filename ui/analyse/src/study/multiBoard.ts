@@ -33,7 +33,13 @@ export class MultiBoardCtrl {
 
   gameTeam = (id: ChapterId): string | undefined => this.chapters.get(id)?.players?.white.team;
 
-  onChapterChange = (id: ChapterId) => this.teamSelect(this.gameTeam(id) || '');
+  onChapterChange = (id: ChapterId) => {
+    const players = this.chapters.get(id)?.players;
+    if (players) {
+      const teams = [players.white.team, players.black.team].filter(t => !!t);
+      if (!teams.includes(this.teamSelect())) this.teamSelect(teams[0] || '');
+    }
+  };
 
   maxPerPage = () => Math.min(32, parseInt(this.maxPerPageStorage.get() || '12'));
 
