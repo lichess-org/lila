@@ -84,17 +84,17 @@ export default class LobbyController {
 
       if (variant) forceOptions.variant = variant as VariantKey;
 
+      if (minutesPerSide) {
+        forceOptions.time = parseInt(minutesPerSide);
+      }
+
+      if (increment) {
+        forceOptions.increment = parseInt(increment);
+      }
+
       if (time === 'realTime') {
         if (locationHash === 'hook') this.tab = 'real_time';
         forceOptions.timeMode = 'realTime';
-
-        if (minutesPerSide) {
-          forceOptions.time = parseInt(minutesPerSide);
-        }
-
-        if (increment) {
-          forceOptions.increment = parseInt(increment);
-        }
       } else if (time === 'correspondence') {
         if (locationHash === 'hook') this.tab = 'seeks';
         forceOptions.timeMode = 'correspondence';
