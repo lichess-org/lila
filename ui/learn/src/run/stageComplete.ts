@@ -12,7 +12,7 @@ function makeStars(rank: number) {
   return stars;
 }
 
-export default function (ctrl: RunCtrl) {
+export default function(ctrl: RunCtrl) {
   const stage = ctrl.stage;
   const next = ctrl.getNext();
   const score = ctrl.stageScore();
@@ -50,9 +50,9 @@ export default function (ctrl: RunCtrl) {
       h('div.buttons', [
         next
           ? h('a.next', { hook: bind('click', () => hashNavigate(next.id)) }, [
-              ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ',
-              h('i', { attrs: { 'data-icon': '' } }),
-            ])
+            ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ',
+            h('i', { attrs: { 'data-icon': '' } }),
+          ])
           : null,
         h(
           'a.back.text[data-icon=]',

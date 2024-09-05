@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as fg from 'fast-glob';
-import { LichessModule, env, colors as c } from './main';
+import { LichessModule, env } from './main';
 
 export async function parseModules(): Promise<[Map<string, LichessModule>, Map<string, string[]>]> {
   const modules = new Map<string, LichessModule>();
@@ -44,7 +44,6 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     root: moduleDir,
     pre: [],
     post: [],
-    hasTsconfig: fs.existsSync(path.join(moduleDir, 'tsconfig.json')),
   };
 
   if ('lichess' in pkg && 'hashed' in pkg.lichess) mod.hashGlobs = pkg.lichess.hashed as string[];

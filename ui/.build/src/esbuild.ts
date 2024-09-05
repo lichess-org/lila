@@ -7,11 +7,11 @@ import { jsManifest } from './manifest';
 const bundles = new Map<string, string>();
 const esbuildCtx: es.BuildContext[] = [];
 
-export async function stopEsbuild() {
+export async function stopEsbuild(): Promise<void> {
   const proof = Promise.allSettled(esbuildCtx.map(x => x.dispose()));
   esbuildCtx.length = 0;
   bundles.clear();
-  return proof;
+  await proof;
 }
 
 export async function esbuild(tsc?: Promise<void>): Promise<void> {
@@ -37,7 +37,7 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
     treeShaking: true,
     splitting: true,
     format: 'esm',
-    target: 'es2018',
+    target: 'es2020',
     logLevel: 'silent',
     sourcemap: !env.prod,
     minify: env.prod,
@@ -58,7 +58,7 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
 const onEndPlugin = {
   name: 'onEnd',
   setup(build: es.PluginBuild) {
-    build.onEnd(async (result: es.BuildResult) => {
+    build.onEnd(async(result: es.BuildResult) => {
       for (const err of result.errors) esbuildMessage(err, true);
       for (const warn of result.warnings) esbuildMessage(warn);
       if (result.errors.length === 0) await jsManifest(result.metafile!);

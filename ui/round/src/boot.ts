@@ -1,22 +1,28 @@
 import * as xhr from 'common/xhr';
-import { RoundOpts, RoundData, NvuiPlugin } from './interfaces';
+import { RoundOpts, RoundData } from './interfaces';
 import MoveOn from './moveOn';
 import { ChatCtrl } from 'chat';
 import { TourPlayer } from 'game';
+import RoundController from './ctrl';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
+import StrongSocket from 'common/socket';
+import { storage } from 'common/storage';
 
 interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
   moveOn: MoveOn;
 }
 
-export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvui?: NvuiPlugin) => RoundApi) {
+export default async function(
+  opts: RoundOpts,
+  roundMain: (opts: RoundOpts) => Promise<RoundController>,
+): Promise<RoundController> {
   const data = opts.data;
   if (data.tournament) document.body.dataset.tournamentId = data.tournament.id;
   const socketUrl = opts.data.player.spectator
     ? `/watch/${data.game.id}/${data.player.color}/v6`
     : `/play/${data.game.id}${data.player.id}/v6`;
-  site.socket = new site.StrongSocket(socketUrl, data.player.version, {
+  site.socket = new StrongSocket(socketUrl, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);
@@ -28,8 +34,8 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
           $('.tv-channels .' + o.channel + ' .champion').html(
             o.player
               ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : '']
-                  .filter(x => x)
-                  .join('&nbsp')
+                .filter(x => x)
+                .join('&nbsp')
               : 'Anonymous',
           );
       },
@@ -52,10 +58,11 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
       },
     },
   });
+  opts.socketSend = site.socket.send;
 
   const startTournamentClock = () => {
     if (data.tournament)
-      $('.game__tournament .clock').each(function (this: HTMLElement) {
+      $('.game__tournament .clock').each(function(this: HTMLElement) {
         site.clockWidget(this, {
           time: parseFloat(this.dataset.time!),
         });
@@ -67,13 +74,8 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
     else if (d.game.status.id >= 30) return 'end';
     return;
   };
-  opts.element = document.querySelector('.round__app') as HTMLElement;
-  opts.socketSend = site.socket.send;
-
-  const round: RoundApi = roundMain(
-    opts,
-    site.blindMode ? await site.asset.loadEsm<NvuiPlugin>('round.nvui') : undefined,
-  );
+  const ctrl = await roundMain(opts);
+  const round: RoundApi = { socketReceive: ctrl.socket.receive, moveOn: ctrl.moveOn };
   const chatOpts = opts.chat;
   if (chatOpts) {
     if (data.tournament?.top) {
@@ -100,10 +102,11 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
     history.replaceState(null, '', '/' + data.game.id);
   $('#zentog').on('click', () => site.pubsub.emit('zen'));
-  site.storage.make('reload-round-tabs').listen(site.reload);
+  storage.make('reload-round-tabs').listen(site.reload);
 
   if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {
     alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
     site.socket.destroy();
   }
+  return ctrl;
 }

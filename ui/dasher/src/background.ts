@@ -5,7 +5,7 @@ import { prefersLight } from 'common/theme';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import { DasherCtrl, PaneCtrl } from './interfaces';
 
 export interface BackgroundData {
@@ -104,9 +104,10 @@ export class BackgroundCtrl extends PaneCtrl {
       bgData
         ? (bgData.innerHTML = 'html.transp::before{background-image:url(' + this.data.image + ');}')
         : $('head').append(
-            '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
-          );
+          '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
+        );
     }
+    site.pubsub.emit('theme', key);
   };
 
   private imageInput = () =>

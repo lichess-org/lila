@@ -19,7 +19,8 @@ case class AiConfig(
     color: TriColor,
     fen: Option[Fen.Full] = None
 ) extends Config
-    with Positional:
+    with Positional
+    with WithColor:
 
   val strictFen = true
 

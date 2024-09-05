@@ -19,7 +19,7 @@ export const shiftClickCheckboxRange = (table: HTMLTableElement): OnSelect => {
   };
 };
 
-export const expandCheckboxZone = (table: HTMLTableElement, tdSelector: string, onSelect: OnSelect) =>
+export const expandCheckboxZone = (table: HTMLTableElement, tdSelector: string, onSelect: OnSelect): Cash =>
   $(table).on('click', tdSelector, (e: MouseEvent) => {
     if ((e.target as HTMLElement).tagName == 'INPUT') onSelect(e.target as HTMLInputElement, e.shiftKey);
     else {
@@ -31,7 +31,7 @@ export const expandCheckboxZone = (table: HTMLTableElement, tdSelector: string, 
     }
   });
 
-export const checkBoxAll = (table: HTMLTableElement) =>
+export const checkBoxAll = (table: HTMLTableElement): Cash =>
   $(table)
     .find('thead input')
     .on('change', (e: MouseEvent) =>
@@ -41,16 +41,17 @@ export const checkBoxAll = (table: HTMLTableElement) =>
     );
 
 export const selector =
-  (table: HTMLTableElement, select: HTMLSelectElement) => (f: (action: string) => void) =>
-    $(select).on('change', _ => {
-      const action = select.value;
-      if (action) {
-        select.value = '';
-        if (action == 'all' || action == 'none')
-          $(table)
-            .find('tbody tr:not(.none) input:not(:disabled)')
-            .prop('checked', action == 'all');
-        else f(action);
-      }
-      return false;
-    });
+  (table: HTMLTableElement, select: HTMLSelectElement) =>
+    (f: (action: string) => void): Cash =>
+      $(select).on('change', _ => {
+        const action = select.value;
+        if (action) {
+          select.value = '';
+          if (action == 'all' || action == 'none')
+            $(table)
+              .find('tbody tr:not(.none) input:not(:disabled)')
+              .prop('checked', action == 'all');
+          else f(action);
+        }
+        return false;
+      });

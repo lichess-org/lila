@@ -18,6 +18,7 @@ import boardMenu from './boardMenu';
 import * as Prefs from 'common/prefs';
 import PuzzleCtrl from '../ctrl';
 import { dispatchChessgroundResize } from 'common/resize';
+import { storage } from 'common/storage';
 
 const renderAnalyse = (ctrl: PuzzleCtrl): VNode => lh('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
@@ -62,7 +63,7 @@ function controls(ctrl: PuzzleCtrl): VNode {
 
 let cevalShown = false;
 
-export default function (ctrl: PuzzleCtrl): VNode {
+export default function(ctrl: PuzzleCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const showCeval = ctrl.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
@@ -98,30 +99,30 @@ export default function (ctrl: PuzzleCtrl): VNode {
         'div.puzzle__board.main-board' + (ctrl.blindfold() ? '.blindfold' : ''),
         {
           hook:
-            'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
+            'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
               ? undefined
               : bindNonPassive(
-                  'wheel',
-                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                    const target = e.target as HTMLElement;
-                    if (
-                      target.tagName !== 'PIECE' &&
+                'wheel',
+                stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                  const target = e.target as HTMLElement;
+                  if (
+                    target.tagName !== 'PIECE' &&
                       target.tagName !== 'SQUARE' &&
                       target.tagName !== 'CG-BOARD'
-                    )
-                      return;
-                    e.preventDefault();
-                    if (e.deltaY > 0 && scroll) control.next(ctrl);
-                    else if (e.deltaY < 0 && scroll) control.prev(ctrl);
-                    ctrl.redraw();
-                  }),
-                ),
+                  )
+                    return;
+                  e.preventDefault();
+                  if (e.deltaY > 0 && scroll) control.next(ctrl);
+                  else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                  ctrl.redraw();
+                }),
+              ),
         },
         [chessground(ctrl), ctrl.promotion.view()],
       ),
       cevalView.renderGauge(ctrl),
       lh('div.puzzle__tools', [
-        ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw, 'puz') : null,
+        ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw, 'puz') : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
         lh(
@@ -169,9 +170,9 @@ function session(ctrl: PuzzleCtrl) {
       ? !ctrl.streak &&
         lh('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
       : lh(
-          'a.result-cursor.current',
-          { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
-          ctrl.streak && (ctrl.streak.data.index + 1).toString(),
-        ),
+        'a.result-cursor.current',
+        { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
+        ctrl.streak && (ctrl.streak.data.index + 1).toString(),
+      ),
   ]);
 }

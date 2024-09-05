@@ -1,6 +1,6 @@
 import { VNode, Classes } from 'snabbdom';
 import { defined } from 'common';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
 import { MaybeVNode, LooseVNodes, looseH as h } from 'common/snabbdom';
@@ -76,7 +76,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
   return h(
     'lines',
     { class: { single: !!nodes[1] } },
-    nodes.map(function (n) {
+    nodes.map(function(n) {
       return h(
         'line',
         renderMoveAndChildrenOf(ctx, n, { parentPath: opts.parentPath, isMainline: false, withIndex: true }),

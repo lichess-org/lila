@@ -1,6 +1,6 @@
 package lila.core
 
-import _root_.chess.{ ByColor, PlayerTitle }
+import _root_.chess.{ Color, ByColor, PlayerTitle }
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -160,7 +160,6 @@ object user:
   case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
 
   case class ChangeEmail(id: UserId, email: EmailAddress)
-  case class GDPRErase(user: User)
 
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]
@@ -201,7 +200,7 @@ object user:
     def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean]
     def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit
     def userIdsWithRoles(roles: List[RoleDbKey]): Fu[Set[UserId]]
-    def incColor(userId: UserId, value: Int): Unit
+    def incColor(userId: UserId, color: Color): Unit
     def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean]
     def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean]
     def gamePlayersAny(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers]

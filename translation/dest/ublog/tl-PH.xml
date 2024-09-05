@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="likedBlogs">Mga blog post na ni-like</string>
+  <string name="blogTopics">Mga blog topic</string>
+  <string name="lichessOfficialBlog">Opisyal na blog ng Lichess</string>
+  <string name="continueReadingPost">Ituloy ang pagbabasa sa post na ito</string>
   <string name="xBlog">Blog ni %s</string>
   <string name="newPost">Bagong post</string>
   <string name="editYourBlogPost">I-edit ang iyong post sa blog</string>
@@ -22,4 +26,5 @@
   <string name="noPostsInThisBlogYet">Wala pang post sa blog na ito.</string>
   <string name="noDrafts">Walang mga draft na ipapakita.</string>
   <string name="latestBlogPosts">Pinakabagong mga post sa blog</string>
+  <string name="uploadAnImageForYourPost">Mag-upload ng larawan para sa iyong post</string>
 </resources>

@@ -1,5 +1,5 @@
 import * as game from 'game';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import * as xhr from './xhr';
 import RoundController from './ctrl';
 import { defined } from 'common';
@@ -27,7 +27,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
   let timer: number | undefined;
   let lastExec = 0;
 
-  return function (this: any, ...args: any[]): void {
+  return function(this: any, ...args: any[]): void {
     const self: any = this;
     const elapsed = performance.now() - lastExec;
 
@@ -83,8 +83,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     cclock(o: { white: number; black: number }) {
       if (ctrl.corresClock) {
-        ctrl.data.correspondence.white = o.white;
-        ctrl.data.correspondence.black = o.black;
+        ctrl.data.correspondence!.white = o.white;
+        ctrl.data.correspondence!.black = o.black;
         ctrl.corresClock.update(o.white, o.black);
         ctrl.redraw();
       }

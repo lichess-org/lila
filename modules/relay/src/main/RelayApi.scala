@@ -127,7 +127,7 @@ final class RelayApi(
           for
             start <- doc.getAsOpt[Instant]("start")
             end   <- doc.getAsOpt[Instant]("end")
-            singleDay = end.isBefore(start.plusDays(1))
+            singleDay = end.isBefore(start.plusHours(18))
             endMaybe  = Option.when(!singleDay)(end)
           yield RelayTour.Dates(start, endMaybe)
 
@@ -225,7 +225,8 @@ final class RelayApi(
           "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
           "ownerId"         -> tour.ownerId.some,
-          "pinnedStream"    -> tour.pinnedStream
+          "pinnedStream"    -> tour.pinnedStream,
+          "note"            -> tour.note
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))

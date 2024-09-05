@@ -19,7 +19,7 @@ export default function table(ctrl: LobbyController) {
           ['hook', 'createAGame', hookDisabled],
           ['friend', 'playWithAFriend', hasOngoingRealTimeGame],
           ['ai', 'playWithTheMachine', hasOngoingRealTimeGame],
-        ].map(([gameType, transKey, disabled]: [GameType, string, boolean]) =>
+        ].map(([gameType, transKey, disabled]: [Exclude<GameType, 'local'>, string, boolean]) =>
           h(
             `button.button.button-metal.config_${gameType}`,
             {
@@ -28,10 +28,10 @@ export default function table(ctrl: LobbyController) {
               hook: disabled
                 ? {}
                 : bind(
-                    site.blindMode ? 'click' : 'mousedown',
-                    () => ctrl.setupCtrl.openModal(gameType),
-                    ctrl.redraw,
-                  ),
+                  site.blindMode ? 'click' : 'mousedown',
+                  () => ctrl.setupCtrl.openModal(gameType),
+                  ctrl.redraw,
+                ),
             },
             trans(transKey),
           ),

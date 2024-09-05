@@ -1,6 +1,6 @@
-import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
-import { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
-import { RecognizerOpts, VoskModule } from './interfaces';
+import { type KaldiRecognizer, type Model, createModel } from 'vosk-browser';
+import type { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
+import type { RecognizerOpts, VoskModule } from './interfaces';
 
 // IMPORTANT: We can't have code splitting here and I don't want a separate esbuild pass.
 // Do not import code, just paste it in if needed.
@@ -93,13 +93,15 @@ class KaldiRec implements Selectable {
   }
 }
 
-export interface Selectable<C = any> {
+// the code below is replicated from ui/common/src/selector.ts, no imports allowed because
+// this module is huge due to the vosk-browser import and must have a stable hash
+interface Selectable<C = any> {
   select?: (ctx?: C) => void;
   deselect?: (ctx?: C) => void;
   close?: (ctx?: C) => void;
 }
 
-export class Selector<T extends Selectable, C = any> {
+class Selector<T extends Selectable, C = any> {
   group: Map<string, T> = new Map<string, T>();
   context?: C;
   key: string | false = false;

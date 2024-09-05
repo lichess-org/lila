@@ -106,11 +106,11 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def withPerfs(u: User): Fu[UserWithPerfs] = perfsRepo.withPerfs(u)
 
-  def withPerfs[U: UserIdOf](id: U): Fu[Option[UserWithPerfs]] =
+  def withPerfs[U: UserIdOf](u: U): Fu[Option[UserWithPerfs]] =
     userRepo.coll
       .aggregateOne(): framework =>
         import framework.*
-        Match($id(id)) -> List:
+        Match($id(u.id)) -> List:
           PipelineOperator(perfsRepo.aggregate.lookup)
       .map: docO =>
         for

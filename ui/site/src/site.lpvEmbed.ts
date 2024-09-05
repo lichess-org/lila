@@ -8,7 +8,7 @@ interface OptsWithI18n extends Opts {
   };
 }
 
-(window as any).LpvEmbed = function (opts: Partial<OptsWithI18n>) {
+(window as any).LpvEmbed = function(opts: Partial<OptsWithI18n>) {
   const elem = document.body.firstChild!.firstChild as HTMLElement;
   const i18n = {
     ...(opts.i18n || {}),
@@ -19,17 +19,17 @@ interface OptsWithI18n extends Opts {
     initialPly: parseInt(location.hash.slice(1)) || undefined,
     ...(opts.gamebook
       ? {
-          showPlayers: false,
-          showMoves: false,
-          showClocks: false,
-          showControls: false,
-          scrollToMove: false,
-          drawArrows: false,
-          classes: 'lpv--gamebook',
-        }
+        showPlayers: false,
+        showMoves: false,
+        showClocks: false,
+        showControls: false,
+        scrollToMove: false,
+        drawArrows: false,
+        classes: 'lpv--gamebook',
+      }
       : {
-          showMoves: 'auto',
-        }),
+        showMoves: 'auto',
+      }),
     ...opts,
     pgn: elem.innerHTML,
     translate: key => i18n[key],

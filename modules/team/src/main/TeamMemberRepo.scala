@@ -144,6 +144,6 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
   private def selectId[U: UserIdOf](teamId: TeamId, user: U) = $id(TeamMember.makeId(teamId, user.id))
   private def selectIds[U: UserIdOf](teamIds: Seq[TeamId], user: U) = $inIds:
     teamIds.map(TeamMember.makeId(_, user.id))
-  private def selectUser[U: UserIdOf](user: U)      = $doc("user" -> user)
+  private def selectUser[U: UserIdOf](user: U)      = $doc("user" -> user.id)
   private def selectAnyPerm                         = $doc("perms".$exists(true))
   private def selectPerm(perm: Permission.Selector) = $doc("perms" -> perm(Permission))

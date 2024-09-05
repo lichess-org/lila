@@ -1,4 +1,6 @@
 import * as xhr from 'common/xhr';
+import { trans } from 'common/trans';
+import { once } from 'common/storage';
 import { ChallengeOpts, ChallengeData, Reasons } from './interfaces';
 
 export default class ChallengeCtrl {
@@ -19,7 +21,7 @@ export default class ChallengeCtrl {
 
   update = (d: ChallengeData) => {
     this.data = d;
-    if (d.i18n) this.trans = site.trans(d.i18n).noarg;
+    if (d.i18n) this.trans = trans(d.i18n).noarg;
     if (d.reasons) this.reasons = d.reasons;
     this.opts.setCount(this.countActiveIn());
     this.notifyNew();
@@ -29,7 +31,7 @@ export default class ChallengeCtrl {
 
   notifyNew = () =>
     this.data.in.forEach(c => {
-      if (site.once('c-' + c.id)) {
+      if (once('c-' + c.id)) {
         if (!site.quietMode && this.data.in.length <= 3) {
           this.opts.show();
           site.sound.playOnce('newChallenge');

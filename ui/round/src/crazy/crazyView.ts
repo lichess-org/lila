@@ -1,5 +1,5 @@
 import * as cg from 'chessground/types';
-import { onInsert } from 'common/snabbdom';
+import { onInsert, LooseVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
@@ -8,7 +8,7 @@ import { crazyKeys, drag, pieceRoles } from './crazyCtrl';
 
 const eventNames = ['mousedown', 'touchstart'];
 
-export default function pocket(ctrl: RoundController, color: Color, position: Position) {
+export default function pocket(ctrl: RoundController, color: Color, position: Position): LooseVNode {
   const step = round.plyStep(ctrl.data, ctrl.ply);
   if (!step.crazy) return;
   const droppedRole = ctrl.justDropped,

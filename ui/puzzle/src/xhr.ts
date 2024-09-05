@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import PuzzleStreak from './streak';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 import { StoredProp } from 'common/storage';

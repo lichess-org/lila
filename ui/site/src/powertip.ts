@@ -48,6 +48,19 @@ const gamePowertip = (el: HTMLElement) =>
       popupId: 'miniGame',
     });
 
+const imagePowertip = (el: HTMLElement) =>
+  $(el)
+    .removeClass('image-powertip')
+    .powerTip({
+      preRender: (el: HTMLElement) => {
+        const w = el.dataset.width ? ` width="${el.dataset.width}"` : '';
+        const h = el.dataset.height ? ` height="${el.dataset.height}"` : '';
+        document.querySelector('#image-powertip')!.innerHTML = `<img src="${el.dataset.src}"${w}${h}>`;
+      },
+      popupId: 'image-powertip',
+      placement: 's',
+    });
+
 function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
   if (!('ontouchstart' in window)) {
     f(el);
@@ -68,6 +81,7 @@ const powertip: LichessPowertip = {
       const t = e.target as HTMLElement;
       if (t.classList.contains('ulpt')) powerTipWith(t, e, userPowertip);
       else if (t.classList.contains('glpt')) powerTipWith(t, e, gamePowertip);
+      else if (t.classList.contains('image-powertip')) powerTipWith(t, e, imagePowertip);
     });
   },
   manualGameIn(parent: HTMLElement) {
@@ -118,7 +132,7 @@ const Collision = {
   right: 8,
 };
 
-$.fn.powerTip = function (opts) {
+$.fn.powerTip = function(opts) {
   // don't do any work if there were no matched elements
   if (!this.length) {
     return this;
@@ -148,10 +162,10 @@ $.fn.powerTip = function (opts) {
   // attach events to matched elements if the manual options is not enabled
   this.on({
     // mouse events
-    mouseenter: function (event) {
+    mouseenter: function(event) {
       $.powerTip.show(this, event);
     },
-    mouseleave: function () {
+    mouseleave: function() {
       $.powerTip.hide(this);
     },
   });
@@ -542,6 +556,7 @@ class TooltipController {
         if (collisions === Collision.none) {
           return false;
         }
+        return true;
       });
     } else {
       // if we're not going to use the smart placement feature then just
@@ -647,7 +662,7 @@ function initTracking() {
     // hook viewport dimensions tracking
     window.addEventListener(
       'resize',
-      function () {
+      function() {
         session.windowWidth = $window.width();
         session.windowHeight = $window.height();
       },
@@ -656,7 +671,7 @@ function initTracking() {
 
     window.addEventListener(
       'scroll',
-      function () {
+      function() {
         const x = window.scrollX,
           y = window.scrollY;
         if (x !== session.scrollLeft) {

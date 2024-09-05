@@ -1,4 +1,4 @@
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import { json, form } from 'common/xhr';
 import SwissCtrl from './ctrl';
 import { isOutcome } from './util';
@@ -44,14 +44,14 @@ const playerInfo = (ctrl: SwissCtrl, userId: string) =>
 const readSheetMin = (str: string) =>
   str
     ? str.split('|').map(s =>
-        isOutcome(s)
-          ? s
-          : {
-              g: s.slice(0, 8),
-              o: s[8] == 'o',
-              w: s[8] == 'w' ? true : s[8] == 'l' ? false : undefined,
-            },
-      )
+      isOutcome(s)
+        ? s
+        : {
+          g: s.slice(0, 8),
+          o: s[8] == 'o',
+          w: s[8] == 'w' ? true : s[8] == 'l' ? false : undefined,
+        },
+    )
     : [];
 
 export default {

@@ -79,8 +79,8 @@ final class TournamentForm:
           )
 
   private def makeMapping(leaderTeams: List[LightTeam], prev: Option[Tournament])(using me: Me) =
-    val manager       = Granter.opt(_.ManageTournament)
-    val nameMaxLength = if me.isVerifiedOrAdmin then 35 else 30
+    val manager       = Granter(_.ManageTournament)
+    val nameMaxLength = if me.isVerified || manager then 35 else 30
     mapping(
       "name"           -> optional(eventName(2, nameMaxLength, manager || me.isVerified)),
       "clockTime"      -> numberInDouble(timeChoices),

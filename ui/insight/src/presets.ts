@@ -4,7 +4,7 @@ import { h } from 'snabbdom';
 import Ctrl from './ctrl';
 import { Preset } from './interfaces';
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   return h(
     'div.box.presets',
     (ctrl.ui.asMod ? modPresets : basePresets).map(p =>

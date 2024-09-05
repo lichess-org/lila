@@ -1,6 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
 
-export default function (panels: Cash | HTMLElement, onSelect: (id: string) => void) {
+export default function(panels: Cash | HTMLElement, onSelect: (id: string) => void): void {
   $(panels)
     .find('.tab-list__tab')
     .on('click', e => {

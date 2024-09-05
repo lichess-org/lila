@@ -3,7 +3,7 @@ import { fenColor } from 'common/miniBoard';
 import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clockWidget';
-import StrongSocket from './socket';
+import StrongSocket from 'common/socket';
 import { lichessClockIsRunning } from 'common/clock';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {
@@ -30,7 +30,7 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
   );
 
   ['white', 'black'].forEach((color: Color) =>
-    $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
+    $el.find('.mini-game__clock--' + color).each(function(this: HTMLElement) {
       clockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
         pause: color != turnColor || !lichessClockIsRunning(fen, color),

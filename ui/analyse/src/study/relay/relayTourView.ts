@@ -3,7 +3,7 @@ import RelayCtrl, { RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
-import { innerHTML } from 'common/richText';
+import { innerHTML, richHTML } from 'common/richText';
 import { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'common';
@@ -51,13 +51,13 @@ export const tourSide = (ctx: RelayViewContext) => {
       ...(empty
         ? [startCountdown(relay)]
         : [
-            h('div.relay-tour__side__header', [
-              h(
-                'button.relay-tour__side__name',
-                { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-                study.data.name,
-              ),
-              !ctrl.isEmbed &&
+          h('div.relay-tour__side__header', [
+            h(
+              'button.relay-tour__side__name',
+              { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
+              study.data.name,
+            ),
+            !ctrl.isEmbed &&
                 h('button.streamer-show.data-count', {
                   attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
                   class: {
@@ -67,12 +67,12 @@ export const tourSide = (ctx: RelayViewContext) => {
                   },
                   hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
                 }),
-              h('button.relay-tour__side__search', {
-                attrs: { 'data-icon': licon.Search, title: 'Search' },
-                hook: bind('click', study.search.open.toggle),
-              }),
-            ]),
+            h('button.relay-tour__side__search', {
+              attrs: { 'data-icon': licon.Search, title: 'Search' },
+              hook: bind('click', study.search.open.toggle),
+            }),
           ]),
+        ]),
       !ctrl.isEmbed && relay.showStreamerMenu() && renderStreamerMenu(relay),
       !empty && gamesList(study, relay),
       !ctrl.isEmbed &&
@@ -125,9 +125,9 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
 const dateFormat = memoize(() =>
   window.Intl && Intl.DateTimeFormat
     ? new Intl.DateTimeFormat(site.displayLocale, {
-        month: 'short',
-        day: '2-digit',
-      } as any).format
+      month: 'short',
+      day: '2-digit',
+    } as any).format
     : (d: Date) => d.toLocaleDateString(),
 );
 
@@ -140,9 +140,9 @@ const showDates = (dates: RelayTourDates) => {
 const showSource = (data: RelayData) =>
   data.lcc
     ? h('div.relay-tour__source', [
-        'PGN source: ',
-        h('a', { attrs: { href: 'https://www.livechesscloud.com' } }, 'LiveChessCloud'),
-      ])
+      'PGN source: ',
+      h('a', { attrs: { href: 'https://www.livechesscloud.com' } }, 'LiveChessCloud'),
+    ])
     : undefined;
 
 const overview = (ctx: RelayViewContext) => {
@@ -152,8 +152,8 @@ const overview = (ctx: RelayViewContext) => {
     showInfo(tour.info, tour.dates),
     tour.description
       ? h('div.relay-tour__markup', {
-          hook: innerHTML(tour.description, () => tour.description!),
-        })
+        hook: innerHTML(tour.description, () => tour.description!),
+      })
       : undefined,
     ...(ctx.ctrl.isEmbed ? [] : [showSource(ctx.relay.data), share(ctx)]),
   ];
@@ -161,7 +161,7 @@ const overview = (ctx: RelayViewContext) => {
 
 const share = (ctx: RelayViewContext) => {
   const iframe = (path: string) =>
-    `<iframe src="${baseUrl()}/embed${path}" 'style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
+    `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
   const iframeHelp = h('div.form-help', [
     'More options on the ',
     h('a', { attrs: { href: '/developers#broadcast' } }, 'webmasters page'),
@@ -212,18 +212,18 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
       ),
       ...(toggle()
         ? [
-            h('label.fullscreen-mask', clickHook),
-            h(
-              'nav.mselect__list',
-              group.tours.map(tour =>
-                h(
-                  `a.mselect__item${tour.id == ctx.relay.data.tour.id ? '.current' : ''}`,
-                  { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
-                  tour.name,
-                ),
+          h('label.fullscreen-mask', clickHook),
+          h(
+            'nav.mselect__list',
+            group.tours.map(tour =>
+              h(
+                `a.mselect__item${tour.id == ctx.relay.data.tour.id ? '.current' : ''}`,
+                { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
+                tour.name,
               ),
             ),
-          ]
+          ),
+        ]
         : []),
     ],
   );
@@ -249,49 +249,49 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
       ]),
       ...(toggle()
         ? [
-            h('label.fullscreen-mask', clickHook),
+          h('label.fullscreen-mask', clickHook),
+          h(
+            'div.relay-tour__round-select__list.mselect__list',
             h(
-              'div.relay-tour__round-select__list.mselect__list',
+              'table',
               h(
-                'table',
-                h(
-                  'tbody',
-                  {
-                    hook: bind('click', (e: MouseEvent) => {
-                      const target = e.target as HTMLElement;
-                      if (target.tagName != 'A')
-                        site.redirect($(target).parents('tr').find('a').attr('href')!);
-                    }),
-                  },
-                  relay.data.rounds.map((round, i) =>
-                    h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
+                'tbody',
+                {
+                  hook: bind('click', (e: MouseEvent) => {
+                    const target = e.target as HTMLElement;
+                    if (target.tagName != 'A')
+                      site.redirect($(target).parents('tr').find('a').attr('href')!);
+                  }),
+                },
+                relay.data.rounds.map((round, i) =>
+                  h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
+                    h(
+                      'td.name',
                       h(
-                        'td.name',
-                        h(
-                          'a',
-                          { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
-                          round.name,
-                        ),
+                        'a',
+                        { attrs: { href: study.embeddablePath(relay.roundUrlWithHash(round)) } },
+                        round.name,
                       ),
-                      h(
-                        'td.time',
-                        round.startsAt
-                          ? site.dateFormat()(new Date(round.startsAt))
-                          : round.startsAfterPrevious
-                            ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
-                            : '',
-                      ),
-                      h(
-                        'td.status',
-                        roundStateIcon(round, false) ||
+                    ),
+                    h(
+                      'td.time',
+                      round.startsAt
+                        ? site.dateFormat()(new Date(round.startsAt))
+                        : round.startsAfterPrevious
+                          ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
+                          : '',
+                    ),
+                    h(
+                      'td.status',
+                      roundStateIcon(round, false) ||
                           (round.startsAt ? site.timeago(round.startsAt) : undefined),
-                      ),
-                    ]),
-                  ),
+                    ),
+                  ]),
                 ),
               ),
             ),
-          ]
+          ),
+        ]
         : []),
     ],
   );
@@ -314,7 +314,8 @@ const header = (ctx: RelayViewContext) => {
   const { ctrl, relay, allowVideo } = ctx;
   const d = relay.data,
     group = d.group,
-    embedVideo = d.videoUrls && allowVideo;
+    embedVideo = d.videoUrls && allowVideo,
+    studyD = ctrl.study?.data.description;
 
   return [
     h('div.relay-tour__header', [
@@ -333,13 +334,22 @@ const header = (ctx: RelayViewContext) => {
             ? h('img', { attrs: { src: d.tour.image } })
             : ctx.study.members.isOwner()
               ? h(
-                  'a.button.relay-tour__header__image-upload',
-                  { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
-                  'Upload tournament image',
-                )
+                'a.button.relay-tour__header__image-upload',
+                { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
+                'Upload tournament image',
+              )
               : undefined,
       ),
     ]),
+    studyD && h('div.relay-tour__note.pinned', h('div', [h('div', { hook: richHTML(studyD, false) })])),
+    d.note &&
+      h(
+        'div.relay-tour__note',
+        h('div', [
+          h('div', { hook: richHTML(d.note, false) }),
+          h('small', 'This note is visible to contributors only.'),
+        ]),
+      ),
     h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
   ];
 };
@@ -347,25 +357,25 @@ const header = (ctx: RelayViewContext) => {
 const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
   defined(relay.data.isSubscribed)
     ? [
-        toggle(
-          {
-            name: 'Subscribe',
-            id: 'tour-subscribe',
-            title:
+      toggle(
+        {
+          name: 'Subscribe',
+          id: 'tour-subscribe',
+          title:
               'Subscribe to be notified when each round starts. You can toggle bell or push ' +
               'notifications for broadcasts in your account preferences.',
-            cls: 'relay-tour__subscribe',
-            checked: relay.data.isSubscribed,
-            change: (v: boolean) => {
-              xhr.text(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
-              relay.data.isSubscribed = v;
-              ctrl.redraw();
-            },
+          cls: 'relay-tour__subscribe',
+          checked: relay.data.isSubscribed,
+          change: (v: boolean) => {
+            xhr.text(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
+            relay.data.isSubscribed = v;
+            ctrl.redraw();
           },
-          ctrl.trans,
-          ctrl.redraw,
-        ),
-      ]
+        },
+        ctrl.trans,
+        ctrl.redraw,
+      ),
+    ]
     : [];
 
 const makeTabs = (ctrl: AnalyseCtrl) => {
@@ -392,12 +402,12 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
       ? makeTab('stats', 'Stats')
       : ctrl.isEmbed
         ? h(
-            'a.relay-tour__tabs--open.text',
-            {
-              attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
-            },
-            'Open in Lichess',
-          )
+          'a.relay-tour__tabs--open.text',
+          {
+            attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
+          },
+          'Open in Lichess',
+        )
         : undefined,
   ]);
 };
@@ -405,10 +415,10 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
 const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
   round.ongoing
     ? h(
-        'span.round-state.ongoing',
-        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && 'Ongoing' } },
-        titleAsText && 'Ongoing',
-      )
+      'span.round-state.ongoing',
+      { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && 'Ongoing' } },
+      titleAsText && 'Ongoing',
+    )
     : round.finished &&
       h(
         'span.round-state.finished',

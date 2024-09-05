@@ -532,7 +532,7 @@ final class ReportApi(
           .toMap
       }
 
-    def ofModId[U: UserIdOf](modId: U): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> modId))
+    def ofModId[U: UserIdOf](mod: U): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> mod.id))
 
     def ofSuspectId(suspectId: UserId): Fu[Option[Report.Inquiry]] =
       coll.primitiveOne[Report.Inquiry]($doc("inquiry.mod".$exists(true), "user" -> suspectId), "inquiry")

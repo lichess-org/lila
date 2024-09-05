@@ -1,5 +1,8 @@
 import { defined, notNull, Prop, Toggle, withEffect } from './common';
 
+export const storage: LichessStorageHelper = builder(window.localStorage);
+export const tempStorage: LichessStorageHelper = builder(window.sessionStorage);
+
 export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
 }
@@ -12,17 +15,17 @@ export function storedProp<V>(
 ): StoredProp<V> {
   const compatKey = 'analyse.' + key;
   let cached: V;
-  return function (replacement?: V) {
+  return function(replacement?: V) {
     if (defined(replacement) && replacement != cached) {
       cached = replacement;
-      site.storage.set(key, toStr(replacement));
+      storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {
-      const compatValue = site.storage.get(compatKey);
+      const compatValue = storage.get(compatKey);
       if (notNull(compatValue)) {
-        site.storage.set(key, compatValue);
-        site.storage.remove(compatKey);
+        storage.set(key, compatValue);
+        storage.remove(compatKey);
       }
-      const str = site.storage.get(key);
+      const str = storage.get(key);
       cached = str === null ? defaultValue : fromStr(str);
     }
     return cached;
@@ -75,14 +78,14 @@ export type StoredJsonProp<V> = Prop<V>;
 
 export const storedJsonProp =
   <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
-  (v?: V) => {
-    if (defined(v)) {
-      site.storage.set(key, JSON.stringify(v));
-      return v;
-    }
-    const ret = JSON.parse(site.storage.get(key)!);
-    return ret !== null ? ret : defaultValue();
-  };
+    (v?: V) => {
+      if (defined(v)) {
+        storage.set(key, JSON.stringify(v));
+        return v;
+      }
+      const ret = JSON.parse(storage.get(key)!);
+      return ret !== null ? ret : defaultValue();
+    };
 
 export interface StoredMap<V> {
   (key: string): V;
@@ -127,12 +130,12 @@ export interface ToggleWithUsed extends Toggle {
 
 export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
   let value = toggle();
-  let used = !!site.storage.get(key);
+  let used = !!storage.get(key);
   const novTog = (v?: boolean) => {
     if (defined(v)) {
       value = v;
       if (!used) {
-        site.storage.set(key, '1');
+        storage.set(key, '1');
         used = true;
       }
       toggle.effect(v);
@@ -144,3 +147,103 @@ export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
   novTog.effect = toggle.effect;
   return novTog;
 };
+
+export function once(key: string, mod?: 'always' | undefined): boolean {
+  if (mod === 'always') return true;
+  if (storage.get(key)) return false;
+
+  storage.set(key, '1');
+  return true;
+}
+
+export interface LichessStorage {
+  get(): string | null;
+  set(v: any): void;
+  remove(): void;
+  listen(f: (e: LichessStorageEvent) => void): void;
+  fire(v?: string): void;
+}
+
+export interface LichessBooleanStorage {
+  get(): boolean;
+  getOrDefault(defaultValue: boolean): boolean;
+  set(v: boolean): void;
+  toggle(): void;
+}
+
+export interface LichessStorageHelper {
+  make(k: string, ttl?: number): LichessStorage;
+  boolean(k: string): LichessBooleanStorage;
+  get(k: string): string | null;
+  set(k: string, v: string): void;
+  fire(k: string, v?: string): void;
+  remove(k: string): void;
+}
+
+interface LichessStorageEvent {
+  sri: string;
+  nonce: number;
+  value?: string;
+}
+
+function builder(storage: Storage): LichessStorageHelper {
+  const api = {
+    get: (k: string): string | null => storage.getItem(k),
+    set: (k: string, v: string): void => storage.setItem(k, v),
+    fire: (k: string, v?: string) =>
+      storage.setItem(
+        k,
+        JSON.stringify({
+          sri: site.sri,
+          nonce: Math.random(), // ensure item changes
+          value: v,
+        }),
+      ),
+    remove: (k: string) => storage.removeItem(k),
+    make: (k: string, ttl?: number) => {
+      const bdKey = ttl && `${k}--bd`;
+      const remove = () => {
+        api.remove(k);
+        if (bdKey) api.remove(bdKey);
+      };
+      return {
+        get: () => {
+          if (!bdKey) return api.get(k);
+          const birthday = Number(api.get(bdKey));
+          if (!birthday) api.set(bdKey, String(Date.now()));
+          else if (Date.now() - birthday > ttl) remove();
+          return api.get(k);
+        },
+        set: (v: any) => {
+          api.set(k, v);
+          if (bdKey) api.set(bdKey, String(Date.now()));
+        },
+        fire: (v?: string) => api.fire(k, v),
+        remove,
+        listen: (f: (e: LichessStorageEvent) => void) =>
+          window.addEventListener('storage', e => {
+            if (e.key !== k || e.storageArea !== storage || e.newValue === null) return;
+            let parsed: LichessStorageEvent | null;
+            try {
+              parsed = JSON.parse(e.newValue);
+            } catch (_) {
+              return;
+            }
+            // check sri, because Safari fires events also in the original
+            // document when there are multiple tabs
+            if (parsed?.sri && parsed.sri !== site.sri) f(parsed);
+          }),
+      };
+    },
+    boolean: (k: string) => ({
+      get: () => api.get(k) == '1',
+      getOrDefault: (defaultValue: boolean) => {
+        const stored = api.get(k);
+        return stored === null ? defaultValue : stored == '1';
+      },
+      set: (v: boolean): void => api.set(k, v ? '1' : '0'),
+      toggle: () => api.set(k, api.get(k) == '1' ? '0' : '1'),
+    }),
+  };
+  return api;
+}

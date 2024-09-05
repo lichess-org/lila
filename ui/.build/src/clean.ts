@@ -21,7 +21,7 @@ const allGlobs = [
   'public/hashed',
 ];
 
-export async function clean(globs?: string[]) {
+export async function clean(globs?: string[]): Promise<void> {
   if (!env.clean && !globs) return;
 
   for (const glob of globs ?? allGlobs) {

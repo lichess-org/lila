@@ -124,13 +124,13 @@ final class RelayRound(
   def embedShow(ts: String, rs: String, id: RelayRoundId): EssentialAction =
     Anon:
       InEmbedContext:
-        Found(env.relay.api.byIdWithTour(id))(embedShow)
+        FoundEmbed(env.relay.api.byIdWithTour(id))(embedShow)
 
   def embedShow(rt: RoundModel.WithTour)(using EmbedContext): Fu[Result] =
     env.study.preview
       .firstId(rt.round.studyId)
       .flatMapz(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _))
-      .orNotFound: oldSc =>
+      .orNotFoundEmbed: oldSc =>
         studyC.CanView(oldSc.study)(
           for
             (sc, studyData) <- studyC.getJsonData(oldSc)

@@ -557,7 +557,7 @@
   <string name="whatIsIheMatter">موضوع</string>
   <string name="cheat">تقلب</string>
   <string name="troll">وِزُل</string>
-  <string name="other">موضوعات دیگر</string>
+  <string name="other">دیگر</string>
   <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
   <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
   <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر انگلیسی بنویسید، زودتر به گزارش‌تان رسیدگی خواهد شد.</string>
@@ -565,7 +565,7 @@
   <string name="by">توسط %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>
-  <string name="blog">بلاگ</string>
+  <string name="blog">وبنوشت</string>
   <string name="notes">یادداشت ها</string>
   <string name="typePrivateNotesHere">یادداشت خصوصی را اینجا وارد کنید</string>
   <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی درباره این کاربر بنویسید</string>
@@ -725,7 +725,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">درجه‌بندی %1$s شما %2$s است.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s بهتر از %2$s از بازیکنان %3$s میباشد.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s بهتر از %2$s بازیکنان %3$s است.</string>
   <string name="betterThanPercentPlayers">بهتر از %1$s بازیکنان در %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">شما درجه‌بندی %s تثبیت‌شده‌ای ندارید.</string>
   <string name="yourRating">درجه‌بندی شما</string>
@@ -768,7 +768,7 @@
   <string name="everybodyGetsAllFeaturesForFree">همگی از مزایا بصورت رایگان استفاده می کنند</string>
   <string name="zeroAdvertisement">بدون تبلیغات</string>
   <string name="fullFeatured">با تمامی امکانات</string>
-  <string name="phoneAndTablet">موبایل و تبلت</string>
+  <string name="phoneAndTablet">گوشی و رایانک</string>
   <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، مرسوم</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>

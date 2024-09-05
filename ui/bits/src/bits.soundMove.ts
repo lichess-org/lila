@@ -11,19 +11,19 @@ export async function initModule(): Promise<SoundMove> {
     maxPitch = 23,
     uciBase = 64;
 
-  const play = (instrument = 'swells', pitch = Math.random() * 24) => {
+  const play = (instrument: string, pitch: number, volume: number) => {
     pitch = Math.round(Math.max(0, Math.min(maxPitch, pitch)));
     if (instrument === 'swells') pitch = Math.floor(pitch / 8);
     if (currentNotes < noteOverlap) {
       currentNotes++;
-      site.sound.play(`orchestra.${instrument}.${pitch}`, volumes[instrument]);
+      site.sound.play(`orchestra.${instrument}.${pitch}`, volume * volumes[instrument]);
       setTimeout(() => {
         currentNotes--;
       }, noteTimeout);
     }
   };
 
-  const load = async (instrument: string, index: number, filename: string) =>
+  const load = async(instrument: string, index: number, filename: string) =>
     site.sound.load(
       `orchestra.${instrument}.${index}`,
       site.sound.url(`instrument/${instrument}/${filename}`),
@@ -52,17 +52,14 @@ export async function initModule(): Promise<SoundMove> {
 
   return o => {
     if (o?.filter === 'game') return;
+    const volume = o?.volume ?? 1;
     if (o?.san && o.uci) {
       const pitch = keyToPitch(o.uci.slice(2));
       const instrument = isPawn(o.san) || isKing(o.san) ? 'clav' : 'celesta';
-      play(instrument, pitch);
-      if (hasCastle(o.san)) play('swells', pitch);
-      else if (hasCheck(o.san)) play('swells', pitch);
-      else if (hasCapture(o.san)) {
-        play('swells', pitch);
-        const capturePitch = keyToPitch(o.uci.slice(0, 2));
-        play(instrument, capturePitch);
-      } else if (hasMate(o.san)) play('swells', pitch);
-    } else play();
+      play(instrument, pitch, volume);
+      if (hasCastle(o.san) || hasCheck(o.san) || hasCapture(o.san) || hasMate(o.san)) {
+        play('swells', pitch, volume);
+      }
+    } else play('swells', Math.random() * 24, volume);
   };
 }

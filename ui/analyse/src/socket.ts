@@ -98,18 +98,18 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
     anaDestsCache =
       ctrl.data.game.variant.key === 'standard' && ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFEN
         ? {
-            '': {
-              path: '',
-              dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE',
-            },
-          }
+          '': {
+            path: '',
+            dests: 'iqy muC gvx ltB bqs pxF jrz nvD ksA owE',
+          },
+        }
         : {};
   }
   clearCache();
 
   // forecast mode: reload when opponent moves
   if (!ctrl.synthetic)
-    setTimeout(function () {
+    setTimeout(function() {
       send('startWatching', ctrl.data.game.id);
     }, 1000);
 
@@ -178,7 +178,7 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
       withoutStandardVariant(req);
       addStudyData(req);
       send('anaDests', req);
-      anaDestsTimeout = setTimeout(function () {
+      anaDestsTimeout = setTimeout(function() {
         console.log(req, 'resendAnaDests');
         sendAnaDests(req);
       }, 3000);

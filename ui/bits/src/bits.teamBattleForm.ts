@@ -10,7 +10,7 @@ interface Team {
 }
 
 site.load.then(() => {
-  $('#form3-teams').each(function (this: HTMLTextAreaElement) {
+  $('#form3-teams').each(function(this: HTMLTextAreaElement) {
     const textarea = this;
 
     new Textcomplete(new TextareaEditor(textarea), [

@@ -4,7 +4,7 @@ const showError = (error: string) => alert(error);
 
 const changeForm = () => {
   const $change = $('.plan table.all .change');
-  $change.find('a').on('click', function (this: HTMLLinkElement) {
+  $change.find('a').on('click', function(this: HTMLLinkElement) {
     const f = this.dataset.form!;
     $change.find('form:not(.' + f + ')').hide();
     $change.find('form.' + f).toggle();

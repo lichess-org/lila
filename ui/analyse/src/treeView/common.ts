@@ -1,6 +1,6 @@
 import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { enrichText, innerHTML } from 'common/richText';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { bindMobileTapHold } from 'common/device';

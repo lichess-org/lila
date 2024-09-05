@@ -3,8 +3,9 @@ import { Config as CgConfig } from 'chessground/config';
 import { MouchEvent } from 'chessground/types';
 import * as util from 'chessground/util';
 import EditorCtrl from './ctrl';
+import { storage } from 'common/storage';
 
-export default function (ctrl: EditorCtrl): VNode {
+export default function(ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {
@@ -19,7 +20,7 @@ export default function (ctrl: EditorCtrl): VNode {
 
 function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   const handler = onMouseEvent(ctrl);
-  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function (ev) {
+  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function(ev) {
     el.addEventListener(ev, handler);
   });
   site.pubsub.on('board.change', (is3d: boolean) => {
@@ -45,7 +46,7 @@ let lastKey: Key | undefined;
 let placeDelete: boolean | undefined;
 
 function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
-  return function (e: MouchEvent): void {
+  return function(e: MouchEvent): void {
     const sel = ctrl.selected();
 
     // do not generate corresponding mouse event
@@ -139,7 +140,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     draggable: {
       showGhost: true,

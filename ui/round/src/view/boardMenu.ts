@@ -1,10 +1,11 @@
 import { h } from 'snabbdom';
+import { LooseVNode } from 'common/snabbdom';
 import RoundController from '../ctrl';
 import { menu as menuDropdown } from 'board/menu';
 import { toggle } from 'common';
 import { boolPrefXhrToggle } from 'common/controls';
 
-export default function (ctrl: RoundController) {
+export default function(ctrl: RoundController): LooseVNode {
   return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => {
     const d = ctrl.data,
       spectator = d.player.spectator;

@@ -1,12 +1,12 @@
 import Lpv from 'lichess-pgn-viewer';
 
 site.load.then(() => {
-  $('.tutor-card--link').on('click', function (this: HTMLElement) {
+  $('.tutor-card--link').on('click', function(this: HTMLElement) {
     const href = this.dataset['href'];
     if (href) site.redirect(href);
   });
 
-  $('.tutor__opening .lpv').each(function (this: HTMLElement) {
+  $('.tutor__opening .lpv').each(function(this: HTMLElement) {
     Lpv(this, {
       pgn: this.dataset['pgn']!,
       initialPly: 'last',

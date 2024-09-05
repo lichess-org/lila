@@ -1,10 +1,5 @@
-// eslint-disable-next-line
 /// <reference path="./tree.d.ts" />
-// eslint-disable-next-line
 /// <reference path="./chessground.d.ts" />
-// eslint-disable-next-line
-/// <reference path="./voice.d.ts" />
-// eslint-disable-next-line
 /// <reference path="./cash.d.ts" />
 
 // file://./../../site/src/site.ts
@@ -15,17 +10,8 @@ interface Site {
     message: string;
     date: string;
   };
-  StrongSocket: {
-    // file://./../../site/src/socket.ts
-    new (url: string, version: number | false, cfg?: any): any;
-    firstConnect: Promise<(tpe: string, data: any) => void>;
-    defaultParams: Record<string, any>;
-  };
   mousetrap: LichessMousetrap; // file://./../../site/src/mousetrap.ts
   sri: string;
-  storage: LichessStorageHelper;
-  tempStorage: LichessStorageHelper;
-  once(key: string, mod?: 'always'): boolean;
   powertip: LichessPowertip; // file://./../../site/src/powertip.ts
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
@@ -47,12 +33,11 @@ interface Site {
   pubsub: Pubsub; // file://./../../site/src/pubsub.ts
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;
-  reload(): void;
+  reload(err?: any): void;
   watchers(el: HTMLElement): void;
   announce(d: LichessAnnouncement): void;
-  trans(i18n: I18nDict): Trans;
+  trans: Trans;
   sound: SoundI; // file://./../../site/src/sound.ts
-  mic: Voice.Microphone; // file://./../../site/src/mic.ts
   miniBoard: {
     // file://./../../common/src/miniBoard.ts
     init(node: HTMLElement): void;
@@ -150,18 +135,23 @@ interface QuestionOpts {
   no?: QuestionChoice;
 }
 
-type SoundMove = (opts?: {
-  // file://./../../site/src/sound.ts
+type SoundMoveOpts = {
   name?: string; // either provide this or valid san/uci
   san?: string;
   uci?: string;
-  filter?: 'music' | 'game'; // undefined allows either
-}) => void;
+  volume?: number;
+  filter?: 'music' | 'game';
+};
+
+type SoundMove = (opts?: SoundMoveOpts) => void;
+
+type SoundListener = (event: 'start' | 'stop', text?: string) => void;
 
 interface SoundI {
   // file://./../../site/src/sound.ts
   ctx?: AudioContext;
-  load(name: string, path?: string): void;
+  listeners: Set<SoundListener>;
+  load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
   move: SoundMove;
@@ -201,7 +191,7 @@ declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boole
 type TransNoArg = (key: string) => string;
 
 interface Trans {
-  // file://./../../site/src/trans.ts
+  // file://./../../common/src/trans.ts
   (key: string, ...args: Array<string | number>): string;
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
@@ -219,43 +209,13 @@ interface Pubsub {
   emit(msg: string, ...args: any[]): void;
 }
 
-interface LichessStorageHelper {
-  make(k: string, ttl?: number): LichessStorage;
-  boolean(k: string): LichessBooleanStorage;
-  get(k: string): string | null;
-  set(k: string, v: string): void;
-  fire(k: string, v?: string): void;
-  remove(k: string): void;
-}
-
-interface LichessStorage {
-  get(): string | null;
-  set(v: any): void;
-  remove(): void;
-  listen(f: (e: LichessStorageEvent) => void): void;
-  fire(v?: string): void;
-}
-
-interface LichessBooleanStorage {
-  get(): boolean;
-  getOrDefault(defaultValue: boolean): boolean;
-  set(v: boolean): void;
-  toggle(): void;
-}
-
-interface LichessStorageEvent {
-  sri: string;
-  nonce: number;
-  value?: string;
-}
-
 interface LichessAnnouncement {
   msg?: string;
   date?: string;
 }
 
 interface LichessEditor {
-  getFen(): CgFEN;
+  getFen(): Cg.FEN;
   setOrientation(o: Color): void;
 }
 
@@ -367,6 +327,9 @@ declare type Key = 'a0' | `${Files}${Ranks}`;
 declare type Uci = string;
 declare type San = string;
 declare type Ply = number;
+declare type Seconds = number;
+declare type Centis = number;
+declare type Millis = number;
 
 interface Variant {
   key: VariantKey;
@@ -391,7 +354,7 @@ interface EvalScore {
 }
 
 interface MiniGameUpdateData {
-  fen: CgFEN;
+  fen: Cg.FEN;
   lm: Uci;
   wc?: number;
   bc?: number;

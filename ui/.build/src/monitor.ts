@@ -13,7 +13,7 @@ const watchers: fs.FSWatcher[] = [];
 let reinitTimeout: NodeJS.Timeout | undefined;
 let tscTimeout: NodeJS.Timeout | undefined;
 
-export function stopMonitor() {
+export function stopMonitor(): void {
   for (const w of watchers) w.close();
   watchers.length = 0;
   clearTimeout(tscTimeout);
@@ -21,11 +21,11 @@ export function stopMonitor() {
   reinitTimeout = undefined;
 }
 
-export async function startMonitor(mods: string[]) {
+export async function startMonitor(mods: string[]): Promise<void> {
   if (!env.watch) return;
   const typePkgs = await globArray('*/package.json', { cwd: env.typesDir });
   const typings = await globArray('*/*.d.ts', { cwd: env.typesDir });
-  const tscChange = (t: any) => {
+  const tscChange = () => {
     if (reinitTimeout) return;
     stopTsc();
     stopEsbuild();
@@ -36,7 +36,7 @@ export async function startMonitor(mods: string[]) {
       esbuild(tsc());
     }, 2000);
   };
-  const packageChange = async () => {
+  const packageChange = async() => {
     if (env.rebuild) {
       clearTimeout(tscTimeout);
       clearTimeout(reinitTimeout);

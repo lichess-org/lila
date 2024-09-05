@@ -15,15 +15,15 @@ export default class TransientMove {
 
   current: number | undefined = undefined;
 
-  register = () => {
+  register = (): void => {
     this.current = setTimeout(this.expire, 10000);
   };
 
-  clear = () => {
+  clear = (): void => {
     if (this.current) clearTimeout(this.current);
   };
 
-  expire = () => {
+  expire = (): void => {
     xhr.text('/statlog?e=roundTransientExpire', { method: 'post' });
     this.socket.reload();
   };

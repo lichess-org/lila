@@ -1,4 +1,4 @@
-export default function () {
+export default function(): void {
   const form = document.getElementById('dgt-config') as HTMLFormElement,
     voiceSelector = document.getElementById('dgt-speech-voice') as HTMLSelectElement;
 

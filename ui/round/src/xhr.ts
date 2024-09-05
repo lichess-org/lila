@@ -1,5 +1,5 @@
 import RoundController from './ctrl';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import * as xhr from 'common/xhr';
 import { RoundData } from './interfaces';
 
@@ -21,7 +21,7 @@ export const challengeRematch = (gameId: string): Promise<unknown> =>
     method: 'post',
   });
 
-export const setZen = throttlePromiseDelay(
+export const setZen: (zen: boolean) => Promise<void> = throttlePromiseDelay(
   () => 1000,
   zen =>
     xhr.text('/pref/zen', {

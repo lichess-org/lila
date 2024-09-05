@@ -23,6 +23,7 @@ import {
 import LobbySocket from './socket';
 import Filter from './filter';
 import SetupController from './setupCtrl';
+import { storage, type LichessStorage } from 'common/storage';
 
 export default class LobbyController {
   data: LobbyData;
@@ -55,7 +56,7 @@ export default class LobbyController {
     this.me = opts.data.me;
     this.pools = opts.pools;
     this.playban = opts.playban;
-    this.filter = new Filter(site.storage.make('lobby.filter'), this);
+    this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
 
     hookRepo.initAll(this);
@@ -78,6 +79,10 @@ export default class LobbyController {
       const friendUser = urlParams.get('user') ?? undefined;
       const minutesPerSide = urlParams.get('minutesPerSide');
       const increment = urlParams.get('increment');
+      const variant = urlParams.get('variant');
+      const time = urlParams.get('time');
+
+      if (variant) forceOptions.variant = variant as VariantKey;
 
       if (minutesPerSide) {
         forceOptions.time = parseInt(minutesPerSide);
@@ -87,27 +92,27 @@ export default class LobbyController {
         forceOptions.increment = parseInt(increment);
       }
 
-      if (locationHash === 'hook') {
-        if (urlParams.get('time') === 'realTime') {
-          this.tab = 'real_time';
-          forceOptions.timeMode = 'realTime';
-        } else if (urlParams.get('time') === 'correspondence') {
-          this.tab = 'seeks';
-          forceOptions.timeMode = 'correspondence';
-        }
-      } else if (urlParams.get('fen')) {
+      if (time === 'realTime') {
+        if (locationHash === 'hook') this.tab = 'real_time';
+        forceOptions.timeMode = 'realTime';
+      } else if (time === 'correspondence') {
+        if (locationHash === 'hook') this.tab = 'seeks';
+        forceOptions.timeMode = 'correspondence';
+      }
+
+      if (locationHash != 'hook' && urlParams.get('fen')) {
         forceOptions.fen = urlParams.get('fen')!;
         forceOptions.variant = 'fromPosition';
       }
 
       oldSafariDialogPolyfillReady.then(() => {
-        this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
+        this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();
       });
       history.replaceState(null, '', '/');
     }
 
-    this.poolInStorage = site.storage.make('lobby.pool-in');
+    this.poolInStorage = storage.make('lobby.pool-in');
     this.poolInStorage.listen(_ => {
       // when another tab joins a pool
       this.leavePool();

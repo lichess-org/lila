@@ -1,15 +1,15 @@
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
 import { wireCropDialog } from './exports/crop';
 
 site.load.then(() => {
-  $('.markdown-editor').each(function (this: HTMLTextAreaElement) {
+  $('.markdown-editor').each(function(this: HTMLTextAreaElement) {
     setupMarkdownEditor(this);
   });
-  $('#form3-topics').each(function (this: HTMLTextAreaElement) {
+  $('#form3-topics').each(function(this: HTMLTextAreaElement) {
     setupTopics(this);
   });
   $('.flash').addClass('fade');

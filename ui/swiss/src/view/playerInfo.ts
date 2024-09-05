@@ -8,7 +8,7 @@ import { isOutcome } from '../util';
 import SwissCtrl from '../ctrl';
 import { fullName } from 'common/userLink';
 
-export default function (ctrl: SwissCtrl): VNode | undefined {
+export default function(ctrl: SwissCtrl): VNode | undefined {
   if (!ctrl.playerInfoId) return;
   const data = ctrl.data.playerInfo;
   const noarg = ctrl.trans.noarg;
@@ -32,12 +32,12 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
         numberRow(noarg('tieBreak'), data.tieBreak, 'raw'),
         ...(games
           ? [
-              data.performance &&
+            data.performance &&
                 ctrl.opts.showRatings &&
                 numberRow(noarg('performance'), data.performance + (games < 3 ? '?' : ''), 'raw'),
-              numberRow(noarg('winRate'), [wins, games], 'percent'),
-              ctrl.opts.showRatings && numberRow(noarg('averageOpponent'), avgOp, 'raw'),
-            ]
+            numberRow(noarg('winRate'), [wins, games], 'percent'),
+            ctrl.opts.showRatings && numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+          ]
           : []),
       ]),
     ]),

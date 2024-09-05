@@ -1,8 +1,7 @@
 import pubsub from './pubsub';
-import { url as assetUrl } from './asset';
-import { storage } from './storage';
+import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { charRole } from 'chess';
 
 type Name = string;
@@ -10,6 +9,7 @@ type Path = string;
 
 export default new (class implements SoundI {
   ctx = makeAudioContext();
+  listeners = new Set<SoundListener>();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
   theme = document.body.dataset.soundSet!;
@@ -59,7 +59,7 @@ export default new (class implements SoundI {
   }
 
   url(name: Name): string {
-    return assetUrl(`sound/${name}`, { version: '_____1' });
+    return site.asset.url(`sound/${name}`, { version: '_____1' });
   }
 
   async play(name: Name, volume = 1): Promise<void> {
@@ -68,15 +68,16 @@ export default new (class implements SoundI {
     if (sound && (await this.resumeWithTest())) await sound.play(this.getVolume() * volume);
   }
 
-  throttled = throttle(100, (name: Name) => this.play(name));
+  throttled = throttle(100, (name: Name, volume: number) => this.play(name, volume));
 
-  async move(o?: { uci?: Uci; san?: string; name?: Name; filter?: 'music' | 'game' }) {
+  async move(o?: SoundMoveOpts) {
+    const volume = o?.volume ?? 1;
     if (o?.filter !== 'music' && this.theme !== 'music') {
-      if (o?.name) this.throttled(o.name);
+      if (o?.name) this.throttled(o.name, volume);
       else {
-        if (o?.san?.includes('x')) this.throttled('capture');
-        else this.throttled('move');
-        if (o?.san?.includes('#') || o?.san?.includes('+')) this.throttled('check');
+        if (o?.san?.includes('x')) this.throttled('capture', volume);
+        else this.throttled('move', volume);
+        if (o?.san?.includes('#') || o?.san?.includes('+')) this.throttled('check', volume);
       }
     }
     if (o?.filter === 'game' || this.theme !== 'music') return;
@@ -102,9 +103,9 @@ export default new (class implements SoundI {
   playOnce(name: string): void {
     // increase chances that the first tab can put a local storage lock
     const doIt = () => {
-      const storage = site.storage.make('just-played');
-      if (Date.now() - parseInt(storage.get()!, 10) < 2000) return;
-      storage.set('' + Date.now());
+      const store = storage.make('just-played');
+      if (Date.now() - parseInt(store.get()!, 10) < 2000) return;
+      store.set('' + Date.now());
       this.play(name);
     };
     if (document.hasFocus()) doIt();
@@ -135,8 +136,8 @@ export default new (class implements SoundI {
       msg.lang = translated ? document.documentElement.lang : 'en-US';
       if (!isIOS()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
-        msg.onstart = _ => site.mic.pause();
-        msg.onend = msg.onerror = _ => site.mic.resume();
+        msg.onstart = () => this.listeners.forEach(l => l('start', text));
+        msg.onend = () => this.listeners.forEach(l => l('stop'));
       }
       speechSynthesis.speak(msg);
       return true;
@@ -174,24 +175,24 @@ export default new (class implements SoundI {
                 : san.includes('O-O')
                   ? 'short castle'
                   : san
-                      .split('')
-                      .map(c => {
-                        if (c == 'x') return 'takes';
-                        if (c == '+') return 'check';
-                        if (c == '#') return 'checkmate';
-                        if (c == '=') return 'promotes to';
-                        if (c == '@') return 'at';
-                        const code = c.charCodeAt(0);
-                        if (code > 48 && code < 58) return c; // 1-8
-                        if (code > 96 && code < 105) return c.toUpperCase();
-                        return charRole(c) || c;
-                      })
-                      .join(' ')
-                      .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
-                      .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
-                      .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
-                      .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
-                      .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
+                    .split('')
+                    .map(c => {
+                      if (c == 'x') return 'takes';
+                      if (c == '+') return 'check';
+                      if (c == '#') return 'checkmate';
+                      if (c == '=') return 'promotes to';
+                      if (c == '@') return 'at';
+                      const code = c.charCodeAt(0);
+                      if (code > 48 && code < 58) return c; // 1-8
+                      if (code > 96 && code < 105) return c.toUpperCase();
+                      return charRole(c) || c;
+                    })
+                    .join(' ')
+                    .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
+                    .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
+                    .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
+                    .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
+                    .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
     this.say(text, cut);
   }
 

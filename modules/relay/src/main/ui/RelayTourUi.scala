@@ -128,12 +128,13 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def page(title: String, pageBody: Frag, active: String)(using Context): Page =
     Page(title)
       .css("bits.page")
+      .js(EsmInit("bits.expandText"))
       .wrap: body =>
         main(cls := "page-small page-menu")(
           pageMenu(active),
           div(cls := "page-menu__content box box-pad page")(
             boxTop(ui.broadcastH1(title)),
-            div(cls := "body")(pageBody)
+            div(cls := "body expand-text")(pageBody)
           )
         )
 
@@ -166,6 +167,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         ),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
+      a(href := routes.RelayTour.app, cls := menu.activeO("app"))("Broadcaster App"),
       div(cls := "sep"),
       a(cls := menu.active("players"), href := routes.Fide.index(1))(trans.broadcast.fidePlayers()),
       a(cls := menu.active("federations"), href := routes.Fide.federations(1))(

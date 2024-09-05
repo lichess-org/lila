@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import { RunResponse, StormRecap } from './interfaces';
 
 export function record(run: StormRecap): Promise<RunResponse> {
@@ -14,7 +14,7 @@ export function record(run: StormRecap): Promise<RunResponse> {
   });
 }
 
-export const setZen = throttlePromiseDelay(
+export const setZen: (zen: any) => Promise<void> = throttlePromiseDelay(
   () => 1000,
   zen =>
     xhr.text('/pref/zen', {

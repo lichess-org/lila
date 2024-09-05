@@ -31,7 +31,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
-export default async function (
+export default async function(
   el: HTMLCanvasElement,
   data: AnalyseData,
   mainline: Tree.Node[],
@@ -201,7 +201,7 @@ const glyphProperties = (node: Tree.Node): { advice?: Advice; color?: string } =
 const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 
 function christmasTree(chart: AcplChart, mainline: Tree.Node[], hoverColors: string[]) {
-  $('div.advice-summary').on('mouseenter', 'div.symbol', function (this: HTMLElement) {
+  $('div.advice-summary').on('mouseenter', 'div.symbol', function(this: HTMLElement) {
     const symbol = this.getAttribute('data-symbol');
     const playerColorBit = this.getAttribute('data-color') == 'white' ? 1 : 0;
     const acplDataset = chart.data.datasets[0];
@@ -217,7 +217,7 @@ function christmasTree(chart: AcplChart, mainline: Tree.Node[], hoverColors: str
       chart.update('none');
     }
   });
-  $('div.advice-summary').on('mouseleave', 'div.symbol', function (this: HTMLElement) {
+  $('div.advice-summary').on('mouseleave', 'div.symbol', function(this: HTMLElement) {
     chart.setActiveElements([]);
     chart.data.datasets[0].pointHoverBackgroundColor = orangeAccent;
     chart.data.datasets[0].pointBorderColor = orangeAccent;
