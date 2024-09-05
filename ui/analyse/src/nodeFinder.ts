@@ -72,8 +72,7 @@ export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
   const repetitions = threefoldMap.get(lastEpd);
   if (repetitions && repetitions.length > 2) {
     for (const [i, [node, unicode]] of zip(repetitions, unicodeList).entries()) {
-      // TODO, proper id number? How to choose, what for?
-      const glyph = { symbol: unicode, name: `repetition number ${i}`, id: 111 };
+      const glyph = { symbol: unicode, name: `repetition number ${i}`, id: 9 };
       if (!node.glyphs) node.glyphs = [glyph];
       else node.glyphs.push(glyph);
     }
