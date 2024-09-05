@@ -1,8 +1,7 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
 import { prop, defined } from 'common';
-import { throttle, throttlePromise } from 'common/timing';
-import debounce from 'common/debounce';
+import { debounce, throttle, throttlePromise } from 'common/timing';
 import AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
 import StudyPractice from './practice/studyPracticeCtrl';

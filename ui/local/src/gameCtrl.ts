@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 import { RoundProxy } from './roundProxy';
 import { type MoveContext, type GameStatus, LocalGame } from './localGame';
 import { clockToSpeed } from 'game';

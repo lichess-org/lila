@@ -5,7 +5,7 @@ import { init, classModule, attributesModule } from 'snabbdom';
 import { MsgOpts } from './interfaces';
 import { upgradeData } from './network';
 import MsgCtrl from './ctrl';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export function initModule(opts: MsgOpts) {
   const element = document.querySelector('.msg-app') as HTMLElement,

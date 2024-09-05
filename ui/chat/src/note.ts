@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
-import debounce from 'common/debounce';
+import { debounce } from 'common/timing';
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string | undefined = opts.text;

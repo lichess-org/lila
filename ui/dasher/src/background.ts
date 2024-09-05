@@ -1,11 +1,10 @@
 import { h, VNode } from 'snabbdom';
 import { elementScrollBarWidthSlowGuess, header } from './util';
-import debounce from 'common/debounce';
+import { debounce, throttlePromiseDelay } from 'common/timing';
 import { prefersLight } from 'common/theme';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/timing';
 import { DasherCtrl, PaneCtrl } from './interfaces';
 
 export interface BackgroundData {

@@ -1,4 +1,4 @@
-import { storage } from './storage';
+import { storage } from 'common/storage';
 
 // mutually exclusive group selector with state change hooks for resource management
 

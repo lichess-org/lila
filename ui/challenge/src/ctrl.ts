@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 import { once } from 'common/storage';
 import { ChallengeOpts, ChallengeData, Reasons } from './interfaces';
 

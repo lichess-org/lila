@@ -40,6 +40,26 @@ export const bindMobileMousedown =
 export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
   bind('ontouchstart' in window ? 'click' : 'mousedown', f);
 
+let col1cache: 'init' | 'rec' | boolean = 'init';
+
+export function isCol1(): boolean {
+  if (typeof col1cache == 'string') {
+    if (col1cache == 'init') {
+      // only once
+      window.addEventListener('resize', () => {
+        col1cache = 'rec';
+      }); // recompute on resize
+      if (navigator.userAgent.indexOf('Edge/') > -1)
+        // edge gets false positive on page load, fix later
+        requestAnimationFrame(() => {
+          col1cache = 'rec';
+        });
+    }
+    col1cache = !!window.getComputedStyle(document.body).getPropertyValue('---col1');
+  }
+  return col1cache;
+}
+
 export const isMobile = (): boolean => isAndroid() || isIOS();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
