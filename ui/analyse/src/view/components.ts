@@ -30,7 +30,7 @@ import * as pgnExport from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import * as Prefs from 'common/prefs';
 import statusView from 'game/view/status';
-import { stepwiseScroll } from 'common/scroll';
+import { stepwiseScroll } from 'common/controls';
 import { renderNextChapter } from '../study/nextChapter';
 import { render as renderTreeView } from '../treeView/treeView';
 import * as gridHacks from './gridHacks';

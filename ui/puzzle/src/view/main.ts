@@ -5,7 +5,7 @@ import theme from './theme';
 import chessground from './chessground';
 import feedbackView from './feedback';
 import * as licon from 'common/licon';
-import { stepwiseScroll } from 'common/scroll';
+import { stepwiseScroll } from 'common/controls';
 import { VNode, h } from 'snabbdom';
 import { onInsert, bindNonPassive, looseH as lh } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/device';
