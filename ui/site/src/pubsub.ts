@@ -20,9 +20,9 @@ const pubsub: Pubsub = {
   },
   complete(name: string, data: any): void {
     if (onces[name]) onces[name].resolve?.(data);
-    else onces[name] = { promise: Promise.resolve(data)};
+    else onces[name] = { promise: Promise.resolve(data) };
     onces[name].resolve = undefined;
-  }
+  },
 };
 
 export default pubsub;
