@@ -41,9 +41,9 @@
     "typescript": "^5.5.4"
   },
   "scripts": {
-    "format": "prettier --write --log-level warn .",
-    "check-format": "prettier --check --log-level warn .",
-    "watch-format": "onchange \"**/*\" -- prettier --write --log-level warn {{changed}}",
+    "format": "prettier --write --log-level warn . && eslint --fix ui",
+    "check-format": "prettier --check --log-level warn . && eslint ui",
+    "watch-format": "bin/watch-format",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint ui",

@@ -1,0 +1,15 @@
+#!/bin/bash
+cd "$(dirname "${BASH_SOURCE:-$0}")/.."
+
+# onchange only has one action, so we need two of them to watch prettier and eslint in parallel.
+# this script avoids zombie processes by killing both when it exits.
+
+pnpm onchange 'ui/**/*.scss' -- prettier --write {{file}} &
+PRETTIER_PID=$!
+
+pnpm onchange 'ui/**/*.ts' -- eslint --fix {{file}} &
+ESLINT_PID=$!
+
+trap "kill $PRETTIER_PID $ESLINT_PID" EXIT
+
+wait
