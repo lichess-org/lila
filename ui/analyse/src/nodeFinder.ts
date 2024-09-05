@@ -1,6 +1,6 @@
 import { winningChances } from 'ceval';
 import { FEN } from 'chessground/types';
-import { defined } from 'common';
+import { defined, zip } from 'common';
 
 const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
 
@@ -58,23 +58,19 @@ export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
 }
 
 // can be 3fold or 5fold
-export function add35FoldGlyphs(mainlineNodes: Tree.Node[]): void {
+export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
   // key: epd, values: indice of nodes
-  const threefoldMap = new Map<string, number[]>();
-  for (let i = 0; i < mainlineNodes.length; i++) {
-    const node = mainlineNodes[i];
+  const threefoldMap = new Map<string, Tree.Node[]>();
+  for (const node of mainlineNodes) {
     const previousOccurences = threefoldMap.get(epd(node.fen)) || [];
-    previousOccurences.push(i);
+    previousOccurences.push(node);
     threefoldMap.set(epd(node.fen), previousOccurences);
   }
   for (const indices of threefoldMap.values()) {
     if (indices.length > 2) {
-      console.log
-      for (let i = 0; i < indices.length; i++) {
-        const fraction = toUniCode(i, indices.length);
+      for (const [node, unicode] of zip(indices, unicodeList)) {
         // TODO, proper id number? How to choose, what for?
-        const glyph = { symbol: fraction, name: `repetition no ${i}`, id: 111 };
-        const node = mainlineNodes[indices[i]];
+        const glyph = { symbol: unicode, name: `repetition no ${unicode}`, id: 111 };
         if (!node.glyphs) node.glyphs = [glyph];
         else node.glyphs.push(glyph);
       }
@@ -82,33 +78,4 @@ export function add35FoldGlyphs(mainlineNodes: Tree.Node[]): void {
   }
 }
 
-// unicode symbols for third and fifth fraction
-// ⅓ ⅔ ³⁄₃ ⅕ ⅖ ⅗ ⁵⁄₅
-// @ts-ignore
-const toFractionUnicode = (idx: number, denominator: number): string => {
-  const numerator = idx + 1;
-  if (denominator === 3) {
-    if (numerator === 1) return '⅓';
-    if (numerator === 2) return '⅔';
-    if (numerator === 3) return '³⁄₃';
-    throw new Error(`Unexpected numerator for 3fold: ${numerator}`);
-  }
-  if (denominator === 5) {
-    if (numerator === 1) return '⅕';
-    if (numerator === 2) return '⅖';
-    if (numerator === 3) return '⅗';
-    if (numerator === 4) return '⅘';
-    if (numerator === 5) return '⁵⁄₅';
-    throw new Error(`Unexpected numerator for 5fold: ${numerator}`);
-  }
-  throw new Error(`Unexpected denominator ${denominator}, numerator: ${numerator}`);
-};
-
-const toUniCode = (idx: number, _: number): string => {
-    if (idx === 0) return '①';
-    if (idx === 1) return '②';
-    if (idx === 2) return '③';
-    if (idx === 3) return '④';
-    if (idx === 4) return '⑤';
-  throw new Error(`Unexpected idx ${idx}`);
-};
+const unicodeList = ['①', '②', '③', '④', '⑤'];
