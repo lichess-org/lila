@@ -1,5 +1,5 @@
 import { onInsert } from 'common/snabbdom';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { h, thunk, VNode } from 'snabbdom';
 import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
@@ -85,7 +85,7 @@ function renderPgnTags(tags: TagsForm, trans: Trans, showRatings: boolean): VNod
                 $(el)
                   .parents('tr')
                   .find('input')
-                  .each(function (this: HTMLInputElement) {
+                  .each(function(this: HTMLInputElement) {
                     this.focus();
                   });
               });

@@ -570,7 +570,7 @@
   <string name="defeatVsYInZ">%1$s在%3$s模式下輸給了%2$s</string>
   <string name="drawVsYInZ">%1$s在%3$s模式下和%2$s和棋</string>
   <string name="timeline">時間軸</string>
-  <string name="starting">开始时间：</string>
+  <string name="starting">起始時間：</string>
   <string name="allInformationIsPublicAndOptional">所有資料為公開並且可被隱藏。</string>
   <string name="biographyDescription">給一個自我介紹，例如興趣或您喜愛的選手等</string>
   <plurals name="maximumNbCharacters">
@@ -629,7 +629,7 @@
   <string name="sourceCode">原始碼</string>
   <string name="simultaneousExhibitions">車輪戰</string>
   <string name="host">主持</string>
-  <string name="hostColorX">主持者使用旗子顏色:%s</string>
+  <string name="hostColorX">主持人所使用旗子顏色：%s</string>
   <string name="yourPendingSimuls">正在載入比賽</string>
   <string name="createdSimuls">觀看最近開始的車輪戰</string>
   <string name="hostANewSimul">主持車輪戰</string>

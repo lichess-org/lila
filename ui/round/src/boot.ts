@@ -5,13 +5,15 @@ import { ChatCtrl } from 'chat';
 import { TourPlayer } from 'game';
 import RoundController from './ctrl';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
+import StrongSocket from 'common/socket';
+import { storage } from 'common/storage';
 
 interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
   moveOn: MoveOn;
 }
 
-export default async function (
+export default async function(
   opts: RoundOpts,
   roundMain: (opts: RoundOpts) => Promise<RoundController>,
 ): Promise<RoundController> {
@@ -20,7 +22,7 @@ export default async function (
   const socketUrl = opts.data.player.spectator
     ? `/watch/${data.game.id}/${data.player.color}/v6`
     : `/play/${data.game.id}${data.player.id}/v6`;
-  site.socket = new site.StrongSocket(socketUrl, data.player.version, {
+  site.socket = new StrongSocket(socketUrl, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);
@@ -32,8 +34,8 @@ export default async function (
           $('.tv-channels .' + o.channel + ' .champion').html(
             o.player
               ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : '']
-                  .filter(x => x)
-                  .join('&nbsp')
+                .filter(x => x)
+                .join('&nbsp')
               : 'Anonymous',
           );
       },
@@ -60,7 +62,7 @@ export default async function (
 
   const startTournamentClock = () => {
     if (data.tournament)
-      $('.game__tournament .clock').each(function (this: HTMLElement) {
+      $('.game__tournament .clock').each(function(this: HTMLElement) {
         site.clockWidget(this, {
           time: parseFloat(this.dataset.time!),
         });
@@ -100,7 +102,7 @@ export default async function (
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
     history.replaceState(null, '', '/' + data.game.id);
   $('#zentog').on('click', () => site.pubsub.emit('zen'));
-  site.storage.make('reload-round-tabs').listen(site.reload);
+  storage.make('reload-round-tabs').listen(site.reload);
 
   if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {
     alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);

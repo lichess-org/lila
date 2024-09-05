@@ -15,6 +15,8 @@ import { PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
+import { trans } from 'common/trans';
+import { storage, type LichessStorage } from 'common/storage';
 
 export default class ChatCtrl {
   data: ChatData;
@@ -24,7 +26,7 @@ export default class ChatCtrl {
 
   allTabs: Tab[] = ['discussion'];
   palantir: ChatPalantir;
-  tabStorage: LichessStorage = site.storage.make('chat.tab');
+  tabStorage: LichessStorage = storage.make('chat.tab');
   storedTab: string | null = this.tabStorage.get();
   moderation: ModerationCtrl | undefined;
   note: NoteCtrl | undefined;
@@ -44,8 +46,8 @@ export default class ChatCtrl {
       loaded: false,
       enabled: prop(!!this.data.palantir),
     };
-    this.trans = site.trans(this.opts.i18n);
-    const noChat = site.storage.get('nochat');
+    this.trans = trans(this.opts.i18n);
+    const noChat = storage.get('nochat');
     this.vm = {
       tab: this.allTabs.find(tab => tab === this.storedTab) || this.allTabs[0],
       enabled: opts.alwaysEnabled || !noChat,
@@ -59,11 +61,11 @@ export default class ChatCtrl {
 
     this.note = opts.noteId
       ? noteCtrl({
-          id: opts.noteId,
-          text: opts.noteText,
-          trans: this.trans,
-          redraw: this.redraw,
-        })
+        id: opts.noteId,
+        text: opts.noteText,
+        trans: this.trans,
+        redraw: this.redraw,
+      })
       : undefined;
 
     this.preset = presetCtrl({
@@ -179,8 +181,8 @@ export default class ChatCtrl {
   setEnabled = (v: boolean): void => {
     this.vm.enabled = v;
     this.emitEnabled();
-    if (!v) site.storage.set('nochat', '1');
-    else site.storage.remove('nochat');
+    if (!v) storage.set('nochat', '1');
+    else storage.remove('nochat');
     this.redraw();
   };
 }

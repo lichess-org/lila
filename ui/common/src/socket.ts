@@ -1,11 +1,6 @@
-import * as xhr from 'common/xhr';
-import idleTimer from './idleTimer';
-import sri from './sri';
-import { siteTrans } from './trans';
-import { reload } from './reload';
-import { storage as makeStorage } from './storage';
-import { storedIntProp } from 'common/storage';
-import once from './once';
+import * as xhr from './xhr';
+import { idleTimer } from './timing';
+import { storage, storedIntProp, once, type LichessStorage } from './storage';
 
 type Sri = string;
 type Tpe = string;
@@ -33,8 +28,8 @@ interface Options {
   isAuth: boolean;
   debug?: boolean;
 }
-interface Params {
-  sri: Sri;
+interface Params extends Record<string, any> {
+  sri?: Sri;
   flag?: string;
 }
 interface Settings {
@@ -42,7 +37,7 @@ interface Settings {
   events: {
     [tpe: string]: (d: Payload | null, msg: MsgIn) => any;
   };
-  params?: Params;
+  params?: Partial<Params>;
   options?: Partial<Options>;
 }
 
@@ -52,7 +47,6 @@ const isOnline = () => !('onLine' in navigator) || navigator.onLine;
 
 // versioned events, acks, retries, resync
 export default class StrongSocket {
-  pubsub = site.pubsub;
   settings: Settings;
   options: Options;
   version: number | false;
@@ -66,14 +60,14 @@ export default class StrongSocket {
   tryOtherUrl = false;
   autoReconnect = true;
   nbConnects = 0;
-  storage: LichessStorage = makeStorage.make(
+  storage: LichessStorage = storage.make(
     document.body.dataset.socketAlternates ? 'surl-alt' : 'surl17',
     30 * 60 * 1000,
   );
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
   private baseUrls = (document.body.dataset.socketAlts || document.body.dataset.socketDomains!).split(',');
-  static defaultOptions: Options = {
+  private static defaultOptions: Options = {
     idle: false,
     pingMaxLag: 9000, // time to wait for pong before resetting the connection
     pingDelay: 2500, // time between pong and ping
@@ -81,12 +75,9 @@ export default class StrongSocket {
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     isAuth: document.body.hasAttribute('data-user'),
   };
-  static defaultParams: Params = {
-    sri: sri,
-  };
 
   static resolveFirstConnect: (send: Send) => void;
-  static firstConnect = new Promise<Send>(r => {
+  static firstConnect: Promise<Send> = new Promise<Send>(r => {
     StrongSocket.resolveFirstConnect = r;
   });
 
@@ -99,7 +90,7 @@ export default class StrongSocket {
       receive: settings.receive,
       events: settings.events || {},
       params: {
-        ...StrongSocket.defaultParams,
+        sri: site.sri,
         ...(settings.params || {}),
       },
     };
@@ -111,21 +102,21 @@ export default class StrongSocket {
       pingDelay: customPingDelay > 400 ? customPingDelay : 2500,
     };
     this.version = version;
-    this.pubsub.on('socket.send', this.send);
+    site.pubsub.on('socket.send', this.send);
     this.connect();
   }
 
-  sign = (s: string) => {
+  sign = (s: string): void => {
     this._sign = s;
     this.ackable.sign(s);
   };
 
-  connect = () => {
+  connect = (): void => {
     this.destroy();
     if (!isOnline()) {
       document.body.classList.remove('online');
       document.body.classList.add('offline');
-      $('#network-status').text(site ? siteTrans('noNetwork') : 'Offline');
+      $('#network-status').text(site ? site.trans('noNetwork') : 'Offline');
       this.scheduleConnect(1000);
       return;
     }
@@ -149,7 +140,7 @@ export default class StrongSocket {
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
         this.resendWhenOpen = [];
-        this.pubsub.emit('socket.open');
+        site.pubsub.emit('socket.open');
         this.ackable.resend();
       };
       ws.onmessage = e => {
@@ -164,7 +155,7 @@ export default class StrongSocket {
     this.scheduleConnect(this.options.pingMaxLag);
   };
 
-  send = (t: string, d: any, o: any = {}, noRetry = false) => {
+  send = (t: string, d: any, o: any = {}, noRetry = false): void => {
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
       if (o.withLag) d.l = Math.round(this.averageLag);
@@ -200,7 +191,7 @@ export default class StrongSocket {
     }
   };
 
-  scheduleConnect = (delay: number) => {
+  scheduleConnect = (delay: number): void => {
     if (this.options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     // debug('schedule connect ' + delay);
     clearTimeout(this.pingSchedule);
@@ -208,7 +199,7 @@ export default class StrongSocket {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      $('#network-status').text(site ? siteTrans('reconnecting') : 'Reconnecting');
+      $('#network-status').text(site.trans ? site.trans('reconnecting') : 'Reconnecting');
       if (!this.tryOtherUrl && isOnline()) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
@@ -218,20 +209,20 @@ export default class StrongSocket {
     }, delay);
   };
 
-  schedulePing = (delay: number) => {
+  schedulePing = (delay: number): void => {
     clearTimeout(this.pingSchedule);
     this.pingSchedule = setTimeout(this.pingNow, delay);
   };
 
-  pingNow = () => {
+  pingNow = (): void => {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     const pingData =
       this.options.isAuth && this.pongCount % 10 == 2
         ? JSON.stringify({
-            t: 'p',
-            l: Math.round(0.1 * this.averageLag),
-          })
+          t: 'p',
+          l: Math.round(0.1 * this.averageLag),
+        })
         : 'null';
     try {
       this.ws!.send(pingData);
@@ -242,9 +233,9 @@ export default class StrongSocket {
     this.scheduleConnect(this.options.pingMaxLag);
   };
 
-  computePingDelay = () => this.options.pingDelay + (this.options.idle ? 1000 : 0);
+  computePingDelay = (): number => this.options.pingDelay + (this.options.idle ? 1000 : 0);
 
-  pong = () => {
+  pong = (): void => {
     clearTimeout(this.connectSchedule);
     this.schedulePing(this.computePingDelay());
     const currentLag = Math.min(performance.now() - this.lastPingTime, 10000);
@@ -254,24 +245,24 @@ export default class StrongSocket {
     const mix = this.pongCount > 4 ? 0.1 : 1 / this.pongCount;
     this.averageLag += mix * (currentLag - this.averageLag);
 
-    this.pubsub.emit('socket.lag', this.averageLag);
+    site.pubsub.emit('socket.lag', this.averageLag);
   };
 
-  handle = (m: MsgIn) => {
+  handle = (m: MsgIn): void => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
         this.debug('already has event ' + m.v);
         return;
       }
       // it's impossible but according to previous logging, it happens nonetheless
-      if (m.v > this.version + 1) return reload();
+      if (m.v > this.version + 1) return site.reload();
       this.version = m.v;
     }
     switch (m.t || false) {
       case false:
         break;
       case 'resync':
-        setTimeout(() => reload('lila-ws resync'), 500);
+        setTimeout(() => site.reload('lila-ws resync'), 500);
         break;
       case 'ack':
         this.ackable.onServerAck(m.d);
@@ -281,24 +272,24 @@ export default class StrongSocket {
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
           const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
           if (!sentAsEvent) {
-            this.pubsub.emit('socket.in.' + m.t, m.d, m);
+            site.pubsub.emit('socket.in.' + m.t, m.d, m);
           }
         }
     }
   };
 
-  debug = (msg: unknown, always = false) => {
+  debug = (msg: unknown, always = false): void => {
     if (always || this.options.debug) console.debug(msg);
   };
 
-  destroy = () => {
+  destroy = (): void => {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.disconnect();
     this.ws = undefined;
   };
 
-  disconnect = () => {
+  disconnect = (): void => {
     const ws = this.ws;
     if (ws) {
       this.debug('Disconnect');
@@ -308,25 +299,26 @@ export default class StrongSocket {
     }
   };
 
-  onError = (e: unknown) => {
+  onError = (e: unknown): void => {
     this.options.debug = true;
     this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
   };
 
-  onClose = (e: CloseEvent, url: string) => {
-    this.pubsub.emit('socket.close');
+  onClose = (e: CloseEvent, url: string): void => {
+    site.pubsub.emit('socket.close');
     if (this.autoReconnect) {
       this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
       this.scheduleConnect(this.options.autoReconnectDelay);
     }
     if (e.wasClean && e.code < 1002) return;
 
-    if (isOnline()) site.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
+    if (isOnline())
+      site.log(`${site?.sri ? 'sri ' + site.sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
 
-  onSuccess = () => {
+  onSuccess = (): void => {
     this.nbConnects++;
     if (this.nbConnects == 1) {
       StrongSocket.resolveFirstConnect(this.send);
@@ -346,7 +338,7 @@ export default class StrongSocket {
     }
   };
 
-  baseUrl = () => {
+  baseUrl = (): string => {
     let url = this.storage.get();
     if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
@@ -360,8 +352,8 @@ export default class StrongSocket {
     return url;
   };
 
-  pingInterval = () => this.computePingDelay() + this.averageLag;
-  getVersion = () => this.version;
+  pingInterval = (): number => this.computePingDelay() + this.averageLag;
+  getVersion = (): number | false => this.version;
 }
 
 class Ackable {
@@ -373,16 +365,16 @@ class Ackable {
     setInterval(this.resend, 1200);
   }
 
-  sign = (s: string) => (this._sign = s);
+  sign = (s: string): string => (this._sign = s);
 
-  resend = () => {
+  resend = (): void => {
     const resendCutoff = performance.now() - 2500;
     this.messages.forEach(m => {
       if (m.at < resendCutoff) this.send(m.t, m.d, { sign: this._sign });
     });
   };
 
-  register = (t: Tpe, d: Payload) => {
+  register = (t: Tpe, d: Payload): void => {
     d.a = this.currentId++;
     this.messages.push({
       t: t,
@@ -391,7 +383,7 @@ class Ackable {
     });
   };
 
-  onServerAck = (id: number) => {
+  onServerAck = (id: number): void => {
     this.messages = this.messages.filter(m => m.d.a !== id);
   };
 }

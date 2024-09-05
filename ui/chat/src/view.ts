@@ -9,7 +9,7 @@ import { moderationView } from './moderation';
 import type * as palantir from 'palantir';
 import ChatCtrl from './ctrl';
 
-export default function (ctrl: ChatCtrl): VNode {
+export default function(ctrl: ChatCtrl): VNode {
   return h(
     'section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'),
     { class: { 'mchat-mod': !!ctrl.moderation }, hook: { destroy: ctrl.destroy } },
@@ -23,21 +23,21 @@ function renderPalantir(ctrl: ChatCtrl) {
   return p.instance
     ? p.instance.render(h)
     : h('div.mchat__tab.palantir.palantir-slot', {
-        attrs: { 'data-icon': licon.Handset, title: 'Voice chat' },
-        hook: bind('click', () => {
-          if (!p.loaded) {
-            p.loaded = true;
-            site.asset
-              .loadEsm<palantir.Palantir>('palantir', {
-                init: { uid: ctrl.data.userId!, redraw: ctrl.redraw },
-              })
-              .then(m => {
-                p.instance = m;
-                ctrl.redraw();
-              });
-          }
-        }),
-      });
+      attrs: { 'data-icon': licon.Handset, title: 'Voice chat' },
+      hook: bind('click', () => {
+        if (!p.loaded) {
+          p.loaded = true;
+          site.asset
+            .loadEsm<palantir.Palantir>('palantir', {
+              init: { uid: ctrl.data.userId!, redraw: ctrl.redraw },
+            })
+            .then(m => {
+              p.instance = m;
+              ctrl.redraw();
+            });
+        }
+      }),
+    });
 }
 
 function normalView(ctrl: ChatCtrl) {
@@ -76,11 +76,11 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
       ctrl.opts.alwaysEnabled
         ? undefined
         : h('input', {
-            attrs: { type: 'checkbox', title: ctrl.trans.noarg('toggleTheChat'), checked: ctrl.vm.enabled },
-            hook: bind('change', (e: Event) => {
-              ctrl.setEnabled((e.target as HTMLInputElement).checked);
-            }),
+          attrs: { type: 'checkbox', title: ctrl.trans.noarg('toggleTheChat'), checked: ctrl.vm.enabled },
+          hook: bind('change', (e: Event) => {
+            ctrl.setEnabled((e.target as HTMLInputElement).checked);
           }),
+        }),
     ];
   if (tab === 'note') return [h('span', ctrl.trans.noarg('notes'))];
   if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('span', ctrl.plugin.tab.name)];

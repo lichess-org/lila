@@ -3,7 +3,7 @@ import { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 
-export default function (ctrl: RunCtrl) {
+export default function(ctrl: RunCtrl) {
   return h(
     'div.learn__screen-overlay',
     { hook: bind('click', ctrl.hideStartingPane) },

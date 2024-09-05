@@ -6,14 +6,14 @@ import { checkBoxAll, expandCheckboxZone, selector, shiftClickCheckboxRange } fr
 site.load.then(() => {
   $('.slist, slist-pad')
     .find('.mark-alt')
-    .on('click', function (this: HTMLAnchorElement) {
+    .on('click', function(this: HTMLAnchorElement) {
       if (confirm('Close alt account?')) {
         xhr.text(this.getAttribute('href')!, { method: 'post' });
         $(this).remove();
       }
     });
 
-  $('.mod-user-table').each(function (this: HTMLTableElement) {
+  $('.mod-user-table').each(function(this: HTMLTableElement) {
     const table = this;
     extendTablesortNumber();
     tablesort(table, { descending: true });

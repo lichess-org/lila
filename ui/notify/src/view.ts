@@ -3,6 +3,7 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
+import { trans } from 'common/trans';
 
 export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();
@@ -76,14 +77,14 @@ function clickHook(f: () => void) {
 const contentLoaded = (vnode: VNode) => site.contentLoaded(vnode.elm as HTMLElement);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
-  const trans = site.trans(d.i18n);
+  const translations = trans(d.i18n);
   return h(
     'div',
     {
       class: { notifications: true, scrolling },
       hook: { insert: contentLoaded, postpatch: contentLoaded },
     },
-    d.pager.currentPageResults.map(n => asHtml(n, trans)) as VNode[],
+    d.pager.currentPageResults.map(n => asHtml(n, translations)) as VNode[],
   );
 }
 

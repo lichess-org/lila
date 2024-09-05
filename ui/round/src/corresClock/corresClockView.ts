@@ -31,7 +31,7 @@ function formatClockTime(trans: Trans, time: Millis) {
   return str;
 }
 
-export default function (
+export default function(
   ctrl: CorresClockController,
   trans: Trans,
   color: Color,

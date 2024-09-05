@@ -377,14 +377,14 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
     ? h('span', [
-        h(
-          'a',
-          { attrs: { href: '/@/' + user.username } },
-          user.title ? `${user.title} ${user.username}` : user.username,
-        ),
-        rating ? ` ${rating}` : ``,
-        ' ' + ratingDiff,
-      ])
+      h(
+        'a',
+        { attrs: { href: '/@/' + user.username } },
+        user.title ? `${user.title} ${user.username}` : user.username,
+      ),
+      rating ? ` ${rating}` : ``,
+      ' ' + ratingDiff,
+    ])
     : 'Anonymous';
 }
 
