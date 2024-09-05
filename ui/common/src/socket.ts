@@ -90,7 +90,7 @@ export default class StrongSocket {
       receive: settings.receive,
       events: settings.events || {},
       params: {
-        sri: site?.sri,
+        sri: site.sri,
         ...(settings.params || {}),
       },
     };
@@ -102,7 +102,7 @@ export default class StrongSocket {
       pingDelay: customPingDelay > 400 ? customPingDelay : 2500,
     };
     this.version = version;
-    site?.pubsub.on('socket.send', this.send);
+    site.pubsub.on('socket.send', this.send);
     this.connect();
   }
 
@@ -140,7 +140,7 @@ export default class StrongSocket {
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
         this.resendWhenOpen = [];
-        site?.pubsub.emit('socket.open');
+        site.pubsub.emit('socket.open');
         this.ackable.resend();
       };
       ws.onmessage = e => {
@@ -199,7 +199,7 @@ export default class StrongSocket {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      $('#network-status').text(site ? site.trans('reconnecting') : 'Reconnecting');
+      $('#network-status').text(site.trans ? site.trans('reconnecting') : 'Reconnecting');
       if (!this.tryOtherUrl && isOnline()) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
@@ -245,7 +245,7 @@ export default class StrongSocket {
     const mix = this.pongCount > 4 ? 0.1 : 1 / this.pongCount;
     this.averageLag += mix * (currentLag - this.averageLag);
 
-    site?.pubsub.emit('socket.lag', this.averageLag);
+    site.pubsub.emit('socket.lag', this.averageLag);
   };
 
   handle = (m: MsgIn): void => {
@@ -255,14 +255,14 @@ export default class StrongSocket {
         return;
       }
       // it's impossible but according to previous logging, it happens nonetheless
-      if (m.v > this.version + 1) return site?.reload();
+      if (m.v > this.version + 1) return site.reload();
       this.version = m.v;
     }
     switch (m.t || false) {
       case false:
         break;
       case 'resync':
-        setTimeout(() => site?.reload('lila-ws resync'), 500);
+        setTimeout(() => site.reload('lila-ws resync'), 500);
         break;
       case 'ack':
         this.ackable.onServerAck(m.d);
@@ -272,7 +272,7 @@ export default class StrongSocket {
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
           const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
           if (!sentAsEvent) {
-            site?.pubsub.emit('socket.in.' + m.t, m.d, m);
+            site.pubsub.emit('socket.in.' + m.t, m.d, m);
           }
         }
     }
@@ -305,7 +305,7 @@ export default class StrongSocket {
   };
 
   onClose = (e: CloseEvent, url: string): void => {
-    site?.pubsub.emit('socket.close');
+    site.pubsub.emit('socket.close');
     if (this.autoReconnect) {
       this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
       this.scheduleConnect(this.options.autoReconnectDelay);
