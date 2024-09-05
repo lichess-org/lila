@@ -234,8 +234,8 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     import stat.perfType
     def titleOf(v: Double) = trans.site.betterThanPercentPlayers.txt(s"$v%", perfType.trans)
     st.section(cls := "highlow split")(
-      highlowSide(tps.highestRating(_), stat.highest, pctHigh.map(titleOf), "green", u),
-      highlowSide(tps.lowestRating(_), stat.lowest, pctLow.map(titleOf), "red", u)
+      highlowSide(tps.highestRating(_), stat.highest, pctHigh.filter(_ != 0.0).map(titleOf), "green", u),
+      highlowSide(tps.lowestRating(_), stat.lowest, pctLow.filter(_ != 0.0).map(titleOf), "red", u)
     )
 
   private def fromTo(s: lila.perfStat.Streak, u: User)(using Translate): Frag =
