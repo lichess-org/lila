@@ -1,5 +1,5 @@
 import { objectStorage } from 'common/objectStorage';
-import { Selector, Selectable } from 'common/selector';
+import { Selector, Selectable } from './selector';
 import { storedStringProp } from 'common/storage';
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
 
