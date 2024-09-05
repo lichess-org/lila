@@ -30,7 +30,7 @@ const checkoutStart = (stripePublicKey: string, pricing: Pricing): void => {
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
     $checkout.find('input.default').trigger('click');
 
-  const onFreqChange = function () {
+  const onFreqChange = function() {
     const freq = getFreq();
     $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
     $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
@@ -57,7 +57,7 @@ const checkoutStart = (stripePublicKey: string, pricing: Pricing): void => {
     toggleCheckout();
   });
 
-  $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
+  $checkout.find('group.amount .other label').on('click', function(this: HTMLLabelElement) {
     let amount: number;
     const raw: string = prompt(this.title) || '';
     try {
@@ -209,7 +209,7 @@ function stripeStart(
   getAmount: () => number | undefined,
 ) {
   const stripe = window.Stripe(publicKey);
-  $checkout.find('.service .stripe').on('click', function () {
+  $checkout.find('.service .stripe').on('click', function() {
     const amount = getAmount();
     if (!amount) return;
     $checkout.find('.service').html(site.spinnerHtml);
@@ -233,7 +233,7 @@ function stripeStart(
   });
 
   // Close Checkout on page navigation:
-  $(window).on('popstate', function () {
+  $(window).on('popstate', function() {
     window.stripeHandler.close();
   });
 }

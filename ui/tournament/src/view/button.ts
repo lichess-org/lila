@@ -36,25 +36,25 @@ export function join(ctrl: TournamentController): VNode {
     );
     return delay
       ? h('div.delay-wrap', { attrs: { title: 'Waiting to be able to re-join the tournament' } }, [
-          h(
-            'div.delay',
-            {
-              hook: {
-                insert(vnode) {
-                  const el = vnode.elm as HTMLElement;
-                  el.style.animation = `tour-delay ${delay}s linear`;
-                  setTimeout(() => {
-                    if (delay === ctrl.data.me!.pauseDelay) {
-                      ctrl.data.me!.pauseDelay = 0;
-                      ctrl.redraw();
-                    }
-                  }, delay * 1000);
-                },
+        h(
+          'div.delay',
+          {
+            hook: {
+              insert(vnode) {
+                const el = vnode.elm as HTMLElement;
+                el.style.animation = `tour-delay ${delay}s linear`;
+                setTimeout(() => {
+                  if (delay === ctrl.data.me!.pauseDelay) {
+                    ctrl.data.me!.pauseDelay = 0;
+                    ctrl.redraw();
+                  }
+                }, delay * 1000);
               },
             },
-            button,
-          ),
-        ])
+          },
+          button,
+        ),
+      ])
       : button;
   });
 }

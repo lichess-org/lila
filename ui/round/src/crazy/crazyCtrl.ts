@@ -4,6 +4,7 @@ import { setDropMode, cancelDropMode } from 'chessground/drop';
 import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
 import { RoundData } from '../interfaces';
+import { storage } from 'common/storage';
 
 export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
@@ -45,7 +46,7 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 }
 
 export function onEnd(): void {
-  const store = site.storage.make('crazyKeyHist');
+  const store = storage.make('crazyKeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -130,7 +131,7 @@ export function init(ctrl: RoundController): void {
     { capture: true },
   );
 
-  if (site.storage.get('crazyKeyHist') !== '0') preloadMouseIcons(ctrl.data);
+  if (storage.get('crazyKeyHist') !== '0') preloadMouseIcons(ctrl.data);
 }
 
 // zh keys has unacceptable jank when cursors need to dl,

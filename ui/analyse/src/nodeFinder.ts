@@ -18,7 +18,7 @@ export function nextGlyphSymbol(
     const found =
       node.ply % 2 === (color === 'white' ? 1 : 0) &&
       node.glyphs &&
-      node.glyphs.find(function (g) {
+      node.glyphs.find(function(g) {
         return g.symbol === symbol;
       });
     if (found) return node;

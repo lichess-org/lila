@@ -2,7 +2,7 @@ import { uciToMove } from 'chessground/util';
 import { embedChessground } from './asset';
 
 // https://lichess.org/training/frame
-window.onload = async () => {
+window.onload = async() => {
   const el = document.querySelector('#daily-puzzle') as HTMLElement,
     board = el.querySelector('.mini-board') as HTMLAnchorElement,
     [fen, orientation, lm] = board.getAttribute('data-state')!.split(',');

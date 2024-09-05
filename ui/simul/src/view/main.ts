@@ -6,7 +6,7 @@ import { richHTML } from 'common/richText';
 import results from './results';
 import pairings from './pairings';
 
-export default function (ctrl: SimulCtrl) {
+export default function(ctrl: SimulCtrl) {
   const handler = ctrl.data.isRunning ? started : ctrl.data.isFinished ? finished : created(showText);
 
   return h('main.simul', { class: { 'simul-created': ctrl.data.isCreated } }, [

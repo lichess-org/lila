@@ -1,4 +1,3 @@
-import { siteTrans } from './trans';
 import pubsub from './pubsub';
 import { notNull } from 'common/common';
 import * as licon from 'common/licon';
@@ -50,7 +49,7 @@ export default class OnlineFriends {
     if (this.loaded)
       requestAnimationFrame(() => {
         const ids = Array.from(this.users.keys()).sort();
-        this.titleEl.innerHTML = siteTrans.pluralSame(
+        this.titleEl.innerHTML = site.trans.pluralSame(
           'nbFriendsOnline',
           ids.length,
           this.loaded ? `<strong>${ids.length}</strong>` : '-',

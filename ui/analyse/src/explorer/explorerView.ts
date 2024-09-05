@@ -39,15 +39,15 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   const movesWithCurrent =
     data.moves.length > 1
       ? [
-          ...data.moves,
-          {
-            white: data.white,
-            black: data.black,
-            draws: data.draws,
-            uci: '',
-            san: 'Σ',
-          } as OpeningMoveStats,
-        ]
+        ...data.moves,
+        {
+          white: data.white,
+          black: data.black,
+          draws: data.draws,
+          uci: '',
+          san: 'Σ',
+        } as OpeningMoveStats,
+      ]
       : data.moves;
 
   return h('table.moves', [
@@ -122,24 +122,24 @@ function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: Openin
         return openedId === game.id
           ? gameActions(ctrl, game)
           : h('tr', { key: game.id, attrs: { 'data-id': game.id, 'data-uci': game.uci || '' } }, [
-              ctrl.explorer.opts.showRatings &&
+            ctrl.explorer.opts.showRatings &&
                 h(
                   'td',
                   [game.white, game.black].map(p => h('span', '' + p.rating)),
                 ),
-              h(
-                'td',
-                [game.white, game.black].map(p => h('span', p.name)),
-              ),
-              h('td', showResult(game.winner)),
-              h('td', game.month || game.year),
-              !isMasters &&
+            h(
+              'td',
+              [game.white, game.black].map(p => h('span', p.name)),
+            ),
+            h('td', showResult(game.winner)),
+            h('td', game.month || game.year),
+            !isMasters &&
                 h(
                   'td',
                   game.speed &&
                     h('i', { attrs: { title: ucfirst(game.speed), ...dataIcon(perfIcons[game.speed]) } }),
                 ),
-            ]);
+          ]);
       }),
     ),
   ]);
@@ -342,10 +342,10 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     db == 'player'
       ? playerName
         ? active(
-            [
-              h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
-              explorer.isIndexing() &&
+          [
+            h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
+            ' ' + explorer.root.trans(explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack'),
+            explorer.isIndexing() &&
                 !explorer.config.data.open() &&
                 h('i.ddloader', {
                   attrs: {
@@ -354,9 +354,9 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
                       : 'Indexing ...',
                   },
                 }),
-            ],
-            explorer.root.trans('switchSides'),
-          )
+          ],
+          explorer.root.trans('switchSides'),
+        )
         : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),
   ]);
@@ -385,7 +385,7 @@ function showFailing(ctrl: AnalyseCtrl) {
 
 let lastFen: FEN = '';
 
-export default function (ctrl: AnalyseCtrl): VNode | undefined {
+export default function(ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;
   if (!explorer.enabled()) return;
   const data = explorer.current(),

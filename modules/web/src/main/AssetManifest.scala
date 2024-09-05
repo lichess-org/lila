@@ -34,7 +34,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def jsName(key: String): String = js(key).fold(key)(_.name)
 
   def update(): Unit =
-    if environment.mode.isProd.pp("isProd") || net.externalManifest.pp("externalManifest") then
+    if environment.mode.isProd || net.externalManifest then
       fetchManifestJson(filename).foreach:
         _.foreach: manifestJson =>
           maps = readMaps(manifestJson)

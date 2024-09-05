@@ -101,8 +101,8 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
     site.blindMode
       ? renderBlindModeTimePickers(ctrl, allowAnonymous)
       : [
-          renderTimeModePicker(ctrl, allowAnonymous),
-          setupCtrl.timeMode() === 'realTime' &&
+        renderTimeModePicker(ctrl, allowAnonymous),
+        setupCtrl.timeMode() === 'realTime' &&
             h('div.time-choice.range', [
               `${trans('minutesPerSide')}: `,
               h('span', showTime(setupCtrl.time())),
@@ -110,13 +110,13 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                 failure: !setupCtrl.validTime() || !setupCtrl.validAiTime(),
               }),
             ]),
-          setupCtrl.timeMode() === 'realTime'
-            ? h('div.increment-choice.range', [
-                `${trans('incrementInSeconds')}: `,
-                h('span', `${setupCtrl.increment()}`),
-                inputRange(0, 30, setupCtrl.incrementV, { failure: !setupCtrl.validTime() }),
-              ])
-            : setupCtrl.timeMode() === 'correspondence' &&
+        setupCtrl.timeMode() === 'realTime'
+          ? h('div.increment-choice.range', [
+            `${trans('incrementInSeconds')}: `,
+            h('span', `${setupCtrl.increment()}`),
+            inputRange(0, 30, setupCtrl.incrementV, { failure: !setupCtrl.validTime() }),
+          ])
+          : setupCtrl.timeMode() === 'correspondence' &&
               h(
                 'div.correspondence',
                 h('div.days-choice.range', [
@@ -125,6 +125,6 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                   inputRange(1, 7, setupCtrl.daysV),
                 ]),
               ),
-        ],
+      ],
   );
 };

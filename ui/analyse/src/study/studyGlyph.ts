@@ -1,6 +1,6 @@
 import { prop } from 'common';
 import { bind } from 'common/snabbdom';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
@@ -53,10 +53,10 @@ export function view(ctrl: GlyphForm): VNode {
     { hook: { insert: ctrl.loadGlyphs } },
     all
       ? [
-          h('div.move', all.move.map(renderGlyph(ctrl, node))),
-          h('div.position', all.position.map(renderGlyph(ctrl, node))),
-          h('div.observation', all.observation.map(renderGlyph(ctrl, node))),
-        ]
+        h('div.move', all.move.map(renderGlyph(ctrl, node))),
+        h('div.position', all.position.map(renderGlyph(ctrl, node))),
+        h('div.observation', all.observation.map(renderGlyph(ctrl, node))),
+      ]
       : [h('div.study__message', spinner())],
   );
 }

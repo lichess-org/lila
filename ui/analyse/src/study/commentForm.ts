@@ -1,9 +1,10 @@
 import { prop } from 'common';
 import { onInsert } from 'common/snabbdom';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { currentComments, isAuthorObj } from './studyComments';
+import { storage } from 'common/storage';
 
 interface Current {
   chapterId: string;
@@ -55,7 +56,7 @@ export function view(root: AnalyseCtrl): VNode {
     const newKey = current.chapterId + current.path;
 
     if (old?.data!.path !== newKey) {
-      const mine = (current.node.comments || []).find(function (c) {
+      const mine = (current.node.comments || []).find(function(c) {
         return isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId;
       });
       el.value = mine ? mine.text : '';
@@ -80,7 +81,7 @@ export function view(root: AnalyseCtrl): VNode {
               setupTextarea(vnode);
               const el = vnode.elm as HTMLInputElement;
               el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
-              const heightStore = site.storage.make('study.comment.height');
+              const heightStore = storage.make('study.comment.height');
               el.onmouseup = () => heightStore.set('' + el.offsetHeight);
               el.style.height = parseInt(heightStore.get() || '80') + 'px';
 

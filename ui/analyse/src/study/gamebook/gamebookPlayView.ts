@@ -12,11 +12,11 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
         state.comment
           ? h('div.content', { hook: richHTML(state.comment) })
           : h(
-              'div.content',
-              state.feedback == 'play'
-                ? ctrl.trans('whatWouldYouPlay')
-                : state.feedback == 'end' && ctrl.trans('youCompletedThisLesson'),
-            ),
+            'div.content',
+            state.feedback == 'play'
+              ? ctrl.trans('whatWouldYouPlay')
+              : state.feedback == 'end' && ctrl.trans('youCompletedThisLesson'),
+          ),
         hintZone(ctrl),
       ]),
     h('div.floor', [
@@ -57,15 +57,15 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
       'div',
       fb === 'play'
         ? [
-            h('div.no-square', h('piece.king.' + color)),
-            h('div.instruction', [
-              h('strong', ctrl.trans.noarg('yourTurn')),
-              h(
-                'em',
-                ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
-              ),
-            ]),
-          ]
+          h('div.no-square', h('piece.king.' + color)),
+          h('div.instruction', [
+            h('strong', ctrl.trans.noarg('yourTurn')),
+            h(
+              'em',
+              ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
+            ),
+          ]),
+        ]
         : ctrl.trans.noarg('goodMove'),
     ),
   );

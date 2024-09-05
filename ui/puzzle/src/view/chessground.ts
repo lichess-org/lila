@@ -3,8 +3,9 @@ import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
 import * as Prefs from 'common/prefs';
 import PuzzleCtrl from '../ctrl';
+import { storage } from 'common/storage';
 
-export default function (ctrl: PuzzleCtrl): VNode {
+export default function(ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.setChessground(site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
@@ -50,7 +51,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: ctrl.pref.highlight,

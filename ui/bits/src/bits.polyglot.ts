@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import { deepFreeze } from 'common';
+import { deepFreeze } from 'common/algo';
 import { normalMove } from 'chess';
 
 export type OpeningMove = { uci: string; weight: number };

@@ -14,7 +14,7 @@ export function stopTsc(): void {
 
 export async function tsc(): Promise<void> {
   return new Promise((resolve, reject) =>
-    (async () => {
+    (async() => {
       if (!env.tsc) return resolve();
 
       const cfg: any = { files: [] };

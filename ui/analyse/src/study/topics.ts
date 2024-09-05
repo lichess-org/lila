@@ -27,10 +27,10 @@ export const view = (ctrl: StudyCtrl): VNode =>
       ),
     ctrl.members.canContribute()
       ? h(
-          'a.manage',
-          { hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw) },
-          ctrl.trans.noarg('manageTopics'),
-        )
+        'a.manage',
+        { hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw) },
+        ctrl.trans.noarg('manageTopics'),
+      )
       : null,
   ]);
 
@@ -92,7 +92,7 @@ function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: strin
           tagi.loading(false).dropdown.show.call(tagi, term); // render the suggestions dropdown
         });
     });
-    $('.tagify__input').each(function (this: HTMLInputElement) {
+    $('.tagify__input').each(function(this: HTMLInputElement) {
       this.focus();
     });
   });

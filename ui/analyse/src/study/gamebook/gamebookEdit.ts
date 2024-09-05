@@ -2,7 +2,7 @@ import * as control from '../../control';
 import AnalyseCtrl from '../../ctrl';
 import { requestIdleCallback } from 'common';
 import * as licon from 'common/licon';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { iconTag, bind, MaybeVNodes } from 'common/snabbdom';
 import { h, Hooks, VNode } from 'snabbdom';
 
@@ -30,7 +30,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
       study.vm.toolTab('comments');
       requestIdleCallback(
         () =>
-          $('#comment-text').each(function (this: HTMLTextAreaElement) {
+          $('#comment-text').each(function(this: HTMLTextAreaElement) {
             this.focus();
           }),
         500,
@@ -80,9 +80,9 @@ export function render(ctrl: AnalyseCtrl): VNode {
         hasVariation
           ? null
           : h('div.legend.clickable', { hook: bind('click', () => control.prev(ctrl), ctrl.redraw) }, [
-              iconTag(licon.PlayTriangle),
-              h('p', 'Add variation moves to explain why specific other moves are wrong.'),
-            ]),
+            iconTag(licon.PlayTriangle),
+            h('p', 'Add variation moves to explain why specific other moves are wrong.'),
+          ]),
         renderDeviation(ctrl),
       ];
   } else

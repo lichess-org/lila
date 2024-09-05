@@ -75,11 +75,11 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentCont
     h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
     ...(nb.game
       ? [
-          h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
-          berserkable
-            ? h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
-            : null,
-        ]
+        h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
+        berserkable
+          ? h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))])
+          : null,
+      ]
       : []),
   ]);
 }
@@ -91,10 +91,10 @@ export function podium(ctrl: TournamentController) {
   const podiumPosition = (p: PodiumPlayer, pos: string): VNode | undefined =>
     p
       ? h('div.' + pos, [
-          h('div.trophy'),
-          userLink({ ...p, line: false, rating: undefined }),
-          podiumStats(p, ctrl.data.berserkable, ctrl),
-        ])
+        h('div.trophy'),
+        userLink({ ...p, line: false, rating: undefined }),
+        podiumStats(p, ctrl.data.berserkable, ctrl),
+      ])
       : undefined;
   return h('div.podium', [
     podiumPosition(p[1], 'second'),

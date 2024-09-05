@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 
 site.load.then(() => {
   $('.flash').addClass('fade');
@@ -7,7 +7,7 @@ site.load.then(() => {
     'click',
     throttlePromiseDelay(
       () => 1000,
-      async function (this: HTMLButtonElement) {
+      async function(this: HTMLButtonElement) {
         const button = $(this),
           likeClass = 'ublog-post__like--liked',
           liked = !button.hasClass(likeClass);
@@ -29,7 +29,7 @@ site.load.then(() => {
     'click',
     throttlePromiseDelay(
       () => 1000,
-      async function (this: HTMLButtonElement) {
+      async function(this: HTMLButtonElement) {
         const button = $(this),
           followClass = 'followed';
         return await xhr
@@ -40,7 +40,7 @@ site.load.then(() => {
       },
     ),
   );
-  $('#form3-tier').on('change', function (this: HTMLSelectElement) {
+  $('#form3-tier').on('change', function(this: HTMLSelectElement) {
     (this.parentNode as HTMLFormElement).submit();
   });
 });

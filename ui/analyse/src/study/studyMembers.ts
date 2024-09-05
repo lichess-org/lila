@@ -10,6 +10,7 @@ import { StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { textRaw as xhrTextRaw } from 'common/xhr';
 import { userLink } from 'common/userLink';
 import StudyCtrl from './studyCtrl';
+import { once } from 'common/storage';
 
 interface Opts {
   initDict: StudyMemberMap;
@@ -99,7 +100,7 @@ export class StudyMemberCtrl {
     const wasContrib = this.myMember() && this.canContribute();
     this.dict(members);
     if (wasViewer && this.canContribute()) {
-      if (site.once('study-tour')) this.opts.startTour();
+      if (once('study-tour')) this.opts.startTour();
       this.opts.onBecomingContributor();
       this.opts.notif.set({
         text: this.opts.trans.noarg('youAreNowAContributor'),

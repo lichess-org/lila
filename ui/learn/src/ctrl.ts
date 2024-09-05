@@ -6,10 +6,11 @@ import { SideCtrl } from './sideCtrl';
 import { clearTimeouts } from './timeouts';
 import { extractHashParameters } from './hashRouting';
 import { RunCtrl } from './run/runCtrl';
+import { trans } from 'common/trans';
 
 export class LearnCtrl {
   data: LearnProgress = this.opts.storage.data;
-  trans: Trans = site.trans(this.opts.i18n);
+  trans: Trans = trans(this.opts.i18n);
 
   sideCtrl: SideCtrl;
   runCtrl: RunCtrl;
