@@ -13,7 +13,7 @@ interface RoundApi {
   moveOn: MoveOn;
 }
 
-export default async function (
+export default async function(
   opts: RoundOpts,
   roundMain: (opts: RoundOpts) => Promise<RoundController>,
 ): Promise<RoundController> {
@@ -34,8 +34,8 @@ export default async function (
           $('.tv-channels .' + o.channel + ' .champion').html(
             o.player
               ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : '']
-                  .filter(x => x)
-                  .join('&nbsp')
+                .filter(x => x)
+                .join('&nbsp')
               : 'Anonymous',
           );
       },
@@ -62,7 +62,7 @@ export default async function (
 
   const startTournamentClock = () => {
     if (data.tournament)
-      $('.game__tournament .clock').each(function (this: HTMLElement) {
+      $('.game__tournament .clock').each(function(this: HTMLElement) {
         site.clockWidget(this, {
           time: parseFloat(this.dataset.time!),
         });

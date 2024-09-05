@@ -261,9 +261,9 @@ export default class SetupController {
     const id = `${this.time()}+${this.increment()}`;
     return valid && this.root.pools.find(p => p.id === id)
       ? {
-          id,
-          range: this.ratingRange(),
-        }
+        id,
+        range: this.ratingRange(),
+      }
       : null;
   };
 
@@ -295,7 +295,7 @@ export default class SetupController {
     this.time() >= 1;
   valid = (): boolean => this.validFen() && this.validTime() && this.validAiTime();
 
-  submit = async (color: Color | 'random') => {
+  submit = async(color: Color | 'random') => {
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {
       this.root.enterPool(poolMember);
@@ -330,8 +330,8 @@ export default class SetupController {
       alert(
         errs
           ? Object.keys(errs)
-              .map(k => `${k}: ${errs[k]}`)
-              .join('\n')
+            .map(k => `${k}: ${errs[k]}`)
+            .join('\n')
           : 'Invalid setup',
       );
       if (response.status == 403) {

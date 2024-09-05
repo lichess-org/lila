@@ -5,7 +5,7 @@ import * as Prefs from 'common/prefs';
 import PuzzleCtrl from '../ctrl';
 import { storage } from 'common/storage';
 
-export default function (ctrl: PuzzleCtrl): VNode {
+export default function(ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.setChessground(site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),

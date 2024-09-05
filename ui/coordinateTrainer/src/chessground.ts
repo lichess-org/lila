@@ -4,7 +4,7 @@ import * as cg from 'chessground/types';
 import resizeHandle from 'common/resize';
 import CoordinateTrainerCtrl from './ctrl';
 
-export default function (ctrl: CoordinateTrainerCtrl): VNode {
+export default function(ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {

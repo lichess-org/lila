@@ -220,9 +220,9 @@ export default class StrongSocket {
     const pingData =
       this.options.isAuth && this.pongCount % 10 == 2
         ? JSON.stringify({
-            t: 'p',
-            l: Math.round(0.1 * this.averageLag),
-          })
+          t: 'p',
+          l: Math.round(0.1 * this.averageLag),
+        })
         : 'null';
     try {
       this.ws!.send(pingData);

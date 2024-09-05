@@ -13,10 +13,10 @@ export function initModule(opts: TeamOpts): void {
 
   if (opts.chat) site.makeChat(opts.chat);
 
-  $('#team-subscribe').on('change', function (this: HTMLInputElement) {
+  $('#team-subscribe').on('change', function(this: HTMLInputElement) {
     $(this)
       .parents('form')
-      .each(function (this: HTMLFormElement) {
+      .each(function(this: HTMLFormElement) {
         xhr.formToXhr(this);
       });
   });
@@ -29,6 +29,6 @@ $('button.explain').on('click', e => {
   else return false;
 });
 
-$('.emoji-details').each(function (this: HTMLElement) {
+$('.emoji-details').each(function(this: HTMLElement) {
   flairPickerLoader(this);
 });

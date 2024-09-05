@@ -3,7 +3,7 @@ import { formToXhr } from 'common/xhr';
 site.load.then(() => {
   if ($('.nav-tree').length) location.hash = location.hash || '#help-root';
 
-  $('select.appeal-presets').on('change', function (this: HTMLSelectElement, e: Event) {
+  $('select.appeal-presets').on('change', function(this: HTMLSelectElement, e: Event) {
     $(this)
       .parents('form')
       .find('textarea')

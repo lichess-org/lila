@@ -76,7 +76,7 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
   return h(
     'lines',
     { class: { single: !!nodes[1] } },
-    nodes.map(function (n) {
+    nodes.map(function(n) {
       return h(
         'line',
         renderMoveAndChildrenOf(ctx, n, { parentPath: opts.parentPath, isMainline: false, withIndex: true }),

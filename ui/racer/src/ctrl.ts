@@ -228,8 +228,8 @@ export default class RacerCtrl implements PuzCtrl {
     this.isPlayer()
       ? makeCgOpts(this.run, this.isRacing(), this.flipped)
       : {
-          orientation: this.run.pov,
-        };
+        orientation: this.run.pov,
+      };
 
   private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 

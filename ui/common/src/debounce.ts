@@ -6,7 +6,7 @@ export default function debounce<T extends (...args: any) => void>(
   let timeout: Timeout | undefined;
   let lastBounce = 0;
 
-  return function (this: any, ...args: Parameters<T>) {
+  return function(this: any, ...args: Parameters<T>) {
     const self = this;
 
     if (timeout) clearTimeout(timeout);

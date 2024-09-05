@@ -14,7 +14,7 @@ import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
 import { once } from 'common/storage';
 
-export default function (ctrl: SwissCtrl) {
+export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
   const content =
     d.status == 'created' ? created(ctrl) : d.status == 'started' ? started(ctrl) : finished(ctrl);
@@ -131,39 +131,39 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     return ctrl.joinSpinner
       ? spinner()
       : h(
-          'button.fbt.text.highlight',
-          {
-            attrs: dataIcon(licon.PlayTriangle),
-            hook: bind(
-              'click',
-              _ => {
-                if (d.password) {
-                  const p = prompt(ctrl.trans.noarg('tournamentEntryCode'));
-                  if (p !== null) ctrl.join(p);
-                } else ctrl.join();
-              },
-              ctrl.redraw,
-            ),
-          },
-          ctrl.trans.noarg('join'),
-        );
+        'button.fbt.text.highlight',
+        {
+          attrs: dataIcon(licon.PlayTriangle),
+          hook: bind(
+            'click',
+            _ => {
+              if (d.password) {
+                const p = prompt(ctrl.trans.noarg('tournamentEntryCode'));
+                if (p !== null) ctrl.join(p);
+              } else ctrl.join();
+            },
+            ctrl.redraw,
+          ),
+        },
+        ctrl.trans.noarg('join'),
+      );
 
   if (d.me && d.status != 'finished')
     return d.me.absent
       ? ctrl.joinSpinner
         ? spinner()
         : h(
-            'button.fbt.text.highlight',
-            { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', _ => ctrl.join(), ctrl.redraw) },
-            ctrl.trans.noarg('join'),
-          )
+          'button.fbt.text.highlight',
+          { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', _ => ctrl.join(), ctrl.redraw) },
+          ctrl.trans.noarg('join'),
+        )
       : ctrl.joinSpinner
         ? spinner()
         : h(
-            'button.fbt.text',
-            { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
-            ctrl.trans.noarg('withdraw'),
-          );
+          'button.fbt.text',
+          { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
+          ctrl.trans.noarg('withdraw'),
+        );
 
   return;
 }

@@ -27,7 +27,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
   let timer: number | undefined;
   let lastExec = 0;
 
-  return function (this: any, ...args: any[]): void {
+  return function(this: any, ...args: any[]): void {
     const self: any = this;
     const elapsed = performance.now() - lastExec;
 

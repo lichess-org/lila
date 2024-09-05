@@ -6,7 +6,7 @@ import TournamentController from '../ctrl';
 import { numberRow, player as renderPlayer } from './util';
 import { teamName } from './battle';
 
-export default function (ctrl: TournamentController): VNode | undefined {
+export default function(ctrl: TournamentController): VNode | undefined {
   const battle = ctrl.data.teamBattle,
     data = ctrl.teamInfo.loaded,
     noarg = ctrl.trans.noarg;
@@ -31,14 +31,14 @@ export default function (ctrl: TournamentController): VNode | undefined {
         numberRow(noarg('players'), data.nbPlayers),
         ...(data.rating
           ? [
-              ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
-              ...(data.perf
-                ? [
-                    ctrl.opts.showRatings ? numberRow(noarg('averagePerformance'), data.perf, 'raw') : null,
-                    numberRow(noarg('averageScore'), data.score, 'raw'),
-                  ]
-                : []),
-            ]
+            ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
+            ...(data.perf
+              ? [
+                ctrl.opts.showRatings ? numberRow(noarg('averagePerformance'), data.perf, 'raw') : null,
+                numberRow(noarg('averageScore'), data.score, 'raw'),
+              ]
+              : []),
+          ]
           : []),
         h('tr', h('th', h('a', { attrs: { href: '/team/' + data.id } }, noarg('teamPage')))),
       ]),

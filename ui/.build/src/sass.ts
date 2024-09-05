@@ -81,7 +81,7 @@ function compile(sources: string[], logAll = true) {
     const txts = lines(buf.toString('utf8'));
     for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
   });
-  sassPs.on('close', async (code: number) => {
+  sassPs.on('close', async(code: number) => {
     if (code !== 0) return env.done(code, 'sass');
     if (awaitingFullBuild && compile(await unbuiltSources()) > 0) return;
     awaitingFullBuild = false; // now we are ready to make manifests

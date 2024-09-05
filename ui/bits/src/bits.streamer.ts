@@ -6,7 +6,7 @@ site.load.then(() => {
     const target = e.target as HTMLInputElement;
     $(target)
       .parents('.streamer-subscribe')
-      .each(function (this: HTMLElement) {
+      .each(function(this: HTMLElement) {
         xhr.text(
           $(this)
             .data('action')

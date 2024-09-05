@@ -30,7 +30,7 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
   );
 
   ['white', 'black'].forEach((color: Color) =>
-    $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
+    $el.find('.mini-game__clock--' + color).each(function(this: HTMLElement) {
       clockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
         pause: color != turnColor || !lichessClockIsRunning(fen, color),

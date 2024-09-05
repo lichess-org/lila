@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 
 export function initModule(selector: string = '.infinite-scroll'): void {
-  $(selector).each(function (this: HTMLElement) {
+  $(selector).each(function(this: HTMLElement) {
     register(this, selector);
   });
 }
@@ -54,7 +54,7 @@ function dedupEntries(el: HTMLElement) {
   const ids = new Set<string>();
   $(el)
     .find('[data-dedup]')
-    .each(function (this: HTMLElement) {
+    .each(function(this: HTMLElement) {
       const id = this.dataset.dedup;
       if (id) {
         if (ids.has(id)) $(this).remove();
