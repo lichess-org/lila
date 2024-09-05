@@ -46,6 +46,16 @@
   <string name="roundInterval">Interval între runde</string>
   <string name="forbiddenPairings">Asocieri interzise</string>
   <string name="forbiddenPairingsHelp">Numele de utilizator ale jucătorilor care nu trebuie să se joace împreună (frați, de exemplu). Două nume de utilizator pe linie, separate de un spațiu.</string>
+  <string name="manualPairings">Asocieri manuale în runda următoare</string>
+  <string name="manualPairingsHelp">Specificați manual toate perechile următoarei runde. Asocierea unui jucător pe linie. Exemplu:
+PlayerA PlayerB
+PlayerC PlayerD
+Pentru a da o adiere (1 punct) unui jucător în loc de o pereche, adaugă o linie ca aceasta:
+Jucător 1
+Jucătorii lipsă vor fi considerați absenți și vor primi zero puncte.
+Lăsați acest câmp gol pentru a lăsa lichess să creeze perechi automat.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Trebuie să fi jucat ultimul lor joc de elvețian</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Lăsați jucătorii să se alăture dacă au jucat ultimul lor joc de elvețian. Dacă nu au reușit să apară într-un eveniment recent de tip swiss nu vor putea intra pe al tău. Asta are ca rezultat o experiență mai bună pentru jucătorii care apar de fapt.</string>
   <string name="newSwiss">Turneu Elvețian nou</string>
   <string name="swissVsArenaQ">Când folosim turnee elvetiene în loc de arene?</string>
   <string name="swissVsArenaA">Într-un turneu elvetian toţi participanţii joacă acelaşi număr de partide şi doi adversari se intalnesc o singură dată.
@@ -122,4 +132,7 @@ Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu e
   <string name="predefinedUsers">Permite doar utilizatorilor predefiniți să se alăture</string>
   <string name="forbiddedUsers">Dacă această listă nu este goală, atunci utilizatorii care nu apar în această listă nu vor putea să se alăture. Un nume de utilizator pe linie.</string>
   <string name="playYourGames">Joacă jocurile tale</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Absențe</string>
+  <string name="tieBreak">Tie Break</string>
 </resources>
