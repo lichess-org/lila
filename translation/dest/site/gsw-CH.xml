@@ -472,7 +472,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="emptyTournamentName">Frei la zum s\'Turnier nach eme namhafte Schachschpiller z\'benänne.</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
   <string name="join">Mach mit</string>
-  <string name="withdraw">Usstige</string>
+  <string name="withdraw">Usschtige</string>
   <string name="points">Pünkt</string>
   <string name="wins">Sieg</string>
   <string name="losses">Niederlage</string>
@@ -560,9 +560,9 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="cheat">Bschiss</string>
   <string name="troll">Troll</string>
   <string name="other">Suschtigs</string>
-  <string name="reportCheatBoostHelp">Füeg de Link dere oder dene Partie bi und erchlär, was am Beneh vum Schpiller falsch isch. Säg nöd nur eifach \"de bschisst\", sondern schrib, wie du da druf chunnsch.</string>
-  <string name="reportUsernameHelp">Erchlär, was am Benutzername nöd in Ornig isch: Säg nöd eifach \"er isch beleidigend/unagmässe\", sondern schrib eus, wie du zu dere Folgerig cho bisch. B\'sunders wänn die Beleidigung verschleieret-, nöd uf Änglisch- oder in Dialäkt isch oder wänn sie en historische oder kulturelle Bezug hät.</string>
-  <string name="reportProcessedFasterInEnglish">Änglisch g\'schribeni Mäldige werded schnäller behandlet.</string>
+  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Füeg de Link dere oder dene Partie bi und erchlär, was am Beneh vum Schpiller falsch isch. Säg nöd nur eifach \"de bschisst\", sondern schrib, wie du da druf chunnsch.</string>
+  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Erchlär, was am Benutzername nöd in Ornig isch: Säg nöd eifach \"er isch beleidigend/unagmässe\", sondern schrib eus, wie du zu dere Folgerig cho bisch. B\'sunders wänn die Beleidigung verschleieret-, nöd uf Änglisch- oder in Dialäkt isch oder wänn sie en historische oder kulturelle Bezug hät.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Änglisch g\'schribeni Mäldige werded schnäller behandlet.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens 1 Link zume Schpiel a, wo bschisse worde isch.</string>
   <string name="by">vu %s</string>
   <string name="importedByX">Importiert vu %s</string>
