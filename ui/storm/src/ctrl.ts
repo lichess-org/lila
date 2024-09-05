@@ -14,6 +14,8 @@ import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { Role } from 'chessground/types';
 import { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import { storage } from 'common/storage';
+import { trans } from 'common/trans';
 
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;
@@ -32,7 +34,7 @@ export default class StormCtrl implements PuzCtrl {
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
     this.filters = new PuzFilters(this.redraw, false);
-    this.trans = site.trans(opts.i18n);
+    this.trans = trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,
@@ -198,7 +200,7 @@ export default class StormCtrl implements PuzCtrl {
   };
 
   private checkDupTab = () => {
-    const dupTabMsg = site.storage.make('storm.tab');
+    const dupTabMsg = storage.make('storm.tab');
     dupTabMsg.fire(this.data.puzzles[0].id);
     dupTabMsg.listen(ev => {
       if (!this.run.clock.startAt && ev.value == this.data.puzzles[0].id) {

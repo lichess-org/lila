@@ -1,4 +1,4 @@
-import { clamp } from 'common';
+import { clamp } from 'common/algo';
 import { botScore } from './devUtil';
 import type { BotInfo, Mover, MoveResult, MoveArgs, Book, Ratings } from '../types';
 import type { Result, Matchup, Glicko } from './devCtrl';

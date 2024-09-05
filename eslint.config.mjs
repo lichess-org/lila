@@ -1,21 +1,31 @@
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import stylisticEslint from '@stylistic/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 
 export default [
   {
     files: ['**/*.ts'],
     ignores: ['**/dist/**', '**/node_modules/**', '**/public/**'],
-    plugins: { '@typescript-eslint': typescriptEslint },
-    languageOptions: {
-      parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: 'module',
-    },
-
+    plugins: { '@typescript-eslint': typescriptEslint, '@stylistic': stylisticEslint },
+    languageOptions: { parser: tsParser, ecmaVersion: 5, sourceType: 'module' },
     rules: {
-      'linebreak-style': ['error', 'unix'],
-      'prefer-spread': 'off',
-      'prefer-rest-params': 'off',
+      '@stylistic/indent': ['error', 2],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
+      '@stylistic/semi': ['error', 'always'],
+      '@stylistic/comma-dangle': ['error', 'always-multiline'],
+      '@stylistic/object-curly-spacing': ['error', 'always'],
+      '@stylistic/space-before-function-paren': ['error', 'never'],
+      '@stylistic/max-len': [
+        'warn',
+        {
+          code: 110,
+          ignoreUrls: true,
+          ignoreStrings: true,
+          ignoreComments: true,
+          ignoreTemplateLiterals: true,
+        },
+      ],
+
       '@typescript-eslint/no-empty-interface': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-empty-function': 'off',
@@ -24,22 +34,17 @@ export default [
       '@typescript-eslint/no-this-alias': 'off',
       '@typescript-eslint/no-unused-vars': [
         'warn',
-        {
-          varsIgnorePattern: '^_',
-          argsIgnorePattern: '^_',
-          caughtErrorsIgnorePattern: '^_',
-        },
+        { varsIgnorePattern: '^_', argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
       ],
+
+      'linebreak-style': ['error', 'unix'],
+      'prefer-spread': 'off',
+      'prefer-rest-params': 'off',
       'no-duplicate-imports': 'error',
       'no-useless-escape': 'off',
       'no-var': 'warn',
       'no-async-promise-executor': 'warn',
-      'no-constant-condition': [
-        'warn',
-        {
-          checkLoops: false,
-        },
-      ],
+      'no-constant-condition': ['warn', { checkLoops: false }],
       'no-restricted-globals': [
         'error',
         'addEventListener',
@@ -200,7 +205,7 @@ export default [
         'scrollTo',
         'scrollX',
         'scrollY',
-        //"self",
+        //'self',
         'status',
         'statusbar',
         'stop',

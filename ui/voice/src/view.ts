@@ -166,13 +166,13 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       const grammar =
         ctrl.moduleId === 'coords'
           ? []
-          : await xhr.jsonSimple(site.asset.url(`json/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
+          : await xhr.jsonSimple(site.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
 
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(
           (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')),
         )?.in;
-      $('.val-to-word', dlg.view).each(function (this: HTMLElement) {
+      $('.val-to-word', dlg.view).each(function(this: HTMLElement) {
         const tryPhonetic = (val: string) =>
           (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
         this.innerText = this.innerText

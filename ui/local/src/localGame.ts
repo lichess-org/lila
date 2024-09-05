@@ -4,7 +4,7 @@ import { normalizeMove } from 'chessops/chess';
 import { makeSanAndPlay } from 'chessops/san';
 import { statusOf } from 'game/status';
 import { Status } from 'game';
-import { deepFreeze } from 'common';
+import { deepFreeze } from 'common/algo';
 import { env } from './localEnv';
 
 export interface GameStatus {

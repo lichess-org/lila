@@ -30,7 +30,7 @@ const hasBlundered = (comment: Comment | null) =>
   comment && (comment.verdict === 'mistake' || comment.verdict === 'blunder');
 
 // returns null = ongoing, true = win, false = fail
-export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolean | null {
+export default function(root: AnalyseCtrl, goal: Goal, nbMoves: number): boolean | null {
   const node = root.node;
   if (!node.uci) return null;
   const outcome = root.outcome();

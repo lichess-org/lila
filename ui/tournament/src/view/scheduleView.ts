@@ -69,7 +69,7 @@ function group(arr: Tournament[], grouper: (t: Tournament) => number): Lane[] {
   });
   return Object.keys(groups)
     .sort()
-    .map(function (k) {
+    .map(function(k) {
       return groups[k]!;
     });
 }
@@ -79,7 +79,7 @@ function truncSeconds(epoch: number): number {
 }
 
 function fitLane(lane: Lane, tour2: Tournament) {
-  return !lane.some(function (tour1: Tournament) {
+  return !lane.some(function(tour1: Tournament) {
     return !(
       truncSeconds(tour1.finishesAt) <= truncSeconds(tour2.startsAt) ||
       truncSeconds(tour2.finishesAt) <= truncSeconds(tour1.startsAt)
@@ -140,12 +140,12 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
     tour.minutes < 90
       ? 0
       : Math.max(
-          0,
-          Math.min(
-            width - 250, // max padding, reserved text space
-            leftPos(now) - left - 380,
-          ),
-        ); // distance from Now
+        0,
+        Math.min(
+          width - 250, // max padding, reserved text space
+          leftPos(now) - left - 380,
+        ),
+      ); // distance from Now
   // cut right overflow to fit viewport and not widen it, for marathons
   width = Math.min(width, leftPos(stopTime) - left);
 
@@ -226,7 +226,7 @@ function isSystemTournament(t: Tournament) {
   return !!t.schedule;
 }
 
-export default function (ctrl: Ctrl) {
+export default function(ctrl: Ctrl) {
   now = Date.now();
   startTime = now - 3 * 60 * 60 * 1000;
   stopTime = startTime + 10 * 60 * 60 * 1000;

@@ -116,18 +116,18 @@ export function opponentGone(ctrl: RoundController): LooseVNode {
   if (ctrl.data.game.rules?.includes('noClaimWin')) return null;
   return gone === true
     ? h('div.suggestion', [
-        h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
-        h(
-          'button.button',
-          { hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force')) },
-          ctrl.noarg('forceResignation'),
-        ),
-        h(
-          'button.button',
-          { hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force')) },
-          ctrl.noarg('forceDraw'),
-        ),
-      ])
+      h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
+      h(
+        'button.button',
+        { hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force')) },
+        ctrl.noarg('forceResignation'),
+      ),
+      h(
+        'button.button',
+        { hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force')) },
+        ctrl.noarg('forceDraw'),
+      ),
+    ])
     : gone !== false &&
         h(
           'div.suggestion',

@@ -6,19 +6,19 @@ import PuzzleCtrl from '../ctrl';
 const viewSolution = (ctrl: PuzzleCtrl): VNode =>
   ctrl.streak
     ? h('div.view_solution.skip', { class: { show: !!ctrl.streak?.data.skip } }, [
-        h(
-          'a.button.button-empty',
-          { hook: bind('click', ctrl.skip), attrs: { title: ctrl.trans.noarg('streakSkipExplanation') } },
-          ctrl.trans.noarg('skip'),
-        ),
-      ])
+      h(
+        'a.button.button-empty',
+        { hook: bind('click', ctrl.skip), attrs: { title: ctrl.trans.noarg('streakSkipExplanation') } },
+        ctrl.trans.noarg('skip'),
+      ),
+    ])
     : h('div.view_solution', { class: { show: ctrl.canViewSolution() } }, [
-        h(
-          'a.button.button-empty',
-          { hook: bind('click', ctrl.viewSolution) },
-          ctrl.trans.noarg('viewTheSolution'),
-        ),
-      ]);
+      h(
+        'a.button.button-empty',
+        { hook: bind('click', ctrl.viewSolution) },
+        ctrl.trans.noarg('viewTheSolution'),
+      ),
+    ]);
 
 const initial = (ctrl: PuzzleCtrl): VNode =>
   h('div.puzzle__feedback.play', [
@@ -59,7 +59,7 @@ const fail = (ctrl: PuzzleCtrl): VNode =>
     viewSolution(ctrl),
   ]);
 
-export default function (ctrl: PuzzleCtrl): MaybeVNode {
+export default function(ctrl: PuzzleCtrl): MaybeVNode {
   if (ctrl.mode === 'view') return afterView(ctrl);
   switch (ctrl.lastFeedback) {
     case 'init':

@@ -160,7 +160,6 @@ object user:
   case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
 
   case class ChangeEmail(id: UserId, email: EmailAddress)
-  case class GDPRErase(user: User)
 
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]

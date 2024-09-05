@@ -1,5 +1,6 @@
 import { removeObjectProperty, setObjectProperty, maxChars } from './devUtil';
-import { findMapped, frag } from 'common';
+import { findMapped } from 'common/algo';
+import { frag } from 'common';
 import { getSchemaDefault, requiresOpRe } from './schema';
 import type { EditDialog } from './editDialog';
 import { env } from '../localEnv';
@@ -102,9 +103,9 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       src === 'schema'
         ? getSchemaDefault(this.id)
         : this.path.reduce(
-            (o, key) => o?.[key],
-            src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
-          ),
+          (o, key) => o?.[key],
+          src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
+        ),
     );
   }
 

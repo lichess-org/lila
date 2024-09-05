@@ -26,7 +26,7 @@
       "src/move/voice.move.ts"
     ],
     "sync": {
-      "grammar/**": "public/json/grammar"
+      "grammar/**": "public/compiled/grammar"
     }
   }
 }

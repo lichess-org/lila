@@ -9,6 +9,7 @@
   </plurals>
   <string name="liveBroadcasts">Difuzări de turnee în direct</string>
   <string name="newBroadcast">O nouă difuzare în direct</string>
+  <string name="subscribedBroadcasts">Transmisii abonate</string>
   <string name="aboutBroadcasts">Despre emisiuni</string>
   <string name="howToUseLichessBroadcasts">Cum să utilizați emisiunile Lichess.</string>
   <string name="theNewRoundHelp">Runda noua va avea aceiași membri și contribuitori ca cea anterioară.</string>
@@ -38,9 +39,12 @@
   <string name="editRoundStudy">Editare rundă de studiu</string>
   <string name="deleteTournament">Șterge acest turneu</string>
   <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
+  <string name="showScores">Arată scorurile jucătorilor pe baza rezultatelor jocului</string>
   <string name="replacePlayerTags">Opțional: înlocuiește numele jucătorilor, ratingurile și titlurile</string>
   <string name="periodInSeconds">Perioada în secunde</string>
+  <string name="periodInSecondsHelp">Opțional, cât de mult timp să se aștepte între cereri. Min 2s, max 60s. Implicit este automat bazat pe numărul de vizitatori.</string>
   <string name="fideFederations">Federații FIDE</string>
+  <string name="top10Rating">Top 10 evaluări</string>
   <string name="fidePlayers">Jucători FIDE</string>
   <string name="fidePlayerNotFound">Jucătorul FIDE nu a fost găsit</string>
   <string name="fideProfile">Profil FIDE</string>

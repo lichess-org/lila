@@ -1,10 +1,7 @@
-import StrongSocket from './socket';
 import { boot } from './boot';
 import Mousetrap from './mousetrap';
-import once from './once';
 import { spinnerHtml } from 'common/spinner';
-import sri from './sri';
-import { storage, tempStorage } from './storage';
+import { randomToken } from 'common/random';
 import powertip from './powertip';
 import clockWidget from './clockWidget';
 import * as assets from './asset';
@@ -13,7 +10,7 @@ import idleTimer from './idleTimer';
 import pubsub from './pubsub';
 import { unload, redirect, reload } from './reload';
 import announce from './announce';
-import { trans } from './trans';
+import { trans } from 'common/trans';
 import sound from './sound';
 import * as miniBoard from 'common/miniBoard';
 import * as miniGame from './miniGame';
@@ -21,17 +18,13 @@ import { format as timeago, formatter as dateFormat, displayLocale } from './tim
 import watchers from './watchers';
 import { Chessground } from 'chessground';
 
-// window.site.{load, quantity, i18n} are initialized in layout.scala embedded script tags
+// window.site.{load, quantity, siteI18n} are initialized in layout.scala embedded script tags
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 const s = window.site;
-s.StrongSocket = StrongSocket;
 s.mousetrap = new Mousetrap(document);
-s.sri = sri;
-s.storage = storage;
-s.tempStorage = tempStorage;
-s.once = once;
+s.sri = randomToken();
 s.powertip = powertip;
 s.clockWidget = clockWidget;
 s.spinnerHtml = spinnerHtml;
@@ -43,7 +36,7 @@ s.redirect = redirect;
 s.reload = reload;
 s.watchers = watchers;
 s.announce = announce;
-s.trans = trans;
+s.trans = trans(s.siteI18n);
 s.sound = sound;
 s.miniBoard = miniBoard;
 s.miniGame = miniGame;

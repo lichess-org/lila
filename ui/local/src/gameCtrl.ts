@@ -1,7 +1,7 @@
 import * as co from 'chessops';
+import { trans } from 'common/trans';
 import { RoundProxy } from './roundProxy';
 import { type MoveContext, type GameStatus, LocalGame } from './localGame';
-import { clamp } from 'common';
 import { clockToSpeed } from 'game';
 import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
@@ -20,7 +20,7 @@ export class GameCtrl implements LocalSetup {
   resolveThink?: () => void;
 
   constructor(readonly opts: LocalPlayOpts) {
-    this.trans = site.trans(this.opts.i18n);
+    this.trans = trans(this.opts.i18n);
     this.setup =
       opts.setup ??
       JSON.parse(localStorage.getItem('assets' in opts ? 'local.dev.setup' : 'local.setup') ?? '{}');
@@ -249,17 +249,17 @@ export class GameCtrl implements LocalSetup {
     const initial = this.setup.initial as number;
     this.clock = Number.isFinite(initial)
       ? {
-          initial: initial,
-          increment: this.setup.increment ?? 0,
-          white: initial,
-          black: initial,
-          emerg: 0,
-          showTenths: this.opts.pref.clockTenths,
-          showBar: true,
-          moretime: 0,
-          running: false,
-          since: undefined,
-        }
+        initial: initial,
+        increment: this.setup.increment ?? 0,
+        white: initial,
+        black: initial,
+        emerg: 0,
+        showTenths: this.opts.pref.clockTenths,
+        showBar: true,
+        moretime: 0,
+        running: false,
+        since: undefined,
+      }
       : undefined;
   }
 }

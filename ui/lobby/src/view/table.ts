@@ -29,13 +29,13 @@ export default function table(ctrl: LobbyController) {
               hook: disabled
                 ? {}
                 : bind(
-                    site.blindMode ? 'click' : 'mousedown',
-                    () => {
-                      if (gameType === 'local') site.asset.loadEsm('local.setup');
-                      else ctrl.setupCtrl.openModal(gameType);
-                    },
-                    ctrl.redraw,
-                  ),
+                  site.blindMode ? 'click' : 'mousedown',
+                  () => {
+                    if (gameType === 'local') site.asset.loadEsm('local.setup');
+                    else ctrl.setupCtrl.openModal(gameType);
+                  },
+                  ctrl.redraw,
+                ),
             },
             trans(transKey),
           ),

@@ -31,13 +31,13 @@ export default class RelayTeams {
 
   constructor(
     private readonly roundId: RoundId,
-    readonly multiCloudEval: MultiCloudEval,
+    readonly multiCloudEval: MultiCloudEval | undefined,
     readonly chapterSelect: ChapterSelect,
     readonly roundPath: () => string,
     private readonly redraw: Redraw,
   ) {}
 
-  loadFromXhr = async (onInsert?: boolean) => {
+  loadFromXhr = async(onInsert?: boolean) => {
     if (this.teams && !onInsert) {
       this.loading = true;
       this.redraw();
@@ -60,7 +60,7 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: Re
       },
     },
     ctrl.teams
-      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), players, ctrl.multiCloudEval.thisIfShowEval())
+      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), players, ctrl.multiCloudEval?.thisIfShowEval())
       : [spinner()],
   );
 

@@ -18,7 +18,6 @@ const allGlobs = [
   'public/compiled',
   'public/css',
   'public/hashed',
-  'public/json',
   'public/npm',
 ];
 

@@ -35,15 +35,15 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
           ctrl.streak && ctrl.mode === 'play'
             ? h('span.hidden', ctrl.trans.noarg('hidden'))
             : h(
-                'a',
-                {
-                  attrs: {
-                    href: router.withLang(`/training/${puzzle.id}`),
-                    ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
-                  },
+              'a',
+              {
+                attrs: {
+                  href: router.withLang(`/training/${puzzle.id}`),
+                  ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
                 },
-                '#' + puzzle.id,
-              ),
+              },
+              '#' + puzzle.id,
+            ),
         ),
       ),
       ctrl.opts.showRatings &&
@@ -89,14 +89,14 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
     'div.puzzle__side__streak',
     streak.data.index == 0
       ? h('div.puzzle__side__streak__info', [
-          h('h1.text', { attrs: dataIcon(licon.ArrowThruApple) }, 'Puzzle Streak'),
-          h('p', noarg('streakDescription')),
-        ])
+        h('h1.text', { attrs: dataIcon(licon.ArrowThruApple) }, 'Puzzle Streak'),
+        h('p', noarg('streakDescription')),
+      ])
       : h(
-          'div.puzzle__side__streak__score.text',
-          { attrs: dataIcon(licon.ArrowThruApple) },
-          `${streak.data.index}`,
-        ),
+        'div.puzzle__side__streak__score.text',
+        { attrs: dataIcon(licon.ArrowThruApple) },
+        `${streak.data.index}`,
+      ),
   );
 
 export const userBox = (ctrl: PuzzleCtrl): VNode => {

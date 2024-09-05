@@ -8,8 +8,9 @@ import { stockfishName } from 'common/spinner';
 import { domDialog } from 'common/dialog';
 import { FEN } from 'chessground/types';
 import { escapeHtml } from 'common';
+import { storage } from 'common/storage';
 
-export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
+export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
 
   const data = ctrl.data,
@@ -84,8 +85,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  const storage = site.storage.make('analysis.panel');
-  const setPanel = function (panel: string) {
+  const store = storage.make('analysis.panel');
+  const setPanel = function(panel: string) {
     $menu.children('.active').removeClass('active');
     $menu.find(`[data-panel="${panel}"]`).addClass('active');
     $panels
@@ -100,15 +101,15 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);
   };
-  $menu.on('mousedown', 'span', function (this: HTMLElement) {
+  $menu.on('mousedown', 'span', function(this: HTMLElement) {
     const panel = this.dataset.panel!;
-    storage.set(panel);
+    store.set(panel);
     setPanel(panel);
   });
-  const stored = storage.get();
+  const stored = store.get();
   const foundStored =
     stored &&
-    $menu.children(`[data-panel="${stored}"]`).filter(function (this: HTMLElement) {
+    $menu.children(`[data-panel="${stored}"]`).filter(function(this: HTMLElement) {
       const display = window.getComputedStyle(this).display;
       return !!display && display != 'none';
     }).length;
@@ -118,7 +119,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
-    $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
+    $panels.find('form.future-game-analysis').on('submit', function(this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
         if (confirm(ctrl.trans('youNeedAnAccountToDoThat')))
           location.href = '/login?referrer=' + window.location.pathname;
@@ -136,7 +137,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  $panels.on('click', '.pgn', function (this: HTMLElement) {
+  $panels.on('click', '.pgn', function(this: HTMLElement) {
     const selection = window.getSelection(),
       range = document.createRange();
     range.selectNodeContents(this);
@@ -144,7 +145,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     selection!.addRange(range);
   });
 
-  $panels.on('click', '.embed-howto', function (this: HTMLElement) {
+  $panels.on('click', '.embed-howto', function(this: HTMLElement) {
     // location.hash is percent encoded, so no need to escape and make &bg=...
     // uglier in the process.
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;

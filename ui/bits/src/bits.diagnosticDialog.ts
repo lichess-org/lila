@@ -2,6 +2,7 @@ import { isTouchDevice } from 'common/device';
 import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
 import { escapeHtml } from 'common';
+import { storage } from 'common/storage';
 
 export async function initModule(): Promise<void> {
   const ops = processQueryParams();
@@ -12,9 +13,9 @@ export async function initModule(): Promise<void> {
     `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}, ` +
     `Screen: ${window.screen.width}x${window.screen.height}, ` +
     `Lang: ${navigator.language}, ` +
-    `Engine: ${site.storage.get('ceval.engine')}, ` +
-    `Threads: ${site.storage.get('ceval.threads')}, ` +
-    `Blindfold: ${site.storage.boolean('blindfold.' + (document.body.dataset.user || 'anon')).get()}, ` +
+    `Engine: ${storage.get('ceval.engine')}, ` +
+    `Threads: ${storage.get('ceval.threads')}, ` +
+    `Blindfold: ${storage.boolean('blindfold.' + (document.body.dataset.user || 'anon')).get()}, ` +
     `Pieces: ${document.body.dataset.pieceSet}` +
     (logs ? `\n\n${logs}` : '');
   const escaped = escapeHtml(text);
@@ -79,7 +80,7 @@ const ops: { [op: string]: (val?: string) => boolean } = {
       const proxy = storageProxy[kv[0]];
       if (proxy?.validate(kv[1])) {
         site.log(`storage set ${kv[0]}=${kv[1]}`);
-        site.storage.set(proxy.storageKey, kv[1]);
+        storage.set(proxy.storageKey, kv[1]);
         return true;
       }
     } catch (_) {
@@ -90,8 +91,8 @@ const ops: { [op: string]: (val?: string) => boolean } = {
   unset: (val: string) => {
     site.log(`storage unset ${val ? val : 'all'}`);
 
-    if (!val) for (const key in storageProxy) site.storage.remove(storageProxy[key].storageKey);
-    else if (val in storageProxy) site.storage.remove(storageProxy[val].storageKey);
+    if (!val) for (const key in storageProxy) storage.remove(storageProxy[key].storageKey);
+    else if (val in storageProxy) storage.remove(storageProxy[val].storageKey);
     else return false;
     return true;
   },

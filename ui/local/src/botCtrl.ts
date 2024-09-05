@@ -5,7 +5,8 @@ import { RateBot } from './dev/rateBot';
 import { closeEnough } from './dev/devUtil';
 import { type CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
-import { deepFreeze, defined } from 'common';
+import { defined } from 'common';
+import { deepFreeze } from 'common/algo';
 import type { BotInfo, SoundEvent, Mover, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
 

@@ -14,24 +14,24 @@ export function top(boards: Board[], opts: SwissOpts): VNode {
 
 const renderBoard =
   (opts: SwissOpts) =>
-  (board: Board): VNode =>
-    h(
-      `div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init.is2d`,
-      {
-        key: board.id,
-        attrs: { 'data-state': `${board.fen},${board.orientation},${board.lastMove}`, 'data-live': board.id },
-        hook: {
-          insert(vnode) {
-            site.powertip.manualUserIn(vnode.elm as HTMLElement);
+    (board: Board): VNode =>
+      h(
+        `div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init.is2d`,
+        {
+          key: board.id,
+          attrs: { 'data-state': `${board.fen},${board.orientation},${board.lastMove}`, 'data-live': board.id },
+          hook: {
+            insert(vnode) {
+              site.powertip.manualUserIn(vnode.elm as HTMLElement);
+            },
           },
         },
-      },
-      [
-        boardPlayer(board, opposite(board.orientation), opts),
-        h('a.cg-wrap', { attrs: { href: `/${board.id}/${board.orientation}` } }),
-        boardPlayer(board, board.orientation, opts),
-      ],
-    );
+        [
+          boardPlayer(board, opposite(board.orientation), opts),
+          h('a.cg-wrap', { attrs: { href: `/${board.id}/${board.orientation}` } }),
+          boardPlayer(board, board.orientation, opts),
+        ],
+      );
 
 function boardPlayer(board: Board, color: Color, opts: SwissOpts) {
   const player = board[color];

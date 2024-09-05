@@ -7,7 +7,6 @@ export async function parseModules(): Promise<[Map<string, LichessModule>, Map<s
   const modules = new Map<string, LichessModule>();
   const moduleDeps = new Map<string, string[]>();
 
-  const mainPkg = JSON.parse(await fs.promises.readFile(path.join(env.uiDir, 'package.json'), 'utf8'));
   for (const dir of (await globArray('[^@.]*/package.json')).map(pkg => path.dirname(pkg))) {
     const mod = await parseModule(dir);
     modules.set(mod.name, mod);
@@ -45,7 +44,6 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     root: moduleDir,
     pre: [],
     post: [],
-    hasTsconfig: fs.existsSync(path.join(moduleDir, 'tsconfig.json')),
   };
 
   if ('lichess' in pkg && 'hashed' in pkg.lichess) mod.hashGlobs = pkg.lichess.hashed as string[];

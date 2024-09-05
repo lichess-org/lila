@@ -1,6 +1,7 @@
 import * as xhr from 'common/xhr';
 import type { LearnProgress } from './learn';
 import { Stage } from './stage/list';
+import { storage } from 'common/storage';
 
 export interface Storage {
   data: LearnProgress;
@@ -20,12 +21,12 @@ const xhrSaveScore = (stageKey: string, levelId: number, score: number) =>
 
 const xhrReset = () => xhr.jsonAnyResponse('/learn/reset', { method: 'POST' });
 
-export default function (d?: LearnProgress): Storage {
+export default function(d?: LearnProgress): Storage {
   const key = 'learn.progress';
   const defaultValue: LearnProgress = {
     stages: {},
   };
-  const data: LearnProgress = d || JSON.parse(site.storage.get(key)!) || defaultValue;
+  const data: LearnProgress = d || JSON.parse(storage.get(key)!) || defaultValue;
 
   return {
     data: data,
@@ -36,13 +37,13 @@ export default function (d?: LearnProgress): Storage {
         };
       if (data.stages[stage.key].scores[level.id - 1] > score) return;
       data.stages[stage.key].scores[level.id - 1] = score;
-      data._id ? xhrSaveScore(stage.key, level.id, score) : site.storage.set(key, JSON.stringify(data));
+      data._id ? xhrSaveScore(stage.key, level.id, score) : storage.set(key, JSON.stringify(data));
     },
     reset: () => {
       data.stages = {};
       if (data._id) xhrReset().then(() => location.reload());
       else {
-        site.storage.remove(key);
+        storage.remove(key);
         location.reload();
       }
     },

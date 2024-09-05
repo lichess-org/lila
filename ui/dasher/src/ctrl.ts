@@ -8,6 +8,7 @@ import { LinksCtrl } from './links';
 import { MaybeVNode, Redraw } from 'common/snabbdom';
 import { DasherData, Mode, PaneCtrl } from './interfaces';
 import { Prop, prop } from 'common';
+import { trans } from 'common/trans';
 
 const defaultMode = 'links';
 
@@ -31,7 +32,7 @@ export class DasherCtrl implements ModeIndexed {
     readonly data: DasherData,
     readonly redraw: Redraw,
   ) {
-    this.trans = site.trans(data.i18n);
+    this.trans = trans(data.i18n);
     this.ping = new PingCtrl(this);
     this.langs = new LangsCtrl(this);
     this.sound = new SoundCtrl(this);

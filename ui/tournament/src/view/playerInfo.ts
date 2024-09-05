@@ -30,7 +30,7 @@ function setup(vnode: VNode) {
   p.manualGameIn(el);
 }
 
-export default function (ctrl: TournamentController): VNode {
+export default function(ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
   const noarg = ctrl.trans.noarg;
   const tag = 'div.tour__player-info.tour__actor-info';
@@ -59,10 +59,10 @@ export default function (ctrl: TournamentController): VNode {
         numberRow(noarg('gamesPlayed'), nb.game),
         ...(nb.game
           ? [
-              numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
-              numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
-              ctrl.opts.showRatings && numberRow(noarg('averageOpponent'), avgOp, 'raw'),
-            ]
+            numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
+            numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
+            ctrl.opts.showRatings && numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+          ]
           : []),
       ]),
     ]),
@@ -75,7 +75,7 @@ export default function (ctrl: TournamentController): VNode {
             if (href) window.open(href, '_blank', 'noopener');
           }),
         },
-        data.pairings.map(function (p, i) {
+        data.pairings.map(function(p, i) {
           const res = result(p.win, p.status);
           return h(
             'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),

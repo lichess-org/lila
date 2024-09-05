@@ -31,6 +31,7 @@
     "@types/web": "^0.0.158",
     "@typescript-eslint/eslint-plugin": "^8.3.0",
     "@typescript-eslint/parser": "^8.3.0",
+    "@stylistic/eslint-plugin": "^2.7.2",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
     "eslint": "^9.9.1",
@@ -40,9 +41,9 @@
     "typescript": "^5.5.4"
   },
   "scripts": {
-    "format": "prettier --write --log-level warn .",
-    "check-format": "prettier --check --log-level warn .",
-    "watch-format": "onchange \"**/*\" -- prettier --write --log-level warn {{changed}}",
+    "format": "prettier --write --log-level warn . && eslint --fix ui",
+    "check-format": "prettier --check --log-level warn . && eslint ui",
+    "watch-format": "bin/watch-format",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint ui",

@@ -6,7 +6,7 @@ import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import TournamentController from '../ctrl';
 
-export default function (ctrl: TournamentController) {
+export default function(ctrl: TournamentController) {
   let handler: {
     name: string;
     main(ctrl: TournamentController): MaybeVNodes;

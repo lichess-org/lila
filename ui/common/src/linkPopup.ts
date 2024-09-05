@@ -3,7 +3,7 @@ import { domDialog } from './dialog';
 export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector = 'a[href^="http"]'): void => {
   const $el = $(dom);
   if (!$el.hasClass('link-popup-ready'))
-    $el.addClass('link-popup-ready').on('click', selector, function (this: HTMLLinkElement) {
+    $el.addClass('link-popup-ready').on('click', selector, function(this: HTMLLinkElement) {
       return onClick(this, trans);
     });
 };

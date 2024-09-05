@@ -8,7 +8,7 @@ import {
   PgnFilter,
 } from 'bits/polyglot';
 import { alert } from 'common/dialog';
-import { zip } from 'common';
+import { zip } from 'common/algo';
 import { env } from '../localEnv';
 
 // dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
@@ -248,7 +248,7 @@ export class DevAssets extends Assets {
     assetTypes.forEach(type => (this.server[type] = valueSorted(this.server[type])));
   }
 
-  private onStorageEvent = async (e: StorageEvent) => {
+  private onStorageEvent = async(e: StorageEvent) => {
     if (e.key !== 'local.dev.import.book' || !e.newValue) return;
 
     await this.init();

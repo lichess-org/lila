@@ -28,7 +28,6 @@
       "font/lichess.woff",
       "font/lichess.woff2",
       "lifat/background/montage*.webp",
-      "json/**",
       "npm/*",
       "javascripts/**"
     ]

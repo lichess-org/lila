@@ -70,15 +70,15 @@ function renderHome(ctrl: SideCtrl) {
     h('div.actions', [
       progress > 0
         ? h(
-            'a.confirm',
-            {
-              hook: bind(
-                'click',
-                () => confirm(ctrl.trans.noarg('youWillLoseAllYourProgress')) && ctrl.reset(),
-              ),
-            },
-            ctrl.trans.noarg('resetMyProgress'),
-          )
+          'a.confirm',
+          {
+            hook: bind(
+              'click',
+              () => confirm(ctrl.trans.noarg('youWillLoseAllYourProgress')) && ctrl.reset(),
+            ),
+          },
+          ctrl.trans.noarg('resetMyProgress'),
+        )
         : null,
     ]),
   ]);

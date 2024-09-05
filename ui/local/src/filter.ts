@@ -1,5 +1,5 @@
 import type { Point as CjsPoint } from 'chart.js';
-import { clamp } from 'common';
+import { clamp } from 'common/algo';
 
 export type Point = [number, number];
 

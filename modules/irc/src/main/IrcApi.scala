@@ -101,6 +101,10 @@ final class IrcApi(
       val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
       s":note: $link $intro - by ${markdown.userLink(user)}"
 
+  def openingEdit(user: LightUser, opening: String, moves: String): Funit =
+    zulip(_.content, "/opening edits"):
+      s"${markdown.userLink(user)} edited ${markdown.lichessLink(s"/opening/$opening/$moves", opening)}"
+
   def broadcastStart(id: RelayRoundId, fullName: String): Funit =
     zulip(_.broadcast, "non-tiered broadcasts"):
       s":note: ${markdown.broadcastLink(id, fullName)}"

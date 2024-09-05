@@ -1,4 +1,5 @@
-import { clamp, isEquivalent, frag, defined } from 'common';
+import { frag, defined } from 'common';
+import { clamp, isEquivalent } from 'common/algo';
 import { type EventJanitor, eventJanitor } from 'common/event';
 
 export interface CardData {

@@ -1,6 +1,7 @@
 import { domIdToUid, uidToDomId } from '../botCtrl';
-import { handOfCards, type HandOfCards, type CardData } from '../handOfCards';
-import { defined, escapeHtml, frag, deepFreeze } from 'common';
+import { handOfCards, type HandOfCards } from '../handOfCards';
+import { defined, frag } from 'common';
+import { deepFreeze } from 'common/algo';
 import { buildFromSchema, Panes } from './panes';
 import { removeObjectProperty, closeEnough, deadStrip } from './devUtil';
 import { domDialog, confirm, alert, type Dialog, type Action } from 'common/dialog';
@@ -78,7 +79,7 @@ export class EditDialog {
       ?.classList.toggle('none', this.isDirty() || !this.localChanges);
   }
 
-  assetDialog = async (type?: AssetType): Promise<string | undefined> => {
+  assetDialog = async(type?: AssetType): Promise<string | undefined> => {
     this.assetDlg = new AssetDialog(type);
     const asset = await this.assetDlg.show();
     this.assetDlg = undefined;
@@ -183,7 +184,7 @@ export class EditDialog {
     this.update();
   }
 
-  private pullBots = async (uids?: string[]) => {
+  private pullBots = async(uids?: string[]) => {
     if (!(await confirm(uids ? `Pull ${uids.join(' ')}?` : 'Pull all server bots?'))) return;
     const clear = (uids ?? Object.keys(this.bots)).filter(uid => env.bot.serverBots[uid]);
     clear.forEach(uid => delete this.scratch[uid]);

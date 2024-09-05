@@ -1,7 +1,8 @@
 import { Pane } from './pane';
 import { Chart, PointElement, LinearScale, LineController, LineElement } from 'chart.js';
 import { addPoint, asData, domain } from '../filter';
-import { clamp, frag } from 'common';
+import { frag } from 'common';
+import { clamp } from 'common/algo';
 import type { PaneArgs, FilterInfo } from './devTypes';
 import type { Filter } from '../types';
 
@@ -126,14 +127,14 @@ export class FilterPane extends Pane {
     const active = (this.paneValue ?? this.info.value).by;
     const by = frag<HTMLElement>(`<div class="btn-rack">
         <div data-action="move" class="by${active === 'move' ? ' active' : ''}" title="${
-          tooltips.byMove
-        }">by move</div>
+  tooltips.byMove
+}">by move</div>
         <div data-action="score" class="by${active === 'score' ? ' active' : ''}" title="${
-          tooltips.byScore
-        }">by score</div>
+  tooltips.byScore
+}">by score</div>
         <div data-action="time" class="by${active === 'time' ? ' active' : ''}" title="${
-          tooltips.byTime
-        }">by time</div>
+  tooltips.byTime
+}">by time</div>
       </div>`);
     return by;
   }
@@ -142,10 +143,10 @@ export class FilterPane extends Pane {
 function getTicks(o: Filter) {
   return o.by === 'time'
     ? {
-        callback: (value: number) => ticks[value] ?? '',
-        maxTicksLimit: 11,
-        stepSize: 1,
-      }
+      callback: (value: number) => ticks[value] ?? '',
+      maxTicksLimit: 11,
+      stepSize: 1,
+    }
     : undefined;
 }
 

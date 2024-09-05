@@ -6,7 +6,7 @@ import type { Key } from 'chessground/types';
 function init() {
   let failed = false;
 
-  $('div.captcha').each(function (this: HTMLElement) {
+  $('div.captcha').each(function(this: HTMLElement) {
     if (this.dataset.initialized) return;
 
     const $captcha = $(this),
@@ -57,7 +57,7 @@ function init() {
       },
     });
 
-    const submit = function (solution: string) {
+    const submit = function(solution: string) {
       $input.val(solution);
       xhr.text(xhr.url($captcha.data('check-url'), { solution })).then(data => {
         $captcha.toggleClass('success', data == '1').toggleClass('failure', data != '1');

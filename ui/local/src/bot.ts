@@ -1,5 +1,5 @@
 import * as co from 'chessops';
-import { zip, clamp } from 'common';
+import { zip, clamp } from 'common/algo';
 import { normalize, interpolate } from './filter';
 import type { FishSearch, SearchResult, Line } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';

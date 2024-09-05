@@ -20,7 +20,7 @@ function list<T>(str: string, args: T[]): Array<string | T> {
   return segments;
 }
 
-export const trans = (i18n: I18nDict) => {
+export const trans = (i18n: I18nDict): Trans => {
   const trans: Trans = (key: I18nKey, ...args: Array<string | number>) => {
     const str = i18n[key];
     return str ? format(str, args) : key;
@@ -33,7 +33,7 @@ export const trans = (i18n: I18nDict) => {
   trans.pluralSame = (key: I18nKey, count: number, ...args: Array<string | number>) =>
     trans.plural(key, count, count, ...args);
 
-  trans.plural = function (key: I18nKey, count: number, ...args: Array<string | number>) {
+  trans.plural = function(key: I18nKey, count: number, ...args: Array<string | number>) {
     const str = resolvePlural(key, count);
     return str ? format(str, args) : key;
   };
@@ -49,5 +49,3 @@ export const trans = (i18n: I18nDict) => {
   };
   return trans;
 };
-
-export const siteTrans = trans(window.site?.siteI18n || {});

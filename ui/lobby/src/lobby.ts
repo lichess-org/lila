@@ -1,6 +1,8 @@
 import * as xhr from 'common/xhr';
 import main from './main';
 import { LobbyOpts } from './interfaces';
+import StrongSocket from 'common/socket';
+import { trans } from 'common/trans';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
@@ -19,12 +21,12 @@ export function initModule(opts: LobbyOpts) {
     { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
     { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
   ];
-  opts.trans = site.trans(opts.i18n);
+  opts.trans = trans(opts.i18n);
 
-  site.socket = new site.StrongSocket('/lobby/socket/v5', false, {
+  site.socket = new StrongSocket('/lobby/socket/v5', false, {
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
-      n(_: string, msg: { d: number; r: number }) {
+      n(_: string, msg: any) {
         lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
         setTimeout(
           () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
@@ -52,7 +54,7 @@ export function initModule(opts: LobbyOpts) {
       },
     },
   });
-  site.StrongSocket.firstConnect.then(() => {
+  StrongSocket.firstConnect.then(() => {
     const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();

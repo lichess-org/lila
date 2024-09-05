@@ -9,8 +9,6 @@ import lila.core.userId.*
 enum BusForum:
   case CreatePost(post: ForumPostMini)
   case RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
-  // erasing = blanking, still in db but with empty text
-  case ErasePosts(ids: List[ForumPostId])
 
 object BusForum extends bus.GivenChannel[BusForum]("forumPost")
 

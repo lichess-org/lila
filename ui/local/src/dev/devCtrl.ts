@@ -1,7 +1,8 @@
 import { RateBot, rateBotMatchup } from './rateBot';
 import type { BotInfo, LocalSpeed } from '../types';
 import { statusOf } from 'game/status';
-import { defined, shuffle, Prop } from 'common';
+import { defined, Prop } from 'common';
+import { shuffle } from 'common/algo';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { storedBooleanProp } from 'common/storage';
 import type { GameStatus, MoveContext } from '../localGame';

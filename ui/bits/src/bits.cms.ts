@@ -1,23 +1,23 @@
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import Editor from '@toast-ui/editor';
 import { currentTheme } from 'common/theme';
 import tablesort from 'tablesort';
 
 site.load.then(() => {
-  $('.markdown-editor').each(function (this: HTMLTextAreaElement) {
+  $('.markdown-editor').each(function(this: HTMLTextAreaElement) {
     setupMarkdownEditor(this);
   });
   $('.flash').addClass('fade');
-  $('table.cms__pages').each(function (this: HTMLTableElement) {
+  $('table.cms__pages').each(function(this: HTMLTableElement) {
     tablesort(this, { descending: true });
   });
-  $('.cms__pages__search').on('input', function (this: HTMLInputElement) {
+  $('.cms__pages__search').on('input', function(this: HTMLInputElement) {
     const query = this.value.toLowerCase().trim();
     $('.cms__pages')
       .toggleClass('searching', !!query)
       .find('tbody tr')
-      .each(function (this: HTMLTableRowElement) {
+      .each(function(this: HTMLTableRowElement) {
         const match =
           $(this).find('.title').text().toLowerCase().includes(query) ||
           $(this).find('.lang').text().toLowerCase() == query;

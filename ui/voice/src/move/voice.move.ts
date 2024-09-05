@@ -8,7 +8,7 @@ import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap } from 'common';
+import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap } from 'common/algo';
 import { type Transform, movesTo, findTransforms, as } from '../util';
 import { MsgType } from '../interfaces';
 
@@ -78,7 +78,7 @@ export function initModule({
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await xhr.jsonSimple(site.asset.url(`json/grammar/move-${voice.lang()}.json`));
+    const g = await xhr.jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`));
     byWord.clear();
     byTok.clear();
     byVal.clear();
@@ -364,14 +364,14 @@ export function initModule({
     return (ctrl: PromotionCtrl, roles: cs.Role[] | false) =>
       roles
         ? voice.mic.addListener(
-            (text: string) => {
-              const val = matchOneTags(text, ['role'], ['no']);
-              voice.mic.stopPropagation();
-              if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
-              else if (val === 'no') ctrl.cancel();
-            },
-            { listenerId: 'promotion' },
-          )
+          (text: string) => {
+            const val = matchOneTags(text, ['role'], ['no']);
+            voice.mic.stopPropagation();
+            if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
+            else if (val === 'no') ctrl.cancel();
+          },
+          { listenerId: 'promotion' },
+        )
         : voice.mic.removeListener('promotion');
   }
 

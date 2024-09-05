@@ -66,20 +66,20 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
   const said = ctrl.said();
   return sets && said.length < 2
     ? h(
-        'div.mchat__presets',
-        sets.map((p: Preset) => {
-          const disabled = said.includes(p.key);
-          return h(
-            'span',
-            {
-              class: { disabled },
-              attrs: { title: p.text, disabled },
-              hook: bind('click', () => !disabled && ctrl.post(p)),
-            },
-            p.key,
-          );
-        }),
-      )
+      'div.mchat__presets',
+      sets.map((p: Preset) => {
+        const disabled = said.includes(p.key);
+        return h(
+          'span',
+          {
+            class: { disabled },
+            attrs: { title: p.text, disabled },
+            hook: bind('click', () => !disabled && ctrl.post(p)),
+          },
+          p.key,
+        );
+      }),
+    )
     : undefined;
 }
 

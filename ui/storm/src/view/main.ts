@@ -10,7 +10,7 @@ import { playModifiers, renderCombo } from 'puz/view/util';
 import * as licon from 'common/licon';
 import { onInsert, looseH as h } from 'common/snabbdom';
 
-export default function (ctrl: StormCtrl): VNode {
+export default function(ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload(ctrl, 'thisRunWasOpenedInAnotherTab');
   if (ctrl.vm.lateStart) return renderReload(ctrl, 'thisRunHasExpired');
   if (!ctrl.run.endAt)
