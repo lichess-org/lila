@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
-import { trans as translation } from 'common/trans';
+import { trans as translation } from 'common/i18n';
 
 export function initModule(opts: { i18n: I18nDict }): void {
   const trans = translation(opts.i18n);

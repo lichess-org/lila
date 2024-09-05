@@ -15,7 +15,7 @@ import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export default class EditorCtrl {
   options: Editor.Options;

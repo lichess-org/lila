@@ -10,7 +10,7 @@ import idleTimer from './idleTimer';
 import pubsub from './pubsub';
 import { unload, redirect, reload } from './reload';
 import announce from './announce';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 import sound from './sound';
 import * as miniBoard from 'common/miniBoard';
 import * as miniGame from './miniGame';
