@@ -60,7 +60,6 @@ export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
 
 // can be 3fold or 5fold
 export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
-  // key: epd, values: indice of nodes
   const threefoldMap = new Map<string, Tree.Node[]>();
   for (const node of mainlineNodes) {
     const previousOccurences = threefoldMap.get(epd(node.fen)) || [];
