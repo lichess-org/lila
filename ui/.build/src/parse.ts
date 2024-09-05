@@ -44,7 +44,6 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
     root: moduleDir,
     pre: [],
     post: [],
-    hasTsconfig: fs.existsSync(path.join(moduleDir, 'tsconfig.json')),
   };
 
   if ('lichess' in pkg && 'hashed' in pkg.lichess) mod.hashGlobs = pkg.lichess.hashed as string[];

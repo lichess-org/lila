@@ -41,6 +41,9 @@ final class KeyPages(val env: Env)(using Executor)
   def notFound(msg: Option[String])(using Context): Fu[Result] =
     NotFound.page(views.base.notFound(msg))
 
+  def notFoundEmbed(msg: Option[String])(using EmbedContext): Result =
+    NotFound.snip(views.base.notFoundEmbed(msg))
+
   def blacklisted(using ctx: Context): Result =
     if lila.security.Mobile.Api.requested(ctx.req) then
       Results.Unauthorized:

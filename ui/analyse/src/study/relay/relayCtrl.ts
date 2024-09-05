@@ -35,7 +35,7 @@ export default class RelayCtrl {
     readonly isEmbed: boolean,
     readonly members: StudyMemberCtrl,
     private readonly chapters: StudyChapters,
-    private readonly multiCloudEval: MultiCloudEval,
+    private readonly multiCloudEval: MultiCloudEval | undefined,
     private readonly federations: () => Federations | undefined,
     chapterSelect: ChapterSelect,
   ) {
@@ -78,6 +78,13 @@ export default class RelayCtrl {
     this.tab(t);
     this.tourShow(true);
     this.redraw();
+  };
+
+  onChapterChange = () => {
+    if (this.tourShow()) {
+      this.tourShow(false);
+      this.redraw();
+    }
   };
 
   lastMoveAt = (id: ChapterId): number | undefined => this.chapters.get(id)?.lastMoveAt;

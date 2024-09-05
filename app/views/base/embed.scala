@@ -50,9 +50,7 @@ object embed:
       modules: EsmList = Nil,
       pageModule: Option[PageModule] = None,
       csp: Update[ContentSecurityPolicy] = identity
-  )(body: Modifier*)(using
-      ctx: EmbedContext
-  ) = lila.ui.Snippet:
+  )(body: Modifier*)(using ctx: EmbedContext) = lila.ui.Snippet:
     val allModules = modules ++ pageModule.so(module => jsPageModule(module.name))
     frag(
       page.ui.doctype,

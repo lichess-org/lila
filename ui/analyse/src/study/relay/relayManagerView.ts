@@ -85,14 +85,13 @@ const stateOff = (ctrl: RelayCtrl) =>
 const statePush = () =>
   h('div.state.push', { attrs: dataIcon(licon.UploadCloud) }, ['Listening to Broadcaster App']);
 
-const dateFormatter = memoize(() =>
-  window.Intl && Intl.DateTimeFormat
-    ? new Intl.DateTimeFormat(site.displayLocale, {
+const dateFormatter = memoize(
+  () =>
+    new Intl.DateTimeFormat(site.displayLocale, {
       month: 'short',
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
       second: 'numeric',
-    }).format
-    : (d: Date) => d.toLocaleString(),
+    }).format,
 );
