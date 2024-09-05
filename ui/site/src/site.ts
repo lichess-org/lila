@@ -1,7 +1,7 @@
 import { boot } from './boot';
 import Mousetrap from './mousetrap';
 import { spinnerHtml } from 'common/spinner';
-import sri from './sri';
+import { randomToken } from 'common/algo';
 import powertip from './powertip';
 import clockWidget from './clockWidget';
 import * as assets from './asset';
@@ -24,7 +24,7 @@ window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 const s = window.site;
 s.mousetrap = new Mousetrap(document);
-s.sri = sri;
+s.sri = randomToken();
 s.powertip = powertip;
 s.clockWidget = clockWidget;
 s.spinnerHtml = spinnerHtml;

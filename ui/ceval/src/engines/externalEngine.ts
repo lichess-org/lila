@@ -1,5 +1,5 @@
 import { Work, ExternalEngineInfo, CevalEngine, CevalState, EngineNotifier } from '../types';
-import { randomToken } from 'common/random';
+import { randomToken } from 'common/algo';
 import { readNdJson } from 'common/ndjson';
 import { throttle } from 'common/timing';
 
