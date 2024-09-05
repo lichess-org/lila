@@ -3,7 +3,7 @@ import { fenColor } from 'common/miniBoard';
 import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clockWidget';
-import StrongSocket from './socket';
+import StrongSocket from 'common/socket';
 import { lichessClockIsRunning } from 'common/clock';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {

@@ -3,6 +3,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { MouchEvent } from 'chessground/types';
 import * as util from 'chessground/util';
 import EditorCtrl from './ctrl';
+import { storage } from 'common/storage';
 
 export default function(ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
@@ -139,7 +140,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     draggable: {
       showGhost: true,

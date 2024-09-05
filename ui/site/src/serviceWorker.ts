@@ -1,5 +1,5 @@
 import { url as assetUrl, jsModule } from './asset';
-import { storage } from './storage';
+import { storage } from 'common/storage';
 
 export default async function() {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;

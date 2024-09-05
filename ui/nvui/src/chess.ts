@@ -9,6 +9,7 @@ import { SquareName, RULES, Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { parseUci } from 'chessops/util';
 import { SanToUci, sanWriter } from 'chess';
+import { storage } from 'common/storage';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
@@ -134,7 +135,7 @@ export function boardSetting(): Setting<BoardStyle> {
       ['table', 'table: layout using a table with rank and file columns and row headers'],
     ],
     default: 'plain',
-    storage: site.storage.make('nvui.boardLayout'),
+    storage: storage.make('nvui.boardLayout'),
   });
 }
 
@@ -148,7 +149,7 @@ export function styleSetting(): Setting<Style> {
       ['nato', 'Nato: knight takes foxtrot 3'],
     ],
     default: 'anna', // all the rage in OTB blind chess tournaments
-    storage: site.storage.make('nvui.moveNotation'),
+    storage: storage.make('nvui.moveNotation'),
   });
 }
 
@@ -161,7 +162,7 @@ export function pieceSetting(): Setting<PieceStyle> {
       ['white uppercase name', 'White uppercase name: Pawn, pawn'],
     ],
     default: 'letter',
-    storage: site.storage.make('nvui.pieceStyle'),
+    storage: storage.make('nvui.pieceStyle'),
   });
 }
 
@@ -173,7 +174,7 @@ export function prefixSetting(): Setting<PrefixStyle> {
       ['none', 'None'],
     ],
     default: 'letter',
-    storage: site.storage.make('nvui.prefixStyle'),
+    storage: storage.make('nvui.prefixStyle'),
   });
 }
 
@@ -185,7 +186,7 @@ export function positionSetting(): Setting<PositionStyle> {
       ['none', 'none'],
     ],
     default: 'before',
-    storage: site.storage.make('nvui.positionStyle'),
+    storage: storage.make('nvui.positionStyle'),
   });
 }
 const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {

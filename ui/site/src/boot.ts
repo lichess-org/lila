@@ -9,10 +9,9 @@ import OnlineFriends from './friends';
 import powertip from './powertip';
 import pubsub from './pubsub';
 import serviceWorker from './serviceWorker';
-import StrongSocket from './socket';
+import StrongSocket from 'common/socket';
 import topBar from './topBar';
 import watchers from './watchers';
-import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
@@ -160,7 +159,7 @@ export function boot() {
               .append(
                 $(`<a class="withdraw text" data-icon="${licon.Pause}">`)
                   .attr('href', url + '/withdraw')
-                  .text(siteTrans('pause'))
+                  .text(site.trans('pause'))
                   .on('click', function(this: HTMLAnchorElement) {
                     xhr.text(this.href, { method: 'post' });
                     $('#announce').remove();
@@ -170,7 +169,7 @@ export function boot() {
               .append(
                 $(`<a class="text" data-icon="${licon.PlayTriangle}">`)
                   .attr('href', url)
-                  .text(siteTrans('resume')),
+                  .text(site.trans('resume')),
               ),
           ),
       );

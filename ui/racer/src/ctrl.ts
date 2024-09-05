@@ -1,6 +1,6 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
-import throttle, { throttlePromiseDelay } from 'common/throttle';
+import { throttle, throttlePromiseDelay } from 'common/timing';
 import * as xhr from 'common/xhr';
 import { Api as CgApi } from 'chessground/api';
 import { Boost } from './boost';
@@ -26,6 +26,8 @@ import {
 import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
+import StrongSocket from 'common/socket';
+import { trans } from 'common/trans';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;
@@ -54,7 +56,7 @@ export default class RacerCtrl implements PuzCtrl {
     this.race = this.data.race;
     this.pref = opts.pref;
     this.filters = new PuzFilters(redraw, true);
-    this.trans = site.trans(opts.i18n);
+    this.trans = trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,
@@ -81,7 +83,7 @@ export default class RacerCtrl implements PuzCtrl {
     );
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
     this.serverUpdate(opts.data);
-    site.socket = new site.StrongSocket(`/racer/${this.race.id}`, false, {
+    site.socket = new StrongSocket(`/racer/${this.race.id}`, false, {
       events: {
         racerState: (data: UpdatableData) => {
           this.serverUpdate(data);

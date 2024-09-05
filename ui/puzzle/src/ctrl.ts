@@ -5,7 +5,7 @@ import keyboard from './keyboard';
 import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd, NvuiPlugin, PuzzleRound } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
@@ -23,13 +23,13 @@ import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/u
 import { pgnToTree, mergeSolution } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
 import { Role, Move, Outcome } from 'chessops/types';
-import { StoredProp, storedBooleanProp, storedBooleanPropWithEffect } from 'common/storage';
+import { StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
-
+import { trans } from 'common/trans';
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
   next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();
@@ -41,7 +41,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   ground: Prop<CgApi> = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   threatMode: Toggle = toggle(false);
   streak?: PuzzleStreak;
-  streakFailStorage = site.storage.make('puzzle.streak.fail');
+  streakFailStorage = storage.make('puzzle.streak.fail');
   session: PuzzleSession;
   menu: Toggle;
   flipped = toggle(false);
@@ -74,7 +74,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     readonly redraw: Redraw,
     readonly nvui?: NvuiPlugin,
   ) {
-    this.trans = site.trans(opts.i18n);
+    this.trans = trans(opts.i18n);
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,

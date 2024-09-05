@@ -3,6 +3,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
 import * as Prefs from 'common/prefs';
 import PuzzleCtrl from '../ctrl';
+import { storage } from 'common/storage';
 
 export default function(ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap', {
@@ -50,7 +51,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: ctrl.pref.highlight,

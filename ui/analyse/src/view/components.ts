@@ -40,6 +40,7 @@ import StudyCtrl from '../study/studyCtrl';
 import RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
+import { storage } from 'common/storage';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -146,7 +147,7 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
     addChapterId(study, 'div.analyse__board.main-board'),
     {
       hook:
-        'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
+        'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
           ? undefined
           : bindNonPassive(
             'wheel',

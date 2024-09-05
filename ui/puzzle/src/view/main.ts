@@ -18,6 +18,7 @@ import boardMenu from './boardMenu';
 import * as Prefs from 'common/prefs';
 import PuzzleCtrl from '../ctrl';
 import { dispatchChessgroundResize } from 'common/resize';
+import { storage } from 'common/storage';
 
 const renderAnalyse = (ctrl: PuzzleCtrl): VNode => lh('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
@@ -98,7 +99,7 @@ export default function(ctrl: PuzzleCtrl): VNode {
         'div.puzzle__board.main-board' + (ctrl.blindfold() ? '.blindfold' : ''),
         {
           hook:
-            'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
+            'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
               ? undefined
               : bindNonPassive(
                 'wheel',

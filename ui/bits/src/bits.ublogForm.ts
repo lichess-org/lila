@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';

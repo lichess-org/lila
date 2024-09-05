@@ -5,7 +5,7 @@ import * as status from 'game/status';
 import * as util from '../util';
 import isCol1 from 'common/isCol1';
 import RoundController from '../ctrl';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import { VNode } from 'snabbdom';

@@ -11,6 +11,7 @@ import { renderTable } from './table';
 import { renderMaterialDiffs } from 'game/view/material';
 import { renderVoiceBar } from 'voice';
 import { playable } from 'game';
+import { storage } from 'common/storage';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -32,7 +33,7 @@ export function main(ctrl: RoundController): VNode {
         'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
         {
           hook:
-              'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
+              'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
                 ? undefined
                 : util.bind(
                   'wheel',

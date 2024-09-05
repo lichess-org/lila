@@ -1,6 +1,7 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadEsm } from './asset';
-import { memoize, clamp } from 'common';
+import { memoize } from 'common';
+import { clamp } from 'common/algo';
 
 export default function() {
   const top = document.getElementById('top')!;

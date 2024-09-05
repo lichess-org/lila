@@ -1,5 +1,6 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
+import { storage } from 'common/storage';
 import { addPasswordVisibilityToggleListener } from 'common/password';
 import flairPickerLoader from './exports/flairPicker';
 
@@ -32,22 +33,19 @@ site.load.then(() => {
       computeBitChoices($form, 'behavior.submitMove');
       localPrefs.forEach(([categ, name, storeKey]) => {
         if (this.name == `${categ}.${name}`) {
-          site.storage.boolean(storeKey).set(this.value == '1');
+          storage.boolean(storeKey).set(this.value == '1');
           showSaved();
         }
       });
       xhr.formToXhr(form).then(() => {
         showSaved();
-        site.storage.fire('reload-round-tabs');
+        storage.fire('reload-round-tabs');
       });
     });
   });
 
   localPrefs.forEach(([categ, name, storeKey, def]) =>
-    $(`#ir${categ}_${name}_${site.storage.boolean(storeKey).getOrDefault(def) ? 1 : 0}`).prop(
-      'checked',
-      true,
-    ),
+    $(`#ir${categ}_${name}_${storage.boolean(storeKey).getOrDefault(def) ? 1 : 0}`).prop('checked', true),
   );
 
   $('form[action="/account/oauth/token/create"]').each(function(this: HTMLFormElement) {

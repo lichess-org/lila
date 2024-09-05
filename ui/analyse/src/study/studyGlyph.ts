@@ -1,6 +1,6 @@
 import { prop } from 'common';
 import { bind } from 'common/snabbdom';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';

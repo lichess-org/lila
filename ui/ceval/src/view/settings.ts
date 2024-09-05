@@ -6,7 +6,8 @@ import { rangeConfig } from 'common/controls';
 import { isChrome } from 'common/device';
 import { onInsert, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import * as Licon from 'common/licon';
-import { onClickAway, clamp } from 'common';
+import { onClickAway } from 'common';
+import { clamp } from 'common/algo';
 
 const allSearchTicks: [number, string][] = [
   [4000, '4s'],

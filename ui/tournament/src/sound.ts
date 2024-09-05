@@ -1,5 +1,6 @@
 import notify from 'common/notification';
 import { TournamentData } from './interfaces';
+import { once } from 'common/storage';
 
 let countDownTimeout: number | undefined;
 
@@ -29,7 +30,7 @@ function doCountDown(targetTime: number) {
 }
 
 export function end(data: TournamentData) {
-  if (data.me && data.isRecentlyFinished && site.once('tournament.end.sound.' + data.id)) {
+  if (data.me && data.isRecentlyFinished && once('tournament.end.sound.' + data.id)) {
     let key = 'Other';
     if (data.me.rank < 4) key = '1st';
     else if (data.me.rank < 11) key = '2nd';

@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Ai 30 de secunde pentru a găsi poziția corectă pentru cât mai multe pătrate!</string>
   <string name="goAsLongAsYouWant">Continuă cât de mult vrei, nu există o limită de timp!</string>
   <string name="showCoordinates">Arată coordonatele</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordonate pe fiecare pătrat</string>
   <string name="showPieces">Arată piesele</string>
   <string name="startTraining">Începe antrenamentul</string>
   <string name="findSquare">Găsește pătratul</string>

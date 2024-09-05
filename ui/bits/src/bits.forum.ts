@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 import { domDialog } from 'common/dialog';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
+import { tempStorage } from 'common/storage';
 
 site.load.then(() => {
   $('.forum')
@@ -178,7 +179,7 @@ site.load.then(() => {
     }
   });
 
-  const replyStorage = site.tempStorage.make('forum.reply' + location.pathname);
+  const replyStorage = tempStorage.make('forum.reply' + location.pathname);
   const replyEl = $('.reply .post-text-area')[0] as HTMLTextAreaElement | undefined;
   let submittingReply = false;
 
