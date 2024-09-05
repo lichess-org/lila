@@ -23,6 +23,7 @@ import {
 import LobbySocket from './socket';
 import Filter from './filter';
 import SetupController from './setupCtrl';
+import { storage, type LichessStorage } from 'common/storage';
 
 export default class LobbyController {
   data: LobbyData;
@@ -55,7 +56,7 @@ export default class LobbyController {
     this.me = opts.data.me;
     this.pools = opts.pools;
     this.playban = opts.playban;
-    this.filter = new Filter(site.storage.make('lobby.filter'), this);
+    this.filter = new Filter(storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
 
     hookRepo.initAll(this);
@@ -107,7 +108,7 @@ export default class LobbyController {
       history.replaceState(null, '', '/');
     }
 
-    this.poolInStorage = site.storage.make('lobby.pool-in');
+    this.poolInStorage = storage.make('lobby.pool-in');
     this.poolInStorage.listen(_ => {
       // when another tab joins a pool
       this.leavePool();

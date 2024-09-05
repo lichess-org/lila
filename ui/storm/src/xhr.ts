@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import { RunResponse, StormRecap } from './interfaces';
 
 export function record(run: StormRecap): Promise<RunResponse> {

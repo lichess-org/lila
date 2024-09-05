@@ -1,8 +1,9 @@
 import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
+import { trans as translation } from 'common/trans';
 
 export function initModule(opts: { i18n: I18nDict }): void {
-  const trans = site.trans(opts.i18n);
+  const trans = translation(opts.i18n);
 
   makeLinkPopups($('.social_links'), trans);
 

@@ -1,4 +1,4 @@
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { Engines } from './engines/engines';
 import { CevalOpts, CevalState, CevalEngine, Work, Step, Hovering, PvBoard, Started, Search } from './types';
 import { sanIrreversible, showEngineError, fewerCores } from './util';
@@ -6,17 +6,18 @@ import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, Prop, Toggle, toggle, clamp } from 'common';
+import { prop, Prop, Toggle, toggle } from 'common';
+import { clamp } from 'common/algo';
 import { Result } from '@badrap/result';
-import { storedIntProp } from 'common/storage';
+import { storedIntProp, storage, tempStorage } from 'common/storage';
 import { Rules } from 'chessops';
 import { FEN } from 'chessground/types';
 
 const cevalDisabledSentinel = '1';
 
 function enabledAfterDisable() {
-  const enabledAfter = site.tempStorage.get('ceval.enabled-after');
-  const disable = site.storage.get('ceval.disable') || cevalDisabledSentinel;
+  const enabledAfter = tempStorage.get('ceval.enabled-after');
+  const disable = storage.get('ceval.disable') || cevalDisabledSentinel;
   return enabledAfter === disable;
 }
 
@@ -71,7 +72,7 @@ export default class CevalCtrl {
     if (ev.fen !== this.lastEmitFen && enabledAfterDisable()) {
       // amnesty while auto disable not processed
       this.lastEmitFen = ev.fen;
-      site.storage.fire('ceval.fen', ev.fen);
+      storage.fire('ceval.fen', ev.fen);
     }
     if (!this.lastStarted || this.isDeeper() || this.isInfinite || work.threatMode) return;
     const showingNode = this.lastStarted.steps[this.lastStarted.steps.length - 1];
@@ -132,8 +133,8 @@ export default class CevalCtrl {
     }
 
     // Notify all other tabs to disable ceval.
-    site.storage.fire('ceval.disable');
-    site.tempStorage.set('ceval.enabled-after', site.storage.get('ceval.disable')!);
+    storage.fire('ceval.disable');
+    tempStorage.set('ceval.enabled-after', storage.get('ceval.disable')!);
 
     if (!this.worker) this.worker = this.engines.make({ variant: this.opts.variant.key });
 
@@ -201,10 +202,10 @@ export default class CevalCtrl {
     return !!curr.ceval?.cloud;
   }
 
-  setThreads = (threads: number): void => site.storage.set('ceval.threads', threads.toString());
+  setThreads = (threads: number): void => storage.set('ceval.threads', threads.toString());
 
   get threads(): number {
-    const stored = site.storage.get('ceval.threads');
+    const stored = storage.get('ceval.threads');
     const desired = stored ? parseInt(stored) : this.recommendedThreads;
     return clamp(desired, { min: this.engines.active?.minThreads ?? 1, max: this.maxThreads });
   }
@@ -228,10 +229,10 @@ export default class CevalCtrl {
     );
   }
 
-  setHashSize = (hash: number): void => site.storage.set('ceval.hash-size', hash.toString());
+  setHashSize = (hash: number): void => storage.set('ceval.hash-size', hash.toString());
 
   get hashSize(): number {
-    const stored = site.storage.get('ceval.hash-size');
+    const stored = storage.get('ceval.hash-size');
     return Math.min(this.maxHash, stored ? parseInt(stored, 10) : 16);
   }
 
@@ -258,11 +259,11 @@ export default class CevalCtrl {
     if (!this.possible || !this.allowed()) return;
     this.stop();
     if (!this.enabled() && !document.hidden) {
-      const disable = site.storage.get('ceval.disable') || cevalDisabledSentinel;
-      if (disable) site.tempStorage.set('ceval.enabled-after', disable);
+      const disable = storage.get('ceval.disable') || cevalDisabledSentinel;
+      if (disable) tempStorage.set('ceval.enabled-after', disable);
       this.enabled(true);
     } else {
-      site.tempStorage.set('ceval.enabled-after', '');
+      tempStorage.set('ceval.enabled-after', '');
       this.enabled(false);
       this.download = undefined;
     }

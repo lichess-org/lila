@@ -32,7 +32,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import { bind, MaybeVNodes } from 'common/snabbdom';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';

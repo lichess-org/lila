@@ -12,12 +12,13 @@ import { StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters
 import { playerFed } from './playerBars';
 import { userTitle } from 'common/userLink';
 import { h } from 'snabbdom';
+import { storage } from 'common/storage';
 
 export class MultiBoardCtrl {
   playing: Toggle;
   teamSelect: Prop<string> = prop('');
   page: number = 1;
-  maxPerPageStorage = site.storage.make('study.multiBoard.maxPerPage');
+  maxPerPageStorage = storage.make('study.multiBoard.maxPerPage');
 
   constructor(
     readonly chapters: StudyChapters,

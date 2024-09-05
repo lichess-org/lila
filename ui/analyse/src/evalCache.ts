@@ -1,5 +1,5 @@
 import { defined, prop } from 'common';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import { AnalyseSocketSend } from './socket';
 import { FEN } from 'chessground/types';

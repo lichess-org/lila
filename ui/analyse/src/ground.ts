@@ -3,6 +3,7 @@ import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
 import resizeHandle from 'common/resize';
+import { storage } from 'common/storage';
 import AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
 
@@ -67,7 +68,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     drawable: {
       enabled: true,
       eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
-      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: pref.highlight,

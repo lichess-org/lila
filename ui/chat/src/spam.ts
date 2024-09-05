@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import { storage } from 'common/storage';
 
 export const skip = (txt: string): boolean => (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
 
@@ -6,10 +7,10 @@ export const selfReport = (txt: string): void => {
   if (isKnownSpammer()) return;
   const hasSuspLink = suspLink(txt);
   if (hasSuspLink) xhr.text(`/jslog/${window.location.href.slice(-12)}?n=spam`, { method: 'post' });
-  if (hasSuspLink || followMe(txt)) site.storage.set('chat-spam', '1');
+  if (hasSuspLink || followMe(txt)) storage.set('chat-spam', '1');
 };
 
-const isKnownSpammer = () => site.storage.get('chat-spam') == '1';
+const isKnownSpammer = () => storage.get('chat-spam') == '1';
 
 const spamRegex = new RegExp(
   [

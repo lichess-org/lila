@@ -1,10 +1,11 @@
 import * as xhr from 'common/xhr';
 
 import { expandMentions } from 'common/richText';
+import { storage } from 'common/storage';
 
 site.load.then(() => {
-  const noteStore = site.storage.make('inquiry-note');
-  const usernameNoteStore = site.storage.make('inquiry-note-user');
+  const noteStore = storage.make('inquiry-note');
+  const usernameNoteStore = storage.make('inquiry-note-user');
   const username = $('#inquiry .meat > .user-link').text().split(' ')[0];
   if (username != usernameNoteStore.get()) noteStore.remove();
   usernameNoteStore.set(username);
@@ -46,7 +47,7 @@ site.load.then(() => {
     $('body').toggleClass('no-inquiry');
   });
 
-  const nextStore = site.storage.boolean('inquiry-auto-next');
+  const nextStore = storage.boolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
     $('#inquiry .switcher input').prop('checked', false);

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import once from '../src/once';
+import { once } from '../src/storage';
 
 describe('test once', () => {
   test('once', () => {

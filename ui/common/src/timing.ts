@@ -93,7 +93,7 @@ export function throttlePromiseDelay<T extends (...args: any) => Promise<any>>(
  * Ensures calls to the wrapped function are spaced by the given delay.
  * Any extra calls are dropped, except the last one, which waits for the delay.
  */
-export default function throttle<T extends (...args: any) => void>(
+export function throttle<T extends (...args: any) => void>(
   delay: number,
   wrapped: T,
 ): (...args: Parameters<T>) => void {
@@ -101,4 +101,45 @@ export default function throttle<T extends (...args: any) => void>(
     wrapped.apply(this, args);
     return new Promise(resolve => setTimeout(resolve, delay));
   });
+}
+
+export function idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void {
+  const events = ['mousemove', 'touchstart'];
+
+  let listening = false,
+    active = true,
+    lastSeenActive = performance.now();
+
+  const onActivity = () => {
+    if (!active) {
+      // console.log('Wake up');
+      onWakeUp();
+    }
+    active = true;
+    lastSeenActive = performance.now();
+    stopListening();
+  };
+
+  const startListening = () => {
+    if (!listening) {
+      events.forEach(e => document.addEventListener(e, onActivity));
+      listening = true;
+    }
+  };
+
+  const stopListening = () => {
+    if (listening) {
+      events.forEach(e => document.removeEventListener(e, onActivity));
+      listening = false;
+    }
+  };
+
+  setInterval(() => {
+    if (active && performance.now() - lastSeenActive > delay) {
+      // console.log('Idle mode');
+      onIdle();
+      active = false;
+    }
+    startListening();
+  }, 10000);
 }

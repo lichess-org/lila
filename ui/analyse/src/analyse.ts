@@ -1,6 +1,7 @@
 import { patch } from './view/util';
 import makeBoot from './boot';
 import makeStart from './start';
+import StrongSocket from 'common/socket';
 
 export { patch };
 
@@ -15,7 +16,7 @@ export function initModule({ mode, cfg }: { mode: 'userAnalysis' | 'replay'; cfg
 
 function userAnalysis(cfg: any) {
   cfg.$side = $('.analyse__side').clone();
-  site.socket = new site.StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
+  site.socket = new StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
     receive: (t: string, d: any) => analyse.socketReceive(t, d),
   });
   cfg.socketSend = site.socket.send;

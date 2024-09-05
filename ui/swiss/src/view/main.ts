@@ -12,6 +12,7 @@ import * as boards from './boards';
 import podium from './podium';
 import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
+import { once } from 'common/storage';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -183,7 +184,7 @@ function confetti(data: SwissData) {
   return (
     data.me &&
     data.isRecentlyFinished &&
-    site.once('tournament.end.canvas.' + data.id) &&
+    once('tournament.end.canvas.' + data.id) &&
     h('canvas#confetti', {
       hook: {
         insert: _ => site.asset.loadIife('javascripts/confetti.js'),

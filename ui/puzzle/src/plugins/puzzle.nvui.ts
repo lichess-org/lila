@@ -29,7 +29,7 @@ import { commands } from 'nvui/command';
 import * as control from '../control';
 import { bind, onInsert } from 'common/snabbdom';
 import { Api } from 'chessground/api';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import PuzzleCtrl from '../ctrl';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));

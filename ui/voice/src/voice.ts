@@ -84,7 +84,7 @@ export function makeVoice(opts: {
       enabled(false);
       pushTalk(false);
     } else enabled(!enabled()) ? mic.start() : mic.stop();
-    if (opts.tpe === 'move' && site.once('voice.rtfm')) showHelp(true);
+    if (opts.tpe === 'move' && prop.once('voice.rtfm')) showHelp(true);
   }
 
   function micId(deviceId?: string) {
