@@ -130,10 +130,10 @@ export class RoundProxy implements IRoundProxy {
 function botVNode(player: Player, position: Position): VNode | undefined {
   return player.id.startsWith('#') || player.name === 'White' || player.name === 'Black'
     ? h(`div.ruser-${position}.ruser.user-link.fancy-bot.online`, [
-        h('span', [h('i.line.patron', {}), h('name', player.name)]),
-        env.dev
-          ? h('rating', player.rating ? `${player.rating}` : '')
-          : !!player.image && h('img', { attrs: { src: player.image } }),
-      ])
+      h('span', [h('i.line.patron', {}), h('name', player.name)]),
+      env.dev
+        ? h('rating', player.rating ? `${player.rating}` : '')
+        : !!player.image && h('img', { attrs: { src: player.image } }),
+    ])
     : undefined;
 }

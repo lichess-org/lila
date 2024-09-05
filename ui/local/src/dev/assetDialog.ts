@@ -38,7 +38,7 @@ export class AssetDialog {
 
   show(): Promise<string | undefined> {
     return new Promise<string | undefined>(resolve =>
-      (async () => {
+      (async() => {
         if (this.isChooser)
           this.resolve = (key: string) => {
             resolve(key);
@@ -94,8 +94,8 @@ export class AssetDialog {
     }" data-asset="${key}">
         <div class="asset-preview"></div>
         <input type="text" class="asset-label" data-type="string" value="${name}"${
-          this.isChooser ? ' disabled' : ''
-        } spellcheck="false"></input>
+  this.isChooser ? ' disabled' : ''
+} spellcheck="false"></input>
       </div>`);
     if (!this.isChooser) {
       wrap.append(renderRemoveButton('upper-right'));
@@ -149,7 +149,7 @@ export class AssetDialog {
     }
   };
 
-  private delete = async (e: Event): Promise<void> => {
+  private delete = async(e: Event): Promise<void> => {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item')!;
     const key = el.getAttribute('data-asset')!;
@@ -158,7 +158,7 @@ export class AssetDialog {
     this.update();
   };
 
-  private push = async (e: Event): Promise<string | undefined> => {
+  private push = async(e: Event): Promise<string | undefined> => {
     e.stopPropagation();
     const el = (e.currentTarget as Element).closest('.asset-item') as HTMLElement;
     const key = el.dataset.asset!;
@@ -169,7 +169,7 @@ export class AssetDialog {
           <span><button class="button">upload</button></span>`,
         actions: {
           selector: 'button',
-          listener: async (_, dlg) => {
+          listener: async(_, dlg) => {
             const value = (dlg.view.querySelector('input') as HTMLInputElement).value;
             if (!this.validName(value)) return;
             dlg.close(value);
@@ -302,7 +302,7 @@ export class AssetDialog {
               { selector: '[data-action="cancel"]', result: 'cancel' },
               {
                 selector: '[data-action="import"]',
-                listener: async (_, dlg) => {
+                listener: async(_, dlg) => {
                   const name = (dlg.view.querySelector('.name') as HTMLInputElement).value;
                   const ply = Number((dlg.view.querySelector('.ply') as HTMLInputElement).value);
                   if (name.length < 4 || name.includes('/') || name.startsWith('.'))

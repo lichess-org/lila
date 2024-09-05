@@ -69,7 +69,7 @@ sw.addEventListener('notificationclick', e => e.waitUntil(handleNotificationClic
 sw.addEventListener('message', e => {
   if (e.data && e.data.type !== 'cache') return;
   e.waitUntil(
-    (async () => {
+    (async() => {
       if (e.data.value) {
         const cache = await caches.open('local');
         hasLocalCache = Promise.resolve(true);
