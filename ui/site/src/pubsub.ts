@@ -22,7 +22,8 @@ const pubsub: Pubsub = {
     const found = oneTimeEvents.get(event);
     if (found) return found.promise;
 
-    const handler: OneTimeHandler = { promise: new Promise<void>(resolve => handler!.resolve = resolve) };
+    const handler = {} as OneTimeHandler;
+    handler.promise = new Promise<void>(resolve => handler!.resolve = resolve);
     oneTimeEvents.set(event, handler);
 
     return handler.promise;
