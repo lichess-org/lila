@@ -4,7 +4,6 @@ import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clockWidget';
 import { lichessClockIsRunning } from 'common/clock';
-import { type Send } from 'common/socket';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {
   const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
@@ -43,7 +42,8 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
     ids = nodes.map(x => init(x)).filter(id => id);
-  if (ids.length) site.pubsub.once<Send>('socket.connect').then(send => send('startWatching', ids.join(' ')));
+  if (ids.length)
+    site.pubsub.after('socket.connect').then(() => site.socket.send('startWatching', ids.join(' ')));
 };
 
 export const update = (node: HTMLElement, data: MiniGameUpdateData) => {

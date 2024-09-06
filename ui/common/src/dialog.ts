@@ -60,7 +60,7 @@ site.load.then(async() => {
   if (! window.HTMLDialogElement)
     dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
       ?.default;
-  site.pubsub.complete('dialog.polyfill', dialogPolyfill);
+  site.pubsub.complete('dialog.polyfill');
 });
 
 // non-blocking window.alert-alike

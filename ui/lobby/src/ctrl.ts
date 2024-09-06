@@ -104,7 +104,7 @@ export default class LobbyController {
         forceOptions.variant = 'fromPosition';
       }
 
-      site.pubsub.once('dialog.polyfill').then(() => {
+      site.pubsub.after('dialog.polyfill').then(() => {
         this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();
       });

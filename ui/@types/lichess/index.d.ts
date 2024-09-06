@@ -207,8 +207,9 @@ interface Pubsub {
   on(msg: string, f: PubsubCallback): void;
   off(msg: string, f: PubsubCallback): void;
   emit(msg: string, ...args: any[]): void;
-  once<T = any>(event: string): Promise<T>;
-  complete(event: string, data: any): void;
+  
+  after(event: string): Promise<void>;
+  complete(event: string): void;
 }
 
 interface LichessAnnouncement {

@@ -17,7 +17,7 @@ interface MsgOut extends MsgBase {}
 interface MsgAck extends MsgOut {
   at: number;
 }
-export type Send = (t: Tpe, d: Payload, o?: any) => void;
+type Send = (t: Tpe, d: Payload, o?: any) => void;
 
 interface Options {
   idle: boolean;
@@ -316,7 +316,7 @@ export default class StrongSocket {
   onSuccess = (): void => {
     this.nbConnects++;
     if (this.nbConnects == 1) {
-      site.pubsub.complete('socket.connect', this.send);
+      site.pubsub.complete('socket.connect');
       let disconnectTimeout: Timeout | undefined;
       idleTimer(
         10 * 60 * 1000,

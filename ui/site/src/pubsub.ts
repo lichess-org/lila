@@ -1,5 +1,5 @@
 const subs: Dictionary<Set<() => void>> = Object.create(null);
-const onces: Dictionary<any> = Object.create(null);
+const oneTimeEvents: Dictionary<any> = Object.create(null);
 
 const pubsub: Pubsub = {
   on(name: string, cb) {
@@ -11,17 +11,17 @@ const pubsub: Pubsub = {
   emit(name: string, ...args: any[]) {
     for (const fn of subs[name] || []) fn.apply(null, args);
   },
-  once<T = any>(name: string): Promise<T> {
-    if (!onces[name]) {
-      onces[name] = {};
-      onces[name].promise = new Promise<T>(resolve => onces[name].resolve = resolve);
+  after(event: string): Promise<void> {
+    if (!oneTimeEvents[event]) {
+      oneTimeEvents[event] = {};
+      oneTimeEvents[event].promise = new Promise<void>(resolve => oneTimeEvents[event].resolve = resolve);
     }
-    return onces[name].promise;
+    return oneTimeEvents[event].promise;
   },
-  complete(name: string, data: any): void {
-    if (onces[name]) onces[name].resolve?.(data);
-    else onces[name] = { promise: Promise.resolve(data) };
-    onces[name].resolve = undefined;
+  complete(event: string): void {
+    if (oneTimeEvents[event]) oneTimeEvents[event].resolve?.();
+    else oneTimeEvents[event] = { promise: Promise.resolve() };
+    oneTimeEvents[event].resolve = undefined;
   },
 };
 
