@@ -155,7 +155,7 @@ object Schedule:
       val s2 = si2.schedule
       s1.variant == s2.variant && (
         // prevent daily && weekly on the same day
-        if s1.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s1.sameSpeed(s2) then s2.sameDay(s2)
+        if s1.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s1.sameSpeed(s2) then s1.sameDay(s2)
         else
           (
             s1.variant.exotic ||  // overlapping exotic variant
