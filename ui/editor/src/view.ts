@@ -9,7 +9,7 @@ import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
-import { Selected, CastlingToggle, EditorState } from './interfaces';
+import { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 import { dataIcon } from 'common/snabbdom';
 import { domDialog } from 'common/dialog';
 
@@ -66,7 +66,7 @@ const allVariants: Array<[Rules, string]> = [
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
-  const endgamePosition2option = function(pos: Editor.EndgamePosition): VNode {
+  const endgamePosition2option = function(pos: EndgamePosition): VNode {
     return h('option', { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } }, pos.name);
   };
 
@@ -153,7 +153,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       ? []
       : [
         (() => {
-          const positionOption = (pos: Editor.OpeningPosition): VNode =>
+          const positionOption = (pos: OpeningPosition): VNode =>
             h(
               'option',
               { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } },

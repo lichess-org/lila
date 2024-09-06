@@ -35,7 +35,7 @@ interface Site {
   reload(err?: any): void;
   watchers(el: HTMLElement): void;
   announce(d: LichessAnnouncement): void;
-  trans: Trans;
+  trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
   miniBoard: {
     // file://./../../common/src/miniBoard.ts
@@ -190,7 +190,7 @@ declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boole
 type TransNoArg = (key: string) => string;
 
 interface Trans {
-  // file://./../../common/src/trans.ts
+  // file://./../../common/src/i18n.ts
   (key: string, ...args: Array<string | number>): string;
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
@@ -214,49 +214,6 @@ interface Pubsub {
 interface LichessAnnouncement {
   msg?: string;
   date?: string;
-}
-
-interface LichessEditor {
-  getFen(): Cg.FEN;
-  setOrientation(o: Color): void;
-}
-
-declare namespace Editor {
-  // file://./../../editor/src/ctrl.ts
-  export interface Config {
-    el: HTMLElement;
-    baseUrl: string;
-    fen?: string;
-    options?: Editor.Options;
-    is3d: boolean;
-    animation: {
-      duration: number;
-    };
-    embed: boolean;
-    positions?: OpeningPosition[];
-    endgamePositions?: EndgamePosition[];
-    i18n: I18nDict;
-  }
-
-  export interface Options {
-    orientation?: Color;
-    onChange?: (fen: string) => void;
-    inlineCastling?: boolean;
-    coordinates?: boolean;
-  }
-
-  export interface OpeningPosition {
-    eco?: string;
-    name: string;
-    fen: string;
-    epd?: string;
-  }
-
-  export interface EndgamePosition {
-    name: string;
-    fen: string;
-    epd?: string;
-  }
 }
 
 type Nvui = (redraw: () => void) => {

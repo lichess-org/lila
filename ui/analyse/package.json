@@ -27,6 +27,7 @@
     "chessops": "^0.14.1",
     "common": "workspace:*",
     "debounce-promise": "^3.1.2",
+    "editor": "workspace:*",
     "game": "workspace:*",
     "keyboardMove": "workspace:*",
     "nvui": "workspace:*",

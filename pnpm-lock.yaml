@@ -106,6 +106,9 @@ importers:
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
+      editor:
+        specifier: workspace:*
+        version: link:../editor
       game:
         specifier: workspace:*
         version: link:../game
