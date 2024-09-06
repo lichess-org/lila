@@ -15,7 +15,7 @@ import { PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 import { storage, type LichessStorage } from 'common/storage';
 
 export default class ChatCtrl {

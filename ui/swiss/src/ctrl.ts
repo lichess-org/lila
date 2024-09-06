@@ -4,7 +4,7 @@ import { throttlePromiseDelay } from 'common/timing';
 import { maxPerPage, myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export default class SwissCtrl {
   data: SwissData;

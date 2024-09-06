@@ -1,4 +1,4 @@
-import debounce from 'common/debounce';
+import { debounce } from 'common/timing';
 import { storedBooleanPropWithEffect } from 'common/storage';
 
 export type WikiTheory = (nodes: Tree.Node[]) => void;

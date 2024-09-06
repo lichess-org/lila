@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import debounce from 'common/debounce';
+import { debounce } from 'common/timing';
 import { addPasswordVisibilityToggleListener } from 'common/password';
 import { storedJsonProp } from 'common/storage';
 

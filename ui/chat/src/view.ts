@@ -70,18 +70,31 @@ const renderTab = (ctrl: ChatCtrl, tab: Tab, active: Tab) =>
   );
 
 function tabName(ctrl: ChatCtrl, tab: Tab) {
-  if (tab === 'discussion')
+  if (tab === 'discussion') {
+    const id = `chat-toggle-${ctrl.data.id}`;
     return [
       h('span', ctrl.data.name),
       ctrl.opts.alwaysEnabled
         ? undefined
-        : h('input', {
-          attrs: { type: 'checkbox', title: ctrl.trans.noarg('toggleTheChat'), checked: ctrl.vm.enabled },
-          hook: bind('change', (e: Event) => {
-            ctrl.setEnabled((e.target as HTMLInputElement).checked);
+        : h('div.switch', [
+          h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
+            attrs: {
+              type: 'checkbox',
+              checked: ctrl.vm.enabled,
+            },
+            hook: bind('change', (e: Event) => {
+              ctrl.setEnabled((e.target as HTMLInputElement).checked);
+            }),
           }),
-        }),
+          h('label', {
+            attrs: {
+              for: id,
+              title: ctrl.trans.noarg('toggleTheChat'),
+            },
+          }),
+        ]),
     ];
+  }
   if (tab === 'note') return [h('span', ctrl.trans.noarg('notes'))];
   if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('span', ctrl.plugin.tab.name)];
   return [];

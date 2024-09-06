@@ -15,7 +15,7 @@ import { PuzFilters } from 'puz/filters';
 import { Role } from 'chessground/types';
 import { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
 import { storage } from 'common/storage';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;

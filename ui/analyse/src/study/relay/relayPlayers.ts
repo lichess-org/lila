@@ -1,6 +1,6 @@
 import { Redraw, VNode, looseH as h, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
-import { spinnerVdom as spinner, spinnerVdom } from 'common/spinner';
+import { spinnerVdom as spinner } from 'common/spinner';
 import { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
@@ -267,7 +267,7 @@ export const playerLinkHook = (ctrl: RelayPlayers, player: RelayPlayer, withTip:
             preRender() {
               const tipEl = document.getElementById(playerTipId) as HTMLElement;
               const patch = initSnabbdom([attributesModule]);
-              patch(tipEl, h(`div#${playerTipId}`, renderPlayerTipPreload(ctrl, player)));
+              tipEl.style.display = 'none';
               ctrl.loadPlayerWithGames(id).then((p: RelayPlayerWithGames) => {
                 const vdom = renderPlayerTipWithGames(ctrl, p);
                 tipEl.innerHTML = '';
@@ -311,9 +311,6 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
       isRelayPlayer(p) && p.score != null ? h('div', `${p.score}/${p.played}`) : undefined,
     ]),
   ]);
-
-const renderPlayerTipPreload = (ctrl: RelayPlayers, p: StudyPlayer): VNode =>
-  h('div.tpp', [renderPlayerTipHead(ctrl, p), h('div.tpp__preload', spinnerVdom())]);
 
 const renderPlayerTipWithGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames): VNode =>
   h('div.tpp', [
