@@ -22,7 +22,7 @@ class SchedulerTest extends munit.FunSuite:
     Schedule
       .pruneConflicts(
         List.empty,
-        (-8 to 23).flatMap { hour =>
+        (-24 to 23).flatMap { hour =>
           val start = startOfDay.plusHours(hour)
           TournamentScheduler
             .allWithConflicts(start)
@@ -188,7 +188,8 @@ class SchedulerTest extends munit.FunSuite:
         """2024-09-05T00:00:00Z Hourly standard rapid(10+0) Conditions() (09-04T20:00 EDT, 09-05T02:00 CEST) 117m""",
         """2024-09-05T02:00:00Z Hourly standard rapid(10+0) Conditions() (09-04T22:00 EDT, 09-05T04:00 CEST) 117m""",
         """2024-09-05T04:00:00Z Hourly standard rapid(10+0) Conditions() (09-05T00:00 EDT, 09-05T06:00 CEST) 117m""",
-        """2024-09-05T07:00:00Z Eastern standard rapid(10+0) Conditions() (09-05T03:00 EDT, 09-05T09:00 CEST) 150m""",
+        """2024-09-05T06:00:00Z Hourly standard rapid(10+0) Conditions() (09-05T02:00 EDT, 09-05T08:00 CEST) 117m""",
+        """2024-09-05T08:00:00Z Hourly standard rapid(10+0) Conditions() (09-05T04:00 EDT, 09-05T10:00 CEST) 117m""",
         """2024-09-05T10:00:00Z Hourly standard rapid(10+0) Conditions() (09-05T06:00 EDT, 09-05T12:00 CEST) 117m""",
         """2024-09-05T12:00:00Z Hourly standard rapid(10+0) Conditions() (09-05T08:00 EDT, 09-05T14:00 CEST) 117m""",
         """2024-09-05T14:00:00Z Hourly standard rapid(10+0) Conditions() (09-05T10:00 EDT, 09-05T16:00 CEST) 117m""",
@@ -554,7 +555,8 @@ class SchedulerTest extends munit.FunSuite:
         """2024-01-03T00:00:00Z Hourly standard rapid(10+0) Conditions() (01-02T19:00 EST, 01-03T01:00 CET) 117m""",
         """2024-01-03T02:00:00Z Hourly standard rapid(10+0) Conditions() (01-02T21:00 EST, 01-03T03:00 CET) 117m""",
         """2024-01-03T04:00:00Z Hourly standard rapid(10+0) Conditions() (01-02T23:00 EST, 01-03T05:00 CET) 117m""",
-        """2024-01-03T07:00:00Z Eastern standard rapid(10+0) Conditions() (01-03T02:00 EST, 01-03T08:00 CET) 150m""",
+        """2024-01-03T06:00:00Z Hourly standard rapid(10+0) Conditions() (01-03T01:00 EST, 01-03T07:00 CET) 117m""",
+        """2024-01-03T08:00:00Z Hourly standard rapid(10+0) Conditions() (01-03T03:00 EST, 01-03T09:00 CET) 117m""",
         """2024-01-03T10:00:00Z Hourly standard rapid(10+0) Conditions() (01-03T05:00 EST, 01-03T11:00 CET) 117m""",
         """2024-01-03T12:00:00Z Hourly standard rapid(10+0) Conditions() (01-03T07:00 EST, 01-03T13:00 CET) 117m""",
         """2024-01-03T14:00:00Z Hourly standard rapid(10+0) Conditions() (01-03T09:00 EST, 01-03T15:00 CET) 117m""",
