@@ -3,7 +3,7 @@ import view from './view/scheduleView';
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { Tournament } from './interfaces';
 import StrongSocket from 'common/socket';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 const patch = init([classModule, attributesModule]);
 

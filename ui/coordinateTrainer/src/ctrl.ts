@@ -1,7 +1,7 @@
 import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
 import { throttlePromiseDelay } from 'common/timing';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 import { withEffect } from 'common';
 import { makeVoice, VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'common/storage';

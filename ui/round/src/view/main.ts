@@ -2,7 +2,7 @@ import * as keyboard from '../keyboard';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
-import { stepwiseScroll } from 'common/scroll';
+import { stepwiseScroll } from 'common/controls';
 import { VNode } from 'snabbdom';
 import { looseH as h } from 'common/snabbdom';
 import { render as renderKeyboardMove } from 'keyboardMove';

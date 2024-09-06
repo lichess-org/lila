@@ -27,7 +27,7 @@ import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 import StrongSocket from 'common/socket';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;

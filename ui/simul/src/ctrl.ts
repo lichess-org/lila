@@ -2,7 +2,7 @@ import { makeSocket, SimulSocket } from './socket';
 import xhr from './xhr';
 import { SimulData, SimulOpts } from './interfaces';
 import { storage } from 'common/storage';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export default class SimulCtrl {
   data: SimulData;

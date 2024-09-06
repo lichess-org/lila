@@ -29,7 +29,7 @@ import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
   next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();

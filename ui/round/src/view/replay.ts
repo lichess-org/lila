@@ -3,7 +3,7 @@ import * as game from 'game';
 import * as round from '../round';
 import * as status from 'game/status';
 import * as util from '../util';
-import isCol1 from 'common/isCol1';
+import { isCol1 } from 'common/device';
 import RoundController from '../ctrl';
 import { throttle } from 'common/timing';
 import viewStatus from 'game/view/status';

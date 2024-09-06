@@ -1,5 +1,5 @@
 import { Prop, propWithEffect } from 'common';
-import debounce from 'common/debounce';
+import { debounce } from 'common/timing';
 import * as xhr from 'common/xhr';
 import { storedJsonProp, StoredJsonProp } from 'common/storage';
 import LobbyController from './ctrl';

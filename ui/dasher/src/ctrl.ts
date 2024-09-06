@@ -8,7 +8,7 @@ import { LinksCtrl } from './links';
 import { MaybeVNode, Redraw } from 'common/snabbdom';
 import { DasherData, Mode, PaneCtrl } from './interfaces';
 import { Prop, prop } from 'common';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 const defaultMode = 'links';
 

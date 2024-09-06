@@ -4,7 +4,7 @@ import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 interface CtrlTeamInfo {
   requested?: string;

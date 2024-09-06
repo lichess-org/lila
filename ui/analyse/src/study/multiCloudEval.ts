@@ -6,7 +6,7 @@ import { bind, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { FEN } from 'chessground/types';
 import { StudyChapters } from './studyChapters';
-import debounce from 'common/debounce';
+import { debounce } from 'common/timing';
 import { ServerNodeMsg } from './interfaces';
 
 export interface CloudEval extends EvalHitMulti {

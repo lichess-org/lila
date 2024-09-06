@@ -2,7 +2,7 @@ import * as xhr from 'common/xhr';
 import main from './main';
 import { LobbyOpts } from './interfaces';
 import StrongSocket from 'common/socket';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;

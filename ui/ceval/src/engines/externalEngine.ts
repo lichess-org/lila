@@ -1,6 +1,6 @@
 import { Work, ExternalEngineInfo, CevalEngine, CevalState, EngineNotifier } from '../types';
-import { randomToken } from 'common/random';
-import { readNdJson } from 'common/ndjson';
+import { randomToken } from 'common/algo';
+import { readNdJson } from 'common/xhr';
 import { throttle } from 'common/timing';
 
 interface ExternalEngineOutput {
