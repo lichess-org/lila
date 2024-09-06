@@ -11,6 +11,19 @@ import lila.common.LilaScheduler
 import lila.core.i18n.Translator
 import lila.gathering.Condition
 
+/** This case class (and underlying trait) exists to ensure conflicts are checked against a tournament's true
+  * interval, rather than the interval which could be inferred from the tournament's schedule parameter via
+  * [[Schedule.durationFor]]
+  *
+  * Such a mismatch could occur if durationFor is modified and existing tournaments are rehydrated from db.
+  * Another source of mismatch is that tourney actual start is tweaked from scheduled start by a random number
+  * of seconds (see [[Tournament.scheduleAs]])
+  */
+private[tournament] case class ConcreteSchedule(
+    schedule: Schedule,
+    interval: TimeInterval
+) extends Schedule.ScheduleWithInterval
+
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     Executor,
     Scheduler,
@@ -21,9 +34,16 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
-        val newTourns = TournamentScheduler.allWithConflicts().map(_.build)
-        val pruned    = TournamentScheduler.pruneConflicts(dbScheds, newTourns)
-        tournamentRepo.insert(pruned).logFailure(logger)
+        val plans = TournamentScheduler.allWithConflicts()
+
+        val existingSchedules = dbScheds.flatMap { t =>
+          // Ignore tournaments with schedule=None - they never conflict.
+          t.schedule.so { ConcreteSchedule(_, t.interval).some }
+        }
+
+        val prunedPlans = Schedule.pruneConflicts(existingSchedules, plans)
+
+        tournamentRepo.insert(prunedPlans.map(_.build)).logFailure(logger)
       catch
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
@@ -466,27 +486,7 @@ Thank you all, you rock!""".some,
               ).plan
             )
       }
-    ).flatten.filter(_.schedule.at.instant.isAfter(rightNow))
-
-  private def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
-    newTourns
-      .foldLeft(List[Tournament]()): (tourns, t) =>
-        if overlaps(t, tourns) || overlaps(t, scheds) then tourns
-        else t :: tourns
-      .reverse
-
-  private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
-    t.schedule.exists: s =>
-      ts.exists: t2 =>
-        t.variant == t2.variant && t2.schedule.so:
-          // prevent daily && weekly on the same day
-          case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameSpeed(s2) => s.sameDay(s2)
-          case s2 =>
-            (
-              t.variant.exotic ||  // overlapping exotic variant
-                s.hasMaxRating ||  // overlapping same rating limit
-                s.similarSpeed(s2) // overlapping similar
-            ) && s.similarConditions(s2) && t.overlaps(t2)
+    ).flatten.filter(_.schedule.atInstant.isAfter(rightNow))
 
   private def atTopOfHour(rightNow: Instant, hourDelta: Int): LocalDateTime =
     rightNow.plusHours(hourDelta).dateTime.withMinute(0)

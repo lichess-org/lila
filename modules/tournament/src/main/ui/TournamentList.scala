@@ -72,7 +72,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                   .map: s =>
                     a(href := routes.Tournament.show(tour.id), dataIcon := ui.tournamentIcon(tour))(
                       strong(tour.name(full = false)),
-                      momentFromNow(s.at.instant)
+                      momentFromNow(s.atInstant)
                     )
             )
           ),
