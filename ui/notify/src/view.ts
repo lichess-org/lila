@@ -3,7 +3,7 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();

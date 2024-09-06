@@ -4,7 +4,7 @@ import makeView from './view/main';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
 import { VNode } from 'snabbdom';
 import type * as studyDeps from './study/studyDeps';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export default function(
   patch: (oldVnode: VNode | Element | DocumentFragment, vnode: VNode) => VNode,

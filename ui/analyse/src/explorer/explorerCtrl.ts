@@ -2,7 +2,7 @@ import { Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import { defer } from 'common/defer';
 import { fenColor } from 'common/miniBoard';
-import debounce from 'common/debounce';
+import { debounce } from 'common/timing';
 import { sync, Sync } from 'common/promise';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';

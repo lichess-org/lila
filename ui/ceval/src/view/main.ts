@@ -1,6 +1,6 @@
 import * as winningChances from '../winningChances';
 import * as licon from 'common/licon';
-import { stepwiseScroll } from 'common/scroll';
+import { stepwiseScroll } from 'common/controls';
 import { onInsert, bind, LooseVNodes, looseH as h } from 'common/snabbdom';
 import { defined, notNull, requestIdleCallback } from 'common';
 import { ParentCtrl, NodeEvals, CevalState } from '../types';

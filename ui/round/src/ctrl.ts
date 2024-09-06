@@ -50,7 +50,7 @@ import {
 import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 interface GoneBerserk {
   white?: boolean;

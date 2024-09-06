@@ -6,7 +6,7 @@ import { SideCtrl } from './sideCtrl';
 import { clearTimeouts } from './timeouts';
 import { extractHashParameters } from './hashRouting';
 import { RunCtrl } from './run/runCtrl';
-import { trans } from 'common/trans';
+import { trans } from 'common/i18n';
 
 export class LearnCtrl {
   data: LearnProgress = this.opts.storage.data;

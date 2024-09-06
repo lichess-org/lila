@@ -1,5 +1,15 @@
-export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
-  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
+export const randomToken = (): string => {
+  try {
+    const data = window.crypto.getRandomValues(new Uint8Array(9));
+    return btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
+  } catch (_) {
+    return Math.random().toString(36).slice(2, 12);
+  }
+};
+
+export function clamp(value: number, bounds: { min?: number; max?: number }): number {
+  return Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
+}
 
 export function shuffle<T>(array: T[]): T[] {
   for (let i = array.length - 1; i > 0; i--) {
