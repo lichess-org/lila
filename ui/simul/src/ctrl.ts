@@ -3,6 +3,7 @@ import xhr from './xhr';
 import { SimulData, SimulOpts } from './interfaces';
 import { storage } from 'common/storage';
 import { trans } from 'common/i18n';
+import { idleTimer } from 'common/timing';
 
 export default class SimulCtrl {
   data: SimulData;
@@ -22,7 +23,7 @@ export default class SimulCtrl {
   private setupCreatedHost = () => {
     storage.set('site.move_on', '1'); // hideous hack :D
     let hostIsAround = true;
-    site.idleTimer(
+    idleTimer(
       15 * 60 * 1000,
       () => {
         hostIsAround = false;
