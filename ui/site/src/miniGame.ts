@@ -3,7 +3,6 @@ import { fenColor } from 'common/miniBoard';
 import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clockWidget';
-import StrongSocket from 'common/socket';
 import { lichessClockIsRunning } from 'common/clock';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {
@@ -43,7 +42,8 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
     ids = nodes.map(x => init(x)).filter(id => id);
-  if (ids.length) StrongSocket.firstConnect.then(send => send('startWatching', ids.join(' ')));
+  if (ids.length)
+    site.pubsub.after('socket.connect').then(() => site.socket.send('startWatching', ids.join(' ')));
 };
 
 export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
