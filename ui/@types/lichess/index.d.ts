@@ -29,7 +29,6 @@ interface Site {
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
     userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
-  idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub; // file://./../../site/src/pubsub.ts
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;
