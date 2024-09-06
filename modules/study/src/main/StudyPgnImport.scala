@@ -32,11 +32,10 @@ object StudyPgnImport:
           )
 
           val end = result.map: res =>
-            val outcome = Outcome(res.winner)
             End(
               status = res.status,
-              points = points,
-              resultText = chess.Outcome.showResult(outcome.some),
+              points = res.points,
+              resultText = chess.Outcome.showPoints(res.points.some),
               statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
             )
 

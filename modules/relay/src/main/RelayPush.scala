@@ -62,7 +62,7 @@ final class RelayPush(
         _ = if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
           irc.broadcastStart(rt.round.id, rt.fullName)
         _ = stats.setActive(rt.round.id)
-        allGamesFinished <- (games.nonEmpty && games.forall(_.outcome.isDefined)).so:
+        allGamesFinished <- (games.nonEmpty && games.forall(_.points.isDefined)).so:
           chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>
           val r2 = r1.withSync(_.addLog(event))
@@ -89,7 +89,7 @@ final class RelayPush(
                     children = game.root.children
                       .updateMainline(_.copy(comments = lila.tree.Node.Comments.empty))
                   ),
-                  outcome = game.end.map(_.outcome)
+                  points = game.end.map(_.points)
                 )
               )
 
