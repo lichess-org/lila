@@ -102,7 +102,7 @@ final private class RelayFetch(
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
-        nbGamesFinished  = games.count(_.outcome.isDefined)
+        nbGamesFinished  = games.count(_.points.isDefined)
         nbGamesUnstarted = games.count(!_.hasMoves)
         allGamesFinishedOrUnstarted = games.nonEmpty &&
           nbGamesFinished + nbGamesUnstarted >= games.size &&
@@ -446,5 +446,5 @@ private object RelayFetch:
               comments = Comments.empty,
               children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
             ),
-            outcome = res.end.map(_.outcome)
+            points = res.end.map(_.points)
           )

@@ -5,7 +5,7 @@ import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
 import chess.variant.*
 import chess.{ Game as ChessGame, * }
 
-case class TagResult(status: Status, winner: Option[Color]):
+case class TagResult(status: Status, points: Option[Outcome.GamePoints]):
   // duplicated from Game.finish
   def finished = status >= Status.Mate
 
@@ -54,13 +54,13 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
             case Some(txt) if txt.contains("won on time") => Status.Outoftime
             case _                                        => Status.UnknownFinish
 
-          val result = parsed.tags.outcome
-            .map:
-              case Outcome(Some(winner))           => TagResult(status, winner.some)
-              case _ if status == Status.Outoftime => TagResult(status, none)
-              case _                               => TagResult(Status.Draw, none)
+          val result = parsed.tags.points
+            .map(points => TagResult(status, points.some))
             .filter(_.status > Status.Started)
-            .orElse { game.situation.status.map(TagResult(_, game.situation.winner)) }
+            .orElse:
+              game.situation.status.map: status =>
+                val points = Outcome.guessPointsFromStatusAndPosition(status, game.situation.winner)
+                TagResult(status, points)
 
           ImportResult(game, result, replay.copy(state = game), initialFen, parsed)
         }
