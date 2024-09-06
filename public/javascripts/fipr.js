@@ -1078,9 +1078,10 @@ window.fipr = (function () {
 
 site.load.then(() =>
   setTimeout(() => {
+    const storageKey = 'fipr';
     const t = performance.now(),
       send = hash => {
-        localStorage.setItem('fipr', hash);
+        localStorage.setItem(storageKey, hash);
         const $i = $('#signup-fp-input');
         if ($i.length) $i.val(hash);
         else
@@ -1089,7 +1090,7 @@ site.load.then(() =>
             credentials: 'same-origin',
           });
       };
-    if (localStorage.getItem('fipr')) send(localStorage.getItem('fipr'));
+    if (localStorage.getItem(storageKey)) send(localStorage.getItem(storageKey));
     else fipr.get(c => send(fipr.x64hash128(c.map(x => x.value).join(''), 31)));
   }, 1000),
 );
