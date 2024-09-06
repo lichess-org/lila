@@ -70,6 +70,7 @@ export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
   const lastEpd = epd(mainlineNodes[mainlineNodes.length - 1].fen);
   const repetitions = threefoldMap.get(lastEpd);
   if (repetitions && repetitions.length > 2) {
+    const unicodeList = ['①', '②', '③', '④', '⑤'];
     for (const [i, [node, unicode]] of zip(repetitions, unicodeList).entries()) {
       const glyph = { symbol: unicode, name: `repetition number ${i}`, id: 9 };
       if (!node.glyphs) node.glyphs = [glyph];
@@ -77,5 +78,3 @@ export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
     }
   }
 }
-
-const unicodeList = ['①', '②', '③', '④', '⑤'];

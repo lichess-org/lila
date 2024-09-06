@@ -214,9 +214,7 @@ export default class AnalyseCtrl {
     this.tree = makeTree(util.treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (this.data.game.status.name == 'draw') {
-      add3or5FoldGlyphs(mainline);
-    }
+    if (this.data.game.status.name == 'draw') add3or5FoldGlyphs(mainline);
 
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
