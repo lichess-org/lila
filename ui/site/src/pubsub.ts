@@ -1,10 +1,10 @@
-interface OneTimeEvent {
-  promise?: Promise<void>;
+interface OneTimeHandler {
+  promise: Promise<void>;
   resolve?: () => void;
 }
 
 const allSubs: Map<string, Set<() => void>> = new Map();
-const oneTimeEvents: Map<string, OneTimeEvent> = new Map();
+const oneTimeEvents: Map<string, OneTimeHandler> = new Map();
 
 const pubsub: Pubsub = {
   on(name: string, cb) {
@@ -19,18 +19,21 @@ const pubsub: Pubsub = {
     for (const fn of allSubs.get(name) || []) fn.apply(null, args);
   },
   after(event: string): Promise<void> {
-    if (!oneTimeEvents.get(event)) {
-      oneTimeEvents.set(event, {});
-      oneTimeEvents.get(event)!.promise = new Promise<void>(resolve => 
-        oneTimeEvents.get(event)!.resolve = resolve
-      );
-    }
-    return oneTimeEvents.get(event)!.promise!;
+    const found = oneTimeEvents.get(event);
+    if (found) return found.promise;
+
+    const handler: OneTimeHandler = { promise: new Promise<void>(resolve => handler!.resolve = resolve) };
+    oneTimeEvents.set(event, handler);
+
+    return handler.promise;
   },
   complete(event: string): void {
-    if (oneTimeEvents.get(event)) oneTimeEvents.get(event)!.resolve?.();
+    const found = oneTimeEvents.get(event);
+    if (found) {
+      found.resolve?.();
+      found.resolve = undefined;
+    }
     else oneTimeEvents.set(event, { promise: Promise.resolve() });
-    oneTimeEvents.get(event)!.resolve = undefined;
   },
 };
 
