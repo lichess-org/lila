@@ -1,5 +1,5 @@
-const subs: Dictionary<Set<() => void>> = Object.create(null);
-const oneTimeEvents: Dictionary<any> = Object.create(null);
+const allSubs: Map<string, Set<() => void>> = new Map();
+const oneTimeEvents: Map<string, any> = new Map();
 
 const pubsub: Pubsub = {
   on(name: string, cb) {
@@ -14,16 +14,18 @@ const pubsub: Pubsub = {
     for (const fn of allSubs.get(name) || []) fn.apply(null, args);
   },
   after(event: string): Promise<void> {
-    if (!oneTimeEvents[event]) {
-      oneTimeEvents[event] = {};
-      oneTimeEvents[event].promise = new Promise<void>(resolve => oneTimeEvents[event].resolve = resolve);
+    if (!oneTimeEvents.get(event)) {
+      oneTimeEvents.set(event, {});
+      oneTimeEvents.get(event).promise = new Promise<void>(resolve => 
+        oneTimeEvents.get(event).resolve = resolve
+      );
     }
-    return oneTimeEvents[event].promise;
+    return oneTimeEvents.get(event).promise;
   },
   complete(event: string): void {
-    if (oneTimeEvents[event]) oneTimeEvents[event].resolve?.();
-    else oneTimeEvents[event] = { promise: Promise.resolve() };
-    oneTimeEvents[event].resolve = undefined;
+    if (oneTimeEvents.get(event)) oneTimeEvents.get(event).resolve?.();
+    else oneTimeEvents.set(event, { promise: Promise.resolve() });
+    oneTimeEvents.get(event).resolve = undefined;
   },
 };
 
