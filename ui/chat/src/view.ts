@@ -80,7 +80,6 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
           h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
             attrs: {
               type: 'checkbox',
-              title: ctrl.trans.noarg('toggleTheChat'),
               checked: ctrl.vm.enabled,
             },
             hook: bind('change', (e: Event) => {
@@ -90,6 +89,7 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
           h('label', {
             attrs: {
               for: id,
+              title: ctrl.trans.noarg('toggleTheChat'),
             },
           }),
         ]),
