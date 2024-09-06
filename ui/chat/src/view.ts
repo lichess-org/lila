@@ -70,15 +70,15 @@ const renderTab = (ctrl: ChatCtrl, tab: Tab, active: Tab) =>
   );
 
 function tabName(ctrl: ChatCtrl, tab: Tab) {
-  if (tab === 'discussion')
+  if (tab === 'discussion') {
+    const id = `chat-toggle-${ctrl.data.id}`;
     return [
       h('span', ctrl.data.name),
       ctrl.opts.alwaysEnabled
         ? undefined
         : h('div.switch', [
-          h('input.cmn-toggle.cmn-toggle--subtle', {
+          h(`input#${id}.cmn-toggle.cmn-toggle--subtle`, {
             attrs: {
-              id: ctrl.data.id,
               type: 'checkbox',
               title: ctrl.trans.noarg('toggleTheChat'),
               checked: ctrl.vm.enabled,
@@ -89,11 +89,12 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
           }),
           h('label', {
             attrs: {
-              for: ctrl.data.id,
+              for: id,
             },
           }),
         ]),
     ];
+  }
   if (tab === 'note') return [h('span', ctrl.trans.noarg('notes'))];
   if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('span', ctrl.plugin.tab.name)];
   return [];
