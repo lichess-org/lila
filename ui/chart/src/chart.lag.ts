@@ -9,7 +9,7 @@ import {
 } from 'chart.js';
 import dataLabels from 'chartjs-plugin-datalabels';
 import { fontColor, fontFamily, resizePolyfill } from './common';
-import StrongSocket from 'common/socket';
+
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface PluginOptionsByType<TType extends ChartType> {
@@ -29,7 +29,7 @@ const v = {
 };
 
 export async function initModule(): Promise<void> {
-  StrongSocket.firstConnect.then(() => site.socket.send('moveLat', true));
+  site.pubsub.after('socket.connect').then(() => site.socket.send('moveLat', true));
   $('.meter canvas').each(function(this: HTMLCanvasElement, index) {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [

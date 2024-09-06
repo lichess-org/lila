@@ -22,6 +22,7 @@ export default [
           ignoreUrls: true,
           ignoreStrings: true,
           ignoreComments: true,
+          ignoreRegExpLiterals: true,
           ignoreTemplateLiterals: true,
         },
       ],
