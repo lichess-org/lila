@@ -76,11 +76,6 @@ export default class StrongSocket {
     isAuth: document.body.hasAttribute('data-user'),
   };
 
-  static resolveFirstConnect: (send: Send) => void;
-  static firstConnect: Promise<Send> = new Promise<Send>(r => {
-    StrongSocket.resolveFirstConnect = r;
-  });
-
   constructor(
     readonly url: string,
     version: number | false,
@@ -321,7 +316,7 @@ export default class StrongSocket {
   onSuccess = (): void => {
     this.nbConnects++;
     if (this.nbConnects == 1) {
-      StrongSocket.resolveFirstConnect(this.send);
+      site.pubsub.complete('socket.connect');
       let disconnectTimeout: Timeout | undefined;
       idleTimer(
         10 * 60 * 1000,

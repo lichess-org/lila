@@ -4,7 +4,6 @@ import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
-import { ready as oldSafariDialogPolyfillReady } from 'common/dialog';
 import * as poolRangeStorage from './poolRangeStorage';
 import {
   LobbyOpts,
@@ -105,7 +104,7 @@ export default class LobbyController {
         forceOptions.variant = 'fromPosition';
       }
 
-      oldSafariDialogPolyfillReady.then(() => {
+      site.pubsub.after('dialog.polyfill').then(() => {
         this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();
       });
