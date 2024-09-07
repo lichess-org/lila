@@ -8,7 +8,7 @@ import makeLog from './log';
 import pubsub from './pubsub';
 import { unload, redirect, reload } from './reload';
 import announce from './announce';
-import { trans } from 'common/i18n';
+import { trans, displayLocale } from 'common/i18n';
 import sound from './sound';
 import watchers from './watchers';
 import { Chessground } from 'chessground';
@@ -16,11 +16,6 @@ import { Chessground } from 'chessground';
 const s = window.site;
 // s.load, s.quantity, s.siteI18n are initialized in layout.scala embedded script tags
 
-// for many users, using the islamic calendar is not practical on the internet
-// due to international context, so we make sure it's displayed using the gregorian calendar
-s.displayLocale = document.documentElement.lang.startsWith('ar-')
-  ? 'ar-ly'
-  : document.documentElement.lang;;
 s.mousetrap = new Mousetrap(document);
 s.sri = randomToken();
 s.powertip = powertip;
@@ -33,6 +28,7 @@ s.reload = reload;
 s.watchers = watchers;
 s.announce = announce;
 s.trans = trans(s.siteI18n);
+s.displayLocale = displayLocale;
 s.sound = sound;
 s.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
 s.blindMode = document.body.classList.contains('blind-mode');

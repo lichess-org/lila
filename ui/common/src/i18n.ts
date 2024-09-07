@@ -28,7 +28,13 @@ export const trans = (i18n: I18nDict): Trans => {
   return trans;
 };
 
-export const commonDateFormat: (d?: Date|number) => string = new Intl.DateTimeFormat(site.displayLocale, {
+// for many users, using the islamic calendar is not practical on the internet
+// due to international context, so we make sure it's displayed using the gregorian calendar
+export const displayLocale: string = document.documentElement.lang.startsWith('ar-')
+  ? 'ar-ly'
+  : document.documentElement.lang;;
+
+export const commonDateFormat: (d?: Date|number) => string = new Intl.DateTimeFormat(displayLocale, {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
