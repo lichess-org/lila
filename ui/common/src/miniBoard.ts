@@ -2,12 +2,12 @@ import { h, VNode } from 'snabbdom';
 import * as domData from './data';
 import { uciToMove } from 'chessground/util';
 
-export const init = (node: HTMLElement): void => {
+export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
-  initWith(node, fen, orientation as Color, lm);
+  initMiniBoardWith(node, fen, orientation as Color, lm);
 };
 
-export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?: string): void => {
+export const initMiniBoardWith = (node: HTMLElement, fen: string, orientation: Color, lm?: string): void => {
   domData.set(
     node,
     'chessground',
@@ -25,10 +25,10 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
   );
 };
 
-export const initAll = (parent?: HTMLElement): void =>
+export const initMiniBoards = (parent?: HTMLElement): void =>
   Array.from((parent || document).getElementsByClassName('mini-board--init')).forEach((el: HTMLElement) => {
     el.classList.remove('mini-board--init');
-    init(el);
+    initMiniBoard(el);
   });
 
 export const fenColor = (fen: string): Color => (fen.includes(' w') ? 'white' : 'black');

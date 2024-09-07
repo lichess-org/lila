@@ -1,7 +1,7 @@
 import Ctrl from './ctrl';
 import { h } from 'snabbdom';
 import { Game } from './interfaces';
-import { init as initMiniBoard } from 'common/miniBoard';
+import { initMiniBoard } from 'common/miniBoard';
 
 const miniGame = (game: Game) =>
   h('a', { attrs: { key: game.id, href: `/${game.id}/${game.color}` } }, [

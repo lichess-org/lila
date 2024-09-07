@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import LobbyController from '../ctrl';
 import { NowPlaying } from '../interfaces';
-import { init as initMiniBoard } from 'common/miniBoard';
+import { initMiniBoard } from 'common/miniBoard';
 
 function timer(pov: NowPlaying) {
   const date = Date.now() + pov.secondsLeft! * 1000;

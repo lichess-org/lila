@@ -1,5 +1,5 @@
 import * as licon from 'common/licon';
-import * as miniBoard from 'common/miniBoard';
+import { initMiniBoards } from 'common/miniBoard';
 import { prefersLight } from 'common/theme';
 import * as miniGame from './miniGame';
 import * as timeago from './timeago';
@@ -23,9 +23,9 @@ export function boot() {
   const showDebug = location.hash.startsWith('#debug');
 
   requestAnimationFrame(() => {
-    miniBoard.initAll();
+    initMiniBoards();
     miniGame.initAll();
-    pubsub.on('content-loaded', miniBoard.initAll);
+    pubsub.on('content-loaded', initMiniBoards);
     pubsub.on('content-loaded', miniGame.initAll);
     timeago.updateRegularly(1000);
     pubsub.on('content-loaded', timeago.findAndRender);

@@ -3,7 +3,7 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { userLink } from 'common/userLink';
-import { init as initMiniBoard } from 'common/miniBoard';
+import { initMiniBoard } from 'common/miniBoard';
 import { opposite } from 'chessground/util';
 import ChallengeCtrl from './ctrl';
 
