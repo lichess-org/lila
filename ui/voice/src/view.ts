@@ -2,7 +2,7 @@ import * as licon from 'common/licon';
 import { onInsert, bind, looseH as h, VNode } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { snabDialog, Dialog } from 'common/dialog';
-import { onClickAway } from 'common';
+import { onClickAway, $as } from 'common';
 import { Entry, VoiceCtrl, MsgType } from './interfaces';
 import { supportedLangs } from './voice';
 

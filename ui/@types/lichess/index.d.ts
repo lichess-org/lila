@@ -328,5 +328,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const site: Site;
-declare const $as: <T>(cashOrHtml: Cash | string) => T;
 declare module 'tablesort';

@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import { requestIdleCallback } from 'common';
+import { requestIdleCallback, $as } from 'common';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
 
