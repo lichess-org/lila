@@ -72,7 +72,7 @@ export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
   if (repetitions && repetitions.length > 2) {
     const unicodeList = ['①', '②', '③', '④', '⑤'];
     for (const [i, [node, unicode]] of zip(repetitions, unicodeList).entries()) {
-      const glyph = { symbol: unicode, name: `repetition number ${i}`, id: 9 };
+      const glyph = { symbol: unicode, name: `repetition number ${i+1}`, id: 9 };
       if (!node.glyphs) node.glyphs = [glyph];
       else node.glyphs.push(glyph);
     }

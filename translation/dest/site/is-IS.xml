@@ -568,6 +568,7 @@
   <string name="clock">Tími</string>
   <string name="opponent">Andstæðingur</string>
   <string name="learnMenu">Læra</string>
+  <string name="studyMenu">Læra</string>
   <string name="practice">Æfa</string>
   <string name="community">Samfélag</string>
   <string name="tools">Gögn</string>
@@ -747,8 +748,8 @@
   <string name="doneReviewingWhiteMistakes">Yfirferð mistaka hvíts lokið</string>
   <string name="doneReviewingBlackMistakes">Yfirferð mistaka svarts lokið</string>
   <string name="doItAgain">Gera aftur</string>
-  <string name="reviewWhiteMistakes">Skoða mistök hvítrar</string>
-  <string name="reviewBlackMistakes">Skoða mistök svartrar</string>
+  <string name="reviewWhiteMistakes">Skoða mistök hvíts</string>
+  <string name="reviewBlackMistakes">Skoða mistök svarts</string>
   <string name="advantage">Yfirhönd</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekúnda</item>
