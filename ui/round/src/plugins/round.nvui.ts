@@ -6,8 +6,7 @@ import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table
 import { makeConfig as makeCgConfig } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
-import { plyStep } from '../round';
-import { onInsert } from '../util';
+import { onInsert, plyStep } from '../util';
 import { Step, Position, NvuiPlugin } from '../interfaces';
 import * as game from 'game';
 import {
