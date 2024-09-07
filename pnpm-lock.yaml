@@ -328,6 +328,12 @@ importers:
 
   ui/common:
     dependencies:
+      '@types/debounce-promise':
+        specifier: ^3.1.9
+        version: 3.1.9
+      debounce-promise:
+        specifier: ^3.1.2
+        version: 3.1.2
       lichess-pgn-viewer:
         specifier: ^2.1.0
         version: 2.1.0

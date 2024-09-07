@@ -3,6 +3,12 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org common utils",
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
   "module": "common.js",
   "type": "module",
   "typings": "common",
@@ -17,13 +23,9 @@
       ]
     }
   },
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
   "dependencies": {
+    "@types/debounce-promise": "^3.1.9",
+    "debounce-promise": "^3.1.2",
     "lichess-pgn-viewer": "^2.1.0",
     "snabbdom": "3.5.1",
     "tablesort": "^5.3.0"

@@ -7,6 +7,7 @@ import { StudyMemberMap } from './interfaces';
 import { AnalyseSocketSend } from '../socket';
 import { storedSet, StoredSet } from 'common/storage';
 import { snabDialog } from 'common/dialog';
+import { userComplete } from 'common/userComplete';
 
 export interface StudyInviteFormCtrl {
   open: Prop<boolean>;
@@ -77,18 +78,17 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
         // because typeahead messes up with snabbdom
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername'), spellcheck: 'false' },
-          hook: onInsert<HTMLInputElement>(input =>
-            site.asset
-              .userComplete({
-                input,
-                tag: 'span',
-                onSelect(v) {
-                  input.value = '';
-                  ctrl.invite(v.name);
-                  ctrl.redraw();
-                },
-              })
-              .then(() => input.focus()),
+          hook: onInsert<HTMLInputElement>(input => 
+            userComplete({
+              input,
+              focus: true,
+              tag: 'span',
+              onSelect(v) {
+                input.value = '';
+                ctrl.invite(v.name);
+                ctrl.redraw();
+              },
+            })
           ),
         }),
       ]),

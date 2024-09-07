@@ -71,6 +71,7 @@
       "src/bits.lpv.ts",
       "src/bits.passwordComplexity.ts",
       "src/bits.plan.ts",
+      "src/bits.polyglot.ts",
       "src/bits.publicChats.ts",
       "src/bits.qrcode.ts",
       "src/bits.relayForm.ts",
@@ -78,15 +79,13 @@
       "src/bits.streamer.ts",
       "src/bits.team.ts",
       "src/bits.teamBattleForm.ts",
+      "src/bits.titleRequest.ts",
       "src/bits.tourForm.ts",
       "src/bits.tvGames.ts",
       "src/bits.ublog.ts",
       "src/bits.ublogForm.ts",
       "src/bits.user.ts",
-      "src/bits.userComplete.ts",
-      "src/bits.userGamesDownload.ts",
-      "src/bits.titleRequest.ts",
-      "src/bits.polyglot.ts"
+      "src/bits.userGamesDownload.ts"
     ],
     "sync": {
       "node_modules/cropperjs/dist/cropper.min.css": "public/npm",

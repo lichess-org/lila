@@ -27,7 +27,6 @@ interface Site {
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
-    userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
   pubsub: Pubsub; // file://./../../site/src/pubsub.ts
   unload: { expected: boolean };
@@ -88,8 +87,6 @@ type Flair = string;
 
 type RedirectTo = string | { url: string; cookie: Cookie };
 
-type UserComplete = (opts: UserCompleteOpts) => void;
-
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
   bind(
@@ -106,19 +103,6 @@ interface LichessPowertip {
   manualGame(el: HTMLElement): void;
   manualUser(el: HTMLElement): void;
   manualUserIn(parent: HTMLElement): void;
-}
-
-interface UserCompleteOpts {
-  input: HTMLInputElement;
-  tag?: 'a' | 'span';
-  minLength?: number;
-  populate?: (result: LightUser) => string;
-  onSelect?: (result: LightUser) => void;
-  focus?: boolean;
-  friend?: boolean;
-  tour?: string;
-  swiss?: string;
-  team?: string;
 }
 
 interface QuestionChoice {

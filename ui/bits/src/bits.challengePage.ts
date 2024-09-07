@@ -1,5 +1,6 @@
 import * as xhr from 'common/xhr';
 import StrongSocket from 'common/socket';
+import { userComplete } from 'common/userComplete';
 
 interface ChallengeOpts {
   xhrUrl: string;
@@ -45,7 +46,7 @@ export function initModule(opts: ChallengeOpts): void {
       .find('input.friend-autocomplete')
       .each(function(this: HTMLInputElement) {
         const input = this;
-        site.asset.userComplete({
+        userComplete({
           input: input,
           friend: true,
           tag: 'span',

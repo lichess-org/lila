@@ -1,16 +1,16 @@
-import * as xhr from 'common/xhr';
+import * as xhr from './xhr';
 import debounce from 'debounce-promise';
 
-export interface Result {
+export interface UserCompleteResult {
   result: LightUserOnline[];
 }
 
-interface Opts {
+export interface UserCompleteOpts {
   input: HTMLInputElement;
   tag?: 'a' | 'span';
   minLength?: number;
-  populate?: (result: LightUserOnline) => string;
-  onSelect?: (result: LightUserOnline) => void;
+  populate?: (result: LightUser) => string;
+  onSelect?: (result: LightUser) => void;
   focus?: boolean;
   friend?: boolean;
   tour?: string;
@@ -18,7 +18,7 @@ interface Opts {
   team?: string;
 }
 
-export function initModule(opts: Opts): void {
+export function userComplete(opts: UserCompleteOpts): void {
   const debounced = debounce(
     (term: string) =>
       xhr
@@ -32,7 +32,7 @@ export function initModule(opts: Opts): void {
             object: 1,
           }),
         )
-        .then((r: Result) => ({ term, ...r })),
+        .then((r: UserCompleteResult) => ({ term, ...r })),
     150,
   );
 
@@ -73,6 +73,7 @@ export function initModule(opts: Opts): void {
     onSelect: opts.onSelect,
     regex: /^[a-z][\w-]{2,29}$/i,
   });
+  if (opts.focus) opts.input.focus();
 }
 
 type Fetch<Result> = (term: string) => Promise<Result[]>;

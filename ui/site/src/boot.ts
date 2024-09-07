@@ -15,6 +15,7 @@ import watchers from './watchers';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
+import { userComplete } from 'common/userComplete';
 
 export function boot() {
   $('#user_tag').removeAttr('href');
@@ -77,7 +78,7 @@ export function boot() {
     $('.user-autocomplete').each(function(this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () =>
-        site.asset.userComplete({
+        userComplete({
           input: this,
           friend: !!this.dataset.friend,
           tag: this.dataset.tag as any,
