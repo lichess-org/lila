@@ -132,12 +132,12 @@ type SoundListener = (event: 'start' | 'stop', text?: string) => void;
 
 interface SoundI {
   // file://./../../site/src/sound.ts
-  ctx?: AudioContext;
   listeners: Set<SoundListener>;
+  theme: string;
+  move: SoundMove;
   load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
-  move: SoundMove;
   countdown(count: number, intervalMs?: number): Promise<void>;
   getVolume(): number;
   setVolume(v: number): void;
@@ -147,7 +147,6 @@ interface SoundI {
   saySan(san?: San, cut?: boolean): void;
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
-  theme: string;
   url(name: string): string;
 }
 
