@@ -84,7 +84,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
       env.security
         .ip2proxy(ctx.ip)
         .flatMap: ip =>
-          if ip.in(_.empty, _.vpn) then f
+          if ip.isSafeish then f
           else Redirect(routes.Auth.login)
 
   private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
