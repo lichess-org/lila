@@ -20,6 +20,7 @@ import { playersView } from './relayPlayers';
 import { gameLinksListener } from '../studyChapters';
 import { copyMeInput } from 'common/copyMe';
 import { baseUrl } from '../../view/util';
+import { commonDateFormat, timeago } from 'common/i18n';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -89,13 +90,13 @@ export const tourSide = (ctx: RelayViewContext) => {
 const startCountdown = (relay: RelayCtrl) => {
   const round = relay.currentRound(),
     startsAt = defined(round.startsAt) && new Date(round.startsAt),
-    date = startsAt && h('time', site.dateFormat()(startsAt));
+    date = startsAt && h('time', commonDateFormat(startsAt));
   return h('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
     h('strong', round.name),
     ...(startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
         ? ['The broadcast will start very soon.', date]
-        : [h('strong', site.timeago(startsAt)), date]
+        : [h('strong', timeago(startsAt)), date]
       : ['The broadcast has not yet started.']),
   ]);
 };
@@ -244,7 +245,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
         h('span.relay-tour__round-select__name', round.name),
         h(
           'span.relay-tour__round-select__status',
-          icon || [round.startsAt ? site.timeago(round.startsAt) : undefined],
+          icon || [round.startsAt ? timeago(round.startsAt) : undefined],
         ),
       ]),
       ...(toggle()
@@ -276,7 +277,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                     h(
                       'td.time',
                       round.startsAt
-                        ? site.dateFormat()(new Date(round.startsAt))
+                        ? commonDateFormat(new Date(round.startsAt))
                         : round.startsAfterPrevious
                           ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
                           : '',
@@ -284,7 +285,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                     h(
                       'td.status',
                       roundStateIcon(round, false) ||
-                          (round.startsAt ? site.timeago(round.startsAt) : undefined),
+                          (round.startsAt ? timeago(round.startsAt) : undefined),
                     ),
                   ]),
                 ),

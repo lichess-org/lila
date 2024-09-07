@@ -1,7 +1,6 @@
 import * as licon from 'common/licon';
 import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'common/miniBoard';
 import { prefersLight } from 'common/theme';
-import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
 import announce from './announce';
 import OnlineFriends from './friends';
@@ -15,6 +14,7 @@ import { isIOS } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 import { userComplete } from 'common/userComplete';
+import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 
 export function boot() {
   $('#user_tag').removeAttr('href');
@@ -26,8 +26,8 @@ export function boot() {
     initMiniGames();
     pubsub.on('content-loaded', initMiniBoards);
     pubsub.on('content-loaded', initMiniGames);
-    timeago.updateRegularly(1000);
-    pubsub.on('content-loaded', timeago.findAndRender);
+    updateTimeAgo(1000);
+    pubsub.on('content-loaded', renderTimeAgo);
   });
   requestIdleCallback(() => {
     const friendsEl = document.getElementById('friend_box');

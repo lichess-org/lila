@@ -1,25 +1,3 @@
-function format(str: string, args: Array<string | number>): string {
-  if (args.length) {
-    if (str.includes('%s')) str = str.replace('%s', args[0] as string);
-    else for (let i = 0; i < args.length; i++) str = str.replace('%' + (i + 1) + '$s', args[i] as string);
-  }
-  return str;
-}
-
-function list<T>(str: string, args: T[]): Array<string | T> {
-  const segments: Array<string | T> = str.split(/(%(?:\d\$)?s)/g);
-  if (args.length) {
-    const singlePlaceholder = segments.indexOf('%s');
-    if (singlePlaceholder !== -1) segments[singlePlaceholder] = args[0];
-    else
-      for (let i = 0; i < args.length; i++) {
-        const placeholder = segments.indexOf('%' + (i + 1) + '$s');
-        if (placeholder !== -1) segments[placeholder] = args[i];
-      }
-  }
-  return segments;
-}
-
 export const trans = (i18n: I18nDict): Trans => {
   const trans: Trans = (key: I18nKey, ...args: Array<string | number>) => {
     const str = i18n[key];
@@ -49,3 +27,63 @@ export const trans = (i18n: I18nDict): Trans => {
   };
   return trans;
 };
+
+export const commonDateFormat: (d?: Date|number) => string = new Intl.DateTimeFormat(site.displayLocale, {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+}).format;
+
+export const timeago: (d: DateLike) => string =
+  (date: DateLike) => formatAgo((Date.now() - toDate(date).getTime()) / 1000);
+
+// format Date / string / timestamp to Date instance.
+export const toDate = (input: DateLike): Date =>
+  input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
+
+// format the diff second to *** time ago
+export const formatAgo = (seconds: number): string => {
+  const absSeconds = Math.abs(seconds);
+  const strIndex = seconds < 0 ? 1 : 0;
+  const unit = agoUnits.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
+  return site.trans.pluralSame(unit[strIndex]!, Math.floor(absSeconds / unit[2]));
+};
+
+type DateLike = Date | number | string;
+
+// past, future, divisor, at least
+const agoUnits: [string | undefined, string, number, number][] = [
+  ['nbYearsAgo', 'inNbYears', 60 * 60 * 24 * 365, 1],
+  ['nbMonthsAgo', 'inNbMonths', (60 * 60 * 24 * 365) / 12, 1],
+  ['nbWeeksAgo', 'inNbWeeks', 60 * 60 * 24 * 7, 1],
+  ['nbDaysAgo', 'inNbDays', 60 * 60 * 24, 2],
+  ['nbHoursAgo', 'inNbHours', 60 * 60, 1],
+  ['nbMinutesAgo', 'inNbMinutes', 60, 1],
+  [undefined, 'inNbSeconds', 1, 9],
+  ['rightNow', 'justNow', 1, 0],
+];
+
+function format(str: string, args: Array<string | number>): string {
+  if (args.length) {
+    if (str.includes('%s')) str = str.replace('%s', args[0] as string);
+    else for (let i = 0; i < args.length; i++) str = str.replace('%' + (i + 1) + '$s', args[i] as string);
+  }
+  return str;
+}
+
+function list<T>(str: string, args: T[]): Array<string | T> {
+  const segments: Array<string | T> = str.split(/(%(?:\d\$)?s)/g);
+  if (args.length) {
+    const singlePlaceholder = segments.indexOf('%s');
+    if (singlePlaceholder !== -1) segments[singlePlaceholder] = args[0];
+    else
+      for (let i = 0; i < args.length; i++) {
+        const placeholder = segments.indexOf('%' + (i + 1) + '$s');
+        if (placeholder !== -1) segments[placeholder] = args[i];
+      }
+  }
+  return segments;
+}
+

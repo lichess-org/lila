@@ -10,7 +10,6 @@ import { unload, redirect, reload } from './reload';
 import announce from './announce';
 import { trans } from 'common/i18n';
 import sound from './sound';
-import { format as timeago, formatter as dateFormat, displayLocale } from './timeago';
 import watchers from './watchers';
 import { Chessground } from 'chessground';
 
@@ -32,9 +31,11 @@ s.watchers = watchers;
 s.announce = announce;
 s.trans = trans(s.siteI18n);
 s.sound = sound;
-s.timeago = timeago;
-s.dateFormat = dateFormat;
-s.displayLocale = displayLocale;
+// for many users, using the islamic calendar is not practical on the internet
+// due to international context, so we make sure it's displayed using the gregorian calendar
+s.displayLocale = document.documentElement.lang.startsWith('ar-')
+  ? 'ar-ly'
+  : document.documentElement.lang;;
 s.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
 s.blindMode = document.body.classList.contains('blind-mode');
 s.makeChat = data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });

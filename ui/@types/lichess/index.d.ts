@@ -35,8 +35,6 @@ interface Site {
   announce(d: LichessAnnouncement): void;
   trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
-  timeago(date: number | Date): string;
-  dateFormat: () => (date: Date) => string;
   displayLocale: string;
   contentLoaded(parent?: HTMLElement): void;
   blindMode: boolean;

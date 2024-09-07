@@ -2,6 +2,7 @@ import { h } from 'snabbdom';
 import LobbyController from '../ctrl';
 import { NowPlaying } from '../interfaces';
 import { initMiniBoard } from 'common/miniBoard';
+import { timeago } from 'common/i18n';
 
 function timer(pov: NowPlaying) {
   const date = Date.now() + pov.secondsLeft! * 1000;
@@ -14,7 +15,7 @@ function timer(pov: NowPlaying) {
         },
       },
     },
-    site.timeago(date),
+    timeago(date),
   );
 }
 
