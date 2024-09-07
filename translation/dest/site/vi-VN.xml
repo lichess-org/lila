@@ -387,7 +387,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
     <item quantity="other">%s ván cờ đã nhập</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Đây là mã CAPTCHA cờ vua.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Nhấn vào bàn cờ để di chuyển và chứng minh bạn là con người.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Nhấn vào bàn cờ để di chuyển, và chứng minh bạn là con người.</string>
   <string name="captcha.fail">Hãy giải mã captcha cờ vua.</string>
   <string name="notACheckmate">Không phải là một nước chiếu hết</string>
   <string name="whiteCheckmatesInOneMove">Bên trắng hãy chiếu hết trong một nước đi</string>
