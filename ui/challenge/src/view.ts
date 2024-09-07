@@ -3,6 +3,7 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { userLink } from 'common/userLink';
+import { init as initMiniBoard } from 'common/miniBoard';
 import { opposite } from 'chessground/util';
 import ChallengeCtrl from './ctrl';
 
@@ -60,11 +61,7 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {
             attrs: { 'data-state': `${c.initialFen},${myColor}` },
-            hook: {
-              insert(vnode) {
-                site.miniBoard.init(vnode.elm as HTMLElement);
-              },
-            },
+            hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
           })
           : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),

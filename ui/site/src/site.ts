@@ -11,13 +11,12 @@ import { unload, redirect, reload } from './reload';
 import announce from './announce';
 import { trans } from 'common/i18n';
 import sound from './sound';
-import * as miniBoard from 'common/miniBoard';
 import * as miniGame from './miniGame';
 import { format as timeago, formatter as dateFormat, displayLocale } from './timeago';
 import watchers from './watchers';
 import { Chessground } from 'chessground';
 
-// window.site.{load, quantity, i18n} are initialized in layout.scala embedded script tags
+// s.load, s.quantity, s.i18n are initialized in layout.scala embedded script tags
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
@@ -36,7 +35,6 @@ s.watchers = watchers;
 s.announce = announce;
 s.trans = trans(s.siteI18n);
 s.sound = sound;
-s.miniBoard = miniBoard;
 s.miniGame = miniGame;
 s.timeago = timeago;
 s.dateFormat = dateFormat;

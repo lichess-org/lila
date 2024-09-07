@@ -36,11 +36,6 @@ interface Site {
   announce(d: LichessAnnouncement): void;
   trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
-  miniBoard: {
-    // file://./../../common/src/miniBoard.ts
-    init(node: HTMLElement): void;
-    initAll(parent?: HTMLElement): void;
-  };
   miniGame: {
     // file://./../../site/src/miniGame.ts
     init(node: HTMLElement): string | null;
@@ -57,7 +52,7 @@ interface Site {
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;
   log: LichessLog; // file://./../../site/src/log.ts
 
-  // the remaining are not set in site.lichess.globals.ts
+  // the following are not set in site.ts
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
   siteI18n: I18nDict;

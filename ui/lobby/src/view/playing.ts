@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
 import LobbyController from '../ctrl';
 import { NowPlaying } from '../interfaces';
+import { init as initMiniBoard } from 'common/miniBoard';
 
 function timer(pov: NowPlaying) {
   const date = Date.now() + pov.secondsLeft! * 1000;
@@ -24,11 +25,7 @@ export default function(ctrl: LobbyController) {
       h('a.' + pov.variant.key, { key: `${pov.gameId}${pov.lastMove}`, attrs: { href: '/' + pov.fullId } }, [
         h('span.mini-board.cg-wrap.is2d', {
           attrs: { 'data-state': `${pov.fen},${pov.orientation || pov.color},${pov.lastMove}` },
-          hook: {
-            insert(vnode) {
-              site.miniBoard.init(vnode.elm as HTMLElement);
-            },
-          },
+          hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
         }),
         h('span.meta', [
           pov.opponent.ai
