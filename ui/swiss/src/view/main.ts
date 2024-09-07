@@ -13,12 +13,13 @@ import podium from './podium';
 import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
 import { once } from 'common/storage';
+import { initMiniGames } from 'common/miniBoard';
 
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
   const content =
     d.status == 'created' ? created(ctrl) : d.status == 'started' ? started(ctrl) : finished(ctrl);
-  return h('main.' + ctrl.opts.classes, { hook: { postpatch: () => site.miniGame.initAll() } }, [
+  return h('main.' + ctrl.opts.classes, { hook: { postpatch: () => initMiniGames() } }, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);

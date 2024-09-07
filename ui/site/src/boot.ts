@@ -1,7 +1,6 @@
 import * as licon from 'common/licon';
-import { initMiniBoards } from 'common/miniBoard';
+import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'common/miniBoard';
 import { prefersLight } from 'common/theme';
-import * as miniGame from './miniGame';
 import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
 import announce from './announce';
@@ -24,9 +23,9 @@ export function boot() {
 
   requestAnimationFrame(() => {
     initMiniBoards();
-    miniGame.initAll();
+    initMiniGames();
     pubsub.on('content-loaded', initMiniBoards);
-    pubsub.on('content-loaded', miniGame.initAll);
+    pubsub.on('content-loaded', initMiniGames);
     timeago.updateRegularly(1000);
     pubsub.on('content-loaded', timeago.findAndRender);
   });
@@ -141,12 +140,12 @@ export function boot() {
       site.redirect(d);
     });
     pubsub.on('socket.in.fen', e =>
-      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e)),
+      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => updateMiniGame(el, e)),
     );
     pubsub.on('socket.in.finish', e =>
       document
         .querySelectorAll('.mini-game-' + e.id)
-        .forEach((el: HTMLElement) => miniGame.finish(el, e.win)),
+        .forEach((el: HTMLElement) => finishMiniGame(el, e.win)),
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {

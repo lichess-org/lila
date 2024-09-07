@@ -35,13 +35,6 @@ interface Site {
   announce(d: LichessAnnouncement): void;
   trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
-  miniGame: {
-    // file://./../../site/src/miniGame.ts
-    init(node: HTMLElement): string | null;
-    initAll(parent?: HTMLElement): void;
-    update(node: HTMLElement, data: MiniGameUpdateData): void;
-    finish(node: HTMLElement, win?: Color): void;
-  };
   timeago(date: number | Date): string;
   dateFormat: () => (date: Date) => string;
   displayLocale: string;
@@ -287,13 +280,6 @@ interface Paginator<A> {
 interface EvalScore {
   cp?: number;
   mate?: number;
-}
-
-interface MiniGameUpdateData {
-  fen: Cg.FEN;
-  lm: Uci;
-  wc?: number;
-  bc?: number;
 }
 
 interface CashStatic {
