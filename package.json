@@ -23,7 +23,8 @@
     "pnpm": "^9"
   },
   "lint-staged": {
-    "*.{js,ts,md,json,scss}": "prettier --write"
+    "*.{json,scss}": "prettier --write",
+    "*.ts": "eslint --fix"
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
