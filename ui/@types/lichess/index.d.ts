@@ -13,7 +13,6 @@ interface Site {
   mousetrap: LichessMousetrap; // file://./../../site/src/mousetrap.ts
   sri: string;
   powertip: LichessPowertip; // file://./../../site/src/powertip.ts
-  clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   asset: {
     // file://./../../site/src/asset.ts

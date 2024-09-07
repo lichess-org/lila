@@ -2,8 +2,7 @@ import { uciToMove } from 'chessground/util';
 import { fenColor } from 'common/miniBoard';
 import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
-import clockWidget from './clockWidget';
-import { lichessClockIsRunning } from 'common/clock';
+import { lichessClockIsRunning, setClockWidget } from 'common/clock';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {
   const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
@@ -30,7 +29,7 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
 
   ['white', 'black'].forEach((color: Color) =>
     $el.find('.mini-game__clock--' + color).each(function(this: HTMLElement) {
-      clockWidget(this, {
+      setClockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
         pause: color != turnColor || !lichessClockIsRunning(fen, color),
       });
@@ -58,7 +57,7 @@ export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
   const updateClock = (time: number | undefined, color: Color) => {
     const clockEl = node?.querySelector('.mini-game__clock--' + color) as HTMLElement;
     if (clockEl && !isNaN(time!))
-      clockWidget(clockEl, {
+      setClockWidget(clockEl, {
         time: time!,
         pause: color != turnColor || !lichessClockIsRunning(data.fen, color),
       });

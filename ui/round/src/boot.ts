@@ -7,6 +7,7 @@ import RoundController from './ctrl';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
 import StrongSocket from 'common/socket';
 import { storage } from 'common/storage';
+import { setClockWidget } from 'common/clock';
 
 interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
@@ -63,7 +64,7 @@ export default async function(
   const startTournamentClock = () => {
     if (data.tournament)
       $('.game__tournament .clock').each(function(this: HTMLElement) {
-        site.clockWidget(this, {
+        setClockWidget(this, {
           time: parseFloat(this.dataset.time!),
         });
       });
