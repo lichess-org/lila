@@ -31,7 +31,6 @@ site.announce = announce;
 site.trans = trans(site.siteI18n);
 site.displayLocale = displayLocale;
 site.sound = sound;
-site.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
 site.blindMode = document.body.classList.contains('blind-mode');
 site.makeChat = 
   data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });

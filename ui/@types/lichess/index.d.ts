@@ -13,7 +13,6 @@ interface Site {
   mousetrap: LichessMousetrap; // file://./../../site/src/mousetrap.ts
   sri: string;
   powertip: LichessPowertip; // file://./../../site/src/powertip.ts
-  //spinnerHtml: string;
   asset: {
     // file://./../../site/src/asset.ts
     baseUrl(): string;
@@ -36,7 +35,6 @@ interface Site {
   trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
   displayLocale: string;
-  contentLoaded(parent?: HTMLElement): void;
   blindMode: boolean;
   makeChat(data: any): any;
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;

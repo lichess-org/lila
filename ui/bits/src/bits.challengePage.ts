@@ -18,7 +18,7 @@ export function initModule(opts: ChallengeOpts): void {
         xhr.text(opts.xhrUrl).then(html => {
           $(selector).replaceWith($(html).find(selector));
           init();
-          site.contentLoaded($(selector)[0]);
+          site.pubsub.emit('content-loaded', $(selector)[0]);
         });
       },
     },

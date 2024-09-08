@@ -13,7 +13,7 @@ const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el
   xhr.text(url + '/mini').then(html => {
     const el = document.getElementById(id) as HTMLElement;
     el.innerHTML = html;
-    site.contentLoaded(el);
+    site.pubsub.emit('content-loaded', el);
   });
 };
 

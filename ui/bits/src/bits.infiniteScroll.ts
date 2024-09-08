@@ -36,7 +36,7 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
           nav.remove();
           $(el).append(($(html).is(selector) ? $(html) : $(html).find(selector)).html());
           dedupEntries(el);
-          site.contentLoaded(el);
+          site.pubsub.emit('content-loaded', el);
           setTimeout(() => register(el, selector, backoff * 1.05), backoff); // recursion with backoff
         },
         e => {

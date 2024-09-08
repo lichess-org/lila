@@ -156,7 +156,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           {
             hook: {
               insert() {
-                site.contentLoaded();
+                site.pubsub.emit('content-loaded');
               },
             },
           },
