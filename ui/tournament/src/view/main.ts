@@ -5,6 +5,7 @@ import * as started from './started';
 import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import TournamentController from '../ctrl';
+import { watchers } from 'common/watchers';
 
 export default function(ctrl: TournamentController) {
   let handler: {
@@ -35,7 +36,7 @@ export default function(ctrl: TournamentController) {
         handler.main(ctrl),
       ),
     ),
-    ctrl.opts.chat ? h('div.chat__members.none', { hook: onInsert(site.watchers) }) : null,
+    ctrl.opts.chat ? h('div.chat__members.none', { hook: onInsert(watchers) }) : null,
     ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null,
   ]);
 }

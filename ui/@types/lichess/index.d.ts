@@ -30,11 +30,10 @@ interface Site {
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(err?: any): void;
-  watchers(el: HTMLElement): void;
   announce(d: LichessAnnouncement): void;
   trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
-  displayLocale: string;
+  displayLocale: string; // file://./../../common/src/i18n.ts
   blindMode: boolean;
   makeChat(data: any): any;
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;

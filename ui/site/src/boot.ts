@@ -9,7 +9,7 @@ import pubsub from './pubsub';
 import serviceWorker from './serviceWorker';
 import StrongSocket from 'common/socket';
 import topBar from './topBar';
-import watchers from './watchers';
+import { watchers } from 'common/watchers';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';

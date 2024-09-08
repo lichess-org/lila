@@ -21,6 +21,7 @@ import { gameLinksListener } from '../studyChapters';
 import { copyMeInput } from 'common/copyMe';
 import { baseUrl } from '../../view/util';
 import { commonDateFormat, timeago } from 'common/i18n';
+import { watchers } from 'common/watchers';
 
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
@@ -80,7 +81,7 @@ export const tourSide = (ctx: RelayViewContext) => {
         h('div.chat__members', {
           hook: onInsert(el => {
             makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-            site.watchers(el);
+            watchers(el);
           }),
         }),
     ],

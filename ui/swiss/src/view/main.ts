@@ -14,6 +14,7 @@ import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
 import { once } from 'common/storage';
 import { initMiniGames } from 'common/miniBoard';
+import { watchers } from 'common/watchers';
 
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -31,7 +32,7 @@ export default function(ctrl: SwissCtrl) {
     }),
     playerInfo(ctrl) || stats(ctrl) || boards.top(d.boards, ctrl.opts),
     h('div.swiss__main', [h('div.box.swiss__main-' + d.status, content), boards.many(d.boards, ctrl.opts)]),
-    ctrl.opts.chat && h('div.chat__members.none', { hook: onInsert(site.watchers) }),
+    ctrl.opts.chat && h('div.chat__members.none', { hook: onInsert(watchers) }),
   ]);
 }
 
