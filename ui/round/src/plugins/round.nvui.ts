@@ -33,6 +33,7 @@ import {
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
+import { Chessground as makeChessground } from 'chessground';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -71,7 +72,7 @@ export function initModule(): NvuiPlugin {
           'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
-          site.makeChessground(document.createElement('div'), {
+          makeChessground(document.createElement('div'), {
             ...makeCgConfig(ctrl),
             animation: { enabled: false },
             drawable: { enabled: false },

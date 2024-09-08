@@ -2,6 +2,7 @@ import { Config as CgConfig } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
 import { RunCtrl } from './run/runCtrl';
 import * as Prefs from 'common/prefs';
+import { Chessground as makeChessground } from 'chessground';
 
 export interface Shape {
   orig: Key;
@@ -20,7 +21,7 @@ export default function(ctrl: RunCtrl): VNode {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
         el.addEventListener('contextmenu', e => e.preventDefault());
-        ctrl.setChessground(site.makeChessground(el, makeConfig(ctrl)));
+        ctrl.setChessground(makeChessground(el, makeConfig(ctrl)));
       },
       destroy: () => ctrl.chessground?.destroy(),
     },

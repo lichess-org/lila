@@ -2,7 +2,7 @@ import { h, VNode } from 'snabbdom';
 import * as domData from './data';
 import { lichessClockIsRunning, setClockWidget } from './clock';
 import { uciToMove } from 'chessground/util';
-import { type Chessground } from 'chessground';
+import { Chessground as makeChessground } from 'chessground';
 
 export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
@@ -13,7 +13,7 @@ export const initMiniBoardWith = (node: HTMLElement, fen: string, orientation: C
   domData.set(
     node,
     'chessground',
-    site.makeChessground(node, {
+    makeChessground(node, {
       orientation,
       coordinates: false,
       viewOnly: !node.getAttribute('data-playable'),
@@ -40,7 +40,7 @@ export const renderClock = (color: Color, time: number): VNode =>
     attrs: { 'data-time': time, 'data-managed': 1 },
   });
 
-export const initMiniGame = (node: Element, withCg?: typeof Chessground): string | null => {
+export const initMiniGame = (node: Element, withCg?: typeof makeChessground): string | null => {
   const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
     config = {
       coordinates: false,
@@ -60,7 +60,7 @@ export const initMiniGame = (node: Element, withCg?: typeof Chessground): string
   domData.set(
     $cg[0] as Element,
     'chessground',
-    (withCg ?? site.makeChessground)($cg[0] as HTMLElement, config),
+    (withCg ?? makeChessground)($cg[0] as HTMLElement, config),
   );
 
   ['white', 'black'].forEach((color: Color) =>

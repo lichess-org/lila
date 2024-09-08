@@ -9,7 +9,7 @@ import { unload, redirect, reload } from './reload';
 import announce from './announce';
 import { trans, displayLocale } from 'common/i18n';
 import sound from './sound';
-import { Chessground } from 'chessground';
+//import { Chessground } from 'chessground';
 
 const site = window.site;
 // site.load, site.quantity, site.siteI18n are initialized in layout.scala embedded script tags
@@ -29,6 +29,6 @@ site.reload = reload;
 site.announce = announce;
 site.trans = trans(site.siteI18n);
 site.sound = sound;
-site.makeChessground = (element: HTMLElement, config?: CgConfig) => Chessground(element, config);
+//site.makeChessground = (element: HTMLElement, config?: CgConfig) => Chessground(element, config);
 site.log = makeLog();
 site.load.then(boot);

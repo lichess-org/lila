@@ -44,6 +44,7 @@ import { opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from '../util';
+import { Chessground as makeChessground } from 'chessground';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -71,7 +72,7 @@ export function initModule(ctrl: AnalyseController) {
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.chessground)
-        ctrl.chessground = site.makeChessground(document.createElement('div'), {
+        ctrl.chessground = makeChessground(document.createElement('div'), {
           ...makeCgConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },

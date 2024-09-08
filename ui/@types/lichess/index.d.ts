@@ -35,7 +35,7 @@ interface Site {
   sound: SoundI; // file://./../../site/src/sound.ts
   displayLocale: string; // file://./../../common/src/i18n.ts
   blindMode: boolean;
-  makeChessground(el: HTMLElement, config: CgConfig): CgApi;
+  //makeChessground(el: HTMLElement, config: CgConfig): CgApi;
   log: LichessLog; // file://./../../site/src/log.ts
 
   // the following are not set in site.ts

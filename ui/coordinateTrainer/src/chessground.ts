@@ -3,13 +3,14 @@ import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
 import resizeHandle from 'common/resize';
 import CoordinateTrainerCtrl from './ctrl';
+import { Chessground as makeChessground } from 'chessground';
 
 export default function(ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.chessground = site.makeChessground(el, makeConfig(ctrl));
+        ctrl.chessground = makeChessground(el, makeConfig(ctrl));
         site.pubsub.on('board.change', (is3d: boolean) => {
           ctrl.chessground!.state.addPieceZIndex = is3d;
           ctrl.chessground!.redrawAll();

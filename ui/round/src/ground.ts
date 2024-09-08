@@ -8,6 +8,7 @@ import { RoundData } from './interfaces';
 import { uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { storage } from 'common/storage';
+import { Chessground as makeChessground } from 'chessground';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -104,5 +105,5 @@ export const boardOrientation = (data: RoundData, flip: boolean): Color =>
 
 export const render = (ctrl: RoundController): VNode =>
   h('div.cg-wrap', {
-    hook: util.onInsert(el => ctrl.setChessground(site.makeChessground(el, makeConfig(ctrl)))),
+    hook: util.onInsert(el => ctrl.setChessground(makeChessground(el, makeConfig(ctrl)))),
   });
