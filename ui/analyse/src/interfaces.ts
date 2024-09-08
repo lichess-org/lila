@@ -157,7 +157,7 @@ export interface AnalyseOpts {
   i18n: I18nDict;
   chat: {
     enhance: EnhanceOpts;
-    instance?: Promise<ChatCtrl>;
+    instance?: ChatCtrl;
   };
   wiki?: boolean;
   inlinePgn?: string;

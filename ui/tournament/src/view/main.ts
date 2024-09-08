@@ -6,6 +6,7 @@ import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
 import TournamentController from '../ctrl';
 import { watchers } from 'common/watchers';
+import { makeChat } from 'chat';
 
 export default function(ctrl: TournamentController) {
   let handler: {
@@ -21,7 +22,7 @@ export default function(ctrl: TournamentController) {
     h('aside.tour__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && site.makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && makeChat(ctrl.opts.chat);
       }),
     }),
     h('div.tour__underchat', {

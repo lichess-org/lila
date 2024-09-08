@@ -15,6 +15,7 @@ import flatpickr from 'flatpickr';
 import { once } from 'common/storage';
 import { initMiniGames } from 'common/miniBoard';
 import { watchers } from 'common/watchers';
+import { makeChat } from 'chat';
 
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -24,7 +25,7 @@ export default function(ctrl: SwissCtrl) {
     h('aside.swiss__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && site.makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && makeChat(ctrl.opts.chat);
       }),
     }),
     h('div.swiss__underchat', {

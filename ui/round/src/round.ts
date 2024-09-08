@@ -5,12 +5,12 @@ import RoundController from './ctrl';
 import { main as view } from './view/main';
 import * as xhr from 'common/xhr';
 import MoveOn from './moveOn';
-import { ChatCtrl } from 'chat';
 import { TourPlayer } from 'game';
 import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
 import StrongSocket from 'common/socket';
 import { storage } from 'common/storage';
 import { setClockWidget } from 'common/clock';
+import { makeChat } from 'chat';
 
 const patch = init([classModule, attributesModule]);
 
@@ -77,11 +77,11 @@ async function boot(
         });
       },
       tourStanding(s: TourPlayer[]) {
-        opts.chat?.plugin &&
-          opts.chat?.instance?.then(chat => {
-            (opts.chat!.plugin as TourStandingCtrl).set(s);
-            chat.redraw();
-          });
+        const chat = opts.chat?.plugin && opts.chat?.instance;
+        if (chat) {
+          (opts.chat!.plugin as TourStandingCtrl).set(s);
+          chat.redraw();
+        }
       },
     },
   });
@@ -113,10 +113,10 @@ async function boot(
       chatOpts.enhance = { plies: true };
     }
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
-    chatOpts.instance = site.makeChat(chatOpts) as Promise<ChatCtrl>;
+    chatOpts.instance = makeChat(chatOpts);
     if (!data.tournament && !data.simul && !data.swiss)
       opts.onChange = (d: RoundData) =>
-        chatOpts.instance!.then(chat => chat.preset.setGroup(getPresetGroup(d)));
+        chatOpts.instance!.preset.setGroup(getPresetGroup(d));
   }
   startTournamentClock();
   $('.round__now-playing .move-on input')

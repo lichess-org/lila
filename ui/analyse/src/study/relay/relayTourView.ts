@@ -12,7 +12,7 @@ import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
-import { makeChat, type RelayViewContext } from '../../view/components';
+import { makeChatEl, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { renderVideoPlayer } from './videoPlayer';
@@ -80,7 +80,7 @@ export const tourSide = (ctx: RelayViewContext) => {
       !ctrl.isEmbed &&
         h('div.chat__members', {
           hook: onInsert(el => {
-            makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
+            makeChatEl(ctrl, chat => el.parentNode!.insertBefore(chat, el));
             watchers(el);
           }),
         }),

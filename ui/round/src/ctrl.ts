@@ -565,7 +565,7 @@ export default class RoundController implements MoveRootCtrl {
         !d.swiss &&
         storage.boolean('courtesy').get()
       )
-        this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
+        this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
     if (d.crazyhouse) crazyEndHook();

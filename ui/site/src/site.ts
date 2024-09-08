@@ -16,7 +16,6 @@ const site = window.site;
 // site.manifest is fetched immediately from the server
 // site.info, site.debug are populated by ui/build
 // site.socket, site.quietMode, site.analysis are set elsewhere but available here
-
 site.sri = randomToken();
 site.displayLocale = displayLocale;
 site.blindMode = document.body.classList.contains('blind-mode');
@@ -30,8 +29,6 @@ site.reload = reload;
 site.announce = announce;
 site.trans = trans(site.siteI18n);
 site.sound = sound;
-site.makeChat = 
-  data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
 site.makeChessground = (element: HTMLElement, config?: CgConfig) => Chessground(element, config);
 site.log = makeLog();
 site.load.then(boot);

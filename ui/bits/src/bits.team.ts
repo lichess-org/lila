@@ -1,6 +1,7 @@
 import * as xhr from 'common/xhr';
 import flairPickerLoader from './exports/flairPicker';
 import StrongSocket from 'common/socket';
+import { makeChat } from 'chat';
 
 interface TeamOpts {
   id: string;
@@ -11,7 +12,7 @@ interface TeamOpts {
 export function initModule(opts: TeamOpts): void {
   site.socket = new StrongSocket('/team/' + opts.id, opts.socketVersion);
 
-  if (opts.chat) site.makeChat(opts.chat);
+  if (opts.chat) makeChat(opts.chat);
 
   $('#team-subscribe').on('change', function(this: HTMLInputElement) {
     $(this)
