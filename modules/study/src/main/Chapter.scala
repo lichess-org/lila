@@ -31,6 +31,8 @@ case class Chapter(
 
   import Chapter.BothClocks
 
+  override def toString = s"Chapter $id $name"
+
   def updateDenorm: Chapter =
     val looksLikeGame = tags.names.exists(_.isDefined) || tags.outcome.isDefined
     val newDenorm = looksLikeGame.option:
