@@ -539,6 +539,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="descPrivateHelp">Il testo che solo i membri del team vedranno. Se impostato sostituisce la descrizione pubblica per i membri del team.</string>
   <string name="no">No</string>
   <string name="yes">Sì</string>
+  <string name="website">Sito</string>
+  <string name="mobile">Cellulare</string>
   <string name="help">Aiuto:</string>
   <string name="createANewTopic">Crea una nuova discussione</string>
   <string name="topics">Discussioni</string>
