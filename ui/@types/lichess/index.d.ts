@@ -13,7 +13,7 @@ interface Site {
   mousetrap: LichessMousetrap; // file://./../../site/src/mousetrap.ts
   sri: string;
   powertip: LichessPowertip; // file://./../../site/src/powertip.ts
-  spinnerHtml: string;
+  //spinnerHtml: string;
   asset: {
     // file://./../../site/src/asset.ts
     baseUrl(): string;

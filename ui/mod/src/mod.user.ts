@@ -4,6 +4,7 @@ import * as licon from 'common/licon';
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
+import { spinnerHtml } from 'common/spinner';
 
 site.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
@@ -27,7 +28,7 @@ site.load.then(() => {
   }
 
   function loadZone() {
-    $zone.html(site.spinnerHtml).removeClass('none');
+    $zone.html(spinnerHtml).removeClass('none');
     $('#main-wrap').addClass('full-screen-force');
     $zone.html('');
     streamLoad();

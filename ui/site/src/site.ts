@@ -1,6 +1,5 @@
 import { boot } from './boot';
 import Mousetrap from './mousetrap';
-import { spinnerHtml } from 'common/spinner';
 import { randomToken } from 'common/algo';
 import powertip from './powertip';
 import * as assets from './asset';
@@ -13,26 +12,29 @@ import sound from './sound';
 import watchers from './watchers';
 import { Chessground } from 'chessground';
 
-const s = window.site;
-// s.load, s.quantity, s.siteI18n are initialized in layout.scala embedded script tags
+const site = window.site;
+// site.load, site.quantity, site.siteI18n are initialized in layout.scala embedded script tags
+// site.manifest is fetched from the server and available from site
+// site.info, site.debug are built in the ui/build process
+// site.socket, site.quietMode, site.analysis are set elsewhere and available from site
 
-s.mousetrap = new Mousetrap(document);
-s.sri = randomToken();
-s.powertip = powertip;
-s.spinnerHtml = spinnerHtml;
-s.asset = assets;
-s.pubsub = pubsub;
-s.unload = unload;
-s.redirect = redirect;
-s.reload = reload;
-s.watchers = watchers;
-s.announce = announce;
-s.trans = trans(s.siteI18n);
-s.displayLocale = displayLocale;
-s.sound = sound;
-s.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
-s.blindMode = document.body.classList.contains('blind-mode');
-s.makeChat = data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
-s.makeChessground = (element: HTMLElement, config?: CgConfig) => Chessground(element, config);
-s.log = makeLog();
-s.load.then(boot);
+site.mousetrap = new Mousetrap(document);
+site.sri = randomToken();
+site.powertip = powertip;
+site.asset = assets;
+site.pubsub = pubsub;
+site.unload = unload;
+site.redirect = redirect;
+site.reload = reload;
+site.watchers = watchers;
+site.announce = announce;
+site.trans = trans(site.siteI18n);
+site.displayLocale = displayLocale;
+site.sound = sound;
+site.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
+site.blindMode = document.body.classList.contains('blind-mode');
+site.makeChat = 
+  data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
+site.makeChessground = (element: HTMLElement, config?: CgConfig) => Chessground(element, config);
+site.log = makeLog();
+site.load.then(boot);

@@ -1,6 +1,7 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { requestIdleCallback, $as } from 'common';
+import { spinnerHtml } from 'common/spinner';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
 
@@ -43,7 +44,7 @@ const gamePowertip = (el: HTMLElement) =>
   $(el)
     .removeClass('glpt')
     .powerTip({
-      preRender: onPowertipPreRender('miniGame', () => site.spinnerHtml),
+      preRender: onPowertipPreRender('miniGame', () => spinnerHtml),
       placement: inCrosstable(el) ? 'n' : 'w',
       popupId: 'miniGame',
     });
