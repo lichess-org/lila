@@ -1,5 +1,7 @@
-import { objectStorage, ObjectStorage, DbInfo } from 'common/objectStorage';
-import { alert } from 'common/dialog';
+import { objectStorage, ObjectStorage, DbInfo } from './objectStorage';
+import { alert } from './dialog';
+
+export const log: LichessLog = makeLog();
 
 const dbInfo: DbInfo = {
   db: 'log--db',
@@ -10,7 +12,13 @@ const dbInfo: DbInfo = {
 
 const defaultLogWindow = 100;
 
-export default function makeLog(): LichessLog {
+interface LichessLog {
+  (...args: any[]): Promise<void>;
+  clear(): Promise<void>;
+  get(): Promise<string>;
+}
+
+function makeLog(): LichessLog {
   let store: ObjectStorage<string, number>;
   let resolveReady: () => void;
   let lastKey = 0;

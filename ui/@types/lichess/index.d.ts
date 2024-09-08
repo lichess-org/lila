@@ -35,8 +35,6 @@ interface Site {
   sound: SoundI; // file://./../../site/src/sound.ts
   displayLocale: string; // file://./../../common/src/i18n.ts
   blindMode: boolean;
-  //makeChessground(el: HTMLElement, config: CgConfig): CgApi;
-  log: LichessLog; // file://./../../site/src/log.ts
 
   // the following are not set in site.ts
   load: Promise<void>; // DOMContentLoaded promise
@@ -51,12 +49,6 @@ interface Site {
 interface EsmModuleOpts extends AssetUrlOpts {
   init?: any;
   npm?: boolean;
-}
-
-interface LichessLog {
-  (...args: any[]): Promise<void>;
-  clear(): Promise<void>;
-  get(): Promise<string>;
 }
 
 type PairOf<T> = [T, T];
