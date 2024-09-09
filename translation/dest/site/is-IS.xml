@@ -162,7 +162,7 @@
   <string name="logOut">Skrá út</string>
   <string name="signIn">Skrá inn</string>
   <string name="youNeedAnAccountToDoThat">Þú þarft aðgang til að geta þetta</string>
-  <string name="signUp">Sækja um</string>
+  <string name="signUp">Nýskráning</string>
   <string name="computersAreNotAllowedToPlay">Skákforrit eða skákmenn sem nota aðstoð skákforrita mega ekki tefla. Vinsamlegast fáðu ekki hjálp frá skákforritum, gagnagrunnum eða öðrum spilurum meðan þú teflir. Mundu líka að við mælum sérstaklega á móti að búa til marga reikninga og sköpun of margra reikninga verður að banni.</string>
   <string name="games">Skákir</string>
   <string name="forum">Umræðukorkur</string>
@@ -483,7 +483,7 @@
   <string name="onlinePlayers">Tengdir notendur</string>
   <string name="activePlayers">Virkir notendur</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Varúð, leikurinn gildir til stiga, en er án klukku!</string>
-  <string name="success">Árangur</string>
+  <string name="success">Tókst</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s skák í gangi</item>
     <item quantity="other">%s skákir í gangi</item>
@@ -530,7 +530,7 @@
   <string name="newPasswordAgain">Nýtt lykilorð (aftur)</string>
   <string name="newPasswordStrength">Styrkur aðgangsorðsins</string>
   <string name="clockIncrement">Viðbótartími</string>
-  <string name="privacy">Einkamál</string>
+  <string name="privacy">Persónuvernd</string>
   <string name="letOtherPlayersFollowYou">Leyfa öðrum að fylgjast með þér</string>
   <string name="letOtherPlayersChallengeYou">Leyfa öðrum að skora á þig</string>
   <string name="sound">Hljóð</string>
@@ -568,6 +568,7 @@
   <string name="clock">Tími</string>
   <string name="opponent">Andstæðingur</string>
   <string name="learnMenu">Læra</string>
+  <string name="studyMenu">Læra</string>
   <string name="practice">Æfa</string>
   <string name="community">Samfélag</string>
   <string name="tools">Gögn</string>
@@ -614,7 +615,7 @@
   <string name="aboutSimulRealLife">Þessi hugmynd er fengin úr raunheimum. Þar myndi skákmaðurinn ganga frá borði til borð og leika einn leik í einu.</string>
   <string name="aboutSimulRules">Þegar hópskák hefst byrjar hver leikmaður leik við gestgjafann, sem fær að leika hvítt. Hópskákinni lýkur þegar allir leikir hafa klárast.</string>
   <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Endurleikir, afturkallanir og aukatími eru óvirk.</string>
-  <string name="create">Opna</string>
+  <string name="create">Búa til</string>
   <string name="whenCreateSimul">Þegar þú stofnar til hópskákar spilarðu við marga leikmeinn í einu.</string>
   <string name="simulVariantsHint">Ef þú velur nokkur afbrigði fær hver andstæðingur að ákveða hvert þeirra hann vill leika.</string>
   <string name="simulClockHint">Uppsetning á Fischer-klukku. Því fleiri andstæðinga sem þú teflir við, því meiri tíma gætirðu þurft.</string>
@@ -747,8 +748,8 @@
   <string name="doneReviewingWhiteMistakes">Yfirferð mistaka hvíts lokið</string>
   <string name="doneReviewingBlackMistakes">Yfirferð mistaka svarts lokið</string>
   <string name="doItAgain">Gera aftur</string>
-  <string name="reviewWhiteMistakes">Skoða mistök hvítrar</string>
-  <string name="reviewBlackMistakes">Skoða mistök svartrar</string>
+  <string name="reviewWhiteMistakes">Skoða mistök hvíts</string>
+  <string name="reviewBlackMistakes">Skoða mistök svarts</string>
   <string name="advantage">Yfirhönd</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s sekúnda</item>
@@ -767,6 +768,7 @@
   <string name="thankYouForReading">Takk fyrir að lesa!</string>
   <string name="agreementAssistance">Ég samþykki að ég mun alls ekki fá hjálp á meðan ég tefli (frá skákforriti, skákbók, gagnagrunni eða annari manneskju).</string>
   <string name="agreementNice">Ég samþykki að ég muni alltaf koma vel fram við aðra leikmenn.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Ég er samþykk/ur því að ég muni ekki stofna marga reikninga (nema af þeim ástæðum sem tilgreindar eru í %s).</string>
   <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>

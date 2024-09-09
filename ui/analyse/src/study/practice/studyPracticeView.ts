@@ -6,8 +6,9 @@ import { toggle } from 'common/controls';
 import { richHTML } from 'common/richText';
 import { option, plural } from '../../view/util';
 import { view as descView } from '../description';
-import { StudyPracticeCtrl, StudyPracticeData } from './interfaces';
+import { StudyPracticeData } from './interfaces';
 import StudyCtrl from '../studyCtrl';
+import StudyPracticeCtrl from './studyPracticeCtrl';
 
 const selector = (data: StudyPracticeData) =>
   h(

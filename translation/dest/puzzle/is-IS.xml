@@ -17,7 +17,7 @@
   <string name="goodMove">Góður leikur</string>
   <string name="bestMove">Besti leikurinn!</string>
   <string name="keepGoing">Haltu áfram…</string>
-  <string name="puzzleSuccess">Árangur!</string>
+  <string name="puzzleSuccess">Tókst!</string>
   <string name="puzzleComplete">Þraut leyst!</string>
   <string name="notTheMove">Þetta er ekki leikurinn!</string>
   <string name="trySomethingElse">Reyndu eitthvað annað.</string>

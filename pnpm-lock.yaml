@@ -151,6 +151,9 @@ importers:
       '@toast-ui/editor':
         specifier: 3.1.7
         version: 3.1.7
+      '@types/canvas-confetti':
+        specifier: ^1.6.4
+        version: 1.6.4
       '@types/debounce-promise':
         specifier: ^3.1.6
         version: 3.1.9
@@ -169,6 +172,9 @@ importers:
       '@yaireo/tagify':
         specifier: 4.17.9
         version: 4.17.9(prop-types@15.8.1)
+      canvas-confetti:
+        specifier: ^1.9.3
+        version: 1.9.3
       chat:
         specifier: workspace:*
         version: link:../chat
@@ -236,8 +242,8 @@ importers:
         specifier: ^6.2.1
         version: 6.2.1
       lila-stockfish-web:
-        specifier: 0.0.4
-        version: 0.0.4
+        specifier: ^0.0.6
+        version: 0.0.6
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
@@ -1142,6 +1148,9 @@ packages:
   '@types/audioworklet@0.0.54':
     resolution: {integrity: sha512-WR1XcwT2LhCaUiKDDgHdTjrVjoBZnTz6FhszeIKgY9i2UYfIRKtnNvqToUDnbCPXBpVuu4Qo5+mMJt+wDphRew==}
 
+  '@types/canvas-confetti@1.6.4':
+    resolution: {integrity: sha512-fNyZ/Fdw/Y92X0vv7B+BD6ysHL4xVU5dJcgzgxLdGbn8O3PezZNIJpml44lKM0nsGur+o/6+NZbZeNTt00U1uA==}
+
   '@types/debounce-promise@3.1.9':
     resolution: {integrity: sha512-awNxydYSU+E2vL7EiOAMtiSOfL5gUM5X4YSE2A92qpxDJQ/rXz6oMPYBFDcDywlUmvIDI6zsqgq17cGm5CITQw==}
 
@@ -1363,6 +1372,9 @@ packages:
   camelcase@5.3.1:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
+
+  canvas-confetti@1.9.3:
+    resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
 
   chai@5.1.1:
     resolution: {integrity: sha512-pT1ZgP8rPNqUgieVaEY+ryQr6Q4HXNg8Ei9UnLUrjN4IA7dvQC5JB+/kxVcPNDHyBcc/26CXPkbNzq3qwrOEKA==}
@@ -1811,8 +1823,8 @@ packages:
   lichess-pgn-viewer@2.1.0:
     resolution: {integrity: sha512-mWr/OtdB4D55ZUvZvIvcE3jjhghrAmqgqlOTLLP2U48eMi6wqAbA9sae8mQajg4tDJuN5yNQuvxiJaFXTeiYuw==}
 
-  lila-stockfish-web@0.0.4:
-    resolution: {integrity: sha512-Uk1wxRge5dqJHcVI+FxELL1E3djMzJKX6f38Dsi6OP51yIXyVN0ZxI8N1s7L6H/2SWpbIDzLpmw0ly5wqoy+cQ==}
+  lila-stockfish-web@0.0.6:
+    resolution: {integrity: sha512-hRG68Qe29zN3J9SIguyk8BvK1Y+225OsK5/eq2FkT6A3DRd/MpYiGjiX2Xgjrl8G2iGI49wh5n83739ajdV46A==}
 
   lilconfig@3.1.2:
     resolution: {integrity: sha512-eop+wDAvpItUys0FWkHIKeC9ybYrTGbU41U5K7+bttZZeohvnY7M9dZ5kB21GNWiFT2q1OoPTvncPCgSOVO5ow==}
@@ -2756,6 +2768,8 @@ snapshots:
 
   '@types/audioworklet@0.0.54': {}
 
+  '@types/canvas-confetti@1.6.4': {}
+
   '@types/debounce-promise@3.1.9': {}
 
   '@types/dragscroll@0.0.0': {}
@@ -3002,6 +3016,8 @@ snapshots:
   callsites@3.1.0: {}
 
   camelcase@5.3.1: {}
+
+  canvas-confetti@1.9.3: {}
 
   chai@5.1.1:
     dependencies:
@@ -3467,7 +3483,7 @@ snapshots:
       chessops: 0.12.7
       snabbdom: 3.5.1
 
-  lila-stockfish-web@0.0.4: {}
+  lila-stockfish-web@0.0.6: {}
 
   lilconfig@3.1.2: {}
 

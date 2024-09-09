@@ -68,7 +68,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
           ),
           td(
             if tour.isStarted then timeRemaining(tour.finishesAt)
-            else momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))
+            else momentFromNow(tour.schedule.fold(tour.startsAt)(_.atInstant))
           ),
           td(tour.durationString),
           tour.conditions.teamMember match
