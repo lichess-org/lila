@@ -10,12 +10,12 @@
   <string name="chessPieces">체스 기물</string>
   <string name="theRook">룩</string>
   <string name="itMovesInStraightLines">직선으로 움직입니다</string>
-  <string name="rookIntro">루크는 강한 기물입니다. 사용할 준비되셨나요?</string>
-  <string name="rookGoal">루크를 클릭해서 별로 이동시키세요!</string>
+  <string name="rookIntro">룩은 강한 기물입니다. 사용할 준비되셨나요?</string>
+  <string name="rookGoal">룩을 클릭해서 별로 이동시키세요!</string>
   <string name="grabAllTheStars">모든 별을 잡아봅시다!</string>
   <string name="theFewerMoves">덜 움직일수록 점수를 더 많이 받습니다!</string>
-  <string name="useTwoRooks">루크 2개를 써서 더 빨리 끝내봅시다!</string>
-  <string name="rookComplete">축하드립니다! 루크 다루기를 성공적으로 마스터하셨습니다.</string>
+  <string name="useTwoRooks">룩 2개를 써서 더 빨리 끝내봅시다!</string>
+  <string name="rookComplete">축하드립니다! 룩 다루기를 성공적으로 마스터하셨습니다.</string>
   <string name="theBishop">비숍</string>
   <string name="itMovesDiagonally">대각선으로 움직입니다.</string>
   <string name="bishopIntro">비숍을 어떻게 옮기는지 배워볼까요?</string>

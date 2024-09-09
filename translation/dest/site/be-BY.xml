@@ -72,6 +72,7 @@
   <string name="promoteVariation">Прасунуць варыянт</string>
   <string name="makeMainLine">Зрабіць асноўным варыянтам</string>
   <string name="deleteFromHere">Выдаліць з гэтага месца</string>
+  <string name="collapseVariations">Ачысціць варыянты</string>
   <string name="forceVariation">Прасунуць варыянт</string>
   <string name="copyVariationPgn">Скап\'яваць варыянт у фармаце PGN</string>
   <string name="move">Ход</string>
