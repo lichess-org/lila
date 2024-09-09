@@ -26,7 +26,6 @@ export default class StudyPractice implements StudyPracticeCtrl {
   }
 
   onLoad = () => {
-    console.log('does this happen at all???');
     this.root.showAutoShapes = readOnlyProp(true);
     this.root.variationArrowsProp = readOnlyProp(false);
     this.root.showGauge = readOnlyProp(true);
