@@ -43,7 +43,7 @@ async function app(opts: RoundOpts): Promise<RoundController> {
 async function boot(
   opts: RoundOpts,
   roundMain: (opts: RoundOpts) => Promise<RoundController>): Promise<RoundController> {
-  
+
   const data = opts.data;
   if (data.tournament) document.body.dataset.tournamentId = data.tournament.id;
   const socketUrl = opts.data.player.spectator

@@ -78,7 +78,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
         // because typeahead messes up with snabbdom
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername'), spellcheck: 'false' },
-          hook: onInsert<HTMLInputElement>(input => 
+          hook: onInsert<HTMLInputElement>(input =>
             userComplete({
               input,
               focus: true,
