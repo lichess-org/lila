@@ -1,13 +1,13 @@
-import * as xhr from '../studyXhr';
+// import * as xhr from '../studyXhr';
 import { Prop, prop } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
 import { readOnlyProp } from '../../util';
-import { StudyPracticeData, Goal } from './interfaces';
+import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
 
-export default class StudyPractice {
+export default class StudyPractice implements StudyPracticeCtrl {
   goal: Prop<Goal>;
   nbMoves = prop(0);
   // null = ongoing, true = win, false = fail
@@ -26,6 +26,7 @@ export default class StudyPractice {
   }
 
   onLoad = () => {
+    console.log('does this happen at all???');
     this.root.showAutoShapes = readOnlyProp(true);
     this.root.variationArrowsProp = readOnlyProp(false);
     this.root.showGauge = readOnlyProp(true);
@@ -47,6 +48,7 @@ export default class StudyPractice {
       if (gamebook.state.feedback === 'end') this.onVictory();
       return;
     }
+    console.log(`this.root.study?.data.chapter.practice is ${this.root.study?.data.chapter.practice}`);
     if (this.success() !== null || !this.root.practice || !this.root.study?.data.chapter.practice) return;
     this.nbMoves(this.computeNbMoves());
     const res = this.success(makeSuccess(this.root, this.goal(), this.nbMoves()));
@@ -64,9 +66,10 @@ export default class StudyPractice {
   saveNbMoves = (): void => {
     const chapterId = this.root.study!.currentChapter().id,
       former = this.data.completion[chapterId];
+    console.log(`type of former is ${typeof former} and nbMoves is ${this.nbMoves()}`);
     if (typeof former === 'undefined' || this.nbMoves() < former) {
       this.data.completion[chapterId] = this.nbMoves();
-      xhr.practiceComplete(chapterId, this.nbMoves());
+      // xhr.practiceComplete(chapterId, this.nbMoves());
     }
   };
 
@@ -78,6 +81,7 @@ export default class StudyPractice {
   onJump = () => {
     // reset failure state if no failed move found in mainline history
     if (this.success() === false && !this.root.nodeList.find(n => !!n.fail)) this.success(null);
+    console.log(`onjump calling checkSuccess`);
     this.checkSuccess();
   };
   onCeval = this.checkSuccess;

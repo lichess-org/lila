@@ -566,6 +566,10 @@ export default class StudyCtrl {
     if (chapter) this.setChapter(chapter.id);
   };
   goToNextChapter = () => {
+    console.log('doing go to next chapter');
+    if (!this.isGamebookPlay()) {
+      this.practice?.onVictory();
+    }
     const chapter = this.nextChapter();
     if (chapter) this.setChapter(chapter.id);
   };
