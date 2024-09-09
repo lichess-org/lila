@@ -48,7 +48,6 @@ export default class StudyPractice implements StudyPracticeCtrl {
       if (gamebook.state.feedback === 'end') this.onVictory();
       return;
     }
-    console.log(`this.root.study?.data.chapter.practice is ${this.root.study?.data.chapter.practice}`);
     if (this.success() !== null || !this.root.practice || !this.root.study?.data.chapter.practice) return;
     this.nbMoves(this.computeNbMoves());
     const res = this.success(makeSuccess(this.root, this.goal(), this.nbMoves()));
@@ -80,7 +79,6 @@ export default class StudyPractice implements StudyPracticeCtrl {
   onJump = () => {
     // reset failure state if no failed move found in mainline history
     if (this.success() === false && !this.root.nodeList.find(n => !!n.fail)) this.success(null);
-    console.log(`onjump calling checkSuccess`);
     this.checkSuccess();
   };
   onCeval = this.checkSuccess;

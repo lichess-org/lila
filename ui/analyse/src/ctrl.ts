@@ -421,7 +421,6 @@ export default class AnalyseCtrl {
     this.autoScroll();
     this.promotion.cancel();
     if (pathChanged) {
-      console.log(`pathChanged is ${pathChanged}`);
       if (this.retro) this.retro.onJump();
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
@@ -698,7 +697,6 @@ export default class AnalyseCtrl {
       if (path === this.path) {
         this.setAutoShapes();
         if (!isThreat) {
-          console.log(`calling onCeval`);
           this.retro?.onCeval();
           this.practice?.onCeval();
           this.studyPractice?.onCeval();
