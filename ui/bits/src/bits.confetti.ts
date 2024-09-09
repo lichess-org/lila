@@ -33,7 +33,7 @@ export function initModule(): void {
     // top-left cannon
     confetti.create(canvas, global)({
       ...options,
-      angle: 60, //randomInRange(0, 15),
+      angle: 60,
       drift: randomInRange(0, 1),
       origin: { x: -0.3, y: 1 },
     });
@@ -41,7 +41,7 @@ export function initModule(): void {
     // top-right cannon
     confetti.create(canvas, global)({
       ...options,
-      angle: 120, //randomInRange(160, 180),
+      angle: 120,
       drift: randomInRange(-1, 0),
       origin: { x: 1.3, y: 1 },
     });
