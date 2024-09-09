@@ -55,6 +55,7 @@ export default class StudyPractice implements StudyPracticeCtrl {
   };
 
   onVictory = (): void => {
+    site.sound.play('practiceSuccess');
     this.onComplete();
     if (this.studyData.chapter.practice && this.autoNext())
       setTimeout(this.root.study!.goToNextChapter, 1000);
@@ -62,7 +63,6 @@ export default class StudyPractice implements StudyPracticeCtrl {
 
   onComplete = (): void => {
     this.saveNbMoves();
-    site.sound.play('practiceSuccess');
   };
 
   saveNbMoves = (): void => {
