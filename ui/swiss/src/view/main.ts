@@ -187,7 +187,7 @@ function confetti(data: SwissData) {
     once('tournament.end.canvas.' + data.id) &&
     h('canvas#confetti', {
       hook: {
-        insert: _ => site.asset.loadIife('javascripts/confetti.js'),
+        insert: _ => site.asset.loadEsm('bits.confetti'),
       },
     })
   );
