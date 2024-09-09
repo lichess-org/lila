@@ -1,4 +1,4 @@
-// import * as xhr from '../studyXhr';
+import * as xhr from '../studyXhr';
 import { Prop, prop } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
@@ -66,10 +66,9 @@ export default class StudyPractice implements StudyPracticeCtrl {
   saveNbMoves = (): void => {
     const chapterId = this.root.study!.currentChapter().id,
       former = this.data.completion[chapterId];
-    console.log(`type of former is ${typeof former} and nbMoves is ${this.nbMoves()}`);
     if (typeof former === 'undefined' || this.nbMoves() < former) {
       this.data.completion[chapterId] = this.nbMoves();
-      // xhr.practiceComplete(chapterId, this.nbMoves());
+      xhr.practiceComplete(chapterId, this.nbMoves());
     }
   };
 
