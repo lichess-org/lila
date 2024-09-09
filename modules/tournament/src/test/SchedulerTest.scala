@@ -27,7 +27,7 @@ class SchedulerTest extends munit.FunSuite:
           TournamentScheduler
             .allWithConflicts(start)
             .filter(_.interval.overlaps(dayInterval))
-        }.toList
+        }
       )
       .sortBy(planSortKey)
       .map(p =>
