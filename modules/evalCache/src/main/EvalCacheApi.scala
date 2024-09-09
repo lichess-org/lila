@@ -37,7 +37,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
   private def getEval(id: Id, multiPv: MultiPv): Fu[Option[CloudEval]] =
     cache.get(id).map(_.flatMap(_.makeBestMultiPvEval(multiPv)))
 
-  private val cache = cacheApi[Id, Option[EvalCacheEntry]](32_768, "evalCache"):
+  private val cache = cacheApi[Id, Option[EvalCacheEntry]](16_384, "evalCache"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture: id =>
       coll: c =>
         c.one[EvalCacheEntry]($id(id))
