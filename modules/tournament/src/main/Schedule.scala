@@ -144,18 +144,35 @@ object Schedule:
       at = tour.startsAt.dateTime
     )
 
-  trait ScheduleWithInterval:
+  /** Max window for daily or better schedules to be considered overlapping (i.e. if one starts within X hrs
+    * of the other ending). Using 11.5 hrs here ensures that at least one daily is always cancelled for the
+    * more important event. But, if a higher importance tourney is scheduled nearly opposite of the daily
+    * (i.e. 11:00 for a monthly and 00:00 for its daily), two dailies will be cancelled... so don't do this!
+    */
+  private[tournament] val SCHEDULE_DAILY_OVERLAP_MINS = 690 // 11.5 * 60
+
+  private[tournament] trait ScheduleWithInterval:
     def schedule: Schedule
-    def interval: TimeInterval
+    def startsAt: Instant
+    def duration: java.time.Duration
+
+    def endsAt = startsAt.plus(duration)
+
+    def interval = TimeInterval(startsAt, duration)
 
     def overlaps(other: ScheduleWithInterval) = interval.overlaps(other.interval)
 
+    // Note: this method is must be kept in sync with [[Schedule.pruneConflictsFailOnUsurp]]
+    // In particular, pruneConflictsFailOnUsurp makes assumptions about which tourneys
+    // could potentially conflict, by filtering tourneys based on their hours.
     def conflictsWith(si2: ScheduleWithInterval) =
       val s1 = schedule
       val s2 = si2.schedule
       s1.variant == s2.variant && (
-        // prevent daily && weekly on the same day
-        if s1.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s1.sameSpeed(s2) then s1.sameDay(s2)
+        // prevent daily && weekly within X hours of each other
+        if s1.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s1.sameSpeed(s2) then
+          si2.startsAt.minusMinutes(SCHEDULE_DAILY_OVERLAP_MINS).isBefore(endsAt) &&
+          startsAt.minusMinutes(SCHEDULE_DAILY_OVERLAP_MINS).isBefore(si2.endsAt)
         else
           (
             s1.variant.exotic ||  // overlapping exotic variant
@@ -164,7 +181,22 @@ object Schedule:
           ) && s1.similarConditions(s2) && overlaps(si2)
       )
 
-    def conflictsWith(scheds: Iterable[ScheduleWithInterval]): Boolean = scheds.exists(conflictsWith)
+    /** Kept in sync with [[conflictsWithFailOnUsurp]].
+      */
+    def conflictsWith(scheds: Iterable[ScheduleWithInterval]): Boolean =
+      scheds.exists(conflictsWith)
+
+    /** Kept in sync with [[conflictsWith]].
+      *
+      * Raises an exception if a tourney is incorrectly usurped.
+      */
+    @throws[IllegalStateException]("if a tourney is incorrectly usurped")
+    def conflictsWithFailOnUsurp(scheds: Iterable[ScheduleWithInterval]) =
+      val conflicts   = scheds.filter(conflictsWith)
+      val okConflicts = conflicts.filter(_.schedule.freq >= schedule.freq)
+      if conflicts.nonEmpty && okConflicts.isEmpty then
+        throw new IllegalStateException(s"Schedule [$schedule] usurped by ${conflicts}")
+      conflicts.nonEmpty
 
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament])
       extends ScheduleWithInterval:
@@ -177,11 +209,11 @@ object Schedule:
       buildFunc = buildFunc.fold(f)(f.compose).some
     )
 
+    override def startsAt = schedule.atInstant
+
     def minutes = durationFor(schedule)
 
-    def duration = java.time.Duration.ofMinutes(minutes)
-
-    def interval = TimeInterval(schedule.atInstant, duration)
+    override def duration = java.time.Duration.ofMinutes(minutes)
 
   enum Freq(val id: Int, val importance: Int) extends Ordered[Freq] derives Eq:
     case Hourly               extends Freq(10, 10)
@@ -389,7 +421,9 @@ object Schedule:
       )
 
   /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
-    * plans that do not conflict with either the existing schedules or with themselves.
+    * plans that do not conflict with either the existing schedules or with themselves. Intended to produce
+    * identical output to [[ForTesting.pruneConflictsForTesting]], but this variant is more readable and has
+    * lower potential for bugs.
     */
   private[tournament] def pruneConflicts(
       existingSchedules: Iterable[ScheduleWithInterval],
@@ -403,3 +437,61 @@ object Schedule:
           allPlannedSchedules = p :: allPlannedSchedules
           p :: newPlans
       .reverse
+
+  private[tournament] object ForTesting:
+    import java.time.temporal.ChronoUnit
+    import scala.collection.mutable.{ ArrayBuffer, LongMap }
+
+    private val MS_PER_HR = 3600L * 1000
+    // Round up to nearest whole hour and convert to ms
+    private val DAILY_OVERLAP_MS = Math.ceil(SCHEDULE_DAILY_OVERLAP_MINS / 60.0).toLong * MS_PER_HR
+
+    private def firstHourMs(s: ScheduleWithInterval) =
+      s.startsAt.truncatedTo(ChronoUnit.HOURS).toEpochMilli
+
+    /** Returns a Seq of each hour (as epoch ms) that a tournament overlaps with, for use in a hash map.
+      */
+    def getAllHours(s: ScheduleWithInterval) =
+      (firstHourMs(s) until s.endsAt.toEpochMilli by MS_PER_HR)
+
+    /** Returns a Seq of possible hours (as epoch ms) that another tournament could exist that would be
+      * considered a conflict. This results in pulling all tournaments within a sliding window. The window is
+      * smaller when the tournament is an hourly, as these only conflict with tournaments that actually
+      * overlap. Daily or better tournaments can conflict with another daily or better in a larger window as
+      * well as with hourlies.
+      */
+    def getConflictingHours(s: ScheduleWithInterval) =
+      // Tourneys of daily or better can conflict with another tourney within a sliding window
+      if s.schedule.freq.isDailyOrBetter then
+        (firstHourMs(s) - DAILY_OVERLAP_MS until
+          s.endsAt.toEpochMilli + DAILY_OVERLAP_MS by
+          MS_PER_HR)
+      else getAllHours(s)
+
+    /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
+      * plans that do not conflict with either the existing schedules or with themselves.
+      *
+      * Returns the same result as [[Schedule.pruneConflicts]], but is asymptotically more efficient,
+      * performing O(n) operations of [[ScheduleWithInterval.conflictsWith(WithScheduleWithInterval):*]]
+      * rather than O(n^2), n being the number of inputs.
+      */
+    @throws[IllegalStateException]("if a tourney is incorrectly usurped")
+    def pruneConflictsFailOnUsurp(
+        existingSchedules: Iterable[ScheduleWithInterval],
+        possibleNewPlans: Iterable[Plan]
+    ): List[Plan] =
+      // Bucket schedules by hour for faster conflict detection
+      val hourMap = LongMap.empty[ArrayBuffer[ScheduleWithInterval]]
+      def addToMap(hour: Long, s: ScheduleWithInterval) =
+        hourMap.getOrElseUpdate(hour, ArrayBuffer.empty).addOne(s)
+
+      existingSchedules.foreach { s => getAllHours(s).foreach { addToMap(_, s) } }
+
+      possibleNewPlans
+        .foldLeft(List[Plan]()): (newPlans, p) =>
+          val potentialConflicts = getConflictingHours(p).flatMap { hourMap.get(_) }
+          if p.conflictsWithFailOnUsurp(potentialConflicts.flatten) then newPlans
+          else
+            getAllHours(p).foreach { addToMap(_, p) }
+            p :: newPlans
+        .reverse

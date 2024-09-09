@@ -19,13 +19,12 @@ class SchedulerTest extends munit.FunSuite:
     // Prune conflicts in a similar manner to how it is done in production i.e. TournamentScheduler:
     // schedule earlier hours first, and then add later hour schedules if they don't conflict.
     // In production, existing tournaments come from db, but the effect is the same.
-    Schedule
-      .pruneConflicts(
+    Schedule.ForTesting
+      .pruneConflictsFailOnUsurp(
         List.empty,
-        (-24 to 23).flatMap { hour =>
-          val start = startOfDay.plusHours(hour)
+        (-24 to 23).flatMap { hours =>
           TournamentScheduler
-            .allWithConflicts(start)
+            .allWithConflicts(startOfDay.plusHours(hours))
             .filter(_.interval.overlaps(dayInterval))
         }
       )
@@ -42,6 +41,27 @@ class SchedulerTest extends munit.FunSuite:
     */
   def _printSnapshot(plans: List[?]) =
     println(plans.mkString("      List(\"\"\"", "\"\"\",\n        \"\"\"", "\"\"\").mkString(\"\\n\")"))
+
+  test("2024-09 - No usurps"):
+    val start = instantOf(2024, 9, 1, 0, 0)
+    val days  = 31
+    Schedule.ForTesting.pruneConflictsFailOnUsurp(
+      List.empty,
+      // Hour by hour schedules for the entire month.
+      (0 to (days * 24)).flatMap { hours =>
+        TournamentScheduler.allWithConflicts(start.plusHours(hours))
+      }
+    )
+
+  test("pruneConflict methods produce identical results"):
+    val start = instantOf(2024, 8, 1, 0, 0)
+    val allTourneys = (0 to 23).flatMap { hours =>
+      TournamentScheduler.allWithConflicts(start.plusHours(hours))
+    }
+    assertEquals(
+      Schedule.ForTesting.pruneConflictsFailOnUsurp(List.empty, allTourneys),
+      Schedule.pruneConflicts(List.empty, allTourneys)
+    )
 
   test("2024-09-05 - thursday, summer"):
     // uncomment to print text for updating snapshot.
@@ -390,6 +410,7 @@ class SchedulerTest extends munit.FunSuite:
         """2024-09-05T19:00:00Z Hourly horde blitz(5+0) Conditions() None (09-05T15:00 EDT, 09-05T21:00 CEST) 57m""",
         """2024-09-05T22:00:00Z Hourly horde blitz(5+0) Conditions() None (09-05T18:00 EDT, 09-06T00:00 CEST) 57m""",
         """2024-09-05T02:00:00Z Hourly racingKings hippoBullet(2+0) Conditions() None (09-04T22:00 EDT, 09-05T04:00 CEST) 57m""",
+        """2024-09-05T03:00:00Z Daily racingKings superBlitz(3+0) Conditions() None (09-04T23:00 EDT, 09-05T05:00 CEST) 60m""",
         """2024-09-05T05:00:00Z Hourly racingKings blitz(5+0) Conditions() None (09-05T01:00 EDT, 09-05T07:00 CEST) 57m""",
         """2024-09-05T08:00:00Z Hourly racingKings blitz(5+0) Conditions() None (09-05T04:00 EDT, 09-05T10:00 CEST) 57m""",
         """2024-09-05T11:00:00Z Hourly racingKings superBlitz(3+0) Conditions() None (09-05T07:00 EDT, 09-05T13:00 CEST) 57m""",
@@ -869,7 +890,6 @@ class SchedulerTest extends munit.FunSuite:
         """2023-01-01T00:00:00Z Hourly standard rapid(10+0) Conditions() None""",
         """2023-01-01T02:00:00Z Hourly standard rapid(10+0) Conditions() None""",
         """2023-01-01T06:00:00Z Hourly standard rapid(10+0) Conditions() Some(rnbqkbnr/ppp1pppp/8/8/2pP4/8/PP2PPPP/RNBQKBNR w KQkq -)""",
-        """2023-01-01T07:00:00Z Eastern standard rapid(10+0) Conditions() None""",
         """2023-01-01T14:00:00Z Hourly standard rapid(10+0) Conditions() Some(rnbqkbnr/pppp1p1p/8/6p1/4Pp2/5N2/PPPP2PP/RNBQKB1R w KQkq -)""",
         """2023-01-01T19:00:00Z Daily standard rapid(10+0) Conditions() None""",
         """2023-01-05T16:00:00Z Shield standard rapid(10+0) Conditions() None""",
