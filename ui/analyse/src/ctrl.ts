@@ -41,7 +41,7 @@ import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
 import { AnaMove } from './study/interfaces';
-import { StudyPracticeCtrl } from './study/practice/interfaces';
+import  StudyPracticeCtrl  from './study/practice/studyPracticeCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
 import wikiTheory, { wikiClear, WikiTheory } from './wiki';

@@ -4,8 +4,8 @@ import { prop, defined } from 'common';
 import { debounce, throttle, throttlePromise } from 'common/timing';
 import AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
-import StudyPractice from './practice/studyPracticeCtrl';
-import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
+import StudyPracticeCtrl from './practice/studyPracticeCtrl';
+import { StudyPracticeData } from './practice/interfaces';
 import { CommentForm } from './commentForm';
 import { GlyphForm } from './studyGlyph';
 import { StudyForm } from './studyForm';
@@ -244,7 +244,7 @@ export default class StudyCtrl {
       ctrl.trans,
     );
 
-    this.practice = practiceData && new StudyPractice(ctrl, data, practiceData);
+    this.practice = practiceData && new StudyPracticeCtrl(ctrl, data, practiceData);
 
     if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
     else if (this.data.chapter.relayPath && !defined(this.ctrl.requestInitialPly))

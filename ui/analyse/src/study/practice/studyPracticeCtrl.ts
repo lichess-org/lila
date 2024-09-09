@@ -3,11 +3,11 @@ import { Prop, prop } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
 import { readOnlyProp } from '../../util';
-import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
+import { StudyPracticeData, Goal } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
 
-export default class StudyPractice implements StudyPracticeCtrl {
+export default class StudyPracticeCtrl {
   goal: Prop<Goal>;
   nbMoves = prop(0);
   // null = ongoing, true = win, false = fail
