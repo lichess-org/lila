@@ -301,7 +301,10 @@ export default class StudyCtrl {
     this.vm.gamebookOverride !== 'analyse' &&
     (this.vm.gamebookOverride === 'play' || !this.members.canContribute());
 
-  isNormalAnalysis = () => !this.isGamebookPlay() && !this.data.chapter.practice && !this.data.chapter.conceal;
+  isNormalAnalysis = () =>
+    !this.isGamebookPlay() &&
+    !this.data.chapter.practice &&
+    !this.data.chapter.conceal;
 
   configureAnalysis = () => {
     const canContribute = this.members.canContribute();
