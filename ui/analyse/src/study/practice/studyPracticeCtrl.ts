@@ -3,11 +3,11 @@ import { Prop, prop } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
 import { readOnlyProp } from '../../util';
-import { StudyPracticeData, Goal } from './interfaces';
+import { StudyPracticeData, Goal, StudyPracticeCtrl } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
 
-export default class StudyPractice {
+export default class StudyPractice implements StudyPracticeCtrl {
   goal: Prop<Goal>;
   nbMoves = prop(0);
   // null = ongoing, true = win, false = fail
@@ -55,10 +55,14 @@ export default class StudyPractice {
   };
 
   onVictory = (): void => {
-    this.saveNbMoves();
     site.sound.play('practiceSuccess');
+    this.onComplete();
     if (this.studyData.chapter.practice && this.autoNext())
       setTimeout(this.root.study!.goToNextChapter, 1000);
+  };
+
+  onComplete = (): void => {
+    this.saveNbMoves();
   };
 
   saveNbMoves = (): void => {

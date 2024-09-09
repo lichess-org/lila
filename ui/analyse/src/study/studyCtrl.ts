@@ -566,6 +566,7 @@ export default class StudyCtrl {
     if (chapter) this.setChapter(chapter.id);
   };
   goToNextChapter = () => {
+    this.practice?.onComplete();
     const chapter = this.nextChapter();
     if (chapter) this.setChapter(chapter.id);
   };
