@@ -36,7 +36,7 @@ export interface StudyPracticeCtrl {
   onLoad(): void;
   onJump(): void;
   onCeval(): void;
-  onVictory(): void;
+  onComplete(): void;
   data: StudyPracticeData;
   goal: Prop<Goal>;
   success: Prop<boolean | null>;

@@ -301,6 +301,8 @@ export default class StudyCtrl {
     this.vm.gamebookOverride !== 'analyse' &&
     (this.vm.gamebookOverride === 'play' || !this.members.canContribute());
 
+  isNormalAnalysis = () => !this.isGamebookPlay() && !this.data.chapter.practice && !this.data.chapter.conceal;
+
   configureAnalysis = () => {
     const canContribute = this.members.canContribute();
     // unwrite if member lost privileges
@@ -566,8 +568,8 @@ export default class StudyCtrl {
     if (chapter) this.setChapter(chapter.id);
   };
   goToNextChapter = () => {
-    if (!this.isGamebookPlay()) {
-      this.practice?.onVictory();
+    if (this.isNormalAnalysis()) {
+      this.practice?.onComplete();
     }
     const chapter = this.nextChapter();
     if (chapter) this.setChapter(chapter.id);
