@@ -34,7 +34,6 @@ final class Signup(
     case YesBecauseMobile       extends MustConfirmEmail(true)
     case YesBecauseUA           extends MustConfirmEmail(true)
     case YesBecauseEmailDomain  extends MustConfirmEmail(true)
-    def sendEmail = false
 
   private object MustConfirmEmail:
     def apply(print: Option[FingerPrint], email: EmailAddress, suspIp: Boolean)(using
@@ -92,7 +91,7 @@ final class Signup(
                           data.email,
                           blind,
                           none,
-                          mustConfirmEmail = mustConfirm.sendEmail
+                          mustConfirmEmail = mustConfirm.value
                         )
                         .orFail(s"No user could be created for ${data.username}")
                         .addEffect:
@@ -111,7 +110,7 @@ final class Signup(
       apiVersion: Option[ApiVersion]
   )(user: User)(using RequestHeader, Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
-      if mustConfirm.sendEmail then
+      if mustConfirm.value then
         emailConfirm.send(user, email) >> {
           if emailConfirm.effective then
             api.saveSignup(user.id, apiVersion, fingerPrint).inject(Signup.Result.ConfirmEmail(user, email))
@@ -155,7 +154,7 @@ final class Signup(
                   data.email,
                   blind = false,
                   apiVersion.some,
-                  mustConfirmEmail = mustConfirm.sendEmail
+                  mustConfirmEmail = mustConfirm.value
                 )
                 .orFail(s"No user could be created for ${data.username}")
                 .addEffect:
