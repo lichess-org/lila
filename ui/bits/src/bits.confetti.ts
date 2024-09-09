@@ -11,7 +11,7 @@ export function initModule(): void {
   const endAt = Date.now() + durationMs;
 
   const interval = setInterval(function() {
-    let timeLeft = endAt - Date.now();
+    const timeLeft = endAt - Date.now();
 
     if (timeLeft <= 0) {
       return clearInterval(interval);
