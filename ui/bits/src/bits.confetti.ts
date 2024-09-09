@@ -30,7 +30,7 @@ export function initModule(): void {
       startVelocity: randomInRange(20, 60),
     };
 
-    // top-left cannon
+    // left cannon
     confetti.create(canvas, global)({
       ...options,
       angle: 60,
@@ -38,7 +38,7 @@ export function initModule(): void {
       origin: { x: -0.3, y: 1 },
     });
 
-    // top-right cannon
+    // right cannon
     confetti.create(canvas, global)({
       ...options,
       angle: 120,
