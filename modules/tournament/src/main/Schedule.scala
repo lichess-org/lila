@@ -131,7 +131,7 @@ case class Schedule(
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
   override def toString =
-    s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions"
+    s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions $position"
 
 object Schedule:
 
