@@ -9,6 +9,6 @@ final class TeamSearchApi(client: SearchClient)(using Executor) extends SearchRe
   def search(query: Query.Team, from: From, size: Size) =
     client
       .search(query, from, size)
-      .map(_.hitIds.map(TeamId.apply))
+      .map(_.hitIds.map(id => TeamId.apply(id.value)))
 
   def count(query: Query.Team) = client.count(query).dmap(_.count)
