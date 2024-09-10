@@ -11,8 +11,6 @@ import lila.common.HTTPRequest
 import lila.core.id.{ RelayRoundId, RelayTourId }
 import lila.relay.ui.FormNavigation
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel, RelayVideoEmbed as VideoEmbed }
-import lila.core.security.LilaCookie
-import lila.ublog.UblogPost.Views
 
 final class RelayRound(
     env: Env,
