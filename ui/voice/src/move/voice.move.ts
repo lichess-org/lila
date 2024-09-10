@@ -24,7 +24,7 @@ export function initModule({
   const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
   let cg: CgApi;
   let entries: Entry[] = [];
-  let partials = { commands: [], colors: [], numbers: [] };
+  let partials: Record<string, string[]> = { commands: [], colors: [], numbers: [] };
   let board: cs.Board;
   let ucis: Uci[]; // every legal move in uci
   const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
@@ -609,11 +609,12 @@ export function initModule({
 
   function valWord(val: string, tag?: string) {
     // if no tag, returns only the first matching input word for val, there may be others
-    const v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
+    let v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
     if (v instanceof Set) {
-      return tag ? [...v].find(e => e.tags.includes(tag))?.in : v.values().next().value.in;
+      if (tag) return [...v].find(e => e.tags.includes(tag))?.in ?? val;
+      else return (v.values().next().value as Entry).in;
     }
-    return v ? v.in : val;
+    else return v ? v.in : val;
   }
 
   function allPhrases() {

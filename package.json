@@ -28,18 +28,18 @@
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/node": "^22.5.1",
-    "@types/web": "^0.0.158",
-    "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "@typescript-eslint/parser": "^8.3.0",
-    "@stylistic/eslint-plugin": "^2.7.2",
+    "@types/node": "^22.5.4",
+    "@types/web": "^0.0.162",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.5.0",
+    "@stylistic/eslint-plugin": "^2.8.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
-    "eslint": "^9.9.1",
-    "lint-staged": "^15.2.9",
+    "eslint": "^9.10.0",
+    "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   },
   "scripts": {
     "format": "prettier --write --log-level warn . && eslint --fix ui",
