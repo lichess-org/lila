@@ -3,7 +3,7 @@ import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
 import { escapeHtml } from 'common';
 import { storage } from 'common/storage';
-import { log } from 'common//dbLog';
+import { log } from 'common/dbLog';
 
 export async function initModule(): Promise<void> {
   const ops = processQueryParams();
