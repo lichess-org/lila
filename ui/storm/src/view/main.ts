@@ -9,6 +9,7 @@ import { getNow } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import * as licon from 'common/licon';
 import { onInsert, looseH as h } from 'common/snabbdom';
+import { Chessground as makeChessground } from 'chessground';
 
 export default function(ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload(ctrl, 'thisRunWasOpenedInAnotherTab');
@@ -23,7 +24,7 @@ const chessground = (ctrl: StormCtrl): VNode =>
     hook: {
       insert: vnode => {
         ctrl.ground(
-          site.makeChessground(
+          makeChessground(
             vnode.elm as HTMLElement,
             makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove),
           ),

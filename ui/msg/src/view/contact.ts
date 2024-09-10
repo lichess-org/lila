@@ -4,6 +4,7 @@ import MsgCtrl from '../ctrl';
 import * as licon from 'common/licon';
 import { hookMobileMousedown } from 'common/device';
 import { fullName, userLine } from 'common/userLink';
+import { timeago } from 'common/i18n';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
   const user = contact.user,
@@ -43,5 +44,5 @@ const renderDate = (msg: LastMsg): VNode =>
   h(
     'time.timeago',
     { key: msg.date.getTime(), attrs: { title: msg.date.toLocaleString(), datetime: msg.date.getTime() } },
-    site.timeago(msg.date),
+    timeago(msg.date),
   );

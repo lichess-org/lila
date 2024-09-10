@@ -36,12 +36,12 @@ export function initModule(opts: LobbyOpts) {
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          site.contentLoaded();
+          site.pubsub.emit('content-loaded');
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        site.contentLoaded();
+        site.pubsub.emit('content-loaded');
       },
       redirect(e: RedirectTo) {
         lobbyCtrl.setRedirecting();
@@ -54,7 +54,7 @@ export function initModule(opts: LobbyOpts) {
       },
     },
   });
-  site.pubsub.after('socket.connect').then(() => {
+  site.pubsub.after('socket.hasConnected').then(() => {
     const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();

@@ -36,6 +36,9 @@ const pubsub: Pubsub = {
     }
     else oneTimeEvents.set(event, { promise: Promise.resolve() });
   },
+  past(event: string): boolean {
+    return oneTimeEvents.has(event);
+  },
 };
 
 export default pubsub;

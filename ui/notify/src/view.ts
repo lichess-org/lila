@@ -74,7 +74,7 @@ function clickHook(f: () => void) {
   };
 }
 
-const contentLoaded = (vnode: VNode) => site.contentLoaded(vnode.elm as HTMLElement);
+const contentLoaded = (vnode: VNode) => site.pubsub.emit('content-loaded', vnode.elm);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   const translations = trans(d.i18n);

@@ -32,6 +32,23 @@ object page:
     )
   )
 
+  private def isUserInTestBucket(using ctx: Context) =
+    ctx.userId.exists: userId =>
+      ctx.pref.usingAltSocket.isEmpty && java.security.MessageDigest
+        .getInstance("MD5")
+        .digest(userId.value.getBytes)
+        .head % 128 == 0
+
+  private def dataSockets(using ctx: Context) =
+    attr("data-socket-domains") :=
+      (ctx.pref.usingAltSocket match
+        case Some(true)  => netConfig.socketAlts.mkString(",")
+        case Some(false) => netConfig.socketDomains.mkString(",")
+        case _ if isUserInTestBucket && netConfig.socketTest =>
+          (netConfig.socketDomains.head :: netConfig.socketAlts.headOption.toList).mkString(",")
+        case _ => netConfig.socketDomains.mkString(",")
+      )
+
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
     s"---board-opacity:${ctx.pref.board.opacity};" +
       s"---board-brightness:${ctx.pref.board.brightness};" +
@@ -112,8 +129,9 @@ object page:
             .option(env.push.vapidPublicKey),
           dataUser     := ctx.userId,
           dataSoundSet := pref.currentSoundSet.toString,
-          dataSocketDomains,
-          pref.isUsingAltSocket.option(dataSocketAlts),
+          dataSockets,
+          attr("data-socket-test-user")    := isUserInTestBucket,
+          attr("data-socket-test-running") := netConfig.socketTest,
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),

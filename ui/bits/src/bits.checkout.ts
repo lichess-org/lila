@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import { spinnerHtml } from 'common/spinner';
 import contactEmail from './bits.contactEmail';
 
 export interface Pricing {
@@ -212,7 +213,7 @@ function stripeStart(
   $checkout.find('.service .stripe').on('click', function() {
     const amount = getAmount();
     if (!amount) return;
-    $checkout.find('.service').html(site.spinnerHtml);
+    $checkout.find('.service').html(spinnerHtml);
 
     xhr
       .jsonAnyResponse(`/patron/stripe/checkout?currency=${pricing.currency}`, {

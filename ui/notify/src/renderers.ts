@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { Notification, Renderer, Renderers } from './interfaces';
+import { timeago } from 'common/i18n';
 
 export default function makeRenderers(trans: Trans): Renderers {
   return {
@@ -165,7 +166,7 @@ function generic(n: Notification, url: string | undefined, icon: string, content
 
 function drawTime(n: Notification) {
   const date = new Date(n.date);
-  return h('time.timeago', { attrs: { title: date.toLocaleString(), datetime: n.date } }, site.timeago(date));
+  return h('time.timeago', { attrs: { title: date.toLocaleString(), datetime: n.date } }, timeago(date));
 }
 
 function userFullName(u?: LightUser) {

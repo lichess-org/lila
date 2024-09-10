@@ -6,11 +6,13 @@ import resizeHandle from 'common/resize';
 import { storage } from 'common/storage';
 import AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
+import { Chessground as makeChessground } from 'chessground';
+
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
-      insert: vnode => ctrl.setChessground(site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+      insert: vnode => ctrl.setChessground(makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
       destroy: _ => ctrl.chessground.destroy(),
     },
   });

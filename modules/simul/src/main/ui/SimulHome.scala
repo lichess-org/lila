@@ -23,7 +23,7 @@ site.StrongSocket.defaultParams.flag = 'simul';
 site.pubsub.on('socket.in.reload', () =>
   fetch('${routes.Simul.homeReload}').then(r => r.text()).then(html => {
   $$('.simul-list__content').html(html);
-  site.contentLoaded();
+  site.pubsub.emit('content-loaded');
 }))"""))
       .graph(
         title = trans.site.simultaneousExhibitions.txt(),

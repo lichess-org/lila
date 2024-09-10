@@ -3,10 +3,11 @@ import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
 import { escapeHtml } from 'common';
 import { storage } from 'common/storage';
+import { log } from 'common/permalog';
 
 export async function initModule(): Promise<void> {
   const ops = processQueryParams();
-  const logs = await site.log.get();
+  const logs = await log.get();
   const text =
     `Browser: ${navigator.userAgent}\n` +
     `Cores: ${navigator.hardwareConcurrency}, ` +
@@ -43,7 +44,7 @@ export async function initModule(): Promise<void> {
       window.getSelection()?.addRange(range);
     }, 0);
   $('.err', dlg.view).on('focus', select);
-  $('.clear', dlg.view).on('click', () => site.log.clear().then(() => dlg.close()));
+  $('.clear', dlg.view).on('click', () => log.clear().then(() => dlg.close()));
   $('.copy', dlg.view).on('click', () =>
     navigator.clipboard.writeText(text).then(() => {
       const copied = $(`<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`);
@@ -79,7 +80,7 @@ const ops: { [op: string]: (val?: string) => boolean } = {
       const kv = atob(data).split('=');
       const proxy = storageProxy[kv[0]];
       if (proxy?.validate(kv[1])) {
-        site.log(`storage set ${kv[0]}=${kv[1]}`);
+        log(`storage set ${kv[0]}=${kv[1]}`);
         storage.set(proxy.storageKey, kv[1]);
         return true;
       }
@@ -89,7 +90,7 @@ const ops: { [op: string]: (val?: string) => boolean } = {
     return false;
   },
   unset: (val: string) => {
-    site.log(`storage unset ${val ? val : 'all'}`);
+    log(`storage unset ${val ? val : 'all'}`);
 
     if (!val) for (const key in storageProxy) storage.remove(storageProxy[key].storageKey);
     else if (val in storageProxy) storage.remove(storageProxy[val].storageKey);

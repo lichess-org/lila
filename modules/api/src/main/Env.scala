@@ -2,6 +2,7 @@ package lila.api
 
 import akka.actor.*
 import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.{ Configuration, Mode }
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
@@ -63,7 +64,8 @@ final class Env(
     webConfig: lila.web.WebConfig,
     realPlayerApi: lila.web.RealPlayerApi,
     bookmarkExists: lila.core.bookmark.BookmarkExists,
-    manifest: lila.web.AssetManifest
+    manifest: lila.web.AssetManifest,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb // for socket test results
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
     ActorSystem,
@@ -97,6 +99,9 @@ final class Env(
   lazy val anySearch = wire[AnySearch]
 
   lazy val cli = wire[Cli]
+
+  lazy val socketTestResult =
+    SocketTestResult(yoloDb(lila.core.config.CollName("socket_test")).failingSilently())
 
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness     = wire[ChatFreshness]
