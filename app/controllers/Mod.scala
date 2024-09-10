@@ -449,7 +449,7 @@ final class Mod(
       else Redirect(routes.Mod.singleIp(ip))
   }
 
-  def chatUser(username: UserStr) = Secure(_.ChatTimeout) { _ ?=> _ ?=>
+  def chatUser(username: UserStr) = SecureOrScoped(_.ChatTimeout) { _ ?=> _ ?=>
     JsonOptionOk:
       env.chat.api.userChat
         .userModInfo(username)
