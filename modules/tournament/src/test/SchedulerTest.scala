@@ -42,25 +42,88 @@ class SchedulerTest extends munit.FunSuite:
   def _printSnapshot(plans: List[?]) =
     println(plans.mkString("      List(\"\"\"", "\"\"\",\n        \"\"\"", "\"\"\").mkString(\"\\n\")"))
 
-  test("2024-09 - No usurps"):
-    val start = instantOf(2024, 9, 1, 0, 0)
-    val days  = 31
-    Schedule.ForTesting.pruneConflictsFailOnUsurp(
-      List.empty,
-      // Hour by hour schedules for the entire month.
-      (0 to (days * 24)).flatMap { hours =>
-        TournamentScheduler.allWithConflicts(start.plusHours(hours))
+  test("2024-09 - no usurps, correct daily scheduling"):
+    import chess.variant.*
+    import lila.tournament.Schedule.Speed.*
+    import lila.tournament.Schedule.Freq.*
+
+    val start      = instantOf(2024, 9, 1, 0, 0)
+    val wholeMonth = TimeInterval(start, start.plusMonths(1))
+    val daysInSept = 30
+    val allSeptTourneys = Schedule.ForTesting
+      .pruneConflictsFailOnUsurp(
+        List.empty,
+        // Hour by hour schedules for the entire month.
+        (-1 to (daysInSept * 24)).flatMap { hours =>
+          TournamentScheduler.allWithConflicts(start.plusHours(hours))
+        }
+      )
+      .filter(_.interval.overlaps(wholeMonth))
+
+    //
+    // If we made it here, there weren't invalid usurps! Yay!
+    // Next, check that there are the proper number of special events of each type.
+    //
+
+    val dailiesOrBetter = allSeptTourneys.filter(p => p.schedule.freq.isDailyOrBetter)
+
+    // All non-standard variants have a dedicated daily.  FromPosition isn't used by schedules.
+    val exoticVariants = Variant.list.all.toSet.removedAll(List(Standard, FromPosition))
+    exoticVariants.foreach { variant =>
+      val variantTourneys = dailiesOrBetter.filter(_.schedule.variant == variant)
+
+      // A variant should have on average at least one special event per day.
+      assert(clue(variantTourneys.length) >= clue(daysInSept), s"$variant: too few specials")
+
+      // Some variants have a few more events in the month if a special doesn't match the
+      // daily TC. But only allow a few. Higher probably indicates a mistake, like a weekly not
+      // conflicting with the daily.
+      assert(clue(variantTourneys.length) <= clue(daysInSept + 2), s"$variant: too many specials")
+    }
+
+    dailiesOrBetter
+      .filter(p => exoticVariants.contains(p.schedule.variant))
+      .groupBy(_.schedule.at.getDayOfMonth)
+      .foreach { case (day, plans) =>
+        // There should be at most two special event of each exotic variant per day, and
+        // only in the case for rare situations like a offset special or different special speed.
+        // We currently don't have more than 2 extra specials on a given day. Higher values
+        // are *probably* a mistake, so check here. However, this number can be updated if
+        // the change in scheduling is intentional.
+        assert(clue(plans.length) <= clue(exoticVariants.size + 2), s"Too many exotic specials on $day")
       }
+
+    // For Standard, there is a dedicated daily for each of the following speeds.
+    List(Bullet, SuperBlitz, Blitz, Rapid, HyperBullet, UltraBullet).foreach { speed =>
+      val standardSpeededDaily =
+        dailiesOrBetter.filter { plan =>
+          val s = plan.schedule
+          s.variant.standard && s.speed == speed
+        }
+      // There should be exactly one special event at each of these Speeds per day.
+      assertEquals(standardSpeededDaily.length, daysInSept, s"Wrong number of $speed specials")
+    }
+
+    // Easterns don't count as daily or better, so they only conflict by overlap.
+    // There aren't any other special events at this time, so they should always take priority
+    // over the hourlies and thus have exactly 3 per day.
+    assertEquals(
+      allSeptTourneys.filter(_.schedule.freq == Eastern).length,
+      daysInSept * 3
     )
 
   test("pruneConflict methods produce identical results"):
+    val prescheduled = Schedule.pruneConflicts(
+      List.empty,
+      TournamentScheduler.allWithConflicts(instantOf(2024, 7, 31, 23, 0))
+    )
     val start = instantOf(2024, 8, 1, 0, 0)
     val allTourneys = (0 to 23).flatMap { hours =>
       TournamentScheduler.allWithConflicts(start.plusHours(hours))
     }
     assertEquals(
-      Schedule.ForTesting.pruneConflictsFailOnUsurp(List.empty, allTourneys),
-      Schedule.pruneConflicts(List.empty, allTourneys)
+      Schedule.ForTesting.pruneConflictsFailOnUsurp(prescheduled, allTourneys),
+      Schedule.pruneConflicts(prescheduled, allTourneys)
     )
 
   test("2024-09-05 - thursday, summer"):
