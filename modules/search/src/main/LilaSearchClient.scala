@@ -32,7 +32,7 @@ class LilaSearchClient(client: SearchClient, writeable: Boolean)(using Executor)
     writeable.so(client.deleteById(index, id))
 
   override def deleteByIds(index: Index, ids: List[String]): Future[Unit] =
-    writeable.so(client.deleteByIds(index, ids))
+    writeable.so(client.deleteByIds(index, ids.map(Id.apply)))
 
   override def count(query: Query): Future[CountOutput] =
     monitor("count", query.index):
