@@ -4,7 +4,6 @@ import lila.core.game.*
 
 final private class AbortListener(
     userApi: lila.core.user.UserApi,
-    gameRepo: lila.core.game.GameRepo,
     seekApi: SeekApi,
     lobbyActor: LobbySyncActor,
     fixedColor: scalalib.cache.ExpireSetMemo[GameId]
