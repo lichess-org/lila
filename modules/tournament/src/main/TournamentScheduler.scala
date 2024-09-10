@@ -400,16 +400,9 @@ Thank you all, you rock!""".some,
               allowList = none
             )
             val finalWhen = when.plusHours(hourDelay)
-            if speed == Bullet then
-              List(
-                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan,
-                Schedule(Hourly, speed, Standard, none, finalWhen.plusMinutes(30), conditions)
-                  .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
-              )
-            else
-              List(
-                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan
-              )
+            List(Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan) :::
+              (speed == Bullet).so:
+                List(Schedule(Hourly, Bullet, Standard, none, finalWhen.plusMinutes(30), conditions).plan)
           }
         }
         .map {
