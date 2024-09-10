@@ -50,7 +50,7 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
   if (timer)
     shapes[0].customSvg = {
       center: 'orig',
-      html: timerShape(timer, brushes.values().next().value.color),
+      html: timerShape(timer, brushes.values().next().value.color as string),
     };
   return shapes.reverse();
 }
