@@ -9,8 +9,8 @@ export interface UserCompleteOpts {
   input: HTMLInputElement;
   tag?: 'a' | 'span';
   minLength?: number;
-  populate?: (result: LightUser) => string;
-  onSelect?: (result: LightUser) => void;
+  populate?: (result: LightUserOnline) => string;
+  onSelect?: (result: LightUserOnline) => void;
   focus?: boolean;
   friend?: boolean;
   tour?: string;
@@ -73,7 +73,7 @@ export function userComplete(opts: UserCompleteOpts): void {
     onSelect: opts.onSelect,
     regex: /^[a-z][\w-]{2,29}$/i,
   });
-  if (opts.focus) opts.input.focus();
+  if (opts.focus) setTimeout(() => opts.input.focus());
 }
 
 type Fetch<Result> = (term: string) => Promise<Result[]>;
