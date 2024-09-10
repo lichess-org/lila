@@ -131,7 +131,7 @@ case class Schedule(
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
   override def toString =
-    s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions"
+    s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions $position"
 
 object Schedule:
 
@@ -164,7 +164,7 @@ object Schedule:
           ) && s1.similarConditions(s2) && overlaps(si2)
       )
 
-    def conflictsWith(scheds: List[ScheduleWithInterval]): Boolean = scheds.exists(conflictsWith)
+    def conflictsWith(scheds: Iterable[ScheduleWithInterval]): Boolean = scheds.exists(conflictsWith)
 
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament])
       extends ScheduleWithInterval:
@@ -392,10 +392,10 @@ object Schedule:
     * plans that do not conflict with either the existing schedules or with themselves.
     */
   private[tournament] def pruneConflicts(
-      existingSchedules: List[ScheduleWithInterval],
-      possibleNewPlans: List[Plan]
+      existingSchedules: Iterable[ScheduleWithInterval],
+      possibleNewPlans: Iterable[Plan]
   ): List[Plan] =
-    var allPlannedSchedules = existingSchedules
+    var allPlannedSchedules = existingSchedules.toList
     possibleNewPlans
       .foldLeft(List[Plan]()): (newPlans, p) =>
         if p.conflictsWith(allPlannedSchedules) then newPlans

@@ -38,7 +38,7 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
 
         val existingSchedules = dbScheds.flatMap { t =>
           // Ignore tournaments with schedule=None - they never conflict.
-          t.schedule.so { ConcreteSchedule(_, t.interval).some }
+          t.schedule.map { ConcreteSchedule(_, t.interval) }
         }
 
         val prunedPlans = Schedule.pruneConflicts(existingSchedules, plans)
