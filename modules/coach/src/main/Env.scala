@@ -2,13 +2,10 @@ package lila.coach
 
 import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import play.api.Configuration
-
 import lila.core.config.*
 
 @Module
 final class Env(
-    appConfig: Configuration,
     perfsRepo: lila.core.user.PerfsRepo,
     userRepo: lila.core.user.UserRepo,
     userApi: lila.core.user.UserApi,

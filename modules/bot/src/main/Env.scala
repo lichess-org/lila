@@ -10,7 +10,6 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     lightUserApi: lila.core.user.LightUserApi,
     rematches: lila.game.Rematches,
-    isOfferingRematch: lila.core.round.IsOfferingRematch,
     spam: lila.core.security.SpamApi,
     isOnline: IsOnline
 )(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode, lila.core.i18n.Translator):

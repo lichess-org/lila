@@ -10,7 +10,6 @@ import lila.relay.RelayRound.WithTourAndStudy
 import lila.core.socket.SocketVersion
 
 import ScalatagsTemplate.{ *, given }
-import scalatags.Text.TypedTag
 
 final class RelayUi(helpers: Helpers)(
     picfitUrl: lila.core.misc.PicfitUrl,

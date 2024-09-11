@@ -8,7 +8,6 @@ import lila.core.config.{ CollName, NetConfig }
 final class Env(
     db: lila.db.Db,
     gameRepo: lila.core.game.GameRepo,
-    gameApi: lila.core.game.GameApi,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig
 )(using Executor):

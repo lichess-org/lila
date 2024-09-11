@@ -2,7 +2,7 @@ package lila.api
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.{ Configuration, Mode }
+import play.api.Mode
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
@@ -10,18 +10,14 @@ import lila.core.misc.lpv.*
 
 @Module
 final class Env(
-    appConfig: Configuration,
     net: lila.core.config.NetConfig,
     securityEnv: lila.security.Env,
     mailerEnv: lila.mailer.Env,
-    teamSearchEnv: lila.teamSearch.Env,
-    forumSearchEnv: lila.forumSearch.Env,
     forumEnv: lila.forum.Env,
     teamEnv: lila.team.Env,
     puzzleEnv: lila.puzzle.Env,
     fishnetEnv: lila.fishnet.Env,
     studyEnv: lila.study.Env,
-    studySearchEnv: lila.studySearch.Env,
     gameSearch: lila.gameSearch.GameSearchApi,
     fideEnv: lila.fide.Env,
     coachEnv: lila.coach.Env,
@@ -58,7 +54,6 @@ final class Env(
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,
-    cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
     realPlayerApi: lila.web.RealPlayerApi,

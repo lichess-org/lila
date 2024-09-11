@@ -21,7 +21,6 @@ final class PlanApi(
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
-    mongoCache: lila.memo.MongoCache.Api,
     payPalIpnKey: Secret,
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,

@@ -1,6 +1,5 @@
 package lila.swiss
 
-import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.*
 

@@ -25,9 +25,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         List(cls := "clas-show dashboard dashboard-teacher dashboard-teacher-$active") ++ modifiers
       ClasPage(c.name, Left(c.withStudents(students.map(_.student))))(
         allModifiers*
-      ).prepend(atTheTop(c, students, active))
+      ).prepend(atTheTop(c, active))
 
-    private def atTheTop(c: Clas, students: List[Student.WithUserLike], active: String)(using Context) =
+    private def atTheTop(c: Clas, active: String)(using Context) =
       frag(
         div(cls := "clas-show__top")(
           h1(dataIcon := Icon.Group, cls := "text")(c.name),

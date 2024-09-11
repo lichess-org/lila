@@ -31,7 +31,6 @@ final class Env(
     gameRepo: GameRepo,
     idGenerator: lila.game.IdGenerator,
     userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     chatApi: lila.chat.ChatApi,
     crosstableApi: lila.game.CrosstableApi,
@@ -60,7 +59,7 @@ final class Env(
     lila.core.config.RateLimit
 ):
 
-  private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
+  private val (botSync, async) = (lightUserApi.isBotSync, lightUserApi.async)
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
