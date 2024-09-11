@@ -72,8 +72,8 @@ object ScheduleTestHelpers:
       * plans that do not conflict with either the existing schedules or with themselves.
       *
       * Returns the same result as [[Schedule.pruneConflicts]], but is asymptotically more efficient,
-      * performing O(n) operations of [[ScheduleWithInterval.conflictsWith(WithScheduleWithInterval):*]]
-      * rather than O(n^2), n being the number of inputs.
+      * performing O(n) operations of [[ScheduleWithInterval.conflictsWith(ScheduleWithInterval):*]] rather
+      * than O(n^2), n being the number of inputs.
       */
     @throws[IllegalStateException]("if a tourney is incorrectly usurped")
     def pruneConflictsFailOnUsurp(
