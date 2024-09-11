@@ -13,7 +13,6 @@ import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
-import lila.core.relation.Relation
 import lila.game.GameFilter
 import lila.mod.UserWithModlog
 import lila.rating.PerfType

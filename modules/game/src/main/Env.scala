@@ -31,7 +31,7 @@ final class Env(
     lightUserApi: lila.core.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
     getTourName: => lila.core.tournament.GetTourName
-)(using system: ActorSystem, scheduler: Scheduler)(using
+)(using scheduler: Scheduler)(using
     lila.core.i18n.Translator,
     Executor,
     Materializer,

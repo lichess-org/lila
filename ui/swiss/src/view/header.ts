@@ -2,9 +2,10 @@ import { h, Hooks, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { dataIcon } from 'common/snabbdom';
 import SwissCtrl from '../ctrl';
+import { setClockWidget } from 'common/clock';
 
 const startClock = (time: number): Hooks => ({
-  insert: (vnode: VNode) => site.clockWidget(vnode.elm as HTMLElement, { time }),
+  insert: (vnode: VNode) => setClockWidget(vnode.elm as HTMLElement, { time }),
 });
 
 const oneDayInSeconds = 60 * 60 * 24;

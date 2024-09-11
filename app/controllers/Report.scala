@@ -10,7 +10,6 @@ import lila.core.id.ReportId
 import lila.mod.ui.PendingCounts
 import lila.report.Room.Scores
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
-import lila.core.i18n.I18nKey.site.inbox
 
 final class Report(env: Env, userC: => User, modC: => Mod) extends LilaController(env):
 

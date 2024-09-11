@@ -4,6 +4,7 @@ import { isSafari } from 'common/device';
 import { notNull } from 'common';
 import Tagify from '@yaireo/tagify';
 import { wireCropDialog } from './exports/crop';
+import { spinnerHtml } from 'common/spinner';
 
 if (isSafari()) wireCropDialog(); // preload
 
@@ -99,7 +100,7 @@ site.load.then(() => {
   }, 1000);
 
   $('.coach_picture form.upload input[type=file]').on('change', function(this: HTMLInputElement) {
-    $('.picture_wrap').html(site.spinnerHtml);
+    $('.picture_wrap').html(spinnerHtml);
     ($(this).parents('form')[0] as HTMLFormElement).submit();
   });
 

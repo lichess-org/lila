@@ -4,9 +4,10 @@ import { dataIcon } from 'common/snabbdom';
 import TournamentController from '../ctrl';
 import perfIcons from 'common/perfIcons';
 import { TournamentData } from '../interfaces';
+import { setClockWidget } from 'common/clock';
 
 const startClock = (time: number): Hooks => ({
-  insert: vnode => site.clockWidget(vnode.elm as HTMLElement, { time }),
+  insert: vnode => setClockWidget(vnode.elm as HTMLElement, { time }),
 });
 
 const oneDayInSeconds = 60 * 60 * 24;

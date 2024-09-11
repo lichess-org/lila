@@ -4,14 +4,12 @@
   "private": true,
   "description": "lichess.org chat ui",
   "types": "dist/chat.d.ts",
+  "main": "dist/chat.js",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "common": "workspace:*",
     "palantir": "workspace:*",
     "snabbdom": "3.5.1"
-  },
-  "lichess": {
-    "bundles": "src/chat.ts"
   }
 }

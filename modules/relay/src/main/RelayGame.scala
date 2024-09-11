@@ -104,7 +104,7 @@ private object RelayGame:
       if slices.isEmpty then games
       else
         games.view.zipWithIndex
-          .filter: (g, i) =>
+          .filter: (_, i) =>
             val n = i + 1
             slices.exists: s =>
               n >= s.from && n <= s.to

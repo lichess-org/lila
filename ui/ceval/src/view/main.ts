@@ -15,6 +15,7 @@ import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
 import { renderCevalSettings } from './settings';
 import CevalCtrl from '../ctrl';
+import { Chessground as makeChessground } from 'chessground';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
 
@@ -481,7 +482,7 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
   };
   const cgVNode = h('div.cg-wrap.is2d', {
     hook: {
-      insert: (vnode: any) => (vnode.elm._cg = site.makeChessground(vnode.elm, cgConfig)),
+      insert: (vnode: any) => (vnode.elm._cg = makeChessground(vnode.elm, cgConfig)),
       update: (vnode: any) => vnode.elm._cg?.set(cgConfig),
       destroy: (vnode: any) => vnode.elm._cg?.destroy(),
     },

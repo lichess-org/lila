@@ -4,13 +4,14 @@ import { MouchEvent } from 'chessground/types';
 import * as util from 'chessground/util';
 import EditorCtrl from './ctrl';
 import { storage } from 'common/storage';
+import { Chessground as makeChessground } from 'chessground';
 
 export default function(ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.chessground = site.makeChessground(el, makeConfig(ctrl));
+        ctrl.chessground = makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
       destroy: () => ctrl.chessground!.destroy(),

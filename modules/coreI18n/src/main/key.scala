@@ -1,4 +1,4 @@
-// Generated with bin/trans-dump.js
+// Generated with bin/trans-dump.ts
 package lila.core.i18n
 
 opaque type I18nKey = String

@@ -3,6 +3,7 @@ import { makeCgOpts } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { h, VNode } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
+import { Chessground as makeChessground } from 'chessground';
 
 export const renderBoard = (ctrl: RacerCtrl) => {
   const secs = ctrl.countdownSeconds();
@@ -18,7 +19,7 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
     hook: {
       insert: vnode => {
         ctrl.ground(
-          site.makeChessground(
+          makeChessground(
             vnode.elm as HTMLElement,
             makeCgConfig(
               ctrl.isRacing() && ctrl.isPlayer()

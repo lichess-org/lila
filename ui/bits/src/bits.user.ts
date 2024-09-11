@@ -48,7 +48,7 @@ export function initModule(opts: { i18n: I18nDict }): void {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          site.contentLoaded($content[0]);
+          site.pubsub.emit('content-loaded', $content[0]);
           history.replaceState({}, '', path);
           //window.InfiniteScroll('.infinite-scroll');
         });

@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import debounce from 'debounce-promise';
-import { initAll as initMiniBoards } from 'common/miniBoard';
+import { initMiniBoards } from 'common/miniBoard';
 
 export function init(): void {
   const debounced = debounce((str: string) => {

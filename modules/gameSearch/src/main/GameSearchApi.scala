@@ -17,7 +17,7 @@ final class GameSearchApi(
     client
       .search(query, from, size)
       .flatMap: res =>
-        gameRepo.gamesFromSecondary(res.hitIds.map(GameId.apply))
+        gameRepo.gamesFromSecondary(res.hitIds.map(id => GameId.apply(id.value)))
 
   def count(query: Query.Game) =
     client.count(query).dmap(_.count)
@@ -34,4 +34,4 @@ final class GameSearchApi(
           .search(query, From(from), pageSize)
           .map: res =>
             Option.when(res.hitIds.nonEmpty && from < total.value):
-              (from + pageSize.value) -> res.hitIds.map(GameId.apply)
+              (from + pageSize.value) -> res.hitIds.map(id => GameId.apply(id.value))

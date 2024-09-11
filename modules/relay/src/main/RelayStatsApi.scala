@@ -10,7 +10,7 @@ object RelayStats:
   type Graph  = List[(Minute, Crowd)]
   case class RoundStats(viewers: Graph)
 
-final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using scheduler: Scheduler)(using
+final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
     Executor
 ):
   import RelayStats.*

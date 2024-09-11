@@ -1,7 +1,6 @@
 package lila.lobby
 
 import com.softwaremill.macwire.*
-import play.api.Configuration
 import scalalib.cache.ExpireSetMemo
 
 import lila.core.config.*
@@ -9,7 +8,6 @@ import lila.core.pool.IsClockCompatible
 
 @Module
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
     onStart: lila.core.game.OnStart,
     relationApi: lila.core.relation.RelationApi,

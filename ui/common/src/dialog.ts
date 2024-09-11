@@ -1,6 +1,6 @@
 import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
-import { escapeHtml, frag } from './common';
+import { escapeHtml, frag, $as } from './common';
 import { eventJanitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';

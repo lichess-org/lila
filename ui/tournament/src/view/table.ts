@@ -6,6 +6,7 @@ import { player as renderPlayer } from './util';
 import { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
 import { teamName } from './battle';
 import TournamentController from '../ctrl';
+import { initMiniGames } from 'common/miniBoard';
 
 function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) {
   const player = game[color];
@@ -60,7 +61,7 @@ function renderDuel(ctrl: TournamentController) {
     ]);
 }
 
-const initMiniGame = (node: VNode) => site.miniGame.initAll(node.elm as HTMLElement);
+const initMiniGame = (node: VNode) => initMiniGames(node.elm as HTMLElement);
 
 export default function(ctrl: TournamentController): VNode {
   return h('div.tour__table', { hook: { insert: initMiniGame, postpatch: initMiniGame } }, [
