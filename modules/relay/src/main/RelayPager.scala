@@ -113,36 +113,18 @@ final class RelayPager(
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
     val day = 1000L * 3600 * 24
-    // val selector = $text(query) ++ selectors.officialPublic
+
     // Special case of querying so that users can filter broadcasts by year
     val yearPattern = """\b(20)\d{2}\b""".r
     val yearOpt     = yearPattern.findFirstIn(query)
 
-    // Build the text search selector
     val textSelector = $text(query) ++ selectors.officialPublic
-
     val selector = yearOpt match
       case Some(year) =>
-        textSelector ++ //$or(
-          BSONDocument(
-            "$expr" -> BSONDocument(
-              "$regexMatch" -> BSONDocument(
-                "input" -> BSONDocument(
-                  "$dateToString" -> BSONDocument(
-                    "format" -> BSONString("%Y-%m-%dT%H:%M:%S"),
-                    "date"   -> BSONString("$createdAt")
-                  )
-                ),
-                "regex" -> BSONString(year)  // The year needs to be a BSONString
-              )
-            )
-          )//,
-          // BSONDocument("createdAt" -> BSONDocument("$regex" -> s".*$year.*")),
-        //   BSONDocument("name"      -> BSONDocument("$regex" -> s".*\\b$year\\b.*"))
-        // )
+        textSelector ++ BSONDocument("name" -> BSONDocument("$regex" -> s".*\\b$year\\b.*"))
       case None =>
         textSelector
-      
+
     forSelector(
       selector = selector,
       page = page,
