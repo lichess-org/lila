@@ -89,8 +89,8 @@ object ScheduleTestHelpers:
 
       possibleNewPlans
         .foldLeft(List[Plan]()): (newPlans, p) =>
-          val potentialConflicts = getConflictingHours(p).flatMap { hourMap.get(_) }
-          if p.conflictsWithFailOnUsurp(potentialConflicts.flatten) then newPlans
+          val potentialConflicts = getConflictingHours(p).flatMap { hourMap.getOrElse(_, List.empty) }
+          if p.conflictsWithFailOnUsurp(potentialConflicts) then newPlans
           else
             getAllHours(p).foreach { addToMap(_, p) }
             p :: newPlans

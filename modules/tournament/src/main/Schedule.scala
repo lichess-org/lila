@@ -192,7 +192,7 @@ object Schedule:
       */
     @throws[IllegalStateException]("if a tourney is incorrectly usurped")
     def conflictsWithFailOnUsurp(scheds: Iterable[ScheduleWithInterval]) =
-      val conflicts   = scheds.filter(conflictsWith)
+      val conflicts   = scheds.filter(conflictsWith).toSeq
       val okConflicts = conflicts.filter(_.schedule.freq >= schedule.freq)
       if conflicts.nonEmpty && okConflicts.isEmpty then
         throw new IllegalStateException(s"Schedule [$schedule] usurped by ${conflicts}")
