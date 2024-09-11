@@ -735,8 +735,8 @@
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="asFreeAsLichess">Личес-тей тегін</string>
-  <string name="builtForTheLoveOfChessNotMoney">Ақша қуып емес, шахматты қызыққаннан жасап отырмыз</string>
-  <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары бүкіл адам үшін тегін</string>
+  <string name="builtForTheLoveOfChessNotMoney">Ақша қуып емес, шахматты жақсы көргеннен жасап отырмыз</string>
+  <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары барлық адам үшін тегін</string>
   <string name="zeroAdvertisement">Еш жарнамасыз</string>
   <string name="fullFeatured">Толыққанды жабдықталған</string>
   <string name="phoneAndTablet">Телепон мен планшет</string>
@@ -746,7 +746,7 @@
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Серік болып, достарды ойынға шақыру</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">%s тіліндегі нұсқасы бар!</item>
+    <item quantity="one">%s тілде нұсқасы бар!</item>
     <item quantity="other">%s тіліндегі нұсқасы бар!</item>
   </plurals>
   <string name="gameAnalysis">Ойынды талдау</string>
