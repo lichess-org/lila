@@ -1,7 +1,7 @@
 import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './timing';
 import { storage, once, type LichessStorage } from './storage';
-import { objectStorage, ObjectStorage, dbExists } from './objectStorage';
+import { objectStorage, dbExists, type ObjectStorage } from './objectStorage';
 
 type Sri = string;
 type Tpe = string;

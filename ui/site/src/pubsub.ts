@@ -37,7 +37,7 @@ const pubsub: Pubsub = {
     else oneTimeEvents.set(event, { promise: Promise.resolve() });
   },
   past(event: string): boolean {
-    return oneTimeEvents.has(event);
+    return oneTimeEvents.has(event) && !oneTimeEvents.get(event)?.resolve;
   },
 };
 
