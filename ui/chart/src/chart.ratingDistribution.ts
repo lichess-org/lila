@@ -85,8 +85,13 @@ export async function initModule(data: DistributionData): Promise<void> {
         },
       });
     if (data.myRating && data.myRating <= maxRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
-    if (data.otherRating && data.otherPlayer && data.otherRating <= maxRating)
-      pushLine('#eeaaee', data.otherRating, data.otherPlayer);
+    if (data.otherRating && data.otherPlayer) {
+      data.otherPlayer = 'ericrosen';
+      data.otherRating = 3100;
+      const otherRating = data.otherRating <= maxRating ? data.otherRating : maxRating;
+      const label = data.otherRating <= maxRating ? data.otherPlayer : `${data.otherPlayer} (${data.otherRating})`;
+      pushLine('#eeaaee', otherRating, label);
+    }
     const chartData: ChartData<'line'> = {
       labels: ratings,
       datasets: datasets,
