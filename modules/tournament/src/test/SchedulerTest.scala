@@ -1,7 +1,7 @@
 package lila.tournament
 
 class SchedulerTest extends munit.FunSuite:
-  import ScheduleTestHelpers.*
+  import ScheduleTestHelpers.{ allSchedulesAt, fullDaySchedule, ExperimentalPruner }
 
   /** Used to update snapshots in this file (see comment at start of each test).
     */
@@ -837,7 +837,7 @@ class SchedulerTest extends munit.FunSuite:
     // uncomment to print text for updating snapshot.
     // _printSnapshot(schedulesAt(instantOf(2022, 12, 31, 21, 43)))
     assertEquals(
-      schedulesAt(instantOf(2022, 12, 31, 21, 43)).mkString("\n"),
+      allSchedulesAt(instantOf(2022, 12, 31, 21, 43)).mkString("\n"),
       List(
         """2022-12-31T22:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",
         """2022-12-31T23:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",

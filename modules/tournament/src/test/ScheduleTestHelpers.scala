@@ -5,7 +5,7 @@ object ScheduleTestHelpers:
     val s = p.schedule
     (s.variant.id.value, s.conditions.nonEmpty, if s.variant.standard then s.speed.id else 0, s.at)
 
-  def schedulesAt(date: Instant) =
+  def allSchedulesAt(date: Instant) =
     TournamentScheduler.allWithConflicts(date).sortBy(planSortKey).map(_.schedule)
 
   val usEastZone  = java.time.ZoneId.of("America/New_York")
