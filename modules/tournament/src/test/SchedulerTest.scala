@@ -1,41 +1,7 @@
 package lila.tournament
 
 class SchedulerTest extends munit.FunSuite:
-  def planSortKey(p: Schedule.Plan) =
-    val s = p.schedule
-    (s.variant.id.value, s.conditions.nonEmpty, if s.variant.standard then s.speed.id else 0, s.at)
-
-  def schedulesAt(date: Instant) =
-    TournamentScheduler.allWithConflicts(date).sortBy(planSortKey).map(_.schedule)
-
-  val usEastZone  = java.time.ZoneId.of("America/New_York")
-  val parisZone   = java.time.ZoneId.of("Europe/Paris")
-  val datePrinter = java.time.format.DateTimeFormatter.ofPattern("MM-dd'T'HH:mm z")
-
-  def fullDaySchedule(date: Instant) =
-    val startOfDay  = date.withTimeAtStartOfDay
-    val dayInterval = TimeInterval(startOfDay, java.time.Duration.ofDays(1))
-
-    // Prune conflicts in a similar manner to how it is done in production i.e. TournamentScheduler:
-    // schedule earlier hours first, and then add later hour schedules if they don't conflict.
-    // In production, existing tournaments come from db, but the effect is the same.
-    Schedule.ForTesting
-      .pruneConflictsFailOnUsurp(
-        List.empty,
-        (-24 to 23).flatMap { hours =>
-          TournamentScheduler
-            .allWithConflicts(startOfDay.plusHours(hours))
-            .filter(_.interval.overlaps(dayInterval))
-        }
-      )
-      .sortBy(planSortKey)
-      .map(p =>
-        val s           = p.schedule
-        val realStart   = s.atInstant
-        val usEastStart = realStart.atZone(usEastZone).format(datePrinter)
-        val parisStart  = realStart.atZone(parisZone).format(datePrinter)
-        s"${s} ($usEastStart, $parisStart) ${p.minutes}m"
-      )
+  import ScheduleTestHelpers.*
 
   /** Used to update snapshots in this file (see comment at start of each test).
     */
@@ -50,7 +16,7 @@ class SchedulerTest extends munit.FunSuite:
     val start      = instantOf(2024, 9, 1, 0, 0)
     val wholeMonth = TimeInterval(start, start.plusMonths(1))
     val daysInSept = 30
-    val allSeptTourneys = Schedule.ForTesting
+    val allSeptTourneys = ExperimentalPruner
       .pruneConflictsFailOnUsurp(
         List.empty,
         // Hour by hour schedules for the entire month.
@@ -122,7 +88,7 @@ class SchedulerTest extends munit.FunSuite:
       TournamentScheduler.allWithConflicts(start.plusHours(hours))
     }
     assertEquals(
-      Schedule.ForTesting.pruneConflictsFailOnUsurp(prescheduled, allTourneys),
+      ExperimentalPruner.pruneConflictsFailOnUsurp(prescheduled, allTourneys),
       Schedule.pruneConflicts(prescheduled, allTourneys)
     )
 

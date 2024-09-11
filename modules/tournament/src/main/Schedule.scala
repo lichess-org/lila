@@ -162,9 +162,9 @@ object Schedule:
 
     def overlaps(other: ScheduleWithInterval) = interval.overlaps(other.interval)
 
-    // Note: this method is must be kept in sync with [[Schedule.pruneConflictsFailOnUsurp]]
-    // In particular, pruneConflictsFailOnUsurp makes assumptions about which tourneys
-    // could potentially conflict, by filtering tourneys based on their hours.
+    // Note: must be kept in sync with [[SchedulerTestHelpers.ExperimentalPruner.pruneConflictsFailOnUsurp]]
+    // In particular, pruneConflictsFailOnUsurp filters tourneys that couldn't possibly conflict based
+    // on their hours -- so the same logic (overlaps and daily windows) must be used here.
     def conflictsWith(si2: ScheduleWithInterval) =
       val s1 = schedule
       val s2 = si2.schedule
@@ -424,8 +424,8 @@ object Schedule:
 
   /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
     * plans that do not conflict with either the existing schedules or with themselves. Intended to produce
-    * identical output to [[ForTesting.pruneConflictsForTesting]], but this variant is more readable and has
-    * lower potential for bugs.
+    * identical output to [[SchedulerTestHelpers.ExperimentalPruner.pruneConflictsFailOnUsurp]], but this
+    * variant is more readable and has lower potential for bugs.
     */
   private[tournament] def pruneConflicts(
       existingSchedules: Iterable[ScheduleWithInterval],
@@ -439,61 +439,3 @@ object Schedule:
           allPlannedSchedules = p :: allPlannedSchedules
           p :: newPlans
       .reverse
-
-  private[tournament] object ForTesting:
-    import java.time.temporal.ChronoUnit
-    import scala.collection.mutable.{ ArrayBuffer, LongMap }
-
-    private val MS_PER_HR = 3600L * 1000
-    // Round up to nearest whole hour and convert to ms
-    private val DAILY_OVERLAP_MS = Math.ceil(SCHEDULE_DAILY_OVERLAP_MINS / 60.0).toLong * MS_PER_HR
-
-    private def firstHourMs(s: ScheduleWithInterval) =
-      s.startsAt.truncatedTo(ChronoUnit.HOURS).toEpochMilli
-
-    /** Returns a Seq of each hour (as epoch ms) that a tournament overlaps with, for use in a hash map.
-      */
-    def getAllHours(s: ScheduleWithInterval) =
-      (firstHourMs(s) until s.endsAt.toEpochMilli by MS_PER_HR)
-
-    /** Returns a Seq of possible hours (as epoch ms) that another tournament could exist that would be
-      * considered a conflict. This results in pulling all tournaments within a sliding window. The window is
-      * smaller when the tournament is an hourly, as these only conflict with tournaments that actually
-      * overlap. Daily or better tournaments can conflict with another daily or better in a larger window as
-      * well as with hourlies.
-      */
-    def getConflictingHours(s: ScheduleWithInterval) =
-      // Tourneys of daily or better can conflict with another tourney within a sliding window
-      if s.schedule.freq.isDailyOrBetter then
-        (firstHourMs(s) - DAILY_OVERLAP_MS until
-          s.endsAt.toEpochMilli + DAILY_OVERLAP_MS by
-          MS_PER_HR)
-      else getAllHours(s)
-
-    /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
-      * plans that do not conflict with either the existing schedules or with themselves.
-      *
-      * Returns the same result as [[Schedule.pruneConflicts]], but is asymptotically more efficient,
-      * performing O(n) operations of [[ScheduleWithInterval.conflictsWith(WithScheduleWithInterval):*]]
-      * rather than O(n^2), n being the number of inputs.
-      */
-    @throws[IllegalStateException]("if a tourney is incorrectly usurped")
-    def pruneConflictsFailOnUsurp(
-        existingSchedules: Iterable[ScheduleWithInterval],
-        possibleNewPlans: Iterable[Plan]
-    ): List[Plan] =
-      // Bucket schedules by hour for faster conflict detection
-      val hourMap = LongMap.empty[ArrayBuffer[ScheduleWithInterval]]
-      def addToMap(hour: Long, s: ScheduleWithInterval) =
-        hourMap.getOrElseUpdate(hour, ArrayBuffer.empty).addOne(s)
-
-      existingSchedules.foreach { s => getAllHours(s).foreach { addToMap(_, s) } }
-
-      possibleNewPlans
-        .foldLeft(List[Plan]()): (newPlans, p) =>
-          val potentialConflicts = getConflictingHours(p).flatMap { hourMap.get(_) }
-          if p.conflictsWithFailOnUsurp(potentialConflicts.flatten) then newPlans
-          else
-            getAllHours(p).foreach { addToMap(_, p) }
-            p :: newPlans
-        .reverse
