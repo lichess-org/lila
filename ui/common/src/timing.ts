@@ -187,11 +187,12 @@ export function browserTaskQueueMonitor(interval = 1000): { wasSuspended: boolea
     },
   };
 
+  function monitor() {
+    if (performance.now() - lastTime > (interval + 400)) suspended = true;
+    else start();
+  }
+
   function start() {
-    const monitor = () => {
-      if (performance.now() - lastTime > (interval + 400)) suspended = true;
-      else start();
-    };
     lastTime = performance.now();
     timeout = setTimeout(monitor, interval);
   }
