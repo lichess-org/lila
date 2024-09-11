@@ -1,7 +1,7 @@
 .blindfold {
   &.main-board piece,
   .now-playing piece {
-    opacity: 0;
+    opacity: 0 !important;
   }
 
   &.main-board .check {
