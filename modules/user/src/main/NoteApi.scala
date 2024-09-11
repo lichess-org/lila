@@ -19,7 +19,7 @@ case class Note(
   def searchable = mod && from.isnt(UserId.lichess) && from.isnt(UserId.watcherbot) &&
     !text.startsWith("Appeal reply:")
 
-final class NoteApi(userRepo: UserRepo, coll: Coll)(using Executor) extends lila.core.user.NoteApi:
+final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
 
   import reactivemongo.api.bson.*
   private given bsonHandler: BSONDocumentHandler[Note] = Macros.handler[Note]

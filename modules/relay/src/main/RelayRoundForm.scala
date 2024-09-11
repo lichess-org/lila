@@ -6,9 +6,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import scalalib.model.Seconds
-
-import scala.util.Try
-
 import lila.common.Form.{ cleanText, formatter, into, stringIn }
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
@@ -225,7 +222,7 @@ object RelayRoundForm:
         finished = ~finished
       )
 
-    private def makeSync(user: User)(using mode: Mode): Sync =
+    private def makeSync(user: User): Sync =
       RelayRound.Sync(
         upstream = upstream,
         until = none,

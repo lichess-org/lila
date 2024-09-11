@@ -1,12 +1,8 @@
 package lila.studySearch
 
-import chess.format.pgn.Tag
-
-import java.time.LocalDate
-
 import lila.search.*
 import lila.search.client.SearchClient
-import lila.search.spec.{ Query, StudySource }
+import lila.search.spec.Query
 import lila.study.{ Study, StudyRepo }
 
 final class StudySearchApi(

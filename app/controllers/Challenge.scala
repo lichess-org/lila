@@ -12,11 +12,7 @@ import lila.game.AnonCookie
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 
-final class Challenge(
-    env: Env,
-    apiC: Api
-) extends LilaController(env):
-
+final class Challenge(env: Env) extends LilaController(env):
   def api = env.challenge.api
 
   def all = Auth { ctx ?=> me ?=>

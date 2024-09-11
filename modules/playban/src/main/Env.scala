@@ -9,7 +9,6 @@ import lila.core.config.CollName
 final class Env(
     appConfig: Configuration,
     messenger: lila.core.msg.MsgApi,
-    reportApi: lila.core.report.ReportApi,
     chatApi: lila.core.chat.ChatApi,
     gameApi: lila.core.game.GameApi,
     noteApi: lila.core.user.NoteApi,

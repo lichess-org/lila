@@ -57,7 +57,7 @@ final class Swiss(
             isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
             page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
-        json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, team) =>
+        json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, _) =>
           for
             isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
             verdicts      <- env.swiss.api.verdicts(swiss)

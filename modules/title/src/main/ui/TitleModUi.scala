@@ -7,7 +7,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.PicfitUrl)(using NetDomain):
+final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
   import helpers.{ *, given }
 
   def queue(reqs: List[TitleRequest])(using ctx: Context): Frag =

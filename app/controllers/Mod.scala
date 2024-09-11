@@ -580,7 +580,7 @@ final class Mod(
         if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
 
-  private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: Context, me: Me): Fu[Result] =
+  private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then redirect(username)
     else userC.renderModZoneActions(username)
