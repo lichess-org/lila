@@ -1,4 +1,4 @@
-import * as licon from 'common/licon';
+import * as licon from './licon';
 
 interface Data {
   nb: number;
@@ -11,7 +11,7 @@ let watchersData: Data | undefined;
 
 const name = (u: string) => (u.includes(' ') ? u.split(' ')[1] : u);
 
-export default function watchers(element: HTMLElement) {
+export function watchers(element: HTMLElement): void {
   if (element.dataset.watched) return;
   element.dataset.watched = '1';
   const $innerElement = $('<div class="chat__members__inner">').appendTo(element);

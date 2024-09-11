@@ -1,5 +1,6 @@
 import * as xhr from './xhr';
 import { idleTimer } from './timing';
+import { log } from './dbLog';
 import { storage, storedIntProp, once, type LichessStorage } from './storage';
 
 type Sri = string;
@@ -198,7 +199,7 @@ export default class StrongSocket {
       if (!this.tryOtherUrl && isOnline()) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
-        site.log(`sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`);
+        log(`sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`);
       }
       this.connect();
     }, delay);
@@ -308,7 +309,7 @@ export default class StrongSocket {
     if (e.wasClean && e.code < 1002) return;
 
     if (isOnline())
-      site.log(`${site?.sri ? 'sri ' + site.sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
+      log(`${site?.sri ? 'sri ' + site.sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };

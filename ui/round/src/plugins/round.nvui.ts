@@ -6,8 +6,7 @@ import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table
 import { makeConfig as makeCgConfig } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
-import { plyStep } from '../round';
-import { onInsert } from '../util';
+import { onInsert, plyStep } from '../util';
 import { Step, Position, NvuiPlugin } from '../interfaces';
 import * as game from 'game';
 import {
@@ -34,6 +33,7 @@ import {
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
+import { Chessground as makeChessground } from 'chessground';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -72,7 +72,7 @@ export function initModule(): NvuiPlugin {
           'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
-          site.makeChessground(document.createElement('div'), {
+          makeChessground(document.createElement('div'), {
             ...makeCgConfig(ctrl),
             animation: { enabled: false },
             drawable: { enabled: false },

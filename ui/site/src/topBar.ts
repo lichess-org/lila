@@ -1,12 +1,13 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadEsm } from './asset';
 import { memoize } from 'common';
+import { spinnerHtml } from 'common/spinner';
 import { clamp } from 'common/algo';
 
 export default function() {
   const top = document.getElementById('top')!;
 
-  const initiatingHtml = `<div class="initiating">${site.spinnerHtml}</div>`,
+  const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`,
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
         display = el && window.getComputedStyle(el).display;

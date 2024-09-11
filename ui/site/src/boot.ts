@@ -1,8 +1,6 @@
 import * as licon from 'common/licon';
-import * as miniBoard from 'common/miniBoard';
+import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'common/miniBoard';
 import { prefersLight } from 'common/theme';
-import * as miniGame from './miniGame';
-import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
 import announce from './announce';
 import OnlineFriends from './friends';
@@ -11,10 +9,12 @@ import pubsub from './pubsub';
 import serviceWorker from './serviceWorker';
 import StrongSocket from 'common/socket';
 import topBar from './topBar';
-import watchers from './watchers';
+import { watchers } from 'common/watchers';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
+import { userComplete } from 'common/userComplete';
+import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 
 export function boot() {
   $('#user_tag').removeAttr('href');
@@ -22,12 +22,12 @@ export function boot() {
   const showDebug = location.hash.startsWith('#debug');
 
   requestAnimationFrame(() => {
-    miniBoard.initAll();
-    miniGame.initAll();
-    pubsub.on('content-loaded', miniBoard.initAll);
-    pubsub.on('content-loaded', miniGame.initAll);
-    timeago.updateRegularly(1000);
-    pubsub.on('content-loaded', timeago.findAndRender);
+    initMiniBoards();
+    initMiniGames();
+    pubsub.on('content-loaded', initMiniBoards);
+    pubsub.on('content-loaded', initMiniGames);
+    updateTimeAgo(1000);
+    pubsub.on('content-loaded', renderTimeAgo);
   });
   requestIdleCallback(() => {
     const friendsEl = document.getElementById('friend_box');
@@ -77,7 +77,7 @@ export function boot() {
     $('.user-autocomplete').each(function(this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () =>
-        site.asset.userComplete({
+        userComplete({
           input: this,
           friend: !!this.dataset.friend,
           tag: this.dataset.tag as any,
@@ -140,12 +140,12 @@ export function boot() {
       site.redirect(d);
     });
     pubsub.on('socket.in.fen', e =>
-      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e)),
+      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => updateMiniGame(el, e)),
     );
     pubsub.on('socket.in.finish', e =>
       document
         .querySelectorAll('.mini-game-' + e.id)
-        .forEach((el: HTMLElement) => miniGame.finish(el, e.win)),
+        .forEach((el: HTMLElement) => finishMiniGame(el, e.win)),
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {

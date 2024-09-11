@@ -28,7 +28,7 @@ const requestReplacementGame = () => {
       .then((data: ReplacementResponse) => {
         main.find(`.mini-game[href^="/${oldId}"]`).replaceWith(data.html);
         if (data.html.includes('mini-game__result')) onFinish(data.id);
-        site.contentLoaded();
+        site.pubsub.emit('content-loaded');
       })
       .then(done, done);
   });

@@ -14,6 +14,7 @@ import { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './
 import { importPgn, variants as xhrVariants } from './studyXhr';
 import { StudyChapters } from './studyChapters';
 import { FEN } from 'chessground/types';
+import type { LichessEditor } from 'editor';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],

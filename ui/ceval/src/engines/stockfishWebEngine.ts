@@ -2,6 +2,7 @@ import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from
 import { Protocol } from '../protocol';
 import { objectStorage, ObjectStorage } from 'common/objectStorage';
 import { sharedWasmMemory } from '../util';
+import { log } from 'common/dbLog';
 import type StockfishWeb from 'lila-stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {
@@ -90,7 +91,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   makeErrorHandler(module: StockfishWeb) {
     return (msg: string): void => {
-      site.log(this.info.assets.js, msg);
+      log(this.info.assets.js, msg);
       if (msg.startsWith('BAD_NNUE') && this.store) {
         // if we got this from IDB, we must remove it. but wait for getModels::store.put to finish first
         const index = Math.max(0, Number(msg.slice(9)));

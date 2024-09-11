@@ -1,6 +1,5 @@
 import * as licon from 'common/licon';
 import * as game from 'game';
-import * as round from '../round';
 import * as status from 'game/status';
 import * as util from '../util';
 import { isCol1 } from 'common/device';
@@ -26,7 +25,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
     if (ctrl.data.steps.length < 7) return;
     let st: number | undefined;
     if (ctrl.ply < 3) st = 0;
-    else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
+    else if (ctrl.ply == util.lastPly(ctrl.data)) st = scrollMax;
     else {
       const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
       if (plyEl)
@@ -85,8 +84,8 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
 
 function renderMoves(ctrl: RoundController): LooseVNodes {
   const steps = ctrl.data.steps,
-    firstPly = round.firstPly(ctrl.data),
-    lastPly = round.lastPly(ctrl.data),
+    firstPly = util.firstPly(ctrl.data),
+    lastPly = util.lastPly(ctrl.data),
     indexOffset = Math.trunc(firstPly / 2) + 1,
     drawPlies = new Set(ctrl.data.game.drawOffers || []);
 
@@ -133,8 +132,8 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
 
 function renderButtons(ctrl: RoundController) {
   const d = ctrl.data,
-    firstPly = round.firstPly(d),
-    lastPly = round.lastPly(d);
+    firstPly = util.firstPly(d),
+    lastPly = util.lastPly(d);
 
   return h(
     'div.buttons',
@@ -230,9 +229,9 @@ export function render(ctrl: RoundController): LooseVNode {
       initMessage(ctrl) ||
         (isCol1()
           ? h('div.col1-moves', [
-            col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == round.firstPly(d)),
+            col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == util.firstPly(d)),
             renderMovesOrResult,
-            col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == round.lastPly(d)),
+            col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == util.lastPly(d)),
           ])
           : renderMovesOrResult),
     ])

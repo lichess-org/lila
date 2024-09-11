@@ -31,6 +31,7 @@ import { bind, onInsert } from 'common/snabbdom';
 import { Api } from 'chessground/api';
 import { throttle } from 'common/timing';
 import PuzzleCtrl from '../ctrl';
+import { Chessground as makeChessground } from 'chessground';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -49,7 +50,7 @@ export function initModule() {
       notify.redraw = ctrl.redraw;
       const ground =
         ctrl.ground() ||
-        site.makeChessground(document.createElement('div'), {
+        makeChessground(document.createElement('div'), {
           ...makeConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },

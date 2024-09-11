@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 import { debounce } from 'common/timing';
 import { addPasswordVisibilityToggleListener } from 'common/password';
 import { storedJsonProp } from 'common/storage';
+import { spinnerHtml } from 'common/spinner';
 
 export function initModule(mode: 'login' | 'signup' | 'reset'): void {
   mode === 'login' ? loginStart() : mode === 'signup' ? signupStart() : resetStart();
@@ -108,7 +109,7 @@ function signupStart() {
         .prop('disabled', true)
         .removeAttr('data-icon')
         .addClass('frameless')
-        .html(site.spinnerHtml);
+        .html(spinnerHtml);
     else return false;
   });
 

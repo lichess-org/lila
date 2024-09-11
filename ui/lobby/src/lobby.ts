@@ -36,12 +36,12 @@ export function initModule(opts: LobbyOpts) {
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          site.contentLoaded();
+          site.pubsub.emit('content-loaded');
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        site.contentLoaded();
+        site.pubsub.emit('content-loaded');
       },
       redirect(e: RedirectTo) {
         lobbyCtrl.setRedirecting();

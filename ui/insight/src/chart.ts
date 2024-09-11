@@ -18,6 +18,7 @@ import { currentTheme } from 'common/theme';
 import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill, colorSeries } from 'chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { formatNumber } from './table';
+import { spinnerHtml } from 'common/spinner';
 
 resizePolyfill();
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
@@ -188,7 +189,7 @@ let chart: InsightChart;
 function chartHook(vnode: VNode, ctrl: Ctrl) {
   const el = vnode.elm as HTMLCanvasElement;
   if (ctrl.vm.loading || !ctrl.vm.answer) {
-    $(el).html(site.spinnerHtml);
+    $(el).html(spinnerHtml);
   } else {
     if (!maybeChart(el)) chart = insightChart(el, ctrl.vm.answer);
     else if (chart) chart.updateData(ctrl.vm.answer);

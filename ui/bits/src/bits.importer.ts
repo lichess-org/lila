@@ -1,6 +1,8 @@
+import { spinnerHtml } from 'common/spinner';
+
 const $form: Cash = $('main.importer form');
 
-$form.on('submit', () => setTimeout(() => $form.html(site.spinnerHtml), 50));
+$form.on('submit', () => setTimeout(() => $form.html(spinnerHtml), 50));
 
 $form.find('input[type=file]').on('change', function(this: HTMLInputElement) {
   const file = this.files?.[0];
