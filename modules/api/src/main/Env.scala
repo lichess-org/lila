@@ -2,7 +2,8 @@ package lila.api
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.
+import com.softwaremill.tagging.*
+import play.api.Mode
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
