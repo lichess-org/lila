@@ -12,13 +12,11 @@ final class SocketTestResult(resultsDb: lila.db.AsyncCollFailingSilently)(using 
 object SocketTest:
 
   def isUserInTestBucket(net: NetConfig)(using ctx: Context) =
-    net.socketTest && ctx.pref.usingAltSocket.isEmpty && ctx.userId.exists: userId =>
-      java.security.MessageDigest.getInstance("MD5").digest(userId.value.getBytes).head % 128 == 0
+    net.socketTest && ctx.pref.usingAltSocket.isEmpty && ctx.userId.exists(_.value.toList.sum % 128 == 0)
 
   def socketEndpoints(net: NetConfig)(using ctx: Context): List[String] =
     ctx.pref.usingAltSocket.match
-      case Some(true)  => net.socketAlts
-      case Some(false) => net.socketDomains
-      case _ if isUserInTestBucket(net) =>
-        (net.socketDomains.head :: net.socketAlts.headOption.toList)
-      case _ => net.socketDomains
+      case Some(true)                   => net.socketAlts
+      case Some(false)                  => net.socketDomains
+      case _ if isUserInTestBucket(net) => net.socketDomains.head :: net.socketAlts.headOption.toList
+      case _                            => net.socketDomains
