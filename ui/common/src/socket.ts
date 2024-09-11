@@ -3,6 +3,22 @@ import { idleTimer, browserTaskQueueMonitor } from './timing';
 import { storage, once, type LichessStorage } from './storage';
 import { objectStorage, ObjectStorage, dbExists } from './objectStorage';
 
+type Sri = string;
+type Tpe = string;
+type Payload = any;
+type Version = number;
+interface MsgBase {
+  t: Tpe;
+  d?: Payload;
+}
+interface MsgIn extends MsgBase {
+  v?: Version;
+}
+interface MsgOut extends MsgBase {}
+interface MsgAck extends MsgOut {
+  at: number;
+}
+
 interface Options {
   idle: boolean;
   pongTimeout: number; // time to wait for pong before resetting the connection
@@ -89,6 +105,50 @@ export default class StrongSocket implements SocketI {
     this.ackable.sign(s);
   };
 
+  private connect = (): void => {
+    this.destroy();
+    if (!isOnline()) {
+      document.body.classList.remove('online');
+      document.body.classList.add('offline');
+      $('#network-status').text(site ? site.trans('noNetwork') : 'Offline');
+      this.scheduleConnect(4000);
+      return;
+    }
+    this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
+      ...this.settings.params,
+      v: this.version === false ? undefined : this.version,
+    });
+    this.debug('connection attempt to ' + this.lastUrl);
+    try {
+      const ws = (this.ws = new WebSocket(this.lastUrl));
+      ws.onerror = e => this.onError(e);
+      ws.onclose = this.onClose;
+      ws.onopen = () => {
+        this.lastUrl = ws.url;
+        this.debug('connected to ' + this.lastUrl);
+        const cl = document.body.classList;
+        if (site.pubsub.past('socket.hasConnected')) cl.add('reconnected');
+        cl.remove('offline');
+        cl.add('online');
+        this.onSuccess();
+        this.pingNow();
+        this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
+        this.resendWhenOpen = [];
+        site.pubsub.emit('socket.open');
+        this.ackable.resend();
+      };
+      ws.onmessage = e => {
+        if (e.data == 0) return this.pong();
+        const m = JSON.parse(e.data);
+        if (m.t === 'n') this.pong();
+        this.handle(m);
+      };
+    } catch (e) {
+      this.onClose({ code: 4000, reason: String(e) } as CloseEvent);
+    }
+    this.scheduleConnect();
+  };
+
   send = (t: string, d: any, o: any = {}, noRetry = false): void => {
     const msg: Partial<MsgOut> = { t };
     if (d !== undefined) {
@@ -123,70 +183,6 @@ export default class StrongSocket implements SocketI {
     } else this.ws.send(message);
   };
 
-  pingInterval = (): number => this.computePingDelay() + this.averageLag;
-  getVersion = (): number | false => this.version;
-
-  destroy = (): void => {
-    this.storeStats();
-    clearTimeout(this.pingSchedule);
-    clearTimeout(this.connectSchedule);
-    this.disconnect();
-    this.ws = undefined;
-  };
-
-  disconnect = (): void => {
-    const ws = this.ws;
-    if (ws) {
-      this.debug('Disconnect');
-      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = () => {};
-      ws.close();
-    }
-  };
-
-  private connect = (): void => {
-    this.destroy();
-    if (!isOnline()) {
-      document.body.classList.remove('online');
-      document.body.classList.add('offline');
-      $('#network-status').text(site ? site.trans('noNetwork') : 'Offline');
-      this.scheduleConnect(4000);
-      return;
-    }
-    this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
-      ...this.settings.params,
-      v: this.version === false ? undefined : this.version,
-    });
-    this.debug('connection attempt to ' + this.lastUrl);
-    try {
-      const ws = (this.ws = new WebSocket(this.lastUrl));
-      ws.onerror = e => this.onError(e);
-      ws.onclose = this.onClose;
-      ws.onopen = () => {
-        this.lastUrl = ws.url;
-        this.debug('connected to ' + this.lastUrl);
-        const cl = document.body.classList;
-        cl.toggle('reconnected', site.pubsub.past('socket.hasConnected'));
-        cl.remove('offline');
-        cl.add('online');
-        this.onSuccess();
-        this.pingNow();
-        this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
-        this.resendWhenOpen = [];
-        site.pubsub.emit('socket.open');
-        this.ackable.resend();
-      };
-      ws.onmessage = e => {
-        if (e.data == 0) return this.pong();
-        const m = JSON.parse(e.data);
-        if (m.t === 'n') this.pong();
-        this.handle(m);
-      };
-    } catch (e) {
-      this.onClose({ code: 4000, reason: String(e) } as CloseEvent);
-    }
-    this.scheduleConnect();
-  };
-
   private scheduleConnect = (delay: number = this.options.pongTimeout): void => {
     if (this.options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     // debug('schedule connect ' + delay);
@@ -196,7 +192,7 @@ export default class StrongSocket implements SocketI {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
       $('#network-status').text(site.trans ? site.trans('reconnecting') : 'Reconnecting');
-      if (isOnline()) this.tryOtherUrl = true;
+      this.tryOtherUrl = true;
       this.connect();
     }, delay);
   };
@@ -275,6 +271,23 @@ export default class StrongSocket implements SocketI {
     if (always || this.options.debug) console.debug(msg);
   };
 
+  destroy = (): void => {
+    this.storeStats();
+    clearTimeout(this.pingSchedule);
+    clearTimeout(this.connectSchedule);
+    this.disconnect();
+    this.ws = undefined;
+  };
+
+  disconnect = (): void => {
+    const ws = this.ws;
+    if (ws) {
+      this.debug('Disconnect');
+      ws.onerror = ws.onclose = ws.onopen = ws.onmessage = () => {};
+      ws.close();
+    }
+  };
+
   private onError = (e: unknown): void => {
     if (this.heartbeat.wasSuspended) return;
     this.options.debug = true;
@@ -336,6 +349,9 @@ export default class StrongSocket implements SocketI {
     this.tryOtherUrl = false;
     return url;
   };
+
+  pingInterval = (): number => this.computePingDelay() + this.averageLag;
+  getVersion = (): number | false => this.version;
 
   private async storeStats(event?: any) {
     if (!this.lastUrl || !this.isTestUser || !this.isTestRunning) return;
@@ -420,20 +436,4 @@ class Ackable {
   onServerAck = (id: number): void => {
     this.messages = this.messages.filter(m => m.d.a !== id);
   };
-}
-
-type Sri = string;
-type Tpe = string;
-type Payload = any;
-type Version = number;
-interface MsgBase {
-  t: Tpe;
-  d?: Payload;
-}
-interface MsgIn extends MsgBase {
-  v?: Version;
-}
-interface MsgOut extends MsgBase {}
-interface MsgAck extends MsgOut {
-  at: number;
 }
