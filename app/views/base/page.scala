@@ -4,6 +4,7 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.ui.RenderedPage
+import lila.api.SocketTest
 
 object page:
 
@@ -31,23 +32,6 @@ object page:
       )
     )
   )
-
-  private def isUserInTestBucket(using ctx: Context) =
-    ctx.userId.exists: userId =>
-      ctx.pref.usingAltSocket.isEmpty && java.security.MessageDigest
-        .getInstance("MD5")
-        .digest(userId.value.getBytes)
-        .head % 128 == 0
-
-  private def dataSockets(using ctx: Context) =
-    attr("data-socket-domains") :=
-      (ctx.pref.usingAltSocket match
-        case Some(true)  => netConfig.socketAlts.mkString(",")
-        case Some(false) => netConfig.socketDomains.mkString(",")
-        case _ if isUserInTestBucket && netConfig.socketTest =>
-          (netConfig.socketDomains.head :: netConfig.socketAlts.headOption.toList).mkString(",")
-        case _ => netConfig.socketDomains.mkString(",")
-      )
 
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
     s"---board-opacity:${ctx.pref.board.opacity};" +
@@ -127,10 +111,10 @@ object page:
           dataDev,
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
-          dataUser     := ctx.userId,
-          dataSoundSet := pref.currentSoundSet.toString,
-          dataSockets,
-          attr("data-socket-test-user")    := isUserInTestBucket,
+          dataUser                         := ctx.userId,
+          dataSoundSet                     := pref.currentSoundSet.toString,
+          attr("data-socket-domains")      := SocketTest.socketEndpoints(netConfig).mkString(","),
+          attr("data-socket-test-user")    := SocketTest.isUserInTestBucket(netConfig),
           attr("data-socket-test-running") := netConfig.socketTest,
           dataAssetUrl,
           dataAssetVersion := assetVersion,
