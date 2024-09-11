@@ -3,8 +3,6 @@ package lila.notify
 import akka.actor.*
 import akka.stream.Materializer
 import com.softwaremill.macwire.*
-import play.api.Configuration
-
 import lila.common.Bus
 import lila.common.config.*
 import lila.db.dsl.Coll
@@ -13,11 +11,9 @@ import lila.core.notify.{ NotifyApi as _, * }
 
 @Module
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.core.user.UserRepo,
     userApi: lila.core.user.UserApi,
-    getLightUser: lila.core.LightUser.Getter,
     getLightUserSync: lila.core.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
     subsRepo: lila.core.relation.SubscriptionRepo,

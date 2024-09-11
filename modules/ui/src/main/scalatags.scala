@@ -169,7 +169,6 @@ trait ScalatagsExtensions:
     t.setAttr("aria-label", value)
 
   def textAndTitle(i18n: I18nKey)(using Translate): Modifier = (t: Builder) =>
-    val value = Builder.GenericAttrValueSource(i18n.txt())
     t.setAttr("title", Builder.GenericAttrValueSource(i18n.txt()))
     t.addChild(i18n())
 

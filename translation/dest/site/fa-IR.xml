@@ -807,7 +807,7 @@
   <string name="usernameCharsInvalid">نام کاربری فقط می تواند شامل حروف،اعداد،خط فاصله یا زیر خط(under line) باشد.</string>
   <string name="usernameUnacceptable">این نام کاربری قابل قبول نیست.</string>
   <string name="playChessInStyle">شطرنج‌بازیِ نوگارانه</string>
-  <string name="chessBasics">اصول شطرنج</string>
+  <string name="chessBasics">پایه‌های شطرنج</string>
   <string name="coaches">مربی ها</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
   <string name="invalidFen">وضعیت نامعتبر</string>
@@ -842,8 +842,8 @@
   <string name="findBetterMoveForBlack">حرکت بهتری برای سیاه بیابید</string>
   <string name="resumeLearning">ادامه یادگیری</string>
   <string name="youCanDoBetter">می‌توانید بهتر انجامش دهید</string>
-  <string name="tryAnotherMoveForWhite">برای سفید،حرکت دیگری را امتحان کنید</string>
-  <string name="tryAnotherMoveForBlack">برای سیاه،حرکت دیگری را امتحان کنید</string>
+  <string name="tryAnotherMoveForWhite">حرکت دیگری را برای سفید بیابید</string>
+  <string name="tryAnotherMoveForBlack">حرکت دیگری را برای سیاه بیابید</string>
   <string name="solution">راه‌حل</string>
   <string name="waitingForAnalysis">در انتظار تحلیل</string>
   <string name="noMistakesFoundForWhite">هیچی اشتباهی از سفید یافت نشد</string>

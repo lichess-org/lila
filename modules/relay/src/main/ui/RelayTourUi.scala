@@ -62,7 +62,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       )
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
-    Page(trc.liveBroadcasts.txt())
+    Page(title)
       .css("bits.relay.index")
       .js(infiniteScrollEsmInit):
         main(cls := "relay-index page-menu")(menu, div(cls := "page-menu__content box box-pad")(body))

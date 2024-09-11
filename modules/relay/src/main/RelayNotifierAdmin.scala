@@ -2,7 +2,7 @@ package lila.relay
 
 import com.github.blemale.scaffeine.Cache
 
-import lila.study.{ ChapterPreview, ChapterPreviewApi }
+import lila.study.ChapterPreviewApi
 import lila.core.irc.IrcApi
 
 private final class RelayNotifierAdmin(api: RelayApi, irc: IrcApi, previewApi: ChapterPreviewApi)(using
