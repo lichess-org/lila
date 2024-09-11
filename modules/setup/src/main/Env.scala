@@ -1,11 +1,9 @@
 package lila.setup
 
 import com.softwaremill.macwire.*
-import play.api.Configuration
 
 @Module
 final class Env(
-    appConfig: Configuration,
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart,

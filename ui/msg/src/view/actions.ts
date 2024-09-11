@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
+import { confirm } from 'common/dialog';
 import { Convo } from '../interfaces';
 import MsgCtrl from '../ctrl';
 
@@ -65,5 +66,5 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
 }
 
 const withConfirm = (f: () => void) => (e: MouseEvent) => {
-  if (confirm(`${(e.target as HTMLElement).getAttribute('title') || 'Confirm'}?`)) f();
+  confirm(`${(e.target as HTMLElement).getAttribute('title') || 'Confirm'}?`).then(yes => yes && f());
 };

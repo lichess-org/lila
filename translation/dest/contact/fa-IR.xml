@@ -41,7 +41,7 @@
   <string name="howToReportBug">لطفاً توصیف کنید که نقصان فنی چگونه است، شما انتظار داشتید به جای آن چه اتفاقی رخ می‌داد، و گامهایی که نقصان را مجدداً ایجاد می‌کند را شرح دهید.</string>
   <string name="illegalPawnCapture">زدنِ غیرقانونیِ سرباز</string>
   <string name="calledEnPassant">این حرکت \"en passant\" نامیده می‌شود و یکی از قوانین شطرنج است.</string>
-  <string name="tryEnPassant">این بازی تعاملی کوچک را امتحان کنید تا در مورد \"en passant\" بیشتر یاد بگیرید.</string>
+  <string name="tryEnPassant">برای یادگیری بیشتر «گرفتن هنگام عبور»، این بازی میان‌کنشی کوچک را بیازمایید.</string>
   <string name="illegalCastling">قلعه‌روی نامجاز یا ناممکن</string>
   <string name="castlingPrevented">از قلعه‌روی، هنگامی که شاه از خانه‌ی زیرِضرب می‌گذرد، جلوگیری می‌شود.</string>
   <string name="castlingRules">اطمینان یابید که قانون‌های قلعه‌روی را می‌فهمید</string>

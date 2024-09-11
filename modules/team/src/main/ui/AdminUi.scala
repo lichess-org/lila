@@ -3,12 +3,11 @@ package ui
 
 import play.api.data.{ Field, Form }
 
-import lila.core.config.NetDomain
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
+final class AdminUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
   import trans.{ team as trt }
   import bits.{ TeamPage, menu }

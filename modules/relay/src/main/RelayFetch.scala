@@ -216,8 +216,7 @@ final private class RelayFetch(
       .flatMap(gameRepo.withInitialFens)
       .flatMap: games =>
         if games.sizeIs == ids.size then
-          val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-          given play.api.i18n.Lang = lila.core.i18n.defaultLang
+          val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
           games
             .sequentially: (game, fen) =>
               pgnDump(game, fen, pgnFlags).dmap(_.render)

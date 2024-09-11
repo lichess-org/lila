@@ -27,7 +27,6 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
     gameProxy: lila.core.game.GameProxy,
-    federations: lila.core.fide.Federation.FedsOf,
     guessPlayer: lila.core.fide.GuessPlayer,
     getPlayer: lila.core.fide.GetPlayer,
     cacheApi: lila.memo.CacheApi,
