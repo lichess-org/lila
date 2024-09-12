@@ -14,7 +14,8 @@ object LightGame:
       F.blackPlayer -> true,
       F.playerUids  -> true,
       F.winnerColor -> true,
-      F.status      -> true
+      F.status      -> true,
+      F.variant     -> true
     )
 
 object LightPlayer:
