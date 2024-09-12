@@ -24,7 +24,7 @@
   },
   "lint-staged": {
     "*.{json,scss}": "prettier --write",
-    "*.ts": "eslint --fix ui"
+    "*.ts": "eslint --fix --fix-type layout ui"
   },
   "dependencies": {
     "@types/lichess": "workspace:*",

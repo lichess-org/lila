@@ -33,7 +33,8 @@ export class Assets {
         .catch(reject);
     });
     this.net.set(key, netPromise);
-    if (this.net.size > 2) this.net.delete(this.net.keys().next().value);
+    const [lru] = this.net.keys();
+    if (this.net.size > 2) this.net.delete(lru);
     return (await netPromise).data;
   }
 
