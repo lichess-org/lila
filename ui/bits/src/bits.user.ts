@@ -50,7 +50,7 @@ export function initModule(opts: { i18n: I18nDict }): void {
           $content.html(html);
           site.pubsub.emit('content-loaded', $content[0]);
           history.replaceState({}, '', path);
-          //window.InfiniteScroll('.infinite-scroll');
+          site.asset.loadEsm('bits.infiniteScroll');
         });
     $angles.on('click', 'a', function(this: HTMLAnchorElement) {
       if ($('#games .to-search').hasClass('active')) return true;

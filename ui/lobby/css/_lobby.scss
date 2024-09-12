@@ -111,6 +111,9 @@ body {
     &:hover {
       box-shadow: none;
     }
+    .user-link {
+      border-radius: $box-radius-size 0 0 0;
+    }
   }
 }
 
