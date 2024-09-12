@@ -36,7 +36,7 @@ final class UblogMarkup(
     .map: html =>
       scalatags.Text.all.raw(html.value)
 
-  private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup"):
+  private val cache = cacheApi[(UblogPostId, Markdown), Html](1024, "ublog.markup"):
     _.maximumSize(2048)
       .expireAfterWrite(if mode.isProd then 20 minutes else 1 second)
       .buildAsyncFuture: (id, markdown) =>
@@ -55,5 +55,5 @@ final class UblogMarkup(
 
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs:
-    private val regex = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
-    val apply         = (_: Markdown).map(regex.replaceAllIn(_, baseUrl.value + "/$2$1"))
+    private val regex           = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
+    val apply: Update[Markdown] = _.map(regex.replaceAllIn(_, baseUrl.value + "/$2$1"))
