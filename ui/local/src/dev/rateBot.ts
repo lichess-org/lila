@@ -1,6 +1,6 @@
 import { clamp } from 'common/algo';
 import { botScore } from './devUtil';
-import type { BotInfo, Mover, MoveResult, MoveArgs, Book, Ratings } from '../types';
+import type { BotInfo, MoveSource, MoveResult, MoveArgs, Book, Ratings } from '../types';
 import type { Result, Matchup, Glicko } from './devCtrl';
 import { env } from '../localEnv';
 
@@ -11,7 +11,7 @@ import { env } from '../localEnv';
 //
 // https://github.com/official-stockfish/Stockfish/blob/9587eeeb5ed29f834d4f956b92e0e732877c47a7/src/search.cpp#L333
 
-export class RateBot implements BotInfo, Mover {
+export class RateBot implements BotInfo, MoveSource {
   static readonly MAX_LEVEL = 29;
 
   image = '3d4c495c229b.webp';

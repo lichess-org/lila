@@ -7,14 +7,14 @@ import { type CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { defined } from 'common';
 import { deepFreeze } from 'common/algo';
-import type { BotInfo, SoundEvent, Mover, MoveArgs, MoveResult, LocalSpeed } from './types';
+import type { BotInfo, SoundEvent, MoveSource, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
 
 export class BotCtrl {
   zerofish: Zerofish;
   serverBots: Record<string, BotInfo>;
   localBots: Record<string, BotInfo>;
-  readonly bots: Record<string, Bot & Mover> = {};
+  readonly bots: Record<string, Bot & MoveSource> = {};
   readonly rateBots: RateBot[] = [];
   readonly uids: Record<Color, string | undefined> = { white: undefined, black: undefined };
   private store: ObjectStorage<BotInfo>;
@@ -83,7 +83,7 @@ export class BotCtrl {
   }
 
   async move(args: MoveArgs): Promise<MoveResult | undefined> {
-    const bot = this[args.chess.turn] as BotInfo & Mover;
+    const bot = this[args.chess.turn] as BotInfo & MoveSource;
     if (!bot) return undefined;
     if (this.busy) return undefined; // just ignore requests from different call stacks
     this.busy = true;

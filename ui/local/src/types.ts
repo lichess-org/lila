@@ -47,7 +47,7 @@ export interface BotInfo {
   readonly quirks?: Quirks;
 }
 
-export interface Mover {
+export interface MoveSource {
   move: (args: MoveArgs) => Promise<MoveResult>;
 }
 

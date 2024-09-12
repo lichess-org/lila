@@ -9,7 +9,7 @@ import type {
   ZeroSearch,
   Filters,
   Book,
-  Mover,
+  MoveSource,
   MoveArgs,
   MoveResult,
   SoundEvents,
@@ -21,7 +21,7 @@ export function score(pv: Line, depth: number = pv.scores.length - 1): number {
   return isNaN(sc) ? 0 : clamp(sc, { min: -10000, max: 10000 });
 }
 
-export class Bot implements BotInfo, Mover {
+export class Bot implements BotInfo, MoveSource {
   private openings: Promise<OpeningBook[]>;
   private stats: { cplMoves: number; cpl: number };
   readonly uid: string;
