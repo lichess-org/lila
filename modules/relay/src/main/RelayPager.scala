@@ -118,7 +118,7 @@ final class RelayPager(
     // Special case of querying so that users can filter broadcasts by year
     val yearOpt = """\b(20)\d{2}\b""".r.findFirstIn(query)
     val selector = yearOpt.foldLeft(textSelector): (selector, year) =>
-      selector ++ $doc("name".$regex(s".*\\b$year\\b.*"))
+      selector ++ "name".$regex(s"\\b$year\\b")
 
     forSelector(
       selector = selector,
