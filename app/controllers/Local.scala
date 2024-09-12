@@ -20,7 +20,7 @@ final class Local(env: Env) extends LilaController(env):
       fen: Option[String],
       time: Option[String],
       go: Option[String]
-  ) = OpenBody:
+  ) = Open:
     val initial   = time.map(_.toFloat)
     val increment = time.flatMap(_.split('+').drop(1).headOption.map(_.toFloat))
     val setup =
@@ -41,20 +41,20 @@ final class Local(env: Env) extends LilaController(env):
   def assetKeys = Open: // for service worker
     JsonOk(env.local.api.assetKeys)
 
-  def devIndex = AuthBody: _ ?=>
+  def devIndex = Secure(_.BotEditor): _ ?=>
     for
       bots   <- env.local.repo.getLatestBots()
       assets <- getDevAssets
       page   <- renderPage(indexPage(none, bots, assets.some))
     yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
-  def devBotHistory(botId: Option[String]) = AuthBody: _ ?=>
+  def devBotHistory(botId: Option[String]) = Secure(_.BotEditor): _ ?=>
     env.local.repo
       .getVersions(botId.map(UserId.apply))
       .map: history =>
         JsonOk(Json.obj("bots" -> history))
 
-  def devPostBot = AuthBody(parse.json) { ctx ?=> me ?=>
+  def devPostBot = SecureBody(parse.json)(_.BotEditor) { ctx ?=> me ?=>
     ctx.body.body
       .validate[JsObject]
       .fold(
@@ -67,35 +67,37 @@ final class Local(env: Env) extends LilaController(env):
       )
   }
 
-  def devNameAsset(key: String, name: String) = AuthBody: _ ?=>
+  def devNameAsset(key: String, name: String) = Secure(_.BotEditor): _ ?=>
     env.local.repo
       .nameAsset(none, key, name, none)
       .flatMap(_ => getDevAssets.map(JsonOk))
 
-  def devDeleteAsset(key: String) = AuthBody: _ ?=>
+  def devDeleteAsset(key: String) = Secure(_.BotEditor): _ ?=>
     env.local.repo
       .deleteAsset(key)
       .flatMap(_ => getDevAssets.map(JsonOk))
 
-  def devAssets = AuthBody: ctx ?=>
+  def devAssets = Secure(_.BotEditor): ctx ?=>
     getDevAssets.map(JsonOk)
 
-  def devPostAsset(notAString: String, key: String) = Action.async(parse.multipartFormData): request =>
-    val tpe: AssetType         = notAString.asInstanceOf[AssetType]
-    val author: Option[String] = request.body.dataParts.get("author").flatMap(_.headOption)
-    val name                   = request.body.dataParts.get("name").flatMap(_.headOption).getOrElse(key)
-    request.body
-      .file("file")
-      .map: file =>
-        env.local.api
-          .storeAsset(tpe, key, file)
-          .flatMap:
-            case Left(error) => InternalServerError(Json.obj("error" -> error.toString)).as(JSON)
-            case Right(assets) =>
-              env.local.repo
-                .nameAsset(tpe.some, key, name, author)
-                .flatMap(_ => (JsonOk(Json.obj("key" -> key, "name" -> name))))
-      .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
+  def devPostAsset(notAString: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) {
+    ctx ?=> me ?=>
+      val tpe: AssetType         = notAString.asInstanceOf[AssetType]
+      val author: Option[String] = ctx.body.body.dataParts.get("author").flatMap(_.headOption)
+      val name                   = ctx.body.body.dataParts.get("name").flatMap(_.headOption).getOrElse(key)
+      ctx.body.body
+        .file("file")
+        .map: file =>
+          env.local.api
+            .storeAsset(tpe, key, file)
+            .flatMap:
+              case Left(error) => InternalServerError(Json.obj("error" -> error.toString)).as(JSON)
+              case Right(assets) =>
+                env.local.repo
+                  .nameAsset(tpe.some, key, name, author)
+                  .flatMap(_ => (JsonOk(Json.obj("key" -> key, "name" -> name))))
+        .getOrElse(fuccess(BadRequest(Json.obj("error" -> "missing file")).as(JSON)))
+  }
 
   private def indexPage(setup: Option[GameSetup], bots: JsArray, devAssets: Option[JsObject] = none)(using
       ctx: Context
