@@ -13,9 +13,7 @@ final class RelayPager(
     roundRepo: RelayRoundRepo,
     colls: RelayColls,
     cacheApi: CacheApi
-)(using
-    Executor
-):
+)(using Executor):
 
   import BSONHandlers.given
   import RelayTourRepo.selectors
@@ -112,18 +110,15 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
+
     val day = 1000L * 3600 * 24
 
-    // Special case of querying so that users can filter broadcasts by year
-    val yearPattern = """\b(20)\d{2}\b""".r
-    val yearOpt     = yearPattern.findFirstIn(query)
-
     val textSelector = $text(query) ++ selectors.officialPublic
-    val selector = yearOpt match
-      case Some(year) =>
-        textSelector ++ BSONDocument("name" -> BSONDocument("$regex" -> s".*\\b$year\\b.*"))
-      case None =>
-        textSelector
+
+    // Special case of querying so that users can filter broadcasts by year
+    val yearOpt = """\b(20)\d{2}\b""".r.findFirstIn(query)
+    val selector = yearOpt.foldLeft(textSelector): (selector, year) =>
+      selector ++ $doc("name".$regex(s".*\\b$year\\b.*"))
 
     forSelector(
       selector = selector,
