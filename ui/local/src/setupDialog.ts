@@ -124,7 +124,8 @@ class SetupDialog {
 
   private updateClock = () => {
     for (const type of ['initial', 'increment'] as const) {
-      this.setup[type] = Number($as<HTMLSelectElement>(`.chin [data-type="${type}"]`).value);
+      const selectEl = this.view.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
+      this.setup[type] = Number(selectEl?.value);
     }
   };
 

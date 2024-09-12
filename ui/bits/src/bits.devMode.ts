@@ -1,4 +1,4 @@
-import { init as initBoard } from 'common/miniBoard';
+import { initMiniBoard } from 'common/miniBoard';
 import { frag } from 'common';
 
 export function initModule(): void {
@@ -17,7 +17,7 @@ export function initModule(): void {
           </a>
       </div>`.trim(),
     );
-    initBoard(tv.querySelector('#fake-tv')!);
+    initMiniBoard(tv.querySelector('#fake-tv')!);
     this.append(tv);
   });
 }

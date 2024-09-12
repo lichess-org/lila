@@ -1,14 +1,14 @@
-import * as round from './round';
 import * as util from './util';
 import resizeHandle from 'common/resize';
 import RoundController from './ctrl';
 import { Config } from 'chessground/config';
 import { h, VNode } from 'snabbdom';
-import { plyStep } from './round';
+import { plyStep } from './util';
 import { RoundData } from './interfaces';
 import { uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
 import { storage } from 'common/storage';
+import { Chessground as makeChessground } from 'chessground';
 
 export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data,
@@ -33,7 +33,7 @@ export function makeConfig(ctrl: RoundController): Config {
       move: hooks.onMove,
       dropNewPiece: hooks.onNewPiece,
       insert(elements) {
-        const firstPly = round.firstPly(ctrl.data);
+        const firstPly = util.firstPly(ctrl.data);
         const isSecond = (firstPly % 2 === 0 ? 'white' : 'black') !== data.player.color;
         const showUntil = firstPly + 2 + +isSecond;
         resizeHandle(
@@ -105,5 +105,5 @@ export const boardOrientation = (data: RoundData, flip: boolean): Color =>
 
 export const render = (ctrl: RoundController): VNode =>
   h('div.cg-wrap', {
-    hook: util.onInsert(el => ctrl.setChessground(site.makeChessground(el, makeConfig(ctrl)))),
+    hook: util.onInsert(el => ctrl.setChessground(makeChessground(el, makeConfig(ctrl)))),
   });

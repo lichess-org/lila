@@ -41,6 +41,7 @@ import RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
 import { storage } from 'common/storage';
+import { makeChat } from 'chat';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -100,7 +101,7 @@ export function renderMain(
           if (!!playerBars != document.body.classList.contains('header-margin')) {
             $('body').toggleClass('header-margin', !!playerBars);
           }
-          !hasRelayTour && makeChat(ctrl, c => elm.appendChild(c));
+          !hasRelayTour && makeChatEl(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
         },
         update(_, _2) {
@@ -385,15 +386,15 @@ export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
-export function makeChat(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
+export function makeChatEl(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
   if (ctrl.opts.chat) {
     const chatEl = document.createElement('section');
     chatEl.classList.add('mchat');
     insert(chatEl);
     const chatOpts = ctrl.opts.chat;
-    chatOpts.instance?.then(c => c.destroy());
+    chatOpts.instance?.destroy();
     chatOpts.enhance = { plies: true, boards: !!ctrl.study?.relay };
-    chatOpts.instance = site.makeChat(chatOpts);
+    chatOpts.instance = makeChat(chatOpts);
   }
 }
 

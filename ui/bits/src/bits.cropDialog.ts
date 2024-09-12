@@ -1,5 +1,6 @@
 import { defined } from 'common';
 import { domDialog } from 'common/dialog';
+import { spinnerHtml } from 'common/spinner';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
@@ -86,7 +87,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     const view = dlg.view.querySelector('.crop-view') as HTMLElement;
     view.style.display = 'flex';
     view.style.alignItems = 'center';
-    view.innerHTML = site.spinnerHtml;
+    view.innerHTML = spinnerHtml;
     const canvas = cropper.getCroppedCanvas({
       imageSmoothingQuality: 'high',
       maxWidth: opts.max?.pixels,

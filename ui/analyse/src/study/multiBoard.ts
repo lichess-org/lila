@@ -13,6 +13,7 @@ import { playerFed } from './playerBars';
 import { userTitle } from 'common/userLink';
 import { h } from 'snabbdom';
 import { storage } from 'common/storage';
+import { Chessground as makeChessground } from 'chessground';
 
 export class MultiBoardCtrl {
   playing: Toggle;
@@ -202,7 +203,7 @@ const makePreview =
               hook: {
                 insert(vnode) {
                   const el = vnode.elm as HTMLElement;
-                  vnode.data!.cg = site.makeChessground(el, {
+                  vnode.data!.cg = makeChessground(el, {
                     ...previewToCgConfig(preview),
                     coordinates: false,
                     viewOnly: true,

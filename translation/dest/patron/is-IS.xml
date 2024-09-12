@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Styrkja</string>
+  <string name="donateAsX">Styrkja sem %s</string>
+  <string name="lichessPatron">Styrktaraðili Lichess</string>
+  <string name="newPatrons">Nýlegir styrktaraðilar</string>
+  <string name="logInToDonate">Skráðu þig inn til að styrkja</string>
+</resources>

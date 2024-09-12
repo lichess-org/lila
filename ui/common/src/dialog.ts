@@ -1,6 +1,6 @@
 import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
-import { escapeHtml, frag } from './common';
+import { escapeHtml, frag, $as } from './common';
 import { eventJanitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';
@@ -55,12 +55,12 @@ export type Action =
   | { selector?: string; event?: string | string[]; result: string };
 
 // Safari versions before 15.4 need a polyfill for dialog. this "ready" promise resolves when that's loaded
-export const ready: Promise<boolean> = site.load.then(async() => {
+site.load.then(async() => {
   window.addEventListener('resize', onResize);
-  if (window.HTMLDialogElement) return true;
-  dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
-    ?.default;
-  return dialogPolyfill !== undefined;
+  if (! window.HTMLDialogElement)
+    dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
+      ?.default;
+  site.pubsub.complete('dialog.polyfill');
 });
 
 // non-blocking window.alert-alike

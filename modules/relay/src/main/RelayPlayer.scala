@@ -1,17 +1,13 @@
 package lila.relay
 
-import chess.{ ByColor, Centis, Color, Elo, FideId, Outcome, PlayerName, PlayerTitle }
-import lila.db.dsl.{ *, given }
-import lila.study.BSONHandlers.given
-import chess.format.pgn.Tags
-import lila.study.ChapterPreviewApi
-import lila.study.ChapterPreview
-import lila.study.StudyPlayer
+import chess.{ ByColor, Color, Elo, FideId, Outcome, PlayerName }
+import lila.db.dsl.*
+import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
 import scala.collection.immutable.SeqMap
 import lila.memo.CacheApi
 import play.api.libs.json.*
-import lila.core.fide.{ Player as FidePlayer, Federation }
+import lila.core.fide.{ Player as FidePlayer }
 import lila.common.Json.given
 import lila.common.Debouncer
 import lila.core.fide.FideTC
@@ -85,7 +81,6 @@ private final class RelayPlayerApi(
     fidePlayerGet: lila.core.fide.GetPlayer
 )(using Executor, Scheduler):
   import RelayPlayer.*
-  import RelayPlayer.json.given
 
   type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
 
@@ -141,7 +136,6 @@ private final class RelayPlayerApi(
                       gamePlayers.zipColor.foldLeft(players):
                         case (players, (color, (playerId, player))) =>
                           val (_, opponent) = gamePlayers(!color)
-                          val outcome       = tags.outcome
                           val game = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.outcome)
                           players.updated(
                             playerId,

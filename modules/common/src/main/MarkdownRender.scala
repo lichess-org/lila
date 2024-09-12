@@ -28,12 +28,10 @@ import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
 import com.vladsch.flexmark.util.misc.Extension
-import io.mola.galimatias.URL
 
 import java.util.Arrays
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
-import scala.util.Try
 import scala.util.matching.Regex
 
 import lila.core.config.{ AssetDomain, NetDomain }

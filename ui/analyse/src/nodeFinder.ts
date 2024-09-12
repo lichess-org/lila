@@ -1,6 +1,7 @@
 import { winningChances } from 'ceval';
 import { FEN } from 'chessground/types';
 import { defined } from 'common';
+import { zip } from 'common/algo';
 
 const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
 
@@ -45,13 +46,35 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
   return found;
 }
 
-const threefoldFen = (fen: FEN) => fen.split(' ').slice(0, 4).join(' ');
+// Extended Position Description
+const epd = (fen: FEN) => fen.split(' ').slice(0, 4).join(' ');
 
 export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
   if (defined(node.threefold)) return;
-  const currentFen = threefoldFen(node.fen);
+  const currentEpd = epd(node.fen);
   let nbSimilarPositions = 0,
     i;
-  for (i in nodeList) if (threefoldFen(nodeList[i].fen) === currentFen) nbSimilarPositions++;
+  for (i in nodeList) if (epd(nodeList[i].fen) === currentEpd) nbSimilarPositions++;
   node.threefold = nbSimilarPositions > 2;
+}
+
+// can be 3fold or 5fold
+export function add3or5FoldGlyphs(mainlineNodes: Tree.Node[]): void {
+  const threefoldMap = new Map<string, Tree.Node[]>();
+  for (const node of mainlineNodes) {
+    const previousOccurences = threefoldMap.get(epd(node.fen)) || [];
+    previousOccurences.push(node);
+    threefoldMap.set(epd(node.fen), previousOccurences);
+  }
+  // only the last positition can be source of three/five-fold
+  const lastEpd = epd(mainlineNodes[mainlineNodes.length - 1].fen);
+  const repetitions = threefoldMap.get(lastEpd);
+  if (repetitions && repetitions.length > 2) {
+    const unicodeList = ['①', '②', '③', '④', '⑤'];
+    for (const [i, [node, unicode]] of zip(repetitions, unicodeList).entries()) {
+      const glyph = { symbol: unicode, name: `repetition number ${i+1}`, id: 9 };
+      if (!node.glyphs) node.glyphs = [glyph];
+      else node.glyphs.push(glyph);
+    }
+  }
 }

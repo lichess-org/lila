@@ -47,11 +47,13 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
       modifiers: { hilite: uci === preferred },
     });
   });
-  if (timer)
+  if (timer) {
+    const [mainBrush] = [...brushes.values()];
     shapes[0].customSvg = {
       center: 'orig',
-      html: timerShape(timer, brushes.values().next().value.color),
+      html: timerShape(timer, mainBrush.color),
     };
+  }
   return shapes.reverse();
 }
 

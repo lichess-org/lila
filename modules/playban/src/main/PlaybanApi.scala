@@ -146,13 +146,8 @@ final class PlaybanApi(
       }
 
   private def isQuickResign(game: Game, status: Status) =
-    import chess.variant.*
-    status.is(_.Resign) &&
-    game.durationSeconds.exists(_ < 60) &&
-    game.playedTurns <= game.variant.match
-      case Standard | Chess960 | Horde            => 20
-      case Antichess | Crazyhouse | KingOfTheHill => 15
-      case ThreeCheck | Atomic | RacingKings      => 10
+    status.is(_.Resign) && game.hasFewerMovesThanExpected &&
+      game.durationSeconds.exists(_ < 60)
 
   private def good(game: Game, status: Status, loserColor: Color): Funit =
     if isQuickResign(game, status) then

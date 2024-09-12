@@ -4,7 +4,6 @@ import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
 import { make as makeStores, Stores } from './store';
 import * as xhr from './xhr';
-import { ready as oldSafariDialogPolyfillReady } from 'common/dialog';
 import * as poolRangeStorage from './poolRangeStorage';
 import {
   LobbyOpts,
@@ -79,6 +78,10 @@ export default class LobbyController {
       const friendUser = urlParams.get('user') ?? undefined;
       const minutesPerSide = urlParams.get('minutesPerSide');
       const increment = urlParams.get('increment');
+      const variant = urlParams.get('variant');
+      const time = urlParams.get('time');
+
+      if (variant) forceOptions.variant = variant as VariantKey;
 
       if (minutesPerSide) {
         forceOptions.time = parseInt(minutesPerSide);
@@ -88,20 +91,20 @@ export default class LobbyController {
         forceOptions.increment = parseInt(increment);
       }
 
-      if (locationHash === 'hook') {
-        if (urlParams.get('time') === 'realTime') {
-          this.tab = 'real_time';
-          forceOptions.timeMode = 'realTime';
-        } else if (urlParams.get('time') === 'correspondence') {
-          this.tab = 'seeks';
-          forceOptions.timeMode = 'correspondence';
-        }
-      } else if (urlParams.get('fen')) {
+      if (time === 'realTime') {
+        if (locationHash === 'hook') this.tab = 'real_time';
+        forceOptions.timeMode = 'realTime';
+      } else if (time === 'correspondence') {
+        if (locationHash === 'hook') this.tab = 'seeks';
+        forceOptions.timeMode = 'correspondence';
+      }
+
+      if (locationHash != 'hook' && urlParams.get('fen')) {
         forceOptions.fen = urlParams.get('fen')!;
         forceOptions.variant = 'fromPosition';
       }
 
-      oldSafariDialogPolyfillReady.then(() => {
+      site.pubsub.after('dialog.polyfill').then(() => {
         this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();
       });

@@ -1,16 +1,24 @@
-import { objectStorage, ObjectStorage, DbInfo } from 'common/objectStorage';
-import { alert } from 'common/dialog';
+import { objectStorage, ObjectStorage, DbInfo } from './objectStorage';
+import { alert } from './dialog';
 
-const dbInfo: DbInfo = {
-  db: 'log--db',
-  store: 'log',
-  version: 2,
-  upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
-};
+export const log: LichessLog = makeLog();
 
-const defaultLogWindow = 100;
+interface LichessLog {
+  (...args: any[]): Promise<void>;
+  clear(): Promise<void>;
+  get(): Promise<string>;
+}
 
-export default function makeLog(): LichessLog {
+function makeLog(): LichessLog {
+
+  const dbInfo: DbInfo = {
+    db: 'log--db',
+    store: 'log',
+    version: 2,
+    upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
+  };
+  const defaultLogWindow = 100;
+
   let store: ObjectStorage<string, number>;
   let resolveReady: () => void;
   let lastKey = 0;

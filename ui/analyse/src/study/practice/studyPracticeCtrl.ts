@@ -7,7 +7,7 @@ import { StudyPracticeData, Goal } from './interfaces';
 import { StudyData } from '../interfaces';
 import AnalyseCtrl from '../../ctrl';
 
-export default class StudyPractice {
+export default class StudyPracticeCtrl {
   goal: Prop<Goal>;
   nbMoves = prop(0);
   // null = ongoing, true = win, false = fail
@@ -55,10 +55,14 @@ export default class StudyPractice {
   };
 
   onVictory = (): void => {
-    this.saveNbMoves();
     site.sound.play('practiceSuccess');
+    this.onComplete();
     if (this.studyData.chapter.practice && this.autoNext())
       setTimeout(this.root.study!.goToNextChapter, 1000);
+  };
+
+  onComplete = (): void => {
+    this.saveNbMoves();
   };
 
   saveNbMoves = (): void => {

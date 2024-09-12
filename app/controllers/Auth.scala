@@ -190,15 +190,24 @@ final class Auth(
                 welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
           ,
           api = apiVersion =>
-            env.security.signup
-              .mobile(apiVersion)
-              .flatMap:
-                case Signup.Result.RateLimited        => rateLimited
-                case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
-                case Signup.Result.Bad(err)           => doubleJsonFormError(err)
-                case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
-                case Signup.Result.AllSet(user, email) =>
-                  welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user, remember = true)
+            env.security
+              .ip2proxy(ctx.ip)
+              .flatMap: proxy =>
+                if proxy.isSafeish
+                then
+                  env.security.signup
+                    .mobile(apiVersion)
+                    .flatMap:
+                      case Signup.Result.RateLimited        => rateLimited
+                      case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
+                      case Signup.Result.Bad(err)           => doubleJsonFormError(err)
+                      case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
+                      case Signup.Result.AllSet(user, email) =>
+                        welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(
+                          user,
+                          remember = true
+                        )
+                else Forbidden(jsonError("This network cannot create new accounts."))
         )
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using

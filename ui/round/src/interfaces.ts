@@ -112,7 +112,7 @@ export interface ChatOpts {
   noteId?: string;
   noteAge?: number;
   noteText?: string;
-  instance?: Promise<ChatCtrl>;
+  instance?: ChatCtrl;
 }
 
 export interface Step {

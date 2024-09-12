@@ -98,6 +98,10 @@ case class Schedule(
 
   def day = at.withTimeAtStartOfDay
 
+  /** Absolute start time of the schedule.
+    */
+  def atInstant = at.instant
+
   def sameSpeed(other: Schedule) = speed == other.speed
 
   def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
@@ -127,7 +131,7 @@ case class Schedule(
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
   override def toString =
-    s"$freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions ${at.instant}"
+    s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions $position"
 
 object Schedule:
 
@@ -140,15 +144,44 @@ object Schedule:
       at = tour.startsAt.dateTime
     )
 
-  case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]):
+  trait ScheduleWithInterval:
+    def schedule: Schedule
+    def interval: TimeInterval
+
+    def overlaps(other: ScheduleWithInterval) = interval.overlaps(other.interval)
+
+    def conflictsWith(si2: ScheduleWithInterval) =
+      val s1 = schedule
+      val s2 = si2.schedule
+      s1.variant == s2.variant && (
+        // prevent daily && weekly on the same day
+        if s1.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s1.sameSpeed(s2) then s1.sameDay(s2)
+        else
+          (
+            s1.variant.exotic ||  // overlapping exotic variant
+              s1.hasMaxRating ||  // overlapping same rating limit
+              s1.similarSpeed(s2) // overlapping similar
+          ) && s1.similarConditions(s2) && overlaps(si2)
+      )
+
+    def conflictsWith(scheds: Iterable[ScheduleWithInterval]): Boolean = scheds.exists(conflictsWith)
+
+  case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament])
+      extends ScheduleWithInterval:
 
     def build(using Translate): Tournament =
-      val t = Tournament.scheduleAs(addCondition(schedule), durationFor(schedule))
+      val t = Tournament.scheduleAs(addCondition(schedule), minutes)
       buildFunc.fold(t) { _(t) }
 
     def map(f: Tournament => Tournament) = copy(
       buildFunc = buildFunc.fold(f)(f.compose).some
     )
+
+    def minutes = durationFor(schedule)
+
+    def duration = java.time.Duration.ofMinutes(minutes)
+
+    def interval = TimeInterval(schedule.atInstant, duration)
 
   enum Freq(val id: Int, val importance: Int) extends Ordered[Freq] derives Eq:
     case Hourly               extends Freq(10, 10)
@@ -277,9 +310,10 @@ object Schedule:
 
       case (Unique, _, _) => 60 * 6
 
-  private val standardIncHours         = Set(1, 7, 13, 19)
-  private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
-  private def zhInc(s: Schedule)       = s.at.getHour % 2 == 0
+  private val standardIncHours          = Set(1, 7, 13, 19)
+  private def standardInc(s: Schedule)  = standardIncHours(s.at.getHour)
+  private def zhInc(s: Schedule)        = s.at.getHour % 2 == 0
+  private def bottomOfHour(s: Schedule) = s.at.getMinute > 29
 
   private given Conversion[Int, LimitSeconds]     = LimitSeconds(_)
   private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)
@@ -301,10 +335,11 @@ object Schedule:
 
     (s.freq, s.variant, s.speed) match
       // Special cases.
-      case (Weekend, Crazyhouse, Blitz)                 => zhEliteTc(s)
-      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2)
-      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2)
+      case (Weekend, Crazyhouse, Blitz)                                    => zhEliteTc(s)
+      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s)                    => TC(3 * 60, 1)
+      case (Hourly, Crazyhouse, Blitz) if zhInc(s)                         => TC(4 * 60, 2)
+      case (Hourly, Standard, Blitz) if standardInc(s)                     => TC(3 * 60, 2)
+      case (Hourly, Standard, Bullet) if s.hasMaxRating && bottomOfHour(s) => TC(60, 1)
 
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
 
@@ -354,3 +389,19 @@ object Schedule:
         accountAge = none,
         allowList = none
       )
+
+  /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
+    * plans that do not conflict with either the existing schedules or with themselves.
+    */
+  private[tournament] def pruneConflicts(
+      existingSchedules: Iterable[ScheduleWithInterval],
+      possibleNewPlans: Iterable[Plan]
+  ): List[Plan] =
+    var allPlannedSchedules = existingSchedules.toList
+    possibleNewPlans
+      .foldLeft(List[Plan]()): (newPlans, p) =>
+        if p.conflictsWith(allPlannedSchedules) then newPlans
+        else
+          allPlannedSchedules = p :: allPlannedSchedules
+          p :: newPlans
+      .reverse

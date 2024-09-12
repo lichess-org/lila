@@ -11,7 +11,7 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 
-final class Team(env: Env, apiC: => Api) extends LilaController(env):
+final class Team(env: Env) extends LilaController(env):
 
   private def forms     = env.team.forms
   private def api       = env.team.api
@@ -108,7 +108,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for
     member <- env.team.memberRepo.get(team.id, me)
     _      <- env.msg.twoFactorReminder(me)
-  yield views.team.form.edit(team, forms.edit(team), member)
+  yield views.team.form.edit(team, form, member)
 
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Settings): team =>

@@ -15,7 +15,7 @@ import { once } from 'common/storage';
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
-      hook: { insert: _ => site.asset.loadIife('javascripts/confetti.js') },
+      hook: { insert: _ => site.asset.loadEsm('bits.confetti') },
     });
   return undefined;
 }

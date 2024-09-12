@@ -15,6 +15,7 @@ export default [
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/object-curly-spacing': ['error', 'always'],
       '@stylistic/space-before-function-paren': ['error', 'never'],
+      '@stylistic/no-trailing-spaces': 'error',
       '@stylistic/max-len': [
         'warn',
         {
@@ -22,6 +23,7 @@ export default [
           ignoreUrls: true,
           ignoreStrings: true,
           ignoreComments: true,
+          ignoreRegExpLiterals: true,
           ignoreTemplateLiterals: true,
         },
       ],

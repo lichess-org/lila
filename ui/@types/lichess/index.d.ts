@@ -13,8 +13,6 @@ interface Site {
   mousetrap: LichessMousetrap; // file://./../../site/src/mousetrap.ts
   sri: string;
   powertip: LichessPowertip; // file://./../../site/src/powertip.ts
-  clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
-  spinnerHtml: string;
   asset: {
     // file://./../../site/src/asset.ts
     baseUrl(): string;
@@ -27,39 +25,18 @@ interface Site {
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
-    userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
-  idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
   pubsub: Pubsub; // file://./../../site/src/pubsub.ts
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(err?: any): void;
-  watchers(el: HTMLElement): void;
   announce(d: LichessAnnouncement): void;
-  trans: Trans;
+  trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
-  miniBoard: {
-    // file://./../../common/src/miniBoard.ts
-    init(node: HTMLElement): void;
-    initAll(parent?: HTMLElement): void;
-  };
-  miniGame: {
-    // file://./../../site/src/miniGame.ts
-    init(node: HTMLElement): string | null;
-    initAll(parent?: HTMLElement): void;
-    update(node: HTMLElement, data: MiniGameUpdateData): void;
-    finish(node: HTMLElement, win?: Color): void;
-  };
-  timeago(date: number | Date): string;
-  dateFormat: () => (date: Date) => string;
-  displayLocale: string;
-  contentLoaded(parent?: HTMLElement): void;
+  displayLocale: string; // file://./../../common/src/i18n.ts
   blindMode: boolean;
-  makeChat(data: any): any;
-  makeChessground(el: HTMLElement, config: CgConfig): CgApi;
-  log: LichessLog; // file://./../../site/src/log.ts
 
-  // the remaining are not set in site.lichess.globals.ts
+  // the following are not set in site.ts
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
   siteI18n: I18nDict;
@@ -74,12 +51,6 @@ interface EsmModuleOpts extends AssetUrlOpts {
   npm?: boolean;
 }
 
-interface LichessLog {
-  (...args: any[]): Promise<void>;
-  clear(): Promise<void>;
-  get(): Promise<string>;
-}
-
 type PairOf<T> = [T, T];
 
 type I18nDict = { [key: string]: string };
@@ -88,8 +59,6 @@ type I18nKey = string;
 type Flair = string;
 
 type RedirectTo = string | { url: string; cookie: Cookie };
-
-type UserComplete = (opts: UserCompleteOpts) => void;
 
 interface LichessMousetrap {
   // file://./../../site/src/mousetrap.ts
@@ -107,19 +76,6 @@ interface LichessPowertip {
   manualGame(el: HTMLElement): void;
   manualUser(el: HTMLElement): void;
   manualUserIn(parent: HTMLElement): void;
-}
-
-interface UserCompleteOpts {
-  input: HTMLInputElement;
-  tag?: 'a' | 'span';
-  minLength?: number;
-  populate?: (result: LightUser) => string;
-  onSelect?: (result: LightUser) => void;
-  focus?: boolean;
-  friend?: boolean;
-  tour?: string;
-  swiss?: string;
-  team?: string;
 }
 
 interface QuestionChoice {
@@ -149,12 +105,12 @@ type SoundListener = (event: 'start' | 'stop', text?: string) => void;
 
 interface SoundI {
   // file://./../../site/src/sound.ts
-  ctx?: AudioContext;
   listeners: Set<SoundListener>;
+  theme: string;
+  move: SoundMove;
   load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
-  move: SoundMove;
   countdown(count: number, intervalMs?: number): Promise<void>;
   getVolume(): number;
   setVolume(v: number): void;
@@ -164,7 +120,6 @@ interface SoundI {
   saySan(san?: San, cut?: boolean): void;
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
-  theme: string;
   url(name: string): string;
 }
 
@@ -191,7 +146,7 @@ declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boole
 type TransNoArg = (key: string) => string;
 
 interface Trans {
-  // file://./../../common/src/trans.ts
+  // file://./../../common/src/i18n.ts
   (key: string, ...args: Array<string | number>): string;
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
@@ -207,54 +162,14 @@ interface Pubsub {
   on(msg: string, f: PubsubCallback): void;
   off(msg: string, f: PubsubCallback): void;
   emit(msg: string, ...args: any[]): void;
+
+  after(event: string): Promise<void>;
+  complete(event: string): void;
 }
 
 interface LichessAnnouncement {
   msg?: string;
   date?: string;
-}
-
-interface LichessEditor {
-  getFen(): Cg.FEN;
-  setOrientation(o: Color): void;
-}
-
-declare namespace Editor {
-  // file://./../../editor/src/ctrl.ts
-  export interface Config {
-    el: HTMLElement;
-    baseUrl: string;
-    fen?: string;
-    options?: Editor.Options;
-    is3d: boolean;
-    animation: {
-      duration: number;
-    };
-    embed: boolean;
-    positions?: OpeningPosition[];
-    endgamePositions?: EndgamePosition[];
-    i18n: I18nDict;
-  }
-
-  export interface Options {
-    orientation?: Color;
-    onChange?: (fen: string) => void;
-    inlineCastling?: boolean;
-    coordinates?: boolean;
-  }
-
-  export interface OpeningPosition {
-    eco?: string;
-    name: string;
-    fen: string;
-    epd?: string;
-  }
-
-  export interface EndgamePosition {
-    name: string;
-    fen: string;
-    epd?: string;
-  }
 }
 
 type Nvui = (redraw: () => void) => {
@@ -353,13 +268,6 @@ interface EvalScore {
   mate?: number;
 }
 
-interface MiniGameUpdateData {
-  fen: Cg.FEN;
-  lm: Uci;
-  wc?: number;
-  bc?: number;
-}
-
 interface CashStatic {
   powerTip: any;
 }
@@ -408,5 +316,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const site: Site;
-declare const $as: <T>(cashOrHtml: Cash | string) => T;
 declare module 'tablesort';

@@ -2,6 +2,7 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import TournamentController from './ctrl';
+import { userComplete } from 'common/userComplete';
 
 export function button(ctrl: TournamentController): VNode {
   return h('button.fbt', {
@@ -17,19 +18,16 @@ export function input(ctrl: TournamentController): VNode {
     h('input', {
       attrs: { spellcheck: 'false' },
       hook: onInsert((el: HTMLInputElement) => {
-        site.asset
-          .userComplete({
-            input: el,
-            tour: ctrl.data.id,
-            tag: 'span',
-            focus: true,
-            onSelect(v) {
-              ctrl.jumpToPageOf(v.id);
-              ctrl.redraw();
-            },
-          })
-          .then(() => el.focus());
-
+        userComplete({
+          input: el,
+          tour: ctrl.data.id,
+          tag: 'span',
+          focus: true,
+          onSelect(v) {
+            ctrl.jumpToPageOf(v.id);
+            ctrl.redraw();
+          },
+        });
         $(el).on('keydown', e => {
           if (e.code === 'Enter') {
             const rank = parseInt(e.target.value.replace('#', '').trim());

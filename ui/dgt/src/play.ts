@@ -208,7 +208,7 @@ export default function(token: string): void {
       });
   }
 
-  /** 
+  /**
     GET /api/stream/event
     Stream incoming events
 
@@ -218,7 +218,7 @@ export default function(token: string): void {
 
     challenge Incoming challenge
     gameStart Start of a game
-    gameFinish to signal that game ended 
+    gameFinish to signal that game ended
     When the stream opens, all current challenges and games are sent.
 
     Examples:
@@ -287,20 +287,20 @@ export default function(token: string): void {
 
   /**
   Stream Board game state
-   
+
   GET /api/board/game/stream/{gameId}
-   
+
   Stream the state of a game being played with the Board API, as ndjson.
   Use this endpoint to get updates about the game in real-time, with a single request.
   Each line is a JSON object containing a type field. Possible values are:
-   
+
   gameFull Full game data. All values are immutable, except for the state field.
   gameState Current state of the game. Immutable values not included. Sent when a move is played, a draw is offered, or when the game ends.
   chatLine Chat message sent by a user in the room "player" or "spectator".
   The first line is always of type gameFull.
-   
+
   Examples:
-   
+
   New Game
   {"id":"972RKuuq","variant":{"key":"standard","name":"Standard","short":"Std"},"clock":{"initial":900000,"increment":10000},"speed":"rapid","perf":{"name":"Rapid"},"rated":false,"createdAt":1586647003562,"white":{"id":"godking666","name":"Godking666","title":null,"rating":1761},"black":{"id":"andrescavallin","name":"andrescavallin","title":null,"rating":1362,"provisional":true},"initialFen":"startpos","type":"gameFull","state":{"type":"gameState","moves":"e2e4","wtime":900000,"btime":900000,"winc":10000,"binc":10000,"wdraw":false,"bdraw":false,"status":"started"}}
   First Move
@@ -464,7 +464,7 @@ export default function(token: string): void {
       attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
       console.log('Active game updated. currentGameId: ' + currentGameId);
     }
-    else 
+    else
     */
     if (playableGames.length == 0) {
       console.log(

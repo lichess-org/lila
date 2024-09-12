@@ -1,4 +1,4 @@
-import { initWith as initMiniBoard } from 'common/miniBoard';
+import { initMiniBoardWith } from 'common/miniBoard';
 
 site.load.then(() => {
   const rootEl = document.querySelector('.puzzle-openings') as HTMLElement | undefined;
@@ -24,7 +24,7 @@ const makeBoardTip = (el: HTMLElement, e: Event) => {
       preRender(el) {
         const tipEl = document.getElementById('miniBoard') as HTMLDivElement;
         tipEl.innerHTML = `<div class="mini-board mini-board--init cg-wrap standard is2d"/>`;
-        initMiniBoard(tipEl.querySelector('.cg-wrap')!, el.dataset['fen']!, 'white');
+        initMiniBoardWith(tipEl.querySelector('.cg-wrap')!, el.dataset['fen']!, 'white');
       },
     });
   $.powerTip.show(el, e);

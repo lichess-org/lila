@@ -5,6 +5,9 @@ import created from './created';
 import { richHTML } from 'common/richText';
 import results from './results';
 import pairings from './pairings';
+import { initMiniGames } from 'common/miniBoard';
+import { watchers } from 'common/watchers';
+import { makeChat } from 'chat';
 
 export default function(ctrl: SimulCtrl) {
   const handler = ctrl.data.isRunning ? started : ctrl.data.isFinished ? finished : created(showText);
@@ -15,12 +18,12 @@ export default function(ctrl: SimulCtrl) {
         $(el).replaceWith(ctrl.opts.$side);
         if (ctrl.opts.chat) {
           ctrl.opts.chat.data.hostIds = [ctrl.data.host.id];
-          site.makeChat(ctrl.opts.chat);
+          makeChat(ctrl.opts.chat);
         }
       }),
     }),
-    h('div.simul__main.box', { hook: { postpatch: () => site.miniGame.initAll() } }, handler(ctrl)),
-    h('div.chat__members.none', { hook: onInsert(site.watchers) }),
+    h('div.simul__main.box', { hook: { postpatch: () => initMiniGames() } }, handler(ctrl)),
+    h('div.chat__members.none', { hook: onInsert(watchers) }),
   ]);
 }
 

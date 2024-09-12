@@ -1,4 +1,4 @@
-import { lastStep } from './round';
+import { lastStep } from './util';
 import RoundController from './ctrl';
 import { RoundData, ApiMove } from './interfaces';
 import * as xhr from 'common/xhr';

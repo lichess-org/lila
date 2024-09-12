@@ -64,7 +64,7 @@
   <string name="master">Ván đấu cao cấp</string>
   <string name="masterDescription">Câu đố từ các ván đấu của người có danh hiệu.</string>
   <string name="masterVsMaster">Ván đấu giữa 2 kiện tướng</string>
-  <string name="masterVsMasterDescription">Câu đố từ các ván đấu giữa hai người chơi có danh hiệu.</string>
+  <string name="masterVsMasterDescription">Câu đố từ các ván đấu giữa hai kiện tướng.</string>
   <string name="mate">Chiếu hết</string>
   <string name="mateDescription">Chiến thắng ván cờ với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>

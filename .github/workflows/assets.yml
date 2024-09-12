@@ -1,5 +1,8 @@
 name: Build assets
 
+env:
+  ACTIONS_STEP_DEBUG: true
+
 on:
   push:
     paths:
@@ -39,6 +42,7 @@ jobs:
           path: ab
         continue-on-error: true
         id: ab
+      - run: node -v && pnpm -v && pnpm tsc -v
       - run: pnpm link "$GITHUB_WORKSPACE/ab"
         if: steps.ab.outcome == 'success'
       - run: ./ui/build --no-install -p

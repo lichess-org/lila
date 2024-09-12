@@ -6,7 +6,6 @@ import scalalib.paginator.Paginator
 
 import lila.common.Json.{ *, given }
 import lila.core.config.BaseUrl
-import lila.core.id.ImageId
 import lila.memo.PicfitUrl
 import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound, WithRounds }
 import lila.study.ChapterPreview

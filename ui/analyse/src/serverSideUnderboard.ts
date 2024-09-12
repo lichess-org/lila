@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 import { ChartGame, AcplChart } from 'chart';
-import { stockfishName } from 'common/spinner';
+import { stockfishName, spinnerHtml } from 'common/spinner';
 import { domDialog } from 'common/dialog';
 import { FEN } from 'chessground/types';
 import { escapeHtml } from 'common';
@@ -64,7 +64,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   const chartLoader = () =>
-    `<div id="acpl-chart-container-loader"><span>${stockfishName}<br>server analysis</span>${site.spinnerHtml}</div>`;
+    `<div id="acpl-chart-container-loader"><span>${stockfishName}<br>server analysis</span>${spinnerHtml}</div>`;
 
   function startAdvantageChart() {
     if (advChart || site.blindMode) return;

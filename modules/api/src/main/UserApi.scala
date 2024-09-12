@@ -7,7 +7,6 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.config.*
 import lila.core.perf.UserWithPerfs
-import lila.core.perm.Granter
 import lila.rating.{ PerfType, UserRankMap }
 import lila.user.Trophy
 

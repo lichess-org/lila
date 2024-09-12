@@ -1,5 +1,6 @@
 import * as xhr from './xhr';
 import { idleTimer } from './timing';
+import { log } from './dbLog';
 import { storage, storedIntProp, once, type LichessStorage } from './storage';
 
 type Sri = string;
@@ -75,11 +76,6 @@ export default class StrongSocket {
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
     isAuth: document.body.hasAttribute('data-user'),
   };
-
-  static resolveFirstConnect: (send: Send) => void;
-  static firstConnect: Promise<Send> = new Promise<Send>(r => {
-    StrongSocket.resolveFirstConnect = r;
-  });
 
   constructor(
     readonly url: string,
@@ -203,7 +199,7 @@ export default class StrongSocket {
       if (!this.tryOtherUrl && isOnline()) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
-        site.log(`sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`);
+        log(`sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`);
       }
       this.connect();
     }, delay);
@@ -313,7 +309,7 @@ export default class StrongSocket {
     if (e.wasClean && e.code < 1002) return;
 
     if (isOnline())
-      site.log(`${site?.sri ? 'sri ' + site.sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
+      log(`${site?.sri ? 'sri ' + site.sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
@@ -321,7 +317,7 @@ export default class StrongSocket {
   onSuccess = (): void => {
     this.nbConnects++;
     if (this.nbConnects == 1) {
-      StrongSocket.resolveFirstConnect(this.send);
+      site.pubsub.complete('socket.connect');
       let disconnectTimeout: Timeout | undefined;
       idleTimer(
         10 * 60 * 1000,

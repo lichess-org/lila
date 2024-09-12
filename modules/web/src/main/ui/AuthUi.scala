@@ -318,7 +318,7 @@ body { margin-top: 45px; }
         )
       )
 
-  val fingerprintTag: Frag = iifeModule("javascripts/fipr.js")
+  def fingerprintTag: Frag = iifeModule("javascripts/fipr.js")
 
   private def agreement(form: play.api.data.Field, error: Boolean)(using Context) =
     div(cls := "agreement")(

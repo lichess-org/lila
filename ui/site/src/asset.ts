@@ -74,14 +74,6 @@ export const loadPageEsm = async(name: string) => {
   module.initModule ? module.initModule(opts) : module.default(opts);
 };
 
-export const userComplete = async(opts: UserCompleteOpts): Promise<UserComplete> => {
-  const [userComplete] = await Promise.all([
-    loadEsm('bits.userComplete', { init: opts }),
-    loadCssPath('bits.complete'),
-  ]);
-  return userComplete as UserComplete;
-};
-
 export function embedChessground() {
   return import(url('npm/chessground.min.js'));
 }

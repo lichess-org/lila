@@ -4,11 +4,12 @@ import { h, VNode } from 'snabbdom';
 import * as Prefs from 'common/prefs';
 import PuzzleCtrl from '../ctrl';
 import { storage } from 'common/storage';
+import { Chessground as makeChessground } from 'chessground';
 
 export default function(ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode => ctrl.setChessground(site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+      insert: vnode => ctrl.setChessground(makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
       destroy: () => ctrl.ground().destroy(),
     },
   });
