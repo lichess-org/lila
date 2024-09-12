@@ -76,13 +76,13 @@ final class TextLpvExpand(
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val gamePgnCache = cacheApi[GameId, Option[LpvEmbed]](512, "textLpvExpand.pgn.game"):
+  private val gamePgnCache = cacheApi[GameId, Option[LpvEmbed]](256, "textLpvExpand.pgn.game"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(gameIdToPgn)
 
-  private val chapterPgnCache = cacheApi[StudyChapterId, Option[LpvEmbed]](512, "textLpvExpand.pgn.chapter"):
+  private val chapterPgnCache = cacheApi[StudyChapterId, Option[LpvEmbed]](256, "textLpvExpand.pgn.chapter"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyChapterIdToPgn)
 
-  private val studyPgnCache = cacheApi[StudyId, Option[LpvEmbed]](512, "textLpvExpand.pgn.firstChapter"):
+  private val studyPgnCache = cacheApi[StudyId, Option[LpvEmbed]](128, "textLpvExpand.pgn.firstChapter"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyIdToPgn)
 
   private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =
