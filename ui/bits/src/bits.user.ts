@@ -6,6 +6,7 @@ export function initModule(opts: { i18n: I18nDict }): void {
   const trans = translation(opts.i18n);
 
   makeLinkPopups($('.social_links'), trans);
+  makeLinkPopups($('p.bio a'), trans);
 
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
