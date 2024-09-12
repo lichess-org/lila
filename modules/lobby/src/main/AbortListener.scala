@@ -15,16 +15,13 @@ final private class AbortListener(
     // this includes aborted games too
     case FinishGame(game, _) if game.hasFewerMovesThanExpected => onEarlyFinish(game)
 
-  private def filter(g: Game) = g.source.exists: s =>
-    s == Source.Lobby || s == Source.Pool
-
   private def onAbort(pov: Pov): Funit =
-    filter(pov.game).so:
+    pov.game.lobbyOrPool.so:
       lobbyActor.registerAbortedGame(pov.game)
       pov.game.isCorrespondence.so(recreateSeek(pov))
 
   private def onEarlyFinish(game: Game): Unit =
-    if filter(game)
+    if game.lobbyOrPool
     then cancelBothColorIncrements(game)
 
   private def cancelBothColorIncrements(game: Game): Unit =

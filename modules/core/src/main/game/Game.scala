@@ -191,6 +191,7 @@ case class Game(
   def fromPosition = variant.fromPosition || source.has(Source.Position)
 
   def sourceIs(f: Source.type => Source): Boolean = source contains f(Source)
+  def lobbyOrPool                                 = source.exists(s => s == Source.Lobby || s == Source.Pool)
 
   def winner: Option[Player] = players.find(_.isWinner | false)
 
