@@ -33,7 +33,10 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       showAuthor: ShowAt = ShowAt.none,
       showIntro: Boolean = true
   )(using Context) =
-    a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
+    a(
+      cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
+      href := makeUrl(post)
+    )(
       span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },

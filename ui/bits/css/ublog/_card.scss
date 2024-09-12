@@ -86,4 +86,12 @@
     color: $c-font;
     margin-top: 0.5em;
   }
+
+  &--by-lichess {
+    border: 1px solid $c-brag;
+    .user-link {
+      color: $c-brag;
+      font-weight: bold;
+    }
+  }
 }
