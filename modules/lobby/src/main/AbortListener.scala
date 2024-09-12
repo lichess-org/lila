@@ -5,8 +5,7 @@ import lila.core.game.*
 final private class AbortListener(
     userApi: lila.core.user.UserApi,
     seekApi: SeekApi,
-    lobbyActor: LobbySyncActor,
-    fixedColor: scalalib.cache.ExpireSetMemo[GameId]
+    lobbyActor: LobbySyncActor
 )(using Executor):
 
   lila.common.Bus.subscribeFun("abortGame"):
@@ -29,13 +28,11 @@ final private class AbortListener(
     then cancelBothColorIncrements(game)
 
   private def cancelBothColorIncrements(game: Game): Unit =
-    if !fixedColor.get(game.id)
-    then
-      game.userIds match
-        case List(u1, u2) =>
-          userApi.incColor(u1, Color.black)
-          userApi.incColor(u2, Color.white)
-        case _ =>
+    game.userIds match
+      case List(u1, u2) =>
+        userApi.incColor(u1, Color.black)
+        userApi.incColor(u2, Color.white)
+      case _ =>
 
   private def recreateSeek(pov: Pov): Funit =
     pov.player.userId.so: aborterId =>

@@ -1,7 +1,6 @@
 package lila.lobby
 
 import com.softwaremill.macwire.*
-import scalalib.cache.ExpireSetMemo
 
 import lila.core.config.*
 import lila.core.pool.IsClockCompatible
@@ -34,8 +33,6 @@ final class Env(
     maxPerPage = MaxPerPage(13),
     maxPerUser = Max(5)
   )
-
-  private val fixedColorLobbyCache: ExpireSetMemo[GameId] = ExpireSetMemo[GameId](2 hours)
 
   lazy val seekApi = wire[SeekApi]
 
