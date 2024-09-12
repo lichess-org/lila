@@ -278,7 +278,8 @@ object BSONHandlers:
         whitePlayer = makePlayer(F.whitePlayer, Color.White, whiteUid),
         blackPlayer = makePlayer(F.blackPlayer, Color.Black, blackUid),
         status = r.get[Status](F.status),
-        win = winC
+        win = winC,
+        variant = r.get[Variant.Id](F.variant)
       )
 
   private def clockHistory(
