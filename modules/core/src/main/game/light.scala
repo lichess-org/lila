@@ -14,7 +14,7 @@ case class LightGame(
     blackPlayer: LightPlayer,
     status: Status,
     win: Option[Color],
-    variant: Variant,
+    variant: Variant
 ):
   def playable                                            = status < Status.Aborted
   def player(color: Color): LightPlayer                   = color.fold(whitePlayer, blackPlayer)
