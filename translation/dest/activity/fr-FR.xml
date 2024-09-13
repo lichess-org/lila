@@ -34,6 +34,10 @@
     <item quantity="one">%s partie par correspondance terminée</item>
     <item quantity="other">%s parties par correspondance terminées</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="one">%1$s partie %2$s par correspondance terminée</item>
+    <item quantity="other">%1$s parties %2$s par correspondance terminées</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">A commencé à suivre %s joueur</item>
     <item quantity="other">A commencé à suivre %s joueurs</item>
