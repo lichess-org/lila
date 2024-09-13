@@ -193,7 +193,7 @@ final class ActivityUi(helpers: Helpers)(
       entryTag(
         iconTag(Icon.PaperAirplane),
         div(
-          trans.activity.completedNbGames.plural(score.size, subCount(score.size)),
+          trans.activity.completedNbGames.plural(score.size, subCount(score.size), perfKey),
           score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
           scoreFrag(score),
           subTag(
