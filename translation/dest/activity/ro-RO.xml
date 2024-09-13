@@ -42,6 +42,11 @@
     <item quantity="few">A completat %s meciuri de corespondență</item>
     <item quantity="other">A completat %s meciuri de corespondență</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="one">Terminat %1$s joc de tip %2$s de corespondență</item>
+    <item quantity="few">Terminat %1$s jocuri de tip %2$s de corespondență</item>
+    <item quantity="other">Terminat %1$s jocuri de tip %2$s de corespondență</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">A început să urmărească %s jucător</item>
     <item quantity="few">A început să urmărească %s jucători</item>
