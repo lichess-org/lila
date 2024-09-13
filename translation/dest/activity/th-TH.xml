@@ -26,6 +26,9 @@
   <plurals name="completedNbGames">
     <item quantity="other">ได้เล่นเกมแบบยาวนานสมบูรณ์ %s เกม</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="other">ได้เล่นเกมแบบยาวนานสมบูรณ์ %1$s %2$s เกม</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">ได้เริ่มติดตาม %s ผู้เล่น</item>
   </plurals>
