@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { movePattern, userPattern } from '../src/richText';
+import { enhance, EnhanceOpts, movePattern, userPattern } from '../src/richText';
 
 describe('test regex patterns', () => {
   test('username mentions', () => {
@@ -28,5 +28,18 @@ describe('test regex patterns', () => {
 
   test('not a move', () => {
     expect('4.m3'.match(movePattern)).toBeNull();
+  });
+
+  test('board links', () => {
+    const opts: EnhanceOpts = {
+      plies: true,
+      boards: true,
+    };
+    expect(enhance('board 1', opts)).toBe('<a data-board="1">board 1</a>');
+    expect(enhance('board 100', opts)).toBe('<a data-board="100">board 100</a>');
+    expect(enhance('game 50', opts)).toBe('<a data-board="50">game 50</a>');
+    expect(enhance('game 64', opts)).toBe('<a data-board="64">game 64</a>');
+    expect(enhance('game 65', opts)).toBe('<a data-board="65">game 65</a>');
+    expect(enhance('game 100', opts)).toBe('<a data-board="100">game 100</a>');
   });
 });
