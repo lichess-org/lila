@@ -8,6 +8,7 @@ import lila.core.rating.Score
 import lila.core.simul.Simul
 import lila.core.swiss.IdName as SwissIdName
 import lila.core.ublog.UblogPost
+import lila.rating.PerfType
 
 case class ActivityView(
     interval: TimeInterval,
@@ -21,8 +22,8 @@ case class ActivityView(
     patron: Option[Patron] = None,
     forumPosts: Option[Map[ForumTopicMini, List[ForumPostMini]]] = None,
     ublogPosts: Option[List[UblogPost.LightPost]] = None,
-    corresMoves: Option[(Int, List[LightPov])] = None,
-    corresEnds: Option[(Score, List[LightPov])] = None,
+    corresMoves: Option[Map[PerfType,(Int, List[LightPov])]] = None,
+    corresEnds: Option[Map[PerfType, (Score, List[LightPov])]] = None,
     follows: Option[Follows] = None,
     studies: Option[List[lila.core.study.IdName]] = None,
     teams: Option[Teams] = None,
