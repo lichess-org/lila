@@ -189,11 +189,14 @@ final class ActivityUi(helpers: Helpers)(
   private def renderCorresEnds(corresEnds: Map[PerfKey, (Score, List[lila.core.game.LightPov])])(using
       Context
   ) =
-    corresEnds.toSeq.map { case (perfKey, (score, povs)) =>
+    corresEnds.toSeq.map { case (pk, (score, povs)) =>
+      val pt =
+        if pk == PerfKey.correspondence then lila.rating.PerfType(PerfKey.standard)
+        else lila.rating.PerfType(pk)
       entryTag(
         iconTag(Icon.PaperAirplane),
         div(
-          trans.activity.completedNbGames.plural(score.size, subCount(score.size), perfKey),
+          trans.activity.completedNbGames.plural(score.size, subCount(score.size), pt.trans),
           score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
           scoreFrag(score),
           subTag(
