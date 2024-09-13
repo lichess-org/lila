@@ -34,6 +34,10 @@
     <item quantity="one">Completed %s correspondence game</item>
     <item quantity="other">Completed %s correspondence games</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Completed %1$s %2$s correspondence game</item>
+    <item quantity="other">Completed %1$s %2$s correspondence games</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Started following %s player</item>
     <item quantity="other">Started following %s players</item>
