@@ -8,6 +8,8 @@ import lila.core.game.LightPov
 import lila.core.swiss.IdName as SwissIdName
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
+import lila.core.perf
+import chess.Speed.Correspondence
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
@@ -87,8 +89,12 @@ final class ActivityReadApi(
           _.map(corres.moves -> _)
       corresEnds <- a.corres.so: corres =>
         getLightPovs(a.id.userId, corres.end).dmap:
-          _.map: povs =>
-            Score.make(povs) -> povs
+          _.map(povs =>
+            povs.groupBy(pov => PerfKey.apply(pov.game.variant, Correspondence)).map {
+              case (perfKey, groupedPovs) =>
+                perfKey -> (Score.make(groupedPovs) -> groupedPovs)
+            }
+          )
       simuls <-
         a.simuls
           .soFu: simuls =>
