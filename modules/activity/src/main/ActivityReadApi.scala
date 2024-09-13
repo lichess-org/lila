@@ -8,7 +8,6 @@ import lila.core.game.LightPov
 import lila.core.swiss.IdName as SwissIdName
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
-import lila.core.perf
 import chess.Speed.Correspondence
 
 final class ActivityReadApi(
