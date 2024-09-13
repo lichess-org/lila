@@ -107,7 +107,6 @@ object BSONHandlers:
       val createdAt    = r.date(F.createdAt)
 
       val playedPlies = ply - startedAtPly
-      val gameVariant = Variant.idOrDefault(r.getO[Variant.Id](F.variant))
 
       val whitePlayer = Player.from(light, Color.white, playerIds, r.getD[Bdoc](F.whitePlayer))
       val blackPlayer = Player.from(light, Color.black, playerIds, r.getD[Bdoc](F.blackPlayer))
@@ -126,7 +125,7 @@ object BSONHandlers:
             )
           PgnStorage.Decoded(
             sans = sans,
-            board = BBoard.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), gameVariant)),
+            board = BBoard.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
             positionHashes =
               r.getO[Array[Byte]](F.positionHashes).map(chess.PositionHash.apply) | chess.PositionHash.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -149,13 +148,13 @@ object BSONHandlers:
               halfMoveClock = decoded.halfMoveClock,
               positionHashes = decoded.positionHashes,
               unmovedRooks = decoded.unmovedRooks,
-              checkCount = if gameVariant.threeCheck then
+              checkCount = if light.variant.threeCheck then
                 val counts = r.intsD(F.checkCount)
                 CheckCount(~counts.headOption, ~counts.lastOption)
               else emptyCheckCount
             ),
-            variant = gameVariant,
-            crazyData = gameVariant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
+            variant = light.variant,
+            crazyData = light.variant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
           ),
           color = turnColor
         ),
