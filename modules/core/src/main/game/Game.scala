@@ -272,6 +272,7 @@ case class Game(
       case Standard | Chess960 | Horde            => 20
       case Antichess | Crazyhouse | KingOfTheHill => 15
       case ThreeCheck | Atomic | RacingKings      => 10
+      case _                                      => 15 // from position
 
   lazy val opening: Option[Opening.AtPly] =
     if !fromPosition && Variant.list.openingSensibleVariants(variant)
