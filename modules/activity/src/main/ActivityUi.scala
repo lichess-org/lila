@@ -190,13 +190,20 @@ final class ActivityUi(helpers: Helpers)(
       Context
   ) =
     corresEnds.toSeq.map { case (pk, (score, povs)) =>
-      val pt =
-        if pk == PerfKey.correspondence then lila.rating.PerfType(PerfKey.standard)
-        else lila.rating.PerfType(pk)
+      val pt = lila.rating.PerfType(pk)
+      val text =
+        if pk == PerfKey.correspondence then
+          trans.activity.completedNbGames.plural(score.size, subCount(score.size))
+        else
+          trans.activity.completedNbVariantGames.plural(
+            score.size,
+            subCount(score.size),
+            pt.trans
+          )
       entryTag(
-        iconTag(Icon.PaperAirplane),
+        iconTag(if pk == PerfKey.correspondence then Icon.PaperAirplane else pt.icon),
         div(
-          trans.activity.completedNbGames.plural(score.size, subCount(score.size), pt.trans),
+          text,
           score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
           scoreFrag(score),
           subTag(
