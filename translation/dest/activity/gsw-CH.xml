@@ -34,6 +34,10 @@
     <item quantity="one">Hät %s Fernschachpartie gschpillt</item>
     <item quantity="other">Hät %s Fernschachpartie gschpillt</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">%1$s %2$s Korrespondänz-Schpiel gschpillt</item>
+    <item quantity="other">%1$s %2$s Korrespondänz-Schpiel gschpillt</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Folgt %s Schpiller</item>
     <item quantity="other">Folgt %s Schpiller</item>
