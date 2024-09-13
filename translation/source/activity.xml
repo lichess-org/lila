@@ -31,8 +31,8 @@
     <item quantity="other">in %1$s correspondence games</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Completed %s correspondence game</item>
-    <item quantity="other">Completed %s correspondence games</item>
+    <item quantity="one">Completed %1$s %2$s correspondence game</item>
+    <item quantity="other">Completed %1$s %2$s correspondence games</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Started following %s player</item>
