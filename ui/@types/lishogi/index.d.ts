@@ -25,6 +25,7 @@ interface Lishogi {
   hopscotch: any;
   slider(): any;
   spectrum: any;
+  flatpickr: any;
   makeChat(data: any, callback?: (chat: any) => void): void;
   formAjax(form: JQuery): any;
   numberFormat(n: number): string;
