@@ -87,12 +87,12 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script defer src="${staticUrl("javascripts/fipr.js")}"></script>"""
   }
 
-  lazy val flatpickrTag = raw {
-    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
-  }
-
   lazy val tagifyTag = raw {
     s"""<script src="${staticUrl("vendor/tagify/tagify.min.js")}"></script>"""
+  }
+
+  lazy val flatpickrTag = raw {
+    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr_locale.min.js")}"></script>"""
   }
 
   def delayFlatpickrStartUTC(implicit ctx: Context) =

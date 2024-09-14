@@ -310,6 +310,9 @@ lishogi.spectrum = function () {
   lishogi.loadCss('vendor/spectrum/dist/spectrum.min.css');
   return lishogi.loadScript('vendor/spectrum/dist/spectrum.min.js');
 };
+lishogi.flatpickr = function () {
+  return lishogi.loadScript('javascripts/vendor/flatpickr_locale.min.js');
+};
 lishogi.makeChat = function (data, callback) {
   requestAnimationFrame(function () {
     data.loadCss = lishogi.loadCssPath;
