@@ -1,8 +1,8 @@
-import { GameData } from './interfaces';
+import { GameData, StatusId, StatusName } from './interfaces';
 
 // https://github.com/WandererXII/scalashogi/blob/main/src/main/scala/Status.scala
 
-export const ids = {
+export const ids: Record<StatusName, StatusId> = {
   created: 10,
   started: 20,
   paused: 21,
@@ -15,13 +15,24 @@ export const ids = {
   outoftime: 35,
   cheat: 36,
   noStart: 37,
+  unknownFinish: 38,
   tryRule: 39,
   perpetualCheck: 40,
   impasse27: 41,
   royalsLost: 42,
   bareKing: 43,
   repetition: 44,
+  specialVariantEnd: 45,
 };
+
+export function statusIdToName(statusId: StatusId): StatusName | undefined {
+  for (const name in ids) {
+    if (ids[name as StatusName] === statusId) {
+      return name as StatusName;
+    }
+  }
+  return undefined;
+}
 
 export function started(data: GameData): boolean {
   return data.game.status.id >= ids.started;

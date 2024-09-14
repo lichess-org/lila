@@ -40,6 +40,7 @@ export interface Status {
 }
 
 export type StatusName =
+  | 'created'
   | 'started'
   | 'paused'
   | 'aborted'

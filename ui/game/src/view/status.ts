@@ -1,9 +1,19 @@
-import { Status } from '../interfaces';
+import { Status, StatusId, StatusName } from '../interfaces';
 import { transWithColorName } from 'common/colorName';
+import { statusIdToName } from '../status';
 
-export default function status(trans: Trans, status: Status, winner: Color | undefined, isHandicap: boolean): string {
-  const noarg = trans.noarg;
-  switch (status.name) {
+export default function status(
+  trans: Trans,
+  status: Status | StatusName | StatusId,
+  winner: Color | undefined,
+  isHandicap: boolean
+): string {
+  const noarg = trans.noarg,
+    name: StatusName | undefined =
+      typeof status === 'object' ? status.name : typeof status === 'number' ? statusIdToName(status) : status;
+  switch (name) {
+    case 'created':
+      return '-'; // Good enough, shouldn't happen
     case 'started':
       return noarg('playingRightNow');
     case 'paused':
@@ -53,6 +63,6 @@ export default function status(trans: Trans, status: Status, winner: Color | und
     case 'specialVariantEnd':
       return noarg('check'); // enough for now
     default:
-      return status.name;
+      return name || '?';
   }
 }
