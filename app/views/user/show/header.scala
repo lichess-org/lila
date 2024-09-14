@@ -200,6 +200,11 @@ object header {
                   )
                 ),
                 (ctx.noKid && (!u.marks.troll || ctx.is(u))) option frag(
+                  profile.countryInfo.map { c =>
+                    span(cls  := "country")(
+                      img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png"))
+                    )
+                  },
                   profile.nonEmptyRealName map { name =>
                     strong(cls := "name")(name)
                   },
@@ -210,13 +215,6 @@ object header {
                 div(cls := "stats")(
                   profile.nonEmptyLocation.ifTrue(ctx.noKid).map { l =>
                     span(cls := "location")(l)
-                  },
-                  profile.countryInfo.map { c =>
-                    span(cls  := "country")(
-                      img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
-                      " ",
-                      c.name
-                    )
                   },
                   p(cls := "thin")(trans.memberSince(), " ", showDate(u.createdAt)),
                   u.seenAt.map { seen =>
