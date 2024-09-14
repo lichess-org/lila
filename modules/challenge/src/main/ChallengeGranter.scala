@@ -21,6 +21,7 @@ object ChallengeDenied {
     case class RatingOutsideRange(perf: PerfType)  extends Reason
     case class RatingIsProvisional(perf: PerfType) extends Reason
     case object FriendsOnly                        extends Reason
+    case object BotUltraBullet                     extends Reason
     case object SelfChallenge                      extends Reason
   }
 
@@ -32,8 +33,9 @@ object ChallengeDenied {
       case Reason.RatingOutsideRange(perf) =>
         I18nKeys.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
       case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
-      case Reason.FriendsOnly   => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
-      case Reason.SelfChallenge => "You cannot challenge yourself."
+      case Reason.FriendsOnly    => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+      case Reason.SelfChallenge  => "You cannot challenge yourself."
+      case Reason.BotUltraBullet => "Bots cannot play UltraBullet. Choose a slower time control."
     }
 }
 
@@ -71,6 +73,10 @@ final class ChallengeGranter(
             case _ if from == dest          => SelfChallenge.some
             case _                          => none
           }
+      }
+      .map {
+        case None if dest.isBot && perfType.has(PerfType.UltraBullet) => BotUltraBullet.some
+        case res                                                      => res
       }
       .map {
         _.map { ChallengeDenied(dest, _) }

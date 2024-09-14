@@ -1,6 +1,6 @@
 package lila.setup
 
-import shogi.Clock
+import shogi.{ Clock, Speed }
 import shogi.format.forsyth.Sfen
 import lila.lobby.Color
 import lila.rating.PerfType
@@ -25,6 +25,11 @@ final case class ApiConfig(
   def validSfen =
     sfen.fold(true) { sf =>
       sf.toSituationPlus(variant).exists(_.situation.playable(strict = strictSfen, withImpasse = true))
+    }
+
+  def validSpeed(isBot: Boolean) =
+    !isBot || clock.fold(true) { c =>
+      Speed(c) >= Speed.Bullet
     }
 
   def mode = shogi.Mode(rated)

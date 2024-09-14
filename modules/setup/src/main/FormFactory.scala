@@ -6,7 +6,7 @@ import play.api.data.Forms._
 import shogi.format.forsyth.Sfen
 import shogi.variant.{ Standard, Variant }
 import lila.rating.RatingRange
-import lila.user.UserContext
+import lila.user.{ User, UserContext }
 
 final class FormFactory {
 
@@ -58,6 +58,7 @@ final class FormFactory {
         "sfen"      -> sfenField
       )(FriendConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
+        .verifying("Invalid speed", _.validSpeed(ctx.me.exists(_.isBot)))
         .verifying("invalidSfen", _.validSfen)
     )
 
@@ -131,7 +132,7 @@ final class FormFactory {
     private lazy val variant =
       "variant" -> optional(text.verifying(Variant.byKey.contains _))
 
-    lazy val user = Form(
+    def user(from: User) = Form(
       mapping(
         variant,
         clock,
@@ -140,7 +141,9 @@ final class FormFactory {
         "color"         -> optional(color),
         "sfen"          -> sfenField,
         "acceptByToken" -> optional(nonEmptyText)
-      )(ApiConfig.from)(_.>>).verifying("invalidSfen", _.validSfen)
+      )(ApiConfig.from)(_.>>)
+        .verifying("invalidSfen", _.validSfen)
+        .verifying("Invalid speed", _ validSpeed from.isBot)
     )
 
     lazy val ai = Form(
