@@ -28,7 +28,7 @@ export function styleSetting(): Setting<Style> {
       ['nato', 'Nato: pawn, 7 golf 3 foxtrot'],
       ['japanese', 'Japanese: ７ 七 ３ 六'],
     ],
-    default: document.documentElement.lang === 'ja-JP' ? 'japanese' : 'anna',
+    default: document.documentElement.lang === 'ja' ? 'japanese' : 'anna',
     storage: window.lishogi.storage.make('nvui.moveNotation'),
   });
 }

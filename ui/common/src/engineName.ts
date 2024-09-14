@@ -2,7 +2,7 @@ import { Rules } from 'shogiops/types';
 import { isHandicap } from 'shogiops/handicaps';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
 
-const useJp = document.documentElement.lang === 'ja-JP';
+const useJp = document.documentElement.lang === 'ja';
 
 export const enum EngineCode {
   YaneuraOu = 'yn',

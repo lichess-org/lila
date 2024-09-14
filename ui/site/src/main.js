@@ -834,7 +834,7 @@
     });
     api.say = function (texts, cut, force) {
       if (!speechStorage.get() && !force) return false;
-      var useJp = !!texts.jp && document.documentElement.lang === 'ja-JP';
+      var useJp = !!texts.jp && document.documentElement.lang === 'ja';
       var text = useJp ? texts.jp : texts.en;
       var lang = useJp ? 'ja-JP' : 'en-US';
       var msg = new SpeechSynthesisUtterance(text);
