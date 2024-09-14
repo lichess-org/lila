@@ -24,7 +24,7 @@ export default function (opts: RoundOpts): void {
             o.player ? [o.player.title, o.player.name, o.player.rating].filter(x => x).join('&nbsp') : 'Anonymous'
           );
       },
-      end() {
+      endData() {
         $.ajax({
           url: [data.tv ? '/tv' : '', data.game.id, data.player.color, 'sides'].join('/'),
           success: function (html) {
