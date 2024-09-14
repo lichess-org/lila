@@ -85,6 +85,16 @@ const shogiground = () =>
     .pipe(rename({ dirname: '' }))
     .pipe(gulp.dest('../../public/javascripts/vendor'));
 
+const flatpickr = () =>
+  gulp
+    .src(['flatpickr.min.js', 'flatpickr_i10n.js'], {
+      cwd: '../../public/javascripts/vendor/',
+      cwdbase: true,
+    })
+    .pipe(terser())
+    .pipe(concat('flatpickr_locale.min.js'))
+    .pipe(gulp.dest('../../public/javascripts/vendor'));
+
 const prodSource = () =>
   browserify(browserifyOpts('src/index.ts', false))
     .plugin(tsify)
@@ -199,6 +209,7 @@ const tasks = [
   spectrum,
   fairy,
   shogiground,
+  flatpickr,
 ];
 
 const dev = gulp.series(tasks.concat([devSource]));
