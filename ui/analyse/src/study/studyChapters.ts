@@ -221,7 +221,7 @@ export function view(ctrl: StudyCtrl): VNode {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           active = !ctrl.vm.loading && current?.id === chapter.id;
         return h(
-          'div',
+          'button',
           {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
