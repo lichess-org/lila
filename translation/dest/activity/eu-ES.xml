@@ -34,6 +34,10 @@
     <item quantity="one">Posta bidezko partida %s jokatu du</item>
     <item quantity="other">Posta bidezko %s partida jokatu ditu</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="one">%2$s posta bidezko partida %1$s osatuta</item>
+    <item quantity="other">%2$s posta bidezko %1$s partida osatuta</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Jokalari %s jarraitzen hasi da</item>
     <item quantity="other">%s jokalari jarraitzen hasi da</item>

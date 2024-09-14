@@ -50,6 +50,12 @@
     <item quantity="few">Končal %s dopisne partije</item>
     <item quantity="other">Končal %s dopisnih partij</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="one">Dokončana %1$s %2$s korespondenčna igra</item>
+    <item quantity="two">Dokončani %1$s %2$s korespondenčni igri</item>
+    <item quantity="few">Dokončane %1$s %2$s korespondenčne igre</item>
+    <item quantity="other">Dokončanih %1$s %2$s korespondenčnih iger</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Sledi %s igralcu</item>
     <item quantity="two">Sledi %s igralcem</item>
