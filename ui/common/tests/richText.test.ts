@@ -32,7 +32,6 @@ describe('test regex patterns', () => {
 
   test('board links', () => {
     const opts: EnhanceOpts = {
-      plies: true,
       boards: true,
     };
     expect(enhance('board 1', opts)).toBe('<a data-board="1">board 1</a>');

@@ -81,7 +81,7 @@ const userLinkReplacePawn = (orig: string, prefix: string, user: string) =>
   user.match(pawnDropPattern) ? orig : userLinkReplace(orig, prefix, user);
 
 export interface EnhanceOpts {
-  plies: boolean;
+  plies?: boolean;
   boards?: boolean;
 }
 
