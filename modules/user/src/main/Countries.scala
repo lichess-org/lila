@@ -242,7 +242,7 @@ object Countries {
     C("TM", "Turkmenistan"),
     C("TN", "Tunisia"),
     C("TO", "Tonga"),
-    C("TR", "Turkey"),
+    C("TR", "Türkiye"),
     C("TT", "Trinidad and Tobago"),
     C("TV", "Tuvalu"),
     C("TW", "Taiwan"),
