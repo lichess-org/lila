@@ -41,4 +41,11 @@ describe('test regex patterns', () => {
     expect(enhance('game 65', opts)).toBe('<a data-board="65">game 65</a>');
     expect(enhance('game 100', opts)).toBe('<a data-board="100">game 100</a>');
   });
+
+  test('boards out of range should not be linked', () => {
+    expect(enhance('board 0')).toBe('board 0');
+    expect(enhance('board 101')).toBe('board 101');
+    expect(enhance('board 1000')).toBe('board 1000');
+    expect(enhance('board 9999')).toBe('board 9999');
+  });
 });
