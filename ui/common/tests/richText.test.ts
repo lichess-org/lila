@@ -43,9 +43,12 @@ describe('test regex patterns', () => {
   });
 
   test('boards out of range should not be linked', () => {
-    expect(enhance('board 0')).toBe('board 0');
-    expect(enhance('board 101')).toBe('board 101');
-    expect(enhance('board 1000')).toBe('board 1000');
-    expect(enhance('board 9999')).toBe('board 9999');
+    const opts: EnhanceOpts = {
+      boards: true,
+    };
+    expect(enhance('board 0', opts)).toBe('board 0');
+    expect(enhance('board 101', opts)).toBe('board 101');
+    expect(enhance('board 1000', opts)).toBe('board 1000');
+    expect(enhance('board 9999', opts)).toBe('board 9999');
   });
 });
