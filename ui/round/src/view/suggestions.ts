@@ -20,7 +20,7 @@ export function impasse(ctrl: RoundController) {
       h(
         'div.color-icon.sente',
         h('ul.impasse-list', [
-          h('li', [ctrl.noarg('enteringKing') + ': ', i.sente.king ? h('span.good', '✓') : '✗']),
+          h('li', [ctrl.noarg('enteringKing') + ': ', i.sente.king ? h('span.good', 'O') : '✗']),
           h('li', [ctrl.noarg('invadingPieces') + ': ', i.sente.nbOfPieces + '/10']),
           h('li', [ctrl.noarg('totalImpasseValue') + ': ', i.sente.pieceValue + '/28']),
         ])
@@ -28,7 +28,7 @@ export function impasse(ctrl: RoundController) {
       h(
         'div.color-icon.gote',
         h('ul.impasse-list', [
-          h('li', [ctrl.noarg('enteringKing') + ': ', i.gote.king ? h('span.good', '✓') : '✗']),
+          h('li', [ctrl.noarg('enteringKing') + ': ', i.gote.king ? h('span.good', 'O') : '✗']),
           h('li', [ctrl.noarg('invadingPieces') + ': ', i.gote.nbOfPieces + '/10']),
           h('li', [ctrl.noarg('totalImpasseValue') + ': ', i.gote.pieceValue + '/27']),
         ])

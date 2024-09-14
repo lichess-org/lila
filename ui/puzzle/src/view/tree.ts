@@ -128,7 +128,7 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
     case 'win':
       return renderGlyph({
         name: ctx.ctrl.trans.noarg('bestMove'),
-        symbol: '✓',
+        symbol: 'O',
       });
     case 'fail':
       return renderGlyph({

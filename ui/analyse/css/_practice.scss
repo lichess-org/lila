@@ -51,7 +51,7 @@
   }
   &.goodMove .verdict::before {
     background: $c-good;
-    content: '✓';
+    content: 'O';
     font-size: 1.7em;
   }
   &.inaccuracy .verdict {

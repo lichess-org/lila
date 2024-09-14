@@ -136,7 +136,7 @@ const feedback = {
     return [
       h(
         'div.half.top',
-        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', ctrl.noarg('goodMove')))])
+        h('div.player', [h('div.icon', 'O'), h('div.instruction', h('strong', ctrl.noarg('goodMove')))])
       ),
       jumpToNext(ctrl),
     ];
@@ -146,7 +146,7 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player', [
-          h('div.icon', '✓'),
+          h('div.icon', 'O'),
           h('div.instruction', [
             h('strong', ctrl.noarg('solution')),
             h(
