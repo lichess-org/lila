@@ -28,7 +28,7 @@ object topnav {
           if (ctx.noBot) a(href := s"${langHref("/?any")}#hook")(trans.createAGame())
           else a(href := s"${langHref("/?any")}#friend")(trans.playWithAFriend()),
           ctx.noBot option frag(
-            a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
+            a(href := langHref(routes.Tournament.home))(trans.tournaments()),
             a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions())
           )
         )
