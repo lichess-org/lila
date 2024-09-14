@@ -50,6 +50,12 @@
     <item quantity="many">Zakończenie %s partii korespondencyjnych</item>
     <item quantity="other">Zakończenie %s partii korespondencyjnych</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Zakończona %1$s %2$s partia korespondencyjna</item>
+    <item quantity="few">Zakończone %1$s %2$s partie korespondencyjne</item>
+    <item quantity="many">Zakończone %1$s %2$s partii korespondencyjnych</item>
+    <item quantity="other">Zakończone %1$s %2$s partii korespondencyjnych</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Rozpoczęcie obserwowania gracza</item>
     <item quantity="few">Rozpoczęcie obserwowania %s graczy</item>
