@@ -40,7 +40,7 @@ final class JsonView(
         "pairings"   -> pairings
       )
       .add("team", team)
-      .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id)))
+      .add("proverb" -> simul.isCreated.option(lila.common.Proverb.one(simul.id)))
 
   def apiJson(simul: Simul): Fu[JsObject] =
     getLightUser(simul.hostId) map { lightHost =>

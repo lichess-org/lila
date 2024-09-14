@@ -43,7 +43,7 @@ lazy val modules = Seq(
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push, appeal,
-  playban, perfStat, quote, challenge,
+  playban, perfStat, challenge,
   study, studySearch, fishnet, learn, plan,
   event, coach, practice, evalCache,
   activity, streamer, bot, clas, storm
@@ -84,11 +84,6 @@ lazy val compression = module("compression", Seq(), Seq(specs2))
 lazy val puzzle = module("puzzle",
   Seq(common, memo, hub, history, db, user, rating, pref, tree, game),
   reactivemongo.bundle
-)
-
-lazy val quote = module("quote",
-  Seq(),
-  Seq()
 )
 
 lazy val video = module("video",
@@ -237,12 +232,12 @@ lazy val importer = module("importer",
 )
 
 lazy val tournament = module("tournament",
-  Seq(common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room),
+  Seq(common, hub, socket, game, round, security, chat, memo, history, notifyModule, i18n, room),
   Seq(scalatags, lettuce) ++ reactivemongo.bundle
 )
 
 lazy val simul = module("simul",
-  Seq(common, hub, socket, game, round, chat, memo, quote, room),
+  Seq(common, hub, socket, game, round, chat, memo, room),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 

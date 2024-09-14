@@ -208,7 +208,10 @@ module.exports = function (ctrl) {
         ),
       ])
     ),
-    m('blockquote.pull-quote', [m('p', ctrl.data.quote.text), m('footer', ctrl.data.quote.author)]),
+    m(
+      'blockquote.pull-quote',
+      m('p', document.documentElement.lang === 'ja' ? ctrl.data.proverb.japanese : ctrl.data.proverb.english)
+    ),
     m(
       'div.continue-with.none',
       ctrl.data.variants.map(function (variant) {
