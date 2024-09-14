@@ -44,22 +44,17 @@ $c-mselect: $c-primary;
     .current {
       background: $c-mselect;
       color: #fff;
-      @extend %flex-between-nowrap;
-      &::after {
-        @extend %data-icon;
-        content: 'E';
-        flex: 1 1 100%;
-        text-align: right;
-      }
     }
     > * {
       white-space: nowrap;
       display: block;
-      padding: 0.5em 1em;
+      padding: 0.45rem 1rem;
       @include transition();
       color: $c-mselect;
+      background: $c-bg-popup;
       &:not(.current):hover {
-        @extend %metal-hover;
+        color: $c-font-clear;
+        // background: mix($c-mselect, $c-bg-popup, 50%);
       }
       &::before {
         margin-right: 0.4em;
