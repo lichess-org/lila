@@ -174,6 +174,7 @@ export type I18nKey =
 'rank'|
 'rankX'|
 'gamesPlayed'|
+'confirm'|
 'cancel'|
 'timeOut'|
 'drawOfferSent'|
@@ -204,6 +205,7 @@ export type I18nKey =
 'finishesX'|
 'abortGame'|
 'gameAborted'|
+'rules'|
 'standard'|
 'minishogi'|
 'chushogi'|
@@ -341,9 +343,7 @@ export type I18nKey =
 'advancedSettings'|
 'safeTournamentName'|
 'inappropriateNameWarning'|
-'emptyTournamentName'|
-'recommendNotTouching'|
-'fewerPlayers'|
+'emptyTournamentAnimalName'|
 'showAdvancedSettings'|
 'makePrivateTournament'|
 'join'|
@@ -487,6 +487,7 @@ export type I18nKey =
 'youWon'|
 'defeat'|
 'youLost'|
+'xVsY'|
 'victoryVsYInZ'|
 'defeatVsYInZ'|
 'drawVsYInZ'|
@@ -821,6 +822,11 @@ export type I18nKey =
 'preview'|
 'variantNotSupported'|
 'readyToPlay'|
+'general-shogi-discussion'|
+'game-analysis'|
+'lishogi-feedback'|
+'off-topic-discussion'|
+'teamXForum'|
 'opponentLeftCounter'|
 'nbMoves'|
 'nbPlayers'|
@@ -859,7 +865,9 @@ export type I18nKey =
 'availableInNbLanguages'|
 'nbSecondsToPlayTheFirstMove'|
 'nbSeconds'|
+'nbMinutes'|
 'andSaveNbPremoveLines'|
+'arena'|
 'arenaTournaments'|
 'isItRated'|
 'willBeNotified'|
@@ -1425,12 +1433,6 @@ export type I18nKey =
 'reportMobileIssue'|
 'reportBugInDiscord'|
 'howToReportBug'|
-'illegalPawnCapture'|
-'tryEnPassant'|
-'illegalCastling'|
-'castlingPrevented'|
-'castlingRules'|
-'castlingImported'|
 'insufficientMaterial'|
 'noRatingPoints'|
 'ratedGame'|
@@ -2164,4 +2166,16 @@ export type I18nKey =
 'moveForm'|
 'commandInput'|
 'commands'|
-'useArrowKeys';
+'useArrowKeys'|
+'roundRobin'|
+'startGame'|
+'goToGame'|
+'waitingForOther'|
+'proposeTime'|
+'cancelScheduled'|
+'scheduledAt'|
+'yourUpcomingGames'|
+'playingRightNow'|
+'recentlyPlayedGames'|
+'gameWillNotStart'|
+'organized';
