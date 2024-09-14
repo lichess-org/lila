@@ -68,7 +68,7 @@ export function view(ctrl: SearchCtrl) {
       h(
         // dynamic extra class necessary to fully redraw the results and produce innerHTML
         `div.study-search__results.search-query-${cleanQuery}`,
-        { attrs: { tabindex: -1 }, },
+        { attrs: { tabindex: -1 } },
         ctrl.results().map(c =>
           h('button', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
             h(

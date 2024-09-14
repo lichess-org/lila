@@ -166,7 +166,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
               if (o.onInsert) o.onInsert(wrapper);
               else {
                 wrapper.showModal();
-                const inputEl = view.querySelector('input'); 
+                const inputEl = view.querySelector('input');
                 if (inputEl && inputEl.autofocus) inputEl.focus();
               }
             }),
