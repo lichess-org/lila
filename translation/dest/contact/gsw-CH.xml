@@ -51,7 +51,7 @@
   <string name="fideMate">Gemäss FIDE Schachregle - §6.9 - isch es Schpiel nöd Remis, wänn es Matt mit irgend ere legale Zugfolg möglich isch</string>
   <string name="knightMate">Es isch möglich - nur mit Schpringer oder Läufer - es Schachmatt z\'erreiche, wänn de Gägner meh als nur de König uf em Brätt hät.</string>
   <string name="noRatingPoints">Es sind kei Wertigspünkt vergeh worde</string>
-  <string name="ratedGame">Ungwerteti Schpiel verändered dini Wertig (Rating) nöd - schpill G\'werteti!</string>
+  <string name="ratedGame">Nöd g\'werteti Schpiel ändered dini Wertig (Rating) nöd - schpill G\'werteti!</string>
   <string name="botRatingAbuse">Under beschtimmte Umschtänd - wänn gäge es \"Bot Konto\" gschpillt wird - chas si, dass kei Pünkt vergeh werded, wänn feschtgschtellt wird, dass de \"Bot\" für d\'Wertig missbrucht wird.</string>
   <string name="errorPage">Fählersite</string>
   <string name="reportErrorPage">Wänn du e Fählersite entdeckt häsch, chasch sie mälde:</string>
