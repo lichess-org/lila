@@ -89,7 +89,7 @@
   <string name="whiteDrawBlack">Wiss / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittlichi Wertigszahl: %s</string>
   <string name="recentGames">Aktuelli Partie</string>
-  <string name="topGames">Beschti-Partie</string>
+  <string name="topGames">Schpitzeschpiel</string>
   <string name="masterDbExplanation">2 Millione OTB Schpil vu %1$s+ FIDE-gwertete Schpiller vu %2$s bis %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt i %s Halbzug</item>
@@ -471,7 +471,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
   <string name="emptyTournamentName">Frei la zum s\'Turnier nach eme namhafte Schachschpiller z\'benänne.</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
-  <string name="join">Mach mit</string>
+  <string name="join">Mitmache</string>
   <string name="withdraw">Usschtige</string>
   <string name="points">Pünkt</string>
   <string name="wins">Sieg</string>
@@ -480,7 +480,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="tournamentIsStarting">s\'Turnier fangt a</string>
   <string name="tournamentPairingsAreNowClosed">Es werded kei Turnierschpiel meh gschpillt.</string>
   <string name="standByX">Achtung %s, es git neui Paarige, mach dich parat!</string>
-  <string name="pause">underbräche</string>
+  <string name="pause">Pausiere</string>
   <string name="resume">wieder ischtige</string>
   <string name="youArePlaying">Dis Schpiel fangt a!</string>
   <string name="winRate">Gwünn Rate</string>
