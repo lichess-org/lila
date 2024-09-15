@@ -115,15 +115,15 @@ Grundsätzlich isch sich bi dem Syschtem aber zu 95% sicher, dass e Wertig irgen
 En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht. Das erlaubt, Pünkt schnäller z\'günne oder z\'verlüre, um alli Änderige vu dine Fertigkeite während dem Zitrum z\'berücksichtige.</string>
   <string name="whatIsProvisionalRating">Wieso gits es Fragezeiche (?) näbe de Wertigszahl?</string>
   <string name="provisionalRatingExplanation">Das Fragezeiche zeigt, dass d\'Wertig no provisorisch isch. Us folgende Gründ:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">De Schpiller hät nonig gnueg gwerteti Schpiel gäge %1$s i dere Wertigskategorie gschpillt.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">De Schpiller hät nonig gnueg g\'werteti Schpiel gäge %1$s i dere Wertigskategorie gschpillt.</string>
   <string name="similarOpponents">Gägner mit ähnlicher Schpielschtärchi</string>
   <string name="notPlayedRecently">De Schpiller hät nöd gnueg aktuelli Schpiel. Abhängig vu de Azahl Schpiel, wo g\'schpillt worde sind, bruchts zirka es Jahr Inaktivität, bis e Wertig wieder provisorisch wird.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkret bedütet das, dass d? Abwichig in Glicko-2 grösser als 110 isch. Die Abwichig isch s\'Vertraue, wo das Syschtem id Wertig hät. Je nidriger d\'Abwichig, deschto schtabiler isch e Wertig.</string>
   <string name="howDoLeaderoardsWork">Wie funktioniered Räng und Ranglischte?</string>
   <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muesch du:</string>
   <string name="ratingLeaderboards">Wertigs Ranglischte</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindeschtens 30 gwerteti Schpiel inere beschtimmte Kategorie gschpillt ha,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">i de letschte Wuche es gwertets Schpiel i dere Kategorie gschpillt ha,</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindeschtens 30 g\'werteti Schpiel inere beschtimmte Kategorie gschpillt ha,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">i de letschte Wuche es g\'wertets Schpiel i dere Kategorie gschpillt ha,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">e Wertigsabwichig chliner als %1$s im Standard Schach und tüfer als %2$s i Variante</string>
   <string name="beInTopTen">i de Top-Ten vu dere Wertigskategorie si.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die 2. Bedingig dient dezue, dass Schpiller wo ihres Konto nüme benutzed, au nüme i Ranglischte uftauched.</string>
