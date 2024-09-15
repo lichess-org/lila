@@ -5,20 +5,20 @@
   <string name="standardChessAndX" comment="%s is 8 variants">Standard - Schach und %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Tüfi %s Server - Analyse</string>
   <plurals name="gamesPerDay">
-    <item quantity="one">%s Partie pro Tag</item>
-    <item quantity="other">%s Partie pro Tag</item>
+    <item quantity="one">%s Schpiel pro Tag</item>
+    <item quantity="other">%s Schpiel pro Tag</item>
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Brätt - Editor und Analyse - Brätt mit %s</string>
   <string name="cloudEngineAnalysis">Cloud - Engine - Analyse</string>
   <string name="studies">Schtudie (g\'meinsami und durhafti Analyse)</string>
   <string name="chessInsights">Schach - Iblick (detaillierti Analyse vu dim Schpiel)</string>
   <string name="allChessBasicsLessons">Alli Schach - Grundlektione</string>
-  <string name="tacticalPuzzlesFromUserGames">Taktischi Ufgabe us User - Partie</string>
+  <string name="tacticalPuzzlesFromUserGames">Taktischi Ufgabe us Schpiel vu Mitglieder</string>
   <string name="personalOpeningExplorerX">%1$s (funzt au uf %2$s)</string>
   <string name="personalOpeningExplorer">Persönliche Eröffnigs - Explorer</string>
-  <string name="globalOpeningExplorerInNbGames">Globale Eröffnigs - Explorer (%s Partie!)</string>
+  <string name="globalOpeningExplorerInNbGames">Globale Eröffnigs - Explorer (%s Schpiel!)</string>
   <string name="endgameTablebase">7-teiligi Endschpiel - Tabälle</string>
-  <string name="downloadOrUploadAnyGameAsPgn">Abelade/Ufelade vu Partie als PGN</string>
+  <string name="downloadOrUploadAnyGameAsPgn">Abelade/Ufelade vu Schpiel als PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Tagebuech, Forum, Teams, TV, Benachrichtige, Fründe, Useforderige</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Hell/dunkel - Version, Brätt- und Figurewahl und Hindergrund</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Blitz, Rapid, Klassisch, Fernschach</string>
