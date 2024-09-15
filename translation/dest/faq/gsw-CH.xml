@@ -122,7 +122,7 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht
   <string name="howDoLeaderoardsWork">Wie funktioniered Räng und Ranglischte?</string>
   <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muesch du:</string>
   <string name="ratingLeaderboards">Wertigs Ranglischte</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindeschtens 30 gwerteti Partie inere beschtimmte Kategorie gschpillt ha,</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">muess mindeschtens 30 gwerteti Schpiel inere beschtimmte Kategorie gschpillt ha,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">i de letschte Wuche e gwerteti Partie i dere Kategorie gschpillt ha,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">e Wertigsabwichig chliner als %1$s im Standard Schach und tüfer als %2$s i Variante</string>
   <string name="beInTopTen">i de Top-Ten vu dere Wertigskategorie si.</string>
