@@ -218,7 +218,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .map(member => {
         const confing = members.confing() === member.user.id;
         return [
-          h('div', { key: member.user.id, class: { editing: !!confing } }, [
+          h('button', { key: member.user.id, class: { editing: !!confing } }, [
             h('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
             configButton(ctrl, member),
           ]),
