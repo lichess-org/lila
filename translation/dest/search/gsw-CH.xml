@@ -3,12 +3,12 @@
   <string name="search">Suechi</string>
   <string name="advancedSearch">Erwitereti Suechi</string>
   <plurals name="searchInXGames">
-    <item quantity="one">Suech in %s Partie</item>
-    <item quantity="other">Suech in %s Partie</item>
+    <item quantity="one">Suech in %s Schach-Schpiel</item>
+    <item quantity="other">Suech in %s Schach-Schpiel</item>
   </plurals>
   <plurals name="xGamesFound">
-    <item quantity="one">1 Partie g\'funde</item>
-    <item quantity="other">%s Partie g\'funde</item>
+    <item quantity="one">1 Schpiel g\'funde</item>
+    <item quantity="other">%s Schpiel g\'funde</item>
   </plurals>
   <string name="opponentName">Gägner Name</string>
   <string name="loser">Verlürer</string>
