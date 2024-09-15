@@ -6,7 +6,7 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch e Kombinazion us live/light/libre und Schach. Usgschproche wirds: %1$s.</string>
   <string name="leechess">litschess</string>
   <string name="hearItPronouncedBySpecialist">Los dir es Usschprach Bischpil ah.</string>
-  <string name="whyLiveLightLibre">\"Live\" - will Partie rund um d\'Uhr in Ächtzit gschpillt und aglueget werde chönd und \"light + libre\", also liecht und frei, will Lichess quälle-offe isch und frei vu Müll, wo vill anderi Internetsite belaschted.</string>
+  <string name="whyLiveLightLibre">\"Live\" - will rund um d\'Uhr und in Ächtzit Schpiel gschpillt und beobachtet werde chönd und \"light + libre\" (liecht und frei) will Lichess quälle-offe isch und frei isch vu \"Müll\", wo vill anderi Internetsite belaschted.</string>
   <string name="whyIsLilaCalledLila">Ähnlich ischs mit em Quällcode vu Lichess, %1$s, was für \"li[chess in sca]la\" staht. De Grossteil vu de Plattform isch ebe i dem %2$s gschribe worde. \"Scala\" isch e intuitivi Programmierschprach. Und näbebi bemerkt, isch es au offesichtlich, dass regi, verschpillti Fantasie mit gwürkt hät.</string>
   <string name="howCanIContributeToLichess">Wie chann ich zu Lichess öppis biträge?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird dur Schpände vu Gönner und vu Leischtige vu Freiwillige betribe und erhalte.</string>
@@ -20,16 +20,16 @@
   <string name="keyboardShortcutsExplanation">Bi einige Lichess-Site gits Taschtaturchürzel, wo mer chann verwände. Mit em Fragezeiche (?) werded, uf Schtudie-, Analyse-, Rätsel- oder Schpielsite - die verfüegbare Taschte-Kombinazione azeigt.</string>
   <string name="fairPlay">Fairs Schpille</string>
   <string name="whenAmIEligibleRatinRefund">Wänn chumm ich Wertigspünkt zrugg über, wo mir en Betrüger gnah hät?</string>
-  <string name="ratingRefundExplanation">1 Minute, nachdem en Schpiller markiert worde isch, werded sini 40 letschte Partie, vu de letschte 3 Tag aglueget. Wänn du i dene Partie under de Gägner gsi bisch und sich dini Wertig - will du verlore- oder Remis gschpillt häsch - verschlächteret hät und dini Wertig nöd erscht \"provisorisch\" gsi isch, chunnsch du e \"Wertigsrückerstattig\" über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dere Partie.
-(Wänn dini Wertig nach so Partie starch gschtige isch, gits möglicherwis kei Rückerschtattig oder nur en Teil.) E Rückerschtattig betreit nie meh als 150 Pünkt.</string>
-  <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiller, wo eifach abhaued anstatt e Partie ufzgeh?</string>
-  <string name="leavingGameWithoutResigningExplanation">Wänn de Gägner hüfig Partie abbricht oder verlaht, kassiert er en \"Spiel-Bann\" und chann e gwüssi Zit kei Partie schpille. Das wird nöd öffentlich azeigt. Falls aber das Verhalte witer so blibt, wird d\'Dur vum Bann verlängeret und witeri, ähnlichi Verstöss chönnd zur Schlüssig vum Konto fühere.</string>
+  <string name="ratingRefundExplanation">1 Minute, nachdem en Schpiller markiert worde isch, werded sini 40 letschte Schpiel, vu de letschte 3 Tag aglueget. Bisch du i dene Schpiel under de Gägner gsi und dini Wertig hät sich verschlächteret, will du verlore- oder Remis gschpillt häsch, dänn chunnsch du e \"Wertigsrückerstattig\" über. Die Rückerschtattig wird begränzt dur dini Spitzewertig und din Wertigsfortschritt nach dem Schpiel.
+(Wänn dini Wertig nach so Schpiel starch gschtige isch, gits möglicherwis kei Rückerschtattig oder nur en Teil. Dini Wertig dörf au nöd erscht \"provisorisch\" si.) Rückerschtattige sind nie höcher als 150 Pünkt.</string>
+  <string name="preventLeavingGameWithoutResigning">Was passiert mit Schpiller, wo anstatt ufgeh, eifach abhaued?</string>
+  <string name="leavingGameWithoutResigningExplanation">Wänn de Gägner hüfig Schpiel abbricht oder verlaht, kassiert er en \"Schpiel-Bann\" und chann e gwüssi Zit kei Schpiel schpille. Das wird nöd öffentlich azeigt. Falls aber das Verhalte witer so blibt, wird d\'Dur vum Bann verlängeret. Witeri Verstöss chönnd zur Schlüssig vum Konto fühere.</string>
   <string name="howCanIBecomeModerator">Wie chann ich Moderator werde?</string>
   <string name="youCannotApply">Es isch nöd möglich sich als Moderator z\'bewerbe. Wänn mir öpper gsehnd, wo mir dänked, dass er en guete Moderator chönnt si, kontaktiered mir ihn diräkt.</string>
   <string name="isCorrespondenceDifferent">Was sind d\'Underschid vu Fernschach zu normalem Schach?</string>
   <string name="pleaseReadFairPlayPage">Meh Infos chasch uf eusere %s läse</string>
   <string name="fairPlayPage">\"Fairplay-Site\"</string>
-  <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtaht de Hauptunderschid i de Regle für Fernschach darin, dass es Schachbuech erlaubt isch. D\'Verwändig vu Schachcoputer isch aber immer no verbote und füehrt zunere Markierig vom Konto wäge unerlaubter Computer-Underschtützig. Obwohl d\'ICCF d\'Verwändig vu Computer für Fernschachpartie erlaubt, isch es bi Lichess nöd gschtattet.</string>
+  <string name="youCanUseOpeningBookNoEngine">Bi Lichess isch de Hauptunderschid i de Regle für Korrespondänz-Schach darin, dass es Buech erlaubt isch. Software oder Schach-Computer sind aber immer no verbote und füehred zur Markierig vom Konto, wäge unerlaubter Computer-Underschtützig. Obwohl d\'ICCF d\'Verwändig vu Computer für Fernschachpartie erlaubt, isch das bi Lichess nöd g\'schtattet.</string>
   <string name="gameplay">Schpielerläbnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschide, was Bullet, Blitz und anderi Zitkontrolle sind?</string>
   <string name="basedOnGameDuration">Lichess Zitkontrolle basiered uf de erwartete Schpieldur = %1$s
@@ -41,13 +41,13 @@ Zum Bischpil berächnet sich die erwartete Schpieldur vonere 5+3 Partie zu 5 × 
   <string name="lichessSupportChessAnd">Lichess underschtützt Schtandardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvariantä</string>
   <string name="whatIsACPL">Was isch durchschnittlichä Hundertstelpur-Verluscht (ACPL)?</string>
-  <string name="acplExplanation">De Centipur isch im Schach es Mass, zum de Vorteil bemässe. 1 Centipur entschpricht- oder isch 1 Hundertschtelpur - also sind 100 Centipure 1 ganze Pur. Die Wert schpilled während de Partie kei Rolle, sie sind aber im Computerschach es Mittel zum Stellige bewerte.
+  <string name="acplExplanation">De Centipur isch im Schach es Mass, zum de Vorteil bemässe. 1 Centipur entschpricht- oder isch 1 Hundertschtelpur - also sind 100 Centipure 1 ganze Pur. Die Wert schpilled während em Schpiel kei Rolle, sie sind aber im Computer-Schach es Mittel zum Stellige bewerte.
 
-De bescht, möglich Computerzug verlürt kein Hundertschtelpur, schlächteri Züg bewürked aber e schlächteri Schtellig, was dänn in Centipure gmässe wird.
+De bescht, möglich Computer-Zug verlürt kein Hundertschtelpur, schlächteri Züg bewürked aber e schlächteri Schtellig, was dänn in Centipure gmässe wird.
 
 De Wert chann als Indikator für d\'Schpielqualität gnutzt werde: Je weniger Centipure pro Zug verlore göhnd, umso besser isch d\'Schpielstärchi.
 
-Computeranalyse werded bi Lichess vu \"Stockfish\" gmacht.</string>
+Computer-Analyse werded bi Lichess vu \"Stockfish\" gmacht.</string>
   <string name="insufficientMaterial">Mit Zit verlüre, Remis und ungnüegends Material</string>
   <string name="lichessFollowFIDErules">Isch eim Schpiller d\'Zit abgloffe, verlürt er - i de Regel - s\'Schpiel. 
 Es Schpiel chann jedoch au als Remis erchlärt werde, wänn de vermeindlich Sieger, kei legali Zugfolg hät zum es Matt mache (%1$s).
@@ -71,10 +71,10 @@ Im %3$s wird \"en passant\" mit Üebige erchlärt und glehrt.</string>
   <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
   <string name="threefoldRepetitionExplanation">Bi drümal glicher Stellig, chann en Schpiller es Remis dur %1$s reklamiere. Lichess setzt die offiziell FIDE Regle, wo im Artikel 9.2 vum %2$s beschribe isch, um.</string>
   <string name="threefoldRepetitionLowerCase">drüfachi Schtelligswiderholig</string>
-  <string name="notRepeatedMoves">Mir händ kei Züge widerholt, wieso hät d\'Partie trotzdem, dur Schtelligswiderholig, Remis gändet?</string>
+  <string name="notRepeatedMoves">Mir händ kei Züge widerholt, wieso hät s\'Schpiel trotzdem, dur Schtelligswiderholig, Remis g\'ändet?</string>
   <string name="repeatedPositionsThatMatters">Bi drüfach glicher Schtellig gahts um vollschtändig glichi %1$s, nöd um Zugswiderholige. Di glichi Schtellig cha mit beliebige Züg erreicht werde, sofern d\'Zugmöglichkeite i dene Schtellige immer glich sind.</string>
   <string name="positions">Schtellige</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Mir händ e Schtellig drümal erreicht. Wieso isch d\'Partie nöd Remis?</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Mir händ e Schtellig drümal erreicht. Wieso isch s\'Schpiel nöd Remis?</string>
   <string name="threeFoldHasToBeClaimed">Drüfach glichi Schtellig muess vume Schpiller reklamiert werde. Das macht mer, idem mer uf d\'Schaltflächi klickt, wo azeigt wird, oder idem mer Remis vor em letschte Zug abütet, wo so e Schtellig herbifüehrt. I so me Fall wird e berächtigti Reklamation, wäge drüfach glicher Schtellig, sälbscht dänn erfolgrich si, wänn de Gägner es Remisagebot ablehnt. Mer chann im Konto au %1$s, dass drüfach glichi Schtellig automatisch zum Remis wird. Usserdem beändet e foiffach glichi Schtellig mit gliche Zugsmöglichkeite es Schpil immer sofort.</string>
   <string name="configure">konfiguriärä</string>
   <string name="accounts">Konti</string>
@@ -101,7 +101,7 @@ Also verlang de Titel nöd.</string>
   <string name="usernamesCannotBeChanged">Leider nei, Benutzernäme chönd us technische und praktische Gründ nöd g\'änderet werde. Die Benutzernäme erschined a z\'vill Schtelle: Datebanke, Export, Logs und au im Chopf vu andere Lüt. mer chann aber eimal d\'Gross-/Chlischribig ändere.</string>
   <string name="uniqueTrophies">Einzigartigi Trophäe</string>
   <string name="ownerUniqueTrophies">Die Trophäe isch einzigartig i de Gschicht vo Lichess, niemert usser em %1$s wird si jemals ha.</string>
-  <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Partie vumene %s mit Berserk gschpillt- und gunne hät.</string>
+  <string name="wayOfBerserkExplanation">Er hät si übercho, will er 100%% vu de Schpiel vumene %s mit Berserk gschpillt- und gunne hät.</string>
   <string name="aHourlyBulletTournament">es schtündlichs Bullet-Turnier</string>
   <string name="goldenZeeExplanation">De Schpiller \"ZugAddict\" hät mal - ime Stream - über 2 Schtund lang versuecht de Computer, uf Schtufe 8, im Bullet 1+0 z\'besiege - aber ohni Erfolg. De \"Thibault\" hät ihm dänn e einzigartigi Trophäe versproche, falls er das doch mal schaffe würd. Ei Schtund spöter hät de \"ZugAddicr\" de \"Stockfish\" besiegt und das Verschpräche isch ighalte worde.</string>
   <string name="lichessRatings">Lichess-Wertige</string>
@@ -117,7 +117,7 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht
   <string name="provisionalRatingExplanation">Das Fragezeiche zeigt, dass d\'Wertig no provisorisch isch. Us folgende Gründ:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">De Schpiller hät nonig gnueg gwerteti Schpiel gäge %1$s i dere Wertigskategorie gschpillt.</string>
   <string name="similarOpponents">Gägner mit ähnlicher Schpielschtärchi</string>
-  <string name="notPlayedRecently">De Schpiller hät nöd gnüegend aktuelli Partie gschpillt. Abhängig vu de Aazahl vu Partie, wo du gschpillt häsch, bruchts öppe es Jahr Inaktivität, bis d\'Wertig wieder provisorisch wird.</string>
+  <string name="notPlayedRecently">De Schpiller hät nöd gnueg aktuelli Schpiel. Abhängig vu de Azahl Schpiel, wo g\'schpillt worde sind, bruchts zirka es Jahr Inaktivität, bis e Wertig wieder provisorisch wird.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkret bedütet das, dass d? Abwichig in Glicko-2 grösser als 110 isch. Die Abwichig isch s\'Vertraue, wo das Syschtem id Wertig hät. Je nidriger d\'Abwichig, deschto schtabiler isch e Wertig.</string>
   <string name="howDoLeaderoardsWork">Wie funktioniered Räng und Ranglischte?</string>
   <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muesch du:</string>
@@ -132,10 +132,10 @@ En witere Punkt isch, dass sich s\'Konfidänzintervall im Lauf vu de Zit erhöht
  
 Es isch am beschte, Wertige als \"relativi\" Wert z\'betrachte (im Gägesatz zu \"absolute\" Wert): Innerhalb vu me Pool a Schpiller hälfed dir relativi Underschid ide Wertige debi abzschätze, wer ehner günnt/verlürt und wie oft öppe. Z\'säge \"Ich han e X-Wertig\" bedütet nüt, es sei dänn, es git anderi Schpiller, mit dene du dini Wertig verglichsch.</string>
   <string name="howToHideRatingWhilePlaying">Wie chann mer Wertige während em Schpiel usblände?</string>
-  <string name="enableZenMode">Aktivier de Zen-Modus i de %1$s oder truck %2$s während de Partie.</string>
+  <string name="enableZenMode">Aktivier de Zen-Modus i de %1$s oder truck %2$s während em Schpiel.</string>
   <string name="displayPreferences">Azeige-Ischtellige</string>
   <string name="connexionLostCanIGetMyRatingBack">Ich han es Schpiel wäge Lag / Verbindigsunderbruch verlore. Chann ich mini Wertigspünkt zrugg verlange?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chönd mir kei Wertigspünkt zrugg geh, wo wäge Lag oder eme Underbruch verlore worde sind. Unabhängig devo, ob das Problem vu dinere oder vu eusere Site - was sehr sälte passiert - verursacht worde isch. Pass also au uf, wänn Mäldige für en Neuschtart chömmed, will bim Abefahre vum Syschtem werded alli Partie abbroche und mer chann es Schpiel unfair verlüre.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chönd mir kei Wertigspünkt zrugg geh, wo wäge Lag oder eme Underbruch verlore worde sind. Unabhängig devo, ob das Problem vu dinere oder vu eusere Site - was sehr sälte passiert - verursacht worde isch. Pass also au uf, wänn Mäldige für en Neuschtart chömmed, will bim Abefahre vum Syschtem werded alli Schpiel ab\'broche und mer chann so unfair verlüre.</string>
   <string name="howToThreeDots">Wie chann ich...</string>
   <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktiviere oder deaktiviere?</string>
   <string name="viewSiteInformationPopUp">Site Informations-Popup azeige</string>
@@ -145,11 +145,11 @@ Klick uf s\'Schlosssymbol, näbe de lichess.org Adrässe, i de URL-Lischte vu di
 
 Wähl dänn us, ob Benachrichtigunge vo Lichess erlaubt oder blockiert werde sölled.</string>
   <string name="enableAutoplayForSoundsQ">Autoplay für de Ton aktiviere?</string>
-  <string name="enableAutoplayForSoundsA">Die meischte Browser chönd - zum de Nutzer schütze - d\'Tonwidergab uf ere frisch gladene Site verhindere. Stell dir vor, jedi Website chönnt dich direkt mit Audio-Werbig stresse!
+  <string name="enableAutoplayForSoundsA">Die meischte Browser chönd - zum de User schütze - d\'Tonwidergab uf ere frisch g\'ladene Site verhindere. Stell dir vor, jedi Website chönnt dich direkt mit Audio-Werbig stresse!
 
-Das roti Stummschaltigssymbol erschint, wänn de Browser verhinderet, dass lichess.org Tön abschpillt. Normal wird die Ischränkig uf g\'hobe, sobald du öppis klicksch. Bi einige mobile Browser gilt s\'Figureziehe, dur Berüherig, nöd als Klick. Isch das so, dänn muesch du bim Beginn vu jedere Partie ufs Brett tippe und so de Ton aktiviere.
+Das roti Stummschaltigssymbol erschint, wänn de Browser verhinderet, dass lichess.org Tön abschpillt. Normal wird die Ischränkig uf g\'hobe, sobald du öppis klicksch. Bi einige mobile Browser gilt s\'Figureziehe, dur Berüherig, nöd als Klick. Isch das so, dänn muesch du bim Beginn vu jedem Schpiel ufs Brätt tippe zum so de Ton aktiviere.
 
-Das roti Symbol macht dich druf ufmerksam, dass das passiert. Oft chann mer lichess.org usdrücklich erlaube, Tön ab z\'schpille. Da findsch du e Aleitig, wie mer das - ide neuschte Versione, vu einige gängige Browser - ischtelle chann.</string>
+s\'rote Symbol macht dich druf ufmerksam, wänn das passiert. Oft chann mer lichess.org usdrücklich erlaube, Tön ab z\'schpille. Da findsch du e Aleitig, wie mer das - ide neuschte Versione, vu einige gängige Browser - ischtelle chann.</string>
   <string name="desktop">Desktop</string>
   <string name="enableAutoplayForSoundsFirefox">1. Gang zu Lichess.org
 2. Taschte Ctrl-i bi Linux / Windos oder cmd-i bi MacOS
