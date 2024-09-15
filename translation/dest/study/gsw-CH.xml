@@ -103,11 +103,11 @@
   <string name="loadAGameFromPgn">Lad Schpiel mit eme PGN</string>
   <string name="automatic">Automatisch</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
-    <item quantity="other">Füeg din PGN Tegscht da i, bis zu %s Partie</item>
+    <item quantity="one">Füeg din PGN Tegscht da i, bis zu %s Schpiel</item>
+    <item quantity="other">Füeg din PGN Tegscht da i, bis zu %s Schpiel</item>
   </plurals>
-  <string name="urlOfTheGame">URL vu de Partie</string>
-  <string name="loadAGameFromXOrY">Partie vu %1$s oder %2$s lade</string>
+  <string name="urlOfTheGame">URL vu de Schpiel</string>
+  <string name="loadAGameFromXOrY">Lad es Schpiel vo %1$s oder %2$s</string>
   <string name="createChapter">Kapitäl ärschtelä</string>
   <string name="createStudy">Schtudie erschtelle</string>
   <string name="editStudy">Schtudie bearbeite</string>
