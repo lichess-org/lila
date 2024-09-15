@@ -2,11 +2,11 @@
 <resources>
   <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena Turnier</string>
-  <string name="isItRated">Isch es gwertet?</string>
+  <string name="isItRated">Isch es g\'wertet?</string>
   <string name="willBeNotified">Du wirsch benachrichtiget, wänn\'s Turnier afangt. Es isch also möglich, während de Wartezit ime andere Tab z\'schpille.</string>
-  <string name="isRated">Das Turnier isch gwertet und wird dini Wertig beiflusse.</string>
-  <string name="isNotRated">Das Turnier isch *nöd* gwertet und wird dini Wertig *nöd* beiflusse.</string>
-  <string name="someRated">Einigi Turnier sind gwertet und werded dini Wertig beiflusse.</string>
+  <string name="isRated">Das Turnier isch g\'wertet, es wird dini Wertig beiflusse.</string>
+  <string name="isNotRated">Das Turnier isch *nöd* g\'wertet und wird dini Wertig *nöd* beiflusse.</string>
+  <string name="someRated">Einigi Turnier sind g\'wertet und werded dini Wertig beiflusse.</string>
   <string name="howAreScoresCalculated">Wie werded d\'Pünkt berächnet?</string>
   <string name="howAreScoresCalculatedAnswer">En Sieg git 2 Pünkt, es Remis 1 Punkt, e Niderlag 0. Nach 2 Sieg in Serie, gits für jede witeri Sieg doppleti Pünkt. 
 Das wird dur e Flamme, bi de Punktzahl, azeigt. Doppleti Pünkt gits so lang, bis es Schpiel verlore gaht oder Remis ändet. 
