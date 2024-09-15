@@ -16,7 +16,7 @@
   <string name="ongoing">Laufend</string>
   <string name="upcoming">Demnächscht</string>
   <string name="completed">Beändet</string>
-  <string name="completedHelp">Lichess erkännt de Rundeschluss anhand vu de Quällpartie. Klick de Schalter, wänns kei Quälle git.</string>
+  <string name="completedHelp">Lichess erkännt de Rundeschluss oder au nöd! De Schalter setz das uf \"manuell\".</string>
   <string name="roundName">Runde Name</string>
   <string name="roundNumber">Runde Nummere</string>
   <string name="tournamentName">Turnier Name</string>
@@ -37,7 +37,7 @@
   <string name="deleteAllGamesOfThisRound">Lösch alli Schpiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
   <string name="editRoundStudy">Schtudie Rundi bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
-  <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Partie definitiv lösche.</string>
+  <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Schpiel definitiv lösche.</string>
   <string name="showScores">Zeigt d\'Erfolg vu de Schpiller, anhand vu Schpiel-Ergäbnis</string>
   <string name="replacePlayerTags">Optional: Schpillernäme, Wertige und Titel weg lah</string>
   <string name="periodInSeconds">Periode i Sekunde</string>
