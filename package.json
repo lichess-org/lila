@@ -28,8 +28,8 @@
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/node": "^22.5.4",
-    "@types/web": "^0.0.162",
+    "@types/node": "^22.5.5",
+    "@types/web": "^0.0.163",
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@typescript-eslint/parser": "^8.5.0",
     "@stylistic/eslint-plugin": "^2.8.0",
