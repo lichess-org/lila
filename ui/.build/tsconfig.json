@@ -9,6 +9,7 @@
     "strict": true,
     "esModuleInterop": true,
     "isolatedModules": true,
+    "incremental": true,
     "moduleResolution": "Node",
     "module": "CommonJS",
     "declaration": false,

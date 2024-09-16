@@ -27,7 +27,7 @@ object perf:
     val racingKings: PerfKey    = "racingKings"
     val crazyhouse: PerfKey     = "crazyhouse"
     val puzzle: PerfKey         = "puzzle"
-    val all: Set[PerfKey] = Set(
+    val list: List[PerfKey] = List(
       bullet,
       blitz,
       rapid,
@@ -45,6 +45,7 @@ object perf:
       crazyhouse,
       puzzle
     )
+    val all: Set[PerfKey] = list.toSet
     def keyIdMap: Map[PerfKey, PerfId] = Map(
       ultraBullet    -> 0,
       bullet         -> 1,

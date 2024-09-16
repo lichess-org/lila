@@ -796,6 +796,7 @@ class SchedulerTest extends munit.FunSuite:
         """2023-01-01T02:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",
         """2023-01-01T03:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",
         """2023-01-01T17:00:00Z Monthly standard ultraBullet(¼+0) Conditions() None""",
+        """2023-01-01T17:00:00Z Weekly standard ultraBullet(¼+0) Conditions() None""",
         """2023-01-01T21:00:00Z Daily standard ultraBullet(¼+0) Conditions() None""",
         """2023-01-08T16:00:00Z Shield standard ultraBullet(¼+0) Conditions() None""",
         """2023-02-05T17:00:00Z Monthly standard ultraBullet(¼+0) Conditions() None""",

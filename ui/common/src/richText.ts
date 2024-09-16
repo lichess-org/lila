@@ -62,7 +62,7 @@ const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|
 const pawnDropPattern = /^[a-h][2-7]$/;
 export const movePattern: RegExp =
   /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-h][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
-const boardPattern = /\b(?:board|game)\s(\d{1,3})/gi;
+const boardPattern = /\b(?:board|game)\s(\d+)/gi;
 
 function moveReplacer(match: string, turn: number, dots: string) {
   if (turn < 1 || turn > 200) return match;
@@ -81,7 +81,7 @@ const userLinkReplacePawn = (orig: string, prefix: string, user: string) =>
   user.match(pawnDropPattern) ? orig : userLinkReplace(orig, prefix, user);
 
 export interface EnhanceOpts {
-  plies: boolean;
+  plies?: boolean;
   boards?: boolean;
 }
 

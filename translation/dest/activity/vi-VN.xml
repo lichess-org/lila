@@ -26,8 +26,11 @@
   <plurals name="completedNbGames">
     <item quantity="other">Đã hoàn thành %s ván cờ qua thư</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="other">Đã hoàn thành %1$s ván cờ qua thư %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">Đã theo dõi %s người chơi</item>
+    <item quantity="other">Đã theo dõi %s kỳ thủ</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="other">Đạt được %s người theo dõi mới</item>
@@ -51,7 +54,7 @@
     <item quantity="other">Đã hoàn thành %s giải đấu hệ Thụy Sĩ</item>
   </plurals>
   <string name="rankedInSwissTournament">Đứng hạng %1$s trong giải %2$s</string>
-  <string name="signedUp">Đã ghi danh ở lichess.org</string>
+  <string name="signedUp">Đã ghi danh tại lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">Đã tham gia %s đội</item>
   </plurals>

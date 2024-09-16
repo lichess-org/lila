@@ -234,7 +234,8 @@ Thank you all, you rock!""".some,
         nextWednesday -> Blitz,
         nextThursday  -> Rapid,
         nextFriday    -> Classical,
-        nextSaturday  -> HyperBullet
+        nextSaturday  -> HyperBullet,
+        nextSunday    -> UltraBullet
       ).flatMap { (day, speed) =>
         at(day, 17).map { date =>
           Schedule(Weekly, speed, Standard, none, date.pipe(orNextWeek)).plan
