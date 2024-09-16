@@ -5,9 +5,7 @@ export class PingCtrl {
   ping: number | undefined;
   server: number | undefined;
 
-  constructor(readonly root: DasherCtrl) {
-    site.pubsub.on('dasher.toggle', v => (v ? this.connect() : this.disconnect()));
-  }
+  constructor(readonly root: DasherCtrl) {}
 
   onLag = (lag: number): void => {
     this.ping = Math.round(lag);
