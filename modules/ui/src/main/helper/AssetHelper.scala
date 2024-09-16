@@ -8,7 +8,7 @@ import lila.ui.ScalatagsTemplate.*
 
 trait AssetHelper:
 
-  export lila.ui.EsmInit
+  export lila.ui.Esm
 
   def manifest: AssetManifest
   def assetBaseUrl: AssetBaseUrl
@@ -17,22 +17,24 @@ trait AssetHelper:
 
   private val load = "site.asset.loadEsm"
 
-  given Conversion[EsmInit, EsmList] with
-    def apply(esmInit: EsmInit): EsmList = List(Some(esmInit))
-  given Conversion[Option[EsmInit], EsmList] with
-    def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
+  given Conversion[Esm, EsmList] with
+    def apply(Esm: Esm): EsmList = List(Some(Esm))
+  given Conversion[Option[Esm], EsmList] with
+    def apply(esmOption: Option[Esm]): EsmList = List(esmOption)
 
-  def jsModuleInit(key: String): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('$key')"))
-  def jsModuleInit(key: String, json: SafeJsonStr): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('$key',{init:$json})"))
-  def jsModuleInit[A: Writes](key: String, value: A): EsmInit =
-    jsModuleInit(key, safeJsonValue(Json.toJson(value)))
-  def jsPageModule(key: String): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$key')"))
+  def esmInit(key: String): Esm =
+    Esm(key, embedJsUnsafeLoadThen(s"$load('$key')"))
+  def esmInit(key: String, json: SafeJsonStr): Esm =
+    Esm(key, embedJsUnsafeLoadThen(s"$load('$key',{init:$json})"))
+  def esmInit[A: Writes](key: String, value: A): Esm =
+    esmInit(key, safeJsonValue(Json.toJson(value)))
+  def esmInit(key: String, args: (String, Json.JsValueWrapper)*): Esm =
+    esmInit(key, safeJsonValue(Json.obj(args*)))
+  def esmPage(key: String): Esm =
+    Esm(key, embedJsUnsafeLoadThen(s"site.asset.loadEsmPage('$key')"))
 
-  val infiniteScrollEsmInit: EsmInit = jsModuleInit("bits.infiniteScroll")
-  val captchaEsmInit: EsmInit        = EsmInit("bits.captcha")
+  val infinteScrollEsmInit: Esm = esmInit("bits.infiniteScroll")
+  val captchaEsm: Esm           = Esm("bits.captcha")
 
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
@@ -56,6 +58,6 @@ trait AssetHelper:
   def iconFlair(flair: Flair): Tag = img(cls := "icon-flair", src := flairSrc(flair))
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
-    re.enabled.so(jsModuleInit("bits.hcaptcha"))
+    re.enabled.so(esmInit("bits.hcaptcha"))
 
-  def analyseNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("analyse.nvui"))
+  def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))

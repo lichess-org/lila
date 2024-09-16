@@ -49,8 +49,8 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
           )
         )
       .js(ctx.isAuth.option(embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")))
-      .js(EsmInit("bits.checkout"))
-      .js(infiniteScrollEsmInit)
+      .js(Esm("bits.checkout"))
+      .js(infinteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
         url = s"$netBaseUrl${routes.Plan.index().url}",
@@ -326,7 +326,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   )(using Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .js(EsmInit("bits.plan"))
+      .js(Esm("bits.plan"))
       .js(embedJsUnsafeLoadThen("""plan.payPalStart()""")):
         main(cls := "box box-pad plan")(
           boxTop(
@@ -407,7 +407,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   )(using ctx: Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .js(EsmInit("bits.plan"))
+      .js(Esm("bits.plan"))
       .iife(stripeScript)
       .js(embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")"""))
       .csp(paymentCsp):

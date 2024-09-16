@@ -40,7 +40,7 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
-    val allModules = p.modules ++ p.pageModule.so(module => jsPageModule(module.name))
+    val allModules = p.modules ++ p.pageModule.so(module => esmPage(module.name))
     val pageFrag = frag(
       doctype,
       htmlTag(

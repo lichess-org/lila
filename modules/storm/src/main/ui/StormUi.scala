@@ -59,7 +59,7 @@ final class StormUi(helpers: Helpers):
   def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(using ctx: Context) =
     Page(s"${user.username} Puzzle Storm")
       .css("storm.dashboard")
-      .js(infiniteScrollEsmInit):
+      .js(infinteScrollEsmInit):
         main(cls := "storm-dashboard page-small")(
           div(cls := "storm-dashboard__high box box-pad")(
             boxTop(

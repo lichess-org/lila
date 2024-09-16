@@ -34,7 +34,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     val fields               = tourFields(form, none)
     Page(trans.site.newTournament.txt())
       .css("tournament.form", "bits.page")
-      .js(EsmInit("bits.tourForm")):
+      .js(Esm("bits.tourForm")):
         main(cls := "page-small")(
           div(cls := "tour__form box box-pad")(
             h1(cls := "box__top")(
@@ -63,7 +63,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     given prefix: FormPrefix = FormPrefix.empty
     Page(tour.name())
       .css("tournament.form")
-      .js(EsmInit("bits.tourForm")):
+      .js(Esm("bits.tourForm")):
         main(cls := "page-small")(
           div(cls := "tour__form box box-pad")(
             h1(cls := "box__top")("Edit ", tour.name()),
@@ -235,7 +235,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
 
     private def page(title: String)(using Context) =
       Page(title)
-        .js(EsmInit("bits.flatpick"))
+        .js(Esm("bits.flatpick"))
         .wrap: body =>
           main(cls := "page-menu")(modMenu, body)
 
@@ -254,7 +254,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     def index(tours: Paginator[Tournament])(using Context) =
       page("Tournament manager")
         .css("mod.misc")
-        .js(infiniteScrollEsmInit):
+        .js(infinteScrollEsmInit):
           div(cls := "crud page-menu__content box")(
             boxTop(
               h1("Tournament manager"),

@@ -92,7 +92,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def page(title: String, nav: FormNavigation)(using Context) =
       Page(title)
         .css("bits.relay.form")
-        .js(List(EsmInit("bits.flatpickr"), EsmInit("bits.relayForm")).map(some))
+        .js(List(Esm("bits.flatpickr"), Esm("bits.relayForm")).map(some))
         .wrap: body =>
           main(cls := "page page-menu")(
             navigationMenu(nav),
@@ -360,7 +360,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
     private def page(title: String, menu: Either[String, FormNavigation])(using Context) =
       Page(title)
         .css("bits.relay.form")
-        .js(EsmInit("bits.relayForm"))
+        .js(Esm("bits.relayForm"))
         .wrap: body =>
           main(cls := "page page-menu")(
             menu.fold(tourUi.pageMenu(_), navigationMenu),

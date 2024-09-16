@@ -74,10 +74,10 @@ object page:
 
   private def esModules(withSearch: Boolean = false)(using Context): EsmList =
     import play.api.libs.json.Json
-    infiniteScrollEsmInit
-      ++ jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(ui.i18nKeys)))
-      ++ withSearch.so(EsmInit("bits.gameSearch"))
-      ++ isGranted(_.UserModView).so(EsmInit("mod.user"))
+    infinteScrollEsmInit
+      ++ esmInit("bits.user", Json.obj("i18n" -> i18nJsObject(ui.i18nKeys)))
+      ++ withSearch.so(Esm("bits.gameSearch"))
+      ++ isGranted(_.UserModView).so(Esm("mod.user"))
 
   private def pageModule(info: UserInfo)(using Context): Option[PageModule] =
     info.ratingChart.map: rc =>

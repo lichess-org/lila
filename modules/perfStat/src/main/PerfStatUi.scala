@@ -22,9 +22,9 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     import stat.perfType
     Page(s"${user.username} - ${trans.perfStat.perfStats.txt(perfType.trans)}")
       .robots(false)
-      .js(EsmInit("bits.user"))
+      .js(Esm("bits.user"))
       .js(ratingChart.map { rc =>
-        jsModuleInit(
+        esmInit(
           "chart.ratingHistory",
           SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
         )

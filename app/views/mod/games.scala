@@ -19,7 +19,7 @@ def games(
 )(using Context) =
   Page(s"${user.username} games")
     .css("mod.games")
-    .js(EsmInit("mod.games")):
+    .js(Esm("mod.games")):
       main(cls := "mod-games box")(
         boxTop(
           h1(userLink(user, params = "?mod"), " games"),

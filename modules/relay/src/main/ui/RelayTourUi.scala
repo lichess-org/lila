@@ -28,7 +28,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
-      .js(infiniteScrollEsmInit)
+      .js(infinteScrollEsmInit)
       .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):
         main(cls := "relay-index page-menu")(
           pageMenu("index"),
@@ -64,7 +64,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
     Page(title)
       .css("bits.relay.index")
-      .js(infiniteScrollEsmInit):
+      .js(infinteScrollEsmInit):
         main(cls := "relay-index page-menu")(menu, div(cls := "page-menu__content box box-pad")(body))
 
   def search(pager: Paginator[WithLastRound], query: String)(using Context) =
@@ -128,7 +128,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def page(title: String, pageBody: Frag, active: String)(using Context): Page =
     Page(title)
       .css("bits.page")
-      .js(EsmInit("bits.expandText"))
+      .js(Esm("bits.expandText"))
       .wrap: body =>
         main(cls := "page-small page-menu")(
           pageMenu(active),

@@ -66,7 +66,7 @@ final class NoteUi(helpers: Helpers)(using NetDomain):
     Page("Mod notes")
       .css("mod.misc")
       .css("bits.slist")
-      .js(infiniteScrollEsmInit):
+      .js(infinteScrollEsmInit):
         main(cls := "page-menu")(
           menu,
           div(cls := "page-menu__content box")(

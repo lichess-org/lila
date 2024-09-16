@@ -26,7 +26,7 @@ object embed:
     views.base.embed.minimal(
       title = "Lichess PGN viewer",
       cssKeys = List("bits.lpv.embed"),
-      modules = EsmInit("site.lpvEmbed")
+      modules = Esm("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
       ui.embed.lpvJs(orientation, getPgn)(ctx.nonce.some)

@@ -99,7 +99,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(using Context) =
     Page(text)
       .css("analyse.study.index")
-      .js(infiniteScrollEsmInit):
+      .js(infinteScrollEsmInit):
         main(cls := "page-menu")(
           menu("search", Orders.default),
           main(cls := "page-menu__content study-index box")(
@@ -122,7 +122,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
   )(using Context): Page =
     Page(title)
       .css("analyse.study.index")
-      .js(infiniteScrollEsmInit)
+      .js(infinteScrollEsmInit)
       .wrap: body =>
         main(cls := "page-menu")(
           menu(active, order, topics.so(_.value)),
@@ -189,7 +189,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using Context) =
       Page(trans.study.topics.txt())
         .css("analyse.study.index", "bits.form3", "bits.tagify")
-        .js(EsmInit("analyse.study.topic.form")):
+        .js(Esm("analyse.study.topic.form")):
           main(cls := "page-menu")(
             menu("topic", Order.mine, mine.so(_.value)),
             main(cls := "page-menu__content study-topics box box-pad")(
@@ -218,7 +218,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       val url    = (o: Order) => routes.Study.byTopic(topic.value, o)
       Page(topic.value)
         .css("analyse.study.index")
-        .js(infiniteScrollEsmInit):
+        .js(infinteScrollEsmInit):
           main(cls := "page-menu")(
             menu(active, order, myTopics.so(_.value)),
             main(cls := "page-menu__content study-index box")(

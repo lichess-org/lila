@@ -213,7 +213,7 @@ final class SitePages(helpers: Helpers):
     import trans.{ lag as trl }
     SitePage(title = "Is Lichess lagging?", active = "lag")
       .css("bits.lag")
-      .js(jsModuleInit("chart.lag")):
+      .js(esmInit("chart.lag")):
         div(cls := "box box-pad lag")(
           h1(cls := "box__top")(
             trl.isLichessLagging(),

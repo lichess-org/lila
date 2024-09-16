@@ -71,8 +71,8 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     val title = if requests then "Streamer approval requests" else trans.streamer.lichessStreamers.txt()
     Page(title)
       .css("bits.streamer.list")
-      .js(infiniteScrollEsmInit)
-      .js(EsmInit("bits.streamer")):
+      .js(infinteScrollEsmInit)
+      .js(Esm("bits.streamer")):
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
@@ -106,7 +106,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     Page(s"${s.titleName} streams chess")
       .csp(csp)
       .css("bits.streamer.show")
-      .js(EsmInit("bits.streamer"))
+      .js(Esm("bits.streamer"))
       .graph(
         OpenGraph(
           title = s"${s.titleName} streams chess",

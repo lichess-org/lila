@@ -30,7 +30,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
-      .js(ctx.blind.option(EsmInit("puzzle.nvui")))
+      .js(ctx.blind.option(Esm("puzzle.nvui")))
       .js(
         PageModule(
           "puzzle",
@@ -144,7 +144,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
     ) =
       Page(trans.puzzle.puzzlesByOpenings.txt())
         .css("puzzle.page")
-        .js(EsmInit("puzzle.opening")):
+        .js(Esm("puzzle.opening")):
           main(cls := "page-menu")(
             bits.pageMenu("openings", ctx.me),
             div(cls := "page-menu__content box")(
@@ -220,7 +220,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
   def ofPlayer(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(using ctx: Context) =
     Page(user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)))
       .css("puzzle.page")
-      .js(infiniteScrollEsmInit):
+      .js(infinteScrollEsmInit):
         main(cls := "page-menu")(
           bits.pageMenu("player", user),
           div(cls := "page-menu__content puzzle-of-player box box-pad")(
@@ -283,7 +283,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         else s"${user.username} ${trans.puzzle.history.txt()}"
       Page(title)
         .css("puzzle.dashboard")
-        .js(infiniteScrollEsmInit):
+        .js(infinteScrollEsmInit):
           main(cls := "page-menu")(
             bits.pageMenu("history", user.some),
             div(cls := "page-menu__content box box-pad")(

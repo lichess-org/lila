@@ -74,7 +74,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     val title = trans.ublog.xBlog.txt(user.username)
     Page(title)
       .css("bits.ublog")
-      .js(posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(EsmInit("bits.ublog")))
+      .js(posts.hasNextPage.option(infinteScrollEsmInit) ++ ctx.isAuth.so(Esm("bits.ublog")))
       .copy(atomLinkTag = link(href := routes.Ublog.userAtom(user.username), st.title := title).some)
       .robots(blog.listed):
         main(cls := "page-menu")(
@@ -114,7 +114,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     def languageOrAll = language | Language("all")
     Page("Community blogs")
       .css("bits.ublog")
-      .js(posts.hasNextPage.option(infiniteScrollEsmInit))
+      .js(posts.hasNextPage.option(infinteScrollEsmInit))
       .copy(
         atomLinkTag = link(
           href     := routes.Ublog.communityAtom(languageOrAll),
@@ -162,7 +162,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   def drafts(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: Context) =
     Page(trans.ublog.drafts.txt())
       .css("bits.ublog")
-      .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
+      .js(posts.hasNextPage.option(infinteScrollEsmInit)):
         main(cls := "page-menu")(
           menu(Left(user.id)),
           div(cls := "page-menu__content box box-pad ublog-index")(
@@ -224,7 +224,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
   )(using Context) =
     Page(title)
       .css("bits.ublog")
-      .js(posts.hasNextPage.option(infiniteScrollEsmInit)):
+      .js(posts.hasNextPage.option(infinteScrollEsmInit)):
         main(cls := "page-menu")(
           menu(Right(menuItem)),
           div(cls := "page-menu__content box box-pad ublog-index")(

@@ -36,7 +36,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
 
   def edit(page: Page, form: Form[TitleRequest.FormData], req: TitleRequest)(using Context) =
     page
-      .js(EsmInit("bits.titleRequest")):
+      .js(Esm("bits.titleRequest")):
         frag(
           h1(cls := "box__top")(page.title),
           standardFlash,

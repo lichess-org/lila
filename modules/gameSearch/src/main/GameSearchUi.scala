@@ -22,8 +22,8 @@ final class GameSearchUi(helpers: Helpers)(
   ) =
     val f = SearchForm(helpers)(form)
     Page(trs.searchInXGames.txt(nbGames.localize, nbGames))
-      .js(EsmInit("bits.gameSearch"))
-      .js(infiniteScrollEsmInit)
+      .js(Esm("bits.gameSearch"))
+      .js(infinteScrollEsmInit)
       .css("bits.search"):
         main(cls := "box page-small search")(
           h1(cls := "box__top")(trs.advancedSearch()),
