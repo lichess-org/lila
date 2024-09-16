@@ -24,10 +24,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
       .robots(false)
       .js(Esm("bits.user"))
       .js(ratingChart.map { rc =>
-        esmInit(
-          "chart.ratingHistory",
-          SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
-        )
+        esmInit("chart.ratingHistory", "data" -> rc, "singlePerfName" -> perfType.trans(using transDefault))
       })
       .css("bits.perf-stat"):
         main(cls := s"page-menu")(
