@@ -243,8 +243,6 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
       td(form3.select(form("source"), FormHelpers.sources, "".some))
     )
 
-  private lazy val perfKeys = PerfKey.all.filter(_ != PerfKey.puzzle)
-
   def perf =
     tr(
       th(label(`for` := form3.id(form("perf")))(trans.site.variant())),

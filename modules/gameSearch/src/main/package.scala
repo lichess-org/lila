@@ -9,8 +9,10 @@ private val logger = lila.log("gameSearch")
 
 val index = lila.search.Index.Game
 
-extension (range: IntRange) def nonEmpty: Boolean = range.a.nonEmpty || range.b.nonEmpty
+val perfKeys: List[PerfKey] = PerfKey.list.filter: p =>
+  p != PerfKey.puzzle && p != PerfKey.standard
 
+extension (range: IntRange) def nonEmpty: Boolean  = range.a.nonEmpty || range.b.nonEmpty
 extension (range: DateRange) def nonEmpty: Boolean = range.a.nonEmpty || range.b.nonEmpty
 
 extension (query: lila.search.spec.Query.Game)
