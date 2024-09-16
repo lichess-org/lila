@@ -278,17 +278,17 @@ importers:
         specifier: workspace:*
         version: link:../ceval
       chart.js:
-        specifier: 4.4.3
-        version: 4.4.3
+        specifier: 4.4.4
+        version: 4.4.4
       chartjs-adapter-dayjs-4:
         specifier: ^1.0.4
-        version: 1.0.4(chart.js@4.4.3)(dayjs@1.11.13)
+        version: 1.0.4(chart.js@4.4.4)(dayjs@1.11.13)
       chartjs-plugin-datalabels:
         specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.3)
+        version: 2.2.0(chart.js@4.4.4)
       chartjs-plugin-zoom:
         specifier: ^2.0.1
-        version: 2.0.1(chart.js@4.4.3)
+        version: 2.0.1(chart.js@4.4.4)
       common:
         specifier: workspace:*
         version: link:../common
@@ -1387,6 +1387,10 @@ packages:
 
   chart.js@4.4.3:
     resolution: {integrity: sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==}
+    engines: {pnpm: '>=8'}
+
+  chart.js@4.4.4:
+    resolution: {integrity: sha512-emICKGBABnxhMjUjlYRR12PmOXhJ2eJjEHL2/dZlWjxRAZT1D8xplLFq5M0tMQK8ja+wBS/tuVEJB5C6r7VxJA==}
     engines: {pnpm: '>=8'}
 
   chartjs-adapter-dayjs-4@1.0.4:
@@ -3005,18 +3009,31 @@ snapshots:
     dependencies:
       '@kurkle/color': 0.3.2
 
+  chart.js@4.4.4:
+    dependencies:
+      '@kurkle/color': 0.3.2
+
   chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.3)(dayjs@1.11.13):
     dependencies:
       chart.js: 4.4.3
+      dayjs: 1.11.13
+
+  chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.4)(dayjs@1.11.13):
+    dependencies:
+      chart.js: 4.4.4
       dayjs: 1.11.13
 
   chartjs-plugin-datalabels@2.2.0(chart.js@4.4.3):
     dependencies:
       chart.js: 4.4.3
 
-  chartjs-plugin-zoom@2.0.1(chart.js@4.4.3):
+  chartjs-plugin-datalabels@2.2.0(chart.js@4.4.4):
     dependencies:
-      chart.js: 4.4.3
+      chart.js: 4.4.4
+
+  chartjs-plugin-zoom@2.0.1(chart.js@4.4.4):
+    dependencies:
+      chart.js: 4.4.4
       hammerjs: 2.0.8
 
   check-error@2.1.1: {}
