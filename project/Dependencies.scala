@@ -34,7 +34,7 @@ object Dependencies {
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
   val kittens     = "org.typelevel"              %% "kittens"       % "3.4.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.1" % Test
   val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0"  % Test
 
   object tests {
