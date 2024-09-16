@@ -1,6 +1,6 @@
-import * as ps from 'node:process';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
+import ps from 'node:process';
+import path from 'node:path';
+import fs from 'node:fs';
 import { clean } from './clean';
 import { build, postBuild } from './build';
 
@@ -70,9 +70,9 @@ export function main(): void {
   }
 }
 
-export interface LichessModule {
-  root: string; // absolute path to package.json parentdir (module root)
-  name: string; // dirname of module root
+export interface Package {
+  root: string; // absolute path to package.json parentdir (package root)
+  name: string; // dirname of package root
   pkg: any; // the entire package.json object
   pre: string[][]; // pre-bundle build steps from package.json scripts
   post: string[][]; // post-bundle build steps from package.json scripts
@@ -85,7 +85,7 @@ export interface Sync {
   // src must be a file or a glob expression, use <dir>/** to sync entire directories
   src: string;
   dest: string;
-  mod: LichessModule;
+  pkg: Package;
 }
 
 export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
@@ -114,8 +114,8 @@ class Env {
   rootDir: string = path.resolve(__dirname, '../../..'); // absolute path to lila project root
 
   deps: Map<string, string[]> = new Map();
-  modules: Map<string, LichessModule> = new Map();
-  building: LichessModule[] = [];
+  packages: Map<string, Package> = new Map();
+  building: Package[] = [];
 
   watch = false;
   rebuild = false;
@@ -157,7 +157,13 @@ class Env {
   get outDir(): string {
     return path.join(this.rootDir, 'public');
   }
-  get hashDir(): string {
+  get cssOutDir(): string {
+    return path.join(this.outDir, 'css');
+  }
+  get jsOutDir(): string {
+    return path.join(this.outDir, 'compiled');
+  }
+  get hashOutDir(): string {
     return path.join(this.outDir, 'hashed');
   }
   get themeDir(): string {
@@ -166,23 +172,20 @@ class Env {
   get themeGenDir(): string {
     return path.join(this.themeDir, 'gen');
   }
-  get cssDir(): string {
-    return path.join(this.outDir, 'css');
-  }
-  get cssTempDir(): string {
-    return path.join(this.buildDir, 'dist', 'css');
-  }
-  get jsDir(): string {
-    return path.join(this.outDir, 'compiled');
-  }
   get buildDir(): string {
     return path.join(this.uiDir, '.build');
+  }
+  get cssTempDir(): string {
+    return path.join(this.buildDir, '.build-gen', 'css');
+  }
+  get buildTempDir(): string {
+    return path.join(this.buildDir, 'build');
   }
   get typesDir(): string {
     return path.join(this.uiDir, '@types');
   }
   get manifestFile(): string {
-    return path.join(this.jsDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
+    return path.join(this.jsOutDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
   }
   warn(d: any, ctx = 'build'): void {
     this.log(d, { ctx: ctx, warn: true });
@@ -226,14 +229,14 @@ class Env {
     this.exitCode.set(ctx, code);
     const err = [...this.exitCode.values()].find(x => x);
     const allDone = this.exitCode.size === 3;
-
-    this.log(
-      `${code === 0 ? 'Done' : colors.red('Failed')}` +
+    if (ctx !== 'tsc' || code === 0)
+      this.log(
+        `${code === 0 ? 'Done' : colors.red('Failed')}` +
         (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
-      {
-        ctx: ctx,
-      },
-    );
+        {
+          ctx: ctx,
+        },
+      );
     if (allDone) {
       if (!err) postBuild();
       if (this.startTime && !err)

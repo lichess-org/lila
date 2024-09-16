@@ -1,6 +1,6 @@
 ui/build was lovingly crafted from a single block of wood as a personal gift to you.
 
-  ./build <options> <modules> # modules are top level directories in ui
+  ./build <options> <packages> # packages are top level directories in ui
   one letter options can be consolidated after a single dash (e.g. -cdw)
   ui/build can be run from anywhere, does not care about cwd
 
@@ -28,7 +28,7 @@ Examples:
   ./build -d                 # build client assets with site.debug = true
   ./build -np                # no pnpm install, build minified
   ./build -cp                # clean, build minified
-  ./build analyse site msg   # build analyse, site, and msg modules (as opposed to everything)
-  ./build -r dasher chart    # watch mode for dasher and chart modules
+  ./build analyse site msg   # build analyse, site, and msg packages (as opposed to everything)
+  ./build -r dasher chart    # watch mode for dasher and chart packages
   ./build --tsc -w           # watch mode but type checking only
-  ./build --sass msg notify  # build css only for msg and notify modules
+  ./build --sass msg notify  # build css only for msg and notify packages
