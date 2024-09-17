@@ -24,7 +24,7 @@ object Namer {
         }
       }
     ) { ec =>
-      s"${ec.engine.fullName} level ${ec.level}}" // rework to use i18n?
+      s"${ec.engine.fullName} level ${ec.level}" // rework to use i18n?
     }
 
   def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(implicit

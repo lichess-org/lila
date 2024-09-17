@@ -2,14 +2,14 @@ package lila.api
 
 import play.api.libs.json.{ JsArray, JsObject, Json }
 
-import lila.common.Json._
 import lila.game.Pov
 import lila.lobby.SeekApi
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
-    gameProxyRepo: lila.round.GameProxyRepo
+    gameProxyRepo: lila.round.GameProxyRepo,
+    gameJson: lila.game.JsonView
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
@@ -33,32 +33,5 @@ final class LobbyApi(
         }
       }
 
-  def nowPlaying(pov: Pov) =
-    Json
-      .obj(
-        "fullId"   -> pov.fullId,
-        "gameId"   -> pov.gameId,
-        "sfen"     -> pov.game.situation.toSfen,
-        "color"    -> pov.color.name,
-        "lastMove" -> ~pov.game.lastUsiStr,
-        "variant" -> Json.obj(
-          "key"  -> pov.game.variant.key,
-          "name" -> pov.game.variant.name
-        ),
-        "speed"    -> pov.game.speed.key,
-        "perf"     -> lila.game.PerfPicker.key(pov.game),
-        "rated"    -> pov.game.rated,
-        "hasMoved" -> pov.hasMoved,
-        "opponent" -> Json
-          .obj(
-            "id" -> pov.opponent.userId,
-            "username" -> lila.game.Namer
-              .playerTextBlocking(pov.opponent, withRating = false)(lightUserApi.sync)
-          )
-          .add("rating" -> pov.opponent.rating)
-          .add("ai" -> pov.opponent.aiLevel)
-          .add("aiCode" -> pov.opponent.aiCode),
-        "isMyTurn" -> pov.isMyTurn
-      )
-      .add("secondsLeft" -> pov.remainingSeconds)
+  def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(lightUserApi.sync)
 }
