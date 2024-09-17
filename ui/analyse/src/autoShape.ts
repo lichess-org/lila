@@ -12,13 +12,8 @@ function pieceDrop(
   brush: 'engine' | 'engineAlt' | 'engineThreat' | 'engineThreatAlt'
 ): DrawShape {
   return {
-    orig: key,
+    orig: { color, role },
     dest: key,
-    piece: {
-      color,
-      role,
-      scale: 0.8,
-    },
     brush: brush,
   };
 }
@@ -28,10 +23,9 @@ export function makeShapesFromUsi(
   usi: Usi,
   brush: 'engine' | 'engineAlt' | 'engineThreat' | 'engineThreatAlt'
 ): DrawShape[] {
-  const move = parseUsi(usi)!;
-  const to = makeSquareName(move.to);
-  if (isDrop(move)) return [{ orig: to, dest: to, brush }, pieceDrop(to, move.role, color, brush)];
-
+  const move = parseUsi(usi)!,
+    to = makeSquareName(move.to);
+  if (isDrop(move)) return [pieceDrop(to, move.role, color, brush)];
   return [
     {
       orig: makeSquareName(move.from),

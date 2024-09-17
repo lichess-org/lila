@@ -24,18 +24,8 @@ function makeAutoShapesFromUsi(
   if (isDrop(move))
     return [
       {
-        orig: makeSquareName(move.to),
+        orig: { color, role: move.role },
         dest: makeSquareName(move.to),
-        brush,
-      },
-      {
-        orig: makeSquareName(move.to),
-        dest: makeSquareName(move.to),
-        piece: {
-          role: move.role,
-          color: color,
-          scale: 0.8,
-        },
         brush: brush,
       },
     ];
