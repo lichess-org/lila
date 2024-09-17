@@ -72,6 +72,7 @@
       "src/bits.infiniteScroll.ts",
       "src/bits.login.ts",
       "src/bits.lpv.ts",
+      "src/bits.oauth.ts",
       "src/bits.passwordComplexity.ts",
       "src/bits.plan.ts",
       "src/bits.polyglot.ts",
