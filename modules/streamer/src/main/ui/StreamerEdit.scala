@@ -16,7 +16,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
   ) =
     Page(s"${s.user.titleUsername} ${trs.lichessStreamer.txt()}")
       .css("bits.streamer.form")
-      .js(Esm("bits.streamer")):
+      .js(esmInit("bits", "fn" -> "streamer")):
         main(cls := "page-menu")(
           bits.menu("edit", s.some),
           div(cls := "page-menu__content box streamer-edit")(

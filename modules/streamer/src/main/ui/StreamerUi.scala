@@ -72,7 +72,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     Page(title)
       .css("bits.streamer.list")
       .js(infinteScrollEsmInit)
-      .js(Esm("bits.streamer")):
+      .js(esmInit("bits", "fn" -> "streamer")):
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
@@ -106,7 +106,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     Page(s"${s.titleName} streams chess")
       .csp(csp)
       .css("bits.streamer.show")
-      .js(Esm("bits.streamer"))
+      .js(esmInit("bits", "fn" -> "streamer"))
       .graph(
         OpenGraph(
           title = s"${s.titleName} streams chess",

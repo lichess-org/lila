@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import { spinnerHtml } from 'common/spinner';
-import contactEmail from './bits.contactEmail';
+import { contactEmail } from './bits';
 
 export interface Pricing {
   currency: string;

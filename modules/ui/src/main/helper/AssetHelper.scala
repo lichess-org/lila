@@ -58,6 +58,6 @@ trait AssetHelper:
   def iconFlair(flair: Flair): Tag = img(cls := "icon-flair", src := flairSrc(flair))
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
-    re.enabled.so(esmInit("bits.hcaptcha"))
+    re.enabled.so(esmInit("bits", "fn" -> "hcaptcha"))
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))

@@ -17,7 +17,9 @@ object page:
     Page(p.title)
       .css("bits.page")
       .js(Esm("bits.expandText"))
-      .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(Esm("bits.colorizeYesNoTable"))):
+      .js(
+        (p.key == lila.core.id.CmsPageKey("fair-play")).option(esmInit("bits", "fn" -> "colorizeYesNoTable"))
+      ):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
   def withMenu(active: String, p: CmsPage.Render)(using Context) =
@@ -38,7 +40,7 @@ object page:
       active = "contact",
       contentCls = "page box box-pad"
     ).css("bits.contact")
-      .js(Esm("bits.contact"))(lila.web.ui.contact(netConfig.email))
+      .js(esmInit("bits", "fn" -> "contact"))(lila.web.ui.contact(netConfig.email))
 
   def source(p: CmsPage.Render)(using ctx: Context) =
     ui.source(
