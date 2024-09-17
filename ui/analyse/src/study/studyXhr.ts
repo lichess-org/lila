@@ -1,23 +1,15 @@
-import { StudyChapterConfig } from './interfaces';
+import { ReloadData, StudyChapterConfig } from './interfaces';
 
 const headers = {
   Accept: 'application/vnd.lishogi.v5+json',
 };
 
-export function reload(baseUrl: string, id: string, chapterId?: string) {
+export function reload(baseUrl: string, id: string, chapterId?: string): JQueryPromise<ReloadData> {
   let url = '/' + baseUrl + '/' + id;
   if (chapterId) url += '/' + chapterId;
   return $.ajax({
     url,
     headers,
-  });
-}
-
-export function variants() {
-  return $.ajax({
-    url: '/variant',
-    headers,
-    cache: true,
   });
 }
 

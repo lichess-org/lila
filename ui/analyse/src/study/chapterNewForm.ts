@@ -11,7 +11,8 @@ import { Redraw } from '../interfaces';
 import { option } from '../util';
 import { StudyChapterMeta } from './interfaces';
 import { chapter as chapterTour } from './studyTour';
-import { importNotation, variants as xhrVariants } from './studyXhr';
+import { importNotation } from './studyXhr';
+import { RULES } from 'shogiops';
 
 export const modeChoices: [string, I18nKey][] = [
   ['normal', 'normalAnalysis'],
@@ -26,7 +27,6 @@ export const fieldValue = (e: Event, id: string) =>
 export interface StudyChapterNewFormCtrl {
   root: AnalyseCtrl;
   vm: {
-    variants: Variant[];
     open: boolean;
     initial: Prop<boolean>;
     tab: StoredProp<string>;
@@ -52,7 +52,6 @@ export function ctrl(
   root: AnalyseCtrl
 ): StudyChapterNewFormCtrl {
   const vm = {
-    variants: [],
     open: false,
     initial: prop(false),
     tab: storedProp('study.form.tab', 'init'),
@@ -62,17 +61,8 @@ export function ctrl(
     editorOrientation: prop(null),
   };
 
-  function loadVariants() {
-    if (!vm.variants.length)
-      xhrVariants().then(function (vs) {
-        vm.variants = vs;
-        root.redraw();
-      });
-  }
-
   function open() {
     vm.open = true;
-    loadVariants();
     vm.initial(false);
   }
   function close() {
@@ -317,9 +307,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 },
                 notVariantTab
                   ? [h('option', noarg('automatic'))]
-                  : ctrl.vm.variants.map(v =>
-                      option(v.key, currentChapter.setup.variant.key, ctrl.root.trans.noarg(v.key))
-                    )
+                  : RULES.map(r => option(r, currentChapter.setup.variant.key, ctrl.root.trans.noarg(r)))
               ),
             ]),
             h('div.form-group.form-half', [
