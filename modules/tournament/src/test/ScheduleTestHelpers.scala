@@ -76,10 +76,10 @@ object ScheduleTestHelpers:
       * than O(n^2), n being the number of inputs.
       */
     @throws[IllegalStateException]("if a tourney is incorrectly usurped")
-    def pruneConflictsFailOnUsurp(
+    def pruneConflictsFailOnUsurp[A <: ScheduleWithInterval](
         existingSchedules: Iterable[ScheduleWithInterval],
-        possibleNewPlans: Iterable[Plan]
-    ): List[Plan] =
+        possibleNewPlans: Iterable[A]
+    ): List[A] =
       // Bucket schedules by hour for faster conflict detection
       val hourMap = LongMap.empty[ArrayBuffer[ScheduleWithInterval]]
       def addToMap(hour: Long, s: ScheduleWithInterval) =
@@ -88,8 +88,8 @@ object ScheduleTestHelpers:
       existingSchedules.foreach { s => getAllHours(s).foreach { addToMap(_, s) } }
 
       possibleNewPlans
-        .foldLeft(List[Plan]()): (newPlans, p) =>
-          val potentialConflicts = getConflictingHours(p).flatMap { hourMap.getOrElse(_, List.empty) }
+        .foldLeft(List[A]()): (newPlans, p) =>
+          val potentialConflicts = getConflictingHours(p).flatMap { hourMap.getOrElse(_, Nil) }
           if p.conflictsWithFailOnUsurp(potentialConflicts) then newPlans
           else
             getAllHours(p).foreach { addToMap(_, p) }
