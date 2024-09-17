@@ -43,7 +43,6 @@
     "tablesort": "^5.3.0",
     "zxcvbn": "^4.4.2"
   },
-  "sideEffects": false,
   "lichess": {
     "bundles": [
       "src/bits.account.ts",
@@ -55,6 +54,7 @@
       "src/bits.clas.ts",
       "src/bits.cms.ts",
       "src/bits.coachForm.ts",
+      "src/bits.colorizeYesNoTable.ts",
       "src/bits.confetti.ts",
       "src/bits.contact.ts",
       "src/bits.cropDialog.ts",

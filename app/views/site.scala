@@ -17,9 +17,7 @@ object page:
     Page(p.title)
       .css("bits.page")
       .js(Esm("bits.expandText"))
-      .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
-if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
-})"""))):
+      .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(Esm("bits.colorizeYesNoTable"))):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
   def withMenu(active: String, p: CmsPage.Render)(using Context) =
