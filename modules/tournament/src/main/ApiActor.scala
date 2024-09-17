@@ -4,10 +4,12 @@ import akka.actor._
 import org.joda.time.DateTime
 
 import lila.game.actorApi.FinishGame
+import lila.user.User
 
 final private[tournament] class ApiActor(
     api: TournamentApi,
-    leaderboard: LeaderboardApi
+    leaderboard: LeaderboardApi,
+    tournamentRepo: TournamentRepo
 ) extends Actor {
 
   implicit def ec = context.dispatcher
@@ -28,12 +30,13 @@ final private[tournament] class ApiActor(
     case lila.playban.SittingDetected(game, player) => api.sittingDetected(game, player).unit
 
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 7) foreach {
-        api.ejectPlayer(userId, _, lila.user.User.lishogiId)
-      }
+      ejectLameFromEnterable(userId) >>
+        leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 14) foreach {
+          _.map { tourId => api.ejectLameFromHistory(tourId, userId) }.sequenceFu
+        }
 
     case lila.hub.actorApi.mod.MarkBooster(userId) =>
-      api.ejectPlayer(userId, Nil, lila.user.User.lishogiId).unit
+      ejectLameFromEnterable(userId).unit
 
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId).unit
 
@@ -41,4 +44,11 @@ final private[tournament] class ApiActor(
 
     case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId).unit
   }
+
+  private def ejectLameFromEnterable(userId: User.ID) =
+    tournamentRepo.withdrawableIds(userId) flatMap {
+      _.map {
+        api.ejectLameFromEnterable(_, userId)
+      }.sequenceFu
+    }
 }

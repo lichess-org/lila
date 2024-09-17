@@ -232,9 +232,6 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   def withdraw(tourId: Tournament.ID, userId: User.ID) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
-  def resetScore(tourId: Tournament.ID, userId: User.ID) =
-    coll.update.one(selectTourUser(tourId, userId), $set("m" -> 0)).void
-
   private[tournament] def withPoints(tourId: Tournament.ID): Fu[List[Player]] =
     coll.list[Player](
       selectTour(tourId) ++ $doc("m" $gt 0)

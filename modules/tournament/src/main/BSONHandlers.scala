@@ -24,6 +24,18 @@ object BSONHandlers {
     x => BSONInteger(x.id)
   )
 
+  implicit private[tournament] val pointsBSONHandler = {
+    val intReader = collectionReader[List, Int]
+    tryHandler[Arrangement.Points](
+      { case arr: BSONArray =>
+        intReader.readTry(arr).filter(_.length == 3) map { p =>
+          Arrangement.Points(p(0), p(1), p(2))
+        }
+      },
+      points => BSONArray(points.lose, points.draw, points.win)
+    )
+  }
+
   implicit private[tournament] val scheduleFreqHandler = tryHandler[Schedule.Freq](
     { case BSONString(v) => Schedule.Freq(v) toTry s"No such freq: $v" },
     x => BSONString(x.name)
@@ -91,11 +103,12 @@ object BSONHandlers {
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         password = r.strO("password"),
-        candidates = r.getO[List[String]]("candidates"),
+        candidates = r strsD "candidates",
         conditions = conditions,
         closed = r boolD "closed",
         denied = r strsD "denied",
         teamBattle = r.getO[TeamBattle]("teamBattle"),
+        candidatesOnly = r boolD "candidatesOnly",
         noBerserk = r boolD "noBerserk",
         noStreak = r boolD "noStreak",
         schedule = for {
@@ -116,24 +129,25 @@ object BSONHandlers {
     }
     def writes(w: BSON.Writer, o: Tournament) =
       $doc(
-        "_id"        -> o.id,
-        "name"       -> o.name,
-        "format"     -> o.format.some.filterNot(_ == Format.Arena),
-        "status"     -> o.status,
-        "clock"      -> o.timeControl,
-        "minutes"    -> o.minutes,
-        "endsAt"     -> (o.hasArrangements option o.finishesAt),
-        "variant"    -> o.variant.some.filterNot(_.standard).map(_.id),
-        "sfen"       -> o.position.map(_.value),
-        "mode"       -> o.mode.some.filterNot(_.rated).map(_.id),
-        "password"   -> o.password,
-        "candidates" -> o.candidates,
-        "conditions" -> o.conditions.ifNonEmpty,
-        "closed"     -> w.boolO(o.closed),
-        "denied"     -> w.strListO(o.denied),
-        "teamBattle" -> o.teamBattle,
-        "noBerserk"  -> w.boolO(o.noBerserk),
-        "noStreak"   -> w.boolO(o.noStreak),
+        "_id"            -> o.id,
+        "name"           -> o.name,
+        "format"         -> o.format.some.filterNot(_ == Format.Arena),
+        "status"         -> o.status,
+        "clock"          -> o.timeControl,
+        "minutes"        -> o.minutes,
+        "endsAt"         -> (o.hasArrangements option o.finishesAt),
+        "variant"        -> o.variant.some.filterNot(_.standard).map(_.id),
+        "sfen"           -> o.position.map(_.value),
+        "mode"           -> o.mode.some.filterNot(_.rated).map(_.id),
+        "password"       -> o.password,
+        "candidates"     -> w.strListO(o.candidates),
+        "conditions"     -> o.conditions.ifNonEmpty,
+        "closed"         -> w.boolO(o.closed),
+        "denied"         -> w.strListO(o.denied),
+        "teamBattle"     -> o.teamBattle,
+        "candidatesOnly" -> o.candidatesOnly,
+        "noBerserk"      -> w.boolO(o.noBerserk),
+        "noStreak"       -> w.boolO(o.noStreak),
         "schedule" -> o.schedule.map { s =>
           $doc(
             "freq"  -> s.freq,
@@ -238,9 +252,13 @@ object BSONHandlers {
         ),
         name = r strO "n",
         color = r.getO[shogi.Color]("c"),
+        points = r.getO[Arrangement.Points]("pt"),
         gameId = r strO "g",
         status = r.intO("s") flatMap shogi.Status.apply,
-        winner = r strO "w",
+        winner = r boolO "w" map {
+          case true => user1Id
+          case _    => user2Id
+        },
         plies = r intO "p",
         scheduledAt = r dateO "d",
         history = Arrangement.History(r strsD "h")
@@ -258,9 +276,10 @@ object BSONHandlers {
         "d2"  -> o.user2.scheduledAt,
         "n"   -> o.name,
         "c"   -> o.color,
+        "pt"  -> o.points.filterNot(_ == Arrangement.Points.default),
         "g"   -> o.gameId,
         "s"   -> o.status.map(_.id),
-        "w"   -> o.winner,
+        "w"   -> o.winner.map(o.user1 ==),
         "p"   -> o.plies,
         "d"   -> o.scheduledAt,
         "h"   -> o.history.list,

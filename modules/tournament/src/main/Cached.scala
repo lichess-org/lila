@@ -117,11 +117,11 @@ final private[tournament] class Cached(
 
   private[tournament] object robin {
 
-    private val playersCache = cacheApi[Tournament.ID, List[JsObject]](16, "tournament.robin.players") {
+    private val playersCache = cacheApi[Tournament.ID, List[JsObject]](32, "tournament.robin.players") {
       _.expireAfterWrite(5 minutes)
         .buildAsyncFuture(computePlayers)
     }
-    private val arrangementsCache = cacheApi[Tournament.ID, List[JsObject]](16, "tournament.robin.players") {
+    private val arrangementsCache = cacheApi[Tournament.ID, List[JsObject]](32, "tournament.robin.players") {
       _.expireAfterWrite(3 minutes)
         .buildAsyncFuture(computeArrangements)
     }

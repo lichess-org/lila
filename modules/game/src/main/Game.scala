@@ -634,7 +634,7 @@ case class Game(
 
   def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
 
-  def withRobin = copy(metadata = metadata.copy(robin = true))
+  def withArrangementId(id: String) = copy(metadata = metadata.copy(arrangementId = id.some))
 
   def withSimulId(id: String) = copy(metadata = metadata.copy(simulId = id.some))
 
@@ -784,9 +784,9 @@ object Game {
           source = source.some,
           notationImport = notationImport,
           tournamentId = none,
+          arrangementId = none,
           simulId = none,
           postGameStudy = none,
-          robin = false,
           analysed = false
         ),
         createdAt = createdAt,
@@ -800,9 +800,9 @@ object Game {
       source = source.some,
       notationImport = none,
       tournamentId = none,
+      arrangementId = none,
       simulId = none,
       postGameStudy = none,
-      robin = false,
       analysed = false
     )
 
@@ -827,7 +827,7 @@ object Game {
     val periodsGote        = "pb"
     val rated              = "ra"
     val analysed           = "an"
-    val robin              = "rb"
+    val arrangementId      = "ar"
     val postGameStudy      = "pgs"
     val variant            = "v"
     val lastLionCapture    = "llc"

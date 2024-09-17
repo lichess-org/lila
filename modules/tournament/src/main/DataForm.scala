@@ -18,7 +18,7 @@ final class DataForm {
 
   import DataForm._
 
-  def create(user: User, teamBattleId: Option[TeamID] = None) =
+  def create(user: User, teamBattleId: Option[TeamID] = none) =
     form(user, none) fill TournamentSetup(
       name = teamBattleId.isEmpty option user.titleUsername,
       format = (if (teamBattleId.isDefined) Format.Arena.key else Format.Robin.key).some,
@@ -27,9 +27,9 @@ final class DataForm {
       startDate = none,
       finishDate = none,
       variant = shogi.variant.Standard.id.toString.some,
-      position = None,
-      password = None,
-      candidatesOnly = None,
+      position = none,
+      password = none,
+      candidatesOnly = false.some,
       mode = none,
       rated = true.some,
       conditions = Condition.DataForm.AllSetup.default,
@@ -95,7 +95,7 @@ final class DataForm {
             )
             .verifying(
               "Can't change tournament from 'candidates only' to open, if candidates list is not empty",
-              ~_.candidatesOnly == tour.candidatesOnly || !tour.candidates.exists(_.nonEmpty)
+              ~_.candidatesOnly == tour.candidatesOnly || !tour.candidatesOnly || tour.candidates.isEmpty
             )
         }
       }
@@ -104,7 +104,7 @@ final class DataForm {
   private def makeMapping(user: User) =
     mapping(
       "name"             -> optional(nameType),
-      "format"           -> optional(nonEmptyText),
+      "format"           -> optional(stringIn(DataForm.formats.toSet)),
       "timeControlSetup" -> TimeControl.DataForm.setup,
       "minutes" -> {
         if (lila.security.Granter(_.ManageTournament)(user)) number
@@ -130,8 +130,8 @@ final class DataForm {
       .verifying("Games with this time control cannot be rated", _.validRatedVariant)
       .verifying("Cannot have correspondence in arena format", _.validTimeControl)
       .verifying("Increase tournament duration, or decrease game clock", _.validSufficientDuration)
-      .verifying("Reduce tournament duration, or increase game clock", _.validNotExcessiveDuration)
-      .verifying("Team battle supports only arena format", _.validFormat)
+      .verifying("Reduce tournament duration", _.validNotExcessiveDuration)
+      .verifying("Team battle supports only arena format", _.validTeamBattleFormat)
       .verifying("Team battle doesn't support candidates only option", _.validCandidates)
 }
 
@@ -174,10 +174,6 @@ private[tournament] case class TournamentSetup(
     hasChat: Option[Boolean]
 ) {
 
-  def validFormat = format == Format.Arena || teamBattleByTeam.isEmpty
-
-  def validCandidates = !(~candidatesOnly) || teamBattleByTeam.isEmpty
-
   def validPosition = position.fold(true) { sfen =>
     sfen.toSituation(realVariant).exists(_.playable(strict = true, withImpasse = true))
   }
@@ -214,9 +210,11 @@ private[tournament] case class TournamentSetup(
     else realMinutes > 180
 
   def validNotExcessiveDuration =
-    realMinutes <= minutesMax && {
-      format != Format.Arena || !timeControlSetup.isRealTime || estimateNumberOfGamesOneCanPlay <= 150
-    }
+    realMinutes <= minutesMax
+
+  def validTeamBattleFormat = format == Format.Arena || teamBattleByTeam.isEmpty
+
+  def validCandidates = !(~candidatesOnly) || teamBattleByTeam.isEmpty
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 

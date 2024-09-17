@@ -131,9 +131,9 @@ object BSONHandlers {
           source = r intO F.source flatMap Source.apply,
           notationImport = r.getO[NotationImport](F.notationImport)(NotationImport.notationImportBSONHandler),
           tournamentId = r strO F.tournamentId,
+          arrangementId = r strO F.arrangementId,
           simulId = r strO F.simulId,
           postGameStudy = r strO F.postGameStudy,
-          robin = r boolD F.robin,
           analysed = r boolD F.analysed
         )
       )
@@ -178,9 +178,9 @@ object BSONHandlers {
         F.source             -> o.metadata.source.map(_.id),
         F.notationImport     -> o.metadata.notationImport,
         F.tournamentId       -> o.metadata.tournamentId,
+        F.arrangementId      -> o.metadata.arrangementId,
         F.simulId            -> o.metadata.simulId,
         F.analysed           -> w.boolO(o.metadata.analysed),
-        F.robin              -> w.boolO(o.metadata.robin),
         F.positionHashes     -> o.history.positionHashes,
         F.hands              -> Sfen.handsToString(o.hands, o.variant),
         F.usis               -> BinaryFormat.usi.write(o.usis, o.variant)

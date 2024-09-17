@@ -82,21 +82,21 @@ final class ArrangementRepo(coll: Coll)(implicit
       )
       .void
 
-  def finish(tour: Tournament, g: lila.game.Game) =
+  def finish(g: lila.game.Game, arr: Arrangement) =
     if (g.aborted)
       coll.update
         .one(
-          selectTourGame(tour.id, g.id),
+          $id(arr.id),
           $unset("g")
         )
         .void
     else
       coll.update
         .one(
-          selectTourGame(tour.id, g.id),
+          $id(arr.id),
           $set(
             "s" -> g.status.id,
-            "w" -> g.winnerUserId,
+            "w" -> g.winnerUserId.map(_ == arr.user1.id),
             "p" -> g.plies
           )
         )

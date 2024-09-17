@@ -80,6 +80,7 @@ final class AutoPairing(
         )
         .withId(gid)
         .withTournamentId(tour.id)
+        .withArrangementId(arrangement.id)
         .start
       (gameRepo insertDenormalized game) >>- {
         onStart(game.id)

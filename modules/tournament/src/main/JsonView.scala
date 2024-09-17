@@ -96,7 +96,7 @@ final class JsonView(
       .add("isRecentlyFinished" -> tour.isRecentlyFinished)
       .add("isClosed" -> tour.closed)
       .add("candidatesOnly" -> tour.candidatesOnly)
-      .add("candidates" -> me.exists(_.id == tour.createdBy) ?? tour.candidates)
+      .add("candidates" -> me.exists(_.id == tour.createdBy) ?? tour.candidates.some)
       .add("isCandidate" -> me ?? (m => tour.candidates.contains(m.id)))
       .add("candidatesFull" -> tour.candidatesFull)
       .add("secondsToFinish" -> tour.isStarted.option(tour.secondsToFinish))
@@ -546,6 +546,7 @@ object JsonView {
       .add("order", a.order.some.filter(_ > 0))
       .add("name", a.name)
       .add("color", a.color.map(_.name))
+      .add("points", a.points.map(arrangementPoints))
       .add("gameId", a.gameId)
       .add("status", a.status.map(_.id))
       .add("winner", a.winner)
@@ -562,6 +563,14 @@ object JsonView {
       .add("scheduledAt", u.scheduledAt)
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
+
+  private def arrangementPoints(pts: Arrangement.Points): JsObject =
+    Json
+      .obj(
+        "w" -> pts.win,
+        "d" -> pts.draw,
+        "l" -> pts.lose
+      )
 
   private[tournament] def scheduleJson(s: Schedule) =
     Json.obj(

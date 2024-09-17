@@ -12,6 +12,7 @@ case class Arrangement(
     user2: Arrangement.User,
     name: Option[String] = none,
     color: Option[Color] = none, // user1 color
+    points: Option[Arrangement.Points] = none,
     gameId: Option[lila.game.Game.ID] = none,
     status: Option[shogi.Status] = none,
     winner: Option[lila.user.User.ID] = none,
@@ -93,6 +94,7 @@ case class Arrangement(
     copy(
       name = settings.name,
       color = settings.color,
+      points = settings.points,
       scheduledAt = settings.scheduledAt
     )
 
@@ -125,10 +127,28 @@ object Arrangement {
   case class Settings(
       name: Option[String],
       color: Option[Color],
-      // points: Points,
+      points: Option[Points],
       // forceScheduledSpan: Option[Int], // minutes around scheduled when matching allowed
       scheduledAt: Option[DateTime]
   )
+
+  case class Points(lose: Int, draw: Int, win: Int)
+  object Points {
+    val default = Points(1, 2, 3)
+    val max     = 100
+    def apply(s: String): Option[Points] =
+      s.split(";").toList match {
+        case l :: d :: w :: Nil => {
+          def parseNum(digit: String) = digit.toIntOption.map(_ atLeast 0 atMost max)
+          for {
+            lose <- parseNum(l)
+            draw <- parseNum(d)
+            win  <- parseNum(w)
+          } yield Points(lose, draw, win)
+        }
+        case _ => None
+      }
+  }
 
   case class History(list: List[History.Entry]) extends AnyVal {
     def add(userId: lila.user.User.ID, dateTime: Option[DateTime], action: History.Action) =

@@ -23,11 +23,12 @@ case class Tournament(
     position: Option[Sfen],
     mode: Mode,
     password: Option[String] = None,
-    candidates: Option[List[User.ID]] = None,
+    candidates: List[User.ID] = Nil,
     conditions: Condition.All,
     closed: Boolean = false,
     denied: List[User.ID] = Nil,
     teamBattle: Option[TeamBattle] = None,
+    candidatesOnly: Boolean = false,
     noBerserk: Boolean = false,
     noStreak: Boolean = false,
     schedule: Option[Schedule],
@@ -92,9 +93,7 @@ case class Tournament(
   def pairingsClosed =
     secondsToFinish < math.max(30, math.min(~timeControl.clock.map(_.limitSeconds) / 2, 120))
 
-  def candidatesFull = candidates.exists(_.length > 250)
-
-  def candidatesOnly = candidates.isDefined
+  def candidatesFull = candidates.length > 250
 
   def isStillWorthEntering =
     isMarathonOrUnique || {
@@ -184,8 +183,7 @@ object Tournament {
       teamBattle: Option[TeamBattle],
       description: Option[String],
       hasChat: Boolean
-  ) = {
-    val startsAt = startDate plusSeconds ThreadLocalRandom.nextInt(60)
+  ) =
     Tournament(
       id = makeId,
       name = name | (position match {
@@ -203,18 +201,16 @@ object Tournament {
       position = position,
       mode = mode,
       password = password,
-      candidates = candidatesOnly option Nil,
       conditions = Condition.All.empty,
-      closed = false,
       teamBattle = teamBattle,
+      candidatesOnly = candidatesOnly,
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startsAt,
+      startsAt = startDate plusSeconds ThreadLocalRandom.nextInt(60),
       description = description,
       hasChat = hasChat
     )
-  }
 
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
@@ -231,7 +227,6 @@ object Tournament {
       position = sched.position,
       mode = Mode.Rated,
       conditions = sched.conditions,
-      closed = false,
       schedule = Some(sched),
       startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
     )

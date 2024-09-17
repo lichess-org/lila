@@ -127,8 +127,9 @@ final private class TournamentSocket(
             lookup <- Protocol.In.readArrangementLookup(tourId.value, d)
             name        = d str "name"
             color       = d.boolean("color").map(shogi.Color.fromSente)
+            points      = d str "points" flatMap Arrangement.Points.apply
             scheduledAt = d.long("scheduled") map { new DateTime(_) }
-            settings    = Arrangement.Settings(name, color, scheduledAt)
+            settings    = Arrangement.Settings(name, color, points, scheduledAt)
           } api.arrangementOrganizerSet(lookup, userId, settings)
         case "process-candidate" =>
           for {
@@ -142,7 +143,7 @@ final private class TournamentSocket(
             by     <- userIdOpt
             d      <- o obj "d"
             toKick <- d str "v"
-          } api.ejectPlayerFromTour(tourId.value, toKick, by, denyEntry = true)
+          } api.kickFromTour(tourId.value, toKick, by)
         case "close-joining" =>
           for {
             by    <- userIdOpt

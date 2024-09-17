@@ -28,7 +28,7 @@ case class FreqWinners(
       monthly.filter(_.date isAfter DateTime.now.minusDays(3)) orElse
       yearly orElse monthly orElse weekly orElse daily
 
-  def userIds = List(yearly, monthly, weekly, daily).flatten.map(_.userId)
+  lazy val userIds = List(yearly, monthly, weekly, daily).flatten.map(_.userId)
 }
 
 case class AllWinners(
