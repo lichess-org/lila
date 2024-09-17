@@ -18,6 +18,7 @@
   "lichess": {
     "bundles": [
       "src/mod.activity.ts",
+      "src/mod.emailConfirmation.ts",
       "src/mod.user.ts",
       "src/mod.inquiry.ts",
       "src/mod.games.ts",
