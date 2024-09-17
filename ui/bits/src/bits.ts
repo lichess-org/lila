@@ -5,6 +5,7 @@ import { wireCropDialog } from './exports/crop';
 
 export function initModule(args: { fn: string } & any): void {
   const fn = args.fn;
+  console.log(args);
   switch (fn) {
     case 'appeal': return appeal();
     case 'autoForm': return autoForm(args);
@@ -15,6 +16,7 @@ export function initModule(args: { fn: string } & any): void {
     case 'hcaptcha': return hcaptcha();
     case 'importer': return importer();
     case 'oauth': return oauth(args);
+    case 'practiceNag': return practiceNag();
     case 'relayForm': return relayForm();
     case 'streamer': return streamer();
     case 'titleRequest': return titleRequest();
@@ -143,6 +145,14 @@ function importer() {
     const reader = new FileReader();
     reader.onload = e => $form.find('textarea').val(e.target?.result as string);
     reader.readAsText(file);
+  });
+}
+
+function practiceNag() {
+  const el = document.querySelector('.do-reset');
+  if (!(el instanceof HTMLButtonElement)) return;
+  el.addEventListener('click', () => {
+    if (confirm('You will lose your practice progress!')) (el.parentNode as HTMLFormElement).submit();
   });
 }
 

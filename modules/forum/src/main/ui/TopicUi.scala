@@ -214,7 +214,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     Page("Diagnostic report")
       .css("bits.forum")
       .js(Esm("bits.forum"))
-      .js(esmInit("bits", "fn" -> "autoForm", "selector" -> ".post-text-area", "ops" -> "focus begin"))
+      .js(esmInitObj("bits", "fn" -> "autoForm", "selector" -> ".post-text-area", "ops" -> "focus begin"))
       .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(h1(dataIcon := Icon.BubbleConvo, cls := "text")("Diagnostics")),

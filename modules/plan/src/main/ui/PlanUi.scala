@@ -50,7 +50,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
         )
       .js(
         if ctx.isAuth then
-          esmInit("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricingJson)
+          esmInitObj("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricingJson)
         else esmInit("bits.checkout")
       )
       .js(infinteScrollEsmInit)
@@ -410,7 +410,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
       .iife(stripeScript)
-      .js(esmInit("bits.plan", "stripePublicKey" -> stripePublicKey))
+      .js(esmInitObj("bits.plan", "stripePublicKey" -> stripePublicKey))
       .csp(paymentCsp):
         main(cls := "box box-pad plan")(
           boxTop(

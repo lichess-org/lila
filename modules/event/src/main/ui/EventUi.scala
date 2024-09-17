@@ -55,7 +55,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
   def show(e: Event)(using Context) =
     Page(e.title)
       .css("bits.event")
-      .js(esmInit("bits", "fn" -> "eventCountdown")):
+      .js(esmInitObj("bits", "fn" -> "eventCountdown")):
         main(cls := "page-small event box box-pad")(
           boxTop(
             iconOf(e),

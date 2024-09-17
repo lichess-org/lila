@@ -24,7 +24,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       .css("bits.dailyFeed")
       .js(infinteScrollEsmInit)
       .js(edit.option(Esm("bits.flatpickr")))
-      .js(edit.option(esmInit("bits", "fn" -> "dailyFeed")))
+      .js(edit.option(esmInitObj("bits", "fn" -> "dailyFeed")))
 
   def index(ups: Paginator[Feed.Update])(using Context) =
     page("Updates"):

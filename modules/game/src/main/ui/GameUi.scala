@@ -192,7 +192,7 @@ final class GameUi(helpers: Helpers):
     def apply(form: play.api.data.Form[?])(using ctx: Context) =
       Page(trans.site.importGame.txt())
         .css("bits.importer")
-        .js(esmInit("bits", "fn" -> "importer"))
+        .js(esmInitObj("bits", "fn" -> "importer"))
         .graph(
           title = "Paste PGN chess game",
           url = s"$netBaseUrl${routes.Importer.importGame.url}",

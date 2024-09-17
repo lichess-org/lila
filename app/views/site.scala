@@ -18,7 +18,8 @@ object page:
       .css("bits.page")
       .js(Esm("bits.expandText"))
       .js(
-        (p.key == lila.core.id.CmsPageKey("fair-play")).option(esmInit("bits", "fn" -> "colorizeYesNoTable"))
+        (p.key == lila.core.id.CmsPageKey("fair-play"))
+          .option(esmInitObj("bits", "fn" -> "colorizeYesNoTable"))
       ):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
@@ -40,7 +41,7 @@ object page:
       active = "contact",
       contentCls = "page box box-pad"
     ).css("bits.contact")
-      .js(esmInit("bits", "fn" -> "contact"))(lila.web.ui.contact(netConfig.email))
+      .js(esmInitObj("bits", "fn" -> "contact"))(lila.web.ui.contact(netConfig.email))
 
   def source(p: CmsPage.Render)(using ctx: Context) =
     ui.source(
