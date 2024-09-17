@@ -110,13 +110,7 @@ final class AuthUi(helpers: Helpers):
   )(using ctx: Context) =
     Page("Check your email")
       .css("bits.email-confirm")
-      .js(embedJsUnsafeLoadThen("""
-var email = document.getElementById("new-email");
-var currentError = "This is already your current email.";
-email.setCustomValidity(currentError);
-email.addEventListener("input", function() {
-email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
-      });""")):
+      .js(esmInitObj("bits", "fn" -> "validateEmail")):
         main(
           cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
         )(

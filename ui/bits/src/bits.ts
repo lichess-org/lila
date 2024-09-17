@@ -4,26 +4,29 @@ import { spinnerHtml } from 'common/spinner';
 import { wireCropDialog } from './exports/crop';
 
 export function initModule(args: { fn: string } & any): void {
-  const fn = args.fn;
-  console.log(args);
-  switch (fn) {
+  switch (args.fn) {
     case 'appeal': return appeal();
     case 'autoForm': return autoForm(args);
     case 'colorizeYesNoTable': return colorizeYesNoTable();
     case 'contact': return contact();
     case 'dailyFeed': return dailyFeed();
+    case 'embedReasonToggle': return embedReasonToggle();
     case 'eventCountdown': return eventCountdown();
     case 'hcaptcha': return hcaptcha();
     case 'importer': return importer();
     case 'oauth': return oauth(args);
+    case 'pmAll': return pmAll();
     case 'practiceNag': return practiceNag();
     case 'relayForm': return relayForm();
+    case 'setAssetInfo': return setAssetInfo();
     case 'streamer': return streamer();
+    case 'thanksReport': return thanksReport();
     case 'titleRequest': return titleRequest();
+    case 'validEmail': return validateEmail();
   }
 }
 
-function appeal(): void {
+function appeal() {
   if ($('.nav-tree').length) location.hash = location.hash || '#help-root';
   $('select.appeal-presets').on('change', function(this: HTMLSelectElement, e: Event) {
     $(this)
@@ -40,7 +43,7 @@ function appeal(): void {
   });
 }
 
-function autoForm({ selector, ops }: { selector: string; ops: string }): void {
+function autoForm({ selector, ops }: { selector: string; ops: string }) {
   const el = document.querySelector(selector) as HTMLElement;
   const oplist = ops.split(' ');
   if (!el || oplist.length === 0) return;
@@ -74,6 +77,13 @@ export function contactEmail(): void {
 function dailyFeed() {
   $('.emoji-details').each(function(this: HTMLElement) {
     flairPickerLoader(this);
+  });
+}
+
+function embedReasonToggle() {
+  const el = document.getElementById('form3-reason') as HTMLSelectElement;
+  el.addEventListener('change', () => {
+    $('.report-reason').addClass('none').filter('.report-reason-' + el.value).removeClass('none');
   });
 }
 
@@ -148,6 +158,12 @@ function importer() {
   });
 }
 
+function pmAll() {
+  $('.copy-url-button').on('click', function(e) {
+    $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n');
+  });
+}
+
 function practiceNag() {
   const el = document.querySelector('.do-reset');
   if (!(el instanceof HTMLButtonElement)) return;
@@ -183,6 +199,13 @@ function relayForm() {
   showSource();
 }
 
+function setAssetInfo() {
+  $('#asset-version-date').text(site.info.date);
+  $('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit).find('pre').text(site.info.commit.substr(0, 7));
+  $('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master').find('pre').text('...');
+  $('#asset-version-message').text(site.info.message);
+}
+
 function streamer() {
   $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {
     const target = e.target as HTMLInputElement;
@@ -213,5 +236,23 @@ function titleRequest() {
       selectClicks: $(this).find('.drop-target'),
       selectDrags: $(this).find('.drop-target'),
     });
+  });
+}
+
+function thanksReport() {
+  const $button = $('button.report-block');
+  $button.one('click', function() {
+    $button.find('span').text('Blocking...');
+    fetch($button.attr('action')!, { method:'post' })
+      .then(() => $button.find('span').text('Blocked!'));
+  });
+}
+
+function validateEmail() {
+  const email = document.getElementById('new-email') as HTMLInputElement;
+  const currentError = 'This is already your current email.';
+  email.setCustomValidity(currentError);
+  email.addEventListener('input', function() {
+    email.setCustomValidity(email.validity.patternMismatch ? currentError : '');
   });
 }
