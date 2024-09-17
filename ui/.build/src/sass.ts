@@ -1,7 +1,7 @@
-import * as cps from 'node:child_process';
-import * as fs from 'node:fs';
-import * as ps from 'node:process';
-import * as path from 'node:path';
+import cps from 'node:child_process';
+import fs from 'node:fs';
+import ps from 'node:process';
+import path from 'node:path';
 import clr from 'tinycolor2';
 import { env, colors as c, lines, errorMark } from './main';
 import { globArray } from './parse';
@@ -29,8 +29,9 @@ export function stopSass(): void {
 
 export async function sass(): Promise<void> {
   if (!env.sass) return;
+  await fs.promises.mkdir(path.join(env.buildTempDir, 'css')).catch(() => {});
 
-  awaitingFullBuild ??= env.watch && env.building.length === env.modules.size;
+  awaitingFullBuild ??= env.watch && env.building.length === env.packages.size;
 
   const sources = await allSources();
   await Promise.allSettled([parseThemeColorDefs(), ...sources.map(src => parseScss(src))]);
@@ -38,7 +39,7 @@ export async function sass(): Promise<void> {
 
   if (env.watch) watcher = new SassWatch();
 
-  compile(sources, env.building.length !== env.modules.size);
+  compile(sources, env.building.length !== env.packages.size);
 
   if (!sources.length) env.done(0, 'sass');
 }
@@ -61,7 +62,7 @@ function compile(sources: string[], logAll = true) {
     process.env.SASS_PATH || path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
 
   if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, { ctx: 'sass' }));
-  else env.log(`Building css with ${sassExec}`, { ctx: 'sass' });
+  else env.log('Building', { ctx: 'sass' });
 
   const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
   sassPs?.removeAllListeners();

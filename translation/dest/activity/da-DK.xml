@@ -34,6 +34,10 @@
     <item quantity="one">Afsluttede %s korrespondanceparti</item>
     <item quantity="other">Afsluttede %s korrespondancepartier</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="one">Afsluttede %1$s %2$s korrespondanceparti</item>
+    <item quantity="other">Afsluttede %1$s %2$s korrespondancepartier</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Begyndte at følge %s spiller</item>
     <item quantity="other">Begyndte at følge %s spillere</item>

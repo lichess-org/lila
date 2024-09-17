@@ -1,8 +1,8 @@
-import * as cps from 'node:child_process';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-import * as crypto from 'node:crypto';
-import * as es from 'esbuild';
+import cps from 'node:child_process';
+import path from 'node:path';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import es from 'esbuild';
 import { env, colors as c, warnMark } from './main';
 import { globArray, globArrays } from './parse';
 import { isUnmanagedAsset } from './copies';
@@ -131,9 +131,9 @@ async function write() {
   };
 
   await Promise.all([
-    fs.promises.writeFile(path.join(env.jsDir, `manifest.${hash}.js`), clientManifest),
+    fs.promises.writeFile(path.join(env.jsOutDir, `manifest.${hash}.js`), clientManifest),
     fs.promises.writeFile(
-      path.join(env.jsDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`),
+      path.join(env.jsOutDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`),
       JSON.stringify(serverManifest, null, env.prod ? undefined : 2),
     ),
   ]);
@@ -146,8 +146,8 @@ async function hashMoveCss(src: string) {
   const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
   const basename = path.basename(src, '.css');
   await Promise.allSettled([
-    env.prod ? undefined : fs.promises.rename(`${src}.map`, path.join(env.cssDir, `${basename}.css.map`)),
-    fs.promises.rename(src, path.join(env.cssDir, `${basename}.${hash}.css`)),
+    env.prod ? undefined : fs.promises.rename(`${src}.map`, path.join(env.cssOutDir, `${basename}.css.map`)),
+    fs.promises.rename(src, path.join(env.cssOutDir, `${basename}.${hash}.css`)),
   ]);
   return { name: path.basename(src, '.css'), hash };
 }
@@ -164,7 +164,7 @@ async function hashLink(name: string) {
 }
 
 async function isComplete() {
-  for (const bundle of [...env.modules.values()].map(x => x.bundles ?? []).flat()) {
+  for (const bundle of [...env.packages.values()].map(x => x.bundles ?? []).flat()) {
     const name = path.basename(bundle, '.ts');
     if (!current.js[name]) {
       env.log(`${warnMark} - No manifest without building '${c.cyan(name + '.ts')}'`);
@@ -214,6 +214,6 @@ function asHashed(path: string, hash: string) {
 }
 
 function link(name: string, hash: string) {
-  const link = path.join(env.hashDir, asHashed(name, hash));
+  const link = path.join(env.hashOutDir, asHashed(name, hash));
   fs.promises.symlink(path.join('..', name), link).catch(() => {});
 }

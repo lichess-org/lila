@@ -25,6 +25,13 @@ private[tournament] case class ConcreteSchedule(
     duration: java.time.Duration
 ) extends Schedule.ScheduleWithInterval
 
+private[tournament] case class ConcreteTourney(
+    tournament: Tournament,
+    schedule: Schedule,
+    startsAt: Instant,
+    duration: java.time.Duration
+) extends Schedule.ScheduleWithInterval
+
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     Executor,
     Scheduler,
@@ -36,15 +43,18 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
         val plans = TournamentScheduler.allWithConflicts()
+        val possibleTourneys = plans.map(p => (p.schedule, p.build)).map { case (s, t) =>
+          ConcreteTourney(t, s, t.startsAt, t.duration)
+        }
 
         val existingSchedules = dbScheds.flatMap { t =>
           // Ignore tournaments with schedule=None - they never conflict.
           t.schedule.map { ConcreteSchedule(_, t.startsAt, t.duration) }
         }
 
-        val prunedPlans = Schedule.pruneConflicts(existingSchedules, plans)
+        val prunedTourneys = Schedule.pruneConflicts(existingSchedules, possibleTourneys)
 
-        tournamentRepo.insert(prunedPlans.map(_.build)).logFailure(logger)
+        tournamentRepo.insert(prunedTourneys.map(_.tournament)).logFailure(logger)
       catch
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
@@ -235,7 +245,8 @@ Thank you all, you rock!""".some,
         nextWednesday -> Blitz,
         nextThursday  -> Rapid,
         nextFriday    -> Classical,
-        nextSaturday  -> HyperBullet
+        nextSaturday  -> HyperBullet,
+        nextSunday    -> UltraBullet
       ).flatMap { (day, speed) =>
         at(day, 17).map { date =>
           Schedule(Weekly, speed, Standard, none, date.pipe(orNextWeek)).plan

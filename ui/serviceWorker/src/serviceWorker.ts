@@ -1,5 +1,3 @@
-export {}; // for tsc isolatedModules
-
 const searchParams = new URL(self.location.href).searchParams;
 const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
 
@@ -7,7 +5,7 @@ function assetUrl(path: string): string {
   return `${assetBase}assets/${path}`;
 }
 
-self.addEventListener('push', event => {
+self.addEventListener('push', (event: PushEvent) => {
   const data = event.data!.json();
   return event.waitUntil(
     self.registration.showNotification(data.title, {
@@ -56,4 +54,4 @@ async function handleNotificationClick(event: NotificationEvent) {
   return await self.clients.openWindow(url);
 }
 
-self.addEventListener('notificationclick', e => e.waitUntil(handleNotificationClick(e)));
+self.addEventListener('notificationclick', (e: NotificationEvent) => e.waitUntil(handleNotificationClick(e)));

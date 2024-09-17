@@ -91,6 +91,7 @@ final private class Rematcher(
     yield
       messenger.volatile(pov.game, trans.site.rematchOfferAccepted.txt())
       onStart(nextGame.id)
+      incUserColors(nextGame)
       redirectEvents(nextGame)
 
     rematches.get(pov.gameId) match
@@ -119,6 +120,15 @@ final private class Rematcher(
       game <- withId.fold(idGenerator.withUniqueId(sloppy)): id =>
         fuccess(sloppy.withId(id))
     yield game
+
+  private def incUserColors(game: Game): Unit =
+    if game.lobbyOrPool
+    then
+      game.userIds match
+        case List(u1, u2) =>
+          userApi.incColor(u1, game.whitePlayer.color)
+          userApi.incColor(u2, game.blackPlayer.color)
+        case _ => ()
 
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.core.game.Player =
     game.opponent(color).aiLevel match

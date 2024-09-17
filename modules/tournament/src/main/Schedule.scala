@@ -427,13 +427,13 @@ object Schedule:
     * identical output to [[SchedulerTestHelpers.ExperimentalPruner.pruneConflictsFailOnUsurp]], but this
     * variant is more readable and has lower potential for bugs.
     */
-  private[tournament] def pruneConflicts(
+  private[tournament] def pruneConflicts[A <: ScheduleWithInterval](
       existingSchedules: Iterable[ScheduleWithInterval],
-      possibleNewPlans: Iterable[Plan]
-  ): List[Plan] =
+      possibleNewPlans: Iterable[A]
+  ): List[A] =
     var allPlannedSchedules = existingSchedules.toList
     possibleNewPlans
-      .foldLeft(List[Plan]()): (newPlans, p) =>
+      .foldLeft(List[A]()): (newPlans, p) =>
         if p.conflictsWith(allPlannedSchedules) then newPlans
         else
           allPlannedSchedules = p :: allPlannedSchedules

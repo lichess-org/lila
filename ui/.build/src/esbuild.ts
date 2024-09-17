@@ -1,6 +1,6 @@
-import * as path from 'node:path';
-import * as es from 'esbuild';
-import { preModule } from './build';
+import path from 'node:path';
+import es from 'esbuild';
+import { prePackage } from './build';
 import { env, errorMark, colors as c } from './main';
 import { jsManifest } from './manifest';
 
@@ -23,10 +23,10 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
   }
 
   const entryPoints = [];
-  for (const mod of env.building) {
-    preModule(mod);
-    for (const bundle of mod.bundles ?? []) {
-      entryPoints.push(path.join(mod.root, bundle));
+  for (const pkg of env.building) {
+    prePackage(pkg);
+    for (const bundle of pkg.bundles ?? []) {
+      entryPoints.push(path.join(pkg.root, bundle));
     }
   }
   entryPoints.sort();
@@ -41,7 +41,7 @@ export async function esbuild(tsc?: Promise<void>): Promise<void> {
     logLevel: 'silent',
     sourcemap: !env.prod,
     minify: env.prod,
-    outdir: env.jsDir,
+    outdir: env.jsOutDir,
     entryNames: '[name].[hash]',
     chunkNames: 'common.[hash]',
     plugins: [onEndPlugin],

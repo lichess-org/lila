@@ -15,7 +15,7 @@ import { StudyShare } from './studyShare';
 import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
 import * as xhr from './studyXhr';
-import { path as treePath } from 'tree';
+import { path as treePath, ops as treeOps } from 'tree';
 import {
   StudyVm,
   Tab,
@@ -404,6 +404,12 @@ export default class StudyCtrl {
 
   instanciateGamebookPlay = () => {
     if (!this.isGamebookPlay()) return (this.gamebookPlay = undefined);
+    // ensure all original nodes have a gamebook entry,
+    // so we can differentiate original nodes from user-made ones
+    treeOps.updateAll(this.ctrl.tree.root, n => {
+      n.gamebook = n.gamebook || {};
+      if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
+    });
     if (this.gamebookPlay?.chapterId === this.vm.chapterId) return;
     this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.ctrl.trans, this.redraw);
     this.vm.mode.sticky = false;

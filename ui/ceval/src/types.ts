@@ -1,7 +1,7 @@
 import { Outcome } from 'chessops/types';
 import { Prop } from 'common';
 import { Feature } from 'common/device';
-import CevalCtrl from './ctrl';
+import type CevalCtrl from './ctrl';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };

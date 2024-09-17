@@ -10,7 +10,7 @@ import { xhrHeader } from 'common/xhr';
 import { lichessRules } from 'chessops/compat';
 
 export class Engines {
-  private _active: EngineInfo | undefined = undefined;
+  private activeEngine: EngineInfo | undefined = undefined;
   localEngines: BrowserEngineInfo[];
   localEngineMap: Map<string, WithMake>;
   externalEngines: ExternalEngineInfo[];
@@ -221,12 +221,12 @@ export class Engines {
   }
 
   get active(): EngineInfo | undefined {
-    return this._active ?? this.activate();
+    return this.activeEngine ?? this.activate();
   }
 
   activate(): EngineInfo | undefined {
-    this._active = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
-    return this._active;
+    this.activeEngine = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
+    return this.activeEngine;
   }
 
   select(id: string): void {
@@ -274,7 +274,7 @@ export class Engines {
   }
 
   make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
-    const e = (this._active = this.getEngine(selector));
+    const e = (this.activeEngine = this.getEngine(selector));
     if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}}`);
 
     return e.tech !== 'EXTERNAL'
