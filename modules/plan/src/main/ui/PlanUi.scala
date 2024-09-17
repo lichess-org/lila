@@ -26,7 +26,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
       pricing: PlanPricing
   )(using ctx: Context) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
-    val pricingJson = safeJsonValue(lila.plan.PlanPricingApi.pricingWrites.writes(pricing))
+    val pricingJson = lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
       .iife:
@@ -48,8 +48,11 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               )
           )
         )
-      .js(ctx.isAuth.option(embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")))
-      .js(Esm("bits.checkout"))
+      .js(
+        if ctx.isAuth then
+          esmInit("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricingJson)
+        else esmInit("bits.checkout")
+      )
       .js(infinteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
@@ -326,8 +329,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   )(using Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .js(Esm("bits.plan"))
-      .js(embedJsUnsafeLoadThen("""plan.payPalStart()""")):
+      .js(esmInit("bits.plan")):
         main(cls := "box box-pad plan")(
           boxTop(
             h1(
@@ -407,9 +409,8 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   )(using ctx: Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .js(Esm("bits.plan"))
       .iife(stripeScript)
-      .js(embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")"""))
+      .js(esmInit("bits.plan", "stripePublicKey" -> stripePublicKey))
       .csp(paymentCsp):
         main(cls := "box box-pad plan")(
           boxTop(
