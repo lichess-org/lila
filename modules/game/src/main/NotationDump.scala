@@ -188,7 +188,4 @@ object NotationDump {
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
   }
 
-  def result(game: Game) =
-    if (game.finished) Color.showResult(game.winnerColor)
-    else "*"
 }

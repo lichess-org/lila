@@ -130,7 +130,7 @@ case class PlayerAggregateAssessment(
   val sfAvgHold   = sfAvgGiven(_.hold)
   val sfAvgNoHold = sfAvgGiven(!_.hold)
 
-  def isGreatUser = user.perfs.bestRating > 2500 && user.count.rated >= 100
+  def isGreatUser = user.perfs.bestRating > 2000 && user.count.rated >= 75
 
   def isNewRatedUser = user.count.rated < 10
 

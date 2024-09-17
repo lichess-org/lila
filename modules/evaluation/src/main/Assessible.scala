@@ -13,9 +13,9 @@ case class Assessible(analysed: Analysed, color: Color) {
 
   lazy val suspiciousErrorRate: Boolean =
     listAverage(Accuracy.diffsList(Pov(game, color), analysis)) < (game.speed match {
-      case Speed.Bullet => 25
-      case Speed.Blitz  => 20
-      case _            => 15
+      case Speed.Bullet => 30
+      case Speed.Blitz  => 25
+      case _            => 20
     })
 
   lazy val alwaysHasAdvantage: Boolean =
@@ -23,7 +23,7 @@ case class Assessible(analysed: Analysed, color: Color) {
       info.cp.fold(info.mate.fold(false) { a =>
         (a.signum == color.fold(-1, 1))
       }) { cp =>
-        color.fold(cp.centipawns < -100, cp.centipawns > 100)
+        color.fold(cp.centipawns < -200, cp.centipawns > 200)
       }
     }
 
