@@ -393,13 +393,13 @@ object Schedule:
   /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
     * plans that do not conflict with either the existing schedules or with themselves.
     */
-  private[tournament] def pruneConflicts(
+  private[tournament] def pruneConflicts[A <: ScheduleWithInterval](
       existingSchedules: Iterable[ScheduleWithInterval],
-      possibleNewPlans: Iterable[Plan]
-  ): List[Plan] =
+      possibleNewPlans: Iterable[A]
+  ): List[A] =
     var allPlannedSchedules = existingSchedules.toList
     possibleNewPlans
-      .foldLeft(List[Plan]()): (newPlans, p) =>
+      .foldLeft(List[A]()): (newPlans, p) =>
         if p.conflictsWith(allPlannedSchedules) then newPlans
         else
           allPlannedSchedules = p :: allPlannedSchedules
