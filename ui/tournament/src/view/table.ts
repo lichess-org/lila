@@ -50,17 +50,19 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
     );
 }
 
-export default function (ctrl: TournamentController): VNode {
-  return h('div.tour__table', [
-    ctrl.data.featured ? featured(ctrl.data.featured) : null,
-    ctrl.data.duels.length
-      ? h(
-          'section.tour__duels',
-          {
-            hook: bind('click', _ => !ctrl.disableClicks),
-          },
-          [h('h2', 'Top games')].concat(ctrl.data.duels.map(renderDuel(ctrl.data.teamBattle, ctrl.data.duelTeams)))
-        )
-      : null,
-  ]);
+export default function (ctrl: TournamentController): VNode | undefined {
+  return ctrl.isRobin()
+    ? undefined
+    : h('div.tour__table', [
+        ctrl.data.featured ? featured(ctrl.data.featured) : null,
+        ctrl.data.duels.length
+          ? h(
+              'section.tour__duels',
+              {
+                hook: bind('click', _ => !ctrl.disableClicks),
+              },
+              [h('h2', 'Top games')].concat(ctrl.data.duels.map(renderDuel(ctrl.data.teamBattle, ctrl.data.duelTeams)))
+            )
+          : null,
+      ]);
 }

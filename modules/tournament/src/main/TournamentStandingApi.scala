@@ -23,6 +23,8 @@ final class TournamentStandingApi(
     mat: akka.stream.Materializer
 ) {
 
+  private val perPage = 10
+
   private val workQueue = new WorkQueue(
     buffer = 256,
     timeout = 5 seconds,
@@ -30,12 +32,14 @@ final class TournamentStandingApi(
     parallelism = 6
   )
 
-  def apply(tour: Tournament, page: Int): Fu[JsObject] =
+  def apply(tour: Tournament, forPage: Int): Fu[JsObject] = {
+    val page = forPage atMost Math.ceil(tour.nbPlayers.toDouble / perPage).toInt atLeast 1
     if (page == 1) first get tour.id
     else if (page > 50) {
       if (tour.isCreated) createdCache.get(tour.id -> page)
       else computeMaybe(tour.id, page)
     } else compute(tour, page)
+  }
 
   private val first = cacheApi[Tournament.ID, JsObject](16, "tournament.page.first") {
     _.expireAfterWrite(1 second)
@@ -71,7 +75,7 @@ final class TournamentStandingApi(
 
   private def compute(tour: Tournament, page: Int): Fu[JsObject] =
     for {
-      rankedPlayers <- playerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
+      rankedPlayers <- playerRepo.bestByTourWithRankByPage(tour.id, perPage, page max 1)
       sheets <-
         rankedPlayers
           .map { p =>

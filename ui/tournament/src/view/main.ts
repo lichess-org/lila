@@ -16,7 +16,7 @@ export default function (ctrl: TournamentController) {
   else if (ctrl.data.isStarted) handler = started;
   else handler = created;
 
-  return h('main.' + ctrl.opts.classes, [
+  return h('main.' + ctrl.data.system + '.' + ctrl.opts.classes, [
     h('aside.tour__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);

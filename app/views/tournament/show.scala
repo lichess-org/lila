@@ -51,7 +51,7 @@ object show {
       openGraph = lila.app.ui
         .OpenGraph(
           title =
-            s"${tour.name()}: ${variantName(tour.variant)} ${tour.clock.show} ${modeName(tour.mode)} #${tour.id}",
+            s"${tour.name()}: ${variantName(tour.variant)} ${tour.timeControl.show} ${modeName(tour.mode)} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
           description = s"${showDate(tour.startsAt)} - ${tour.name()} - ${trans.nbPlayers
               .pluralSameTxt(tour.nbPlayers)}, " +
@@ -70,8 +70,8 @@ object show {
           tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)
         ),
         div(cls := "tour__main")(div(cls := "box")),
-        tour.isCreated option div(cls := "tour__faq")(
-          faq(tour.mode.rated.some, tour.isPrivate.option(tour.id))
+        (tour.isCreated || (tour.hasArrangements && !tour.isFinished)) option div(cls := "tour__faq")(
+          faq(tour.format, tour.mode.rated.some, tour.isPrivate.option(tour.id))
         )
       )
     )

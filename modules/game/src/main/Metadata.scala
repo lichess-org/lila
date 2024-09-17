@@ -14,6 +14,7 @@ private[game] case class Metadata(
     tournamentId: Option[String],
     simulId: Option[String],
     postGameStudy: Option[String],
+    robin: Boolean,
     analysed: Boolean
 ) {
 
@@ -22,7 +23,7 @@ private[game] case class Metadata(
 
 private[game] object Metadata {
 
-  val empty = Metadata(None, None, None, None, None, false)
+  val empty = Metadata(None, None, None, None, None, false, false)
 }
 
 case class NotationImport(

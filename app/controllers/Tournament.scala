@@ -302,7 +302,13 @@ final class Tournament(
                 err => BadRequest(html.tournament.form.create(err, teams)).fuccess,
                 setup =>
                   rateLimitCreation(me, setup.isPrivate, ctx.req) {
-                    api.createTournament(setup, me, teams, getLeaderTeamIds) map { tour =>
+                    api.createTournament(
+                      setup,
+                      me,
+                      teams,
+                      getLeaderTeamIds,
+                      andJoin = setup.realFormat != lila.tournament.Format.Organized
+                    ) map { tour =>
                       Redirect {
                         if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
                         else routes.Tournament.show(tour.id)
@@ -515,9 +521,9 @@ final class Tournament(
       }
   }
 
-  private def getUserTeamIds(user: lila.user.User): Fu[List[TeamID]] =
-    env.team.cached.teamIdsList(user.id)
+  private def getUserTeamIds(userId: lila.user.User.ID): Fu[List[TeamID]] =
+    env.team.cached.teamIdsList(userId)
 
-  private def getLeaderTeamIds(user: lila.user.User): Fu[List[TeamID]] =
-    env.team.teamRepo.enabledTeamIdsByLeader(user.id)
+  private def getLeaderTeamIds(userId: lila.user.User.ID): Fu[List[TeamID]] =
+    env.team.teamRepo.enabledTeamIdsByLeader(userId)
 }

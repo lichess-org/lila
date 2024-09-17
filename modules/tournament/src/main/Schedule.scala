@@ -8,6 +8,7 @@ import play.api.i18n.Lang
 import lila.rating.PerfType
 
 case class Schedule(
+    format: Format,
     freq: Schedule.Freq,
     speed: Schedule.Speed,
     variant: Variant,
@@ -193,16 +194,17 @@ object Schedule {
     val key  = lila.common.String lcfirst name
   }
   object Speed {
-    case object UltraBullet extends Speed(5)
-    case object HyperBullet extends Speed(10)
-    case object Bullet      extends Speed(20)
-    case object SuperBlitz  extends Speed(25)
-    case object Blitz       extends Speed(30)
-    case object HyperRapid  extends Speed(40)
-    case object Rapid       extends Speed(50)
-    case object Classical   extends Speed(60)
+    case object UltraBullet    extends Speed(5)
+    case object HyperBullet    extends Speed(10)
+    case object Bullet         extends Speed(20)
+    case object SuperBlitz     extends Speed(25)
+    case object Blitz          extends Speed(30)
+    case object HyperRapid     extends Speed(40)
+    case object Rapid          extends Speed(50)
+    case object Classical      extends Speed(60)
+    case object Correspondence extends Speed(80)
     val all: List[Speed] =
-      List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, HyperRapid, Rapid, Classical)
+      List(UltraBullet, HyperBullet, Bullet, SuperBlitz, Blitz, HyperRapid, Rapid, Classical, Correspondence)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
     def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
     def byId(id: Int)      = all find (_.id == id)
@@ -232,6 +234,7 @@ object Schedule {
         case SuperBlitz | Blitz   => PerfType.Blitz
         case HyperRapid | Rapid   => PerfType.Rapid
         case Classical            => PerfType.Classical
+        case Correspondence       => PerfType.Correspondence
       }
   }
 
@@ -309,22 +312,25 @@ object Schedule {
     import Freq._, Speed._
     import shogi.variant._
 
-    val TC = shogi.Clock.Config
+    val CC = shogi.Clock.Config
+    val RT = TimeControl.RealTime
+    val CR = TimeControl.Correspondence
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
-      case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2, 0, 1)
+      case (Hourly, Standard, Blitz) if standardInc(s) => RT(CC(3 * 60, 2, 0, 1))
 
-      case (Shield, variant, Blitz) if !variant.standard => TC(5 * 60, 0, 10, 1)
+      case (Shield, variant, Blitz) if !variant.standard => RT(CC(5 * 60, 0, 10, 1))
 
-      case (_, _, UltraBullet) => TC(30, 0, 0, 1)       //      30
-      case (_, _, HyperBullet) => TC(0, 0, 5, 1)        //            5 * 25
-      case (_, _, Bullet)      => TC(0, 0, 10, 1)       //           10 * 25
-      case (_, _, SuperBlitz)  => TC(3 * 60, 0, 10, 1)  //  3 * 60 + 10 * 25
-      case (_, _, Blitz)       => TC(5 * 60, 0, 10, 1)  //  5 * 60 + 10 * 25
-      case (_, _, HyperRapid)  => TC(5 * 60, 0, 15, 1)  //  5 * 60 + 15 * 25
-      case (_, _, Rapid)       => TC(10 * 60, 0, 15, 1) // 10 * 60 + 15 * 25
-      case (_, _, Classical)   => TC(15 * 60, 0, 30, 1) // 15 * 60 + 30 * 25
+      case (_, _, UltraBullet)    => RT(CC(30, 0, 0, 1))       //      30
+      case (_, _, HyperBullet)    => RT(CC(0, 0, 5, 1))        //            5 * 25
+      case (_, _, Bullet)         => RT(CC(0, 0, 10, 1))       //           10 * 25
+      case (_, _, SuperBlitz)     => RT(CC(3 * 60, 0, 10, 1))  //  3 * 60 + 10 * 25
+      case (_, _, Blitz)          => RT(CC(5 * 60, 0, 10, 1))  //  5 * 60 + 10 * 25
+      case (_, _, HyperRapid)     => RT(CC(5 * 60, 0, 15, 1))  //  5 * 60 + 15 * 25
+      case (_, _, Rapid)          => RT(CC(10 * 60, 0, 15, 1)) // 10 * 60 + 15 * 25
+      case (_, _, Classical)      => RT(CC(15 * 60, 0, 30, 1)) // 15 * 60 + 30 * 25
+      case (_, _, Correspondence) => CR(3)
     }
   }
   private[tournament] def addCondition(s: Schedule) =
@@ -357,10 +363,10 @@ object Schedule {
 
       Condition.All(
         nbRatedGame = nbRatedGame.some.filter(0 <).map {
-          Condition.NbRatedGame(s.perfType.some, _)
+          Condition.NbRatedGame(_)
         },
         minRating = minRating.some.filter(0 <).map {
-          Condition.MinRating(s.perfType, _)
+          Condition.MinRating(_)
         },
         maxRating = none,
         titled = none,

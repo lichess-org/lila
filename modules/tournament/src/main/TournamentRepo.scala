@@ -30,6 +30,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     else $doc("variant" -> variant.id)
   private val nonEmptySelect           = $doc("nbPlayers" $ne 0)
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
+  private val arena                    = $doc("format" $exists false)
+  // private val robin                    = $doc("format" -> Format.Robin.key)
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
 
@@ -67,20 +69,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
-  private[tournament] def startedCursor =
-    coll.ext.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
+  private[tournament] def startedArenaCursor =
+    coll.ext.find(startedSelect ++ arena).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
 
   def startedIds: Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
-
-  def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
-    coll.list[Tournament](
-      startedSelect ++ $doc(
-        "password" $exists false,
-        "variant" $exists false
-      ),
-      ReadPreference.secondaryPreferred
-    )
 
   private[tournament] def notableFinished(limit: Int): Fu[List[Tournament]] =
     coll.ext
@@ -100,9 +93,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
-
-  def clockById(id: Tournament.ID): Fu[Option[shogi.Clock.Config]] =
-    coll.primitiveOne[shogi.Clock.Config]($id(id), "clock")
 
   def byTeamCursor(teamId: TeamID) =
     coll.ext
@@ -172,6 +162,32 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def setNbPlayers(tourId: Tournament.ID, nb: Int) =
     coll.updateField($id(tourId), "nbPlayers", nb).void
 
+  def setClosed(tourId: Tournament.ID, closed: Boolean) =
+    coll.updateField($id(tourId), "closed", closed).void
+
+  def setCandidates(tourId: Tournament.ID, candidates: List[User.ID]) =
+    coll.updateField($id(tourId), "candidates", candidates).void
+
+  def setDenied(tourId: Tournament.ID, denied: List[User.ID]) =
+    coll.updateField($id(tourId), "denied", denied).void
+
+  def setProcessedCandidate(
+      tourId: Tournament.ID,
+      candidates: List[User.ID],
+      denied: List[User.ID],
+      nb: Int
+  ) =
+    coll.update
+      .one(
+        $id(tourId),
+        $set(
+          "candidates" -> candidates,
+          "denied"     -> denied,
+          "nbPlayers"  -> nb
+        )
+      )
+      .void
+
   def setWinnerId(tourId: Tournament.ID, userId: User.ID) =
     coll.updateField($id(tourId), "winner", userId).void
 
@@ -212,6 +228,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private[tournament] def shouldStartCursor =
     coll.ext
       .find($doc("startsAt" $lt DateTime.now) ++ createdSelect)
+      .batchSize(1)
+      .cursor[Tournament]()
+
+  private[tournament] def shouldEndNonArenaCursor =
+    coll.ext
+      .find($doc("endsAt" $lt DateTime.now) ++ startedSelect) // endsAt set only for non arenas
       .batchSize(1)
       .cursor[Tournament]()
 

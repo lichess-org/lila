@@ -3,19 +3,18 @@ package lila.tournament
 import org.joda.time.DateTime
 import scala.concurrent.Promise
 
-import shogi.Clock.{ Config => TournamentClock }
 import lila.user.User
 
 private[tournament] case class WaitingUsers(
     hash: Map[User.ID, DateTime],
-    clock: TournamentClock,
+    estimateTotalSeconds: Int,
     date: DateTime
 ) {
 
   private val waitSeconds: Int =
-    if (clock.estimateTotalSeconds < 30) 8
-    else if (clock.estimateTotalSeconds < 60) 10
-    else (clock.estimateTotalSeconds / 10 + 6) atMost 50 atLeast 15
+    if (estimateTotalSeconds < 30) 8
+    else if (estimateTotalSeconds < 60) 10
+    else (estimateTotalSeconds / 10 + 6) atMost 50 atLeast 15
 
   lazy val all  = hash.keySet
   lazy val size = hash.size
@@ -50,9 +49,9 @@ private[tournament] case class WaitingUsers(
 
 private[tournament] object WaitingUsers {
 
-  def empty(clock: TournamentClock) = WaitingUsers(Map.empty, clock, DateTime.now)
+  def empty(estimateTotalSeconds: Int) = WaitingUsers(Map.empty, estimateTotalSeconds, DateTime.now)
 
   case class WithNext(waiting: WaitingUsers, next: Option[Promise[WaitingUsers]])
 
-  def emptyWithNext(clock: TournamentClock) = WithNext(empty(clock), none)
+  def emptyWithNext(estimateTotalSeconds: Int) = WithNext(empty(estimateTotalSeconds), none)
 }

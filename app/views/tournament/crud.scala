@@ -8,7 +8,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.tournament.crud.CrudForm
-import lila.tournament.{ DataForm, Tournament }
+import lila.tournament.{ TimeControl, Tournament }
 
 import controllers.routes
 
@@ -104,18 +104,18 @@ object crud {
       ),
       form3.split(
         form3.group(form("clockTime"), raw("Clock time"), half = true)(
-          form3.select(_, DataForm.clockTimeChoices)
+          form3.select(_, TimeControl.DataForm.clockTimes.map(ct => (ct, s"$ct minutes")))
         ),
         form3.group(form("clockByoyomi"), raw("Clock Byoyomi"), half = true)(
-          form3.select(_, DataForm.clockByoyomiChoices)
+          form3.select(_, TimeControl.DataForm.clockByoyomi.map(b => (b, s"$b seconds")))
         )
       ),
       form3.split(
         form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-          form3.select(_, DataForm.clockIncrementChoices)
+          form3.select(_, TimeControl.DataForm.clockIncrements.map(i => (i, s"$i seconds")))
         ),
         form3.group(form("periods"), raw("Number of byoyomi periods"), half = true)(
-          form3.select(_, DataForm.periodsChoices)
+          form3.select(_, TimeControl.DataForm.periods.map(p => (p, s"$p periods")))
         )
       ),
       form3.split(
@@ -129,7 +129,7 @@ object crud {
         )
       ),
       h2("Entry requirements"),
-      tournament.form.condition(form, new TourFields(form, tour), auto = false, Nil, tour),
+      tournament.form.conditionFields(form, new TourFields(form, tour), Nil, tour),
       form3.action(form3.submit(trans.apply()))
     )
 
@@ -177,7 +177,7 @@ object crud {
                   )
                 ),
                 td(tour.variant.name),
-                td(tour.clock.toString),
+                td(tour.timeControl.show),
                 td(tour.minutes, "m"),
                 td(showDateTimeUTC(tour.startsAt), " ", momentFromNow(tour.startsAt)),
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := "v", title := "View on site"))

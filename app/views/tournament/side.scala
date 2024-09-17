@@ -22,23 +22,21 @@ object side {
   )(implicit ctx: Context) =
     frag(
       div(cls := "tour__meta")(
-        st.section(dataIcon := tour.perfType.map(_.iconChar.toString))(
+        st.section(dataIcon := tour.perfType.iconChar.toString)(
           div(
             p(
-              tour.clock.show,
+              tour.timeControl.show,
               separator,
-              views.html.game.bits.variantLink(tour.variant, tour.perfType),
-              tour.position.isDefined ?? s"$separator${trans.thematic.txt()}",
-              separator,
-              tour.durationString
+              views.html.game.bits.variantLink(tour.variant, tour.perfType.some),
+              tour.position.isDefined ?? s"$separator${trans.thematic.txt()}"
             ),
             tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
             separator,
-            "Arena",
+            tour.format.trans,
             (isGranted(_.ManageTournament) || (ctx.userId
               .has(tour.createdBy) && !tour.isFinished)) option frag(
               " ",
-              a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag("%"))
+              a(href := routes.Tournament.edit(tour.id), title := trans.edit.txt())(iconTag("%"))
             )
           )
         ),
@@ -78,7 +76,7 @@ object side {
               )(v.condition match {
                 case lila.tournament.Condition.TeamMember(teamId, teamName) =>
                   trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
-                case c => c.name
+                case c => c.name(tour.perfType)
               })
             }
           )
@@ -86,8 +84,12 @@ object side {
         tour.noBerserk option div(cls := "text", dataIcon := "`")(trans.arena.noBerserkAllowed()),
         tour.noStreak option div(cls := "text", dataIcon := "Q")(trans.arena.noArenaStreaks()),
         !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
-        (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
-          tour.startsAt
+        frag(
+          absClientDateTime(
+            tour.startsAt
+          ),
+          "-",
+          absClientDateTime(tour.finishesAt)
         ),
         tour.startingPosition.map { pos =>
           p(
@@ -97,7 +99,7 @@ object side {
           )
         } orElse tour.position.map { sfen =>
           p(
-            "Custom position",
+            trans.fromPosition.txt(),
             separator,
             views.html.base.bits.sfenAnalysisLink(sfen)
           )

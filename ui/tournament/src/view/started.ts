@@ -4,11 +4,21 @@ import TournamentController from '../ctrl';
 import * as pagination from '../pagination';
 import * as tour from '../tournament';
 import { controls, standing } from './arena';
+import {
+  howDoesThisWork,
+  playing,
+  controls as rControls,
+  recents,
+  standing as rStanding,
+  yourCurrent,
+  yourUpcoming,
+} from './robin';
 import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
 import tourTable from './table';
 import teamInfo from './teamInfo';
+import { arrangement } from './arrangement';
 
 function joinTheGame(ctrl: TournamentController, gameId: string) {
   return h(
@@ -31,13 +41,23 @@ export const name = 'started';
 export function main(ctrl: TournamentController): MaybeVNodes {
   const gameId = ctrl.myGameId(),
     pag = pagination.players(ctrl);
-  return [
-    header(ctrl),
-    gameId ? joinTheGame(ctrl, gameId) : tour.isIn(ctrl) ? notice(ctrl) : null,
-    teamStanding(ctrl, 'started'),
-    controls(ctrl, pag),
-    standing(ctrl, pag, 'started'),
-  ];
+  if (ctrl.isRobin())
+    return [
+      header(ctrl),
+      rControls(ctrl),
+      ...(ctrl.arrangement
+        ? [arrangement(ctrl, ctrl.arrangement)]
+        : [rStanding(ctrl, 'started'), yourCurrent(ctrl), yourUpcoming(ctrl), playing(ctrl), recents(ctrl)]),
+      howDoesThisWork(),
+    ];
+  else
+    return [
+      header(ctrl),
+      gameId ? joinTheGame(ctrl, gameId) : tour.isIn(ctrl) ? notice(ctrl) : null,
+      teamStanding(ctrl, 'started'),
+      controls(ctrl, pag),
+      standing(ctrl, pag, 'started'),
+    ];
 }
 
 export function table(ctrl: TournamentController): VNode | undefined {

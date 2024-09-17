@@ -1,16 +1,23 @@
 package lila.tournament
 
-import shogi.Clock.{ Config => ClockConfig }
+import org.joda.time.DateTime
+import reactivemongo.api.bson._
+
 import shogi.format.forsyth.Sfen
 import shogi.Mode
 import shogi.variant.Variant
+
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.User.lishogiId
-import reactivemongo.api.bson._
 
 object BSONHandlers {
+
+  implicit private[tournament] val formatBSONHandler = tryHandler[Format](
+    { case BSONString(v) => Format.byKey(v) toTry s"No such format: $v" },
+    x => BSONString(x.key)
+  )
 
   implicit private[tournament] val statusBSONHandler = tryHandler[Status](
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
@@ -27,22 +34,31 @@ object BSONHandlers {
     x => BSONString(x.key)
   )
 
-  implicit val tournamentClockBSONHandler = tryHandler[ClockConfig](
+  implicit val timeControlBSONHandler = tryHandler[TimeControl](
     { case doc: BSONDocument =>
-      for {
-        limit <- doc.getAsTry[Int]("limit")
-        inc   <- doc.getAsTry[Int]("increment")
-        byo   <- doc.getAsTry[Int]("byoyomi")
-        per   <- doc.getAsTry[Int]("periods")
-      } yield ClockConfig(limit, inc, byo, per)
+      doc.getAsOpt[Int]("days") match {
+        case Some(d) =>
+          scala.util.Success(TimeControl.Correspondence(d))
+        case None =>
+          for {
+            limit <- doc.getAsTry[Int]("limit")
+            inc   <- doc.getAsTry[Int]("increment")
+            byo   <- doc.getAsTry[Int]("byoyomi")
+            per   <- doc.getAsTry[Int]("periods")
+          } yield TimeControl.RealTime(shogi.Clock.Config(limit, inc, byo, per))
+      }
     },
-    c =>
-      BSONDocument(
-        "limit"     -> c.limitSeconds,
-        "increment" -> c.incrementSeconds,
-        "byoyomi"   -> c.byoyomiSeconds,
-        "periods"   -> c.periodsTotal
-      )
+    {
+      case TimeControl.RealTime(c) =>
+        BSONDocument(
+          "limit"     -> c.limitSeconds,
+          "increment" -> c.incrementSeconds,
+          "byoyomi"   -> c.byoyomiSeconds,
+          "periods"   -> c.periodsTotal
+        )
+      case TimeControl.Correspondence(d) =>
+        BSONDocument("days" -> d)
+    }
   )
 
   implicit private val spotlightBSONHandler = Macros.handler[Spotlight]
@@ -59,6 +75,7 @@ object BSONHandlers {
 
   implicit val tournamentHandler = new BSON[Tournament] {
     def reads(r: BSON.Reader) = {
+      val format                 = r.getO[Format]("format").getOrElse(Format.Arena)
       val variant                = r.intO("variant").fold[Variant](Variant.default)(Variant.orDefault)
       val position: Option[Sfen] = r.getO[Sfen]("sfen").filterNot(_.initialOf(variant))
       val startsAt               = r date "startsAt"
@@ -66,14 +83,18 @@ object BSONHandlers {
       Tournament(
         id = r str "_id",
         name = r str "name",
+        format = format,
         status = r.get[Status]("status"),
-        clock = r.get[shogi.Clock.Config]("clock"),
+        timeControl = r.get[TimeControl]("clock"),
         minutes = r int "minutes",
         variant = variant,
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         password = r.strO("password"),
+        candidates = r.getO[List[String]]("candidates"),
         conditions = conditions,
+        closed = r boolD "closed",
+        denied = r strsD "denied",
         teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r boolD "noBerserk",
         noStreak = r boolD "noStreak",
@@ -81,7 +102,7 @@ object BSONHandlers {
           doc   <- r.getO[Bdoc]("schedule")
           freq  <- doc.getAsOpt[Schedule.Freq]("freq")
           speed <- doc.getAsOpt[Schedule.Speed]("speed")
-        } yield Schedule(freq, speed, variant, position, startsAt, conditions),
+        } yield Schedule(format, freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
         createdBy = r strO "createdBy" getOrElse lishogiId,
@@ -97,14 +118,19 @@ object BSONHandlers {
       $doc(
         "_id"        -> o.id,
         "name"       -> o.name,
+        "format"     -> o.format.some.filterNot(_ == Format.Arena),
         "status"     -> o.status,
-        "clock"      -> o.clock,
+        "clock"      -> o.timeControl,
         "minutes"    -> o.minutes,
+        "endsAt"     -> (o.hasArrangements option o.finishesAt),
         "variant"    -> o.variant.some.filterNot(_.standard).map(_.id),
         "sfen"       -> o.position.map(_.value),
         "mode"       -> o.mode.some.filterNot(_.rated).map(_.id),
         "password"   -> o.password,
+        "candidates" -> o.candidates,
         "conditions" -> o.conditions.ifNonEmpty,
+        "closed"     -> w.boolO(o.closed),
+        "denied"     -> w.strListO(o.denied),
         "teamBattle" -> o.teamBattle,
         "noBerserk"  -> w.boolO(o.noBerserk),
         "noStreak"   -> w.boolO(o.noStreak),
@@ -132,6 +158,7 @@ object BSONHandlers {
         _id = r str "_id",
         tourId = r str "tid",
         userId = r str "uid",
+        order = r intO "o",
         rating = r int "r",
         provisional = r boolD "pr",
         withdraw = r boolD "w",
@@ -145,6 +172,7 @@ object BSONHandlers {
         "_id" -> o._id,
         "tid" -> o.tourId,
         "uid" -> o.userId,
+        "o"   -> o.order,
         "r"   -> o.rating,
         "pr"  -> w.boolO(o.provisional),
         "w"   -> w.boolO(o.withdraw),
@@ -186,6 +214,57 @@ object BSONHandlers {
         "t"   -> o.plies,
         "b1"  -> w.boolO(o.berserk1),
         "b2"  -> w.boolO(o.berserk2)
+      )
+  }
+
+  implicit val arrangementHandler = new BSON[Arrangement] {
+    def reads(r: BSON.Reader) = {
+      val users   = r strsD "u"
+      val user1Id = users.headOption err "tournament arrangement first user"
+      val user2Id = users lift 1 err "tournament arrangement second user"
+      Arrangement(
+        id = r str "_id",
+        order = r intD "o",
+        tourId = r str "t",
+        user1 = Arrangement.User(
+          id = user1Id,
+          readyAt = r dateO "r1",
+          scheduledAt = r dateO "d1"
+        ),
+        user2 = Arrangement.User(
+          id = user2Id,
+          readyAt = r dateO "r2",
+          scheduledAt = r dateO "d2"
+        ),
+        name = r strO "n",
+        color = r.getO[shogi.Color]("c"),
+        gameId = r strO "g",
+        status = r.intO("s") flatMap shogi.Status.apply,
+        winner = r strO "w",
+        plies = r intO "p",
+        scheduledAt = r dateO "d",
+        history = Arrangement.History(r strsD "h")
+      )
+    }
+    def writes(w: BSON.Writer, o: Arrangement) =
+      $doc(
+        "_id" -> o.id,
+        "o"   -> o.order.some.filter(_ > 0),
+        "t"   -> o.tourId,
+        "u"   -> BSONArray(o.user1.id, o.user2.id),
+        "r1"  -> o.user1.readyAt,
+        "r2"  -> o.user2.readyAt,
+        "d1"  -> o.user1.scheduledAt,
+        "d2"  -> o.user2.scheduledAt,
+        "n"   -> o.name,
+        "c"   -> o.color,
+        "g"   -> o.gameId,
+        "s"   -> o.status.map(_.id),
+        "w"   -> o.winner,
+        "p"   -> o.plies,
+        "d"   -> o.scheduledAt,
+        "h"   -> o.history.list,
+        "ua"  -> o.gameId.isEmpty ?? DateTime.now.some // updated at
       )
   }
 

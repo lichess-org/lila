@@ -10,6 +10,7 @@ import lila.db.dsl._
 final private class LeaderboardIndexer(
     tournamentRepo: TournamentRepo,
     pairingRepo: PairingRepo,
+    arrangementRepo: ArrangementRepo,
     playerRepo: PlayerRepo,
     leaderboardRepo: LeaderboardRepo
 )(implicit
@@ -50,24 +51,25 @@ final private class LeaderboardIndexer(
 
   private def generateTourEntries(tour: Tournament): Fu[List[Entry]] =
     for {
-      nbGames <- pairingRepo.countByTourIdAndUserIds(tour.id)
+      nbGames <-
+        if (tour.isArena) pairingRepo.countByTourIdAndUserIds(tour.id)
+        else arrangementRepo.countByTourIdAndUserIds(tour.id)
       players <- playerRepo.bestByTourWithRank(tour.id, nb = 9000, skip = 0)
     } yield players.flatMap { case RankedPlayer(rank, player) =>
-      for {
-        perfType <- tour.perfType
-        nb       <- nbGames get player.userId
-      } yield Entry(
-        id = player._id,
-        tourId = tour.id,
-        userId = player.userId,
-        nbGames = nb,
-        score = player.score,
-        rank = rank,
-        rankRatio = Ratio(if (tour.nbPlayers > 0) rank.toDouble / tour.nbPlayers else 0),
-        freq = tour.schedule.map(_.freq),
-        speed = tour.schedule.map(_.speed),
-        perf = perfType,
-        date = tour.startsAt
-      )
+      nbGames get player.userId map { nb =>
+        Entry(
+          id = player._id,
+          tourId = tour.id,
+          userId = player.userId,
+          nbGames = nb,
+          score = player.score,
+          rank = rank,
+          rankRatio = Ratio(if (tour.nbPlayers > 0) rank.toDouble / tour.nbPlayers else 0),
+          freq = tour.schedule.map(_.freq),
+          speed = tour.schedule.map(_.speed),
+          perf = tour.perfType,
+          date = tour.startsAt
+        )
+      }
     }
 }

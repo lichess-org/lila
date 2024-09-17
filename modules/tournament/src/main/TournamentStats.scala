@@ -9,15 +9,16 @@ import lila.db.dsl._
 final class TournamentStatsApi(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
+    arrangementRepo: ArrangementRepo,
     mongoCache: lila.memo.MongoCache.Api
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
-    tournament.isFinished ?? cache.get(tournament.id).dmap(some)
+    tournament.isFinished ?? cache.get(TournamentStats.makeKey(tournament)).dmap(some)
 
   implicit private val statsBSONHandler = Macros.handler[TournamentStats]
 
-  private val cache = mongoCache[Tournament.ID, TournamentStats](
+  private val cache = mongoCache[TournamentStats.Key, TournamentStats](
     64,
     "tournament:stats",
     60 days,
@@ -28,11 +29,14 @@ final class TournamentStatsApi(
       .buildAsyncFuture(loader(fetch))
   }
 
-  private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] =
+  private def fetch(key: TournamentStats.Key): Fu[TournamentStats] = {
+    val (tourId, format) = TournamentStats.parseKey(key)
     for {
-      rating   <- playerRepo.averageRating(tournamentId)
-      rawStats <- pairingRepo.rawStats(tournamentId)
+      rating <- playerRepo.averageRating(tourId)
+      rawStats <-
+        (if (format == Format.Arena) pairingRepo.rawStats(tourId) else arrangementRepo.rawStats(tourId))
     } yield TournamentStats.readAggregation(rating)(rawStats)
+  }
 }
 
 case class TournamentStats(
@@ -46,6 +50,18 @@ case class TournamentStats(
 )
 
 private object TournamentStats {
+
+  type Key = String
+
+  def makeKey(tour: Tournament): Key =
+    if (tour.isArena) tour.id else s"${tour.id}:${tour.format.key}"
+
+  def parseKey(key: String): (Tournament.ID, Format) = {
+    key.split(":") match {
+      case Array(id, formatKey) => (id, Format.byKey(formatKey).getOrElse(Format.Arena))
+      case _                    => (key, Format.Arena)
+    }
+  }
 
   private case class ColorStats(games: Int, moves: Int, b1: Int, b2: Int) {
     def berserks = b1 + b2

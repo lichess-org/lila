@@ -20,16 +20,19 @@ final private class Pause {
     .expireAfterWrite(20 minutes)
     .build[User.ID, Record]()
 
+  private val minDelay = 10
+  private val maxDelay = 120
+
   private def baseDelayOf(tour: Tournament) =
     Delay {
-      (tour.clock.estimateTotalSeconds / 15)
+      (tour.timeControl.estimateTotalSeconds / 15)
     }
 
   private def delayOf(record: Record, tour: Tournament) =
     Delay {
       // 10s for first pause
       // next ones increasing linearly until 120s
-      baseDelayOf(tour).seconds * (record.pauses - 1) atLeast 10 atMost 120
+      baseDelayOf(tour).seconds * (record.pauses - 1) atLeast minDelay atMost maxDelay
     }
 
   def add(userId: User.ID): Unit =

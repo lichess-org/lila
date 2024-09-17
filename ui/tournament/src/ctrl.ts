@@ -1,4 +1,4 @@
-import { Pages, PlayerInfo, Standing, TeamInfo, TournamentData, TournamentOpts } from './interfaces';
+import { Arrangement, Pages, PlayerInfo, Standing, TeamInfo, TournamentData, TournamentOpts } from './interfaces';
 import { myPage, players } from './pagination';
 import makeSocket, { TournamentSocket } from './socket';
 import * as sound from './sound';
@@ -22,6 +22,8 @@ export default class TournamentController {
   joinSpinner: boolean = false;
   playerInfo: PlayerInfo = {};
   teamInfo: CtrlTeamInfo = {};
+  arrangement: Arrangement | undefined;
+  utc: boolean = false;
   disableClicks: boolean = true;
   searching: boolean = false;
   joinWithTeamSelector: boolean = false;
@@ -46,6 +48,18 @@ export default class TournamentController {
     sound.countDown(this.data);
     this.recountTeams();
     this.redirectToMyGame();
+
+    this.utc = window.lishogi.storage.get('robin.utc') === '1' || false;
+
+    const userIds = window.location.hash.slice(1).split(';');
+    if (
+      userIds.length === 2 &&
+      userIds[0] !== userIds[1] &&
+      this.data.system === 'robin' &&
+      userIds.every(u => this.data.standing.players.some(p => p.id === u))
+    )
+      this.arrangement = this.findOrCreateArrangement(userIds);
+
     window.lishogi.pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
     });
@@ -73,7 +87,12 @@ export default class TournamentController {
     this.redirectToMyGame();
   };
 
-  myGameId = () => this.data.me?.gameId;
+  isRobin = () => this.data.system === 'robin';
+  isArena = () => this.data.system === 'arena';
+
+  myGameId = () => {
+    return this.data.me?.gameId;
+  };
 
   private recountTeams() {
     if (this.data.teamBattle)
@@ -162,6 +181,57 @@ export default class TournamentController {
     if (!this.data.me) return;
     this.focusOnMe = !this.focusOnMe;
     if (this.focusOnMe) this.scrollToMe();
+  };
+
+  findArrangement = (users: string[], order?: number): Arrangement | undefined => {
+    return this.data.standing.arrangements.find(
+      a => users.includes(a.user1.id) && users.includes(a.user2.id) && (a.order || 0) === (order || 0)
+    );
+  };
+
+  findOrCreateArrangement = (users: string[]): Arrangement => {
+    const existing = this.findArrangement(users);
+    if (existing) return existing;
+    else {
+      const arr = {
+        user1: {
+          id: users[0],
+        },
+        user2: {
+          id: users[1],
+        },
+      };
+      this.data.standing.arrangements.push(arr);
+      return arr;
+    }
+  };
+
+  showArrangement = (arrangement: Arrangement | undefined) => {
+    this.arrangement = arrangement;
+    if (arrangement) window.history.replaceState(null, '', '#' + arrangement.user1.id + ';' + arrangement.user2.id);
+    else history.replaceState(null, '', window.location.pathname + window.location.search);
+    this.redraw();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  arrangementMatch = (arrangement: Arrangement, yes: boolean) => {
+    this.socket.send('arrangement-match', {
+      users: arrangement.user1.id + ';' + arrangement.user2.id,
+      order: arrangement.order,
+      y: yes,
+    });
+  };
+
+  arrangementTime = (arrangement: Arrangement, date: Date | undefined) => {
+    const data = {
+      users: arrangement.user1.id + ';' + arrangement.user2.id,
+      order: arrangement.order,
+    };
+    if (date) data['t'] = date.getTime();
+    this.socket.send('arrangement-time', data);
   };
 
   showPlayerInfo = player => {

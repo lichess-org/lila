@@ -15,7 +15,6 @@ object finishedList {
         tr(cls := List("tour-scheduled" -> t.isScheduled))(
           td(cls := "icon")(iconTag(tournamentIconChar(t))),
           header(t),
-          td(cls := "duration")(t.durationString),
           td(cls := "winner")(
             userIdLink(t.winnerId, withOnline = false),
             br
@@ -30,14 +29,14 @@ object finishedList {
       a(href := routes.Tournament.show(t.id))(
         span(cls := "name")(t.name()),
         span(cls := "setup")(
-          t.clock.show,
+          t.timeControl.show,
           " - ",
-          if (!t.variant.standard) variantName(t.variant) else t.perfType.map(_.trans),
+          if (!t.variant.standard) variantName(t.variant) else t.perfType.trans,
           t.position.isDefined option frag(" - ", trans.thematic()),
           " - ",
           t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           " - ",
-          t.durationString
+          t.format.trans
         )
       )
     )

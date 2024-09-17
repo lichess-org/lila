@@ -21,16 +21,15 @@ final class DataForm {
   def create(user: User, teamBattleId: Option[TeamID] = None) =
     form(user, none) fill TournamentSetup(
       name = teamBattleId.isEmpty option user.titleUsername,
-      clockTime = clockTimeDefault,
-      clockIncrement = clockIncrementDefault,
-      clockByoyomi = clockByoyomiDefault,
-      periods = periodsDefault,
+      format = (if (teamBattleId.isDefined) Format.Arena.key else Format.Robin.key).some,
+      timeControlSetup = TimeControl.DataForm.Setup.default,
       minutes = minuteDefault,
-      waitMinutes = waitMinuteDefault.some,
       startDate = none,
+      finishDate = none,
       variant = shogi.variant.Standard.id.toString.some,
       position = None,
       password = None,
+      candidatesOnly = None,
       mode = none,
       rated = true.some,
       conditions = Condition.DataForm.AllSetup.default,
@@ -44,18 +43,17 @@ final class DataForm {
   def edit(user: User, tour: Tournament) =
     form(user, tour.some) fill TournamentSetup(
       name = tour.name.some,
-      clockTime = tour.clock.limitInMinutes,
-      clockIncrement = tour.clock.incrementSeconds,
-      clockByoyomi = tour.clock.byoyomiSeconds,
-      periods = tour.clock.periodsTotal,
+      format = tour.format.key.some,
+      timeControlSetup = TimeControl.DataForm.Setup(tour.timeControl),
       minutes = tour.minutes,
-      waitMinutes = none,
       startDate = tour.startsAt.some,
+      finishDate = tour.finishesAt.some,
       variant = tour.variant.id.toString.some,
       position = tour.position,
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
+      candidatesOnly = tour.candidatesOnly.some,
       conditions = Condition.DataForm.AllSetup(tour.conditions),
       teamBattleByTeam = none,
       berserkable = tour.berserkable.some,
@@ -91,75 +89,60 @@ final class DataForm {
               "Can't change time control after players have joined",
               _.speed == tour.speed || tour.nbPlayers == 0
             )
+            .verifying(
+              "Can't change format after tournament is created",
+              _.realFormat == tour.format
+            )
+            .verifying(
+              "Can't change tournament from 'candidates only' to open, if candidates list is not empty",
+              ~_.candidatesOnly == tour.candidatesOnly || !tour.candidates.exists(_.nonEmpty)
+            )
         }
       }
     }
 
   private def makeMapping(user: User) =
     mapping(
-      "name"           -> optional(nameType),
-      "clockTime"      -> numberInDouble(clockTimeChoices),
-      "clockIncrement" -> numberIn(clockIncrementChoices),
-      "clockByoyomi"   -> numberIn(clockByoyomiChoices),
-      "periods"        -> numberIn(periodsChoices),
+      "name"             -> optional(nameType),
+      "format"           -> optional(nonEmptyText),
+      "timeControlSetup" -> TimeControl.DataForm.setup,
       "minutes" -> {
         if (lila.security.Granter(_.ManageTournament)(user)) number
-        else numberIn(minuteChoices)
+        else numberIn(minutes)
       },
-      "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-      "startDate"   -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-      "variant"     -> optional(text.verifying(v => guessVariant(v).isDefined)),
-      "position"    -> optional(lila.common.Form.sfen.clean),
-      "mode"        -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
-      "rated"       -> optional(boolean),
-      "password"    -> optional(nonEmptyText),
-      "conditions"  -> Condition.DataForm.all,
+      "startDate"      -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
+      "finishDate"     -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+      "variant"        -> optional(text.verifying(v => guessVariant(v).isDefined)),
+      "position"       -> optional(lila.common.Form.sfen.clean),
+      "mode"           -> optional(number.verifying(Mode.all.map(_.id) contains _)), // deprecated, use rated
+      "rated"          -> optional(boolean),
+      "password"       -> optional(nonEmptyText),
+      "candidatesOnly" -> optional(boolean),
+      "conditions"     -> Condition.DataForm.all,
       "teamBattleByTeam" -> optional(nonEmptyText),
       "berserkable"      -> optional(boolean),
       "streakable"       -> optional(boolean),
       "description"      -> optional(cleanNonEmptyText),
       "hasChat"          -> optional(boolean)
     )(TournamentSetup.apply)(TournamentSetup.unapply)
-      .verifying("Invalid clock", _.validClock)
       .verifying("Invalid starting position", _.validPosition)
+      .verifying("End date needs to come at least 20 minutes after start date", _.validFinishDate)
       .verifying("Games with this time control cannot be rated", _.validRatedVariant)
-      .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
-      .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
+      .verifying("Cannot have correspondence in arena format", _.validTimeControl)
+      .verifying("Increase tournament duration, or decrease game clock", _.validSufficientDuration)
+      .verifying("Reduce tournament duration, or increase game clock", _.validNotExcessiveDuration)
+      .verifying("Team battle supports only arena format", _.validFormat)
+      .verifying("Team battle doesn't support candidates only option", _.validCandidates)
 }
 
 object DataForm {
 
   import shogi.variant._
 
-  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ {
-    (2 to 7 by 1) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  }.map(_.toDouble)
-  val clockTimeDefault = 2d
-  private def formatLimit(l: Double) =
-    shogi.Clock.Config(l * 60 toInt, 0, 0, 1).limitString + {
-      if (l <= 1) " minute" else " minutes"
-    }
-  val clockTimeChoices = optionsDouble(clockTimes, formatLimit)
-
-  val clockIncrements       = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  val clockIncrementDefault = 0
-  val clockIncrementChoices = options(clockIncrements, "%d second{s}")
-
-  val clockByoyomi        = (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  val clockByoyomiDefault = 0
-  val clockByoyomiChoices = options(clockByoyomi, "%d second{s}")
-
-  val periods        = 1 to 5
-  val periodsDefault = 1
-  val periodsChoices = options(periods, "%d period{s}")
+  val formats = Format.all.map(_.key)
 
   val minutes       = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
   val minuteDefault = 45
-  val minuteChoices = options(minutes, "%d minute{s}")
-
-  val waitMinutes       = Seq(1, 2, 3, 5, 10, 15, 20, 30, 45, 60)
-  val waitMinuteChoices = options(waitMinutes, "%d minute{s}")
-  val waitMinuteDefault = 5
 
   val validVariants =
     List(Standard, Minishogi, Chushogi, Annanshogi, Kyotoshogi, Checkshogi)
@@ -172,18 +155,17 @@ object DataForm {
 
 private[tournament] case class TournamentSetup(
     name: Option[String],
-    clockTime: Double,
-    clockIncrement: Int,
-    clockByoyomi: Int,
-    periods: Int,
+    format: Option[String],
+    timeControlSetup: TimeControl.DataForm.Setup,
     minutes: Int,
-    waitMinutes: Option[Int],
     startDate: Option[DateTime],
+    finishDate: Option[DateTime],
     variant: Option[String],
     position: Option[Sfen],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
+    candidatesOnly: Option[Boolean],
     conditions: Condition.DataForm.AllSetup,
     teamBattleByTeam: Option[String],
     berserkable: Option[Boolean],
@@ -192,11 +174,19 @@ private[tournament] case class TournamentSetup(
     hasChat: Option[Boolean]
 ) {
 
-  def validClock = (clockTime + clockIncrement) > 0 || (clockTime + clockByoyomi) > 0
+  def validFormat = format == Format.Arena || teamBattleByTeam.isEmpty
+
+  def validCandidates = !(~candidatesOnly) || teamBattleByTeam.isEmpty
 
   def validPosition = position.fold(true) { sfen =>
     sfen.toSituation(realVariant).exists(_.playable(strict = true, withImpasse = true))
   }
+
+  def validFinishDate = finishDate.fold(true) { d =>
+    d.minusMinutes(20) isAfter (realStartDate)
+  }
+
+  def validTimeControl = timeControlSetup.isRealTime || format != Format.Arena
 
   def realMode =
     if (position.filterNot(_.initialOf(realVariant)).isDefined) Mode.Casual
@@ -204,24 +194,41 @@ private[tournament] case class TournamentSetup(
 
   def realVariant = variant.flatMap(DataForm.guessVariant) | shogi.variant.Standard
 
-  def clockConfig = shogi.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods)
+  def realFormat = format.flatMap(Format.byKey) | Format.Arena
 
-  def speed = shogi.Speed(clockConfig)
+  def realStartDate = startDate.filter(_ isAfter DateTime.now).getOrElse(DateTime.now)
+
+  def realMinutes = finishDate.ifTrue(format != Format.Arena).map { fd =>
+    ((fd.getMillis - realStartDate.getMillis) / 60000).toInt
+  } getOrElse minutes
+
+  def speed = timeControlSetup.clock.fold[shogi.Speed](shogi.Speed.Correspondence)(shogi.Speed.apply)
 
   def validRatedVariant =
     realMode == Mode.Casual ||
-      lila.game.Game.allowRated(position, clockConfig.some, realVariant)
+      lila.game.Game.allowRated(position, timeControlSetup.clock, realVariant)
 
-  def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
-  def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 150
+  def validSufficientDuration =
+    if (timeControlSetup.isRealTime)
+      estimateNumberOfGamesOneCanPlay >= 3
+    else realMinutes > 180
+
+  def validNotExcessiveDuration =
+    realMinutes <= minutesMax && {
+      format != Format.Arena || !timeControlSetup.isRealTime || estimateNumberOfGamesOneCanPlay <= 150
+    }
 
   def isPrivate = password.isDefined || conditions.teamMember.isDefined
 
-  private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
+  private def minutesMax = if (format == Format.Arena) DataForm.minutes.last else 24 * 60 * 365 / 3
+
+  private def estimateNumberOfGamesOneCanPlay: Double =
+    (realMinutes * 60) / estimatedGameSeconds
 
   // There are 2 players, and they don't always use all their time (0.8)
   // add 15 seconds for pairing delay
   private def estimatedGameSeconds: Double = {
-    (60 * clockTime + 30 * clockIncrement + clockByoyomi * 20 * periods) * 2 * 0.8
+    (60 * timeControlSetup.clockTime + 30 * timeControlSetup.clockIncrement + timeControlSetup.clockByoyomi * 20 * timeControlSetup.periods) * 2 * 0.8
   } + 15
+
 }

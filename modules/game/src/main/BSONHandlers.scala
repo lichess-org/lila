@@ -133,6 +133,7 @@ object BSONHandlers {
           tournamentId = r strO F.tournamentId,
           simulId = r strO F.simulId,
           postGameStudy = r strO F.postGameStudy,
+          robin = r boolD F.robin,
           analysed = r boolD F.analysed
         )
       )
@@ -179,6 +180,7 @@ object BSONHandlers {
         F.tournamentId       -> o.metadata.tournamentId,
         F.simulId            -> o.metadata.simulId,
         F.analysed           -> w.boolO(o.metadata.analysed),
+        F.robin              -> w.boolO(o.metadata.robin),
         F.positionHashes     -> o.history.positionHashes,
         F.hands              -> Sfen.handsToString(o.hands, o.variant),
         F.usis               -> BinaryFormat.usi.write(o.usis, o.variant)

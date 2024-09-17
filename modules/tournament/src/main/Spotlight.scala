@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 case class Spotlight(
     headline: String,
     description: String,
-    homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
+    homepageHours: Option[Int] = None, // feature on homepage hours before start
     iconFont: Option[String] = None,
     iconImg: Option[String] = None
 )
@@ -53,10 +53,8 @@ object Spotlight {
     }
 
   private def validVariant(tour: Tournament, user: User): Boolean =
-    tour.variant.standard || tour.perfType ?? { pt =>
-      user.perfs(pt).latest ?? { l =>
-        l.plusWeeks(4).isAfterNow
-      }
+    tour.variant.standard || user.perfs(tour.perfType).latest ?? { l =>
+      l.plusWeeks(4).isAfterNow
     }
 
 }

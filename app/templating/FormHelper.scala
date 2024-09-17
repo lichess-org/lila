@@ -21,8 +21,6 @@ trait FormHelper { self: I18nHelper =>
   def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
     form.globalError map errMsg
 
-  val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
-
   val postForm     = form(method := "post")
   val submitButton = button(tpe := "submit")
 
@@ -183,6 +181,9 @@ trait FormHelper { self: I18nHelper =>
         title := confirm
       )(content)
 
+    // allows disabling of a field that defaults to true
+    def hiddenFalse(field: Field): Tag = form3.hidden(field, "false".some)
+
     def hidden(field: Field, value: Option[String] = None): Tag =
       hidden(field.name, ~value.orElse(field.value))
 
@@ -195,6 +196,15 @@ trait FormHelper { self: I18nHelper =>
 
     def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(implicit ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))
+
+    def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
+      st.fieldset(
+        cls := List(
+          "form-fieldset"             -> true,
+          "form-fieldset--toggle"     -> toggle.isDefined,
+          "form-fieldset--toggle-off" -> toggle.has(false)
+        )
+      )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
     def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
       form.globalError map { err =>

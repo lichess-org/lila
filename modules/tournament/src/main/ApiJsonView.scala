@@ -39,9 +39,9 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
       .obj(
         "id"        -> tour.id,
         "createdBy" -> tour.createdBy,
-        "system"    -> "arena", // BC
+        "system"    -> tour.format.key,
         "minutes"   -> tour.minutes,
-        "clock"     -> tour.clock,
+        "clock"     -> tour.timeControl,
         "rated"     -> tour.mode.rated,
         "fullName"  -> tour.name(),
         "nbPlayers" -> tour.nbPlayers,
@@ -52,7 +52,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
         "startsAt"   -> tour.startsAt,
         "finishesAt" -> tour.finishesAt,
         "status"     -> tour.status.id,
-        "perf"       -> tour.perfType.map(perfJson)
+        "perf"       -> perfJson(tour.perfType)
       )
       .add("secondsToStart", tour.secondsToStart.some.filter(0 <))
       .add("hasMaxRating", tour.conditions.maxRating.isDefined)

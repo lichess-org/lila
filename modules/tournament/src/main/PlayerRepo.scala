@@ -8,12 +8,11 @@ import reactivemongo.api.bson._
 import BSONHandlers._
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
-import lila.rating.Perf
-import lila.user.{ Perfs, User }
+import lila.rating.PerfType
+import lila.user.User
 
 final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private def selectId(id: Tournament.ID)       = $doc("_id" -> id)
   private def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
   private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
     $doc(
@@ -24,10 +23,13 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   private val selectWithdraw = $doc("w" -> true)
   private val bestSort       = $doc("m" -> -1)
 
-  def byId(id: Tournament.ID): Fu[Option[Player]] = coll.one[Player](selectId(id))
+  def byId(id: Player.ID): Fu[Option[Player]] = coll.one[Player]($id(id))
 
   private[tournament] def bestByTour(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[List[Player]] =
     coll.ext.find(selectTour(tourId)).sort(bestSort).skip(skip).cursor[Player]().list(nb)
+
+  private[tournament] def allByTour(tourId: Tournament.ID): Fu[List[Player]] =
+    coll.list[Player](selectTour(tourId))
 
   private[tournament] def bestByTourWithRank(
       tourId: Tournament.ID,
@@ -204,18 +206,34 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
 
   def update(tourId: Tournament.ID, userId: User.ID)(f: Player => Fu[Player]) =
     find(tourId, userId) orFail s"No such player: $tourId/$userId" flatMap f flatMap { player =>
-      coll.update.one(selectId(player._id), player).void
+      coll.update.one($id(player._id), player).void
     }
 
-  def join(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf, team: Option[TeamID]) =
+  private def findLastJoinedOrder(tourId: Tournament.ID): Fu[Option[Int]] =
+    coll.primitiveOne[Int](selectTour(tourId), $doc("o" -> -1), "o")
+
+  def join(
+      tourId: Tournament.ID,
+      user: User,
+      perfType: PerfType,
+      team: Option[TeamID],
+      useOrder: Boolean
+  ) =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update.one(selectId(p._id), $unset("w"))
+      case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
       case Some(_)               => funit
-      case None                  => coll.insert.one(Player.make(tourId, user, perfLens, team))
+      case None if useOrder =>
+        findLastJoinedOrder(tourId) flatMap { orderOpt =>
+          coll.insert.one(Player.make(tourId, user, perfType, team, orderOpt.map(_ + 1).orElse(0.some)))
+        }
+      case None => coll.insert.one(Player.make(tourId, user, perfType, team, none))
     } void
 
   def withdraw(tourId: Tournament.ID, userId: User.ID) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
+
+  def resetScore(tourId: Tournament.ID, userId: User.ID) =
+    coll.update.one(selectTourUser(tourId, userId), $set("m" -> 0)).void
 
   private[tournament] def withPoints(tourId: Tournament.ID): Fu[List[Player]] =
     coll.list[Player](
@@ -283,7 +301,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
     }
 
   def setPerformance(player: Player, performance: Int) =
-    coll.update.one(selectId(player.id), $doc("$set" -> $doc("e" -> performance))).void
+    coll.update.one($id(player.id), $doc("$set" -> $doc("e" -> performance))).void
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players

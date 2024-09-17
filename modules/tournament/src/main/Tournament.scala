@@ -6,10 +6,8 @@ import lila.common.ThreadLocalRandom
 import play.api.i18n.Lang
 import scala.util.chaining._
 
-import shogi.Clock.{ Config => ClockConfig }
 import shogi.{ Mode, Speed }
 import lila.common.Animal
-import lila.game.PerfPicker
 import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
@@ -17,14 +15,18 @@ import lila.user.User
 case class Tournament(
     id: Tournament.ID,
     name: String,
+    format: Format,
     status: Status,
-    clock: ClockConfig,
+    timeControl: TimeControl,
     minutes: Int,
     variant: shogi.variant.Variant,
     position: Option[Sfen],
     mode: Mode,
     password: Option[String] = None,
+    candidates: Option[List[User.ID]] = None,
     conditions: Condition.All,
+    closed: Boolean = false,
+    denied: List[User.ID] = Nil,
     teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
     noStreak: Boolean = false,
@@ -49,12 +51,20 @@ case class Tournament(
 
   def isTeamBattle = teamBattle.isDefined
 
+  def isArena     = format == Format.Arena
+  def isRobin     = format == Format.Robin
+  def isOrganized = format == Format.Organized
+
+  def hasArrangements = isRobin || isOrganized
+
+  def notFull = nbPlayers < 1000
+
   def name(full: Boolean = true)(implicit lang: Lang): String = {
     import lila.i18n.I18nKeys.tourname._
     if (isMarathon || isUnique) name
     else if (isTeamBattle && full) xTeamBattle.txt(name)
     else if (isTeamBattle) name
-    else schedule.fold(if (full) s"$name Arena" else name)(_.name(full))
+    else schedule.fold(if (full) s"$name ${format.trans}" else name)(_.name(full))
   }
 
   def isMarathon =
@@ -79,7 +89,12 @@ case class Tournament(
 
   def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
 
-  def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds / 2, 120))
+  def pairingsClosed =
+    secondsToFinish < math.max(30, math.min(~timeControl.clock.map(_.limitSeconds) / 2, 120))
+
+  def candidatesFull = candidates.exists(_.length > 250)
+
+  def candidatesOnly = candidates.isDefined
 
   def isStillWorthEntering =
     isMarathonOrUnique || {
@@ -94,7 +109,7 @@ case class Tournament(
 
   def isDistant = startsAt.isAfter(DateTime.now plusDays 1)
 
-  def duration = new Duration(minutes * 60 * 1000)
+  def duration = new Duration(minutes.toLong * 60 * 1000)
 
   def interval = new Interval(startsAt, duration)
 
@@ -108,17 +123,14 @@ case class Tournament(
 
   def popular = nbPlayers > 3
 
-  def speed = Speed(clock)
+  def speed = timeControl.clock.map(Speed.apply).getOrElse(Speed.Correspondence)
 
-  def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
-  def perfLens                   = PerfPicker.mainOrDefault(speed, variant, none)
+  def perfType: PerfType = PerfType(variant, speed)
 
-  def durationString =
-    if (minutes < 60) s"${minutes}m"
-    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
+  def isCorrespondence = timeControl.days.isDefined
 
-  def berserkable = !noBerserk && clock.berserkable
-  def streakable  = !noStreak
+  def berserkable = !noBerserk && timeControl.clock.exists(_.berserkable) && isArena
+  def streakable  = !noStreak && isArena
 
   def clockStatus =
     secondsToFinish pipe { s =>
@@ -143,7 +155,8 @@ case class Tournament(
 
   lazy val looksLikePrize = !isScheduled && lila.common.String.looksLikePrize(s"$name $description")
 
-  override def toString = s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $clock, $nbPlayers players"
+  override def toString =
+    s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $timeControl, $nbPlayers players"
 }
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
@@ -157,28 +170,31 @@ object Tournament {
   def make(
       by: Either[User.ID, User],
       name: Option[String],
-      clock: ClockConfig,
+      format: Format,
+      timeControl: TimeControl,
       minutes: Int,
       variant: shogi.variant.Variant,
       position: Option[Sfen],
       mode: Mode,
       password: Option[String],
-      waitMinutes: Int,
-      startDate: Option[DateTime],
+      candidatesOnly: Boolean,
+      startDate: DateTime,
       berserkable: Boolean,
       streakable: Boolean,
       teamBattle: Option[TeamBattle],
       description: Option[String],
       hasChat: Boolean
-  ) =
+  ) = {
+    val startsAt = startDate plusSeconds ThreadLocalRandom.nextInt(60)
     Tournament(
       id = makeId,
       name = name | (position match {
         case Some(pos) => Thematic.bySfen(pos, variant).fold("Custom position")(_.fullName)
         case None      => Animal.randomName
       }),
+      format = format,
       status = Status.Created,
-      clock = clock,
+      timeControl = timeControl,
       minutes = minutes,
       createdBy = by.fold(identity, _.id),
       createdAt = DateTime.now,
@@ -187,25 +203,26 @@ object Tournament {
       position = position,
       mode = mode,
       password = password,
+      candidates = candidatesOnly option Nil,
       conditions = Condition.All.empty,
+      closed = false,
       teamBattle = teamBattle,
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startDate match {
-        case Some(startDate) => startDate plusSeconds ThreadLocalRandom.nextInt(60)
-        case None            => DateTime.now plusMinutes waitMinutes
-      },
+      startsAt = startsAt,
       description = description,
       hasChat = hasChat
     )
+  }
 
   def scheduleAs(sched: Schedule, minutes: Int) =
     Tournament(
       id = makeId,
       name = sched.name(false)(defaultLang),
+      format = sched.format,
       status = Status.Created,
-      clock = Schedule clockFor sched,
+      timeControl = Schedule clockFor sched,
       minutes = minutes,
       createdBy = User.lishogiId,
       createdAt = DateTime.now,
@@ -214,6 +231,7 @@ object Tournament {
       position = sched.position,
       mode = Mode.Rated,
       conditions = sched.conditions,
+      closed = false,
       schedule = Some(sched),
       startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
     )

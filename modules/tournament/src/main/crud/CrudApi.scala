@@ -3,7 +3,6 @@ package crud
 
 import BSONHandlers._
 import org.joda.time.DateTime
-import scala.util.chaining._
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
@@ -20,10 +19,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
     CrudForm.apply fill CrudForm.Data(
       name = tour.name,
       homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
-      clockTime = tour.clock.limitInMinutes,
-      clockIncrement = tour.clock.incrementSeconds,
-      clockByoyomi = tour.clock.byoyomiSeconds,
-      periods = tour.clock.periodsTotal,
+      timeControlSetup = TimeControl.DataForm.Setup(tour.timeControl),
       minutes = tour.minutes,
       variant = tour.variant.id,
       position = tour.position,
@@ -67,14 +63,15 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
     Tournament.make(
       by = Left(User.lishogiId),
       name = none,
-      clock = shogi.Clock.Config(0, 0, 0, 1),
+      format = Format.Arena,
+      timeControl = TimeControl.DataForm.Setup.default.convert,
       minutes = 0,
       variant = shogi.variant.Standard,
       position = none,
       mode = shogi.Mode.Rated,
-      password = None,
-      waitMinutes = 0,
-      startDate = none,
+      password = none,
+      candidatesOnly = false,
+      startDate = DateTime.now,
       berserkable = true,
       streakable = true,
       teamBattle = none,
@@ -84,16 +81,16 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
     import data._
-    val clock = shogi.Clock.Config((clockTime * 60).toInt, clockIncrement, clockByoyomi, periods)
     tour.copy(
       name = name,
-      clock = clock,
+      timeControl = timeControlSetup.convert,
       minutes = minutes,
       variant = realVariant,
       startsAt = date,
       schedule = Schedule(
+        format = Format.Arena,
         freq = Schedule.Freq.Unique,
-        speed = Schedule.Speed.fromClock(clock),
+        speed = timeControlSetup.clock.map(Schedule.Speed.fromClock).getOrElse(Schedule.Speed.Correspondence),
         variant = realVariant,
         position = position,
         at = date
@@ -108,12 +105,6 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       position = data.position,
       noBerserk = !data.berserkable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
-    ) pipe { tour =>
-      tour.perfType.fold(tour) { perfType =>
-        tour.copy(conditions =
-          data.conditions.convert(perfType, Map.empty)
-        ) // the CRUD form doesn't support team restrictions so Map.empty is fine
-      }
-    }
+    )
   }
 }

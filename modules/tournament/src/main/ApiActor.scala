@@ -28,11 +28,12 @@ final private[tournament] class ApiActor(
     case lila.playban.SittingDetected(game, player) => api.sittingDetected(game, player).unit
 
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 3) foreach {
-        api.ejectLame(userId, _)
+      leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 7) foreach {
+        api.ejectPlayer(userId, _, lila.user.User.lishogiId)
       }
 
-    case lila.hub.actorApi.mod.MarkBooster(userId) => api.ejectLame(userId, Nil).unit
+    case lila.hub.actorApi.mod.MarkBooster(userId) =>
+      api.ejectPlayer(userId, Nil, lila.user.User.lishogiId).unit
 
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId).unit
 

@@ -14,19 +14,27 @@ function hasFreq(freq, d) {
   return d.schedule && d.schedule.freq === freq;
 }
 
-function clock(d): VNode | undefined {
+function clock(d, trans: Trans): VNode | undefined {
   if (d.isFinished) return;
-  if (d.secondsToFinish)
-    return h(
-      'div.clock',
-      {
-        hook: startClock(d.secondsToFinish),
-      },
-      [h('div.time')]
-    );
+  if (d.secondsToFinish) {
+    if (d.secondsToFinish > oneDayInSeconds)
+      return h('div.clock', [
+        h('span.shy', trans.noarg('endsAt:' as I18nKey) + ' '),
+        new Date(Date.now() + d.secondsToFinish * 1000).toLocaleString(),
+      ]);
+    else
+      return h(
+        'div.clock',
+        {
+          hook: startClock(d.secondsToFinish),
+        },
+        [h('span.shy', trans.noarg('endsAt:' as I18nKey)), h('div.time')]
+      );
+  }
   if (d.secondsToStart) {
     if (d.secondsToStart > oneDayInSeconds)
-      return h('div.clock', [
+      return h(
+        'div.clock',
         h('time.timeago.shy', {
           attrs: {
             title: new Date(d.startsAt).toLocaleString(),
@@ -37,15 +45,16 @@ function clock(d): VNode | undefined {
               (vnode.elm as HTMLElement).setAttribute('datetime', '' + (Date.now() + d.secondsToStart * 1000));
             },
           },
-        }),
-      ]);
-    return h(
-      'div.clock.clock-created',
-      {
-        hook: startClock(d.secondsToStart),
-      },
-      [h('span.shy', 'Starting in'), h('span.time.text')]
-    );
+        })
+      );
+    else
+      return h(
+        'div.clock.clock-created',
+        {
+          hook: startClock(d.secondsToStart),
+        },
+        [h('span.shy', 'Starting in'), h('span.time.text')]
+      );
   }
 }
 
@@ -98,5 +107,5 @@ function title(ctrl: TournamentController) {
 }
 
 export default function (ctrl: TournamentController): VNode {
-  return h('div.tour__main__header', [image(ctrl.data), title(ctrl), clock(ctrl.data)]);
+  return h('div.tour__main__header', [image(ctrl.data), title(ctrl), clock(ctrl.data, ctrl.trans)]);
 }

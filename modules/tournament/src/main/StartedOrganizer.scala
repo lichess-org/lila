@@ -33,7 +33,7 @@ final private class StartedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
-      tournamentRepo.startedCursor
+      tournamentRepo.startedArenaCursor
         .documentSource()
         .mapAsyncUnordered(4) { tour =>
           processTour(tour) recover { case e: Exception =>

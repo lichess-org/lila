@@ -23,6 +23,7 @@ final class GameApiV2(
     gameRepo: lila.game.GameRepo,
     tournamentRepo: lila.tournament.TournamentRepo,
     pairingRepo: lila.tournament.PairingRepo,
+    // arrangementRepo: lila.tournament.ArrangementRepo,
     playerRepo: lila.tournament.PlayerRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter,
@@ -157,7 +158,6 @@ final class GameApiV2(
                   import cats.implicits._
                   (
                     game,
-                    pairing,
                     (
                       playerTeams.get(pairing.user1),
                       playerTeams.get(
@@ -170,15 +170,15 @@ final class GameApiV2(
             }
           }
           .mapConcat(identity)
-          .mapAsync(4) { case (game, pairing, teams) =>
-            enrich(config.flags)(game) dmap { (_, pairing, teams) }
+          .mapAsync(4) { case (game, teams) =>
+            enrich(config.flags)(game) dmap { (_, teams) }
           }
-          .mapAsync(4) { case ((game, analysis), pairing, teams) =>
+          .mapAsync(4) { case ((game, analysis), teams) =>
             config.format match {
               case Format.NOTATION => notationDump.formatter(config.flags)(game, analysis, teams, none)
               case Format.JSON =>
                 def addBerserk(color: shogi.Color)(json: JsObject) =
-                  if (pairing berserkOf color)
+                  if (game.player(color).berserk)
                     json deepMerge Json.obj(
                       "players" -> Json.obj(color.name -> Json.obj("berserk" -> true))
                     )

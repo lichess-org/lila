@@ -58,6 +58,9 @@ object Form {
   def numberIn(choices: Seq[Int]) =
     number.verifying(mustBeOneOf(choices), choices.contains _)
 
+  def numberInDouble(choices: Seq[Double]) =
+    of[Double].verifying(mustBeOneOf(choices), choices.contains _)
+
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 

@@ -2,13 +2,14 @@ package lila.tournament
 
 import lila.common.LightUser
 import lila.hub.LightTeam.TeamID
-import lila.rating.Perf
-import lila.user.{ Perfs, User }
+import lila.rating.PerfType
+import lila.user.User
 
 private[tournament] case class Player(
     _id: Player.ID, // random
     tourId: Tournament.ID,
     userId: User.ID,
+    order: Option[Int], // only for tours with arrangements
     rating: Int,
     provisional: Boolean,
     withdraw: Boolean = false,
@@ -29,7 +30,7 @@ private[tournament] case class Player(
   def doWithdraw = copy(withdraw = true)
   def unWithdraw = copy(withdraw = false)
 
-  def magicScore = score * 10000 + (performanceOption | rating)
+  def magicScore = score * 10000 + (order | (performanceOption | rating))
 
   def performanceOption = performance > 0 option performance
 }
@@ -45,15 +46,17 @@ private[tournament] object Player {
   private[tournament] def make(
       tourId: Tournament.ID,
       user: User,
-      perfLens: Perfs => Perf,
-      team: Option[TeamID]
+      perfType: PerfType,
+      team: Option[TeamID],
+      order: Option[Int]
   ): Player =
-    new Player(
+    Player(
       _id = lila.common.ThreadLocalRandom.nextString(8),
       tourId = tourId,
       userId = user.id,
-      rating = perfLens(user.perfs).intRating,
-      provisional = perfLens(user.perfs).provisional,
+      order = order,
+      rating = user.perfs(perfType).intRating,
+      provisional = user.perfs(perfType).provisional,
       team = team
     )
 }

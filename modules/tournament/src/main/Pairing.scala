@@ -67,7 +67,7 @@ private[tournament] object Pairing {
       u1: User.ID,
       u2: User.ID
   ) =
-    new Pairing(
+    Pairing(
       id = gameId,
       tourId = tourId,
       status = shogi.Status.Created,

@@ -325,6 +325,11 @@ object mon {
       val prep              = future("tournament.pairing.prep")
       val wmmatching        = timer("tournament.pairing.wmmatching").withoutTags()
     }
+    object robin {
+      val create          = future("tournament.robin.create")
+      val createPlayerMap = timer("tournament.robin.create.playerMap").withoutTags()
+      val createFeature   = timer("tournament.robin.create.feature").withoutTags()
+    }
     val created        = gauge("tournament.count").withTag("type", "created")
     val started        = gauge("tournament.count").withTag("type", "started")
     val waitingPlayers = histogram("tournament.waitingPlayers").withoutTags()

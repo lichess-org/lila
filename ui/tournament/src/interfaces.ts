@@ -1,3 +1,5 @@
+import { StatusId } from 'game';
+
 interface Untyped {
   [key: string]: any;
 }
@@ -8,6 +10,7 @@ export interface Standing {
   failed?: boolean;
   page: number;
   players: StandingPlayer[];
+  arrangements: Arrangement[];
 }
 
 export interface TournamentOpts extends Untyped {
@@ -19,6 +22,7 @@ export interface TournamentData extends Untyped {
   teamBattle?: TeamBattle;
   teamStanding?: RankedTeam[];
   myTeam?: RankedTeam;
+  standing: Standing;
 }
 
 export interface TeamBattle {
@@ -85,4 +89,24 @@ export interface DuelPlayer {
 
 export interface DuelTeams {
   [userId: string]: string;
+}
+
+export interface Arrangement {
+  user1: ArrangementUser;
+  user2: ArrangementUser;
+  order?: number;
+  name?: string;
+  color?: Color;
+  gameId?: string;
+  status?: StatusId;
+  winner?: Color;
+  plies?: number;
+  scheduledAt?: number;
+  history?: string[];
+}
+
+export interface ArrangementUser {
+  id: string;
+  readyAt?: number;
+  scheduledAt?: number;
 }

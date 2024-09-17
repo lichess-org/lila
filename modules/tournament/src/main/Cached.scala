@@ -1,17 +1,20 @@
 package lila.tournament
 
 import play.api.i18n.Lang
+import play.api.libs.json.{ JsObject, Json }
 import scala.concurrent.duration._
 
 import lila.hub.LightTeam.TeamID
 import lila.memo._
 import lila.memo.CacheApi._
-import lila.user.User
+import lila.user.{ LightUserApi, User }
 
 final private[tournament] class Cached(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
+    arrangementRepo: ArrangementRepo,
     tournamentRepo: TournamentRepo,
+    lightUserApi: LightUserApi,
     cacheApi: CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext
@@ -29,7 +32,7 @@ final private[tournament] class Cached(
   )
 
   val onHomepage = cacheApi.unit[List[Tournament]] {
-    _.refreshAfterWrite(10 seconds)
+    _.refreshAfterWrite(12 seconds)
       .buildAsyncFuture(_ => tournamentRepo.onHomepage)
   }
 
@@ -105,11 +108,49 @@ final private[tournament] class Cached(
         arena.Sheet(key.userId, _, key.version, key.streakable)
       }
 
-    private val cache = cacheApi[SheetKey, Sheet](8192, "tournament.sheet") {
+    private val cache = cacheApi[SheetKey, Sheet](4096, "tournament.sheet") {
       _.expireAfterAccess(3 minutes)
         .maximumSize(32768)
         .buildAsyncFuture(compute)
     }
+  }
+
+  private[tournament] object robin {
+
+    private val playersCache = cacheApi[Tournament.ID, List[JsObject]](16, "tournament.robin.players") {
+      _.expireAfterWrite(5 minutes)
+        .buildAsyncFuture(computePlayers)
+    }
+    private val arrangementsCache = cacheApi[Tournament.ID, List[JsObject]](16, "tournament.robin.players") {
+      _.expireAfterWrite(3 minutes)
+        .buildAsyncFuture(computeArrangements)
+    }
+
+    def apply(tourId: Tournament.ID) =
+      for {
+        players      <- playersCache get tourId
+        arrangements <- arrangementsCache get tourId
+      } yield Json.obj(
+        "players"      -> players,
+        "arrangements" -> arrangements
+      )
+
+    def invalidatePlayers(tourId: Tournament.ID): Unit =
+      playersCache.invalidate(tourId)
+
+    def invalidateArrangaments(tourId: Tournament.ID): Unit =
+      arrangementsCache.invalidate(tourId)
+
+    def computePlayers(tourId: Tournament.ID): Fu[List[JsObject]] =
+      playerRepo
+        .allByTour(tourId)
+        .flatMap(
+          _.sortBy(_.order.getOrElse(Int.MaxValue)).map(JsonView.tablePlayerJson(lightUserApi, _)).sequenceFu
+        )
+
+    def computeArrangements(tourId: Tournament.ID): Fu[List[JsObject]] =
+      arrangementRepo.allByTour(tourId).map(_.map(JsonView.arrangement))
+
   }
 
   private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]] {

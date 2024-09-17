@@ -65,4 +65,16 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
       }
     }
   }
+
+  &.robin {
+    .tour__main {
+      overflow: auto;
+    }
+    // @include breakpoint($mq-col3) {
+    //   grid-template-columns: $col3-uniboard-side 70vw;
+    //   grid-template-areas:
+    //     'side  main'
+    //     'uchat main';
+    // }
+  }
 }

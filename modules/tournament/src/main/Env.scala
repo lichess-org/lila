@@ -15,6 +15,7 @@ private class TournamentConfig(
     @ConfigName("collection.tournament") val tournamentColl: CollName,
     @ConfigName("collection.player") val playerColl: CollName,
     @ConfigName("collection.pairing") val pairingColl: CollName,
+    @ConfigName("collection.arrangement") val arrangementColl: CollName,
     @ConfigName("collection.leaderboard") val leaderboardColl: CollName,
     @ConfigName("api_actor.name") val apiActorName: String
 )
@@ -53,6 +54,7 @@ final class Env(
 
   lazy val tournamentRepo          = new TournamentRepo(db(config.tournamentColl), config.playerColl)
   lazy val pairingRepo             = new PairingRepo(db(config.pairingColl))
+  lazy val arrangementRepo         = new ArrangementRepo(db(config.arrangementColl))
   lazy val playerRepo              = new PlayerRepo(db(config.playerColl))
   private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))
 
@@ -111,6 +113,8 @@ final class Env(
 
   system.actorOf(Props(wire[StartedOrganizer]))
 
+  system.actorOf(Props(wire[StartedNonArenaOrganizer]))
+
   private lazy val schedulerActor = system.actorOf(Props(wire[TournamentScheduler]))
   scheduler.scheduleWithFixedDelay(1 minute, 5 minutes) { () =>
     schedulerActor ! TournamentScheduler.ScheduleNow
@@ -126,7 +130,8 @@ final class Env(
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
+    fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId) >>| arrangementRepo
+      .isPlaying(tourId, userId)
 
   def cli =
     new lila.common.Cli {

@@ -222,6 +222,18 @@ object PerfType {
       case _                        => none
     }
 
+  def standardBySpeed(speed: Speed): PerfType = speed match {
+    case Speed.UltraBullet    => UltraBullet
+    case Speed.Bullet         => Bullet
+    case Speed.Blitz          => Blitz
+    case Speed.Rapid          => Rapid
+    case Speed.Classical      => Classical
+    case Speed.Correspondence => Correspondence
+  }
+
+  def apply(variant: shogi.variant.Variant, speed: Speed): PerfType =
+    byVariant(variant) getOrElse standardBySpeed(speed)
+
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view
     .map { pt =>
       pt -> Centis(pt match {

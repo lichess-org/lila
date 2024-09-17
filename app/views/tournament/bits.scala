@@ -33,10 +33,10 @@ object bits {
               tour.name
             )
           ),
+          // td(tour.format.trans),
           tour.schedule.fold(td) { s =>
             td(momentFromNow(s.at))
           },
-          td(tour.durationString),
           td(dataIcon := "r", cls := "text")(tour.nbPlayers)
         )
       }
@@ -52,7 +52,7 @@ object bits {
   def scheduleJsI18n(implicit ctx: Context) = i18nJsObject(schedulei18nKeys)
 
   def jsI18n(tour: Tournament)(implicit ctx: Context) = i18nJsObject(
-    i18nKeys ++ (tour.isTeamBattle ?? teamBattleI18nKeys)
+    i18nKeys ++ (tour.isTeamBattle ?? teamBattleI18nKeys) ++ (tour.isRobin ?? robinI18nKeys)
   )
 
   private val i18nKeys = List(
@@ -99,6 +99,21 @@ object bits {
     trans.arena.averagePerformance,
     trans.arena.averageScore,
     trans.team.teamPage
+  ).map(_.key)
+
+  private val robinI18nKeys = List(
+    trans.tourArrangements.scheduledAt,
+    trans.tourArrangements.roundRobin,
+    trans.tourArrangements.startGame,
+    trans.tourArrangements.goToGame,
+    trans.tourArrangements.waitingForOther,
+    trans.tourArrangements.proposeTime,
+    trans.tourArrangements.cancelScheduled,
+    trans.tourArrangements.scheduledAt,
+    trans.tourArrangements.yourUpcomingGames,
+    trans.tourArrangements.playingRightNow,
+    trans.tourArrangements.recentlyPlayedGames,
+    trans.tourArrangements.gameWillNotStart
   ).map(_.key)
 
   private val schedulei18nKeys = List(

@@ -41,10 +41,10 @@ object list {
                   a(href := routes.Tournament.show(e.tour.id))(
                     span(cls := "name")(e.tour.name()),
                     span(cls := "setup")(
-                      e.tour.clock.show,
+                      e.tour.timeControl.show,
                       " - ",
                       if (!e.tour.variant.standard) variantName(e.tour.variant)
-                      else e.tour.perfType.map(_.trans),
+                      else e.tour.perfType.trans,
                       " - ",
                       momentFromNow(e.tour.startsAt)
                     )

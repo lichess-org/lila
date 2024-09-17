@@ -57,14 +57,12 @@ object tournaments {
             a(href := routes.Tournament.show(tour.id))(
               span(cls := "name")(tour.name()),
               span(cls := "setup")(
-                tour.clock.show,
+                tour.timeControl.show,
                 " - ",
-                if (!tour.variant.standard) variantName(tour.variant) else tour.perfType.map(_.trans),
+                if (!tour.variant.standard) variantName(tour.variant) else tour.perfType.trans,
                 tour.position.isDefined option frag(" - ", trans.thematic()),
                 " - ",
-                tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
-                " - ",
-                tour.durationString
+                tour.mode.fold(trans.casualTournament, trans.ratedTournament)()
               )
             )
           ),

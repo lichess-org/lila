@@ -1,30 +1,23 @@
 .tour__form {
-  #form3-name {
-    width: 48% !important;
-    display: inline-block;
+  .tour-name > div {
+    @extend %flex-center-nowrap;
+    overflow: hidden;
+    gap: 1em;
+    > * {
+      flex: 1 1 auto;
+    }
   }
-  .conditions {
-    margin: 1.5em 0;
-    border-color: rgba(128, 128, 128, 0.3);
-    legend {
-      text-align: center;
-    }
-    p {
-      margin: 20px;
-    }
-    .form {
-      display: none;
-    }
-    &.visible {
-      margin: 0;
-      padding: 0;
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
-      .form {
-        display: block;
-      }
-    }
+  form.f-robin .f-arena {
+    display: none;
+  }
+  form.f-arena .f-robin {
+    display: none;
+  }
+  form.f-rt .f-corres {
+    display: none;
+  }
+  form.f-corres .f-rt {
+    display: none;
   }
 }
 .tour__faq {
@@ -54,5 +47,53 @@
   }
   a {
     color: $c-font;
+  }
+}
+
+.form-fieldset {
+  @extend %box-radius;
+  border: $border;
+  background: $c-bg-zebra;
+  margin: 1rem 0 3rem 0;
+  padding: 2rem 2rem 0 2rem;
+
+  legend {
+    @extend %box-radius;
+    background: $c-bg-zebra;
+    padding: 0.5em 1.5em;
+    text-align: right;
+    font-size: 1.2em;
+    user-select: none;
+  }
+}
+.form-fieldset--toggle {
+  legend {
+    border-top: $border;
+    cursor: pointer;
+    &::after {
+      content: 'S';
+      font-family: 'lishogi';
+      margin-left: 1ch;
+    }
+  }
+}
+.form-fieldset--toggle-off {
+  background: none;
+  border-width: 1px 0 0 0;
+  padding-top: 0;
+  legend {
+    border: $border;
+    background: none;
+    &:hover {
+      @extend %box-neat;
+      background: $c-bg-zebra;
+    }
+    &::after {
+      font-family: 'lishogi';
+      content: 'R';
+    }
+  }
+  > *:not(legend) {
+    display: none;
   }
 }
