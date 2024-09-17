@@ -218,7 +218,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .map(member => {
         const confing = members.confing() === member.user.id;
         return [
-          h('button', { key: member.user.id, class: { editing: !!confing } }, [
+          h('div', { key: member.user.id, class: { editing: !!confing } }, [
             h('div.left', [statusIcon(member), userLink({ ...member.user, line: false })]),
             configButton(ctrl, member),
           ]),
@@ -228,7 +228,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .reduce((a, b) => a.concat(b), []),
     isOwner &&
       ordered.length < members.max &&
-      h('div.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
+      h('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
         h('div.left', [
           h('span.status', iconTag(licon.PlusButton)),
           h('div.user-link', ctrl.trans.noarg('addMembers')),

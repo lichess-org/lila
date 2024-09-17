@@ -8,7 +8,8 @@
   position: relative;
   user-select: none;
 
-  > button {
+  > div,
+  button {
     @extend %flex-between-nowrap;
 
     text-align: start;
