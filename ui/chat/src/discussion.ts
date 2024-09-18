@@ -8,6 +8,7 @@ import { lineAction as modLineAction, report } from './moderation';
 import { presetView } from './preset';
 import ChatCtrl from './ctrl';
 import { tempStorage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
@@ -32,7 +33,7 @@ export default function(ctrl: ChatCtrl): Array<VNode | undefined> {
         hook: {
           insert(vnode) {
             const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
-              site.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
+              pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             if (hasMod)
               $el.on('click', '.mod', (e: Event) =>

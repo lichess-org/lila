@@ -6,6 +6,7 @@ import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { ChapterPreview } from './interfaces';
 import { StudyChapters } from './studyChapters';
+import { pubsub } from 'common/pubsub';
 
 export class SearchCtrl {
   open: Toggle;
@@ -18,7 +19,7 @@ export class SearchCtrl {
     readonly redraw: Redraw,
   ) {
     this.open = toggle(false, () => this.query(''));
-    site.pubsub.on('study.search.open', () => this.open(true));
+    pubsub.on('study.search.open', () => this.open(true));
   }
 
   cleanQuery = () => this.query().toLowerCase().trim();
@@ -68,8 +69,9 @@ export function view(ctrl: SearchCtrl) {
       h(
         // dynamic extra class necessary to fully redraw the results and produce innerHTML
         `div.study-search__results.search-query-${cleanQuery}`,
+        { attrs: { tabindex: -1 } },
         ctrl.results().map(c =>
-          h('div', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
+          h('button', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
             h(
               'h3',
               {

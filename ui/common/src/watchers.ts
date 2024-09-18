@@ -1,4 +1,5 @@
 import * as licon from './licon';
+import { pubsub } from './pubsub';
 
 interface Data {
   nb: number;
@@ -20,7 +21,7 @@ export function watchers(element: HTMLElement): void {
   ).appendTo($innerElement);
   const $listEl = $('<div>').appendTo($innerElement);
 
-  site.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
+  pubsub.on('socket.in.crowd', data => set(data.watchers || data));
 
   const set = (data: Data): void => {
     watchersData = data;

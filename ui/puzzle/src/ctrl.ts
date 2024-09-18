@@ -30,6 +30,8 @@ import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
 import { trans } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
+
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
   next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();
@@ -103,13 +105,13 @@ export default class PuzzleCtrl implements ParentCtrl {
     // Make sure chessground is fully shown when the page goes back to being visible.
     document.addEventListener('visibilitychange', () => requestIdleCallback(() => this.jump(this.path), 500));
 
-    site.pubsub.on('zen', () => {
+    pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       if (!$('body').hasClass('zen-auto')) xhr.setZen(zen);
     });
     $('body').addClass('playing'); // for zen
-    $('#zentog').on('click', () => site.pubsub.emit('zen'));
+    $('#zentog').on('click', () => pubsub.emit('zen'));
   }
 
   private loadSound = (name: string, volume?: number) => {
@@ -154,7 +156,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.keyboardMove.update(up);
     }
     requestAnimationFrame(() => this.redraw());
-    site.pubsub.on('board.change', (is3d: boolean) => {
+    pubsub.on('board.change', (is3d: boolean) => {
       this.withGround(g => {
         g.state.addPieceZIndex = is3d;
         g.redrawAll();
@@ -556,7 +558,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.justPlayed = undefined;
     this.autoScrollRequested = true;
     this.pluginUpdate(this.node.fen);
-    site.pubsub.emit('ply', this.node.ply);
+    pubsub.emit('ply', this.node.ply);
   };
 
   userJump = (path: Tree.Path): void => {

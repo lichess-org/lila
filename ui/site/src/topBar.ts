@@ -1,8 +1,8 @@
-import pubsub from './pubsub';
 import { loadCssPath, loadEsm } from './asset';
 import { memoize } from 'common';
 import { spinnerHtml } from 'common/spinner';
 import { clamp } from 'common/algo';
+import { pubsub } from 'common/pubsub';
 
 export default function() {
   const top = document.getElementById('top')!;

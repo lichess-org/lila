@@ -11,7 +11,7 @@
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",
     "ceval": "workspace:*",
-    "chart.js": "4.4.3",
+    "chart.js": "4.4.4",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "chartjs-plugin-datalabels": "^2.2.0",
     "chartjs-plugin-zoom": "^2.0.1",

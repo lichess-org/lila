@@ -137,7 +137,7 @@ Schlag de Pur \"en passant\".</string>
   <string name="enPassantComplete">Gratuliere, du weisch jetzt, wie me \"en passant\" schlaht.</string>
   <string name="stalemate">Patt Schtellig</string>
   <string name="theGameIsADraw">Es Schpiel isch Remis (unentschide)</string>
-  <string name="stalemateIntro">Wänn en Schpiller nöd im Schach staht und kein gültige Zug mache chann, dänn isch es Patt und die Partie ändet Remis: Niemer günnt und niemer verlürt.</string>
+  <string name="stalemateIntro">Staht de König nöd im Schach und es isch kein gültige Zug möglich, dänn isch \"Patt\", d. h. s\'Schpiel ändet \"Remis\" (unentschiede): Niemer günnt, niemer verlürt.</string>
   <string name="stalemateGoal">Schwarz absichtlich Patt setze:
 - Schwarz chann kein Zug mache
 - Wiss chann kei \"Schach\" büte.</string>

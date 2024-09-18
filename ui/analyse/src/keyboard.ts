@@ -3,6 +3,7 @@ import AnalyseCtrl from './ctrl';
 import * as xhr from 'common/xhr';
 import { snabDialog } from 'common/dialog';
 import { VNode } from 'snabbdom';
+import { pubsub } from 'common/pubsub';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;
@@ -68,7 +69,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
-      if (ctrl.keyboardHelp) site.pubsub.emit('analyse.close-all');
+      if (ctrl.keyboardHelp) pubsub.emit('analyse.close-all');
       ctrl.redraw();
     })
     .bind('l', ctrl.toggleCeval)

@@ -37,14 +37,14 @@
   <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">Anstatt %s, wo du diräkt in API Afrage verwände chasch.</string>
   <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">generier es persönlichs Zuegangs Token</string>
   <string name="guardTokensCarefully">Bewahr die Tokens guet uf - sie sind wie Passwörter! De Vorteil vu Tokens, gägenüber Passwörter, für es Skript, isch, dass mer Tokens chann widerrüefe und dass mer viel vu dene erzüge chann.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">Da isch es %1$s und de %2$s.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">Da isch es %1$s und de %2$s.</string>
   <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">persönlichs Token App Bischpil</string>
   <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API Dokumentation</string>
   <string name="newToken">Neus Zugangs Token</string>
   <string name="apiAccessTokens">API Zuegangs Tokens</string>
   <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Gmacht %s</string>
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Zletscht benutzt %s</string>
-  <string name="alreadyHavePlayedGames">Du häsch scho Partie gschpillt!</string>
+  <string name="alreadyHavePlayedGames">Du häsch scho Schpiel absolviert!</string>
   <string name="attentionOfDevelopers">De Hiwis isch nur für Entwickler:</string>
   <string name="possibleToPrefill">Es isch möglich, das Formular vorab uszfülle, idem d\'Abfrageparameter vu de URL g\'änderet werded.</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Zum Bischpil: %s</string>

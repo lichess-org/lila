@@ -16,7 +16,6 @@ export default async function initModule(): Promise<DasherCtrl> {
 
   const $el = $('#dasher_app').html(`<div class="initiating">${spinnerHtml}</div>`);
   const element = $el.empty()[0] as HTMLElement;
-  const toggle = $('#top .dasher')[0] as HTMLElement;
 
   const redraw: Redraw = () => {
     vnode = patch(
@@ -30,12 +29,6 @@ export default async function initModule(): Promise<DasherCtrl> {
   const data = await xhr.json('/dasher');
   ctrl = new DasherCtrl(data, redraw);
   redraw();
-
-  new MutationObserver(() => {
-    site.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'));
-  }).observe(toggle, {
-    attributes: true,
-  });
 
   return ctrl;
 }
