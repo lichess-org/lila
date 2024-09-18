@@ -43,7 +43,7 @@
   <string name="doubleCheck">Doppelschach</string>
   <string name="doubleCheckDescription">Abzug mit doppletem Schachgebot, wobi die vorher verdeckti Figur- und die Abzogeni, de König glichzitig agrifed.</string>
   <string name="endgame">Ändschpil</string>
-  <string name="endgameDescription">E Taktik für die letscht Fase vu de Partie.</string>
+  <string name="endgameDescription">E Taktik für die letscht Fase vum Schpiel.</string>
   <string name="enPassantDescription">E Taktik wo \"En-Passant\" beinhaltet - e Regle wo en Pur cha en gägnerische Pur schlaa, wänn de ihn mit em \"Zwei-Fälder-Zug\" übergange hät.</string>
   <string name="exposedKing">Exponierte König</string>
   <string name="exposedKingDescription">E Taktik wo de König nu vu wenige Figure verteidigt wird und oft zu Schachmatt fühert.</string>
@@ -61,10 +61,10 @@
   <string name="knightEndgameDescription">Es Ändschpiel, nur mit Schpringer und Pure.</string>
   <string name="long">Mehrzügigi Ufgab</string>
   <string name="longDescription">3 Züg zum Sieg.</string>
-  <string name="master">Meischter Partie</string>
-  <string name="masterDescription">Ufgabe us Partie vu Schpiller mit Titel.</string>
-  <string name="masterVsMaster">Meischter gäge Meischter Partie</string>
-  <string name="masterVsMasterDescription">Ufgabe us Partie vu 2 Schpiller mit Titel.</string>
+  <string name="master">Meischter Schpiel</string>
+  <string name="masterDescription">Ufgabe us Schpiel vu Schpiller mit Titel.</string>
+  <string name="masterVsMaster">Meischter gäge Meischter Schpiel</string>
+  <string name="masterVsMasterDescription">Ufgabe us Schpiel vu 2 Schpiller mit Titel.</string>
   <string name="mate">Schachmatt</string>
   <string name="mateDescription">Günn das Schpiel mit Schtil.</string>
   <string name="mateIn1">Matt in 1</string>
@@ -78,11 +78,11 @@
   <string name="mateIn5">Matt in 5 oder meh</string>
   <string name="mateIn5Description">Find e langi Mattfüherig.</string>
   <string name="middlegame">Mittelschpiel</string>
-  <string name="middlegameDescription">E Taktik für die zweit Fase vu de Partie.</string>
+  <string name="middlegameDescription">E Taktik für die zweit Fase vum Schpiel.</string>
   <string name="oneMove">1-zügigi Ufgab</string>
   <string name="oneMoveDescription">E Ufgab, mit nur 1 Zug.</string>
   <string name="opening">Eröffnig</string>
-  <string name="openingDescription">E Taktik für die erscht Fase vu de Partie.</string>
+  <string name="openingDescription">E Taktik für die erscht Fase vum Schpiel.</string>
   <string name="pawnEndgame">Pure Ändschpiel</string>
   <string name="pawnEndgameDescription">Es Ändschpiel nur mit Pure.</string>
   <string name="pin">Fesslig</string>
@@ -107,8 +107,8 @@
   <string name="skewerDescription">Bim \"Schpiess\" wird e Figur, wo vor ere Andere staht - oft wird sie au dezue zwunge, sich vor die Ander z\'schtelle - agriffe, so dass sie us em Wäg muess und ermöglicht, die Hinder z\'schlah. Quasi umgekehrti Fesslig.</string>
   <string name="smotheredMate">Erschtickigs Matt</string>
   <string name="smotheredMateDescription">Es Schachmatt mit em Springer, wo sich de König nöd bewege cha, will er vu sine eigene Figuren umstellt-, also vollkomme igschlosse, wird.</string>
-  <string name="superGM">Super-Grossmeischter-Partie</string>
-  <string name="superGMDescription">Ufgabe us Partie, vu de beschte Schpiller uf de Wält.</string>
+  <string name="superGM">Super-Grossmeischter-Schpiel</string>
+  <string name="superGMDescription">Ufgabe us Schpiel, vu de beschte Schpiller uf de Wält.</string>
   <string name="trappedPiece">G\'fangeni Figur</string>
   <string name="trappedPieceDescription">E Figur cha em Schlah nöd entgah, will sie nur begränzt Züg mache cha.</string>
   <string name="underPromotion">Underverwandlig</string>
@@ -121,7 +121,7 @@
   <string name="zugzwangDescription">De Gägner hät nur e limitierti Azahl Züg und Jede verschlächteret sini Schtellig.</string>
   <string name="healthyMix">En gsunde Mix</string>
   <string name="healthyMixDescription">Es bitzli vu Allem, me weiss nöd was eim erwartet, drum isch mer uf alles g\'fasst - genau wie bi richtige Schachschpiel.</string>
-  <string name="playerGames">Schpiller Partie</string>
+  <string name="playerGames">Schpiller-Schpiel</string>
   <string name="playerGamesDescription">Suech nach Ufgabe us dine Schpiel oder Ufgabe us Schpiel vu Andere.</string>
   <string name="puzzleDownloadInformation">Die Ufgabe sind öffentlich, mer channs abelade under %s.</string>
 </resources>
