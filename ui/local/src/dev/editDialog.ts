@@ -10,6 +10,7 @@ import { Bot } from '../bot';
 import { AssetDialog, type AssetType } from './assetDialog';
 import { historyDialog } from './historyDialog';
 import { env } from '../localEnv';
+import { pubsub } from 'common/pubsub';
 
 export class EditDialog {
   static default: BotInfo = deepFreeze<BotInfo>({
@@ -56,12 +57,12 @@ export class EditDialog {
       actions: this.actions,
       noClickAway: true,
       onClose: () => {
-        site.pubsub.off('local.dev.import.book', this.onBookImported);
+        pubsub.off('local.dev.import.book', this.onBookImported);
         window.removeEventListener('resize', this.deck.resize);
         this.chartjsCleanups.forEach(cleanup => cleanup());
       },
     });
-    site.pubsub.on('local.dev.import.book', this.onBookImported);
+    pubsub.on('local.dev.import.book', this.onBookImported);
     window.addEventListener('resize', this.deck.resize);
     setTimeout(this.deck.resize);
     return this.dlg.show();

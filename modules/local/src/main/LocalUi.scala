@@ -27,7 +27,7 @@ final class LocalUi(helpers: Helpers):
           data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))
         )
       )
-      .js(EsmInit("round"))
+      .js(Esm("round"))
       .csp(_.withWebAssembly)
       .graph(
         OpenGraph(

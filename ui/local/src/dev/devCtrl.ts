@@ -8,6 +8,7 @@ import { storedBooleanProp } from 'common/storage';
 import type { GameStatus, MoveContext } from '../localGame';
 import { env } from '../localEnv';
 import stringify from 'json-stringify-pretty-compact';
+import { pubsub } from 'common/pubsub';
 
 export interface Result {
   winner: Color | undefined;
@@ -47,7 +48,7 @@ export class DevCtrl {
   async init(): Promise<void> {
     this.resetScript();
     await this.getStoredRatings();
-    site.pubsub.on('theme', env.redraw);
+    pubsub.on('theme', env.redraw);
   }
 
   get hurry(): boolean {

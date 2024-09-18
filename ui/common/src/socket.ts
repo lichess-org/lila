@@ -128,7 +128,7 @@ export default class StrongSocket implements SocketI {
         this.lastUrl = ws.url;
         this.debug('connected to ' + this.lastUrl);
         const cl = document.body.classList;
-        if (site.pubsub.past('socket.hasConnected')) cl.add('reconnected');
+        if (pubsub.past('socket.hasConnected')) cl.add('reconnected');
         cl.remove('offline');
         cl.add('online');
         this.onSuccess();
@@ -280,7 +280,7 @@ export default class StrongSocket implements SocketI {
     this.ws = undefined;
   };
 
-  disconnect = (): void => {
+  private disconnect = (): void => {
     const ws = this.ws;
     if (ws) {
       this.debug('Disconnect');

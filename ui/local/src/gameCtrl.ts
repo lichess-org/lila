@@ -7,6 +7,7 @@ import type { ClockData } from 'round';
 import type { LocalPlayOpts, LocalSetup, SoundEvent, LocalSpeed } from './types';
 import { env } from './localEnv';
 import { statusOf } from 'game/status';
+import { pubsub } from 'common/pubsub';
 
 export class GameCtrl implements LocalSetup {
   private stopped = true;
@@ -33,8 +34,8 @@ export class GameCtrl implements LocalSetup {
   async init(): Promise<void> {
     env.bot.setUids(this.setup);
     env.assets.preload();
-    site.pubsub.on('ply', this.jump);
-    site.pubsub.on('flip', env.redraw);
+    pubsub.on('ply', this.jump);
+    pubsub.on('flip', env.redraw);
     this.resetClock();
     this.proxy = new RoundProxy();
     this.triggerStart();

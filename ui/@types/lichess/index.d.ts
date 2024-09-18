@@ -129,7 +129,6 @@ interface SocketI {
   send: SocketSend;
   sign(s: string): void;
   destroy(): void;
-  disconnect(): void;
 }
 
 interface LichessSpeech {
@@ -163,8 +162,6 @@ interface Trans {
   vdom<T>(key: string, ...args: T[]): Array<string | T>;
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
 }
-
-type PubsubCallback = (...data: any[]) => void;
 
 interface LichessAnnouncement {
   msg?: string;

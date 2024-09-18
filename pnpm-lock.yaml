@@ -1430,6 +1430,10 @@ packages:
     resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
+  chart.js@4.4.3:
+    resolution: {integrity: sha512-qK1gkGSRYcJzqrrzdR6a+I0vQ4/R+SoODXyAjscQ/4mzuNzySaMCd+hyVxitSY1+L2fjPD1Gbn+ibNqRmwQeLw==}
+    engines: {pnpm: '>=8'}
+
   chart.js@4.4.4:
     resolution: {integrity: sha512-emICKGBABnxhMjUjlYRR12PmOXhJ2eJjEHL2/dZlWjxRAZT1D8xplLFq5M0tMQK8ja+wBS/tuVEJB5C6r7VxJA==}
     engines: {pnpm: '>=8'}
@@ -3063,6 +3067,10 @@ snapshots:
       supports-color: 7.2.0
 
   chalk@5.3.0: {}
+
+  chart.js@4.4.3:
+    dependencies:
+      '@kurkle/color': 0.3.2
 
   chart.js@4.4.4:
     dependencies:

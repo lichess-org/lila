@@ -10,6 +10,7 @@ import {
 import { alert } from 'common/dialog';
 import { zip } from 'common/algo';
 import { env } from '../localEnv';
+import { pubsub } from 'common/pubsub';
 
 // dev asset keys are a 12 digit hex hash of the asset contents (plus the file extension for image/sound)
 // dev asset names are strictly cosmetic and can be renamed at any time
@@ -233,7 +234,7 @@ export class DevAssets extends Assets {
       alert(`${name} exported to bot studio. ${promises.length ? ` ${promises.length} bots updated` : ''}`);
     } else {
       this.urls.bookCover.set(key, URL.createObjectURL(new Blob([cover.blob], { type: 'image/png' })));
-      site.pubsub.emit('local.dev.import.book', key, oldKey);
+      pubsub.emit('local.dev.import.book', key, oldKey);
       if (promises.length) alert(`updated ${promises.length} bots with new ${name}`);
     }
     return key;
@@ -253,7 +254,7 @@ export class DevAssets extends Assets {
 
     await this.init();
     const [key, oldKey] = e.newValue.split(',');
-    site.pubsub.emit('local.dev.import.book', key, oldKey);
+    pubsub.emit('local.dev.import.book', key, oldKey);
   };
 
   private traverse(
