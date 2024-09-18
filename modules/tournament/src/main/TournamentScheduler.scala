@@ -11,27 +11,6 @@ import lila.common.LilaScheduler
 import lila.core.i18n.Translator
 import lila.gathering.Condition
 
-/** This case class (and underlying trait) exists to ensure conflicts are checked against a tournament's true
-  * interval, rather than the interval which could be inferred from the tournament's schedule parameter via
-  * [[Schedule.durationFor]]
-  *
-  * Such a mismatch could occur if durationFor is modified and existing tournaments are rehydrated from db.
-  * Another source of mismatch is that tourney actual start is tweaked from scheduled start by a random number
-  * of seconds (see [[Tournament.scheduleAs]])
-  */
-private[tournament] case class ConcreteSchedule(
-    schedule: Schedule,
-    startsAt: Instant,
-    duration: java.time.Duration
-) extends Schedule.ScheduleWithInterval
-
-private[tournament] case class ConcreteTourney(
-    tournament: Tournament,
-    schedule: Schedule,
-    startsAt: Instant,
-    duration: java.time.Duration
-) extends Schedule.ScheduleWithInterval
-
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     Executor,
     Scheduler,
@@ -43,18 +22,10 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
         val plans = TournamentScheduler.allWithConflicts()
-        val possibleTourneys = plans.map(p => (p.schedule, p.build)).map { case (s, t) =>
-          ConcreteTourney(t, s, t.startsAt, t.duration)
-        }
 
-        val existingSchedules = dbScheds.flatMap { t =>
-          // Ignore tournaments with schedule=None - they never conflict.
-          t.schedule.map { ConcreteSchedule(_, t.startsAt, t.duration) }
-        }
+        val filteredPlans = PlanBuilder.filterAndStaggerPlans(dbScheds, plans)
 
-        val prunedTourneys = Schedule.pruneConflicts(existingSchedules, possibleTourneys)
-
-        tournamentRepo.insert(prunedTourneys.map(_.tournament)).logFailure(logger)
+        tournamentRepo.insert(filteredPlans.map(_.build)).logFailure(logger)
       catch
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
@@ -492,7 +463,7 @@ Thank you all, you rock!""".some,
               ).plan
             )
       }
-    ).flatten.filter(_.schedule.atInstant.isAfter(rightNow))
+    ).flatten.filter(_.startsAt.isAfter(rightNow))
 
   private def atTopOfHour(rightNow: Instant, hourDelta: Int): LocalDateTime =
     rightNow.plusHours(hourDelta).dateTime.withMinute(0)

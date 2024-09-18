@@ -1,5 +1,7 @@
 package lila.tournament
 
+import PlanBuilder.{ ScheduleWithInterval, SCHEDULE_DAILY_OVERLAP_MINS }
+
 object ScheduleTestHelpers:
   def planSortKey(p: Schedule.Plan) =
     val s = p.schedule
@@ -88,7 +90,7 @@ object ScheduleTestHelpers:
       existingSchedules.foreach { s => getAllHours(s).foreach { addToMap(_, s) } }
 
       possibleNewPlans
-        .foldLeft(List[A]()): (newPlans, p) =>
+        .foldLeft(Nil): (newPlans, p) =>
           val potentialConflicts = getConflictingHours(p).flatMap { hourMap.getOrElse(_, Nil) }
           if p.conflictsWithFailOnUsurp(potentialConflicts) then newPlans
           else

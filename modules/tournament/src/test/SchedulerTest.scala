@@ -79,7 +79,7 @@ class SchedulerTest extends munit.FunSuite:
     )
 
   test("pruneConflict methods produce identical results"):
-    val prescheduled = Schedule.pruneConflicts(
+    val prescheduled = PlanBuilder.pruneConflicts(
       List.empty,
       TournamentScheduler.allWithConflicts(instantOf(2024, 7, 31, 23, 0))
     )
@@ -89,7 +89,7 @@ class SchedulerTest extends munit.FunSuite:
     }
     assertEquals(
       ExperimentalPruner.pruneConflictsFailOnUsurp(prescheduled, allTourneys),
-      Schedule.pruneConflicts(prescheduled, allTourneys)
+      PlanBuilder.pruneConflicts(prescheduled, allTourneys)
     )
 
   test("2024-09-05 - thursday, summer"):
