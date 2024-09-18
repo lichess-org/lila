@@ -25,6 +25,7 @@ import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';
 import type Sortable from 'sortablejs';
+import { pubsub } from 'common/pubsub';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -203,7 +204,7 @@ export function view(ctrl: StudyCtrl): VNode {
           });
           vnode.data!.li = {};
           update(vnode);
-          site.pubsub.emit('chat.resize');
+          pubsub.emit('chat.resize');
         },
         postpatch(old, vnode) {
           vnode.data!.li = old.data!.li;

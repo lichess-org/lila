@@ -1,6 +1,7 @@
 import * as control from './control';
 import PuzzleCtrl from './ctrl';
 import { snabDialog } from 'common/dialog';
+import { pubsub } from 'common/pubsub';
 
 export default (ctrl: PuzzleCtrl) =>
   site.mousetrap
@@ -28,7 +29,7 @@ export default (ctrl: PuzzleCtrl) =>
         else ctrl.toggleCeval();
       }
     })
-    .bind('z', () => site.pubsub.emit('zen'))
+    .bind('z', () => pubsub.emit('zen'))
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle)

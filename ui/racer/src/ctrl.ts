@@ -28,6 +28,7 @@ import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 import StrongSocket from 'common/socket';
 import { trans } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
 
 export default class RacerCtrl implements PuzCtrl {
   private data: RacerData;
@@ -93,7 +94,7 @@ export default class RacerCtrl implements PuzCtrl {
       },
     });
     site.socket.sign(this.sign);
-    site.pubsub.on('zen', () => {
+    pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       this.setZen(zen);
@@ -151,7 +152,7 @@ export default class RacerCtrl implements PuzCtrl {
     this.setGround();
     this.redraw();
     sound.end();
-    site.pubsub.emit('ply', 0); // restore resize handle
+    pubsub.emit('ply', 0); // restore resize handle
     $('body').toggleClass('playing'); // end zen
     this.redrawSlow();
     clearInterval(this.redrawInterval);
@@ -218,7 +219,7 @@ export default class RacerCtrl implements PuzCtrl {
       this.run.current.moveIndex = 0;
       this.setGround();
     }
-    site.pubsub.emit('ply', this.run.moves);
+    pubsub.emit('ply', this.run.moves);
   };
 
   private redrawQuick = () => setTimeout(this.redraw, 100);
@@ -272,7 +273,7 @@ export default class RacerCtrl implements PuzCtrl {
       }),
   );
 
-  private toggleZen = () => site.pubsub.emit('zen');
+  private toggleZen = () => pubsub.emit('zen');
 
   private hotkeys = () => site.mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
 }

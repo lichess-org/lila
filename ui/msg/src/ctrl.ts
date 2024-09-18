@@ -14,6 +14,7 @@ import { throttle } from 'common/timing';
 import * as network from './network';
 import { scroller } from './view/scroller';
 import { storage, type LichessStorage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export default class MsgCtrl {
   data: MsgData;
@@ -170,7 +171,7 @@ export default class MsgCtrl {
   setRead = () => {
     const msg = this.currentContact()?.lastMsg;
     if (msg && msg.user != this.data.me.id) {
-      site.pubsub.emit('notify-app.set-read', msg.user);
+      pubsub.emit('notify-app.set-read', msg.user);
       if (msg.read) return false;
       msg.read = true;
       network.setRead(msg.user);
