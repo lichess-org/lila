@@ -54,7 +54,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   private def layout(title: String)(mods: AttrPair*)(using Context) =
     Page(title)
       .css("bits.cms")
-      .js(EsmInit("bits.cms"))
+      .js(Esm("bits.cms"))
       .wrap: body =>
         main(cls := "page-menu")(menu, div(cls := "page-menu__content cms box")(mods)(body))
 

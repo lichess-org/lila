@@ -24,7 +24,7 @@ final class ReportUi(helpers: Helpers):
   def inbox(form: Form[?], user: User, msgs: List[lila.core.msg.IdText])(using ctx: Context) =
     Page(trans.site.reportAUser.txt())
       .css("mod.report.form")
-      .js(embedReasonToggleJs):
+      .js(esmInitBit("embedReasonToggle")):
         main(cls := "page-small box box-pad report")(
           h1(cls := "box__top")(trans.site.reportAUser()),
           postForm(
@@ -63,7 +63,7 @@ final class ReportUi(helpers: Helpers):
   def form(form: Form[?], reqUser: Option[User] = None, from: Option[String])(using ctx: Context) =
     Page(trans.site.reportAUser.txt())
       .css("mod.report.form")
-      .js(embedReasonToggleJs):
+      .js(esmInitBit("embedReasonToggle")):
         val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1.key))
         main(cls := "page-small box box-pad report")(
           h1(cls := "box__top")(trans.site.reportAUser()),
@@ -120,9 +120,6 @@ final class ReportUi(helpers: Helpers):
       "Read more about Lichess reports"
   )
 
-  private val embedReasonToggleJs = embedJsUnsafeLoadThen:
-    """$('#form3-reason').on('change', function() { $('.report-reason').addClass('none').filter('.report-reason-' + this.value).removeClass('none'); })"""
-
   private def descriptionHelp(current: String)(using ctx: Context) = frag:
     import Reason.*
     val maxLength = "Maximum 3000 characters."
@@ -166,16 +163,7 @@ final class ReportUi(helpers: Helpers):
   def thanks(userId: UserId, blocked: Boolean)(using ctx: Context) =
     val title = "Thanks for the report"
     Page(title)
-      .js(
-        embedJsUnsafeLoadThen("""
-        $('button.report-block').one('click', function() {
-        const $button = $(this);
-        $button.find('span').text('Blocking...');
-        fetch(this.dataset.action, {method:'post'})
-          .then(() => $button.find('span').text('Blocked!'));
-        });
-        """)
-      ):
+      .js(esmInitBit("thanksReport")):
         main(cls := "page-small box box-pad")(
           h1(cls := "box__top")(title),
           p("The moderators will review it very soon, and take appropriate action."),

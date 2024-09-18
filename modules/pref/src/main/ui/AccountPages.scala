@@ -162,7 +162,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
       )
 
   def password(form: Form[?])(using Context) =
-    AccountPage(trans.site.changePassword.txt(), "password").js(jsModuleInit("bits.passwordComplexity")):
+    AccountPage(trans.site.changePassword.txt(), "password").js(esmInit("bits.passwordComplexity")):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.changePassword()),
         standardFlash | flashMessage("warning")(trans.site.passwordSuggestion()),

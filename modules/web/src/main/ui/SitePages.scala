@@ -171,13 +171,7 @@ final class SitePages(helpers: Helpers):
   ) =
     SitePage(title = title, active = "source", contentCls = "page force-ltr")
       .css("bits.source")
-      .js(
-        embedJsUnsafeLoadThen:
-          """$('#asset-version-date').text(site.info.date);
-  $('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit).find('pre').text(site.info.commit.substr(0, 7));
-  $('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master').find('pre').text('...');
-  $('#asset-version-message').text(site.info.message);"""
-      ):
+      .js(esmInitBit("setAssetInfo")):
         frag(
           st.section(cls := "box")(
             h1(cls := "box__top")(title),
@@ -213,7 +207,7 @@ final class SitePages(helpers: Helpers):
     import trans.{ lag as trl }
     SitePage(title = "Is Lichess lagging?", active = "lag")
       .css("bits.lag")
-      .js(jsModuleInit("chart.lag")):
+      .js(esmInit("chart.lag")):
         div(cls := "box box-pad lag")(
           h1(cls := "box__top")(
             trl.isLichessLagging(),

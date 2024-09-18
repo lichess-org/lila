@@ -52,7 +52,7 @@ trait AssetFullHelper:
     manifest.deps(keys).map { dep =>
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
     }
-  def roundNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("round.nvui"))
+  def roundNvuiTag(using ctx: Context) = ctx.blind.option(Esm("round.nvui"))
   lazy val cashTag: Frag               = iifeModule("javascripts/vendor/cash.min.js")
   lazy val chessgroundTag: Frag        = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 

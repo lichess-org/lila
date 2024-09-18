@@ -16,7 +16,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
   )(mods: AttrPair*)(using lila.ui.Context): Page =
     Page(title)
       .css("bits.clas")
-      .js(EsmInit("bits.clas"))
+      .js(Esm("bits.clas"))
       .wrap: body =>
         if Granter.opt(_.Teacher) then
           main(cls := "page-menu")(
@@ -91,7 +91,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
     def clas(c: Clas, userTable: Frag)(using Context) =
       Page("IP address")
         .css("mod.misc")
-        .js(EsmInit("mod.search")):
+        .js(Esm("mod.search")):
           main(cls := "page-menu")(
             searchMenu,
             div(cls := "mod-search page-menu__content box")(

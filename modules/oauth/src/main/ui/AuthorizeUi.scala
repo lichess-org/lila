@@ -18,12 +18,6 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
   private def buttonClass(prompt: AuthorizationRequest.Prompt) =
     s"button${prompt.isDanger.so(" button-red confirm text")}"
 
-  def moreJs(prompt: AuthorizationRequest.Prompt) =
-    val buttonDelay = if prompt.isDanger then 5000 else 2000
-    // ensure maximum browser compatibility
-    val cls = buttonClass(prompt)
-    s"""setTimeout(function(){var el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.setAttribute('class','$cls')}, $buttonDelay);"""
-
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using
       Context
   ) =
@@ -31,7 +25,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     Page("Authorization")
       .css("bits.oauth")
-      .js(embedJsUnsafe(moreJs(prompt)))
+      .js(esmInitBit("oauth", "danger" -> prompt.isDanger))
       .csp(_.withLegacyCompatibility):
         main(cls := "oauth box box-pad force-ltr")(
           div(cls := "oauth__top")(

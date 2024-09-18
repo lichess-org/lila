@@ -15,7 +15,7 @@ final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String =>
   )(using Context) =
     Page("Public Chats")
       .css("mod.publicChats")
-      .js(EsmInit("bits.publicChats")):
+      .js(Esm("bits.publicChats")):
         main(cls := "page-menu")(
           modUi.menu("public-chat"),
           div(id := "comm-wrap")(
