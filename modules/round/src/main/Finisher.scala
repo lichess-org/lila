@@ -137,7 +137,7 @@ final private class Finisher(
                 newGame foreach proxy.setFinishedGame
                 val newFinish = finish.copy(game = newGame | game)
                 Bus.publish(newFinish, "finishGame")
-                game.userIds.foreach { userId =>
+                game.userIds foreach { userId =>
                   Bus.publish(newFinish, s"userFinishGame:$userId")
                 }
               }

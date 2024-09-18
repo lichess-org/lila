@@ -751,8 +751,12 @@ object Game {
     if (mode.rated) clock.estimateTotalTime >= boardApiRatedMinClock.estimateTotalTime
     else shogi.Speed(clock) >= Speed.Rapid
 
-  def isBotCompatible(game: Game) =
-    game.hasAi || game.source.contains(Source.Friend)
+  def isBotCompatible(game: Game): Boolean =
+    (game.hasAi || game.source.contains(Source.Friend)) && isBotCompatible(game.speed)
+  def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
+
+  def isBoardOrBotCompatible(game: Game) =
+    isBoardCompatible(game) || isBotCompatible(game)
 
   private[game] val someEmptyClockHistory = Some(ClockHistory())
 

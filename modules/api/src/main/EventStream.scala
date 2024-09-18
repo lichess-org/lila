@@ -40,7 +40,7 @@ final class EventStream(
 
     blueprint mapMaterializedValue { queue =>
       gamesInProgress map { gameJson(_, "gameStart", me) } foreach queue.offer
-      challenges map toJson map some foreach queue.offer
+      challenges map challengeJson("challenge") map some foreach queue.offer
 
       val actor = system.actorOf(Props(mkActor(me, queue)))
 
@@ -102,16 +102,30 @@ final class EventStream(
 
         case FinishGame(game, _, _) => queue.offer(gameJson(game, "gameFinish", me)).unit
 
-        case lila.challenge.Event.Create(c) if c.destUserId has me.id => queue.offer(toJson(c).some).unit
+        case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
+          lila.common.Future // give time for anon challenger to load the challenge page
+            .delay(if (c.challengerIsAnon) 2.seconds else 0.seconds) {
+              queue.offer(challengeJson("challenge")(c).some).void
+            }
+            .unit
+
+        case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
+          queue.offer(challengeJson("challengeDeclined")(c).some).unit
+
+        case lila.challenge.Event.Cancel(c) if isMyChallenge(c) =>
+          queue.offer(challengeJson("challengeCanceled")(c).some).unit
 
         // pretend like the rematch is a challenge
         case lila.hub.actorApi.round.RematchOffer(gameId) =>
           challengeMaker.makeRematchFor(gameId, me) foreach {
             _ foreach { c =>
-              queue offer toJson(c.copy(_id = gameId)).some
+              queue offer challengeJson("challenge")(c.copy(_id = gameId)).some
             }
           }
       }
+
+      private def isMyChallenge(c: Challenge) =
+        c.destUserId.has(me.id) || c.challengerUserId.has(me.id)
     }
 
   private def gameJson(game: Game, tpe: String, me: User) =
@@ -131,9 +145,9 @@ final class EventStream(
       )
     }
 
-  private def toJson(c: Challenge) =
+  private def challengeJson(tpe: String)(c: Challenge) =
     Json.obj(
-      "type"      -> "challenge",
+      "type"      -> tpe,
       "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang)
     )
 

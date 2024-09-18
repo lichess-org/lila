@@ -64,6 +64,7 @@ final class GameStateStream(
       private val classifiers = List(
         MoveGameEvent makeChan id,
         s"boardDrawOffer:${id}",
+        s"boardTakeback:$id",
         "finishGame",
         "abortGame",
         uniqChan(game pov as),
@@ -99,9 +100,10 @@ final class GameStateStream(
         case MoveGameEvent(g, _, _) if g.id == id => pushState(g).unit
         case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
           pushChatLine(username, text, chatId.value.sizeIs == Game.gameIdSize).unit
-        case FinishGame(g, _, _) if g.id == id                          => onGameOver(g.some).unit
-        case AbortedBy(pov) if pov.gameId == id                         => onGameOver(pov.game.some).unit
-        case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game).unit
+        case FinishGame(g, _, _) if g.id == id                  => onGameOver(g.some).unit
+        case AbortedBy(pov) if pov.gameId == id                 => onGameOver(pov.game.some).unit
+        case lila.game.actorApi.BoardDrawOffer(g) if g.id == id => pushState(g).unit
+        case lila.game.actorApi.BoardTakeback(g) if g.id == id  => pushState(g).unit
         case SetOnline =>
           onlineApiUsers.setOnline(user.id)
           context.system.scheduler

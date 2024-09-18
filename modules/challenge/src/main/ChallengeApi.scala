@@ -57,7 +57,10 @@ final class ChallengeApi(
 
   def createdByDestId = repo createdByDestId _
 
-  def cancel(c: Challenge) = (repo cancel c) >>- uncacheAndNotify(c)
+  def cancel(c: Challenge) = repo.cancel(c) >>- {
+    uncacheAndNotify(c)
+    Bus.publish(Event.Cancel(c), "challenge")
+  }
 
   private def offline(c: Challenge) = (repo offline c) >>- uncacheAndNotify(c)
 
@@ -68,7 +71,10 @@ final class ChallengeApi(
       case _                    => fuccess(socketReload(id))
     }
 
-  def decline(c: Challenge) = (repo decline c) >>- uncacheAndNotify(c)
+  def decline(c: Challenge) = repo.decline(c) >>- {
+    uncacheAndNotify(c)
+    Bus.publish(Event.Decline(c), "challenge")
+  }
 
   private val acceptQueue = new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
 
