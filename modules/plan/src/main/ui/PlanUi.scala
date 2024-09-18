@@ -2,11 +2,12 @@ package lila.plan
 package ui
 
 import java.util.Currency
+import scalalib.paginator.Paginator
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
 import lila.core.LightUser
-import scalalib.paginator.Paginator
+import lila.plan.PlanPricingApi.pricingWrites
 
 final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   import helpers.{ *, given }
@@ -26,7 +27,6 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
       pricing: PlanPricing
   )(using ctx: Context) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
-    val pricingJson = lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
       .iife:
@@ -48,11 +48,9 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               )
           )
         )
-      .js(
-        if ctx.isAuth then
-          esmInitObj("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricingJson)
-        else esmInit("bits.checkout")
-      )
+      .js:
+        ctx.isAuth.option:
+          esmInitObj("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricing)
       .js(infiniteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
