@@ -129,7 +129,6 @@ interface SocketI {
   send: SocketSend;
   sign(s: string): void;
   destroy(): void;
-  disconnect(): void;
 }
 
 interface LichessSpeech {

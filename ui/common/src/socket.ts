@@ -280,7 +280,7 @@ export default class StrongSocket implements SocketI {
     this.ws = undefined;
   };
 
-  disconnect = (): void => {
+  private disconnect = (): void => {
     const ws = this.ws;
     if (ws) {
       this.debug('Disconnect');
