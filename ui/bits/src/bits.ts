@@ -172,6 +172,8 @@ function practiceNag() {
   });
 }
 
+// ensure maximum browser compatibility here,
+// as the oauth page can be embedded in very dubious webviews
 function oauth({ danger }: { danger: boolean }) {
   setTimeout(() => {
     const el = document.getElementById('oauth-authorize')!;
