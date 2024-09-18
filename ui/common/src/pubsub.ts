@@ -60,7 +60,7 @@ export type PubsubEvent =
 
 export type PubsubOneTimeEvent =
   | 'dialog.polyfill'
-  | 'socket.connect';
+  | 'socket.hasConnected';
 
 export interface Pubsub {
   on(msg: PubsubEvent, f: PubsubCallback): void;

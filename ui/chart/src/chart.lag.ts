@@ -30,7 +30,7 @@ const v = {
 };
 
 export async function initModule(): Promise<void> {
-  pubsub.after('socket.connect').then(() => site.socket.send('moveLat', true));
+  pubsub.after('socket.hasConnected').then(() => site.socket.send('moveLat', true));
   $('.meter canvas').each(function(this: HTMLCanvasElement, index) {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [

@@ -68,6 +68,7 @@ object config:
       siteName: String,
       socketDomains: List[String],
       socketAlts: List[String],
+      socketTest: Boolean,
       crawlable: Boolean,
       rateLimit: RateLimit,
       email: EmailAddress,

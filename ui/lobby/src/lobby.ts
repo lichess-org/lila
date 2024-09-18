@@ -55,7 +55,7 @@ export function initModule(opts: LobbyOpts) {
       },
     },
   });
-  pubsub.after('socket.connect').then(() => {
+  pubsub.after('socket.hasConnected').then(() => {
     const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();

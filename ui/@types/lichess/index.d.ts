@@ -39,7 +39,7 @@ interface Site {
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
   siteI18n: I18nDict;
-  socket: any;
+  socket: SocketI;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
@@ -120,6 +120,16 @@ interface SoundI {
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
   url(name: string): string;
+}
+
+interface SocketI {
+  averageLag: number;
+  pingInterval(): number;
+  getVersion(): number|false;
+  send: SocketSend;
+  sign(s: string): void;
+  destroy(): void;
+  disconnect(): void;
 }
 
 interface LichessSpeech {

@@ -189,8 +189,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   )
 
   val dataVapid         = attr("data-vapid")
-  val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
-  val dataSocketAlts    = attr("data-socket-alts")    := netConfig.socketAlts.mkString(",")
+  def dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
   val dataNonce         = attr("data-nonce")
   val dataAnnounce      = attr("data-announce")
   val dataSoundSet      = attr("data-sound-set")

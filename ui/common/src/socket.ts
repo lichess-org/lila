@@ -1,7 +1,7 @@
 import * as xhr from './xhr';
-import { idleTimer } from './timing';
-import { log } from './dbLog';
-import { storage, storedIntProp, once, type LichessStorage } from './storage';
+import { idleTimer, browserTaskQueueMonitor } from './timing';
+import { storage, once, type LichessStorage } from './storage';
+import { objectStorage, dbExists, type ObjectStorage } from './objectStorage';
 import { pubsub, type PubsubEvent } from './pubsub';
 
 type Sri = string;
@@ -19,11 +19,10 @@ interface MsgOut extends MsgBase {}
 interface MsgAck extends MsgOut {
   at: number;
 }
-type Send = (t: Tpe, d: Payload, o?: any) => void;
 
 interface Options {
   idle: boolean;
-  pingMaxLag: number; // time to wait for pong before resetting the connection
+  pongTimeout: number; // time to wait for pong before resetting the connection
   pingDelay: number; // time between pong and ping
   autoReconnectDelay: number;
   protocol: string;
@@ -34,6 +33,7 @@ interface Params extends Record<string, any> {
   sri?: Sri;
   flag?: string;
 }
+
 interface Settings {
   receive?: (t: Tpe, d: Payload) => void;
   events: {
@@ -42,47 +42,50 @@ interface Settings {
   params?: Partial<Params>;
   options?: Partial<Options>;
 }
-
-const origSend = WebSocket.prototype.send;
+// TODO - find out why are there three different types of settings
 
 const isOnline = () => !('onLine' in navigator) || navigator.onLine;
 
-// versioned events, acks, retries, resync
-export default class StrongSocket {
-  settings: Settings;
-  options: Options;
-  version: number | false;
-  ws: WebSocket | undefined;
-  pingSchedule: Timeout;
-  connectSchedule: Timeout;
-  ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
-  lastPingTime: number = performance.now();
-  pongCount = 0;
+export default class StrongSocket implements SocketI {
   averageLag = 0;
-  tryOtherUrl = false;
-  autoReconnect = true;
-  nbConnects = 0;
-  storage: LichessStorage = storage.make(
-    document.body.dataset.socketAlternates ? 'surl-alt' : 'surl17',
-    30 * 60 * 1000,
-  );
+
+  private settings: Settings;
+  private options: Options;
+  private version: number | false;
+  private ws: WebSocket | undefined;
+  private pingSchedule: Timeout;
+  private connectSchedule: Timeout;
+  private ackable: Ackable = new Ackable((t, d, o) => this.send(t, d, o));
+  private lastPingTime: number = performance.now();
+  private pongCount = 0;
+  private tryOtherUrl = false;
+  private storage: LichessStorage = storage.make('surl17', 30 * 60 * 1000);
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
-  private baseUrls = (document.body.dataset.socketAlts || document.body.dataset.socketDomains!).split(',');
-  private static defaultOptions: Options = {
-    idle: false,
-    pingMaxLag: 9000, // time to wait for pong before resetting the connection
-    pingDelay: 2500, // time between pong and ping
-    autoReconnectDelay: 3500,
-    protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    isAuth: document.body.hasAttribute('data-user'),
-  };
+  private baseUrls = document.body.dataset.socketDomains!.split(',');
+
+  private lastUrl?: string;
+  private heartbeat = browserTaskQueueMonitor(1000);
+  private isTestUser = document.body.dataset.socketTestUser === 'true';
+  private isTestRunning = document.body.dataset.socketTestRunning === 'true';
+  private stats: { store?: ObjectStorage<any>, m2: number, n: number, mean: number } =
+    { m2: 0, n: 0, mean: 0 };
 
   constructor(
     readonly url: string,
     version: number | false,
     settings: Partial<Settings> = {},
   ) {
+    this.options = {
+      idle: false,
+      debug: false,
+      pongTimeout: 9000,
+      autoReconnectDelay: 3500,
+      protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
+      isAuth: document.body.hasAttribute('data-user'),
+      ...(settings.options || {}),
+      pingDelay: 2500,
+    };
     this.settings = {
       receive: settings.receive,
       events: settings.events || {},
@@ -91,16 +94,11 @@ export default class StrongSocket {
         ...(settings.params || {}),
       },
     };
-    const customPingDelay = storedIntProp('socket.ping.interval', 2500)();
-
-    this.options = {
-      ...StrongSocket.defaultOptions,
-      ...(settings.options || {}),
-      pingDelay: customPingDelay > 400 ? customPingDelay : 2500,
-    };
     this.version = version;
     pubsub.on('socket.send', this.send);
     this.connect();
+    this.flushStats();
+    window.addEventListener('pagehide', () => this.storeStats({ event: 'pagehide' }));
   }
 
   sign = (s: string): void => {
@@ -108,32 +106,32 @@ export default class StrongSocket {
     this.ackable.sign(s);
   };
 
-  connect = (): void => {
+  private connect = (): void => {
     this.destroy();
     if (!isOnline()) {
       document.body.classList.remove('online');
       document.body.classList.add('offline');
       $('#network-status').text(site ? site.trans('noNetwork') : 'Offline');
-      this.scheduleConnect(1000);
+      this.scheduleConnect(4000);
       return;
     }
-    this.autoReconnect = true;
-    const fullUrl = xhr.url(this.options.protocol + '//' + this.baseUrl() + this.url, {
+    this.lastUrl = xhr.url(this.options.protocol + '//' + this.nextBaseUrl() + this.url, {
       ...this.settings.params,
       v: this.version === false ? undefined : this.version,
     });
-    this.debug('connection attempt to ' + fullUrl);
+    this.debug('connection attempt to ' + this.lastUrl);
     try {
-      const ws = (this.ws = new WebSocket(fullUrl));
+      const ws = (this.ws = new WebSocket(this.lastUrl));
       ws.onerror = e => this.onError(e);
-      ws.onclose = e => this.onClose(e, fullUrl);
+      ws.onclose = this.onClose;
       ws.onopen = () => {
-        this.debug('connected to ' + fullUrl);
-        this.onSuccess();
+        this.lastUrl = ws.url;
+        this.debug('connected to ' + this.lastUrl);
         const cl = document.body.classList;
+        if (site.pubsub.past('socket.hasConnected')) cl.add('reconnected');
         cl.remove('offline');
         cl.add('online');
-        cl.toggle('reconnected', this.nbConnects > 1);
+        this.onSuccess();
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
         this.resendWhenOpen = [];
@@ -147,9 +145,9 @@ export default class StrongSocket {
         this.handle(m);
       };
     } catch (e) {
-      this.onClose({ code: 4000, reason: String(e) } as CloseEvent, fullUrl);
+      this.onClose({ code: 4000, reason: String(e) } as CloseEvent);
     }
-    this.scheduleConnect(this.options.pingMaxLag);
+    this.scheduleConnect();
   };
 
   send = (t: string, d: any, o: any = {}, noRetry = false): void => {
@@ -183,12 +181,10 @@ export default class StrongSocket {
     this.debug('send ' + message);
     if (!this.ws || this.ws.readyState === WebSocket.CONNECTING) {
       if (!noRetry) this.resendWhenOpen.push([t, msg.d, o]);
-    } else {
-      origSend.apply(this.ws, [message]);
-    }
+    } else this.ws.send(message);
   };
 
-  scheduleConnect = (delay: number): void => {
+  private scheduleConnect = (delay: number = this.options.pongTimeout): void => {
     if (this.options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
     // debug('schedule connect ' + delay);
     clearTimeout(this.pingSchedule);
@@ -197,21 +193,17 @@ export default class StrongSocket {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
       $('#network-status').text(site.trans ? site.trans('reconnecting') : 'Reconnecting');
-      if (!this.tryOtherUrl && isOnline()) {
-        // if this was set earlier, we've already logged the error
-        this.tryOtherUrl = true;
-        log(`sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`);
-      }
+      this.tryOtherUrl = true;
       this.connect();
     }, delay);
   };
 
-  schedulePing = (delay: number): void => {
+  private schedulePing = (delay: number): void => {
     clearTimeout(this.pingSchedule);
     this.pingSchedule = setTimeout(this.pingNow, delay);
   };
 
-  pingNow = (): void => {
+  private pingNow = (): void => {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     const pingData =
@@ -227,12 +219,12 @@ export default class StrongSocket {
     } catch (e) {
       this.debug(e, true);
     }
-    this.scheduleConnect(this.options.pingMaxLag);
+    this.scheduleConnect();
   };
 
-  computePingDelay = (): number => this.options.pingDelay + (this.options.idle ? 1000 : 0);
+  private computePingDelay = (): number => this.options.pingDelay + (this.options.idle ? 1000 : 0);
 
-  pong = (): void => {
+  private pong = (): void => {
     clearTimeout(this.connectSchedule);
     this.schedulePing(this.computePingDelay());
     const currentLag = Math.min(performance.now() - this.lastPingTime, 10000);
@@ -243,9 +235,10 @@ export default class StrongSocket {
     this.averageLag += mix * (currentLag - this.averageLag);
 
     pubsub.emit('socket.lag', this.averageLag);
+    this.updateStats(currentLag);
   };
 
-  handle = (m: MsgIn): void => {
+  private handle = (m: MsgIn): void => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
         this.debug('already has event ' + m.v);
@@ -275,11 +268,12 @@ export default class StrongSocket {
     }
   };
 
-  debug = (msg: unknown, always = false): void => {
+  private debug = (msg: unknown, always = false): void => {
     if (always || this.options.debug) console.debug(msg);
   };
 
   destroy = (): void => {
+    this.storeStats();
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.disconnect();
@@ -290,57 +284,65 @@ export default class StrongSocket {
     const ws = this.ws;
     if (ws) {
       this.debug('Disconnect');
-      this.autoReconnect = false;
       ws.onerror = ws.onclose = ws.onopen = ws.onmessage = () => {};
       ws.close();
     }
   };
 
-  onError = (e: unknown): void => {
+  private onError = (e: unknown): void => {
+    if (this.heartbeat.wasSuspended) return;
     this.options.debug = true;
     this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
   };
 
-  onClose = (e: CloseEvent, url: string): void => {
+  private onClose = (e: CloseEvent): void => {
     pubsub.emit('socket.close');
-    if (this.autoReconnect) {
+
+    if (this.heartbeat.wasSuspended) return this.onSuspended();
+    this.storeStats({ event: 'close', code: e.code });
+
+    if (this.ws) {
       this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
       this.scheduleConnect(this.options.autoReconnectDelay);
     }
     if (e.wasClean && e.code < 1002) return;
 
-    if (isOnline())
-      log(`${site?.sri ? 'sri ' + site.sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
-    this.tryOtherUrl = true;
+    if (isOnline()) this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
 
-  onSuccess = (): void => {
-    this.nbConnects++;
-    if (this.nbConnects == 1) {
-      pubsub.complete('socket.connect');
-      let disconnectTimeout: Timeout | undefined;
-      idleTimer(
-        10 * 60 * 1000,
-        () => {
-          this.options.idle = true;
-          disconnectTimeout = setTimeout(this.destroy, 2 * 60 * 60 * 1000);
-        },
-        () => {
-          this.options.idle = false;
-          if (this.ws) clearTimeout(disconnectTimeout);
-          else location.reload();
-        },
-      );
-    }
+  private onSuccess = (): void => {
+    if (pubsub.past('socket.hasConnected')) return;
+
+    pubsub.complete('socket.hasConnected');
+    let disconnectTimeout: Timeout | undefined;
+    idleTimer(
+      10 * 60 * 1000,
+      () => {
+        this.options.idle = true;
+        disconnectTimeout = setTimeout(this.destroy, 2 * 60 * 60 * 1000);
+      },
+      () => {
+        this.options.idle = false;
+        if (this.ws) clearTimeout(disconnectTimeout);
+        else location.reload();
+      },
+    );
   };
 
-  baseUrl = (): string => {
+  private onSuspended() {
+    this.heartbeat.reset(); // not a networking error, just get our connection back
+    clearTimeout(this.pingSchedule);
+    clearTimeout(this.connectSchedule);
+    this.storeStats({ event: 'suspend' }).then(this.connect);
+  }
+
+  private nextBaseUrl = (): string => {
     let url = this.storage.get();
     if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
       this.storage.set(url);
-    } else if (this.tryOtherUrl) {
+    } else if ((this.isTestUser && this.isTestRunning) || this.tryOtherUrl) {
       const i = this.baseUrls.findIndex(u => u === url);
       url = this.baseUrls[(i + 1) % this.baseUrls.length];
       this.storage.set(url);
@@ -351,6 +353,58 @@ export default class StrongSocket {
 
   pingInterval = (): number => this.computePingDelay() + this.averageLag;
   getVersion = (): number | false => this.version;
+
+  private async storeStats(event?: any) {
+    if (!this.lastUrl || !this.isTestUser || !this.isTestRunning) return;
+    if (!event && this.stats.n < 2) return;
+
+    const data = {
+      dns: this.lastUrl.includes(`//${this.baseUrls[0]}`) ? 'ovh': 'cf',
+      n: this.stats.n,
+      ...event,
+    };
+    if (this.stats.n > 0) data.mean = this.stats.mean;
+    if (this.stats.n > 1) data.stdev = Math.sqrt(this.stats.m2 / (this.stats.n - 1));
+    this.stats.m2 = this.stats.n = this.stats.mean = 0;
+
+    localStorage.setItem(`socket.test.${document.body.dataset.user}`, JSON.stringify(data));
+    return this.flushStats();
+  }
+
+  private async flushStats() {
+    if (!this.isTestUser) return;
+
+    const storeKey = `socket.test.${document.body.dataset.user}`;
+    const last = localStorage.getItem(storeKey);
+
+    if (!last && !this.isTestRunning && !await dbExists({ store: storeKey })) return;
+
+    this.stats.store ??= await objectStorage<any, number>({ store: storeKey });
+    if (last) await this.stats.store.put(await this.stats.store.count(), JSON.parse(last));
+
+    localStorage.removeItem(storeKey);
+
+    if (this.isTestRunning) return;
+
+    const data = await this.stats.store.getMany();
+    const rsp = await fetch('/dev/socket-test', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!rsp.ok) return;
+
+    window.indexedDB.deleteDatabase(`${storeKey}--db`);
+  }
+
+  private updateStats(lag: number) {
+    if (!this.isTestUser || !this.isTestRunning) return;
+
+    this.stats.n++;
+    const delta = lag - this.stats.mean;
+    this.stats.mean += delta / this.stats.n;
+    this.stats.m2 += delta * (lag - this.stats.mean);
+  }
 }
 
 class Ackable {
@@ -358,7 +412,7 @@ class Ackable {
   messages: MsgAck[] = [];
   private _sign: string;
 
-  constructor(readonly send: Send) {
+  constructor(readonly send: (t: Tpe, d: Payload, o?: any) => void) {
     setInterval(this.resend, 1200);
   }
 

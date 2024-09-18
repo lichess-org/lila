@@ -75,3 +75,11 @@ export async function dbConnect(dbInfo: DbInfo): Promise<IDBDatabase> {
     };
   });
 }
+
+export async function dbExists(dbInfo: DbInfo): Promise<boolean> {
+  const dbName = dbInfo?.db || `${dbInfo.store}--db`;
+  const found = (await window.indexedDB.databases()).some(db => db.name === dbName);
+  if (!found) return false;
+  const store = await objectStorage(dbInfo);
+  return await store.count() > 0;
+}

@@ -168,3 +168,32 @@ export function debounce<T extends (...args: any) => void>(
       }, wait);
   };
 }
+
+export function browserTaskQueueMonitor(interval = 1000): { wasSuspended: boolean; reset: () => void } {
+  let lastTime: number;
+  let timeout: number;
+  let suspended = false;
+
+  start();
+
+  return {
+    get wasSuspended() {
+      return suspended;
+    },
+    reset() {
+      suspended = false;
+      clearTimeout(timeout);
+      start();
+    },
+  };
+
+  function monitor() {
+    if (performance.now() - lastTime > (interval + 400)) suspended = true;
+    else start();
+  }
+
+  function start() {
+    lastTime = performance.now();
+    timeout = setTimeout(monitor, interval);
+  }
+}
