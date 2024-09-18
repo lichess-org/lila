@@ -12,7 +12,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }
   import trans.{ team as trt }
 
-  def TeamPage(title: String) = Page(title).css("bits.team").js(infinteScrollEsmInit)
+  def TeamPage(title: String) = Page(title).css("bits.team").js(infiniteScrollEsmInit)
 
   object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)

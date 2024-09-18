@@ -220,7 +220,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
   def ofPlayer(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(using ctx: Context) =
     Page(user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)))
       .css("puzzle.page")
-      .js(infinteScrollEsmInit):
+      .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           bits.pageMenu("player", user),
           div(cls := "page-menu__content puzzle-of-player box box-pad")(
@@ -283,7 +283,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
         else s"${user.username} ${trans.puzzle.history.txt()}"
       Page(title)
         .css("puzzle.dashboard")
-        .js(infinteScrollEsmInit):
+        .js(infiniteScrollEsmInit):
           main(cls := "page-menu")(
             bits.pageMenu("history", user.some),
             div(cls := "page-menu__content box box-pad")(

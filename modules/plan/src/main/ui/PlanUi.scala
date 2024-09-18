@@ -53,7 +53,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
           esmInitObj("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricingJson)
         else esmInit("bits.checkout")
       )
-      .js(infinteScrollEsmInit)
+      .js(infiniteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
         url = s"$netBaseUrl${routes.Plan.index().url}",

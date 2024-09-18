@@ -12,16 +12,16 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
   import helpers.{ *, given }
 
   def best(u: User, pager: Paginator[LeaderboardApi.TourEntry])(using Context) =
-    page(u, s"${u.username} best tournaments", "best").js(infinteScrollEsmInit):
+    page(u, s"${u.username} best tournaments", "best").js(infiniteScrollEsmInit):
       list(u, "best", pager, "BEST")
 
   def recent(u: User, pager: Paginator[LeaderboardApi.TourEntry])(using Context) =
-    page(u, s"${u.username} recent tournaments", "recent").js(infinteScrollEsmInit):
+    page(u, s"${u.username} recent tournaments", "recent").js(infiniteScrollEsmInit):
       list(u, "recent", pager, pager.nbResults.toString)
 
   def created(u: User, pager: Paginator[lila.tournament.Tournament])(using Context) =
     page(u, s"${u.username} created tournaments", "created")
-      .js(infinteScrollEsmInit):
+      .js(infiniteScrollEsmInit):
         if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
         else
           div(cls := "tournament-list")(

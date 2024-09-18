@@ -63,7 +63,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
     Page(categ.name)
       .css("bits.forum")
       .csp(_.withInlineIconFont)
-      .js(infinteScrollEsmInit)
+      .js(infiniteScrollEsmInit)
       .graph(
         title = s"Forum: ${categ.name}",
         url = s"$netBaseUrl${routes.ForumCateg.show(categ.id).url}",
@@ -148,7 +148,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
     Page(categ.name)
       .css("bits.forum")
       .csp(_.withInlineIconFont)
-      .js(infinteScrollEsmInit):
+      .js(infiniteScrollEsmInit):
         main(cls := "forum forum-mod-feed box")(
           boxTop(
             h1(

@@ -71,7 +71,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     val title = if requests then "Streamer approval requests" else trans.streamer.lichessStreamers.txt()
     Page(title)
       .css("bits.streamer.list")
-      .js(infinteScrollEsmInit)
+      .js(infiniteScrollEsmInit)
       .js(esmInitObj("bits", "fn" -> "streamer")):
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),

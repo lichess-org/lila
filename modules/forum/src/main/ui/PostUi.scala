@@ -171,7 +171,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     Page(title)
       .css("bits.forum")
-      .js(infinteScrollEsmInit):
+      .js(infiniteScrollEsmInit):
         main(cls := "box search")(
           boxTop(
             h1(a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"), title),

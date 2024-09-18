@@ -24,7 +24,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
   )(using ctx: Context) =
     Page(trans.site.tournaments.txt())
       .css("tournament.home")
-      .js(infinteScrollEsmInit)
+      .js(infiniteScrollEsmInit)
       .js(
         PageModule(
           "tournament.schedule",
@@ -107,7 +107,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
 
   def history(freq: Freq, pager: Paginator[Tournament])(using Context) =
     Page("Tournament history")
-      .js(infinteScrollEsmInit)
+      .js(infiniteScrollEsmInit)
       .css("tournament.history"):
         main(cls := "page-menu arena-history")(
           lila.ui.bits.pageMenuSubnav(

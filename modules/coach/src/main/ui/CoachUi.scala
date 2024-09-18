@@ -209,7 +209,7 @@ final class CoachUi(helpers: Helpers)(
   )(using ctx: Context) =
     Page(trc.lichessCoaches.txt())
       .css("bits.coach")
-      .js(infinteScrollEsmInit)
+      .js(infiniteScrollEsmInit)
       .hrefLangs(lila.ui.LangPath(routes.Coach.all(1))):
         val langSelections = ("all", "All languages") :: languages(langCodes).map: l =>
           l.code -> langList.name(l.code)

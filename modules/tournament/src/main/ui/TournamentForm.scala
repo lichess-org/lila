@@ -254,7 +254,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     def index(tours: Paginator[Tournament])(using Context) =
       page("Tournament manager")
         .css("mod.misc")
-        .js(infinteScrollEsmInit):
+        .js(infiniteScrollEsmInit):
           div(cls := "crud page-menu__content box")(
             boxTop(
               h1("Tournament manager"),
