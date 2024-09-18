@@ -10,6 +10,7 @@ import { playModifiers, renderCombo } from 'puz/view/util';
 import * as licon from 'common/licon';
 import { onInsert, looseH as h } from 'common/snabbdom';
 import { Chessground as makeChessground } from 'chessground';
+import { pubsub } from 'common/pubsub';
 
 export default function(ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload(ctrl, 'thisRunWasOpenedInAnotherTab');
@@ -29,7 +30,7 @@ const chessground = (ctrl: StormCtrl): VNode =>
             makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove),
           ),
         );
-        site.pubsub.on('board.change', (is3d: boolean) =>
+        pubsub.on('board.change', (is3d: boolean) =>
           ctrl.withGround(g => {
             g.state.addPieceZIndex = is3d;
             g.redrawAll();

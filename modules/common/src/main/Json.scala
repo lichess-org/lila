@@ -23,10 +23,6 @@ object Json:
 
   given NoJsonHandler[chess.Square] with {}
 
-  // could be in scalalib
-  given [A](using sr: SameRuntime[A, String]): KeyWrites[A] with
-    def writeKey(key: A) = sr(key)
-
   import lila.core.LightUser
   given lightUserWrites: OWrites[LightUser] = OWrites(lightUser.write)
   object lightUser:

@@ -1155,6 +1155,7 @@ object I18nKey:
     val `playedNbMoves`: I18nKey = "activity:playedNbMoves"
     val `inNbCorrespondenceGames`: I18nKey = "activity:inNbCorrespondenceGames"
     val `completedNbGames`: I18nKey = "activity:completedNbGames"
+    val `completedNbVariantGames`: I18nKey = "activity:completedNbVariantGames"
     val `followedNbPlayers`: I18nKey = "activity:followedNbPlayers"
     val `gainedNbFollowers`: I18nKey = "activity:gainedNbFollowers"
     val `hostedNbSimuls`: I18nKey = "activity:hostedNbSimuls"

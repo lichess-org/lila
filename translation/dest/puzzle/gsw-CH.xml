@@ -30,7 +30,7 @@
   <string name="puzzleComplete">Ufgab abgschlosse!</string>
   <string name="byOpenings">Nach Eröffnige</string>
   <string name="puzzlesByOpenings">Ufgabe nach Eröffnige</string>
-  <string name="openingsYouPlayedTheMost">Dini meischt-gschpillte Eröffnige, i gwertete Partie</string>
+  <string name="openingsYouPlayedTheMost">Dini meischt-gschpillte Eröffnige, i g\'wertete Schpiel</string>
   <string name="useFindInPage">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
   <string name="useCtrlF">Find dini bevorzugti Eröffnig mit Ctrl+F !</string>
   <string name="notTheMove">Das isch nöd de Zug!</string>
@@ -41,7 +41,7 @@
     <item quantity="one">%s mal gschpillt</item>
     <item quantity="other">%s mal gschpillt</item>
   </plurals>
-  <string name="fromGameLink">Us de Partie %s</string>
+  <string name="fromGameLink">Vom Schpiel %s</string>
   <string name="continueTraining">Witer trainiere</string>
   <string name="difficultyLevel">Schwierigi Stufe</string>
   <string name="normal">Normal</string>
@@ -73,13 +73,13 @@
   <string name="continueTheStreak">Erfolgsserie witerfüehre</string>
   <string name="newStreak">Neui Erfolgsserie</string>
   <string name="fromMyGames">Us eigene Schpil</string>
-  <string name="lookupOfPlayer">Suech Ufgabe us de Partie vu me Schpiller</string>
-  <string name="fromXGames">Ufgabe us Partie vu %s</string>
+  <string name="lookupOfPlayer">Suech Ufgabe us de Schpiel vu me Schpiller</string>
+  <string name="fromXGames">Ufgabe us Schpiel vu %s</string>
   <string name="searchPuzzles">Suech Ufgabe</string>
-  <string name="fromMyGamesNone">Eu häsch kei Ufgabe i de Datäbank, aber Lichess schätzt dich immerno sehr.
+  <string name="fromMyGamesNone">Du häsch kei Ufgabe i de Datäbank, aber Lichess schätzt dich immerno sehr.
 
-Schpill schnälli und klassischi Partie, so erhöht sich d\'Chance, dass au Ufgabe us dine eigene Schpil zuegfüegt werded!</string>
-  <string name="fromXGamesFound">%1$s Ufgabe in %2$s Partie gfunde</string>
+Schpill schnälli und au klassischi Schpiel, will so erhöht sich d\'Chance, dass Ufgabe vu dine eigene Schpiel zuegfüegt werded!</string>
+  <string name="fromXGamesFound">%1$s Ufgabe in Schpiel vu %2$s gfunde</string>
   <string name="puzzleDashboardDescription">Trainiere analysiere und besser werde</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s gschpillt</item>

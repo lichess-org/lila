@@ -18,13 +18,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
   )(using ctx: Context) =
     Page(trans.site.simultaneousExhibitions.txt())
       .css("simul.list")
-      .js(embedJsUnsafeLoadThen(s"""
-site.StrongSocket.defaultParams.flag = 'simul';
-site.pubsub.on('socket.in.reload', () =>
-  fetch('${routes.Simul.homeReload}').then(r => r.text()).then(html => {
-  $$('.simul-list__content').html(html);
-  site.pubsub.emit('content-loaded');
-}))"""))
+      .js(EsmInit("simul.home"))
       .graph(
         title = trans.site.simultaneousExhibitions.txt(),
         url = s"$netBaseUrl${routes.Simul.home}",

@@ -5,6 +5,7 @@ import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { bind, looseH as h, VNode } from 'common/snabbdom';
 import { DasherCtrl, PaneCtrl } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 type Board = string;
 type Range = { min: number; max: number; step: number };
@@ -142,7 +143,7 @@ export class BoardCtrl extends PaneCtrl {
   private apply = (t: Board = this.current) => {
     this.current = t;
     document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
-    site.pubsub.emit('board.change', this.is3d);
+    pubsub.emit('board.change', this.is3d);
     this.root?.piece.apply();
   };
 

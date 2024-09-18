@@ -15,7 +15,7 @@ import { StudyShare } from './studyShare';
 import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
 import * as xhr from './studyXhr';
-import { path as treePath } from 'tree';
+import { path as treePath, ops as treeOps } from 'tree';
 import {
   StudyVm,
   Tab,
@@ -51,6 +51,7 @@ import { SearchCtrl } from './studySearch';
 import { GamebookOverride } from './gamebook/interfaces';
 import { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
+import { pubsub } from 'common/pubsub';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -305,10 +306,10 @@ export default class StudyCtrl {
     const canContribute = this.members.canContribute();
     // unwrite if member lost privileges
     this.vm.mode.write = this.vm.mode.write && canContribute;
-    site.pubsub.emit('chat.writeable', this.data.features.chat);
+    pubsub.emit('chat.writeable', this.data.features.chat);
     // official broadcasts cannot have local mods
-    site.pubsub.emit('chat.permissions', { local: canContribute && !this.relayData?.tour.official });
-    site.pubsub.emit('palantir.toggle', this.data.features.chat && !!this.members.myMember());
+    pubsub.emit('chat.permissions', { local: canContribute && !this.relayData?.tour.official });
+    pubsub.emit('palantir.toggle', this.data.features.chat && !!this.members.myMember());
     const computer: boolean =
       !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
     if (!computer) this.ctrl.getCeval().enabled(false);
@@ -404,6 +405,12 @@ export default class StudyCtrl {
 
   instanciateGamebookPlay = () => {
     if (!this.isGamebookPlay()) return (this.gamebookPlay = undefined);
+    // ensure all original nodes have a gamebook entry,
+    // so we can differentiate original nodes from user-made ones
+    treeOps.updateAll(this.ctrl.tree.root, n => {
+      n.gamebook = n.gamebook || {};
+      if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
+    });
     if (this.gamebookPlay?.chapterId === this.vm.chapterId) return;
     this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.ctrl.trans, this.redraw);
     this.vm.mode.sticky = false;

@@ -34,6 +34,10 @@
     <item quantity="one">Har spela %s fjernsjakkparti</item>
     <item quantity="other">Har spela %s fjernsjakkparti</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="one">Har spelt %1$s %2$s-fjernsjakkparti</item>
+    <item quantity="other">Har spelt %1$s %2$s-fjernsjakkparti</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Følgjer %s spelar</item>
     <item quantity="other">Følgjer %s spelarar</item>

@@ -5,7 +5,6 @@ import * as xhr from 'common/xhr';
 import announce from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
-import pubsub from './pubsub';
 import serviceWorker from './serviceWorker';
 import StrongSocket from 'common/socket';
 import topBar from './topBar';
@@ -15,6 +14,7 @@ import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 import { userComplete } from 'common/userComplete';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
+import { pubsub } from 'common/pubsub';
 
 export function boot() {
   $('#user_tag').removeAttr('href');

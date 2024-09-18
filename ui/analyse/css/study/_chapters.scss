@@ -16,8 +16,9 @@ $span-width: 1.7em;
     unicode-bidi: plaintext;
   }
 
-  > div {
-    cursor: pointer;
+  > button {
+    @extend %button-none;
+    width: 100%;
 
     &.active,
     &:active {

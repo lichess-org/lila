@@ -34,6 +34,10 @@
     <item quantity="one">Pelasi %s kirjeshakkipelin</item>
     <item quantity="other">Pelasi %s kirjeshakkipeliä</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Pelasi %1$s %2$s-kirjeshakkipelin</item>
+    <item quantity="other">Pelasi %1$s %2$s-kirjeshakkipeliä</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Alkoi seuraamaan %s pelaajaa</item>
     <item quantity="other">Alkoi seuraamaan %s pelaajaa</item>

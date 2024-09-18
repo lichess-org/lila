@@ -1,11 +1,13 @@
 import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
 import { trans as translation } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
 
 export function initModule(opts: { i18n: I18nDict }): void {
   const trans = translation(opts.i18n);
 
   makeLinkPopups($('.social_links'), trans);
+  makeLinkPopups($('.user-infos .bio'), trans);
 
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
@@ -48,9 +50,9 @@ export function initModule(opts: { i18n: I18nDict }): void {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          site.pubsub.emit('content-loaded', $content[0]);
+          pubsub.emit('content-loaded', $content[0]);
           history.replaceState({}, '', path);
-          //window.InfiniteScroll('.infinite-scroll');
+          site.asset.loadEsm('bits.infiniteScroll');
         });
     $angles.on('click', 'a', function(this: HTMLAnchorElement) {
       if ($('#games .to-search').hasClass('active')) return true;

@@ -2,6 +2,7 @@ import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './timing';
 import { storage, once, type LichessStorage } from './storage';
 import { objectStorage, dbExists, type ObjectStorage } from './objectStorage';
+import { pubsub, type PubsubEvent } from './pubsub';
 
 type Sri = string;
 type Tpe = string;
@@ -94,7 +95,7 @@ export default class StrongSocket implements SocketI {
       },
     };
     this.version = version;
-    site.pubsub.on('socket.send', this.send);
+    pubsub.on('socket.send', this.send);
     this.connect();
     this.flushStats();
     window.addEventListener('pagehide', () => this.storeStats({ event: 'pagehide' }));
@@ -127,14 +128,14 @@ export default class StrongSocket implements SocketI {
         this.lastUrl = ws.url;
         this.debug('connected to ' + this.lastUrl);
         const cl = document.body.classList;
-        if (site.pubsub.past('socket.hasConnected')) cl.add('reconnected');
+        if (pubsub.past('socket.hasConnected')) cl.add('reconnected');
         cl.remove('offline');
         cl.add('online');
         this.onSuccess();
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
         this.resendWhenOpen = [];
-        site.pubsub.emit('socket.open');
+        pubsub.emit('socket.open');
         this.ackable.resend();
       };
       ws.onmessage = e => {
@@ -233,7 +234,7 @@ export default class StrongSocket implements SocketI {
     const mix = this.pongCount > 4 ? 0.1 : 1 / this.pongCount;
     this.averageLag += mix * (currentLag - this.averageLag);
 
-    site.pubsub.emit('socket.lag', this.averageLag);
+    pubsub.emit('socket.lag', this.averageLag);
     this.updateStats(currentLag);
   };
 
@@ -261,7 +262,7 @@ export default class StrongSocket implements SocketI {
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
           const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
           if (!sentAsEvent) {
-            site.pubsub.emit('socket.in.' + m.t, m.d, m);
+            pubsub.emit('socket.in.' + m.t as PubsubEvent, m.d, m);
           }
         }
     }
@@ -295,7 +296,7 @@ export default class StrongSocket implements SocketI {
   };
 
   private onClose = (e: CloseEvent): void => {
-    site.pubsub.emit('socket.close');
+    pubsub.emit('socket.close');
 
     if (this.heartbeat.wasSuspended) return this.onSuspended();
     this.storeStats({ event: 'close', code: e.code });
@@ -311,9 +312,9 @@ export default class StrongSocket implements SocketI {
   };
 
   private onSuccess = (): void => {
-    if (site.pubsub.past('socket.hasConnected')) return;
+    if (pubsub.past('socket.hasConnected')) return;
 
-    site.pubsub.complete('socket.hasConnected');
+    pubsub.complete('socket.hasConnected');
     let disconnectTimeout: Timeout | undefined;
     idleTimer(
       10 * 60 * 1000,

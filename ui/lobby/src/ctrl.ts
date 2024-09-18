@@ -23,6 +23,7 @@ import LobbySocket from './socket';
 import Filter from './filter';
 import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export default class LobbyController {
   data: LobbyData;
@@ -104,7 +105,7 @@ export default class LobbyController {
         forceOptions.variant = 'fromPosition';
       }
 
-      site.pubsub.after('dialog.polyfill').then(() => {
+      pubsub.after('dialog.polyfill').then(() => {
         this.setupCtrl.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
         redraw();
       });
@@ -132,7 +133,7 @@ export default class LobbyController {
       this.joinPoolFromLocationHash();
     }
 
-    site.pubsub.on('socket.open', () => {
+    pubsub.on('socket.open', () => {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();

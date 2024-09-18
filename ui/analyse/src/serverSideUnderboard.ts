@@ -9,6 +9,7 @@ import { domDialog } from 'common/dialog';
 import { FEN } from 'chessground/types';
 import { escapeHtml } from 'common';
 import { storage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
@@ -40,15 +41,15 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   };
 
   if (!site.blindMode) {
-    site.pubsub.on('board.change', () => updateGifLinks(inputFen.value));
-    site.pubsub.on('analysis.comp.toggle', (v: boolean) => {
+    pubsub.on('board.change', () => updateGifLinks(inputFen.value));
+    pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
       } else {
         $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
       }
     });
-    site.pubsub.on('analysis.change', (fen: FEN, _) => {
+    pubsub.on('analysis.change', (fen: FEN, _) => {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
@@ -56,7 +57,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         lastInputHash = nextInputHash;
       }
     });
-    site.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
+    pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!advChart) startAdvantageChart();
       else advChart.updateData(d, ctrl.mainline);
       if (d.analysis && !d.analysis.partial) $('#acpl-chart-container-loader').remove();

@@ -9,6 +9,7 @@ import {
 } from 'chart.js';
 import dataLabels from 'chartjs-plugin-datalabels';
 import { fontColor, fontFamily, resizePolyfill } from './common';
+import { pubsub } from 'common/pubsub';
 
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -29,7 +30,7 @@ const v = {
 };
 
 export async function initModule(): Promise<void> {
-  site.pubsub.after('socket.hasConnected').then(() => site.socket.send('moveLat', true));
+  pubsub.after('socket.hasConnected').then(() => site.socket.send('moveLat', true));
   $('.meter canvas').each(function(this: HTMLCanvasElement, index) {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [
@@ -100,7 +101,7 @@ export async function initModule(): Promise<void> {
     };
     const chart = new Chart(this, config);
     if (index == 0)
-      site.pubsub.on('socket.in.mlat', (d: number) => {
+      pubsub.on('socket.in.mlat', (d: number) => {
         v.server = d;
         if (v.server <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.server);

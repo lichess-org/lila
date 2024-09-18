@@ -25,6 +25,7 @@ import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';
 import type Sortable from 'sortablejs';
+import { pubsub } from 'common/pubsub';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -203,7 +204,7 @@ export function view(ctrl: StudyCtrl): VNode {
           });
           vnode.data!.li = {};
           update(vnode);
-          site.pubsub.emit('chat.resize');
+          pubsub.emit('chat.resize');
         },
         postpatch(old, vnode) {
           vnode.data!.li = old.data!.li;
@@ -221,7 +222,7 @@ export function view(ctrl: StudyCtrl): VNode {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           active = !ctrl.vm.loading && current?.id === chapter.id;
         return h(
-          'div',
+          'button',
           {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
@@ -238,7 +239,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .concat(
         ctrl.members.canContribute()
           ? [
-            h('div.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+            h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
               h('span', iconTag(licon.PlusButton)),
               h('h3', ctrl.trans.noarg('addNewChapter')),
             ]),

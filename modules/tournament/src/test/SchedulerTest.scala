@@ -1,47 +1,96 @@
 package lila.tournament
 
 class SchedulerTest extends munit.FunSuite:
-  def planSortKey(p: Schedule.Plan) =
-    val s = p.schedule
-    (s.variant.id.value, s.conditions.nonEmpty, if s.variant.standard then s.speed.id else 0, s.at)
-
-  def schedulesAt(date: Instant) =
-    TournamentScheduler.allWithConflicts(date).sortBy(planSortKey).map(_.schedule)
-
-  val usEastZone  = java.time.ZoneId.of("America/New_York")
-  val parisZone   = java.time.ZoneId.of("Europe/Paris")
-  val datePrinter = java.time.format.DateTimeFormatter.ofPattern("MM-dd'T'HH:mm z")
-
-  def fullDaySchedule(date: Instant) =
-    val startOfDay  = date.withTimeAtStartOfDay
-    val dayInterval = TimeInterval(startOfDay, java.time.Duration.ofDays(1))
-
-    // Prune conflicts in a similar manner to how it is done in production i.e. TournamentScheduler:
-    // schedule earlier hours first, and then add later hour schedules if they don't conflict.
-    // In production, existing tournaments come from db, but the effect is the same.
-    Schedule
-      .pruneConflicts(
-        List.empty,
-        (-24 to 23).flatMap { hour =>
-          val start = startOfDay.plusHours(hour)
-          TournamentScheduler
-            .allWithConflicts(start)
-            .filter(_.interval.overlaps(dayInterval))
-        }
-      )
-      .sortBy(planSortKey)
-      .map(p =>
-        val s           = p.schedule
-        val realStart   = s.atInstant
-        val usEastStart = realStart.atZone(usEastZone).format(datePrinter)
-        val parisStart  = realStart.atZone(parisZone).format(datePrinter)
-        s"${s} ($usEastStart, $parisStart) ${p.minutes}m"
-      )
+  import ScheduleTestHelpers.{ allSchedulesAt, fullDaySchedule, ExperimentalPruner }
 
   /** Used to update snapshots in this file (see comment at start of each test).
     */
   def _printSnapshot(plans: List[?]) =
     println(plans.mkString("      List(\"\"\"", "\"\"\",\n        \"\"\"", "\"\"\").mkString(\"\\n\")"))
+
+  test("2024-09 - no usurps, correct daily scheduling"):
+    import chess.variant.*
+    import lila.tournament.Schedule.Speed.*
+    import lila.tournament.Schedule.Freq.*
+
+    val start      = instantOf(2024, 9, 1, 0, 0)
+    val wholeMonth = TimeInterval(start, start.plusMonths(1))
+    val daysInSept = 30
+    val allSeptTourneys = ExperimentalPruner
+      .pruneConflictsFailOnUsurp(
+        List.empty,
+        // Hour by hour schedules for the entire month.
+        (-1 to (daysInSept * 24)).flatMap { hours =>
+          TournamentScheduler.allWithConflicts(start.plusHours(hours))
+        }
+      )
+      .filter(_.interval.overlaps(wholeMonth))
+
+    //
+    // If we made it here, there weren't invalid usurps! Yay!
+    // Next, check that there are the proper number of special events of each type.
+    //
+
+    val dailiesOrBetter = allSeptTourneys.filter(p => p.schedule.freq.isDailyOrBetter)
+
+    // All non-standard variants have a dedicated daily.  FromPosition isn't used by schedules.
+    val exoticVariants = Variant.list.all.toSet.removedAll(List(Standard, FromPosition))
+    exoticVariants.foreach { variant =>
+      val variantTourneys = dailiesOrBetter.filter(_.schedule.variant == variant)
+
+      // A variant should have on average at least one special event per day.
+      assert(clue(variantTourneys.length) >= clue(daysInSept), s"$variant: too few specials")
+
+      // Some variants have a few more events in the month if a special doesn't match the
+      // daily TC. But only allow a few. Higher probably indicates a mistake, like a weekly not
+      // conflicting with the daily.
+      assert(clue(variantTourneys.length) <= clue(daysInSept + 2), s"$variant: too many specials")
+    }
+
+    dailiesOrBetter
+      .filter(p => exoticVariants.contains(p.schedule.variant))
+      .groupBy(_.schedule.at.getDayOfMonth)
+      .foreach { case (day, plans) =>
+        // There should be at most two special event of each exotic variant per day, and
+        // only in the case for rare situations like a offset special or different special speed.
+        // We currently don't have more than 2 extra specials on a given day. Higher values
+        // are *probably* a mistake, so check here. However, this number can be updated if
+        // the change in scheduling is intentional.
+        assert(clue(plans.length) <= clue(exoticVariants.size + 2), s"Too many exotic specials on $day")
+      }
+
+    // For Standard, there is a dedicated daily for each of the following speeds.
+    List(Bullet, SuperBlitz, Blitz, Rapid, HyperBullet, UltraBullet).foreach { speed =>
+      val standardSpeededDaily =
+        dailiesOrBetter.filter { plan =>
+          val s = plan.schedule
+          s.variant.standard && s.speed == speed
+        }
+      // There should be exactly one special event at each of these Speeds per day.
+      assertEquals(standardSpeededDaily.length, daysInSept, s"Wrong number of $speed specials")
+    }
+
+    // Easterns don't count as daily or better, so they only conflict by overlap.
+    // There aren't any other special events at this time, so they should always take priority
+    // over the hourlies and thus have exactly 3 per day.
+    assertEquals(
+      allSeptTourneys.filter(_.schedule.freq == Eastern).length,
+      daysInSept * 3
+    )
+
+  test("pruneConflict methods produce identical results"):
+    val prescheduled = Schedule.pruneConflicts(
+      List.empty,
+      TournamentScheduler.allWithConflicts(instantOf(2024, 7, 31, 23, 0))
+    )
+    val start = instantOf(2024, 8, 1, 0, 0)
+    val allTourneys = (0 to 23).flatMap { hours =>
+      TournamentScheduler.allWithConflicts(start.plusHours(hours))
+    }
+    assertEquals(
+      ExperimentalPruner.pruneConflictsFailOnUsurp(prescheduled, allTourneys),
+      Schedule.pruneConflicts(prescheduled, allTourneys)
+    )
 
   test("2024-09-05 - thursday, summer"):
     // uncomment to print text for updating snapshot.
@@ -390,6 +439,7 @@ class SchedulerTest extends munit.FunSuite:
         """2024-09-05T19:00:00Z Hourly horde blitz(5+0) Conditions() None (09-05T15:00 EDT, 09-05T21:00 CEST) 57m""",
         """2024-09-05T22:00:00Z Hourly horde blitz(5+0) Conditions() None (09-05T18:00 EDT, 09-06T00:00 CEST) 57m""",
         """2024-09-05T02:00:00Z Hourly racingKings hippoBullet(2+0) Conditions() None (09-04T22:00 EDT, 09-05T04:00 CEST) 57m""",
+        """2024-09-05T03:00:00Z Daily racingKings superBlitz(3+0) Conditions() None (09-04T23:00 EDT, 09-05T05:00 CEST) 60m""",
         """2024-09-05T05:00:00Z Hourly racingKings blitz(5+0) Conditions() None (09-05T01:00 EDT, 09-05T07:00 CEST) 57m""",
         """2024-09-05T08:00:00Z Hourly racingKings blitz(5+0) Conditions() None (09-05T04:00 EDT, 09-05T10:00 CEST) 57m""",
         """2024-09-05T11:00:00Z Hourly racingKings superBlitz(3+0) Conditions() None (09-05T07:00 EDT, 09-05T13:00 CEST) 57m""",
@@ -787,7 +837,7 @@ class SchedulerTest extends munit.FunSuite:
     // uncomment to print text for updating snapshot.
     // _printSnapshot(schedulesAt(instantOf(2022, 12, 31, 21, 43)))
     assertEquals(
-      schedulesAt(instantOf(2022, 12, 31, 21, 43)).mkString("\n"),
+      allSchedulesAt(instantOf(2022, 12, 31, 21, 43)).mkString("\n"),
       List(
         """2022-12-31T22:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",
         """2022-12-31T23:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",
@@ -796,6 +846,7 @@ class SchedulerTest extends munit.FunSuite:
         """2023-01-01T02:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",
         """2023-01-01T03:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",
         """2023-01-01T17:00:00Z Monthly standard ultraBullet(¼+0) Conditions() None""",
+        """2023-01-01T17:00:00Z Weekly standard ultraBullet(¼+0) Conditions() None""",
         """2023-01-01T21:00:00Z Daily standard ultraBullet(¼+0) Conditions() None""",
         """2023-01-08T16:00:00Z Shield standard ultraBullet(¼+0) Conditions() None""",
         """2023-02-05T17:00:00Z Monthly standard ultraBullet(¼+0) Conditions() None""",
@@ -869,7 +920,6 @@ class SchedulerTest extends munit.FunSuite:
         """2023-01-01T00:00:00Z Hourly standard rapid(10+0) Conditions() None""",
         """2023-01-01T02:00:00Z Hourly standard rapid(10+0) Conditions() None""",
         """2023-01-01T06:00:00Z Hourly standard rapid(10+0) Conditions() Some(rnbqkbnr/ppp1pppp/8/8/2pP4/8/PP2PPPP/RNBQKBNR w KQkq -)""",
-        """2023-01-01T07:00:00Z Eastern standard rapid(10+0) Conditions() None""",
         """2023-01-01T14:00:00Z Hourly standard rapid(10+0) Conditions() Some(rnbqkbnr/pppp1p1p/8/6p1/4Pp2/5N2/PPPP2PP/RNBQKB1R w KQkq -)""",
         """2023-01-01T19:00:00Z Daily standard rapid(10+0) Conditions() None""",
         """2023-01-05T16:00:00Z Shield standard rapid(10+0) Conditions() None""",

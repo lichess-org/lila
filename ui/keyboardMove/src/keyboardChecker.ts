@@ -1,3 +1,5 @@
+import { pubsub } from 'common/pubsub';
+
 export default class KeyboardChecker {
   keys: string[] = [];
   oks = 0;
@@ -16,7 +18,7 @@ export default class KeyboardChecker {
           if (v.split('').every(c => this.keys.includes(c))) this.oks++;
           else {
             this.kos++;
-            if (this.kos == 9 && this.kos > this.oks) site.pubsub.emit('ab.rep', 'kbc');
+            if (this.kos == 9 && this.kos > this.oks) pubsub.emit('ab.rep', 'kbc');
           }
         }
       }
