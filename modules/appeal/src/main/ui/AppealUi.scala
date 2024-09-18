@@ -13,7 +13,7 @@ final class AppealUi(helpers: Helpers):
       .css("bits.form3")
       .css("bits.appeal")
       .css(Granter.opt(_.UserModView).option("mod.user"))
-      .js(esmInitObj("bits", "fn" -> "appeal") ++ Granter.opt(_.UserModView).so(Esm("mod.user")))
+      .js(esmInitBit("appeal") ++ Granter.opt(_.UserModView).so(Esm("mod.user")))
 
   def renderMark(suspect: User)(using ctx: Context) =
     val query = Granter.opt(_.Appeals).so(ctx.req.queryString.toMap)

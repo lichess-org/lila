@@ -110,7 +110,7 @@ final class AuthUi(helpers: Helpers):
   )(using ctx: Context) =
     Page("Check your email")
       .css("bits.email-confirm")
-      .js(esmInitObj("bits", "fn" -> "validateEmail")):
+      .js(esmInitBit("validateEmail")):
         main(
           cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
         )(

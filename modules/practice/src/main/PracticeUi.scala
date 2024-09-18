@@ -38,7 +38,7 @@ final class PracticeUi(helpers: Helpers)(
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
     Page("Practice chess positions")
       .css("bits.practice.index")
-      .js(esmInitObj("bits", "fn" -> "practiceNag"))
+      .js(esmInitBit("practiceNag"))
       .graph(
         title = "Practice your chess",
         description = "Learn how to master the most common chess positions",

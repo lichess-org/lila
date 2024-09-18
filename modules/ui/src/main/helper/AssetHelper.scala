@@ -30,6 +30,8 @@ trait AssetHelper:
     esmInit(key, safeJsonValue(Json.toJson(value)))
   def esmInitObj(key: String, args: (String, Json.JsValueWrapper)*): Esm =
     esmInit(key, safeJsonValue(Json.obj(args*)))
+  def esmInitBit(fn: String, args: (String, Json.JsValueWrapper)*): Esm =
+    esmInit("bits", safeJsonValue(Json.obj(args*) + ("fn" -> JsString(fn))))
   def esmPage(key: String): Esm =
     Esm(key, embedJsUnsafeLoadThen(s"site.asset.loadEsmPage('$key')"))
 
@@ -58,6 +60,6 @@ trait AssetHelper:
   def iconFlair(flair: Flair): Tag = img(cls := "icon-flair", src := flairSrc(flair))
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
-    re.enabled.so(esmInitObj("bits", "fn" -> "hcaptcha"))
+    re.enabled.so(esmInitBit("hcaptcha"))
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(Esm("analyse.nvui"))

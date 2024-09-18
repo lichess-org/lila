@@ -171,7 +171,7 @@ final class SitePages(helpers: Helpers):
   ) =
     SitePage(title = title, active = "source", contentCls = "page force-ltr")
       .css("bits.source")
-      .js(esmInitObj("bits", "fn" -> "setAssetInfo")):
+      .js(esmInitBit("setAssetInfo")):
         frag(
           st.section(cls := "box")(
             h1(cls := "box__top")(title),
