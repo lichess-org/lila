@@ -9,6 +9,7 @@ import { RoundData } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 import { LooseVNodes, LooseVNode, looseH as h } from 'common/snabbdom';
+import { pubsub } from 'common/pubsub';
 
 export interface ButtonState {
   enabled: boolean;
@@ -285,4 +286,4 @@ export function watcherFollowUp(ctrl: RoundController): LooseVNode {
   return content.find(x => !!x) && h('div.follow-up', content);
 }
 
-const onSuggestionHook: Hooks = util.onInsert(el => site.pubsub.emit('round.suggestion', el.textContent));
+const onSuggestionHook: Hooks = util.onInsert(el => pubsub.emit('round.suggestion', el.textContent));

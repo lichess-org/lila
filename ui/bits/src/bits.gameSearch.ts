@@ -1,3 +1,5 @@
+import { pubsub } from 'common/pubsub';
+
 site.load.then(() => {
   const form = document.querySelector('.search__form') as HTMLFormElement,
     $form = $(form),
@@ -79,7 +81,7 @@ site.load.then(() => {
       this.href += '&' + serialized;
     });
   updatePagerLink();
-  site.pubsub.on('content-loaded', updatePagerLink);
+  pubsub.on('content-loaded', updatePagerLink);
 
   $form.on('submit', () => {
     $form

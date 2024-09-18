@@ -6,6 +6,7 @@ import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { DasherCtrl, PaneCtrl } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 export interface BackgroundData {
   current: string;
@@ -106,7 +107,7 @@ export class BackgroundCtrl extends PaneCtrl {
           '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
         );
     }
-    site.pubsub.emit('theme', key);
+    pubsub.emit('theme', key);
   };
 
   private imageInput = () =>

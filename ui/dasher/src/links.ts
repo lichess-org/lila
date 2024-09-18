@@ -1,6 +1,7 @@
 import { Attrs, looseH as h, VNode, bind } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import { Mode, DasherCtrl, PaneCtrl } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 export class LinksCtrl extends PaneCtrl {
   constructor(root: DasherCtrl) {
@@ -24,7 +25,7 @@ export class LinksCtrl extends PaneCtrl {
               'button.text',
               {
                 attrs: { 'data-icon': licon.DiscBigOutline, title: 'Keyboard: z', type: 'button' },
-                hook: bind('click', () => site.pubsub.emit('zen')),
+                hook: bind('click', () => pubsub.emit('zen')),
               },
               this.trans.noarg('zenMode'),
             ),

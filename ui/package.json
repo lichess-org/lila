@@ -10,8 +10,8 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "jsdom": "^24.1.0",
-    "vitest": "^2.0.3"
+    "jsdom": "^25.0.0",
+    "vitest": "^2.1.1"
   },
   "scripts": {
     "test": "vitest run",

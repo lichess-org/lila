@@ -1,6 +1,7 @@
 import RoundController from './ctrl';
 import { VNode } from 'snabbdom';
 import { snabDialog } from 'common/dialog';
+import { pubsub } from 'common/pubsub';
 
 export const prev = (ctrl: RoundController): void => ctrl.userJump(ctrl.ply - 1);
 
@@ -25,7 +26,7 @@ export const init = (ctrl: RoundController): LichessMousetrap =>
       ctrl.redraw();
     })
     .bind('f', ctrl.flipNow)
-    .bind('z', () => site.pubsub.emit('zen'))
+    .bind('z', () => pubsub.emit('zen'))
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();

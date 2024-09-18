@@ -28,6 +28,7 @@ import {
 import division from './division';
 import { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { pubsub } from 'common/pubsub';
 
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
@@ -170,7 +171,7 @@ export default async function(
       },
       onClick(_event, elements, _chart) {
         const data = elements[elements.findIndex(element => element.datasetIndex == 0)];
-        if (data) site.pubsub.emit('analysis.chart.click', data.index);
+        if (data) pubsub.emit('analysis.chart.click', data.index);
       },
     },
   };
@@ -184,8 +185,8 @@ export default async function(
     if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
     acplChart.update('none');
   };
-  site.pubsub.on('ply', acplChart.selectPly);
-  site.pubsub.emit('ply.trigger');
+  pubsub.on('ply', acplChart.selectPly);
+  pubsub.emit('ply.trigger');
   if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
   return acplChart;
 }

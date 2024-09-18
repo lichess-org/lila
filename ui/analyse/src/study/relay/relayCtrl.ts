@@ -9,6 +9,7 @@ import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
 import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
+import { pubsub } from 'common/pubsub';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'players', 'stats'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -64,7 +65,7 @@ export default class RelayCtrl {
     const pinned = data.pinnedStream;
     if (pinned && this.pinStreamer()) this.streams.push(['', pinned.name]);
 
-    site.pubsub.on('socket.in.crowd', d => {
+    pubsub.on('socket.in.crowd', d => {
       const s = (d.streams as [string, string][]) ?? [];
       if (pinned && this.pinStreamer()) s.unshift(['', pinned.name]);
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;

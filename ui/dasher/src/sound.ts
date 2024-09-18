@@ -5,6 +5,7 @@ import { h, VNode } from 'snabbdom';
 import { header } from './util';
 import { bind } from 'common/snabbdom';
 import { DasherCtrl, PaneCtrl } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 type Key = string;
 
@@ -88,7 +89,7 @@ export class SoundCtrl extends PaneCtrl {
 
   private set = (k: Key) => {
     site.sound.speech(k == 'speech');
-    site.pubsub.emit('speech.enabled', site.sound.speech());
+    pubsub.emit('speech.enabled', site.sound.speech());
     if (site.sound.speech()) {
       site.sound.changeSet('standard');
       this.postSet('standard');

@@ -21,6 +21,7 @@ import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import utc from 'dayjs/plugin/utc';
 import { memoize } from 'common';
+import { pubsub } from 'common/pubsub';
 
 interface Opts {
   data: PerfRatingHistory[];
@@ -161,7 +162,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
               $el.addClass('panning');
               return true; // why
             },
-            onPan: () => site.pubsub.emit('chart.panning'),
+            onPan: () => pubsub.emit('chart.panning'),
             onPanComplete: ctx => {
               toggleEvents(ctx.chart as Chart<'line'>, false);
               $el.removeClass('panning');
@@ -241,7 +242,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
     // Disable events while dragging for a slight performance boost
     slider.on('start', () => toggleEvents(chart, true));
     slider.on('end', () => toggleEvents(chart, false));
-    site.pubsub.on('chart.panning', () => {
+    pubsub.on('chart.panning', () => {
       slider.set([chart.scales.x.min, chart.scales.x.max], false, true);
     });
     const activeIfDuration = (d: duration.Duration) => (initial.isSame(endDate.subtract(d)) ? 'active' : '');

@@ -5,6 +5,7 @@ import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
 import { RoundData } from '../interfaces';
 import { storage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
@@ -87,7 +88,7 @@ export function init(ctrl: RoundController): void {
   // chessground.setDropMove(state, undefined) is called, which means
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into chessground again.
-  site.pubsub.on('ply', () => {
+  pubsub.on('ply', () => {
     if (crazyKeys.length > 0) setDrop();
   });
 

@@ -1,6 +1,7 @@
 import type * as snabbdom from 'snabbdom';
 import * as licon from 'common/licon';
 import Peer from 'peerjs';
+import { pubsub } from 'common/pubsub';
 
 type State =
   | 'off'
@@ -183,12 +184,12 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }
 
   function ping() {
-    if (state != 'off') site.pubsub.emit('socket.send', 'palantirPing');
+    if (state != 'off') pubsub.emit('socket.send', 'palantirPing');
   }
 
-  site.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
-  site.pubsub.on('socket.in.palantirOff', site.reload); // remote disconnection
-  site.pubsub.on('palantir.toggle', v => {
+  pubsub.on('socket.in.palantir', uids => uids.forEach(call));
+  pubsub.on('socket.in.palantirOff', site.reload); // remote disconnection
+  pubsub.on('palantir.toggle', v => {
     if (!v) stop();
   });
 

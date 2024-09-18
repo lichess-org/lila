@@ -17,12 +17,12 @@ import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 import { trans } from 'common/i18n';
 import { storage, type LichessStorage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export default class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
-  private subs: [string, PubsubCallback][];
 
   allTabs: Tab[] = ['discussion'];
   palantir: ChatPalantir;
@@ -79,16 +79,12 @@ export default class ChatCtrl {
     if (this.allTabs.length > 1 && this.vm.tab === 'discussion' && noChat) this.vm.tab = this.allTabs[1];
     this.instanciateModeration();
 
-    this.subs = [
-      ['socket.in.message', this.onMessage],
-      ['socket.in.chat_timeout', this.onTimeout],
-      ['socket.in.chat_reinstate', this.onReinstate],
-      ['chat.writeable', this.onWriteable],
-      ['chat.permissions', this.onPermissions],
-      ['palantir.toggle', this.palantir.enabled],
-    ];
-
-    this.subs.forEach(([eventName, callback]) => site.pubsub.on(eventName, callback));
+    pubsub.on('socket.in.message', this.onMessage);
+    pubsub.on('socket.in.chat_timeout', this.onTimeout);
+    pubsub.on('socket.in.chat_reinstate', this.onReinstate);
+    pubsub.on('chat.writeable', this.onWriteable);
+    pubsub.on('chat.permissions', this.onPermissions);
+    pubsub.on('palantir.toggle', this.palantir.enabled);
 
     this.emitEnabled();
   }
@@ -105,7 +101,7 @@ export default class ChatCtrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    site.pubsub.emit('socket.send', 'talk', text);
+    pubsub.emit('socket.send', 'talk', text);
     return true;
   };
 
@@ -166,10 +162,15 @@ export default class ChatCtrl {
   };
 
   destroy = (): void => {
-    this.subs.forEach(([eventName, callback]) => site.pubsub.off(eventName, callback));
+    pubsub.off('socket.in.message', this.onMessage);
+    pubsub.off('socket.in.chat_timeout', this.onTimeout);
+    pubsub.off('socket.in.chat_reinstate', this.onReinstate);
+    pubsub.off('chat.writeable', this.onWriteable);
+    pubsub.off('chat.permissions', this.onPermissions);
+    pubsub.off('palantir.toggle', this.palantir.enabled);
   };
 
-  emitEnabled = (): void => site.pubsub.emit('chat.enabled', this.vm.enabled);
+  emitEnabled = (): void => pubsub.emit('chat.enabled', this.vm.enabled);
 
   setTab = (t: Tab): void => {
     this.vm.tab = t;

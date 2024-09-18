@@ -50,6 +50,7 @@ import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
 import { trans } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
 
 interface GoneBerserk {
   white?: boolean;
@@ -142,12 +143,12 @@ export default class RoundController implements MoveRootCtrl {
     if (!document.referrer?.includes('/serviceWorker.')) setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:
-    site.pubsub.on('jump', ply => {
+    pubsub.on('jump', ply => {
       this.jump(parseInt(ply));
       this.redraw();
     });
 
-    site.pubsub.on('zen', () => {
+    pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       if (!$('body').hasClass('zen-auto')) {
@@ -268,7 +269,7 @@ export default class RoundController implements MoveRootCtrl {
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
     this.pluginUpdate(s.fen);
-    site.pubsub.emit('ply', ply);
+    pubsub.emit('ply', ply);
     return true;
   };
 
@@ -293,7 +294,7 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip),
     });
-    site.pubsub.emit('flip', this.flip);
+    pubsub.emit('flip', this.flip);
     this.redraw();
   };
 
@@ -443,7 +444,7 @@ export default class RoundController implements MoveRootCtrl {
       });
       if (o.check) site.sound.play('check', o.volume);
       blur.onMove();
-      site.pubsub.emit('ply', this.ply);
+      pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
     const step = {
@@ -586,7 +587,7 @@ export default class RoundController implements MoveRootCtrl {
 
   challengeRematch = async(): Promise<void> => {
     if (this.data.game.id !== 'synthetic') await xhr.challengeRematch(this.data.game.id);
-    site.pubsub.emit('challenge-app.open');
+    pubsub.emit('challenge-app.open');
     if (once('rematch-challenge')) {
       setTimeout(async() => {
         const [tour] = await Promise.all([
@@ -838,7 +839,7 @@ export default class RoundController implements MoveRootCtrl {
       else this.voiceMove = makeVoiceMove(this, up);
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
-    site.pubsub.on('board.change', (is3d: boolean) => {
+    pubsub.on('board.change', (is3d: boolean) => {
       this.chessground.state.addPieceZIndex = is3d;
       this.chessground.redrawAll();
     });

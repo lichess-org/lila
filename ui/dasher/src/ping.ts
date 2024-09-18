@@ -1,13 +1,13 @@
 import { h, VNode } from 'snabbdom';
 import { defined } from 'common';
 import { DasherCtrl } from './interfaces';
+import { pubsub } from 'common/pubsub';
+
 export class PingCtrl {
   ping: number | undefined;
   server: number | undefined;
 
-  constructor(readonly root: DasherCtrl) {
-    site.pubsub.on('dasher.toggle', v => (v ? this.connect() : this.disconnect()));
-  }
+  constructor(readonly root: DasherCtrl) {}
 
   onLag = (lag: number): void => {
     this.ping = Math.round(lag);
@@ -19,14 +19,14 @@ export class PingCtrl {
   };
 
   connect = (): void => {
-    site.pubsub.emit('socket.send', 'moveLat', true);
-    site.pubsub.on('socket.lag', this.onLag);
-    site.pubsub.on('socket.in.mlat', this.onMlat);
+    pubsub.emit('socket.send', 'moveLat', true);
+    pubsub.on('socket.lag', this.onLag);
+    pubsub.on('socket.in.mlat', this.onMlat);
   };
 
   disconnect = (): void => {
-    site.pubsub.off('socket.lag', this.onLag);
-    site.pubsub.off('socket.in.mlat', this.onMlat);
+    pubsub.off('socket.lag', this.onLag);
+    pubsub.off('socket.in.mlat', this.onMlat);
   };
 
   render = (): VNode =>
