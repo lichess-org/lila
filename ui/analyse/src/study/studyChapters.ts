@@ -221,7 +221,7 @@ export function view(ctrl: StudyCtrl): VNode {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           active = !ctrl.vm.loading && current?.id === chapter.id;
         return h(
-          'div',
+          'button',
           {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
@@ -238,7 +238,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .concat(
         ctrl.members.canContribute()
           ? [
-            h('div.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+            h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
               h('span', iconTag(licon.PlusButton)),
               h('h3', ctrl.trans.noarg('addNewChapter')),
             ]),

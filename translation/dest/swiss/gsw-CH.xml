@@ -30,8 +30,8 @@
   <string name="startingIn" comment="Displayed above a timer">Schtartet in</string>
   <string name="nextRound">Nächschti Rundi</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="one">Laufendi Partie</item>
-    <item quantity="other">Laufendi Partie</item>
+    <item quantity="one">Laufendi Schpiel</item>
+    <item quantity="other">Laufendi Schpiel</item>
   </plurals>
   <string name="tournStartDate">Turnier Schtartdatum</string>
   <string name="numberOfRounds">Azahl Runde</string>
@@ -77,8 +77,8 @@ als villicht vu \"Krethi und Plethi\", wänn so es Turnier öffentlich isch.</st
 dass er i dere Rundi nöd schpille muess, aber trotzdem en Punkt überchunnt. 
 Zuesätzlich gits au en halbe Punkt, wänn er erscht schpöter is Turnier ischtigt.</string>
   <string name="earlyDrawsQ">Was passiert bime schnälle Remis?</string>
-  <string name="earlyDrawsAnswer">Bi Partie, in Turnier nach \"Schweizer System\", chann mer keis Remis veribare, bevor nöd mindeschtens 30 Züg gschpillt worde sind. Die Regelig chann zwar nöd verhindere, dass es Remis scho vor em Schpiel abgmacht wird, aber sie erschwerts es bizli, sich schpontan uf es Remis z\'einige.</string>
-  <string name="whatIfOneDoesntPlayQ">Was passiert, wänn en Schpiller nöd zur Partie ahtritt?</string>
+  <string name="earlyDrawsAnswer">Bi Schpiel, in Turnier nach \"Schweizer System\", chann mer keis Remis veribare, bevor nöd mindeschtens 30 Züg gschpillt worde sind. Die Regelig chann zwar nöd verhindere, dass es Remis scho vor em Schpiel abgmacht wird, aber sie erschwerts es bizli, sich schpontan uf Remis z\'einige.</string>
+  <string name="whatIfOneDoesntPlayQ">Was passiert, wänn en Schpiller nöd zum Schpiel ahtritt?</string>
   <string name="whatIfOneDoesntPlayA">Sini Zit lauft und wänn sie um isch, verlürt er das Schpiel.
 De Schpiller wird vum Syschtem us em Tunrier gnah, dass er nöd no meh verlürt. 
 Doch er chann jederzit wieder is Turnier ischtige.</string>
@@ -95,11 +95,11 @@ Jedem \"Schpatischtiger\" wird en halbe Punkt gschänkt, obwohl er mehreri Runde
   <string name="roundRobinQ">Was isch mit \"Round Robin\" Turnier?</string>
   <string name="roundRobinA">Mir würded das gern au integriere, aber leider funktioniert \"Round Robin\" online nöd.
 De Grund isch, dass es kei gerächti Möglichkeit git, mit Lüt umzgah, wo so es Turnier vorzitig verlöhnd. 
-Mir chönd nöd erwarte, dass jede Schpiller so en Online-Event beändet und alli sini Partie schpillt. 
+Mir chönd nöd erwarte, dass jede Schpiller so en Online-Event bis zumSchluss schpillt. 
 Das wird eifach nie passiere und drum wäred die meischte vu dene Turnier fählerhaft und unfair, 
 was dänn de eigentlichi Sinn vu \"Round Robin\" verunmöglicht.
-Am nächschte an \"Round Robin\" chunnt es Turnier nach \"Schweizer System\", wo e möglichscht höchi Azahl 
-vu Runde gschpillt wird. So werded, bis zum Änd vum Turnier, die meischte, mögliche Paarige gschpillt.</string>
+Am ähnlichschte wie \"Round Robin\" isch s\"Schweizer System\", wo e möglichscht höchi Azahl 
+vu Runde gschpillt wird. So werded, bis am Schluss, die meischte, mögliche Paarige gschpillt.</string>
   <string name="otherSystemsQ">Was isch mit andere Turniersystem?</string>
   <string name="otherSystemsA">Mir händ im Momänt nöd planet bi Lichess no meh Turnier Variante oder System zuezfüege.</string>
   <string name="swissDescription">Ime Turnier nach \"Schweizer System\" %1$s schpillt jede Schpiller nöd notwändigerwis gäge alli andere Schpiller. Sie träffed bi jedere Rundi eis zu eis ufenand und werded mit Hilf vunere Reihe vu Regle enand zueglost, zum sicher schtelle, dass Jede immer en Gägner mit ähnlichem Punkteschtand hät, aber nöd zweimal uf de glich Gägner trifft. De Sieger isch am Schluss de Schpiller, mit de höchschte Azahl Pünkt, wo us allne Runde erzielt worde sind. Alli Schpiller schpilled i jedere Rundi, usser es git e ungradi Azahl vu Schpiller.</string>
@@ -114,7 +114,7 @@ Und nur Teammitglieder chönd im Turnier mitschpille.
   <string name="predefinedDuration">Vordefinierti Längi in Minute</string>
   <string name="durationUnknown">Vordefinierti, maximali Rundezahl, 
 aber unbekannti Turnierlängi</string>
-  <string name="numberOfGames">Azahl Partie</string>
+  <string name="numberOfGames">Azahl Schpiel</string>
   <string name="numberOfGamesAsManyAsPossible">So viel wie die zuegwiseni Längi zuelaht</string>
   <string name="numberOfGamesPreDefined">Vorher entschiede, für all Schpiller glich</string>
   <string name="pairingSystem">Paarigs System</string>
@@ -136,7 +136,7 @@ mit ähnlichem Rang</string>
   <string name="unlimitedAndFree">Unbeschränkt und gratis</string>
   <string name="predefinedUsers">Nur vordefinierte Benutzer s\'Mitmache erlaube</string>
   <string name="forbiddedUsers">Wänn die Lischte nöd leer isch, dörfed Benutzer, wo nöd uf dere Lischte stöhnd, nöd Teilneh. Nur ein Nutzername pro Zile.</string>
-  <string name="playYourGames">Schpill dini Partie</string>
+  <string name="playYourGames">Absolvier dini Schpiel</string>
   <string name="byes">Freilos</string>
   <string name="absences">Absänze</string>
   <string name="tieBreak">Tie Break</string>

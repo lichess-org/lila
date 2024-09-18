@@ -26,6 +26,9 @@
   <plurals name="completedNbGames">
     <item quantity="other">%s 局の通信戦を完了</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="other">%1$s 局の %2$s 通信戦を完了しました</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">%s 人をフォロー開始</item>
   </plurals>

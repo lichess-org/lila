@@ -8,14 +8,17 @@
   position: relative;
   user-select: none;
 
-  > div {
+  > div,
+  button {
     @extend %flex-between-nowrap;
 
+    text-align: start;
     align-items: stretch;
 
     @include transition;
 
     &:hover,
+    &:focus,
     &.active {
       color: $c-font-clear;
       background: $m-primary_bg--mix-10;
@@ -37,7 +40,7 @@
     @include transition;
   }
 
-  > div:hover .act {
+  > button:hover .act {
     opacity: 0.7;
 
     &:hover {

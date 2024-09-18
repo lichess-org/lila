@@ -21,7 +21,15 @@ import lila.gathering.Condition
   */
 private[tournament] case class ConcreteSchedule(
     schedule: Schedule,
-    interval: TimeInterval
+    startsAt: Instant,
+    duration: java.time.Duration
+) extends Schedule.ScheduleWithInterval
+
+private[tournament] case class ConcreteTourney(
+    tournament: Tournament,
+    schedule: Schedule,
+    startsAt: Instant,
+    duration: java.time.Duration
 ) extends Schedule.ScheduleWithInterval
 
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
@@ -35,15 +43,18 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
         val plans = TournamentScheduler.allWithConflicts()
+        val possibleTourneys = plans.map(p => (p.schedule, p.build)).map { case (s, t) =>
+          ConcreteTourney(t, s, t.startsAt, t.duration)
+        }
 
         val existingSchedules = dbScheds.flatMap { t =>
           // Ignore tournaments with schedule=None - they never conflict.
-          t.schedule.map { ConcreteSchedule(_, t.interval) }
+          t.schedule.map { ConcreteSchedule(_, t.startsAt, t.duration) }
         }
 
-        val prunedPlans = Schedule.pruneConflicts(existingSchedules, plans)
+        val prunedTourneys = Schedule.pruneConflicts(existingSchedules, possibleTourneys)
 
-        tournamentRepo.insert(prunedPlans.map(_.build)).logFailure(logger)
+        tournamentRepo.insert(prunedTourneys.map(_.tournament)).logFailure(logger)
       catch
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
@@ -269,6 +280,8 @@ Thank you all, you rock!""".some,
           Schedule(Weekend, speed, Standard, none, date.pipe(orNextWeek)).plan
         }
       },
+      // Note: these should be scheduled close to the hour of weekly or weekend tournaments
+      // to avoid two dailies being cancelled in a row from a single higher importance tourney
       List( // daily tournaments!
         at(today, 16).map { date =>
           Schedule(Daily, Bullet, Standard, none, date.pipe(orTomorrow)).plan
@@ -289,6 +302,8 @@ Thank you all, you rock!""".some,
           Schedule(Daily, UltraBullet, Standard, none, date.pipe(orTomorrow)).plan
         }
       ).flatten,
+      // Note: these should be scheduled close to the hour of weekly variant tournaments
+      // to avoid two dailies being cancelled in a row from a single higher importance tourney
       List( // daily variant tournaments!
         at(today, 20).map { date =>
           Schedule(Daily, Blitz, Crazyhouse, none, date.pipe(orTomorrow)).plan
@@ -324,9 +339,6 @@ Thank you all, you rock!""".some,
         },
         at(today, 6).map { date =>
           Schedule(Eastern, Blitz, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 7).map { date =>
-          Schedule(Eastern, Rapid, Standard, none, date.pipe(orTomorrow)).plan
         }
       ).flatten, {
         {
