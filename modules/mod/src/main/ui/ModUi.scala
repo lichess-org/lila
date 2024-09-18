@@ -188,18 +188,12 @@ final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
         )
       )
 
-  val emailConfirmJs = """$('.mod-confirm form input').on('paste', function() {
-setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
-}).each(function() {
-this.setSelectionRange(this.value.length, this.value.length);
-});"""
-
   def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using
       ctx: Context
   ) =
     Page("Email confirmation")
       .css("mod.misc")
-      .js(embedJsUnsafeLoadThen(emailConfirmJs)):
+      .js(Esm("mod.emailConfirmation")):
         main(cls := "page-menu")(
           menu("email"),
           div(cls := "mod-confirm page-menu__content box box-pad")(

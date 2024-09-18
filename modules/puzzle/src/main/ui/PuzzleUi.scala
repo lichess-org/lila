@@ -30,7 +30,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
-      .js(ctx.blind.option(EsmInit("puzzle.nvui")))
+      .js(ctx.blind.option(Esm("puzzle.nvui")))
       .js(
         PageModule(
           "puzzle",
@@ -144,7 +144,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
     ) =
       Page(trans.puzzle.puzzlesByOpenings.txt())
         .css("puzzle.page")
-        .js(EsmInit("puzzle.opening")):
+        .js(Esm("puzzle.opening")):
           main(cls := "page-menu")(
             bits.pageMenu("openings", ctx.me),
             div(cls := "page-menu__content box")(

@@ -2,11 +2,12 @@ package lila.plan
 package ui
 
 import java.util.Currency
+import scalalib.paginator.Paginator
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
 import lila.core.LightUser
-import scalalib.paginator.Paginator
+import lila.plan.PlanPricingApi.pricingWrites
 
 final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   import helpers.{ *, given }
@@ -26,7 +27,6 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
       pricing: PlanPricing
   )(using ctx: Context) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
-    val pricingJson = safeJsonValue(lila.plan.PlanPricingApi.pricingWrites.writes(pricing))
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
       .iife:
@@ -48,8 +48,9 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               )
           )
         )
-      .js(ctx.isAuth.option(embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")))
-      .js(EsmInit("bits.checkout"))
+      .js:
+        ctx.isAuth.option:
+          esmInitObj("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricing)
       .js(infiniteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
@@ -326,8 +327,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   )(using Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .js(EsmInit("bits.plan"))
-      .js(embedJsUnsafeLoadThen("""plan.payPalStart()""")):
+      .js(esmInit("bits.plan")):
         main(cls := "box box-pad plan")(
           boxTop(
             h1(
@@ -407,9 +407,8 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   )(using ctx: Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .js(EsmInit("bits.plan"))
       .iife(stripeScript)
-      .js(embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")"""))
+      .js(esmInitObj("bits.plan", "stripePublicKey" -> stripePublicKey))
       .csp(paymentCsp):
         main(cls := "box box-pad plan")(
           boxTop(

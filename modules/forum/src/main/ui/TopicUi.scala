@@ -21,8 +21,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     Page("New forum topic")
       .csp(_.withInlineIconFont)
       .css("bits.forum")
-      .js(EsmInit("bits.forum"))
-      .js(captchaEsmInit):
+      .js(Esm("bits.forum"))
+      .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(
             h1(
@@ -97,7 +97,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}")
       .css("bits.forum")
       .csp(_.withInlineIconFont.withTwitter)
-      .js(EsmInit("bits.forum") ++ EsmInit("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsmInit))
+      .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
         OpenGraph(
           title = topic.name,
@@ -213,9 +213,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   )(using me: Me) =
     Page("Diagnostic report")
       .css("bits.forum")
-      .js(EsmInit("bits.forum"))
-      .js(jsModuleInit("bits.autoform", Json.obj("selector" -> ".post-text-area", "ops" -> "focus begin")))
-      .js(captchaEsmInit):
+      .js(Esm("bits.forum"))
+      .js(esmInitBit("autoForm", "selector" -> ".post-text-area", "ops" -> "focus begin"))
+      .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(h1(dataIcon := Icon.BubbleConvo, cls := "text")("Diagnostics")),
           st.section(cls := "warning")(

@@ -48,7 +48,7 @@ def index(
 def games(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Champions)(using ctx: Context) =
   Page(s"${channel.name} • ${trans.site.currentGames.txt()}")
     .css("bits.tv.games")
-    .js(EsmInit("bits.tvGames")):
+    .js(Esm("bits.tvGames")):
       main(
         cls     := "page-menu tv-games",
         dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, GameId("gameId"), Nil)}"
@@ -66,7 +66,7 @@ def embed(pov: Pov, channelKey: Option[String])(using EmbedContext) =
   views.base.embed.minimal(
     title = "lichess.org chess TV",
     cssKeys = List("bits.tv.embed"),
-    modules = EsmInit("site.tvEmbed")
+    modules = Esm("site.tvEmbed")
   )(
     attr("data-stream-url") := dataStreamUrl,
     div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(

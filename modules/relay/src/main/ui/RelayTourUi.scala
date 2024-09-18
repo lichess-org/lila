@@ -128,7 +128,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def page(title: String, pageBody: Frag, active: String)(using Context): Page =
     Page(title)
       .css("bits.page")
-      .js(EsmInit("bits.expandText"))
+      .js(Esm("bits.expandText"))
       .wrap: body =>
         main(cls := "page-small page-menu")(
           pageMenu(active),

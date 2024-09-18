@@ -18,7 +18,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
   )(using ctx: Context) =
     Page(trans.site.simultaneousExhibitions.txt())
       .css("simul.list")
-      .js(EsmInit("simul.home"))
+      .js(Esm("simul.home"))
       .graph(
         title = trans.site.simultaneousExhibitions.txt(),
         url = s"$netBaseUrl${routes.Simul.home}",

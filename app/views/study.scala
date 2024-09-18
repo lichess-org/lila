@@ -122,7 +122,7 @@ object embed:
     views.base.embed.minimal(
       title = s"${s.name} ${chapter.name}",
       cssKeys = List("bits.lpv.embed"),
-      modules = EsmInit("site.lpvEmbed")
+      modules = Esm("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
       views.analyse.ui.embed.lpvJs(

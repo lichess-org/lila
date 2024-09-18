@@ -23,7 +23,7 @@ final class UblogPostUi(helpers: Helpers, ui: UblogUi)(
   )(using ctx: Context) =
     Page(s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}")
       .css("bits.ublog")
-      .js(EsmInit("bits.expandText") ++ ctx.isAuth.so(EsmInit("bits.ublog")))
+      .js(Esm("bits.expandText") ++ ctx.isAuth.so(Esm("bits.ublog")))
       .graph(
         OpenGraph(
           `type` = "article",

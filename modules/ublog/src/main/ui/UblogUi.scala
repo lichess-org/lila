@@ -74,7 +74,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     val title = trans.ublog.xBlog.txt(user.username)
     Page(title)
       .css("bits.ublog")
-      .js(posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(EsmInit("bits.ublog")))
+      .js(posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(Esm("bits.ublog")))
       .copy(atomLinkTag = link(href := routes.Ublog.userAtom(user.username), st.title := title).some)
       .robots(blog.listed):
         main(cls := "page-menu")(
