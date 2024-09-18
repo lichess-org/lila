@@ -1,7 +1,7 @@
 export type PubsubEvent =
-| 'ab.rep'
-  | 'analysis.change'
+  | 'ab.rep'
   | 'analyse.close-all'
+  | 'analysis.change'
   | 'analysis.change'
   | 'analysis.chart.click'
   | 'analysis.comp.toggle'
@@ -14,7 +14,6 @@ export type PubsubEvent =
   | 'chat.resize'
   | 'chat.writeable'
   | 'content-loaded'
-  | 'dialog.polyfill'
   | 'flip'
   | 'jump'
   | 'notify-app.set-read'
