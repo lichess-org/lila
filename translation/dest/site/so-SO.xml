@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Si aad u casuumtid qof kula ciyaara, u dir laynkan</string>
   <string name="gameOver">Ciyaarti way dhamaatay</string>
   <string name="waitingForOpponent">Sugaya herjeede cusub</string>
+  <string name="orLetYourOpponentScanQrCode">Ama qofka kaa soo horjeeda ha sawiro summada QR-kan</string>
   <string name="waiting">Sugaya</string>
   <string name="yourTurn">Waa markaagii</string>
   <string name="aiNameLevelAiLevel">%1$s heerka %2$s</string>
@@ -69,6 +70,8 @@
   <string name="promoteVariation">Hore u wad faracan</string>
   <string name="makeMainLine">Sida ugu caansan ka dhig</string>
   <string name="deleteFromHere">Ka tuur halkan</string>
+  <string name="collapseVariations">Burbur kala duwanaanshiyaha</string>
+  <string name="expandVariations">Balaadhi kala duwanaanshiyaha</string>
   <string name="forceVariation">Khasab faracan</string>
   <string name="copyVariationPgn">Koobi garee PGNka faracan</string>
   <string name="move">Dhaqaaq</string>
@@ -105,6 +108,7 @@
   <string name="lossSavedBy50MoveRule">Xeerka 50 tallaabo ayaa diiday guuldarro</string>
   <string name="winOr50MovesByPriorMistake">Guul ama 50 tallaabo khalad hore dartii</string>
   <string name="lossOr50MovesByPriorMistake">Guuldarro ama 50 tallaabo khalad hore dartii</string>
+  <string name="unknownDueToRounding">Guul ama guuldarro kaliya ayaa la dammaanad qaaday haddii khadka miiska miiska lagu taliyay la raaco tan iyo qabsashadii ugu dambeysay ama dhaqaaqii u dambeeyay, taasoo ay ugu wacan tahay isku dhafka suurtagalka ah ee qiyamka DTZ ee saldhigyada miiska Syzygy.</string>
   <string name="allSet">Diyaar!</string>
   <string name="importPgn">Soo geli PGN</string>
   <string name="delete">Tuur</string>
@@ -122,6 +126,7 @@
   <string name="memory">Baaxadda</string>
   <string name="infiniteAnalysis">Falanqayn bilaa xad ah</string>
   <string name="removesTheDepthLimit">Mug bilaa xad ah oo komyuutarkaaga kululaynaya</string>
+  <string name="engineManager">Maareeyaha mishiinka</string>
   <string name="blunder">Qalad</string>
   <string name="mistake">Qalad</string>
   <string name="inaccuracy">Khalad</string>
@@ -175,6 +180,7 @@
   <string name="latestForumPosts">Qoraalkii u dambeeyay ee barta bulshada</string>
   <string name="players">Ciyaartoyda</string>
   <string name="friends">Saaxiibo</string>
+  <string name="otherPlayers">ciyaartoyda kale</string>
   <string name="discussions">Sheekaysiyada</string>
   <string name="today">Maanta</string>
   <string name="yesterday">Shalay</string>
@@ -273,6 +279,7 @@
   <string name="abortGame">Tuur ciyaartan</string>
   <string name="gameAborted">Ciyaartan waa la tuuray</string>
   <string name="standard">Heerka</string>
+  <string name="customPosition">Booska gaarka ah</string>
   <string name="unlimited">Bilaa xad</string>
   <string name="mode">Nooca</string>
   <string name="casual">Aan qiimaysnayn</string>
@@ -298,6 +305,7 @@
   <string name="subject">Hordhac</string>
   <string name="send">Dir</string>
   <string name="incrementInSeconds">Taran ah sikino</string>
+  <string name="freeOnlineChess">Shataranjiga Onlineka ah ee bilaashka ah</string>
   <plurals name="nbPlaying">
     <item quantity="one">%s ciyaaraya</item>
     <item quantity="other">%s ciyaaraya</item>
