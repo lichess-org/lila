@@ -164,7 +164,11 @@ export function snabDialog(o: SnabDialogOpts): VNode {
               if (!o.vnodes && html) view.innerHTML = html;
               const wrapper = new DialogWrapper(dialog, view, o);
               if (o.onInsert) o.onInsert(wrapper);
-              else wrapper.showModal();
+              else {
+                wrapper.showModal();
+                const inputEl = view.querySelector('input');
+                if (inputEl && inputEl.autofocus) inputEl.focus();
+              }
             }),
           },
           o.vnodes,
