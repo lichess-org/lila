@@ -34,6 +34,10 @@
     <item quantity="one">Har spilt ferdig %s fjernsjakkparti</item>
     <item quantity="other">Har spilt ferdig %s fjernsjakkpartier</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Har spilt ferdig %1$s fjernsjakkparti i %2$s</item>
+    <item quantity="other">Har spilt ferdig %1$s fjernsjakkpartier i %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Følger %s spiller</item>
     <item quantity="other">Følger %s spillere</item>
