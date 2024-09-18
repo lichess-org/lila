@@ -11,6 +11,7 @@ import StrongSocket from 'common/socket';
 import { storage } from 'common/storage';
 import { setClockWidget } from 'common/clock';
 import { makeChat } from 'chat';
+import { pubsub } from 'common/pubsub';
 
 const patch = init([classModule, attributesModule]);
 
@@ -73,7 +74,7 @@ async function boot(
           $meta.length && $('.game__meta').replaceWith($meta);
           $('.crosstable').replaceWith($html.find('.crosstable'));
           startTournamentClock();
-          site.pubsub.emit('content-loaded');
+          pubsub.emit('content-loaded');
         });
       },
       tourStanding(s: TourPlayer[]) {
@@ -128,7 +129,7 @@ async function boot(
     });
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
     history.replaceState(null, '', '/' + data.game.id);
-  $('#zentog').on('click', () => site.pubsub.emit('zen'));
+  $('#zentog').on('click', () => pubsub.emit('zen'));
   storage.make('reload-round-tabs').listen(site.reload);
 
   if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {

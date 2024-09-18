@@ -1,6 +1,7 @@
 import MsgCtrl from './ctrl';
 import { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
 import { json, form } from 'common/xhr';
+import { pubsub } from 'common/pubsub';
 
 export function loadConvo(userId: string): Promise<MsgData> {
   return json(`/inbox/${userId}`).then(upgradeData);
@@ -48,19 +49,19 @@ export function report(name: string, text: string): Promise<any> {
 }
 
 export function post(dest: string, text: string) {
-  site.pubsub.emit('socket.send', 'msgSend', { dest, text });
+  pubsub.emit('socket.send', 'msgSend', { dest, text });
 }
 
 export function setRead(dest: string) {
-  site.pubsub.emit('socket.send', 'msgRead', dest);
+  pubsub.emit('socket.send', 'msgRead', dest);
 }
 
 export function typing(dest: string) {
-  site.pubsub.emit('socket.send', 'msgType', dest);
+  pubsub.emit('socket.send', 'msgType', dest);
 }
 
 export function websocketHandler(ctrl: MsgCtrl) {
-  const listen = site.pubsub.on;
+  const listen = pubsub.on;
   listen('socket.in.msgNew', msg => {
     ctrl.receive({
       ...upgradeMsg(msg),

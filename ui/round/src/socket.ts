@@ -4,6 +4,7 @@ import * as xhr from './xhr';
 import RoundController from './ctrl';
 import { defined } from 'common';
 import { domDialog } from 'common/dialog';
+import { pubsub } from 'common/pubsub';
 
 export interface RoundSocket {
   send: SocketSend;
@@ -153,7 +154,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
   };
 
-  site.pubsub.on('ab.rep', n => send('rep', { n }));
+  pubsub.on('ab.rep', n => send('rep', { n }));
 
   return {
     send,

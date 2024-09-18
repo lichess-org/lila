@@ -17,12 +17,13 @@ import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 import { trans } from 'common/i18n';
 import { storage, type LichessStorage } from 'common/storage';
+import { pubsub, PubsubEvent } from 'common/pubsub';
 
 export default class ChatCtrl {
   data: ChatData;
   private maxLines = 200;
   private maxLinesDrop = 50; // how many lines to drop at once
-  private subs: [string, PubsubCallback][];
+  private subs: [PubsubEvent, PubsubCallback][];
 
   allTabs: Tab[] = ['discussion'];
   palantir: ChatPalantir;
@@ -88,7 +89,7 @@ export default class ChatCtrl {
       ['palantir.toggle', this.palantir.enabled],
     ];
 
-    this.subs.forEach(([eventName, callback]) => site.pubsub.on(eventName, callback));
+    this.subs.forEach(([eventName, callback]) => pubsub.on(eventName, callback));
 
     this.emitEnabled();
   }
@@ -105,7 +106,7 @@ export default class ChatCtrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    site.pubsub.emit('socket.send', 'talk', text);
+    pubsub.emit('socket.send', 'talk', text);
     return true;
   };
 
@@ -166,10 +167,10 @@ export default class ChatCtrl {
   };
 
   destroy = (): void => {
-    this.subs.forEach(([eventName, callback]) => site.pubsub.off(eventName, callback));
+    this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
   };
 
-  emitEnabled = (): void => site.pubsub.emit('chat.enabled', this.vm.enabled);
+  emitEnabled = (): void => pubsub.emit('chat.enabled', this.vm.enabled);
 
   setTab = (t: Tab): void => {
     this.vm.tab = t;

@@ -2,6 +2,7 @@ import * as xhr from './xhr';
 import { idleTimer } from './timing';
 import { log } from './dbLog';
 import { storage, storedIntProp, once, type LichessStorage } from './storage';
+import { pubsub, type PubsubEvent } from './pubsub';
 
 type Sri = string;
 type Tpe = string;
@@ -98,7 +99,7 @@ export default class StrongSocket {
       pingDelay: customPingDelay > 400 ? customPingDelay : 2500,
     };
     this.version = version;
-    site.pubsub.on('socket.send', this.send);
+    pubsub.on('socket.send', this.send);
     this.connect();
   }
 
@@ -136,7 +137,7 @@ export default class StrongSocket {
         this.pingNow();
         this.resendWhenOpen.forEach(([t, d, o]) => this.send(t, d, o));
         this.resendWhenOpen = [];
-        site.pubsub.emit('socket.open');
+        pubsub.emit('socket.open');
         this.ackable.resend();
       };
       ws.onmessage = e => {
@@ -241,7 +242,7 @@ export default class StrongSocket {
     const mix = this.pongCount > 4 ? 0.1 : 1 / this.pongCount;
     this.averageLag += mix * (currentLag - this.averageLag);
 
-    site.pubsub.emit('socket.lag', this.averageLag);
+    pubsub.emit('socket.lag', this.averageLag);
   };
 
   handle = (m: MsgIn): void => {
@@ -268,7 +269,7 @@ export default class StrongSocket {
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
           const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
           if (!sentAsEvent) {
-            site.pubsub.emit('socket.in.' + m.t, m.d, m);
+            pubsub.emit('socket.in.' + m.t as PubsubEvent, m.d, m);
           }
         }
     }
@@ -301,7 +302,7 @@ export default class StrongSocket {
   };
 
   onClose = (e: CloseEvent, url: string): void => {
-    site.pubsub.emit('socket.close');
+    pubsub.emit('socket.close');
     if (this.autoReconnect) {
       this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
       this.scheduleConnect(this.options.autoReconnectDelay);
@@ -317,7 +318,7 @@ export default class StrongSocket {
   onSuccess = (): void => {
     this.nbConnects++;
     if (this.nbConnects == 1) {
-      site.pubsub.complete('socket.connect');
+      pubsub.complete('socket.connect');
       let disconnectTimeout: Timeout | undefined;
       idleTimer(
         10 * 60 * 1000,

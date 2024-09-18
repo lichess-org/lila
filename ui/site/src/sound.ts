@@ -1,4 +1,3 @@
-import pubsub from './pubsub';
 import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
 import { throttle } from 'common/timing';
@@ -149,12 +148,9 @@ export default new (class implements SoundI {
 
   sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
 
-  publish = () => pubsub.emit('sound_set', this.theme);
-
   changeSet = (s: string) => {
     if (isIOS()) this.ctx?.resume();
     this.theme = s;
-    this.publish();
   };
 
   set = () => this.theme;

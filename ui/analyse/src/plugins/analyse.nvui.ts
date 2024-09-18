@@ -45,6 +45,7 @@ import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from '../util';
 import { Chessground as makeChessground } from 'chessground';
+import { pubsub } from 'common/pubsub';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -60,7 +61,7 @@ export function initModule(ctrl: AnalyseController) {
     boardStyle = boardSetting(),
     analysisInProgress = prop(false);
 
-  site.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
+  pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 

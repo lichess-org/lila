@@ -6,6 +6,7 @@ import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { ChartGame, AcplChart } from 'chart';
 import { AnalyseData } from '../interfaces';
+import { pubsub } from 'common/pubsub';
 
 export default class ServerEval {
   requested = false;
@@ -15,7 +16,7 @@ export default class ServerEval {
     readonly root: AnalyseCtrl,
     readonly chapterId: () => string,
   ) {
-    site.pubsub.on('analysis.server.progress', this.updateChart);
+    pubsub.on('analysis.server.progress', this.updateChart);
   }
 
   reset = () => {

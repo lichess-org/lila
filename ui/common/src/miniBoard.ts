@@ -3,6 +3,7 @@ import * as domData from './data';
 import { lichessClockIsRunning, setClockWidget } from './clock';
 import { uciToMove } from 'chessground/util';
 import { Chessground as makeChessground } from 'chessground';
+import { pubsub } from './pubsub';
 
 export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
@@ -78,7 +79,7 @@ export const initMiniGames = (parent?: HTMLElement): void => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
     ids = nodes.map(x => initMiniGame(x)).filter(id => id);
   if (ids.length)
-    site.pubsub.after('socket.connect').then(() => site.socket.send('startWatching', ids.join(' ')));
+    pubsub.after('socket.connect').then(() => site.socket.send('startWatching', ids.join(' ')));
 };
 
 export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): void => {

@@ -26,7 +26,6 @@ interface Site {
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
   };
-  pubsub: Pubsub; // file://./../../site/src/pubsub.ts
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(err?: any): void;
@@ -156,16 +155,6 @@ interface Trans {
 }
 
 type PubsubCallback = (...data: any[]) => void;
-
-interface Pubsub {
-  // file://./../../site/src/pubsub.ts
-  on(msg: string, f: PubsubCallback): void;
-  off(msg: string, f: PubsubCallback): void;
-  emit(msg: string, ...args: any[]): void;
-
-  after(event: string): Promise<void>;
-  complete(event: string): void;
-}
 
 interface LichessAnnouncement {
   msg?: string;

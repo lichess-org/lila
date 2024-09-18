@@ -27,6 +27,7 @@ import {
 } from './common';
 import { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
+import { pubsub } from 'common/pubsub';
 
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
@@ -205,14 +206,14 @@ export default async function(
       onClick(_event, elements, _chart) {
         let blackOffset = elements[0].datasetIndex & 1;
         if ((firstPly & 1) != 0) blackOffset = blackOffset ^ 1;
-        site.pubsub.emit('analysis.chart.click', elements[0].index * 2 + blackOffset);
+        pubsub.emit('analysis.chart.click', elements[0].index * 2 + blackOffset);
       },
     },
   };
   const movetimeChart = new Chart(el, config) as PlyChart;
   movetimeChart.selectPly = selectPly.bind(movetimeChart);
-  site.pubsub.on('ply', movetimeChart.selectPly);
-  site.pubsub.emit('ply.trigger');
+  pubsub.on('ply', movetimeChart.selectPly);
+  pubsub.emit('ply.trigger');
   return movetimeChart;
 }
 
