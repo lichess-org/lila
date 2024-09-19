@@ -281,18 +281,18 @@
   <string name="viewRematch">재대결 보러 가기</string>
   <string name="confirmMove">수 확인</string>
   <string name="play">플레이</string>
-  <string name="inbox">받은편지함</string>
+  <string name="inbox">편지함</string>
   <string name="chatRoom">채팅</string>
-  <string name="loginToChat">채팅에 로그인하기</string>
-  <string name="youHaveBeenTimedOut">채팅에서 로그아웃 되었습니다.</string>
+  <string name="loginToChat">채팅할려면 로그인하세요</string>
+  <string name="youHaveBeenTimedOut">채팅에서 타임아웃 되었습니다.</string>
   <string name="spectatorRoom">관전자 채팅</string>
   <string name="composeMessage">메시지 작성</string>
   <string name="subject">제목</string>
   <string name="send">전송</string>
-  <string name="incrementInSeconds">턴 당 추가 시간(초)</string>
+  <string name="incrementInSeconds">수 당 추가 시간(초)</string>
   <string name="freeOnlineChess">무료 온라인 체스</string>
   <plurals name="nbRated">
-    <item quantity="other">%s번의 레이팅 대국</item>
+    <item quantity="other">%s번의 레이팅 게임</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s번 승리</item>
@@ -307,28 +307,28 @@
     <item quantity="other">플레이 중인 게임 %s개</item>
   </plurals>
   <string name="exportGames">게임 내보내기</string>
-  <string name="ratingRange">ELO 범위</string>
+  <string name="ratingRange">레이팅 범위</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">%s초 더 주기</item>
   </plurals>
-  <string name="thisAccountViolatedTos">이 계정은 Lichess 이용 약관을 위반했습니다.</string>
+  <string name="thisAccountViolatedTos">이 계정은 Lichess 이용 약관을 위반하였습니다</string>
   <string name="openingExplorerAndTablebase">오프닝 탐색 &amp; 테이블베이스</string>
   <string name="takeback">무르기</string>
-  <string name="proposeATakeback">무르기를 요청합니다</string>
-  <string name="takebackPropositionSent">무르기 요청을 보냈습니다</string>
-  <string name="takebackPropositionDeclined">무르기 요청이 거절됐습니다</string>
-  <string name="takebackPropositionAccepted">무르기 요청이 승낙됐습니다</string>
-  <string name="takebackPropositionCanceled">무르기 요청이 취소됐습니다</string>
+  <string name="proposeATakeback">무르기 요청</string>
+  <string name="takebackPropositionSent">무르기 요청 전송됨</string>
+  <string name="takebackPropositionDeclined">무르기 요청 거절됨</string>
+  <string name="takebackPropositionAccepted">무르기 요청 승낙됨</string>
+  <string name="takebackPropositionCanceled">무르기 요청 취소됨</string>
   <string name="yourOpponentProposesATakeback">상대가 무르기를 요청합니다</string>
   <string name="bookmarkThisGame">이 게임을 즐겨찾기에 추가하기</string>
   <string name="tournament">토너먼트</string>
   <string name="tournaments">토너먼트</string>
   <string name="tournamentPoints">토너먼트 점수</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="other">%s 토너먼트 포인트</item>
+    <item quantity="other">%s 토너먼트 점수</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="other">공부 %s개</item>
+    <item quantity="other">%s 공부</item>
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="other">%s 동시대국</item>
