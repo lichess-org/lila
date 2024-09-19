@@ -1,5 +1,6 @@
-import { Redraw, VNode, looseH as h, onInsert } from 'common/snabbdom';
+import { Redraw, VNode, dataIcon, looseH as h, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
+import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
@@ -134,7 +135,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
     p
       ? [
         h(`a.relay-tour__player__name`, fidePageData, [userTitle(p), p.name]),
-        p.team ? h('div.relay-tour__player__team', p.team) : undefined,
+        p.team ? h('div.relay-tour__player__team.text', { attrs:dataIcon(licon.Group) },p.team) : undefined,
         h('div.relay-tour__player__cards', [
           ...(p.fide?.ratings
             ? ratingCategs.map(([key, name]) =>

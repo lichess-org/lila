@@ -6,7 +6,7 @@ import scalalib.model.Days
 
 import lila.core.perf.UserWithPerfs
 import lila.core.rating.RatingRange
-import lila.lobby.{ Hook, Seek, TriColor }
+import lila.lobby.{ Hook, Seek }
 import lila.rating.RatingRange.withinLimits
 
 case class HookConfig(

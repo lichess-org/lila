@@ -6,6 +6,7 @@ import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from
 import { numberFormat } from 'common/number';
 import { userModInfo, flag, timeout } from './xhr';
 import ChatCtrl from './ctrl';
+import { pubsub } from 'common/pubsub';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -46,7 +47,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
         if (new URLSearchParams(window.location.search).get('mod') === 'true') {
           await timeout(opts.resourceId, body);
           window.location.reload(); // to load new state since it won't be sent over the socket
-        } else site.pubsub.emit('socket.send', 'timeout', body);
+        } else pubsub.emit('socket.send', 'timeout', body);
       }
       close();
       opts.redraw();
@@ -156,7 +157,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           {
             hook: {
               insert() {
-                site.contentLoaded();
+                pubsub.emit('content-loaded');
               },
             },
           },

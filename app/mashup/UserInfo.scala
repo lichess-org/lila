@@ -93,7 +93,6 @@ object UserInfo:
       ).mapN(NbGames.apply)
 
   final class UserInfoApi(
-      relationApi: RelationApi,
       postApi: ForumPostApi,
       ublogApi: UblogApi,
       perfsRepo: lila.user.UserPerfsRepo,

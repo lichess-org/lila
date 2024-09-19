@@ -23,7 +23,7 @@ def communication(
   Page(s"${u.username} communications")
     .css("mod.communication")
     .css(isGranted(_.UserModView).option("mod.user"))
-    .js(isGranted(_.UserModView).option(EsmInit("mod.user"))):
+    .js(isGranted(_.UserModView).option(Esm("mod.user"))):
       main(id := "communication", cls := "box box-pad")(
         boxTop(
           h1(

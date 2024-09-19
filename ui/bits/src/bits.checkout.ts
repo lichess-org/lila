@@ -1,5 +1,6 @@
 import * as xhr from 'common/xhr';
-import contactEmail from './bits.contactEmail';
+import { spinnerHtml } from 'common/spinner';
+import { contactEmail } from './bits';
 
 export interface Pricing {
   currency: string;
@@ -17,7 +18,7 @@ const showErrorThenReload = (error: string) => {
   location.assign('/patron');
 };
 
-const checkoutStart = (stripePublicKey: string, pricing: Pricing): void => {
+export function initModule({ stripePublicKey, pricing }: { stripePublicKey: string, pricing: any }): void {
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
@@ -212,7 +213,7 @@ function stripeStart(
   $checkout.find('.service .stripe').on('click', function() {
     const amount = getAmount();
     if (!amount) return;
-    $checkout.find('.service').html(site.spinnerHtml);
+    $checkout.find('.service').html(spinnerHtml);
 
     xhr
       .jsonAnyResponse(`/patron/stripe/checkout?currency=${pricing.currency}`, {
@@ -237,6 +238,3 @@ function stripeStart(
     window.stripeHandler.close();
   });
 }
-
-(window as any).checkoutStart = checkoutStart;
-export default checkoutStart;

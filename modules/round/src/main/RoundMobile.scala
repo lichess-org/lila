@@ -38,7 +38,6 @@ final class RoundMobile(
 )(using Executor, lila.core.user.FlairGetMap):
 
   import RoundMobile.*
-  private given play.api.i18n.Lang = lila.core.i18n.defaultLang
 
   def online(gameSockets: List[GameAndSocketStatus])(using me: Me): Fu[JsArray] =
     gameSockets

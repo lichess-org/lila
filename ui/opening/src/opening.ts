@@ -1,5 +1,5 @@
 import Lpv from 'lichess-pgn-viewer';
-import { initAll as initMiniBoards } from 'common/miniBoard';
+import { initMiniBoards } from 'common/miniBoard';
 import { requestIdleCallback } from 'common';
 import { OpeningPage } from './interfaces';
 import { renderHistoryChart } from './chart';

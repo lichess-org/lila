@@ -15,7 +15,7 @@ final class TutorBits(helpers: Helpers)(
   )(using Context) =
     Page(title)
       .css("tutor")
-      .js(EsmInit("tutor"))
+      .js(Esm("tutor"))
       .csp(_.withInlineIconFont)
       .wrap: body =>
         main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(

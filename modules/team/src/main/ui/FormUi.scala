@@ -17,7 +17,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   import bits.{ TeamPage, menu }
 
   def create(form: Form[?], captcha: Captcha)(using Context) =
-    TeamPage(trans.team.newTeam.txt()).js(captchaEsmInit):
+    TeamPage(trans.team.newTeam.txt()).js(captchaEsm):
       main(cls := "page-menu page-small")(
         menu("form".some),
         div(cls := "page-menu__content box box-pad")(
@@ -25,7 +25,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
           postForm(cls := "form3", action := routes.Team.create)(
             form3.globalError(form),
             form3.group(form("name"), trans.site.name())(form3.input(_)),
-            entryFields(form, none),
+            entryFields(form),
             textFields(form),
             renderCaptcha(form, captcha),
             form3.actions(
@@ -37,7 +37,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       )
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: Context) =
-    TeamPage(s"Edit Team ${t.name}").js(EsmInit("bits.team")):
+    TeamPage(s"Edit Team ${t.name}").js(Esm("bits.team")):
       main(cls := "page-menu page-small team-edit")(
         menu(none),
         div(cls := "page-menu__content box box-pad")(
@@ -46,7 +46,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
           t.enabled.option(
             postForm(cls := "form3", action := routes.Team.update(t.id))(
               flairField(form, t),
-              entryFields(form, t.some),
+              entryFields(form),
               textFields(form),
               accessFields(form),
               form3.actions(
@@ -164,7 +164,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       )
     )
 
-  private def entryFields(form: Form[?], team: Option[Team])(using ctx: Context) =
+  private def entryFields(form: Form[?])(using ctx: Context) =
     form3.split(
       form3.checkbox(
         form("request"),

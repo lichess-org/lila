@@ -14,6 +14,8 @@ import { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './
 import { importPgn, variants as xhrVariants } from './studyXhr';
 import { StudyChapters } from './studyChapters';
 import { FEN } from 'chessground/types';
+import type { LichessEditor } from 'editor';
+import { pubsub } from 'common/pubsub';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -46,11 +48,11 @@ export class StudyChapterNewForm {
     readonly setTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
-    site.pubsub.on('analyse.close-all', () => this.isOpen(false));
+    pubsub.on('analyse.close-all', () => this.isOpen(false));
   }
 
   open = () => {
-    site.pubsub.emit('analyse.close-all');
+    pubsub.emit('analyse.close-all');
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);

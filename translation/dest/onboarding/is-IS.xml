@@ -12,6 +12,6 @@
   <string name="followYourFriendsOnLichess">Fylgdu vinum þínum á Lichess.</string>
   <string name="playInTournaments">Taktu þátt í mótum.</string>
   <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Lærðu af %1$s og %2$s.</string>
-  <string name="configureLichess">Stilttu Lichess að þínum smekk.</string>
+  <string name="configureLichess">Stilltu Lichess að þínum smekk.</string>
   <string name="exploreTheSiteAndHaveFun">Kannaðu vefinn og njóttu :)</string>
 </resources>

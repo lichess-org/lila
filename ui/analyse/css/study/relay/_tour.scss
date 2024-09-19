@@ -403,6 +403,12 @@ $hover-bg: $m-primary_bg--mix-30;
       @extend %tour-margin-horiz;
       font-size: 1.7em;
     }
+    &__team {
+      @extend %tour-margin-horiz;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: $c-brag;
+    }
     &__cards {
       @extend %tour-margin-horiz;
       display: grid;

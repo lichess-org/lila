@@ -4,6 +4,7 @@ import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
 import { trans } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
 
 export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();
@@ -74,7 +75,7 @@ function clickHook(f: () => void) {
   };
 }
 
-const contentLoaded = (vnode: VNode) => site.contentLoaded(vnode.elm as HTMLElement);
+const contentLoaded = (vnode: VNode) => pubsub.emit('content-loaded', vnode.elm);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   const translations = trans(d.i18n);

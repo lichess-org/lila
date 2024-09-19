@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena Txapelketak</string>
   <string name="isItRated">Sailkapenerako balio du?</string>
   <string name="willBeNotified">Txapelketa hasten denean jakinarazpen bat bidaliko dizugu, beraz beste fitxa baten beste partida bat jokatu dezakezu txapelketaren zain zauden artean.</string>
@@ -59,4 +60,28 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="averagePerformance">Bataz besteko performancea</string>
   <string name="averageScore">Batez besteko puntuazioa</string>
   <string name="myTournaments">Nire txapelketak</string>
+  <string name="editTournament">Editatu txapelketa</string>
+  <string name="editTeamBattle">Editatu taldekako txapelketa</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Aurreko txapelduna</string>
+  <string name="pickYourTeam">Aukeratu zure taldea</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Zein talderen izenean jokatuko duzu?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Parte hartzeko talde hauetako baten kide izan behar zara!</string>
+  <string name="created">Sortuta</string>
+  <string name="recentlyPlayed">Azkenaldian jokatuta</string>
+  <string name="bestResults">Emaitza onenak</string>
+  <string name="stats">Estatistikak</string>
+  <string name="tournamentStats">Txapelketaren estatistikak</string>
+  <string name="rankAvgHelp">Sailkapenaren bataz bestekoa zure puntuazioaren ehuneko bat da. Baxuagoa hobe da.
+
+Adibidez, 100 jokalariko txapelketa baten 3. sailkatzea = %3. 1000 jokalariko txapelketa baten 10. sailkatzea = %1.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medianak</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Orrialde honetako batazbesteko guztiak %s dira.</string>
+  <string name="total">Guztira</string>
+  <string name="pointsAvg">Bataz besteko puntuak</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Puntuen batuketa</string>
+  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Sailkapenaren bataz bestekoa</string>
+  <string name="tournamentWinners">Txapelketaren irabazleak</string>
+  <string name="tournamentShields">Txapelketen garaikurrak</string>
+  <string name="onlyTitled">Tituludun jokalariak bakarrik</string>
+  <string name="onlyTitledHelp">Eskatu titulu ofiziala izatea txapelketan sartzeko</string>
 </resources>

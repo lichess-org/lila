@@ -15,7 +15,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
 
   private def renderCache[A](ttl: FiniteDuration)(toFrag: A => Frag): A => Frag =
     val cache = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterWrite(1 minute)
+      .expireAfterWrite(ttl)
       .build[A, String]()
     from => raw(cache.get(from, from => toFrag(from).render))
 
@@ -23,8 +23,8 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
     sitePage(title)
       .css("bits.dailyFeed")
       .js(infiniteScrollEsmInit)
-      .js(edit.option(EsmInit("bits.flatpickr")))
-      .js(edit.option(EsmInit("bits.dailyFeed")))
+      .js(edit.option(Esm("bits.flatpickr")))
+      .js(edit.option(esmInitBit("dailyFeed")))
 
   def index(ups: Paginator[Feed.Update])(using Context) =
     page("Updates"):

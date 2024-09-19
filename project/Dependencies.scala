@@ -20,21 +20,21 @@ object Dependencies {
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.24.1"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.25.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.4.0.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.113.Final").classifier(s"$os-$arch")
-  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.0"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.1" % Test
+  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.1"
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.2" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.18.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
   val kittens     = "org.typelevel"              %% "kittens"       % "3.4.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.1" % Test
   val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0"  % Test
 
   object tests {
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.2.9"
+    val version  = "16.2.10"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -50,7 +50,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.2.6"
+    val version  = "11.2.9"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
@@ -69,7 +69,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.5.9"
+    val version = "2.6.1"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"

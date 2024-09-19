@@ -11,6 +11,7 @@ import { ucfirst } from './explorerUtil';
 import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { Redraw } from '../interfaces';
+import { userComplete } from 'common/userComplete';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
@@ -349,10 +350,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            site.asset
-              .userComplete({ input, tag: 'span', onSelect: v => onSelect(v.name) })
-              .then(() => input.focus()),
-          ),
+            userComplete({ input, focus: true, tag: 'span', onSelect: v => onSelect(v.name) })),
         }),
       ]),
       h(

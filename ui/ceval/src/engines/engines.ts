@@ -10,7 +10,7 @@ import { xhrHeader } from 'common/xhr';
 import { lichessRules } from 'chessops/compat';
 
 export class Engines {
-  private _active: EngineInfo | undefined = undefined;
+  private activeEngine: EngineInfo | undefined = undefined;
   localEngines: BrowserEngineInfo[];
   localEngineMap: Map<string, WithMake>;
   externalEngines: ExternalEngineInfo[];
@@ -49,7 +49,7 @@ export class Engines {
         requires: ['simd', 'allowLsfw'],
         variants: [key],
         assets: {
-          version: 'sfw004',
+          version: 'sfw006',
           root: 'npm/lila-stockfish-web',
           nnue: [`${variantMap(key)}-${nnue}.nnue`],
           js: 'fsf14.js',
@@ -77,7 +77,7 @@ export class Engines {
             requires: ['simd', 'allowLsfw'],
             minMem: 1536,
             assets: {
-              version: 'sfw004',
+              version: 'sfw006',
               root: 'npm/lila-stockfish-web',
               js: 'sf16-7.js',
             },
@@ -86,32 +86,16 @@ export class Engines {
         },
         {
           info: {
-            id: '__sf16nnue40',
-            name: 'Stockfish 16 NNUE · 40MB',
-            short: 'SF 16 · 40MB',
-            tech: 'NNUE',
-            requires: ['simd', 'allowLsfw'],
-            minMem: 2048,
-            assets: {
-              version: 'sfw004',
-              root: 'npm/lila-stockfish-web',
-              js: 'sf16-40.js',
-            },
-          },
-          make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
-        },
-        {
-          info: {
-            id: '__sf161nnue70',
-            name: 'Stockfish 16.1 NNUE · 70MB',
-            short: 'SF 16.1 · 70MB',
+            id: '__sf17nnue79',
+            name: 'Stockfish 17 NNUE · 79MB',
+            short: 'SF 17 · 79MB',
             tech: 'NNUE',
             requires: ['simd', 'allowLsfw'],
             minMem: 2560,
             assets: {
-              version: 'sfw004',
+              version: 'sfw006',
               root: 'npm/lila-stockfish-web',
-              js: 'sf161-70.js',
+              js: 'sf17-79.js',
             },
           },
           make: (e: BrowserEngineInfo) => new StockfishWebEngine(e, this.status),
@@ -122,6 +106,7 @@ export class Engines {
             name: 'Stockfish 14 NNUE',
             short: 'SF 14',
             tech: 'NNUE',
+            obsoletedBy: 'allowLsfw',
             requires: ['simd'],
             minMem: 2048,
             assets: {
@@ -143,7 +128,7 @@ export class Engines {
             requires: ['simd', 'allowLsfw'],
             variants: variants.map(v => v[0]),
             assets: {
-              version: 'sfw004',
+              version: 'sfw006',
               root: 'npm/lila-stockfish-web',
               js: 'fsf14.js',
             },
@@ -236,12 +221,12 @@ export class Engines {
   }
 
   get active(): EngineInfo | undefined {
-    return this._active ?? this.activate();
+    return this.activeEngine ?? this.activate();
   }
 
   activate(): EngineInfo | undefined {
-    this._active = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
-    return this._active;
+    this.activeEngine = this.getEngine({ id: this.selectProp(), variant: this.ctrl.opts.variant.key });
+    return this.activeEngine;
   }
 
   select(id: string): void {
@@ -289,7 +274,7 @@ export class Engines {
   }
 
   make(selector?: { id?: string; variant?: VariantKey }): CevalEngine {
-    const e = (this._active = this.getEngine(selector));
+    const e = (this.activeEngine = this.getEngine(selector));
     if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}}`);
 
     return e.tech !== 'EXTERNAL'

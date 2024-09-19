@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import { pubsub } from 'common/pubsub';
 
 interface ReplacementResponse {
   id: string;
@@ -28,7 +29,7 @@ const requestReplacementGame = () => {
       .then((data: ReplacementResponse) => {
         main.find(`.mini-game[href^="/${oldId}"]`).replaceWith(data.html);
         if (data.html.includes('mini-game__result')) onFinish(data.id);
-        site.contentLoaded();
+        pubsub.emit('content-loaded');
       })
       .then(done, done);
   });
@@ -46,7 +47,7 @@ const onFinish = (id: string) =>
   }, 7000); // 7000 matches the rematch wait duration in /modules/tv/main/Tv.scala
 
 site.load.then(() => {
-  site.pubsub.on('socket.in.finish', ({ id }) => onFinish(id));
+  pubsub.on('socket.in.finish', ({ id }) => onFinish(id));
   $('main.tv-games')
     .find('.mini-game')
     .each((_i, el) => {

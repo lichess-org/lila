@@ -13,8 +13,7 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     isOnline: lila.core.socket.IsOnline,
-    onlineIds: lila.core.socket.OnlineIds,
-    assetBaseUrlInternal: AssetBaseUrlInternal
+    onlineIds: lila.core.socket.OnlineIds
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   val perfsRepo = UserPerfsRepo(db(CollName("user_perf")))
@@ -34,7 +33,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val noteApi = NoteApi(repo, db(CollName("note")))
+  lazy val noteApi = NoteApi(db(CollName("note")))
 
   lazy val trophyApi = TrophyApi(db(CollName("trophy")), db(CollName("trophyKind")), cacheApi)
 

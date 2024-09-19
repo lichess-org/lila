@@ -2,7 +2,8 @@ package lila.api
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.{ Configuration, Mode }
+import com.softwaremill.tagging.*
+import play.api.Mode
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
@@ -10,18 +11,14 @@ import lila.core.misc.lpv.*
 
 @Module
 final class Env(
-    appConfig: Configuration,
     net: lila.core.config.NetConfig,
     securityEnv: lila.security.Env,
     mailerEnv: lila.mailer.Env,
-    teamSearchEnv: lila.teamSearch.Env,
-    forumSearchEnv: lila.forumSearch.Env,
     forumEnv: lila.forum.Env,
     teamEnv: lila.team.Env,
     puzzleEnv: lila.puzzle.Env,
     fishnetEnv: lila.fishnet.Env,
     studyEnv: lila.study.Env,
-    studySearchEnv: lila.studySearch.Env,
     gameSearch: lila.gameSearch.GameSearchApi,
     fideEnv: lila.fide.Env,
     coachEnv: lila.coach.Env,
@@ -58,12 +55,12 @@ final class Env(
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,
-    cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
     realPlayerApi: lila.web.RealPlayerApi,
     bookmarkExists: lila.core.bookmark.BookmarkExists,
-    manifest: lila.web.AssetManifest
+    manifest: lila.web.AssetManifest,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb // for socket test results
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
     ActorSystem,
@@ -97,6 +94,9 @@ final class Env(
   lazy val anySearch = wire[AnySearch]
 
   lazy val cli = wire[Cli]
+
+  lazy val socketTestResult =
+    SocketTestResult(yoloDb(lila.core.config.CollName("socket_test")).failingSilently())
 
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness     = wire[ChatFreshness]

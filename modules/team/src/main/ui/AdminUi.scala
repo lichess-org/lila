@@ -3,12 +3,11 @@ package ui
 
 import play.api.data.{ Field, Form }
 
-import lila.core.config.NetDomain
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
+final class AdminUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
   import trans.{ team as trt }
   import bits.{ TeamPage, menu }
@@ -19,7 +18,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
       permsForm: Form[List[TeamSecurity.LeaderData]]
   )(using Context) =
     TeamPage(s"${t.name} • ${trans.team.teamLeaders.txt()}")
-      .js(EsmInit("mod.teamAdmin"))
+      .js(Esm("mod.teamAdmin"))
       .css("bits.tagify"):
         val dataLabel = attrData("label")
         main(cls := "page-menu")(
@@ -79,7 +78,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
 
   def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using Context) =
     TeamPage(s"${t.name} • ${trans.team.kickSomeone.txt()}")
-      .js(EsmInit("mod.teamAdmin"))
+      .js(Esm("mod.teamAdmin"))
       .css("bits.tagify"):
         main(cls := "page-menu page-small")(
           menu(none),

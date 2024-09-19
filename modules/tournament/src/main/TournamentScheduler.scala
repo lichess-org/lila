@@ -11,6 +11,27 @@ import lila.common.LilaScheduler
 import lila.core.i18n.Translator
 import lila.gathering.Condition
 
+/** This case class (and underlying trait) exists to ensure conflicts are checked against a tournament's true
+  * interval, rather than the interval which could be inferred from the tournament's schedule parameter via
+  * [[Schedule.durationFor]]
+  *
+  * Such a mismatch could occur if durationFor is modified and existing tournaments are rehydrated from db.
+  * Another source of mismatch is that tourney actual start is tweaked from scheduled start by a random number
+  * of seconds (see [[Tournament.scheduleAs]])
+  */
+private[tournament] case class ConcreteSchedule(
+    schedule: Schedule,
+    startsAt: Instant,
+    duration: java.time.Duration
+) extends Schedule.ScheduleWithInterval
+
+private[tournament] case class ConcreteTourney(
+    tournament: Tournament,
+    schedule: Schedule,
+    startsAt: Instant,
+    duration: java.time.Duration
+) extends Schedule.ScheduleWithInterval
+
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     Executor,
     Scheduler,
@@ -21,9 +42,19 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
-        val newTourns = TournamentScheduler.allWithConflicts().map(_.build)
-        val pruned    = TournamentScheduler.pruneConflicts(dbScheds, newTourns)
-        tournamentRepo.insert(pruned).logFailure(logger)
+        val plans = TournamentScheduler.allWithConflicts()
+        val possibleTourneys = plans.map(p => (p.schedule, p.build)).map { case (s, t) =>
+          ConcreteTourney(t, s, t.startsAt, t.duration)
+        }
+
+        val existingSchedules = dbScheds.flatMap { t =>
+          // Ignore tournaments with schedule=None - they never conflict.
+          t.schedule.map { ConcreteSchedule(_, t.startsAt, t.duration) }
+        }
+
+        val prunedTourneys = Schedule.pruneConflicts(existingSchedules, possibleTourneys)
+
+        tournamentRepo.insert(prunedTourneys.map(_.tournament)).logFailure(logger)
       catch
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
@@ -214,7 +245,8 @@ Thank you all, you rock!""".some,
         nextWednesday -> Blitz,
         nextThursday  -> Rapid,
         nextFriday    -> Classical,
-        nextSaturday  -> HyperBullet
+        nextSaturday  -> HyperBullet,
+        nextSunday    -> UltraBullet
       ).flatMap { (day, speed) =>
         at(day, 17).map { date =>
           Schedule(Weekly, speed, Standard, none, date.pipe(orNextWeek)).plan
@@ -248,6 +280,8 @@ Thank you all, you rock!""".some,
           Schedule(Weekend, speed, Standard, none, date.pipe(orNextWeek)).plan
         }
       },
+      // Note: these should be scheduled close to the hour of weekly or weekend tournaments
+      // to avoid two dailies being cancelled in a row from a single higher importance tourney
       List( // daily tournaments!
         at(today, 16).map { date =>
           Schedule(Daily, Bullet, Standard, none, date.pipe(orTomorrow)).plan
@@ -268,6 +302,8 @@ Thank you all, you rock!""".some,
           Schedule(Daily, UltraBullet, Standard, none, date.pipe(orTomorrow)).plan
         }
       ).flatten,
+      // Note: these should be scheduled close to the hour of weekly variant tournaments
+      // to avoid two dailies being cancelled in a row from a single higher importance tourney
       List( // daily variant tournaments!
         at(today, 20).map { date =>
           Schedule(Daily, Blitz, Crazyhouse, none, date.pipe(orTomorrow)).plan
@@ -303,9 +339,6 @@ Thank you all, you rock!""".some,
         },
         at(today, 6).map { date =>
           Schedule(Eastern, Blitz, Standard, none, date.pipe(orTomorrow)).plan
-        },
-        at(today, 7).map { date =>
-          Schedule(Eastern, Rapid, Standard, none, date.pipe(orTomorrow)).plan
         }
       ).flatten, {
         {
@@ -380,16 +413,9 @@ Thank you all, you rock!""".some,
               allowList = none
             )
             val finalWhen = when.plusHours(hourDelay)
-            if speed == Bullet then
-              List(
-                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan,
-                Schedule(Hourly, speed, Standard, none, finalWhen.plusMinutes(30), conditions)
-                  .plan(_.copy(clock = Clock.Config(Clock.LimitSeconds(60), Clock.IncrementSeconds(1))))
-              )
-            else
-              List(
-                Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan
-              )
+            List(Schedule(Hourly, speed, Standard, none, finalWhen, conditions).plan) :::
+              (speed == Bullet).so:
+                List(Schedule(Hourly, Bullet, Standard, none, finalWhen.plusMinutes(30), conditions).plan)
           }
         }
         .map {
@@ -466,27 +492,7 @@ Thank you all, you rock!""".some,
               ).plan
             )
       }
-    ).flatten.filter(_.schedule.at.instant.isAfter(rightNow))
-
-  private def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
-    newTourns
-      .foldLeft(List[Tournament]()): (tourns, t) =>
-        if overlaps(t, tourns) || overlaps(t, scheds) then tourns
-        else t :: tourns
-      .reverse
-
-  private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
-    t.schedule.exists: s =>
-      ts.exists: t2 =>
-        t.variant == t2.variant && t2.schedule.so:
-          // prevent daily && weekly on the same day
-          case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameSpeed(s2) => s.sameDay(s2)
-          case s2 =>
-            (
-              t.variant.exotic ||  // overlapping exotic variant
-                s.hasMaxRating ||  // overlapping same rating limit
-                s.similarSpeed(s2) // overlapping similar
-            ) && s.similarConditions(s2) && t.overlaps(t2)
+    ).flatten.filter(_.schedule.atInstant.isAfter(rightNow))
 
   private def atTopOfHour(rightNow: Instant, hourDelta: Int): LocalDateTime =
     rightNow.plusHours(hourDelta).dateTime.withMinute(0)

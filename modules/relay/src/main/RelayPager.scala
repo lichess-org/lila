@@ -6,14 +6,14 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.relay.RelayTour.WithLastRound
 
+import reactivemongo.api.bson.*
+
 final class RelayPager(
     tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
     colls: RelayColls,
     cacheApi: CacheApi
-)(using
-    Executor
-):
+)(using Executor):
 
   import BSONHandlers.given
   import RelayTourRepo.selectors
@@ -110,9 +110,18 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
+
     val day = 1000L * 3600 * 24
+
+    val textSelector = $text(query) ++ selectors.officialPublic
+
+    // Special case of querying so that users can filter broadcasts by year
+    val yearOpt = """\b(20)\d{2}\b""".r.findFirstIn(query)
+    val selector = yearOpt.foldLeft(textSelector): (selector, year) =>
+      selector ++ "name".$regex(s"\\b$year\\b")
+
     forSelector(
-      selector = $text(query) ++ selectors.officialPublic,
+      selector = selector,
       page = page,
       onlyKeepGroupFirst = false,
       addFields = $doc(

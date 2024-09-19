@@ -449,7 +449,7 @@ final class Mod(
       else Redirect(routes.Mod.singleIp(ip))
   }
 
-  def chatUser(username: UserStr) = Secure(_.ChatTimeout) { _ ?=> _ ?=>
+  def chatUser(username: UserStr) = SecureOrScoped(_.ChatTimeout) { _ ?=> _ ?=>
     JsonOptionOk:
       env.chat.api.userChat
         .userModInfo(username)
@@ -472,7 +472,11 @@ final class Mod(
           } >> {
             Permission
               .ofDbKeys(permissions)
-              .exists(p => p.grants(Permission.SeeReport) || p.grants(Permission.Developer))
+              .exists(p =>
+                p.grants(Permission.SeeReport) || p.grants(Permission.Developer) || p.grants(
+                  Permission.ContentTeam
+                ) || p.grants(Permission.BroadcastTeam)
+              )
               .so(env.plan.api.setLifetime(user))
           }).inject(Redirect(routes.Mod.permissions(user.username)).flashSuccess)
       )
@@ -580,7 +584,7 @@ final class Mod(
         if ctx.isOAuth then fuccess(jsonOkResult) else thenWhat(res)
     }
 
-  private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: Context, me: Me): Fu[Result] =
+  private def actionResult(username: UserStr)(@nowarn res: Any)(using ctx: Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then redirect(username)
     else userC.renderModZoneActions(username)

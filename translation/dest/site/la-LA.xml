@@ -25,7 +25,7 @@
   <string name="blackIsVictorious">Ater victor est</string>
   <string name="youPlayTheWhitePieces">ludis cales albas</string>
   <string name="youPlayTheBlackPieces">ludis cales nigras</string>
-  <string name="itsYourTurn">te ordo vocat!</string>
+  <string name="itsYourTurn">Tuum vertere est!</string>
   <string name="cheatDetected">Fallacia inventum est</string>
   <string name="kingInTheCenter">Rex in centro</string>
   <string name="threeChecks">Tres scacci</string>

@@ -9,6 +9,7 @@ import {
 import { LearnCtrl } from './ctrl';
 import { view } from './view';
 import * as Prefs from 'common/prefs';
+import { pubsub } from 'common/pubsub';
 
 import storage, { Storage } from './storage';
 
@@ -67,7 +68,7 @@ export function initModule({ data, i18n, pref }: LearnServerOpts) {
   redraw();
 
   const was3d = document.head.querySelector(`link[data-css-key='common.board-3d']`) !== null;
-  site.pubsub.on('board.change', (is3d: boolean) => {
+  pubsub.on('board.change', (is3d: boolean) => {
     if (is3d !== was3d) setTimeout(site.reload, 200);
   });
   return {};

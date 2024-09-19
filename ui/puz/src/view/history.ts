@@ -1,4 +1,4 @@
-import * as miniBoard from 'common/miniBoard';
+import { initMiniBoardWith } from 'common/miniBoard';
 import { PuzCtrl } from '../interfaces';
 import { Chess } from 'chessops/chess';
 import { h, VNode } from 'snabbdom';
@@ -56,7 +56,7 @@ export default (ctrl: PuzCtrl): VNode => {
                 const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
                 const uci = round.puzzle.line.split(' ')[0];
                 pos.play(parseUci(uci)!);
-                miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
+                initMiniBoardWith(e, makeFen(pos.toSetup()), pos.turn, uci);
               }),
             }),
             h('span.puz-history__round__meta', [

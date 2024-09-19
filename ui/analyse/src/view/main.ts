@@ -21,6 +21,7 @@ import {
   renderUnderboard,
 } from './components';
 import { wikiToggleBox } from '../wiki';
+import { watchers } from 'common/watchers';
 
 export default function(deps?: typeof studyDeps) {
   return function(ctrl: AnalyseCtrl): VNode {
@@ -81,6 +82,6 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
                     ),
             ],
       ),
-    h('div.chat__members.none', { hook: onInsert(site.watchers) }),
+    h('div.chat__members.none', { hook: onInsert(watchers) }),
   ]);
 }

@@ -1,7 +1,6 @@
 /// <reference types="../types/ab" />
 
 import * as ab from 'ab';
-import * as round from './round';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
@@ -51,6 +50,7 @@ import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
 import { trans } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
 
 interface GoneBerserk {
   white?: boolean;
@@ -101,11 +101,11 @@ export default class RoundController implements MoveRootCtrl {
     readonly redraw: Redraw,
     readonly nvui?: NvuiPlugin | undefined,
   ) {
-    round.massage(opts.data);
+    util.massage(opts.data);
 
     const d = (this.data = opts.data);
 
-    this.ply = round.lastPly(d);
+    this.ply = util.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;
     setTimeout(() => {
@@ -143,12 +143,12 @@ export default class RoundController implements MoveRootCtrl {
     if (!document.referrer?.includes('/serviceWorker.')) setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:
-    site.pubsub.on('jump', ply => {
+    pubsub.on('jump', ply => {
       this.jump(parseInt(ply));
       this.redraw();
     });
 
-    site.pubsub.on('zen', () => {
+    pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       if (!$('body').hasClass('zen-auto')) {
@@ -221,7 +221,7 @@ export default class RoundController implements MoveRootCtrl {
     return true;
   };
 
-  lastPly = (): number => round.lastPly(this.data);
+  lastPly = (): number => util.lastPly(this.data);
 
   makeCgHooks = (): any => ({
     onUserMove: this.onUserMove,
@@ -247,7 +247,7 @@ export default class RoundController implements MoveRootCtrl {
   isPlaying = (): boolean => game.isPlayerPlaying(this.data);
 
   jump = (ply: Ply): boolean => {
-    ply = Math.max(round.firstPly(this.data), Math.min(this.lastPly(), ply));
+    ply = Math.max(util.firstPly(this.data), Math.min(this.lastPly(), ply));
     const isForwardStep = ply === this.ply + 1;
     this.ply = ply;
     this.justDropped = undefined;
@@ -269,7 +269,7 @@ export default class RoundController implements MoveRootCtrl {
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
     this.pluginUpdate(s.fen);
-    site.pubsub.emit('ply', ply);
+    pubsub.emit('ply', ply);
     return true;
   };
 
@@ -294,7 +294,7 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set({
       orientation: ground.boardOrientation(this.data, this.flip),
     });
-    site.pubsub.emit('flip', this.flip);
+    pubsub.emit('flip', this.flip);
     this.redraw();
   };
 
@@ -444,7 +444,7 @@ export default class RoundController implements MoveRootCtrl {
       });
       if (o.check) site.sound.play('check', o.volume);
       blur.onMove();
-      site.pubsub.emit('ply', this.ply);
+      pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
     const step = {
@@ -516,7 +516,7 @@ export default class RoundController implements MoveRootCtrl {
 
   reload = (d: RoundData): void => {
     if (d.steps.length !== this.data.steps.length) this.ply = d.steps[d.steps.length - 1].ply;
-    round.massage(d);
+    util.massage(d);
     this.data = d;
     this.clearJust();
     this.shouldSendMoveTime = false;
@@ -566,7 +566,7 @@ export default class RoundController implements MoveRootCtrl {
         !d.swiss &&
         storage.boolean('courtesy').get()
       )
-        this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
+        this.opts.chat?.instance?.post('Good game, well played');
     }
     endGameView();
     if (d.crazyhouse) crazyEndHook();
@@ -587,7 +587,7 @@ export default class RoundController implements MoveRootCtrl {
 
   challengeRematch = async(): Promise<void> => {
     if (this.data.game.id !== 'synthetic') await xhr.challengeRematch(this.data.game.id);
-    site.pubsub.emit('challenge-app.open');
+    pubsub.emit('challenge-app.open');
     if (once('rematch-challenge')) {
       setTimeout(async() => {
         const [tour] = await Promise.all([
@@ -839,13 +839,13 @@ export default class RoundController implements MoveRootCtrl {
       else this.voiceMove = makeVoiceMove(this, up);
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
-    site.pubsub.on('board.change', (is3d: boolean) => {
+    pubsub.on('board.change', (is3d: boolean) => {
       this.chessground.state.addPieceZIndex = is3d;
       this.chessground.redrawAll();
     });
   };
 
-  stepAt = (ply: Ply): Step => round.plyStep(this.data, ply);
+  stepAt = (ply: Ply): Step => util.plyStep(this.data, ply);
 
   speakClock = (): void => {
     this.clock?.speak();

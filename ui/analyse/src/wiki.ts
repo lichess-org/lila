@@ -1,5 +1,6 @@
 import { debounce } from 'common/timing';
 import { storedBooleanPropWithEffect } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export type WikiTheory = (nodes: Tree.Node[]) => void;
 
@@ -27,7 +28,7 @@ export default function wikiTheory(): WikiTheory {
   const show = (html: string) => {
     $('.analyse__wiki').toggleClass('empty', !html);
     $('.analyse__wiki-text').html(html);
-    site.pubsub.emit('chat.resize');
+    pubsub.emit('chat.resize');
   };
 
   const plyPrefix = (node: Tree.Node) =>

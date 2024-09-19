@@ -16,7 +16,6 @@ final class Env(
     securityApi: lila.core.security.SecurityApi,
     playbansOf: => lila.core.playban.BansOf,
     ircApi: lila.core.irc.IrcApi,
-    captcha: lila.core.captcha.CaptchaApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(using Executor, NetDomain)(using scheduler: Scheduler):

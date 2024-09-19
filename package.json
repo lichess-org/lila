@@ -17,28 +17,29 @@
     "url": "https://github.com/lichess-org/lila/issues"
   },
   "homepage": "https://lichess.org",
-  "packageManager": "pnpm@9.1.0+sha256.22e36fba7f4880ecf749a5ca128b8435da085ecd49575e7fb9e64d6bf4fad394",
+  "packageManager": "pnpm@9.10.0+sha256.355a8ab8dbb6ad41befbef39bc4fd6b5df85e12761d2724bd01f13e878de4b13",
   "engines": {
-    "node": ">=20",
+    "node": "22",
     "pnpm": "^9"
   },
   "lint-staged": {
-    "*.{js,ts,md,json,scss}": "prettier --write"
+    "*.{json,scss}": "prettier --write",
+    "*.ts": "eslint --fix"
   },
   "dependencies": {
+    "@stylistic/eslint-plugin": "^2.8.0",
     "@types/lichess": "workspace:*",
-    "@types/node": "^22.5.1",
-    "@types/web": "^0.0.158",
-    "@typescript-eslint/eslint-plugin": "^8.3.0",
-    "@typescript-eslint/parser": "^8.3.0",
-    "@stylistic/eslint-plugin": "^2.7.2",
+    "@types/node": "^22.5.5",
+    "@types/web": "^0.0.163",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
-    "eslint": "^9.9.1",
-    "lint-staged": "^15.2.9",
+    "eslint": "^9.10.0",
+    "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   },
   "scripts": {
     "format": "prettier --write --log-level warn . && eslint --fix ui",
@@ -50,6 +51,7 @@
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
+    "trans-dump": "pnpx tsx bin/trans-dump.ts",
     "multilog": "pnpm serverlog & ui/build -r"
   }
 }

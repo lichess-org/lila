@@ -1,90 +1,189 @@
-import * as fs from 'node:fs';
-import * as cps from 'node:child_process';
-import * as path from 'node:path';
-import { env, colors as c, errorMark, warnMark, lines } from './main';
-import JSON5 from 'json5';
-import { globArray } from './parse';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { Worker } from 'node:worker_threads';
+import { env, colors as c, errorMark } from './main';
+import { globArray, folderSize } from './parse';
+import type { WorkerData, Message } from './tscWorker';
+import ts from 'typescript';
 
-let tscPs: cps.ChildProcessWithoutNullStreams | undefined;
+const workers: Worker[] = [];
 
-export function stopTsc(): void {
-  tscPs?.kill();
-  tscPs = undefined;
+export async function stopTsc(): Promise<void> {
+  await Promise.allSettled(workers.map(w => w.terminate()));
+  workers.length = 0;
 }
 
 export async function tsc(): Promise<void> {
-  return new Promise((resolve, reject) =>
-    (async() => {
-      if (!env.tsc) return resolve();
+  if (!env.tsc) return;
+  await Promise.allSettled([
+    fs.mkdir(path.join(env.buildTempDir, 'noCheck')),
+    fs.mkdir(path.join(env.buildTempDir, 'noEmit')),
+  ]);
 
-      const cfg: any = { files: [] };
-      const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
+  const buildPaths = (await globArray('*/tsconfig*.json', { cwd: env.uiDir }))
+    .sort((a, b) => a.localeCompare(b)) // repeatable build order
+    .filter(x => env.building.some(pkg => x.startsWith(`${pkg.root}/`)));
 
-      cfg.references = (await globArray('*/tsconfig*.json', { cwd: env.uiDir }))
-        .sort((a, b) => a.localeCompare(b))
-        .filter(x => env.building.some(mod => x.startsWith(`${mod.root}/`)))
-        .map(x => ({ path: x }));
+  const configs = (await Promise.all(buildPaths.map(splitConfig))).sort((a, b) => b.size - a.size);
 
-      // verify that tsconfig references are correct
-      for (const tsconfig of cfg.references) {
-        if (!tsconfig?.path) continue;
-        if (!fs.existsSync(tsconfig.path)) env.exit(`${errorMark} - Missing: '${c.cyan(tsconfig.path)}'`);
-        const ref = JSON5.parse(await fs.promises.readFile(tsconfig.path, 'utf8'));
-        const module = path.basename(path.dirname(tsconfig.path));
-        for (const dep of env.deps.get(module) ?? []) {
-          if (!ref.references?.some((x: any) => x.path.endsWith(path.join(dep, 'tsconfig.json'))))
-            env.warn(
-              `${warnMark} - Module ${c.grey(module)} depends on ${c.grey(dep)} with no reference in '${c.cyan(
-                module + '/tsconfig.json',
-              )}'`,
-              'tsc',
-            );
-        }
-      }
+  const noCheckWorkerBuckets: SplitConfig[][] = Array.from({ length: 4 }, () => []);
+  const noEmitWorkerBuckets: SplitConfig[][] = Array.from({ length: 8 }, () => []);
 
-      await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
-      const thisPs = (tscPs = cps.spawn('.build/node_modules/.bin/tsc', [
-        '-b',
-        cfgPath,
-        ...(env.watch ? ['-w', '--preserveWatchOutput'] : ['--incremental']),
-      ]));
+  // traverse packages by descending src folder size and assign to emptiest available worker buckets
+  for (const config of configs) {
+    if (config.noCheck) addToBucket(config, noCheckWorkerBuckets, 'noCheck');
+    addToBucket(config, noEmitWorkerBuckets, 'noEmit');
+  }
 
-      env.log(`Compiling typescript`, { ctx: 'tsc' });
+  env.log(`Transpiling ${c.grey('noCheck')}`, { ctx: 'tsc' });
+  await new WatchMonitor(noCheckWorkerBuckets, 'noCheck').ok;
 
-      thisPs.stdout?.on('data', (buf: Buffer) => {
-        const txts = lines(buf.toString('utf8'));
-        for (const txt of txts) {
-          if (txt.includes('Found 0 errors')) {
-            resolve();
-            env.done(0, 'tsc');
-          } else {
-            tscLog(txt);
-          }
-        }
-      });
-      thisPs.stderr?.on('data', txt => env.log(txt, { ctx: 'tsc', error: true }));
-      thisPs.addListener('close', code => {
-        thisPs.removeAllListeners();
-        if (code !== null) env.done(code, 'tsc');
-        if (code === 0) resolve();
-        else reject();
-      });
-    })(),
+  env.log(`Typechecking ${c.grey('noEmit')}`, { ctx: 'tsc' });
+  await new WatchMonitor(noEmitWorkerBuckets, 'noEmit').ok;
+}
+
+class WatchMonitor {
+  status: ('ok' | 'busy' | 'error')[] = [];
+  resolve?: () => void;
+  ok = new Promise<void>(resolve => (this.resolve = resolve));
+  constructor(
+    readonly buckets: SplitConfig[][],
+    readonly key: 'noCheck' | 'noEmit',
+  ) {
+    for (const bucket of buckets) {
+      const workerData: WorkerData = {
+        projects: bucket.map(p => p[key]!.file),
+        watch: env.watch,
+        index: this.status.length,
+      };
+      this.status.push('busy');
+      const worker = new Worker(path.resolve(__dirname, 'tscWorker.js'), { workerData });
+      workers.push(worker);
+      worker.on('message', this.onMessage);
+      worker.on('error', this.onError);
+    }
+  }
+  onMessage = (msg: Message): void => {
+    // the watch builder always gives us a 6194 first time thru, even when errors are found
+    if (env.watch && this.resolve && msg.type === 'ok' && this.status[msg.index] === 'error') return;
+
+    this.status[msg.index] = msg.type;
+
+    if (msg.type === 'error') return logMessage(msg);
+    if (this.status.some(s => s !== 'ok')) return;
+
+    this.resolve?.();
+    if (this.key === 'noEmit' && env.exitCode.get('tsc') !== 0) env.done(0, 'tsc');
+  };
+  onError = (err: Error): void => {
+    env.exit(err.message, 'tsc');
+  };
+}
+
+function logMessage(msg: Message): void {
+  const { code, text, file, line, col } = msg.data;
+  const prelude = `${errorMark} ts${code} `;
+  const message = `${ts.flattenDiagnosticMessageText(text, '\n', 0)}`;
+  let location = '';
+  if (file) {
+    location = `${c.grey('in')} '${c.cyan(path.relative(env.uiDir, file))}`;
+    if (line !== undefined) location += c.grey(`:${line + 1}:${col + 1}`);
+    location += `' - `;
+  }
+  env.log(`${prelude}${location}${message}`, { ctx: 'tsc' });
+  if (!env.exitCode.get('tsc')) env.done(1, 'tsc');
+}
+
+function addToBucket(config: SplitConfig, buckets: SplitConfig[][], key: keyof SplitConfig) {
+  buckets
+    .reduce((smallest, current) => {
+      const smallestSize = smallest.reduce((sum, cfg) => sum + (cfg[key] ? cfg.size : 0), 0);
+      const currentSize = current.reduce((sum, cfg) => sum + (cfg[key] ? cfg.size : 0), 0);
+      return currentSize < smallestSize ? current : smallest;
+    })
+    .push(config);
+}
+
+export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
+  const length = Math.min(arr1.length, arr2.length);
+  const res: [T, U][] = [];
+  for (let i = 0; i < length; i++) {
+    res.push([arr1[i], arr2[i]]);
+  }
+  return res;
+}
+
+// the splitConfig transform generates noCheck and noEmit tsconfigs within a ui/.build temp folder.
+// each package that emits gets a --noCheck pass for fast transpilations and declarations.
+// then we do a --noEmit pass on EVERY package to verify things, regardless of its original emit.
+// this allows more parallel type checking.
+
+// splitConfig expects current lichess tsconfig conventions and doesn't anticipate future needs
+
+interface SplitConfig {
+  noEmit: { file: string; data: any };
+  noCheck?: { file: string; data: any };
+  pkgName: string;
+  size: number;
+}
+
+async function splitConfig(cfgPath: string): Promise<SplitConfig> {
+  const root = path.dirname(cfgPath);
+  const pkgName = path.basename(root);
+  const { config, error } = ts.readConfigFile(cfgPath, ts.sys.readFile);
+
+  if (error) throw new Error(`Error reading tsconfig.json: ${error.messageText}`);
+
+  const co: any = ts.parseJsonConfigFileContent(config, ts.sys, path.dirname(cfgPath)).options;
+
+  if (co.moduleResolution) co.moduleResolution = ts.ModuleResolutionKind[co.moduleResolution];
+  if (co.module) co.module = ts.ModuleKind[co.module];
+  if (co.target) co.target = ts.ScriptTarget[co.target];
+  co.lib?.forEach((lib: string, i: number) => {
+    if (lib.startsWith('lib.')) co.lib[i] = lib.split('.')[1];
+  });
+  co.incremental = true;
+
+  config.compilerOptions = co;
+  config.size = await folderSize(path.join(root, 'src'));
+  config.include = config.include?.map((glob: string) =>
+    path.resolve(root, glob.replace('${configDir}', '.')),
   );
-}
+  config.include ??= [co.rootDir ? `${co.rootDir}/**/*` : `${root}/src/**/*`];
+  config.exclude = config.exclude?.map((glob: string) =>
+    path.resolve(root, glob.replace('${configDir}', '.')),
+  );
+  config.extends = undefined;
+  config.references = env.deps
+    .get(pkgName)
+    ?.map(ref => ({ path: path.join(env.buildTempDir, 'noCheck', `${ref}.tsconfig.json`) }));
 
-function tscLog(text: string): void {
-  if (text.includes('File change detected') || text.includes('Starting compilation')) return; // redundant
-  text = text.replace(/\d?\d:\d\d:\d\d (PM|AM) - /, '');
-  if (text.match(/: error TS\d\d\d\d/)) text = fixTscError(text);
-  if (text.match(/Found (\d+) errors?/)) {
-    if (env.watch) env.done(1, 'tsc');
-  } else env.log(text, { ctx: 'tsc' });
-}
+  const noEmit = {
+    data: structuredClone(config),
+    file: path.join(env.buildTempDir, 'noEmit', `${pkgName}.tsconfig.json`),
+  };
+  noEmit.data.compilerOptions.noEmit = true;
+  noEmit.data.compilerOptions.tsBuildInfoFile = path.join(
+    env.buildTempDir,
+    'noEmit',
+    `${pkgName}.tsbuildinfo`,
+  );
+  await fs.writeFile(noEmit.file, JSON.stringify(noEmit.data, undefined, 2));
 
-const fixTscError = (text: string) =>
-  // format location for vscode embedded terminal ctrl click
-  text
-    .replace(/^[./]*/, `${errorMark} - '\x1b[36m`)
-    .replace(/\.ts\((\d+),(\d+)\):/, ".ts:$1:$2\x1b[0m' -")
-    .replace(/error (TS\d{4})/, '$1');
+  const res: SplitConfig = { noEmit, pkgName, size: await folderSize(path.join(root, 'src')) };
+
+  if (!co.noEmit) {
+    res.noCheck = {
+      data: structuredClone(config),
+      file: path.join(env.buildTempDir, 'noCheck', `${pkgName}.tsconfig.json`),
+    };
+    res.noCheck.data.compilerOptions.noCheck = true;
+    res.noCheck.data.compilerOptions.tsBuildInfoFile = path.join(
+      env.buildTempDir,
+      'noCheck',
+      `${pkgName}.tsbuildinfo`,
+    );
+    await fs.writeFile(res.noCheck.file, JSON.stringify(res.noCheck.data, undefined, 2));
+  }
+  return res;
+}

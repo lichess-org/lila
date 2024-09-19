@@ -1,9 +1,10 @@
 import { load as loadDasher } from 'dasher';
 import { domDialog } from 'common/dialog';
 import { escapeHtml } from 'common';
+import { userComplete } from 'common/userComplete';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
-  site.asset.userComplete({
+  userComplete({
     input,
     friend: true,
     focus: true,

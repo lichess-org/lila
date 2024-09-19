@@ -2,6 +2,11 @@ import * as xhr from 'common/xhr';
 
 const showError = (error: string) => alert(error);
 
+export function initModule(stripePublicKey?: string): void {
+  if (stripePublicKey) stripeStart(stripePublicKey);
+  else payPalStart();
+}
+
 const changeForm = () => {
   const $change = $('.plan table.all .change');
   $change.find('a').on('click', function(this: HTMLLinkElement) {
@@ -33,5 +38,3 @@ export function stripeStart(publicKey: string): void {
 export function payPalStart(): void {
   changeForm();
 }
-
-(window as any).plan = { payPalStart, stripeStart };

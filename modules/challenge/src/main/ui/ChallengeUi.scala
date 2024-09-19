@@ -24,7 +24,7 @@ final class ChallengeUi(helpers: Helpers):
         url = s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white).url}",
         description = "Join the challenge or watch the game here."
       )
-      .js(EsmInit("bits.qrcode"))
+      .js(Esm("bits.qrcode"))
       .js(
         PageModule(
           "bits.challengePage",

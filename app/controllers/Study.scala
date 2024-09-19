@@ -83,7 +83,7 @@ final class Study(
             apiStudies(pag)
           )
 
-  def mine(order: Order, page: Int) = Auth { ctx ?=> me ?=>
+  def mine(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     for
       pag <- env.study.pager.mine(order, page)
       _   <- preloadMembers(pag)
@@ -96,7 +96,7 @@ final class Study(
     yield res
   }
 
-  def minePublic(order: Order, page: Int) = Auth { ctx ?=> me ?=>
+  def minePublic(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     for
       pag <- env.study.pager.minePublic(order, page)
       _   <- preloadMembers(pag)
@@ -107,7 +107,7 @@ final class Study(
     yield res
   }
 
-  def minePrivate(order: Order, page: Int) = Auth { ctx ?=> me ?=>
+  def minePrivate(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     for
       pag <- env.study.pager.minePrivate(order, page)
       _   <- preloadMembers(pag)
@@ -119,7 +119,7 @@ final class Study(
 
   }
 
-  def mineMember(order: Order, page: Int) = Auth { ctx ?=> me ?=>
+  def mineMember(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     for
       pag <- env.study.pager.mineMember(order, page)
       _   <- preloadMembers(pag)
@@ -135,7 +135,7 @@ final class Study(
     yield res
   }
 
-  def mineLikes(order: Order, page: Int) = Auth { ctx ?=> me ?=>
+  def mineLikes(order: Order, page: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     for
       pag <- env.study.pager.mineLikes(order, page)
       _   <- preloadMembers(pag)

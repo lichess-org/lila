@@ -38,6 +38,7 @@
   <string name="editRoundStudy">Modifica lo studio del turno</string>
   <string name="deleteTournament">Elimina questo torneo</string>
   <string name="definitivelyDeleteTournament">Elimina definitivamente l\'intero torneo, tutti i turni e tutte le partite.</string>
+  <string name="showScores">Mostra i punteggi dei giocatori in base ai risultati del gioco</string>
   <string name="replacePlayerTags">Facoltativo: sostituisci i nomi dei giocatori, i punteggi e i titoli</string>
   <string name="periodInSeconds">Intervallo in secondi</string>
   <string name="periodInSecondsHelp">Facoltativo: quanto a lungo aspettare tra le richieste. Minimo 2s, massimo 60s. Il default è scelto in base al numero di spettatori.</string>

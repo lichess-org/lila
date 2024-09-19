@@ -13,8 +13,7 @@ import lila.setup.ValidFen
 
 final class Setup(
     env: Env,
-    challengeC: => Challenge,
-    apiC: => Api
+    challengeC: => Challenge
 ) extends LilaController(env)
     with lila.web.TheftPrevention:
 

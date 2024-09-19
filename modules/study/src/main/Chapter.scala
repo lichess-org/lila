@@ -1,10 +1,10 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tags, Tag }
+import chess.format.pgn.{ Glyph, Tags }
 import chess.format.{ Fen, Uci, UciPath }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
-import chess.{ ByColor, Centis, Color, Outcome, Ply }
+import chess.{ ByColor, Centis, Color, Ply }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
@@ -30,6 +30,8 @@ case class Chapter(
 ) extends Chapter.Like:
 
   import Chapter.BothClocks
+
+  override def toString = s"Chapter $id $name"
 
   def updateDenorm: Chapter =
     val looksLikeGame = tags.names.exists(_.isDefined) || tags.outcome.isDefined

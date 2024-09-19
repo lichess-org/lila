@@ -34,6 +34,10 @@
     <item quantity="one">Voltooide %s correspondentiepartijen</item>
     <item quantity="other">Voltooide %s correspondentiepartijen</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Voltooide %1$s %2$s correspondentiepartijen</item>
+    <item quantity="other">Voltooide %1$s %2$s correspondentiepartijen</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Begon %s speler te volgen</item>
     <item quantity="other">Begon %s spelers te volgen</item>

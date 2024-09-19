@@ -83,7 +83,7 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
   def declined(team: Team, requests: Paginator[RequestWithUser], search: Option[UserStr])(using Context) =
     val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
     val pager = paginationByQuery(routes.Team.declinedRequests(team.id, 1), requests, showPost = true)
-    TeamPage(title).js(EsmInit("mod.teamAdmin")):
+    TeamPage(title).js(Esm("mod.teamAdmin")):
       main(cls := "page-menu page-small")(
         menu(none),
         div(cls := "page-menu__content box box-pad")(

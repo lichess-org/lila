@@ -50,6 +50,12 @@
     <item quantity="many">Завершены %s игр по переписке</item>
     <item quantity="other">Завершены %s игр по переписке</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Завершена %1$s %2$s игра по переписке</item>
+    <item quantity="few">Завершены %1$s %2$s игры по переписке</item>
+    <item quantity="many">Завершены %1$s %2$s игр по переписке</item>
+    <item quantity="other">Завершены %1$s %2$s игр по переписке</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s игрок добавлен в подписку</item>
     <item quantity="few">%s игрока добавлены в подписку</item>

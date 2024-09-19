@@ -55,8 +55,6 @@ object config:
   final case class ConfigName(name: String) extends scala.annotation.StaticAnnotation:
     assert(name != null && name.nonEmpty)
 
-  case class Wut(domain: CollName)
-
   case class NetConfig(
       domain: NetDomain,
       prodDomain: NetDomain,
@@ -70,6 +68,7 @@ object config:
       siteName: String,
       socketDomains: List[String],
       socketAlts: List[String],
+      socketTest: Boolean,
       crawlable: Boolean,
       rateLimit: RateLimit,
       email: EmailAddress,

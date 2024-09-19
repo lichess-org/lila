@@ -13,7 +13,6 @@ final private class MsgSecurity(
     contactApi: ContactApi,
     prefApi: lila.core.pref.PrefApi,
     userApi: lila.core.user.UserApi,
-    userRepo: lila.core.user.UserRepo,
     userCache: lila.core.user.CachedApi,
     relationApi: lila.core.relation.RelationApi,
     reportApi: lila.core.report.ReportApi,

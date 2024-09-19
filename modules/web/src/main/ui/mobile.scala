@@ -8,7 +8,7 @@ import ScalatagsTemplate.*
 def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Context) =
   import helpers.{ *, given }
   Page("Mobile")
-    .js(EsmInit("bits.qrcode"))
+    .js(Esm("bits.qrcode"))
     .css("bits.mobile")
     .hrefLangs(lila.ui.LangPath(routes.Main.mobile)):
       main(

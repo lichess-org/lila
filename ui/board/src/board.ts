@@ -5,6 +5,7 @@ import * as licon from 'common/licon';
 import { MaybeVNode, MaybeVNodes, dataIcon, onInsert } from 'common/snabbdom';
 import { Redraw } from 'chessground/types';
 import * as controls from 'common/controls';
+import { pubsub } from 'common/pubsub';
 
 export const menu = (
   trans: Trans,
@@ -44,7 +45,7 @@ export class BoardMenu {
       name: 'Zen mode',
       id: 'zen',
       checked: $('body').hasClass('zen'),
-      change: () => site.pubsub.emit('zen'),
+      change: () => pubsub.emit('zen'),
       disabled: !enabled,
     });
 

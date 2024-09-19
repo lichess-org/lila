@@ -1,9 +1,10 @@
 import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
-import { escapeHtml, frag } from './common';
+import { escapeHtml, frag, $as } from './common';
 import { eventJanitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';
+import { pubsub } from './pubsub';
 
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
@@ -60,7 +61,7 @@ site.load.then(async() => {
   if (! window.HTMLDialogElement)
     dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
       ?.default;
-  site.pubsub.complete('dialog.polyfill');
+  pubsub.complete('dialog.polyfill');
 });
 
 // non-blocking window.alert-alike
@@ -164,7 +165,11 @@ export function snabDialog(o: SnabDialogOpts): VNode {
               if (!o.vnodes && html) view.innerHTML = html;
               const wrapper = new DialogWrapper(dialog, view, o);
               if (o.onInsert) o.onInsert(wrapper);
-              else wrapper.showModal();
+              else {
+                wrapper.showModal();
+                const inputEl = view.querySelector('input');
+                if (inputEl && inputEl.autofocus) inputEl.focus();
+              }
             }),
           },
           o.vnodes,

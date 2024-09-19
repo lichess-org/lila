@@ -15,6 +15,7 @@ import {
   ModeScores,
   Redraw,
 } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
@@ -90,14 +91,14 @@ export default class CoordinateTrainerCtrl {
         }),
     );
 
-    site.pubsub.on('zen', () => {
+    pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       setZen(zen);
     });
 
-    $('#zentog').on('click', () => site.pubsub.emit('zen'));
-    site.mousetrap.bind('z', () => site.pubsub.emit('zen'));
+    $('#zentog').on('click', () => pubsub.emit('zen'));
+    site.mousetrap.bind('z', () => pubsub.emit('zen'));
 
     site.mousetrap.bind('enter', () => (this.playing ? null : this.start()));
 

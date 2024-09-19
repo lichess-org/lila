@@ -89,7 +89,7 @@ final private class RelayFetch(
         _ = lila.mon.relay
           .games(rt.tour.official, rt.tour.id, rt.round.slug)
           .update(allGamesInSourceNoLimit.size)
-        allGamesInSource = allGamesInSourceNoLimit.take(RelayFetch.maxGamesToRead(rt.tour.official).value)
+        allGamesInSource = allGamesInSourceNoLimit.take(maxGamesToRead(rt.tour.official).value)
         filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
@@ -216,8 +216,7 @@ final private class RelayFetch(
       .flatMap(gameRepo.withInitialFens)
       .flatMap: games =>
         if games.sizeIs == ids.size then
-          val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
-          given play.api.i18n.Lang = lila.core.i18n.defaultLang
+          val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !tour.official)
           games
             .sequentially: (game, fen) =>
               pgnDump(game, fen, pgnFlags).dmap(_.render)
@@ -297,7 +296,7 @@ final private class RelayFetch(
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)
-            .map { MultiPgn.split(_, RelayFetch.maxGamesToRead) }
+            .map { MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)) }
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
@@ -341,8 +340,8 @@ final private class RelayFetch(
 private object RelayFetch:
 
   val maxChaptersToShow: Max                 = Max(100)
-  val maxGamesToRead: Max                    = Max(256)
-  val maxGamesToReadOfficial: Max            = maxGamesToRead.map(_ * 2)
+  private val maxGamesToRead: Max            = Max(256)
+  private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 2)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
   private[relay] object DgtJson:

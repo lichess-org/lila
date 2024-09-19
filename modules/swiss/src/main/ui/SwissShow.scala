@@ -31,7 +31,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
     val isDirector       = ctx.is(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     Page(fullName(s, team))
-      .js(hasScheduleInput.option(EsmInit("bits.flatpickr")))
+      .js(hasScheduleInput.option(Esm("bits.flatpickr")))
       .js(
         PageModule(
           "swiss",

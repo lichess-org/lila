@@ -1,5 +1,7 @@
 import { describe, expect, test } from 'vitest';
-import pubsub from '../src/pubsub';
+import { pubsub as typed } from '../src/pubsub';
+
+const pubsub = typed as any;
 
 describe("site.pubsub 'after' and 'complete' methods", async() => {
 

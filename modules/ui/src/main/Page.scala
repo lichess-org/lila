@@ -35,7 +35,7 @@ case class Page(
     withHrefLangs: Option[LangPath] = None,
     transform: Update[Frag] = identity
 ):
-  def js(esm: EsmInit): Page               = copy(modules = modules :+ esm.some)
+  def js(esm: Esm): Page                   = copy(modules = modules :+ esm.some)
   def js(esm: EsmList): Page               = copy(modules = modules ::: esm)
   def js(f: WithNonce[Frag]): Page         = copy(jsFrag = jsFrag.foldLeft(f)(_ |+| _).some)
   def js(f: Option[WithNonce[Frag]]): Page = f.foldLeft(this)(_.js(_))

@@ -19,7 +19,7 @@ final class SimulFormUi(helpers: Helpers)(
   def create(form: Form[SimulForm.Setup], teams: List[LightTeam])(using Context) =
     Page(trans.site.hostANewSimul.txt())
       .css("simul.form")
-      .js(EsmInit("bits.flatpickr")):
+      .js(Esm("bits.flatpickr")):
         main(cls := "box box-pad page-small simul-form")(
           h1(cls := "box__top")(trans.site.hostANewSimul()),
           postForm(cls := "form3", action := routes.Simul.create)(
@@ -38,7 +38,7 @@ final class SimulFormUi(helpers: Helpers)(
   def edit(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Simul)(using Context) =
     Page(s"Edit ${simul.fullName}")
       .css("simul.form")
-      .js(EsmInit("bits.flatpickr")):
+      .js(Esm("bits.flatpickr")):
         main(cls := "box box-pad page-small simul-form")(
           h1(cls := "box__top")("Edit ", simul.fullName),
           postForm(cls := "form3", action := routes.Simul.update(simul.id))(

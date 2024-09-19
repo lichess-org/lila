@@ -1,4 +1,5 @@
-import * as licon from 'common/licon';
+import * as licon from './licon';
+import { pubsub } from './pubsub';
 
 interface Data {
   nb: number;
@@ -11,7 +12,7 @@ let watchersData: Data | undefined;
 
 const name = (u: string) => (u.includes(' ') ? u.split(' ')[1] : u);
 
-export default function watchers(element: HTMLElement) {
+export function watchers(element: HTMLElement): void {
   if (element.dataset.watched) return;
   element.dataset.watched = '1';
   const $innerElement = $('<div class="chat__members__inner">').appendTo(element);
@@ -20,7 +21,7 @@ export default function watchers(element: HTMLElement) {
   ).appendTo($innerElement);
   const $listEl = $('<div>').appendTo($innerElement);
 
-  site.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
+  pubsub.on('socket.in.crowd', data => set(data.watchers || data));
 
   const set = (data: Data): void => {
     watchersData = data;

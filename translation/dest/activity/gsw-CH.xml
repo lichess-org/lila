@@ -15,8 +15,8 @@
     <item quantity="other">Hät %s Taktikufgabe glöst</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Hät %1$s Partie %2$s gschpillt</item>
-    <item quantity="other">Hät %1$s Partie %2$s gschpillt</item>
+    <item quantity="one">Hät %1$s Schpiel %2$s gschpillt</item>
+    <item quantity="other">Hät %1$s Schpiel %2$s gschpillt</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Hät %1$s Nachricht in %2$s gschribe</item>
@@ -27,12 +27,16 @@
     <item quantity="other">Hät %1$s Züg gschpillt</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">i %1$s Fernschachpartie</item>
-    <item quantity="other">i %1$s Fernschachpartie</item>
+    <item quantity="one">in %1$s Korrespondänz-Schpiel</item>
+    <item quantity="other">in %1$s Korrespondänz-Schpiel</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Hät %s Fernschachpartie gschpillt</item>
-    <item quantity="other">Hät %s Fernschachpartie gschpillt</item>
+    <item quantity="one">Hät %s Korrespondänz-Schpiel gschpillt</item>
+    <item quantity="other">Hät %s Korrespondänz-Schpiel gschpillt</item>
+  </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">%1$s %2$s Korrespondänz-Schpiel gschpillt</item>
+    <item quantity="other">%1$s %2$s Korrespondänz-Schpiel gschpillt</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Folgt %s Schpiller</item>

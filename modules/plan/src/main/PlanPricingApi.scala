@@ -66,7 +66,7 @@ object PlanPricingApi:
   }.atLeast(1)
 
   import play.api.libs.json.*
-  val pricingWrites = OWrites[PlanPricing] { p =>
+  given pricingWrites: OWrites[PlanPricing] = OWrites: p =>
     Json.obj(
       "currency"    -> p.currencyCode,
       "min"         -> p.min.amount,
@@ -75,4 +75,3 @@ object PlanPricingApi:
       "default"     -> p.default.amount,
       "suggestions" -> p.suggestions.map(_.amount)
     )
-  }

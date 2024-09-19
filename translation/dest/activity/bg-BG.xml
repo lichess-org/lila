@@ -34,6 +34,10 @@
     <item quantity="one">Завърши %s кореспондентна игра</item>
     <item quantity="other">Завършил %s кореспондентни игри</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="one">Изиграна %1$s %2$s кореспондентска игра</item>
+    <item quantity="other">Изиграни %1$s %2$s кореспондентски игри</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Последва %s играч</item>
     <item quantity="other">Следва %s играчи</item>

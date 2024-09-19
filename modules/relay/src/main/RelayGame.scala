@@ -13,7 +13,8 @@ case class RelayGame(
     root: Root,
     points: Option[Outcome.GamePoints]
 ):
-  override def toString = s"RelayGame ${root.mainlineNodeList.size} ${tags.outcome} ${tags.names}"
+  override def toString =
+    s"RelayGame ${root.mainlineNodeList.size} ${tags.outcome} ${tags.names} ${tags.fideIds}"
 
   // We don't use tags.boardNumber.
   // Organizers change it at any time while reordering the boards.
@@ -23,7 +24,9 @@ case class RelayGame(
       playerTagsMatch(otherTags)
 
   private def playerTagsMatch(otherTags: Tags): Boolean =
-    if RelayGame.fideIdTags.forall(id => otherTags.exists(id) && tags.exists(id))
+    val bothHaveFideIds = List(otherTags, tags).forall: ts =>
+      RelayGame.fideIdTags.forall(side => ts(side).exists(_ != "0"))
+    if bothHaveFideIds
     then allSame(otherTags, RelayGame.fideIdTags)
     else allSame(otherTags, RelayGame.nameTags)
 
@@ -104,7 +107,7 @@ private object RelayGame:
       if slices.isEmpty then games
       else
         games.view.zipWithIndex
-          .filter: (g, i) =>
+          .filter: (_, i) =>
             val n = i + 1
             slices.exists: s =>
               n >= s.from && n <= s.to

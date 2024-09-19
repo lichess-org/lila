@@ -4,6 +4,7 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.ui.RenderedPage
+import lila.api.SocketTest
 
 object page:
 
@@ -40,7 +41,7 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
-    val allModules = p.modules ++ p.pageModule.so(module => jsPageModule(module.name))
+    val allModules = p.modules ++ p.pageModule.so(module => esmPage(module.name))
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -110,10 +111,11 @@ object page:
           dataDev,
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
-          dataUser     := ctx.userId,
-          dataSoundSet := pref.currentSoundSet.toString,
-          dataSocketDomains,
-          pref.isUsingAltSocket.option(dataSocketAlts),
+          dataUser                         := ctx.userId,
+          dataSoundSet                     := pref.currentSoundSet.toString,
+          attr("data-socket-domains")      := SocketTest.socketEndpoints(netConfig).mkString(","),
+          attr("data-socket-test-user")    := SocketTest.isUserInTestBucket(netConfig),
+          attr("data-socket-test-running") := netConfig.socketTest,
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),

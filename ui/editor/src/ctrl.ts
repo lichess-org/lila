@@ -2,6 +2,8 @@ import {
   EditorState,
   Selected,
   Redraw,
+  Options,
+  Config,
   CastlingToggle,
   CastlingToggles,
   CASTLING_TOGGLES,
@@ -18,7 +20,7 @@ import { defined, prop, Prop } from 'common';
 import { trans } from 'common/i18n';
 
 export default class EditorCtrl {
-  options: Editor.Options;
+  options: Options;
   trans: Trans;
   chessground: CgApi | undefined;
 
@@ -36,7 +38,7 @@ export default class EditorCtrl {
   fullmoves: number;
 
   constructor(
-    readonly cfg: Editor.Config,
+    readonly cfg: Config,
     readonly redraw: Redraw,
   ) {
     this.options = cfg.options || {};

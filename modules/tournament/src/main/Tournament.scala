@@ -200,8 +200,8 @@ object Tournament:
       position = sched.position,
       mode = Mode.Rated,
       conditions = sched.conditions,
-      schedule = Some(sched),
-      startsAt = sched.at.instant.plusSeconds(ThreadLocalRandom.nextInt(60))
+      schedule = sched.some,
+      startsAt = sched.atInstant.plusSeconds(ThreadLocalRandom.nextInt(60))
     )
 
   def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"

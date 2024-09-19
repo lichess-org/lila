@@ -15,7 +15,7 @@ final class AuthUi(helpers: Helpers):
   def login(form: Form[?], referrer: Option[String])(using Context) =
     def addReferrer(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
     Page(trans.site.signIn.txt())
-      .js(jsModuleInit("bits.login", "login"))
+      .js(esmInit("bits.login", "login"))
       .css("bits.auth")
       .hrefLangs(lila.ui.LangPath(routes.Auth.login)):
         main(cls := "auth auth-login box box-pad")(
@@ -61,7 +61,7 @@ final class AuthUi(helpers: Helpers):
 
   def signup(form: lila.core.security.HcaptchaForm[?])(using ctx: Context) =
     Page(trans.site.signUp.txt())
-      .js(jsModuleInit("bits.login", "signup"))
+      .js(esmInit("bits.login", "signup"))
       .js(hcaptchaScript(form))
       .iife(fingerprintTag)
       .css("bits.auth")
@@ -110,13 +110,7 @@ final class AuthUi(helpers: Helpers):
   )(using ctx: Context) =
     Page("Check your email")
       .css("bits.email-confirm")
-      .js(embedJsUnsafeLoadThen("""
-var email = document.getElementById("new-email");
-var currentError = "This is already your current email.";
-email.setCustomValidity(currentError);
-email.addEventListener("input", function() {
-email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
-      });""")):
+      .js(esmInitBit("validateEmail")):
         main(
           cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
         )(
@@ -198,7 +192,7 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
   )(using me: Me) =
     Page(s"${me.username} - ${trans.site.changePassword.txt()}")
       .css("bits.auth")
-      .js(jsModuleInit("bits.login", "reset")):
+      .js(esmInit("bits.login", "reset")):
         main(cls := "page-small box box-pad")(
           boxTop(
             (ok match

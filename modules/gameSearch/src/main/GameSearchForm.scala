@@ -24,7 +24,7 @@ final private[gameSearch] class GameSearchForm:
         "black"  -> optional(username.historicalField)
       )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(FormHelpers.winnerColors)),
-      "perf"        -> optional(numberIn((PerfKey.all - PerfKey.puzzle).map(_.id.value))),
+      "perf"        -> optional(numberIn(perfKeys.map(_.id.value))),
       "source"      -> optional(numberIn(FormHelpers.sources)),
       "mode"        -> optional(numberIn(FormHelpers.modes)),
       "turnsMin"    -> optional(numberIn(FormHelpers.turns)),

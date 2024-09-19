@@ -7,7 +7,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.PicfitUrl)(using NetDomain):
+final class TitleModUi(helpers: Helpers)(ui: TitleUi)(using NetDomain):
   import helpers.{ *, given }
 
   def queue(reqs: List[TitleRequest])(using ctx: Context): Frag =
@@ -33,7 +33,7 @@ final class TitleModUi(helpers: Helpers)(ui: TitleUi, picfitUrl: lila.core.misc.
     Page(s"${user.username}'s title verification")
       .css("bits.titleRequest")
       .css(Granter.opt(_.UserModView).option("mod.user"))
-      .js(EsmInit("bits.titleRequest") ++ Granter.opt(_.UserModView).so(EsmInit("mod.user"))):
+      .js(esmInitBit("titleRequest") ++ Granter.opt(_.UserModView).so(Esm("mod.user"))):
         main(cls := "box box-pad page title-mod")(
           div(cls := "box__top")(
             h1("Title verification by ", userLink(user), " ", showStatus(req.status)),

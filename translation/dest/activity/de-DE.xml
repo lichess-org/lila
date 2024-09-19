@@ -34,6 +34,10 @@
     <item quantity="one">Hat %s Fernschachpartie gespielt</item>
     <item quantity="other">Hat %s Fernschachpartien gespielt</item>
   </plurals>
+  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+    <item quantity="one">Hat %1$s %2$s-Fernschachpartie gespielt</item>
+    <item quantity="other">Hat %1$s %2$s-Fernschachpartien gespielt</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Folgt %s Spieler</item>
     <item quantity="other">Folgt %s Spielern</item>

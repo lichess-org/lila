@@ -9,7 +9,7 @@ def embed(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
   views.base.embed.minimal(
     title = "lichess.org chess puzzle",
     cssKeys = List("bits.tv.embed"),
-    modules = EsmInit("site.puzzleEmbed")
+    modules = Esm("site.puzzleEmbed")
   )(
     bits.dailyLink(daily)(using config.translate)(
       targetBlank,

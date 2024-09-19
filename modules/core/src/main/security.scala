@@ -80,6 +80,7 @@ object IsProxy extends OpaqueString[IsProxy]:
   extension (a: IsProxy)
     def is                                  = a.value.nonEmpty
     def in(any: (IsProxy.type => IsProxy)*) = any.exists(f => f(IsProxy) == a)
+    def isSafeish: Boolean                  = in(_.empty, _.vpn, _.privacy)
     def name                                = a.value.nonEmpty.option(a.value)
   def unapply(a: IsProxy): Option[String] = a.name
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/

@@ -25,6 +25,7 @@ import { Config as ChessgroundConfig } from 'chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
 import { TreeView } from './treeView/treeView';
 import { defined, prop, Prop, toggle, Toggle, requestIdleCallback } from 'common';
+import { pubsub } from 'common/pubsub';
 import { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
 import EvalCache from './evalCache';
@@ -41,7 +42,7 @@ import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
 import { AnaMove } from './study/interfaces';
-import { StudyPracticeCtrl } from './study/practice/interfaces';
+import  StudyPracticeCtrl  from './study/practice/studyPracticeCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
 import wikiTheory, { wikiClear, WikiTheory } from './wiki';
@@ -189,19 +190,19 @@ export default class AnalyseCtrl {
       site.redirect('/analysis');
     }
 
-    site.pubsub.on('jump', (ply: string) => {
+    pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
     });
 
-    site.pubsub.on('ply.trigger', () =>
-      site.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply),
+    pubsub.on('ply.trigger', () =>
+      pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply),
     );
-    site.pubsub.on('analysis.chart.click', index => {
+    pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
       this.redraw();
     });
-    site.pubsub.on('board.change', redraw);
+    pubsub.on('board.change', redraw);
     this.persistence?.merge();
   }
 
@@ -382,14 +383,14 @@ export default class AnalyseCtrl {
     this.setAutoShapes();
     if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
-    site.pubsub.on('board.change', (is3d: boolean) => {
+    pubsub.on('board.change', (is3d: boolean) => {
       this.chessground.state.addPieceZIndex = is3d;
       this.chessground.redrawAll();
     });
   };
 
   private onChange: () => void = throttle(300, () => {
-    site.pubsub.emit('analysis.change', this.node.fen, this.path);
+    pubsub.emit('analysis.change', this.node.fen, this.path);
   });
 
   private updateHref: () => void = debounce(() => {
@@ -425,7 +426,7 @@ export default class AnalyseCtrl {
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
     }
-    site.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
+    pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
     this.pluginUpdate(this.node.fen);
   }
@@ -872,7 +873,7 @@ export default class AnalyseCtrl {
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
     this.onToggleComputer();
-    site.pubsub.emit('analysis.comp.toggle', value);
+    pubsub.emit('analysis.comp.toggle', value);
   };
 
   mergeAnalysisData(data: ServerEvalData) {
@@ -883,7 +884,7 @@ export default class AnalyseCtrl {
       data.analysis.partial = !!treeOps.findInMainline(data.tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
-    site.pubsub.emit('analysis.server.progress', this.data);
+    pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }
 
