@@ -345,6 +345,8 @@ final class GameApiV2(
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
     .add("division" -> flags.division.option(division(g, initialFen)))
     .add("bookmarked" -> bookmarked)
+    .add("import" -> g.pgnImport.map: i =>
+      Json.obj().add("date" -> i.date))
 
   private def gameLightUsers(game: Game): Future[ByColor[(lila.core.game.Player, Option[LightUser])]] =
     game.players.traverse(_.userId.so(getLightUser)).dmap(game.players.zip(_))
