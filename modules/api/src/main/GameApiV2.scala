@@ -52,7 +52,7 @@ final class GameApiV2(
           (game, initialFen, analysis) <- enrich(config.flags)(game)
           formatted <- config.format match
             case Format.JSON =>
-              toJson(game, initialFen, analysis, config, realPlayers = realPlayers).dmap(Json.stringify)
+              toJson(game, initialFen, analysis, config, realPlayers = realPlayers).map(Json.stringify)
             case Format.PGN =>
               PgnStr.raw(
                 pgnDump(
@@ -61,7 +61,7 @@ final class GameApiV2(
                   analysis,
                   config.flags,
                   realPlayers = realPlayers
-                ).dmap(annotator.toPgnString)
+                ).map(annotator.toPgnString)
               )
         yield formatted
 
