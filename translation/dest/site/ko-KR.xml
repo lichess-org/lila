@@ -34,7 +34,7 @@
   <string name="variantEnding">변형 게임 엔딩</string>
   <string name="newOpponent">새 상대</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">상대가 재대결을 원합니다</string>
-  <string name="joinTheGame">게임 참가하기</string>
+  <string name="joinTheGame">대국 참가</string>
   <string name="whitePlays">백 차례</string>
   <string name="blackPlays">흑 차례</string>
   <plurals name="opponentLeftCounter">
@@ -51,7 +51,7 @@
   <string name="blackLeftTheGame">흑이 게임 퇴장</string>
   <string name="whiteDidntMove">백이 두지 않음</string>
   <string name="blackDidntMove">흑이 두지 않음</string>
-  <string name="requestAComputerAnalysis">컴퓨터 분석 요청</string>
+  <string name="requestAComputerAnalysis">컴퓨터 분석 요청하기</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석이 가능합니다.</string>
   <string name="computerAnalysisDisabled">컴퓨터 분석 비활성화됨</string>
@@ -60,12 +60,12 @@
   <string name="usingServerAnalysis">서버 분석 사용하기</string>
   <string name="loadingEngine">엔진 로드 중 ...</string>
   <string name="calculatingMoves">수 계산 중...</string>
-  <string name="engineFailed">엔진 로딩 에러</string>
+  <string name="engineFailed">엔진 불러오는 도중 에러 발생</string>
   <string name="cloudAnalysis">클라우드 분석</string>
   <string name="goDeeper">더 깊게 분석하기</string>
-  <string name="showThreat">위험요소 표시하기</string>
+  <string name="showThreat">위험요소 표시</string>
   <string name="inLocalBrowser">브라우저에서</string>
-  <string name="toggleLocalEvaluation">개인 컴퓨터에서 분석하기</string>
+  <string name="toggleLocalEvaluation">로컬 분석 토글</string>
   <string name="promoteVariation">게임 분석 후에 어떤 수에 대한 예상결과들을 확인하고 싶다면</string>
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서부터 삭제</string>
@@ -331,7 +331,7 @@
     <item quantity="other">%s 공부</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="other">%s 동시대국</item>
+    <item quantity="other">%s 다면기</item>
   </plurals>
   <string name="viewTournament">토너먼트 보기</string>
   <string name="backToTournament">토너먼트로 돌아가기</string>
