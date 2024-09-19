@@ -36,7 +36,7 @@
   </plurals>
   <plurals name="completedNbVariantGames">
     <item quantity="one">Completou %1$s %2$s partida por correspondência</item>
-    <item quantity="other">Completou %1$s %2$s partidas por correspondência</item>
+    <item quantity="other">%1$s %2$s partidas por correspondência finalizadas</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Começou a seguir %s jogador</item>

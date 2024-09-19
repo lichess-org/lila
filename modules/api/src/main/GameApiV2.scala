@@ -52,7 +52,7 @@ final class GameApiV2(
           (game, initialFen, analysis) <- enrich(config.flags)(game)
           formatted <- config.format match
             case Format.JSON =>
-              toJson(game, initialFen, analysis, config, realPlayers = realPlayers).dmap(Json.stringify)
+              toJson(game, initialFen, analysis, config, realPlayers = realPlayers).map(Json.stringify)
             case Format.PGN =>
               PgnStr.raw(
                 pgnDump(
@@ -61,7 +61,7 @@ final class GameApiV2(
                   analysis,
                   config.flags,
                   realPlayers = realPlayers
-                ).dmap(annotator.toPgnString)
+                ).map(annotator.toPgnString)
               )
         yield formatted
 
@@ -345,6 +345,8 @@ final class GameApiV2(
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
     .add("division" -> flags.division.option(division(g, initialFen)))
     .add("bookmarked" -> bookmarked)
+    .add("import" -> g.pgnImport.map: i =>
+      Json.obj().add("date" -> i.date))
 
   private def gameLightUsers(game: Game): Future[ByColor[(lila.core.game.Player, Option[LightUser])]] =
     game.players.traverse(_.userId.so(getLightUser)).dmap(game.players.zip(_))
