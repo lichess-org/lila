@@ -114,7 +114,7 @@
   <string name="replayMode">게임 다시보기</string>
   <string name="realtimeReplay">실시간</string>
   <string name="byCPL">평가치변화</string>
-  <string name="openStudy">연구를 시작하기</string>
+  <string name="openStudy">공부하기</string>
   <string name="enable">활성화</string>
   <string name="bestMoveArrow">최선의 수 화살표</string>
   <string name="showVariationArrows">바리에이션 화살표 표시하기</string>
@@ -328,7 +328,7 @@
     <item quantity="other">%s 토너먼트 포인트</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="other">%s 연구</item>
+    <item quantity="other">공부 %s개</item>
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="other">%s 동시대국</item>
@@ -377,7 +377,7 @@
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
   <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
-  <string name="toStudy">연구</string>
+  <string name="toStudy">공부</string>
   <string name="importGame">게임 불러오기</string>
   <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
   <string name="importGameCaveat">변형은 지워집니다. 변형을 유지하려면 스터디를 통해 PGN을 가져오세요.</string>
@@ -586,7 +586,7 @@
   <string name="clock">시계</string>
   <string name="opponent">상대</string>
   <string name="learnMenu">배우기</string>
-  <string name="studyMenu">연구</string>
+  <string name="studyMenu">공부</string>
   <string name="practice">연습</string>
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
@@ -734,7 +734,7 @@
   <string name="bulletBlitzClassical">불릿, 블리츠, 클래식 방식 지원</string>
   <string name="correspondenceChess">긴 대국 체스</string>
   <string name="onlineAndOfflinePlay">온라인/오프라인 게임 모두 지원</string>
-  <string name="viewTheSolution">해답 보기</string>
+  <string name="viewTheSolution">정답 보기</string>
   <string name="followAndChallengeFriends">친구를 팔로우하고 도전하기</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">%s개의 언어 지원!</item>
@@ -768,7 +768,7 @@
   <string name="usernameCharsInvalid">유저 이름에는 알파벳, 숫자, 언더스코어 ( _ ), 하이픈 ( - ) 만을 사용할 수 있습니다.</string>
   <string name="usernameUnacceptable">사용자 이름을 사용할 수 없습니다.</string>
   <string name="playChessInStyle">스타일리시하게 체스하기</string>
-  <string name="chessBasics">체스 기본</string>
+  <string name="chessBasics">체스의 기본</string>
   <string name="coaches">코치</string>
   <string name="invalidPgn">잘못된 PGN입니다.</string>
   <string name="invalidFen">잘못된 FEN입니다.</string>
