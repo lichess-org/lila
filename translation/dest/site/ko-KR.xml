@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">친구와 게임하기</string>
-  <string name="playWithTheMachine">체스 엔진과 게임하기</string>
+  <string name="playWithTheMachine">체스 엔진과 붙기</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">게임 오버</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
@@ -10,8 +10,8 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
-  <string name="strength">난이도</string>
-  <string name="toggleTheChat">채팅 끄기/켜기</string>
+  <string name="strength">강도</string>
+  <string name="toggleTheChat">채팅 토글</string>
   <string name="chat">채팅</string>
   <string name="resign">기권</string>
   <string name="checkmate">체크메이트</string>
@@ -172,7 +172,7 @@
   <string name="players">플레이어</string>
   <string name="friends">친구들</string>
   <string name="otherPlayers">다른 플레이어들</string>
-  <string name="discussions">토론</string>
+  <string name="discussions">채팅</string>
   <string name="today">오늘</string>
   <string name="yesterday">어제</string>
   <string name="minutesPerSide">양쪽 시간(분)</string>
@@ -195,7 +195,7 @@
   <string name="time">시간</string>
   <string name="rating">레이팅</string>
   <string name="ratingStats">레이팅 통계</string>
-  <string name="username">아이디</string>
+  <string name="username">유저네임</string>
   <string name="usernameOrEmail">사용자 이름이나 이메일 주소</string>
   <string name="changeUsername">사용자명 변경</string>
   <string name="changeUsernameNotSame">글자의 대소문자 변경만 가능합니다 예: \"johndoe\" to \"JohnDoe\".</string>
