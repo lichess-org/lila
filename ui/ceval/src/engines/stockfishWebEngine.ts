@@ -2,7 +2,7 @@ import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from
 import { Protocol } from '../protocol';
 import { objectStorage, ObjectStorage } from 'common/objectStorage';
 import { sharedWasmMemory } from '../util';
-import { log } from 'common/dbLog';
+import { log } from 'common/permalog';
 import type StockfishWeb from 'lila-stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {

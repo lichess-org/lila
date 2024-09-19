@@ -67,7 +67,7 @@ function keyListFrom(name: string): KeyList {
   };
 }
 
-const dbCode = (obj: KeyList) => `  object ${obj.name}:\n${obj.code}`
+const dbCode = (obj: KeyList) => `  object ${obj.name}:\n${obj.code}`;
 
 Promise.all(dbs.map(keyListFrom)).then(objs => {
   const code = `// Generated with bin/trans-dump.ts

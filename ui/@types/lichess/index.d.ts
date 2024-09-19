@@ -39,7 +39,7 @@ interface Site {
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
   siteI18n: I18nDict;
-  socket: any;
+  socket: SocketI;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
@@ -122,6 +122,15 @@ interface SoundI {
   url(name: string): string;
 }
 
+interface SocketI {
+  averageLag: number;
+  pingInterval(): number;
+  getVersion(): number|false;
+  send: SocketSend;
+  sign(s: string): void;
+  destroy(): void;
+}
+
 interface LichessSpeech {
   step(s: { san?: San }, cut: boolean): void;
 }
@@ -153,8 +162,6 @@ interface Trans {
   vdom<T>(key: string, ...args: T[]): Array<string | T>;
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
 }
-
-type PubsubCallback = (...data: any[]) => void;
 
 interface LichessAnnouncement {
   msg?: string;

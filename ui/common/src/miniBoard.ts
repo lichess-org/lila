@@ -79,7 +79,7 @@ export const initMiniGames = (parent?: HTMLElement): void => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
     ids = nodes.map(x => initMiniGame(x)).filter(id => id);
   if (ids.length)
-    pubsub.after('socket.connect').then(() => site.socket.send('startWatching', ids.join(' ')));
+    pubsub.after('socket.hasConnected').then(() => site.socket.send('startWatching', ids.join(' ')));
 };
 
 export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): void => {

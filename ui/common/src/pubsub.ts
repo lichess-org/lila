@@ -59,7 +59,9 @@ export type PubsubEvent =
 
 export type PubsubOneTimeEvent =
   | 'dialog.polyfill'
-  | 'socket.connect';
+  | 'socket.hasConnected';
+
+export type PubsubCallback = (...data: any[]) => void;
 
 export interface Pubsub {
   on(msg: PubsubEvent, f: PubsubCallback): void;
@@ -68,6 +70,7 @@ export interface Pubsub {
 
   after(event: PubsubOneTimeEvent): Promise<void>;
   complete(event: PubsubOneTimeEvent): void;
+  past(event: PubsubOneTimeEvent): boolean;
 }
 
 export const pubsub: Pubsub = {
@@ -99,10 +102,13 @@ export const pubsub: Pubsub = {
       found.resolve = undefined;
     } else oneTimeEvents.set(event, { promise: Promise.resolve() });
   },
+  past(event: PubsubOneTimeEvent): boolean {
+    return oneTimeEvents.has(event) && !oneTimeEvents.get(event)?.resolve;
+  },
 };
 
-const allSubs: Map<string, Set<() => void>> = new Map();
-const oneTimeEvents: Map<string, OneTimeHandler> = new Map();
+const allSubs: Map<PubsubEvent, Set<() => void>> = new Map();
+const oneTimeEvents: Map<PubsubOneTimeEvent, OneTimeHandler> = new Map();
 
 interface OneTimeHandler {
   promise: Promise<void>;
