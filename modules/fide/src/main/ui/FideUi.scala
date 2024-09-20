@@ -10,12 +10,13 @@ import ScalatagsTemplate.{ *, given }
 
 final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
+  import trans.{ site as trs, broadcast as trb }
 
   private val tcTrans: List[(FideTC, lila.core.i18n.I18nKey)] =
     List(
-      FideTC.standard -> trans.site.classical,
-      FideTC.rapid    -> trans.site.rapid,
-      FideTC.blitz    -> trans.site.blitz
+      FideTC.standard -> trs.classical,
+      FideTC.rapid    -> trs.rapid,
+      FideTC.blitz    -> trs.blitz
     )
 
   private def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
@@ -34,15 +35,15 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         td(if stats.top10Rating > 0 then stats.top10Rating else "-")
       page("FIDE federations", "federations")(
         cls := "fide-federations",
-        boxTop(h1(trans.broadcast.fideFederations())),
+        boxTop(h1(trb.fideFederations())),
         table(cls := "slist slist-pad")(
           thead:
             tr(
-              th(trans.site.name()),
-              th(trans.site.players()),
-              th(trans.site.classical()),
-              th(trans.site.rapid()),
-              th(trans.site.blitz())
+              th(trs.name()),
+              th(trs.players()),
+              th(trs.classical()),
+              th(trs.rapid()),
+              th(trs.blitz())
             )
           ,
           tbody(cls := "infinite-scroll")(
@@ -64,7 +65,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         cls := "fide-federation",
         div(cls := "box__top fide-federation__head")(
           flag(fed.id, none),
-          div(h1(fed.name), p(trans.site.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
+          div(h1(fed.name), p(trs.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
           (fed.id.value == "KOS").option(p(cls := "fide-federation__kosovo")(kosovoText))
         ),
         div(cls := "fide-cards fide-federation__cards box__pad")(
@@ -73,9 +74,9 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
             card(
               name(),
               frag(
-                p(trans.site.rank(), strong(stats.get.rank)),
-                p(trans.broadcast.top10Rating(), strong(stats.get.top10Rating)),
-                p(trans.site.players(), strong(stats.get.nbPlayers.localize))
+                p(trs.rank(), strong(stats.get.rank)),
+                p(trb.top10Rating(), strong(stats.get.top10Rating)),
+                p(trs.players(), strong(stats.get.nbPlayers.localize))
               )
             )
         ),
@@ -105,7 +106,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       page("FIDE players", "players")(
         cls := "fide-players",
         boxTop(
-          h1(trans.broadcast.fidePlayers()),
+          h1(trb.fidePlayers()),
           div(cls := "box__top__actions"):
             searchForm(query)
         ),
@@ -116,7 +117,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       page("FIDE player not found", "players")(
         cls := "fide-players",
         boxTop(
-          h1(trans.broadcast.fidePlayerNotFound()),
+          h1(trb.fidePlayerNotFound()),
           div(cls := "box__top__actions"):
             searchForm("")
         ),
@@ -159,12 +160,12 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       table(cls := "slist slist-pad")(
         thead:
           tr(
-            th(trans.site.name()),
+            th(trs.name()),
             withFlag.option(th(iconTag(Icon.FlagOutline))),
-            th(trans.site.classical()),
-            th(trans.site.rapid()),
-            th(trans.site.blitz()),
-            th(trans.broadcast.ageThisYear())
+            th(trs.classical()),
+            th(trs.rapid()),
+            th(trs.blitz()),
+            th(trb.ageThisYear())
           )
         ,
         tbody(cls := "infinite-scroll")(
@@ -195,23 +196,23 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
         div(cls := "fide-cards fide-player__cards")(
           player.fed.map: fed =>
             card(
-              trans.broadcast.federation(),
+              trb.federation(),
               a(cls := "fide-player__federation", href := routes.Fide.federation(Federation.idToSlug(fed)))(
                 federation.flag(fed, none),
                 Federation.name(fed)
               )
             ),
           card(
-            trans.broadcast.fideProfile(),
+            trb.fideProfile(),
             a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
           ),
           card(
-            trans.broadcast.ageThisYear(),
+            trb.ageThisYear(),
             player.age
           ),
           tcTrans.map: (tc, name) =>
-            card(name(), player.ratingOf(tc).fold(trans.broadcast.unrated())(_.toString))
+            card(name(), player.ratingOf(tc).fold(trb.unrated())(_.toString))
         ),
         tours.map: tours =>
-          div(cls := "fide-player__tours")(h2(trans.broadcast.recentTournaments()), tours)
+          div(cls := "fide-player__tours")(h2(trb.recentTournaments()), tours)
       )
