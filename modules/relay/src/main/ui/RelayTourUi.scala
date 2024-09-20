@@ -140,23 +140,23 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
 
   def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context): Tag =
     lila.ui.bits.pageMenuSubnav(
-      a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
+      a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trc.broadcasts()),
       ctx.me.map: me =>
         a(
           href := routes.RelayTour.by(me.username, 1),
           cls  := (menu == "new" || by.exists(_.is(me))).option("active")
         ):
-          trans.broadcast.myBroadcasts()
+          trc.myBroadcasts()
       ,
       by.filterNot(ctx.is)
         .map: user =>
           a(href := routes.RelayTour.by(user.name, 1), cls := "active")(
             user.name,
             " ",
-            trans.broadcast.broadcasts()
+            trc.broadcasts()
           ),
       a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
-        trans.broadcast.subscribedBroadcasts()
+        trc.subscribedBroadcasts()
       ),
       Granter
         .opt(_.StudyAdmin)
@@ -166,12 +166,12 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           )
         ),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
-      a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
+      a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trc.aboutBroadcasts()),
       a(href := routes.RelayTour.app, cls := menu.activeO("app"))("Broadcaster App"),
       div(cls := "sep"),
-      a(cls := menu.active("players"), href := routes.Fide.index(1))(trans.broadcast.fidePlayers()),
+      a(cls := menu.active("players"), href := routes.Fide.index(1))(trc.fidePlayers()),
       a(cls := menu.active("federations"), href := routes.Fide.federations(1))(
-        trans.broadcast.fideFederations()
+        trc.fideFederations()
       )
     )
 
