@@ -42,6 +42,9 @@ RUNNING_PID
 # VSCode auto-generated files
 .vscode/
 
+# VSCode workspaces
+*.code-workspace
+
 # IntelliJ auto-generated files
 .idea
 
