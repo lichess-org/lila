@@ -53,7 +53,7 @@ case class RelayGame(
 
   private def outcome = points.flatMap(Outcome.fromPoints)
 
-  def showResult = Outcome.showResult(outcome)
+  def showResult = Outcome.showPoints(points)
 
 private object RelayGame:
 
