@@ -471,20 +471,20 @@
   <string name="reportXToModerators">%s 신고</string>
   <string name="profileCompletion">프로필 완성도: %s</string>
   <string name="xRating">레이팅: %s</string>
-  <string name="ifNoneLeaveEmpty">없으면 무시하세요</string>
+  <string name="ifNoneLeaveEmpty">없다면 비워두세요</string>
   <string name="profile">프로필</string>
   <string name="editProfile">프로필 수정</string>
-  <string name="realName">본명</string>
-  <string name="setFlair">당신의 아이콘을 선택하세요.</string>
+  <string name="realName">실명</string>
+  <string name="setFlair">아이콘을 선택하세요</string>
   <string name="flair">아이콘</string>
   <string name="youCanHideFlair">전체 사이트에서 모든 유저의 아이콘을 숨기는 설정이 있습니다.</string>
   <string name="biography">소개</string>
-  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가/지역</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가 또는 지역</string>
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
-  <string name="oneUrlPerLine">한 줄에 1개 URL</string>
-  <string name="inlineNotation">기보를 가로쓰기</string>
-  <string name="makeAStudy">안전하게 보관하고 공유하려면 스터디를 만들어 보세요.</string>
+  <string name="oneUrlPerLine">한 줄에 당 URL 1개</string>
+  <string name="inlineNotation">기보법 가로쓰기</string>
+  <string name="makeAStudy">안전하게 보관하고 공유하려면 공부를 만들어 보세요.</string>
   <string name="clearSavedMoves">저장된 움직임 삭제</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
   <string name="onlinePlayers">접속한 플레이어</string>
