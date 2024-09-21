@@ -1,3 +1,9 @@
 #!/bin/sh
 
-pnpm lint-staged
+LINT_STAGED="$(dirname -- "$0")/../../node_modules/.bin/lint-staged"
+
+if [ -x "$LINT_STAGED" ]; then
+  exec "$LINT_STAGED"
+else
+  exec pnpm lint-staged
+fi
