@@ -22,6 +22,7 @@
     "node": "22",
     "pnpm": "^9"
   },
+  "//": "NOTE: lint-staged patterns must stay in sync with bin/git-hooks/pre-commit!",
   "lint-staged": {
     "*.{json,scss}": "prettier --write",
     "*.ts": "eslint --fix"
