@@ -364,10 +364,10 @@
   <string name="startedStreaming">스트리밍 시작</string>
   <string name="xStartedStreaming">%s 님이 스트리밍을 시작했습니다</string>
   <string name="averageElo">평균 레이팅</string>
-  <string name="location">주소</string>
-  <string name="filterGames">필터</string>
+  <string name="location">위치</string>
+  <string name="filterGames">대국 필터</string>
   <string name="reset">초기화</string>
-  <string name="apply">적용</string>
+  <string name="apply">저장</string>
   <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
   <string name="screenshotCurrentPosition">스크린샷 찍기</string>
