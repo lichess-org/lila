@@ -78,7 +78,7 @@ def communication(
             div(cls := "reports history")(
               reports.map: r =>
                 div(
-                  h3(r.reason.name),
+                  h3(r.room.name),
                   r.atoms.toList.map: a =>
                     div(
                       userIdLink(a.by.some),

@@ -42,7 +42,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     api.openAndRecentWithFilter(12, Room(room)).zip(getScores).flatMap { case (reports, (scores, pending)) =>
       env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) >>
         Ok.page:
-          val filteredReports = reports.filter(r => lila.report.Reason.isGranted(r.report.reason))
+          val filteredReports = reports.filter(r => lila.report.Room.isGranted(r.report.room))
           views.report.list(filteredReports, room, scores, pending)
     }
 
@@ -66,7 +66,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
 
   private def onInquiryStart(inquiry: ReportModel): Result =
     if inquiry.isRecentComm then Redirect(routes.Mod.communicationPrivate(inquiry.user))
-    else if inquiry.isComm then Redirect(routes.Mod.communicationPublic(inquiry.user))
+    else if inquiry.is(_.Comm) then Redirect(routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
   protected[controllers] def onModAction(goTo: Suspect)(using ctx: BodyContext[?], me: Me): Fu[Result] =

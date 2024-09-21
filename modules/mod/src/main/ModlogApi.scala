@@ -90,7 +90,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       UserId.lichess.into(ModId),
       user.some,
       Modlog.selfCloseAccount,
-      details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty)
+      details = openReports.map(r => s"${r.room.name} report").mkString(", ").some.filter(_.nonEmpty)
     )
 
   def closedByMod(user: User): Fu[Boolean] =

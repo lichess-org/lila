@@ -15,9 +15,9 @@ case class Inquiry(
 ):
   def allReports = report :: moreReports
   def alreadyMarked =
-    (report.isCheat && user.marks.engine) ||
-      (report.isBoost && user.marks.boost) ||
-      (report.isComm && user.marks.troll)
+    (report.is(_.Cheat) && user.marks.engine) ||
+      (report.is(_.Boost) && user.marks.boost) ||
+      (report.is(_.Comm) && user.marks.troll)
 
 final class InquiryApi(
     userApi: UserApi,

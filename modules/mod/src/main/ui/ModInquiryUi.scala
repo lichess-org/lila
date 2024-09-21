@@ -24,13 +24,13 @@ final class ModInquiryUi(helpers: Helpers):
             lila.report.ui.ReportUi.reportScore(atom.score),
             userIdLink(atom.by.userId.some, withOnline = false),
             " for ",
-            if r.isComm
-            then a(href := routes.Mod.communicationPublic(r.user))(strong(r.reason.name))
-            else strong(r.reason.name),
+            if r.is(_.Comm)
+            then a(href := routes.Mod.communicationPublic(r.user))(strong(r.room.name))
+            else strong(r.room.name),
             " ",
             momentFromNow(atom.at)
           ),
-          p(renderAtomText(atom.simplifiedText, r.isComm))
+          p(renderAtomText(atom.simplifiedText, r.is(_.Comm)))
         )
       }
     )
@@ -113,9 +113,9 @@ final class ModInquiryUi(helpers: Helpers):
       allReports: List[Report],
       reportee: User
   ): Option[NonEmptyList[UserId]] =
-    (report.reason == Reason.Boost || reportee.marks.boost).so {
+    (report.is(_.Boost) || reportee.marks.boost).so {
       allReports
-        .filter(_.reason == Reason.Boost)
+        .filter(_.is(_.Boost))
         .flatMap(_.atoms.toList)
         .withFilter(_.byLichess)
         .flatMap(_.text.linesIterator)

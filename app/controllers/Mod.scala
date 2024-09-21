@@ -209,9 +209,8 @@ final class Mod(
   def createNameCloseVote(username: UserStr) = Secure(_.SendToZulip) { _ ?=> me ?=>
     env.report.api.inquiries
       .ofModId(me.id)
-      .map {
-        _.filter(_.reason == lila.report.Reason.Username).map(_.bestAtom.simplifiedText)
-      }
+      .map:
+        _.map(_.bestAtom.simplifiedText)
       .flatMap: reason =>
         env.user.repo.byId(username).orNotFound { user =>
           val details = s"created on: ${user.createdAt.date}, ${user.count.game} games"
