@@ -5,12 +5,11 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
-import { ChapterId, Federations, FideId, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
+import { ChapterId, Federations, FideId, PointsStr, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
 import { defined } from 'common';
 import { Attrs, Hooks, init as initSnabbdom, attributesModule, VNodeData } from 'snabbdom';
-import { Outcome } from 'chessops';
 import { convertPlayerFromServer } from '../studyChapters';
 import { isTouchDevice } from 'common/device';
 
@@ -28,7 +27,7 @@ interface RelayPlayerGame {
   round: RoundId;
   opponent: RelayPlayer;
   color: Color;
-  outcome?: Outcome;
+  points?: PointsStr;
   ratingDiff?: number;
 }
 
@@ -324,6 +323,7 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
     'tbody',
     p.games.map((game, i) => {
       const op = game.opponent;
+      const points = game.points;
       return h(
         'tr',
         {
@@ -353,13 +353,11 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           h('td.is.color-icon.' + game.color),
           h(
             'td.tpp__games__status',
-            game.outcome
-              ? game.outcome.winner
-                ? game.outcome.winner == game.color
-                  ? h('good', '1')
-                  : h('bad', '0')
-                : h('span', '½')
-              : '*',
+            points  ? (
+              points == '1' ? h('good', '1') :
+                points == '0' ? h('bad', '0') :
+                  h('span', '½')
+            ) : '*',
           ),
           h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
         ],

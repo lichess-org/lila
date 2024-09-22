@@ -1,5 +1,6 @@
 package lila.relay
 
+import scalalib.Json.writeAs
 import chess.{ ByColor, Color, Elo, FideId, Outcome, PlayerName }
 import lila.db.dsl.*
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
@@ -15,7 +16,7 @@ import lila.core.fide.FideTC
 // Player in a tournament with current performance rating and list of games
 case class RelayPlayer(
     player: StudyPlayer.WithFed,
-    score: Option[Double],
+    score: Option[Float],
     ratingDiff: Option[Int],
     performance: Option[Elo],
     games: Vector[RelayPlayer.Game]
@@ -30,22 +31,24 @@ object RelayPlayer:
       id: StudyChapterId,
       opponent: StudyPlayer.WithFed,
       color: Color,
-      outcome: Option[Outcome]
+      points: Option[Outcome.GamePoints]
   ):
-    def playerOutcome: Option[Option[Boolean]] = outcome.map(_.winner.map(_ == color))
+    def playerPoints = points.map(_(color))
     def eloGame = for
-      o        <- outcome
+      pp       <- playerPoints
       opRating <- opponent.rating
-    yield Elo.Game(o.winner.map(_ == color), opRating)
+    yield Elo.Game(pp, opRating)
 
   object json:
-    given Writes[Outcome]          = Json.writes
-    given Writes[RelayPlayer.Game] = Json.writes
+    given Writes[Outcome]            = Json.writes
+    given Writes[Outcome.Points]     = writeAs(_.show)
+    given Writes[Outcome.GamePoints] = writeAs(points => Outcome.showPoints(points.some))
+    given Writes[RelayPlayer.Game]   = Json.writes
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
         .obj(
           "score"  -> p.score,
-          "played" -> p.games.count(_.outcome.isDefined)
+          "played" -> p.games.count(_.points.isDefined)
         )
         .add("ratingDiff" -> p.ratingDiff)
         .add("performance" -> p.performance)
@@ -65,7 +68,7 @@ object RelayPlayer:
             "id"       -> g.id,
             "opponent" -> g.opponent,
             "color"    -> g.color,
-            "outcome"  -> g.outcome
+            "points"   -> g.playerPoints
           )
           .add("ratingDiff" -> rd)
       Json.toJsObject(p).add("fide", fidePlayer) ++ Json.obj("games" -> gamesJson)
@@ -136,7 +139,7 @@ private final class RelayPlayerApi(
                       gamePlayers.zipColor.foldLeft(players):
                         case (players, (color, (playerId, player))) =>
                           val (_, opponent) = gamePlayers(!color)
-                          val game = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.outcome)
+                          val game = RelayPlayer.Game(roundId, chapterId, opponent, color, tags.points)
                           players.updated(
                             playerId,
                             players
@@ -166,8 +169,7 @@ private final class RelayPlayerApi(
       .mapValues: p =>
         p.copy(
           score = p.games
-            .foldLeft(0d): (score, game) =>
-              score + game.playerOutcome.so(_.fold(0.5)(_.so(1d)))
+            .foldMap(_.playerPoints.so(_.value))
             .some,
           performance = Elo.computePerformanceRating(p.eloGames)
         )
