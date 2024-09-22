@@ -1,3 +1,18 @@
 #!/bin/sh
 
-pnpm lint-staged
+# Short circuit lint-staged to avoid waiting on node when not needed. Even
+# when no files match, and we execute lint-stage directly, it still delays
+# the commit by .15s or so, which is annoying.
+if \git --no-pager diff-index -z --name-only --no-renames --cached HEAD | \
+  \grep -qzE '\.(json|scss|ts)$'; then
+  # NOTE! grep must be kept in sync with lint-staged in package.json!
+
+  LINT_STAGED="$(dirname -- "$0")/../../node_modules/.bin/lint-staged"
+
+  # pnpm or npx adds .25s overhead. exec further reduces overhead.
+  if [ -x "$LINT_STAGED" ]; then
+    exec "$LINT_STAGED"
+  else
+    exec pnpm lint-staged
+  fi
+fi
