@@ -1,6 +1,7 @@
 package lila.relay
 
-import chess.Outcome
+import chess.{ Outcome, Color }
+import chess.Outcome.GamePoints
 import chess.format.pgn.{ Tag, TagType, Tags }
 
 import lila.study.{ MultiPgn, PgnDump }
@@ -10,7 +11,7 @@ case class RelayGame(
     tags: Tags,
     variant: chess.variant.Variant,
     root: Root,
-    outcome: Option[Outcome]
+    points: Option[Outcome.GamePoints]
 ):
   override def toString =
     s"RelayGame ${root.mainlineNodeList.size} ${tags.outcome} ${tags.names} ${tags.fideIds}"
@@ -40,7 +41,7 @@ case class RelayGame(
 
   def resetToSetup = withoutMoves.copy(
     tags = tags.copy(value = tags.value.filter(_.name != Tag.Result)),
-    outcome = None
+    points = None
   )
 
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
@@ -50,7 +51,9 @@ case class RelayGame(
     List(RelayGame.whiteTags, RelayGame.blackTags).exists:
       _.forall(tag => tags(tag).isEmpty)
 
-  def showResult = Outcome.showResult(outcome)
+  private def outcome = points.flatMap(Outcome.fromPoints)
+
+  def showResult = Outcome.showPoints(points)
 
 private object RelayGame:
 
@@ -67,7 +70,7 @@ private object RelayGame:
     tags = c.tags,
     variant = c.setup.variant,
     root = c.root,
-    outcome = c.tags.outcome
+    points = c.tags.points
   )
 
   import scalalib.Iso
