@@ -130,16 +130,8 @@ export const looksLikeLichessGame = (tags: TagArray[]) =>
   !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));
 
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
-  switch (findTag(tags, 'result')) {
-    case '1-0':
-      return isWhite ? '1' : '0';
-    case '0-1':
-      return isWhite ? '0' : '1';
-    case '1/2-1/2':
-      return '1/2';
-    default:
-      return;
-  }
+  const res = findTag(tags, 'result')?.split('-');
+  return res && res.length == 2 ? res[isWhite ? 0 : 1] :  undefined;
 }
 
 export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({
