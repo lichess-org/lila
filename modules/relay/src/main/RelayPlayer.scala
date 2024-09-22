@@ -34,8 +34,11 @@ object RelayPlayer:
       points: Option[Outcome.GamePoints]
   ):
     def playerPoints = points.map(_(color))
+    // only rate draws and victories, not exotic results
+    def isRated = points.exists(_.mapReduce(_.value)(_ + _) == 1)
     def eloGame = for
-      pp       <- playerPoints
+      pp <- playerPoints
+      if isRated
       opRating <- opponent.rating
     yield Elo.Game(pp, opRating)
 
