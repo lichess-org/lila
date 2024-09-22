@@ -43,6 +43,10 @@ final class RelationUi(helpers: Helpers):
         )(trans.site.blocked())
       case _ => emptyFrag
 
+  private def routeIfPlan(isPatron: Boolean) =
+    if isPatron then routes.Plan.list
+    else routes.Plan.index()
+
   def actions(
       user: lila.core.LightUser,
       relation: Option[Relation],
@@ -58,9 +62,9 @@ final class RelationUi(helpers: Helpers):
           dataIcon := Icon.Swords
         )(trans.challenge.challengeToPlay.txt())
       ),
-      ctx.userId
-        .map: myId =>
-          (!user.is(myId))
+      ctx.me
+        .map: myUser =>
+          (!user.is(myUser.userId))
             .so(
               frag(
                 (!blocked && !blocks && !user.isBot).option(
@@ -73,7 +77,7 @@ final class RelationUi(helpers: Helpers):
                 (!blocked && !blocks && !user.isPatron).option(
                   a(
                     cls      := "text",
-                    href     := s"${routes.Plan.list}?dest=gift&giftUsername=${user.name}",
+                    href     := s"${routeIfPlan(myUser.isPatron)}?dest=gift&giftUsername=${user.name}",
                     dataIcon := Icon.Wings
                   )(trans.patron.giftPatronWingsShort.txt())
                 ),
