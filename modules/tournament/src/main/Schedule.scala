@@ -383,10 +383,8 @@ object Schedule:
       case (_, _, Blitz)       => TC(5 * 60, 0)
       case (_, _, Rapid)       => TC(10 * 60, 0)
       case (_, _, Classical)   => TC(20 * 60, 10)
-  private[tournament] def withConditions(s: Schedule) =
-    val newConditions = conditionFor(s)
-    if newConditions == s.conditions then s
-    else s.copy(conditions = conditionFor(s))
+
+  private[tournament] def withConditions(s: Schedule) = s.copy(conditions = conditionFor(s))
 
   private[tournament] def conditionFor(s: Schedule) =
     if s.conditions.nonEmpty then s.conditions
