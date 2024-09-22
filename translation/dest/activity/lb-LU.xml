@@ -34,6 +34,10 @@
     <item quantity="one">Huet %s Fernschachpartie gespillt</item>
     <item quantity="other">Huet %s Fernschachpartien gespillt</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Huet %1$s %2$s-Fernschachpartie gespillt</item>
+    <item quantity="other">Huet %1$s %2$s-Fernschachpartië gespillt</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Suivéiert %s Spiller</item>
     <item quantity="other">Suivéiert %s Spiller</item>
