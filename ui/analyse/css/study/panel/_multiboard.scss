@@ -30,8 +30,10 @@
     }
 
     select {
-      @media (max-width: at-most($small)) {
-        display: none;
+      &:not(.study__multiboard__teams) {
+        @media (max-width: at-most($small)) {
+          display: none;
+        }
       }
       max-width: 25vw;
       margin-inline-end: 1ch;
