@@ -8,6 +8,7 @@ import { AnalyseSocketSend } from '../socket';
 import { storedSet, StoredSet } from 'common/storage';
 import { snabDialog } from 'common/dialog';
 import { userComplete } from 'common/userComplete';
+import { pubsub } from 'common/pubsub';
 
 export interface StudyInviteFormCtrl {
   open: Prop<boolean>;
@@ -31,12 +32,12 @@ export function makeCtrl(
     spectators = prop<string[]>([]);
 
   const toggle = () => {
-    if (!open()) site.pubsub.emit('analyse.close-all');
+    if (!open()) pubsub.emit('analyse.close-all');
     open(!open());
     redraw();
   };
 
-  site.pubsub.on('analyse.close-all', () => open(false));
+  pubsub.on('analyse.close-all', () => open(false));
 
   const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
   return {

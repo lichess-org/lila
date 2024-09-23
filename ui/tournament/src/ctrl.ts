@@ -5,6 +5,7 @@ import * as sound from './sound';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';
 import { trans } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -46,7 +47,7 @@ export default class TournamentController {
     sound.countDown(this.data);
     this.recountTeams();
     this.redirectToMyGame();
-    site.pubsub.on('socket.in.crowd', data => {
+    pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
     });
   }

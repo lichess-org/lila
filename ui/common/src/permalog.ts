@@ -10,7 +10,6 @@ interface LichessLog {
 }
 
 function makeLog(): LichessLog {
-
   const dbInfo: DbInfo = {
     db: 'log--db',
     store: 'log',

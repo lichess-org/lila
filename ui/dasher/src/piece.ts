@@ -3,6 +3,7 @@ import * as xhr from 'common/xhr';
 import { header, elementScrollBarWidthSlowGuess } from './util';
 import { bind } from 'common/snabbdom';
 import { DasherCtrl, PaneCtrl } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 type Piece = string;
 type PieceDimData = { current: Piece; list: Piece[] };
@@ -52,7 +53,7 @@ export class PieceCtrl extends PaneCtrl {
       const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
       sprite.href = sprite.href.replace(/[\w-]+(\.external|)\.css/, t + '$1.css');
     }
-    site.pubsub.emit('board.change', this.is3d);
+    pubsub.emit('board.change', this.is3d);
   };
 
   private get dimData() {

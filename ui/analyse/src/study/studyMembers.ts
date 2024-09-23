@@ -11,6 +11,7 @@ import { textRaw as xhrTextRaw } from 'common/xhr';
 import { userLink } from 'common/userLink';
 import StudyCtrl from './studyCtrl';
 import { once } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 interface Opts {
   initDict: StudyMemberMap;
@@ -54,7 +55,7 @@ export class StudyMemberCtrl {
       opts.redraw,
       opts.trans,
     );
-    site.pubsub.on('socket.in.crowd', d => {
+    pubsub.on('socket.in.crowd', d => {
       const names: string[] = d.users || [];
       this.inviteForm.spectators(names);
       this.spectatorIds = names.map(titleNameToId);
@@ -213,7 +214,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   const ordered: StudyMember[] = members.ordered();
 
-  return h('div.study__members', { hook: onInsert(() => site.pubsub.emit('chat.resize')) }, [
+  return h('div.study__members', { hook: onInsert(() => pubsub.emit('chat.resize')) }, [
     ...ordered
       .map(member => {
         const confing = members.confing() === member.user.id;

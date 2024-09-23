@@ -124,7 +124,7 @@ final private class RelaySync(
       if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
     val newEndTag = (
-      game.outcome.isDefined &&
+      game.points.isDefined &&
         gameTags(_.Result).isEmpty &&
         !chapter.tags(_.Result).has(game.showResult)
     ).option(Tag(_.Result, game.showResult))

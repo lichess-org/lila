@@ -26,7 +26,6 @@ interface Site {
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T>(key: string, opts?: EsmModuleOpts): Promise<T>;
   };
-  pubsub: Pubsub; // file://./../../site/src/pubsub.ts
   unload: { expected: boolean };
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(err?: any): void;
@@ -40,7 +39,7 @@ interface Site {
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
   siteI18n: I18nDict;
-  socket: any;
+  socket: SocketI;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
@@ -123,6 +122,15 @@ interface SoundI {
   url(name: string): string;
 }
 
+interface SocketI {
+  averageLag: number;
+  pingInterval(): number;
+  getVersion(): number|false;
+  send: SocketSend;
+  sign(s: string): void;
+  destroy(): void;
+}
+
 interface LichessSpeech {
   step(s: { san?: San }, cut: boolean): void;
 }
@@ -153,18 +161,6 @@ interface Trans {
   pluralSame(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): Array<string | T>;
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
-}
-
-type PubsubCallback = (...data: any[]) => void;
-
-interface Pubsub {
-  // file://./../../site/src/pubsub.ts
-  on(msg: string, f: PubsubCallback): void;
-  off(msg: string, f: PubsubCallback): void;
-  emit(msg: string, ...args: any[]): void;
-
-  after(event: string): Promise<void>;
-  complete(event: string): void;
 }
 
 interface LichessAnnouncement {

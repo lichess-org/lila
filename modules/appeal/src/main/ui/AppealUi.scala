@@ -22,6 +22,8 @@ final class AppealUi(helpers: Helpers):
     else if suspect.marks.boost || query.contains("boost") then trans.appeal.boosterMarked()
     else if suspect.marks.troll || query.contains("shadowban") then trans.appeal.accountMuted()
     else if suspect.marks.rankban || query.contains("rankban") then trans.appeal.excludedFromLeaderboards()
+    else if suspect.marks.arenaBan || query.contains("arenaban") then trans.appeal.arenaBanned()
+    else if suspect.marks.prizeban || query.contains("prizeban") then trans.appeal.prizeBanned()
     else trans.appeal.cleanAllGood()
 
   def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =

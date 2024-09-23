@@ -143,6 +143,7 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       siteName = get[String]("site.name"),
       socketDomains = get[List[String]]("socket.domains"),
       socketAlts = get[List[String]]("socket.alts"),
+      socketTest = get[Boolean]("socket.test"),
       crawlable = get[Boolean]("crawlable"),
       rateLimit = get[RateLimit]("ratelimit"),
       email = get[EmailAddress]("email"),

@@ -5,6 +5,7 @@ import * as util from 'chessground/util';
 import EditorCtrl from './ctrl';
 import { storage } from 'common/storage';
 import { Chessground as makeChessground } from 'chessground';
+import { pubsub } from 'common/pubsub';
 
 export default function(ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
@@ -24,7 +25,7 @@ function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function(ev) {
     el.addEventListener(ev, handler);
   });
-  site.pubsub.on('board.change', (is3d: boolean) => {
+  pubsub.on('board.change', (is3d: boolean) => {
     ctrl.chessground!.state.addPieceZIndex = is3d;
     ctrl.chessground!.redrawAll();
   });

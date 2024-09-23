@@ -1,6 +1,7 @@
 import AnalyseCtrl from '../ctrl';
 import Shepherd from 'shepherd.js';
 import { ChapterTab, StudyTour, Tab } from '../study/interfaces';
+import { pubsub } from 'common/pubsub';
 
 export function initModule(): StudyTour {
   return {
@@ -205,7 +206,7 @@ class TourCtrl {
       },
       exitOnEsc: true,
     });
-    site.pubsub.on('analyse.close-all', this.tour.cancel);
+    pubsub.on('analyse.close-all', this.tour.cancel);
   }
 
   buildTour(steps: Shepherd.Step.StepOptions[]) {

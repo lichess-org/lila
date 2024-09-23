@@ -25,6 +25,7 @@ import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';
 import type Sortable from 'sortablejs';
+import { pubsub } from 'common/pubsub';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -129,16 +130,8 @@ export const looksLikeLichessGame = (tags: TagArray[]) =>
   !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));
 
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
-  switch (findTag(tags, 'result')) {
-    case '1-0':
-      return isWhite ? '1' : '0';
-    case '0-1':
-      return isWhite ? '0' : '1';
-    case '1/2-1/2':
-      return '1/2';
-    default:
-      return;
-  }
+  const res = findTag(tags, 'result')?.split('-');
+  return res && res.length == 2 ? res[isWhite ? 0 : 1] :  undefined;
 }
 
 export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({
@@ -203,7 +196,7 @@ export function view(ctrl: StudyCtrl): VNode {
           });
           vnode.data!.li = {};
           update(vnode);
-          site.pubsub.emit('chat.resize');
+          pubsub.emit('chat.resize');
         },
         postpatch(old, vnode) {
           vnode.data!.li = old.data!.li;

@@ -4,6 +4,7 @@ import * as xhr from './xhr';
 import RoundController from './ctrl';
 import { defined } from 'common';
 import { domDialog } from 'common/dialog';
+import { pubsub } from 'common/pubsub';
 
 export interface RoundSocket {
   send: SocketSend;
@@ -55,7 +56,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       handlers[o.t]!(o.d);
     } else
       xhr.reload(ctrl).then(data => {
-        if (site.socket.getVersion() > data.player.version) {
+        const version = site.socket.getVersion();
+        if (version !== false && version > data.player.version) {
           // race condition! try to reload again
           if (isRetry) site.reload();
           // give up and reload the page
@@ -153,7 +155,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
   };
 
-  site.pubsub.on('ab.rep', n => send('rep', { n }));
+  pubsub.on('ab.rep', n => send('rep', { n }));
 
   return {
     send,

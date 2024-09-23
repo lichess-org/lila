@@ -202,7 +202,7 @@ object Schedule:
       extends ScheduleWithInterval:
 
     def build(using Translate): Tournament =
-      val t = Tournament.scheduleAs(addCondition(schedule), minutes)
+      val t = Tournament.scheduleAs(withConditions(schedule), minutes)
       buildFunc.fold(t) { _(t) }
 
     def map(f: Tournament => Tournament) = copy(
@@ -383,16 +383,15 @@ object Schedule:
       case (_, _, Blitz)       => TC(5 * 60, 0)
       case (_, _, Rapid)       => TC(10 * 60, 0)
       case (_, _, Classical)   => TC(20 * 60, 10)
-  private[tournament] def addCondition(s: Schedule) =
-    s.copy(conditions = conditionFor(s))
+
+  private[tournament] def withConditions(s: Schedule) = s.copy(conditions = conditionFor(s))
 
   private[tournament] def conditionFor(s: Schedule) =
     if s.conditions.nonEmpty then s.conditions
     else
       import Freq.*, Speed.*
 
-      val nbRatedGame = (s.freq, s.variant, s.speed) match
-
+      val nbRatedGame = ((s.freq, s.variant, s.speed) match
         case (Hourly, variant, _) if variant.exotic => 0
 
         case (Hourly | Daily | Eastern, _, HyperBullet | Bullet)             => 20
@@ -405,22 +404,25 @@ object Schedule:
         case (Weekly | Weekend | Monthly | Shield, _, Classical)                        => 5
 
         case _ => 0
+      ).some.filter(0 <).map(Condition.NbRatedGame.apply)
 
-      val minRating = IntRating:
-        (s.freq, s.variant) match
-          case (Weekend, chess.variant.Crazyhouse) => 2100
-          case (Weekend, _)                        => 2200
-          case _                                   => 0
+      val minRating = ((s.freq, s.variant) match
+        case (Weekend, chess.variant.Crazyhouse) => 2100
+        case (Weekend, _)                        => 2200
+        case _                                   => 0
+      ).some.filter(0 <).map(v => Condition.MinRating(IntRating(v)))
 
-      TournamentCondition.All(
-        nbRatedGame = nbRatedGame.some.filter(0 <).map(Condition.NbRatedGame.apply),
-        minRating = minRating.some.filter(_ > 0).map(Condition.MinRating.apply),
-        maxRating = none,
-        titled = none,
-        teamMember = none,
-        accountAge = none,
-        allowList = none
-      )
+      if nbRatedGame.isEmpty && minRating.isEmpty then TournamentCondition.All.empty
+      else
+        TournamentCondition.All(
+          nbRatedGame = nbRatedGame,
+          minRating = minRating,
+          maxRating = none,
+          titled = none,
+          teamMember = none,
+          accountAge = none,
+          allowList = none
+        )
 
   /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
     * plans that do not conflict with either the existing schedules or with themselves. Intended to produce
@@ -433,9 +435,9 @@ object Schedule:
   ): List[A] =
     var allPlannedSchedules = existingSchedules.toList
     possibleNewPlans
-      .foldLeft(List[A]()): (newPlans, p) =>
+      .foldLeft(Nil): (newPlans, p) =>
         if p.conflictsWith(allPlannedSchedules) then newPlans
         else
-          allPlannedSchedules = p :: allPlannedSchedules
+          allPlannedSchedules ::= p
           p :: newPlans
       .reverse

@@ -16,8 +16,8 @@
   <string name="upVote">퍼즐 추천</string>
   <string name="downVote">퍼즐 비추천</string>
   <string name="yourPuzzleRatingWillNotChange">당신의 퍼즐 레이팅은 바뀌지 않을 것입니다. 퍼즐은 경쟁이 아니라는 걸 기억하세요. 레이팅은 당신의 현재 스킬에 맞는 퍼즐을 선택하도록 돕습니다.</string>
-  <string name="findTheBestMoveForWhite">백의 최고의 수를 찾아보세요.</string>
-  <string name="findTheBestMoveForBlack">흑의 최고의 수를 찾아보세요.</string>
+  <string name="findTheBestMoveForWhite">백의 베스트 수를 찾아보세요</string>
+  <string name="findTheBestMoveForBlack">흑의 최고 수를 찾아보세요.</string>
   <string name="toGetPersonalizedPuzzles">개인화된 퍼즐을 위해선:</string>
   <string name="puzzleId">퍼즐 %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>

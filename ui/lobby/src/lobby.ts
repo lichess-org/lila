@@ -3,6 +3,7 @@ import main from './main';
 import { LobbyOpts } from './interfaces';
 import StrongSocket from 'common/socket';
 import { trans } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
@@ -36,12 +37,12 @@ export function initModule(opts: LobbyOpts) {
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          site.pubsub.emit('content-loaded');
+          pubsub.emit('content-loaded');
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        site.pubsub.emit('content-loaded');
+        pubsub.emit('content-loaded');
       },
       redirect(e: RedirectTo) {
         lobbyCtrl.setRedirecting();
@@ -54,7 +55,7 @@ export function initModule(opts: LobbyOpts) {
       },
     },
   });
-  site.pubsub.after('socket.connect').then(() => {
+  pubsub.after('socket.hasConnected').then(() => {
     const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();

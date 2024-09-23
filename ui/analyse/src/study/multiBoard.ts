@@ -128,7 +128,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     pagerButton('last', licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
-      'select',
+      'select.study__multiboard__pager__max-per-page',
       { hook: bind('change', (e: Event) => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
       [4, 6, 8, 10, 12, 16, 20, 24, 32].map(nb =>
         h('option', { attrs: { value: nb, selected: nb == max } }, `${nb} per page`),
@@ -141,17 +141,15 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
   const allTeams = ctrl.computeTeamList();
   const currentTeam = ctrl.teamSelect();
   return allTeams.length
-    ? h('div.study__multiboard__teams', [
-      h(
-        'select',
-        {
-          hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
-        },
-        ['All teams', ...allTeams].map((t, i) =>
-          h('option', { attrs: { value: i ? t : '', selected: i && t == currentTeam } }, t),
-        ),
+    ? h(
+      'select',
+      {
+        hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
+      },
+      ['All teams', ...allTeams].map((t, i) =>
+        h('option', { attrs: { value: i ? t : '', selected: i && t == currentTeam } }, t),
       ),
-    ])
+    )
     : undefined;
 };
 

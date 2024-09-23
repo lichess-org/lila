@@ -30,8 +30,10 @@
     }
 
     select {
-      @media (max-width: at-most($small)) {
-        display: none;
+      &.study__multiboard__pager__max-per-page {
+        @media (max-width: at-most($small)) {
+          display: none;
+        }
       }
       max-width: 25vw;
       margin-inline-end: 1ch;

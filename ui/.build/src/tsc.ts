@@ -43,7 +43,7 @@ export async function tsc(): Promise<void> {
 }
 
 class WatchMonitor {
-  status: ('ok' | 'busy')[] = [];
+  status: ('ok' | 'busy' | 'error')[] = [];
   resolve?: () => void;
   ok = new Promise<void>(resolve => (this.resolve = resolve));
   constructor(
@@ -64,12 +64,16 @@ class WatchMonitor {
     }
   }
   onMessage = (msg: Message): void => {
-    if (msg.type === 'error') return logMessage(msg);
+    // the watch builder always gives us a 6194 first time thru, even when errors are found
+    if (env.watch && this.resolve && msg.type === 'ok' && this.status[msg.index] === 'error') return;
+
     this.status[msg.index] = msg.type;
-    if (this.status.every(s => s === 'ok')) {
-      this.resolve?.();
-      if (this.key === 'noEmit' && env.exitCode.get('tsc') !== 0) env.done(0, 'tsc');
-    }
+
+    if (msg.type === 'error') return logMessage(msg);
+    if (this.status.some(s => s !== 'ok')) return;
+
+    this.resolve?.();
+    if (this.key === 'noEmit' && env.exitCode.get('tsc') !== 0) env.done(0, 'tsc');
   };
   onError = (err: Error): void => {
     env.exit(err.message, 'tsc');
@@ -80,10 +84,13 @@ function logMessage(msg: Message): void {
   const { code, text, file, line, col } = msg.data;
   const prelude = `${errorMark} ts${code} `;
   const message = `${ts.flattenDiagnosticMessageText(text, '\n', 0)}`;
-  if (!file) return env.log(prelude + message, { ctx: 'tsc' });
-  let location = `${c.grey('in')} '${c.cyan(path.relative(env.uiDir, file))}`;
-  if (line !== undefined) location += c.grey(`:${line + 1}:${col + 1}`);
-  env.log(`${prelude}${location}' - ${message}`, { ctx: 'tsc' });
+  let location = '';
+  if (file) {
+    location = `${c.grey('in')} '${c.cyan(path.relative(env.uiDir, file))}`;
+    if (line !== undefined) location += c.grey(`:${line + 1}:${col + 1}`);
+    location += `' - `;
+  }
+  env.log(`${prelude}${location}${message}`, { ctx: 'tsc' });
   if (!env.exitCode.get('tsc')) env.done(1, 'tsc');
 }
 

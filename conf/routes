@@ -871,6 +871,8 @@ POST  /dev/cli                         controllers.Dev.cliPost
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
 
+POST  /dev/socket-test                 controllers.Dev.socketTestResult
+
 # Push
 POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform, deviceId)
 POST  /mobile/unregister               controllers.Push.mobileUnregister

@@ -33,26 +33,20 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using Context): Fu[Result] =
-    env.round.proxyRepo.gameIfPresent(gameId).orElse(env.game.gameRepo.game(gameId)).flatMap {
-      case None => NotFound
-      case Some(game) =>
-        val config = GameApiV2.OneConfig(
-          format = if HTTPRequest.acceptsJson(req) then GameApiV2.Format.JSON else GameApiV2.Format.PGN,
-          imported = getBool("imported"),
-          flags = requestPgnFlags(extended = true),
-          playerFile = get("players")
-        )
-        env.api.gameApiV2
-          .exportOne(game, config)
-          .flatMap: content =>
-            env.api.gameApiV2
-              .filename(game, config.format)
-              .map: filename =>
-                Ok(content)
-                  .pipe(asAttachment(filename))
-                  .withHeaders(headersForApiOrApp*)
-                  .as(gameContentType(config))
-    }
+    Found(env.round.proxyRepo.gameIfPresent(gameId).orElse(env.game.gameRepo.game(gameId))): game =>
+      val config = GameApiV2.OneConfig(
+        format = if HTTPRequest.acceptsJson(req) then GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+        imported = getBool("imported"),
+        flags = requestPgnFlags(extended = true),
+        playerFile = get("players")
+      )
+      for
+        content  <- env.api.gameApiV2.exportOne(game, config)
+        filename <- env.api.gameApiV2.filename(game, config.format)
+      yield Ok(content)
+        .pipe(asAttachment(filename))
+        .withHeaders(headersForApiOrApp*)
+        .as(gameContentType(config))
 
   def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = AnonOrScoped()(handleExport(username))

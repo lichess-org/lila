@@ -4,6 +4,7 @@ import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { Tournament } from './interfaces';
 import StrongSocket from 'common/socket';
 import { trans } from 'common/i18n';
+import { pubsub } from 'common/pubsub';
 
 const patch = init([classModule, attributesModule]);
 
@@ -38,7 +39,7 @@ export function initModule(opts: { data: Data; i18n: I18nDict }) {
 
   setInterval(redraw, 3700);
 
-  site.pubsub.on('socket.in.reload', d => {
+  pubsub.on('socket.in.reload', d => {
     opts.data = {
       created: update(opts.data.created, d.created),
       started: update(opts.data.started, d.started),
