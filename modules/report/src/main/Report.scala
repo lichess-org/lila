@@ -11,7 +11,6 @@ import lila.core.userId.ModId
 case class Report(
     @Key("_id") id: ReportId, // also the url slug
     user: UserId,             // the reportee
-    reason: Reason,
     room: Room,
     atoms: NonEmptyList[Report.Atom], // most recent first
     score: Report.Score,
@@ -27,8 +26,7 @@ case class Report(
   def closed  = !open
   def suspect = SuspectId(user)
 
-  def isReason(reason: Reason.type => Reason) = this.reason == reason(Reason)
-  def is(room: Room.type => Room)             = this.room == room(Room)
+  def is(room: Room.type => Room) = this.room == room(Room)
 
   def add(atom: Atom) =
     atomBy(atom.by)
@@ -49,14 +47,10 @@ case class Report(
   def recomputeScore =
     copy(score = atoms.toList.foldLeft(Score(0))(_ + _.score))
 
-  def recentAtom: Atom = atoms.head
-  def oldestAtom: Atom = atoms.last
-  def bestAtom: Atom   = bestAtoms(1).headOption | recentAtom
-  def bestAtoms(nb: Int): List[Atom] =
-    atoms.toList
-      .sortBy: a =>
-        (-a.score.value, -a.at.toSeconds)
-      .take(nb)
+  def recentAtom: Atom                             = atoms.head
+  def oldestAtom: Atom                             = atoms.last
+  def bestAtom: Atom                               = bestAtoms(1).headOption | recentAtom
+  def bestAtoms(nb: Int): List[Atom]               = Atom.best(atoms.toList, nb)
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty.option(atoms.head)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
   def bestAtomByHuman: Option[Atom]                = bestAtoms(10).find(_.byHuman)
@@ -99,6 +93,7 @@ object Report:
 
   case class Atom(
       by: ReporterId,
+      reason: Reason,
       text: String,
       score: Score,
       at: Instant
@@ -109,7 +104,15 @@ object Report:
 
     def byLichess = by.is(ReporterId.lichess)
 
-    def isFlag = text.startsWith(Reason.flagText)
+    def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
+    def isFlag                            = text.startsWith(Reason.flagText)
+
+  object Atom:
+    def best(atoms: List[Atom], nb: Int): List[Atom] =
+      atoms.toList
+        .sortBy: a =>
+          (-a.score, -a.at.toSeconds)
+        .take(nb)
 
   case class Done(by: ModId, at: Instant)
 
@@ -144,6 +147,7 @@ object Report:
       def atom =
         Atom(
           by = candidate.reporter.id,
+          reason = candidate.reason,
           text = candidate.text,
           score = score,
           at = nowInstant
@@ -158,7 +162,6 @@ object Report:
       Report(
         id = ReportId(ThreadLocalRandom.nextString(8)),
         user = candidate.suspect.user.id,
-        reason = candidate.reason,
         room = Room(candidate.reason),
         atoms = NonEmptyList.one(c.atom),
         score = score,

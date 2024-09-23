@@ -76,18 +76,17 @@ def communication(
           frag(
             h2("Comm reports"),
             div(cls := "reports history")(
-              reports.map: r =>
-                div(
-                  h3(r.room.name),
-                  r.atoms.toList.map: a =>
-                    div(
-                      userIdLink(a.by.some),
-                      " ",
-                      momentFromNowServer(a.at),
-                      ": ",
-                      richText(a.text)
-                    )
-                )
+              reports
+                .flatMap(_.atoms.toList)
+                .map: a =>
+                  div(
+                    h3(a.reason.name),
+                    userIdLink(a.by.some),
+                    " ",
+                    momentFromNowServer(a.at),
+                    ": ",
+                    richText(a.text)
+                  )
             )
           )
         ),
