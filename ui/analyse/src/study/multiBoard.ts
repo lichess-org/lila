@@ -128,7 +128,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     pagerButton('last', licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
-      'select.study__multiboard__boardpage',
+      'select.study__multiboard__pager__max-per-page',
       { hook: bind('change', (e: Event) => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
       [4, 6, 8, 10, 12, 16, 20, 24, 32].map(nb =>
         h('option', { attrs: { value: nb, selected: nb == max } }, `${nb} per page`),
@@ -142,7 +142,7 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
   const currentTeam = ctrl.teamSelect();
   return allTeams.length
     ? h(
-      'select.study__multiboard__teams',
+      'select',
       {
         hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
       },

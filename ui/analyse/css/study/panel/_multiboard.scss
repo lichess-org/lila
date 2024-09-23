@@ -30,7 +30,7 @@
     }
 
     select {
-      &:not(.study__multiboard__teams) {
+      &.study__multiboard__pager__max-per-page {
         @media (max-width: at-most($small)) {
           display: none;
         }
