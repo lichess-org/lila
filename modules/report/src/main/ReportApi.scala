@@ -606,6 +606,13 @@ final class ReportApi(
     def appeal(sus: Suspect)(using Me): Fu[Report] =
       openOther(sus, Report.appealText)
 
+    def myUsernameReportText(using me: Me): Fu[Option[String]] =
+      ofModId(me).map: report =>
+        Report.Atom
+          .best(report.so(_.atoms.toList).filter(_.is(_.Username)), 1)
+          .headOption
+          .map(_.simplifiedText)
+
     private def openOther(sus: Suspect, name: String)(using mod: Me): Fu[Report] =
       ofModId(mod.userId).flatMap: current =>
         current.so(cancel) >> {
