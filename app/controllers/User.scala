@@ -369,13 +369,12 @@ final class User(
 
         val student = env.clas.api.student.findManaged(user).map2(views.user.mod.student).dmap(~_)
 
-        val reportLog = isGranted(_.SeeReport).so(
+        val reportLog = isGranted(_.SeeReport).so:
           env.report.api
             .byAndAbout(user, Max(20))
             .flatMap: rs =>
               lightUserApi.preloadMany(rs.userIds).inject(rs)
             .map(ui.reportLog(user))
-        )
 
         val prefs = isGranted(_.CheatHunter).so:
           env.pref.api

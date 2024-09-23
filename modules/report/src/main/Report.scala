@@ -11,23 +11,22 @@ import lila.core.userId.ModId
 case class Report(
     @Key("_id") id: ReportId, // also the url slug
     user: UserId,             // the reportee
-    reason: Reason,
     room: Room,
     atoms: NonEmptyList[Report.Atom], // most recent first
     score: Report.Score,
     inquiry: Option[Report.Inquiry],
     open: Boolean,
     done: Option[Report.Done]
-) extends Reason.WithReason:
+):
 
   import Report.{ Atom, Score }
-
-  // private given Ordering[Double] = scala.math.Ordering.Double.TotalOrdering
 
   inline def slug = id
 
   def closed  = !open
   def suspect = SuspectId(user)
+
+  def is(room: Room.type => Room) = this.room == room(Room)
 
   def add(atom: Atom) =
     atomBy(atom.by)
@@ -48,21 +47,17 @@ case class Report(
   def recomputeScore =
     copy(score = atoms.toList.foldLeft(Score(0))(_ + _.score))
 
-  def recentAtom: Atom = atoms.head
-  def oldestAtom: Atom = atoms.last
-  def bestAtom: Atom   = bestAtoms(1).headOption | recentAtom
-  def bestAtoms(nb: Int): List[Atom] =
-    atoms.toList
-      .sortBy: a =>
-        (-a.score.value, -a.at.toSeconds)
-      .take(nb)
+  def recentAtom: Atom                             = atoms.head
+  def oldestAtom: Atom                             = atoms.last
+  def bestAtom: Atom                               = bestAtoms(1).headOption | recentAtom
+  def bestAtoms(nb: Int): List[Atom]               = Atom.best(atoms.toList, nb)
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty.option(atoms.head)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
   def bestAtomByHuman: Option[Atom]                = bestAtoms(10).find(_.byHuman)
 
-  def unprocessedCheat = open && isCheat
-  def unprocessedOther = open && isOther
-  def unprocessedComm  = open && isComm
+  def unprocessedCheat = open && is(_.Cheat)
+  def unprocessedOther = open && is(_.Other)
+  def unprocessedComm  = open && is(_.Comm)
 
   def process(by: User) =
     copy(
@@ -80,7 +75,7 @@ case class Report(
   def isSpontaneous = room == Room.Other && atoms.head.text == Report.spontaneousText
 
   def isAlreadySlain(sus: User) =
-    (isCheat && sus.marks.engine) || (isBoost && sus.marks.boost) || (isComm && sus.marks.troll)
+    (is(_.Cheat) && sus.marks.engine) || (is(_.Boost) && sus.marks.boost) || (is(_.Comm) && sus.marks.troll)
 
 object Report:
 
@@ -98,6 +93,7 @@ object Report:
 
   case class Atom(
       by: ReporterId,
+      reason: Reason,
       text: String,
       score: Score,
       at: Instant
@@ -108,7 +104,15 @@ object Report:
 
     def byLichess = by.is(ReporterId.lichess)
 
-    def isFlag = text.startsWith(Reason.flagText)
+    def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
+    def isFlag                            = text.startsWith(Reason.flagText)
+
+  object Atom:
+    def best(atoms: List[Atom], nb: Int): List[Atom] =
+      atoms.toList
+        .sortBy: a =>
+          (-a.score, -a.at.toSeconds)
+        .take(nb)
 
   case class Done(by: ModId, at: Instant)
 
@@ -128,11 +132,12 @@ object Report:
       suspect: Suspect,
       reason: Reason,
       text: String
-  ) extends Reason.WithReason:
+  ):
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic          = reporter.id == ReporterId.lichess
-    def isAutoComm           = isAutomatic && isComm
-    def isAutoBoost          = isAutomatic && isBoost
+    def isAutoComm           = isAutomatic && reason.isComm
+    def isAutoBoost          = isAutomatic && reason == Reason.Boost
+    def isCheat              = reason == Reason.Cheat
     def isIrwinCheat         = reporter.id == ReporterId.irwin && isCheat
     def isKaladinCheat       = reporter.id == ReporterId.kaladin && isCheat
 
@@ -142,6 +147,7 @@ object Report:
       def atom =
         Atom(
           by = candidate.reporter.id,
+          reason = candidate.reason,
           text = candidate.text,
           score = score,
           at = nowInstant
@@ -156,7 +162,6 @@ object Report:
       Report(
         id = ReportId(ThreadLocalRandom.nextString(8)),
         user = candidate.suspect.user.id,
-        reason = candidate.reason,
         room = Room(candidate.reason),
         atoms = NonEmptyList.one(c.atom),
         score = score,

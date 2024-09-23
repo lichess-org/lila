@@ -207,20 +207,15 @@ final class Mod(
   }
 
   def createNameCloseVote(username: UserStr) = Secure(_.SendToZulip) { _ ?=> me ?=>
-    env.report.api.inquiries
-      .ofModId(me.id)
-      .map {
-        _.filter(_.reason == lila.report.Reason.Username).map(_.bestAtom.simplifiedText)
+    env.report.api.inquiries.myUsernameReportText.flatMap: txt =>
+      env.user.repo.byId(username).orNotFound { user =>
+        val details = s"created on: ${user.createdAt.date}, ${user.count.game} games"
+        env.irc.api
+          .nameCloseVote(user.light, details, txt)
+          .inject(NoContent)
       }
-      .flatMap: reason =>
-        env.user.repo.byId(username).orNotFound { user =>
-          val details = s"created on: ${user.createdAt.date}, ${user.count.game} games"
-          env.irc.api
-            .nameCloseVote(user.light, details, reason)
-            .inject(NoContent)
-        }
-
   }
+
   def askUsertableCheck(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
     env.user.lightUser(username.id).orNotFound { env.irc.api.usertableCheck(_).inject(NoContent) }
   }

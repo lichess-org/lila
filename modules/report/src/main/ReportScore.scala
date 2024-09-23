@@ -33,14 +33,15 @@ final private class ReportScore(
 
     // https://github.com/lichess-org/lila/issues/4587
     def fixedAutoScore(c: Report.Candidate)(score: Double): Double =
+      import Reason.*
       if c.isAutoBoost then baseScore * 1.5
       else if c.isAutoComm then 42d
       else if c.isIrwinCheat then 45d
       else if c.isKaladinCheat then 25d
       else if c.reporter.user.marks.reportban then score // reportbanned can still make comm reports
-      else if c.isPrint || c.is(_.Playbans) then baseScore * 2
-      else if c.is(_.Violence) || c.is(_.Harass) || c.is(_.SelfHarm) || c.is(_.Hate) then 50d
-      else if c.is(_.Username) then 50d
+      else if c.reason == AltPrint || c.reason == Playbans then baseScore * 2
+      else if Set(Violence, Harass, SelfHarm, Hate).contains(c.reason) then 50d
+      else if c.reason == Username then 50d
       else score
 
     def dropScoreIfCheatReportHasNoAnalyzedGames(c: Report.Candidate.Scored): Fu[Report.Candidate.Scored] =

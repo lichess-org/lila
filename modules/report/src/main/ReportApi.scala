@@ -54,12 +54,12 @@ final class ReportApi(
         for
           prev <- coll.one[Report]:
             $doc(
-              "user"   -> candidate.suspect.user.id,
-              "reason" -> candidate.reason,
-              "open"   -> true
+              "user" -> candidate.suspect.user.id,
+              "room" -> Room(candidate.reason),
+              "open" -> true
             )
           report = Report.make(scored, prev)
-          _      = lila.mon.mod.report.create(report.reason.key, scored.score.value.toInt).increment()
+          _      = lila.mon.mod.report.create(report.room.key, scored.score.value.toInt).increment()
           _ = if report.isRecentComm &&
             report.score.value >= thresholds.discord() &&
             prev.exists(_.score.value < thresholds.discord())
@@ -67,7 +67,8 @@ final class ReportApi(
           _ <- coll.update.one($id(report.id), report, upsert = true)
           _ <- autoAnalysis(candidate)
         yield
-          if report.isCheat then Bus.publish(lila.core.report.CheatReportCreated(report.user), "cheatReport")
+          if report.is(_.Cheat) then
+            Bus.publish(lila.core.report.CheatReportCreated(report.user), "cheatReport")
           maxScoreCache.invalidateUnit()
       }
     }
@@ -97,7 +98,7 @@ final class ReportApi(
 
   private def isAlreadySlain(candidate: Candidate) =
     (candidate.isCheat && candidate.suspect.user.marks.engine) ||
-      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll)
+      (candidate.isAutomatic && candidate.reason == Reason.Other && candidate.suspect.user.marks.troll)
 
   def getMyMod(using me: MyId): Fu[Option[Mod]]          = userApi.byId(me).dmap2(Mod.apply)
   def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userApi.byId(u).dmap2(Mod.apply)
@@ -112,8 +113,8 @@ final class ReportApi(
     coll
       .exists(
         $doc(
-          "user"   -> userId,
-          "reason" -> Reason.AltPrint.key
+          "user" -> userId,
+          "room" -> Room(Reason.AltPrint).key
         )
       )
       .flatMap {
@@ -510,8 +511,8 @@ final class ReportApi(
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
       "atoms.0.at".$gt(nowInstant.minusDays(7)),
-      "user"   -> suspect.value,
-      "reason" -> reason
+      "user"         -> suspect.value,
+      "atoms.reason" -> reason
     )
 
   object inquiries:
@@ -589,7 +590,7 @@ final class ReportApi(
         }
 
     private def cancel(report: Report)(using mod: Me): Funit =
-      if report.isOther && mod.is(report.onlyAtom.map(_.by))
+      if report.is(_.Other) && mod.is(report.onlyAtom.map(_.by))
       then coll.delete.one($id(report.id)).void // cancel spontaneous inquiry
       else
         coll.update
@@ -604,6 +605,13 @@ final class ReportApi(
 
     def appeal(sus: Suspect)(using Me): Fu[Report] =
       openOther(sus, Report.appealText)
+
+    def myUsernameReportText(using me: Me): Fu[Option[String]] =
+      ofModId(me).map: report =>
+        Report.Atom
+          .best(report.so(_.atoms.toList).filter(_.is(_.Username)), 1)
+          .headOption
+          .map(_.simplifiedText)
 
     private def openOther(sus: Suspect, name: String)(using mod: Me): Fu[Report] =
       ofModId(mod.userId).flatMap: current =>
