@@ -44,7 +44,7 @@ Use [GitHub issues](https://github.com/lichess-org/lila/issues) for bug reports 
 ## Installation
 
 ```
-./lila # thin wrapper around sbt
+./lila.sh # thin wrapper around sbt
 run
 ```
 
