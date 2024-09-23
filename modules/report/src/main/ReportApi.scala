@@ -54,9 +54,9 @@ final class ReportApi(
         for
           prev <- coll.one[Report]:
             $doc(
-              "user"   -> candidate.suspect.user.id,
-              "reason" -> candidate.reason,
-              "open"   -> true
+              "user" -> candidate.suspect.user.id,
+              "room" -> Room(candidate.reason),
+              "open" -> true
             )
           report = Report.make(scored, prev)
           _      = lila.mon.mod.report.create(report.room.key, scored.score.value.toInt).increment()
@@ -113,8 +113,8 @@ final class ReportApi(
     coll
       .exists(
         $doc(
-          "user"   -> userId,
-          "reason" -> Reason.AltPrint.key
+          "user" -> userId,
+          "room" -> Room(Reason.AltPrint).key
         )
       )
       .flatMap {
@@ -511,8 +511,8 @@ final class ReportApi(
   private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
     $doc(
       "atoms.0.at".$gt(nowInstant.minusDays(7)),
-      "user"   -> suspect.value,
-      "reason" -> reason
+      "user"         -> suspect.value,
+      "atoms.reason" -> reason
     )
 
   object inquiries:
