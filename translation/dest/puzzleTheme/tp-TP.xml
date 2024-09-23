@@ -30,10 +30,10 @@
   <string name="knightEndgameDescription">pini musi ni li jo taso e soweli tawa e jan utala.</string>
   <string name="long">musi lili pi tenpo suli</string>
   <string name="longDescription">o kama pona lon tenpo tawa tu wan.</string>
-  <string name="master">musi pi jan pi sona musi</string>
-  <string name="masterDescription">musi lili tan musi pi jan pi sona musi.</string>
+  <string name="master">musi pi jan wawa</string>
+  <string name="masterDescription">musi lili tan musi pi jan wawa</string>
   <string name="masterVsMaster">musi pi jan wawa</string>
-  <string name="masterVsMasterDescription">musi lili tan musi pi jan pi wawa mute.</string>
+  <string name="masterVsMasterDescription">musi lili tan musi pi jan wawa</string>
   <string name="mate">lawa mije li moli</string>
   <string name="mateDescription">o anpa e lawa mije ante!</string>
   <string name="mateIn1">moli lon tenpo tawa 1</string>
