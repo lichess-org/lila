@@ -11,6 +11,7 @@ import lila.core.userId.ModId
 case class Report(
     @Key("_id") id: ReportId, // also the url slug
     user: UserId,             // the reportee
+    reason: Reason,
     room: Room,
     atoms: NonEmptyList[Report.Atom], // most recent first
     score: Report.Score,
@@ -26,7 +27,7 @@ case class Report(
   def closed  = !open
   def suspect = SuspectId(user)
 
-  def isReason(reason: Reason.type => Reason) = this.room == Room(reason(Reason))
+  def isReason(reason: Reason.type => Reason) = this.reason == reason(Reason)
   def is(room: Room.type => Room)             = this.room == room(Room)
 
   def add(atom: Atom) =
@@ -157,6 +158,7 @@ object Report:
       Report(
         id = ReportId(ThreadLocalRandom.nextString(8)),
         user = candidate.suspect.user.id,
+        reason = candidate.reason,
         room = Room(candidate.reason),
         atoms = NonEmptyList.one(c.atom),
         score = score,

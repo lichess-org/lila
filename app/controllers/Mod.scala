@@ -210,7 +210,7 @@ final class Mod(
     env.report.api.inquiries
       .ofModId(me.id)
       .map:
-        _.map(_.bestAtom.simplifiedText)
+        _.filter(_.isReason(_.Username)).map(_.bestAtom.simplifiedText)
       .flatMap: reason =>
         env.user.repo.byId(username).orNotFound { user =>
           val details = s"created on: ${user.createdAt.date}, ${user.count.game} games"
