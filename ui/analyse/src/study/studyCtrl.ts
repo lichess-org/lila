@@ -121,7 +121,7 @@ export default class StudyCtrl {
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     this.vm = {
       loading: false,
-      tab: prop<Tab>(!relayData && data.chapters.length > 1 ? 'chapters' : 'members'),
+      tab: prop<Tab>(!relayData && data.chapters?.[1] ? 'chapters' : 'members'),
       toolTab: prop<ToolTab>(relayData ? 'multiBoard' : 'tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
@@ -150,7 +150,7 @@ export default class StudyCtrl {
       trans: ctrl.trans,
     });
     this.chapters = new StudyChaptersCtrl(
-      data.chapters,
+      data.chapters!,
       this.send,
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
@@ -345,7 +345,7 @@ export default class StudyCtrl {
     this.studyDesc.set(this.data.description);
     document.title = this.data.name;
     this.members.dict(s.members);
-    this.chapters.loadFromServer(s.chapters);
+    if (s.chapters) this.chapters.loadFromServer(s.chapters);
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
 
     const merge = !this.vm.mode.write && sameChapter;

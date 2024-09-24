@@ -66,7 +66,7 @@ export interface StudyData {
 }
 
 export interface StudyDataFromServer extends StudyData {
-  chapters: ChapterPreviewFromServer[];
+  chapters?: ChapterPreviewFromServer[];
 }
 
 export type Topic = string;

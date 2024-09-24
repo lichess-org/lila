@@ -131,7 +131,7 @@ final class RelayRound(
       .orNotFoundEmbed: oldSc =>
         studyC.CanView(oldSc.study)(
           for
-            (sc, studyData) <- studyC.getJsonData(oldSc)
+            (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
             rounds          <- env.relay.api.byTourOrdered(rt.tour)
             group           <- env.relay.api.withTours.get(rt.tour.id)
             data = env.relay.jsonView.makeData(
@@ -266,7 +266,7 @@ final class RelayRound(
   ): Fu[Result] =
     studyC.CanView(oldSc.study)(
       for
-        (sc, studyData) <- studyC.getJsonData(oldSc)
+        (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
