@@ -147,6 +147,4 @@ final class Env(
         case "tournament" :: "recompute" :: id :: Nil =>
           api.recomputeEntireTournament(TourId(id)).inject("Done!")
 
-trait TournamentReloadDelay
 trait TournamentReloadEndpoint
-trait LilaHttpTourId
