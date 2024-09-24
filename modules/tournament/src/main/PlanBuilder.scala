@@ -3,7 +3,8 @@ package lila.tournament
 import scala.collection.mutable
 import scala.collection.SortedSet
 
-import Schedule.Plan
+import lila.core.i18n.Translate
+import lila.tournament.Schedule.Plan
 
 object PlanBuilder:
   /** Max window for daily or better schedules to be considered overlapping (i.e. if one starts within X hrs
@@ -70,10 +71,12 @@ object PlanBuilder:
       val duration: java.time.Duration
   ) extends ScheduleWithInterval
 
-  private[tournament] def filterAndStaggerPlans(
+  private[tournament] def getNewTourneys(
       existingTourneys: Iterable[Tournament],
-      plans: Iterable[Plan]
-  ): List[Plan] =
+      now: Instant = nowInstant
+  )(using Translate): List[Tournament] =
+    val plans = TournamentScheduler.allWithConflicts()
+
     // Prune plans using the unstaggered scheduled start time.
     val existingWithScheduledStart = existingTourneys.flatMap { t =>
       // Ignore tournaments with schedule=None - they never conflict.
@@ -82,9 +85,12 @@ object PlanBuilder:
 
     val prunedPlans = pruneConflicts(existingWithScheduledStart, plans)
 
-    // Determine stagger using the actual (staggered) start time of existing tourneys.
-    // Unlike pruning, stagger plans even against Tourneys with schedule=None.
-    plansWithStagger(existingTourneys.map(_.startsAt), prunedPlans)
+    plansWithStagger(
+      // Determine new staggers based on actual (staggered) start time of existing tourneys.
+      // Unlike pruning, stagger considers Tourneys with schedule=None.
+      existingTourneys.map(_.startsAt),
+      prunedPlans
+    ).map(_.build) // Build Tournament objects from plans
 
   /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
     * plans that do not conflict with either the existing schedules or with themselves. Intended to produce

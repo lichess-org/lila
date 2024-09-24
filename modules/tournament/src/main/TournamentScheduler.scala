@@ -21,11 +21,8 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
-        val plans = TournamentScheduler.allWithConflicts()
-
-        val filteredPlans = PlanBuilder.filterAndStaggerPlans(dbScheds, plans)
-
-        tournamentRepo.insert(filteredPlans.map(_.build)).logFailure(logger)
+        val tourneysToAdd = PlanBuilder.getNewTourneys(dbScheds)
+        tournamentRepo.insert(tourneysToAdd).logFailure(logger)
       catch
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
