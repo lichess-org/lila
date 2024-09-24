@@ -192,7 +192,7 @@ final class RelayRound(
     Found(env.relay.api.byIdWithStudy(id)): rs =>
       studyC.CanView(rs.study) {
         apiC.GlobalConcurrencyLimitPerIP
-          .eventsExtraCapacity(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
+          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
       }(Unauthorized, Forbidden)
 
