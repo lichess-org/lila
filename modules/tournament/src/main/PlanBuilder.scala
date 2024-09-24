@@ -2,8 +2,6 @@ package lila.tournament
 
 import scala.collection.mutable
 import scala.collection.SortedSet
-// For comparing Instants
-import scala.math.Ordering.Implicits.infixOrderingOps
 
 import Schedule.Plan
 
@@ -15,9 +13,8 @@ object PlanBuilder:
     */
   private[tournament] val SCHEDULE_DAILY_OVERLAP_MINS = 690 // 11.5 hours
 
-  // 2/3 of a min ensures good spacing from tourneys starting the next minute, which aren't explicitly
-  // considered when calculating ideal stagger. It also keeps at least or better spacing than the prior
-  // random [0, 60) sec stagger.
+  // 40s ensures good spacing from tourneys starting the next minute, which aren't considered when
+  // calculating ideal stagger. It also keeps better spacing than the prior random [0, 60) sec stagger.
   private[tournament] val MAX_STAGGER_MS = 40_000
 
   private[tournament] abstract class ScheduleWithInterval:
@@ -86,6 +83,7 @@ object PlanBuilder:
     val prunedPlans = pruneConflicts(existingWithScheduledStart, plans)
 
     // Unlike pruning, stagger plans even against Tourneys with schedule=None.
+    // This probably doesn't affect anything, but seems prudent.
     plansWithStagger(existingTourneys, prunedPlans)
 
   /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
@@ -106,16 +104,14 @@ object PlanBuilder:
           p :: newPlans
       .reverse
 
-  /** Given a plan, return an adjusted start time that minimizes conflicts with existing events.
-    *
-    * This method assumes that no event starts immediately before plan or after the max stagger, in terms of
-    * impacting server performance by concurrent events.
+  /** Given a plan, return an adjusted Plan with a start time that minimizes conflicts with existing events.
     */
-  private[tournament] def getAdjustedStart(
+  private[tournament] def staggerPlan(
       plan: Plan,
       existingEvents: SortedSet[Instant],
       maxStaggerMs: Long
-  ): Instant =
+  ): Plan =
+    import scala.math.Ordering.Implicits.infixOrderingOps // For comparing Instants.
 
     val originalStart   = plan.startsAt
     val originalStartMs = originalStart.toEpochMilli
@@ -125,12 +121,11 @@ object PlanBuilder:
     val offsetsWithSimilarStart = existingEvents
       .iteratorFrom(originalStart)
       .takeWhile(_ <= maxConflictAt)
-      // Shift events times to be relative to original plan, to avoid loss of precision
       .map(_.toEpochMilli - originalStartMs)
       .toSeq
 
     val staggerMs = findMinimalGoodSlot(0L, maxStaggerMs, offsetsWithSimilarStart)
-    originalStart.plusMillis(staggerMs)
+    plan.copy(startsAt = originalStart.plusMillis(staggerMs))
 
   /** Given existing tourneys and possible new plans, returns new Plan objects that are staggered to avoid
     * starting at the exact same time as other plans or tourneys. Does NOT filter for conflicts.
@@ -140,13 +135,13 @@ object PlanBuilder:
       plans: Iterable[Plan]
   ): List[Plan] =
     // Determine stagger using the actual (staggered) start time of existing and new tourneys.
-    val allTourneyStarts = mutable.TreeSet.from(existingTourneys.map(_.startsAt))
+    val allTourneyInstants = mutable.TreeSet.from(existingTourneys.map(_.startsAt))
 
     plans
       .foldLeft(Nil): (allAdjustedPlans, plan) =>
-        val adjustedStart = getAdjustedStart(plan, allTourneyStarts, MAX_STAGGER_MS)
-        allTourneyStarts += adjustedStart
-        plan.copy(startsAt = adjustedStart) :: allAdjustedPlans
+        val adjustedPlan = staggerPlan(plan, allTourneyInstants, MAX_STAGGER_MS)
+        allTourneyInstants += adjustedPlan.startsAt
+        adjustedPlan :: allAdjustedPlans
       .reverse
 
   /** This method is used find a good stagger value for a new tournament. We want stagger as low as possible,
