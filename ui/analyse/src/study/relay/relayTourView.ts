@@ -114,21 +114,19 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['tc', i.tc, 'objects.mantelpiece-clock'],
     ['location', i.location, 'travel-places.world-map'],
     ['players', i.players, 'activity.sparkles'],
+    ['website', i.website, 'objects.link', 'Official website'],
+    ['standings', i.standings, 'activity.sports-medal', 'Standings'],
   ]
     .map(
-      ([key, value, icon]) =>
+      ([key, value, icon, linkName]) =>
         key &&
         value &&
         icon &&
-        h('div.relay-tour__info__' + key, [h('img', { attrs: { src: site.asset.flairSrc(icon) } }), value]),
+        h('div.relay-tour__info__' + key, [h('img', { attrs: { src: site.asset.flairSrc(icon) } }),
+          linkName ? h('a', { attrs: { href: value, target: '_blank' } }, linkName) : value,
+        ]),
     )
     .filter(defined);
-
-  i.website &&
-    contents.push(h('div.relay-tour__info__website', [h('img', { attrs: { src: site.asset.flairSrc('objects.link') } }), h('a', { attrs: { href: i.website, target: '_blank' } }, 'Official Website')]));
-
-  i.standings &&
-    contents.push(h('div.relay-tour__info__standings', [h('img', { attrs: { src: site.asset.flairSrc('activity.sports-medal') } }), h('a', { attrs: { href: i.standings, target: '_blank' } }, 'Standings')]));
 
   return contents.length ? h('div.relay-tour__info', contents) : undefined;
 };
