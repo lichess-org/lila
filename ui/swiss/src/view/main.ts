@@ -12,6 +12,7 @@ import * as boards from './boards';
 import podium from './podium';
 import playerInfo from './playerInfo';
 import flatpickr from 'flatpickr';
+import { use24h } from 'common/i18n';
 import { once } from 'common/storage';
 import { initMiniGames } from 'common/miniBoard';
 import { watchers } from 'common/watchers';
@@ -107,6 +108,7 @@ function nextRound(ctrl: SwissCtrl): VNode | undefined {
             onClose() {
               (el.parentNode as HTMLFormElement).submit();
             },
+            time_24hr: use24h(),
           }),
         ),
       }),

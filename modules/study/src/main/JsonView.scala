@@ -17,8 +17,8 @@ final class JsonView(
 
   def full(
       study: Study,
-      previews: ChapterPreview.AsJsons,
       chapter: Chapter,
+      previews: Option[ChapterPreview.AsJsons],
       fedNames: Option[JsObject],
       withMembers: Boolean
   )(using me: Option[Me]) =
@@ -46,8 +46,7 @@ final class JsonView(
           )
           .add("sticky", study.settings.sticky)
           .add("description", study.settings.description),
-        "topics"   -> study.topicsOrEmpty,
-        "chapters" -> previews,
+        "topics" -> study.topicsOrEmpty,
         "chapter" -> Json
           .obj(
             "id"      -> chapter.id,
@@ -64,6 +63,7 @@ final class JsonView(
           .add("relayPath", relayPath)
           .pipe(addChapterMode(chapter))
       )
+      .add("chapters", previews)
       .add("description", study.description)
       .add("federations", fedNames)
 

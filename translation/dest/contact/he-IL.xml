@@ -36,7 +36,7 @@
   <string name="wantReportBug">אני רוצה לדווח על תקלה</string>
   <string name="reportBugInForum">במדור המשוב על לִיצֶ\'ס בפורום</string>
   <string name="reportWebsiteIssue">כבעיה (issue) בעמוד של Lichess באתר GitHub</string>
-  <string name="reportMobileIssue">כבעיה (issue) בעמוד של אפליקציית לִיצֶ\'ס בGitHub</string>
+  <string name="reportMobileIssue">כבעיה (issue) בעמוד של אפליקציית Lichess בGitHub</string>
   <string name="reportBugInDiscord">בשרת הDiscord של ליצ\'ס</string>
   <string name="howToReportBug">אנא תארו כיצד נראית התקלה, מה ציפיתם שיקרה במקום זאת ואת הצעדים לשחזור התקלה.</string>
   <string name="illegalPawnCapture">הכאת (אכילת) חייל לא חוקית</string>

@@ -118,7 +118,7 @@
   <string name="enable">활성화</string>
   <string name="bestMoveArrow">최선의 수 화살표</string>
   <string name="showVariationArrows">바리에이션 화살표 표시하기</string>
-  <string name="evaluationGauge">평가치 게이지</string>
+  <string name="evaluationGauge">평가 게이지</string>
   <string name="multipleLines">다중 분석</string>
   <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>

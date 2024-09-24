@@ -248,7 +248,7 @@
   <string name="error.namePassword">נא לא להשתמש בשם המשתמש בתור הסיסמה.</string>
   <string name="blankedPassword">השתמשת בסיסמה שלך באתר אחר, ויתכן שהיא מועדת לפריצה. כדי להגן על חשבונך ב־Lichess, עליך להגדיר סיסמה חדשה. תודה על ההבנה.</string>
   <string name="youAreLeavingLichess">את/ה עוזב/ת את Lichess</string>
-  <string name="neverTypeYourPassword">לעולם אל תקלידו את סיסמתכם ב־Lichessבאף אתר אחר!</string>
+  <string name="neverTypeYourPassword">לעולם אל תקלידו את סיסמתכם ב־Lichess באף אתר אחר!</string>
   <string name="proceedToX">מעבר ל־%s</string>
   <string name="passwordSuggestion">אל תשתמשו בסיסמה שהציע לכם אדם אחר. הוא ישתמש בה כדי לגנוב את חשבונכם!</string>
   <string name="emailSuggestion">אל תשמשו בכתובת מייל שהציע אדם אחר. הוא ישתמש בה כדי לגנוב את חשבונכם.</string>
@@ -374,7 +374,7 @@
     <item quantity="many">תן %s שניות</item>
     <item quantity="other">תן %s שניות</item>
   </plurals>
-  <string name="thisAccountViolatedTos">החשבון הזה הפר את תנאי השימוש של ליצ\'ס</string>
+  <string name="thisAccountViolatedTos">החשבון הזה הפר את תנאי השימוש של Lichess</string>
   <string name="openingExplorerAndTablebase">סייר הפתיחות וטבלאות סיומים</string>
   <string name="takeback">החזרת מהלך</string>
   <string name="proposeATakeback">הצע החזרת המהלך האחרון</string>
@@ -567,7 +567,7 @@
   <string name="clearBoard">ניקוי הלוח</string>
   <string name="loadPosition">טעינת עמדה</string>
   <string name="isPrivate">פרטי</string>
-  <string name="reportXToModerators">דווח/י על %s למנהלים</string>
+  <string name="reportXToModerators">דווח על %s למנהלים</string>
   <string name="profileCompletion">השלמת הפרופיל: %s</string>
   <string name="xRating">דירוג %s</string>
   <string name="ifNoneLeaveEmpty">אם אין, השאירו ריק</string>
@@ -585,7 +585,7 @@
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
   <string name="makeAStudy">כדי לשמור ולשתף, תוכל/י ליצור לוח למידה.</string>
   <string name="clearSavedMoves">הסרת המהלכים</string>
-  <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
+  <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של Lichess</string>
   <string name="onlinePlayers">שחקנים מחוברים</string>
   <string name="activePlayers">הכי פעילים</string>
   <string name="bewareTheGameIsRatedButHasNoClock">שימו לב! המשחק מדורג אך אין שעון.</string>
@@ -619,15 +619,16 @@
   <string name="reply">תגובה</string>
   <string name="message">הודעה</string>
   <string name="createTheTopic">צור אשכול</string>
-  <string name="reportAUser">דווח/י על משתמש/ת</string>
-  <string name="user">משתמש/ת</string>
+  <string name="reportAUser">דווח על משתמש</string>
+  <string name="user">משתמש</string>
   <string name="reason">סיבה</string>
   <string name="whatIsIheMatter">מה הבעיה?</string>
   <string name="cheat">רמאות</string>
   <string name="troll">הטרלה</string>
   <string name="other">אחר</string>
-  <string name="reportCheatBoostHelp">הדביקו את הקישור למשחקים שעליהם תרצו לדווח והסבירו מה הבעיה בהתנהגות המשתמש כפי שהיא משתקפת בהם. אל תכתבו סתם ״השחקן מרמה״. הסבירו לנו כיצד הגעתם למסקנה הזו.</string>
-  <string name="reportUsernameHelp">הסבירו מה פוגעני בשם המשתמש הזה. אל תכתבו סתם ״שם המשתמש פוגעני״. הסבירו לנו כיצד הגעתם למסקנה הזו, במיוחד אם ההעלבה מוסווית, בשפה זרה (שאינה אנגלית), בלשון סלנג או תלויית תרבות והיסטוריה.</string>
+  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">הדביקו את הקישור למשחקים שעליהם תרצו לדווח והסבירו מה הבעיה בהתנהגות המשתמש כפי שהיא משתקפת בהם. אל תכתבו סתם ״השחקן מרמה״. הסבירו לנו כיצד הגעתם למסקנה הזו.</string>
+  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">הסבירו מה פוגעני בשם המשתמש הזה. אל תכתבו סתם ״שם המשתמש פוגעני״. הסבירו לנו כיצד הגעתם למסקנה הזו, במיוחד אם ההעלבה מוסווית, בשפה זרה (שאינה אנגלית), בלשון סלנג או תלויית תרבות והיסטוריה.</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">הדיווח שלך יטופל מהר יותר אם הוא כתוב באנגלית.</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על־ידי %s</string>
   <string name="importedByX">יובא ע\"י %s</string>
@@ -692,7 +693,7 @@
   <string name="side">צד</string>
   <string name="clock">שעון</string>
   <string name="opponent">יריב</string>
-  <string name="learnMenu">למד/י</string>
+  <string name="learnMenu">למדו</string>
   <string name="studyMenu">לוחות למידה</string>
   <string name="practice">תרגול</string>
   <string name="community">קהילה</string>
@@ -760,7 +761,7 @@
   <string name="simulHostExtraTime">זמן נוסף למארח/ת</string>
   <string name="simulAddExtraTimePerPlayer">הוספת זמן לשעון שלך בכל פעם שמצטרף/ת שחקן/ית למשחק הסימולטני.</string>
   <string name="simulHostExtraTimePerPlayer">זמן נוסף למארח/ת עבור כל שחקן/ית שמצטרף/ת</string>
-  <string name="lichessTournaments">טורנירים של ליצ\'ס</string>
+  <string name="lichessTournaments">טורנירים של Lichess</string>
   <string name="tournamentFAQ">שאלות נפוצות לגבי טורנירי הזירה</string>
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
   <string name="averageCentipawnLoss">אובדן מאית־חייל ממוצע</string>
@@ -812,7 +813,7 @@
   <string name="weHaveSentYouAnEmailTo">שלחנו אימייל ל%s. לחץ על הלינק באימייל כדי לאפס את הסיסמה.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">על ידי הרשמה, את/ה מסכים/ה ל%s.</string>
   <string name="readAboutOur">קראו את %s.</string>
-  <string name="networkLagBetweenYouAndLichess">עיכוב הרשת בינך לבין ליצ\'ס</string>
+  <string name="networkLagBetweenYouAndLichess">עיכוב הרשת בינך לבין Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">זמן לעיבוד מהלך בשרת ליצ\'ס</string>
   <string name="downloadAnnotated">הורדה עם הערות</string>
   <string name="downloadRaw">הורדה ללא הערות</string>
@@ -830,7 +831,7 @@
   <string name="kidMode">מצב ילדים</string>
   <string name="kidModeIsEnabled">מצב ילדים מופעל.</string>
   <string name="kidModeExplanation">בשביל הבטיחות. במצב ילדים, כל אמצעי התקשורת באתר מבוטלים. הפעילו אופציה זו עבור ילדיכם ועבור תלמידי בית ספר. זאת כדי להגן עליהם מפני משתמשים אחרים.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של ליצ\'ס מקבל אייקון %s, כדי שתדעו שילדיכם מוגנים.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">במצב ילדים הסמל של Lichess מקבל אייקון %s, כדי שתדעו שילדיכם מוגנים.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">החשבון שלך מנוהל. תוכל/י לבקש מהמורה שלך לשחמט להסיר את מצב הילדים.</string>
   <string name="enableKidMode">הפעילו מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
@@ -977,8 +978,8 @@
   <string name="searchOrStartNewDiscussion">חפשו את התחילו שיחה חדשה</string>
   <string name="edit">עריכה</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
-  <string name="rapid">Rapid</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">בזק</string>
+  <string name="rapid">זריז</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">משחקים מהירים בטירוף: פחות מ־30 שניות על השעון</string>
   <string name="bulletDesc">משחקים מהירים מאוד: פחות מ3 דקות על השעון</string>
