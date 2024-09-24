@@ -126,11 +126,11 @@ object PlanBuilder:
       .iteratorFrom(originalStart)
       .takeWhile(_ <= maxConflictAt)
       // Shift events times to be relative to original plan, to avoid loss of precision
-      .map(s => (s.toEpochMilli - originalStartMs).toFloat)
+      .map(_.toEpochMilli - originalStartMs)
       .toSeq
 
-    val staggerMs = findMinimalGoodSlot(0f, maxStaggerMs, offsetsWithSimilarStart)
-    originalStart.plusMillis(staggerMs.toLong)
+    val staggerMs = findMinimalGoodSlot(0L, maxStaggerMs, offsetsWithSimilarStart)
+    originalStart.plusMillis(staggerMs)
 
   /** Given existing tourneys and possible new plans, returns new Plan objects that are staggered to avoid
     * starting at the exact same time as other plans or tourneys. Does NOT filter for conflicts.
@@ -153,12 +153,12 @@ object PlanBuilder:
     * because that means tourneys start sooner, but we also want tournaments to be spaced out to avoid server
     * DDOS.
     *
-    * The method uses Floats. Assuming the original plans use whole numbers (of seconds), successive staggers
-    * will be whole multiples of a negative power of 2, and so are be exactly representable as a Float. Neat!
+    * The method uses Longs for convenience based on usage, but it could easily be specialized to use floating
+    * points or other representations.
     *
-    * Behavior is only loosely defined when the length of [low, hi] approaches or exceeds [[Float.MaxValue]]
-    * or when the range is centered around a large number and loses precision. Neither of these scenarios is
-    * how the function is expected to be used in practice.
+    * Overflows are *not* checked, because although this method uses Longs, its arguments are expected to be
+    * small (e.g. smaller than [[Short.MaxValue]]), and so internal math is not expected to come anywhere near
+    * a Long overflow.
     *
     * @param hi
     *   must be >= low
@@ -168,27 +168,20 @@ object PlanBuilder:
     * @return
     *   the lowest value in [low, hi] with maximal distance to elts of sortedExisting
     */
-  private[tournament] def findMinimalGoodSlot(low: Float, hi: Float, sortedExisting: Iterable[Float]): Float =
-    // Computations use doubles to avoid loss of precision and rounding errors.
+  private[tournament] def findMinimalGoodSlot(low: Long, hi: Long, sortedExisting: Iterable[Long]): Long =
     if sortedExisting.isEmpty then low
     else
       val iter    = sortedExisting.iterator
-      var prevElt = iter.next.toDouble
-      // Fake gap low to check later (i.e. maxGapLow < low)
-      var maxGapLow = Double.NegativeInfinity
-      // nothing is at low element so gap is equiv to 2x
-      var maxGapLen = (prevElt - low) * 2.0
+      var prevElt = iter.next
+      // nothing is at low element so gap is equiv to 2x size, centered at low
+      var maxGapLow = low - (prevElt - low)
+      var maxGapLen = (prevElt - low) * 2L
       while iter.hasNext do
-        val elt = iter.next.toDouble
+        val elt = iter.next
         if elt - prevElt > maxGapLen then
           maxGapLow = prevElt
           maxGapLen = elt - prevElt
         prevElt = elt
-      // Use hi if it's strictly better than all other gaps. Since nothing is at hi, gap is equiv
-      // to 2x maxGapLen.
-      if (hi - prevElt) * 2.0 > maxGapLen then hi
-      // Else, use the first best slot, whose first candidate is low. Using a special case for low
-      // guarantees we always return in the interval [low, high], and don't have to be quite as
-      // vigilant with floating point rounding errors.
-      else if maxGapLow < low then low
-      else (maxGapLow + maxGapLen * 0.5).toFloat
+      // Use hi only if it's strictly better than all other gaps.
+      if (hi - prevElt) * 2L > maxGapLen then hi
+      else maxGapLow + maxGapLen / 2L
