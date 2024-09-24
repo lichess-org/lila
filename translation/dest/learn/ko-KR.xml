@@ -68,10 +68,11 @@
   <string name="protection">보호</string>
   <string name="keepYourPiecesSafe">당신의 기물을 보호하세요</string>
   <string name="protectionIntro">공격받고 있는 말을 보호하세요!</string>
-  <string name="protectionComplete">축하합니다! 보호해낸 기물은 승리의 초석이 될 거에요!</string>
+  <string name="protectionComplete">축하합니다! 잃지 않은 기물은 잡은 기물이 됩니다!</string>
   <string name="escape">공격받고 있습니다!
 위협에서 벗어나세요!</string>
-  <string name="noEscape">공격권에서 벗어날순 없더라도 막을 순 있어요!</string>
+  <string name="noEscape">탈출 할 수는 없지만,
+방어 할 수는 있어요!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">모든 말들을 보호하세요!</string>
   <string name="combat">전투</string>
   <string name="captureAndDefendPieces">공격하면서 방어하세요</string>
@@ -216,6 +217,6 @@
   <string name="next">다음</string>
   <string name="nextX">다음: %s</string>
   <string name="backToMenu">메뉴로 돌아가기</string>
-  <string name="puzzleFailed">잘못된 수입니다</string>
+  <string name="puzzleFailed">퍼즐 실패</string>
   <string name="retry">다시하기</string>
 </resources>
