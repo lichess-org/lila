@@ -279,6 +279,7 @@
   <string name="abortGame">ஆட்டத்தைக் கலை</string>
   <string name="gameAborted">ஆட்டம் கலைந்தது</string>
   <string name="standard">மரபு</string>
+  <string name="customPosition">விருப்ப நிலை</string>
   <string name="unlimited">வரம்பில்லை</string>
   <string name="mode">மதிப்பீட்டுநிலை</string>
   <string name="casual">மதிப்பீடின்றி</string>
@@ -526,6 +527,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">நகரும் பிறகு தானாகவே அடுத்த விளையாட்டு தொடர</string>
   <string name="autoSwitch">ஆட்டம் மாற</string>
   <string name="puzzles">புதிர்கள்</string>
+  <string name="onlineBots">ஆன்லைன் ரோபோக்கள்</string>
   <string name="name">பெயர்</string>
   <string name="description">விவரணம்</string>
   <string name="descPrivate">தனிப்பட்ட விளக்கம்</string>
@@ -664,6 +666,7 @@
   <string name="yourPendingSimuls">சரியாக அதே நேரத்தில் நடக்கின்ற நிலுவையில் உள்ள உங்கள் விளையாட்டுக்கள்</string>
   <string name="createdSimuls">புதிதாக உருவாக்கப்பட்ட சரியாக அதே நேரத்தில் நடக்கின்ற விளையாட்டுக்கள்</string>
   <string name="hostANewSimul">புதிய, சரியாக அதே நேரத்தில் நடக்கின்ற விளையாட்டுக்கள் நடத்துங்கள்</string>
+  <string name="signUpToHostOrJoinASimul">ஒரு ஹோஸ்டை சேர நீங்கள் உங்களைப் பதிவு செய்யவும் அல்லது சிமுலில் சேரவும்</string>
   <string name="aboutSimulImage">50 போட்டியாளர்களில், பிஷ்ஷர் 47 ஆட்டங்களில் வெற்றி பெற்றார், 2ல் சமநிலை பெற்றார் மற்றும் 1 தோல்வியடைந்தார்.</string>
   <string name="create">உருவாக்கு</string>
   <string name="simulVariantsHint">நீங்கள் பல வகைகளைத் தேர்ந்தெடுத்தால், ஒவ்வொரு வீரரும் எதை விளையாட வேண்டும் என்பதைத் தேர்ந்தெடுக்க வேண்டும்.</string>

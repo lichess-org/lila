@@ -36,11 +36,17 @@
 nimi jan: %2$s
 nimi awen: %3$s</string>
   <string name="inviteALichessAccount">sina wile e kama la o toki e ni tawa lipu jan</string>
+  <string name="createANewLichessAccount">o pali e jan sin</string>
+  <string name="createDesc1">jan pi kama sona li jo ala e lipu jan la, sina ken pali lon ni.</string>
   <string name="lichessUsername">nimi pi ilo Lichess</string>
   <string name="generateANewUsername">o pali e nimi sin</string>
   <string name="lastActiveDate">tenpo pini la lon</string>
   <string name="managed">jan pi pana sona li pana e pona</string>
   <string name="release">jan pi pana sona o pini e pana e pona</string>
+  <string name="closeStudent">o pini e lipu jan</string>
+  <string name="closeTheAccount">o pini e lipu pi jan pi kama sona lon tenpo ale.</string>
+  <string name="closeDesc1">pini li pini. o sona e ni: jan pi kama sona li sona e ni: jan pi kama sona li ken musi ala lon tenpo ale.</string>
+  <string name="closeDesc2">sina ken wile pana e ni tawa jan pi kama sona: lawa pi lipu jan. la, ona li ken awen kepeken e ona.</string>
   <string name="teachers">jan pi pana sona</string>
   <plurals name="nbTeachers">
     <item quantity="one">jan pi pana sona %s</item>
@@ -52,6 +58,11 @@ nimi awen: %3$s</string>
   </plurals>
   <string name="students">jan pi kama sona</string>
   <string name="progress">pali tawa</string>
+  <string name="noStudents">jan ala pi kama sona lon tenpo ni.</string>
+  <string name="noRemovedStudents">jan weka ala pi kama sona.</string>
+  <string name="overDays">lon tenpo suno</string>
+  <string name="timePlaying">tenpo musi</string>
+  <string name="variantXOverLastY">%1$s lon tenpo %2$s</string>
   <string name="winrate">nanpa pi pini pona</string>
   <string name="na">jo ken ala</string>
   <string name="editNews">ante e kama sin</string>

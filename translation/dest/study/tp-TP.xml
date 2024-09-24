@@ -95,6 +95,7 @@
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">tawa ni li tawa wan ken taso</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">tawa ale kama li ike</string>
   <string name="equalPosition">poka walo en poki pimeja li sama pona</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">musi nasa</string>
   <string name="whiteIsSlightlyBetter">poka pimeja la poka walo li pona lili</string>
   <string name="blackIsSlightlyBetter">poka walo la poka pimeja li pona lili</string>
   <string name="whiteIsBetter">poka pimeja la poka walo li pona</string>
@@ -112,4 +113,6 @@
   <string name="popularTopics">kulupu lipu pi jan mute</string>
   <string name="manageTopics">o ante e kulupu lipu</string>
   <string name="back">o tawa open</string>
+  <string name="playAgain">o musi sin</string>
+  <string name="whatWouldYouPlay">sina seme lon musi ni?</string>
 </resources>
