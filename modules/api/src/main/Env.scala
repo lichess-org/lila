@@ -109,7 +109,7 @@ final class Env(
       promise.completeWith(chatFreshness.of(source))
     },
     "lpv" -> {
-      case AllPgnsFromText(text, p)       => p.completeWith(textLpvExpand.allPgnsFromText(text))
+      case AllPgnsFromText(text, max, p)  => p.completeWith(textLpvExpand.allPgnsFromText(text, max))
       case LpvLinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
     }
   )

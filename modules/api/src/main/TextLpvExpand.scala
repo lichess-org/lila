@@ -49,16 +49,14 @@ final class TextLpvExpand(
                 (url.contains("/black")).option(attr("data-orientation") := "black")
               )
 
-  private val maxPgnsFromBlog = 20
-
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
-  def allPgnsFromText(text: String): Fu[Map[String, LpvEmbed]] =
+  def allPgnsFromText(text: String, max: Max): Fu[Map[String, LpvEmbed]] =
     regex.blogPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
       .toList
-      .foldLeft(maxPgnsFromBlog -> List.empty[Fu[(String, Option[LpvEmbed])]]):
+      .foldLeft(max.value -> List.empty[Fu[(String, Option[LpvEmbed])]]):
         case ((0, replacements), _) => 0 -> replacements
         case ((counter, replacements), candidate) =>
           val (cost, replacement) = candidate match
