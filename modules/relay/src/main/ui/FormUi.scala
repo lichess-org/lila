@@ -462,13 +462,13 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             form3.group(
               form("info.websiteOfficial"),
               "Official Website",
-              help = frag("Whether the tournament has an official website").some,
+              help = frag("External website URL").some,
               half = true
             )(form3.input(_)),
             form3.group(
               form("info.standings"),
               "Official Standings",
-              help = frag("chess-results.com, info64.org,...").some,
+              help = frag("External website URL, e.g. chess-results.com, info64.org").some,
               half = true
             )(form3.input(_))
           ),
