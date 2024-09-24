@@ -82,9 +82,9 @@ object PlanBuilder:
 
     val prunedPlans = pruneConflicts(existingWithScheduledStart, plans)
 
+    // Determine stagger using the actual (staggered) start time of existing tourneys.
     // Unlike pruning, stagger plans even against Tourneys with schedule=None.
-    // This probably doesn't affect anything, but seems prudent.
-    plansWithStagger(existingTourneys, prunedPlans)
+    plansWithStagger(existingTourneys.map(_.startsAt), prunedPlans)
 
   /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
     * plans that do not conflict with either the existing schedules or with themselves. Intended to produce
@@ -131,16 +131,15 @@ object PlanBuilder:
     * starting at the exact same time as other plans or tourneys. Does NOT filter for conflicts.
     */
   private[tournament] def plansWithStagger(
-      existingTourneys: Iterable[Tournament],
+      existingEvents: Iterable[Instant],
       plans: Iterable[Plan]
   ): List[Plan] =
-    // Determine stagger using the actual (staggered) start time of existing and new tourneys.
-    val allTourneyInstants = mutable.TreeSet.from(existingTourneys.map(_.startsAt))
+    val allInstants = mutable.TreeSet.from(existingEvents)
 
     plans
       .foldLeft(Nil): (allAdjustedPlans, plan) =>
-        val adjustedPlan = staggerPlan(plan, allTourneyInstants, MAX_STAGGER_MS)
-        allTourneyInstants += adjustedPlan.startsAt
+        val adjustedPlan = staggerPlan(plan, allInstants, MAX_STAGGER_MS)
+        allInstants += adjustedPlan.startsAt
         adjustedPlan :: allAdjustedPlans
       .reverse
 
