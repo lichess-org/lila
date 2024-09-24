@@ -34,13 +34,15 @@ export const displayLocale: string = document.documentElement.lang.startsWith('a
   ? 'ar-ly'
   : document.documentElement.lang;;
 
-export const commonDateFormat: (d?: Date|number) => string = new Intl.DateTimeFormat(displayLocale, {
+const commonDateFormatter = new Intl.DateTimeFormat(displayLocale, {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
   hour: 'numeric',
   minute: 'numeric',
-}).format;
+});
+
+export const commonDateFormat: (d?: Date|number) => string = commonDateFormatter.format;
 
 export const timeago: (d: DateLike) => string =
   (date: DateLike) => formatAgo((Date.now() - toDate(date).getTime()) / 1000);
@@ -48,6 +50,9 @@ export const timeago: (d: DateLike) => string =
 // format Date / string / timestamp to Date instance.
 export const toDate = (input: DateLike): Date =>
   input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
+
+export const use24h = (): boolean =>
+  !new Intl.DateTimeFormat(displayLocale).resolvedOptions().hour12;
 
 // format the diff second to *** time ago
 export const formatAgo = (seconds: number): string => {
