@@ -51,8 +51,7 @@ export const timeago: (d: DateLike) => string =
 export const toDate = (input: DateLike): Date =>
   input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
 
-export const use24h = (): boolean =>
-  !new Intl.DateTimeFormat(displayLocale).resolvedOptions().hour12;
+export const use24h = (): boolean => !commonDateFormatter.resolvedOptions().hour12;
 
 // format the diff second to *** time ago
 export const formatAgo = (seconds: number): string => {
