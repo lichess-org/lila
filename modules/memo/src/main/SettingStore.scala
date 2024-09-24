@@ -17,7 +17,6 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
     val id: String,
     val default: A,
     val text: Option[String],
-    persist: Boolean,
     init: SettingStore.Init[A],
     onSet: A => Funit
 )(using Executor):
@@ -30,7 +29,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
 
   def set(v: A): Funit = {
     value = v
-    persist.so(coll.update.one(dbId, $set(dbField -> v), upsert = true).void)
+    coll.update.one(dbId, $set(dbField -> v), upsert = true).void
   } >> onSet(v)
 
   def form: Form[?] = summon[SettingStore.Formable[A]].form(value)
@@ -39,7 +38,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
 
   private val dbId = $id(id)
 
-  persist.so(coll.primitiveOne[A](dbId, dbField)).map2 { (v: A) =>
+  coll.primitiveOne[A](dbId, dbField).map2 { (v: A) =>
     value = init(ConfigValue(default), DbValue(v))
   }
 
@@ -56,10 +55,9 @@ object SettingStore:
         id: String,
         default: A,
         text: Option[String] = None,
-        persist: Boolean = true,
         init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value,
         onSet: A => Funit = (_: A) => funit
-    ) = SettingStore[A](coll, id, default, text, persist = persist, init = init, onSet = onSet)
+    ) = SettingStore[A](coll, id, default, text, init = init, onSet = onSet)
 
   final class StringReader[A](val read: String => Option[A])
 
