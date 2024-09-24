@@ -84,7 +84,7 @@ object RelayTour:
       fideTc: Option[FideTC],
       location: Option[String],
       players: Option[String],
-      websiteOfficial: Option[URL],
+      website: Option[URL],
       standings: Option[URL]
   ):
     val all = List(format, tc, fideTc, location, players).flatten
