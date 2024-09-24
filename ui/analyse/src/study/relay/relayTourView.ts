@@ -114,15 +114,15 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['tc', i.tc, 'objects.mantelpiece-clock'],
     ['location', i.location, 'travel-places.world-map'],
     ['players', i.players, 'activity.sparkles'],
-    ['website', i.website, 'objects.link', 'Official website'],
-    ['standings', i.standings, 'activity.sports-medal', 'Standings'],
+    ['website', i.website, null, 'Official website'],
+    ['standings', i.standings, null, 'Standings'],
   ]
     .map(
       ([key, value, icon, linkName]) =>
         key &&
         value &&
-        icon &&
-        h('div.relay-tour__info__' + key, [h('img', { attrs: { src: site.asset.flairSrc(icon) } }),
+        h('div.relay-tour__info__' + key, [
+          icon && h('img', { attrs: { src: site.asset.flairSrc(icon) } }),
           linkName ? h('a', { attrs: { href: value, target: '_blank' } }, linkName) : value,
         ]),
     )
