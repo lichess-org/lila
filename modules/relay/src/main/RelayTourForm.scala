@@ -22,13 +22,13 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
   private val fideTcMapping: Mapping[FideTC] = typeIn[FideTC](FideTC.values.toSet)
 
   private val infoMapping = mapping(
-    "format"          -> optional(cleanText(maxLength = 80)),
-    "tc"              -> optional(cleanText(maxLength = 80)),
-    "fideTc"          -> optional(fideTcMapping),
-    "location"        -> optional(cleanText(maxLength = 80)),
-    "players"         -> optional(cleanText(maxLength = 120)),
-    "websiteOfficial" -> optional(url.field),
-    "standings"       -> optional(url.field)
+    "format"    -> optional(cleanText(maxLength = 80)),
+    "tc"        -> optional(cleanText(maxLength = 80)),
+    "fideTc"    -> optional(fideTcMapping),
+    "location"  -> optional(cleanText(maxLength = 80)),
+    "players"   -> optional(cleanText(maxLength = 120)),
+    "website"   -> optional(url.field),
+    "standings" -> optional(url.field)
   )(RelayTour.Info.apply)(unapply)
 
   private val pinnedStreamMapping = mapping(

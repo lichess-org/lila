@@ -39,7 +39,7 @@ export interface RelayTourInfo {
   fideTc?: string;
   location?: string;
   players?: string;
-  websiteOfficial?: string;
+  website?: string;
   standings?: string;
 }
 

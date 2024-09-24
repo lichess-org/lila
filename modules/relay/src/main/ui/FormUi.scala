@@ -460,7 +460,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )(form3.input(_)),
           form3.split(
             form3.group(
-              form("info.websiteOfficial"),
+              form("info.website"),
               "Official Website",
               help = frag("External website URL").some,
               half = true

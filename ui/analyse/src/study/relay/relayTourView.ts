@@ -124,8 +124,8 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     )
     .filter(defined);
 
-  i.websiteOfficial &&
-    contents.push(h('div.relay-tour__info__websiteOfficial', [h('img', { attrs: { src: site.asset.flairSrc('objects.link') } }), h('a', { attrs: { href: i.websiteOfficial, target: '_blank' } }, 'Official Website')]));
+  i.website &&
+    contents.push(h('div.relay-tour__info__website', [h('img', { attrs: { src: site.asset.flairSrc('objects.link') } }), h('a', { attrs: { href: i.website, target: '_blank' } }, 'Official Website')]));
 
   i.standings &&
     contents.push(h('div.relay-tour__info__standings', [h('img', { attrs: { src: site.asset.flairSrc('activity.sports-medal') } }), h('a', { attrs: { href: i.standings, target: '_blank' } }, 'Standings')]));
