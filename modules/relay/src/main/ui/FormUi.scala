@@ -428,9 +428,8 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               half = true
             )(form3.input(_)),
             form3.group(
-              form("info.players"),
-              "Top players",
-              help = frag("Mention up to 4 of the best players participating").some,
+              form("info.location"),
+              "Tournament Location",
               half = true
             )(form3.input(_))
           ),
@@ -452,6 +451,26 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 lila.core.fide.FideTC.values.map: tc =>
                   tc.toString -> tc.toString.capitalize
               )
+          ),
+          form3.group(
+            form("info.players"),
+            "Top players",
+            help = frag("Mention up to 4 of the best players participating").some,
+            half = true
+          )(form3.input(_)),
+          form3.split(
+            form3.group(
+              form("info.website"),
+              "Official Website",
+              help = frag("External website URL").some,
+              half = true
+            )(form3.input(_)),
+            form3.group(
+              form("info.standings"),
+              "Official Standings",
+              help = frag("External website URL, e.g. chess-results.com, info64.org").some,
+              half = true
+            )(form3.input(_))
           ),
           form3.group(
             form("markdown"),

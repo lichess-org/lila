@@ -1,6 +1,7 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+import io.mola.galimatias.URL
 
 import lila.core.i18n.Language
 import lila.core.id.ImageId
@@ -81,11 +82,13 @@ object RelayTour:
       format: Option[String],
       tc: Option[String],
       fideTc: Option[FideTC],
-      players: Option[String]
+      location: Option[String],
+      players: Option[String],
+      website: Option[URL],
+      standings: Option[URL]
   ):
-    val all = List(format, tc, fideTc, players).flatten
-    export all.nonEmpty
-    override def toString = all.mkString(" | ")
+    def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).flatten.nonEmpty
+    override def toString = List(format, tc, fideTc, location, players).mkString(" | ")
     lazy val fideTcOrGuess: FideTC = fideTc |
       tc
         .map(_.trim.toLowerCase.replace("classical", "standard"))

@@ -37,7 +37,10 @@ export interface RelayTourInfo {
   format?: string;
   tc?: string;
   fideTc?: string;
+  location?: string;
   players?: string;
+  website?: string;
+  standings?: string;
 }
 
 export type RelayTourDates = [number] | [number, number];
