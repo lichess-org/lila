@@ -34,6 +34,10 @@
     <item quantity="one">%s بازی مکاتبه‌ای را به پایان رساند</item>
     <item quantity="other">%s بازی مکاتبه‌ای را به پایان رساند</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">تکمیل %1$s بازی مکاتبه‌ای %2$s</item>
+    <item quantity="other">تکمیل %1$s بازی مکاتبه‌ای %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s بازیکن را دنبال کرد</item>
     <item quantity="other">%s بازیکن را دنبال کرد</item>
