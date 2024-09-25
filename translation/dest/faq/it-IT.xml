@@ -168,5 +168,6 @@ Ti mostriamo l\'icona rossa di muto per avvisarti quando questo succede. Spesso 
 4. Scendi nella pagina e clicca su Riproduzione automatica di contenuti multimediali
 5. Aggiungi lichess.org agli autorizzati</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Smettere di giocare?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction."></string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Stili utente di lichess</string>
 </resources>
