@@ -17,7 +17,8 @@ final class ForumPostApi(
     spam: lila.core.security.SpamApi,
     promotion: lila.core.security.PromotionApi,
     shutupApi: lila.core.shutup.ShutupApi,
-    detectLanguage: DetectLanguage
+    detectLanguage: DetectLanguage,
+    askApi: lila.core.ask.AskApi
 )(using Executor)(using scheduler: Scheduler)
     extends lila.core.forum.ForumPostApi:
 
@@ -32,10 +33,11 @@ final class ForumPostApi(
       val publicMod = MasterGranter(_.PublicMod)
       val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
       val anonMod   = modIcon && !publicMod
+      val frozen    = askApi.freeze(spam.replace(data.text), me)
       val post = ForumPost.make(
         topicId = topic.id,
         userId = (!anonMod).option(me),
-        text = spam.replace(data.text),
+        text = frozen.text,
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
@@ -49,6 +51,7 @@ final class ForumPostApi(
             _ <- postRepo.coll.insert.one(post)
             _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- askApi.commit(frozen, s"/forum/redirect/post/${post.id}".some)
           yield
             promotion.save(me, post.text)
             if post.isTeam
@@ -83,13 +86,16 @@ final class ForumPostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost = post.editPost(nowInstant, spam.replace(newText))
-          val save = (newPost.text != post.text).so:
-            for
-              _ <- postRepo.coll.update.one($id(post.id), newPost)
-              _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
-            yield promotion.save(me, newPost.text)
-          save.inject(newPost)
+          askApi
+            .freezeAndCommit(spam.replace(newText), me, s"/forum/redirect/post/${postId}".some)
+            .flatMap: frozen =>
+              val newPost = post.editPost(nowInstant, frozen)
+              val save = (newPost.text != post.text).so:
+                for
+                  _ <- postRepo.coll.update.one($id(post.id), newPost)
+                  _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
+                yield promotion.save(me, newPost.text)
+              save.inject(newPost)
       }
 
   def urlData(postId: ForumPostId, forUser: Option[User]): Fu[Option[PostUrlData]] =

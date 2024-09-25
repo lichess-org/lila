@@ -20,6 +20,7 @@ object I18nKey:
 
   // format: OFF
   object site:
+    val `askConcluded`: I18nKey = "askConcluded"
     val `playWithAFriend`: I18nKey = "playWithAFriend"
     val `playWithTheMachine`: I18nKey = "playWithTheMachine"
     val `toInviteSomeoneToPlayGiveThisUrl`: I18nKey = "toInviteSomeoneToPlayGiveThisUrl"

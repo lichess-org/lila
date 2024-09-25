@@ -60,13 +60,13 @@ object UblogForm:
       move: String
   ) extends WithCaptcha:
 
-    def create(user: User) =
+    def create(user: User, updatedMarkdown: Markdown) =
       UblogPost(
         id = UblogPost.randomId,
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,
-        markdown = markdown,
+        markdown = updatedMarkdown,
         language = language.orElse(user.realLang.map(Language.apply)) | defaultLanguage,
         topics = topics.so(UblogTopic.fromStrList),
         image = none,
@@ -81,11 +81,11 @@ object UblogForm:
         pinned = none
       )
 
-    def update(user: User, prev: UblogPost) =
+    def update(user: User, prev: UblogPost, updatedMarkdown: Markdown) =
       prev.copy(
         title = title,
         intro = intro,
-        markdown = markdown,
+        markdown = updatedMarkdown,
         image = prev.image.map: i =>
           i.copy(alt = imageAlt, credit = imageCredit),
         language = language | prev.language,

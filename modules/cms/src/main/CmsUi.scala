@@ -9,7 +9,7 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
+final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag, askRender: (Frag) => Context ?=> Frag):
   import helpers.{ *, given }
 
   def render(page: CmsPage.Render)(using Context): Frag =
@@ -23,7 +23,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
             "This draft is not published"
           )
         ),
-        rawHtml(page.html)
+        askRender(rawHtml(page.html))
       )
 
   def render(p: CmsPage.RenderOpt)(using Context): Frag =

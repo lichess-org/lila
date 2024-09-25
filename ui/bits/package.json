@@ -46,6 +46,7 @@
   "lichess": {
     "bundles": [
       "src/bits.account.ts",
+      "src/bits.ask.ts",
       "src/bits.captcha.ts",
       "src/bits.challengePage.ts",
       "src/bits.checkout.ts",

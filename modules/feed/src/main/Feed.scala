@@ -5,6 +5,8 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.time.format.{ DateTimeFormatter, FormatStyle }
+import lila.core.ask.{ Ask, AskApi }
+import lila.db.dsl.{ *, given }
 
 import lila.core.lilaism.Lilaism.*
 export lila.common.extensions.unapply
@@ -41,7 +43,9 @@ object Feed:
   import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(6)
 
-final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Executor):
+final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi, askApi: AskApi)(using
+    Executor
+):
 
   import Feed.*
 
@@ -68,11 +72,27 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
 
   def recentPublished = cache.store.get({}).map(_.filter(_.published))
 
-  def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
+  def get(id: ID): Fu[Option[Update]] = coll
+    .byId[Update](id)
+    .flatMap:
+      case Some(up) => askApi.repo.preload(up.content.value).inject(up.some)
+      case _        => fuccess(none[Update])
 
-  def set(update: Update): Funit =
-    coll.update.one($id(update.id), update, upsert = true).void.andDo(cache.clear())
+  def edit(id: ID): Fu[Option[Update]] = get(id).flatMap:
+    case Some(up) =>
+      askApi
+        .unfreezeAndLoad(up.content.value)
+        .map: text =>
+          up.copy(content = Markdown(text.pp)).some
+    case _ => fuccess(none[Update])
 
+  def set(update: Update)(using me: lila.user.Me): Funit =
+    askApi.freezeAndCommit(update.content.value, me, s"/feed#${update.id}".some).flatMap { text =>
+      coll.update
+        .one($id(update.id), update.copy(content = Markdown(text)), upsert = true)
+        .void
+        .andDo(cache.clear())
+    }
   def delete(id: ID): Funit =
     coll.delete.one($id(id)).void.andDo(cache.clear())
 

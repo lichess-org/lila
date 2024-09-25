@@ -32,7 +32,7 @@ case class TopicView(
   def createdAt = topic.createdAt
 
 case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
-  def show         = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
+  def show = post.showUserIdOrAuthor + " @ " + topic.name + " - " + lila.core.ask.Ask.strip(post.text, 80)
   def logFormatted = "%s / %s#%s / %s".format(categ.name, topic.name, post.number, post.text)
 
 object PostView:
