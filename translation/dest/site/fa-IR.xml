@@ -386,7 +386,7 @@
   <string name="mustBeInTeam">باید در تیم %s باشید</string>
   <string name="youAreNotInTeam">شما در تیم %s نیستید</string>
   <string name="backToGame">بازگشت به بازی</string>
-  <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان شطرنج بازی کنید. بدون ثبت‌نام، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
+  <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان شطرنج بازی کنید. بدون نام‌نویسی، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
   <string name="startedStreaming">پخش را آغازید</string>
