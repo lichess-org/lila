@@ -4,7 +4,7 @@ import { LobbyOpts } from './interfaces';
 import makeCtrl from './ctrl';
 import appView from './view/main';
 import tableView from './view/table';
-import { rotateBlog } from './view/blog';
+import { rotateBlogs } from './view/blog';
 
 export const patch = init([classModule, attributesModule, eventListenersModule]);
 
@@ -47,6 +47,6 @@ const layoutChanged = () => {
         else $('.lobby__side .lobby__timeline').appendTo('.lobby');
       }
     });
-    rotateBlog();
+    rotateBlogs();
   });
 };
