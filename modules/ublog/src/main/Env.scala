@@ -43,8 +43,8 @@ final class Env(
     cacheApi.unit[List[UblogPost.PreviewPost]]:
       _.refreshAfterWrite(10 seconds).buildAsyncFuture: _ =>
         import scalalib.ThreadLocalRandom
-        val lookInto = 7
-        val keep     = 3
+        val lookInto = 15
+        val keep     = 9
         api
           .pinnedPosts(2)
           .zip(

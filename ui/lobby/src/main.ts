@@ -4,6 +4,7 @@ import { LobbyOpts } from './interfaces';
 import makeCtrl from './ctrl';
 import appView from './view/main';
 import tableView from './view/table';
+import { rotateBlog } from './view/blog';
 
 export const patch = init([classModule, attributesModule, eventListenersModule]);
 
@@ -21,8 +22,8 @@ export default function main(opts: LobbyOpts) {
   }
 
   requestIdleCallback(() => {
-    layoutHacks();
-    window.addEventListener('resize', layoutHacks);
+    layoutChanged();
+    window.addEventListener('resize', layoutChanged);
   });
 
   return ctrl;
@@ -35,7 +36,7 @@ let cols = 0;
 
 let animationFrameId: number;
 
-const layoutHacks = () => {
+const layoutChanged = () => {
   cancelAnimationFrame(animationFrameId); // avoid more than one call per frame
   animationFrameId = requestAnimationFrame(() => {
     $('main.lobby').each(function(this: HTMLElement) {
@@ -46,5 +47,6 @@ const layoutHacks = () => {
         else $('.lobby__side .lobby__timeline').appendTo('.lobby');
       }
     });
+    rotateBlog();
   });
 };
