@@ -88,7 +88,7 @@ object RelayTour:
       standings: Option[URL]
   ):
     def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).flatten.nonEmpty
-    override def toString = List(format, tc, fideTc, location, players).mkString(" | ")
+    override def toString = List(format, tc, fideTc, location, players).flatten.nonEmpty.mkString(" | ")
     lazy val fideTcOrGuess: FideTC = fideTc |
       tc
         .map(_.trim.toLowerCase.replace("classical", "standard"))
