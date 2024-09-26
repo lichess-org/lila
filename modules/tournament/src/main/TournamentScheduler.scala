@@ -81,17 +81,18 @@ private object TournamentScheduler:
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
   def allWithConflicts(rightNow: Instant = nowInstant): List[Plan] =
-    val today       = rightNow.date
+    val nowDateTime = rightNow.dateTime
+    val today       = nowDateTime.date
     val tomorrow    = today.plusDays(1)
     val startOfYear = today.withDayOfYear(1)
 
     class OfMonth(fromNow: Int):
       val firstDay   = today.plusMonths(fromNow).withDayOfMonth(1)
       val lastDay    = firstDay.adjust(TemporalAdjusters.lastDayOfMonth)
-      val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek.getValue - 1) % 7)
+      val firstWeek  = firstDay.plusDays(7 - (firstDay.getDayOfWeek.getValue - 1))
       val secondWeek = firstWeek.plusDays(7)
       val thirdWeek  = secondWeek.plusDays(7)
-      val lastWeek   = lastDay.minusDays((lastDay.getDayOfWeek.getValue - 1) % 7)
+      val lastWeek   = lastDay.minusDays(lastDay.getDayOfWeek.getValue - 1)
     val thisMonth = OfMonth(0)
     val nextMonth = OfMonth(1)
 
@@ -108,9 +109,9 @@ private object TournamentScheduler:
       val start = orNextYear(startOfYear.withMonth(month.getValue).atStartOfDay).date
       start.plusDays(15 - start.getDayOfWeek.getValue)
 
-    def orTomorrow(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date.plusDays(1) else date
-    def orNextWeek(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date.plusWeeks(1) else date
-    def orNextYear(date: LocalDateTime) = if date.instant.isBefore(rightNow) then date.plusYears(1) else date
+    def orTomorrow(date: LocalDateTime) = if date.isBefore(nowDateTime) then date.plusDays(1) else date
+    def orNextWeek(date: LocalDateTime) = if date.isBefore(nowDateTime) then date.plusWeeks(1) else date
+    def orNextYear(date: LocalDateTime) = if date.isBefore(nowDateTime) then date.plusYears(1) else date
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonth == OCTOBER
 
