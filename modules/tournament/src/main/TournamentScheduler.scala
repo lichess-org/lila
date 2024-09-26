@@ -80,9 +80,8 @@ private object TournamentScheduler:
   // Autumn -> Saturday of weekend before the weekend Halloween falls on (c.f. half-term holidays)
   // Winter -> 28 December, convenient day in the space between Boxing Day and New Year's Day
   // )
-  def allWithConflicts(rightNow: Instant = nowInstant): List[Plan] =
-    val nowDateTime = rightNow.dateTime
-    val today       = nowDateTime.date
+  def allWithConflicts(rightNow: LocalDateTime = nowDateTime): List[Plan] =
+    val today       = rightNow.date
     val tomorrow    = today.plusDays(1)
     val startOfYear = today.withDayOfYear(1)
 
@@ -109,9 +108,9 @@ private object TournamentScheduler:
       val start = orNextYear(startOfYear.withMonth(month.getValue).atStartOfDay).date
       start.plusDays(15 - start.getDayOfWeek.getValue)
 
-    def orTomorrow(date: LocalDateTime) = if date.isBefore(nowDateTime) then date.plusDays(1) else date
-    def orNextWeek(date: LocalDateTime) = if date.isBefore(nowDateTime) then date.plusWeeks(1) else date
-    def orNextYear(date: LocalDateTime) = if date.isBefore(nowDateTime) then date.plusYears(1) else date
+    def orTomorrow(date: LocalDateTime) = if date.isBefore(rightNow) then date.plusDays(1) else date
+    def orNextWeek(date: LocalDateTime) = if date.isBefore(rightNow) then date.plusWeeks(1) else date
+    def orNextYear(date: LocalDateTime) = if date.isBefore(rightNow) then date.plusYears(1) else date
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonth == OCTOBER
 
@@ -493,10 +492,10 @@ Thank you all, you rock!""".some,
               ).plan
             )
       }
-    ).flatten.filter(_.schedule.atInstant.isAfter(rightNow))
+    ).flatten.filter(_.schedule.at.isAfter(rightNow))
 
-  private def atTopOfHour(rightNow: Instant, hourDelta: Int): LocalDateTime =
-    rightNow.plusHours(hourDelta).dateTime.withMinute(0)
+  private def atTopOfHour(rightNow: LocalDateTime, hourDelta: Int): LocalDateTime =
+    rightNow.plusHours(hourDelta).withMinute(0)
 
   private def at(day: LocalDate, hour: Int, minute: Int = 0): Option[LocalDateTime] =
     try Some(day.atStartOfDay.plusHours(hour).plusMinutes(minute))
