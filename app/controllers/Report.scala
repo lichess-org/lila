@@ -25,9 +25,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     env.report.modFilters.set(me, Room(room))
-    if Room(room).forall(Room.isGranted)
-    then renderList(room)
-    else notFound
+    Room(room).forall(Room.isGranted).so(renderList(room))
   }
 
   protected[controllers] def getScores: Future[(Scores, PendingCounts)] = (

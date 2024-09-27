@@ -88,13 +88,8 @@ object RelayTour:
       standings: Option[URL]
   ):
     def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).flatten.nonEmpty
-    override def toString = List(format, tc, fideTc, location, players).mkString(" | ")
-    lazy val fideTcOrGuess: FideTC = fideTc |
-      tc
-        .map(_.trim.toLowerCase.replace("classical", "standard"))
-        .flatMap: tcStr =>
-          FideTC.values.find(tc => tcStr.contains(tc.toString))
-        .|(FideTC.standard)
+    override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
+    lazy val fideTcOrGuess: FideTC = fideTc | FideTC.standard
 
   case class Dates(start: Instant, end: Option[Instant])
 
