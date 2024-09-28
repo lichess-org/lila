@@ -66,7 +66,9 @@ case class Game(
 
   def opponent(c: Color): Player = player(!c)
 
-  lazy val firstColor = Color.fromSente(sentePlayer before gotePlayer)
+  // View handicap games from the handicap receiver's perspective
+  // View other games from the dominant (title/rating) player's perspective
+  lazy val firstColor = if (isHandicap) !startColor else Color.fromSente(sentePlayer before gotePlayer)
   def firstPlayer     = player(firstColor)
   def secondPlayer    = player(!firstColor)
 

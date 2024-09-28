@@ -14,6 +14,7 @@ case class Player(
     color: Color,
     engineConfig: Option[EngineConfig] = None,
     isBot: Boolean = false,
+    hasTitle: Boolean = false,
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
     lastDrawOffer: Option[Int] = None,
@@ -82,11 +83,13 @@ case class Player(
     }
 
   def before(other: Player) =
-    ((rating, id), (other.rating, other.id)) match {
-      case ((Some(a), _), (Some(b), _)) if a != b => a > b
-      case ((Some(_), _), (None, _))              => true
-      case ((None, _), (Some(_), _))              => false
-      case ((_, a), (_, b))                       => a < b
+    ((isHuman, hasTitle, rating, id), (other.isHuman, other.hasTitle, other.rating, other.id)) match {
+      case ((a, _, _, _), (b, _, _, _))             if a != b => a > b
+      case ((_, a, _, _), (_, b, _, _))             if a != b => a > b
+      case ((_, _, Some(a), _), (_, _, Some(b), _)) if a != b => a > b
+      case ((_, _, Some(_), _), (_, _, None, _))              => true
+      case ((_, _, None, _), (_, _, Some(_), _))              => false
+      case ((_, _, _, a), (_, _, _, b))                       => a < b
     }
 
   def ratingAfter = rating map (_ + ~ratingDiff)
@@ -119,7 +122,8 @@ object Player {
       userId: User.ID,
       rating: Int,
       provisional: Boolean,
-      isBot: Boolean
+      isBot: Boolean,
+      hasTitle: Boolean
   ): Player =
     Player(
       id = IdGenerator.player(color),
@@ -128,7 +132,8 @@ object Player {
       userId = userId.some,
       rating = rating.some,
       provisional = provisional,
-      isBot = isBot
+      isBot = isBot,
+      hasTitle = hasTitle
     )
 
   def make(
@@ -143,7 +148,8 @@ object Player {
         userId = u.id,
         rating = perf.intRating,
         provisional = perf.glicko.provisional,
-        isBot = u.isBot
+        isBot = u.isBot,
+        hasTitle = u.hasTitle
       )
     }
 
@@ -167,6 +173,7 @@ object Player {
     val aiLevel           = "ai"
     val aiEngine          = "a"
     val isBot             = "b"
+    val hasTitle          = "t"
     val isOfferingDraw    = "od"
     val lastDrawOffer     = "ld"
     val proposeTakebackAt = "ta"
@@ -222,6 +229,7 @@ object Player {
                     )
                   ),
                 isBot = r boolD isBot,
+                hasTitle = r boolD hasTitle,
                 isWinner = win,
                 isOfferingDraw = r boolD isOfferingDraw,
                 lastDrawOffer = r intO lastDrawOffer,
@@ -242,6 +250,7 @@ object Player {
           aiLevel           -> p.aiLevel,
           aiEngine          -> p.aiEngine.map(_.code),
           isBot             -> w.boolO(p.isBot),
+          hasTitle          -> w.boolO(p.hasTitle),
           isOfferingDraw    -> w.boolO(p.isOfferingDraw),
           lastDrawOffer     -> p.lastDrawOffer,
           isOfferingPause   -> w.boolO(p.isOfferingPause),
