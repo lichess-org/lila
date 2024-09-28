@@ -3,6 +3,9 @@ import flairPickerLoader from './exports/flairPicker';
 import { spinnerHtml } from 'common/spinner';
 import { wireCropDialog } from './exports/crop';
 
+// avoid node_modules and pay attention to imports here. we don't want to force people
+// to download the entire toastui editor library just to do some light form processing.
+
 export function initModule(args: { fn: string } & any): void {
   switch (args.fn) {
     case 'appeal': return appeal();

@@ -22,6 +22,7 @@
     "node": "22",
     "pnpm": "^9"
   },
+  "//": "NOTE: lint-staged patterns must stay in sync with bin/git-hooks/pre-commit!",
   "lint-staged": {
     "*.{json,scss}": "prettier --write",
     "*.ts": "eslint --fix --fix-type layout ui"
@@ -29,13 +30,13 @@
   "dependencies": {
     "@stylistic/eslint-plugin": "^2.8.0",
     "@types/lichess": "workspace:*",
-    "@types/node": "^22.5.5",
-    "@types/web": "^0.0.163",
-    "@typescript-eslint/eslint-plugin": "^8.6.0",
-    "@typescript-eslint/parser": "^8.6.0",
+    "@types/node": "^22.7.3",
+    "@types/web": "^0.0.166",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
-    "eslint": "^9.10.0",
+    "eslint": "^9.11.1",
     "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",

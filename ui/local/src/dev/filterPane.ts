@@ -20,7 +20,7 @@ export class FilterPane extends Pane {
     const wrapper = frag<HTMLElement>(`<div class="chart-wrapper">`);
     wrapper.append(this.canvas);
     this.el.append(wrapper);
-    this.host.chartjsCleanups.push(() => this.chart?.destroy());
+    this.host.chartJanitor.addCleanupTask(() => this.chart?.destroy());
     this.render();
   }
 

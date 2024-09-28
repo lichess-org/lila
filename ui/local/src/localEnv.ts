@@ -14,6 +14,8 @@ export function initEnv(cfg: Partial<LocalEnv>): LocalEnv {
 class LocalEnv {
   user: string;
   username: string;
+  canPost: boolean;
+
   bot: BotCtrl;
   game: GameCtrl;
   dev: DevCtrl;
@@ -26,13 +28,14 @@ class LocalEnv {
     Object.assign(this, cfg);
     this.user ??= document.body.dataset.user ?? 'anonymous';
     this.username ??= this.user.charAt(0).toUpperCase() + this.user.slice(1);
+    this.canPost = Boolean(this.canPost);
   }
 
   get repo(): DevAssets {
     return this.assets as DevAssets;
   }
 
-  get isDev(): boolean {
+  get isDevPage(): boolean {
     return Boolean(this.dev);
   }
 }

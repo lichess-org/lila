@@ -84,12 +84,8 @@ final class RelayTeamTable(
           JsonStr(Json.stringify(Json.obj("table" -> ordered)))
 
     case class TeamWithPoints(name: String, points: Float = 0):
-      def add(o: Option[Outcome], as: Color) =
-        copy(points = points + o.so(_.winner match
-          case Some(w) if w == as => 1
-          case None               => 0.5f
-          case _                  => 0
-        ))
+      def add(result: Option[Outcome.GamePoints], as: Color) =
+        copy(points = points + result.so(_(as).value))
     case class Pair[A](a: A, b: A):
       def is(p: Pair[A])                 = (a == p.a && b == p.b) || (a == p.b && b == p.a)
       def map[B](f: A => B)              = Pair(f(a), f(b))
@@ -104,24 +100,23 @@ final class RelayTeamTable(
       def add(
           chap: ChapterPreview,
           playerAndTeam: Pair[(StudyPlayer, TeamName)],
-          outcome: Option[Outcome]
-      ) =
+          points: Option[Outcome.GamePoints]
+      ): TeamMatch =
         val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
-        if t0Color.white then playerAndTeam else playerAndTeam.reverse
         copy(
           games = TeamGame(chap.id, t0Color) :: games,
-          teams = teams.bimap(_.add(outcome, t0Color), _.add(outcome, !t0Color))
+          teams = teams.bimap(_.add(points, t0Color), _.add(points, !t0Color))
         )
       def swap = copy(teams = teams.reverse, games = games.map(_.swap))
 
     def makeTable(chapters: List[ChapterPreview]): List[TeamMatch] =
       chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
         (for
-          outcome <- chap.result
+          points  <- chap.points
           players <- chap.players
           teams   <- players.traverse(_.team).map(_.toPair).map(Pair.apply)
           m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
-          m1 = m0.add(chap, Pair(players.white.player -> teams.a, players.black.player -> teams.b), outcome)
+          m1 = m0.add(chap, Pair(players.white.player -> teams.a, players.black.player -> teams.b), points)
           newTable = m1 :: table.filterNot(_.is(teams))
         yield newTable) | table
 

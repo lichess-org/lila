@@ -1,6 +1,6 @@
 import { frag, defined } from 'common';
 import { clamp, isEquivalent } from 'common/algo';
-import { type EventJanitor, eventJanitor } from 'common/event';
+import { Janitor } from 'common/event';
 
 export interface CardData {
   imageUrl?: string;
@@ -51,7 +51,7 @@ class HandOfCardsImpl {
   pointerDownTime?: number;
   touchDragShape?: TouchDragShape;
   dragCard: HTMLElement | null = null;
-  events: EventJanitor = eventJanitor();
+  events: Janitor = new Janitor();
   rect: DOMRect;
   deckRect: DOMRect;
   lastCardData: CardData[];
@@ -111,7 +111,7 @@ class HandOfCardsImpl {
     if (!this.cards.length) return;
     const cards = this.cards.slice();
     this.cards = [];
-    this.events.removeAll();
+    this.events.cleanup();
     cards.forEach(x => (x.style.transform = `translate(${this.originX}px, ${this.originY}px)`));
     setTimeout(() => {
       cards.forEach(x => x.remove());

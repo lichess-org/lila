@@ -93,13 +93,13 @@ export class AssetDialog {
       env.repo.isLocalOnly(key) ? ' local-only' : ''
     }" data-asset="${key}">
         <div class="asset-preview"></div>
-        <input type="text" class="asset-label" data-type="string" value="${name}"${
-  this.isChooser ? ' disabled' : ''
-} spellcheck="false"></input>
+        <input type="text" class="asset-label" data-type="string" value="${name}"
+${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
       </div>`);
     if (!this.isChooser) {
-      wrap.append(renderRemoveButton('upper-right'));
-      if (env.repo.isLocalOnly(key)) {
+      const localOnly = env.repo.isLocalOnly(key);
+      if (localOnly || env.canPost) wrap.append(renderRemoveButton('upper-right'));
+      if (localOnly && env.canPost) {
         wrap.append(
           frag(`<button class="button button-empty icon-btn upper-left" tabindex="0"
           data-icon="${licon.UploadCloud}" data-action="push" title="upload asset to server">`),

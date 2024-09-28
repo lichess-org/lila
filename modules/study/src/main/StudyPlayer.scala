@@ -25,7 +25,8 @@ object StudyPlayer:
   def fromTags(tags: Tags): Option[Players] =
     val names = tags.names
     Option.when(names.exists(_.isDefined)):
-      (tags.fideIds, tags.titles, names, tags.elos, tags.teams).mapN(StudyPlayer.apply)
+      val elos = tags.elos.map(_.filter(_ > 0))
+      (tags.fideIds, tags.titles, names, elos, tags.teams).mapN(StudyPlayer.apply)
 
   object json:
     import play.api.libs.json.*

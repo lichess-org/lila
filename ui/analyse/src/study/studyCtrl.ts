@@ -23,7 +23,6 @@ import {
   TagTypes,
   ReloadData,
   WithWhoAndPos,
-  WithChapterId,
   WithWhoAndChap,
   WithWho,
   WithPosition,
@@ -67,7 +66,7 @@ interface Handlers {
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
   chapters(d: ChapterPreviewFromServer[]): void;
-  reload(d: null | WithChapterId): void;
+  reload(): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;
   descChapter(d: WithWhoAndChap & { desc?: string }): void;
@@ -121,7 +120,7 @@ export default class StudyCtrl {
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     this.vm = {
       loading: false,
-      tab: prop<Tab>(!relayData && data.chapters.length > 1 ? 'chapters' : 'members'),
+      tab: prop<Tab>(!relayData && data.chapters?.[1] ? 'chapters' : 'members'),
       toolTab: prop<ToolTab>(relayData ? 'multiBoard' : 'tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
@@ -150,7 +149,7 @@ export default class StudyCtrl {
       trans: ctrl.trans,
     });
     this.chapters = new StudyChaptersCtrl(
-      data.chapters,
+      data.chapters!,
       this.send,
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
@@ -345,7 +344,7 @@ export default class StudyCtrl {
     this.studyDesc.set(this.data.description);
     document.title = this.data.name;
     this.members.dict(s.members);
-    this.chapters.loadFromServer(s.chapters);
+    if (s.chapters) this.chapters.loadFromServer(s.chapters);
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
 
     const merge = !this.vm.mode.write && sameChapter;
@@ -382,13 +381,14 @@ export default class StudyCtrl {
     this.updateAddressBar();
   };
 
-  xhrReload = throttlePromise(() => {
+  xhrReload = throttlePromise((withChapters: boolean = false) => {
     this.vm.loading = true;
     return xhr
       .reload(
         this.practice ? 'practice/load' : 'study',
         this.data.id,
         this.vm.mode.sticky ? undefined : this.vm.chapterId,
+        withChapters = withChapters,
       )
       .then(this.onReload, site.reload);
   });
@@ -697,7 +697,7 @@ export default class StudyCtrl {
       this.ctrl.treeVersion++;
       return this.redraw();
     },
-    reload: this.xhrReload,
+    reload: () => this.xhrReload(),
     changeChapter: d => {
       this.setMemberActive(d.w);
       if (!this.vm.mode.sticky) this.vm.behind++;
@@ -738,7 +738,7 @@ export default class StudyCtrl {
         this.vm.mode.write = this.relayData ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
       }
-      this.xhrReload();
+      this.xhrReload(true);
     },
     members: d => {
       this.members.update(d);

@@ -40,35 +40,37 @@ trait Handlers:
   given userIdHandler: BSONHandler[UserId] = stringIsoHandler
 
   given dateTimeHandler: BSONHandler[LocalDateTime] = quickHandler[LocalDateTime](
-    { case v: BSONDateTime => millisToDateTime(v.value) },
+    { case BSONDateTime(v) => millisToDateTime(v) },
     v => BSONDateTime(v.toMillis)
   )
   given instantHandler: BSONHandler[Instant] = quickHandler[Instant](
-    { case v: BSONDateTime => millisToInstant(v.value) },
+    { case BSONDateTime(v) => millisToInstant(v) },
     v => BSONDateTime(v.toMillis)
   )
   given BSONHandler[TimeInterval] = summon[BSONHandler[List[Instant]]].as[TimeInterval](
-    list => TimeInterval(list.lift(0).get, list.lift(1).get),
+    list => TimeInterval(list(0), list(1)),
     interval => List(interval.start, interval.end)
   )
 
-  def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] = new:
-    def readTry(x: BSONValue) = handler.readTry(x).map(iso.from)
-    def writeTry(x: A)        = handler.writeTry(iso.to(x))
+  def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
+    handler.as[A](iso.from, iso.to)
   def isoHandler[A, B](to: A => B, from: B => A)(using handler: BSONHandler[B]): BSONHandler[A] =
-    isoHandler(using Iso(from, to))(using handler)
+    handler.as[A](from, to)
 
   def stringIsoHandler[A](using iso: StringIso[A]): BSONHandler[A] =
     BSONStringHandler.as[A](iso.from, iso.to)
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
     BSONStringHandler.as[A](from, to)
 
-  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = BSONIntegerHandler.as[A](from, to)
+  def intIsoHandler[A](using iso: IntIso[A]): BSONHandler[A] =
+    BSONIntegerHandler.as[A](iso.from, iso.to)
+  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] =
+    BSONIntegerHandler.as[A](from, to)
 
   def booleanIsoHandler[A](using iso: BooleanIso[A]): BSONHandler[A] =
     BSONBooleanHandler.as[A](iso.from, iso.to)
   def booleanAnyValHandler[A](to: A => Boolean, from: Boolean => A): BSONHandler[A] =
-    booleanIsoHandler(using Iso(from, to))
+    BSONBooleanHandler.as[A](from, to)
 
   private def doubleAsIntHandler[A](to: A => Double, from: Double => A, multiplier: Int): BSONHandler[A] =
     intAnyValHandler[A](x => Math.round(to(x) * multiplier).toInt, x => from(x.toDouble / multiplier))
@@ -86,7 +88,7 @@ trait Handlers:
     def readTry(bson: BSONValue) =
       read
         .andThen(Success(_))
-        .applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
+        .applyOrElse(bson, handlerBadType)
     def writeTry(t: T) = Success(write(t))
 
   def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] = new:

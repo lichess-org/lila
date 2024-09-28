@@ -11,6 +11,7 @@ import { AssetDialog, type AssetType } from './assetDialog';
 import { historyDialog } from './historyDialog';
 import { env } from '../localEnv';
 import { pubsub } from 'common/pubsub';
+import { Janitor } from 'common/event';
 
 export class EditDialog {
   static default: BotInfo = deepFreeze<BotInfo>({
@@ -33,7 +34,7 @@ export class EditDialog {
   uid: string;
   panes: Panes;
   scratch: Record<string, WritableBot> = {}; // scratchpad for bot edits
-  chartjsCleanups: (() => void)[] = []; // for chart.js
+  chartJanitor: Janitor = new Janitor();
 
   constructor(readonly color: Color) {
     this.view = frag<HTMLElement>(`<div class="base-view dev-view edit-view with-cards">
@@ -59,7 +60,7 @@ export class EditDialog {
       onClose: () => {
         pubsub.off('local.dev.import.book', this.onBookImported);
         window.removeEventListener('resize', this.deck.resize);
-        this.chartjsCleanups.forEach(cleanup => cleanup());
+        this.chartJanitor.cleanup();
       },
     });
     pubsub.on('local.dev.import.book', this.onBookImported);
@@ -77,7 +78,10 @@ export class EditDialog {
       ?.classList.toggle('none', !this.isDirty() && !this.localChanges);
     this.view
       .querySelector('[data-bot-action="push-one"]')
-      ?.classList.toggle('none', this.isDirty() || !this.localChanges);
+      ?.classList.toggle('none', !env.canPost || this.isDirty() || !this.localChanges);
+    this.view
+      .querySelector('[data-bot-action="delete"]')
+      ?.classList.toggle('none', !env.canPost && !this.serverBot);
   }
 
   assetDialog = async(type?: AssetType): Promise<string | undefined> => {
@@ -202,8 +206,7 @@ export class EditDialog {
   }
 
   private makeEditView(): void {
-    this.chartjsCleanups.forEach(cleanup => cleanup());
-    this.chartjsCleanups = [];
+    this.chartJanitor?.cleanup();
     this.panes = new Panes();
     const el = this.view.querySelector('.edit-bot') as HTMLElement;
     el.innerHTML = '';
@@ -307,7 +310,7 @@ export class EditDialog {
     </div>`);
 
   private botActionsEl = frag<HTMLElement>(`<div class="bot-actions">
-      <button class="button button-empty button-red" data-bot-action="delete">delete</button>
+      <button class="button button-empty button-red none" data-bot-action="delete">delete</button>
       <button class="button button-empty button-brag" data-bot-action="history-one">history</button>
       <button class="button button-empty none" data-bot-action="pull-one">pull</button>
       <button class="button button-empty button-clas none" data-bot-action="push-one">push</button>

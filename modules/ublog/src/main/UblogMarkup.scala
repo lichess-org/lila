@@ -32,16 +32,18 @@ final class UblogMarkup(
   )
 
   def apply(post: UblogPost) = cache
-    .get((post.id, post.markdown))
+    .get((post.id, post.markdown, maxPgn(post)))
     .map: html =>
       scalatags.Text.all.raw(html.value)
 
-  private val cache = cacheApi[(UblogPostId, Markdown), Html](1024, "ublog.markup"):
+  private def maxPgn(post: UblogPost) = Max(if post.isLichess then 25 else 20)
+
+  private val cache = cacheApi[(UblogPostId, Markdown, Max), Html](1024, "ublog.markup"):
     _.maximumSize(2048)
       .expireAfterWrite(if mode.isProd then 20 minutes else 1 second)
-      .buildAsyncFuture: (id, markdown) =>
+      .buildAsyncFuture: (id, markdown, max) =>
         Bus
-          .ask("lpv")(AllPgnsFromText(markdown.value, _))
+          .ask("lpv")(AllPgnsFromText(markdown.value, max, _))
           .andThen { case scala.util.Success(pgns) =>
             pgnCache.putAll(pgns)
           }

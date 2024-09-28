@@ -52,7 +52,7 @@ SERVER_FILES = [
     "project",
     "translation",
     "build.sbt",
-    "lila",
+    "lila.sh",
     "conf/application.conf.default",
     ".sbtopts.default",
 ]

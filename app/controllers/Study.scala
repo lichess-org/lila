@@ -190,42 +190,44 @@ final class Study(
   private def showQuery(query: Fu[Option[WithChapter]])(using ctx: Context): Fu[Result] =
     Found(query): oldSc =>
       CanView(oldSc.study) {
-        for
-          (sc, data) <- getJsonData(oldSc)
-          res <- negotiate(
-            html =
-              val noCrawler = HTTPRequest.isCrawler(ctx.req).no
-              for
-                chat      <- noCrawler.so(chatOf(sc.study))
-                sVersion  <- noCrawler.so(env.study.version(sc.study.id))
-                streamers <- noCrawler.so(streamerCache.get(sc.study.id))
-                page      <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
-              yield Ok(page)
-                .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
-                .enforceCrossSiteIsolation
-            ,
-            json = for
-              chatOpt <- chatOf(sc.study)
-              jsChat <- chatOpt.soFu: c =>
-                lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
-            yield Ok:
-              Json.obj(
-                "study"    -> data.study.add("chat" -> jsChat),
-                "analysis" -> data.analysis
-              )
-          )
-        yield res
+        negotiate(
+          html =
+            val noCrawler = HTTPRequest.isCrawler(ctx.req).no
+            for
+              (sc, data) <- getJsonData(oldSc, withChapters = true)
+              chat       <- noCrawler.so(chatOf(sc.study))
+              sVersion   <- noCrawler.so(env.study.version(sc.study.id))
+              streamers  <- noCrawler.so(streamerCache.get(sc.study.id))
+              page       <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
+            yield Ok(page)
+              .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
+              .enforceCrossSiteIsolation
+          ,
+          json = for
+            (sc, data) <- getJsonData(
+              oldSc,
+              withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
+            )
+            chatOpt <- chatOf(sc.study)
+            jsChat <- chatOpt.soFu: c =>
+              lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
+          yield Ok:
+            Json.obj(
+              "study"    -> data.study.add("chat" -> jsChat),
+              "analysis" -> data.analysis
+            )
+        )
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     .dmap(_.noCache)
 
-  private[controllers] def getJsonData(sc: WithChapter)(using
+  private[controllers] def getJsonData(sc: WithChapter, withChapters: Boolean)(using
       ctx: Context
   ): Fu[(WithChapter, JsData)] =
     for
-      (study, chapter, previews) <-
-        env.study.api.maybeResetAndGetChapterPreviews(sc.study, sc.chapter)
-      _        <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
-      fedNames <- env.study.preview.federations.get(sc.study.id)
+      (study, chapter) <- env.study.api.maybeResetAndGetChapter(sc.study, sc.chapter)
+      previews         <- withChapters.soFu(env.study.preview.jsonList(study.id))
+      _                <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
+      fedNames         <- env.study.preview.federations.get(sc.study.id)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval
         .exists(_.done)
@@ -242,7 +244,7 @@ final class Study(
         )
       )
       withMembers = !study.isRelay || isGrantedOpt(_.StudyAdmin) || ctx.me.exists(study.isMember)
-      studyJson <- env.study.jsonView.full(study, previews, chapter, fedNames.some, withMembers = withMembers)
+      studyJson <- env.study.jsonView.full(study, chapter, previews, fedNames.some, withMembers = withMembers)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData

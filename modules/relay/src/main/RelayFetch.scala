@@ -89,7 +89,7 @@ final private class RelayFetch(
         _ = lila.mon.relay
           .games(rt.tour.official, rt.tour.id, rt.round.slug)
           .update(allGamesInSourceNoLimit.size)
-        allGamesInSource = allGamesInSourceNoLimit.take(RelayFetch.maxGamesToRead(rt.tour.official).value)
+        allGamesInSource = allGamesInSourceNoLimit.take(maxGamesToRead(rt.tour.official).value)
         filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
@@ -102,7 +102,7 @@ final private class RelayFetch(
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
         _ <- notifyAdmin.orphanBoards.inspectPlan(rt, res.plan)
-        nbGamesFinished  = games.count(_.outcome.isDefined)
+        nbGamesFinished  = games.count(_.points.isDefined)
         nbGamesUnstarted = games.count(!_.hasMoves)
         allGamesFinishedOrUnstarted = games.nonEmpty &&
           nbGamesFinished + nbGamesUnstarted >= games.size &&
@@ -296,7 +296,7 @@ final private class RelayFetch(
             .map(_.view.map(RelayGame.fromChapter).toVector)
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)
-            .map { MultiPgn.split(_, RelayFetch.maxGamesToRead) }
+            .map { MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)) }
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
@@ -340,8 +340,8 @@ final private class RelayFetch(
 private object RelayFetch:
 
   val maxChaptersToShow: Max                 = Max(100)
-  val maxGamesToRead: Max                    = Max(256)
-  val maxGamesToReadOfficial: Max            = maxGamesToRead.map(_ * 2)
+  private val maxGamesToRead: Max            = Max(256)
+  private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 2)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
   private[relay] object DgtJson:
@@ -434,10 +434,17 @@ private object RelayFetch:
       StudyPgnImport(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
         .map: res =>
-          val fixedTags = // remove wrong ongoing result tag if the board has a mate on it
+          val fixedTags = Tags:
+            // remove wrong ongoing result tag if the board has a mate on it
             if res.end.isDefined && res.tags(_.Result).has("*") then
-              Tags(res.tags.value.filter(_ != Tag(_.Result, "*")))
-            else res.tags
+              res.tags.value.filter(_ != Tag(_.Result, "*"))
+            // normalize result tag (e.g. 0.5-0 ->  1/2-0)
+            else
+              res.tags.value.map: tag =>
+                if tag.name == Tag.Result
+                then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
+                else tag
+
           RelayGame(
             tags = fixedTags,
             variant = res.variant,
@@ -445,5 +452,5 @@ private object RelayFetch:
               comments = Comments.empty,
               children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
             ),
-            outcome = res.end.map(_.outcome)
+            points = res.end.map(_.points)
           )

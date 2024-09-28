@@ -36,21 +36,3 @@ object Reason:
   given Iso.StringIso[Reason] = Iso.string(k => byKey.getOrElse(k, Other), _.key)
 
   def apply(key: String): Option[Reason] = byKey.get(key)
-
-  trait WithReason:
-    def reason: Reason
-
-    def isComm                            = reason.isComm
-    def isCheat                           = reason == Cheat
-    def isOther                           = reason == Other
-    def isPrint                           = reason == AltPrint
-    def isBoost                           = reason == Boost
-    def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
-
-  def isGranted(reason: Reason)(using Me) =
-    import lila.core.perm.Granter
-    reason match
-      case Cheat         => Granter(_.MarkEngine)
-      case r if r.isComm => Granter(_.Shadowban)
-      case Boost         => Granter(_.MarkBooster)
-      case _             => Granter(_.Admin)

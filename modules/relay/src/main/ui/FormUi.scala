@@ -25,7 +25,7 @@ case class FormNavigation(
 
 final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   import helpers.{ *, given }
-  import trans.{ broadcast as trb }
+  import trans.{ broadcast as trb, site as trs }
 
   private def navigationMenu(nav: FormNavigation)(using Context) =
     def tourAndRounds(shortName: Option[RelayTour.Name]) = frag(
@@ -100,13 +100,13 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
 
     def create(form: Form[RelayRoundForm.Data], nav: FormNavigation)(using Context) =
-      page(trans.broadcast.newBroadcast.txt(), nav.copy(newRound = true)):
+      page(trb.newBroadcast.txt(), nav.copy(newRound = true)):
         frag(
           boxTop(
             h1(
               a(href := routes.RelayTour.edit(nav.tour.id))(nav.tour.name),
               " / ",
-              trans.broadcast.addRound()
+              trb.addRound()
             )
           ),
           standardFlash,
@@ -350,8 +350,8 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             )
           ),
         form3.actions(
-          a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trans.site.cancel()),
-          form3.submit(trans.site.apply())
+          a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trs.cancel()),
+          form3.submit(trs.apply())
         )
       )
 
@@ -368,14 +368,14 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           )
 
     def create(form: Form[lila.relay.RelayTourForm.Data])(using Context) =
-      page(trans.broadcast.newBroadcast.txt(), menu = Left("new")):
+      page(trb.newBroadcast.txt(), menu = Left("new")):
         frag(
-          boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trans.broadcast.newBroadcast())),
+          boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trb.newBroadcast())),
           postForm(cls := "form3", action := routes.RelayTour.create)(
             inner(form, none),
             form3.actions(
-              a(href := routes.RelayTour.index(1))(trans.site.cancel()),
-              form3.submit(trans.site.apply())
+              a(href := routes.RelayTour.index(1))(trs.cancel()),
+              form3.submit(trs.apply())
             )
           )
         )
@@ -389,8 +389,8 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           postForm(cls := "form3", action := routes.RelayTour.update(nav.tour.id))(
             inner(form, nav.tourWithGroup.some),
             form3.actions(
-              a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trans.site.cancel()),
-              form3.submit(trans.site.apply())
+              a(href := routes.RelayTour.show(nav.tour.slug, nav.tour.id))(trs.cancel()),
+              form3.submit(trs.apply())
             )
           ),
           div(cls := "relay-form__actions")(
@@ -428,9 +428,8 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               half = true
             )(form3.input(_)),
             form3.group(
-              form("info.players"),
-              "Top players",
-              help = frag("Mention up to 4 of the best players participating").some,
+              form("info.location"),
+              "Tournament Location",
               half = true
             )(form3.input(_))
           ),
@@ -452,6 +451,26 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 lila.core.fide.FideTC.values.map: tc =>
                   tc.toString -> tc.toString.capitalize
               )
+          ),
+          form3.group(
+            form("info.players"),
+            "Top players",
+            help = frag("Mention up to 4 of the best players participating").some,
+            half = true
+          )(form3.input(_)),
+          form3.split(
+            form3.group(
+              form("info.website"),
+              "Official Website",
+              help = frag("External website URL").some,
+              half = true
+            )(form3.input(_)),
+            form3.group(
+              form("info.standings"),
+              "Official Standings",
+              help = frag("External website URL, e.g. chess-results.com, info64.org").some,
+              half = true
+            )(form3.input(_))
           ),
           form3.group(
             form("markdown"),

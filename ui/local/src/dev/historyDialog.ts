@@ -93,7 +93,9 @@ class HistoryDialog {
 
   select(bot: BotVersionInfo | undefined = this.selected): void {
     this.view.querySelector('[data-action="pull"]')?.classList.toggle('none', bot && bot === this.live);
-    this.view.querySelector('[data-action="push"]')?.classList.toggle('none', bot?.version !== 'local');
+    this.view
+      .querySelector('[data-action="push"]')
+      ?.classList.toggle('none', !env.canPost || bot?.version !== 'local');
     if (!bot) return;
     this.view.querySelectorAll('.version')?.forEach(v => v.classList.remove('selected'));
     this.versionEl(bot.version)?.classList.add('selected');

@@ -11,6 +11,7 @@ import lila.app.{ given, * }
 import lila.common.Json.given
 import lila.user.User
 import lila.rating.{ Perf, PerfType }
+import lila.security.Permission
 import lila.local.{ GameSetup, AssetType }
 
 final class Local(env: Env) extends LilaController(env):
@@ -41,14 +42,17 @@ final class Local(env: Env) extends LilaController(env):
   def assetKeys = Open: // for service worker
     JsonOk(env.local.api.assetKeys)
 
-  def devIndex = Secure(_.BotEditor): _ ?=>
+  def devIndex = Auth: _ ?=>
     for
       bots   <- env.local.repo.getLatestBots()
       assets <- getDevAssets
       page   <- renderPage(indexPage(none, bots, assets.some))
     yield Ok(page).enforceCrossSiteIsolation.withHeaders("Service-Worker-Allowed" -> "/")
 
-  def devBotHistory(botId: Option[String]) = Secure(_.BotEditor): _ ?=>
+  def devAssets = Auth: ctx ?=>
+    getDevAssets.map(JsonOk)
+
+  def devBotHistory(botId: Option[String]) = Auth: _ ?=>
     env.local.repo
       .getVersions(botId.map(UserId.apply))
       .map: history =>
@@ -77,11 +81,8 @@ final class Local(env: Env) extends LilaController(env):
       .deleteAsset(key)
       .flatMap(_ => getDevAssets.map(JsonOk))
 
-  def devAssets = Secure(_.BotEditor): ctx ?=>
-    getDevAssets.map(JsonOk)
-
   def devPostAsset(notAString: String, key: String) = SecureBody(parse.multipartFormData)(_.BotEditor) {
-    ctx ?=> me ?=>
+    ctx ?=>
       val tpe: AssetType         = notAString.asInstanceOf[AssetType]
       val author: Option[String] = ctx.body.body.dataParts.get("author").flatMap(_.headOption)
       val name                   = ctx.body.body.dataParts.get("name").flatMap(_.headOption).getOrElse(key)
@@ -109,7 +110,8 @@ final class Local(env: Env) extends LilaController(env):
         .add("setup", setup)
         .add("assets", devAssets)
         .add("userId", ctx.me.map(_.userId))
-        .add("username", ctx.me.map(_.username)),
+        .add("username", ctx.me.map(_.username))
+        .add("canPost", isGrantedOpt(_.BotEditor)),
       if devAssets.isDefined then "local.dev" else "local"
     )
 

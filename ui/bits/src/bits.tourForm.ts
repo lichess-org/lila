@@ -1,4 +1,5 @@
 import flatpickr from 'flatpickr';
+import { use24h } from 'common/i18n';
 
 site.load.then(() => {
   const $variant = $('#form3-variant'),
@@ -17,6 +18,7 @@ site.load.then(() => {
       altFormat: 'Y-m-d h:i K',
       monthSelectorType: 'static',
       disableMobile: true,
+      time_24hr: use24h(),
     });
   });
 });

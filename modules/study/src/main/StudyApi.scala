@@ -172,28 +172,25 @@ final class StudyApi(
 
   export preview.dataList.{ apply as chapterPreviews }
 
-  def maybeResetAndGetChapterPreviews(
-      study: Study,
-      chapter: Chapter
-  ): Fu[(Study, Chapter, ChapterPreview.AsJsons)] =
-    preview
-      .jsonList(study.id)
-      .flatMap: previews =>
-        val defaultResult = (study, chapter, previews)
-        if study.isRelay || !study.isOld || study.position == chapter.initialPosition
-        then fuccess(defaultResult)
-        else
-          ChapterPreview.json.readFirstId(previews) match
-            case Some(firstId) =>
-              val newStudy = study.rewindTo(firstId)
+  def maybeResetAndGetChapter(study: Study, chapter: Chapter): Fu[(Study, Chapter)] =
+    val defaultResult = (study, chapter)
+    if study.isRelay || !study.isOld || study.position == chapter.initialPosition
+    then fuccess(defaultResult)
+    else
+      preview
+        .dataList(study.id)
+        .flatMap:
+          _.headOption match
+            case Some(first) =>
+              val newStudy = study.rewindTo(first.id)
               if newStudy == study then fuccess(defaultResult)
               else
-                logger.info(s"Reset study ${study.id} to chapter $firstId")
+                logger.info(s"Reset study ${study.id} to chapter ${first.id}")
                 studyRepo
                   .updateSomeFields(newStudy)
-                  .zip(chapterRepo.byId(firstId))
+                  .zip(chapterRepo.byId(first.id))
                   .map: (_, newChapter) =>
-                    (newStudy, newChapter | chapter, previews)
+                    (newStudy, newChapter | chapter)
             case None =>
               logger.warn(s"Couldn't reset study ${study.id}, no first chapter id found?!")
               fuccess(defaultResult)

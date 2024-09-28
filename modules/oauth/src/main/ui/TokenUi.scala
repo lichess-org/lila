@@ -124,7 +124,7 @@ final class TokenUi(helpers: Helpers)(
                           id,
                           s"${form("scopes").name}[]",
                           value = scope.key,
-                          checked = form.data.valuesIterator.contains(scope.key),
+                          checked = !disabled && form.data.valuesIterator.contains(scope.key),
                           disabled = disabled
                         )
                       ),

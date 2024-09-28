@@ -11,8 +11,9 @@ export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 
 export type Visibility = 'public' | 'unlisted' | 'private';
 export type ChapterId = string;
 export type TeamName = string;
-export type OutcomeStr = '1-0' | '0-1' | '½-½';
-export type StatusStr = OutcomeStr | '*';
+export type PointsStr = '1' | '0' | '½';
+export type GamePointsStr = '1-0' | '0-1' | '½-½' | '0-0' | '½-0' | '0-½';
+export type StatusStr = GamePointsStr | '*';
 export type ClockCentis = number;
 export type BothClocks = [ClockCentis?, ClockCentis?];
 export type FideId = number;
@@ -65,7 +66,7 @@ export interface StudyData {
 }
 
 export interface StudyDataFromServer extends StudyData {
-  chapters: ChapterPreviewFromServer[];
+  chapters?: ChapterPreviewFromServer[];
 }
 
 export type Topic = string;

@@ -3,6 +3,7 @@ package lila.relay
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
+import io.mola.galimatias.URL
 
 import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, typeIn, url }
 import lila.core.perm.Granter
@@ -21,10 +22,13 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
   private val fideTcMapping: Mapping[FideTC] = typeIn[FideTC](FideTC.values.toSet)
 
   private val infoMapping = mapping(
-    "format"  -> optional(cleanText(maxLength = 80)),
-    "tc"      -> optional(cleanText(maxLength = 80)),
-    "fideTc"  -> optional(fideTcMapping),
-    "players" -> optional(cleanText(maxLength = 120))
+    "format"    -> optional(cleanText(maxLength = 80)),
+    "tc"        -> optional(cleanText(maxLength = 80)),
+    "fideTc"    -> optional(fideTcMapping),
+    "location"  -> optional(cleanText(maxLength = 80)),
+    "players"   -> optional(cleanText(maxLength = 120)),
+    "website"   -> optional(url.field),
+    "standings" -> optional(url.field)
   )(RelayTour.Info.apply)(unapply)
 
   private val pinnedStreamMapping = mapping(
@@ -118,7 +122,7 @@ object RelayTourForm:
 
   object Data:
 
-    val empty = Data(RelayTour.Name(""), RelayTour.Info(none, none, none, none))
+    val empty = Data(RelayTour.Name(""), RelayTour.Info(none, none, none, none, none, none, none))
 
     def make(tg: RelayTour.WithGroupTours) =
       import tg.*

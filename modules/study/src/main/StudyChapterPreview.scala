@@ -21,11 +21,11 @@ case class ChapterPreview(
     check: Option[Chapter.Check],
     /* None = No Result PGN tag, the chapter may not be a game
      * Some(None) = Result PGN tag is "*", the game is ongoing
-     * Some(Some(Outcome)) = Game is over with a result
+     * Some(Some(GamePoints)) = Game is over with a result
      */
-    result: Option[Option[Outcome]]
+    points: Option[Option[Outcome.GamePoints]]
 ):
-  def finished              = result.exists(_.isDefined)
+  def finished              = points.exists(_.isDefined)
   def thinkTime             = (!finished).so(lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt))
   def fideIds: List[FideId] = players.so(_.mapList(_.fideId)).flatten
 
@@ -109,7 +109,7 @@ final class ChapterPreviewApi(
       lastMove = denorm.flatMap(_.uci),
       lastMoveAt = relay.map(_.lastMoveAt),
       check = denorm.flatMap(_.check),
-      result = tags.outcome.isDefined.option(tags.outcome)
+      points = tags.points.isDefined.option(tags.points)
     )
 
   object federations:
@@ -155,7 +155,7 @@ object ChapterPreview:
         .add("lastMove", c.lastMove)
         .add("check", c.check)
         .add("thinkTime", c.thinkTime)
-        .add("status", c.result.map(o => Outcome.showResult(o).replace("1/2", "½")))
+        .add("status", c.points.map(o => Outcome.showPoints(o).replace("1/2", "½")))
 
   object bson:
     import BSONHandlers.given
@@ -187,5 +187,5 @@ object ChapterPreview:
           lastMove = lastPos.flatMap(_.uci),
           lastMoveAt = lastMoveAt,
           check = lastPos.flatMap(_.check),
-          result = tags.flatMap(_(_.Result)).map(Outcome.fromResult)
+          points = tags.map(_.points)
         )

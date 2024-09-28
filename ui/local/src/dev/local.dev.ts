@@ -16,6 +16,7 @@ interface LocalPlayDevOpts extends LocalPlayOpts {
   assets?: AssetList;
   pgn?: string;
   name?: string;
+  canPost: boolean;
 }
 
 export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
@@ -34,6 +35,9 @@ export async function initModule(opts: LocalPlayDevOpts): Promise<void> {
     assets: new DevAssets(opts.assets),
     dev: new DevCtrl(),
     game: new GameCtrl(opts),
+    user: opts.userId,
+    username: opts.username,
+    canPost: opts.canPost,
   });
 
   await Promise.all([env.bot.init(opts.bots), env.dev.init(), env.assets.init()]);

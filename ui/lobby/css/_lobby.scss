@@ -101,6 +101,7 @@ body {
   grid-template-rows: auto; /* first row auto */
   grid-auto-rows: 0; /* all the other rows 0 */
   font-size: 0.9em;
+  overflow: hidden;
   h2 {
     @extend %page-text-shadow !optional;
     @include line-clamp(4);
