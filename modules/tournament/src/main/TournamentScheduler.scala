@@ -513,11 +513,11 @@ Thank you all, you rock!""".some,
 
   /** Get a [[LocalDateTime]].
     *
-    * Returns None exactly when hour is outside 0-23.
+    * Returns None exactly when hour is outside 0-23 or if minutes is outside 0-59.
     */
-  private def atUnsafe(day: LocalDate, hour: Int): Option[LocalDateTime] =
-    try at(day, hour.asInstanceOf[ValidHour]).some
+  private def atUnsafe(day: LocalDate, hour: Int, minute: Int = 0): Option[LocalDateTime] =
+    try LocalDateTime.of(day, LocalTime.of(hour, minute)).some
     catch
       case e: Exception =>
-        logger.error(s"Failed to schedule due to invalid time '$hour:00'", e)
+        logger.error(s"Failed to schedule due to invalid time '$hour:$minute'", e)
         None
