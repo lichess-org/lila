@@ -359,16 +359,16 @@ Thank you all, you rock!""".some,
           )
       }.flatMap { (hour, opening) =>
         List(
-          atUnsafe(today, hour).map { date =>
+          atOption(today, hour).map { date =>
             Schedule(Hourly, Bullet, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
           },
-          atUnsafe(today, hour + 1).map { date =>
+          atOption(today, hour + 1).map { date =>
             Schedule(Hourly, SuperBlitz, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
           },
-          atUnsafe(today, hour + 2).map { date =>
+          atOption(today, hour + 2).map { date =>
             Schedule(Hourly, Blitz, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
           },
-          atUnsafe(today, hour + 3).map { date =>
+          atOption(today, hour + 3).map { date =>
             Schedule(Hourly, Rapid, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
           }
         ).flatten
@@ -515,7 +515,7 @@ Thank you all, you rock!""".some,
     *
     * Returns None exactly when hour is outside 0-23 or if minutes is outside 0-59.
     */
-  private def atUnsafe(day: LocalDate, hour: Int, minute: Int = 0): Option[LocalDateTime] =
+  private def atOption(day: LocalDate, hour: Int, minute: Int = 0): Option[LocalDateTime] =
     try LocalDateTime.of(day, LocalTime.of(hour, minute)).some
     catch
       case e: Exception =>
