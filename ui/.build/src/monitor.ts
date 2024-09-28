@@ -24,7 +24,7 @@ export async function startMonitor(pkgs: string[]): Promise<void> {
   if (!env.watch) return;
   const typePkgs = await globArray('*/package.json', { cwd: env.typesDir });
   const typings = await globArray('*/*.d.ts', { cwd: env.typesDir });
-  const tscChange = async() => {
+  const tscChange = async () => {
     if (reinitTimeout) return;
     await stopTsc();
     await stopEsbuild();
@@ -34,7 +34,7 @@ export async function startMonitor(pkgs: string[]): Promise<void> {
       esbuild(tsc());
     }, 2000);
   };
-  const packageChange = async() => {
+  const packageChange = async () => {
     if (env.rebuild) {
       clearTimeout(tscTimeout);
       clearTimeout(reinitTimeout);

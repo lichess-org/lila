@@ -232,7 +232,7 @@ class Env {
     if (ctx !== 'tsc' || code === 0)
       this.log(
         `${code === 0 ? 'Done' : colors.red('Failed')}` +
-        (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
+          (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
         {
           ctx: ctx,
         },

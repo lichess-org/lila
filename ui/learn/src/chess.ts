@@ -36,7 +36,7 @@ export interface ChessCtrl {
   defaultChessMate(): boolean;
 }
 
-export default function(fen: string, appleKeys: Key[]): ChessCtrl {
+export default function (fen: string, appleKeys: Key[]): ChessCtrl {
   const setup = parseFen(fen).unwrap();
   const chess = Chess.fromSetup(setup);
   // Use antichess when there are less than 2 kings
@@ -58,12 +58,12 @@ export default function(fen: string, appleKeys: Key[]): ChessCtrl {
     const occupied = pos.board.occupied;
     return king
       ? {
-        blockers: occupied,
-        checkers: pos.kingAttackers(king, oppColor(pos.turn), occupied),
-        king: king,
-        mustCapture: false,
-        variantEnd: false,
-      }
+          blockers: occupied,
+          checkers: pos.kingAttackers(king, oppColor(pos.turn), occupied),
+          king: king,
+          mustCapture: false,
+          variantEnd: false,
+        }
       : defaultAntichess.ctx();
   };
 

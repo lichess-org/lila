@@ -125,7 +125,7 @@ interface SoundI {
 interface SocketI {
   averageLag: number;
   pingInterval(): number;
-  getVersion(): number|false;
+  getVersion(): number | false;
   send: SocketSend;
   sign(s: string): void;
   destroy(): void;

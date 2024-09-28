@@ -1,33 +1,13 @@
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import stylisticEslint from '@stylistic/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 
 export default [
   {
     files: ['**/*.ts'],
     ignores: ['**/dist/**', '**/node_modules/**', '**/public/**'],
-    plugins: { '@typescript-eslint': typescriptEslint, '@stylistic': stylisticEslint },
+    plugins: { '@typescript-eslint': typescriptEslint },
     languageOptions: { parser: tsParser, ecmaVersion: 5, sourceType: 'module' },
     rules: {
-      '@stylistic/indent': ['error', 2],
-      '@stylistic/quotes': ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
-      '@stylistic/semi': ['error', 'always'],
-      '@stylistic/comma-dangle': ['error', 'always-multiline'],
-      '@stylistic/object-curly-spacing': ['error', 'always'],
-      '@stylistic/space-before-function-paren': ['error', 'never'],
-      '@stylistic/no-trailing-spaces': 'error',
-      '@stylistic/max-len': [
-        'warn',
-        {
-          code: 110,
-          ignoreUrls: true,
-          ignoreStrings: true,
-          ignoreComments: true,
-          ignoreRegExpLiterals: true,
-          ignoreTemplateLiterals: true,
-        },
-      ],
-
       '@typescript-eslint/no-empty-interface': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-empty-function': 'off',

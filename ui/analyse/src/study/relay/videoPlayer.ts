@@ -86,10 +86,10 @@ export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
   const player = relay.videoPlayer;
   return player
     ? h('div#video-player-placeholder', {
-      hook: {
-        insert: (vnode: VNode) => player.cover(vnode.elm as HTMLElement),
-        update: (_, vnode: VNode) => player.cover(vnode.elm as HTMLElement),
-      },
-    })
+        hook: {
+          insert: (vnode: VNode) => player.cover(vnode.elm as HTMLElement),
+          update: (_, vnode: VNode) => player.cover(vnode.elm as HTMLElement),
+        },
+      })
     : undefined;
 }

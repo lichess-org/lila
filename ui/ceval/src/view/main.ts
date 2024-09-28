@@ -97,25 +97,25 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     engineTech = engine?.tech ?? 'EXTERNAL';
   return engine
     ? [
-      h('span', { attrs: { title: engine?.name || '' } }, engine.short ?? engine.name),
-      engineTech === 'EXTERNAL'
-        ? h(
-          'span.technology.good',
-          { attrs: { title: 'Engine running outside of the browser' } },
-          engineTech,
-        )
-        : engine.requires?.includes('simd')
+        h('span', { attrs: { title: engine?.name || '' } }, engine.short ?? engine.name),
+        engineTech === 'EXTERNAL'
           ? h(
-            'span.technology.good',
-            { attrs: { title: 'Multi-threaded WebAssembly with SIMD' } },
-            engineTech,
-          )
-          : engine.requires?.includes('sharedMem')
-            ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engineTech)
-            : engine.requires?.includes('wasm')
-              ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engineTech)
-              : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engineTech),
-    ]
+              'span.technology.good',
+              { attrs: { title: 'Engine running outside of the browser' } },
+              engineTech,
+            )
+          : engine.requires?.includes('simd')
+            ? h(
+                'span.technology.good',
+                { attrs: { title: 'Multi-threaded WebAssembly with SIMD' } },
+                engineTech,
+              )
+            : engine.requires?.includes('sharedMem')
+              ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engineTech)
+              : engine.requires?.includes('wasm')
+                ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engineTech)
+                : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engineTech),
+      ]
     : [];
 }
 
@@ -217,29 +217,29 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
 
   const body: LooseVNodes = enabled
     ? [
-      h('pearl', [pearl]),
-      h('div.engine', [
-        ...(threatMode ? [trans.noarg('showThreat')] : engineName(ceval)),
-        h(
-          'span.info',
-          ctrl.outcome()
-            ? [trans.noarg('gameOver')]
-            : ctrl.getNode().threefold
-              ? [trans.noarg('threefoldRepetition')]
-              : threatMode
-                ? [threatInfo(ctrl, threat)]
-                : localEvalNodes(ctrl, evs),
-        ),
-      ]),
-    ]
+        h('pearl', [pearl]),
+        h('div.engine', [
+          ...(threatMode ? [trans.noarg('showThreat')] : engineName(ceval)),
+          h(
+            'span.info',
+            ctrl.outcome()
+              ? [trans.noarg('gameOver')]
+              : ctrl.getNode().threefold
+                ? [trans.noarg('threefoldRepetition')]
+                : threatMode
+                  ? [threatInfo(ctrl, threat)]
+                  : localEvalNodes(ctrl, evs),
+          ),
+        ]),
+      ]
     : [
-      pearl && h('pearl', [pearl]),
-      h('help', [
-        ...engineName(ceval),
-        h('br'),
-        ceval.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game',
-      ]),
-    ];
+        pearl && h('pearl', [pearl]),
+        h('help', [
+          ...engineName(ceval),
+          h('br'),
+          ceval.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game',
+        ]),
+      ];
 
   const switchButton: VNode | false =
     !ctrl.mandatoryCeval?.() &&
@@ -302,7 +302,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
     .closest('div.pv')
     .children()
     .filter('span.pv-san')
-    .each(function() {
+    .each(function () {
       pvMoves.push($(this).attr('data-board'));
     });
 

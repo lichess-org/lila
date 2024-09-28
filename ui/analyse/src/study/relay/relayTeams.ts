@@ -37,7 +37,7 @@ export default class RelayTeams {
     private readonly redraw: Redraw,
   ) {}
 
-  loadFromXhr = async(onInsert?: boolean) => {
+  loadFromXhr = async (onInsert?: boolean) => {
     if (this.teams && !onInsert) {
       this.loading = true;
       this.redraw();

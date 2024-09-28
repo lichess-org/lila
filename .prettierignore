@@ -8,7 +8,6 @@
 !/.github/**
 !/ui/
 !/ui/**
-*.ts
 dist/
 readme
 /ui/voice/@build/crowdv/*.json

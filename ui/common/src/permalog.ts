@@ -51,7 +51,7 @@ function makeLog(): LichessLog {
     return !val || typeof val === 'string' ? String(val) : JSON.stringify(val);
   }
 
-  const log: LichessLog = async(...args: any[]) => {
+  const log: LichessLog = async (...args: any[]) => {
     const msg = `#${site.info ? `${site.info.commit.substring(0, 7)} - ` : ''}${args
       .map(stringify)
       .join(' ')}`;
@@ -68,13 +68,13 @@ function makeLog(): LichessLog {
     await store?.put(nextKey, msg);
   };
 
-  log.clear = async() => {
+  log.clear = async () => {
     await ready;
     await store?.clear();
     lastKey = 0;
   };
 
-  log.get = async(): Promise<string> => {
+  log.get = async (): Promise<string> => {
     await ready;
     if (!store) return '';
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);
