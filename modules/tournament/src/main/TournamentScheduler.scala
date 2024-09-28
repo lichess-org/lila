@@ -105,12 +105,13 @@ private object TournamentScheduler:
     val nextSunday            = nextDayOfWeek(7)
 
     def secondWeekOf(month: java.time.Month): LocalDate =
-      val start = orNextYear(startOfYear.withMonth(month.getValue).atStartOfDay).date
+      val start = startOfYear.withMonth(month.getValue).pipe(orNextYearDate)
       start.plusDays(15 - start.getDayOfWeek.getValue)
 
     def orTomorrow(date: LocalDateTime) = if date.isBefore(rightNow) then date.plusDays(1) else date
     def orNextWeek(date: LocalDateTime) = if date.isBefore(rightNow) then date.plusWeeks(1) else date
     def orNextYear(date: LocalDateTime) = if date.isBefore(rightNow) then date.plusYears(1) else date
+    def orNextYearDate(date: LocalDate) = if date.isBefore(today) then date.plusYears(1) else date
 
     val isHalloween = today.getDayOfMonth == 31 && today.getMonth == OCTOBER
 
