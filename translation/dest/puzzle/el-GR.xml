@@ -13,8 +13,8 @@
   <string name="specialMoves">Ειδικές κινήσεις</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
   <string name="voteToLoadNextOne">Ψηφίστε για να προχωρήσετε στο επόμενο!</string>
-  <string name="upVote">Μου άρεσε ο Γρίφος</string>
-  <string name="downVote">Δε μου άρεσε ο Γρίφος</string>
+  <string name="upVote">Μου άρεσε ο γρίφος</string>
+  <string name="downVote">Δε μου άρεσε ο γρίφος</string>
   <string name="yourPuzzleRatingWillNotChange">Οι βαθμοί αξιολόγησής σας δε θα αλλάξουν. Αυτοί οι βαθμοί χρησιμεύουν στην επιλογή γρίφων για το επίπεδό σας και όχι στον ανταγωνισμό.</string>
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
