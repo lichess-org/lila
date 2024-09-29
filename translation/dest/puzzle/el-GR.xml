@@ -28,6 +28,8 @@
   <string name="keepGoing">Συνεχίστε…</string>
   <string name="puzzleSuccess">Επιτυχία!</string>
   <string name="puzzleComplete">Ο γρίφος ολοκληρώθηκε!</string>
+  <string name="byOpenings">Ανά άνοιγμα</string>
+  <string name="puzzlesByOpenings">Γρίφοι ανά άνοιγμα</string>
   <string name="notTheMove">Δεν είναι αυτή η κίνηση!</string>
   <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
   <string name="ratingX">Βαθμολογία: %s</string>
