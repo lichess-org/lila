@@ -3,6 +3,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import { clean } from './clean';
 import { build, postBuild } from './build';
+import { startConsole } from './console';
 
 // readme should be up to date but this is the definitive list of flags
 const args = [
@@ -66,6 +67,7 @@ export function main(): void {
     env.log('Cleaning then exiting. Use --clean-build or -c to clean then build');
     clean();
   } else {
+    startConsole();
     build(args.filter(x => !x.startsWith('-')));
   }
 }
@@ -232,7 +234,7 @@ class Env {
     if (ctx !== 'tsc' || code === 0)
       this.log(
         `${code === 0 ? 'Done' : colors.red('Failed')}` +
-        (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
+          (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
         {
           ctx: ctx,
         },

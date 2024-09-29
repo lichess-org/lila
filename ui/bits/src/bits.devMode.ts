@@ -21,3 +21,26 @@ export function initModule(): void {
     this.append(tv);
   });
 }
+
+const original = { log: console.log, info: console.info, warn: console.warn, error: console.error };
+const levels: Array<keyof typeof original> = ['log', 'info', 'warn', 'error'];
+
+for (const level of levels) console[level] = (...args) => debugLog(level, ...args);
+
+async function debugLog(level: keyof typeof original, ...args: any[]) {
+  original[level](...args);
+  if (
+    await fetch('http://localhost:8666/debug', {
+      method: 'POST',
+      body: JSON.stringify({ [level]: args }),
+    })
+      .then(rsp => rsp.ok)
+      .catch(() => false)
+  )
+    return;
+
+  // there is no way to suppress some fetch errors in the console. reassure curious users it's ok
+
+  console.log('ui/build console not available on localhost:8666. this is fine!');
+  for (const level of levels) console[level] = original[level];
+}

@@ -59,7 +59,9 @@ trait AssetFullHelper:
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
-    val localDev = (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
+    val localDev =
+      (!netConfig.minifiedAssets).so("http://localhost:8666")
+        :: (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
     lila.web.ContentSecurityPolicy.basic(
       netConfig.assetDomain,
       netConfig.assetDomain.value :: sockets ::: explorerEndpoint :: tablebaseEndpoint :: localDev
