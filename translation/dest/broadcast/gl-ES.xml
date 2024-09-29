@@ -8,7 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Emisións de torneos en directo</string>
   <string name="newBroadcast">Nova emisión en directo</string>
-  <string name="subscribedBroadcasts">Retransmisións subscritas</string>
+  <string name="subscribedBroadcasts" comment="As in &quot;broadcasts you are subscribed to&quot;. Appears after subscribing to at least one broadcast, as a heading on https://lichess.org/broadcast/subscribed&#10;&#10;Please keep reasonably short, as this is a navigation item as well.">Emisións subscritas</string>
   <string name="aboutBroadcasts">Sobre as retransmisións</string>
   <string name="howToUseLichessBroadcasts">Como usar as Retransmisións de Lichess.</string>
   <string name="theNewRoundHelp">A nova rolda terá os mesmos membros e colaboradores cá rolda anterior.</string>
@@ -46,9 +46,9 @@
   <string name="top10Rating">Media do top 10</string>
   <string name="fidePlayers">Xogadores FIDE</string>
   <string name="fidePlayerNotFound">Xogador FIDE non atopado</string>
-  <string name="fideProfile">Perfil FIDE</string>
+  <string name="fideProfile" comment="Appears on the page of a FIDE player. Gives their FIDE number (ID) and a link to their profile on FIDE's website. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Perfil FIDE</string>
   <string name="federation">Federación</string>
-  <string name="ageThisYear">Idade actual</string>
+  <string name="ageThisYear" comment="Appears for FIDE-registered players. Gives their age at the time. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Idade actual</string>
   <string name="unrated">Sen puntuar</string>
-  <string name="recentTournaments">Torneos recentes</string>
+  <string name="recentTournaments" comment="Appears on the page of a FIDE player. Displays the most recent tournaments they took part in. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Torneos recentes</string>
 </resources>
