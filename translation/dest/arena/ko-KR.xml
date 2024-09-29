@@ -70,18 +70,18 @@
   <string name="recentlyPlayed">최근에 플레이함</string>
   <string name="bestResults">최선의 결과</string>
   <string name="stats">정보</string>
-  <string name="tournamentStats">토너먼트 정보</string>
+  <string name="tournamentStats">토너먼트 통계</string>
   <string name="rankAvgHelp">백분위 순위는 말 그대로 순위의 백분율입니다. 즉, 백분위 순위는 낮을수록 더 높은 순위를 의미합니다. 
 
 예를 들어, 100명의 참가자가 참여하는 토너먼트에서 3위를 차지하면 3%가 되고, 1000명의 참가자가 참여하는 토너먼트에서 10위를 차지하면 1%가 됩니다.</string>
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">중앙값</string>
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">이 페이지의 모든 평균값은 %s 입니다.</string>
   <string name="total">합계</string>
-  <string name="pointsAvg">평균 점수</string>
+  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">평균 점수</string>
   <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">총합 점수</string>
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">백분위 순위</string>
   <string name="tournamentWinners">토너먼트 우승자</string>
   <string name="tournamentShields">토너먼트 실드</string>
   <string name="onlyTitled">타이틀 플레이어만</string>
-  <string name="onlyTitledHelp">토너먼트에 참여하기 위해서는 공식 타이틀이 있어야 합니다.</string>
+  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">토너먼트에 참여하기 위해서는 공식 타이틀이 있어야 합니다.</string>
 </resources>
