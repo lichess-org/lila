@@ -104,7 +104,7 @@ async function write() {
     'if (!window.site.info) window.site.info={};',
     `window.site.info.commit='${cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim()}';`,
     `window.site.info.message='${commitMessage}';`,
-    `window.site.debug=${env.debug};`,
+    `window.site.debug=${typeof env.debug === 'string' ? `'${env.debug}'` : env.debug};`,
     'const m=window.site.manifest={css:{},js:{},hashed:{}};',
   ];
   for (const [name, info] of Object.entries(current.js)) {

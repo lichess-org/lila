@@ -12,7 +12,7 @@ export async function startConsole() {
           'Access-Control-Allow-Private-Network': 'true',
         })
         .end();
-    if (req.method !== 'POST' || req.url !== '/debug') return res.writeHead(404).end();
+    if (req.method !== 'POST') return res.writeHead(404).end();
 
     let body = '';
 
