@@ -57,7 +57,7 @@ export const tourSide = (ctx: RelayViewContext) => {
             h(
               'button.relay-tour__side__name',
               { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-              study.data.name,
+              relay.roundName(),
             ),
             !ctrl.isEmbed &&
                 h('button.streamer-show.data-count', {
@@ -175,13 +175,14 @@ const share = (ctx: RelayViewContext) => {
     'More options on the ',
     h('a', { attrs: { href: '/developers#broadcast' } }, 'webmasters page'),
   ]);
+  const tourName = ctx.relay.data.tour.name;
   return h('div.relay-tour__share', [
     h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
     ...[
-      [ctx.relay.data.tour.name, ctx.relay.tourPath()],
-      [ctx.study.data.name, ctx.relay.roundPath()],
+      [tourName, ctx.relay.tourPath()],
+      [tourName, ctx.relay.roundPath()],
       [
-        `${ctx.study.data.name} PGN`,
+        `${tourName} PGN`,
         `${ctx.relay.roundPath()}.pgn`,
         h('div.form-help', [
           'A public, real-time PGN source for this round. We also offer a ',
@@ -194,7 +195,7 @@ const share = (ctx: RelayViewContext) => {
         ]),
       ],
       ['Embed this broadcast in your website', iframe(ctx.relay.tourPath()), iframeHelp],
-      [`Embed ${ctx.study.data.name} in your website`, iframe(ctx.relay.roundPath()), iframeHelp],
+      [`Embed ${tourName} in your website`, iframe(ctx.relay.roundPath()), iframeHelp],
     ].map(([i18n, path, help]: [string, string, VNode]) =>
       h('div.form-group', [
         h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
