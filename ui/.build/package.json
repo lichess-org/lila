@@ -4,7 +4,7 @@
   "private": true,
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@types/node": "^22.5.1",
     "@types/tinycolor2": "^1.4.6",

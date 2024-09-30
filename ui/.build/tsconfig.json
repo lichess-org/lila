@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "allowUnreachableCode": true,
-    "outDir": "./dist",
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "noImplicitThis": true,
     "strict": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "moduleResolution": "Node",
-    "module": "CommonJS",
-    "declaration": false,
-    "target": "ES2020",
-    "lib": ["ES2020"],
+    "module": "ES2022",
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "types": ["node"]
   }
 }

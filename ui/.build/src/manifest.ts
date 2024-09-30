@@ -3,12 +3,12 @@ import path from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import es from 'esbuild';
-import { env, colors as c, warnMark } from './main';
-import { globArray, globArrays } from './parse';
-import { isUnmanagedAsset } from './copies';
-import { allSources } from './sass';
+import { env, colors as c, warnMark } from './main.ts';
+import { globArray, globArrays } from './parse.ts';
+import { isUnmanagedAsset } from './copies.ts';
+import { allSources } from './sass.ts';
 import { end } from 'chessground/drag';
-import { jsLogger } from './console';
+import { jsLogger } from './console.ts';
 
 type Manifest = { [key: string]: { hash?: string; imports?: string[]; mtime?: number } };
 

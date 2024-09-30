@@ -1,9 +1,9 @@
 import ps from 'node:process';
 import path from 'node:path';
 import fs from 'node:fs';
-import { clean } from './clean';
-import { build, postBuild } from './build';
-import { startConsole } from './console';
+import { clean } from './clean.ts';
+import { build, postBuild } from './build.ts';
+import { startConsole } from './console.ts';
 
 // readme should be up to date but this is the definitive list of flags
 const args: Record<string, string> = {
@@ -67,7 +67,7 @@ export function main(): void {
   }
 
   if (argv.length === 1 && (argv[0] === '--help' || argv[0] === '-h')) {
-    console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
+    console.log(fs.readFileSync(path.resolve(env.buildDir, 'readme'), 'utf8'));
   } else if (argv.includes('--clean')) {
     env.log('Cleaning then exiting. Use --clean-build or -c to clean then build');
     clean();
@@ -118,7 +118,7 @@ export const colors: Record<string, (text: string) => string> = {
 };
 
 class Env {
-  rootDir: string = path.resolve(__dirname, '../../..'); // absolute path to lila project root
+  rootDir: string = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../..'); // absolute path to lila project root
 
   deps: Map<string, string[]> = new Map();
   packages: Map<string, Package> = new Map();
@@ -184,7 +184,10 @@ class Env {
     return path.join(this.uiDir, '.build');
   }
   get cssTempDir(): string {
-    return path.join(this.buildDir, '.build-gen', 'css');
+    return path.join(this.buildDir, 'build', 'css');
+  }
+  get buildSrcDir(): string {
+    return path.join(this.uiDir, '.build', 'src');
   }
   get buildTempDir(): string {
     return path.join(this.buildDir, 'build');

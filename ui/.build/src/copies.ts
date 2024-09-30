@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { globArray, globArrays } from './parse';
-import { hashedManifest, writeManifest } from './manifest';
-import { Sync, env, errorMark, colors as c } from './main';
+import { globArray, globArrays } from './parse.ts';
+import { hashedManifest, writeManifest } from './manifest.ts';
+import { type Sync, env, errorMark, colors as c } from './main.ts';
 
 const syncWatch: fs.FSWatcher[] = [];
 let watchTimeout: NodeJS.Timeout | undefined;

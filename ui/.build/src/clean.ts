@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import fg from 'fast-glob';
-import { env, colors as c } from './main';
+import { env, colors as c } from './main.ts';
 
 const globOpts: fg.Options = {
   absolute: true,

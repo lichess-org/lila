@@ -1,8 +1,8 @@
 import path from 'node:path';
 import es from 'esbuild';
-import { prePackage } from './build';
-import { env, errorMark, colors as c } from './main';
-import { jsManifest } from './manifest';
+import { prePackage } from './build.ts';
+import { env, errorMark, colors as c } from './main.ts';
+import { jsManifest } from './manifest.ts';
 
 const bundles = new Map<string, string>();
 const esbuildCtx: es.BuildContext[] = [];
