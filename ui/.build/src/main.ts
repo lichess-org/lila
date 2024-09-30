@@ -14,7 +14,7 @@ const args: Record<string, string> = {
   '--no-color': '',
   '--no-time': '',
   '--no-context': '',
-  '--help': '',
+  '--help': 'h',
   '--rebuild': 'r',
   '--watch': 'w',
   '--prod': 'p',
@@ -23,6 +23,7 @@ const args: Record<string, string> = {
   '--clean': '',
   '--update': '',
   '--no-install': 'n',
+  '--log': 'l',
 };
 
 type Builder = 'sass' | 'tsc' | 'esbuild';
@@ -37,7 +38,7 @@ export function main(): void {
   const oneDashArgs = argv.flatMap(x => oneDashRe.exec(x)?.[1] ?? '').join('').split('');
   oneDashArgs.filter(x => !Object.values(args).includes(x)).forEach(arg => env.exit(`Unknown flag '-${arg}'`));
   argv
-    .filter(x => x.startsWith('--') && !Object.keys(args).includes(x.slice(2)))
+    .filter(x => x.startsWith('--') && !Object.keys(args).includes(x))
     .forEach(arg => env.exit(`Unknown argument '${arg}'`));
 
   if (['--tsc', '--sass', '--esbuild', '--copies'].filter(x => argv.includes(x)).length) {
@@ -54,7 +55,8 @@ export function main(): void {
   env.rebuild = argv.includes('--rebuild') || oneDashArgs.includes('r');
   env.watch = env.rebuild || argv.includes('--watch') || oneDashArgs.includes('w');
   env.prod = argv.includes('--prod') || oneDashArgs.includes('p');
-  env.debug = parseArg('--debug');
+  env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
+  env.remoteLog = parseArg('--log');
   env.clean = argv.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
   env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
   env.rgb = argv.includes('--rgb');
@@ -126,7 +128,8 @@ class Env {
   rebuild = false;
   clean = false;
   prod = false;
-  debug: string|boolean = false;
+  debug = false;
+  remoteLog: string | boolean = false;
   rgb = false;
   install = true;
   copies = true;

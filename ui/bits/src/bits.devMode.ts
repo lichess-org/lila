@@ -21,23 +21,3 @@ export function initModule(): void {
     this.append(tv);
   });
 }
-
-const original = { log: console.log, info: console.info, warn: console.warn, error: console.error };
-const levels: Array<keyof typeof original> = ['log', 'info', 'warn', 'error'];
-const url = typeof site.debug === 'string' ? site.debug : 'http://localhost:8666';
-
-for (const level of levels) console[level] = (...args) => debugLog(level, ...args);
-
-async function debugLog(level: keyof typeof original, ...args: any[]) {
-  original[level](...args);
-  const allGood =
-    await fetch(url, { method: 'POST', body: JSON.stringify({ [level]: args }) })
-      .then(rsp => rsp.ok)
-      .catch(() => false);
-  if (allGood) return;
-
-  // remove our monkey patches, pack up, and go home
-  for (const level of levels) console[level] = original[level];
-  // fetch errors gonna log in the console. reassure curious users it's ok
-  console.log(`cant reach log server at ${url}. this is fine!`);
-}
