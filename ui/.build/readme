@@ -2,39 +2,35 @@ ui/build was lovingly crafted from a single block of wood as a personal gift to 
 
   ./build <options> <packages> # packages are top level directories in ui
   one letter options can be consolidated after a single dash (e.g. -cdw)
-  ui/build can be run from anywhere, does not care about cwd
+  if no packages are specified, all will be processed
 
 Options:
-  -h, --help          show this help
+  -h, --help          show this help and exit
+  -w, --watch         build and watch for changes
   -c, --clean-build   clean build artifacts then build
-  -d, --debug         build assets with site.debug = true
   -p, --prod          build minified assets (prod builds)
-  -w, --watch         build, watch for changes, but terminate on package.json changes
-  -r, --rebuild       build, watch, and rebuild on package.json changes
-  -n, --no-install    don't run pnpm install (--no-install is incompatible with --rebuild)
+  -n, --no-install    don't run pnpm install
+  -d, --debug         build assets with site.debug = true
   -l, --log=<url>     monkey patch console.log and POST all messages to <url> (or localhost:8666
                       if not specified). when used with --watch or --rebuild, ui/build listens on
                       8666 and displays received json as 'web' over stdout
+  --clean             clean all build artifacts and exit
+  --update            update ui/build packages
   --no-color          don't use color in logs
   --no-time           don't log the time
   --no-context        don't log the context
-  --update            rebuild ui/build (not performed in normal builds, not even clean ones)
-  --clean             clean build artifacts and exit
   --tsc               run tsc, any of [--tsc, --sass, --esbuild, --copies] will disable the others
-  --sass              run sass
-  --esbuild           run esbuild
-  --copies            run copies
+  --sass              run sass on {package}/css/build/*.scss and dependencies
+  --esbuild           run esbuild (given in {package}/package.json/lichess/bundles array)
+  --copies            run copies (given in {package}/package.json/lichess/sync objects)
 
 Examples:
-  ./build --clean            # clean only
-  ./build -c                 # clean then build everything
-  ./build -rc                # recommended for maintainers - clean build, watch, clean rebuild
-  ./build -d                 # build with site.debug = true
+  ./build -w                 # build and watch for changes <- this is the most common use case
+  ./build -wc                # clean build, watch <- recommended for maintainers
   ./build -w --log=/path     # build, watch, and patch js console POST to ${location.origin}/path. 
                              # ui/build listens on 8666, displays received json as 'web' over stdout
   ./build -np                # no pnpm install, build minified
-  ./build -cp                # clean, build minified
   ./build analyse site msg   # build analyse, site, and msg packages (as opposed to everything)
-  ./build -r dasher chart    # watch mode for dasher and chart packages
+  ./build -w dasher chart    # watch mode for dasher and chart packages
   ./build --tsc -w           # watch mode but type checking only
   ./build --sass msg notify  # build css only for msg and notify packages

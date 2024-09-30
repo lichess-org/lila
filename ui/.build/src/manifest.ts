@@ -7,7 +7,6 @@ import { env, colors as c, warnMark } from './main.ts';
 import { globArray, globArrays } from './parse.ts';
 import { isUnmanagedAsset } from './copies.ts';
 import { allSources } from './sass.ts';
-import { end } from 'chessground/drag';
 import { jsLogger } from './console.ts';
 
 type Manifest = { [key: string]: { hash?: string; imports?: string[]; mtime?: number } };

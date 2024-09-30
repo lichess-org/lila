@@ -6,7 +6,7 @@ import { tsc, stopTsc } from './tsc.ts';
 import { sass, stopSass } from './sass.ts';
 import { esbuild, stopEsbuild } from './esbuild.ts';
 import { copies, stopCopies } from './copies.ts';
-import { startMonitor, stopMonitor } from './monitor.ts';
+import { monitor, stopMonitor } from './monitor.ts';
 import { writeManifest } from './manifest.ts';
 import { clean } from './clean.ts';
 import { type Package, env, errorMark, colors as c } from './main.ts';
@@ -37,7 +37,7 @@ export async function build(pkgs: string[]): Promise<void> {
     fs.promises.mkdir(env.buildTempDir),
   ]);
 
-  startMonitor(pkgs);
+  monitor(pkgs);
   await Promise.all([sass(), copies(), esbuild(tsc())]);
 }
 

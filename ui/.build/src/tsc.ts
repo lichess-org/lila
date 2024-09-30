@@ -111,12 +111,12 @@ export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
   return res;
 }
 
-// the splitConfig transform generates noCheck and noEmit tsconfigs within a ui/.build temp folder.
+// the splitConfig transform generates noCheck and noEmit tsconfigs within the 'build' temp folder.
 // each package that emits gets a --noCheck pass for fast transpilations and declarations.
 // then we do a --noEmit pass on EVERY package to verify things, regardless of its original emit.
 // this allows more parallel type checking.
 
-// splitConfig expects current lichess tsconfig conventions and doesn't anticipate future needs
+// splitConfig expects current lichess tsconfig conventions
 
 interface SplitConfig {
   noEmit: { file: string; data: any };

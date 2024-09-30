@@ -31,7 +31,7 @@ type Builder = 'sass' | 'tsc' | 'esbuild';
 export function main(): void {
   const argv = ps.argv.slice(2);
   const oneDashRe = /^-([a-z]+)(?:=[a-zA-Z0-9-_:./]+)?$/;
-  const parseArg = (arg: string): string | boolean => {
+  const stringArg = (arg: string): string | boolean => {
     const it = argv.find(
       x => x.startsWith(arg) || (args[arg] && oneDashRe.exec(x)?.[1]?.includes(args[arg])),
     );
@@ -45,7 +45,7 @@ export function main(): void {
     .filter(x => !Object.values(args).includes(x))
     .forEach(arg => env.exit(`Unknown flag '-${arg}'`));
   argv
-    .filter(x => x.startsWith('--') && !Object.keys(args).includes(x))
+    .filter(x => x.startsWith('--') && !Object.keys(args).includes(x.split('=')[0]))
     .forEach(arg => env.exit(`Unknown argument '${arg}'`));
 
   if (['--tsc', '--sass', '--esbuild', '--copies'].filter(x => argv.includes(x)).length) {
@@ -59,19 +59,18 @@ export function main(): void {
   if (argv.includes('--no-time')) env.logTime = false;
   if (argv.includes('--no-context')) env.logContext = false;
 
-  env.rebuild = argv.includes('--rebuild') || oneDashArgs.includes('r');
-  env.watch = env.rebuild || argv.includes('--watch') || oneDashArgs.includes('w');
+  env.watch =
+    argv.includes('--rebuild') ||
+    oneDashArgs.includes('r') ||
+    argv.includes('--watch') ||
+    oneDashArgs.includes('w');
   env.prod = argv.includes('--prod') || oneDashArgs.includes('p');
   env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
-  env.remoteLog = parseArg('--log');
+  env.remoteLog = stringArg('--log');
   env.clean = argv.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
   env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
+  env.rebuild = env.watch && env.install;
   env.rgb = argv.includes('--rgb');
-
-  if (env.rebuild && !env.install) {
-    env.warn(`--rebuild incompatible with --no-install`);
-    env.rebuild = false;
-  }
 
   if (argv.length === 1 && (argv[0] === '--help' || argv[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(env.buildDir, 'readme'), 'utf8'));
