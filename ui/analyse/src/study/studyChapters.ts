@@ -232,11 +232,11 @@ export function view(ctrl: StudyCtrl): VNode {
       .concat(
         ctrl.members.canContribute()
           ? [
-            h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-              h('span', iconTag(licon.PlusButton)),
-              h('h3', ctrl.trans.noarg('addNewChapter')),
-            ]),
-          ]
+              h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+                h('span', iconTag(licon.PlusButton)),
+                h('h3', ctrl.trans.noarg('addNewChapter')),
+              ]),
+            ]
           : [],
       ),
   );

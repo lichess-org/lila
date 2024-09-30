@@ -6,23 +6,23 @@ import { memoize } from 'common';
 import { side as studyViewSide } from '../studyView';
 import StudyCtrl from '../studyCtrl';
 
-export default function(ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
+export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   const contributor = ctrl.members.canContribute(),
     sync = ctrl.data.sync;
   return contributor || study.data.admin
     ? h('div.relay-admin__container', [
-      contributor
-        ? h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
-          h('h2', [
-            h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
-            h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
-          ]),
-          sync?.url || sync?.ids || sync?.urls ? (sync.ongoing ? stateOn : stateOff)(ctrl) : statePush(),
-          renderLog(ctrl),
-        ])
-        : undefined,
-      contributor || study.data.admin ? studyViewSide(study, false) : undefined,
-    ])
+        contributor
+          ? h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
+              h('h2', [
+                h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
+                h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
+              ]),
+              sync?.url || sync?.ids || sync?.urls ? (sync.ongoing ? stateOn : stateOff)(ctrl) : statePush(),
+              renderLog(ctrl),
+            ])
+          : undefined,
+        contributor || study.data.admin ? studyViewSide(study, false) : undefined,
+      ])
     : undefined;
 }
 
@@ -58,17 +58,17 @@ function stateOn(ctrl: RelayCtrl) {
         'Connected ',
         ...(sync
           ? [
-            sync.delay ? `with ${sync.delay}s delay ` : null,
-            ...(sync.url
-              ? ['to source', h('br'), sync.url.replace(/https?:\/\//, '')]
-              : sync.ids
-                ? ['to', h('br'), sync.ids.length, ' game(s)']
-                : sync.urls
-                  ? ['to', h('br'), sync.urls.length, ' sources']
-                  : []),
-            sync.filter ? ` (round ${sync.filter})` : null,
-            sync.slices ? ` (slice ${sync.slices})` : null,
-          ]
+              sync.delay ? `with ${sync.delay}s delay ` : null,
+              ...(sync.url
+                ? ['to source', h('br'), sync.url.replace(/https?:\/\//, '')]
+                : sync.ids
+                  ? ['to', h('br'), sync.ids.length, ' game(s)']
+                  : sync.urls
+                    ? ['to', h('br'), sync.urls.length, ' sources']
+                    : []),
+              sync.filter ? ` (round ${sync.filter})` : null,
+              sync.slices ? ` (slice ${sync.slices})` : null,
+            ]
           : []),
       ]),
     ],

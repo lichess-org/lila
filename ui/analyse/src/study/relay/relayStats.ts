@@ -12,7 +12,7 @@ export default class RelayStats {
     private readonly redraw: Redraw,
   ) {}
 
-  loadFromXhr = async() => {
+  loadFromXhr = async () => {
     this.data = await xhr.json(`/broadcast/round/${this.round.id}/stats`);
     this.redraw();
     await site.asset.loadEsm('chart.relayStats', {

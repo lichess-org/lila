@@ -227,13 +227,13 @@ export default class PuzzleCtrl implements ParentCtrl {
     const canMove = this.mode === 'view' || (color === this.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
       ? {
-        color: dests.size > 0 ? color : undefined,
-        dests,
-      }
+          color: dests.size > 0 ? color : undefined,
+          dests,
+        }
       : {
-        color: undefined,
-        dests: new Map(),
-      };
+          color: undefined,
+          dests: new Map(),
+        };
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
@@ -395,7 +395,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.sound.end();
   };
 
-  sendResult = async(win: boolean): Promise<void> => {
+  sendResult = async (win: boolean): Promise<void> => {
     if (this.resultSent) return Promise.resolve();
     this.resultSent = true;
     this.session.complete(this.data.puzzle.id, win);

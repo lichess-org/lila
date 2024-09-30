@@ -85,7 +85,7 @@ function renderPgnTags(tags: TagsForm, trans: Trans, showRatings: boolean): VNod
                 $(el)
                   .parents('tr')
                   .find('input')
-                  .each(function(this: HTMLInputElement) {
+                  .each(function (this: HTMLInputElement) {
                     this.focus();
                   });
               });

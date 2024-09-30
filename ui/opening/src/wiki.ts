@@ -1,7 +1,7 @@
 import { OpeningPage } from './interfaces';
 
 export default function wikiTheory(data: OpeningPage): void {
-  $('.opening__wiki__markup__placeholder').each(function(this: HTMLDivElement) {
+  $('.opening__wiki__markup__placeholder').each(function (this: HTMLDivElement) {
     const wrap = $(this);
     fetchAndRender(data, html => wrap.html(html));
   });

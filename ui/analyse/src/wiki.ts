@@ -5,7 +5,7 @@ import { pubsub } from 'common/pubsub';
 export type WikiTheory = (nodes: Tree.Node[]) => void;
 
 export function wikiToggleBox() {
-  $('#wikibook-field').each(function(this: HTMLElement) {
+  $('#wikibook-field').each(function (this: HTMLElement) {
     const box = this;
 
     const state = storedBooleanPropWithEffect('analyse.wikibooks.display', true, value =>
@@ -56,7 +56,7 @@ export default function wikiTheory(): WikiTheory {
     removeEmptyParagraph(removeTableHeader(removeTableExpl(removeContributing(html)))) + readMore(title);
 
   return debounce(
-    async(nodes: Tree.Node[]) => {
+    async (nodes: Tree.Node[]) => {
       const pathParts = nodes.slice(1).map(n => `${plyPrefix(n)}${n.san}`);
       const path = pathParts.join('/').replace(/[+!#?]/g, '') ?? '';
       if (pathParts.length > 30 || !path || path.length > 255 - 21) show('');

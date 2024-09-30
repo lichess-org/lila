@@ -48,7 +48,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
               site.sound.say('Voice chat is ready.', true, true);
               ping();
             },
-            function(err) {
+            function (err) {
               log(`Failed to get local stream: ${err}`);
             },
           )
@@ -197,7 +197,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   setInterval(closeDisconnectedCalls, 1400);
   setInterval(ping, 5000);
 
-  setInterval(function() {
+  setInterval(function () {
     peer &&
       Object.keys(peer.connections).forEach(peerId => {
         console.log(peerId, !!findOpenConnectionTo(peerId));
@@ -209,32 +209,32 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
       const connections = allOpenConnections();
       return devices
         ? h(
-          'div.mchat__tab.palantir.data-count.palantir-' + state,
-          {
-            attrs: {
-              'data-icon': licon.Handset,
-              title: `Voice chat: ${state}`,
-              'data-count': state == 'on' ? connections.length + 1 : 0,
-            },
-            hook: {
-              insert(vnode) {
-                (vnode.elm as HTMLElement).addEventListener('click', () => (peer ? stop() : start()));
+            'div.mchat__tab.palantir.data-count.palantir-' + state,
+            {
+              attrs: {
+                'data-icon': licon.Handset,
+                title: `Voice chat: ${state}`,
+                'data-count': state == 'on' ? connections.length + 1 : 0,
+              },
+              hook: {
+                insert(vnode) {
+                  (vnode.elm as HTMLElement).addEventListener('click', () => (peer ? stop() : start()));
+                },
               },
             },
-          },
-          state == 'on'
-            ? connections.map(c =>
-              h('audio.palantir__audio.' + c.peer, {
-                attrs: { autoplay: true },
-                hook: {
-                  insert(vnode) {
-                    (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream;
-                  },
-                },
-              }),
-            )
-            : [],
-        )
+            state == 'on'
+              ? connections.map(c =>
+                  h('audio.palantir__audio.' + c.peer, {
+                    attrs: { autoplay: true },
+                    hook: {
+                      insert(vnode) {
+                        (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream;
+                      },
+                    },
+                  }),
+                )
+              : [],
+          )
         : null;
     },
   };

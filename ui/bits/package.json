@@ -19,7 +19,7 @@
     "@fnando/sparkline": "^0.3.10",
     "@textcomplete/core": "^0.1.13",
     "@textcomplete/textarea": "^0.1.13",
-    "@toast-ui/editor": "3.1.7",
+    "@toast-ui/editor": "3.2.2",
     "@types/canvas-confetti": "^1.6.4",
     "@types/debounce-promise": "^3.1.6",
     "@types/fnando__sparkline": "^0.3.7",

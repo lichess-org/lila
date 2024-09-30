@@ -7,7 +7,7 @@ interface Opts {
   cookie: Cookie;
 }
 
-export const redirect = async(opts: string | Opts, beep?: boolean) => {
+export const redirect = async (opts: string | Opts, beep?: boolean) => {
   try {
     if (beep) await promiseTimeout(site.sound.play('genericNotify'), 1000);
   } catch (e) {

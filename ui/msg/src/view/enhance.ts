@@ -109,7 +109,7 @@ function expandGames(games: Expandable[]): void {
     });
 }
 
-const expandGame = async(exp: Expandable) => {
+const expandGame = async (exp: Expandable) => {
   const $lpv = $('<div>');
   $(exp.element).parent().parent().addClass('has-embed');
   $(exp.element).replaceWith($('<div>').prepend($lpv));

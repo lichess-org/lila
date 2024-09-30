@@ -263,7 +263,7 @@ export default class StudyCtrl {
   send = this.ctrl.socket.send;
   redraw = this.ctrl.redraw;
 
-  startTour = async() => {
+  startTour = async () => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
       site.asset.loadCssPath('bits.shepherd'),
@@ -388,7 +388,7 @@ export default class StudyCtrl {
         this.practice ? 'practice/load' : 'study',
         this.data.id,
         this.vm.mode.sticky ? undefined : this.vm.chapterId,
-        withChapters = withChapters,
+        (withChapters = withChapters),
       )
       .then(this.onReload, site.reload);
   });
@@ -456,7 +456,7 @@ export default class StudyCtrl {
 
   likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
 
-  setChapter = async(idOrNumber: ChapterId | number, force?: boolean): Promise<boolean> => {
+  setChapter = async (idOrNumber: ChapterId | number, force?: boolean): Promise<boolean> => {
     const prev = this.chapters.list.get(idOrNumber);
     const id = prev?.id;
     if (!id) {

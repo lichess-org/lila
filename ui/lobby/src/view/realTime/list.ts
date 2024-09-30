@@ -64,8 +64,8 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
     ...standards.map(render),
     variants.length
       ? h('tr.variants', { key: 'variants' }, [
-        h('td', { attrs: { colspan: 5 } }, '— ' + ctrl.trans('variant') + ' —'),
-      ])
+          h('td', { attrs: { colspan: 5 } }, '— ' + ctrl.trans('variant') + ' —'),
+        ])
       : null,
     ...variants.map(render),
   ];

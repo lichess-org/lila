@@ -18,7 +18,7 @@ const showErrorThenReload = (error: string) => {
   location.assign('/patron');
 };
 
-export function initModule({ stripePublicKey, pricing }: { stripePublicKey: string, pricing: any }): void {
+export function initModule({ stripePublicKey, pricing }: { stripePublicKey: string; pricing: any }): void {
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
@@ -31,7 +31,7 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
     $checkout.find('input.default').trigger('click');
 
-  const onFreqChange = function() {
+  const onFreqChange = function () {
     const freq = getFreq();
     $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
     $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
@@ -58,7 +58,7 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
     toggleCheckout();
   });
 
-  $checkout.find('group.amount .other label').on('click', function(this: HTMLLabelElement) {
+  $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
     let amount: number;
     const raw: string = prompt(this.title) || '';
     try {
@@ -129,7 +129,7 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
   payPalOrderStart($checkout, pricing, getAmountToCharge);
   payPalSubscriptionStart($checkout, pricing, getAmountToCharge);
   stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
-};
+}
 
 const xhrFormData = ($checkout: Cash, amount: number) =>
   xhr.form({
@@ -210,7 +210,7 @@ function stripeStart(
   getAmount: () => number | undefined,
 ) {
   const stripe = window.Stripe(publicKey);
-  $checkout.find('.service .stripe').on('click', function() {
+  $checkout.find('.service .stripe').on('click', function () {
     const amount = getAmount();
     if (!amount) return;
     $checkout.find('.service').html(spinnerHtml);
@@ -234,7 +234,7 @@ function stripeStart(
   });
 
   // Close Checkout on page navigation:
-  $(window).on('popstate', function() {
+  $(window).on('popstate', function () {
     window.stripeHandler.close();
   });
 }

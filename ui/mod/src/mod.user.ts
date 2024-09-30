@@ -18,7 +18,7 @@ site.load.then(() => {
     source.addEventListener('message', e => {
       if (!e.data) return;
       const html = $('<output>').append($.parseHTML(e.data));
-      html.find('.mz-section').each(function(this: HTMLElement) {
+      html.find('.mz-section').each(function (this: HTMLElement) {
         const prev = $zone.find(`.mz-section--${$(this).data('rel')}`);
         if (prev.length) prev.replaceWith($(this));
         else $zone.append($(this).clone());
@@ -66,7 +66,7 @@ site.load.then(() => {
     pubsub.emit('content-loaded', $inZone[0]);
 
     const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls = 'ready') => {
-      $inZone.find(selector + `:not(.${cls})`).each(function(this: HTMLElement, i: number) {
+      $inZone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
         f($(this).addClass(cls)[0] as HTMLElement, i);
       });
     };
@@ -74,17 +74,17 @@ site.load.then(() => {
     const confirmButton = (el: HTMLElement) =>
       $(el)
         .find('input.confirm, button.confirm')
-        .on('click', function(this: HTMLElement) {
+        .on('click', function (this: HTMLElement) {
           return confirm(this.title || 'Confirm this action?');
         });
 
-    $('.mz-section--menu > a:not(.available)').each(function(this: HTMLAnchorElement) {
+    $('.mz-section--menu > a:not(.available)').each(function (this: HTMLAnchorElement) {
       $(this).toggleClass('available', !!$(getLocationHash(this)).length);
     });
     makeReady('.mz-section--menu', el => {
       $(el)
         .find('a')
-        .each(function(this: HTMLAnchorElement, i: number) {
+        .each(function (this: HTMLAnchorElement, i: number) {
           const id = getLocationHash(this),
             n = '' + (i + 1);
           $(this).prepend(`<i>${n}</i>`);
@@ -154,7 +154,7 @@ site.load.then(() => {
     makeReady('.mz-section--identification .spy_filter', el => {
       $(el)
         .find('.button')
-        .on('click', function(this: HTMLAnchorElement) {
+        .on('click', function (this: HTMLAnchorElement) {
           xhr.text($(this).attr('href')!, { method: 'post' });
           $(this).parent().parent().toggleClass('blocked');
           return false;
@@ -162,20 +162,20 @@ site.load.then(() => {
       let selected: string | undefined;
       const applyFilter = (v?: string) =>
         v
-          ? $inZone.find('.mz-section--others tbody tr').each(function(this: HTMLElement) {
-            $(this).toggleClass('none', !(this.dataset.tags || '').includes(v));
-          })
+          ? $inZone.find('.mz-section--others tbody tr').each(function (this: HTMLElement) {
+              $(this).toggleClass('none', !(this.dataset.tags || '').includes(v));
+            })
           : $inZone.find('.mz-section--others tbody tr.none').removeClass('none');
       $(el)
         .find('tr')
-        .on('click', function(this: HTMLTableRowElement) {
+        .on('click', function (this: HTMLTableRowElement) {
           const v = this.dataset.value;
           selected = selected == v ? undefined : v;
           applyFilter(selected);
           $('.spy_filter tr.selected').removeClass('selected');
           $(this).toggleClass('selected', !!selected);
         })
-        .on('mouseenter', function(this: HTMLTableRowElement) {
+        .on('mouseenter', function (this: HTMLTableRowElement) {
           !selected && applyFilter(this.dataset.value);
         });
       $(el).on('mouseleave', () => !selected && applyFilter());

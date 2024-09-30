@@ -8,7 +8,7 @@ function resize() {
       window.innerHeight - (el.querySelector('.mini-game__player') as HTMLElement).offsetHeight * 2 + 'px';
 }
 
-window.onload = async() => {
+window.onload = async () => {
   const makeChessground = (await embedChessground()).Chessground;
   const findGame = () => document.getElementsByClassName('mini-game').item(0) as HTMLElement;
   const setup = () => initMiniGame(findGame(), makeChessground);

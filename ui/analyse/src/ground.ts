@@ -8,7 +8,6 @@ import AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
 import { Chessground as makeChessground } from 'chessground';
 
-
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {

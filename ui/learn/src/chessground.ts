@@ -15,7 +15,7 @@ export type CgMove = {
   dest: Key;
 };
 
-export default function(ctrl: RunCtrl): VNode {
+export default function (ctrl: RunCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {

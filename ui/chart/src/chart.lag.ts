@@ -31,7 +31,7 @@ const v = {
 
 export async function initModule(): Promise<void> {
   pubsub.after('socket.hasConnected').then(() => site.socket.send('moveLat', true));
-  $('.meter canvas').each(function(this: HTMLCanvasElement, index) {
+  $('.meter canvas').each(function (this: HTMLCanvasElement, index) {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [
       {
@@ -109,7 +109,7 @@ export async function initModule(): Promise<void> {
         updateAnswer();
       });
     else {
-      setInterval(function() {
+      setInterval(function () {
         v.network = Math.round(site.socket.averageLag);
         if (v.network <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.network);

@@ -8,7 +8,7 @@ import TournamentController from '../ctrl';
 import { watchers } from 'common/watchers';
 import { makeChat } from 'chat';
 
-export default function(ctrl: TournamentController) {
+export default function (ctrl: TournamentController) {
   let handler: {
     name: string;
     main(ctrl: TournamentController): MaybeVNodes;

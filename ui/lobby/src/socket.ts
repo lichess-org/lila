@@ -22,7 +22,7 @@ export default class LobbySocket {
         ctrl.redraw();
       },
       hrm(ids: string) {
-        ids.match(/.{8}/g)!.forEach(function(id) {
+        ids.match(/.{8}/g)!.forEach(function (id) {
           hookRepo.remove(ctrl, id);
         });
         ctrl.redraw();
