@@ -5,17 +5,21 @@ ui/build was lovingly crafted from a single block of wood as a personal gift to 
   ui/build can be run from anywhere, does not care about cwd
 
 Options:
-  --clean             clean build artifacts and exit
+  -h, --help          show this help
   -c, --clean-build   clean build artifacts then build
   -d, --debug         build assets with site.debug = true
   -p, --prod          build minified assets (prod builds)
   -w, --watch         build, watch for changes, but terminate on package.json changes
   -r, --rebuild       build, watch, and rebuild on package.json changes
   -n, --no-install    don't run pnpm install (--no-install is incompatible with --rebuild)
+  -l, --log=<url>     monkey patch console.log and POST all messages to <url> (or localhost:8666
+                      if not specified). when used with --watch or --rebuild, ui/build listens on
+                      8666 and displays received json as 'web' over stdout
   --no-color          don't use color in logs
   --no-time           don't log the time
   --no-context        don't log the context
   --update            rebuild ui/build (not performed in normal builds, not even clean ones)
+  --clean             clean build artifacts and exit
   --tsc               run tsc, any of [--tsc, --sass, --esbuild, --copies] will disable the others
   --sass              run sass
   --esbuild           run esbuild
@@ -23,9 +27,11 @@ Options:
 
 Examples:
   ./build --clean            # clean only
-  ./build -c                 # clean build artifacts then build everything
+  ./build -c                 # clean then build everything
   ./build -rc                # recommended for maintainers - clean build, watch, clean rebuild
-  ./build -d                 # build client assets with site.debug = true
+  ./build -d                 # build with site.debug = true
+  ./build -w --log=/path     # build, watch, and patch js console POST to ${location.origin}/path. 
+                             # ui/build listens on 8666, displays received json as 'web' over stdout
   ./build -np                # no pnpm install, build minified
   ./build -cp                # clean, build minified
   ./build analyse site msg   # build analyse, site, and msg packages (as opposed to everything)
