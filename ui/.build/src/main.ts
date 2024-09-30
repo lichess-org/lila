@@ -32,11 +32,18 @@ export function main(): void {
   const argv = ps.argv.slice(2);
   const oneDashRe = /^-([a-z]+)(?:=[a-zA-Z0-9-_:./]+)?$/;
   const parseArg = (arg: string): string | boolean => {
-    const it = argv.find(x => x.startsWith(arg) || args[arg] && oneDashRe.exec(x)?.[1]?.includes(args[arg]));
+    const it = argv.find(
+      x => x.startsWith(arg) || (args[arg] && oneDashRe.exec(x)?.[1]?.includes(args[arg])),
+    );
     return it?.split('=')[1] ?? (it ? true : false);
   };
-  const oneDashArgs = argv.flatMap(x => oneDashRe.exec(x)?.[1] ?? '').join('').split('');
-  oneDashArgs.filter(x => !Object.values(args).includes(x)).forEach(arg => env.exit(`Unknown flag '-${arg}'`));
+  const oneDashArgs = argv
+    .flatMap(x => oneDashRe.exec(x)?.[1] ?? '')
+    .join('')
+    .split('');
+  oneDashArgs
+    .filter(x => !Object.values(args).includes(x))
+    .forEach(arg => env.exit(`Unknown flag '-${arg}'`));
   argv
     .filter(x => x.startsWith('--') && !Object.keys(args).includes(x))
     .forEach(arg => env.exit(`Unknown argument '${arg}'`));

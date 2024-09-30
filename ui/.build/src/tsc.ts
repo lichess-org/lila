@@ -44,7 +44,7 @@ export async function tsc(): Promise<void> {
 
 function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
   const status: ('ok' | 'busy' | 'error')[] = [];
-  let resolve: (() => void)|undefined = undefined;
+  let resolve: (() => void) | undefined = undefined;
   const ok = new Promise<void>(res => (resolve = res));
 
   const onMessage = (msg: Message): void => {

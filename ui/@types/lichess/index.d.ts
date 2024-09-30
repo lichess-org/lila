@@ -4,7 +4,7 @@
 
 // file://./../../site/src/site.ts
 interface Site {
-  debug: boolean|string;
+  debug: boolean | string;
   info: {
     commit: string;
     message: string;
