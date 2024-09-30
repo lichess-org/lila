@@ -21,7 +21,8 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
-        val tourneysToAdd = PlanBuilder.getNewTourneys(dbScheds)
+        val newPlans      = TournamentScheduler.allWithConflicts()
+        val tourneysToAdd = PlanBuilder.getNewTourneys(dbScheds, newPlans)
         tournamentRepo.insert(tourneysToAdd).logFailure(logger)
       catch
         case e: Exception =>
@@ -464,7 +465,8 @@ Thank you all, you rock!""".some,
     ).flatten.filter(_.schedule.at.isAfter(rightNow))
 
   private def atTopOfHour(rightNow: LocalDateTime, hourDelta: Int): LocalDateTime =
-    rightNow.plusHours(hourDelta).withMinute(0)
+    val withHours = rightNow.plusHours(hourDelta)
+    LocalDateTime.of(withHours.date, LocalTime.of(withHours.getHour, 0))
 
   private type ValidHour = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
     18 | 19 | 20 | 21 | 22 | 23
