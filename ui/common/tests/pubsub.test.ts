@@ -3,9 +3,8 @@ import { pubsub as typed } from '../src/pubsub';
 
 const pubsub = typed as any;
 
-describe("site.pubsub 'after' and 'complete' methods", async() => {
-
-  test('after then complete', async() => {
+describe("site.pubsub 'after' and 'complete' methods", async () => {
+  test('after then complete', async () => {
     const event = 'normal';
 
     const promise = pubsub.after(event);
@@ -14,7 +13,7 @@ describe("site.pubsub 'after' and 'complete' methods", async() => {
     await expect(promise).resolves.toBeUndefined();
   });
 
-  test('complete then after', async() => {
+  test('complete then after', async () => {
     const event = 'immediate';
 
     pubsub.complete(event);
@@ -22,7 +21,7 @@ describe("site.pubsub 'after' and 'complete' methods", async() => {
     await expect(pubsub.after(event)).resolves.toBeUndefined();
   });
 
-  test('multiple afters then complete', async() => {
+  test('multiple afters then complete', async () => {
     const event = 'multiple-afters';
 
     const await1 = pubsub.after(event);
@@ -33,7 +32,7 @@ describe("site.pubsub 'after' and 'complete' methods", async() => {
     await expect(await2).resolves.toBeUndefined();
   });
 
-  test('one completion is never enough', async() => {
+  test('one completion is never enough', async () => {
     const event = 'multiple-completes';
 
     const await1 = pubsub.after(event);
@@ -45,5 +44,4 @@ describe("site.pubsub 'after' and 'complete' methods", async() => {
     await expect(await1).resolves.toBeUndefined();
     await expect(await2).resolves.toBeUndefined();
   });
-
 });

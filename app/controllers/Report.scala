@@ -25,9 +25,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     env.report.modFilters.set(me, Room(room))
-    if Room(room).forall(Room.isGranted)
-    then renderList(room)
-    else notFound
+    Room(room).forall(Room.isGranted).so(renderList(room))
   }
 
   protected[controllers] def getScores: Future[(Scores, PendingCounts)] = (
@@ -92,7 +90,6 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
       case _ =>
-        def redirectToList = Redirect(routes.Report.listWithFilter(inquiry.room.key))
         if inquiry.isAppeal then process() >> Redirect(routes.Appeal.queue())
         else if dataOpt.flatMap(_.get("next")).exists(_.headOption contains "1") then
           process() >> {
@@ -102,7 +99,8 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
               api.inquiries
                 .toggleNext(inquiry.room)
                 .map:
-                  _.fold(redirectToList)(onInquiryStart)
+                  case Some(next) => onInquiryStart(next)
+                  case _          => Redirect(routes.Report.listWithFilter(inquiry.room.key))
           }
         else if processed then userC.modZoneOrRedirect(inquiry.user)
         else onInquiryStart(inquiry)

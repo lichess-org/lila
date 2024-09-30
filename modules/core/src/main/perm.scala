@@ -242,7 +242,7 @@ object Permission:
   val all: Set[Permission] = values.toSet
 
   val nonModPermissions: Set[Permission] =
-    Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, BroadcastTeam, ApiHog, Relay)
+    Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, BroadcastTeam, ApiHog)
 
   val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 

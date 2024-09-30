@@ -4,7 +4,7 @@
 
 // file://./../../site/src/site.ts
 interface Site {
-  debug: boolean;
+  debug: boolean | string;
   info: {
     commit: string;
     message: string;
@@ -125,7 +125,7 @@ interface SoundI {
 interface SocketI {
   averageLag: number;
   pingInterval(): number;
-  getVersion(): number|false;
+  getVersion(): number | false;
   send: SocketSend;
   sign(s: string): void;
   destroy(): void;

@@ -9,7 +9,7 @@ site.load.then(() => {
   $variant.on('change', showPosition);
   showPosition();
 
-  $('.flatpickr').each(function(this: HTMLInputElement) {
+  $('.flatpickr').each(function (this: HTMLInputElement) {
     flatpickr(this, {
       minDate: 'today',
       maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31 * 6),

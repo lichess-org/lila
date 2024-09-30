@@ -7,7 +7,7 @@ export function findInMainline(
   fromNode: Tree.Node,
   predicate: (node: Tree.Node) => boolean,
 ): Tree.Node | undefined {
-  const findFrom = function(node: Tree.Node): Tree.Node | undefined {
+  const findFrom = function (node: Tree.Node): Tree.Node | undefined {
     if (predicate(node)) return node;
     return withMainlineChild(node, findFrom);
   };
@@ -46,7 +46,7 @@ export function takePathWhile(nodeList: Tree.Node[], predicate: (node: Tree.Node
 }
 
 export function removeChild(parent: Tree.Node, id: string): void {
-  parent.children = parent.children.filter(function(n) {
+  parent.children = parent.children.filter(function (n) {
     return n.id !== id;
   });
 }
@@ -59,7 +59,7 @@ export function countChildrenAndComments(node: Tree.Node): {
     nodes: 1,
     comments: (node.comments || []).length,
   };
-  node.children.forEach(function(child) {
+  node.children.forEach(function (child) {
     const c = countChildrenAndComments(child);
     count.nodes += c.nodes;
     count.comments += c.comments;
@@ -72,16 +72,16 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
   if (n2.eval) n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments &&
-    n2.comments.forEach(function(c) {
+    n2.comments.forEach(function (c) {
       if (!n1.comments) n1.comments = [c];
       else if (
-        !n1.comments.some(function(d) {
+        !n1.comments.some(function (d) {
           return d.text === c.text;
         })
       )
         n1.comments.push(c);
     });
-  n2.children.forEach(function(c) {
+  n2.children.forEach(function (c) {
     const existing = childById(n1, c.id);
     if (existing) merge(existing, c);
     else n1.children.push(c);

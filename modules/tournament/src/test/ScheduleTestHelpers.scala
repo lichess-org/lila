@@ -7,16 +7,16 @@ object ScheduleTestHelpers:
     val s = p.schedule
     (s.variant.id.value, s.conditions.nonEmpty, if s.variant.standard then s.speed.id else 0, s.at)
 
-  def allSchedulesAt(date: Instant) =
+  def allSchedulesAt(date: LocalDateTime) =
     TournamentScheduler.allWithConflicts(date).sortBy(planSortKey).map(_.schedule)
 
   val usEastZone  = java.time.ZoneId.of("America/New_York")
   val parisZone   = java.time.ZoneId.of("Europe/Paris")
   val datePrinter = java.time.format.DateTimeFormatter.ofPattern("MM-dd'T'HH:mm z")
 
-  def fullDaySchedule(date: Instant) =
+  def fullDaySchedule(date: LocalDateTime) =
     val startOfDay  = date.withTimeAtStartOfDay
-    val dayInterval = TimeInterval(startOfDay, java.time.Duration.ofDays(1))
+    val dayInterval = TimeInterval(startOfDay.instant, java.time.Duration.ofDays(1))
 
     // Prune conflicts in a similar manner to how it is done in production i.e. TournamentScheduler:
     // schedule earlier hours first, and then add later hour schedules if they don't conflict.

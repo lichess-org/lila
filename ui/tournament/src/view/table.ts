@@ -18,8 +18,8 @@ function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) 
     ]),
     game.c
       ? h(`span.mini-game__clock.mini-game__clock--${color}`, {
-        attrs: { 'data-time': game.c[color], 'data-managed': 1 },
-      })
+          attrs: { 'data-time': game.c[color], 'data-managed': 1 },
+        })
       : h('span.mini-game__result', game.winner ? (game.winner == color ? '1' : '0') : '½'),
   ]);
 }
@@ -63,7 +63,7 @@ function renderDuel(ctrl: TournamentController) {
 
 const initMiniGame = (node: VNode) => initMiniGames(node.elm as HTMLElement);
 
-export default function(ctrl: TournamentController): VNode {
+export default function (ctrl: TournamentController): VNode {
   return h('div.tour__table', { hook: { insert: initMiniGame, postpatch: initMiniGame } }, [
     ctrl.data.featured && featured(ctrl.data.featured, ctrl.opts),
     ctrl.data.duels.length > 0 &&

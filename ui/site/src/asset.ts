@@ -35,7 +35,7 @@ export const loadCss = (href: string, key?: string): Promise<void> => {
   });
 };
 
-export const loadCssPath = async(key: string): Promise<void> => {
+export const loadCssPath = async (key: string): Promise<void> => {
   const hash = site.manifest.css[key];
   await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
 };
@@ -65,7 +65,7 @@ export async function loadEsm<T>(name: string, opts: EsmModuleOpts = {}): Promis
   return opts.npm && !opts.init ? initializer : initializer(opts.init);
 }
 
-export const loadEsmPage = async(name: string) => {
+export const loadEsmPage = async (name: string) => {
   const modulePromise = import(url(jsModule(name), { version: false }));
   const dataScript = document.getElementById('page-init-data');
   const opts = dataScript && JSON.parse(dataScript.innerHTML);

@@ -140,11 +140,12 @@ export class Protocol {
         this.work.emit(this.currentEval);
         if (depth >= 99) this.stop();
       }
-    } else if (command && !['Stockfish', 'id', 'option', 'info'].includes(parts[0])) {
-      // some think it's a bug when they see these in console
-      if (!['No such option: Analysis Contempt', 'No such option: UCI_Variant'].includes(command))
-        console.warn('SF:', command);
-    }
+    } else if (
+      command &&
+      !['Stockfish', 'id', 'option', 'info'].includes(parts[0]) &&
+      !['Analysis Contempt', 'UCI_Variant', 'UCI_AnalyseMode'].includes(command.split(': ')[1])
+    )
+      console.warn(`SF: ${command}`);
   }
 
   private stop(): void {

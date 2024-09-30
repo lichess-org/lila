@@ -12,7 +12,7 @@
     "common": "workspace:*",
     "dayjs": "^1.11.10",
     "debounce-promise": "^3.1.2",
-    "lichess-pgn-viewer": "^2.1.0"
+    "lichess-pgn-viewer": "^2.1.3"
   },
   "lichess": {
     "bundles": "src/opening.ts"

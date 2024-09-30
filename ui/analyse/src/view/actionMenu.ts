@@ -156,42 +156,42 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const cevalConfig: MaybeVNodes =
     ceval?.possible && ceval.allowed()
       ? [
-        h('h2', noarg('computerAnalysis')),
-        ctrlToggle(
-          {
-            name: 'enable',
-            title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
-            id: 'all',
-            checked: ctrl.showComputer(),
-            disabled: mandatoryCeval,
-            change: ctrl.toggleComputer,
-          },
-          ctrl,
-        ),
-        ...(ctrl.showComputer()
-          ? [
-            ctrlToggle(
-              {
-                name: 'bestMoveArrow',
-                title: 'Hotkey: a',
-                id: 'shapes',
-                checked: ctrl.showAutoShapes(),
-                change: ctrl.toggleAutoShapes,
-              },
-              ctrl,
-            ),
-            ctrlToggle(
-              {
-                name: 'evaluationGauge',
-                id: 'gauge',
-                checked: ctrl.showGauge(),
-                change: ctrl.toggleGauge,
-              },
-              ctrl,
-            ),
-          ]
-          : []),
-      ]
+          h('h2', noarg('computerAnalysis')),
+          ctrlToggle(
+            {
+              name: 'enable',
+              title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
+              id: 'all',
+              checked: ctrl.showComputer(),
+              disabled: mandatoryCeval,
+              change: ctrl.toggleComputer,
+            },
+            ctrl,
+          ),
+          ...(ctrl.showComputer()
+            ? [
+                ctrlToggle(
+                  {
+                    name: 'bestMoveArrow',
+                    title: 'Hotkey: a',
+                    id: 'shapes',
+                    checked: ctrl.showAutoShapes(),
+                    change: ctrl.toggleAutoShapes,
+                  },
+                  ctrl,
+                ),
+                ctrlToggle(
+                  {
+                    name: 'evaluationGauge',
+                    id: 'gauge',
+                    checked: ctrl.showGauge(),
+                    change: ctrl.toggleGauge,
+                  },
+                  ctrl,
+                ),
+              ]
+            : []),
+        ]
       : [];
 
   const displayConfig = [

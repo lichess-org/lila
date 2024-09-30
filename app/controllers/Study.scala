@@ -204,8 +204,11 @@ final class Study(
               .enforceCrossSiteIsolation
           ,
           json = for
-            (sc, data) <- getJsonData(oldSc, withChapters = getBool("chapters"))
-            chatOpt    <- chatOf(sc.study)
+            (sc, data) <- getJsonData(
+              oldSc,
+              withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
+            )
+            chatOpt <- chatOf(sc.study)
             jsChat <- chatOpt.soFu: c =>
               lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
           yield Ok:

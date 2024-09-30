@@ -23,7 +23,7 @@ export async function initModule(): Promise<SoundMove> {
     }
   };
 
-  const load = async(instrument: string, index: number, filename: string) =>
+  const load = async (instrument: string, index: number, filename: string) =>
     site.sound.load(
       `orchestra.${instrument}.${index}`,
       site.sound.url(`instrument/${instrument}/${filename}`),
