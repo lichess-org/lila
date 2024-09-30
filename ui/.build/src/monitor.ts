@@ -1,11 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ps from 'node:process';
-import { build, stop } from './build';
-import { env } from './main';
-import { globArray } from './parse';
-import { stopTsc, tsc } from './tsc';
-import { stopEsbuild, esbuild } from './esbuild';
+import { build, stop } from './build.ts';
+import { env } from './main.ts';
+import { globArray } from './parse.ts';
+import { stopTsc, tsc } from './tsc.ts';
+import { stopEsbuild, esbuild } from './esbuild.ts';
 
 const watchers: fs.FSWatcher[] = [];
 

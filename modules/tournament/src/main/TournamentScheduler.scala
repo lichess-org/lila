@@ -191,7 +191,9 @@ Thank you all, you rock!""".some,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
           ).map { (day, speed) =>
-            Schedule(Monthly, speed, Standard, none, at(day, 17)).plan
+            at(day, 17).pipe { date =>
+              Schedule(Monthly, speed, Standard, none, date).plan
+            }
           },
           List( // monthly variant tournaments!
             month.lastWeek.withDayOfWeek(MONDAY)    -> Chess960,
@@ -275,7 +277,9 @@ Thank you all, you rock!""".some,
         nextSaturday -> SuperBlitz,
         nextSunday   -> Bullet
       ).map { (day, speed) =>
-        Schedule(Weekend, speed, Standard, none, at(day, 17).pipe(orNextWeek)).plan
+        at(day, 17).pipe { date =>
+          Schedule(Weekend, speed, Standard, none, date.pipe(orNextWeek)).plan
+        }
       },
       // Note: these should be scheduled close to the hour of weekly or weekend tournaments
       // to avoid two dailies being cancelled in a row from a single higher importance tourney

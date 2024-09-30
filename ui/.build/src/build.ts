@@ -1,15 +1,15 @@
 import fs from 'node:fs';
 import cps from 'node:child_process';
 import ps from 'node:process';
-import { parsePackages } from './parse';
-import { tsc, stopTsc } from './tsc';
-import { sass, stopSass } from './sass';
-import { esbuild, stopEsbuild } from './esbuild';
-import { copies, stopCopies } from './copies';
-import { startMonitor, stopMonitor } from './monitor';
-import { writeManifest } from './manifest';
-import { clean } from './clean';
-import { Package, env, errorMark, colors as c } from './main';
+import { parsePackages } from './parse.ts';
+import { tsc, stopTsc } from './tsc.ts';
+import { sass, stopSass } from './sass.ts';
+import { esbuild, stopEsbuild } from './esbuild.ts';
+import { copies, stopCopies } from './copies.ts';
+import { startMonitor, stopMonitor } from './monitor.ts';
+import { writeManifest } from './manifest.ts';
+import { clean } from './clean.ts';
+import { type Package, env, errorMark, colors as c } from './main.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
   await stop();
