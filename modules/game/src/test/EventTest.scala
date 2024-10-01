@@ -10,6 +10,77 @@ import play.api.libs.json.*
 
 class EventTest extends munit.ScalaCheckSuite:
 
+  test("Move anti regression"):
+    var event = Event.Move(
+      orig = Square.A1,
+      dest = Square.A2,
+      san = format.pgn.SanStr("abcdef"),
+      fen = format.BoardFen("ghijkl"),
+      check = Check(false),
+      threefold = false,
+      promotion = None,
+      enpassant = None,
+      castle = None,
+      state = Event.State(
+        turns = Ply(1),
+        status = None,
+        winner = None,
+        whiteOffersDraw = false,
+        blackOffersDraw = false
+      ),
+      clock = None,
+      possibleMoves = Map.empty,
+      possibleDrops = None,
+      crazyData = None
+    )
+    assertEquals(event.typ, "move")
+    assertEquals(
+      event.data,
+      Json.obj(
+        "uci"   -> "a1a2",
+        "san"   -> "abcdef",
+        "fen"   -> "ghijkl",
+        "ply"   -> 1,
+        "dests" -> None
+      )
+    )
+
+  test("Move writes every square"):
+    forAll: (orig: Square, dest: Square, turns: Int, possibleMoves: Map[Square, Bitboard]) =>
+      var event = Event.Move(
+        orig = orig,
+        dest = dest,
+        san = format.pgn.SanStr("abcdef"),
+        fen = format.BoardFen("ghijkl"),
+        check = Check(false),
+        threefold = false,
+        promotion = None,
+        enpassant = None,
+        castle = None,
+        state = Event.State(
+          turns = Ply(turns),
+          status = None,
+          winner = None,
+          whiteOffersDraw = false,
+          blackOffersDraw = false
+        ),
+        clock = None,
+        possibleMoves = possibleMoves,
+        possibleDrops = None,
+        crazyData = None
+      )
+      assertEquals(event.typ, "move")
+      assertEquals(
+        event.data,
+        Json.obj(
+          "uci"   -> s"${orig.key}${dest.key}",
+          "san"   -> "abcdef",
+          "fen"   -> "ghijkl",
+          "ply"   -> turns,
+          "dests" -> Event.PossibleMoves.oldJson(possibleMoves)
+        )
+      )
+
   test("PossibleMoves anti regression"):
     val moves = Map(Square.E2 -> Bitboard(Square.E4, Square.D4, Square.E3))
     val str   = stringFromPossibleMoves(moves)
@@ -53,6 +124,18 @@ class EventTest extends munit.ScalaCheckSuite:
       )
     )
 
+  test("Enpassant writes every square and color"):
+    forAll: (pos: Square, color: Color) =>
+      var event = Event.Enpassant(pos = pos, color = color)
+      assertEquals(event.typ, "enpassant")
+      assertEquals(
+        event.data,
+        Json.obj(
+          "key"   -> pos.key,
+          "color" -> color.name
+        )
+      )
+
   test("Castling anti regression"):
     var event = Event.Castling(
       castle = Move.Castle(
@@ -91,6 +174,28 @@ class EventTest extends munit.ScalaCheckSuite:
       )
     )
 
+  test("Castling writes every color"):
+    var castle = Move.Castle(
+      king = Square.E1,
+      kingTo = Square.C1,
+      rook = Square.A1,
+      rookTo = Square.D1
+    )
+    forAll: (color: Color) =>
+      var event = Event.Castling(
+        castle = castle,
+        color = color
+      )
+      assertEquals(event.typ, "castling")
+      assertEquals(
+        event.data,
+        Json.obj(
+          "king"  -> Json.arr(castle.king.key, castle.kingTo.key),
+          "rook"  -> Json.arr(castle.rook.key, castle.rookTo.key),
+          "color" -> color.name
+        )
+      )
+
   test("RedirectOwner anti regression"):
     var event = Event.RedirectOwner(
       color = Color.White,
@@ -127,3 +232,24 @@ class EventTest extends munit.ScalaCheckSuite:
       )
     )
     assertEquals(event.only, Some(chess.Color.Black))
+
+  test("RedirectOwner writes every color"):
+    var id = GameFullId(
+      gameId = GameId.take("12345678"),
+      playerId = GamePlayerId("abcd")
+    )
+    forAll: (color: Color) =>
+      var event = Event.RedirectOwner(
+        color = color,
+        id = id,
+        cookie = None
+      )
+      assertEquals(event.typ, "redirect")
+      assertEquals(
+        event.data,
+        Json.obj(
+          "id"  -> s"$id",
+          "url" -> s"/$id"
+        )
+      )
+      assertEquals(event.only, Some(color))
