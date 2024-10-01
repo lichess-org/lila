@@ -14,8 +14,7 @@ class PlanBuilderTest extends munit.FunSuite:
 
   test("tourney building with stagger"):
     // Test that tourneys are scheduled based on the startAt field of the plan.
-    val dt1 = LocalDateTime.of(2024, 9, 30, 12, 0)
-    dt1.instant
+    val dt1   = LocalDateTime.of(2024, 9, 30, 12, 0)
     val plan1 = Schedule(Daily, Bullet, Standard, None, dt1).plan
 
     val instant2 = plan1.startsAt.plusHours(1)
