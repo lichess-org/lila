@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Hourly 래피드 아레나</string>
-  <string name="hourlyRapid">Hourly 래피드</string>
-  <string name="hourlyXArena">Hourly %s 아레나</string>
-  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">Hourly %s</string>
+  <string name="hourlyRapidArena">매 시간 래피드 아레나</string>
+  <string name="hourlyRapid">매 시간 래피드</string>
+  <string name="hourlyXArena">매 시간 %s 아레나</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">매 시간 %s</string>
   <string name="dailyRapidArena">데일리 래피드 아레나</string>
   <string name="dailyRapid">데일리 래피드</string>
   <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">데일리 클래시컬 아레나</string>
