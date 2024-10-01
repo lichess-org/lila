@@ -19,6 +19,7 @@ import {
   StudyPlayerFromServer,
   StudyPlayer,
   ChapterSelect,
+  StatusStr,
 } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
@@ -105,6 +106,12 @@ export default class StudyChaptersCtrl {
         if (playerWhoMoved) playerWhoMoved.clock = node.clock;
       }
     }
+  };
+
+  setTags = (id: ChapterId, tags: TagArray[]) => {
+    const chap = this.list.get(id),
+      result = findTag(tags, 'result');
+    if (chap && result) chap.status = result.replace(/1\/2/g, '½') as StatusStr;
   };
 }
 

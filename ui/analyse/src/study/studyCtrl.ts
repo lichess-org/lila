@@ -776,6 +776,7 @@ export default class StudyCtrl {
     },
     setTags: d => {
       this.setMemberActive(d.w);
+      this.chapters.setTags(d.chapterId, d.tags);
       if (d.chapterId !== this.vm.chapterId) return;
       this.data.chapter.tags = d.tags;
       this.redraw();
