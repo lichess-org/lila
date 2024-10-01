@@ -97,9 +97,12 @@ class PlanBuilderTest extends munit.FunSuite:
 
     // Ensure that new tourney is created even if the stagger conflicts.
     PlanBuilder.getNewTourneys(List(t1), List(p2)) match
-      case List(t2) => assert(clue(t2.startsAt).isBefore(clue(t1.finishesAt)))
-      case Nil      => fail(s"Expected tourney to be created from $p2")
-      case _        => fail("Too many tourneys!")
+      case List(t2) if t2.schedule.so { _.freq == Hourly } =>
+        assert(
+          clue(t2.startsAt).isBefore(clue(t1.finishesAt)),
+          "Tourney schedules should conflict, but do not!"
+        )
+      case lst => fail(s"Unexpected tourney list: $lst")
 
   test("findMaxSpaceSlot"):
     def assertSlotFull(low: Long, hi: Long, existing: Seq[Long], expected: Long) =
