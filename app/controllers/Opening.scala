@@ -6,8 +6,13 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.net.Crawler
 import lila.opening.OpeningQuery.queryFromUrl
+import lila.opening.OpeningAccessControl
 
 final class Opening(env: Env) extends LilaController(env):
+
+  private given (using RequestHeader, Option[Me]): OpeningAccessControl =
+    given lila.core.config.RateLimit = env.net.rateLimit
+    OpeningAccessControl(env.security.ip2proxy, limit.openingStatsProxy)
 
   def index(q: Option[String] = None) = Open:
     val searchQuery = ~q
