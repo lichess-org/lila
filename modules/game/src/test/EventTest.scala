@@ -4,7 +4,7 @@ import cats.syntax.all.*
 import chess.*
 import chess.CoreArbitraries.given
 import chess.bitboard.Bitboard
-import lila.core
+import lila.core.id.*
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import play.api.libs.json.*
 
@@ -34,7 +34,7 @@ class EventTest extends munit.ScalaCheckSuite:
       case _             => failSuite("Expected JsString")
 
   test("Enpassant anti regression"):
-    var event = Event.Enpassant(pos = chess.Square.A1, color = chess.Color.White)
+    var event = Event.Enpassant(pos = Square.A1, color = Color.White)
     assertEquals(event.typ, "enpassant")
     assertEquals(
       event.data,
@@ -43,7 +43,7 @@ class EventTest extends munit.ScalaCheckSuite:
         "color" -> "white"
       )
     )
-    event = Event.Enpassant(pos = chess.Square.C3, color = chess.Color.Black)
+    event = Event.Enpassant(pos = Square.C3, color = Color.Black)
     assertEquals(event.typ, "enpassant")
     assertEquals(
       event.data,
@@ -55,13 +55,13 @@ class EventTest extends munit.ScalaCheckSuite:
 
   test("Castling anti regression"):
     var event = Event.Castling(
-      castle = chess.Move.Castle(
-        king = chess.Square.E1,
-        kingTo = chess.Square.C1,
-        rook = chess.Square.A1,
-        rookTo = chess.Square.D1
+      castle = Move.Castle(
+        king = Square.E1,
+        kingTo = Square.C1,
+        rook = Square.A1,
+        rookTo = Square.D1
       ),
-      color = chess.Color.White
+      color = Color.White
     )
     assertEquals(event.typ, "castling")
     assertEquals(
@@ -73,13 +73,13 @@ class EventTest extends munit.ScalaCheckSuite:
       )
     )
     event = Event.Castling(
-      castle = chess.Move.Castle(
-        king = chess.Square.E8,
-        kingTo = chess.Square.G8,
-        rook = chess.Square.H8,
-        rookTo = chess.Square.F8
+      castle = Move.Castle(
+        king = Square.E8,
+        kingTo = Square.G8,
+        rook = Square.H8,
+        rookTo = Square.F8
       ),
-      color = chess.Color.Black
+      color = Color.Black
     )
     assertEquals(event.typ, "castling")
     assertEquals(
@@ -93,10 +93,10 @@ class EventTest extends munit.ScalaCheckSuite:
 
   test("RedirectOwner anti regression"):
     var event = Event.RedirectOwner(
-      color = chess.Color.White,
-      id = lila.core.id.GameFullId(
-        gameId = lila.core.id.GameId.take("abcdefgh"),
-        playerId = lila.core.id.GamePlayerId("1234")
+      color = Color.White,
+      id = GameFullId(
+        gameId = GameId.take("abcdefgh"),
+        playerId = GamePlayerId("1234")
       ),
       cookie = None
     )
@@ -110,10 +110,10 @@ class EventTest extends munit.ScalaCheckSuite:
     )
     assertEquals(event.only, Some(chess.Color.White))
     event = Event.RedirectOwner(
-      color = chess.Color.Black,
-      id = lila.core.id.GameFullId(
-        gameId = lila.core.id.GameId.take("12345678"),
-        playerId = lila.core.id.GamePlayerId("abcd")
+      color = Color.Black,
+      id = GameFullId(
+        gameId = GameId.take("12345678"),
+        playerId = GamePlayerId("abcd")
       ),
       cookie = Some(Json.obj("cookie" -> "something"))
     )
