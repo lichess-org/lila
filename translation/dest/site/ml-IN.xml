@@ -192,12 +192,13 @@
   <string name="changeUsername">യുസര്‍നെയിം മാറ്റുക</string>
   <string name="changeUsernameNotSame">അക്ഷരങ്ങളുടെ കേസിനു മാത്രമേ മാറാൻ കഴിയുകയുള്ളൂ. ഉദാഹരണത്തിന് \"johndoe\" എന്നത് \"JohnDoe\" എന്നായി മാറും.</string>
   <string name="changeUsernameDescription">നിങ്ങളുടെ യൂസർനെയിം മാറ്റുക. ഇത് ഒരിക്കൽ മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളു. അതിൽ തന്നെ യൂസർനെയിമിന്റെ അക്ഷരങ്ങളുടെ കേസ് മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളൂ.</string>
-  <string name="password">പാസ്‌വേഡ്</string>
-  <string name="changePassword">പാസ്‌വേഡ് മാറ്റുക</string>
+  <string name="password">രഹസ്യവാക്ക്</string>
+  <string name="changePassword">രഹസ്യവാക്ക് മാറ്റുക</string>
   <string name="changeEmail">ഇമെയില്‍ മാറ്റുക</string>
   <string name="email">ഇമെയില്‍</string>
-  <string name="passwordReset">പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുക</string>
+  <string name="passwordReset">രഹസ്യവാക്ക് റീസെറ്റ് ചെയ്യുക</string>
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
+  <string name="error.weakPassword">ഈ രഹസ്യവാക്ക് ഊഹിക്കുകാൻ വളരെ എളുപ്പമാണ്.</string>
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
   <string name="emailConfirmHelp">മെയിൽ ഉറപ്പിന് സഹായം</string>
   <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
@@ -449,6 +450,7 @@
   <string name="ifNoneLeaveEmpty">ഒന്നുമില്ലെങ്കിൽ ഒഴിവാക്കിയിടുക</string>
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
+  <string name="realName">യെഥാർത്ഥ പേര്</string>
   <string name="biography">ജീവചരിത്രം</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
@@ -497,14 +499,14 @@
   <string name="typePrivateNotesHere">സ്വകാര്യ അറിയിപ്പുകൾ ഇവിടെ ടൈപ്പ് ചെയ്യുക</string>
   <string name="noNoteYet">ഇതുവരെ ഒരു കുറിപ്പുമില്ല</string>
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
-  <string name="incorrectPassword">തെറ്റായ രഹസ്യപദം</string>
+  <string name="incorrectPassword">തെറ്റായ രഹസ്യവാക്ക്</string>
   <string name="invalidAuthenticationCode">തെറ്റായ ഓതെന്റിക്കേഷൻ കോഡ്</string>
   <string name="emailMeALink">ഒരു ലിങ്ക് ഇമെയിൽ ചെയ്യൂ</string>
-  <string name="currentPassword">നിലവിലുള്ള രഹസ്യപദം</string>
-  <string name="newPassword">പുതിയ രഹസ്യപദം</string>
-  <string name="newPasswordAgain">പുതിയ രഹസ്യപദം (പിന്നെയും)</string>
+  <string name="currentPassword">നിലവിലുള്ള രഹസ്യവാക്ക്</string>
+  <string name="newPassword">പുതിയ രഹസ്യവാക്ക്</string>
+  <string name="newPasswordAgain">പുതിയ രഹസ്യവാക്ക് (പിന്നെയും)</string>
   <string name="newPasswordsDontMatch">പുതിയ പാസ്സ്‌വേർഡുകൾ പരസ്പരം മാച്ച് ആവുന്നില്ല</string>
-  <string name="newPasswordStrength">പാസ്സ്‌വേർഡ്‌ ശക്തി</string>
+  <string name="newPasswordStrength">രഹസ്യവാക്ക് ശക്തി</string>
   <string name="clockInitialTime">ഘഡികാര പ്രരാംബ സമയം</string>
   <string name="clockIncrement">ഘഡികാര സമയം കൂട്ടുക</string>
   <string name="privacy">സ്വകാര്യത</string>
@@ -703,6 +705,7 @@
   <string name="invalidFen">അസാധുവായ FEN</string>
   <string name="custom">ഇച്ഛാനുസൃതം</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
+  <string name="notificationsX">അറിയിക്കൽ: %1$s</string>
   <string name="perfRatingX">നിലവാരം: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കന്റ് ബാക്കി നിൽക്കുന്നു</item>
@@ -813,5 +816,6 @@
   <string name="lostAgainstTOSViolator">ലിചെസ്സ് ടോസ് ലങ്കിച്ച ഒരാളുമായി നിങ്ങൾ പരാജയപ്പെട്ടിരിക്കുന്നു</string>
   <string name="refundXpointsTimeControlY">റിഫണ്ട്:%1$s%2$s റേറ്റിംഗ് പോയിന്റുകൾ.</string>
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
+  <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
 </resources>
