@@ -71,7 +71,7 @@
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="collapseVariations">Varyasyonları daralt</string>
-  <string name="expandVariations">Varyasyonları genişler</string>
+  <string name="expandVariations">Varyasyonları genişlet</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="copyVariationPgn">Varyasyon PGN\'sini kopyala</string>
   <string name="move">Hamle</string>
@@ -180,7 +180,7 @@
   <string name="latestForumPosts">En son forum gönderileri</string>
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
-  <string name="otherPlayers">ddiğer oyuncular</string>
+  <string name="otherPlayers">diğer oyuncular</string>
   <string name="discussions">Sohbetler</string>
   <string name="today">Bugün</string>
   <string name="yesterday">Dün</string>
