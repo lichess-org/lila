@@ -164,6 +164,7 @@
   <string name="latestForumPosts">ഏറ്റവും പുതിയ ഫോറം പോസ്റ്റുകള്‍</string>
   <string name="players">കളിക്കാര്</string>
   <string name="friends">സുഹൃത്തുക്കള്‍</string>
+  <string name="otherPlayers">മറ്റേ കളിക്കാർ</string>
   <string name="discussions">ചര്‍ച്ചകള്‍</string>
   <string name="today">ഇന്ന്</string>
   <string name="yesterday">ഇന്നലെ</string>
@@ -197,6 +198,9 @@
   <string name="email">ഇമെയില്‍</string>
   <string name="passwordReset">പാസ്‌വേഡ് റീസെറ്റ് ചെയ്യുക</string>
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
+  <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
+  <string name="emailConfirmHelp">മെയിൽ ഉറപ്പിന് സഹായം</string>
+  <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
   <string name="rank">റാങ്ക്</string>
   <string name="rankX">റാങ്ക്: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -248,10 +252,10 @@
   <string name="confirmMove">നീക്കം ഉറപ്പിക്കുക</string>
   <string name="play">കളിക്കുക</string>
   <string name="inbox">ഇന്‍ബോക്സ്‌</string>
-  <string name="chatRoom">ചാറ്റ് റൂം</string>
+  <string name="chatRoom">ചാറ്റ് മുറി</string>
   <string name="loginToChat">ചാറ്റ് ചെയ്യാൻ ലോഗിൻ ചെയ്യുക</string>
   <string name="youHaveBeenTimedOut">നിങ്ങൾ ടൈംഡ്-ഔട്ട് ആയിരിക്കുന്നു.</string>
-  <string name="spectatorRoom">വീക്ഷണ റൂം</string>
+  <string name="spectatorRoom">വീക്ഷണ മുറി</string>
   <string name="composeMessage">സന്ദേശം എഴുതുക</string>
   <string name="subject">വിഷയം</string>
   <string name="send">അയക്കുക</string>
@@ -417,6 +421,8 @@
   <string name="tournamentIsStarting">പരമ്പര തുടങ്ങുന്നു</string>
   <string name="tournamentPairingsAreNowClosed">ടൂർണമെന്റ് പെയറിങ് കഴിഞ്ഞിരിക്കുന്നു.</string>
   <string name="standByX">ദയവായി കാത്തിരിക്കൂ %s, കളിക്കാരെ പെയർ ചെയ്യുന്നു, തയ്യാറാവൂ!</string>
+  <string name="pause">നിറുത്തുക</string>
+  <string name="resume">തുടരുക</string>
   <string name="youArePlaying">നിങ്ങൾ കളിച്ചുകൊണ്ടിരിക്കുന്നു!</string>
   <string name="winRate">വിജയനിരക്ക്</string>
   <string name="berserkRate">ജടാപാടാലിറ്റി റേറ്റ്</string>
@@ -489,6 +495,7 @@
   <string name="blog">രചന</string>
   <string name="notes">അറിയിപ്പുകൾ</string>
   <string name="typePrivateNotesHere">സ്വകാര്യ അറിയിപ്പുകൾ ഇവിടെ ടൈപ്പ് ചെയ്യുക</string>
+  <string name="noNoteYet">ഇതുവരെ ഒരു കുറിപ്പുമില്ല</string>
   <string name="invalidUsernameOrPassword">യൂസർ നെയിം അല്ലെങ്കിൽ പാസ്സ്‌വേർഡ്‌ അസാധുവാണ്</string>
   <string name="incorrectPassword">തെറ്റായ രഹസ്യപദം</string>
   <string name="invalidAuthenticationCode">തെറ്റായ ഓതെന്റിക്കേഷൻ കോഡ്</string>
@@ -597,11 +604,15 @@
   <string name="tournamentFAQ">അറീന പരമ്പര</string>
   <string name="timeBeforeTournamentStarts">പരമ്പര തുടങ്ങുന്നതിനു മുൻപുള്ള സമയം</string>
   <string name="averageCentipawnLoss">ശരാശരി centipawn നഷ്ടം</string>
+  <string name="accuracy">കൃത്യത</string>
   <string name="keyboardShortcuts">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
   <string name="keyMoveBackwardOrForward">നീക്കം പുറകോട്ട്/മുന്നോട്ട്</string>
   <string name="keyGoToStartOrEnd">പോകാം തുടക്കം/ഒടുക്കം</string>
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
+  <string name="keyNextMistake">അടുത്ത തെറ്റ്</string>
+  <string name="keyNextBranch">അടുത്ത വിഭാഗം</string>
+  <string name="playSelectedMove">തിരഞ്ഞെടുത്ത നീക്കം കളിക്കുക</string>
   <string name="newTournament">പുതിയ പരമ്പര</string>
   <string name="tournamentHomeTitle">പല വിധം സമയപരിധികളും വേരിയന്റുകളും ഉള്ള ചെസ്സ് ടൂർണമെന്റ്</string>
   <string name="tournamentHomeDescription">ദ്രുതഗതിയിലുള്ള ചെസ്സ് ടൂർണമെന്റുകൾ കളിക്കാം! ഒഫീഷ്യലായിട്ടുള്ള സമയബന്ധിത ടൂർണമെന്റുകളിൽ ചേരാം, അല്ലെങ്കിൽ സ്വന്തമായി ഒന്ന് ഉണ്ടാക്കാം. ബുള്ളറ്റ്, ബ്ലിറ്റ്സ്, ക്ലാസിക്കൽ, chess960, കുന്നിന്മുകളിലെ രാജാവ്, തുടങ്ങി അനന്തമായ ചെസ്സ് ആനന്ദത്തിന് നിങ്ങൾക്കായി കൂടുതൽ ഓപ്ഷൻസ് ഒരുക്കമാണ്.</string>
@@ -677,6 +688,7 @@
   <string name="dark">ഇരുണ്ടത്</string>
   <string name="transparent">സുതാര്യത</string>
   <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
+  <string name="hue">നിറം</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
   <string name="usernameAlreadyUsed">ഈ യൂസർനെയിം ഇപ്പോൾ ലഭ്യമല്ല, ദയവു ചെയ്ത് മറ്റൊരു യൂസർനെയിം ഉപയോഗിക്കുക.</string>
@@ -801,4 +813,5 @@
   <string name="lostAgainstTOSViolator">ലിചെസ്സ് ടോസ് ലങ്കിച്ച ഒരാളുമായി നിങ്ങൾ പരാജയപ്പെട്ടിരിക്കുന്നു</string>
   <string name="refundXpointsTimeControlY">റിഫണ്ട്:%1$s%2$s റേറ്റിംഗ് പോയിന്റുകൾ.</string>
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
+  <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
 </resources>
