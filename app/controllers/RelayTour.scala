@@ -31,6 +31,15 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
             res                      <- Ok.async(views.relay.tour.index(active, upcoming, past))
           yield res
 
+  def calendarMonth(year: Int, month: Int) = Open:
+    env.relay.calendar
+      .readMonth(year, month)
+      .so: at =>
+        for
+          tours <- env.relay.calendar.atMonth(at)
+          page  <- Ok.async(views.relay.tour.calendar(at, tours))
+        yield page
+
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
   def app      = page("broadcaster-app", "app")

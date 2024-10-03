@@ -1,12 +1,12 @@
 package lila.relay
 package ui
 
+import java.time.{ Month, YearMonth }
 import scalalib.paginator.Paginator
 
 import lila.core.LightUser
 import lila.relay.RelayTour.WithLastRound
 import lila.ui.*
-
 import ScalatagsTemplate.{ *, given }
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi):
@@ -106,6 +106,50 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       boxTop(h1("Private Broadcasts")),
       renderPager(pager)(routes.RelayTour.allPrivate)
     )
+
+  def calendar(at: YearMonth, tours: List[WithLastRound])(using ctx: Context) =
+    def url(y: Int, m: Month) = routes.RelayTour.calendarMonth(y, m.getValue)
+    Page(s"${trans.site.tournamentCalendar.txt()} ${showYearMonth(at)}")
+      .css("bits.relay.calendar"):
+        main(cls := "relay-calendar page-menu")(
+          pageMenu("index"),
+          div(cls := "page-menu__content box box-pad")(
+            boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trans.site.tournamentCalendar())),
+            div(cls := "relay-calendar__form")(
+              a(
+                href     := url(at.minusMonths(1).getYear, at.minusMonths(1).getMonth),
+                dataIcon := Icon.LessThan
+              ),
+              div(cls := "relay-calendar__form__selects")(
+                lila.ui.bits.mselect(
+                  "relay-calendar__year",
+                  span(at.getYear),
+                  RelayCalendar.allYears.map: y =>
+                    a(
+                      cls  := (y == at.getYear).option("current"),
+                      href := url(y, at.getMonth)
+                    )(y)
+                ),
+                lila.ui.bits.mselect(
+                  "relay-calendar__month",
+                  span(showMonth(at.getMonth)),
+                  java.time.Month.values.map: m =>
+                    a(
+                      cls  := (m == at.getMonth).option("current"),
+                      href := url(at.getYear, m)
+                    )(showMonth(m))
+                )
+              ),
+              a(
+                href     := url(at.plusMonths(1).getYear, at.plusMonths(1).getMonth),
+                dataIcon := Icon.GreaterThan
+              )
+            ),
+            div(cls := "relay-cards relay-cards--past"):
+              tours.map: t =>
+                card.render(t, live = _ => false)
+          )
+        )
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using Context) =
     Page(t.name.value).css("bits.page"):

@@ -1,0 +1,19 @@
+@import 'card';
+@import 'image';
+
+.relay-calendar {
+  &__form {
+    @extend %box-neat, %flex-between-nowrap;
+    font-size: 1.5em;
+    background: $c-bg-zebra;
+    padding: 1em 2em;
+    margin-bottom: 2em;
+    &__selects {
+      @extend %flex-center-nowrap;
+      gap: 1em;
+    }
+    > a {
+      font-size: 2em;
+    }
+  }
+}

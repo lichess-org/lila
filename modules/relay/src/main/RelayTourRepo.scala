@@ -1,10 +1,10 @@
 package lila.relay
 
 import lila.db.dsl.{ *, given }
+import lila.relay.BSONHandlers.given
+import java.time.YearMonth
 
 final private class RelayTourRepo(val coll: Coll)(using Executor):
-
-  import BSONHandlers.given
   import RelayTourRepo.*
   import RelayTour.IdName
 
@@ -60,7 +60,41 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def info(tourId: RelayTourId): Fu[Option[RelayTour.Info]] =
     coll.primitiveOne[RelayTour.Info]($id(tourId), "info")
 
+  def aggregateRoundAndUnwind(
+      otherColls: RelayColls,
+      framework: coll.AggregationFramework.type,
+      onlyKeepGroupFirst: Boolean = true
+  ) =
+    aggregateRound(otherColls, framework, onlyKeepGroupFirst) ::: List(framework.UnwindField("round"))
+
+  def aggregateRound(
+      otherColls: RelayColls,
+      framework: coll.AggregationFramework.type,
+      onlyKeepGroupFirst: Boolean = true
+  ) =
+    onlyKeepGroupFirst.so(
+      List(
+        framework.PipelineOperator(RelayListing.group.firstLookup(otherColls.group)),
+        framework.Match(RelayListing.group.firstFilter)
+      )
+    ) ::: List(
+      framework.PipelineOperator(
+        $lookup.pipeline(
+          from = otherColls.round,
+          as = "round",
+          local = "_id",
+          foreign = "tourId",
+          pipe = List(
+            $doc("$sort"      -> RelayRoundRepo.sort.desc),
+            $doc("$limit"     -> 1),
+            $doc("$addFields" -> $doc("sync.log" -> $arr()))
+          )
+        )
+      )
+    )
+
 private object RelayTourRepo:
+
   object selectors:
     val official                = $doc("tier".$exists(true))
     val publicTour              = $doc("tier".$ne(RelayTour.Tier.PRIVATE))
@@ -72,3 +106,13 @@ private object RelayTourRepo:
     def subscriberId(u: UserId) = $doc("subscribers" -> u)
     val officialActive          = officialPublic ++ active
     val officialInactive        = officialPublic ++ inactive
+    def inMonth(at: YearMonth) =
+      val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
+      $doc("dates.start" -> $doc("$gte" -> date), "dates.end" -> $doc("$lt" -> date.plusMonths(1)))
+
+  def readToursWithRound(docs: List[Bdoc]): List[RelayTour.WithLastRound] = for
+    doc   <- docs
+    tour  <- doc.asOpt[RelayTour]
+    round <- doc.getAsOpt[RelayRound]("round")
+    group = RelayListing.group.readFrom(doc)
+  yield RelayTour.WithLastRound(tour, round, group)
