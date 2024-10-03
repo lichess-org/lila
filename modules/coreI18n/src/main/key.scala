@@ -1352,6 +1352,8 @@ object I18nKey:
   object site:
     val `playWithAFriend`: I18nKey = "playWithAFriend"
     val `playWithTheMachine`: I18nKey = "playWithTheMachine"
+    val `playAFriend` = I18nKey("playAFriend")
+    val `playTheComputer` = I18nKey("playTheComputer")
     val `toInviteSomeoneToPlayGiveThisUrl`: I18nKey = "toInviteSomeoneToPlayGiveThisUrl"
     val `gameOver`: I18nKey = "gameOver"
     val `waitingForOpponent`: I18nKey = "waitingForOpponent"

@@ -1,16 +1,15 @@
 .lobby__timeline {
   @extend %page-text;
-  flex: 1 1 auto;
-  margin-top: 1em;
-  margin-inline-start: $block-gap;
-
   @include hoverflow;
+
+  padding: 1em;
 
   .entry {
     @extend %roboto;
 
     a {
-      @extend %base-font, %page-font;
+      @extend %base-font;
+      color: $c-font;
     }
 
     &:hover a {
@@ -32,9 +31,5 @@
     .line:not(.patron) {
       display: none;
     }
-  }
-
-  .more {
-    @extend %lobby__side__more;
   }
 }

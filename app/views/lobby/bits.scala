@@ -10,70 +10,6 @@ object bits:
     div(cls := "lobby__app__content lpools")
   )
 
-  def underboards(
-      tours: List[lila.tournament.Tournament],
-      simuls: List[lila.simul.Simul],
-      leaderboard: List[lila.core.user.LightPerf],
-      tournamentWinners: List[lila.tournament.Winner]
-  )(using ctx: Context) =
-    frag(
-      ctx.pref.showRatings.option(
-        div(cls := "lobby__leaderboard lobby__box")(
-          div(cls := "lobby__box__top")(
-            h2(cls := "title text", dataIcon := Icon.CrownElite)(trans.site.leaderboard()),
-            a(cls := "more", href := routes.User.list)(trans.site.more(), " »")
-          ),
-          div(cls := "lobby__box__content"):
-            table:
-              tbody:
-                leaderboard.map: l =>
-                  tr(
-                    td(lightUserLink(l.user)),
-                    td(cls := "text", dataIcon := PerfType(l.perfKey).icon)(l.rating),
-                    td(ratingProgress(l.progress))
-                  )
-        )
-      ),
-      div(cls := s"lobby__box ${if ctx.pref.showRatings then "lobby__winners" else "lobby__wide-winners"}")(
-        div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := Icon.Trophy)(trans.arena.tournamentWinners()),
-          a(cls := "more", href := routes.Tournament.leaderboard)(trans.site.more(), " »")
-        ),
-        div(cls := "lobby__box__content"):
-          table:
-            tbody:
-              tournamentWinners
-                .take(10)
-                .map: w =>
-                  tr(
-                    td(userIdLink(w.userId.some)),
-                    td:
-                      a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
-                        views.tournament.ui.scheduledTournamentNameShortHtml(w.tourName)
-                  )
-      ),
-      div(cls := "lobby__tournaments-simuls")(
-        div(cls := "lobby__tournaments lobby__box")(
-          a(cls := "lobby__box__top", href := routes.Tournament.home)(
-            h2(cls := "title text", dataIcon := Icon.Trophy)(trans.site.openTournaments()),
-            span(cls := "more")(trans.site.more(), " »")
-          ),
-          div(cls := "lobby__box__content"):
-            views.tournament.ui.enterable(tours)
-        ),
-        simuls.nonEmpty.option(
-          div(cls := "lobby__simuls lobby__box")(
-            a(cls := "lobby__box__top", href := routes.Simul.home)(
-              h2(cls := "title text", dataIcon := Icon.Group)(trans.site.simultaneousExhibitions()),
-              span(cls := "more")(trans.site.more(), " »")
-            ),
-            div(cls := "lobby__box__content"):
-              views.simul.ui.allCreated(simuls, withName = false)
-          )
-        )
-      )
-    )
-
   def showUnreadLichessMessage(using Context) =
     nopeInfo(
       cls := "unread-lichess-message",
@@ -159,4 +95,37 @@ object bits:
         span(cls := "more"):
           if e.isNow then trans.site.eventInProgress() else momentFromNow(e.startsAt)
       )
+    )
+
+  def recentTopics(forumTopics: List[lila.forum.RecentTopic])(using Context) =
+    div(cls := "topic-list")(
+      frag(
+        forumTopics
+          .map: topic =>
+            val mostRecent = topic.posts.last
+            div(
+              span(
+                a(
+                  href  := routes.ForumCateg.show(topic.categId),
+                  title := topic.categId.value.split("-").map(_.capitalize).mkString(" "),
+                  cls   := s"categ-link"
+                )(
+                  lila.forum.ForumCateg.publicShortNames.get(topic.categId).getOrElse("TEAM")
+                ),
+                ": ",
+                a(
+                  href := routes.ForumPost.redirect(mostRecent.post.id),
+                  title := s"${topic.name}\n\n${titleNameOrAnon(mostRecent.post.userId)}:  ${mostRecent.post.text}"
+                )(topic.name)
+              ),
+              div(cls := "contributors")(
+                topic.contribs match
+                  case Nil => emptyFrag
+                  case contribs =>
+                    frag(contribs.flatMap(uid => Seq[Frag](userIdLink(uid), " · ")).dropRight(1)*),
+                span(cls := "time", momentFromNow(topic.updatedAt))
+              )
+            )
+      ),
+      a(href := routes.ForumCateg.index, cls := "more")(trans.site.more(), " »")
     )

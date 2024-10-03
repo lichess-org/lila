@@ -1,4 +1,4 @@
-.hooks__chart {
+.hooks__graph {
   @extend %abs-100;
 
   bottom: 0;
@@ -83,11 +83,11 @@
     @extend %flex-column;
 
     text-align: center;
+  }
 
-    &-clickable {
-      cursor: pointer;
-      padding: 5px 0;
-    }
+  .inner-clickable {
+    cursor: pointer;
+    padding: 5px 0;
   }
 
   .opponent {

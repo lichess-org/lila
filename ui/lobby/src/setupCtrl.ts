@@ -3,16 +3,7 @@ import { debounce } from 'common/timing';
 import * as xhr from 'common/xhr';
 import { storedJsonProp, StoredJsonProp } from 'common/storage';
 import LobbyController from './ctrl';
-import {
-  ForceSetupOptions,
-  GameMode,
-  GameType,
-  InputValue,
-  PoolMember,
-  RealValue,
-  SetupStore,
-  TimeMode,
-} from './interfaces';
+import { GameMode, GameType, InputValue, PoolMember, RealValue, TimeMode } from './interfaces';
 import {
   daysVToDays,
   incrementVToIncrement,
@@ -21,11 +12,12 @@ import {
   timeModes,
   timeVToTime,
   variants,
-} from './options';
+} from './constants';
+import { pubsub } from 'common/pubsub';
 
 const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf => {
   if (!['standard', 'fromPosition'].includes(variant)) return variant as Perf;
-  if (timeMode !== 'realTime') return 'correspondence';
+  if (timeMode !== 'realtime') return 'correspondence';
 
   const totalGameTime = time * 60 + increment * 40;
   return totalGameTime < 30
@@ -38,6 +30,27 @@ const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, incre
           ? 'rapid'
           : 'classical';
 };
+
+interface SetupStore {
+  variant: VariantKey;
+  fen: string;
+  timeMode: TimeMode;
+  gameMode: GameMode;
+  ratingMin: number;
+  ratingMax: number;
+  aiLevel: number;
+  time: number;
+  increment: number;
+  days: number;
+}
+
+interface SetupOptions {
+  variant?: VariantKey;
+  fen?: string;
+  timeMode?: TimeMode;
+  time?: number;
+  increment?: number;
+}
 
 export default class SetupController {
   root: LobbyController;
@@ -78,6 +91,45 @@ export default class SetupController {
       friend: this.makeSetupStore('friend'),
       ai: this.makeSetupStore('ai'),
     };
+    const locationHash = location.hash.replace('#', '');
+    if (!['ai', 'friend', 'hook'].includes(locationHash)) return this;
+
+    const forceOptions: SetupOptions = {};
+    const urlParams = new URLSearchParams(location.search);
+    const friendUser = urlParams.get('user') ?? undefined;
+    const minutesPerSide = urlParams.get('minutesPerSide');
+    const increment = urlParams.get('increment');
+    const variant = urlParams.get('variant');
+    const time = urlParams.get('time');
+
+    if (variant) forceOptions.variant = variant as VariantKey;
+
+    if (minutesPerSide) {
+      forceOptions.time = parseInt(minutesPerSide);
+    }
+
+    if (increment) {
+      forceOptions.increment = parseInt(increment);
+    }
+
+    if (time === 'realTime') {
+      if (locationHash === 'hook') ctrl.setTab('realtime');
+      forceOptions.timeMode = 'realtime';
+    } else if (time === 'correspondence') {
+      if (locationHash === 'hook') ctrl.setTab('correspondence');
+      forceOptions.timeMode = 'correspondence';
+    }
+
+    if (locationHash !== 'hook' && urlParams.get('fen')) {
+      forceOptions.fen = urlParams.get('fen')!;
+      forceOptions.variant = 'fromPosition';
+    }
+    history.replaceState(null, '', '/');
+
+    pubsub.after('dialog.polyfill').then(() => {
+      this.openModal(locationHash as Exclude<GameType, 'local'>, forceOptions, friendUser);
+      ctrl.redraw();
+    });
   }
 
   // Namespace the store by username for user specific modal settings
@@ -87,7 +139,7 @@ export default class SetupController {
     storedJsonProp<SetupStore>(this.storeKey(gameType), () => ({
       variant: 'standard',
       fen: '',
-      timeMode: gameType === 'hook' ? 'realTime' : 'unlimited',
+      timeMode: gameType === 'hook' ? 'realtime' : 'unlimited',
       time: 5,
       increment: 3,
       days: 2,
@@ -97,7 +149,7 @@ export default class SetupController {
       aiLevel: 1,
     }));
 
-  private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
+  private loadPropsFromStore = (forceOptions?: SetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
@@ -190,11 +242,7 @@ export default class SetupController {
 
   private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
-  openModal = (
-    gameType: Exclude<GameType, 'local'>,
-    forceOptions?: ForceSetupOptions,
-    friendUser?: string,
-  ) => {
+  openModal = (gameType: Exclude<GameType, 'local'>, forceOptions?: SetupOptions, friendUser?: string) => {
     this.root.leavePool();
     this.gameType = gameType;
     this.loading = false;
@@ -239,7 +287,7 @@ export default class SetupController {
     this.timeMode() === 'unlimited' ||
     // variants with very low time cannot be rated
     (this.variant() !== 'standard' &&
-      (this.timeMode() !== 'realTime' ||
+      (this.timeMode() !== 'realtime' ||
         (this.time() < 0.5 && this.increment() == 0) ||
         (this.time() == 0 && this.increment() < 2)));
 
@@ -257,7 +305,7 @@ export default class SetupController {
       this.gameType === 'hook' &&
       this.variant() == 'standard' &&
       this.gameMode() == 'rated' &&
-      this.timeMode() == 'realTime';
+      this.timeMode() == 'realtime';
     const id = `${this.time()}+${this.increment()}`;
     return valid && this.root.pools.find(p => p.id === id)
       ? {
@@ -287,10 +335,10 @@ export default class SetupController {
     });
 
   validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
-  validTime = (): boolean => this.timeMode() !== 'realTime' || this.time() > 0 || this.increment() > 0;
+  validTime = (): boolean => this.timeMode() !== 'realtime' || this.time() > 0 || this.increment() > 0;
   validAiTime = (): boolean =>
     this.gameType !== 'ai' ||
-    this.timeMode() !== 'realTime' ||
+    this.timeMode() !== 'realtime' ||
     this.variant() !== 'fromPosition' ||
     this.time() >= 1;
   valid = (): boolean => this.validFen() && this.validTime() && this.validAiTime();
@@ -303,7 +351,8 @@ export default class SetupController {
       return;
     }
 
-    if (this.gameType === 'hook') this.root.setTab(this.timeMode() === 'realTime' ? 'real_time' : 'seeks');
+    if (this.gameType === 'hook')
+      this.root.setTab(this.timeMode() === 'realtime' ? 'realtime' : 'correspondence');
     this.loading = true;
     this.root.redraw();
 

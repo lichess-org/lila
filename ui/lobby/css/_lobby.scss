@@ -1,13 +1,13 @@
 @import 'defs';
 @import 'app/app';
-@import 'table';
+@import 'blog';
+@import 'buttons';
 @import 'stream';
 @import 'spotlight';
 @import 'timeline';
-@import 'box';
-@import 'support';
 @import 'about';
 @import 'feed';
+@import 'forum';
 @import 'layout';
 
 body {
@@ -35,8 +35,7 @@ body {
 
 .lobby__side {
   @extend %flex-column;
-
-  overflow: hidden;
+  justify-content: start;
 }
 
 .lobby__nope {
@@ -68,12 +67,6 @@ body {
   }
 }
 
-.about-side {
-  @extend %page-text-shadow !optional;
-
-  margin-top: $block-gap;
-}
-
 .lobby__tv .mini-game {
   overflow: visible;
 }
@@ -87,37 +80,38 @@ body {
   margin-inline-end: 1ch;
 }
 
-.now-playing {
-  .meta {
-    @extend %flex-column;
-
-    align-items: center;
-  }
-}
-
-.lobby__blog {
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  grid-gap: 0 2%;
-  grid-template-rows: auto; /* first row auto */
-  grid-auto-rows: 0; /* all the other rows 0 */
-  font-size: 0.9em;
-  overflow: hidden;
-  h2 {
-    @extend %page-text-shadow !optional;
-    @include line-clamp(4);
-    font-size: 1.3em;
-  }
-  .ublog-post-card {
-    background: $c-bg-box;
-    &:hover {
-      box-shadow: none;
-    }
-    .user-link {
-      border-radius: $box-radius-size 0 0 0;
-    }
-  }
-}
-
 .tour-team-icon {
   color: $c-brag;
+}
+
+.lobby__listicle {
+  @include hoverflow;
+  @include if-transp {
+    background: $m-bg--fade-50;
+    backdrop-filter: blur(6px);
+    border-radius: 6px;
+  }
+  a.more {
+    @extend %lobby__side__more;
+  }
+}
+
+.lobby__tournaments-simuls {
+  display: none;
+}
+
+.lobby__counters {
+  font-family: roboto;
+  flex-flow: column;
+  padding-top: 3em;
+
+  a {
+    color: $c-font-dim;
+
+    @include transition(color);
+
+    &:hover {
+      color: $c-link;
+    }
+  }
 }

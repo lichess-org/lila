@@ -1,59 +1,17 @@
 import * as xhr from './xhr';
 import * as hookRepo from './hookRepo';
 import LobbyController from './ctrl';
+import StrongSocket from 'common/socket';
+import { pubsub } from 'common/pubsub';
 import { PoolMember, Hook } from './interfaces';
-import { idleTimer } from 'common/timing';
 
-interface Handlers {
-  [key: string]: (data: any) => void;
-}
-
-export default class LobbySocket {
-  handlers: Handlers;
-
-  constructor(
-    readonly send: SocketSend,
-    ctrl: LobbyController,
-  ) {
-    this.handlers = {
-      had(hook: Hook) {
-        hookRepo.add(ctrl, hook);
-        if (hook.action === 'cancel') ctrl.flushHooks(true);
-        ctrl.redraw();
-      },
-      hrm(ids: string) {
-        ids.match(/.{8}/g)!.forEach(function (id) {
-          hookRepo.remove(ctrl, id);
-        });
-        ctrl.redraw();
-      },
-      hooks(hooks: Hook[]) {
-        hookRepo.setAll(ctrl, hooks);
-        ctrl.flushHooks(true);
-        ctrl.redraw();
-      },
-      hli(ids: string) {
-        hookRepo.syncIds(ctrl, ids.match(/.{8}/g) || []);
-        ctrl.redraw();
-      },
-      reload_seeks() {
-        if (ctrl.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
-      },
-    };
-
-    idleTimer(
-      3 * 60 * 1000,
-      () => send('idle', true),
-      () => {
-        send('idle', false);
-        ctrl.awake();
-      },
-    );
-  }
+export class LobbySocket {
+  send = site.socket.send;
 
   realTimeIn() {
     this.send('hookIn');
   }
+
   realTimeOut() {
     this.send('hookOut');
   }
@@ -70,12 +28,70 @@ export default class LobbySocket {
   poolOut(member: PoolMember) {
     this.send('poolOut', member.id);
   }
+}
 
-  receive = (tpe: string, data: any): boolean => {
-    if (this.handlers[tpe]) {
-      this.handlers[tpe](data);
+export function makeSocket(ctrl: LobbyController): LobbySocket {
+  const handlers: Record<string, (d: any) => boolean> = {
+    had(hook: Hook) {
+      hookRepo.add(ctrl, hook);
+      if (hook.action === 'cancel') ctrl.flushHooks(true);
+      ctrl.redraw();
       return true;
-    }
-    return false;
+    },
+    hrm(ids: string) {
+      ids.match(/.{8}/g)!.forEach(function (id) {
+        hookRepo.remove(ctrl, id);
+      });
+      ctrl.redraw();
+      return true;
+    },
+    hooks(hooks: Hook[]) {
+      hookRepo.setAll(ctrl, hooks);
+      ctrl.flushHooks(true);
+      ctrl.redraw();
+      return true;
+    },
+    hli(ids: string) {
+      hookRepo.syncIds(ctrl, ids.match(/.{8}/g) || []);
+      ctrl.redraw();
+      return true;
+    },
+    reload_seeks() {
+      if (ctrl.tab.active === 'correspondence') xhr.seeks().then(ctrl.setSeeks);
+      return true;
+    },
   };
+  site.socket = new StrongSocket('/lobby/socket/v5', false, {
+    receive: (t: string, d: any) => handlers[t]?.(d) ?? false,
+    events: {
+      n(_: string, msg: any) {
+        ctrl.spreadPlayersNumber && ctrl.spreadPlayersNumber(msg.d);
+        setTimeout(
+          () => ctrl.spreadGamesNumber && ctrl.spreadGamesNumber(msg.r),
+          site.socket.pingInterval() / 2,
+        );
+      },
+      reload_timeline() {
+        xhr.text('/timeline').then(html => {
+          $('.timeline').html(html);
+          pubsub.emit('content-loaded');
+        });
+      },
+      featured(o: { html: string }) {
+        $('.lobby__tv').html(o.html);
+        pubsub.emit('content-loaded');
+      },
+      redirect(e: RedirectTo) {
+        ctrl.setRedirecting();
+        ctrl.leavePool();
+        site.redirect(e, true);
+        return true;
+      },
+      fen(e: any) {
+        ctrl.gameActivity(e.id);
+      },
+    },
+  });
+
+  return new LobbySocket();
 }

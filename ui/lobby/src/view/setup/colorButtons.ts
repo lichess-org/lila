@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { spinnerVdom } from 'common/spinner';
-import LobbyController from '../../../ctrl';
-import { colors, variantsWhereWhiteIsBetter } from '../../../options';
+import LobbyController from '../../ctrl';
+import { colors, variantsWhereWhiteIsBetter } from '../../constants';
 import { option } from './option';
 
 const renderBlindModeColorPicker = (ctrl: LobbyController) => [

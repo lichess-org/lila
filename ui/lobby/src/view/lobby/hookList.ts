@@ -1,8 +1,7 @@
 import { h } from 'snabbdom';
 import LobbyController from '../../ctrl';
-import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import { tds, perfNames } from '../util';
+import { perfNames } from '../../constants';
 import perfIcons from 'common/perfIcons';
 import * as hookRepo from '../../hookRepo';
 import { Hook } from '../../interfaces';
@@ -24,14 +23,20 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
         'data-id': hook.id,
       },
     },
-    tds([
-      hook.rating
-        ? h('span.ulink.ulpt', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
-        : noarg('anonymous'),
-      hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : '',
-      hook.clock,
-      h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, noarg(hook.ra ? 'rated' : 'casual')),
-    ]),
+    [
+      h(
+        'td',
+        hook.rating
+          ? h('span.ulink.ulpt', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
+          : noarg('anonymous'),
+      ),
+      h('td', hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : ''),
+      h('td', hook.clock),
+      h(
+        'td',
+        h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, noarg(hook.ra ? 'rated' : 'casual')),
+      ),
+    ],
   );
 }
 
@@ -41,14 +46,7 @@ const isMine = (hook: Hook) => hook.action === 'cancel';
 
 const isNotMine = (hook: Hook) => !isMine(hook);
 
-export const toggle = (ctrl: LobbyController) =>
-  h('i.toggle', {
-    key: 'set-mode-chart',
-    attrs: { title: ctrl.trans.noarg('graph'), 'data-icon': licon.LineGraph },
-    hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
-  });
-
-export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
+export const renderHookList = (ctrl: LobbyController, allHooks: Hook[]) => {
   const mine = allHooks.find(isMine),
     max = mine ? 13 : 14,
     hooks = allHooks.slice(0, max),

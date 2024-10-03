@@ -31,6 +31,14 @@ case class TopicView(
   def name      = topic.name
   def createdAt = topic.createdAt
 
+case class RecentTopic(minis: List[lila.core.forum.ForumPostMiniView]):
+  val posts     = minis.sortBy(_.post.createdAt)(Ordering[Instant])
+  val name      = posts.head.topic.name
+  val categId   = posts.head.topic.categId
+  val postId    = posts.head.post.id
+  val updatedAt = posts.last.post.createdAt
+  val contribs  = posts.map(_.post.userId).distinct.reverse
+
 case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
   def show         = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
   def logFormatted = "%s / %s#%s / %s".format(categ.name, topic.name, post.number, post.text)

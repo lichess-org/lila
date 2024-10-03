@@ -1,0 +1,44 @@
+.lobby__forum {
+  @extend %page-text;
+  @include hoverflow;
+
+  display: block;
+  white-space: nowrap;
+  padding: 0.5em;
+
+  .topic-list > * {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: 0.5em;
+
+    a {
+      @extend %base-font;
+      color: $c-font;
+    }
+
+    .categ-link {
+      font-size: smaller;
+      font-weight: bold;
+      color: $c-font-dimmer;
+    }
+
+    a:hover {
+      color: $c-link;
+    }
+
+    .line:not(.patron) {
+      display: none;
+    }
+    time {
+      @extend %roboto;
+    }
+  }
+
+  .contributors {
+    @extend %base-font;
+    display: flex;
+    flex-flow: row wrap;
+    column-gap: 0.3em;
+    padding-inline-start: 0.5em;
+  }
+}

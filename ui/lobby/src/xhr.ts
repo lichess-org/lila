@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 import debounce from 'debounce-promise';
 import { Pool, Seek } from './interfaces';
 
+export { text, url } from 'common/xhr';
 export const seeks: () => Promise<Seek[]> = debounce(() => xhr.json('/lobby/seeks'), 2000);
 
 export const nowPlaying = () => xhr.json('/account/now-playing').then(o => o.nowPlaying);

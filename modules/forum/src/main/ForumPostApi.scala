@@ -239,4 +239,15 @@ final class ForumPostApi(
       )
     }
 
+  def recentTopics(nb: Int, categs: List[ForumCategId] = Nil): Fu[List[RecentTopic]] =
+    postRepo
+      .recentInCategs(nb * 3)(ForumCateg.publicNames.keys.toList ::: categs, Nil)
+      .flatMap(miniPosts)
+      .map:
+        _.groupBy(_.topic.name)
+          .collect { case (_, minis) => RecentTopic(minis) }
+          .toList
+          .sortBy(_.updatedAt)(Ordering[Instant].reverse)
+          .take(nb)
+
   export postRepo.nonGhostCursor
