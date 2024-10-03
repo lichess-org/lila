@@ -192,6 +192,7 @@
   <string name="changeUsername">യുസര്‍നെയിം മാറ്റുക</string>
   <string name="changeUsernameNotSame">അക്ഷരങ്ങളുടെ കേസിനു മാത്രമേ മാറാൻ കഴിയുകയുള്ളൂ. ഉദാഹരണത്തിന് \"johndoe\" എന്നത് \"JohnDoe\" എന്നായി മാറും.</string>
   <string name="changeUsernameDescription">നിങ്ങളുടെ യൂസർനെയിം മാറ്റുക. ഇത് ഒരിക്കൽ മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളു. അതിൽ തന്നെ യൂസർനെയിമിന്റെ അക്ഷരങ്ങളുടെ കേസ് മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളൂ.</string>
+  <string name="signupEmailHint">ഞങ്ങൾ ഇത് വെരും രഹസ്യവാക്ക് മാറ്റാൻ ഉപയോഗിക്കും.</string>
   <string name="password">രഹസ്യവാക്ക്</string>
   <string name="changePassword">രഹസ്യവാക്ക് മാറ്റുക</string>
   <string name="changeEmail">ഇമെയില്‍ മാറ്റുക</string>
@@ -202,6 +203,7 @@
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
   <string name="emailConfirmHelp">മെയിൽ ഉറപ്പിന് സഹായം</string>
   <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
+  <string name="accountRegisteredWithoutEmail">%s - ഈ അക്കൌണ്ട്  ഒരു ഇമെയിൽ ഇല്ലാതെ ഉണ്ടാക്കിയിരുന്നു.</string>
   <string name="rank">റാങ്ക്</string>
   <string name="rankX">റാങ്ക്: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -637,7 +639,7 @@
   <string name="checkYourEmail">നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കൂ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ഞങ്ങൾ നിങ്ങൾക്കൊരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിലിലെ ലിങ്ക് ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ അക്കൗണ്ട് ആക്ടിവേറ്റ് ചെയ്യൂ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>
-  <string name="weHaveSentYouAnEmailTo">%s ഞങ്ങൾ ഒരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിൽ ലിങ്കിൽ ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ പാസ്സ്‌വേർഡ് പുനഃക്രമീകരിക്കാവുന്നതാണ്.</string>
+  <string name="weHaveSentYouAnEmailTo">%s ഞങ്ങൾ ഒരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിൽ കണ്ണിയിൽ (ലിങ്കിൽ) ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ പാസ്സ്‌വേർഡ് പുനഃക്രമീകരിക്കാവുന്നതാണ്.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">രജിസ്റ്റർ ചെയ്യുന്നത് വഴി നിങ്ങൾ ഞങ്ങളുടെ %s പിന്തുടരുമെന്നു സമ്മതിക്കുന്നു.</string>
   <string name="readAboutOur">%s ഇനി കുറിച്ച് വായിക്കുക.</string>
   <string name="networkLagBetweenYouAndLichess">നിങ്ങളും lichessഉം തമ്മിലുള്ള നെറ്റ്വർക്ക് കാലയളവ്</string>
@@ -690,6 +692,10 @@
   <string name="dark">ഇരുണ്ടത്</string>
   <string name="transparent">സുതാര്യത</string>
   <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
+  <string name="board">ബോർഡ്</string>
+  <string name="size">വലിപ്പം</string>
+  <string name="opacity">ഇരുൾ</string>
+  <string name="brightness">കൂരിരുട്ട്</string>
   <string name="hue">നിറം</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
@@ -818,4 +824,5 @@
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
+  <string name="showMeEverything">എല്ലാം കാണിക്കുക</string>
 </resources>
