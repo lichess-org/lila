@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">일부 리체스 페이지에는 사용할 수 있는 키보드 단축키가 있습니다. 학습, 분석, 퍼즐 또는 게임 페이지에서 \'?\' 키를 누르면 사용 가능한 키보드 단축키가 나열됩니다.</string>
   <string name="fairPlay">페어플레이</string>
   <string name="whenAmIEligibleRatinRefund">부정행위자로 인한 레이팅 자동 환급은 언제 되나요?</string>
-  <string name="ratingRefundExplanation">부정행위자가 적발되면 1분 뒤에 지난 3일간의 최근 40 레이팅 경기를 확인합니다. 당신이 그들과 상대했고 (패배 또는 무승부로 인해) 레이팅을 잃었다면, 그리고 당신의 레이팅이 임시 레이팅이 아니라면, 레이팅을 환급받게 됩니다. 환불은 당신의 최고 레이팅과 그 게임 이후의 상승에 따라 제한될 수 있습니다.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">부정행위자가 적발되면 1분 뒤에 지난 3일간의 최근 40 레이팅 경기를 확인합니다. 당신이 그들과 상대했고 (패배 또는 무승부로 인해) 레이팅을 잃었다면, 그리고 당신의 레이팅이 임시 레이팅이 아니라면, 레이팅을 환급받게 됩니다. 환불은 당신의 최고 레이팅과 그 게임 이후의 상승에 따라 제한될 수 있습니다.
   (예를 들어, 이 게임 이후에 레이팅이 크게 올랐다면, 환급을 받지 못하거나 일부만 받습니다.) 환급은 150포인트를 초과하지 않습니다.</string>
   <string name="preventLeavingGameWithoutResigning">플레이어가 기권하지 않고 게임을 나가면 어떻게 되나요?</string>
   <string name="leavingGameWithoutResigningExplanation">상대가 게임을 자주 중단/탈주하면 \"플레이 금지\" 처분을 받습니다. 이는 일시적으로 게임을 할 수 없다는 의미입니다. 이것은 프로필에 공개적으로 표시되지 않습니다. 이러한 행동이 계속된다면 금지 기간은 계속 증가하고 계정 폐쇄로 이어질 수 있습니다.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">불렛, 블리츠와 다른 시간 제한은 어떻게 결정되나요?</string>
   <string name="basedOnGameDuration">Lichess의 시간 제한은 예상 게임 시간에 기반합니다 = %1$s
 예를 들어 5+3 게임의 예상 시간은 5 × 60 + 40 × 3 = 420초입니다.</string>
-  <string name="durationFormula">(초기 시간) + 40 × (증분)</string>
+  <string name="durationFormula">(초기 시간) + 40 × (추가 시간)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s초 = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s초 = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess에서 플레이할 수 있는 변형 체스에는 무엇이 있나요?</string>
