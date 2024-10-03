@@ -647,7 +647,7 @@
   <string name="downloadImported">Import ചെയ്തത് ഡൌൺലോഡ് ചെയ്യുക</string>
   <string name="crosstable">ക്രോസ്സ്‌റ്റേബിൾ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ചതുരംഗ പലകയിൽ സ്ക്രോൾ ചെയ്തും കളിയുടെ നീക്കം നടത്താവുന്നതാണ്.</string>
-  <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക</string>
+  <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക.</string>
   <string name="letOtherPlayersMessageYou">മറ്റുള്ള കളിക്കാർ നിങ്ങൾക്ക് സന്ദേശമയക്കുന്നതിനുള്ള അനുവാദം</string>
   <string name="shareYourInsightsData">നിങ്ങളെ കുറിച്ച് കൂടുതൽ വിവരം പങ്കു വെക്കൂ</string>
   <string name="withNobody">ആരോടും വേണ്ട</string>
