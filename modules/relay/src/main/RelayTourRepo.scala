@@ -63,14 +63,17 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def aggregateRoundAndUnwind(
       otherColls: RelayColls,
       framework: coll.AggregationFramework.type,
-      onlyKeepGroupFirst: Boolean = true
+      onlyKeepGroupFirst: Boolean = true,
+      roundPipeline: Option[List[Bdoc]] = None
   ) =
-    aggregateRound(otherColls, framework, onlyKeepGroupFirst) ::: List(framework.UnwindField("round"))
+    aggregateRound(otherColls, framework, onlyKeepGroupFirst, roundPipeline) :::
+      List(framework.UnwindField("round"))
 
   def aggregateRound(
       otherColls: RelayColls,
       framework: coll.AggregationFramework.type,
-      onlyKeepGroupFirst: Boolean = true
+      onlyKeepGroupFirst: Boolean = true,
+      roundPipeline: Option[List[Bdoc]] = None
   ) =
     onlyKeepGroupFirst.so(
       List(
@@ -84,7 +87,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
           as = "round",
           local = "_id",
           foreign = "tourId",
-          pipe = List(
+          pipe = roundPipeline | List(
             $doc("$sort"      -> RelayRoundRepo.sort.desc),
             $doc("$limit"     -> 1),
             $doc("$addFields" -> $doc("sync.log" -> $arr()))
@@ -110,9 +113,11 @@ private object RelayTourRepo:
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
       $doc("dates.start" -> $doc("$gte" -> date), "dates.end" -> $doc("$lt" -> date.plusMonths(1)))
 
-  def readToursWithRound(docs: List[Bdoc]): List[RelayTour.WithLastRound] = for
+  def readToursWithRound[A](
+      as: (RelayTour, RelayRound, Option[RelayGroup.Name]) => A
+  )(docs: List[Bdoc]): List[A] = for
     doc   <- docs
     tour  <- doc.asOpt[RelayTour]
     round <- doc.getAsOpt[RelayRound]("round")
     group = RelayListing.group.readFrom(doc)
-  yield RelayTour.WithLastRound(tour, round, group)
+  yield as(tour, round, group)

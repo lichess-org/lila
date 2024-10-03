@@ -55,7 +55,7 @@ final class RelayPager(
                 Limit(length)
               )
             }
-          .map(readToursWithRound)
+          .map(readToursWithRound(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -75,7 +75,7 @@ final class RelayPager(
                 Limit(length)
               )
             }
-          .map(readToursWithRound)
+          .map(readToursWithRound(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -96,7 +96,7 @@ final class RelayPager(
               Limit(length)
             )
           }
-        .map(readToursWithRound)
+        .map(readToursWithRound(RelayTour.WithLastRound.apply))
 
     private val firstPageCache = cacheApi.unit[List[WithLastRound]]:
       _.refreshAfterWrite(3 seconds).buildAsyncFuture: _ =>
@@ -169,7 +169,7 @@ final class RelayPager(
                   tourRepo.aggregateRoundAndUnwind(colls, framework, onlyKeepGroupFirst) :::
                   List(Skip(offset), Limit(length))
               }
-            .map(readToursWithRound)
+            .map(readToursWithRound(RelayTour.WithLastRound.apply))
       ,
       currentPage = page,
       maxPerPage = maxPerPage

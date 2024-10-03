@@ -5,7 +5,7 @@ import java.time.{ Month, YearMonth }
 import scalalib.paginator.Paginator
 
 import lila.core.LightUser
-import lila.relay.RelayTour.WithLastRound
+import lila.relay.RelayTour.{ WithLastRound, WithFirstRound }
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
@@ -107,12 +107,12 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       renderPager(pager)(routes.RelayTour.allPrivate)
     )
 
-  def calendar(at: YearMonth, tours: List[WithLastRound])(using ctx: Context) =
+  def calendar(at: YearMonth, tours: List[WithFirstRound])(using ctx: Context) =
     def url(y: Int, m: Month) = routes.RelayTour.calendarMonth(y, m.getValue)
     Page(s"${trans.site.tournamentCalendar.txt()} ${showYearMonth(at)}")
       .css("bits.relay.calendar"):
         main(cls := "relay-calendar page-menu")(
-          pageMenu("index"),
+          pageMenu("calendar"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trans.site.tournamentCalendar())),
             div(cls := "relay-calendar__form")(
@@ -147,7 +147,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             ),
             div(cls := "relay-cards relay-cards--past"):
               tours.map: t =>
-                card.render(t, live = _ => false)
+                card.render(t, live = _ => false, absTime = true)
           )
         )
 
@@ -231,7 +231,12 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     private def image(t: RelayTour) = t.image.fold(ui.thumbnail.fallback(cls := "relay-card__image")): id =>
       img(cls := "relay-card__image", src := ui.thumbnail.url(id, _.Size.Small))
 
-    def render[A <: RelayRound.AndTourAndGroup](tr: A, live: A => Boolean, errors: List[String] = Nil)(using
+    def render[A <: RelayRound.AndTourAndGroup](
+        tr: A,
+        live: A => Boolean,
+        errors: List[String] = Nil,
+        absTime: Boolean = false
+    )(using
         Context
     ) =
       link(tr.tour, tr.path, live(tr))(
@@ -248,7 +253,11 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
                   .map: nb =>
                     span(cls := "relay-card__crowd text", dataIcon := Icon.User)(nb.localize)
               )
-            else tr.display.startedAt.orElse(tr.display.startsAtTime).map(momentFromNow(_))
+            else
+              tr.display.startedAt
+                .orElse(tr.display.startsAtTime)
+                .map: date =>
+                  if absTime then span(showDate(date)) else momentFromNow(date)
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           if errors.nonEmpty
