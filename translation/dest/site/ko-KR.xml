@@ -546,7 +546,7 @@
   <string name="newPasswordsDontMatch">새로운 비밀번호가 일치하지 않습니다</string>
   <string name="newPasswordStrength">비밀번호 강도</string>
   <string name="clockInitialTime">기본 시간</string>
-  <string name="clockIncrement">한 수당 증가하는 시간</string>
+  <string name="clockIncrement">수 당 추가 시간</string>
   <string name="privacy">보안</string>
   <string name="privacyPolicy">개인정보취급방침</string>
   <string name="letOtherPlayersFollowYou">다른 사람이 팔로우할 수 있게 함</string>
@@ -581,8 +581,8 @@
   </plurals>
   <string name="listBlockedPlayers">이 플레이어를 차단</string>
   <string name="human">인간</string>
-  <string name="computer">인공지능</string>
-  <string name="side">진영</string>
+  <string name="computer">컴퓨터</string>
+  <string name="side">색</string>
   <string name="clock">시계</string>
   <string name="opponent">상대</string>
   <string name="learnMenu">배우기</string>
@@ -590,7 +590,7 @@
   <string name="practice">연습</string>
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
-  <string name="increment">시간 증가</string>
+  <string name="increment">추가 시간</string>
   <string name="error.unknown">잘못된 값</string>
   <string name="error.required">필수 기입 사항입니다.</string>
   <string name="error.email">이메일 주소가 유효하지 않습니다</string>
