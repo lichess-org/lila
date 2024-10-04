@@ -30,6 +30,9 @@
   <string name="puzzleComplete">Ο γρίφος ολοκληρώθηκε!</string>
   <string name="byOpenings">Ανά άνοιγμα</string>
   <string name="puzzlesByOpenings">Γρίφοι ανά άνοιγμα</string>
+  <string name="openingsYouPlayedTheMost">Ανοίγματα που παίξατε πιο συχνά σε βαθμολογημένες παρτίδες σκάκι</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Πατήστε «Εύρεση στη σελίδα» στο μενού του προγράμματος περιήγησης, για να βρείτε το αγαπημένο σας άνοιγμα!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Πατήστε Ctrl+f για να βρείτε το αγαπημένο σας άνοιγμα!</string>
   <string name="notTheMove">Δεν είναι αυτή η κίνηση!</string>
   <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
   <string name="ratingX">Βαθμολογία: %s</string>
