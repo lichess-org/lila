@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">മറ്റാരുടെയെങ്കിലും കൂടെ മത്സരിക്കുവാനായി ഈ ലിങ്ക് നല്കുക</string>
   <string name="gameOver">കളി അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="waitingForOpponent">എതിരാളിക്കായി കാത്തിരിക്കുന്നു</string>
+  <string name="orLetYourOpponentScanQrCode">അല്ലെങ്കിൽ താങ്ങളുടെ എതിരാളിയേ ഈ QR കേഡ് സ്കാൻ ചെയാൻ പറയുക</string>
   <string name="waiting">കാത്തിരിക്കുന്നു</string>
   <string name="yourTurn">താങ്കളുടെ ഊഴം</string>
   <string name="aiNameLevelAiLevel">%1$s തരം %2$s</string>
@@ -93,6 +94,7 @@
   </plurals>
   <string name="dtzWithRounding">L</string>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
+  <string name="maxDepthReached">പരമാവധി ആഴം എതിയിരിക്കുന്നു!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
   <string name="openings">തുറക്കൽ നീക്കം</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
