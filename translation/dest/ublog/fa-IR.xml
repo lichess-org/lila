@@ -17,8 +17,8 @@
   <string name="postBody">متنِ وبنوشت</string>
   <string name="drafts">پیش‌نویس‌ها</string>
   <string name="published">منتشر شده</string>
-  <string name="createBlogDiscussion">فعال‌سازی نظرات</string>
-  <string name="createBlogDiscussionHelp">یک گفتگو انجمنی برای دیگران ساخته خواهد شد تا درباره نوشته‌تان نظر دهند</string>
+  <string name="createBlogDiscussion">فعال‌سازی نظرها</string>
+  <string name="createBlogDiscussionHelp">یک گفتگوی انجمنی برای دیگران ساخته خواهد شد تا دربارهٔ نوشته‌تان نظر دهند</string>
   <string name="publishOnYourBlog">روی وبنوشت‌تان منتشر کنید</string>
   <string name="publishHelp">اگر علامت زنید، نوشته در وبنوشت‌تان قرار می‌گیرد. اگر نه، در نوشته‌های پیش‌نویس‌تان، خصوصی خواهد شد</string>
   <plurals name="publishedNbBlogPosts">
