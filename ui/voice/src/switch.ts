@@ -13,14 +13,10 @@ export class Switch<K extends string = string, V extends Selectable = Selectable
 
   private selected: K | false = false;
   private ctx: any;
-  private storage?: string;
 
-  constructor(opts?: { storage?: string; items?: Map<K, V>; context?: any }) {
+  constructor(opts?: { items?: Map<K, V>; context?: any }) {
     this.items = opts?.items ? opts.items : new Map();
     this.ctx = opts?.context ?? this;
-    if (opts?.storage)
-      this.storage = opts.storage + (document.body.dataset.user ? `:${document.body.dataset.user}` : '');
-    this.selected = (this.storage && (localStorage.getItem(this.storage) as K)) || false;
   }
 
   get key(): K | false {
@@ -44,19 +40,15 @@ export class Switch<K extends string = string, V extends Selectable = Selectable
     this.value?.select?.(this.ctx);
   }
 
-  set(newKey: K | false): void {
-    const oldKey = this.selected;
-    if (oldKey) {
-      if (oldKey === newKey) return;
+  set(newKey: K | false): boolean {
+    if (newKey && !this.items.has(newKey)) return false;
+    if (this.selected) {
+      if (this.selected === newKey) return true;
       this.value?.deselect?.(this.ctx);
     }
     this.selected = newKey;
     this.value?.select?.(this.ctx);
-
-    if (!this.storage) return;
-
-    if (newKey === false) localStorage.removeItem(this.storage);
-    else localStorage.setItem(this.storage, String(this.selected));
+    return true;
   }
 
   keyOf(val: V): K | false {

@@ -58,7 +58,7 @@ object home:
               iconTag(patronIconChar),
               div(strong(trans.patron.donate()), span(trans.patron.lichessPatron()))
             ),
-            a(cls := "lobby__support lobby__store", href := "https://shop.spreadshirt.com/lichess-org")(
+            a(cls := "lobby__support lobby__swag-store", href := "https://shop.spreadshirt.com/lichess-org")(
               iconTag(Icon.Tshirt),
               div(strong("Swag Store"), span(trans.site.playChessInStyle()))
             )

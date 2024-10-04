@@ -1,7 +1,7 @@
 import { type KaldiRecognizer, type Model, createModel } from 'vosk-browser';
 import type { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
 import type { RecognizerOpts, VoskModule } from './interfaces';
-import { type Selectable, Switch } from 'common/switch';
+import { type Selectable, Switch } from './switch';
 
 const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
 

@@ -1,105 +1,89 @@
-import { Switch } from 'common/switch';
 import LobbyController from './ctrl';
 import * as xhr from './xhr';
 import { AppTab as AppTabKey, Tab as TabKey } from './interfaces';
 
 export class TabCtrl {
-  app: Switch<AppTabKey, Switch<TabKey, SecondaryTab>> = new Switch({ storage: 'lobby.tab' });
+  storagePostfix = document.body.dataset.user ? `:${document.body.dataset.user}` : '';
+  active: TabKey;
+  appTab: AppTabKey;
 
   private tabs: { [tab in TabKey]?: SecondaryTab } = {
+    quick: { primary: 'quick', available: () => !this.ctrl.me?.isBot },
     realtime: {
+      primary: 'lobby',
       i18n: 'Real time',
+      available: () => !this.ctrl.me?.isBot,
       enter: () => this.ctrl.socket.realTimeIn(),
       exit: () => this.ctrl.socket.realTimeOut(),
     },
     correspondence: {
+      primary: 'lobby',
       i18n: 'Correspondence',
+      available: () => !this.ctrl.me?.isBot,
       enter: () => xhr.seeks().then(this.ctrl.setSeeks),
     },
-    playing: { i18n: 'Playing' },
-    recent: { i18n: 'Recent' },
-    tournament: {},
-    quick: {},
+    tournament: { primary: 'tournament', available: () => !!this.ctrl.me },
+    playing: { primary: 'your', i18n: 'Playing', available: () => this.ctrl.data.nbNowPlaying > 0 },
+    recent: { primary: 'your', i18n: 'Recent', available: () => !!this.ctrl.me },
   };
 
   constructor(readonly ctrl: LobbyController) {
-    if (!this.app.key) this.app.set('quick');
-    const mapTabs = (tabs: TabKey[]) =>
-      new Map(tabs.map(tab => [tab, this.tabs[tab]!]) as [TabKey, SecondaryTab][]);
+    this.active = localStorage.getItem('lobby.tab' + this.storagePostfix) as TabKey;
+    if (!this.active || !this.tabs[this.active]?.available())
+      this.active = Object.entries(this.tabs).filter(([, tab]) => tab.available())[0][0] as TabKey;
 
-    if (!ctrl.me?.isBot) {
-      this.app.add('quick', new Switch({}));
-
-      const lobbySwitch = new Switch({
-        storage: 'lobby.tab.lobby',
-        items: mapTabs(['realtime', 'correspondence']),
-      });
-      if (!lobbySwitch.key) lobbySwitch.set('realtime');
-
-      this.app.add('lobby', lobbySwitch);
-
-      if (ctrl.me) this.app.add('tournament', new Switch({}));
-    }
-    if (ctrl.me) {
-      const yourSwitch = new Switch({
-        storage: 'lobby.tab.your',
-        items: mapTabs(ctrl.data.nbNowPlaying ? ['playing', 'recent'] : ['recent']),
-      });
-      if (!yourSwitch.key) yourSwitch.set('recent');
-
-      this.app.add('your', yourSwitch);
-      if (ctrl.me?.isBot) this.app.set('your');
-    }
-    if (!this.app.key) this.app.set('quick');
+    this.appTab = this.tabs[this.active]!.primary;
   }
 
-  get primary() {
-    return this.app.key;
+  get showingHooks(): boolean {
+    return this.active === 'realtime'; // || this.tab === 'variant';
   }
 
-  get active() {
-    return this.app.value?.key || this.app.key || 'lobby';
-  }
-
-  get showingHooks() {
-    return this.active === 'realtime'; // || this.active === 'variant';
-  }
-
-  get primaries(): [TabKey, string][] {
+  get visibleAppTabNames(): [TabKey, string][] {
     const primaryI18n: [AppTabKey, string][] = [
       ['quick', 'Quick'],
       ['lobby', 'Lobby'],
       ['tournament', 'Tournament'],
       ['your', 'Your games'],
     ];
-    return primaryI18n.filter(([k]) => this.app.items.has(k));
+    return primaryI18n.filter(([k]) => Object.values(this.tabs).some(t => t.available() && t.primary === k));
   }
 
-  get secondaries() {
-    return [...(this.app.value?.items.entries() ?? [])].map(([k, v]) => [k, v.i18n]) as [TabKey, string][];
+  get visibleSecondaryTabNames(): [TabKey, string][] {
+    const appTab = this.appTab;
+    return Object.entries(this.tabs)
+      .filter(([, t]) => t.available() && t.i18n && t.primary === appTab)
+      .map(([k, t]) => [k, t.i18n] as [TabKey, string]);
   }
 
   isShowing(tab: TabKey) {
-    return this.active === tab || this.primary === tab;
+    return this.active === tab || this.tabs[this.active]?.primary === tab;
   }
 
-  setTab(tab: TabKey) {
-    const oldAppKey = this.app.key;
-    const oldActiveKey = this.active;
-    //console.log(`setTab(tab = '${tab}, oldAppKey = ${oldAppKey}, oldActiveKey = ${oldActiveKey})`);
-    if (oldAppKey === tab || oldActiveKey === tab) return;
+  setTab(newKey: TabKey) {
+    if (newKey === 'your') newKey = this.getPreferredSecondary('your');
+    else if (newKey === 'lobby') newKey = this.getPreferredSecondary('lobby');
+    this.tabs[this.active]?.exit?.();
+    this.active = newKey;
+    const tab = this.tabs[newKey];
+    this.appTab = tab?.primary || 'your';
+    tab?.enter?.();
+    if (tab?.primary === 'your' || tab?.primary === 'lobby')
+      localStorage.setItem(`lobby.tab.${tab.primary}` + this.storagePostfix, this.active);
+    localStorage.setItem('lobby.tab' + this.storagePostfix, this.active);
+  }
 
-    if (this.app.items.has(tab as AppTabKey)) {
-      this.app.set(tab as AppTabKey);
-    } else {
-      const secondary = [...this.app.items.values()].find(x => x?.items.has(tab))!;
-      this.app.set(this.app.keyOf(secondary));
-
-      secondary.set(tab);
-    }
-    this.tabs[oldActiveKey]?.exit?.();
-    this.tabs[tab]?.enter?.();
+  getPreferredSecondary<Key extends TabKey>(tab: AppTabKey) {
+    const secondary = localStorage.getItem(`lobby.tab.${tab}` + this.storagePostfix) as Key;
+    if (this.tabs[secondary]?.available()) return secondary;
+    return Object.entries(this.tabs).filter(([, t]) => t.primary === tab && t.available())[0][0] as Key;
   }
 }
 
-type SecondaryTab = { i18n?: string; enter?: () => void; exit?: () => void };
+interface SecondaryTab {
+  i18n?: string;
+  primary: AppTabKey;
+  available(): boolean;
+  enter?: () => void;
+  exit?: () => void;
+}

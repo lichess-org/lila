@@ -121,7 +121,7 @@ export default class LobbyController {
 
   private doFlushHooks() {
     this.stepHooks = this.data.hooks.slice(0);
-    if (this.tab.primary === 'lobby') this.redraw();
+    if (this.tab.appTab === 'lobby') this.redraw();
   }
 
   flushHooks = (now: boolean) => {
@@ -129,7 +129,7 @@ export default class LobbyController {
     if (now) this.doFlushHooks();
     else {
       this.stepping = true;
-      if (this.tab.primary === 'lobby') this.redraw();
+      if (this.tab.appTab === 'lobby') this.redraw();
       setTimeout(() => {
         this.stepping = false;
         this.doFlushHooks();

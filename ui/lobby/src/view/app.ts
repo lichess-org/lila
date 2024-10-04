@@ -10,11 +10,11 @@ import { Tab } from '../interfaces';
 export function renderApp(ctrl: LobbyController) {
   let body: LooseVNodes = [],
     data: VNodeData = {},
-    cls: string = String(ctrl.tab.primary);
+    cls: string = ctrl.tab.appTab;
   const redirBlock = ctrl.redirecting && !ctrl.tab.showingHooks;
   if (redirBlock) body = [spinner()];
   else
-    switch (ctrl.tab.primary) {
+    switch (ctrl.tab.appTab) {
       case 'quick':
         ({ body, data } = renderQuickTab(ctrl));
         break;
@@ -28,12 +28,12 @@ export function renderApp(ctrl: LobbyController) {
         body = renderYourGamesTab(ctrl);
         break;
     }
-  const secondaries = ctrl.tab.secondaries;
-  return h('div.lobby__app.lobby__app-' + ctrl.tab.primary, [
+  const secondaries = ctrl.tab.visibleSecondaryTabNames;
+  return h('div.lobby__app.lobby__app-' + ctrl.tab.appTab, [
     h(
       'div.tabs-horiz',
       { attrs: { role: 'tablist' } },
-      ctrl.tab.primaries.map(([k, v]) => renderTab(ctrl, k, v)),
+      ctrl.tab.visibleAppTabNames.map(([k, v]) => renderTab(ctrl, k, v)),
     ),
     secondaries.length > 1 &&
       h(
