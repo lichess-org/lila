@@ -18,7 +18,7 @@ final class RelayPager(
   import BSONHandlers.given
   import RelayTourRepo.{ selectors, readToursWithRound }
 
-  private val maxPerPage = MaxPerPage(20)
+  private val maxPerPage = MaxPerPage(24)
 
   def byOwner(owner: UserId, page: Int)(using me: Option[MyId]): Fu[Paginator[RelayTour | WithLastRound]] =
     val isMe = me.exists(_.is(owner))
@@ -113,6 +113,8 @@ final class RelayPager(
         currentPage = page,
         maxPerPage = maxPerPage
       )
+
+    def firstPageResults(): Fu[List[WithLastRound]] = firstPageCache.get({})
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
 

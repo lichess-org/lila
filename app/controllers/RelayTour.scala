@@ -28,7 +28,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         case None =>
           for
             (active, upcoming, past) <- env.relay.top(page)
-            res                      <- Ok.async(views.relay.tour.index(active, upcoming, past))
+            res <- Ok.async(views.relay.tour.index(active, upcoming, past.currentPageResults))
           yield res
 
   def calendarMonth(year: Int, month: Int) = Open:

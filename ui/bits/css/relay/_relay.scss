@@ -19,3 +19,14 @@
   border-bottom: $border;
   margin-bottom: 2em;
 }
+.relay-index__calendar {
+  text-align: center;
+  .button {
+    padding: 1.5em 4em;
+    strong {
+      font-size: 1.5em;
+      display: block;
+      margin-bottom: 0.5em;
+    }
+  }
+}

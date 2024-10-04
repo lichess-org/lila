@@ -18,7 +18,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def index(
       active: List[RelayTour.ActiveWithSomeRounds],
       upcoming: List[WithLastRound],
-      past: Paginator[WithLastRound]
+      past: Seq[WithLastRound]
   )(using Context) =
     def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
       val selected = active.filter(_.tour.tierIs(selector))
@@ -28,7 +28,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
-      .js(infiniteScrollEsmInit)
       .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):
         main(cls := "relay-index page-menu")(
           pageMenu("index"),
@@ -47,7 +46,15 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
               )
             ),
             h2(cls := "relay-index__section")("Past broadcasts"),
-            renderPager(asRelayPager(past), "")(cls := "relay-cards--past")
+            div(cls := "relay-cards relay-cards--past"):
+              past.map: t =>
+                card.render(t, live = _ => false)
+            ,
+            h2(cls := "relay-index__section relay-index__calendar"):
+              a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
+                strong(trans.site.tournamentCalendar()),
+                small("View all broadcasts by month")
+              )
           )
         )
 
