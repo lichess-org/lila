@@ -9,6 +9,7 @@
     <item quantity="other">%s vysielaní</item>
   </plurals>
   <string name="liveBroadcasts">Živé vysielanie turnaja</string>
+  <string name="broadcastCalendar">Kalendár vysielaní</string>
   <string name="newBroadcast">Nové živé vysielanie</string>
   <string name="subscribedBroadcasts">Odoberané vysielania</string>
   <string name="aboutBroadcasts">O vysielaní</string>
