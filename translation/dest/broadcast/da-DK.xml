@@ -7,6 +7,7 @@
     <item quantity="other">%s udsendelser</item>
   </plurals>
   <string name="liveBroadcasts">Live turnerings-udsendelser</string>
+  <string name="broadcastCalendar">Kaldender for udsendelser</string>
   <string name="newBroadcast">Ny live-udsendelse</string>
   <string name="subscribedBroadcasts">Udsendelser, du abonnerer på</string>
   <string name="aboutBroadcasts">Om udsendelse</string>
