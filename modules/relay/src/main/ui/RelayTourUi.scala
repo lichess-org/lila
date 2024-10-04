@@ -111,43 +111,46 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     def url(y: Int, m: Month) = routes.RelayTour.calendarMonth(y, m.getValue)
     Page(s"${trans.site.tournamentCalendar.txt()} ${showYearMonth(at)}")
       .css("bits.relay.calendar"):
+        def dateForm(id: String) = div(cls := s"relay-calendar__form relay-calendar__form--$id")(
+          a(
+            href     := url(at.minusMonths(1).getYear, at.minusMonths(1).getMonth),
+            dataIcon := Icon.LessThan
+          ),
+          div(cls := "relay-calendar__form__selects")(
+            lila.ui.bits.mselect(
+              s"relay-calendar__year--$id",
+              span(at.getYear),
+              RelayCalendar.allYears.map: y =>
+                a(
+                  cls  := (y == at.getYear).option("current"),
+                  href := url(y, at.getMonth)
+                )(y)
+            ),
+            lila.ui.bits.mselect(
+              s"relay-calendar__month--$id",
+              span(showMonth(at.getMonth)),
+              java.time.Month.values.map: m =>
+                a(
+                  cls  := (m == at.getMonth).option("current"),
+                  href := url(at.getYear, m)
+                )(showMonth(m))
+            )
+          ),
+          a(
+            href     := url(at.plusMonths(1).getYear, at.plusMonths(1).getMonth),
+            dataIcon := Icon.GreaterThan
+          )
+        )
         main(cls := "relay-calendar page-menu")(
           pageMenu("calendar"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trans.site.tournamentCalendar())),
-            div(cls := "relay-calendar__form")(
-              a(
-                href     := url(at.minusMonths(1).getYear, at.minusMonths(1).getMonth),
-                dataIcon := Icon.LessThan
-              ),
-              div(cls := "relay-calendar__form__selects")(
-                lila.ui.bits.mselect(
-                  "relay-calendar__year",
-                  span(at.getYear),
-                  RelayCalendar.allYears.map: y =>
-                    a(
-                      cls  := (y == at.getYear).option("current"),
-                      href := url(y, at.getMonth)
-                    )(y)
-                ),
-                lila.ui.bits.mselect(
-                  "relay-calendar__month",
-                  span(showMonth(at.getMonth)),
-                  java.time.Month.values.map: m =>
-                    a(
-                      cls  := (m == at.getMonth).option("current"),
-                      href := url(at.getYear, m)
-                    )(showMonth(m))
-                )
-              ),
-              a(
-                href     := url(at.plusMonths(1).getYear, at.plusMonths(1).getMonth),
-                dataIcon := Icon.GreaterThan
-              )
-            ),
+            dateForm("top"),
             div(cls := "relay-cards relay-cards--past"):
               tours.map: t =>
                 card.render(t, live = _ => false, absTime = true)
+            ,
+            (tours.sizeIs > 8).option(dateForm("bottom"))
           )
         )
 
@@ -239,7 +242,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     )(using
         Context
     ) =
-      link(tr.tour, tr.path, live(tr))(
+      link(tr.tour, tr.path, live(tr))(cls := s"relay-card--tier-${~tr.tour.tier}")(
         image(tr.tour),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(

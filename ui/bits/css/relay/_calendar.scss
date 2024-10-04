@@ -7,13 +7,44 @@
     font-size: 1.5em;
     background: $c-bg-zebra;
     padding: 1em 2em;
-    margin-bottom: 2em;
+    &--top {
+      margin-bottom: 2em;
+    }
+    &--bottom {
+      margin-top: 2em;
+    }
     &__selects {
       @extend %flex-center-nowrap;
       gap: 1em;
     }
     > a {
       font-size: 2em;
+    }
+  }
+  .relay-card {
+    grid-column: span 1;
+    grid-row: span 2;
+    &--tier-3 {
+      grid-row: span 1;
+      .relay-card__image,
+      .relay-card__desc {
+        display: none;
+      }
+      .relay-card__title {
+        font-size: 1.2em;
+      }
+    }
+    &--tier-5 {
+      @extend %flex-column;
+      grid-column: span 2;
+      grid-row: span 4;
+      .relay-card__body {
+        @extend %flex-column;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+      }
     }
   }
 }
