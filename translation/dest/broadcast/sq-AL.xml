@@ -7,6 +7,7 @@
     <item quantity="other">%s transmetime</item>
   </plurals>
   <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
+  <string name="broadcastCalendar">Kalendar transmetimesh</string>
   <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
   <string name="subscribedBroadcasts">Transmetime me pajtim</string>
   <string name="aboutBroadcasts">Rreth transmetimeve</string>
