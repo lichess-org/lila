@@ -7,6 +7,7 @@
     <item quantity="other">%s retransmisiones</item>
   </plurals>
   <string name="liveBroadcasts">Emisiones de torneos en directo</string>
+  <string name="broadcastCalendar">Calendario de transmisiones</string>
   <string name="newBroadcast">Nueva emisión en directo</string>
   <string name="subscribedBroadcasts">Transmisiones suscritas</string>
   <string name="aboutBroadcasts">Acerca de las transmisiones</string>
