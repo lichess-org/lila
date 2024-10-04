@@ -52,7 +52,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             ,
             h2(cls := "relay-index__section relay-index__calendar"):
               a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
-                strong(trans.site.tournamentCalendar()),
+                strong(trc.broadcastCalendar()),
                 small("View all broadcasts by month")
               )
           )
@@ -116,7 +116,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
 
   def calendar(at: YearMonth, tours: List[WithFirstRound])(using ctx: Context) =
     def url(y: Int, m: Month) = routes.RelayTour.calendarMonth(y, m.getValue)
-    Page(s"${trans.site.tournamentCalendar.txt()} ${showYearMonth(at)}")
+    Page(s"${trc.broadcastCalendar.txt()} ${showYearMonth(at)}")
       .css("bits.relay.calendar"):
         def dateForm(id: String) = div(cls := s"relay-calendar__form relay-calendar__form--$id")(
           a(
@@ -151,7 +151,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         main(cls := "relay-calendar page-menu")(
           pageMenu("calendar"),
           div(cls := "page-menu__content box box-pad")(
-            boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trans.site.tournamentCalendar())),
+            boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar())),
             dateForm("top"),
             div(cls := "relay-cards relay-cards--past"):
               tours.map: t =>
@@ -219,7 +219,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             "Private Broadcasts"
           )
         ),
-      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
+      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trc.broadcastCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trc.aboutBroadcasts()),
       a(href := routes.RelayTour.app, cls := menu.activeO("app"))("Broadcaster App"),
       div(cls := "sep"),

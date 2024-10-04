@@ -132,6 +132,7 @@ object I18nKey:
     val `broadcasts`: I18nKey = "broadcast:broadcasts"
     val `myBroadcasts`: I18nKey = "broadcast:myBroadcasts"
     val `liveBroadcasts`: I18nKey = "broadcast:liveBroadcasts"
+    val `broadcastCalendar`: I18nKey = "broadcast:broadcastCalendar"
     val `newBroadcast`: I18nKey = "broadcast:newBroadcast"
     val `subscribedBroadcasts`: I18nKey = "broadcast:subscribedBroadcasts"
     val `aboutBroadcasts`: I18nKey = "broadcast:aboutBroadcasts"
