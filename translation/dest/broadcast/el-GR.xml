@@ -8,7 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
-  <string name="subscribedBroadcasts" comment="As in &quot;broadcasts you are subscribed to&quot;. Appears after subscribing to at least one broadcast, as a heading on https://lichess.org/broadcast/subscribed&#10;&#10;Please keep reasonably short, as this is a navigation item as well.">Εγγεγραμμένες μεταδώσεις</string>
+  <string name="subscribedBroadcasts">Εγγεγραμμένες μεταδώσεις</string>
   <string name="aboutBroadcasts">Σχετικά με εκπομπές</string>
   <string name="howToUseLichessBroadcasts">Πώς να χρησιμοποιήσετε τις εκπομπές Lichess.</string>
   <string name="theNewRoundHelp">Ο νέος γύρος θα έχει τα ίδια μέλη και τους ίδιους συνεισφέροντες όπως ο προηγούμενος.</string>
@@ -41,8 +41,8 @@
   <string name="fideFederations">Ομοσπονδίες FIDE</string>
   <string name="fidePlayers">Παίκτες FIDE</string>
   <string name="fidePlayerNotFound">Δε βρέθηκε παίκτης FIDE</string>
-  <string name="fideProfile" comment="Appears on the page of a FIDE player. Gives their FIDE number (ID) and a link to their profile on FIDE's website. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Προφίλ FIDE</string>
+  <string name="fideProfile">Προφίλ FIDE</string>
   <string name="federation">Ομοσπονδία</string>
-  <string name="ageThisYear" comment="Appears for FIDE-registered players. Gives their age at the time. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Φετινή ηλικία</string>
-  <string name="recentTournaments" comment="Appears on the page of a FIDE player. Displays the most recent tournaments they took part in. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Πρόσφατα τουρνουά</string>
+  <string name="ageThisYear">Φετινή ηλικία</string>
+  <string name="recentTournaments">Πρόσφατα τουρνουά</string>
 </resources>
