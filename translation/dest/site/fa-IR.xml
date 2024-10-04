@@ -566,10 +566,10 @@
   <string name="importedByX">%s آن را وارد کرده</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>
   <string name="blog">وبنوشت</string>
-  <string name="notes">یادداشت ها</string>
-  <string name="typePrivateNotesHere">یادداشت خصوصی را اینجا وارد کنید</string>
+  <string name="notes">یادداشت‌ها</string>
+  <string name="typePrivateNotesHere">یادداشت‌های خصوصی را اینجا بنویسید</string>
   <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی درباره این کاربر بنویسید</string>
-  <string name="noNoteYet">تا الان، بدون یادداشت</string>
+  <string name="noNoteYet">تاکنون، بدون یادداشت</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
   <string name="incorrectPassword">گذرواژه‌ی نادرست</string>
   <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
