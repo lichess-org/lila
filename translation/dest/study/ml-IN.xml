@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">ചേർത്ത തീയതി (പഴയത്)</string>
   <string name="recentlyUpdated">സമീപകാലത്തു പുതുക്കിയത്</string>
   <string name="mostPopular">ഏറ്റവും ജനകീയമായത്</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">അക്ഷരക്രമത്തിലുള്ള</string>
   <string name="addNewChapter">പുതിയ അധ്യായം തുടങ്ങുക</string>
   <plurals name="nbChapters">
     <item quantity="one">%s അധ്യായം</item>
@@ -60,6 +61,7 @@
   <string name="studyPgn">PGN പഠിക്കുക</string>
   <string name="downloadAllGames">എല്ലാ ഗെയിമും ഡൌണ്‍ലോഡ് ചെയ്യുക</string>
   <string name="chapterPgn">PGN പാഠം</string>
+  <string name="copyChapterPgn">PGN പകർത്തുക</string>
   <string name="downloadGame">ഗെയിം ഡൌണ്‍ലോഡ് ചെയ്യുക</string>
   <string name="studyUrl">URL പഠിക്കുക</string>
   <string name="currentChapterUrl">നിലവിലുള്ള പാഠത്തിന്റെ URL</string>
@@ -120,4 +122,6 @@
   <string name="clearChat">ചാറ്റ് അപ്രത്യക്ഷമാക്കുക</string>
   <string name="deleteTheStudyChatHistory">അധ്യായത്തിന്റെ ചാറ്റ് ഹിസ്റ്ററി നീക്കം ചെയ്യണോ? പിന്നെ തിരിച്ചു പോകാൻ പറ്റില്ല!</string>
   <string name="deleteStudy">പഠനം നീക്കം ചെയ്യുക</string>
+  <string name="back">തിരിച്ച്</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">പിന്നേയും കളിക്കുക</string>
 </resources>
