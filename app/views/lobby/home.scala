@@ -51,8 +51,8 @@ object home:
             div(cls := "lobby__counters")(a, a),
             div(cls := "lobby__start")(
               button(cls := "button button-metal", tpe := "button", trans.site.createAGame()),
-              button(cls := "button button-metal", tpe := "button", trans.site.playWithAFriend()),
-              button(cls := "button button-metal", tpe := "button", trans.site.playWithTheMachine())
+              button(cls := "button button-metal", tpe := "button", trans.site.playAFriend()),
+              button(cls := "button button-metal", tpe := "button", trans.site.playTheComputer())
             ),
             a(cls := "lobby__support", href := routes.Plan.index())(
               iconTag(patronIconChar),
@@ -155,7 +155,6 @@ object home:
               a(href := "/about")(trans.site.aboutX("Lichess"), "...")
             )
           ,
-          // ),
           div(cls := "lobby__about")(
             ctx.blind.option(h2("About")),
             a(href := "/about")(trans.site.aboutX("Lichess")),

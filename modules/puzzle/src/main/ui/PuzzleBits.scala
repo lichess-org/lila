@@ -175,7 +175,7 @@ final class PuzzleBits(helpers: Helpers)(cevalTranslations: Seq[I18nKey]):
     trans.puzzle.didYouLikeThisPuzzle,
     trans.puzzle.voteToLoadNextOne,
     trans.site.analysis,
-    trans.site.playWithTheMachine,
+    trans.site.playTheComputer,
     trans.preferences.zenMode,
     trans.site.asWhite,
     trans.site.asBlack,

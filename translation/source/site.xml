@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Play with a friend</string>
-  <string name="playWithTheMachine">Play with the computer</string>
   <string name="playAFriend">Challenge a friend</string>
   <string name="playTheComputer">Play the computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
