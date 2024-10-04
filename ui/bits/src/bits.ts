@@ -190,7 +190,7 @@ function pmAll() {
 
 function practiceNag() {
   const el = document.querySelector('.do-reset');
-  if (!(el instanceof HTMLButtonElement)) return;
+  if (!(el instanceof HTMLAnchorElement)) return;
   el.addEventListener('click', () => {
     if (confirm('You will lose your practice progress!')) (el.parentNode as HTMLFormElement).submit();
   });
