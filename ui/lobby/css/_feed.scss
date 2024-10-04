@@ -1,10 +1,11 @@
 .lobby__feed {
-  @include hoverflow;
+  background: $c-bg-box;
 }
 
 .daily-feed__updates {
   margin-inline-start: 24px;
   margin-bottom: 1.5em;
+  border-inline-start: 2px solid $c-contours;
 }
 
 .daily-feed__update {

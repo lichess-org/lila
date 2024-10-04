@@ -1,6 +1,5 @@
 .lobby__forum {
   @extend %page-text;
-  @include hoverflow;
 
   display: block;
   white-space: nowrap;

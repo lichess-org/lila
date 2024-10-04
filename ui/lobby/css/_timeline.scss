@@ -1,6 +1,5 @@
 .lobby__timeline {
   @extend %page-text;
-  @include hoverflow;
 
   padding: 1em;
 

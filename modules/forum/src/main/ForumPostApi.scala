@@ -245,7 +245,7 @@ final class ForumPostApi(
       .flatMap(miniPosts)
       .map:
         _.groupBy(_.topic.name)
-          .collect { case (_, minis) => RecentTopic(minis) }
+          .flatMap { case (_, minis) => NonEmptyList.fromList(minis).map(RecentTopic.apply) }
           .toList
           .sortBy(_.updatedAt)(Ordering[Instant].reverse)
           .take(nb)

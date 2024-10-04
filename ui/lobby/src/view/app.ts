@@ -69,18 +69,17 @@ function tournamentTabData(): VNodeData {
   return {
     hook: {
       create: (_, vnode) => {
-        const events = document.querySelector('.lobby__tournaments-simuls') as HTMLElement;
-        if (!events) return;
+        const events = document.querySelector('.lobby__tournaments-simuls');
+        if (!(events instanceof HTMLElement)) return;
         events
           .querySelectorAll<HTMLElement>('tr[data-href]')
           .forEach(row => row.addEventListener('click', () => (location.href = row.dataset.href!)));
-        if (!events) return;
         events.style.display = 'block';
         vnode.elm?.appendChild(events);
       },
       destroy: vnode => {
-        const events = vnode.elm?.firstChild as HTMLElement;
-        if (!events) return;
+        const events = vnode.elm?.firstChild;
+        if (!(events instanceof HTMLElement)) return;
         events.style.display = 'none';
         document.body.appendChild(events);
       },

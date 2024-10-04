@@ -3,7 +3,7 @@ import * as xhr from './xhr';
 import { AppTab as AppTabKey, Tab as TabKey } from './interfaces';
 
 export class TabCtrl {
-  storagePostfix = document.body.dataset.user ? `:${document.body.dataset.user}` : '';
+  storagePostfix: string;
   active: TabKey;
   appTab: AppTabKey;
 
@@ -28,6 +28,7 @@ export class TabCtrl {
   };
 
   constructor(readonly ctrl: LobbyController) {
+    this.storagePostfix = ctrl.me ? `:${ctrl.me.username}` : '';
     this.active = localStorage.getItem('lobby.tab' + this.storagePostfix) as TabKey;
     if (!this.active || !this.tabs[this.active]?.available())
       this.active = Object.entries(this.tabs).filter(([, tab]) => tab.available())[0][0] as TabKey;

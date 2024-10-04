@@ -86,6 +86,8 @@ body {
 
 .lobby__article-list {
   @include hoverflow;
+  border-radius: $box-radius-size;
+
   @include if-transp {
     background: $m-bg--fade-50;
     backdrop-filter: blur(6px);
