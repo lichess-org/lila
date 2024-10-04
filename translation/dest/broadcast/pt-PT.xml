@@ -7,8 +7,9 @@
     <item quantity="other">%s transmissões</item>
   </plurals>
   <string name="liveBroadcasts">Transmissões do torneio em direto</string>
+  <string name="broadcastCalendar">Calendário de transmissão</string>
   <string name="newBroadcast">Nova transmissão em direto</string>
-  <string name="subscribedBroadcasts" comment="As in &quot;broadcasts you are subscribed to&quot;. Appears after subscribing to at least one broadcast, as a heading on https://lichess.org/broadcast/subscribed&#10;&#10;Please keep reasonably short, as this is a navigation item as well.">Transmissões subscritas</string>
+  <string name="subscribedBroadcasts">Transmissões subscritas</string>
   <string name="aboutBroadcasts">Sobre Transmissões</string>
   <string name="howToUseLichessBroadcasts">Como usar as Transmissões do Lichess.</string>
   <string name="theNewRoundHelp">A nova ronda terá os mesmos membros e contribuidores que a anterior.</string>
@@ -46,9 +47,9 @@
   <string name="top10Rating">10 melhores classificações</string>
   <string name="fidePlayers">Jogadores FIDE</string>
   <string name="fidePlayerNotFound">Jogador FIDE não encontrado</string>
-  <string name="fideProfile" comment="Appears on the page of a FIDE player. Gives their FIDE number (ID) and a link to their profile on FIDE's website. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Perfil FIDE</string>
+  <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federação</string>
-  <string name="ageThisYear" comment="Appears for FIDE-registered players. Gives their age at the time. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Idade neste ano</string>
+  <string name="ageThisYear">Idade neste ano</string>
   <string name="unrated">Sem classificação</string>
-  <string name="recentTournaments" comment="Appears on the page of a FIDE player. Displays the most recent tournaments they took part in. Example: https://lichess.org/fide/1503014/Carlsen_Magnus">Torneio recentes</string>
+  <string name="recentTournaments">Torneio recentes</string>
 </resources>
