@@ -50,7 +50,7 @@ final class Preload(
   )(using ctx: Context): Fu[Homepage] = for
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
     withPerfs       <- ctx.user.soFu(perfsRepo.withPerfs)
-    teams           <- ctx.me.so(teams)
+    teams           <- ctx.me.so(fetchMyTeamsWithForumAccess)
     teamNames       <- teamCache.lightCache.asyncMany(teams)
     given Option[UserWithPerfs] = withPerfs
 
@@ -156,7 +156,7 @@ final class Preload(
         }
     }
 
-  private def teams(me: Me): Fu[List[lila.team.TeamId]] =
+  private def fetchMyTeamsWithForumAccess(me: Me): Fu[List[lila.team.TeamId]] =
     teamCache
       .teamIdsList(me)
       .flatMap:
