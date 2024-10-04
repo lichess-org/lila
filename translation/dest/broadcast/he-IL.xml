@@ -9,6 +9,7 @@
     <item quantity="other">%s הקרנות</item>
   </plurals>
   <string name="liveBroadcasts">צפייה ישירה בטורנירים</string>
+  <string name="broadcastCalendar">לוח השידורים</string>
   <string name="newBroadcast">הקרנה ישירה חדשה</string>
   <string name="subscribedBroadcasts">הקרנות שנרשמת אליהן</string>
   <string name="aboutBroadcasts">הסבר על הקרנות</string>
