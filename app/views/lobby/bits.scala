@@ -114,15 +114,12 @@ object bits:
                   ),
                   ": ",
                   a(
-                    href := routes.ForumPost.redirect(mostRecent.post.id),
-                    title := s"${topic.name}\n\n${titleNameOrAnon(mostRecent.post.userId)}:  ${mostRecent.post.text}"
+                    href  := routes.ForumPost.redirect(mostRecent.post.id),
+                    title := topic.name
                   )(topic.name)
                 ),
                 div(cls := "contributors")(
-                  topic.contribs match
-                    case Nil => emptyFrag
-                    case contribs =>
-                      frag(contribs.flatMap(uid => Seq[Frag](userIdLink(uid), " · ")).dropRight(1)*),
+                  fragList(topic.contribs.map(userIdLink(_)), " · "),
                   span(cls := "time", momentFromNow(topic.updatedAt))
                 )
               )
