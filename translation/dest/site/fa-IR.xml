@@ -696,7 +696,7 @@
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
   <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
-  <string name="keyShowOrHideComments">نمایش/ پنهان کردن نظرات</string>
+  <string name="keyShowOrHideComments">نمایش/پنهان کردن نظرها</string>
   <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
   <string name="keyRequestComputerAnalysis">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
   <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباهات خود درس بگیرید)</string>
