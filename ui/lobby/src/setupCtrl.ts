@@ -100,7 +100,7 @@ export default class SetupController {
     const minutesPerSide = urlParams.get('minutesPerSide');
     const increment = urlParams.get('increment');
     const variant = urlParams.get('variant');
-    const time = urlParams.get('time');
+    const time = urlParams.get('time')?.toLowerCase();
 
     if (variant) forceOptions.variant = variant as VariantKey;
 
@@ -112,7 +112,7 @@ export default class SetupController {
       forceOptions.increment = parseInt(increment);
     }
 
-    if (time === 'realTime') {
+    if (time === 'realtime') {
       if (locationHash === 'hook') ctrl.setTab('realtime');
       forceOptions.timeMode = 'realtime';
     } else if (time === 'correspondence') {
