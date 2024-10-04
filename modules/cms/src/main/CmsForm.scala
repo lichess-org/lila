@@ -14,9 +14,7 @@ final class CmsForm(langList: LangList):
     mapping(
       "key"   -> cleanNonEmptyText(minLength = 3, maxLength = 120).verifying(slugConstraint).into[CmsPageKey],
       "title" -> cleanNonEmptyText(minLength = 3, maxLength = 150),
-      "markdown" -> cleanTextWithSymbols
-        .verifying(Constraints.minLength(0), Constraints.maxLength(1000_000))
-        .into[Markdown],
+      "markdown" -> cleanTextWithSymbols(maxLength = 1000_000).into[Markdown],
       "language" -> langList.popularLanguagesForm.mapping,
       "live"     -> boolean,
       "canonicalPath" -> optional:
