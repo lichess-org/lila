@@ -31,8 +31,8 @@ case class TopicView(
   def name      = topic.name
   def createdAt = topic.createdAt
 
-case class RecentTopic(minis: List[lila.core.forum.ForumPostMiniView]):
-  val posts     = minis.sortBy(_.post.createdAt)(Ordering[Instant])
+case class RecentTopic(minis: NonEmptyList[lila.core.forum.ForumPostMiniView]):
+  val posts     = minis.toList.sortBy(_.post.createdAt)(Ordering[Instant])
   val name      = posts.head.topic.name
   val categId   = posts.head.topic.categId
   val postId    = posts.head.post.id
