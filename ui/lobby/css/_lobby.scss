@@ -84,7 +84,7 @@ body {
   color: $c-brag;
 }
 
-.lobby__listicle {
+.lobby__article-list {
   @include hoverflow;
   @include if-transp {
     background: $m-bg--fade-50;

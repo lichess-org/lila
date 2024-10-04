@@ -112,7 +112,7 @@ object home:
           div(cls := "lobby__blog ublog-post-cards"):
             ublogPosts
               .filter(_.isLichess || ctx.kid.no)
-              .take(3)
+              .take(9)
               .map:
                 views.ublog.ui.card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false)
           ,
@@ -125,16 +125,16 @@ object home:
               )
             )
           ),
-          div(cls := "lobby__forum lobby__listicle")(
+          div(cls := "lobby__forum lobby__article-list")(
             ctx.blind.option(h2("Recent topics")),
             bits.recentTopics(forumTopics)
           ),
-          div(cls := "lobby__feed lobby__listicle")(
+          div(cls := "lobby__feed lobby__article-list")(
             ctx.blind.option(h2("Lichess feed")),
             views.feed.lobbyUpdates(lastUpdates)
           ),
           if ctx.isAuth then
-            div(cls := "lobby__timeline lobby__listicle")(
+            div(cls := "lobby__timeline lobby__article-list")(
               ctx.blind.option(h2("Timeline")),
               views.timeline.entries(userTimeline),
               userTimeline.nonEmpty.option(
