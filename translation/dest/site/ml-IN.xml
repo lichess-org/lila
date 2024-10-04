@@ -623,6 +623,7 @@
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
   <string name="keyNextMistake">അടുത്ത തെറ്റ്</string>
+  <string name="keyNextInaccuracy">അടുത്ത കൃത്യമില്ലായ്മ</string>
   <string name="keyNextBranch">അടുത്ത വിഭാഗം</string>
   <string name="playSelectedMove">തിരഞ്ഞെടുത്ത നീക്കം കളിക്കുക</string>
   <string name="newTournament">പുതിയ പരമ്പര</string>
