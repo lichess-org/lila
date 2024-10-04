@@ -101,31 +101,31 @@ object bits:
     div(cls := "topic-list")(
       frag(
         forumTopics
-          .map: topic =>
-            val mostRecent = topic.posts.last
-            div(
-              span(
-                a(
-                  href  := routes.ForumCateg.show(topic.categId),
-                  title := topic.categId.value.split("-").map(_.capitalize).mkString(" "),
-                  cls   := s"categ-link"
-                )(
-                  lila.forum.ForumCateg.publicShortNames.get(topic.categId).getOrElse("TEAM")
+          .flatMap: topic =>
+            topic.posts.lastOption.map: mostRecent =>
+              div(
+                span(
+                  a(
+                    href  := routes.ForumCateg.show(topic.categId),
+                    title := lila.forum.ForumCateg.publicNames.get(topic.categId),
+                    cls   := s"categ-link"
+                  )(
+                    lila.forum.ForumCateg.publicShortNames.get(topic.categId).getOrElse("TEAM")
+                  ),
+                  ": ",
+                  a(
+                    href := routes.ForumPost.redirect(mostRecent.post.id),
+                    title := s"${topic.name}\n\n${titleNameOrAnon(mostRecent.post.userId)}:  ${mostRecent.post.text}"
+                  )(topic.name)
                 ),
-                ": ",
-                a(
-                  href := routes.ForumPost.redirect(mostRecent.post.id),
-                  title := s"${topic.name}\n\n${titleNameOrAnon(mostRecent.post.userId)}:  ${mostRecent.post.text}"
-                )(topic.name)
-              ),
-              div(cls := "contributors")(
-                topic.contribs match
-                  case Nil => emptyFrag
-                  case contribs =>
-                    frag(contribs.flatMap(uid => Seq[Frag](userIdLink(uid), " · ")).dropRight(1)*),
-                span(cls := "time", momentFromNow(topic.updatedAt))
+                div(cls := "contributors")(
+                  topic.contribs match
+                    case Nil => emptyFrag
+                    case contribs =>
+                      frag(contribs.flatMap(uid => Seq[Frag](userIdLink(uid), " · ")).dropRight(1)*),
+                  span(cls := "time", momentFromNow(topic.updatedAt))
+                )
               )
-            )
       ),
       a(href := routes.ForumCateg.index, cls := "more")(trans.site.more(), " »")
     )
