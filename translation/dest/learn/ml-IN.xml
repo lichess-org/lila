@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">ചെസ്സ് പഠിക്കാം</string>
+  <string name="learnChess">ചതുരംഗം പഠിക്കാം</string>
   <string name="byPlaying">കളിച്ചുകൊണ്ട്!</string>
   <string name="menu">മെനു</string>
   <string name="progressX">പുരോഗതി: %s</string>
@@ -220,6 +220,7 @@
   <string name="rightOn">അങ്ങനെതന്നെ!</string>
   <string name="stageXComplete">%s സ്റ്റേജ് പൂർത്തിയാക്കിയിരുന്നു</string>
   <string name="next">അടുത്തത്</string>
+  <string name="nextX">അടുത്ത: %s</string>
   <string name="backToMenu">മെനുവിലേക്ക് തിരിച്ചു പോകുക</string>
   <string name="puzzleFailed">Puzzle തെറ്റിപ്പോയല്ലോ!</string>
   <string name="retry">ഒന്നുകൂടെ നോക്കട്ടെ</string>
