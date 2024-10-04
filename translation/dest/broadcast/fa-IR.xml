@@ -7,6 +7,7 @@
     <item quantity="other">%s پخش همگانی</item>
   </plurals>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
+  <string name="broadcastCalendar">تقویم پخش</string>
   <string name="newBroadcast">پخش زنده جدید</string>
   <string name="subscribedBroadcasts">پخش‌های دنبال‌شده</string>
   <string name="aboutBroadcasts">درباره پخش‌های همگانی</string>
