@@ -9,6 +9,7 @@
     <item quantity="other">%s трансляций</item>
   </plurals>
   <string name="liveBroadcasts">Прямые трансляции турнира</string>
+  <string name="broadcastCalendar">Календарь трансляций</string>
   <string name="newBroadcast">Новая прямая трансляция</string>
   <string name="subscribedBroadcasts">Подписанные рассылки</string>
   <string name="aboutBroadcasts">О трансляции</string>
