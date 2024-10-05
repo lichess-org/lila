@@ -7,6 +7,7 @@
     <item quantity="other">%s retransmissions</item>
   </plurals>
   <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
+  <string name="broadcastCalendar">Calendari de retransmissions</string>
   <string name="newBroadcast">Nova retransmissió en directe</string>
   <string name="subscribedBroadcasts">Emissions que segueixo</string>
   <string name="aboutBroadcasts">Sobre les retransmissions</string>
@@ -26,7 +27,6 @@
   <string name="sourceSingleUrl">URL origen del PGN</string>
   <string name="sourceUrlHelp">URL que Lichess comprovarà per a obtenir actualitzacions PGN. Ha de ser públicament accessible des d\'Internet.</string>
   <string name="sourceGameIds">Fins a 64 identificadors de partides de Lichess, separades per espais.</string>
-  <string name="startDate">Data d\'inici en la teva zona horària</string>
   <string name="startDateHelp">Opcional, si saps quan comença l\'esdeveniment</string>
   <string name="credits">Cita la font</string>
   <string name="currentGameUrl">URL actual de joc</string>
