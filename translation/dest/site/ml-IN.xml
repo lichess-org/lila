@@ -189,11 +189,11 @@
   <string name="time">സമയം</string>
   <string name="rating">നിലവാരം (റേറ്റിംഗ്)</string>
   <string name="ratingStats">നിലവാര സ്ഥിതിവിവരം</string>
-  <string name="username">യൂസര്‍ നെയിം</string>
-  <string name="usernameOrEmail">യൂസര്‍ നെയിം അല്ലെങ്കില്‍ ഇമെയില്‍</string>
-  <string name="changeUsername">യുസര്‍നെയിം മാറ്റുക</string>
+  <string name="username">ഉപയോക്തൃനാമം</string>
+  <string name="usernameOrEmail">ഉപയോക്തൃനാമം അല്ലെങ്കില്‍ ഇമെയില്‍</string>
+  <string name="changeUsername">ഉപയോക്തൃനാമം മാറ്റുക</string>
   <string name="changeUsernameNotSame">അക്ഷരങ്ങളുടെ കേസിനു മാത്രമേ മാറാൻ കഴിയുകയുള്ളൂ. ഉദാഹരണത്തിന് \"johndoe\" എന്നത് \"JohnDoe\" എന്നായി മാറും.</string>
-  <string name="changeUsernameDescription">നിങ്ങളുടെ യൂസർനെയിം മാറ്റുക. ഇത് ഒരിക്കൽ മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളു. അതിൽ തന്നെ യൂസർനെയിമിന്റെ അക്ഷരങ്ങളുടെ കേസ് മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളൂ.</string>
+  <string name="changeUsernameDescription">നിങ്ങളുടെ ഉപയോക്തൃനാമം മാറ്റുക. ഇത് ഒരിക്കൽ മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളു. അതിൽ തന്നെ യൂസർനെയിമിന്റെ അക്ഷരങ്ങളുടെ കേസ് മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളൂ.</string>
   <string name="signupEmailHint">ഞങ്ങൾ ഇത് വെരും രഹസ്യവാക്ക് മാറ്റാൻ ഉപയോഗിക്കും.</string>
   <string name="password">രഹസ്യവാക്ക്</string>
   <string name="changePassword">രഹസ്യവാക്ക് മാറ്റുക</string>
@@ -243,7 +243,6 @@
   <string name="abortGame">മത്സരം ഉപേക്ഷിക്കുക</string>
   <string name="gameAborted">മത്സരം ഉപേക്ഷിച്ചു</string>
   <string name="standard">സ്റ്റാന്‍ഡേര്‍ഡ്</string>
-  <string name="customPosition"></string>
   <string name="unlimited">അപരിമിതം</string>
   <string name="mode">മോഡ്</string>
   <string name="casual">സൗഹാര്‍ദ്ദം</string>
@@ -502,6 +501,7 @@
   <string name="other">മറ്റുള്ളവ</string>
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
+  <string name="importedByX">%s ഇറക്കുമതി ചെയ്തത്</string>
   <string name="thisTopicIsNowClosed">ഈ വിഷയം സമാപിച്ചിരിക്കുന്നു.</string>
   <string name="blog">രചന</string>
   <string name="notes">അറിയിപ്പുകൾ</string>
