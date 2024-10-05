@@ -84,7 +84,7 @@ export class EditDialog {
       ?.classList.toggle('none', !env.canPost && !this.serverBot);
   }
 
-  assetDialog = async(type?: AssetType): Promise<string | undefined> => {
+  assetDialog = async (type?: AssetType): Promise<string | undefined> => {
     this.assetDlg = new AssetDialog(type);
     const asset = await this.assetDlg.show();
     this.assetDlg = undefined;
@@ -189,7 +189,7 @@ export class EditDialog {
     this.update();
   }
 
-  private pullBots = async(uids?: string[]) => {
+  private pullBots = async (uids?: string[]) => {
     if (!(await confirm(uids ? `Pull ${uids.join(' ')}?` : 'Pull all server bots?'))) return;
     const clear = (uids ?? Object.keys(this.bots)).filter(uid => env.bot.serverBots[uid]);
     clear.forEach(uid => delete this.scratch[uid]);

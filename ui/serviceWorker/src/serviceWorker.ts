@@ -12,7 +12,6 @@ self.addEventListener('activate', (e: ExtendableEvent) => {
   e.waitUntil(clients.claim());
 });
 
-
 self.addEventListener('push', (event: PushEvent) => {
   const data = event.data!.json();
   return event.waitUntil(
@@ -66,7 +65,7 @@ self.addEventListener('notificationclick', (e: NotificationEvent) => e.waitUntil
 
 // experimental stuff below
 
-self.addEventListener('message', async(e: ExtendableMessageEvent) => {
+self.addEventListener('message', async (e: ExtendableMessageEvent) => {
   if (e.data && e.data.type !== 'cache') return;
   if (e.data.value) {
     const cache = await caches.open('local');

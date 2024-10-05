@@ -83,11 +83,11 @@ class HistoryDialog {
     this.dlg?.updateActions();
   }
 
-  clickItem = async(e: Event) => {
+  clickItem = async (e: Event) => {
     this.select(this.version((e.target as HTMLElement).dataset.version));
   };
 
-  mouseEnterItem = async(e: Event) => {
+  mouseEnterItem = async (e: Event) => {
     this.json(this.version((e.target as HTMLElement)?.dataset.version));
   };
 
@@ -111,21 +111,21 @@ class HistoryDialog {
     return this.view.querySelector(`.version[data-version="${version}"]`) as HTMLElement;
   }
 
-  copy = async() => {
+  copy = async () => {
     await navigator.clipboard.writeText(stringify(this.selected!));
     const copied = frag<HTMLElement>(`<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`);
     this.view.querySelector('[data-action="copy"]')?.before(copied);
     setTimeout(() => copied.remove(), 2000);
   };
 
-  pull = async() => {
+  pull = async () => {
     await env.bot.save(this.selected as BotInfo);
     await this.updateHistory();
     this.select();
     this.host.update();
   };
 
-  push = async() => {
+  push = async () => {
     const err = await env.push.pushBot(this.selected as BotInfo);
     if (err) {
       alert(`push failed: ${escapeHtml(err)}`);

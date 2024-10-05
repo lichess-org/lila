@@ -286,16 +286,16 @@ function roundRobin() {
     class: 'round-robin-dialog',
     htmlText: `<h2>round robin participants</h2>
     <ul>${[...env.bot.sorted(), ...env.bot.rateBots.filter(b => b.ratings[env.game.speed] % 100 === 0)]
-    .map(p => {
-      const checked = isNaN(parseInt(p.uid.slice(1)))
-        ? storedBooleanProp(`local.dev.tournament-${p.uid.slice(1)}`, true)()
-        : false;
-      return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
-        p.uid
-      }">
+      .map(p => {
+        const checked = isNaN(parseInt(p.uid.slice(1)))
+          ? storedBooleanProp(`local.dev.tournament-${p.uid.slice(1)}`, true)()
+          : false;
+        return `<li><input type="checkbox" id="${p.uid.slice(1)}" ${checked ? 'checked=""' : ''} value="${
+          p.uid
+        }">
         <label for='${p.uid.slice(1)}'>${p.name} ${ratingText(p.uid, env.game.speed)}</label></li>`;
-    })
-    .join('')}</ul>
+      })
+      .join('')}</ul>
     <span>Repeat: <input type="number" maxLength="3" value="1"><button class="button" id="start-tournament">Start</button></span>`,
     actions: [
       {

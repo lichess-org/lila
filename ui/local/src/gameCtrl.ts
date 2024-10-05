@@ -250,17 +250,17 @@ export class GameCtrl implements LocalSetup {
     const initial = this.setup.initial as number;
     this.clock = Number.isFinite(initial)
       ? {
-        initial: initial,
-        increment: this.setup.increment ?? 0,
-        white: initial,
-        black: initial,
-        emerg: 0,
-        showTenths: this.opts.pref.clockTenths,
-        showBar: true,
-        moretime: 0,
-        running: false,
-        since: undefined,
-      }
+          initial: initial,
+          increment: this.setup.increment ?? 0,
+          white: initial,
+          black: initial,
+          emerg: 0,
+          showTenths: this.opts.pref.clockTenths,
+          showBar: true,
+          moretime: 0,
+          running: false,
+          since: undefined,
+        }
       : undefined;
   }
 }

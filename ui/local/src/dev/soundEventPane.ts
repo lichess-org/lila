@@ -53,10 +53,10 @@ export class SoundEventPane extends Pane {
         ${this.fieldHtml('chance', chance, 'percentage chance of this sound being played')}
         ${this.fieldHtml('delay', delay, 'delay in seconds from event trigger')}
         ${this.fieldHtml(
-            'mix',
-            mix,
-            'mix controls the volume relationship between this and the standard board sound.\nvalues from 0 to 0.5 adjust this sound from mute to full.\nvalues from 0.5 to 1 adjust the standard board sound from full to mute.\nwhen either sound is played below full volume, the other is played at full.',
-          )}
+          'mix',
+          mix,
+          'mix controls the volume relationship between this and the standard board sound.\nvalues from 0 to 0.5 adjust this sound from mute to full.\nvalues from 0.5 to 1 adjust the standard board sound from full to mute.\nwhen either sound is played below full volume, the other is played at full.',
+        )}
       </fieldset>`);
     const buttonEl = frag(
       `<button class="button button-empty preview-sound icon-btn" data-icon="${licon.PlayTriangle}"></button>`,

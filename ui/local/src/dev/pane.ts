@@ -103,9 +103,9 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
       src === 'schema'
         ? getSchemaDefault(this.id)
         : this.path.reduce(
-          (o, key) => o?.[key],
-          src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
-        ),
+            (o, key) => o?.[key],
+            src === 'scratch' ? this.host.bot : src === 'local' ? this.host.localBot : this.host.serverBot,
+          ),
     );
   }
 

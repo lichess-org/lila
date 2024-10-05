@@ -249,7 +249,7 @@ export class DevAssets extends Assets {
     assetTypes.forEach(type => (this.server[type] = valueSorted(this.server[type])));
   }
 
-  private onStorageEvent = async(e: StorageEvent) => {
+  private onStorageEvent = async (e: StorageEvent) => {
     if (e.key !== 'local.dev.import.book' || !e.newValue) return;
 
     await this.init();
