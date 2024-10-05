@@ -7,6 +7,7 @@
     <item quantity="other">%s sendingar</item>
   </plurals>
   <string name="liveBroadcasts">Direktesende turneringar</string>
+  <string name="broadcastCalendar">Kaldender for sendingar</string>
   <string name="newBroadcast">Ny direktesending</string>
   <string name="subscribedBroadcasts">Sendingar du abonnerar på</string>
   <string name="aboutBroadcasts">Om sending</string>
