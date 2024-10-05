@@ -27,7 +27,6 @@
   <string name="sourceSingleUrl">URL for PGN-kilde</string>
   <string name="sourceUrlHelp">URL som Lichess vil trække på for at få PGN updates. Den skal være offentlig tilgængelig fra internettet.</string>
   <string name="sourceGameIds">Op til 64 Lichess parti-ID\'er, adskilt af mellemrum.</string>
-  <string name="startDate">Startdato i din egen tidszone</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>
   <string name="credits">Krediter kilden</string>
   <string name="currentGameUrl">Nuværende parti URL</string>
