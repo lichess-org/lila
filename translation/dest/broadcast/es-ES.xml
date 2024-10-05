@@ -27,7 +27,6 @@
   <string name="sourceSingleUrl">URL origen del archivo PGN</string>
   <string name="sourceUrlHelp">URL que Lichess comprobará para obtener actualizaciones PGN. Debe ser públicamente accesible desde Internet.</string>
   <string name="sourceGameIds">Hasta 64 identificadores de partidas de Lichess, separados por espacios.</string>
-  <string name="startDate">Fecha de inicio en tu zona horaria</string>
   <string name="startDateHelp">Opcional, si sabes cuando comienza el evento</string>
   <string name="credits">Cita la fuente</string>
   <string name="currentGameUrl">Enlace de la partida actual</string>
