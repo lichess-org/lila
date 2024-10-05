@@ -230,6 +230,12 @@ trait Handlers:
       t => BSONString(t.toString)
     )
 
+  given BSONHandler[java.util.TimeZone] =
+    tryHandler(
+      { case BSONString(id) => Try(java.util.TimeZone.getTimeZone(id)) },
+      t => BSONString(t.getID)
+    )
+
   import lila.core.user.UserMark
   given markHandler: BSONHandler[UserMark] = valueMapHandler(UserMark.byKey)(_.key)
 

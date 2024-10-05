@@ -228,6 +228,19 @@ object Form:
       lila.common.url.parse(s).toEither.fold(err => Left(s"Invalid URL: ${err.getMessage}"), Right(_))
     val field: Mapping[URL] = of[URL]
 
+  object timeZone:
+    import java.util.TimeZone
+    lazy val choices: List[(String, String)] =
+      TimeZone.getAvailableIDs.toList.flatMap: id =>
+        Try(TimeZone.getTimeZone(id)).toOption.map: tz =>
+          tz.getID -> tz.getID
+    lazy val default = TimeZone.getTimeZone("UTC")
+    given Formatter[TimeZone] = formatter.stringTryFormatter(
+      from = s => Try(TimeZone.getTimeZone(s)).fold(err => Left(err.getMessage), Right(_)),
+      to = _.getID
+    )
+    val field: Mapping[TimeZone] = of[TimeZone]
+
   object username:
     val historicalConstraints = Seq(
       Constraints.minLength(2),

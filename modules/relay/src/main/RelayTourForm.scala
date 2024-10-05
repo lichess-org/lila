@@ -26,6 +26,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
     "tc"        -> optional(cleanText(maxLength = 80)),
     "fideTc"    -> optional(fideTcMapping),
     "location"  -> optional(cleanText(maxLength = 80)),
+    "timeZone"  -> optional(lila.common.Form.timeZone.field),
     "players"   -> optional(cleanText(maxLength = 120)),
     "website"   -> optional(url.field),
     "standings" -> optional(url.field)
@@ -122,13 +123,19 @@ object RelayTourForm:
 
   object Data:
 
-    val empty = Data(RelayTour.Name(""), RelayTour.Info(none, none, none, none, none, none, none))
+    val empty = Data(
+      RelayTour.Name(""),
+      RelayTour.Info(none, none, none, none, lila.common.Form.timeZone.default.some, none, none, none)
+    )
 
     def make(tg: RelayTour.WithGroupTours) =
       import tg.*
       Data(
         name = tour.name,
-        info = tour.info.copy(fideTc = tour.info.fideTcOrGuess.some),
+        info = tour.info.copy(
+          fideTc = tour.info.fideTcOrGuess.some,
+          timeZone = tour.info.timeZone.orElse(lila.common.Form.timeZone.default.some)
+        ),
         markup = tour.markup,
         tier = tour.tier,
         showScores = tour.showScores,

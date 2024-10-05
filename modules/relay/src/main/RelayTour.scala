@@ -2,6 +2,7 @@ package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import io.mola.galimatias.URL
+import java.util.TimeZone
 
 import lila.core.i18n.Language
 import lila.core.id.ImageId
@@ -83,6 +84,7 @@ object RelayTour:
       tc: Option[String],
       fideTc: Option[FideTC],
       location: Option[String],
+      timeZone: Option[TimeZone],
       players: Option[String],
       website: Option[URL],
       standings: Option[URL]
