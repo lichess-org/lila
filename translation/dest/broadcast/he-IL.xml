@@ -29,7 +29,6 @@
   <string name="sourceSingleUrl">קישור המקור של ה־PGN</string>
   <string name="sourceUrlHelp">הקישור ש־Lichess יבדוק כדי לקלוט עדכונים ב־PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
   <string name="sourceGameIds">עד 64 מזהי משחק של Lichess, מופרדים ברווחים.</string>
-  <string name="startDate">תאריך ההתחלה באזור הזמן שלך</string>
   <string name="startDateHelp">אופציונאלי, אם את/ה יודע/ת מתי האירוע צפוי להתחיל</string>
   <string name="credits">תן/י קרדיט למקור</string>
   <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
