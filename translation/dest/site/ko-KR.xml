@@ -66,7 +66,7 @@
   <string name="showThreat">위험요소 표시</string>
   <string name="inLocalBrowser">브라우저에서</string>
   <string name="toggleLocalEvaluation">로컬 분석 토글</string>
-  <string name="promoteVariation">게임 분석 후에 어떤 수에 대한 예상결과들을 확인하고 싶다면</string>
+  <string name="promoteVariation">변형 승격</string>
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서부터 삭제</string>
   <string name="collapseVariations">바리에이션 축소하기</string>
@@ -725,7 +725,7 @@
   <string name="sessions">세션</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
   <string name="playChessEverywhere">어디에서나 체스를 즐기세요</string>
-  <string name="asFreeAsLichess">lichess처럼 무료입니다</string>
+  <string name="asFreeAsLichess">Lichess처럼 무료예요</string>
   <string name="builtForTheLoveOfChessNotMoney">오직 체스에 대한 열정으로 만들어졌습니다</string>
   <string name="everybodyGetsAllFeaturesForFree">모두가 모든 기능을 무료로 이용할 수 있습니다</string>
   <string name="zeroAdvertisement">광고가 없습니다</string>
@@ -737,7 +737,7 @@
   <string name="viewTheSolution">정답 보기</string>
   <string name="followAndChallengeFriends">친구를 팔로우하고 도전하기</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="other">%s개의 언어 지원!</item>
+    <item quantity="other">%s개의 언어를 지원합니다!</item>
   </plurals>
   <string name="gameAnalysis">게임 분석기</string>
   <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
