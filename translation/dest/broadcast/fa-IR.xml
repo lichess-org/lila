@@ -27,7 +27,6 @@
   <string name="sourceSingleUrl">وب‌نشانیِ PGN</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
   <string name="sourceGameIds">تا ۶۴ شناسه بازی لیچس٬ جداشده با فاصله.</string>
-  <string name="startDate">تاریخ شروع، در منطقه زمانی خودتان</string>
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
   <string name="credits">به منبع اعتبار دهید</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
