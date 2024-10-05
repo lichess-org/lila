@@ -436,15 +436,15 @@
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
-  <string name="followsYou">افرادی که شما را دنبال می کنند</string>
-  <string name="xStartedFollowingY">%1$s %2$s را فالو کرد</string>
+  <string name="followsYou">شما را می‌دنبالد</string>
+  <string name="xStartedFollowingY">%1$s دنبالیدن %2$s را آغازید</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s دنبال کننده‌</item>
-    <item quantity="other">%s دنبال کننده‌</item>
+    <item quantity="one">%s دنبال‌گر</item>
+    <item quantity="other">%s دنبال‌گر</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s دنبال می کند</item>
-    <item quantity="other">%s دنبال میکند</item>
+    <item quantity="one">%s دنبالنده</item>
+    <item quantity="other">%s دنبالنده</item>
   </plurals>
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
@@ -583,7 +583,7 @@
   <string name="clockIncrement">مقدار زمان اضافی به ازای هر حرکت</string>
   <string name="privacy">حریم شخصی</string>
   <string name="privacyPolicy">سیاست حریم شخصی</string>
-  <string name="letOtherPlayersFollowYou">بقیه بازیکنان شما را دنبال کنند</string>
+  <string name="letOtherPlayersFollowYou">اجازه دهید دیگر بازیکنان شما را بدنبالند</string>
   <string name="letOtherPlayersChallengeYou">اجازه دهید بازیکنان دیگر به شما پیشنهاد بازی دهند</string>
   <string name="letOtherPlayersInviteYouToStudy">بگذارید دیگر بازیکنان، شما را به مطالعه دعوت کنند</string>
   <string name="sound">صدا</string>
@@ -604,7 +604,7 @@
   <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">جدول زمانی</string>
-  <string name="starting">شروع</string>
+  <string name="starting">آغاز:</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
   <string name="biographyDescription">درباره ی خودتان بگویید - به چه چیزی در شطرنج علاقه داریدو گشایش ها - بازی ها و بازیکنان مورد علاقه تان…</string>
   <plurals name="maximumNbCharacters">
@@ -773,14 +773,14 @@
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>
   <string name="viewTheSolution">دیدن راه‌حل</string>
-  <string name="followAndChallengeFriends">دنبال کردن و پیشنهاد بازی دادن به دوستان</string>
+  <string name="followAndChallengeFriends">دنبالیدن و پیشنهاد بازی دادن به دوستان</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">در %s زبان موجود است!</item>
     <item quantity="other">در %s زبان موجود است!</item>
   </plurals>
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
-  <string name="xHostsY">%1$s میزبان ها %2$s</string>
-  <string name="xJoinsY">%1$s وارد می شود %2$s</string>
+  <string name="xHostsY">%1$s میزبان %2$s است</string>
+  <string name="xJoinsY">%1$s به %2$s می‌پیوندد</string>
   <string name="xLikesY">%1$s، %2$s را می‌پسندد</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
@@ -890,7 +890,7 @@
   <string name="agreementAssistance">من موافقم که در طول بازی‌هایم هیچگاه کمکی نخواهم گرفت (از یک رایانه شطرنج، کتاب، دادگان یا شخص دیگری).</string>
   <string name="agreementNice">می‌پذیرم که همواره به بازیکنان دیگر احترام گزارم.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">موافقم که چندین حساب نخواهم ساخت (جز به دلیل‌های ذکر شده در %s).</string>
-  <string name="agreementPolicy">با پیروی از همه خط‌مشی‌های Lichess، موافقم.</string>
+  <string name="agreementPolicy">با پیروی از همهٔ خط‌مشی‌های Lichess، موافقم.</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">گلوله‌ای</string>
