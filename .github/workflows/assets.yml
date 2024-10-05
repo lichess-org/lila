@@ -45,7 +45,7 @@ jobs:
       - run: node -v && pnpm -v && pnpm tsc -v
       - run: pnpm link "$GITHUB_WORKSPACE/ab"
         if: steps.ab.outcome == 'success'
-      - run: ./ui/build --no-install -p
+      - run: ./ui/build --no-install -pd
       - run: pnpm test
         working-directory: ui
       - run: mkdir assets && mv public assets/ && cp -p bin/download-lifat LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
