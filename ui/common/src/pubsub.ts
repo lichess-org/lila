@@ -16,6 +16,7 @@ export type PubsubEvent =
   | 'content-loaded'
   | 'flip'
   | 'jump'
+  | 'local.dev.import.book'
   | 'notify-app.set-read'
   | 'palantir.toggle'
   | 'ply'

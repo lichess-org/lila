@@ -16,7 +16,6 @@ export interface Message {
 export interface ErrorMessage extends Message {
   type: 'error';
   data: {
-    project: string;
     code: number;
     text: string;
     file: string;

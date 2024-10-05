@@ -1,6 +1,6 @@
 import { lastStep } from './util';
 import RoundController from './ctrl';
-import { ApiMove, RoundData } from './interfaces';
+import { RoundData, ApiMove } from './interfaces';
 import * as xhr from 'common/xhr';
 import { FEN } from 'chessground/types';
 import { storage } from 'common/storage';

@@ -82,7 +82,7 @@ lazy val modules = Seq(
   pool, lobby, relation, tv, coordinate, feed, history,
   shutup, appeal, irc, explorer, learn, event, coach,
   practice, evalCache, irwin, bot, racer, cms, i18n,
-  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch,
+  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch, local
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -152,6 +152,11 @@ lazy val storm = module("storm",
 
 lazy val racer = module("racer",
   Seq(storm, room),
+  Seq()
+)
+
+lazy val local = module("local",
+  Seq(db, memo, ui, pref),
   Seq()
 )
 

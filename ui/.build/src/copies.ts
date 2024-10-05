@@ -16,8 +16,8 @@ export function stopCopies(): void {
 
 export async function copies(): Promise<void> {
   if (!env.copies) return;
-  const watched = new Map<string, Sync[]>();
   const updated = new Set<string>();
+  const watched = new Map<string, Sync[]>();
 
   for (const pkg of env.building) {
     for (const cp of pkg.sync ?? []) {
@@ -59,6 +59,7 @@ export function isUnmanagedAsset(absfile: string): boolean {
   if (!absfile.startsWith(env.outDir)) return false;
   const name = absfile.slice(env.outDir.length + 1);
   if (['compiled/', 'hashed/', 'css/'].some(dir => name.startsWith(dir))) return false;
+  if (/json\/manifest.*.json/.test(name)) return false;
   return true;
 }
 
