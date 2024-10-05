@@ -7,6 +7,7 @@
     <item quantity="other">%s uitzendingen</item>
   </plurals>
   <string name="liveBroadcasts">Live toernooi uitzendingen</string>
+  <string name="broadcastCalendar">Uitzendkalender</string>
   <string name="newBroadcast">Nieuwe live uitzending</string>
   <string name="aboutBroadcasts">Over uitzending</string>
   <string name="howToUseLichessBroadcasts">Hoe Lichess Uitzendingen te gebruiken.</string>
@@ -25,6 +26,7 @@
   <string name="sourceSingleUrl">URL van pgn-bron</string>
   <string name="sourceUrlHelp">Link die Lichess gebruikt om PGN updates te krijgen. Deze moet openbaar toegankelijk zijn via internet.</string>
   <string name="sourceGameIds">Tot 64 Lichess partij-ID\'\'s, gescheiden door spaties.</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Startdatum in de lokale tijdzone van het tornooi: %s</string>
   <string name="startDateHelp">Optioneel, als je weet wanneer het evenement start</string>
   <string name="credits">Bronvermelding</string>
   <string name="currentGameUrl">Huidige partij-link</string>
