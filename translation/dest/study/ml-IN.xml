@@ -72,6 +72,7 @@
   <string name="studyNotFound">പാഠം കണ്ടെത്തിയില്ല</string>
   <string name="editChapter">പാഠം തിരുത്തുക</string>
   <string name="newChapter">പുതിയ അദ്ധ്യായം</string>
+  <string name="importFromChapterX">%s-നിന്ന് ഇറക്കുമതിക്കുക</string>
   <string name="orientation">വിന്യാസം</string>
   <string name="analysisMode">പരിശോധന മോഡ്</string>
   <string name="pinnedChapterComment">അധ്യായത്തിലെ കമന്റ് പിൻ ചെയ്യുക</string>
@@ -123,9 +124,21 @@
   <string name="deleteTheStudyChatHistory">അധ്യായത്തിന്റെ ചാറ്റ് ഹിസ്റ്ററി നീക്കം ചെയ്യണോ? പിന്നെ തിരിച്ചു പോകാൻ പറ്റില്ല!</string>
   <string name="deleteStudy">പഠനം നീക്കം ചെയ്യുക</string>
   <string name="goodMove">നല്ല നീക്കം</string>
+  <string name="mistake">തെറ്റു്</string>
+  <string name="brilliantMove">വളരെ നല്ല നീക്കം</string>
+  <string name="blunder">അബദ്ധം</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ഒറ്റ നീക്കം</string>
+  <string name="equalPosition">ഒരുപോലെയുള്ള കരുനില</string>
   <string name="whiteIsWinning">വെള്ള കളിക്കാരൻ ജയിക്കുന്നു</string>
   <string name="blackIsWinning">കറുത്ത കളിക്കാരൻ ജയിക്കുന്നു</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">വികസനം</string>
+  <string name="nextChapter">അടുത്ത പാഠം</string>
+  <string name="prevChapter">കഴിഞ്ഞ പാഠം</string>
+  <string name="topics">വിശയങ്ങൾ</string>
+  <string name="myTopics">എന്റെ വിശയങ്ങൾ</string>
+  <string name="popularTopics">ജനപ്രീയമായ വിശയങ്ങൾ</string>
+  <string name="manageTopics">വിശയങ്ങൾ നിയന്ത്രക്കുക</string>
   <string name="back">തിരിച്ച്</string>
   <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">പിന്നേയും കളിക്കുക</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">താങ്ങൾ ഈ കരുനിലയിൽ എന്ത് ചെയ്യും?</string>
 </resources>
