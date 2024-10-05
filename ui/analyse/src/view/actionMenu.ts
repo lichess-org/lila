@@ -250,7 +250,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          noarg('playWithTheMachine'),
+          noarg('playWithComputer'),
         ),
         h(
           'a.button',
@@ -262,7 +262,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          noarg('playWithAFriend'),
+          noarg('playAFriend'),
         ),
       ]),
   ]);

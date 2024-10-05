@@ -1,8 +1,21 @@
 import { h } from 'snabbdom';
-import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import { bind } from 'common/snabbdom';
 import LobbyController from '../../ctrl';
+
+export const renderHookFilter = (ctrl: LobbyController) =>
+  h('div.hook__filters', {
+    hook: {
+      insert(vnode) {
+        const el = vnode.elm as FilterNode;
+        if (el.filterLoaded) return;
+        xhr.text('/setup/filter').then(html => {
+          el.innerHTML = html;
+          el.filterLoaded = true;
+          initialize(ctrl, el);
+        });
+      },
+    },
+  });
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {
   const f = ctrl.filter.data?.form,
@@ -59,30 +72,6 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
   changeRatingRange();
 }
 
-export function toggle(ctrl: LobbyController, nbFiltered: number) {
-  const filter = ctrl.filter;
-  return h('i.toggle.toggle-filter', {
-    class: { gamesFiltered: nbFiltered > 0, active: filter.open },
-    hook: bind('mousedown', filter.toggle, ctrl.redraw),
-    attrs: { 'data-icon': filter.open ? licon.X : licon.Gear, title: ctrl.trans.noarg('filterGames') },
-  });
-}
-
-export interface FilterNode extends HTMLElement {
+interface FilterNode extends HTMLElement {
   filterLoaded?: boolean;
 }
-
-export const render = (ctrl: LobbyController) =>
-  h('div.hook__filters', {
-    hook: {
-      insert(vnode) {
-        const el = vnode.elm as FilterNode;
-        if (el.filterLoaded) return;
-        xhr.text('/setup/filter').then(html => {
-          el.innerHTML = html;
-          el.filterLoaded = true;
-          initialize(ctrl, el);
-        });
-      },
-    },
-  });

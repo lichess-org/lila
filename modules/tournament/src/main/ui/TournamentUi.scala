@@ -61,7 +61,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
     table(cls := "tournaments")(
       tours.map: tour =>
         val visiblePlayers = (tour.nbPlayers >= 10).option(tour.nbPlayers)
-        tr(
+        tr(dataHref := routes.Tournament.show(tour.id))(
           td(cls := "name")(
             a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id)):
               tour.name(full = false)

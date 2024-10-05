@@ -1,178 +1,104 @@
 .lobby {
-  ---cols: 1; // ui/lobby/src/main.ts
   grid-area: main;
   display: grid;
-  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'feed' 'tv' 'puzzle' 'tours' 'leader' 'winner' 'timeline' 'about';
+  grid-template-areas: 'app' 'buttons' 'side' 'tv' 'blog' 'puzzle' 'feed' 'timeline' 'forum' 'about';
   grid-gap: $block-gap;
+  grid-auto-rows: auto;
+}
+.lobby__counters {
+  display: none;
+}
 
-  &__tournaments,
-  &__simuls,
-  &__leaderboard,
-  &__winners {
-    max-height: 20em;
-  }
-  // this helps in empty dev mode
-  &__leaderboard,
-  &__winners {
-    min-height: 20em;
-  }
-  //sets min height when we disable Show player ratings and there is only Tournament winners box to display
-  &__wide-winners {
-    min-height: 20em;
-  }
-
-  @include mq-at-least-col2 {
-    ---cols: 2; // ui/lobby/src/main.ts
+@include mq-at-least-col2 {
+  .lobby {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto fit-content(0) repeat(3, min-content) 20em;
+    grid-template-rows: auto fit-content(0) repeat(2, min-content);
     grid-template-areas:
       'app      app'
-      'side     table'
-      'blog     blog'
+      'side     buttons'
       'tv       puzzle'
-      'support  support'
+      'blog     blog'
       'feed     feed'
-      'tours    tours'
       'timeline timeline'
-      'leader   winner'
+      'forum    forum'
       'about    about';
-
-    &__support {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 2%;
-    }
   }
+  .lobby__app .toggle {
+    padding: 0.6em;
+  }
+}
 
-  @include mq-at-least-col3 {
-    ---cols: 3; // ui/lobby/src/main.ts
+@include mq-at-least-col3 {
+  .lobby {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 12em fit-content(0) min-content auto fit-content(15em) repeat(2, fit-content(0)) minmax(
-        0,
-        1fr
-      );
+    grid-template-rows: 1fr repeat(2, min-content) repeat(2, fit-content(0));
     grid-template-areas:
-      'table  app     app'
-      'side   app     app'
-      'tv     blog    blog'
-      'tv     support support'
-      'puzzle feed    feed'
-      'leader tours   tours'
-      'winner tours   tours'
-      'winner about   about';
-
-    &__start {
-      margin: 2em 0 0 0;
-      flex-flow: column;
-      align-items: stretch;
-      justify-content: center;
-    }
-
-    &__counters {
-      display: flex;
-    }
-
-    &__side,
-    &__timeline {
-      margin-inline-start: 0;
-    }
+      'app      app   buttons'
+      'app      app   side'
+      'blog     blog  side'
+      'feed     feed  tv'
+      'puzzle   timeline forum'
+      'about    about about';
   }
+  .lobby__about {
+    font-size: 1.1em;
+  }
+  .lobby__swag-store {
+    display: grid;
+  }
+}
 
-  @include mq-at-least-col4 {
-    ---cols: 4; // ui/lobby/src/main.ts
+@include mq-at-least-col4 {
+  .lobby {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: fit-content(0) min-content auto repeat(3, fit-content(0));
+    grid-template-rows: 1fr auto auto 40em;
     grid-template-areas:
-      'side   app     app     table'
-      'tv     blog    blog    puzzle'
-      'tv     support support puzzle'
-      'feed   feed    tours   tours'
-      'feed   feed    leader  winner'
-      'about  about   leader  winner';
-
-    &__start {
-      justify-content: center;
-
-      button {
-        margin: 1.2em 0;
-        padding: 1em;
-      }
-    }
-
-    &__side {
-      margin-top: 2em;
-    }
-
-    &__counters {
-      margin: 0;
-      flex-flow: column;
-      align-items: flex-start;
-      position: absolute;
-      bottom: 0;
-    }
-
-    &__support {
-      grid-gap: $block-gap;
-    }
+      'side     app   app   buttons'
+      'tv       app   app   puzzle'
+      'tv       blog  blog  puzzle'
+      'timeline feed  feed  forum'
+      'about    about about about';
   }
+  .lobby__counters {
+    display: flex;
+  }
+  .lobby__side {
+    margin-top: 3em;
+  }
+  .lobby__feed {
+    background-color: $c-bg-box;
+  }
+}
 
-  &__side {
-    grid-area: side;
-  }
-
-  &__app,
-  &__nope {
-    grid-area: app;
-  }
-
-  &__table {
-    grid-area: table;
-  }
-
-  &__tv {
-    grid-area: tv;
-  }
-
-  &__leaderboard {
-    grid-area: leader;
-  }
-
-  &__winners {
-    grid-area: winner;
-  }
-
-  &__wide-winners {
-    grid-area: leader / leader / leader / winner;
-  }
-
-  &__puzzle {
-    grid-area: puzzle;
-  }
-
-  &__tournaments-simuls {
-    grid-area: tours;
-  }
-  &__simuls {
-    margin-top: $block-gap;
-  }
-
-  &__blog {
-    grid-area: blog;
-  }
-
-  &__support {
-    grid-area: support;
-  }
-
-  &__feed {
-    grid-area: feed;
-  }
-
-  &__about {
-    grid-area: about;
-  }
-
-  &__timeline {
-    grid-area: timeline;
-  }
+.lobby__side {
+  grid-area: side;
+}
+.about-side,
+.lobby__timeline {
+  grid-area: timeline;
+}
+.lobby__feed {
+  grid-area: feed;
+}
+.lobby__forum {
+  grid-area: forum;
+}
+.lobby__app,
+.lobby__nope {
+  grid-area: app;
+}
+.lobby__buttons {
+  grid-area: buttons;
+}
+.lobby__tv {
+  grid-area: tv;
+}
+.lobby__puzzle {
+  grid-area: puzzle;
+}
+.lobby__blog {
+  grid-area: blog;
+}
+.lobby__about {
+  grid-area: about;
 }

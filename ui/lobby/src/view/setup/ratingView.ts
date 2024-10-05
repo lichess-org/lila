@@ -1,7 +1,7 @@
 import { MaybeVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
-import { speeds, variants } from '../../../options';
+import LobbyController from '../../ctrl';
+import { speeds, variants } from '../../constants';
 
 export const ratingView = (ctrl: LobbyController): MaybeVNode => {
   const { opts, data } = ctrl;

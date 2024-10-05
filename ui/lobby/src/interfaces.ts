@@ -1,10 +1,13 @@
 import { FEN } from 'chessground/types';
 
 export type Sort = 'rating' | 'time';
-export type Mode = 'list' | 'chart';
-export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
+export type Mode = 'list' | 'graph';
+export type AppTab = 'quick' | 'lobby' | 'tournament' | 'your';
+export type LobbyTab = 'realtime' | 'correspondence';
+export type YourTab = 'playing' | 'recent';
+export type Tab = AppTab | LobbyTab | YourTab;
 export type GameType = 'hook' | 'friend' | 'ai' | 'local';
-export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
+export type TimeMode = 'realtime' | 'correspondence' | 'unlimited';
 export type GameMode = 'casual' | 'rated';
 
 // These are not true quantities. They represent the value of input elements
@@ -58,8 +61,6 @@ export interface Pool {
 }
 
 export interface LobbyOpts {
-  appElement: HTMLElement;
-  tableElement: HTMLElement;
   socketSend: SocketSend;
   pools: Pool[];
   hasUnreadLichessMessage: boolean;
@@ -123,24 +124,3 @@ export interface PoolMember {
 
 export type PoolId = string;
 export type PoolRange = string;
-
-export interface SetupStore {
-  variant: VariantKey;
-  fen: string;
-  timeMode: TimeMode;
-  gameMode: GameMode;
-  ratingMin: number;
-  ratingMax: number;
-  aiLevel: number;
-  time: number;
-  increment: number;
-  days: number;
-}
-
-export interface ForceSetupOptions {
-  variant?: VariantKey;
-  fen?: string;
-  timeMode?: TimeMode;
-  time?: number;
-  increment?: number;
-}

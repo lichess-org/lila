@@ -1,0 +1,66 @@
+.lobby__buttons {
+  @extend %flex-column;
+  gap: $block-gap;
+  justify-content: center;
+}
+
+.lobby__start {
+  @extend %flex-column;
+
+  gap: 0.75em;
+
+  > button {
+    font-size: 1.2em;
+    text-align: center;
+
+    &.disabled {
+      opacity: 0.2;
+    }
+  }
+}
+
+.lobby__support {
+  @extend %box-neat, %metal;
+  display: grid;
+  grid-template-columns: 10% 1fr;
+  font-size: 1.3em;
+  padding: 0.5em;
+
+  &:hover {
+    @extend %metal-hover;
+
+    *:not(span) {
+      color: $c-font-clear;
+    }
+  }
+
+  > i {
+    margin: 0 0.3em;
+
+    &::before {
+      color: $c-font;
+      font-size: 2.2em;
+    }
+  }
+
+  > div {
+    @extend %flex-column;
+    align-items: center;
+    justify-content: center;
+    color: $c-font;
+
+    > strong {
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+
+    > span {
+      color: $c-font-dim;
+      font-size: 0.8em;
+    }
+  }
+}
+
+.lobby__swag-store {
+  display: none;
+}

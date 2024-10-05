@@ -1,8 +1,8 @@
 import { Prop } from 'common';
 import { looseH as h } from 'common/snabbdom';
-import LobbyController from '../../../ctrl';
-import { InputValue, TimeMode } from '../../../interfaces';
-import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../../options';
+import LobbyController from '../../ctrl';
+import { InputValue, TimeMode } from '../../interfaces';
+import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../constants';
 import { option } from './option';
 
 const showTime = (v: number) => {
@@ -16,7 +16,7 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
   const { trans, setupCtrl } = ctrl;
   return [
     renderTimeModePicker(ctrl, allowAnonymous),
-    setupCtrl.timeMode() === 'realTime' &&
+    setupCtrl.timeMode() === 'realtime' &&
       h('div.time-choice', [
         h('label', { attrs: { for: 'sf_time' } }, trans('minutesPerSide')),
         h(
@@ -29,7 +29,7 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
           ),
         ),
       ]),
-    setupCtrl.timeMode() === 'realTime' &&
+    setupCtrl.timeMode() === 'realtime' &&
       h('div.increment-choice', [
         h('label', { attrs: { for: 'sf_increment' } }, trans('incrementInSeconds')),
         h(
@@ -102,7 +102,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
       ? renderBlindModeTimePickers(ctrl, allowAnonymous)
       : [
           renderTimeModePicker(ctrl, allowAnonymous),
-          setupCtrl.timeMode() === 'realTime' &&
+          setupCtrl.timeMode() === 'realtime' &&
             h('div.time-choice.range', [
               `${trans('minutesPerSide')}: `,
               h('span', showTime(setupCtrl.time())),
@@ -110,7 +110,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
                 failure: !setupCtrl.validTime() || !setupCtrl.validAiTime(),
               }),
             ]),
-          setupCtrl.timeMode() === 'realTime'
+          setupCtrl.timeMode() === 'realtime'
             ? h('div.increment-choice.range', [
                 `${trans('incrementInSeconds')}: `,
                 h('span', `${setupCtrl.increment()}`),

@@ -7,7 +7,9 @@ export function rotateBlogs() {
     const kids = el.children as HTMLCollectionOf<HTMLElement>;
     const visible = Math.floor((el.clientWidth + gridGap) / (192 + gridGap));
     const colW = (el.clientWidth - gridGap * (visible - 1)) / visible;
+
     el.style.gridTemplateColumns = `repeat(7, ${colW}px)`;
+
     const rotateBlogInner = () => {
       for (let i = 0; i < kids.length; i++) {
         kids[i].style.transition = 'transform 0.6s ease';

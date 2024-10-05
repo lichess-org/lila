@@ -54,3 +54,19 @@ object ForumCateg:
   val diagnosticId = ForumCategId("diagnostic")
 
   def fromTeamId(id: TeamId): ForumCategId = ForumCategId(s"team-$id")
+
+  val publicNames = Map(
+    "general-chess-discussion"   -> "General Chess Discussion",
+    "offtopic-discussion"        -> "Off-topic Discussion",
+    "lichess-feedback"           -> "Lichess Feedback",
+    "game-analysis"              -> "Game analysis",
+    "community-blog-discussions" -> "Community Blog Discussions"
+  ).map(c => ForumCategId(c._1) -> c._2)
+
+  val publicShortNames = Map(
+    "general-chess-discussion"   -> "CHESS",
+    "offtopic-discussion"        -> "OFFTOPIC",
+    "lichess-feedback"           -> "FEEDBACK",
+    "game-analysis"              -> "ANALYSIS",
+    "community-blog-discussions" -> "BLOG"
+  ).map(c => ForumCategId(c._1) -> c._2)

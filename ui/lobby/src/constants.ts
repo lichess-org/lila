@@ -50,7 +50,7 @@ export const speeds: { key: Speed; name: string; icon: string }[] = [
 ];
 
 export const timeModes = (trans: Trans): { id: number; key: TimeMode; name: string }[] => [
-  { id: 1, key: 'realTime', name: trans('realTime') },
+  { id: 1, key: 'realtime', name: trans('realTime') },
   { id: 2, key: 'correspondence', name: trans('correspondence') },
   { id: 0, key: 'unlimited', name: trans('unlimited') },
 ];
@@ -166,3 +166,35 @@ export const colors = (trans: Trans): { key: Color | 'random'; name: string }[] 
   { key: 'random', name: trans('randomColor') },
   { key: 'white', name: trans('white') },
 ];
+
+export const pools = [
+  // mirrors modules/pool/src/main/PoolList.scala
+  { id: '1+0', lim: 1, inc: 0, perf: 'Bullet' },
+  { id: '2+1', lim: 2, inc: 1, perf: 'Bullet' },
+  { id: '3+0', lim: 3, inc: 0, perf: 'Blitz' },
+  { id: '3+2', lim: 3, inc: 2, perf: 'Blitz' },
+  { id: '5+0', lim: 5, inc: 0, perf: 'Blitz' },
+  { id: '5+3', lim: 5, inc: 3, perf: 'Blitz' },
+  { id: '10+0', lim: 10, inc: 0, perf: 'Rapid' },
+  { id: '10+5', lim: 10, inc: 5, perf: 'Rapid' },
+  { id: '15+10', lim: 15, inc: 10, perf: 'Rapid' },
+  { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
+  { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
+];
+
+export const perfNames = {
+  ultraBullet: 'UltraBullet',
+  bullet: 'Bullet',
+  blitz: 'Blitz',
+  rapid: 'Rapid',
+  classical: 'Classical',
+  correspondence: 'Correspondence',
+  racingKings: 'Racing Kings',
+  threeCheck: 'Three-check',
+  antichess: 'Antichess',
+  horde: 'Horde',
+  atomic: 'Atomic',
+  crazyhouse: 'Crazyhouse',
+  chess960: 'Chess960',
+  kingOfTheHill: 'King of the Hill',
+};

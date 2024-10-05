@@ -38,7 +38,7 @@ final class SimulUi(helpers: Helpers):
     table(cls := "slist"):
       simuls.map: simul =>
         val url = routes.Simul.show(simul.id)
-        tr(
+        tr(dataHref := url)(
           withName.option(td(cls := "name")(a(href := url)(simul.fullName))),
           td:
             if withName then userIdLink(simul.hostId.some)

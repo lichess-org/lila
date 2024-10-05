@@ -267,12 +267,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#ai', rel: 'nofollow' } },
-              ctrl.trans.noarg('playWithTheMachine'),
+              ctrl.trans.noarg('playTheComputer'),
             ),
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#friend', rel: 'nofollow' } },
-              ctrl.trans.noarg('playWithAFriend'),
+              ctrl.trans.noarg('playAFriend'),
             ),
           ]),
         ]),

@@ -65,8 +65,8 @@ final class BoardEditorUi(helpers: Helpers):
     trans.site.blackPlays,
     trans.site.variant,
     trans.site.continueFromHere,
-    trans.site.playWithTheMachine,
-    trans.site.playWithAFriend,
+    trans.site.playTheComputer,
+    trans.site.playAFriend,
     trans.site.analysis,
     trans.site.toStudy
   )

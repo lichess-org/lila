@@ -91,51 +91,50 @@ $c-slider: $c-setup;
     margin: 1em auto;
     text-align: center;
 
-    &__button {
-      margin: 0 0.5em;
-      width: 64px;
-      height: 64px;
-      padding: 7px;
-
-      i {
-        display: block;
-        padding: 0;
-        width: 50px;
-        height: 50px;
-        background-size: 50px 50px;
-      }
-
-      &.white i {
-        background-image: img-url('../piece/cburnett/wK.svg');
-      }
-
-      &.black i {
-        background-image: img-url('../piece/cburnett/bK.svg');
-      }
-
-      &.random {
-        width: 85px;
-        height: 85px;
-        padding: 10px;
-
-        i {
-          background-image: img-url('wbK.svg');
-          background-size: 65px 65px;
-          width: 65px;
-          height: 65px;
-        }
-      }
-
-      &:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-      }
-    }
-
     .spinner {
       width: 85px;
       height: 85px;
       margin: 10px auto 20px auto;
+    }
+  }
+  .color-submits__button {
+    margin: 0 0.5em;
+    width: 64px;
+    height: 64px;
+    padding: 7px;
+
+    i {
+      display: block;
+      padding: 0;
+      width: 50px;
+      height: 50px;
+      background-size: 50px 50px;
+    }
+
+    &.white i {
+      background-image: img-url('../piece/cburnett/wK.svg');
+    }
+
+    &.black i {
+      background-image: img-url('../piece/cburnett/bK.svg');
+    }
+
+    &.random {
+      width: 85px;
+      height: 85px;
+      padding: 10px;
+
+      i {
+        background-image: img-url('wbK.svg');
+        background-size: 65px 65px;
+        width: 65px;
+        height: 65px;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
     }
   }
 
