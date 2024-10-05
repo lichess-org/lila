@@ -152,7 +152,7 @@ object I18nKey:
     val `sourceSingleUrl`: I18nKey = "broadcast:sourceSingleUrl"
     val `sourceUrlHelp`: I18nKey = "broadcast:sourceUrlHelp"
     val `sourceGameIds`: I18nKey = "broadcast:sourceGameIds"
-    val `startDate`: I18nKey = "broadcast:startDate"
+    val `startDateTimeZone`: I18nKey = "broadcast:startDateTimeZone"
     val `startDateHelp`: I18nKey = "broadcast:startDateHelp"
     val `credits`: I18nKey = "broadcast:credits"
     val `currentGameUrl`: I18nKey = "broadcast:currentGameUrl"

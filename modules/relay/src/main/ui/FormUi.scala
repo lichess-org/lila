@@ -293,7 +293,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           form3.split(
             form3.group(
               form("startsAt"),
-              trb.startDate(),
+              trb.startDateTimeZone(strong(nav.tour.info.timeZoneOrDefault.getId)),
               help = trb.startDateHelp().some,
               half = true
             )(form3.flatpickr(_, minDate = None)),

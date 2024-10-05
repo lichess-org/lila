@@ -6,10 +6,11 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import scalalib.model.Seconds
-import lila.common.Form.{ cleanText, formatter, into, stringIn }
+import lila.common.Form.{ cleanText, formatter, into, stringIn, LocalDateTimeOrTimestamp }
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
 import lila.relay.RelayRound.Sync.Upstream
+import lila.common.Form.PrettyDateTime
 
 final class RelayRoundForm(using mode: Mode):
 
@@ -46,7 +47,7 @@ final class RelayRoundForm(using mode: Mode):
   private def lccIsComplete(url: Upstream.Url) =
     url.lcc.isDefined || !url.url.host.toString.endsWith("livechesscloud.com")
 
-  def roundMapping(using Me) =
+  def roundMapping(tour: RelayTour)(using Me) =
     mapping(
       "name"       -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption"    -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
@@ -61,7 +62,7 @@ final class RelayRoundForm(using mode: Mode):
       ),
       "syncUrls"            -> optional(of[Upstream.Urls]),
       "syncIds"             -> optional(of[Upstream.Ids]),
-      "startsAt"            -> optional(ISOInstantOrTimestamp.mapping),
+      "startsAt"            -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
       "startsAfterPrevious" -> optional(boolean),
       "finished"            -> optional(boolean),
       "period"              -> optional(number(min = 2, max = 60).into[Seconds]),
@@ -73,15 +74,15 @@ final class RelayRoundForm(using mode: Mode):
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
-    roundMapping
+    roundMapping(trs.tour)
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
   ).fill(fillFromPrevRounds(trs.rounds))
 
-  def edit(r: RelayRound)(using Me) = Form(
-    roundMapping
+  def edit(t: RelayTour, r: RelayRound)(using Me) = Form(
+    roundMapping(t)
       .verifying(
         "The round source cannot be itself",
         d => d.syncSource.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))

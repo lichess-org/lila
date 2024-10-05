@@ -6,9 +6,9 @@ import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Form as PlayForm, FormError, Mapping, validation as V }
-
+import scala.jdk.CollectionConverters.*
 import java.lang
-import java.time.LocalDate
+import java.time.{ LocalDate, ZoneId }
 import scala.util.Try
 
 object Form:
@@ -229,17 +229,15 @@ object Form:
     val field: Mapping[URL] = of[URL]
 
   object timeZone:
-    import java.util.TimeZone
     lazy val choices: List[(String, String)] =
-      TimeZone.getAvailableIDs.toList.flatMap: id =>
-        Try(TimeZone.getTimeZone(id)).toOption.map: tz =>
-          tz.getID -> tz.getID
-    lazy val default = TimeZone.getTimeZone("UTC")
-    given Formatter[TimeZone] = formatter.stringTryFormatter(
-      from = s => Try(TimeZone.getTimeZone(s)).fold(err => Left(err.getMessage), Right(_)),
-      to = _.getID
+      ZoneId.getAvailableZoneIds.asScala.toList.flatMap: id =>
+        Try(ZoneId.of(id)).toOption.map: tz =>
+          tz.getId -> tz.getId
+    given Formatter[ZoneId] = formatter.stringTryFormatter(
+      from = s => Try(ZoneId.of(s)).fold(err => Left(err.getMessage), Right(_)),
+      to = _.getId
     )
-    val field: Mapping[TimeZone] = of[TimeZone]
+    val field: Mapping[ZoneId] = of[ZoneId]
 
   object username:
     val historicalConstraints = Seq(
@@ -346,4 +344,14 @@ object Form:
       def bind(key: String, data: Map[String, String]) =
         ISOInstant.format.bind(key, data).orElse(Timestamp.format.bind(key, data))
       def unbind(key: String, value: Instant) = ISOInstant.format.unbind(key, value)
+    val mapping: Mapping[Instant] = of[Instant](format)
+  final class LocalDateTimeOrTimestamp(zone: ZoneId):
+    val format: Formatter[Instant] = new:
+      def bind(key: String, data: Map[String, String]) =
+        PrettyDateTime.format
+          .bind(key, data)
+          .map(_.atZone(zone).toInstant)
+          .orElse(Timestamp.format.bind(key, data))
+      def unbind(key: String, value: Instant) =
+        PrettyDateTime.format.unbind(key, value.atZone(zone).toLocalDateTime)
     val mapping: Mapping[Instant] = of[Instant](format)

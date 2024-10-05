@@ -8,6 +8,7 @@ import io.mola.galimatias.URL
 import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, typeIn, url }
 import lila.core.perm.Granter
 import lila.core.fide.FideTC
+import java.time.ZoneId
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
@@ -125,7 +126,7 @@ object RelayTourForm:
 
     val empty = Data(
       RelayTour.Name(""),
-      RelayTour.Info(none, none, none, none, lila.common.Form.timeZone.default.some, none, none, none)
+      RelayTour.Info(none, none, none, none, ZoneId.systemDefault.some, none, none, none)
     )
 
     def make(tg: RelayTour.WithGroupTours) =
@@ -134,7 +135,7 @@ object RelayTourForm:
         name = tour.name,
         info = tour.info.copy(
           fideTc = tour.info.fideTcOrGuess.some,
-          timeZone = tour.info.timeZone.orElse(lila.common.Form.timeZone.default.some)
+          timeZone = tour.info.timeZoneOrDefault.some
         ),
         markup = tour.markup,
         tier = tour.tier,
