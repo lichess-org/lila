@@ -157,6 +157,7 @@
   <string name="viewInFullSize">പൂര്‍ണ രൂപത്തില്‍ കാണുക</string>
   <string name="logOut">സൈന്‍ ഔട്ട്‌</string>
   <string name="signIn">സൈന്‍ ഇന്‍</string>
+  <string name="rememberMe">എന്നേ നിർഗമിക്കരുത്</string>
   <string name="youNeedAnAccountToDoThat">ഇത് ചെയ്യണമെങ്കില്‍ നിങ്ങള്‍ക്ക് ഒരു അക്കൗണ്ട്‌ വേണം</string>
   <string name="signUp">രജിസ്റ്റര്‍</string>
   <string name="computersAreNotAllowedToPlay">കമ്പ്യൂട്ടറുകള്‍ക്കും കമ്പ്യൂട്ടര്‍ സഹായമുള്ള കളിക്കാര്‍ക്കും കളിക്കാന്‍ അനുവാദമില്ല. ദയവായി കളിക്കിടെ ചെസ്സ്‌ എഞ്ചിനുകളുടെയോ ഡാറ്റാബേസുകളുടെയോ മറ്റു കളിക്കാരുടെയോ സഹായം തേടരുത്. നിരവധി അക്കൗണ്ടുകളുണ്ടാക്കുന്നത് ശക്തമായി നിരുത്സാഹപ്പെടുത്തുകയും അങ്ങനെ ചെയ്താല്‍ വിലക്കേര്‍പ്പെടുത്തും എന്നും പ്രത്യേകം ശ്രദ്ധിക്കുക.</string>
@@ -186,6 +187,10 @@
     <item quantity="one">%s മണിക്കുറുകള്‍</item>
     <item quantity="other">%s മണിക്കുറുകള്‍</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s മിനിറ്റ്</item>
+    <item quantity="other">%s മിനിറ്റുകൾ</item>
+  </plurals>
   <string name="time">സമയം</string>
   <string name="rating">നിലവാരം (റേറ്റിംഗ്)</string>
   <string name="ratingStats">നിലവാര സ്ഥിതിവിവരം</string>
@@ -202,6 +207,7 @@
   <string name="passwordReset">രഹസ്യവാക്ക് റീസെറ്റ് ചെയ്യുക</string>
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
   <string name="error.weakPassword">ഈ രഹസ്യവാക്ക് ഊഹിക്കുകാൻ വളരെ എളുപ്പമാണ്.</string>
+  <string name="error.namePassword">ദയവായി താങ്ങളുടെ ഉപയോക്തൃനാമം രഹസ്യവാക്കയായി ഉപയോഗിക്കരുത്.</string>
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
   <string name="emailConfirmHelp">മെയിൽ ഉറപ്പിന് സഹായം</string>
   <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
@@ -462,6 +468,7 @@
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">രാജ്യം അല്ലെങ്കിൽ പ്രദേശം</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
+  <string name="oneUrlPerLine">ഒരു വരിയിൽ ഒരു വിലാസം.</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">ഓൺലൈൻ കളിക്കാർ</string>
@@ -697,9 +704,10 @@
   <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>
   <string name="language">ഭാഷ</string>
   <string name="background">പശ്ചാത്തലം</string>
-  <string name="light">ലൈറ്റ്</string>
+  <string name="light">വെളിച്ചപെട്ട</string>
   <string name="dark">ഇരുണ്ടത്</string>
   <string name="transparent">സുതാര്യത</string>
+  <string name="deviceTheme">ഉപകരണയലങ്കാരം</string>
   <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
   <string name="board">ബോർഡ്</string>
   <string name="size">വലിപ്പം</string>
