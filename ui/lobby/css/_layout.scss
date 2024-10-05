@@ -43,9 +43,9 @@
   .lobby__about {
     font-size: 1.1em;
   }
-  .lobby__swag-store {
-    display: grid;
-  }
+  // .lobby__swag-store {
+  //   display: grid;
+  // }
 }
 
 @include mq-at-least-col4 {
