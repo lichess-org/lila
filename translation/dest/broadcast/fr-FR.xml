@@ -7,6 +7,7 @@
     <item quantity="other">%s diffusions</item>
   </plurals>
   <string name="liveBroadcasts">Diffusions de tournois en direct</string>
+  <string name="broadcastCalendar">Calendrier des diffusions</string>
   <string name="newBroadcast">Nouvelle diffusion en direct</string>
   <string name="subscribedBroadcasts">Diffusions suivies</string>
   <string name="aboutBroadcasts">À propos des diffusions</string>
