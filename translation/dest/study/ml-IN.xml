@@ -122,6 +122,10 @@
   <string name="clearChat">ചാറ്റ് അപ്രത്യക്ഷമാക്കുക</string>
   <string name="deleteTheStudyChatHistory">അധ്യായത്തിന്റെ ചാറ്റ് ഹിസ്റ്ററി നീക്കം ചെയ്യണോ? പിന്നെ തിരിച്ചു പോകാൻ പറ്റില്ല!</string>
   <string name="deleteStudy">പഠനം നീക്കം ചെയ്യുക</string>
+  <string name="goodMove">നല്ല നീക്കം</string>
+  <string name="whiteIsWinning">വെള്ള കളിക്കാരൻ ജയിക്കുന്നു</string>
+  <string name="blackIsWinning">കറുത്ത കളിക്കാരൻ ജയിക്കുന്നു</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">വികസനം</string>
   <string name="back">തിരിച്ച്</string>
   <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">പിന്നേയും കളിക്കുക</string>
 </resources>
