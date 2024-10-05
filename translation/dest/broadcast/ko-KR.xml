@@ -6,10 +6,11 @@
     <item quantity="other">%s 방송</item>
   </plurals>
   <string name="liveBroadcasts">실시간 대회 방송</string>
+  <string name="broadcastCalendar">방송 달력</string>
   <string name="newBroadcast">새 실시간 방송</string>
   <string name="subscribedBroadcasts">구독 중인 방송</string>
   <string name="aboutBroadcasts">방송에 대해서</string>
-  <string name="howToUseLichessBroadcasts">리체스 방송을 사용하는 법.</string>
+  <string name="howToUseLichessBroadcasts">리체스 방송을 사용하는 방법.</string>
   <string name="theNewRoundHelp">새로운 라운드에는 이전 라운드와 동일한 구성원과 기여자가 있을 것입니다.</string>
   <string name="addRound">라운드 추가</string>
   <string name="ongoing">진행중</string>
@@ -17,7 +18,7 @@
   <string name="completed">종료됨</string>
   <string name="completedHelp">Lichess는 경기 완료를 감지하지만, 잘못될 때가 있을 수 있습니다. 수동으로 설정하기 위해 이걸 사용하세요.</string>
   <string name="roundName">라운드 이름</string>
-  <string name="roundNumber">라운드 수</string>
+  <string name="roundNumber">라운드 숫자</string>
   <string name="tournamentName">토너먼트 이름</string>
   <string name="tournamentDescription">짧은 토너먼트 설명</string>
   <string name="fullDescription">전체 이벤트 설명</string>
