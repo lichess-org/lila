@@ -29,7 +29,6 @@
   <string name="sourceSingleUrl">Адреса джерела PGN</string>
   <string name="sourceUrlHelp">Посилання, яке Lichess перевірятиме, щоб отримати оновлення PGN. Воно має бути загальнодоступним в Інтернеті.</string>
   <string name="sourceGameIds">До 64 ігрових ID Lichess, відокремлені пробілами.</string>
-  <string name="startDate">Дата початку у вашому часовому поясі</string>
   <string name="startDateHelp">За бажанням, якщо ви знаєте, коли починається подія</string>
   <string name="credits">Вдячність джерелу</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
