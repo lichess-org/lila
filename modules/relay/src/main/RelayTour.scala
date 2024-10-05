@@ -118,6 +118,11 @@ object RelayTour:
     def link    = round
     def display = round
 
+  case class WithFirstRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
+      extends RelayRound.AndTourAndGroup:
+    def link    = round
+    def display = round
+
   case class IdName(@Key("_id") id: RelayTourId, name: Name)
 
   case class WithGroup(tour: RelayTour, group: Option[RelayGroup])

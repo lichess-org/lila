@@ -24,7 +24,7 @@ export interface ErrorMessage extends Message {
   };
 }
 
-let builder: ts.SolutionBuilder<ts.EmitAndSemanticDiagnosticsBuilderProgram>|undefined;
+let builder: ts.SolutionBuilder<ts.EmitAndSemanticDiagnosticsBuilderProgram> | undefined;
 const { projects, watch, index } = workerData as WorkerData;
 
 if (watch) {
@@ -32,7 +32,6 @@ if (watch) {
   builder = ts.createSolutionBuilderWithWatch(host, projects, { preserveWatchOutput: true });
 
   builder.build();
-
 } else {
   const host = ts.createSolutionBuilderHost(ts.sys, undefined, diagnostic);
   builder = ts.createSolutionBuilder(host, projects, {});
@@ -44,11 +43,11 @@ if (watch) {
 }
 
 function watchEvent(err: ts.Diagnostic) {
-
-  if (err.code === 6194) // 0 errors found
+  if (err.code === 6194)
+    // 0 errors found
     parentPort?.postMessage({ type: 'ok', index });
-
-  else if (err.code === 6032) // File change detected
+  else if (err.code === 6032)
+    // File change detected
     parentPort?.postMessage({ type: 'busy', index });
 }
 

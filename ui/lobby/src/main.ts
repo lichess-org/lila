@@ -39,7 +39,7 @@ let animationFrameId: number;
 const layoutChanged = () => {
   cancelAnimationFrame(animationFrameId); // avoid more than one call per frame
   animationFrameId = requestAnimationFrame(() => {
-    $('main.lobby').each(function(this: HTMLElement) {
+    $('main.lobby').each(function (this: HTMLElement) {
       const newCols = Number(window.getComputedStyle(this).getPropertyValue('---cols'));
       if (newCols != cols) {
         cols = newCols;

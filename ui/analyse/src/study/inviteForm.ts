@@ -89,21 +89,21 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                 ctrl.invite(v.name);
                 ctrl.redraw();
               },
-            })
+            }),
           ),
         }),
       ]),
       candidates.length
         ? h(
-          'div.users',
-          candidates.map(function(username: string) {
-            return h(
-              'span.button.button-metal',
-              { key: username, hook: bind('click', () => ctrl.invite(username)) },
-              username,
-            );
-          }),
-        )
+            'div.users',
+            candidates.map(function (username: string) {
+              return h(
+                'span.button.button-metal',
+                { key: username, hook: bind('click', () => ctrl.invite(username)) },
+                username,
+              );
+            }),
+          )
         : undefined,
     ],
   });

@@ -202,7 +202,7 @@ export default class ExplorerCtrl {
     }
   };
   isIndexing = () => !!this.lastStream && !defined(this.lastStream.sync);
-  fetchMasterOpening = async(fen: FEN): Promise<OpeningData> => {
+  fetchMasterOpening = async (fen: FEN): Promise<OpeningData> => {
     const deferred = defer<OpeningData>();
     await xhr.opening(
       {
@@ -216,7 +216,7 @@ export default class ExplorerCtrl {
     );
     return await deferred.promise;
   };
-  fetchTablebaseHit = async(fen: FEN): Promise<SimpleTablebaseHit> => {
+  fetchTablebaseHit = async (fen: FEN): Promise<SimpleTablebaseHit> => {
     const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
     const move = res.moves[0];
     if (move && move.dtz == null) throw 'unknown tablebase position';

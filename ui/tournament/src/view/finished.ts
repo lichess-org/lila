@@ -44,13 +44,13 @@ function stats(ctrl: TournamentController): VNode | undefined {
     h('div.tour__stats__links.force-ltr', [
       ...(data.teamBattle
         ? [
-          h(
-            'a',
-            { attrs: { href: `/tournament/${data.id}/teams` } },
-            trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length),
-          ),
-          h('br'),
-        ]
+            h(
+              'a',
+              { attrs: { href: `/tournament/${data.id}/teams` } },
+              trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length),
+            ),
+            h('br'),
+          ]
         : []),
       h(
         'a.text',

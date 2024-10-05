@@ -7,7 +7,7 @@ import renderSeeks from './correspondence';
 import renderPlaying from './playing';
 import LobbyController from '../ctrl';
 
-export default function(ctrl: LobbyController) {
+export default function (ctrl: LobbyController) {
   let body,
     data: VNodeData = {};
   const redirBlock = ctrl.redirecting && ctrl.tab != 'pools';

@@ -81,5 +81,5 @@ export async function dbExists(dbInfo: DbInfo): Promise<boolean> {
   const found = (await window.indexedDB.databases()).some(db => db.name === dbName);
   if (!found) return false;
   const store = await objectStorage(dbInfo);
-  return await store.count() > 0;
+  return (await store.count()) > 0;
 }

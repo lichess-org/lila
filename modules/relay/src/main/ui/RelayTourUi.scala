@@ -1,12 +1,12 @@
 package lila.relay
 package ui
 
+import java.time.{ Month, YearMonth }
 import scalalib.paginator.Paginator
 
 import lila.core.LightUser
-import lila.relay.RelayTour.WithLastRound
+import lila.relay.RelayTour.{ WithLastRound, WithFirstRound }
 import lila.ui.*
-
 import ScalatagsTemplate.{ *, given }
 
 final class RelayTourUi(helpers: Helpers, ui: RelayUi):
@@ -18,7 +18,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def index(
       active: List[RelayTour.ActiveWithSomeRounds],
       upcoming: List[WithLastRound],
-      past: Paginator[WithLastRound]
+      past: Seq[WithLastRound]
   )(using Context) =
     def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
       val selected = active.filter(_.tour.tierIs(selector))
@@ -28,7 +28,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
-      .js(infiniteScrollEsmInit)
       .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):
         main(cls := "relay-index page-menu")(
           pageMenu("index"),
@@ -47,7 +46,15 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
               )
             ),
             h2(cls := "relay-index__section")("Past broadcasts"),
-            renderPager(asRelayPager(past), "")(cls := "relay-cards--past")
+            div(cls := "relay-cards relay-cards--past"):
+              past.map: t =>
+                card.render(t, live = _ => false)
+            ,
+            h2(cls := "relay-index__section relay-index__calendar"):
+              a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
+                strong(trc.broadcastCalendar()),
+                small("View all broadcasts by month")
+              )
           )
         )
 
@@ -107,6 +114,53 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       renderPager(pager)(routes.RelayTour.allPrivate)
     )
 
+  def calendar(at: YearMonth, tours: List[WithFirstRound])(using ctx: Context) =
+    def url(y: Int, m: Month) = routes.RelayTour.calendarMonth(y, m.getValue)
+    Page(s"${trc.broadcastCalendar.txt()} ${showYearMonth(at)}")
+      .css("bits.relay.calendar"):
+        def dateForm(id: String) = div(cls := s"relay-calendar__form relay-calendar__form--$id")(
+          a(
+            href     := url(at.minusMonths(1).getYear, at.minusMonths(1).getMonth),
+            dataIcon := Icon.LessThan
+          ),
+          div(cls := "relay-calendar__form__selects")(
+            lila.ui.bits.mselect(
+              s"relay-calendar__year--$id",
+              span(at.getYear),
+              RelayCalendar.allYears.map: y =>
+                a(
+                  cls  := (y == at.getYear).option("current"),
+                  href := url(y, at.getMonth)
+                )(y)
+            ),
+            lila.ui.bits.mselect(
+              s"relay-calendar__month--$id",
+              span(showMonth(at.getMonth)),
+              java.time.Month.values.map: m =>
+                a(
+                  cls  := (m == at.getMonth).option("current"),
+                  href := url(at.getYear, m)
+                )(showMonth(m))
+            )
+          ),
+          a(
+            href     := url(at.plusMonths(1).getYear, at.plusMonths(1).getMonth),
+            dataIcon := Icon.GreaterThan
+          )
+        )
+        main(cls := "relay-calendar page-menu")(
+          pageMenu("calendar"),
+          div(cls := "page-menu__content box box-pad")(
+            boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar())),
+            dateForm("top"),
+            div(cls := "relay-cards relay-cards--past"):
+              tours.map: t =>
+                card.render(t, live = _ => false, absTime = true)
+            ,
+            (tours.sizeIs > 8).option(dateForm("bottom"))
+          )
+        )
+
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using Context) =
     Page(t.name.value).css("bits.page"):
       main(cls := "relay-tour page-menu")(
@@ -165,7 +219,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             "Private Broadcasts"
           )
         ),
-      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
+      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trc.broadcastCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trc.aboutBroadcasts()),
       a(href := routes.RelayTour.app, cls := menu.activeO("app"))("Broadcaster App"),
       div(cls := "sep"),
@@ -187,10 +241,15 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     private def image(t: RelayTour) = t.image.fold(ui.thumbnail.fallback(cls := "relay-card__image")): id =>
       img(cls := "relay-card__image", src := ui.thumbnail.url(id, _.Size.Small))
 
-    def render[A <: RelayRound.AndTourAndGroup](tr: A, live: A => Boolean, errors: List[String] = Nil)(using
+    def render[A <: RelayRound.AndTourAndGroup](
+        tr: A,
+        live: A => Boolean,
+        errors: List[String] = Nil,
+        absTime: Boolean = false
+    )(using
         Context
     ) =
-      link(tr.tour, tr.path, live(tr))(
+      link(tr.tour, tr.path, live(tr))(cls := s"relay-card--tier-${~tr.tour.tier}")(
         image(tr.tour),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(
@@ -204,7 +263,11 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
                   .map: nb =>
                     span(cls := "relay-card__crowd text", dataIcon := Icon.User)(nb.localize)
               )
-            else tr.display.startedAt.orElse(tr.display.startsAtTime).map(momentFromNow(_))
+            else
+              tr.display.startedAt
+                .orElse(tr.display.startsAtTime)
+                .map: date =>
+                  if absTime then span(showDate(date)) else momentFromNow(date)
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           if errors.nonEmpty

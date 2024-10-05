@@ -82,7 +82,7 @@
     }
   }
   &__desc {
-    @extend %roboto;
+    @extend %roboto, %nowrap-ellipsis;
     @include line-clamp(2);
     color: $c-font-dim;
   }

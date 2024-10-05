@@ -472,16 +472,16 @@ final class StudyApi(
           yield ()).andDo(studyRepo.updateNow(study))
 
   private def doSetTags(study: Study, oldChapter: Chapter, tags: Tags, who: Who): Funit =
-    (tags != oldChapter.tags)
-      .so {
-        val chapter = oldChapter.copy(tags = tags)
-        (chapterRepo.setTagsFor(chapter) >> {
-          PgnTags.setRootClockFromTags(chapter).so { c =>
+    (tags != oldChapter.tags).so:
+      val chapter = oldChapter.copy(tags = tags)
+      for
+        _ <- chapterRepo.setTagsFor(chapter)
+        _ <- PgnTags
+          .setRootClockFromTags(chapter)
+          .so: c =>
             c.root.clock.so: clock =>
               doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
-          }
-        }).andDo(sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who)))
-      }
+      yield sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
 
   def setComment(studyId: StudyId, position: Position.Ref, text: Comment.Text)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):

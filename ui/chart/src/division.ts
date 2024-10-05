@@ -2,7 +2,7 @@ import { chartYMax, chartYMin } from './common';
 import { Division } from './interface';
 import { ChartDataset, Point } from 'chart.js';
 
-export default function(trans: Trans, div?: Division): ChartDataset<'line'>[] {
+export default function (trans: Trans, div?: Division): ChartDataset<'line'>[] {
   const lines: { div: string; loc: number }[] = [];
   if (div?.middle) {
     if (div.middle > 1) lines.push({ div: trans('opening'), loc: 1 });

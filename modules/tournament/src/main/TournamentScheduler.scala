@@ -11,27 +11,6 @@ import lila.common.LilaScheduler
 import lila.core.i18n.Translator
 import lila.gathering.Condition
 
-/** This case class (and underlying trait) exists to ensure conflicts are checked against a tournament's true
-  * interval, rather than the interval which could be inferred from the tournament's schedule parameter via
-  * [[Schedule.durationFor]]
-  *
-  * Such a mismatch could occur if durationFor is modified and existing tournaments are rehydrated from db.
-  * Another source of mismatch is that tourney actual start is tweaked from scheduled start by a random number
-  * of seconds (see [[Tournament.scheduleAs]])
-  */
-private[tournament] case class ConcreteSchedule(
-    schedule: Schedule,
-    startsAt: Instant,
-    duration: java.time.Duration
-) extends Schedule.ScheduleWithInterval
-
-private[tournament] case class ConcreteTourney(
-    tournament: Tournament,
-    schedule: Schedule,
-    startsAt: Instant,
-    duration: java.time.Duration
-) extends Schedule.ScheduleWithInterval
-
 final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     Executor,
     Scheduler,
@@ -42,19 +21,9 @@ final private class TournamentScheduler(tournamentRepo: TournamentRepo)(using
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
     tournamentRepo.scheduledUnfinished.flatMap: dbScheds =>
       try
-        val plans = TournamentScheduler.allWithConflicts()
-        val possibleTourneys = plans.map(p => (p.schedule, p.build)).map { case (s, t) =>
-          ConcreteTourney(t, s, t.startsAt, t.duration)
-        }
-
-        val existingSchedules = dbScheds.flatMap { t =>
-          // Ignore tournaments with schedule=None - they never conflict.
-          t.schedule.map { ConcreteSchedule(_, t.startsAt, t.duration) }
-        }
-
-        val prunedTourneys = Schedule.pruneConflicts(existingSchedules, possibleTourneys)
-
-        tournamentRepo.insert(prunedTourneys.map(_.tournament)).logFailure(logger)
+        val newPlans      = TournamentScheduler.allWithConflicts()
+        val tourneysToAdd = PlanBuilder.getNewTourneys(dbScheds, newPlans)
+        tournamentRepo.insert(tourneysToAdd).logFailure(logger)
       catch
         case e: Exception =>
           logger.error(s"failed to schedule all: ${e.getMessage}")
@@ -191,7 +160,9 @@ Thank you all, you rock!""".some,
             month.lastWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
             month.lastWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
           ).map { (day, speed) =>
-            Schedule(Monthly, speed, Standard, none, at(day, 17)).plan
+            at(day, 17).pipe { date =>
+              Schedule(Monthly, speed, Standard, none, date).plan
+            }
           },
           List( // monthly variant tournaments!
             month.lastWeek.withDayOfWeek(MONDAY)    -> Chess960,
@@ -275,7 +246,9 @@ Thank you all, you rock!""".some,
         nextSaturday -> SuperBlitz,
         nextSunday   -> Bullet
       ).map { (day, speed) =>
-        Schedule(Weekend, speed, Standard, none, at(day, 17).pipe(orNextWeek)).plan
+        at(day, 17).pipe { date =>
+          Schedule(Weekend, speed, Standard, none, date.pipe(orNextWeek)).plan
+        }
       },
       // Note: these should be scheduled close to the hour of weekly or weekend tournaments
       // to avoid two dailies being cancelled in a row from a single higher importance tourney
@@ -492,7 +465,8 @@ Thank you all, you rock!""".some,
     ).flatten.filter(_.schedule.at.isAfter(rightNow))
 
   private def atTopOfHour(rightNow: LocalDateTime, hourDelta: Int): LocalDateTime =
-    rightNow.plusHours(hourDelta).withMinute(0)
+    val withHours = rightNow.plusHours(hourDelta)
+    LocalDateTime.of(withHours.date, LocalTime.of(withHours.getHour, 0))
 
   private type ValidHour = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
     18 | 19 | 20 | 21 | 22 | 23

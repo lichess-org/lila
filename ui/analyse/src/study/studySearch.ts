@@ -77,11 +77,11 @@ export function view(ctrl: SearchCtrl) {
               {
                 hook: highlightRegex
                   ? {
-                    insert(vnode: VNode) {
-                      const el = vnode.elm as HTMLElement;
-                      el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
-                    },
-                  }
+                      insert(vnode: VNode) {
+                        const el = vnode.elm as HTMLElement;
+                        el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
+                      },
+                    }
                   : {},
               },
               c.name,

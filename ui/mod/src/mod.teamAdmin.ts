@@ -4,23 +4,23 @@ import * as xhr from 'common/xhr';
 import { userComplete } from 'common/userComplete';
 
 site.load.then(() => {
-  $('#form3-leaders').each(function(this: HTMLInputElement) {
+  $('#form3-leaders').each(function (this: HTMLInputElement) {
     initTagify(this, 10);
   });
-  $('#form3-members').each(function(this: HTMLInputElement) {
+  $('#form3-members').each(function (this: HTMLInputElement) {
     initTagify(this, 100);
   });
-  $('form.team-add-leader input[name="name"]').each(function(this: HTMLInputElement) {
+  $('form.team-add-leader input[name="name"]').each(function (this: HTMLInputElement) {
     userComplete({
       input: this,
       team: this.dataset.teamId,
       tag: 'span',
     });
   });
-  $('form.team-permissions table').each(function(this: HTMLTableElement) {
+  $('form.team-permissions table').each(function (this: HTMLTableElement) {
     permissionsTable(this);
   });
-  $('form.team-declined-request input[name="search"]').each(function(this: HTMLInputElement) {
+  $('form.team-declined-request input[name="search"]').each(function (this: HTMLInputElement) {
     userComplete({
       input: this,
       tag: 'span',
@@ -31,12 +31,12 @@ site.load.then(() => {
 function permissionsTable(table: HTMLTableElement) {
   $(table)
     .find('tbody td')
-    .on('mouseenter', function(this: HTMLTableCellElement) {
+    .on('mouseenter', function (this: HTMLTableCellElement) {
       const index = $(this).index() + 1;
       $(table).find('.highlight').removeClass('highlight');
       $(table).find(`tbody td:nth-child(${index}), thead th:nth-child(${index})`).addClass('highlight');
     });
-  $(table).on('mouseleave', function() {
+  $(table).on('mouseleave', function () {
     $(table).find('.highlight').removeClass('highlight');
   });
 }

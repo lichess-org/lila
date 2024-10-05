@@ -124,7 +124,7 @@ export class BoardCtrl extends PaneCtrl {
     xhr.text(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
-  private set3d = async(v: boolean) => {
+  private set3d = async (v: boolean) => {
     if (this.is3d === v) return;
     this.data.is3d = v;
     xhr

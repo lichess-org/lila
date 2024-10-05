@@ -71,6 +71,8 @@ final class Env(
 
   lazy val pager = wire[RelayPager]
 
+  lazy val calendar = wire[RelayCalendar]
+
   lazy val push = wire[RelayPush]
 
   lazy val markup = wire[RelayMarkup]

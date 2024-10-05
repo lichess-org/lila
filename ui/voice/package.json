@@ -13,7 +13,6 @@
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/audioworklet": "^0.0.54",
     "chess": "workspace:*",
     "common": "workspace:*",
     "game": "workspace:*",

@@ -18,63 +18,63 @@ const timeControls: [TimeControl, string][] = [
 const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
   ctrl.selectionEnabled() && ctrl.mode() === 'findSquare'
     ? [
-      h('form.files.buttons', [
-        h(
-          'group.radio',
-          'abcdefgh'.split('').map((fileLetter: Files) =>
-            h('div.file_option', [
-              h('input', {
-                attrs: {
-                  type: 'checkbox',
-                  id: `coord_file_${fileLetter}`,
-                  name: 'files_selection',
-                  value: fileLetter,
-                  checked: ctrl.selectedFiles.has(fileLetter),
-                },
-                on: {
-                  change: e => {
-                    const target = e.target as HTMLInputElement;
-                    ctrl.onFilesChange(target.value as Files, target.checked);
+        h('form.files.buttons', [
+          h(
+            'group.radio',
+            'abcdefgh'.split('').map((fileLetter: Files) =>
+              h('div.file_option', [
+                h('input', {
+                  attrs: {
+                    type: 'checkbox',
+                    id: `coord_file_${fileLetter}`,
+                    name: 'files_selection',
+                    value: fileLetter,
+                    checked: ctrl.selectedFiles.has(fileLetter),
                   },
-                  keyup: ctrl.onRadioInputKeyUp,
-                },
-              }),
-              h(
-                `label.file_${fileLetter}`,
-                { attrs: { for: `coord_file_${fileLetter}`, title: fileLetter } },
-                fileLetter,
-              ),
-            ]),
-          ),
-        ),
-      ]),
-      h('form.ranks.buttons', [
-        h(
-          'group.radio',
-          '12345678'.split('').map((rank: Ranks) =>
-            h('div.file_option', [
-              h('input', {
-                attrs: {
-                  type: 'checkbox',
-                  id: `coord_rank_${rank}`,
-                  name: 'ranks_selection',
-                  value: rank,
-                  checked: ctrl.selectedRanks.has(rank),
-                },
-                on: {
-                  change: e => {
-                    const target = e.target as HTMLInputElement;
-                    ctrl.onRanksChange(target.value as Ranks, target.checked);
+                  on: {
+                    change: e => {
+                      const target = e.target as HTMLInputElement;
+                      ctrl.onFilesChange(target.value as Files, target.checked);
+                    },
+                    keyup: ctrl.onRadioInputKeyUp,
                   },
-                  keyup: ctrl.onRadioInputKeyUp,
-                },
-              }),
-              h(`label.rank_${rank}`, { attrs: { for: `coord_rank_${rank}`, title: rank } }, rank),
-            ]),
+                }),
+                h(
+                  `label.file_${fileLetter}`,
+                  { attrs: { for: `coord_file_${fileLetter}`, title: fileLetter } },
+                  fileLetter,
+                ),
+              ]),
+            ),
           ),
-        ),
-      ]),
-    ]
+        ]),
+        h('form.ranks.buttons', [
+          h(
+            'group.radio',
+            '12345678'.split('').map((rank: Ranks) =>
+              h('div.file_option', [
+                h('input', {
+                  attrs: {
+                    type: 'checkbox',
+                    id: `coord_rank_${rank}`,
+                    name: 'ranks_selection',
+                    value: rank,
+                    checked: ctrl.selectedRanks.has(rank),
+                  },
+                  on: {
+                    change: e => {
+                      const target = e.target as HTMLInputElement;
+                      ctrl.onRanksChange(target.value as Ranks, target.checked);
+                    },
+                    keyup: ctrl.onRadioInputKeyUp,
+                  },
+                }),
+                h(`label.rank_${rank}`, { attrs: { for: `coord_rank_${rank}`, title: rank } }, rank),
+              ]),
+            ),
+          ),
+        ]),
+      ]
     : [];
 
 const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
@@ -201,12 +201,12 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
       ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
         scoreList.length
           ? h('div.color-chart', [
-            h('p', ctrl.trans.vdom(transKey, h('strong', `${average(scoreList).toFixed(2)}`))),
-            h('svg.sparkline', {
-              attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
-              hook: { insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color) },
-            }),
-          ])
+              h('p', ctrl.trans.vdom(transKey, h('strong', `${average(scoreList).toFixed(2)}`))),
+              h('svg.sparkline', {
+                attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
+                hook: { insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color) },
+              }),
+            ])
           : null,
       ),
     ),
@@ -229,15 +229,15 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.settings', [
     ctrl.mode() === 'findSquare'
       ? toggle(
-        {
-          name: 'Practice only some files & ranks',
-          id: 'enableSelection',
-          checked: ctrl.selectionEnabled(),
-          change: ctrl.selectionEnabled,
-        },
-        trans,
-        redraw,
-      )
+          {
+            name: 'Practice only some files & ranks',
+            id: 'enableSelection',
+            checked: ctrl.selectionEnabled(),
+            change: ctrl.selectionEnabled,
+          },
+          trans,
+          redraw,
+        )
       : null,
     ...filesAndRanksSelection(ctrl),
     toggle(
@@ -279,18 +279,18 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode =>
     'div.side',
     ctrl.playing
       ? [
-        scoreBox(ctrl),
-        !ctrl.timeDisabled() ? timeBox(ctrl) : null,
-        ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
-        playingAs(ctrl),
-        ctrl.timeDisabled() ? backButton(ctrl) : null,
-      ]
+          scoreBox(ctrl),
+          !ctrl.timeDisabled() ? timeBox(ctrl) : null,
+          ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
+          playingAs(ctrl),
+          ctrl.timeDisabled() ? backButton(ctrl) : null,
+        ]
       : [
-        ctrl.hasPlayed ? scoreBox(ctrl) : null,
-        ...configurationButtons(ctrl),
-        ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
-        settings(ctrl),
-      ],
+          ctrl.hasPlayed ? scoreBox(ctrl) : null,
+          ...configurationButtons(ctrl),
+          ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
+          settings(ctrl),
+        ],
   );
 
 export default side;

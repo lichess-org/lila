@@ -172,7 +172,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
         grammar.entries.find(
           (e: Entry) => (e.val ?? e.tok) === val && (!phonetic || e.tags?.includes('phonetic')),
         )?.in;
-      $('.val-to-word', dlg.view).each(function(this: HTMLElement) {
+      $('.val-to-word', dlg.view).each(function (this: HTMLElement) {
         const tryPhonetic = (val: string) =>
           (this.classList.contains('phonetic') && valToWord(val, true)) || valToWord(val, false);
         this.innerText = this.innerText

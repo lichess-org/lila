@@ -155,7 +155,6 @@ case class Tournament(
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
 
 object Tournament:
-
   val minPlayers = 2
 
   def fromSetup(setup: TournamentSetup)(using me: Me) =
@@ -186,7 +185,7 @@ object Tournament:
       hasChat = setup.hasChat | true
     )
 
-  def scheduleAs(sched: Schedule, minutes: Int)(using Translate) =
+  def scheduleAs(sched: Schedule, startsAt: Instant, minutes: Int)(using Translate) =
     Tournament(
       id = makeId,
       name = sched.name(full = false),
@@ -201,7 +200,7 @@ object Tournament:
       mode = Mode.Rated,
       conditions = sched.conditions,
       schedule = sched.some,
-      startsAt = sched.atInstant.plusSeconds(ThreadLocalRandom.nextInt(60))
+      startsAt = startsAt
     )
 
   def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"

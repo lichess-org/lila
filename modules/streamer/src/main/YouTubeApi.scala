@@ -20,7 +20,7 @@ final private class YouTubeApi(
     net: NetConfig
 )(using Executor, akka.stream.Materializer):
 
-  private var lastResults: List[YouTube.Stream] = List()
+  private var lastResults: List[YouTube.Stream] = Nil
 
   private case class Tuber(streamer: Streamer, youTube: Streamer.YouTube)
 

@@ -117,10 +117,10 @@ export class ExplorerConfigCtrl {
 
   toggleMany =
     <T>(c: StoredJsonProp<T[]>) =>
-      (value: T) => {
-        if (!c().includes(value)) c(c().concat([value]));
-        else if (c().length > 1) c(c().filter(v => v !== value));
-      };
+    (value: T) => {
+      if (!c().includes(value)) c(c().concat([value]));
+      else if (c().length > 1) c(c().filter(v => v !== value));
+    };
 
   toggleColor = () => this.data.color(opposite(this.data.color()));
 
@@ -210,15 +210,15 @@ const masterDb = (ctrl: ExplorerConfigCtrl) =>
 
 const radioButton =
   <T>(ctrl: ExplorerConfigCtrl, storage: StoredJsonProp<T[]>, render?: (t: T) => VNode) =>
-    (v: T) =>
-      h(
-        'button',
-        {
-          attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
-          hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
-        },
-        render ? render(v) : ctrl.root.trans.noarg('' + v),
-      );
+  (v: T) =>
+    h(
+      'button',
+      {
+        attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
+        hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
+      },
+      render ? render(v) : ctrl.root.trans.noarg('' + v),
+    );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
@@ -350,7 +350,8 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            userComplete({ input, focus: true, tag: 'span', onSelect: v => onSelect(v.name) })),
+            userComplete({ input, focus: true, tag: 'span', onSelect: v => onSelect(v.name) }),
+          ),
         }),
       ]),
       h(
@@ -370,9 +371,9 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             ),
             name && ctrl.data.playerName.previous().includes(name)
               ? h('button.remove', {
-                attrs: dataIcon(licon.X),
-                hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
-              })
+                  attrs: dataIcon(licon.X),
+                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
+                })
               : null,
           ]),
         ),

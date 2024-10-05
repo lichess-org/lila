@@ -2,8 +2,8 @@ package lila.ui
 
 import play.api.i18n.Lang
 
-import java.time.format.{ DateTimeFormatter, FormatStyle }
-import java.time.{ Duration, LocalDate }
+import java.time.format.{ DateTimeFormatter, FormatStyle, TextStyle }
+import java.time.{ Duration, LocalDate, Month, YearMonth }
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.core.i18n.Translate
@@ -46,6 +46,13 @@ trait DateHelper:
     if lang.language == "ar"
     then dateFormatter.print(date).replaceAll("\u200f", "")
     else dateFormatter.print(date)
+
+  def showYearMonth(month: YearMonth)(using lang: Lang): String =
+    val formatter = DateTimeFormatter.ofPattern("yyyy/MM").withLocale(lang.toLocale)
+    month.format(formatter)
+
+  def showMonth(m: Month)(using lang: Lang): String =
+    m.getDisplayName(TextStyle.FULL, lang.locale)
 
   def showEnglishDate(instant: Instant): String    = englishDateFormatter.print(instant)
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter.print(instant)

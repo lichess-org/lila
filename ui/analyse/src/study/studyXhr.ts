@@ -5,7 +5,7 @@ export const reload = (
   baseUrl: string,
   id: string,
   chapterId?: string,
-  withChapters: boolean = false
+  withChapters: boolean = false,
 ): Promise<ReloadData> => {
   let url = `/${baseUrl}/${id}`;
   if (chapterId) url += '/' + chapterId;

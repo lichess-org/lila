@@ -92,16 +92,16 @@ export function initModule(ctrl: AnalyseController) {
           h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
           ...(!ctrl.studyPractice
             ? [
-              h(
-                'button',
-                {
-                  attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                  hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
-                },
-                ctrl.trans.noarg('openingExplorerAndTablebase'),
-              ),
-              explorerView(ctrl),
-            ]
+                h(
+                  'button',
+                  {
+                    attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
+                    hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
+                  },
+                  ctrl.trans.noarg('openingExplorerAndTablebase'),
+                ),
+                explorerView(ctrl),
+              ]
             : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
@@ -186,7 +186,7 @@ export function initModule(ctrl: AnalyseController) {
               insert: vnode => {
                 const root = $(vnode.elm as HTMLElement);
                 root.append($('.blind-content').removeClass('none'));
-                root.find('.copy-pgn').on('click', function(this: HTMLElement) {
+                root.find('.copy-pgn').on('click', function (this: HTMLElement) {
                   navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
                     notify.set('PGN copied into clipboard.');
                   });
@@ -364,7 +364,7 @@ function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNo
 }
 
 function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
-  return function() {
+  return function () {
     let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -519,14 +519,14 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
     ? h('span', [
-      h(
-        'a',
-        { attrs: { href: '/@/' + user.username } },
-        user.title ? `${user.title} ${user.username}` : user.username,
-      ),
-      rating ? ` ${rating}` : ``,
-      ' ' + ratingDiff,
-    ])
+        h(
+          'a',
+          { attrs: { href: '/@/' + user.username } },
+          user.title ? `${user.title} ${user.username}` : user.username,
+        ),
+        rating ? ` ${rating}` : ``,
+        ' ' + ratingDiff,
+      ])
     : 'Anonymous';
 }
 

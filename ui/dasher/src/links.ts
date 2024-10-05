@@ -45,32 +45,32 @@ export class LinksCtrl extends PaneCtrl {
       linkCfg = this.linkCfg;
     return d.user
       ? h('div.links', [
-        h(
-          'a.user-link.online.text.is-green',
-          linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
-          noarg('profile'),
-        ),
-
-        h('a.text', linkCfg('/inbox', licon.Envelope), noarg('inbox')),
-
-        h(
-          'a.text',
-          linkCfg(
-            '/account/profile',
-            licon.Gear,
-            this.root.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined,
+          h(
+            'a.user-link.online.text.is-green',
+            linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
+            noarg('profile'),
           ),
-          noarg('preferences'),
-        ),
 
-        d.coach && h('a.text', linkCfg('/coach/edit', licon.GraduateCap), noarg('coachManager')),
+          h('a.text', linkCfg('/inbox', licon.Envelope), noarg('inbox')),
 
-        d.streamer && h('a.text', linkCfg('/streamer/edit', licon.Mic), noarg('streamerManager')),
+          h(
+            'a.text',
+            linkCfg(
+              '/account/profile',
+              licon.Gear,
+              this.root.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined,
+            ),
+            noarg('preferences'),
+          ),
 
-        h('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
-          h('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, noarg('logOut')),
-        ]),
-      ])
+          d.coach && h('a.text', linkCfg('/coach/edit', licon.GraduateCap), noarg('coachManager')),
+
+          d.streamer && h('a.text', linkCfg('/streamer/edit', licon.Mic), noarg('streamerManager')),
+
+          h('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
+            h('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, noarg('logOut')),
+          ]),
+        ])
       : null;
   }
 

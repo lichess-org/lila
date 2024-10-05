@@ -53,7 +53,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
   return;
 }
 
-export default function(ctrl: LobbyController): MaybeVNodes {
+export default function (ctrl: LobbyController): MaybeVNodes {
   return [
     h('table.hooks__list', [
       h(

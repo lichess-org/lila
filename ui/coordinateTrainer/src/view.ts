@@ -21,8 +21,8 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | false => {
             style:
               modifier === 'current'
                 ? ({
-                  remove: { opacity: 0, transform: 'translate(-8px, 60px)' },
-                } as unknown as VNodeStyle)
+                    remove: { opacity: 0, transform: 'translate(-8px, 60px)' },
+                  } as unknown as VNodeStyle)
                 : undefined,
           },
           h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey),

@@ -28,7 +28,7 @@ const miniGame = (game: Game) =>
     ]),
   ]);
 
-export default function(ctrl: Ctrl, attrs: any = null) {
+export default function (ctrl: Ctrl, attrs: any = null) {
   if (!ctrl.vm.answer) return;
 
   return h('div.game-sample.box.hscroll', attrs, [
