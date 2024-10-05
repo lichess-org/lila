@@ -25,7 +25,6 @@
   <string name="sourceSingleUrl">URL Nguồn PGN</string>
   <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
   <string name="sourceGameIds">Tối đa 64 ID ván cờ trên Lichess, phân tách bằng dấu cách.</string>
-  <string name="startDate">Ngày bắt đầu theo múi giờ của bạn</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="credits">Công nhận nguồn</string>
   <string name="currentGameUrl">URL ván đấu hiện tại</string>
