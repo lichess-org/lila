@@ -229,7 +229,7 @@
   <string name="passwordSuggestion">از رمز عبور پیشنهاد شده از شخص دیگر استفاده نکنید. در این صورت احتمال سرقت حساب شما وجود دارد.</string>
   <string name="emailSuggestion">از ایمیلی که از شخص دیگر به شما پیشنهاد داده است استفاده نکنید. در این صورت احتمال سرقت حساب شما وجود دارد.</string>
   <string name="emailConfirmHelp">کمک با تائید ایمیل</string>
-  <string name="emailConfirmNotReceived">آیا ایمیل تائید بعد از ثبت نام را دریافت نکرده اید؟</string>
+  <string name="emailConfirmNotReceived">آیا رایانامهٔ تاییدتان را پس از نام‌نویسی دریافت نکردید؟</string>
   <string name="whatSignupUsername">از چه نام کاربری برای ثبت نام استفاده کردید؟</string>
   <string name="usernameNotFound">ما هیچ کابری با این نام نیافتیم: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">شما می توانید از این نام کاربری برای ایجاد یک حساب کاربری جدید استفاده کنید</string>
@@ -428,11 +428,11 @@
     <item quantity="other">%s دوست بَرخط</item>
   </plurals>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
-  <string name="follow">دنبال کردن</string>
-  <string name="following">افرادی که دنبال می کنید</string>
-  <string name="unfollow">لغو دنبال کردن</string>
+  <string name="follow">دنبالیدن</string>
+  <string name="following">دنبالنده</string>
+  <string name="unfollow">وادنبالیدن</string>
   <string name="followX">دنبالیدن %s</string>
-  <string name="unfollowX">نادنبالیدن %s</string>
+  <string name="unfollowX">وادنبالیدن %s</string>
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
@@ -544,7 +544,7 @@
   <string name="createANewTopic">ایجاد یک موضوع جدید</string>
   <string name="topics">مباحث</string>
   <string name="posts">فرسته‌ها</string>
-  <string name="lastPost">آخرین ارسال</string>
+  <string name="lastPost">آخرین فرسته</string>
   <string name="views">نمایش ها</string>
   <string name="replies">پاسخ ها</string>
   <string name="replyToThisTopic">پاسخ به این موضوع</string>
@@ -920,7 +920,7 @@
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
   <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
-  <string name="xMentionedYouInY">%1$s اسم شما را در \"%2$s\" ذکر کرده است.</string>
+  <string name="xMentionedYouInY">%1$s از شما در \"%2$s\" نام برد.</string>
   <string name="invitedYouToX">به «%1$s» دعوت شده‌اید.</string>
   <string name="xInvitedYouToY">%1$s شما را به «%2$s» دعوت کرده است.</string>
   <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>
