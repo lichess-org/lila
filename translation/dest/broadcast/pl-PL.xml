@@ -9,6 +9,7 @@
     <item quantity="other">%s transmisji</item>
   </plurals>
   <string name="liveBroadcasts">Transmisje turniejów na żywo</string>
+  <string name="broadcastCalendar">Kalendarz transmisji</string>
   <string name="newBroadcast">Nowa transmisja na żywo</string>
   <string name="subscribedBroadcasts">Subskrybowane transmisje</string>
   <string name="aboutBroadcasts">O transmisji</string>
