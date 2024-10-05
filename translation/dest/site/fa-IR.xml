@@ -176,8 +176,8 @@
   <string name="computersAreNotAllowedToPlay">رایانه ها و بازیکنان رایانه-یاریده، مجاز به بازی نیستند. لطفا هنگام بازی از موتورهای شطرنج، دادگان‌ها یا دیگر بازیکنان کمک نگیرید. همچنین توجه کنید که ساخت چندین حساب به شدت ممنوع است و چند حسابی افزاینده، منجر به بستن‌تان می‌شود.</string>
   <string name="games">بازی ها</string>
   <string name="forum">انجمن</string>
-  <string name="xPostedInForumY">%1$s در انجمن،موضوع %2$s را پست کرد.</string>
-  <string name="latestForumPosts">آخرین پست های انجمن</string>
+  <string name="xPostedInForumY">%1$s در موضوع %2$s، پیامی نوشت</string>
+  <string name="latestForumPosts">آخرین فرسته‌های انجمن</string>
   <string name="players">بازیکنان</string>
   <string name="friends">دوستان</string>
   <string name="otherPlayers">بازیکنان دیگر</string>
@@ -543,7 +543,7 @@
   <string name="help">راهنما:</string>
   <string name="createANewTopic">ایجاد یک موضوع جدید</string>
   <string name="topics">مباحث</string>
-  <string name="posts">پست ها</string>
+  <string name="posts">فرسته‌ها</string>
   <string name="lastPost">آخرین ارسال</string>
   <string name="views">نمایش ها</string>
   <string name="replies">پاسخ ها</string>
@@ -646,8 +646,8 @@
   <string name="whiteCastlingKingside">O-O سفید</string>
   <string name="blackCastlingKingside">O-O سیاه</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s وبنوشته در انجمن</item>
-    <item quantity="other">%s وبنوشته در انجمن</item>
+    <item quantity="one">%s فرسته در انجمن</item>
+    <item quantity="other">%s فرسته در انجمن</item>
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی‌ها</string>
@@ -914,9 +914,9 @@
   <string name="makeSureToRead">حتما %1$s را مطالعه کنید</string>
   <string name="theForumEtiquette">آداب انجمن</string>
   <string name="thisTopicIsArchived">این موضوع بایگانی شده است و دیگر نمی توان به آن پاسخ داد.</string>
-  <string name="joinTheTeamXToPost">به %1$s ملحق شوید تا در این انجمن پست بگذارید</string>
+  <string name="joinTheTeamXToPost">برای فرسته گذاشتن در این انجمن، به %1$s بپیوندید</string>
   <string name="teamNamedX">تیم %1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">شما هنوز قادر به پست گذاشتن در انجمن نیستید. چند بازی انجام دهید!</string>
+  <string name="youCannotPostYetPlaySomeGames">هنوز نمی‌توانید در انجمن‌ها فرسته گذارید. چند بازی کنید!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
   <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
