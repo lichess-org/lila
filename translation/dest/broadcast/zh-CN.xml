@@ -6,6 +6,7 @@
     <item quantity="other">%s 直播</item>
   </plurals>
   <string name="liveBroadcasts">赛事转播</string>
+  <string name="broadcastCalendar">转播日程表</string>
   <string name="newBroadcast">新建实况转播</string>
   <string name="subscribedBroadcasts">已订阅的转播</string>
   <string name="aboutBroadcasts">关于转播</string>
