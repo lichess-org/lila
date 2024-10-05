@@ -44,7 +44,7 @@
   <string name="imageAlt">مقدار alternative برای عکس</string>
   <string name="imageCredit">منبع عکس</string>
   <string name="deleteBlog">بی‌دریغ این وبنوشته را پاک کنید</string>
-  <string name="safeToUseImages">استفاده از تصاویر از وب سایت های زیر بی خطر است:</string>
+  <string name="safeToUseImages">استفاده از تصویرهای وبگاه‌های زیر، ایمن است: </string>
   <string name="selectPostTopics">موضوع‌هایی که فرسته‌تان دربارهٔ آن‌ها است را، برگزینید</string>
   <string name="useImagesYouMadeYourself">همچنین میتوانید از تصاویری که خودتان درست کردید، عکس هایی که گرفتید، اسکرین شات هایی از لیچس و ... که جزو قوانین کپی رایت حساب نمیشوند استفاده کنید.</string>
   <string name="safeAndRespectfulContent">لطفا فقط محتوای ایمن و محترمانه منتشر کنید. محتوای دیگران را رونویسی نکنید.</string>
