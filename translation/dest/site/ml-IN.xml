@@ -176,7 +176,7 @@
   <string name="variants">വ്യത്യാസങൾ</string>
   <string name="timeControl">സമയ നിയന്ത്രണം</string>
   <string name="realTime">റിയല്‍ ടൈം</string>
-  <string name="correspondence">കറസ്പോണ്ടന്‍സ്</string>
+  <string name="correspondence">ദീർഘകാലകളി</string>
   <string name="daysPerTurn">ഓരോ നീക്കത്തിനും വേണ്ട ദിവസങ്ങള്‍</string>
   <string name="oneDay">ഒരു ദിവസം</string>
   <plurals name="nbDays">
@@ -211,7 +211,11 @@
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
   <string name="emailConfirmHelp">മെയിൽ ഉറപ്പിന് സഹായം</string>
   <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
+  <string name="emailCanTakeSomeTime">അത് എത്താൻ കുറച്ചു നേരം എടുക്കാം.</string>
   <string name="refreshInboxAfterFiveMinutes">൫ മിനിറ്റ് കാത്തിരുന്ന ശേഷം വീണ്ടും ഇ-തപാൽപെട്ടി ലോഡ് ചെയുക.</string>
+  <string name="emailForSignupHelp">മറ്റേതൊന്നും നടന്നില്ലെങ്കിൽ, ഞങ്ങളേ ഈ ഇമെയിൽ അയക്കുക:</string>
+  <string name="copyTextToEmail">മേൽപറഞ്ഞ രേഖ പകർത്തി %s -ന് അയക്കുക</string>
+  <string name="accountCanLogin">താങ്ങൾക്ക് %s-ആയി പ്രവേശിക്കാം.</string>
   <string name="accountConfirmationEmailNotNeeded">താങ്ങൾക്ക് ഉറപ്പിക്കല്മെയിൽ ആവശ്യമില്ല.</string>
   <string name="accountClosed">ഈ (%s) അക്കൌണ്ട് അവസാനിപ്പിച്ചിരിക്കുന്നു.</string>
   <string name="accountRegisteredWithoutEmail">%s - ഈ അക്കൌണ്ട്  ഒരു ഇമെയിൽ ഇല്ലാതെ ഉണ്ടാക്കിയിരുന്നു.</string>
@@ -249,6 +253,7 @@
   <string name="abortGame">മത്സരം ഉപേക്ഷിക്കുക</string>
   <string name="gameAborted">മത്സരം ഉപേക്ഷിച്ചു</string>
   <string name="standard">സ്റ്റാന്‍ഡേര്‍ഡ്</string>
+  <string name="customPosition">നിർദ്ദേശനുസാരം കരുനില</string>
   <string name="unlimited">അപരിമിതം</string>
   <string name="mode">മോഡ്</string>
   <string name="casual">സൗഹാര്‍ദ്ദം</string>
@@ -361,8 +366,10 @@
   <string name="apply">പ്രയോഗിക്കുക</string>
   <string name="save">സേവ് ചെയ്യുക</string>
   <string name="leaderboard">മികച്ച കളിക്കാര്‍</string>
+  <string name="gameAsGIF">കളി GIF ആയി ഇറക്കവയ്ക്കുക</string>
   <string name="pasteTheFenStringHere">FEN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="pasteThePgnStringHere">PGN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
+  <string name="orUploadPgnFile">അല്ലെങ്കിൽ ഒരു PGN രേഖയായി കയറ്റിവയ്ക്കുക</string>
   <string name="fromPosition">സ്ഥാനത്തു നിന്ന്</string>
   <string name="continueFromHere">ഇവിടെ മുതല്‍ പുനരാരംഭിക്കുക</string>
   <string name="toStudy">പഠനം</string>
@@ -470,6 +477,7 @@
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
   <string name="oneUrlPerLine">ഒരു വരിയിൽ ഒരു വിലാസം.</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
+  <string name="clearSavedMoves">നീക്കങ്ങൾ കളയുക</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">ഓൺലൈൻ കളിക്കാർ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
@@ -573,6 +581,7 @@
   <string name="error.required">ഈ ഭാഗം ആവശ്യമാണ്</string>
   <string name="error.email">ഈ ഇമെയിൽ വിലാസം സാധ്യമല്ല</string>
   <string name="error.email_acceptable">ഈ ഇമെയിൽ വിലാസം സ്വീകാര്യമല്ല. പരിശോധിച്ചുറപ്പാക്കി വീണ്ടും ശ്രമിക്കുക.</string>
+  <string name="error.email_unique">ഇമെയിൽ വിലാസം നേരത്തെതന്നേ എടുതിരിക്കുന്നു</string>
   <string name="error.email_different">ഈ ഇ-മെയിൽ വിലാസം മുമ്പമൊതൽ താങ്ങളുടെയാണ്</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
@@ -697,7 +706,7 @@
   <string name="gameAnalysis">കളി അപഗ്രഥനം</string>
   <string name="xHostsY">%1$s %2$s host ചെയ്യുന്നു</string>
   <string name="xJoinsY">%1$s %2$s -ൽ ചേർന്നിരിക്കുന്നു</string>
-  <string name="xLikesY">%1$s -ന് %2$s -നെ ഇഷ്ടമാണ്</string>
+  <string name="xLikesY">%1$s -ന് %2$s -നെ ഇഷ്ടപെട്ടു</string>
   <string name="quickPairing">പെട്ടെന്ന് പെയറിങ് നടത്തുക</string>
   <string name="lobby">ലോബി</string>
   <string name="anonymous">അജ്ഞാത</string>
