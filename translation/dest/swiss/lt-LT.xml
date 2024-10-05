@@ -54,6 +54,15 @@
   <string name="forbiddenPairings">Neleistinos poros</string>
   <string name="forbiddenPairingsHelp">Vartotojai, kurie negali žaisti akrtu (pvz. broliai, sesės). Du vartotojų vardai per eilutę, atskirti tarpu.</string>
   <string name="manualPairings">Rankinis suporavimas sekančiame rate</string>
+  <string name="manualPairingsHelp">Rankiniu būdu nurodykite visas kito rato poras. Viena žaidėjų pora vienoje eilutėje. Pavyzdys:
+ŽaidėjasA ŽaidėjasB
+ŽaidėjasC ŽaidėjasD
+Norėdami žaidėjui suteikti \"bye\" (1 tašką), jo neporuojant, pridėkite tokią eilutę:
+ŽaidėjasE 1
+Nesantys žaidėjai bus laikomi nedalyvaujančiais ir gaus nulį taškų.
+Palikite šį lauką tuščią, kad \"Lichess\" galėtų automatiškai sukurti poras.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Turėjo sužaisti paskutinę savo šveicariško turnyro partiją</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Leiskite žaidėjams prisijungti tik tuo atveju, jei jie sužaidė savo partijas paskutiniame šveicariškame turnyre. Jei jiems nepavyko pasirodyti paskutiniame vykusiame šveicariškame turnyre, jie negalės patekti ir į šį jūsų. Tai lemia geresnę šveicariškų turnyrų patirtį žaidėjams, kurie juose dalyvauja, ne vien tik užregistruoja.</string>
   <string name="newSwiss">Naujas Šveicariškas turnyras</string>
   <string name="swissVsArenaQ">Kada vienoje arenos naudoti šveicariškus turnyrus?</string>
   <string name="swissVsArenaA">Šveicariškame turnyre visi dalyviai žaidžia tiek pat žaidimų ir gali žaisti su vienas kitu tik po vieną kartą. Tai geras variantas klubams ir oficialiems turnyrams.</string>
@@ -128,4 +137,7 @@ Artimiausias Round Robin dalykas tinkle - šveicariškas turnyras su dideliu ska
   <string name="predefinedUsers">Leisti prisijungti tik iš anksto nurodytiems vartotojams</string>
   <string name="forbiddedUsers">Jei šis sąrašas nėra tuščias žaidėjai nesantys jame negalės prisijungti. Kiekvienas vartotojo vardas turi būti atskiroje eilutėje.</string>
   <string name="playYourGames">Žaisti savo partijas</string>
+  <string name="byes">Taškas be žaidimo</string>
+  <string name="absences">Neatvykimai</string>
+  <string name="tieBreak">Pertrauka</string>
 </resources>
