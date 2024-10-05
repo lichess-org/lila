@@ -154,8 +154,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar())),
             dateForm("top"),
             div(cls := "relay-cards relay-cards--past"):
-              tours.map: t =>
-                card.render(t, live = _ => false, absTime = true)
+              tours.map(card.renderCalendar)
             ,
             (tours.sizeIs > 8).option(dateForm("bottom"))
           )
@@ -244,12 +243,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     def render[A <: RelayRound.AndTourAndGroup](
         tr: A,
         live: A => Boolean,
-        errors: List[String] = Nil,
-        absTime: Boolean = false
-    )(using
-        Context
-    ) =
-      link(tr.tour, tr.path, live(tr))(cls := s"relay-card--tier-${~tr.tour.tier}")(
+        errors: List[String] = Nil
+    )(using Context) =
+      link(tr.tour, tr.path, live(tr))(
         image(tr.tour),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(
@@ -263,16 +259,28 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
                   .map: nb =>
                     span(cls := "relay-card__crowd text", dataIcon := Icon.User)(nb.localize)
               )
-            else
-              tr.display.startedAt
-                .orElse(tr.display.startsAtTime)
-                .map: date =>
-                  if absTime then span(showDate(date)) else momentFromNow(date)
+            else tr.display.startedAt.orElse(tr.display.startsAtTime).map(momentFromNow)
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           if errors.nonEmpty
           then ul(cls := "relay-card__errors")(errors.map(li(_)))
           else tr.tour.info.players.map(span(cls := "relay-card__desc")(_))
+        )
+      )
+
+    def renderCalendar(tr: RelayTour.WithFirstRound)(using Context) =
+      val highTier = tr.tour.tier.exists(_ >= RelayTour.Tier.HIGH)
+      link(tr.tour, tr.path, false)(cls := s"relay-card--tier-${~tr.tour.tier}")(
+        highTier.option(image(tr.tour)),
+        span(cls := "relay-card__body")(
+          span(cls := "relay-card__info")(
+            tr.display.startedAt
+              .orElse(tr.display.startsAtTime)
+              .map: date =>
+                span(showDate(date))
+          ),
+          h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
+          tr.tour.info.players.ifTrue(highTier).map(span(cls := "relay-card__desc")(_))
         )
       )
 
