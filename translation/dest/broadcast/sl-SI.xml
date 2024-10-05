@@ -9,6 +9,7 @@
     <item quantity="other">%s oddaj</item>
   </plurals>
   <string name="liveBroadcasts">Prenos turnirjev v živo</string>
+  <string name="broadcastCalendar">Koledar oddaj</string>
   <string name="newBroadcast">Nov prenos v živo</string>
   <string name="subscribedBroadcasts">Naročene oddaje</string>
   <string name="aboutBroadcasts">O oddaji</string>
