@@ -27,6 +27,7 @@
   <string name="sourceSingleUrl">URL Burimi PNG-je</string>
   <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
   <string name="sourceGameIds">Deri në 64 ID lojërash Lichess, ndarë me hapësira.</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Datë fillimi në zonën kohore vendore të turneut: %s</string>
   <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
   <string name="credits">Atriboji merita burimit</string>
   <string name="currentGameUrl">URL e lojës së tanishme</string>
