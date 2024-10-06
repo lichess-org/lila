@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">E4\'e hareket et veya e4\'teki taşı seç</string>
   <string name="selectOrCaptureABishop">Fil seçin veya yakalayın</string>
   <string name="takeRookWithQueen">Vezir ile kaleyi al</string>
-  <string name="castle">Rok at (kısa veya uzun)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rok at (kısa veya uzun)</string>
   <string name="phoneticAlphabetIsBest">Fonetik alfabe en iyisidir</string>
   <string name="cancelTimerOrDenyARequest">Zamanlayıcıyı iptal et veya bir isteği reddet</string>
   <string name="playPreferredMoveOrConfirmSomething">Tercih edilen hamleyi oyna veya bir şeyi onayla</string>
