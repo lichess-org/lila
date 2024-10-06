@@ -52,14 +52,33 @@
 
 .cmn-toggle:not(:checked) + label {
   background-color: $c-bad;
+
+  &::before {
+    content: $licon-X;
+    color: $c-bad;
+  }
 }
 
 .cmn-toggle--subtle:not(:checked) + label {
   background-color: $c-font-dimmer;
+
+  &::before {
+    color: $c-font-dimmer;
+  }
 }
 
 .cmn-toggle:checked + label {
   background-color: $c-good;
+
+  &::before,
+  &::after {
+    margin-inline-start: 16px;
+  }
+
+  &::before {
+    content: $licon-Checkmark;
+    color: $c-good;
+  }
 }
 
 .cmn-toggle:disabled + label {
@@ -89,30 +108,5 @@
       }
       @include transition(margin);
     }
-  }
-}
-
-.cmn-toggle:not(:checked) + label {
-  &::before {
-    content: $licon-X;
-    color: $c-bad;
-  }
-}
-
-.cmn-toggle--subtle:not(:checked) + label {
-  &::before {
-    color: $c-font-dimmer;
-  }
-}
-
-.cmn-toggle:checked + label {
-  &::before,
-  &::after {
-    margin-inline-start: 16px;
-  }
-
-  &::before {
-    content: $licon-Checkmark;
-    color: $c-good;
   }
 }

@@ -2,8 +2,8 @@
   .piece {
     piece {
       position: absolute;
-      width: 12.5%;
-      height: 12.5%;
+      width: 100%;
+      height: 100%;
       top: 0;
       @include inline-start(0);
       background-size: cover;
@@ -34,11 +34,6 @@
 
     .no-square.active {
       background: $m-secondary--fade-30;
-    }
-
-    piece {
-      width: 100%;
-      height: 100%;
     }
 
     &.d3 piece {

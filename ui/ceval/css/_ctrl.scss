@@ -71,6 +71,7 @@
     flex: 0 0 18px;
     color: $c-font-dim;
     font-size: 16px;
+    margin-top: -3px; // bar
     overflow: hidden;
     visibility: hidden;
 
@@ -99,26 +100,6 @@
     &.active {
       color: white;
       background-color: $c-primary;
-    }
-  }
-
-  .show-threat {
-    @extend %button-none;
-    flex: 0 0 18px;
-    color: $c-font-dim;
-    font-size: 16px;
-    margin-top: -3px; // bar
-    overflow: hidden;
-    visibility: hidden;
-
-    &:hover:not(.hidden),
-    &.active {
-      color: $c-bad;
-    }
-
-    &.hidden {
-      opacity: 0.3;
-      cursor: default;
     }
   }
 
