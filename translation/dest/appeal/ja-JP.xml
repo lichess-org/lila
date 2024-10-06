@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">あなたのアカウントは何も制限されていません。すべて正常です！</string>
-  <string name="engineMarked">あなたのアカウントには対局中に外部の力を使ったと表示があります。</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">あなたのアカウントには対局中に外部の力を使ったと表示があります。</string>
   <string name="engineMarkedInfo">つまり、対局を不正に有利にするため、知識や読みを補う外部の力を使ったということです。詳しくは %s のページをお読みください。</string>
   <string name="arenaBanned">あなたのアカウントはアリーナへの参加が禁じられています。</string>
   <string name="prizeBanned">あなたのアカウントは金品を賞とするトーナメントへの参加が禁じられています。</string>
