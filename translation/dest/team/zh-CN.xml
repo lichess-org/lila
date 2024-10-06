@@ -10,7 +10,7 @@
   <string name="newTeam">建立团队</string>
   <string name="myTeams">我的团队</string>
   <string name="noTeamFound">你不在任何团队中</string>
-  <string name="joinTeam">加入团队</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">加入团队</string>
   <string name="onlyLeaderLeavesTeam">请在离开团队前添加一个新的领队或关闭团队。</string>
   <string name="quitTeam">退出团队</string>
   <string name="manuallyReviewAdmissionRequests">手动审查入队请求</string>
@@ -53,7 +53,7 @@
   <string name="joinLichessVariantTeam">加入 %s 官方团队以获取最新消息和事件</string>
   <string name="teamPage">团队页面</string>
   <string name="thisTeamBattleIsOver">这个锦标赛已结束，团队无法再更新。</string>
-  <string name="listTheTeamsThatWillCompete">列出将参与这场战斗的团队。</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">列出将参与这场战斗的团队。</string>
   <string name="oneTeamPerLine">每行一个团队。使用自动完成。</string>
   <string name="oneTeamPerLineHelp">您可以将此列表从锦标赛复制粘贴到另一个锦标赛！
 
