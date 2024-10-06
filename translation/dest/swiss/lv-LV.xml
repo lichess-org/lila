@@ -32,7 +32,7 @@
     <item quantity="one">%s minūte starp raundiem</item>
     <item quantity="other">%s minūtes starp raundiem</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Sāksies pēc</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Sāksies pēc</string>
   <string name="nextRound">Nākamais raunds</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="zero">Pašreizējās spēles</item>
