@@ -11,7 +11,7 @@
   <string name="newTeam">ಹೊಸ ತಂಡ</string>
   <string name="myTeams">ನನ್ನ ತಂಡಗಳು</string>
   <string name="noTeamFound">ಯಾವುದೇ ತಂಡ ಕಂಡುಬಂದಿಲ್ಲ</string>
-  <string name="joinTeam">ತಂಡವನ್ನು ಸೇರಿ</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">ತಂಡವನ್ನು ಸೇರಿ</string>
   <string name="onlyLeaderLeavesTeam">ದಯವಿಟ್ಟು ಹೊರಡುವ ಮೊದಲು ಹೊಸ ತಂಡದ ನಾಯಕನನ್ನು ಸೇರಿಸಿ ಅಥವಾ ತಂಡವನ್ನು ಮುಚ್ಚಿ.</string>
   <string name="quitTeam">ತಂಡವನ್ನು ತೊರೆಯಿರಿ</string>
   <string name="manuallyReviewAdmissionRequests">ಪ್ರವೇಶ ವಿನಂತಿಗಳನ್ನು ಹಸ್ತಚಾಲಿತವಾಗಿ ಪರಿಶೀಲಿಸಿ</string>
@@ -56,7 +56,7 @@
   <string name="joinLichessVariantTeam">ಸುದ್ದಿ ಮತ್ತು ಈವೆಂಟ್‌ಗಳಿಗಾಗಿ ಅಧಿಕೃತ %s ತಂಡವನ್ನು ಸೇರಿ</string>
   <string name="teamPage">ತಂಡದ ಪುಟ</string>
   <string name="thisTeamBattleIsOver">ಈ ಪಂದ್ಯಾವಳಿ ಮುಗಿದಿದೆ ಮತ್ತು ತಂಡಗಳನ್ನು ಇನ್ನು ಮುಂದೆ ನವೀಕರಿಸಲಾಗುವುದಿಲ್ಲ.</string>
-  <string name="listTheTeamsThatWillCompete">ಈ ಯುದ್ಧದಲ್ಲಿ ಸ್ಪರ್ಧಿಸುವ ತಂಡಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡಿ.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">ಈ ಯುದ್ಧದಲ್ಲಿ ಸ್ಪರ್ಧಿಸುವ ತಂಡಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡಿ.</string>
   <string name="oneTeamPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ತಂಡ. ಸ್ವಯಂ ಪೂರ್ಣಗೊಳಿಸುವಿಕೆಯನ್ನು ಬಳಸಿ.</string>
   <string name="oneTeamPerLineHelp">ನೀವು ಈ ಪಟ್ಟಿಯನ್ನು ಪಂದ್ಯಾವಳಿಯಿಂದ ಇನ್ನೊಂದಕ್ಕೆ ನಕಲಿಸಬಹುದು!
 
