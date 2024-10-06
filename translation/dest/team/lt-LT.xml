@@ -13,7 +13,7 @@
   <string name="newTeam">Nauja komanda</string>
   <string name="myTeams">Mano komandos</string>
   <string name="noTeamFound">Nerasta jokia komanda</string>
-  <string name="joinTeam">Stoti į komandą</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Stoti į komandą</string>
   <string name="onlyLeaderLeavesTeam">Prieš palikdami ar uždarydami komandą pridėkite naują komandos kapitoną.</string>
   <string name="quitTeam">Palikti komandą</string>
   <string name="manuallyReviewAdmissionRequests">Priėmimo prašymus peržvelgti rankiniu būdu</string>
@@ -62,7 +62,7 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="joinLichessVariantTeam">Prisijunkite prie oficialios %s komandos ir gaukite naujienas bei pranešimus apie renginius</string>
   <string name="teamPage">Komandos puslapis</string>
   <string name="thisTeamBattleIsOver">Šis turnyras baigėsi, ir komandos nebegali būti atnaujinamos.</string>
-  <string name="listTheTeamsThatWillCompete">Komandų, kurios varžysis šiame mūšyje, sąrašas.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Komandų, kurios varžysis šiame mūšyje, sąrašas.</string>
   <string name="oneTeamPerLine">Viena komanda eilutėje. Naudokite automatinį užbaigimą.</string>
   <string name="oneTeamPerLineHelp">Galite nukopijuoti ir įklijuoti šį sąrašą iš vieno turnyro į kitą!
 
