@@ -31,8 +31,8 @@
   <string name="byOpenings">Per obriduras</string>
   <string name="puzzlesByOpenings">Problemas per obridura</string>
   <string name="openingsYouPlayedTheMost">Obriduras que mas has chugau en partidas puntuadas</string>
-  <string name="useFindInPage">Fe servir \"Buscar en a pachina\" en o menú d\'o tuyo navegador pa trobar la tuya obridura preferida!</string>
-  <string name="useCtrlF">Usar Ctrl+f pa trobar la tuya obridura favorita!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Fe servir \"Buscar en a pachina\" en o menú d\'o tuyo navegador pa trobar la tuya obridura preferida!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Usar Ctrl+f pa trobar la tuya obridura favorita!</string>
   <string name="notTheMove">Ixe no ye lo movimiento!</string>
   <string name="trySomethingElse">Mira de prebar en belatro puesto.</string>
   <string name="ratingX">Puntuación: %s</string>
