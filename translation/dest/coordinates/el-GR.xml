@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Έχετε 30 δευτερόλεπτα για να διαλέξτε σωστά όσα τετράγωνα γίνεται!</string>
   <string name="goAsLongAsYouWant">Πάρτε όσο χρόνο θέλετε, δεν υπάρχει χρονικό όριο!</string>
   <string name="showCoordinates">Εμφάνιση συντεταγμένων</string>
-  <string name="showCoordsOnAllSquares">Συντεταγμένες σε κάθε τετράγωνο</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Συντεταγμένες σε κάθε τετράγωνο</string>
   <string name="showPieces">Εμφάνιση κομματιών</string>
   <string name="startTraining">Έναρξη εξάσκησης</string>
   <string name="findSquare">Εύρεση τετραγώνου</string>
