@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Votre compte n\'est ni marqué ni restreint. C\'est parfait!</string>
-  <string name="engineMarked">Votre compte est marqué (assistance externe durant les parties).</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Votre compte est marqué (assistance externe durant les parties).</string>
   <string name="engineMarkedInfo">Par assistance externe, on entend l\'utilisation d\'une aide externe pour renforcer vos connaissances ou votre capacité de calcul pour obtenir un avantage déloyal contre votre adversaire. Voir la page %s pour en savoir plus.</string>
   <string name="arenaBanned">Votre compte est banni. Vous ne pouvez plus participer aux tournois Arène.</string>
   <string name="prizeBanned">Votre compte est banni. Vous ne pouvez plus participer à des tournois offrant des prix réels.</string>
