@@ -21,7 +21,7 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">라운드 사이 %s분</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">시작까지</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">시작까지</string>
   <string name="nextRound">다음 라운드</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">진행중인 게임</item>
