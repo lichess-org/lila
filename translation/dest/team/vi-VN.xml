@@ -10,7 +10,7 @@
   <string name="newTeam">Đội mới</string>
   <string name="myTeams">Đội của tôi</string>
   <string name="noTeamFound">Không tìm thấy đội nào</string>
-  <string name="joinTeam">Tham gia đội</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Tham gia đội</string>
   <string name="onlyLeaderLeavesTeam">Vui lòng thêm một chỉ huy mới trước khi rời đi hoặc giải tán đội.</string>
   <string name="quitTeam">Rời đội</string>
   <string name="manuallyReviewAdmissionRequests">Yêu cầu xét duyệt</string>
@@ -53,7 +53,7 @@ Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ r�
   <string name="joinLichessVariantTeam">Tham gia đội %s chính thức để cập nhật tin tức và các sự kiện</string>
   <string name="teamPage">Trang đội</string>
   <string name="thisTeamBattleIsOver">Giải đấu này đã kết thúc và không thể được cập nhật các đội nữa.</string>
-  <string name="listTheTeamsThatWillCompete">Liệt kê các đội sẽ thi đấu trong trận chiến này.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Liệt kê các đội sẽ thi đấu trong trận chiến này.</string>
   <string name="oneTeamPerLine">Một đội mỗi dòng. Sử dụng tính năng tự động hoàn thành.</string>
   <string name="oneTeamPerLineHelp">Bạn có thể sao chép danh sách từ giải đấu này dán sang giải đấu khác!
 
