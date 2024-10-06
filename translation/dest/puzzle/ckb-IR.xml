@@ -31,8 +31,8 @@
   <string name="byOpenings">بەپێی دەستپێکەکان</string>
   <string name="puzzlesByOpenings">مەتەڵەکان بەپێی دەستپێک</string>
   <string name="openingsYouPlayedTheMost">ئەو کردنەوانەی زۆرترین یاریت پێکردوون لە یاریە ڕەیتیدەکان</string>
-  <string name="useFindInPage">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
-  <string name="useCtrlF">Ctrl+f بەکاربهێنە بۆ دۆزینەوەی ئۆپنینگی دڵخوازت!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Ctrl+f بەکاربهێنە بۆ دۆزینەوەی ئۆپنینگی دڵخوازت!</string>
   <string name="notTheMove">ئەوە جوڵەکە نییە!</string>
   <string name="trySomethingElse">شتێکی دیقە تاقی بکەرەوە.</string>
   <string name="ratingX">ئاست: %s</string>
