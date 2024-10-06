@@ -63,7 +63,7 @@
   <string name="notifyTournamentSoon">Турнир скоро начнётся</string>
   <string name="notifyTimeAlarm">В игре по переписке скоро упадёт флажок</string>
   <string name="notifyBell">Звуковое оповещение на Личесс</string>
-  <string name="notifyPush">Оповещение на устройстве, когда Вы не находитесь на сайте Личесс</string>
+  <string name="notifyPush">Оповещение на устройстве, когда вы не находитесь на сайте Lichess</string>
   <string name="notifyWeb">Браузер</string>
   <string name="notifyDevice">Устройство</string>
   <string name="bellNotificationSound">Звук колокольчика уведомлений</string>
