@@ -11,7 +11,7 @@
   <string name="newTeam">Nuwe span</string>
   <string name="myTeams">My spanne</string>
   <string name="noTeamFound">Geen span gevind nie</string>
-  <string name="joinTeam">Sluit aan by die span</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Sluit aan by die span</string>
   <string name="onlyLeaderLeavesTeam">Nomineer asseblief \'n nuwe spanleier voordat jy gaan, of sluit die span af.</string>
   <string name="quitTeam">Verlaat die span</string>
   <string name="manuallyReviewAdmissionRequests">Gaan aansluit versoeke met die hand na</string>
