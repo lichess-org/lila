@@ -11,7 +11,7 @@
   <string name="newTeam">Jańa komanda</string>
   <string name="myTeams">Meniń komandalarım</string>
   <string name="noTeamFound">Komanda tabılmadı</string>
-  <string name="joinTeam">Komandaǵa qosılıw</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Komandaǵa qosılıw</string>
   <string name="onlyLeaderLeavesTeam">Ótinish, shıǵıp ketiwden aldın jańa komanda jetekshisin qosıń yamasa komandanı jabıń.</string>
   <string name="quitTeam">Komandadan shıǵıw</string>
   <string name="manuallyReviewAdmissionRequests">Qabıl qılıw sorawların jeke tekseriw</string>
