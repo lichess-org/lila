@@ -31,8 +31,8 @@
   <string name="byOpenings">โดยการเปิดเกม</string>
   <string name="puzzlesByOpenings">ปริศนาโดยการเปิดเกม</string>
   <string name="openingsYouPlayedTheMost">การเปิดหมากที่คุณเล่นเยอะสุดในเกมคิดคะแนน</string>
-  <string name="useFindInPage">ใช้ \"Find in page\" ในเมนูบราวเซอร์ในการหาการเปิดเกมที่คุณชอบ</string>
-  <string name="useCtrlF">ใช้ Ctrl+f ในการหาการเปิดเกมที่คุณชอบ</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ใช้ \"Find in page\" ในเมนูบราวเซอร์ในการหาการเปิดเกมที่คุณชอบ</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ใช้ Ctrl+f ในการหาการเปิดเกมที่คุณชอบ</string>
   <string name="notTheMove">ไม่ใช่การเดินที่ถูกต้อง!</string>
   <string name="trySomethingElse">ลองเดินอย่างอื่น</string>
   <string name="ratingX">ระดับคะแนน: %s</string>
