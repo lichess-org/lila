@@ -15,7 +15,7 @@
   <string name="keepGoing">Ipagpatuloy…</string>
   <string name="puzzleSuccess">Tagumpay!</string>
   <string name="puzzleComplete">Tapos na ang palaisipan!</string>
-  <string name="useCtrlF">Gamitin ang Crtl+f para mahanap ang iyong paboritong opening!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gamitin ang Crtl+f para mahanap ang iyong paboritong opening!</string>
   <string name="notTheMove">Hindi iyan ang tira!</string>
   <string name="trySomethingElse">Subukan mo iba.</string>
   <string name="ratingX">Marka: %s</string>
