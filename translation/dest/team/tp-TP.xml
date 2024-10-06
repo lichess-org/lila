@@ -10,7 +10,7 @@
   <string name="newTeam">kulupu sin</string>
   <string name="myTeams">kulupu mi</string>
   <string name="noTeamFound">kulupu li lon ala</string>
-  <string name="joinTeam">o lon kulupu</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">o lon kulupu</string>
   <string name="quitTeam">o tawa tan kulupu</string>
   <plurals name="teamLeaders">
     <item quantity="one">jan lawa kulupu</item>
