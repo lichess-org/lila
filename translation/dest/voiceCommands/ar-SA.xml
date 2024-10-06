@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">انقل إلى e4 أو أختر القطعة في مربع e4</string>
   <string name="selectOrCaptureABishop">أختر أو ألتقط الفيل</string>
   <string name="takeRookWithQueen">خذ الرخ بواسطة الوزير</string>
-  <string name="castle">بيّت (في أي من الجناحين)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">بيّت (في أي من الجناحين)</string>
   <string name="phoneticAlphabetIsBest">الأبجدية الصوتية هي الأفضل</string>
   <string name="cancelTimerOrDenyARequest">ألغ المؤقت أو أرفض الطلب</string>
   <string name="playPreferredMoveOrConfirmSomething">لعب النقلة المفضلة أو التأكد من شيئ ما</string>
