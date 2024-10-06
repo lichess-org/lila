@@ -10,7 +10,7 @@
   </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Lautaeditori ja %silla varustettu analyysilauta</string>
   <string name="cloudEngineAnalysis">Tietokoneanalyysi pilvessä</string>
-  <string name="studies">Tutkielmat (tallennettavat ja jaettavat analyysit)</string>
+  <string name="studies">Tutkielmat (tallentuvat analyysit, joita voi jakaa toisille)</string>
   <string name="chessInsights">Syväluotaus shakkiisi (peliesi yksityiskohtainen analyysi)</string>
   <string name="allChessBasicsLessons">Shakin perusteiden koko oppisisältö</string>
   <string name="tacticalPuzzlesFromUserGames">Taktiikkatehtäviä käyttäjien peleistä</string>
