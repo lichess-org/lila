@@ -209,10 +209,16 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     coll(_.primitiveOne[Bdoc]($id(id), "members"))
 
   def setMembersDoc(ids: Seq[StudyId], members: Bdoc): Funit =
-    coll(_.update.one($inIds(ids), $set("members" -> members), multi = true)).void
-
-  def uids(studyId: StudyId): Fu[Set[UserId]] =
-    coll(_.primitiveOne[Set[UserId]]($id(studyId), F.uids)).dmap(~_)
+    coll(
+      _.update.one(
+        $inIds(ids),
+        $set(
+          "members" -> members,
+          "uids"    -> members.toMap.keys
+        ),
+        multi = true
+      )
+    ).void
 
   private val idNameProjection = $doc("name" -> true)
 
