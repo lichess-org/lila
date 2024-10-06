@@ -10,7 +10,7 @@
   <string name="newTeam">Equipo nuevo</string>
   <string name="myTeams">Los míos equipos</string>
   <string name="noTeamFound">Garra equipo trobau</string>
-  <string name="joinTeam">Unir-se a l\'equipo</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Unir-se a l\'equipo</string>
   <string name="quitTeam">Abandonar l\'equipo</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualment las demandas d\'admisión</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Si ye marcau, los chugados habrán d\'escribir una petición pa unir-se a l\'equipo, la qual puetz acceptar u refusar.</string>
