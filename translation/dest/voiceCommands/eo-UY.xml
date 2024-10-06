@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Movu al e4 aŭ elektu la e4 pecon</string>
   <string name="selectOrCaptureABishop">Elektu au kapu kurieron</string>
   <string name="takeRookWithQueen">Kaptu la turon per damo</string>
-  <string name="castle">Aroku (ajnflanke)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Aroku (ajnflanke)</string>
   <string name="phoneticAlphabetIsBest">Fonetika aboco estas plejbona</string>
   <string name="cancelTimerOrDenyARequest">Nuligi tempumilon aŭ rifuzi peton</string>
   <string name="playPreferredMoveOrConfirmSomething">Ludi preferan movon aŭ konfirmi ion</string>
