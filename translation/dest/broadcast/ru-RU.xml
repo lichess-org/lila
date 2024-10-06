@@ -29,6 +29,7 @@
   <string name="sourceSingleUrl">Исходный URL PGN</string>
   <string name="sourceUrlHelp">URL-адрес, с которого Lichess будет получать обновление PGN. Он должен быть доступен для получения из Интернета.</string>
   <string name="sourceGameIds">До 64 идентификаторов (ID) игр Lichess, разделённых пробелами.</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Дата начала турнира в местном часовом поясе: %s</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>
   <string name="credits">Признательность</string>
   <string name="currentGameUrl">URL-адрес текущей партии</string>
