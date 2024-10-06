@@ -31,8 +31,8 @@
   <string name="byOpenings">Pa atklātnēm</string>
   <string name="puzzlesByOpenings">Puzles pa atklātnēm</string>
   <string name="openingsYouPlayedTheMost">Visvairāk spēlētās atklātnes spēlēs ar reitingu</string>
-  <string name="useFindInPage">Lieto \"Find in page\" no pārlūka izvēlnes lai atrastu savu mīļāko atklātni!</string>
-  <string name="useCtrlF">Lieto Ctrl+f lai atrastu savu mīļāko atklātni!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Lieto \"Find in page\" no pārlūka izvēlnes lai atrastu savu mīļāko atklātni!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Lieto Ctrl+f lai atrastu savu mīļāko atklātni!</string>
   <string name="notTheMove">Tas nav īstais gājiens!</string>
   <string name="trySomethingElse">Izmēģiniet ko citu.</string>
   <string name="ratingX">Reitings: %s</string>
