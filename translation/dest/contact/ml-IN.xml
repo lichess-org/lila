@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="wantChangeUsername">എനിക്കു് എന്റെ ഉപയോക്തൃപേരു് മാറ്റണം</string>
+</resources>
