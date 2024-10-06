@@ -31,10 +31,10 @@
   <string name="byOpenings">بر اساس گشایش‌ها</string>
   <string name="puzzlesByOpenings">معماها بر اساس گشایش‌ها</string>
   <string name="openingsYouPlayedTheMost">گشایش‌هایی که بیش از همه در بازی‌های امتیازی کرده‌اید</string>
-  <string name="useFindInPage">از گزینه «جستجو در صفحه» مرورگر استفاده کنید تا گشایش دلخواه‌تان را بیابید!</string>
-  <string name="useCtrlF">از Ctrl+f برای یابیدن گشایش دلخواه‌تان استفاده کنید!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">از گزینه «جستجو در صفحه» مرورگر استفاده کنید تا گشایش دلخواه‌تان را بیابید!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">از Ctrl+f برای یابیدن گشایش دلخواه‌تان استفاده کنید!</string>
   <string name="notTheMove">این حرکت نیست!</string>
-  <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
+  <string name="trySomethingElse">چیز دیگری بیابید.</string>
   <string name="ratingX">درجه‌بندی: %s</string>
   <string name="hidden">پنهان</string>
   <plurals name="playedXTimes">
