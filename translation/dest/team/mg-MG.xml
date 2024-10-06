@@ -9,7 +9,7 @@
   <string name="newTeam">vondrona vaovao</string>
   <string name="myTeams">Ny vondroko</string>
   <string name="noTeamFound">Tsy misy vondrona hita</string>
-  <string name="joinTeam">Miditra amin\'ny vondrona</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Miditra amin\'ny vondrona</string>
   <string name="quitTeam">Miala amin\'ny vondrona</string>
   <string name="teamRecentMembers">Mpilalao vao niditra</string>
 </resources>
