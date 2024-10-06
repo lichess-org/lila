@@ -11,7 +11,7 @@
   <string name="newTeam">Nova teamo</string>
   <string name="myTeams">Miaj teamoj</string>
   <string name="noTeamFound">Neniu trovita teamo</string>
-  <string name="joinTeam">Aliĝi al teamo</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Aliĝi al teamo</string>
   <string name="onlyLeaderLeavesTeam">Bonvolu aldoni novan teamestron antaŭ ol forlasi aŭ fermu la teamo.</string>
   <string name="quitTeam">Eksiĝi de teamo</string>
   <string name="manuallyReviewAdmissionRequests">Permane revizii aliĝpetojn</string>
