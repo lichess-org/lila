@@ -11,7 +11,7 @@
   <string name="newTeam">Նոր թիմ</string>
   <string name="myTeams">Իմ թիմերը</string>
   <string name="noTeamFound">Թիմ գտնված չէ</string>
-  <string name="joinTeam">Միանալ թիմին</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Միանալ թիմին</string>
   <string name="onlyLeaderLeavesTeam">Խնդրում ենք ակումբը լքելուց կամ փակելուց առաջ ավելացնել ակումբի նոր ղեկավար։</string>
   <string name="quitTeam">Լքել թիմը</string>
   <string name="manuallyReviewAdmissionRequests">Մուտքի հայտերի ձեռքով ստուգում</string>
