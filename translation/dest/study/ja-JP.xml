@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">投稿日（古い順）</string>
   <string name="recentlyUpdated">更新順</string>
   <string name="mostPopular">人気順</string>
-  <string name="alphabetical">アルファベット順</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">アルファベット順</string>
   <string name="addNewChapter">新たな章を追加</string>
   <plurals name="nbChapters">
     <item quantity="other">%s 章</item>
@@ -160,7 +160,7 @@
   <string name="popularTopics">人気のトピック</string>
   <string name="manageTopics">トピックの管理</string>
   <string name="back">戻る</string>
-  <string name="playAgain">もう一度プレイ</string>
-  <string name="whatWouldYouPlay">この局面、あなたならどう指す？</string>
-  <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">もう一度プレイ</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">この局面、あなたならどう指す？</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">おめでとう ！　このレッスンを修了しました。</string>
 </resources>
