@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">วันที่เพิ่ม (เก่าสุด)</string>
   <string name="recentlyUpdated">อัพเดตเร็วๆนี้</string>
   <string name="mostPopular">นิยมที่สุด</string>
-  <string name="alphabetical">ตามอักษร</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">ตามอักษร</string>
   <string name="addNewChapter">เพิ่มบทใหม่</string>
   <plurals name="nbChapters">
     <item quantity="other">%s บท</item>
@@ -160,7 +160,7 @@
   <string name="popularTopics">หัวข้อยอดนิยม</string>
   <string name="manageTopics">จัดการหัวข้อ</string>
   <string name="back">กลับ</string>
-  <string name="playAgain">เล่นใหม่</string>
-  <string name="whatWouldYouPlay">คุณจะเดินอะไรในตำแหน่งนี้</string>
-  <string name="youCompletedThisLesson">ยินดีด้วย! คุณจบบทเรียนนี้แล้ว</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">เล่นใหม่</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">คุณจะเดินอะไรในตำแหน่งนี้</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">ยินดีด้วย! คุณจบบทเรียนนี้แล้ว</string>
 </resources>
