@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Tanggal ditambahkan (terlama)</string>
   <string name="recentlyUpdated">Baru saja diperbarui</string>
   <string name="mostPopular">Paling populer</string>
-  <string name="alphabetical">Menurut abjad</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Menurut abjad</string>
   <string name="addNewChapter">Tambahkan bab baru</string>
   <plurals name="nbChapters">
     <item quantity="other">%s Bab</item>
@@ -159,6 +159,6 @@
   <string name="popularTopics">Topik populer</string>
   <string name="manageTopics">Kelola topik</string>
   <string name="back">Kembali</string>
-  <string name="playAgain">Main lagi</string>
-  <string name="youCompletedThisLesson">Selamat. Anda telah menyelesaikan pelajaran ini.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Main lagi</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Selamat. Anda telah menyelesaikan pelajaran ini.</string>
 </resources>
