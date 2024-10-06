@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Zug uf e4 oder Uswahl vu de Figur uf e4</string>
   <string name="selectOrCaptureABishop">En Läufer wähle oder schlah</string>
   <string name="takeRookWithQueen">Schlag de Turm mit de Dame</string>
-  <string name="castle">Rochade (beidi Site)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rochade (beidi Site)</string>
   <string name="phoneticAlphabetIsBest">Phonetischs Alphabet isch s\'Bescht</string>
   <string name="cancelTimerOrDenyARequest">Timer abbräche oder e Afrag ablehne</string>
   <string name="playPreferredMoveOrConfirmSomething">Bevorzugte Zug spiele oder öppis bestätige</string>
