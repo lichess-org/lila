@@ -9,7 +9,7 @@
   <string name="allTeams">සියලුම කණ්ඩායම්</string>
   <string name="newTeam">නව කණ්ඩායම</string>
   <string name="myTeams">මාගේ කණ්ඩායම</string>
-  <string name="joinTeam">කණ්ඩායමට එක්වන්න</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">කණ්ඩායමට එක්වන්න</string>
   <string name="quitTeam">කණ්ඩායම හැරයන්න</string>
   <string name="teamRecentMembers">මෑත සමාජිකයින්</string>
   <plurals name="xJoinRequests">
