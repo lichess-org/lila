@@ -9,7 +9,7 @@
   <string name="newTeam">Ҫӗнӗ ушкӑн</string>
   <string name="myTeams">Манӑн ушкӑнсем</string>
   <string name="noTeamFound">Пӗр ушкӑн та ҫук</string>
-  <string name="joinTeam">Ушкӑна хутшӑн</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Ушкӑна хутшӑн</string>
   <string name="quitTeam">Ушкӑнтан тух</string>
   <string name="teamRecentMembers">Тин хутшӑннӑ пайташсем</string>
   <string name="joinLichessVariantTeam">Хыпар тата пулӑм пирки пӗлсе тӑрас тесен ухвитсаллӑ %s ушкӑна хутшӑнмалла</string>
