@@ -34,7 +34,7 @@
     <item quantity="one">Ha jugado %s partida por correspondencia</item>
     <item quantity="other">Ha jugado %s partidas por correspondencia</item>
   </plurals>
-  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+  <plurals name="completedNbVariantGames">
     <item quantity="one">Ha completado %1$s %2$s partida por correspondencia</item>
     <item quantity="other">Ha completado %1$s %2$s partidas por correspondencia</item>
   </plurals>
