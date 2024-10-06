@@ -11,7 +11,7 @@
   <string name="newTeam">یانەی نوێ</string>
   <string name="myTeams">یانەکەم</string>
   <string name="noTeamFound">هیچ یانەیەک نەدۆزرایەوە</string>
-  <string name="joinTeam">پەیوەندی بە یانەکە بکە</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">پەیوەندی بە یانەکە بکە</string>
   <string name="onlyLeaderLeavesTeam">تکایە پێش ڕۆشتن سەرکردەیەکی نوێ زیاد بکە، یان یانەکە دابخە.</string>
   <string name="quitTeam">یانەکە بەجێبهێڵە</string>
   <string name="manuallyReviewAdmissionRequests">بە دەست پێداچوونەوە بە داواکارییەکانی وەرگرتن بکە</string>
