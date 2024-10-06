@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Tens 30 segons per indicar correctament tantes caselles com sigui possible!</string>
   <string name="goAsLongAsYouWant">Pren-te tant temps com vulguis, no hi ha límit de temps!</string>
   <string name="showCoordinates">Mostrar les coordenades</string>
-  <string name="showCoordsOnAllSquares">Coordenades en cada casella</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordenades en cada casella</string>
   <string name="showPieces">Mostrar les peces</string>
   <string name="startTraining">Comença l\'entrenament</string>
   <string name="findSquare">Cerca caselles</string>
