@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Du hast 30 Sekunden, um so viele Felder wie möglich korrekt zu benennen!</string>
   <string name="goAsLongAsYouWant">Spiele so lange du willst, es gibt keine Zeitbegrenzung!</string>
   <string name="showCoordinates">Koordinaten anzeigen</string>
-  <string name="showCoordsOnAllSquares">Koordinaten auf jedem Feld</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordinaten auf jedem Feld</string>
   <string name="showPieces">Figuren anzeigen</string>
   <string name="startTraining">Training beginnen</string>
   <string name="findSquare">Feld finden</string>
