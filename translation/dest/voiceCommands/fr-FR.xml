@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Déplacer à e4 ou sélectionner une pièce à e4</string>
   <string name="selectOrCaptureABishop">Sélectionner ou capturer un fou</string>
   <string name="takeRookWithQueen">Capturer la tour avec la dame</string>
-  <string name="castle">Roquer (petit ou grand roque)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Roquer (petit ou grand roque)</string>
   <string name="phoneticAlphabetIsBest">L\'alphabet phonétique est l\'idéal</string>
   <string name="cancelTimerOrDenyARequest">Annuler la minuterie ou refuser une demande</string>
   <string name="playPreferredMoveOrConfirmSomething">Jouer le coup préféré ou confirmer quelque chose</string>
