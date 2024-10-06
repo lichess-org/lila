@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Ви маєте 30 секунд для того, щоб відмітити якнайбільше полів!</string>
   <string name="goAsLongAsYouWant">Витрачайте стільки часу, скільки забажаєте - жодних лімітів!</string>
   <string name="showCoordinates">Відображати координати</string>
-  <string name="showCoordsOnAllSquares">Координати на кожному полі</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Координати на кожному полі</string>
   <string name="showPieces">Показувати фігури</string>
   <string name="startTraining">Розпочати тренування</string>
   <string name="findSquare">Знайти поле</string>
