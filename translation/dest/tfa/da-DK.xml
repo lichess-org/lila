@@ -7,7 +7,7 @@
   <string name="enterPassword">Indtast din adgangskode og bekræftelseskoden genereret af appen for at færdiggøre opsætningen. Du vil få brug for en bekræftelseskode, hvor gang du logger ind.</string>
   <string name="ifYouCannotScanEnterX">Hvis du ikke kan scanne koden, skal du indtaste den hemmelige %s i din app.</string>
   <string name="authenticationCode">Bekræftelseskode</string>
-  <string name="ifYouLoseAccessTwoFactor">Bemærk: Hvis du mister adgang til dine to-faktor-godkendelseskoder, kan du lave en a%s via e-mail.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Bemærk: Hvis du mister adgang til dine to-faktor-godkendelseskoder, kan du lave en a%s via e-mail.</string>
   <string name="enableTwoFactor">Aktivér to-faktor-godkendelse</string>
   <string name="disableTwoFactor">Deaktivér to-faktor-godkendelse</string>
   <string name="twoFactorEnabled">To-faktor-godkendelse aktiveret</string>
