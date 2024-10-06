@@ -234,8 +234,8 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
       minDate: Option[String] = Some("today")
   ): Tag =
     input(field, klass = s"flatpickr")(
-      dataEnableTime := withTime,
-      dataLocal      := local,
+      withTime.option(dataEnableTime := true),
+      local.option(dataLocal         := true),
       dataMinDate := minDate.map:
         case "today" if local => "yesterday"
         case d                => d
