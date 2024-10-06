@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Tah na e4 nebo zvolení figurky, která leží na poli e4</string>
   <string name="selectOrCaptureABishop">Zvolit nebo vyhodit střelce</string>
   <string name="takeRookWithQueen">Vyhodit věž dámou</string>
-  <string name="castle">Rošáda (na obě strany)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rošáda (na obě strany)</string>
   <string name="phoneticAlphabetIsBest">Fonetická abeceda je nejlepší</string>
   <string name="cancelTimerOrDenyARequest">Zrušit časovač nebo zamítnout možnost</string>
   <string name="playPreferredMoveOrConfirmSomething">Zahrát tah nebo něco tvrdit</string>
