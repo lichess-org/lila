@@ -31,8 +31,8 @@
   <string name="byOpenings">By openings</string>
   <string name="puzzlesByOpenings">Puzzles by openings</string>
   <string name="openingsYouPlayedTheMost">Openings you played the most in rated games</string>
-  <string name="useFindInPage">Use \"Find in page\" in the browser menu to find your favorite opening!</string>
-  <string name="useCtrlF">Use Ctrl+f to find your favorite opening!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Use \"Find in page\" in the browser menu to find your favorite opening!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Use Ctrl+f to find your favorite opening!</string>
   <string name="notTheMove">That\'s not the move!</string>
   <string name="trySomethingElse">Try something else.</string>
   <string name="ratingX">Rating: %s</string>
