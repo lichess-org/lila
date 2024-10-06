@@ -7,7 +7,7 @@
   <string name="enterPassword">Ange ditt lösenord och autentiseringskoden som genereras av appen för att slutföra installationen. Du behöver en autentiseringskod varje gång du loggar in.</string>
   <string name="ifYouCannotScanEnterX">Om du inte kan skanna koden, ange hemligheten %s i din app.</string>
   <string name="authenticationCode">Autentiseringskod</string>
-  <string name="ifYouLoseAccessTwoFactor">Obs: Om du förlorar åtkomst till dina tvåfaktorsautentiseringskoder, kan du göra en %s via e-post.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Obs: Om du förlorar åtkomst till dina tvåfaktorsautentiseringskoder, kan du göra en %s via e-post.</string>
   <string name="enableTwoFactor">Aktivera tvåfaktorsautentisering</string>
   <string name="disableTwoFactor">Inaktivera tvåfaktorsautentisering</string>
   <string name="twoFactorEnabled">Tvåfaktorsautentisering aktiverad</string>
