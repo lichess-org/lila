@@ -76,11 +76,11 @@ Ví dụ: được hạng 3 trong một giải đấu có 100 kỳ thủ = 3%. H
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">trung vị</string>
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Tất cả các giá trị trung bình trên trang này đều là %s.</string>
   <string name="total">Tổng</string>
-  <string name="pointsAvg">Điểm trung bình</string>
+  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">Điểm trung bình</string>
   <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Tổng điểm</string>
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Thứ hạng trung bình</string>
   <string name="tournamentWinners">Các nhà vô địch giải</string>
   <string name="tournamentShields">Các khiên giải đấu</string>
   <string name="onlyTitled">Chỉ những kỳ thủ có danh hiệu</string>
-  <string name="onlyTitledHelp">Yêu cầu có một danh hiệu chính thức để tham gia giải đấu</string>
+  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Yêu cầu có một danh hiệu chính thức để tham gia giải đấu</string>
 </resources>
