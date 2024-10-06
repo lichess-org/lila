@@ -11,7 +11,7 @@
   <string name="newTeam">ახალი გუნდი</string>
   <string name="myTeams">ჩემი გუნდები</string>
   <string name="noTeamFound">გუნდი არ მოდიძებნა</string>
-  <string name="joinTeam">შეუერთდით გუნდს</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">შეუერთდით გუნდს</string>
   <string name="quitTeam">დატოვეთ გუნდი</string>
   <string name="teamRecentMembers">გუნდის ბოლო წევრები</string>
   <string name="kickSomeone">გააგდე მოთამაშე ჯგუფიდან</string>
