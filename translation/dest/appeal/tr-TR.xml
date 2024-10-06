@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Hesabınız işaretlenmemiş veya kısıtlanmamıştır. Her şey yolunda!</string>
-  <string name="engineMarked">Hesabınız oyunlarda dışarıdan yardım aldığınız için işaretlenmiştir.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Hesabınız oyunlarda dışarıdan yardım aldığınız için işaretlenmiştir.</string>
   <string name="engineMarkedInfo">Bunu, rakibinize karşı haksız bir avantaj elde etmek amacıyla bilginizi ve/veya hesaplama becerilerinizi güçlendirmek için her türlü dış yardımdan yararlanmak olarak tanımlıyoruz. Daha fazla ayrıntı için %s sayfasına bakın.</string>
   <string name="arenaBanned">Hesabınızla arena turnuvalarına katılmanız yasaklanmıştır.</string>
   <string name="prizeBanned">Hesabınızla gerçek ödüllü turnuvalara katılmanız yasaklanmıştır.</string>
