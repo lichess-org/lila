@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Masz 30 sekund, aby wskazać tak wiele pól, jak to możliwe!</string>
   <string name="goAsLongAsYouWant">Próbuj tak długo, jak chcesz, nie ma limitu czasowego!</string>
   <string name="showCoordinates">Pokaż współrzędne</string>
-  <string name="showCoordsOnAllSquares">Współrzędne na każdym polu</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Współrzędne na każdym polu</string>
   <string name="showPieces">Pokaż bierki</string>
   <string name="startTraining">Rozpocznij trening</string>
   <string name="findSquare">Znajdź pole</string>
