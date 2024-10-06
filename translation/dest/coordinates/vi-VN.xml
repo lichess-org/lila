@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Cố gắng tìm đúng nhiều ô nhất có thể trong vòng 30 giây!</string>
   <string name="goAsLongAsYouWant">Luyện tập vô tận, không có giới hạn thời gian!</string>
   <string name="showCoordinates">Hiện tọa độ</string>
-  <string name="showCoordsOnAllSquares">Tọa độ trên mỗi ô cờ</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Tọa độ trên mỗi ô cờ</string>
   <string name="showPieces">Hiện quân cờ</string>
   <string name="startTraining">Bắt đầu tập luyện</string>
   <string name="findSquare">Tìm ô cờ</string>
