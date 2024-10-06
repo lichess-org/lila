@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Kontoen din har ingen anmerkninger eller begrensninger. Alt er i orden!</string>
-  <string name="engineMarked">Kontoen din har en anmerkning for ekstern assistanse i partier.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Kontoen din har en anmerkning for ekstern assistanse i partier.</string>
   <string name="engineMarkedInfo">Dette defineres som å bruke ekstern hjelp til å styrke kunnskapen din og/eller regneferdighetene dine. Se siden for %s for detaljer.</string>
   <string name="arenaBanned">Kontoen din er utestengt fra å delta i arenaturneringer.</string>
   <string name="prizeBanned">Kontoen din er utestengt fra å delta i turneringer med ekte premier.</string>
