@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">El teu compte no està marcat o reportat. Esteu molt bé!</string>
-  <string name="engineMarked">El teu compte està marcat per assistència externa en les partides.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">El teu compte està marcat per assistència externa en les partides.</string>
   <string name="engineMarkedInfo">Ho definim com fer servir alguna ajuda externa per millorar el teu coneixement i/o habilitat de càlcul per guanyar un avantatge injust sobre el teu oponent. Reviseu la pàgina %s per més detalls.</string>
   <string name="arenaBanned">El teu compte té prohibit jugar tornejos arena.</string>
   <string name="prizeBanned">El teu compte té prohibit jugar tornejos amb premis reals.</string>
