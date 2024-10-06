@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Tem 30 segundos para mapear corretamente o máximo de quadrados possível!</string>
   <string name="goAsLongAsYouWant">Pode continuar enquanto quiser, não há limite de tempo!</string>
   <string name="showCoordinates">Mostrar coordenadas</string>
-  <string name="showCoordsOnAllSquares">Coordenadas em cada quadrado</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordenadas em cada quadrado</string>
   <string name="showPieces">Mostrar as peças</string>
   <string name="startTraining">Começar o treino</string>
   <string name="findSquare">Encontrar quadrado</string>
