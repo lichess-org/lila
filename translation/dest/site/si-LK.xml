@@ -638,6 +638,5 @@ You are playing chess.</string>
   <string name="keyNextInaccuracy">ඊලඟ අතපසු වීම</string>
   <string name="keyPreviousBranch">පෙර ශාඛාව</string>
   <string name="weeklyPerfTypeRatingDistribution">සතිපතා %s ශ්‍රේණි බෙදා හැරීම</string>
-  <string name="cumulative"></string>
   <string name="pieceSet">ඉත්තන් පෙළ</string>
 </resources>
