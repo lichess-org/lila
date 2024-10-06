@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Váš účet nie je označený ani obmedzený. Všetko je v poriadku!</string>
-  <string name="engineMarked">Váš účet je označený kvôli externej pomoci v partiách.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Váš účet je označený kvôli externej pomoci v partiách.</string>
   <string name="engineMarkedInfo">Definujeme to ako využívanie akejkoľvek externej pomoci na posilnenie svojich vedomostí a/alebo schopností kalkulácie s cieľom získať neférovú výhodu nad súperom. Viac informácií nájdete na stránke %s.</string>
   <string name="arenaBanned">Vášmu účtu je zakázané vstupovať do arén.</string>
   <string name="prizeBanned">Váš účet má zakázané zúčastňovať sa turnajov so skutočnými cenami.</string>
