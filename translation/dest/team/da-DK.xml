@@ -11,7 +11,7 @@
   <string name="newTeam">Nyt hold</string>
   <string name="myTeams">Mine hold</string>
   <string name="noTeamFound">Ingen hold fundet</string>
-  <string name="joinTeam">Tilmeld dig holdet</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Tilmeld dig holdet</string>
   <string name="onlyLeaderLeavesTeam">Tilføj venligst en ny holdleder, før du forlader eller lukker holdet.</string>
   <string name="quitTeam">Forlad holdet</string>
   <string name="manuallyReviewAdmissionRequests">Gennemgå anmodninger om optagelse manuelt</string>
@@ -56,7 +56,7 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="joinLichessVariantTeam">Meld dig til det officielle %s hold for nyheder og begivenheder</string>
   <string name="teamPage">Holdside</string>
   <string name="thisTeamBattleIsOver">Turneringen er slut, og holdene kan ikke længere opdateres.</string>
-  <string name="listTheTeamsThatWillCompete">Oplist de hold, der skal konkurrere i denne kamp.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Oplist de hold, der skal konkurrere i denne kamp.</string>
   <string name="oneTeamPerLine">Et hold pr. linje. Brug den automatiske udfyldning.</string>
   <string name="oneTeamPerLineHelp">Du kan copy-paste denne liste fra en turnering til en anden!
 
