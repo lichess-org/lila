@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Date addit (auldest)</string>
   <string name="recentlyUpdated">Newlins updatit</string>
   <string name="mostPopular">Maist likit</string>
-  <string name="alphabetical">Alphabetical</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alphabetical</string>
   <string name="addNewChapter">Eik a new chaipter</string>
   <string name="addMembers">Eik members</string>
   <string name="inviteToTheStudy">Inveet tae the muise</string>
