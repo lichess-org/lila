@@ -31,8 +31,8 @@
   <string name="byOpenings">ತೆರೆಯುವಿಕೆಯಿಂದ</string>
   <string name="puzzlesByOpenings">ತೆರೆಯುವಿಕೆಯಿಂದ ಒಗಟುಗಳು</string>
   <string name="openingsYouPlayedTheMost">ರೇಟ್ ಮಾಡಲಾದ ಆಟಗಳಲ್ಲಿ ನೀವು ಹೆಚ್ಚು ಆಡಿದ ಓಪನಿಂಗ್‌ಗಳು</string>
-  <string name="useFindInPage">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು ಬ್ರೌಸರ್ ಮೆನುವಿನಲ್ಲಿ \"ಪುಟದಲ್ಲಿ ಹುಡುಕಿ\" ಬಳಸಿ!</string>
-  <string name="useCtrlF">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು Ctrl+f ಬಳಸಿ!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು ಬ್ರೌಸರ್ ಮೆನುವಿನಲ್ಲಿ \"ಪುಟದಲ್ಲಿ ಹುಡುಕಿ\" ಬಳಸಿ!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು Ctrl+f ಬಳಸಿ!</string>
   <string name="notTheMove">ಆ ನಡೆ ಸರಿಯಿಲ್ಲ!</string>
   <string name="trySomethingElse">ಬೇರೆ ಏನಾದರೂ ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="ratingX">ಧಾರಣೆ: %s</string>
