@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Il tuo account non è stato segnalato o limitato. Sei a posto!</string>
-  <string name="engineMarked">Il tuo account è stato segnalato per aver ricevuto assistenza esterna durante il gioco.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Il tuo account è stato segnalato per aver ricevuto assistenza esterna durante il gioco.</string>
   <string name="engineMarkedInfo">Con questo si intende l\'usufruire di un qualunque aiuto esterno a complemento delle tue conoscenze o per calcolare varianti che risulti in un vantaggio sleale sul tuo avversario. Consulta la pagina %s per maggiori dettagli.</string>
   <string name="arenaBanned">Il tuo account è bannato e non puoi unirti alle arene.</string>
   <string name="prizeBanned">Il tuo account è bannato dai tornei con premi.</string>
