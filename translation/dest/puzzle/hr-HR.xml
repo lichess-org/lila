@@ -31,8 +31,8 @@
   <string name="byOpenings">Prema otvaranjima</string>
   <string name="puzzlesByOpenings">Zagonetke prema otvaranjima</string>
   <string name="openingsYouPlayedTheMost">Otvaranje koje si najviše igrao u rangiranim igrama</string>
-  <string name="useFindInPage">Koristi \"Pronađi na stranici\" u izborniku preglednika da bi pronašao svoje omiljeno otvaranje!</string>
-  <string name="useCtrlF">Koristi Ctrl+f da bi pronašao svoje omiljeno otvaranje!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Koristi \"Pronađi na stranici\" u izborniku preglednika da bi pronašao svoje omiljeno otvaranje!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Koristi Ctrl+f da bi pronašao svoje omiljeno otvaranje!</string>
   <string name="notTheMove">Netočan odgovor!</string>
   <string name="trySomethingElse">Pokušaj nešto drugo.</string>
   <string name="ratingX">Rejting: %s</string>
