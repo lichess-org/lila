@@ -6,10 +6,10 @@ import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Form as PlayForm, FormError, Mapping, validation as V }
-import scala.jdk.CollectionConverters.*
 import java.lang
-import java.time.{ LocalDate, ZoneId }
+import java.time.{ LocalDate, LocalDateTime, ZoneId }
 import scala.util.Try
+import play.api.i18n.Lang
 
 object Form:
 
@@ -229,10 +229,6 @@ object Form:
     val field: Mapping[URL] = of[URL]
 
   object timeZone:
-    lazy val choices: List[(String, String)] =
-      ZoneId.getAvailableZoneIds.asScala.toList.flatMap: id =>
-        Try(ZoneId.of(id)).toOption.map: tz =>
-          tz.getId -> tz.getId
     given Formatter[ZoneId] = formatter.stringTryFormatter(
       from = s => Try(ZoneId.of(s)).fold(err => Left(err.getMessage), Right(_)),
       to = _.getId
@@ -346,12 +342,13 @@ object Form:
       def unbind(key: String, value: Instant) = ISOInstant.format.unbind(key, value)
     val mapping: Mapping[Instant] = of[Instant](format)
   final class LocalDateTimeOrTimestamp(zone: ZoneId):
+    val localFormatter = java.time.format.DateTimeFormatter.ofPattern(PrettyDateTime.pattern)
+    def localDateTimeParse(data: String) = LocalDateTime.parse(data, localFormatter)
     val format: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) =
-        PrettyDateTime.format
-          .bind(key, data)
+        parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
           .map(_.atZone(zone).toInstant)
           .orElse(Timestamp.format.bind(key, data))
       def unbind(key: String, value: Instant) =
-        PrettyDateTime.format.unbind(key, value.atZone(zone).toLocalDateTime)
+        Map(key -> value.atZone(zone).toLocalDateTime.format(localFormatter))
     val mapping: Mapping[Instant] = of[Instant](format)

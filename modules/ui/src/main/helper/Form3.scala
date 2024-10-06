@@ -224,21 +224,21 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
-  private val dataMinDate    = attr("data-mindate")
+  private val dataMinDate    = attr("data-min-date")
+  private val dataLocal      = attr("data-local")
 
   def flatpickr(
       field: Field,
       withTime: Boolean = true,
-      utc: Boolean = false,
-      minDate: Option[String] = Some("today"),
-      dateFormat: Option[String] = None
+      local: Boolean = false,
+      minDate: Option[String] = Some("today")
   ): Tag =
-    input(field, klass = s"flatpickr${if utc then " flatpickr-utc" else ""}")(
+    input(field, klass = s"flatpickr")(
       dataEnableTime := withTime,
-      dateFormat.map(df => data("date-format") := df),
+      dataLocal      := local,
       dataMinDate := minDate.map:
-        case "today" if utc => "yesterday"
-        case d              => d
+        case "today" if local => "yesterday"
+        case d                => d
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")

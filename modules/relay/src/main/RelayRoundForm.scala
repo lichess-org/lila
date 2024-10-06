@@ -69,8 +69,7 @@ final class RelayRoundForm(using mode: Mode):
       "delay"               -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
       "onlyRound"           -> optional(number(min = 1, max = 999)),
       "slices" -> optional:
-        nonEmptyText
-          .transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
+        nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(

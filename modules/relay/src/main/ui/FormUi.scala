@@ -446,7 +446,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               help = frag("Used to set round dates using their local time").some,
               half = true
             ):
-              form3.select(_, lila.common.Form.timeZone.choices, default = "Unknown".some)
+              form3.select(_, timeZone.translatedChoices)
           ),
           form3.split(
             form3.group(
