@@ -7,7 +7,7 @@
   <string name="enterPassword">Wprowadź hasło i kod uwierzytelniający wygenerowany przez aplikację, aby zakończyć konfigurację. Będziesz potrzebował kodu uwierzytelniającego za każdym razem, gdy się zalogujesz.</string>
   <string name="ifYouCannotScanEnterX">Jeśli nie możesz zeskanować kodu, wpisz kod %s do swojej aplikacji.</string>
   <string name="authenticationCode">Kod uwierzytelniania</string>
-  <string name="ifYouLoseAccessTwoFactor">Uwaga: Jeśli utracisz dostęp do kodów uwierzytelniania dwuskładnikowego, możesz zrobić %s za pomocą poczty elektronicznej.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Uwaga: Jeśli utracisz dostęp do kodów uwierzytelniania dwuskładnikowego, możesz zrobić %s za pomocą poczty elektronicznej.</string>
   <string name="enableTwoFactor">Włącz uwierzytelnianie dwuetapowe</string>
   <string name="disableTwoFactor">Wyłącz uwierzytelnianie dwuetapowe</string>
   <string name="twoFactorEnabled">Uwierzytelnianie dwuetapowe włączone</string>
