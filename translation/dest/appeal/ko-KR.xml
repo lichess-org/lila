@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">당신의 계정에 적용 중인 제재나 표시사항은 없습니다.. 이상 무!</string>
-  <string name="engineMarked">당신의 계정은 게임 중 외부의 도움을 받은 것으로 표시되었습니다.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">당신의 계정은 게임 중 외부의 도움을 받은 것으로 표시되었습니다.</string>
   <string name="engineMarkedInfo">이것은 불공평한 이득을 얻기 위해 지식이나 수읽기 실력에서 외부의 도움을 받는 모든 행위로 정의됩니다. %s에서 더 자세한 사항을 확인 해 주세요.</string>
   <string name="arenaBanned">당신의 계정은 아레나 참가가 금지되어 있습니다.</string>
   <string name="prizeBanned">당신의 계정은 현금 상금이 걸려 있는 대회 참가가 금지되어 있습니다.</string>
