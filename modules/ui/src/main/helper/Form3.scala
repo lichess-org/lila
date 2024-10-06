@@ -224,7 +224,6 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
-  private val dataTime24h    = attr("data-time_24h")
   private val dataMinDate    = attr("data-mindate")
 
   def flatpickr(
@@ -236,7 +235,6 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
   ): Tag =
     input(field, klass = s"flatpickr${if utc then " flatpickr-utc" else ""}")(
       dataEnableTime := withTime,
-      dataTime24h    := withTime,
       dateFormat.map(df => data("date-format") := df),
       dataMinDate := minDate.map:
         case "today" if utc => "yesterday"
