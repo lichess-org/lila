@@ -29,8 +29,8 @@
   <string name="puzzleComplete">Ushtrimi u plotësua!</string>
   <string name="byOpenings">Sipas hapjesh</string>
   <string name="openingsYouPlayedTheMost">Hapje që bëtë në lojërat më të vlerësuara</string>
-  <string name="useFindInPage">Që të gjeni hapen tuaj të parapëlqyer, përdorni “Gjej në faqe” te menuja e shfletuesit!</string>
-  <string name="useCtrlF">Që të gjeni hapjen tuaj të parapëlqyer, përdorni Ctrl+f!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Që të gjeni hapen tuaj të parapëlqyer, përdorni “Gjej në faqe” te menuja e shfletuesit!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Që të gjeni hapjen tuaj të parapëlqyer, përdorni Ctrl+f!</string>
   <string name="notTheMove">S’është lëvizja e duhur!</string>
   <string name="trySomethingElse">Provoni diçka tjetër.</string>
   <string name="ratingX">Vlerësimi: %s</string>
