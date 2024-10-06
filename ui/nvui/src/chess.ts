@@ -668,7 +668,7 @@ function destsToUcis(dests: Dests) {
   const ucis: string[] = [];
   for (const [orig, d] of dests) {
     if (d)
-      d.forEach(function(dest) {
+      d.forEach(function (dest) {
         ucis.push(orig + dest);
       });
   }
@@ -733,8 +733,8 @@ export function renderComments(node: Tree.Node, style: Style): string {
 function renderComment(comment: Tree.Comment, style: Style): string {
   return comment.by === 'lichess'
     ? comment.text.replace(
-      /Best move was (.+)\./,
-      (_, san) => 'Best move was ' + renderSan(san, undefined, style),
-    )
+        /Best move was (.+)\./,
+        (_, san) => 'Best move was ' + renderSan(san, undefined, style),
+      )
     : comment.text;
 }

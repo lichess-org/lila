@@ -2,6 +2,7 @@ package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import io.mola.galimatias.URL
+import java.time.ZoneId
 
 import lila.core.i18n.Language
 import lila.core.id.ImageId
@@ -83,18 +84,15 @@ object RelayTour:
       tc: Option[String],
       fideTc: Option[FideTC],
       location: Option[String],
+      timeZone: Option[ZoneId],
       players: Option[String],
       website: Option[URL],
       standings: Option[URL]
   ):
     def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).flatten.nonEmpty
-    override def toString = List(format, tc, fideTc, location, players).mkString(" | ")
-    lazy val fideTcOrGuess: FideTC = fideTc |
-      tc
-        .map(_.trim.toLowerCase.replace("classical", "standard"))
-        .flatMap: tcStr =>
-          FideTC.values.find(tc => tcStr.contains(tc.toString))
-        .|(FideTC.standard)
+    override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
+    lazy val fideTcOrGuess: FideTC = fideTc | FideTC.standard
+    def timeZoneOrDefault: ZoneId  = timeZone | ZoneId.systemDefault
 
   case class Dates(start: Instant, end: Option[Instant])
 
@@ -119,6 +117,11 @@ object RelayTour:
             .option(List("Not syncing!"))
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
+      extends RelayRound.AndTourAndGroup:
+    def link    = round
+    def display = round
+
+  case class WithFirstRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:
     def link    = round
     def display = round

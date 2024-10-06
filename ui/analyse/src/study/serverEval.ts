@@ -42,7 +42,7 @@ export function view(ctrl: ServerEval): VNode {
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
-      requestIdleCallback(async() => {
+      requestIdleCallback(async () => {
         (await site.asset.loadEsm<ChartGame>('chart.game'))
           .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline, ctrl.root.trans)
           .then(chart => (ctrl.chart = chart));
@@ -69,15 +69,15 @@ function requestButton(ctrl: ServerEval) {
       : !root.study!.members.canContribute()
         ? [noarg('onlyContributorsCanRequestAnalysis')]
         : [
-          h('p', [noarg('getAFullComputerAnalysis'), h('br'), noarg('makeSureTheChapterIsComplete')]),
-          h(
-            'a.button.text',
-            {
-              attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
-              hook: bind('click', ctrl.request, root.redraw),
-            },
-            noarg('requestAComputerAnalysis'),
-          ),
-        ],
+            h('p', [noarg('getAFullComputerAnalysis'), h('br'), noarg('makeSureTheChapterIsComplete')]),
+            h(
+              'a.button.text',
+              {
+                attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
+                hook: bind('click', ctrl.request, root.redraw),
+              },
+              noarg('requestAComputerAnalysis'),
+            ),
+          ],
   );
 }

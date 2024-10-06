@@ -105,3 +105,16 @@
     }
   }
 }
+
+@media (max-width: at-most($xx-small)) {
+  .stack-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stack-row td {
+    width: 100%;
+    padding-inline-start: var(---box-padding);
+    padding-inline-end: var(---box-padding);
+  }
+}

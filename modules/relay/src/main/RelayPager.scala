@@ -16,9 +16,9 @@ final class RelayPager(
 )(using Executor):
 
   import BSONHandlers.given
-  import RelayTourRepo.selectors
+  import RelayTourRepo.{ selectors, readToursWithRound }
 
-  private val maxPerPage = MaxPerPage(20)
+  private val maxPerPage = MaxPerPage(24)
 
   def byOwner(owner: UserId, page: Int)(using me: Option[MyId]): Fu[Paginator[RelayTour | WithLastRound]] =
     val isMe = me.exists(_.is(owner))
@@ -30,7 +30,7 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selectors.ownerId(owner.id) ++ (!isMe).so(selectors.publicTour)) -> {
-                List(Sort(Descending("createdAt"))) ::: aggregateRound(framework) ::: List(
+                List(Sort(Descending("createdAt"))) ::: tourRepo.aggregateRound(colls, framework) ::: List(
                   Skip(offset),
                   Limit(length)
                 )
@@ -49,12 +49,13 @@ final class RelayPager(
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.privateTour) -> {
-              List(Sort(Descending("createdAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
+              List(Sort(Descending("createdAt"))) ::: tourRepo
+                .aggregateRoundAndUnwind(colls, framework) ::: List(
                 Skip(offset),
                 Limit(length)
               )
             }
-          .map(readToursWithRound)
+          .map(readToursWithRound(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -68,12 +69,13 @@ final class RelayPager(
           .aggregateList(length, _.sec): framework =>
             import framework.*
             Match(selectors.subscriberId(userId)) -> {
-              List(Sort(Descending("createdAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
+              List(Sort(Descending("createdAt"))) ::: tourRepo
+                .aggregateRoundAndUnwind(colls, framework) ::: List(
                 Skip(offset),
                 Limit(length)
               )
             }
-          .map(readToursWithRound)
+          .map(readToursWithRound(RelayTour.WithLastRound.apply))
     ,
     currentPage = page,
     maxPerPage = maxPerPage
@@ -86,14 +88,17 @@ final class RelayPager(
         .aggregateList(length, _.sec): framework =>
           import framework.*
           Match(selectors.officialInactive) -> {
-            List(Sort(Descending("syncedAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
+            List(Sort(Descending("syncedAt"))) ::: tourRepo.aggregateRoundAndUnwind(
+              colls,
+              framework
+            ) ::: List(
               Skip(offset),
               Limit(length)
             )
           }
-        .map(readToursWithRound)
+        .map(readToursWithRound(RelayTour.WithLastRound.apply))
 
-    private val firstPageCache = cacheApi.unit[List[RelayTour.WithLastRound]]:
+    private val firstPageCache = cacheApi.unit[List[WithLastRound]]:
       _.refreshAfterWrite(3 seconds).buildAsyncFuture: _ =>
         slice(0, maxPerPage.value)
 
@@ -108,6 +113,8 @@ final class RelayPager(
         currentPage = page,
         maxPerPage = maxPerPage
       )
+
+    def firstPageResults(): Fu[List[WithLastRound]] = firstPageCache.get({})
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
 
@@ -161,52 +168,14 @@ final class RelayPager(
               Match(selector) -> {
                 addFields.map(AddFields(_)).toList :::
                   List(Sort(sortFields.map(Descending(_))*)) :::
-                  aggregateRoundAndUnwind(framework, onlyKeepGroupFirst) :::
+                  tourRepo.aggregateRoundAndUnwind(colls, framework, onlyKeepGroupFirst) :::
                   List(Skip(offset), Limit(length))
               }
-            .map(readToursWithRound)
+            .map(readToursWithRound(RelayTour.WithLastRound.apply))
       ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
-
-  private def aggregateRoundAndUnwind(
-      framework: tourRepo.coll.AggregationFramework.type,
-      onlyKeepGroupFirst: Boolean = true
-  ) =
-    aggregateRound(framework, onlyKeepGroupFirst) ::: List(framework.UnwindField("round"))
-
-  private def aggregateRound(
-      framework: tourRepo.coll.AggregationFramework.type,
-      onlyKeepGroupFirst: Boolean = true
-  ) =
-    onlyKeepGroupFirst.so(
-      List(
-        framework.PipelineOperator(RelayListing.group.firstLookup(colls.group)),
-        framework.Match(RelayListing.group.firstFilter)
-      )
-    ) ::: List(
-      framework.PipelineOperator(
-        $lookup.pipeline(
-          from = roundRepo.coll,
-          as = "round",
-          local = "_id",
-          foreign = "tourId",
-          pipe = List(
-            $doc("$sort"      -> RelayRoundRepo.sort.desc),
-            $doc("$limit"     -> 1),
-            $doc("$addFields" -> $doc("sync.log" -> $arr()))
-          )
-        )
-      )
-    )
-
-  private def readToursWithRound(docs: List[Bdoc]): List[WithLastRound] = for
-    doc   <- docs
-    tour  <- doc.asOpt[RelayTour]
-    round <- doc.getAsOpt[RelayRound]("round")
-    group = RelayListing.group.readFrom(doc)
-  yield WithLastRound(tour, round, group)
 
   private def readTours(docs: List[Bdoc]): List[RelayTour | WithLastRound] = for
     doc    <- docs

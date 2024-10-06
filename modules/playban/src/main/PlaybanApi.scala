@@ -146,8 +146,10 @@ final class PlaybanApi(
       }
 
   private def isQuickResign(game: Game, status: Status) =
-    status.is(_.Resign) && game.hasFewerMovesThanExpected &&
-      game.durationSeconds.exists(_ < 60)
+    status.is(_.Resign) && game.hasFewerMovesThanExpected && {
+      val veryQuick = (game.clock.fold(600)(_.estimateTotalSeconds / 3)).atMost(60)
+      game.durationSeconds.exists(_ < veryQuick)
+    }
 
   private def good(game: Game, status: Status, loserColor: Color): Funit =
     if isQuickResign(game, status) then

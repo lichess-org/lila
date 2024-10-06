@@ -1,5 +1,7 @@
 package lila.tournament
 
+import java.time.LocalDateTime
+
 class SchedulerTest extends munit.FunSuite:
   import ScheduleTestHelpers.{ allSchedulesAt, fullDaySchedule, ExperimentalPruner }
 
@@ -13,8 +15,8 @@ class SchedulerTest extends munit.FunSuite:
     import lila.tournament.Schedule.Speed.*
     import lila.tournament.Schedule.Freq.*
 
-    val start      = instantOf(2024, 9, 1, 0, 0)
-    val wholeMonth = TimeInterval(start, start.plusMonths(1))
+    val start      = LocalDateTime.of(2024, 9, 1, 0, 0)
+    val wholeMonth = TimeInterval(start.instant, start.plusMonths(1).instant)
     val daysInSept = 30
     val allSeptTourneys = ExperimentalPruner
       .pruneConflictsFailOnUsurp(
@@ -79,24 +81,24 @@ class SchedulerTest extends munit.FunSuite:
     )
 
   test("pruneConflict methods produce identical results"):
-    val prescheduled = Schedule.pruneConflicts(
+    val prescheduled = PlanBuilder.pruneConflicts(
       List.empty,
-      TournamentScheduler.allWithConflicts(instantOf(2024, 7, 31, 23, 0))
+      TournamentScheduler.allWithConflicts(LocalDateTime.of(2024, 7, 31, 23, 0))
     )
-    val start = instantOf(2024, 8, 1, 0, 0)
+    val start = LocalDateTime.of(2024, 8, 1, 0, 0)
     val allTourneys = (0 to 23).flatMap { hours =>
       TournamentScheduler.allWithConflicts(start.plusHours(hours))
     }
     assertEquals(
       ExperimentalPruner.pruneConflictsFailOnUsurp(prescheduled, allTourneys),
-      Schedule.pruneConflicts(prescheduled, allTourneys)
+      PlanBuilder.pruneConflicts(prescheduled, allTourneys)
     )
 
   test("2024-09-05 - thursday, summer"):
     // uncomment to print text for updating snapshot.
-    // _printSnapshot(fullDaySchedule(instantOf(2024, 9, 5, 0, 0)))
+    // _printSnapshot(fullDaySchedule(LocalDateTime.of(2024, 9, 5, 0, 0)))
     assertEquals(
-      fullDaySchedule(instantOf(2024, 9, 5, 0, 0)).mkString("\n"),
+      fullDaySchedule(LocalDateTime.of(2024, 9, 5, 0, 0)).mkString("\n"),
       List(
         """2024-09-05T00:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None (09-04T20:30 EDT, 09-05T02:30 CEST) 27m""",
         """2024-09-05T01:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None (09-04T21:30 EDT, 09-05T03:30 CEST) 27m""",
@@ -463,9 +465,9 @@ class SchedulerTest extends munit.FunSuite:
 
   test("2024-01-03 - wednesday, winter"):
     // uncomment to print text for updating snapshot.
-    // _printSnapshot(fullDaySchedule(instantOf(2024, 1, 3, 0, 0)))
+    // _printSnapshot(fullDaySchedule(LocalDateTime.of(2024, 1, 3, 0, 0)))
     assertEquals(
-      fullDaySchedule(instantOf(2024, 1, 3, 0, 0)).mkString("\n"),
+      fullDaySchedule(LocalDateTime.of(2024, 1, 3, 0, 0)).mkString("\n"),
       List(
         """2024-01-03T00:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None (01-02T19:30 EST, 01-03T01:30 CET) 27m""",
         """2024-01-03T01:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None (01-02T20:30 EST, 01-03T02:30 CET) 27m""",
@@ -835,9 +837,9 @@ class SchedulerTest extends munit.FunSuite:
 
   test("end of year -- unfiltered and with conflicts"):
     // uncomment to print text for updating snapshot.
-    // _printSnapshot(schedulesAt(instantOf(2022, 12, 31, 21, 43)))
+    // _printSnapshot(schedulesAt(LocalDateTime.of(2022, 12, 31, 21, 43)))
     assertEquals(
-      allSchedulesAt(instantOf(2022, 12, 31, 21, 43)).mkString("\n"),
+      allSchedulesAt(LocalDateTime.of(2022, 12, 31, 21, 43)).mkString("\n"),
       List(
         """2022-12-31T22:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",
         """2022-12-31T23:30:00Z Hourly standard ultraBullet(¼+0) Conditions() None""",

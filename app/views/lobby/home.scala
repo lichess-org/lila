@@ -128,11 +128,11 @@ object home:
           div(cls := "lobby__blog ublog-post-cards"):
             ublogPosts
               .filter(_.isLichess || ctx.kid.no)
-              .take(3)
+              .take(9)
               .map:
                 views.ublog.ui.card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false)
           ,
-          ctx.noBot.option(bits.underboards(tours, simuls, leaderboard, tournamentWinners)),
+          ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)
           ,

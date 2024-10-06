@@ -29,7 +29,7 @@ def list(
             tr(cls := List("new" -> r.open))(
               td(
                 reportScore(r.score),
-                strong(r.room.name.capitalize),
+                strong(r.bestAtom.reason.name.capitalize),
                 br,
                 userLink(sus.user, params = "?mod"),
                 br,
@@ -41,6 +41,8 @@ def list(
                   div(cls := "atom")(
                     span(cls := "head")(
                       reportScore(atom.score),
+                      " ",
+                      strong(atom.reason.name.capitalize),
                       " ",
                       userIdLink(atom.by.userId.some),
                       " ",

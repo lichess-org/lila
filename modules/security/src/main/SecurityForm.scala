@@ -49,10 +49,9 @@ final class SecurityForm(
 
     val emailField: Mapping[EmailAddress] = fullyValidEmail(using none)
 
-    val username: Mapping[UserName] = LilaForm.cleanNonEmptyText
+    val username: Mapping[UserName] = LilaForm
+      .cleanNonEmptyText(minLength = 2, maxLength = 20)
       .verifying(
-        Constraints.minLength(2),
-        Constraints.maxLength(20),
         Constraints.pattern(
           regex = lila.user.nameRules.newUsernamePrefix,
           error = "usernamePrefixInvalid"

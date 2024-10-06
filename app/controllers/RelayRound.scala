@@ -62,7 +62,7 @@ final class RelayRound(
           env.relay.api
             .formNavigation(rt)
             .flatMap: (round, nav) =>
-              Ok.page(views.relay.form.round.edit(round, env.relay.roundForm.edit(round), nav))
+              Ok.page(views.relay.form.round.edit(round, env.relay.roundForm.edit(nav.tour, round), nav))
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -70,7 +70,7 @@ final class RelayRound(
     env.relay.api
       .formNavigation(id)
       .flatMapz: (round, nav) =>
-        bindForm(env.relay.roundForm.edit(round))(
+        bindForm(env.relay.roundForm.edit(nav.tour, round))(
           err => fuccess(Left((round, nav) -> err)),
           data =>
             env.relay.api

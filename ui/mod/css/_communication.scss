@@ -9,6 +9,7 @@
   }
 
   .user-link {
+    font-weight: bold;
     margin-inline-start: -0.5em;
   }
 
@@ -30,10 +31,6 @@
     border-bottom: 1px solid $border;
     text-transform: capitalize;
     letter-spacing: 2px;
-  }
-
-  .user-link {
-    font-weight: bold;
   }
 
   .public_chats,

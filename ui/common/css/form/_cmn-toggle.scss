@@ -18,6 +18,7 @@
   height: 24px;
   border: 1px solid $c-border;
   border-radius: 24px;
+  background-clip: padding-box;
 
   &::before,
   &::after {
@@ -51,14 +52,33 @@
 
 .cmn-toggle:not(:checked) + label {
   background-color: $c-bad;
+
+  &::before {
+    content: $licon-X;
+    color: $c-bad;
+  }
 }
 
 .cmn-toggle--subtle:not(:checked) + label {
   background-color: $c-font-dimmer;
+
+  &::before {
+    color: $c-font-dimmer;
+  }
 }
 
 .cmn-toggle:checked + label {
   background-color: $c-good;
+
+  &::before,
+  &::after {
+    margin-inline-start: 16px;
+  }
+
+  &::before {
+    content: $licon-Checkmark;
+    color: $c-good;
+  }
 }
 
 .cmn-toggle:disabled + label {
@@ -66,7 +86,7 @@
   cursor: not-allowed !important;
 }
 
-.cmn-toggle:focus:not(:disabled) + label {
+.cmn-toggle:focus-visible:not(:disabled) + label {
   @extend %focus-shadow;
 }
 
@@ -88,30 +108,5 @@
       }
       @include transition(margin);
     }
-  }
-}
-
-.cmn-toggle:not(:checked) + label {
-  &::before {
-    content: $licon-X;
-    color: $c-bad;
-  }
-}
-
-.cmn-toggle--subtle:not(:checked) + label {
-  &::before {
-    color: $c-font-dimmer;
-  }
-}
-
-.cmn-toggle:checked + label {
-  &::before,
-  &::after {
-    margin-inline-start: 16px;
-  }
-
-  &::before {
-    content: $licon-Checkmark;
-    color: $c-good;
   }
 }

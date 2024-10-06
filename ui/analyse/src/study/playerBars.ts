@@ -8,7 +8,7 @@ import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChap
 import { userTitle } from 'common/userLink';
 import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
 
-export default function(ctrl: AnalyseCtrl): VNode[] | undefined {
+export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const relayPlayers = study.relay?.players;
@@ -62,10 +62,10 @@ function renderPlayer(
           (relayPlayers
             ? h(`a.name.relay-player-${color}`, relayPlayers.playerLinkConfig(player), player.name)
             : h(
-              fideId ? 'a.name' : 'span.name',
-              { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
-              player.name,
-            )),
+                fideId ? 'a.name' : 'span.name',
+                { attrs: fidePageLinkAttrs(player, ctrl.isEmbed) },
+                player.name,
+              )),
         rating && h('span.elo', `${rating}`),
       ]),
     ]),

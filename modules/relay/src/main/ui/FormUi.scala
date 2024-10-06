@@ -293,7 +293,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           form3.split(
             form3.group(
               form("startsAt"),
-              trb.startDate(),
+              trb.startDateTimeZone(strong(nav.tour.info.timeZoneOrDefault.getId)),
               help = trb.startDateHelp().some,
               half = true
             )(form3.flatpickr(_, minDate = None)),
@@ -435,6 +435,21 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           ),
           form3.split(
             form3.group(
+              form("info.players"),
+              "Top players",
+              help = frag("Mention up to 4 of the best players participating").some,
+              half = true
+            )(form3.input(_)),
+            form3.group(
+              form("info.timeZone"),
+              "Time zone",
+              help = frag("Used to set round dates using their local time").some,
+              half = true
+            ):
+              form3.select(_, timeZone.translatedChoices)
+          ),
+          form3.split(
+            form3.group(
               form("info.tc"),
               "Time control",
               help = frag(""""Classical" or "Rapid" or "Rapid & Blitz"""").some,
@@ -452,12 +467,6 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                   tc.toString -> tc.toString.capitalize
               )
           ),
-          form3.group(
-            form("info.players"),
-            "Top players",
-            help = frag("Mention up to 4 of the best players participating").some,
-            half = true
-          )(form3.input(_)),
           form3.split(
             form3.group(
               form("info.website"),

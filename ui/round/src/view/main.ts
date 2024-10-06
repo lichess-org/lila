@@ -29,35 +29,35 @@ export function main(ctrl: RoundController): VNode {
   return ctrl.nvui
     ? ctrl.nvui.render(ctrl)
     : h('div.round__app.variant-' + d.game.variant.key, [
-      h(
-        'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
-        {
-          hook:
+        h(
+          'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
+          {
+            hook:
               'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
                 ? undefined
                 : util.bind(
-                  'wheel',
-                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                    if (!ctrl.isPlaying()) {
-                      e.preventDefault();
-                      if (e.deltaY > 0 && scroll) keyboard.next(ctrl);
-                      else if (e.deltaY < 0 && scroll) keyboard.prev(ctrl);
-                      ctrl.redraw();
-                    }
-                  }),
-                  undefined,
-                  false,
-                ),
-        },
-        [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')],
-      ),
-      ctrl.voiceMove && renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw),
-      ctrl.keyboardHelp && keyboard.view(ctrl),
-      crazyView(ctrl, topColor, 'top') || materialDiffs[0],
-      ...renderTable(ctrl),
-      crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
-      ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
-    ]);
+                    'wheel',
+                    stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                      if (!ctrl.isPlaying()) {
+                        e.preventDefault();
+                        if (e.deltaY > 0 && scroll) keyboard.next(ctrl);
+                        else if (e.deltaY < 0 && scroll) keyboard.prev(ctrl);
+                        ctrl.redraw();
+                      }
+                    }),
+                    undefined,
+                    false,
+                  ),
+          },
+          [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')],
+        ),
+        ctrl.voiceMove && renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw),
+        ctrl.keyboardHelp && keyboard.view(ctrl),
+        crazyView(ctrl, topColor, 'top') || materialDiffs[0],
+        ...renderTable(ctrl),
+        crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
+        ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
+      ]);
 }
 
 export function endGameView(): void {

@@ -11,7 +11,7 @@ export const trans = (i18n: I18nDict): Trans => {
   trans.pluralSame = (key: I18nKey, count: number, ...args: Array<string | number>) =>
     trans.plural(key, count, count, ...args);
 
-  trans.plural = function(key: I18nKey, count: number, ...args: Array<string | number>) {
+  trans.plural = function (key: I18nKey, count: number, ...args: Array<string | number>) {
     const str = resolvePlural(key, count);
     return str ? format(str, args) : key;
   };
@@ -32,7 +32,7 @@ export const trans = (i18n: I18nDict): Trans => {
 // due to international context, so we make sure it's displayed using the gregorian calendar
 export const displayLocale: string = document.documentElement.lang.startsWith('ar-')
   ? 'ar-ly'
-  : document.documentElement.lang;;
+  : document.documentElement.lang;
 
 const commonDateFormatter = new Intl.DateTimeFormat(displayLocale, {
   year: 'numeric',
@@ -42,10 +42,10 @@ const commonDateFormatter = new Intl.DateTimeFormat(displayLocale, {
   minute: 'numeric',
 });
 
-export const commonDateFormat: (d?: Date|number) => string = commonDateFormatter.format;
+export const commonDateFormat: (d?: Date | number) => string = commonDateFormatter.format;
 
-export const timeago: (d: DateLike) => string =
-  (date: DateLike) => formatAgo((Date.now() - toDate(date).getTime()) / 1000);
+export const timeago: (d: DateLike) => string = (date: DateLike) =>
+  formatAgo((Date.now() - toDate(date).getTime()) / 1000);
 
 // format Date / string / timestamp to Date instance.
 export const toDate = (input: DateLike): Date =>
@@ -96,4 +96,3 @@ function list<T>(str: string, args: T[]): Array<string | T> {
   }
   return segments;
 }
-

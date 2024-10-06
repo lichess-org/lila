@@ -88,9 +88,9 @@ declare namespace Tree {
     by:
       | string
       | {
-        id: string;
-        name: string;
-      };
+          id: string;
+          name: string;
+        };
     text: string;
   }
 

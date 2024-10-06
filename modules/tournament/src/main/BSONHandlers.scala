@@ -30,7 +30,8 @@ object BSONHandlers:
   given BSONWriter[Schedule] = BSONWriter: s =>
     $doc(
       "freq"  -> s.freq,
-      "speed" -> s.speed
+      "speed" -> s.speed,
+      "at"    -> s.at
     )
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
@@ -75,7 +76,8 @@ object BSONHandlers:
           doc   <- r.getO[Bdoc]("schedule")
           freq  <- doc.getAsOpt[Schedule.Freq]("freq")
           speed <- doc.getAsOpt[Schedule.Speed]("speed")
-        yield Schedule(freq, speed, variant, position, startsAt.dateTime, conditions),
+          at = doc.getAsOpt[LocalDateTime]("at").getOrElse(startsAt.dateTime)
+        yield Schedule(freq, speed, variant, position, at, conditions),
         nbPlayers = r.int("nbPlayers"),
         createdAt = r.date("createdAt"),
         createdBy = r.getO[UserId]("createdBy") | UserId.lichess,
