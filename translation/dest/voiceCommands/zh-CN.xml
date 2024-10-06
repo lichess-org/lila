@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">移动到e4格或选中e4格的棋子</string>
   <string name="selectOrCaptureABishop">选中象或吃象</string>
   <string name="takeRookWithQueen">用后吃车</string>
-  <string name="castle">王车易位（任一侧）</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">王车易位（任一侧）</string>
   <string name="phoneticAlphabetIsBest">请最好使用语音字母表说这些格子从而使识别更准确</string>
   <string name="cancelTimerOrDenyARequest">关闭计时器或拒绝请求</string>
   <string name="playPreferredMoveOrConfirmSomething">走语音识别为更相似的一步或确认某事</string>
