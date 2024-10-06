@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Du har 30 sekunder på deg til å kartlegge så mange felt som mulig!</string>
   <string name="goAsLongAsYouWant">Du kan holde på så lenge du vil, det er ingen tidsfrist!</string>
   <string name="showCoordinates">Vis koordinater</string>
-  <string name="showCoordsOnAllSquares">Koordinater på hvert felt</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordinater på hvert felt</string>
   <string name="showPieces">Vis brikker</string>
   <string name="startTraining">Begynn trening</string>
   <string name="findSquare">Finn felt</string>
