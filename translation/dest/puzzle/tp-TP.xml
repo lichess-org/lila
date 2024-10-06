@@ -30,8 +30,8 @@
   <string name="byOpenings">wan open</string>
   <string name="puzzlesByOpenings">musi lili pi wan open</string>
   <string name="openingsYouPlayedTheMost">sina pali mute e open ni lon musi utala</string>
-  <string name="useFindInPage">o alasa e open pona kepeken ilo \"Find in page\" lon ilo nanpa!</string>
-  <string name="useCtrlF">o alasa e open pona kepeken ilo Ctrl-f!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">o alasa e open pona kepeken ilo \"Find in page\" lon ilo nanpa!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">o alasa e open pona kepeken ilo Ctrl-f!</string>
   <string name="notTheMove">ni li tawa pona ala!</string>
   <string name="trySomethingElse">o pali e tawa ante.</string>
   <string name="ratingX">nanpa wawa: %s</string>
