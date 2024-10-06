@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">E4 க்கு நகர்த்தவும் அல்லது e4 பகுதியைத் தேர்ந்தெடுக்கவும்</string>
   <string name="selectOrCaptureABishop">மந்திரியைத் தேர்ந்தெடுக்கவும் அல்லது கைப்பற்றவும்</string>
   <string name="takeRookWithQueen">ராணியை கொண்டு யானையை வெளியேற்றுங்கள்</string>
-  <string name="castle">கோட்டை கட்டு (இருபுறமும்)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">கோட்டை கட்டு (இருபுறமும்)</string>
   <string name="phoneticAlphabetIsBest">ஒலிப்பு எழுத்துக்கள் சிறந்தது</string>
   <string name="cancelTimerOrDenyARequest">காலக்கணிப்பியை ரத்துசெய்யவும் அல்லது கோரிக்கையை நிராகரிக்கவும்</string>
   <string name="playPreferredMoveOrConfirmSomething">விருப்பமான நகர்வை விளையாடவும் அல்லது எதையாவது உறுதிப்படுத்தவும்</string>
