@@ -75,6 +75,20 @@
 
     background: $m-accent_bg--mix-10;
     padding: 1.5em;
+    margin: 20px;
+    display: flex;
+
+    i {
+      font-size: 45px;
+      margin-inline-end: 15px;
+    }
+
+    code {
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-top: 10px;
+      display: block;
+    }
   }
 
   h2 {
@@ -120,23 +134,6 @@
         color: $c-font-dimmer;
         unicode-bidi: plaintext;
       }
-    }
-  }
-
-  .brand {
-    margin: 20px;
-    display: flex;
-
-    i {
-      font-size: 45px;
-      margin-inline-end: 15px;
-    }
-
-    code {
-      font-weight: bold;
-      font-size: 1.5em;
-      margin-top: 10px;
-      display: block;
     }
   }
 

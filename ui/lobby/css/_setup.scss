@@ -52,6 +52,11 @@ $c-slider: $c-setup;
   .label-select {
     @extend %flex-center;
 
+    &.variant {
+      margin-bottom: 1em;
+      padding-bottom: 0;
+    }
+
     label {
       flex: 0 0 33%;
       text-align: end;
@@ -136,13 +141,6 @@ $c-slider: $c-setup;
       width: 85px;
       height: 85px;
       margin: 10px auto 20px auto;
-    }
-  }
-
-  .label-select {
-    &.variant {
-      margin-bottom: 1em;
-      padding-bottom: 0;
     }
   }
 

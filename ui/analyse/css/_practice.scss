@@ -9,6 +9,25 @@
     background: $c-bg-zebra;
     white-space: nowrap;
     line-height: 30px;
+
+    move {
+      cursor: pointer;
+      margin-inline-start: 5px;
+      color: $c-link;
+      transition: 0.3s;
+    }
+    .next {
+      border: 0;
+      background: $m-primary_bg--mix-80;
+      color: $c-over;
+      width: 100%;
+
+      @include transition;
+
+      &:hover {
+        background: $c-primary;
+      }
+    }
   }
 
   .progress div {
@@ -82,26 +101,5 @@
   &.blunder .verdict::before {
     background: $c-bad;
     content: '✗';
-  }
-
-  .comment {
-    move {
-      cursor: pointer;
-      margin-inline-start: 5px;
-      color: $c-link;
-      transition: 0.3s;
-    }
-    .next {
-      border: 0;
-      background: $m-primary_bg--mix-80;
-      color: $c-over;
-      width: 100%;
-
-      @include transition;
-
-      &:hover {
-        background: $c-primary;
-      }
-    }
   }
 }

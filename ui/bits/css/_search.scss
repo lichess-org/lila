@@ -13,6 +13,7 @@
     select,
     input[type='text'],
     input[type='number'] {
+      padding: 0.3em 1em;
       width: 100%;
     }
 
@@ -38,12 +39,6 @@
 
     label {
       margin-inline-end: 0.8em;
-    }
-
-    input[type='text'],
-    input[type='number'],
-    select {
-      padding: 0.3em 1em;
     }
 
     select {
