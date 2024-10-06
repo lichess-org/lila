@@ -7,7 +7,7 @@
   <string name="enterPassword">Introdueix la teva contrasenya i el codi d\'autenticació generat per l\'aplicació per a completar la configuració. Necessitaràs un codi d\'autenticació cada vegada que iniciïs la sessió.</string>
   <string name="ifYouCannotScanEnterX">Si no pots escanejar el codi, introdueix el número %s a la teva aplicació.</string>
   <string name="authenticationCode">Codi d\'autenticació</string>
-  <string name="ifYouLoseAccessTwoFactor">Nota: Si perds l\'accés als teus codis d\'autenticació en dos passos, pots %s per correu electrònic.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Nota: Si perds l\'accés als teus codis d\'autenticació en dos passos, pots %s per correu electrònic.</string>
   <string name="enableTwoFactor">Habilitar l\'autenticació en dos passos</string>
   <string name="disableTwoFactor">Desactivar l\'autenticació en dos passos</string>
   <string name="twoFactorEnabled">Autenticació en dos passos habilitada</string>
