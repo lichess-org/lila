@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">شما 30 ثانیه فرصت دارید تا هر چه بیشتر خانه‌ها را به‌درستی بیابید!</string>
   <string name="goAsLongAsYouWant">بدون محدودیت زمانی</string>
   <string name="showCoordinates">نمایش همآراها</string>
-  <string name="showCoordsOnAllSquares">همآراها روی خانه‌ها</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">همآراها روی خانه‌ها</string>
   <string name="showPieces">نمایش مهره ها</string>
   <string name="startTraining">آغاز تمرین</string>
   <string name="findSquare">خانه را بیابید</string>
