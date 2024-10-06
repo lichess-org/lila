@@ -9,7 +9,7 @@
   <string name="newTeam">Яңа төркем</string>
   <string name="myTeams">Җәмәгаләрем</string>
   <string name="noTeamFound">Бер җәмәга дә табылмады</string>
-  <string name="joinTeam">Җәмәгагә кушылу</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Җәмәгагә кушылу</string>
   <string name="quitTeam">Төркемнән чыгу</string>
   <string name="manuallyReviewAdmissionRequests">Кабул итү гаризаларын кул белән карагыз</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Тикшерелсә, уенчыларга командага кушылу турында гариза язарга кирәк, сез аны кире кагарга яки кабул итә аласыз.</string>
