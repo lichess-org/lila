@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">e4 वर जा किंवा e4 सोंगटी निवडा</string>
   <string name="selectOrCaptureABishop">बिशप निवडा किंवा कॅप्चर जिंका</string>
   <string name="takeRookWithQueen">वाजीरानं हत्तीला मारा</string>
-  <string name="castle">किल्लेकोट (दोन्ही बाजूला)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">किल्लेकोट (दोन्ही बाजूला)</string>
   <string name="phoneticAlphabetIsBest">ध्वन्यात्मक वर्णमाला सर्वोत्तम आहे</string>
   <string name="cancelTimerOrDenyARequest">टाइमर रद्द करा किंवा विनंती नाकारा</string>
   <string name="playPreferredMoveOrConfirmSomething">पसंतीची चाल खेळा किंवा कशाचीतरी पुष्टी करा</string>
