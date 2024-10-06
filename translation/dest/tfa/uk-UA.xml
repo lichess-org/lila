@@ -7,7 +7,7 @@
   <string name="enterPassword">Введіть ваш пароль та код автентифікації, згенерований програмою, щоб завершити налаштування. Вам знадобиться код автентифікації щоразу при вході в систему.</string>
   <string name="ifYouCannotScanEnterX">Якщо ви не можете просканувати код, введіть секретний %s у свій застосунок.</string>
   <string name="authenticationCode">Код автентифікації</string>
-  <string name="ifYouLoseAccessTwoFactor">Зверніть увагу: якщо Ви втратите доступ до своїх кодів двофакторної аутентифікації, Ви зможете %s через електронну пошту.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Зверніть увагу: якщо Ви втратите доступ до своїх кодів двофакторної аутентифікації, Ви зможете %s через електронну пошту.</string>
   <string name="enableTwoFactor">Увімкнути двофакторну автентифікацію</string>
   <string name="disableTwoFactor">Вимкнути двофакторну автентифікацію</string>
   <string name="twoFactorEnabled">Двофакторна автентифікація ввімкнена</string>
