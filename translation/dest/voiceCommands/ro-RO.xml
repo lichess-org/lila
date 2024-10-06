@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Mută la e4 sau selectează piesa de la e4</string>
   <string name="selectOrCaptureABishop">Selectați sau capturați un nebun</string>
   <string name="takeRookWithQueen">Capturează tura cu regina</string>
-  <string name="castle">Rocada (oricare dintre părți)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rocada (oricare dintre părți)</string>
   <string name="phoneticAlphabetIsBest">Alfabetul fonetic este cea mai bună alegere</string>
   <string name="cancelTimerOrDenyARequest">Anulați cronometrul sau refuzați o cerere</string>
   <string name="playPreferredMoveOrConfirmSomething">Redă mutarea preferată sau confirmă ceva</string>
