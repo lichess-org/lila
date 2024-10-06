@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">e4 に移動か e4 の駒を選択</string>
   <string name="selectOrCaptureABishop">ビショップを選択する、または取る</string>
   <string name="takeRookWithQueen">クイーンでルークを取る</string>
-  <string name="castle">キャスリング（どちら側でも）</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">キャスリング（どちら側でも）</string>
   <string name="phoneticAlphabetIsBest">フォネティック・アルファベット推奨</string>
   <string name="cancelTimerOrDenyARequest">タイマーのキャンセルかリクエストの拒否</string>
   <string name="playPreferredMoveOrConfirmSomething">選んだ手を指すか yes と答えてください。</string>
