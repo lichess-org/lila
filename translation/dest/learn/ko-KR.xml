@@ -60,7 +60,7 @@
 승진시킬 필요는 없습니다.</string>
   <string name="pawnComplete">축하합니다! 이제 폰에 대한 모든 걸 알게 되셨네요.</string>
   <string name="pawnPromotion">폰 승진</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">폰이 체스판 끝자락에 도달하였습니다!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">폰이 체스판 끝에 도달하였습니다!</string>
   <string name="itNowPromotesToAStrongerPiece">이제 더 강한 기물로 승진합니다.</string>
   <string name="selectThePieceYouWant">원하는 말을 고르세요!</string>
   <string name="fundamentals">기본</string>
