@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">e4로 기물을 옮기거나, e4에 있는 기물 선택하기</string>
   <string name="selectOrCaptureABishop">비숍을 선택하거나 잡기</string>
   <string name="takeRookWithQueen">록을 퀸으로 잡기</string>
-  <string name="castle">캐슬링 (아무 쪽이나)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">캐슬링 (아무 쪽이나)</string>
   <string name="phoneticAlphabetIsBest">포네틱 알파벳 (음성 기호) 사용 권장</string>
   <string name="cancelTimerOrDenyARequest">타이머 취소 또는 요청 거절</string>
   <string name="playPreferredMoveOrConfirmSomething">선호하는 수 플레이, 또는 무언가를 확인하기</string>
