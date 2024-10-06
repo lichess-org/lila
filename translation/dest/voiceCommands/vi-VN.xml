@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Đưa quân tới ô e4/chọn quân ở e4</string>
   <string name="selectOrCaptureABishop">Chọn hoặc ăn một quân tượng</string>
   <string name="takeRookWithQueen">Lấy quân hậu ăn quân xe</string>
-  <string name="castle">Nhập thành (có thể cả 2 bên)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Nhập thành (có thể cả 2 bên)</string>
   <string name="phoneticAlphabetIsBest">Bảng chữ cái phiên âm là tốt nhất</string>
   <string name="cancelTimerOrDenyARequest">Hủy bộ hẹn giờ hoặc từ chối yêu cầu</string>
   <string name="playPreferredMoveOrConfirmSomething">Chơi nước đi ưa thích hoặc xác nhận điều gì đó</string>
