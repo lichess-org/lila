@@ -31,8 +31,8 @@
   <string name="byOpenings">No Erëffnungen</string>
   <string name="puzzlesByOpenings">Aufgaben no Erëffnungen</string>
   <string name="openingsYouPlayedTheMost">Erëffnungen, déi s du am meeschten an gewäertene Partie gespillt hues</string>
-  <string name="useFindInPage">Benotz \"Suche in Seite\" an dengem Browser fir deng Lieblingseröffnung ze fannen!</string>
-  <string name="useCtrlF">Benotz Strg+F fir deng Lieblingserëffnung ze fannen!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Benotz \"Suche in Seite\" an dengem Browser fir deng Lieblingseröffnung ze fannen!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Benotz Strg+F fir deng Lieblingserëffnung ze fannen!</string>
   <string name="notTheMove">Dat ass net den Zuch!</string>
   <string name="trySomethingElse">Probéier eppes aneres.</string>
   <string name="ratingX">Wäertung: %s</string>
