@@ -10,7 +10,7 @@
   <string name="newTeam">Yeni komanda</string>
   <string name="myTeams">Komandalarım</string>
   <string name="noTeamFound">Komanda tapılmadı</string>
-  <string name="joinTeam">Komandaya qoşul</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Komandaya qoşul</string>
   <string name="onlyLeaderLeavesTeam">Xahiş edirik, tərk etməzdən əvvəl yeni komanda lideri əlavə edin və ya komandanı silin.</string>
   <string name="quitTeam">Komandanı tərk et</string>
   <string name="manuallyReviewAdmissionRequests">Qəbul tələblərini əllə nəzərdən keçirin</string>
