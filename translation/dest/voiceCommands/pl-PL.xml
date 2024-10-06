@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Przesuń do e4 lub wybierz bierkę z e4</string>
   <string name="selectOrCaptureABishop">Wybierz lub zbij gońca</string>
   <string name="takeRookWithQueen">Zbij wieżę hetmanem</string>
-  <string name="castle">Roszada (krótka lub długa)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Roszada (krótka lub długa)</string>
   <string name="phoneticAlphabetIsBest">Alfabet fonetyczny jest najlepszy</string>
   <string name="cancelTimerOrDenyARequest">Anuluj zegar lub odrzuć żądanie</string>
   <string name="playPreferredMoveOrConfirmSomething">Wykonaj preferowane posunięcie lub potwierdź</string>
