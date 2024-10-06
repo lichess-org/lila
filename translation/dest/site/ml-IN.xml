@@ -210,6 +210,7 @@
   <string name="error.namePassword">ദയവായി താങ്ങളുടെ ഉപയോക്തൃനാമം രഹസ്യവാക്കയായി ഉപയോഗിക്കരുത്.</string>
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
   <string name="emailConfirmHelp">മെയിൽ ഉറപ്പിന് സഹായം</string>
+  <string name="usernameCanBeUsedForNewAccount">താങ്ങൾക്കു് ഈ ഉപയോക്തൃപേരു് ഒരു പുതിയ അക്കൌണ്ടു് ഉണ്ടാക്കാൻ ഉപയോഗിക്കാം</string>
   <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
   <string name="emailCanTakeSomeTime">അത് എത്താൻ കുറച്ചു നേരം എടുക്കാം.</string>
   <string name="refreshInboxAfterFiveMinutes">൫ മിനിറ്റ് കാത്തിരുന്ന ശേഷം വീണ്ടും ഇ-തപാൽപെട്ടി ലോഡ് ചെയുക.</string>
@@ -681,7 +682,7 @@
   <string name="withFriends">കൂട്ടുകാരുമൊത്ത്‌</string>
   <string name="withEverybody">എല്ലാവർക്കുമൊപ്പം</string>
   <string name="kidMode">കുട്ടികൾക്ക് വേണ്ട വിധം</string>
-  <string name="kidModeExplanation">ഇത് സുരക്ഷിതത്വത്തിനു വേണ്ടിയാണ്. കിഡ്-മോഡിൽ എല്ലാ വിധ സൈറ്റ് വർത്തമാനങ്ങളും തടസ്സപ്പെടുന്നു. ഈ സംവിധാനം ചെറിയ കുട്ടികൾക്കും വിദ്യാർത്ഥികൾക്കും മറ്റു ഇന്റർനെറ്റ് യൂസേറുകളിൽ നിന്നും സുരക്ഷിതത്വം നൽകുന്നു.</string>
+  <string name="kidModeExplanation">ഇത് സുരക്ഷിതത്വത്തിനു വേണ്ടിയാണ്. കുട്ടി-മുറയിൽ (കിഡ്-മോഡ്) എല്ലാ വിധ സൈറ്റ് വർത്തമാനങ്ങളും തടസ്സപ്പെടുന്നു. ഈ സംവിധാനം ചെറിയ കുട്ടികൾക്കും വിദ്യാർത്ഥികൾക്കും മറ്റു അന്തർജാലിക ഉപയോക്താവർ നിന്നും സുരക്ഷിതത്വം നൽകുന്നു.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">കിഡ്-മോഡിൽ lichess ലോഗോയ്ക്ക് ഒരു %s ഐക്കൺ ലഭിക്കുന്നു. അത് നിങ്ങളുടെ കുട്ടികൾ സുരക്ഷിതരാണെന്ന് നിങ്ങൾക്ക് ബോധ്യപ്പെടുത്തുന്നു.</string>
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
   <string name="disableKidMode">കിഡ്-മോഡ് ഒഴിവാക്കുക</string>
