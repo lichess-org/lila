@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Зробити хід на e4 або обрати фігуру на e4</string>
   <string name="selectOrCaptureABishop">Обрати чи взяти слона</string>
   <string name="takeRookWithQueen">Узяти туру ферзем</string>
-  <string name="castle">Рокіруватися (у будь-який бік)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Рокіруватися (у будь-який бік)</string>
   <string name="phoneticAlphabetIsBest">Фонетичний алфавіт найкращий</string>
   <string name="cancelTimerOrDenyARequest">Скасувати таймер або відхилити запит</string>
   <string name="playPreferredMoveOrConfirmSomething">Зіграти пропонований хід або підтвердити щось</string>
