@@ -7,7 +7,7 @@
   <string name="enterPassword">أدخل كلمة المرور الخاصة بك ورمز المصادقة من التطبيق لإكمال الإعداد. سوف تحتاج إلى رمز المصادقة في كل مرة تسجل فيها الدخول.</string>
   <string name="ifYouCannotScanEnterX">إذا لم تتمكن من مسح الرمز، أدخل الرمز %s في التطبيق الخاص بك.</string>
   <string name="authenticationCode">رمز التحقق</string>
-  <string name="ifYouLoseAccessTwoFactor">ملاحظة: إذا فقدت الوصول إلى رموز التوثيق ذو العاملين، فيمكنك إعادة تعيين كلمة المرور عبر%s البريد الإلكتروني.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">ملاحظة: إذا فقدت الوصول إلى رموز التوثيق ذو العاملين، فيمكنك إعادة تعيين كلمة المرور عبر%s البريد الإلكتروني.</string>
   <string name="enableTwoFactor">تفعيل التوثيق ذو العاملين</string>
   <string name="disableTwoFactor">تعطيل التوثيق ذو العاملين</string>
   <string name="twoFactorEnabled">التوثيق ذو العاملين مفعل</string>
