@@ -10,7 +10,7 @@
   <string name="newTeam">নতুন দল</string>
   <string name="myTeams">আমার দলগুলো</string>
   <string name="noTeamFound">কোন দল পাওয়া যায় নি</string>
-  <string name="joinTeam">দলে যোগ দিন</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">দলে যোগ দিন</string>
   <string name="quitTeam">দল ত্যাগ করুন</string>
   <string name="manuallyReviewAdmissionRequests">ভর্তির জন্য হাতেনাতে যাচাই করার আবেদনগুলি</string>
   <string name="manuallyReviewAdmissionRequestsHelp">যদি টিক দেওয়া থাকে, তাহলে খেলোয়াড়দের আপনার দলে প্রবেশের জন্য মেসেজ লিখতে হবে, যার মধ্য থেকে আপনি বাদ দেবেন বা বাছাই করবেন.</string>
