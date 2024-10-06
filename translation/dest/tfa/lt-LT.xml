@@ -7,7 +7,7 @@
   <string name="enterPassword">Įveskite slaptažodį ir programoje sugeneruota kodą, norėdami užbaigti sąranką. Tapatumo nustatymo kodas bus reikalingas kiekvieno prisijungimo metu.</string>
   <string name="ifYouCannotScanEnterX">Jei nepavyksta nuskenuoti kodo, įveskite paslaptį %s į savo programėlę.</string>
   <string name="authenticationCode">Tapatumo nustatymo kodas</string>
-  <string name="ifYouLoseAccessTwoFactor">Pastaba: jei prarasite prieigą prie savo dviejų veiksmų autentifikavimo kodų, galite atlikti %s el. paštu.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Pastaba: jei prarasite prieigą prie savo dviejų veiksmų autentifikavimo kodų, galite atlikti %s el. paštu.</string>
   <string name="enableTwoFactor">Įjungti dviejų lygių tapatumo nustatymą</string>
   <string name="disableTwoFactor">Išjungti dviejų lygių tapatumo nustatymą</string>
   <string name="twoFactorEnabled">Dviejų lygių tapatumo nustatymas įjungtas</string>
