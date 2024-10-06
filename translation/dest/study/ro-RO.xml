@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Data adăugată (cele mai vechi)</string>
   <string name="recentlyUpdated">Încărcate recent</string>
   <string name="mostPopular">Cele mai populare</string>
-  <string name="alphabetical">Alfabetic</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alfabetic</string>
   <string name="addNewChapter">Adaugă un nou capitol</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capitol</item>
@@ -168,7 +168,7 @@
   <string name="popularTopics">Subiecte populare</string>
   <string name="manageTopics">Gestionează subiecte</string>
   <string name="back">Înapoi</string>
-  <string name="playAgain">Joacă din nou</string>
-  <string name="whatWouldYouPlay">Ce ai juca în această poziție?</string>
-  <string name="youCompletedThisLesson">Felicitări! Ai terminat această lecție.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Joacă din nou</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Ce ai juca în această poziție?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Felicitări! Ai terminat această lecție.</string>
 </resources>
