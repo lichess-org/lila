@@ -26,7 +26,7 @@
   <plurals name="completedNbGames">
     <item quantity="other">Đã hoàn thành %s ván cờ qua thư</item>
   </plurals>
-  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+  <plurals name="completedNbVariantGames">
     <item quantity="other">Đã hoàn thành %1$s ván cờ qua thư %2$s</item>
   </plurals>
   <plurals name="followedNbPlayers">
