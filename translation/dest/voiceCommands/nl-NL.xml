@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Zet naar e4 of selecteer stuk op e4</string>
   <string name="selectOrCaptureABishop">Selecteer of sla een loper</string>
   <string name="takeRookWithQueen">Sla de toren met dame</string>
-  <string name="castle">Rokeren (kort of lang)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rokeren (kort of lang)</string>
   <string name="phoneticAlphabetIsBest">Fonetisch alfabet is het beste</string>
   <string name="cancelTimerOrDenyARequest">Timer annuleren of een verzoek weigeren</string>
   <string name="playPreferredMoveOrConfirmSomething">Speel voorkeurszet of bevestig iets</string>
