@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Сходить на e4 или выбрать фигуру на e4</string>
   <string name="selectOrCaptureABishop">Выбрать или срубить слона</string>
   <string name="takeRookWithQueen">Взять ладью ферзём</string>
-  <string name="castle">Рокироваться (в любую сторону)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Рокироваться (в любую сторону)</string>
   <string name="phoneticAlphabetIsBest">Фонетический алфавит лучше всего</string>
   <string name="cancelTimerOrDenyARequest">Отменить таймер или отклонить запрос</string>
   <string name="playPreferredMoveOrConfirmSomething">Сыграть предпочтительный ход или подтвердить что-то</string>
