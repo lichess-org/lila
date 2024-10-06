@@ -209,7 +209,10 @@
   <string name="error.weakPassword">ഈ രഹസ്യവാക്ക് ഊഹിക്കുകാൻ വളരെ എളുപ്പമാണ്.</string>
   <string name="error.namePassword">ദയവായി താങ്ങളുടെ ഉപയോക്തൃനാമം രഹസ്യവാക്കയായി ഉപയോഗിക്കരുത്.</string>
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
+  <string name="emailSuggestion">മറ്റെയാരുടേ ഉപദേശ പ്രകാരം ഇമെയിൽ-വിലാസം തിരഞ്ഞെടുക്കരുതു്. അവർക്കു് പിന്നേ താങ്ങളുടെ അക്കൌണ്ടു് മോഷ്ടിക്കാൻ സാധിക്കും.</string>
   <string name="emailConfirmHelp">മെയിൽ ഉറപ്പിന് സഹായം</string>
+  <string name="whatSignupUsername">താങ്ങൾ ഏതു് ഉപയോക്തൃപേരു് തിരഞ്ഞെടുതായിരുന്നു?</string>
+  <string name="usernameNotFound">ഈ പേരുള്ള ഉപയോക്താവിനു് കണ്ടേത്താനായില്ല: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">താങ്ങൾക്കു് ഈ ഉപയോക്തൃപേരു് ഒരു പുതിയ അക്കൌണ്ടു് ഉണ്ടാക്കാൻ ഉപയോഗിക്കാം</string>
   <string name="emailSent">ഞങ്ങൾ %s -ക്ക് ഒരു മെയിൽ അയച്ചിട്ടുണ്ടു്.</string>
   <string name="emailCanTakeSomeTime">അത് എത്താൻ കുറച്ചു നേരം എടുക്കാം.</string>
