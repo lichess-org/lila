@@ -8,7 +8,7 @@
   <string name="newTeam">zbasu su\'o bende</string>
   <string name="myTeams">lo bende pe mi</string>
   <string name="noTeamFound">no bende do se cmima</string>
-  <string name="joinTeam">co\'a cmima</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">co\'a cmima</string>
   <string name="quitTeam">co\'u cmima</string>
   <string name="teamRecentMembers">lo pu zi cmibi\'o</string>
 </resources>
