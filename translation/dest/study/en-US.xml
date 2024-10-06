@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Date added (oldest)</string>
   <string name="recentlyUpdated">Recently updated</string>
   <string name="mostPopular">Most popular</string>
-  <string name="alphabetical">Alphabetical</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alphabetical</string>
   <string name="addNewChapter">Add a new chapter</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Chapter</item>
@@ -164,7 +164,7 @@
   <string name="popularTopics">Popular topics</string>
   <string name="manageTopics">Manage topics</string>
   <string name="back">Back</string>
-  <string name="playAgain">Play again</string>
-  <string name="whatWouldYouPlay">What would you play in this position?</string>
-  <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Play again</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">What would you play in this position?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Congratulations! You completed this lesson.</string>
 </resources>
