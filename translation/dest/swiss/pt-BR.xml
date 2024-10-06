@@ -27,7 +27,7 @@
     <item quantity="one">%s minuto entre as rodadas</item>
     <item quantity="other">%s minutos entre as rodadas</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Começando em</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Começando em</string>
   <string name="nextRound">Próxima rodada</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Jogo em andamento</item>
