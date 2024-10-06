@@ -7,7 +7,7 @@
   <string name="enterPassword">Inserisci la tua password e il codice di autenticazione generato dall\'app per completare l\'installazione. Avrai bisogno di un codice di autenticazione ogni volta che effettui l\'accesso.</string>
   <string name="ifYouCannotScanEnterX">Se non riesci a scansionare il codice, inserisci il codice segreto %s nell\'app.</string>
   <string name="authenticationCode">Codice di autenticazione</string>
-  <string name="ifYouLoseAccessTwoFactor">Nota: Se perdi l\'accesso ai tuoi codici d\'autenticazione a due fattori, puoi eseguire un %s tramite email.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Nota: Se perdi l\'accesso ai tuoi codici d\'autenticazione a due fattori, puoi eseguire un %s tramite email.</string>
   <string name="enableTwoFactor">Abilita l\'autenticazione a due fattori</string>
   <string name="disableTwoFactor">Disabilita l\'autenticazione a due fattori</string>
   <string name="twoFactorEnabled">Autenticazione a due fattori attivata</string>
