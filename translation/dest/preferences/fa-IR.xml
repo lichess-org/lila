@@ -56,7 +56,7 @@
   <string name="correspondenceEmailNotification">ایمیل های روزانه که بازی های شبیه شما را به صورت لیست درمی‌آورند</string>
   <string name="notifyStreamStart">استریمر شروع به فعالیت کرد</string>
   <string name="notifyInboxMsg">پیام جدید</string>
-  <string name="notifyForumMention">در کامنتی نام شما ذکر شده است</string>
+  <string name="notifyForumMention">در انجمن از شما نام‌بُرده‌اند</string>
   <string name="notifyInvitedStudy">دعوت به مطالعه</string>
   <string name="notifyGameEvent">اعلان به روزرسانی بازی</string>
   <string name="notifyChallenge">پیشنهاد بازی</string>

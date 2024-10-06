@@ -160,7 +160,7 @@
     <item quantity="other">%s Partidas</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">puntuación %1$s en %2$s partida</item>
+    <item quantity="one">Puntuación %1$s en %2$s partida</item>
     <item quantity="other">Puntuación de %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">

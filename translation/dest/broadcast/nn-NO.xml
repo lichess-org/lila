@@ -7,6 +7,7 @@
     <item quantity="other">%s sendingar</item>
   </plurals>
   <string name="liveBroadcasts">Direktesende turneringar</string>
+  <string name="broadcastCalendar">Kaldender for sendingar</string>
   <string name="newBroadcast">Ny direktesending</string>
   <string name="subscribedBroadcasts">Sendingar du abonnerar på</string>
   <string name="aboutBroadcasts">Om sending</string>
@@ -26,7 +27,7 @@
   <string name="sourceSingleUrl">PGN kjelde-URL</string>
   <string name="sourceUrlHelp">Lenke som Lichess vil hente PGN-oppdateringar frå. Den må vera offentleg tilgjengeleg på internett.</string>
   <string name="sourceGameIds">Opp til 64 Lichess spel-ID\'ar, skilde med mellomrom.</string>
-  <string name="startDate">Startdato i di eiga tidssone</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Startdato i turneringas lokale tidssone: %s</string>
   <string name="startDateHelp">Valfritt, om du veit når arrangementet startar</string>
   <string name="credits">Kreditér kjelda</string>
   <string name="currentGameUrl">URL til pågåande parti</string>

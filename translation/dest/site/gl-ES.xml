@@ -218,7 +218,7 @@
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo electrónico</string>
-  <string name="passwordReset">Cambiar contrasinal</string>
+  <string name="passwordReset">restablecer o contrasinal</string>
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="error.weakPassword">Ese contrasinal é extremadamente común e demasiado doado de adiviñar.</string>
   <string name="error.namePassword">Por favor, non uses o teu usuario como contrasinal.</string>

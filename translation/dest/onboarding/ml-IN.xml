@@ -7,4 +7,11 @@
   <string name="whatNowSuggestions">അടുത്തത് എന്ത്? ചില സൂചനകൾ ഇതാ:</string>
   <string name="learnChessRules">ചെസ്സ് കളിക്കാൻ പഠിക്കാം</string>
   <string name="improveWithChessTacticsPuzzles">ചെസ്സ് തന്ത്രങ്ങൾ പസിലുകൾ ഉപയോഗിച്ച് മെച്ചപ്പെടുത്തു.</string>
+  <string name="playTheArtificialIntelligence">കൃത്രിമ ബുദ്ധിയിന്റെ എതിരേ കളിക്കുക.</string>
+  <string name="playOpponentsFromAroundTheWorld">ലോകമെമ്പാടുമുള്ള എതിരാളികൾ കൂടെ കളിക്കുക.</string>
+  <string name="followYourFriendsOnLichess">താങ്ങളുടെ സുഹൃത്തുക്കളെ Lichess-ൽ പിന്തുടരുക.</string>
+  <string name="playInTournaments">മത്സരങ്ങളിൽ കളിക്കൂ.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">%1$sും %2$sും തോട് പഠിക്കുക.</string>
+  <string name="configureLichess">താങ്ങളുടെ ഇഷ്ടങ്ങൾ പ്രകാരം Lichess-ന് നിരയാക്കുക.</string>
+  <string name="exploreTheSiteAndHaveFun">സൈറ്റ് ആരായിച്ച് സുഖിക്കൂ</string>
 </resources>

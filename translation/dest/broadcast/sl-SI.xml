@@ -9,6 +9,7 @@
     <item quantity="other">%s oddaj</item>
   </plurals>
   <string name="liveBroadcasts">Prenos turnirjev v živo</string>
+  <string name="broadcastCalendar">Koledar oddaj</string>
   <string name="newBroadcast">Nov prenos v živo</string>
   <string name="subscribedBroadcasts">Naročene oddaje</string>
   <string name="aboutBroadcasts">O oddaji</string>
@@ -27,7 +28,7 @@
   <string name="fullDescriptionHelp">Neobvezen dolg opis prenosa. %1$s je na voljo. Dolžina mora biti manjša od %2$s znakov.</string>
   <string name="sourceSingleUrl">Vir partije v PGN formatu</string>
   <string name="sourceUrlHelp">URL, ki ga bo Lichess preveril, da bo prejel PGN posodobitve. Javno mora biti dostopen preko interneta.</string>
-  <string name="startDate">Datum začetka v vaše časovnem pasu</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Začetni datum v lokalnem časovnem pasu turnirja: %s</string>
   <string name="startDateHelp">Izbirno, če veste, kdaj se dogodek začne</string>
   <string name="credits">Navedi vir</string>
   <string name="currentGameUrl">URL trenutno igrane igre</string>

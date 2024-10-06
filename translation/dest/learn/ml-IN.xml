@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">ചെസ്സ് പഠിക്കാം</string>
+  <string name="learnChess">ചതുരംഗം പഠിക്കാം</string>
   <string name="byPlaying">കളിച്ചുകൊണ്ട്!</string>
   <string name="menu">മെനു</string>
   <string name="progressX">പുരോഗതി: %s</string>
   <string name="resetMyProgress">എന്റെ പുരോഗതി പുനഃക്രമീകരിക്കുക</string>
   <string name="youWillLoseAllYourProgress">ഇത് ചെയ്താൽ നിങ്ങളുടെ എല്ലാ പുരോഗതിയും നഷ്ടമാകും!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">തുടങ്ങാം!</string>
-  <string name="chessPieces">ചെസ്സ് കരുക്കൾ</string>
+  <string name="chessPieces">ചതുരംഗം കരുക്കൾ</string>
   <string name="theRook">തേര്</string>
   <string name="itMovesInStraightLines">അത് നേർരേഖകളിലൂടെ മാത്രം നീങ്ങുന്നു</string>
   <string name="rookIntro">തേരാളി കരുത്താനാണ്. അതിനെ നിലയ്ക്കുനിർത്താൻ നിനക്ക് പറ്റുമോ?</string>
@@ -37,7 +37,7 @@
   <string name="lastOne">അവസാനത്തേത്!</string>
   <string name="kingComplete">നിങ്ങൾക്കിനി നേതാവിനെ നയിക്കാം!</string>
   <string name="theKnight">കുതിര</string>
-  <string name="itMovesInAnLShape">അത് L ഷേപ്പിൽ നീങ്ങുന്നു</string>
+  <string name="itMovesInAnLShape">അത് L ആകാരത്തിൽ നീങ്ങുന്നു</string>
   <string name="knightIntro">ഇതാ നിങ്ങൾക്കൊരു വെല്ലുവിളി. നമ്മുടെ കുതിര ഒരു സൂത്രശാലിയായ കരുവാണ്.</string>
   <string name="knightsHaveAFancyWay">കുതിരകൾ ഒരു വല്ലാത്ത രീതിയിൽ അങ്ങോട്ടും ഇങ്ങോട്ടും ചാടിക്കളിക്കാം!</string>
   <string name="knightsCanJumpOverObstacles">കുതിരകൾക്കു തടസ്സങ്ങൾക്കു മുകളിലൂടെ ചാടാം!
@@ -63,7 +63,7 @@
   <string name="itNowPromotesToAStrongerPiece">ഇനി അത് കരുത്തുറ്റ കരുവായി സ്ഥാനക്കയറ്റം നേടും.</string>
   <string name="selectThePieceYouWant">നിങ്ങളുടെ കരു തിരഞ്ഞെടുക്കുക!</string>
   <string name="fundamentals">അടിസ്ഥാനഘടകങ്ങൾ</string>
-  <string name="capture">ക്യാപ്ചർ</string>
+  <string name="capture">കീഴ്പെടുത്തൽ</string>
   <string name="takeTheEnemyPieces">എതിരാളിയുടെ കരുക്കളെ കീഴടക്കൽ</string>
   <string name="captureIntro">എതിരാളികൾ സംരക്ഷിക്കാത്ത കരുക്കൾ തിരിച്ചറിയുക, അവയെ പിടിച്ചടക്കുക!</string>
   <string name="takeTheBlackPieces">കറുമ്പൻ കരുക്കളെ കീഴടക്കൂ!</string>
@@ -161,7 +161,7 @@
   <string name="enPassantComplete">അഭിനന്ദനങൾ! ഇനി നിങ്ങൾക്ക് എൻ-പാസ്സൻഡ്‌ മുഖേന എടുക്കാം.</string>
   <string name="stalemate">സ്റ്റേൽമേറ്റ്</string>
   <string name="theGameIsADraw">ഗെയിം സമനിലയിൽ കലാശിച്ചിരിക്കുന്നു</string>
-  <string name="stalemateIntro">ഒരു കളിക്കാരൻ ചെക്കിൽ അല്ലാത്ത ഘട്ടത്തിൽ അദ്ദേഹത്തിന് ന്യായമായ നീക്കങ്ങൾ നടത്താൻ പറ്റിയില്ലെങ്കിൽ, അത് സ്റ്റേൽമേറ്റിൽ അവസാനിക്കുന്നു. ഗെയിം സമനിലയാവുന്നു: ആരും ജയിക്കുന്നില്ല, ആരും തോൽക്കുന്നില്ല.</string>
+  <string name="stalemateIntro">ഒരു കളിക്കാരൻ ചെക്കിൽ അല്ലാത്ത ഘട്ടത്തിൽ അദ്ദേഹത്തിന് ന്യായമായ നീക്കങ്ങൾ നടത്താൻ പറ്റിയില്ലെങ്കിൽ, അത് സ്റ്റേൽമേറ്റിൽ അവസാനിക്കുന്നു. ഗെയിം സമനിലയാവുന്നു: ആരും ജയിക്കുത്തില്ല, ആരും തോൽക്കുത്തില്ല.</string>
   <string name="stalemateGoal">ബ്ലാക്കിനെ സ്റ്റേൽമേറ്റ് ചെയ്യാൻ:
 - ബ്ലാക്കിന് എങ്ങോട്ടും പോകാൻ സാധിക്കരുത് 
 - ഒരു ചെക്കും ഉണ്ടാകരുത്.</string>
@@ -178,6 +178,8 @@
 രാജാവ് അമൂല്യമായ കരുവാണ്! രാജാവിനെ നഷ്ടപ്പെട്ടാൽ ഗെയിം തോറ്റതിന് തുല്യമാണ്.</string>
   <string name="queenOverBishop">ഏറ്റവും മൂല്യമേറിയ കരുവെടുക്കൂ!
 രാജ്ഞിയും ആനയും</string>
+  <string name="pieceValueExchange">ഏറ്റവും മൂല്യമുള്ള കരു കീഴടുക! ഒരു മികച്ചുള്ള കരു ഒരു താഴ്ന്ന കരുയിന്ന് കൈമാറ്റരുത്.</string>
+  <string name="pieceValueLegal">ഏറ്റവും മൂല്യമുള്ള കരു കീഴടുക! താങ്ങളുടെ നീക്കം നിയമപരമാണെന്ന് ഉറപ്പിക്കുക!</string>
   <string name="takeThePieceWithTheHighestValue">ഏറ്റവും മൂല്യമേറിയ 
 കരുവെടുക്കൂ!</string>
   <string name="pieceValueComplete">അഭിനന്ദനങ്ങൾ! നിങ്ങൾക്ക് ഇപ്പോൾ കരുക്കളുടെ മൂല്യമറിയാം!
@@ -220,6 +222,7 @@
   <string name="rightOn">അങ്ങനെതന്നെ!</string>
   <string name="stageXComplete">%s സ്റ്റേജ് പൂർത്തിയാക്കിയിരുന്നു</string>
   <string name="next">അടുത്തത്</string>
+  <string name="nextX">അടുത്ത: %s</string>
   <string name="backToMenu">മെനുവിലേക്ക് തിരിച്ചു പോകുക</string>
   <string name="puzzleFailed">Puzzle തെറ്റിപ്പോയല്ലോ!</string>
   <string name="retry">ഒന്നുകൂടെ നോക്കട്ടെ</string>

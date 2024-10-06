@@ -26,7 +26,6 @@
   <string name="sourceSingleUrl">PGN Source URL</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="sourceGameIds">Up to 64 Lichess game IDs, separated by spaces.</string>
-  <string name="startDate">Start date in your own timezone</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
   <string name="credits">Credit the source</string>
   <string name="currentGameUrl">Current game URL</string>

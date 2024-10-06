@@ -9,6 +9,7 @@
     <item quantity="other">%s transmisji</item>
   </plurals>
   <string name="liveBroadcasts">Transmisje turniejów na żywo</string>
+  <string name="broadcastCalendar">Kalendarz transmisji</string>
   <string name="newBroadcast">Nowa transmisja na żywo</string>
   <string name="subscribedBroadcasts">Subskrybowane transmisje</string>
   <string name="aboutBroadcasts">O transmisji</string>
@@ -28,7 +29,6 @@
   <string name="sourceSingleUrl">Adres URL zapisu PGN</string>
   <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>
-  <string name="startDate">Data rozpoczęcia wydarzenia w Twojej strefie czasowej</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
   <string name="credits">Potwierdź źródło</string>
   <string name="currentGameUrl">Adres URL bieżącej partii</string>

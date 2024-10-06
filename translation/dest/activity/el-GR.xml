@@ -34,6 +34,10 @@
     <item quantity="one">Ολοκλήρωσε %s παρτίδα αλληλογραφίας</item>
     <item quantity="other">Ολοκλήρωσε %s παρτίδες αλληλογραφίας</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Ολοκλήρωσε %1$s παρτίδα αλληλογραφίας %2$s</item>
+    <item quantity="other">Ολοκλήρωσε %1$s παρτίδες αλληλογραφίας %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Άρχισε να ακολουθεί %s παίκτη</item>
     <item quantity="other">Άρχισε να ακολουθεί %s παίκτες</item>

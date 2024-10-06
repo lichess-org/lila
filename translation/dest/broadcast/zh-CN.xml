@@ -6,6 +6,7 @@
     <item quantity="other">%s 直播</item>
   </plurals>
   <string name="liveBroadcasts">赛事转播</string>
+  <string name="broadcastCalendar">转播日程表</string>
   <string name="newBroadcast">新建实况转播</string>
   <string name="subscribedBroadcasts">已订阅的转播</string>
   <string name="aboutBroadcasts">关于转播</string>
@@ -25,7 +26,6 @@
   <string name="sourceSingleUrl">PGN的URL源</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
   <string name="sourceGameIds">多达64个 Lichess 棋局Id，用空格隔开。</string>
-  <string name="startDate">开始日期，在你的本地时区</string>
   <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
   <string name="credits">信任来源</string>
   <string name="currentGameUrl">当前棋局链接</string>
