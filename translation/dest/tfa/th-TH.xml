@@ -7,7 +7,7 @@
   <string name="enterPassword">ใส่รหัสผ่านของคุณและรหัสรับรองความถูกต้องที่สร้างโดยแอปเพื่อให้การติดตั้งเสร็จสมบูรณ์ คุณจำเป็นต้องมีรหัสรับรองฯทุกครั้งที่เข้าสู่ระบบ</string>
   <string name="ifYouCannotScanEnterX">หากคุณไม่สามารถสแกนโค้ดได้ ให้ป้อนรหัสลับ %s ลงในแอปของคุณ</string>
   <string name="authenticationCode">รหัสรับรองความถูกต้อง</string>
-  <string name="ifYouLoseAccessTwoFactor">โปรดทราบ: ถ้าคุณไม่สามารถเข้าถึงรหัสรับรองความถูกต้องแบบสองชั้นได้ คุณสามารถทำ %s ได้ผ่านทางอีเมล</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">โปรดทราบ: ถ้าคุณไม่สามารถเข้าถึงรหัสรับรองความถูกต้องแบบสองชั้นได้ คุณสามารถทำ %s ได้ผ่านทางอีเมล</string>
   <string name="enableTwoFactor">ใช้การรับรองความถูกต้องแบบสองชั้น</string>
   <string name="disableTwoFactor">ไม่ใช้การรับรองความถูกต้องแบบสองชั้น</string>
   <string name="twoFactorEnabled">การรับรองความถูกต้องแบบสองชั้นถูกใช้งาน</string>
