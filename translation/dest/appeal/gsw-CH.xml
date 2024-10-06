@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Dis Konto isch nöd markiert oder gschperrt. Alles isch OK!</string>
-  <string name="engineMarked">Dis Konto isch wäge externer Underschtützig bim Schpille markiert.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Dis Konto isch wäge externer Underschtützig bim Schpille markiert.</string>
   <string name="engineMarkedInfo">Mir definiered das als d\'Verwändig vu externer Hilf, zum dis Wüsse und/oder dini Kobinationsfähigkeit z\'verschtärche und en Vorteil gägenüber dim Gegner z\'erlange. Witeri Einzelheite findsch uf de Site %s.</string>
   <string name="arenaBanned">Dis Konto isch gschperrt für Spiel - Arenas.</string>
   <string name="prizeBanned">Dis Konto isch gschperrt, für Turnier mit ächte Prise.</string>
