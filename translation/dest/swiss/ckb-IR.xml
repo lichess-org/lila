@@ -26,7 +26,7 @@
     <item quantity="one">%s دەقە لە نێوان خولەکاندا</item>
     <item quantity="other">%s دەقەکان لە نێوان خولەکاندا</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">دەستپێدەکات لە</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">دەستپێدەکات لە</string>
   <string name="nextRound">خولی دواتر</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">یاری بەردەوام</item>
