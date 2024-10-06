@@ -9,7 +9,7 @@ import lila.core.socket.Sri
 object Mobile:
 
   object AppVersion:
-    def mustUpgrade(v: String) = v.headOption.flatMap(_.intOption).exists(_ < 6)
+    def mustUpgrade(v: String) = v.headOption.flatMap(_.toString.toIntOption).exists(_ < 6)
 
   object Api:
 
