@@ -20,8 +20,6 @@ final class Preload(
     tv: lila.tv.Tv,
     gameRepo: lila.game.GameRepo,
     perfsRepo: lila.user.UserPerfsRepo,
-    userCached: lila.user.Cached,
-    tourWinners: lila.tournament.WinnersApi,
     timelineApi: lila.timeline.EntryApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
     dailyPuzzle: lila.puzzle.DailyPuzzle.Try,
@@ -54,7 +52,7 @@ final class Preload(
         (
           (
             (
-              (((((((((data, povs), tours), events), simuls), feat), entries), lead), tWinners), puzzle),
+              (((((((data, povs), tours), events), simuls), feat), entries), puzzle),
               streams
             ),
             playban
@@ -71,8 +69,6 @@ final class Preload(
       .zip(simuls.mon(_.lobby.segment("simuls")))
       .zip(tv.getBestGame.mon(_.lobby.segment("tvBestGame")))
       .zip((ctx.userId.so(timelineApi.userEntries)).mon(_.lobby.segment("timeline")))
-      .zip(userCached.topWeek.mon(_.lobby.segment("userTopWeek")))
-      .zip(tourWinners.all.dmap(_.top).mon(_.lobby.segment("tourWinners")))
       .zip((ctx.noBot.so(dailyPuzzle())).mon(_.lobby.segment("puzzle")))
       .zip(
         ctx.kid.no.so(
@@ -93,11 +89,10 @@ final class Preload(
     (currentGame, _) <- (ctx.me
       .soUse(currentGameMyTurn(povs, lightUserApi.sync)))
       .mon(_.lobby.segment("currentGame"))
-      .zip(
+      .zip:
         lightUserApi
-          .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
+          .preloadMany(entries.flatMap(_.userIds).toList)
           .mon(_.lobby.segment("lightUsers"))
-      )
   yield Homepage(
     data,
     entries,
@@ -107,8 +102,6 @@ final class Preload(
     relayListing.spotlight,
     simuls,
     feat,
-    lead,
-    tWinners,
     puzzle,
     streams.excludeUsers(events.flatMap(_.hostedBy)),
     playban,
@@ -153,8 +146,6 @@ object Preload:
       relays: List[lila.relay.RelayTour.ActiveWithSomeRounds],
       simuls: List[Simul],
       featured: Option[Game],
-      leaderboard: List[lila.core.user.LightPerf],
-      tournamentWinners: List[Winner],
       puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],
       streams: LiveStreams.WithTitles,
       playban: Option[TempBan],
