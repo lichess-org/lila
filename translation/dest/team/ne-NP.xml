@@ -9,7 +9,7 @@
   <string name="newTeam">नयाँ टोली</string>
   <string name="myTeams">मेरा टोलीहरु</string>
   <string name="noTeamFound">कुनैपनि टोली भेट्टिएनन्</string>
-  <string name="joinTeam">टोलीमा सम्मिलित होऔं</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">टोलीमा सम्मिलित होऔं</string>
   <string name="quitTeam">टोली छोडौं</string>
   <string name="teamRecentMembers">पछिल्ला सदस्हयरु</string>
 </resources>
