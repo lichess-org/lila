@@ -31,8 +31,8 @@
   <string name="byOpenings">தொடக்க ஆட்டத்தின்படி</string>
   <string name="puzzlesByOpenings">தொடக்க ஆட்டத்தின்படியான புதிர்கள்</string>
   <string name="openingsYouPlayedTheMost">மதிப்பிடப்பட்ட போட்டிகளில் நீங்கள் கூடுதலாகப் பாவித்த தொடக்க ஆட்டங்கள்</string>
-  <string name="useFindInPage">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் கண்டுபிடிக்க உலாவியின் \"Find in page\" ஐப் பயன்படுத்துக!</string>
-  <string name="useCtrlF">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் காண Ctrl+f ஐப் பயன்படுத்துக!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் கண்டுபிடிக்க உலாவியின் \"Find in page\" ஐப் பயன்படுத்துக!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் காண Ctrl+f ஐப் பயன்படுத்துக!</string>
   <string name="notTheMove">நகர்வு இதுவல்ல!</string>
   <string name="trySomethingElse">வேறு ஏதாவதை முயற்சிக்கவும்.</string>
   <string name="ratingX">மதிப்பீடு: %s</string>
