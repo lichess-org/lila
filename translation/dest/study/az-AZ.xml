@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Əlavə edilmə tarixi (köhnədən yeniyə)</string>
   <string name="recentlyUpdated">Ən son yenilənən</string>
   <string name="mostPopular">Ən məşhur</string>
-  <string name="alphabetical">Əlifbaya görə</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Əlifbaya görə</string>
   <string name="addNewChapter">Yeni bir fəsil əlavə et</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Fəsil</item>
