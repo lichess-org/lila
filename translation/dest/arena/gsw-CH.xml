@@ -79,11 +79,11 @@ Bischpil: Rang 3 ime Turnier mit 100 Schpiler = 3% oder Rang 10 bi 1000 Schpiler
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">mittleri Wert</string>
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">All Durchschnittswert uf dere Site sind %s.</string>
   <string name="total">Total</string>
-  <string name="pointsAvg">Punktedurchschnitt</string>
+  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">Punktedurchschnitt</string>
   <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Azahl Pünkt</string>
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Rang - Durchschnitt</string>
   <string name="tournamentWinners">Turnier - Sieger</string>
   <string name="tournamentShields">Turnier - Schilder</string>
   <string name="onlyTitled">Nur Schpiler mit Titel</string>
-  <string name="onlyTitledHelp">Für e Teilnahm a dem Turnier, isch en offizielle Titel erforderlich</string>
+  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Für e Teilnahm a dem Turnier, isch en offizielle Titel erforderlich</string>
 </resources>
