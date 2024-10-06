@@ -12,7 +12,7 @@
   <string name="newTeam">Novi tim</string>
   <string name="myTeams">Moji timovi</string>
   <string name="noTeamFound">Nijedan tim nije pronađen</string>
-  <string name="joinTeam">Priključi se timu</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Priključi se timu</string>
   <string name="onlyLeaderLeavesTeam">Molim vas da prije odlaska dodate novog vođu tima ili zatvorite tim.</string>
   <string name="quitTeam">Napusti tim</string>
   <string name="manuallyReviewAdmissionRequests">Ručno provjeri zahtjeve za pridruživanjem</string>
