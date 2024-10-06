@@ -21,7 +21,7 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">每輪之間 %s 分</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">開始於</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">開始於</string>
   <string name="nextRound">下一輪</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">進行中的棋局</item>
