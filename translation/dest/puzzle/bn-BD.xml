@@ -31,8 +31,8 @@
   <string name="byOpenings">ওপেনিং অনুযায়ী</string>
   <string name="puzzlesByOpenings">ওপেনিং অনুযায়ী ধাঁধা</string>
   <string name="openingsYouPlayedTheMost">রেটেড খেলায় আপনি যে ওপেনিংগুলো সবথেকে বেশি খেলেছেন</string>
-  <string name="useFindInPage">আপনার প্রিয় ওপেনিংগুলি খুঁজতে ব্রাউসার মেনুতে \"ফাইন্ড ইন পেজ\" ব্যবহার করুন!</string>
-  <string name="useCtrlF">আপনার প্রিয় ওপেনিং খুঁজতে Ctrl + F ব্যবহার করুন!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">আপনার প্রিয় ওপেনিংগুলি খুঁজতে ব্রাউসার মেনুতে \"ফাইন্ড ইন পেজ\" ব্যবহার করুন!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">আপনার প্রিয় ওপেনিং খুঁজতে Ctrl + F ব্যবহার করুন!</string>
   <string name="notTheMove">এটা সঠিক চাল না!</string>
   <string name="trySomethingElse">অন্য কিছু চেষ্টা করুন.</string>
   <string name="ratingX">রেটিংস: %s</string>
