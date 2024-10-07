@@ -109,7 +109,7 @@ object Dependencies {
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.20"
+    val version    = "2.6.21"
     val actor      = "com.typesafe.akka" %% "akka-actor"       % version
     val actorTyped = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
