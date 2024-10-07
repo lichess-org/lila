@@ -296,7 +296,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               trb.startDateTimeZone(strong(nav.tour.info.timeZoneOrDefault.getId)),
               help = trb.startDateHelp().some,
               half = true
-            )(form3.flatpickr(_, minDate = None)),
+            )(form3.flatpickr(_, local = true, minDate = None)),
             form3.checkbox(
               form("startsAfterPrevious"),
               "When the previous round completes",
