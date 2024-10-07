@@ -240,6 +240,11 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     private def image(t: RelayTour) = t.image.fold(ui.thumbnail.fallback(cls := "relay-card__image")): id =>
       img(cls := "relay-card__image", src := ui.thumbnail.url(id, _.Size.Small))
 
+    private def truncatedPlayers(t: RelayTour): Option[Frag] =
+      t.info.players.map: players =>
+        span(cls := "relay-card__players"):
+          players.split(',').map(name => span(name.trim))
+
     def render[A <: RelayRound.AndTourAndGroup](
         tr: A,
         live: A => Boolean,
@@ -264,7 +269,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           if errors.nonEmpty
           then ul(cls := "relay-card__errors")(errors.map(li(_)))
-          else tr.tour.info.players.map(span(cls := "relay-card__desc")(_))
+          else truncatedPlayers(tr.tour)
         )
       )
 
@@ -280,7 +285,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
                 span(showDate(date))
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
-          tr.tour.info.players.ifTrue(highTier).map(span(cls := "relay-card__desc")(_))
+          truncatedPlayers(tr.tour)
         )
       )
 
