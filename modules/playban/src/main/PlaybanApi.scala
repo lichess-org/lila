@@ -161,7 +161,11 @@ final class PlaybanApi(
 
   private def good(game: Game, status: Status, loserColor: Color): Funit =
     if isQuickResign(game, status) then
-      game.userIds.parallelVoid: userId =>
+      val blameUsers =
+        if game.sourceIs(_.Friend)
+        then game.userIds
+        else game.player(loserColor).userId.toList
+      blameUsers.parallelVoid: userId =>
         save(Outcome.Sandbag, userId, RageSit.Update.Noop, game.source)
     else
       game
