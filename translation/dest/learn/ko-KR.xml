@@ -144,10 +144,12 @@
   <string name="enPassant">앙파상</string>
   <string name="theSpecialPawnMove">폰의 예외적 이동</string>
   <string name="enPassantIntro">상대 폰이 두 칸씩 움직였다 하더라도 폰이 한 칸만 움직인 상황처럼 잡을 수 있습니다.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">상대가 방금 폰을 두 칸 움직였습니다!
-지나가던 폰을 잡아봅시다.
-앙파상을 시도해보세요!</string>
-  <string name="enPassantOnlyWorksImmediately">앙파상은 방금 움직인 폰에 한해서만 적용됩니다.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">방금 흑이 폰을 두 칸
+움직였습니다!
+앙파상을 시도해보세요.</string>
+  <string name="enPassantOnlyWorksImmediately">앙파상은 폰이
+움직인 바로 후에만
+적용됩니다.</string>
   <string name="enPassantOnlyWorksOnFifthRank">또한 앙파상은 당신의 폰이 잡을 상대의 폰과 같은 가로줄에 있을 때에만 할 수 있습니다.</string>
   <string name="takeAllThePawnsEnPassant">모든 폰들을 앙파상으로 잡으세요!</string>
   <string name="enPassantComplete">축하합니다! 이제 지나가던 폰을 놓치진 않겠네요!</string>
