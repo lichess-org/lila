@@ -10,7 +10,7 @@ body:has(.base-view.setup-view) {
 
   div.player {
     aspect-ratio: 1;
-    width: min(70%, 33vh);
+    width: min(70%, 28vh);
   }
   .vs {
     @extend %flex-column;
@@ -39,7 +39,7 @@ body:has(.base-view.setup-view) {
     align-items: center;
     padding: 0.5em;
     border-radius: 10px;
-    width: min(70%, 33vh);
+    width: min(70%, 28vh);
 
     &[data-color='white'] {
       @extend %metal-light;

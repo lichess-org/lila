@@ -101,7 +101,8 @@ class SetupDialog {
   }
 
   private timeOptions(type: 'initial' | 'increment') {
-    const val = this.setup[type] ?? 0;
+    const defaults = { initial: 300, increment: 0 };
+    const val = this.setup[type] ?? defaults[type];
     return rangeTicks[type]
       .map(([secs, label]) => `<option value="${secs}"${secs === val ? ' selected' : ''}>${label}</option>`)
       .join('');
@@ -124,7 +125,7 @@ class SetupDialog {
 
   private updateClock = () => {
     for (const type of ['initial', 'increment'] as const) {
-      const selectEl = this.view.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
+      const selectEl = this.dialog.view.querySelector<HTMLSelectElement>(`[data-type="${type}"]`);
       this.setup[type] = Number(selectEl?.value);
     }
   };
