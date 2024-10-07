@@ -33,7 +33,7 @@ export class RoundProxy implements IRoundProxy {
       },
       player: this.player('white'),
       opponent: this.player('black'),
-      pref: env.game.opts.pref,
+      pref: { ...env.game.opts.pref, submitMove: 0 },
       steps: [{ ply: 0, san: '', uci: '', fen: env.game.initialFen }],
       takebackable: false,
       moretimeable: false,
