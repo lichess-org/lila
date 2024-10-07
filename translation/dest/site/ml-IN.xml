@@ -29,7 +29,7 @@
   <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
   <string name="cheatDetected">കള്ളത്തരം കണ്ടെത്തി</string>
   <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
-  <string name="threeChecks">മൂനു ചെക്ക് ഗെയിം</string>
+  <string name="threeChecks">മൂനു ചെക്ക് കളി</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="variantEnding">വ്യത്യാസപ്പെട്ട അവസാനം</string>
   <string name="newOpponent">പുതിയ എതിരാളി</string>
@@ -93,9 +93,9 @@
     <item quantity="other">%s പകുതി-നീക്കങ്ങൾക്കുള്ളിൽ ചെക്ക്മേറ്റ്</item>
   </plurals>
   <string name="dtzWithRounding">L</string>
-  <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
+  <string name="noGameFound">ഒരു കളിയും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="maxDepthReached">പരമാവധി ആഴം എതിയിരിക്കുന്നു!</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ കളികൾ ഉൾപ്പെടുത്താണോ?</string>
   <string name="openings">തുറക്കൽ നീക്കം</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="openingEndgameExplorer">ഓപ്പണിങ്ങ്/എൻഡ്ഗെയിം എക്‌സ്‌പ്ലോറർ</string>
@@ -322,10 +322,10 @@
   <string name="bookmarkThisGame">ഈ മത്സരം ബുക്ക്‌മാര്‍ക്ക് ചെയ്യുക</string>
   <string name="tournament">ടൂര്‍ണമെന്‍റ് (മത്സര പരമ്പര)</string>
   <string name="tournaments">ടൂര്‍ണമെന്‍റുകള്‍ (മത്സര പരമ്പരകള്‍)</string>
-  <string name="tournamentPoints">ടൂര്‍ണമെന്‍റ് പോയിന്‍റുകള്‍</string>
+  <string name="tournamentPoints">മത്സരത്തിന്റെ പോയിന്റുകൾ</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s ടൂര്‍ണമെന്‍റ് പോയിന്റ്</item>
-    <item quantity="other">%s ടൂര്‍ണമെന്‍റ് പോയിന്‍റുകള്‍</item>
+    <item quantity="one">%s മത്സരത്തിന്റെ പോയിന്റ്</item>
+    <item quantity="other">%s മത്സരങ്ങള്ളിന്റെ പോയിന്റുകൾ</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s പഠനം</item>
@@ -637,7 +637,7 @@
   <string name="timeBeforeTournamentStarts">പരമ്പര തുടങ്ങുന്നതിനു മുൻപുള്ള സമയം</string>
   <string name="averageCentipawnLoss">ശരാശരി centipawn നഷ്ടം</string>
   <string name="accuracy">കൃത്യത</string>
-  <string name="keyboardShortcuts">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
+  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
   <string name="keyMoveBackwardOrForward">നീക്കം പുറകോട്ട്/മുന്നോട്ട്</string>
   <string name="keyGoToStartOrEnd">പോകാം തുടക്കം/ഒടുക്കം</string>
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
