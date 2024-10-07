@@ -2,6 +2,7 @@ import { Prop, propWithEffect } from 'common';
 import { debounce } from 'common/timing';
 import * as xhr from 'common/xhr';
 import { storedJsonProp, StoredJsonProp } from 'common/storage';
+import { clockToSpeed } from 'game';
 import LobbyController from './ctrl';
 import {
   ForceSetupOptions,
@@ -23,21 +24,12 @@ import {
   variants,
 } from './options';
 
-const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf => {
-  if (!['standard', 'fromPosition'].includes(variant)) return variant as Perf;
-  if (timeMode !== 'realTime') return 'correspondence';
-
-  const totalGameTime = time * 60 + increment * 40;
-  return totalGameTime < 30
-    ? 'ultraBullet'
-    : totalGameTime < 180
-      ? 'bullet'
-      : totalGameTime < 480
-        ? 'blitz'
-        : totalGameTime < 1500
-          ? 'rapid'
-          : 'classical';
-};
+const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf =>
+  variant != 'standard' && variant != 'fromPosition'
+    ? variant
+    : timeMode !== 'realTime'
+      ? 'correspondence'
+      : clockToSpeed(time * 60, increment);
 
 export default class SetupController {
   root: LobbyController;
