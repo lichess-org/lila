@@ -161,7 +161,11 @@ final private class RelayFetch(
             .filterNot(_.contains("Cannot parse pgn"))
             .filterNot(_.contains("Found an empty PGN"))
             .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
-          Seconds(60)
+          Seconds(tour.tier.fold(60):
+            case RelayTour.Tier.BEST => 10
+            case RelayTour.Tier.HIGH => 20
+            case _                   => 40
+          )
         else round.sync.period | dynamicPeriod(tour, round, upstream)
       updating:
         _.withSync:
