@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">لا إعلانات، لا تتبع</string>
+  <string name="correspondenceWithConditionalPremoves">شطرنج المراسلة مع حركات مسبقة مشروطة</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">الشطرنج العادي و %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">تحاليل خادم %s عميقة</string>
   <string name="cloudEngineAnalysis">تحليل محرك السحابة</string>
   <string name="allChessBasicsLessons">جميع دروس الشطرنج الأساسية</string>
   <string name="personalOpeningExplorer">مستكشف افتتاحيات شخصي</string>
