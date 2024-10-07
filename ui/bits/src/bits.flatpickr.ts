@@ -3,7 +3,7 @@ import { use24h } from 'common/i18n';
 import { Options } from 'flatpickr/dist/types/options';
 
 site.load.then(() => {
-  $('.flatpickr').each(function(this: HTMLInputElement) {
+  $('.flatpickr').each(function (this: HTMLInputElement) {
     const minDate = this.dataset['minDate'];
     const enableTime = !!this.dataset['enableTime'];
     const local = !!this.dataset['local'] || location.href.includes('/broadcast/');
