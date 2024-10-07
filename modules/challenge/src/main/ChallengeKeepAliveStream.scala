@@ -17,7 +17,7 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
           val keepAliveInterval = scheduler.scheduleWithFixedDelay(15 seconds, 15 seconds): () =>
             api.ping(challenge.id)
           def completeWith(msg: String) =
-            queue.offer(Json.obj("done" -> msg)).andDo(queue.complete())
+            for _ <- queue.offer(Json.obj("done" -> msg)) yield queue.complete()
           val sub = Bus.subscribeFun("challenge"):
             case lila.core.challenge.Event.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
             case Event.Cancel(c) if c.id == challenge.id                        => completeWith("canceled")

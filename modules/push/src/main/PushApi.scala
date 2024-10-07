@@ -346,16 +346,13 @@ final private class PushApi(
         mobileCompatible = false
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
-    webPush(webRecips, pushData)
-      .addEffects { res =>
+    for _ <- webPush(webRecips, pushData).addEffects: res =>
         lila.mon.push.send.streamStart("web", res.isSuccess, webRecips.size)
-      }
-      .andDo:
-        recips
-          .collect { case u if u.allows.device => u.userId }
-          .foreach:
-            firebasePush(_, pushData).addEffects: res =>
-              lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
+    yield recips
+      .collect { case u if u.allows.device => u.userId }
+      .foreach:
+        firebasePush(_, pushData).addEffects: res =>
+          lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean, Int) => Unit)
 
@@ -375,16 +372,13 @@ final private class PushApi(
         mobileCompatible = false
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
-    webPush(webRecips, pushData)
-      .addEffects { res =>
+    for _ <- webPush(webRecips, pushData).addEffects: res =>
         lila.mon.push.send.broadcastRound("web", res.isSuccess, webRecips.size)
-      }
-      .andDo:
-        recips
-          .collect { case u if u.allows.device => u.userId }
-          .foreach:
-            firebasePush(_, pushData).addEffects: res =>
-              lila.mon.push.send.broadcastRound("firebase", res.isSuccess, 1)
+    yield recips
+      .collect { case u if u.allows.device => u.userId }
+      .foreach:
+        firebasePush(_, pushData).addEffects: res =>
+          lila.mon.push.send.broadcastRound("firebase", res.isSuccess, 1)
 
   private def maybePushNotif(
       userId: UserId,

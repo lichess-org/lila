@@ -278,13 +278,13 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
             // but values should be approximately correct, match a real like
             // count (though perhaps not the latest one), and any uncontended
             // query will set the precisely correct value.
-            c.update
-              .one(
+            for
+              _ <- c.update.one(
                 $id(studyId),
                 $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
               )
-              .inject(likes)
-              .andDo(updateNow(studyId))
+              _ = updateNow(studyId)
+            yield likes
       }
 
   def liked(study: Study, user: User): Fu[Boolean] =

@@ -187,11 +187,10 @@ final class IrcApi(
             if firsts.lengthIs > 10
             then s"$firsts and, like, ${firsts.length - 10} others,"
             else firsts
-          displayMessage {
+          displayMessage:
             s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
-          }.andDo {
+          .andDo:
             buffer = Vector.empty
-          }
 
     private def displayMessage(text: String) =
       zulip(_.general, "lila")(markdown.linkifyUsers(text))

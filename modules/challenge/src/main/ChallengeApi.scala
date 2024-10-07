@@ -42,18 +42,20 @@ final class ChallengeApi(
       rules = config.rules,
       expiresAt = config.expiresAt
     )
-    doCreate(c).andDo(me.foreach(me => openCreatedBy.put(c.id, me))).inject(c)
+    for
+      _ <- doCreate(c)
+      _ = me.foreach(me => openCreatedBy.put(c.id, me))
+    yield c
 
   private val openCreatedBy =
     cacheApi.notLoadingSync[ChallengeId, UserId](32, "challenge.open.by"):
       _.expireAfterWrite(1 hour).build()
 
   private def doCreate(c: Challenge) =
-    repo
-      .insertIfMissing(c)
-      .andDo:
-        uncacheAndNotify(c)
-        Bus.publish(lila.core.challenge.Event.Create(c), "challenge")
+    for _ <- repo.insertIfMissing(c)
+    yield
+      uncacheAndNotify(c)
+      Bus.publish(lila.core.challenge.Event.Create(c), "challenge")
 
   def isOpenBy(id: ChallengeId, maker: User) = openCreatedBy.getIfPresent(id).contains(maker.id)
 
@@ -83,13 +85,12 @@ final class ChallengeApi(
       else repo.createdByDestId()(userId)
 
   def cancel(c: Challenge) =
-    repo
-      .cancel(c)
-      .andDo:
-        uncacheAndNotify(c)
-        Bus.publish(Event.Cancel(c.cancel), "challenge")
+    for _ <- repo.cancel(c)
+    yield
+      uncacheAndNotify(c)
+      Bus.publish(Event.Cancel(c.cancel), "challenge")
 
-  private def offline(c: Challenge) = repo.offline(c).andDo(uncacheAndNotify(c))
+  private def offline(c: Challenge) = for _ <- repo.offline(c) yield uncacheAndNotify(c)
 
   private[challenge] def ping(id: ChallengeId): Funit =
     repo
@@ -100,10 +101,10 @@ final class ChallengeApi(
         case _                    => fuccess(socketReload(id))
 
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
-    repo.decline(c, reason).andDo {
+    for _ <- repo.decline(c, reason)
+    yield
       uncacheAndNotify(c)
       Bus.publish(Event.Decline(c.declineWith(reason)), "challenge")
-    }
 
   private val acceptQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
@@ -195,7 +196,7 @@ final class ChallengeApi(
       repo.expired(50).flatMap(_.sequentiallyVoid(remove))
 
   private def remove(c: Challenge) =
-    repo.remove(c.id).andDo(uncacheAndNotify(c))
+    for _ <- repo.remove(c.id) yield uncacheAndNotify(c)
 
   private def uncacheAndNotify(c: Challenge): Unit =
     c.destUserId.foreach(countInFor.invalidate)

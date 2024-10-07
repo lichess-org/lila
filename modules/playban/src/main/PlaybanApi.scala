@@ -52,12 +52,14 @@ final class PlaybanApi(
       pov.player.userId
         .ifTrue(isOnGame(pov.opponent.color))
         .so: userId =>
-          save(Outcome.Abort, userId, RageSit.Update.Reset, pov.game.source).andDo(feedback.abort(pov))
+          for _ <- save(Outcome.Abort, userId, RageSit.Update.Reset, pov.game.source)
+          yield feedback.abort(pov)
 
   def noStart(pov: Pov): Funit =
     IfBlameable(pov.game):
       pov.player.userId.so: userId =>
-        save(Outcome.NoPlay, userId, RageSit.Update.Reset, pov.game.source).andDo(feedback.noStart(pov))
+        for _ <- save(Outcome.NoPlay, userId, RageSit.Update.Reset, pov.game.source)
+        yield feedback.noStart(pov)
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
     IfBlameable(game):
@@ -65,8 +67,8 @@ final class PlaybanApi(
         .player(quitterColor)
         .userId
         .so: userId =>
-          save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor), game.source)
-            .andDo(feedback.rageQuit(Pov(game, quitterColor)))
+          for _ <- save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor), game.source)
+          yield feedback.rageQuit(Pov(game, quitterColor))
 
   def flag(game: Game, flaggerColor: Color): Funit =
 
@@ -80,8 +82,10 @@ final class PlaybanApi(
         userId <- game.player(flaggerColor).userId
         seconds = nowSeconds - game.movedAt.toSeconds
         if unreasonableTime.exists(seconds >= _)
-      yield (save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>
-        propagateSitting(game, userId)).andDo(feedback.sitting(Pov(game, flaggerColor)))
+      yield for
+        _ <- save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor), game.source)
+        _ <- propagateSitting(game, userId)
+      yield feedback.sitting(Pov(game, flaggerColor))
 
     // flagged after waiting a short time;
     // but the previous move used a long time.
@@ -97,8 +101,10 @@ final class PlaybanApi(
             limit        <- unreasonableTime
           yield lastMovetime.toSeconds >= limit)
         .map: userId =>
-          (save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor), game.source) >>
-            propagateSitting(game, userId)).andDo(feedback.sitting(Pov(game, flaggerColor)))
+          for
+            _ <- save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor), game.source)
+            _ <- propagateSitting(game, userId)
+          yield feedback.sitting(Pov(game, flaggerColor))
 
     IfBlameable(game):
       sitting.orElse(sitMoving).getOrElse(good(game, Status.Outoftime, flaggerColor))
@@ -126,8 +132,8 @@ final class PlaybanApi(
           loserId <- loser.userId
         yield
           if status.is(_.NoStart) then
-            save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source)
-              .andDo(feedback.noStart(Pov(game, !w)))
+            for _ <- save(Outcome.NoPlay, loserId, RageSit.Update.Reset, game.source)
+            yield feedback.noStart(Pov(game, !w))
           else
             game.clock
               .filter:
@@ -138,8 +144,10 @@ final class PlaybanApi(
                 (c.estimateTotalSeconds / 10).atLeast(30).atMost(3 * 60)
               .exists(_ < nowSeconds - game.movedAt.toSeconds)
               .option:
-                (save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source) >>
-                  propagateSitting(game, loserId)).andDo(feedback.sitting(Pov(game, loser.color)))
+                for
+                  _ <- save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color), game.source)
+                  _ <- propagateSitting(game, loserId)
+                yield feedback.sitting(Pov(game, loser.color))
               .getOrElse:
                 good(game, status, !w)
         )
@@ -247,8 +255,8 @@ final class PlaybanApi(
     yield ()
   }.void.logFailure(lila.log("playban"))
 
-  private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] =
-    record
+  private def legiferate(record: UserRecord, age: Days, source: Option[Source]): Fu[UserRecord] = for
+    newRec <- record
       .bannable(age)
       .ifFalse(record.banInEffect)
       .so: ban =>
@@ -269,15 +277,16 @@ final class PlaybanApi(
             ),
             fetchNewObject = true
           )
-      .dmap(_ | record)
-      .andDo(cleanUserIds.remove(record.userId))
+    _ = cleanUserIds.remove(record.userId)
+  yield newRec | record
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
     update match
       case RageSit.Update.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
         (delta < 0 && record.rageSit.isVeryBad).so:
-          messenger.postPreset(record.userId, sittingAutoPreset).void.andDo {
+          for _ <- messenger.postPreset(record.userId, sittingAutoPreset)
+          yield
             Bus.publish(
               lila.core.mod.AutoWarning(record.userId, sittingAutoPreset.name),
               "autoWarning"
@@ -286,8 +295,6 @@ final class PlaybanApi(
               userApi
                 .byId(record.userId)
                 .flatMapz: user =>
-                  noteApi
-                    .lichessWrite(user, "Closed for ragesit recidive")
-                    .andDo(Bus.publish(lila.core.playban.RageSitClose(user.id), "rageSitClose"))
-          }
+                  for _ <- noteApi.lichessWrite(user, "Closed for ragesit recidive")
+                  yield Bus.publish(lila.core.playban.RageSitClose(user.id), "rageSitClose")
       case _ => funit

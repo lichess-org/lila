@@ -117,18 +117,21 @@ final class ForumPostApi(
   )(using me: Me): Fu[Option[ForumPost]] =
     ForumPost.Reaction(reactionStr).so { reaction =>
       if v then lila.mon.forum.reaction(reaction.key).increment()
-      postRepo.coll
-        .findAndUpdateSimplified[ForumPost](
-          selector = $id(postId) ++ $doc("categId" -> categId, "userId".$ne(me.userId)),
-          update =
-            if v then $addToSet(s"reactions.$reaction" -> me.userId)
-            else $pull(s"reactions.$reaction"          -> me.userId),
-          fetchNewObject = true
-        )
-        .andDo:
-          if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
+      for
+        post <- postRepo.coll
+          .findAndUpdateSimplified[ForumPost](
+            selector = $id(postId) ++ $doc("categId" -> categId, "userId".$ne(me.userId)),
+            update =
+              if v then $addToSet(s"reactions.$reaction" -> me.userId)
+              else $pull(s"reactions.$reaction"          -> me.userId),
+            fetchNewObject = true
+          )
+        _ =
+          if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v
+          then
             scheduler.scheduleOnce(5 minutes):
               react(categId, postId, reaction.key, false)
+      yield post
     }
 
   def views(posts: Seq[ForumPost]): Fu[List[PostView]] =

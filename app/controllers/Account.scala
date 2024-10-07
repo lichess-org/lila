@@ -355,9 +355,10 @@ final class Account(
         lila.mon.user.auth.reopenConfirm("token_fail").increment()
         notFound
       case Some(user) =>
-        (env.report.api.reopenReports(lila.report.Suspect(user)) >>
-          auth.authenticateUser(user, remember = true))
-          .andDo(lila.mon.user.auth.reopenConfirm("success").increment())
+        for
+          _ <- env.report.api.reopenReports(lila.report.Suspect(user))
+          _ <- auth.authenticateUser(user, remember = true)
+        yield lila.mon.user.auth.reopenConfirm("success").increment()
     }
 
   def data = Auth { _ ?=> me ?=>

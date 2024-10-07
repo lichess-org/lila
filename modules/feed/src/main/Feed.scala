@@ -71,10 +71,10 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi)(using Ex
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
   def set(update: Update): Funit =
-    coll.update.one($id(update.id), update, upsert = true).void.andDo(cache.clear())
+    for _ <- coll.update.one($id(update.id), update, upsert = true) yield cache.clear()
 
   def delete(id: ID): Funit =
-    coll.delete.one($id(id)).void.andDo(cache.clear())
+    for _ <- coll.delete.one($id(id)) yield cache.clear()
 
   case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
     def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)
