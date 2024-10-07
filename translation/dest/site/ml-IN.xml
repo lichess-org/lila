@@ -862,5 +862,10 @@
   <string name="onlyTeamMembers">കളികൂട്ടം അംഗംക്കാർ മാത്രം</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
+  <string name="sentEmailWithLink">ഞങ്ങൾ താങ്ങളേ ഒരു കണ്ണിയുള്ള ഇമെയിൽ അയച്ചിട്ടുണ്ട്.</string>
+  <string name="hangOn">കാത്തിരിക്കൂ</string>
+  <string name="abortTheGame">കളി കയ്യൊഴിഞ്ഞ് പോവുക</string>
+  <string name="since">മുതൽ</string>
+  <string name="until">വരേ</string>
   <string name="showMeEverything">എല്ലാം കാണിക്കുക</string>
 </resources>
