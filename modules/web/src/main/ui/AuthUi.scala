@@ -36,7 +36,12 @@ final class AuthUi(helpers: Helpers):
               formFields(form("username"), form("password"), none, register = false),
               form3.submit(trans.site.signIn(), icon = none),
               label(cls := "login-remember")(
-                input(name := "remember", value := "true", tpe := "checkbox", if (isRememberMe) checked else ()),
+                input(
+                  name  := "remember",
+                  value := "true",
+                  tpe   := "checkbox",
+                  if isRememberMe then checked else ()
+                ),
                 trans.site.rememberMe()
               )
             ),
