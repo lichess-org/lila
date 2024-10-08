@@ -48,4 +48,10 @@
   <string name="fideFederations">FIDE federace</string>
   <string name="top10Rating">Rating top 10</string>
   <string name="fidePlayers">FIDE hráči</string>
+  <string name="fidePlayerNotFound">FIDE hráč nenalezen</string>
+  <string name="fideProfile">FIDE profil</string>
+  <string name="federation">Federace</string>
+  <string name="ageThisYear">Věk tento rok</string>
+  <string name="unrated">Nehodnocen</string>
+  <string name="recentTournaments">Nedávné tournamenty</string>
 </resources>
