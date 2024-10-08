@@ -202,7 +202,7 @@ final class ForumPostApi(
   private def diagnosticForUser(user: User): Fu[Option[CategView]] = // CategView with user's topic/post
     for
       categOpt <- categRepo.byId(ForumCateg.diagnosticId)
-      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, user.id.value)
+      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, s"${user.id.value}-problem-report")
       postOpt  <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
     yield for
       post  <- postOpt
