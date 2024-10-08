@@ -20,8 +20,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       upcoming: List[WithLastRound],
       past: Seq[WithLastRound]
   )(using Context) =
+    val reTiered = decreaseTierOfDistantNextRound(active)
     def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
-      val selected = active.filter(_.tour.tierIs(selector))
+      val selected = reTiered.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map:
           card.render(_, live = _.display.hasStarted)
@@ -33,7 +34,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           pageMenu("index"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(trc.liveBroadcasts()), searchForm("")),
-            Granter.opt(_.StudyAdmin).option(adminIndex(active)),
+            Granter.opt(_.StudyAdmin).option(adminIndex(reTiered)),
             nonEmptyTier(_.BEST, "best"),
             nonEmptyTier(_.HIGH, "high"),
             nonEmptyTier(_.NORMAL, "normal"),
@@ -66,6 +67,26 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         st.section(cls := "relay-cards"):
           errored.map: (tr, errors) =>
             card.render(tr.copy(link = tr.display), live = _.display.hasStarted, errors = errors.take(5))
+      )
+
+  private def decreaseTierOfDistantNextRound(active: List[RelayTour.ActiveWithSomeRounds]) =
+    val now = nowInstant.withTimeAtStartOfDay
+    active.map: a =>
+      val tour = a.tour
+      import RelayTour.Tier.*
+      a.copy(
+        tour = tour.copy(
+          tier =
+            for
+              tier   <- tour.tier
+              nextAt <- a.display.startsAtTime
+              days = scalalib.time.daysBetween(now, nextAt)
+            yield
+              if tier == BEST && days > 10 then NORMAL
+              else if tier == BEST && days > 5 then HIGH
+              else if tier == HIGH && days > 5 then NORMAL
+              else tier
+        )
       )
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
@@ -240,6 +261,11 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     private def image(t: RelayTour) = t.image.fold(ui.thumbnail.fallback(cls := "relay-card__image")): id =>
       img(cls := "relay-card__image", src := ui.thumbnail.url(id, _.Size.Small))
 
+    private def truncatedPlayers(t: RelayTour): Option[Frag] =
+      t.info.players.map: players =>
+        span(cls := "relay-card__players"):
+          players.split(',').map(name => span(name.trim))
+
     def render[A <: RelayRound.AndTourAndGroup](
         tr: A,
         live: A => Boolean,
@@ -264,7 +290,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           if errors.nonEmpty
           then ul(cls := "relay-card__errors")(errors.map(li(_)))
-          else tr.tour.info.players.map(span(cls := "relay-card__desc")(_))
+          else truncatedPlayers(tr.tour)
         )
       )
 
@@ -280,7 +306,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
                 span(showDate(date))
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
-          tr.tour.info.players.ifTrue(highTier).map(span(cls := "relay-card__desc")(_))
+          truncatedPlayers(tr.tour)
         )
       )
 
