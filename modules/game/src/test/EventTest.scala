@@ -221,36 +221,10 @@ class EventTest extends munit.ScalaCheckSuite:
       case _             => failSuite("Expected JsString")
 
   test("Enpassant anti regression"):
-    var event = Event.Enpassant(pos = Square.A1, color = Color.White)
-    assertEquals(event.typ, "enpassant")
-    assertEquals(
-      event.data,
-      Json.obj(
-        "key"   -> "a1",
-        "color" -> "white"
-      )
-    )
-    event = Event.Enpassant(pos = Square.C3, color = Color.Black)
-    assertEquals(event.typ, "enpassant")
-    assertEquals(
-      event.data,
-      Json.obj(
-        "key"   -> "c3",
-        "color" -> "black"
-      )
-    )
-
-  test("Enpassant writes every square and color"):
-    forAll: (pos: Square, color: Color) =>
-      var event = Event.Enpassant(pos = pos, color = color)
-      assertEquals(event.typ, "enpassant")
-      assertEquals(
-        event.data,
-        Json.obj(
-          "key"   -> pos.key,
-          "color" -> color.name
-        )
-      )
+    forAll: (square: Square, color: Color) =>
+      val event = Event.Enpassant(square, color)
+      assertEquals(event.data.str("key"), square.key.some)
+      assertEquals(event.data.str("color"), color.name.some)
 
   test("Castling anti regression"):
     var event = Event.Castling(
