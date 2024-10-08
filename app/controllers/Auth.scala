@@ -92,7 +92,7 @@ final class Auth(
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
         val referrer                = get("referrer").filterNot(env.web.referrerRedirect.sillyLoginReferrers)
-        val isRemember = api.rememberForm.bindFromRequest().value | true
+        val isRemember              = api.rememberForm.bindFromRequest().value | true
         bindForm(api.loginForm)(
           err =>
             negotiate(
