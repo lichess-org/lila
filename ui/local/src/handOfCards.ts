@@ -44,9 +44,9 @@ class HandOfCardsImpl {
   container: HTMLElement;
   originX: number;
   originY: number;
-  killAnimation = 0;
+  killAnimationTimer = 0;
   animFrame = 0;
-  animTime = 300;
+  isAnimationReady = false;
   scaleFactor = 1;
   pointerDownTime?: number;
   touchDragShape?: TouchDragShape;
@@ -65,6 +65,7 @@ class HandOfCardsImpl {
     this.events.addListener(document, 'visibilitychange', () => this.placeCards(true));
     this.update();
     setTimeout(this.resize);
+    requestAnimationFrame(() => (this.isAnimationReady = true));
   }
 
   resize: () => void = () => {
@@ -98,6 +99,7 @@ class HandOfCardsImpl {
       if (cd.imageUrl !== img.src) img.src = cd.imageUrl ?? '';
       //card.tabIndex = i--;
       card.className = 'card';
+      //if (firstTime) card.style.transition = 'none';
       cd.classList.forEach(c => card.classList.add(c));
       cards.push(card);
     }
@@ -117,16 +119,16 @@ class HandOfCardsImpl {
       cards.forEach(x => x.remove());
       if (this.container) this.container.remove();
       this.opts.onRemove?.();
-    }, this.animTime);
+    }, 300);
   }
 
   redraw(): void {
     if (this.animFrame === 0) this.animate();
-    clearTimeout(this.killAnimation);
-    this.killAnimation = setTimeout(() => {
+    clearTimeout(this.killAnimationTimer);
+    this.killAnimationTimer = setTimeout(() => {
       cancelAnimationFrame(this.animFrame);
       this.animFrame = 0;
-    }, this.animTime);
+    }, 300);
   }
 
   private createCard(c: CardData) {
@@ -376,7 +378,10 @@ class HandOfCardsImpl {
     return this.opts.center ?? 0.5;
   }
   private get suppressAnimation() {
-    return defined(this.dragCard) && defined(this.pointerDownTime) && Date.now() - this.pointerDownTime > 300;
+    return (
+      !this.isAnimationReady ||
+      (defined(this.dragCard) && defined(this.pointerDownTime) && Date.now() - this.pointerDownTime > 300)
+    );
   }
 }
 
