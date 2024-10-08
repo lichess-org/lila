@@ -69,6 +69,7 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="pickYourTeam">Vyber si tým</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Který tým budeš reprezentovat v této bitvě?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Musíš se připojit k jednomu z těchto týmů!</string>
+  <string name="created">Vytvořeno</string>
   <string name="recentlyPlayed">Nedávno hrané</string>
   <string name="bestResults">Nejlepší výsledky</string>
   <string name="stats">Statistika</string>
