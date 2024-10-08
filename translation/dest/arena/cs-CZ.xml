@@ -84,4 +84,6 @@ Například, umístíte se 3 v turnaji o 100 hráčích tak rank je 3%. Umístí
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Průměrný rank</string>
   <string name="tournamentWinners">Turnajoví vítězové</string>
   <string name="tournamentShields">Turnajové štíty</string>
+  <string name="onlyTitled">Pouze hráči s titulem</string>
+  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Požadovat oficiální titul k připojení se do turnaje</string>
 </resources>
