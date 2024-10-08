@@ -12,7 +12,7 @@ import ScalatagsTemplate.{ *, given }
 final class AuthUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def login(form: Form[?], referrer: Option[String])(using Context) =
+  def login(form: Form[?], referrer: Option[String], isRememberMe: Boolean = true)(using Context) =
     def addReferrer(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
     Page(trans.site.signIn.txt())
       .js(esmInit("bits.login", "login"))
@@ -36,7 +36,7 @@ final class AuthUi(helpers: Helpers):
               formFields(form("username"), form("password"), none, register = false),
               form3.submit(trans.site.signIn(), icon = none),
               label(cls := "login-remember")(
-                input(name := "remember", value := "true", tpe := "checkbox", checked),
+                input(name := "remember", value := "true", tpe := "checkbox", if (isRememberMe) checked else ()),
                 trans.site.rememberMe()
               )
             ),
