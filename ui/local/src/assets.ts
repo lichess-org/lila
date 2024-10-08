@@ -12,8 +12,17 @@ export class Assets {
   async init(): Promise<this> {
     // prefetch stuff here or in service worker install \o/
     await pubsub.after('local.bots.ready');
-    const urls = new Set<string>(Object.values(env.bot.bots).map(b => this.getImageUrl(b.image)));
-    await Promise.all([...urls].map(url => fetch(url)));
+    await Promise.all(
+      [...new Set<string>(Object.values(env.bot.bots).map(b => this.getImageUrl(b.image)))].map(
+        url =>
+          new Promise<void>(resolve => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+          }),
+      ),
+    );
     pubsub.complete('local.images.ready');
     return this;
   }

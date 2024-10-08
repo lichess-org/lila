@@ -64,7 +64,7 @@ export class DevAssets extends Assets {
         this.urls[type].set(key, URL.createObjectURL(new Blob([data.blob], { type: mimeOf(key) })));
       }
     });
-    return this;
+    return super.init();
   }
 
   localKeyNames(type: AssetType): Map<string, string> {
