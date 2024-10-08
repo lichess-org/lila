@@ -3,13 +3,14 @@ import * as co from 'chessops';
 import * as licon from 'common/licon';
 import { domDialog, Dialog } from 'common/dialog';
 import { defined } from 'common';
+import { pubsub } from 'common/pubsub';
 import { domIdToUid, uidToDomId, type BotCtrl } from './botCtrl';
 import { rangeTicks } from './gameView';
 import type { LocalSetup } from './types';
 import { env } from './localEnv';
 
 export function showSetupDialog(botCtrl: BotCtrl, setup: LocalSetup = {}): void {
-  new SetupDialog(botCtrl, setup).show();
+  pubsub.after('local.images.ready').then(() => new SetupDialog(botCtrl, setup).show());
 }
 
 class SetupDialog {

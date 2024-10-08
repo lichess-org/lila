@@ -7,6 +7,7 @@ import { type CardData } from './handOfCards';
 import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { defined } from 'common';
 import { deepFreeze } from 'common/algo';
+import { pubsub } from 'common/pubsub';
 import type { BotInfo, SoundEvent, MoveSource, MoveArgs, MoveResult, LocalSpeed } from './types';
 import { env } from './localEnv';
 
@@ -78,6 +79,7 @@ export class BotCtrl {
     this.serverBots = {};
     localBots.forEach((b: BotInfo) => (this.localBots[b.uid] = deepFreeze(b)));
     serverBots.forEach((b: BotInfo) => (this.serverBots[b.uid] = deepFreeze(b)));
+    pubsub.complete('local.bots.ready');
     return this;
   }
 

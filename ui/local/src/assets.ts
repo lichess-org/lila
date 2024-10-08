@@ -1,5 +1,6 @@
 import { type OpeningBook, makeBookFromPolyglot } from 'bits/polyglot';
 import { defined } from 'common';
+import { pubsub } from 'common/pubsub';
 import { env } from './localEnv';
 
 export type AssetType = 'image' | 'book' | 'sound' | 'net';
@@ -10,6 +11,10 @@ export class Assets {
 
   async init(): Promise<this> {
     // prefetch stuff here or in service worker install \o/
+    await pubsub.after('local.bots.ready');
+    const urls = new Set<string>(Object.values(env.bot.bots).map(b => this.getImageUrl(b.image)));
+    await Promise.all([...urls].map(url => fetch(url)));
+    pubsub.complete('local.images.ready');
     return this;
   }
 
