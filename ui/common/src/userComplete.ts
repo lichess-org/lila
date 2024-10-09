@@ -58,10 +58,10 @@ export function userComplete(opts: UserCompleteOpts): void {
         '"></i>' +
         (o.title
           ? '<span class="utitle"' +
-          (o.title == 'BOT' ? ' data-bot="data-bot" ' : '') +
-          '>' +
-          o.title +
-          '</span>&nbsp;'
+            (o.title == 'BOT' ? ' data-bot="data-bot" ' : '') +
+            '>' +
+            o.title +
+            '</span>&nbsp;'
           : '') +
         o.name +
         (o.flair ? '<img class="uflair" src="' + site.asset.flairSrc(o.flair) + '"/>' : '') +
