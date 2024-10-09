@@ -97,12 +97,10 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       listWithPerf(List(x, y).flatten, perf, _.pri).map: users =>
         ByColor(x, y).map(_.flatMap(id => users.find(_.id == id)))
 
-  def updatePerfs(ups: ByColor[(UserPerfs, UserPerfs)], gamePerfType: PerfType) =
+  def updatePerfs(ups: ByColor[(UserPerfs, UserPerfs)], gamePerfType: PerfType): Funit =
     import lila.memo.CacheApi.invalidate
-    ups.all
-      .map(perfsRepo.updatePerfs)
-      .parallel
-      .andDo(gamePlayers.cache.invalidate(ups.map(_._1.id.some).toPair -> gamePerfType))
+    for _ <- ups.all.map(perfsRepo.updatePerfs).parallelVoid
+    yield gamePlayers.cache.invalidate(ups.map(_._1.id.some).toPair -> gamePerfType)
 
   def withPerfs(u: User): Fu[UserWithPerfs] = perfsRepo.withPerfs(u)
 

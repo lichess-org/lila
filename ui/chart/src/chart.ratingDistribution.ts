@@ -19,7 +19,7 @@ resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
 export async function initModule(data: DistributionData): Promise<void> {
-  $('#rating_distribution_chart').each(function(this: HTMLCanvasElement) {
+  $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
     const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const sum = arraySum(data.freq);
@@ -84,9 +84,10 @@ export async function initModule(data: DistributionData): Promise<void> {
           color: color,
         },
       });
-    if (data.myRating && data.myRating <= maxRating) pushLine('#55bf3b', data.myRating, `${data.i18n.yourRating} (${data.myRating})`);
+    if (data.myRating && data.myRating <= maxRating)
+      pushLine('#55bf3b', data.myRating, `${data.i18n.yourRating} (${data.myRating})`);
     if (data.otherRating && data.otherPlayer) {
-      pushLine('#eeaaee', Math.min(data.otherRating , maxRating), `${data.otherPlayer} (${data.otherRating})`);
+      pushLine('#eeaaee', Math.min(data.otherRating, maxRating), `${data.otherPlayer} (${data.otherRating})`);
     }
     const chartData: ChartData<'line'> = {
       labels: ratings,

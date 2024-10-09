@@ -82,32 +82,27 @@ final class SeekApi(
       .list(100)
 
   def remove(seek: Seek) =
-    coll.delete.one($doc("_id" -> seek.id)).void.andDo(cacheClear())
+    for _ <- coll.delete.one($doc("_id" -> seek.id))
+    yield cacheClear()
 
-  def archive(seek: Seek, gameId: GameId) =
-    val archiveDoc = bsonWriteObjTry[Seek](seek).get ++ $doc(
+  def archive(seek: Seek, gameId: GameId) = for
+    _ <- coll.delete.one($id(seek.id))
+    archiveDoc = bsonWriteObjTry[Seek](seek).get ++ $doc(
       "gameId"     -> gameId,
       "archivedAt" -> nowInstant
     )
-    (coll.delete.one($doc("_id" -> seek.id)).void >>
-      archiveColl.insert.one(archiveDoc)).andDo(cacheClear())
+    _ <- archiveColl.insert.one(archiveDoc)
+  yield cacheClear()
 
   def findArchived(gameId: GameId): Fu[Option[Seek]] =
     archiveColl.find($doc("gameId" -> gameId)).one[Seek]
 
   def removeBy(seekId: String, userId: UserId) =
-    coll.delete
-      .one(
-        $doc(
-          "_id"     -> seekId,
-          "user.id" -> userId
-        )
-      )
-      .void
-      .andDo(cacheClear())
+    for _ <- coll.delete.one($doc("_id" -> seekId, "user.id" -> userId))
+    yield cacheClear()
 
   def removeByUser(user: User) =
-    coll.delete.one($doc("user.id" -> user.id)).void.andDo(cacheClear())
+    for _ <- coll.delete.one($doc("user.id" -> user.id)) yield cacheClear()
 
 private object SeekApi:
 

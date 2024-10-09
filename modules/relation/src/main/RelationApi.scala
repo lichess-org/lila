@@ -116,12 +116,14 @@ final class RelationApi(
           case (Some(Follow), _) => funit
           case (_, Some(Block))  => funit
           case _ =>
-            (repo.follow(u1, u2) >> limitFollow(u1)).andDo {
+            for
+              _ <- repo.follow(u1, u2)
+              _ <- limitFollow(u1)
+            yield
               countFollowingCache.update(u1, prev => (prev + 1).atMost(config.maxFollow.value))
               lila.common.Bus.pub(Propagate(FollowUser(u1, u2)).toFriendsOf(u1))
               Bus.publish(lila.core.relation.Follow(u1, u2), "relation")
               lila.mon.relation.follow.increment()
-            }
         }
       }
     })
@@ -140,7 +142,8 @@ final class RelationApi(
         .flatMap:
           case Nil => repo.drop(u, Follow, nb - config.maxFollow.value)
           case inactiveIds =>
-            repo.unfollowMany(u, inactiveIds).andDo(countFollowingCache.update(u, _ - inactiveIds.size))
+            for _ <- repo.unfollowMany(u, inactiveIds)
+            yield countFollowingCache.update(u, _ - inactiveIds.size)
       }
 
   private def limitBlock(u: UserId) =
@@ -166,25 +169,23 @@ final class RelationApi(
 
   def unfollow(u1: UserId, u2: UserId): Funit =
     (u1 != u2).so(fetchFollows(u1, u2).flatMapz {
-      repo.unfollow(u1, u2).andDo {
+      for _ <- repo.unfollow(u1, u2)
+      yield
         countFollowingCache.update(u1, _ - 1)
         Bus.publish(lila.core.relation.UnFollow(u1, u2), "relation")
         lila.mon.relation.unfollow.increment()
-      }
     })
 
   def unblock(u1: UserId, u2: UserId): Funit =
-    (u1 != u2).so(fetchBlocks(u1, u2).flatMap {
-      if _ then
-        repo.unblock(u1, u2).andDo {
-          Bus.publish(lila.core.relation.UnBlock(u1, u2), "relation")
-          Bus.publish(
-            lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("unblockedBy", u1)),
-            "socketUsers"
-          )
-          lila.mon.relation.unblock.increment()
-        }
-      else funit
+    (u1 != u2).so(fetchBlocks(u1, u2).flatMapz {
+      for _ <- repo.unblock(u1, u2)
+      yield
+        Bus.publish(lila.core.relation.UnBlock(u1, u2), "relation")
+        Bus.publish(
+          lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("unblockedBy", u1)),
+          "socketUsers"
+        )
+        lila.mon.relation.unblock.increment()
     })
 
   def isBlockedByAny(by: Iterable[UserId])(using me: Option[Me]): Fu[Boolean] =

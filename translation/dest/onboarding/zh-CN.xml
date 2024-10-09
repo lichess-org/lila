@@ -13,5 +13,5 @@
   <string name="playInTournaments">参与锦标赛</string>
   <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">从%1$s和%2$s中学习</string>
   <string name="configureLichess">根据您的偏好配置 Lichess</string>
-  <string name="exploreTheSiteAndHaveFun">探索网站，愉快地玩 :)</string>
+  <string name="exploreTheSiteAndHaveFun">探索网站，愉快下棋 :)</string>
 </resources>

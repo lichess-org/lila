@@ -42,7 +42,7 @@ import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
 import { AnaMove } from './study/interfaces';
-import  StudyPracticeCtrl  from './study/practice/studyPracticeCtrl';
+import StudyPracticeCtrl from './study/practice/studyPracticeCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
 import wikiTheory, { wikiClear, WikiTheory } from './wiki';
@@ -755,7 +755,7 @@ export default class AnalyseCtrl {
   startCeval = throttle(800, () => {
     if (this.ceval?.enabled()) {
       if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode());
+        this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
         this.evalCache.fetch(this.path, this.ceval.search.multiPv);
       } else this.ceval.stop();
     }

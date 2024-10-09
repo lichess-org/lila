@@ -667,6 +667,7 @@
   <string name="createdSimuls">புதிதாக உருவாக்கப்பட்ட சரியாக அதே நேரத்தில் நடக்கின்ற விளையாட்டுக்கள்</string>
   <string name="hostANewSimul">புதிய, சரியாக அதே நேரத்தில் நடக்கின்ற விளையாட்டுக்கள் நடத்துங்கள்</string>
   <string name="signUpToHostOrJoinASimul">ஒரு ஹோஸ்டை சேர நீங்கள் உங்களைப் பதிவு செய்யவும் அல்லது சிமுலில் சேரவும்</string>
+  <string name="returnToSimulHomepage">ஒரே முகப்புப்பக்கத்திற்குத் திரும்பு</string>
   <string name="aboutSimulImage">50 போட்டியாளர்களில், பிஷ்ஷர் 47 ஆட்டங்களில் வெற்றி பெற்றார், 2ல் சமநிலை பெற்றார் மற்றும் 1 தோல்வியடைந்தார்.</string>
   <string name="create">உருவாக்கு</string>
   <string name="simulVariantsHint">நீங்கள் பல வகைகளைத் தேர்ந்தெடுத்தால், ஒவ்வொரு வீரரும் எதை விளையாட வேண்டும் என்பதைத் தேர்ந்தெடுக்க வேண்டும்.</string>

@@ -20,10 +20,10 @@ const variantConfirms = {
 
 const storageKey = (key: string) => 'lobby.variant.' + key;
 
-export default function(variant?: string) {
+export default function (variant?: string) {
   return (
     !variant ||
-    Object.keys(variantConfirms).every(function(key: keyof typeof variantConfirms) {
+    Object.keys(variantConfirms).every(function (key: keyof typeof variantConfirms) {
       if (variant === key && !storage.get(storageKey(key))) {
         const c = confirm(variantConfirms[key]);
         if (c) storage.set(storageKey(key), '1');

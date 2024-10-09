@@ -14,7 +14,6 @@
   <string name="fullDescription">Sündmuse täielik kirjeldus</string>
   <string name="fullDescriptionHelp">Valikuline otseülekande kirjeldus. %1$s on saadaval. Pikkus peab olema maksimaalselt %2$s tähemärki.</string>
   <string name="sourceUrlHelp">URL, kust Lichess saab PGN-i värskenduse. See peab olema Internetist kättesaadav.</string>
-  <string name="startDate">Alguskuupäev sinu ajavööndis</string>
   <string name="startDateHelp">Valikuline, kui tead millal sündmus algab</string>
   <string name="credits">Viita allikale</string>
   <string name="currentGameUrl">Praeguse mängu URL</string>

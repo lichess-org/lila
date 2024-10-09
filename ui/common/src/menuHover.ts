@@ -16,7 +16,7 @@ type State = {
   event?: string;
 };
 
-export default function(): void {
+export default function (): void {
   if ('ontouchstart' in window) return;
 
   const interval = 200,
@@ -38,7 +38,7 @@ export default function(): void {
   // event = string representing the namespaced event used for mouse tracking
   let state: State = {};
 
-  $('#topnav.hover').each(function(this: HTMLElement) {
+  $('#topnav.hover').each(function (this: HTMLElement) {
     const $el = $(this).removeClass('hover'),
       handler = () => $el.toggleClass('hover');
 
@@ -63,7 +63,7 @@ export default function(): void {
     };
 
     // A private function for handling mouse 'hovering'
-    const handleHover = function(ev: MouseEvent) {
+    const handleHover = function (ev: MouseEvent) {
       // clear any existing timeout
       if (state.timeoutId) state.timeoutId = clearTimeout(state.timeoutId);
 

@@ -28,7 +28,6 @@
   <string name="sourceSingleUrl">PGN šaltinio URL</string>
   <string name="sourceUrlHelp">URL, į kurį „Lichess“ kreipsis gauti PGN atnaujinimus. Privalo būti viešai pasiekiamas internete.</string>
   <string name="sourceGameIds">Iki 64 Lichess žaidimo ID, atskirtų tarpais.</string>
-  <string name="startDate">Pradžios laikas jūsų laiko juostoje</string>
   <string name="startDateHelp">Neprivaloma; tik jeigu žinote, kada prasideda renginys</string>
   <string name="credits">Paminėkite šaltinį</string>
   <string name="currentGameUrl">Dabartinio žaidimo adresas</string>

@@ -32,7 +32,7 @@ import { pubsub } from 'common/pubsub';
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
-export default async function(
+export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,
   trans: Trans,
@@ -152,17 +152,17 @@ export default async function(
 
   const moveSeriesSet: ChartDataset[] = showTotal
     ? colors.map(color => ({
-      type: 'bar',
-      data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
-      backgroundColor: color,
-      grouped: false,
-      categoryPercentage: 2,
-      barPercentage: 1,
-      order: 2,
-      borderColor: color == 'white' ? '#838383' : '#616161',
-      borderWidth: 1,
-      datalabels: { display: false },
-    }))
+        type: 'bar',
+        data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
+        backgroundColor: color,
+        grouped: false,
+        categoryPercentage: 2,
+        barPercentage: 1,
+        order: 2,
+        borderColor: color == 'white' ? '#838383' : '#616161',
+        borderWidth: 1,
+        datalabels: { display: false },
+      }))
     : lineBuilder(moveSeries, true);
   const divisionLines = division(trans, data.game.division);
   const datasets: ChartDataset[] = [...moveSeriesSet];

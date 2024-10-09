@@ -38,9 +38,9 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的对手已离开棋局。你可以在 %s 秒后宣布胜利。</item>
+    <item quantity="other">您的对手已离开棋局。您可以在 %s 秒后宣布胜利。</item>
   </plurals>
-  <string name="opponentLeftChoices">你的对手可能已离开棋局。你可以宣布胜利，和棋，或继续等待。</string>
+  <string name="opponentLeftChoices">你的对手已离开棋局。你可以宣布胜利、和棋或继续等待。</string>
   <string name="forceResignation">宣布胜利</string>
   <string name="forceDraw">宣布和棋</string>
   <string name="talkInChat">聊天请注意文明用语！</string>

@@ -58,4 +58,3 @@ export interface EndgamePosition {
   fen: string;
   epd?: string;
 }
-

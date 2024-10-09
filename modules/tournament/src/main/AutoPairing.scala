@@ -36,9 +36,9 @@ final class AutoPairing(
       .focus(_.metadata.tournamentId)
       .replace(tour.id.some)
       .start
-    gameRepo
-      .insertDenormalized(game)
-      .andDo {
+    for
+      _ <- gameRepo.insertDenormalized(game)
+      _ =
         onStart(game.id)
         import lila.rating.intZero
         duelStore.add(
@@ -48,8 +48,7 @@ final class AutoPairing(
           p2 = usernameOf(pairing.player2) -> ~game.blackPlayer.rating,
           ranking = ranking
         )
-      }
-      .inject(game)
+    yield game
 
   private def makePlayer(color: Color, player: Player) =
     newPlayer(color, player.userId, player.rating, player.provisional)

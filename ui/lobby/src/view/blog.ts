@@ -1,4 +1,3 @@
-
 let blogRotateTimer: number | undefined = undefined;
 
 export function rotateBlogs() {

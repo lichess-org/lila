@@ -6,11 +6,11 @@ import { VNode } from 'snabbdom';
 import type * as studyDeps from './study/studyDeps';
 import { trans } from 'common/i18n';
 
-export default function(
+export default function (
   patch: (oldVnode: VNode | Element | DocumentFragment, vnode: VNode) => VNode,
   deps?: typeof studyDeps,
 ) {
-  return function(opts: AnalyseOpts): AnalyseApi {
+  return function (opts: AnalyseOpts): AnalyseApi {
     opts.element = document.querySelector('main.analyse') as HTMLElement;
     opts.trans = trans(opts.i18n);
 

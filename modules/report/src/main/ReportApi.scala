@@ -288,9 +288,10 @@ final class ReportApi(
       "room".$in(rooms),
       "open" -> true
     )
-    doProcessReport(selector, unsetInquiry = true).void
-      .andDo(maxScoreCache.invalidateUnit())
-      .andDo(lila.mon.mod.report.close.increment())
+    for _ <- doProcessReport(selector, unsetInquiry = true)
+    yield
+      maxScoreCache.invalidateUnit()
+      lila.mon.mod.report.close.increment()
 
   private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: MyId): Funit =
     coll.update

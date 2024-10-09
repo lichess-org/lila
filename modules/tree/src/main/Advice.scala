@@ -77,11 +77,11 @@ private[tree] case object MateLost
     )
 
 private[tree] object MateSequence:
-  def apply(prev: Option[Mate], next: Option[Mate]): Option[MateSequence] =
+  def apply(prev: Score, next: Score): Option[MateSequence] =
     (prev, next).some.collect {
-      case (None, Some(n)) if n.negative                  => MateCreated
-      case (Some(p), None) if p.positive                  => MateLost
-      case (Some(p), Some(n)) if p.positive && n.negative => MateLost
+      case (Score.Cp(_), Score.Mate(n)) if n.negative                 => MateCreated
+      case (Score.Mate(p), Score.Cp(_)) if p.positive                 => MateLost
+      case (Score.Mate(p), Score.Mate(n)) if p.positive && n.negative => MateLost
     }
 private[tree] case class MateAdvice(
     sequence: MateSequence,
@@ -93,19 +93,20 @@ private[tree] case class MateAdvice(
 private[tree] object MateAdvice:
 
   def apply(prev: Info, info: Info): Option[MateAdvice] =
-    def invertCp(cp: Cp)       = cp.invertIf(info.color.black)
-    def invertMate(mate: Mate) = mate.invertIf(info.color.black)
-    def prevCp                 = prev.cp.map(invertCp).so(_.centipawns)
-    def nextCp                 = info.cp.map(invertCp).so(_.centipawns)
-    MateSequence(prev.mate.map(invertMate), info.mate.map(invertMate)).flatMap { sequence =>
-      import Advice.Judgement.*
-      val judgment: Option[Advice.Judgement] = sequence match
-        case MateCreated if prevCp < -999 => Option(Inaccuracy)
-        case MateCreated if prevCp < -700 => Option(Mistake)
-        case MateCreated                  => Option(Blunder)
-        case MateLost if nextCp > 999     => Option(Inaccuracy)
-        case MateLost if nextCp > 700     => Option(Mistake)
-        case MateLost                     => Option(Blunder)
-        case MateDelayed                  => None
-      judgment.map { MateAdvice(sequence, _, info, prev) }
-    }
+    for
+      prevScore <- prev.eval.score
+      score     <- info.eval.score
+      prevPovScore    = prevScore.invertIf(info.color.black)
+      povScore        = score.invertIf(info.color.black)
+      prevPovCpOrZero = prevPovScore.cp.so(_.centipawns)
+      povCpOrZero     = povScore.cp.so(_.centipawns)
+      sequence <- MateSequence(prevPovScore, povScore)
+      judgement <- sequence match
+        case MateCreated if prevPovCpOrZero < -999 => Some(Advice.Judgement.Inaccuracy)
+        case MateCreated if prevPovCpOrZero < -700 => Some(Advice.Judgement.Mistake)
+        case MateCreated                           => Some(Advice.Judgement.Blunder)
+        case MateLost if povCpOrZero > 999         => Some(Advice.Judgement.Inaccuracy)
+        case MateLost if povCpOrZero > 700         => Some(Advice.Judgement.Mistake)
+        case MateLost                              => Some(Advice.Judgement.Blunder)
+        case MateDelayed                           => None
+    yield MateAdvice(sequence, judgement, info, prev)

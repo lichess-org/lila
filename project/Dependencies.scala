@@ -20,12 +20,12 @@ object Dependencies {
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.27.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.28.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.4.0.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.113.Final").classifier(s"$os-$arch")
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.114.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.1"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.2" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.18.0"
@@ -91,7 +91,7 @@ object Dependencies {
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
     val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
-    val mailer      = "org.playframework" %% "play-mailer"       % "10.0.0"
+    val mailer      = "org.playframework" %% "play-mailer"       % "10.0.1"
   }
 
   object playWs {
@@ -102,14 +102,14 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.7.3"
+    val version    = "2.7.4"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.20"
+    val version    = "2.6.21"
     val actor      = "com.typesafe.akka" %% "akka-actor"       % version
     val actorTyped = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version

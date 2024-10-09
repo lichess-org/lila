@@ -7,6 +7,7 @@
     <item quantity="other">%s udsendelser</item>
   </plurals>
   <string name="liveBroadcasts">Live turnerings-udsendelser</string>
+  <string name="broadcastCalendar">Kaldender for udsendelser</string>
   <string name="newBroadcast">Ny live-udsendelse</string>
   <string name="subscribedBroadcasts">Udsendelser, du abonnerer på</string>
   <string name="aboutBroadcasts">Om udsendelse</string>
@@ -26,7 +27,7 @@
   <string name="sourceSingleUrl">URL for PGN-kilde</string>
   <string name="sourceUrlHelp">URL som Lichess vil trække på for at få PGN updates. Den skal være offentlig tilgængelig fra internettet.</string>
   <string name="sourceGameIds">Op til 64 Lichess parti-ID\'er, adskilt af mellemrum.</string>
-  <string name="startDate">Startdato i din egen tidszone</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Startdato i turneringens lokale tidszone: %s</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>
   <string name="credits">Krediter kilden</string>
   <string name="currentGameUrl">Nuværende parti URL</string>

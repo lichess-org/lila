@@ -94,7 +94,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     def store(image: PicfitImage, part: SourcePart): Funit =
       ws
         .url(s"${config.endpointPost}/upload")
-        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: List()))(using
+        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: Nil))(using
           WSBodyWritables.bodyWritable
         )
         .flatMap:

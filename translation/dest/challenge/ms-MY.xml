@@ -21,4 +21,5 @@
   <string name="declineVariant">Saya tidak ingin bermain variasi ini sekarang.</string>
   <string name="declineNoBot">Saya tidak menerima cabaran daripada bot.</string>
   <string name="declineOnlyBot">Saya hanya menerima cabaran daripada bot.</string>
+  <string name="inviteLichessUser">Akan muncul apabila menekan butang \'bermain dengan rakan\'. Pilihan ini membolehkan anda mencipta cabaran dalam Lichess, atau dalam kata erti lain untuk menghantar URL kepada pemain:</string>
 </resources>

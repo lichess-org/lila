@@ -117,41 +117,30 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
           "sri"  -> sri
         )
       .void
+
   def delete(sessionId: String): Funit =
-    coll.update
-      .one(
-        $id(sessionId),
-        $set("up" -> false)
-      )
-      .void
-      .andDo(uncache(sessionId))
+    for _ <- coll.update.one($id(sessionId), $set("up" -> false))
+    yield uncache(sessionId)
 
   def closeUserAndSessionId(userId: UserId, sessionId: String): Funit =
-    coll.update
-      .one(
-        $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
-        $set("up"   -> false)
-      )
-      .void
-      .andDo(uncache(sessionId))
+    for _ <- coll.update.one($doc("user" -> userId, "_id" -> sessionId, "up" -> true), $set("up" -> false))
+    yield uncache(sessionId)
 
   def closeUserExceptSessionId(userId: UserId, sessionId: String): Funit =
-    coll.update
-      .one(
+    for _ <- coll.update.one(
         $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
         $set("up"   -> false),
         multi = true
       )
-      .void >> uncacheAllOf(userId)
+    yield uncacheAllOf(userId)
 
   def closeAllSessionsOf(userId: UserId): Funit =
-    coll.update
-      .one(
+    for _ <- coll.update.one(
         $doc("user" -> userId, "up" -> true),
         $set("up"   -> false),
         multi = true
       )
-      .void >> uncacheAllOf(userId)
+    yield uncacheAllOf(userId)
 
   private given BSONDocumentHandler[UserSession] = Macros.handler[UserSession]
   def openSessions(userId: UserId, nb: Int): Fu[List[UserSession]] =
@@ -171,14 +160,12 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
     lila.security.FingerHash.from(fp) match
       case None => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
-        coll
-          .updateField($id(id), "fp", hash)
-          .andDo {
-            authInfo(id).foreach:
-              _.foreach: i =>
-                authCache.put(id, fuccess(i.copy(hasFp = true).some))
-          }
-          .inject(hash)
+        for
+          _ <- coll.updateField($id(id), "fp", hash)
+          _ = authInfo(id).foreach:
+            _.foreach: i =>
+              authCache.put(id, fuccess(i.copy(hasFp = true).some))
+        yield hash
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
     coll

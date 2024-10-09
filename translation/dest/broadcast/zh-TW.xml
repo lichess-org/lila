@@ -25,7 +25,6 @@
   <string name="sourceSingleUrl">PGN 來源網址</string>
   <string name="sourceUrlHelp">Lichess 將以該網址更新PGN數據，網址必須公開</string>
   <string name="sourceGameIds">最多 64 個以空格分開的 Lichess 棋局序號。</string>
-  <string name="startDate">您的當地時間的開始日期</string>
   <string name="startDateHelp">可選，如果知道比賽開始時間</string>
   <string name="credits">提及來源</string>
   <string name="currentGameUrl">目前棋局連結</string>

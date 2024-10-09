@@ -75,13 +75,11 @@ final class StreamerApi(
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
     val streamer = data(prev, asMod)
-    coll.update
-      .one($id(streamer.id), streamer)
-      .andDo {
-        cache.listedIds.invalidateUnit()
-        streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
-      }
-      .inject(modChange(prev, streamer))
+    for
+      _ <- coll.update.one($id(streamer.id), streamer)
+      _ = cache.listedIds.invalidateUnit()
+      _ = streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
+    yield modChange(prev, streamer)
 
   def forceCheck(uid: UserId): Funit =
     byId(uid.into(Streamer.Id)).map:

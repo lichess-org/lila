@@ -5,6 +5,8 @@
   <string name="standardChessAndX" comment="%s is 8 variants">Scacchi standard e %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">Profonda %s analisi del server</string>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor e scacchiera di analisi con %s</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; telefoni e tablet Android, supporto orizzontale</string>
+  <string name="supportLichess">Sostieni Lichess</string>
   <string name="ifYouLoveLichess">Se ami Lichess,</string>
   <string name="supportUsWithAPatronAccount">Supportaci con un account Patron!</string>
 </resources>

@@ -9,6 +9,7 @@
     <item quantity="other">%s vysielaní</item>
   </plurals>
   <string name="liveBroadcasts">Živé vysielanie turnaja</string>
+  <string name="broadcastCalendar">Kalendár vysielaní</string>
   <string name="newBroadcast">Nové živé vysielanie</string>
   <string name="subscribedBroadcasts">Odoberané vysielania</string>
   <string name="aboutBroadcasts">O vysielaní</string>
@@ -28,7 +29,7 @@
   <string name="sourceSingleUrl">Zdrojová URL pre PGN súbor</string>
   <string name="sourceUrlHelp">URL, ktorú bude Lichess kontrolovať, aby získal aktualizácie PGN. Musí byť verejne prístupná z internetu.</string>
   <string name="sourceGameIds">Až do 64 identifikátorov Lichess partií oddelených medzerami.</string>
-  <string name="startDate">Dátum a čas začiatku, vo vašej časovej zóne</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Dátum začiatku v miestnej časovej zóne turnaja: %s</string>
   <string name="startDateHelp">Voliteľné, ak viete kedy sa udalosť začne</string>
   <string name="credits">Uveďte zdroj</string>
   <string name="currentGameUrl">Adresa URL aktuálnej partie</string>

@@ -6,8 +6,13 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.net.Crawler
 import lila.opening.OpeningQuery.queryFromUrl
+import lila.opening.OpeningAccessControl
 
 final class Opening(env: Env) extends LilaController(env):
+
+  private given (using RequestHeader, Option[Me]): OpeningAccessControl =
+    given lila.core.config.RateLimit = env.net.rateLimit
+    OpeningAccessControl(env.security.ip2proxy, limit.openingStatsProxy)
 
   def index(q: Option[String] = None) = Open:
     val searchQuery = ~q
@@ -72,10 +77,10 @@ final class Opening(env: Env) extends LilaController(env):
         bindForm(lila.opening.OpeningWiki.form)(
           _ => redirect,
           text =>
-            env.opening.wiki
-              .write(op, text, me.userId)
-              .andDo(env.irc.api.openingEdit(me.light, key, moves))
-              .inject(redirect)
+            for _ <- env.opening.wiki.write(op, text, me.userId)
+            yield
+              env.irc.api.openingEdit(me.light, key, moves)
+              redirect
         )
   }
 

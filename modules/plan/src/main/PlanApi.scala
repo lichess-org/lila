@@ -252,40 +252,39 @@ final class PlanApi(
             money = money,
             usd = usd
           )
-          (addCharge(charge, ipn.country) >>
-            (ipn.userId.so(userApi.byId))).flatMapz { user =>
+          (addCharge(charge, ipn.country) >> ipn.userId.so(userApi.byId)).flatMapz { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
               case None =>
-                val payPal =
-                  Patron.PayPalLegacy(
-                    ipn.email,
-                    ipn.subId,
-                    nowInstant
-                  )
-                (userPatron(user).flatMap {
-                  case None =>
-                    mongo.patron.insert.one(
-                      Patron(
-                        _id = user.id,
-                        payPal = payPal.some,
-                        lastLevelUp = Some(nowInstant)
-                      ).expireInOneMonth
-                    ) >>
-                      setDbUserPlanOnCharge(user, levelUp = false)
-                  case Some(patron) =>
-                    val p2 = patron
-                      .copy(
-                        payPal = payPal.some,
-                        free = none
-                      )
-                      .levelUpIfPossible
-                      .expireInOneMonth
-                    mongo.patron.update.one($id(patron.id), p2) >>
-                      setDbUserPlanOnCharge(user, patron.canLevelUp)
-                } >> {
-                  isLifetime.so(setLifetime(user))
-                }).andDo(logger.info(s"Charged ${user.username} with paypal: $money"))
+                val payPal = Patron.PayPalLegacy(ipn.email, ipn.subId, nowInstant)
+                for
+                  patron <- userPatron(user)
+                  _ <- patron match
+                    case None =>
+                      for
+                        _ <- mongo.patron.insert.one(
+                          Patron(
+                            _id = user.id,
+                            payPal = payPal.some,
+                            lastLevelUp = Some(nowInstant)
+                          ).expireInOneMonth
+                        )
+                        _ <- setDbUserPlanOnCharge(user, levelUp = false)
+                      yield ()
+                    case Some(patron) =>
+                      val p2 = patron
+                        .copy(
+                          payPal = payPal.some,
+                          free = none
+                        )
+                        .levelUpIfPossible
+                        .expireInOneMonth
+                      for
+                        _ <- mongo.patron.update.one($id(patron.id), p2)
+                        _ <- setDbUserPlanOnCharge(user, patron.canLevelUp)
+                      yield ()
+                  _ <- isLifetime.so(setLifetime(user))
+                yield logger.info(s"Charged ${user.username} with paypal: $money")
           }
     yield ()
 
@@ -325,35 +324,39 @@ final class PlanApi(
             money = money,
             usd = usd
           )
-          (addCharge(charge, order.country) >>
-            (order.userId.so(userApi.byId))).flatMapz { user =>
+          (addCharge(charge, order.country) >> order.userId.so(userApi.byId)).flatMapz { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
               case None =>
                 def newPayPalCheckout = Patron.PayPalCheckout(order.id, order.payer.id, none)
-                (userPatron(user).flatMap {
-                  case None =>
-                    mongo.patron.insert.one(
-                      Patron(
-                        _id = user.id,
-                        payPalCheckout = newPayPalCheckout.some,
-                        lastLevelUp = Some(nowInstant)
-                      ).expireInOneMonth
-                    ) >>
-                      setDbUserPlanOnCharge(user, levelUp = false)
-                  case Some(patron) =>
-                    val p2 = patron
-                      .copy(
-                        payPalCheckout = patron.payPalCheckout.orElse(newPayPalCheckout.some),
-                        free = none
-                      )
-                      .levelUpIfPossible
-                      .expireInOneMonth
-                    mongo.patron.update.one($id(patron.id), p2) >>
-                      setDbUserPlanOnCharge(user, patron.canLevelUp)
-                } >> {
-                  isLifetime.so(setLifetime(user))
-                }).andDo(logger.info(s"Charged ${user.username} with paypal: $money"))
+                for
+                  patron <- userPatron(user)
+                  _ <- patron match
+                    case None =>
+                      for
+                        _ <- mongo.patron.insert.one(
+                          Patron(
+                            _id = user.id,
+                            payPalCheckout = newPayPalCheckout.some,
+                            lastLevelUp = Some(nowInstant)
+                          ).expireInOneMonth
+                        )
+                        _ <- setDbUserPlanOnCharge(user, levelUp = false)
+                      yield ()
+                    case Some(patron) =>
+                      val p2 = patron
+                        .copy(
+                          payPalCheckout = patron.payPalCheckout.orElse(newPayPalCheckout.some),
+                          free = none
+                        )
+                        .levelUpIfPossible
+                        .expireInOneMonth
+                      for
+                        _ <- mongo.patron.update.one($id(patron.id), p2)
+                        _ <- setDbUserPlanOnCharge(user, patron.canLevelUp)
+                      yield ()
+                  _ <- isLifetime.so(setLifetime(user))
+                yield logger.info(s"Charged ${user.username} with paypal: $money")
           }
     yield ()
 
@@ -671,7 +674,7 @@ final class PlanApi(
         .void
 
   private def setDbUserPlan(user: User): Funit =
-    userApi.setPlan(user, user.plan.some).andDo(lightUserApi.invalidate(user.id))
+    for _ <- userApi.setPlan(user, user.plan.some) yield lightUserApi.invalidate(user.id)
 
   def userPatron(user: User): Fu[Option[Patron]] = mongo.patron.one[Patron]($id(user.id))
 

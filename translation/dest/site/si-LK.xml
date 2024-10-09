@@ -93,7 +93,6 @@
     <item quantity="one">ඇදීම් %sකින් චෙක්මේට්</item>
     <item quantity="other">ඇදීම් වාර %sකින් චෙක්මේට්</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
   <string name="maxDepthReached">උපරිම ගැඹුරට ළඟා විය!
 යතුර: maxDepthReached

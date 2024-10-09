@@ -39,18 +39,18 @@ final class UblogApi(
   yield post
 
   private def onFirstPublish(author: User, blog: UblogBlog, post: UblogPost): Funit =
-    rank
-      .computeRank(blog, post)
-      .so: rank =>
-        colls.post.updateField($id(post.id), "rank", rank).void
-      .andDo:
-        lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-        if blog.visible then
-          lila.common.Bus.pub:
-            tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
-              .toFollowersOf(post.created.by)
-          shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
-          if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
+    for _ <- rank
+        .computeRank(blog, post)
+        .so: rank =>
+          colls.post.updateField($id(post.id), "rank", rank).void
+    yield
+      lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+      if blog.visible then
+        lila.common.Bus.pub:
+          tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
+            .toFollowersOf(post.created.by)
+        shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
+        if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
     getBlog(UblogBlog.Id.User(user.id)).getOrElse(

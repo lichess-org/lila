@@ -17,11 +17,9 @@
   }
 
   .checkable {
-    padding: 4.3px 2px 4.3px 0;
-  }
-
-  .checkable {
     @extend %nowrap-ellipsis;
+
+    padding: 4.3px 2px 4.3px 0;
 
     label,
     input {

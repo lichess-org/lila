@@ -209,10 +209,16 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
     coll(_.primitiveOne[Bdoc]($id(id), "members"))
 
   def setMembersDoc(ids: Seq[StudyId], members: Bdoc): Funit =
-    coll(_.update.one($inIds(ids), $set("members" -> members), multi = true)).void
-
-  def uids(studyId: StudyId): Fu[Set[UserId]] =
-    coll(_.primitiveOne[Set[UserId]]($id(studyId), F.uids)).dmap(~_)
+    coll(
+      _.update.one(
+        $inIds(ids),
+        $set(
+          "members" -> members,
+          "uids"    -> members.toMap.keys
+        ),
+        multi = true
+      )
+    ).void
 
   private val idNameProjection = $doc("name" -> true)
 
@@ -272,13 +278,13 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
             // but values should be approximately correct, match a real like
             // count (though perhaps not the latest one), and any uncontended
             // query will set the precisely correct value.
-            c.update
-              .one(
+            for
+              _ <- c.update.one(
                 $id(studyId),
                 $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
               )
-              .inject(likes)
-              .andDo(updateNow(studyId))
+              _ = updateNow(studyId)
+            yield likes
       }
 
   def liked(study: Study, user: User): Fu[Boolean] =

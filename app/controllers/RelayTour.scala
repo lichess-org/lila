@@ -6,7 +6,7 @@ import scalalib.Json.given
 import lila.app.{ *, given }
 import lila.core.id.RelayTourId
 import lila.core.net.IpAddress
-import lila.relay.{ JsonView, RelayTour as TourModel }
+import lila.relay.{ JsonView, RelayCalendar, RelayTour as TourModel }
 import lila.relay.ui.FormNavigation
 
 final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends LilaController(env):
@@ -28,10 +28,19 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
         case None =>
           for
             (active, upcoming, past) <- env.relay.top(page)
-            res                      <- Ok.async(views.relay.tour.index(active, upcoming, past))
+            res <- Ok.async(views.relay.tour.index(active, upcoming, past.currentPageResults))
           yield res
 
-  def calendar = page("broadcast-calendar", "calendar")
+  def calendarMonth(year: Int, month: Int) = Open:
+    env.relay.calendar
+      .readMonth(year, month)
+      .so: at =>
+        for
+          tours <- env.relay.calendar.atMonth(at)
+          page  <- Ok.async(views.relay.tour.calendar(at, tours))
+        yield page
+
+  def calendar = calendarMonth(RelayCalendar.now().getYear, RelayCalendar.now().getMonth.getValue)
   def help     = page("broadcasts", "help")
   def app      = page("broadcaster-app", "app")
 

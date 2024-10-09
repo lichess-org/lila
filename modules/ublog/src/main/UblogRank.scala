@@ -125,19 +125,19 @@ final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materialize
               // but values should be approximately correct, match a real like
               // count (though perhaps not the latest one), and any uncontended
               // query will set the precisely correct value.
-              colls.post.update
-                .one(
-                  $id(postId),
-                  $set(
-                    "likes" -> likes,
-                    "rank"  -> UblogRank.computeRank(likes, liveAt, language, tier, hasImage, adjust)
+              for
+                _ <- colls.post.update
+                  .one(
+                    $id(postId),
+                    $set(
+                      "likes" -> likes,
+                      "rank"  -> UblogRank.computeRank(likes, liveAt, language, tier, hasImage, adjust)
+                    )
                   )
-                )
-                .andDo {
+                _ =
                   if res.nModified > 0 && v && tier >= Tier.LOW
                   then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
-                }
-                .inject(likes)
+              yield likes
 
   def recomputePostRank(post: UblogPost): Funit =
     recomputeRankOfAllPostsOfBlog(post.blog, post.id.some)

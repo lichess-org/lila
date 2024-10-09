@@ -81,10 +81,14 @@
       font-size: 1.4em;
     }
   }
-  &__desc {
-    @extend %roboto;
-    @include line-clamp(2);
+  &__players {
+    @extend %roboto, %flex-center;
     color: $c-font-dim;
+    overflow: hidden;
+    height: 1.2em;
+    span:not(:first-child)::before {
+      content: ', ';
+    }
   }
   &__errors {
     @extend %break-word, %nowrap-ellipsis;
