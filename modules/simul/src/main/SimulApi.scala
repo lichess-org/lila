@@ -287,8 +287,9 @@ final class SimulApi(
             val dirty: List[(GameId, Status, Option[UserId])] = simul.ongoingGameIds.flatMap: gameId =>
               games.find(_.id == gameId) match
                 case None => (gameId, Status.UnknownFinish, none).some // the game is not in DB!!
-                case Some(g) if g.finished => (gameId, g.status, g.winnerUserId).some // DB game is finished
-                case _                     => none
+                case Some(g) if g.status >= Status.Aborted =>
+                  (gameId, g.status, g.winnerUserId).some // DB game is finished
+                case _ => none
             dirty.sequentiallyVoid: (id, status, winner) =>
               logger.info(s"Simul ${simul.id} game $id is dirty, finishing with $status")
               finishGame(simul.id, id, status, winner)
