@@ -9,7 +9,8 @@ export default function wikiTheory(data: OpeningPage): void {
 
 async function fetchAndRender(data: OpeningPage, render: (html: string) => void) {
   const wikiBooksUrl = 'https://en.wikibooks.org';
-  const apiArgs = 'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200';
+  const apiArgs =
+    'redirects&origin=*&action=query&prop=extracts&formatversion=2&format=json&exchars=1200&stable=1';
 
   const removeH1 = (html: string) => html.replace(/<h1>.+<\/h1>/g, '');
   const removeEmptyParagraph = (html: string) => html.replace(/<p>(<br \/>|\s)*<\/p>/g, '');
