@@ -98,4 +98,5 @@ final class EntryApi(
               mostRecentBc +: interleaved.filter(mostRecentBc !=)
             else interleaved
 
-    def insert(atom: Atom): Funit = coll.insert.one(Entry.make(atom)).void.andDo(cache.invalidateUnit())
+    def insert(atom: Atom): Funit =
+      for _ <- coll.insert.one(Entry.make(atom)) yield cache.invalidateUnit()

@@ -112,7 +112,7 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['dates', dates && showDates(dates), 'objects.spiral-calendar'],
     ['format', i.format, 'objects.crown'],
     ['tc', i.tc, 'objects.mantelpiece-clock'],
-    ['location', i.location, 'travel-places.world-map'],
+    ['location', i.location, 'travel-places.globe-showing-europe-africa'],
     ['players', i.players, 'activity.sparkles'],
     ['website', i.website, null, 'Official website'],
     ['standings', i.standings, null, 'Standings'],

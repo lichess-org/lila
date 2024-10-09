@@ -13,6 +13,8 @@ import lila.core.team.LightTeam
 
 object SimulForm:
 
+  type EitherForm = Either[Form[SimulForm.LockedSetup], Form[SimulForm.Setup]]
+
   val clockTimeChoices = options((5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20), "%d minute{s}")
   val clockTimeDefault = LimitMinutes(20)
 
@@ -70,23 +72,29 @@ object SimulForm:
       )
     )
 
-  def edit(teams: List[LightTeam], simul: Simul)(using Me) =
-    baseForm(teams).fill(
-      Setup(
-        name = simul.name,
-        clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
-        clockIncrement = simul.clock.config.incrementSeconds,
-        clockExtra = simul.clock.hostExtraMinutes,
-        clockExtraPerPlayer = simul.clock.hostExtraTimePerPlayer,
-        variants = simul.variants.map(_.id),
-        position = simul.position,
-        color = simul.color | "random",
-        text = simul.text,
-        estimatedStartAt = simul.estimatedStartAt,
-        featured = simul.featurable,
-        conditions = simul.conditions
-      )
-    )
+  def edit(teams: List[LightTeam], simul: Simul)(using Me): EitherForm =
+    if simul.isCreated
+    then
+      Right:
+        baseForm(teams).fill(
+          Setup(
+            name = simul.name,
+            clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
+            clockIncrement = simul.clock.config.incrementSeconds,
+            clockExtra = simul.clock.hostExtraMinutes,
+            clockExtraPerPlayer = simul.clock.hostExtraTimePerPlayer,
+            variants = simul.variants.map(_.id),
+            position = simul.position,
+            color = simul.color | "random",
+            text = simul.text,
+            estimatedStartAt = simul.estimatedStartAt,
+            featured = simul.featurable,
+            conditions = simul.conditions
+          )
+        )
+    else
+      Left:
+        lockedForm(simul).fill(LockedSetup(simul.name, simul.text))
 
   private def baseForm(teams: List[LightTeam])(using host: Me) =
     Form(
@@ -135,3 +143,11 @@ object SimulForm:
     def actualVariants = variants.flatMap { Variant(_) }
 
     def realPosition = position.filterNot(_.isInitial)
+
+  def lockedForm(simul: Simul)(using Me) = Form:
+    mapping(
+      "name" -> nameType,
+      "text" -> cleanText
+    )(LockedSetup.apply)(unapply)
+
+  case class LockedSetup(name: String, text: String)

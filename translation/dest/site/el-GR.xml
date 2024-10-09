@@ -103,7 +103,7 @@
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
   <string name="openingEndgameExplorer">Εξερευνητής ανοιγμάτων/φινάλε</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Κλειδί: παίξτε ΠρώταΆνοιγμαΦινάλεΕξερευνητήςΚίνηση</string>
+  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">Κλειδί: παίξτε ΠρώταΆνοιγμαΦινάλεΕξερευνητήςΚίνηση</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
   <string name="winOr50MovesByPriorMistake">Νίκη ή ισοπαλία από 50 κινήσεις λόγω λάθους</string>
@@ -693,14 +693,14 @@
   <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το τουρνουά</string>
   <string name="averageCentipawnLoss">Μέση απώλεια εκατοστοπιονιού</string>
   <string name="accuracy">Ακρίβεια</string>
-  <string name="keyboardShortcuts">Συντομεύσεις πληκτρολογίου</string>
+  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Συντομεύσεις πληκτρολογίου</string>
   <string name="keyMoveBackwardOrForward">μετακίνηση προς τα πίσω / προς τα εμπρός</string>
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
   <string name="keyCycleSelectedVariation">Επανάληψη επιλεγμένης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
-  <string name="keyRequestComputerAnalysis">Ζητήστε ανάλυση της θέσης από υπολογιστή, Μάθετε από τα λάθη σας</string>
-  <string name="keyNextLearnFromYourMistakes">Συνέχεια (Μάθετε από τα λάθη σας)</string>
+  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Ζητήστε ανάλυση της θέσης από υπολογιστή, Μάθετε από τα λάθη σας</string>
+  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">Συνέχεια (Μάθετε από τα λάθη σας)</string>
   <string name="keyNextBlunder">Επόμενο σοβαρό σφάλμα</string>
   <string name="keyNextMistake">Επόμενο λάθος</string>
   <string name="keyNextInaccuracy">Επόμενη ανακρίβεια</string>
@@ -972,7 +972,7 @@
   <string name="playComputerMove">Παίξτε την καλύτερη κίνηση που προτείνει ο υπολογιστής</string>
   <string name="analysisOptions">Ρυθμίσεις ανάλυσης</string>
   <string name="focusChat">Εστίαση στο chat</string>
-  <string name="showHelpDialog">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
   <string name="reopenYourAccount">Ξανανοίξτε τον λογαριασμό σας</string>
   <string name="closedAccountChangedMind">Αν κλείσατε το λογαριασμό σας, αλλά έχετε αλλάξει γνώμη, μπορείτε να τον ξανανοίξετε.</string>
   <string name="onlyWorksOnce">Αυτό θα λειτουργήσει μόνο μία φορά.</string>

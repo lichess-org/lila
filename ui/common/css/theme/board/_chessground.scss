@@ -173,15 +173,12 @@ cg-auto-pieces {
 
 cg-container .cg-shapes {
   opacity: 0.6;
+  overflow: hidden;
   z-index: $z-cg__svg_cg-shapes-2;
 }
 
 cg-container .cg-custom-svgs {
   z-index: $z-cg__svg_cg-custom-svgs-4;
-}
-
-cg-container .cg-shapes {
-  overflow: hidden;
 }
 
 cg-container .cg-custom-svgs svg {

@@ -755,7 +755,7 @@ export default class AnalyseCtrl {
   startCeval = throttle(800, () => {
     if (this.ceval?.enabled()) {
       if (this.canUseCeval()) {
-        this.ceval.start(this.path, this.nodeList, this.threatMode());
+        this.ceval.start(this.path, this.nodeList, undefined, this.threatMode());
         this.evalCache.fetch(this.path, this.ceval.search.multiPv);
       } else this.ceval.stop();
     }

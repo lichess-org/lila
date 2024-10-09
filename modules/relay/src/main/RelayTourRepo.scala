@@ -111,7 +111,7 @@ private object RelayTourRepo:
     val officialInactive        = officialPublic ++ inactive
     def inMonth(at: YearMonth) =
       val date = java.time.LocalDate.of(at.getYear, at.getMonth, 1)
-      $doc("dates.start" -> $doc("$gte" -> date), "dates.end" -> $doc("$lt" -> date.plusMonths(1)))
+      $doc("dates.start" -> $doc("$lte" -> date.plusMonths(1)), "dates.end" -> $doc("$gte" -> date))
 
   def readToursWithRound[A](
       as: (RelayTour, RelayRound, Option[RelayGroup.Name]) => A

@@ -120,6 +120,7 @@
       content: '';
       border-left: 3px solid transparent;
       border-right: 3px solid transparent;
+      border-top: 3px solid #536dfe;
       position: absolute;
       bottom: -3px;
     }
@@ -133,11 +134,6 @@
     }
 
     background-color: #b3e5fc;
-
-    &:before,
-    &:after {
-      border-top: 3px solid #536dfe;
-    }
   }
 
   .done .ribbon {

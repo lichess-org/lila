@@ -460,6 +460,9 @@ importers:
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
+      game:
+        specifier: workspace:*
+        version: link:../game
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1

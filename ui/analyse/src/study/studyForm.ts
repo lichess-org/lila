@@ -121,7 +121,7 @@ export function view(ctrl: StudyForm): VNode {
         [
           h('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
             h('div.form-group', [
-              h('label.form-label', 'Flair'),
+              h('label.form-label', 'Flair ▼'),
               h(
                 'details.form-control.emoji-details',
                 {

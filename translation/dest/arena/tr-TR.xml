@@ -76,11 +76,11 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">ortancadır</string>
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Bu sayfadaki tüm değerler %s.</string>
   <string name="total">Toplam</string>
-  <string name="pointsAvg">Puan ortalaması</string>
+  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">Puan ortalaması</string>
   <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Puan toplamı</string>
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Sıralama ortalaması</string>
   <string name="tournamentWinners">Turnuva şampiyonları</string>
   <string name="tournamentShields">Turnuva kalkanları</string>
   <string name="onlyTitled">Sadece unvanlı oyuncular</string>
-  <string name="onlyTitledHelp">Turnuvaya katılmak için resmî bir unvana sahip olmayı iste</string>
+  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Turnuvaya katılmak için resmî bir unvana sahip olmayı iste</string>
 </resources>

@@ -132,7 +132,7 @@ object home:
               .map:
                 views.ublog.ui.card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false)
           ,
-          ctx.noBot.option(bits.underboards(tours, simuls, leaderboard, tournamentWinners)),
+          ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)
           ,

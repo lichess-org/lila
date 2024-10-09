@@ -157,10 +157,15 @@ final private class RelayFetch(
             .filterNot(_.isTimeout)
             .flatMap(_.error)
             .ifTrue(tour.official && round.shouldHaveStarted)
-            .filterNot(_.contains("Cannot parse moves"))
+            .filterNot(_.contains("Cannot parse move"))
+            .filterNot(_.contains("Cannot parse pgn"))
             .filterNot(_.contains("Found an empty PGN"))
             .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
-          Seconds(60)
+          Seconds(tour.tier.fold(60):
+            case RelayTour.Tier.BEST => 10
+            case RelayTour.Tier.HIGH => 20
+            case _                   => 40
+          )
         else round.sync.period | dynamicPeriod(tour, round, upstream)
       updating:
         _.withSync:
@@ -175,7 +180,7 @@ final private class RelayFetch(
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =
       if upstream.hasLcc then 6
-      else if upstream.isRound then 10 // uses push so no need to pull oftenrelayfetch
+      else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
       if tour.tier.exists(_ > RelayTour.Tier.NORMAL) then 1

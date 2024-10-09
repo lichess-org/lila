@@ -13,6 +13,8 @@
   <string name="specialMoves">Ειδικές κινήσεις</string>
   <string name="didYouLikeThisPuzzle">Σας άρεσε αυτός ο γρίφος;</string>
   <string name="voteToLoadNextOne">Ψηφίστε για να προχωρήσετε στο επόμενο!</string>
+  <string name="upVote">Μου άρεσε ο γρίφος</string>
+  <string name="downVote">Δε μου άρεσε ο γρίφος</string>
   <string name="yourPuzzleRatingWillNotChange">Οι βαθμοί αξιολόγησής σας δε θα αλλάξουν. Αυτοί οι βαθμοί χρησιμεύουν στην επιλογή γρίφων για το επίπεδό σας και όχι στον ανταγωνισμό.</string>
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
@@ -26,6 +28,11 @@
   <string name="keepGoing">Συνεχίστε…</string>
   <string name="puzzleSuccess">Επιτυχία!</string>
   <string name="puzzleComplete">Ο γρίφος ολοκληρώθηκε!</string>
+  <string name="byOpenings">Ανά άνοιγμα</string>
+  <string name="puzzlesByOpenings">Γρίφοι ανά άνοιγμα</string>
+  <string name="openingsYouPlayedTheMost">Ανοίγματα που παίξατε πιο συχνά σε βαθμολογημένες παρτίδες σκάκι</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Πατήστε «Εύρεση στη σελίδα» στο μενού του προγράμματος περιήγησης, για να βρείτε το αγαπημένο σας άνοιγμα!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Πατήστε Ctrl+f για να βρείτε το αγαπημένο σας άνοιγμα!</string>
   <string name="notTheMove">Δεν είναι αυτή η κίνηση!</string>
   <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
   <string name="ratingX">Βαθμολογία: %s</string>

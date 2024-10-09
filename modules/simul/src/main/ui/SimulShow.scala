@@ -49,7 +49,7 @@ final class SimulShow(helpers: Helpers, ui: SimulUi, gathering: GatheringUi):
                       sim.variants.map(_.name).mkString(", "),
                       " • ",
                       trans.site.casual(),
-                      ((Granter.opt(_.ManageSimul) || userIsHost) && sim.isCreated).option(
+                      (Granter.opt(_.ManageSimul) || userIsHost).option(
                         frag(
                           " • ",
                           a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(Icon.Gear))

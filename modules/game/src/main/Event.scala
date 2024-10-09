@@ -88,6 +88,7 @@ object Event:
         .add("enpassant" -> enpassant.map(_.data))
         .add("castle" -> castle.map(_.data))
     override def moveBy = Some(!state.turns.turn)
+
   object Move:
     def apply(
         move: ChessMove,

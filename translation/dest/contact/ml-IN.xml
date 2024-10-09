@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="forgotPassword">ഞാൻ എന്റെ രഹസ്യവാക്ക് മറന്നുപോയി</string>
+  <string name="forgotUsername">ഞാൻ എന്റെ ഉപയോക്തൃപേര് മറന്നുപോയി</string>
+  <string name="wantChangeUsername">എനിക്കു് എന്റെ ഉപയോക്തൃപേരു് മാറ്റണം</string>
+</resources>

@@ -13,7 +13,7 @@ function makeLog(): LichessLog {
   const dbInfo: DbInfo = {
     db: 'log--db',
     store: 'log',
-    version: 2,
+    version: 3,
     upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
   };
   const defaultLogWindow = 100;

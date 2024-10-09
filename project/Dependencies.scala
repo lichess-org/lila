@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.3.0"
+    val version  = "16.3.1"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -91,7 +91,7 @@ object Dependencies {
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
     val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
-    val mailer      = "org.playframework" %% "play-mailer"       % "10.0.0"
+    val mailer      = "org.playframework" %% "play-mailer"       % "10.0.1"
   }
 
   object playWs {
@@ -109,7 +109,7 @@ object Dependencies {
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.20"
+    val version    = "2.6.21"
     val actor      = "com.typesafe.akka" %% "akka-actor"       % version
     val actorTyped = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version

@@ -24,10 +24,6 @@
   }
   .relay-card {
     &--tier-3 {
-      .relay-card__image,
-      .relay-card__desc {
-        display: none;
-      }
       .relay-card__title {
         font-size: 1.2em;
         color: $c-font-clear;

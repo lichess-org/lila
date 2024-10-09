@@ -34,6 +34,10 @@
     <item quantity="one">%s adet yazışmalı oyun tamamladı</item>
     <item quantity="other">%s adet yazışmalı oyun tamamladı</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">%1$s %2$s yazışmalı oyunu tamamladı</item>
+    <item quantity="other">%1$s %2$s yazışmalı oyunu tamamladı</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s oyuncuyu takip etmeye başladı</item>
     <item quantity="other">%s oyuncuyu takip etmeye başladı</item>

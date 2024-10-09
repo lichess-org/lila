@@ -15,7 +15,8 @@ final class RelayCalendar(
 
   private val cache = cacheApi[YearMonth, List[WithFirstRound]](32, "relay.calendar.at"):
     _.expireAfterWrite(1 minute).buildAsyncFuture: at =>
-      val max = 200
+      val max      = 200
+      val firstDay = LocalDate.of(at.getYear, at.getMonth, 1)
       tourRepo.coll
         .aggregateList(max, _.sec): framework =>
           import framework.*
@@ -30,7 +31,10 @@ final class RelayCalendar(
             ),
             $doc(
               "$match" -> $doc(
-                "startDate" -> $doc("$gte" -> LocalDate.of(at.getYear, at.getMonth, 1))
+                "startDate" -> $doc(
+                  "$gte" -> firstDay,
+                  "$lt"  -> firstDay.plusMonths(1)
+                )
               )
             ),
             $doc("$limit" -> 1)

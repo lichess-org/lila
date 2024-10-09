@@ -209,6 +209,7 @@
   <string name="email">Tölvupóstfang</string>
   <string name="passwordReset">Endurstilling lykilorðs</string>
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
+  <string name="youAreLeavingLichess">Þú ert að yfirgefa Lichess</string>
   <string name="emailConfirmHelp">Hjálp með staðfestingu á tölvupóst</string>
   <string name="emailConfirmNotReceived">Fékkstu ekki staðfestingartölvupóst?</string>
   <string name="whatSignupUsername">Hvaða notandanafn notaðiru þegar þú nýskráðir aðganginn?</string>
@@ -496,6 +497,7 @@
   <string name="descPrivateHelp">Texti sem eingöngu liðsfélagar sjá. Ef texti er til staðar kemur hann í stað opinberu lýsingarinnar í sýn liðsfélaga.</string>
   <string name="no">Nei</string>
   <string name="yes">Já</string>
+  <string name="website">Vefsíða</string>
   <string name="help">Hjálp:</string>
   <string name="createANewTopic">Búa til nýja umræðu</string>
   <string name="topics">Umræður</string>
@@ -531,6 +533,7 @@
   <string name="newPasswordStrength">Styrkur aðgangsorðsins</string>
   <string name="clockIncrement">Viðbótartími</string>
   <string name="privacy">Persónuvernd</string>
+  <string name="privacyPolicy">Persónuverndarstefna</string>
   <string name="letOtherPlayersFollowYou">Leyfa öðrum að fylgjast með þér</string>
   <string name="letOtherPlayersChallengeYou">Leyfa öðrum að skora á þig</string>
   <string name="sound">Hljóð</string>
@@ -574,6 +577,7 @@
   <string name="tools">Gögn</string>
   <string name="increment">Aukning</string>
   <string name="error.required">Þessi reitur er nauðsynlegur</string>
+  <string name="error.email">Tölvupóstfangið er ógilt</string>
   <string name="error.minLength">Lykilorðið verður að hafa að minnsta kosti %s stafi</string>
   <string name="error.min">Verður að vera að minnsta kosti %s</string>
   <string name="error.max">Verður að vera í mesta lagi %s</string>
@@ -702,6 +706,7 @@
   <string name="dark">Dökkur</string>
   <string name="transparent">Gegnsær</string>
   <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
+  <string name="size">Stærð</string>
   <string name="usernameAlreadyUsed">Þetta notandanafn er þegar í notkun, vinsamlegast veldu annað notandanafn.</string>
   <string name="usernamePrefixInvalid">Notandanafnið verður að byrja á bókstaf.</string>
   <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>

@@ -82,16 +82,16 @@ final private[tournament] class PairingSystem(
   private def initialPairings(players: RankedPlayers): List[Pairing.Prep] =
     players
       .grouped(2)
-      .collect { case List(p1, p2) =>
-        Pairing.prepWithRandomColor(p1.player, p2.player)
-      } toList
+      .collect:
+        case List(p1, p2) => Pairing.prepWithRandomColor(p1.player, p2.player)
+      .toList
 
   private def proximityPairings(players: RankedPlayers): List[Pairing.Prep] =
     addColorHistory(players)
       .grouped(2)
-      .collect { case List(p1, p2) =>
-        Pairing.prepWithColor(p1, p2)
-      } toList
+      .collect:
+        case List(p1, p2) if !p1.sameTeamAs(p2) => Pairing.prepWithColor(p1, p2)
+      .toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
     (players.sizeIs > 1).so(AntmaPairing(data, addColorHistory(players)))

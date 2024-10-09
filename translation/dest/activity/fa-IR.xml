@@ -19,8 +19,8 @@
     <item quantity="other">%1$s بازی %2$s را انجام داد</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">%1$s پیام را در %2$s ارسال کرد</item>
-    <item quantity="other">%1$s پیام را در %2$s ارسال کرد</item>
+    <item quantity="one">%1$s پیام را در %2$s فرستاد</item>
+    <item quantity="other">%1$s پیام را در %2$s فرستاد</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s حرکت انجام داد</item>
@@ -40,11 +40,11 @@
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s بازیکن را دنبال کرد</item>
-    <item quantity="other">%s بازیکن را دنبال کرد</item>
+    <item quantity="other">شروع به دنبالیدن %s بازیکن کرد</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s دنبال کننده جدید به دست آورد</item>
-    <item quantity="other">%s دنبال کننده جدید به دست آورد</item>
+    <item quantity="one">%s دنبال‌گر جدید به‌دست آورد</item>
+    <item quantity="other">%s دنبال‌گر جدید به‌دست آورد</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">%s مسابقه هم‌زمان برگزار کرد</item>

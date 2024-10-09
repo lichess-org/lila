@@ -7,6 +7,7 @@
     <item quantity="other">%s پخش همگانی</item>
   </plurals>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
+  <string name="broadcastCalendar">تقویم پخش</string>
   <string name="newBroadcast">پخش زنده جدید</string>
   <string name="subscribedBroadcasts">پخش‌های دنبال‌شده</string>
   <string name="aboutBroadcasts">درباره پخش‌های همگانی</string>
@@ -26,7 +27,7 @@
   <string name="sourceSingleUrl">وب‌نشانیِ PGN</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
   <string name="sourceGameIds">تا ۶۴ شناسه بازی لیچس٬ جداشده با فاصله.</string>
-  <string name="startDate">تاریخ شروع، در منطقه زمانی خودتان</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">تاریخ آغاز در زمان-یانه محلی مسابقات: %s</string>
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
   <string name="credits">به منبع اعتبار دهید</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>

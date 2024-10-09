@@ -11,11 +11,11 @@ Options:
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
   -d, --debug         build assets with site.debug = true
-  -l, --log=<url>     monkey patch console.log and POST all messages to <url> (or localhost:8666
-                      if not specified). when used with --watch or --rebuild, ui/build listens on
-                      8666 and displays received json as 'web' over stdout
+  -l, --log=<url>     monkey patch console log functions in javascript manifest to POST log messages to
+                      <url> or localhost:8666 (default). if used with --watch, the ui/build process
+                      will listen for http on 8666 and display received json as 'web' in build logs
   --clean             clean all build artifacts and exit
-  --update            update ui/build packages
+  --update            update ui/build's node_modules
   --no-color          don't use color in logs
   --no-time           don't log the time
   --no-context        don't log the context

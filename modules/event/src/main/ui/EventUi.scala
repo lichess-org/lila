@@ -129,10 +129,10 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
     frag(
       form3.split(
         form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(
-          form3.flatpickr(_, utc = true)
+          form3.flatpickr(_, local = true)
         ),
         form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(
-          form3.flatpickr(_, utc = true)
+          form3.flatpickr(_, local = true)
         )
       ),
       form3.split(
