@@ -255,10 +255,9 @@ class EventTest extends munit.ScalaCheckSuite:
 
   test("RedirectOwner anti regression"):
     // We use Event.Castling as a cookie for this test because We don't have an Arbitrary instance for JsObject yet
-    forAll: (color: Color, gameId: GameId, playerId: GamePlayerId, cookie: Option[Event.Castling]) =>
-      val id    = GameFullId(gameId, playerId)
+    forAll: (color: Color, id: GameFullId, cookie: Option[Event.Castling]) =>
       val event = Event.RedirectOwner(color, id, cookie.map(_.data.asInstanceOf[JsObject]))
-      assertEquals(event.data.str("id"), s"${id.value}".some)
-      assertEquals(event.data.str("url"), s"/${id.value}".some)
+      assertEquals(event.data.str("id"), id.value.some)
+      assertEquals(event.data.str("url"), s"/$id".some)
       assertEquals(event.data.obj("cookie"), cookie.map(_.data))
       assertEquals(event.typ, "redirect")
