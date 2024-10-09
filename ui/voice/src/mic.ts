@@ -1,5 +1,5 @@
 import { objectStorage } from 'common/objectStorage';
-import { Selector, Selectable } from './selector';
+import { Switch, Selectable } from './switch';
 import { storedStringProp } from 'common/storage';
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
 
@@ -12,7 +12,7 @@ export class Mic implements Microphone {
   private micSource: AudioNode;
   private vosk: VoskModule;
   private deviceId = storedStringProp('voice.micDeviceId', 'default');
-  private recs = new Selector<string, RecNode, Audio>();
+  private recs = new Switch<string, RecNode>();
   private ctrl: Listener;
   private download?: XMLHttpRequest;
   private broadcastTimeout?: number;
@@ -45,7 +45,7 @@ export class Mic implements Microphone {
     const listening = this.isListening;
     this.stop();
     this.deviceId(id);
-    this.recs.release();
+    this.recs.close();
     this.audioCtx?.close();
     this.audioCtx = undefined;
     if (listening) this.start();
@@ -58,12 +58,12 @@ export class Mic implements Microphone {
 
   addListener(listener: Listener, also: { recId?: string; listenerId?: string } = {}): void {
     const recId = also.recId ?? 'default';
-    if (!this.recs.group.has(recId)) throw `No recognizer for '${recId}'`;
-    this.recs.group.get(recId)!.listenerMap.set(also.listenerId ?? recId, listener);
+    if (!this.recs.items.has(recId)) throw `No recognizer for '${recId}'`;
+    this.recs.items.get(recId)!.listenerMap.set(also.listenerId ?? recId, listener);
   }
 
   removeListener(listenerId: string): void {
-    this.recs.group.forEach(v => v.listenerMap.delete(listenerId));
+    this.recs.items.forEach(v => v.listenerMap.delete(listenerId));
   }
 
   initRecognizer(
@@ -99,7 +99,7 @@ export class Mic implements Microphone {
       this.busy = true;
       await this.initModel();
       if (!this.busy) throw '';
-      for (const [recId, rec] of this.recs.group) this.initKaldi(recId, rec);
+      for (const [recId, rec] of this.recs.items) this.initKaldi(recId, rec);
       this.recs.set(listen && this.recId);
       this.vosk?.select(listen && this.recId);
       this.micTrack!.enabled = listen;
@@ -189,14 +189,14 @@ export class Mic implements Microphone {
       sampleRate: this.mediaStream.getAudioTracks()[0].getSettings().sampleRate,
     });
     this.micSource = this.audioCtx.createMediaStreamSource(this.mediaStream);
-    this.recs.ctx = { source: this.micSource, ctx: this.audioCtx };
+    this.recs.setContext({ source: this.micSource, ctx: this.audioCtx });
   }
 
   private broadcast(text: string, msgType: MsgType = 'status', forMs = 0) {
     this.ctrl?.call(this, text, msgType);
     if (msgType === 'status' || msgType === 'full') window.clearTimeout(this.broadcastTimeout);
     this.voskStatus = text;
-    for (const li of this.recs.get(this.recId)?.listeners ?? []) {
+    for (const li of this.recs.items.get(this.recId)?.listeners ?? []) {
       if (!this.interrupt) li(text, msgType);
     }
     this.interrupt = false;
