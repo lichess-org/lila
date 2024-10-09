@@ -40,7 +40,7 @@ final class AuthUi(helpers: Helpers):
                   name  := "remember",
                   value := "true",
                   tpe   := "checkbox",
-                  if isRememberMe then checked else ()
+                  isRememberMe.option(checked)
                 ),
                 trans.site.rememberMe()
               )
