@@ -92,24 +92,7 @@
     font-size: 16px;
     padding: 0 6px;
     margin-inline-end: 6px;
-
-    &:hover {
-      color: $c-font;
-    }
-
-    &.active {
-      color: white;
-      background-color: $c-primary;
-    }
-  }
-
-  .settings-gear {
-    @extend %button-none;
-    color: $c-font-dim;
-    font-size: 16px;
-    padding: 0 6px;
     margin-top: -3px; // bar
-    margin-inline-end: 6px;
 
     &:hover {
       color: $c-font;
