@@ -8,6 +8,8 @@ import chess.variant.Crazyhouse
 import lila.core.id.*
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import play.api.libs.json.*
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen
 
 class EventTest extends munit.ScalaCheckSuite:
 
@@ -226,65 +228,24 @@ class EventTest extends munit.ScalaCheckSuite:
       assertEquals(event.data.str("key"), square.key.some)
       assertEquals(event.data.str("color"), color.name.some)
 
-  test("Castling anti regression"):
-    var event = Event.Castling(
-      castle = Move.Castle(
-        king = Square.E1,
-        kingTo = Square.C1,
-        rook = Square.A1,
-        rookTo = Square.D1
-      ),
-      color = Color.White
-    )
-    assertEquals(event.typ, "castling")
-    assertEquals(
-      event.data,
-      Json.obj(
-        "king"  -> Json.arr("e1", "c1"),
-        "rook"  -> Json.arr("a1", "d1"),
-        "color" -> "white"
-      )
-    )
-    event = Event.Castling(
-      castle = Move.Castle(
-        king = Square.E8,
-        kingTo = Square.G8,
-        rook = Square.H8,
-        rookTo = Square.F8
-      ),
-      color = Color.Black
-    )
-    assertEquals(event.typ, "castling")
-    assertEquals(
-      event.data,
-      Json.obj(
-        "king"  -> Json.arr("e8", "g8"),
-        "rook"  -> Json.arr("h8", "f8"),
-        "color" -> "black"
-      )
-    )
+  // TODO move to scalachess
+  extension (rank: Rank) def squares: List[Square] = Square.all.filter(_.rank == rank)
+  given Arbitrary[Event.Castling] = Arbitrary {
+    for
+      color  <- Arbitrary.arbitrary[Color]
+      king   <- Gen.oneOf(color.backRank.squares)
+      kingTo <- Gen.oneOf(color.fold(List(Square.G1, Square.C1), List(Square.G8, Square.C8)))
+      rookTo <- Gen.oneOf(color.fold(List(Square.F1, Square.D1), List(Square.F8, Square.D8)))
+      rook   <- Gen.oneOf(color.backRank.squares.filter(_ != king))
+      castle = Move.Castle(king, kingTo, rook, rookTo)
+    yield Event.Castling(castle, color)
+  }
 
-  test("Castling writes every color"):
-    var castle = Move.Castle(
-      king = Square.E1,
-      kingTo = Square.C1,
-      rook = Square.A1,
-      rookTo = Square.D1
-    )
-    forAll: (color: Color) =>
-      var event = Event.Castling(
-        castle = castle,
-        color = color
-      )
-      assertEquals(event.typ, "castling")
-      assertEquals(
-        event.data,
-        Json.obj(
-          "king"  -> Json.arr(castle.king.key, castle.kingTo.key),
-          "rook"  -> Json.arr(castle.rook.key, castle.rookTo.key),
-          "color" -> color.name
-        )
-      )
+  test("Castling anti regression"):
+    forAll: (event: Event.Castling) =>
+      assertEquals(event.data.str("color"), event.color.name.some)
+      assertEquals(event.data.arr("king"), Json.arr(event.castle.king.key, event.castle.kingTo.key).some)
+      assertEquals(event.data.arr("rook"), Json.arr(event.castle.rook.key, event.castle.rookTo.key).some)
 
   test("RedirectOwner anti regression"):
     var event = Event.RedirectOwner(
