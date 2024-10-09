@@ -92,10 +92,11 @@ final class Auth(
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
         val referrer                = get("referrer").filterNot(env.web.referrerRedirect.sillyLoginReferrers)
+        val isRemember              = api.rememberForm.bindFromRequest().value | true
         bindForm(api.loginForm)(
           err =>
             negotiate(
-              Unauthorized.page(views.auth.login(err, referrer)),
+              Unauthorized.page(views.auth.login(err, referrer, isRemember)),
               Unauthorized(doubleJsonFormErrorBody(err))
             ),
           (login, pass) =>
@@ -114,7 +115,7 @@ final class Auth(
                       negotiate(
                         err.errors match
                           case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
-                          case _ => Unauthorized.page(views.auth.login(err, referrer))
+                          case _ => Unauthorized.page(views.auth.login(err, referrer, isRemember))
                         ,
                         Unauthorized(doubleJsonFormErrorBody(err))
                       )
@@ -133,8 +134,7 @@ final class Auth(
                         case Some(u) =>
                           lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
                           env.user.repo.email(u.id).foreach { _.foreach(garbageCollect(u)) }
-                          val remember = api.rememberForm.bindFromRequest().value | true
-                          authenticateUser(u, remember, Some(redirectTo))
+                          authenticateUser(u, isRemember, Some(redirectTo))
                   )
               }
         )
