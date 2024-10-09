@@ -2,16 +2,16 @@ package lila.game
 
 import cats.syntax.all.*
 import chess.*
-import chess.CoreArbitraries.given
 import chess.bitboard.Bitboard
 import chess.variant.Crazyhouse
 import lila.core.id.*
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import play.api.libs.json.*
-import org.scalacheck.Arbitrary
-import org.scalacheck.Gen
+import chess.CoreArbitraries.given
 
 class EventTest extends munit.ScalaCheckSuite:
+
+  import Arbitraries.given
 
   test("Move anti regression"):
     var event = Event.Move(
@@ -223,28 +223,9 @@ class EventTest extends munit.ScalaCheckSuite:
       case _             => failSuite("Expected JsString")
 
   test("Enpassant anti regression"):
-    forAll: (square: Square, color: Color) =>
-      val event = Event.Enpassant(square, color)
-      assertEquals(event.typ, "enpassant")
-      assertEquals(event.data.str("key"), square.key.some)
-      assertEquals(event.data.str("color"), color.name.some)
-
-  // TODO move to scalachess
-  extension (rank: Rank) def squares: List[Square] = Square.all.filter(_.rank == rank)
-  given Arbitrary[Event.Castling] = Arbitrary {
-    for
-      color  <- Arbitrary.arbitrary[Color]
-      king   <- Gen.oneOf(color.backRank.squares)
-      kingTo <- Gen.oneOf(color.fold(List(Square.G1, Square.C1), List(Square.G8, Square.C8)))
-      rookTo <- Gen.oneOf(color.fold(List(Square.F1, Square.D1), List(Square.F8, Square.D8)))
-      rook   <- Gen.oneOf(color.backRank.squares.filter(_ != king))
-      castle = Move.Castle(king, kingTo, rook, rookTo)
-    yield Event.Castling(castle, color)
-  }
-
-  // TODO move somewhere
-  given [S, T](using SameRuntime[S, T], Arbitrary[S]): Arbitrary[T] = Arbitrary:
-    Arbitrary.arbitrary[S].map(summon[SameRuntime[S, T]].apply)
+    forAll: (event: Event.Enpassant) =>
+      assertEquals(event.data.str("key"), event.pos.key.some)
+      assertEquals(event.data.str("color"), event.color.name.some)
 
   test("Castling anti regression"):
     forAll: (event: Event.Castling) =>
@@ -254,10 +235,7 @@ class EventTest extends munit.ScalaCheckSuite:
       assertEquals(event.data.arr("rook"), Json.arr(event.castle.rook.key, event.castle.rookTo.key).some)
 
   test("RedirectOwner anti regression"):
-    // We use Event.Castling as a cookie for this test because We don't have an Arbitrary instance for JsObject yet
-    forAll: (color: Color, id: GameFullId, cookie: Option[Event.Castling]) =>
-      val event = Event.RedirectOwner(color, id, cookie.map(_.data.asInstanceOf[JsObject]))
-      assertEquals(event.data.str("id"), id.value.some)
-      assertEquals(event.data.str("url"), s"/$id".some)
-      assertEquals(event.data.obj("cookie"), cookie.map(_.data))
-      assertEquals(event.typ, "redirect")
+    forAll: (event: Event.RedirectOwner) =>
+      assertEquals(event.data.str("id"), event.id.value.some)
+      assertEquals(event.data.str("url"), s"/${event.id}".some)
+      assertEquals(event.data.obj("cookie"), event.cookie)
