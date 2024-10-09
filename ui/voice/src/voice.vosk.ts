@@ -1,14 +1,12 @@
 import { type KaldiRecognizer, type Model, createModel } from 'vosk-browser';
 import type { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
 import type { RecognizerOpts, VoskModule } from './interfaces';
-
-// IMPORTANT: We can't have code splitting here and I don't want a separate esbuild pass.
-// Do not import code, just paste it in if needed.
+import { type Selectable, Switch } from './switch';
 
 const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
 
 export function initModule(): VoskModule {
-  const recs = new Selector<KaldiRec>();
+  const recs = new Switch<string, KaldiRec>();
   let voiceModel: Model;
   let lang: string;
 
@@ -21,14 +19,14 @@ export function initModule(): VoskModule {
 
   async function initModel(url: string, language: string): Promise<void> {
     voiceModel?.terminate();
-    recs.delete();
+    recs.remove();
     voiceModel = await createModel(url, LOG_LEVEL);
     lang = language;
   }
 
   function initRecognizer(opts: RecognizerOpts): AudioNode | undefined {
     if (!opts.words?.length || !voiceModel) {
-      recs.delete(opts.recId);
+      recs.remove(opts.recId);
       return;
     }
     const kaldi = new voiceModel.KaldiRecognizer(opts.audioCtx.sampleRate, JSON.stringify(opts.words));
@@ -55,7 +53,7 @@ export function initModule(): VoskModule {
         opts.words,
       );
 
-    recs.set(opts.recId, new KaldiRec(kaldi, node, opts.partial));
+    recs.add(opts.recId, new KaldiRec(kaldi, node, opts.partial));
     return node;
   }
 
@@ -64,7 +62,7 @@ export function initModule(): VoskModule {
   }
 
   function select(recId: string | false): void {
-    recs.select(recId);
+    recs.set(recId);
   }
 }
 
@@ -90,67 +88,5 @@ class KaldiRec implements Selectable {
   close() {
     this.deselect();
     this.kaldi.remove();
-  }
-}
-
-// the code below is replicated from ui/common/src/selector.ts, no imports allowed because
-// this module is huge due to the vosk-browser import and must have a stable hash
-interface Selectable<C = any> {
-  select?: (ctx?: C) => void;
-  deselect?: (ctx?: C) => void;
-  close?: (ctx?: C) => void;
-}
-
-class Selector<T extends Selectable, C = any> {
-  group: Map<string, T> = new Map<string, T>();
-  context?: C;
-  key: string | false = false;
-
-  set ctx(ctx: any) {
-    if (this.context === ctx) return;
-    this.selected?.deselect?.(this.context);
-    this.context = ctx;
-    this.selected?.select?.(this.context);
-  }
-
-  get selected(): T | undefined {
-    return this.key ? this.group.get(this.key) : undefined;
-  }
-
-  select(key: string | false): void {
-    if (this.key) {
-      if (this.key === key) return;
-      this.selected?.deselect?.(this.context);
-    }
-    this.key = key;
-    this.selected?.select?.(this.context);
-  }
-
-  get(key: string): T | undefined {
-    return this.group.get(key);
-  }
-
-  set(key: string, val: T): void {
-    const reselect = this.key === key;
-    this.close(key);
-    this.group.set(key, val);
-    if (reselect) this.select(key);
-  }
-
-  close(key?: string): void {
-    if (key === undefined) {
-      for (const k of this.group.keys()) this.close(k);
-      return;
-    }
-    if (key === this.key) {
-      this.group.get(key)?.deselect?.(this.context);
-      this.key = false;
-    }
-    this.group.get(key)?.close?.(this.context);
-  }
-
-  delete(key?: string): void {
-    this.close(key);
-    key ? this.group.delete(key) : this.group.clear();
   }
 }
