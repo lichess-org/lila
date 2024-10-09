@@ -83,10 +83,14 @@ final class SimulApi(
       featurable = some(~setup.featured && canBeFeatured(me)),
       conditions = setup.conditions
     )
-    for
-      _ <- repo.update(simul)
-      _ = publish()
-    yield simul
+    update(simul).inject(simul)
+
+  def update(prev: Simul, setup: SimulForm.LockedSetup): Fu[Simul] =
+    val simul = prev.copy(
+      name = setup.name,
+      text = setup.text
+    )
+    update(simul).inject(simul)
 
   def getVerdicts(simul: Simul)(using
       me: Option[Me]
