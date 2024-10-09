@@ -225,6 +225,7 @@ class EventTest extends munit.ScalaCheckSuite:
   test("Enpassant anti regression"):
     forAll: (square: Square, color: Color) =>
       val event = Event.Enpassant(square, color)
+      assertEquals(event.typ, "enpassant")
       assertEquals(event.data.str("key"), square.key.some)
       assertEquals(event.data.str("color"), color.name.some)
 
@@ -241,66 +242,23 @@ class EventTest extends munit.ScalaCheckSuite:
     yield Event.Castling(castle, color)
   }
 
+  // TODO move somewhere
+  given [S, T](using SameRuntime[S, T], Arbitrary[S]): Arbitrary[T] = Arbitrary:
+    Arbitrary.arbitrary[S].map(summon[SameRuntime[S, T]].apply)
+
   test("Castling anti regression"):
     forAll: (event: Event.Castling) =>
+      assertEquals(event.typ, "castling")
       assertEquals(event.data.str("color"), event.color.name.some)
       assertEquals(event.data.arr("king"), Json.arr(event.castle.king.key, event.castle.kingTo.key).some)
       assertEquals(event.data.arr("rook"), Json.arr(event.castle.rook.key, event.castle.rookTo.key).some)
 
   test("RedirectOwner anti regression"):
-    var event = Event.RedirectOwner(
-      color = Color.White,
-      id = GameFullId(
-        gameId = GameId.take("abcdefgh"),
-        playerId = GamePlayerId("1234")
-      ),
-      cookie = None
-    )
-    assertEquals(event.typ, "redirect")
-    assertEquals(
-      event.data,
-      Json.obj(
-        "id"  -> "abcdefgh1234",
-        "url" -> "/abcdefgh1234"
-      )
-    )
-    assertEquals(event.only, Some(chess.Color.White))
-    event = Event.RedirectOwner(
-      color = Color.Black,
-      id = GameFullId(
-        gameId = GameId.take("12345678"),
-        playerId = GamePlayerId("abcd")
-      ),
-      cookie = Some(Json.obj("cookie" -> "something"))
-    )
-    assertEquals(event.typ, "redirect")
-    assertEquals(
-      event.data,
-      Json.obj(
-        "id"     -> "12345678abcd",
-        "url"    -> "/12345678abcd",
-        "cookie" -> Json.obj("cookie" -> "something")
-      )
-    )
-    assertEquals(event.only, Some(chess.Color.Black))
-
-  test("RedirectOwner writes every color"):
-    var id = GameFullId(
-      gameId = GameId.take("12345678"),
-      playerId = GamePlayerId("abcd")
-    )
-    forAll: (color: Color) =>
-      var event = Event.RedirectOwner(
-        color = color,
-        id = id,
-        cookie = None
-      )
+    // We use Event.Castling as a cookie for this test because We don't have an Arbitrary instance for JsObject yet
+    forAll: (color: Color, gameId: GameId, playerId: GamePlayerId, cookie: Option[Event.Castling]) =>
+      val id    = GameFullId(gameId, playerId)
+      val event = Event.RedirectOwner(color, id, cookie.map(_.data.asInstanceOf[JsObject]))
+      assertEquals(event.data.str("id"), s"${id.value}".some)
+      assertEquals(event.data.str("url"), s"/${id.value}".some)
+      assertEquals(event.data.obj("cookie"), cookie.map(_.data))
       assertEquals(event.typ, "redirect")
-      assertEquals(
-        event.data,
-        Json.obj(
-          "id"  -> s"$id",
-          "url" -> s"/$id"
-        )
-      )
-      assertEquals(event.only, Some(color))
