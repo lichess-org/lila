@@ -4,11 +4,9 @@ import cats.syntax.all.*
 import chess.*
 import chess.bitboard.Bitboard
 import chess.variant.Crazyhouse
-import lila.core.id.*
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import play.api.libs.json.*
 import chess.CoreArbitraries.given
-import munit.Location
 import JsonView.{ *, given }
 import lila.common.Json.given
 
@@ -38,7 +36,7 @@ class EventTest extends munit.ScalaCheckSuite:
       assertEquals(move.data.obj("crazyhouse"), move.crazyData.map(summon[OWrites[Crazyhouse.Data]].writes))
       assertEquals(move.data.str("drops"), move.possibleDrops.map(_.map(_.key).mkString))
 
-  private def assertFalseOrSome(obj: JsValue)(field: String, value: Boolean)(implicit loc: Location) =
+  private def assertFalseOrSome(obj: JsValue)(field: String, value: Boolean)(implicit loc: munit.Location) =
     assert(!value || obj.boolean(field) == true.some)
 
   test("PossibleMoves anti regression"):
