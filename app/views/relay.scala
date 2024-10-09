@@ -11,7 +11,7 @@ val ui = lila.relay.ui.RelayUi(helpers)(
   views.board.explorerAndCevalConfig
 )
 val tour = lila.relay.ui.RelayTourUi(helpers, ui)
-val form = lila.relay.ui.FormUi(helpers, ui, tour)
+val form = lila.relay.ui.RelayFormUi(helpers, ui, tour)
 
 def show(
     rt: WithTourAndStudy,
