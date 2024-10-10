@@ -546,7 +546,7 @@ final class Mod(
     Found(env.user.repo.byId(username)): user =>
       for
         logs      <- env.mod.logApi.userHistory(user.id)
-        notes     <- env.socialInfo.fetchNotes(user)
+        notes     <- env.user.noteApi.get(user)
         notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
       yield JsonOk(
         Json.obj(
