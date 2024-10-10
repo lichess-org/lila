@@ -75,9 +75,11 @@ final class ChallengeUi(helpers: Helpers):
           modeName(c.mode)
         )
       ),
-      div(cls := "rules")(
-        h2("Custom rules:"),
-        div(fragList(c.rules.toList.map(showRule), "/"))
+      c.rules.nonEmpty.option(
+        div(cls := "rules")(
+          h2("Custom rules:"),
+          div(fragList(c.rules.toList.map(showRule), "/"))
+        )
       )
     )
 
