@@ -16,6 +16,7 @@
     }
   },
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^4.5.0",
     "@fnando/sparkline": "^0.3.10",
     "@textcomplete/core": "^0.1.13",
     "@textcomplete/textarea": "^0.1.13",
@@ -57,6 +58,7 @@
       "src/bits.devMode.ts",
       "src/bits.diagnosticDialog.ts",
       "src/bits.expandText.ts",
+      "src/bits.fipr.ts",
       "src/bits.flairPicker.ts",
       "src/bits.flatpickr.ts",
       "src/bits.forum.ts",
