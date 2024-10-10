@@ -68,7 +68,7 @@ final class AuthUi(helpers: Helpers):
     Page(trans.site.signUp.txt())
       .js(esmInit("bits.login", "signup"))
       .js(hcaptchaScript(form))
-      .iife(fingerprintTag)
+      .js(fingerprintTag)
       .css("bits.auth")
       .csp(_.withHcaptcha)
       .hrefLangs(lila.ui.LangPath(routes.Auth.signup)):
@@ -316,8 +316,6 @@ body { margin-top: 45px; }
           button(cls := "button button-red", tpe := "submit")(trans.site.logOut.txt())
         )
       )
-
-  def fingerprintTag: Frag = iifeModule("javascripts/fipr.js")
 
   private def agreement(form: play.api.data.Field, error: Boolean)(using Context) =
     div(cls := "agreement")(

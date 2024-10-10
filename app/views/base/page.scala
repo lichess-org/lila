@@ -41,7 +41,9 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
-    val allModules = p.modules ++ p.pageModule.so(module => esmPage(module.name))
+    val allModules = p.modules ++
+      p.pageModule.so(module => esmPage(module.name)) ++
+      ctx.needsFp.so(fingerprintTag)
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -156,7 +158,6 @@ object page:
             )
           )(p.transform(p.body)),
           bottomHtml,
-          ctx.needsFp.option(views.auth.fingerprintTag),
           ctx.nonce.map(inlineJs.apply),
           modulesInit(allModules, ctx.nonce),
           p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
