@@ -53,7 +53,9 @@ case class Report(
   def bestAtoms(nb: Int): List[Atom]               = Atom.best(atoms.toList, nb)
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty.option(atoms.head)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
-  def bestAtomByHuman: Option[Atom]                = bestAtoms(10).find(_.byHuman)
+  def atomsByAndAbout(userId: UserId): List[Atom] =
+    if user == userId then atoms.toList else atomBy(userId.into(ReporterId)).toList
+  def bestAtomByHuman: Option[Atom] = bestAtoms(10).find(_.byHuman)
 
   def unprocessedCheat = open && is(_.Cheat)
   def unprocessedOther = open && is(_.Other)
@@ -125,7 +127,8 @@ object Report:
         (report.closed.so(-999999))
 
   case class ByAndAbout(by: List[Report], about: List[Report]):
-    def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
+    def all     = by ::: about
+    def userIds = all.flatMap(_.userIds)
 
   case class Candidate(
       reporter: Reporter,
