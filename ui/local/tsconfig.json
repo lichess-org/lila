@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "allowUnreachableCode": true
+  },
+  "isolatedModules": true,
+  "references": [
+    { "path": "../bits/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../chess/tsconfig.json" },
+    { "path": "../game/tsconfig.json" },
+    { "path": "../ceval/tsconfig.json" },
+    { "path": "../round/tsconfig.json" }
+  ]
+}

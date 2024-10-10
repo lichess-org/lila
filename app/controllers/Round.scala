@@ -71,7 +71,7 @@ final class Round(
               jsChat <- chat.flatMap(_.game).map(_.chat).soFu(lila.chat.JsonView.asyncLines)
             yield Ok(data.add("chat", jsChat)).noCache
       )
-    yield res
+    yield res.enforceCrossSiteIsolation
 
   def player(fullId: GameFullId) = Open:
     env.round.proxyRepo

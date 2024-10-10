@@ -1,0 +1,36 @@
+{
+  "name": "local",
+  "private": true,
+  "author": "T-Bone Duplexus",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@types/lichess": "workspace:*",
+    "bits": "workspace:*",
+    "chart.js": "4.4.3",
+    "chess": "workspace:*",
+    "chessops": "^0.14.0",
+    "common": "workspace:*",
+    "fast-diff": "^1.3.0",
+    "game": "workspace:*",
+    "json-stringify-pretty-compact": "4.0.0",
+    "round": "workspace:*",
+    "snabbdom": "3.5.1",
+    "zerofish": "0.0.29"
+  },
+  "scripts": {
+    "import-bots": "mongoimport --db=lichess --collection=local_bots --drop --jsonArray --file",
+    "export-bots": "mongosh lichess bin/export-bots.js > ",
+    "import-assets": "mongoimport --db=lichess --collection=local_assets --drop --jsonArray --file",
+    "export-assets": "mongoexport --db=lichess --collection=local_assets --jsonArray --out"
+  },
+  "lichess": {
+    "bundles": [
+      "src/local.setup.ts",
+      "src/local.ts",
+      "src/dev/local.dev.ts"
+    ],
+    "sync": {
+      "node_modules/zerofish/dist/zerofishEngine.*": "public/npm"
+    }
+  }
+}
