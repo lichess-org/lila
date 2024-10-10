@@ -7,6 +7,8 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.shutup.Analyser
 
+val timelineUi = lila.api.ui.ModTimelineUi(helpers)
+
 def communication(
     mod: Me,
     timeline: lila.api.ModTimeline,
@@ -71,7 +73,7 @@ def communication(
             )
           )
         ),
-        timeline.toString,
+        timelineUi.render(timeline),
         // reports.nonEmpty.option(
         //   frag(
         //     h2("Comm reports"),

@@ -597,7 +597,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
 
   def parts(ps: Option[String]*) = ps.flatten.distinct.mkString(" ")
 
-  private def reportSubmitButton(r: lila.report.Report)(using Translate) =
+  def reportSubmitButton(r: lila.report.Report)(using Translate) =
     submitButton(
       title := {
         if r.open then "open"

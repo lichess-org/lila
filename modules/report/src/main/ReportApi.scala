@@ -383,12 +383,15 @@ final class ReportApi(
       .cursor[Report]()
       .list(nb.value)
 
-  def commReportsAbout(user: User, nb: Max): Fu[List[Report]] =
+  def allReportsAbout(user: User, nb: Max, select: Bdoc = $empty): Fu[List[Report]] =
     coll
-      .find($doc("user" -> user.id, "room" -> Room.Comm.key))
+      .find($doc("user" -> user.id) ++ select)
       .sort(sortLastAtomAt)
       .cursor[Report]()
       .list(nb.value)
+
+  def commReportsAbout(user: User, nb: Max): Fu[List[Report]] =
+    allReportsAbout(user, nb, $doc("room" -> Room.Comm.key))
 
   def byAndAbout(user: User, nb: Max)(using Me): Fu[Report.ByAndAbout] = for
     by <-

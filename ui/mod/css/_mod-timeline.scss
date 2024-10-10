@@ -1,0 +1,46 @@
+.mod-timeline {
+  @extend %flex-column;
+  gap: 4em;
+  margin-top: 4em;
+}
+.mod-timeline__day {
+  @extend %flex-center-nowrap;
+  gap: 3em;
+  h3 {
+    flex: 0 0 12ch;
+    font-size: 1.3em;
+    text-transform: capitalize;
+  }
+  .mod-timeline__day__events {
+    @extend %flex-column;
+    gap: 0.5em;
+    flex: 1 1 auto;
+  }
+}
+.mod-timeline__event {
+  @extend %flex-center-nowrap;
+  gap: 1em;
+}
+.mod-timeline__event__flair {
+  width: 1.6em;
+  height: 1.6em;
+}
+.mod-timeline__event__body {
+  @extend %flex-center-nowrap;
+  margin-left: 1em;
+  gap: 1.5ch;
+  .uflair {
+    display: none;
+  }
+  .user-link {
+    flex: 0 0 auto;
+  }
+}
+.mod-timeline__event__action {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.mod-timeline__text {
+  @extend %break-word;
+  font-size: 0.9em;
+}

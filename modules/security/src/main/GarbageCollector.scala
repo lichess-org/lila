@@ -108,7 +108,7 @@ final class GarbageCollector(
       }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
-    noteApi.byUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collected")))
+    noteApi.toUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collected")))
 
   private def doCollect(user: UserId): Unit =
     Bus.publish(

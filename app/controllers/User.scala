@@ -468,7 +468,7 @@ final class User(
         doWriteNote(username, data): user =>
           if getBool("inquiry") then
             Ok.snipAsync:
-              env.user.noteApi.byUserForMod(user.id).map {
+              env.user.noteApi.toUserForMod(user.id).map {
                 views.mod.inquiry.ui.noteZone(user, _)
               }
           else

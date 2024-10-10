@@ -116,6 +116,8 @@ object Report:
           (-a.score, -a.at.toSeconds)
         .take(nb)
 
+  case class AndAtom(report: Report, atom: Atom)
+
   case class Done(by: ModId, at: Instant)
 
   case class Inquiry(mod: UserId, seenAt: Instant)

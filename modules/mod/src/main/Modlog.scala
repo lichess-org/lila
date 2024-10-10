@@ -104,6 +104,33 @@ object Modlog:
       details = details
     )
 
+  val isSentence: Set[String] = Set(
+    "alt",
+    "engine",
+    "booster",
+    "troll",
+    "isolate",
+    "deleteComms",
+    "closeAccount",
+    "deletePost",
+    "closeTopic",
+    "hideTopic",
+    "deleteTeam",
+    "terminateTournament",
+    "chatTimeout",
+    "kickFromRankings",
+    "reportban",
+    "rankban",
+    "arenaBan",
+    "prizeban",
+    "cheatDetected",
+    "garbageCollect",
+    "teamKick"
+  )
+
+  val isUndo: Set[String] =
+    Set("unalt", "unengine", "unbooster", "untroll", "unisolate", "unreportban", "unrankban", "unprizeban")
+
   case class UserEntry(user: UserId, action: String, date: Instant)
 
   val alt                 = "alt"

@@ -42,15 +42,15 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
       .cursor[Note]()
       .list(max.value)
 
-  def byUserForMod(id: UserId, max: Max = Max(50)): Fu[List[Note]] =
+  def toUserForMod(id: UserId, max: Max = Max(50)): Fu[List[Note]] =
     coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort.desc("date"))
       .cursor[Note]()
       .list(max.value)
 
-  def recentByUserForMod(id: UserId): Fu[Option[Note]] =
-    byUserForMod(id, Max(1))
+  def recentToUserForMod(id: UserId): Fu[Option[Note]] =
+    toUserForMod(id, Max(1))
       .map(_.headOption.filter(_.date.isAfter(nowInstant.minusMinutes(5))))
 
   def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
