@@ -473,7 +473,7 @@ final class User(
               }
           else
             Ok.snipAsync:
-              env.socialInfo.fetchNotes(user).map {
+              env.user.noteApi.get(user).map {
                 views.user.noteUi.zone(user, _)
               }
     )
@@ -481,11 +481,10 @@ final class User(
 
   def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
     Found(meOrFetch(username)):
-      env.socialInfo
-        .fetchNotes(_)
-        .flatMap {
+      env.user.noteApi
+        .get(_)
+        .flatMap:
           lila.user.JsonView.notes(_)(using lightUserApi)
-        }
         .map(JsonOk)
   }
 
