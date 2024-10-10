@@ -25,13 +25,7 @@ export default function table(ctrl: LobbyController) {
             {
               class: { active: ctrl.setupCtrl.gameType === gameType, disabled },
               attrs: { type: 'button' },
-              hook: disabled
-                ? {}
-                : bind(
-                    site.blindMode ? 'click' : 'mousedown',
-                    () => ctrl.setupCtrl.openModal(gameType),
-                    ctrl.redraw,
-                  ),
+              hook: disabled ? {} : bind('click', () => ctrl.setupCtrl.openModal(gameType), ctrl.redraw),
             },
             trans(transKey),
           ),
