@@ -103,7 +103,7 @@
   <string name="openingExplorer">Opening explorer</string>
   <string name="openingEndgameExplorer">Opening/endgame explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Play first opening/endgame-explorer move</string>
+  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">Play first opening/endgame-explorer move</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
@@ -693,14 +693,14 @@ computer analysis, game chat and shareable URL.</string>
   <string name="timeBeforeTournamentStarts">Time before tournament starts</string>
   <string name="averageCentipawnLoss">Average centipawn loss</string>
   <string name="accuracy">Accuracy</string>
-  <string name="keyboardShortcuts">Keyboard shortcuts</string>
+  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
   <string name="keyCycleSelectedVariation">Cycle selected variation</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
-  <string name="keyRequestComputerAnalysis">Request computer analysis, learn from your mistakes</string>
-  <string name="keyNextLearnFromYourMistakes">Next (learn from your mistakes)</string>
+  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Request computer analysis, learn from your mistakes</string>
+  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">Next (learn from your mistakes)</string>
   <string name="keyNextBlunder">Next blunder</string>
   <string name="keyNextMistake">Next mistake</string>
   <string name="keyNextInaccuracy">Next inaccuracy</string>
@@ -940,8 +940,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="cancelTournament">Cancel the tournament</string>
   <string name="tournDescription">Tournament description</string>
   <string name="tournDescriptionHelp">Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)</string>
-  <string name="ratedFormHelp">Games are rated
-and impact players ratings</string>
+  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">Games are rated and impact players ratings</string>
   <string name="onlyMembersOfTeam">Only members of team</string>
   <string name="noRestriction">No restriction</string>
   <string name="minimumRatedGames">Minimum rated games</string>
@@ -972,7 +971,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
   <string name="focusChat">Focus chat</string>
-  <string name="showHelpDialog">Show this help dialog</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Show this help dialog</string>
   <string name="reopenYourAccount">Reopen your account</string>
   <string name="closedAccountChangedMind">If you closed your account, but have since changed your mind, you get one chance of getting your account back.</string>
   <string name="onlyWorksOnce">This will only work once.</string>
