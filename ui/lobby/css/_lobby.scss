@@ -17,6 +17,10 @@ body {
 
 #main-wrap {
   ---main-max-width: 1400px;
+
+  @media (max-width: $small) {
+    padding: 0 0.8em;
+  }
 }
 
 %lobby__side__more {
