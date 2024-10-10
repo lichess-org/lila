@@ -59,7 +59,7 @@ trait AssetHelper:
 
   def iconFlair(flair: Flair): Tag = img(cls := "icon-flair", src := flairSrc(flair))
 
-  def fingerprintTag: EsmList = esmInit("bits.fipr")
+  def fingerprintTag: EsmList = Esm("bits.fipr")
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
     re.enabled.so(esmInitBit("hcaptcha"))
