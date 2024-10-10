@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Máte 30 vteřin, abyste správně určili co nejvíce polí!</string>
   <string name="goAsLongAsYouWant">Jdi jak dlouho chceš, není zde žádný časový limit!</string>
   <string name="showCoordinates">Zobrazit souřadnice</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Souřadnice na každém poli</string>
   <string name="showPieces">Zobrazit figury</string>
   <string name="startTraining">Začít trénink</string>
   <string name="findSquare">Najděte pole</string>

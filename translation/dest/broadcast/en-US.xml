@@ -7,6 +7,7 @@
     <item quantity="other">%s broadcasts</item>
   </plurals>
   <string name="liveBroadcasts">Live tournament broadcasts</string>
+  <string name="broadcastCalendar">Broadcast calendar</string>
   <string name="newBroadcast">New live broadcast</string>
   <string name="subscribedBroadcasts">Subscribed broadcasts</string>
   <string name="aboutBroadcasts">About broadcasts</string>
@@ -26,6 +27,7 @@
   <string name="sourceSingleUrl">PGN Source URL</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="sourceGameIds">Up to 64 Lichess game IDs, separated by spaces.</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Start date in the tournament local timezone: %s</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
   <string name="credits">Credit the source</string>
   <string name="currentGameUrl">Current game URL</string>
