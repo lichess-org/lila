@@ -12,6 +12,7 @@ import lila.playban.TempBan
 import java.time.LocalDate
 import lila.core.config.NetDomain
 import lila.core.userId.ModId
+import lila.shutup.PublicLine
 
 final class ModTimelineUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }
@@ -43,6 +44,7 @@ final class ModTimelineUi(helpers: Helpers)(using NetDomain):
       case e: ReportNewAtom => renderReportNew(e)
       case e: ReportClose   => renderReportClose(e)
       case e: TempBan       => frag("Playban: ", e.mins, " minutes")
+      case e: PublicLine    => renderPublicLine(e)
 
   private def renderMod(userId: ModId)(using Translate) =
     userIdLink(userId.some, withTitle = false, modIcon = true)
@@ -50,6 +52,11 @@ final class ModTimelineUi(helpers: Helpers)(using NetDomain):
     userIdLink(userId.some, withTitle = false)
 
   private def renderText(str: String) = div(cls := "mod-timeline__txt")(shorten(str, 200))
+
+  private def renderPublicLine(l: PublicLine)(using Translate) = frag(
+    ModUi.renderPublicLineSource(l),
+    renderText(l.text)
+  )
 
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*

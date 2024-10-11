@@ -5,7 +5,7 @@ import lila.common.String.html.richText
 import lila.core.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
-import lila.shutup.Analyser
+import lila.shutup.{ Analyser, PublicLine }
 
 val timelineUi = lila.api.ui.ModTimelineUi(helpers)
 
@@ -136,17 +136,7 @@ def communication(
               li(
                 line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
-                line.from.map:
-                  case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)
-                  case PublicSource.Simul(id)      => views.simul.ui.link(id)
-                  case PublicSource.Team(id)       => teamLink(id)
-                  case PublicSource.Watcher(id) =>
-                    a(href := routes.Round.watcher(id, Color.white))("Game #", id)
-                  case PublicSource.Study(id) => a(href := routes.Study.show(id))("Study #", id)
-                  case PublicSource.Swiss(id) => views.swiss.ui.link(id)
-                  case PublicSource.Forum(id) => a(href := routes.ForumPost.redirect(id))("Forum #", id)
-                  case PublicSource.Ublog(id) => a(href := routes.Ublog.redirect(id))("User blog #", id)
-                ,
+                renderPublicLineSource(line),
                 nbsp,
                 span(cls := "line author")(span(cls := "message")(Analyser.highlightBad(line.text)))
               )
