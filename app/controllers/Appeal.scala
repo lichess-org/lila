@@ -71,8 +71,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         (text, process) =>
           for
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
-            preset = getPresets.findLike(text)
-            _ <- env.appeal.api.reply(text, appeal, preset.map(_.name))
+            _ <- env.appeal.api.reply(text, appeal)
             _ <- env.mod.logApi.appealPost(suspect.user.id)
             result <-
               if process then
