@@ -86,7 +86,7 @@ object page:
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
-          sitePreload(allModules, isInquiry = ctx.data.inquiry.isDefined),
+          sitePreload(p.i18nModules, allModules, isInquiry = ctx.data.inquiry.isDefined),
           lichessFontFaceCss,
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),

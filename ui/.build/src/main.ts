@@ -201,6 +201,9 @@ class Env {
   get typesDir(): string {
     return path.join(this.uiDir, '@types');
   }
+  get i18nSrcDir(): string {
+    return path.join(this.rootDir, 'translation', 'js');
+  }
   get manifestFile(): string {
     return path.join(this.jsOutDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
   }

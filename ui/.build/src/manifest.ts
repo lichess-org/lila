@@ -11,7 +11,8 @@ import { jsLogger } from './console.ts';
 
 type Manifest = { [key: string]: { hash?: string; imports?: string[]; mtime?: number } };
 
-const current: { js: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
+const current: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
+  i18n: {},
   js: {},
   css: {},
   hashed: {},
@@ -23,7 +24,7 @@ let writeTimer: NodeJS.Timeout;
 export function writeManifest(): void {
   if (!current.dirty) return;
   clearTimeout(writeTimer);
-  writeTimer = setTimeout(write, 500);
+  writeTimer = setTimeout(() => i18n().then(write), 500);
 }
 
 export function jsManifest(meta: es.Metafile): void {
@@ -127,7 +128,7 @@ async function write() {
       new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'
     }';\n`;
   const serverManifest = {
-    js: { manifest: { hash }, ...current.js },
+    js: { manifest: { hash }, ...current.js, ...current.i18n },
     css: { ...current.css },
     hashed: { ...current.hashed },
   };
@@ -218,4 +219,19 @@ function asHashed(path: string, hash: string) {
 function link(name: string, hash: string) {
   const link = path.join(env.hashOutDir, asHashed(name, hash));
   fs.promises.symlink(path.join('..', name), link).catch(() => {});
+}
+
+async function i18n() {
+  const i18n: Manifest = {};
+  fs.mkdirSync(path.join(env.jsOutDir, 'i18n'), { recursive: true });
+  const scripts = await globArray('*.js', { cwd: env.i18nSrcDir });
+  for (const file of scripts) {
+    const name = `i18n/${path.basename(file, '.js')}`;
+    const content = await fs.promises.readFile(file, 'utf-8');
+    const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+    const destPath = path.join(env.jsOutDir, `${name}.${hash}.js`);
+    i18n[name] = { hash };
+    if (!fs.existsSync(destPath)) await fs.promises.writeFile(destPath, content);
+  }
+  current.i18n = shallowSort(i18n);
 }

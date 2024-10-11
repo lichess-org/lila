@@ -233,7 +233,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="playingRightNow">Partii isch am laufä</string>
   <string name="eventInProgress">Schpillt jetzt</string>
   <string name="finished">Beändet</string>
-  <string name="finishesX">ändet in %s</string>
   <string name="abortGame">Partii abbrächä</string>
   <string name="gameAborted">Partii abbrochä</string>
   <string name="standard">Standard</string>
@@ -416,9 +415,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
   <string name="inappropriateNameWarning">Alles - au liecht Unagmässes - cha zur Schlüssig vu dim Konto fühere.</string>
   <string name="emptyTournamentName">Frei laa zum s\'Turnier nach eme namhafte Schachspiller z\'benänne.</string>
-  <string name="recommendNotTouching">Mir empfehled, das nöd z\'ändere.</string>
-  <string name="fewerPlayers">Wänn du Teilnahmebedingige verlangsch, wird dis Turnier weniger Schpiller ha.</string>
-  <string name="showAdvancedSettings">Zeig die erwiterete Iischtellige</string>
   <string name="makePrivateTournament">Mach das Turnier privat und beschränk de Zuegang mit Passwort</string>
   <string name="join">Mach mit</string>
   <string name="withdraw">Usstiige</string>
@@ -457,10 +453,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeite</string>
-  <string name="firstName">Vornamä</string>
-  <string name="lastName">Nachname</string>
   <string name="biography">Biografii</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Fahne</string>
   <string name="thankYou">Ich danke dir!</string>
   <string name="socialMediaLinks">Social Media Links</string>
   <string name="oneUrlPerLine">Nur 1 Web Adrässe (URL) pro Zile.</string>
@@ -477,7 +470,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="automaticallyProceedToNextGameAfterMoving">Nach em Zug automatisch zur nächschte Partie</string>
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
-  <string name="tournamentWinners">Turnier Sieger</string>
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
@@ -500,11 +492,8 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="reason">Grund</string>
   <string name="whatIsIheMatter">Was isch s\'Problem?</string>
   <string name="cheat">Bschiss</string>
-  <string name="insult">Beleidigung</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation vu de Wertig</string>
   <string name="other">Suschtigs</string>
-  <string name="reportDescriptionHelp">Füeg de Link dere/dene Partie bii und erchlär, wieso sich de Benutzer falsch benah hät. Säg nöd nur eifach \"er bschiist\", schrib eus wie du da druf chunnsch. (in änglisch gschribeni Mäldige, werded schnäller behandlet).</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens 1 Link zume Schpiel aa, wo bschisse worde isch.</string>
   <string name="by">vu %s</string>
   <string name="importedByX">Importiert vu %s</string>
@@ -710,9 +699,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="dark">Dunkel</string>
   <string name="transparent">Durchsichtig</string>
   <string name="backgroundImageUrl">Hindergrund-Bild-URL:</string>
-  <string name="boardGeometry">Brättgrössi und 3D</string>
-  <string name="boardTheme">Brättdesign</string>
-  <string name="boardSize">Brättgrössi</string>
   <string name="pieceSet">Figureart</string>
   <string name="embedInYourWebsite">I dini Website integriere</string>
   <string name="usernameAlreadyUsed">De Benutzername isch bereits vergeh, bitte probier en andere.</string>
@@ -784,7 +770,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   </plurals>
   <string name="sorry">Äxgüsi :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir händ dich für es Wiili müesse schperre.</string>
-  <string name="timeoutExpires">Die Schperrig ändet i %s.</string>
   <string name="why">Wieso?</string>
   <string name="pleasantChessExperience">Mir wänd allne e möglichscht gueti Schach-Erfahrig büte.</string>
   <string name="goodPractice">Zum dem Zwäck müend mir sicher sii, dass sich all Schpiller korräkt verhalted.</string>
@@ -841,7 +826,6 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="timeAlmostUp">D\'Ziit isch fascht abgloffe!</string>
   <string name="clickToRevealEmailAddress">[Klick, zum die E-Mail-Adrässe aazeige]</string>
   <string name="download">Abälade</string>
-  <string name="welcome">Willkomme!</string>
   <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
 Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
   <string name="coachManager">Trainer Verwalter</string>
@@ -856,8 +840,6 @@ und beiiflussed dini Wertig</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
   <string name="minimumRating">Minimali Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
-  <string name="onlyTitled">Nur für Schpiller mit Titel</string>
-  <string name="onlyTitledHelp">Für das Turnier muesch en offizielle Titel haa</string>
   <string name="positionInputHelp">E gültigi FEN startet jedes Schpiil ab ere beschtimmte Schtellig.
 Das funktioniert nur für Standardschpiil und nöd für Variante!
 Chasch mit %s so e FEN-Schtelliig generiere und sie dänn im Fäld

@@ -1,6 +1,7 @@
 /// <reference path="./tree.d.ts" />
 /// <reference path="./chessground.d.ts" />
 /// <reference path="./cash.d.ts" />
+/// <reference path="./i18n.d.ts" />
 
 // file://./../../site/src/site.ts
 interface Site {
@@ -37,7 +38,7 @@ interface Site {
 
   // the following are not set in site.ts
   load: Promise<void>; // DOMContentLoaded promise
-  quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
+  quantity(n: number): 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
   siteI18n: I18nDict;
   socket: SocketI;
   quietMode?: boolean;
@@ -174,6 +175,7 @@ type Nvui = (redraw: () => void) => {
 
 interface Window {
   site: Site;
+  i18n: I18n;
   $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
@@ -312,4 +314,5 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const site: Site;
+declare const i18n: I18n;
 declare module 'tablesort';

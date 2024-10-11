@@ -47,6 +47,9 @@ importers:
 
   bin:
     dependencies:
+      fast-glob:
+        specifier: ^3.3.2
+        version: 3.3.2
       fast-xml-parser:
         specifier: ^4.5.0
         version: 4.5.0
