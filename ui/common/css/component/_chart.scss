@@ -97,7 +97,7 @@
     position: absolute;
   }
   .noUi-touch-area {
-    cursor: w-resize;
+    cursor: ew-resize;
     height: 100%;
     width: 100%;
   }
@@ -148,7 +148,7 @@
     border: 1px solid #d9d9d9;
     border-radius: 3px;
     background: #fff;
-    cursor: w-resize;
+    cursor: ew-resize;
     box-shadow:
       inset 0 0 1px #fff,
       inset 0 1px 7px #ebebeb,
