@@ -20,9 +20,9 @@ case class ModTimeline(
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap: r =>
       r.done.map(ReportClose(r, _)).toList ::: r.atoms.toList.map(ReportNewAtom(r, _))
-    val concat: List[Event] =
+    val allEvents: List[Event] =
       modLog ::: appeal.so(_.msgs.toList) ::: notes ::: reportEvents ::: playban.bans.toList
-    concat.sorted
+    allEvents.sorted
 
   private val ordering = summon[Ordering[LocalDate]].reverse
   def allGroupedByDay: List[(LocalDate, List[Event])] =
@@ -60,7 +60,7 @@ object ModTimeline:
         case _: AppealMsg     => "symbols.left-speech-bubble"
         case _: Note          => "objects.label"
         case _: ReportNewAtom => "symbols.exclamation-mark"
-        case _: ReportClose   => "symbols.large-green-circle"
+        case _: ReportClose   => "objects.package"
         case _: TempBan       => "objects.hourglass-not-done"
     def at: Instant = e match
       case e: Modlog            => e.date
