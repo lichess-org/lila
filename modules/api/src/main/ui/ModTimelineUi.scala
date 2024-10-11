@@ -33,8 +33,8 @@ final class ModTimelineUi(helpers: Helpers)(
 
   private def renderEvent(t: ModTimeline)(e: Event)(using Translate) =
     div(cls := s"mod-timeline__event mod-timeline__event--${e.key}")(
-      a(href := e.url(t.user)):
-        img(cls := "mod-timeline__event__flair", src := flairSrc(e.flair), title := e.key)
+      a(cls := "mod-timeline__event__flair", href := e.url(t.user)):
+        img(src := flairSrc(e.flair), title := e.key)
       ,
       showTime(e.at),
       div(cls := "mod-timeline__event__body")(renderEventBody(t)(e))

@@ -129,7 +129,17 @@ object Modlog:
   )
 
   val isUndo: Set[String] =
-    Set("unalt", "unengine", "unbooster", "untroll", "unisolate", "unreportban", "unrankban", "unprizeban")
+    Set(
+      "unalt",
+      "reopen",
+      "unengine",
+      "unbooster",
+      "untroll",
+      "unisolate",
+      "unreportban",
+      "unrankban",
+      "unprizeban"
+    )
 
   case class UserEntry(user: UserId, action: String, date: Instant)
 

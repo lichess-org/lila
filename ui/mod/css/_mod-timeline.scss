@@ -1,14 +1,12 @@
 .mod-timeline {
-  @extend %flex-column;
+  @extend %flex-column, %box-neat;
   gap: 4em;
-  margin-top: 4em;
-  &--boxed {
-    @extend %box-neat;
-    background: $c-bg-zebra;
-    padding: 2em 4em;
-    max-height: 50vh;
-    overflow-y: auto;
-  }
+  @extend %box-neat;
+  background: $c-bg-zebra;
+  padding: 2em 4em;
+  max-height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .mod-timeline__day {
   @extend %flex-center-nowrap;
@@ -29,8 +27,11 @@
   gap: 1em;
 }
 .mod-timeline__event__flair {
-  width: 1.6em;
-  height: 1.6em;
+  @extend %flex-center;
+  img {
+    width: 1.6em;
+    height: 1.6em;
+  }
 }
 .mod-timeline__event__body {
   @extend %flex-center-nowrap;
@@ -48,6 +49,6 @@
   white-space: nowrap;
 }
 .mod-timeline__text {
-  @extend %break-word;
+  @extend %break-word-hard;
   font-size: 0.9em;
 }

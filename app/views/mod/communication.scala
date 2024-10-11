@@ -18,10 +18,6 @@ def publicLineSource(source: lila.core.shutup.PublicSource)(using Translate): Fr
   case PublicSource.Forum(id) => a(href := routes.ForumPost.redirect(id))("Forum #", id)
   case PublicSource.Ublog(id) => a(href := routes.Ublog.redirect(id))("User blog #", id)
 
-val timelineUi = lila.api.ui.ModTimelineUi(helpers)(
-  publicLineSource = publicLineSource
-)
-
 def communication(
     mod: Me,
     timeline: lila.api.ModTimeline,
@@ -86,7 +82,7 @@ def communication(
             )
           )
         ),
-        timelineUi.render(timeline)(cls := "mod-timeline--boxed"),
+        views.mod.timeline.render(timeline),
         // reports.nonEmpty.option(
         //   frag(
         //     h2("Comm reports"),

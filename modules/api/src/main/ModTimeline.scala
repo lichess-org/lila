@@ -97,8 +97,9 @@ final class ModTimelineApi(
     for
       modLogAll <- Granter(_.ModLog).so(modLogApi.userHistory(user.id))
       modLog = modLogAll.filter(_.action != Modlog.appealPost)
-      appeal  <- Granter(_.Appeals).so(appealApi.byId(user))
-      notes   <- noteApi.getForMyPermissions(user)
+      appeal   <- Granter(_.Appeals).so(appealApi.byId(user))
+      notesAll <- noteApi.getForMyPermissions(user, Max(50))
+      notes = notesAll.filterNot(_.text.startsWith("Appeal reply:"))
       reports <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
       playban <- Granter(_.SeeReport).so(playBanApi.fetchRecord(user))
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))

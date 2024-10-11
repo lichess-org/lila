@@ -354,6 +354,11 @@ final class User(
 
         val nbOthers = getInt("nbOthers") | 100
 
+        val timeline = env.api
+          .modTimeline(user)
+          .map(views.mod.timeline.render)
+          .map(lila.mod.ui.mzSection("timeline")(_))
+
         val modLog = for
           history <- env.mod.logApi.userHistory(user.id)
           appeal  <- isGranted(_.Appeals).so(env.appeal.api.byId(user))
@@ -428,6 +433,7 @@ final class User(
           Source
             .single(ui.menu)
             .merge(modZoneSegment(actions, "actions", user))
+            .merge(modZoneSegment(timeline, "timeline", user))
             .merge(modZoneSegment(modLog, "modLog", user))
             .merge(modZoneSegment(plan, "plan", user))
             .merge(modZoneSegment(student, "student", user))
