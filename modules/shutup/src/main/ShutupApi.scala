@@ -21,9 +21,8 @@ final class ShutupApi(
     coll
       .find($doc("_id" -> userId), $doc("pub" -> 1).some)
       .one[Bdoc]
-      .map {
+      .map:
         ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
-      }
 
   def teamForumMessage(userId: UserId, text: String) = record(userId, text, TextType.TeamForumMessage)
   def publicText(userId: UserId, text: String, source: PublicSource) =

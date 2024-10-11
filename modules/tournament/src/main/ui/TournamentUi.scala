@@ -7,6 +7,13 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
+def tournamentLink(tour: Tournament)(using Translate): Frag =
+  a(
+    dataIcon := Icon.Trophy.value,
+    cls      := (if tour.isScheduled then "text is-gold" else "text"),
+    href     := routes.Tournament.show(tour.id).url
+  )(tour.name())
+
 final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   import helpers.{ *, given }
 
@@ -80,13 +87,6 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
             case None => td(dataIcon := Icon.User, cls := "text")(visiblePlayers)
         )
     )
-
-  def tournamentLink(tour: Tournament)(using Translate): Frag =
-    a(
-      dataIcon := Icon.Trophy.value,
-      cls      := (if tour.isScheduled then "text is-gold" else "text"),
-      href     := routes.Tournament.show(tour.id).url
-    )(tour.name())
 
   def tournamentLink(tourId: TourId)(using Translate): Frag =
     a(

@@ -12,6 +12,7 @@ import lila.playban.TempBan
 import java.time.LocalDate
 import lila.core.config.NetDomain
 import lila.core.userId.ModId
+import lila.shutup.PublicLine
 
 final class ModTimelineUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }
@@ -28,7 +29,9 @@ final class ModTimelineUi(helpers: Helpers)(using NetDomain):
 
   private def renderEvent(t: ModTimeline)(e: Event)(using Translate) =
     div(cls := s"mod-timeline__event mod-timeline__event--${e.key}")(
-      img(cls := "mod-timeline__event__flair", src := flairSrc(e.flair), title := e.key),
+      a(href := e.url(t.user)):
+        img(cls := "mod-timeline__event__flair", src := flairSrc(e.flair), title := e.key)
+      ,
       showTime(e.at),
       div(cls := "mod-timeline__event__body")(renderEventBody(t)(e))
     )
@@ -41,11 +44,19 @@ final class ModTimelineUi(helpers: Helpers)(using NetDomain):
       case e: ReportNewAtom => renderReportNew(e)
       case e: ReportClose   => renderReportClose(e)
       case e: TempBan       => frag("Playban: ", e.mins, " minutes")
+      case e: PublicLine    => renderPublicLine(e)
 
   private def renderMod(userId: ModId)(using Translate) =
     userIdLink(userId.some, withTitle = false, modIcon = true)
   private def renderUser(userId: UserId)(using Translate) =
     userIdLink(userId.some, withTitle = false)
+
+  private def renderText(str: String) = div(cls := "mod-timeline__txt")(shorten(str, 200))
+
+  private def renderPublicLine(l: PublicLine)(using Translate) = frag(
+    ModUi.renderPublicLineSource(l),
+    renderText(l.text)
+  )
 
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
@@ -57,7 +68,7 @@ final class ModTimelineUi(helpers: Helpers)(using NetDomain):
         " report about ",
         atom.reason.name
       ),
-      div(cls := "mod-timeline__text")(shorten(atom.text, 200))
+      renderText(atom.text)
     )
 
   private def renderReportClose(r: ReportClose)(using Translate) = frag(
@@ -86,13 +97,11 @@ final class ModTimelineUi(helpers: Helpers)(using NetDomain):
       if a.by.is(t.user)
       then renderUser(a.by)
       else renderMod(a.by.into(ModId)),
-      div(cls := "mod-timeline__text"):
-        richText(a.text, expandImg = false)
+      renderText(a.text)
     )
 
   private def renderNote(n: Note)(using Translate) =
     frag(
       renderMod(n.from.into(ModId)),
-      div(cls := "mod-timeline__text"):
-        richText(n.text, expandImg = false)
+      renderText(n.text)
     )

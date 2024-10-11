@@ -47,10 +47,8 @@ final class PlaybanApi(
     (mode.notProd || Uptime.startedSinceMinutes(10)).so:
       blameable(game).flatMapz(f)
 
-  def fetchRecord(user: User): Fu[UserRecord] =
-    coll
-      .byId[UserRecord]($id(user.id))
-      .map(_ | UserRecord(user.id, none, none, none))
+  def fetchRecord(user: User): Fu[Option[UserRecord]] =
+    coll.byId[UserRecord]($id(user.id))
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit =
     IfBlameable(pov.game):
