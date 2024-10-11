@@ -73,7 +73,7 @@ def communication(
             )
           )
         ),
-        timelineUi.render(timeline),
+        timelineUi.render(timeline)(cls := "mod-timeline--boxed"),
         // reports.nonEmpty.option(
         //   frag(
         //     h2("Comm reports"),

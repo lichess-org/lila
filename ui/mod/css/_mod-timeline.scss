@@ -2,6 +2,13 @@
   @extend %flex-column;
   gap: 4em;
   margin-top: 4em;
+  &--boxed {
+    @extend %box-neat;
+    background: $c-bg-zebra;
+    padding: 2em 4em;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
 }
 .mod-timeline__day {
   @extend %flex-center-nowrap;

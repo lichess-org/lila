@@ -473,7 +473,7 @@ final class User(
               }
           else
             Ok.snipAsync:
-              env.user.noteApi.get(user).map {
+              env.user.noteApi.getForMyPermissions(user).map {
                 views.user.noteUi.zone(user, _)
               }
     )
@@ -482,7 +482,7 @@ final class User(
   def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
     Found(meOrFetch(username)):
       env.user.noteApi
-        .get(_)
+        .getForMyPermissions(_)
         .flatMap:
           lila.user.JsonView.notes(_)(using lightUserApi)
         .map(JsonOk)

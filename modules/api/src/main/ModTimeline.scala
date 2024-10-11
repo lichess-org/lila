@@ -6,6 +6,7 @@ import lila.user.{ Note, NoteApi }
 import lila.report.{ Report, ReportApi }
 import lila.playban.{ TempBan, PlaybanApi }
 import java.time.LocalDate
+import lila.core.perm.Granter
 
 case class ModTimeline(
     user: User,
@@ -13,7 +14,7 @@ case class ModTimeline(
     appeal: Option[Appeal],
     notes: List[Note],
     reports: List[Report],
-    playban: lila.playban.UserRecord
+    playban: Option[lila.playban.UserRecord]
 ):
   import ModTimeline.{ *, given }
 
@@ -21,7 +22,7 @@ case class ModTimeline(
     val reportEvents: List[Event] = reports.flatMap: r =>
       r.done.map(ReportClose(r, _)).toList ::: r.atoms.toList.map(ReportNewAtom(r, _))
     val concat: List[Event] =
-      modLog ::: appeal.so(_.msgs.toList) ::: notes ::: reportEvents ::: playban.bans.toList
+      modLog ::: appeal.so(_.msgs.toList) ::: notes ::: reportEvents ::: playban.so(_.bans.toList)
     concat.sorted
 
   private val ordering = summon[Ordering[LocalDate]].reverse
@@ -69,6 +70,10 @@ object ModTimeline:
       case ReportNewAtom(_, a)  => a.at
       case ReportClose(_, done) => done.at
       case e: TempBan           => e.date
+    def url(u: User): String = e match
+      case _: AppealMsg => routes.Appeal.show(u.username).url
+      case _: Note      => s"${routes.User.show(u.username)}?notes=1"
+      case _            => s"${routes.User.show(u.username)}?mod=1"
 
   // latest first
   given Ordering[Event] = Ordering.by(at).reverse
@@ -83,10 +88,10 @@ final class ModTimelineApi(
 
   def apply(user: User)(using Me): Fu[ModTimeline] =
     for
-      modLogAll <- modLogApi.userHistory(user.id)
+      modLogAll <- Granter(_.ModLog).so(modLogApi.userHistory(user.id))
       modLog = modLogAll.filter(_.action != Modlog.appealPost)
-      appeal  <- appealApi.byId(user)
-      notes   <- noteApi.get(user)
-      reports <- reportApi.allReportsAbout(user, Max(50))
-      playban <- playBanApi.fetchRecord(user)
+      appeal  <- Granter(_.Appeals).so(appealApi.byId(user))
+      notes   <- noteApi.getForMyPermissions(user)
+      reports <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
+      playban <- Granter(_.SeeReport).so(playBanApi.fetchRecord(user))
     yield ModTimeline(user, modLog, appeal, notes, reports, playban)
