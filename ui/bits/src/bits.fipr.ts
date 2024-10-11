@@ -1,5 +1,3 @@
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
-
 site.load.then(() =>
   setTimeout(async () => {
     const storageKey = 'fipr';
@@ -16,9 +14,9 @@ site.load.then(() =>
     };
     const existingFp = localStorage.getItem(storageKey);
     if (existingFp) send(existingFp);
-    else {
-      const fipr = await FingerprintJS.load();
-      fipr.get().then(result => send(result.visitorId));
-    }
+    else
+      site.asset
+        .loadIife('javascripts/fipr.js')
+        .then(() => fipr.get(c => send(fipr.x64hash128(c.map(x => x.value).join(''), 31))));
   }, 1000),
 );
