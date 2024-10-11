@@ -12,9 +12,13 @@ import lila.playban.TempBan
 import java.time.LocalDate
 import lila.core.config.NetDomain
 import lila.core.userId.ModId
-import lila.shutup.PublicLine
+import lila.shutup.{ PublicLine, Analyser }
+import lila.core.shutup.PublicSource
+import lila.core.i18n.Translate
 
-final class ModTimelineUi(helpers: Helpers)(using NetDomain):
+final class ModTimelineUi(helpers: Helpers)(
+    publicLineSource: PublicSource => Translate ?=> Frag
+)(using NetDomain):
   import helpers.{ *, given }
   import ModTimeline.*
 
@@ -51,22 +55,27 @@ final class ModTimelineUi(helpers: Helpers)(using NetDomain):
   private def renderUser(userId: UserId)(using Translate) =
     userIdLink(userId.some, withTitle = false)
 
-  private def renderText(str: String) = div(cls := "mod-timeline__txt")(shorten(str, 200))
+  private def renderText(str: String) = div(cls := "mod-timeline__text")(shorten(str, 200))
 
   private def renderPublicLine(l: PublicLine)(using Translate) = frag(
-    ModUi.renderPublicLineSource(l),
-    renderText(l.text)
+    l.from.map(publicLineSource(_)),
+    div(cls := "mod-timeline__txt")(Analyser.highlightBad(l.text))
   )
 
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
     frag(
-      userIdLink(report.user.some),
+      userIdLink(atom.by.some),
       span(cls := "mod-timeline__event__action")(
-        " opened a ",
-        report.room.name,
-        " report about ",
-        atom.reason.name
+        if atom.isFlag
+        then "flagged a message"
+        else
+          frag(
+            " opened a ",
+            report.room.name,
+            " report about ",
+            atom.reason.name
+          )
       ),
       renderText(atom.text)
     )
