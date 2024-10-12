@@ -300,12 +300,14 @@ final class Api(
       rateLimit(rateLimited):
         get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
           import chess.variant.Variant
-          JsonOptionOk:
-            env.evalCache.api.getEvalJson(
+          env.evalCache.api
+            .getEvalJson(
               Variant.orDefault(getAs[Variant.LilaKey]("variant")),
               chess.format.Fen.Full.clean(fen),
               getIntAs[MultiPv]("multiPv") | MultiPv(1)
             )
+            .map:
+              _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(JsonOk)
 
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>
