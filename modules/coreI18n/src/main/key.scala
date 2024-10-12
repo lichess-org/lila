@@ -1092,6 +1092,7 @@ object I18nKey:
     val `sayGgWpAfterLosingOrDrawing`: I18nKey = "preferences:sayGgWpAfterLosingOrDrawing"
     val `yourPreferencesHaveBeenSaved`: I18nKey = "preferences:yourPreferencesHaveBeenSaved"
     val `scrollOnTheBoardToReplayMoves`: I18nKey = "preferences:scrollOnTheBoardToReplayMoves"
+    val `showOpponentRating`: I18nKey = "preferences:showOpponentRating"
     val `correspondenceEmailNotification`: I18nKey = "preferences:correspondenceEmailNotification"
     val `notifyStreamStart`: I18nKey = "preferences:notifyStreamStart"
     val `notifyInboxMsg`: I18nKey = "preferences:notifyInboxMsg"
