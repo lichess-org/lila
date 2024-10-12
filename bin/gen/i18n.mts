@@ -36,20 +36,21 @@ object I18nKey:
 
 const tsPrelude = `// Generated
 interface I18nFormat {
-  (args: (string | number)[]): string;
-  asArray: <T>(args: T[]) => (T | string)[],
+  (...args: (string | number)[]): string;
+  asArray: <T>(...args: T[]) => (T | string)[], // vdom
 }
 interface I18nPlural {
-  (quantity: number, args: (string | number)[]): string,
-  asArray: <T>(quantity: number, args: T[]) => (T | string)[],
+  (quantity: number, ...args: (string | number)[]): string, // pluralSame
+  raw: (quantity: number, ...args: (string | number)[]) => string, // plural
+  asArray: <T>(quantity: number, ...args: T[]) => (T | string)[], // vdomPlural
 }
 interface I18n {\n`;
 
 const jsPrelude =
-  '"use strict";(()=>{function o(t,r){return t[site.quantity(r)]||t.other||t.one||"no plural ' +
-  'found"}function p(t){let r=(n,e)=>l(o(t,n),e).join("");return r.asArray=(n,e)=>l(o(t,n),e),r}' +
-  'function s(t){let r=n=>l(t,n).join("");return r.asArray=n=>l(t,n),r}function l(t,r){' +
-  'let n=t.split(/(%(?:d$)?s)/g);if(r.length){let e=n.indexOf("%s");if(e!==-1)n[e]=r[0];' +
+  '"use strict";(()=>{function o(t,r){return t[site.quantity(r)]||t.other||t.one||"no plural found"}' +
+  'function p(t){let r=(n,e)=>l(o(t,n),n,e).join("");return r.asArray=(n,e)=>l(o(t,n),e),r.raw=(n,e)=>' +
+  'l(o(t,n),e),r}function s(t){let r=n=>l(t,n).join("");return r.asArray=n=>l(t,n),r}function ' +
+  'l(t,...r){let n=t.split(/(%(?:d$)?s)/g);if(r.length){let e=n.indexOf("%s");if(e!==-1)n[e]=r[0];' +
   'else for(let i=0;i<r.length;i++){let s=n.indexOf("%"+(i+1)+"$s");s!==-1&&(n[s]=r[i])}}return n}';
 
 const i18nMap = await readTranslations();
@@ -103,13 +104,13 @@ async function writeTypescript(dictMap: DictMap) {
         ([dict, trans]) =>
           `  ${dict}: {\n` +
           [...trans.entries()]
-            .map(
-              ([k, v]) =>
-                `    '${k}': ` +
-                (typeof v !== 'string' ? 'I18nPlural' : isFormat.test(v) ? 'I18nFormat' : 'string'),
-            )
-            .join(';\n') +
-          ';\n  };\n',
+            .map(([k, v]) => {
+              const tpe = typeof v !== 'string' ? 'I18nPlural' : isFormat.test(v) ? 'I18nFormat' : 'string';
+              const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
+              return `    '${k}': ${tpe}; // ${comment}`;
+            })
+            .join('\n') +
+          '\n  };\n',
       )
       .join('') +
     '}\n';
