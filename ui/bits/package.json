@@ -57,6 +57,7 @@
       "src/bits.devMode.ts",
       "src/bits.diagnosticDialog.ts",
       "src/bits.expandText.ts",
+      "src/bits.fipr.ts",
       "src/bits.flairPicker.ts",
       "src/bits.flatpickr.ts",
       "src/bits.forum.ts",
