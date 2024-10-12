@@ -125,7 +125,8 @@ final class TokenUi(helpers: Helpers)(
                           s"${form("scopes").name}[]",
                           value = scope.key,
                           checked = !disabled && form.data.valuesIterator.contains(scope.key),
-                          disabled = disabled
+                          disabled = disabled,
+                          title = disabled.option(ot.alreadyHavePlayedGames.txt())
                         )
                       ),
                       label(`for` := id, st.title := disabled.option(ot.alreadyHavePlayedGames.txt()))(

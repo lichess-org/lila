@@ -94,7 +94,8 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
       fieldName: String,
       checked: Boolean,
       disabled: Boolean = false,
-      value: Value = "true"
+      value: Value = "true",
+      title: Option[String] = None
   ) =
     frag(
       st.input(
@@ -106,7 +107,10 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
         checked.option(st.checked),
         disabled.option(st.disabled)
       ),
-      label(`for` := fieldId)
+      label(
+        `for` := fieldId,
+        title.map(st.title := _)
+      )
     )
 
   def nativeCheckbox[Value: Show](
