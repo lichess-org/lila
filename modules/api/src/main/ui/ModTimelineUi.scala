@@ -58,7 +58,7 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderText(str: String) = div(cls := "mod-timeline__text")(shorten(str, 200))
 
   private def renderPublicLine(l: PublicLine)(using Translate) = frag(
-    l.from.map(publicLineSource(_)),
+    publicLineSource(l.from),
     div(cls := "mod-timeline__txt")(Analyser.highlightBad(l.text))
   )
 

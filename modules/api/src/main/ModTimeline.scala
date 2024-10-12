@@ -75,7 +75,7 @@ object ModTimeline:
       case ReportNewAtom(_, a)  => a.at
       case ReportClose(_, done) => done.at
       case e: TempBan           => e.date
-      case e: PublicLine        => e.date | nowInstant
+      case e: PublicLine        => e.date
     def url(u: User): String = e match
       case _: AppealMsg => routes.Appeal.show(u.username).url
       case _: Note      => s"${routes.User.show(u.username)}?notes=1"

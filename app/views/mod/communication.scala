@@ -143,9 +143,9 @@ def communication(
           ul(cls := "public_chats")(
             publicLines.reverse.map: line =>
               li(
-                line.date.fold[Frag]("[OLD]")(momentFromNowServer),
+                momentFromNowServer(line.date),
                 " ",
-                line.from.map(publicLineSource),
+                publicLineSource(line.from),
                 nbsp,
                 span(cls := "line author")(span(cls := "message")(Analyser.highlightBad(line.text)))
               )

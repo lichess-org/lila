@@ -5,16 +5,12 @@ import scala.util.Success
 import lila.core.shutup.PublicSource as Source
 import lila.db.dsl.given
 
-case class PublicLine(
-    text: String,
-    from: Option[Source],
-    date: Option[Instant]
-)
+case class PublicLine(text: String, from: Source, date: Instant)
 
 object PublicLine:
 
   def make(text: String, from: Source): PublicLine =
-    PublicLine(text.take(200), from.some, nowInstant.some)
+    PublicLine(text.take(200), from, nowInstant)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*
@@ -44,13 +40,4 @@ object PublicLine:
       )
   )
 
-  private val objectHandler = Macros.handler[PublicLine]
-
-  given BSONHandler[PublicLine] = lila.db.dsl.tryHandler[PublicLine](
-    {
-      case doc: BSONDocument => objectHandler.readTry(doc)
-      case BSONString(text)  => Success(PublicLine(text, none, none))
-      case a                 => lila.db.BSON.handlerBadValue(s"Invalid PublicLine $a")
-    },
-    x => if x.from.isDefined then objectHandler.writeTry(x).get else BSONString(x.text)
-  )
+  given BSONHandler[PublicLine] = Macros.handler
