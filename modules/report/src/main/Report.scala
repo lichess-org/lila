@@ -7,6 +7,7 @@ import lila.core.id.ReportId
 import lila.core.perf.UserWithPerfs
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
+import lila.core.shutup.PublicSource
 
 case class Report(
     @Key("_id") id: ReportId, // also the url slug
@@ -101,7 +102,7 @@ object Report:
       score: Score,
       at: Instant
   ):
-    def simplifiedText = text.linesIterator.filterNot(_.startsWith("[AUTOREPORT]")).mkString("\n")
+    def textWithoutAutoReports = text.linesIterator.filterNot(_.startsWith("[AUTOREPORT]")).mkString("\n")
 
     def byHuman = !byLichess && by.isnt(ReporterId.irwin)
 
@@ -110,9 +111,15 @@ object Report:
     def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
     def isFlag                            = text.startsWith(Reason.flagText)
     def parseFlag: Option[Atom.ParsedFlag] = isFlag.so:
-      text.split(" ", 3) match
-        case Array(_, resource, quote) => Atom.ParsedFlag(resource, quote).pp(text).some
-        case _                         => none
+      text
+        .split(" ", 3)
+        .lift(1)
+        .flatMap(PublicSource.longNotation.read)
+        .map: source =>
+          val quotes = text.linesIterator.toList
+            .flatMap: line =>
+              line.startsWith(Reason.flagText).so(line.split(" ", 3).lift(2))
+          Atom.ParsedFlag(source, quotes)
 
   object Atom:
     def best(atoms: List[Atom], nb: Int): List[Atom] =
@@ -120,7 +127,7 @@ object Report:
         .sortBy: a =>
           (-a.score, -a.at.toSeconds)
         .take(nb)
-    case class ParsedFlag(resource: String, quote: String)
+    case class ParsedFlag(source: PublicSource, quotes: List[String])
 
   case class AndAtom(report: Report, atom: Atom)
 

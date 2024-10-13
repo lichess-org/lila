@@ -17,6 +17,7 @@ def publicLineSource(source: lila.core.shutup.PublicSource)(using Translate): Fr
   case PublicSource.Swiss(id) => views.swiss.ui.link(id)
   case PublicSource.Forum(id) => a(href := routes.ForumPost.redirect(id))("Forum #", id)
   case PublicSource.Ublog(id) => a(href := routes.Ublog.redirect(id))("User blog #", id)
+  case PublicSource.Relay(id) => a(href := routes.RelayRound.show("-", "-", id))("Broadcast #", id)
 
 def communication(
     mod: Me,

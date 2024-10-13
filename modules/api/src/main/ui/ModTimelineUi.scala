@@ -56,12 +56,16 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderUser(userId: UserId)(using Translate) =
     userIdLink(userId.some, withTitle = false)
 
-  private def renderText(str: String) = div(cls := "mod-timeline__text")(shorten(str, 200))
+  private def renderText(str: String, highlightBad: Boolean) =
+    div(cls := "mod-timeline__text"):
+      val short = shorten(str, 200)
+      if highlightBad then Analyser.highlightBad(short)
+      else short
 
   private def renderPublicLine(l: PublicLine)(using Translate) = frag(
     renderMod(UserId.lichess.into(ModId)),
     publicLineSource(l.from),
-    div(cls := "mod-timeline__txt")(Analyser.highlightBad(l.text))
+    renderText(l.text, true)
   )
 
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
@@ -71,7 +75,7 @@ final class ModTimelineUi(helpers: Helpers)(
       strong(cls := "mod-timeline__event__from")(pluralize("player", r.atoms.size)),
       span(cls := "mod-timeline__event__action")(
         flag match
-          case Some(f) => publicSourceLink(f.resource)
+          case Some(f) => publicLineSource(f.source)
           case None =>
             frag(
               " opened a ",
@@ -80,7 +84,8 @@ final class ModTimelineUi(helpers: Helpers)(
               atoms.head.reason.name
             )
       ),
-      renderText(flag.fold(atoms.head.text)(_.quote))
+      flag.fold(renderText(atoms.head.text, false)): flag =>
+        renderText(flag.quotes.mkString(" | "), true)
     )
 
   private def renderReportClose(r: ReportClose)(using Translate) = frag(
@@ -112,27 +117,11 @@ final class ModTimelineUi(helpers: Helpers)(
       if a.by.is(t.user)
       then renderUser(a.by)
       else renderMod(a.by.into(ModId)),
-      renderText(a.text)
+      renderText(a.text, false)
     )
 
   private def renderNote(n: Note)(using Translate) =
     frag(
       renderMod(n.from.into(ModId)),
-      renderText(n.text)
+      renderText(n.text, false)
     )
-
-  def publicSourceLink(source: String): Option[Frag] =
-    source.split("/") match
-      case Array(tpe, id) => ModTimelineUi.publicSourceLink(tpe, id).some
-      case _              => none
-
-object ModTimelineUi:
-  def publicSourceLink(tpe: String, id: String): Frag =
-    val path = tpe match
-      case "game"       => routes.Round.watcher(GameId(id), Color.white).url
-      case "relay"      => routes.RelayRound.show("-", "-", RelayRoundId(id)).url
-      case "tournament" => routes.Tournament.show(TourId(id)).url
-      case "swiss"      => routes.Swiss.show(SwissId(id)).url
-      case "forum"      => routes.ForumPost.redirect(ForumPostId(id)).url
-      case _            => s"/$tpe/$id"
-    a(href := path)(path)
