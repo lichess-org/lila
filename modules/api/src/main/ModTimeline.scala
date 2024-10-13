@@ -1,13 +1,15 @@
 package lila.api
 
+import java.time.LocalDate
+
 import lila.mod.{ Modlog, ModlogApi }
 import lila.appeal.{ Appeal, AppealMsg, AppealApi }
 import lila.user.{ Note, NoteApi }
 import lila.report.{ Report, ReportApi }
 import lila.playban.{ TempBan, PlaybanApi }
 import lila.shutup.{ PublicLine, ShutupApi }
-import java.time.LocalDate
-import lila.core.perm.Granter
+import lila.core.perm.{ Permission, Granter }
+import lila.core.userId.ModId
 
 case class ModTimeline(
     user: User,
@@ -93,8 +95,9 @@ final class ModTimelineApi(
     noteApi: NoteApi,
     reportApi: ReportApi,
     playBanApi: PlaybanApi,
-    shutupApi: ShutupApi
-)(using Executor):
+    shutupApi: ShutupApi,
+    userRepo: lila.user.UserRepo
+)(using Executor)(using scheduler: Scheduler):
 
   def apply(user: User, withPlayBans: Boolean)(using Me): Fu[ModTimeline] =
     for
@@ -108,4 +111,15 @@ final class ModTimelineApi(
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))
     yield ModTimeline(user, modLog, appeal, notes, reports, playban, lines)
 
-  private def filterModLog(l: Modlog): Boolean = true
+  private def filterModLog(l: Modlog): Boolean =
+    if l.action == Modlog.teamKick && !modsList.contains(l.mod) then false
+    else true
+
+  private object modsList:
+    var all: Set[ModId]               = Set(UserId.lichess.into(ModId))
+    def contains(mod: ModId): Boolean = all.contains(mod)
+    scheduler.scheduleWithFixedDelay(19 seconds, 1 hour): () =>
+      userRepo
+        .userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList)
+        .foreach: ids =>
+          all = ids.map(_.into(ModId)).toSet
