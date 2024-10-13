@@ -37,7 +37,7 @@ const expandUrls = (html: string) =>
 const expandGameIds = (html: string) =>
   html.replace(
     /\s#([\w]{8})($|[^\w-])/g,
-    (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id, 'text') + suffix,
+    (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id) + suffix,
   );
 
 const expandTeamMessage = (html: string) =>
