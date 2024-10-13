@@ -72,7 +72,9 @@ final class ModTimelineUi(helpers: Helpers)(
     import r.*
     val flag = atoms.head.parseFlag
     frag(
-      strong(cls := "mod-timeline__event__from")(pluralize("player", r.atoms.size)),
+      if r.atoms.size == 1 && r.atoms.head.by.is(UserId.lichess)
+      then renderMod(UserId.lichess.into(ModId))
+      else strong(cls := "mod-timeline__event__from")(pluralize("player", r.atoms.size)),
       span(cls := "mod-timeline__event__action")(
         flag match
           case Some(f) => publicLineSource(f.source)
