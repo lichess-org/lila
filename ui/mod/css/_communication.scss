@@ -2,11 +2,13 @@
 @import 'mod-timeline';
 
 #communication {
+  @extend %flex-column;
+  gap: 2vh;
+
   h1 {
     @extend %flex-between;
 
     font-size: 1.5em;
-    margin-bottom: 2vh;
   }
 
   .user-link {
@@ -28,7 +30,6 @@
 
   h2 {
     font-size: 1.6em;
-    margin-top: 1.6em;
     border-bottom: 1px solid $border;
     text-transform: capitalize;
     letter-spacing: 2px;

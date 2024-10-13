@@ -65,7 +65,7 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
     frag(
-      strong(pluralize("player", r.atoms.size)),
+      strong(cls := "mod-timeline__event__from")(pluralize("player", r.atoms.size)),
       span(cls := "mod-timeline__event__action")(
         if atoms.head.isFlag
         then "flagged a message"
