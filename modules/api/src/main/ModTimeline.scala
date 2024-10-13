@@ -59,6 +59,8 @@ object ModTimeline:
           if e.action == Modlog.permissions then "objects.key"
           else if e.action == Modlog.modMessage then "objects.megaphone"
           else if e.action == Modlog.garbageCollect then "objects.broom"
+          else if e.action == Modlog.selfCloseAccount then "objects.locked"
+          else if e.action == Modlog.reopenAccount then "objects.unlocked"
           else if Modlog.isSentence(e.action) then "objects.hammer"
           else if Modlog.isUndo(e.action) then "symbols.recycling-symbol"
           else "objects.wrench"

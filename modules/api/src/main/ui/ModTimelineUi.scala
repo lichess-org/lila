@@ -42,7 +42,7 @@ final class ModTimelineUi(helpers: Helpers)(
 
   private def renderEventBody(t: ModTimeline)(e: Event)(using Translate): Frag =
     e match
-      case e: Modlog        => renderModlog(e)
+      case e: Modlog        => renderModlog(t.user)(e)
       case e: AppealMsg     => renderAppeal(t)(e)
       case e: Note          => renderNote(e)
       case e: ReportNewAtom => renderReportNew(e)
@@ -88,10 +88,13 @@ final class ModTimelineUi(helpers: Helpers)(
     r.report.atoms.toList.map(_.reason.name).mkString(", ")
   )
 
-  private def renderModlog(e: Modlog)(using Translate) =
+  private def renderModlog(user: User)(e: Modlog)(using Translate) =
     val actionTag = if Modlog.isSentence(e.action) then badTag else span
+    val author: Frag =
+      if e.action == Modlog.selfCloseAccount then renderUser(user.id)
+      else renderMod(e.mod)
     frag(
-      renderMod(e.mod),
+      author,
       actionTag(cls := "mod-timeline__event__action")(e.showAction),
       div(cls := "mod-timeline__text"):
         e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
