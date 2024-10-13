@@ -4,7 +4,6 @@ import { Player } from 'game';
 import { Position } from '../interfaces';
 import RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'common/userLink';
-import { storage } from 'common/storage';
 
 export const aiName = (ctrl: RoundController, level: number): string =>
   ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
@@ -18,7 +17,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
-    const showRating = user?.id !== d.opponent.user?.id || storage.boolean('showRating').getOrDefault(true)
+    const showRating = user?.id !== d.opponent.user?.id || d.pref.showRating
     return h(
       `div.ruser-${position}.ruser.user-link`,
       {

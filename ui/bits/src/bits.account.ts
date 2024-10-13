@@ -15,7 +15,6 @@ site.load.then(() => {
     ['behavior', 'arrowSnap', 'arrow.snap', true],
     ['behavior', 'courtesy', 'courtesy', false],
     ['behavior', 'scrollMoves', 'scrollMoves', true],
-    ['behavior', 'showRating', 'showRating', true],
     ['notification', 'playBellSound', 'playBellSound', true],
   ];
 
