@@ -32,3 +32,7 @@ export async function clean(globs?: string[]): Promise<void> {
     }
   }
 }
+
+export async function deepClean(): Promise<void> {
+  return clean(['translation/js', ...allGlobs]);
+}

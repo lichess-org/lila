@@ -37,7 +37,6 @@ export class StudyForm {
   constructor(
     private readonly doSave: (data: FormData, isNew: boolean) => void,
     readonly getData: () => StudyData,
-    readonly trans: Trans,
     readonly redraw: Redraw,
     readonly relay?: RelayCtrl,
   ) {}
@@ -77,11 +76,11 @@ export function view(ctrl: StudyForm): VNode {
     }
   };
   const userSelectionChoices: Choice[] = [
-    ['nobody', ctrl.trans.noarg('nobody')],
-    ['owner', ctrl.trans.noarg('onlyMe')],
-    ['contributor', ctrl.trans.noarg('contributors')],
-    ['member', ctrl.trans.noarg('members')],
-    ['everyone', ctrl.trans.noarg('everyone')],
+    ['nobody', i18n.study.nobody],
+    ['owner', i18n.study.onlyMe],
+    ['contributor', i18n.study.contributors],
+    ['member', i18n.study.members],
+    ['everyone', i18n.study.everyone],
   ];
   return snabDialog({
     class: 'study-edit',
@@ -91,7 +90,10 @@ export function view(ctrl: StudyForm): VNode {
     },
     noClickAway: true,
     vnodes: [
-      h('h2', ctrl.trans.noarg(ctrl.relay ? 'editRoundStudy' : isNew ? 'createStudy' : 'editStudy')),
+      h(
+        'h2',
+        ctrl.relay ? i18n.broadcast.editRoundStudy : isNew ? i18n.study.createStudy : i18n.study.editStudy,
+      ),
       h(
         'form.form3',
         {
@@ -146,7 +148,7 @@ export function view(ctrl: StudyForm): VNode {
               data.flair && h(removeEmojiButton, 'Delete'),
             ]),
             h('div.form-group', [
-              h('label.form-label', { attrs: { for: 'study-name' } }, ctrl.trans.noarg('name')),
+              h('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name),
               h('input#study-name.form-control', {
                 attrs: { minlength: 3, maxlength: 100 },
                 hook: {
@@ -165,17 +167,17 @@ export function view(ctrl: StudyForm): VNode {
           h('div.form-split', [
             select({
               key: 'visibility',
-              name: ctrl.trans.noarg('visibility'),
+              name: i18n.study.visibility,
               choices: [
-                ['public', ctrl.trans.noarg('public')],
-                ['unlisted', ctrl.trans.noarg('unlisted')],
-                ['private', ctrl.trans.noarg('inviteOnly')],
+                ['public', i18n.study.public],
+                ['unlisted', i18n.study.unlisted],
+                ['private', i18n.study.inviteOnly],
               ],
               selected: data.visibility,
             }),
             select({
               key: 'chat',
-              name: ctrl.trans.noarg('chat'),
+              name: i18n.site.chat,
               choices: userSelectionChoices,
               selected: data.settings.chat,
             }),
@@ -183,13 +185,13 @@ export function view(ctrl: StudyForm): VNode {
           h('div.form-split', [
             select({
               key: 'computer',
-              name: ctrl.trans.noarg('computerAnalysis'),
-              choices: userSelectionChoices.map(c => [c[0], ctrl.trans.noarg(c[1])]),
+              name: i18n.site.computerAnalysis,
+              choices: userSelectionChoices,
               selected: data.settings.computer,
             }),
             select({
               key: 'explorer',
-              name: ctrl.trans.noarg('openingExplorerAndTablebase'),
+              name: i18n.site.openingExplorerAndTablebase,
               choices: userSelectionChoices,
               selected: data.settings.explorer,
             }),
@@ -197,13 +199,13 @@ export function view(ctrl: StudyForm): VNode {
           h('div.form-split', [
             select({
               key: 'cloneable',
-              name: ctrl.trans.noarg('allowCloning'),
+              name: i18n.study.allowCloning,
               choices: userSelectionChoices,
               selected: data.settings.cloneable,
             }),
             select({
               key: 'shareable',
-              name: ctrl.trans.noarg('shareAndExport'),
+              name: i18n.study.shareAndExport,
               choices: userSelectionChoices,
               selected: data.settings.shareable,
             }),
@@ -211,19 +213,19 @@ export function view(ctrl: StudyForm): VNode {
           h('div.form-split', [
             select({
               key: 'sticky',
-              name: ctrl.trans.noarg('enableSync'),
+              name: i18n.study.enableSync,
               choices: [
-                ['true', ctrl.trans.noarg('yesKeepEveryoneOnTheSamePosition')],
-                ['false', ctrl.trans.noarg('noLetPeopleBrowseFreely')],
+                ['true', i18n.study.yesKeepEveryoneOnTheSamePosition],
+                ['false', i18n.study.noLetPeopleBrowseFreely],
               ],
               selected: '' + data.settings.sticky,
             }),
             select({
               key: 'description',
-              name: ctrl.trans.noarg('pinnedStudyComment'),
+              name: i18n.study.pinnedStudyComment,
               choices: [
-                ['false', ctrl.trans.noarg('noPinnedComment')],
-                ['true', ctrl.trans.noarg('rightUnderTheBoard')],
+                ['false', i18n.study.noPinnedComment],
+                ['true', i18n.study.rightUnderTheBoard],
               ],
               selected: '' + data.settings.description,
             }),
@@ -255,25 +257,22 @@ export function view(ctrl: StudyForm): VNode {
                   hook: bindNonPassive(
                     'submit',
                     _ =>
-                      isNew ||
-                      prompt(ctrl.trans('confirmDeleteStudy', data.name))?.trim() === data.name.trim(),
+                      isNew || prompt(i18n.study.confirmDeleteStudy(data.name))?.trim() === data.name.trim(),
                   ),
                 },
-                [h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))],
+                [h(emptyRedButton, isNew ? i18n.site.cancel : i18n.study.deleteStudy)],
               ),
               !isNew &&
                 h(
                   'form',
                   {
                     attrs: { action: '/study/' + data.id + '/clear-chat', method: 'post' },
-                    hook: bindNonPassive('submit', _ =>
-                      confirm(ctrl.trans.noarg('deleteTheStudyChatHistory')),
-                    ),
+                    hook: bindNonPassive('submit', _ => confirm(i18n.study.deleteTheStudyChatHistory)),
                   },
-                  [h(emptyRedButton, ctrl.trans.noarg('clearChat'))],
+                  [h(emptyRedButton, i18n.study.clearChat)],
                 ),
             ]),
-            h('button.button', { attrs: { type: 'submit' } }, ctrl.trans.noarg(isNew ? 'start' : 'save')),
+            h('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start : i18n.study.save),
           ]),
         ],
       ),

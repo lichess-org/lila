@@ -159,7 +159,7 @@ export default class SwissCtrl {
 
   private redrawNbRounds = () =>
     $('.swiss__meta__round').text(
-      i18n.swiss.nbRounds.raw(this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`),
+      i18n.swiss.nbRounds.asArray(this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`).join(''),
     );
 
   private readData = (data: SwissData) => ({

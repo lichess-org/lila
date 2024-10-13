@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { XMLParser } from 'fast-xml-parser';
 
 type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
+type Dict = Map<string, string | Plural>;
 type DictMap = Map<string, Map<string, string | Plural>>;
 type I18nMap = Map<string, DictMap>;
 
@@ -53,32 +54,75 @@ const jsPrelude =
   'l(t,...r){let n=t.split(/(%(?:d$)?s)/g);if(r.length){let e=n.indexOf("%s");if(e!==-1)n[e]=r[0];' +
   'else for(let i=0;i<r.length;i++){let s=n.indexOf("%"+(i+1)+"$s");s!==-1&&(n[s]=r[i])}}return n}';
 
-const i18nMap = await readTranslations();
+const locales = await readLocales();
+const dicts = await readDicts();
+await fs.promises.mkdir(srcDir, { recursive: true });
 
-await writeScalaKeys(i18nMap.get('en-GB')!);
-await writeTypescript(i18nMap.get('en-GB')!);
-await writeJavascripts(i18nMap);
+const modifiedSources = (await Promise.all(dicts.map(async d => ((await isModified(d)) ? d : false)))).filter(
+  Boolean,
+) as string[];
 
-async function readTranslations() {
-  const [dicts, locales] = (
-    await Promise.all([fs.promises.readdir(sourceDir), fs.promises.readdir(path.join(destDir, 'site'))])
-  ).map(files => files.filter(xml => xml.endsWith('.xml')).map(filename => filename.split('.')[0]));
-  const i18nMap: I18nMap = new Map();
-  for (const dict of dicts) {
-    const en = i18nMap.get('en-GB') ?? new Map();
-    en.set(dict, parseXml(await fs.promises.readFile(path.join(sourceDir, `${dict}.xml`), 'utf8')));
-    i18nMap.set('en-GB', en);
-    for (const locale of locales) {
-      const dictMap: DictMap = i18nMap.get(locale) ?? new Map();
-      if (!fs.existsSync(path.join(destDir, dict, `${locale}.xml`))) continue;
-      dictMap.set(
-        dict,
-        parseXml(await fs.promises.readFile(path.join(destDir, dict, `${locale}.xml`), 'utf8')),
-      );
-      i18nMap.set(locale, dictMap);
-    }
-  }
-  return i18nMap;
+if (modifiedSources.length) {
+  const dictMap = new Map<string, Dict>();
+  await Promise.all(
+    dicts.map(async d =>
+      dictMap.set(d, parseXml(await fs.promises.readFile(path.join(sourceDir, `${d}.xml`), 'utf8'))),
+    ),
+  );
+  await writeScalaKeys(dictMap);
+  await writeTypescript(dictMap);
+  await Promise.all(modifiedSources.map(d => writeJavascript(d.split('.')[0])));
+}
+for (const dict of dicts) {
+  await Promise.all(
+    locales.map(locale => isModified(dict, locale).then(async yes => yes && writeJavascript(dict, locale))),
+  );
+}
+
+async function readDicts(): Promise<string[]> {
+  return (await fs.promises.readdir(sourceDir)).filter(f => f.endsWith('.xml')).map(x => x.split('.')[0]);
+}
+
+async function readLocales(): Promise<string[]> {
+  return (await fs.promises.readdir(path.join(destDir, 'site')))
+    .filter(f => f.endsWith('.xml'))
+    .map(x => x.split('.')[0]);
+}
+
+async function isModified(dict: string, locale?: string): Promise<boolean> {
+  const xmlPath = locale ? path.join(destDir, dict, `${locale}.xml`) : path.join(sourceDir, `${dict}.xml`);
+  const jsPath = path.join(srcDir, `${dict}.${locale ?? 'en-GB'}.js`);
+  const [xmlStat, jsStat] = await Promise.allSettled([fs.promises.stat(xmlPath), fs.promises.stat(jsPath)]);
+  if (xmlStat.status === 'rejected') return false;
+  else if (jsStat.status === 'rejected') return true;
+  return xmlStat.value.mtimeMs > jsStat.value.mtimeMs;
+}
+
+async function writeJavascript(dict: string, locale?: string) {
+  const translations = parseXml(
+    await fs.promises.readFile(
+      locale ? path.join(destDir, dict, `${locale}.xml`) : path.join(sourceDir, `${dict}.xml`),
+      'utf-8',
+    ),
+  );
+  const code =
+    jsPrelude +
+    `if(!window.i18n)window.i18n={};` +
+    `if(!window.i18n.${dict})window.i18n.${dict}={};` +
+    `let i=window.i18n.${dict};` +
+    [...translations]
+      .map(
+        ([k, v]) =>
+          `i['${k}']=` +
+          (typeof v !== 'string'
+            ? `p(${JSON.stringify(v)})`
+            : isFormat.test(v)
+              ? `s(${JSON.stringify(v)})`
+              : JSON.stringify(v)),
+      )
+      .join(';') +
+    '})()';
+  return writeIfChanged(path.join(srcDir, `${dict}.${locale ?? 'en-GB'}.js`), code);
 }
 
 async function writeScalaKeys(dictMap: DictMap) {
@@ -107,7 +151,7 @@ async function writeTypescript(dictMap: DictMap) {
             .map(([k, v]) => {
               const tpe = typeof v !== 'string' ? 'I18nPlural' : isFormat.test(v) ? 'I18nFormat' : 'string';
               const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
-              return `    '${k}': ${tpe}; // ${comment}`;
+              return `    /** ${comment} */\n    '${k}': ${tpe};`;
             })
             .join('\n') +
           '\n  };\n',
@@ -115,32 +159,6 @@ async function writeTypescript(dictMap: DictMap) {
       .join('') +
     '}\n';
   return writeIfChanged(path.join(lilaDir, 'ui', '@types', 'lichess', `i18n.d.ts`), code);
-}
-
-async function writeJavascripts(i18nMap: I18nMap) {
-  await fs.promises.mkdir(srcDir, { recursive: true });
-  for (const [locale, dictMap] of i18nMap) {
-    for (const [dict, translations] of dictMap) {
-      const code =
-        jsPrelude +
-        `if(!window.i18n)window.i18n={};` +
-        `if(!window.i18n.${dict})window.i18n.${dict}={};` +
-        `let i=window.i18n.${dict};` +
-        [...translations]
-          .map(
-            ([k, v]) =>
-              `i['${k}']=` +
-              (typeof v !== 'string'
-                ? `p(${JSON.stringify(v)})`
-                : isFormat.test(v)
-                  ? `s(${JSON.stringify(v)})`
-                  : JSON.stringify(v)),
-          )
-          .join(';') +
-        '})()';
-      await writeIfChanged(path.join(srcDir, `${dict}.${locale}.js`), code);
-    }
-  }
 }
 
 function parseXml(xmlData: string): Map<string, string | Plural> {
@@ -161,5 +179,5 @@ function parseXml(xmlData: string): Map<string, string | Plural> {
 
 async function writeIfChanged(filename: string, content: string): Promise<void> {
   if (fs.existsSync(filename) && (await fs.promises.readFile(filename, 'utf8')) === content) return;
-  return fs.promises.writeFile(filename, content); // preserve mod dates
+  return fs.promises.writeFile(filename, content); // just preserve mod dates
 }

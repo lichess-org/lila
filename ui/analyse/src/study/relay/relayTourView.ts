@@ -196,9 +196,9 @@ const share = (ctx: RelayViewContext) => {
       ],
       ['Embed this broadcast in your website', iframe(ctx.relay.tourPath()), iframeHelp],
       [`Embed ${roundName} in your website`, iframe(ctx.relay.roundPath()), iframeHelp],
-    ].map(([i18n, path, help]: [string, string, VNode]) =>
+    ].map(([text, path, help]: [string, string, VNode]) =>
       h('div.form-group', [
-        h('label.form-label', ctx.ctrl.trans.noarg(i18n)),
+        h('label.form-label', text),
         copyMeInput(path.startsWith('/') ? `${baseUrl()}${path}` : path),
         help,
       ]),
@@ -369,7 +369,7 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
     ? [
         toggle(
           {
-            name: 'Subscribe',
+            name: i18n.site.subscribe,
             id: 'tour-subscribe',
             title:
               'Subscribe to be notified when each round starts. You can toggle bell or push ' +
@@ -382,7 +382,6 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
               ctrl.redraw();
             },
           },
-          ctrl.trans,
           ctrl.redraw,
         ),
       ]

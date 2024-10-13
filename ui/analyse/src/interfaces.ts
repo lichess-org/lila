@@ -147,7 +147,6 @@ export interface AnalyseOpts {
   hunter: boolean;
   explorer: ExplorerOpts;
   socketSend: AnalyseSocketSend;
-  trans: Trans;
   study?: StudyDataFromServer;
   tagTypes?: string;
   practice?: StudyPracticeData;

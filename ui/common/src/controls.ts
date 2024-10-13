@@ -13,11 +13,11 @@ export interface ToggleSettings {
   change(v: boolean): void;
 }
 
-export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void): VNode {
+export function toggle(t: ToggleSettings, redraw: () => void): VNode {
   const fullId = 'abset-' + t.id;
   return h(
     'div.setting.' + fullId + (t.cls ? '.' + t.cls : ''),
-    t.title ? { attrs: { title: trans.noarg(t.title) } } : {},
+    t.title ? { attrs: { title: t.title } } : {},
     [
       h('div.switch', [
         h('input#' + fullId + '.cmn-toggle', {
@@ -26,7 +26,7 @@ export function toggle(t: ToggleSettings, trans: Trans, redraw: () => void): VNo
         }),
         h('label', { attrs: { for: fullId } }),
       ]),
-      h('label', { attrs: { for: fullId } }, trans.noarg(t.name)),
+      h('label', { attrs: { for: fullId } }, t.name),
     ],
   );
 }

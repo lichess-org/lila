@@ -46,13 +46,8 @@ export interface AnalyseData {
 }
 
 export interface ChartGame {
-  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
-  movetime(
-    el: HTMLCanvasElement,
-    data: AnalyseData,
-    trans: Trans,
-    hunter: boolean,
-  ): Promise<PlyChart | undefined>;
+  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): Promise<AcplChart>;
+  movetime(el: HTMLCanvasElement, data: AnalyseData, hunter: boolean): Promise<PlyChart | undefined>;
 }
 
 export interface DistributionData {

@@ -98,7 +98,7 @@ export function initModule(ctrl: AnalyseController) {
                     attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
                     hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
                   },
-                  ctrl.trans.noarg('openingExplorerAndTablebase'),
+                  i18n.site.openingExplorerAndTablebase,
                 ),
                 explorerView(ctrl),
               ]
@@ -302,7 +302,7 @@ function evalInfo(bestEv: EvalScore | undefined): string {
 function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
   if (!clientEv) return '';
   const depth = clientEv.depth || 0;
-  return ctrl.trans('depthX', depth) + isCloud ? ' Cloud' : '';
+  return i18n.site.depthX(depth) + isCloud ? ' Cloud' : '';
 }
 
 function renderBestMove(ctrl: AnalyseController, style: Style): string {
@@ -507,7 +507,7 @@ function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
-  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
+  return player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 }
 
 function userHtml(ctrl: AnalyseController, player: Player) {

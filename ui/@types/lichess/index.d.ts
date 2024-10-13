@@ -39,7 +39,6 @@ interface Site {
   // the following are not set in site.ts
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
-  siteI18n: I18nDict;
   socket: SocketI;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
@@ -52,9 +51,6 @@ interface EsmModuleOpts extends AssetUrlOpts {
 }
 
 type PairOf<T> = [T, T];
-
-type I18nDict = { [key: string]: string };
-type I18nKey = string;
 
 type Flair = string;
 
@@ -82,7 +78,7 @@ interface QuestionChoice {
   // file://./../../round/src/ctrl.ts
   action: () => void;
   icon?: string;
-  key?: I18nKey;
+  text?: string;
 }
 
 interface QuestionOpts {
