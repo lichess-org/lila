@@ -241,9 +241,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def teamEdit(teamOwner: UserId, teamName: String)(using MyId) = add:
     Modlog(teamOwner.some, Modlog.teamEdit, details = Some(teamName.take(140)))
 
-  def appealPost(user: UserId)(using me: Me) = add:
-    Modlog(me, user.some, Modlog.appealPost, details = none)
-
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(
       "user"   -> sus.user.id,
