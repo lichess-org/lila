@@ -276,8 +276,10 @@ final class ReportApi(
   def byId(id: ReportId) = coll.byId[Report](id)
 
   def process(report: Report)(using Me): Funit = for
-    _ <- accuracy.invalidate($id(report.id))
-    _ <- doProcessReport($id(report.id), unsetInquiry = true)
+    _             <- accuracy.invalidate($id(report.id))
+    deletedAppeal <- deleteIfAppealInquiry(report)
+    _ <- (!deletedAppeal).so:
+      doProcessReport($id(report.id), unsetInquiry = true)
   yield
     maxScoreCache.invalidateUnit()
     lila.mon.mod.report.close.increment()
@@ -292,6 +294,11 @@ final class ReportApi(
     yield
       maxScoreCache.invalidateUnit()
       lila.mon.mod.report.close.increment()
+
+  private def deleteIfAppealInquiry(report: Report)(using me: MyId): Fu[Boolean] =
+    if report.isAppealInquiryByMe
+    then for _ <- coll.delete.one($id(report.id)) yield true
+    else fuccess(false)
 
   private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: MyId): Funit =
     coll.update
@@ -595,7 +602,7 @@ final class ReportApi(
 
     private def cancel(report: Report)(using mod: Me): Funit =
       if report.is(_.Other) && mod.is(report.onlyAtom.map(_.by))
-      then coll.delete.one($id(report.id)).void // cancel spontaneous inquiry
+      then coll.delete.one($id(report.id)).void // cancel spontaneous inquiry or appeal
       else
         coll.update
           .one(
