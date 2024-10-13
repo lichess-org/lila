@@ -211,6 +211,7 @@
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
   <string name="emailSuggestion">മറ്റെയാരുടേ ഉപദേശ പ്രകാരം ഇമെയിൽ-വിലാസം തിരഞ്ഞെടുക്കരുതു്. അവർക്കു് പിന്നേ താങ്ങളുടെ അക്കൌണ്ടു് മോഷ്ടിക്കാൻ സാധിക്കും.</string>
   <string name="emailConfirmHelp">മെയിൽ ഉറപ്പിന് സഹായം</string>
+  <string name="emailConfirmNotReceived">ചേർന്ന ശേഷം ഉറപ്പിക്കൽ ഇമെയിൽ കിട്ടിയില്ലേ?</string>
   <string name="whatSignupUsername">താങ്ങൾ ഏതു് ഉപയോക്തൃപേരു് തിരഞ്ഞെടുതായിരുന്നു?</string>
   <string name="usernameNotFound">ഈ പേരുള്ള ഉപയോക്താവിനു് കണ്ടേത്താനായില്ല: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">താങ്ങൾക്കു് ഈ ഉപയോക്തൃപേരു് ഒരു പുതിയ അക്കൌണ്ടു് ഉണ്ടാക്കാൻ ഉപയോഗിക്കാം</string>
@@ -219,6 +220,7 @@
   <string name="refreshInboxAfterFiveMinutes">൫ മിനിറ്റ് കാത്തിരുന്ന ശേഷം വീണ്ടും ഇ-തപാൽപെട്ടി ലോഡ് ചെയുക.</string>
   <string name="emailForSignupHelp">മറ്റേതൊന്നും നടന്നില്ലെങ്കിൽ, ഞങ്ങളേ ഈ ഇമെയിൽ അയക്കുക:</string>
   <string name="copyTextToEmail">മേൽപറഞ്ഞ രേഖ പകർത്തി %s -ന് അയക്കുക</string>
+  <string name="accountConfirmed">%s എന്ന ഉപയോക്താവ് സ്ഥിരീകരിക്കപെട്ടിരിക്കുന്നു.</string>
   <string name="accountCanLogin">താങ്ങൾക്ക് %s-ആയി പ്രവേശിക്കാം.</string>
   <string name="accountConfirmationEmailNotNeeded">താങ്ങൾക്ക് ഉറപ്പിക്കല്മെയിൽ ആവശ്യമില്ല.</string>
   <string name="accountClosed">ഈ (%s) അക്കൌണ്ട് അവസാനിപ്പിച്ചിരിക്കുന്നു.</string>
