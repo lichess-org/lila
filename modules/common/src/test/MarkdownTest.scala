@@ -14,7 +14,7 @@ class MarkdownTest extends munit.FunSuite:
     val md = Markdown("https://example.com")
     assertEquals(
       render(md),
-      Html("""<p><a href="https://example.com" rel="nofollow noopener noreferrer">https://example.com</a></p>
+      Html("""<p><a href="https://example.com" target="_blank" rel="nofollow noopener noreferrer">https://example.com</a></p>
 """)
     )
   }
@@ -22,7 +22,7 @@ class MarkdownTest extends munit.FunSuite:
     val md = Markdown("[Example](https://example.com?utm_campaign=spy&utm_source=evil)")
     assertEquals(
       render(md),
-      Html("""<p><a href="https://example.com" rel="nofollow noopener noreferrer">Example</a></p>
+      Html("""<p><a href="https://example.com" target="_blank" rel="nofollow noopener noreferrer">Example</a></p>
 """)
     )
   }
@@ -76,7 +76,7 @@ class MarkdownTest extends munit.FunSuite:
   test("markdown image whitelist block") {
     assertEquals(
       render(Markdown("![image](https://evil.com/image.png)")),
-      Html("""<p><a href="https://evil.com/image.png" rel="nofollow noopener noreferrer">image</a></p>
+      Html("""<p><a href="https://evil.com/image.png" target="_blank" rel="nofollow noopener noreferrer">image</a></p>
 """)
     )
   }
