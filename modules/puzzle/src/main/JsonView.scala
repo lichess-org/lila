@@ -82,7 +82,6 @@ final class JsonView(
       "coords"       -> p.coords,
       "keyboardMove" -> p.keyboardMove,
       "voiceMove"    -> p.voice,
-      "showRating"   -> p.showRating,
       "rookCastle"   -> p.rookCastle,
       "animation"    -> Json.obj("duration" -> p.animationMillis),
       "destination"  -> p.destination,
