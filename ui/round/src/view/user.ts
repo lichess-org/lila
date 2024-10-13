@@ -4,6 +4,7 @@ import { Player } from 'game';
 import { Position } from '../interfaces';
 import RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'common/userLink';
+import { storage } from 'common/storage';
 
 export const aiName = (ctrl: RoundController, level: number): string =>
   ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
@@ -17,6 +18,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
+    const showRating = user?.id !== d.opponent.user?.id || storage.boolean('showRating').getOrDefault(true)
     return h(
       `div.ruser-${position}.ruser.user-link`,
       {
@@ -45,7 +47,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           line: false,
         }),
         !!signal && signalBars(signal),
-        !!rating && h('rating', rating + (player.provisional ? '?' : '')),
+        showRating && !!rating && h('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
         player.engine &&
           h('span', {
