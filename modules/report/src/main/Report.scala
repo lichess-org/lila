@@ -109,6 +109,10 @@ object Report:
 
     def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
     def isFlag                            = text.startsWith(Reason.flagText)
+    def parseFlag: Option[Atom.ParsedFlag] = isFlag.so:
+      text.split(" ", 3) match
+        case Array(_, resource, quote) => Atom.ParsedFlag(resource, quote).pp(text).some
+        case _                         => none
 
   object Atom:
     def best(atoms: List[Atom], nb: Int): List[Atom] =
@@ -116,6 +120,7 @@ object Report:
         .sortBy: a =>
           (-a.score, -a.at.toSeconds)
         .take(nb)
+    case class ParsedFlag(resource: String, quote: String)
 
   case class AndAtom(report: Report, atom: Atom)
 

@@ -15,14 +15,8 @@ object inquiry:
     text.split("\n").map { line =>
       val (link, text) = line match
         case commFlagRegex(tpe, id, text) =>
-          val path = tpe match
-            case "game"       => routes.Round.watcher(GameId(id), Color.white).url
-            case "relay"      => routes.RelayRound.show("-", "-", RelayRoundId(id)).url
-            case "tournament" => routes.Tournament.show(TourId(id)).url
-            case "swiss"      => routes.Swiss.show(SwissId(id)).url
-            case "forum"      => routes.ForumPost.redirect(ForumPostId(id)).url
-            case _            => s"/$tpe/$id"
-          a(href := path)(path).some -> text
+          val link = lila.api.ui.ModTimelineUi.publicSourceLink(tpe, id)
+          link.some -> text
         case text => None -> text
       frag(
         link,

@@ -15,6 +15,7 @@ import lila.core.userId.ModId
 import lila.shutup.{ PublicLine, Analyser }
 import lila.core.shutup.PublicSource
 import lila.core.i18n.Translate
+import lila.core.id.RelayRoundId
 
 final class ModTimelineUi(helpers: Helpers)(
     publicLineSource: PublicSource => Translate ?=> Frag
@@ -58,26 +59,28 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderText(str: String) = div(cls := "mod-timeline__text")(shorten(str, 200))
 
   private def renderPublicLine(l: PublicLine)(using Translate) = frag(
+    renderMod(UserId.lichess.into(ModId)),
     publicLineSource(l.from),
     div(cls := "mod-timeline__txt")(Analyser.highlightBad(l.text))
   )
 
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
+    val flag = atoms.head.parseFlag
     frag(
       strong(cls := "mod-timeline__event__from")(pluralize("player", r.atoms.size)),
       span(cls := "mod-timeline__event__action")(
-        if atoms.head.isFlag
-        then "flagged a message"
-        else
-          frag(
-            " opened a ",
-            report.room.name,
-            " report about ",
-            atoms.head.reason.name
-          )
+        flag match
+          case Some(f) => publicSourceLink(f.resource)
+          case None =>
+            frag(
+              " opened a ",
+              report.room.name,
+              " report about ",
+              atoms.head.reason.name
+            )
       ),
-      renderText(atoms.head.text)
+      renderText(flag.fold(atoms.head.text)(_.quote))
     )
 
   private def renderReportClose(r: ReportClose)(using Translate) = frag(
@@ -117,3 +120,19 @@ final class ModTimelineUi(helpers: Helpers)(
       renderMod(n.from.into(ModId)),
       renderText(n.text)
     )
+
+  def publicSourceLink(source: String): Option[Frag] =
+    source.split("/") match
+      case Array(tpe, id) => ModTimelineUi.publicSourceLink(tpe, id).some
+      case _              => none
+
+object ModTimelineUi:
+  def publicSourceLink(tpe: String, id: String): Frag =
+    val path = tpe match
+      case "game"       => routes.Round.watcher(GameId(id), Color.white).url
+      case "relay"      => routes.RelayRound.show("-", "-", RelayRoundId(id)).url
+      case "tournament" => routes.Tournament.show(TourId(id)).url
+      case "swiss"      => routes.Swiss.show(SwissId(id)).url
+      case "forum"      => routes.ForumPost.redirect(ForumPostId(id)).url
+      case _            => s"/$tpe/$id"
+    a(href := path)(path)
