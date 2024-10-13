@@ -65,19 +65,19 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
     frag(
-      userIdLink(atom.by.some),
+      strong(pluralize("player", r.atoms.size)),
       span(cls := "mod-timeline__event__action")(
-        if atom.isFlag
+        if atoms.head.isFlag
         then "flagged a message"
         else
           frag(
             " opened a ",
             report.room.name,
             " report about ",
-            atom.reason.name
+            atoms.head.reason.name
           )
       ),
-      renderText(atom.text)
+      renderText(atoms.head.text)
     )
 
   private def renderReportClose(r: ReportClose)(using Translate) = frag(

@@ -22,7 +22,8 @@ case class ModTimeline(
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap: r =>
-      r.done.map(ReportClose(r, _)).toList ::: r.atoms.toList.map(ReportNewAtom(r, _))
+      r.done.map(ReportClose(r, _)).toList :::
+        r.atoms.groupBy(_.text).values.toList.map(ReportNewAtom(r, _))
     val appealMsgs: List[Event] = appeal.so(_.msgs.toList)
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playban.so(_.bans.toList) ::: flaggedPublicLines
@@ -39,7 +40,7 @@ case class ModTimeline(
 
 object ModTimeline:
 
-  case class ReportNewAtom(report: Report, atom: Report.Atom)
+  case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom])
   case class ReportClose(report: Report, done: Report.Done)
 
   type Event = Modlog | AppealMsg | Note | ReportNewAtom | ReportClose | TempBan | PublicLine
@@ -71,13 +72,13 @@ object ModTimeline:
         case _: TempBan       => "objects.hourglass-not-done"
         case _: PublicLine    => "symbols.triangular-flag"
     def at: Instant = e match
-      case e: Modlog            => e.date
-      case e: AppealMsg         => e.at
-      case e: Note              => e.date
-      case ReportNewAtom(_, a)  => a.at
-      case ReportClose(_, done) => done.at
-      case e: TempBan           => e.date
-      case e: PublicLine        => e.date
+      case e: Modlog               => e.date
+      case e: AppealMsg            => e.at
+      case e: Note                 => e.date
+      case ReportNewAtom(_, atoms) => atoms.head.at
+      case ReportClose(_, done)    => done.at
+      case e: TempBan              => e.date
+      case e: PublicLine           => e.date
     def url(u: User): String = e match
       case _: AppealMsg => routes.Appeal.show(u.username).url
       case _: Note      => s"${routes.User.show(u.username)}?notes=1"
