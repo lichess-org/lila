@@ -33,7 +33,8 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       crosstable: UserId => Option[Frag],
       flag: Option[Flag],
       best8Perfs: List[PerfKey],
-      userMarks: => Frag
+      userMarks: => Frag,
+      showRating: Boolean = true
   )(using ctx: Context) =
     frag(
       div(cls := "upt__info")(
@@ -55,7 +56,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         if u.lame && ctx.isnt(u) && !Granter.opt(_.UserModView)
         then div(cls := "upt__info__warning")(trans.site.thisAccountViolatedTos())
         else
-          ctx.pref.showRatings.option:
+          (ctx.pref.showRatings && showRating).option:
             div(cls := "upt__info__ratings")(best8Perfs.map(showPerfRating(u.perfs, _)))
       ),
       ctx.userId.map: myId =>
