@@ -30,9 +30,10 @@ final class Moretimer(
               val p = correspondenceGiveTime(pov.game)
               p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
 
-  def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
-    (game.canTakebackOrAddTime && game.playable && !game.metadata.hasRule(_.noGiveTime))
-      .so(isAllowedByPrefs(game, prefs))
+  def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]], byAdmin: Boolean): Fu[Boolean] =
+    (game.canTakebackOrAddTime && game.playable).so:
+      if byAdmin then fuccess(true)
+      else (!game.metadata.hasRule(_.noGiveTime)).so(isAllowedByPrefs(game, prefs))
 
   private def correspondenceGiveTime(g: Game) = Progress(g, g.copy(movedAt = nowInstant))
 
