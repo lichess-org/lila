@@ -4,13 +4,14 @@ import { XMLParser } from 'fast-xml-parser';
 import { env, colors as c } from './main.ts';
 import { globArray } from './parse.ts';
 import { i18nManifest } from './manifest.ts';
-import { quantize } from './build.ts';
+import { quantize, zip } from './build.ts';
 import { transform } from 'esbuild';
 
 type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
 type Dict = Map<string, string | Plural>;
-type DictMap = Map<string, Map<string, string | Plural>>;
+type DictMap = Map<string, Promise<Dict>>;
 
+let baseDicts: DictMap = new Map();
 let locales: string[], dicts: string[];
 let watchTimeout: NodeJS.Timeout | undefined;
 const i18nWatch: fs.FSWatcher[] = [];
@@ -104,13 +105,10 @@ async function compileTypings(): Promise<void> {
   const dictStats = await Promise.all(dicts.map(d => updated(d)));
   if (!tstat || dictStats.some(x => x && x.mtimeMs > tstat.mtimeMs)) {
     env.log(`Building ${c.grey('i18n')}`);
-    const dictMap = new Map<string, Dict>();
-    await Promise.all(
-      dicts.map(async d =>
-        dictMap.set(d, parseXml(await fs.promises.readFile(path.join(env.i18nSrcDir, `${d}.xml`), 'utf8'))),
-      ),
+    dicts.forEach(d =>
+      baseDicts.set(d, fs.promises.readFile(path.join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
     );
-    await writeTypescript(dictMap);
+    await writeTypescript(new Map(zip(dicts, await Promise.all(baseDicts.values()))));
   }
 }
 
@@ -143,14 +141,24 @@ async function updated(dict: string, locale?: string): Promise<fs.Stats | false>
 }
 
 async function writeJavascript(dict: string, locale?: string, xstat: fs.Stats | false = false) {
-  const translations = parseXml(
-    await fs.promises.readFile(
-      locale ? path.join(env.i18nDestDir, dict, `${locale}.xml`) : path.join(env.i18nSrcDir, `${dict}.xml`),
-      'utf-8',
+  if (!locale || !baseDicts.has(dict))
+    baseDicts.set(
+      dict,
+      fs.promises.readFile(path.join(env.i18nSrcDir, `${dict}.xml`), 'utf8').then(parseXml),
+    );
+
+  const translations = new Map([
+    ...(await baseDicts.get(dict)!),
+    ...parseXml(
+      await fs.promises.readFile(
+        locale ? path.join(env.i18nDestDir, dict, `${locale}.xml`) : path.join(env.i18nSrcDir, `${dict}.xml`),
+        'utf-8',
+      ),
     ),
-  );
+  ]);
+
   const jsInit =
-    dict === 'site' && !locale
+    dict === 'site'
       ? 'window.i18n=function(k){for(let v of Object.values(window.i18n))if(v[k])return v[k];return k};'
       : '';
   const code =
@@ -176,7 +184,7 @@ async function writeJavascript(dict: string, locale?: string, xstat: fs.Stats | 
   return fs.promises.utimes(filename, xstat.mtime, xstat.mtime);
 }
 
-async function writeTypescript(dictMap: DictMap) {
+async function writeTypescript(dictMap: Map<string, Dict>): Promise<void> {
   const code =
     tsPrelude +
     [...dictMap]

@@ -141,10 +141,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
     )
 
-  // consolidate script packaging here to dedup chunk dependencies
   def sitePreload(i18nDicts: List[String], modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
-    val langs       = if ctx.lang.code == "en-GB" then List("en-GB") else List("en-GB", ctx.lang.code)
-    val i18nModules = i18nDicts.flatMap(dict => langs.map(lang => s"i18n/$dict.$lang"))
+    val i18nModules = i18nDicts.map(dict => s"i18n/$dict.${ctx.lang.code}")
     scriptsPreload(
       i18nModules ::: "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
     )
