@@ -15,6 +15,7 @@ import lila.core.userId.ModId
 import lila.shutup.{ PublicLine, Analyser }
 import lila.core.shutup.PublicSource
 import lila.core.i18n.Translate
+import lila.core.id.RelayRoundId
 
 final class ModTimelineUi(helpers: Helpers)(
     publicLineSource: PublicSource => Translate ?=> Frag
@@ -42,7 +43,7 @@ final class ModTimelineUi(helpers: Helpers)(
 
   private def renderEventBody(t: ModTimeline)(e: Event)(using Translate): Frag =
     e match
-      case e: Modlog        => renderModlog(e)
+      case e: Modlog        => renderModlog(t.user)(e)
       case e: AppealMsg     => renderAppeal(t)(e)
       case e: Note          => renderNote(e)
       case e: ReportNewAtom => renderReportNew(e)
@@ -55,29 +56,38 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderUser(userId: UserId)(using Translate) =
     userIdLink(userId.some, withTitle = false)
 
-  private def renderText(str: String) = div(cls := "mod-timeline__text")(shorten(str, 200))
+  private def renderText(str: String, highlightBad: Boolean) =
+    div(cls := "mod-timeline__text"):
+      val short = shorten(str, 200)
+      if highlightBad then Analyser.highlightBad(short)
+      else short
 
   private def renderPublicLine(l: PublicLine)(using Translate) = frag(
-    l.from.map(publicLineSource(_)),
-    div(cls := "mod-timeline__txt")(Analyser.highlightBad(l.text))
+    renderMod(UserId.lichess.into(ModId)),
+    publicLineSource(l.from),
+    renderText(l.text, true)
   )
 
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
+    val flag = atoms.head.parseFlag
     frag(
-      userIdLink(atom.by.some),
+      if r.atoms.size == 1 && r.atoms.head.by.is(UserId.lichess)
+      then renderMod(UserId.lichess.into(ModId))
+      else strong(cls := "mod-timeline__event__from")(pluralize("player", r.atoms.size)),
       span(cls := "mod-timeline__event__action")(
-        if atom.isFlag
-        then "flagged a message"
-        else
-          frag(
-            " opened a ",
-            report.room.name,
-            " report about ",
-            atom.reason.name
-          )
+        flag match
+          case Some(f) => publicLineSource(f.source)
+          case None =>
+            frag(
+              " opened a ",
+              report.room.name,
+              " report about ",
+              atoms.head.reason.name
+            )
       ),
-      renderText(atom.text)
+      flag.fold(renderText(atoms.head.text, false)): flag =>
+        renderText(flag.quotes.mkString(" | "), true)
     )
 
   private def renderReportClose(r: ReportClose)(using Translate) = frag(
@@ -88,10 +98,13 @@ final class ModTimelineUi(helpers: Helpers)(
     r.report.atoms.toList.map(_.reason.name).mkString(", ")
   )
 
-  private def renderModlog(e: Modlog)(using Translate) =
+  private def renderModlog(user: User)(e: Modlog)(using Translate) =
     val actionTag = if Modlog.isSentence(e.action) then badTag else span
+    val author: Frag =
+      if e.action == Modlog.selfCloseAccount then renderUser(user.id)
+      else renderMod(e.mod)
     frag(
-      renderMod(e.mod),
+      author,
       actionTag(cls := "mod-timeline__event__action")(e.showAction),
       div(cls := "mod-timeline__text"):
         e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
@@ -106,11 +119,11 @@ final class ModTimelineUi(helpers: Helpers)(
       if a.by.is(t.user)
       then renderUser(a.by)
       else renderMod(a.by.into(ModId)),
-      renderText(a.text)
+      renderText(a.text, false)
     )
 
   private def renderNote(n: Note)(using Translate) =
     frag(
       renderMod(n.from.into(ModId)),
-      renderText(n.text)
+      renderText(n.text, false)
     )

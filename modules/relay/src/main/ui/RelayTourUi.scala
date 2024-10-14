@@ -3,6 +3,7 @@ package ui
 
 import java.time.{ Month, YearMonth }
 import scalalib.paginator.Paginator
+import monocle.syntax.all.*
 
 import lila.core.LightUser
 import lila.relay.RelayTour.{ WithLastRound, WithFirstRound }
@@ -72,22 +73,17 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   private def decreaseTierOfDistantNextRound(active: List[RelayTour.ActiveWithSomeRounds]) =
     val now = nowInstant.withTimeAtStartOfDay
     active.map: a =>
-      val tour = a.tour
       import RelayTour.Tier.*
-      a.copy(
-        tour = tour.copy(
-          tier =
-            for
-              tier   <- tour.tier
-              nextAt <- a.display.startsAtTime
-              days = scalalib.time.daysBetween(now, nextAt)
-            yield
-              if tier == BEST && days > 10 then NORMAL
-              else if tier == BEST && days > 5 then HIGH
-              else if tier == HIGH && days > 5 then NORMAL
-              else tier
-        )
-      )
+      val visualTier = for
+        tier   <- a.tour.tier
+        nextAt <- a.display.startsAtTime
+        days = scalalib.time.daysBetween(now, nextAt)
+      yield
+        if tier == BEST && days > 10 then NORMAL
+        else if tier == BEST && days > 5 then HIGH
+        else if tier == HIGH && days > 5 then NORMAL
+        else tier
+      a.focus(_.tour.tier).replace(visualTier.orElse(a.tour.tier))
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
     Page(title)

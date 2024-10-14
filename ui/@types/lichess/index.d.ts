@@ -168,9 +168,15 @@ type Nvui = (redraw: () => void) => {
   render(ctrl: any): any;
 };
 
+interface Fipr {
+  get(cb: (c: { value: string }[]) => void): void;
+  x64hash128(input: string, seed: number): string;
+}
+
 interface Window {
   site: Site;
   i18n: I18n;
+  fipr: Fipr;
   $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
@@ -310,4 +316,5 @@ type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const site: Site;
 declare const i18n: I18n;
+declare const fipr: Fipr;
 declare module 'tablesort';

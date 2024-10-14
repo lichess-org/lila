@@ -72,7 +72,6 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
           for
             _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
             _ <- env.appeal.api.reply(text, appeal)
-            _ <- env.mod.logApi.appealPost(suspect.user.id)
             result <-
               if process then
                 env.report.api.inquiries

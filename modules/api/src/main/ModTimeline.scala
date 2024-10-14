@@ -1,13 +1,15 @@
 package lila.api
 
+import java.time.LocalDate
+
 import lila.mod.{ Modlog, ModlogApi }
 import lila.appeal.{ Appeal, AppealMsg, AppealApi }
 import lila.user.{ Note, NoteApi }
 import lila.report.{ Report, ReportApi }
 import lila.playban.{ TempBan, PlaybanApi }
 import lila.shutup.{ PublicLine, ShutupApi }
-import java.time.LocalDate
-import lila.core.perm.Granter
+import lila.core.perm.{ Permission, Granter }
+import lila.core.userId.ModId
 
 case class ModTimeline(
     user: User,
@@ -22,7 +24,8 @@ case class ModTimeline(
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap: r =>
-      r.done.map(ReportClose(r, _)).toList ::: r.atoms.toList.map(ReportNewAtom(r, _))
+      r.done.map(ReportClose(r, _)).toList :::
+        r.atoms.groupBy(_.text).values.toList.map(ReportNewAtom(r, _))
     val appealMsgs: List[Event] = appeal.so(_.msgs.toList)
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playban.so(_.bans.toList) ::: flaggedPublicLines
@@ -39,7 +42,7 @@ case class ModTimeline(
 
 object ModTimeline:
 
-  case class ReportNewAtom(report: Report, atom: Report.Atom)
+  case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom])
   case class ReportClose(report: Report, done: Report.Done)
 
   type Event = Modlog | AppealMsg | Note | ReportNewAtom | ReportClose | TempBan | PublicLine
@@ -59,6 +62,8 @@ object ModTimeline:
           if e.action == Modlog.permissions then "objects.key"
           else if e.action == Modlog.modMessage then "objects.megaphone"
           else if e.action == Modlog.garbageCollect then "objects.broom"
+          else if e.action == Modlog.selfCloseAccount then "objects.locked"
+          else if e.action == Modlog.reopenAccount then "objects.unlocked"
           else if Modlog.isSentence(e.action) then "objects.hammer"
           else if Modlog.isUndo(e.action) then "symbols.recycling-symbol"
           else "objects.wrench"
@@ -69,13 +74,13 @@ object ModTimeline:
         case _: TempBan       => "objects.hourglass-not-done"
         case _: PublicLine    => "symbols.triangular-flag"
     def at: Instant = e match
-      case e: Modlog            => e.date
-      case e: AppealMsg         => e.at
-      case e: Note              => e.date
-      case ReportNewAtom(_, a)  => a.at
-      case ReportClose(_, done) => done.at
-      case e: TempBan           => e.date
-      case e: PublicLine        => e.date | nowInstant
+      case e: Modlog               => e.date
+      case e: AppealMsg            => e.at
+      case e: Note                 => e.date
+      case ReportNewAtom(_, atoms) => atoms.head.at
+      case ReportClose(_, done)    => done.at
+      case e: TempBan              => e.date
+      case e: PublicLine           => e.date
     def url(u: User): String = e match
       case _: AppealMsg => routes.Appeal.show(u.username).url
       case _: Note      => s"${routes.User.show(u.username)}?notes=1"
@@ -90,17 +95,31 @@ final class ModTimelineApi(
     noteApi: NoteApi,
     reportApi: ReportApi,
     playBanApi: PlaybanApi,
-    shutupApi: ShutupApi
-)(using Executor):
+    shutupApi: ShutupApi,
+    userRepo: lila.user.UserRepo
+)(using Executor)(using scheduler: Scheduler):
 
-  def apply(user: User)(using Me): Fu[ModTimeline] =
+  def apply(user: User, withPlayBans: Boolean)(using Me): Fu[ModTimeline] =
     for
       modLogAll <- Granter(_.ModLog).so(modLogApi.userHistory(user.id))
-      modLog = modLogAll.filter(_.action != Modlog.appealPost)
+      modLog = modLogAll.filter(filterModLog)
       appeal   <- Granter(_.Appeals).so(appealApi.byId(user))
       notesAll <- noteApi.getForMyPermissions(user, Max(50))
       notes = notesAll.filterNot(_.text.startsWith("Appeal reply:"))
       reports <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
-      playban <- Granter(_.SeeReport).so(playBanApi.fetchRecord(user))
+      playban <- withPlayBans.so(Granter(_.SeeReport)).so(playBanApi.fetchRecord(user))
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))
     yield ModTimeline(user, modLog, appeal, notes, reports, playban, lines)
+
+  private def filterModLog(l: Modlog): Boolean =
+    if l.action == Modlog.teamKick && !modsList.contains(l.mod) then false
+    else true
+
+  private object modsList:
+    var all: Set[ModId]               = Set(UserId.lichess.into(ModId))
+    def contains(mod: ModId): Boolean = all.contains(mod)
+    scheduler.scheduleWithFixedDelay(19 seconds, 1 hour): () =>
+      userRepo
+        .userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList)
+        .foreach: ids =>
+          all = ids.map(_.into(ModId)).toSet

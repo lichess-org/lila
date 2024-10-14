@@ -87,7 +87,7 @@ final class ChatApi(
                       case Some(source) => shutupApi.publicText(userId, text, source)
                       case _            => shutupApi.privateChat(chatId.value, userId, text)
                     lila.mon.chat
-                      .message(publicSource.fold("player")(_.parentName), line.troll)
+                      .message(publicSource.fold("player")(_.typeName), line.troll)
                       .increment()
                   publishLine(chatId, line, busChan)
               else

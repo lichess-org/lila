@@ -26,6 +26,9 @@
   @extend %flex-center-nowrap;
   gap: 1em;
 }
+.mod-timeline__event__from {
+  white-space: nowrap;
+}
 .mod-timeline__event__flair {
   @extend %flex-center;
   img {

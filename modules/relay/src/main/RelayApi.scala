@@ -484,7 +484,7 @@ final class RelayApi(
               logger.info(s"Automatically start $relay")
               requestPlay(relay.id, v = true)
 
-  private[relay] def autoFinishNotSyncing: Funit =
+  private[relay] def autoFinishNotSyncing(onlyIds: Option[List[RelayTourId]] = None): Funit =
     roundRepo.coll
       .list[RelayRound]:
         $doc(
@@ -495,7 +495,7 @@ final class RelayApi(
             "startsAt".$exists(false),
             "startsAt".$lt(nowInstant)
           )
-        )
+        ) ++ onlyIds.so(ids => $doc("tourId".$in(ids)))
       .flatMap:
         _.sequentiallyVoid: relay =>
           logger.info(s"Automatically finish $relay")

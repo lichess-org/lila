@@ -103,10 +103,7 @@ final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
           coll
             .aggregateList(length, _.sec): framework =>
               import framework.*
-              Match(selector) -> {
-                List(Sort(Descending("date"))) :::
-                  List(Skip(offset), Limit(length))
-              }
+              Match(selector) -> List(Sort(Descending("date")), Skip(offset), Limit(length))
             .map:
               _.flatMap:
                 _.asOpt[Note]

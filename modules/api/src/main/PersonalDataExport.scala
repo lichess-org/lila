@@ -214,7 +214,7 @@ final class PersonalDataExport(
           Source:
             List(textTitle("Dubious public chats")) :::
               lines.map: l =>
-                s"${l.date.so(textDate)}\n${l.text}$bigSep"
+                s"${textDate(l.date)}\n${l.text}$bigSep"
 
     val timeouts = Source.futureSource:
       modLogApi

@@ -16,7 +16,7 @@ final class ModInquiryUi(helpers: Helpers):
     cls := List("fbt icon" -> true, "active" -> active)
   )
 
-  def renderReport(renderAtomText: (String, Boolean) => Frag)(r: Report)(using Translate) =
+  def renderReport(renderAtomText: (Report.Atom, Boolean) => Frag)(r: Report)(using Translate) =
     div(cls := "doc report")(
       r.bestAtoms(10).map { atom =>
         div(cls := "atom")(
@@ -30,7 +30,7 @@ final class ModInquiryUi(helpers: Helpers):
             " ",
             momentFromNow(atom.at)
           ),
-          p(renderAtomText(atom.simplifiedText, r.is(_.Comm)))
+          p(renderAtomText(atom, r.is(_.Comm)))
         )
       }
     )

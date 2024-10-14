@@ -103,7 +103,7 @@
   <string name="openingExplorer">Abrir o explorador</string>
   <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Xoga o primeiro movemento do explorador de aperturas/finais</string>
+  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">Xoga o primeiro movemento do explorador de aperturas/finais</string>
   <string name="winPreventedBy50MoveRule">Vitoria impedida pola regra das 50 xogadas</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
   <string name="winOr50MovesByPriorMistake">Vitoria ou 50 movementos a causa dun erro anterior</string>
@@ -692,14 +692,14 @@
   <string name="timeBeforeTournamentStarts">Tempo antes de que o torneo comece</string>
   <string name="averageCentipawnLoss">Perda media de centipeóns</string>
   <string name="accuracy">Precisión</string>
-  <string name="keyboardShortcuts">Atallos do teclado</string>
+  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Atallos do teclado</string>
   <string name="keyMoveBackwardOrForward">mover atrás/adiante</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
   <string name="keyCycleSelectedVariation">Cambia a variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
-  <string name="keyRequestComputerAnalysis">Solicita unha análise por computador, Aprende dos teus erros</string>
-  <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
+  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Solicita unha análise por computador, Aprende dos teus erros</string>
+  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">Seguinte (Aprende dos teus erros)</string>
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
   <string name="keyNextMistake">Seguinte erro</string>
   <string name="keyNextInaccuracy">Seguinte imprecisión</string>
@@ -939,8 +939,7 @@
   <string name="cancelTournament">Cancelar o torneo</string>
   <string name="tournDescription">Descrición do torneo</string>
   <string name="tournDescriptionHelp">Queres dicirlles algo en especial ós participantes? Tenta ser breve. Hai dispoñibles ligazóns de Markdown: [name](https://url)</string>
-  <string name="ratedFormHelp">As partidas son puntuadas
-e afectan ás puntuacións dos xogadores</string>
+  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">As partidas son puntuadas e afectan ás puntuacións dos xogadores</string>
   <string name="onlyMembersOfTeam">Só membros do equipo</string>
   <string name="noRestriction">Sen restrición</string>
   <string name="minimumRatedGames">Mínimo de partidas puntuadas</string>
@@ -971,7 +970,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
   <string name="analysisOptions">Opcións de análise</string>
   <string name="focusChat">Poñer o cursor na sala de conversa</string>
-  <string name="showHelpDialog">Amosa este diálogo de axuda</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Amosa este diálogo de axuda</string>
   <string name="reopenYourAccount">Abre de novo a túa conta</string>
   <string name="closedAccountChangedMind">Se pechaches a túa conta pero mudaches de idea, tes unha oportunidade de volver a reactivala.</string>
   <string name="onlyWorksOnce">Só funcionará unha vez.</string>
