@@ -7,6 +7,7 @@
     <item quantity="other">%s zuzeneko</item>
   </plurals>
   <string name="liveBroadcasts">Txapelketen zuzeneko emanaldiak</string>
+  <string name="broadcastCalendar">Emanaldien egutegia</string>
   <string name="newBroadcast">Zuzeneko emanaldi berria</string>
   <string name="subscribedBroadcasts">Harpidetutako emanaldiak</string>
   <string name="aboutBroadcasts">Zuzeneko emanaldiei buruz</string>
@@ -26,6 +27,7 @@
   <string name="sourceSingleUrl">PGNaren jatorrizko URLa</string>
   <string name="sourceUrlHelp">Lichessek PGNaren eguneraketak jasoko dituen URLa. Interneteko helbide bat izan behar da.</string>
   <string name="sourceGameIds">Gehienez ere Lichesseko 64 partidren idak, espazioekin banatuta.</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Txapelketaren hasiera ordua ordu-zona lokalean: %s</string>
   <string name="startDateHelp">Hautazkoa, ekitaldia noiz hasten den baldin badakizu</string>
   <string name="credits">Jatorria zein den esaiguzu</string>
   <string name="currentGameUrl">Uneko partidaren URL helbidea</string>
