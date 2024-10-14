@@ -31,7 +31,6 @@ interface Site {
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(err?: any): void;
   announce(d: LichessAnnouncement): void;
-  trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
   displayLocale: string; // file://./../../common/src/i18n.ts
   blindMode: boolean;
@@ -148,7 +147,7 @@ type Timeout = ReturnType<typeof setTimeout>;
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
-type TransNoArg = (key: string) => string;
+/*type TransNoArg = (key: string) => string;
 
 interface Trans {
   // file://./../../common/src/i18n.ts
@@ -158,7 +157,7 @@ interface Trans {
   pluralSame(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): Array<string | T>;
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
-}
+}*/
 
 interface LichessAnnouncement {
   msg?: string;

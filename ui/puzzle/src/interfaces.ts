@@ -30,7 +30,6 @@ export interface PuzzleSettings {
 export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
-  i18n: I18nDict;
   settings: PuzzleSettings;
   themes?: {
     dynamic: string;

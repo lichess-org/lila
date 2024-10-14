@@ -21,7 +21,7 @@ export function showTablebase(
         moves.map(move =>
           h('tr', { key: move.uci, attrs: { 'data-uci': move.uci } }, [
             h('td', move.san),
-            h('td', [showDtz(ctrl, fen, move), showDtm(ctrl, fen, move), showDtw(fen, move)]),
+            h('td', [showDtz(fen, move), showDtm(fen, move), showDtw(fen, move)]),
           ]),
         ),
       ),
@@ -29,7 +29,7 @@ export function showTablebase(
   ];
 }
 
-function showDtm(ctrl: AnalyseCtrl, fen: FEN, move: TablebaseMoveStats) {
+function showDtm(fen: FEN, move: TablebaseMoveStats) {
   if (move.dtm)
     return h(
       'result.' + winnerOf(fen, move),
@@ -51,7 +51,7 @@ function showDtw(fen: FEN, move: TablebaseMoveStats) {
   return undefined;
 }
 
-function showDtz(ctrl: AnalyseCtrl, fen: FEN, move: TablebaseMoveStats): VNode | null {
+function showDtz(fen: FEN, move: TablebaseMoveStats): VNode | null {
   if (move.checkmate) return h('result.' + winnerOf(fen, move), i18n.site.checkmate);
   else if (move.variant_win) return h('result.' + winnerOf(fen, move), i18n.site.variantLoss);
   else if (move.variant_loss) return h('result.' + winnerOf(fen, move), i18n.site.variantWin);

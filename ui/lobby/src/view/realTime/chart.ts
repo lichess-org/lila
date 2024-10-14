@@ -72,11 +72,11 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
     if (ctrl.opts.showRatings) html += ' (' + hook.rating + (hook.prov ? '?' : '') + ')';
     html += '</a>';
   } else {
-    html += '<span class="opponent anon">' + ctrl.trans('anonymous') + '</span>';
+    html += '<span class="opponent anon">' + i18n.site.anonymous + '</span>';
   }
   html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
-  html += '<i data-icon="' + perfIcons[hook.perf] + '"> ' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</i>';
+  html += '<i data-icon="' + perfIcons[hook.perf] + '"> ' + i18n.site[hook.ra ? 'rated' : 'casual'] + '</i>';
   html += '</div></div>';
   return html;
 }
@@ -108,7 +108,7 @@ function renderYAxis() {
 export function toggle(ctrl: LobbyController) {
   return h('i.toggle', {
     key: 'set-mode-list',
-    attrs: { title: ctrl.trans.noarg('list'), 'data-icon': licon.List },
+    attrs: { title: i18n.site.list, 'data-icon': licon.List },
     hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),
   });
 }

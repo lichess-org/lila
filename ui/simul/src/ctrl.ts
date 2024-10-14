@@ -2,12 +2,10 @@ import { makeSocket, SimulSocket } from './socket';
 import xhr from './xhr';
 import { SimulData, SimulOpts } from './interfaces';
 import { storage } from 'common/storage';
-import { trans } from 'common/i18n';
 import { idleTimer } from 'common/timing';
 
 export default class SimulCtrl {
   data: SimulData;
-  trans: Trans;
   socket: SimulSocket;
 
   constructor(
@@ -15,7 +13,6 @@ export default class SimulCtrl {
     readonly redraw: () => void,
   ) {
     this.data = opts.data;
-    this.trans = trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     if (this.createdByMe() && this.data.isCreated) this.setupCreatedHost();
   }

@@ -153,7 +153,6 @@ export interface AnalyseOpts {
   relay?: RelayData;
   $side?: Cash;
   $underboard?: Cash;
-  i18n: I18nDict;
   chat: {
     enhance: EnhanceOpts;
     instance?: ChatCtrl;

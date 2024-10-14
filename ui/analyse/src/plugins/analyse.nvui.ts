@@ -273,13 +273,13 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
   let evalStr: string, depthStr: string;
   if (ctrl.threatMode()) {
     evalStr = evalInfo(ctrl.node.threat);
-    depthStr = depthInfo(ctrl, ctrl.node.threat, false);
-    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`;
+    depthStr = depthInfo(ctrl.node.threat, false);
+    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
   } else {
     const evs = ctrl.currentEvals(),
       bestEv = cevalView.getBestEval(evs);
     evalStr = evalInfo(bestEv);
-    depthStr = depthInfo(ctrl, evs.client, !!evs.client?.cloud);
+    depthStr = depthInfo(evs.client, !!evs.client?.cloud);
   }
   if (!evalStr) {
     if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
@@ -299,7 +299,7 @@ function evalInfo(bestEv: EvalScore | undefined): string {
   return '';
 }
 
-function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
+function depthInfo(clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
   if (!clientEv) return '';
   const depth = clientEv.depth || 0;
   return i18n.site.depthX(depth) + isCloud ? ' Cloud' : '';

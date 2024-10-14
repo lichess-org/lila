@@ -5,7 +5,7 @@ import powertip from './powertip';
 import * as assets from './asset';
 import { unload, redirect, reload } from './reload';
 import announce from './announce';
-import { trans, displayLocale } from 'common/i18n';
+import { displayLocale } from 'common/i18n';
 import sound from './sound';
 import { pubsub } from 'common/pubsub';
 
@@ -25,6 +25,5 @@ site.unload = unload;
 site.redirect = redirect;
 site.reload = reload;
 site.announce = announce;
-site.trans = trans(site.siteI18n);
 site.sound = sound;
 site.load.then(boot);

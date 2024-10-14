@@ -20,6 +20,6 @@ export default function (ctrl: RoundController): MaybeVNode {
   return h(
     'div.expiration.expiration-' + side,
     { class: { emerg, 'bar-glider': myTurn } },
-    ctrl.trans.vdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft)),
+    i18n.site.nbSecondsToPlayTheFirstMove.asArray(secondsLeft, h('strong', '' + secondsLeft)),
   );
 }

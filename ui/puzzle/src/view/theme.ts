@@ -17,10 +17,7 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   return ctrl.streak
     ? null
     : ctrl.isDaily
-      ? h(
-          'div.puzzle__side__theme.puzzle__side__theme--daily',
-          puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle'))),
-        )
+      ? h('div.puzzle__side__theme.puzzle__side__theme--daily', puzzleMenu(h('h2', i18n.puzzle.dailyPuzzle)))
       : h('div.puzzle__side__theme', [
           puzzleMenu(h('h2', { class: { long: angle.name.length > 20 } }, ['« ', angle.name])),
           angle.opening
@@ -34,7 +31,7 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
                   h(
                     'a.puzzle__side__theme__chapter.text',
                     { attrs: { href: `${studyUrl}/${angle.chapter}`, target: '_blank', rel: 'noopener' } },
-                    [' ', ctrl.trans.noarg('example')],
+                    [' ', i18n.puzzle.example],
                   ),
               ]),
           showEditor
@@ -50,8 +47,8 @@ const invisibleThemes = new Set(['master', 'masterVsMaster', 'superGM']);
 
 const editor = (ctrl: PuzzleCtrl): VNode[] => {
   const data = ctrl.data,
-    trans = ctrl.trans.noarg,
     votedThemes = ctrl.round?.themes || {};
+  const trans = i18n.puzzleTheme as any;
   const visibleThemes: string[] = data.puzzle.themes
     .filter(t => !invisibleThemes.has(t))
     .concat(Object.keys(votedThemes).filter(t => votedThemes[t] && !data.puzzle.themes.includes(t)))
@@ -107,7 +104,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
               },
             },
             [
-              h('option', { attrs: { value: '', selected: true } }, trans('addAnotherTheme')),
+              h('option', { attrs: { value: '', selected: true } }, i18n.puzzle.addAnotherTheme),
               ...availableThemes.map(theme =>
                 h('option', { attrs: { value: theme, title: trans(`${theme}Description`) } }, trans(theme)),
               ),

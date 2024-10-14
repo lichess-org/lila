@@ -15,7 +15,6 @@ export interface ChatOpts {
   public: boolean;
   permissions: Permissions;
   timeoutReasons?: ModerationReason[];
-  i18n: I18nDict;
   preset?: string;
   noteId?: string;
   noteText?: string;
@@ -72,7 +71,6 @@ export interface ChatPalantir {
 export interface ViewModel {
   tab: Tab;
   enabled: boolean;
-  placeholderKey: string;
   loading: boolean;
   autofocus: boolean;
   timeout: boolean;
@@ -83,13 +81,11 @@ export interface ViewModel {
 export interface NoteOpts {
   id: string;
   text?: string;
-  trans: Trans;
   redraw: Redraw;
 }
 
 export interface NoteCtrl {
   id: string;
-  trans: Trans;
   text(): string | undefined;
   fetch(): void;
   post(text: string): void;

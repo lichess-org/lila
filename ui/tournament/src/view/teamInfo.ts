@@ -8,8 +8,7 @@ import { teamName } from './battle';
 
 export default function (ctrl: TournamentController): VNode | undefined {
   const battle = ctrl.data.teamBattle,
-    data = ctrl.teamInfo.loaded,
-    noarg = ctrl.trans.noarg;
+    data = ctrl.teamInfo.loaded;
   if (!battle) return undefined;
   const teamTag = ctrl.teamInfo.requested ? teamName(battle, ctrl.teamInfo.requested) : null;
   const tag = 'div.tour__team-info.tour__actor-info';
@@ -28,19 +27,19 @@ export default function (ctrl: TournamentController): VNode | undefined {
     h('div.stats', [
       h('h2', [teamTag]),
       h('table', [
-        numberRow(noarg('players'), data.nbPlayers),
+        numberRow(i18n.site.players, data.nbPlayers),
         ...(data.rating
           ? [
-              ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
+              ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, data.rating, 'raw') : null,
               ...(data.perf
                 ? [
-                    ctrl.opts.showRatings ? numberRow(noarg('averagePerformance'), data.perf, 'raw') : null,
-                    numberRow(noarg('averageScore'), data.score, 'raw'),
+                    ctrl.opts.showRatings ? numberRow(i18n.arena.averagePerformance, data.perf, 'raw') : null,
+                    numberRow(i18n.arena.averageScore, data.score, 'raw'),
                   ]
                 : []),
             ]
           : []),
-        h('tr', h('th', h('a', { attrs: { href: '/team/' + data.id } }, noarg('teamPage')))),
+        h('tr', h('th', h('a', { attrs: { href: '/team/' + data.id } }, i18n.team.teamPage))),
       ]),
     ]),
     h('div', [
