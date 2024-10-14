@@ -13,6 +13,6 @@ export const renderNextChapter = (ctrl: AnalyseCtrl) =>
           hook: bind('click', ctrl.study.goToNextChapter),
           class: { highlighted: !!ctrl.outcome() || ctrl.node == treeOps.last(ctrl.mainline) },
         },
-        ctrl.trans.noarg('nextChapter'),
+        i18n.study.nextChapter,
       )
     : null;

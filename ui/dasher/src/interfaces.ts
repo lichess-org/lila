@@ -9,9 +9,6 @@ export { DasherCtrl };
 
 export abstract class PaneCtrl {
   constructor(readonly root: DasherCtrl) {}
-  get trans(): Trans {
-    return this.root.trans;
-  }
   get redraw(): Redraw {
     return this.root.redraw;
   }
@@ -39,7 +36,6 @@ export interface DasherData {
   piece: PieceData;
   coach: boolean;
   streamer: boolean;
-  i18n: I18nDict;
 }
 
 export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'piece';

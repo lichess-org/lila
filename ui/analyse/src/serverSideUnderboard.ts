@@ -78,11 +78,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       );
     else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
     site.asset.loadEsm<ChartGame>('chart.game').then(m => {
-      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline(), ctrl.trans).then(
-        chart => {
-          advChart = chart;
-        },
-      );
+      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline()).then(chart => {
+        advChart = chart;
+      });
     });
   }
 
@@ -97,7 +95,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
       site.asset.loadEsm<ChartGame>('chart.game').then(m => {
         timeChartLoaded = true;
-        m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.trans, ctrl.opts.hunter);
+        m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.opts.hunter);
       });
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);
@@ -122,7 +120,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
-        if (confirm(ctrl.trans('youNeedAnAccountToDoThat')))
+        if (confirm(i18n.site.youNeedAnAccountToDoThat))
           location.href = '/login?referrer=' + window.location.pathname;
         return false;
       }

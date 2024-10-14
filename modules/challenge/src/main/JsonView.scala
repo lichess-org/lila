@@ -36,9 +36,8 @@ final class JsonView(
 
   def apply(a: AllChallenges)(using Translate): JsObject =
     Json.obj(
-      "in"   -> a.in.map(apply(Direction.In.some)),
-      "out"  -> a.out.map(apply(Direction.Out.some)),
-      "i18n" -> jsDump.keysToObject(i18nKeys),
+      "in"  -> a.in.map(apply(Direction.In.some)),
+      "out" -> a.out.map(apply(Direction.Out.some)),
       "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map: r =>
         r.key -> JsString(r.trans.txt()))
     )
@@ -110,13 +109,3 @@ final class JsonView(
     if c.variant == chess.variant.FromPosition
     then Icon.Feather
     else c.perfType.icon
-
-  private val i18nKeys = List(
-    trans.site.rated,
-    trans.site.casual,
-    trans.site.waiting,
-    trans.site.accept,
-    trans.site.decline,
-    trans.site.viewInFullSize,
-    trans.site.cancel
-  )

@@ -8,7 +8,7 @@ project/.bloop/
 conf/application.conf
 conf/version.conf
 conf/manifest.*
-
+translation/js
 logs
 project/metals.sbt
 project/project

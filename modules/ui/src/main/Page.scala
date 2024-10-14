@@ -22,6 +22,7 @@ case class Page(
     fullTitle: Option[String] = None,
     robots: Boolean = true,
     cssKeys: List[String] = Nil,
+    i18nModules: List[String] = List("site", "timeago", "preferences"),
     modules: EsmList = Nil,
     jsFrag: Option[WithNonce[Frag]] = None,
     pageModule: Option[PageModule] = None,
@@ -41,10 +42,12 @@ case class Page(
   def js(f: Option[WithNonce[Frag]]): Page = f.foldLeft(this)(_.js(_))
   def js(pm: PageModule): Page             = copy(pageModule = pm.some)
   @scala.annotation.targetName("jsModuleOption")
-  def js(pm: Option[PageModule]): Page                             = copy(pageModule = pm)
-  def iife(iifeFrag: Frag): Page                                   = js(_ => iifeFrag)
-  def iife(iifeFrag: Option[Frag]): Page                           = iifeFrag.foldLeft(this)(_.iife(_))
-  def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
+  def js(pm: Option[PageModule]): Page   = copy(pageModule = pm)
+  def iife(iifeFrag: Frag): Page         = js(_ => iifeFrag)
+  def iife(iifeFrag: Option[Frag]): Page = iifeFrag.foldLeft(this)(_.iife(_))
+  def i18n(cats: String*): Page          = copy(i18nModules = i18nModules ::: cats.toList)
+  def i18n(cat: Option[String])          = copy(i18nModules = i18nModules ++ cat)
+  def graph(og: OpenGraph): Page         = copy(openGraph = og.some)
   def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
   def robots(b: Boolean): Page                                     = copy(robots = b)
   def css(keys: String*): Page                                     = copy(cssKeys = cssKeys ::: keys.toList)

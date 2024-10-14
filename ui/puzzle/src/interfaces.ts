@@ -7,8 +7,8 @@ import { FEN } from 'chessground/types';
 import { ExternalEngineInfo } from 'ceval';
 
 export type PuzzleId = string;
+export type ThemeKey = keyof I18n['puzzleTheme'];
 
-export type ThemeKey = string;
 export interface AllThemes {
   dynamic: ThemeKey[];
   static: Set<ThemeKey>;
@@ -30,7 +30,6 @@ export interface PuzzleSettings {
 export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
-  i18n: I18nDict;
   settings: PuzzleSettings;
   themes?: {
     dynamic: string;
@@ -124,9 +123,9 @@ export interface PuzzleResult {
   replayComplete?: boolean;
 }
 
-export interface RoundThemes {
-  [key: string]: boolean;
-}
+export type RoundThemes = {
+  [key in ThemeKey]: boolean;
+};
 
 export interface PuzzleRound {
   win: boolean;

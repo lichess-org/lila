@@ -30,10 +30,9 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
     h('div', [
       h(
         'p',
-        ctrl.trans.vdom(
-          'puzzleId',
+        i18n.puzzle.puzzleId.asArray(
           ctrl.streak && ctrl.mode === 'play'
-            ? h('span.hidden', ctrl.trans.noarg('hidden'))
+            ? h('span.hidden', i18n.puzzle.hidden)
             : h(
                 'a',
                 {
@@ -49,14 +48,13 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
       ctrl.opts.showRatings &&
         h(
           'p',
-          ctrl.trans.vdom(
-            'ratingX',
+          i18n.puzzle.ratingX.asArray(
             !ctrl.streak && ctrl.mode === 'play'
-              ? h('span.hidden', ctrl.trans.noarg('hidden'))
+              ? h('span.hidden', i18n.puzzle.hidden)
               : h('strong', `${puzzle.rating}`),
           ),
         ),
-      h('p', ctrl.trans.vdomPlural('playedXTimes', puzzle.plays, h('strong', numberFormat(puzzle.plays)))),
+      h('p', i18n.puzzle.playedXTimes.asArray(puzzle.plays, h('strong', numberFormat(puzzle.plays)))),
     ]),
   ]);
 
@@ -66,8 +64,7 @@ function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
     h('div', [
       h(
         'p',
-        ctrl.trans.vdom(
-          'fromGameLink',
+        i18n.puzzle.fromGameLink.asArray(
           ctrl.mode == 'play'
             ? h('span', gameName)
             : h('a', { attrs: { href: `/${game.id}/${ctrl.pov}#${puzzle.initialPly}` } }, gameName),
@@ -84,13 +81,13 @@ function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
   ]);
 }
 
-const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
+const renderStreak = (streak: PuzzleStreak) =>
   h(
     'div.puzzle__side__streak',
     streak.data.index == 0
       ? h('div.puzzle__side__streak__info', [
           h('h1.text', { attrs: dataIcon(licon.ArrowThruApple) }, 'Puzzle Streak'),
-          h('p', noarg('streakDescription')),
+          h('p', i18n.puzzle.streakDescription),
         ])
       : h(
           'div.puzzle__side__streak__score.text',
@@ -100,12 +97,11 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
   );
 
 export const userBox = (ctrl: PuzzleCtrl): VNode => {
-  const data = ctrl.data,
-    noarg = ctrl.trans.noarg;
+  const data = ctrl.data;
   if (!data.user)
     return h('div.puzzle__side__user', [
-      h('p', noarg('toGetPersonalizedPuzzles')),
-      h('a.button', { attrs: { href: router.withLang('/signup') } }, noarg('signUp')),
+      h('p', i18n.puzzle.toGetPersonalizedPuzzles),
+      h('a.button', { attrs: { href: router.withLang('/signup') } }, i18n.site.signUp),
     ]);
   const diff = ctrl.round?.ratingDiff,
     ratedId = 'puzzle-toggle-rated';
@@ -123,7 +119,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
           }),
           h('label', { attrs: { for: ratedId } }),
         ]),
-        h('label', { attrs: { for: ratedId } }, noarg('rated')),
+        h('label', { attrs: { for: ratedId } }, i18n.site.rated),
       ]),
     h(
       'div.puzzle__side__user__rating',
@@ -134,13 +130,12 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
               ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
               ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
             ])
-        : h('p.puzzle__side__user__rating__casual', noarg('yourPuzzleRatingWillNotChange')),
+        : h('p.puzzle__side__user__rating__casual', i18n.puzzle.yourPuzzleRatingWillNotChange),
     ),
   ]);
 };
 
-export const streakBox = (ctrl: PuzzleCtrl) =>
-  h('div.puzzle__side__user', renderStreak(ctrl.streak!, ctrl.trans.noarg));
+export const streakBox = (ctrl: PuzzleCtrl) => h('div.puzzle__side__user', renderStreak(ctrl.streak!));
 
 const difficulties: [PuzzleDifficulty, number][] = [
   ['easiest', -600],
@@ -153,17 +148,15 @@ const colors = [
   ['black', 'asBlack'],
   ['random', 'randomColor'],
   ['white', 'asWhite'],
-];
+] as const;
 
 export function replay(ctrl: PuzzleCtrl): MaybeVNode {
   const replay = ctrl.data.replay;
   if (!replay) return;
   const i = replay.i + (ctrl.mode == 'play' ? 0 : 1);
+  const text = i18n.puzzleTheme[ctrl.data.angle.key];
   return h('div.puzzle__side__replay', [
-    h('a', { attrs: { href: `/training/dashboard/${replay.days}` } }, [
-      '« ',
-      `Replaying ${ctrl.trans.noarg(ctrl.data.angle.key)} puzzles`,
-    ]),
+    h('a', { attrs: { href: `/training/dashboard/${replay.days}` } }, ['« ', `Replaying ${text} puzzles`]),
     h('div.puzzle__side__replay__bar', {
       attrs: {
         style: `---p:${replay.of ? Math.round((100 * i) / replay.of) : 1}%`,
@@ -175,7 +168,6 @@ export function replay(ctrl: PuzzleCtrl): MaybeVNode {
 
 export function config(ctrl: PuzzleCtrl): MaybeVNode {
   const autoNextId = 'puzzle-toggle-autonext',
-    noarg = ctrl.trans.noarg,
     data = ctrl.data;
   return h('div.puzzle__side__config', [
     h('div.puzzle__side__config__toggle', [
@@ -194,7 +186,7 @@ export function config(ctrl: PuzzleCtrl): MaybeVNode {
         }),
         h('label', { attrs: { for: autoNextId } }),
       ]),
-      h('label', { attrs: { for: autoNextId } }, noarg('jumpToNextPuzzleImmediately')),
+      h('label', { attrs: { for: autoNextId } }, i18n.puzzle.jumpToNextPuzzleImmediately),
     ]),
     !data.user || data.replay || ctrl.streak ? null : renderDifficultyForm(ctrl),
   ]);
@@ -205,7 +197,7 @@ export const renderDifficultyForm = (ctrl: PuzzleCtrl): VNode =>
     'form.puzzle__side__config__difficulty',
     { attrs: { action: `/training/difficulty/${ctrl.data.angle.key}`, method: 'post' } },
     [
-      h('label', { attrs: { for: 'puzzle-difficulty' } }, ctrl.trans.noarg('difficultyLevel')),
+      h('label', { attrs: { for: 'puzzle-difficulty' } }, i18n.puzzle.difficultyLevel),
       h(
         'select#puzzle-difficulty.puzzle__difficulty__selector',
         {
@@ -222,14 +214,12 @@ export const renderDifficultyForm = (ctrl: PuzzleCtrl): VNode =>
                 value: key,
                 selected: key == ctrl.opts.settings.difficulty,
                 title:
-                  !!delta &&
-                  ctrl.trans.pluralSame(
-                    delta < 0 ? 'nbPointsBelowYourPuzzleRating' : 'nbPointsAboveYourPuzzleRating',
-                    Math.abs(delta),
-                  ),
+                  !!delta && delta < 0
+                    ? i18n.puzzle.nbPointsBelowYourPuzzleRating(Math.abs(delta))
+                    : i18n.puzzle.nbPointsAboveYourPuzzleRating(Math.abs(delta)),
               },
             },
-            [ctrl.trans.noarg(key), delta ? ` (${delta > 0 ? '+' : ''}${delta})` : ''],
+            [i18n.puzzle[key], delta ? ` (${delta > 0 ? '+' : ''}${delta})` : ''],
           ),
         ),
       ),
@@ -241,12 +231,12 @@ export const renderColorForm = (ctrl: PuzzleCtrl): VNode =>
     'div.puzzle__side__config__color',
     h(
       'group.radio',
-      colors.map(([key, i18n]) =>
+      colors.map(([key, i18nKey]) =>
         h('div', [
           h(
             `a.label.color-${key}${key === (ctrl.opts.settings.color || 'random') ? '.active' : ''}`,
             {
-              attrs: { href: `/training/${ctrl.data.angle.key}/${key}`, title: ctrl.trans.noarg(i18n) },
+              attrs: { href: `/training/${ctrl.data.angle.key}/${key}`, title: i18n.site[i18nKey] },
             },
             h('i'),
           ),

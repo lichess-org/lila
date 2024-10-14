@@ -7,12 +7,12 @@ import { gameModes } from '../../../options';
 export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
   if (!ctrl.me) return null;
 
-  const { trans, setupCtrl } = ctrl;
+  const { setupCtrl } = ctrl;
   return h(
     'div.mode-choice.buttons',
     h(
       'group.radio',
-      gameModes(trans).map(({ key, name }) => {
+      gameModes.map(({ key, name }) => {
         const disabled = key === 'rated' && setupCtrl.ratedModeDisabled();
         return h('div', [
           h(`input#sf_mode_${key}.checked_${key === setupCtrl.gameMode()}`, {

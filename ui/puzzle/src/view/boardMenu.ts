@@ -5,8 +5,8 @@ import { boolPrefXhrToggle } from 'common/controls';
 import PuzzleCtrl from '../ctrl';
 
 export default function (ctrl: PuzzleCtrl) {
-  return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => [
-    h('section', [menu.flip(ctrl.trans.noarg('flipBoard'), ctrl.flipped(), ctrl.flip)]),
+  return menuDropdown(ctrl.redraw, ctrl.menu, menu => [
+    h('section', [menu.flip(i18n.site.flipBoard, ctrl.flipped(), ctrl.flip)]),
     h('section', [
       menu.zenMode(true),
       menu.blindfold(

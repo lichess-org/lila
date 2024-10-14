@@ -31,6 +31,11 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
     val isDirector       = ctx.is(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     Page(fullName(s, team))
+      .css("swiss.show")
+      .css(hasScheduleInput.option("bits.flatpickr"))
+      .i18n("study")
+      .i18n("swiss")
+      .i18n("team")
       .js(hasScheduleInput.option(Esm("bits.flatpickr")))
       .js(
         PageModule(
@@ -38,7 +43,6 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
           Json
             .obj(
               "data"        -> data,
-              "i18n"        -> ui.jsI18n,
               "userId"      -> ctx.userId,
               "chat"        -> chatOption.map(_._1),
               "showRatings" -> ctx.pref.showRatings
@@ -46,8 +50,6 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
             .add("schedule" -> hasScheduleInput)
         )
       )
-      .css("swiss.show")
-      .css(hasScheduleInput.option("bits.flatpickr"))
       .graph(
         OpenGraph(
           title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",

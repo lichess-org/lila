@@ -23,5 +23,7 @@ export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConf
   };
 };
 
-export const povMessage = (run: Run) =>
-  `youPlayThe${run.pov == 'white' ? 'White' : 'Black'}PiecesInAllPuzzles`;
+export const povMessage = (run: Run): string =>
+  run.pov === 'white'
+    ? i18n.storm.youPlayTheWhitePiecesInAllPuzzles
+    : i18n.storm.youPlayTheBlackPiecesInAllPuzzles;

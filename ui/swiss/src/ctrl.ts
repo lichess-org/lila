@@ -4,11 +4,9 @@ import { throttlePromiseDelay } from 'common/timing';
 import { maxPerPage, myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';
-import { trans } from 'common/i18n';
 
 export default class SwissCtrl {
   data: SwissData;
-  trans: Trans;
   socket: SwissSocket;
   page: number;
   pages: Pages = {};
@@ -26,7 +24,6 @@ export default class SwissCtrl {
     readonly redraw: () => void,
   ) {
     this.data = this.readData(opts.data);
-    this.trans = trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();
@@ -159,7 +156,7 @@ export default class SwissCtrl {
 
   private redrawNbRounds = () =>
     $('.swiss__meta__round').text(
-      this.trans.plural('nbRounds', this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`),
+      i18n.swiss.nbRounds.asArray(this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`).join(''),
     );
 
   private readData = (data: SwissData) => ({

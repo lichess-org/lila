@@ -7,14 +7,14 @@ ui/build was lovingly crafted from a single block of wood as a personal gift to 
 Options:
   -h, --help          show this help and exit
   -w, --watch         build and watch for changes
-  -c, --clean-build   clean build artifacts then build
+  -c, --clean-build   build fresh artifacts
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
   -d, --debug         build assets with site.debug = true
   -l, --log=<url>     monkey patch console log functions in javascript manifest to POST log messages to
                       <url> or localhost:8666 (default). if used with --watch, the ui/build process
                       will listen for http on 8666 and display received json as 'web' in build logs
-  --clean             clean all build artifacts and exit
+  --clean             clean all build artifacts, including translation/js, and exit
   --update            update ui/build's node_modules
   --no-color          don't use color in logs
   --no-time           don't log the time

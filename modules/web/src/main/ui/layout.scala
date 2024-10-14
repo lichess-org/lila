@@ -142,8 +142,12 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   // consolidate script packaging here to dedup chunk dependencies
-  def sitePreload(modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
-    scriptsPreload("site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten)
+  def sitePreload(i18nDicts: List[String], modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
+    val langs       = if ctx.lang.code == "en-GB" then List("en-GB") else List("en-GB", ctx.lang.code)
+    val i18nModules = i18nDicts.flatMap(dict => langs.map(lang => s"i18n/$dict.$lang"))
+    scriptsPreload(
+      i18nModules ::: "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
+    )
 
   def scriptsPreload(keys: List[String]) =
     frag(
@@ -334,32 +338,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   object inlineJs:
     def apply(nonce: Nonce)(using Translate): Frag = embedJsUnsafe(jsCode)(nonce.some)
 
-    private val i18nKeys = List(
-      trans.site.pause,
-      trans.site.resume,
-      trans.site.nbFriendsOnline,
-      trans.site.reconnecting,
-      trans.site.noNetwork,
-      trans.timeago.justNow,
-      trans.timeago.inNbSeconds,
-      trans.timeago.inNbMinutes,
-      trans.timeago.inNbHours,
-      trans.timeago.inNbDays,
-      trans.timeago.inNbWeeks,
-      trans.timeago.inNbMonths,
-      trans.timeago.inNbYears,
-      trans.timeago.rightNow,
-      trans.timeago.nbMinutesAgo,
-      trans.timeago.nbHoursAgo,
-      trans.timeago.nbDaysAgo,
-      trans.timeago.nbWeeksAgo,
-      trans.timeago.nbMonthsAgo,
-      trans.timeago.nbYearsAgo,
-      trans.timeago.nbMinutesRemaining,
-      trans.timeago.nbHoursRemaining,
-      trans.timeago.completed
-    )
-
     private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
     lila.common.Bus.subscribeFun("i18n.load"):
       case lang: Lang => cache.remove(lang)
@@ -370,7 +348,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         _ =>
           "if (!window.site) window.site={};" +
             """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
-            s"window.site.quantity=${jsQuantity(t.lang)};" +
-            s"window.site.siteI18n=${safeJsonValue(i18nJsObject(i18nKeys))};"
+            s"window.site.quantity=${jsQuantity(t.lang)};"
       )
   end inlineJs

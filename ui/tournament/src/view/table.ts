@@ -70,7 +70,7 @@ export default function (ctrl: TournamentController): VNode {
       h(
         'section.tour__duels',
         { hook: bind('click', _ => !ctrl.disableClicks) },
-        [h('h2', ctrl.trans.noarg('topGames'))].concat(ctrl.data.duels.map(renderDuel(ctrl))),
+        [h('h2', i18n.site.topGames)].concat(ctrl.data.duels.map(renderDuel(ctrl))),
       ),
   ]);
 }

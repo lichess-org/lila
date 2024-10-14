@@ -3,8 +3,7 @@ package views.round
 import lila.app.UiEnv.{ *, given }
 import lila.game.GameExt.playerBlurPercent
 
-lazy val ui     = lila.round.ui.RoundUi(helpers, views.game.ui)
-lazy val jsI18n = lila.round.ui.RoundI18n(helpers)
+lazy val ui = lila.round.ui.RoundUi(helpers, views.game.ui)
 
 def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
   cross.map: c =>
