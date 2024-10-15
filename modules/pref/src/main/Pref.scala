@@ -99,9 +99,9 @@ case class Pref(
 
   def agree = copy(agreement = Agreement.current)
 
-  def hasKeyboardMove = keyboardMove == KeyboardMove.YES
-  def hasVoice        = voice.has(Voice.YES)
-  def hasShowRatingsInGame  = showRatingsInGame == ShowRatingsInGame.YES
+  def hasKeyboardMove      = keyboardMove == KeyboardMove.YES
+  def hasVoice             = voice.has(Voice.YES)
+  def hasShowRatingsInGame = showRatingsInGame == ShowRatingsInGame.YES
 
   def isUsingAltSocket = usingAltSocket.has(true)
 
@@ -249,9 +249,9 @@ object Pref:
       EVERYBODY -> "With everybody"
     )
 
-  object KeyboardMove extends BooleanPref
-  object Voice        extends BooleanPref
-  object ShowRatingsInGame   extends BooleanPref
+  object KeyboardMove      extends BooleanPref
+  object Voice             extends BooleanPref
+  object ShowRatingsInGame extends BooleanPref
 
   object RookCastle:
     val NO  = 0

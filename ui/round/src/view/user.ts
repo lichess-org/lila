@@ -45,7 +45,9 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           line: false,
         }),
         !!signal && signalBars(signal),
-        (!ctrl.isPlaying() || d.pref.showRatingsInGame) && !!rating && h('rating', rating + (player.provisional ? '?' : '')),
+        (!ctrl.isPlaying() || d.pref.showRatingsInGame) &&
+          !!rating &&
+          h('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
         player.engine &&
           h('span', {

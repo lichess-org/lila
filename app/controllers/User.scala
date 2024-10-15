@@ -177,12 +177,13 @@ final class User(
               ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
-              val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
+              val ping          = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
               val isUserPlaying = ctx.userId.so(env.round.playing(_))
               negotiate(
                 html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-                  Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, isUserPlaying))
-                    .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
+                  Ok.snip(
+                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, isUserPlaying)
+                  ).map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
                 },
                 json =
                   import lila.game.JsonView.given
