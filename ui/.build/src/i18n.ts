@@ -124,7 +124,7 @@ async function compileTypings(): Promise<void> {
               .map(([k, v]) => {
                 const tpe = typeof v !== 'string' ? 'I18nPlural' : isFormat.test(v) ? 'I18nFormat' : 'string';
                 const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
-                return `    /** ${comment} */\n    '${k}': ${tpe};`;
+                return `    /** ${comment} */\n    ${k}: ${tpe};`;
               })
               .join('\n') +
             '\n  };\n',

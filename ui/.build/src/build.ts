@@ -38,9 +38,9 @@ export async function build(pkgs: string[]): Promise<void> {
     fs.promises.mkdir(env.buildTempDir),
   ]);
 
-  monitor(pkgs);
   await Promise.all([sass(), copies(), i18n()]);
   await esbuild(tsc());
+  monitor(pkgs);
 }
 
 export async function stop(): Promise<void> {
