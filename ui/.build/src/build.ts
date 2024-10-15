@@ -71,7 +71,7 @@ export function prePackage(pkg: Package | undefined): void {
   });
 }
 
-export const quantize = (n?: number, factor = 10000) => Math.floor((n ?? 0) / factor) * factor;
+export const quantize = (n?: number, factor = 2000) => Math.floor((n ?? 0) / factor) * factor;
 
 function depsOne(pkgName: string): Package[] {
   const collect = (dep: string): string[] => [...(env.deps.get(dep) || []).flatMap(d => collect(d)), dep];
