@@ -356,7 +356,7 @@ final class User(
 
         val timeline = env.api
           .modTimeline(user, withPlayBans = false)
-          .map(views.mod.timeline.render)
+          .map(views.mod.timeline.renderGeneral)
           .map(lila.mod.ui.mzSection("timeline")(_))
 
         val modLog = for

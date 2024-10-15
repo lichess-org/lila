@@ -1,10 +1,9 @@
 .mod-timeline {
   @extend %flex-column, %box-neat;
   gap: 4em;
-  @extend %box-neat;
   background: $c-bg-zebra;
   padding: 2em 4em;
-  max-height: 50vh;
+  max-height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -25,6 +24,11 @@
 .mod-timeline__event {
   @extend %flex-center-nowrap;
   gap: 1em;
+  padding: 0 1em;
+}
+.mod-timeline__event:has(.mod-timeline__event__action--modMessage) {
+  background: $c-bg-zebra2;
+  padding: 1em;
 }
 .mod-timeline__event__from {
   white-space: nowrap;

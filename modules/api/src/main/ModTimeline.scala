@@ -68,7 +68,7 @@ object ModTimeline:
         case _: ReportNewAtom => "symbols.exclamation-mark"
         case _: ReportClose   => "objects.package"
         case _: TempBan       => "objects.hourglass-not-done"
-        case _: PublicLine    => "symbols.triangular-flag"
+        case _: PublicLine    => "symbols.exclamation-mark"
     def at: Instant = e match
       case e: Modlog               => e.date
       case e: AppealMsg            => e.at
@@ -84,6 +84,10 @@ object ModTimeline:
 
   // latest first
   given Ordering[Event] = Ordering.by(at).reverse
+
+  enum Angle:
+    case None
+    case Comm
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,

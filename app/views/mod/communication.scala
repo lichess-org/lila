@@ -81,7 +81,7 @@ def communication(
             )
           )
         ),
-        views.mod.timeline.render(timeline),
+        views.mod.timeline.renderComm(timeline),
         timeline.reports.nonEmpty.option(
           frag(
             h2("Comm reports"),
