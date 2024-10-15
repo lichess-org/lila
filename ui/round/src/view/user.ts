@@ -17,7 +17,6 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
-    const showRating = user?.id !== d.opponent.user?.id || d.pref.showRating
     return h(
       `div.ruser-${position}.ruser.user-link`,
       {
@@ -46,7 +45,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           line: false,
         }),
         !!signal && signalBars(signal),
-        showRating && !!rating && h('rating', rating + (player.provisional ? '?' : '')),
+        d.pref.showRating && !!rating && h('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
         player.engine &&
           h('span', {
