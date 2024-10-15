@@ -68,7 +68,7 @@ final class JsonView(
       flags: ExportOptions
   ): Fu[JsObject] = for
     takebackable <- takebacker.isAllowedIn(pov.game, Preload(prefs))
-    moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs))
+    moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs), byAdmin = false)
     socket       <- getSocketStatus(pov.game)
     pref = prefs(pov.color)
   yield

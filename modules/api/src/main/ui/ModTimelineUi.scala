@@ -23,13 +23,23 @@ final class ModTimelineUi(helpers: Helpers)(
   import helpers.{ *, given }
   import ModTimeline.*
 
-  def render(t: ModTimeline)(using Translate) = div(cls := "mod-timeline"):
-    t.allGroupedByDay.map(renderDay(t))
+  private val eventOrdering = summon[Ordering[Instant]].reverse
 
-  private def renderDay(t: ModTimeline)(day: (LocalDate, List[Event]))(using Translate) =
+  def render(t: ModTimeline)(using Translate) = div(cls := "mod-timeline"):
+    t.all
+      .map: e =>
+        daysFromNow(e.at.date) -> e
+      .groupBy(_._1)
+      .view
+      .mapValues(_.map(_._2))
+      .toList
+      .sortBy(x => x._2.head.at)(eventOrdering)
+      .map(renderPeriod(t))
+
+  private def renderPeriod(t: ModTimeline)(period: (String, List[Event]))(using Translate) =
     div(cls := "mod-timeline__day")(
-      h3(showDate(day._1)),
-      div(cls := "mod-timeline__day__events")(day._2.map(renderEvent(t)))
+      h3(period._1),
+      div(cls := "mod-timeline__day__events")(period._2.map(renderEvent(t)))
     )
 
   private def renderEvent(t: ModTimeline)(e: Event)(using Translate) =

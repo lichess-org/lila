@@ -530,7 +530,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">پس از حرکت، خودکار به بازی بعدی روید</string>
   <string name="autoSwitch">تعویض خودکار</string>
-  <string name="puzzles">معماها</string>
+  <string name="puzzles">معما</string>
   <string name="onlineBots">ربات‌های بَرخط</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
@@ -940,7 +940,7 @@
   <string name="tournDescription">توضیحات مسابقه</string>
   <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌کنندگان گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
 [name](https://url)</string>
-  <string name="ratedFormHelp">بازی‌ها رسمی هستند
+  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">بازی‌ها رسمی هستند
 و روی درجه‌بندی بازیکنان تاثیر می‌گذارند</string>
   <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
   <string name="noRestriction">بدون محدودیت</string>

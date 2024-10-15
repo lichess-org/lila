@@ -212,35 +212,35 @@ object RelayRoundForm:
       .map(RelayRound.Starts.At(_))
       .orElse((~startsAfterPrevious).option(RelayRound.Starts.AfterPrevious))
 
-    def update(official: Boolean)(relay: RelayRound)(using me: Me)(using mode: Mode) =
-      val sync = makeSync(me)
+    def update(official: Boolean)(relay: RelayRound)(using Me, Mode) =
+      val sync = makeSync(relay.sync.some)
       relay.copy(
         name = name,
-        caption = caption,
+        caption = if Granter(_.StudyAdmin) then caption else relay.caption,
         sync = if relay.sync.playing then sync.play(official) else sync,
         startsAt = relayStartsAt,
         finished = ~finished
       )
 
-    private def makeSync(user: User): Sync =
+    private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
       RelayRound.Sync(
         upstream = upstream,
         until = none,
         nextAt = none,
-        period = period.ifTrue(Granter.ofUser(_.StudyAdmin)(user)),
+        period = if Granter(_.StudyAdmin) then period else prev.flatMap(_.period),
         delay = delay,
         onlyRound = onlyRound,
         slices = slices,
         log = SyncLog.empty
       )
 
-    def make(user: User, tour: RelayTour)(using mode: Mode) =
+    def make(tour: RelayTour)(using Me, Mode) =
       RelayRound(
         id = RelayRound.makeId,
         tourId = tour.id,
         name = name,
-        caption = caption,
-        sync = makeSync(user),
+        caption = Granter(_.StudyAdmin).so(caption),
+        sync = makeSync(none),
         createdAt = nowInstant,
         crowd = none,
         finished = ~finished,

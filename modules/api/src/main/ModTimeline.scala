@@ -31,10 +31,6 @@ case class ModTimeline(
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playban.so(_.bans.toList) ::: flaggedPublicLines
     concat.sorted
 
-  private val dayOrdering = summon[Ordering[LocalDate]].reverse
-  def allGroupedByDay: List[(LocalDate, List[Event])] =
-    all.groupBy(_.at.date).toList.sortBy(_._1)(using dayOrdering)
-
   // def commReportsAbout: List[Report] = reports
   //   .collect:
   //     case Report.AndAtom(r, _) if r.is(_.Comm) => r
@@ -105,7 +101,7 @@ final class ModTimelineApi(
       modLog = modLogAll.filter(filterModLog)
       appeal   <- Granter(_.Appeals).so(appealApi.byId(user))
       notesAll <- noteApi.getForMyPermissions(user, Max(50))
-      notes = notesAll.filterNot(_.text.startsWith("Appeal reply:"))
+      notes = notesAll.filter(filterNote)
       reports <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
       playban <- withPlayBans.so(Granter(_.SeeReport)).so(playBanApi.fetchRecord(user))
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))
@@ -114,6 +110,11 @@ final class ModTimelineApi(
   private def filterModLog(l: Modlog): Boolean =
     if l.action == Modlog.teamKick && !modsList.contains(l.mod) then false
     else if l.action == Modlog.teamEdit && !modsList.contains(l.mod) then false
+    else true
+
+  private def filterNote(note: Note): Boolean =
+    if note.from.is(UserId.irwin) then false
+    else if note.text.startsWith("Appeal reply:") then false
     else true
 
   private object modsList:

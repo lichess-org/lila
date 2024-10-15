@@ -307,7 +307,7 @@ final class Round(
       .flatMap:
         _.flatMap { Pov(_, me) }.so: pov =>
           env.round.moretimer
-            .isAllowedIn(pov.game, Preload.none)
+            .isAllowedIn(pov.game, Preload.none, byAdmin = true)
             .map:
               if _ then
                 env.round.roundApi.tell(pov.gameId, Moretime(pov.playerId, seconds.seconds))
