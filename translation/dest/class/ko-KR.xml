@@ -107,8 +107,8 @@
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">수업은 최대 %1$s 명의 학생을 받을 수 있습니다. 더 많은 학생을 받으려면, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">수업을 더 만들기</string>
   <string name="studentsRealNamesOnePerLine">학생의 실명, 한 줄에 하나씩</string>
-  <string name="xisNowAStudentOfTheClass">%s는 이제 수강생입니다</string>
-  <string name="anInvitationHasBeenSentToX">%s를 초대했습니다</string>
-  <string name="xAlreadyHasAPendingInvitation">%s는 이미 초대되었습니다</string>
+  <string name="xisNowAStudentOfTheClass">%s은(는) 이제 반의 학생입니다</string>
+  <string name="anInvitationHasBeenSentToX">%s에게 초대장을 전송하였습니다</string>
+  <string name="xAlreadyHasAPendingInvitation">%s은(는) 이미 초대되었습니다</string>
   <string name="xIsAKidAccountWarning">%1$s는 어린이 계정이므로 메시지를 받을 수 없습니다. 초대 링크를 수동으로 보내야 합니다: %2$s.</string>
 </resources>
