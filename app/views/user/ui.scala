@@ -18,7 +18,8 @@ def mini(
     followable: Boolean,
     relation: Option[lila.relation.Relation],
     ping: Option[Int],
-    ct: Option[lila.game.Crosstable]
+    ct: Option[lila.game.Crosstable],
+    isUserPlaying: Boolean
 )(using ctx: Context) =
   val rel = views.relation.mini(u.id, blocked, followable, relation)
   def crosstable(myId: UserId) = ct
@@ -39,7 +40,7 @@ def mini(
   val perfs     = u.perfs.best8Perfs
   val showRating= ctx.pref.hasShowRating || (playingGame match {
     case Some(pov) => pov.game.finishedOrAborted || !ctx.userId.exists(pov.game.userIds.has)
-    case None => true
+    case None => !isUserPlaying
   })
   show.ui.mini(u, playing, blocked, followable, ping, rel, crosstable, flag, perfs, userMarks, showRating)
 

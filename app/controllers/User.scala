@@ -178,9 +178,10 @@ final class User(
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
               val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
+              val isUserPlaying = ctx.userId.so(env.round.playing(_))
               negotiate(
                 html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-                  Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                  Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, isUserPlaying))
                     .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
                 },
                 json =
