@@ -1,6 +1,6 @@
 // Generated
 interface I18nFormat {
-  (...args: (string | number)[]): string;
+  (...args: (string | number)[]): string; // formatted
   asArray: <T>(...args: T[]) => (T | string)[]; // vdom
 }
 interface I18nPlural {
