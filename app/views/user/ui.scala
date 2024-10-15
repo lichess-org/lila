@@ -38,7 +38,7 @@ def mini(
   def userMarks = views.mod.user.userMarks(u.user, None)
   val flag      = u.profileOrDefault.flagInfo
   val perfs     = u.perfs.best8Perfs
-  val showRating= ctx.pref.hasShowRating || (playingGame match {
+  val showRating= ctx.pref.hasShowRatingsInGame || (playingGame match {
     case Some(pov) => pov.game.finishedOrAborted || !ctx.userId.exists(pov.game.userIds.has)
     case None => !isUserPlaying
   })

@@ -40,7 +40,7 @@ object PrefForm:
     val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
     val voice         = "voice"         -> booleanNumber
     val keyboardMove  = "keyboardMove"  -> booleanNumber
-    val showRating    = "showRating"    -> booleanNumber
+    val showRatingsInGame    = "showRatingsInGame"    -> booleanNumber
     val autoQueen     = "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices)
     val premove       = "premove"       -> booleanNumber
     val takeback      = "takeback"      -> checkedNumber(Pref.Takeback.choices)
@@ -85,7 +85,7 @@ object PrefForm:
         fields.confirmResign,
         fields.keyboardMove.map2(optional),
         fields.voice.map2(optional),
-        fields.showRating.map2(optional),
+        fields.showRatingsInGame.map2(optional),
         "rookCastle" -> optional(booleanNumber)
       )(BehaviorData.apply)(unapply),
       "clock" -> mapping(
@@ -126,7 +126,7 @@ object PrefForm:
       confirmResign: Int,
       keyboardMove: Option[Int],
       voice: Option[Int],
-      showRating: Option[Int],
+      showRatingsInGame: Option[Int],
       rookCastle: Option[Int]
   )
 
@@ -175,7 +175,7 @@ object PrefForm:
         captured = display.captured == 1,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         voice = if pref.voice.isEmpty && !behavior.voice.contains(1) then None else behavior.voice,
-        showRating = behavior.showRating | pref.showRating,
+        showRatingsInGame = behavior.showRatingsInGame | pref.showRatingsInGame,
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         flairs = flairs | pref.flairs,
@@ -209,7 +209,7 @@ object PrefForm:
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
           voice = pref.voice.getOrElse(0).some,
-          showRating = pref.showRating.some,
+          showRatingsInGame = pref.showRatingsInGame.some,
           rookCastle = pref.rookCastle.some
         ),
         clock = ClockData(
