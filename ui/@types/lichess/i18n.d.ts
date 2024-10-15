@@ -9,7 +9,7 @@ interface I18nPlural {
   asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural
 }
 interface I18n {
-  /** Global noarg key lookup */
+  /** Global noarg key lookup (only if absolutely necessary). */
   (key: string): string;
 
   activity: {
@@ -893,7 +893,7 @@ interface I18n {
     toConnectTheDgtBoard: I18nFormat;
     /** To see console message press Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS) */
     toSeeConsoleMessage: string;
-    /** Use \"%1$s\" unless %2$s is running on a different machine or different port. */
+    /** Use "%1$s" unless %2$s is running on a different machine or different port. */
     useWebSocketUrl: I18nFormat;
     /** You have an OAuth token suitable for DGT play. */
     validDgtOauthToken: string;
@@ -2621,206 +2621,6 @@ interface I18n {
     settings: string;
     /** This account is closed. */
     thisAccountIsClosed: string;
-  };
-  storm: {
-    /** Accuracy */
-    accuracy: string;
-    /** All-time */
-    allTime: string;
-    /** Best run of day */
-    bestRunOfDay: string;
-    /** Click to reload */
-    clickToReload: string;
-    /** Combo */
-    combo: string;
-    /** Create a new game */
-    createNewGame: string;
-    /** End run (hotkey: Enter) */
-    endRun: string;
-    /** Failed puzzles */
-    failedPuzzles: string;
-    /** Get ready! */
-    getReady: string;
-    /** Highest solved */
-    highestSolved: string;
-    /** Highscores */
-    highscores: string;
-    /** Highscore: %s */
-    highscoreX: I18nFormat;
-    /** Join a public race */
-    joinPublicRace: string;
-    /** Join rematch */
-    joinRematch: string;
-    /** Join the race! */
-    joinTheRace: string;
-    /** Moves */
-    moves: string;
-    /** Move to start */
-    moveToStart: string;
-    /** New all-time highscore! */
-    newAllTimeHighscore: string;
-    /** New daily highscore! */
-    newDailyHighscore: string;
-    /** New monthly highscore! */
-    newMonthlyHighscore: string;
-    /** New run (hotkey: Space) */
-    newRun: string;
-    /** New weekly highscore! */
-    newWeeklyHighscore: string;
-    /** Next race */
-    nextRace: string;
-    /** Play again */
-    playAgain: string;
-    /** Played %1$s runs of %2$s */
-    playedNbRunsOfPuzzleStorm: I18nPlural;
-    /** Previous highscore was %s */
-    previousHighscoreWasX: I18nFormat;
-    /** Puzzles played */
-    puzzlesPlayed: string;
-    /** puzzles solved */
-    puzzlesSolved: string;
-    /** Race complete! */
-    raceComplete: string;
-    /** Race your friends */
-    raceYourFriends: string;
-    /** Runs */
-    runs: string;
-    /** Score */
-    score: string;
-    /** skip */
-    skip: string;
-    /** Skip this move to preserve your combo! Only works once per race. */
-    skipExplanation: string;
-    /** You can skip one move per race: */
-    skipHelp: string;
-    /** Skipped puzzle */
-    skippedPuzzle: string;
-    /** Slow puzzles */
-    slowPuzzles: string;
-    /** Spectating */
-    spectating: string;
-    /** Start the race */
-    startTheRace: string;
-    /** This month */
-    thisMonth: string;
-    /** This run has expired! */
-    thisRunHasExpired: string;
-    /** This run was opened in another tab! */
-    thisRunWasOpenedInAnotherTab: string;
-    /** This week */
-    thisWeek: string;
-    /** Time */
-    time: string;
-    /** Time per move */
-    timePerMove: string;
-    /** View best runs */
-    viewBestRuns: string;
-    /** Wait for rematch */
-    waitForRematch: string;
-    /** Waiting for more players to join... */
-    waitingForMorePlayers: string;
-    /** Waiting to start */
-    waitingToStart: string;
-    /** %s runs */
-    xRuns: I18nPlural;
-    /** You play the black pieces in all puzzles */
-    youPlayTheBlackPiecesInAllPuzzles: string;
-    /** You play the white pieces in all puzzles */
-    youPlayTheWhitePiecesInAllPuzzles: string;
-    /** Your rank: %s */
-    yourRankX: I18nFormat;
-  };
-  streamer: {
-    /** All streamers */
-    allStreamers: string;
-    /** Your stream is approved. */
-    approved: string;
-    /** Become a Lichess streamer */
-    becomeStreamer: string;
-    /** Change/delete your picture */
-    changePicture: string;
-    /** Currently streaming: %s */
-    currentlyStreaming: I18nFormat;
-    /** Download streamer kit */
-    downloadKit: string;
-    /** Do you have a Twitch or YouTube channel? */
-    doYouHaveStream: string;
-    /** Edit streamer page */
-    editPage: string;
-    /** Headline */
-    headline: string;
-    /** Here we go! */
-    hereWeGo: string;
-    /** Keep it short: %s characters max */
-    keepItShort: I18nPlural;
-    /** Last stream %s */
-    lastStream: I18nFormat;
-    /** Lichess streamer */
-    lichessStreamer: string;
-    /** Lichess streamers */
-    lichessStreamers: string;
-    /** LIVE! */
-    live: string;
-    /** Long description */
-    longDescription: string;
-    /** Max size: %s */
-    maxSize: I18nFormat;
-    /** OFFLINE */
-    offline: string;
-    /** Optional. Leave empty if none */
-    optionalOrEmpty: string;
-    /** Your stream is being reviewed by moderators. */
-    pendingReview: string;
-    /** Get a flaming streamer icon on your Lichess profile. */
-    perk1: string;
-    /** Get bumped up to the top of the streamers list. */
-    perk2: string;
-    /** Notify your Lichess followers. */
-    perk3: string;
-    /** Show your stream in your games, tournaments and studies. */
-    perk4: string;
-    /** Benefits of streaming with the keyword */
-    perks: string;
-    /** Please fill in your streamer information, and upload a picture. */
-    pleaseFillIn: string;
-    /** request a moderator review */
-    requestReview: string;
-    /** Include the keyword \"lichess.org\" in your stream title and use the category \"Chess\" when you stream on Lichess. */
-    rule1: string;
-    /** Remove the keyword when you stream non-Lichess stuff. */
-    rule2: string;
-    /** Lichess will detect your stream automatically and enable the following perks: */
-    rule3: string;
-    /** Read our %s to ensure fair play for everyone during your stream. */
-    rule4: I18nFormat;
-    /** Streaming rules */
-    rules: string;
-    /** The Lichess streamer page targets your audience with the language provided by your streaming platform. Set the correct default language for your chess streams in the app or service you use to broadcast. */
-    streamerLanguageSettings: string;
-    /** Your streamer name on Lichess */
-    streamerName: string;
-    /** streaming Fairplay FAQ */
-    streamingFairplayFAQ: string;
-    /** Tell us about your stream in one sentence */
-    tellUsAboutTheStream: string;
-    /** Your Twitch username or URL */
-    twitchUsername: string;
-    /** Upload a picture */
-    uploadPicture: string;
-    /** Visible on the streamers page */
-    visibility: string;
-    /** When approved by moderators */
-    whenApproved: string;
-    /** When you are ready to be listed as a Lichess streamer, %s */
-    whenReady: I18nFormat;
-    /** %s is streaming */
-    xIsStreaming: I18nFormat;
-    /** %s streamer picture */
-    xStreamerPicture: I18nFormat;
-    /** Your streamer page */
-    yourPage: string;
-    /** Your YouTube channel ID */
-    youTubeChannelId: string;
   };
   site: {
     /** Abort game */
@@ -4551,6 +4351,206 @@ interface I18n {
     yourTurn: string;
     /** Zero advertisement */
     zeroAdvertisement: string;
+  };
+  storm: {
+    /** Accuracy */
+    accuracy: string;
+    /** All-time */
+    allTime: string;
+    /** Best run of day */
+    bestRunOfDay: string;
+    /** Click to reload */
+    clickToReload: string;
+    /** Combo */
+    combo: string;
+    /** Create a new game */
+    createNewGame: string;
+    /** End run (hotkey: Enter) */
+    endRun: string;
+    /** Failed puzzles */
+    failedPuzzles: string;
+    /** Get ready! */
+    getReady: string;
+    /** Highest solved */
+    highestSolved: string;
+    /** Highscores */
+    highscores: string;
+    /** Highscore: %s */
+    highscoreX: I18nFormat;
+    /** Join a public race */
+    joinPublicRace: string;
+    /** Join rematch */
+    joinRematch: string;
+    /** Join the race! */
+    joinTheRace: string;
+    /** Moves */
+    moves: string;
+    /** Move to start */
+    moveToStart: string;
+    /** New all-time highscore! */
+    newAllTimeHighscore: string;
+    /** New daily highscore! */
+    newDailyHighscore: string;
+    /** New monthly highscore! */
+    newMonthlyHighscore: string;
+    /** New run (hotkey: Space) */
+    newRun: string;
+    /** New weekly highscore! */
+    newWeeklyHighscore: string;
+    /** Next race */
+    nextRace: string;
+    /** Play again */
+    playAgain: string;
+    /** Played %1$s runs of %2$s */
+    playedNbRunsOfPuzzleStorm: I18nPlural;
+    /** Previous highscore was %s */
+    previousHighscoreWasX: I18nFormat;
+    /** Puzzles played */
+    puzzlesPlayed: string;
+    /** puzzles solved */
+    puzzlesSolved: string;
+    /** Race complete! */
+    raceComplete: string;
+    /** Race your friends */
+    raceYourFriends: string;
+    /** Runs */
+    runs: string;
+    /** Score */
+    score: string;
+    /** skip */
+    skip: string;
+    /** Skip this move to preserve your combo! Only works once per race. */
+    skipExplanation: string;
+    /** You can skip one move per race: */
+    skipHelp: string;
+    /** Skipped puzzle */
+    skippedPuzzle: string;
+    /** Slow puzzles */
+    slowPuzzles: string;
+    /** Spectating */
+    spectating: string;
+    /** Start the race */
+    startTheRace: string;
+    /** This month */
+    thisMonth: string;
+    /** This run has expired! */
+    thisRunHasExpired: string;
+    /** This run was opened in another tab! */
+    thisRunWasOpenedInAnotherTab: string;
+    /** This week */
+    thisWeek: string;
+    /** Time */
+    time: string;
+    /** Time per move */
+    timePerMove: string;
+    /** View best runs */
+    viewBestRuns: string;
+    /** Wait for rematch */
+    waitForRematch: string;
+    /** Waiting for more players to join... */
+    waitingForMorePlayers: string;
+    /** Waiting to start */
+    waitingToStart: string;
+    /** %s runs */
+    xRuns: I18nPlural;
+    /** You play the black pieces in all puzzles */
+    youPlayTheBlackPiecesInAllPuzzles: string;
+    /** You play the white pieces in all puzzles */
+    youPlayTheWhitePiecesInAllPuzzles: string;
+    /** Your rank: %s */
+    yourRankX: I18nFormat;
+  };
+  streamer: {
+    /** All streamers */
+    allStreamers: string;
+    /** Your stream is approved. */
+    approved: string;
+    /** Become a Lichess streamer */
+    becomeStreamer: string;
+    /** Change/delete your picture */
+    changePicture: string;
+    /** Currently streaming: %s */
+    currentlyStreaming: I18nFormat;
+    /** Download streamer kit */
+    downloadKit: string;
+    /** Do you have a Twitch or YouTube channel? */
+    doYouHaveStream: string;
+    /** Edit streamer page */
+    editPage: string;
+    /** Headline */
+    headline: string;
+    /** Here we go! */
+    hereWeGo: string;
+    /** Keep it short: %s characters max */
+    keepItShort: I18nPlural;
+    /** Last stream %s */
+    lastStream: I18nFormat;
+    /** Lichess streamer */
+    lichessStreamer: string;
+    /** Lichess streamers */
+    lichessStreamers: string;
+    /** LIVE! */
+    live: string;
+    /** Long description */
+    longDescription: string;
+    /** Max size: %s */
+    maxSize: I18nFormat;
+    /** OFFLINE */
+    offline: string;
+    /** Optional. Leave empty if none */
+    optionalOrEmpty: string;
+    /** Your stream is being reviewed by moderators. */
+    pendingReview: string;
+    /** Get a flaming streamer icon on your Lichess profile. */
+    perk1: string;
+    /** Get bumped up to the top of the streamers list. */
+    perk2: string;
+    /** Notify your Lichess followers. */
+    perk3: string;
+    /** Show your stream in your games, tournaments and studies. */
+    perk4: string;
+    /** Benefits of streaming with the keyword */
+    perks: string;
+    /** Please fill in your streamer information, and upload a picture. */
+    pleaseFillIn: string;
+    /** request a moderator review */
+    requestReview: string;
+    /** Include the keyword "lichess.org" in your stream title and use the category "Chess" when you stream on Lichess. */
+    rule1: string;
+    /** Remove the keyword when you stream non-Lichess stuff. */
+    rule2: string;
+    /** Lichess will detect your stream automatically and enable the following perks: */
+    rule3: string;
+    /** Read our %s to ensure fair play for everyone during your stream. */
+    rule4: I18nFormat;
+    /** Streaming rules */
+    rules: string;
+    /** The Lichess streamer page targets your audience with the language provided by your streaming platform. Set the correct default language for your chess streams in the app or service you use to broadcast. */
+    streamerLanguageSettings: string;
+    /** Your streamer name on Lichess */
+    streamerName: string;
+    /** streaming Fairplay FAQ */
+    streamingFairplayFAQ: string;
+    /** Tell us about your stream in one sentence */
+    tellUsAboutTheStream: string;
+    /** Your Twitch username or URL */
+    twitchUsername: string;
+    /** Upload a picture */
+    uploadPicture: string;
+    /** Visible on the streamers page */
+    visibility: string;
+    /** When approved by moderators */
+    whenApproved: string;
+    /** When you are ready to be listed as a Lichess streamer, %s */
+    whenReady: I18nFormat;
+    /** %s is streaming */
+    xIsStreaming: I18nFormat;
+    /** %s streamer picture */
+    xStreamerPicture: I18nFormat;
+    /** Your streamer page */
+    yourPage: string;
+    /** Your YouTube channel ID */
+    youTubeChannelId: string;
   };
   study: {
     /** Add members */

@@ -4,15 +4,14 @@ import { XMLParser } from 'fast-xml-parser';
 import { env, colors as c } from './main.ts';
 import { globArray } from './parse.ts';
 import { i18nManifest } from './manifest.ts';
-import { quantize, zip } from './build.ts';
+import { quantize } from './build.ts';
 import { transform } from 'esbuild';
 
 type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
 type Dict = Map<string, string | Plural>;
-type DictMap = Map<string, Promise<Dict>>;
 
-let baseDicts: DictMap = new Map();
-let locales: string[], dicts: string[];
+let dicts: Map<string, Dict> = new Map();
+let locales: string[], cats: string[];
 let watchTimeout: NodeJS.Timeout | undefined;
 const i18nWatch: fs.FSWatcher[] = [];
 const isFormat = /%(?:[\d]\$)?s/;
@@ -72,10 +71,10 @@ export function stopI18n(): void {
   i18nWatch.length = 0;
 }
 
-export async function i18n(): Promise<void> {
+export async function i18n(isBoot = true): Promise<void> {
   if (!env.i18n) return;
 
-  [locales, dicts] = (
+  [locales, cats] = (
     await Promise.all([
       globArray('*.xml', { cwd: path.join(env.i18nDestDir, 'site'), absolute: false }),
       globArray('*.xml', { cwd: env.i18nSrcDir, absolute: false }),
@@ -83,16 +82,17 @@ export async function i18n(): Promise<void> {
   ).map(list => list.map(x => x.split('.')[0]));
 
   await compileTypings();
-  compileJavascripts(); // no await
+  compileJavascripts(isBoot); // no await
 
-  if (!env.watch) return;
+  if (!isBoot || !env.watch) return;
 
   const onChange = () => {
     clearTimeout(watchTimeout);
-    watchTimeout = setTimeout(() => compileTypings().then(() => compileJavascripts(false)), 2000);
+    watchTimeout = setTimeout(() => i18n(false), 2000);
   };
   i18nWatch.push(fs.watch(env.i18nSrcDir, onChange));
-  for (const d of dicts) {
+  for (const d of cats) {
+    await fs.promises.mkdir(path.join(env.i18nDestDir, d)).catch(() => {});
     i18nWatch.push(fs.watch(path.join(env.i18nDestDir, d), onChange));
   }
 }
@@ -102,25 +102,50 @@ async function compileTypings(): Promise<void> {
     fs.promises.stat(path.join(env.typesDir, 'lichess', `i18n.d.ts`)).catch(() => undefined),
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
-  const dictStats = await Promise.all(dicts.map(d => updated(d)));
-  if (!tstat || dictStats.some(x => x && x.mtimeMs > tstat.mtimeMs)) {
+  const catStats = await Promise.all(cats.map(d => updated(d)));
+
+  if (!tstat || catStats.some(x => x)) {
     env.log(`Building ${c.grey('i18n')}`);
-    dicts.forEach(d =>
-      baseDicts.set(d, fs.promises.readFile(path.join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
+    dicts = new Map(
+      zip(
+        cats,
+        await Promise.all(
+          cats.map(d => fs.promises.readFile(path.join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
+        ),
+      ),
     );
-    await writeTypescript(new Map(zip(dicts, await Promise.all(baseDicts.values()))));
+    const code =
+      tsPrelude +
+      [...dicts]
+        .map(
+          ([cat, dict]) =>
+            `  ${cat}: {\n` +
+            [...dict.entries()]
+              .map(([k, v]) => {
+                const tpe = typeof v !== 'string' ? 'I18nPlural' : isFormat.test(v) ? 'I18nFormat' : 'string';
+                const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
+                return `    /** ${comment} */\n    '${k}': ${tpe};`;
+              })
+              .join('\n') +
+            '\n  };\n',
+        )
+        .join('') +
+      '}\n';
+    return fs.promises.writeFile(path.join(env.typesDir, 'lichess', `i18n.d.ts`), code);
   }
 }
 
 async function compileJavascripts(dirty: boolean = true): Promise<void> {
-  for (const dict of dicts) {
+  for (const cat of cats) {
+    const u = await updated(cat);
+    if (u) await writeJavascript(cat, undefined, u);
     await Promise.all(
-      [undefined, ...locales].map(locale =>
-        updated(dict, locale).then(async xstat => {
-          if (!xstat) return;
+      locales.map(locale =>
+        updated(cat, locale).then(xstat => {
+          if (!u && !xstat) return;
           if (!dirty) env.log(`Building ${c.grey('i18n')}`);
           dirty = true;
-          return writeJavascript(dict, locale, xstat);
+          return writeJavascript(cat, locale, xstat);
         }),
       ),
     );
@@ -128,44 +153,31 @@ async function compileJavascripts(dirty: boolean = true): Promise<void> {
   if (dirty) i18nManifest();
 }
 
-async function updated(dict: string, locale?: string): Promise<fs.Stats | false> {
-  const xmlPath = locale
-    ? path.join(env.i18nDestDir, dict, `${locale}.xml`)
-    : path.join(env.i18nSrcDir, `${dict}.xml`);
-  const jsPath = path.join(env.i18nJsDir, `${dict}.${locale ?? 'en-GB'}.js`);
-  const [xml, js] = await Promise.allSettled([fs.promises.stat(xmlPath), fs.promises.stat(jsPath)]);
-  return xml.status === 'rejected' ||
-    (js.status !== 'rejected' && quantize(xml.value.mtimeMs, 2000) === quantize(js.value.mtimeMs, 2000))
-    ? false
-    : xml.value;
-}
-
-async function writeJavascript(dict: string, locale?: string, xstat: fs.Stats | false = false) {
-  if (!locale || !baseDicts.has(dict))
-    baseDicts.set(
-      dict,
-      fs.promises.readFile(path.join(env.i18nSrcDir, `${dict}.xml`), 'utf8').then(parseXml),
+async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | false = false) {
+  if (!dicts.has(cat))
+    dicts.set(
+      cat,
+      await fs.promises.readFile(path.join(env.i18nSrcDir, `${cat}.xml`), 'utf8').then(parseXml),
     );
 
   const translations = new Map([
-    ...(await baseDicts.get(dict)!),
-    ...parseXml(
-      await fs.promises.readFile(
-        locale ? path.join(env.i18nDestDir, dict, `${locale}.xml`) : path.join(env.i18nSrcDir, `${dict}.xml`),
-        'utf-8',
-      ),
-    ),
+    ...dicts.get(cat)!,
+    ...(locale
+      ? await fs.promises
+          .readFile(path.join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
+          .catch(() => '')
+          .then(parseXml)
+      : []),
   ]);
-
   const jsInit =
-    dict === 'site'
+    cat === 'site'
       ? 'window.i18n=function(k){for(let v of Object.values(window.i18n))if(v[k])return v[k];return k};'
       : '';
   const code =
     jsPrelude +
     jsInit +
-    `if(!window.i18n.${dict})window.i18n.${dict}={};` +
-    `let i=window.i18n.${dict};` +
+    `if(!window.i18n.${cat})window.i18n.${cat}={};` +
+    `let i=window.i18n.${cat};` +
     [...translations]
       .map(
         ([k, v]) =>
@@ -178,35 +190,30 @@ async function writeJavascript(dict: string, locale?: string, xstat: fs.Stats | 
       )
       .join(';') +
     '})()';
-  const filename = path.join(env.i18nJsDir, `${dict}.${locale ?? 'en-GB'}.js`);
+
+  const filename = path.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
   await fs.promises.writeFile(filename, code);
+
   if (!xstat) return;
   return fs.promises.utimes(filename, xstat.mtime, xstat.mtime);
 }
 
-async function writeTypescript(dictMap: Map<string, Dict>): Promise<void> {
-  const code =
-    tsPrelude +
-    [...dictMap]
-      .map(
-        ([dict, trans]) =>
-          `  ${dict}: {\n` +
-          [...trans.entries()]
-            .map(([k, v]) => {
-              const tpe = typeof v !== 'string' ? 'I18nPlural' : isFormat.test(v) ? 'I18nFormat' : 'string';
-              const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
-              return `    /** ${comment} */\n    '${k}': ${tpe};`;
-            })
-            .join('\n') +
-          '\n  };\n',
-      )
-      .join('') +
-    '}\n';
-  return fs.promises.writeFile(path.join(env.typesDir, 'lichess', `i18n.d.ts`), code);
+async function updated(cat: string, locale?: string): Promise<fs.Stats | false> {
+  const xmlPath = locale
+    ? path.join(env.i18nDestDir, cat, `${locale}.xml`)
+    : path.join(env.i18nSrcDir, `${cat}.xml`);
+  const jsPath = path.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
+  const [xml, js] = await Promise.allSettled([fs.promises.stat(xmlPath), fs.promises.stat(jsPath)]);
+  return xml.status === 'rejected' ||
+    (js.status !== 'rejected' && quantize(xml.value.mtimeMs, 2000) <= quantize(js.value.mtimeMs, 2000))
+    ? false
+    : xml.value;
 }
 
 function parseXml(xmlData: string): Map<string, string | Plural> {
   const i18nMap: Map<string, string | Plural> = new Map();
+  if (!xmlData) return i18nMap;
+
   const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
   const { string: strings, plurals } = parser.parse(xmlData).resources;
   for (const item of strings ? (Array.isArray(strings) ? strings : [strings]) : [])
@@ -219,4 +226,13 @@ function parseXml(xmlData: string): Map<string, string | Plural> {
     i18nMap.set(plural.name, group);
   }
   return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b)));
+}
+
+function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
+  const length = Math.min(arr1.length, arr2.length);
+  const result: [T, U][] = [];
+  for (let i = 0; i < length; i++) {
+    result.push([arr1[i], arr2[i]]);
+  }
+  return result;
 }

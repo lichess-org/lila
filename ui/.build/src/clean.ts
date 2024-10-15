@@ -34,5 +34,5 @@ export async function clean(globs?: string[]): Promise<void> {
 }
 
 export async function deepClean(): Promise<void> {
-  return clean(['ui/@types/lichess/site.d.ts', 'translation/js', ...allGlobs]);
+  return clean(['ui/@types/lichess/i18n.d.ts', 'translation/js', ...allGlobs]);
 }
