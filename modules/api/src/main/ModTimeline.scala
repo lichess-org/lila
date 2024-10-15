@@ -113,6 +113,7 @@ final class ModTimelineApi(
 
   private def filterModLog(l: Modlog): Boolean =
     if l.action == Modlog.teamKick && !modsList.contains(l.mod) then false
+    else if l.action == Modlog.teamEdit && !modsList.contains(l.mod) then false
     else true
 
   private object modsList:
