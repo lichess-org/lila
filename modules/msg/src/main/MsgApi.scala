@@ -159,7 +159,7 @@ final class MsgApi(
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
-              if send == Ok then shutupApi.privateMessage(orig, dest, text)
+              if send == Ok && !multi then shutupApi.privateMessage(orig, dest, text)
               PostResult.Success
       yield res
     }
