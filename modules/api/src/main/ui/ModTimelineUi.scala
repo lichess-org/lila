@@ -42,6 +42,8 @@ final class ModTimelineUi(helpers: Helpers)(
       .mapValues(_.map(_._2))
       .toList
       .sortBy(x => x._2.head.at)(eventOrdering)
+      .map: (period, events) =>
+        (period, ModTimeline.aggregateEvents(events))
       .map(renderPeriod(t))
 
   private def renderPeriod(t: ModTimeline)(period: (String, List[Event]))(using Translate) =
