@@ -23,8 +23,8 @@ import * as speech from './speech';
 import { plyColor, scalashogiCharPair } from './util';
 import * as xhr from './xhr';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
-import { last } from 'tree/dist/ops';
-import { fromNodeList } from 'tree/dist/path';
+import { last } from 'tree/ops';
+import { fromNodeList } from 'tree/path';
 
 export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   let vm: Vm = {

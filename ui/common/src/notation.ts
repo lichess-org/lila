@@ -1,6 +1,6 @@
 import { Notation as sgNotation } from 'shogiground/types';
 import { makeJapaneseMoveOrDrop } from 'shogiops/notation/japanese';
-import { makeKifMoveOrDrop } from 'shogiops/notation/kif/kif';
+import { makeKifMoveOrDrop } from 'shogiops/notation/kif';
 import { makeKitaoKawasakiMoveOrDrop } from 'shogiops/notation/kitaoKawasaki';
 import { roleToFullKanji, roleToKanji, roleToWestern } from 'shogiops/notation/util';
 import { makeWesternMoveOrDrop } from 'shogiops/notation/western';

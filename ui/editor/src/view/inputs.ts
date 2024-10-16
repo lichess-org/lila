@@ -1,5 +1,5 @@
-import { makeCsaHeader, parseCsaHeader } from 'shogiops/notation/csa/csa';
-import { makeKifHeader, parseKifHeader } from 'shogiops/notation/kif/kif';
+import { makeCsaHeader, parseCsaHeader } from 'shogiops/notation/csa';
+import { makeKifHeader, parseKifHeader } from 'shogiops/notation/kif';
 import { makeSfen, parseSfen } from 'shogiops/sfen';
 import { VNode, h } from 'snabbdom';
 import EditorCtrl from '../ctrl';

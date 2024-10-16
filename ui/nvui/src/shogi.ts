@@ -8,7 +8,7 @@ import { Setting, makeSetting } from './setting';
 import { dimensions, handRoles } from 'shogiops/variant/util';
 import { makeUsi, parseUsi } from 'shogiops/util';
 import { toKanjiDigit } from 'shogiops/notation/util';
-import { makeKifBoard } from 'shogiops/notation/kif/kif';
+import { makeKifBoard } from 'shogiops/notation/kif';
 import { toMoveOrDrop } from 'keyboardMove/dist/plugins/util'; // todo better later
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna' | 'japanese';
