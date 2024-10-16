@@ -47,7 +47,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         import framework.*
         Match($id(id)) -> List(
           PipelineOperator(
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               from = chapterColl,
               local = "_id",
               foreign = "studyId",
@@ -245,7 +245,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
           Sort(Descending("updatedAt")),
           Project(idNameProjection),
           PipelineOperator(
-            $lookup.pipelineBC(
+            $lookup.pipeline(
               from = chapterColl,
               as = "chapters",
               local = "_id",
