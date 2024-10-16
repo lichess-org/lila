@@ -80,7 +80,6 @@ case class Modlog(
     case Modlog.blogPostEdit        => "edit blog post"
     case Modlog.teamKick            => "kick from team"
     case Modlog.teamEdit            => "edited team"
-    case Modlog.appealPost          => "posted in appeal"
     case Modlog.setKidMode          => "set kid mode"
     case Modlog.weakPassword        => "log in with weak password"
     case Modlog.blankedPassword     => "log in with blanked password"
@@ -102,6 +101,43 @@ object Modlog:
       user = sus.user.id.some,
       action = action,
       details = details
+    )
+
+  val isSentence: Set[String] = Set(
+    "alt",
+    "engine",
+    "booster",
+    "troll",
+    "isolate",
+    "deleteComms",
+    "closeAccount",
+    "deletePost",
+    "closeTopic",
+    "hideTopic",
+    "deleteTeam",
+    "terminateTournament",
+    "chatTimeout",
+    "kickFromRankings",
+    "reportban",
+    "rankban",
+    "arenaBan",
+    "prizeban",
+    "cheatDetected",
+    "garbageCollect",
+    "teamKick"
+  )
+
+  val isUndo: Set[String] =
+    Set(
+      "unalt",
+      "reopen",
+      "unengine",
+      "unbooster",
+      "untroll",
+      "unisolate",
+      "unreportban",
+      "unrankban",
+      "unprizeban"
     )
 
   case class UserEntry(user: UserId, action: String, date: Instant)
@@ -165,7 +201,6 @@ object Modlog:
   val blogPostEdit        = "blogPostEdit"
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
-  val appealPost          = "appealPost"
   val setKidMode          = "setKidMode"
   val weakPassword        = "weakPassword"
   val blankedPassword     = "blankedPassword"

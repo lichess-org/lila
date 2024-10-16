@@ -354,6 +354,11 @@ final class User(
 
         val nbOthers = getInt("nbOthers") | 100
 
+        val timeline = env.api
+          .modTimeline(user, withPlayBans = false)
+          .map(views.mod.timeline.renderGeneral)
+          .map(lila.mod.ui.mzSection("timeline")(_))
+
         val modLog = for
           history <- env.mod.logApi.userHistory(user.id)
           appeal  <- isGranted(_.Appeals).so(env.appeal.api.byId(user))
@@ -428,6 +433,7 @@ final class User(
           Source
             .single(ui.menu)
             .merge(modZoneSegment(actions, "actions", user))
+            .merge(modZoneSegment(timeline, "timeline", user))
             .merge(modZoneSegment(modLog, "modLog", user))
             .merge(modZoneSegment(plan, "plan", user))
             .merge(modZoneSegment(student, "student", user))
@@ -468,12 +474,12 @@ final class User(
         doWriteNote(username, data): user =>
           if getBool("inquiry") then
             Ok.snipAsync:
-              env.user.noteApi.byUserForMod(user.id).map {
+              env.user.noteApi.toUserForMod(user.id).map {
                 views.mod.inquiry.ui.noteZone(user, _)
               }
           else
             Ok.snipAsync:
-              env.socialInfo.fetchNotes(user).map {
+              env.user.noteApi.getForMyPermissions(user).map {
                 views.user.noteUi.zone(user, _)
               }
     )
@@ -481,11 +487,10 @@ final class User(
 
   def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
     Found(meOrFetch(username)):
-      env.socialInfo
-        .fetchNotes(_)
-        .flatMap {
+      env.user.noteApi
+        .getForMyPermissions(_)
+        .flatMap:
           lila.user.JsonView.notes(_)(using lightUserApi)
-        }
         .map(JsonOk)
   }
 

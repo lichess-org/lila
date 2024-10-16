@@ -25,7 +25,7 @@ final class IrcApi(
       case ModDomain.Boost => ZulipClient.stream.mod.hunterBoost
       case _               => ZulipClient.stream.mod.adminGeneral
     noteApi
-      .recentByUserForMod(user.id)
+      .recentToUserForMod(user.id)
       .flatMap:
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.name):

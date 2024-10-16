@@ -89,4 +89,4 @@ trait FormHelper:
           (offset, zone.getId)
     def translatedChoices(using lang: Lang): List[(String, String)] =
       zones.map: (offset, zone) =>
-        zone.getId -> s"$offset ${zone.getDisplayName(java.time.format.TextStyle.NARROW, lang.locale)}"
+        zone.getId -> s"${zone.getDisplayName(java.time.format.TextStyle.NARROW, lang.locale)} $offset"

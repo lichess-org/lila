@@ -52,7 +52,6 @@ final class StudyBits(helpers: Helpers):
         div(cls := "study__icon")(
           s.study.flair
             .map(iconFlair)
-            .orElse(userFlairSync(s.study.ownerId))
             .getOrElse(iconTag(Icon.StudyBoard))
         ),
         div(

@@ -292,7 +292,7 @@ object user:
     val text: String
 
   trait NoteApi:
-    def recentByUserForMod(userId: UserId): Fu[Option[Note]]
+    def recentToUserForMod(userId: UserId): Fu[Option[Note]]
     def write(to: UserId, text: String, modOnly: Boolean, dox: Boolean)(using MyId): Funit
     def lichessWrite(to: User, text: String): Funit
 

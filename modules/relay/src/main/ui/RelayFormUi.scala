@@ -23,7 +23,7 @@ case class FormNavigation(
     .filter: r =>
       r.sync.upstream.forall(up => up.isUrl && !up.hasLcc)
 
-final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
+final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   import helpers.{ *, given }
   import trans.{ broadcast as trb, site as trs }
 

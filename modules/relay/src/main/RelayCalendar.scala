@@ -59,7 +59,9 @@ final class RelayCalendar(
   def atMonth(at: YearMonth): Fu[List[WithFirstRound]] = cache.get(at)
 
   def readMonth(year: Int, month: Int): Option[YearMonth] =
-    util.Try(YearMonth.of(year, month)).toOption
+    RelayCalendar.allYears
+      .contains(year)
+      .so(util.Try(YearMonth.of(year, month)).toOption)
 
 object RelayCalendar:
 

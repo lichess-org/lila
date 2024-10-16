@@ -31,9 +31,9 @@
   <string name="byOpenings">오프닝별</string>
   <string name="puzzlesByOpenings">오프닝별 퍼즐</string>
   <string name="openingsYouPlayedTheMost">레이팅 게임에서 가장 많이 플레이한 오프닝</string>
-  <string name="useFindInPage">브라우저의 \"페이지에서 찾기\" 메뉴를 이용해 가장 좋아하는 오프닝을 찾으세요!</string>
-  <string name="useCtrlF">Ctrl+f를 사용해서 가장 좋아하는 오프닝을 찾으세요!</string>
-  <string name="notTheMove">답이 아닙니다!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">브라우저의 \"페이지에서 찾기\" 메뉴를 이용해 가장 좋아하는 오프닝을 찾으세요!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Ctrl+f를 사용해서 가장 좋아하는 오프닝을 찾으세요!</string>
+  <string name="notTheMove">그 수가 아닙니다!</string>
   <string name="trySomethingElse">다른 것 시도하기</string>
   <string name="ratingX">레이팅: %s</string>
   <string name="hidden">숨겨짐</string>

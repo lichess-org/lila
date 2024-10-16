@@ -19,6 +19,7 @@
   <string name="fullDescriptionHelp">Optional laang Beschreiwung vum Turnéier. %1$s ass disponibel. Längt muss manner wéi %2$s Buschtawen sinn.</string>
   <string name="sourceUrlHelp">URL déi Lichess checkt fir PGN à jour ze halen. Muss ëffentlech iwwer Internet zougänglech sinn.</string>
   <string name="sourceGameIds">Bis zu 64 Lichess-Partie-IDen, duerch Espacë getrennt.</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Startdatum vum Turnéier an der lokaler Zäitzon: %s</string>
   <string name="startDateHelp">Optional, wann du wees wéini den Turnéier ufänkt</string>
   <string name="credits">Quell kreditéieren</string>
   <string name="currentGameUrl">URL vun der aktueller Partie</string>

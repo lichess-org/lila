@@ -244,7 +244,7 @@ final class RelayApi(
     last      <- roundRepo.lastByTour(tour)
     nextOrder <- roundRepo.nextOrderByTour(tour.id)
     lastStudy <- last.so(r => studyRepo.byId(r.studyId))
-    relay     <- copyRoundSourceSettings(data.make(me, tour))
+    relay     <- copyRoundSourceSettings(data.make(tour))
     importGame = StudyMaker.ImportGame(
       id = relay.studyId.some,
       name = relay.name.into(StudyName).some,
@@ -310,10 +310,11 @@ final class RelayApi(
     if updated == from then fuccess(from)
     else
       for
-        round <- copyRoundSourceSettings(updated)
-        _     <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
-        bdoc  <- tryBdoc(round).toEither.toFuture
-        _     <- roundRepo.coll.update.one($id(round.id), $set(bdoc)).void
+        round   <- copyRoundSourceSettings(updated)
+        _       <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
+        setters <- tryBdoc(round).toEither.toFuture
+        unsetters = (from.caption.isDefined && updated.caption.isEmpty).option("caption").toList
+        _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ $unset(unsetters)).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _                <- denormalizeTour(round.tourId)
@@ -484,7 +485,7 @@ final class RelayApi(
               logger.info(s"Automatically start $relay")
               requestPlay(relay.id, v = true)
 
-  private[relay] def autoFinishNotSyncing: Funit =
+  private[relay] def autoFinishNotSyncing(onlyIds: Option[List[RelayTourId]] = None): Funit =
     roundRepo.coll
       .list[RelayRound]:
         $doc(
@@ -495,7 +496,7 @@ final class RelayApi(
             "startsAt".$exists(false),
             "startsAt".$lt(nowInstant)
           )
-        )
+        ) ++ onlyIds.so(ids => $doc("tourId".$in(ids)))
       .flatMap:
         _.sequentiallyVoid: relay =>
           logger.info(s"Automatically finish $relay")

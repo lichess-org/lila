@@ -131,7 +131,7 @@ site.load.then(() => {
     new Textcomplete(new TextareaEditor(textarea), [
       {
         index: 2,
-        match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
+        match: /(^|\s)@([a-zA-Z_-][\w-]{0,19})$/,
         search: function (term: string, callback: (names: string[]) => void) {
           // Initially we only autocomplete by participants in the thread. As the user types more,
           // we can autocomplete against all users on the site.

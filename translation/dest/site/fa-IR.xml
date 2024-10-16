@@ -103,7 +103,7 @@
   <string name="openingExplorer">پویشگر گشایش‌</string>
   <string name="openingEndgameExplorer">پویشگر گشایش/آخربازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی پویشگر را برو</string>
+  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">نخستین حرکت گشایش/آخربازی پویشگر را برو</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت جلوی پیروزی را گرفت</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
@@ -115,7 +115,7 @@
   <string name="deleteThisImportedGame">آیا این بازیِ درونبُرده پاک شود؟</string>
   <string name="replayMode">حالت بازپخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
-  <string name="byCPL">درنگ حین اشتباهات</string>
+  <string name="byCPL">درنگ هنگام اشتباه</string>
   <string name="openStudy">گشودن مطالعه</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
@@ -530,7 +530,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">پس از حرکت، خودکار به بازی بعدی روید</string>
   <string name="autoSwitch">تعویض خودکار</string>
-  <string name="puzzles">معماها</string>
+  <string name="puzzles">معما</string>
   <string name="onlineBots">ربات‌های بَرخط</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
@@ -692,14 +692,14 @@
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
   <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
   <string name="accuracy">دقت</string>
-  <string name="keyboardShortcuts">میانبر های صفحه کلید</string>
+  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">میانبر های صفحه کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
   <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
   <string name="keyShowOrHideComments">نمایش/پنهان کردن نظرها</string>
   <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
-  <string name="keyRequestComputerAnalysis">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
-  <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباهات خود درس بگیرید)</string>
+  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
+  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">بعدی (از اشتباه‌های‌تان بیاموزید)</string>
   <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
   <string name="keyNextMistake">اشتباه بعدی</string>
   <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
@@ -833,7 +833,7 @@
   <string name="evaluatingYourMove">در حال بررسی حرکت شما...</string>
   <string name="whiteWinsGame">سفید برنده شد</string>
   <string name="blackWinsGame">سیاه برنده شد</string>
-  <string name="learnFromYourMistakes">از اشتباهات خود درس بگیرید</string>
+  <string name="learnFromYourMistakes">از اشتباه‌های‌تان بیاموزید</string>
   <string name="learnFromThisMistake">از این اشتباه درس بگیرید</string>
   <string name="skipThisMove">رد کردن این حرکت</string>
   <string name="next">بعدی</string>
@@ -940,7 +940,7 @@
   <string name="tournDescription">توضیحات مسابقه</string>
   <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌کنندگان گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
 [name](https://url)</string>
-  <string name="ratedFormHelp">بازی‌ها رسمی هستند
+  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">بازی‌ها رسمی هستند
 و روی درجه‌بندی بازیکنان تاثیر می‌گذارند</string>
   <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
   <string name="noRestriction">بدون محدودیت</string>
@@ -972,7 +972,7 @@
   <string name="playComputerMove">بازی کردن بهترین حرکت رایانه‌ای</string>
   <string name="analysisOptions">امکاناتِ تحلیل</string>
   <string name="focusChat">به گپ برو</string>
-  <string name="showHelpDialog">نمایش این پنجره راهنما</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">نمایش این پنجره راهنما</string>
   <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
   <string name="closedAccountChangedMind">اگر حساب کاربری خود را مسدود کردید، اما بعد از آن نظرتان عوض شد، شما یک فرصت برای بازگرداندنِ حساب کاربری خود خواهید داشت.</string>
   <string name="onlyWorksOnce">تنها یک‌بار کار خواهد کرد.</string>

@@ -47,6 +47,9 @@ final class PlaybanApi(
     (mode.notProd || Uptime.startedSinceMinutes(10)).so:
       blameable(game).flatMapz(f)
 
+  def fetchRecord(user: User): Fu[Option[UserRecord]] =
+    coll.byId[UserRecord](user.id)
+
   def abort(pov: Pov, isOnGame: Set[Color]): Funit =
     IfBlameable(pov.game):
       pov.player.userId
@@ -216,13 +219,12 @@ final class PlaybanApi(
 
   val rageSitOf: lila.core.playban.RageSitOf = userId => rageSitCache.get(userId)
 
-  private val rageSitCache = cacheApi[UserId, RageSitCounter](32_768, "playban.ragesit") {
+  private val rageSitCache = cacheApi[UserId, RageSitCounter](65_536, "playban.ragesit") {
     _.expireAfterAccess(10 minutes)
-      .buildAsyncFuture { userId =>
+      .buildAsyncFuture: userId =>
         coll
           .primitiveOne[RageSitCounter]($doc("_id" -> userId, "c".$exists(true)), "c")
           .map(_ | RageSit.empty)
-      }
   }
 
   private def save(

@@ -29,7 +29,7 @@ export default function table(ctrl: LobbyController) {
               hook: disabled
                 ? {}
                 : bind(
-                    site.blindMode ? 'click' : 'mousedown',
+                    'click',
                     () => {
                       if (gameType === 'local') site.asset.loadEsm('local.setup');
                       else ctrl.setupCtrl.openModal(gameType);

@@ -69,7 +69,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.6.1"
+    val version = "2.6.3"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"
@@ -91,7 +91,7 @@ object Dependencies {
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
     val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
-    val mailer      = "org.playframework" %% "play-mailer"       % "10.0.1"
+    val mailer      = "org.playframework" %% "play-mailer"       % "10.1.0"
   }
 
   object playWs {
@@ -102,7 +102,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.7.4"
+    val version    = "2.7.5"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

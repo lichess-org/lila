@@ -9,6 +9,9 @@ import lila.user.WithPerfsAndEmails
 
 import ScalatagsTemplate.{ *, given }
 
+def mzSection(key: String) =
+  div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
+
 final class ModUserUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }
 
@@ -24,9 +27,6 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   val reportban       = iconTag(Icon.CautionTriangle)
   val notesText       = iconTag(Icon.Pencil)
   val rankban         = i("R")
-
-  def mzSection(key: String) =
-    div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
 
   def menu = mzSection("menu")(
     a(href := "#mz_actions")("Overview"),
@@ -597,7 +597,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
 
   def parts(ps: Option[String]*) = ps.flatten.distinct.mkString(" ")
 
-  private def reportSubmitButton(r: lila.report.Report)(using Translate) =
+  def reportSubmitButton(r: lila.report.Report)(using Translate) =
     submitButton(
       title := {
         if r.open then "open"

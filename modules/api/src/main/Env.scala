@@ -93,6 +93,8 @@ final class Env(
 
   lazy val anySearch = wire[AnySearch]
 
+  lazy val modTimeline = wire[ModTimelineApi]
+
   lazy val cli = wire[Cli]
 
   lazy val socketTestResult =

@@ -689,7 +689,7 @@
   <string name="simulAddExtraTimePerPlayer">Προσθήκη χρόνου στο ρολόι κάθε παίκτη που συνδέεται στο σιμουλτανέ.</string>
   <string name="simulHostExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου ανά παίκτη</string>
   <string name="lichessTournaments">Τουρνουά στο Lichess</string>
-  <string name="tournamentFAQ">Τεκμηρίωση τουρνουά τύπου αρένας</string>
+  <string name="tournamentFAQ">Τεκμηρίωση για τουρνουά τύπου αρένας</string>
   <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το τουρνουά</string>
   <string name="averageCentipawnLoss">Μέση απώλεια εκατοστοπιονιού</string>
   <string name="accuracy">Ακρίβεια</string>
@@ -940,7 +940,7 @@
   <string name="cancelTournament">Ακύρωση τουρνουά</string>
   <string name="tournDescription">Περιγραφή του τουρνουά</string>
   <string name="tournDescriptionHelp">Θέλετε να πείτε κάτι ιδιαίτερο στους παίκτες; Προσπαθήστε να κρατήσετε το μήνυμά σας σύντομο. Μπορείτε να χρησιμοποιείτε συνδέσμους σε Markdown: [name](https://url)</string>
-  <string name="ratedFormHelp">Τα παιχνίδια αξιολογούνται
+  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">Τα παιχνίδια αξιολογούνται
 και επηρεάζουν τη βαθμολογία των παιχτών</string>
   <string name="onlyMembersOfTeam">Μόνο μέλη της ομάδας</string>
   <string name="noRestriction">Χωρίς περιορισμούς</string>
