@@ -45,41 +45,40 @@ final class ShutupApi(
       source: Option[PublicSource] = None,
       toUserId: Option[UserId] = None
   ): Funit =
-    userApi.isTroll(userId).flatMap {
-      if _ then funit
-      else
-        toUserId.so { relationApi.fetchFollows(_, userId) }.flatMap {
-          if _ then funit
-          else
-            Analyser(text)
-              .removeEngineIfBot(userApi.isBot(userId))
-              .flatMap: analysed =>
-                val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
-                  $doc(
-                    "pub" -> $doc(
-                      "$each"  -> List(PublicLine.make(text, source)),
-                      "$slice" -> -20
-                    )
+    userApi
+      .isTroll(userId)
+      .not
+      .flatMapz:
+        toUserId
+          .so(relationApi.fetchFollows(_, userId))
+          .not
+          .flatMapz:
+            for
+              analysed <- Analyser(text).removeEngineIfBot(userApi.isBot(userId))
+              pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
+                $doc(
+                  "pub" -> $doc(
+                    "$each"  -> List(PublicLine.make(text, source)),
+                    "$slice" -> -20
                   )
-                }
-                val push = $doc(
-                  textType.key -> $doc(
-                    "$each"  -> List(BSONDouble(analysed.ratio)),
-                    "$slice" -> -textType.rotation
-                  )
-                ) ++ pushPublicLine
-                coll
-                  .findAndUpdateSimplified[UserRecord](
-                    selector = $id(userId),
-                    update = $push(push),
-                    fetchNewObject = true,
-                    upsert = true
-                  )
-                  .flatMap:
-                    case None             => fufail(s"can't find user record for $userId")
-                    case Some(userRecord) => legiferate(userRecord, analysed)
-        }
-    }
+                )
+              }
+              push = $doc(
+                textType.key -> $doc(
+                  "$each"  -> List(BSONDouble(analysed.ratio)),
+                  "$slice" -> -textType.rotation
+                )
+              ) ++ pushPublicLine
+              res <- coll.findAndUpdateSimplified[UserRecord](
+                selector = $id(userId),
+                update = $push(push),
+                fetchNewObject = true,
+                upsert = true
+              )
+              _ <- res match
+                case None             => fufail(s"can't find user record for $userId")
+                case Some(userRecord) => legiferate(userRecord, analysed)
+            yield ()
 
   private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
     (analysed.critical || userRecord.reports.exists(_.unacceptable)).so {
@@ -87,13 +86,13 @@ final class ShutupApi(
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }
-      reportApi.autoCommReport(userRecord.userId, text, analysed.critical) >>
-        coll.update
-          .one(
-            $id(userRecord.userId),
-            $unset(TextType.values.map(_.key))
-          )
-          .void
+      for
+        _ <- reportApi.autoCommReport(userRecord.userId, text, analysed.critical)
+        _ <- coll.update.one(
+          $id(userRecord.userId),
+          $unset(TextType.values.map(_.key))
+        )
+      yield ()
     }
 
   private def reportText(userRecord: UserRecord) =
