@@ -2,6 +2,7 @@
 /app
 project
 bin
+conf
 
 public/css
 public/doc
