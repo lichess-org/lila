@@ -114,7 +114,6 @@ PROFILES = {
     "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
 }
 
-
 class DeployError(Exception):
     pass
 
@@ -311,7 +310,7 @@ def deploy_script(profile, session, run, url):
         ]
     else:
         commands += [
-            f'echo "{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}'
+            f'echo "{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}"; ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}'
             for symlink in profile["symlinks"]
         ] + [f"chmod -f +x {deploy_dir}/bin/lila || true"]
 

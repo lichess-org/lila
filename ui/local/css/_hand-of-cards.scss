@@ -1,0 +1,82 @@
+.with-cards {
+  position: relative;
+
+  .card {
+    user-select: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    border: 1px solid gray;
+    transition:
+      transform 0.3s,
+      background-color 0.2s;
+    img {
+      width: calc(192px * var(---scale-factor, 1));
+    }
+    label {
+      font-weight: bold;
+      font-size: 1.3em;
+      text-align: center;
+      position: absolute;
+      top: -32px;
+      left: 0;
+      right: 0;
+      display: none;
+    }
+    &.left label {
+      text-align: start;
+      top: 50%;
+      left: 110%;
+    }
+    &.dragging {
+      transition: 0.05s;
+    }
+    &.selected {
+      pointer-events: none;
+      border: none;
+    }
+    &.pull:not(&.selected) {
+      label {
+        display: block;
+      }
+    }
+    &:focus {
+      background-color: $c-bad;
+      outline: $c-primary solid 2px;
+    }
+  }
+
+  .card-container {
+    position: absolute;
+    overflow: visible;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    &.no-transition .card {
+      transition: none;
+    }
+  }
+}
+
+.z-remove {
+  display: none;
+  z-index: $z-above-dialog-14;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: 5px;
+  right: 5px;
+
+  cursor: pointer;
+  filter: grayscale(1);
+  &.show {
+    display: block;
+  }
+  &:hover {
+    filter: saturate(1);
+  }
+}
