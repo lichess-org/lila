@@ -3,12 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org tournament schedule",
-  "keywords": [
-    "shogi",
-    "lishogi",
-    "tournament",
-    "schedule"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {

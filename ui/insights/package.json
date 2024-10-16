@@ -3,11 +3,6 @@
   "version": "3.0.0",
   "private": true,
   "description": "lishogi.org insights",
-  "keywords": [
-    "shogi",
-    "lishogi",
-    "insight"
-  ],
   "author": "WandererXII",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
@@ -20,7 +15,7 @@
     "chart.js": "^4.4",
     "chartjs-plugin-datalabels": "^2.2",
     "common": "2.0.0",
-    "shogiops": "^0.16.3",
+    "shogiops": "^0.17.0",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

@@ -3,14 +3,13 @@
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org fast puzzle utils",
+  "type": "module",
   "exports": {
-    ".": "./dist/main.js",
-    "./*": "./dist/*.js"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": [
+        "./dist/*.js",
+        "./dist/*"
       ]
     }
   },
@@ -23,8 +22,8 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "shogiground": "^0.8.6",
-    "shogiops": "^0.16.3",
+    "shogiground": "^0.9.0",
+    "shogiops": "^0.17.0",
     "snabbdom": "^3.5.1"
   },
   "devDependencies": {

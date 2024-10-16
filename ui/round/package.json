@@ -3,12 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org round",
-  "keywords": [
-    "shogi",
-    "lishogi",
-    "play",
-    "replay"
-  ],
   "author": "Thibault Duplessis, WandererXII",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
@@ -24,8 +18,8 @@
     "game": "2.0.0",
     "keyboardMove": "1.0.0",
     "nvui": "2.0.0",
-    "shogiground": "^0.8.6",
-    "shogiops": "^0.16.3",
+    "shogiground": "^0.9.0",
+    "shogiops": "^0.17.0",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

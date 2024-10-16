@@ -3,13 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "lishogi.org keyboard move",
-  "main": "dist/main.js",
+  "type": "module",
+  "module": "dist/main.js",
   "types": "dist/main",
-  "keywords": [
-    "shogi",
-    "lishogi",
-    "keyboard"
-  ],
   "author": "Thibault Duplessis, WandererXII",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
@@ -20,8 +16,8 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "shogiground": "^0.8.6",
-    "shogiops": "^0.16.3",
+    "shogiground": "^0.9.0",
+    "shogiops": "^0.17.0",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

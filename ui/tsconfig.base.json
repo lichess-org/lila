@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "rootDir": "${configDir}/src",
+    "outDir": "${configDir}/dist",
     "alwaysStrict": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
@@ -8,10 +10,12 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedParameters": true,
-    "moduleResolution": "node",
-    "target": "ES2016",
-    "module": "commonjs",
-    "lib": ["DOM", "ES2016"],
+    "moduleResolution": "Bundler",
+    "target": "ES2017",
+    "module": "esnext",
+    "lib": ["DOM", "ES2017"],
     "types": ["lishogi", "jquery"]
-  }
+  },
+  "include": ["${configDir}/src"],
+  "exclude": ["${configDir}/dist"]
 }

@@ -3,24 +3,17 @@
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org game",
-  "main": "game.js",
+  "type": "module",
   "exports": {
-    ".": "./dist/game.js",
-    "./*": "./dist/*.js"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
+    ".": {
+      "types": "./dist/game.d.ts",
+      "import": "./dist/game.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
     }
   },
-  "keywords": [
-    "shogi",
-    "lishogi",
-    "play",
-    "replay"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {

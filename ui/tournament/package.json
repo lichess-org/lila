@@ -3,12 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org arena tournament",
-  "keywords": [
-    "shogi",
-    "lishogi",
-    "arena",
-    "tournament"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
@@ -22,7 +16,7 @@
     "chat": "2.0.0",
     "common": "2.0.0",
     "game": "2.0.0",
-    "shogiground": "^0.8.6",
+    "shogiground": "^0.9.0",
     "snabbdom": "^3.5.1"
   },
   "scripts": {

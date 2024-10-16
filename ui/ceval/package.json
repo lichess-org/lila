@@ -3,14 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "description": "lishogi.org local computer analysis",
-  "main": "dist/main.js",
-  "types": "dist/main",
-  "keywords": [
-    "shogi",
-    "lishogi",
-    "play",
-    "replay"
-  ],
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "author": "Thibault Duplessis, WandererXII",
   "license": "AGPL-3.0-or-later",
   "scripts": {
@@ -27,7 +22,7 @@
     "@badrap/result": "^0.2",
     "common": "2.0.0",
     "idb-keyval": "^6.2",
-    "shogiops": "^0.16.3",
+    "shogiops": "^0.17.0",
     "snabbdom": "^3.5.1"
   }
 }
