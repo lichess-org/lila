@@ -1,13 +1,13 @@
 .mod-timeline {
   @extend %flex-column, %box-neat;
-  gap: 4em;
+  gap: 1em;
   background: $c-bg-zebra;
   padding: 2em 4em;
   max-height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.mod-timeline__day {
+.mod-timeline__period {
   @extend %flex-center-nowrap;
   gap: 3em;
   h3 {
@@ -15,20 +15,23 @@
     font-size: 1.3em;
     text-transform: capitalize;
   }
-  .mod-timeline__day__events {
-    @extend %flex-column;
-    gap: 0.5em;
-    flex: 1 1 auto;
-  }
+  border-bottom: $border;
+  padding-bottom: 1em;
+}
+.mod-timeline__period__events {
+  @extend %flex-column;
+  gap: 0.5em;
+  flex: 1 1 auto;
 }
 .mod-timeline__event {
   @extend %flex-center-nowrap;
   gap: 1em;
   padding: 0 1em;
 }
-.mod-timeline__event:has(.mod-timeline__event__action--modMessage) {
-  background: $c-bg-zebra2;
+.mod-timeline__event:has(.mod-timeline__event__action--modMessage),
+.mod-timeline__event:has(.mod-timeline__event__action--sentence) {
   padding: 1em;
+  background: linear-gradient(to right, $c-brag, $c-bg 5px);
 }
 .mod-timeline__event__from {
   white-space: nowrap;

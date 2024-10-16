@@ -88,6 +88,7 @@ object ModTimeline:
   enum Angle:
     case None
     case Comm
+    case Play
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,
