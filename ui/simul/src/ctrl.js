@@ -1,8 +1,8 @@
-var socket = require('./socket');
-var simul = require('./simul');
-var xhr = require('./xhr');
+import socket from './socket';
+import simul from './simul';
+import xhr from './xhr';
 
-module.exports = function (env) {
+export default function (env) {
   this.env = env;
 
   this.data = env.data;

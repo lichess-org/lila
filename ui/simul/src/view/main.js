@@ -1,10 +1,9 @@
-var m = require('mithril');
+import m from 'mithril';
+import created from './created';
+import started from './started';
+import finished from './finished';
 
-var created = require('./created');
-var started = require('./started');
-var finished = require('./finished');
-
-module.exports = function (ctrl) {
+export default function (ctrl) {
   var handler;
   if (ctrl.data.isRunning) handler = started;
   else if (ctrl.data.isFinished) handler = finished;

@@ -1,4 +1,4 @@
-var status = require('game/status');
+import * as status from 'game/status';
 
 function applicantsContainMe(ctrl) {
   return ctrl.data.applicants.some(function (a) {
@@ -12,7 +12,7 @@ function pairingsContainMe(ctrl) {
   });
 }
 
-module.exports = {
+export default {
   createdByMe: function (ctrl) {
     return ctrl.userId && ctrl.userId === ctrl.data.host.id;
   },

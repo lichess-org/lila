@@ -1,10 +1,10 @@
-var m = require('mithril');
-var util = require('./util');
-var text = require('../text');
-var pairings = require('./pairings');
-var results = require('./results');
+import m from 'mithril';
+import util from './util';
+import text from '../text';
+import pairings from './pairings';
+import results from './results';
 
-module.exports = function (ctrl) {
+export default function (ctrl) {
   return [
     m('div.box__top', [util.title(ctrl), m('div.box__top__actions', m('div.finished', ctrl.trans('finished')))]),
     text.view(ctrl),

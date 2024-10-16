@@ -1,8 +1,8 @@
-var util = require('./util');
-var text = require('../text');
-var pairings = require('./pairings');
-var results = require('./results');
+import util from './util';
+import text from '../text';
+import pairings from './pairings';
+import results from './results';
 
-module.exports = function (ctrl) {
+export default function (ctrl) {
   return [util.title(ctrl), text.view(ctrl), results(ctrl), pairings(ctrl)];
 };

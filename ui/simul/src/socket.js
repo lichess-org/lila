@@ -1,6 +1,6 @@
-var m = require('mithril');
+import m from 'mithril';
 
-module.exports = function (send, ctrl) {
+export default function (send, ctrl) {
   this.send = send;
 
   var handlers = {

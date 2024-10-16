@@ -1,6 +1,6 @@
-var m = require('mithril');
-var util = require('./util');
-var status = require('game/status');
+import m from 'mithril';
+import util from './util';
+import * as status from 'game/status';
 
 function miniPairing(ctrl) {
   return function (pairing) {
@@ -44,6 +44,6 @@ function miniPairing(ctrl) {
   };
 }
 
-module.exports = function (ctrl) {
+export default function (ctrl) {
   return m('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
-};
+}

@@ -1,5 +1,5 @@
-var m = require('mithril');
-var status = require('game/status');
+import m from 'mithril';
+import * as status from 'game/status';
 
 var NumberFirstRegex = /^(\d+)\s(.+)$/;
 var NumberLastRegex = /^(.+)\s(\d+)$/;
@@ -15,7 +15,7 @@ function trans(ctrl, key, cond) {
   return splitNumber(ctrl.trans.plural(key, ctrl.data.pairings.filter(cond).length));
 }
 
-module.exports = function (ctrl) {
+export default function (ctrl) {
   return m('div.results', [
     m(
       'div',
@@ -42,4 +42,4 @@ module.exports = function (ctrl) {
       })
     ),
   ]);
-};
+}

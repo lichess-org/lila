@@ -1,4 +1,4 @@
-var m = require('mithril');
+import m from 'mithril';
 
 function enrichText(text) {
   return m.trust(autolink(lishogi.escapeHtml(text), toLink).replace(newLineRegex, '<br>'));
@@ -22,7 +22,7 @@ var linkRegex =
   /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[-A-Z0-9+\u0026\u2019@#/%?=()~_|!:,.;]*[-A-Z0-9+\u0026@#/%=~()_|])/gi;
 var newLineRegex = /\n/g;
 
-module.exports = {
+export default {
   view: function (ctrl) {
     return ctrl.data.text ? m('div.simul-text', m('p', enrichText(ctrl.data.text))) : null;
   },

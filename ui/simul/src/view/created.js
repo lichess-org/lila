@@ -1,8 +1,8 @@
-var m = require('mithril');
-var simul = require('../simul');
-var util = require('./util');
-var text = require('../text');
-var xhr = require('../xhr');
+import m from 'mithril';
+import simul from '../simul';
+import util from './util';
+import text from '../text';
+import xhr from '../xhr';
 
 function byName(a, b) {
   return a.player.name > b.player.name;
@@ -48,7 +48,7 @@ function startOrCancel(ctrl, accepted) {
       );
 }
 
-module.exports = function (ctrl) {
+export default function (ctrl) {
   var candidates = simul.candidates(ctrl).sort(byName);
   var accepted = simul.accepted(ctrl).sort(byName);
   var isHost = simul.createdByMe(ctrl);

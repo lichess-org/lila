@@ -1,4 +1,4 @@
-var m = require('mithril');
+import m from 'mithril';
 
 var xhrConfig = function (xhr) {
   xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -22,7 +22,7 @@ function simulAction(action, ctrl) {
     });
 }
 
-module.exports = {
+export default {
   ping: partial(simulAction, 'host-ping'),
   start: partial(simulAction, 'start'),
   abort: partial(simulAction, 'abort'),

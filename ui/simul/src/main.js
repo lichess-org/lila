@@ -1,9 +1,9 @@
-var m = require('mithril');
+import LishogiChat from 'chat';
+import m from 'mithril';
+import ctrl from './ctrl';
+import view from './view/main';
 
-var ctrl = require('./ctrl');
-var view = require('./view/main');
-
-module.exports = function (opts) {
+export default function (opts) {
   var controller = new ctrl(opts);
 
   m.module(opts.element, {
@@ -16,6 +16,6 @@ module.exports = function (opts) {
   return {
     socketReceive: controller.socket.receive,
   };
-};
+}
 
-window.LishogiChat = require('chat').default;
+window.LishogiChat = LishogiChat;

@@ -1,4 +1,4 @@
-var m = require('mithril');
+import m from 'mithril';
 
 function playerHtml(p) {
   var html = '<a class="text ulpt user-link online" href="/@/' + p.name + '">';
@@ -9,7 +9,7 @@ function playerHtml(p) {
   return html;
 }
 
-module.exports = {
+export default {
   title: function (ctrl) {
     return m('h1', [ctrl.data.fullName, m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host))))]);
   },
