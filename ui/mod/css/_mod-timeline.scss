@@ -48,12 +48,12 @@
   }
   .user-link {
     flex: 0 0 auto;
-    &:has(i.moderator) {
-      &,
-      i {
-        color: $c-brag;
-      }
-    }
+  }
+}
+.mod-timeline__event--modlog:has(i.moderator) {
+  .user-link,
+  .user-link i {
+    color: $c-brag;
   }
 }
 .mod-timeline__event__action {
@@ -65,7 +65,8 @@
   font-size: 0.9em;
 }
 .mod-timeline__event:has(.mod-timeline__event__action--modMessage),
-.mod-timeline__event:has(.mod-timeline__event__action--sentence) {
+.mod-timeline__event:has(.mod-timeline__event__action--sentence),
+.mod-timeline__event:has(.mod-timeline__event__action--undo) {
   padding: 0.5em 1em;
   border-left: 4px solid $c-brag;
   margin-left: -4px;
