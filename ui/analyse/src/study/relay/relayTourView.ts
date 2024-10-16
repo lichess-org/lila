@@ -323,11 +323,7 @@ const games = (ctx: RelayViewContext) => [
           ctx.study.members.myMember() &&
             h('small', [
               'Boards can be loaded with a source or via the ',
-              h(
-                'a',
-                { attrs: { href: 'https://lichess.org/broadcast/app', target: '_blank' } },
-                'Broadcaster App',
-              ),
+              h('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
             ]),
         ]),
       )
